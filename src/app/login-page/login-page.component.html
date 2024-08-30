@@ -1,66 +1,58 @@
-
-
 <html lang="en">
-
 <head>
-
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
-
 <body>
-    <div class="container">
-        <div class="sign_in form_container">
-            <form [formGroup]="loginForm">
+    <div class="container" >
+        <div class="sign_in form_container" >
+            <form [formGroup]="loginForm" >
                 <h1 style="color:#fff;margin-bottom: 20px;margin-top:5px;">Login In</h1>
                 <div class="form-group mt-1">
                     <input class="email1" type="text" placeholder="Email" formControlName="emailAddress">
                     <br>
                     <span class="error"
-                        *ngIf=" emailAddress?.invalid && emailAddress?.touched && emailAddress?.errors?.['required']">
-                        Field is Required*</span>
+                      *ngIf=" emailAddress?.invalid && emailAddress?.touched && emailAddress?.errors?.['required']">
+                      Field is Required*</span>
                     <span class="error"
-                        *ngIf="emailAddress?.invalid && emailAddress?.touched && emailAddress?.errors?.['pattern']">
-                        Enter
-                        The Valid EmailAddress*</span>
-                </div>
-                <div class="form-group mt-1">
-                    <input class="pass1" type="password" placeholder="Password" formControlName="password"
-                        #passwordInput>
+                      *ngIf="emailAddress?.invalid && emailAddress?.touched && emailAddress?.errors?.['pattern']">
+                      Enter
+                      The Valid EmailAddress*</span>
+                  </div>
+                  <div class="form-group mt-1">
+                    <input class="pass1" type="password" placeholder="Password"  formControlName="password"  #passwordInput>
                     <i class="fa-solid fa-eye-slash" id="eye" [ngClass]="{
                          'fa-eye-slash': !showPassword,
                         'fa-eye': showPassword
                       }" (click)="togglePasswordVisibility(passwordInput)"></i>
-                    <span class="error"
-                        *ngIf="password?.invalid  && password?.touched && password?.errors?.['required']">Password is
-                        Required
+                      <span class="error"
+                        *ngIf="password?.invalid  && password?.touched && password?.errors?.['required']">Password is Required
                         *</span>
-                    <span class="error"
-                        *ngIf="password?.invalid  && password?.touched && password?.errors?.['pattern']">
-                        Credentials are Wrong*
-                    </span>
-                </div>
+                      <span class="error" *ngIf="password?.invalid  && password?.touched && password?.errors?.['pattern']">
+                       Credentials are Wrong*
+                      </span>
+                    </div> 
                 <p class="forgetpass" routerLink="/forgot"><b>Forget Your Password?</b></p>
                 <button type="submit" (click)="submit()">Login In</button>
             </form>
         </div>
         <div class="toggle_container">
             <div class="toggle">
-                <!-- <div class="toggle_panel toggle_left">
+              <!-- <div class="toggle_panel toggle_left">
                 <h1>Welcome Back!</h1>
                 <p>Enter your personal details to use all of the site features</p>
                 <button class="hidden" >Login In</button>
               </div> -->
-                <div class="toggle_panel toggle_right">
-                    <img class="mb-3" src="assets/fargin_connect_logo.jpg" style="width:80px;height:80px;">
+              <div class="toggle_panel toggle_right">
+                <img class="mb-3" src="assets/Farginconnectedit.jpg" style="width:80px;height:80px;">
 
-                    <h1 style="color:#141E46;">Welcome To Fargin Connect</h1>
-                    <p>Login with your details to use all of the features</p>
-                    <!-- <button class="hidden" (click)="toggleForm()">SIGN UP</button> -->
-                </div>
+                <h1 style="color:#141E46;">Welcome To Fargin Connect</h1>
+                <p>Login with your  details to use all of the features</p>
+                <!-- <button class="hidden" (click)="toggleForm()">SIGN UP</button> -->
+              </div>
             </div>
-        </div>
+            </div>
     </div>
-    <script src="./script.js"></script>
+    <script src="./script.js"></script>    
 </body>
-
 </html>

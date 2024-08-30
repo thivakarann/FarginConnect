@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, Subject, map, observable } from 'rxjs';
-import { SessionServiceService } from '../Session service/session-service.service';
+import { Subject } from 'rxjs';
+import { ChangePassword, ResetPassword, VerifyOtp } from '../fargin-model/fargin-model.module';
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,34 +11,19 @@ import { SessionServiceService } from '../Session service/session-service.servic
 export class FarginServiceService {
 
   constructor(private http: HttpClient,
-    private router: Router, private timerService: SessionServiceService) { }
+    private router: Router) { }
 
   private readonly basePath = 'http://64.227.149.125:8085/'; //Basepath
 
   // login
   private readonly adminlogin = 'adminUser/adminlogin';
+  private readonly forgotpassword = 'adminUser/verifyEmail';
+  private readonly verifyotp = 'adminUser/verifyOtp';
+  private readonly resendotp='adminUser/resendOtp';
+  private readonly resetpassword = 'adminUser/reset';
 
-
-
-  // Entityonboard
-
-  private readonly Entityviewall = 'merchant/getall';
-  private readonly Entityadd = 'merchant/create';
-  private readonly EntityBankcreation = 'merchantbank/create';
-  private readonly Entitybyid = 'merchant/getmerchants/'
-
-
-
-
-
-  // BussinessCategory
-
-  private readonly GetactiveBussiness = 'businesscategory/getallactive'
-
-
-
-
-
+  //change password
+  private readonly changepassword = 'adminUser/changePassword/';
 
   loginError = new Subject();
 
@@ -56,6 +42,7 @@ export class FarginServiceService {
   });
   options = { headers: this.headers };
   optionsMultipart = { headers: this.headersMultipart };
+
 
   getLogin(email: string, password: string) {
     const credentialBody = {
@@ -82,32 +69,19 @@ export class FarginServiceService {
 
     });
   }
-
-
-  EntityViewall() {
-    return this.http.get(`${this.basePath}${this.Entityviewall}`, this.options)
+  getForgotPassword(data: any) {
+    return this.http.post(`${this.basePath}${this.forgotpassword}`, data, this.options)
   }
-
-  EntityAdd(model:any){
-    return this.http.post(`${this.basePath}${this.Entityadd}`,model,this.options)
+  VerifyOtp(data: VerifyOtp) {
+    return this.http.post(`${this.basePath}${this.verifyotp}`, data, this.options)
   }
-
-  EntityBank(model:any){
-    return this.http.post(`${this.basePath}${this.EntityBankcreation}`,model,this.options)
+  ResendOtp(data: any) {
+    return this.http.post(`${this.basePath}${this.resendotp}`, data, this.options)
   }
-
-  EntityByid(id:any){
-    return this.http.get(`${this.basePath}${this.Entitybyid}${id}`,this.options)
+  ResetPassword(data: ResetPassword) {
+    return this.http.post(`${this.basePath}${this.resetpassword}`, data, this.options)
   }
-
-
-
-
-  Bussinesscategoryactivelist() {
-    return this.http.get(`${this.basePath}${this.GetactiveBussiness}`, this.options)
+  ChangePassword(id: any, data: ChangePassword) {
+    return this.http.put(`${this.basePath}${this.changepassword}${id}`, data, this.options)
   }
-
-
-
-
 }
