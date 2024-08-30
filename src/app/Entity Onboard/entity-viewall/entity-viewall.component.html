@@ -1,0 +1,154 @@
+<!--   -->
+
+
+<div class="row">
+    <mat-card-header>
+        <div class="col">
+
+            <div class="search mx-1">
+                <form class="form">
+                    <label for="search">
+                        <input #input (keyup)="applyFilter($event)" required="" autocomplete="off" placeholder="Search"
+                            id="search" type="text">
+                        <div class="icon">
+                            <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                                    stroke-linecap="round">
+                                </path>
+                            </svg>
+                            <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                                <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round" stroke-linecap="round">
+                                </path>
+                            </svg>
+                        </div>
+                        <button type="reset" class="close-btn">
+                            <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                                <path clip-rule="evenodd"
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    fill-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                    </label>
+                </form>
+
+            </div>&nbsp;&nbsp;&nbsp;
+
+            <button style="color:white;background-color: #141E46;border-radius: 10px;" class="custom-btn btn-10 me-3"
+                data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button (click)="add()">Create</button>
+            <button style="color:white;background-color: #141E46;border-radius: 10px;" (click)=" exportexcel()"
+                mat-raised-button>Export</button>
+
+
+        </div>
+    </mat-card-header>
+</div>
+<mat-card>
+    <mat-card-content>
+
+        <div class="table-responsive text-nowrap" style="overflow-x: scroll; scrollbar-width: thin;">
+            <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                <ng-container matColumnDef="merchantId">
+                    <th mat-header-cell *matHeaderCellDef> S.No</th>
+                    <td mat-cell *matCellDef="let viewall; let i = index"> {{i+1}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="entityName">
+                    <th mat-header-cell *matHeaderCellDef>Entity Name</th>
+                    <td mat-cell *matCellDef="let viewall">{{viewall.entityName}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="merchantLegalName">
+                    <th mat-header-cell *matHeaderCellDef>Entity Legal Name</th>
+                    <td mat-cell *matCellDef="let viewall">{{viewall.merchantLegalName}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="businessCategoryModel">
+                    <th mat-header-cell *matHeaderCellDef>Bussiness Category</th>
+                    <td mat-cell *matCellDef="let viewall">{{viewall.businessCategoryModel.categoryName}}</td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="referenceNo">
+                    <th mat-header-cell *matHeaderCellDef>Refference</th>
+                    <td mat-cell *matCellDef="let viewall">{{viewall.referenceNo}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="contactEmail">
+                    <th mat-header-cell *matHeaderCellDef>Entity Email</th>
+                    <td mat-cell *matCellDef="let viewall">{{viewall.contactEmail}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="contactMobile">
+                    <th mat-header-cell *matHeaderCellDef>Entity Mobile</th>
+                    <td mat-cell *matCellDef="let viewall">{{viewall.contactMobile}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="website">
+                    <th mat-header-cell *matHeaderCellDef>Entity Website</th>
+                    <td mat-cell *matCellDef="let viewall">{{viewall.website}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="View">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>View</th>
+                    <td style="cursor: pointer;" mat-cell *matCellDef="let viewall"
+                        (click)="Viewdata(viewall.merchantId)">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" style="fill: #3e5172;"
+                            width="23px">
+                            <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                            <path
+                                d="M288 80c-65.2 0-118.8 29.6-159.9 67.7C89.6 183.5 63 226 49.4 256c13.6 30 40.2 72.5 78.6 108.3C169.2 402.4 222.8 432 288 432s118.8-29.6 159.9-67.7C486.4 328.5 513 286 526.6 256c-13.6-30-40.2-72.5-78.6-108.3C406.8 109.6 353.2 80 288 80zM95.4 112.6C142.5 68.8 207.2 32 288 32s145.5 36.8 192.6 80.6c46.8 43.5 78.1 95.4 93 131.1c3.3 7.9 3.3 16.7 0 24.6c-14.9 35.7-46.2 87.7-93 131.1C433.5 443.2 368.8 480 288 480s-145.5-36.8-192.6-80.6C48.6 356 17.3 304 2.5 268.3c-3.3-7.9-3.3-16.7 0-24.6C17.3 208 48.6 156 95.4 112.6zM288 336c44.2 0 80-35.8 80-80s-35.8-80-80-80c-.7 0-1.3 0-2 0c1.3 5.1 2 10.5 2 16c0 35.3-28.7 64-64 64c-5.5 0-10.9-.7-16-2c0 .7 0 1.3 0 2c0 44.2 35.8 80 80 80zm0-208a128 128 0 1 1 0 256 128 128 0 1 1 0-256z" />
+                        </svg>
+                    </td>
+                </ng-container>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <ng-container matColumnDef="createdBy">
+                    <th mat-header-cell *matHeaderCellDef> Created By</th>
+                    <td mat-cell *matCellDef="let viewall">{{viewall.createdBy
+                        }}</td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="createdDatetime">
+                    <th mat-header-cell *matHeaderCellDef> Created Date</th>
+                    <td mat-cell *matCellDef="let viewunion">{{viewunion.createdDatetime | date:'yyyy-MM-dd hh:mm a' }}
+                    </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
+                <tr *matNoDataRow>
+                    <td class="mat-cell" colspan="4">The Filter Does not Match Any Item In The Data For This Text
+                        {{input.value}}
+                    </td>
+
+                </tr>
+            </table>
+            <br>
+        </div>
+    </mat-card-content>
+    <mat-card-footer>
+
+        <mat-paginator [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtons
+            aria-labels="select page of users"></mat-paginator>
+
+    </mat-card-footer>
+</mat-card>

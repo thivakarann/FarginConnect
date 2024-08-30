@@ -1,0 +1,272 @@
+<!--   -->
+
+
+<div class="row">
+  <mat-card-header>
+
+    <div class="col">
+
+      <div class="search mx-1">
+        <form class="form">
+          <label for="search">
+            <input #input (keyup)="applyFilter($event)" required="" autocomplete="off" placeholder="Search" id="search"
+              type="text">
+            <div class="icon">
+              <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
+                </path>
+              </svg>
+              <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round" stroke-linecap="round"></path>
+              </svg>
+            </div>
+            <button type="reset" class="close-btn">
+              <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                <path clip-rule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  fill-rule="evenodd"></path>
+              </svg>
+            </button>
+          </label>
+        </form>
+
+      </div>&nbsp;&nbsp;&nbsp;
+      <!-- <div class="search mx-1">
+                <span class="fa fa-search"></span>
+                <input style="font-size: 12px;" type="text" class="form-control" #input (keyup)="applyFilter($event)"
+                      placeholder="Search..">
+              </div>&nbsp;&nbsp;&nbsp; -->
+
+
+      <button style="color:white;background-color: #141E46;border-radius: 10px;" class="custom-btn btn-10 me-3"
+        data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button>Create</button>
+      <button style="color:white;background-color: #141E46;border-radius: 10px;" (click)=" exportexcel()"
+        mat-raised-button>Export</button>
+
+
+    </div>
+  </mat-card-header>
+</div>
+<mat-card>
+  <mat-card-content>
+
+    <div class="table-responsive text-nowrap" style="overflow-x: scroll; scrollbar-width: thin;">
+      <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="ticketRaiseId">
+          <th mat-header-cell *matHeaderCellDef> S.No</th>
+          <td mat-cell *matCellDef="let viewunion; let i = index"> {{i+1}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="subject">
+          <th mat-header-cell *matHeaderCellDef>Category Name</th>
+          <td mat-cell *matCellDef="let viewunion">{{viewunion.subject}}</td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="content">
+          <th mat-header-cell *matHeaderCellDef> Mcc Code</th>
+          <td mat-cell *matCellDef="let viewunion" style="text-align: center; font-size: small;">
+            <i class="fa fa-eye"></i>
+          </td>
+        </ng-container>
+        <!-- <ng-container matColumnDef="image">
+          <th  mat-header-cell *matHeaderCellDef> Image</th>
+          <td mat-cell *matCellDef="let viewunion">{{viewunion.image}}</td>
+        </ng-container> -->
+
+
+        <ng-container matColumnDef="memberProfiles">
+          <th mat-header-cell *matHeaderCellDef>Created By</th>
+
+          <td mat-cell *matCellDef="let viewunion" style="text-align: center; font-size: medium;">
+            <i data-bs-toggle="modal" data-bs-target="#ViewImage" class="fa fa-image" style="font-size: 20px;"></i>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="comments">
+          <th mat-header-cell *matHeaderCellDef> created Date time </th>
+          <td mat-cell *matCellDef="let viewunion">{{viewunion.comments}}</td>
+        </ng-container>
+
+
+
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Modified By </th>
+          <td mat-cell *matCellDef="let viewunion">
+            <ng-container *ngIf="viewunion.ticketRaiseStatus
+            =='1'"><span class="text-success">Open</span></ng-container>
+            <ng-container *ngIf="viewunion.ticketRaiseStatus
+            =='0'"><span class="text-danger">Closed</span></ng-container>
+
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef>Edit</th>
+          <td mat-cell *matCellDef="let viewunion" style="text-align: center; font-size: larger;">
+            <i data-bs-toggle="modal" data-bs-target="#ApprovalEditss" class="fas fa-edit" aria-hidden="true"></i>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="createdBy">
+          <th mat-header-cell *matHeaderCellDef> Created By</th>
+          <td mat-cell *matCellDef="let viewunion">{{viewunion.createdBy
+            }}</td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="createdDateTime">
+          <th mat-header-cell *matHeaderCellDef> Created At</th>
+          <td mat-cell *matCellDef="let viewunion">{{viewunion.createdDateTime | date:'yyyy-MM-dd hh:mm a' }}</td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
+        <tr *matNoDataRow>
+          <td class="mat-cell" colspan="4">The Filter Does not Match Any Item In The Data For This Text {{input.value}}
+          </td>
+
+        </tr>
+      </table>
+      <br>
+    </div>
+  </mat-card-content>
+  <mat-card-footer>
+
+    <mat-paginator [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtons
+      aria-labels="select page of users"></mat-paginator>
+
+  </mat-card-footer>
+</mat-card>
+
+
+
+
+
+<!-- <div class="modal fade" id="ApprovalEdits" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px;">
+          <div class="modal-content">
+              <div class="modal-header p-1" style="background: #184e6f; " >
+                  <h5 class="modal-title" style="color: #fff; font-size: 16px; text-align: center;
+                  color: white;
+                  font-size: 19px;
+                  margin-bottom: 10px;
+                  padding: 10px; margin-left: 160px; " id="exampleModalLabel1">Raise a Ticket </h5>
+           
+              </div>
+              <form [formGroup]="addbusiness">
+                  <div class="modal-body" style="overflow-y: scroll; height: 330px;">
+                      <div class="col">
+             
+                         
+                          <div class="row-md-3 mt-2">
+                            <label style="font-size: medium;
+                            color: black;
+                            font-weight: 700;" class="form-label"><b>Profile Image</b></label>
+                            <br>
+                            <input style="font-size: 15px; height: 35px; box-shadow:0 0 1px 1px black; border:1px solid white"   class="form-control" formControlName="image"  #imageInput type="file"
+                       required>
+                         
+                        </div>
+                         
+                 
+                      </div>
+                  </div>
+                  <div class="modal-footer" id="btn">
+                    <button style="font-size: 12px;" (click)="onSubmit()"  [disabled]="addbusiness?.invalid"   mat-raised-button color="primary">Submit</button>
+                    <button  class="cancel" (click)="cancel()" style="font-size: 12px;"  data-bs-dismiss="modal" mat-raised-button color="warn">Cancel</button>
+                </div>
+              </form>
+          </div>
+      </div>
+    </div> -->
+
+
+
+<!--Edit-->
+
+<!-- <div class="modal fade" id="ApprovalEditss" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px;">
+          <div class="modal-content">
+              <div class="modal-header p-1" style="background: #184e6f; " >
+                  <h5 class="modal-title" style="color: #fff; font-size: 16px; text-align: center;
+                  color: white;
+                  font-size: 19px;
+                  margin-bottom: 10px;
+                  padding: 10px; margin-left: 160px; " id="exampleModalLabel1">Raise a Ticket </h5>
+           
+              </div>
+              <form [formGroup]="editFormGroup">
+                  <div class="modal-body" style="overflow-y: scroll;  height: 330px;">
+                      <div class="col">
+                        <div class="row-md-3 mt-2">
+                          <label style=" font-size: medium;
+                          color: black;
+                          font-weight: 700;" class="form-label"><b>Subject</b></label>
+                          <br>
+                          <select style="font-size: 15px; height: 35px; box-shadow:0 0 0px 1px black; border:1px solid white" type="text" class="form-select"
+                          formControlName="ticketUnionIds"
+                          ngModel="{{editfeedbackId?.ticketunion.ticketUnionId}}"
+                     
+                      required>
+                          <option
+                            *ngFor="let subject of viewsubject"
+                            [value]="subject.ticketUnionId"
+                           >
+                       
+                         
+                           {{subject.ticketCategoryName}}
+                         </option>
+                        </select>
+                        <div
+                    style="color: red; font-size: 12px; margin-top: 10px"
+                    *ngIf="ticketUnionIds?.invalid && ticketUnionIds?.touched"
+                  >
+                    Field is required
+                  </div>
+                        </div>
+                          <div class="row-md-3 mt-2">
+                              <label style="font-size: medium;
+                              color: black;
+                              font-weight: 700;" class="form-label"><b>Content</b></label>
+                              <br>
+                              <textarea style="font-size: 15px; height: 35px; box-shadow:0 0 1px 1px black; border:1px solid white" type="text" class="form-control"  formControlName="contents"       ngModel="{{editfeedbackId?.content}}" required></textarea>
+                                  <div
+                                  style="color: red; font-size: 12px"
+                                  *ngIf="contents.invalid && contents.touched"
+                                >
+                                  Field is required
+                                </div>
+   
+                          </div>
+                          <div class="row-md-3 mt-2">
+                            <label style="font-size: medium;
+                            color: black;
+                            font-weight: 700;" class="form-label"><b>Profile Image</b></label>
+                            <br>
+                            <input style="font-size: 15px; height: 35px; box-shadow:0 0 1px 1px black; border:1px solid white"   class="form-control" formControlName="images"   #imageInput type="file"
+                            (change)="uploadDoc($event)"required>
+                            <div
+                            style="color: red; font-size: 12px"
+                            *ngIf="images.invalid && images.touched"
+                          >
+                            Field is required
+                          </div>  
+                        </div>
+                         
+                 
+                      </div>
+                  </div>
+                  <div class="modal-footer" id="btn">
+                    <button style="font-size: 12px;" (click)="update()"  [disabled]="editFormGroup?.invalid"   mat-raised-button color="primary">Submit</button>
+                    <button  class="cancel" (click)="cancel()" style="font-size: 12px;"  data-bs-dismiss="modal" mat-raised-button color="warn">Cancel</button>
+                </div>
+              </form>
+          </div>
+      </div>
+    </div>
+    -->
