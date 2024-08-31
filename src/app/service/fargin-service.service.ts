@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject, map, observable } from 'rxjs';
 import { SessionServiceService } from '../Session service/session-service.service';
-import { Businessadd, Businessedit, Businesskycadd, Businesskycedit, Businesskycstatus, Businessstatus, ChangePassword, ResetPassword, VerifyOtp } from '../Fargin Model/fargin-model/fargin-model.module';
+import { Businessadd, Businessedit, Businesskycadd, Businesskycedit, Businesskycstatus, Businessstatus, ChangePassword, ResetPassword, ticket, VerifyOtp } from '../Fargin Model/fargin-model/fargin-model.module';
 // import { ChangePassword, ResetPassword, VerifyOtp } from '../fargin-model/fargin-model.module';
 
 
@@ -19,34 +19,37 @@ export class FarginServiceService {
 
 // login
   private readonly adminlogin = 'adminUser/adminlogin';
-  private readonly forgotpassword = 'adminUser/verifyEmail';
+private readonly forgotpassword = 'adminUser/verifyEmail';
   private readonly verifyotp = 'adminUser/verifyOtp';
   private readonly resendotp='adminUser/resendOtp';
   private readonly resetpassword = 'adminUser/reset';
 
-  //change password
+//change password
   private readonly changepassword = 'adminUser/changePassword/';
-
-
-  //business category
+  
+   //business category
   private readonly businesscategoryget = 'businesscategory/getall'; 
   private readonly businesscategoryAdd = 'businesscategory/create';
   private readonly businesscategoryEdit = 'businesscategory/update/'; 
   private readonly businesscategorystatus ='businesscategory/updateactive/'; 
-
+  
+  
   //Business KYC
   private readonly businesscategorykycget = 'businesskyc/getall'; 
   private readonly businesscategorykycactive = 'businesskyc/updateactive/'; 
   private readonly businesskycAdd = 'businesskyc/create'; 
   private readonly businesskycdocactive = 'businesscategory/getallactive'; 
   private readonly businesskycupdate='businesskyc/update/';
-
-
-
+  
+  //Ticket
+  private readonly viewallTicket = 'tickets/getall';
+  private readonly updateTicket = 'tickets/updateapproval/';
+  private readonly viewTicketImage = 'tickets/viewimage/';
 
 
 
   loginError = new Subject();
+
 
   gettoken = localStorage.getItem('token');
   headers = new HttpHeaders({
@@ -64,14 +67,13 @@ export class FarginServiceService {
   options = { headers: this.headers };
   optionsMultipart = { headers: this.headersMultipart };
 
-  
 
   getLogin(email: string, password: string) {
     const credentialBody = {
       emailAddress: email,
       userPassword: password,
     };
- 
+
     return this.http.post(`${this.basePath}${this.adminlogin}`, credentialBody).subscribe((res: any) => {
       if (res.flag == 1) {
         localStorage.setItem('token', JSON.stringify(res.response.login_history.adminUser.jwtResponse.X_ACCESS_TOKEN));
@@ -82,16 +84,16 @@ export class FarginServiceService {
         localStorage.setItem('mobilenumber', JSON.stringify(res.response.login_history?.adminUser?.mobileNumber));
         localStorage.setItem('lastlogin', JSON.stringify(res.response.login_history?.adminUser?.lastLogin));
         localStorage.setItem('fullname', JSON.stringify(res.response.login_history?.adminUser?.createdBy));
- 
+
         location.href = '/dashboard';
       }
       else {
         this.loginError.next(res.responseMessage);
- 
+
       }
- 
+
     });
-  }  
+  }
 
 //business category
 
@@ -153,5 +155,21 @@ Businesskycupdate(id:any,model:Businesskycedit){
 
 
 
+  viewTicket() {
+    return this.http.get(
+      `${this.basePath}${this.viewallTicket}`,
+      this.options
+    );
+  }
 
+  updatetickets(id: any, model: ticket) {
+    return this.http.put(`${this.basePath}${this.updateTicket}${id}`, model, this.options)
+  }
+
+  viewticketImage(id: string) {
+    return this.http.get(`${this.basePath}${this.viewTicketImage}${id}`, {
+      ...this.options,
+      ...{ responseType: 'blob' },
+    });
+  }
 }

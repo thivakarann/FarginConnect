@@ -15,7 +15,7 @@ export class AppComponent {
   constructor(private sessionTimerService: SessionServiceService,private bnIdle: BnNgIdleService) {
     this.timeout = this.sessionTimerService.getTimeoutInMinutes();
   }
-  ngOnInit(): void {
+ngOnInit(): void {
     this.bnIdle.startWatching(900).subscribe((isTimedOut: boolean) => {
       if (isTimedOut) {
         localStorage.removeItem('token');

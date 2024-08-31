@@ -86,5 +86,11 @@ export interface ChangePassword{
   readonly newPassword:any;
 }
 
+export interface ticket{
+  readonly updatedBy:any;
+  readonly remarks:any;
+  readonly approvalStatus:any;
+  
+}
 
 

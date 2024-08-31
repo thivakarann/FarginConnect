@@ -48,7 +48,4 @@ constructor(private router:Router,private service:FarginServiceService){}
       })
     }
 
-  private sidebarDropdowns: HTMLElement[] = [];
-  private pageWrapper: HTMLElement | null = null;
- 
- }
+}
