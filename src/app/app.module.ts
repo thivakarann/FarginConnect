@@ -51,8 +51,7 @@ import { EntityAddComponent } from './Entity Onboard/entity-add/entity-add.compo
 import { DashboardContentComponent } from './dashboard-content/dashboard-content.component';
 import { EntityViewComponent } from './Entity Onboard/entity-view/entity-view.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
-
-
+import {MatSelectModule} from '@angular/material/select';
 
 
 
@@ -113,6 +112,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     MatStepperModule,
     MatGridListModule,
     MatSlideToggleModule,
+    MatSelectModule,
     ToastrModule.forRoot()
   ],
   providers: [

@@ -1,1 +1,75 @@
-<p>add-role works!</p>
+<body class="page">
+    <main class="main page__main">
+
+        <form class="form main__form" autocomplete="off" class="form" [formGroup]="roleformGroup">
+
+            <h4
+                style="text-align: center;background-color: #141E46;color: white;padding: 5px 9px 8px;font-size:large;border-radius: 10px;box-shadow: 3px 3px #7db855be;">
+                Create Role</h4>
+            &nbsp;
+
+
+            <div class="form__linput">
+                <label class="form__label">Role Name</label>
+                <input class="form__input" type="text" formControlName="roleName" required />
+                <div style="color: red; font-size: 12px;margin-top: 2px;"
+                    *ngIf="roleName?.invalid && roleName?.touched && roleName?.errors?.['required']">
+                    Field is required
+                </div>
+            </div>
+
+
+            <div class="form__linput">
+                <label class="form__label" for="fname">Select Permission</label>
+                <mat-select #select style="font-size: 12px;" class="form-select" multiple formControlName="permission"
+                    (ngModelChange)="sendPermissionId($event)">
+
+                    <div class="select-all">
+                        <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
+                            (change)="toggleAllSelection()">Select All</mat-checkbox>
+                    </div>
+
+                    <mat-option *ngFor="let item of permissionValue"
+                        [value]="item.permissionId">{{item.permission}}</mat-option>
+
+                </mat-select>
+                <div style="color: red; font-size: 12px;margin-top: 2px;"
+                    *ngIf="permission?.invalid && permission?.touched && permission?.errors?.['required']">
+                    Field is required
+                </div>
+            </div>
+
+
+            <div class="form__linput">
+                <label class="form__label" for="fname">Select Sub Permission</label>
+                <mat-select #selects style="font-size: 12px;" class="form-select" multiple
+                    formControlName="subPermission">
+                    <div class="select-all">
+                        <mat-checkbox [(ngModel)]="allSelected1" [ngModelOptions]="{standalone: true}"
+                            (change)="toggleAllSelection1()">Select All</mat-checkbox>
+                    </div>
+
+                    <mat-option [value]="subPermissions.subPermissionId"
+                        *ngFor="let subPermissions of subpermissionValue">{{subPermissions?.permission?.permission}}
+                        -
+                        {{subPermissions?.subPermissions}}</mat-option>
+
+                </mat-select>
+                <div style="color: red; font-size: 12px;margin-top: 2px;"
+                    *ngIf="subPermission?.invalid && subPermission?.touched && subPermission?.errors?.['required']">
+                    Field is required
+                </div>
+            </div>
+
+
+            <!-- <button class="primary-btn form__btn" type="submit">Submit</button> -->
+            <div class="flex">
+                <button type="submit" class="submit" (click)="submit()">Submit</button>
+                <button type="submit" class="cancel" matDialogClose>Cancel</button>
+
+            </div>
+
+
+        </form>
+    </main>
+</body>

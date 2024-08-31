@@ -46,7 +46,13 @@ private readonly forgotpassword = 'adminUser/verifyEmail';
   private readonly updateTicket = 'tickets/updateapproval/';
   private readonly viewTicketImage = 'tickets/viewimage/';
 
-
+  //Roles & Permission
+  private readonly permissiongetall = 'permission/activepermission';
+  private readonly getsubPermission = 'subpermission/getpermissionlist';
+  private readonly addRole = 'role/create';
+  private readonly roleStatus='role/updatestatus';
+  private readonly viewallRoles='role/viewall';
+  private readonly viewPermissionSubpermission='role/viewpermission/';
 
   loginError = new Subject();
 
@@ -84,6 +90,7 @@ private readonly forgotpassword = 'adminUser/verifyEmail';
         localStorage.setItem('mobilenumber', JSON.stringify(res.response.login_history?.adminUser?.mobileNumber));
         localStorage.setItem('lastlogin', JSON.stringify(res.response.login_history?.adminUser?.lastLogin));
         localStorage.setItem('fullname', JSON.stringify(res.response.login_history?.adminUser?.createdBy));
+        localStorage.setItem('roleId', JSON.stringify(res.response.login_history?.adminUser?.roleModel?.roleId));
 
         location.href = '/dashboard';
       }
@@ -156,10 +163,7 @@ Businesskycupdate(id:any,model:Businesskycedit){
 
 
   viewTicket() {
-    return this.http.get(
-      `${this.basePath}${this.viewallTicket}`,
-      this.options
-    );
+    return this.http.get(`${this.basePath}${this.viewallTicket}`, this.options);
   }
 
   updatetickets(id: any, model: ticket) {
@@ -171,5 +175,32 @@ Businesskycupdate(id:any,model:Businesskycedit){
       ...this.options,
       ...{ responseType: 'blob' },
     });
+  }
+
+
+  //Roles and permission
+
+  permissionget() {
+    return this.http.get(`${this.basePath}${this.permissiongetall}`, this.options)
+  }
+
+  subPermission(model: subpermission) {
+    return this.http.post(`${this.basePath}${this.getsubPermission}`, model, this.options)
+  }
+
+  addRoles(model: role) {
+    return this.http.post(`${this.basePath}${this.addRole}`, model, this.options)
+  }
+
+  rolesStatus(model:roleactiveInactive){
+    return this.http.put(`${this.basePath}${this.roleStatus}`, model, this.options)
+  }
+
+  viewRoles(){
+    return this.http.get(`${this.basePath}${this.viewallRoles}`, this.options)
+  }
+
+  viewPermissionSubPermission(id:any){
+    return this.http.get(`${this.basePath}${this.viewPermissionSubpermission}${id}`, this.options)
   }
 }

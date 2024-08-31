@@ -31,7 +31,7 @@
                 </form>
 
             </div>&nbsp;&nbsp;&nbsp;
-            <button style="color:white;background-color: #141E46;border-radius: 10px;" (click)="response()"(click)="exportexcel()"
+            <button style="color:white;background-color: #141E46;border-radius: 10px;"(click)="exportexcel() "
                 mat-raised-button>Export</button>
         </div>
     </mat-card-header>
@@ -84,6 +84,7 @@
                     <td mat-cell *matCellDef="let data">
                         <span *ngIf="data?.approvalStatus=='Open'" style="color: red;font-weight: 600;">Open</span>
                         <span *ngIf="data?.approvalStatus=='close'" style="color: green;font-weight: 600;">Closed</span>
+                        <span *ngIf="data?.approvalStatus=='hold'" style="color: orange;font-weight: 600;">Hold</span>
 
                     </td>
                 </ng-container>

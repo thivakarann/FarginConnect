@@ -93,4 +93,18 @@ export interface ticket{
   
 }
 
+export interface subpermission{
+  readonly permissionsId:any
+}
 
+export interface role{
+  readonly roleName:any;
+  readonly createdBy:any;
+  readonly permission:any;
+  readonly subPermission:any;
+}
+
+export interface roleactiveInactive {
+  readonly roleId:any;
+  readonly status:any;
+}
