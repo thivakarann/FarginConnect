@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Subject } from 'rxjs';
-import { ChangePassword, ResetPassword, VerifyOtp } from '../fargin-model/fargin-model.module';
+import { Observable, Subject, map, observable } from 'rxjs';
+import { SessionServiceService } from '../Session service/session-service.service';
+import { Businessadd, Businessedit, Businesskycadd, Businesskycedit, Businesskycstatus, Businessstatus, ChangePassword, ResetPassword, VerifyOtp } from '../Fargin Model/fargin-model/fargin-model.module';
+// import { ChangePassword, ResetPassword, VerifyOtp } from '../fargin-model/fargin-model.module';
 
 
 @Injectable({
@@ -11,11 +13,11 @@ import { ChangePassword, ResetPassword, VerifyOtp } from '../fargin-model/fargin
 export class FarginServiceService {
 
   constructor(private http: HttpClient,
-    private router: Router) { }
+    private router: Router, private timerService: SessionServiceService) { }
 
   private readonly basePath = 'http://64.227.149.125:8085/'; //Basepath
 
-  // login
+// login
   private readonly adminlogin = 'adminUser/adminlogin';
   private readonly forgotpassword = 'adminUser/verifyEmail';
   private readonly verifyotp = 'adminUser/verifyOtp';
@@ -24,6 +26,25 @@ export class FarginServiceService {
 
   //change password
   private readonly changepassword = 'adminUser/changePassword/';
+
+
+  //business category
+  private readonly businesscategoryget = 'businesscategory/getall'; 
+  private readonly businesscategoryAdd = 'businesscategory/create';
+  private readonly businesscategoryEdit = 'businesscategory/update/'; 
+  private readonly businesscategorystatus ='businesscategory/updateactive/'; 
+
+  //Business KYC
+  private readonly businesscategorykycget = 'businesskyc/getall'; 
+  private readonly businesscategorykycactive = 'businesskyc/updateactive/'; 
+  private readonly businesskycAdd = 'businesskyc/create'; 
+  private readonly businesskycdocactive = 'businesscategory/getallactive'; 
+  private readonly businesskycupdate='businesskyc/update/';
+
+
+
+
+
 
   loginError = new Subject();
 
@@ -43,13 +64,14 @@ export class FarginServiceService {
   options = { headers: this.headers };
   optionsMultipart = { headers: this.headersMultipart };
 
+  
 
   getLogin(email: string, password: string) {
     const credentialBody = {
       emailAddress: email,
       userPassword: password,
     };
-
+ 
     return this.http.post(`${this.basePath}${this.adminlogin}`, credentialBody).subscribe((res: any) => {
       if (res.flag == 1) {
         localStorage.setItem('token', JSON.stringify(res.response.login_history.adminUser.jwtResponse.X_ACCESS_TOKEN));
@@ -59,16 +81,59 @@ export class FarginServiceService {
         localStorage.setItem('address', JSON.stringify(res.response.login_history?.adminUser?.address));
         localStorage.setItem('mobilenumber', JSON.stringify(res.response.login_history?.adminUser?.mobileNumber));
         localStorage.setItem('lastlogin', JSON.stringify(res.response.login_history?.adminUser?.lastLogin));
-
+        localStorage.setItem('fullname', JSON.stringify(res.response.login_history?.adminUser?.createdBy));
+ 
         location.href = '/dashboard';
       }
       else {
         this.loginError.next(res.responseMessage);
-
+ 
       }
-
+ 
     });
+  }  
+
+//business category
+
+  Businesscategory(){
+    return this.http.get(`${this.basePath}${this.businesscategoryget}`,this.options);
   }
+
+  BusinessCreate(model:Businessadd){
+    return this.http.post(`${this.basePath}${this.businesscategoryAdd}`,model,this.options);
+  }
+
+
+  BusinessEdit(id:any,model:Businessedit){
+    return this.http.put(`${this.basePath}${this.businesscategoryEdit}${id}`,model,this.options)
+  }
+
+  Businessactive(id:any,model:Businessstatus){
+    return this.http.put(`${this.basePath}${this.businesscategorystatus}${id}`,model,this.options)
+  }
+
+//business category kyc
+BusinesscategoryKyc(){
+  return this.http.get(`${this.basePath}${this.businesscategorykycget}`,this.options);
+}
+
+BusinesskycActive(id:any,model:Businesskycstatus){
+  return this.http.put(`${this.basePath}${this.businesscategorykycactive}${id}`,model,this.options)
+}
+
+BusinesskycCreate(model:Businesskycadd){
+  return this.http.post(`${this.basePath}${this.businesskycAdd}`,model,this.options);
+}
+
+BusinesscategoryKycactive(){
+  return this.http.get(`${this.basePath}${this.businesskycdocactive}`,this.options);
+}
+
+
+Businesskycupdate(id:any,model:Businesskycedit){
+  return this.http.put(`${this.basePath}${this.businesskycupdate}${id}`,model,this.options)
+}
+
   getForgotPassword(data: any) {
     return this.http.post(`${this.basePath}${this.forgotpassword}`, data, this.options)
   }
@@ -78,10 +143,15 @@ export class FarginServiceService {
   ResendOtp(data: any) {
     return this.http.post(`${this.basePath}${this.resendotp}`, data, this.options)
   }
-  ResetPassword(data: ResetPassword) {
+  
+    ResetPassword(data: ResetPassword) {
     return this.http.post(`${this.basePath}${this.resetpassword}`, data, this.options)
   }
   ChangePassword(id: any, data: ChangePassword) {
     return this.http.put(`${this.basePath}${this.changepassword}${id}`, data, this.options)
   }
+
+
+
+
 }

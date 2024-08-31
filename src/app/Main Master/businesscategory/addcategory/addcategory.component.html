@@ -1,1 +1,37 @@
-<p>addcategory works!</p>
+<body class="page">
+    <main class="main page__main">
+        
+        <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="addcategory">
+            
+            <h4 style="text-align: center;background-color: #141E46;color: white;padding: 5px 9px 8px;font-size:large;border-radius: 10px;box-shadow: 3px 3px #7db855be;">Create Category</h4>
+&nbsp;
+            <div class="form__linput">
+                <label class="form__label" for="fname">Category Name</label>
+                <input class="form__input" id="fname" type="text" formControlName="categoryName" name="categoryName" placeholder="Enter category name..." required/>
+                <div style="color: red; font-size: 12px;margin-top: 2px;"
+                *ngIf="categoryName?.invalid && categoryName?.touched && categoryName?.errors?.['required']">
+                Field is required
+            </div>
+            </div>
+
+            <div class="form__linput">
+                <label class="form__label" for="fname">MCC Code</label>
+                <input class="form__input" id="fname" type="text" formControlName="mccCode" name="mccCode" placeholder="Mcc code..." required/>
+                <div style="color: red; font-size: 12px;margin-top: 2px;"
+                *ngIf="mccCode?.invalid && mccCode?.touched && mccCode?.errors?.['required']">
+                Field is required
+            </div>
+            </div>
+ 
+ 
+            <!-- <button class="primary-btn form__btn" type="submit">Submit</button> -->
+            <div class="flex">
+                <button type="submit" class="submit" [hidden]="addcategory.invalid" (click)="submit()">Submit</button>
+                <button type="submit" class="cancel" matDialogClose>Cancel</button>
+ 
+            </div>
+ 
+ 
+        </form>
+    </main>
+</body>

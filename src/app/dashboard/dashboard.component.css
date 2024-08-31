@@ -63,7 +63,7 @@ body {
 /*----------------page-wrapper----------------*/
  
 .page-wrapper {
-  height:auto;
+  height: 100vh;
 }
  
 .page-wrapper .theme {
@@ -557,10 +557,9 @@ background-color: #141E46;
   transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
 }
 
-.btn:hover {
-  background-color: white; /* Darker background color on hover */
-
-}
+/* .btn:hover {
+  background-color: white; 
+} */
 
 /* Dropdown container styling */
 .dropdown {
@@ -610,20 +609,4 @@ background-color: #141E46;
   display: block;
   opacity: 1;
   visibility: visible;
-}
-
-
-
-body {
-  font-size: 0.9rem;
-  /* background-color: #f1f0f6; */
-  height: 100%;
-  width: 100%;
-  position: absolute;
-}
-
-
-.container-fluid
-{
-  height: inherit;
 }

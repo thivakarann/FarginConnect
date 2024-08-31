@@ -23,9 +23,9 @@ export class EntityAddComponent implements OnInit {
     private toastr: ToastrService
   ) { }
   ngOnInit(): void {
-    this.AddEntity.Bussinesscategoryactivelist().subscribe((res: any) => {
-      this.categorydetails = res.response;
-    });
+    // this.AddEntity.Bussinesscategoryactivelist().subscribe((res: any) => {
+    //   this.categorydetails = res.response;
+    // });
 
     this.myForm = new FormGroup({
       entityName: new FormControl(null, Validators.required),
@@ -165,17 +165,17 @@ export class EntityAddComponent implements OnInit {
       businessCategoryId: this.businessCategoryId?.value,
       mccCode: this.mccCode?.value
     }
-    this.AddEntity.EntityAdd(submitModel).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.toastr.success(res.responseMessage);
-        this.router.navigateByUrl('dashboard/entity-viewall');
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
-      } else this.toastr.error(res.responseMessage);
+    // this.AddEntity.EntityAdd(submitModel).subscribe((res: any) => {
+    //   if (res.flag == 1) {
+    //     this.toastr.success(res.responseMessage);
+    //     this.router.navigateByUrl('dashboard/entity-viewall');
+    //     setTimeout(() => {
+    //       window.location.reload();
+    //     }, 2000);
+    //   } else this.toastr.error(res.responseMessage);
 
-      console.log(res);
-    })
+    //   console.log(res);
+    // })
   }
 
 

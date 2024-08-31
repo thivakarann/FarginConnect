@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatSort } from '@angular/material/sort';
@@ -9,22 +8,22 @@ import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
 import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
-import { Businessstatus } from '../Fargin Model/fargin-model/fargin-model.module';
-import { AddcategoryComponent } from '../Main Master/businesscategory/addcategory/addcategory.component';
-import { EditcategoryComponent } from '../Main Master/businesscategory/editcategory/editcategory.component';
-import { FarginServiceService } from '../service/fargin-service.service';
+import { FarginServiceService } from '../../../service/fargin-service.service';
+import { BusinessKycCreateComponent } from './business-kyc-create/business-kyc-create.component';
+import { Businesskycstatus } from '../../../Fargin Model/fargin-model/fargin-model.module';
+import { BusinessKycEditComponent } from './business-kyc-edit/business-kyc-edit.component';
 
 @Component({
-  selector: 'app-testpage',
-  templateUrl: './testpage.component.html',
-  styleUrl: './testpage.component.css' 
+  selector: 'app-business-kyc',
+  templateUrl: './business-kyc.component.html',
+  styleUrl: './business-kyc.component.css'
 })
-export class TestpageComponent implements OnInit{
+export class BusinessKycComponent implements OnInit{
 
   
   dataSource:any;
-  displayedColumns: string[] = ["businessCategoryId","categoryname","mccCode","status","Edit","createdBy","createdDateTime","modifiedBy","modifiedDateTime"]
-  businesscategory:any;
+  displayedColumns: string[] = ["businessCategoryId","kycDocName","categoryName","status","Edit","createdBy","createdDateTime","modifiedBy","modifiedDateTime"]
+  businesscategorykyc:any;
   showcategoryData:boolean =false;
   errorMsg: any;
   responseDataListnew: any=[];
@@ -35,45 +34,47 @@ export class TestpageComponent implements OnInit{
   isChecked: any;
   date1: any;
   date2:any;
+  businesscategory: any;
+  businessCategoryId: any;
    
    
-  constructor(private dialog:MatDialog,private service:FarginServiceService,private toastr:ToastrService) {}
+  constructor(private dialog:MatDialog,private service:FarginServiceService,private toastr:ToastrService) {
+
+  }
    
     ngOnInit() {
-
-      
-    this.service.Businesscategory().subscribe((res: any) => {
-      if(res.flag==1){
-        this.businesscategory = res.response;
-        this.businesscategory.reverse();
-        this.dataSource = new MatTableDataSource(this.businesscategory);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-
-        this.showcategoryData = false;
-        // console.log(this.businesscategory) 
-      }
-      else{
-        this.errorMsg=res.responseMessage;       
-        this.showcategoryData = true;
-   }    
-  });
+       
+      this.service.BusinesscategoryKyc().subscribe((res: any) => {
+        if(res.flag==1){
+          this.businesscategorykyc = res.response;
+          this.businesscategorykyc.reverse();
+          this.dataSource = new MatTableDataSource(this.businesscategorykyc);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+  
+          this.showcategoryData = false;
+          // console.log(this.businesscategory) 
+        }
+        else{
+          this.errorMsg=res.responseMessage;       
+          this.showcategoryData = true;
+     }    
+    });      
+   
     }
 
-
-    
 
 
     onSubmit(event: MatSlideToggleChange, id: any) {
       this.isChecked = event.checked;
    
-      let submitModel: Businessstatus = {
+      let submitModel: Businesskycstatus = {
         // businessCategoryId: id,
         activeStatus: this.isChecked ? 1 : 0,
         // modifiedBy: this.getadminname
       };
    
-      this.service.Businessactive(id,submitModel).subscribe((res: any) => {
+      this.service.BusinesskycActive(id,submitModel).subscribe((res: any) => {
         console.log(res);
         this.toastr.success(res.responseMessage);
         setTimeout(() => {
@@ -82,27 +83,27 @@ export class TestpageComponent implements OnInit{
       });
     }
 
+
    
     create() {     
-      this.dialog.open(AddcategoryComponent, {      
-    width:'80vw',// Use percentage to make it responsive
-    maxWidth:'400px',
-// Ensure it doesn't get too wide on large screens
-    enterAnimationDuration:'1000ms',      
-    exitAnimationDuration:'1000ms', }); 
+      this.dialog.open(BusinessKycCreateComponent, {      
+        width:'80vw',// Use percentage to make it responsive
+        maxWidth:'400px',
+    // Ensure it doesn't get too wide on large screens
+        enterAnimationDuration:'1000ms',      
+        exitAnimationDuration:'1000ms', }); 
   }
 
 
-  Edit(id:string) {     
-    this.dialog.open(EditcategoryComponent, {      
-  width:'80vw',// Use percentage to make it responsive
-  maxWidth:'400px',
-// Ensure it doesn't get too wide on large screens
-  enterAnimationDuration:'1000ms',      
-  exitAnimationDuration:'1000ms',
-  data: { value: id}
- }); 
-
+  Edit(id:any) {     
+    this.dialog.open(BusinessKycEditComponent, {      
+      width:'80vw',// Use percentage to make it responsive
+      maxWidth:'400px',
+  // Ensure it doesn't get too wide on large screens
+      enterAnimationDuration:'1000ms',      
+      exitAnimationDuration:'1000ms', 
+      data: { value: id}
+    }); 
 }
 
   admin(){
@@ -113,16 +114,16 @@ export class TestpageComponent implements OnInit{
     console.log('check');
     let sno = 1;
     this.responseDataListnew = [];
-    this.businesscategory.forEach((element: any) => {
+    this.businesscategorykyc.forEach((element: any) => {
       let createdate = element.createdDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
 
-      let moddate = element.modifiedDateTime;
+      let moddate = element.modifiedDateAndTime;
       this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
       this.response.push(sno);
-      this.response.push(element?.categoryName);
-      this.response.push(element?.mccCode);
+      this.response.push(element?.kycDocName);
+      this.response.push(element?.businessCategoryId?.categoryName);
       this.response.push(element?.createdBy);
       this.response.push(this.date1);
       this.response.push(element?.modifiedBy);
@@ -141,8 +142,8 @@ export class TestpageComponent implements OnInit{
     // const title='Business Category';
     const header = [
       "S.No",
-      "categoryname",
-      "mccCode",
+      "Document Name",
+      "Category Name",
       "createdBy",
       "createdDateTime",
       "modifiedBy",
@@ -152,7 +153,7 @@ export class TestpageComponent implements OnInit{
  
     const data = this.responseDataListnew;
     let workbook = new Workbook();
-    let worksheet = workbook.addWorksheet('Business Category');
+    let worksheet = workbook.addWorksheet('Business KYC');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
@@ -211,7 +212,7 @@ export class TestpageComponent implements OnInit{
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
  
  
-      FileSaver.saveAs(blob, 'Business Category.xlsx');
+      FileSaver.saveAs(blob, 'Business KYC.xlsx');
  
     });
   }

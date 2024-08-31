@@ -3,62 +3,60 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <!------ Include the above in your HEAD tag ---------->
-
+ 
 <!DOCTYPE html>
 <html lang="en">
-
+ 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description"
-    content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
-  <title>Sidebar template</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-
-
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
+    <title>Sidebar template</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+ 
+ 
 </head>
-
+ 
 <body>
-  <div class="page-wrapper chiller-theme toggled">
+<div class="page-wrapper chiller-theme toggled">
     <div class="toggle">
-
-      <a id="show-sidebar" class="btn btn-sm btn-dark">
+       
+  <a id="show-sidebar" class="btn btn-sm btn-dark">
         <i class="fas fa-bars">
-        </i>
-      </a>
+        </i>  
+  </a>
 
-      <div class="center">
-        <h2 style="font-size: 20px; margin-left:45px;">WELCOME FARGIN CONNECT</h2>
-      </div>
-      <div class="dropdown" id="profile-dropdown">
-        <button class="btn dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-user"></i> <!-- User icon -->
-        </button>
-        <div class="dropdown-content">
-          <a><i class="fa fa-user" aria-hidden="true"></i> &nbsp; Profile</a>
-          <a><i class="fa fa-key" aria-hidden="true"></i> &nbsp; Change Password</a>
-          <a><i class="fas fa-sign-out-alt"></i> &nbsp; Log Out</a>
+  <div class="center">
+    <h2 style="font-size: 20px; margin-left:45px;">WELCOME FARGIN CONNECT</h2>
+  </div>
+  <div class="dropdown" id="profile-dropdown">
+    <button class="btn dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-user"></i> <!-- User icon -->
+    </button>
+    <div class="dropdown-content">
+        <a href="#"><i class="fa fa-user" aria-hidden="true"></i> &nbsp; Profile</a>
+        <a href="#"><i class="fa fa-key" aria-hidden="true"></i> &nbsp; Change Password</a>
+        <a href="#"><i class="fas fa-sign-out-alt"></i> &nbsp; Log Out</a>
+    </div>
+</div>
+
+</div>
+  <nav id="sidebar" class="sidebar-wrapper">
+    <div class="sidebar-content">
+      <div class="sidebar-brand">
+        <div class="img">
+            <img style="width: 70px;height: 45px;" src="assets/fargin_connect_logo.jpg">
+        </div>
+        <a style="color: white;">Fargin Connect</a>
+        <div id="close-sidebar">
+          <i  class="fas fa-bars"></i>
         </div>
       </div>
-
-    </div>
-    <div>
-      <nav id="sidebar" class="sidebar-wrapper">
-        <div class="sidebar-content">
-          <div class="sidebar-brand">
-            <div class="img">
-              <img style="width: 70px;height: 45px;" src="assets/fargin_connect_logo.jpg">
-            </div>
-            <a style="color: white;">Fargin Connect</a>
-            <div id="close-sidebar">
-              <i class="fas fa-bars"></i>
-            </div>
-          </div>
-          <div class="">
-            <!-- <div class="user-pic">
+      <div class="">
+        <!-- <div class="user-pic">
           <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
             alt="User picture">
         </div>
@@ -72,9 +70,9 @@
             <span>Online</span>
           </span>
         </div> -->
-          </div>
-          <!-- sidebar-header  -->
-          <!-- <div class="sidebar-search">
+      </div>
+      <!-- sidebar-header  -->
+      <!-- <div class="sidebar-search">
         <div>
           <div class="input-group">
             <input type="text" class="form-control search-menu" placeholder="Search...">
@@ -86,23 +84,35 @@
           </div>
         </div>
       </div> -->
-          <!-- sidebar-search  -->
-          <div class="sidebar-menu">
-            <ul>
-              <li class="header-menu">
-                <span>General</span>
-              </li>
-
-              <li>
-                <a routerLink="dashboard-content">
-                  <i class="fa fa-tachometer-alt"></i>
-                  <span routerLink="testpage">Dashboard</span>
-                  <!-- <a routerLink="testpage">Documentation</a> -->
-                  <!-- <span class="badge badge-pill badge-primary">Beta</span> -->
-                </a>
-              </li>
-
-              <li>
+      <!-- sidebar-search  -->
+      <div class="sidebar-menu">
+        <ul>
+          <li class="header-menu">
+            <span>General</span>
+          </li>
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="fa fa-tachometer-alt"></i>
+              <span>Roles and Permission</span>
+              <!-- <span class="badge badge-pill badge-warning">New</span> -->
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a routerLink="roles">Roles
+                    <!-- <span class="badge badge-pill badge-success">Pro</span> -->
+                  </a>
+                </li>
+                <li>
+                  <a routerLink="permission">Permission</a>
+                </li>
+                <li>
+                  <a routerLink="sub-permission">Sub Permission</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+		   <li>
                 <a routerLink="fas fa-user-plus">
                   <i class="fa fa-tachometer-alt"></i>
                   <span routerLink="entity-viewall">Entity Onboard</span>
@@ -110,141 +120,137 @@
                   <!-- <span class="badge badge-pill badge-primary">Beta</span> -->
                 </a>
               </li>
-
-              <li class="sidebar-dropdown">
-                <a>
-                  <i class="fa fa-shopping-cart"></i>
-                  <span>Main Master</span>
-                  <!-- <span class="badge badge-pill badge-danger">3</span> -->
-                </a>
-                <div class="sidebar-submenu">
-                  <ul>
-                    <li>
-                      <a>Business Category
-
-                      </a>
-                    </li>
-                    <li>
-                      <a>Orders</a>
-                    </li>
-                    <li>
-                      <a>Credit cart</a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="sidebar-dropdown">
-                <a>
-                  <i class="far fa-gem"></i>
-                  <span>Components</span>
-                </a>
-                <div class="sidebar-submenu">
-                  <ul>
-                    <li>
-                      <a>General</a>
-                    </li>
-                    <li>
-                      <a>Panels</a>
-                    </li>
-                    <li>
-                      <a>Tables</a>
-                    </li>
-                    <li>
-                      <a>Icons</a>
-                    </li>
-                    <li>
-                      <a>Forms</a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="sidebar-dropdown">
-                <a>
-                  <i class="fa fa-chart-line"></i>
-                  <span>Charts</span>
-                </a>
-                <div class="sidebar-submenu">
-                  <ul>
-                    <li>
-                      <a>Pie chart</a>
-                    </li>
-                    <li>
-                      <a>Line chart</a>
-                    </li>
-                    <li>
-                      <a>Bar chart</a>
-                    </li>
-                    <li>
-                      <a>Histogram</a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="sidebar-dropdown">
-                <a>
-                  <i class="fa fa-globe"></i>
-                  <span>Maps</span>
-                </a>
-                <div class="sidebar-submenu">
-                  <ul>
-                    <li>
-                      <a>Google maps</a>
-                    </li>
-                    <li>
-                      <a>Open street map</a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="header-menu">
-                <span>Extra</span>
-              </li>
-              <li>
-                <a>
-                  <i class="fa fa-book"></i>
-                  <span routerLink="testpage">Documentation</span>
-                  <!-- <a routerLink="testpage">Documentation</a> -->
-                  <!-- <span class="badge badge-pill badge-primary">Beta</span> -->
-                </a>
-              </li>
-              <li>
-                <a>
-                  <i class="fa fa-calendar"></i>
-                  <span>Calendar</span>
-                </a>
-              </li>
-              <li>
-                <a>
-                  <i class="fa fa-folder"></i>
-                  <span>Examples</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <!-- sidebar-menu  -->
-        </div>
-
-      </nav>
-      <!-- sidebar-wrapper  -->
-      <main class="page-content">
-        <div class="container-fluid" style="margin-top: 5%;">
-
-
-          <router-outlet></router-outlet>
-        </div>
-      </main>
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="fa fa-cogs"></i>
+              <span>Main Master</span>
+              <!-- <span class="badge badge-pill badge-danger">3</span> -->
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a routerLink="view-category">Business Category
+ 
+                  </a>
+                </li>
+                <li>
+                  <a  routerLink="Business-kyc">Business KYC</a>
+                </li>
+                <li>
+                  <a >Credit cart</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="sidebar-dropdown">
+            <a >
+              <i class="far fa-gem"></i>
+              <span>Components</span>
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a>General</a>
+                </li>
+                <li>
+                  <a>Panels</a>
+                </li>
+                <li>
+                  <a>Tables</a>
+                </li>
+                <li>
+                  <a>Icons</a>
+                </li>
+                <li>
+                  <a>Forms</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="fa fa-chart-line"></i>
+              <span>Charts</span>
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a>Pie chart</a>
+                </li>
+                <li>
+                  <a>Line chart</a>
+                </li>
+                <li>
+                  <a>Bar chart</a>
+                </li>
+                <li>
+                  <a>Histogram</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="fa fa-globe"></i>
+              <span>Maps</span>
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a>Google maps</a>
+                </li>
+                <li>
+                  <a>Open street map</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="header-menu">
+            <span>Extra</span>
+          </li>
+          <li>
+            <a>
+              <i class="fa fa-book"></i>
+              <span routerLink="testpage">Documentation</span>
+              <!-- <a routerLink="testpage">Documentation</a> -->
+              <!-- <span class="badge badge-pill badge-primary">Beta</span> -->
+            </a>
+          </li>
+          <li>
+            <a>
+              <i class="fa fa-calendar"></i>
+              <span>Calendar</span>
+            </a>
+          </li>
+          <li>
+            <a>
+              <i class="fa fa-folder"></i>
+              <span>Examples</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- sidebar-menu  -->
     </div>
-    <!-- page-content" -->
-  </div>
-  <!-- page-wrapper -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
 
+  </nav>
+  <!-- sidebar-wrapper  -->
+  <main class="page-content">
+    <div class="container-fluid" style="margin-top: 5%;">
+   
+   
+    <router-outlet></router-outlet>
+    </div>
+  </main>
+  <!-- page-content" -->
+</div>
+<!-- page-wrapper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+   
 </body>
-
+ 
 </html>

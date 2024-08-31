@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FarginServiceService } from '../service/fargin-service.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ChangePassword } from '../fargin-model/fargin-model.module';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ChangePassword } from '../Fargin Model/fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-change-password',

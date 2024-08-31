@@ -3,6 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { TestpageComponent } from './testpage/testpage.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ViewcategoryComponent } from './Main Master/businesscategory/viewcategory/viewcategory.component';
+import { BusinessKycComponent } from './Main Master/businesscategory/business-kyc/business-kyc.component';
+import { PermissionComponent } from './RolesandPermission/RolePermission/permission/permission.component';
+import { SubPermissionComponent } from './RolesandPermission/RolePermission/sub-permission/sub-permission.component';
+import { RolesComponent } from './RolesandPermission/roles/roles.component';
 import { EntityViewallComponent } from './Entity Onboard/entity-viewall/entity-viewall.component';
 import { DashboardContentComponent } from './dashboard-content/dashboard-content.component';
 import { EntityViewComponent } from './Entity Onboard/entity-view/entity-view.component';
@@ -17,22 +22,28 @@ const routes: Routes = [
 
   { path: 'login-page', component: LoginPageComponent },
   { path: '', redirectTo: '/login-page', pathMatch: 'full' },
-  { path:'forgot',component:ForgotPasswordComponent},
+ { path:'forgot',component:ForgotPasswordComponent},
   { path:'otp',component:OtpVerificationComponent},
   {path:'reset',component:ResetPasswordComponent},
   {path:'changepassword',component:ChangePasswordComponent},
 
-
+ 
   {
     path: 'dashboard',
     component: DashboardComponent,
     children: [
-      { path: 'dashboard-content', component: DashboardContentComponent },
+      {path:'view-category',component: ViewcategoryComponent},
+      {path:'Business-kyc',component: BusinessKycComponent},
+      {path:'test',component: TestpageComponent},
+      {path:'roles',component: RolesComponent},
+      {path:'permission',component: PermissionComponent},
+      {path:'sub-permission',component: SubPermissionComponent},
+  	{ path: 'dashboard-content', component: DashboardContentComponent },
       { path: 'entity-viewall', component: EntityViewallComponent },
       { path: 'entity-view/:id', component: EntityViewComponent },
       { path: 'entity-add', component: EntityAddComponent },
       { path: 'testpage', component: TestpageComponent },
-     ],
+    ],
   },
 ];
 
@@ -40,8 +51,8 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {
-
+export class AppRoutingModule { 
+  
 }
 
 

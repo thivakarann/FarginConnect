@@ -7,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { OtpVerificationComponent } from './otp-verification/otp-verification.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { FormsModule ,ReactiveFormsModule} from '@angular/forms';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { SpinnerComponent } from './spinner/spinner.component';
@@ -37,10 +36,19 @@ import { EditcategoryComponent } from './Main Master/businesscategory/editcatego
 import { ViewticketComponent } from './Tickets/viewticket/viewticket.component';
 import { AddticketComponent } from './Tickets/addticket/addticket.component';
 import { EditticketComponent } from './Tickets/editticket/editticket.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { BusinessKycComponent } from './Main Master/businesscategory/business-kyc/business-kyc.component';
+import { BusinessKycCreateComponent } from './Main Master/businesscategory/business-kyc/business-kyc-create/business-kyc-create.component';
+import { BusinessKycEditComponent } from './Main Master/businesscategory/business-kyc/business-kyc-edit/business-kyc-edit.component';
+import { PermissionComponent } from './RolesandPermission/RolePermission/permission/permission.component';
+import { SubPermissionComponent } from './RolesandPermission/RolePermission/sub-permission/sub-permission.component';
 import { EntityViewallComponent } from './Entity Onboard/entity-viewall/entity-viewall.component';
 import { EntityAddComponent } from './Entity Onboard/entity-add/entity-add.component';
 import { DashboardContentComponent } from './dashboard-content/dashboard-content.component';
 import { EntityViewComponent } from './Entity Onboard/entity-view/entity-view.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +62,13 @@ import { EntityViewComponent } from './Entity Onboard/entity-view/entity-view.co
     ViewticketComponent,
     AddticketComponent,
     EditticketComponent,
-    EntityViewallComponent,
+    BusinessKycComponent,
+    BusinessKycCreateComponent,
+    BusinessKycEditComponent,
+    // RolesComponent,
+    PermissionComponent,
+    SubPermissionComponent,
+     EntityViewallComponent,
     EntityAddComponent,
     DashboardContentComponent,
     EntityViewComponent,
@@ -62,7 +76,6 @@ import { EntityViewComponent } from './Entity Onboard/entity-view/entity-view.co
     OtpVerificationComponent,
     ResetPasswordComponent,
         ChangePasswordComponent,
-    
     
   ],
   imports: [
@@ -88,8 +101,7 @@ import { EntityViewComponent } from './Entity Onboard/entity-view/entity-view.co
     MatToolbarModule,
     MatStepperModule,
     MatGridListModule,
-
-    
+    MatSlideToggleModule,
     ToastrModule.forRoot()
   ],
   providers: [

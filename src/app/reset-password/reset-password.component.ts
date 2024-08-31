@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FarginServiceService } from '../service/fargin-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ResetPassword } from '../fargin-model/fargin-model.module';
 import { ToastrService } from 'ngx-toastr';
+import { ResetPassword } from '../Fargin Model/fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-reset-password',
