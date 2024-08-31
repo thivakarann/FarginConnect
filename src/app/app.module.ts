@@ -5,6 +5,10 @@ import { AppComponent } from './app.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { OtpVerificationComponent } from './otp-verification/otp-verification.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { FormsModule ,ReactiveFormsModule} from '@angular/forms';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { LoadingInterceptor } from './Loading Interceptor/loading.interceptor.spec';
@@ -54,6 +58,10 @@ import { EntityViewComponent } from './Entity Onboard/entity-view/entity-view.co
     EntityAddComponent,
     DashboardContentComponent,
     EntityViewComponent,
+        ForgotPasswordComponent,
+    OtpVerificationComponent,
+    ResetPasswordComponent,
+        ChangePasswordComponent,
     
     
   ],

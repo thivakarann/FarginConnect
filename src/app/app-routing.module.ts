@@ -7,12 +7,20 @@ import { EntityViewallComponent } from './Entity Onboard/entity-viewall/entity-v
 import { DashboardContentComponent } from './dashboard-content/dashboard-content.component';
 import { EntityViewComponent } from './Entity Onboard/entity-view/entity-view.component';
 import { EntityAddComponent } from './Entity Onboard/entity-add/entity-add.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { OtpVerificationComponent } from './otp-verification/otp-verification.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 const routes: Routes = [
 
 
   { path: 'login-page', component: LoginPageComponent },
   { path: '', redirectTo: '/login-page', pathMatch: 'full' },
+  { path:'forgot',component:ForgotPasswordComponent},
+  { path:'otp',component:OtpVerificationComponent},
+  {path:'reset',component:ResetPasswordComponent},
+  {path:'changepassword',component:ChangePasswordComponent},
 
 
   {

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SessionServiceService } from './Session service/session-service.service';
+import { BnNgIdleService } from 'bn-ng-idle';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +11,18 @@ export class AppComponent {
   title = 'FarginConnect';
   timeout: number;
 
-  constructor(private sessionTimerService: SessionServiceService) {
+  constructor(private sessionTimerService: SessionServiceService,private bnIdle: BnNgIdleService) {
     this.timeout = this.sessionTimerService.getTimeoutInMinutes();
+  }
+  ngOnInit(): void {
+    this.bnIdle.startWatching(900).subscribe((isTimedOut: boolean) => {
+      if (isTimedOut) {
+        localStorage.removeItem('token');
+        location.href = '/login';
+        // this.toast.warning('Session Time Out')
+
+      }
+    });
   }
 
   updateTimeout(): void {
