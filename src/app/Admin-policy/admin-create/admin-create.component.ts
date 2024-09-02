@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AdminPolicycreate } from '../../Fargin Model/fargin-model/fargin-model.module';
+import { AdminPolicycreate } from '../../fargin-model/fargin-model.module';
 import { Router } from '@angular/router';
 
 @Component({

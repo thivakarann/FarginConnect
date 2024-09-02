@@ -1,3 +1,4 @@
+
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -28,21 +29,21 @@
         <i class="fas fa-bars">
         </i>  
   </a>
-
+ 
   <div class="center">
-    <h2 style="font-size: 20px; margin-left:45px;">WELCOME FARGIN CONNECT</h2>
+    <h2 style="font-size: 20px; margin-left:45px;"> WELCOME FARGIN CONNECT</h2>
   </div>
   <div class="dropdown" id="profile-dropdown">
     <button class="btn dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-user"></i> <!-- User icon -->
     </button>
     <div class="dropdown-content">
-        <a href="#"><i class="fa fa-user" aria-hidden="true"></i> &nbsp; Profile</a>
-        <a href="#"><i class="fa fa-key" aria-hidden="true"></i> &nbsp; Change Password</a>
-        <a href="#"><i class="fas fa-sign-out-alt"></i> &nbsp; Log Out</a>
+        <a ><i class="fa fa-user" aria-hidden="true"></i> &nbsp; Profile</a>
+        <a  (click)="changepassword()"><i class="fa fa-key" aria-hidden="true"></i> &nbsp; Change Password</a>
+        <a ><i class="fas fa-sign-out-alt"></i> &nbsp; Log Out</a>
     </div>
 </div>
-
+ 
 </div>
   <nav id="sidebar" class="sidebar-wrapper">
     <div class="sidebar-content">
@@ -93,26 +94,28 @@
           <li class="sidebar-dropdown">
             <a>
               <i class="fa fa-tachometer-alt"></i>
-              <span>Roles and Permission</span>
+              <span>Dashboard</span>
               <!-- <span class="badge badge-pill badge-warning">New</span> -->
             </a>
             <div class="sidebar-submenu">
               <ul>
                 <li>
-                  <a routerLink="roles">Roles
+                  <a routerLink="testpage">Dashboard 1
                     <!-- <span class="badge badge-pill badge-success">Pro</span> -->
                   </a>
                 </li>
                 <li>
-                  <a routerLink="permission">Permission</a>
+                  <a>Dashboard 2</a>
                 </li>
                 <li>
-                  <a routerLink="sub-permission">Sub Permission</a>
+                  <a>Dashboard 3</a>
                 </li>
               </ul>
             </div>
           </li>
-		   <li>
+		 
+		  
+		     <li>
                 <a routerLink="fas fa-user-plus">
                   <i class="fa fa-tachometer-alt"></i>
                   <span routerLink="entity-viewall">Entity Onboard</span>
@@ -128,7 +131,7 @@
                   <!-- <span class="badge badge-pill badge-primary">Beta</span> -->
                 </a>
               </li>
-          <li class="sidebar-dropdown">
+			   <li class="sidebar-dropdown">
             <a>
               <i class="fa fa-cogs"></i>
               <span>Main Master</span>
@@ -144,12 +147,32 @@
                 <li>
                   <a  routerLink="Business-kyc">Business KYC</a>
                 </li>
-                <li>
-                  <a >Credit cart</a>
-                </li>
               </ul>
             </div>
           </li>
+          <li class="sidebar-dropdown">
+            <a>
+              <i class="fa fa-globe"></i>
+              <span>User Management</span>
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a routerLink="/dashboard/admindetails">Admin
+                  </a>
+                </li>
+                <li>
+                  <a >Employee</a>
+                </li>
+                <li routerLink="view-role">
+                  <a>Role</a>
+                </li>
+     
+              </ul>
+            </div>
+          
+          </li>
+   
           <li class="sidebar-dropdown">
             <a >
               <i class="far fa-gem"></i>
@@ -197,23 +220,12 @@
               </ul>
             </div>
           </li>
-          <li class="sidebar-dropdown">
-            <a>
-              <i class="fa fa-globe"></i>
-              <span>User Management</span>
-            </a>
-            <div class="sidebar-submenu">
-              <ul>
-                <li>
-                  <a>User</a>
-                </li>
-                <li routerLink="view-role">
-                  <a>Role</a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li class="header-menu">
+     
+          <!-- <li class="header-menu">
+            <span>Extra</span>
+          </li> -->
+		  
+		  <li class="header-menu">
             <span>Extra</span>
           </li>
           <li routerLink="/dashboard/viewticket">
@@ -222,6 +234,7 @@
               <span >Ticket</span>
             </a>
           </li>
+       
           <li>
             <a>
               <i class="fa fa-calendar"></i>
@@ -238,7 +251,7 @@
       </div>
       <!-- sidebar-menu  -->
     </div>
-
+ 
   </nav>
   <!-- sidebar-wrapper  -->
   <main class="page-content">
@@ -260,3 +273,4 @@
 </body>
  
 </html>
+ 

@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { addentity } from '../../Fargin Model/fargin-model/fargin-model.module';
+import { addentity } from '../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-entity-add',

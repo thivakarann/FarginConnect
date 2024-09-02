@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Businesskycadd } from '../../../../Fargin Model/fargin-model/fargin-model.module';
+import { Businesskycadd } from '../../../../fargin-model/fargin-model.module';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({

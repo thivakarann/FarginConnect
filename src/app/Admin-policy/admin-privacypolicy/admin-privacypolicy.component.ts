@@ -29,9 +29,7 @@ export class AdminPrivacypolicyComponent implements OnInit{
   policyId: any;
   privacyPolicy:any;
 
- 
-   
-   
+
   constructor(private dialog:MatDialog,private service:FarginServiceService,private toastr:ToastrService, private router: Router,@Inject(MAT_DIALOG_DATA) private data:any) {
  
   }

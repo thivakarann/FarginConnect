@@ -17,28 +17,31 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { OtpVerificationComponent } from './otp-verification/otp-verification.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { AdminComponent } from './Admin-Creation/admin/admin.component';
+import { AdminAddComponent } from './Admin-Creation/admin-add/admin-add.component';
+import { AdminEditComponent } from './Admin-Creation/admin-edit/admin-edit.component';
+
 import { AdminViewComponent } from './Admin-policy/admin-view/admin-view.component';
 import { AdminCreateComponent } from './Admin-policy/admin-create/admin-create.component';
-import { AdminTermsConditionComponent } from './Admin-policy/admin-terms-condition/admin-terms-condition.component';
-import { AdminEditComponent } from './Admin-policy/admin-edit/admin-edit.component';
 import { ViewRoleComponent } from './Roles-Permission/view-role/view-role.component';
+import { PolicyEditComponent } from './Admin-policy/policy-edit/policy-edit.component';
 
 const routes: Routes = [
 
-
+ 
   { path: 'login-page', component: LoginPageComponent },
   { path: '', redirectTo: '/login-page', pathMatch: 'full' },
  { path:'forgot',component:ForgotPasswordComponent},
   { path:'otp',component:OtpVerificationComponent},
   {path:'reset',component:ResetPasswordComponent},
   {path:'changepassword',component:ChangePasswordComponent},
-
+ 
  
   {
     path: 'dashboard',
     component: DashboardComponent,
     children: [
-      {path:'view-category',component: ViewcategoryComponent},
+ {path:'view-category',component: ViewcategoryComponent},
       {path:'Business-kyc',component: BusinessKycComponent},
       {path:'test',component: TestpageComponent},
       {path:'roles',component: RolesComponent},
@@ -50,27 +53,26 @@ const routes: Routes = [
       { path: 'entity-add', component: EntityAddComponent },
       { path: 'Terms-policy', component: AdminViewComponent },
       { path: 'Termspolicy-create', component: AdminCreateComponent },
-      { path: 'adminpolicy-Edit/:id', component: AdminEditComponent },
-
-      // { path: 'Termsandcondition', component: AdminTermsConditionComponent },
-
-      { path: 'testpage', component: TestpageComponent },
-
-      {path:'viewticket',component:ViewticketComponent},
+      { path: 'adminpolicy-Edit/:id', component: PolicyEditComponent },
+      {path:'admindetails',component:AdminComponent},
+      {path:'admincreate',component:AdminAddComponent},
+      {path:'adminedit/:id',component:AdminEditComponent},
+    { path: 'testpage', component: TestpageComponent },
+    {path:'viewticket',component:ViewticketComponent},
 
       {path:'view-role',component:ViewRoleComponent},
-
-      
     ],
   },
 ];
+
+ 
+
+    
+
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { 
-  
-}
-
-
+export class AppRoutingModule { }

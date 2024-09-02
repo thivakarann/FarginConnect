@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { FarginServiceService } from '../../../service/fargin-service.service';
-import { Businessadd } from '../../../Fargin Model/fargin-model/fargin-model.module';
+import { Businessadd } from '../../../fargin-model/fargin-model.module';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({

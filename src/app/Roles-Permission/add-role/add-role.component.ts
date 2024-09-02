@@ -4,8 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
-import { log } from 'console';
-import { role, subpermission } from '../../Fargin Model/fargin-model/fargin-model.module';
+import { role, subpermission } from '../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-add-role',

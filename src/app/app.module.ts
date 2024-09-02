@@ -12,24 +12,24 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { LoadingInterceptor } from './Loading Interceptor/loading.interceptor.spec';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
 import { TestpageComponent } from './testpage/testpage.component';
-import {MatTableModule} from '@angular/material/table';
-import {MatCardModule} from '@angular/material/card';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {FormsModule} from '@angular/forms';
-import {ReactiveFormsModule} from '@angular/forms';
-import {MatButtonModule} from '@angular/material/button';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatChipsModule} from '@angular/material/chips';
-import {MatCommonModule} from '@angular/material/core';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatInputModule} from '@angular/material/input';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatStepperModule} from '@angular/material/stepper';
-import {MatGridListModule} from '@angular/material/grid-list';
+import { MatTableModule } from '@angular/material/table';
+import { MatCardModule } from '@angular/material/card';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatCommonModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { ViewcategoryComponent } from './Main Master/businesscategory/viewcategory/viewcategory.component';
 import { AddcategoryComponent } from './Main Master/businesscategory/addcategory/addcategory.component';
 import { EditcategoryComponent } from './Main Master/businesscategory/editcategory/editcategory.component';
@@ -54,13 +54,16 @@ import { DashboardContentComponent } from './dashboard-content/dashboard-content
 import { EntityViewComponent } from './Entity Onboard/entity-view/entity-view.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { AdminCreateComponent } from './Admin-policy/admin-create/admin-create.component';
-import { AdminEditComponent } from './Admin-policy/admin-edit/admin-edit.component';
 import { AdminViewComponent } from './Admin-policy/admin-view/admin-view.component';
 import { AdminTermsConditionComponent } from './Admin-policy/admin-terms-condition/admin-terms-condition.component';
 import { AdminDisclaimerComponent } from './Admin-policy/admin-disclaimer/admin-disclaimer.component';
 import { AdminPrivacypolicyComponent } from './Admin-policy/admin-privacypolicy/admin-privacypolicy.component';
 import { AdminRefundpolicyComponent } from './Admin-policy/admin-refundpolicy/admin-refundpolicy.component';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
+import { PolicyEditComponent } from './Admin-policy/policy-edit/policy-edit.component';
+import { AdminComponent } from './Admin-Creation/admin/admin.component';
+import { AdminAddComponent } from './Admin-Creation/admin-add/admin-add.component';
+import { AdminEditComponent } from './Admin-Creation/admin-edit/admin-edit.component';
 
 
 @NgModule({
@@ -79,33 +82,35 @@ import {MatSelectModule} from '@angular/material/select';
     BusinessKycComponent,
     BusinessKycCreateComponent,
     BusinessKycEditComponent,
-    // RolesComponent,
     PermissionComponent,
     SubPermissionComponent,
-     EntityViewallComponent,
+    EntityViewallComponent,
     EntityAddComponent,
     DashboardContentComponent,
     EntityViewComponent,
-        ForgotPasswordComponent,
+    ForgotPasswordComponent,
     OtpVerificationComponent,
     ResetPasswordComponent,
-        ChangePasswordComponent,
-        AdminCreateComponent,
-        AdminEditComponent,
-        AdminViewComponent,
-        AdminTermsConditionComponent,
-        AdminDisclaimerComponent,
-        AdminPrivacypolicyComponent,
-        AdminRefundpolicyComponent,
-	    ViewCommentComponent,
+    ChangePasswordComponent,
+    AdminCreateComponent,
+    PolicyEditComponent,
+    AdminViewComponent,
+    AdminTermsConditionComponent,
+    AdminDisclaimerComponent,
+    AdminPrivacypolicyComponent,
+    AdminRefundpolicyComponent,
+    ViewCommentComponent,
     ViewDescriptionComponent,
     TicketImageComponent,
     AddRoleComponent,
     ViewRoleComponent,
     EditRoleComponent,
-    
-    
+    AdminComponent,
+    AdminAddComponent,
+    AdminEditComponent,
+    AdminViewComponent,
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -132,12 +137,11 @@ import {MatSelectModule} from '@angular/material/select';
     MatSlideToggleModule,
     MatSelectModule,
     ToastrModule.forRoot()
+
   ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true
-    }
-  ],
+  providers: [{
+    provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

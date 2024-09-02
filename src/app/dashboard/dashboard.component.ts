@@ -1,4 +1,6 @@
 import { Component, ElementRef, Renderer2 } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ChangePasswordComponent } from '../change-password/change-password.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +11,7 @@ export class DashboardComponent {
   private sidebarDropdowns: HTMLElement[] = [];
   private pageWrapper: HTMLElement | null = null;
  
-  constructor(private elRef: ElementRef, private renderer: Renderer2) {}
+  constructor(private elRef: ElementRef, private renderer: Renderer2,private dialog:MatDialog) {}
  
   ngAfterViewInit() {
     // Initialize DOM elements
@@ -58,5 +60,12 @@ export class DashboardComponent {
         this.renderer.removeClass(this.pageWrapper, 'toggled');
       }
     }
+}
+
+
+changepassword(){
+this.dialog.open(ChangePasswordComponent),{
+  
+}
 }
 }
