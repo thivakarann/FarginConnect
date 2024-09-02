@@ -42,7 +42,7 @@
  
             <!-- <button class="primary-btn form__btn" type="submit">Submit</button> -->
             <div class="flex">
-                <button type="submit" class="submit" [hidden]="addbusinesskyc.invalid" (click)="submit()">Submit</button>
+                <button type="submit" class="submit" [disabled]="addbusinesskyc.invalid" (click)="submit()">Submit</button>
                 <button type="submit" class="cancel" matDialogClose>Cancel</button>
  
             </div>

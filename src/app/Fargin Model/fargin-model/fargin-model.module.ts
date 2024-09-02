@@ -86,6 +86,25 @@ export interface ChangePassword{
   readonly newPassword:any;
 }
 
+export interface AdminPolicycreate{
+  readonly termAndCondition:any;
+  readonly disclaimer:any;
+  readonly privacyPolicy:any;
+  readonly refundPolicy:any;
+  readonly createdBy:any;
+  readonly adminUserId:any;
+}
+
+
+export interface AdminPolicyEdit{
+  readonly termAndCondition:any;
+  readonly disclaimer:any;
+  readonly privacyPolicy:any;
+  readonly refundPolicy:any;
+  readonly createdBy:any;
+  readonly modifiedBy:any;
+}
+
 export interface ticket{
   readonly updatedBy:any;
   readonly remarks:any;

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject, map, observable } from 'rxjs';
 import { SessionServiceService } from '../Session service/session-service.service';
-import { Businessadd, Businessedit, Businesskycadd, Businesskycedit, Businesskycstatus, Businessstatus, ChangePassword, ResetPassword, ticket, VerifyOtp } from '../Fargin Model/fargin-model/fargin-model.module';
+import { AdminPolicycreate, AdminPolicyEdit, Businessadd, Businessedit, Businesskycadd, Businesskycedit, Businesskycstatus, Businessstatus, ChangePassword, ResetPassword, role, roleactiveInactive, subpermission, ticket, VerifyOtp } from '../Fargin Model/fargin-model/fargin-model.module';
 // import { ChangePassword, ResetPassword, VerifyOtp } from '../fargin-model/fargin-model.module';
 
 
@@ -12,6 +12,7 @@ import { Businessadd, Businessedit, Businesskycadd, Businesskycedit, Businesskyc
 })
 export class FarginServiceService {
 
+
   constructor(private http: HttpClient,
     private router: Router, private timerService: SessionServiceService) { }
 
@@ -19,21 +20,21 @@ export class FarginServiceService {
 
 // login
   private readonly adminlogin = 'adminUser/adminlogin';
-private readonly forgotpassword = 'adminUser/verifyEmail';
+  private readonly forgotpassword = 'adminUser/verifyEmail';
   private readonly verifyotp = 'adminUser/verifyOtp';
   private readonly resendotp='adminUser/resendOtp';
   private readonly resetpassword = 'adminUser/reset';
 
-//change password
+  //change password
   private readonly changepassword = 'adminUser/changePassword/';
-  
-   //business category
+
+
+  //business category
   private readonly businesscategoryget = 'businesscategory/getall'; 
   private readonly businesscategoryAdd = 'businesscategory/create';
   private readonly businesscategoryEdit = 'businesscategory/update/'; 
   private readonly businesscategorystatus ='businesscategory/updateactive/'; 
-  
-  
+
   //Business KYC
   private readonly businesscategorykycget = 'businesskyc/getall'; 
   private readonly businesscategorykycactive = 'businesskyc/updateactive/'; 
@@ -54,8 +55,16 @@ private readonly forgotpassword = 'adminUser/verifyEmail';
   private readonly viewallRoles='role/viewall';
   private readonly viewPermissionSubpermission='role/viewpermission/';
 
-  loginError = new Subject();
+  //Admin Policy
+  private readonly adminpolicy = 'policy/getallpolicy'; 
+  private readonly Adminpolicycreate = 'policy/createpolicy'; 
+  private readonly Adminpolicyedit= 'policy/updateadminpolicy/';
+  private readonly adminpolicyviewbyidedit= 'policy/getpolicy/';
 
+
+
+
+  loginError = new Subject();
 
   gettoken = localStorage.getItem('token');
   headers = new HttpHeaders({
@@ -73,13 +82,14 @@ private readonly forgotpassword = 'adminUser/verifyEmail';
   options = { headers: this.headers };
   optionsMultipart = { headers: this.headersMultipart };
 
+  
 
   getLogin(email: string, password: string) {
     const credentialBody = {
       emailAddress: email,
       userPassword: password,
     };
-
+ 
     return this.http.post(`${this.basePath}${this.adminlogin}`, credentialBody).subscribe((res: any) => {
       if (res.flag == 1) {
         localStorage.setItem('token', JSON.stringify(res.response.login_history.adminUser.jwtResponse.X_ACCESS_TOKEN));
@@ -90,17 +100,17 @@ private readonly forgotpassword = 'adminUser/verifyEmail';
         localStorage.setItem('mobilenumber', JSON.stringify(res.response.login_history?.adminUser?.mobileNumber));
         localStorage.setItem('lastlogin', JSON.stringify(res.response.login_history?.adminUser?.lastLogin));
         localStorage.setItem('fullname', JSON.stringify(res.response.login_history?.adminUser?.createdBy));
-        localStorage.setItem('roleId', JSON.stringify(res.response.login_history?.adminUser?.roleModel?.roleId));
-
+localStorage.setItem('roleId', JSON.stringify(res.response.login_history?.adminUser?.roleModel?.roleId));
+ 
         location.href = '/dashboard';
       }
       else {
         this.loginError.next(res.responseMessage);
-
+ 
       }
-
+ 
     });
-  }
+  }  
 
 //business category
 
@@ -160,8 +170,6 @@ Businesskycupdate(id:any,model:Businesskycedit){
     return this.http.put(`${this.basePath}${this.changepassword}${id}`, data, this.options)
   }
 
-
-
   viewTicket() {
     return this.http.get(`${this.basePath}${this.viewallTicket}`, this.options);
   }
@@ -203,4 +211,25 @@ Businesskycupdate(id:any,model:Businesskycedit){
   viewPermissionSubPermission(id:any){
     return this.http.get(`${this.basePath}${this.viewPermissionSubpermission}${id}`, this.options)
   }
+
+
+//privacy policy
+  
+adminPolicyget(){
+  return this.http.get(`${this.basePath}${this.adminpolicy}`,this.options);
 }
+
+adminpolicycreate(model:AdminPolicycreate){
+  return this.http.post(`${this.basePath}${this.Adminpolicycreate}`,model,this.options);
+}
+
+adminpolicyedit(id: any, data: AdminPolicyEdit) {
+  return this.http.put(`${this.basePath}${this.Adminpolicyedit}${id}`, data, this.options)
+}
+
+Adminpolicyviewbyidedit(id:any){
+  return this.http.get(`${this.basePath}${this.adminpolicyviewbyidedit}${id}`,this.options);
+}
+
+}
+

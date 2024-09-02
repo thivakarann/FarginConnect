@@ -48,4 +48,5 @@ constructor(private router:Router,private service:FarginServiceService){}
       })
     }
 
-}
+ 
+ }

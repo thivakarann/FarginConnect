@@ -11,7 +11,7 @@ import { ResetPassword } from '../Fargin Model/fargin-model/fargin-model.module'
   styleUrl: './reset-password.component.css'
 })
 export class ResetPasswordComponent {
-  resetForm!: FormGroup;
+  resetForm:any= FormGroup;
   showPassword: boolean = false;
   showPassword1: boolean = false;
   confirmPasswordClass = 'form-control';

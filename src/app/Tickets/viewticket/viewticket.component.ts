@@ -25,11 +25,14 @@ export class ViewticketComponent implements OnInit {
   dataSource: any;
   displayedColumns: string[] = ["raiseTicketId", "subject", "Criticallity", "description", "image", "Status", 'Comments', "createdDateTime", "action"]
   tickets: any;
-  responseDataListnew: any = [];
-  response: any = [];
+  // response: any = [];
   businesscategory: any;
   date1: any;
   date2: any;
+  responseDataListnew: any=[];
+  response: any=[];
+
+
   constructor(private router: Router, private service: FarginServiceService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -52,9 +55,6 @@ export class ViewticketComponent implements OnInit {
   }
 
 
-  exportexcel() {
-  
-  }
 
 
   description(id: any) {
@@ -89,13 +89,7 @@ export class ViewticketComponent implements OnInit {
       width:"50%"
     })
   }
-  response(){
-    this.dialog.open(AddticketComponent, {
-    
-      disableClose: true,
-      width: "50%",
-    })
-  }
+  
   
   
   exportexcel() {
@@ -105,7 +99,7 @@ export class ViewticketComponent implements OnInit {
     this.tickets.forEach((element: any) => {
       let createdate = element.createdDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-
+ 
       let moddate = element.modifiedDateTime;
       this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
@@ -119,13 +113,13 @@ export class ViewticketComponent implements OnInit {
       this.response.push(element?.approvalStatus);
       this.response.push(element?.remarks)
       this.response.push(this.date2);
-
+ 
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
-
+ 
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
@@ -140,16 +134,16 @@ export class ViewticketComponent implements OnInit {
       "remarks",
       "Created At"
     ]
-
-
+ 
+ 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Tickets');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
-
+ 
+ 
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -160,15 +154,15 @@ export class ViewticketComponent implements OnInit {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
-
+ 
       }
-
+ 
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
-
+ 
     data.forEach((d: any) => {
       // console.log("row loop");
-
+ 
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -180,10 +174,10 @@ export class ViewticketComponent implements OnInit {
       let qty7=row.getCell(8);
       let qty8=row.getCell(9);
       let qty9=row.getCell(10);
-
-
-
-
+ 
+ 
+ 
+ 
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -194,8 +188,8 @@ export class ViewticketComponent implements OnInit {
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
-
+ 
+ 
     }
     );
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
@@ -205,4 +199,5 @@ export class ViewticketComponent implements OnInit {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       FileSaver.saveAs(blob, 'Tickets.xlsx');
     });
+  }
 }
