@@ -26,6 +26,8 @@ export class EntityViewallComponent {
     'View',
     'createdBy',
     'createdDatetime',
+    'modifiedBy',
+    'modifiedDatetime',
 
 
   ];
@@ -41,14 +43,14 @@ export class EntityViewallComponent {
     private toastr: ToastrService
   ) { }
   ngOnInit(): void {
-    // this.EntityViewall.EntityViewall().subscribe((res: any) => {
-    //   this.viewall = res.response;
-    //   this.viewall.reverse();
-    //   this.dataSource = new MatTableDataSource(this.viewall);
-    //   this.dataSource.sort = this.sort;
-    //   this.dataSource.paginator = this.paginator;
-    //   console.log(this.viewall);
-    // });
+    this.EntityViewall.EntityViewall().subscribe((res: any) => {
+      this.viewall = res.response;
+      this.viewall.reverse();
+      this.dataSource = new MatTableDataSource(this.viewall);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      console.log(this.viewall);
+    });
   }
 
 

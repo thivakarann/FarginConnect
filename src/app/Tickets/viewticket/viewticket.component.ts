@@ -10,10 +10,9 @@ import { EditticketComponent } from '../editticket/editticket.component';
 import { ViewDescriptionComponent } from '../view-description/view-description.component';
 import { ViewCommentComponent } from '../view-comment/view-comment.component';
 import { TicketImageComponent } from '../ticket-image/ticket-image.component';
-import FileSaver from 'file-saver';
+import * as FileSaver from 'file-saver';
 import moment from 'moment';
 import { Workbook } from 'exceljs';
-
 @Component({
   selector: 'app-viewticket',
   templateUrl: './viewticket.component.html',

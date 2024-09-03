@@ -5,7 +5,6 @@ import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { AddRoleComponent } from '../add-role/add-role.component';
 import { roleactiveInactive } from '../../fargin-model/fargin-model.module';
-import { log } from 'console';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';

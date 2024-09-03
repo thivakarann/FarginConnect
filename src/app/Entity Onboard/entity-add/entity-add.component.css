@@ -41,7 +41,7 @@
     border: 1px solid #dee2e6;
     border-radius: 0.5rem;
     padding: 1.5rem;
-    margin-top: 27px;
+    /* margin-top: 27px; */
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
     /* Light shadow */
 }
@@ -56,7 +56,7 @@
 .card-header {
     display: flex;
     justify-content: space-between;
-    background-color: rgba(221, 160, 221, 0.356);
-    color: #52036e;
+    background-color:#bcdf72;
+    color: white;
     font-family: "Roboto";
 }

@@ -13,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AdminEditComponent implements OnInit{
   AdminForm!:FormGroup;
   showPassword:boolean=false;
-  createdBy: any = localStorage.getItem('adminname');
+  createdBy :any = JSON.parse(localStorage.getItem('adminname') || '');
   adminuserId: any;
   viewData: any;
   data: any;
@@ -40,7 +40,7 @@ constructor(private service:FarginServiceService,private toaster:ToastrService,p
 
 
     this.service.AdminView(this.adminuserId).subscribe((res:any)=>{
-   if(res.flag==1){
+     if(res.flag==1){
     this.viewData=res.response;
     this.data=this.viewData.adminName;
     console.log(this.data)
@@ -89,7 +89,7 @@ constructor(private service:FarginServiceService,private toaster:ToastrService,p
     this.service.AdminUpdate(submitmodel).subscribe((res:any)=>{
       if(res.flag==1){
         this.toaster.success(res.responseMessage);
-        window.location.reload();
+        this.router.navigateByUrl(`/dashboard/admindetails`);
       }
       else{
         this.toaster.error(res.responseMessage)
@@ -99,7 +99,6 @@ constructor(private service:FarginServiceService,private toaster:ToastrService,p
   }
   close(){
     this.router.navigate([`/dashboard/admindetails`], {
-      // queryParams: { blockId:  this.blockId},
     });
   }
 }

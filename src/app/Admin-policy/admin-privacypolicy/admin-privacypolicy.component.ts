@@ -11,52 +11,43 @@ import { FarginServiceService } from '../../service/fargin-service.service';
   templateUrl: './admin-privacypolicy.component.html',
   styleUrl: './admin-privacypolicy.component.css'
 })
-export class AdminPrivacypolicyComponent implements OnInit{
-
-  dataSource:any;
-  displayedColumns: string[] = ["adminId","termAndCondition","disclaimer","privacyPolicy","refundPolicy","createdBy"]
-  businesscategory:any;
-  showcategoryData:boolean =false;
+export class AdminPrivacypolicyComponent implements OnInit {
+  businesscategory: any;
+  showcategoryData: boolean = false;
   errorMsg: any;
-  responseDataListnew: any=[];
-  response: any=[];
-   
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-  isChecked: any;
+  responseDataListnew: any = [];
+  response: any = [];
   date1: any;
-  date2:any;
+  date2: any;
   policyId: any;
-  privacyPolicy:any;
+  privacyPolicy: any;
 
 
-  constructor(private dialog:MatDialog,private service:FarginServiceService,private toastr:ToastrService, private router: Router,@Inject(MAT_DIALOG_DATA) private data:any) {
- 
+  constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private router: Router, @Inject(MAT_DIALOG_DATA) private data: any) {
+
   }
 
 
   ngOnInit(): void {
-    
+
     this.service.adminPolicyget().subscribe((res: any) => {
-      if(res.flag==1){
+      if (res.flag == 1) {
         this.businesscategory = res.response;
         for (let i = 0; i < this.businesscategory.length; i++) {
           const element = this.businesscategory[i];
           this.policyId = element.policyId;
-        // console.log(this.policyId)
-        this.privacyPolicy = element.privacyPolicy;
-        // console.log(this.privacyPolicy)
 
-      } 
-    }  
+          this.privacyPolicy = element.privacyPolicy;
+
+
+        }
+      }
     });
 
-    
+
   }
 
 
-  close() {
-    window.location.reload()
-  }
+
 
 }

@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FarginServiceService } from '../../../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
-import { Businesskycedit } from '../../../../fargin-model/fargin-model.module';
+import { Businesskycedit } from '../../../../Fargin Model/fargin-model/fargin-model.module';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -13,12 +13,12 @@ import { MatSort } from '@angular/material/sort';
   templateUrl: './business-kyc-edit.component.html',
   styleUrl: './business-kyc-edit.component.css'
 })
-export class BusinessKycEditComponent implements OnInit{
+export class BusinessKycEditComponent implements OnInit {
 
-  editbusinesskyc:any=FormGroup;
-  businessCategoryId: any;
-getadminname = JSON.parse(localStorage.getItem('adminname') || '');
-Adminid = JSON.parse(localStorage.getItem('adminid') || '');
+  editbusinesskyc: any = FormGroup;
+
+  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
+  Adminid = JSON.parse(localStorage.getItem('adminid') || '');
   categorys: any;
   mccCodes: any;
   businessCreationId: any;
@@ -33,70 +33,70 @@ Adminid = JSON.parse(localStorage.getItem('adminid') || '');
   businessCategoryIds: any;
 
 
-  constructor(private fb: FormBuilder,private dialog:MatDialog,private service:FarginServiceService,private toastr:ToastrService,@Inject(MAT_DIALOG_DATA) public data: any ) {
+  constructor(private fb: FormBuilder, private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, @Inject(MAT_DIALOG_DATA) public data: any) {
 
-    this.businessCreationId=data.value.businessCreationId;
-  
+    this.businessCreationId = data.value.businessCreationId;
+
   }
 
 
 
   ngOnInit(): void {
-       
+
     this.editbusinesskyc = this.fb.group({
       kycDocName: new FormControl('', [Validators.required]),
       modifiedBy: new FormControl(''),
+      businessCategoryId: new FormControl('', [Validators.required])
     });
 
-    this.kycDocNames=this.data.value.kycDocName
+    this.kycDocNames = this.data.value.kycDocName
     this.editbusinesskyc.controls['kycDocName'].value = this.kycDocNames
 
-    
-    // this.businessCategoryIds=this.data.value.businessCategoryId.businessCategoryId
-    // this.editbusinesskyc.controls['businessCategoryId'].value = this.businessCategoryIds
+    this.businessCategoryIds = this.data.value.businessCategoryId.businessCategoryId
+    this.editbusinesskyc.controls['businessCategoryId'].value = this.businessCategoryIds
 
-    
+
     this.service.BusinesscategoryKycactive().subscribe((res: any) => {
-      if(res.flag==1){
+      if (res.flag == 1) {
         this.categoryName = res.response;
         this.categoryName.reverse();
         this.dataSource = new MatTableDataSource(this.categoryName);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
-      else{
-        this.errorMsg=res.responseMessage;       
+      else {
+        this.errorMsg = res.responseMessage;
 
-   }    
-  });      
- 
+      }
+    });
 
-    
-    
-  }  
-  
-get  kycDocName() {
-  return this.editbusinesskyc.get('kycDocName');
-}
-
-
-
-Editsubmit(){
-  let submitModel:Businesskycedit={
-    kycDocName: this.kycDocName.value,
-    businessCategoryId:this.businessCategoryId.value,
-    modifiedBy: this.getadminname
   }
-    
-    this.service.Businesskycupdate(this.businessCreationId,submitModel).subscribe((res:any)=>{
-      if(res.flag == 1){
+
+  get kycDocName() {
+    return this.editbusinesskyc.get('kycDocName');
+  }
+  get businessCategoryId() {
+    return this.editbusinesskyc.get('businessCategoryId');
+  }
+
+
+
+
+  Editsubmit() {
+    let submitModel: Businesskycedit = {
+      kycDocName: this.kycDocName.value,
+      businessCategoryId: this.businessCategoryId.value,
+      modifiedBy: this.getadminname
+    }
+
+    this.service.Businesskycupdate(this.businessCreationId, submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
         window.location.reload()
-      }else{
+      } else {
         this.toastr.warning(res.responseMessage)
       }
-        })
+    })
   }
 
 }
-

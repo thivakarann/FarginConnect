@@ -11,45 +11,43 @@ import { FarginServiceService } from '../../service/fargin-service.service';
   templateUrl: './admin-refundpolicy.component.html',
   styleUrl: './admin-refundpolicy.component.css'
 })
-export class AdminRefundpolicyComponent implements OnInit{
+export class AdminRefundpolicyComponent implements OnInit {
 
-  dataSource:any;
-  displayedColumns: string[] = ["adminId","termAndCondition","disclaimer","privacyPolicy","refundPolicy","createdBy"]
-  businesscategory:any;
-  showcategoryData:boolean =false;
+  businesscategory: any;
+  showcategoryData: boolean = false;
   errorMsg: any;
-  responseDataListnew: any=[];
-  response: any=[];
-   
+  responseDataListnew: any = [];
+  response: any = [];
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   isChecked: any;
   date1: any;
-  date2:any;
+  date2: any;
   policyId: any;
-  refundPolicy:any;
+  refundPolicy: any;
 
- 
-   
-   
-  constructor(private dialog:MatDialog,private service:FarginServiceService,private toastr:ToastrService, private router: Router,@Inject(MAT_DIALOG_DATA) private data:any) {
- 
+
+
+
+  constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private router: Router, @Inject(MAT_DIALOG_DATA) private data: any) {
+
   }
 
 
   ngOnInit(): void {
-    
+
     this.service.adminPolicyget().subscribe((res: any) => {
-      if(res.flag==1){
+      if (res.flag == 1) {
         this.businesscategory = res.response;
         for (let i = 0; i < this.businesscategory.length; i++) {
           const element = this.businesscategory[i];
           this.policyId = element.policyId;
-        console.log(this.policyId)
-        this.refundPolicy = element.refundPolicy;
-        // console.log(this.refundPolicy)
-      } 
-    }  
+          console.log(this.policyId)
+          this.refundPolicy = element.refundPolicy;
+
+        }
+      }
     });
 
 

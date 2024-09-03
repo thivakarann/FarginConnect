@@ -5,128 +5,342 @@
         <h5 class="mb-0">Entity Onboard</h5>
         <button type="button" class="btn btn-secondary" (click)="close()">Back</button>
     </div>
-    <div class="well">
-        <form>
+    <div class="well" *ngIf="personeldetails==true">
+        <h4 class="card-header" style="font-weight: 500">1.Personal Details </h4>
+        <form [formGroup]="myForm" style="margin-top: 1%;">
             <div class="row mb-3">
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">Entity Name*</label>
-                    <input type="text" id="Entity Name" placeholder="Entity Name" class="form-control">
+                    <input type="text" id="Entity Name" formControlName="entityName" placeholder="Entity Name"
+                        class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="entityName?.invalid && entityName?.touched && entityName?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="entityName?.invalid && entityName?.touched && entityName?.errors?.['pattern']">
+                        Invalid format. Only alphanumeric characters are allowed
+                    </div>
                 </div>
                 <div class="col-sm-4 form-group">
                     <label for="state">Merchant Legal Name*</label>
-                    <input type="text" id="state" placeholder="Enter State Name Here.." class="form-control">
+                    <input type="text" formControlName="merchantLegalName" id="state"
+                        placeholder="Enter State Name Here.." class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="merchantLegalName?.invalid && merchantLegalName?.touched && merchantLegalName?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="merchantLegalName?.invalid && merchantLegalName?.touched && merchantLegalName?.errors?.['pattern']">
+                        Invalid format. Only alphanumeric characters are allowed
+                    </div>
                 </div>
                 <div class="col-sm-4 form-group">
                     <label for="zip">Account DisplayName*</label>
-                    <input type="text" id="zip" placeholder="AccountDisplayName.." class="form-control">
+                    <input type="text" formControlName="accountDisplayName" id="zip" placeholder="AccountDisplayName.."
+                        class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="accountDisplayName?.invalid && accountDisplayName?.touched && accountDisplayName?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="accountDisplayName?.invalid && accountDisplayName?.touched && accountDisplayName?.errors?.['pattern']">
+                        Invalid format. Only alphanumeric characters are allowed
+                    </div>
                 </div>
             </div>
 
             <div class="row mb-3">
                 <div class="col-sm-4 form-group">
                     <label for="Bussiness category">Bussiness category</label>
-                    <select [(ngModel)]="GetMcccode" (ngModelChange)="Mccode(GetMcccode)" id="Bussiness category"
-                        class="form-control form-select">
+                    <select formControlName="businessCategoryIds" (change)="onCategoryChange($event)"
+                        id="Bussiness category" class="form-control form-select">
                         <option value="" disabled selected>Select</option>
                         <option *ngFor="let item of categorydetails" [value]="item.businessCategoryId">
                             {{item.categoryName}}</option>
 
                     </select>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="businessCategoryIds?.invalid && businessCategoryIds?.touched && businessCategoryIds?.errors?.['required']">
+                        Field is required
+                    </div>
                 </div>
                 <div class="col-sm-4 form-group">
                     <label for="Mcc Code">Mcc Code</label>
-                    <input readonly type="text" id="Mcc Code" placeholder="123" class="form-control">
+                    <input formControlName="mccCode" readonly type="text" id="Mcc Code" placeholder="123"
+                        class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="mccCode?.invalid && mccCode?.touched && mccCode?.errors?.['required']">
+                        Field is required
+                    </div>
                 </div>
 
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">GSTIN(Optional)</label>
-                    <input type="text" id="Entity Name" placeholder="Entity Name" class="form-control">
+                    <input formControlName="gstIn" type="text" id="Entity Name" placeholder="Entity Name"
+                        class="form-control">
+                    <div style="
+                        color: red;
+                        font-size: 12px;
+                        margin-top: 2px;
+                        position: relative;
+                        ;
+                      " *ngIf="gstIn?.invalid && gstIn?.touched && gstIn?.errors?.['pattern']">
+                        Enter a Valid GST Number
+                    </div>
                 </div>
             </div>
 
             <div class="row mb-3">
 
-                <div class="col-sm-4 form-group">
-                    <label for="Mcc Code">PanCard Number*</label>
-                    <input type="text" id="Mcc Code" placeholder="123" class="form-control">
-                </div>
-
-                <div class="col-sm-4 form-group">
-                    <label for="Entity Name">AadharCard Number (Optional)</label>
-                    <input type="text" id="Entity Name" placeholder="Entity Name" class="form-control">
-                </div>
 
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">Website (Optional)</label>
-                    <input type="text" id="Entity Name" placeholder="Entity Name" class="form-control">
+                    <input type="text" formControlName="website" id="Entity Name" placeholder="Entity Name"
+                        class="form-control">
                 </div>
-            </div>
-
-
-            <div class="row mb-3">
-
                 <div class="col-sm-4 form-group">
                     <label for="Mcc Code">Country*</label>
-                    <input type="text" id="Mcc Code" placeholder="123" class="form-control">
+                    <input type="text" formControlName="country" id="Mcc Code" placeholder="123" class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="country?.invalid && country?.touched && country?.errors?.['required']">
+                        Field is required
+                    </div>
                 </div>
 
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">State*</label>
-                    <input type="text" id="Entity Name" placeholder="Entity Name" class="form-control">
-                </div>
-
-                <div class="col-sm-4 form-group">
-                    <label for="Entity Name">City*</label>
-                    <input type="text" id="Entity Name" placeholder="Entity Name" class="form-control">
+                    <input type="text" formControlName="stateName" id="Entity Name" placeholder="Entity Name"
+                        class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="stateName?.invalid && stateName?.touched && stateName?.errors?.['required']">
+                        Field is required
+                    </div>
                 </div>
             </div>
 
+
             <div class="row mb-3">
+
+
+
+                <div class="col-sm-4 form-group">
+                    <label for="Entity Name">City*</label>
+                    <input type="text" formControlName="city" id="Entity Name" placeholder="Entity Name"
+                        class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="city?.invalid && city?.touched && city?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
 
                 <div class="col-sm-4 form-group">
                     <label for="Mcc Code">Pincode*</label>
-                    <input type="text" id="Mcc Code" placeholder="123" class="form-control">
+                    <input type="text" formControlName="zipcode" id="Mcc Code" placeholder="123" class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="zipcode?.invalid && zipcode?.touched && zipcode?.errors?.['required']">
+                        Field is required
+                    </div>
                 </div>
 
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">Area*</label>
-                    <input type="text" id="Entity Name" placeholder="Entity Name" class="form-control">
-                </div>
-
-                <div class="col-sm-4 form-group">
-                    <label for="Entity Name">Billing Address*</label>
-                    <input type="text" id="Entity Name" placeholder="Entity Name" class="form-control">
+                    <input type="text" formControlName="area" id="Entity Name" placeholder="Entity Name"
+                        class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="area?.invalid && area?.touched && area?.errors?.['required']">
+                        Field is required
+                    </div>
                 </div>
             </div>
 
-
             <div class="row mb-3">
+
+
+
+
+
+                <div class="col-sm-4 form-group">
+                    <label for="Entity Name">Billing Address*</label>
+                    <input type="text" formControlName="billingAddress" id="Entity Name" placeholder="Entity Name"
+                        class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="billingAddress?.invalid && billingAddress?.touched && billingAddress?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
 
                 <div class="col-sm-4 form-group">
                     <label for="Mcc Code">Owner/Contact Name*</label>
-                    <input type="text" id="Mcc Code" placeholder="123" class="form-control">
+                    <input type="text" formControlName="contactName" id="Mcc Code" placeholder="123"
+                        class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="contactName?.invalid && contactName?.touched && contactName?.errors?.['required']">
+                        Field is required
+                    </div>
                 </div>
 
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">Owner/Contact Email*</label>
-                    <input type="text" id="Entity Name" placeholder="Entity Name" class="form-control">
-                </div>
+                    <input type="email" formControlName="contactEmail" id="Entity Name" placeholder="Entity Name"
+                        class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="contactEmail?.invalid && contactEmail?.touched && contactEmail?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="contactEmail?.invalid && contactEmail?.touched && contactEmail?.errors?.['pattern']">
+                        please Enter A valid Email
+                    </div>
 
-                <div class="col-sm-4 form-group">
-                    <label for="Entity Name">Primary Mobile Number*</label>
-                    <input type="text" id="Entity Name" placeholder="Entity Name" class="form-control">
                 </div>
             </div>
 
 
             <div class="row mb-3">
 
+
+
+                <div class="col-sm-4 form-group">
+                    <label for="Entity Name">Primary Mobile Number*</label>
+                    <input type="tel" [maxLength]="10" formControlName="contactMobile" id="Entity Name"
+                        placeholder="Entity Name" class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="contactMobile?.invalid && contactMobile?.touched && contactMobile?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="contactMobile?.invalid && contactMobile?.touched && contactMobile?.errors?.['pattern']">
+                        please Enter A valid Mobile Number
+                    </div>
+                </div>
                 <div class="col-sm-4 form-group">
                     <label for="Mcc Code">Secondary Mobile Number(Optional)</label>
-                    <input type="text" id="Mcc Code" placeholder="123" class="form-control">
+                    <input formControlName="secondaryMobile" type="text" id="Mcc Code" placeholder="123"
+                        class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="secondaryMobile?.invalid && secondaryMobile?.touched && secondaryMobile?.errors?.['pattern']">
+                        please Enter A valid Mobile Number
+                    </div>
                 </div>
 
                 <div class="col-sm-4 form-group">
+                    <label for="Mcc Code">LocationServed(Optional)</label>
+                    <input formControlName="locationServed" type="text" id="Mcc Code" placeholder="123"
+                        class="form-control">
+
+                </div>
+            </div>
+
+
+            <div class="row mb-3">
+
+
+
+                <div class="col-sm-4 form-group">
+                    <label for="Mcc Code">serviceOffered(Optional)</label>
+                    <input formControlName="serviceOffered" type="text" id="Mcc Code" placeholder="123"
+                        class="form-control">
 
                 </div>
 
@@ -137,8 +351,216 @@
 
 
             <div>
-                <button type="submit" class="btn mx-1 " style="background-color:#7db855be">Submit</button>
-                <button type="submit" class="btn" style="background-color:#141E46;color:white" (click)="close()">Cancel</button>
+                <button (click)="Submit()" [disabled]="myForm.invalid" type="submit" class="btn mx-1 "
+                    style="background-color:#7db855be">Submit</button>
+                <button type="submit" class="btn" style="background-color:#141E46;color:white"
+                    (click)="close()">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <div class="well" style="margin-top: 2%;" *ngIf="Bankdetails==true">
+        <h4 class="card-header" style="font-weight: 500">2.Bank Details</h4>
+        <form [formGroup]="myForm2" style="margin-top: 2%;">
+            <div class="row mb-3">
+                <div class="col-sm-4 form-group">
+                    <label for="Entity Name">AccountHolderName*</label>
+                    <input type="text" id="Entity Name" formControlName="accountHolderName" placeholder="Entity Name"
+                        class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="accountHolderName?.invalid && accountHolderName?.touched && accountHolderName?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="state">Account Number*</label>
+                    <input type="text" formControlName="accountNumber" id="state" placeholder="Enter State Name Here.."
+                        class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="accountNumber?.invalid && accountNumber?.touched && accountNumber?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="zip">Bank Name*</label>
+                    <input type="text" formControlName="bankName" id="zip" placeholder="AccountDisplayName.."
+                        class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="bankName?.invalid && bankName?.touched && bankName?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-sm-4 form-group">
+                    <label for="Entity Name">BranchName*</label>
+                    <input type="text" id="Entity Name" formControlName="branchName" placeholder="Entity Name"
+                        class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="branchName?.invalid && branchName?.touched && branchName?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="Entity Name">IFSC Code*</label>
+                    <input type="text" id="Entity Name" formControlName="ifscCode" placeholder="Entity Name"
+                        class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="ifscCode?.invalid && ifscCode?.touched && ifscCode?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="Bussiness category">Account Type</label>
+                    <select formControlName="accountType" id="Bussiness category" class="form-control form-select">
+                        <option value="" disabled selected>Select</option>
+                        <option value="Savings account">Savings account</option>
+                        <option value="Salary account">Salary account</option>
+                        <option value="Fixed deposit account">Fixed deposit account</option>
+                        <option value="Recurring deposit account">Recurring deposit account</option>
+
+
+                    </select>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="accountType?.invalid && accountType?.touched && accountType?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+            <div>
+                <button (click)="BankSubmit()" [disabled]="myForm2.invalid" type="submit" class="btn mx-1 "
+                    style="background-color:#7db855be">Submit</button>
+                <button type="submit" class="btn" style="background-color:#141E46;color:white"
+                    (click)="close()">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="well" style="margin-top: 2%;" *ngIf="KYCdetails==true">
+        <h4 class="card-header" style="font-weight: 500">3.KYC Details</h4>
+        <form [formGroup]="myForm3" style="margin-top: 2%;">
+
+            <div class="row mb-3">
+                <div class="col-sm-4 form-group">
+                    <label for="Bussiness category">Select Document*</label>
+                    <select formControlName="docName" id="Bussiness category" class="form-control form-select">
+                        <option value="" disabled selected>Select</option>
+                        <option *ngFor="let item of KYCDocNames" [value]="item.kycDocName">{{item.kycDocName}}</option>
+
+
+                    </select>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="docName?.invalid && docName?.touched && docName?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="Entity Name">Document Number*</label>
+                    <input type="text" id="Entity Name" formControlName="docNumber" placeholder="Entity Name"
+                        class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="docNumber?.invalid && docNumber?.touched && docNumber?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="Entity Name">Front Proof*</label>
+                    <input (change)="onFileSelected($event)" type="file" id="Entity Name" formControlName="docFrontPath"
+                        placeholder="Entity Name" class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="docFrontPath?.invalid && docFrontPath?.touched && docFrontPath?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="color: red; font-size: 12px;margin-top: 2px;" *ngIf="errorMessage">
+                        {{errorMessage}}
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="row mb-3">
+
+                <div class="col-sm-4 form-group">
+                    <label for="Entity Name">Front Proof*</label>
+                    <input (change)="onFileSelected2($event)" type="file" id="Entity Name" formControlName="docBackPath"
+                        placeholder="Entity Name" class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="docBackPath?.invalid && docBackPath?.touched && docBackPath?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="color: red; font-size: 12px;margin-top: 2px;" *ngIf="errormessagetwo">
+                        {{errormessagetwo}}
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+
+            <div>
+                <button (click)="AddKYC($event)" [disabled]="myForm3.invalid" type="submit" class="btn mx-1 "
+                    style="background-color:#7db855be">Submit</button>
+                <button type="submit" class="btn" style="background-color:#141E46;color:white"
+                    (click)="close()">Cancel</button>
             </div>
         </form>
     </div>

@@ -63,7 +63,19 @@ import { MatSelectModule } from '@angular/material/select';
 import { PolicyEditComponent } from './Admin-policy/policy-edit/policy-edit.component';
 import { AdminComponent } from './Admin-Creation/admin/admin.component';
 import { AdminAddComponent } from './Admin-Creation/admin-add/admin-add.component';
+import { ApprovalForBankComponent } from './Entity Onboard/approval-for-bank/approval-for-bank.component';
+import { CommentsForApprovalComponent } from './Entity Onboard/comments-for-approval/comments-for-approval.component';
+import { RegionComponent } from './Main Master/region/region.component';
+import { RegionAddComponent } from './Main Master/region/region-add/region-add.component';
+import { RegionEditComponent } from './Main Master/region/region-edit/region-edit.component';
+import { ServiceProviderComponent } from './Main Master/ServiceProvider/service-provider/service-provider.component';
+import { ServiceproviderAddComponent } from './Main Master/ServiceProvider/serviceprovider-add/serviceprovider-add.component';
+import { ServiceproviderEditComponent } from './Main Master/ServiceProvider/serviceprovider-edit/serviceprovider-edit.component';
+import { AdmincreationViewComponent } from './Admin-Creation/admincreation-view/admincreation-view.component';
 import { AdminEditComponent } from './Admin-Creation/admin-edit/admin-edit.component';
+import { AddfacheckkeyComponent } from './Main Master/Facheckkeys/addfacheckkey/addfacheckkey.component';
+import { EditfacheckkeyComponent } from './Main Master/Facheckkeys/editfacheckkey/editfacheckkey.component';
+import { ViewfacheckkeyComponent } from './Main Master/Facheckkeys/viewfacheckkey/viewfacheckkey.component';
 
 
 @NgModule({
@@ -109,6 +121,18 @@ import { AdminEditComponent } from './Admin-Creation/admin-edit/admin-edit.compo
     AdminAddComponent,
     AdminEditComponent,
     AdminViewComponent,
+    ApprovalForBankComponent,
+    CommentsForApprovalComponent,
+    RegionComponent,
+    RegionAddComponent,
+    RegionEditComponent,
+    ServiceProviderComponent,
+    ServiceproviderAddComponent,
+    ServiceproviderEditComponent,
+    AdmincreationViewComponent,
+    AddfacheckkeyComponent,
+    EditfacheckkeyComponent,
+    ViewfacheckkeyComponent,
   ],
 
   imports: [

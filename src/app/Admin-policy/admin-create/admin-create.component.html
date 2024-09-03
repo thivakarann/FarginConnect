@@ -1,63 +1,76 @@
-<body class="page">
+<div class="card-header">
+    <h3 class="mb-0" style="font-weight: 700">Add Terms & Policy</h3>
+    <button (click)="close()">Back</button>
+</div>
+<div class="page">
+
+
     <main class="main page__main">
-        
+
         <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="policycreate">
-            
-            <h4 style="text-align: center;background-color: #141E46;color: white;padding: 5px 9px 8px;font-size:large;border-radius: 10px;box-shadow: 3px 3px #7db855be;">Admin Create</h4>
-&nbsp;
+
+            <label class="form__label" for="fname">Terms & Conditions</label>
 
 
-        <div class="form__linput">
-            <label class="form__label" for="fname">Terms and Condition</label>
-           
-          <textarea  class="form__input" id="fname" type="text" formControlName="termAndCondition" name="termAndCondition" placeholder="Enter Terms and condition..." name="" id="" cols="25" rows="4"></textarea>
 
-            <!-- <input required/> -->
-            <div style="color: red; font-size: 12px;margin-top: 2px;"
-            *ngIf="termAndCondition?.invalid && termAndCondition?.touched && termAndCondition?.errors?.['required']">
-            Field is required
-        </div>
-        </div>
-        
-        <div class="form__linput">
-            <label class="form__label" for="fname">Disclaimer</label>
-          <textarea class="form__input" id="fname" type="text" formControlName="disclaimer" name="disclaimer" placeholder="Enter Disclaimer..." name="" id="" cols="25" rows="3"></textarea>
-            <div style="color: red; font-size: 12px;margin-top: 2px;"
-            *ngIf="disclaimer?.invalid && disclaimer?.touched && disclaimer?.errors?.['required']">
-            Field is required
-        </div>
-        </div>
+            <div class="form__linput">
 
-          
-        <div class="form__linput">
-            <label class="form__label" for="fname">Privacy Policy</label>
-          <textarea class="form__input" id="fname" type="text" formControlName="privacyPolicy" name="privacyPolicy" placeholder="Enter Privacy Policy..."  name="" id="" cols="25" rows="3"></textarea>
 
-          <div style="color: red; font-size: 12px;margin-top: 2px;"
-            *ngIf="privacyPolicy?.invalid && privacyPolicy?.touched && privacyPolicy?.errors?.['required']">
-            Field is required
-        </div>
-        </div>
-   
-   
-         <div class="form__linput">
-                <label class="form__label" for="fname">Refund Policy</label>
-          <textarea class="form__input" id="fname" type="text" formControlName="refundPolicy" name="refundPolicy" placeholder="Enter Refund Policy..."  name="" id="" cols="25" rows="3"></textarea>
+                <textarea class="form__input" id="fname" type="text" formControlName="termAndCondition"
+                    name="termAndCondition" placeholder="Enter Terms and condition..." name="" id="" cols="25"
+                    rows="4"></textarea>
+
+                <!-- <input required/> -->
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
-                *ngIf="refundPolicy?.invalid && refundPolicy?.touched && refundPolicy?.errors?.['required']">
-                Field is required
+                    *ngIf="termAndCondition?.invalid && termAndCondition?.touched && termAndCondition?.errors?.['required']">
+                    Field is required
+                </div>
             </div>
+
+            <div class="form__linput">
+                <label class="form__label" for="fname">Disclaimer</label>
+                <textarea class="form__input" id="fname" type="text" formControlName="disclaimer" name="disclaimer"
+                    placeholder="Enter Disclaimer..." name="" id="" cols="25" rows="3"></textarea>
+                <div style="color: red; font-size: 12px;margin-top: 2px;"
+                    *ngIf="disclaimer?.invalid && disclaimer?.touched && disclaimer?.errors?.['required']">
+                    Field is required
+                </div>
             </div>
 
 
-            
-            <div class="flex">
-                <button type="submit" class="submit" [disabled]="policycreate.invalid" (click)="admincreate()">Submit</button>
-                <button type="submit" class="cancel" matDialogClose  (click)="close()">Cancel</button>
- 
+            <div class="form__linput">
+                <label class="form__label" for="fname">Privacy Policy</label>
+                <textarea class="form__input" id="fname" type="text" formControlName="privacyPolicy"
+                    name="privacyPolicy" placeholder="Enter Privacy Policy..." name="" id="" cols="25"
+                    rows="3"></textarea>
+
+                <div style="color: red; font-size: 12px;margin-top: 2px;"
+                    *ngIf="privacyPolicy?.invalid && privacyPolicy?.touched && privacyPolicy?.errors?.['required']">
+                    Field is required
+                </div>
             </div>
- 
- 
+
+
+            <div class="form__linput">
+                <label class="form__label" for="fname">Refund Policy</label>
+                <textarea class="form__input" id="fname" type="text" formControlName="refundPolicy" name="refundPolicy"
+                    placeholder="Enter Refund Policy..." name="" id="" cols="25" rows="3"></textarea>
+                <div style="color: red; font-size: 12px;margin-top: 2px;"
+                    *ngIf="refundPolicy?.invalid && refundPolicy?.touched && refundPolicy?.errors?.['required']">
+                    Field is required
+                </div>
+            </div>
+
+
+
+            <div>
+                <button type="submit" class="submit" [disabled]="policycreate.invalid"
+                    (click)="admincreate()">Submit</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="submit" class="cancel" matDialogClose (click)="close()">Cancel</button>
+
+            </div>
+
+
         </form>
     </main>
-</body>
+</div>

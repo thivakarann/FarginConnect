@@ -1,21 +1,51 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { Workbook } from 'exceljs';
-import FileSaver from 'file-saver';
-import moment from 'moment';
-import { ToastrService } from 'ngx-toastr';
-import { FarginServiceService } from '../service/fargin-service.service';
 
 @Component({
   selector: 'app-testpage',
   templateUrl: './testpage.component.html',
-  styleUrl: './testpage.component.css' 
+  styleUrl: './testpage.component.css'
 })
 export class TestpageComponent {
-  
+  dataSource: any;
+  displayedColumns: string[] = ["ticketRaiseId", "subject", "content", "memberProfiles", "comments", "status", "action", "createdBy", "createdDateTime"]
+  addbusiness: any = FormGroup;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+
+  constructor(private fb: FormBuilder) { }
+
+  ngOnInit(): void {
+
+  }
+
+  onSubmit() {
+
+  }
+
+  admin() {
+
+  }
+
+  exportexcel() {
+
+  }
+
+  cancel() {
+
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
 }

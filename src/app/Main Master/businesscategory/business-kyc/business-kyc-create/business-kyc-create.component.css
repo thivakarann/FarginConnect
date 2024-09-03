@@ -26,7 +26,7 @@ button {
   display: grid;
   justify-items: center;
   align-items: center;
-  padding: var(--size-3);
+  /* padding: var(--size-3); */
 }
  
 .main__form {
@@ -140,5 +140,12 @@ button {
     padding: 0.5em 1em;
     font-size: 0.875rem;
   }
+}
+
+.card-header {
+  
+  background-color:#7db855be;
+  color: #141E46;
+  font-family: "Roboto";
 }
 

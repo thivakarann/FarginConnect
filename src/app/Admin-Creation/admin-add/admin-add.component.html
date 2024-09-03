@@ -44,7 +44,7 @@
             <div class="row mb-3">
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">Password</label>
-                    <input type="text" id="Entity Name" placeholder="Password..." class="form-control"
+                    <input autocomplete="off" type="text" id="Entity Name" placeholder="Password..." class="form-control"
                         formControlName="password" #passwordInput>
                     <i class="fa-solid fa-eye-slash" id="eye" [ngClass]="{
                          'fa-eye-slash': !showPassword,

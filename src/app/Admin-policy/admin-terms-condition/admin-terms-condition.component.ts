@@ -12,53 +12,53 @@ import { FarginServiceService } from '../../service/fargin-service.service';
   templateUrl: './admin-terms-condition.component.html',
   styleUrl: './admin-terms-condition.component.css'
 })
-export class AdminTermsConditionComponent implements OnInit{
+export class AdminTermsConditionComponent implements OnInit {
 
-  dataSource:any;
-  displayedColumns: string[] = ["adminId","termAndCondition","disclaimer","privacyPolicy","refundPolicy","createdBy"]
-  businesscategory:any;
-  showcategoryData:boolean =false;
+  dataSource: any;
+  displayedColumns: string[] = ["adminId", "termAndCondition", "disclaimer", "privacyPolicy", "refundPolicy", "createdBy"]
+  businesscategory: any;
+  showcategoryData: boolean = false;
   errorMsg: any;
-  responseDataListnew: any=[];
-  response: any=[];
-   
+  responseDataListnew: any = [];
+  response: any = [];
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   isChecked: any;
   date1: any;
-  date2:any;
+  date2: any;
   policyId: any;
-  termAndCondition:any;
+  termAndCondition: any;
 
- 
-   
-   
-  constructor(private dialog:MatDialog,private service:FarginServiceService,private toastr:ToastrService, private router: Router,@Inject(MAT_DIALOG_DATA) private data:any) {
- 
+
+
+
+  constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private router: Router, @Inject(MAT_DIALOG_DATA) private data: any) {
+
   }
 
 
   ngOnInit(): void {
-    
+
     this.service.adminPolicyget().subscribe((res: any) => {
-      if(res.flag==1){
+      if (res.flag == 1) {
         this.businesscategory = res.response;
         for (let i = 0; i < this.businesscategory.length; i++) {
           const element = this.businesscategory[i];
           this.policyId = element.policyId;
-        console.log(this.policyId)
-        this.termAndCondition = element.termAndCondition;
-        console.log(this.termAndCondition)
+          console.log(this.policyId)
+          this.termAndCondition = element.termAndCondition;
+          console.log(this.termAndCondition)
 
-      } 
-    }  
+        }
+      }
     });
 
 
   }
 
 
-  
+
   close() {
     window.location.reload()
   }

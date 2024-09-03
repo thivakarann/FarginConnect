@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { SessionServiceService } from './Session Service/session-service.service';
 import { BnNgIdleService } from 'bn-ng-idle';
+import { SessionServiceService } from './Session service/session-service.service';
 
 @Component({
   selector: 'app-root',

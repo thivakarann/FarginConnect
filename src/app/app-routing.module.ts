@@ -25,49 +25,57 @@ import { AdminViewComponent } from './Admin-policy/admin-view/admin-view.compone
 import { AdminCreateComponent } from './Admin-policy/admin-create/admin-create.component';
 import { ViewRoleComponent } from './Roles-Permission/view-role/view-role.component';
 import { PolicyEditComponent } from './Admin-policy/policy-edit/policy-edit.component';
+import { RegionComponent } from './Main Master/region/region.component';
+import { ServiceProviderComponent } from './Main Master/ServiceProvider/service-provider/service-provider.component';
+import { AdmincreationViewComponent } from './Admin-Creation/admincreation-view/admincreation-view.component';
+import { ViewfacheckkeyComponent } from './Main Master/Facheckkeys/viewfacheckkey/viewfacheckkey.component';
 
 const routes: Routes = [
 
- 
+
   { path: 'login-page', component: LoginPageComponent },
   { path: '', redirectTo: '/login-page', pathMatch: 'full' },
- { path:'forgot',component:ForgotPasswordComponent},
-  { path:'otp',component:OtpVerificationComponent},
-  {path:'reset',component:ResetPasswordComponent},
-  {path:'changepassword',component:ChangePasswordComponent},
- 
- 
+  { path: 'forgot', component: ForgotPasswordComponent },
+  { path: 'otp', component: OtpVerificationComponent },
+  { path: 'reset', component: ResetPasswordComponent },
+  { path: 'changepassword', component: ChangePasswordComponent },
+
+
   {
     path: 'dashboard',
     component: DashboardComponent,
     children: [
- {path:'view-category',component: ViewcategoryComponent},
-      {path:'Business-kyc',component: BusinessKycComponent},
-      {path:'test',component: TestpageComponent},
-      {path:'roles',component: RolesComponent},
-      {path:'permission',component: PermissionComponent},
-      {path:'sub-permission',component: SubPermissionComponent},
-  	{ path: 'dashboard-content', component: DashboardContentComponent },
+      { path: 'view-category', component: ViewcategoryComponent },
+      { path: 'Business-kyc', component: BusinessKycComponent },
+      { path: 'test', component: TestpageComponent },
+      { path: 'roles', component: RolesComponent },
+      { path: 'permission', component: PermissionComponent },
+      { path: 'sub-permission', component: SubPermissionComponent },
+      { path: 'dashboard-content', component: DashboardContentComponent },
       { path: 'entity-viewall', component: EntityViewallComponent },
       { path: 'entity-view/:id', component: EntityViewComponent },
       { path: 'entity-add', component: EntityAddComponent },
       { path: 'Terms-policy', component: AdminViewComponent },
       { path: 'Termspolicy-create', component: AdminCreateComponent },
-      { path: 'adminpolicy-Edit/:id', component: PolicyEditComponent },
-      {path:'admindetails',component:AdminComponent},
-      {path:'admincreate',component:AdminAddComponent},
-      {path:'adminedit/:id',component:AdminEditComponent},
-    { path: 'testpage', component: TestpageComponent },
-    {path:'viewticket',component:ViewticketComponent},
-
-      {path:'view-role',component:ViewRoleComponent},
+      { path: 'policy-edit/:id', component: PolicyEditComponent },
+      { path: 'admindetails', component: AdminComponent },
+      { path: 'admincreate', component: AdminAddComponent },
+      { path: 'adminedit/:id', component: AdminEditComponent },
+      { path: 'testpage', component: TestpageComponent },
+      { path: 'viewticket', component: ViewticketComponent },
+      { path: 'view-role', component: ViewRoleComponent },
+      { path: 'Region', component: RegionComponent },
+      { path: 'view-serviceprovider', component: ServiceProviderComponent },
+      { path: 'view-admin/:id', component: AdmincreationViewComponent },
+      {path:'service-provider',component:ServiceProviderComponent},
+      {path:"viewfacheckkey",component:ViewfacheckkeyComponent}
     ],
   },
 ];
 
- 
 
-    
+
+
 
 
 

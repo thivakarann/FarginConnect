@@ -1,0 +1,48 @@
+<div class="card-header">
+    <h3 class="mb-0" style="font-weight: 700;text-align:center;font-size: 21px;">Update Region</h3>
+</div>
+
+<body class="page">
+    <main class="main page__main">
+
+        <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="regionedit">
+
+
+
+            <div class="form-group">
+                <label class="form-label" for="message">MSO:</label>
+                <select class="form-select" formControlName="serviceId">
+                    <option style="text-align: center;" selected disabled>---Select--
+                    </option>
+                    <option style="text-align: center;" *ngFor="let item of regiongetactive;"
+                        [value]="item.service.serviceId">
+                        {{item.service.serviceProviderName}}
+                    </option>
+                </select>
+                <span style="color: red; font-size: 12px;margin-top: 2px;" class="error"
+                    *ngIf="serviceId?.touched && serviceId?.errors?.['required']">Field is Required*</span>
+            </div>
+
+
+            <div class="form__linput">
+                <label class="form__label" for="fname">State Name</label>
+                <input class="form__input" id="fname" type="text" formControlName="stateName" name="stateName"
+                    placeholder="State Name..." required />
+                <div style="color: red; font-size : 12px;margin-top: 2px;"
+                    *ngIf="stateName?.invalid && stateName?.touched && stateName?.errors?.['required']">
+                    Field is required
+                </div>
+            </div>
+
+
+            <div class="flex">
+                <button type="submit" class="btn mx-1" style="background-color:#7db855be"
+                    [disabled]="regionedit.invalid" (click)="Editsubmit()">Submit</button>
+                <button type="submit" class="cancel" matDialogClose>Cancel</button>
+
+            </div>
+
+
+        </form>
+    </main>
+</body>

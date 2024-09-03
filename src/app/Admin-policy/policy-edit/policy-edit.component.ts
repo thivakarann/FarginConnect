@@ -32,10 +32,10 @@ export class PolicyEditComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-     private service: FarginServiceService, 
-     private toastr: ToastrService,
-     private router: Router, 
-     private ActivateRoute: ActivatedRoute) {
+    private service: FarginServiceService,
+    private toastr: ToastrService,
+    private router: Router,
+    private ActivateRoute: ActivatedRoute) {
 
   }
 
@@ -61,17 +61,7 @@ export class PolicyEditComponent implements OnInit {
 
 
     this.service.Adminpolicyviewbyidedit(this.policyId).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.policyview = res.response;
-        this.dataSource = new MatTableDataSource(this.businesscategory);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.showcategoryData = false;
-      }
-      else {
-        this.errorMsg = res.responseMessage;
-        this.showcategoryData = true;
-      }
+      this.policyview = res.response;
     });
   }
 

@@ -1,53 +1,47 @@
+<div class="card-header">
+    <h3 class="mb-0" style="font-weight: 700;text-align:center;font-size: 21px;">Create KYC</h3>
+</div>
+
 <body class="page">
     <main class="main page__main">
-        
-        <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="addbusinesskyc">
-            
-            <h4 style="text-align: center;background-color: #141E46;color: white;padding: 5px 9px 8px;font-size:large;border-radius: 10px;box-shadow: 3px 3px #7db855be;">Create KYC</h4>
-&nbsp;
-            <!-- <div class="form__linput">
-                <label class="form__label" for="fname">Document Name</label>
-                <input class="form__input" id="fname" type="text" formControlName="kycDocName" name="categoryName" placeholder="Enter category name..." required/>
-                <div style="color: red; font-size: 12px;margin-top: 2px;"
-                *ngIf="kycDocName?.invalid && kycDocName?.touched && kycDocName?.errors?.['required']">
-                Field is required
-            </div>
-            </div> -->
 
-  
-                <div class="form-group">
-                    <label class="form-label" for="message">Business Category:</label>
-                    <select class="form-select" formControlName="businessCategoryId">
-                        <option style="text-align: center;" selected disabled>---Select--
-                        </option>
-                        <option style="text-align: center;" *ngFor="let item of categoryName;"
-                            [value]="item.businessCategoryId">
-                            {{item.categoryName}}
-                        </option>
-                    </select>
-                    <span style="color: red; font-size: 12px;margin-top: 2px;" class="error"
-                        *ngIf="businessCategoryId?.touched && businessCategoryId?.errors?.['required']">Please
-                        Choose document*</span>
-                </div>
+        <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="addbusinesskyc">
+
+            <div class="form-group">
+                <label class="form-label" for="message">Business Category:</label>
+                <select class="form-select" formControlName="businessCategoryId">
+                    <option style="text-align: center;" selected disabled>---Select--
+                    </option>
+                    <option style="text-align: center;" *ngFor="let item of categoryName;"
+                        [value]="item.businessCategoryId">
+                        {{item.categoryName}}
+                    </option>
+                </select>
+                <span style="color: red; font-size: 12px;margin-top: 2px;" class="error"
+                    *ngIf="businessCategoryId?.touched && businessCategoryId?.errors?.['required']">Field is
+                    Required</span>
+            </div>
 
             <div class="form__linput">
                 <label class="form__label" for="fname">KYC Document Name</label>
-                <input class="form__input" id="fname" type="text" formControlName="kycDocName" name="mccCode" placeholder="Business category..." required/>
+                <input class="form__input" id="fname" type="text" formControlName="kycDocName" name="mccCode"
+                    placeholder="Business category..." required />
                 <div style="color: red; font-size : 12px;margin-top: 2px;"
-                *ngIf="kycDocName?.invalid && kycDocName?.touched && kycDocName?.errors?.['required']">
-                Field is required
+                    *ngIf="kycDocName?.invalid && kycDocName?.touched && kycDocName?.errors?.['required']">
+                    Field is required
+                </div>
             </div>
-            </div>
- 
- 
+
+
             <!-- <button class="primary-btn form__btn" type="submit">Submit</button> -->
             <div class="flex">
-                <button type="submit" class="submit" [disabled]="addbusinesskyc.invalid" (click)="submit()">Submit</button>
+                <button type="submit" class="submit" [disabled]="addbusinesskyc.invalid"
+                    (click)="submit()">Submit</button>
                 <button type="submit" class="cancel" matDialogClose>Cancel</button>
- 
+
             </div>
- 
- 
+
+
         </form>
     </main>
 </body>
