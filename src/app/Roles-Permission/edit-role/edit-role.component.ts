@@ -12,26 +12,26 @@ import { FarginServiceService } from '../../service/fargin-service.service';
   styleUrl: './edit-role.component.css'
 })
 export class EditRoleComponent implements OnInit {
- 
-  addcategory:any=FormGroup;
+
+  addcategory: any = FormGroup;
   createdBy = JSON.parse(localStorage.getItem('adminname') || '');
-  categoryName:any;
-  subPermission:any;
-  permission:any;
-  @ViewChild('select') select:any= MatSelect;
-  @ViewChild('selects') selects:any= MatSelect;
-  allSelected=false;
-  allSelected1=false;
+  categoryName: any;
+  subPermission: any;
+  permission: any;
+  @ViewChild('select') select: any = MatSelect;
+  @ViewChild('selects') selects: any = MatSelect;
+  allSelected = false;
+  allSelected1 = false;
   constructor(private service: FarginServiceService, private toastr: ToastrService,
     private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any,
- ) { }
+  ) { }
 
   ngOnInit(): void {
-console.log(this.data.value);
+    console.log(this.data.value);
 
   }
-  submit(){
-    
+  submit() {
+
   }
 
   toggleAllSelection() {

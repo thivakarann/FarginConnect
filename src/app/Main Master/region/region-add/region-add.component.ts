@@ -14,41 +14,40 @@ import { RegionAdd } from '../../../fargin-model/fargin-model.module';
   templateUrl: './region-add.component.html',
   styleUrl: './region-add.component.css'
 })
-export class RegionAddComponent  implements OnInit{
+export class RegionAddComponent implements OnInit {
 
   getadminname = JSON.parse(localStorage.getItem('adminname') || '');
   Adminid = JSON.parse(localStorage.getItem('adminid') || '');
 
-  regioncreate:any=FormGroup;
+  regioncreate: any = FormGroup;
   regiongetactive: any;
-  responseDataListnew: any=[];
-  response: any=[];
-   
+  responseDataListnew: any = [];
+  response: any = [];
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   isChecked: any;
-  dataSource:any;
-  showcategoryData: boolean=false;
+  dataSource: any;
+  showcategoryData: boolean = false;
   errorMsg: any;
 
 
 
-  constructor(private dialog:MatDialog,private service:FarginServiceService,private toastr:ToastrService,private fb: FormBuilder, private router: Router) {}
+  constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private fb: FormBuilder, private router: Router) { }
 
 
   ngOnInit(): void {
-    
-  this.regioncreate =  new FormGroup({
-    serviceId: new FormControl('', [Validators.required]),
-    stateName: new FormControl('', [Validators.required]),
-   
+
+    this.regioncreate = new FormGroup({
+      serviceId: new FormControl('', [Validators.required]),
+      stateName: new FormControl('', [Validators.required]),
+
     });
 
 
-    this.service.RegionGetAllActive().subscribe((res: any) => {
-      if(res.flag==1){
+    this.service.ServiceProviderView().subscribe((res: any) => {
+      if (res.flag == 1) {
         this.regiongetactive = res.response;
-        this.regiongetactive.reverse();
         this.dataSource = new MatTableDataSource(this.regiongetactive);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -56,47 +55,47 @@ export class RegionAddComponent  implements OnInit{
         this.showcategoryData = false;
         // console.log(this.businesscategory) 
       }
-      else{
-        this.errorMsg=res.responseMessage;       
+      else {
+        this.errorMsg = res.responseMessage;
         this.showcategoryData = true;
-   }    
-  });    
+      }
+    });
 
   }
 
 
-  get  serviceId() {
+  get serviceId() {
     return this.regioncreate.get('serviceId');
   }
 
-  get  stateName() {
+  get stateName() {
     return this.regioncreate.get('stateName');
   }
-  
+
 
   close() {
     this.router.navigateByUrl('dashboard/Region');
   }
 
 
-  RegionCreate(){
- let submitModel: RegionAdd = {
-   serviceId: this.serviceId.value,
-   stateName: this.stateName.value
- };
-    
+  RegionCreate() {
+    let submitModel: RegionAdd = {
+      serviceId: this.serviceId.value,
+      stateName: this.stateName.value
+    };
+
     this.service.RegionCreate(submitModel).subscribe((res: any) => {
-      if(res.flag==1){
-     
-        this.toastr.success(res.responseMessage)   
+      if (res.flag == 1) {
+
+        this.toastr.success(res.responseMessage)
         window.location.reload()
-  
+
       }
-      else{ 
+      else {
         this.toastr.warning(res.responseMessage);
         this.dialog.closeAll()
-      }  
-      
-  });
+      }
+
+    });
   }
 }

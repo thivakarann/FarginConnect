@@ -1,0 +1,34 @@
+<div class="container">
+
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Update</h5>
+        <button type="button" class="btn btn-secondary" matDialogClose>Back</button>
+    </div>
+    <div class="well">
+
+        <form [formGroup]="myForm">
+
+            <div class="row mt-6">
+
+                <div class="col">
+                    <label for="Entity Name">Plan Name</label>
+                    <input [(ngModel)]="boutuquename" type="text" id="Entity Name" formControlName="broardCaste"
+                        class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="broardCaste?.invalid && broardCaste?.touched && broardCaste?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2%;">
+                <button (click)="submit()" [disabled]="myForm.invalid" type="submit" class="btn mx-1 "
+                    style="background-color:#7db855be">Submit</button>
+
+            </div>
+        </form>

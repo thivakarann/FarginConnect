@@ -1,5 +1,6 @@
 .container {
-    width:535px; /* Increase container width */
+   max-width:535px;
+   padding: 0%;
   }
  
   .form-header {
@@ -95,4 +96,13 @@
   display: flex;
   justify-content: space-between;
   gap: 0.5em;
+}
+
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  background-color:#bcdf72;
+  color: white;
+  font-family: "Roboto";
 }

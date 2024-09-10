@@ -76,6 +76,35 @@ import { AdminEditComponent } from './Admin-Creation/admin-edit/admin-edit.compo
 import { AddfacheckkeyComponent } from './Main Master/Facheckkeys/addfacheckkey/addfacheckkey.component';
 import { EditfacheckkeyComponent } from './Main Master/Facheckkeys/editfacheckkey/editfacheckkey.component';
 import { ViewfacheckkeyComponent } from './Main Master/Facheckkeys/viewfacheckkey/viewfacheckkey.component';
+import { AlacarteViewallComponent } from './Plan Creation/Alacarte channels/alacarte-viewall/alacarte-viewall.component';
+import { AlcartAddComponent } from './Plan Creation/Alacarte channels/alcart-add/alcart-add.component';
+import { AlcartViewComponent } from './Plan Creation/Alacarte channels/alcart-view/alcart-view.component';
+import { AlcartEditComponent } from './Plan Creation/Alacarte channels/alcart-edit/alcart-edit.component';
+import { AlcartLogoViewComponent } from './Plan Creation/Alacarte channels/alcart-logo-view/alcart-logo-view.component';
+import { BouquatenameViewallComponent } from './Plan Creation/Bouquetname Creation/bouquatename-viewall/bouquatename-viewall.component';
+import { BouquateNameAddComponent } from './Plan Creation/Bouquetname Creation/bouquate-name-add/bouquate-name-add.component';
+import { BouquatenameEditComponent } from './Plan Creation/Bouquetname Creation/bouquatename-edit/bouquatename-edit.component';
+import { BouquetsViewallComponent } from './Plan Creation/Broadcaster Bouqutes/bouquets-viewall/bouquets-viewall.component';
+import { BouqutesAddComponent } from './Plan Creation/Broadcaster Bouqutes/bouqutes-add/bouqutes-add.component';
+import { BouqetsEditComponent } from './Plan Creation/Broadcaster Bouqutes/bouqets-edit/bouqets-edit.component';
+import { BouqutesViewComponent } from './Plan Creation/Broadcaster Bouqutes/bouqutes-view/bouqutes-view.component';
+import { DPOViewallComponent } from './Plan Creation/DPO Bouquet Creation/dpoviewall/dpoviewall.component';
+import { KycApprovalComponent } from './Entity Onboard/kyc-approval/kyc-approval.component';
+import { KycdocumentViewComponent } from './Entity Onboard/kycdocument-view/kycdocument-view.component';
+import { KycCommentsComponent } from './Entity Onboard/kyc-comments/kyc-comments.component';
+import { AddKycdocumentComponent } from './Entity Onboard/add-kycdocument/add-kycdocument.component';
+import { EditKycdocumentComponent } from './Entity Onboard/edit-kycdocument/edit-kycdocument.component';
+import { CommentsforApprovaloneComponent } from './Entity Onboard/commentsfor-approvalone/commentsfor-approvalone.component';
+import { CommentsforApprovaltwoComponent } from './Entity Onboard/commentsfor-approvaltwo/commentsfor-approvaltwo.component';
+import { LevelOneApprovalComponent } from './Entity Onboard/level-one-approval/level-one-approval.component';
+import { LevelTwoApprovalComponent } from './Entity Onboard/level-two-approval/level-two-approval.component';
+import { EntityBankaddComponent } from './Entity Onboard/entity-bankadd/entity-bankadd.component';
+import { EntityBankeditComponent } from './Entity Onboard/entity-bankedit/entity-bankedit.component';
+import { BankInfoComponent } from './Entity Onboard/bank-info/bank-info.component';
+import { KycInfoComponent } from './Entity Onboard/kyc-info/kyc-info.component';
+import { BouquetePlanViewallComponent } from './Plan Creation/Bouquete plan Name/bouquete-plan-viewall/bouquete-plan-viewall.component';
+import { BouquetenameAddComponent } from './Plan Creation/Bouquete plan Name/bouquetename-add/bouquetename-add.component';
+import { BouquetenameEditComponent } from './Plan Creation/Bouquete plan Name/bouquetename-edit/bouquetename-edit.component';
 
 
 @NgModule({
@@ -133,6 +162,37 @@ import { ViewfacheckkeyComponent } from './Main Master/Facheckkeys/viewfacheckke
     AddfacheckkeyComponent,
     EditfacheckkeyComponent,
     ViewfacheckkeyComponent,
+    AlacarteViewallComponent,
+    AlcartAddComponent,
+    AlcartViewComponent,
+    AlcartEditComponent,
+    AlcartLogoViewComponent,
+    BouquatenameViewallComponent,
+    BouquateNameAddComponent,
+    BouquatenameEditComponent,
+    BouquetsViewallComponent,
+    BouqutesAddComponent,
+    BouqetsEditComponent,
+    BouqutesViewComponent,
+    DPOViewallComponent,
+    ApprovalForBankComponent,
+    CommentsForApprovalComponent,
+    KycApprovalComponent,
+    KycdocumentViewComponent,
+    KycCommentsComponent,
+    AddKycdocumentComponent,
+    EditKycdocumentComponent,
+    CommentsforApprovaloneComponent,
+    CommentsforApprovaltwoComponent,
+    LevelOneApprovalComponent,
+    LevelTwoApprovalComponent,
+    EntityBankaddComponent,
+    EntityBankeditComponent,
+    BankInfoComponent,
+    KycInfoComponent,
+    BouquetePlanViewallComponent,
+    BouquetenameAddComponent,
+    BouquetenameEditComponent,
   ],
 
   imports: [

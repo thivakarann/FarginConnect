@@ -14,8 +14,8 @@
                     <option style="text-align: center;" selected disabled>---Select--
                     </option>
                     <option style="text-align: center;" *ngFor="let item of regiongetactive;"
-                        [value]="item.service.serviceId">
-                        {{item.service.serviceProviderName}}
+                        [value]="item.serviceId">
+                        {{item.companyName}}
                     </option>
                 </select>
                 <span style="color: red; font-size: 12px;margin-top: 2px;" class="error"

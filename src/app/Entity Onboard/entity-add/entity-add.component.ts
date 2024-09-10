@@ -29,8 +29,8 @@ export class EntityAddComponent implements OnInit {
   bussinessid: any;
   errorMessage: any;
   errormessagetwo: any;
-
   KYCDocNames: any;
+  selectedCategoryId: any;
 
   constructor(
     public AddEntity: FarginServiceService,
@@ -76,7 +76,7 @@ export class EntityAddComponent implements OnInit {
       ]),
       website: new FormControl(''),
       gstIn: new FormControl('', [
-        Validators.pattern('^[A-Z]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}[A-Z]{1}$')
+        // Validators.pattern('^[A-Z]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}[A-Z]{1}$')
       ]),
       billingAddress: new FormControl(''),
       area: new FormControl('', Validators.required),
@@ -195,13 +195,18 @@ export class EntityAddComponent implements OnInit {
   }
 
   onCategoryChange(event: any): void {
-    const selectedCategoryId = event.target.value;
-    const selectedCategory = this.categorydetails.find((category: { businessCategoryId: number; }) => category.businessCategoryId === +selectedCategoryId);
+    console.log(event)
+    this.selectedCategoryId = event.target.value;
+    console.log(this.selectedCategoryId)
+    const selectedCategory = this.categorydetails.find((category: { businessCategoryId: any; }) => category.businessCategoryId === +this.selectedCategoryId);
 
     if (selectedCategory) {
       this.myForm.patchValue({
         mccCode: selectedCategory.mccCode
+
+
       });
+      console.log(this.myForm.value.mccCode)
     }
   }
 
@@ -333,7 +338,7 @@ export class EntityAddComponent implements OnInit {
       country: this.country?.value,
       locationServed: this.locationServed?.value,
       serviceOffered: this.serviceOffered?.value,
-      businessCategoryId: this.businessCategoryIds?.value,
+      businessCategoryId: this.selectedCategoryId,
       mccCode: this.mccCode?.value,
       website: this.website?.value
     }
@@ -367,7 +372,7 @@ export class EntityAddComponent implements OnInit {
       accountType: this.accountType?.value,
       merchantId: this.merchantid
     }
-    this.AddEntity.EntityAddBank(submitModel).subscribe((res: any) => {
+    this.AddEntity.EntitybankAdd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.Bankdetails = false;
@@ -392,7 +397,7 @@ export class EntityAddComponent implements OnInit {
     formData.append('docNumber', this.docNumber?.value);
     formData.append('createdBy  ', this.getadminname);
 
-    this.AddEntity.EntityAddKyc(formData).subscribe((res: any) => {
+    this.AddEntity.KycAdd(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
       }

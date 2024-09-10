@@ -29,6 +29,14 @@ import { RegionComponent } from './Main Master/region/region.component';
 import { ServiceProviderComponent } from './Main Master/ServiceProvider/service-provider/service-provider.component';
 import { AdmincreationViewComponent } from './Admin-Creation/admincreation-view/admincreation-view.component';
 import { ViewfacheckkeyComponent } from './Main Master/Facheckkeys/viewfacheckkey/viewfacheckkey.component';
+import { AlacarteViewallComponent } from './Plan Creation/Alacarte channels/alacarte-viewall/alacarte-viewall.component';
+import { AlcartAddComponent } from './Plan Creation/Alacarte channels/alcart-add/alcart-add.component';
+import { AlcartViewComponent } from './Plan Creation/Alacarte channels/alcart-view/alcart-view.component';
+import { AlcartEditComponent } from './Plan Creation/Alacarte channels/alcart-edit/alcart-edit.component';
+import { BouquatenameViewallComponent } from './Plan Creation/Bouquetname Creation/bouquatename-viewall/bouquatename-viewall.component';
+import { BouquetsViewallComponent } from './Plan Creation/Broadcaster Bouqutes/bouquets-viewall/bouquets-viewall.component';
+import { BouqutesViewComponent } from './Plan Creation/Broadcaster Bouqutes/bouqutes-view/bouqutes-view.component';
+import { BouquetePlanViewallComponent } from './Plan Creation/Bouquete plan Name/bouquete-plan-viewall/bouquete-plan-viewall.component';
 
 const routes: Routes = [
 
@@ -67,8 +75,16 @@ const routes: Routes = [
       { path: 'Region', component: RegionComponent },
       { path: 'view-serviceprovider', component: ServiceProviderComponent },
       { path: 'view-admin/:id', component: AdmincreationViewComponent },
-      {path:'service-provider',component:ServiceProviderComponent},
-      {path:"viewfacheckkey",component:ViewfacheckkeyComponent}
+      { path: 'service-provider', component: ServiceProviderComponent },
+      { path: "viewfacheckkey", component: ViewfacheckkeyComponent },
+      { path: 'alacarte-viewall', component: AlacarteViewallComponent },
+      { path: 'alcart-add', component: AlcartAddComponent },
+      { path: 'alcart-view/:id', component: AlcartViewComponent },
+      { path: 'alcart-edit/:id', component: AlcartEditComponent },
+      {path:'bouquatename-viewall',component:BouquatenameViewallComponent},
+      {path:'bouquets-viewall',component:BouquetsViewallComponent},
+      {path:"bouqutes-view/:id",component:BouqutesViewComponent},
+      {path:'bouquete-plan-viewall',component:BouquetePlanViewallComponent}
     ],
   },
 ];

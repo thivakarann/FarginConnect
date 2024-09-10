@@ -111,7 +111,86 @@ export interface addentity {
 
 }
 
-export interface AddEntityBank {
+
+export interface BankStatus {
+  readonly activeStatus: boolean | number;
+}
+
+export interface BankPrimaryStatus {
+  readonly primaryAccountStatus: boolean | number;
+}
+
+
+
+export interface ApprovalBank {
+  readonly approvalStatus: any;
+  readonly reMarks: any;
+  readonly modifiedBy: any;
+}
+
+export interface KycApproval {
+  readonly approvalBy: any;
+  readonly approvalStatus: any;
+  readonly reMarks: any;
+}
+
+
+
+export interface KycAdd {
+  readonly merchantId: any;
+  readonly docFrontPath: any;
+  readonly docBackPath: any;
+  readonly docName: any;
+  readonly docNumber: any;
+  readonly createdBy: any;
+}
+
+
+export interface KycUpdate {
+  readonly merchantDocumentId: any;
+  readonly docFrontPath: any;
+  readonly docBackPath: any;
+  readonly docName: any;
+  readonly docNumber: any;
+  readonly modifiedBy: any;
+}
+
+export interface LeveloneApproval {
+  readonly merchantId: any;
+  readonly approvalStatusL1: any;
+  readonly approvedByL1: any;
+  readonly comment: any;
+}
+export interface LevelTwoApproval {
+  readonly approvalStatusL2: any;
+  readonly approvedByL2: any;
+  readonly commentL2: any;
+}
+
+
+export interface Facheckverification {
+  readonly kycId: any;
+  readonly docNumber: any;
+  readonly approvalBy: any;
+}
+
+export interface PassPortverification {
+  readonly kycId: any;
+  readonly docNumber: any;
+  readonly approvalBy: any;
+  readonly dateOfBirth: any;
+}
+
+export interface Gstverification {
+  readonly kycId: any;
+  readonly docNumber: any;
+  readonly approvalBy: any;
+
+}
+export interface Bankverficiation {
+  readonly merchantBankId: any;
+}
+export interface bankData {
   readonly accountHolderName: any;
   readonly accountNumber: any;
   readonly bankName: any;
@@ -120,6 +199,22 @@ export interface AddEntityBank {
   readonly accountType: any;
   readonly merchantId: any;
 }
+
+export interface bankedit {
+  readonly accountHolderName: any;
+  readonly accountNumber: any;
+  readonly bankName: any;
+  readonly ifscCode: any;
+  readonly branchName: any;
+  readonly accountType: any;
+}
+
+
+
+
+
+
+
 
 export interface VerifyOtp {
   readonly emailAddress: any;
@@ -254,6 +349,104 @@ export interface Updatefacheckkey {
 export interface Statusfacheckkey {
   readonly activeStatus: any
 }
+
+
+
+
+export interface UpdateAlcart {
+  readonly alcotId: any;
+  readonly regionId: any;
+  readonly broadCaster: any;
+  readonly channelName: any;
+  readonly type: any;
+  readonly channelNo: any;
+  readonly generic: any;
+  readonly language: any;
+  readonly price: any;
+  readonly modifiedBy: any;
+
+}
+
+export interface Alcartstatus {
+  readonly alcotId: any;
+  readonly alcotStatus: any;
+}
+
+export interface addBouquetname {
+  readonly broardCaste: any;
+  readonly createdBy: any;
+}
+
+export interface UpdateBouquetname {
+  readonly broardCaste: any;
+  readonly modifiedBy: any;
+  readonly bundleChannelId: any;
+}
+
+export interface broadcasterstatus {
+  readonly status: boolean | number;
+  readonly bundleChannelId: any;
+}
+
+
+export interface BroadcasterBouquetadd {
+  readonly bundleChannelId: any;
+  readonly alcotId: any;
+  readonly amount: any;
+  readonly bouquetName: any;
+}
+
+export interface BroadcasterBouquetStatus {
+  readonly status: boolean | number;
+  readonly bouquteId: any;
+
+}
+
+export interface BroadcasterBoucateUpdate {
+  readonly bouquteId: any;
+  readonly amount: any;
+  readonly bouquetName: any;
+}
+
+export interface DPOCrate {
+  readonly bundleChannelId: any;
+  readonly alcotId: any;
+  readonly region: any;
+  readonly plan: any;
+  readonly broardCaste: any;
+  readonly amount: any;
+
+}
+
+export interface DPOStatus {
+  readonly status: any;
+}
+
+export interface DPOUpdate {
+  readonly amount: any;
+  readonly broardCaste: any;
+}
+
+
+
+export interface BouquetNameadd {
+  readonly bouquetName: any;
+  readonly createdBy: any;
+}
+
+export interface BouquetenameStatus {
+  readonly boqCreationId: any;
+  readonly status: any;
+}
+
+export interface BouquetenameUpdate {
+  readonly boqCreationId: any;
+  readonly bouquetName: any;
+  readonly modifiedBy: any;
+}
+
+
+
 
 
 

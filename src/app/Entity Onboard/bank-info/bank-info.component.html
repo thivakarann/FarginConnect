@@ -1,0 +1,60 @@
+<mat-card>
+    <div class="form-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Bank VerificationStatus</h5>
+        <button type="button" class="btn btn-secondary" mat-dialog-close>Back</button>
+    </div>
+
+  
+    <hr>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>AccountHolder Name*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.bankverifyres?.accountName}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Account Number*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.bankverifyres?.accountNumber}}
+        </div>
+    </div>
+
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>IFSC Code*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.bankverifyres?.ifsc}}
+
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Bank Name*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.bankverifyres?.bankName}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Branch Name*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.bankverifyres?.branchName}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Verification Status*</b>
+        </div>
+        <div class="col-md-6" style="color:green;">
+            {{this.bankverifyres?.message}}
+
+        </div>
+    </div>
+</mat-card>
