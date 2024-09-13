@@ -43,7 +43,7 @@ export class AlcartEditComponent implements OnInit {
 
     this.EditAlcart.Alcardviewbyid(this.id).subscribe((res: any) => {
       this.alcardsdetails = res.response;
-      this.regionname = res.response.regionEntity.regionId;
+      this.regionname = res.response.region.regionId;
       this.ChennelName = res.response.channelName;
       this.BroadCaster = res.response.broadCaster;
       this.Generic = res.response.generic;
@@ -51,7 +51,7 @@ export class AlcartEditComponent implements OnInit {
       this.Type = res.response.type;
       this.amount = res.response.price;
       this.ChannelNumber = res.response.channelNo
-      console.log(this.amount)
+      console.log(this.amount);
     })
 
     this.myForm = new FormGroup({

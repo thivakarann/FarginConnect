@@ -3,6 +3,8 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { Broadcastersinglechanelstatus } from '../../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-bouqutes-view',
@@ -14,6 +16,12 @@ export class BouqutesViewComponent implements OnInit {
   Adminid = JSON.parse(localStorage.getItem('adminid') || '');
   id: any;
   details: any;
+  channelslist: any;
+  page: number = 1;
+  term: any;
+  currentPage: any = 1; // The current page number
+  itemsPerPage = 5; //
+  isChecked: boolean = false;
 
   constructor(
     public viewdetails: FarginServiceService,
@@ -26,13 +34,46 @@ export class BouqutesViewComponent implements OnInit {
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.id = param.Alldata;
     });
-    
+
     this.viewdetails.BroadcasterBoucatebyid(this.id).subscribe((res: any) => {
       this.details = res.response;
+      this.channelslist = res.response.alcotChannels;
+      console.log(this.channelslist)
     });
+  }
+
+  addChaneels(id: any) {
+
   }
 
   close() {
     this.router.navigateByUrl('dashboard/bouquets-viewall');
   }
+
+  ActiveStatus(event: MatSlideToggleChange, id: any) {
+    console.log(id)
+    this.isChecked = event.checked;
+
+    let submitModel: Broadcastersinglechanelstatus = {
+      broadCasterAlcotId: id,
+      channelStatus: this.isChecked ? 1 : 0,
+    };
+    this.viewdetails.BroadcasterSingleStatus(submitModel).subscribe((res: any) => {
+      console.log(res);
+      if (res.flag == 1) {
+        this.toastr.success(res.responseMessage);
+        window.location.reload();
+      }
+      else {
+        this.toastr.error(res.responseMessage);
+      }
+
+    });
+
+  }
+
+
+
+
+
 }

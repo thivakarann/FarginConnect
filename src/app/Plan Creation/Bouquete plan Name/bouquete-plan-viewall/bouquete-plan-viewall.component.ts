@@ -7,9 +7,9 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { BouquetenameStatus } from '../../../fargin-model/fargin-model.module';
 import { BouquetenameAddComponent } from '../bouquetename-add/bouquetename-add.component';
 import { BouquetenameEditComponent } from '../bouquetename-edit/bouquetename-edit.component';
+import { BouquetenameStatus } from '../../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-bouquete-plan-viewall',
@@ -19,8 +19,9 @@ import { BouquetenameEditComponent } from '../bouquetename-edit/bouquetename-edi
 export class BouquetePlanViewallComponent {
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = [
-    'bundleChannelId',
+    'boqCreationId',
     'broadCasterName',
+    'bouquetName',
     'status',
     'createdBy',
     'createdAt',

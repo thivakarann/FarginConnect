@@ -1,6 +1,7 @@
 import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangePasswordComponent } from '../change-password/change-password.component';
+import { LogoutComponent } from '../logout/logout.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,14 +11,14 @@ import { ChangePasswordComponent } from '../change-password/change-password.comp
 export class DashboardComponent {
   private sidebarDropdowns: HTMLElement[] = [];
   private pageWrapper: HTMLElement | null = null;
- 
-  constructor(private elRef: ElementRef, private renderer: Renderer2,private dialog:MatDialog) {}
- 
+
+  constructor(private elRef: ElementRef, private renderer: Renderer2, private dialog: MatDialog) { }
+
   ngAfterViewInit() {
     // Initialize DOM elements
     this.sidebarDropdowns = Array.from(this.elRef.nativeElement.querySelectorAll('.sidebar-dropdown'));
     this.pageWrapper = this.elRef.nativeElement.querySelector('.page-wrapper');
-   
+
     // Attach click event listeners
     this.sidebarDropdowns.forEach(dropdown => {
       const anchor = dropdown.querySelector('a');
@@ -25,19 +26,19 @@ export class DashboardComponent {
         this.renderer.listen(anchor, 'click', () => this.toggleDropdown(dropdown));
       }
     });
- 
+
     const closeSidebarButton = this.elRef.nativeElement.querySelector('#close-sidebar');
     const showSidebarButton = this.elRef.nativeElement.querySelector('#show-sidebar');
- 
+
     if (closeSidebarButton) {
       this.renderer.listen(closeSidebarButton, 'click', () => this.toggleSidebar(false));
     }
- 
+
     if (showSidebarButton) {
       this.renderer.listen(showSidebarButton, 'click', () => this.toggleSidebar(true));
     }
   }
- 
+
   toggleDropdown(dropdown: HTMLElement) {
     const submenu = dropdown.querySelector('.sidebar-submenu') as HTMLElement;
     if (submenu) {
@@ -51,7 +52,7 @@ export class DashboardComponent {
       }
     }
   }
- 
+
   toggleSidebar(show: boolean) {
     if (this.pageWrapper) {
       if (show) {
@@ -60,12 +61,19 @@ export class DashboardComponent {
         this.renderer.removeClass(this.pageWrapper, 'toggled');
       }
     }
-}
+  }
 
 
-changepassword(){
-this.dialog.open(ChangePasswordComponent),{
-  
-}
-}
+  changepassword() {
+    this.dialog.open(ChangePasswordComponent), {
+
+    }
+  }
+
+  logout(){
+    this.dialog.open(LogoutComponent,{
+      enterAnimationDuration:"300ms",
+      exitAnimationDuration:"500ms",
+    })
+  }
 }

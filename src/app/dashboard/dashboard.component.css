@@ -377,6 +377,7 @@ body {
  
 .page-wrapper .page-content > div {
   padding: 20px 40px;
+  overflow-x: hidden;
 }
  
 .page-wrapper .page-content {

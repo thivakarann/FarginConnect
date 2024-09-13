@@ -10,38 +10,22 @@ import { Providercreate } from '../../../fargin-model/fargin-model.module';
   templateUrl: './serviceprovider-add.component.html',
   styleUrl: './serviceprovider-add.component.css'
 })
-export class ServiceproviderAddComponent implements OnInit{
-  AdminForm!:FormGroup;
-  showPassword:boolean=false;
-  createdBy = JSON.parse(localStorage.getItem('adminname') || '');
+export class ServiceproviderAddComponent implements OnInit {
+  AdminForm!: FormGroup;
+  showPassword: boolean = false;
+  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
 
-constructor(private service:FarginServiceService,private toaster:ToastrService,private router:Router){}
+  constructor(private service: FarginServiceService, private toaster: ToastrService, private router: Router) { }
   ngOnInit(): void {
     this.AdminForm = new FormGroup({
-      companyName: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]),
-      emailAddress: new FormControl('',  [Validators.required,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
-      mobileNumber: new FormControl('', [Validators.required, Validators.pattern("^[0-9]{10}$")]),
-      address:new FormControl('', [Validators.required]),
-      providerName:new FormControl('', [Validators.required]),
+      providerName: new FormControl('', [Validators.required]),
     })
   }
-  get companyName() {
-    return this.AdminForm.get('companyName');
-  }
-  
-  get emailAddress() {
-    return this.AdminForm.get('emailAddress');
-  }
- 
-  get mobileNumber() {
-    return this.AdminForm.get('mobileNumber');
-  }
- 
- 
-  get address() {
-    return this.AdminForm.get('address');
-  }
- 
+
+
+
+
+
   get providerName() {
     return this.AdminForm.get('providerName');
   }
@@ -49,30 +33,26 @@ constructor(private service:FarginServiceService,private toaster:ToastrService,p
     this.showPassword = !this.showPassword;
     passwordInput.type = this.showPassword ? 'text' : 'password';
   }
-  submit(){
-    let submitmodel:Providercreate={
-      companyName: this.companyName?.value,
-      mobileNumber: this.mobileNumber?.value,
-      emailAddress:this.emailAddress?.value ,
-      location: this.address?.value,
+  submit() {
+    let submitmodel: Providercreate = {
       serviceProviderName: this.providerName?.value,
-      createdBy: this.createdBy
+      createdBy: this.getadminname
     }
 
-    this.service.ServiceProviderCreate(submitmodel).subscribe((res:any)=>{
-      if(res.flag==1){
+    this.service.ServiceProviderCreate(submitmodel).subscribe((res: any) => {
+      if (res.flag == 1) {
         this.toaster.success(res.responseMessage);
         window.location.reload();
       }
-      else if(res.flag==2){
+      else if (res.flag == 2) {
         this.toaster.error(res.responseMessage);
       }
-      else{
+      else {
         this.toaster.error(res.responseMessage);
       }
     })
-   
+
   }
 
- 
+
 }

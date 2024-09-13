@@ -37,6 +37,24 @@ import { BouquatenameViewallComponent } from './Plan Creation/Bouquetname Creati
 import { BouquetsViewallComponent } from './Plan Creation/Broadcaster Bouqutes/bouquets-viewall/bouquets-viewall.component';
 import { BouqutesViewComponent } from './Plan Creation/Broadcaster Bouqutes/bouqutes-view/bouqutes-view.component';
 import { BouquetePlanViewallComponent } from './Plan Creation/Bouquete plan Name/bouquete-plan-viewall/bouquete-plan-viewall.component';
+import { MerchantPlanViewallComponent } from './Merchant Plan/merchant-plan-viewall/merchant-plan-viewall.component';
+import { DPOViewallComponent } from './Plan Creation/DPO Bouquet Creation/dpoviewall/dpoviewall.component';
+import { DpoViewComponent } from './Plan Creation/DPO Bouquet Creation/dpo-view/dpo-view.component';
+import { PgsetupViewComponent } from './Main Master/PgSetup/pgsetup-view/pgsetup-view.component';
+import { OverallCustomerViewComponent } from './Overall-Customer/overall-customer-view/overall-customer-view.component';
+import { OverallIndividualCustomerviewComponent } from './Overall-Customer/overall-individual-customerview/overall-individual-customerview.component';
+import { EntityQrcodeComponent } from './entity-qrcode/entity-qrcode/entity-qrcode.component';
+import { EntityRefundComponent } from './entity-refund/entity-refund.component';
+import { EntitySettlementComponent } from './entity-settlement/entity-settlement.component';
+import { SettlementViewComponent } from './settlement-view/settlement-view/settlement-view.component';
+import { EntityCustomersViewComponent } from './Entity-Customers/entity-customers-view/entity-customers-view/entity-customers-view.component';
+import { EntityCustomersViewAllComponent } from './Entity-Customers/entity-customers-view-all/entity-customers-view-all.component';
+import { OverallTransactionsViewallComponent } from './Overall-Transactions/overall-transactions-viewall/overall-transactions-viewall.component';
+import { ViewwithdrawalComponent } from './Main Master/WIthdrawal/viewwithdrawal/viewwithdrawal.component';
+import { ViewbeneficiaryComponent } from './Beneficiary/viewbeneficiary/viewbeneficiary.component';
+import { AddbeneficiaryComponent } from './Beneficiary/addbeneficiary/addbeneficiary.component';
+import { EditbeneficiaryComponent } from './Beneficiary/editbeneficiary/editbeneficiary.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
 
@@ -73,6 +91,7 @@ const routes: Routes = [
       { path: 'viewticket', component: ViewticketComponent },
       { path: 'view-role', component: ViewRoleComponent },
       { path: 'Region', component: RegionComponent },
+      {path:"dashboard-content",component:DashboardComponent},
       { path: 'view-serviceprovider', component: ServiceProviderComponent },
       { path: 'view-admin/:id', component: AdmincreationViewComponent },
       { path: 'service-provider', component: ServiceProviderComponent },
@@ -81,10 +100,29 @@ const routes: Routes = [
       { path: 'alcart-add', component: AlcartAddComponent },
       { path: 'alcart-view/:id', component: AlcartViewComponent },
       { path: 'alcart-edit/:id', component: AlcartEditComponent },
-      {path:'bouquatename-viewall',component:BouquatenameViewallComponent},
-      {path:'bouquets-viewall',component:BouquetsViewallComponent},
-      {path:"bouqutes-view/:id",component:BouqutesViewComponent},
-      {path:'bouquete-plan-viewall',component:BouquetePlanViewallComponent}
+      { path: 'bouquatename-viewall', component: BouquatenameViewallComponent },
+      { path: 'bouquets-viewall', component: BouquetsViewallComponent },
+      { path: "bouqutes-view/:id", component: BouqutesViewComponent },
+      { path: 'bouquete-plan-viewall', component: BouquetePlanViewallComponent },
+      { path: "dpoviewall", component: DPOViewallComponent },
+      { path: "dpo-view/:id", component: DpoViewComponent },
+      { path: 'merchant-plan-viewall', component: MerchantPlanViewallComponent },
+      { path: "pgsetup-view", component: PgsetupViewComponent },
+      { path: 'Overall-Customer-view', component: OverallCustomerViewComponent },
+      { path: 'Overall-IndividualCustomer-view/:id', component: OverallIndividualCustomerviewComponent },
+      { path: 'entity-qrcode/:id', component: EntityQrcodeComponent },
+      { path: 'entity-refund/:id', component: EntityRefundComponent },
+      { path: 'entity-settlement/:id', component: EntitySettlementComponent },
+      { path: 'settlement-view/:id', component: SettlementViewComponent },
+      { path: 'entity-customer-view/:id', component: EntityCustomersViewAllComponent },
+      { path: 'entity-Individualcustomer-view', component: EntityCustomersViewComponent },
+      { path: "overall-transactions-viewall", component: OverallTransactionsViewallComponent },
+      { path: 'viewwithdrawal', component: ViewwithdrawalComponent },
+      { path: 'view-beneficiary', component: ViewbeneficiaryComponent },
+      { path: 'add-beneficiary', component: AddbeneficiaryComponent },
+      { path: 'edit-beneficiary/:id', component: EditbeneficiaryComponent },
+      { path: 'viewprofile', component: ProfileComponent },
+
     ],
   },
 ];

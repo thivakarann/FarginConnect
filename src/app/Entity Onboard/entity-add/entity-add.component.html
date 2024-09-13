@@ -115,6 +115,29 @@
                     </div>
                 </div>
 
+
+
+                <div class="col-sm-4 form-group">
+                    <label for="Entity Plan">Entity Plan</label>
+                    <select formControlName="merchantPlanId" id="Bussiness category" class="form-control form-select">
+                        <option value="" disabled selected>Select</option>
+                        <option *ngFor="let item of entittyplanviewall" [value]="item.merchantPlanId">
+                            {{item.planName}}</option>
+
+                    </select>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="merchantPlanId?.invalid && merchantPlanId?.touched && merchantPlanId?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">GSTIN(Optional)</label>
                     <input formControlName="gstIn" type="text" id="Entity Name" placeholder="Entity Name"
@@ -129,15 +152,20 @@
                         Enter a Valid GST Number
                     </div>
                 </div>
-            </div>
-
-            <div class="row mb-3">
-
 
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">Website (Optional)</label>
                     <input type="text" formControlName="website" id="Entity Name" placeholder="Entity Name"
                         class="form-control">
+                    <div style="
+                        color: red;
+                        font-size: 12px;
+                        margin-top: 2px;
+                        position: relative;
+                        ;
+                      " *ngIf="website?.invalid && website?.touched && website?.errors?.['pattern']">
+                        Enter a Valid Website
+                    </div>
                 </div>
                 <div class="col-sm-4 form-group">
                     <label for="Mcc Code">Country*</label>
@@ -151,7 +179,23 @@
                   " *ngIf="country?.invalid && country?.touched && country?.errors?.['required']">
                         Field is required
                     </div>
+
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="country?.invalid && country?.touched && country?.errors?.['pattern']">
+                        Invalid format. Only alphanumeric characters are allowed
+                    </div>
                 </div>
+
+
+            </div>
+
+
+            <div class="row mb-3">
 
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">State*</label>
@@ -166,11 +210,17 @@
                   " *ngIf="stateName?.invalid && stateName?.touched && stateName?.errors?.['required']">
                         Field is required
                     </div>
+
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="stateName?.invalid && stateName?.touched && stateName?.errors?.['pattern']">
+                        Invalid format. Only alphanumeric characters are allowed
+                    </div>
                 </div>
-            </div>
-
-
-            <div class="row mb-3">
 
 
 
@@ -187,11 +237,22 @@
                   " *ngIf="city?.invalid && city?.touched && city?.errors?.['required']">
                         Field is required
                     </div>
+
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="city?.invalid && city?.touched && city?.errors?.['pattern']">
+                        Invalid format. Only alphanumeric characters are allowed
+                    </div>
                 </div>
 
                 <div class="col-sm-4 form-group">
                     <label for="Mcc Code">Pincode*</label>
-                    <input type="text" formControlName="zipcode" id="Mcc Code" placeholder="123" class="form-control">
+                    <input minlength="6" maxlength="6" type="text" formControlName="zipcode" id="Mcc Code"
+                        placeholder="123" class="form-control">
                     <div style="
                     color: red;
                     font-size: 12px;
@@ -201,28 +262,49 @@
                   " *ngIf="zipcode?.invalid && zipcode?.touched && zipcode?.errors?.['required']">
                         Field is required
                     </div>
-                </div>
 
-                <div class="col-sm-4 form-group">
-                    <label for="Entity Name">Area*</label>
-                    <input type="text" formControlName="area" id="Entity Name" placeholder="Entity Name"
-                        class="form-control">
                     <div style="
                     color: red;
                     font-size: 12px;
                     margin-top: 2px;
                     position: relative;
                     ;
-                  " *ngIf="area?.invalid && area?.touched && area?.errors?.['required']">
-                        Field is required
+                  " *ngIf="zipcode?.invalid && zipcode?.touched && zipcode?.errors?.['pattern']">
+                        Enter a valid Pincode
                     </div>
+
+
                 </div>
+
+
             </div>
 
             <div class="row mb-3">
 
 
-
+                <div class="col-sm-4 form-group">
+                    <label for="Entity Name">Area*</label>
+                    <input type="text" formControlName="area" id="Entity Name" placeholder="Entity Name"
+                        class="form-control">
+                    <div style="
+                        color: red;
+                        font-size: 12px;
+                        margin-top: 2px;
+                        position: relative;
+                        ;
+                      " *ngIf="area?.invalid && area?.touched && area?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                        color: red;
+                        font-size: 12px;
+                        margin-top: 2px;
+                        position: relative;
+                        ;
+                      " *ngIf="area?.invalid && area?.touched && area?.errors?.['pattern']">
+                        Invalid format. Only alphanumeric characters are allowed
+                    </div>
+                </div>
 
 
                 <div class="col-sm-4 form-group">
@@ -255,6 +337,12 @@
                     </div>
                 </div>
 
+            </div>
+
+
+            <div class="row mb-3">
+
+
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">Owner/Contact Email*</label>
                     <input type="email" formControlName="contactEmail" id="Entity Name" placeholder="Entity Name"
@@ -279,12 +367,6 @@
                     </div>
 
                 </div>
-            </div>
-
-
-            <div class="row mb-3">
-
-
 
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">Primary Mobile Number*</label>
@@ -311,8 +393,8 @@
                 </div>
                 <div class="col-sm-4 form-group">
                     <label for="Mcc Code">Secondary Mobile Number(Optional)</label>
-                    <input formControlName="secondaryMobile" type="text" id="Mcc Code" placeholder="123"
-                        class="form-control">
+                    <input [maxLength]="10" formControlName="secondaryMobile" type="text" id="Mcc Code"
+                        placeholder="123" class="form-control">
                     <div style="
                     color: red;
                     font-size: 12px;
@@ -324,17 +406,17 @@
                     </div>
                 </div>
 
+
+            </div>
+
+
+            <div class="row mb-3">
                 <div class="col-sm-4 form-group">
                     <label for="Mcc Code">LocationServed(Optional)</label>
                     <input formControlName="locationServed" type="text" id="Mcc Code" placeholder="123"
                         class="form-control">
 
                 </div>
-            </div>
-
-
-            <div class="row mb-3">
-
 
 
                 <div class="col-sm-4 form-group">
@@ -375,6 +457,15 @@
                   " *ngIf="accountHolderName?.invalid && accountHolderName?.touched && accountHolderName?.errors?.['required']">
                         Field is required
                     </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="accountHolderName?.invalid && accountHolderName?.touched && accountHolderName?.errors?.['pattern']">
+                        Enter a Valid Name
+                    </div>
                 </div>
                 <div class="col-sm-4 form-group">
                     <label for="state">Account Number*</label>
@@ -389,6 +480,15 @@
                   " *ngIf="accountNumber?.invalid && accountNumber?.touched && accountNumber?.errors?.['required']">
                         Field is required
                     </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="accountNumber?.invalid && accountNumber?.touched && accountNumber?.errors?.['pattern']">
+                        Enter a Valid Account Number
+                    </div>
                 </div>
                 <div class="col-sm-4 form-group">
                     <label for="zip">Bank Name*</label>
@@ -402,6 +502,15 @@
                     ;
                   " *ngIf="bankName?.invalid && bankName?.touched && bankName?.errors?.['required']">
                         Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="bankName?.invalid && bankName?.touched && bankName?.errors?.['pattern']">
+                        Enter a Valid Input
                     </div>
                 </div>
             </div>
@@ -420,6 +529,16 @@
                   " *ngIf="branchName?.invalid && branchName?.touched && branchName?.errors?.['required']">
                         Field is required
                     </div>
+
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="branchName?.invalid && branchName?.touched && branchName?.errors?.['pattern']">
+                        Enter a Valid Input
+                    </div>
                 </div>
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">IFSC Code*</label>
@@ -433,6 +552,15 @@
                     ;
                   " *ngIf="ifscCode?.invalid && ifscCode?.touched && ifscCode?.errors?.['required']">
                         Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="ifscCode?.invalid && ifscCode?.touched && ifscCode?.errors?.['pattern']">
+                        Enter a Valid IFSC Code
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">

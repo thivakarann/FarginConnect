@@ -1,0 +1,213 @@
+<ul class="nav nav-pills nav-fill mb-4">
+    <li class="nav-item">
+        <a style="cursor: pointer;font-weight: 600;"
+           class="nav-link"
+           [class.active]="selectedTab === 'customer-info'"
+           (click)="selectTab('customer-info')">
+            Customer Info
+        </a>
+    </li>
+    &nbsp; &nbsp;
+    <li class="nav-item">
+        <a style="cursor: pointer;font-weight: 600;"
+           class="nav-link"
+           [class.active]="selectedTab === 'Plan-details'"
+           (click)="selectTab('Plan-details')">
+            Plan Details
+        </a>
+    </li>
+    &nbsp; &nbsp;
+    <li class="nav-item">
+        <a style="cursor: pointer;font-weight: 600;"
+        class="nav-link"
+        [class.active]="selectedTab === 'Transaction'"
+        (click)="selectTab('Transaction')" >
+        Transactions
+    </a>
+    </li>
+    &nbsp; &nbsp;
+    <li class="nav-item">
+        <a class="nav-link disabled">Receipt</a>
+    </li>
+   
+</ul>
+
+<div *ngIf="selectedTab === 'customer-info'" id="customer-info" class="mb-4">
+    <div class="container">
+        <article class="card">  
+            <div class="card-body">
+                <h3 class="card-title mb-4">General Information</h3>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <strong>Channel Name:</strong> {{ customerview?.customerName }}
+                        </div>
+                        <div class="mb-3">
+                            <strong>Email Address:</strong> {{ customerview?.emailAddress }}
+                        </div>
+                        <div class="mb-3">
+                            <strong>Mobile Number:</strong> {{ customerview?.mobileNumber }}
+                        </div>
+                        <div class="mb-3">
+                            <strong>Area:</strong> {{ customerview?.area }}
+                        </div>
+                        <div class="mb-3">
+                            <strong>Street Name:</strong> {{ customerview?.streetName }}
+                        </div>
+                        <div class="mb-3">
+                            <strong>City Name:</strong> {{ customerview?.cityName }}
+                        </div>
+                        <div class="mb-3">
+                            <strong>Pincode:</strong> {{ customerview?.pincodeName }}
+                        </div>
+                        <div class="mb-3">
+                            <strong>Land Mark:</strong> {{ customerview?.landmark }}
+                        </div>
+                        <div class="mb-3">
+                            <strong>Age:</strong> {{ customerview?.age }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <strong>Flat Number:</strong> {{ customerview?.flatNumber }}
+                        </div>
+                        <div class="mb-3">
+                            <strong>Block Number:</strong> {{ customerview?.blockNumber }}
+                        </div>
+                        <div class="mb-3">
+                            <strong>STB Number:</strong> {{ customerview?.stbNumber }}
+                        </div>
+                        <div class="mb-3">
+                            <strong>House Name:</strong> {{ customerview?.houseName }}
+                        </div>
+                        <div class="mb-3">
+                            <strong>Door Number:</strong> {{ customerview?.doorNumber }}
+                        </div>
+                        <div class="mb-3">
+                            <strong>Alter Mobile Number:</strong> {{ customerview?.alterMobileNumber }}
+                        </div>
+                        <div class="mb-3">
+                            <strong>Apartment Name:</strong> {{ customerview?.apartmentName }}
+                        </div>
+                        <div class="mb-3">
+                            <strong>Pincode:</strong> {{ customerview?.pincodeName }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+</div>
+
+
+<div id="Plan-details" *ngIf="selectedTab === 'Plan-details'" class="mb-4">
+    <div class="col-md-3">
+        <div class="search me-4 mb-3">
+            <input style="font-size: 13px;" type="text" id="search" class="form-control" [(ngModel)]="searchText"
+              placeholder="Plan details">
+          </div>
+    </div>
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
+         
+                    <tr >
+                        <th>S No</th>
+                        <th>Channel Name</th>
+                        <th>Channel No</th>
+                        <th>Logo</th>
+                        <th>Type</th>
+                        <th>Price</th>
+                        <th>Language</th>
+                        <th>Generic</th>
+                        <th>Broadcaster</th>
+                        <th>Status</th>
+                        <th>Created By</th>
+                        <th>Created At</th>
+                    </tr>
+                
+                <tbody>
+                    <tr *ngFor="let row of customerviewalcot | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage } | search: searchText; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ row.alcotId.channelName }}</td>
+                        <td>{{ row.alcotId.channelNo }}</td>
+                        <!-- <td><i class="fa fa-image" (click)="image(row)" style="cursor: pointer;"></i></td> -->
+                        <td>{{ row.alcotId.type === 1 ? 'Paid' : 'Free' }}</td>
+                        <td>{{ row.alcotId.price }}</td>
+                        <td>{{ row.alcotId.language }}</td>
+                        <td>{{ row.alcotId.generic }}</td>
+                        <td>{{ row.alcotId.broadCaster }}</td>
+                        <td>
+                            <span *ngIf="row.alcotId.alcotStatus === '1'" class="text-success">Active</span>
+                            <span *ngIf="row.alcotId.alcotStatus === '0'" class="text-danger">Inactive</span>
+                        </td>
+                        <td>{{ row.alcotId.createdBy }}</td>
+                        <td>{{ row.alcotId.createdAt | date: 'yyyy-MM-dd hh:mm a' }}</td>
+                    </tr>
+                </tbody>
+          
+            </table>
+        </div>
+        <div class="text-end mt-3">
+            <pagination-controls (pageChange)="page = $event"></pagination-controls>
+        </div>
+    </div>
+</div>
+
+<!-- Transaction -->
+ 
+<div id="Transaction" *ngIf="selectedTab === 'Transaction'" class="mb-4">
+    <div class="col-md-3">
+        <div class="search me-4 mb-3">
+            <input style="font-size: 13px;" type="text" id="search" class="form-control" [(ngModel)]="searchText"
+              placeholder="search Transaction">
+          </div>
+    </div>
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
+         
+                    <tr>
+                        <th>S No</th>
+                        <th>Channel Name</th>
+                        <th>Channel No</th>
+                        <th>Logo</th>
+                        <th>Type</th>
+                        <th>Price</th>
+                        <th>Language</th>
+                        <th>Generic</th>
+                        <th>Broadcaster</th>
+                        <th>Status</th>
+                        <th>Created By</th>
+                        <th>Created At</th>       
+                    </tr>
+                
+                <tbody>
+                    <tr *ngFor="let row of customerviewalcot | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage } | search: searchText; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ row.alcotId.channelName }}</td>
+                        <td>{{ row.alcotId.channelNo }}</td>
+                        <!-- <td><i class="fa fa-image" (click)="image(row)" style="cursor: pointer;"></i></td> -->
+                        <td>{{ row.alcotId.type === 1 ? 'Paid' : 'Free' }}</td>
+                        <td>{{ row.alcotId.price }}</td>
+                        <td>{{ row.alcotId.language }}</td>
+                        <td>{{ row.alcotId.generic }}</td>
+                        <td>{{ row.alcotId.broadCaster }}</td>
+                        <td>
+                            <span *ngIf="row.alcotId.alcotStatus === '1'" class="text-success">Active</span>
+                            <span *ngIf="row.alcotId.alcotStatus === '0'" class="text-danger">Inactive</span>
+                        </td>
+                        <td>{{ row.alcotId.createdBy }}</td>
+                        <td>{{ row.alcotId.createdAt | date: 'yyyy-MM-dd hh:mm a' }}</td>
+                   
+                    </tr>
+                </tbody>
+          
+            </table>
+        </div>
+        <div class="text-end mt-3">
+            <pagination-controls (pageChange)="page = $event"></pagination-controls>
+        </div>
+    </div>
+</div>

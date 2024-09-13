@@ -1,0 +1,81 @@
+
+
+table{
+  font-size: 13px;
+  font-weight: 400; 
+}
+
+
+
+
+
+.buttonDownload {
+  display: inline-block;
+  position: relative;
+  padding:7px;
+  background-color: #4CC713;
+  color: white;
+  font-family: sans-serif;
+  text-decoration: none;
+  font-size: 1em;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+ }
+ .w-50{
+  /* background-color:#7db855be; */
+  color: #141E46;
+ }
+
+
+ /* Custom CSS for sticky header */
+ .table-responsive {
+  max-height: 400px; /* Adjust based on your needs */
+  position: relative;
+}
+ 
+.table-responsive thead {
+  position: sticky;
+  top: 0;
+  background-color: #343a40; /* Bootstrap dark background for table header */
+  color: #fff; /* Text color for the header */
+  z-index: 10; /* Ensure header stays above the table content */
+}
+ 
+.table thead th {
+  white-space: nowrap; /* Prevent text from wrapping */
+}
+ 
+/* Optional: Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .table-responsive {
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch; /* Smooth scrolling on touch devices */
+  }
+ 
+  .table {
+      min-width: 600px; /* Ensure table width is sufficient for horizontal scrolling */
+  }
+}
+ 
+ 
+ th{
+  background-color: #7db855be;
+  white-space: nowrap;
+}
+
+td{
+  white-space: nowrap;
+  background-color: #fff;
+}
+
+.approvalButton {
+  border: 1px solid white;
+  border-radius: 10px;
+  background: #545497;
+  color: white;
+  width: 90px;
+  height: 39px;
+}
+ 

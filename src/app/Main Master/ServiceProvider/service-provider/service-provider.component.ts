@@ -27,11 +27,7 @@ export class ServiceProviderComponent implements OnInit {
   response: any = [];
   displayedColumns: string[] = [
     "sno",
-    "companyname",
     "providername",
-    "email",
-    "mobile",
-    "address",
     "status",
     "Edit",
     "createdBy",
@@ -122,11 +118,7 @@ export class ServiceProviderComponent implements OnInit {
       this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
       this.response.push(sno);
-      this.response.push(element?.companyName);
       this.response.push(element?.serviceProviderName);
-      this.response.push(element?.emailAddress);
-      this.response.push(element?.mobileNumber);
-      this.response.push(element?.location);
       if (element?.status == 1) {
         this.response.push("Active");
       }
@@ -153,11 +145,7 @@ export class ServiceProviderComponent implements OnInit {
     // const title='Business Category';
     const header = [
       "S.No",
-      "Companyname",
       "Providername",
-      "Email",
-      "Mobile",
-      "Address",
       "Status",
       "CreatedBy",
       "CreatedDateTime",
@@ -201,9 +189,6 @@ export class ServiceProviderComponent implements OnInit {
       let qty4 = row.getCell(5);
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
-      let qty7 = row.getCell(8);
-      let qty8 = row.getCell(9);
-      let qty9 = row.getCell(10);
 
 
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -213,9 +198,6 @@ export class ServiceProviderComponent implements OnInit {
       qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
 
 
 

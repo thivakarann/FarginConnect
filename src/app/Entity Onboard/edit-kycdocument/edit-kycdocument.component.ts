@@ -26,72 +26,72 @@ export class EditKycdocumentComponent implements OnInit {
 
   }
   ngOnInit(): void {
- 
-    this.merchantDocumentId=this.data.value
+
+    this.merchantDocumentId = this.data.value
     console.log(this.merchantDocumentId);
-    this.businessCategoryId=this.data.value1
-    console.log("Business",this.businessCategoryId)
- 
- 
- 
+    this.businessCategoryId = this.data.value1
+    console.log("Business", this.businessCategoryId)
+
+
+
     this.KycForm = new FormGroup({
       documentname: new FormControl('', [Validators.required]),
-      documentNumber: new FormControl('', [Validators.required,Validators.pattern("[0-9]{12}$")]),
-      panNumber: new FormControl('', [Validators.required,Validators.pattern("^[A-Za-z]{5}[0-9]{4}[A-Za-z]$")]),
-      passportNumber: new FormControl('', [Validators.required,Validators.pattern("“^[A-Z][1-9]\d\s?\d{4}[1-9]$“ ")]),
-      gstNumber:new FormControl('', [Validators.required,Validators.pattern("/^[A-Z]{2}[0-9A-Z]{10}[A-Z0-9]{3}$/")]),
-      drivingLicenseNumber:new FormControl('', [Validators.required,Validators.pattern("^[A-Za-z][0-9/\W/]{2,20}$") ]),
-      cinch:new FormControl('', [Validators.required]),
+      documentNumber: new FormControl('', [Validators.required, Validators.pattern("[0-9]{12}$")]),
+      panNumber: new FormControl('', [Validators.required, Validators.pattern("^[A-Za-z]{5}[0-9]{4}[A-Za-z]$")]),
+      passportNumber: new FormControl('', [Validators.required, Validators.pattern("“^[A-Z][1-9]\d\s?\d{4}[1-9]$“ ")]),
+      gstNumber: new FormControl('', [Validators.required, Validators.pattern("/^[A-Z]{2}[0-9A-Z]{10}[A-Z0-9]{3}$/")]),
+      drivingLicenseNumber: new FormControl('', [Validators.required, Validators.pattern("^(([A-Z]{2}[0-9]{2})( )|([A-Z]{2}-[0-9]{2}))((19|20)[0-9][0-9])[0-9]{7}$")]),
+      cinch: new FormControl('', [Validators.required]),
       documentfront: new FormControl('', [Validators.required]),
       documentback: new FormControl('', [Validators.required]),
     })
- 
+
     this.service.KycDocName(this.businessCategoryId).subscribe((res: any) => {
       if (res.flag == 1) {
         this.categorydetails = res.response;
         console.log(this.categorydetails)
       }
     })
- 
+
   }
- 
- 
+
+
   get documentname() {
     return this.KycForm.get('documentname');
   }
   get documentNumber() {
     return this.KycForm.get('documentNumber');
   }
- 
+
   get panNumber() {
     return this.KycForm.get('panNumber');
   }
   get passportNumber() {
     return this.KycForm.get('passportNumber');
   }
- 
+
   get gstNumber() {
     return this.KycForm.get('gstNumber');
   }
- 
+
   get drivingLicenseNumber() {
     return this.KycForm.get('drivingLicenseNumber');
   }
- 
+
   get cinch() {
     return this.KycForm.get('cinch');
   }
- 
+
   get documentfront() {
     return this.KycForm.get('documentfront');
   }
   get documentback() {
     return this.KycForm.get('documentback');
   }
- 
-  getdocument(event:any){
-    this.imageFile=event.target.files[0];    
-    if((this.imageFile.type == 'image/png') || (this.imageFile.type == 'image/jpeg') || (this.imageFile.type == 'image/jpg')){
+
+  getdocument(event: any) {
+    this.imageFile = event.target.files[0];
+    if ((this.imageFile.type == 'image/png') || (this.imageFile.type == 'image/jpeg') || (this.imageFile.type == 'image/jpg')) {
       console.log(this.imageFile.type)
       if (this.imageFile.size <= 20 * 1024 * 1024) {
         this.errorShow = false;
@@ -100,15 +100,15 @@ export class EditKycdocumentComponent implements OnInit {
         this.clearImage = '';
       }
     }
-    else{
+    else {
       console.log(this.imageFile.type)
       this.clearImage = '';
     }
   }
- 
-  getBackdocument(event:any){
-    this.imageFile1=event.target.files[0];    
-    if((this.imageFile1.type == 'image/png') || (this.imageFile1.type == 'image/jpeg') || (this.imageFile1.type == 'image/jpg')){
+
+  getBackdocument(event: any) {
+    this.imageFile1 = event.target.files[0];
+    if ((this.imageFile1.type == 'image/png') || (this.imageFile1.type == 'image/jpeg') || (this.imageFile1.type == 'image/jpg')) {
       console.log(this.imageFile1.type)
       if (this.imageFile1.size <= 20 * 1024 * 1024) {
         this.errorShow = false;
@@ -117,17 +117,17 @@ export class EditKycdocumentComponent implements OnInit {
         this.clearImage = '';
       }
     }
-    else{
+    else {
       console.log(this.imageFile1.type)
       this.clearImage = '';
     }
   }
- 
- 
-  submit(){
- 
- 
-    if(this.documentname?.value=='Aadhar Card'){
+
+
+  submit() {
+
+
+    if (this.documentname?.value == 'Aadhar Card') {
       const formData = new FormData;
       formData.append('merchantDocumentId ', this.merchantDocumentId);
       formData.append('docFrontPath', this.imageFile);
@@ -135,21 +135,21 @@ export class EditKycdocumentComponent implements OnInit {
       formData.append('docName', this.documentname?.value);
       formData.append('docNumber', this.documentNumber?.value);
       formData.append('modifiedBy ', this.createdBy);
- 
-      this.service.KycUpdate(formData).subscribe((res:any)=>{
-        if(res.flag==1){
-          this.details=res.response;
+
+      this.service.KycUpdate(formData).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.details = res.response;
           this.toaster.success(res.message)
           this.dialog.closeAll();
           window.location.reload();
         }
-        else{
+        else {
           this.toaster.error(res.message)
- 
+
         }
       })
     }
-    else if(this.documentname?.value=='PAN'){
+    else if (this.documentname?.value == 'PAN') {
       const formData = new FormData;
       formData.append('merchantDocumentId ', this.merchantDocumentId);
       formData.append('docFrontPath', this.imageFile);
@@ -157,21 +157,21 @@ export class EditKycdocumentComponent implements OnInit {
       formData.append('docName', this.documentname?.value);
       formData.append('docNumber', this.panNumber?.value);
       formData.append('modifiedBy ', this.createdBy);
- 
-      this.service.KycUpdate(formData).subscribe((res:any)=>{
-        if(res.flag==1){
-          this.details=res.response;
+
+      this.service.KycUpdate(formData).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.details = res.response;
           this.toaster.success(res.message)
           this.dialog.closeAll();
           window.location.reload();
         }
-        else{
+        else {
           this.toaster.error(res.message)
- 
+
         }
       })
     }
-    else if(this.documentname?.value=='Passport'){
+    else if (this.documentname?.value == 'Passport') {
       const formData = new FormData;
       formData.append('merchantDocumentId ', this.merchantDocumentId);
       formData.append('docFrontPath', this.imageFile);
@@ -179,21 +179,21 @@ export class EditKycdocumentComponent implements OnInit {
       formData.append('docName', this.documentname?.value);
       formData.append('docNumber', this.passportNumber?.value);
       formData.append('modifiedBy ', this.createdBy);
- 
-      this.service.KycUpdate(formData).subscribe((res:any)=>{
-        if(res.flag==1){
-          this.details=res.response;
+
+      this.service.KycUpdate(formData).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.details = res.response;
           this.toaster.success(res.message)
           this.dialog.closeAll();
           window.location.reload();
         }
-        else{
+        else {
           this.toaster.error(res.message)
- 
+
         }
       })
     }
-    else if(this.documentname?.value=='GST'){
+    else if (this.documentname?.value == 'GST') {
       const formData = new FormData;
       formData.append('merchantDocumentId ', this.merchantDocumentId);
       formData.append('docFrontPath', this.imageFile);
@@ -201,21 +201,21 @@ export class EditKycdocumentComponent implements OnInit {
       formData.append('docName', this.documentname?.value);
       formData.append('docNumber', this.gstNumber?.value);
       formData.append('modifiedBy ', this.createdBy);
- 
-      this.service.KycUpdate(formData).subscribe((res:any)=>{
-        if(res.flag==1){
-          this.details=res.response;
+
+      this.service.KycUpdate(formData).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.details = res.response;
           this.toaster.success(res.message)
           this.dialog.closeAll();
           window.location.reload();
         }
-        else{
+        else {
           this.toaster.error(res.message)
- 
+
         }
       })
     }
-    else if(this.documentname?.value=='Driving License'){
+    else if (this.documentname?.value == 'Driving License') {
       const formData = new FormData;
       formData.append('merchantDocumentId ', this.merchantDocumentId);
       formData.append('docFrontPath', this.imageFile);
@@ -223,21 +223,21 @@ export class EditKycdocumentComponent implements OnInit {
       formData.append('docName', this.documentname?.value);
       formData.append('docNumber', this.drivingLicenseNumber?.value);
       formData.append('modifiedBy ', this.createdBy);
- 
-      this.service.KycUpdate(formData).subscribe((res:any)=>{
-        if(res.flag==1){
-          this.details=res.response;
+
+      this.service.KycUpdate(formData).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.details = res.response;
           this.toaster.success(res.message)
           this.dialog.closeAll();
           window.location.reload();
         }
-        else{
+        else {
           this.toaster.error(res.message)
- 
+
         }
       })
     }
-    else if(this.documentname?.value=='Cinch'){
+    else if (this.documentname?.value == 'Cinch') {
       const formData = new FormData;
       formData.append('merchantDocumentId ', this.merchantDocumentId);
       formData.append('docFrontPath', this.imageFile);
@@ -245,19 +245,19 @@ export class EditKycdocumentComponent implements OnInit {
       formData.append('docName', this.documentname?.value);
       formData.append('docNumber', this.cinch?.value);
       formData.append('modifiedBy ', this.createdBy);
- 
-      this.service.KycUpdate(formData).subscribe((res:any)=>{
-        if(res.flag==1){
-          this.details=res.response;
+
+      this.service.KycUpdate(formData).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.details = res.response;
           this.toaster.success(res.message)
           this.dialog.closeAll();
           window.location.reload();
         }
-        else{
+        else {
           this.toaster.error(res.message)
         }
       })
     }
-   
+
   }
 }

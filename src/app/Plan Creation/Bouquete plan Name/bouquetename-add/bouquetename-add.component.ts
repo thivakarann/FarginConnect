@@ -28,10 +28,11 @@ export class BouquetenameAddComponent implements OnInit {
   ngOnInit(): void {
 
     this.Bouquetenameadd.BoucatenamesActive().subscribe((res: any) => {
-      this.details = res.response
+      this.details = res.response;
     });
 
     this.myForm = new FormGroup({
+      bundleChannelId: new FormControl('', Validators.required),
       bouquetName: new FormControl('', Validators.required),
     });
   }
@@ -41,17 +42,23 @@ export class BouquetenameAddComponent implements OnInit {
 
   }
 
+  get bundleChannelId() {
+    return this.myForm.get('bundleChannelId')
+
+  }
 
   submit() {
     let submitModel: BouquetNameadd = {
       bouquetName: this.bouquetName?.value,
-      createdBy: this.getadminname
+      createdBy: this.getadminname,
+      bundleChannelId: this.bundleChannelId?.value
     }
 
     this.Bouquetenameadd.BouquetenameAdd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.dialog.closeAll();
+        window.location.reload();
       }
       else {
         this.toastr.error(res.responseMessage);

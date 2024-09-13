@@ -28,7 +28,7 @@ export class PolicyEditComponent implements OnInit {
   paginator: any;
   showcategoryData: boolean = false;
   errorMsg: any;
-
+  MerchantName: any;
 
   constructor(
     private dialog: MatDialog,
@@ -43,6 +43,16 @@ export class PolicyEditComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.service.Policymerchant().subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.MerchantName = res.response;
+        this.MerchantName.reverse();
+
+      }
+      else {
+        this.errorMsg = res.responseMessage;
+      }
+    });
 
 
     this.ActivateRoute.queryParams.subscribe((param: any) => {
@@ -55,8 +65,10 @@ export class PolicyEditComponent implements OnInit {
       disclaimer: new FormControl('', [Validators.required]),
       privacyPolicy: new FormControl('', [Validators.required]),
       refundPolicy: new FormControl('', [Validators.required]),
-      createdBy: new FormControl(),
-      modifiedBy: new FormControl()
+      // createdBy: new FormControl(),
+      modifiedBy: new FormControl(),
+      merchantId: new FormControl('', [Validators.required]),
+
     });
 
 
@@ -66,7 +78,9 @@ export class PolicyEditComponent implements OnInit {
   }
 
 
-
+  get merchantId() {
+    return this.editadminpolicy.get('merchantId');
+  }
 
   get termAndCondition() {
     return this.editadminpolicy.get('termAndCondition');
@@ -90,8 +104,9 @@ export class PolicyEditComponent implements OnInit {
       disclaimer: this.disclaimer?.value,
       privacyPolicy: this.privacyPolicy?.value,
       refundPolicy: this.refundPolicy?.value,
-      createdBy: this.getadminname,
-      modifiedBy: this.getadminname
+      modifiedBy: this.getadminname,
+      merchantId: this.merchantId?.value,
+
     }
 
     this.service.adminpolicyedit(this.policyId, submitModel).subscribe((res: any) => {
@@ -108,5 +123,4 @@ export class PolicyEditComponent implements OnInit {
   close() {
     this.router.navigateByUrl('dashboard/Terms-policy');
   }
-
 }

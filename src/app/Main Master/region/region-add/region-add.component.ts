@@ -23,13 +23,13 @@ export class RegionAddComponent implements OnInit {
   regiongetactive: any;
   responseDataListnew: any = [];
   response: any = [];
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   isChecked: any;
   dataSource: any;
   showcategoryData: boolean = false;
   errorMsg: any;
+  activeservice: any;
 
 
 
@@ -38,27 +38,15 @@ export class RegionAddComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.regioncreate = new FormGroup({
-      serviceId: new FormControl('', [Validators.required]),
-      stateName: new FormControl('', [Validators.required]),
-
+    this.service.activeprovider().subscribe((res: any) => {
+      this.activeservice = res.response;
     });
 
 
-    this.service.ServiceProviderView().subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.regiongetactive = res.response;
-        this.dataSource = new MatTableDataSource(this.regiongetactive);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
 
-        this.showcategoryData = false;
-        // console.log(this.businesscategory) 
-      }
-      else {
-        this.errorMsg = res.responseMessage;
-        this.showcategoryData = true;
-      }
+    this.regioncreate = new FormGroup({
+      serviceId: new FormControl('', [Validators.required]),
+      stateName: new FormControl('', [Validators.required]),
     });
 
   }

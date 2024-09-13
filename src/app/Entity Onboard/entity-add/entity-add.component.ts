@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { addentity, AddEntityBank } from '../../Fargin Model/fargin-model/fargin-model.module';
+import { addentity, AddEntityBank } from '../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-entity-add',
@@ -31,6 +31,7 @@ export class EntityAddComponent implements OnInit {
   errormessagetwo: any;
   KYCDocNames: any;
   selectedCategoryId: any;
+  entittyplanviewall: any;
 
   constructor(
     public AddEntity: FarginServiceService,
@@ -41,6 +42,10 @@ export class EntityAddComponent implements OnInit {
     this.AddEntity.Bussinesscategoryactivelist().subscribe((res: any) => {
       this.categorydetails = res.response;
     });
+
+    this.AddEntity.merchantplanactive().subscribe((res: any) => {
+      this.entittyplanviewall = res.response;
+    })
 
     this.myForm = new FormGroup({
       entityName: new FormControl('', [
@@ -74,30 +79,74 @@ export class EntityAddComponent implements OnInit {
         Validators.required,
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$')
       ]),
-      website: new FormControl(''),
-      gstIn: new FormControl('', [
-        // Validators.pattern('^[A-Z]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}[A-Z]{1}$')
+      website: new FormControl('', [
+        Validators.required,
+        Validators.pattern("((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)")
       ]),
-      billingAddress: new FormControl(''),
-      area: new FormControl('', Validators.required),
-      zipcode: new FormControl('', Validators.required),
-      stateName: new FormControl('', Validators.required),
-      city: new FormControl('', Validators.required),
-      contactPerson: new FormControl('', Validators.required),
-      country: new FormControl('', Validators.required),
+      gstIn: new FormControl('', [
+        Validators.pattern("^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$")
+      ]),
+      billingAddress: new FormControl("", [
+        Validators.required,
+        Validators.pattern('^[0-9]{10}$')
+      ]),
+      area: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9 ]*$')
+      ]),
+      zipcode: new FormControl('', [
+        Validators.required,
+        Validators.pattern("^[1-9]{1}[0-9]{2}\\s{0,1}[0-9]{3}$")
+
+      ]),
+      stateName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9 ]*$')
+      ]),
+      city: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9 ]*$')
+      ]),
+      contactPerson: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9 ]*$')
+      ]),
+      country: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9 ]*$')
+      ]),
       locationServed: new FormControl(''),
       serviceOffered: new FormControl(''),
       businessCategoryIds: new FormControl('', Validators.required),
       mccCode: new FormControl('', Validators.required),
+      merchantPlanId: new FormControl('', Validators.required)
     });
 
     this.myForm2 = new FormGroup({
-      accountHolderName: new FormControl(null, Validators.required),
-      accountNumber: new FormControl(null, Validators.required),
-      bankName: new FormControl(null, Validators.required),
-      ifscCode: new FormControl(null, Validators.required),
-      branchName: new FormControl(null, Validators.required),
-      accountType: new FormControl(null, Validators.required),
+      accountHolderName: new FormControl(null, [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9 ]*$')
+      ]),
+      accountNumber: new FormControl(null, [
+        Validators.required,
+        Validators.pattern("^[0-9]{9,18}$")
+      ]),
+      bankName: new FormControl("", [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9 ]*$')
+      ]),
+      ifscCode: new FormControl("", [
+        Validators.required,
+        Validators.pattern("^[A-Z]{4}0[A-Z0-9]{6}$")
+      ]),
+      branchName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9 ]*$')
+      ]),
+      accountType: new FormControl("", [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9 ]*$')
+      ]),
     })
 
     this.myForm3 = new FormGroup({
@@ -192,6 +241,10 @@ export class EntityAddComponent implements OnInit {
   get mccCode() {
     return this.myForm.get('mccCode')
 
+  }
+
+  get merchantPlanId() {
+    return this.myForm.get('merchantPlanId')
   }
 
   onCategoryChange(event: any): void {
@@ -340,7 +393,8 @@ export class EntityAddComponent implements OnInit {
       serviceOffered: this.serviceOffered?.value,
       businessCategoryId: this.selectedCategoryId,
       mccCode: this.mccCode?.value,
-      website: this.website?.value
+      website: this.website?.value,
+      merchantPlanId: this.merchantPlanId?.value
     }
     this.AddEntity.EntityAdd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {

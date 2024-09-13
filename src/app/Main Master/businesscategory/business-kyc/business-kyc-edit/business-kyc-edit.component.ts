@@ -3,10 +3,10 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FarginServiceService } from '../../../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
-import { Businesskycedit } from '../../../../Fargin Model/fargin-model/fargin-model.module';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { Businesskycedit } from '../../../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-business-kyc-edit',

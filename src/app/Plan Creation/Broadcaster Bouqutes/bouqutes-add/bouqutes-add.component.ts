@@ -20,6 +20,8 @@ export class BouqutesAddComponent implements OnInit {
   channelslist: any;
   @ViewChild('select') select: any = MatSelect;
   allSelected = false;
+  Plandetails: any;
+  channleid: any;
 
   constructor(
     public BroadcasterBouquetAdd: FarginServiceService,
@@ -43,7 +45,7 @@ export class BouqutesAddComponent implements OnInit {
       bundleChannelId: new FormControl('', Validators.required),
       alcotId: new FormControl('', Validators.required),
       amount: new FormControl('', Validators.required),
-      bouquetName: new FormControl('', Validators.required),
+      boqCreationId: new FormControl('', Validators.required),
     });
   }
 
@@ -62,9 +64,16 @@ export class BouqutesAddComponent implements OnInit {
 
   }
 
-  get bouquetName() {
-    return this.myForm.get('bouquetName')
+  get boqCreationId() {
+    return this.myForm.get('boqCreationId')
 
+  }
+
+  name(id: any) {
+    console.log(id)
+    this.BroadcasterBouquetAdd.BouqueteNameByBroadcasterid(id).subscribe((res: any) => {
+      this.Plandetails = res.response;
+    })
   }
 
 
@@ -81,7 +90,7 @@ export class BouqutesAddComponent implements OnInit {
       bundleChannelId: this.bundleChannelId?.value,
       alcotId: this.alcotId?.value,
       amount: this.amount?.value,
-      bouquetName: this.bouquetName?.value
+      boqCreationId: this.boqCreationId?.value
     }
 
     this.BroadcasterBouquetAdd.BroadcasterBoucateadd(submitModel).subscribe((res: any) => {

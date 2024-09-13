@@ -51,7 +51,6 @@ import { SubPermissionComponent } from './RolesandPermission/RolePermission/sub-
 import { EntityViewallComponent } from './Entity Onboard/entity-viewall/entity-viewall.component';
 import { EntityAddComponent } from './Entity Onboard/entity-add/entity-add.component';
 import { DashboardContentComponent } from './dashboard-content/dashboard-content.component';
-import { EntityViewComponent } from './Entity Onboard/entity-view/entity-view.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { AdminCreateComponent } from './Admin-policy/admin-create/admin-create.component';
 import { AdminViewComponent } from './Admin-policy/admin-view/admin-view.component';
@@ -105,7 +104,36 @@ import { KycInfoComponent } from './Entity Onboard/kyc-info/kyc-info.component';
 import { BouquetePlanViewallComponent } from './Plan Creation/Bouquete plan Name/bouquete-plan-viewall/bouquete-plan-viewall.component';
 import { BouquetenameAddComponent } from './Plan Creation/Bouquete plan Name/bouquetename-add/bouquetename-add.component';
 import { BouquetenameEditComponent } from './Plan Creation/Bouquete plan Name/bouquetename-edit/bouquetename-edit.component';
-
+import { MerchantPlanViewallComponent } from './Merchant Plan/merchant-plan-viewall/merchant-plan-viewall.component';
+import { MerchantPlanAddComponent } from './Merchant Plan/merchant-plan-add/merchant-plan-add.component';
+import { EditMerchantPlanComponent } from './Merchant Plan/edit-merchant-plan/edit-merchant-plan.component';
+import { LogoutComponent } from './logout/logout.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { SearchPipe } from './serach pipe/search.pipe';
+import { DPOBouqueteAddComponent } from './Plan Creation/DPO Bouquet Creation/dpobouquete-add/dpobouquete-add.component';
+import { DpoViewComponent } from './Plan Creation/DPO Bouquet Creation/dpo-view/dpo-view.component';
+import { PgsetupViewComponent } from './Main Master/PgSetup/pgsetup-view/pgsetup-view.component';
+import { PgsetupCreateComponent } from './Main Master/PgSetup/pgsetup-create/pgsetup-create.component';
+import { PgsetupEditComponent } from './Main Master/PgSetup/pgsetup-edit/pgsetup-edit.component';
+import { OverallCustomerViewComponent } from './Overall-Customer/overall-customer-view/overall-customer-view.component';
+import { OverallIndividualCustomerviewComponent } from './Overall-Customer/overall-individual-customerview/overall-individual-customerview.component';
+import { EntityViewComponent } from './Entity Onboard/entity-view/entity-view.component';
+import { EntityQrcodeComponent } from './entity-qrcode/entity-qrcode/entity-qrcode.component';
+import { EntityRefundComponent } from './entity-refund/entity-refund.component';
+import { EntitySettlementComponent } from './entity-settlement/entity-settlement.component';
+import { SettlementViewComponent } from './settlement-view/settlement-view/settlement-view.component';
+import { EntityPgonboardComponent } from './Entity Onboard/entity-pgonboard/entity-pgonboard/entity-pgonboard.component';
+import { EntityCustomersViewAllComponent } from './Entity-Customers/entity-customers-view-all/entity-customers-view-all.component';
+import { EntityCustomersViewComponent } from './Entity-Customers/entity-customers-view/entity-customers-view/entity-customers-view.component';
+import { OverallTransactionsViewallComponent } from './Overall-Transactions/overall-transactions-viewall/overall-transactions-viewall.component';
+import { MerchantTransactionViewComponent } from './Overall-Transactions/merchant-transaction-view/merchant-transaction-view.component';
+import { ViewwithdrawalComponent } from './Main Master/WIthdrawal/viewwithdrawal/viewwithdrawal.component';
+import { AddwithdrawalComponent } from './Main Master/WIthdrawal/addwithdrawal/addwithdrawal.component';
+import { EditwithdrawalComponent } from './Main Master/WIthdrawal/editwithdrawal/editwithdrawal.component';
+import { AddbeneficiaryComponent } from './Beneficiary/addbeneficiary/addbeneficiary.component';
+import { ViewbeneficiaryComponent } from './Beneficiary/viewbeneficiary/viewbeneficiary.component';
+import { EditbeneficiaryComponent } from './Beneficiary/editbeneficiary/editbeneficiary.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -120,6 +148,9 @@ import { BouquetenameEditComponent } from './Plan Creation/Bouquete plan Name/bo
     ViewticketComponent,
     AddticketComponent,
     EditticketComponent,
+    AddwithdrawalComponent,
+    ViewwithdrawalComponent,
+    EditwithdrawalComponent,
     BusinessKycComponent,
     BusinessKycCreateComponent,
     BusinessKycEditComponent,
@@ -127,8 +158,14 @@ import { BouquetenameEditComponent } from './Plan Creation/Bouquete plan Name/bo
     SubPermissionComponent,
     EntityViewallComponent,
     EntityAddComponent,
+    PgsetupCreateComponent,
+    MerchantTransactionViewComponent,
+    PgsetupEditComponent,
     DashboardContentComponent,
+    OverallCustomerViewComponent,
+    OverallIndividualCustomerviewComponent,
     EntityViewComponent,
+    PgsetupViewComponent,
     ForgotPasswordComponent,
     OtpVerificationComponent,
     ResetPasswordComponent,
@@ -193,6 +230,26 @@ import { BouquetenameEditComponent } from './Plan Creation/Bouquete plan Name/bo
     BouquetePlanViewallComponent,
     BouquetenameAddComponent,
     BouquetenameEditComponent,
+    MerchantPlanViewallComponent,
+    MerchantPlanAddComponent,
+    EditMerchantPlanComponent,
+    LogoutComponent,
+    SearchPipe,
+    DPOBouqueteAddComponent,
+    DpoViewComponent,
+    EntitySettlementComponent,
+    EntityRefundComponent,
+    EntityQrcodeComponent,
+    SettlementViewComponent,
+    EntityPgonboardComponent,
+    EntityCustomersViewAllComponent,
+    EntityCustomersViewComponent,
+    OverallTransactionsViewallComponent,
+    AddbeneficiaryComponent,
+    ViewbeneficiaryComponent,
+    EditbeneficiaryComponent,
+    ProfileComponent,
+    
   ],
 
   imports: [
@@ -212,6 +269,7 @@ import { BouquetenameEditComponent } from './Plan Creation/Bouquete plan Name/bo
     MatChipsModule,
     MatCommonModule,
     MatDatepickerModule,
+    NgxPaginationModule,
     MatDialogModule,
     MatPaginatorModule,
     MatInputModule,

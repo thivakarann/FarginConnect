@@ -40,9 +40,9 @@
           <i class="fas fa-user"></i>
         </button>
         <div class="dropdown-content">
-          <a><i class="fa fa-user" aria-hidden="true"></i> &nbsp; Profile</a>
+          <a routerLink="viewprofile"><i class="fa fa-user" aria-hidden="true"></i>&nbsp; Profile</a>
           <a (click)="changepassword()"><i class="fa fa-key" aria-hidden="true"></i> &nbsp; Change Password</a>
-          <a><i class="fas fa-sign-out-alt"></i> &nbsp; Log Out</a>
+          <a (click)="logout()"><i class="fas fa-sign-out-alt"></i> &nbsp; Log Out</a>
         </div>
       </div>
 
@@ -69,15 +69,15 @@
               <span></span>
             </li>
 
-            <li style="cursor: pointer;">
-              <a>
+            <li>
+              <a routerLink="dashboard-content">
                 <i class="fa fa-dashboard"></i>
                 <span>Dashboard</span>
 
               </a>
             </li>
 
-            <li>
+            <li >
               <a routerLink="entity-viewall">
                 <i class="fa fa-user-plus"></i>
                 <span>Entity Onboard</span>
@@ -86,10 +86,46 @@
             </li>
 
             <li>
+              <a routerLink="Overall-Customer-view">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <span>Customers</span>
+
+              </a>
+            </li>
+
+            <li>
+              <a routerLink="overall-transactions-viewall">
+                <i class="fa-solid fa-credit-card" aria-hidden="true"></i>
+                <span>Transactions</span>
+
+              </a>
+            </li>
+
+
+            <li>
+              <a routerLink="view-beneficiary">
+                <i class="fas fa-landmark icon"></i>
+                <span>Payout</span>
+
+              </a>
+            </li>
+
+
+
+
+
+
+            <li>
               <a routerLink="fas fa-user-plus">
                 <i class="fas fa-hands-holding-child icon"></i>
                 <span routerLink="Terms-policy">Terms and Policy</span>
 
+              </a>
+            </li>
+            <li routerLink="/dashboard/viewticket">
+              <a>
+                <i class="fa fa-book"></i>
+                <span>Tickets</span>
               </a>
             </li>
             <li class="sidebar-dropdown" style="cursor: pointer;">
@@ -116,7 +152,19 @@
                   </li>
 
                   <li>
+                    <a routerLink="merchant-plan-viewall">Merchant Plan</a>
+                  </li>
+
+                  <li>
                     <a routerLink="viewfacheckkey">Facheck Key</a>
+                  </li>
+
+                  <li>
+                    <a routerLink="pgsetup-view">PG Setupkey</a>
+                  </li>
+
+                  <li>
+                    <a routerLink="viewwithdrawal">Withdrawal Fee</a>
                   </li>
                 </ul>
               </div>
@@ -144,28 +192,32 @@
 
             <li class="sidebar-dropdown" style="cursor: pointer;">
               <a>
-                <i class="fa fa-globe"></i>
+                <i class="fa-solid fa-tv"></i>
                 <span>Channels & Packages</span>
               </a>
               <div class="sidebar-submenu">
                 <ul>
                   <li>
-                    <a routerLink="alacarte-viewall">A-LA-CARTE Creation
+                    <a routerLink="alacarte-viewall">Channel Configuration
                     </a>
                   </li>
                   <li>
-                    <a routerLink="bouquatename-viewall">Broadcaster Creation</a>
+                    <a routerLink="bouquatename-viewall">Broadcaster Configuration</a>
                   </li>
 
                   <li>
                     <a routerLink="bouquete-plan-viewall">
-                      Bouqute Creation
+                      Plan Configuration
                     </a>
                   </li>
 
                   <li>
                     <a routerLink="bouquets-viewall">Broadcaster Bouqutes</a>
                   </li>
+                  <!-- 
+                  <li>
+                    <a routerLink="dpoviewall">DPO Bouqutes</a>
+                  </li> -->
 
 
 
@@ -227,14 +279,9 @@
           </li> -->
 
             <li class="header-menu">
-              <span>Extra</span>
+            
             </li>
-            <li routerLink="/dashboard/viewticket">
-              <a>
-                <i class="fa fa-book"></i>
-                <span>Ticket</span>
-              </a>
-            </li>
+           
 
 
           </ul>

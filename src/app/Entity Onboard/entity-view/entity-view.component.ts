@@ -20,6 +20,7 @@ import { FormGroup } from '@angular/forms';
 import { EntityBankaddComponent } from '../entity-bankadd/entity-bankadd.component';
 import { EntityBankeditComponent } from '../entity-bankedit/entity-bankedit.component';
 import { BankInfoComponent } from '../bank-info/bank-info.component';
+import { EntityPgonboardComponent } from '../entity-pgonboard/entity-pgonboard/entity-pgonboard.component';
 
 @Component({
   selector: 'app-entity-view',
@@ -42,6 +43,32 @@ export class EntityViewComponent implements OnInit {
   approvedBy1: any;
   secondFormGroup!: FormGroup;
   firstFormGroup!: FormGroup;
+  accountId: any;
+  startdate!: string;
+  enddate!: string;
+  p: number = 1;
+  filteredData: any[] = [];
+  currentPage = 1;
+  alltransactions: any;
+  searchText: any;
+  pages: number = 1;
+  navbarEventEmitter: any;
+  isDropdownOpen = false;
+  searchTexts: any;
+  items: any[] = []; // The array of items to paginate
+  itemsPerPage = 10; // The number of items to display per page
+  Daterange!: string;
+  data: any;
+  term: any;
+  Viewall: any;
+  content: any;
+  getallData: any;
+  serviceid: any;
+  ToDateRange: any;
+  FromDateRange: any;
+  showdata!:boolean;
+Data: any;
+  
   selectTab(tab: string): void {
     this.activeTab = tab;
   }
@@ -72,6 +99,8 @@ export class EntityViewComponent implements OnInit {
       this.approval1 = this.detaislone?.approvalStatusL1;
       this.bankdetails = res.response.merchantbank;
       this.KYCDetails = res.response.merchantdocument;
+      console.log(this.KYCDetails);
+      this.accountId = res.response.accountId;
 
       this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
       console.log('BussinessCategoryId', this.businessCategoryId);
@@ -81,10 +110,13 @@ export class EntityViewComponent implements OnInit {
       console.log('Approval1', this.approval1)
 
     })
+
+
+   
   }
 
 
-  bankStatus(event: MatSlideToggleChange, id: any) {
+  bankStatus(event: any, id: any) {
     this.isChecked = event.checked;
     let submitModel: BankStatus = {
       activeStatus: this.isChecked ? 1 : 0,
@@ -133,8 +165,6 @@ export class EntityViewComponent implements OnInit {
       disableClose: true,
       data: { value: id }
     })
-
-
 
   }
 
@@ -268,16 +298,17 @@ export class EntityViewComponent implements OnInit {
 
 
   FacheckVerification(Docname: any, data: any, id: any, ApprovedBy: any) {
-
-
+   console.log(data)
+    console.log(ApprovedBy)
+    let submitModel: Facheckverification =
+    {
+      kycId: id,
+      docNumber: data,
+      approvalBy: ApprovedBy
+    }
 
     if (Docname == 'Aadhar Card') {
-      let submitModel: Facheckverification =
-      {
-        kycId: id,
-        docNumber: data,
-        approvalBy: ApprovedBy
-      }
+    
 
       this.MerchantView.FacheckAadharVerification(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
@@ -289,12 +320,7 @@ export class EntityViewComponent implements OnInit {
       })
     }
     else if (Docname == 'PAN') {
-      let submitModel: Facheckverification =
-      {
-        kycId: id,
-        docNumber: data,
-        approvalBy: ApprovedBy
-      }
+     
 
       this.MerchantView.FacheckPanVerification(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
@@ -322,12 +348,7 @@ export class EntityViewComponent implements OnInit {
       })
     }
     else if (Docname == 'GST') {
-      let submitModel: Facheckverification =
-      {
-        kycId: id,
-        docNumber: data,
-        approvalBy: ApprovedBy
-      }
+      
       this.MerchantView.FacheckGSTVerification(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage)
@@ -400,7 +421,47 @@ export class EntityViewComponent implements OnInit {
       }
     })
   }
+
+  pgOnboard() {
+
+    this.dialog.open(EntityPgonboardComponent, {
+
+      enterAnimationDuration: "1000ms",
+      exitAnimationDuration: "1000ms",
+      disableClose: true,
+      data: {
+        value: this.id,
+      }
+    })
+
+  }
+
+  Viewcustomer(id:any){
+    this.router.navigate([`dashboard/entity-customer-view/${id}`], {
+      queryParams: { Alldata: id },
+    });
+    console.log(id);
+  }
+
+  Viewqr(id:any){
+    this.router.navigate([`dashboard/entity-qrcode/${id}`], {
+      queryParams: { Alldata: id },
+    });
+    console.log(id);
+  }
+
+  ViewRefund(id:any){
+    this.router.navigate([`dashboard/entity-refund/${id}`], {
+      queryParams: { Alldata: id },
+    });
+    console.log(id);
+  }
+
+  viewsettlement
+  (id:any){
+    this.router.navigate([`dashboard/entity-settlement/${id}`], {
+      queryParams: { Alldata: id },
+    });
+    console.log(id);
+  }
 }
-
-
-

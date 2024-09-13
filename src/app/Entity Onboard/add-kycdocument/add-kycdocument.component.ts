@@ -42,7 +42,7 @@ export class AddKycdocumentComponent implements OnInit {
       panNumber: new FormControl('', [Validators.required, Validators.pattern("^[A-Za-z]{5}[0-9]{4}[A-Za-z]$")]),
       passportNumber: new FormControl('', [Validators.required, Validators.pattern("/^[A-Z]{2}\d{6}$/")]),
       gstNumber: new FormControl('', [Validators.required, Validators.pattern("^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[A-Z]{1}[0-9A-Z]{1}$")]),
-      drivingLicenseNumber: new FormControl('', [Validators.required, Validators.pattern("/^[A-Z]{2}-\d{1,2}-\d{4,10}$/")]),
+      drivingLicenseNumber: new FormControl('', [Validators.required,  Validators.pattern("^(([A-Z]{2}[0-9]{2})( )|([A-Z]{2}-[0-9]{2}))((19|20)[0-9][0-9])[0-9]{7}$")]),
       cinch: new FormControl('', [Validators.required]),
       documentfront: new FormControl('', [Validators.required]),
       documentback: new FormControl('', [Validators.required]),
@@ -129,7 +129,7 @@ export class AddKycdocumentComponent implements OnInit {
       formData.append('docFrontPath', this.imageFile);
       formData.append('docBackPath', this.imageFile1);
       formData.append('docName', this.documentname?.value);
-      formData.append('docNumber', this.panNumber?.value);
+      formData.append('docNumber', this.documentNumber?.value);
       formData.append('createdBy', this.createdBy)
 
 
@@ -153,7 +153,7 @@ export class AddKycdocumentComponent implements OnInit {
       formData.append('docFrontPath', this.imageFile);
       formData.append('docBackPath', this.imageFile1);
       formData.append('docName', this.documentname?.value);
-      formData.append('docNumber', this.documentNumber?.value);
+      formData.append('docNumber', this.panNumber?.value);
       formData.append('createdBy', this.createdBy)
 
 
@@ -239,7 +239,6 @@ export class AddKycdocumentComponent implements OnInit {
         }
         else {
           this.toaster.error(res.message)
-
         }
       })
     }
@@ -251,8 +250,6 @@ export class AddKycdocumentComponent implements OnInit {
       formData.append('docName', this.documentname?.value);
       formData.append('docNumber', this.cinch?.value);
       formData.append('createdBy', this.createdBy)
-
-
 
       this.service.KycAdd(formData).subscribe((res: any) => {
         if (res.flag == 1) {

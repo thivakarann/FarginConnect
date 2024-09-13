@@ -21,15 +21,10 @@ export class BouquetsViewallComponent implements OnInit {
   displayedColumns: string[] = [
     'bouquetId',
     'bouquetName',
-    'serviceProviderName',
+    'broadCasterName',
+    'amount',
     'status',
-    'region',
-    'createdBy',
-    'createdAt',
     'View',
-    'Edit',
-    'modifiedBy',
-    'modifiedAt',
   ];
 
   viewall: any;

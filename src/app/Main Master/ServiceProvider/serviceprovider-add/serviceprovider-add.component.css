@@ -1,17 +1,21 @@
 .container {
-    max-width: 900px;
+
+    min-width: 400px;
+    width: 100%;
     padding: 0;
     /* Increase container width */
 }
  
 .form-header {
-    background-color: #141E46;
-    /* Header background color */
-    color: white;
+
     padding: 0.5rem;
     border-radius: 0.5rem 0.5rem 0 0;
     /* Rounded corners on top */
     /* margin-bottom: 0.5rem; */
+    background-color: #7db855be;
+    color: #141E46;
+    font-family: "Roboto";
+    text-align: center;
 }
  
 .form-group label {

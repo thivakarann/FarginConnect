@@ -1,0 +1,90 @@
+<div class="card-header">
+    <h3 class="mb-0" style="font-weight: 700;text-align:center;font-size: 21px;">Add Entity Plan</h3>
+</div>
+
+<body class="page">
+    <main class="main page__main">
+        <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="myForm">
+            <div class="row mb-3">
+                <div class="col-sm-6 form-group">
+                    <label for="Entity Name">Plan Name*</label>
+                    <input type="text" id="Entity Name" formControlName="planName" class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="planName?.invalid && planName?.touched && planName?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label for="state">Plat Form Fee*</label>
+                    <input type="text" formControlName="technicalAmount" id="state" class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="technicalAmount?.invalid && technicalAmount?.touched && technicalAmount?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-6 form-group">
+                    <label for="zip">maintenance Amount*</label>
+                    <input type="text" formControlName="maintenanceAmount" id="zip" class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="maintenanceAmount?.invalid && maintenanceAmount?.touched && maintenanceAmount?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+
+                <div class="col-sm-6 form-group">
+                    <label for="Bussiness category">Frequency Type</label>
+                    <select formControlName="frequency" id="Bussiness category" class="form-control form-select">
+                        <option value="" disabled selected>Select</option>
+                        <option value="Day">Day</option>
+                        <option value="Week">Week</option>
+                        <option value="Month">Month</option>
+                        <option value="Quarterly">Quarterly</option>
+                        <option value="Half Yeraly">Half Yeraly</option>
+                        <option value="Year">Year</option>
+
+
+                    </select>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="frequency?.invalid && frequency?.touched && frequency?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div>
+                <button (click)="submit()" [disabled]="myForm.invalid" type="submit" class="btn mx-1 "
+                    style="background-color:#7db855be">Submit</button>
+                <button type="submit" class="btn" style="background-color:#141E46;color:white"
+                    matDialogClose>Cancel</button>
+            </div>
+
+
+
+        </form>
+    </main>
+</body>

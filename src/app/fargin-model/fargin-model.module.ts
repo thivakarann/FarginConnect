@@ -108,7 +108,19 @@ export interface addentity {
   readonly serviceOffered: any;
   readonly businessCategoryId: any;
   readonly mccCode: any;
+  readonly website: any;
+  readonly merchantPlanId: any;
 
+}
+
+export interface AddEntityBank {
+  readonly accountHolderName: any;
+  readonly accountNumber: any;
+  readonly bankName: any;
+  readonly ifscCode: any;
+  readonly branchName: any;
+  readonly accountType: any;
+  readonly merchantId: any;
 }
 
 
@@ -210,6 +222,56 @@ export interface bankedit {
 }
 
 
+export interface MerchantTransaction {
+  readonly accountId: any;
+  readonly pageNo: any;
+  readonly size: any;
+  readonly query: any;
+  readonly dateRange: any;
+  readonly status: any;
+}
+
+
+export interface Addwithdrawal {
+  readonly amountRange: any;
+  readonly mode: any;
+  readonly gstType: any;
+  readonly fees: any;
+  readonly gstInPercentage: any;
+  readonly createdBy: any;
+}
+export interface Editwithdrawal {
+  readonly amountRange: any;
+  readonly mode: any;
+  readonly gstType: any;
+  readonly fees: any;
+  readonly gstInPercentage: any;
+  readonly modifiedBy: any;
+}
+export interface StatusWithdrawal {
+  readonly isWithrawalStatus: any
+}
+
+
+export interface Addbeneficiary {
+  readonly merchantId: any;
+  readonly bankName: any;
+  readonly accountNumber: any;
+  readonly accountHolderName: any;
+  readonly emailAddress: any;
+  readonly ifscCode: any;
+  readonly accountType: any;
+  readonly mobileNumber: any;
+  readonly createdBy: any;
+  readonly branchName: any;
+  readonly upiName: any;
+  readonly type: any;
+}
+export interface Statusbeneficiary {
+  readonly activeStatus: any
+}
+
+
 
 
 
@@ -240,7 +302,7 @@ export interface AdminPolicycreate {
   readonly privacyPolicy: any;
   readonly refundPolicy: any;
   readonly createdBy: any;
-  readonly adminUserId: any;
+  readonly merchantId: any;
 }
 
 
@@ -249,9 +311,12 @@ export interface AdminPolicyEdit {
   readonly disclaimer: any;
   readonly privacyPolicy: any;
   readonly refundPolicy: any;
-  readonly createdBy: any;
+  // readonly createdBy: any;
   readonly modifiedBy: any;
+  readonly merchantId: any;
+
 }
+
 
 export interface ticket {
   readonly updatedBy: any;
@@ -315,21 +380,14 @@ export interface Providerstatus {
 }
 
 export interface Providercreate {
-  readonly companyName: any;
-  readonly mobileNumber: any;
-  readonly emailAddress: any;
-  readonly location: any;
   readonly serviceProviderName: any;
   readonly createdBy: any;
 }
 
 export interface Providerupdate {
-  readonly companyName: any;
-  readonly mobileNumber: any;
-  readonly emailAddress: any;
-  readonly location: any;
   readonly serviceProviderName: any;
   readonly modifiedBy: any;
+  readonly serviceId: any;
 }
 
 export interface Addfacheckkey {
@@ -349,9 +407,6 @@ export interface Updatefacheckkey {
 export interface Statusfacheckkey {
   readonly activeStatus: any
 }
-
-
-
 
 export interface UpdateAlcart {
   readonly alcotId: any;
@@ -388,12 +443,29 @@ export interface broadcasterstatus {
   readonly bundleChannelId: any;
 }
 
+export interface Bouquetenameadd {
+  readonly bundleChannelId: any;
+  readonly bouquetName: any;
+  readonly createdBy: any;
+}
+
+export interface Bouquetenamestatus {
+  readonly boqCreationId: any;
+}
+
+export interface BouquetenameUpdate {
+  readonly bundleChannelId: any;
+  readonly boqCreationId: any;
+  readonly bouquetName: any;
+  readonly modifiedBy: any;
+}
+
 
 export interface BroadcasterBouquetadd {
   readonly bundleChannelId: any;
   readonly alcotId: any;
   readonly amount: any;
-  readonly bouquetName: any;
+  readonly boqCreationId: any;
 }
 
 export interface BroadcasterBouquetStatus {
@@ -408,15 +480,20 @@ export interface BroadcasterBoucateUpdate {
   readonly bouquetName: any;
 }
 
+export interface Broadcastersinglechanelstatus {
+  readonly broadCasterAlcotId: any;
+  readonly channelStatus: any;
+}
+
 export interface DPOCrate {
   readonly bundleChannelId: any;
+  readonly boqCreationId: any;
+  readonly regionId: any;
   readonly alcotId: any;
-  readonly region: any;
-  readonly plan: any;
-  readonly broardCaste: any;
   readonly amount: any;
 
 }
+
 
 export interface DPOStatus {
   readonly status: any;
@@ -427,9 +504,15 @@ export interface DPOUpdate {
   readonly broardCaste: any;
 }
 
+export interface DPOChanneloverallstatus {
+  readonly dpoAlcotid: any;
+  readonly channelStatus: any;
+}
+
 
 
 export interface BouquetNameadd {
+  readonly bundleChannelId: any;
   readonly bouquetName: any;
   readonly createdBy: any;
 }
@@ -447,6 +530,70 @@ export interface BouquetenameUpdate {
 
 
 
+export interface MerchantplanCreate {
+  readonly planName: any;
+  readonly technicalAmount: any;
+  readonly maintenanceAmount: any;
+  readonly frequency: any;
+  readonly createdBy: any
+}
+
+export interface MerchantplanUpdate {
+  readonly planName: any;
+  readonly technicalAmount: any;
+  readonly maintenanceAmount: any;
+  readonly frequency: any;
+  readonly modifiedBy: any
+}
+
+export interface MerchantPlanStatus {
+  readonly activeStatus: any;
+}
 
 
 
+export interface Pgsetup {
+  readonly pgOnoffStatus: any;
+}
+
+export interface pgsetupadd {
+  readonly pgMode: any;
+  readonly secretKey: any;
+  readonly apiKey: any;
+  readonly createdBy: any;
+}
+
+export interface pgsetupedit {
+  readonly pgMode: any;
+  readonly secretKey: any;
+  readonly apiKey: any;
+  readonly modifiedBy: any;
+}
+
+//entity settlement
+export interface settlement {
+  readonly accountId: any;
+  readonly pageNo: any;
+  readonly query: any;
+  readonly size: any;
+  readonly dateRange: any;
+  readonly status: any;
+}
+
+export interface settlements {
+  readonly accountId: any;
+  readonly pageNo: any;
+  readonly query: any;
+  readonly size: any;
+  readonly dateRange: any;
+  readonly status: any;
+  readonly payoutId: any;
+}
+
+
+export interface PgOnboard {
+  readonly merchantId: any;
+  readonly linkExpiry: any;
+  readonly description: any;
+  readonly returnUrl: any;
+}

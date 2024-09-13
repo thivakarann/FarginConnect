@@ -11,49 +11,65 @@ import { Router } from '@angular/router';
   templateUrl: './admin-create.component.html',
   styleUrl: './admin-create.component.css'
 })
-export class AdminCreateComponent  implements OnInit{
+export class AdminCreateComponent implements OnInit {
 
   getadminname = JSON.parse(localStorage.getItem('adminname') || '');
   Adminid = JSON.parse(localStorage.getItem('adminid') || '');
+  policycreate: any = FormGroup;
+  MerchantName: any;
+  dataSource: any;
+  errorMsg: any;
 
-  policycreate:any=FormGroup;
 
-
-
-  constructor(private dialog:MatDialog,private service:FarginServiceService,private toastr:ToastrService,private fb: FormBuilder, private router: Router) {}
+  constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private fb: FormBuilder, private router: Router) { }
 
 
   ngOnInit(): void {
-    
-  this.policycreate = this.fb.group({
-    termAndCondition: new FormControl('', [Validators.required]),
-    disclaimer: new FormControl('', [Validators.required]),
-    privacyPolicy: new FormControl('', [Validators.required]),
-    refundPolicy: new FormControl('', [Validators.required]),
-    createdBy: new FormControl(''),
-    adminUserId: new FormControl('')
+
+    this.service.Policymerchant().subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.MerchantName = res.response;
+
+      }
+      else {
+        this.errorMsg = res.responseMessage;
+      }
+    });
+
+
+    this.policycreate = new FormGroup({
+      termAndCondition: new FormControl('', [Validators.required]),
+      disclaimer: new FormControl('', [Validators.required]),
+      privacyPolicy: new FormControl('', [Validators.required]),
+      refundPolicy: new FormControl('', [Validators.required]),
+      createdBy: new FormControl(''),
+      merchantId: new FormControl('', [Validators.required])
+
     });
 
   }
 
+  get merchantId() {
+    return this.policycreate.get('merchantId');
+  }
 
-  get  termAndCondition() {
+  get termAndCondition() {
     return this.policycreate.get('termAndCondition');
   }
 
-  get  disclaimer() {
+  get disclaimer() {
     return this.policycreate.get('disclaimer');
   }
 
-  get  privacyPolicy() {
+  get privacyPolicy() {
     return this.policycreate.get('privacyPolicy');
   }
-  
-  get  refundPolicy() {
+
+  get refundPolicy() {
     return this.policycreate.get('refundPolicy');
   }
 
-  
+
 
   close() {
     this.router.navigateByUrl('dashboard/Terms-policy');
@@ -63,29 +79,28 @@ export class AdminCreateComponent  implements OnInit{
 
 
 
-  admincreate(){
- let submitModel: AdminPolicycreate = {
-   termAndCondition: this.termAndCondition.value,
-   disclaimer: this.disclaimer.value,
-   privacyPolicy: this.privacyPolicy.value,
-   refundPolicy: this.refundPolicy.value,
-   createdBy: this.getadminname,
-   adminUserId: this.Adminid
- };
-  
-    
+  admincreate() {
+    let submitModel: AdminPolicycreate = {
+      termAndCondition: this.termAndCondition.value,
+      disclaimer: this.disclaimer.value,
+      privacyPolicy: this.privacyPolicy.value,
+      refundPolicy: this.refundPolicy.value,
+      createdBy: this.getadminname,
+      merchantId: this.merchantId.value
+    };
+
     this.service.adminpolicycreate(submitModel).subscribe((res: any) => {
-      if(res.flag==1){
-     
-        this.toastr.success(res.responseMessage)   
+      if (res.flag == 1) {
+        this.toastr.success(res.responseMessage)
         window.location.reload()
-  
+
       }
-      else{ 
+      else {
         this.toastr.warning(res.responseMessage);
         this.dialog.closeAll()
-      }  
-      
-  });
+      }
+
+    });
   }
+
 }

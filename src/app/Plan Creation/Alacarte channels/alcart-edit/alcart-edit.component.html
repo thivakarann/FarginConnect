@@ -5,7 +5,7 @@
         <button type="button" class="btn btn-secondary" (click)="close()">Back</button>
     </div>
 
-    <div class="well" style="margin-top: 2%;">
+    <div class="well" >
         <h4 class="card-header" style="font-weight: 500">Channel Details</h4>
         <form [formGroup]="myForm" style="margin-top: 2%;">
             <div class="row mb-3">
@@ -116,8 +116,8 @@
                     </div>
                 </div>
             </div>
-            <div class="row mb-3">
-                <div class="hidden" [hidden]="this.Type ==='0'">
+            <div class="row mb-3" >
+                <div class="hidden" >
                     <div class="col-sm-4 form-group" *ngIf="type?.value === '1'">
                         <label for="Entity Name">Price</label>
                         <input [(ngModel)]="amount" type="text" id="Entity Name" formControlName="price"

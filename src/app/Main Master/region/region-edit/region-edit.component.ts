@@ -26,57 +26,35 @@ export class RegionEditComponent implements OnInit {
   showcategoryData: boolean = false;
   errorMsg: any;
   stateNames: any;
-  serviceIds: any;
+  activeservice: any;
+  details: any;
+  serviceid: any;
+  Regionid: any;
+  statename: any;
+  Serviceid: any;
 
 
-  constructor(private fb: FormBuilder, private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, @Inject(MAT_DIALOG_DATA) public data: any) {
-
-    this.regionId = data.value.regionId;
-    console.log(this.regionId)
-  }
+  constructor( private service: FarginServiceService, private toastr: ToastrService, @Inject(MAT_DIALOG_DATA) public data: any) {}
 
 
 
   ngOnInit(): void {
 
+    this.details = this. data.value;
+    this.Serviceid = this.data.value.service.serviceId;
+    this.Regionid =this. data.value.regionId
+    this.statename = this. data.value.stateName
+    console.log(this.details)
+
+    this.service.activeprovider().subscribe((res: any) => {
+      this.activeservice = res.response;
+    });
+
     this.regionedit = new FormGroup({
-      serviceId: new FormControl('', [Validators.required]),
-      stateName: new FormControl('', [Validators.required]),
-      regionId: new FormControl(''),
-    });
-
-
-    this.service.RegionGetAllActive().subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.regiongetactive = res.response;
-        this.regiongetactive.reverse();
-        this.dataSource = new MatTableDataSource(this.regiongetactive);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-
-        this.showcategoryData = false;
-        // console.log(this.businesscategory) 
-      }
-      else {
-        this.errorMsg = res.responseMessage;
-        this.showcategoryData = true;
-      }
-    });
-
-
-
-
-    this.serviceIds = this.data.value.service.serviceId
-    this.regionedit.controls['serviceId'].value = this.serviceIds
-
-    this.stateNames = this.data.value.stateName
-    this.regionedit.controls['stateName'].value = this.stateNames
-
+      stateName: new FormControl('', Validators.required),
+      serviceId: new FormControl('',Validators.required),
+    })
   }
-
-
-
-
   get serviceId() {
     return this.regionedit.get('serviceId');
   }
@@ -88,8 +66,8 @@ export class RegionEditComponent implements OnInit {
   Editsubmit() {
 
     let submitModel: RegionEdit = {
-      serviceId: this.serviceId.value,
-      regionId: this.regionId,
+      serviceId: this.serviceId?.value,
+      regionId: this.Regionid,
       stateName: this.stateName.value
     }
 

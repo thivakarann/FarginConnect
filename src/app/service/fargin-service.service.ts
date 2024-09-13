@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { BankPrimaryStatus } from '../fargin-model/fargin-model.module';
+import { SessionServiceService } from '../Session service/session-service.service';
 
 
 @Injectable({
@@ -11,7 +12,7 @@ import { BankPrimaryStatus } from '../fargin-model/fargin-model.module';
 export class FarginServiceService {
 
   constructor(private http: HttpClient,
-    private router: Router) { }
+    private router: Router, private timerService: SessionServiceService) { }
 
   private readonly basePath = 'http://64.227.149.125:8085/'; //Basepath
 
@@ -55,10 +56,11 @@ export class FarginServiceService {
 
 
   //Admin Policy
-  private readonly adminpolicy = 'policy/getallpolicy';
-  private readonly Adminpolicycreate = 'policy/createpolicy';
-  private readonly Adminpolicyedit = 'policy/updateadminpolicy/';
+  private readonly adminpolicy = 'policy/viewallmerchant/2';
+  private readonly Adminpolicycreate = 'policy/createmerchantpolicy';
+  private readonly Adminpolicyedit = 'policy/updatemerchant/';
   private readonly adminpolicyviewbyidedit = 'policy/getpolicy/';
+  private readonly policymerchant = 'merchant/approvedMerchant';
 
   private readonly admingetall = 'adminUser/viewall';
   private readonly adminstatus = 'adminUser/updateStatus';
@@ -72,6 +74,10 @@ export class FarginServiceService {
   private readonly AddEntity = 'merchant/create'
   private readonly EntityKYCBYbusinessid = 'businesskyc/getcategorykyc/'
   private readonly Entityviewbyid = 'merchant/getmerchants/'
+
+  //Overall customer
+  private readonly Overallcustomer = 'customer/viewByAll';
+  private readonly Entityindividualcustomerview = 'customer/viewById/';
 
   //entity bank
 
@@ -110,7 +116,25 @@ export class FarginServiceService {
   private readonly drivinglicense = 'facheck/drivingLicenseVerify';
   private readonly gstnumber = 'facheck/merchantGstVerify';
 
+  //pG on board
+  private readonly pgonboard = 'merchantOnboard/onboard';
 
+  //customers
+  private readonly Entitycustomerview = 'customer/viewbymerchant/';
+
+  //QRcode
+  private readonly EntityQrgenerate = 'merchant/qrgenerate/'
+
+  //refund
+  private readonly EntityRefund = 'refund/getmerchant/'
+
+  //settlement
+  private readonly EntitySettlement = 'transactions/getPayouts'
+  private readonly EntitySettlementtransaction = 'transactions/getPayoutTransactions'
+
+  //merchant transaction
+
+  private readonly transactionformerchant = 'transactions/getadminPaymentList';
 
   //Region
   private readonly Regionget = 'region/viewAllRegion';
@@ -118,6 +142,7 @@ export class FarginServiceService {
   private readonly Regioncreate = 'region/addRegion';
   private readonly regionstatus = 'region/updateStatus';
   private readonly regionupdate = 'region/update';
+  private readonly ActiveRegions = 'region/viewOnlyActive';
 
 
   //service provider
@@ -126,6 +151,7 @@ export class FarginServiceService {
   private readonly providerupdate = 'serviceProvider/update';
   private readonly providerstatus = 'serviceProvider/updateStatus';
   private readonly providergetbyid = 'serviceProvider/viewByservice/';
+  private readonly Activeprovider = 'serviceProvider/viewActive';
 
 
   //Facheckkey
@@ -164,6 +190,7 @@ export class FarginServiceService {
   private readonly Bouquetenameupdate = 'bouquetCreation/update';
   private readonly Bouquetenamestatus = 'bouquetCreation/updateStatus';
   private readonly Bouquetenameactive = 'bouquetCreation/viewOnlyActive';
+  private readonly BouquetenamebyBoueteid = 'bouquetCreation/viewByBroadCasterId/'
 
   // Broadcaster  Bouquete Creation
 
@@ -173,15 +200,47 @@ export class FarginServiceService {
   private readonly Bouquetstatus = 'broadCaster/updateStatus';
   private readonly ActiveBouqutes = 'broadCaster/viewOnlyActive';
   private readonly bouquetEdit = 'broadCaster/update';
+  private readonly bouquetesinglestatus = 'broadCaster/updateChannelStatus'
 
   // DPO Bouquete Creation
 
   private readonly DPOBouqueteViewall = 'dpoBouquet/viewAll';
-  private readonly DPOBouqueteadd = 'dpoBouquet/create ';
+  private readonly DPOBouqueteadd = 'dpoBouquet/create';
   private readonly DPOBouqueteviewbyid = 'dpoBouquet/viewid/';
   private readonly DPOBouqueteUpdate = 'dpoBouquet/update/';
   private readonly DPOBouquetestatus = 'dpoBouquet/updateStatus/';
   private readonly DPOActiveBouqutes = 'dpoBouquet/viewOnlyActive';
+  private readonly DPOSinglechannelstatus = 'dpoBouquet/updateChannelStatus';
+
+
+  // Merchant Plan Creation
+
+  private readonly Merchantplanviewall = 'merchantplan/getall';
+  private readonly MerchantplanAdd = 'merchantplan/create';
+  private readonly MerchantplanUpdate = 'merchantplan/update/';
+  private readonly MerchantplanStatus = 'merchantplan/updateactive/';
+  private readonly MerchantActivePlans = 'merchantplan/getallactive';
+
+
+  //PGsetup
+  private readonly pgsetupget = 'pgmode/getall';
+  private readonly pgsetupstatus = 'pgmode/updatestatus/';
+  private readonly pgsetupadd = 'pgmode/add';
+  private readonly pgsetupedit = 'pgmode/update/';
+
+
+  //Withdrawal
+  private readonly viewwithdrawal = 'tresHold/getall';
+  private readonly addwithdrawal = 'tresHold/create';
+  private readonly editwithdrawal = 'tresHold/update/';
+  private readonly statuswithdrawal = 'tresHold/updateStatus/'
+
+
+  //Beneficiary
+  private readonly addbeneficiary = 'merchantbeneficiary/create'
+  private readonly viewbeneficiary = 'merchantbeneficiary/getall'
+  private readonly viewbyidbeneficiary = 'merchantbeneficiary/viewbyid/'
+  private readonly statusbeneficiary = 'merchantbeneficiary/updateactive/'
 
 
 
@@ -225,7 +284,13 @@ export class FarginServiceService {
         localStorage.setItem('lastlogin', JSON.stringify(res.response.login_history?.adminUser?.lastLogin));
         localStorage.setItem('fullname', JSON.stringify(res.response.login_history?.adminUser?.createdBy));
         localStorage.setItem('roleId', JSON.stringify(res.response.login_history?.adminUser?.roleModel?.roleId));
-        location.href = '/dashboard';
+
+        this.router.navigateByUrl('/dashboard/dashboard-content', {
+          replaceUrl: true,
+        });
+        this.timerService.restartTimer();
+        // location.href = '/dashboard/dashboard-content';   need to add After login
+
       }
       else {
         this.loginError.next(res.responseMessage);
@@ -341,8 +406,12 @@ export class FarginServiceService {
 
   //privacy policy
 
+  Policymerchant() {
+    return this.http.get(`${this.basePath}${this.policymerchant}`, this.options)
+  }
+
   adminPolicyget() {
-    return this.http.get(`${this.basePath}${this.adminpolicy}`, this.options);
+    return this.http.get(`${this.basePath}${this.adminpolicy}`, this.options)
   }
 
   adminpolicycreate(model: any) {
@@ -365,6 +434,7 @@ export class FarginServiceService {
   AdminView(id: any) {
     return this.http.get(`${this.basePath}${this.adminview}${id}`, this.options);
   }
+
   Bussinesscategoryactivelist() {
     return this.http.get(`${this.basePath}${this.businesskycdocactive}`, this.options)
   }
@@ -392,6 +462,12 @@ export class FarginServiceService {
     return this.http.put(`${this.basePath}${this.regionupdate}`, model, this.options)
   }
 
+  Activeregions() {
+    return this.http.get(`${this.basePath}${this.ActiveRegions}`, this.options)
+  }
+
+
+
   //service provider
   ServiceProviderView() {
     return this.http.get(`${this.basePath}${this.providergetall}`, this.options);
@@ -409,6 +485,10 @@ export class FarginServiceService {
 
   ProviderViewById(id: any) {
     return this.http.get(`${this.basePath}${this.providergetbyid}${id}`, this.options);
+  }
+
+  activeprovider() {
+    return this.http.get(`${this.basePath}${this.Activeprovider}`, this.options)
   }
 
 
@@ -544,6 +624,73 @@ export class FarginServiceService {
 
 
 
+  //pg onboard
+  PgOnboard(model: any) {
+    return this.http.post(`${this.basePath}${this.pgonboard}`, model, this.options)
+  }
+  //customer
+
+  EntityCustomerview(id: any) {
+    return this.http.get(`${this.basePath}${this.Entitycustomerview}${id}`, this.options)
+  }
+
+  TransactionForMerchant(model: any) {
+    return this.http.post(`${this.basePath}${this.transactionformerchant}`, model, this.options)
+  }
+
+  //qr
+
+  EntityQrGenerate(id: any) {
+    return this.http.get(`${this.basePath}${this.EntityQrgenerate}${id}`, this.options)
+  }
+  //refund
+  Entityrefund(id: any) {
+    return this.http.get(`${this.basePath}${this.EntityRefund}${id}`, this.options)
+  }
+
+  //settlement
+  Entitysettlement(model: any) {
+    return this.http.post(`${this.basePath}${this.EntitySettlement}`, model, this.options);
+  }
+  entitySettleTransaction(model: any) {
+    return this.http.post(`${this.basePath}${this.EntitySettlementtransaction}`, model, this.options);
+  }
+
+
+  //Withdrawal Method
+  viewwithdrawals() {
+    return this.http.get(`${this.basePath}${this.viewwithdrawal}`, this.options)
+  }
+  addwithdrawals(model: any) {
+    return this.http.post(`${this.basePath}${this.addwithdrawal}`, model, this.options)
+  }
+  editwithdrawals(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.editwithdrawal}${id}`, model, this.options)
+  }
+
+  statuswithdrawals(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.statuswithdrawal}${id}`, model, this.options)
+  }
+
+
+
+  //Beneficiary
+  addbeneficiarys(model: any) {
+    return this.http.post(`${this.basePath}${this.addbeneficiary}`, model, this.options)
+  }
+  viewbeneficiarys() {
+    return this.http.get(`${this.basePath}${this.viewbeneficiary}`, this.options)
+  }
+  viewbyidbeneficiarys(id: any) {
+    return this.http.get(`${this.basePath}${this.viewbyidbeneficiary}${id}`, this.options)
+  }
+
+  statusbeneficiarys(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.statusbeneficiary}${id}`, model, this.options)
+  }
+
+
+
 
   Alcartviewall() {
     return this.http.get(`${this.basePath}${this.alcartvieall}`, this.options)
@@ -607,28 +754,32 @@ export class FarginServiceService {
 
   //Broadcaster Bouquete name creation
 
-  Bouqetenameviewall (){
-    return this.http.get(`${this.basePath}${this.Bouquetenameviewall}`,this.options)
+  Bouqetenameviewall() {
+    return this.http.get(`${this.basePath}${this.Bouquetenameviewall}`, this.options)
   }
 
-  BouquetenameAdd(model:any){
-   return this.http.post(`${this.basePath}${this.Bouquetenameadd}`,model,this.options)
+  BouquetenameAdd(model: any) {
+    return this.http.post(`${this.basePath}${this.Bouquetenameadd}`, model, this.options)
   }
 
-  Bouquetenameupdatae(model:any){
-    return this.http.put(`${this.basePath}${this.Bouquetenameupdate}`,model,this.options)
+  Bouquetenameupdatae(model: any) {
+    return this.http.put(`${this.basePath}${this.Bouquetenameupdate}`, model, this.options)
   }
 
-  Bouquenamebyid(id:any){
-    return this.http.get(`${this.basePath}${this.Bouquetenamebyid}${id}`,this.options)
+  Bouquenamebyid(id: any) {
+    return this.http.get(`${this.basePath}${this.Bouquetenamebyid}${id}`, this.options)
   }
 
-  Bouquetnamestatus(model:any){
-    return this.http.put(`${this.basePath}${this.Bouquetenamestatus}`,model,this.options)
+  Bouquetnamestatus(model: any) {
+    return this.http.put(`${this.basePath}${this.Bouquetenamestatus}`, model, this.options)
   }
 
-  BouquetenameActive(){
-    return this.http.get(`${this.basePath}${this.Bouquetenameactive}`,this.options)
+  BouquetenameActive() {
+    return this.http.get(`${this.basePath}${this.Bouquetenameactive}`, this.options)
+  }
+
+  BouqueteNameByBroadcasterid(id: any) {
+    return this.http.get(`${this.basePath}${this.BouquetenamebyBoueteid}${id}`, this.options)
   }
 
 
@@ -659,6 +810,10 @@ export class FarginServiceService {
     return this.http.put(`${this.basePath}${this.bouquetEdit}`, Model, this.options)
   }
 
+  BroadcasterSingleStatus(model: any) {
+    return this.http.put(`${this.basePath}${this.bouquetesinglestatus}`, model, this.options)
+  }
+
   DPOViewall() {
     return this.http.get(`${this.basePath}${this.DPOBouqueteViewall}`, this.options)
   }
@@ -675,13 +830,75 @@ export class FarginServiceService {
     return this.http.put(`${this.basePath}${this.DPOBouqueteUpdate}`, model, this.options)
   }
 
-  DpoStatus(model: any) {
-    return this.http.put(`${this.basePath}${this.DPOBouquetestatus}`, model, this.options)
+  DpoStatus(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.DPOBouquetestatus}${id}`, model, this.options)
   }
 
   ActiveDPO() {
     return this.http.get(`${this.basePath}${this.DPOActiveBouqutes}`, this.options)
   }
+
+  DpoSingleChannelStatus(model: any) {
+    return this.http.put(`${this.basePath}${this.DPOSinglechannelstatus}`, model, this.options)
+  }
+
+  //Merchant plan creation
+
+
+  merchantplanviewall() {
+    return this.http.get(`${this.basePath}${this.Merchantplanviewall}`, this.options)
+  }
+
+  merchantplanadd(model: any) {
+    return this.http.post(`${this.basePath}${this.MerchantplanAdd}`, model, this.options)
+  }
+
+  merchantplanUpdate(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.MerchantplanUpdate}${id}`, model, this.options)
+  }
+
+  merchantplanstatus(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.MerchantplanStatus}${id}`, this.options)
+  }
+
+  merchantplanactive() {
+    return this.http.get(`${this.basePath}${this.MerchantActivePlans}`, this.options)
+  }
+
+
+
+  //PG Setup
+  PGsetupget() {
+    return this.http.get(`${this.basePath}${this.pgsetupget}`, this.options);
+  }
+
+  Pgsetupstatus(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.pgsetupstatus}${id}`, model, this.options)
+  }
+
+  Pgsetupcreate(model: any) {
+    return this.http.post(`${this.basePath}${this.pgsetupadd}`, model, this.options)
+  }
+
+  PgsetupUpdate(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.pgsetupedit}${id}`, model, this.options)
+  }
+
+
+  //overall customer
+  OverallCustomer() {
+    return this.http.get(`${this.basePath}${this.Overallcustomer}`, this.options)
+  }
+
+  EntityIndividualCustomerview(id: any) {
+    return this.http.get(`${this.basePath}${this.Entityindividualcustomerview}${id}`, this.options)
+  }
+
+
+
+
+
+
 
 
 
