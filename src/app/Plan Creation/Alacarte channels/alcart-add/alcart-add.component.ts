@@ -16,6 +16,7 @@ export class AlcartAddComponent implements OnInit {
   regiondetails: any;
   file1!: File;
   errorMessage: any;
+  Broadcasters: any;
 
 
   constructor(
@@ -27,6 +28,10 @@ export class AlcartAddComponent implements OnInit {
 
     this.AddAlcart.RegionGetAllActive().subscribe((res: any) => {
       this.regiondetails = res.response;
+    });
+
+    this.AddAlcart.BoucatenamesActive().subscribe((res: any) => {
+      this.Broadcasters = res.response;
     })
 
 
@@ -35,7 +40,7 @@ export class AlcartAddComponent implements OnInit {
       channelName: new FormControl('', Validators.required),
       price: new FormControl('',),
       type: new FormControl('', Validators.required),
-      broadCaster: new FormControl('', Validators.required),
+      bundleChannelId: new FormControl('', Validators.required),
       generic: new FormControl('', Validators.required),
       language: new FormControl('', Validators.required),
       channelNo: new FormControl('', Validators.required),
@@ -70,8 +75,8 @@ export class AlcartAddComponent implements OnInit {
 
   }
 
-  get broadCaster() {
-    return this.myForm.get('broadCaster')
+  get bundleChannelId() {
+    return this.myForm.get('bundleChannelId')
 
   }
   get generic() {
@@ -131,8 +136,8 @@ export class AlcartAddComponent implements OnInit {
     const formData = new FormData();
     formData.append('regionId', this.regionId?.value);
     formData.append('channelName', this.channelName?.value);
-    formData.append('price', this.price?.value);
-    formData.append('broadCaster', this.broadCaster?.value);
+    formData.append('price', this.price?.value || "0");
+    formData.append('bundleChannelId', this.bundleChannelId?.value);
     formData.append('generic', this.generic?.value);
     formData.append('language', this.language?.value);
     formData.append('createdBy', this.getadminname);

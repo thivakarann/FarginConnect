@@ -1,7 +1,7 @@
 <div class="card-header">
     <h3 class="mb-0" style="font-weight: 700;text-align:center;font-size: 21px;">Add KYC Documents</h3>
 </div>
-
+ 
 <body class="page">
     <main class="main page__main">
         <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="KycForm">
@@ -29,7 +29,7 @@
                     *ngIf="documentNumber?.invalid && documentNumber?.touched && documentNumber?.errors?.['pattern']">
                     Please Enter Valid Aadharcard Number*
                 </div>
-
+ 
             </div>
             <div class="form__linput" *ngIf="documentname?.value=='PAN'">
                 <label class="form__label" for="fname">Pancard Number</label>
@@ -83,7 +83,7 @@
                     Please Enter Valid Pancard Number*
                 </div>
             </div>
-            <div class="form__linput" *ngIf="documentname?.value=='Cinch'">
+            <div class="form__linput" *ngIf="documentname?.value=='Cin'">
                 <label class="form__label" for="fname">Cinch Number</label>
                 <input class="form__input" id="fname" type="text" formControlName="cinch" name="gstNumber"
                     placeholder="Enter Cinch number..." required />
@@ -93,6 +93,19 @@
                 </div>
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="cinch?.invalid && cinch?.touched && cinch?.errors?.['pattern']">
+                    Please Enter Valid Pancard Number*
+                </div>
+            </div>
+            <div class="form__linput" *ngIf="documentname?.value=='VoterId'">
+                <label class="form__label" for="fname">VoterId Number</label>
+                <input class="form__input" id="fname" type="text" formControlName="voterid" name="gstNumber"
+                    placeholder="Enter VoterId number..." required />
+                <div style="color: red; font-size: 12px;margin-top: 2px;"
+                    *ngIf="voterid?.invalid && voterid?.touched && voterid?.errors?.['required']">
+                    Field is required
+                </div>
+                <div style="color: red; font-size: 12px;margin-top: 2px;"
+                    *ngIf="voterid?.invalid && voterid?.touched && voterid?.errors?.['pattern']">
                     Please Enter Valid Pancard Number*
                 </div>
             </div>

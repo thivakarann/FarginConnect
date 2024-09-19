@@ -62,16 +62,18 @@
             <div class="row mb-3">
 
                 <div class="col-sm-4 form-group">
-                    <label for="Entity Name">BroadCaster</label>
-                    <input type="text" id="Entity Name" formControlName="broadCaster" placeholder="Entity Name"
-                        class="form-control">
+                    <label for="Bussiness category">Broadcaster</label>
+                    <select formControlName="bundleChannelId" id="Bussiness category" class="form-control form-select">
+                        <option value="" disabled selected>Select</option>
+                        <option *ngFor="let item of Broadcasters" [value]="item.bundleChannelId">{{item.broadCasterName}}</option>
+                    </select>
                     <div style="
-                color: red;
-                font-size: 12px;
-                margin-top: 2px;
-                position: relative;
-                ;
-              " *ngIf="broadCaster?.invalid && broadCaster?.touched && broadCaster?.errors?.['required']">
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="bundleChannelId?.invalid && bundleChannelId?.touched && bundleChannelId?.errors?.['required']">
                         Field is required
                     </div>
                 </div>

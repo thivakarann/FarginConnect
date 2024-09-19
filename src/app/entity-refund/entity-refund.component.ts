@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-entity-refund',
@@ -41,7 +42,8 @@ export class EntityRefundComponent {
     public service: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
-    private ActivateRoute:ActivatedRoute
+    private ActivateRoute:ActivatedRoute,
+    private Location:Location
   ) { }
   ngOnInit(): void {
     this.ActivateRoute.queryParams.subscribe((param: any) => {
@@ -95,4 +97,9 @@ export class EntityRefundComponent {
       this.dataSource.paginator.firstPage();
     }
   }
+
+
+  close(){
+    this.Location.back()
+   }
 }

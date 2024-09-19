@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class AdminAddComponent implements OnInit {
   AdminForm!: FormGroup;
   showPassword: boolean = false;
-  createdBy :any = JSON.parse(localStorage.getItem('adminname') || '');
+  createdBy: any = (localStorage.getItem('adminname') || '');
 
 
   constructor(private service: FarginServiceService, private toaster: ToastrService, private router: Router) { }

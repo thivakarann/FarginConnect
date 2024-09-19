@@ -25,12 +25,13 @@ date2: any;
     'customerName',
     'merchantLegalName',
     'categoryName',
+    'stbNumber',
     'emailAddress',
     'mobileNumber',
+    'Viewcustomer',
     'flatNumber',
     'blockNumber',
-    'stbNumber',
-    'Viewcustomer'
+    
   ];
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;

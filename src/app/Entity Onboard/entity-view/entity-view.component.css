@@ -121,14 +121,7 @@ article.card.customer-details ul li i {
   }
 }
  
-
-@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css";
  
- 
-/*********************************
-         IMPORT FONTS
-**********************************/
-@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
  
 :root {
   --default_font: "Mukta", sans-serif;
@@ -136,9 +129,7 @@ article.card.customer-details ul li i {
 }
  
  
-/*********************************
-        DEFAULT SETTING
-**********************************/
+ 
 *,
 html {
   scroll-behavior: smooth;
@@ -288,10 +279,9 @@ a {
 }
  
  
-
  
-
-@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,700;1,400&display=swap");
+ 
+ 
  
  
  
@@ -429,125 +419,30 @@ body {
 }
  
  
-
  
-
  
-
-
-  @media screen and (max-width:768px) {
-      .row {
-          display: block
-      }
-      .row.header {
-          padding: 0;
-          height: 0
-      }
-      .row.header .cell {
-          display: none
-      }
-      .row .cell:before {
-          font-family: Poppins-Bold;
-          font-size: 12px;
-          color: gray;
-          line-height: 1.2;
-          text-transform: uppercase;
-          font-weight: unset!important;
-          margin-bottom: 13px;
-          content: attr(data-title);
-          min-width: 98px;
-          display: block
-      }
-  }
  
-
-  @media screen and (max-width:768px) {
-      .cell {
-          display: block
-      }
-  }
- 
-  .row .cell {
-      font-family: Poppins-Regular;
-      font-size: 15px;
-      color: #666;
-      line-height: 1.2;
-      font-weight: unset!important;
-      padding-top: 20px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid #f2f2f2
-  }
- 
-  .row.header .cell {
-      font-family: Poppins-Regular;
-      font-size: 18px;
-      color: #fff;
-      line-height: 1.2;
-      font-weight: unset!important;
-      padding-top: 19px;
-      padding-bottom: 19px
-  }
- 
-  .row .cell:nth-child(1) {
-      width: 360px;
-      padding-left: 40px
-  }
- 
-  .row .cell:nth-child(2) {
-      width: 160px
-  }
- 
-  .row .cell:nth-child(3) {
-      width: 250px
-  }
- 
-  .row .cell:nth-child(4) {
-      width: 190px
-  }
-
  
   .row:hover {
       /* background-color: #ececff; */
       cursor: pointer
   }
-
- 
- 
- 
-  h3{
-    margin:5px;
-    padding: 5px;
-}
- 
-.btn-custom{
-border: none;  
-}
- 
-#toolbar-admin{
-    display: none;
-}
-
  
  
  
  
  
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
-body {
-  font-family: 'Montserrat', sans-serif;
-  margin: 0;
-  background-color: #f4f4f4;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+ 
+ 
+ 
+ 
 .navtabs {
   display: flex;
   justify-content: space-evenly;
   background: white;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   border-radius: 8px;
-  padding: 10px 20px;
+  padding:  10px;
   position: relative;
 }
 .navtab {
@@ -607,17 +502,13 @@ body {
 }
  
  
-
-
-table{
-  font-size: 13px;
-  font-weight: 400; 
-}
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 .buttonDownload {
   display: inline-block;
   position: relative;
@@ -631,36 +522,48 @@ table{
   border: none;
   border-radius: 5px;
  }
+ 
+ 
+ .button1 {
+  background-color: #141E46;
+  border: 1px solid #141E46;
+  border-radius: .5rem;
+  color: #f9fafb;
+  font-size: .875rem;
+  line-height: 1.25rem;
+  padding: .25rem 0.50rem;
+  width: 80px;
+  text-align: center;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+}
  .w-50{
   /* background-color:#7db855be; */
   color: #141E46;
  }
-
-
+ 
+ 
  /* Custom CSS for sticky header */
  .table-responsive {
   max-height: 400px; /* Adjust based on your needs */
   position: relative;
+  overflow-y: hidden;
 }
  
-.table-responsive thead {
-  position: sticky;
-  top: 0;
-  background-color: #343a40; /* Bootstrap dark background for table header */
-  color: #fff; /* Text color for the header */
-  z-index: 10; /* Ensure header stays above the table content */
-}
- 
-.table thead th {
-  white-space: nowrap; /* Prevent text from wrapping */
-}
  
 /* Optional: Responsive design for smaller screens */
 @media (max-width: 768px) {
   .table-responsive {
       display: block;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch; /* Smooth scrolling on touch devices */
+      overflow-x: scroll;
+      /* -webkit-overflow-scrolling: touch; Smooth scrolling on touch devices */
   }
  
   .table {
@@ -670,11 +573,128 @@ table{
  
  
  th{
-  background-color: #7db855be;
+  background-color: #bcdf72 !important;
+  color: #141E46;
+  font-weight: 600;
+  font-size:14px;
   white-space: nowrap;
+  text-shadow: #ffffff;
+  text-align: center;
 }
-
+ 
 td{
   white-space: nowrap;
   background-color: #fff;
+}
+/* From Uiverse.io by satyamchaudharydev */
+/* From uiverse.io by @satyamchaudharydev */
+/* this button is inspired by -- whatsapp input */
+/* == type to see fully interactive and click the close buttom to remove the text  == */
+ 
+form {
+  --input-bg: #FFf;
+  /*  background of input */
+  --padding: 1.5em;
+  --rotate: 80deg;
+  /*  rotation degree of input*/
+  --gap: 2em;
+  /*  gap of items in input */
+  --icon-change-color: #15A986;
+  /*  when rotating changed icon color */
+  --height: 40px;
+  /*  height */
+  width: 230px;
+  padding-inline-end: 1em;
+  /*  change this for padding in the end of input */
+  background: var(--input-bg);
+  position: relative;
+  border-radius: 15px;
+}
+.form label {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: var(--height);
+}
+.form input {
+  width: 100%;
+  padding-inline-start: calc(var(--padding) + var(--gap));
+  outline: none;
+  background: none;
+  border: 0;
+}
+/* style for both icons -- search,close */
+.form svg {
+  /* display: block; */
+  color: #111;
+  transition: 0.3s cubic-bezier(.4,0,.2,1);
+  position: absolute;
+  height: 15px;
+}
+/* search icon */
+.icon {
+  position: absolute;
+  left: var(--padding);
+  transition: 0.3s cubic-bezier(.4,0,.2,1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* arrow-icon*/
+.swap-off {
+  transform: rotate(-80deg);
+  opacity: 0;
+  visibility: hidden;
+}
+/* close button */
+.close-btn {
+  /* removing default bg of button */
+  background: none;
+  border: none;
+  right: calc(var(--padding) - var(--gap));
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111;
+  padding: 0.1em;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  transition: 0.3s;
+  opacity: 0;
+  transform: scale(0);
+  visibility: hidden;
+}
+.form input:focus ~ .icon {
+  transform: rotate(var(--rotate)) scale(1.3);
+}
+.form input:focus ~ .icon .swap-off {
+  opacity: 1;
+  transform: rotate(-80deg);
+  visibility: visible;
+  color: var(--icon-change-color);
+}
+.form input:focus ~ .icon .swap-on {
+  opacity: 0;
+  visibility: visible;
+}
+.form input:valid ~ .icon {
+  transform: scale(1.3) rotate(var(--rotate))
+}
+ 
+.form input:valid ~ .icon .swap-off {
+  opacity: 1;
+  visibility: visible;
+  color: var(--icon-change-color);
+}
+.form input:valid ~ .icon .swap-on {
+  opacity: 0;
+  visibility: visible;
+}
+.form input:valid ~ .close-btn {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  transition: 0s;
 }

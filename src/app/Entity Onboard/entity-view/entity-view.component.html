@@ -1,6 +1,11 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<div class="d-flex justify-content-end mb-1">
+    <button class="button1" (click)="close()">Back</button>
+</div>
+
 <div class="navtabs">
     <div class="navtab" data-target="home"><i class="fa-solid fa-building-columns"></i>&nbsp;&nbsp;Transaction</div>
     <div class="navtab" data-target="about" (click)="viewsettlement(this.id)"><i
@@ -12,8 +17,9 @@
     <div class="navtab" data-target="page5" (click)="Viewcustomer(this.id)"><i
             class="fa-solid fa-user"></i>&nbsp;&nbsp;Customers</div>
 
-    <div class="underline"></div>
 </div>
+
+
 <div class="tab-container">
     <div class="tabs">
         <button class="tab" [class.active]="activeTab === 'events'" (click)="selectTab('events')">General
@@ -22,13 +28,22 @@
             Information</button>
         <button class="tab" [class.active]="activeTab === 'videos'" (click)="selectTab('videos')">KYC Documents</button>
         <button class="tab" [class.active]="activeTab === 'doot1'" (click)="selectTab('doot1')">Final Approval</button>
-
     </div>
     <div class="tab-content" *ngIf="activeTab === 'events'">
         <div class="filters">
             <div class="col-12">
+                <div class="row">
+                    <div class="col-md-10">
+                        <h5 class="p-1 mx-3" style="color: #141E46;font-weight: 500;font-size:20px;">Personal
+                            Information</h5>
+                    </div>
+                    <div class="col-md-2 d-flex justify-content-end">
+                        <i class="fas fa-edit" style="color: #141E46;font-weight: 500;font-size:20px;"
+                            (click)="editpersonalInfo(this.id)"></i>
+                    </div>
+                </div>
+                <hr>
                 <article class=" car-details label-info">
-
                     <div class="d-flex flex-md-row align-items-md-start align-items-center flex-column">
                         <div class="w-100">
                             <div class="container-fluid">
@@ -164,30 +179,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- <div class="col-12">
-                                        <div class="d-flex flex-md-row flex-column align-items-center justify-content-end">
-                                            <button class="btn btn-success w-100 mb-md-0 mb-3 mr-md-3 mr-0"><i
-                                                    class="fas fa-phone"></i> Contact Seller</button>
-                                            <button class="btn btn-default w-100 mb-md-0 mb-3 mr-md-3 mr-0"><i
-                                                    class="fas fa-parking"></i> Park</button>
-                                            <button class="btn btn-default w-100"><i class="fas fa-comment"></i> Comments
-                                                (18)</button>
-                                        </div>
-                                    </div> -->
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </article>
-
-
-
-
             </div>
             <button class="btn clear"></button>
         </div>
-        <h5 class="p-3 mx-3 mt-1" style="color: #141E46;">Personal Approval Status</h5>
+        <h5 class="p-1 mx-3" style="color: #141E46;font-weight: 500;font-size:20px;">Personal Approval Status</h5>
         <hr>
         <div class="filters">
             <div class="col-12">
@@ -242,127 +242,180 @@
         </div>
     </div>
     <div *ngIf="activeTab === 'materials'">
-        <div class="row">
-            <div class="col-md-3 mt-3 ">
-                <div class="search me-3 mb-3 mx-1">
-                    <input style="font-size: 13px;" type="text" class="form-control" [(ngModel)]="term"
-                        placeholder="Search">
+
+        <mat-card-header>
+            <div class="row  d-flex justify-content-start">
+                <div class="col-md-3">
+                    <div class="search ">
+                        <form class="form">
+                            <label for="search">
+                                <input #input required="" autocomplete="off" placeholder="Search" id="search"
+                                    type="text" [(ngModel)]="searchText">
+                                <div class="icon">
+                                    <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                                        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                                            stroke-linecap="round"></path>
+                                    </svg>
+                                    <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                                        <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
+                                            stroke-linecap="round">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <button type="reset" class="close-btn">
+                                    <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                                        <path clip-rule="evenodd"
+                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                            fill-rule="evenodd"></path>
+                                    </svg>
+                                </button>
+                            </label>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-2 mt-1">
+                    <button (click)="addbank(this.id)"
+                        style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Add
+                        Bank</button>
+                </div>
+
+
+            </div>
+        </mat-card-header>
+
+        <div class="row mt-4">
+            <div class="col-12 mb-3 mb-lg-5">
+                <div class="card table-nowrap table-card">
+                    <div class="table-responsive text-nowrap text-center">
+                        <table class="table table-hover" id="customers">
+                            <tr>
+                                <th>S No </th>
+                                <th>Beneficiary Name</th>
+                                <th>Account Number</th>
+                                <th>Account Type</th>
+                                <th>IFSC Code</th>
+                                <th>Bank Name</th>
+                                <th>Branch Name</th>
+                                <th>Approval Status</th>
+                                <th>Bank Status</th>
+                                <th>Primary Status</th>
+                                <th>Approval</th>
+                                <th>Approvet At</th>
+                                <th>Comments</th>
+                                <th>Action</th>
+                                <th>Verification</th>
+                            </tr>
+                            <tbody
+                                *ngFor="let item of bankdetails| paginate: { itemsPerPage: 3, currentPage: currentPage } | search: searchText;let i=index">
+                                <td>{{i+1}}</td>
+                                <td>{{item.accountHolderName}}</td>
+                                <td>{{item.accountNumber}}</td>
+                                <td>{{item.accountType}}</td>
+                                <td>{{item.ifscCode}}</td>
+                                <td>{{item.bankName}}</td>
+                                <td>{{item.branchName}}</td>
+                                <td [ngClass]="{
+                                                    yellow: item?.approvalStatus === 'Pending',
+                                                    green: item?.approvalStatus === 'approved',
+                           
+                                                    Red: item?.approvalStatus == 'Rejected'
+                                                  }">{{item.approvalStatus}}</td>
+                                <td><span> <mat-slide-toggle class="example-margin" color="primary"
+                                            [checked]="item.activeStatus==1"
+                                            (change)="bankStatus($event,item.merchantBankId)">
+                                        </mat-slide-toggle></span>
+
+                                </td>
+                                <td><span>
+                                        <mat-slide-toggle class="example-margin" color="primary"
+                                            [checked]="item.primaryAccountStatus==1"
+                                            (change)="onSubmit($event,item.merchantBankId)">
+                                        </mat-slide-toggle>
+                                    </span>
+
+                                </td>
+                                <td><button class="buttonDownload"
+                                        (click)="BankApproval(item.merchantBankId)">Approval</button>
+                                </td>
+                                <td>{{item.approvalDateTime|date:"dd/MM/yyyy hh:mm:a"}}</td>
+                                <td><span (click)="BankComments(item.reMarks)"><i class="fas fa-comments"
+                                            style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
+                                </td>
+
+                                <td><span><i style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"
+                                            (click)="editbank(item)" class="fas fa-edit"></i></span></td>
+                                <td>
+                                    <span>
+                                        <i style="overflow:hidden;color:#141E46;font-size:20px;"
+                                            [matMenuTriggerFor]="menu" class="fa-solid fa-circle-info">
+                                            <mat-menu #menu="matMenu">
+                                                <button style="font-size: 10px;" mat-menu-item
+                                                    (click)="bankInfo(item.bavId)">Info</button>
+                                                <button style="font-size: 10px;" mat-menu-item
+                                                    [disabled]="item.facheckStatus==1"
+                                                    (click)="bankVerification(item.merchantBankId)">Verify</button>
+                                                <button style="font-size: 10px;" mat-menu-item
+                                                    [disabled]="item.facheckStatus==0  || item.facheckStatus==2"
+                                                    (click)="bankVerification(item.merchantBankId)">
+                                                    Re-Verify </button>
+                                            </mat-menu>
+                                        </i>
+                                    </span>
+                                </td>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="text-end mt-3">
+                        <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6">
-            </div>
-            <div class="d-flex justify-content-end col-md-3 mt-1">
-                <button (click)="addbank(this.id)" style="color:white;background-color: #141E46;border-radius: 10px;"
-                    mat-raised-button>Add Bank</button>
-            </div>
         </div>
-        <div class="container">
-            <div class="table-responsive">
-                <table class="table table-hover table-striped">
-                    <tr>
-                        <th>S No </th>
-                        <th>Beneficiary Name</th>
-                        <th>Account Number</th>
-                        <th>Account Type</th>
-                        <th>IFSC Code</th>
-                        <th>Bank Name</th>
-                        <th>Branch Name</th>
-                        <th>Approval Status</th>
-                        <th>Bank Status</th>
-                        <th>Primary Status</th>
-                        <th>Approval</th>
-                        <th>Approvet At</th>
-                        <th>Comments</th>
-                        <th>Action</th>
-                        <th>Verification</th>
-                    </tr>
-
-                    <!-- <div *ngIf="(bankdetails|filterBy:term)?.length===0" class="text-center">
-                        <h6 style="color:red;">No Data Found</h6>
-                    </div> -->
-                    <tbody
-                        *ngFor="let item of bankdetails| paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage } | search: searchText;let i=index">
-                        <td>{{i+1}}</td>
-                        <td>{{item.accountHolderName}}</td>
-                        <td>{{item.accountNumber}}</td>
-                        <td>{{item.accountType}}</td>
-                        <td>{{item.ifscCode}}</td>
-                        <td>{{item.bankName}}</td>
-                        <td>{{item.branchName}}</td>
-                        <td [ngClass]="{
-                                                yellow: item?.approvalStatus === 'Pending',
-                                                green: item?.approvalStatus === 'approved',
-                       
-                                                Red: item?.approvalStatus == 'Rejected'
-                                              }">{{item.approvalStatus}}</td>
-                        <td><span> <mat-slide-toggle class="example-margin" color="primary"
-                                    [checked]="item.activeStatus==1" (change)="bankStatus($event,item.merchantBankId)">
-                                </mat-slide-toggle></span>
-
-                        </td>
-                        <td><span>
-                                <mat-slide-toggle class="example-margin" color="primary"
-                                    [checked]="item.primaryAccountStatus==1"
-                                    (change)="onSubmit($event,item.merchantBankId)">
-                                </mat-slide-toggle>
-                            </span>
-
-                        </td>
-                        <td><button class="buttonDownload" (click)="BankApproval(item.merchantBankId)">Approval</button>
-                        </td>
-                        <td>{{item.approvalDateTime|date:"dd/MM/yyyy hh:mm:a"}}</td>
-                        <td style="text-align: center;font-size: 17px;cursor: pointer;"><span
-                                (click)="BankComments(item.reMarks)"><i class="fas fa-comments"></i></span>
-                        </td>
-
-                        <td><span><i style="text-align: center;cursor: pointer;font-size: 17px;"
-                                    (click)="editbank(item)" class="fa fa-edit"></i></span></td>
-                        <td class="text-center">
-                            <p class="form-label"><span> <i style="overflow:hidden" [matMenuTriggerFor]="menu"
-                                        class="fa fa-ellipsis-v">
-                                        <mat-menu #menu="matMenu">
-                                            <button style="font-size: 10px;" mat-menu-item
-                                                (click)="bankInfo(item.bavId)">Info</button>
-                                            <button style="font-size: 10px;" mat-menu-item
-                                                [disabled]="item.facheckStatus==1"
-                                                (click)="bankVerification(item.merchantBankId)">Verify</button>
-                                            <button style="font-size: 10px;" mat-menu-item
-                                                [disabled]="item.facheckStatus==0  || item.facheckStatus==2"
-                                                (click)="bankVerification(item.merchantBankId)">
-                                                Re-Verify </button>
-                                        </mat-menu>
-                                    </i>
-                                </span>
-                            </p>
-                        </td>
-
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="text-end mt-3">
-                <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
-            </div>
-        </div>
-
     </div>
     <div *ngIf="activeTab === 'videos'">
-        <div class="row">
-            <div class="col-md-3 mt-3 ">
-                <div class="search me-3 mb-3 mx-1">
-                    <input style="font-size: 13px;" type="text" class="form-control" [(ngModel)]="term"
-                        placeholder="Search">
+        <mat-card-header>
+            <div class="row  d-flex justify-content-start">
+                <div class="col-md-3">
+                    <div class="search ">
+                        <form class="form">
+                            <label for="search">
+                                <input #input required="" autocomplete="off" placeholder="Search" id="search"
+                                    type="text" [(ngModel)]="searchText">
+                                <div class="icon">
+                                    <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                                        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                                            stroke-linecap="round"></path>
+                                    </svg>
+                                    <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                                        <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
+                                            stroke-linecap="round">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <button type="reset" class="close-btn">
+                                    <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                                        <path clip-rule="evenodd"
+                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                            fill-rule="evenodd"></path>
+                                    </svg>
+                                </button>
+                            </label>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-2 mt-1">
+                    <button (click)="addKycdocuments(this.id,this.businessCategoryId)"
+                        style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Add
+                        KYC</button>
                 </div>
             </div>
-            <div class="col-md-6">
-            </div>
-            <div class="d-flex justify-content-end col-md-3 mt-1">
-                <button (click)="addKycdocuments(this.id,this.businessCategoryId)"
-                    style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Add
-                    KYC</button>
-            </div>
-        </div>
-        <div class="row">
+        </mat-card-header>
+
+        <div class="row mt-4">
             <div class="col-12 mb-3 mb-lg-5">
                 <div class="card table-nowrap table-card">
                     <div class="table-responsive text-nowrap text-center">
@@ -371,8 +424,7 @@
                                 <th>S No </th>
                                 <th>KYC Name</th>
                                 <th>KYC Number</th>
-                                <th>KYC Front Path</th>
-                                <th>KYC Back Path</th>
+                                <th>KYC File</th>
                                 <th>Approval Status</th>
                                 <th>Approval</th>
                                 <th>Approved By</th>
@@ -383,35 +435,37 @@
                                 <th>Verfication </th>
                             </tr>
                             <!-- <div *ngIf="(KYCDetails|filter:term)?.length===0" class="text-center">
-                                <h6 style="color:red;">No Data Found</h6>
-                            </div> -->
-                            <tbody *ngFor="let item of KYCDetails,let i=index">
+                                    <h6 style="color:red;">No Data Found</h6>
+                                </div> -->
+                            <tbody
+                                *ngFor="let item of KYCDetails| paginate: { itemsPerPage: 3, currentPage: currentPage } | search: searchText;let i=index">
                                 <td>{{i+1}}</td>
                                 <td>{{item.docName}}</td>
                                 <td>{{item.docNumber}}</td>
-                                <td><span (click)="getFrontPath(item.merchantDocumentId)"><i class='fas fa-file-alt'
-                                            style='font-size:15px;cursor: pointer;color:#545497;'></i></span></td>
-                                <td><span (click)="getBackPath(item.merchantDocumentId)"><i class='fas fa-file-alt'
-                                            style='font-size:15px;cursor: pointer;color:#545497;'></i></span></td>
+                                <td><span (click)="getFrontPath(item.merchantDocumentId)"><i class='fa-regular fa-image'
+                                            style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
+                                    <span (click)="getBackPath(item.merchantDocumentId)"><i class='fa-regular fa-image'
+                                            style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
+                                </td>
                                 <td [ngClass]="{
-                                                    yellow: item?.approvalStatus === 'Pending',
-                                                    green: item?.approvalStatus === 'approved',
-                           
-                                                    Red: item?.approvalStatus == 'Rejected'
-                                                  }">{{item.approvalStatus}}</td>
+                                                        yellow: item?.approvalStatus === 'Pending',
+                                                        green: item?.approvalStatus === 'approved',
+                               
+                                                        Red: item?.approvalStatus == 'Rejected'
+                                                      }">{{item.approvalStatus}}</td>
                                 <td><button class="buttonDownload"
                                         (click)="KycApproval(item.merchantDocumentId)">Approval</button>
                                 <td>
                                     {{item.approvalBy}}
                                 </td>
                                 <td>{{item.approvalDateTime}}</td>
-                                <td style="text-align: center;font-size:15px;cursor: pointer;color:#545497;"><span
-                                        (click)="KYCComments(item.reMarks)"><i class="fas fa-comments"></i></span>
+                                <td><span (click)="KYCComments(item.reMarks)"><i class="fas fa-comments"
+                                            style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
                                 </td>
-                                <td style="text-align: center;font-size:15px;cursor: pointer;color:#545497;"><span
-                                        (click)="editKycDocuments(item.merchantDocumentId)"><i
-                                            class="fa fa-edit"></i></span>
+                                <td><span (click)="editKycDocuments(item.merchantDocumentId)"><i class="fas fa-edit"
+                                            style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
                                 </td>
+
                                 <td class="text-center">
                                     <span *ngIf="item.facheckStatus == 1"
                                         style="font-size:14px;color:green;">Verified</span>
@@ -419,22 +473,23 @@
                                         Not-Verified</span>
                                 </td>
                                 <td>
-                                    <p class="form-label"> <span>
-                                            <i style="overflow:hidden" [matMenuTriggerFor]="menu"
-                                                class="fa fa-ellipsis-v">
-                                                <mat-menu #menu="matMenu">
-                                                    <button style="font-size: 10px;" mat-menu-item>Info</button>
-                                                    <button style="font-size: 10px;" mat-menu-item
-                                                        [disabled]="item.kycId==1"
-                                                        (click)="FacheckVerification(item.docName,item.docNumber,item.merchantDocumentId,item.approvalBy)">Verify</button>
-                                                    <button style="font-size: 10px;" mat-menu-item
-                                                        [disabled]="item.kycId==0"
-                                                        (click)="FacheckVerification(item.docName,item.docNumber,item.kycId,item.approvalBy)">
-                                                        Re-Verify </button>
-                                                </mat-menu>
-                                            </i>
-                                        </span>
-                                    </p>
+                                    <span>
+                                        <i style="overflow:hidden;color:#141E46;font-size:20px;"
+                                            [matMenuTriggerFor]="menu" class="fa-solid fa-circle-info">
+                                            <mat-menu #menu="matMenu">
+                                                <button style="font-size: 10px;" mat-menu-item
+                                                    (click)="KycInfo(item.kycId,item.docName)">Info</button>
+                                                <button style="font-size: 10px;" mat-menu-item
+                                                    [disabled]="item.kycId==1"
+                                                    (click)="FacheckVerification(item.docName,item.docNumber,item.merchantDocumentId,item.approvalBy)">Verify</button>
+                                                <button style="font-size: 10px;" mat-menu-item
+                                                    [disabled]="item.kycId==0"
+                                                    (click)="FacheckVerification(item.docName,item.docNumber,item.kycId,item.approvalBy)">
+                                                    Re-Verify </button>
+                                            </mat-menu>
+                                        </i>
+                                    </span>
+
                                 </td>
                             </tbody>
                         </table>
@@ -447,19 +502,42 @@
         </div>
     </div>
     <div *ngIf="activeTab === 'doot1'">
-        <div class="row">
-            <div class="col-md-3 mt-3 ">
-                <div class="search me-3 mb-3 mx-1">
-                    <input style="font-size: 13px;" type="text" class="form-control" [(ngModel)]="term"
-                        placeholder="Search">
+        <mat-card-header>
+            <div class="row  d-flex justify-content-start">
+                <div class="col-md-3">
+                    <div class="search ">
+                        <form class="form">
+                            <label for="search">
+                                <input #input required="" autocomplete="off" placeholder="Search" id="search"
+                                    type="text" [(ngModel)]="searchText">
+                                <div class="icon">
+                                    <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                                        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                                            stroke-linecap="round"></path>
+                                    </svg>
+                                    <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                                        <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
+                                            stroke-linecap="round">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <button type="reset" class="close-btn">
+                                    <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                                        <path clip-rule="evenodd"
+                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                            fill-rule="evenodd"></path>
+                                    </svg>
+                                </button>
+                            </label>
+                        </form>
+                    </div>
                 </div>
+
             </div>
-            <div class="col-md-6">
-            </div>
-            <div class="d-flex justify-content-end col-md-3 mt-1">
-            </div>
-        </div>
-        <div class="row">
+        </mat-card-header>
+        <div class="row mt-4">
             <div class="col-12 mb-3 mb-lg-5">
                 <div class="card table-nowrap table-card">
                     <div class="table-responsive text-nowrap text-center">
@@ -474,8 +552,8 @@
                             </tr>
                             <tbody>
                                 <!-- <div *ngIf="(detaislone|filterBy:term)?.length===0" class="text-center">
-                                    <h6 style="color:red;">No Data Found</h6>
-                                </div> -->
+                                        <h6 style="color:red;">No Data Found</h6>
+                                    </div> -->
                                 <td class="text-center">1</td>
                                 <td class="text-center">{{this.detaislone?.approvalStatusL2}}</td>
                                 <td class="text-center">{{this.detaislone?.approvedByL2}}</td>
@@ -490,17 +568,10 @@
                     </div>
                 </div>
                 <div class="text-end mt-3">
-                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    <pagination-controls (pageChange)="p= $event"></pagination-controls>
                 </div>
             </div>
 
         </div>
     </div>
 </div>
-
-
-
-<!-- Bootstrap JS and dependencies -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

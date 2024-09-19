@@ -55,6 +55,7 @@ import { ViewbeneficiaryComponent } from './Beneficiary/viewbeneficiary/viewbene
 import { AddbeneficiaryComponent } from './Beneficiary/addbeneficiary/addbeneficiary.component';
 import { EditbeneficiaryComponent } from './Beneficiary/editbeneficiary/editbeneficiary.component';
 import { ProfileComponent } from './profile/profile.component';
+import { BouqutesAddComponent } from './Plan Creation/Broadcaster Bouqutes/bouqutes-add/bouqutes-add.component';
 
 const routes: Routes = [
 
@@ -91,7 +92,7 @@ const routes: Routes = [
       { path: 'viewticket', component: ViewticketComponent },
       { path: 'view-role', component: ViewRoleComponent },
       { path: 'Region', component: RegionComponent },
-      {path:"dashboard-content",component:DashboardComponent},
+      { path: "dashboard-content", component: DashboardComponent },
       { path: 'view-serviceprovider', component: ServiceProviderComponent },
       { path: 'view-admin/:id', component: AdmincreationViewComponent },
       { path: 'service-provider', component: ServiceProviderComponent },
@@ -105,6 +106,7 @@ const routes: Routes = [
       { path: "bouqutes-view/:id", component: BouqutesViewComponent },
       { path: 'bouquete-plan-viewall', component: BouquetePlanViewallComponent },
       { path: "dpoviewall", component: DPOViewallComponent },
+      { path: 'bouqutes-add', component: BouqutesAddComponent },
       { path: "dpo-view/:id", component: DpoViewComponent },
       { path: 'merchant-plan-viewall', component: MerchantPlanViewallComponent },
       { path: "pgsetup-view", component: PgsetupViewComponent },

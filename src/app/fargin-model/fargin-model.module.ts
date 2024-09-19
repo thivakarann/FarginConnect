@@ -249,7 +249,14 @@ export interface Editwithdrawal {
   readonly modifiedBy: any;
 }
 export interface StatusWithdrawal {
-  readonly isWithrawalStatus: any
+  readonly withrawalStatus: any
+}
+
+
+export interface VoterIdVerify {
+  readonly kycId: any;
+  readonly docNumber: any;
+  // readonly approvalBy: any;
 }
 
 
@@ -462,10 +469,14 @@ export interface BouquetenameUpdate {
 
 
 export interface BroadcasterBouquetadd {
+  readonly boqCreationId: any;
+  readonly serviceId: any;
   readonly bundleChannelId: any;
   readonly alcotId: any;
+  readonly regId: any;
   readonly amount: any;
-  readonly boqCreationId: any;
+  readonly createdBy: any;
+
 }
 
 export interface BroadcasterBouquetStatus {

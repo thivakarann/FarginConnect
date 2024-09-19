@@ -54,6 +54,10 @@ export class BouquetsViewallComponent implements OnInit {
     });
   }
 
+  adds(){
+    this.router.navigateByUrl('/dashboard/bouqutes-add')
+  }
+
   add() {
     this.dialog.open(BouqutesAddComponent, {
       enterAnimationDuration: '500ms',

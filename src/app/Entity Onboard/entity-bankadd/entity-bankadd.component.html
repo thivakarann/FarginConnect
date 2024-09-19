@@ -1,13 +1,13 @@
 <div class="card-header">
-    <h3 class="mb-0" style="font-weight: 700;text-align:center;font-size: 21px;">Add Bank Details</h3>
+    <h3 class="mb-0" style="font-weight: 700;text-align:center;font-size: 21px;">Add BankDetails</h3>
 </div>
-
+ 
 <body class="page">
     <main class="main page__main">
         <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="BankForm">
             <div class="row mb-3">
                 <div class="col-sm-6 form-group">
-                    <label for="Entity Name">AccountHolderName*</label>
+                    <label class="form__label" for="Entity Name">AccountHolderName*</label>
                     <input type="text" id="Entity Name" formControlName="accountHolderName" class="form-control">
                     <div style="
                     color: red;
@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6 form-group">
-                    <label for="state">Account Number*</label>
+                    <label for="state" class="form__label">Account Number*</label>
                     <input type="text" formControlName="accountNumber" id="state" class="form-control">
                     <div style="
                     color: red;
@@ -35,7 +35,7 @@
             </div>
             <div class="row mb-3">
                 <div class="col-sm-6 form-group">
-                    <label for="zip">Bank Name*</label>
+                    <label for="zip" class="form__label">Bank Name*</label>
                     <input type="text" formControlName="bankName" id="zip" class="form-control">
                     <div style="
                     color: red;
@@ -47,9 +47,9 @@
                         Field is required
                     </div>
                 </div>
-
+ 
                 <div class="col-sm-6 form-group">
-                    <label for="Entity Name">BranchName*</label>
+                    <label for="Entity Name" class="form__label">BranchName*</label>
                     <input type="text" id="Entity Name" formControlName="branchName" class="form-control">
                     <div style="
                     color: red;
@@ -64,7 +64,7 @@
             </div>
             <div class="row mb-3">
                 <div class="col-sm-6 form-group">
-                    <label for="Entity Name">IFSC Code*</label>
+                    <label for="Entity Name" class="form__label">IFSC Code*</label>
                     <input type="text" id="Entity Name" formControlName="ifscCode" class="form-control">
                     <div style="
                     color: red;
@@ -77,15 +77,15 @@
                     </div>
                 </div>
                 <div class="col-sm-6 form-group">
-                    <label for="Bussiness category">Account Type</label>
+                    <label for="Bussiness category" class="form__label">Account Type</label>
                     <select formControlName="accountType" id="Bussiness category" class="form-control form-select">
                         <option value="" disabled selected>Select</option>
                         <option value="Savings account">Savings account</option>
                         <option value="Salary account">Salary account</option>
                         <option value="Fixed deposit account">Fixed deposit account</option>
                         <option value="Recurring deposit account">Recurring deposit account</option>
-
-
+ 
+ 
                     </select>
                     <div style="
                     color: red;
@@ -98,7 +98,7 @@
                     </div>
                 </div>
             </div>
-
+ 
             <div>
                 <button (click)="submit()" [disabled]="BankForm.invalid" type="submit" class="btn mx-1 "
                     style="background-color:#7db855be">Submit</button>
@@ -106,8 +106,8 @@
                     matDialogClose>Cancel</button>
             </div>
    
-
-
+ 
+ 
         </form>
     </main>
 </body>

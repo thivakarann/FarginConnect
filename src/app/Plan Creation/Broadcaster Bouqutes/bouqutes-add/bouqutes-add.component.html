@@ -2,14 +2,14 @@
 
     <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="mb-0">Create Broadcaster Bouqutes </h5>
-        <button type="button" class="btn btn-secondary" matDialogClose>Back</button>
+        <button type="button" class="btn btn-secondary" (click)="close()">Back</button>
     </div>
     <div class="well" style="margin-top: 0px;">
 
         <form [formGroup]="myForm">
 
             <div class="row">
-                <div class="form-group">
+                <div class=" col-6 form-group">
                     <label for="Bussiness category">Select Broadcaster </label>
                     <select [(ngModel)]="channleid" (ngModelChange)="name(channleid)" formControlName="bundleChannelId"
                         id="Bussiness category" class="form-control form-select">
@@ -30,7 +30,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class=" col-6 form-group">
                     <label for="Bussiness category">Broadcaster Plans</label>
                     <select formControlName="boqCreationId" id="Bussiness category" class="form-control form-select">
                         <option value="" disabled selected>Select</option>
@@ -49,16 +49,64 @@
                         Field is required
                     </div>
                 </div>
+            </div>
+            <div class="row">
+                <div class="col-6 form-group">
+                    <label for="Bussiness category">Service Provider (MSO)</label>
+                    <select [(ngModel)]="serviceproviderid" (ngModelChange)="getregions(serviceproviderid)"
+                        formControlName="serviceId" id="Bussiness category" class="form-control form-select">
+                        <option value="" disabled selected>Select</option>
+                        <option *ngFor="let item of ActiveMSO" [value]="item.serviceId">{{item.serviceProviderName}}
+                        </option>
 
-                <div class="form-group ">
+
+                    </select>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="serviceId?.invalid && serviceId?.touched && serviceId?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+                <div class="  col-6 form-group ">
+                    <label for="Entity Name">Regions</label>
+                    <mat-select #selects style="font-size: 12px;" class="form-select" multiple formControlName="regId">
+                        <div class="select-all">
+                            <mat-checkbox [(ngModel)]="allselected" [ngModelOptions]="{standalone: true}"
+                                (change)="toggleAllSelections()">Select All</mat-checkbox>
+                        </div>
+                        <mat-option [value]="items.regionId" *ngFor="let items of ActiveRegions">
+
+                            {{items?.stateName}}</mat-option>
+                    </mat-select>
+
+                    <div style="
+            color: red;
+            font-size: 12px;
+            margin-top: 2px;
+            position: relative;
+            ;
+          " *ngIf="regId?.invalid && regId?.touched && regId?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-6 form-group ">
                     <label for="Entity Name">Channels List</label>
-                    <mat-select #select style="font-size: 12px;" class="form-select" multiple
-                        formControlName="alcotId">
+                    <mat-select #select style="font-size: 12px;" class="form-select" multiple formControlName="alcotId">
                         <div class="select-all">
                             <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
                                 (change)="toggleAllSelection()">Select All</mat-checkbox>
                         </div>
-                        <mat-option [value]="items.alcotId" *ngFor="let items of channelslist">{{items?.channelslist}}
+                        <mat-option [value]="items.alcotId" *ngFor="let items of channelslist">
 
                             {{items?.channelName}}</mat-option>
                     </mat-select>
@@ -74,7 +122,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-12 form-group ">
+                <div class=" col-6 form-group ">
                     <label for="Entity Name">Bouquet Price</label>
                     <input type="text" id="Entity Name" formControlName="amount" class="form-control">
                     <div style="

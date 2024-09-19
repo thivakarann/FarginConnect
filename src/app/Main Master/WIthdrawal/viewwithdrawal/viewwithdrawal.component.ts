@@ -73,9 +73,12 @@ export class ViewwithdrawalComponent {
     let sno = 1;
     this.responseDataListnew = [];
     this.viewwithdrawal.forEach((element: any) => {
-      let createdate = element.createdAt;
+      let createdate = element?.createdDatetime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-
+ 
+      let moddate = element?.modifiedDatetime;
+      this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
+ 
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.amountRange);
@@ -84,7 +87,7 @@ export class ViewwithdrawalComponent {
       this.response.push(element?.fees);
       this.response.push(element?.mode);
       this.response.push(element?.gstType)
-
+ 
       if (element?.status == 'true') {
         this.response.push("Active");
       }
@@ -92,17 +95,17 @@ export class ViewwithdrawalComponent {
         this.response.push("Inactive");
       }
       this.response.push(element?.createdBy);
-      this.response.push(element?.createdDatetime);
+      this.response.push(this.date1);
       this.response.push(element?.modifiedBy);
-      this.response.push(element?.modifiedDatetime);
+      this.response.push(this.date2);
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
-
+ 
   excelexportCustomer() {
-    const title = 'Facheck';
+    const title = 'Withdrawal Fee';
     const header = [
       "S.No",
       "Amount Range",
@@ -122,23 +125,23 @@ export class ViewwithdrawalComponent {
     let worksheet = workbook.addWorksheet('Facheck');
     let titleRow = worksheet.addRow([title]);
     titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
-
+ 
+ 
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
-
+ 
     headerRow.eachCell((cell, number) => {
       cell.fill = {
         type: 'pattern',
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
-
+ 
       }
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
-
+ 
     data.forEach((d: any) => {
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
@@ -172,10 +175,11 @@ export class ViewwithdrawalComponent {
       FileSaver.saveAs(blob, 'Withdrawal.xlsx');
     });
   }
+ 
   onSubmit(event: MatSlideToggleChange, id: any) {
     this.isChecked = event.checked;
     let submitModel: StatusWithdrawal = {
-      isWithrawalStatus: this.isChecked ? true : false,
+      withrawalStatus: this.isChecked ? true : false,
     };
     this.service.statuswithdrawals(id, submitModel).subscribe((res: any) => {
       console.log(res);
@@ -185,6 +189,7 @@ export class ViewwithdrawalComponent {
       }, 1000);
     });
   }
+
   add() {
 
     this.dialog.open(AddwithdrawalComponent, {

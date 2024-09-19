@@ -134,6 +134,7 @@ import { AddbeneficiaryComponent } from './Beneficiary/addbeneficiary/addbenefic
 import { ViewbeneficiaryComponent } from './Beneficiary/viewbeneficiary/viewbeneficiary.component';
 import { EditbeneficiaryComponent } from './Beneficiary/editbeneficiary/editbeneficiary.component';
 import { ProfileComponent } from './profile/profile.component';
+import { BouquetsRegionsviewComponent } from './Plan Creation/Broadcaster Bouqutes/bouquets-regionsview/bouquets-regionsview.component';
 
 @NgModule({
   declarations: [
@@ -249,6 +250,7 @@ import { ProfileComponent } from './profile/profile.component';
     ViewbeneficiaryComponent,
     EditbeneficiaryComponent,
     ProfileComponent,
+    BouquetsRegionsviewComponent,
     
   ],
 

@@ -20,8 +20,13 @@ export class BouqutesAddComponent implements OnInit {
   channelslist: any;
   @ViewChild('select') select: any = MatSelect;
   allSelected = false;
+  @ViewChild('selects') selects: any = MatSelect;
+  allselected = false;
   Plandetails: any;
   channleid: any;
+  ActiveRegions: any;
+  ActiveMSO: any;
+  serviceproviderid: any;
 
   constructor(
     public BroadcasterBouquetAdd: FarginServiceService,
@@ -38,6 +43,15 @@ export class BouqutesAddComponent implements OnInit {
 
     this.BroadcasterBouquetAdd.ActiveAlcards().subscribe((res: any) => {
       this.channelslist = res.response;
+    });
+
+    // this.BroadcasterBouquetAdd.RegionGetAllActive().subscribe((res: any) => {
+    //   this.ActiveRegions = res.response;
+    // });
+
+
+    this.BroadcasterBouquetAdd.activeprovider().subscribe((res: any) => {
+      this.ActiveMSO = res.response;
     })
 
 
@@ -46,6 +60,8 @@ export class BouqutesAddComponent implements OnInit {
       alcotId: new FormControl('', Validators.required),
       amount: new FormControl('', Validators.required),
       boqCreationId: new FormControl('', Validators.required),
+      serviceId: new FormControl('', Validators.required),
+      regId: new FormControl('', Validators.required),
     });
   }
 
@@ -69,10 +85,26 @@ export class BouqutesAddComponent implements OnInit {
 
   }
 
+  get regId() {
+    return this.myForm.get('regId')
+
+  }
+
+  get serviceId() {
+    return this.myForm.get('serviceId')
+
+  }
+
   name(id: any) {
     console.log(id)
     this.BroadcasterBouquetAdd.BouqueteNameByBroadcasterid(id).subscribe((res: any) => {
       this.Plandetails = res.response;
+    })
+  }
+
+  getregions(id: any) {
+    this.BroadcasterBouquetAdd.ActiveRegionsbyserviceprovider(id).subscribe((res: any) => {
+      this.ActiveRegions = res.response;
     })
   }
 
@@ -85,22 +117,40 @@ export class BouqutesAddComponent implements OnInit {
     }
   }
 
+  toggleAllSelections() {
+    if (this.allselected) {
+      this.selects.options.forEach((item: MatOption) => item.select());
+    } else {
+      this.selects.options.forEach((item: MatOption) => item.deselect());
+    }
+  }
+
+  close() {
+    this.router.navigateByUrl('dashboard/bouquets-viewall')
+  }
+
   submit() {
     let submitModel: BroadcasterBouquetadd = {
-      bundleChannelId: this.bundleChannelId?.value,
+      bundleChannelId: Number(this.bundleChannelId?.value),
       alcotId: this.alcotId?.value,
-      amount: this.amount?.value,
-      boqCreationId: this.boqCreationId?.value
+      amount: Number(this.amount?.value),
+      boqCreationId: Number(this.boqCreationId?.value),
+      serviceId: Number(this.serviceId?.value),
+      regId: this.regId?.value,
+      createdBy: this.getadminname
     }
 
     this.BroadcasterBouquetAdd.BroadcasterBoucateadd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
-        this.dialog.closeAll();
+        this.router.navigateByUrl('/dashboard/bouquets-viewall')
+
       }
       else {
         this.toastr.error(res.responseMessage);
       }
     })
   }
+
+
 }

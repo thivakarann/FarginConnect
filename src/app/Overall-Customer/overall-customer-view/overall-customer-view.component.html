@@ -35,8 +35,8 @@
 
             </div>&nbsp;&nbsp;&nbsp;
             <button style="color:white;background-color: #141E46;border-radius: 10px;" (click)=" exportexcel()"
-            mat-raised-button>Export</button>
-          
+                mat-raised-button>Export</button>
+
         </div>
     </mat-card-header>
 </div>
@@ -46,7 +46,8 @@
     <div class="table-responsive text-nowrap" style="overflow-x: scroll; scrollbar-width: thin;">
         <br> <br>
         <span style="color: red;" *ngIf="showcategoryData" class="errormge">NO DATA FOUND</span>
-        <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="!showcategoryData">
+        <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8"
+            *ngIf="!showcategoryData">
 
             <ng-container matColumnDef="customerId">
                 <th mat-header-cell *matHeaderCellDef> S.No</th>
@@ -79,23 +80,24 @@
             </ng-container>
 
             <ng-container matColumnDef="flatNumber">
-                <th mat-header-cell *matHeaderCellDef>Flat Number</th>
+                <th mat-header-cell *matHeaderCellDef>Created By</th>
                 <td mat-cell *matCellDef="let viewall">{{viewall.flatNumber}}</td>
             </ng-container>
 
             <ng-container matColumnDef="blockNumber">
-                <th mat-header-cell *matHeaderCellDef>Block Number</th>
+                <th mat-header-cell *matHeaderCellDef>Created At</th>
                 <td mat-cell *matCellDef="let viewall">{{viewall.blockNumber}}</td>
             </ng-container>
 
             <ng-container matColumnDef="stbNumber">
                 <th mat-header-cell *matHeaderCellDef>STB Number</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall.stbNumber}}</td>
+                <td mat-cell *matCellDef="let viewall">{{viewall.stbId.setupBoxNumber}}</td>
             </ng-container>
-   
+
             <ng-container matColumnDef="Viewcustomer">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>View Customer</th>
-                <td style="cursor: pointer;" mat-cell *matCellDef="let viewall" (click)="Viewparticularcustomer(viewall.customerId)">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>View</th>
+                <td style="cursor: pointer;" mat-cell *matCellDef="let viewall"
+                    (click)="Viewparticularcustomer(viewall.customerId)">
                     <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
                 </td>
             </ng-container>
@@ -103,7 +105,7 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
             <tr *matNoDataRow>
-                <td class="mat-cell" colspan="4">The Filter Does not Match Any Item In The Data For This Text
+                <td class="mat-cell" colspan="4">No Data
                     {{input.value}}
                 </td>
 

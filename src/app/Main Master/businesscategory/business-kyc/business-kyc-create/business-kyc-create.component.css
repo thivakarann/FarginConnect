@@ -36,7 +36,7 @@ button {
  
 .form {
   color: var(--gray-9);
-  background-color: var(--gray-3);
+  /* background-color: var(--gray-3); */
   display: grid;
   width: 100%;
   max-width: 100%;

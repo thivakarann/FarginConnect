@@ -45,6 +45,7 @@ button {
   border-radius: var(--radius-2);
   padding: 30px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
 }
  
 .form__linput {
@@ -75,11 +76,10 @@ button {
   font: inherit;
 }
  
-
+.form__btn {
+  margin-right: auto;
+}
  
-
- 
-
  
 @media (max-width: 600px) {
   .main__form {
@@ -90,14 +90,14 @@ button {
     padding: var(--size-2);
   }
  
- 
 }
  
  
 .card-header {
- 
-  background-color:#7db855be;
-  color: #141E46;
+  background-color: #bcdf72;
+  color: #fff;
   font-family: "Roboto";
 }
- 
+.form__label{
+  font-weight: 500;
+}

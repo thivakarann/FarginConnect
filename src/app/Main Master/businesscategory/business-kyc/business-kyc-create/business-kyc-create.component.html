@@ -9,7 +9,7 @@
 
             <div class="form-group">
                 <label class="form-label" for="message">Business Category:</label>
-                <select class="form-select" formControlName="businessCategoryId">
+                <select class="form-select" formControlName="businessCategoryId" required>
                     <option style="text-align: center;" selected disabled>---Select--
                     </option>
                     <option style="text-align: center;" *ngFor="let item of categoryName;"
@@ -23,9 +23,17 @@
             </div>
 
             <div class="form__linput">
-                <label class="form__label" for="fname">KYC Document Name</label>
-                <input class="form__input" id="fname" type="text" formControlName="kycDocName" name="mccCode"
-                    placeholder="Business category..." required />
+                <label class="form-label" for="message">Mandate Documents</label>
+                <select class="form-select" formControlName="kycDocName" required>
+                    <option style="text-align: center;" value="Aadhaar">Aadhaar</option>
+                    <option style="text-align: center;" value="PAN">PAN</option>
+                    <option style="text-align: center;" value="GST">GST</option>
+                    <option style="text-align: center;" value="Driving Licence">Driving Licence</option>
+                    <option style="text-align: center;" value="Passport">Passport</option>
+                    <option style="text-align: center;" value="Passport">Votter Id</option>
+                    <option style="text-align: center;" value="Passport">Cin</option>
+                </select>
+
                 <div style="color: red; font-size : 12px;margin-top: 2px;"
                     *ngIf="kycDocName?.invalid && kycDocName?.touched && kycDocName?.errors?.['required']">
                     Field is required

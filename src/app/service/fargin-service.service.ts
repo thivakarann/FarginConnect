@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { BankPrimaryStatus } from '../fargin-model/fargin-model.module';
 import { SessionServiceService } from '../Session service/session-service.service';
+import { json } from 'stream/consumers';
 
 
 @Injectable({
@@ -101,7 +102,7 @@ export class FarginServiceService {
   //Level1 Approval
 
   private readonly merchantlevel1 = 'merchantapproval/approvalLvl1';
-  private readonly merchantlevel2 = 'Merchantapproval/approvalLvl2/';
+  private readonly merchantlevel2 = 'merchantapproval/approvalLvl2/';
 
   //facheck verification
 
@@ -115,6 +116,17 @@ export class FarginServiceService {
 
   private readonly drivinglicense = 'facheck/drivingLicenseVerify';
   private readonly gstnumber = 'facheck/merchantGstVerify';
+  private readonly voterId='facheck/voteridVerify';
+
+  //facheck verification response
+ 
+  private readonly drivinglicenseinfo = 'facheck/drivingLicense/';
+  private readonly voteridinfo = 'facheck/voterid/';
+  private readonly gstinfo = 'facheck/merchantGst/';
+  private readonly passportinfo = 'facheck/passport/';
+  private readonly cinchinfo = 'facheck/cin/';
+  private readonly aadharinfo = 'facheck/aadhar/';
+  private readonly paninfo = 'facheck/pan/';
 
   //pG on board
   private readonly pgonboard = 'merchantOnboard/onboard';
@@ -143,6 +155,7 @@ export class FarginServiceService {
   private readonly regionstatus = 'region/updateStatus';
   private readonly regionupdate = 'region/update';
   private readonly ActiveRegions = 'region/viewOnlyActive';
+  private readonly ActiveRegionbyServiceid = 'region/viewByService/'
 
 
   //service provider
@@ -289,6 +302,10 @@ export class FarginServiceService {
           replaceUrl: true,
         });
         this.timerService.restartTimer();
+        setTimeout(() => {
+          window.location.reload();
+        }, 200);
+
         // location.href = '/dashboard/dashboard-content';   need to add After login
 
       }
@@ -449,6 +466,10 @@ export class FarginServiceService {
     return this.http.get(`${this.basePath}${this.Regiongetallactive}`, this.options)
   }
 
+  ActiveRegionsbyserviceprovider(id: any) {
+    return this.http.get(`${this.basePath}${this.ActiveRegionbyServiceid}${id}`, this.options)
+  }
+
 
   RegionCreate(model: any) {
     return this.http.post(`${this.basePath}${this.Regioncreate}`, model, this.options)
@@ -576,6 +597,36 @@ export class FarginServiceService {
 
   KycDocName(id: any) {
     return this.http.get(`${this.basePath}${this.Kycdocname}${id}`, this.options)
+  }
+
+
+  FacheckVoterIdVerification(data: any) {
+    return this.http.post(`${this.basePath}${this.voterId}`, data, this.options);
+  }
+ 
+ 
+//verification response
+ 
+  AaadharVerificationResponse(id: any) {
+    return this.http.get(`${this.basePath}${this.aadharinfo}${id}`, this.options)
+  }
+  PanVerificationResponse(id: any) {
+    return this.http.get(`${this.basePath}${this.paninfo}${id}`, this.options)
+  }
+  PassportVerificationResponse(id: any) {
+    return this.http.get(`${this.basePath}${this.passportinfo}${id}`, this.options)
+  }
+  CinchVerificationResponse(id: any) {
+    return this.http.get(`${this.basePath}${this.cinchinfo}${id}`, this.options)
+  }
+  GstVerificationResponse(id: any) {
+    return this.http.get(`${this.basePath}${this.gstinfo}${id}`, this.options)
+  }
+  VoterIdVerificationResponse(id: any) {
+    return this.http.get(`${this.basePath}${this.voteridinfo}${id}`, this.options)
+  }
+  DrivingLicenseVerificationResponse(id: any) {
+    return this.http.get(`${this.basePath}${this.drivinglicenseinfo}${id}`, this.options)
   }
 
 

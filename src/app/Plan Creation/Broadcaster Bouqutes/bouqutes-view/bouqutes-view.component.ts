@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Broadcastersinglechanelstatus } from '../../../fargin-model/fargin-model.module';
+import { BouquetsRegionsviewComponent } from '../bouquets-regionsview/bouquets-regionsview.component';
 
 @Component({
   selector: 'app-bouqutes-view',
@@ -22,6 +23,7 @@ export class BouqutesViewComponent implements OnInit {
   currentPage: any = 1; // The current page number
   itemsPerPage = 5; //
   isChecked: boolean = false;
+  ServiceProvideregions: any;
 
   constructor(
     public viewdetails: FarginServiceService,
@@ -37,8 +39,9 @@ export class BouqutesViewComponent implements OnInit {
 
     this.viewdetails.BroadcasterBoucatebyid(this.id).subscribe((res: any) => {
       this.details = res.response;
-      this.channelslist = res.response.alcotChannels;
-      console.log(this.channelslist)
+      this.channelslist = res.response.broadCasterAlcot;
+      this.ServiceProvideregions = res.response.broadCasterRegion;
+      console.log(this.channelslist);
     });
   }
 
@@ -70,6 +73,15 @@ export class BouqutesViewComponent implements OnInit {
 
     });
 
+  }
+
+  Viewregions(id: any) {
+    console.log(id)
+    this.dialog.open(BouquetsRegionsviewComponent, {
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: "100ms",
+      data: { value: id }
+    })
   }
 
 

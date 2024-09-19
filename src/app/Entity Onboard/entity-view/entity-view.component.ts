@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { BankPrimaryStatus, BankStatus, Bankverficiation, Facheckverification, PassPortverification } from '../../fargin-model/fargin-model.module';
+import { BankPrimaryStatus, BankStatus, Bankverficiation, Facheckverification, PassPortverification, VoterIdVerify } from '../../fargin-model/fargin-model.module';
 import { ApprovalForBankComponent } from '../approval-for-bank/approval-for-bank.component';
 import { CommentsForApprovalComponent } from '../comments-for-approval/comments-for-approval.component';
 import { KycApprovalComponent } from '../kyc-approval/kyc-approval.component';
@@ -21,6 +21,7 @@ import { EntityBankaddComponent } from '../entity-bankadd/entity-bankadd.compone
 import { EntityBankeditComponent } from '../entity-bankedit/entity-bankedit.component';
 import { BankInfoComponent } from '../bank-info/bank-info.component';
 import { EntityPgonboardComponent } from '../entity-pgonboard/entity-pgonboard/entity-pgonboard.component';
+import { KycInfoComponent } from '../kyc-info/kyc-info.component';
 
 @Component({
   selector: 'app-entity-view',
@@ -46,17 +47,25 @@ export class EntityViewComponent implements OnInit {
   accountId: any;
   startdate!: string;
   enddate!: string;
-  p: number = 1;
-  filteredData: any[] = [];
-  currentPage = 1;
+ 
+  items: any[] = []; // The array of items to paginate
+  currentPage: any = 1; // The current page number
+  itemsPerPage = 5; // The number of items to display per page
+  selected: any;
+  selecteded: string = '5';
+ 
+ 
+  p:any=1;
+ 
   alltransactions: any;
   searchText: any;
-  pages: number = 1;
+ 
+ 
+ 
   navbarEventEmitter: any;
   isDropdownOpen = false;
   searchTexts: any;
-  items: any[] = []; // The array of items to paginate
-  itemsPerPage = 10; // The number of items to display per page
+ 
   Daterange!: string;
   data: any;
   term: any;
@@ -67,32 +76,32 @@ export class EntityViewComponent implements OnInit {
   ToDateRange: any;
   FromDateRange: any;
   showdata!:boolean;
-Data: any;
-  
+  Data: any;
+ 
   selectTab(tab: string): void {
     this.activeTab = tab;
   }
-
+ 
   clearFilters(): void {
     // Implement filter clearing logic here
     console.log('Filters cleared');
   }
-
+ 
   activeTab: string = 'events';
-
-
+ 
+ 
   constructor(
     public MerchantView: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
     private dialog: MatDialog,
     private ActivateRoute: ActivatedRoute) { }
-
+ 
   ngOnInit(): void {
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.id = param.Alldata;
     });
-
+ 
     this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
       this.details = res.response;
       this.detaislone = res.response.merchantpersonal;
@@ -101,21 +110,17 @@ Data: any;
       this.KYCDetails = res.response.merchantdocument;
       console.log(this.KYCDetails);
       this.accountId = res.response.accountId;
-
+ 
       this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
       console.log('BussinessCategoryId', this.businessCategoryId);
       console.log(this.detaislone);
       console.log(this.bankdetails);
       console.log(this.KYCDetails);
       console.log('Approval1', this.approval1)
-
+ 
     })
-
-
-   
   }
-
-
+ 
   bankStatus(event: any, id: any) {
     this.isChecked = event.checked;
     let submitModel: BankStatus = {
@@ -125,7 +130,7 @@ Data: any;
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         window.location.reload();
-
+ 
       }
       else {
         this.toastr.error(res.responseMessage)
@@ -147,8 +152,6 @@ Data: any;
       }
     })
   }
-
-
   BankApproval(id: any) {
     this.dialog.open(ApprovalForBankComponent, {
       enterAnimationDuration: "1000ms",
@@ -157,7 +160,6 @@ Data: any;
       data: { value: id }
     })
   }
-
   BankComments(id: any) {
     this.dialog.open(CommentsForApprovalComponent, {
       enterAnimationDuration: "1000ms",
@@ -165,11 +167,8 @@ Data: any;
       disableClose: true,
       data: { value: id }
     })
-
+ 
   }
-
-
-
   getFrontPath(id: any) {
     this.dialog.open(KycdocumentViewComponent, {
       enterAnimationDuration: "1000ms",
@@ -178,8 +177,6 @@ Data: any;
       data: { value: id, value1: 1 }
     })
   }
-
-
   getBackPath(id: any) {
     this.dialog.open(KycdocumentViewComponent, {
       enterAnimationDuration: "1000ms",
@@ -188,7 +185,6 @@ Data: any;
       data: { value: id, value1: 2 }
     })
   }
-
   KycApproval(id: any) {
     this.dialog.open(KycApprovalComponent, {
       enterAnimationDuration: "1000ms",
@@ -205,8 +201,6 @@ Data: any;
       data: { value: id }
     })
   }
-
-
   addbank(id: any) {
     this.dialog.open(EntityBankaddComponent, {
       enterAnimationDuration: "1000ms",
@@ -217,7 +211,6 @@ Data: any;
       }
     })
   }
-
   editbank(id: any) {
     this.dialog.open(EntityBankeditComponent, {
       disableClose: true,
@@ -225,7 +218,7 @@ Data: any;
       exitAnimationDuration: "1000ms",
       data: { value: id }
     })
-
+ 
   }
   addKycdocuments(id: any, BusinessCategoryId: any) {
     this.dialog.open(AddKycdocumentComponent, {
@@ -238,7 +231,7 @@ Data: any;
       }
     })
   }
-
+ 
   editKycDocuments(id: any) {
     this.dialog.open(EditKycdocumentComponent, {
       enterAnimationDuration: "1000ms",
@@ -259,10 +252,8 @@ Data: any;
         value: id,
       }
     })
-
+ 
   }
-
-
   levelTwoApproval(id: any) {
     this.dialog.open(LevelTwoApprovalComponent, {
       enterAnimationDuration: "1000ms",
@@ -273,7 +264,6 @@ Data: any;
       }
     })
   }
-
   leveloneComments(comment: any) {
     this.dialog.open(CommentsforApprovaloneComponent, {
       enterAnimationDuration: "1000ms",
@@ -284,7 +274,6 @@ Data: any;
       }
     })
   }
-
   levelTwoComments(commentL2: any) {
     this.dialog.open(CommentsforApprovaltwoComponent, {
       enterAnimationDuration: "1000ms",
@@ -295,8 +284,6 @@ Data: any;
       }
     })
   }
-
-
   FacheckVerification(Docname: any, data: any, id: any, ApprovedBy: any) {
    console.log(data)
     console.log(ApprovedBy)
@@ -306,13 +293,13 @@ Data: any;
       docNumber: data,
       approvalBy: ApprovedBy
     }
-
+ 
     if (Docname == 'Aadhar Card') {
-    
-
       this.MerchantView.FacheckAadharVerification(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
-          this.toastr.success(res.responseMessage)
+          this.toastr.success(res.responseMessage);
+          window.location.reload();
+ 
         }
         else {
           this.toastr.error(res.responseMessage)
@@ -321,17 +308,19 @@ Data: any;
     }
     else if (Docname == 'PAN') {
      
-
+ 
       this.MerchantView.FacheckPanVerification(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
-          this.toastr.success(res.responseMessage)
+          this.toastr.success(res.responseMessage);
+          window.location.reload();
+
         }
         else {
           this.toastr.error(res.responseMessage)
         }
       })
     }
-    else if (Docname == 'Cinch') {
+    else if (Docname == 'Cin') {
       let submitModel: Facheckverification =
       {
         kycId: id,
@@ -340,7 +329,9 @@ Data: any;
       }
       this.MerchantView.FacheckCinchVerification(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
-          this.toastr.success(res.responseMessage)
+          this.toastr.success(res.responseMessage);
+          window.location.reload();
+ 
         }
         else {
           this.toastr.error(res.responseMessage)
@@ -348,10 +339,12 @@ Data: any;
       })
     }
     else if (Docname == 'GST') {
-      
+     
       this.MerchantView.FacheckGSTVerification(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
-          this.toastr.success(res.responseMessage)
+          this.toastr.success(res.responseMessage);
+          window.location.reload();
+ 
         }
         else {
           this.toastr.error(res.responseMessage)
@@ -368,15 +361,17 @@ Data: any;
       }
       this.MerchantView.FacheckPassportVerification(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
-          this.toastr.success(res.responseMessage)
+          this.toastr.success(res.responseMessage);
+          window.location.reload();
+ 
         }
         else {
           this.toastr.error(res.responseMessage)
         }
       })
     }
-
-
+ 
+ 
     else if (Docname == 'Driving License') {
       let submitModel: PassPortverification =
       {
@@ -387,7 +382,27 @@ Data: any;
       }
       this.MerchantView.FacheckLicenseVerification(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
-          this.toastr.success(res.responseMessage)
+          this.toastr.success(res.responseMessage);
+          window.location.reload();
+ 
+        }
+        else {
+          this.toastr.error(res.responseMessage)
+        }
+      })
+    }
+    else if (Docname == 'VoterId') {
+ 
+      let submitModel: VoterIdVerify =
+      {
+        kycId: id,
+        docNumber: data,
+        // approvalBy: ApprovedBy,
+      }
+      this.MerchantView.FacheckVoterIdVerification(submitModel).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.toastr.success(res.responseMessage);
+          window.location.reload();
         }
         else {
           this.toastr.error(res.responseMessage)
@@ -395,7 +410,6 @@ Data: any;
       })
     }
   }
-
   bankVerification(id: any) {
     let submitModel: Bankverficiation =
     {
@@ -404,13 +418,13 @@ Data: any;
     this.MerchantView.BankVerification(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        window.location.reload();
       }
       else {
         this.toastr.error(res.responseMessage);
       }
     })
   }
-
   bankInfo(id: any) {
     this.dialog.open(BankInfoComponent, {
       enterAnimationDuration: "1000ms",
@@ -421,11 +435,21 @@ Data: any;
       }
     })
   }
-
+ 
+  KycInfo(id:any,Docname:any){
+    this.dialog.open(KycInfoComponent, {
+      enterAnimationDuration: "1000ms",
+      exitAnimationDuration: "1000ms",
+      disableClose: true,
+      data: {
+        value: id,
+        value1:Docname
+      }
+    })
+  }
+ 
   pgOnboard() {
-
     this.dialog.open(EntityPgonboardComponent, {
-
       enterAnimationDuration: "1000ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
@@ -433,35 +457,47 @@ Data: any;
         value: this.id,
       }
     })
-
+ 
   }
-
+ 
   Viewcustomer(id:any){
     this.router.navigate([`dashboard/entity-customer-view/${id}`], {
       queryParams: { Alldata: id },
     });
     console.log(id);
   }
-
+ 
   Viewqr(id:any){
     this.router.navigate([`dashboard/entity-qrcode/${id}`], {
       queryParams: { Alldata: id },
     });
     console.log(id);
   }
-
+ 
   ViewRefund(id:any){
     this.router.navigate([`dashboard/entity-refund/${id}`], {
       queryParams: { Alldata: id },
     });
     console.log(id);
   }
-
+ 
   viewsettlement
   (id:any){
     this.router.navigate([`dashboard/entity-settlement/${id}`], {
       queryParams: { Alldata: id },
     });
     console.log(id);
+  }
+  editpersonalInfo(id:any){
+    this.router.navigate([`dashboard/edit-personal`], {
+      queryParams: { Alldata: id },
+    });
+   
+  }
+ 
+  close(){
+    this.router.navigate([`dashboard/entity-viewall`], {
+      // queryParams: { Alldata: id },
+    });
   }
 }

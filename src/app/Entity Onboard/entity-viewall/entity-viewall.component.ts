@@ -20,20 +20,20 @@ export class EntityViewallComponent {
   displayedColumns: string[] = [
     'merchantId',
     'entityName',
+    'referenceNo',
     'merchantLegalName',
     'businessCategoryModel',
-    'referenceNo',
+    'status',
+    'pgonboard',
     'contactEmail',
     'contactMobile',
     'website',
     'View',
     'createdBy',
     'createdDatetime',
-    'modifiedBy',
-    'modifiedDatetime',
-
 
   ];
+
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -73,7 +73,7 @@ export class EntityViewallComponent {
     });
     console.log(id);
   }
-  
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -167,7 +167,7 @@ export class EntityViewallComponent {
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
-      
+
 
 
 

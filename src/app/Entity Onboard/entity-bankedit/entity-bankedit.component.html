@@ -7,7 +7,7 @@
         <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="BankForm">
             <div class="row mb-3">
                 <div class="col-sm-6 form-group">
-                    <label for="Entity Name">AccountHolderName*</label>
+                    <label for="Entity Name" class="form__label">AccountHolderName*</label>
                     <input type="text" id="Entity Name" formControlName="accountHolderName" class="form-control"
                         ngModel="{{this.bankData?.accountHolderName}}">
                     <div style="
@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6 form-group">
-                    <label for="state">Account Number*</label>
+                    <label for="state" class="form__label">Account Number*</label>
                     <input type="text" formControlName="accountNumber" id="state" class="form-control"
                         ngModel="{{this.bankData?.accountNumber}}">
                     <div style="
@@ -37,7 +37,7 @@
             </div>
             <div class="row mb-3">
                 <div class="col-sm-6 form-group">
-                    <label for="zip">Bank Name*</label>
+                    <label for="zip" class="form__label">Bank Name*</label>
                     <input type="text" formControlName="bankName" id="zip" class="form-control"
                         ngModel="{{this.bankData?.bankName}}">
                     <div style="
@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="col-sm-6 form-group">
-                    <label for="Entity Name">BranchName*</label>
+                    <label for="Entity Name" class="form__label">BranchName*</label>
                     <input type="text" id="Entity Name" formControlName="branchName" class="form-control"
                         ngModel="{{this.bankData?.branchName}}">
                     <div style="
@@ -68,7 +68,7 @@
             </div>
             <div class="row mb-3">
                 <div class="col-sm-6 form-group">
-                    <label for="Entity Name">IFSC Code*</label>
+                    <label for="Entity Name" class="form__label">IFSC Code*</label>
                     <input type="text" id="Entity Name" formControlName="ifscCode" class="form-control"
                         ngModel="{{this.bankData?.ifscCode}}">
                     <div style="
@@ -82,7 +82,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6 form-group">
-                    <label for="Bussiness category">Account Type</label>
+                    <label for="Bussiness category" class="form__label">Account Type</label>
                     <select formControlName="accountType" id="Bussiness category" class="form-control form-select"
                         ngModel="{{this.bankData?.accountType}}">
                         <!-- <option value="" disabled selected>Select</option> -->
@@ -102,8 +102,6 @@
                     </div>
                 </div>
             </div>
-
-
             <div>
                 <button (click)="submit()" [disabled]="BankForm.invalid" type="submit" class="btn mx-1 "
                     style="background-color:#7db855be">Submit</button>

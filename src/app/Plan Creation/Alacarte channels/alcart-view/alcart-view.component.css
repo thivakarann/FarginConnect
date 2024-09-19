@@ -127,13 +127,13 @@ article.card {
   /*********************************
           IMPORT FONT_AWESOME
   **********************************/
-  @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css";
+  /* @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"; */
    
    
   /*********************************
            IMPORT FONTS
   **********************************/
-  @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+  /* @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap'); */
    
   :root {
     --default_font: "Mukta", sans-serif;
