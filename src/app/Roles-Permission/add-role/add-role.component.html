@@ -3,9 +3,9 @@
 </div>
 
 <body class="page">
-    <main class="main page__main">
+    <div class="main page__main">
 
-        <form class="form main__form" autocomplete="off" class="form" [formGroup]="roleformGroup">
+        <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="roleformGroup">
 
 
 
@@ -22,7 +22,7 @@
 
             <div class="form__linput">
                 <label class="form__label" for="fname">Select Permission</label>
-                <mat-select #select style="font-size: 12px;" class="form-select" multiple formControlName="permission"
+                <mat-select #select class="form-select" multiple formControlName="permission"
                     (ngModelChange)="sendPermissionId($event)">
 
                     <div class="select-all">
@@ -43,7 +43,7 @@
 
             <div class="form__linput">
                 <label class="form__label" for="fname">Select Sub Permission</label>
-                <mat-select #selects style="font-size: 12px;" class="form-select" multiple
+                <mat-select #selects  class="form-select" multiple
                     formControlName="subPermission">
                     <div class="select-all">
                         <mat-checkbox [(ngModel)]="allSelected1" [ngModelOptions]="{standalone: true}"
@@ -65,12 +65,13 @@
 
             <!-- <button class="primary-btn form__btn" type="submit">Submit</button> -->
             <div>
-                <button type="submit" class="submit" (click)="submit()">Submit</button>&nbsp;&nbsp;&nbsp;
-                <button type="submit" class="cancel" matDialogClose>Cancel</button>
+                <button [disabled]="roleformGroup.invalid" type="submit" class="btn mx-1 " style="background-color:#7db855be"  (click)="submit()">Submit</button>&nbsp;&nbsp;&nbsp;
+                <button  type="submit" class="btn"
+                style="background-color:#141E46;color:white" matDialogClose>Cancel</button>
 
             </div>
 
 
         </form>
-    </main>
+    </div>
 </body>

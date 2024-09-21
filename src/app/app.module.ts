@@ -134,6 +134,9 @@ import { AddbeneficiaryComponent } from './Beneficiary/addbeneficiary/addbenefic
 import { ViewbeneficiaryComponent } from './Beneficiary/viewbeneficiary/viewbeneficiary.component';
 import { EditbeneficiaryComponent } from './Beneficiary/editbeneficiary/editbeneficiary.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ViewPermissionComponent } from './Roles-Permission/view-permission/view-permission.component';
+import { ViewSubpermissionComponent } from './Roles-Permission/view-subpermission/view-subpermission.component';
+
 import { BouquetsRegionsviewComponent } from './Plan Creation/Broadcaster Bouqutes/bouquets-regionsview/bouquets-regionsview.component';
 
 @NgModule({
@@ -251,6 +254,8 @@ import { BouquetsRegionsviewComponent } from './Plan Creation/Broadcaster Bouqut
     EditbeneficiaryComponent,
     ProfileComponent,
     BouquetsRegionsviewComponent,
+    ViewPermissionComponent,
+    ViewSubpermissionComponent
     
   ],
 

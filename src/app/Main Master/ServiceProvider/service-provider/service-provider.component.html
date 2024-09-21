@@ -1,8 +1,9 @@
 <h4 style="text-align:left;color:#141E46;">Service Provider (MSO)</h4>
 
 <mat-card-header>
-    <div class="col" style="margin-left:-16px;">
-        <div class="search " style="margin-top: 3%;">
+    <div class="row mt-5">
+    <div class="col">
+        <div class="search">
             <form class="form">
                 <label for="search">
                     <input #input (keyup)="applyFilter($event)" required="" autocomplete="off" placeholder="Search"
@@ -35,15 +36,15 @@
         <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
             (click)="exportexcel()">Export</button>
     </div>
+    </div>
 </mat-card-header>
   
 
 
 <!-- <mat-card> -->
     <mat-card-content>
-<div class="table-responsive text-nowrap" style="overflow-x: scroll; scrollbar-width: thin;">
-    <span *ngIf="showcategoryData" class="errormge">NO DATA FOUND</span>
-    <br><br>
+<div class="table-responsive text-nowrap mt-4" style="overflow-x: scroll; scrollbar-width: thin;">
+    
     <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1"
         *ngIf="!showcategoryData">
 
@@ -70,8 +71,8 @@
         </ng-container>
         <ng-container matColumnDef="Edit">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
-            <td style="text-wrap: wrap;" mat-cell *matCellDef="let data">
-                <i style="cursor: pointer;font-size: 16px;" class="fa fa-edit" (click)="edit(data.serviceId)"></i>
+            <td mat-cell *matCellDef="let data">
+                <i  style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-edit" (click)="edit(data.serviceId)"></i>
             </td>
         </ng-container>
 
@@ -97,7 +98,7 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
         <tr *matNoDataRow>
-            <td class="mat-cell" colspan="4">The Filter Does not Match Any Item In The Data For This Text
+            <td class="mat-cell" colspan="4">No Data
                 {{input.value}}</td>
 
         </tr>

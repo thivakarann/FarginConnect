@@ -11,11 +11,11 @@
  
             <div class="form-group">
                 <label class="form-label" for="message">Merchant Name:</label>
-                <select class="form-select" formControlName="merchantId">
+                    <select class="form-select" formControlName="merchantId" ngModel="{{policyview.entityModel.merchantId}}">
                     <option style="text-align: center;" selected disabled>---Select--
                     </option>
                  
-                    <option ngModel="{{policyview?.merchantName}}" style="text-align: center;" *ngFor="let item of MerchantName;"
+                        <option  style="text-align: center;" *ngFor="let item of MerchantName;"
                     [value]="item.merchantId">
                     {{item.merchantLegalName}}
                 </option>
@@ -75,11 +75,17 @@
                 </div>
             </div>
  
-            <div>
-                <button type="submit" class="submit" [disabled]="editadminpolicy.invalid"
-                    (click)="adminedit()">Submit</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                <button type="submit" class="cancel" matDialogClose (click)="close()">Cancel</button>
-            </div>
-        </form>
-    </main>
-</body>
+                <div class="mt-3">
+                    <button [disabled]="editadminpolicy.invalid"
+                    (click)="adminedit()" type="submit" class="btn mx-1 "
+                        style="background-color:#7db855be">Submit</button>
+                    <button type="submit" class="btn" style="background-color:#141E46;color:white"
+                        (click)="close()">Cancel</button>
+                </div>
+     
+             
+            </form>
+        </main>
+    </body>
+
+</div>

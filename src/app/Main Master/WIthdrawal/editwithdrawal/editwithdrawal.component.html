@@ -2,159 +2,109 @@
 <div class="card-header d-flex justify-content-between align-items-center">
   <h5 class="mb-0">Update Withdrawal</h5>
 </div>
+
 <body class="page">
   <main class="main page__main">
-    <form
-      class="form main__form"
-      autocomplete="off"
-      role="form"
-      [formGroup]="withdrawalFormGroup"
-    >
-      <div class="form__grid">
-        <div class="form__linput">
-          <label class="form-label" for="message">Mode:</label>
-          <select class="form-select" formControlName="mode">
-            <option value="" disabled selected>Select Mode</option>
-            <option value="RTGS">RTGS</option>
-            <option value="NEFT">NEFT</option>
-            <option value="IMPS">IMPS</option>
-            <option value="UPI">UPI</option>
-          </select>
-          <div
-            class="form__error"
-            *ngIf="mode?.invalid && mode?.touched && mode?.errors?.['required']"
-          >
-            Field is required
+    <form class="form main__form" autocomplete="off" role="form" [formGroup]="withdrawalFormGroup">
+      <div class="row">
+        <div class="col">
+          <div class="form__linput">
+            <label class="form-label" for="message">Mode:</label>
+            <select class="form-select" formControlName="mode">
+              <option value="" disabled selected>Select Mode</option>
+              <option value="RTGS">RTGS</option>
+              <option value="NEFT">NEFT</option>
+              <option value="IMPS">IMPS</option>
+              <option value="UPI">UPI</option>
+            </select>
+            <div class="form__error" *ngIf="mode?.invalid && mode?.touched && mode?.errors?.['required']">
+              Field is required
+            </div>
           </div>
         </div>
 
-        <div class="form__linput">
-          <label class="form-label" for="message">Tax:</label>
-          <select formControlName="gstType" class="form-select">
-            <option value="" disabled selected>Select Tax Type</option>
-            <option value="Inclusive">Inclusive</option>
-            <option value="Exclusive">Exclusive</option>
-          </select>
-          <div
-            class="form__error"
-            *ngIf="gstType?.invalid && gstType?.touched && gstType?.errors?.['required']"
-          >
-            Field is required
+        <div class="col">
+          <div class="form__linput">
+            <label class="form-label" for="message">Tax:</label>
+            <select formControlName="gstType" class="form-select">
+              <option value="" disabled selected>Select Tax Type</option>
+              <option value="Inclusive">Inclusive</option>
+              <option value="Exclusive">Exclusive</option>
+            </select>
+            <div class="form__error" *ngIf="gstType?.invalid && gstType?.touched && gstType?.errors?.['required']">
+              Field is required
+            </div>
           </div>
         </div>
 
-        <div class="form__linput">
-            <label class="form-label" for="message"></label>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form__linput">
+            <label class="form__label" for="apiKey">From Value</label>
+            <input class="form__input" id="apiKey" type="number" formControlName="amountRange"
+              placeholder="Enter From Amount..." required />
+            <div class="form__error"
+              *ngIf="amountRange?.invalid && amountRange?.touched && amountRange?.errors?.['required']">
+              Field is required
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="form__linput">
+            <label class="form__label" for="secretKey">To Value</label>
+            <input class="form__input" id="secretKey" type="number" formControlName="amountRanges"
+              placeholder="Enter To Amount..." required />
+            <div class="form__error"
+              *ngIf="amountRanges?.invalid && amountRanges?.touched && amountRanges?.errors?.['required']">
+              Field is required
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="form__linput">
+            <label class="form__label" for="applicationId">GST</label>
+            <input class="form__input" id="applicationId" type="number" formControlName="gstInPercentage"
+              placeholder="Enter GST..." required />
+            <div class="form__error"
+              *ngIf="gstInPercentage?.invalid && gstInPercentage?.touched && gstInPercentage?.errors?.['required']">
+              Field is required
+            </div>
+          </div>
+        </div>
             
-          </div>
       </div>
 
-      <div class="form__input-group">
-        <div class="form__linput">
-          <label class="form__label" for="apiKey">From Value</label>
-          <input
-            class="form__input"
-            id="apiKey"
-            type="number"
-            formControlName="amountRange"
-            placeholder="Enter From Amount..."
-            required
-          />
-          <div
-            class="form__error"
-            *ngIf="amountRange?.invalid && amountRange?.touched && amountRange?.errors?.['required']"
-          >
-            Field is required
+      <div class="row">
+        <div class="col">
+          <div class="form__linput">
+            <label class="form__label" for="applicationId">Fee</label>
+            <input class="form__input" id="applicationId" type="text" (keyup)="onFeeChange()" formControlName="fees"
+              placeholder="Enter Fee..." required />
+            <div class="form__error" *ngIf="fees?.invalid && fees?.touched && fees?.errors?.['required']">
+              Field is required
+            </div>
           </div>
         </div>
 
-        <div class="form__linput">
-          <label class="form__label" for="secretKey">To Value</label>
-          <input
-            class="form__input"
-            id="secretKey"
-            type="number"
-            formControlName="amountRanges"
-            placeholder="Enter To Amount..."
-            required
-          />
-          <div
-            class="form__error"
-            *ngIf="amountRanges?.invalid && amountRanges?.touched && amountRanges?.errors?.['required']"
-          >
-            Field is required
-          </div>
-        </div>
-
-        <div class="form__linput">
-          <label class="form__label" for="applicationId">GST</label>
-          <input
-            class="form__input"
-            id="applicationId"
-            type="number"
-            formControlName="gstInPercentage"
-            placeholder="Enter GST..."
-            required
-          />
-          <div
-            class="form__error"
-            *ngIf="gstInPercentage?.invalid && gstInPercentage?.touched && gstInPercentage?.errors?.['required']"
-          >
-            Field is required
-          </div>
-        </div>
-      </div>
-
-      <div class="form__fee-group">
-        <div class="form__linput">
-          <label class="form__label" for="applicationId">Fee</label>
-          <input
-            class="form__input"
-            id="applicationId"
-            type="text"
-            (keyup)="onFeeChange()"
-            formControlName="fees"
-            placeholder="Enter Fee..."
-            required
-          />
-          <div
-            class="form__error"
-            *ngIf="fees?.invalid && fees?.touched && fees?.errors?.['required']"
-          >
-            Field is required
-          </div>
-        </div>
-
+        <div class="col">
         <div class="form__linput">
           <label class="form__label" for="applicationId">Calculate Fee</label>
-          <input
-            class="form__input"
-            id="applicationId"
-            type="number"
-            [value]="values" 
-            readonly
-            required
-          />
+          <input class="form__input" id="applicationId" type="number" [value]="values" readonly required />
+        </div> 
         </div>
+       
       </div>
 
       <div class="mt-3">
-        <button
-          type="submit"
-          class="btn mx-1"
-          (click)="submit()"
-          [disabled]="this.withdrawalFormGroup.invalid"
-          style="background-color: #7db855be"
-        >
+        <button type="submit" class="btn mx-1" (click)="submit()" [disabled]="this.withdrawalFormGroup.invalid"
+          style="background-color: #7db855be">
           Submit
         </button>
-        <button
-          type="button"
-          class="cancel"
-          matDialogClose
-          class="btn"
-          style="background-color: #141e46; color: white"
-        >
+        <button type="button" class="cancel" matDialogClose class="btn" style="background-color: #141e46; color: white">
           Cancel
         </button>
       </div>

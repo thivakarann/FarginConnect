@@ -1,4 +1,4 @@
-
+@import "https://unpkg.com/open-props";
  
 *,
 *::before,
@@ -12,7 +12,7 @@ button {
  
 .page {
   color: var(--gray-9);
-  background-color: var(--gray-0);
+  background-color: #fff;
   display: grid;
   grid-template-areas: "main";
   height: auto;
@@ -37,19 +37,19 @@ button {
  
 .form {
   color: var(--gray-9);
-  background-color: var(--gray-3);
+  background-color: #fff;
   display: grid;
   width: 100%;
   max-width: 100%;
   border: 1px solid var(--gray-4);
   border-radius: var(--radius-2);
-  padding: 30px;
+  padding: var(--size-3);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
  
 .form__linput {
   display: grid;
-  margin-bottom: 20px;
+  margin-bottom: var(--size-3);
 }
  
 .form__label {
@@ -143,11 +143,14 @@ button {
   }
 }
  
- 
-.card-header {
- 
-  background-color:#7db855be;
-  color: #141E46;
-  font-family: "Roboto";
+.form__label {
+  font-weight: 500;
 }
  
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #bcdf72;
+  color: white;
+  font-family: "Roboto";
+}

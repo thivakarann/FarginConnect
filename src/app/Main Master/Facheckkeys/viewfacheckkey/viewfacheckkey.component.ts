@@ -69,7 +69,7 @@ export class ViewfacheckkeyComponent {
 
     };
 
-    this.service.Businessactive(id, submitModel).subscribe((res: any) => {
+    this.service.statusfacheck(id, submitModel).subscribe((res: any) => {
       console.log(res);
       this.toastr.success(res.responseMessage);
       setTimeout(() => {

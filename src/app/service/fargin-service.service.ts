@@ -420,6 +420,12 @@ export class FarginServiceService {
     return this.http.get(`${this.basePath}${this.viewPermissionSubpermission}${id}`, this.options)
   }
 
+ editRole(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.updateRole}${id}`, model, this.options)
+  }
+  rolegetById(id: any) {
+    return this.http.get(`${this.basePath}${this.rolegetByid}${id}`, this.options)
+  }
 
   //privacy policy
 
@@ -520,8 +526,8 @@ export class FarginServiceService {
   viewfacheck() {
     return this.http.get(`${this.basePath}${this.viewfacheckkey}`, this.options)
   }
-  statusfacheck(model: any) {
-    return this.http.post(`${this.basePath}${this.statusfacheckkey}`, model, this.options)
+  statusfacheck(id:any, model: any) {
+    return this.http.put(`${this.basePath}${this.statusfacheckkey}${id}`, model, this.options)
   }
   updatefacheck(id: any, model: any) {
     return this.http.put(`${this.basePath}${this.updatefacheckkey}${id}`, model, this.options)

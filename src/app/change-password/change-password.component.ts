@@ -73,7 +73,9 @@ export class ChangePasswordComponent implements OnInit {
     this.service.ChangePassword(this.adminId, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
-        this.router.navigateByUrl('/login-page');
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
       }
       else {
         this.toastr.error(res.responseMessage);

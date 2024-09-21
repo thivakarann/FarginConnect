@@ -46,8 +46,7 @@ export class PolicyEditComponent implements OnInit {
     this.service.Policymerchant().subscribe((res: any) => {
       if (res.flag == 1) {
         this.MerchantName = res.response;
-        this.MerchantName.reverse();
-
+      
       }
       else {
         this.errorMsg = res.responseMessage;
@@ -74,6 +73,9 @@ export class PolicyEditComponent implements OnInit {
 
     this.service.Adminpolicyviewbyidedit(this.policyId).subscribe((res: any) => {
       this.policyview = res.response;
+      console.log(this.policyview)
+      this.merchant=this.policyview.entityModel.merchantId
+       console.log(this.merchant)
     });
   }
 
@@ -112,7 +114,11 @@ export class PolicyEditComponent implements OnInit {
     this.service.adminpolicyedit(this.policyId, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
-        window.location.reload()
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+        this.router.navigateByUrl('dashboard/Terms-policy');
+
       } else {
         this.toastr.warning(res.responseMessage)
       }

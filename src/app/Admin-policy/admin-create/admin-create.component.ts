@@ -92,7 +92,10 @@ export class AdminCreateComponent implements OnInit {
     this.service.adminpolicycreate(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
-        window.location.reload()
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+        this.router.navigateByUrl('dashboard/Terms-policy');
 
       }
       else {

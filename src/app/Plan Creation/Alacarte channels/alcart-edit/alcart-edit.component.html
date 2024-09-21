@@ -1,11 +1,11 @@
 <div class="container">
 
     <div class="form-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">Add Alacarte</h5>
+        <h5 class="mb-0">Edit Alacarte</h5>
         <button type="button" class="btn btn-secondary" (click)="close()">Back</button>
     </div>
 
-    <div class="well" >
+    <div class="well">
         <h4 class="card-header" style="font-weight: 500">Channel Details</h4>
         <form [formGroup]="myForm" style="margin-top: 2%;">
             <div class="row mb-3">
@@ -42,10 +42,10 @@
                         Field is required
                     </div>
                 </div>
-
+<!-- 
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">BroadCaster</label>
-                    <input [(ngModel)]="BroadCaster" type="text" id="Entity Name" formControlName="broadCaster"
+                    <input [(ngModel)]="BroadCaster" type="text" id="Entity Name" formControlName="bundleChannelId"
                         placeholder="Entity Name" class="form-control">
                     <div style="
                 color: red;
@@ -53,15 +53,30 @@
                 margin-top: 2px;
                 position: relative;
                 ;
-              " *ngIf="broadCaster?.invalid && broadCaster?.touched && broadCaster?.errors?.['required']">
+              " *ngIf="bundleChannelId?.invalid && bundleChannelId?.touched && bundleChannelId?.errors?.['required']">
                         Field is required
                     </div>
-                </div>
+                </div> -->
+
 
 
             </div>
 
             <div class="row mb-3">
+                <div class="col-sm-4 form-group">
+                    <label for="Entity Name">Channel Number</label>
+                    <input [(ngModel)]="ChannelNumber" type="text" id="Entity Name" formControlName="channelNo"
+                        placeholder="Entity Name" class="form-control">
+                    <div style="
+                color: red;
+                font-size: 12px;
+                margin-top: 2px;
+                position: relative;
+                ;
+              " *ngIf="channelNo?.invalid && channelNo?.touched && channelNo?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
 
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">Generic</label>
@@ -95,9 +110,9 @@
 
                 <div class="col-sm-4 form-group">
                     <label for="Bussiness category">Type</label>
-                    <select [(ngModel)]="Type" formControlName="type" id="Bussiness category"
+                    <select (change)="values($event)" [ngModel]="Type" formControlName="type" id="Bussiness category"
                         class="form-control form-select">
-                        <option value="" disabled selected>Select</option>
+                        <option value=""  disabled selected>Select</option>
                         <option value="0">Free</option>
                         <option value="1">Paid</option>
 
@@ -116,29 +131,28 @@
                     </div>
                 </div>
             </div>
-            <div class="row mb-3" >
-                <div class="hidden" >
-                    <div class="col-sm-4 form-group" *ngIf="type?.value === '1'">
-                        <label for="Entity Name">Price</label>
-                        <input [(ngModel)]="amount" type="text" id="Entity Name" formControlName="price"
-                            placeholder="Entity Name" class="form-control">
-                        <!-- <div style="
+            <div class="row mb-3">
+
+                <div  [hidden]="type?.value !='1' " class="col-sm-4 form-group">
+                    <label for="Entity Name">Price</label>
+                    <input [ngModel]="amount" [required]="type?.value =='0' " type="text" id="Entity Name"
+                        formControlName="price" placeholder="price" class="form-control">
+                    <!-- <div style="
     color: red;
     font-size: 12px;
     margin-top: 2px;
     position: relative;
     ;
   " *ngIf="price?.invalid && price?.touched && price?.errors?.['required']">
-            Field is required
-        </div> -->
+                        Field is required
                     </div>
-                </div>
-
+                </div> -->
 
 
             </div>
+            </div>
             <div>
-                <button [disabled]="myForm.invalid" type="submit" class="btn mx-1 "
+                <button (click)="submit()"  type="submit" class="btn mx-1 "
                     style="background-color:#7db855be">Submit</button>
                 <button type="submit" class="btn" style="background-color:#141E46;color:white"
                     (click)="close()">Cancel</button>

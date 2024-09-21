@@ -17,11 +17,17 @@ export class AdminEditComponent implements OnInit{
   adminuserId: any;
   viewData: any;
   data: any;
+  activeRole: any;
+  role: any;
 
 constructor(private service:FarginServiceService,private toaster:ToastrService,private activeRouter:ActivatedRoute,private router:Router){}
   ngOnInit(): void {
 
-
+    this.service.roleactiveViewall().subscribe((res:any)=>{
+      this.activeRole=res.response;
+      console.log(this.activeRole);
+    })
+    
     this.activeRouter.queryParams.subscribe((param: any) => {
       this.adminuserId = param.AdminUserId;
       console.log(this.adminuserId)
@@ -32,10 +38,11 @@ constructor(private service:FarginServiceService,private toaster:ToastrService,p
       adminName: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]),
       gender:new FormControl('', [Validators.required]),
       address:new FormControl('', [Validators.required]),
-      country:new FormControl('', [Validators.required]),
-      state:new FormControl('', [Validators.required]),
-      city:new FormControl('', [Validators.required]),
-      pincode:new FormControl('', [Validators.required]),
+      country:new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z0-9 ]*$')]),
+      state:new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z0-9 ]*$')]),
+      city:new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z0-9 ]*$')]),
+      pincode:new FormControl('', [Validators.required,Validators.pattern("^[1-9]{1}[0-9]{2}\\s{0,1}[0-9]{3}$")]),
+      roleId:new FormControl('',[Validators.required])
     })
 
 
@@ -71,6 +78,9 @@ constructor(private service:FarginServiceService,private toaster:ToastrService,p
   get pincode() {
     return this.AdminForm.get('pincode');
   }
+  get roleId(){
+    return this.AdminForm.get('roleId')
+  }
 
   
   submit(){
@@ -83,12 +93,16 @@ constructor(private service:FarginServiceService,private toaster:ToastrService,p
        pincode:this.pincode?.value,
        country:this.country?.value,
        gender:this.gender?.value,
-       modifiedBy:this.createdBy
+       modifiedBy:this.createdBy,
+       roleId:this.roleId?.value
     }
 
     this.service.AdminUpdate(submitmodel).subscribe((res:any)=>{
       if(res.flag==1){
         this.toaster.success(res.responseMessage);
+        setTimeout(() => {
+          window.location.reload()
+        }, 500);
         this.router.navigateByUrl(`/dashboard/admindetails`);
       }
       else{

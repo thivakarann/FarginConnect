@@ -68,7 +68,7 @@ export class RegionEditComponent implements OnInit {
     let submitModel: RegionEdit = {
       serviceId: this.serviceId?.value,
       regionId: this.Regionid,
-      stateName: this.stateName.value
+      stateName: this.stateName?.value
     }
 
     this.service.RegionEdit(submitModel).subscribe((res: any) => {

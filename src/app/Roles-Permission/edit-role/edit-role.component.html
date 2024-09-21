@@ -1,44 +1,56 @@
+
+<div class="card-header">
+    <h3 class="mb-0" style="font-weight: 700;text-align:center;font-size: 21px;">Edit Role</h3>
+</div>
+
 <body class="page">
     <main class="main page__main">
 
-        <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="addcategory">
-
-            <h4
-                style="text-align: center;background-color: #141E46;color: white;padding: 5px 9px 8px;font-size:large;border-radius: 10px;box-shadow: 3px 3px #7db855be;">
-                Edit Role</h4>
+        <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="editRole">
+ 
+           
             &nbsp;
             <div class="form__linput">
-                <label class="form__label" for="fname">Role Name</label>
-                <input class="form__input" id="fname" type="text" formControlName="categoryName" name="categoryName"
-                    placeholder="Enter Role Name..." required />
+                <label class="form__label">Role Name</label>
+                <input class="form__input" type="text" formControlName="roleName"
+                    required ngModel="{{getRoleName}}" style="font-size: 14px;width: 550px;" />
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
-                    *ngIf="categoryName?.invalid && categoryName?.touched && categoryName?.errors?.['required']">
+                    *ngIf="roleName?.invalid && roleName?.touched && roleName?.errors?.['required']">
                     Field is required
                 </div>
             </div>
-
+ 
             <div class="form__linput">
                 <label class="form__label" for="fname">Select Permission</label>
-                <mat-select #select style="font-size: 12px;" class="form-select" multiple formControlName="permission">
-
+                <mat-select #select style="font-size: 14px;width: 550px;" class="form-select" multiple (ngModelChange)="sendPermissionId($event)"
+                formControlName="permission" [ngModel]="getPerValue" >
+ 
                     <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
                         (change)="toggleAllSelection()">Select All</mat-checkbox>
-
+ 
+                    <mat-option *ngFor="let data of values2" [value]="data.value">
+                        {{data.viewValue}}
+                    </mat-option>
+ 
                 </mat-select>
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="permission?.invalid && permission?.touched && permission?.errors?.['required']">
                     Field is required
                 </div>
             </div>
-
+ 
             <div class="form__linput">
                 <label class="form__label" for="fname">Select Sub Permission</label>
-                <mat-select #selects style="font-size: 12px;" class="form-select" multiple
-                    formControlName="subPermission">
-
+                <mat-select #selects style="font-size: 14px;width: 550px;" class="form-select" multiple
+                    formControlName="subPermission" [ngModel]="getSubValue">
+ 
                     <mat-checkbox [(ngModel)]="allSelected1" [ngModelOptions]="{standalone: true}"
                         (change)="toggleAllSelection1()">Select All</mat-checkbox>
-
+                       
+                        <mat-option *ngFor="let datas of values" [value]="datas.value">
+                            <!-- {{datas.viewValues}}- -->
+                            {{datas.viewValue}}
+                          </mat-option>
                 </mat-select>
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="subPermission?.invalid && subPermission?.touched && subPermission?.errors?.['required']">
@@ -47,9 +59,10 @@
             </div>
 
             <!-- <button class="primary-btn form__btn" type="submit">Submit</button> -->
-            <div class="flex">
-                <button type="submit" class="submit" (click)="submit()">Submit</button>
-                <button type="submit" class="cancel" matDialogClose>Cancel</button>
+            <div> 
+                <button [disabled]="editRole.invalid" type="submit" class="btn mx-1 " style="background-color:#7db855be" (click)="submit()">Submit</button>
+                <button  type="submit" class="btn"
+                style="background-color:#141E46;color:white" matDialogClose>Cancel</button>
 
             </div>
 

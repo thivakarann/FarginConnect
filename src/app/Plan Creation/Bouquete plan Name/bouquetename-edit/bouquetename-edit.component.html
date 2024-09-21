@@ -1,21 +1,19 @@
-<div class="container">
 
     <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="mb-0">Update</h5>
         <button type="button" class="btn btn-secondary" matDialogClose>Back</button>
     </div>
 
-    <div class="well" style="margin-top: 0px;">
-        <form [formGroup]="myForm">
+    <body  class="page">
+        <main  class="main page__main">
+        <form  class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="myForm">
 
             <div class="row">
                 <div class="form-group">
                     <label for="Bussiness category">Broadcaster Name</label>
-                    <select [(ngModel)]="Broadcastername" formControlName="bundleChannelId" id="Bussiness category"
-                        class="form-control form-select">
+                    <select [(ngModel)]="Broadcastername" formControlName="bundleChannelId" id="Bussiness category" class="form-control form-select">
                         <option value="" disabled selected>Select</option>
-                        <option *ngFor="let item of details" [value]="item.bundleChannelId">{{item.broadCasterName}}
-                        </option>
+                        <option *ngFor="let item of details" [value]="item.bundleChannelId">{{item.broadCasterName}}</option>
                     </select>
                     <div style="
                     color: red;
@@ -29,8 +27,7 @@
                 </div>
                 <div class="form-group ">
                     <label for="Entity Name">Plan Name</label>
-                    <input [(ngModel)]="PlanName" type="text" id="Entity Name" formControlName="bouquetName"
-                        class="form-control">
+                    <input [(ngModel)]="PlanName" type="text" id="Entity Name" formControlName="bouquetName" class="form-control">
                     <div style="
                         color: red;
                         font-size: 12px;
@@ -46,10 +43,10 @@
             <div style="margin-top: 2%;">
                 <button (click)="submit()" [disabled]="myForm.invalid" type="submit" class="btn mx-1 "
                     style="background-color:#7db855be">Submit</button>
-
+    
             </div>
 
         </form>
-    </div>
+        </main>
+    </body>
 
-</div>

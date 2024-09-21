@@ -39,7 +39,7 @@
 
       <button (click)="create()" style="color:white;background-color: #141E46;border-radius: 10px;"
         mat-raised-button>Create</button>
-      <button style="color:white;background-color: #141E46;border-radius: 10px;" (click)="exportexcel()"
+      <button style="color:white;background-color: #141E46;border-radius: 10px;" 
         mat-raised-button>Export</button>
     </div>
   </mat-card-header>
@@ -69,18 +69,16 @@
       <ng-container matColumnDef="permissionName">
         <th mat-header-cell *matHeaderCellDef>Permission View</th>
         <td mat-cell *matCellDef="let data">
-          <i data-bs-toggle="modal" data-bs-target="#permissionView" class="fa fa-eye"
-            (click)="permissionView(data?.roleId)"></i>
+            <i  class="fa fa-eye" (click)="permissionView(data?.permission)"  ></i>
         </td>
-      </ng-container>
+    </ng-container>
 
-      <ng-container matColumnDef="actionName">
+    <ng-container matColumnDef="actionName">
         <th mat-header-cell *matHeaderCellDef>Action View</th>
         <td mat-cell *matCellDef="let data">
-          <i data-bs-toggle="modal" data-bs-target="#actionView" class="fa fa-eye"
-            (click)="permissionView(data?.roleId)"></i>
+            <i  class="fa fa-eye" (click)="subpermissionView(data?.subPermission)"  ></i>
         </td>
-      </ng-container>
+    </ng-container>
 
       <!-- <ng-container matColumnDef="chooseCount">
                 <th mat-header-cell *matHeaderCellDef>Choose Count</th>
@@ -100,9 +98,9 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef>Action</th>
         <td mat-cell *matCellDef="let data">
-          <i class="fa fa-edit" (click)="edit(data)"></i>
+            <i class="fa fa-edit" (click)="edit(data.roleId)"></i>
         </td>
-      </ng-container>
+    </ng-container>
 
       <ng-container matColumnDef="CreatedBy">
         <th mat-header-cell *matHeaderCellDef>Created By</th>
@@ -134,77 +132,3 @@
 </mat-card-footer>
 
 
-<div class="modal fade" id="permissionView" tabindex="-1" aria-hidden="true" data-bs-keyboard="false"
-  data-bs-backdrop="static">
-  <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 600px">
-    <div class="modal-content">
-      <div class="modal-header p-2" style="background-color: #141E46">
-        <h5 class="modal-title" style="color: #fff; font-size: 16px" id="exampleModalLabel1">
-          Enabled Permission View
-        </h5>
-        <button type="button" style="color: #fff; font-size: 16px" class="btn-close" data-bs-dismiss="modal"
-          aria-label="Close"></button>
-      </div>
-      <form>
-        <div class="modal-body" style="max-height: 400px; overflow-y: scroll">
-          <section>
-            <div class="table-responsive text-nowrap">
-              <table class="table table-hover" id="customers">
-                <tr>
-                  <th style="background-color: white; color: black">S.No</th>
-                  <th style="background-color: white; color: black">
-                    Enabled Permission
-                  </th>
-                </tr>
-                <tr *ngFor="let data of permissionViews; let i = index">
-                  <td class="text-class">{{ i + 1 }}</td>
-                  <td class="text-class">{{ data?.permission }}</td>
-                </tr>
-              </table>
-            </div>
-          </section>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-
-<div class="modal fade" id="actionView" tabindex="-1" aria-hidden="true" data-bs-keyboard="false"
-  data-bs-backdrop="static">
-  <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 600px">
-    <div class="modal-content">
-      <div class="modal-header p-2" style="background-color: #141E46">
-        <h5 class="modal-title" style="color: #fff; font-size: 16px" id="exampleModalLabel1">
-          Enabled Actions View
-        </h5>
-        <button type="button" style="color: #fff; font-size: 16px" class="btn-close" data-bs-dismiss="modal"
-          aria-label="Close"></button>
-      </div>
-      <form>
-        <div class="modal-body" style="max-height: 400px; overflow-y: scroll">
-          <section>
-            <div class="table-responsive text-nowrap">
-              <table class="table table-hover" id="customers">
-                <tr>
-                  <th style="background-color: white; color: black">S.No</th>
-                  <th style="background-color: white; color: black">
-                    Enabled Permissions
-                  </th>
-                  <th style="background-color: white; color: black">
-                    Enabled Actions
-                  </th>
-                </tr>
-                <tr *ngFor="let data of subPermissionViews; let i = index">
-                  <td>{{ i + 1 }}</td>
-                  <td>{{ data?.permission?.permission }}</td>
-                  <td>{{ data?.subPermissions }}</td>
-                </tr>
-              </table>
-            </div>
-          </section>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>

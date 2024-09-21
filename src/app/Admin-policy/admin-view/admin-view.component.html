@@ -1,13 +1,7 @@
-<!--   -->
-<h4 style="text-align:left;color:#141E46;">Terms and Policy</h4>
-
-<div class="row">
-
-  <br>
-  <mat-card-header style="margin-top: 2%;">
-
-    <div style="margin-left: -10px;" class="col">
-
+<h5 style="text-align:left;color:#141E46;">Terms and Policy</h5>
+<mat-card-header>
+  <div class="row mt-5">
+    <div class="col">
       <div class="search ">
         <form class="form">
           <label for="search">
@@ -33,32 +27,26 @@
             </button>
           </label>
         </form>
-
       </div>&nbsp;&nbsp;&nbsp;
-
-
-
       <button (click)="create()" style="color:white;background-color: #141E46;border-radius: 10px;"
         mat-raised-button>Create</button>
       <button style="color:white;background-color: #141E46;border-radius: 10px;" (click)="exportexcel()"
         mat-raised-button>Export</button>
     </div>
-  </mat-card-header>
-</div>
+  </div>
+</mat-card-header>
 <!-- <mat-card> -->
 <mat-card-content>
-
-  <div class="table-responsive text-nowrap" style="overflow-x: scroll; scrollbar-width: thin;">
-    <span *ngIf="showcategoryData" class="errormge">NO DATA FOUND</span>
-    <br><br>
-    <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1"
-      *ngIf="!showcategoryData">
-
+  <div class="table-responsive text-nowrap  mt-4" style="overflow-x: scroll; scrollbar-width: thin;">
+    <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
       <ng-container matColumnDef="adminId">
         <th mat-header-cell *matHeaderCellDef> S.No</th>
         <td mat-cell *matCellDef="let businesscategory; let i = index"> {{i+1}} </td>
       </ng-container>
-
+      <ng-container matColumnDef="merchantname">
+        <th mat-header-cell *matHeaderCellDef>Entity Name</th>
+        <td mat-cell *matCellDef="let businesscategory">{{businesscategory.entityModel.merchantLegalName}}</td>
+      </ng-container>
       <ng-container matColumnDef="termAndCondition">
         <th mat-header-cell *matHeaderCellDef>Terms and Condition</th>
         <td mat-cell *matCellDef="let businesscategory">
@@ -72,14 +60,11 @@
             </span>
             <i style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more" (click)="Terms()">
               <br>
-
               {{ isFullPolicyVisible ? 'Read Less' : '...Read More' }}
             </i>
           </div>
         </td>
       </ng-container>
-
-
       <ng-container matColumnDef="disclaimer">
         <th mat-header-cell *matHeaderCellDef>Disclaimer</th>
         <td mat-cell *matCellDef="let businesscategory">
@@ -93,15 +78,11 @@
             </span>
             <i style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more" (click)="Disclaimer()">
               <br>
-
               {{ isFullPolicyVisible ? 'Read Less' : '...Read More' }}
             </i>
           </div>
         </td>
       </ng-container>
-
-
-
       <ng-container matColumnDef="privacyPolicy">
         <th mat-header-cell *matHeaderCellDef>Privacy Policy</th>
         <td mat-cell *matCellDef="let businesscategory">
@@ -120,8 +101,6 @@
           </div>
         </td>
       </ng-container>
-
-
       <ng-container matColumnDef="refundPolicy">
         <th mat-header-cell *matHeaderCellDef>Refund Policy</th>
         <td mat-cell *matCellDef="let businesscategory">
@@ -140,53 +119,39 @@
           </div>
         </td>
       </ng-container>
-
-
-
       <ng-container matColumnDef="Edit">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
         <td mat-cell *matCellDef="let businesscategory">
-          <i style="cursor: pointer;font-size:20px; color: rgb(28, 28, 68);" (click)="Edit(businesscategory.policyId )"
-            class="fa fa-edit"></i>
+          <i style="cursor: pointer;font-size:15px; color:#545497;" (click)="Edit(businesscategory.policyId )"
+            class="fas fa-edit"></i>
         </td>
       </ng-container>
-
-
       <ng-container matColumnDef="createdBy">
         <th mat-header-cell *matHeaderCellDef>Created By</th>
         <td mat-cell *matCellDef="let businesscategory">{{businesscategory.createdBy}}</td>
       </ng-container>
-
       <ng-container matColumnDef="createdDateTime">
         <th mat-header-cell *matHeaderCellDef>Created Date</th>
         <td mat-cell *matCellDef="let businesscategory">{{businesscategory.createdDateTime|date:"dd/MM/yyyy"}}</td>
       </ng-container>
-
       <ng-container matColumnDef="modifiedBy">
-        <th mat-header-cell *matHeaderCellDef>modifiedBy</th>
+        <th mat-header-cell *matHeaderCellDef>Modified By</th>
         <td mat-cell *matCellDef="let businesscategory">{{businesscategory.modifiedBy}}</td>
       </ng-container>
-
       <ng-container matColumnDef="modifiedDateTime">
-        <th mat-header-cell *matHeaderCellDef>modifiedDateTime</th>
+        <th mat-header-cell *matHeaderCellDef>ModifiedDateTime</th>
         <td mat-cell *matCellDef="let businesscategory">{{businesscategory.modifiedDateTime|date:"dd/MM/yyyy"}}</td>
       </ng-container>
-
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
       <tr *matNoDataRow>
         <td class="mat-cell" colspan="4">No Data{{input.value}}
         </td>
-
       </tr>
     </table>
-
   </div>
 </mat-card-content>
 <mat-card-footer>
-
   <mat-paginator [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtons
     aria-labels="select page of users"></mat-paginator>
-
 </mat-card-footer>
-<!-- </mat-card> -->

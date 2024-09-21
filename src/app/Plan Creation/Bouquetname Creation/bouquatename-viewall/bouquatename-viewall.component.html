@@ -73,19 +73,16 @@
             </ng-container>
 
 
-
-
             <ng-container matColumnDef="Edit">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Edit</th>
                 <td style="cursor: pointer;" mat-cell *matCellDef="let viewall" (click)="Edit(viewall.bundleChannelId)">
-                    <i class="fa fa-edit" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
+                    <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-edit"></i>
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="createdBy">
                 <th mat-header-cell *matHeaderCellDef> Created By</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall.createdBy
-                    }}</td>
+                <td mat-cell *matCellDef="let viewall">{{viewall.createdBy}}</td>
             </ng-container>
 
 
@@ -111,7 +108,7 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
             <tr *matNoDataRow>
-                <td class="mat-cell" colspan="4">The Filter Does not Match Any Item In The Data For This Text
+                <td class="mat-cell" colspan="4">No Data
                     {{input.value}}
                 </td>
 

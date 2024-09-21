@@ -59,10 +59,9 @@ export class AddfacheckkeyComponent {
 
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
-        this.dialog.closeAll()
         setTimeout(() => {
           window.location.reload();
-        }, 2000);
+        }, 700);
       }
       else {
         this.toastr.error(res.responseMessage)

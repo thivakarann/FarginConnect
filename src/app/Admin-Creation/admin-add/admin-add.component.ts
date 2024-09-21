@@ -13,7 +13,8 @@ import { Router } from '@angular/router';
 export class AdminAddComponent implements OnInit {
   AdminForm!: FormGroup;
   showPassword: boolean = false;
-  createdBy: any = (localStorage.getItem('adminname') || '');
+  createdBy :any = JSON.parse(localStorage.getItem('adminname') || '');
+  activeRole: any;
 
 
   constructor(private service: FarginServiceService, private toaster: ToastrService, private router: Router) { }
@@ -25,10 +26,16 @@ export class AdminAddComponent implements OnInit {
       password: new FormControl('', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}')]),
       mobileNumber: new FormControl('', [Validators.required, Validators.pattern("^[0-9]{10}$")]),
       address: new FormControl('', [Validators.required]),
-      country: new FormControl('', [Validators.required]),
-      state: new FormControl('', [Validators.required]),
-      city: new FormControl('', [Validators.required]),
-      pincode: new FormControl('', [Validators.required]),
+      country: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z0-9 ]*$')]),
+      state: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z0-9 ]*$')]),
+      city: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z0-9 ]*$')]),
+      pincode: new FormControl('', [Validators.required,Validators.pattern("^[1-9]{1}[0-9]{2}\\s{0,1}[0-9]{3}$")]),
+      roleId:new FormControl('',[Validators.required])
+    })
+
+    this.service.roleactiveViewall().subscribe((res:any)=>{
+      this.activeRole=res.response;
+      console.log(this.activeRole);
     })
   }
   get adminName() {
@@ -42,6 +49,9 @@ export class AdminAddComponent implements OnInit {
   }
   get password() {
     return this.AdminForm.get('password');
+  }
+  get roleId(){
+    return this.AdminForm.get('roleId')
   }
   get mobileNumber() {
     return this.AdminForm.get('mobileNumber');
@@ -68,6 +78,7 @@ export class AdminAddComponent implements OnInit {
     this.showPassword = !this.showPassword;
     passwordInput.type = this.showPassword ? 'text' : 'password';
   }
+
   submit() {
     let submitmodel: AdminCreate = {
       roleId: '2',
@@ -87,7 +98,10 @@ export class AdminAddComponent implements OnInit {
     this.service.AdminCreate(submitmodel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toaster.success(res.responseMessage);
-        window.location.reload();
+        setTimeout(() => {
+          window.location.reload()
+        }, 500);
+        this.router.navigateByUrl(`/dashboard/admindetails`);
       }
       else {
         this.toaster.error(res.responseMessage);

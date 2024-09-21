@@ -9,6 +9,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { EditRoleComponent } from '../edit-role/edit-role.component';
+import { ViewPermissionComponent } from '../view-permission/view-permission.component';
+import { ViewSubpermissionComponent } from '../view-subpermission/view-subpermission.component';
 
 @Component({
   selector: 'app-view-role',
@@ -27,33 +29,45 @@ export class ViewRoleComponent implements OnInit{
   permissionViews: any;
   subPermissionViews: any;
   roleId: any;
+  errorMessage: any;
+  getAction: any;
+  values: any[] = [];
+  values2: any[] = [];
+  subId: any[] = [];
+  perValueArray: any[] = [];
+  moduleName: any[] = [];
+  roleName: any;
+  permissionview: any;
+  subpermission: any;
+  perValueObject: any;
+ 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
   ngOnInit(): void {
-
-    
-    this.service.viewRoles().subscribe((res:any)=>{
-      this.roledata=res.response;
+ 
+ 
+    this.service.viewRoles().subscribe((res: any) => {
+      this.roledata = res.response;
       console.log(this.roledata);
       this.dataSource = new MatTableDataSource(this.roledata?.reverse())
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
   }
-
+ 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
+ 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
  
-  onSubmit(event: MatSlideToggleChange,id:any) {
+  onSubmit(event: MatSlideToggleChange, id: any) {
     console.log(id);
-    
+ 
     this.isChecked = event.checked;
-   
+ 
     let submitModel: roleactiveInactive = {
       roleId: id,
       status: this.isChecked ? 1 : 0,
@@ -62,49 +76,93 @@ export class ViewRoleComponent implements OnInit{
     this.service.rolesStatus(submitModel).subscribe((res: any) => {
       console.log(res);
       this.toastr.success(res.responseMessage);
-      // setTimeout(() => {
-      //   window.location.reload();
-      // }, 1000);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     });
   }
-  edit(id:any) {
-    this.dialog.open(EditRoleComponent, {    
-      data:{value:id} ,
-      width:'80vw',// Use percentage to make it responsive
-      maxWidth:'600px',
-      height:'480px',
-  // Ensure it doesn't get too wide on large screens
-      enterAnimationDuration:'1000ms',      
-      exitAnimationDuration:'1000ms', });
-  }
-
-  create() {
-    this.dialog.open(AddRoleComponent, {      
-      width:'80vw',// Use percentage to make it responsive
-      maxWidth:'600px',
-      height:'480px',
-  // Ensure it doesn't get too wide on large screens
-      enterAnimationDuration:'1000ms',      
-      exitAnimationDuration:'1000ms', });
-  }
-
-  exportexcel() {
-
-  }
-  permissionView(id:any){
-    this.service.viewPermissionSubPermission(id).subscribe((res:any)=>{
-      this.dataValue=res.response;
-      console.log(this.dataValue);
-      this.permissionViews=res.response?.permission;
-      console.log(this.permissionViews);
-      this.subPermissionViews=res.response?.subPermission; 
-      console.log(this.subPermissionViews);
-        
-      
-
-    })
-  }
-  }
-
  
-
+ 
+  edit(id: string) {
+    console.log(id);
+    this.values = [];
+    this.subId = [];
+    this.perValueArray = [];
+    this.moduleName = [];
+ 
+    this.service.rolegetById(id).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        if (res.flag == 1) {
+          this.getAction = res.response;
+          this.roleName = this.getAction.roleName;
+          this.permissionview = this.getAction.permission
+          this.subpermission = this.getAction.subPermission
+          console.log(this.getAction)
+          for (let data of this.permissionview) {
+            this.values.push(data.permissionId)
+          }
+ 
+          //Duplicate Removal start
+          this.perValueObject = new Set(this.values)
+          for (let value of this.perValueObject) {
+            this.perValueArray.push(value)
+          }
+          console.log(this.perValueArray)
+          //Duplicate Removal end
+ 
+          for (let data1 of this.subpermission) {
+            this.subId.push(data1.subPermissionId)
+          }
+          console.log(this.subId);
+          this.dialog.open(EditRoleComponent, {
+            data: { per: this.perValueArray, roleName: this.roleName, role: id, sub: this.subId, moduleNames: this.moduleName },
+            disableClose: true,
+            enterAnimationDuration: '1000ms',
+            exitAnimationDuration: '1000ms',
+          });
+        } else if (res.flag == 2) {
+ 
+          this.errorMessage = res.responseMessage;
+        } else {
+          this.errorMessage = res.responseMessage;
+        }
+      },
+    });
+ 
+  }
+ 
+  create() {
+    this.dialog.open(AddRoleComponent, {
+      disableClose: true,
+          // Ensure it doesn't get too wide on large screens
+      enterAnimationDuration: '1000ms',
+      exitAnimationDuration: '1000ms',
+    });
+ 
+  }
+ 
+ 
+  permissionView(id:any){
+    this.dialog.open(ViewPermissionComponent, {
+      data:{value:id},
+      disableClose: true,
+      width: '80vw',
+      maxWidth: '600px',
+      height: 'auto',
+      enterAnimationDuration: '1000ms',
+      exitAnimationDuration: '1000ms',
+    });
+  }
+  subpermissionView(id:any){
+    this.dialog.open(ViewSubpermissionComponent, {
+      data:{value:id},
+      disableClose: true,
+      width: '80vw',
+      maxWidth: '600px',
+      height: 'auto',
+      enterAnimationDuration: '1000ms',
+      exitAnimationDuration: '1000ms',
+    });
+  }
+}

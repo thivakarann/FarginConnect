@@ -4,6 +4,7 @@
         <h5 class="mb-0">Admin Create</h5>
         <button type="button" class="btn btn-secondary" (click)="close()">Back</button>
     </div>
+
     <div class="well">
         <form [formGroup]="AdminForm">
             <div class="row mb-3">
@@ -16,6 +17,18 @@
                     <span class="error" *ngIf="adminName?.touched && adminName?.errors?.['pattern']">Please Enter
                         Alphabets Only*</span>
                 </div>
+ 
+                <div class="col-sm-4 form-group">
+                    <label for="state">Role*</label>
+                    <select class="form-select" formControlName="roleId">
+                        <option style="text-align: center;" selected disabled>---Select Role--
+                        </option>
+                        <option *ngFor="let data of activeRole"  [value]="data.roleId"  >{{data.roleName}}</option>
+ 
+                    </select>
+                    <span class="error" *ngIf="roleId?.touched && roleId?.errors?.['required']"> Field is required</span>
+                </div>
+ 
                 <div class="col-sm-4 form-group">
                     <label for="state">Gender*</label>
                     <select class="form-select" formControlName="gender">
@@ -25,9 +38,11 @@
                         <option style="text-align: center;" value="Female">Female</option>
                         <option style="text-align: center;" value="Other">Other</option>
                     </select>
-                    <span class="error" *ngIf="gender?.touched && gender?.errors?.['required']">Please Select Flat
-                        Number *</span>
+                    <span class="error" *ngIf="gender?.touched && gender?.errors?.['required']"> Field is required</span>
                 </div>
+             
+            </div>
+            <div class="row mb-3">
                 <div class="col-sm-4 form-group">
                     <label for="zip">EmailAddress</label>
                     <input type="text" id="zip" placeholder="EmailAddress.." class="form-control"
@@ -40,8 +55,6 @@
                         Enter
                         The Valid EmailAddress*</span>
                 </div>
-            </div>
-            <div class="row mb-3">
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">Password</label>
                     <input autocomplete="off" type="text" id="Entity Name" placeholder="Password..." class="form-control"
@@ -71,6 +84,10 @@
                         *ngIf="mobileNumber?.invalid && mobileNumber?.touched && mobileNumber?.errors?.['pattern']">Enter
                         The Valid Mobile Number*</span>
                 </div>
+             
+            </div>
+            <div class="row mb-3">
+ 
                 <div class="col-sm-4 form-group">
                     <label for="Mcc Code">Address</label>
                     <input  type="text" id="Mcc Code" placeholder="Address.." class="form-control"
@@ -78,8 +95,7 @@
                     <span class="error" *ngIf=" address?.invalid && address?.touched && address?.errors?.['required']">
                         Field is Required*</span>
                 </div>
-            </div>
-            <div class="row mb-3">
+ 
                 <div class="col-sm-4 form-group">
                     <label for="Mcc Code">Country*</label>
                     <input type="text" id="Mcc Code" placeholder="Enter the Country" class="form-control"
@@ -94,7 +110,10 @@
                     <span class="error" *ngIf=" state?.invalid && state?.touched && state?.errors?.['required']">
                         Field is Required*</span>
                 </div>
-
+ 
+             
+            </div>
+            <div class="row mb-3">
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">City*</label>
                     <input type="text" id="Entity Name" placeholder="Enter City Name" class="form-control"
@@ -102,8 +121,6 @@
                     <span class="error" *ngIf=" city?.invalid && city?.touched && city?.errors?.['required']">
                         Field is Required*</span>
                 </div>
-            </div>
-            <div class="row mb-3">
                 <div class="col-sm-4 form-group">
                     <label for="Mcc Code">Pincode*</label>
                     <input type="text" id="Mcc Code" placeholder="Enter Pincode" class="form-control"

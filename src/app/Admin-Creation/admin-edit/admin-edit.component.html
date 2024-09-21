@@ -17,6 +17,17 @@
                         Alphabets Only*</span>
                 </div>
                 <div class="col-sm-4 form-group">
+                    <label for="role">Role*</label>
+                    <select ngModel="{{this.viewData.roleModel.roleId}}" class="form-select" formControlName="roleId">
+                        <option style="text-align: center;" selected disabled>---Select Role--
+                        </option>
+                        <option  *ngFor="let data of activeRole"  [value]="data.roleId"  >{{data.roleName}}</option>
+ 
+                    </select>
+                    <span class="error" *ngIf="roleId?.touched && roleId?.errors?.['required']"> Field is required</span>
+                </div>
+ 
+                <div class="col-sm-4 form-group">
                     <label for="gender">Gender*</label>
                     <select class="form-select" formControlName="gender"  ngModel="{{this.viewData.gender}}">
                         <option style="text-align: center;" selected disabled>---Select Gender--

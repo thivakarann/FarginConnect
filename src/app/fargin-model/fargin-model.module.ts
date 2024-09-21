@@ -46,6 +46,7 @@ export interface AdminUpdate {
   readonly country: any;
   readonly gender: any;
   readonly modifiedBy: any;
+  readonly roleId:any;
 }
 
 
@@ -607,4 +608,11 @@ export interface PgOnboard {
   readonly linkExpiry: any;
   readonly description: any;
   readonly returnUrl: any;
+}
+
+export interface editroles {
+  readonly roleName: any;
+  readonly modifiedBy: any;
+  readonly permission: any;
+  readonly subPermission: any;
 }

@@ -1,0 +1,25 @@
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+
+
+<div class="form-header d-flex justify-content-between align-items-center">
+    <h5 class="mb-0">Permission View</h5>
+    <button type="button" class="btn btn-secondary" (click)="back()">Back</button>
+</div>
+<div class="well">
+    <div class="table-responsive text-nowrap">
+        <table class="table table-hover" id="customers">
+          <tr>
+            <th style="background-color: white; color: black">S.No</th>
+            <th style="background-color: white; color: black">
+              Enabled Permission
+            </th>
+          </tr>
+          <tr *ngFor="let data of permissionvalue; let i = index">
+            <td class="text-center">{{ i + 1 }}</td>
+            <td class="text-center">{{ data?.permission }}</td>
+          </tr>
+        </table>
+      </div>
+</div>

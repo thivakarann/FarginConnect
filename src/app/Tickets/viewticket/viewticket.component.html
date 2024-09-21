@@ -1,11 +1,11 @@
 <h4 style="text-align:left;color:#141E46;">Ticket Details</h4>
 
-<div class="row" style="margin-top: 3%;">
     <mat-card-header>
+        <div class="row mt-5">
 
-        <div class="col" style="margin-left: -15px;">
+        <div class="col">
 
-            <div class="search" style="margin-top: 1%;">
+            <div class="search">
                 <form class="form">
                     <label for="search">
                         <input #input (keyup)="applyFilter($event)" required="" autocomplete="off" placeholder="Search"
@@ -36,11 +36,11 @@
             <button style="color:white;background-color: #141E46;border-radius: 10px;" (click)="exportexcel()"
                 mat-raised-button>Export</button>
         </div>
-    </mat-card-header>
 </div>
+    </mat-card-header>
 
 <mat-card-content>
-    <div class="table-responsive text-nowrap" style="overflow-x: scroll; scrollbar-width: thin;">
+    <div class="table-responsive text-nowrap mt-4" style="overflow-x: scroll; scrollbar-width: thin;">
         <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
             <ng-container matColumnDef="raiseTicketId">
@@ -106,7 +106,7 @@
             <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef>Action</th>
                 <td mat-cell *matCellDef="let data">
-                    <i class="fa fa-edit" (click)="update(data)"></i>
+                    <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-edit" (click)="update(data)"></i>
                 </td>
             </ng-container>
 
