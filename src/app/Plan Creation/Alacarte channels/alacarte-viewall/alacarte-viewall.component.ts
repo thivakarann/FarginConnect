@@ -20,12 +20,12 @@ export class AlacarteViewallComponent implements OnInit {
     'channelName',
     'type',
     'price',
-    'language',
-    'generic',
+    // 'language',
+    // 'generic',
     'alcotStatus',
     'View',
     'Edit',
-    'createdBy',
+    // 'createdBy',
     'createdAt',
   ];
   viewall: any;

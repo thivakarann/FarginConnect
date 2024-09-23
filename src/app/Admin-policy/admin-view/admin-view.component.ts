@@ -24,6 +24,7 @@ export class AdminViewComponent implements OnInit {
   dataSource: any;
   displayedColumns: string[] = [
     "adminId",
+    "merchantname",
     "termAndCondition",
     "disclaimer",
     "privacyPolicy",
@@ -99,6 +100,7 @@ export class AdminViewComponent implements OnInit {
  
       this.response = [];
       this.response.push(sno);
+      this.response.push(element?.entityModel?.merchantLegalName);
       this.response.push(element?.termAndCondition);
       this.response.push(element?.disclaimer);
       this.response.push(element?.privacyPolicy);
@@ -266,6 +268,8 @@ export class AdminViewComponent implements OnInit {
     });
     console.log(id);
   }
-
-
+ 
+ 
 }
+
+

@@ -36,7 +36,7 @@ export class BouquetenameEditComponent implements OnInit {
     this.id = this.data.value.boqCreationId;
     this.Broadcastername = this.data.value.bundleChannel.bundleChannelId;
     this.PlanName = this.data.value.bouquetName;
-    
+
     this.Editdetails.BoucatenamesActive().subscribe((res: any) => {
       this.details = res.response;
     });
@@ -60,24 +60,24 @@ export class BouquetenameEditComponent implements OnInit {
 
   }
 
-  submit(){
-     let submitModel: BouquetenameUpdate = {
-       bundleChannelId:this.bundleChannelId?.value,
-       boqCreationId:this.id,
-       bouquetName:this.bouquetName?.value,
-       modifiedBy:this.getadminname
-     }
+  submit() {
+    let submitModel: BouquetenameUpdate = {
+      bundleChannelId: this.bundleChannelId?.value,
+      boqCreationId: this.id,
+      bouquetName: this.bouquetName?.value,
+      modifiedBy: this.getadminname
+    }
 
-     this.Editdetails.Bouquetenameupdatae(submitModel).subscribe((res:any)=>{
+    this.Editdetails.Bouquetenameupdatae(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.dialog.closeAll();
         window.location.reload();
       }
       else {
-        this.toastr.error(res.responseMessage);
+        this.toastr.error(res.errorMessage);
       }
-     })
+    })
   }
 
 

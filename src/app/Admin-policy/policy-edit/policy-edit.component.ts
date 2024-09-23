@@ -29,6 +29,7 @@ export class PolicyEditComponent implements OnInit {
   showcategoryData: boolean = false;
   errorMsg: any;
   MerchantName: any;
+  merchant: any;
 
   constructor(
     private dialog: MatDialog,

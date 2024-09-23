@@ -16,8 +16,13 @@ export class SettlementViewComponent implements OnInit {
   Viewall: any;
   viewdata: any;
   accountId:any;
+  currentPage: any = 1; // The current page number
+  itemsPerPage = 5; //
+ 
+  page: number = 1;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+term: any;
   constructor(
     public service: FarginServiceService,
     private router: Router,

@@ -1,7 +1,7 @@
 <div class="card-header">
     <h3 class="mb-0" style="font-weight: 700;text-align:center;font-size: 21px;">Add BankDetails</h3>
 </div>
- 
+
 <body class="page">
     <main class="main page__main">
         <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="BankForm">
@@ -47,7 +47,7 @@
                         Field is required
                     </div>
                 </div>
- 
+
                 <div class="col-sm-6 form-group">
                     <label for="Entity Name" class="form__label">BranchName*</label>
                     <input type="text" id="Entity Name" formControlName="branchName" class="form-control">
@@ -84,8 +84,8 @@
                         <option value="Salary account">Salary account</option>
                         <option value="Fixed deposit account">Fixed deposit account</option>
                         <option value="Recurring deposit account">Recurring deposit account</option>
- 
- 
+
+
                     </select>
                     <div style="
                     color: red;
@@ -98,7 +98,7 @@
                     </div>
                 </div>
             </div>
- 
+
             <div>
                 <button (click)="submit()" [disabled]="BankForm.invalid" type="submit" class="btn mx-1 "
                     style="background-color:#7db855be">Submit</button>
@@ -106,8 +106,8 @@
                     matDialogClose>Cancel</button>
             </div>
    
- 
- 
+
+
         </form>
     </main>
 </body>

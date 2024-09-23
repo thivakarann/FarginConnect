@@ -9,6 +9,8 @@ import { ElementRef } from '@angular/core';
 import * as FileSaver from 'file-saver';
 import moment from 'moment';
 import { Workbook } from 'exceljs';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { EntityStatus } from '../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-entity-viewall',
@@ -20,20 +22,18 @@ export class EntityViewallComponent {
   displayedColumns: string[] = [
     'merchantId',
     'entityName',
+    'contactEmail',
+    'accountId',
     'referenceNo',
     'merchantLegalName',
     'businessCategoryModel',
-    'status',
+    'finalapproval',
     'pgonboard',
-    'contactEmail',
-    'contactMobile',
-    'website',
+    'status',
     'View',
-    'createdBy',
     'createdDatetime',
-
+  
   ];
-
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -73,7 +73,7 @@ export class EntityViewallComponent {
     });
     console.log(id);
   }
-
+  
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -95,15 +95,34 @@ export class EntityViewallComponent {
       this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
       this.response.push(sno);
-      this.response.push(element?.referenceNo);
       this.response.push(element?.entityName);
+      this.response.push(element?.accountId);
       this.response.push(element?.merchantLegalName);
-      this.response.push(element?.accountDisplayName);
-      this.response.push(element?.contactName);
-      this.response.push(element?.contactMobile);
-      this.response.push(element?.contactEmail);
-      this.response.push(element?.billingAddress);
-      this.response.push(element?.createdBy);
+      this.response.push(element?.businessCategoryModel?.categoryName);
+      this.response.push(element?.referenceNo);
+
+if(element?.approvalStatusL2 == 'approved'){
+  this.response.push('Approved');
+}
+else(element?.approvalStatusL2 == 'Pending')
+{
+  this.response.push('Pending');
+}
+if(element?.onBoardStatus == 'true'){
+  this.response.push('Approved');
+}
+else(element?.onBoardStatus == 'false')
+{
+  this.response.push('Pending');
+}
+if(element?.accountStatus==1){
+  this.response.push('Active');
+}      
+else(element?.accountStatus==0)
+{
+  this.response.push('Inactive');
+}
+
       this.response.push(this.date1);
 
       sno++;
@@ -115,17 +134,16 @@ export class EntityViewallComponent {
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
-      "S.No",
-      "ReferenceNo",
-      "EntityName",
-      "Entity LegalName",
-      "AccountDisplayName",
-      "Contact Name",
-      "contactMobile",
-      "contact Email",
-      "Billing Address",
-      "createdBy",
-      "Created At"
+    "S.No",
+    'entityName',
+    'accountId',
+    'referenceNo',
+    'merchantLegalName',
+    'businessCategoryModel',
+    'finalapproval',
+    'pgonboard',
+    'status',
+    "Created At"
     ]
 
 
@@ -167,7 +185,7 @@ export class EntityViewallComponent {
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
-
+      
 
 
 
@@ -192,6 +210,22 @@ export class EntityViewallComponent {
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       FileSaver.saveAs(blob, 'Entity Details.xlsx');
+    });
+  }
+
+  onSubmit(event: MatSlideToggleChange, id: any) {
+    this.isChecked = event.checked;
+    let submitModel: EntityStatus = {
+      merchantId:id,
+      accountStatus: this.isChecked ? 1 : 0,
+    };
+
+    this.EntityViewall.EntityActiveStatus(submitModel).subscribe((res: any) => {
+      console.log(res);
+      this.toastr.success(res.responseMessage);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     });
   }
 }

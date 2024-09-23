@@ -1,37 +1,44 @@
-<!--MAIN-->
-<main>
-    <table>
-        <thead>
-            <tr>
-                <th>S.no</th>
-                <th>Doc Name</th>
-                <th>Doc Number</th>
-                <th>Verfication Status</th>
-                <th>Info</th>
-                <th>Action</th>
+<div class="container">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Add Channels</h5>
+        <button type="button" class="btn btn-secondary">Back</button>
+    </div>
 
+    <div class="well" style="margin-top: 0px;">
+        <form [formGroup]="myForm">
+            <div class="form-group">
+                <label for="Entity Name">Channels List</label>
 
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td data-label="ID">100344</td>
-                <td data-label="Name">John</td>
-                <td data-label="Country">USA</td>
-                <td data-label="Age">37</td>
-                <td data-label="DOB">April 30, 1988</td>
-                <td data-label="Status"><span class="active">Active</span></td>
+             
 
-            </tr>
-            <tr>
-                <td data-label="ID">100344</td>
-                <td data-label="Name"><img src="https://i.postimg.cc/FR5xjr4g/user.png" alt="" />John</td>
-                <td data-label="Country"><img src="https://i.postimg.cc/vZXRqKBV/usa.png" alt="" />USA</td>
-                <td data-label="Age">37</td>
-                <td data-label="DOB">April 30, 1988</td>
-                <td data-label="Status"><span class="active">Active</span></td>
-            </tr>
+                <mat-select #select style="font-size: 12px;" class="form-select" multiple formControlName="alcotId">
+                    <div class="select-all">
+                        <input 
+                        type="text" 
+                        formControlName="searchTerm" 
+                        placeholder="Search channels..." 
+                        class="form-control" 
+                        style="font-size: 12px; margin-bottom: 5px;"
+                    />
+                        <mat-checkbox 
+                            [checked]="allSelected" 
+                            (change)="toggleAllSelection($event.checked)">
+                            Select All
+                        </mat-checkbox>
+                    </div>
+                    <mat-option [value]="items.alcotId" *ngFor="let items of filteredChannels()">
+                        {{items?.channelName}}
+                    </mat-option>
+                </mat-select>
 
-        </tbody>
-    </table>
-</main>
+                <div style="color: red; font-size: 12px; margin-top: 2px;" *ngIf="alcotId?.invalid && alcotId?.touched && alcotId?.errors?.['required']">
+                    Field is required
+                </div>
+            </div>
+
+            <div style="margin-top: 2%;">
+                <button (click)="submit()" [disabled]="myForm.invalid" type="submit" class="btn mx-1" style="background-color:#7db855be">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>

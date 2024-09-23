@@ -81,53 +81,10 @@ button {
   margin-right: auto;
 }
 
-.primary-btn {
-  transition: 180ms ease-in;
-  color: var(--gray-0);
-  background-color: var(--green-9);
-  padding: 0.7em var(--size-3);
-  border: 0;
-  border-radius: var(--radius-2);
-  cursor: pointer;
-}
 
-.primary-btn:hover {
-  background-color: var(--green-6);
-}
 
-.flex {
-  display: flex;
-  justify-content: space-between;
-  gap: 0.5em;
-}
 
-.submit,
-.cancel {
-  border: none;
-  border-radius: var(--radius-2);
-  padding: 0.5em 1em;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-}
 
-.submit {
-  background-color: #1a202c;
-  color: #fff;
-}
-
-.submit:hover {
-  background-color: #2d3748;
-}
-
-.cancel {
-  background-color: #b44640;
-  color: #fff;
-}
-
-.cancel:hover {
-  background-color: #c53030;
-}
 
 @media (max-width: 600px) {
   .main__form {
@@ -139,18 +96,14 @@ button {
     padding: var(--size-2);
     width:400px;
   }
-
-  .submit,
-  .cancel {
-    padding: 0.5em 1em;
-    font-size: 0.875rem;
-  }
 }
 
 
 .card-header {
-
   background-color: #7db855be;
-  color: #141E46;
+  color: #fff;
   font-family: "Roboto";
+}
+.form__label{
+  font-weight: 500;
 }

@@ -80,7 +80,7 @@ button {
   margin-right: auto;
 }
  
- 
+
 @media (max-width: 600px) {
   .main__form {
     padding: var(--size-2);

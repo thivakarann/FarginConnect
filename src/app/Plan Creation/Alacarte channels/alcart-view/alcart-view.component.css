@@ -1,351 +1,332 @@
 article.card {
-  border: 1px solid #f8f9fa;
-  box-shadow: 0 0 20px 0px #dee2e6;
-  cursor: pointer;
-  overflow: hidden;
-  transition: 0.3s all;
-}
-.container {
-  max-width: 900;
-  /* Increase container width */
-}
-
-.form-header {
-  background-color: #bbe06c;
-  /* Header background color */
-  color: white;
-  padding: 0.5rem;
-  border-radius: 0.5rem 0.5rem 0 0;
-  /* Rounded corners on top */
-  margin-bottom: 0.5rem;
-}
-
-.form-group label {
-  font-weight: 500;
-}
-
- 
-article.card h3 {
-  font-size: 1.3rem;
-  font-weight: bold;
-  margin-bottom: 0;
-}
- 
-article.card ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
- 
-article.card ul li {
-  margin-bottom: 1rem;
-}
- 
-article.card ul li i {
-  width: 24px;
-}
- 
-article.card ul.rating {
-  display: flex;
-  font-size: 0.95rem;
-  margin-top: 1rem;
-}
- 
-article.card ul.rating li {
-  margin-bottom: 0;
-}
- 
-article.card ul.rating li:not(:last-child) {
-  margin-right: 0.25rem;
-}
- 
-article.card .thumbnail {
-  width: 220px;
-  height: 170px;
-  margin-right: 1rem;
-  border: 1px solid #e9ecef;
-  cursor: zoom-in;
-}
- 
-article.card .thumbnail:after {
-  content: "\f00e";
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  position: absolute;
-  right: -1px;
-  bottom: -1px;
-  padding: 0.35rem 0.75rem;
-  border: 1px solid #e9ecef;
-  background: #0000000d;
-  color: #6c757d;
-}
- 
-article.card:not(:last-child) {
-  margin-bottom: 2rem;
-}
- 
-article.card:hover {
-  background: #f8f9fa;
-}
- 
-article.card.customer-details {
-  background: #f1f1f1;
-  padding: 1rem;
-}
- 
-article.card.customer-details ul {
-  padding: 0;
-}
- 
-article.card.customer-details ul li {
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-}
- 
-article.card.customer-details ul li i {
-  color: #007bff;
-}
- 
-.text-grey {
-  color: #bbbbbb;
-}
- 
-.btn-default {
-  background: #fff;
-  border: 1px solid #e9ecef;
-}
- 
-.btn-default i {
-  color: #8e6c06;
-}
- 
-/* Responsive Design */
-@media (max-width: 767px) {
-  .d-flex {
-    flex-direction: column !important;
+    border: 1px solid #f8f9fa;
+    box-shadow: 0 0 20px 0px #dee2e6;
+    cursor: pointer;
+    overflow: hidden;
+    transition: 0.3s all;
   }
- 
-  .card-body {
+   
+  article.card h3 {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+   
+  article.card ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+   
+  article.card ul li {
+    margin-bottom: 1rem;
+  }
+   
+  article.card ul li i {
+    width: 24px;
+  }
+   
+  article.card ul.rating {
+    display: flex;
+    font-size: 0.95rem;
+    margin-top: 1rem;
+  }
+   
+  article.card ul.rating li {
+    margin-bottom: 0;
+  }
+   
+  article.card ul.rating li:not(:last-child) {
+    margin-right: 0.25rem;
+  }
+   
+  article.card .thumbnail {
+    width: 220px;
+    height: 170px;
+    margin-right: 1rem;
+    border: 1px solid #e9ecef;
+    cursor: zoom-in;
+  }
+   
+  article.card .thumbnail:after {
+    content: "\f00e";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    position: absolute;
+    right: -1px;
+    bottom: -1px;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid #e9ecef;
+    background: #0000000d;
+    color: #6c757d;
+  }
+   
+  article.card:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+   
+  article.card:hover {
+    background: #f8f9fa;
+  }
+   
+  article.card.customer-details {
+    background: #f1f1f1;
     padding: 1rem;
   }
- 
-  .thumbnail {
-    width: 100%;
-    height: auto;
-    margin: 0;
+   
+  article.card.customer-details ul {
+    padding: 0;
   }
- 
-  .btn {
-    width: 100%;
+   
+  article.card.customer-details ul li {
+    font-size: 1rem;
     margin-bottom: 0.5rem;
   }
-}
- 
-/* tables design */
- 
-/*********************************
-        IMPORT FONT_AWESOME
-**********************************/
-@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css";
- 
- 
-/*********************************
-         IMPORT FONTS
-**********************************/
-@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
- 
-:root {
-  --default_font: "Mukta", sans-serif;
-  --title_font: "Raleway", sans-serif;
-}
- 
- 
-/*********************************
-        DEFAULT SETTING
-**********************************/
-*,
-html {
-  scroll-behavior: smooth;
-}
- 
-*,
-*:after,
-*:before {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
- 
- 
-/*********************************
-        DEFAULT COLORS
-**********************************/
- 
-:root {
-  --white: #fff;
-  --black: #000;
-  --gray: #2b3c56;
-  --lite: #f1f1f1;
-  --dark: #1d1e22;
- 
-  --yellow: #f5b409;
-  --red: #f33e5d;
-  --green: #9bd846;
-  --blue: #029ef6;
-  --orange: #ee712f;
-  --pink: #ef5890;
- 
-  --primary: #5487fa;
-  --primary_dark: ;
-  --primary_lite: #e4ecfe;
- 
-  --secondary: ;
-  --secondary_dark: ;
-  --secondary_lite: ;
-}
- 
- 
-/*********************************
-      CUSTOM SCROLL BAR
-**********************************/
-::-webkit-scrollbar {
-  height: 6px;
-  width: 2px;
-  background: var(--gray);
-}
- 
-::-webkit-scrollbar-thumb {
-  background: var(--white);
-  -webkit-box-shadow: 0px 1px 2px var(--primary);
-}
- 
-::-webkit-scrollbar-corner {
-  background: var(--dark);
-}
- 
- 
-/*********************************
-       DEFAULT ELEMENTS
-**********************************/
-body {
-  margin: 0;
-  overflow-x: hidden !important;
-  font-family: var(--default_font);
-}
- 
-a {
-  text-decoration: none !important;
-  min-width: fit-content;
-  width: fit-content;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-}
- 
-a,
-button {
-  transition: 0.5s;
-}
- 
-a {
-  font-size: 16px;
-}
- 
-a {
-  outline: none !important;
-}
- 
-.padding_1 {
-  padding: 1rem;
-}
- 
-.padding_2 {
-  padding: 2rem;
-}
- 
-.padding_3 {
-  padding: 3rem;
-}
- 
-.padding_4 {
-  padding: 4rem;
-}
- 
-.relative {
-  position: relative;
-}
- 
-/*********************************
-         MEDIA QUERY
-**********************************/
-@media (max-width:720px) {
-  .flex {
-    flex-wrap: wrap;
+   
+  article.card.customer-details ul li i {
+    color: #007bff;
   }
- 
-  .padding_1,
-  .padding_2,
-  .padding_3,
-  .padding_4 {
+   
+  .text-grey {
+    color: #bbbbbb;
+  }
+   
+  .btn-default {
+    background: #fff;
+    border: 1px solid #e9ecef;
+  }
+   
+  .btn-default i {
+    color: #8e6c06;
+  }
+   
+  /* Responsive Design */
+  @media (max-width: 767px) {
+    .d-flex {
+      flex-direction: column !important;
+    }
+   
+    .card-body {
+      padding: 1rem;
+    }
+   
+    .thumbnail {
+      width: 100%;
+      height: auto;
+      margin: 0;
+    }
+   
+    .btn {
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+  }
+   
+  /* tables design */
+   
+  /*********************************
+          IMPORT FONT_AWESOME
+  **********************************/
+  /* @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"; */
+   
+   
+  /*********************************
+           IMPORT FONTS
+  **********************************/
+  /* @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap'); */
+   
+  :root {
+    --default_font: "Mukta", sans-serif;
+    --title_font: "Raleway", sans-serif;
+  }
+   
+   
+  /*********************************
+          DEFAULT SETTING
+  **********************************/
+  *,
+  html {
+    scroll-behavior: smooth;
+  }
+   
+  *,
+  *:after,
+  *:before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+   
+   
+  /*********************************
+          DEFAULT COLORS
+  **********************************/
+   
+  :root {
+    --white: #fff;
+    --black: #000;
+    --gray: #2b3c56;
+    --lite: #f1f1f1;
+    --dark: #1d1e22;
+   
+    --yellow: #f5b409;
+    --red: #f33e5d;
+    --green: #9bd846;
+    --blue: #029ef6;
+    --orange: #ee712f;
+    --pink: #ef5890;
+   
+    --primary: #5487fa;
+    --primary_dark: ;
+    --primary_lite: #e4ecfe;
+   
+    --secondary: ;
+    --secondary_dark: ;
+    --secondary_lite: ;
+  }
+   
+   
+  /*********************************
+        CUSTOM SCROLL BAR
+  **********************************/
+  ::-webkit-scrollbar {
+    height: 6px;
+    width: 2px;
+    background: var(--gray);
+  }
+   
+  ::-webkit-scrollbar-thumb {
+    background: var(--white);
+    -webkit-box-shadow: 0px 1px 2px var(--primary);
+  }
+   
+  ::-webkit-scrollbar-corner {
+    background: var(--dark);
+  }
+   
+   
+  /*********************************
+         DEFAULT ELEMENTS
+  **********************************/
+  body {
+    margin: 0;
+    overflow-x: hidden !important;
+    font-family: var(--default_font);
+  }
+   
+  a {
+    text-decoration: none !important;
+    min-width: fit-content;
+    width: fit-content;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+  }
+   
+  a,
+  button {
+    transition: 0.5s;
+  }
+   
+  a {
+    font-size: 16px;
+  }
+   
+  a {
+    outline: none !important;
+  }
+   
+  .padding_1 {
     padding: 1rem;
   }
- 
-  a {
-    font-size: 12px;
+   
+  .padding_2 {
+    padding: 2rem;
   }
-}
- 
-/*SMALL SCREEN*/
-@media (max-width:300px) {
- 
-  .padding_1,
-  .padding_2,
-  .padding_3,
+   
+  .padding_3 {
+    padding: 3rem;
+  }
+   
   .padding_4 {
-    padding: 0.5rem;
+    padding: 4rem;
   }
- 
-  a {
-    font-size: 10px;
+   
+  .relative {
+    position: relative;
   }
- 
-}
- 
- 
-/* Custom CSS for sticky header */
-.table-responsive {
-  max-height: 400px;
-  /* Adjust based on your needs */
-  overflow: auto;
-  position: relative;
-}
- 
-.table-responsive thead {
-  position: sticky;
-  top: 0;
-  background-color: #343a40;
-  /* Bootstrap dark background for table header */
-  color: #fff;
-  /* Text color for the header */
-  z-index: 10;
-  /* Ensure header stays above the table content */
-}
- 
-.table thead th {
-  white-space: nowrap;
-  /* Prevent text from wrapping */
-}
- 
-/* Optional: Responsive design for smaller screens */
-@media (max-width: 768px) {
+   
+  /*********************************
+           MEDIA QUERY
+  **********************************/
+  @media (max-width:720px) {
+    .flex {
+      flex-wrap: wrap;
+    }
+   
+    .padding_1,
+    .padding_2,
+    .padding_3,
+    .padding_4 {
+      padding: 1rem;
+    }
+   
+    a {
+      font-size: 12px;
+    }
+  }
+   
+  /*SMALL SCREEN*/
+  @media (max-width:300px) {
+   
+    .padding_1,
+    .padding_2,
+    .padding_3,
+    .padding_4 {
+      padding: 0.5rem;
+    }
+   
+    a {
+      font-size: 10px;
+    }
+   
+  }
+   
+   
+  /* Custom CSS for sticky header */
   .table-responsive {
-    display: block;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    /* Smooth scrolling on touch devices */
+    max-height: 400px;
+    /* Adjust based on your needs */
+    overflow: auto;
+    position: relative;
   }
- 
-  .table {
-    min-width: 600px;
-    /* Ensure table width is sufficient for horizontal scrolling */
+   
+  .table-responsive thead {
+    position: sticky;
+    top: 0;
+    background-color: #343a40;
+    /* Bootstrap dark background for table header */
+    color: #fff;
+    /* Text color for the header */
+    z-index: 10;
+    /* Ensure header stays above the table content */
   }
-}
+   
+  .table thead th {
+    white-space: nowrap;
+    /* Prevent text from wrapping */
+  }
+   
+  /* Optional: Responsive design for smaller screens */
+  @media (max-width: 768px) {
+    .table-responsive {
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      /* Smooth scrolling on touch devices */
+    }
+   
+    .table {
+      min-width: 600px;
+      /* Ensure table width is sufficient for horizontal scrolling */
+    }
+  }

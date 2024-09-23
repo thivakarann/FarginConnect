@@ -17,7 +17,7 @@
                     Field is required
                 </div>
             </div>
-            <div class="form__linput" *ngIf="documentname?.value=='Aadhar Card'">
+            <div class="form__linput" *ngIf="documentname?.value=='Aadhaar'">
                 <label class="form__label" for="fname">Aadhar Cardnumber</label>
                 <input class="form__input" id="fname" type="text" formControlName="documentNumber" name="documentNumber"
                     placeholder="Enter Aadharcard number..." required />
@@ -83,7 +83,7 @@
                     Please Enter Valid DrivingLicense Number*
                 </div>
             </div>
-            <div class="form__linput" *ngIf="documentname?.value=='Cinch'">
+            <div class="form__linput" *ngIf="documentname?.value=='Cin'">
                 <label class="form__label" for="fname">Cinch Number</label>
                 <input class="form__input" id="fname" type="text" formControlName="cinch" name="gstNumber"
                     placeholder="Enter Cinch number..." required />
@@ -94,6 +94,19 @@
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="cinch?.invalid && cinch?.touched && cinch?.errors?.['pattern']">
                     Please Enter Valid Cinch Number*
+                </div>
+            </div>
+            <div class="form__linput" *ngIf="documentname?.value=='VoterId'">
+                <label class="form__label" for="fname">VoterId Number</label>
+                <input class="form__input" id="fname" type="text" formControlName="voterid" name="gstNumber"
+                    placeholder="Enter VoterId number..." required />
+                <div style="color: red; font-size: 12px;margin-top: 2px;"
+                    *ngIf="voterid?.invalid && voterid?.touched && voterid?.errors?.['required']">
+                    Field is required
+                </div>
+                <div style="color: red; font-size: 12px;margin-top: 2px;"
+                    *ngIf="voterid?.invalid && voterid?.touched && voterid?.errors?.['pattern']">
+                    Please Enter Valid VoterId Number*
                 </div>
             </div>
             <div class="form__linput">

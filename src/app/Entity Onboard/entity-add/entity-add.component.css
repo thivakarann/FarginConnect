@@ -48,3 +48,28 @@
     color: white;
     font-family: "Roboto";
 }
+.table{
+    max-height: 100px; /* Adjust based on your needs */
+    position: relative;
+    overflow-y: hidden;
+    padding:10px;
+  }
+
+  th{
+    background-color: #bcdf72 !important;
+    color: #fff;
+    font-weight: 600; 
+    font-size:14px;
+    white-space: nowrap;
+    text-shadow: #ffffff;
+    text-align: center;
+  }
+  
+  td{
+    white-space: nowrap;
+    background-color: #fff;
+    font-weight: 600; 
+    font-size:14px;
+    text-align: center;
+
+  }

@@ -12,7 +12,8 @@ export class BouquetsRegionsviewComponent implements OnInit {
   page: number = 1;
   term: any;
   currentPage: any = 1; // The current page number
-  itemsPerPage = 5; //
+  itemsPerPage = 2; //
+  searchText: any;
   constructor(
     public MSORegions: FarginServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -22,5 +23,10 @@ export class BouquetsRegionsviewComponent implements OnInit {
   ngOnInit(): void {
     this.detailss = this.data.value;
     console.log(this.detailss)
+  }
+
+  close(){
+    this.dialog.closeAll();
+    window.location.reload();
   }
 }

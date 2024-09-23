@@ -56,6 +56,8 @@ import { AddbeneficiaryComponent } from './Beneficiary/addbeneficiary/addbenefic
 import { EditbeneficiaryComponent } from './Beneficiary/editbeneficiary/editbeneficiary.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BouqutesAddComponent } from './Plan Creation/Broadcaster Bouqutes/bouqutes-add/bouqutes-add.component';
+import { EditPersonalInfoComponent } from './Entity Onboard/edit-personal-info/edit-personal-info.component';
+import { EntityTransactionComponent } from './entity-transaction/entity-transaction.component';
 
 const routes: Routes = [
 
@@ -72,6 +74,7 @@ const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     children: [
+      {path:'dashboard-content',component:DashboardContentComponent},
       { path: 'view-category', component: ViewcategoryComponent },
       { path: 'Business-kyc', component: BusinessKycComponent },
       { path: 'test', component: TestpageComponent },
@@ -124,6 +127,11 @@ const routes: Routes = [
       { path: 'add-beneficiary', component: AddbeneficiaryComponent },
       { path: 'edit-beneficiary/:id', component: EditbeneficiaryComponent },
       { path: 'viewprofile', component: ProfileComponent },
+      {path: 'edit-personal/:id',component:EditPersonalInfoComponent},
+ {path:'entity-transaction/:id',component:EntityTransactionComponent},
+ {
+path:'entitycustomers/:id',component:EntityCustomersViewAllComponent
+ }
 
     ],
   },

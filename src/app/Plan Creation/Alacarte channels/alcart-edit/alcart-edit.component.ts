@@ -25,6 +25,7 @@ export class AlcartEditComponent implements OnInit {
   Type: any;
   amount: any;
   ChannelNumber: any;
+  Broadcasters: any;
 
   constructor(
     public EditAlcart: FarginServiceService,
@@ -39,6 +40,10 @@ export class AlcartEditComponent implements OnInit {
 
     this.EditAlcart.RegionGetAllActive().subscribe((res: any) => {
       this.regiondetails = res.response;
+    });
+
+    this.EditAlcart.BoucatenamesActive().subscribe((res: any) => {
+      this.Broadcasters = res.response;
     })
 
     this.EditAlcart.Alcardviewbyid(this.id).subscribe((res: any) => {
@@ -50,9 +55,8 @@ export class AlcartEditComponent implements OnInit {
       this.Language = res.response.language;
       this.Type = res.response.type;
       this.amount = res.response.price;
-      this.ChannelNumber = res.response.channelNo;
+      this.ChannelNumber = res.response.channelNo
       console.log(this.amount);
-    
     })
 
     this.myForm = new FormGroup({
@@ -64,15 +68,15 @@ export class AlcartEditComponent implements OnInit {
       generic: new FormControl('', Validators.required),
       language: new FormControl('', Validators.required),
       channelNo: new FormControl('', Validators.required),
-      logo: new FormControl(''),
+
 
     });
 
-    // this.myForm.get('type')?.valueChanges.subscribe(value => {
-    //   if (value !== '1') {
-    //     this.myForm.get('price')?.reset();
-    //   }
-    // });
+    this.myForm.get('type')?.valueChanges.subscribe(value => {
+      if (value !== '1') {
+        this.myForm.get('price')?.reset();
+      }
+    });
   }
 
   get regionId() {
@@ -112,10 +116,7 @@ export class AlcartEditComponent implements OnInit {
 
   }
 
-  get logo() {
-    return this.myForm.get('logo')
 
-  }
 
 
 
@@ -123,14 +124,14 @@ export class AlcartEditComponent implements OnInit {
     let submitModel: UpdateAlcart = {
       alcotId: this.id,
       regionId: this.regionId?.value,
-      bundleChannelId: this.BroadCaster,
+      bundleChannelId: this.bundleChannelId?.value,
       channelName: this.channelName?.value,
       type: this.type?.value,
       generic: this.generic?.value,
       language: this.language?.value,
-      price: this.amount,
+      price: this.price?.value,
       modifiedBy: this.getadminname,
-      channelNo:this.channelNo?.value
+      channelNo: this.channelNo?.value
     }
 
     this.EditAlcart.AlcardUpdate(submitModel).subscribe((res: any) => {
@@ -139,7 +140,7 @@ export class AlcartEditComponent implements OnInit {
         this.router.navigateByUrl('dashboard/alacarte-viewall');
       }
       else {
-        this.toastr.error(res.responseMessage);
+        this.toastr.error(res.errorMessage);
       }
     })
   }
@@ -149,26 +150,5 @@ export class AlcartEditComponent implements OnInit {
     this.router.navigateByUrl('dashboard/alacarte-viewall');
   }
 
-  values(event:any){
-    if(event?.target.value=='1'){
-      this.EditAlcart.Alcardviewbyid(this.id).subscribe((res: any) => {
-        this.alcardsdetails = res.response;
-        this.regionname = res.response.region.regionId;
-        this.ChennelName = res.response.channelName;
-        this.BroadCaster = res.response.bundleChannelId.bundleChannelId;
-        this.Generic = res.response.generic;
-        this.Language = res.response.language;
-        this.Type = res.response.type;
-        this.amount = res.response.price;
-        this.ChannelNumber = res.response.channelNo;
-        console.log(this.amount);
-      
-      })
-    }
-    else{
-      this.amount = 0;
-    }
-   
-  }
 
 }

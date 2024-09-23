@@ -1,3 +1,4 @@
+ 
 *{
   font-family: "Roboto", "Helvetica Neue", sans-serif;
  
@@ -8,7 +9,7 @@ button {
 th {
   background-color: #bcdf72 !important;
   color: #141E46;
-  font-weight: 600;
+  font-weight: 600; 
   font-size:14px;
   white-space: nowrap;
   text-shadow: #ffffff;
@@ -174,3 +175,4 @@ mat-card-content tr:nth-child(odd) {
   transform: scale(1);
   transition: 0s;
 }
+ 

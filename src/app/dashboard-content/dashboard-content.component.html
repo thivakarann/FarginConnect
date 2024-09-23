@@ -1,54 +1,224 @@
-<div id="root">
-    <div class="container pt-5">
-        <div class="row align-items-stretch">
-            <div class="c-dashboardInfo col-lg-3 col-md-6">
-                <div class="wrap">
-                    <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Total Merchants<svg class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true"
-                            role="presentation">
-                            <!-- <path fill="none" d="M0 0h24v24H0z"></path>
-                            <path
-                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
-                            </path> -->
-                        </svg></h4><span class="hind-font caption-12 c-dashboardInfo__count">₹10,500</span>
-                </div>
-            </div>
-            <div class="c-dashboardInfo col-lg-3 col-md-6">
-                <div class="wrap">
-                    <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Active Merchants<svg
-                            class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true"
-                            role="presentation">
-                            <!-- <path fill="none" d="M0 0h24v24H0z"></path>
-                            <path
-                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
-                            </path> -->
-                        </svg></h4><span class="hind-font caption-12 c-dashboardInfo__count">₹ 500</span><span
-                        class="hind-font caption-12 c-dashboardInfo__subInfo"></span>
-                </div>
-            </div>
-            <div class="c-dashboardInfo col-lg-3 col-md-6">
-                <div class="wrap">
-                    <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">InActive Merchants<svg
-                            class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true"
-                            role="presentation">
-                            <!-- <path fill="none" d="M0 0h24v24H0z"></path>
-                            <path
-                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
-                            </path> -->
-                        </svg></h4><span class="hind-font caption-12 c-dashboardInfo__count">₹5000</span>
-                </div>
-            </div>
-            <div class="c-dashboardInfo col-lg-3 col-md-6">
-                <div class="wrap">
-                    <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Approved Merchants<svg
-                            class="MuiSvgIcon-root-19" focusable="false" viewBox="0 0 24 24" aria-hidden="true"
-                            role="presentation">
-                            <path fill="none" d="M0 0h24v24H0z"></path>
-                            <path
-                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
-                            </path>
-                        </svg></h4><span class="hind-font caption-12 c-dashboardInfo__count">6,40%</span>
-                </div>
-            </div>
-        </div>
+
+
+ 
+<div class="row">
+    <div class="col-md-3">
+        <label  >Category</label>
+        <select class="form-select">
+<option value="" disabled selected>Select Category</option>
+            <option value="cable">Cable</option>
+            <option value="Pg">Pg</option>
+        </select>
     </div>
+    <div class="col-md-3">
+        <label >Merchants</label>
+        <select class="form-select">
+            <option value="" disabled selected>Select Merchant</option>
+ 
+            <option >Merchant1</option>
+           
+        </select>
+    </div>
+    <div class="col-md-3">
+        <label >From Date</label>
+        <input class="form-control" type="date">
+    </div>
+    <div class="col-md-3">
+        <label >To Date</label>
+        <input class="form-control" type="date">
+    </div>
+   
+</div>
+ 
+ 
+ 
+ 
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/css/bootstrap-extended.min.css">
+<link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/fonts/simple-line-icons/style.min.css">
+<link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/css/colors.min.css">
+<link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+ 
+<div class=" container-fluid">
+  <section id="minimal-statistics">
+    <div class="row">
+      <div class="col-12  mb-1">
+        <!-- <h4 class="text-uppercase">Minimal Statistics Cards</h4>
+        <p>Statistics on minimal cards.</p> -->
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-body">
+              <div class="media d-flex">
+                <div class="align-self-center">
+                  <i class="icon-pencil primary font-large-2 float-left"></i>
+                </div>
+                <div class="media-body text-right">
+                  <h3>{{counts?.totalMerchantCount}}</h3>
+                  <span>Total Merchant
+                </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-body">
+              <div class="media d-flex">
+                <div class="align-self-center">
+                  <i class="icon-speech warning font-large-2 float-left"></i>
+                </div>
+                <div class="media-body text-right">
+                  <h3>{{counts?.totalactiveMerchantCount }}</h3>
+                  <span>Active Merchant
+                </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-body">
+              <div class="media d-flex">
+                <div class="align-self-center">
+                  <i class="icon-graph success font-large-2 float-left"></i>
+                </div>
+                <div class="media-body text-right">
+                  <h3>{{counts?.totalInActiveMerchantCount}}</h3>
+                  <span>Inactive Merchant
+                </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-body">
+              <div class="media d-flex">
+                <div class="align-self-center">
+                  <i class="icon-pointer danger font-large-2 float-left"></i>
+                </div>
+                <div class="media-body text-right">
+                  <h3>{{counts?.totalApprovedMerchantCount}}</h3>
+                  <span>Approved Merchant
+                </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="row">
+      <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-body">
+              <div class="media d-flex">
+                <div class="media-body text-left">
+                  <h3 class="danger">{{counts?.totalPendingMerchantCount}}</h3>
+                  <span>Approval Pending Merchant
+                </span>
+                </div>
+                <div class="align-self-center">
+                  <i class="icon-rocket danger font-large-2 float-right"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-body">
+              <div class="media d-flex">
+                <div class="media-body text-left">
+                  <h3 class="success">{{counts?.totalPgOnboardMerchantCount}}</h3>
+                  <span>PG Onboarded Merchants
+                </span>
+                </div>
+                <div class="align-self-center">
+                  <i class="icon-user success font-large-2 float-right"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+      <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-body">
+              <div class="media d-flex">
+                <div class="media-body text-left">
+                  <h3 class="warning">{{counts?.totalTicketMemberOpenCount}}</h3>
+                  <span>Open Ticket count
+                </span>
+                </div>
+                <div class="align-self-center">
+                  <i class="icon-pie-chart warning font-large-2 float-right"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-body">
+              <div class="media d-flex">
+                <div class="media-body text-left">
+                  <h3 class="primary">{{counts?.totalTicketMemberclosedCount}}</h3>
+                  <span>Closed Ticket count
+                </span>
+                </div>
+                <div class="align-self-center">
+                  <i class="icon-support primary font-large-2 float-right"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-3 col-sm-6 col-12">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-body">
+              <div class="media d-flex">
+                <div class="media-body text-left">
+                  <h3 class="primary">{{counts?.totalTicketMemberclosedCount}}</h3>
+                  <span>Hold Ticket Count
+                </span>
+                </div>
+                <div class="align-self-center">
+                  <i class="icon-support primary font-large-2 float-right"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+ 
 </div>

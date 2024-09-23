@@ -11,6 +11,25 @@
             <div class="row mb-3">
 
                 <div class="col-sm-4 form-group">
+                    <label for="Bussiness category">Broadcaster</label>
+                    <select [(ngModel)]="BroadCaster" formControlName="bundleChannelId" id="Bussiness category"
+                        class="form-control form-select">
+                        <option value="" disabled selected>Select</option>
+                        <option *ngFor="let item of Broadcasters" [value]="item.bundleChannelId">
+                            {{item.broadCasterName}}</option>
+                    </select>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="bundleChannelId?.invalid && bundleChannelId?.touched && bundleChannelId?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+
+                <div class="col-sm-4 form-group">
                     <label for="Bussiness category">Region</label>
                     <select [(ngModel)]="regionname" formControlName="regionId" id="Bussiness category"
                         class="form-control form-select">
@@ -42,38 +61,25 @@
                         Field is required
                     </div>
                 </div>
-<!-- 
-                <div class="col-sm-4 form-group">
-                    <label for="Entity Name">BroadCaster</label>
-                    <input [(ngModel)]="BroadCaster" type="text" id="Entity Name" formControlName="bundleChannelId"
-                        placeholder="Entity Name" class="form-control">
-                    <div style="
-                color: red;
-                font-size: 12px;
-                margin-top: 2px;
-                position: relative;
-                ;
-              " *ngIf="bundleChannelId?.invalid && bundleChannelId?.touched && bundleChannelId?.errors?.['required']">
-                        Field is required
-                    </div>
-                </div> -->
+
 
 
 
             </div>
 
             <div class="row mb-3">
+
                 <div class="col-sm-4 form-group">
-                    <label for="Entity Name">Channel Number</label>
+                    <label for="Entity Name">Channel Number*</label>
                     <input [(ngModel)]="ChannelNumber" type="text" id="Entity Name" formControlName="channelNo"
-                        placeholder="Entity Name" class="form-control">
+                        class="form-control">
                     <div style="
-                color: red;
-                font-size: 12px;
-                margin-top: 2px;
-                position: relative;
-                ;
-              " *ngIf="channelNo?.invalid && channelNo?.touched && channelNo?.errors?.['required']">
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="channelNo?.invalid && channelNo?.touched && channelNo?.errors?.['required']">
                         Field is required
                     </div>
                 </div>
@@ -108,11 +114,17 @@
                     </div>
                 </div>
 
+
+
+            </div>
+
+            <div class="row mb-3">
+
                 <div class="col-sm-4 form-group">
                     <label for="Bussiness category">Type</label>
-                    <select (change)="values($event)" [ngModel]="Type" formControlName="type" id="Bussiness category"
+                    <select [(ngModel)]="Type" formControlName="type" id="Bussiness category"
                         class="form-control form-select">
-                        <option value=""  disabled selected>Select</option>
+                        <option value="" disabled selected>Select</option>
                         <option value="0">Free</option>
                         <option value="1">Paid</option>
 
@@ -130,30 +142,28 @@
                         Field is required
                     </div>
                 </div>
-            </div>
-            <div class="row mb-3">
 
-                <div  [hidden]="type?.value !='1' " class="col-sm-4 form-group">
-                    <label for="Entity Name">Price</label>
-                    <input [ngModel]="amount" [required]="type?.value =='0' " type="text" id="Entity Name"
-                        formControlName="price" placeholder="price" class="form-control">
-                    <!-- <div style="
+              
+                    <div class="col-sm-4 form-group" *ngIf="type?.value === '1'">
+                        <label for="Entity Name">Price</label>
+                        <input [(ngModel)]="amount" type="text" id="Entity Name" formControlName="price"
+                            placeholder="Entity Name" class="form-control">
+                        <!-- <div style="
     color: red;
     font-size: 12px;
     margin-top: 2px;
     position: relative;
     ;
   " *ngIf="price?.invalid && price?.touched && price?.errors?.['required']">
-                        Field is required
+            Field is required
+        </div> -->
                     </div>
-                </div> -->
+                </div>
+            
 
-
-            </div>
-            </div>
             <div>
-                <button (click)="submit()"  type="submit" class="btn mx-1 "
-                    style="background-color:#7db855be">Submit</button>
+                <button [disabled]="myForm.invalid" type="submit" class="btn mx-1 "
+                    style="background-color:#7db855be" (click)="submit()">Submit</button>
                 <button type="submit" class="btn" style="background-color:#141E46;color:white"
                     (click)="close()">Cancel</button>
             </div>

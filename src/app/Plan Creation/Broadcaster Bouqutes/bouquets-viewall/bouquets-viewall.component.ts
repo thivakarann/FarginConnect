@@ -57,6 +57,10 @@ export class BouquetsViewallComponent implements OnInit {
     });
   }
 
+  adds() {
+    this.router.navigateByUrl('/dashboard/bouqutes-add')
+  }
+
   add() {
     this.dialog.open(BouqutesAddComponent, {
       enterAnimationDuration: '500ms',
@@ -89,6 +93,7 @@ export class BouquetsViewallComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
 
 
 
@@ -134,14 +139,14 @@ export class BouquetsViewallComponent implements OnInit {
 
       // this.response.push(this.date2);
 
-    
+
 
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
- 
+
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
@@ -149,10 +154,10 @@ export class BouquetsViewallComponent implements OnInit {
       "Broadcaster Name",
       "Broadcaster Plan Name",
       "Plan Amount",
-  
+
     ]
- 
- 
+
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Broadcaster Bouquetes Creation');
@@ -171,46 +176,46 @@ export class BouquetsViewallComponent implements OnInit {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
+
       }
- 
+
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
- 
+
     data.forEach((d: any) => {
       // console.log("row loop");
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
       let qty2 = row.getCell(3);
       let qty3 = row.getCell(4);
-     
- 
- 
- 
- 
+
+
+
+
+
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty3.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      
- 
+
+
     }
     );
- 
+
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
     // worksheet.getColumn(2).protection = { locked: true, hidden: true }
     // worksheet.getColumn(3).protection = { locked: true, hidden: true }
- 
- 
+
+
     workbook.xlsx.writeBuffer().then((data: any) => {
- 
+
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
- 
- 
+
+
       FileSaver.saveAs(blob, 'Broadcaster Bouquetes Creation.xlsx');
- 
+
     });
   }
 }

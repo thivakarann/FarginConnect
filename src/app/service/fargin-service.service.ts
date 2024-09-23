@@ -28,7 +28,11 @@ export class FarginServiceService {
   private readonly changepassword = 'adminUser/changePassword/';
 
 
-  //Admin Creation
+//Dashboard
+private readonly dashboardData='dashBoard/dashBoardCount'
+
+
+
   //business category
   private readonly businesscategoryget = 'businesscategory/getall';
   private readonly businesscategoryAdd = 'businesscategory/create';
@@ -54,6 +58,8 @@ export class FarginServiceService {
   private readonly roleStatus = 'role/updatestatus';
   private readonly viewallRoles = 'role/viewall';
   private readonly viewPermissionSubpermission = 'role/viewpermission/';
+  private readonly updateRole = 'role/updaterole/';
+  private readonly rolegetByid = 'role/viewbyid/';
 
 
   //Admin Policy
@@ -68,13 +74,18 @@ export class FarginServiceService {
   private readonly admincreate = 'adminUser/addUser';
   private readonly adminupdate = 'adminUser/update';
   private readonly adminview = 'adminUser/viewById/';
+  private readonly roleactiveviewall = 'role/viewactive';
 
   // Entity Details
 
   private readonly Entitygetall = 'merchant/getall'
   private readonly AddEntity = 'merchant/create'
   private readonly EntityKYCBYbusinessid = 'businesskyc/getcategorykyc/'
-  private readonly Entityviewbyid = 'merchant/getmerchants/'
+  private readonly Entityviewbyid = 'merchant/getmerchants/';
+  private readonly updateEntity = 'merchant/updateMerchant/';
+  private readonly entityactivestatus='merchant/updateStatus';
+  private readonly emailtrigger='merchantOnboard/resendmail';
+
 
   //Overall customer
   private readonly Overallcustomer = 'customer/viewByAll';
@@ -116,10 +127,10 @@ export class FarginServiceService {
 
   private readonly drivinglicense = 'facheck/drivingLicenseVerify';
   private readonly gstnumber = 'facheck/merchantGstVerify';
-  private readonly voterId='facheck/voteridVerify';
+  private readonly voterId = 'facheck/voteridVerify';
 
   //facheck verification response
- 
+
   private readonly drivinglicenseinfo = 'facheck/drivingLicense/';
   private readonly voteridinfo = 'facheck/voterid/';
   private readonly gstinfo = 'facheck/merchantGst/';
@@ -127,6 +138,9 @@ export class FarginServiceService {
   private readonly cinchinfo = 'facheck/cin/';
   private readonly aadharinfo = 'facheck/aadhar/';
   private readonly paninfo = 'facheck/pan/';
+
+  //facheck verification response
+  private readonly facheckresponse = 'facheck/getkycId/';
 
   //pG on board
   private readonly pgonboard = 'merchantOnboard/onboard';
@@ -144,6 +158,9 @@ export class FarginServiceService {
   private readonly EntitySettlement = 'transactions/getPayouts'
   private readonly EntitySettlementtransaction = 'transactions/getPayoutTransactions'
 
+
+   //Entity Transaction
+   private readonly entitytransaction='paymentHistory/viewByMerchant/';
   //merchant transaction
 
   private readonly transactionformerchant = 'transactions/getadminPaymentList';
@@ -213,7 +230,8 @@ export class FarginServiceService {
   private readonly Bouquetstatus = 'broadCaster/updateStatus';
   private readonly ActiveBouqutes = 'broadCaster/viewOnlyActive';
   private readonly bouquetEdit = 'broadCaster/update';
-  private readonly bouquetesinglestatus = 'broadCaster/updateChannelStatus'
+  private readonly bouquetesinglestatus = 'broadCaster/updateChannelStatus';
+  private readonly AddChannelsbyBouquete = 'broadCaster/addextraChannel'
 
   // DPO Bouquete Creation
 
@@ -315,6 +333,11 @@ export class FarginServiceService {
       }
 
     });
+  }
+
+
+  dashboardCount(){
+    return this.http.get(`${this.basePath}${this.dashboardData}`, this.options)
   }
   //business category
 
@@ -420,7 +443,7 @@ export class FarginServiceService {
     return this.http.get(`${this.basePath}${this.viewPermissionSubpermission}${id}`, this.options)
   }
 
- editRole(id: any, model: any) {
+  editRole(id: any, model: any) {
     return this.http.put(`${this.basePath}${this.updateRole}${id}`, model, this.options)
   }
   rolegetById(id: any) {
@@ -530,12 +553,14 @@ export class FarginServiceService {
   viewfacheck() {
     return this.http.get(`${this.basePath}${this.viewfacheckkey}`, this.options)
   }
-  statusfacheck(id:any, model: any) {
+  statusfacheck(id: any, model: any) {
     return this.http.put(`${this.basePath}${this.statusfacheckkey}${id}`, model, this.options)
   }
   updatefacheck(id: any, model: any) {
     return this.http.put(`${this.basePath}${this.updatefacheckkey}${id}`, model, this.options)
   }
+
+
 
 
 
@@ -546,6 +571,17 @@ export class FarginServiceService {
   EntityAdd(model: any) {
     return this.http.post(`${this.basePath}${this.AddEntity}`, model, this.options)
   }
+
+  UpdatePersonalEntity(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.updateEntity}${id}`, model, this.options)
+  }
+
+
+    //email trigger
+    EmailTrigger(data: any) {
+      return this.http.post(`${this.basePath}${this.emailtrigger}`, data, this.options);
+    }
+   
 
 
 
@@ -561,6 +597,10 @@ export class FarginServiceService {
 
   EntityViewbyid(id: any) {
     return this.http.get(`${this.basePath}${this.Entityviewbyid}${id}`, this.options)
+  }
+
+  EntityActiveStatus(model: any) {
+    return this.http.put(`${this.basePath}${this.entityactivestatus}`, model, this.options)
   }
 
   //bank
@@ -613,10 +653,17 @@ export class FarginServiceService {
   FacheckVoterIdVerification(data: any) {
     return this.http.post(`${this.basePath}${this.voterId}`, data, this.options);
   }
- 
- 
-//verification response
- 
+
+
+  //verification response
+  FacheckVerificationResponse(id: any) {
+    return this.http.get(`${this.basePath}${this.facheckresponse}${id}`, this.options)
+  }
+
+
+
+  //verification response
+
   AaadharVerificationResponse(id: any) {
     return this.http.get(`${this.basePath}${this.aadharinfo}${id}`, this.options)
   }
@@ -694,6 +741,12 @@ export class FarginServiceService {
   EntityCustomerview(id: any) {
     return this.http.get(`${this.basePath}${this.Entitycustomerview}${id}`, this.options)
   }
+
+    //entity transaction
+ 
+ EntityTraansaction(id: any) {
+  return this.http.get(`${this.basePath}${this.entitytransaction}${id}`, this.options)
+}
 
   TransactionForMerchant(model: any) {
     return this.http.post(`${this.basePath}${this.transactionformerchant}`, model, this.options)
@@ -875,6 +928,10 @@ export class FarginServiceService {
     return this.http.put(`${this.basePath}${this.bouquetesinglestatus}`, model, this.options)
   }
 
+  AddExtraChannelsforBouquete(model: any) {
+    return this.http.post(`${this.basePath}${this.AddChannelsbyBouquete}`, model, this.options)
+  }
+
   DPOViewall() {
     return this.http.get(`${this.basePath}${this.DPOBouqueteViewall}`, this.options)
   }
@@ -919,7 +976,7 @@ export class FarginServiceService {
   }
 
   merchantplanstatus(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.MerchantplanStatus}${id}`,model, this.options)
+    return this.http.put(`${this.basePath}${this.MerchantplanStatus}${id}`, this.options)
   }
 
   merchantplanactive() {

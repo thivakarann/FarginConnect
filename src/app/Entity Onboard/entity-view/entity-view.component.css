@@ -121,7 +121,7 @@ article.card.customer-details ul li i {
   }
 }
  
- 
+
  
 :root {
   --default_font: "Mukta", sans-serif;
@@ -129,7 +129,7 @@ article.card.customer-details ul li i {
 }
  
  
- 
+
 *,
 html {
   scroll-behavior: smooth;
@@ -279,9 +279,9 @@ a {
 }
  
  
+
  
- 
- 
+
  
  
  
@@ -419,23 +419,23 @@ body {
 }
  
  
+
  
- 
- 
+
  
   .row:hover {
       /* background-color: #ececff; */
       cursor: pointer
   }
+
+ 
+
  
  
  
  
  
- 
- 
- 
- 
+
 .navtabs {
   display: flex;
   justify-content: space-evenly;
@@ -502,17 +502,18 @@ body {
 }
  
  
- 
- 
- 
- 
- 
- 
- 
+
+
+
+
+
+
+
 .buttonDownload {
+  width:70px;
   display: inline-block;
   position: relative;
-  padding:7px;
+  padding:6px;
   background-color: #4CC713;
   color: white;
   font-family: sans-serif;
@@ -522,8 +523,8 @@ body {
   border: none;
   border-radius: 5px;
  }
- 
- 
+
+
  .button1 {
   background-color: #141E46;
   border: 1px solid #141E46;
@@ -548,8 +549,8 @@ body {
   /* background-color:#7db855be; */
   color: #141E46;
  }
- 
- 
+
+
  /* Custom CSS for sticky header */
  .table-responsive {
   max-height: 400px; /* Adjust based on your needs */
@@ -557,7 +558,7 @@ body {
   overflow-y: hidden;
 }
  
- 
+
 /* Optional: Responsive design for smaller screens */
 @media (max-width: 768px) {
   .table-responsive {
@@ -575,22 +576,22 @@ body {
  th{
   background-color: #bcdf72 !important;
   color: #141E46;
-  font-weight: 600;
+  font-weight: 600; 
   font-size:14px;
   white-space: nowrap;
   text-shadow: #ffffff;
   text-align: center;
 }
- 
+
 td{
   white-space: nowrap;
   background-color: #fff;
 }
-/* From Uiverse.io by satyamchaudharydev */
+/* From Uiverse.io by satyamchaudharydev */ 
 /* From uiverse.io by @satyamchaudharydev */
 /* this button is inspired by -- whatsapp input */
 /* == type to see fully interactive and click the close buttom to remove the text  == */
- 
+
 form {
   --input-bg: #FFf;
   /*  background of input */
@@ -698,3 +699,64 @@ form {
   transform: scale(1);
   transition: 0s;
 }
+ 
+/* copy clip */
+#apikey {
+  background-color: #F2F7FA;
+  width: 50px;
+  height: 30px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  overflow: hidden;
+  transition-duration: 700ms;
+}
+ 
+#apikey span:first-child {
+  color: #1D976C
+  ;
+  position: absolute;
+  transform: translate(-50%, -50%)
+}
+ 
+#apikey span:last-child {
+  position: absolute;
+  color: #89b0a2
+  ;
+  opacity: 0;
+  transform: translateY(100%) translateX(-50%);
+  height: 14px;
+  line-height: 13px;
+}
+ 
+#apikey:focus {
+  background-color: #1D976C
+  ;
+  width: 120px;
+  height: 40px;
+  transition-delay: 100ms;
+  transition-duration: 500ms;
+}
+ 
+#apikey:focus span:first-child {
+  color: #90c4b1
+  ;
+  transform: translateX(-50%) translateY(-150%);
+  opacity: 0;
+  transition-duration: 500ms;
+}
+ 
+#apikey:focus span:last-child {
+  transform: translateX(-50%) translateY(-50%);
+  opacity: 1;
+  transition-delay: 300ms;
+  transition-duration: 500ms;
+}
+ 
+#apikey:focus:end {
+  background-color: #FFFFFF;
+  width: 120px;
+  height: 40px;
+  transition-duration: 900ms;
+}
+ 

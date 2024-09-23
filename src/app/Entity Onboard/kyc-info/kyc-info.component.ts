@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { FarginServiceService } from '../../service/fargin-service.service';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-kyc-info',
@@ -6,5 +9,30 @@ import { Component } from '@angular/core';
   styleUrl: './kyc-info.component.css'
 })
 export class KycInfoComponent {
+  details: any;
+  detaislone: any;
+  approval1: any;
+  bankdetails: any;
+  KYCDetails: any;
+  businessCategoryId: any;
+  ResponseId: any;
+  bankverifyres: any;
+  Docname: any;
+  message: any;
+  showData!: boolean;
+  kycres: any;
+  constructor(private service: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private router: Router
+  ) { }
+  ngOnInit(): void {
+
+    this.ResponseId = this.data.value;
+    console.log(this.ResponseId);
+
+    this.service.FacheckVerificationResponse(this.ResponseId).subscribe((res: any) => {
+      if (res.statusCode == 200) {
+        this.kycres = res.response;
+      }
+    })
+  }
 
 }

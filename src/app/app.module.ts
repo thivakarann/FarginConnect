@@ -136,8 +136,10 @@ import { EditbeneficiaryComponent } from './Beneficiary/editbeneficiary/editbene
 import { ProfileComponent } from './profile/profile.component';
 import { ViewPermissionComponent } from './Roles-Permission/view-permission/view-permission.component';
 import { ViewSubpermissionComponent } from './Roles-Permission/view-subpermission/view-subpermission.component';
-
 import { BouquetsRegionsviewComponent } from './Plan Creation/Broadcaster Bouqutes/bouquets-regionsview/bouquets-regionsview.component';
+import { AddExtraChannelsComponent } from './Plan Creation/Broadcaster Bouqutes/add-extra-channels/add-extra-channels.component';
+import { EditPersonalInfoComponent } from './Entity Onboard/edit-personal-info/edit-personal-info.component';
+import { EntityTransactionComponent } from './entity-transaction/entity-transaction.component';
 
 @NgModule({
   declarations: [
@@ -208,9 +210,11 @@ import { BouquetsRegionsviewComponent } from './Plan Creation/Broadcaster Bouqut
     AlcartViewComponent,
     AlcartEditComponent,
     AlcartLogoViewComponent,
+    EditPersonalInfoComponent,
     BouquatenameViewallComponent,
     BouquateNameAddComponent,
     BouquatenameEditComponent,
+    AddExtraChannelsComponent,
     BouquetsViewallComponent,
     BouqutesAddComponent,
     BouqetsEditComponent,
@@ -255,7 +259,8 @@ import { BouquetsRegionsviewComponent } from './Plan Creation/Broadcaster Bouqut
     ProfileComponent,
     BouquetsRegionsviewComponent,
     ViewPermissionComponent,
-    ViewSubpermissionComponent
+    ViewSubpermissionComponent,
+    EntityTransactionComponent
     
   ],
 

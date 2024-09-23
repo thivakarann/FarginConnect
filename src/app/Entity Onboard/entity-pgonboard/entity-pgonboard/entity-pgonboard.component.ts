@@ -48,8 +48,7 @@ export class EntityPgonboardComponent implements OnInit {
     this.service.PgOnboard(submitmodel).subscribe((res: any) => {
       if (res.response.flag == 1) {
         this.toastr.success(res.response.message);
-        // this.dialog.closeAll();
-
+        this.dialog.closeAll();
       }
       else {
         this.toastr.error(res.response.message)

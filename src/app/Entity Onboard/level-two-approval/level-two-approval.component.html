@@ -4,12 +4,11 @@
         <h5 class="mb-0">Final Approval</h5>
     </div>
 <div class="container">
-
     <div class="well">
         <form [formGroup]="myForm">
-            <div class="row mb-3">
+            <div class="row mt-3">
                 <div class="col-12 form-group">
-                    <label for="Bussiness category">Select Approval</label>
+                    <label   class="form__label" for="Bussiness category">Select Approval</label>
                     <select formControlName="approvalStatus" id="Bussiness category" class="form-control form-select">
                         <option value="" disabled selected>Select</option>
                         <option value="approved">approved</option>
@@ -26,9 +25,9 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mt-3">
                 <div class="col-12 form-group">
-                    <label for="address">Remarks</label>
+                    <label  class="form__label" for="address">Remarks</label>
                     <textarea id="fname" type="text" class="form__input" placeholder="Enter Address Here.." cols="10"
                         rows="2" class="form-control" formControlName="remarks"></textarea>
                     <div style="

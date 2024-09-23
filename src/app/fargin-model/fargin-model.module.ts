@@ -46,7 +46,7 @@ export interface AdminUpdate {
   readonly country: any;
   readonly gender: any;
   readonly modifiedBy: any;
-  readonly roleId:any;
+  readonly roleId: any;
 }
 
 
@@ -111,6 +111,46 @@ export interface addentity {
   readonly mccCode: any;
   readonly website: any;
   readonly merchantPlanId: any;
+
+}
+
+
+export interface updateentity {
+
+  readonly entityName: any;
+  readonly merchantLegalName: any;
+  readonly accountDisplayName: any;
+  readonly contactName: any;
+  readonly contactMobile: any;
+  readonly secondaryMobile: any;
+  readonly contactEmail: any;
+  readonly gstIn: any;
+  readonly billingAddress: any;
+  readonly area: any;
+  readonly zipcode: any;
+  readonly stateName: any;
+  readonly city: any;
+  readonly contactPerson: any;
+  readonly country: any;
+  readonly locationServed: any;
+  readonly serviceOffered: any;
+  readonly businessCategoryId: any;
+  readonly mccCode: any;
+  readonly website: any;
+  readonly modifiedBy: any;
+
+}
+
+export interface EntityStatus {
+  readonly merchantId: any;
+  readonly accountStatus: any;
+}
+
+export interface EmailTrigger {
+  readonly merchantId: any;
+  readonly linkExpiry: any;
+  readonly description: any;
+  readonly returnUrl: any;
 
 }
 
@@ -419,7 +459,7 @@ export interface Statusfacheckkey {
 export interface UpdateAlcart {
   readonly alcotId: any;
   readonly regionId: any;
-  readonly broadCaster: any;
+  readonly bundleChannelId: any;
   readonly channelName: any;
   readonly type: any;
   readonly channelNo: any;
@@ -478,6 +518,11 @@ export interface BroadcasterBouquetadd {
   readonly amount: any;
   readonly createdBy: any;
 
+}
+
+export interface AddExtraChannels {
+  readonly alcotId: any;
+  readonly bouquteId: any;
 }
 
 export interface BroadcasterBouquetStatus {

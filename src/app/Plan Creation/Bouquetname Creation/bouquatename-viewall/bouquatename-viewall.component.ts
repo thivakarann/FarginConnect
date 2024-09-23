@@ -42,7 +42,6 @@ export class BouquatenameViewallComponent implements OnInit {
   responseDataListnew: any = [];
   response: any = [];
 
-
   constructor(
     public boardcasternameviewall: FarginServiceService,
     private router: Router,

@@ -32,6 +32,14 @@ export class EntityAddComponent implements OnInit {
   KYCDocNames: any;
   selectedCategoryId: any;
   entittyplanviewall: any;
+  kycdetails: any;
+  kycDocname: any;
+  kycDocname1: any;
+  kycDocname2: any;
+  kycDocname3: any;
+  kycDocname4: any;
+  kycDocname5: any;
+  kycDocname6: any;
 
   constructor(
     public AddEntity: FarginServiceService,
@@ -39,6 +47,7 @@ export class EntityAddComponent implements OnInit {
     private toastr: ToastrService
   ) { }
   ngOnInit(): void {
+
     this.AddEntity.Bussinesscategoryactivelist().subscribe((res: any) => {
       this.categorydetails = res.response;
     });
@@ -153,8 +162,16 @@ export class EntityAddComponent implements OnInit {
       docFrontPath: new FormControl(null, Validators.required),
       docBackPath: new FormControl(null, Validators.required),
       docName: new FormControl(null, Validators.required),
-      docNumber: new FormControl(null, Validators.required),
+      documentNumber: new FormControl('', [Validators.required, Validators.pattern("[0-9]{12}$")]),
+      panNumber: new FormControl('', [Validators.required, Validators.pattern("^[A-Za-z]{5}[0-9]{4}[A-Za-z]$")]),
+      passportNumber: new FormControl('', [Validators.required, Validators.pattern("^[A-Za-z0-9]{8,15}$")]),
+      gstNumber: new FormControl('', [Validators.required, Validators.pattern("^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[A-Z]{1}[0-9A-Z]{1}$")]),
+      drivingLicenseNumber: new FormControl('', [Validators.required,  Validators.pattern("^(([A-Z]{2}[0-9]{2})( )|([A-Z]{2}-[0-9]{2}))((19|20)[0-9][0-9])[0-9]{7}$")]),
+      cinch: new FormControl('', [Validators.required,Validators.pattern("^([LUu]{1})([0-9]{5})([A-Za-z]{2})([0-9]{4})([A-Za-z]{3})([0-9]{6})$")]),
+      voterid: new FormControl('', [Validators.required,  Validators.pattern("^[A-Z]{3}[0-9]{7}$")]),
     });
+
+    
 
   }
 
@@ -304,8 +321,30 @@ export class EntityAddComponent implements OnInit {
     return this.myForm3.get('docName')
   }
 
-  get docNumber() {
-    return this.myForm3.get('docNumber')
+  get documentNumber() {
+    return this.myForm3.get('documentNumber');
+  }
+
+  get panNumber() {
+    return this.myForm3.get('panNumber');
+  }
+  get passportNumber() {
+    return this.myForm3.get('passportNumber');
+  }
+
+  get gstNumber() {
+    return this.myForm3.get('gstNumber');
+  }
+
+  get drivingLicenseNumber() {
+    return this.myForm3.get('drivingLicenseNumber');
+  }
+
+  get cinch() {
+    return this.myForm3.get('cinch');
+  }
+  get voterid() {
+    return this.myForm3.get('voterid');
   }
 
   onFileSelected(event: any) {
@@ -363,7 +402,7 @@ export class EntityAddComponent implements OnInit {
 
       this.errorMessage = ''
       this.file2 = files;
-      console.log(this.file1);
+      console.log(this.file2);
 
       console.log(' file 1 id success' + files);
 
@@ -399,6 +438,8 @@ export class EntityAddComponent implements OnInit {
     this.AddEntity.EntityAdd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.merchantid = res.response.merchantId;
+        console.log(this.merchantid)
+
         this.bussinessid = res.response.businessCategoryModel.businessCategoryId;
         this.AddEntity.EntityGetKYCbybussinessid(this.bussinessid).subscribe((res: any) => {
           this.KYCDocNames = res.response
@@ -443,27 +484,167 @@ export class EntityAddComponent implements OnInit {
 
   AddKYC(event: Event) {
     event.preventDefault();
-    const formData = new FormData();
-    formData.append('merchantId', this.merchantid);
-    formData.append('docName', this.docName?.value);
-    formData.append('docFrontPath', this.file1);
-    formData.append('docBackPath', this.file2);
-    formData.append('docNumber', this.docNumber?.value);
-    formData.append('createdBy  ', this.getadminname);
+    if (this.docName?.value == 'Aadhaar') {
+      const formData = new FormData;
+      formData.append('merchantId',this.merchantid);
+      formData.append('docFrontPath', this.file1);
+      formData.append('docBackPath', this.file2);
+      formData.append('docName', this.docName?.value);
+      formData.append('docNumber', this.documentNumber?.value);
+      formData.append('createdBy', this.getadminname)
+     console.log(this.merchantid)
 
-    this.AddEntity.KycAdd(formData).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.toastr.success(res.responseMessage);
-      }
-      else {
-        this.toastr.error(res.responseMessage);
-      }
+      this.AddEntity.KycAdd(formData).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.kycdetails = res.response;
+          this.kycDocname=res.response.docName;
+          this.toastr.success(res.message)
+          this.myForm3.reset();
 
-    })
+        }
+        else {
+          this.toastr.error(res.message)
 
+        }
+      })
+    }
+    if (this.docName?.value == 'PAN') {
+      const formData = new FormData;
+      formData.append('merchantId',this.merchantid);
+      formData.append('docFrontPath', this.file1);
+      formData.append('docBackPath', this.file2);
+      formData.append('docName', this.docName?.value);
+      formData.append('docNumber', this.panNumber?.value);
+      formData.append('createdBy', this.getadminname)
+      console.log(this.merchantid)
+      this.AddEntity.KycAdd(formData).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.kycdetails = res.response;
+          this.toastr.success(res.message);
+          this.kycDocname1=res.response.docName;
+          this.myForm3.reset();
+
+        }
+        else {
+          this.toastr.error(res.message)
+
+        }
+      })
+    }
+     if (this.docName?.value == 'Passport') {
+      const formData = new FormData;
+      formData.append('merchantId',this.merchantid);
+      formData.append('docFrontPath', this.file1);
+      formData.append('docBackPath', this.file2);
+      formData.append('docName', this.docName?.value);
+      formData.append('docNumber', this.passportNumber?.value);
+      formData.append('createdBy', this.getadminname);
+      console.log(this.merchantid)
+      this.AddEntity.KycAdd(formData).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.kycdetails = res.response;
+          this.kycDocname2=res.response.docName;
+          this.toastr.success(res.message)
+          this.myForm3.reset();
+
+        }
+        else {
+          this.kycdetails = res.response;
+          this.toastr.error(res.message)
+
+        }
+      })
+    }
+    if (this.docName?.value == 'GST') {
+      const formData = new FormData;
+      formData.append('merchantId',this.merchantid);
+      formData.append('docFrontPath', this.file1);
+      formData.append('docBackPath', this.file2);
+      formData.append('docName', this.docName?.value);
+      formData.append('docNumber', this.gstNumber?.value);
+      formData.append('createdBy', this.getadminname);
+      console.log(this.merchantid)
+      this.AddEntity.KycAdd(formData).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.kycdetails = res.response;
+          this.kycDocname3=res.response.docName;
+          this.toastr.success(res.message);
+          this.myForm3.reset();
+        }
+        else {
+          this.toastr.error(res.message)
+
+        }
+      })
+    }
+    if (this.docName?.value == 'Driving License') {
+      const formData = new FormData;
+      formData.append('merchantId',this.merchantid);
+      formData.append('docFrontPath', this.file1);
+      formData.append('docBackPath', this.file2);
+      formData.append('docName', this.docName?.value);
+      formData.append('docNumber', this.drivingLicenseNumber?.value);
+      formData.append('createdBy', this.getadminname);
+      console.log(this.merchantid)
+      this.AddEntity.KycAdd(formData).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.kycdetails = res.response;
+          this.kycDocname4=res.response.docName;
+          this.toastr.success(res.message);
+          this.myForm3.reset();
+
+        }
+        else {
+          this.toastr.error(res.message)
+        }
+      })
+    }
+     if (this.docName?.value == 'Cin') {
+      const formData = new FormData;
+      formData.append('merchantId',this.merchantid);
+      formData.append('docFrontPath', this.file1);
+      formData.append('docBackPath', this.file2);
+      formData.append('docName', this.docName?.value);
+      formData.append('docNumber', this.cinch?.value);
+      formData.append('createdBy', this.getadminname)
+      console.log(this.merchantid)
+      this.AddEntity.KycAdd(formData).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.kycdetails = res.response;
+          this.kycDocname5=res.response.docName;
+          this.toastr.success(res.message);
+          this.myForm3.reset();
+
+        }
+        else {
+          this.toastr.error(res.message)
+
+        }
+      })
+    }
+    if (this.docName?.value == 'VoterId') {
+      const formData = new FormData;
+      formData.append('merchantId',this.merchantid);
+      formData.append('docFrontPath', this.file1);
+      formData.append('docBackPath', this.file2);
+      formData.append('docName', this.docName?.value);
+      formData.append('docNumber', this.voterid?.value);
+      formData.append('createdBy', this.getadminname)
+      console.log(this.merchantid)
+      this.AddEntity.KycAdd(formData).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.kycdetails = res.response;
+          this.kycDocname6=res.response.docName;
+          this.toastr.success(res.message);
+          this.myForm3.reset();
+
+        }
+        else {
+          this.toastr.error(res.message)
+        }
+      })
+    }
   }
-
-
   close() {
     this.router.navigateByUrl('dashboard/entity-viewall');
   }

@@ -38,10 +38,11 @@ export class EditKycdocumentComponent implements OnInit {
       documentname: new FormControl('', [Validators.required]),
       documentNumber: new FormControl('', [Validators.required, Validators.pattern("[0-9]{12}$")]),
       panNumber: new FormControl('', [Validators.required, Validators.pattern("^[A-Za-z]{5}[0-9]{4}[A-Za-z]$")]),
-      passportNumber: new FormControl('', [Validators.required, Validators.pattern("“^[A-Z][1-9]\d\s?\d{4}[1-9]$“ ")]),
+      passportNumber: new FormControl('', [Validators.required, Validators.pattern("^[A-Za-z0-9]{8,15}$")]),
       gstNumber: new FormControl('', [Validators.required, Validators.pattern("/^[A-Z]{2}[0-9A-Z]{10}[A-Z0-9]{3}$/")]),
       drivingLicenseNumber: new FormControl('', [Validators.required, Validators.pattern("^(([A-Z]{2}[0-9]{2})( )|([A-Z]{2}-[0-9]{2}))((19|20)[0-9][0-9])[0-9]{7}$")]),
-      cinch: new FormControl('', [Validators.required]),
+      cinch: new FormControl('', [Validators.required,Validators.pattern("^([LUu]{1})([0-9]{5})([A-Za-z]{2})([0-9]{4})([A-Za-z]{3})([0-9]{6})$")]),
+      voterid: new FormControl('', [Validators.required,  Validators.pattern("^[A-Z]{3}[0-9]{7}$")]),
       documentfront: new FormControl('', [Validators.required]),
       documentback: new FormControl('', [Validators.required]),
     })
@@ -81,7 +82,9 @@ export class EditKycdocumentComponent implements OnInit {
   get cinch() {
     return this.KycForm.get('cinch');
   }
-
+  get voterid() {
+    return this.KycForm.get('voterid');
+  }
   get documentfront() {
     return this.KycForm.get('documentfront');
   }
@@ -127,7 +130,7 @@ export class EditKycdocumentComponent implements OnInit {
   submit() {
 
 
-    if (this.documentname?.value == 'Aadhar Card') {
+    if (this.documentname?.value == 'Aadhaar') {
       const formData = new FormData;
       formData.append('merchantDocumentId ', this.merchantDocumentId);
       formData.append('docFrontPath', this.imageFile);
@@ -167,7 +170,6 @@ export class EditKycdocumentComponent implements OnInit {
         }
         else {
           this.toaster.error(res.message)
-
         }
       })
     }
@@ -179,7 +181,6 @@ export class EditKycdocumentComponent implements OnInit {
       formData.append('docName', this.documentname?.value);
       formData.append('docNumber', this.passportNumber?.value);
       formData.append('modifiedBy ', this.createdBy);
-
       this.service.KycUpdate(formData).subscribe((res: any) => {
         if (res.flag == 1) {
           this.details = res.response;
@@ -201,7 +202,6 @@ export class EditKycdocumentComponent implements OnInit {
       formData.append('docName', this.documentname?.value);
       formData.append('docNumber', this.gstNumber?.value);
       formData.append('modifiedBy ', this.createdBy);
-
       this.service.KycUpdate(formData).subscribe((res: any) => {
         if (res.flag == 1) {
           this.details = res.response;
@@ -211,7 +211,6 @@ export class EditKycdocumentComponent implements OnInit {
         }
         else {
           this.toaster.error(res.message)
-
         }
       })
     }
@@ -223,7 +222,6 @@ export class EditKycdocumentComponent implements OnInit {
       formData.append('docName', this.documentname?.value);
       formData.append('docNumber', this.drivingLicenseNumber?.value);
       formData.append('modifiedBy ', this.createdBy);
-
       this.service.KycUpdate(formData).subscribe((res: any) => {
         if (res.flag == 1) {
           this.details = res.response;
@@ -237,7 +235,7 @@ export class EditKycdocumentComponent implements OnInit {
         }
       })
     }
-    else if (this.documentname?.value == 'Cinch') {
+    else if (this.documentname?.value == 'Cin') {
       const formData = new FormData;
       formData.append('merchantDocumentId ', this.merchantDocumentId);
       formData.append('docFrontPath', this.imageFile);
@@ -245,7 +243,26 @@ export class EditKycdocumentComponent implements OnInit {
       formData.append('docName', this.documentname?.value);
       formData.append('docNumber', this.cinch?.value);
       formData.append('modifiedBy ', this.createdBy);
-
+      this.service.KycUpdate(formData).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.details = res.response;
+          this.toaster.success(res.message)
+          this.dialog.closeAll();
+          window.location.reload();
+        }
+        else {
+          this.toaster.error(res.message)
+        }
+      })
+    }
+    else if (this.documentname?.value == 'VoterId') {
+      const formData = new FormData;
+      formData.append('merchantDocumentId ', this.merchantDocumentId);
+      formData.append('docFrontPath', this.imageFile);
+      formData.append('docBackPath', this.imageFile1);
+      formData.append('docName', this.documentname?.value);
+      formData.append('docNumber', this.voterid?.value);
+      formData.append('modifiedBy ', this.createdBy);
       this.service.KycUpdate(formData).subscribe((res: any) => {
         if (res.flag == 1) {
           this.details = res.response;

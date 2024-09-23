@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { BankPrimaryStatus, BankStatus, Bankverficiation, Facheckverification, PassPortverification, VoterIdVerify } from '../../fargin-model/fargin-model.module';
+import { BankPrimaryStatus, BankStatus, Bankverficiation, EmailTrigger, Facheckverification, PassPortverification, VoterIdVerify } from '../../fargin-model/fargin-model.module';
 import { ApprovalForBankComponent } from '../approval-for-bank/approval-for-bank.component';
 import { CommentsForApprovalComponent } from '../comments-for-approval/comments-for-approval.component';
 import { KycApprovalComponent } from '../kyc-approval/kyc-approval.component';
@@ -47,25 +47,25 @@ export class EntityViewComponent implements OnInit {
   accountId: any;
   startdate!: string;
   enddate!: string;
- 
+
   items: any[] = []; // The array of items to paginate
   currentPage: any = 1; // The current page number
   itemsPerPage = 5; // The number of items to display per page
   selected: any;
   selecteded: string = '5';
- 
- 
-  p:any=1;
- 
+
+
+  p: any = 1;
+
   alltransactions: any;
   searchText: any;
- 
- 
- 
+
+
+
   navbarEventEmitter: any;
   isDropdownOpen = false;
   searchTexts: any;
- 
+
   Daterange!: string;
   data: any;
   term: any;
@@ -75,52 +75,53 @@ export class EntityViewComponent implements OnInit {
   serviceid: any;
   ToDateRange: any;
   FromDateRange: any;
-  showdata!:boolean;
+  showdata!: boolean;
   Data: any;
- 
+  bankapproval: any;
+  Kycapproval: any;
+  showLiveKeys: any;
+  loggedOut!: boolean;
+
   selectTab(tab: string): void {
     this.activeTab = tab;
   }
- 
+
   clearFilters(): void {
     // Implement filter clearing logic here
     console.log('Filters cleared');
   }
- 
+
   activeTab: string = 'events';
- 
- 
+
+
   constructor(
     public MerchantView: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
     private dialog: MatDialog,
     private ActivateRoute: ActivatedRoute) { }
- 
+
   ngOnInit(): void {
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.id = param.Alldata;
     });
- 
+
     this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
       this.details = res.response;
       this.detaislone = res.response.merchantpersonal;
-      this.approval1 = this.detaislone?.approvalStatusL1;
       this.bankdetails = res.response.merchantbank;
       this.KYCDetails = res.response.merchantdocument;
-      console.log(this.KYCDetails);
-      this.accountId = res.response.accountId;
- 
+
       this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
       console.log('BussinessCategoryId', this.businessCategoryId);
       console.log(this.detaislone);
       console.log(this.bankdetails);
       console.log(this.KYCDetails);
-      console.log('Approval1', this.approval1)
- 
+
+
     })
   }
- 
+
   bankStatus(event: any, id: any) {
     this.isChecked = event.checked;
     let submitModel: BankStatus = {
@@ -130,7 +131,7 @@ export class EntityViewComponent implements OnInit {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         window.location.reload();
- 
+
       }
       else {
         this.toastr.error(res.responseMessage)
@@ -167,7 +168,7 @@ export class EntityViewComponent implements OnInit {
       disableClose: true,
       data: { value: id }
     })
- 
+
   }
   getFrontPath(id: any) {
     this.dialog.open(KycdocumentViewComponent, {
@@ -218,7 +219,7 @@ export class EntityViewComponent implements OnInit {
       exitAnimationDuration: "1000ms",
       data: { value: id }
     })
- 
+
   }
   addKycdocuments(id: any, BusinessCategoryId: any) {
     this.dialog.open(AddKycdocumentComponent, {
@@ -231,7 +232,7 @@ export class EntityViewComponent implements OnInit {
       }
     })
   }
- 
+
   editKycDocuments(id: any) {
     this.dialog.open(EditKycdocumentComponent, {
       enterAnimationDuration: "1000ms",
@@ -252,7 +253,7 @@ export class EntityViewComponent implements OnInit {
         value: id,
       }
     })
- 
+
   }
   levelTwoApproval(id: any) {
     this.dialog.open(LevelTwoApprovalComponent, {
@@ -285,7 +286,7 @@ export class EntityViewComponent implements OnInit {
     })
   }
   FacheckVerification(Docname: any, data: any, id: any, ApprovedBy: any) {
-   console.log(data)
+    console.log(data)
     console.log(ApprovedBy)
     let submitModel: Facheckverification =
     {
@@ -293,13 +294,13 @@ export class EntityViewComponent implements OnInit {
       docNumber: data,
       approvalBy: ApprovedBy
     }
- 
-    if (Docname == 'Aadhar Card') {
+
+    if (Docname == 'Aadhaar') {
       this.MerchantView.FacheckAadharVerification(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           window.location.reload();
- 
+
         }
         else {
           this.toastr.error(res.responseMessage)
@@ -307,13 +308,11 @@ export class EntityViewComponent implements OnInit {
       })
     }
     else if (Docname == 'PAN') {
-     
- 
+
+
       this.MerchantView.FacheckPanVerification(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
-          this.toastr.success(res.responseMessage);
-          window.location.reload();
-
+          this.toastr.success(res.responseMessage)
         }
         else {
           this.toastr.error(res.responseMessage)
@@ -331,7 +330,7 @@ export class EntityViewComponent implements OnInit {
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           window.location.reload();
- 
+
         }
         else {
           this.toastr.error(res.responseMessage)
@@ -339,12 +338,12 @@ export class EntityViewComponent implements OnInit {
       })
     }
     else if (Docname == 'GST') {
-     
+
       this.MerchantView.FacheckGSTVerification(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           window.location.reload();
- 
+
         }
         else {
           this.toastr.error(res.responseMessage)
@@ -363,15 +362,15 @@ export class EntityViewComponent implements OnInit {
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           window.location.reload();
- 
+
         }
         else {
           this.toastr.error(res.responseMessage)
         }
       })
     }
- 
- 
+
+
     else if (Docname == 'Driving License') {
       let submitModel: PassPortverification =
       {
@@ -384,7 +383,7 @@ export class EntityViewComponent implements OnInit {
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           window.location.reload();
- 
+
         }
         else {
           this.toastr.error(res.responseMessage)
@@ -392,7 +391,7 @@ export class EntityViewComponent implements OnInit {
       })
     }
     else if (Docname == 'VoterId') {
- 
+
       let submitModel: VoterIdVerify =
       {
         kycId: id,
@@ -435,19 +434,19 @@ export class EntityViewComponent implements OnInit {
       }
     })
   }
- 
-  KycInfo(id:any,Docname:any){
+
+  KycInfo(id: any, Docname: any) {
     this.dialog.open(KycInfoComponent, {
       enterAnimationDuration: "1000ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: {
         value: id,
-        value1:Docname
+        value1: Docname
       }
     })
   }
- 
+
   pgOnboard() {
     this.dialog.open(EntityPgonboardComponent, {
       enterAnimationDuration: "1000ms",
@@ -457,47 +456,78 @@ export class EntityViewComponent implements OnInit {
         value: this.id,
       }
     })
- 
+
   }
- 
-  Viewcustomer(id:any){
-    this.router.navigate([`dashboard/entity-customer-view/${id}`], {
+
+  Viewcustomer(id: any) {
+    this.router.navigate([`dashboard/entitycustomers/${id}`], {
       queryParams: { Alldata: id },
     });
     console.log(id);
   }
- 
-  Viewqr(id:any){
+
+  Viewqr(id: any) {
     this.router.navigate([`dashboard/entity-qrcode/${id}`], {
       queryParams: { Alldata: id },
     });
     console.log(id);
   }
- 
-  ViewRefund(id:any){
+
+  ViewRefund(id: any) {
     this.router.navigate([`dashboard/entity-refund/${id}`], {
       queryParams: { Alldata: id },
     });
     console.log(id);
   }
- 
+
   viewsettlement
-  (id:any){
+    (id: any) {
     this.router.navigate([`dashboard/entity-settlement/${id}`], {
       queryParams: { Alldata: id },
     });
     console.log(id);
   }
-  editpersonalInfo(id:any){
-    this.router.navigate([`dashboard/edit-personal`], {
+  editpersonalInfo(id: any) {
+    this.router.navigate([`dashboard/edit-personal/${id}`], {
       queryParams: { Alldata: id },
     });
-   
+
   }
- 
-  close(){
+
+  close() {
     this.router.navigate([`dashboard/entity-viewall`], {
       // queryParams: { Alldata: id },
+    });
+  }
+
+  emailtrigger() {
+    let submitModel: EmailTrigger = {
+      merchantId: this.id,
+      linkExpiry: undefined,
+      description: undefined,
+      returnUrl: undefined
+    }
+    this.MerchantView.EmailTrigger(submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.toastr.success(res.message);
+      }
+      else {
+        this.toastr.error(res.message);
+      }
+    })
+  }
+
+  copyText(text: string) {
+    const el = document.createElement('textarea');
+    el.value = text;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+  }
+  entityTransaction(id: any) {
+    this.router.navigate([`dashboard/entity-transaction/${id}`], {
+      queryParams: { Alldata: id },
     });
   }
 }

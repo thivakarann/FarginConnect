@@ -11,7 +11,8 @@
 
                 </tr>
 
-                <tbody *ngFor="let item of detailss, let i = index">
+                <tbody
+                    *ngFor="let item of detailss|paginate: { itemsPerPage:2, currentPage: currentPage } | search: searchText;let i=index">
 
                     <td class="text-center">{{i+1}}</td>
                     <td class="text-center">{{item.broadCasterRegion.service.serviceProviderName}}</td>
@@ -23,12 +24,13 @@
                 </tbody>
             </table>
             <div class="text-end mt-3">
-                <pagination-controls (pageChange)="page = $event"></pagination-controls>
+                <pagination-controls (pageChange)="currentPage= $event"></pagination-controls>
+
             </div>
 
-            <div style="text-align: left;" matDialogClose>
+            <div style="text-align: left;" >
                 <button
-                    style="background-color: rgb(94, 94, 128);color: white;border:1px solid whitesmoke ;margin-bottom: 2%; border-radius: 5px; margin-left: 2%;">Close</button>
+                  (click)="close()"  style="background-color: rgb(94, 94, 128);color: white;border:1px solid whitesmoke ;margin-bottom: 2%; border-radius: 5px; margin-left: 2%;">Close</button>
             </div>
         </div>
     </div>

@@ -1,14 +1,14 @@
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
-
+<div class="card-header d-flex justify-content-between align-items-center">
+    <h5 class="mb-0">KYC Approval</h5>
+</div>
 <div class="container">
-    <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">Bank Approval</h5>
-    </div>
+
     <div class="well">
         <form [formGroup]="myForm">
-            <div class="row mb-3">
+            <div class="row mt-3">
                 <div class="col-12 form-group">
-                    <label for="Bussiness category">Select Approval</label>
+                    <label    class="form__label" for="Bussiness category">Select Approval</label>
                     <select formControlName="approvalStatus" id="Bussiness category" class="form-control form-select">
                         <option value="" disabled selected>Select</option>
                         <option value="approved">approved</option>
@@ -25,9 +25,9 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mt-3">
                 <div class="col-12 form-group">
-                    <label for="address">Remarks</label>
+                    <label   class="form__label"  for="address">Remarks</label>
                     <textarea id="fname" type="text" class="form__input" placeholder="Enter Address Here.." cols="10"
                         rows="2" class="form-control" formControlName="remarks"></textarea>
                     <div style="
@@ -41,7 +41,7 @@
                     </div>
                 </div>
             </div>
-            <div>
+            <div class="mb-3">
                 <button (click)="submit()" [disabled]="myForm.invalid" type="submit" class="btn mx-1 "
                     style="background-color:#7db855be">Submit</button>
                 <button type="submit" class="btn" style="background-color:#141E46;color:white"

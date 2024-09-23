@@ -51,8 +51,9 @@ export class ApprovalForBankComponent implements OnInit{
       if (res.flag == 1) {
         this.toastr.success(res.response);
         this.dialog.closeAll();
-        window.location.reload();
-      }
+        setTimeout(() => {
+          window.location.reload()
+        }, 500);      }
       else {
         this.toastr.error(res.response)
       }

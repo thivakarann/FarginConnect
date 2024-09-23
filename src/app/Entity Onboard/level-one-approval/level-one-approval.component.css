@@ -150,8 +150,10 @@ button {
  
  
 .card-header {
- 
-  background-color: #7db855be;
-  color: #141E46;
+  background-color: #bcdf72;
+  color: #fff;
   font-family: "Roboto";
+}
+.form__label{
+  font-weight: 500;
 }

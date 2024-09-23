@@ -54,14 +54,15 @@ constructor(private service:FarginServiceService,
     }
     this.service.MerchantLevelApprovalOne(submitModel).subscribe((res:any)=>{
       if(res.flag==1){
-        this.approval=res.response;  
+        this.approval=res.response; 
+        this.toaster.success(res.responseMessage);
         this.dialog.closeAll();
-        window.location.reload(); 
-       this.toaster.success(res.responseMessage)
+        setTimeout(() => {
+          window.location.reload()
+        }, 500);
       }
-      else{
+      else if(res.flag==2){
         this.toaster.error(res.responseMessage)
-
        }
    })
   }

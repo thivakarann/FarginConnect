@@ -22,20 +22,20 @@ export class AddKycdocumentComponent implements OnInit {
   businessCategoryId: any;
   businesscreationId: any;
   kycDocName: any;
- 
- 
+
+
   constructor(private service: FarginServiceService, private dialog: MatDialog, private toaster: ToastrService, @Inject(MAT_DIALOG_DATA) public data: any) {
- 
+
   }
   ngOnInit(): void {
- 
- 
+
+
     this.merchantId = this.data.value
     console.log(this.merchantId);
     this.businessCategoryId = this.data.value1
     console.log("Business", this.businessCategoryId)
- 
- 
+
+
     this.KycForm = new FormGroup({
       documentname: new FormControl('', [Validators.required]),
       documentNumber: new FormControl('', [Validators.required, Validators.pattern("[0-9]{12}$")]),
@@ -61,22 +61,22 @@ export class AddKycdocumentComponent implements OnInit {
   get documentNumber() {
     return this.KycForm.get('documentNumber');
   }
- 
+
   get panNumber() {
     return this.KycForm.get('panNumber');
   }
   get passportNumber() {
     return this.KycForm.get('passportNumber');
   }
- 
+
   get gstNumber() {
     return this.KycForm.get('gstNumber');
   }
- 
+
   get drivingLicenseNumber() {
     return this.KycForm.get('drivingLicenseNumber');
   }
- 
+
   get cinch() {
     return this.KycForm.get('cinch');
   }
@@ -89,8 +89,8 @@ export class AddKycdocumentComponent implements OnInit {
   get documentback() {
     return this.KycForm.get('documentback');
   }
- 
- 
+
+
   getdocument(event: any) {
     this.imageFile = event.target.files[0];
     if ((this.imageFile.type == 'image/png') || (this.imageFile.type == 'image/jpeg') || (this.imageFile.type == 'image/jpg')) {
@@ -107,7 +107,7 @@ export class AddKycdocumentComponent implements OnInit {
       this.clearImage = '';
     }
   }
- 
+
   getBackdocument(event: any) {
     this.imageFile1 = event.target.files[0];
     if ((this.imageFile1.type == 'image/png') || (this.imageFile1.type == 'image/jpeg') || (this.imageFile1.type == 'image/jpg')) {
@@ -124,10 +124,10 @@ export class AddKycdocumentComponent implements OnInit {
       this.clearImage = '';
     }
   }
- 
- 
+
+
   submit() {
-    if (this.documentname?.value == 'Aadhar Card') {
+    if (this.documentname?.value == 'Aadhaar') {
       const formData = new FormData;
       formData.append('merchantId', this.merchantId);
       formData.append('docFrontPath', this.imageFile);
@@ -135,9 +135,9 @@ export class AddKycdocumentComponent implements OnInit {
       formData.append('docName', this.documentname?.value);
       formData.append('docNumber', this.documentNumber?.value);
       formData.append('createdBy', this.createdBy)
- 
- 
- 
+
+
+
       this.service.KycAdd(formData).subscribe((res: any) => {
         if (res.flag == 1) {
           this.details = res.response;
@@ -147,7 +147,7 @@ export class AddKycdocumentComponent implements OnInit {
         }
         else {
           this.toaster.error(res.message)
- 
+
         }
       })
     }
@@ -159,9 +159,9 @@ export class AddKycdocumentComponent implements OnInit {
       formData.append('docName', this.documentname?.value);
       formData.append('docNumber', this.panNumber?.value);
       formData.append('createdBy', this.createdBy)
- 
- 
- 
+
+
+
       this.service.KycAdd(formData).subscribe((res: any) => {
         if (res.flag == 1) {
           this.details = res.response;
@@ -171,7 +171,7 @@ export class AddKycdocumentComponent implements OnInit {
         }
         else {
           this.toaster.error(res.message)
- 
+
         }
       })
     }
@@ -183,9 +183,9 @@ export class AddKycdocumentComponent implements OnInit {
       formData.append('docName', this.documentname?.value);
       formData.append('docNumber', this.passportNumber?.value);
       formData.append('createdBy', this.createdBy)
- 
- 
- 
+
+
+
       this.service.KycAdd(formData).subscribe((res: any) => {
         if (res.flag == 1) {
           this.details = res.response;
@@ -195,7 +195,7 @@ export class AddKycdocumentComponent implements OnInit {
         }
         else {
           this.toaster.error(res.message)
- 
+
         }
       })
     }
@@ -207,9 +207,9 @@ export class AddKycdocumentComponent implements OnInit {
       formData.append('docName', this.documentname?.value);
       formData.append('docNumber', this.gstNumber?.value);
       formData.append('createdBy', this.createdBy)
- 
- 
- 
+
+
+
       this.service.KycAdd(formData).subscribe((res: any) => {
         if (res.flag == 1) {
           this.details = res.response;
@@ -219,7 +219,7 @@ export class AddKycdocumentComponent implements OnInit {
         }
         else {
           this.toaster.error(res.message)
- 
+
         }
       })
     }
@@ -231,9 +231,9 @@ export class AddKycdocumentComponent implements OnInit {
       formData.append('docName', this.documentname?.value);
       formData.append('docNumber', this.drivingLicenseNumber?.value);
       formData.append('createdBy', this.createdBy)
- 
- 
- 
+
+
+
       this.service.KycAdd(formData).subscribe((res: any) => {
         if (res.flag == 1) {
           this.details = res.response;
@@ -254,7 +254,7 @@ export class AddKycdocumentComponent implements OnInit {
       formData.append('docName', this.documentname?.value);
       formData.append('docNumber', this.cinch?.value);
       formData.append('createdBy', this.createdBy)
- 
+
       this.service.KycAdd(formData).subscribe((res: any) => {
         if (res.flag == 1) {
           this.details = res.response;
@@ -264,11 +264,11 @@ export class AddKycdocumentComponent implements OnInit {
         }
         else {
           this.toaster.error(res.message)
- 
+
         }
       })
     }
- 
+
     else if (this.documentname?.value == 'VoterId') {
       const formData = new FormData;
       formData.append('merchantId', this.merchantId);
@@ -277,7 +277,7 @@ export class AddKycdocumentComponent implements OnInit {
       formData.append('docName', this.documentname?.value);
       formData.append('docNumber', this.voterid?.value);
       formData.append('createdBy', this.createdBy)
- 
+
       this.service.KycAdd(formData).subscribe((res: any) => {
         if (res.flag == 1) {
           this.details = res.response;
@@ -287,10 +287,11 @@ export class AddKycdocumentComponent implements OnInit {
         }
         else {
           this.toaster.error(res.message)
- 
+
         }
       })
     }
   }
+
 
 }
