@@ -458,6 +458,10 @@ export class FarginServiceService {
     return this.http.get(`${this.basePath}${this.adminview}${id}`, this.options);
   }
 
+  roleactiveViewall() {
+    return this.http.get(`${this.basePath}${this.roleactiveviewall}`, this.options)
+  }
+
   Bussinesscategoryactivelist() {
     return this.http.get(`${this.basePath}${this.businesskycdocactive}`, this.options)
   }
@@ -915,7 +919,7 @@ export class FarginServiceService {
   }
 
   merchantplanstatus(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.MerchantplanStatus}${id}`, this.options)
+    return this.http.put(`${this.basePath}${this.MerchantplanStatus}${id}`,model, this.options)
   }
 
   merchantplanactive() {
