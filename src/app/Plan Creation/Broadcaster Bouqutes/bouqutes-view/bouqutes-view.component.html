@@ -1,7 +1,7 @@
 <div class="form-header d-flex justify-content-between align-items-center mx-4">
     <h4 class="mb-0">{{details?.bundleChannel?.broadCasterName}}</h4>
     <button type="button" class="btn btn-secondary" (click)="close()">Back</button>
-
+ 
 </div>
 <hr>
 <div>
@@ -10,12 +10,12 @@
             <div class="d-flex flex-md-row flex-column">
                 <h4 class="mr-3">{{details?.bouquetCreation?.bouquetName}} ₹: {{details?.amount}}</h4>
             </div>
-
+ 
         </div>
     </article>
 </div>
-
-
+ 
+ 
 <div class="row">
     <div class="col-md-3 mt-4 ">
         <div class="search me-4 mb-3">
@@ -47,30 +47,34 @@
                         <th>Region</th>
                         <th>Mso</th>
                     </tr>
-
+ 
                     <tbody
-                        *ngFor="let item of channelslist| paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage } | search: term; let i = index">
+                        *ngFor="let item of channelslist| paginate: { itemsPerPage: 3, currentPage: page } | search: term; let i = index">
                         <!-- <div *ngIf="(channelslist|filterBy:term)?.length===0" class="text-center">
                             <h6 style="color:red;">No Data Found</h6>
                         </div> -->
                         <td class="text-center">{{i+1}}</td>
-                        <td class="text-center">{{item.alcotChannel.channelName}}</td>
-                        <td class="text-center">{{item.alcotChannel.channelNo}}</td>
-                        <td class="text-center">{{item.alcotChannel.type == 1?'Paid':'Free'}}</td>
-                        <td class="text-center"> <mat-slide-toggle class="example-margin" color="primary"
-                                [checked]="item.channelStatus==1"
-                                (change)="ActiveStatus($event,item.broadCasterAlcotId)">
-                            </mat-slide-toggle></td>
-                        <td class="text-center">{{item.alcotChannel.language}}</td>
-                        <td class="text-center">{{item.alcotChannel.generic}}</td>
-                        <td class="text-center">{{item.alcotChannel.broadCaster}}</td>
-                        <td class="text-center">{{item.alcotChannel.region.stateName}}</td>
-                        <td class="text-center">{{item.alcotChannel.region.service.serviceProviderName}}</td>
-
-
+                        <td class="text-center">{{item.broadCasterAlcot?.channelName}}</td>
+                        <td class="text-center">{{item.broadCasterAlcot?.channelNo}}</td>
+                        <td class="text-center">{{item.broadCasterAlcot?.type == 1?'Paid':'Free'}}</td>
+                        <td class="text-center">
+                             <mat-slide-toggle class="example-margin" color="primary"
+                                [checked]="item?.channelStatus==1"
+                                (change)="ActiveStatus($event,item?.broadCasterAloctId)">
+                            </mat-slide-toggle>
+                        </td>
+                        <td class="text-center">{{item.broadCasterAlcot?.language}}</td>
+                        <td class="text-center">{{item.broadCasterAlcot?.generic}}</td>
+                        <td class="text-center">{{item.broadCasterAlcot?.bundleChannelId?.broadCasterName}}</td>
+                        <td class="text-center">{{item.broadCasterAlcot?.region?.stateName}}</td>
+                        <td class="text-center">{{item.broadCasterAlcot?.region?.service?.serviceProviderName}}</td>
                     </tbody>
                 </table>
-                <div class="text-end mt-3">
-                    <pagination-controls (pageChange)="page = $event"></pagination-controls>
-                </div>
+             
+            </div>
+            <div class="text-end mt-3">
+                <pagination-controls (pageChange)="page = $event"></pagination-controls>
+            </div>
+            </div>
+            </div>
             </div>

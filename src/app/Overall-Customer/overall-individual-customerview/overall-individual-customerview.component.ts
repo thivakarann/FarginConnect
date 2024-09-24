@@ -3,6 +3,8 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Location } from '@angular/common';
+import { ChannelViewComponent } from '../channel-view/channel-view.component';
 
 @Component({
   selector: 'app-overall-individual-customerview',
@@ -24,17 +26,27 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
   selecteded: string = '5';
   dataSource: any;
   searchText: any;
+  data: any;
+  status: any;
+  viewcustomer: any;
+  alcotchannel: any;
+  bouquetPlan: any;
+  lcopChannel: any;
+  transaction: any;
+  showData:boolean=false;
+  viewData:boolean=false;
   selectTab(tab: string) {
     this.selectedTab = tab;
   }
 
 
   constructor(
-    public MerchantView: FarginServiceService,
+    public service: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
     private dialog: MatDialog,
-    private ActivateRoute: ActivatedRoute) { }
+    private ActivateRoute: ActivatedRoute,private location:Location 
+  ) { }
 
   ngOnInit(): void {
 
@@ -43,31 +55,47 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
       this.id = param.Alldata;
     });
 
-    this.MerchantView.EntityIndividualCustomerview(this.id).subscribe((res: any) => {
+    this.service.ViewCustomerDetails(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.customerview = res.response.customerdetail;
-        console.log(this.customerview)
-        this.customerviewalcot = res.response.alcot;
-
-        //   for (let i = 0; i < this.customerview.length; i++) {
-        //     const element = this.customerview[i];
-        //     this.customerview = element.alcot.alcotId;
-        //   console.log(this.customerview)
-        // } 
+        this.viewcustomer = res.response.customerdetail;
+        this.alcotchannel = res.response.alcotList;
+        console.log(this.alcotchannel);
+        this.bouquetPlan = res.response.bouquetList;
+        this.lcopChannel = res.response.lcopList;
+       this.viewData=true;
       }
-    });
+      else{
+        this.viewData=false;
+
+      }
+
+    })
+
+    this.service.CustomerTransaction(this.id).subscribe((res: any) => {
+      if(res.flag==1){
+        this.transaction = res.response;
+        this.showData=true;
+
+      }
+   else{
+  this.showData=false
+   }
+    })
+  }
+
+  close(){
+  this.location.back()
+  }
+
+  viewChannel(id:any){
+    console.log('alcot'  ,this.id)
+    this.dialog.open(ChannelViewComponent, {
+      enterAnimationDuration: "500ms",
+      exitAnimationDuration: "1000ms",
+      data: { value: id }
+    })
+  }
+
   }
 
 
-  // image(id: any) {
-  //   this.dialog.open(EntityViewLogoComponent, {
-  //     data: { value: id },
-  //     disableClose: true,
-  //     enterAnimationDuration:'1000ms',      
-  //     exitAnimationDuration:'1000ms',
-  //   })
-  // }
-
-
-
-}

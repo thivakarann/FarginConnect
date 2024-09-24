@@ -147,6 +147,8 @@ private readonly dashboardData='dashBoard/dashBoardCount'
 
   //customers
   private readonly Entitycustomerview = 'customer/viewbymerchant/';
+  private readonly customerview = 'customer/viewById/';
+  private readonly customertransaction='customerpay/viewcustomers/';
 
   //QRcode
   private readonly EntityQrgenerate = 'merchant/qrgenerate/'
@@ -741,12 +743,22 @@ private readonly dashboardData='dashBoard/dashBoardCount'
   EntityCustomerview(id: any) {
     return this.http.get(`${this.basePath}${this.Entitycustomerview}${id}`, this.options)
   }
-
-    //entity transaction
  
- EntityTraansaction(id: any) {
-  return this.http.get(`${this.basePath}${this.entitytransaction}${id}`, this.options)
-}
+  ViewCustomerDetails(id: any) {
+    return this.http.get(`${this.basePath}${this.customerview}${id}`, this.options)
+  }
+ 
+  CustomerTransaction(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.customertransaction}${id}`,
+      this.options
+    );
+  }
+  //entity transaction
+
+  EntityTraansaction(id: any) {
+    return this.http.get(`${this.basePath}${this.entitytransaction}${id}`, this.options)
+  }
 
   TransactionForMerchant(model: any) {
     return this.http.post(`${this.basePath}${this.transactionformerchant}`, model, this.options)

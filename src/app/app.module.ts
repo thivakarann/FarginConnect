@@ -140,6 +140,7 @@ import { BouquetsRegionsviewComponent } from './Plan Creation/Broadcaster Bouqut
 import { AddExtraChannelsComponent } from './Plan Creation/Broadcaster Bouqutes/add-extra-channels/add-extra-channels.component';
 import { EditPersonalInfoComponent } from './Entity Onboard/edit-personal-info/edit-personal-info.component';
 import { EntityTransactionComponent } from './entity-transaction/entity-transaction.component';
+import { ChannelViewComponent } from './Overall-Customer/channel-view/channel-view.component';
 
 @NgModule({
   declarations: [
@@ -260,7 +261,8 @@ import { EntityTransactionComponent } from './entity-transaction/entity-transact
     BouquetsRegionsviewComponent,
     ViewPermissionComponent,
     ViewSubpermissionComponent,
-    EntityTransactionComponent
+    EntityTransactionComponent,
+    ChannelViewComponent
     
   ],
 

@@ -8,6 +8,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
+import { ChannelViewComponent } from '../channel-view/channel-view.component';
 
 @Component({
   selector: 'app-overall-customer-view',
@@ -23,14 +24,15 @@ date2: any;
   displayedColumns: string[] = [
     'customerId',
     'customerName',
+    'entityName',
     'merchantLegalName',
     'categoryName',
-    'stbNumber',
+    // 'stbNumber',
     'emailAddress',
     'mobileNumber',
     'Viewcustomer',
-    'flatNumber',
-    'blockNumber',
+    // 'flatNumber',
+    // 'blockNumber',
     
   ];
   viewall: any;
@@ -46,7 +48,7 @@ date2: any;
     public EntityViewall: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
-    private ActivateRoute:ActivatedRoute
+    private ActivateRoute:ActivatedRoute,
   ) { }
   
   ngOnInit(): void {
@@ -92,7 +94,7 @@ exportexcel() {
   console.log('check');
   let sno = 1;
   this.responseDataListnew = [];
-  this.viewall.forEach((element: any) => {
+  this.overallcustomer.forEach((element: any) => {
     // let createdate = element.createdDateTime;
     // this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
 
@@ -108,7 +110,7 @@ exportexcel() {
     this.response.push(element?.mobileNumber);
     this.response.push(element?.flatNumber);
     this.response.push(element?.blockNumber);
-    this.response.push(element?.stbNumber);
+    this.response.push(element?.stbId.setupBoxNumber);
 
 
     sno++;
@@ -126,15 +128,15 @@ excelexportCustomer() {
   'categoryName',
   'emailAddress',
   'mobileNumber',
-  'flatNumber',
-  'blockNumber',
-  'stbNumber'
+  // 'flatNumber',
+  // 'blockNumber',
+  // 'stbNumber'
   ]
 
 
   const data = this.responseDataListnew;
   let workbook = new Workbook();
-  let worksheet = workbook.addWorksheet('customer view');
+  let worksheet = workbook.addWorksheet('Overall customer view');
   // Blank Row
   // let titleRow = worksheet.addRow([title]);
   // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
@@ -197,10 +199,11 @@ excelexportCustomer() {
     let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 
 
-    FileSaver.saveAs(blob, 'Customer View.xlsx');
+    FileSaver.saveAs(blob, 'Overall CustomerView.xlsx');
 
   });
 }
 
-  
+
+
 }

@@ -1,0 +1,22 @@
+table {
+    font-size: 13px;
+    font-weight: 400;
+    min-width: 600px;
+    width: 100%;
+  }
+  
+  
+  #customers {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  
+  
+  #customers th {
+    text-align: center;
+    color: black;
+    background-color: #7db855be;
+    font-size: 13px;
+    font-weight: 600;
+  }
