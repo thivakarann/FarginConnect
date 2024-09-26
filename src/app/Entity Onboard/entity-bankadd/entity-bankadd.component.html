@@ -18,6 +18,15 @@
                   " *ngIf="accountHolderName?.invalid && accountHolderName?.touched && accountHolderName?.errors?.['required']">
                         Field is required
                     </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="accountHolderName?.invalid && accountHolderName?.touched && accountHolderName?.errors?.['pattern']">
+                          *Enter a valid Name
+                    </div>
                 </div>
                 <div class="col-sm-6 form-group">
                     <label for="state" class="form__label">Account Number*</label>
@@ -30,6 +39,15 @@
                     ;
                   " *ngIf="accountNumber?.invalid && accountNumber?.touched && accountNumber?.errors?.['required']">
                         Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="accountNumber?.invalid && accountNumber?.touched && accountNumber?.errors?.['pattern']">
+                       *Enter a valid AccountNumber 
                     </div>
                 </div>
             </div>
@@ -46,6 +64,15 @@
                   " *ngIf="bankName?.invalid && bankName?.touched && bankName?.errors?.['required']">
                         Field is required
                     </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="bankName?.invalid && bankName?.touched && bankName?.errors?.['pattern']">
+                         *Enter a valid BankName
+                    </div>
                 </div>
 
                 <div class="col-sm-6 form-group">
@@ -59,6 +86,15 @@
                     ;
                   " *ngIf="branchName?.invalid && branchName?.touched && branchName?.errors?.['required']">
                         Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="branchName?.invalid && branchName?.touched && branchName?.errors?.['pattern']">
+                      *Enter a valid branch Name
                     </div>
                 </div>
             </div>
@@ -74,6 +110,15 @@
                     ;
                   " *ngIf="ifscCode?.invalid && ifscCode?.touched && ifscCode?.errors?.['required']">
                         Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="ifscCode?.invalid && ifscCode?.touched && ifscCode?.errors?.['pattern']">
+                       *Enter a valid IFSC Code
                     </div>
                 </div>
                 <div class="col-sm-6 form-group">
@@ -95,6 +140,15 @@
                     ;
                   " *ngIf="accountType?.invalid && accountType?.touched && accountType?.errors?.['required']">
                         Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="accountType?.invalid && accountType?.touched && accountType?.errors?.['pattern']">
+                       *Enter a valid AccountType
                     </div>
                 </div>
             </div>

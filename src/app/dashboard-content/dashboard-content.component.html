@@ -1,224 +1,90 @@
-
-
+<div class="dashboard">
+  <div class="card border-success">
+    <div class="icon">👥</div>
+    <div class="title">Total Merchants</div>
+    <div class="value">{{counts?.totalMerchantCount}}</div>
+  </div>
+  <div class="card border-success">
+    <div class="icon">🆕</div>
+    <div class="title">Onboarded Merchants</div>
+    <div class="value">{{counts?.totalPgOnboardMerchantCount}}</div>
+</div>
  
-<div class="row">
-    <div class="col-md-3">
-        <label  >Category</label>
-        <select class="form-select">
-<option value="" disabled selected>Select Category</option>
-            <option value="cable">Cable</option>
-            <option value="Pg">Pg</option>
-        </select>
+<div class="card border-success">
+  <div class="icon">👤</div>
+  <div class="title">Active Merchants</div>
+  <div class="value">{{counts?.totalactiveMerchantCount}}</div>
+</div>
+<div class="card border-success">
+  <div class="icon">🚫</div>
+  <div class="title">Inactive Merchants</div>
+  <div class="value">{{counts?.totalInActiveMerchantCount}}</div>
+</div>
+<div class="card border-success">
+  <div class="icon">🕑</div>
+  <div class="title">Pending Merchants</div>
+  <div class="value">{{counts?.totalPendingMerchantCount}}</div>
+</div>
+<div class="card border-success">
+  <div class="icon">✔️</div>
+  <div class="title">Approved Merchants</div>
+  <div class="value">{{counts?.totalApprovedMerchantCount}}</div>
+</div>
+<div class="card border-success">
+  <div class="icon">🎟️</div>
+  <div class="title">Total Tickets</div>
+  <div class="value">{{counts?.totalTicketCount}}</div>
+</div>
+    <div class="card border-success">
+        <div class="icon">📩</div>
+        <div class="title">Total Open Tickets</div>
+        <div class="value">{{counts?.totalTicketMemberOpenCount}}</div>
     </div>
-    <div class="col-md-3">
-        <label >Merchants</label>
-        <select class="form-select">
-            <option value="" disabled selected>Select Merchant</option>
+    <div class="card border-success">
+        <div class="icon">⏳</div>
+        <div class="title">Tickets on Hold</div>
+        <div class="value">{{counts?.totalTicketMemberHoldCount}}</div>
+    </div>
  
-            <option >Merchant1</option>
-           
-        </select>
+ 
+    <div class="card border-success">
+        <div class="icon">✅</div>
+        <div class="title">Closed Tickets</div>
+        <div class="value">{{counts?.totalTicketMemberclosedCount}}</div>
     </div>
-    <div class="col-md-3">
-        <label >From Date</label>
-        <input class="form-control" type="date">
-    </div>
-    <div class="col-md-3">
-        <label >To Date</label>
-        <input class="form-control" type="date">
-    </div>
-   
 </div>
  
  
- 
- 
-<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/css/bootstrap-extended.min.css">
-<link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/fonts/simple-line-icons/style.min.css">
-<link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/css/colors.min.css">
-<link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/css/bootstrap.min.css">
-<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
- 
-<div class=" container-fluid">
-  <section id="minimal-statistics">
-    <div class="row">
-      <div class="col-12  mb-1">
-        <!-- <h4 class="text-uppercase">Minimal Statistics Cards</h4>
-        <p>Statistics on minimal cards.</p> -->
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xl-3 col-sm-6 col-12">
-        <div class="card">
-          <div class="card-content">
-            <div class="card-body">
-              <div class="media d-flex">
-                <div class="align-self-center">
-                  <i class="icon-pencil primary font-large-2 float-left"></i>
-                </div>
-                <div class="media-body text-right">
-                  <h3>{{counts?.totalMerchantCount}}</h3>
-                  <span>Total Merchant
-                </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-3 col-sm-6 col-12">
-        <div class="card">
-          <div class="card-content">
-            <div class="card-body">
-              <div class="media d-flex">
-                <div class="align-self-center">
-                  <i class="icon-speech warning font-large-2 float-left"></i>
-                </div>
-                <div class="media-body text-right">
-                  <h3>{{counts?.totalactiveMerchantCount }}</h3>
-                  <span>Active Merchant
-                </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-3 col-sm-6 col-12">
-        <div class="card">
-          <div class="card-content">
-            <div class="card-body">
-              <div class="media d-flex">
-                <div class="align-self-center">
-                  <i class="icon-graph success font-large-2 float-left"></i>
-                </div>
-                <div class="media-body text-right">
-                  <h3>{{counts?.totalInActiveMerchantCount}}</h3>
-                  <span>Inactive Merchant
-                </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-3 col-sm-6 col-12">
-        <div class="card">
-          <div class="card-content">
-            <div class="card-body">
-              <div class="media d-flex">
-                <div class="align-self-center">
-                  <i class="icon-pointer danger font-large-2 float-left"></i>
-                </div>
-                <div class="media-body text-right">
-                  <h3>{{counts?.totalApprovedMerchantCount}}</h3>
-                  <span>Approved Merchant
-                </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
- 
-    <div class="row">
-      <div class="col-xl-3 col-sm-6 col-12">
-        <div class="card">
-          <div class="card-content">
-            <div class="card-body">
-              <div class="media d-flex">
-                <div class="media-body text-left">
-                  <h3 class="danger">{{counts?.totalPendingMerchantCount}}</h3>
-                  <span>Approval Pending Merchant
-                </span>
-                </div>
-                <div class="align-self-center">
-                  <i class="icon-rocket danger font-large-2 float-right"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-3 col-sm-6 col-12">
-        <div class="card">
-          <div class="card-content">
-            <div class="card-body">
-              <div class="media d-flex">
-                <div class="media-body text-left">
-                  <h3 class="success">{{counts?.totalPgOnboardMerchantCount}}</h3>
-                  <span>PG Onboarded Merchants
-                </span>
-                </div>
-                <div class="align-self-center">
-                  <i class="icon-user success font-large-2 float-right"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
- 
-      <div class="col-xl-3 col-sm-6 col-12">
-        <div class="card">
-          <div class="card-content">
-            <div class="card-body">
-              <div class="media d-flex">
-                <div class="media-body text-left">
-                  <h3 class="warning">{{counts?.totalTicketMemberOpenCount}}</h3>
-                  <span>Open Ticket count
-                </span>
-                </div>
-                <div class="align-self-center">
-                  <i class="icon-pie-chart warning font-large-2 float-right"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-3 col-sm-6 col-12">
-        <div class="card">
-          <div class="card-content">
-            <div class="card-body">
-              <div class="media d-flex">
-                <div class="media-body text-left">
-                  <h3 class="primary">{{counts?.totalTicketMemberclosedCount}}</h3>
-                  <span>Closed Ticket count
-                </span>
-                </div>
-                <div class="align-self-center">
-                  <i class="icon-support primary font-large-2 float-right"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xl-3 col-sm-6 col-12">
-        <div class="card">
-          <div class="card-content">
-            <div class="card-body">
-              <div class="media d-flex">
-                <div class="media-body text-left">
-                  <h3 class="primary">{{counts?.totalTicketMemberclosedCount}}</h3>
-                  <span>Hold Ticket Count
-                </span>
-                </div>
-                <div class="align-self-center">
-                  <i class="icon-support primary font-large-2 float-right"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
- 
- 
+<!-- <div class="cards  mb-3">
+  <div class="card-header">
+    <h5 class="card-title">Merchant Details</h5>
+  </div>
+  <div class="card-body">
+    <select class="form-select" id="categorySelect" (change)="onCategoryChange($event)">
+      <option value="" disabled selected>Select Category</option>
+      <option *ngFor="let val of category" [value]="val.businessCategoryId">{{val.categoryName}}</option>
+    </select>
+  </div>
 </div>
+  <div>
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-8">
+        <canvas id="myCanvas"></canvas>
+      </div>
+    </div>
+  </div> -->
+ 
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <label for="" style="font-size: 14px; font-family: Verdana, Geneva, Tahoma, sans-serif;">Merchant Details</label><br>
+      <select (change)="onCategoryChange($event)"  name="" id="" class="form-select"  [value]="initialCategoryId">
+        <option value="" disabled selected>Select Category</option>
+        <option *ngFor="let val of category" [value]="val.businessCategoryId">{{val.categoryName}}</option>
+      </select>
+    </div>
+ 
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-7">
+        <canvas id="myCanvas"></canvas>
+      </div>
+    </div>

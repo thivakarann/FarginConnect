@@ -61,7 +61,7 @@ constructor(private service:FarginServiceService,
           window.location.reload()
         }, 500);
       }
-      else if(res.flag==2){
+      else if(res.flag == 2){
         this.toaster.error(res.responseMessage)
        }
    })

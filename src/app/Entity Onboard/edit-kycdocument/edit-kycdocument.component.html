@@ -7,7 +7,7 @@
         <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="KycForm">
             <div class="form__linput">
                 <label class="form__label" for="fname">Document Name</label>
-                <select id="Bussiness category" class="form-control form-select" formControlName="documentname">
+                <select id="Bussiness category" class="form-control form-select" formControlName="documentname" [(ngModel)]="docname">
                     <option value="" disabled selected>Select</option>
                     <option *ngFor="let item of categorydetails" [value]="item.kycDocName">
                         {{item.kycDocName}}</option>

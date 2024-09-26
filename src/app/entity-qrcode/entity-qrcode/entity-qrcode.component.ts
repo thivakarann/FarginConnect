@@ -40,19 +40,28 @@ export class EntityQrcodeComponent implements OnInit {
       if (res.flag == 1) {
         this.qrCode = res.responseMessage;
         console.log(this.qrCode);
-        this.qrgenerate = true;
-        this.toastr.success('Link Generated Successfully!')
-        setTimeout(() => {
-          window.location.reload()
-        }, 500);
+        this.toastr.success(res.responseMessage)
+        // setTimeout(() => {
+        //   window.location.reload()
+        // }, 500);
       }
       else {
-        this.qrgenerate = false;
-        this.toastr.error('Failed To Generate Link!')
+        this.toastr.error(res.responseMessage)
       }
     })
   }
   close() {
     this.location.back();
+  }
+
+  viewQr(id:any){
+    this.MerchantView.QRImageView(id).subscribe((res:any)=>{
+      const reader = new FileReader();
+      reader.readAsDataURL(res);
+      reader.onloadend = () => {
+      var downloadURL = URL.createObjectURL(res);
+      window.open(downloadURL);
+      }
+    })
   }
 }

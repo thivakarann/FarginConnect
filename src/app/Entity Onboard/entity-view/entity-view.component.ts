@@ -22,6 +22,8 @@ import { EntityBankeditComponent } from '../entity-bankedit/entity-bankedit.comp
 import { BankInfoComponent } from '../bank-info/bank-info.component';
 import { EntityPgonboardComponent } from '../entity-pgonboard/entity-pgonboard/entity-pgonboard.component';
 import { KycInfoComponent } from '../kyc-info/kyc-info.component';
+import { UpdateManualpaymentComponent } from '../update-manualpayment/update-manualpayment.component';
+import { MerchantLogoComponent } from '../merchant-logo/merchant-logo.component';
 
 @Component({
   selector: 'app-entity-view',
@@ -130,8 +132,9 @@ export class EntityViewComponent implements OnInit {
     this.MerchantView.BankActiveStatus(id, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
-        window.location.reload();
-
+        setTimeout(() => {
+          window.location.reload()
+        }, 1000);
       }
       else {
         this.toastr.error(res.responseMessage)
@@ -186,6 +189,20 @@ export class EntityViewComponent implements OnInit {
       data: { value: id, value1: 2 }
     })
   }
+
+
+  viewlogo(id: any, Link: any) {
+    this.dialog.open(MerchantLogoComponent, {
+      enterAnimationDuration: "1000ms",
+      exitAnimationDuration: "1000ms",
+      // disableClose: true,
+      data: {
+        value: id,
+        value1: Link
+
+      }
+    })
+  }
   KycApproval(id: any) {
     this.dialog.open(KycApprovalComponent, {
       enterAnimationDuration: "1000ms",
@@ -233,14 +250,15 @@ export class EntityViewComponent implements OnInit {
     })
   }
 
-  editKycDocuments(id: any) {
+  editKycDocuments(id: any, data: any) {
     this.dialog.open(EditKycdocumentComponent, {
       enterAnimationDuration: "1000ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: {
         value: id,
-        value1: this.businessCategoryId
+        value1: this.businessCategoryId,
+        value2: data
       }
     })
   }
@@ -299,7 +317,9 @@ export class EntityViewComponent implements OnInit {
       this.MerchantView.FacheckAadharVerification(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
-          window.location.reload();
+          setTimeout(() => {
+            window.location.reload()
+          }, 500);
 
         }
         else {
@@ -308,11 +328,12 @@ export class EntityViewComponent implements OnInit {
       })
     }
     else if (Docname == 'PAN') {
-
-
       this.MerchantView.FacheckPanVerification(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
-          this.toastr.success(res.responseMessage)
+          this.toastr.success(res.responseMessage);
+          setTimeout(() => {
+            window.location.reload()
+          }, 500);
         }
         else {
           this.toastr.error(res.responseMessage)
@@ -329,7 +350,9 @@ export class EntityViewComponent implements OnInit {
       this.MerchantView.FacheckCinchVerification(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
-          window.location.reload();
+          setTimeout(() => {
+            window.location.reload()
+          }, 500);
 
         }
         else {
@@ -342,7 +365,9 @@ export class EntityViewComponent implements OnInit {
       this.MerchantView.FacheckGSTVerification(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
-          window.location.reload();
+          setTimeout(() => {
+            window.location.reload()
+          }, 500);
 
         }
         else {
@@ -361,7 +386,9 @@ export class EntityViewComponent implements OnInit {
       this.MerchantView.FacheckPassportVerification(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
-          window.location.reload();
+          setTimeout(() => {
+            window.location.reload()
+          }, 500);
 
         }
         else {
@@ -382,7 +409,9 @@ export class EntityViewComponent implements OnInit {
       this.MerchantView.FacheckLicenseVerification(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
-          window.location.reload();
+          setTimeout(() => {
+            window.location.reload()
+          }, 500);
 
         }
         else {
@@ -401,7 +430,9 @@ export class EntityViewComponent implements OnInit {
       this.MerchantView.FacheckVoterIdVerification(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
-          window.location.reload();
+          setTimeout(() => {
+            window.location.reload()
+          }, 500);
         }
         else {
           this.toastr.error(res.responseMessage)
@@ -460,7 +491,7 @@ export class EntityViewComponent implements OnInit {
   }
 
   Viewcustomer(id: any) {
-    this.router.navigate([`dashboard/entitycustomers/${id}`], {
+    this.router.navigate([`dashboard/entitycustomerviewAll/${id}`], {
       queryParams: { Alldata: id },
     });
     console.log(id);
@@ -503,9 +534,9 @@ export class EntityViewComponent implements OnInit {
   emailtrigger() {
     let submitModel: EmailTrigger = {
       merchantId: this.id,
-      linkExpiry: undefined,
-      description: undefined,
-      returnUrl: undefined
+      linkExpiry: '2024-09-20',
+      description: 'Testt',
+      returnUrl: 'https://ess.pockethrms.com/Home/Dashboard?Menu=DashBoard'
     }
     this.MerchantView.EmailTrigger(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
@@ -529,5 +560,15 @@ export class EntityViewComponent implements OnInit {
     this.router.navigate([`dashboard/entity-transaction/${id}`], {
       queryParams: { Alldata: id },
     });
+  }
+  manualPayement(id: any) {
+    this.dialog.open(UpdateManualpaymentComponent, {
+      enterAnimationDuration: "1000ms",
+      exitAnimationDuration: "1000ms",
+      disableClose: true,
+      data: {
+        value: this.id,
+      }
+    })
   }
 }

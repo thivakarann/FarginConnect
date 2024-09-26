@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { addentity, AddEntityBank } from '../../fargin-model/fargin-model.module';
+import {AddEntityBank } from '../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-entity-add',
@@ -40,6 +40,11 @@ export class EntityAddComponent implements OnInit {
   kycDocname4: any;
   kycDocname5: any;
   kycDocname6: any;
+  emptyBlob = new Blob([], { type: 'application/pdf' })
+  fileType: any;
+  error!: boolean;
+  file3!: File;
+
 
   constructor(
     public AddEntity: FarginServiceService,
@@ -56,81 +61,82 @@ export class EntityAddComponent implements OnInit {
       this.entittyplanviewall = res.response;
     })
 
-    this.myForm = new FormGroup({
-      entityName: new FormControl('', [
-        Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
-      ]),
-      merchantLegalName: new FormControl('', [
-        Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
-      ]),
-      accountDisplayName: new FormControl('',
-        [
+      this.myForm = new FormGroup({
+        entityName: new FormControl('', [
           Validators.required,
           Validators.pattern('^[a-zA-Z0-9 ]*$')
-        ]
-      ),
-      contactName: new FormControl('', [
-        Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
-      ]),
-      contactMobile: new FormControl('', [
-        Validators.required,
-        Validators.maxLength(10),
-        Validators.pattern('^[0-9]{10}$')
-      ]),
-      secondaryMobile: new FormControl('', [
-        Validators.maxLength(10),
-        Validators.pattern('^[0-9]{10}$')
-      ]),
-      contactEmail: new FormControl('', [
-        Validators.required,
-        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$')
-      ]),
-      website: new FormControl('', [
-        Validators.required,
-        Validators.pattern("((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)")
-      ]),
-      gstIn: new FormControl('', [
-        Validators.pattern("^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$")
-      ]),
-      billingAddress: new FormControl("", [
-        Validators.required,
-        Validators.pattern('^[0-9]{10}$')
-      ]),
-      area: new FormControl('', [
-        Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
-      ]),
-      zipcode: new FormControl('', [
-        Validators.required,
-        Validators.pattern("^[1-9]{1}[0-9]{2}\\s{0,1}[0-9]{3}$")
+        ]),
+        merchantLegalName: new FormControl('', [
+          Validators.required,
+          Validators.pattern('^[a-zA-Z0-9 ]*$')
+        ]),
+        accountDisplayName: new FormControl('',
+          [
+            Validators.required,
+            Validators.pattern('^[a-zA-Z0-9 ]*$')
+          ]
+        ),
+        businessCategoryIds: new FormControl('', [Validators.required]),
 
-      ]),
-      stateName: new FormControl('', [
-        Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
-      ]),
-      city: new FormControl('', [
-        Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
-      ]),
-      contactPerson: new FormControl('', [
-        Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
-      ]),
-      country: new FormControl('', [
-        Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
-      ]),
-      locationServed: new FormControl(''),
-      serviceOffered: new FormControl(''),
-      businessCategoryIds: new FormControl('', Validators.required),
-      mccCode: new FormControl('', Validators.required),
-      merchantPlanId: new FormControl('', Validators.required)
-    });
+        contactName: new FormControl('', [
+          Validators.required,
+          Validators.pattern('^[a-zA-Z0-9 ]*$')
+        ]),
+        contactMobile: new FormControl('', [
+          Validators.required,
+          Validators.maxLength(10),
+          Validators.pattern('^[0-9]{10}$')
+        ]),
+        secondaryMobile: new FormControl('', [
+          Validators.maxLength(10),
+          Validators.pattern('^[0-9]{10}$')
+        ]),
+        contactEmail: new FormControl('', [
+          Validators.required,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$')
+        ]),
+        website: new FormControl(''),
+        gstIn: new FormControl(''),
+        billingAddress: new FormControl("", [
+          Validators.required,
+          Validators.pattern('^[0-9]{10}$')
+        ]),
+        area: new FormControl('', [
+          Validators.required,
+          Validators.pattern('^[a-zA-Z0-9 ]*$')
+        ]),
+        zipcode: new FormControl('', [
+          Validators.required,
+          Validators.pattern("^[1-9]{1}[0-9]{2}\\s{0,1}[0-9]{3}$")
 
+        ]),
+        stateName: new FormControl('', [
+          Validators.required,
+          Validators.pattern('^[a-zA-Z0-9 ]*$')
+        ]),
+        city: new FormControl('', [
+          Validators.required,
+          Validators.pattern('^[a-zA-Z0-9 ]*$')
+        ]),
+        // contactPerson: new FormControl('', [
+        //   Validators.required,
+        //   Validators.pattern('^[a-zA-Z0-9 ]*$')
+        // ]),
+        country: new FormControl('', [
+          Validators.required,
+          Validators.pattern('^[a-zA-Z0-9 ]*$')
+        ]),
+        
+        mccCode: new FormControl(''),
+        merchantPlanId: new FormControl('', [Validators.required]),
+        periodName:new FormControl('', [Validators.required]),
+        logo:new FormControl('')
+
+      });
+      console.log('Form Valid on Init:', this.myForm.valid);
+      console.log('Form Valid:', this.myForm.valid);
+      console.log('Form Errors:', this.myForm.errors);
+      console.log('Form Controls:', this.myForm.controls);
     this.myForm2 = new FormGroup({
       accountHolderName: new FormControl(null, [
         Validators.required,
@@ -165,8 +171,8 @@ export class EntityAddComponent implements OnInit {
       documentNumber: new FormControl('', [Validators.required, Validators.pattern("[0-9]{12}$")]),
       panNumber: new FormControl('', [Validators.required, Validators.pattern("^[A-Za-z]{5}[0-9]{4}[A-Za-z]$")]),
       passportNumber: new FormControl('', [Validators.required, Validators.pattern("^[A-Za-z0-9]{8,15}$")]),
-      gstNumber: new FormControl('', [Validators.required, Validators.pattern("^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[A-Z]{1}[0-9A-Z]{1}$")]),
-      drivingLicenseNumber: new FormControl('', [Validators.required,  Validators.pattern("^(([A-Z]{2}[0-9]{2})( )|([A-Z]{2}-[0-9]{2}))((19|20)[0-9][0-9])[0-9]{7}$")]),
+      gstNumber: new FormControl('', [Validators.required,Validators.pattern("^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[A-Z]{1}[0-9A-Z]{1}$")]),
+      drivingLicenseNumber: new FormControl('', [Validators.required,Validators.pattern("^(([A-Z]{2}[0-9]{2})( )|([A-Z]{2}-[0-9]{2}))((19|20)[0-9][0-9])[0-9]{7}$")]),
       cinch: new FormControl('', [Validators.required,Validators.pattern("^([LUu]{1})([0-9]{5})([A-Za-z]{2})([0-9]{4})([A-Za-z]{3})([0-9]{6})$")]),
       voterid: new FormControl('', [Validators.required,  Validators.pattern("^[A-Z]{3}[0-9]{7}$")]),
     });
@@ -244,13 +250,7 @@ export class EntityAddComponent implements OnInit {
     return this.myForm.get('country')
 
   }
-  get locationServed() {
-    return this.myForm.get('locationServed')
 
-  } get serviceOffered() {
-    return this.myForm.get('serviceOffered')
-
-  }
   get businessCategoryIds() {
     return this.myForm.get('businessCategoryIds')
 
@@ -262,6 +262,12 @@ export class EntityAddComponent implements OnInit {
 
   get merchantPlanId() {
     return this.myForm.get('merchantPlanId')
+  }
+  get periodName() {
+    return this.myForm.get('periodName')
+  }
+  get logo() {
+    return this.myForm.get('logo')
   }
 
   onCategoryChange(event: any): void {
@@ -411,31 +417,45 @@ export class EntityAddComponent implements OnInit {
 
   }
 
+
+  getlogo(event:any){
+    const files = event.target.files[0];
+    if (files) {
+      if (!files.type.startsWith('image/')) {
+        this.errorMessage = 'Only Images are allowed';
+        return;
+      }
+      this.errorMessage = ''
+      this.file3 = files;
+      console.log(this.file3);
+      console.log(' file 3 id success' + files);
+
+  }
+}
   Submit() {
-    let submitModel: addentity = {
-      entityName: this.entityName?.value,
-      merchantLegalName: this.merchantLegalName?.value,
-      accountDisplayName: this.accountDisplayName?.value,
-      contactName: this.contactName?.value,
-      contactMobile: this.contactMobile?.value,
-      secondaryMobile: this.secondaryMobile?.value,
-      contactEmail: this.contactEmail?.value,
-      gstIn: this.gstIn?.value,
-      billingAddress: this.billingAddress?.value,
-      area: this.area?.value,
-      zipcode: this.zipcode?.value,
-      stateName: this.stateName?.value,
-      city: this.city?.value,
-      contactPerson: '',
-      country: this.country?.value,
-      locationServed: this.locationServed?.value,
-      serviceOffered: this.serviceOffered?.value,
-      businessCategoryId: this.selectedCategoryId,
-      mccCode: this.mccCode?.value,
-      website: this.website?.value,
-      merchantPlanId: this.merchantPlanId?.value
-    }
-    this.AddEntity.EntityAdd(submitModel).subscribe((res: any) => {
+    const formData = new FormData;
+    formData.append('contactEmail',this.contactEmail?.value,);
+    formData.append('contactMobile', this.contactMobile?.value,);
+    formData.append('entityName', this.entityName?.value);
+    formData.append('merchantLegalName', this.merchantLegalName?.value)
+    formData.append('accountDisplayName',  this.accountDisplayName?.value);
+    formData.append('gstIn', this.gstIn?.value || '-');
+    formData.append('contactName',this.contactName?.value);
+    formData.append('secondaryMobile', this.secondaryMobile?.value,);
+    formData.append('billingAddress', this.billingAddress?.value);
+    formData.append('area', this.area?.value,)
+    formData.append('stateName',  this.stateName?.value);
+    formData.append('country',  this.country?.value);
+    formData.append('zipcode',this.zipcode?.value);
+    formData.append('city', this.city?.value)
+    formData.append('businessCategoryId', this.selectedCategoryId);
+    formData.append('merchantPlanId', this.merchantPlanId?.value);
+    formData.append('mccCode',this.mccCode?.value);
+    formData.append('periodName', this.periodName?.value);
+    formData.append('website',  this.website?.value || '-');
+    formData.append('merchantLogo', this.file3 || this.emptyBlob);
+
+    this.AddEntity.EntityAdd(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.merchantid = res.response.merchantId;
         console.log(this.merchantid)
@@ -660,11 +680,7 @@ export class EntityAddComponent implements OnInit {
 
 
   Mccode(id: any) {
-    // console.log(id.businessCategoryId)
-
-    // this.businessCategoryIddata = id.businessCategoryId
-    // this.Mcccode = id.mccCode
-    // console.log( this.Mcccode);
+    
 
   }
 }

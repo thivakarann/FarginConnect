@@ -1,22 +1,25 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 <div class="d-flex justify-content-end mb-1">
     <button class="button1" (click)="close()">Back</button>
 </div>
-
 <div class="navtabs">
-<button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'"class="navtab" data-target="home" (click)="entityTransaction(this.id)"><i class="fa-solid fa-building-columns"></i>&nbsp;&nbsp;Transaction
-
-</button>    
-<button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab" data-target="about" (click)="viewsettlement(this.id)"><i
+    <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
+        data-target="home" (click)="entityTransaction(this.id)"><i
+            class="fa-solid fa-building-columns"></i>&nbsp;&nbsp;Transaction
+    </button>
+    <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
+        data-target="about" (click)="viewsettlement(this.id)"><i
             class='fas fa-handshake'></i>&nbsp;&nbsp;Settlement</button>
-    <button  style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'"class="navtab" data-target="contact" (click)="ViewRefund(this.id)"><i
+    <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
+        data-target="contact" (click)="ViewRefund(this.id)"><i
             class='fas fa-hand-holding-usd'></i>&nbsp;&nbsp;Refund</button>
-    <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab" data-target="page4" (click)="Viewqr(this.id)"><i class="fa-solid fa-qrcode"></i>&nbsp;&nbsp;QR
+    <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
+        data-target="page4" (click)="Viewqr(this.id)"><i class="fa-solid fa-qrcode"></i>&nbsp;&nbsp;QR
         Generation</button>
-    <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab" data-target="page5" (click)="Viewcustomer(this.id)"><i
+    <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
+        data-target="page5" (click)="Viewcustomer(this.id)"><i
             class="fa-solid fa-user"></i>&nbsp;&nbsp;Customers</button>
 </div>
 <div class="tab-container">
@@ -31,21 +34,23 @@
     <div class="tab-content" *ngIf="activeTab === 'events'">
         <div class="filters">
             <div class="col-12">
-                <div class="row">
+                <div class="row" style="background-color: #bcdf72;color:#fff;">
                     <div class="col-md-10">
-                        <h5 class="p-1 mx-3" style="color: #4CC713;font-weight: 500;font-size:20px;">Personal
+                        <h5 class="p-2 mx-3" style="font-weight: 500;font-size:20px;">Personal
                             Information</h5>
                     </div>
-                    <div class="col-md-2 d-flex justify-content-end">
-                        <i class="fas fa-edit" style="color: #141E46;font-weight: 500;font-size:20px;"
-                            (click)="editpersonalInfo(this.id)"></i>&nbsp;&nbsp;&nbsp;
-
-                        <span>
-                            <i style="overflow:hidden;color:#141E46;font-size:20px;" [matMenuTriggerFor]="menu"
+                    <div class="col-md-2 d-flex justify-content-end ">
+                        <span class="p-2">
+                            <i class="fas fa-edit" style="color: #141E46;font-weight: 500;font-size:20px;"
+                                (click)="editpersonalInfo(this.id)"></i>
+                        </span>
+                        &nbsp;&nbsp;&nbsp;
+                        <span class="p-2">
+                            <i style="overflow:hidden;color:#141E46;font-size:22px;" [matMenuTriggerFor]="menu"
                                 class="fa-solid fa-circle-info">
                                 <mat-menu #menu="matMenu">
                                     <button style="font-size: 10px;" mat-menu-item>Onboard Merchant</button>
-                                    <button style="font-size: 10px;" mat-menu-item>View OnboardInfo</button>
+                                    <button style="font-size: 10px;" mat-menu-item>Update Manual Payment</button>
                                     <button style="font-size: 10px;" mat-menu-item (click)="emailtrigger()">
                                         Email Notification</button>
                                 </mat-menu>
@@ -53,8 +58,7 @@
                         </span>
                     </div>
                 </div>
-                <hr>
-                <article class=" car-details label-info">
+                <article class=" car-details label-info mt-3">
                     <div class="d-flex flex-md-row align-items-md-start align-items-center flex-column">
                         <div class="w-100">
                             <div class="container-fluid">
@@ -63,11 +67,12 @@
                                         <div class="d-flex flex-column">
                                             <div class="d-flex mb-2">
                                                 <div class="w-50 font-weight-bold">
-                                                  Account ID</div>
+                                                    Account ID</div>
                                                 <div class="w-50" style="color:green;">
-                                                    <span *ngIf="detaislone?.accountId!= null">{{detaislone?.accountId}}</span>
+                                                    <span
+                                                        *ngIf="detaislone?.accountId!= null">{{detaislone?.accountId}}</span>
                                                     <span *ngIf="detaislone?.accountId== null">-</span>
-                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="d-flex mb-2">
                                                 <div class="w-50 font-weight-bold">
@@ -113,40 +118,39 @@
                                                 <div class="w-50 font-weight-bold">Pincode</div>
                                                 <div class="w-50">{{detaislone?.zipcode}}</div>
                                             </div>
-                                    
+
                                             <div class="d-flex mb-2">
                                                 <div class="w-50 font-weight-bold">
                                                     <span style="color: #78ae76">A</span>pi Key
                                                     <!-- <span style="color: lightgray">(Live Key)</span> -->
                                                 </div>
-                                                <div class="w-50">
-                                                    <div 
-                                                        style="font-size: 10px; display: flex">
+                                                <div class="w-50" *ngIf="detaislone?.apikey !=null">
+                                                    <div style="font-size: 10px; display: flex">
                                                         {{ detaislone?.apikey | slice : 0 : 10 }}
 
                                                         <div class="centralize">
-                                                            
-                                                                <button (click)="copyText(detaislone?.apikey)" id="apikey">
-                                                                    <span><svg viewBox="0 0 467 512.22"
-                                                                            clip-rule="evenodd" fill-rule="evenodd"
-                                                                            image-rendering="optimizeQuality"
-                                                                            text-rendering="geometricPrecision"
-                                                                            shape-rendering="geometricPrecision"
-                                                                            xmlns="http://www.w3.org/2000/svg"
-                                                                            fill="#000" height="12" width="12">
-                                                                            <path
-                                                                                d="M131.07 372.11c.37 1 .57 2.08.57 3.2 0 1.13-.2 2.21-.57 3.21v75.91c0 10.74 4.41 20.53 11.5 27.62s16.87 11.49 27.62 11.49h239.02c10.75 0 20.53-4.4 27.62-11.49s11.49-16.88 11.49-27.62V152.42c0-10.55-4.21-20.15-11.02-27.18l-.47-.43c-7.09-7.09-16.87-11.5-27.62-11.5H170.19c-10.75 0-20.53 4.41-27.62 11.5s-11.5 16.87-11.5 27.61v219.69zm-18.67 12.54H57.23c-15.82 0-30.1-6.58-40.45-17.11C6.41 356.97 0 342.4 0 326.52V57.79c0-15.86 6.5-30.3 16.97-40.78l.04-.04C27.51 6.49 41.94 0 57.79 0h243.63c15.87 0 30.3 6.51 40.77 16.98l.03.03c10.48 10.48 16.99 24.93 16.99 40.78v36.85h50c15.9 0 30.36 6.5 40.82 16.96l.54.58c10.15 10.44 16.43 24.66 16.43 40.24v302.01c0 15.9-6.5 30.36-16.96 40.82-10.47 10.47-24.93 16.97-40.83 16.97H170.19c-15.9 0-30.35-6.5-40.82-16.97-10.47-10.46-16.97-24.92-16.97-40.82v-69.78zM340.54 94.64V57.79c0-10.74-4.41-20.53-11.5-27.63-7.09-7.08-16.86-11.48-27.62-11.48H57.79c-10.78 0-20.56 4.38-27.62 11.45l-.04.04c-7.06 7.06-11.45 16.84-11.45 27.62v268.73c0 10.86 4.34 20.79 11.38 27.97 6.95 7.07 16.54 11.49 27.17 11.49h55.17V152.42c0-15.9 6.5-30.35 16.97-40.82 10.47-10.47 24.92-16.96 40.82-16.96h170.35z"
-                                                                                fill-rule="nonzero"></path>
-                                                                        </svg>Copy
-                                                                        </span>
-                                                                    <span>Copied</span>
-                                                                </button>
-                                                                
-                                                           
+
+                                                            <button (click)="copyText(detaislone?.apikey)" id="apikey">
+                                                                <span><svg viewBox="0 0 467 512.22" clip-rule="evenodd"
+                                                                        fill-rule="evenodd"
+                                                                        image-rendering="optimizeQuality"
+                                                                        text-rendering="geometricPrecision"
+                                                                        shape-rendering="geometricPrecision"
+                                                                        xmlns="http://www.w3.org/2000/svg" fill="#000"
+                                                                        height="12" width="12">
+                                                                        <path
+                                                                            d="M131.07 372.11c.37 1 .57 2.08.57 3.2 0 1.13-.2 2.21-.57 3.21v75.91c0 10.74 4.41 20.53 11.5 27.62s16.87 11.49 27.62 11.49h239.02c10.75 0 20.53-4.4 27.62-11.49s11.49-16.88 11.49-27.62V152.42c0-10.55-4.21-20.15-11.02-27.18l-.47-.43c-7.09-7.09-16.87-11.5-27.62-11.5H170.19c-10.75 0-20.53 4.41-27.62 11.5s-11.5 16.87-11.5 27.61v219.69zm-18.67 12.54H57.23c-15.82 0-30.1-6.58-40.45-17.11C6.41 356.97 0 342.4 0 326.52V57.79c0-15.86 6.5-30.3 16.97-40.78l.04-.04C27.51 6.49 41.94 0 57.79 0h243.63c15.87 0 30.3 6.51 40.77 16.98l.03.03c10.48 10.48 16.99 24.93 16.99 40.78v36.85h50c15.9 0 30.36 6.5 40.82 16.96l.54.58c10.15 10.44 16.43 24.66 16.43 40.24v302.01c0 15.9-6.5 30.36-16.96 40.82-10.47 10.47-24.93 16.97-40.83 16.97H170.19c-15.9 0-30.35-6.5-40.82-16.97-10.47-10.46-16.97-24.92-16.97-40.82v-69.78zM340.54 94.64V57.79c0-10.74-4.41-20.53-11.5-27.63-7.09-7.08-16.86-11.48-27.62-11.48H57.79c-10.78 0-20.56 4.38-27.62 11.45l-.04.04c-7.06 7.06-11.45 16.84-11.45 27.62v268.73c0 10.86 4.34 20.79 11.38 27.97 6.95 7.07 16.54 11.49 27.17 11.49h55.17V152.42c0-15.9 6.5-30.35 16.97-40.82 10.47-10.47 24.92-16.96 40.82-16.96h170.35z"
+                                                                            fill-rule="nonzero"></path>
+                                                                    </svg>Copy
+                                                                </span>
+                                                                <span>Copied</span>
+                                                            </button>
+
+
                                                         </div>
                                                     </div>
-                                                 
                                                 </div>
+                                                <div class="w-50" *ngIf="detaislone?.apikey ==null">-</div>
                                             </div>
                                             <div class="d-flex mb-2">
                                                 <div class="w-50 font-weight-bold">Pg OnboardStatus</div>
@@ -177,34 +181,20 @@
                                             <div class="d-flex mb-2">
                                                 <div class="w-50 font-weight-bold">Secondary Mobile Number</div>
                                                 <div class="w-50">
-                                                    <span *ngIf="this.detaislone?.website!=null"> {{detaislone?.secondaryMobile}}
+                                                    <span *ngIf="this.detaislone?.secondaryMobile!=null">
+                                                        {{detaislone?.secondaryMobile}}
                                                     </span>
-                                                    <span *ngIf="this.detaislone?.website==null">-</span>
-                                                   </div>
+                                                    <span *ngIf="this.detaislone?.secondaryMobile==null">- -</span>
+                                                </div>
                                             </div>
                                             <div class="d-flex mb-2">
                                                 <div class="w-50 font-weight-bold">Website</div>
                                                 <div class="w-50">
-                                                    <span *ngIf="this.detaislone?.website!=null">{{detaislone?.website}}</span>
-                                                    <span *ngIf="this.detaislone?.website==null">-</span>
-                                                    </div>
+                                                    <span
+                                                        *ngIf="this.detaislone?.website!=''">{{detaislone?.website}}</span>
+                                                    <span *ngIf="this.detaislone?.website=='' ">- -</span>
+                                                </div>
                                             </div>
-                                            <div class="d-flex mb-2">
-                                                <div class="w-50 font-weight-bold">Location Served</div>
-                                                <div class="w-50">
-                                                    <span *ngIf="this.detaislone?.locationServed!=null">  {{detaislone?.locationServed}}</span>
-                                                    <span *ngIf="this.detaislone?.locationServed==null">-</span>
-                                                    
-                                                  </div>
-                                            </div>
-                                            <div class="d-flex mb-2">
-                                                <div class="w-50 font-weight-bold">Service Offered</div>
-                                                <div class="w-50">
-                                                    <span *ngIf="this.detaislone?.serviceOffered!=null">{{detaislone?.serviceOffered}}</span>
-                                                    <span *ngIf="this.detaislone?.serviceOffered==null">-</span>
-                                                    </div>
-                                            </div>
-
                                             <div class="d-flex mb-2">
                                                 <div class="w-50 font-weight-bold">Country</div>
                                                 <div class="w-50">{{detaislone?.country}}</div>
@@ -216,52 +206,63 @@
                                             <div class="d-flex mb-2">
                                                 <div class="w-50 font-weight-bold">Gst</div>
                                                 <div class="w-50">
-                                                    <span *ngIf="this.detaislone?.gstIn!=null"> {{detaislone?.gstIn}}</span>
-                                                    <span *ngIf="this.detaislone?.gstIn==null">-</span>
-                                                   </div>
+                                                    <span *ngIf="this.detaislone?.gstIn!=null">
+                                                        {{detaislone?.gstIn}}</span>
+                                                    <span *ngIf="this.detaislone?.gstIn==null">- -</span>
+                                                </div>
                                             </div>
                                             <div class="d-flex mb-2">
                                                 <div class="w-50 font-weight-bold">
                                                     <span style="color: #78ae76">S</span>ecret Key
                                                     <!-- <span style="color: lightgray">(Live Key)</span> -->
                                                 </div>
-                                                <div class="w-50">
-                                                    <div 
-                                                        style="font-size: 10px; display: flex">
+                                                <div class="w-50" *ngIf="detaislone?.secretkey !=null">
+                                                    <div style="font-size: 10px; display: flex">
                                                         {{ detaislone?.secretkey | slice : 0 : 10 }}
 
                                                         <span class="centralize">
-                                                            
-                                                                <button (click)="copyText(detaislone?.secretkey)" id="apikey">
-                                                                    <span><svg viewBox="0 0 467 512.22"
-                                                                            clip-rule="evenodd" fill-rule="evenodd"
-                                                                            image-rendering="optimizeQuality"
-                                                                            text-rendering="geometricPrecision"
-                                                                            shape-rendering="geometricPrecision"
-                                                                            xmlns="http://www.w3.org/2000/svg"
-                                                                            fill="#000" height="12" width="12">
-                                                                            <path
-                                                                                d="M131.07 372.11c.37 1 .57 2.08.57 3.2 0 1.13-.2 2.21-.57 3.21v75.91c0 10.74 4.41 20.53 11.5 27.62s16.87 11.49 27.62 11.49h239.02c10.75 0 20.53-4.4 27.62-11.49s11.49-16.88 11.49-27.62V152.42c0-10.55-4.21-20.15-11.02-27.18l-.47-.43c-7.09-7.09-16.87-11.5-27.62-11.5H170.19c-10.75 0-20.53 4.41-27.62 11.5s-11.5 16.87-11.5 27.61v219.69zm-18.67 12.54H57.23c-15.82 0-30.1-6.58-40.45-17.11C6.41 356.97 0 342.4 0 326.52V57.79c0-15.86 6.5-30.3 16.97-40.78l.04-.04C27.51 6.49 41.94 0 57.79 0h243.63c15.87 0 30.3 6.51 40.77 16.98l.03.03c10.48 10.48 16.99 24.93 16.99 40.78v36.85h50c15.9 0 30.36 6.5 40.82 16.96l.54.58c10.15 10.44 16.43 24.66 16.43 40.24v302.01c0 15.9-6.5 30.36-16.96 40.82-10.47 10.47-24.93 16.97-40.83 16.97H170.19c-15.9 0-30.35-6.5-40.82-16.97-10.47-10.46-16.97-24.92-16.97-40.82v-69.78zM340.54 94.64V57.79c0-10.74-4.41-20.53-11.5-27.63-7.09-7.08-16.86-11.48-27.62-11.48H57.79c-10.78 0-20.56 4.38-27.62 11.45l-.04.04c-7.06 7.06-11.45 16.84-11.45 27.62v268.73c0 10.86 4.34 20.79 11.38 27.97 6.95 7.07 16.54 11.49 27.17 11.49h55.17V152.42c0-15.9 6.5-30.35 16.97-40.82 10.47-10.47 24.92-16.96 40.82-16.96h170.35z"
-                                                                                fill-rule="nonzero"></path>
-                                                                        </svg>Copy
-                                                                        </span>
-                                                                    <span>Copied</span>
-                                                                </button>
-                                                                
-                                                           
-                                                            </span>
+
+                                                            <button (click)="copyText(detaislone?.secretkey)"
+                                                                id="apikey">
+                                                                <span><svg viewBox="0 0 467 512.22" clip-rule="evenodd"
+                                                                        fill-rule="evenodd"
+                                                                        image-rendering="optimizeQuality"
+                                                                        text-rendering="geometricPrecision"
+                                                                        shape-rendering="geometricPrecision"
+                                                                        xmlns="http://www.w3.org/2000/svg" fill="#000"
+                                                                        height="12" width="12">
+                                                                        <path
+                                                                            d="M131.07 372.11c.37 1 .57 2.08.57 3.2 0 1.13-.2 2.21-.57 3.21v75.91c0 10.74 4.41 20.53 11.5 27.62s16.87 11.49 27.62 11.49h239.02c10.75 0 20.53-4.4 27.62-11.49s11.49-16.88 11.49-27.62V152.42c0-10.55-4.21-20.15-11.02-27.18l-.47-.43c-7.09-7.09-16.87-11.5-27.62-11.5H170.19c-10.75 0-20.53 4.41-27.62 11.5s-11.5 16.87-11.5 27.61v219.69zm-18.67 12.54H57.23c-15.82 0-30.1-6.58-40.45-17.11C6.41 356.97 0 342.4 0 326.52V57.79c0-15.86 6.5-30.3 16.97-40.78l.04-.04C27.51 6.49 41.94 0 57.79 0h243.63c15.87 0 30.3 6.51 40.77 16.98l.03.03c10.48 10.48 16.99 24.93 16.99 40.78v36.85h50c15.9 0 30.36 6.5 40.82 16.96l.54.58c10.15 10.44 16.43 24.66 16.43 40.24v302.01c0 15.9-6.5 30.36-16.96 40.82-10.47 10.47-24.93 16.97-40.83 16.97H170.19c-15.9 0-30.35-6.5-40.82-16.97-10.47-10.46-16.97-24.92-16.97-40.82v-69.78zM340.54 94.64V57.79c0-10.74-4.41-20.53-11.5-27.63-7.09-7.08-16.86-11.48-27.62-11.48H57.79c-10.78 0-20.56 4.38-27.62 11.45l-.04.04c-7.06 7.06-11.45 16.84-11.45 27.62v268.73c0 10.86 4.34 20.79 11.38 27.97 6.95 7.07 16.54 11.49 27.17 11.49h55.17V152.42c0-15.9 6.5-30.35 16.97-40.82 10.47-10.47 24.92-16.96 40.82-16.96h170.35z"
+                                                                            fill-rule="nonzero"></path>
+                                                                    </svg>Copy
+                                                                </span>
+                                                                <span>Copied</span>
+                                                            </button>
+                                                        </span>
                                                     </div>
-                                                 
+                                                </div>
+                                                <div class="w-50" *ngIf=" detaislone?.secretkey ==null">
+                                                    - -
                                                 </div>
                                             </div>
-                                        
+
                                             <div class="d-flex mb-2">
                                                 <div class="w-50 font-weight-bold">PG Onboard</div>
                                                 <div class="w-50">
-                                                    <span  *ngIf="this.detaislone?.approvalStatusL2 == 'approved'">
+                                                    <span *ngIf="this.detaislone?.approvalStatusL2 == 'approved'">
                                                         <button class="buttonDownload"
                                                             (click)="pgOnboard()">OnBoard</button></span>
-                                                    <span  *ngIf="this.detaislone?.approvalStatusL2 == 'Pending'">-</span>
+                                                    <span *ngIf="this.detaislone?.approvalStatusL2 == 'Pending'">-
+                                                        -</span>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex mb-2">
+                                                <div class="w-50 font-weight-bold">Logo</div>
+                                                <div class="w-50">
+                                                    <span *ngIf="this.detaislone?.logoLink != null"
+                                                        (click)="viewlogo(this.id,this.detaislone?.logoLink)"><i
+                                                            class="fas fa-eye"> </i></span>
+                                                    <span *ngIf="this.detaislone?.logoLink == null">- -</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -274,11 +275,67 @@
             </div>
             <button class="btn clear"></button>
         </div>
-        <h5 class="p-1 mx-3 mt-5" style="color: #4CC713;font-weight: 500;font-size:20px;">Personal Approval</h5>
-        <hr>
+        <h5 class="p-2 mx-3 mt-5" style="background-color: #bcdf72;color:#fff;font-weight: 500;font-size:20px;">One-Time
+            Platform Fee</h5>
         <div class="filters">
             <div class="col-12">
-                <article class=" car-details label-info">
+                <article class=" car-details label-info mt-3">
+                    <div class="d-flex flex-md-row align-items-md-start align-items-center flex-column">
+                        <div class="w-100">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-6 col-12">
+                                        <div class="d-flex flex-column">
+                                            <div class="d-flex mb-2">
+                                                <div class="w-50 font-weight-bold">Technical Pay Status</div>
+                                                <div class="w-50">
+                                                    <span *ngIf="this.detaislone?.technicalPayStatus=='Pending'"
+                                                        class="text-danger">- -</span>
+                                                    <span *ngIf="this.detaislone?.technicalPayStatus=='Success'"
+                                                        class="text-success">{{detaislone?.technicalPayStatus}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex mb-2">
+                                                <div class="w-50 font-weight-bold">
+                                                    Payment Mode</div>
+                                                <div class="w-50">
+                                                    {{detaislone?.paymentMode }}
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="d-flex flex-column">
+                                            <div class="d-flex mb-2">
+                                                <div class="w-50 font-weight-bold">Payment At</div>
+                                                <div class="w-50">
+                                                    {{detaislone?.paymentDateTime | date:'yyyy-MM-dd hh:mm a'}}
+                                                </div>
+                                            </div>
+                                            <div class="d-flex mb-2">
+                                                <div class="w-50 font-weight-bold">Update Manual Payment</div>
+                                                <div class="w-50">
+                                                    <button class="buttonDownload"
+                                                        (click)="manualPayement(this.id)">Manual</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <button class="btn clear"></button>
+        </div>
+        <h5 class="p-2 mx-3 mt-5" style="background-color: #bcdf72;color:#fff;font-weight: 500;font-size:20px;">Personal
+            Approval</h5>
+
+        <div class="filters">
+            <div class="col-12">
+                <article class=" car-details label-info mt-2">
                     <div class="d-flex flex-md-row align-items-md-start align-items-center flex-column">
                         <div class="w-100">
                             <div class="container-fluid">
@@ -294,9 +351,10 @@
                                                 <div class="w-50 font-weight-bold">
                                                     Approved By</div>
                                                 <div class="w-50">
-                                                    <span *ngIf="this.detaislone?.approvedByL1!=null"> {{this.detaislone?.approvedByL1}}</span>
+                                                    <span *ngIf="this.detaislone?.approvedByL1!=null">
+                                                        {{this.detaislone?.approvedByL1}}</span>
                                                     <span *ngIf="this.detaislone?.approvedByL1==null">-</span>
-                                                   </div>
+                                                </div>
                                             </div>
                                             <div class="d-flex mb-2">
                                                 <div class="w-50 font-weight-bold">
@@ -316,13 +374,14 @@
                                                     <span *ngIf="this.detaislone?.approvedDateTimeL1!=null">
                                                         {{this.detaislone?.approvedDateTimeL1}}
                                                     </span>
-                                                <span *ngIf="this.detaislone?.approvedDateTimeL1==null">-</span></div>
+                                                    <span *ngIf="this.detaislone?.approvedDateTimeL1==null">-</span>
+                                                </div>
                                             </div>
                                             <div class="d-flex mb-2">
                                                 <div class="w-50 font-weight-bold">Approval</div>
                                                 <div class="w-50">
-                                                        <button class="buttonDownload"
-                                                            (click)="levelOneApproval(this.id)">Approval</button>
+                                                    <button class="buttonDownload"
+                                                        (click)="levelOneApproval(this.id)">Approval</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -511,8 +570,8 @@
                         <table class="table table-hover" id="customers">
                             <tr>
                                 <th>S No </th>
-                                <th>KYC Name</th>
-                                <th>KYC Number</th>
+                                <th>Document Name</th>
+                                <th>Document Number</th>
                                 <th>KYC File</th>
                                 <th>Approval Status</th>
                                 <th>Approval</th>
@@ -548,15 +607,18 @@
                                 <td><span (click)="KYCComments(item.reMarks)"><i class="fas fa-comments"
                                             style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
                                 </td>
-                                <td><span (click)="editKycDocuments(item.merchantDocumentId)"><i class="fas fa-edit"
+                                <td><span (click)="editKycDocuments(item.merchantDocumentId,item)"><i
+                                            class="fas fa-edit"
                                             style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
                                 </td>
 
                                 <td class="text-center">
+                                    <span *ngIf="item.facheckStatus == 0" style="font-size:14px;color:red;">
+                                        Pending</span>
                                     <span *ngIf="item.facheckStatus == 1"
                                         style="font-size:14px;color:green;">Verified</span>
-                                    <span *ngIf="item.facheckStatus == 0" style="font-size:14px;color:red;">
-                                        Not-Verified</span>
+                                    <span *ngIf="item.facheckStatus == 2" style="font-size:14px;color:red;">
+                                        Failed</span>
                                 </td>
                                 <td>
                                     <span>
@@ -566,10 +628,10 @@
                                                 <button style="font-size: 10px;" mat-menu-item
                                                     (click)="KycInfo(item.kycId,item.docName)">Info</button>
                                                 <button style="font-size: 10px;" mat-menu-item
-                                                    [disabled]="item.kycId==1"
+                                                    [disabled]="item.facheckStatus==1"
                                                     (click)="FacheckVerification(item.docName,item.docNumber,item.merchantDocumentId,item.approvalBy)">Verify</button>
                                                 <button style="font-size: 10px;" mat-menu-item
-                                                    [disabled]="item.kycId==0"
+                                                    [disabled]="item.facheckStatus==0"
                                                     (click)="FacheckVerification(item.docName,item.docNumber,item.kycId,item.approvalBy)">
                                                     Re-Verify </button>
                                             </mat-menu>
@@ -641,10 +703,10 @@
                                 <td class="text-center">{{this.detaislone?.approvedByL2}}</td>
                                 <td class="text-center">{{this.detaislone?.approvedDateTimeL2}}</td>
                                 <td class="text-center">
-                                    <span *ngIf="this.detaislone?.approvalStatusL1 == 'approved'"><button class="buttonDownload"
-                                        (click)="levelTwoApproval(this.id)">Approval</button></span>
-                                    <span *ngIf="this.detaislone?.approvalStatusL1 == 'Pending'">-</span>
-                                    
+                                    <span><button class="buttonDownload" (click)="levelTwoApproval(this.id)"
+                                            [disabled]="this.detaislone?.approvalStatusL1 == 'Pending' || this.detaislone?.approvalStatusL1 == 'Rejected' ">Approval</button></span>
+
+
                                 <td style="text-align: center;font-size:15px;cursor: pointer;color:#545497;"><span
                                         (click)="levelTwoComments(this.detaislone?.commentL2)"><i
                                             class="fas fa-comments"></i></span></td>

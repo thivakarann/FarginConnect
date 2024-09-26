@@ -1,56 +1,322 @@
 
-<h4 style="text-align:left;color:#141E46;">Entity Customer-View</h4>
-
-<div class="row mt-5">
-    <div class="col-md-3">
-        <div class="search mb-3 mx-3">
-            <input style="font-size: 13px;" type="text" id="search" class="form-control" [(ngModel)]="searchText"
-              placeholder="Search">
-          </div>
-    </div>
+<div class="d-flex justify-content-end mb-1">
+  <button class="button1" (click)="close()">Back</button>
 </div>
-<div class="container">
-    <div class="table-responsive">
-        <table class="table table-hover table-striped">
-     
-                <tr >
+<ul class="nav nav-pills nav-fill mb-4 mx-3">
+  <li class="nav-item">
+      <a style="cursor: pointer;font-weight: 600;"
+         class="nav-link"
+         [class.active]="selectedTab === 'customer-info'"
+         (click)="selectTab('customer-info')">
+          Customer Info
+      </a>
+  </li>
+  &nbsp; &nbsp;
+  <li class="nav-item">
+      <a style="cursor: pointer;font-weight: 600;"
+         class="nav-link"
+         [class.active]="selectedTab === 'Plan-details'"
+         (click)="selectTab('Plan-details')">
+          Plan Details
+      </a>
+  </li>
+  &nbsp; &nbsp;
+  <li class="nav-item">
+      <a style="cursor: pointer;font-weight: 600;"
+      class="nav-link"
+      [class.active]="selectedTab === 'Transaction'"
+      (click)="selectTab('Transaction')" >
+      Transactions
+  </a>
+  </li>
+
+ 
+</ul>
+<div *ngIf="selectedTab === 'customer-info'" id="customer-info" class="mb-4">
+  <div class="container">
+      <article class="card">  
+          <div class="card-body">
+              <!-- <h3 class="card-title mb-4">General Information</h3>
+              <hr> -->
+              <div class="row">
+                  <div class="col-md-6">
+                      <div class="mb-3">
+                          <strong>Customer Name:</strong> {{ viewcustomer?.customerName }}
+                      </div>
+                      <div class="mb-3">
+                          <strong>Email Address:</strong> {{ viewcustomer?.emailAddress }}
+                      </div>
+                      <div class="mb-3">
+                          <strong>Mobile Number:</strong> {{ viewcustomer?.mobileNumber }}
+                      </div>
+                      <div class="mb-3">
+                          <strong>Area:</strong> {{ viewcustomer?.area }}
+                      </div>
+                      <div class="mb-3">
+                          <strong>Street Name:</strong> {{ viewcustomer?.streetName }}
+                      </div>
+                      <div class="mb-3">
+                          <strong>City Name:</strong> {{ viewcustomer?.cityName }}
+                      </div>
+                      <div class="mb-3">
+                          <strong>Pincode:</strong> {{ viewcustomer?.pincodeName }}
+                      </div>
+                      <div class="mb-3">
+                          <strong>Land Mark:</strong> {{ viewcustomer?.landmark }}
+                      </div>
+                      <div class="mb-3">
+                          <strong>Age:</strong> {{ viewcustomer?.age }}
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="mb-3">
+                          <strong>Flat Number:</strong> {{ viewcustomer?.flatNumber }}
+                      </div>
+                      <div class="mb-3">
+                          <strong>Block Number:</strong> {{ viewcustomer?.blockNumber }}
+                      </div>
+                      <div class="mb-3">
+                        <strong>BroadCaster:</strong> {{ viewcustomer?.stbId?.regionEntity?.service?.serviceProviderName }}
+                    </div>
+                      <div class="mb-3">
+                          <strong>STB Number:</strong> {{ viewcustomer?.stbId?.setupBoxNumber }}
+                      </div>
+                      <div class="mb-3">
+                          <strong>House Name:</strong> {{ viewcustomer?.houseName }}
+                      </div>
+                      <div class="mb-3">
+                          <strong>Door Number:</strong> {{ viewcustomer?.doorNumber }}
+                      </div>
+                      <div class="mb-3">
+                          <strong>Alter Mobile Number:</strong> {{ viewcustomer?.alterMobileNumber }}
+                      </div>
+                      <div class="mb-3">
+                          <strong>Apartment Name:</strong> {{ viewcustomer?.apartmentName }}
+                      </div>
+                      <div class="mb-3">
+                          <strong>Pincode:</strong> {{ viewcustomer?.pincodeName }}
+                      </div>
+                     
+                  </div>
+              </div>
+          </div>
+      </article>
+  </div>
+</div>
+<div id="Plan-details" *ngIf="selectedTab === 'Plan-details'" class="mb-4">
+  <mat-stepper orientation="vertical">
+  
+    <mat-step>
+      <ng-template matStepLabel><b>Alcarte Channels</b></ng-template>
+      <span *ngIf="!viewData" style="color:red;font-size:12px;text-align: center;">NO DATA FOUND</span>
+
+      <ng-template matStepContent>
+
+        <div class="row mt-1 mx-1">
+          <div class="col-md-3">
+            <div class="search me-4 mb-3">
+              <input style="font-size: 13px;" type="text" id="search" class="form-control" [(ngModel)]="searchText"
+                placeholder="Search">
+            </div>
+          </div>
+        </div>
+        <div class="row mt-1 mx-1">
+          <div class="col-12 mb-3 mb-lg-5">
+            <div class="card table-nowrap table-card">
+              <div class="table-responsive text-nowrap text-center">
+                <table class="table table-hover" id="customers"  *ngIf="viewData">
+                  <tr>
                     <th>S No</th>
                     <th>Channel Name</th>
                     <th>Channel No</th>
-                    <!-- <th>Logo</th> -->
                     <th>Type</th>
                     <th>Price</th>
                     <th>Language</th>
                     <th>Generic</th>
-                    <th>Broadcaster</th>
-                    <th>Status</th>
-                    <th>Created By</th>
-                    <th>Created At</th>
-                </tr>
-           
-            <tbody>
-                <tr *ngFor="let row of customerviewalcot | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage } | search: searchText; let i = index">
+                  
+                  </tr>
+
+                  <tbody
+                    *ngFor="let row of alcotchannel | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage } | search: searchText; let i = index">
                     <td>{{ i + 1 }}</td>
-                    <td>{{ row.alcotId.channelName }}</td>
-                    <td>{{ row.alcotId.channelNo }}</td>
-                    <!-- <td><i class="fa fa-image" (click)="image(row)" style="cursor: pointer;"></i></td> -->
-                    <td>{{ row.alcotId.type === 1 ? 'Paid' : 'Free' }}</td>
-                    <td>{{ row.alcotId.price }}</td>
-                    <td>{{ row.alcotId.language }}</td>
-                    <td>{{ row.alcotId.generic }}</td>
-                    <td>{{ row.alcotId.broadCaster }}</td>
-                    <td>
-                        <span *ngIf="row.alcotId.alcotStatus === '1'" class="text-success">Active</span>
-                        <span *ngIf="row.alcotId.alcotStatus === '0'" class="text-danger">Inactive</span>
-                    </td>
-                    <td>{{ row.alcotId.createdBy }}</td>
-                    <td>{{ row.alcotId.createdAt | date: 'yyyy-MM-dd hh:mm a' }}</td>
-                </tr>
-            </tbody>
+                    <td>{{ row.channelName }}</td>
+                    <td>{{ row.channelNo }}</td>
+                    <td>{{ row.type === 1 ? 'Paid' : 'Free' }}</td>
+                    <td>{{ row.price }}</td>
+                    <td>{{ row.language}}</td>
+                    <td>{{ row.generic }}</td>
+                   
+                  </tbody>
+                </table>
+              </div>
+              <div class="text-end mt-3">
+                <pagination-controls (pageChange)="page = $event"></pagination-controls>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </ng-template>
      
-        </table>
-    </div>
-    <div class="text-end mt-3">
-        <pagination-controls (pageChange)="page = $event"></pagination-controls>
-    </div>
+    </mat-step>
+
+
+
+    <mat-step>
+      <ng-template matStepLabel><b>Bouquet Plans</b></ng-template>
+      <span *ngIf="!viewData" style="color:red;font-size:12px;text-align: center;">NO DATA FOUND</span>
+
+      <ng-template matStepContent>
+        <div class="row mt-2 mx-1">
+          <div class="col-md-3">
+            <div class="search me-4 mb-3">
+              <input style="font-size: 13px;" type="text" id="search" class="form-control" [(ngModel)]="searchText"
+                placeholder="Search">
+            </div>
+          </div>
+        </div>
+        <div class="row mt-1 mx-1">
+          <div class="col-12 mb-3 mb-lg-5">
+            <div class="card table-nowrap table-card">
+              <div class="table-responsive text-nowrap text-center">
+                <table class="table table-hover" id="customers"  *ngIf="viewData">
+                    <th>S No</th>
+                    <th>BroadCaster Name</th>
+                    <th>BroadCaster PlanName</th>
+                    <th>BroadCaster PlanAmount</th>
+                    <th>Channels</th>
+                    <th>MSO</th>
+              
+                  <tbody
+                    *ngFor="let row of bouquetPlan | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage } | search: searchText; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ row.bundleChannel?.broadCasterName }}</td>
+                    <td>{{ row.bouquetCreation?.bouquetName }}</td>
+                    <td>{{ row.amount }}</td>
+                    <td><i class="fas fa-eye" (click)="viewChannel(row.broadCasterAlcot)" > </i></td>
+                    <td>{{ row.serviceProvider?.serviceProviderName }}</td>
+                  </tbody>
+                </table>
+              </div>
+              <div class="text-end mt-3">
+                <pagination-controls (pageChange)="page = $event"></pagination-controls>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </ng-template>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel><b>LCOP Plans</b></ng-template>
+      <span *ngIf="!viewData" style="color:red;font-size:12px;text-align: center;">NO DATA FOUND</span>
+
+      <div class="row mt-2 mx-1">
+        <div class="col-md-3">
+          <div class="search me-4 mb-3">
+            <input style="font-size: 13px;" type="text" id="search" class="form-control" [(ngModel)]="searchText"
+              placeholder="Search">
+          </div>
+        </div>
+      </div>
+      <div class="row mt-1 mx-1">
+        <div class="col-12 mb-3 mb-lg-5">
+          <div class="card table-nowrap table-card">
+            <div class="table-responsive text-nowrap text-center">
+              <table class="table table-hover" id="customers"  *ngIf="viewData">
+                <tr>
+                  <th>S No</th>
+                  <th>Plan Name</th>
+                  <th>Price</th>
+                  <th>Total Amount</th>
+                  <th>OverAll Amount</th>
+                </tr>
+                <tbody
+                  *ngFor="let row of this.lcopChannel | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage } | search: searchText; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{row.planName }}</td>
+                  <td>{{row.price }}</td>
+                  <td>{{row.totalAmount }}</td>
+                  <td>{{row.overallAmount }}</td>
+                </tbody>
+              </table>
+            </div>
+            <div class="text-end mt-3">
+              <pagination-controls (pageChange)="page = $event"></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </mat-step>
+  </mat-stepper>
 </div>
+
+<!-- Transaction -->
+
+<div id="Transaction" *ngIf="selectedTab === 'Transaction'" class="mb-4">
+
+  <div >
+    <div class="row mt-5 mx-1">
+      <div class="col-md-3">
+          <div class="search me-4 mb-3">
+              <input style="font-size: 13px;" type="text" id="search" class="form-control" [(ngModel)]="searchText"
+                placeholder="search">
+            </div>
+      </div>
+    </div>
+    <div class="row mt-1 mx-1" >
+      <div class="col-12 mb-3 mb-lg-5" >
+          <div class="card table-nowrap table-card">
+              <div class="table-responsive text-nowrap text-center" >
+                  <table class="table table-hover" id="customers"  >
+                      <tr >
+   
+                          <th>S No</th>
+                          <th>Payment ID</th>
+                          <th>Paid Amount</th>
+                          <th>Onboard Date</th>
+                          <th>Due Date</th>
+                          <th>Payment Status</th>
+                          <th>Paid At</th>
+                      </tr>
+                      <span *ngIf="!showData" class="text-center" style="color:red;font-size:12px;">NO DATA FOUND</span>
+   
+                  <tbody *ngIf="showData">
+                      <tr *ngFor="let row of transaction | paginate: { itemsPerPage: 3, currentPage: page } | search: searchText; let i = index">
+   
+                        <td>{{ i + 1 }}</td>
+                          <td>{{ row.paymentId }}</td>
+                          <td>{{ row.paidAmount }}</td>
+                          <td>{{row.startDate| date:"dd/MM/yyyy :hh:m:a"}}</td>
+                          <td>{{row.endDate | date:"dd/MM/yyyy :hh:m:a"}}</td>
+                       
+                          <td>
+                            <span *ngIf=" row.paymentStatus=='Pending'" style="color:orange"> {{ row.paymentStatus}}</span>
+                            <span *ngIf=" row.paymentStatus=='Success'" style="color:green"> {{ row.paymentStatus}}</span>
+                            <span  *ngIf=" row.paymentStatus=='Failure'" style="color:red"> {{ row.paymentStatus}}</span>
+                            <span  *ngIf=" row.paymentStatus=='Initiated'" style="color:blue"> {{ row.paymentStatus}}</span>
+   
+                          </td>
+                           <td>
+                            <span  *ngIf=" row.paymentDateTime!= null"> {{ row.paymentDateTime | date:"dd/MM/yyyy :hh:m:a"}}</span>
+                            <span  *ngIf=" row.paymentDateTime==null" style="color:blue"> -</span>
+   
+                           </td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+          <div class="text-end mt-3">
+              <pagination-controls (pageChange)="page = $event"></pagination-controls>
+          </div>
+      </div>
+    </div>
+    </div>
+  </div>
+   
+  </div>

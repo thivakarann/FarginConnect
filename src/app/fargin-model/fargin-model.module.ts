@@ -661,3 +661,22 @@ export interface editroles {
   readonly permission: any;
   readonly subPermission: any;
 }
+
+
+export interface manualPayment{
+  readonly technicalPayStatus:any;
+  readonly  paymentMode:any;
+  readonly utrNumber:any;
+}
+
+export interface BroadcasterBouquetupdate {
+  readonly bouquteId:any
+  readonly boqCreationId: any;
+  readonly serviceId: any;
+  readonly bundleChannelId: any;
+  readonly alcotId: any;
+  readonly regId: any;
+  readonly amount: any;
+  readonly modifiedBy: any;
+ 
+}

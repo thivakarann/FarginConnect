@@ -3,19 +3,19 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
-import { updateentity } from '../../fargin-model/fargin-model.module';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit-personal-info',
   templateUrl: './edit-personal-info.component.html',
   styleUrl: './edit-personal-info.component.css'
 })
-export class EditPersonalInfoComponent implements OnInit{
+export class EditPersonalInfoComponent implements OnInit {
   getadminname = JSON.parse(localStorage.getItem('adminname') || '');
 
-entittyplanviewall: any;
-categorydetails: any;
-myForm!: FormGroup;
+  entittyplanviewall: any;
+  categorydetails: any;
+  myForm!: FormGroup;
   selectedCategoryId: any;
   merchantid: any;
   bussinessid: any;
@@ -23,45 +23,47 @@ myForm!: FormGroup;
   details: any;
   detaislone: any;
   businessCategoryId: any;
-constructor(private router:Router,private service:FarginServiceService,private toastr:ToastrService,private ActivateRoute: ActivatedRoute){}
+  constructor(private router: Router, private service: FarginServiceService, private toastr: ToastrService, private ActivateRoute: ActivatedRoute,private Location:Location) { }
   ngOnInit(): void {
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.id = param.Alldata;
     });
     this.myForm = new FormGroup({
-      entityName: new FormControl('', [
-        Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
-      ]),
-      merchantLegalName: new FormControl('', [
-        Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
-      ]),
-      accountDisplayName: new FormControl('',
-        [
-          Validators.required,
-          Validators.pattern('^[a-zA-Z0-9 ]*$')
-        ]
-      ),
+      // entityName: new FormControl('', [
+      //   Validators.required,
+      //   Validators.pattern('^[a-zA-Z0-9 ]*$')
+      // ]),
+      // merchantLegalName: new FormControl('', [
+      //   Validators.required,
+      //   Validators.pattern('^[a-zA-Z0-9 ]*$')
+      // ]),
+      // accountDisplayName: new FormControl('',
+      //   [
+      //     Validators.required,
+      //     Validators.pattern('^[a-zA-Z0-9 ]*$')
+      //   ]
+      // ),
       contactName: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9 ]*$')
       ]),
-      contactMobile: new FormControl('', [
-        Validators.required,
-        Validators.maxLength(10),
-        Validators.pattern('^[0-9]{10}$')
-      ]),
-      secondaryMobile: new FormControl('', [
-        Validators.maxLength(10),
-        Validators.pattern('^[0-9]{10}$')
-      ]),
-      contactEmail: new FormControl('', [
-        Validators.required,
-        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$')
-      ]),
+      // contactMobile: new FormControl('', [
+      //   Validators.required,
+      //   Validators.maxLength(10),
+      //   Validators.pattern('^[0-9]{10}$')
+      // ]),
+      secondaryMobile: new FormControl('',
+        [
+
+          Validators.maxLength(10),
+          Validators.pattern('^[0-9]{10}$')
+        ]),
+
+      // contactEmail: new FormControl('', [
+      //   Validators.required,
+      //   Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$')
+      // ]),
       website: new FormControl('', [
-        Validators.required,
         Validators.pattern("((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)")
       ]),
       gstIn: new FormControl('', [
@@ -96,21 +98,20 @@ constructor(private router:Router,private service:FarginServiceService,private t
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9 ]*$')
       ]),
-      locationServed: new FormControl(''),
-      serviceOffered: new FormControl(''),
+      merchantPlanId: new FormControl('', Validators.required),
+
       businessCategoryIds: new FormControl('', Validators.required),
-      mccCode: new FormControl('', Validators.required),
-      merchantPlanId: new FormControl('', Validators.required)
-    });  
-  
-  
+      mccCode: new FormControl(''),
+    });
+
+
     this.service.EntityViewbyid(this.id).subscribe((res: any) => {
       this.details = res.response;
       this.detaislone = res.response.merchantpersonal;
       this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
       console.log('BussinessCategoryId', this.businessCategoryId);
       console.log(this.detaislone);
-    }) 
+    })
     this.service.Bussinesscategoryactivelist().subscribe((res: any) => {
       this.categorydetails = res.response;
     });
@@ -119,28 +120,28 @@ constructor(private router:Router,private service:FarginServiceService,private t
       this.entittyplanviewall = res.response;
     })
 
-  
-  }
-
-
-
-
-
-    // First Form
-
-  get entityName() {
-    return this.myForm.get('entityName')
-
-  }
-  get merchantLegalName() {
-    return this.myForm.get('merchantLegalName')
 
   }
 
-  get accountDisplayName() {
-    return this.myForm.get('accountDisplayName')
 
-  }
+
+
+
+  // First Form
+
+  // get entityName() {
+  //   return this.myForm.get('entityName')
+
+  // }
+  // get merchantLegalName() {
+  //   return this.myForm.get('merchantLegalName')
+
+  // }
+
+  // get accountDisplayName() {
+  //   return this.myForm.get('accountDisplayName')
+
+  // }
 
   get contactName() {
     return this.myForm.get('contactName')
@@ -193,13 +194,7 @@ constructor(private router:Router,private service:FarginServiceService,private t
     return this.myForm.get('country')
 
   }
-  get locationServed() {
-    return this.myForm.get('locationServed')
 
-  } get serviceOffered() {
-    return this.myForm.get('serviceOffered')
-
-  }
   get businessCategoryIds() {
     return this.myForm.get('businessCategoryIds')
 
@@ -208,58 +203,56 @@ constructor(private router:Router,private service:FarginServiceService,private t
     return this.myForm.get('mccCode')
 
   }
-
   get merchantPlanId() {
     return this.myForm.get('merchantPlanId')
   }
 
+
   submit() {
-  let submitModel: updateentity = {
-    entityName: this.entityName?.value,
-    merchantLegalName: this.merchantLegalName?.value,
-    accountDisplayName: this.accountDisplayName?.value,
-    contactName: this.contactName?.value,
-    contactMobile: this.contactMobile?.value,
-    secondaryMobile: this.secondaryMobile?.value,
-    contactEmail: this.contactEmail?.value,
-    gstIn: this.gstIn?.value,
-    billingAddress: this.billingAddress?.value,
-    area: this.area?.value,
-    zipcode: this.zipcode?.value,
-    stateName: this.stateName?.value,
-    city: this.city?.value,
-    contactPerson: '',
-    country: this.country?.value,
-    locationServed: this.locationServed?.value,
-    serviceOffered: this.serviceOffered?.value,
-    businessCategoryId: this.selectedCategoryId,
-    mccCode: this.mccCode?.value,
-    website: this.website?.value,
-    modifiedBy: this.getadminname
+    const formData = new FormData;
+    // formData.append('contactEmail',this.contactEmail?.value,);
+    // formData.append('contactMobile', this.contactMobile?.value,);
+    // formData.append('entityName', this.entityName?.value);
+    // formData.append('merchantLegalName', this.merchantLegalName?.value)
+    // formData.append('accountDisplayName',  this.accountDisplayName?.value);
+    formData.append('gstIn', this.gstIn?.value || '-');
+    formData.append('contactName', this.contactName?.value);
+    formData.append('secondaryMobile', this.secondaryMobile?.value || '-');
+    formData.append('billingAddress', this.billingAddress?.value);
+    formData.append('area', this.area?.value,)
+    formData.append('stateName', this.stateName?.value);
+    formData.append('country', this.country?.value);
+    formData.append('zipcode', this.zipcode?.value);
+    formData.append('city', this.city?.value)
+    formData.append('businessCategoryId', this.businessCategoryIds?.value)
+    formData.append('merchantPlanId', this.merchantPlanId?.value)
+    formData.append('mccCode', this.mccCode?.value)
+    formData.append('website', this.website?.value || '-')
+
+
+    this.service.UpdatePersonalEntity(this.id, formData).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.merchantid = res.response.merchantId;
+        this.bussinessid = res.response.businessCategoryModel.businessCategoryId;
+        this.toastr.success(res.responseMessage);
+        // setTimeout(() => {
+        //   window.location.reload()
+        // }, 500);
+        // this.AddEntity.EntityGetKYCbybussinessid(this.bussinessid).subscribe((res: any) => {
+        //   this.KYCDocNames = res.response
+        // })
+        // this.Bankdetails = true;
+        // this.personeldetails = false;
+
+      } else {
+        this.toastr.error(res.responseMessage);
+      }
+
+      console.log(res);
+    })
   }
-  this.service.UpdatePersonalEntity(this.id,submitModel).subscribe((res: any) => {
-    if (res.flag == 1) {
-      this.merchantid = res.response.merchantId;
-      this.bussinessid = res.response.businessCategoryModel.businessCategoryId;      
-      this.toastr.success(res.responseMessage);
-      // setTimeout(() => {
-      //   window.location.reload()
-      // }, 500);
-      // this.AddEntity.EntityGetKYCbybussinessid(this.bussinessid).subscribe((res: any) => {
-      //   this.KYCDocNames = res.response
-      // })
-      // this.Bankdetails = true;
-      // this.personeldetails = false;
 
-    } else {
-      this.toastr.error(res.responseMessage);
-    }
-
-    console.log(res);
-  })
-}
-
-close() {
-  this.router.navigateByUrl('dashboard/entity-viewall');
-}
+  close() {
+  this.Location.back();
+  }
 }

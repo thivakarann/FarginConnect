@@ -35,12 +35,30 @@ export class EntityBankaddComponent implements OnInit {
     console.log(this.merchantid);
 
     this.BankForm = new FormGroup({
-      accountHolderName: new FormControl(null, Validators.required),
-      accountNumber: new FormControl(null, Validators.required),
-      bankName: new FormControl(null, Validators.required),
-      ifscCode: new FormControl(null, Validators.required),
-      branchName: new FormControl(null, Validators.required),
-      accountType: new FormControl(null, Validators.required),
+      accountHolderName: new FormControl(null, [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9 ]*$')
+      ]),
+      accountNumber: new FormControl(null, [
+        Validators.required,
+        Validators.pattern("^[0-9]{9,18}$")
+      ]),
+      bankName: new FormControl("", [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9 ]*$')
+      ]),
+      ifscCode: new FormControl("", [
+        Validators.required,
+        Validators.pattern("^[A-Z]{4}0[A-Z0-9]{6}$")
+      ]),
+      branchName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9 ]*$')
+      ]),
+      accountType: new FormControl("", [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9 ]*$')
+      ]),
     })
   }
   get accountHolderName() {

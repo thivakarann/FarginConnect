@@ -141,6 +141,10 @@ import { AddExtraChannelsComponent } from './Plan Creation/Broadcaster Bouqutes/
 import { EditPersonalInfoComponent } from './Entity Onboard/edit-personal-info/edit-personal-info.component';
 import { EntityTransactionComponent } from './entity-transaction/entity-transaction.component';
 import { ChannelViewComponent } from './Overall-Customer/channel-view/channel-view.component';
+import { DuesViewComponent } from './dues/dues-view/dues-view.component';
+import { DuesComponent } from './dues/dues.component';
+import { UpdateManualpaymentComponent } from './Entity Onboard/update-manualpayment/update-manualpayment.component';
+import { MerchantLogoComponent } from './Entity Onboard/merchant-logo/merchant-logo.component';
 
 @NgModule({
   declarations: [
@@ -262,7 +266,11 @@ import { ChannelViewComponent } from './Overall-Customer/channel-view/channel-vi
     ViewPermissionComponent,
     ViewSubpermissionComponent,
     EntityTransactionComponent,
-    ChannelViewComponent
+    ChannelViewComponent,
+    DuesViewComponent,
+    DuesComponent,
+    UpdateManualpaymentComponent,
+    MerchantLogoComponent,
     
   ],
 

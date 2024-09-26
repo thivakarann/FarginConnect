@@ -28,8 +28,6 @@ export class FarginServiceService {
   private readonly changepassword = 'adminUser/changePassword/';
 
 
-//Dashboard
-private readonly dashboardData='dashBoard/dashBoardCount'
 
 
 
@@ -83,8 +81,12 @@ private readonly dashboardData='dashBoard/dashBoardCount'
   private readonly EntityKYCBYbusinessid = 'businesskyc/getcategorykyc/'
   private readonly Entityviewbyid = 'merchant/getmerchants/';
   private readonly updateEntity = 'merchant/updateMerchant/';
-  private readonly entityactivestatus='merchant/updateStatus';
-  private readonly emailtrigger='merchantOnboard/resendmail';
+  private readonly entityactivestatus = 'merchant/updateStatus';
+  private readonly emailtrigger = 'merchantOnboard/resendmail';
+  private readonly updatemanualpay = 'merchant/updateManualPayment/'
+  private readonly merchantlogo = 'merchant/updateimage ';
+
+
 
 
   //Overall customer
@@ -148,10 +150,11 @@ private readonly dashboardData='dashBoard/dashBoardCount'
   //customers
   private readonly Entitycustomerview = 'customer/viewbymerchant/';
   private readonly customerview = 'customer/viewById/';
-  private readonly customertransaction='customerpay/viewcustomers/';
+  private readonly customertransaction = 'customerpay/viewcustomers/';
 
   //QRcode
-  private readonly EntityQrgenerate = 'merchant/qrgenerate/'
+  private readonly EntityQrgenerate = 'merchant/qrgenerate/';
+  private readonly qrimageview = 'merchant/qrViewImage/';
 
   //refund
   private readonly EntityRefund = 'refund/getmerchant/'
@@ -161,8 +164,8 @@ private readonly dashboardData='dashBoard/dashBoardCount'
   private readonly EntitySettlementtransaction = 'transactions/getPayoutTransactions'
 
 
-   //Entity Transaction
-   private readonly entitytransaction='paymentHistory/viewByMerchant/';
+  //Entity Transaction
+  private readonly entitytransaction = 'paymentHistory/viewByMerchant/';
   //merchant transaction
 
   private readonly transactionformerchant = 'transactions/getadminPaymentList';
@@ -275,6 +278,18 @@ private readonly dashboardData='dashBoard/dashBoardCount'
   private readonly viewbyidbeneficiary = 'merchantbeneficiary/viewbyid/'
   private readonly statusbeneficiary = 'merchantbeneficiary/updateactive/'
 
+  //payment dues
+  private readonly paymentdues = 'maintanancePay/viewAll'
+  private readonly generatedues = 'maintanancePay/createDues'
+  private readonly maintenance = 'maintanancePay/receiptView/'
+
+    //Dashboard
+    private readonly dashboardData='dashBoard/dashBoardCount'
+    private readonly dashboardbusinessgetall='businesscategory/getall'
+    private readonly dashboardbusinesscategorybyid='dashBoard/businessCategory/'
+    private readonly dashboardtransaction='dashBoard/transaction/'
+  
+
 
 
 
@@ -340,6 +355,15 @@ private readonly dashboardData='dashBoard/dashBoardCount'
 
   dashboardCount(){
     return this.http.get(`${this.basePath}${this.dashboardData}`, this.options)
+  }
+  dashboardbusinessgetalls(){
+    return this.http.get(`${this.basePath}${this.dashboardbusinessgetall}`, this.options)
+  }
+  dashboardbusinesscategorybyids(id:any){
+    return this.http.get(`${this.basePath}${this.dashboardbusinesscategorybyid}${id}`, this.options)
+  }
+  dashboardtransactions(id:any, id1:any, id2:any,id3:any){
+    return this.http.get(`${this.basePath}${this.dashboardtransaction}${id}/${id1}/${id2}/${id3}`, this.options)
   }
   //business category
 
@@ -579,11 +603,21 @@ private readonly dashboardData='dashBoard/dashBoardCount'
   }
 
 
-    //email trigger
-    EmailTrigger(data: any) {
-      return this.http.post(`${this.basePath}${this.emailtrigger}`, data, this.options);
-    }
-   
+  //email trigger
+  EmailTrigger(data: any) {
+    return this.http.post(`${this.basePath}${this.emailtrigger}`, data, this.options);
+  }
+
+  UpdateManualPayment(id: any, data: any) {
+    return this.http.put(`${this.basePath}${this.updatemanualpay}${id}`, data, this.options);
+
+  }
+
+  EntitylogoUpdate(data: FormData) {
+    return this.http.put(`${this.basePath}${this.merchantlogo}`, data, this.optionsMultipart);
+  }
+
+
 
 
 
@@ -743,11 +777,11 @@ private readonly dashboardData='dashBoard/dashBoardCount'
   EntityCustomerview(id: any) {
     return this.http.get(`${this.basePath}${this.Entitycustomerview}${id}`, this.options)
   }
- 
+
   ViewCustomerDetails(id: any) {
     return this.http.get(`${this.basePath}${this.customerview}${id}`, this.options)
   }
- 
+
   CustomerTransaction(id: any) {
     return this.http.get(
       `${this.basePath}${this.customertransaction}${id}`,
@@ -768,6 +802,13 @@ private readonly dashboardData='dashBoard/dashBoardCount'
 
   EntityQrGenerate(id: any) {
     return this.http.get(`${this.basePath}${this.EntityQrgenerate}${id}`, this.options)
+  }
+
+  QRImageView(id: any) {
+    return this.http.get(`${this.basePath}${this.qrimageview}${id}`, {
+      ...this.options,
+      ...{ responseType: 'blob' },
+    })
   }
   //refund
   Entityrefund(id: any) {
@@ -1022,6 +1063,26 @@ private readonly dashboardData='dashBoard/dashBoardCount'
 
   EntityIndividualCustomerview(id: any) {
     return this.http.get(`${this.basePath}${this.Entityindividualcustomerview}${id}`, this.options)
+  }
+
+
+
+  //payment dues
+
+  DuesViewAll() {
+    return this.http.get(`${this.basePath}${this.paymentdues}`, this.options)
+  }
+
+  DuesGenerate() {
+    return this.http.get(`${this.basePath}${this.generatedues}`, this.options)
+  }
+
+
+  MaintenanceReciept(id: any) {
+    return this.http.get(`${this.basePath}${this.maintenance}${id}`, {
+      ...this.options,
+      ...{ responseType: 'blob' },
+    })
   }
 
 

@@ -11,7 +11,7 @@
  
 <div class="row d-flex justify-content-start mt-1">
     <div class="col-2">
-        <button  style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button (click)="qrLink(this.id)" *ngIf="qrgenerate==true">Generate</button>
+        <button  style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button (click)="qrLink(this.id)" >Generate</button>
     </div>
 </div>
  
@@ -26,7 +26,7 @@
                         <th>Entity Name</th>
                         <th>Account Id</th>
                         <th>URL</th>
-                        <th>Reference</th>
+                        <!-- <th>Reference</th> -->
                         <th>Created By</th>
                         <th>Created At</th>
                         <th>View</th>
@@ -37,10 +37,10 @@
                     <td>{{detaislone?.entityName ||'--'}}</td>
                     <td>{{detaislone?.accountId ||'--'}}</td>
                     <td>{{detaislone?.qrGenerateLink ||'--'}}</td>
-                    <td>{{detaislone?.qrReference ||'--'}}</td>
+                    <!-- <td>{{detaislone?.qrReference ||'--'}}</td> -->
                     <td>{{detaislone?.createdBy ||'--'}}</td>
                     <td>{{detaislone?.createdDatetime ||'--'}}</td>
-                    <td> <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"></i></td>
+                    <td> <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);" (click)="viewQr(this.id)"></i></td>
                 </tbody>
             </table>
         </div>

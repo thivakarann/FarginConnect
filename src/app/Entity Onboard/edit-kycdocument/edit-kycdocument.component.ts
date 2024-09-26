@@ -20,6 +20,8 @@ export class EditKycdocumentComponent implements OnInit {
   merchantDocumentId: any;
   businessCategoryId: any;
   categorydetails: any;
+  kycvalue: any;
+  docname: any;
 
 
   constructor(private service: FarginServiceService, private dialog: MatDialog, private toaster: ToastrService, @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -27,10 +29,14 @@ export class EditKycdocumentComponent implements OnInit {
   }
   ngOnInit(): void {
 
-    this.merchantDocumentId = this.data.value
+    this.merchantDocumentId = this.data.value.merchantDocumentId
     console.log(this.merchantDocumentId);
     this.businessCategoryId = this.data.value1
     console.log("Business", this.businessCategoryId)
+    this.kycvalue = this.data.value2
+    console.log("kycvalue",this.kycvalue)
+   this.docname=this.data.value.merchantDocumentId
+    console.log(this.docname);
 
 
 

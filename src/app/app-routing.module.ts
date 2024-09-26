@@ -58,6 +58,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { BouqutesAddComponent } from './Plan Creation/Broadcaster Bouqutes/bouqutes-add/bouqutes-add.component';
 import { EditPersonalInfoComponent } from './Entity Onboard/edit-personal-info/edit-personal-info.component';
 import { EntityTransactionComponent } from './entity-transaction/entity-transaction.component';
+import { DuesComponent } from './dues/dues.component';
+import { UpdateManualpaymentComponent } from './Entity Onboard/update-manualpayment/update-manualpayment.component';
 
 const routes: Routes = [
 
@@ -74,7 +76,7 @@ const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     children: [
-      {path:'dashboard-content',component:DashboardContentComponent},
+      { path: 'dashboard-content', component: DashboardContentComponent },
       { path: 'view-category', component: ViewcategoryComponent },
       { path: 'Business-kyc', component: BusinessKycComponent },
       { path: 'test', component: TestpageComponent },
@@ -119,19 +121,18 @@ const routes: Routes = [
       { path: 'entity-refund/:id', component: EntityRefundComponent },
       { path: 'entity-settlement/:id', component: EntitySettlementComponent },
       { path: 'settlement-view/:id', component: SettlementViewComponent },
-      { path: 'entity-customer-view/:id', component: EntityCustomersViewAllComponent },
-      { path: 'entity-Individualcustomer-view', component: EntityCustomersViewComponent },
       { path: "overall-transactions-viewall", component: OverallTransactionsViewallComponent },
       { path: 'viewwithdrawal', component: ViewwithdrawalComponent },
       { path: 'view-beneficiary', component: ViewbeneficiaryComponent },
       { path: 'add-beneficiary', component: AddbeneficiaryComponent },
       { path: 'edit-beneficiary/:id', component: EditbeneficiaryComponent },
       { path: 'viewprofile', component: ProfileComponent },
-      {path: 'edit-personal/:id',component:EditPersonalInfoComponent},
- {path:'entity-transaction/:id',component:EntityTransactionComponent},
- {
-path:'entitycustomers/:id',component:EntityCustomersViewAllComponent
- }
+      { path: 'edit-personal/:id', component: EditPersonalInfoComponent },
+      { path: 'entity-transaction/:id', component: EntityTransactionComponent },
+      { path: 'entitycustomers/:id', component: EntityCustomersViewComponent },
+      { path: 'entitycustomerviewAll/:id', component: EntityCustomersViewAllComponent },
+      { path: "app-dues", component: DuesComponent },
+      { path: 'manual-payment', component: UpdateManualpaymentComponent },
 
     ],
   },

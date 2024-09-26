@@ -89,6 +89,13 @@
                     <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-eye"></i>
                 </td>
             </ng-container>
+
+            <ng-container matColumnDef="Edit">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Edit</th>
+                <td style="cursor: pointer;" mat-cell *matCellDef="let viewall" >
+                    <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-edit" (click)="Edit(viewall.bouquetId)" ></i>
+                </td>
+            </ng-container>
 <!-- 
             <ng-container matColumnDef="Edit">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Edit</th>
