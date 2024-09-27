@@ -23,7 +23,7 @@ export class AdminAddComponent implements OnInit {
       adminName: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]),
       gender: new FormControl('', [Validators.required]),
       emailAddress: new FormControl('', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
-      password: new FormControl('', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}')]),
+      // password: new FormControl('', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}')]),
       mobileNumber: new FormControl('', [Validators.required, Validators.pattern("^[0-9]{10}$")]),
       address: new FormControl('', [Validators.required]),
       country: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z0-9 ]*$')]),
@@ -47,9 +47,9 @@ export class AdminAddComponent implements OnInit {
   get emailAddress() {
     return this.AdminForm.get('emailAddress');
   }
-  get password() {
-    return this.AdminForm.get('password');
-  }
+  // get password() {
+  //   return this.AdminForm.get('password');
+  // }
   get roleId(){
     return this.AdminForm.get('roleId')
   }
@@ -81,9 +81,9 @@ export class AdminAddComponent implements OnInit {
 
   submit() {
     let submitmodel: AdminCreate = {
-      roleId: '2',
+      roleId: this.roleId?.value,
       emailAddress: this.emailAddress?.value,
-      userPassword: this.password?.value,
+      // userPassword: this.password?.value,
       mobileNumber: this.mobileNumber?.value,
       adminName: this.adminName?.value,
       address: this.address?.value,

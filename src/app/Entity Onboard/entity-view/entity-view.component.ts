@@ -83,6 +83,28 @@ export class EntityViewComponent implements OnInit {
   Kycapproval: any;
   showLiveKeys: any;
   loggedOut!: boolean;
+  valueentityEdit: any;
+  getdashboard: any[] = [];
+  roleId: any = localStorage.getItem('roleId')
+  actions: any;
+  errorMessage: any;
+  valueentitySecretkey: any;
+  valueentityApi: any;
+  valueentityEmailnotify: any;
+  valuePersonalApproval: any;
+  valuebankadd: any;
+  valuebankstatus: any;
+  valuebankprimaryStatus: any;
+  valuebankapproval: any;
+  valuebankupdate: any;
+  valuebankverification: any;
+valueKycAdd: any;
+valueKycFile: any;
+valueKycApproval: any;
+valueKyccEdit: any;
+valueKycVerification: any;
+valueFinalapprove: any;
+
 
   selectTab(tab: string): void {
     this.activeTab = tab;
@@ -119,8 +141,98 @@ export class EntityViewComponent implements OnInit {
       console.log(this.detaislone);
       console.log(this.bankdetails);
       console.log(this.KYCDetails);
+    })
 
+    this.MerchantView.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        console.log(res);
 
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+          
+          if (this.roleId == 1) {
+            this.valueentityEdit = 'Entity View-Edit';
+            this.valueentityApi = 'Entity View-APIkey';
+            this.valueentitySecretkey = 'Entity View-SecretKey';
+            this.valueentityEmailnotify = 'Entity View-Email Notification';
+            this.valuePersonalApproval = 'Entity View-Personal Approval'
+            this.valuebankadd = 'Bank-Add';
+            this.valuebankstatus = 'Bank-Status'
+            this.valuebankprimaryStatus = 'Bank Primary-Status'
+            this.valuebankapproval = 'Bank-Approval'
+            this.valuebankupdate = 'Bank-Edit'
+            this.valuebankverification = 'Bank-Verfification'
+            this.valueKycAdd='KYC-add';
+            this.valueKycFile='KYC-Image';
+            this.valueKycApproval='KYC-Approval';
+            this.valueKyccEdit='KYC-Edit';
+            this.valueKycVerification='KYC-Verification'
+            this.valueFinalapprove='Final-Approval'
+
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+              
+
+              if (this.actions == 'Entity View-Edit') {
+                this.valueentityEdit = 'Entity View-Edit';
+              }
+              if (this.actions == 'Entity View-APIkey') {
+                this.valueentityApi = 'Entity View-APIkey';
+              }
+              if (this.actions == 'Entity View-SecretKey') {
+                this.valueentitySecretkey = 'Entity View-SecretKey';
+              }
+              if (this.actions == 'Entity View-Email Notification') {
+                this.valueentityEmailnotify = 'Entity View-Email Notification'
+              }
+              if (this.actions == 'Entity View-Personal Approval') {
+                this.valuePersonalApproval = 'Entity View-Personal Approval'
+              }
+              if (this.actions == 'Bank-Add') {
+                this.valuebankadd = 'Bank-Add'
+              }
+              if (this.actions == 'Bank-Status') {
+                this.valuebankstatus = 'Bank-Status'
+              }
+              if (this.actions == 'Bank Primary-Status') {
+                this.valuebankprimaryStatus = 'Bank Primary-Status';
+              }
+              if (this.actions == 'Bank-Approval') {
+                this.valuebankapproval = 'Bank-Approval';
+              }
+              if (this.actions == 'Bank-Edit') {
+                this.valuebankupdate = 'Bank-Edit';
+              }
+              if (this.actions == 'Bank-Verfification') {
+                this.valuebankverification = 'Bank-Verfification'
+              }
+              if(this.actions=='KYC-add'){
+                this.valueKycAdd='KYC-add'
+              }
+              if(this.actions=='KYC-Image'){
+                this.valueKycFile='KYC-Image'
+              }
+              if(this.actions=='KYC-Approval'){
+                this.valueKycApproval='KYC-Approval'
+              }
+              if(this.actions=='KYC-Edit'){
+                this.valueKyccEdit='KYC-Edit'
+              }
+              if(this.actions=='KYC-Verification'){
+                this.valueKycVerification='KYC-Verification'
+              }
+              if(this.actions=='Final-Approval'){
+                this.valueFinalapprove='Final-Approval'
+              }
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
     })
   }
 

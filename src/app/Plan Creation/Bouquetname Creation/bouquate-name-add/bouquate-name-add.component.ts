@@ -47,9 +47,10 @@ export class BouquateNameAddComponent implements OnInit {
     this.Broadcasternameadd.BouquetAdd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.dialog.closeAll()
         setTimeout(() => {
           window.location.reload()
-        }, 700)
+        }, 1000)
       }
       else {
         this.toastr.error(res.responseMessage);

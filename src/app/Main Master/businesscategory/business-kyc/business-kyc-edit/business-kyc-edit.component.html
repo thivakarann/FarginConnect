@@ -25,7 +25,15 @@
 
             <div class="form__linput">
             <label class="form__label" for="fname">KYC Document Name</label>
-            <input class="form__input" id="fname" type="text" formControlName="kycDocName" name="mccCode" placeholder="Business category..." required/>
+            <select class="form-select" formControlName="kycDocName" required [value]="kycDocNames">
+                <option style="text-align: center;" value="Aadhaar">Aadhaar</option>
+                <option style="text-align: center;" value="PAN">PAN</option>
+                <option style="text-align: center;" value="GST">GST</option>
+                <option style="text-align: center;" value="Driving Licence">Driving Licence</option>
+                <option style="text-align: center;" value="Passport">Passport</option>
+                <option style="text-align: center;" value="Voter Id">Voter Id</option>
+                <option style="text-align: center;" value="Cin">Cin</option>
+            </select>
             <div style="color: red; font-size : 12px;margin-top: 2px;"
             *ngIf="kycDocName?.invalid && kycDocName?.touched && kycDocName?.errors?.['required']">
             Field is required

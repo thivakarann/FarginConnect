@@ -17,6 +17,7 @@ export class BouqetsEditComponent implements OnInit {
   getadminname = JSON.parse(localStorage.getItem('adminname') || '');
   Adminid = JSON.parse(localStorage.getItem('adminid') || '');
   myForm!: FormGroup;
+  id: any;
   details: any;
   channelslist: any;
   @ViewChild('select') select: any = MatSelect;

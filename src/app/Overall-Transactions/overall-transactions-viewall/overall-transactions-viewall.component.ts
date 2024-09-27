@@ -50,6 +50,12 @@ export class OverallTransactionsViewallComponent {
   response: any = [];
   date1: any;
   date2: any;
+  valueTransactionExport: any;
+  valueTransactionView: any;
+  getdashboard: any[] = [];
+  roleId: any = localStorage.getItem('roleId')
+  actions: any;
+  errorMessage: any;
 
 
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
@@ -81,6 +87,41 @@ export class OverallTransactionsViewallComponent {
       }
 
     })
+
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        console.log(res);
+
+        if (res.flag == 1){
+          this.getdashboard = res.response?.subPermission;
+          console.log(this.getdashboard);
+          if (this.roleId == 1) {
+            this.valueTransactionExport = 'Transactions-Export';
+            this.valueTransactionView = 'Transactions-View'
+          }
+          else {
+            for (let datas of this.getdashboard) {
+
+              this.actions = datas.subPermissions;
+              console.log(this.actions + 'this.roles');
+
+              if (this.actions == 'Transactions-Export') {
+                this.valueTransactionExport = 'Transactions-Export';
+              }
+              if (this.actions == 'Transactions-View') {
+                this.valueTransactionView = 'Transactions-View';
+              }
+
+
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    })
+
   }
 
 

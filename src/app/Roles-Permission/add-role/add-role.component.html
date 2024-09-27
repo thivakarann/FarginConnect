@@ -12,7 +12,7 @@
 
             <div class="form__linput">
                 <label class="form__label">Role Name</label>
-                <input class="form__input" type="text" formControlName="roleName" required />
+                <input class="form-control" type="text" formControlName="roleName" required />
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="roleName?.invalid && roleName?.touched && roleName?.errors?.['required']">
                     Field is required
@@ -51,8 +51,7 @@
                     </div>
 
                     <mat-option [value]="subPermissions.subPermissionId"
-                        *ngFor="let subPermissions of subpermissionValue">{{subPermissions?.permission?.permission}}
-                        -
+                        *ngFor="let subPermissions of subpermissionValue">
                         {{subPermissions?.subPermissions}}</mat-option>
 
                 </mat-select>

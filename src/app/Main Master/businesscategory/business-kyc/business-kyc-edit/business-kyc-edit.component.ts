@@ -92,9 +92,12 @@ export class BusinessKycEditComponent implements OnInit {
     this.service.Businesskycupdate(this.businessCreationId, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
-        window.location.reload()
+        this.dialog.closeAll()
+        setTimeout(() => {
+          window.location.reload()
+        }, 1000);
       } else {
-        this.toastr.warning(res.responseMessage)
+        this.toastr.error(res.responseMessage)
       }
     })
   }

@@ -9,6 +9,9 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class ViewSubpermissionComponent {
   streetValue: any;
   subpermissionValue: any;
+  currentPage: any = 1; // The current page number
+  searchText: any;
+
   constructor(private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 

@@ -125,7 +125,7 @@
                 <div class="col">
                     <div class="form__linput">
                         <label class="form__label" for="apiKey">From Value</label>
-                        <input class="form__input" id="apiKey" type="number" formControlName="amountRange" placeholder="Enter From Amount..." required/>
+                        <input class="form-control" id="apiKey" type="number" formControlName="amountRange" placeholder="Enter From Amount..." required/>
                         <div style="color: red; font-size: 12px;margin-top: 2px;" class="form__error" *ngIf="amountRange?.invalid && amountRange?.touched && amountRange?.errors?.['required']">
                             Field is required
                         </div>
@@ -135,7 +135,7 @@
                     
                 <div class="form__linput">
                     <label class="form__label" for="secretKey">To Value</label>
-                    <input class="form__input" id="secretKey" type="number" formControlName="amountRanges" placeholder="Enter To Amount..." required/>
+                    <input class="form-control" id="secretKey" type="number" formControlName="amountRanges" placeholder="Enter To Amount..." required/>
                     <div style="color: red; font-size: 12px;margin-top: 2px;" class="form__error" *ngIf="amountRanges?.invalid && amountRanges?.touched && amountRanges?.errors?.['required']">
                         Field is required
                     </div>
@@ -144,7 +144,7 @@
                 <div class="col">                    
                 <div class="form__linput">
                     <label class="form__label" for="applicationId">GST</label>
-                    <input class="form__input" id="applicationId" type="number" formControlName="gstInPercentage" placeholder="Enter GST..." required/>
+                    <input class="form-control" id="applicationId" type="number" formControlName="gstInPercentage" placeholder="Enter GST..." required/>
                     <div style="color: red; font-size: 12px;margin-top: 2px;" class="form__error" *ngIf="gstInPercentage?.invalid && gstInPercentage?.touched && gstInPercentage?.errors?.['required']">
                         Field is required
                     </div>
@@ -157,7 +157,7 @@
                 <div class="col">
                     <div class="form__linput">
                         <label class="form__label" for="applicationId">Fee</label>
-                        <input class="form__input" id="applicationId" type="text" (keyup)="onFeeChange()" formControlName="fees" placeholder="Enter Fee..." required/>
+                        <input class="form-control" id="applicationId" type="text" (keyup)="onFeeChange()" formControlName="fees" placeholder="Enter Fee..." required/>
                         <div style="color: red; font-size: 12px;margin-top: 2px;" class="form__error" *ngIf="fees?.invalid && fees?.touched && fees?.errors?.['required']">
                             Field is required
                         </div>
@@ -166,7 +166,7 @@
                 <div class="col">
                 <div class="form__linput">
                     <label class="form__label" for="applicationId">Calculate Fee</label>
-                    <input class="form__input" id="applicationId" type="number" [value]="amount" readonly required/>
+                    <input class="form-control" id="applicationId" type="number" [value]="amount" readonly required/>
                 </div> 
                 </div>
             </div>

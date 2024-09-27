@@ -39,6 +39,8 @@
                     <span class="error" *ngIf="gender?.touched && gender?.errors?.['required']">Please Select Flat
                         Number *</span>
                 </div>
+                </div>
+                <div class="row  mb-3">
                 <div class="col-sm-4 form-group">
                     <label for="address">Address</label>
                     <input  type="text" id="address" placeholder="Address.." class="form-control"
@@ -46,9 +48,6 @@
                     <span class="error" *ngIf=" address?.invalid && address?.touched && address?.errors?.['required']">
                         Field is Required*</span>
                 </div>
-            </div>
-           
-            <div class="row mb-3">
                 <div class="col-sm-4 form-group">
                     <label for="country">Country*</label>
                     <input type="text" id="country" placeholder="Enter the Country" class="form-control"
@@ -63,7 +62,10 @@
                     <span class="error" *ngIf=" state?.invalid && state?.touched && state?.errors?.['required']">
                         Field is Required*</span>
                 </div>
-
+            </div>
+           
+            <div class="row mb-3">
+               
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">City*</label>
                     <input type="text" id="Entity Name" placeholder="Enter City Name" class="form-control"
@@ -71,8 +73,7 @@
                     <span class="error" *ngIf=" city?.invalid && city?.touched && city?.errors?.['required']">
                         Field is Required*</span>
                 </div>
-            </div>
-            <div class="row mb-3">
+            
                 <div class="col-sm-4 form-group">
                     <label for="Mcc Code">Pincode*</label>
                     <input type="text" id="Mcc Code" placeholder="Enter Pincode" class="form-control"

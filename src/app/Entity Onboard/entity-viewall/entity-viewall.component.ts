@@ -43,6 +43,14 @@ export class EntityViewallComponent {
   date2: any;
   responseDataListnew: any = [];
   response: any = [];
+  valueEntityAdd: any;
+  valueEntityExport: any;
+  valueEntityStatus: any;
+  valueEntityView: any;
+  getdashboard: any[] = [];
+  roleId: any = localStorage.getItem('roleId')
+  actions: any;
+  errorMessage: any;
 
   constructor(
     public EntityViewall: FarginServiceService,
@@ -58,6 +66,45 @@ export class EntityViewallComponent {
       this.dataSource.paginator = this.paginator;
       console.log(this.viewall);
     });
+
+    this.EntityViewall.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        console.log(res);
+
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+          
+          if (this.roleId == 1) {
+            this.valueEntityAdd = 'Entity Onboard-Add';
+            this.valueEntityExport = 'Entity Onboard-Export';
+            this.valueEntityStatus = 'Entity Onboard-Status';
+            this.valueEntityView='Entity Onboard-View'
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+              
+
+              if (this.actions == 'Entity Onboard-Add') {
+                this.valueEntityAdd = 'Entity Onboard-Add';
+              }
+              if(this.actions=='Entity Onboard-Export'){
+                this.valueEntityExport='Entity Onboard-Export'
+              }
+              if(this.actions=='Entity Onboard-Status'){
+                this.valueEntityStatus='Entity Onboard-Status'
+              }
+              if(this.actions=='Entity Onboard-View'){
+                this.valueEntityView='Entity Onboard-View'
+              }
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    })
   }
 
 
