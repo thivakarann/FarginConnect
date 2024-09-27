@@ -58,7 +58,7 @@
             <span *ngIf="isFullPolicyVisible">
               {{ businesscategory.termAndCondition }}
             </span>
-            <i style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more" (click)="Terms()">
+            <i style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more" (click)="Terms(businesscategory.policyId)">
               <br>
               {{ isFullPolicyVisible ? 'Read Less' : '...Read More' }}
             </i>
@@ -76,7 +76,7 @@
             <span *ngIf="isFullPolicyVisible">
               {{ businesscategory.disclaimer }}
             </span>
-            <i style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more" (click)="Disclaimer()">
+            <i style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more" (click)="Disclaimer(businesscategory.policyId)">
               <br>
               {{ isFullPolicyVisible ? 'Read Less' : '...Read More' }}
             </i>
@@ -94,7 +94,7 @@
             <span *ngIf="isFullPolicyVisible">
               {{ businesscategory.privacyPolicy }}
             </span>
-            <i style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more" (click)="privacypolicy()">
+            <i style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more" (click)="privacypolicy(businesscategory.policyId)">
               <br>
               {{ isFullPolicyVisible ? 'Read Less' : '...Read More' }}
             </i>
@@ -112,7 +112,7 @@
             <span *ngIf="isFullPolicyVisible">
               {{ businesscategory.refundPolicy }}
             </span>
-            <i style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more" (click)="refundpolicy()">
+            <i style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more" (click)="refundpolicy(businesscategory.policyId)">
               <br>
               {{ isFullPolicyVisible ? 'Read Less' : '...Read More' }}
             </i>

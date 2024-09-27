@@ -24,6 +24,7 @@ import { EntityPgonboardComponent } from '../entity-pgonboard/entity-pgonboard/e
 import { KycInfoComponent } from '../kyc-info/kyc-info.component';
 import { UpdateManualpaymentComponent } from '../update-manualpayment/update-manualpayment.component';
 import { MerchantLogoComponent } from '../merchant-logo/merchant-logo.component';
+import { CreateManualpaymentComponent } from '../create-manualpayment/create-manualpayment.component';
 
 @Component({
   selector: 'app-entity-view',
@@ -83,6 +84,7 @@ export class EntityViewComponent implements OnInit {
   Kycapproval: any;
   showLiveKeys: any;
   loggedOut!: boolean;
+  manualDetails: any;
 
   selectTab(tab: string): void {
     this.activeTab = tab;
@@ -122,6 +124,12 @@ export class EntityViewComponent implements OnInit {
 
 
     })
+    this.MerchantView.GetManualPay(this.id).subscribe((res:any)=>{
+      if(res.flag==1){
+        this.manualDetails=res.response;
+      }
+    })
+ 
   }
 
   bankStatus(event: any, id: any) {
@@ -133,7 +141,7 @@ export class EntityViewComponent implements OnInit {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         setTimeout(() => {
-          window.location.reload()
+          window.location.reload();
         }, 1000);
       }
       else {
@@ -561,8 +569,9 @@ export class EntityViewComponent implements OnInit {
       queryParams: { Alldata: id },
     });
   }
-  manualPayement(id: any) {
-    this.dialog.open(UpdateManualpaymentComponent, {
+
+  createmanualPayement(){
+    this.dialog.open(CreateManualpaymentComponent, {
       enterAnimationDuration: "1000ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
@@ -570,5 +579,26 @@ export class EntityViewComponent implements OnInit {
         value: this.id,
       }
     })
+  }
+ 
+  viewmanualtransaction(id:any){
+  console.log(this.id)
+  this.router.navigate([`dashboard/manual-transaction/${id}`], {
+    queryParams: { Alldata: id },
+  });
+}
+ 
+ 
+  manualPayement(id:any){
+    this.dialog.open(UpdateManualpaymentComponent, {
+      enterAnimationDuration: "1000ms",
+      exitAnimationDuration: "1000ms",
+      disableClose: true,
+      data: {    
+        value:id,
+     
+      }
+    })
+ 
   }
 }

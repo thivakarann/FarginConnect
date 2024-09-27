@@ -29,6 +29,7 @@ export class PolicyEditComponent implements OnInit {
   showcategoryData: boolean = false;
   errorMsg: any;
   MerchantName: any;
+  policyviewentity: any;
   merchant: any;
 
   constructor(
@@ -108,8 +109,7 @@ export class PolicyEditComponent implements OnInit {
       privacyPolicy: this.privacyPolicy?.value,
       refundPolicy: this.refundPolicy?.value,
       modifiedBy: this.getadminname,
-      merchantId: this.merchantId?.value,
-
+      merchantId: this.merchantId?.value
     }
 
     this.service.adminpolicyedit(this.policyId, submitModel).subscribe((res: any) => {

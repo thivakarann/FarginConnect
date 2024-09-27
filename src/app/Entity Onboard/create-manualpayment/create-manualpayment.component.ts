@@ -1,41 +1,26 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
-import { manualPayment } from '../../fargin-model/fargin-model.module';
+import { createManualPayment, manualPayment } from '../../fargin-model/fargin-model.module';
 
 @Component({
-  selector: 'app-update-manualpayment',
-  templateUrl: './update-manualpayment.component.html',
-  styleUrl: './update-manualpayment.component.css'
+  selector: 'app-create-manualpayment',
+  templateUrl: './create-manualpayment.component.html',
+  styleUrl: './create-manualpayment.component.css'
 })
-export class UpdateManualpaymentComponent {
+export class CreateManualpaymentComponent implements OnInit{
   Adminid = JSON.parse(localStorage.getItem('adminid') || '');
   getadminname = JSON.parse(localStorage.getItem('adminname') || '');
   id: any;
   myForm!: FormGroup;
-  PaidAmount: any;
-  merchantPayId: any;
-  fulldata: any;
-  paymentStatus: any;
-  merchantpayid: any;
-  payamount: any;
-  merchantId: any;
-  paymentMethod: any;
-  Utrnumber: any;
-
  
   constructor(private router: Router, private Approval: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog) { }
   ngOnInit(): void {
-this.merchantpayid=this.data.value.merchantPayId;
-this.payamount=this.data.value.paidAmount;
-this.merchantId=this.data.value.merchantId.merchantId;
-this.paymentMethod=this.data.value.paymentMethod;
-this.Utrnumber=this.data.value.utrNumber;
-
-    
+    this.id = this.data.value
+    console.log(this.id);
  
     this.myForm = new FormGroup({
       paidStatus: new FormControl('', [Validators.required,]),
@@ -43,16 +28,6 @@ this.Utrnumber=this.data.value.utrNumber;
       utrnumber: new FormControl(''),
  
     });
-    if (this.data && this.data.value) {
-      this.myForm.patchValue({
-        paidStatus: this.data.value.paymentStatus,
-        paymentmode: this.data.value.paymentMethod,
-        utrnumber: this.data.value.utrNumber,
-     
-      });
-    } else {
-      console.error('Data is not defined');
-    }
   }
  
   get paidStatus() {
@@ -71,15 +46,14 @@ this.Utrnumber=this.data.value.utrNumber;
  
  
   submit() {
-    let submitModel: manualPayment = {
-      paymentStatus: this.paidStatus?.value,
-      paymentMethod: this.paymentmode?.value,
+    let submitModel: createManualPayment = {
+      paymentMethod:  this.paymentmode?.value,
       utrNumber: this.utrnumber?.value,
-      merchantId: this.merchantId,
-      paidAmount: this.payamount
+      paymentStatus: this.paidStatus?.value,
+      merchantId: this.id
     }
  
-    this.Approval.UpdateManualPayment(this.merchantpayid,submitModel).subscribe((res: any) => {
+    this.Approval.CreateManualPayment(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.response);
         this.dialog.closeAll();
@@ -92,4 +66,3 @@ this.Utrnumber=this.data.value.utrNumber;
     })
   }
 }
-

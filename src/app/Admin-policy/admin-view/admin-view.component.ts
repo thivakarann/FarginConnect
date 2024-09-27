@@ -226,37 +226,42 @@ export class AdminViewComponent implements OnInit {
  
  
  
-  Terms() {
+  Terms(id:any) {
     this.dialog.open(AdminTermsConditionComponent, {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
-      disableClose: true
- 
+      disableClose: true,
+      data:{value:id},
     });
  
   }
  
-  Disclaimer() {
+  Disclaimer(id:any) {
     this.dialog.open(AdminDisclaimerComponent, {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
-      disableClose: true
+      disableClose: true,
+      data:{value:id},
  
     });
   }
-  privacypolicy() {
+  privacypolicy(id:any) {
     this.dialog.open(AdminPrivacypolicyComponent, {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
-      disableClose: true
+      disableClose: true,
+      data:{value:id},
+
  
     });
   }
-  refundpolicy() {
+  refundpolicy(id:any) {
     this.dialog.open(AdminRefundpolicyComponent, {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
-      disableClose: true
+      disableClose: true,
+      data:{value:id},
+
  
     });
   }
@@ -268,8 +273,6 @@ export class AdminViewComponent implements OnInit {
     });
     console.log(id);
   }
- 
- 
+
+
 }
-
-

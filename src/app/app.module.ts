@@ -145,6 +145,8 @@ import { DuesViewComponent } from './dues/dues-view/dues-view.component';
 import { DuesComponent } from './dues/dues.component';
 import { UpdateManualpaymentComponent } from './Entity Onboard/update-manualpayment/update-manualpayment.component';
 import { MerchantLogoComponent } from './Entity Onboard/merchant-logo/merchant-logo.component';
+import { ManualTransactionComponent } from './Entity Onboard/manual-transaction/manual-transaction.component';
+import { CreateManualpaymentComponent } from './Entity Onboard/create-manualpayment/create-manualpayment.component';
 
 @NgModule({
   declarations: [
@@ -271,6 +273,8 @@ import { MerchantLogoComponent } from './Entity Onboard/merchant-logo/merchant-l
     DuesComponent,
     UpdateManualpaymentComponent,
     MerchantLogoComponent,
+    ManualTransactionComponent,
+    CreateManualpaymentComponent
     
   ],
 

@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { bankData } from '../../fargin-model/fargin-model.module';
 
 @Component({
@@ -27,6 +27,7 @@ export class EntityBankaddComponent implements OnInit {
     public service: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
+    private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
   ngOnInit(): void {
@@ -97,9 +98,10 @@ export class EntityBankaddComponent implements OnInit {
     this.service.EntitybankAdd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.dialog.closeAll();
         setTimeout(() => {
           window.location.reload();
-        }, 2000);
+        }, 1000);
 
       } else {
         this.toastr.error(res.responseMessage);

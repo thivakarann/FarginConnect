@@ -60,6 +60,7 @@ import { EditPersonalInfoComponent } from './Entity Onboard/edit-personal-info/e
 import { EntityTransactionComponent } from './entity-transaction/entity-transaction.component';
 import { DuesComponent } from './dues/dues.component';
 import { UpdateManualpaymentComponent } from './Entity Onboard/update-manualpayment/update-manualpayment.component';
+import { ManualTransactionComponent } from './Entity Onboard/manual-transaction/manual-transaction.component';
 
 const routes: Routes = [
 
@@ -133,6 +134,7 @@ const routes: Routes = [
       { path: 'entitycustomerviewAll/:id', component: EntityCustomersViewAllComponent },
       { path: "app-dues", component: DuesComponent },
       { path: 'manual-payment', component: UpdateManualpaymentComponent },
+      {path:'manual-transaction/:id',component:ManualTransactionComponent}
 
     ],
   },

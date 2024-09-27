@@ -663,11 +663,7 @@ export interface editroles {
 }
 
 
-export interface manualPayment{
-  readonly technicalPayStatus:any;
-  readonly  paymentMode:any;
-  readonly utrNumber:any;
-}
+
 
 export interface BroadcasterBouquetupdate {
   readonly bouquteId:any
@@ -679,4 +675,18 @@ export interface BroadcasterBouquetupdate {
   readonly amount: any;
   readonly modifiedBy: any;
  
+}
+export interface manualPayment{
+  readonly paymentStatus:any;
+  readonly  paymentMethod:any;
+  readonly utrNumber:any;
+  readonly merchantId:any;
+  readonly paidAmount:any;
+}
+ 
+export interface createManualPayment{
+readonly paymentMethod:any;
+readonly utrNumber:any;
+readonly paymentStatus:any;
+readonly merchantId:any;
 }

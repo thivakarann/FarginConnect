@@ -30,6 +30,8 @@
             Information</button>
         <button class="tab" [class.active]="activeTab === 'videos'" (click)="selectTab('videos')">KYC Documents</button>
         <button class="tab" [class.active]="activeTab === 'doot1'" (click)="selectTab('doot1')">Final Approval</button>
+        <button class="tab" [class.active]="activeTab === 'doot2'" (click)="selectTab('doot2')">Platform Payment</button>
+
     </div>
     <div class="tab-content" *ngIf="activeTab === 'events'">
         <div class="filters">
@@ -259,10 +261,8 @@
                                             <div class="d-flex mb-2">
                                                 <div class="w-50 font-weight-bold">Logo</div>
                                                 <div class="w-50">
-                                                    <span *ngIf="this.detaislone?.logoLink != null"
-                                                        (click)="viewlogo(this.id,this.detaislone?.logoLink)"><i
+                                                    <span (click)="viewlogo(this.id,this.detaislone?.logoLink)"><i
                                                             class="fas fa-eye"> </i></span>
-                                                    <span *ngIf="this.detaislone?.logoLink == null">- -</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -275,61 +275,7 @@
             </div>
             <button class="btn clear"></button>
         </div>
-        <h5 class="p-2 mx-3 mt-5" style="background-color: #bcdf72;color:#fff;font-weight: 500;font-size:20px;">One-Time
-            Platform Fee</h5>
-        <div class="filters">
-            <div class="col-12">
-                <article class=" car-details label-info mt-3">
-                    <div class="d-flex flex-md-row align-items-md-start align-items-center flex-column">
-                        <div class="w-100">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-md-6 col-12">
-                                        <div class="d-flex flex-column">
-                                            <div class="d-flex mb-2">
-                                                <div class="w-50 font-weight-bold">Technical Pay Status</div>
-                                                <div class="w-50">
-                                                    <span *ngIf="this.detaislone?.technicalPayStatus=='Pending'"
-                                                        class="text-danger">- -</span>
-                                                    <span *ngIf="this.detaislone?.technicalPayStatus=='Success'"
-                                                        class="text-success">{{detaislone?.technicalPayStatus}}</span>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex mb-2">
-                                                <div class="w-50 font-weight-bold">
-                                                    Payment Mode</div>
-                                                <div class="w-50">
-                                                    {{detaislone?.paymentMode }}
-                                                </div>
-                                            </div>
 
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-12">
-                                        <div class="d-flex flex-column">
-                                            <div class="d-flex mb-2">
-                                                <div class="w-50 font-weight-bold">Payment At</div>
-                                                <div class="w-50">
-                                                    {{detaislone?.paymentDateTime | date:'yyyy-MM-dd hh:mm a'}}
-                                                </div>
-                                            </div>
-                                            <div class="d-flex mb-2">
-                                                <div class="w-50 font-weight-bold">Update Manual Payment</div>
-                                                <div class="w-50">
-                                                    <button class="buttonDownload"
-                                                        (click)="manualPayement(this.id)">Manual</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            </div>
-            <button class="btn clear"></button>
-        </div>
         <h5 class="p-2 mx-3 mt-5" style="background-color: #bcdf72;color:#fff;font-weight: 500;font-size:20px;">Personal
             Approval</h5>
 
@@ -716,6 +662,83 @@
                 </div>
                 <div class="text-end mt-3">
                     <pagination-controls (pageChange)="p= $event"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="activeTab === 'doot2'">
+    <mat-card-header>
+        <div class="row  d-flex justify-content-start">
+            <div class="col-md-3">
+                <div class="search ">
+                    <form class="form">
+                        <label for="search">
+                            <input #input required="" autocomplete="off" placeholder="Search" id="search" type="text"
+                                [(ngModel)]="searchText">
+                            <div class="icon">
+                                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                                        stroke-linecap="round"></path>
+                                </svg>
+                                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                                    <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
+                                        stroke-linecap="round">
+                                    </path>
+                                </svg>
+                            </div>
+                            <button type="reset" class="close-btn">
+                                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                                    <path clip-rule="evenodd"
+                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                        fill-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </label>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-2 mt-1">
+                <button (click)="createmanualPayement()"
+                    style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Create
+                </button>
+            </div>
+        </div>
+    </mat-card-header>
+    <div class="row mt-4">
+        <div class="col-12 mb-3 mb-lg-5">
+            <div class="card table-nowrap table-card">
+                <div class="table-responsive text-nowrap text-center">
+                    <table class="table table-hover" id="customers">
+                        <tr>
+                            <th>S No </th>
+                            <th>Payment ID</th>
+                            <th>Paid Amount</th>
+                            <th>Payment Method</th>
+                            <th>Edit</th>
+                            <th>View</th>
+                            <th>Payment Status</th>
+                            <th>Payment At</th>
+                        </tr>
+                        <tbody
+                            *ngFor="let item of manualDetails| paginate: { itemsPerPage: 3, currentPage: currentPage } | search: searchText;let i=index">
+                            <td>{{i+1}}</td>
+                            <td>{{item.paymentId}}</td>
+                            <td>{{item.paidAmount}}</td>
+                            <td>{{item.paymentMethod}}</td>
+                            <td (click)="manualPayement(item)"><i class="fas fa-edit"
+                                    style="font-size: 16px;color: rgb(39, 39, 95);"></i></td>
+                            <td (click)="viewmanualtransaction(item.merchantPayId)"> <i class="fas fa-eye"
+                                    style="font-size: 16px;color: rgb(39, 39, 95);"></i></td>
+                            <td>{{item.paymentStatus}}</td>
+                            <td>{{item.paymentDateTime | date:"dd-mm-yyy hh:mmm a"}}</td>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-end mt-3">
+                    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
                 </div>
             </div>
         </div>

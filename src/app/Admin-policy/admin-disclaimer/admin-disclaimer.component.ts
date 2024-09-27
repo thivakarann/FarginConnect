@@ -33,21 +33,12 @@ export class AdminDisclaimerComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.service.adminPolicyget().subscribe((res: any) => {
+    this.service.Policiesgetbyid(this.data.value).subscribe((res: any) => {
       if (res.flag == 1) {
         this.businesscategory = res.response;
-        for (let i = 0; i < this.businesscategory.length; i++) {
-          const element = this.businesscategory[i];
-          this.policyId = element.policyId;
-          console.log(this.policyId)
-          this.disclaimer = element.disclaimer;
-
-
-        }
+      
       }
     });
-
-
   }
 
 

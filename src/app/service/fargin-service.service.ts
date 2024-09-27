@@ -66,6 +66,8 @@ export class FarginServiceService {
   private readonly Adminpolicyedit = 'policy/updatemerchant/';
   private readonly adminpolicyviewbyidedit = 'policy/getpolicy/';
   private readonly policymerchant = 'merchant/approvedMerchant';
+  private readonly policiesbyid = 'policy/getpolicy/';
+
 
   private readonly admingetall = 'adminUser/viewall';
   private readonly adminstatus = 'adminUser/updateStatus';
@@ -83,7 +85,6 @@ export class FarginServiceService {
   private readonly updateEntity = 'merchant/updateMerchant/';
   private readonly entityactivestatus = 'merchant/updateStatus';
   private readonly emailtrigger = 'merchantOnboard/resendmail';
-  private readonly updatemanualpay = 'merchant/updateManualPayment/'
   private readonly merchantlogo = 'merchant/updateimage ';
 
 
@@ -283,12 +284,18 @@ export class FarginServiceService {
   private readonly generatedues = 'maintanancePay/createDues'
   private readonly maintenance = 'maintanancePay/receiptView/'
 
-    //Dashboard
-    private readonly dashboardData='dashBoard/dashBoardCount'
-    private readonly dashboardbusinessgetall='businesscategory/getall'
-    private readonly dashboardbusinesscategorybyid='dashBoard/businessCategory/'
-    private readonly dashboardtransaction='dashBoard/transaction/'
-  
+  //Dashboard
+  private readonly dashboardData = 'dashBoard/dashBoardCount'
+  private readonly dashboardbusinessgetall = 'businesscategory/getall'
+  private readonly dashboardbusinesscategorybyid = 'dashBoard/businessCategory/'
+  private readonly dashboardtransaction = 'dashBoard/transaction/'
+
+   //manual payment
+   private readonly updatemanualpay='merchant/updateManualPayment/';
+   private readonly createmanualpay='merchantpay/manualPayment';
+   private readonly manualpayget='merchantpay/viewMerchant/';
+   private readonly manualtransaction='transhistory/viewMerchantPay/'
+
 
 
 
@@ -353,16 +360,16 @@ export class FarginServiceService {
   }
 
 
-  dashboardCount(){
+  dashboardCount() {
     return this.http.get(`${this.basePath}${this.dashboardData}`, this.options)
   }
-  dashboardbusinessgetalls(){
+  dashboardbusinessgetalls() {
     return this.http.get(`${this.basePath}${this.dashboardbusinessgetall}`, this.options)
   }
-  dashboardbusinesscategorybyids(id:any){
+  dashboardbusinesscategorybyids(id: any) {
     return this.http.get(`${this.basePath}${this.dashboardbusinesscategorybyid}${id}`, this.options)
   }
-  dashboardtransactions(id:any, id1:any, id2:any,id3:any){
+  dashboardtransactions(id: any, id1: any, id2: any, id3: any) {
     return this.http.get(`${this.basePath}${this.dashboardtransaction}${id}/${id1}/${id2}/${id3}`, this.options)
   }
   //business category
@@ -482,6 +489,10 @@ export class FarginServiceService {
     return this.http.get(`${this.basePath}${this.policymerchant}`, this.options)
   }
 
+
+  Policiesgetbyid(id: any) {
+    return this.http.get(`${this.basePath}${this.policiesbyid}${id}`, this.options)
+  }
   adminPolicyget() {
     return this.http.get(`${this.basePath}${this.adminpolicy}`, this.options)
   }
@@ -594,12 +605,12 @@ export class FarginServiceService {
     return this.http.get(`${this.basePath}${this.Entitygetall}`, this.options)
   }
 
-  EntityAdd(model: any) {
-    return this.http.post(`${this.basePath}${this.AddEntity}`, model, this.options)
+  EntityAdd(formdata: any) {
+    return this.http.post(`${this.basePath}${this.AddEntity}`, formdata, this.optionsMultipart)
   }
 
-  UpdatePersonalEntity(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.updateEntity}${id}`, model, this.options)
+  UpdatePersonalEntity(id: any, formdata: any) {
+    return this.http.put(`${this.basePath}${this.updateEntity}${id}`, formdata, this.optionsMultipart)
   }
 
 
@@ -608,10 +619,7 @@ export class FarginServiceService {
     return this.http.post(`${this.basePath}${this.emailtrigger}`, data, this.options);
   }
 
-  UpdateManualPayment(id: any, data: any) {
-    return this.http.put(`${this.basePath}${this.updatemanualpay}${id}`, data, this.options);
 
-  }
 
   EntitylogoUpdate(data: FormData) {
     return this.http.put(`${this.basePath}${this.merchantlogo}`, data, this.optionsMultipart);
@@ -668,7 +676,7 @@ export class FarginServiceService {
   }
 
   KycUpdate(data: any) {
-    return this.http.put(`${this.basePath}${this.editkyc}`, data, this.optionsMultipart);
+    return this.http.post(`${this.basePath}${this.editkyc}`, data, this.optionsMultipart);
   }
   getImageview(id: any, id1: any) {
     return this.http.get(`${this.basePath}${this.kycdocument}${id}/${id1}`, {
@@ -766,7 +774,25 @@ export class FarginServiceService {
   //   return this.http.put(`${this.basePath}${this.EntityBankApproval}${id}`, model, this.options)
   // }
 
-
+//manual payment
+ 
+ 
+UpdateManualPayment(id:any,data:any){
+  return this.http.put(`${this.basePath}${this.updatemanualpay}${id}`,data, this.options);
+ 
+}
+ 
+CreateManualPayment(data:any){
+  return this.http.post(`${this.basePath}${this.createmanualpay}`,data, this.options);
+ 
+}
+ 
+GetManualPay(id: any) {
+  return this.http.get(`${this.basePath}${this.manualpayget}${id}`, this.options)
+}
+GetManualTransaction(id: any) {
+  return this.http.get(`${this.basePath}${this.manualtransaction}${id}`, this.options)
+}
 
   //pg onboard
   PgOnboard(model: any) {

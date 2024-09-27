@@ -6,7 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Location } from '@angular/common';
-
+ 
 @Component({
   selector: 'app-entity-refund',
   templateUrl: './entity-refund.component.html',
@@ -16,8 +16,8 @@ export class EntityRefundComponent {
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = [
     'customerId',
-    'Type',
     'Customer Refund',
+    'Type',
     'Customer Name',
     'Payment ID',
     'Request ID',
@@ -25,7 +25,6 @@ export class EntityRefundComponent {
     'Paid Amount',
     'Refund Amount',
     'Total Refunded Amount',
-    'Bank Reference',
     'Refund Status',
     'Refund Date & Time'
   ];
@@ -60,32 +59,13 @@ export class EntityRefundComponent {
   }
    
    
-  add() {
-    this.router.navigateByUrl('dashboard/entity-add');
-  }
+ 
    
    
    
-  Viewdata(id: any) {
-    this.router.navigate([`dashboard/entity-view/${id}`], {
-      queryParams: { Alldata: id },
-    });
-    console.log(id);
-  }
+ 
    
-   
-   
-  Viewparticularcustomer(id:any){
-    this.router.navigate([`dashboard/entity-Individualcustomer-view/${id}`], {
-      queryParams: { Alldata: id },
-    });
-    console.log(id);
-  }
-   
-   
-  exportexcel() {
-   
-  }
+ 
    
    
    
@@ -97,8 +77,8 @@ export class EntityRefundComponent {
       this.dataSource.paginator.firstPage();
     }
   }
-
-
+ 
+ 
   close(){
     this.Location.back()
    }
