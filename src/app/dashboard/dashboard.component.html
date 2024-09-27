@@ -68,7 +68,7 @@
               <span></span>
             </li>
 
-            <li>
+            <li [hidden]="valueDashboard!=='Dashboard'">
               <a routerLink="dashboard-content">
                 <i class="fa fa-dashboard"></i>
                 <span>Dashboard</span>
@@ -76,7 +76,7 @@
               </a>
             </li>
 
-            <li>
+            <li [hidden]="valueEntity!=='Entity Onboard'">
               <a routerLink="entity-viewall">
                 <i class="fa fa-user-plus"></i>
                 <span>Entity Onboard</span>
@@ -84,7 +84,7 @@
               </a>
             </li>
 
-            <li>
+            <li [hidden]="valueCustomer!=='Customers'">
               <a routerLink="Overall-Customer-view">
                 <i class="fa fa-user" aria-hidden="true"></i>
                 <span>Customers</span>
@@ -99,8 +99,7 @@
 
               </a>
             </li>
-
-            <li>
+            <li [hidden]="valueTransaction!=='Transactions'">
               <a routerLink="overall-transactions-viewall">
                 <i class="fa-solid fa-credit-card" aria-hidden="true"></i>
                 <span>Transactions</span>
@@ -108,8 +107,7 @@
               </a>
             </li>
 
-
-            <li>
+            <li [hidden]="valuepayOut!=='Payout'">
               <a routerLink="view-beneficiary">
                 <i class="fas fa-landmark icon"></i>
                 <span>Payout</span>
@@ -117,25 +115,27 @@
               </a>
             </li>
 
-
-
-
-
-
-            <li>
+            <li [hidden]="valueTermsandPolicy!=='Terms & Policy'">
               <a routerLink="fas fa-user-plus">
                 <i class="fas fa-hands-holding-child icon"></i>
                 <span routerLink="Terms-policy">Terms and Policy</span>
 
               </a>
             </li>
-            <li style="cursor:pointer;">
+            <li style="cursor:pointer;" [hidden]="valueTickets!=='Tickets'">
               <a routerLink="/dashboard/viewticket">
                 <i class="fa fa-book"></i>
                 <span>Tickets</span>
               </a>
             </li>
-            <li class="sidebar-dropdown" style="cursor: pointer;">
+            <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valueBusinessCategory!=='BussinessCategory' && 
+             valueBusinessKYC!=='Business KYC' && 
+             valueRegion!=='Region' && 
+             ValueMSO!=='MSO' &&
+             valueFacheck!=='FaCheck Key' &&
+             valuemerchantPlan!=='Merchant Plan' &&
+             valuepgsetupkey!=='PG SetupKey' &&
+             valueWithdrawalfee!=='Withdrawal Fee' ">
               <a>
                 <i class="fa fa-cogs"></i>
                 <span>Main Master</span>
@@ -143,52 +143,51 @@
               </a>
               <div class="sidebar-submenu">
                 <ul>
-                  <li>
+                  <li [hidden]="valueBusinessCategory!=='BussinessCategory'">
                     <a routerLink="view-category">Business Category
 
                     </a>
                   </li>
-                  <li>
+                  <li [hidden]="valueBusinessKYC!=='Business KYC'">
                     <a routerLink="Business-kyc">Business KYC</a>
                   </li>
-                  <li>
+                  <li [hidden]="valueRegion!=='Region'">
                     <a routerLink="Region">Region</a>
                   </li>
-                  <li>
+                  <li [hidden]="ValueMSO!=='MSO'">
                     <a routerLink="service-provider">MSO</a>
                   </li>
-
-                  <li>
+                  <li [hidden]="valuemerchantPlan!=='Merchant Plan'">
                     <a routerLink="merchant-plan-viewall">Merchant Plan</a>
                   </li>
 
-                  <li>
+                  <li [hidden]="valueFacheck!=='FaCheck Key'">
                     <a routerLink="viewfacheckkey">Facheck Key</a>
                   </li>
 
-                  <li>
+                  <li [hidden]="valuepgsetupkey!=='PG SetupKey'">
                     <a routerLink="pgsetup-view">PG Setupkey</a>
                   </li>
 
-                  <li>
+                  <li [hidden]="valueWithdrawalfee!=='Withdrawal Fee'">
                     <a routerLink="viewwithdrawal">Withdrawal Fee</a>
                   </li>
                 </ul>
               </div>
             </li>
-            <li class="sidebar-dropdown" style="cursor: pointer;">
+            <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valueUser!=='User' && valueRole!=='Role'">
               <a>
                 <i class="fa fa-globe"></i>
                 <span>User Management</span>
               </a>
               <div class="sidebar-submenu">
                 <ul>
-                  <li>
+                  <li [hidden]="valueUser!=='User'">
                     <a routerLink="/dashboard/admindetails">Admin
                     </a>
                   </li>
 
-                  <li routerLink="view-role">
+                  <li routerLink="view-role"  [hidden]="valueRole!=='Role'">
                     <a>Role</a>
                   </li>
 
@@ -197,28 +196,32 @@
 
             </li>
 
-            <li class="sidebar-dropdown" style="cursor: pointer;">
+            <li class="sidebar-dropdown" style="cursor: pointer;"
+            [hidden]="valuechannelConfiguration!=='Channel Configuration' && 
+             valueBroadcasterConfiguration!=='Broadcaster Configuration' && 
+             valuePlanConfiguration!=='Plan Configuration' && 
+             valueBroadcasterBouqutes!=='Broadcaster Bouqutes'">
               <a>
                 <i class="fa-solid fa-tv"></i>
                 <span>Channels & Packages</span>
               </a>
               <div class="sidebar-submenu">
                 <ul>
-                  <li>
+                  <li [hidden]="valuechannelConfiguration!=='Channel Configuration'">
                     <a routerLink="alacarte-viewall">Channel Configuration
                     </a>
                   </li>
-                  <li>
+                  <li [hidden]="valueBroadcasterConfiguration!=='Broadcaster Configuration'">
                     <a routerLink="bouquatename-viewall">Broadcaster Configuration</a>
                   </li>
 
-                  <li>
+                  <li [hidden]="valuePlanConfiguration!=='Plan Configuration'">
                     <a routerLink="bouquete-plan-viewall">
                       Plan Configuration
                     </a>
                   </li>
 
-                  <li>
+                  <li [hidden]="valueBroadcasterBouqutes!=='Broadcaster Bouqutes'">
                     <a routerLink="bouquets-viewall">Broadcaster Bouqutes</a>
                   </li>
                   <!-- 

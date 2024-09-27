@@ -13,7 +13,7 @@
                 <div class="form__grid">
                     <div class="form__linput">
                         <label class="form__label" for="apiKey">Api Key</label>
-                        <input class="form__input" id="apiKey" type="text" formControlName="apiKey"
+                        <input class="form-control" id="apiKey" type="text" formControlName="apiKey"
                             placeholder="Enter Api Key..." required />
                         <div style="color: red; font-size: 12px;margin-top: 2px;" class="form__error"
                             *ngIf="apiKey?.invalid && apiKey?.touched && apiKey?.errors?.['required']">
@@ -23,7 +23,7 @@
 
                     <div class="form__linput">
                         <label class="form__label" for="secretKey">Secret Key</label>
-                        <input class="form__input" id="secretKey" type="text" formControlName="secretKey"
+                        <input class="form-control" id="secretKey" type="text" formControlName="secretKey"
                             placeholder="Secret Key..." required />
                         <div style="color: red; font-size: 12px;margin-top: 2px;" class="form__error"
                             *ngIf="secretKey?.invalid && secretKey?.touched && secretKey?.errors?.['required']">

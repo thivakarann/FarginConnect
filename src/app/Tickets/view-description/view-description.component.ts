@@ -15,7 +15,6 @@ export class ViewDescriptionComponent {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.data.value);
     this.description=this.data.value.description
   }
 

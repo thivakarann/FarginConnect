@@ -41,19 +41,21 @@
                         <h5 class="p-2 mx-3" style="font-weight: 500;font-size:20px;">Personal
                             Information</h5>
                     </div>
-                    <div class="col-md-2 d-flex justify-content-end ">
-                        <span class="p-2">
-                            <i class="fas fa-edit" style="color: #141E46;font-weight: 500;font-size:20px;"
-                                (click)="editpersonalInfo(this.id)"></i>
-                        </span>
-                        &nbsp;&nbsp;&nbsp;
-                        <span class="p-2">
+                    <div class="col-md-2 d-flex justify-content-end">
+  <span class="p-2">
+                        <i class="fas fa-edit" style="color: #141E46;font-weight: 500;font-size:20px;"
+                            (click)="editpersonalInfo(this.id)"
+                            [hidden]="valueentityEdit!=='Entity View-Edit'"></i>&nbsp;&nbsp;&nbsp;
+</span>
+                        
+ <span class="p-2">
                             <i style="overflow:hidden;color:#141E46;font-size:22px;" [matMenuTriggerFor]="menu"
                                 class="fa-solid fa-circle-info">
                                 <mat-menu #menu="matMenu">
                                     <button style="font-size: 10px;" mat-menu-item>Onboard Merchant</button>
                                     <button style="font-size: 10px;" mat-menu-item>Update Manual Payment</button>
-                                    <button style="font-size: 10px;" mat-menu-item (click)="emailtrigger()">
+                                    <button style="font-size: 10px;" mat-menu-item (click)="emailtrigger()"
+                                        [hidden]="valueentityEmailnotify!=='Entity View-Email Notification'">
                                         Email Notification</button>
                                 </mat-menu>
                             </i>
@@ -121,7 +123,8 @@
                                                 <div class="w-50">{{detaislone?.zipcode}}</div>
                                             </div>
 
-                                            <div class="d-flex mb-2">
+                                            <div class="d-flex mb-2"
+                                                [hidden]="valueentityApi!=='Entity Onboard View-APIkey'">
                                                 <div class="w-50 font-weight-bold">
                                                     <span style="color: #78ae76">A</span>pi Key
                                                     <!-- <span style="color: lightgray">(Live Key)</span> -->
@@ -213,7 +216,8 @@
                                                     <span *ngIf="this.detaislone?.gstIn==null">- -</span>
                                                 </div>
                                             </div>
-                                            <div class="d-flex mb-2">
+                                            <div class="d-flex mb-2"
+                                                [hidden]="valueentitySecretkey!=='Entity Onboard View-SecretKey'">
                                                 <div class="w-50 font-weight-bold">
                                                     <span style="color: #78ae76">S</span>ecret Key
                                                     <!-- <span style="color: lightgray">(Live Key)</span> -->
@@ -323,11 +327,13 @@
                                                     <span *ngIf="this.detaislone?.approvedDateTimeL1==null">-</span>
                                                 </div>
                                             </div>
+                                            <div [hidden]="valuePersonalApproval!=='Entity View-Personal Approval'">
                                             <div class="d-flex mb-2">
-                                                <div class="w-50 font-weight-bold">Approval</div>
-                                                <div class="w-50">
-                                                    <button class="buttonDownload"
-                                                        (click)="levelOneApproval(this.id)">Approval</button>
+                                                    <div class="w-50 font-weight-bold">Approval</div>
+                                                    <div class="w-50">
+                                                        <button class="buttonDownload"
+                                                            (click)="levelOneApproval(this.id)">Approval</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -375,7 +381,7 @@
                     </div>
                 </div>
                 <div class="col-md-2 mt-1">
-                    <button (click)="addbank(this.id)"
+                    <button (click)="addbank(this.id)"  [hidden]="valuebankadd!=='Bank-Add'"
                         style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Add
                         Bank</button>
                 </div>
@@ -395,13 +401,13 @@
                                 <th>Bank Name</th>
                                 <th>Branch Name</th>
                                 <th>Approval Status</th>
-                                <th>Bank Status</th>
-                                <th>Primary Status</th>
-                                <th>Approval</th>
+                                <th [hidden]="valuebankstatus!=='Bank-Status'">Bank Status</th>
+                                <th [hidden]="valuebankprimaryStatus!=='Bank Primary-Status'">Primary Status</th>
+                                <th [hidden]="valuebankapproval!=='Bank-Approval'">Approval</th>
                                 <th>Approvet At</th>
                                 <th>Comments</th>
-                                <th>Action</th>
-                                <th>Verification</th>
+                                <th [hidden]="valuebankupdate!=='Bank-Edit'">Action</th>
+                                <th [hidden]="valuebankverification!=='Bank-Verfification'">Verification</th>
                             </tr>
                             <tbody
                                 *ngFor="let item of bankdetails| paginate: { itemsPerPage: 3, currentPage: currentPage } | search: searchText;let i=index">
@@ -418,20 +424,20 @@
                            
                                                     Red: item?.approvalStatus == 'Rejected'
                                                   }">{{item.approvalStatus}}</td>
-                                <td><span> <mat-slide-toggle class="example-margin" color="primary"
+                                <td [hidden]="valuebankstatus!=='Bank-Status'"><span> <mat-slide-toggle class="example-margin" color="primary"
                                             [checked]="item.activeStatus==1"
                                             (change)="bankStatus($event,item.merchantBankId)">
                                         </mat-slide-toggle></span>
 
                                 </td>
-                                <td><span>
+                                <td [hidden]="valuebankprimaryStatus!=='Bank Primary-Status'"><span>
                                         <mat-slide-toggle class="example-margin" color="primary"
                                             [checked]="item.primaryAccountStatus==1"
                                             (change)="onSubmit($event,item.merchantBankId)">
                                         </mat-slide-toggle>
                                     </span>
                                 </td>
-                                <td><button class="buttonDownload"
+                                <td [hidden]="valuebankapproval!=='Bank-Approval'"><button class="buttonDownload"
                                         (click)="BankApproval(item.merchantBankId)">Approval</button>
                                 </td>
                                 <td>{{item.approvalDateTime|date:"dd/MM/yyyy hh:mm:a"}}</td>
@@ -439,9 +445,9 @@
                                             style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
                                 </td>
 
-                                <td><span><i style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"
+                                <td [hidden]="valuebankupdate!=='Bank-Edit'"><span><i style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"
                                             (click)="editbank(item)" class="fas fa-edit"></i></span></td>
-                                <td>
+                                <td [hidden]="valuebankverification!=='Bank-Verfification'">
                                     <span>
                                         <i style="overflow:hidden;color:#141E46;font-size:20px;"
                                             [matMenuTriggerFor]="menu" class="fa-solid fa-circle-info">
@@ -503,7 +509,7 @@
                     </div>
                 </div>
                 <div class="col-md-2 mt-1">
-                    <button (click)="addKycdocuments(this.id,this.businessCategoryId)"
+                    <button (click)="addKycdocuments(this.id,this.businessCategoryId)"  [hidden]="valueKycAdd!=='KYC-add'"
                         style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Add
                         KYC</button>
                 </div>
@@ -518,22 +524,22 @@
                                 <th>S No </th>
                                 <th>Document Name</th>
                                 <th>Document Number</th>
-                                <th>KYC File</th>
+                                <th [hidden]="valueKycFile!=='KYC-Image'">KYC File</th>
                                 <th>Approval Status</th>
-                                <th>Approval</th>
+                                <th [hidden]="valueKycApproval!=='KYC-Approval'">Approval</th>
                                 <th>Approved By</th>
                                 <th>Approval At</th>
                                 <th>Comments</th>
-                                <th>Action</th>
+                                <th [hidden]="valueKyccEdit!=='KYC-Edit'">Action</th>
                                 <th>Verification Status</th>
-                                <th>Verfication </th>
+                                <th [hidden]="valueKycVerification!=='KYC-Verification'">Verfication </th>
                             </tr>
                             <tbody
                                 *ngFor="let item of KYCDetails| paginate: { itemsPerPage: 3, currentPage: currentPage } | search: searchText;let i=index">
                                 <td>{{i+1}}</td>
                                 <td>{{item.docName}}</td>
                                 <td>{{item.docNumber}}</td>
-                                <td><span (click)="getFrontPath(item.merchantDocumentId)"><i class='fa-regular fa-image'
+                                <td [hidden]="valueKycFile!=='KYC-Image'"><span (click)="getFrontPath(item.merchantDocumentId)"><i class='fa-regular fa-image'
                                             style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
                                     <span (click)="getBackPath(item.merchantDocumentId)"><i class='fa-regular fa-image'
                                             style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
@@ -544,7 +550,7 @@
                                
                                                         Red: item?.approvalStatus == 'Rejected'
                                                       }">{{item.approvalStatus}}</td>
-                                <td><button class="buttonDownload"
+                                <td [hidden]="valueKycApproval!=='KYC-Approval'"><button class="buttonDownload"
                                         (click)="KycApproval(item.merchantDocumentId)">Approval</button>
                                 <td>
                                     {{item.approvalBy}}
@@ -553,8 +559,7 @@
                                 <td><span (click)="KYCComments(item.reMarks)"><i class="fas fa-comments"
                                             style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
                                 </td>
-                                <td><span (click)="editKycDocuments(item.merchantDocumentId,item)"><i
-                                            class="fas fa-edit"
+                                <td [hidden]="valueKyccEdit!=='KYC-Edit'"><span (click)="editKycDocuments(item.merchantDocumentId,item)"><i class="fas fa-edit"
                                             style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
                                 </td>
 
@@ -566,7 +571,7 @@
                                     <span *ngIf="item.facheckStatus == 2" style="font-size:14px;color:red;">
                                         Failed</span>
                                 </td>
-                                <td>
+                                <td [hidden]="valueKycVerification!=='KYC-Verification'">
                                     <span>
                                         <i style="overflow:hidden;color:#141E46;font-size:20px;"
                                             [matMenuTriggerFor]="menu" class="fa-solid fa-circle-info">
@@ -640,7 +645,7 @@
                                 <th>Overall Approval Status</th>
                                 <th>Approved By</th>
                                 <th>Approval At</th>
-                                <th>Approval</th>
+                                <th [hidden]="valueFinalapprove!=='Final-Approval'">Approval</th>
                                 <th>Comments</th>
                             </tr>
                             <tbody>
@@ -648,8 +653,9 @@
                                 <td class="text-center">{{this.detaislone?.approvalStatusL2}}</td>
                                 <td class="text-center">{{this.detaislone?.approvedByL2}}</td>
                                 <td class="text-center">{{this.detaislone?.approvedDateTimeL2}}</td>
-                                <td class="text-center">
-                                    <span><button class="buttonDownload" (click)="levelTwoApproval(this.id)"
+                                <td class="text-center" [hidden]="valueFinalapprove!=='Final-Approval'">
+                                    <span *ngIf="this.detaislone?.approvalStatusL1 == 'approved'">
+                                  <button class="buttonDownload" (click)="levelTwoApproval(this.id)"
                                             [disabled]="this.detaislone?.approvalStatusL1 == 'Pending' || this.detaislone?.approvalStatusL1 == 'Rejected' ">Approval</button></span>
 
 
