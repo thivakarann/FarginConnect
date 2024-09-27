@@ -82,13 +82,13 @@
             <div class="row mb-3">
                 <div class="col-sm-4 form-group">
                     <label for="Bussiness category">Bussiness category</label>
-                    <select formControlName="businessCategoryIds" 
-                        id="Bussiness category" class="form-control form-select" ngModel="{{detaislone?.businessCategoryModel.businessCategoryId}}" >
-                        <option value="" disabled selected>Select</option>
-                        <option *ngFor="let item of categorydetails" [value]="item.businessCategoryId">
-                            {{item.categoryName}}</option>
+                    <select formControlName="businessCategoryIds"
+                    id="Bussiness category" class="form-control form-select" ngModel="{{detaislone?.businessCategoryModel.businessCategoryId}}"  (change)="onCategoryChange($event)">
+                    <option value="" disabled selected>Select</option>
+                    <option *ngFor="let item of categorydetails" [value]="item.businessCategoryId">
+                        {{item.categoryName}}</option>
 
-                    </select>
+                </select>
                     <div style="
                     color: red;
                     font-size: 12px;

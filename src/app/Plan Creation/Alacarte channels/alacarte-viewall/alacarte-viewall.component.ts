@@ -25,27 +25,14 @@ export class AlacarteViewallComponent implements OnInit {
     'alcotStatus',
     'View',
     'Edit',
-    'createdBy',
+    // 'createdBy',
     'createdAt',
-    'modifiedBy',
-    'modifiedAt'
-
   ];
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   isChecked: boolean = false;
-  valuealcartAdd: any;
-  valuealcartExport: any;
-  valuealcartStatus: any;
-  valuealcartView: any;
-  valuealcartEdit: any;
-
-  getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
-  actions: any;
-  errorMessage: any;
 
   constructor(
     public AllcartViewall: FarginServiceService,
@@ -61,49 +48,6 @@ export class AlacarteViewallComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       console.log(this.viewall);
     });
-    this.AllcartViewall.rolegetById(this.roleId).subscribe({
-      next: (res: any) => {
-        console.log(res);
-
-        if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
-          
-          if (this.roleId == 1) {
-            this.valuealcartAdd = 'Channel Configuration-Add';
-            this.valuealcartEdit = 'Channel Configuration-Edit';
-            this.valuealcartExport = 'Channel Configuration-Export'
-            this.valuealcartStatus = 'Channel Configuration-Status'
-            this.valuealcartView = 'Channel Configuration-View'
-          }
-          else {
-            for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
-              
-
-              if (this.actions == 'Channel Configuration-Add') {
-                this.valuealcartAdd = 'Channel Configuration-Add';
-              }
-              if(this.actions=='Channel Configuration-Edit'){
-                this.valuealcartEdit='Channel Configuration-Edit';
-              }
-              if(this.actions=='Channel Configuration-Export'){
-                this.valuealcartExport='Channel Configuration-Export';
-              }
-              if(this.actions=='Channel Configuration-View'){
-                this.valuealcartView='Channel Configuration-View'
-              }
-              if(this.actions=='Channel Configuration-Status'){
-                this.valuealcartStatus='Channel Configuration-Status';
-              }
-            }
-          }
-        }
-        else {
-          this.errorMessage = res.responseMessage;
-        }
-      }
-    })
-
   }
 
 

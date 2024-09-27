@@ -45,12 +45,14 @@ export class AddticketComponent {
     }
     this.service.updatetickets(this.raiseTicketId, submitModel).subscribe((res: any) => {
       this.ticketValue = res.response;
+      console.log();
+
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.dialog.closeAll()
         setTimeout(() => {
           window.location.reload();
-        }, 1000);
+        }, 2000);
       }
       else {
         this.toastr.error(res.responseMessage)

@@ -7,8 +7,8 @@
         <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="editcategory">
             <div class="form__linput">
                 <label class="form__label" for="fname">Category Name</label>
-                <input class="form-control" id="fname" type="text" formControlName="categoryName" name="categoryName"
-                     required />
+                <input class="form__input" id="fname" type="text" formControlName="categoryName" name="categoryName"
+                    placeholder="Enter category name..." required />
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="categoryName?.invalid && categoryName?.touched && categoryName?.errors?.['required']">
                     Field is required
@@ -16,8 +16,8 @@
             </div>
             <div class="form__linput">
                 <label class="form__label" for="fname">MCC Code</label>
-                <input class="form-control" id="fname" type="text" formControlName="mccCode" name="mccCode"
-                     required />
+                <input class="form__input" id="fname" type="text" formControlName="mccCode" name="mccCode"
+                    placeholder="Mcc code..." required />
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="mccCode?.invalid && mccCode?.touched && mccCode?.errors?.['required']">
                     Field is required

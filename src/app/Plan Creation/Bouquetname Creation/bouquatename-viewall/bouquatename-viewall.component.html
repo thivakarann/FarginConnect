@@ -36,9 +36,9 @@
             </div>&nbsp;&nbsp;&nbsp;
 
             <button style="color:white;background-color: #141E46;border-radius: 10px;" class="custom-btn btn-10 me-3"
-                data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button (click)="add()" [hidden]="valuebroadcastAdd!=='Broadcaster Configuration-Add'">Create</button>
+                data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button (click)="add()">Create</button>
             <button style="color:white;background-color: #141E46;border-radius: 10px;" (click)=" exportexcel()"
-                mat-raised-button [hidden]="valuebroadcastExport!=='Broadcaster Configuration-Export'">Export</button>
+                mat-raised-button>Export</button>
 
 
         </div>
@@ -64,8 +64,8 @@
 
 
             <ng-container matColumnDef="status">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="valuebroadcastStatus!=='Broadcaster Configuration-Status'">BroadCaster Stratus</th>
-                <td mat-cell *matCellDef="let viewall" [hidden]="valuebroadcastStatus!=='Broadcaster Configuration-Status'">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>BroadCaster Stratus</th>
+                <td mat-cell *matCellDef="let viewall">
                     <mat-slide-toggle class="example-margin" color="primary" [checked]="viewall.status==1"
                         (change)="ActiveStatus($event,viewall.bundleChannelId)">
                     </mat-slide-toggle>
@@ -74,8 +74,8 @@
 
 
             <ng-container matColumnDef="Edit">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="valuebroadcastEdit!=='Broadcaster Configuration-Edit'">Edit</th>
-                <td style="cursor: pointer;" mat-cell *matCellDef="let viewall" (click)="Edit(viewall.bundleChannelId)" [hidden]="valuebroadcastEdit!=='Broadcaster Configuration-Edit'">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Edit</th>
+                <td style="cursor: pointer;" mat-cell *matCellDef="let viewall" (click)="Edit(viewall.bundleChannelId)">
                     <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-edit"></i>
                 </td>
             </ng-container>
@@ -88,7 +88,7 @@
 
             <ng-container matColumnDef="createdAt">
                 <th mat-header-cell *matHeaderCellDef> Created Date</th>
-                <td mat-cell *matCellDef="let viewunion">{{viewunion.createdAt | date:'dd-MM-yyyy hh:mm a' }}
+                <td mat-cell *matCellDef="let viewunion">{{viewunion.createdAt | date:'dd/MM/yyyy hh:mm a' }}
                 </td>
             </ng-container>
 
@@ -101,7 +101,7 @@
 
             <ng-container matColumnDef="modifiedAt">
                 <th mat-header-cell *matHeaderCellDef>Modified At</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall.modifiedAt|date:'dd-MM-yyyy hh:mm a' }}
+                <td mat-cell *matCellDef="let viewall">{{viewall.modifiedAt|date:'dd/MM/yyyy hh:mm a' }}
                 </td>
             </ng-container>
 

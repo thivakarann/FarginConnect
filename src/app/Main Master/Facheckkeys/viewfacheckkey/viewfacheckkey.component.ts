@@ -31,15 +31,6 @@ export class ViewfacheckkeyComponent {
   date2: any;
   responseDataListnew: any = [];
   response: any = [];
-valuefacheckAdd: any;
-valuefacheckexport: any;
-valuefacheckedit: any;
-valuefacheckstatus: any;
-getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
-actions: any;
-errorMessage:any;
-
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
 
   ngOnInit() {
@@ -61,52 +52,6 @@ errorMessage:any;
         this.showcategoryData = true;
       }
     });
-
-    this.service.rolegetById(this.roleId).subscribe({
-      next: (res: any) => {
-        console.log(res);
-
-        if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
-          
-          if(this.roleId==1){
-            this.valuefacheckAdd = 'FaCheck Key-Add';
-            this.valuefacheckexport = 'FaCheck Key-Export';
-            this.valuefacheckedit = 'FaCheck Key-Edit';
-            this.valuefacheckstatus = 'FaCheck Key-Status';
-          }
-          else{
-          for (let datas of this.getdashboard) {
-
-            this.actions = datas.subPermissions;
-            
-
-
-            if (this.actions == 'FaCheck Key-Add') {
-              this.valuefacheckAdd = 'FaCheck Key-Add';
-            }
-
-            if (this.actions == 'FaCheck Key-Export') {
-              this.valuefacheckexport = 'FaCheck Key-Export';
-            }
-
-            if (this.actions == 'FaCheck Key-Edit') {
-              this.valuefacheckedit = 'FaCheck Key-Edit';
-            }
-            
-            if (this.actions == 'FaCheck Key-Status') {
-              this.valuefacheckstatus = 'FaCheck Key-Status';
-            }
-          }
-        }
-
-        }
-        else {
-          this.errorMessage = res.responseMessage;
-        }
-      }
-    })
-
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

@@ -12,7 +12,7 @@
             &nbsp;
             <div class="form__linput">
                 <label class="form__label">Role Name</label>
-                <input class="form-control" type="text" formControlName="roleName"
+                <input class="form__input" type="text" formControlName="roleName"
                     required ngModel="{{getRoleName}}" style="font-size: 14px;width: 550px;" />
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="roleName?.invalid && roleName?.touched && roleName?.errors?.['required']">

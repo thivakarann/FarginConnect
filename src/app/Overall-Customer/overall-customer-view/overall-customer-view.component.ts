@@ -43,18 +43,12 @@ date2: any;
     id: any;
     showcategoryData: boolean = false;
   overallcustomer: any;
-  valueCustomerExport: any;
-  valueCustomerView: any;
-  errorMessage: any;
-  getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
-  actions: any;
-
+  
   constructor(
     public EntityViewall: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
-    private ActivateRoute: ActivatedRoute
+    private ActivateRoute:ActivatedRoute,
   ) { }
   
   ngOnInit(): void {
@@ -74,34 +68,6 @@ date2: any;
       }
     
     });
-
-    this.EntityViewall.rolegetById(this.roleId).subscribe({
-      next: (res: any) => {
-        console.log(res);
-        if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
-
-          if (this.roleId == 1) {
-            this.valueCustomerView = 'Customers-View';
-            this.valueCustomerExport = 'Customers-Export'
-          }
-          else {
-            for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
-              if (this.actions == 'Customers-View') {
-                this.valueCustomerView = 'Customers-View';
-              }
-              if (this.actions == 'Customers-Export') {
-                this.valueCustomerExport = 'Customers-Export'
-              }
-            }
-          }
-        }
-        else {
-          this.errorMessage = res.responseMessage;
-        }
-      }
-    })
 
   }
 

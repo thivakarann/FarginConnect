@@ -40,17 +40,8 @@ export class BouquetsViewallComponent implements OnInit {
   date2: any;
   responseDataListnew: any = [];
   response: any = [];
-  valueBroadcasterBouquetesAdd: any;
-  valueBroadcasterBouquetesExport: any;
-  valueBroadcasterBouquetesStatus: any;
-  valueBroadcasterBouquetesEdit: any;
-  valueBroadcasterBouquetesView: any;
-  getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
- values: any[]=[];
-  actions: any;
-  errorMessage: any;
- subId: any[]=[];
+  values: any[]=[];
+  subId: any[]=[];
   perValueArray: any[]=[];
   moduleName: any[]=[];
   service: any;
@@ -89,52 +80,8 @@ export class BouquetsViewallComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       console.log(this.viewall);
     });
-
-    this.Bouquetviewall.rolegetById(this.roleId).subscribe({
-      next: (res: any) => {
-        console.log(res);
-
-        if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
-
-          if (this.roleId == 1) {
-            this.valueBroadcasterBouquetesAdd = 'Broadcaster Bouqutes-Add';
-            this.valueBroadcasterBouquetesEdit = 'Broadcaster Bouqutes-Edit';
-            this.valueBroadcasterBouquetesExport = 'Broadcaster Bouqutes-Export';
-            this.valueBroadcasterBouquetesStatus = 'Broadcaster Bouqutes-Status';
-            this.valueBroadcasterBouquetesView = 'Broadcaster Bouqutes-View';
-          }
-          else {
-            for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
-
-
-              if (this.actions == 'Broadcaster Bouqutes-Add') {
-                this.valueBroadcasterBouquetesAdd = 'Broadcaster Bouqutes-Add';
-              }
-              if (this.actions == 'Broadcaster Bouqutes-Edit') {
-                this.valueBroadcasterBouquetesEdit = 'Broadcaster Bouqutes-Edit'
-              }
-              if (this.actions == 'Broadcaster Bouqutes-Export') {
-                this.valueBroadcasterBouquetesExport = 'Broadcaster Bouqutes-Export'
-              }
-              if (this.actions == 'Broadcaster Bouqutes-Status') {
-                this.valueBroadcasterBouquetesStatus = 'Broadcaster Bouqutes-Status'
-              }
-              if (this.actions == 'Broadcaster Bouqutes-View') {
-                this.valueBroadcasterBouquetesView = 'Broadcaster Bouqutes-View'
-              }
-            }
-          }
-        }
-        else {
-          this.errorMessage = res.responseMessage;
-        }
-      }
-    })
-
   }
-
+ 
   adds() {
     this.router.navigateByUrl('/dashboard/bouqutes-add')
   }

@@ -32,9 +32,9 @@
       </div>&nbsp;&nbsp;&nbsp;
  
       <button (click)="create()" style="color:white;background-color: #141E46;border-radius: 10px;"
-        mat-raised-button [hidden]="valueCategoryAdd!=='BussinessCategory-Add'">Create</button>
+        mat-raised-button>Create</button>
       <button style="color:white;background-color: #141E46;border-radius: 10px;" (click)="exportexcel()"
-        mat-raised-button [hidden]="valueCategoryexport!=='BussinessCategory-Export'">Export</button>
+        mat-raised-button>Export</button>
     </div>
   </div>
   </mat-card-header>
@@ -62,8 +62,8 @@
       </ng-container>
  
       <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="valueCategorystatus!=='BussinessCategory-Status'">Status</th>
-        <td mat-cell *matCellDef="let businesscategory" [hidden]="valueCategorystatus!=='BussinessCategory-Status'">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <td mat-cell *matCellDef="let businesscategory">
           <mat-slide-toggle class="example-margin" color="primary" [checked]="businesscategory.activeStatus === 1"
             (change)="onSubmit($event,businesscategory.businessCategoryId)">
           </mat-slide-toggle>
@@ -71,8 +71,8 @@
       </ng-container>
  
       <ng-container matColumnDef="Edit">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="valueCategoryEdit!=='BussinessCategory-Edit'" > Action </th>
-        <td mat-cell *matCellDef="let businesscategory" [hidden]="valueCategoryEdit!=='BussinessCategory-Edit'">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+        <td mat-cell *matCellDef="let businesscategory">
           <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-edit" (click)="Edit(businesscategory)" ></i>
         </td>
       </ng-container>
@@ -84,7 +84,7 @@
  
       <ng-container matColumnDef="createdDateTime">
         <th mat-header-cell *matHeaderCellDef>Created At</th>
-        <td mat-cell *matCellDef="let businesscategory">{{businesscategory.createdDateTime |date:'dd-MM-yyyy hh:mm a'}}
+        <td mat-cell *matCellDef="let businesscategory">{{businesscategory.createdDateTime | date:'yyyy-MM-dd hh:mm a'}}
         </td>
       </ng-container>
       <ng-container matColumnDef="modifiedBy">
@@ -94,7 +94,7 @@
  
       <ng-container matColumnDef="modifiedDateTime">
         <th mat-header-cell *matHeaderCellDef> Modified At</th>
-        <td mat-cell *matCellDef="let businesscategory">{{businesscategory.modifiedDateTime |date:'dd-MM-yyyy hh:mm a'
+        <td mat-cell *matCellDef="let businesscategory">{{businesscategory.modifiedDateTime | date:'yyyy-MM-dd hh:mm a'
           }}</td>
       </ng-container>
  

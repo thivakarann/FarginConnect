@@ -15,6 +15,7 @@ export class ViewCommentComponent {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.data.value);
     this.remarks=this.data.value.remarks
   }
 

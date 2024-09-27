@@ -45,16 +45,6 @@ export class ViewwithdrawalComponent {
   response: any = [];
   viewwithdrawal: any;
   isChecked: any;
-  valuewithdrawalEdit: any;
-  valuewithdrawalAdd: any;
-  valuewithdrawalExport: any;
-  valuewithdrawalStatus: any;
-  getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
-  actions: any;
-  errorMessage: any;
-
-
   constructor(
     public service: FarginServiceService,
     private router: Router,
@@ -69,47 +59,6 @@ export class ViewwithdrawalComponent {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     });
-
-    this.service.rolegetById(this.roleId).subscribe({
-      next: (res: any) => {
-        console.log(res);
-
-        if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
-          
-          if (this.roleId == 1) {
-            this.valuewithdrawalAdd = 'Withdrawal Fee-Add';
-            this.valuewithdrawalEdit = 'Withdrawal Fee-Edit';
-            this.valuewithdrawalExport = 'Withdrawal Fee-Export';
-            this.valuewithdrawalStatus = 'Withdrawal Fee-Status';
-
-          }
-          else {
-            for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
-              
-
-              if (this.actions == 'Withdrawal Fee-Add') {
-                this.valuewithdrawalAdd = 'Withdrawal Fee-Add';
-              }
-              if(this.actions=='Withdrawal Fee-Export'){
-                this.valuewithdrawalExport='Withdrawal Fee-Export'
-              }
-              if(this.actions=='Withdrawal Fee-Edit'){
-                this.valuewithdrawalEdit='Withdrawal Fee-Edit'
-              }
-              if(this.actions=='Withdrawal Fee-Status'){
-                this.valuewithdrawalStatus='Withdrawal Fee-Status'
-              }
-            }
-          }
-        }
-        else {
-          this.errorMessage = res.responseMessage;
-        }
-      }
-    })
-
   }
 
   applyFilter(event: Event) {

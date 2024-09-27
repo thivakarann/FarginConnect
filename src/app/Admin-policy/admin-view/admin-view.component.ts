@@ -48,15 +48,7 @@ export class AdminViewComponent implements OnInit {
   date2: any;
   isFullPolicyVisible: boolean = false;
   limit: number = 30;
-valuetermAction: any;
-valuetermView: any;
-valuetermCreate: any;
-valuetermExport: any;
-getdashboard: any[] = [];
-roleId: any = localStorage.getItem('roleId')
-actions: any;
-errorMessage:any;
-
+ 
  
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private router: Router) { }
  
@@ -81,46 +73,6 @@ errorMessage:any;
         this.showcategoryData = true;
       }
     });
-    this.service.rolegetById(this.roleId).subscribe({
-      next: (res: any) => {
-        console.log(res);
-
-        if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
-          
-          if(this.roleId==1){
-            this.valuetermCreate = 'Terms & Policy-Add';
-            this.valuetermExport='Terms & Policy-Export';
-            this.valuetermView='Terms & Policy-View';
-            this.valuetermAction='Terms & Policy-Edit'
-                   }
-          else{
-          for (let datas of this.getdashboard) {
-            this.actions = datas.subPermissions;
-            
-
-            if (this.actions == 'Terms & Policy-Add') {
-              this.valuetermCreate = 'Terms & Policy-Add';
-            }
-            if(this.actions=='Terms & Policy-Export'){
-              this.valuetermExport='Terms & Policy-Export'
-            }
-            if(this.actions=='Terms & Policy-View'){
-              this.valuetermView='Terms & Policy-View'
-            }
-            if(this.actions=='Terms & Policy-Edit'){
-              this.valuetermAction='Terms & Policy-Edit'
-            }
-          }
-        }
-        }
-        else {
-          this.errorMessage = res.responseMessage;
-        }
-      }
-    })
-
-
  
   }
  

@@ -46,14 +46,6 @@ export class ServiceProviderComponent implements OnInit {
   accountStatus: any;
   adminUserId: any;
   serviceId: any;
-  valueMSOadd: any;
-  valueMSOexport: any;
-  valueMSOstatus: any;
-  valueMSOedit: any;
-  errorMessage: any;
-  getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
-  actions: any;
 
 
   constructor(private service: FarginServiceService, private toastr: ToastrService, private router: Router, private dialog: MatDialog) { }
@@ -72,50 +64,6 @@ export class ServiceProviderComponent implements OnInit {
         this.showcategoryData = true;
       }
     });
-    this.service.rolegetById(this.roleId).subscribe({
-      next: (res: any) => {
-        console.log(res);
-
-        if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
-          
-          if (this.roleId == 1) {
-            this.valueMSOadd = 'MSO-Add';
-            this.valueMSOexport = 'MSO-Export';
-            this.valueMSOstatus = 'MSO-Status';
-            this.valueMSOedit = 'MSO-Edit';
-          }
-          else {
-            for (let datas of this.getdashboard) {
-
-              this.actions = datas.subPermissions;
-              
-
-
-              if (this.actions == 'MSO-Add') {
-                this.valueMSOadd = 'MSO-Add';
-              }
-
-              if (this.actions == 'MSO-Export') {
-                this.valueMSOexport = 'MSO-Export';
-              }
-
-              if (this.actions == 'MSO-Status') {
-                this.valueMSOstatus = 'MSO-Status';
-              }
-
-              if (this.actions == 'MSO-Edit') {
-                this.valueMSOedit = 'MSO-Edit';
-              }
-            }
-          }
-
-        }
-        else {
-          this.errorMessage = res.responseMessage;
-        }
-      }
-    })
   }
 
   create() {

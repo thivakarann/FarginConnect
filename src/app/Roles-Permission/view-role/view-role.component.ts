@@ -20,7 +20,7 @@ import { ViewSubpermissionComponent } from '../view-subpermission/view-subpermis
 export class ViewRoleComponent implements OnInit{
   showcategoryData: any;
   dataSource: any;
-  displayedColumns: any[] = ["roleid", "rolename", "permissionName", "actionName", "status", "action", "CreatedBy", "CreatedAt","modifiedBy","modifiedAt"];
+  displayedColumns: any[] = ["roleid", "rolename", "permissionName", "actionName", "status", "action", "CreatedBy", "CreatedAt"];
   isChecked: any;
   roledata: any;
   dataValue: any;
@@ -47,6 +47,7 @@ export class ViewRoleComponent implements OnInit{
  
     this.service.viewRoles().subscribe((res: any) => {
       this.roledata = res.response;
+      console.log(this.roledata);
       this.dataSource = new MatTableDataSource(this.roledata?.reverse())
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -146,6 +147,9 @@ export class ViewRoleComponent implements OnInit{
     this.dialog.open(ViewPermissionComponent, {
       data:{value:id},
       disableClose: true,
+      width: '80vw',
+      maxWidth: '600px',
+      height: 'auto',
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
     });
@@ -154,6 +158,9 @@ export class ViewRoleComponent implements OnInit{
     this.dialog.open(ViewSubpermissionComponent, {
       data:{value:id},
       disableClose: true,
+      width: '80vw',
+      maxWidth: '600px',
+      height: 'auto',
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
     });

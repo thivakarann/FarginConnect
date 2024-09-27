@@ -36,126 +36,75 @@ export class BusinessKycComponent implements OnInit{
   date2:any;
   businesscategory: any;
   businessCategoryId: any;
-  getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
-  actions: any;
-  errorMessage: any;
-  valueKycadd: any;
-  valueKycexport: any;
-  valueKycstatus: any;
-  valueKycedit: any;
-
-
-  constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) {
+   
+   
+  constructor(private dialog:MatDialog,private service:FarginServiceService,private toastr:ToastrService) {
 
   }
+   
+    ngOnInit() {
+       
+      this.service.BusinesscategoryKyc().subscribe((res: any) => {
+        if(res.flag==1){
+          this.businesscategorykyc = res.response;
+          this.businesscategorykyc.reverse();
+          this.dataSource = new MatTableDataSource(this.businesscategorykyc);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+  
+          this.showcategoryData = false;
+          // console.log(this.businesscategory) 
+        }
+        else{
+          this.errorMsg=res.responseMessage;       
+          this.showcategoryData = true;
+     }    
+    });      
+   
+    }
 
-  ngOnInit() {
 
-    this.service.BusinesscategoryKyc().subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.businesscategorykyc = res.response;
-        this.businesscategorykyc.reverse();
-        this.dataSource = new MatTableDataSource(this.businesscategorykyc);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
 
-        this.showcategoryData = false;
-        // console.log(this.businesscategory) 
-      }
-      else {
-        this.errorMsg = res.responseMessage;
-        this.showcategoryData = true;
-      }
-    });
-
-    this.service.rolegetById(this.roleId).subscribe({
-      next: (res: any) => {
+    onSubmit(event: MatSlideToggleChange, id: any) {
+      this.isChecked = event.checked;
+   
+      let submitModel: Businesskycstatus = {
+        // businessCategoryId: id,
+        activeStatus: this.isChecked ? 1 : 0,
+        // modifiedBy: this.getadminname
+      };
+   
+      this.service.BusinesskycActive(id,submitModel).subscribe((res: any) => {
         console.log(res);
-
-        if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
-
-          if (this.roleId == '1') {
-            this.valueKycexport = 'Business KYC-Export';
-            this.valueKycadd = 'Business KYC-Add';
-            this.valueKycedit = 'Business KYC-Edit';
-            this.valueKycstatus = 'Business KYC-Status';
-
-          }
-          else {
-            for (let datas of this.getdashboard) {
-
-              this.actions = datas.subPermissions;
+        this.toastr.success(res.responseMessage);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      });
+    }
 
 
-              if (this.actions == 'Business KYC-Export') {
-                this.valueKycexport = 'Business KYC-Export';
-              }
-              if (this.actions == 'Business KYC-Add') {
-                this.valueKycadd = 'Business KYC-Add';
-              }
-              if (this.actions == 'Business KYC-Edit') {
-                this.valueKycedit = 'Business KYC-Edit';
-              }
-              if (this.actions == 'Business KYC-Status') {
-                this.valueKycstatus = 'Business KYC-Status';
-              }
-            }
-          }
-        }
-        else {
-          this.errorMessage = res.responseMessage;
-        }
-      }
-    })
-
-
+   
+    create() {     
+      this.dialog.open(BusinessKycCreateComponent, {      
+        width:'80vw',// Use percentage to make it responsive
+        maxWidth:'400px',
+    // Ensure it doesn't get too wide on large screens
+        enterAnimationDuration:'1000ms',      
+        exitAnimationDuration:'1000ms', }); 
   }
 
 
-
-  onSubmit(event: MatSlideToggleChange, id: any) {
-    this.isChecked = event.checked;
-
-    let submitModel: Businesskycstatus = {
-      // businessCategoryId: id,
-      activeStatus: this.isChecked ? 1 : 0,
-      // modifiedBy: this.getadminname
-    };
-
-    this.service.BusinesskycActive(id, submitModel).subscribe((res: any) => {
-      console.log(res);
-      this.toastr.success(res.responseMessage);
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
-    });
-  }
-
-
-
-  create() {
-    this.dialog.open(BusinessKycCreateComponent, {
-      width: '80vw',
-      maxWidth: '400px',
-      enterAnimationDuration: '1000ms',
-      exitAnimationDuration: '1000ms',
-      disableClose: true
-    });
-  }
-
-
-  Edit(id: any) {
-    this.dialog.open(BusinessKycEditComponent, {
-      width: '80vw',
-      maxWidth: '400px',
-      enterAnimationDuration: '1000ms',
-      exitAnimationDuration: '1000ms',
-      data: { value: id },
-      disableClose: true
-    });
-  }
+  Edit(id:any) {     
+    this.dialog.open(BusinessKycEditComponent, {      
+      width:'80vw',// Use percentage to make it responsive
+      maxWidth:'400px',
+  // Ensure it doesn't get too wide on large screens
+      enterAnimationDuration:'1000ms',      
+      exitAnimationDuration:'1000ms', 
+      data: { value: id}
+    }); 
+}
 
   admin(){
    

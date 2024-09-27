@@ -15,12 +15,7 @@ Chart.register(ArcElement, Tooltip, Legend, DoughnutController);
 })
 export class DashboardContentComponent {
   counts: any;
-  valueDashboard: any;
-  getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
-  actions: any;
-  errorMessage: any;
-category: any;
+  category: any;
   businessCategoryIds: any;
  
   chart: any;
@@ -37,35 +32,8 @@ category: any;
     this.service.dashboardCount().subscribe((res: any) => {
       this.counts = res.response;
       console.log(this.counts);
-    })
-    this.service.rolegetById(this.roleId).subscribe({
-      next: (res: any) => {
-        console.log(res);
-
-        if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
-          
-          if (this.roleId == 1) {
-            this.valueDashboard = 'Dashboard-View';
-          }
-          else {
-            for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
-              
-
-              if (this.actions == 'Dashboard-View') {
-                this.valueDashboard = 'Dashboard-View';
-              }
-            }
-          }
-        }
-        else {
-          this.errorMessage = res.responseMessage;
-        }
-      }
-    })
-    
-       this.service.dashboardbusinessgetalls().subscribe((res: any) => {
+    });
+    this.service.dashboardbusinessgetalls().subscribe((res: any) => {
       this.category = res.response;
       this.businessCategoryIds = res.response.businessCategoryId;
       console.log(this.counts);

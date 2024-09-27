@@ -42,14 +42,6 @@ export class BouquetePlanViewallComponent {
   date2: any;
   responseDataListnew: any = [];
   response: any = [];
-  valuePlanAdd: any;
-  valuePlanExport: any;
-  valuePlanStatus: any;
-  valuePlanEdit: any;
-  getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
-  actions: any;
-  errorMessage: any;
 
   constructor(
     public Bouqutenameviewall: FarginServiceService,
@@ -67,54 +59,12 @@ export class BouquetePlanViewallComponent {
       this.dataSource.paginator = this.paginator;
       console.log(this.viewall);
     });
-
-    this.Bouqutenameviewall.rolegetById(this.roleId).subscribe({
-      next: (res: any) => {
-        console.log(res);
-
-        if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
-          
-          if (this.roleId == 1) {
-            this.valuePlanAdd = 'Plan Configuration-Add';
-            this.valuePlanEdit='Plan Configuration-Edit';
-            this.valuePlanExport='Plan Configuration-Export';
-            this.valuePlanStatus='Plan Configuration-Status'
-          }
-          else {
-            for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
-              
-
-              if(this.actions='Plan Configuration-Add'){
-                this.valuePlanAdd='Plan Configuration-Add'
-              }
-              if (this.actions == 'Plan Configuration-Export') {
-                this.valuePlanExport = 'Plan Configuration-Export';
-              }
-              if(this.actions=='Plan Configuration-Status'){
-                this.valuePlanStatus='Plan Configuration-Status'
-              }
-              if(this.actions=='Plan Configuration-Edit'){
-                this.valuePlanEdit='Plan Configuration-Edit'
-              }
-             
-            }
-          }
-        }
-        else {
-          this.errorMessage = res.responseMessage;
-        }
-      }
-    })
-
   }
 
   add() {
     this.dialog.open(BouquetenameAddComponent, {
       enterAnimationDuration: '500ms',
-      exitAnimationDuration: '1000ms',
-      disableClose:true
+      exitAnimationDuration: '1000ms'
     })
   }
 

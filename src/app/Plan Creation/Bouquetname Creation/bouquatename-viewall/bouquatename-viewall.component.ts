@@ -41,15 +41,6 @@ export class BouquatenameViewallComponent implements OnInit {
   date2: any;
   responseDataListnew: any = [];
   response: any = [];
-valuebroadcastAdd: any;
-valuebroadcastExport: any;
-valuebroadcastStatus: any;
-valuebroadcastEdit: any;
-getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
-actions: any;
-errorMessage:any;
-
 
   constructor(
     public boardcasternameviewall: FarginServiceService,
@@ -66,54 +57,12 @@ errorMessage:any;
       this.dataSource.paginator = this.paginator;
       console.log(this.viewall);
     });
-
-    this.boardcasternameviewall.rolegetById(this.roleId).subscribe({
-      next: (res: any) => {
-        console.log(res);
-
-        if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
-          
-          if(this.roleId==1){
-            this.valuebroadcastAdd = 'Broadcaster Configuration-Add';
-            this.valuebroadcastEdit='Broadcaster Configuration-Edit'
-            this.valuebroadcastExport='Broadcaster Configuration-Export'
-            this.valuebroadcastStatus='Broadcaster Configuration-Status'
-                   }
-          else{
-          for (let datas of this.getdashboard) {
-            this.actions = datas.subPermissions;
-            
-
-            if (this.actions == 'Broadcaster Configuration-Add') {
-              this.valuebroadcastAdd = 'Broadcaster Configuration-Add';
-            }
-            if(this.actions=='Broadcaster Configuration-Edit'){
-              this.valuebroadcastEdit='Broadcaster Configuration-Edit'
-            }
-            if(this.actions=='Broadcaster Configuration-Export'){
-              this.valuebroadcastExport='Broadcaster Configuration-Export'
-            }
-            if(this.actions=='Broadcaster Configuration-Status'){
-              this.valuebroadcastStatus='Broadcaster Configuration-Status'
-            }
-          }
-        }
-        }
-        else {
-          this.errorMessage = res.responseMessage;
-        }
-      }
-    })
-
-
   }
 
   add() {
     this.dialog.open(BouquateNameAddComponent, {
       enterAnimationDuration: '500ms',
-      exitAnimationDuration: '1000ms',
-      disableClose:true
+      exitAnimationDuration: '1000ms'
     })
   }
 
@@ -146,11 +95,12 @@ errorMessage:any;
       status: this.isChecked ? 1 : 0
     };
     this.boardcasternameviewall.Bouquetstatusforbroadcaster(submitModel).subscribe((res: any) => {
+      console.log(res);
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         setTimeout(() => {
           window.location.reload()
-        }, 1000)
+        }, 500)
       }
       else {
         this.toastr.error(res.responseMessage);
@@ -176,12 +126,6 @@ errorMessage:any;
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.broadCasterName);
-      if(element.status==1){
-        this.response.push('Active')
-      }
-      else{
-        this.response.push('Inactive')
-      }
       this.response.push(element?.createdBy);
       this.response.push(this.date1);
       this.response.push(element?.modifiedBy);
@@ -200,7 +144,6 @@ errorMessage:any;
     const header = [
       "S.No",
       "BroadCaster Name",
-      "Status",
       "Created By",
       "Created At",
       "Modified By",

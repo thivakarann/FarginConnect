@@ -1,161 +1,18 @@
-import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangePasswordComponent } from '../change-password/change-password.component';
 import { LogoutComponent } from '../logout/logout.component';
-import { FarginServiceService } from '../service/fargin-service.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
   private sidebarDropdowns: HTMLElement[] = [];
   private pageWrapper: HTMLElement | null = null;
-  getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
-  errorMessage: any;
-  valueDashboard: any;
-  valueBusinessCategory: any;
-  valueBusinessKYC: any;
-  valueCreditcart: any;
-  valueUser: any;
-  valueRole: any;
-  valueTickets: any;
-  valueTermsandPolicy: any;
-  valueEntity: any;
-  valueRegion: any;
-  ValueMSO: any;
-  valueFacheck: any;
-  roles: any;
-  valueCustomer: any;
-  valueTransaction: any;
-  valuepayOut: any;
-  valuemerchantPlan: any;
-  valuepgsetupkey: any;
-  valueWithdrawalfee: any;
-  valuechannelConfiguration: any;
-  valueBroadcasterConfiguration: any;
-  valuePlanConfiguration: any;
-  valueBroadcasterBouqutes: any;
-valueprofile: any;
-valuechangepassword: any;
 
-
-  constructor(private elRef: ElementRef,
-    private renderer: Renderer2,
-    private dialog: MatDialog,
-    private service: FarginServiceService,) { }
-  ngOnInit(): void {
-    this.getpermissionValue();
-
-    this.service.rolegetById(this.roleId).subscribe({
-      next: (res: any) => {
-        console.log(res);
-        if (res.flag == 1) {
-          this.getdashboard = res.response?.permission;
-          
-          this.getpermissionValue();
-        }
-        else {
-          this.errorMessage = res.responseMessage;
-        }
-      }
-    })
-  }
-
-  getpermissionValue() {
-    if (this.roleId == '1') {
-      this.valueDashboard = 'Dashboard';
-      this.valueEntity = 'Entity Onboard';
-      this.valueCustomer = 'Customers';
-      this.valueTransaction = 'Transactions';
-      this.valuepayOut = 'Payout';
-      this.valueTermsandPolicy = 'Terms & Policy';
-      this.valueTickets = 'Tickets';
-      this.valueBusinessCategory = 'BussinessCategory';
-      this.valueBusinessKYC = 'Business KYC';
-      this.valueRegion = 'Region';
-      this.ValueMSO = 'MSO';
-      this.valuemerchantPlan = 'Merchant Plan';
-      this.valueFacheck = 'FaCheck Key';
-      this.valuepgsetupkey = 'PG SetupKey';
-      this.valueWithdrawalfee = 'Withdrawal Fee'
-      this.valuechannelConfiguration = 'Channel Configuration';
-      this.valueBroadcasterConfiguration = 'Broadcaster Configuration'
-      this.valuePlanConfiguration = 'Plan Configuration'
-      this.valueBroadcasterBouqutes = 'Broadcaster Bouqutes'
-      this.valueUser = 'User';
-      this.valueRole = 'Role';
-    
-    }
-    else {
-      for (let data of this.getdashboard) {
-        this.roles = data.permission;
-        console.log(this.roles + 'this.roles');
-
-        if (this.roles == 'Dashboard') {
-          this.valueDashboard = 'Dashboard';
-        }
-        if (this.roles == 'Entity Onboard') {
-          this.valueEntity = 'Entity Onboard';
-          console.log(this.roles);
-          
-        }
-        if (this.roles == 'Customers') {
-          this.valueCustomer = 'Customers';
-        }
-        if (this.roles == 'Transactions') {
-          this.valueTransaction = 'Transactions'
-        }
-        if (this.roles == 'Payout') {
-          this.valuepayOut = 'Payout'
-        }
-        if (this.roles == 'Terms & Policy') {
-          this.valueTermsandPolicy = 'Terms & Policy'
-        }
-        if (this.roles == 'Tickets') {
-          this.valueTickets = 'Tickets';
-        }
-        if (this.roles == 'BussinessCategory') {
-          this.valueBusinessCategory = 'BussinessCategory';
-        }
-        if (this.roles == 'Business KYC') {
-          this.valueBusinessKYC = 'Business KYC';
-        }
-        if (this.roles == 'Region') {
-          this.valueRegion = 'Region';
-        }
-        if (this.roles == 'MSO') {
-          this.ValueMSO = 'MSO';
-        }
-        if (this.roles == 'Merchant Plan') {
-          this.valuemerchantPlan = 'Merchant Plan'
-        }
-        if (this.roles == 'FaCheck Key') {
-          this.valueFacheck = 'FaCheck Key'
-        }
-        if (this.roles == 'PG SetupKey') {
-          this.valuepgsetupkey = 'PG SetupKey'
-        }
-        if (this.roles == 'Withdrawal Fee') {
-          this.valueWithdrawalfee = 'Withdrawal Fee'
-        }
-        if (this.roles == 'Channel Configuration') {
-          this.valuechannelConfiguration = 'Channel Configuration';
-        }
-        if (this.roles == 'Broadcaster Configuration') {
-          this.valueBroadcasterConfiguration = 'Broadcaster Configuration'
-        }
-        if (this.roles == 'Plan Configuration') {
-          this.valuePlanConfiguration = 'Plan Configuration'
-        }
-        if (this.roles == 'Broadcaster Bouqutes') {
-          this.valueBroadcasterBouqutes = 'Broadcaster Bouqutes'
-        }
-      }
-    }
-  }
+  constructor(private elRef: ElementRef, private renderer: Renderer2, private dialog: MatDialog) { }
 
   ngAfterViewInit() {
     // Initialize DOM elements

@@ -50,10 +50,8 @@ export class AddcategoryComponent implements OnInit {
     this.service.BusinessCreate(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
-        this.dialog.closeAll()
-        setTimeout(() => {
-          window.location.reload()
-        }, 1000);
+        window.location.reload();
+
       }
       else {
         this.toastr.error(res.responseMessage);

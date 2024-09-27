@@ -26,7 +26,6 @@ export class MerchantPlanViewallComponent {
     'planName',
     'maintenanceAmount',
     'frequency',
-    'platformfee',
     'activeStatus',
     'Edit',
     'createdBy',
@@ -43,14 +42,6 @@ export class MerchantPlanViewallComponent {
   date2: any;
   responseDataListnew: any = [];
   response: any = [];
-  valueMerchantAdd: any;
-  valueMerchantExport: any;
-  valueMerchantStatus: any;
-  valueMerchantEdit: any;
-  getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
-  actions: any;
-  errorMessage: any;
 
   constructor(
     public Merchantplanviewall: FarginServiceService,
@@ -69,53 +60,12 @@ export class MerchantPlanViewallComponent {
       this.dataSource.paginator = this.paginator;
       console.log(this.viewall);
     });
-
-    this.Merchantplanviewall.rolegetById(this.roleId).subscribe({
-      next: (res: any) => {
-        console.log(res);
-
-        if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
-
-          if (this.roleId == 1) {
-            this.valueMerchantAdd = 'Merchant Plan-Add';
-            this.valueMerchantEdit = 'Merchant Plan-Edit'
-            this.valueMerchantExport = 'Merchant Plan-Export'
-            this.valueMerchantStatus = 'Merchant Plan-Status'
-          }
-          else {
-            for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
-
-
-              if (this.actions == 'Merchant Plan-Add') {
-                this.valueMerchantAdd = 'Merchant Plan-Add';
-              }
-              if (this.actions == 'Merchant Plan-Edit') {
-                this.valueMerchantEdit = 'Merchant Plan-Edit'
-              }
-              if (this.actions == 'Merchant Plan-Export') {
-                this.valueMerchantExport = 'Merchant Plan-Export'
-              }
-              if (this.actions == 'Merchant Plan-Status') {
-                this.valueMerchantStatus = 'Merchant Plan-Status'
-              }
-            }
-          }
-        }
-        else {
-          this.errorMessage = res.responseMessage;
-        }
-      }
-    })
-
   }
 
   Add() {
     this.dialog.open(MerchantPlanAddComponent, {
       enterAnimationDuration: "500ms",
-      exitAnimationDuration: "1000ms",
-      disableClose: true
+      exitAnimationDuration: "1000ms"
     })
   }
 
@@ -123,8 +73,7 @@ export class MerchantPlanViewallComponent {
     this.dialog.open(EditMerchantPlanComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: "1000ms",
-      data: { value: id },
-      disableClose: true
+      data: { value: id }
     })
   }
 

@@ -81,20 +81,18 @@ submit(){
   
     
     this.service.BusinesskycCreate(submitModel).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.toastr.success(res.responseMessage)
+      if(res.flag==1){
+        // this.previlegememberCreate= res.response;
+        this.toastr.success(res.responseMessage)   
+        window.location.reload()
+  
+      }
+      else{ 
+        this.toastr.warning(res.responseMessage);
         this.dialog.closeAll()
-        setTimeout(() => {
-          window.location.reload()
-        }, 1000);
-
-      }
-      else {
-        this.toastr.error(res.responseMessage);
+      }  
       
-      }
-
-    });
+  });
 
 }
 }

@@ -154,8 +154,3 @@ button {
   color: white;
   font-family: "Roboto";
 }
-
-.form__error{
-  color:  red;
-  font-size: 12px;
-}

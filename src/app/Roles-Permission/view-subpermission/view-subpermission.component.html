@@ -1,4 +1,6 @@
-
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
 
 
 <div class="form-header d-flex justify-content-between align-items-center">
@@ -6,13 +8,8 @@
     <button type="button" class="btn btn-secondary" (click)="back()">Back</button>
 </div>
 <div class="well">
-  <div class="col-md-5 mb-2" style="margin-left: -10px;">
-    <div class="search">
-       <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="Search...">
-    </div>
-</div>
     <div class="table-responsive text-nowrap">
-        <table class="table table-hover" >
+        <table class="table table-hover" id="customers">
           <tr>
             <th style="background-color: white; color: black">S.No</th>
             <th style="background-color: white; color: black">
@@ -22,15 +19,11 @@
               Enabled Actions
             </th>
           </tr>
-          <tr *ngFor="let data of subpermissionValue | paginate: { itemsPerPage: 5, currentPage: currentPage } | search: searchText;let i=index">
+          <tr *ngFor="let data of subpermissionValue; let i = index">
             <td class="text-center">{{ i + 1 }}</td>
             <td class="text-center">{{ data?.permission?.permission }}</td>
             <td class="text-center">{{ data?.subPermissions }}</td>
           </tr>
         </table>
-        <div class="text-end mt-3">
-          <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
       </div>
-      </div>
-      
 </div>

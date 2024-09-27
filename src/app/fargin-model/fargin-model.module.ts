@@ -23,7 +23,7 @@ export interface Adminstatus {
 export interface AdminCreate {
   readonly roleId: any;
   readonly emailAddress: any;
-  // readonly userPassword: any;
+  readonly userPassword: any;
   readonly mobileNumber: any;
   readonly adminName: any;
   readonly address: any;
@@ -406,7 +406,6 @@ export interface ApprovalBank {
 export interface RegionAdd {
   readonly serviceId: any;
   readonly stateName: any;
-  readonly createdBy:any
 }
 
 export interface RegionStatus {
@@ -418,7 +417,6 @@ export interface RegionEdit {
   readonly serviceId: any;
   readonly regionId: any;
   readonly stateName: any;
-  readonly modifiedBy:any
 }
 
 

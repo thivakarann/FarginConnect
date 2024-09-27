@@ -23,7 +23,7 @@ export class EditPersonalInfoComponent implements OnInit {
   details: any;
   detaislone: any;
   businessCategoryId: any;
-  constructor(private router: Router, private service: FarginServiceService, private toastr: ToastrService, private ActivateRoute: ActivatedRoute,private Location:Location) { }
+  constructor(private router: Router, private service: FarginServiceService, private toastr: ToastrService, private ActivateRoute: ActivatedRoute, private Location: Location) { }
   ngOnInit(): void {
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.id = param.Alldata;
@@ -252,7 +252,23 @@ export class EditPersonalInfoComponent implements OnInit {
     })
   }
 
+  onCategoryChange(event: any): void {
+    console.log(event)
+    this.selectedCategoryId = event.target.value;
+    console.log(this.selectedCategoryId)
+    const selectedCategory = this.categorydetails.find((category: { businessCategoryId: any; }) => category.businessCategoryId === +this.selectedCategoryId);
+
+    if (selectedCategory) {
+      this.myForm.patchValue({
+        mccCode: selectedCategory.mccCode
+
+
+      });
+      console.log(this.myForm.value.mccCode)
+    }
+  }
+
   close() {
-  this.Location.back();
+    this.Location.back();
   }
 }
