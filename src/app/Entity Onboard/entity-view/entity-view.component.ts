@@ -33,7 +33,7 @@ import { CreateManualpaymentComponent } from '../create-manualpayment/create-man
 })
 export class EntityViewComponent implements OnInit {
 
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
+   getadminname = JSON.parse(localStorage.getItem('adminname') || '');
   Adminid = JSON.parse(localStorage.getItem('adminid') || '');
   id: any;
   details: any;
@@ -50,25 +50,25 @@ export class EntityViewComponent implements OnInit {
   accountId: any;
   startdate!: string;
   enddate!: string;
-
+ 
   items: any[] = []; // The array of items to paginate
   currentPage: any = 1; // The current page number
   itemsPerPage = 5; // The number of items to display per page
   selected: any;
   selecteded: string = '5';
-
-
+ 
+ 
   p: any = 1;
-
+ 
   alltransactions: any;
   searchText: any;
-
-
-
+ 
+ 
+ 
   navbarEventEmitter: any;
   isDropdownOpen = false;
   searchTexts: any;
-
+ 
   Daterange!: string;
   data: any;
   term: any;
@@ -85,53 +85,57 @@ export class EntityViewComponent implements OnInit {
   showLiveKeys: any;
   loggedOut!: boolean;
   manualDetails: any;
-
+  id1: any;
+  paidamount: any;
+  merchantpayid: any;
+  id2: any;
+ 
   selectTab(tab: string): void {
     this.activeTab = tab;
   }
-
+ 
   clearFilters(): void {
     // Implement filter clearing logic here
     console.log('Filters cleared');
   }
-
+ 
   activeTab: string = 'events';
-
-
+ 
+ 
   constructor(
     public MerchantView: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
     private dialog: MatDialog,
     private ActivateRoute: ActivatedRoute) { }
-
+ 
   ngOnInit(): void {
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.id = param.Alldata;
     });
-
+ 
     this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
       this.details = res.response;
       this.detaislone = res.response.merchantpersonal;
       this.bankdetails = res.response.merchantbank;
       this.KYCDetails = res.response.merchantdocument;
-
+ 
       this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
       console.log('BussinessCategoryId', this.businessCategoryId);
       console.log(this.detaislone);
       console.log(this.bankdetails);
       console.log(this.KYCDetails);
-
-
+ 
+ 
     })
+ 
     this.MerchantView.GetManualPay(this.id).subscribe((res:any)=>{
       if(res.flag==1){
         this.manualDetails=res.response;
       }
     })
- 
   }
-
+ 
   bankStatus(event: any, id: any) {
     this.isChecked = event.checked;
     let submitModel: BankStatus = {
@@ -140,9 +144,8 @@ export class EntityViewComponent implements OnInit {
     this.MerchantView.BankActiveStatus(id, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+        window.location.reload();
+ 
       }
       else {
         this.toastr.error(res.responseMessage)
@@ -179,7 +182,7 @@ export class EntityViewComponent implements OnInit {
       disableClose: true,
       data: { value: id }
     })
-
+ 
   }
   getFrontPath(id: any) {
     this.dialog.open(KycdocumentViewComponent, {
@@ -197,17 +200,16 @@ export class EntityViewComponent implements OnInit {
       data: { value: id, value1: 2 }
     })
   }
-
-
-  viewlogo(id: any, Link: any) {
+ 
+ 
+  viewlogo(id:any,Link:any){
     this.dialog.open(MerchantLogoComponent, {
       enterAnimationDuration: "1000ms",
       exitAnimationDuration: "1000ms",
       // disableClose: true,
-      data: {
-        value: id,
-        value1: Link
-
+      data: { value: id,
+        value1:Link
+ 
       }
     })
   }
@@ -244,7 +246,7 @@ export class EntityViewComponent implements OnInit {
       exitAnimationDuration: "1000ms",
       data: { value: id }
     })
-
+ 
   }
   addKycdocuments(id: any, BusinessCategoryId: any) {
     this.dialog.open(AddKycdocumentComponent, {
@@ -257,8 +259,8 @@ export class EntityViewComponent implements OnInit {
       }
     })
   }
-
-  editKycDocuments(id: any, data: any) {
+ 
+  editKycDocuments(id: any,data:any) {
     this.dialog.open(EditKycdocumentComponent, {
       enterAnimationDuration: "1000ms",
       exitAnimationDuration: "1000ms",
@@ -266,7 +268,7 @@ export class EntityViewComponent implements OnInit {
       data: {
         value: id,
         value1: this.businessCategoryId,
-        value2: data
+        value2:data
       }
     })
   }
@@ -279,7 +281,7 @@ export class EntityViewComponent implements OnInit {
         value: id,
       }
     })
-
+ 
   }
   levelTwoApproval(id: any) {
     this.dialog.open(LevelTwoApprovalComponent, {
@@ -320,7 +322,7 @@ export class EntityViewComponent implements OnInit {
       docNumber: data,
       approvalBy: ApprovedBy
     }
-
+ 
     if (Docname == 'Aadhaar') {
       this.MerchantView.FacheckAadharVerification(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
@@ -328,7 +330,7 @@ export class EntityViewComponent implements OnInit {
           setTimeout(() => {
             window.location.reload()
           }, 500);
-
+ 
         }
         else {
           this.toastr.error(res.responseMessage)
@@ -361,7 +363,7 @@ export class EntityViewComponent implements OnInit {
           setTimeout(() => {
             window.location.reload()
           }, 500);
-
+ 
         }
         else {
           this.toastr.error(res.responseMessage)
@@ -369,14 +371,14 @@ export class EntityViewComponent implements OnInit {
       })
     }
     else if (Docname == 'GST') {
-
+ 
       this.MerchantView.FacheckGSTVerification(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           setTimeout(() => {
             window.location.reload()
           }, 500);
-
+ 
         }
         else {
           this.toastr.error(res.responseMessage)
@@ -397,15 +399,15 @@ export class EntityViewComponent implements OnInit {
           setTimeout(() => {
             window.location.reload()
           }, 500);
-
+ 
         }
         else {
           this.toastr.error(res.responseMessage)
         }
       })
     }
-
-
+ 
+ 
     else if (Docname == 'Driving License') {
       let submitModel: PassPortverification =
       {
@@ -420,7 +422,7 @@ export class EntityViewComponent implements OnInit {
           setTimeout(() => {
             window.location.reload()
           }, 500);
-
+ 
         }
         else {
           this.toastr.error(res.responseMessage)
@@ -428,7 +430,7 @@ export class EntityViewComponent implements OnInit {
       })
     }
     else if (Docname == 'VoterId') {
-
+ 
       let submitModel: VoterIdVerify =
       {
         kycId: id,
@@ -473,7 +475,7 @@ export class EntityViewComponent implements OnInit {
       }
     })
   }
-
+ 
   KycInfo(id: any, Docname: any) {
     this.dialog.open(KycInfoComponent, {
       enterAnimationDuration: "1000ms",
@@ -485,7 +487,7 @@ export class EntityViewComponent implements OnInit {
       }
     })
   }
-
+ 
   pgOnboard() {
     this.dialog.open(EntityPgonboardComponent, {
       enterAnimationDuration: "1000ms",
@@ -495,30 +497,30 @@ export class EntityViewComponent implements OnInit {
         value: this.id,
       }
     })
-
+ 
   }
-
+ 
   Viewcustomer(id: any) {
     this.router.navigate([`dashboard/entitycustomerviewAll/${id}`], {
       queryParams: { Alldata: id },
     });
     console.log(id);
   }
-
+ 
   Viewqr(id: any) {
     this.router.navigate([`dashboard/entity-qrcode/${id}`], {
       queryParams: { Alldata: id },
     });
     console.log(id);
   }
-
+ 
   ViewRefund(id: any) {
     this.router.navigate([`dashboard/entity-refund/${id}`], {
       queryParams: { Alldata: id },
     });
     console.log(id);
   }
-
+ 
   viewsettlement
     (id: any) {
     this.router.navigate([`dashboard/entity-settlement/${id}`], {
@@ -530,15 +532,15 @@ export class EntityViewComponent implements OnInit {
     this.router.navigate([`dashboard/edit-personal/${id}`], {
       queryParams: { Alldata: id },
     });
-
+ 
   }
-
+ 
   close() {
     this.router.navigate([`dashboard/entity-viewall`], {
       // queryParams: { Alldata: id },
     });
   }
-
+ 
   emailtrigger() {
     let submitModel: EmailTrigger = {
       merchantId: this.id,
@@ -555,7 +557,7 @@ export class EntityViewComponent implements OnInit {
       }
     })
   }
-
+ 
   copyText(text: string) {
     const el = document.createElement('textarea');
     el.value = text;
@@ -569,7 +571,7 @@ export class EntityViewComponent implements OnInit {
       queryParams: { Alldata: id },
     });
   }
-
+ 
   createmanualPayement(){
     this.dialog.open(CreateManualpaymentComponent, {
       enterAnimationDuration: "1000ms",
