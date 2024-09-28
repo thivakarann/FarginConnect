@@ -86,6 +86,7 @@ export class FarginServiceService {
   private readonly entityactivestatus = 'merchant/updateStatus';
   private readonly emailtrigger = 'merchantOnboard/resendmail';
   private readonly merchantlogo = 'merchant/updateimage ';
+  private readonly keysupdate = 'merchant/updateKey';
 
 
 
@@ -167,8 +168,8 @@ export class FarginServiceService {
 
   //Entity Transaction
   private readonly entitytransaction = 'paymentHistory/viewByMerchant/';
-  //merchant transaction
 
+  //merchant transaction
   private readonly transactionformerchant = 'transactions/getadminPaymentList';
 
   //Region
@@ -290,11 +291,11 @@ export class FarginServiceService {
   private readonly dashboardbusinesscategorybyid = 'dashBoard/businessCategory/'
   private readonly dashboardtransaction = 'dashBoard/transaction/'
 
-   //manual payment
-   private readonly updatemanualpay='merchant/updateManualPayment/';
-   private readonly createmanualpay='merchantpay/manualPayment';
-   private readonly manualpayget='merchantpay/viewMerchant/';
-   private readonly manualtransaction='transhistory/viewMerchantPay/'
+  //manual payment
+  private readonly updatemanualpay = 'merchant/updateManualPayment/';
+  private readonly createmanualpay = 'merchantpay/manualPayment';
+  private readonly manualpayget = 'merchantpay/viewMerchant/';
+  private readonly manualtransaction = 'transhistory/viewMerchantPay/'
 
 
 
@@ -625,6 +626,10 @@ export class FarginServiceService {
     return this.http.put(`${this.basePath}${this.merchantlogo}`, data, this.optionsMultipart);
   }
 
+  KeysUpdate(model: any) {
+    return this.http.put(`${this.basePath}${this.keysupdate}`, model, this.options)
+  }
+
 
 
 
@@ -774,25 +779,25 @@ export class FarginServiceService {
   //   return this.http.put(`${this.basePath}${this.EntityBankApproval}${id}`, model, this.options)
   // }
 
-//manual payment
- 
- 
-UpdateManualPayment(id:any,data:any){
-  return this.http.put(`${this.basePath}${this.updatemanualpay}${id}`,data, this.options);
- 
-}
- 
-CreateManualPayment(data:any){
-  return this.http.post(`${this.basePath}${this.createmanualpay}`,data, this.options);
- 
-}
- 
-GetManualPay(id: any) {
-  return this.http.get(`${this.basePath}${this.manualpayget}${id}`, this.options)
-}
-GetManualTransaction(id: any) {
-  return this.http.get(`${this.basePath}${this.manualtransaction}${id}`, this.options)
-}
+  //manual payment
+
+
+  UpdateManualPayment(id: any, data: any) {
+    return this.http.put(`${this.basePath}${this.updatemanualpay}${id}`, data, this.options);
+
+  }
+
+  CreateManualPayment(data: any) {
+    return this.http.post(`${this.basePath}${this.createmanualpay}`, data, this.options);
+
+  }
+
+  GetManualPay(id: any) {
+    return this.http.get(`${this.basePath}${this.manualpayget}${id}`, this.options)
+  }
+  GetManualTransaction(id: any) {
+    return this.http.get(`${this.basePath}${this.manualtransaction}${id}`, this.options)
+  }
 
   //pg onboard
   PgOnboard(model: any) {

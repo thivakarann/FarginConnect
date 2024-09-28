@@ -1,8 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-kycdocument',
@@ -23,8 +23,10 @@ export class AddKycdocumentComponent implements OnInit {
   businesscreationId: any;
   kycDocName: any;
 
+  @Output()dataKYC= new EventEmitter<FormData>();
 
-  constructor(private service: FarginServiceService, private dialog: MatDialog, private toaster: ToastrService, @Inject(MAT_DIALOG_DATA) public data: any) {
+
+  constructor(private service: FarginServiceService,  private dialogRef: MatDialogRef<AddKycdocumentComponent>, private toaster: ToastrService, @Inject(MAT_DIALOG_DATA) public data: any) {
 
   }
   ngOnInit(): void {
@@ -125,173 +127,57 @@ export class AddKycdocumentComponent implements OnInit {
     }
   }
 
+submit() {
+  const formData = new FormData();
+  formData.append('merchantId', this.merchantId);
+  formData.append('docFrontPath', this.imageFile);
+  formData.append('docBackPath', this.imageFile1);
+  formData.append('docName', this.documentname?.value);
+  formData.append('createdBy', this.createdBy);
 
-  submit() {
-    if (this.documentname?.value == 'Aadhaar') {
-      const formData = new FormData;
-      formData.append('merchantId', this.merchantId);
-      formData.append('docFrontPath', this.imageFile);
-      formData.append('docBackPath', this.imageFile1);
-      formData.append('docName', this.documentname?.value);
-      formData.append('docNumber', this.documentNumber?.value);
-      formData.append('createdBy', this.createdBy)
-
-
-
-      this.service.KycAdd(formData).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.details = res.response;
-          this.toaster.success(res.message)
-          this.dialog.closeAll();
-          window.location.reload();
-        }
-        else {
-          this.toaster.error(res.message)
-
-        }
-      })
-    }
-    else if (this.documentname?.value == 'PAN') {
-      const formData = new FormData;
-      formData.append('merchantId', this.merchantId);
-      formData.append('docFrontPath', this.imageFile);
-      formData.append('docBackPath', this.imageFile1);
-      formData.append('docName', this.documentname?.value);
-      formData.append('docNumber', this.panNumber?.value);
-      formData.append('createdBy', this.createdBy)
-
-
-
-      this.service.KycAdd(formData).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.details = res.response;
-          this.toaster.success(res.message)
-          this.dialog.closeAll();
-          window.location.reload();
-        }
-        else {
-          this.toaster.error(res.message)
-
-        }
-      })
-    }
-    else if (this.documentname?.value == 'Passport') {
-      const formData = new FormData;
-      formData.append('merchantId', this.merchantId);
-      formData.append('docFrontPath', this.imageFile);
-      formData.append('docBackPath', this.imageFile1);
-      formData.append('docName', this.documentname?.value);
-      formData.append('docNumber', this.passportNumber?.value);
-      formData.append('createdBy', this.createdBy)
-
-
-
-      this.service.KycAdd(formData).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.details = res.response;
-          this.toaster.success(res.message)
-          this.dialog.closeAll();
-          window.location.reload();
-        }
-        else {
-          this.toaster.error(res.message)
-
-        }
-      })
-    }
-    else if (this.documentname?.value == 'GST') {
-      const formData = new FormData;
-      formData.append('merchantId', this.merchantId);
-      formData.append('docFrontPath', this.imageFile);
-      formData.append('docBackPath', this.imageFile1);
-      formData.append('docName', this.documentname?.value);
-      formData.append('docNumber', this.gstNumber?.value);
-      formData.append('createdBy', this.createdBy)
-
-
-
-      this.service.KycAdd(formData).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.details = res.response;
-          this.toaster.success(res.message)
-          this.dialog.closeAll();
-          window.location.reload();
-        }
-        else {
-          this.toaster.error(res.message)
-
-        }
-      })
-    }
-    else if (this.documentname?.value == 'Driving License') {
-      const formData = new FormData;
-      formData.append('merchantId', this.merchantId);
-      formData.append('docFrontPath', this.imageFile);
-      formData.append('docBackPath', this.imageFile1);
-      formData.append('docName', this.documentname?.value);
-      formData.append('docNumber', this.drivingLicenseNumber?.value);
-      formData.append('createdBy', this.createdBy)
-
-
-
-      this.service.KycAdd(formData).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.details = res.response;
-          this.toaster.success(res.message)
-          this.dialog.closeAll();
-          window.location.reload();
-        }
-        else {
-          this.toaster.error(res.message)
-        }
-      })
-    }
-    else if (this.documentname?.value == 'Cin') {
-      const formData = new FormData;
-      formData.append('merchantId', this.merchantId);
-      formData.append('docFrontPath', this.imageFile);
-      formData.append('docBackPath', this.imageFile1);
-      formData.append('docName', this.documentname?.value);
-      formData.append('docNumber', this.cinch?.value);
-      formData.append('createdBy', this.createdBy)
-
-      this.service.KycAdd(formData).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.details = res.response;
-          this.toaster.success(res.message)
-          this.dialog.closeAll();
-          window.location.reload();
-        }
-        else {
-          this.toaster.error(res.message)
-
-        }
-      })
-    }
-
-    else if (this.documentname?.value == 'VoterId') {
-      const formData = new FormData;
-      formData.append('merchantId', this.merchantId);
-      formData.append('docFrontPath', this.imageFile);
-      formData.append('docBackPath', this.imageFile1);
-      formData.append('docName', this.documentname?.value);
-      formData.append('docNumber', this.voterid?.value);
-      formData.append('createdBy', this.createdBy)
-
-      this.service.KycAdd(formData).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.details = res.response;
-          this.toaster.success(res.message)
-          this.dialog.closeAll();
-          window.location.reload();
-        }
-        else {
-          this.toaster.error(res.message)
-
-        }
-      })
-    }
+  // Determine the document number based on the selected document name
+  let docNumber: string | null = null;
+  switch (this.documentname?.value) {
+    case 'Aadhaar':
+      docNumber = this.documentNumber?.value;
+      break;
+    case 'PAN':
+      docNumber = this.panNumber?.value;
+      break;
+    case 'Passport':
+      docNumber = this.passportNumber?.value;
+      break;
+    case 'GST':
+      docNumber = this.gstNumber?.value;
+      break;
+    case 'Driving License':
+      docNumber = this.drivingLicenseNumber?.value;
+      break;
+    case 'Cin':
+      docNumber = this.cinch?.value;
+      break;
+    case 'VoterId':
+      docNumber = this.voterid?.value;
+      break;
+    default:
+      this.toaster.error('Invalid document type selected');
+      return; // Exit if the document type is not valid
   }
+
+  formData.append('docNumber', docNumber!); // Non-null assertion because we've checked the value above
+
+  this.service.KycAdd(formData).subscribe((res: any) => {
+    if (res.flag == 1) {
+      this.details = res.response;
+      this.toaster.success(res.responseMessage);
+      this.dataKYC.emit(formData);  // Emit the newly added data
+      this.dialogRef.close(); // Close the dialog
+    } else {
+      this.toaster.error(res.responseMessage);
+    }
+  });
+}
+
 
 
 }

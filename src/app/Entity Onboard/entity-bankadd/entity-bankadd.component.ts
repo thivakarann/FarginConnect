@@ -1,10 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { bankData } from '../../fargin-model/fargin-model.module';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { bankData, bankedit } from '../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-entity-bankadd',
@@ -23,11 +23,14 @@ export class EntityBankaddComponent implements OnInit {
   documentfront: any;
   documentback: any;
   merchantid: any;
+
+  @Output()dataSubmitted= new EventEmitter<bankData>();
+
   constructor(
     public service: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
-    private dialog: MatDialog,
+    private dialogRef: MatDialogRef<EntityBankaddComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
   ngOnInit(): void {
@@ -94,22 +97,17 @@ export class EntityBankaddComponent implements OnInit {
       branchName: this.branchName?.value,
       accountType: this.accountType?.value,
       merchantId: this.merchantid
-    }
+    };
+ 
     this.service.EntitybankAdd(submitModel).subscribe((res: any) => {
-      if (res.flag == 1) {
+      if (res.flag === 1) {
         this.toastr.success(res.responseMessage);
-        this.dialog.closeAll();
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
-
+        this.dataSubmitted.emit(submitModel);  // Emit the newly added data
+        this.dialogRef.close();  // Close the dialog
       } else {
         this.toastr.error(res.responseMessage);
       }
-
-      console.log(res);
-    })
+    });
   }
-
 
 }

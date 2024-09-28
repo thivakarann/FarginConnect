@@ -514,7 +514,7 @@ body {
   display: inline-block;
   position: relative;
   padding:6px;
-  background-color: #4CC713;
+  background-color: #141E46;
   color: white;
   font-family: sans-serif;
   text-decoration: none;
@@ -523,6 +523,25 @@ body {
   border: none;
   border-radius: 5px;
  }
+
+ .buttonDownload1 {
+  width:35px;
+  display: inline-block;
+  position: relative;
+  padding:6px;
+  background-color: #141E46;
+  color: white;
+  font-family: sans-serif;
+  text-decoration: none;
+  font-size: 1em;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  height:35px;
+  margin:4px;
+ }
+
+ 
 
 
  .button1 {

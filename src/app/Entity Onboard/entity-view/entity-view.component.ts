@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { BankPrimaryStatus, BankStatus, Bankverficiation, EmailTrigger, Facheckverification, PassPortverification, VoterIdVerify } from '../../fargin-model/fargin-model.module';
+import { ApprovalBank, bankData, bankedit, BankPrimaryStatus, BankStatus, Bankverficiation, EmailTrigger, Facheckverification, KycApproval, PassPortverification, VoterIdVerify } from '../../fargin-model/fargin-model.module';
 import { ApprovalForBankComponent } from '../approval-for-bank/approval-for-bank.component';
 import { CommentsForApprovalComponent } from '../comments-for-approval/comments-for-approval.component';
 import { KycApprovalComponent } from '../kyc-approval/kyc-approval.component';
@@ -25,6 +25,8 @@ import { KycInfoComponent } from '../kyc-info/kyc-info.component';
 import { UpdateManualpaymentComponent } from '../update-manualpayment/update-manualpayment.component';
 import { MerchantLogoComponent } from '../merchant-logo/merchant-logo.component';
 import { CreateManualpaymentComponent } from '../create-manualpayment/create-manualpayment.component';
+import { KeysUpdateComponent } from '../keys-update/keys-update.component';
+import { ViewOnboardinfoComponent } from '../view-onboardinfo/view-onboardinfo.component';
 
 @Component({
   selector: 'app-entity-view',
@@ -89,6 +91,7 @@ export class EntityViewComponent implements OnInit {
   paidamount: any;
   merchantpayid: any;
   id2: any;
+
  
   selectTab(tab: string): void {
     this.activeTab = tab;
@@ -100,8 +103,8 @@ export class EntityViewComponent implements OnInit {
   }
  
   activeTab: string = 'events';
- 
- 
+  @Output()dataSubmitted= new EventEmitter<bankData>();
+  @Output()dataSubmitteds= new EventEmitter<bankedit>();
   constructor(
     public MerchantView: FarginServiceService,
     private router: Router,
@@ -144,7 +147,7 @@ export class EntityViewComponent implements OnInit {
     this.MerchantView.BankActiveStatus(id, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
-        window.location.reload();
+         this.dialog.closeAll()
  
       }
       else {
@@ -160,7 +163,7 @@ export class EntityViewComponent implements OnInit {
     this.MerchantView.BankprimaryStatus(id, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
-        window.location.reload()
+    
       }
       else {
         this.toastr.error(res.responseMessage)
@@ -168,12 +171,15 @@ export class EntityViewComponent implements OnInit {
     })
   }
   BankApproval(id: any) {
-    this.dialog.open(ApprovalForBankComponent, {
+    const dialogRef= this.dialog.open(ApprovalForBankComponent, {
       enterAnimationDuration: "1000ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: { value: id }
     })
+    dialogRef.componentInstance.datas.subscribe((newBankData: ApprovalBank) => {
+      this.bankdetails.push(newBankData);
+    });
   }
   BankComments(id: any) {
     this.dialog.open(CommentsForApprovalComponent, {
@@ -214,13 +220,19 @@ export class EntityViewComponent implements OnInit {
     })
   }
   KycApproval(id: any) {
-    this.dialog.open(KycApprovalComponent, {
+    const dialogRef = this.dialog.open(KycApprovalComponent, {
       enterAnimationDuration: "1000ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: { value: id }
-    })
+    });
+  
+    dialogRef.componentInstance.dataApproval.subscribe((newBankData: KycApproval) => {
+      this.KYCDetails.push(newBankData);
+      // Optionally refresh UI or perform other actions
+    });
   }
+  
   KYCComments(id: any) {
     this.dialog.open(KycCommentsComponent, {
       enterAnimationDuration: "1000ms",
@@ -230,34 +242,45 @@ export class EntityViewComponent implements OnInit {
     })
   }
   addbank(id: any) {
-    this.dialog.open(EntityBankaddComponent, {
+    const dialogRef = this.dialog.open(EntityBankaddComponent, {
       enterAnimationDuration: "1000ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: {
-        value: this.id,
+        value: id,
       }
-    })
+    });
+ 
+    dialogRef.componentInstance.dataSubmitted.subscribe((newBankData: bankData) => {
+      this.bankdetails.push(newBankData);
+    });
   }
   editbank(id: any) {
-    this.dialog.open(EntityBankeditComponent, {
+    const dialogRef =  this.dialog.open(EntityBankeditComponent, {
       disableClose: true,
       enterAnimationDuration: "1000ms",
       exitAnimationDuration: "1000ms",
       data: { value: id }
-    })
+    });
+    dialogRef.componentInstance.dataSubmitteds.subscribe((newBankData: bankedit) => {
+      this.bankdetails.push(newBankData);
+    });
  
   }
-  addKycdocuments(id: any, BusinessCategoryId: any) {
-    this.dialog.open(AddKycdocumentComponent, {
-      enterAnimationDuration: "1000ms",
-      exitAnimationDuration: "1000ms",
-      disableClose: true,
-      data: {
-        value: this.id,
-        value1: this.businessCategoryId
-      }
-    })
+    addKycdocuments(id: any, BusinessCategoryId: any) {
+      const dialogRef =  this.dialog.open(AddKycdocumentComponent, {
+        enterAnimationDuration: "1000ms",
+        exitAnimationDuration: "1000ms",
+        disableClose: true,
+        data: {
+          value: this.id,
+          value1: this.businessCategoryId
+        }
+      })
+      dialogRef.componentInstance.dataKYC.subscribe((newBankData: FormData) => {
+        this.KYCDetails.push(newBankData);
+      });
+ 
   }
  
   editKycDocuments(id: any,data:any) {
@@ -458,7 +481,7 @@ export class EntityViewComponent implements OnInit {
     this.MerchantView.BankVerification(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
-        window.location.reload();
+      
       }
       else {
         this.toastr.error(res.responseMessage);
@@ -558,14 +581,8 @@ export class EntityViewComponent implements OnInit {
     })
   }
  
-  copyText(text: string) {
-    const el = document.createElement('textarea');
-    el.value = text;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand('copy');
-    document.body.removeChild(el);
-  }
+
+ 
   entityTransaction(id: any) {
     this.router.navigate([`dashboard/entity-transaction/${id}`], {
       queryParams: { Alldata: id },
@@ -598,9 +615,18 @@ export class EntityViewComponent implements OnInit {
       disableClose: true,
       data: {    
         value:id,
-     
       }
     })
- 
+  }
+
+  viewOnboardInfo(id:any){
+    this.dialog.open(ViewOnboardinfoComponent, {
+      enterAnimationDuration: "1000ms",
+      exitAnimationDuration: "1000ms",
+      disableClose: true,
+      data: {    
+        value:id,
+      }
+    })
   }
 }

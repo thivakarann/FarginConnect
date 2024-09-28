@@ -14,8 +14,23 @@ export class EntityPgonboardComponent implements OnInit {
   addcategory: any = FormGroup;
   createdBy = JSON.parse(localStorage.getItem('adminname') || '');
   merchantid: any;
+  minDate: any = Date;
+  maxDate: any = Date;
+
+
+  
+  
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, @Inject(MAT_DIALOG_DATA) public data: any,) { }
   ngOnInit(): void {
+
+    const today = new Date();
+    this.minDate = today.toISOString().split('T')[0]
+ 
+    const nextMonth = new Date(today.setMonth(today.getMonth() + 1))
+    this.maxDate = nextMonth.toISOString().split('T')[0]
+
+
+
     this.merchantid = this.data.value
     console.log(this.merchantid);
     this.addcategory = new FormGroup({

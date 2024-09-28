@@ -1,8 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FarginServiceService } from '../../service/fargin-service.service';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { ApprovalBank } from '../../fargin-model/fargin-model.module';
 
@@ -16,8 +16,9 @@ export class ApprovalForBankComponent implements OnInit{
   getadminname = JSON.parse(localStorage.getItem('adminname') || '');
   id: any;
   myForm!: FormGroup;
+  @Output()datas= new EventEmitter<ApprovalBank>();
  
-  constructor(private router: Router, private Approval: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog) { }
+  constructor(private router: Router, private Approval: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialogRef: MatDialogRef<ApprovalForBankComponent>,) { }
   ngOnInit(): void {
     this.id = this.data.value
     console.log(this.id);
@@ -50,10 +51,9 @@ export class ApprovalForBankComponent implements OnInit{
     this.Approval.EntityBankApprovals(this.id,submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.response);
-        this.dialog.closeAll();
-        setTimeout(() => {
-          window.location.reload()
-        }, 500);      }
+        this.datas.emit(submitModel);  // Emit the newly added data
+        this.dialogRef.close();  
+           }
       else {
         this.toastr.error(res.response)
       }

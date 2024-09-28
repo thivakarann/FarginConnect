@@ -1,7 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FarginServiceService } from '../../service/fargin-service.service';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { KycApproval } from '../../fargin-model/fargin-model.module';
 import { ToastrService } from 'ngx-toastr';
 
@@ -17,11 +17,12 @@ export class KycApprovalComponent implements OnInit{
  myForm!:FormGroup;
   id: any;
   approval: any;
+  @Output() dataApproval= new EventEmitter<KycApproval>();
 
 constructor(private service:FarginServiceService,
   @Inject(MAT_DIALOG_DATA) public data:any,
   private toaster:ToastrService,
-  private dialog:MatDialog
+  private dialogRef: MatDialogRef<KycApprovalComponent>,
 ){
 
 }
@@ -46,23 +47,38 @@ constructor(private service:FarginServiceService,
   }
  
 
-  submit(){
-    let submitModel:KycApproval={
+  // submit(){
+  //   let submitModel:KycApproval={
+  //     approvalBy: this.createdBy,
+  //     approvalStatus: this.approvalStatus?.value,
+  //     reMarks: this.remarks?.value
+  //   }
+  //   this.service.KycApproval(this.id,submitModel).subscribe((res:any)=>{
+  //     if(res.flag==1){
+  //       this.approval=res.response;  
+  //       this.dataApproval.emit(submitModel);  // Emit the newly added data
+  //       this.dialogRef.close();  // Close the dialog
+      
+  //     }
+
+  //  })
+  // }
+  submit() {
+    let submitModel: KycApproval = {
       approvalBy: this.createdBy,
       approvalStatus: this.approvalStatus?.value,
       reMarks: this.remarks?.value
-    }
-    this.service.KycApproval(this.id,submitModel).subscribe((res:any)=>{
-      if(res.flag==1){
-        this.approval=res.response;  
-        this.dialog.closeAll();
-       this.toaster.success(res.responseMessage)
-       setTimeout(() => {
-        window.location.reload()
-      }, 500);
+    };
+  
+    this.service.KycApproval(this.id, submitModel).subscribe((res: any) => {
+      if (res.flag === 1) {
+        this.toaster.success(res.responseMessage);
+        this.dataApproval.emit(submitModel);  // Emit the newly added data
+        this.dialogRef.close();  // Close the dialog
+      } else {
+        this.toaster.error(res.responseMessage);  
       }
-
-   })
+    }, );
   }
-
+  
 }

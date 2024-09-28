@@ -690,3 +690,10 @@ readonly utrNumber:any;
 readonly paymentStatus:any;
 readonly merchantId:any;
 }
+ 
+export interface KeysUpdate{
+  readonly accountId:any;
+  readonly merchantId:any;
+  readonly apikey:any;
+  readonly secretkey:any;
+}

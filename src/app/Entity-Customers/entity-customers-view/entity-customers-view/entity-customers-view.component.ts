@@ -17,10 +17,16 @@ export class EntityCustomersViewComponent {
   customerviewalcot: any
   customer: any;
   selectedTab: string = 'customer-info'; // Default to 'customer-info'
+
   items: any[] = []; // The array of items to paginate
   currentPage: any = 1; // The current page number
-  itemsPerPage = 5; //
+  itemsPerPage = 3; //
   page: number = 1;
+
+  page1: number = 1;
+  page2:number = 1;
+
+
   term: any;
   selected: any;
   selecteded: string = '5';

@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
@@ -23,11 +23,12 @@ export class EntityBankeditComponent implements OnInit {
   merchantBankId: any;
   bankData: any;
 
+  @Output()dataSubmitteds= new EventEmitter<bankedit>();
   constructor(
     public service: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
-    private dialog: MatDialog,
+    private dialogRef: MatDialogRef<EntityBankeditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
   ngOnInit(): void {
@@ -101,10 +102,8 @@ export class EntityBankeditComponent implements OnInit {
     this.service.EntitybankEdit(this.merchantBankId, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
-        this.dialog.closeAll();
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+        this.dataSubmitteds.emit(submitModel);  // Emit the newly added data
+        this.dialogRef.close();  // Close the dialog
       } else {
         this.toastr.warning(res.responseMessage)
       }
