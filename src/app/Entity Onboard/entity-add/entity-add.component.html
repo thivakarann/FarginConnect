@@ -428,7 +428,7 @@
             </div>
         </form>
     </div>
-    <div class="well" style="margin-top: 2%;" *ngIf="Bankdetails==true">
+    <div class="well" style="margin-top: 2%;" *ngIf="Bankdetails==false">
         <h4 class="card-header" style="font-weight: 500">2.Bank Details</h4>
         <form [formGroup]="myForm2" style="margin-top: 2%;">
             <div class="row mb-3">
@@ -476,6 +476,44 @@
                         Enter a Valid Account Number
                     </div>
                 </div>
+
+                <div class="col-sm-4 form-group">
+                    <label for="state">Ledger ID*</label>
+                    <input type="text" formControlName="ledgerId" id="state" class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="ledgerId?.invalid && ledgerId?.touched && ledgerId?.errors?.['required']">
+                        Field is required
+                    </div>
+                  
+                </div>
+               
+
+            </div>
+            <div class="row mb-3">
+
+                <div class="col-sm-4 form-group">
+                    <label for="Bussiness category">Account Type</label>
+                    <select formControlName="accountType" id="Bussiness category" class="form-control form-select">
+                        <option value="Savings account">Savings account</option>
+                        <option value="Current account">Current account</option>
+
+                    </select>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="accountType?.invalid && accountType?.touched && accountType?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+
                 <div class="col-sm-4 form-group">
                     <label for="Bussiness category">Select Bank</label>
                     <select formControlName="bankName" id="Bussiness category" class="form-control form-select">
@@ -492,30 +530,6 @@
                         Field is required
                     </div>
                 </div>
-                <!-- <div class="col-sm-4 form-group">
-                    <label for="zip">Bank Name*</label>
-                    <input type="text" formControlName="bankName" id="zip" class="form-control">
-                    <div style="
-                    color: red;
-                    font-size: 12px;
-                    margin-top: 2px;
-                    position: relative;
-                    ;
-                  " *ngIf="bankName?.invalid && bankName?.touched && bankName?.errors?.['required']">
-                        Field is required
-                    </div>
-                    <div style="
-                    color: red;
-                    font-size: 12px;
-                    margin-top: 2px;
-                    position: relative;
-                    ;
-                  " *ngIf="bankName?.invalid && bankName?.touched && bankName?.errors?.['pattern']">
-                        Enter a Valid Input
-                    </div>
-                </div> -->
-            </div>
-            <div class="row mb-3">
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">BranchName*</label>
                     <input type="text" id="Entity Name" formControlName="branchName" class="form-control">
@@ -539,6 +553,12 @@
                         Enter a Valid Input
                     </div>
                 </div>
+               
+
+        
+                
+            </div>
+            <div class="row mb-3">
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">IFSC Code*</label>
                     <input type="text" id="Entity Name" formControlName="ifscCode" class="form-control">
@@ -561,23 +581,6 @@
                         Enter a Valid IFSC Code
                     </div>
                 </div>
-                <div class="col-sm-4 form-group">
-                    <label for="Bussiness category">Account Type</label>
-                    <select formControlName="accountType" id="Bussiness category" class="form-control form-select">
-                        <option value="Savings account">Savings account</option>
-                        <option value="Current account">Current account</option>
-
-                    </select>
-                    <div style="
-                    color: red;
-                    font-size: 12px;
-                    margin-top: 2px;
-                    position: relative;
-                    ;
-                  " *ngIf="accountType?.invalid && accountType?.touched && accountType?.errors?.['required']">
-                        Field is required
-                    </div>
-                </div>
             </div>
             <div>
                 <button (click)="BankSubmit()" [disabled]="myForm2.invalid" type="submit" class="btn mx-1 "
@@ -587,7 +590,7 @@
             </div>
         </form>
     </div>
-    <div class="well" style="margin-top: 2%;" *ngIf="KYCdetails==true">
+    <div class="well" style="margin-top: 2%;" *ngIf="KYCdetails==false">
         <h4 class="card-header" style="font-weight: 500">3.KYC Details</h4>
         <mat-horizontal-stepper linear>
             <mat-step [stepControl]="firstFormGroup" label="Step 1">

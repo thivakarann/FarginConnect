@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FarginServiceService } from '../../service/fargin-service.service';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -12,43 +12,248 @@ export class KycdocumentViewComponent implements OnInit{
   id: any;
   imageSrc: any;
   flag: any;
-  documentupload!:FormGroup;
-
-  constructor(private service:FarginServiceService ,@Inject(MAT_DIALOG_DATA) public data:any)  {}
-
+  documentupload!: FormGroup;
+ 
+  updatedata: any;
+  errorMessage: any;
+  file1: any;
+  file2:any
+  file3: any;
+  file4: any;
+  file5: any;
+  file6: any;
+ 
+  constructor(private service: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog) { }
+ 
   ngOnInit(): void {
-
+ 
+ 
     this.id = this.data.value
     console.log(this.id);
-
-    this.flag=this.data.value1
+ 
+    this.flag = this.data.value1
     console.log(this.flag);
-
+ 
     this.documentupload = new FormGroup({
-      documentfront: new FormControl('', [Validators.required]),
-     
+      Image: new FormControl('', [Validators.required]),
+ 
     })
-    
-    this.service.getImageview(this.id,this.flag).subscribe({
-      next:(res:any)=>{
-
+ 
+    this.service.getImageview(this.id, this.flag).subscribe({
+      next: (res: any) => {
+console.log(this.id, this.flag);
+ 
         const reader = new FileReader();
         reader.readAsDataURL(res);
         reader.onloadend = () => {
           this.imageSrc = reader.result as string;
-      }
-    },
-   
+        }
+      },
+ 
     })
   }
-
-
-  get documentfront() {
-    return this.documentupload.get('documentfront');
+ 
+ 
+  get Image() {
+    return this.documentupload.get('Image');
   }
-  Update(){
-
-    
-
+ 
+  getimageId(event: any) {
+    console.log(event);
+    if(this.flag==1){
+      const files = event.target.files[0];
+      if (files) {
+        const fileName1: string = files.name;
+        if (!files.type.startsWith('image/')) {
+ 
+          this.errorMessage = 'Only Images are allowed';
+          return;
+ 
+        }
+        this.errorMessage = ''
+        this.file1 = files;
+        console.log(this.file1);
+        console.log(' file 1 id success' + files);
+      }
+    }
+ 
+    if(this.flag==2){
+      const files = event.target.files[0];
+      if (files) {
+        const fileName2: string = files.name;
+        if (!files.type.startsWith('image/')) {
+ 
+          this.errorMessage = 'Only Images are allowed';
+          return;
+ 
+        }
+        this.errorMessage = ''
+        this.file2 = files;
+        console.log(this.file2);
+        console.log(' file 1 id success' + files);
+      }
+    }
+ 
+    if(this.flag==3){
+      const files = event.target.files[0];
+      if (files) {
+        const fileName3: string = files.name;
+        if (!files.type.startsWith('image/')) {
+ 
+          this.errorMessage = 'Only Images are allowed';
+          return;
+ 
+        }
+        this.errorMessage = ''
+        this.file3 = files;
+        console.log(this.file3);
+        console.log(' file 1 id success' + files);
+      }
+    }
+    if(this.flag==4){
+      const files = event.target.files[0];
+      if (files) {
+        const fileName4: string = files.name;
+        if (!files.type.startsWith('image/')) {
+ 
+          this.errorMessage = 'Only Images are allowed';
+          return;
+ 
+        }
+        this.errorMessage = ''
+        this.file4 = files;
+        console.log(this.file4);
+        console.log(' file 1 id success' + files);
+      }
+    }
+ 
+    if(this.flag==5){
+      const files = event.target.files[0];
+      if (files) {
+        const fileName5: string = files.name;
+        if (!files.type.startsWith('image/')) {
+ 
+          this.errorMessage = 'Only Images are allowed';
+          return;
+ 
+        }
+        this.errorMessage = ''
+        this.file5 = files;
+        console.log(this.file5);
+        console.log(' file 1 id success' + files);
+      }
+    }
+ 
+    if(this.flag==6){
+      console.log(this.flag);
+     
+      const files6 = event.target.files[0];
+      if (files6) {
+        const fileName6: string = files6.name;
+        if (!files6.type.startsWith('image/')) {
+ 
+          this.errorMessage = 'Only Images are allowed';
+          return;
+ 
+        }
+        this.errorMessage = ''
+        this.file6 = files6;
+        console.log(this.file6);
+        console.log(' file 1 id success' + files6);
+      }
+    }
+  }
+ 
+  Update() {
+ 
+    if (this.flag == 1) {
+      const formData = new FormData;
+      formData.append('identityFrontPath', this.file1);
+      formData.append('proofId', this.id);
+      this.service.identityFront(formData).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.updatedata = res.response;
+          this.dialog.closeAll();
+          setTimeout(() => {
+            window.location.reload()
+          }, 1000);
+        }
+      })
+    }
+    if (this.flag == 2) {
+      const formData = new FormData;
+      formData.append('identityBackPath', this.file2);
+      formData.append('proofId', this.id);
+      this.service.identityBack(formData).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.updatedata = res.response;
+          this.dialog.closeAll();
+          setTimeout(() => {
+            window.location.reload()
+          }, 1000);
+        }
+      })
+    }
+    if (this.flag == 3) {
+      const formData = new FormData;
+      formData.append('addressFrontPath', this.file3);
+      formData.append('proofId', this.id);
+      this.service.addressFront(formData).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.updatedata = res.response;
+          this.dialog.closeAll();
+          setTimeout(() => {
+            window.location.reload()
+          }, 1000);
+        }
+      })
+    }
+ 
+     
+    if (this.flag == 4) {
+      const formData = new FormData;
+      formData.append('addressBackPath', this.file4);
+      formData.append('proofId', this.id);
+      this.service.addressBack(formData).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.updatedata = res.response;
+          this.dialog.closeAll();
+          setTimeout(() => {
+            window.location.reload()
+          }, 1000);
+        }
+      })
+    }
+ 
+    if (this.flag == 5) {
+      const formData = new FormData;
+      formData.append('signatureFrontPath', this.file5);
+      formData.append('proofId', this.id);
+      this.service.signatureFront(formData).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.updatedata = res.response;
+          this.dialog.closeAll();
+          setTimeout(() => {
+            window.location.reload()
+          }, 1000);
+        }
+      })
+    }
+ 
+     
+    if (this.flag == 6) {
+      const formData = new FormData;
+      formData.append('signatureBackPath', this.file6);
+      formData.append('proofId', this.id);
+      this.service.signatureBack(formData).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.updatedata = res.response;
+          // this.dialog.closeAll();
+          // setTimeout(() => {
+          //   window.location.reload()
+          // }, 1000);
+        }
+      })
+    }
   }
 }

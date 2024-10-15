@@ -28,7 +28,7 @@ export class BusinessKycComponent implements OnInit {
   errorMsg: any;
   responseDataListnew: any = [];
   response: any = [];
-
+ 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   isChecked: any;
@@ -44,51 +44,49 @@ export class BusinessKycComponent implements OnInit {
   valueKycexport: any;
   valueKycstatus: any;
   valueKycedit: any;
-
-
+ 
+ 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) {
-
+ 
   }
-
+ 
   ngOnInit() {
-
+ 
     this.service.BusinesscategoryKyc().subscribe((res: any) => {
-      if (res.flag == 1) {
+   
         this.businesscategorykyc = res.response;
+        console.log(this.businesscategorykyc)
         this.businesscategorykyc.reverse();
         this.dataSource = new MatTableDataSource(this.businesscategorykyc);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-
-        this.showcategoryData = false;
-        // console.log(this.businesscategory) 
-      }
-      else {
-        this.errorMsg = res.responseMessage;
-        this.showcategoryData = true;
-      }
+ 
+     
+       
+     
+     
     });
-
+ 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
         console.log(res);
-
+ 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
-
+ 
           if (this.roleId == '1') {
             this.valueKycexport = 'Business KYC-Export';
             this.valueKycadd = 'Business KYC-Add';
             this.valueKycedit = 'Business KYC-Edit';
             this.valueKycstatus = 'Business KYC-Status';
-
+ 
           }
           else {
             for (let datas of this.getdashboard) {
-
+ 
               this.actions = datas.subPermissions;
-
-
+ 
+ 
               if (this.actions == 'Business KYC-Export') {
                 this.valueKycexport = 'Business KYC-Export';
               }
@@ -109,21 +107,21 @@ export class BusinessKycComponent implements OnInit {
         }
       }
     })
-
-
+ 
+ 
   }
-
-
-
+ 
+ 
+ 
   onSubmit(event: MatSlideToggleChange, id: any) {
     this.isChecked = event.checked;
-
+ 
     let submitModel: Businesskycstatus = {
       // businessCategoryId: id,
       activeStatus: this.isChecked ? 1 : 0,
       // modifiedBy: this.getadminname
     };
-
+ 
     this.service.BusinesskycActive(id, submitModel).subscribe((res: any) => {
       console.log(res);
       this.toastr.success(res.responseMessage);
@@ -132,9 +130,9 @@ export class BusinessKycComponent implements OnInit {
       }, 1000);
     });
   }
-
-
-
+ 
+ 
+ 
   create() {
     this.dialog.open(BusinessKycCreateComponent, {
       width: '80vw',
@@ -144,8 +142,8 @@ export class BusinessKycComponent implements OnInit {
       disableClose: true
     });
   }
-
-
+ 
+ 
   Edit(id: any) {
     this.dialog.open(BusinessKycEditComponent, {
       width: '80vw',
@@ -156,19 +154,19 @@ export class BusinessKycComponent implements OnInit {
       disableClose: true
     });
   }
-
-  admin(){
-   
+ 
+  admin() {
+ 
   }
  
- exportexcel() {
+  exportexcel() {
     console.log('check');
     let sno = 1;
     this.responseDataListnew = [];
     this.businesscategorykyc.forEach((element: any) => {
       let createdate = element.createdDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-
+ 
       let moddate = element.modifiedDateAndTime;
       this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
@@ -178,11 +176,11 @@ export class BusinessKycComponent implements OnInit {
       this.response.push(element?.createdBy);
       this.response.push(this.date1);
       this.response.push(element?.modifiedBy);
-
+ 
       this.response.push(this.date2);
-
-    
-
+ 
+ 
+ 
       sno++;
       this.responseDataListnew.push(this.response);
     });
@@ -190,7 +188,6 @@ export class BusinessKycComponent implements OnInit {
   }
  
   excelexportCustomer() {
-    // const title='Business Category';
     const header = [
       "S.No",
       "Document Name",
@@ -200,35 +197,22 @@ export class BusinessKycComponent implements OnInit {
       "modifiedBy",
       "modifiedDateTime",
     ]
- 
- 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Business KYC');
-    // Blank Row
-    // let titleRow = worksheet.addRow([title]);
-    // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
-
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
-    // Cell Style : Fill and Border
     headerRow.eachCell((cell, number) => {
       cell.fill = {
         type: 'pattern',
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
       }
- 
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
- 
     data.forEach((d: any) => {
-      // console.log("row loop");
- 
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -237,10 +221,6 @@ export class BusinessKycComponent implements OnInit {
       let qty4 = row.getCell(5);
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
- 
- 
- 
- 
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -248,38 +228,25 @@ export class BusinessKycComponent implements OnInit {
       qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      
- 
     }
     );
- 
-    // worksheet.getColumn(1).protection = { locked: true, hidden: true }
-    // worksheet.getColumn(2).protection = { locked: true, hidden: true }
-    // worksheet.getColumn(3).protection = { locked: true, hidden: true }
- 
- 
     workbook.xlsx.writeBuffer().then((data: any) => {
- 
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
- 
- 
       FileSaver.saveAs(blob, 'Business KYC.xlsx');
- 
     });
   }
-
  
-  cancel(){
-   
+ 
+  cancel() {
+ 
   }
-   
+ 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-   
+ 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
-
 }

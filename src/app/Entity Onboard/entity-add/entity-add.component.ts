@@ -24,7 +24,8 @@ export class EntityAddComponent implements OnInit {
   Mcccode: any;
   Bankdetails: boolean = false;
   personeldetails: boolean = true;
-  KYCdetails: boolean = false
+  KYCdetails: boolean = false;
+  BussinessDoc:boolean = false;
   merchantid: any;
   bussinessid: any;
   errorMessage: any;
@@ -173,6 +174,10 @@ export class EntityAddComponent implements OnInit {
       accountType: new FormControl("", [
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9 ]*$')
+      ]),
+
+      ledgerId: new FormControl("", [
+        Validators.required,
       ]),
     })
 
@@ -345,6 +350,10 @@ export class EntityAddComponent implements OnInit {
 
   get accountType() {
     return this.myForm2.get('accountType')
+  }
+
+  get ledgerId() {
+    return this.myForm2.get('ledgerId')
   }
 
   // third Form
@@ -686,7 +695,8 @@ export class EntityAddComponent implements OnInit {
       ifscCode: this.ifscCode?.value,
       branchName: this.branchName?.value,
       accountType: this.accountType?.value,
-      merchantId: this.merchantid
+      merchantId: this.merchantid,
+      ledgerId:this.ledgerId?.value
     }
     this.AddEntity.EntitybankAdd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
@@ -732,4 +742,6 @@ export class EntityAddComponent implements OnInit {
       }
     });
   }
+
+  
 }

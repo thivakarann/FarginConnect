@@ -176,6 +176,10 @@ import { OtherpaymentsViewComponent } from './Fargin Transtions/Other Payments/o
 import { CreateOtherpaymentComponent } from './Entity Onboard/create-otherpayment/create-otherpayment.component';
 import { EditOtherpaymentComponent } from './Entity Onboard/edit-otherpayment/edit-otherpayment.component';
 import { OtherpayTransComponent } from './Entity Onboard/otherpay-trans/otherpay-trans.component';
+import { EntityKyceditComponent } from './Entity Onboard/entity-kycedit/entity-kycedit.component';
+import { AddKyccategoryComponent } from './Main Master/kyccategory/add-kyccategory/add-kyccategory.component';
+import { ViewallKyccategoryComponent } from './Main Master/kyccategory/viewall-kyccategory/viewall-kyccategory.component';
+import { EditKyccategoryComponent } from './Main Master/kyccategory/edit-kyccategory/edit-kyccategory.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -329,7 +333,12 @@ import { OtherpayTransComponent } from './Entity Onboard/otherpay-trans/otherpay
     OtherpaymentsViewComponent,
     CreateOtherpaymentComponent,
     EditOtherpaymentComponent,
-    OtherpayTransComponent
+    OtherpayTransComponent,
+    EntityKyceditComponent,
+    EntityKyceditComponent,
+    AddKyccategoryComponent,
+    ViewallKyccategoryComponent,
+    EditKyccategoryComponent
 
   ],
 

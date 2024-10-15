@@ -94,6 +94,33 @@
 
             </div>
 
+            <div class="row mb-3">
+                <div class="col-sm-6 form-group">
+                    <label for="zip">Renewal Amount*</label>
+                    <input type="text" formControlName="renewalAmount" id="zip" class="form-control"
+                        [(ngModel)]="numberValues2" [ngClass]="{ 'is-invalid': numberValues2 < 0 }"
+                        placeholder="Enter amount in rupees">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="numberValues2 < 0" class="error">
+                        Value must be non-negative.
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="renewalAmount?.invalid && renewalAmount?.touched && renewalAmount?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>  
+            </div>
+
 
             <div>
                 <button (click)="submit()" [disabled]="myForm.invalid" type="submit" class="btn mx-1 "

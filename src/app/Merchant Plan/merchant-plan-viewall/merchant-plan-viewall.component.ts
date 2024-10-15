@@ -25,6 +25,7 @@ export class MerchantPlanViewallComponent {
     'merchantPlanId',
     'planName',
     'serviceAmount',
+    'renewalAmount',
     'maintenanceAmount',
     'frequency',
     'activeStatus',

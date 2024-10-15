@@ -81,13 +81,13 @@ export interface Businesskycstatus {
 
 export interface Businesskycadd {
   readonly businessCategoryId: any;
-  readonly kycDocName: any;
   readonly createdBy: any;
+  readonly kycCategoryId:any;
 }
 
 
 export interface Businesskycedit {
-  readonly kycDocName: any;
+  readonly kycCategoryId: any;
   readonly businessCategoryId: any;
   readonly modifiedBy: any;
 }
@@ -165,6 +165,7 @@ export interface AddEntityBank {
   readonly branchName: any;
   readonly accountType: any;
   readonly merchantId: any;
+  readonly ledgerId: any;
 }
 
 
@@ -254,6 +255,7 @@ export interface bankData {
   readonly branchName: any;
   readonly accountType: any;
   readonly merchantId: any;
+  readonly ledgerId: any;
 }
 
 export interface bankedit {
@@ -263,6 +265,7 @@ export interface bankedit {
   readonly ifscCode: any;
   readonly branchName: any;
   readonly accountType: any;
+  readonly ledgerId: any;
 }
 
 
@@ -409,7 +412,7 @@ export interface ApprovalBank {
 export interface RegionAdd {
   readonly serviceId: any;
   readonly stateName: any;
-  readonly createdBy:any
+  readonly createdBy: any
 }
 
 export interface RegionStatus {
@@ -421,7 +424,7 @@ export interface RegionEdit {
   readonly serviceId: any;
   readonly regionId: any;
   readonly stateName: any;
-  readonly modifiedBy:any
+  readonly modifiedBy: any
 }
 
 
@@ -597,7 +600,8 @@ export interface MerchantplanCreate {
   readonly technicalAmount: any;
   readonly maintenanceAmount: any;
   readonly frequency: any;
-  readonly createdBy: any
+  readonly createdBy: any;
+  readonly renewalAmount: any;
 }
 
 export interface MerchantplanUpdate {
@@ -605,7 +609,8 @@ export interface MerchantplanUpdate {
   readonly technicalAmount: any;
   readonly maintenanceAmount: any;
   readonly frequency: any;
-  readonly modifiedBy: any
+  readonly modifiedBy: any;
+  readonly renewalAmount: any;
 }
 
 export interface MerchantPlanStatus {
@@ -669,7 +674,7 @@ export interface editroles {
 
 
 export interface BroadcasterBouquetupdate {
-  readonly bouquteId:any
+  readonly bouquteId: any
   readonly boqCreationId: any;
   readonly serviceId: any;
   readonly bundleChannelId: any;
@@ -677,80 +682,80 @@ export interface BroadcasterBouquetupdate {
   readonly regId: any;
   readonly amount: any;
   readonly modifiedBy: any;
- 
+
 }
-export interface manualPayment{
-  readonly paymentStatus:any;
-  readonly  paymentMethod:any;
-  readonly utrNumber:any;
-  readonly merchantId:any;
-  readonly paidAmount:any;
-}
- 
-export interface createManualPayment{
-readonly paymentMethod:any;
-readonly utrNumber:any;
-readonly paymentStatus:any;
-readonly merchantId:any;
-}
- 
-export interface KeysUpdate{
-  readonly accountId:any;
-  readonly merchantId:any;
-  readonly apikey:any;
-  readonly secretkey:any;
+export interface manualPayment {
+  readonly paymentStatus: any;
+  readonly paymentMethod: any;
+  readonly utrNumber: any;
+  readonly merchantId: any;
+  readonly paidAmount: any;
 }
 
-export interface addpolicy{
-  readonly disclaimer:any;
-  readonly privacyPolicy:any;
-  readonly termAndCondition:any;
-  readonly refundPolicy:any;
-  readonly createdBy:any;
+export interface createManualPayment {
+  readonly paymentMethod: any;
+  readonly utrNumber: any;
+  readonly paymentStatus: any;
+  readonly merchantId: any;
 }
- 
-export interface editpolicy{
-  readonly disclaimer:any;
-  readonly privacyPolicy:any;
-  readonly termAndCondition:any;
-  readonly refundPolicy:any;
-  readonly modifiedBy:any;
+
+export interface KeysUpdate {
+  readonly accountId: any;
+  readonly merchantId: any;
+  readonly apikey: any;
+  readonly secretkey: any;
+}
+
+export interface addpolicy {
+  readonly disclaimer: any;
+  readonly privacyPolicy: any;
+  readonly termAndCondition: any;
+  readonly refundPolicy: any;
+  readonly createdBy: any;
+}
+
+export interface editpolicy {
+  readonly disclaimer: any;
+  readonly privacyPolicy: any;
+  readonly termAndCondition: any;
+  readonly refundPolicy: any;
+  readonly modifiedBy: any;
 }
 
 
-export interface custticketraise{
-  readonly ticketStatus:any;
-  readonly ticketComment:any;
+export interface custticketraise {
+  readonly ticketStatus: any;
+  readonly ticketComment: any;
 }
 
 export interface AddBankdetails {
-  readonly bankName:any,
-  readonly createdBy:any
+  readonly bankName: any,
+  readonly createdBy: any
 
 }
 
 export interface UpdateBankdetails {
-  readonly bankId:any;
-  readonly bankName:any;
-  readonly modifiedBy:any
+  readonly bankId: any;
+  readonly bankName: any;
+  readonly modifiedBy: any
 }
 
 export interface UpdateBankdetailStatus {
-  readonly bankId:any,
-  readonly activeStatus:any
+  readonly bankId: any,
+  readonly activeStatus: any
 }
 
- 
-export interface policyApproval{
-  readonly approvedStatus:any;
-  readonly approvedBy:any;
+
+export interface policyApproval {
+  readonly approvedStatus: any;
+  readonly approvedBy: any;
 }
 
 export interface QrCodecreation {
-  readonly merchantId:any;
-  readonly qrReference:any;
-  readonly qrGenerateLink:any;
-  readonly qrCreatedBy:any;
+  readonly merchantId: any;
+  readonly qrReference: any;
+  readonly qrGenerateLink: any;
+  readonly qrCreatedBy: any;
 }
 
 export interface DashboardData {
@@ -766,26 +771,96 @@ export interface DashboardData {
   pendingAmount: number;
 }
 
-export interface createManualPayment{
-  readonly paymentMethod:any;
-  readonly utrNumber:any;
-  readonly paymentStatus:any;
-  readonly merchantId:any;
-  readonly date:any;
-  }
-   
-  export interface createOtherPayment{
-    readonly serviceName:any;
-    readonly paidAmount:any;
-    readonly createdBy:any;
-    readonly merchantId:any;
-    }
-   
-  export interface updateOtherPayment{
-      readonly serviceName:any;
-      readonly paidAmount:any;
-      readonly modifiedBy:any;
-  }
- 
+export interface createManualPayment {
+  readonly paymentMethod: any;
+  readonly utrNumber: any;
+  readonly paymentStatus: any;
+  readonly merchantId: any;
+  readonly date: any;
+}
+
+export interface createOtherPayment {
+  readonly serviceName: any;
+  readonly paidAmount: any;
+  readonly createdBy: any;
+  readonly merchantId: any;
+}
+
+export interface updateOtherPayment {
+  readonly serviceName: any;
+  readonly paidAmount: any;
+  readonly modifiedBy: any;
+}
+
+
+export interface identity {
+  readonly identityProof: any;
+  readonly proofId: any;
+  readonly identityProofNo: any;
+}
+
+export interface address {
+  readonly proofId: any;
+  readonly addressProof: any;
+  readonly addressProofNo: any;
+}
+
+export interface signature {
+  readonly proofId: any;
+  readonly signatureProof: any;
+  readonly signatureProofNo: any;
+}
+
+
+export interface verification {
+  readonly docNumber: any;
+  readonly kycId: any;
+}
+
+
+export interface verify {
+  readonly kycId: any;
+  readonly docNumber: any;
+  readonly approvalBy: any;
+}
+
+
+export interface identityapprove {
+  readonly proofId: any;
+  readonly identityAdminComments: any;
+  readonly identityAdminApprovalStatus: any
+  readonly identityAdminApprovedBy: any
+}
+
+export interface addressapprove {
+  readonly proofId: any;
+  readonly addressAdminApprovalStatus: any
+  readonly addressAdminComments: any;
+  readonly addressAdminApprovedBy: any
+}
+export interface signatureapprove {
+  readonly proofId: any;
+  readonly signatureAdminApprovalStatus: any;
+  readonly signatureAdminComments: any
+  readonly signatureAdminApprovedBy: any
+}
+
+export interface kyccateforysts {
+  readonly kycCategoryId: any;
+  readonly activeStatus: any;
+}
+
+export interface kycadd {
+  readonly createdBy: any
+  readonly kycCategoryName: any
+}
+
+
+export interface kycedit {
+  readonly modifiedBy: any
+  readonly kycCategoryName: any
+  readonly kycCategoryId: any
+}
+
 
 

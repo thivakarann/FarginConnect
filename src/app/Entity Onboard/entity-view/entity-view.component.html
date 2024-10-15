@@ -331,6 +331,7 @@
                                 <th>Account Number</th>
                                 <th>Account Type</th>
                                 <th>IFSC Code</th>
+                                <th>Ledger Id</th>
                                 <th>Bank Name</th>
                                 <th>Branch Name</th>
                                 <th>Bank Status</th>
@@ -352,6 +353,7 @@
                                 <td>{{item.accountNumber}}</td>
                                 <td>{{item.accountType}}</td>
                                 <td>{{item.ifscCode}}</td>
+                                <td>{{item.ledgerId}}</td>
                                 <td>{{item.bankId.bankName}}</td>
                                 <td>{{item.branchName}}</td>
                                 <td><span> <mat-slide-toggle class="example-margin" color="primary"
@@ -461,11 +463,12 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-md-2 mt-1">
-                    <button (click)="addKycdocuments(this.id,this.businessCategoryId)"
+                <!-- <div class="col-md-2 mt-1">
+                    <button [hidden]="valuekycadd!=='KYC-add'"
+                        (click)="addKycdocuments(this.id,this.businessCategoryId)"
                         style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Add
                         KYC</button>
-                </div>
+                </div> -->
             </div>
         </mat-card-header>
         <div class="row mt-4">
@@ -475,79 +478,200 @@
                         <table class="table table-hover" id="customers">
                             <tr>
                                 <th>S No </th>
+                                <th>Document Type</th>
                                 <th>Document Name</th>
-                                <th>Document Number</th>
-                                <th>KYC File</th>
+                                <th>Document No</th>
+                                <th>Document Image</th>
                                 <th>Action</th>
+                                <th>Verification</th>
                                 <th>Verification Status</th>
-                                <th>Verfication </th>
                                 <th>Approval</th>
                                 <th>Approval Status</th>
                                 <th>Approved By</th>
                                 <th>Approval At</th>
                                 <th>Comments</th>
-
+ 
+ 
                             </tr>
                             <tbody
                                 *ngFor="let item of KYCDetails| paginate: { itemsPerPage: 3, currentPage: currentPage } | search: searchText;let i=index">
-                                <td>{{i+1}}</td>
-                                <td>{{item.docName}}</td>
-                                <td>{{item.docNumber}}</td>
-                                <td><span (click)="getFrontPath(item.merchantDocumentId)"><i class='fa-regular fa-image'
-                                            style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
-                                    <span (click)="getBackPath(item.merchantDocumentId)"><i class='fa-regular fa-image'
-                                            style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
-                                </td>
-                                <td><span (click)="editKycDocuments(item.merchantDocumentId,item)"><i
-                                            class="fas fa-edit"
-                                            style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
-                                </td>
-                                <td class="text-center">
-                                    <span *ngIf="item.facheckStatus == 0" style="font-size:14px;color:red;">
-                                        Pending</span>
-                                    <span *ngIf="item.facheckStatus == 1"
-                                        style="font-size:14px;color:green;">Verified</span>
-                                    <span *ngIf="item.facheckStatus == 2" style="font-size:14px;color:red;">
-                                        Failed</span>
-                                </td>
-                                <td>
-                                    <span>
-                                        <i style="overflow:hidden;color:#141E46;font-size:20px;"
-                                            [matMenuTriggerFor]="menu" class="fa-solid fa-circle-info">
-                                            <mat-menu #menu="matMenu">
-                                                <button style="font-size: 10px;" mat-menu-item
-                                                    (click)="KycInfo(item.kycId,item.docName)">Info</button>
-                                                <button style="font-size: 10px;" mat-menu-item
-                                                    [disabled]="item.facheckStatus==1"
-                                                    (click)="FacheckVerification(item.docName,item.docNumber,item.merchantDocumentId,item.approvalBy)">Verify</button>
-                                                <button style="font-size: 10px;" mat-menu-item
-                                                    [disabled]="item.facheckStatus==0"
-                                                    (click)="FacheckVerification(item.docName,item.docNumber,item.kycId,item.approvalBy)">
-                                                    Re-Verify </button>
-                                            </mat-menu>
-                                        </i>
-                                    </span>
-
-                                </td>
-
-                                <td><button class="buttonDownload" [disabled]="item.facheckStatus != 1"
-                                        (click)="KycApproval(item.merchantDocumentId)">Approval</button></td>
-
-                                <td [ngClass]="{
-                                                        yellow: item?.approvalStatus === 'Pending',
-                                                        green: item?.approvalStatus === 'approved',
-                               
-                                                        Red: item?.approvalStatus == 'Rejected'
-                                                      }">{{item.approvalStatus}}</td>
-
-                                <td> {{item.approvalBy}}
-                                </td>
-                                <td>{{item.approvalDateTime}}</td>
-
-
-                                <td><span (click)="KYCComments(item.reMarks)"><i class="fas fa-comments"
-                                            style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
-                                </td>
+                                <tr>
+ 
+                                    <td>1</td>
+                                    <td>Identity proof</td>
+                                    <td>{{item.identityProof}}</td>
+                                    <td>{{item.identityProofNo}}</td>
+                                    <td>
+                                        <span (click)="getFrontPath(item.proofId)"><i class='fa-regular fa-image'
+                                                style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
+                                        <span (click)="getBackPath(item.proofId)"><i class='fa-regular fa-image mx-1'
+                                                style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
+                                    </td>
+                                    <td><i class="fas fa-edit" (click)="identityedit(item)">
+ 
+                                        </i></td>
+                                    <td>
+                                        <span>
+                                            <i style="overflow:hidden;color:#141E46;font-size:20px;"
+                                                [matMenuTriggerFor]="menu1" class="fa-solid fa-circle-info">
+                                                <mat-menu #menu1="matMenu">
+                                                    <button style="font-size: 10px;" mat-menu-item
+                                                    (click)="KycInfo(item)">Info</button>
+                                                    <button style="font-size: 10px;" mat-menu-item
+                                                        [disabled]="item.identityFacheckStatus==1"
+                                                        (click)="kycVerificationsIdentity(item.identityProofNo,item.identityKycId,item.identityProof)">Verify</button>
+                                                    <button style="font-size: 10px;" mat-menu-item
+                                                        [disabled]="item.identityFacheckStatus==0  || item.identityFacheckStatus==2"
+                                                        (click)="kycVerificationsIdentity(item.identityProofNo,item.identityKycId,item.identityProof)">
+                                                        Re-Verify </button>
+                                                </mat-menu>
+                                            </i>
+                                        </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span *ngIf="item.identityFacheckStatus == 0" style="font-size:14px;color:red;">
+                                            Pending</span>
+                                        <span *ngIf="item.identityFacheckStatus == 1"
+                                            style="font-size:14px;color:green;">Verified</span>
+                                        <span *ngIf="item.identityFacheckStatus == 2" style="font-size:14px;color:red;">
+                                            Failed</span>
+                                    </td>
+                                    <td><button class="buttonDownload"
+                                            (click)="KycApproval(item)"    [disabled]="item.identityAdminApprovalStatus == 'approved'"
+                                            >Approval</button></td>
+                                    <td [ngClass]="{
+                                    yellow: item?.identityAdminApprovalStatus === 'Pending',
+                                    green: item?.identityAdminApprovalStatus === 'approved',
+                                    Red: item?.identityAdminApprovalStatus == 'Rejected'
+                                  }">{{item.identityAdminApprovalStatus}}</td>
+ 
+                                    <td> {{item.identityAdminApprovedBy}}
+                                    </td>
+                                    <td>{{item.identityAdminApprovedDate}}</td>
+                                    <td><span (click)="KYCComments(item.identityAdminComments)"><i class="fas fa-comments"
+                                        style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
+                            </td>
+                                </tr>
+ 
+ 
+                                <tr>
+                                    <td>2</td>
+                                    <td>Address proof</td>
+                                    <td>{{item.addressProof}}</td>
+                                    <td>{{item.addressProofNo}}</td>
+                                    <td>
+                                        <span (click)="addressProofFrontPath(item.proofId)"><i
+                                                class='fa-regular fa-image'
+                                                style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
+                                        <span (click)="addressProofBackPath(item.proofId)"><i
+                                                class='fa-regular fa-image mx-1'
+                                                style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
+                                    </td>
+                                    <td><i class="fas fa-edit" (click)="addressedits(item)"></i></td>
+                                    <td>
+                                        <span>
+                                            <i style="overflow:hidden;color:#141E46;font-size:20px;"
+                                                [matMenuTriggerFor]="menu2" class="fa-solid fa-circle-info">
+                                                <mat-menu #menu2="matMenu">
+                                                    <button style="font-size: 10px;" mat-menu-item
+                                                    (click)="KycInfo(item)">Info</button>
+                                                    <button style="font-size: 10px;" mat-menu-item
+                                                        [disabled]="item.addressFacheckStatus==1"
+                                                        (click)="kycVerificationsAddress(item.addressProofNo,item.addressKycId,item.addressProof)">Verify</button>
+                                                    <button style="font-size: 10px;" mat-menu-item
+                                                        [disabled]="item.addressFacheckStatus==0  || item.addressFacheckStatus==2"
+                                                        (click)="kycVerificationsAddress(item.addressProofNo,item.addressKycId,item.addressProof)">
+                                                        Re-Verify </button>
+                                                </mat-menu>
+                                            </i>
+                                        </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span *ngIf="item.addressFacheckStatus == 0" style="font-size:14px;color:red;">
+                                            Pending</span>
+                                        <span *ngIf="item.addressFacheckStatus == 1"
+                                            style="font-size:14px;color:green;">Verified</span>
+                                        <span *ngIf="item.addressFacheckStatus == 2" style="font-size:14px;color:red;">
+                                            Failed</span>
+                                    </td>
+                                    <td><button class="buttonDownload"
+                                            (click)="KycApproval1(item)" [disabled]="item.identityAdminApprovalStatus == 'approved'">Approval</button></td>
+                                            <td [ngClass]="{
+                                                yellow: item?.addressAdminApprovalStatus === 'Pending',
+                                                green: item?.addressAdminApprovalStatus === 'approved',
+                                                Red: item?.addressAdminApprovalStatus == 'Rejected'
+                                              }">{{item.addressAdminApprovalStatus}}</td>
+           
+                                                <td> {{item.addressAdminApprovedBy}}
+                                                </td>
+                                                <td>{{item.addressAdminApprovedDate}}</td>
+                                                <td><span (click)="KYCComments(item.addressAdminComments)"><i class="fas fa-comments"
+                                                    style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
+                                        </td>
+                                </tr>
+ 
+ 
+                                <tr>
+                                    <td>3</td>
+                                    <td>Signature proof</td>
+                                    <td>{{item.signatureProof}}</td>
+                                    <td>{{item.signatureProofNo}}</td>
+ 
+ 
+                                    <td>
+                                        <span (click)="signatureProofFrontPath(item.proofId)"><i
+                                                class='fa-regular fa-image'
+                                                style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
+                                        <span (click)="signatureProofBackPath(item.proofId)"><i
+                                                class='fa-regular fa-image mx-1'
+                                                style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
+                                    </td>
+                                    <td><i class="fas fa-edit" (click)="signatureedits(item)"></i></td>
+                                    <td> <span>
+                                            <i style="overflow:hidden;color:#141E46;font-size:20px;"
+                                                [matMenuTriggerFor]="menu3" class="fa-solid fa-circle-info">
+                                                <mat-menu #menu3="matMenu">
+                                                    <button style="font-size: 10px;" mat-menu-item
+                                                        (click)="KycInfo(item)">Info</button>
+                                                    <button style="font-size: 10px;" mat-menu-item
+                                                        [disabled]="item.signatureFacheckStatus==1"
+                                                        (click)="kycVerificationsSignature(item.signatureProofNo, item.signatureKycId, item.signatureProof)">Verify</button>
+                                                    <button style="font-size: 10px;" mat-menu-item
+                                                        [disabled]="item.signatureFacheckStatus==0 || item.signatureFacheckStatus==2"
+                                                        (click)="kycVerificationsSignature(item.signatureProofNo, item.signatureKycId, item.signatureProof)">Re-Verify</button>
+                                                </mat-menu>
+                                            </i>
+                                        </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span *ngIf="item.signatureFacheckStatus == 0"
+                                            style="font-size:14px;color:red;">
+                                            Pending</span>
+                                        <span *ngIf="item.signatureFacheckStatus == 1"
+                                            style="font-size:14px;color:green;">Verified</span>
+                                        <span *ngIf="item.signatureFacheckStatus == 2"
+                                            style="font-size:14px;color:red;">
+                                            Failed</span>
+                                    </td>
+                                    <td><button class="buttonDownload"
+                                            (click)="KycApproval2(item)" [disabled]="item.signatureAdminApprovalStatus== 'approved'"
+                                            >Approval</button></td>
+                                           
+                                                <td [ngClass]="{
+                                                    yellow: item?.signatureAdminApprovalStatus === 'Pending',
+                                                    green: item?.signatureAdminApprovalStatus === 'approved',
+                                                    Red: item?.signatureAdminApprovalStatus == 'Rejected'
+                                                  }">{{item.signatureAdminApprovalStatus}}</td>
+               
+                                                    <td> {{item.signatureAdminApprovedBy}}
+                                                    </td>
+                                                    <td>{{item.signatureAdminApprovedDate}}</td>
+                                                    <td><span (click)="KYCComments(item.signatureAdminComments)"><i class="fas fa-comments"
+                                                        style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
+                                            </td>
+                                </tr>
+ 
+ 
                             </tbody>
                         </table>
                     </div>

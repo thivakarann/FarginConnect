@@ -69,6 +69,10 @@ export class EntityBankeditComponent implements OnInit {
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9 ]*$')
       ]),
+
+      ledgerId: new FormControl("", [
+        Validators.required,
+      ]),
     })
 
   }
@@ -95,6 +99,11 @@ export class EntityBankeditComponent implements OnInit {
   get accountType() {
     return this.BankForm.get('accountType')
   }
+
+  get ledgerId() {
+    return this.BankForm.get('ledgerId')
+  }
+
   submit() {
     let submitModel: bankedit = {
       accountHolderName: this.accountHolderName.value,
@@ -102,7 +111,8 @@ export class EntityBankeditComponent implements OnInit {
       bankId: this.bankName.value,
       ifscCode: this.ifscCode.value,
       branchName: this.branchName.value,
-      accountType: this.accountType.value
+      accountType: this.accountType.value,
+      ledgerId:this.ledgerId?.value
     }
     this.service.EntitybankEdit(this.merchantBankId, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {

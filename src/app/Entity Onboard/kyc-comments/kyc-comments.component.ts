@@ -9,14 +9,13 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class KycCommentsComponent implements OnInit {
   remarks: any;
-
-
+ 
+ 
   constructor(private service:FarginServiceService,@Inject(MAT_DIALOG_DATA) public data:any){
-
+ 
   }
   ngOnInit(): void {
     this.remarks = this.data.value
     console.log(this.remarks);
   }
-
 }

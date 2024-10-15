@@ -1,12 +1,12 @@
 <div class="card-header">
     <h3 class="mb-0" style="font-weight: 700;text-align:center;font-size: 21px;">Create KYC</h3>
 </div>
-
+ 
 <body class="page">
     <main class="main page__main">
-
+ 
         <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="addbusinesskyc">
-
+ 
             <div class="form-group">
                 <label class="form-label" for="message">Business Category:</label>
                 <select class="form-select" formControlName="businessCategoryId" required>
@@ -21,35 +21,39 @@
                     *ngIf="businessCategoryId?.touched && businessCategoryId?.errors?.['required']">Field is
                     Required</span>
             </div>
-
+ 
             <div class="form__linput">
-                <label class="form-label" for="message">Mandate Documents</label>
-                <select class="form-select" formControlName="kycDocName" required>
-                    <option style="text-align: center;" value="Aadhaar">Aadhaar</option>
-                    <option style="text-align: center;" value="PAN">PAN</option>
-                    <option style="text-align: center;" value="GST">GST</option>
-                    <option style="text-align: center;" value="Driving Licence">Driving Licence</option>
-                    <option style="text-align: center;" value="Passport">Passport</option>
-                    <option style="text-align: center;" value="Voter Id">Voter Id</option>
-                    <option style="text-align: center;" value="Cin">Cin</option>
-                </select>
-
+                <label class="form-label" for="message">KYC Documents</label>
+                <mat-select #select class="form-select" multiple formControlName="kycCategoryId"
+                (ngModelChange)="kycId($event)">
+ 
+                <div class="select-all">
+                    <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
+                        (change)="toggleAllSelection()">Select All</mat-checkbox>
+                </div>
+ 
+                <mat-option *ngFor="let item of kycValue"
+                    [value]="item.kycCategoryId">{{item.kycCategoryName}}</mat-option>
+ 
+            </mat-select>
+               
+ 
                 <div style="color: red; font-size : 12px;margin-top: 2px;"
-                    *ngIf="kycDocName?.invalid && kycDocName?.touched && kycDocName?.errors?.['required']">
+                    *ngIf="kycCategoryId?.invalid && kycCategoryId?.touched && kycCategoryId?.errors?.['required']">
                     Field is required
                 </div>
             </div>
-
-
+ 
+ 
             <!-- <button class="primary-btn form__btn" type="submit">Submit</button> -->
             <div class="flex">
                 <button type="submit" class="submit" [disabled]="addbusinesskyc.invalid"
                     (click)="submit()">Submit</button>
                 <button type="submit" class="cancel" matDialogClose>Cancel</button>
-
+ 
             </div>
-
-
+ 
+ 
         </form>
     </main>
 </body>

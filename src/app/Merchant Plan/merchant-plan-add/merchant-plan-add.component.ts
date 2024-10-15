@@ -18,6 +18,9 @@ export class MerchantPlanAddComponent implements OnInit {
   myForm!: FormGroup;
   numberValue: number | any = null;
   numberValues:number|any=null
+
+  numberValue2: number | any = null;
+  numberValues2:number|any=null
   constructor(
     public Merchantplanadd: FarginServiceService,
     private router: Router,
@@ -31,6 +34,7 @@ export class MerchantPlanAddComponent implements OnInit {
       technicalAmount: new FormControl('', Validators.required),
       maintenanceAmount: new FormControl('', Validators.required),
       frequency: new FormControl('', Validators.required),
+      renewalAmount: new FormControl('', Validators.required),
 
     });
   }
@@ -55,12 +59,18 @@ export class MerchantPlanAddComponent implements OnInit {
 
   }
 
+  get renewalAmount() {
+    return this.myForm.get('renewalAmount')
+
+  }
+
   submit() {
     let submitModel: MerchantplanCreate = {
       planName: this.planName?.value,
       technicalAmount: this.technicalAmount?.value,
       maintenanceAmount: this.maintenanceAmount?.value,
       frequency: this.frequency?.value,
+      renewalAmount:this.renewalAmount?.value,
       createdBy: this.getadminname
     }
 

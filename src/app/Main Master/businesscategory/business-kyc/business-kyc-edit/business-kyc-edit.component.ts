@@ -7,6 +7,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Businesskycedit } from '../../../../fargin-model/fargin-model.module';
+import { MatOption } from '@angular/material/core';
+import { MatSelect } from '@angular/material/select';
 
 @Component({
   selector: 'app-business-kyc-edit',
@@ -16,7 +18,7 @@ import { Businesskycedit } from '../../../../fargin-model/fargin-model.module';
 export class BusinessKycEditComponent implements OnInit {
 
   editbusinesskyc: any = FormGroup;
-
+ 
   getadminname = JSON.parse(localStorage.getItem('adminname') || '');
   Adminid = JSON.parse(localStorage.getItem('adminid') || '');
   categorys: any;
@@ -27,35 +29,44 @@ export class BusinessKycEditComponent implements OnInit {
   dataSource: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
+  @ViewChild('select') select: any = MatSelect;
+  allSelected = false;
   errorMsg: any;
   categoryNames: any;
   businessCategoryIds: any;
-
-
+  kycValue: any;
+  kycCategoryIds: any;
+ 
+ 
   constructor(private fb: FormBuilder, private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, @Inject(MAT_DIALOG_DATA) public data: any) {
-
-    this.businessCreationId = data.value.businessCreationId;
-
+ 
+ 
   }
-
-
-
+ 
+ 
+ 
   ngOnInit(): void {
-
+ 
+    this.service.activeViewall().subscribe((res: any) => {
+      this.kycValue = res.response;
+      console.log(this.kycValue);
+    })
+ 
+ 
     this.editbusinesskyc = this.fb.group({
-      kycDocName: new FormControl('', [Validators.required]),
+      kycCategoryId: new FormControl('', [Validators.required]),
       modifiedBy: new FormControl(''),
       businessCategoryId: new FormControl('', [Validators.required])
     });
-
-    this.kycDocNames = this.data.value.kycDocName
-    this.editbusinesskyc.controls['kycDocName'].value = this.kycDocNames
-
+ 
+    this.businessCreationId = this.data.value.businessCreationId
+    this.kycCategoryIds = this.data.value.kycCategoryId
+    this.editbusinesskyc.controls['kycCategoryId'].value = this.kycCategoryIds
+ 
     this.businessCategoryIds = this.data.value.businessCategoryId.businessCategoryId
     this.editbusinesskyc.controls['businessCategoryId'].value = this.businessCategoryIds
-
-
+ 
+ 
     this.service.BusinesscategoryKycactive().subscribe((res: any) => {
       if (res.flag == 1) {
         this.categoryName = res.response;
@@ -66,29 +77,30 @@ export class BusinessKycEditComponent implements OnInit {
       }
       else {
         this.errorMsg = res.responseMessage;
-
+ 
       }
     });
-
+ 
   }
-
-  get kycDocName() {
-    return this.editbusinesskyc.get('kycDocName');
+ 
+  get kycCategoryId() {
+    return this.editbusinesskyc.get('kycCategoryId');
   }
+ 
   get businessCategoryId() {
     return this.editbusinesskyc.get('businessCategoryId');
   }
-
-
-
-
+ 
+ 
+ 
+ 
   Editsubmit() {
     let submitModel: Businesskycedit = {
-      kycDocName: this.kycDocName.value,
+      kycCategoryId: this.kycCategoryId.value,
       businessCategoryId: this.businessCategoryId.value,
       modifiedBy: this.getadminname
     }
-
+ 
     this.service.Businesskycupdate(this.businessCreationId, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
@@ -101,5 +113,15 @@ export class BusinessKycEditComponent implements OnInit {
       }
     })
   }
-
+  toggleAllSelection() {
+    if (this.allSelected) {
+      this.select.options.forEach((item: MatOption) => item.select());
+    } else {
+      this.select.options.forEach((item: MatOption) => item.deselect());
+    }
+  }
+ 
+  kycId(id: any) {
+    console.log(id);
+  }
 }

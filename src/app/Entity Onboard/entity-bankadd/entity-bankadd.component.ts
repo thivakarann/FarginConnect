@@ -14,8 +14,6 @@ import { bankData, bankedit } from '../../fargin-model/fargin-model.module';
 
 export class EntityBankaddComponent implements OnInit {
 
-
-
   BankForm: any = FormGroup;
   categorydetails: any;
   documentname: any;
@@ -38,7 +36,7 @@ export class EntityBankaddComponent implements OnInit {
     this.merchantid = this.data.value;
     console.log(this.merchantid);
 
-    this.service.activebankdetails().subscribe((res:any)=>{
+    this.service.activebankdetails().subscribe((res: any) => {
       this.BankNames = res.response;
     });
 
@@ -67,6 +65,10 @@ export class EntityBankaddComponent implements OnInit {
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9 ]*$')
       ]),
+
+      ledgerId: new FormControl("", [
+        Validators.required,
+      ]),
     })
   }
   get accountHolderName() {
@@ -92,6 +94,10 @@ export class EntityBankaddComponent implements OnInit {
     return this.BankForm.get('accountType')
   }
 
+  get ledgerId() {
+    return this.BankForm.get('ledgerId')
+  }
+
   submit() {
     let submitModel: bankData = {
       accountHolderName: this.accountHolderName?.value,
@@ -100,9 +106,10 @@ export class EntityBankaddComponent implements OnInit {
       ifscCode: this.ifscCode?.value,
       branchName: this.branchName?.value,
       accountType: this.accountType?.value,
-      merchantId: this.merchantid
+      merchantId: this.merchantid,
+      ledgerId:this.ledgerId?.value
     };
- 
+
     this.service.EntitybankAdd(submitModel).subscribe((res: any) => {
       if (res.flag === 1) {
         this.toastr.success(res.responseMessage);

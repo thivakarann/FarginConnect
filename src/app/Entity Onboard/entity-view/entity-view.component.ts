@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { ApprovalBank, bankData, bankedit, BankPrimaryStatus, BankStatus, Bankverficiation, EmailTrigger, Facheckverification, KycApproval, PassPortverification, PgOnboard, VoterIdVerify } from '../../fargin-model/fargin-model.module';
+import { ApprovalBank, bankData, bankedit, BankPrimaryStatus, BankStatus, Bankverficiation, EmailTrigger, Facheckverification, KycApproval, PassPortverification, PgOnboard, verification, verify, VoterIdVerify } from '../../fargin-model/fargin-model.module';
 import { ApprovalForBankComponent } from '../approval-for-bank/approval-for-bank.component';
 import { CommentsForApprovalComponent } from '../comments-for-approval/comments-for-approval.component';
 import { KycApprovalComponent } from '../kyc-approval/kyc-approval.component';
@@ -30,6 +30,7 @@ import { ViewOnboardinfoComponent } from '../view-onboardinfo/view-onboardinfo.c
 import { BankVerificationMatchComponent } from '../bank-verification-match/bank-verification-match.component';
 import { CreateOtherpaymentComponent } from '../create-otherpayment/create-otherpayment.component';
 import { EditOtherpaymentComponent } from '../edit-otherpayment/edit-otherpayment.component';
+import { EntityKyceditComponent } from '../entity-kycedit/entity-kycedit.component';
 
 @Component({
   selector: 'app-entity-view',
@@ -136,6 +137,9 @@ export class EntityViewComponent implements OnInit {
   valueEntityqrs: any;
   otherDetails: any;
   payid: any;
+  identityProof: any;
+  addressProof: any;
+  signatureProof: any;
 
   selectTab(tab: string): void {
     this.activeTab = tab;
@@ -163,7 +167,11 @@ export class EntityViewComponent implements OnInit {
       this.details = res.response;
       this.detaislone = res.response.merchantpersonal;
       this.bankdetails = res.response.merchantbank;
-      this.KYCDetails = res.response.merchantdocument;
+      this.KYCDetails = res.response.merchantkycdocument;
+      this.identityProof = res.response.merchantkycdocument[0].identityProof;
+      this.addressProof = res.response.merchantkycdocument[0].addressProof;
+      this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+      
 
       this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
       console.log('BussinessCategoryId', this.businessCategoryId);
@@ -419,22 +427,22 @@ export class EntityViewComponent implements OnInit {
     })
 
   }
-  getFrontPath(id: any) {
-    this.dialog.open(KycdocumentViewComponent, {
-      enterAnimationDuration: "1000ms",
-      exitAnimationDuration: "1000ms",
-      // disableClose: true,
-      data: { value: id, value1: 1 }
-    })
-  }
-  getBackPath(id: any) {
-    this.dialog.open(KycdocumentViewComponent, {
-      enterAnimationDuration: "1000ms",
-      exitAnimationDuration: "1000ms",
-      // disableClose: true,
-      data: { value: id, value1: 2 }
-    })
-  }
+  // getFrontPath(id: any) {
+  //   this.dialog.open(KycdocumentViewComponent, {
+  //     enterAnimationDuration: "1000ms",
+  //     exitAnimationDuration: "1000ms",
+  //     // disableClose: true,
+  //     data: { value: id, value1: 1 }
+  //   })
+  // }
+  // getBackPath(id: any) {
+  //   this.dialog.open(KycdocumentViewComponent, {
+  //     enterAnimationDuration: "1000ms",
+  //     exitAnimationDuration: "1000ms",
+  //     // disableClose: true,
+  //     data: { value: id, value1: 2 }
+  //   })
+  // }
 
 
   viewlogo(id: any, Link: any) {
@@ -449,19 +457,16 @@ export class EntityViewComponent implements OnInit {
       }
     })
   }
-  KycApproval(id: any) {
-    this.dialog.open(KycApprovalComponent, {
-      enterAnimationDuration: "1000ms",
-      exitAnimationDuration: "1000ms",
-      disableClose: true,
-      data: { value: id }
-    });
+  // KycApproval(id: any) {
+  //   this.dialog.open(KycApprovalComponent, {
+  //     enterAnimationDuration: "1000ms",
+  //     exitAnimationDuration: "1000ms",
+  //     disableClose: true,
+  //     data: { value: id }
+  //   });
 
-    // dialogRef.componentInstance.dataApproval.subscribe((newBankData: KycApproval) => {
-    //   this.KYCDetails.push(newBankData);
-
-    // });
-  }
+  
+  // }
 
   KYCComments(id: any) {
     this.dialog.open(KycCommentsComponent, {
@@ -564,143 +569,143 @@ export class EntityViewComponent implements OnInit {
       }
     })
   }
-  FacheckVerification(Docname: any, data: any, id: any, ApprovedBy: any) {
-    console.log(data)
-    console.log(ApprovedBy)
-    let submitModel: Facheckverification =
-    {
-      kycId: id,
-      docNumber: data,
-      approvalBy: ApprovedBy
-    }
+  // FacheckVerification(Docname: any, data: any, id: any, ApprovedBy: any) {
+  //   console.log(data)
+  //   console.log(ApprovedBy)
+  //   let submitModel: Facheckverification =
+  //   {
+  //     kycId: id,
+  //     docNumber: data,
+  //     approvalBy: ApprovedBy
+  //   }
 
-    if (Docname == 'Aadhaar') {
-      this.MerchantView.FacheckAadharVerification(submitModel).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.toastr.success(res.responseMessage);
-          setTimeout(() => {
-            window.location.reload()
-          }, 500);
+  //   if (Docname == 'Aadhaar') {
+  //     this.MerchantView.FacheckAadharVerification(submitModel).subscribe((res: any) => {
+  //       if (res.flag == 1) {
+  //         this.toastr.success(res.responseMessage);
+  //         setTimeout(() => {
+  //           window.location.reload()
+  //         }, 500);
 
-        }
-        else {
-          this.toastr.error(res.responseMessage)
-        }
-      })
-    }
-    else if (Docname == 'PAN') {
-      this.MerchantView.FacheckPanVerification(submitModel).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.toastr.success(res.responseMessage);
-          setTimeout(() => {
-            window.location.reload()
-          }, 500);
-        }
-        else {
-          this.toastr.error(res.responseMessage)
-        }
-      })
-    }
-    else if (Docname == 'Cin') {
-      let submitModel: Facheckverification =
-      {
-        kycId: id,
-        docNumber: data,
-        approvalBy: ApprovedBy
-      }
-      this.MerchantView.FacheckCinchVerification(submitModel).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.toastr.success(res.responseMessage);
-          setTimeout(() => {
-            window.location.reload()
-          }, 500);
+  //       }
+  //       else {
+  //         this.toastr.error(res.responseMessage)
+  //       }
+  //     })
+  //   }
+  //   else if (Docname == 'PAN') {
+  //     this.MerchantView.FacheckPanVerification(submitModel).subscribe((res: any) => {
+  //       if (res.flag == 1) {
+  //         this.toastr.success(res.responseMessage);
+  //         setTimeout(() => {
+  //           window.location.reload()
+  //         }, 500);
+  //       }
+  //       else {
+  //         this.toastr.error(res.responseMessage)
+  //       }
+  //     })
+  //   }
+  //   else if (Docname == 'Cin') {
+  //     let submitModel: Facheckverification =
+  //     {
+  //       kycId: id,
+  //       docNumber: data,
+  //       approvalBy: ApprovedBy
+  //     }
+  //     this.MerchantView.FacheckCinchVerification(submitModel).subscribe((res: any) => {
+  //       if (res.flag == 1) {
+  //         this.toastr.success(res.responseMessage);
+  //         setTimeout(() => {
+  //           window.location.reload()
+  //         }, 500);
 
-        }
-        else {
-          this.toastr.error(res.responseMessage)
-        }
-      })
-    }
-    else if (Docname == 'GST') {
+  //       }
+  //       else {
+  //         this.toastr.error(res.responseMessage)
+  //       }
+  //     })
+  //   }
+  //   else if (Docname == 'GST') {
 
-      this.MerchantView.FacheckGSTVerification(submitModel).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.toastr.success(res.responseMessage);
-          setTimeout(() => {
-            window.location.reload()
-          }, 500);
+  //     this.MerchantView.FacheckGSTVerification(submitModel).subscribe((res: any) => {
+  //       if (res.flag == 1) {
+  //         this.toastr.success(res.responseMessage);
+  //         setTimeout(() => {
+  //           window.location.reload()
+  //         }, 500);
 
-        }
-        else {
-          this.toastr.error(res.responseMessage)
-        }
-      })
-    }
-    else if (Docname == 'Passport') {
-      let submitModel: PassPortverification =
-      {
-        kycId: id,
-        docNumber: data,
-        approvalBy: ApprovedBy,
-        dateOfBirth: '27-03-2001'
-      }
-      this.MerchantView.FacheckPassportVerification(submitModel).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.toastr.success(res.responseMessage);
-          setTimeout(() => {
-            window.location.reload()
-          }, 500);
+  //       }
+  //       else {
+  //         this.toastr.error(res.responseMessage)
+  //       }
+  //     })
+  //   }
+  //   else if (Docname == 'Passport') {
+  //     let submitModel: PassPortverification =
+  //     {
+  //       kycId: id,
+  //       docNumber: data,
+  //       approvalBy: ApprovedBy,
+  //       dateOfBirth: '27-03-2001'
+  //     }
+  //     this.MerchantView.FacheckPassportVerification(submitModel).subscribe((res: any) => {
+  //       if (res.flag == 1) {
+  //         this.toastr.success(res.responseMessage);
+  //         setTimeout(() => {
+  //           window.location.reload()
+  //         }, 500);
 
-        }
-        else {
-          this.toastr.error(res.responseMessage)
-        }
-      })
-    }
+  //       }
+  //       else {
+  //         this.toastr.error(res.responseMessage)
+  //       }
+  //     })
+  //   }
 
 
-    else if (Docname == 'Driving License') {
-      let submitModel: PassPortverification =
-      {
-        kycId: id,
-        docNumber: data,
-        approvalBy: ApprovedBy,
-        dateOfBirth: '27-03-2001'
-      }
-      this.MerchantView.FacheckLicenseVerification(submitModel).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.toastr.success(res.responseMessage);
-          setTimeout(() => {
-            window.location.reload()
-          }, 500);
+  //   else if (Docname == 'Driving License') {
+  //     let submitModel: PassPortverification =
+  //     {
+  //       kycId: id,
+  //       docNumber: data,
+  //       approvalBy: ApprovedBy,
+  //       dateOfBirth: '27-03-2001'
+  //     }
+  //     this.MerchantView.FacheckLicenseVerification(submitModel).subscribe((res: any) => {
+  //       if (res.flag == 1) {
+  //         this.toastr.success(res.responseMessage);
+  //         setTimeout(() => {
+  //           window.location.reload()
+  //         }, 500);
 
-        }
-        else {
-          this.toastr.error(res.responseMessage)
-        }
-      })
-    }
-    else if (Docname == 'VoterId') {
+  //       }
+  //       else {
+  //         this.toastr.error(res.responseMessage)
+  //       }
+  //     })
+  //   }
+  //   else if (Docname == 'VoterId') {
 
-      let submitModel: VoterIdVerify =
-      {
-        kycId: id,
-        docNumber: data,
-        // approvalBy: ApprovedBy,
-      }
-      this.MerchantView.FacheckVoterIdVerification(submitModel).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.toastr.success(res.responseMessage);
-          setTimeout(() => {
-            window.location.reload()
-          }, 500);
-        }
-        else {
-          this.toastr.error(res.responseMessage)
-        }
-      })
-    }
-  }
+  //     let submitModel: VoterIdVerify =
+  //     {
+  //       kycId: id,
+  //       docNumber: data,
+  //       // approvalBy: ApprovedBy,
+  //     }
+  //     this.MerchantView.FacheckVoterIdVerification(submitModel).subscribe((res: any) => {
+  //       if (res.flag == 1) {
+  //         this.toastr.success(res.responseMessage);
+  //         setTimeout(() => {
+  //           window.location.reload()
+  //         }, 500);
+  //       }
+  //       else {
+  //         this.toastr.error(res.responseMessage)
+  //       }
+  //     })
+  //   }
+  // }
   bankVerification(id: any) {
     let submitModel: Bankverficiation =
     {
@@ -742,17 +747,17 @@ export class EntityViewComponent implements OnInit {
     })
   }
 
-  KycInfo(id: any, Docname: any) {
-    this.dialog.open(KycInfoComponent, {
-      enterAnimationDuration: "1000ms",
-      exitAnimationDuration: "1000ms",
-      disableClose: true,
-      data: {
-        value: id,
-        value1: Docname
-      }
-    })
-  }
+  // KycInfo(id: any, Docname: any) {
+  //   this.dialog.open(KycInfoComponent, {
+  //     enterAnimationDuration: "1000ms",
+  //     exitAnimationDuration: "1000ms",
+  //     disableClose: true,
+  //     data: {
+  //       value: id,
+  //       value1: Docname
+  //     }
+  //   })
+  // }
 
   pgOnboard() {
     let submitmodel: PgOnboard = {
@@ -919,6 +924,618 @@ export class EntityViewComponent implements OnInit {
       data: { value: data }
     });
   }
+
+
+  getFrontPath(id: any) {
+    this.dialog.open(KycdocumentViewComponent, {
+      enterAnimationDuration: "1000ms",
+      exitAnimationDuration: "1000ms",
+      // disableClose: true,
+      data: { value: id, value1: 1 }
+    })
+  }
+  getBackPath(id: any) {
+    this.dialog.open(KycdocumentViewComponent, {
+      enterAnimationDuration: "1000ms",
+      exitAnimationDuration: "1000ms",
+      // disableClose: true,
+      data: { value: id, value1: 2 }
+    })
+  }
+ 
+  addressProofFrontPath(id: any) {
+    this.dialog.open(KycdocumentViewComponent, {
+      enterAnimationDuration: "1000ms",
+      exitAnimationDuration: "1000ms",
+      // disableClose: true,
+      data: { value: id, value1: 3 }
+    })
+  }
+ 
+  addressProofBackPath(id: any) {
+    this.dialog.open(KycdocumentViewComponent, {
+      enterAnimationDuration: "1000ms",
+      exitAnimationDuration: "1000ms",
+      // disableClose: true,
+      data: { value: id, value1: 4 }
+    })
+  }
+  signatureProofFrontPath(id: any) {
+    this.dialog.open(KycdocumentViewComponent, {
+      enterAnimationDuration: "1000ms",
+      exitAnimationDuration: "1000ms",
+      // disableClose: true,
+      data: { value: id, value1: 5 }
+    })
+  }
+ 
+  signatureProofBackPath(id: any) {
+    this.dialog.open(KycdocumentViewComponent, {
+      enterAnimationDuration: "1000ms",
+      exitAnimationDuration: "1000ms",
+      // disableClose: true,
+      data: { value: id, value1: 6 }
+    })
+  }
+ 
+ 
+  identityedit(id: any) {
+    this.dialog.open(EntityKyceditComponent, {
+      enterAnimationDuration: "1000ms",
+      exitAnimationDuration: "1000ms",
+      // disableClose: true,
+      data: {
+        value: 1,
+        value1: id
+      }
+    })
+  }
+ 
+  addressedits(id: any) {
+ 
+    this.dialog.open(EntityKyceditComponent, {
+      enterAnimationDuration: "1000ms",
+      exitAnimationDuration: "1000ms",
+      // disableClose: true,
+      data: { value: 2, value1: id }
+    })
+  }
+ 
+  signatureedits(id: any) {
+    this.dialog.open(EntityKyceditComponent, {
+      enterAnimationDuration: "1000ms",
+      exitAnimationDuration: "1000ms",
+      // disableClose: true,
+      data: { value: 3, value1: id }
+    })
+  }
+
+
+    //fa check verification
+    kycVerificationsIdentity(id: any, id1: any, id2: any) {
+      console.log(id2, id, id1);
+   
+   
+      if (id2 == "Pancard") {
+        let submitModel: verify =
+        {
+          kycId: id1,
+          docNumber: id,
+          approvalBy: this.getadminname
+        }
+        console.log(submitModel);
+   
+        this.MerchantView.panVerifysIdentity(submitModel).subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              window.location.reload()
+            }, 500);
+          }
+          else {
+            this.toastr.error(res.responseMessage);
+          }
+        })
+   
+      }
+      if (id2 == "Aadhar Card") {
+        console.log(id2);
+   
+        let submitModel: verification =
+        {
+          kycId: id1,
+          docNumber: id,
+   
+        }
+        this.MerchantView.adharVerifyIdentity(submitModel).subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              window.location.reload()
+            }, 500);
+          }
+          else {
+            this.toastr.error(res.responseMessage);
+          }
+        })
+      }
+   
+      if (id2 == "GST") {
+        console.log(id2);
+   
+        let submitModel: verification =
+        {
+          kycId: id1,
+          docNumber: id,
+   
+        }
+        this.MerchantView.gstVerifyIdentity(submitModel).subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              window.location.reload()
+            }, 500);
+          }
+          else {
+            this.toastr.error(res.responseMessage);
+          }
+        })
+      }
+   
+      if (id2 == "Driving License") {
+        console.log(id2);
+   
+        let submitModel: verification =
+        {
+          kycId: id1,
+          docNumber: id,
+   
+        }
+        this.MerchantView.drivingverfiyidentity(submitModel).subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              window.location.reload()
+            }, 500);
+          }
+          else {
+            this.toastr.error(res.responseMessage);
+          }
+        })
+      }
+   
+      if (id2 == "Passport") {
+        console.log(id2);
+   
+        let submitModel: verify =
+        {
+          kycId: id1,
+          docNumber: id,
+          approvalBy: this.getadminname
+   
+        }
+        this.MerchantView.passportVerifyIdentity(submitModel).subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              window.location.reload()
+            }, 500);
+          }
+          else {
+            this.toastr.error(res.responseMessage);
+          }
+        })
+      }
+   
+      if (id2 == "Voter Id Proof") {
+        console.log(id2);
+   
+        let submitModel: verification =
+        {
+          kycId: id1,
+          docNumber: id,
+   
+        }
+        this.MerchantView.voterverifyIdentity(submitModel).subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              window.location.reload()
+            }, 500);
+          }
+          else {
+            this.toastr.error(res.responseMessage);
+          }
+        })
+      }
+   
+      if (id2 == "Cin") {
+        console.log(id2);
+   
+        let submitModel: verify =
+        {
+          kycId: id1,
+          docNumber: id,
+          approvalBy: this.getadminname
+   
+        }
+        this.MerchantView.cinVerifyIdentity(submitModel).subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              window.location.reload()
+            }, 500);
+          }
+          else {
+            this.toastr.error(res.responseMessage);
+          }
+        })
+      }
+    }
+   
+   
+    kycVerificationsAddress(id: any, id1: any, id2: any) {
+      console.log(id2, id, id1);
+   
+   
+      if (id2 == "Pancard") {
+        let submitModel: verify =
+        {
+          kycId: id1,
+          docNumber: id,
+          approvalBy: this.getadminname
+        }
+        console.log(submitModel);
+   
+        this.MerchantView.panverifyAddress(submitModel).subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              window.location.reload()
+            }, 500);
+          }
+          else {
+            this.toastr.error(res.responseMessage);
+          }
+        })
+   
+      }
+      if (id2 == "Aadhar Card") {
+        console.log(id2);
+   
+        let submitModel: verification =
+        {
+          kycId: id1,
+          docNumber: id,
+   
+        }
+        this.MerchantView.adharverifyAddress(submitModel).subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              window.location.reload()
+            }, 500);
+          }
+          else {
+            this.toastr.error(res.responseMessage);
+          }
+        })
+      }
+   
+      if (id2 == "GST") {
+        console.log(id2);
+   
+        let submitModel: verification =
+        {
+          kycId: id1,
+          docNumber: id,
+   
+        }
+        this.MerchantView.gstverifyAddress(submitModel).subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              window.location.reload()
+            }, 500);
+          }
+          else {
+            this.toastr.error(res.responseMessage);
+          }
+        })
+      }
+   
+      if (id2 == "Driving License") {
+        console.log(id2);
+   
+        let submitModel: verification =
+        {
+          kycId: id1,
+          docNumber: id,
+   
+        }
+        this.MerchantView.drivingverifyaddress(submitModel).subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              window.location.reload()
+            }, 500);
+          }
+          else {
+            this.toastr.error(res.responseMessage);
+          }
+        })
+      }
+   
+      if (id2 == "Passport") {
+        console.log(id2);
+   
+        let submitModel: verify =
+        {
+          kycId: id1,
+          docNumber: id,
+          approvalBy: this.getadminname
+   
+        }
+        this.MerchantView.passportVerifyAddress(submitModel).subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              window.location.reload()
+            }, 500);
+          }
+          else {
+            this.toastr.error(res.responseMessage);
+          }
+        })
+      }
+     
+      if (id2 == "Voter Id Proof") {
+        console.log(id2);
+   
+        let submitModel: verification =
+        {
+          kycId: id1,
+          docNumber: id,
+   
+        }
+        this.MerchantView.voterverifyAddress(submitModel).subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              window.location.reload()
+            }, 500);
+          }
+          else {
+            this.toastr.error(res.responseMessage);
+          }
+        })
+      }
+   
+      if (id2 == "Cin") {
+        console.log(id2);
+   
+        let submitModel: verify =
+        {
+          kycId: id1,
+          docNumber: id,
+          approvalBy: this.getadminname
+   
+        }
+        this.MerchantView.cinVerifyAddress(submitModel).subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              window.location.reload()
+            }, 500);
+          }
+          else {
+            this.toastr.error(res.responseMessage);
+          }
+        })
+      }
+    }
+   
+   
+    kycVerificationsSignature(id:any,id1:any,id2:any){
+      console.log(id2, id, id1);
+   
+      if (id2 == "Pancard") {
+        let submitModel: verify =
+        {
+          kycId: id1,
+          docNumber: id,
+          approvalBy: this.getadminname
+        }
+        console.log(submitModel);
+   
+        this.MerchantView.panverifysignature(submitModel).subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              window.location.reload()
+            }, 500);
+          }
+          else {
+            this.toastr.error(res.responseMessage);
+          }
+        })
+   
+      }
+      if (id2 == "Aadhar Card") {
+        console.log(id2);
+   
+        let submitModel: verification =
+        {
+          kycId: id1,
+          docNumber: id,
+   
+        }
+        this.MerchantView.adharverifySignature(submitModel).subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              window.location.reload()
+            }, 500);
+          }
+          else {
+            this.toastr.error(res.responseMessage);
+          }
+        })
+      }
+   
+      if (id2 == "GST") {
+        console.log(id2);
+   
+        let submitModel: verification =
+        {
+          kycId: id1,
+          docNumber: id,
+   
+        }
+        this.MerchantView.gstverifySignature(submitModel).subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              window.location.reload()
+            }, 500);
+          }
+          else {
+            this.toastr.error(res.responseMessage);
+          }
+        })
+      }
+   
+      if (id2 == "Driving License") {
+        console.log(id2);
+   
+        let submitModel: verification =
+        {
+          kycId: id1,
+          docNumber: id,
+   
+        }
+        this.MerchantView.drivingverifySignature(submitModel).subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              window.location.reload()
+            }, 500);
+          }
+          else {
+            this.toastr.error(res.responseMessage);
+          }
+        })
+      }
+   
+      if (id2 == "Passport") {
+        console.log(id2);
+   
+        let submitModel: verify =
+        {
+          kycId: id1,
+          docNumber: id,
+          approvalBy: this.getadminname
+   
+        }
+        this.MerchantView.passportVerifySignature(submitModel).subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              window.location.reload()
+            }, 500);
+          }
+          else {
+            this.toastr.error(res.responseMessage);
+          }
+        })
+      }
+     
+      if (id2 == "Voter Id Proof") {
+        console.log(id2);
+   
+        let submitModel: verification =
+        {
+          kycId: id1,
+          docNumber: id,
+   
+        }
+        this.MerchantView.voterverifySignature(submitModel).subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              window.location.reload()
+            }, 500);
+          }
+          else {
+            this.toastr.error(res.responseMessage);
+          }
+        })
+      }
+   
+      if (id2 == "Cin") {
+        console.log(id2);
+   
+        let submitModel: verify =
+        {
+          kycId: id1,
+          docNumber: id,
+          approvalBy: this.getadminname
+   
+        }
+        this.MerchantView.cinverifySignature(submitModel).subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              window.location.reload()
+            }, 500);
+          }
+          else {
+            this.toastr.error(res.responseMessage);
+          }
+        })
+      }
+    }
+
+
+    KycInfo(id: any) {
+      this.dialog.open(KycInfoComponent, {
+        enterAnimationDuration: "1000ms",
+        exitAnimationDuration: "1000ms",
+        disableClose: true,
+        data: {
+          value: id,
+        }
+      })
+    }
+
+
+    KycApproval(id: any) {
+      this.dialog.open(KycApprovalComponent, {
+        enterAnimationDuration: "1000ms",
+        exitAnimationDuration: "1000ms",
+        disableClose: true,
+        data: { value: id ,value1:1}
+      });
+    }
+   
+    KycApproval1(id: any) {
+      this.dialog.open(KycApprovalComponent, {
+        enterAnimationDuration: "1000ms",
+        exitAnimationDuration: "1000ms",
+        disableClose: true,
+        data: { value: id ,value1:2}
+      });
+    }
+   
+   
+    KycApproval2(id: any) {
+      this.dialog.open(KycApprovalComponent, {
+        enterAnimationDuration: "1000ms",
+        exitAnimationDuration: "1000ms",
+        disableClose: true,
+        data: { value: id ,value1:3}
+      });
+    }
 
 
 }

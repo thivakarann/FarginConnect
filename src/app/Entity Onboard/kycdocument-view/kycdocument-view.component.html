@@ -4,6 +4,15 @@ margin-bottom: 1px;
 margin-top: 4px;
 color: red;
 "></i>
-
+ 
 <img [src]="imageSrc" style="width:500px;height: 300px;  background-repeat: no-repeat;
- background-size: cover; ">
+ background-size: cover;">
+ 
+ 
+<div class="p-2">
+    <form >
+        <label  class="form__label">Image</label>
+        <input class="form-control sm"  type="file" name="logo" formControlName="Image" (change)="getimageId($event)">
+        <button  class="buttonDownload mt-2" (click)="Update()">Update</button>
+    </form>
+</div>

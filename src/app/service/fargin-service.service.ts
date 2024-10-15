@@ -153,7 +153,7 @@ export class FarginServiceService {
   private readonly paninfo = 'facheck/pan/';
 
   //facheck verification response
-  private readonly facheckresponse = 'facheck/getkycId/';
+  // private readonly facheckresponse = 'facheck/getkycId/';
 
   //pG on board
   private readonly pgonboard = 'merchantOnboard/onboard';
@@ -380,6 +380,60 @@ export class FarginServiceService {
   private readonly otherpaytrans = 'otherpayment/viewByPayId/';
   private readonly otherpaymentdate = 'otherpayment/dateFilter/';
   private readonly otherpaymentviewall = 'merchantdue/getall';
+
+
+  // KYC category
+private readonly viewallkyccategory='kycCategory/getall';
+private readonly addkyccategory='kycCategory/addCategory';
+private readonly editkyccategory='kycCategory/update';
+private readonly statuskyccategory='kycCategory/statusUpdate';
+private readonly activeviewall='kycCategory/viewOnlyActive'
+ 
+private readonly kycviewall = 'entityDocument/viewAll'
+  private readonly identityfront = 'entityDocument/identityFront';
+  private readonly identityback = 'entityDocument/identityBack';
+  private readonly addressfront = 'entityDocument/addressFront'
+  private readonly addressback = 'entityDocument/addressBack';
+  private readonly signaturefront = 'entityDocument/signatureFront';
+  private readonly signatureback = 'entityDocument/signatureBack';
+  private readonly editidentity = 'entityDocument/updateIdentity';
+  private readonly editaddress = 'entityDocument/updateAddress';
+  private readonly editsignature = 'entityDocument/updateSignature';
+  private readonly identityapproval='entityDocument/approvalForidentity';
+  private readonly addressapproval='entityDocument/approvalForAddress';
+  private readonly signatureapproval='entityDocument/approvalForSignature';
+  private readonly facheckresponse = 'merchantFacheck/getById/';
+ 
+ 
+  //facheck verification
+  private readonly adharverifyidentity = 'merchantFacheck/identityAadharVerify';
+  private readonly adharverifyaddress = 'merchantFacheck/addressAadharVerify';
+  private readonly adharverifysignature = 'merchantFacheck/signatureAadharVerify';
+ 
+  private readonly panverifyIdentity = 'merchantFacheck/identityPanVerify';
+  private readonly panverifyaddress = 'merchantFacheck/addressPanVerify'
+  private readonly panverifySignature = 'merchantFacheck/signaturePanVerify';
+ 
+  private readonly passportverifyIdentity = 'merchantFacheck/identityPassportVerify';
+  private readonly passportverifyAddress = 'merchantFacheck/addressPassportVerify';
+  private readonly passportverifySignature = 'merchantFacheck/signaturePassportVerify'
+ 
+  private readonly cinverifyIdentity = 'merchantFacheck/identityCinVerify';
+  private readonly cinverifyAddress = 'merchantFacheck/addressCinVerify';
+  private readonly cinverifysignature = 'merchantFacheck/signatureCinVerify'
+ 
+  private readonly gstverifyIdentity = 'merchantFacheck/identityGstVerify';
+  private readonly gstverifyaddress = 'merchantFacheck/addressGstVerify';
+  private readonly gstverifysignature = 'merchantFacheck/signatureGstVerify';
+ 
+  private readonly voterverifyidentity = 'merchantFacheck/identityVoterVerify';
+  private readonly voterverifyaddress = 'merchantFacheck/addressVoterVerify';
+  private readonly voterverifysignature = 'merchantFacheck/signatureVoterVerify';
+ 
+  private readonly drivingverfiyIdentity = 'merchantFacheck/identityDrivingVerify';
+  private readonly drivingverifyAddress = 'merchantFacheck/addressDrivingVerify';
+  private readonly drivingverifysignature = 'merchantFacheck/signatureDrivingVerify'
+ 
 
 
 
@@ -807,9 +861,10 @@ export class FarginServiceService {
 
 
   //verification response
-  FacheckVerificationResponse(id: any) {
-    return this.http.get(`${this.basePath}${this.facheckresponse}${id}`, this.options)
-  }
+  
+  // FacheckVerificationResponse(id: any) {
+  //   return this.http.get(`${this.basePath}${this.facheckresponse}${id}`, this.options)
+  // }
 
   EntityBusinessCategoryId(id: any) {
     return this.http.get(`${this.basePath}${this.businessid}${id}`, this.options)
@@ -1408,6 +1463,168 @@ export class FarginServiceService {
 
   OtherPayViewAll() {
     return this.http.get(`${this.basePath}${this.otherpaymentviewall}`, this.options)
+  }
+
+
+
+  identityFront(data: FormData) {
+    return this.http.put(`${this.basePath}${this.identityfront}`, data, this.optionsMultipart);
+  }
+ 
+  identityBack(data: FormData) {
+    return this.http.put(`${this.basePath}${this.identityback}`, data, this.optionsMultipart);
+  }
+ 
+  addressFront(data: FormData) {
+    return this.http.put(`${this.basePath}${this.addressfront}`, data, this.optionsMultipart);
+  }
+ 
+ 
+  addressBack(data: FormData) {
+    return this.http.put(`${this.basePath}${this.addressback}`, data, this.optionsMultipart);
+  }
+ 
+  signatureFront(data: FormData) {
+    return this.http.put(`${this.basePath}${this.signaturefront}`, data, this.optionsMultipart);
+  }
+ 
+  signatureBack(data: FormData) {
+    return this.http.put(`${this.basePath}${this.signatureback}`, data, this.optionsMultipart)
+  }
+ 
+ 
+  editIdentity(data: FormData) {
+    return this.http.put(`${this.basePath}${this.editidentity}`, data, this.optionsMultipart);
+  }
+ 
+  editAddress(data: FormData) {
+    return this.http.put(`${this.basePath}${this.editaddress}`, data, this.optionsMultipart);
+  }
+ 
+  editSignature(data: FormData) {
+    return this.http.put(`${this.basePath}${this.editsignature}`, data, this.optionsMultipart);
+  }
+ 
+  //facheck
+  adharVerifyIdentity(data: any) {
+    return this.http.post(`${this.basePath}${this.adharverifyidentity}`, data, this.options);
+  }
+ 
+  adharverifyAddress(data: any) {
+    return this.http.post(`${this.basePath}${this.adharverifyaddress}`, data, this.options);
+  }
+ 
+  adharverifySignature(data: any) {
+    return this.http.post(`${this.basePath}${this.adharverifysignature}`, data, this.options);
+  }
+ 
+  panVerifysIdentity(data: any) {
+    return this.http.post(`${this.basePath}${this.panverifyIdentity}`, data, this.options);
+  }
+ 
+  panverifyAddress(data: any) {
+    return this.http.post(`${this.basePath}${this.panverifyaddress}`, data, this.options);
+  }
+  panverifysignature(data: any) {
+    return this.http.post(`${this.basePath}${this.panverifySignature}`, data, this.options);
+  }
+ 
+ 
+  passportVerifyIdentity(data: any) {
+    return this.http.post(`${this.basePath}${this.passportverifyIdentity}`, data, this.options);
+  }
+  passportVerifyAddress(data: any) {
+    return this.http.post(`${this.basePath}${this.passportverifyAddress}`, data, this.options);
+  }
+  passportVerifySignature(data: any) {
+    return this.http.post(`${this.basePath}${this.passportverifySignature}`, data, this.options);
+  }
+ 
+  cinVerifyIdentity(data: any) {
+    return this.http.post(`${this.basePath}${this.cinverifyIdentity}`, data, this.options);
+  }
+ 
+ 
+  cinVerifyAddress(data: any) {
+    return this.http.post(`${this.basePath}${this.cinverifyAddress}`, data, this.options);
+  }
+ 
+  cinverifySignature(data: any) {
+    return this.http.post(`${this.basePath}${this.cinverifysignature}`, data, this.options);
+  }
+ 
+  gstVerifyIdentity(data: any) {
+    return this.http.post(`${this.basePath}${this.gstverifyIdentity}`, data, this.options);
+  }
+ 
+  gstverifyAddress(data: any) {
+    return this.http.post(`${this.basePath}${this.gstverifyaddress}`, data, this.options);
+  }
+ 
+  gstverifySignature(data: any) {
+    return this.http.post(`${this.basePath}${this.gstverifysignature}`, data, this.options);
+  }
+ 
+ 
+  voterverifyIdentity(data: any) {
+    return this.http.post(`${this.basePath}${this.voterverifyidentity}`, data, this.options);
+  }
+ 
+  voterverifyAddress(data: any) {
+    return this.http.post(`${this.basePath}${this.voterverifyaddress}`, data, this.options);
+  }
+ 
+  voterverifySignature(data: any) {
+    return this.http.post(`${this.basePath}${this.voterverifysignature}`, data, this.options);
+  }
+ 
+  drivingverfiyidentity(data: any) {
+    return this.http.post(`${this.basePath}${this.drivingverfiyIdentity}`, data, this.options);
+  }
+ 
+  drivingverifyaddress(data: any) {
+    return this.http.post(`${this.basePath}${this.drivingverifyAddress}`, data, this.options);
+  }
+  drivingverifySignature(data: any) {
+    return this.http.post(`${this.basePath}${this.drivingverifysignature}`, data, this.options);
+  }
+ 
+  identityApproval(data: any) {
+    return this.http.put(`${this.basePath}${this.identityapproval}`, data, this.options);
+  }
+ 
+  addressApproval( data: any) {
+    return this.http.put(`${this.basePath}${this.addressapproval}`, data, this.options);
+  }
+ 
+  signatureApproval(data: any) {
+    return this.http.put(`${this.basePath}${this.signatureapproval}`, data, this.options);
+  }
+ 
+  facheckgetbyId(id: any) {
+    return this.http.get(`${this.basePath}${this.facheckresponse}${id}`, this.options)
+  }
+ 
+  viewallkycCategory() {
+    return this.http.get(`${this.basePath}${this.viewallkyccategory}`, this.options)
+  }
+ 
+ 
+  addkycCategory(data: any) {
+    return this.http.post(`${this.basePath}${this.addkyccategory}`, data, this.options);
+  }
+ 
+ 
+  editkycCategory(data:any){
+    return this.http.put(`${this.basePath}${this.editkyccategory}`, data, this.options);
+  }
+ 
+  statuskycCategory(data:any){
+    return this.http.put(`${this.basePath}${this.statuskyccategory}`, data, this.options);
+  }
+ 
+  activeViewall() {
+    return this.http.get(`${this.basePath}${this.activeviewall}`, this.options)
   }
 
 

@@ -20,6 +20,9 @@ export class EditMerchantPlanComponent implements OnInit {
   onetimeamount: any;
   MaintenanceAmount: any;
   Frequency: any;
+  numberValue: number | any = null;
+  numberValues:number|any=null
+  RenewelAmount: any;
 
   constructor(
     public merchantplanedit: FarginServiceService,
@@ -28,20 +31,28 @@ export class EditMerchantPlanComponent implements OnInit {
     private dialog: MatDialog
   ) { }
   ngOnInit(): void {
-    this.details = this.data.value;
-    this.id = this.data.value.merchantPlanId;
-    this.planame = this.data.value.planName;
-    this.onetimeamount = this.data.value.technicalAmount;
-    this.MaintenanceAmount = this.data.value.maintenanceAmount;
-    this.Frequency = this.data.value.frequency;
+   
 
     this.myForm = new FormGroup({
       planName: new FormControl('', Validators.required),
       technicalAmount: new FormControl('', Validators.required),
       maintenanceAmount: new FormControl('', Validators.required),
       frequency: new FormControl('', Validators.required),
+      renewalAmount: new FormControl('', Validators.required),
 
     });
+
+
+    this.details = this.data.value;
+    this.id = this.data.value.merchantPlanId;
+    this.planame = this.data.value.planName;
+    this.onetimeamount = this.data.value.technicalAmount;
+    this.MaintenanceAmount = this.data.value.maintenanceAmount;
+    this.Frequency = this.data.value.frequency;
+    this.RenewelAmount = this.data.value.renewalAmount;
+    console.log("jjfcaefc" + this.planName)
+
+   
   }
 
   get planName() {
@@ -64,12 +75,18 @@ export class EditMerchantPlanComponent implements OnInit {
 
   }
 
+  get renewalAmount() {
+    return this.myForm.get('renewalAmount')
+
+  }
+
   submit() {
     let submitModel: MerchantplanUpdate = {
       planName: this.planName?.value,
       technicalAmount: this.technicalAmount?.value,
       maintenanceAmount: this.maintenanceAmount?.value,
       frequency: this.frequency?.value,
+      renewalAmount:this.renewalAmount?.value,
       modifiedBy: this.getadminname
     }
 
@@ -77,7 +94,10 @@ export class EditMerchantPlanComponent implements OnInit {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.dialog.closeAll();
-        window.location.reload();
+        setTimeout(() => {
+          window.location.reload()
+        }, 500);
+
       }
       else {
         this.toastr.error(res.responseMessage);

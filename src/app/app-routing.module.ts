@@ -73,6 +73,7 @@ import { CustomerTransViewallComponent } from './Fargin Transtions/Customer Tran
 import { OtherpaymentsViewallComponent } from './Fargin Transtions/Other Payments/otherpayments-viewall/otherpayments-viewall.component';
 import { OtherpaymentsViewComponent } from './Fargin Transtions/Other Payments/otherpayments-view/otherpayments-view.component';
 import { OtherpayTransComponent } from './Entity Onboard/otherpay-trans/otherpay-trans.component';
+import { ViewallKyccategoryComponent } from './Main Master/kyccategory/viewall-kyccategory/viewall-kyccategory.component';
 
 const routes: Routes = [
 
@@ -157,7 +158,8 @@ const routes: Routes = [
       { path: 'maintenance-trans-viewall', component: MaintenanceTransViewallComponent },
       { path: 'service-payments-viewall', component: ServicePaymentsViewallComponent },
       {path:'otherpayments-viewall',component:OtherpaymentsViewallComponent},
-      {path:'otherpay-trans/:id',component:OtherpayTransComponent}
+      {path:'otherpay-trans/:id',component:OtherpayTransComponent},
+      { path: 'viewall-kyccategory', component: ViewallKyccategoryComponent }
 
 
 
