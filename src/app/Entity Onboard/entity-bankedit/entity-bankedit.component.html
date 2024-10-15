@@ -54,9 +54,11 @@
             </div>
             <div class="row mb-3">
                 <div class="col-sm-6 form-group">
-                    <label for="zip" class="form__label">Bank Name*</label>
-                    <input type="text" formControlName="bankName" id="zip" class="form-control"
-                        ngModel="{{this.bankData?.bankName}}">
+                    <label for="Bussiness category">Select Bank</label>
+                    <select  ngModel="{{this.bankData?.bankId?.bankId}}" formControlName="bankName" id="Bussiness category" class="form-control form-select">
+                        <option *ngFor="let item of BankNames" [value]="item.bankId">{{item.bankName}}</option>
+
+                    </select>
                     <div style="
                     color: red;
                     font-size: 12px;
@@ -65,15 +67,6 @@
                     ;
                   " *ngIf="bankName?.invalid && bankName?.touched && bankName?.errors?.['required']">
                         Field is required
-                    </div>
-                    <div style="
-                    color: red;
-                    font-size: 12px;
-                    margin-top: 2px;
-                    position: relative;
-                    ;
-                  " *ngIf="bankName?.invalid && bankName?.touched && bankName?.errors?.['pattern']">
-                        *Enter a valid BankName
                     </div>
                 </div>
 
@@ -131,9 +124,8 @@
                         ngModel="{{this.bankData?.accountType}}">
                         <!-- <option value="" disabled selected>Select</option> -->
                         <option value="Savings account">Savings account</option>
-                        <option value="Salary account">Salary account</option>
-                        <option value="Fixed deposit account">Fixed deposit account</option>
-                        <option value="Recurring deposit account">Recurring deposit account</option>
+                        <option value="Current account">Current account</option>
+ 
                     </select>
                     <div style="
                     color: red;

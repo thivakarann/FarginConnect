@@ -23,20 +23,24 @@ export class EntityBankaddComponent implements OnInit {
   documentfront: any;
   documentback: any;
   merchantid: any;
+  BankNames: any;
 
-  @Output()dataSubmitted= new EventEmitter<bankData>();
 
   constructor(
     public service: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
-    private dialogRef: MatDialogRef<EntityBankaddComponent>,
+    private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
   ngOnInit(): void {
 
     this.merchantid = this.data.value;
     console.log(this.merchantid);
+
+    this.service.activebankdetails().subscribe((res:any)=>{
+      this.BankNames = res.response;
+    });
 
     this.BankForm = new FormGroup({
       accountHolderName: new FormControl(null, [
@@ -92,7 +96,7 @@ export class EntityBankaddComponent implements OnInit {
     let submitModel: bankData = {
       accountHolderName: this.accountHolderName?.value,
       accountNumber: this.accountNumber?.value,
-      bankName: this.bankName?.value,
+      bankId: this.bankName?.value,
       ifscCode: this.ifscCode?.value,
       branchName: this.branchName?.value,
       accountType: this.accountType?.value,
@@ -102,8 +106,10 @@ export class EntityBankaddComponent implements OnInit {
     this.service.EntitybankAdd(submitModel).subscribe((res: any) => {
       if (res.flag === 1) {
         this.toastr.success(res.responseMessage);
-        this.dataSubmitted.emit(submitModel);  // Emit the newly added data
-        this.dialogRef.close();  // Close the dialog
+        this.dialog.closeAll();  // Close the dialog
+        setTimeout(() => {
+          window.location.reload()
+        }, 500);
       } else {
         this.toastr.error(res.responseMessage);
       }

@@ -143,7 +143,10 @@ export class BouqutesAddComponent implements OnInit {
     this.BroadcasterBouquetAdd.BroadcasterBoucateadd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
-        this.router.navigateByUrl('/dashboard/bouquets-viewall')
+        // this.router.navigateByUrl('/dashboard/bouquets-viewall')
+        setTimeout(() => {
+          window.location.reload()
+        }, 1000)
 
       }
       else {

@@ -32,7 +32,8 @@ export class EntityViewallComponent {
     'status',
     'View',
     'createdDatetime',
-  
+    'unblock'
+
   ];
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
@@ -43,6 +44,16 @@ export class EntityViewallComponent {
   date2: any;
   responseDataListnew: any = [];
   response: any = [];
+  valueEntityAdd: any;
+  valueEntityExport: any;
+  valueEntityStatus: any;
+  valueEntityView: any;
+  getdashboard: any[] = [];
+  roleId: any = localStorage.getItem('roleId')
+  actions: any;
+  errorMessage: any;
+  unblockvalue: any;
+  valueEntityUnblock: any;
 
   constructor(
     public EntityViewall: FarginServiceService,
@@ -58,6 +69,69 @@ export class EntityViewallComponent {
       this.dataSource.paginator = this.paginator;
       console.log(this.viewall);
     });
+
+    this.EntityViewall.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        console.log(res);
+
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+
+          if (this.roleId == 1) {
+            this.valueEntityAdd = 'Entity Onboard-Add';
+            this.valueEntityExport = 'Entity Onboard-Export';
+            this.valueEntityStatus = 'Entity Onboard-Status';
+            this.valueEntityView = 'Entity Onboard-View';
+            this.valueEntityUnblock = 'Entity Onboard-Unblock'
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+
+
+              if (this.actions == 'Entity Onboard-Add') {
+                this.valueEntityAdd = 'Entity Onboard-Add';
+              }
+              if (this.actions == 'Entity Onboard-Export') {
+                this.valueEntityExport = 'Entity Onboard-Export'
+              }
+              if (this.actions == 'Entity Onboard-Status') {
+                this.valueEntityStatus = 'Entity Onboard-Status'
+              }
+              if (this.actions == 'Entity Onboard-View') {
+                this.valueEntityView = 'Entity Onboard-View'
+              }
+              if (this.actions == 'Entity Onboard-Unblock') {
+                this.valueEntityUnblock = 'Entity Onboard-Unblock'
+              }
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    })
+  }
+
+
+  reload(){
+    window.location.reload()
+  }
+
+
+  unblock(id: any) {
+    this.EntityViewall.unblockentityAccount(id).subscribe((res: any) => {
+      this.unblockvalue = res.response;
+      console.log(this.unblockvalue);
+      if (res.flag == 1) {
+        this.toastr.success(res.responseMessage);
+      }
+      else {
+        this.toastr.error(res.responseMessage);
+      }
+    })
+
   }
 
 
@@ -73,7 +147,7 @@ export class EntityViewallComponent {
     });
     console.log(id);
   }
-  
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -101,27 +175,27 @@ export class EntityViewallComponent {
       this.response.push(element?.businessCategoryModel?.categoryName);
       this.response.push(element?.referenceNo);
 
-if(element?.approvalStatusL2 == 'approved'){
-  this.response.push('Approved');
-}
-else(element?.approvalStatusL2 == 'Pending')
-{
-  this.response.push('Pending');
-}
-if(element?.onBoardStatus == 'true'){
-  this.response.push('Approved');
-}
-else(element?.onBoardStatus == 'false')
-{
-  this.response.push('Pending');
-}
-if(element?.accountStatus==1){
-  this.response.push('Active');
-}      
-else(element?.accountStatus==0)
-{
-  this.response.push('Inactive');
-}
+      if (element?.approvalStatusL2 == 'approved') {
+        this.response.push('Approved');
+      }
+      else (element?.approvalStatusL2 == 'Pending')
+      {
+        this.response.push('Pending');
+      }
+      if (element?.onBoardStatus == 'true') {
+        this.response.push('Approved');
+      }
+      else (element?.onBoardStatus == 'false')
+      {
+        this.response.push('Pending');
+      }
+      if (element?.accountStatus == 1) {
+        this.response.push('Active');
+      }
+      else (element?.accountStatus == 0)
+      {
+        this.response.push('Inactive');
+      }
 
       this.response.push(this.date1);
 
@@ -134,16 +208,16 @@ else(element?.accountStatus==0)
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
-    "S.No",
-    'entityName',
-    'accountId',
-    'referenceNo',
-    'merchantLegalName',
-    'businessCategoryModel',
-    'finalapproval',
-    'pgonboard',
-    'status',
-    "Created At"
+      "S.No",
+      'entityName',
+      'accountId',
+      'referenceNo',
+      'merchantLegalName',
+      'businessCategoryModel',
+      'finalapproval',
+      'pgonboard',
+      'status',
+      "Created At"
     ]
 
 
@@ -185,7 +259,7 @@ else(element?.accountStatus==0)
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
-      
+
 
 
 
@@ -216,7 +290,7 @@ else(element?.accountStatus==0)
   onSubmit(event: MatSlideToggleChange, id: any) {
     this.isChecked = event.checked;
     let submitModel: EntityStatus = {
-      merchantId:id,
+      merchantId: id,
       accountStatus: this.isChecked ? 1 : 0,
     };
 

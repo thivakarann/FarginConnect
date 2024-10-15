@@ -31,36 +31,39 @@ export class PolicyEditComponent implements OnInit {
   MerchantName: any;
   policyviewentity: any;
   merchant: any;
-
+  filteredMerchantNames: any[] = [];
+ 
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
     private toastr: ToastrService,
     private router: Router,
     private ActivateRoute: ActivatedRoute) {
-
+ 
   }
-
-
-
+ 
+ 
+ 
   ngOnInit(): void {
-
+ 
     this.service.Policymerchant().subscribe((res: any) => {
       if (res.flag == 1) {
         this.MerchantName = res.response;
-      
-      }
-      else {
+        this.filteredMerchantNames = this.MerchantName.map((merchant: any) => ({
+          label: merchant.merchantLegalName,
+          value: merchant.merchantId
+        }));
+      } else {
         this.errorMsg = res.responseMessage;
       }
     });
-
-
+ 
+ 
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.policyId = param.Alldata;
       console.log(this.policyId)
     });
-
+ 
     this.editadminpolicy = new FormGroup({
       termAndCondition: new FormControl('', [Validators.required]),
       disclaimer: new FormControl('', [Validators.required]),
@@ -69,10 +72,10 @@ export class PolicyEditComponent implements OnInit {
       // createdBy: new FormControl(),
       modifiedBy: new FormControl(),
       merchantId: new FormControl('', [Validators.required]),
-
+ 
     });
-
-
+ 
+ 
     this.service.Adminpolicyviewbyidedit(this.policyId).subscribe((res: any) => {
       this.policyview = res.response;
       console.log(this.policyview)
@@ -80,16 +83,16 @@ export class PolicyEditComponent implements OnInit {
        console.log(this.merchant)
     });
   }
-
-
+ 
+ 
   get merchantId() {
     return this.editadminpolicy.get('merchantId');
   }
-
+ 
   get termAndCondition() {
     return this.editadminpolicy.get('termAndCondition');
   }
-
+ 
   get disclaimer() {
     return this.editadminpolicy.get('disclaimer');
   }
@@ -99,10 +102,10 @@ export class PolicyEditComponent implements OnInit {
   get refundPolicy() {
     return this.editadminpolicy.get('refundPolicy');
   }
-
-
+ 
+ 
   adminedit() {
-
+ 
     let submitModel: AdminPolicyEdit = {
       termAndCondition: this.termAndCondition?.value,
       disclaimer: this.disclaimer?.value,
@@ -111,7 +114,7 @@ export class PolicyEditComponent implements OnInit {
       modifiedBy: this.getadminname,
       merchantId: this.merchantId?.value
     }
-
+ 
     this.service.adminpolicyedit(this.policyId, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
@@ -119,15 +122,29 @@ export class PolicyEditComponent implements OnInit {
           window.location.reload();
         }, 2000);
         this.router.navigateByUrl('dashboard/Terms-policy');
-
+ 
       } else {
         this.toastr.warning(res.responseMessage)
       }
     })
   }
-
-
+ 
+ 
   close() {
     this.router.navigateByUrl('dashboard/Terms-policy');
   }
+ 
+  filterMerchantNames(event: any) {
+    const query = event.target.value.toLowerCase();
+    this.filteredMerchantNames = this.MerchantName
+      .filter((merchant: any) =>
+        merchant.merchantLegalName.toLowerCase().includes(query)
+      )
+      .map((merchant: any) => ({
+        label: merchant.merchantLegalName,
+        value: merchant.merchantId
+      }));
+  }
+ 
 }
+

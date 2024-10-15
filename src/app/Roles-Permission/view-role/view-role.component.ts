@@ -20,7 +20,7 @@ import { ViewSubpermissionComponent } from '../view-subpermission/view-subpermis
 export class ViewRoleComponent implements OnInit{
   showcategoryData: any;
   dataSource: any;
-  displayedColumns: any[] = ["roleid", "rolename", "permissionName", "actionName", "status", "action", "CreatedBy", "CreatedAt"];
+  displayedColumns: any[] = ["roleid", "rolename", "permissionName", "actionName", "status", "action", "CreatedBy", "CreatedAt","modifiedBy","modifiedAt"];
   isChecked: any;
   roledata: any;
   dataValue: any;
@@ -47,7 +47,6 @@ export class ViewRoleComponent implements OnInit{
  
     this.service.viewRoles().subscribe((res: any) => {
       this.roledata = res.response;
-      console.log(this.roledata);
       this.dataSource = new MatTableDataSource(this.roledata?.reverse())
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -92,13 +91,13 @@ export class ViewRoleComponent implements OnInit{
  
     this.service.rolegetById(id).subscribe({
       next: (res: any) => {
-        console.log(res);
+       
         if (res.flag == 1) {
           this.getAction = res.response;
           this.roleName = this.getAction.roleName;
           this.permissionview = this.getAction.permission
           this.subpermission = this.getAction.subPermission
-          console.log(this.getAction)
+       
           for (let data of this.permissionview) {
             this.values.push(data.permissionId)
           }
@@ -108,13 +107,13 @@ export class ViewRoleComponent implements OnInit{
           for (let value of this.perValueObject) {
             this.perValueArray.push(value)
           }
-          console.log(this.perValueArray)
+          
           //Duplicate Removal end
  
           for (let data1 of this.subpermission) {
             this.subId.push(data1.subPermissionId)
           }
-          console.log(this.subId);
+         
           this.dialog.open(EditRoleComponent, {
             data: { per: this.perValueArray, roleName: this.roleName, role: id, sub: this.subId, moduleNames: this.moduleName },
             disableClose: true,
@@ -147,9 +146,6 @@ export class ViewRoleComponent implements OnInit{
     this.dialog.open(ViewPermissionComponent, {
       data:{value:id},
       disableClose: true,
-      width: '80vw',
-      maxWidth: '600px',
-      height: 'auto',
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
     });
@@ -158,9 +154,6 @@ export class ViewRoleComponent implements OnInit{
     this.dialog.open(ViewSubpermissionComponent, {
       data:{value:id},
       disableClose: true,
-      width: '80vw',
-      maxWidth: '600px',
-      height: 'auto',
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
     });

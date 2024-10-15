@@ -14,6 +14,7 @@ import { AdminTermsConditionComponent } from '../admin-terms-condition/admin-ter
 import { AdminDisclaimerComponent } from '../admin-disclaimer/admin-disclaimer.component';
 import { AdminPrivacypolicyComponent } from '../admin-privacypolicy/admin-privacypolicy.component';
 import { AdminRefundpolicyComponent } from '../admin-refundpolicy/admin-refundpolicy.component';
+import { PolicyApprovalComponent } from '../policy-approval/policy-approval.component';
 
 @Component({
   selector: 'app-admin-view',
@@ -30,6 +31,10 @@ export class AdminViewComponent implements OnInit {
     "privacyPolicy",
     "refundPolicy",
     "Edit",
+    "approval",
+    "approvalstatus",
+    "approvedBy",
+    "approvedAt",
     "createdBy",
     "createdDateTime",
     "modifiedBy",
@@ -48,7 +53,15 @@ export class AdminViewComponent implements OnInit {
   date2: any;
   isFullPolicyVisible: boolean = false;
   limit: number = 30;
- 
+valuetermAction: any;
+valuetermView: any;
+valuetermCreate: any;
+valuetermExport: any;
+getdashboard: any[] = [];
+roleId: any = localStorage.getItem('roleId')
+actions: any;
+errorMessage:any;
+
  
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private router: Router) { }
  
@@ -73,6 +86,46 @@ export class AdminViewComponent implements OnInit {
         this.showcategoryData = true;
       }
     });
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        console.log(res);
+
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+          
+          if(this.roleId==1){
+            this.valuetermCreate = 'Merchant Policy-Add';
+            this.valuetermExport='Merchant Policy-Export';
+            this.valuetermView='Merchant Policy-View';
+            this.valuetermAction='Merchant Policy-Edit'
+                   }
+          else{
+          for (let datas of this.getdashboard) {
+            this.actions = datas.subPermissions;
+            
+
+            if (this.actions == 'Merchant Policy-Add') {
+              this.valuetermCreate = 'Merchant Policy-Add';
+            }
+            if(this.actions=='Merchant Policy-Export'){
+              this.valuetermExport='Merchant Policy-Export'
+            }
+            if(this.actions=='Merchant Policy-View'){
+              this.valuetermView='Merchant Policy-View'
+            }
+            if(this.actions=='Merchant Policy-Edit'){
+              this.valuetermAction='Merchant Policy-Edit'
+            }
+          }
+        }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    })
+
+
  
   }
  
@@ -221,6 +274,15 @@ export class AdminViewComponent implements OnInit {
  
       FileSaver.saveAs(blob, 'Terms and Policy.xlsx');
  
+    });
+  }
+
+  policyApproval(id:any){
+    this.dialog.open(PolicyApprovalComponent, {
+      data: { value: id },
+      enterAnimationDuration: '1000ms',
+      exitAnimationDuration: '1000ms',
+      disableClose: true
     });
   }
  

@@ -24,6 +24,7 @@ export class MerchantPlanViewallComponent {
   displayedColumns: string[] = [
     'merchantPlanId',
     'planName',
+    'serviceAmount',
     'maintenanceAmount',
     'frequency',
     'activeStatus',
@@ -42,6 +43,14 @@ export class MerchantPlanViewallComponent {
   date2: any;
   responseDataListnew: any = [];
   response: any = [];
+  valueMerchantAdd: any;
+  valueMerchantExport: any;
+  valueMerchantStatus: any;
+  valueMerchantEdit: any;
+  getdashboard: any[] = [];
+  roleId: any = localStorage.getItem('roleId')
+  actions: any;
+  errorMessage: any;
 
   constructor(
     public Merchantplanviewall: FarginServiceService,
@@ -60,12 +69,53 @@ export class MerchantPlanViewallComponent {
       this.dataSource.paginator = this.paginator;
       console.log(this.viewall);
     });
+
+    this.Merchantplanviewall.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        console.log(res);
+
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+
+          if (this.roleId == 1) {
+            this.valueMerchantAdd = 'Merchant Plan-Add';
+            this.valueMerchantEdit = 'Merchant Plan-Edit'
+            this.valueMerchantExport = 'Merchant Plan-Export'
+            this.valueMerchantStatus = 'Merchant Plan-Status'
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+
+
+              if (this.actions == 'Merchant Plan-Add') {
+                this.valueMerchantAdd = 'Merchant Plan-Add';
+              }
+              if (this.actions == 'Merchant Plan-Edit') {
+                this.valueMerchantEdit = 'Merchant Plan-Edit'
+              }
+              if (this.actions == 'Merchant Plan-Export') {
+                this.valueMerchantExport = 'Merchant Plan-Export'
+              }
+              if (this.actions == 'Merchant Plan-Status') {
+                this.valueMerchantStatus = 'Merchant Plan-Status'
+              }
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    })
+
   }
 
   Add() {
     this.dialog.open(MerchantPlanAddComponent, {
       enterAnimationDuration: "500ms",
-      exitAnimationDuration: "1000ms"
+      exitAnimationDuration: "1000ms",
+      disableClose: true
     })
   }
 
@@ -73,7 +123,8 @@ export class MerchantPlanViewallComponent {
     this.dialog.open(EditMerchantPlanComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: "1000ms",
-      data: { value: id }
+      data: { value: id },
+      disableClose: true
     })
   }
 
@@ -118,8 +169,8 @@ export class MerchantPlanViewallComponent {
     this.viewall.forEach((element: any) => {
       let createdate = element.createdDatetime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-
-      let moddate = element.modifiedDatetime;
+ 
+      let moddate = element.modifiedDateTime;
       this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
       this.response.push(sno);
@@ -130,30 +181,24 @@ export class MerchantPlanViewallComponent {
       if (element?.activeStatus == 1) {
         this.response.push("Active");
       }
-
       else {
         this.response.push("InActive");
       }
       this.response.push(element?.createdBy);
       this.response.push(this.date1);
-    
-
-      if(element?.modifiedBy == null){
+      if (element?.modifiedBy == null) {
         this.response.push("-")
       }
-
-      else{
-        this.date2
+      else {
+        this.response.push(element?.modifiedBy)
       }
-
-
-
+      this.response.push(this.date2);
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
-
+ 
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
@@ -168,16 +213,16 @@ export class MerchantPlanViewallComponent {
       "ModifiedBy",
       "ModifiedAt"
     ]
-
-
+ 
+ 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Merchant Plan Details');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
-
+ 
+ 
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -188,15 +233,15 @@ export class MerchantPlanViewallComponent {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
-
+ 
       }
-
+ 
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
-
+ 
     data.forEach((d: any) => {
       // console.log("row loop");
-
+ 
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -208,11 +253,11 @@ export class MerchantPlanViewallComponent {
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -223,8 +268,8 @@ export class MerchantPlanViewallComponent {
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
-
+ 
+ 
     }
     );
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
@@ -236,3 +281,5 @@ export class MerchantPlanViewallComponent {
     });
   }
 }
+
+

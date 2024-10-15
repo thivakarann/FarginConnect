@@ -1,14 +1,38 @@
 <mat-card>
     <div class="form-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">Facheck Details Verified Successfully</h5>
+        <h5 class="mb-0">Facheck Verification Details</h5>
         <button type="button" class="btn btn-secondary" mat-dialog-close>Back</button>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Name*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.fullName}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Category*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.category}}
+        </div>
     </div>
     <div class="row p-3">
         <div class="col-md-6">
             <b>Document Number*</b>
         </div>
         <div class="col-md-6">
-            {{this.kycres?.source}}
+            {{this.panNumber}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Reference ID*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.referenceId}}
         </div>
     </div>
     <div class="row p-3">
@@ -16,9 +40,25 @@
             <b>Status*</b>
         </div>
         <div class="col-md-6">
-            {{this.kycres?.status}}
+            {{this.status}}
         </div>
     </div>
-
-  
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Message*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.message}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Response Time*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.responseTime | date:'dd-mm-yyyy hh:mm a'}}
+        </div>
+    </div>
+ 
 </mat-card>
+ 

@@ -73,3 +73,21 @@
     text-align: center;
 
   }
+
+  .form__label{
+    font-weight: 500;
+  }
+  .form__row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+ 
+  .form__linput {
+    flex: 1; /* Allows each input to take equal space */
+    margin-right: 10px; /* Adds space between inputs */
+  }
+ 
+  .form__linput:last-child {
+    margin-right: 0; /* Remove margin for the last item */
+  }

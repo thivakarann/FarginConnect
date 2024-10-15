@@ -46,7 +46,7 @@
                 <div class="col-sm-4 form-group">
                     <label for="zip">EmailAddress</label>
                     <input type="text" id="zip" placeholder="EmailAddress.." class="form-control"
-                        formControlName="emailAddress">
+                        formControlName="emailAddress" >
                     <span class="error"
                         *ngIf=" emailAddress?.invalid && emailAddress?.touched && emailAddress?.errors?.['required']">
                         Field is Required*</span>
@@ -56,27 +56,9 @@
                         The Valid EmailAddress*</span>
                 </div>
                 <div class="col-sm-4 form-group">
-                    <label for="Entity Name">Password</label>
-                    <input autocomplete="off" type="text" id="Entity Name" placeholder="Password..." class="form-control"
-                        formControlName="password" #passwordInput>
-                    <i class="fa-solid fa-eye-slash" id="eye" [ngClass]="{
-                         'fa-eye-slash': !showPassword,
-                        'fa-eye': showPassword
-                      }" (click)="togglePasswordVisibility(passwordInput)" style="position:relative;bottom: 28px;
-                    left: 260px;"></i>
-                    <span class="error"
-                        *ngIf="password?.invalid  && password?.touched && password?.errors?.['required']">Field is
-                        Required
-                        *</span>
-                    <span class="error"
-                        *ngIf="password?.invalid  && password?.touched && password?.errors?.['pattern']">
-                        Credentials are Wrong*
-                    </span>
-                </div>
-                <div class="col-sm-4 form-group">
                     <label for="Bussiness category">Mobile Number</label>
                     <input type="text" id="zip" placeholder="MobileNumber.." class="form-control"
-                        formControlName="mobileNumber">
+                        formControlName="mobileNumber" minlength="10" maxlength="10">
                     <span class="error"
                         *ngIf=" mobileNumber?.invalid && mobileNumber?.touched && mobileNumber?.errors?.['required']">
                         Field is Required*</span>
@@ -84,10 +66,6 @@
                         *ngIf="mobileNumber?.invalid && mobileNumber?.touched && mobileNumber?.errors?.['pattern']">Enter
                         The Valid Mobile Number*</span>
                 </div>
-             
-            </div>
-            <div class="row mb-3">
- 
                 <div class="col-sm-4 form-group">
                     <label for="Mcc Code">Address</label>
                     <input  type="text" id="Mcc Code" placeholder="Address.." class="form-control"
@@ -95,6 +73,10 @@
                     <span class="error" *ngIf=" address?.invalid && address?.touched && address?.errors?.['required']">
                         Field is Required*</span>
                 </div>
+            </div>
+            <div class="row mb-3">
+ 
+                
  
                 <div class="col-sm-4 form-group">
                     <label for="Mcc Code">Country*</label>
@@ -121,6 +103,10 @@
                     <span class="error" *ngIf=" city?.invalid && city?.touched && city?.errors?.['required']">
                         Field is Required*</span>
                 </div>
+             
+            </div>
+            <div class="row mb-3">
+              
                 <div class="col-sm-4 form-group">
                     <label for="Mcc Code">Pincode*</label>
                     <input type="text" id="Mcc Code" placeholder="Enter Pincode" class="form-control"

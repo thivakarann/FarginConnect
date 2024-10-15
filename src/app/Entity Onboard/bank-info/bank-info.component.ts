@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './bank-info.component.html',
   styleUrl: './bank-info.component.css'
 })
-export class BankInfoComponent implements OnInit{
+export class BankInfoComponent implements OnInit {
   details: any;
   detaislone: any;
   approval1: any;
@@ -17,20 +17,20 @@ export class BankInfoComponent implements OnInit{
   businessCategoryId: any;
   bankresId: any;
   bankverifyres: any;
-  constructor(private service:FarginServiceService,@Inject(MAT_DIALOG_DATA) public data: any,private router:Router
+  constructor(private service: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private router: Router
   ) { }
   ngOnInit(): void {
 
     this.bankresId = this.data.value;
     console.log(this.bankresId);
-    this.service.BankVerificationResponse(this.bankresId).subscribe((res:any)=>{
-      if(res.statusCode==200){
-        this.bankverifyres=res.response;
+    this.service.BankVerificationResponse(this.bankresId).subscribe((res: any) => {
+      if (res.statusCode == 200) {
+        this.bankverifyres = res.response;
       }
     })
 
-  
-}
+
+  }
 
 
 

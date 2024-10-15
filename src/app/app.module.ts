@@ -149,7 +149,33 @@ import { ManualTransactionComponent } from './Entity Onboard/manual-transaction/
 import { CreateManualpaymentComponent } from './Entity Onboard/create-manualpayment/create-manualpayment.component';
 import { KeysUpdateComponent } from './Entity Onboard/keys-update/keys-update.component';
 import { ViewOnboardinfoComponent } from './Entity Onboard/view-onboardinfo/view-onboardinfo.component';
-
+import { PaymentlinkViewComponent } from './Entity Onboard/paymentlink-view/paymentlink-view.component';
+import { PaymentlinkResendComponent } from './Entity Onboard/paymentlink-resend/paymentlink-resend.component';
+import { ViewPolicyComponent } from './Fargin-policy/view-policy/view-policy.component';
+import { AddPolicyComponent } from './Fargin-policy/add-policy/add-policy.component';
+import { EditPolicyComponent } from './Fargin-policy/edit-policy/edit-policy.component';
+import { CustomerViewallComponent } from './Tickets/customer-viewall/customer-viewall.component';
+import { CustomerTicketapprovalComponent } from './Tickets/customer-ticketapproval/customer-ticketapproval.component';
+import { CustDescriptionCommentComponent } from './Tickets/cust-description-comment/cust-description-comment.component';
+import { MatBadgeModule } from '@angular/material/badge';
+import { BankViewallComponent } from './Main Master/Bank Details/bank-viewall/bank-viewall.component';
+import { AddbankDetailsComponent } from './Main Master/Bank Details/addbank-details/addbank-details.component';
+import { EditBankDetailsComponent } from './Main Master/Bank Details/edit-bank-details/edit-bank-details.component';
+import { PolicyApprovalComponent } from './Admin-policy/policy-approval/policy-approval.component';
+import { CustomerTransViewallComponent } from './Fargin Transtions/Customer Trans/customer-trans-viewall/customer-trans-viewall.component';
+import { CustomerTransViewComponent } from './Fargin Transtions/Customer Trans/customer-trans-view/customer-trans-view.component';
+import { MaintenanceTransViewallComponent } from './Fargin Transtions/Entity Trans/maintenance-trans-viewall/maintenance-trans-viewall.component';
+import { MaintanceViewComponent } from './Fargin Transtions/Entity Trans/maintance-view/maintance-view.component';
+import { ServicePaymentsViewallComponent } from './Fargin Transtions/Entity Trans/service-payments-viewall/service-payments-viewall.component';
+import { ServicePaymentViewComponent } from './Fargin Transtions/Entity Trans/service-payment-view/service-payment-view.component';
+import { DropdownModule } from 'primeng/dropdown';
+import { QRcreationComponent } from './entity-qrcode/qrcreation/qrcreation.component';
+import { BankVerificationMatchComponent } from './Entity Onboard/bank-verification-match/bank-verification-match.component';
+import { OtherpaymentsViewallComponent } from './Fargin Transtions/Other Payments/otherpayments-viewall/otherpayments-viewall.component';
+import { OtherpaymentsViewComponent } from './Fargin Transtions/Other Payments/otherpayments-view/otherpayments-view.component';
+import { CreateOtherpaymentComponent } from './Entity Onboard/create-otherpayment/create-otherpayment.component';
+import { EditOtherpaymentComponent } from './Entity Onboard/edit-otherpayment/edit-otherpayment.component';
+import { OtherpayTransComponent } from './Entity Onboard/otherpay-trans/otherpay-trans.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -278,7 +304,32 @@ import { ViewOnboardinfoComponent } from './Entity Onboard/view-onboardinfo/view
     ManualTransactionComponent,
     CreateManualpaymentComponent,
     KeysUpdateComponent,
-    ViewOnboardinfoComponent
+    ViewOnboardinfoComponent,
+    PaymentlinkViewComponent,
+    PaymentlinkResendComponent,
+    ViewPolicyComponent,
+    AddPolicyComponent,
+    EditPolicyComponent,
+    CustomerViewallComponent,
+    CustomerTicketapprovalComponent,
+    CustDescriptionCommentComponent,
+    BankViewallComponent,
+    AddbankDetailsComponent,
+    EditBankDetailsComponent,
+    PolicyApprovalComponent,
+    CustomerTransViewallComponent,
+    CustomerTransViewComponent,
+    MaintenanceTransViewallComponent,
+    MaintanceViewComponent,
+    ServicePaymentsViewallComponent,
+    ServicePaymentViewComponent,
+    QRcreationComponent,
+    BankVerificationMatchComponent,
+    OtherpaymentsViewallComponent,
+    OtherpaymentsViewComponent,
+    CreateOtherpaymentComponent,
+    EditOtherpaymentComponent,
+    OtherpayTransComponent
 
   ],
 
@@ -288,6 +339,7 @@ import { ViewOnboardinfoComponent } from './Entity Onboard/view-onboardinfo/view
     HttpClientModule,
     BrowserAnimationsModule,
     MatMenuModule,
+    MatBadgeModule,
     MatTableModule,
     MatCardModule,
     MatPaginatorModule,
@@ -308,6 +360,7 @@ import { ViewOnboardinfoComponent } from './Entity Onboard/view-onboardinfo/view
     MatGridListModule,
     MatSlideToggleModule,
     MatSelectModule,
+    DropdownModule,
     ToastrModule.forRoot()
 
   ],

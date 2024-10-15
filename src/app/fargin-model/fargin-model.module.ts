@@ -1,3 +1,6 @@
+import { Interaction } from "chart.js";
+import { read } from "fs";
+
 export interface VerifyOtp {
   readonly emailAddress: any;
   readonly otpCode: any;
@@ -23,7 +26,7 @@ export interface Adminstatus {
 export interface AdminCreate {
   readonly roleId: any;
   readonly emailAddress: any;
-  readonly userPassword: any;
+  // readonly userPassword: any;
   readonly mobileNumber: any;
   readonly adminName: any;
   readonly address: any;
@@ -157,7 +160,7 @@ export interface EmailTrigger {
 export interface AddEntityBank {
   readonly accountHolderName: any;
   readonly accountNumber: any;
-  readonly bankName: any;
+  readonly bankId: any;
   readonly ifscCode: any;
   readonly branchName: any;
   readonly accountType: any;
@@ -246,7 +249,7 @@ export interface Bankverficiation {
 export interface bankData {
   readonly accountHolderName: any;
   readonly accountNumber: any;
-  readonly bankName: any;
+  readonly bankId: any;
   readonly ifscCode: any;
   readonly branchName: any;
   readonly accountType: any;
@@ -256,7 +259,7 @@ export interface bankData {
 export interface bankedit {
   readonly accountHolderName: any;
   readonly accountNumber: any;
-  readonly bankName: any;
+  readonly bankId: any;
   readonly ifscCode: any;
   readonly branchName: any;
   readonly accountType: any;
@@ -406,6 +409,7 @@ export interface ApprovalBank {
 export interface RegionAdd {
   readonly serviceId: any;
   readonly stateName: any;
+  readonly createdBy:any
 }
 
 export interface RegionStatus {
@@ -417,6 +421,7 @@ export interface RegionEdit {
   readonly serviceId: any;
   readonly regionId: any;
   readonly stateName: any;
+  readonly modifiedBy:any
 }
 
 
@@ -650,9 +655,7 @@ export interface settlements {
 
 export interface PgOnboard {
   readonly merchantId: any;
-  readonly linkExpiry: any;
-  readonly description: any;
-  readonly returnUrl: any;
+
 }
 
 export interface editroles {
@@ -697,3 +700,92 @@ export interface KeysUpdate{
   readonly apikey:any;
   readonly secretkey:any;
 }
+
+export interface addpolicy{
+  readonly disclaimer:any;
+  readonly privacyPolicy:any;
+  readonly termAndCondition:any;
+  readonly refundPolicy:any;
+  readonly createdBy:any;
+}
+ 
+export interface editpolicy{
+  readonly disclaimer:any;
+  readonly privacyPolicy:any;
+  readonly termAndCondition:any;
+  readonly refundPolicy:any;
+  readonly modifiedBy:any;
+}
+
+
+export interface custticketraise{
+  readonly ticketStatus:any;
+  readonly ticketComment:any;
+}
+
+export interface AddBankdetails {
+  readonly bankName:any,
+  readonly createdBy:any
+
+}
+
+export interface UpdateBankdetails {
+  readonly bankId:any;
+  readonly bankName:any;
+  readonly modifiedBy:any
+}
+
+export interface UpdateBankdetailStatus {
+  readonly bankId:any,
+  readonly activeStatus:any
+}
+
+ 
+export interface policyApproval{
+  readonly approvedStatus:any;
+  readonly approvedBy:any;
+}
+
+export interface QrCodecreation {
+  readonly merchantId:any;
+  readonly qrReference:any;
+  readonly qrGenerateLink:any;
+  readonly qrCreatedBy:any;
+}
+
+export interface DashboardData {
+  date: any;
+  totalAmount: number;
+  initiatedCount: number;
+  pendingCount: number;
+  successCount: number;
+  totalCount: number;
+  successAmount: number;
+  failureAmount: number;
+  failureCount: number;
+  pendingAmount: number;
+}
+
+export interface createManualPayment{
+  readonly paymentMethod:any;
+  readonly utrNumber:any;
+  readonly paymentStatus:any;
+  readonly merchantId:any;
+  readonly date:any;
+  }
+   
+  export interface createOtherPayment{
+    readonly serviceName:any;
+    readonly paidAmount:any;
+    readonly createdBy:any;
+    readonly merchantId:any;
+    }
+   
+  export interface updateOtherPayment{
+      readonly serviceName:any;
+      readonly paidAmount:any;
+      readonly modifiedBy:any;
+  }
+ 
+
+

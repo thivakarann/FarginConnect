@@ -35,6 +35,14 @@ export class ViewcategoryComponent implements OnInit {
   isChecked: any;
   date1: any;
   date2: any;
+  valueCategoryAdd: any;
+  valueCategoryexport: any;
+  valueCategorystatus: any;
+  valueCategoryEdit: any;
+  getdashboard: any[] = [];
+  roleId: any = localStorage.getItem('roleId')
+  actions: any;
+  errorMessage: any;
 
 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
@@ -57,6 +65,48 @@ export class ViewcategoryComponent implements OnInit {
         this.showcategoryData = true;
       }
     });
+
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        console.log(res);
+
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+          
+          if (this.roleId == 1) {
+            this.valueCategoryAdd = 'BussinessCategory-Add';
+            this.valueCategoryEdit = 'BussinessCategory-Edit';
+            this.valueCategorystatus = 'BussinessCategory-Status';
+            this.valueCategoryexport = 'BussinessCategory-Export';
+
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+              
+
+              if (this.actions == 'BussinessCategory-Add') {
+                this.valueCategoryAdd = 'BussinessCategory-Add';
+              }
+              if (this.actions == 'BussinessCategory-Edit') {
+                this.valueCategoryEdit = 'BussinessCategory-Edit';
+              }
+              if (this.actions == 'BussinessCategory-Export') {
+                this.valueCategoryexport = 'BussinessCategory-Export';
+              }
+              if (this.actions == 'BussinessCategory-Status') {
+                this.valueCategorystatus = 'BussinessCategory-Status';
+              }
+
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    })
+
   }
 
 

@@ -34,6 +34,7 @@
                         <option value="RTGS">RTGS(Real Time Gross Settlement) </option>
                         <option  value="IMPS">IMPS (Immediate Payment Service)</option>
                         <option  value="cash">Cash</option>
+                        <option  value="cheque">Cheque</option>
                     </select>
                     <div style="
                 color: red;
@@ -46,12 +47,18 @@
                     </div>
                 </div>
             </div>
-            <div class="row mt-3" >
-                <div class="col-12 form-group" [hidden]="this.paymentmode?.value=='cash'">
+            <div class="row mt-3" *ngIf="this.paymentmode?.value=='cheque'">
+                <div class="col-12 form-group">
+                    <label for="address">Date</label>
+                    <input id="fname" type="date" class="form__input"
+                       class="form-control" formControlName="validitydate">
+                </div>
+            </div>
+            <div class="row mt-3" *ngIf="this.paymentmode?.value!='cash'  && this.paymentmode?.value!='cheque'">
+                <div class="col-12 form-group">
                     <label for="address">Reference Number</label>
                     <input id="fname" type="text" class="form__input" placeholder="Enter Utr number.." cols="10"
                         rows="2" class="form-control" formControlName="utrnumber">
-                    
                 </div>
             </div>
             <div class="mb-3">
@@ -65,4 +72,3 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
-

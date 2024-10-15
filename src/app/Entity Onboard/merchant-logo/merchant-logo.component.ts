@@ -84,6 +84,8 @@ converttohhttps(Url: string): string {
     formData.append('merchantId ', this.id);
     formData.append('modifiedBy', this.modifiedBy);
     formData.append('merchantLogo ', this.file1);
+
+    
     this.service.EntitylogoUpdate(formData).subscribe((res:any)=>{
       if(res.flag==1){
         this.updatedata=res.response;

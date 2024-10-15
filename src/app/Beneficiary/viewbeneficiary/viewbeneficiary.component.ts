@@ -45,6 +45,15 @@ export class ViewbeneficiaryComponent {
   showcategoryData: any;
   errorMsg: any;
   isChecked: any;
+  valuepayoutCreate: any;
+  valuepayoutExport: any;
+  valuepayoutStatus: any;
+  valuepayoutEdit: any;
+  getdashboard: any[] = [];
+  roleId: any = localStorage.getItem('roleId')
+  actions: any;
+  errorMessage: any;
+
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
@@ -66,6 +75,50 @@ export class ViewbeneficiaryComponent {
         this.showcategoryData = true;
       }
     });
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        console.log(res);
+
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+          
+          if (this.roleId == 1) {
+            this.valuepayoutCreate = 'Payout-Add';
+            this.valuepayoutExport='Payout-Export';
+            this.valuepayoutEdit='Payout-Edit';
+            this.valuepayoutStatus='Payout-Status'
+          }
+          else {
+            for (let datas of this.getdashboard) {
+
+              this.actions = datas.subPermissions;
+              
+
+              if (this.actions == 'Payout-Add') {
+                this.valuepayoutCreate = 'Payout-Add';
+              }
+              if(this.actions=='Payout-Export'){
+                this.valuepayoutExport='Payout-Export'
+              }
+              if(this.actions=='Payout-Edit'){
+                this.valuepayoutEdit='Payout-Edit'
+              }
+              if(this.actions=='Payout-Status'){
+                this.valuepayoutStatus='Payout-Status'
+              }
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    })
+
+  }
+
+  reload(){
+    window.location.reload()
   }
 
   applyFilter(event: Event) {

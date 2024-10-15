@@ -16,6 +16,8 @@ export class MerchantPlanAddComponent implements OnInit {
   getadminname = JSON.parse(localStorage.getItem('adminname') || '');
   Adminid = JSON.parse(localStorage.getItem('adminid') || '');
   myForm!: FormGroup;
+  numberValue: number | any = null;
+  numberValues:number|any=null
   constructor(
     public Merchantplanadd: FarginServiceService,
     private router: Router,
@@ -66,7 +68,10 @@ export class MerchantPlanAddComponent implements OnInit {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.dialog.closeAll();
-        window.location.reload();
+        setTimeout(() => {
+          window.location.reload()
+        }, 500);
+
       }
       else {
         this.toastr.error(res.responseMessage);

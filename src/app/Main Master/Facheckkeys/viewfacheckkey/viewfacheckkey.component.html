@@ -43,9 +43,9 @@
 
 
       <button (click)="add()" style="color:white;background-color: #141E46;border-radius: 10px;"
-        mat-raised-button>Create</button>
+        mat-raised-button [hidden]="valuefacheckAdd!=='FaCheck Key-Add'"> Create</button>
       <button style="color:white;background-color: #141E46;border-radius: 10px;" (click)="exportexcel()"
-        mat-raised-button>Export</button>
+        mat-raised-button [hidden]="valuefacheckexport!=='FaCheck Key-Export'">Export</button>
     </div>
   </div>
   </mat-card-header>
@@ -80,15 +80,15 @@
 
 
       <ng-container matColumnDef="Edit">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
-        <td mat-cell *matCellDef="let businesscategory">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header  [hidden]="valuefacheckedit!=='FaCheck Key-Edit'"> Action </th>
+        <td mat-cell *matCellDef="let businesscategory"  [hidden]="valuefacheckedit!=='FaCheck Key-Edit'">
           <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-edit" (click)="Edit(businesscategory)" ></i>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
-        <td mat-cell *matCellDef="let businesscategory">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="valuefacheckstatus!=='FaCheck Key-Status'">Status</th>
+        <td mat-cell *matCellDef="let businesscategory" [hidden]="valuefacheckstatus!=='FaCheck Key-Status'">
           <mat-slide-toggle class="example-margin" color="primary" [checked]="businesscategory.activeStatus === 1"
             (change)="onSubmit($event,businesscategory.facheckKeyId)">
           </mat-slide-toggle>
@@ -103,7 +103,7 @@
 
       <ng-container matColumnDef="createdDateTime">
         <th mat-header-cell *matHeaderCellDef>Created At</th>
-        <td mat-cell *matCellDef="let businesscategory">{{businesscategory.createdAt | date:'yyyy-MM-dd hh:mm a'}}</td>
+        <td mat-cell *matCellDef="let businesscategory">{{businesscategory.createdAt | date:'dd-MM-yyyy hh:mm a'}}</td>
       </ng-container>
 
 
@@ -117,7 +117,7 @@
 
       <ng-container matColumnDef="modifiedDateTime">
         <th mat-header-cell *matHeaderCellDef> Modified At </th>
-        <td mat-cell *matCellDef="let businesscategory">{{businesscategory.modifiedAt | date:'yyyy-MM-dd hh:mm a' }}
+        <td mat-cell *matCellDef="let businesscategory">{{businesscategory.modifiedAt | date:'dd-MM-yyyy hh:mm a' }}
         </td>
       </ng-container>
 

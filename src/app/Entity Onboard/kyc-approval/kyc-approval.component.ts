@@ -22,7 +22,7 @@ export class KycApprovalComponent implements OnInit{
 constructor(private service:FarginServiceService,
   @Inject(MAT_DIALOG_DATA) public data:any,
   private toaster:ToastrService,
-  private dialogRef: MatDialogRef<KycApprovalComponent>,
+  private dialog: MatDialog,
 ){
 
 }
@@ -73,8 +73,10 @@ constructor(private service:FarginServiceService,
     this.service.KycApproval(this.id, submitModel).subscribe((res: any) => {
       if (res.flag === 1) {
         this.toaster.success(res.responseMessage);
-        this.dataApproval.emit(submitModel);  // Emit the newly added data
-        this.dialogRef.close();  // Close the dialog
+        this.dialog.closeAll();  // Close the dialog
+        setTimeout(() => {
+          window.location.reload()
+        }, 500);
       } else {
         this.toaster.error(res.responseMessage);  
       }

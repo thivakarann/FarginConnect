@@ -16,6 +16,7 @@ export class KeysUpdateComponent {
   merchantId: any;
   approval: any;
   detaislone: any;
+selectedOption: any;
 
   constructor(private service: FarginServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any,

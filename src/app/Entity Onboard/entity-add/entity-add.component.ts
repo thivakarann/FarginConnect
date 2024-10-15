@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import {AddEntityBank } from '../../fargin-model/fargin-model.module';
+import { AddEntityBank } from '../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-entity-add',
@@ -44,13 +44,23 @@ export class EntityAddComponent implements OnInit {
   fileType: any;
   error!: boolean;
   file3!: File;
-
-
+  businessId: any;
+  mcccode: any;
+  BankNames: any;
+  file4!: File;
+  firstFormGroup!: FormGroup;
+  secondFormGroup!: FormGroup;
+  thirdFormGroup!: FormGroup;
+  selectElement: any;
+  selectElements: any;
+  select: any;
+  file5!: any;
+  file6!: any;
   constructor(
     public AddEntity: FarginServiceService,
     private router: Router,
-    private toastr: ToastrService
-  ) { }
+    private toastr: ToastrService,
+    private _formBuilder: FormBuilder) { }
   ngOnInit(): void {
 
     this.AddEntity.Bussinesscategoryactivelist().subscribe((res: any) => {
@@ -59,84 +69,86 @@ export class EntityAddComponent implements OnInit {
 
     this.AddEntity.merchantplanactive().subscribe((res: any) => {
       this.entittyplanviewall = res.response;
-    })
+    });
 
-      this.myForm = new FormGroup({
-        entityName: new FormControl('', [
-          Validators.required,
-          Validators.pattern('^[a-zA-Z0-9 ]*$')
-        ]),
-        merchantLegalName: new FormControl('', [
-          Validators.required,
-          Validators.pattern('^[a-zA-Z0-9 ]*$')
-        ]),
-        accountDisplayName: new FormControl('',
-          [
-            Validators.required,
-            Validators.pattern('^[a-zA-Z0-9 ]*$')
-          ]
-        ),
-        businessCategoryIds: new FormControl('', [Validators.required]),
+    this.AddEntity.activebankdetails().subscribe((res: any) => {
+      this.BankNames = res.response;
+    });
 
-        contactName: new FormControl('', [
-          Validators.required,
-          Validators.pattern('^[a-zA-Z0-9 ]*$')
-        ]),
-        contactMobile: new FormControl('', [
-          Validators.required,
-          Validators.maxLength(10),
-          Validators.pattern('^[0-9]{10}$')
-        ]),
-        secondaryMobile: new FormControl('', [
-          Validators.maxLength(10),
-          Validators.pattern('^[0-9]{10}$')
-        ]),
-        contactEmail: new FormControl('', [
-          Validators.required,
-          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$')
-        ]),
-        website: new FormControl(''),
-        gstIn: new FormControl(''),
-        billingAddress: new FormControl("", [
-          Validators.required,
-          Validators.pattern('^[0-9]{10}$')
-        ]),
-        area: new FormControl('', [
-          Validators.required,
-          Validators.pattern('^[a-zA-Z0-9 ]*$')
-        ]),
-        zipcode: new FormControl('', [
-          Validators.required,
-          Validators.pattern("^[1-9]{1}[0-9]{2}\\s{0,1}[0-9]{3}$")
+    this.myForm = new FormGroup({
 
-        ]),
-        stateName: new FormControl('', [
+      entityName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9 ]*$')
+      ]),
+      merchantLegalName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9 ]*$')
+      ]),
+      accountDisplayName: new FormControl('',
+        [
           Validators.required,
           Validators.pattern('^[a-zA-Z0-9 ]*$')
-        ]),
-        city: new FormControl('', [
-          Validators.required,
-          Validators.pattern('^[a-zA-Z0-9 ]*$')
-        ]),
-        // contactPerson: new FormControl('', [
-        //   Validators.required,
-        //   Validators.pattern('^[a-zA-Z0-9 ]*$')
-        // ]),
-        country: new FormControl('', [
-          Validators.required,
-          Validators.pattern('^[a-zA-Z0-9 ]*$')
-        ]),
-        
-        mccCode: new FormControl(''),
-        merchantPlanId: new FormControl('', [Validators.required]),
-        periodName:new FormControl('', [Validators.required]),
-        logo:new FormControl('')
+        ]
+      ),
+      businessCategoryIds: new FormControl('', [Validators.required]),
+      MccCode: new FormControl(''),
+      contactName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9 ]*$')
+      ]),
+      contactMobile: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(10),
+        Validators.pattern('^[0-9]{10}$')
+      ]),
+      secondaryMobile: new FormControl('', [
+        // Validators.maxLength(10),
+        // Validators.pattern('^[0-9]{10}$')
+      ]),
+      contactEmail: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$')
+      ]),
+      website: new FormControl(''),
+      gstIn: new FormControl(''),
+      billingAddress: new FormControl("", [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9 ]*$')
+      ]),
+      area: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9 ]*$')
+      ]),
+      zipcode: new FormControl('', [
+        Validators.required,
+        Validators.pattern("^[1-9]{1}[0-9]{2}\\s{0,1}[0-9]{3}$")
 
-      });
-      console.log('Form Valid on Init:', this.myForm.valid);
-      console.log('Form Valid:', this.myForm.valid);
-      console.log('Form Errors:', this.myForm.errors);
-      console.log('Form Controls:', this.myForm.controls);
+      ]),
+      stateName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9 ]*$')
+      ]),
+      city: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9 ]*$')
+      ]),
+      country: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9 ]*$')
+      ]),
+      merchantPlanId: new FormControl('', [Validators.required]),
+      periodName: new FormControl('', [Validators.required]),
+      logo: new FormControl(''),
+      billingMode: new FormControl("", [
+        Validators.required
+      ]),
+
+    });
+    console.log('Form Valid on Init:', this.myForm.valid);
+    console.log('Form Valid:', this.myForm.valid);
+    console.log('Form Errors:', this.myForm.errors);
+    console.log('Form Controls:', this.myForm.controls);
     this.myForm2 = new FormGroup({
       accountHolderName: new FormControl(null, [
         Validators.required,
@@ -148,7 +160,7 @@ export class EntityAddComponent implements OnInit {
       ]),
       bankName: new FormControl("", [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
+        // Validators.pattern('^[a-zA-Z0-9 ]*$')
       ]),
       ifscCode: new FormControl("", [
         Validators.required,
@@ -164,20 +176,29 @@ export class EntityAddComponent implements OnInit {
       ]),
     })
 
-    this.myForm3 = new FormGroup({
-      docFrontPath: new FormControl(null, Validators.required),
-      docBackPath: new FormControl(null, Validators.required),
-      docName: new FormControl(null, Validators.required),
-      documentNumber: new FormControl('', [Validators.required, Validators.pattern("[0-9]{12}$")]),
-      panNumber: new FormControl('', [Validators.required, Validators.pattern("^[A-Za-z]{5}[0-9]{4}[A-Za-z]$")]),
-      passportNumber: new FormControl('', [Validators.required, Validators.pattern("^[A-Za-z0-9]{8,15}$")]),
-      gstNumber: new FormControl('', [Validators.required,Validators.pattern("^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[A-Z]{1}[0-9A-Z]{1}$")]),
-      drivingLicenseNumber: new FormControl('', [Validators.required,Validators.pattern("^(([A-Z]{2}[0-9]{2})( )|([A-Z]{2}-[0-9]{2}))((19|20)[0-9][0-9])[0-9]{7}$")]),
-      cinch: new FormControl('', [Validators.required,Validators.pattern("^([LUu]{1})([0-9]{5})([A-Za-z]{2})([0-9]{4})([A-Za-z]{3})([0-9]{6})$")]),
-      voterid: new FormControl('', [Validators.required,  Validators.pattern("^[A-Z]{3}[0-9]{7}$")]),
+    this.firstFormGroup = this._formBuilder.group({
+      identityProof: ['', Validators.required],
+      identityProofNo: ['', Validators.required],
+      identityFrontPath: [null, Validators.required],
+      identityBackPath: [null, Validators.required]
+
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      addressProof: ['', Validators.required],
+      addressProofNo: ['', Validators.required],
+      addressFrontPath: [null, Validators.required],
+      addressBackPath: [null, Validators.required]
     });
 
-    
+    this.thirdFormGroup = this._formBuilder.group({
+      signatureProof: ['', Validators.required],
+      signatureProofNo: ['', Validators.required],
+      signatureFrontPath: [null, Validators.required],
+      signatureBackPath: [null, Validators.required]
+    });
+
+
+
 
   }
 
@@ -198,6 +219,11 @@ export class EntityAddComponent implements OnInit {
     return this.myForm.get('accountDisplayName')
 
   }
+
+  get billingMode() {
+    return this.myForm.get('billingMode')
+  }
+
 
   get contactName() {
     return this.myForm.get('contactName')
@@ -270,22 +296,30 @@ export class EntityAddComponent implements OnInit {
     return this.myForm.get('logo')
   }
 
-  onCategoryChange(event: any): void {
-    console.log(event)
-    this.selectedCategoryId = event.target.value;
-    console.log(this.selectedCategoryId)
-    const selectedCategory = this.categorydetails.find((category: { businessCategoryId: any; }) => category.businessCategoryId === +this.selectedCategoryId);
+  // onCategoryChange(event: any): void {
+  //   console.log(event)
+  //   this.selectedCategoryId = event.target.value;
+  //   console.log(this.selectedCategoryId)
+  //   const selectedCategory = this.categorydetails.find((category: { businessCategoryId: any; }) => category.businessCategoryId === +this.selectedCategoryId);
 
-    if (selectedCategory) {
-      this.myForm.patchValue({
-        mccCode: selectedCategory.mccCode
+  //   if (selectedCategory) {
+  //     this.myForm.patchValue({
+  //       mccCode: selectedCategory.mccCode
 
 
-      });
-      console.log(this.myForm.value.mccCode)
-    }
+  //     });
+  //     console.log(this.myForm.value.mccCode)
+  //   }
+  // }
+
+  onCategoryChange(event: any) {
+    this.businessId = event.target.value;
+    this.AddEntity.EntityBusinessCategoryId(this.businessId).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.mcccode = res.response.mccCode
+      }
+    })
   }
-
 
 
   // second Form
@@ -315,42 +349,48 @@ export class EntityAddComponent implements OnInit {
 
   // third Form
 
-  get docFrontPath() {
-    return this.myForm3.get('docFrontPath')
-
+  get identityProof() {
+    return this.firstFormGroup.get('identityProof')
   }
-  get docBackPath() {
-    return this.myForm3.get('docBackPath')
+  get identityProofNo() {
+    return this.firstFormGroup.get('identityProofNo')
   }
-
-  get docName() {
-    return this.myForm3.get('docName')
+  get identityFrontPath() {
+    return this.firstFormGroup.get('identityFrontPath')
   }
 
-  get documentNumber() {
-    return this.myForm3.get('documentNumber');
+  get identityBackPath() {
+    return this.firstFormGroup.get('identityBackPath')
   }
 
-  get panNumber() {
-    return this.myForm3.get('panNumber');
-  }
-  get passportNumber() {
-    return this.myForm3.get('passportNumber');
+  get addressProof() {
+    return this.secondFormGroup.get('addressProof')
   }
 
-  get gstNumber() {
-    return this.myForm3.get('gstNumber');
+  get addressProofNo() {
+    return this.secondFormGroup.get('addressProofNo')
   }
 
-  get drivingLicenseNumber() {
-    return this.myForm3.get('drivingLicenseNumber');
+  get addressFrontPath() {
+    return this.secondFormGroup.get('addressFrontPath')
   }
 
-  get cinch() {
-    return this.myForm3.get('cinch');
+  get addressBackPath() {
+    return this.secondFormGroup.get('addressBackPath')
   }
-  get voterid() {
-    return this.myForm3.get('voterid');
+
+
+  get signatureProof() {
+    return this.thirdFormGroup.get('signatureProof')
+  }
+  get signatureProofNo() {
+    return this.thirdFormGroup.get('signatureProofNo')
+  }
+  get signatureFrontPath() {
+    return this.thirdFormGroup.get('signatureFrontPath')
+  }
+  get signatureBackPath() {
+    return this.thirdFormGroup.get('signatureBackPath')
   }
 
   onFileSelected(event: any) {
@@ -416,9 +456,169 @@ export class EntityAddComponent implements OnInit {
 
 
   }
+  onaddressfront(event: any) {
+    const files = event.target.files[0];
+    if (files) {
+      const fileName: string = files.name;
+      const fileextension: any = fileName.split('.').pop()?.toLowerCase();
+      const dotcount = fileName.split('.').length - 1;
+      if (dotcount > 1) {
+
+        this.errorMessage = 'Files with multiple extensions are not allowed';
+        return;
+
+      }
+      if (!files.type.startsWith('image/')) {
+
+        this.errorMessage = 'Only Images  are  allowed';
+        return;
+      }
 
 
-  getlogo(event:any){
+      this.errorMessage = ''
+      this.file3 = files;
+    }
+
+
+  }
+  onaddressback(event: any) {
+    const files = event.target.files[0];
+    if (files) {
+      const fileName: string = files.name;
+      const fileextension: any = fileName.split('.').pop()?.toLowerCase();
+      const dotcount = fileName.split('.').length - 1;
+      if (dotcount > 1) {
+
+        this.errorMessage = 'Files with multiple extensions are not allowed';
+        return;
+
+      }
+      if (!files.type.startsWith('image/')) {
+
+        this.errorMessage = 'Only Images  are  allowed';
+        return;
+      }
+
+
+      this.errorMessage = ''
+      this.file4 = files;
+    }
+  }
+  onasignfront(event: any) {
+    const files = event.target.files[0];
+    if (files) {
+      const fileName: string = files.name;
+      const fileextension: any = fileName.split('.').pop()?.toLowerCase();
+      const dotcount = fileName.split('.').length - 1;
+      if (dotcount > 1) {
+
+        this.errorMessage = 'Files with multiple extensions are not allowed';
+        return;
+
+      }
+      if (!files.type.startsWith('image/')) {
+
+        this.errorMessage = 'Only Images  are  allowed';
+        return;
+      }
+
+
+      this.errorMessage = ''
+      this.file5 = files;
+    }
+
+
+  }
+  onasignback(event: any) {
+    const files = event.target.files[0];
+    if (files) {
+      const fileName: string = files.name;
+      const fileextension: any = fileName.split('.').pop()?.toLowerCase();
+      const dotcount = fileName.split('.').length - 1;
+      if (dotcount > 1) {
+
+        this.errorMessage = 'Files with multiple extensions are not allowed';
+        return;
+
+      }
+      if (!files.type.startsWith('image/')) {
+
+        this.errorMessage = 'Only Images  are  allowed';
+        return;
+      }
+
+
+      this.errorMessage = ''
+      this.file6 = files;
+    }
+
+
+  }
+  onIdentityProofChange(event: any) {
+    this.selectElement = event.target.value;
+    const identityProofNoControl = this.firstFormGroup.get('identityProofNo');
+
+
+    identityProofNoControl?.clearValidators();
+
+
+    if (this.selectElement === 'Aadhar Card') {
+      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[0-9]{12}$")]); // 12 digits for Aadhar
+    } else if (this.selectElement === 'Pancard') {
+      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z]{5}[0-9]{4}[A-Za-z]$")]); // PAN format
+    } else if (this.selectElement === 'Voter Id Proof') {
+      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]); // Voter ID format
+    } else if (this.selectElement === 'Passport') {
+      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z0-9]{8,15}$")]); // Passport format
+    } else if (this.selectElement === 'Driving License') {
+      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^(([A-Z]{2}[0-9]{2})( )|([A-Z]{2}-[0-9]{2}))((19|20)[0-9][0-9])[0-9]{7}$")]); // Driving license format
+    }
+
+
+    identityProofNoControl?.updateValueAndValidity();
+  }
+
+
+  onAddressProofChange(event: any) {
+    this.selectElements = event.target.value;
+    const addressProofNoControl = this.secondFormGroup.get('addressProofNo');
+
+    addressProofNoControl?.clearValidators();
+
+
+    if (this.selectElements === 'Aadhar Card') {
+      addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[0-9]{12}$")]); // 12 digits for Aadhar
+    } else if (this.selectElements === 'Voter Id Proof') {
+      addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]); // Voter ID format
+    } else if (this.selectElements === 'Passport') {
+      addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z0-9]{8,15}$")]); // Passport format
+    } else if (this.selectElements === 'Driving License') {
+      addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{7}$")]); // Driving license format
+    }
+
+
+    addressProofNoControl?.updateValueAndValidity();
+  }
+
+  onasignproof(event: any) {
+    this.select = event.target.value;
+    const signatureProofNoControl = this.thirdFormGroup.get('signatureProofNo');
+
+
+    signatureProofNoControl?.clearValidators();
+
+
+    if (this.select === 'Pancard') {
+      signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z]{5}[0-9]{4}[A-Za-z]$")]);
+    } else if (this.select === 'Passport') {
+      signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z0-9]{8,15}$")]); // Passport format
+    } else if (this.select === 'Driving License') {
+      signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{7}$")]); // Driving license format
+    }
+
+    signatureProofNoControl?.updateValueAndValidity();
+  }
+  getlogo(event: any) {
     const files = event.target.files[0];
     if (files) {
       if (!files.type.startsWith('image/')) {
@@ -430,30 +630,31 @@ export class EntityAddComponent implements OnInit {
       console.log(this.file3);
       console.log(' file 3 id success' + files);
 
+    }
   }
-}
   Submit() {
     const formData = new FormData;
-    formData.append('contactEmail',this.contactEmail?.value,);
-    formData.append('contactMobile', this.contactMobile?.value,);
-    formData.append('entityName', this.entityName?.value);
-    formData.append('merchantLegalName', this.merchantLegalName?.value)
-    formData.append('accountDisplayName',  this.accountDisplayName?.value);
+    formData.append('contactEmail', this.contactEmail?.value.trim());
+    formData.append('contactMobile', this.contactMobile?.value.trim());
+    formData.append('entityName', this.entityName?.value.trim());
+    formData.append('merchantLegalName', this.merchantLegalName?.value.trim())
+    formData.append('accountDisplayName', this.accountDisplayName?.value.trim());
     formData.append('gstIn', this.gstIn?.value || '-');
-    formData.append('contactName',this.contactName?.value);
-    formData.append('secondaryMobile', this.secondaryMobile?.value,);
-    formData.append('billingAddress', this.billingAddress?.value);
-    formData.append('area', this.area?.value,)
-    formData.append('stateName',  this.stateName?.value);
-    formData.append('country',  this.country?.value);
-    formData.append('zipcode',this.zipcode?.value);
-    formData.append('city', this.city?.value)
-    formData.append('businessCategoryId', this.selectedCategoryId);
+    formData.append('contactName', this.contactName?.value.trim());
+    formData.append('secondaryMobile', this.secondaryMobile?.value.trim());
+    formData.append('billingAddress', this.billingAddress?.value.trim());
+    formData.append('area', this.area?.value.trim())
+    formData.append('stateName', this.stateName?.value.trim());
+    formData.append('country', this.country?.value.trim());
+    formData.append('zipcode', this.zipcode?.value.trim());
+    formData.append('city', this.city?.value.trim())
+    formData.append('businessCategoryId', this.businessId);
     formData.append('merchantPlanId', this.merchantPlanId?.value);
-    formData.append('mccCode',this.mccCode?.value);
+    formData.append('mccCode', this.mcccode);
     formData.append('periodName', this.periodName?.value);
-    formData.append('website',  this.website?.value || '-');
+    formData.append('website', this.website?.value || '-');
     formData.append('merchantLogo', this.file3 || this.emptyBlob);
+    formData.append('billingMode', this.billingMode?.value);
 
     this.AddEntity.EntityAdd(formData).subscribe((res: any) => {
       if (res.flag == 1) {
@@ -481,7 +682,7 @@ export class EntityAddComponent implements OnInit {
     let submitModel: AddEntityBank = {
       accountHolderName: this.accountHolderName?.value,
       accountNumber: this.accountNumber?.value,
-      bankName: this.bankName?.value,
+      bankId: this.bankName?.value,
       ifscCode: this.ifscCode?.value,
       branchName: this.branchName?.value,
       accountType: this.accountType?.value,
@@ -502,185 +703,33 @@ export class EntityAddComponent implements OnInit {
     })
   }
 
-  AddKYC(event: Event) {
-    event.preventDefault();
-    if (this.docName?.value == 'Aadhaar') {
-      const formData = new FormData;
-      formData.append('merchantId',this.merchantid);
-      formData.append('docFrontPath', this.file1);
-      formData.append('docBackPath', this.file2);
-      formData.append('docName', this.docName?.value);
-      formData.append('docNumber', this.documentNumber?.value);
-      formData.append('createdBy', this.getadminname)
-     console.log(this.merchantid)
 
-      this.AddEntity.KycAdd(formData).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.kycdetails = res.response;
-          this.kycDocname=res.response.docName;
-          this.toastr.success(res.message)
-          this.myForm3.reset();
-
-        }
-        else {
-          this.toastr.error(res.message)
-
-        }
-      })
-    }
-    if (this.docName?.value == 'PAN') {
-      const formData = new FormData;
-      formData.append('merchantId',this.merchantid);
-      formData.append('docFrontPath', this.file1);
-      formData.append('docBackPath', this.file2);
-      formData.append('docName', this.docName?.value);
-      formData.append('docNumber', this.panNumber?.value);
-      formData.append('createdBy', this.getadminname)
-      console.log(this.merchantid)
-      this.AddEntity.KycAdd(formData).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.kycdetails = res.response;
-          this.toastr.success(res.message);
-          this.kycDocname1=res.response.docName;
-          this.myForm3.reset();
-
-        }
-        else {
-          this.toastr.error(res.message)
-
-        }
-      })
-    }
-     if (this.docName?.value == 'Passport') {
-      const formData = new FormData;
-      formData.append('merchantId',this.merchantid);
-      formData.append('docFrontPath', this.file1);
-      formData.append('docBackPath', this.file2);
-      formData.append('docName', this.docName?.value);
-      formData.append('docNumber', this.passportNumber?.value);
-      formData.append('createdBy', this.getadminname);
-      console.log(this.merchantid)
-      this.AddEntity.KycAdd(formData).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.kycdetails = res.response;
-          this.kycDocname2=res.response.docName;
-          this.toastr.success(res.message)
-          this.myForm3.reset();
-
-        }
-        else {
-          this.kycdetails = res.response;
-          this.toastr.error(res.message)
-
-        }
-      })
-    }
-    if (this.docName?.value == 'GST') {
-      const formData = new FormData;
-      formData.append('merchantId',this.merchantid);
-      formData.append('docFrontPath', this.file1);
-      formData.append('docBackPath', this.file2);
-      formData.append('docName', this.docName?.value);
-      formData.append('docNumber', this.gstNumber?.value);
-      formData.append('createdBy', this.getadminname);
-      console.log(this.merchantid)
-      this.AddEntity.KycAdd(formData).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.kycdetails = res.response;
-          this.kycDocname3=res.response.docName;
-          this.toastr.success(res.message);
-          this.myForm3.reset();
-        }
-        else {
-          this.toastr.error(res.message)
-
-        }
-      })
-    }
-    if (this.docName?.value == 'Driving License') {
-      const formData = new FormData;
-      formData.append('merchantId',this.merchantid);
-      formData.append('docFrontPath', this.file1);
-      formData.append('docBackPath', this.file2);
-      formData.append('docName', this.docName?.value);
-      formData.append('docNumber', this.drivingLicenseNumber?.value);
-      formData.append('createdBy', this.getadminname);
-      console.log(this.merchantid)
-      this.AddEntity.KycAdd(formData).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.kycdetails = res.response;
-          this.kycDocname4=res.response.docName;
-          this.toastr.success(res.message);
-          this.myForm3.reset();
-
-        }
-        else {
-          this.toastr.error(res.message)
-        }
-      })
-    }
-     if (this.docName?.value == 'Cin') {
-      const formData = new FormData;
-      formData.append('merchantId',this.merchantid);
-      formData.append('docFrontPath', this.file1);
-      formData.append('docBackPath', this.file2);
-      formData.append('docName', this.docName?.value);
-      formData.append('docNumber', this.cinch?.value);
-      formData.append('createdBy', this.getadminname)
-      console.log(this.merchantid)
-      this.AddEntity.KycAdd(formData).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.kycdetails = res.response;
-          this.kycDocname5=res.response.docName;
-          this.toastr.success(res.message);
-          this.myForm3.reset();
-
-        }
-        else {
-          this.toastr.error(res.message)
-
-        }
-      })
-    }
-    if (this.docName?.value == 'VoterId') {
-      const formData = new FormData;
-      formData.append('merchantId',this.merchantid);
-      formData.append('docFrontPath', this.file1);
-      formData.append('docBackPath', this.file2);
-      formData.append('docName', this.docName?.value);
-      formData.append('docNumber', this.voterid?.value);
-      formData.append('createdBy', this.getadminname)
-      console.log(this.merchantid)
-      this.AddEntity.KycAdd(formData).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.kycdetails = res.response;
-          this.kycDocname6=res.response.docName;
-          this.toastr.success(res.message);
-          this.myForm3.reset();
-
-        }
-        else {
-          this.toastr.error(res.message)
-        }
-      })
-    }
-  }
   close() {
     this.router.navigateByUrl('dashboard/entity-viewall');
   }
 
+  kycsubmit() {
+    const formData = new FormData();
+    formData.append('merchantId', this.merchantid);
+    formData.append('identityFrontPath', this.file1);
+    formData.append('identityBackPath', this.file2);
+    formData.append('identityProof', this.identityProof?.value);
+    formData.append('identityProofNo', this.identityProofNo?.value);
+    formData.append('addressFrontPath', this.file3);
+    formData.append('addressBackPath', this.file4);
+    formData.append('addressProof', this.addressProof?.value);
+    formData.append('addressProofNo', this.addressProofNo?.value);
+    formData.append('signatureFrontPath', this.file5);
+    formData.append('signatureBackPath', this.file6);
+    formData.append('signatureProof', this.signatureProof?.value);
+    formData.append('signatureProofNo', this.signatureProofNo?.value);
 
-
-
-
-
-
-
-
-
-
-  Mccode(id: any) {
-    
-
+    this.AddEntity.entitykycs(formData).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.toastr.success(res.responseMessage);
+      } else {
+        this.toastr.error(res.responseMessage);
+      }
+    });
   }
 }

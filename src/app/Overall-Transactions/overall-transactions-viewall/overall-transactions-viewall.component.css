@@ -77,14 +77,14 @@ mat-card-content tr:nth-child(odd) {
   /*  gap of items in input */
   --icon-change-color: #15A986;
   /*  when rotating changed icon color */
-  --height:35px;
+  --height: 40px;
   /*  height */
-  width: 160px;
+  width: 230px;
   padding-inline-end: 1em;
   /*  change this for padding in the end of input */
   background: var(--input-bg);
   position: relative;
-  border-radius: 12px;
+  border-radius: 15px;
 }
 .form label {
   display: flex;

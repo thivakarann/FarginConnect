@@ -26,6 +26,7 @@ export class CreateManualpaymentComponent implements OnInit{
       paidStatus: new FormControl('', [Validators.required,]),
       paymentmode: new FormControl('', [Validators.required,]),
       utrnumber: new FormControl(''),
+      validitydate:new FormControl(''),
  
     });
   }
@@ -44,13 +45,17 @@ export class CreateManualpaymentComponent implements OnInit{
  
   }
  
+  get validitydate() {
+    return this.myForm.get('validitydate')
  
+  }
   submit() {
     let submitModel: createManualPayment = {
       paymentMethod:  this.paymentmode?.value,
       utrNumber: this.utrnumber?.value,
       paymentStatus: this.paidStatus?.value,
-      merchantId: this.id
+      merchantId: this.id,
+      date:this.validitydate?.value
     }
  
     this.Approval.CreateManualPayment(submitModel).subscribe((res: any) => {

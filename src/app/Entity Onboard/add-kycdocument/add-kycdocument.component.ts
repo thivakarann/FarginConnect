@@ -23,10 +23,9 @@ export class AddKycdocumentComponent implements OnInit {
   businesscreationId: any;
   kycDocName: any;
 
-  @Output()dataKYC= new EventEmitter<FormData>();
 
 
-  constructor(private service: FarginServiceService,  private dialogRef: MatDialogRef<AddKycdocumentComponent>, private toaster: ToastrService, @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(private service: FarginServiceService,  private dialog: MatDialog, private toaster: ToastrService, @Inject(MAT_DIALOG_DATA) public data: any) {
 
   }
   ngOnInit(): void {
@@ -170,8 +169,10 @@ submit() {
     if (res.flag == 1) {
       this.details = res.response;
       this.toaster.success(res.responseMessage);
-      this.dataKYC.emit(formData);  // Emit the newly added data
-      this.dialogRef.close(); // Close the dialog
+      this.dialog.closeAll(); // Close the dialog
+      setTimeout(() => {
+        window.location.reload()
+      }, 500);
     } else {
       this.toaster.error(res.responseMessage);
     }

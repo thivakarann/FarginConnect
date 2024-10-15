@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { BankPrimaryStatus } from '../fargin-model/fargin-model.module';
 import { SessionServiceService } from '../Session service/session-service.service';
 import { json } from 'stream/consumers';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Injectable({
@@ -13,11 +14,14 @@ import { json } from 'stream/consumers';
 export class FarginServiceService {
 
   constructor(private http: HttpClient,
-    private router: Router, private timerService: SessionServiceService) { }
+    private router: Router, private timerService: SessionServiceService, private toastr: ToastrService) { }
 
-  private readonly basePath = 'http://64.227.149.125:8085/'; //Basepath
+  private readonly basePath = 'https://staging-api.farginconnect.com/'; //Basepath
+
+  // private readonly basePath = 'http://64.227.149.125:8085/'
 
   // login
+
   private readonly adminlogin = 'adminUser/adminlogin';
   private readonly forgotpassword = 'adminUser/verifyEmail';
   private readonly verifyotp = 'adminUser/verifyOtp';
@@ -67,6 +71,7 @@ export class FarginServiceService {
   private readonly adminpolicyviewbyidedit = 'policy/getpolicy/';
   private readonly policymerchant = 'merchant/approvedMerchant';
   private readonly policiesbyid = 'policy/getpolicy/';
+  private readonly policyapproval = 'policy/updateStatus/';
 
 
   private readonly admingetall = 'adminUser/viewall';
@@ -87,6 +92,10 @@ export class FarginServiceService {
   private readonly emailtrigger = 'merchantOnboard/resendmail';
   private readonly merchantlogo = 'merchant/updateimage ';
   private readonly keysupdate = 'merchant/updateKey';
+  private readonly paymentlink = 'paymentlink/getmerchant/';
+  private readonly businessid = 'businesscategory/getById/';
+  private readonly manualreciept = 'merchantpay/viewreceipt/';
+  private readonly entitykyc = 'entityDocument/addDocuments'
 
 
 
@@ -291,13 +300,86 @@ export class FarginServiceService {
   private readonly dashboardbusinesscategorybyid = 'dashBoard/businessCategory/'
   private readonly dashboardtransaction = 'dashBoard/transaction/'
 
+  //unblock account
+  private readonly unblockaccount = 'adminUser/unBlockAccount/';
+
+
+  //unblock entity account
+  private readonly unblockentityaccount = 'merchant/unBlockAccount/';
   //manual payment
   private readonly updatemanualpay = 'merchant/updateManualPayment/';
   private readonly createmanualpay = 'merchantpay/manualPayment';
   private readonly manualpayget = 'merchantpay/viewMerchant/';
-  private readonly manualtransaction = 'transhistory/viewMerchantPay/'
+  private readonly manualtransaction = 'transhistory/viewMerchantPay/';
 
 
+
+
+  //Fargin terms and policy
+  private readonly viewtermspolicy = 'policy/getallpolicy';
+  private readonly addtermspolicy = 'policy/createpolicy';
+  private readonly edittermspolicy = 'policy/updateadminpolicy/';
+  private readonly viewbyidpolicy = 'policy/getpolicy/';
+
+
+  //Dahboard
+  private readonly dashboarddaytransaction = 'dashBoardd/overDayTotalTransactionsAmount';
+  private readonly dashboardlastssevendays = 'dashBoardd/over7DayTotalTransactionsAmount';
+  private readonly dashboardfifteendays = 'dashBoardd/fifteendays';
+  private readonly dashboardthirtydays = 'dashBoard/thirtydays';
+  private readonly dashboardlastmonth = 'dashBoardd/lastMonthTotalTransactionsAmount';
+  private readonly dashboardthismonth = 'dashBoardd/thisMonthTotalTransactionsAmount'
+  private readonly dashboardcustomrange = 'dashBoard/transaction/';
+  private readonly dashboardoverall = 'dashBoardd/totalTransactionsAmount';
+  private readonly dashboardoverallmerchantid = 'dashBoardd/totalTransactionsAmount/';
+  private readonly dashboardoverallamount = 'dashBoard/overallTransactionsAmount';
+  private readonly dashboardoverallonetime = 'dashBoard/overallOneTimeTransactionsAmount';
+  private readonly dashboardsevendaysamount = 'dashBoardd/over7dayAmounts'
+
+
+  //Tickets
+  private readonly ticketsget = 'customerTickets/getall';
+  private readonly customerticketraise = 'customerTickets/updateTicketStatus/'
+
+
+  // Bank Details Main Master
+
+  private readonly BankdetailsViewall = 'bankDetails/viewAllBank';
+  private readonly AddBankDetails = 'bankDetails/addBank';
+  private readonly EditBankdetails = 'bankDetails/update';
+  private readonly Bankdetailsviewbyid = 'bankDetails/viewById/';
+  private readonly ActiveBankDetails = 'bankDetails/viewOnlyActive';
+  private readonly Bankdetailsstatus = 'bankDetails/updateStatus';
+
+
+  //transactions
+  private readonly customeralltransactions = 'customerpay/viewAllPayments';
+  private readonly customerdatefilter = 'paymentHistory/getDateFilter/';
+  private readonly customertransactionview = 'paymentHistory/viewById/'
+
+  //merchant
+  private readonly maintenancetransaction = 'maintanancePay/viewAll';
+  private readonly maintenancetransactionview = 'maintanancePay/viewByPayId/';
+  private readonly maintenancedatefilter = 'maintanancePay/dateFilter/';
+
+  //onetime
+  private readonly onetimtransaction = 'merchantpay/viewAll';
+  private readonly onetimtransactionview = 'maintanancePay/viewByPayId/';
+  private readonly onetimdatefilter = 'transhistory/getDateWise/';
+
+  // QR Creation API,S
+
+  private readonly QrcreateName = 'merchant/qrnamegenerate/';
+  private readonly QrCreationimage = 'merchant/qrgenerate';
+
+  //other payment
+  private readonly otherpaymentmerchantid = 'otherpayment/viewByMerchant/';
+  private readonly otherpaymentcreate = 'otherpayment/create';
+  private readonly otherpayment = 'otherpayment/viewall';
+  private readonly otherpaymentupdate = 'otherpayment/update/';
+  private readonly otherpaytrans = 'otherpayment/viewByPayId/';
+  private readonly otherpaymentdate = 'otherpayment/dateFilter/';
+  private readonly otherpaymentviewall = 'merchantdue/getall';
 
 
 
@@ -349,14 +431,16 @@ export class FarginServiceService {
           window.location.reload();
         }, 200);
 
+        this.toastr.success(res.responseMessage)
         // location.href = '/dashboard/dashboard-content';   need to add After login
 
       }
-      else {
-        this.loginError.next(res.responseMessage);
-
+      else if (res.flag == 2) {
+        this.toastr.error(res.responseMessage)
       }
-
+      else {
+        this.toastr.error(res.responseMessage)
+      }
     });
   }
 
@@ -493,6 +577,10 @@ export class FarginServiceService {
 
   Policiesgetbyid(id: any) {
     return this.http.get(`${this.basePath}${this.policiesbyid}${id}`, this.options)
+  }
+
+  ApprovalForPolicy(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.policyapproval}${id}`, model, this.options)
   }
   adminPolicyget() {
     return this.http.get(`${this.basePath}${this.adminpolicy}`, this.options)
@@ -631,6 +719,10 @@ export class FarginServiceService {
   }
 
 
+  paymentLinkview(id: any) {
+    return this.http.get(`${this.basePath}${this.paymentlink}${id}`, this.options)
+  }
+
 
 
 
@@ -638,6 +730,13 @@ export class FarginServiceService {
 
   EntityGetKYCbybussinessid(id: any) {
     return this.http.get(`${this.basePath}${this.EntityKYCBYbusinessid}${id}`, this.options)
+  }
+
+  ManualRecieptView(id: any) {
+    return this.http.get(`${this.basePath}${this.manualreciept}${id}`, {
+      ...this.options,
+      ...{ responseType: 'blob' },
+    })
   }
 
   // EntityAddKyc(formdata: FormData) {
@@ -676,6 +775,9 @@ export class FarginServiceService {
 
 
   //kyc document
+  entitykycs(formdata: FormData) {
+    return this.http.post(`${this.basePath}${this.entitykyc}`, formdata, this.optionsMultipart)
+  }
   KycAdd(data: any) {
     return this.http.post(`${this.basePath}${this.kycadd}`, data, this.optionsMultipart);
   }
@@ -707,6 +809,10 @@ export class FarginServiceService {
   //verification response
   FacheckVerificationResponse(id: any) {
     return this.http.get(`${this.basePath}${this.facheckresponse}${id}`, this.options)
+  }
+
+  EntityBusinessCategoryId(id: any) {
+    return this.http.get(`${this.basePath}${this.businessid}${id}`, this.options)
   }
 
 
@@ -1116,6 +1222,193 @@ export class FarginServiceService {
     })
   }
 
+  unblockAccount(id: any) {
+    return this.http.get(`${this.basePath}${this.unblockaccount}${id}`, this.options)
+  }
+
+  unblockentityAccount(id: any) {
+    return this.http.get(`${this.basePath}${this.unblockentityaccount}${id}`, this.options)
+  }
+
+
+
+  //fargin policy
+
+  viewfarginPolicy() {
+    return this.http.get(`${this.basePath}${this.viewtermspolicy}`, this.options)
+  }
+
+  addTermsPolicy(model: any) {
+    return this.http.post(`${this.basePath}${this.addtermspolicy}`, model, this.options)
+  }
+
+  editTermsPolicy(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.edittermspolicy}${id}`, model, this.options)
+  }
+
+  viewbyIdpolicy(id: any) {
+    return this.http.get(`${this.basePath}${this.viewbyidpolicy}${id}`, this.options)
+  }
+
+  //Dashboard
+
+  dashboardcustomersevenday() {
+    return this.http.get(`${this.basePath}${this.dashboardlastssevendays}`, this.options)
+  }
+  dashboardcustomerfifteenday() {
+    return this.http.get(`${this.basePath}${this.dashboardfifteendays}`, this.options)
+  }
+  dashboardcustomerthirtyday() {
+    return this.http.get(`${this.basePath}${this.dashboardthirtydays}`, this.options)
+  }
+  dashboardcustomerlastmonth() {
+    return this.http.get(`${this.basePath}${this.dashboardlastmonth}`, this.options)
+  }
+  dashboardcustomerthismonth() {
+    return this.http.get(`${this.basePath}${this.dashboardthismonth}`, this.options)
+  }
+  dashboardcustomerstartenddates(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.dashboardcustomrange}${id}/${id1}`, this.options)
+  }
+
+  dashbaordcustomerdayTransaction() {
+    return this.http.get(`${this.basePath}${this.dashboarddaytransaction}`, this.options)
+  }
+
+  // dashbaordcustomermobilenumbers(id: any,id1:any) {
+  //   return this.http.get(`${this.basePath}${this.dashbaordcustomermobilenumber}${id}/${id1}`, this.options)
+  // }
+
+  dashboardcustomeroveralls() {
+    return this.http.get(`${this.basePath}${this.dashboardoverall}`, this.options)
+  }
+  dashboardoverallmerchantids(id: any) {
+    return this.http.get(`${this.basePath}${this.dashboardoverallmerchantid}${id}`, this.options)
+  }
+
+  dashboardoverallamounts() {
+    return this.http.get(`${this.basePath}${this.dashboardoverallamount}`, this.options)
+  }
+  dashboardoverallonetimes() {
+    return this.http.get(`${this.basePath}${this.dashboardoverallonetime}`, this.options)
+  }
+  dashboardsevendaysamounts() {
+    return this.http.get(`${this.basePath}${this.dashboardsevendaysamount}`, this.options)
+  }
+
+  //tickets
+  Ticketscustomer() {
+    return this.http.get(`${this.basePath}${this.ticketsget}`, this.options)
+  }
+
+  customerraiseticketupdate(id: any, model: any) {
+    return this.http.put(
+      `${this.basePath}${this.customerticketraise}${id}`,
+      model,
+      this.options
+    );
+  }
+
+  // Bank Details Main Master
+
+  bankdetailsViewall() {
+    return this.http.get(`${this.basePath}${this.BankdetailsViewall}`, this.options)
+  }
+
+  bankdetailsAdd(model: any) {
+    return this.http.post(`${this.basePath}${this.AddBankDetails}`, model, this.options)
+  }
+
+  bankdetailsviewbyid(id: any) {
+    return this.http.get(`${this.basePath}${this.Bankdetailsviewbyid}${id}`, this.options)
+  }
+
+  bankdetailsUpdate(model: any) {
+    return this.http.put(`${this.basePath}${this.EditBankdetails}`, model, this.options)
+  }
+
+  activebankdetails() {
+    return this.http.get(`${this.basePath}${this.ActiveBankDetails}`, this.options)
+  }
+
+  activebankdetailsstatus(model: any) {
+    return this.http.put(`${this.basePath}${this.Bankdetailsstatus}`, model, this.options)
+  }
+
+  CustomerAllTransactions() {
+    return this.http.get(`${this.basePath}${this.customeralltransactions}`, this.options)
+  }
+
+  CustomerTransactionsFilter(id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.customerdatefilter}${id1}/${id2}`, this.options)
+  }
+
+  CustomerTransactionsView(id1: any) {
+    return this.http.get(`${this.basePath}${this.customertransactionview}${id1}`, this.options)
+  }
+
+
+
+  MaintenanceAllTransactions() {
+    return this.http.get(`${this.basePath}${this.maintenancetransaction}`, this.options)
+  }
+
+
+  MaintenanceTransactionsView(id1: any) {
+    return this.http.get(`${this.basePath}${this.maintenancetransactionview}${id1}`, this.options)
+  }
+  MaintenanceTransactionFilter(id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.maintenancedatefilter}${id1}/${id2}`, this.options)
+  }
+
+  OneTimeAllTransactions() {
+    return this.http.get(`${this.basePath}${this.onetimtransaction}`, this.options)
+  }
+  OneTimeTransactionsView(id1: any) {
+    return this.http.get(`${this.basePath}${this.onetimtransactionview}${id1}`, this.options)
+  }
+  OneTimeTransactionFilter(id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.onetimdatefilter}${id1}/${id2}`, this.options)
+  }
+
+
+  QRCreateurl(id: any) {
+    return this.http.get(`${this.basePath}${this.QrcreateName}${id}`, this.options)
+  }
+
+  QRURLcreation(model: any) {
+    return this.http.post(`${this.basePath}${this.QrCreationimage}`, model, this.options)
+  }
+
+  OtherPayByMerchantId(id1: any) {
+    return this.http.get(`${this.basePath}${this.otherpaymentmerchantid}${id1}`, this.options)
+  }
+
+  CreateOtherPayment(data: any) {
+    return this.http.post(`${this.basePath}${this.otherpaymentcreate}`, data, this.options);
+  }
+
+  OtherPay() {
+    return this.http.get(`${this.basePath}${this.otherpayment}`, this.options)
+  }
+
+  OtherPaymentUpdate(id: any, model: any) {
+    return this.http.put(
+      `${this.basePath}${this.otherpaymentupdate}${id}`,
+      model,
+      this.options
+    );
+  }
+  OtherPayTransaction(id1: any) {
+    return this.http.get(`${this.basePath}${this.otherpaytrans}${id1}`, this.options)
+  }
+  OtherPayFilter(id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.otherpaymentdate}${id1}/${id2}`, this.options)
+  }
+
+  OtherPayViewAll() {
+    return this.http.get(`${this.basePath}${this.otherpaymentviewall}`, this.options)
+  }
 
 
 

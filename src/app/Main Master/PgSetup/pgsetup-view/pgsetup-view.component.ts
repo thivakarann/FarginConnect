@@ -34,6 +34,14 @@ export class PgsetupViewComponent implements OnInit {
   isChecked: any;
   date1: any;
   date2: any;
+  valuepgsetupAdd: any;
+  valuepgsetupExport: any;
+  valuepgsetupStatus: any;
+  valuepgsetupEdit: any;
+  getdashboard: any[] = [];
+  roleId: any = localStorage.getItem('roleId')
+  actions: any;
+  errorMessage: any;
 
 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
@@ -56,6 +64,47 @@ export class PgsetupViewComponent implements OnInit {
         this.showcategoryData = true;
       }
     });
+
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        console.log(res);
+
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+
+          if (this.roleId == 1) {
+            this.valuepgsetupAdd = 'PG SetupKey-Add';
+            this.valuepgsetupEdit = 'PG SetupKey-Edit';
+            this.valuepgsetupExport = 'PG SetupKey-Export';
+            this.valuepgsetupStatus = 'PG SetupKey-Status';
+
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+
+
+              if (this.actions == 'PG SetupKey-Edit') {
+                this.valuepgsetupEdit = 'PG SetupKey-Edit';
+              }
+              if (this.actions == 'PG SetupKey-Add') {
+                this.valuepgsetupAdd = 'PG SetupKey-Add';
+              }
+              if (this.actions == 'PG SetupKey-Export') {
+                this.valuepgsetupExport = 'PPG SetupKey-Export';
+              }
+              if (this.actions == 'PG SetupKey-Status') {
+                this.valuepgsetupStatus = 'PG SetupKey-Status';
+              }
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    })
+
   }
 
 
@@ -95,7 +144,7 @@ export class PgsetupViewComponent implements OnInit {
     this.dialog.open(PgsetupEditComponent, {
       width: '90vw',
       maxWidth: '570px',
-
+      disableClose: true,
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
       data: { value: id }

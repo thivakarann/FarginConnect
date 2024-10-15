@@ -57,8 +57,14 @@ export class BouquetenameAddComponent implements OnInit {
     this.Bouquetenameadd.BouquetenameAdd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
-        this.dialog.closeAll();
-        window.location.reload();
+        this.dialog.closeAll()
+        setTimeout(() => {
+          window.location.reload()
+        }, 1000)
+      }
+
+      else if (res.flag == 2) {
+        this.toastr.error(res.errorMessage);
       }
       else {
         this.toastr.error(res.responseMessage);

@@ -69,7 +69,8 @@ export class RegionAddComponent implements OnInit {
   RegionCreate() {
     let submitModel: RegionAdd = {
       serviceId: this.serviceId.value,
-      stateName: this.stateName.value
+      stateName: this.stateName.value,
+      createdBy:this.getadminname
     };
 
     this.service.RegionCreate(submitModel).subscribe((res: any) => {

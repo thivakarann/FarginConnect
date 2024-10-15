@@ -28,5 +28,14 @@ searchText: any;
     this.detailss = this.data.value;
     console.log(this.detailss)
   }
+
+
+  close(){
+    this.dialog.closeAll();
+    setTimeout(() => {
+      window.location.reload()
+    }, 500);
+
+  }
  
 }

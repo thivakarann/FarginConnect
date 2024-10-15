@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './otp-verification.component.html',
   styleUrl: './otp-verification.component.css'
 })
-export class OtpVerificationComponent implements OnInit{
+export class OtpVerificationComponent implements OnInit {
   otpCode1: any;
   otpCode2: any;
   otpCode3: any;
@@ -22,19 +22,21 @@ export class OtpVerificationComponent implements OnInit{
   display!: string;
   signupId: any;
   emailAddress: any;
-  email: any;
- constructor(private service:FarginServiceService,private activeRouter:ActivatedRoute,private toaster:ToastrService,private router:Router){
-  this.timer(1);
- }
+  timerId: any; // to hold the timer ID
 
- 
+  email: any;
+  constructor(private service: FarginServiceService, private activeRouter: ActivatedRoute, private toaster: ToastrService, private router: Router) {
+    this.timer(1);
+  }
+
+
   ngOnInit(): void {
     this.activeRouter.queryParams.subscribe((param: any) => {
       this.emailAddress = param.emailAddress;
       console.log(this.emailAddress);
     })
 
-   
+
   }
   move(e: any, p: any, c: any, n: any) {
     var length = c.value.length;
@@ -50,73 +52,72 @@ export class OtpVerificationComponent implements OnInit{
       }
     }
   }
-  
+
   timer(minute: any) {
-    // let minute = 1;
+    if (this.timerId) {
+      clearInterval(this.timerId);
+    }
+
     let seconds: number = 3 * 60;
     let textSec: any = '0';
     let statSec: number = 60;
     const prefix = minute < 10 ? '0' : '';
-    const timer = setInterval(() => {
+    this.timerId = setInterval(() => {
       seconds--;
       if (statSec != 0) statSec--;
       else statSec = 59;
- 
+
       if (statSec < 10) {
         textSec = '0' + statSec;
       } else textSec = statSec;
+
       this.display = `${prefix}${Math.floor(seconds / 60)}:${textSec}`;
       if (seconds == 0) {
-        //('finished');
-        clearInterval(timer);
-        window.alert('Your OTP IS Expired Click Resend OTP');
+        clearInterval(this.timerId);
+        // window.alert('Your OTP IS Expired Click Resend OTP');
         this.resendOtp = true;
         this.displayTimer = false;
-           this.otpCode1 +
-          this.otpCode2 +
-          this.otpCode4 +
-          this.otpCode5 +
-          this.otpCode6 
-        // this.message = 'Your OTP IS Expired Click Resend OTP'
       }
     }, 1000);
   }
 
-verifyotp(){
-let submitmodel:VerifyOtp={
-   emailAddress:this.emailAddress,
-   otpCode: this.otpCode1 + this.otpCode2 + this.otpCode3 + this.otpCode4 + this.otpCode5 + this.otpCode6,
-  }
-
-this.service.VerifyOtp(submitmodel).subscribe((res:any)=>{
-  if(res.flag==1){
-    this.email=res.response.emailAddress;
-    console.log( this.email);
-
-    this.toaster.success(res.responseMessage);
-    this.router.navigate([`/reset`], {
-      queryParams: { emailAddress: this.email },
-    });
-  }
-  else{
-    this.toaster.error(res.responseMessage)
-  }
-})
-  }
-
-  getresendOtp() {
-
-    let submitmodel:ResendOtp={
-     emailAddress:this.emailAddress
+  verifyotp() {
+    let submitmodel: VerifyOtp = {
+      emailAddress: this.emailAddress,
+      otpCode: this.otpCode1 + this.otpCode2 + this.otpCode3 + this.otpCode4 + this.otpCode5 + this.otpCode6,
     }
-    this.service.ResendOtp(submitmodel).subscribe((res: any) => {
+
+    this.service.VerifyOtp(submitmodel).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toaster.success(res.responseMessage)
+        this.email = res.response.emailAddress;
+        console.log(this.email);
+
+        this.toaster.success(res.responseMessage);
+        this.router.navigate([`/reset`], {
+          queryParams: { emailAddress: this.email },
+        });
       }
       else {
         this.toaster.error(res.responseMessage)
-
       }
     })
   }
+
+  getresendOtp() {
+    let submitmodel: ResendOtp = {
+      emailAddress: this.emailAddress
+    };
+    this.service.ResendOtp(submitmodel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.toaster.success(res.responseMessage);
+        this.resendOtp = false; // Hide the resend link after requesting OTP
+        this.displayTimer = true; // Show the timer
+        this.timer(1); // Start the timer again
+      } else {
+        this.toaster.error(res.responseMessage);
+      }
+    });
+  }
+
 }
+

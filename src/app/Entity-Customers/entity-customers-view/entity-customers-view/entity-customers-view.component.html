@@ -1,3 +1,7 @@
+<div class="ml-3" >
+  <h5 class="mb-0"><b>Overall Plan Amount: {{ this.overallAmount }}</b></h5>
+ 
+</div>
 <div class="d-flex justify-content-end mb-1">
   <button class="button1" (click)="close()">Back</button>
 </div>
@@ -22,8 +26,8 @@
       Transactions
     </a>
   </li>
-
-
+ 
+ 
 </ul>
 <div *ngIf="selectedTab === 'customer-info'" id="customer-info" class="mb-4">
   <div class="container">
@@ -89,7 +93,7 @@
             <div class="mb-3">
               <strong>Pincode:</strong> {{ viewcustomer?.pincodeName }}
             </div>
-
+ 
           </div>
         </div>
       </div>
@@ -98,21 +102,30 @@
 </div>
 <div id="Plan-details" *ngIf="selectedTab === 'Plan-details'" class="mb-4">
   <mat-stepper orientation="vertical">
-
+ 
     <mat-step>
       <ng-template matStepLabel><b>Alcarte Channels</b></ng-template>
       <span *ngIf="!viewData" style="color:red;font-size:12px;text-align: center;">NO DATA FOUND</span>
-
+ 
       <ng-template matStepContent>
-
-        <div class="row mt-1 mx-1">
-          <div class="col-md-3">
+ 
+        <div class="row mt-1 mx-1 align-items-center">
+          <div class="col-md-4">
             <div class="search me-4 mb-3">
-              <input style="font-size: 13px;" type="text" id="search" class="form-control" [(ngModel)]="searchText"
+              <input
+                style="font-size: 13px;"
+                type="text"
+                id="search"
+                class="form-control"
+                [(ngModel)]="searchText"
                 placeholder="Search">
             </div>
           </div>
+          <div class="col-md-8 text-end mb-3">
+            <b>Total Alcart Amount: {{ totalAmount }}</b>
+          </div>
         </div>
+       
         <div class="row mt-1 mx-1">
           <div class="col-12 mb-3 mb-lg-5">
             <div class="card table-nowrap table-card">
@@ -126,9 +139,9 @@
                     <th>Price</th>
                     <th>Language</th>
                     <th>Generic</th>
-
+ 
                   </tr>
-
+ 
                   <tbody
                     *ngFor="let row of alcotchannel | paginate: { itemsPerPage: 3, currentPage: page } | search: searchText; let i = index">
                     <td>{{ i + 1 }}</td>
@@ -138,7 +151,7 @@
                     <td>{{ row.price }}</td>
                     <td>{{ row.language}}</td>
                     <td>{{ row.generic }}</td>
-
+ 
                   </tbody>
                 </table>
               </div>
@@ -152,22 +165,31 @@
           <button mat-button matStepperNext>Next</button>
         </div>
       </ng-template>
-
+ 
     </mat-step>
-
-
-
+ 
+ 
+ 
     <mat-step>
       <ng-template matStepLabel><b>Bouquet Plans</b></ng-template>
       <span *ngIf="!viewData" style="color:red;font-size:12px;text-align: center;">NO DATA FOUND</span>
-
+ 
       <ng-template matStepContent>
-        <div class="row mt-2 mx-1">
-          <div class="col-md-3">
+   
+        <div class="row mt-1 mx-1 align-items-center">
+          <div class="col-md-4">
             <div class="search me-4 mb-3">
-              <input style="font-size: 13px;" type="text" id="search" class="form-control" [(ngModel)]="searchText"
+              <input
+                style="font-size: 13px;"
+                type="text"
+                id="search"
+                class="form-control"
+                [(ngModel)]="searchText"
                 placeholder="Search">
             </div>
+          </div>
+          <div class="col-md-8 text-end mb-3">
+            <b> Total Bouquet Amount: {{ totalbouqet }}</b>
           </div>
         </div>
         <div class="row mt-1 mx-1">
@@ -181,7 +203,7 @@
                   <th>BroadCaster PlanAmount</th>
                   <th>Channels</th>
                   <th>MSO</th>
-
+ 
                   <tbody
                     *ngFor="let row of bouquetPlan | paginate: { itemsPerPage: 3, currentPage: page2 } | search: searchText; let i = index">
                     <td>{{ i + 1 }}</td>
@@ -207,13 +229,20 @@
     <mat-step>
       <ng-template matStepLabel><b>LCOP Plans</b></ng-template>
       <span *ngIf="!viewData" style="color:red;font-size:12px;text-align: center;">NO DATA FOUND</span>
-
-      <div class="row mt-2 mx-1">
-        <div class="col-md-3">
+      <div class="row mt-1 mx-1 align-items-center">
+        <div class="col-md-4">
           <div class="search me-4 mb-3">
-            <input style="font-size: 13px;" type="text" id="search" class="form-control" [(ngModel)]="searchText"
+            <input
+              style="font-size: 13px;"
+              type="text"
+              id="search"
+              class="form-control"
+              [(ngModel)]="searchText"
               placeholder="Search">
           </div>
+        </div>
+        <div class="col-md-8 text-end mb-3">
+          <b> Total Lcop Amount: {{ totallcop }}</b>
         </div>
       </div>
       <div class="row mt-1 mx-1">
@@ -244,15 +273,15 @@
           </div>
         </div>
       </div>
-
+ 
     </mat-step>
   </mat-stepper>
 </div>
-
+ 
 <!-- Transaction -->
-
+ 
 <div id="Transaction" *ngIf="selectedTab === 'Transaction'" class="mb-4">
-
+ 
   <div>
     <div class="row mt-5 mx-1">
       <div class="col-md-3">
@@ -268,7 +297,7 @@
           <div class="table-responsive text-nowrap text-center">
             <table class="table table-hover" id="customers">
               <tr>
-
+ 
                 <th>S No</th>
                 <th>Payment ID</th>
                 <th>Paid Amount</th>
@@ -278,29 +307,29 @@
                 <th>Paid At</th>
               </tr>
               <span *ngIf="!showData" class="text-center" style="color:red;font-size:12px;">NO DATA FOUND</span>
-
+ 
               <tbody *ngIf="showData">
                 <tr
                   *ngFor="let row of transaction | paginate: { itemsPerPage: 3, currentPage: page } | search: searchText; let i = index">
-
+ 
                   <td>{{ i + 1 }}</td>
                   <td>{{ row.paymentId }}</td>
                   <td>{{ row.paidAmount }}</td>
                   <td>{{row.startDate| date:"dd/MM/yyyy :hh:m:a"}}</td>
                   <td>{{row.endDate | date:"dd/MM/yyyy :hh:m:a"}}</td>
-
+ 
                   <td>
                     <span *ngIf=" row.paymentStatus=='Pending'" style="color:orange"> {{ row.paymentStatus}}</span>
                     <span *ngIf=" row.paymentStatus=='Success'" style="color:green"> {{ row.paymentStatus}}</span>
                     <span *ngIf=" row.paymentStatus=='Failure'" style="color:red"> {{ row.paymentStatus}}</span>
                     <span *ngIf=" row.paymentStatus=='Initiated'" style="color:blue"> {{ row.paymentStatus}}</span>
-
+ 
                   </td>
                   <td>
                     <span *ngIf=" row.paymentDateTime!= null"> {{ row.paymentDateTime | date:"dd/MM/yyyy
                       :hh:m:a"}}</span>
                     <span *ngIf=" row.paymentDateTime==null" style="color:blue"> -</span>
-
+ 
                   </td>
                 </tr>
               </tbody>
@@ -313,5 +342,5 @@
       </div>
     </div>
   </div>
-
+ 
 </div>

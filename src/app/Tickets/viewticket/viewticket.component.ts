@@ -13,6 +13,7 @@ import { TicketImageComponent } from '../ticket-image/ticket-image.component';
 import * as FileSaver from 'file-saver';
 import moment from 'moment';
 import { Workbook } from 'exceljs';
+import { log } from 'console';
 @Component({
   selector: 'app-viewticket',
   templateUrl: './viewticket.component.html',
@@ -30,6 +31,14 @@ export class ViewticketComponent implements OnInit {
   date2: any;
   responseDataListnew: any = [];
   response: any = [];
+  valueTicketExport: any;
+  valueTicketImage: any;
+  valueTicketEdit: any;
+  valueDescriptionView: any;
+  getdashboard: any[] = [];
+  roleId: any = localStorage.getItem('roleId')
+  actions: any;
+  errorMessage: any;
 
 
   constructor(private router: Router, private service: FarginServiceService, private dialog: MatDialog) { }
@@ -42,6 +51,41 @@ export class ViewticketComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     })
+
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+          if (this.roleId == 1) {
+            this.valueDescriptionView = 'Tickets-View';
+            this.valueTicketEdit = 'Tickets-Edit'
+            this.valueTicketExport = 'Tickets-Export'
+            this.valueTicketImage = 'Tickets-Image'
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+              if (this.actions == 'Tickets-Export') {
+                this.valueTicketExport = 'Tickets-Export';
+              }
+              if (this.actions == 'Tickets-Edit') {
+                this.valueTicketEdit = 'Tickets-Edit';
+              }
+              if (this.actions == 'Tickets-Image') {
+                this.valueTicketImage = 'Tickets-Image'
+              }
+              if (this.actions == 'Tickets-View') {
+                this.valueDescriptionView = 'Tickets-View'
+              }
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    })
+
   }
 
 
@@ -60,7 +104,9 @@ export class ViewticketComponent implements OnInit {
     this.dialog.open(ViewDescriptionComponent, {
       data: { value: id },
       disableClose: true,
-      width: "50%"
+      width: "50%",
+      enterAnimationDuration: '1000ms',
+      exitAnimationDuration: '1000ms',
     })
   }
 
@@ -68,6 +114,8 @@ export class ViewticketComponent implements OnInit {
     this.dialog.open(ViewCommentComponent, {
       data: { value: id },
       disableClose: true,
+      enterAnimationDuration: '1000ms',
+      exitAnimationDuration: '1000ms',
       width: "50%"
     })
   }
@@ -76,7 +124,8 @@ export class ViewticketComponent implements OnInit {
     this.dialog.open(TicketImageComponent, {
       data: { value: id },
       disableClose: true,
-      width: "50%"
+      enterAnimationDuration: '1000ms',
+      exitAnimationDuration: '1000ms',
     })
   }
 
@@ -85,7 +134,9 @@ export class ViewticketComponent implements OnInit {
     this.dialog.open(AddticketComponent, {
       data: { value: id },
       disableClose: true,
-      width: "50%"
+      width: "50%",
+      enterAnimationDuration: '1000ms',
+      exitAnimationDuration: '1000ms',
     })
   }
 

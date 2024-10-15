@@ -156,12 +156,13 @@ export class EditKycdocumentComponent implements OnInit {
       this.service.KycUpdate(formData).subscribe((res: any) => {
         if (res.flag == 1) {
           this.details = res.response;
-          this.toaster.success(res.message)
+          this.toaster.success(res.responseMessage)
           this.dialog.closeAll();
-          window.location.reload();
-        }
+          setTimeout(() => {
+            window.location.reload()
+          }, 500);        }
         else {
-          this.toaster.error(res.message)
+          this.toaster.error(res.responseMessage)
 
         }
       })

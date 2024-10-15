@@ -5,8 +5,7 @@
   .form-header {
     background-color: #141e46; /* Header background color */
     color: white;
-    padding: 0.5rem;
-    border-radius: 0.5rem 0.5rem 0 0; /* Rounded corners on top */
+    padding: 0.3rem;
     margin-bottom: 0;
   }
   
@@ -33,7 +32,9 @@
   }
   
   .well {
-    background-color: #ffffff; /* Card background color */
+    height: 450px;  
+    width: 700px; 
+     background-color: #ffffff; /* Card background color */
     border: 1px solid #dee2e6;
     border-radius: 0.5rem;
     padding: 1.5rem;
@@ -53,20 +54,17 @@
     color: #52036e;
     font-family: "Roboto";
   }
-  
+
   th {
     background-color: #bbe06c !important;
     color: #141e46;
-    font-weight: 700;
+    font-weight: 500;
     white-space: nowrap;
-    text-shadow: #ffffff;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
     text-align: center;
+    
   }
   td {
     font-size: 14px;
     white-space: nowrap;
-    padding: 5px;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
   }
   

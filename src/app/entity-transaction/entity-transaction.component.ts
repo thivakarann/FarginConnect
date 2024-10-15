@@ -13,6 +13,9 @@ import { Location } from '@angular/common';
   styleUrl: './entity-transaction.component.css'
 })
 export class EntityTransactionComponent {
+  valuetransaction: any;
+  valuetransactionExport: any;
+  valuetransactionview: any;
 
   applyFilter($event: KeyboardEvent) {
     throw new Error('Method not implemented.');
@@ -44,34 +47,72 @@ export class EntityTransactionComponent {
       bankdetails: any;
       accountid: any;
       Viewall: any;
-       
-      constructor(
-        public service: FarginServiceService,
-        private router: Router,
-        private toastr: ToastrService,
-        private ActivateRoute:ActivatedRoute,
-        private location :Location
-      ) { }
-      ngOnInit(): void {
-     
-        this.ActivateRoute.queryParams.subscribe((param: any) => {
-          this.id = param.Alldata;
-        });
-     
-        this.service.EntityTraansaction(this.id).subscribe((res: any) => {
-          this.details = res.response;
-          console.log(this.details);
-          this.dataSource = new MatTableDataSource(this.details.reverse());
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-          
-        })}
-     
-  
-       
+      errorMessage: any;
+  getdashboard: any[] = [];
+  roleId: any = localStorage.getItem('roleId')
+  actions: any;
 
-    
-    close(){
-     this.location.back()
-    } 
+  constructor(
+    public service: FarginServiceService,
+    private router: Router,
+    private toastr: ToastrService,
+    private ActivateRoute: ActivatedRoute,
+    private location: Location
+  ) { }
+  ngOnInit(): void {
+
+    this.ActivateRoute.queryParams.subscribe((param: any) => {
+      this.id = param.Alldata;
+    });
+
+    this.service.EntityTraansaction(this.id).subscribe((res: any) => {
+      this.details = res.response;
+      console.log(this.details);
+      this.dataSource = new MatTableDataSource(this.details.reverse());
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+
+    })
+
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        console.log(res);
+
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+
+          if (this.roleId == 1) {
+            this.valuetransactionExport = 'Entity View Transaction-Export'
+            this.valuetransactionview = 'Entity View Transaction-View'
+          }
+          else {
+            for (let datas of this.getdashboard) {
+
+              this.actions = datas.subPermissions;
+              if (this.actions == 'Entity View Transaction-Export') {
+                this.valuetransactionExport = 'Entity View Transaction-Export'
+              }
+              if (this.actions == 'Entity View Transaction-View') {
+                this.valuetransactionview = 'Entity View Transaction-View'
+              }
+
+
+            }
+          }
+
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    })
   }
+
+
+
+
+
+  close() {
+    this.location.back()
+  }
+}

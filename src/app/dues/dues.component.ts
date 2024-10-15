@@ -47,6 +47,13 @@ export class DuesComponent {
   accountid: any;
   Viewall: any;
   duesValue: any;
+  valueentityexport: any;
+  valueduesview: any;
+  valueduesreceipt: any;
+  getdashboard: any[] = [];
+  roleId: any = localStorage.getItem('roleId')
+  actions: any;
+  errorMessage: any;
 
   constructor(
     public service: FarginServiceService,
@@ -62,20 +69,59 @@ export class DuesComponent {
       this.id = param.Alldata;
     });
 
+    // this.service.DuesGenerate().subscribe((res: any) => {
+    //   this.duesValue = res.response;
+    
+    // })
+
+
     this.service.DuesViewAll().subscribe((res: any) => {
       this.details = res.response;
+      this.details.reverse();
       console.log(this.details);
       this.dataSource = new MatTableDataSource(this.details);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-    });
+    })
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        console.log(res);
 
-    this.generate();
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+
+          if (this.roleId == 1) {
+            this.valueentityexport = 'Entity Dues-Export';
+            this.valueduesview = 'Entity Dues-View'
+            this.valueduesreceipt = 'Entity Dues-Receipt'
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+              if (this.actions == 'Entity Dues-Export') {
+                this.valueentityexport = 'Entity Dues-Export'
+              }
+              if (this.actions == 'Entity Dues-View') {
+                this.valueduesview = 'Entity Dues-View'
+              }
+              if (this.actions == 'Entity Dues-Receipt') {
+                this.valueduesreceipt = 'Entity Dues-Receipt'
+              }
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    })
   }
 
 
 
-
+  reload(){
+    window.location.reload()
+  }
 
   close() {
     this.location.back()
@@ -100,18 +146,12 @@ export class DuesComponent {
 
   }
 
-  generate() {
-    this.service.DuesGenerate().subscribe((res: any) => {
-      this.duesValue = res.response;
-      console.log(this.duesValue);
-      if (res.flag == 1) {
-        // this.toastr.success(res.responseMessage)
-      }
-      else {
-        // this.toastr.error(res.responseMessage);
-      }
-    })
-  }
+  // generate() {
+  //   this.service.DuesGenerate().subscribe((res: any) => {
+  //     this.duesValue = res.response;
+    
+  //   })
+  // }
 
   exportexcel() {
     console.log('check');

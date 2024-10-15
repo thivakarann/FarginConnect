@@ -12,15 +12,16 @@
                             <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg" class="swap-on">
                                 <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
-                                    stroke-linecap="round"></path>
+                                    stroke-linecap="round">
+                                </path>
                             </svg>
-                            <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                            <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg" class="swap-off">
                                 <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round" stroke-linecap="round">
                                 </path>
-                            </svg>
+                            </svg> -->
                         </div>
-                        <button type="reset" class="close-btn">
+                        <button  (click)="reload()" type="reset" class="close-btn">
                             <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
                                 <path clip-rule="evenodd"
                                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -29,11 +30,12 @@
                         </button>
                     </label>
                 </form>
-            </div>&nbsp;&nbsp;&nbsp;
+ 
+            </div>
             <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
-                (click)="add()">Create</button>
+                (click)="add()" [hidden]="valueEntityAdd!=='Entity Onboard-Add'">Create</button>
             <button style="color:white;background-color: #141E46;border-radius: 10px;" (click)="exportexcel()"
-                mat-raised-button>Export</button>
+                mat-raised-button [hidden]="valueEntityExport!=='Entity Onboard-Export'">Export</button>
         </div>
     </div>
 </mat-card-header>
@@ -50,7 +52,7 @@
             </ng-container>
             <ng-container matColumnDef="accountId">
                 <th mat-header-cell *matHeaderCellDef>Account Id</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall.accountId}}</td>
+                <td mat-cell *matCellDef="let viewall">{{viewall.accountId ||'--'}}</td>
             </ng-container>
             <ng-container matColumnDef="merchantLegalName">
                 <th mat-header-cell *matHeaderCellDef>Entity Legal Name</th>
@@ -94,8 +96,8 @@
                 </td>
             </ng-container>
             <ng-container matColumnDef="status">
-                <th mat-header-cell *matHeaderCellDef>Status</th>
-                <td mat-cell *matCellDef="let viewall">
+                <th mat-header-cell *matHeaderCellDef [hidden]="valueEntityStatus!=='Entity Onboard-Status'">Status</th>
+                <td mat-cell *matCellDef="let viewall" [hidden]="valueEntityStatus!=='Entity Onboard-Status'">
                     <mat-slide-toggle class="example-margin" color="primary" [checked]="viewall.accountStatus==1"
                         (change)="onSubmit($event,viewall.merchantId)">
                     </mat-slide-toggle>
@@ -103,8 +105,8 @@
             </ng-container>
             
             <ng-container matColumnDef="View">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>View</th>
-                <td style="cursor: pointer;" mat-cell *matCellDef="let viewall" (click)="Viewdata(viewall.merchantId)">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="valueEntityView!=='Entity Onboard-View'">View</th>
+                <td style="cursor: pointer;" mat-cell *matCellDef="let viewall" (click)="Viewdata(viewall.merchantId)" [hidden]="valueEntityView!=='Entity Onboard-View'">
                     <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
                 </td>
             </ng-container>
@@ -118,11 +120,21 @@
                 <td mat-cell *matCellDef="let viewunion">{{viewunion.createdDatetime | date:'yyyy-MM-dd hh:mm a' }}
                 </td>
             </ng-container>
+
+            <ng-container matColumnDef="unblock">
+                <th mat-header-cell *matHeaderCellDef [hidden]="valueEntityUnblock!=='Entity Onboard-Unblock'">Unblock Account</th>
+                <td mat-cell *matCellDef="let businesscategory" [hidden]="valueEntityUnblock!=='Entity Onboard-Unblock'">
+                  <i class="fa fa-lock"  (click)="unblock(businesscategory.merchantId)"
+                  style="font-size: 20px;color: rgb(39, 39, 95);" ></i>
+                </td>
+              </ng-container>
+
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
             <tr *matNoDataRow>
-              <td class="mat-cell" colspan="4">No Data{{input.value}}
+              <td class="mat-cell" colspan="4">No Data {{input.value}}
               </td>
+            </tr>
         </table>
     </div>
 </mat-card-content>

@@ -20,8 +20,18 @@
                     </div>
                 </div>
                 <div class="col-sm-6 form-group">
-                    <label for="state">Plat Form Fee*</label>
-                    <input type="text" formControlName="technicalAmount" id="state" class="form-control">
+                    <label for="state">PlatForm Fee*</label>
+                    <input type="text" placeholder="Enter amount in rupees" formControlName="technicalAmount" id="state"
+                        class="form-control" [(ngModel)]="numberValue" [ngClass]="{ 'is-invalid': numberValue < 0 }">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="numberValue < 0" class="error">
+                        Value must be non-negative.
+                    </div>
                     <div style="
                     color: red;
                     font-size: 12px;
@@ -35,8 +45,19 @@
             </div>
             <div class="row mb-3">
                 <div class="col-sm-6 form-group">
-                    <label for="zip">maintenance Amount*</label>
-                    <input type="text" formControlName="maintenanceAmount" id="zip" class="form-control">
+                    <label for="zip">Maintenance Amount*</label>
+                    <input type="text" formControlName="maintenanceAmount" id="zip" class="form-control"
+                        [(ngModel)]="numberValues" [ngClass]="{ 'is-invalid': numberValues < 0 }"
+                        placeholder="Enter amount in rupees">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="numberValues < 0" class="error">
+                        Value must be non-negative.
+                    </div>
                     <div style="
                     color: red;
                     font-size: 12px;
@@ -52,11 +73,9 @@
                     <label for="Bussiness category">Frequency Type</label>
                     <select formControlName="frequency" id="Bussiness category" class="form-control form-select">
                         <option value="" disabled selected>Select</option>
-                        <option value="Day">Day</option>
-                        <option value="Week">Week</option>
                         <option value="Month">Month</option>
                         <option value="Quarterly">Quarterly</option>
-                        <option value="Half Yeraly">Half Yeraly</option>
+                        <option value="Half Yeraly">Half Yearly</option>
                         <option value="Year">Year</option>
 
 

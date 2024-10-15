@@ -18,7 +18,7 @@ export class ApprovalForBankComponent implements OnInit{
   myForm!: FormGroup;
   @Output()datas= new EventEmitter<ApprovalBank>();
  
-  constructor(private router: Router, private Approval: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialogRef: MatDialogRef<ApprovalForBankComponent>,) { }
+  constructor(private router: Router, private Approval: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog) { }
   ngOnInit(): void {
     this.id = this.data.value
     console.log(this.id);
@@ -51,8 +51,10 @@ export class ApprovalForBankComponent implements OnInit{
     this.Approval.EntityBankApprovals(this.id,submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.response);
-        this.datas.emit(submitModel);  // Emit the newly added data
-        this.dialogRef.close();  
+        this.dialog.closeAll(); 
+        setTimeout(() => {
+          window.location.reload()
+        }, 500); 
            }
       else {
         this.toastr.error(res.response)

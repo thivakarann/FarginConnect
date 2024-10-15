@@ -14,6 +14,10 @@ import { Location } from '@angular/common';
   styleUrl: './entity-settlement.component.css'
 })
 export class EntitySettlementComponent {
+  valuesettlement: any;
+  valuesettlementview: any;
+  valuesettlementexport: any;
+  errorMessage: any;
   applyFilter($event: KeyboardEvent) {
     throw new Error('Method not implemented.');
   }
@@ -44,13 +48,15 @@ export class EntitySettlementComponent {
   bankdetails: any;
   accountid: any;
   Viewall: any;
-
+  getdashboard: any[] = [];
+  roleId: any = localStorage.getItem('roleId')
+  actions: any;
   constructor(
     public MerchantView: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
     private ActivateRoute: ActivatedRoute,
-    private Location:Location
+    private Location: Location
   ) { }
   ngOnInit(): void {
 
@@ -66,6 +72,38 @@ export class EntitySettlementComponent {
       this.postrenewal();
       // console.log(this.details);
 
+    })
+
+    this.MerchantView.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        console.log(res);
+
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+          if (this.roleId == 1) {
+            this.valuesettlementexport = 'Entity View Settlement-Export';
+            this.valuesettlementview = 'Entity View Settlement-View'
+
+          }
+          else {
+            for (let datas of this.getdashboard) {
+
+              this.actions = datas.subPermissions;
+              if (this.actions == 'Entity View Settlement-Export') {
+                this.valuesettlementexport = 'Entity View Settlement-Export'
+              }
+              if (this.actions == 'Entity View Settlement-View') {
+                this.valuesettlementview = 'Entity View Settlement-View'
+              }
+
+            }
+          }
+
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
     })
   }
 
@@ -101,8 +139,8 @@ export class EntitySettlementComponent {
 
   }
 
-  close(){
+  close() {
     this.Location.back()
-   }
-    
+  }
+
 }

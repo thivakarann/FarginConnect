@@ -35,7 +35,7 @@
 
             </div>&nbsp;&nbsp;&nbsp;
             <button style="color:white;background-color: #141E46;border-radius: 10px;" (click)=" exportexcel()"
-                mat-raised-button>Export</button>
+                mat-raised-button [hidden]="valueCustomerExport!=='Customers-Export'">Export</button>
 
         </div>
     </mat-card-header>
@@ -45,8 +45,8 @@
 
     <div class="table-responsive text-nowrap" style="overflow-x: scroll; scrollbar-width: thin;">
         <br> <br>
-        <span style="color: red;" *ngIf="showcategoryData" class="errormge">NO DATA FOUND</span>
-        <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="!showcategoryData">
+       
+        <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8" >
 
             <ng-container matColumnDef="customerId">
                 <th mat-header-cell *matHeaderCellDef> S.No</th>
@@ -98,8 +98,8 @@
             </ng-container> -->
 
             <ng-container matColumnDef="Viewcustomer">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>View</th>
-                <td style="cursor: pointer;" mat-cell *matCellDef="let viewall" (click)="Viewparticularcustomer(viewall.customerId)">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="valueCustomerView!=='Customers-View'">View Customer</th>
+                <td style="cursor: pointer;" mat-cell *matCellDef="let viewall" (click)="Viewparticularcustomer(viewall.customerId)" [hidden]="valueCustomerView!=='Customers-View'">
                     <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
                 </td>
             </ng-container>
@@ -107,10 +107,8 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
             <tr *matNoDataRow>
-                <td class="mat-cell" colspan="4">The Filter Does not Match Any Item In The Data For This Text
-                    {{input.value}}
-                </td>
-
+              <td class="mat-cell" colspan="4">No Data {{input.value}}
+              </td>
             </tr>
         </table>
 

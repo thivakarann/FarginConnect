@@ -1,49 +1,71 @@
-
 <div class="card-header">
     <h3 class="mb-0" style="font-weight: 700;text-align:center;font-size: 21px;">PG Onboard</h3>
 </div>
-<body class="page">
+<body class="page" >
     <main class="main page__main">
-        <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="addcategory">
-
-            <div class="form__linput">
-                <label class="form__label" for="fname">Link </label>
-                <input class="form__input" id="fname" type="text" formControlName="Url" name="Url"
-                    placeholder="Enter Url..." required />
-                <div style="color: red; font-size: 12px;margin-top: 2px;"
-                    *ngIf="Url?.invalid && Url?.touched && Url?.errors?.['required']">
-                    Field is required
-                </div>
-                <div style="color: red; font-size: 12px;margin-top: 2px;"
-                    *ngIf="Url?.invalid && Url?.touched && Url?.errors?.['pattern']">
-                    Field is required
-                </div>
+        <div class="form main__form">
+        <div  [hidden]="this.selectedOption == 1">
+        <p class="d-flex justify-content-center" style="color:#141E46"> <b>Are You Going To PG Onboard</b></p>
+        <div class="d-flex justify-content-center">
+ 
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="yes" id="yes" [value]="1"
+                    [(ngModel)]="selectedOption">
+                <label class="form-check-label" for="yes">
+                    Yes
+                </label>
+            </div>&nbsp;&nbsp;
+            <div class="form-check" mat-dialog-close>
+                <input class="form-check-input" type="radio" name="no" id="no" [value]="0"
+                    [(ngModel)]="selectedOption">
+                <label class="form-check-label" for="no">
+                    No
+                </label>
             </div>
-            <div class="form__linput">
-                <label class="form__label" for="fname">Link Expiry Date</label>
-                <input class="form__input" id="fname" type="date" formControlName="expiryDate" name="expiryDate"
-                   required  [max]="maxDate" [min]="minDate"/>
-                <div style="color: red; font-size: 12px;margin-top: 2px;"
-                    *ngIf="expiryDate?.invalid && expiryDate?.touched && expiryDate?.errors?.['required']">
-                    Field is required
+        </div>
+        </div>
+            <form  autocomplete="off" class="form" role="form" [formGroup]="addcategory"
+            *ngIf="this.selectedOption == 1">
+                <div class="form__linput">
+                    <label class="form__label" for="fname">Link </label>
+                    <input class="form__input" id="fname" type="text" formControlName="Url" name="Url"
+                        placeholder="Enter Url..." required />
+                    <div style="color: red; font-size: 12px;margin-top: 2px;"
+                        *ngIf="Url?.invalid && Url?.touched && Url?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="color: red; font-size: 12px;margin-top: 2px;"
+                        *ngIf="Url?.invalid && Url?.touched && Url?.errors?.['pattern']">
+                        Field is required
+                    </div>
                 </div>
-            </div>
-            <div class="form__linput">
-                <label class="form__label" for="fname">Description</label>
-                <textarea class="form__input" id="fname" type="text" formControlName="description" name="description"
-                    placeholder="Enter description here..." required ></textarea>
-                <div style="color: red; font-size: 12px;margin-top: 2px;"
-                    *ngIf="description?.invalid && description?.touched && description?.errors?.['required']">
-                    Field is required
+                <div class="form__linput">
+                    <label class="form__label" for="fname">Link Expiry Date</label>
+                    <input class="form__input" id="fname" type="date" formControlName="expiryDate" name="expiryDate"
+                        required [max]="maxDate" [min]="minDate" />
+                    <div style="color: red; font-size: 12px;margin-top: 2px;"
+                        *ngIf="expiryDate?.invalid && expiryDate?.touched && expiryDate?.errors?.['required']">
+                        Field is required
+                    </div>
                 </div>
-            </div>
-            <div>
-                <button type="submit" class="btn mx-1 " style="background-color:#7db855be"
-                    [disabled]="this.addcategory.invalid" (click)="submit()">Submit</button>
-                <button  matDialogClose type="submit" class="btn" style="background-color:#141E46;color:white" matDialogClose>Cancel</button>
-            </div>
-            <!-- <button class="primary-btn form__btn" type="submit">Submit</button> -->
-            
-        </form>
+                <div class="form__linput">
+                    <label class="form__label" for="fname">Description</label>
+                    <textarea class="form__input" id="fname" type="text" formControlName="description"
+                        name="description" placeholder="Enter description here..." required></textarea>
+                    <div style="color: red; font-size: 12px;margin-top: 2px;"
+                        *ngIf="description?.invalid && description?.touched && description?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+                <!-- <div>
+                    <button type="submit" class="btn mx-1 " style="background-color:#7db855be"
+                        [disabled]="this.addcategory.invalid" (click)="submit()">Submit</button>
+                    <button matDialogClose type="submit" class="btn" style="background-color:#141E46;color:white"
+                        matDialogClose>Cancel</button>
+                </div> -->
+                <!-- <button class="primary-btn form__btn" type="submit">Submit</button> -->
+ 
+            </form>
+        </div>
     </main>
 </body>

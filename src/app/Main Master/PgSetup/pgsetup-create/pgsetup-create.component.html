@@ -13,7 +13,7 @@
             <div class="form__grid">
                 <div class="form__linput">
                     <label class="form__label" for="pgMode">PG Mode</label>
-                    <input class="form__input" id="pgMode" type="text" formControlName="pgMode" placeholder="Enter PG mode..." required/>
+                    <input class="form-control" id="pgMode" type="text" formControlName="pgMode" placeholder="Enter PG mode..." required/>
                     <div class="form__error" *ngIf="pgMode?.invalid && pgMode?.touched && pgMode?.errors?.['required']">
                         Field is required
                     </div>
@@ -21,7 +21,7 @@
 
                 <div class="form__linput">
                     <label class="form__label" for="apiKey">API Key</label>
-                    <input class="form__input" id="apiKey" type="text" formControlName="apiKey" placeholder="API Key..." required/>
+                    <input class="form-control" id="apiKey" type="text" formControlName="apiKey" placeholder="API Key..." required/>
                     <div class="form__error" *ngIf="apiKey?.invalid && apiKey?.touched && apiKey?.errors?.['required']">
                         Field is required
                     </div>
@@ -29,7 +29,7 @@
 
                 <div class="form__linput">
                     <label class="form__label" for="secretKey ">Secret Key</label>
-                    <input class="form__input" id="secretKey " type="text" formControlName="secretKey" placeholder="Enter Secret Key..." required/>
+                    <input class="form-control" id="secretKey " type="text" formControlName="secretKey" placeholder="Enter Secret Key..." required/>
                     <div class="form__error" *ngIf="secretKey ?.invalid && secretKey?.touched && secretKey ?.errors?.['required']">
                         Field is required
                     </div>

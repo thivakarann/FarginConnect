@@ -13,6 +13,8 @@ import { Location } from '@angular/common';
   styleUrl: './entity-customers-view-all.component.css'
 })
 export class EntityCustomersViewAllComponent {
+valuecustomerview: any;
+  errorMessage: any;
 
   exportexcel() {
     throw new Error('Method not implemented.');
@@ -41,7 +43,9 @@ export class EntityCustomersViewAllComponent {
   bankdetails: any;
   accountid: any;
   Viewall: any;
-
+  getdashboard: any[] = [];
+  roleId: any = localStorage.getItem('roleId')
+  actions: any;
   constructor(
     public service: FarginServiceService,
     private router: Router,
@@ -61,6 +65,32 @@ export class EntityCustomersViewAllComponent {
       this.dataSource = new MatTableDataSource(this.details);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+    })
+
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        console.log(res);
+
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+          if (this.roleId == 1) {
+          this.valuecustomerview='Entity View Customer-View'
+          }
+          else {
+            for (let datas of this.getdashboard) {
+
+              this.actions = datas.subPermissions;
+             if(this.actions=='Entity View Customer-View'){
+              this.valuecustomerview='Entity View Customer-View'
+             }
+            }
+          }
+
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
     })
   }
 

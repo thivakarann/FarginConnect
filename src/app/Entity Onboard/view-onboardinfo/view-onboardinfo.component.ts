@@ -13,6 +13,11 @@ export class ViewOnboardinfoComponent implements OnInit {
   detaislone: any;
   copySuccess: boolean = false;
   copySuccesss: boolean = false;
+  valueonboardadd: any;
+  getdashboard: any[] = [];
+  roleId: any = localStorage.getItem('roleId')
+  actions: any;
+  errorMessage: any;
   constructor(private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, private service: FarginServiceService) {
 
   }
@@ -24,6 +29,33 @@ export class ViewOnboardinfoComponent implements OnInit {
 
     this.service.EntityViewbyid(this.merchantId).subscribe((res: any) => {
       this.detaislone = res.response.merchantpersonal;
+    })
+
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        console.log(res);
+
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+          if (this.roleId == 1) {
+            this.valueonboardadd = 'Entity View-Onboard Information-Add'
+          }
+          else {
+            for (let datas of this.getdashboard) {
+
+              this.actions = datas.subPermissions;
+              if (this.actions == 'Entity View-Onboard Information-Add') {
+                this.valueonboardadd = 'Entity View-Onboard Information-Add'
+              }
+
+            }
+          }
+
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
     })
   }
   editKeys(id: any) {

@@ -61,6 +61,18 @@ import { EntityTransactionComponent } from './entity-transaction/entity-transact
 import { DuesComponent } from './dues/dues.component';
 import { UpdateManualpaymentComponent } from './Entity Onboard/update-manualpayment/update-manualpayment.component';
 import { ManualTransactionComponent } from './Entity Onboard/manual-transaction/manual-transaction.component';
+import { PaymentlinkViewComponent } from './Entity Onboard/paymentlink-view/paymentlink-view.component';
+import { ViewPolicyComponent } from './Fargin-policy/view-policy/view-policy.component';
+import { AddPolicyComponent } from './Fargin-policy/add-policy/add-policy.component';
+import { EditPolicyComponent } from './Fargin-policy/edit-policy/edit-policy.component';
+import { CustomerViewallComponent } from './Tickets/customer-viewall/customer-viewall.component';
+import { BankViewallComponent } from './Main Master/Bank Details/bank-viewall/bank-viewall.component';
+import { MaintenanceTransViewallComponent } from './Fargin Transtions/Entity Trans/maintenance-trans-viewall/maintenance-trans-viewall.component';
+import { ServicePaymentsViewallComponent } from './Fargin Transtions/Entity Trans/service-payments-viewall/service-payments-viewall.component';
+import { CustomerTransViewallComponent } from './Fargin Transtions/Customer Trans/customer-trans-viewall/customer-trans-viewall.component';
+import { OtherpaymentsViewallComponent } from './Fargin Transtions/Other Payments/otherpayments-viewall/otherpayments-viewall.component';
+import { OtherpaymentsViewComponent } from './Fargin Transtions/Other Payments/otherpayments-view/otherpayments-view.component';
+import { OtherpayTransComponent } from './Entity Onboard/otherpay-trans/otherpay-trans.component';
 
 const routes: Routes = [
 
@@ -134,7 +146,20 @@ const routes: Routes = [
       { path: 'entitycustomerviewAll/:id', component: EntityCustomersViewAllComponent },
       { path: "app-dues", component: DuesComponent },
       { path: 'manual-payment', component: UpdateManualpaymentComponent },
-      {path:'manual-transaction/:id',component:ManualTransactionComponent}
+      { path: 'manual-transaction/:id', component: ManualTransactionComponent },
+      { path: 'paymentlink-view/:id', component: PaymentlinkViewComponent },
+      { path: 'view-policy', component: ViewPolicyComponent },
+      { path: 'add-policy', component: AddPolicyComponent },
+      { path: 'edit-policy/:id', component: EditPolicyComponent },
+      { path: 'customer-viewall', component: CustomerViewallComponent },
+      { path: 'bank-viewall', component: BankViewallComponent },
+      { path: 'customer-trans-viewall', component: CustomerTransViewallComponent },
+      { path: 'maintenance-trans-viewall', component: MaintenanceTransViewallComponent },
+      { path: 'service-payments-viewall', component: ServicePaymentsViewallComponent },
+      {path:'otherpayments-viewall',component:OtherpaymentsViewallComponent},
+      {path:'otherpay-trans/:id',component:OtherpayTransComponent}
+
+
 
     ],
   },

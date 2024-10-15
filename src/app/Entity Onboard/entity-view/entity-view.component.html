@@ -21,6 +21,9 @@
     <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
         data-target="page5" (click)="Viewcustomer(this.id)"><i
             class="fa-solid fa-user"></i>&nbsp;&nbsp;Customers</button>
+    <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
+        data-target="page5" (click)="viewpaymentLink(this.id)"><i class="fa fa-link"></i>&nbsp;&nbsp;Payment
+        Link</button>
 </div>
 <div class="tab-container">
     <div class="tabs">
@@ -30,7 +33,9 @@
             Information</button>
         <button class="tab" [class.active]="activeTab === 'videos'" (click)="selectTab('videos')">KYC Documents</button>
         <button class="tab" [class.active]="activeTab === 'doot1'" (click)="selectTab('doot1')">Final Approval</button>
-        <button class="tab" [class.active]="activeTab === 'doot2'" (click)="selectTab('doot2')">Platform
+        <button class="tab" [class.active]="activeTab === 'doot2'" (click)="selectTab('doot2')">Manual
+            Payment</button>
+        <button class="tab" [class.active]="activeTab === 'doot3'" (click)="selectTab('doot3')">Customized
             Payment</button>
     </div>
     <div class="tab-content" *ngIf="activeTab === 'events'">
@@ -51,13 +56,14 @@
                             <i style="overflow:hidden;color:#fff;font-size:22px;" class="fa-solid fa-ellipsis-vertical">
                                 <mat-menu #menu="matMenu">
                                     <button style="font-size: 10px;" mat-menu-item
-                                    (click)="editpersonalInfo(this.id)">Edit EntityDetails</button>
+                                        (click)="editpersonalInfo(this.id)">Edit EntityDetails</button>
                                     <button style="font-size: 10px;" mat-menu-item
-                                        (click)="viewOnboardInfo(this.id)" [disabled]="detaislone?.onBoardStatus=='false'">View OnboardInfo</button>
-                                    <button style="font-size: 10px;" mat-menu-item (click)="pgOnboard()" [disabled]="this.detaislone?.approvalStatusL2=='Pending'">Onboard
+                                        (click)="viewOnboardInfo(this.id)">View OnboardInfo</button>
+                                    <button style="font-size: 10px;" mat-menu-item (click)="pgOnboard()">Onboard
                                         Entity</button>
-                                    <button style="font-size: 10px;" mat-menu-item (click)="emailtrigger()" [disabled]="detaislone?.onBoardStatus=='false'">
-                                        Email Notification</button>
+                                    <!-- <button style="font-size: 10px;" mat-menu-item (click)="emailtrigger()"
+                                        [disabled]="detaislone?.onBoardStatus=='false'">
+                                        Email Notification</button> -->
                                 </mat-menu>
                             </i>
                         </div>
@@ -116,10 +122,6 @@
                                                 <div class="w-50 font-weight-bold">Country</div>
                                                 <div class="w-50">{{detaislone?.country}}</div>
                                             </div>
-
-
-
-
                                             <div class="d-flex mt-3">
                                                 <div class="w-50 font-weight-bold">Gst</div>
                                                 <div class="w-50">
@@ -128,7 +130,14 @@
                                                     <span *ngIf="this.detaislone?.gstIn==null">- -</span>
                                                 </div>
                                             </div>
-
+                                            <div class="d-flex mt-3">
+                                                <div class="w-50 font-weight-bold">Billing Mode</div>
+                                                <div class="w-50">
+                                                    <span *ngIf="this.detaislone?.billingMode!=null">
+                                                        {{detaislone?.billingMode}}</span>
+                                                    <span *ngIf="this.detaislone?.billingMode==null">- -</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-12">
@@ -154,10 +163,10 @@
                                             <div class="d-flex mt-3">
                                                 <div class="w-50 font-weight-bold">Secondary Mobile Number</div>
                                                 <div class="w-50">
-                                                    <span *ngIf="this.detaislone?.secondaryMobile!=null">
+                                                    <span *ngIf="this.detaislone?.secondaryMobile!=''">
                                                         {{detaislone?.secondaryMobile}}
                                                     </span>
-                                                    <span *ngIf="this.detaislone?.secondaryMobile==null">- -</span>
+                                                    <span *ngIf="this.detaislone?.secondaryMobile==''">- -</span>
                                                 </div>
                                             </div>
                                             <div class="d-flex mt-3">
@@ -175,9 +184,13 @@
                                             <div class="d-flex mt-3">
                                                 <div class="w-50 font-weight-bold">Website</div>
                                                 <div class="w-50">
-                                                    <span
-                                                        *ngIf="this.detaislone?.website!=''">{{detaislone?.website}}</span>
-                                                    <span *ngIf="this.detaislone?.website=='' ">- -</span>
+                                                    <div *ngIf="this.detaislone?.website!=''">{{detaislone?.website |
+                                                        slice : 0 : 25}} &nbsp;<i class="fa-regular fa-copy"
+                                                            style="color:green;font-size:18px"
+                                                            (click)="copyText(detaislone?.website)"></i>
+                                                        <span *ngIf="copySuccess" style="color: green;">Copied!</span>
+                                                    </div>
+                                                    <div *ngIf="this.detaislone?.website=='' ">- -</div>
                                                 </div>
                                             </div>
 
@@ -214,12 +227,12 @@
                                 <div class="row">
                                     <div class="col-md-6 col-12">
                                         <div class="d-flex flex-column">
-                                            <div class="d-flex mb-2">
+                                            <div class="d-flex mt-2">
                                                 <div class="w-50 font-weight-bold">
                                                     Approval Status</div>
                                                 <div class="w-50">{{this.detaislone?.approvalStatusL1}}</div>
                                             </div>
-                                            <div class="d-flex mb-2">
+                                            <div class="d-flex mt-3">
                                                 <div class="w-50 font-weight-bold">
                                                     Approved By</div>
                                                 <div class="w-50">
@@ -228,7 +241,7 @@
                                                     <span *ngIf="this.detaislone?.approvedByL1==null">-</span>
                                                 </div>
                                             </div>
-                                            <div class="d-flex mb-2">
+                                            <div class="d-flex mt-3">
                                                 <div class="w-50 font-weight-bold">
                                                     Comments</div>
                                                 <div class="w-50 mx-2"
@@ -240,7 +253,7 @@
                                     </div>
                                     <div class="col-md-6 col-12">
                                         <div class="d-flex flex-column">
-                                            <div class="d-flex mb-2">
+                                            <div class="d-flex mt-3">
                                                 <div class="w-50 font-weight-bold">Approval At</div>
                                                 <div class="w-50">
                                                     <span *ngIf="this.detaislone?.approvedDateTimeL1!=null">
@@ -249,7 +262,7 @@
                                                     <span *ngIf="this.detaislone?.approvedDateTimeL1==null">-</span>
                                                 </div>
                                             </div>
-                                            <div class="d-flex mb-2">
+                                            <div class="d-flex mt-3">
                                                 <div class="w-50 font-weight-bold">Approval</div>
                                                 <div class="w-50">
                                                     <button class="buttonDownload"
@@ -320,14 +333,17 @@
                                 <th>IFSC Code</th>
                                 <th>Bank Name</th>
                                 <th>Branch Name</th>
-                                <th>Approval Status</th>
                                 <th>Bank Status</th>
                                 <th>Primary Status</th>
-                                <th>Approval</th>
-                                <th>Approvet At</th>
-                                <th>Comments</th>
                                 <th>Action</th>
+                                <th>Verification Status</th>
                                 <th>Verification</th>
+                                <th>Approval</th>
+                                <th>Approval Status</th>
+                                <th>Approved At</th>
+                                <th>Comments</th>
+
+
                             </tr>
                             <tbody
                                 *ngFor="let item of bankdetails| paginate: { itemsPerPage: 3, currentPage: currentPage } | search: searchText;let i=index">
@@ -336,14 +352,8 @@
                                 <td>{{item.accountNumber}}</td>
                                 <td>{{item.accountType}}</td>
                                 <td>{{item.ifscCode}}</td>
-                                <td>{{item.bankName}}</td>
+                                <td>{{item.bankId.bankName}}</td>
                                 <td>{{item.branchName}}</td>
-                                <td [ngClass]="{
-                                                    yellow: item?.approvalStatus === 'Pending',
-                                                    green: item?.approvalStatus === 'approved',
-                           
-                                                    Red: item?.approvalStatus == 'Rejected'
-                                                  }">{{item.approvalStatus}}</td>
                                 <td><span> <mat-slide-toggle class="example-margin" color="primary"
                                             [checked]="item.activeStatus==1"
                                             (change)="bankStatus($event,item.merchantBankId)">
@@ -357,16 +367,16 @@
                                         </mat-slide-toggle>
                                     </span>
                                 </td>
-                                <td><button class="buttonDownload"
-                                        (click)="BankApproval(item.merchantBankId)">Approval</button>
-                                </td>
-                                <td>{{item.approvalDateTime|date:"dd/MM/yyyy hh:mm:a"}}</td>
-                                <td><span (click)="BankComments(item.reMarks)"><i class="fas fa-comments"
-                                            style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
-                                </td>
-
                                 <td><span><i style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"
                                             (click)="editbank(item)" class="fas fa-edit"></i></span></td>
+                                <td class="text-center">
+                                    <span *ngIf="item.facheckStatus == 0" style="font-size:14px;color:red;">
+                                        Pending</span>
+                                    <span *ngIf="item.facheckStatus == 1"
+                                        style="font-size:14px;color:green;">Verified</span>
+                                    <span *ngIf="item.facheckStatus == 2" style="font-size:14px;color:red;">
+                                        Failed</span>
+                                </td>
                                 <td>
                                     <span>
                                         <i style="overflow:hidden;color:#141E46;font-size:20px;"
@@ -381,10 +391,33 @@
                                                     [disabled]="item.facheckStatus==0  || item.facheckStatus==2"
                                                     (click)="bankVerification(item.merchantBankId)">
                                                     Re-Verify </button>
+                                                <button style="font-size: 10px;" mat-menu-item
+                                                    [disabled]="item.facheckStatus==0  || item.facheckStatus==2"
+                                                    (click)="BankVerificationMatch(item)">
+                                                    Verification Matching </button>
+
                                             </mat-menu>
                                         </i>
                                     </span>
                                 </td>
+                                <td><button class="buttonDownload" [disabled]="item.facheckStatus != 1"
+                                        (click)="BankApproval(item.merchantBankId)">Approval</button>
+                                </td>
+                                <td [ngClass]="{
+                                                    yellow: item?.approvalStatus === 'Pending',
+                                                    green: item?.approvalStatus === 'approved',
+                           
+                                                    Red: item?.approvalStatus == 'Rejected'
+                                                  }">{{item.approvalStatus}}</td>
+
+
+                                <td>{{item.approvalDateTime|date:"dd/MM/yyyy hh:mm:a"}}</td>
+                                <td><span (click)="BankComments(item.reMarks)"><i class="fas fa-comments"
+                                            style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
+                                </td>
+
+
+
                             </tbody>
                         </table>
                     </div>
@@ -445,14 +478,15 @@
                                 <th>Document Name</th>
                                 <th>Document Number</th>
                                 <th>KYC File</th>
-                                <th>Approval Status</th>
-                                <th>Approval</th>
-                                <th>Approved By</th>
-                                <th>Approval At</th>
-                                <th>Comments</th>
                                 <th>Action</th>
                                 <th>Verification Status</th>
                                 <th>Verfication </th>
+                                <th>Approval</th>
+                                <th>Approval Status</th>
+                                <th>Approved By</th>
+                                <th>Approval At</th>
+                                <th>Comments</th>
+
                             </tr>
                             <tbody
                                 *ngFor="let item of KYCDetails| paginate: { itemsPerPage: 3, currentPage: currentPage } | search: searchText;let i=index">
@@ -464,26 +498,10 @@
                                     <span (click)="getBackPath(item.merchantDocumentId)"><i class='fa-regular fa-image'
                                             style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
                                 </td>
-                                <td [ngClass]="{
-                                                        yellow: item?.approvalStatus === 'Pending',
-                                                        green: item?.approvalStatus === 'approved',
-                               
-                                                        Red: item?.approvalStatus == 'Rejected'
-                                                      }">{{item.approvalStatus}}</td>
-                                <td><button class="buttonDownload"
-                                        (click)="KycApproval(item.merchantDocumentId)">Approval</button>
-                                <td>
-                                    {{item.approvalBy}}
-                                </td>
-                                <td>{{item.approvalDateTime}}</td>
-                                <td><span (click)="KYCComments(item.reMarks)"><i class="fas fa-comments"
-                                            style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
-                                </td>
                                 <td><span (click)="editKycDocuments(item.merchantDocumentId,item)"><i
                                             class="fas fa-edit"
                                             style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
                                 </td>
-
                                 <td class="text-center">
                                     <span *ngIf="item.facheckStatus == 0" style="font-size:14px;color:red;">
                                         Pending</span>
@@ -510,6 +528,25 @@
                                         </i>
                                     </span>
 
+                                </td>
+
+                                <td><button class="buttonDownload" [disabled]="item.facheckStatus != 1"
+                                        (click)="KycApproval(item.merchantDocumentId)">Approval</button></td>
+
+                                <td [ngClass]="{
+                                                        yellow: item?.approvalStatus === 'Pending',
+                                                        green: item?.approvalStatus === 'approved',
+                               
+                                                        Red: item?.approvalStatus == 'Rejected'
+                                                      }">{{item.approvalStatus}}</td>
+
+                                <td> {{item.approvalBy}}
+                                </td>
+                                <td>{{item.approvalDateTime}}</td>
+
+
+                                <td><span (click)="KYCComments(item.reMarks)"><i class="fas fa-comments"
+                                            style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
                                 </td>
                             </tbody>
                         </table>
@@ -642,24 +679,110 @@
                             <th>S No </th>
                             <th>Payment ID</th>
                             <th>Paid Amount</th>
-                            <th>Payment Method</th>
                             <th>Edit</th>
                             <th>View</th>
                             <th>Payment Status</th>
-                            <th>Payment At</th>
+                            <th>Paid At</th>
                         </tr>
                         <tbody
                             *ngFor="let item of manualDetails| paginate: { itemsPerPage: 3, currentPage: currentPage } | search: searchText;let i=index">
                             <td>{{i+1}}</td>
                             <td>{{item.paymentId}}</td>
-                            <td>{{item.paidAmount}}</td>
-                            <td>{{item.paymentMethod}}</td>
-                            <td (click)="manualPayement(item)"><i class="fas fa-edit"
-                                    style="font-size: 16px;color: rgb(39, 39, 95);"></i></td>
-                            <td (click)="viewmanualtransaction(item.merchantPayId)"> <i class="fas fa-eye"
-                                    style="font-size: 16px;color: rgb(39, 39, 95);"></i></td>
+                            <td>{{item.totalPayableAmount}}</td>
+                            <td>
+                                <span (click)="manualPayement(item)">
+                                    <i class="fas fa-edit" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
+                                </span>
+                            </td>
+                            <td>
+                                <span (click)="viewmanualtransaction(item.merchantPayId)">
+                                    <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
+                                </span>
+                            </td>
                             <td>{{item.paymentStatus}}</td>
-                            <td>{{item.paymentDateTime | date:"dd-mm-yyy hh:mmm a"}}</td>
+                            <td>{{item.paymentDateTime | date:"dd-MM-yyyy hh:mm a"}}</td>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-end mt-3">
+                    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="activeTab === 'doot3'">
+    <mat-card-header>
+        <div class="row  d-flex justify-content-start">
+            <div class="col-md-3">
+                <div class="search ">
+                    <form class="form">
+                        <label for="search">
+                            <input #input required="" autocomplete="off" placeholder="Search" id="search" type="text"
+                                [(ngModel)]="searchText">
+                            <div class="icon">
+                                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                                        stroke-linecap="round"></path>
+                                </svg>
+                                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                                    <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
+                                        stroke-linecap="round">
+                                    </path>
+                                </svg>
+                            </div>
+                            <button type="reset" class="close-btn">
+                                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                                    <path clip-rule="evenodd"
+                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                        fill-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </label>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-2 mt-1">
+                <button (click)="otherPayement()" style="color:white;background-color: #141E46;border-radius: 10px;"
+                    mat-raised-button>Create
+                </button>
+            </div>
+        </div>
+    </mat-card-header>
+    <div class="row mt-4">
+        <div class="col-12 mb-3 mb-lg-5">
+            <div class="card table-nowrap table-card">
+                <div class="table-responsive text-nowrap text-center">
+                    <table class="table table-hover" id="customers">
+                        <tr>
+                            <th>S No </th>
+                            <th>Payment ID</th>
+                            <th>Service Name</th>
+                            <th>Paid Amount</th>
+                            <th>Action</th>
+                            <th>View</th>
+                            <th>Payment Status</th>
+                            <th>Paid At</th>
+                        </tr>
+                        <tbody
+                            *ngFor="let item of otherDetails| paginate: { itemsPerPage: 3, currentPage: currentPage } | search: searchText;let i=index">
+                            <td>{{i+1}}</td>
+                            <td>{{item.paymentId}}</td>
+                            <td>{{item.serviceName}}</td>
+                            <td>{{item.paidAmount}}</td>
+                            <td> <span (click)="editotherPayment(item)">
+                                    <i class="fas fa-edit" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
+                                </span></td>
+                            <td>
+                                <span (click)="viewOthertransaction(item.payId)">
+                                    <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
+                                </span>
+                            </td>
+                            <td>{{item.paymentStatus}}</td>
+                            <td>{{item.paymentDateTime | date:"dd-MM-yyyy hh:mm a"}}</td>
                         </tbody>
                     </table>
                 </div>

@@ -47,6 +47,14 @@ export class RegionComponent implements OnInit {
   date2: any;
   regionId: any;
   regionids: any;
+  regionAdd: any;
+  regionexport: any;
+  regionStatus: any;
+  regionEdit: any;
+  getdashboard: any[] = [];
+  roleId: any = localStorage.getItem('roleId')
+  actions: any;
+  errorMessage: any;
 
 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
@@ -59,8 +67,49 @@ export class RegionComponent implements OnInit {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     });
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        console.log(res);
+
+        if (res.flag==1) {
+          this.getdashboard = res.response?.subPermission;
+          
+          if (this.roleId == 1) {
+            this.regionAdd = 'Region-Add';
+            this.regionexport = 'Region-Export';
+            this.regionEdit = 'Region-Edit';
+            this.regionStatus = 'Region-Status';
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+              if (this.actions == 'Region-Add') {
+                this.regionAdd = 'Region-Add';
+              }
+
+              if (this.actions == 'Region-Export') {
+                this.regionexport = 'Region-Export';
+              }
+
+              if (this.actions == 'Region-Edit') {
+                this.regionEdit = 'Region-Edit';
+              }
+
+              if (this.actions == 'Region-Status') {
+                this.regionStatus = 'Region-Status';
+              }
+            }
+          }
+
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    })
+
   }
-  
+
   onSubmit(event: MatSlideToggleChange, id: string) {
     this.isChecked = event.checked;
     let submitModel: RegionStatus = {
@@ -81,6 +130,7 @@ export class RegionComponent implements OnInit {
     this.dialog.open(RegionAddComponent, {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
+      disableClose:true,
     });
   }
 
@@ -91,7 +141,8 @@ export class RegionComponent implements OnInit {
       maxWidth: '400px',
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
-      data: { value: id }
+      data: { value: id },
+      disableClose:true,
     });
 
   }

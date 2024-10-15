@@ -9,10 +9,14 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class ViewPermissionComponent {
   streetValue: any;
   permissionvalue: any;
+  currentPage: any = 1; 
+  searchText: any;
   constructor(private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
     this.permissionvalue = this.data.value
+    console.log(this.permissionvalue);
+    
   }
 
   back() {

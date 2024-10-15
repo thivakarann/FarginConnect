@@ -16,6 +16,7 @@ export class EntityPgonboardComponent implements OnInit {
   merchantid: any;
   minDate: any = Date;
   maxDate: any = Date;
+selectedOption: any;
 
 
   
@@ -53,22 +54,25 @@ export class EntityPgonboardComponent implements OnInit {
     return this.addcategory.get('Url');
   }
 
-  submit() {
-    let submitmodel: PgOnboard = {
-      merchantId: this.merchantid,
-      linkExpiry: this.expiryDate?.value,
-      description: this.description?.value,
-      returnUrl: this.Url?.value
-    }
-    this.service.PgOnboard(submitmodel).subscribe((res: any) => {
-      if (res.response.flag == 1) {
-        this.toastr.success(res.response.message);
-        this.dialog.closeAll();
-      }
-      else {
-        this.toastr.error(res.response.message)
-      }
-    })
-  }
+  // submit() {
+  //   let submitmodel: PgOnboard = {
+  //     merchantId: this.merchantid,
+  //     linkExpiry: this.expiryDate?.value,
+  //     description: this.description?.value,
+  //     returnUrl: this.Url?.value
+  //   }
+  //   this.service.PgOnboard(submitmodel).subscribe((res: any) => {
+  //     if (res.response.flag == 1) {
+  //       this.toastr.success(res.response.message);
+  //       this.dialog.closeAll();
+  //       setTimeout(() => {
+  //         window.location.reload()
+  //       }, 500);
+  //     }
+  //     else {
+  //       this.toastr.error(res.response.message)
+  //     }
+  //   })
+  // }
 }
 

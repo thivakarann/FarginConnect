@@ -25,6 +25,7 @@ export class AdminComponent implements OnInit {
   displayedColumns: string[] = [
     "sno",
     "name",
+    'roleName',
     "gender",
     "email",
     "mobile",
@@ -39,7 +40,8 @@ export class AdminComponent implements OnInit {
     "createdBy",
     "createdDateTime",
     "modifiedBy",
-    "modifiedDateTime"
+    "modifiedDateTime",
+    "unblock"
   ]
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -51,6 +53,7 @@ export class AdminComponent implements OnInit {
   adminuserId: any;
   accountStatus: any;
   adminUserId: any;
+  unblockvalue: any;
 
 
   constructor(private service: FarginServiceService, private toastr: ToastrService, private router: Router) { }
@@ -71,6 +74,20 @@ export class AdminComponent implements OnInit {
       }
     });
   }
+
+  unblock(id: any) {
+    this.service.unblockAccount(id).subscribe((res: any) => {
+      this.unblockvalue = res.response;
+      if(res.flag==1){
+        this.toastr.success(res.responseMessage)
+      }
+      else{
+        this.toastr.error(res.responseMessage)
+      }
+    })
+  }
+
+
 
   admincreate() {
     this.router.navigate([`/dashboard/admincreate`], {
@@ -130,6 +147,7 @@ export class AdminComponent implements OnInit {
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.adminName);
+      this.response.push(element?.roleModel?.roleName)
       this.response.push(element?.gender);
       this.response.push(element?.emailAddress);
       this.response.push(element?.mobileNumber);
@@ -161,6 +179,7 @@ export class AdminComponent implements OnInit {
     const header = [
       "sno",
       "name",
+      "roleName",
       "gender",
       "email",
       "mobile",
@@ -220,6 +239,7 @@ export class AdminComponent implements OnInit {
       let qty12 = row.getCell(13);
       let qty13 = row.getCell(14);
       let qty14 = row.getCell(15);
+      let qty15 = row.getCell(16);
 
 
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -237,6 +257,7 @@ export class AdminComponent implements OnInit {
       qty12.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty13.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty14.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty15.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
 
 
     }
