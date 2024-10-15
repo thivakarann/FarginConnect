@@ -663,7 +663,7 @@ export class EntityAddComponent implements OnInit {
 
         this.bussinessid = res.response.businessCategoryModel.businessCategoryId;
         this.AddEntity.EntityGetKYCbybussinessid(this.bussinessid).subscribe((res: any) => {
-          this.KYCDocNames = res.response
+          this.KYCDocNames = res.response;
         })
         this.toastr.success(res.responseMessage);
         this.Bankdetails = true;
@@ -676,7 +676,7 @@ export class EntityAddComponent implements OnInit {
       console.log(res);
     })
   }
-
+// bjhb?
 
   BankSubmit() {
     let submitModel: AddEntityBank = {
