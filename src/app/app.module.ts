@@ -189,6 +189,11 @@ import { SMSHistoryComponent } from './SMS details/smshistory/smshistory.compone
 import { SMSHistoryViewComponent } from './SMS details/smshistory-view/smshistory-view.component';
 import { EntitySmsViewallComponent } from './SMS details/entity-sms-viewall/entity-sms-viewall.component';
 import { EntitySmsViewComponent } from './SMS details/entity-sms-view/entity-sms-view.component';
+import { AddBussinessdocumentComponent } from './Entity Onboard/bussiness-document/add-bussinessdocument/add-bussinessdocument.component';
+import { ApprovalBussinessdocumentComponent } from './Entity Onboard/bussiness-document/approval-bussinessdocument/approval-bussinessdocument.component';
+import { CommentBussinessdocumentComponent } from './Entity Onboard/bussiness-document/comment-bussinessdocument/comment-bussinessdocument.component';
+import { EditBussinessdocumentComponent } from './Entity Onboard/bussiness-document/edit-bussinessdocument/edit-bussinessdocument.component';
+import { ImageBussinessdocumentComponent } from './Entity Onboard/bussiness-document/image-bussinessdocument/image-bussinessdocument.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -357,6 +362,11 @@ import { EntitySmsViewComponent } from './SMS details/entity-sms-view/entity-sms
     SMSHistoryViewComponent,
     EntitySmsViewallComponent,
     EntitySmsViewComponent,
+    AddBussinessdocumentComponent,
+    EditBussinessdocumentComponent,
+    ImageBussinessdocumentComponent,
+    ApprovalBussinessdocumentComponent,
+    CommentBussinessdocumentComponent
 
   ],
 

@@ -461,7 +461,15 @@ export class FarginServiceService {
   // Overall trans Receipt
 
   private readonly customerreceipt = 'customerpay/viewReceipt/';
-  private readonly otherpayReciept='otherpayment/viewinvoice/';
+  private readonly otherpayReciept = 'otherpayment/viewinvoice/';
+
+  //bussiness document
+  private readonly documentadd = 'merchantdocument/create';
+  private readonly documentedit = 'merchantdocument/updateData';
+  private readonly documentapproval = 'merchantdocument/updateapproval/';
+  private readonly documentImage = 'merchantdocument/viewimage/';
+  private readonly documentfrontedit = 'merchantdocument/updateFrontPath'
+  private readonly documentbackedit = 'merchantdocument/updateBacPath'
 
 
 
@@ -1678,53 +1686,85 @@ export class FarginServiceService {
 
 
   //smscreate
- 
-CreateSMS(data: any) {
-  return this.http.post(`${this.basePath}${this.smscreate}`, data, this.options);
-}
-SMSViewById(id1: any) {
-  return this.http.get(`${this.basePath}${this.smsviewbyId}${id1}`, this.options)
-}
-smsStatus(id: any, data: any) {
-  return this.http.put(`${this.basePath}${this.smsstatus}${id}`, data, this.options)
-}
-smsUpdate(id: any, data: any) {
-  return this.http.put(`${this.basePath}${this.editsms}${id}`, data, this.options)
-}
-SmsGetAll() {
-  return this.http.get(`${this.basePath}${this.smsgetAll}`, this.options)
-}
-SmsHistoryGetAll() {
-  return this.http.get(`${this.basePath}${this.smshistory}`, this.options)
-}
-SMSHistoryViewById(id1: any) {
-  return this.http.get(`${this.basePath}${this.smshistoryview}${id1}`, this.options)
-}
- 
-SMSHistoryFilter(id:any,id1:any){
-  return this.http.get(`${this.basePath}${this.smshistoryfilter}${id}/${id1}`,this.options)
-}
-SmsHistoryMerchantFilter(id:any,id1:any,id2:any){
-  return this.http.get(`${this.basePath}${this.smshistorymerchantfilter}${id}/${id1}/${id1}`,this.options)
-}
- 
-Logout(model: any) {
-  return this.http.put(`${this.basePath}${this.logout}`, model, this.options)
-}
 
-CustomerReceipt(id: any) {
-  return this.http.get(`${this.basePath}${this.customerreceipt}${id}`, {
-    ...this.options,
-    ...{ responseType: 'blob' },
-  });
-}
+  CreateSMS(data: any) {
+    return this.http.post(`${this.basePath}${this.smscreate}`, data, this.options);
+  }
+  SMSViewById(id1: any) {
+    return this.http.get(`${this.basePath}${this.smsviewbyId}${id1}`, this.options)
+  }
+  smsStatus(id: any, data: any) {
+    return this.http.put(`${this.basePath}${this.smsstatus}${id}`, data, this.options)
+  }
+  smsUpdate(id: any, data: any) {
+    return this.http.put(`${this.basePath}${this.editsms}${id}`, data, this.options)
+  }
+  SmsGetAll() {
+    return this.http.get(`${this.basePath}${this.smsgetAll}`, this.options)
+  }
+  SmsHistoryGetAll() {
+    return this.http.get(`${this.basePath}${this.smshistory}`, this.options)
+  }
+  SMSHistoryViewById(id1: any) {
+    return this.http.get(`${this.basePath}${this.smshistoryview}${id1}`, this.options)
+  }
 
-OtherPaymentReciept(id: any) {
-  return this.http.get(`${this.basePath}${this.otherpayReciept}${id}`, {
-    ...this.options,
-    ...{ responseType: 'blob' },
-  });
-}
+  SMSHistoryFilter(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.smshistoryfilter}${id}/${id1}`, this.options)
+  }
+  SmsHistoryMerchantFilter(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.smshistorymerchantfilter}${id}/${id1}/${id1}`, this.options)
+  }
+
+  Logout(model: any) {
+    return this.http.put(`${this.basePath}${this.logout}`, model, this.options)
+  }
+
+  CustomerReceipt(id: any) {
+    return this.http.get(`${this.basePath}${this.customerreceipt}${id}`, {
+      ...this.options,
+      ...{ responseType: 'blob' },
+    });
+  }
+
+  OtherPaymentReciept(id: any) {
+    return this.http.get(`${this.basePath}${this.otherpayReciept}${id}`, {
+      ...this.options,
+      ...{ responseType: 'blob' },
+    });
+  }
+
+
+
+  documentAdd(data: FormData) {
+    return this.http.post(`${this.basePath}${this.documentadd}`, data, this.optionsMultipart);
+  }
+ 
+ 
+ 
+  documentEdit(data:any){
+    return this.http.put(`${this.basePath}${this.documentedit}`, data, this.options);
+  }
+  documentApproval(id:any,data:any){
+    return this.http.put(`${this.basePath}${this.documentapproval}${id}`, data, this.options);
+  }
+ 
+  getdocumentImage(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.documentImage}${id}/${id1}`, {
+      ...this.options,
+      ...{ responseType: 'blob' }
+    })
+  }
+ 
+ 
+  documentFrontedit(data: FormData) {
+    return this.http.put(`${this.basePath}${this.documentfrontedit}`, data, this.optionsMultipart);
+  }
+ 
+ 
+  documentBackedit(data: FormData) {
+    return this.http.put(`${this.basePath}${this.documentbackedit}`, data, this.optionsMultipart);
+  }
 
 
 

@@ -32,6 +32,9 @@
         <button class="tab" [class.active]="activeTab === 'materials'" (click)="selectTab('materials')">Bank
             Information</button>
         <button class="tab" [class.active]="activeTab === 'videos'" (click)="selectTab('videos')">KYC Documents</button>
+        <button class="tab" [class.active]="activeTab === 'bussiness'" (click)="selectTab('bussiness')">Bussiness
+            Document
+        </button>
         <button class="tab" [class.active]="activeTab === 'doot1'" (click)="selectTab('doot1')">Final Approval</button>
         <button class="tab" [class.active]="activeTab === 'doot2'" (click)="selectTab('doot2')">Manual
             Payment</button>
@@ -683,6 +686,100 @@
             </div>
         </div>
     </div>
+
+    <div *ngIf="activeTab === 'bussiness'">
+        <mat-card-header>
+            <div class="row  d-flex justify-content-start">
+                <div class="col-md-3">
+                    <div class="search ">
+                        <form class="form">
+                            <label for="search">
+                                <input #input required="" autocomplete="off" placeholder="Search" id="search"
+                                    type="text" [(ngModel)]="searchText">
+                                <div class="icon">
+                                    <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                                        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                                            stroke-linecap="round"></path>
+                                    </svg>
+                                    <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                                        <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
+                                            stroke-linecap="round">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <button type="reset" class="close-btn">
+                                    <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                                        <path clip-rule="evenodd"
+                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                            fill-rule="evenodd"></path>
+                                    </svg>
+                                </button>
+                            </label>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-2 mt-1">
+                    <button (click)="adddoc(this.id)" [hidden]="valuebankadd!=='Bank-Add'"
+                        style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Add
+                        Document</button>
+                </div>
+            </div>
+        </mat-card-header>
+        <div class="row mt-4">
+            <div class="col-12 mb-3 mb-lg-5">
+                <div class="card table-nowrap table-card">
+                    <div class="table-responsive text-nowrap text-center">
+                        <table class="table table-hover" id="customers">
+                            <tr>
+                                <th>S No </th>
+                                <th>Document Name</th>
+                                <th>Document Number</th>
+                                <th>Image</th>
+                                <th>Approval</th>
+                                <th>Approval Status</th>
+                                <th>Approved By</th>
+                                <th>Approved At</th>
+                                <th>Comments</th>
+                                <th>Action</th>
+ 
+                            </tr>
+                            <tbody
+                                *ngFor="let item of bussinessdoc| paginate: { itemsPerPage: 3, currentPage: currentPage } | search: searchText;let i=index">
+                                <td>{{i+1}}</td>
+                                <td>{{item.docName}}</td>
+                                <td>{{item.docNumber}}</td>
+                                <td> <span (click)="getdocFrontPath(item.merchantDocumentId)"><i class='fa-regular fa-image'
+                                            style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
+                                    <span (click)="getdocbackPath(item.merchantDocumentId)"><i class='fa-regular fa-image mx-1'
+                                            style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
+                                </td>
+                                <td><button class="buttonDownload" (click)="docApproval(item)"
+                                    [disabled]="item.approvalStatus== 'approved'" >Approval</button>
+                                </td>
+                                <td [ngClass]="{
+                                    yellow: item?.approvalStatus === 'Pending',
+                                    green: item?.approvalStatus === 'approved',
+                                    Red: item?.approvalStatus == 'Rejected'
+                                  }">{{item.approvalStatus}}</td>
+                                <td>{{item.approvalBy}}</td>
+                                <td>{{item.approvalDateTime}}</td>
+                                <td><span (click)="DocComments(item.reMarks)"><i class="fas fa-comments"
+                                            style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
+                                </td>
+                                <td><i class="fas fa-edit" (click)="docedit(item)">
+                                    </i></td>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="text-end mt-3">
+                        <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div *ngIf="activeTab === 'doot1'">
         <mat-card-header>
             <div class="row  d-flex justify-content-start">
@@ -1004,3 +1101,4 @@
         </div>
     </div>
 </div>
+

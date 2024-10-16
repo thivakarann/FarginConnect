@@ -25,7 +25,8 @@ export class EntityAddComponent implements OnInit {
   Bankdetails: boolean = false;
   personeldetails: boolean = true;
   KYCdetails: boolean = false;
-  BussinessDoc:boolean = false;
+  BussinessDoc: boolean = false;
+  BussinessDocument: boolean = false;
   merchantid: any;
   bussinessid: any;
   errorMessage: any;
@@ -52,11 +53,15 @@ export class EntityAddComponent implements OnInit {
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
   thirdFormGroup!: FormGroup;
+  fourthFormGroup!:FormGroup;
   selectElement: any;
   selectElements: any;
   select: any;
   file5!: any;
   file6!: any;
+  kycValue: any;
+  file8!: any;
+  file9!: any;
   constructor(
     public AddEntity: FarginServiceService,
     private router: Router,
@@ -75,6 +80,11 @@ export class EntityAddComponent implements OnInit {
     this.AddEntity.activebankdetails().subscribe((res: any) => {
       this.BankNames = res.response;
     });
+
+    this.AddEntity.activeViewall().subscribe((res: any) => {
+      this.kycValue = res.response;
+      console.log(this.kycValue);
+    })
 
     this.myForm = new FormGroup({
 
@@ -201,6 +211,13 @@ export class EntityAddComponent implements OnInit {
       signatureFrontPath: [null, Validators.required],
       signatureBackPath: [null, Validators.required]
     });
+
+    this.fourthFormGroup=this._formBuilder.group({
+      kycCategoryId:['',Validators.required],
+      docNumber:[''],
+      docFrontPath :['',Validators.required],
+      docBackPath :['']
+    })
 
 
 
@@ -400,6 +417,24 @@ export class EntityAddComponent implements OnInit {
   }
   get signatureBackPath() {
     return this.thirdFormGroup.get('signatureBackPath')
+  }
+
+  // Bussiness form 
+
+  get kycCategoryId(){
+    return this.fourthFormGroup.get('kycCategoryId')
+  }
+   
+  get docNumber(){
+    return this.fourthFormGroup.get('docNumber')
+  }
+   
+  get docFrontPath (){
+    return this.fourthFormGroup.get('docFrontPath')
+  }
+   
+  get docBackPath(){
+    return this.fourthFormGroup.get('docBackPath')
   }
 
   onFileSelected(event: any) {
@@ -641,6 +676,73 @@ export class EntityAddComponent implements OnInit {
 
     }
   }
+
+
+  docfront(event: any) {
+    const files = event.target.files[0];
+    if (files) {
+      const fileName: string = files.name;
+      const fileextension: any = fileName.split('.').pop()?.toLowerCase();
+      const dotcount = fileName.split('.').length - 1;
+      if (dotcount > 1) {
+
+        this.errorMessage = 'Files with multiple extensions are not allowed';
+        return;
+
+
+      }
+      if (!files.type.startsWith('image/')) {
+
+        this.errorMessage = 'Only Images  are  allowed';
+        return;
+
+      }
+
+
+      this.errorMessage = ''
+      this.file8 = files;
+      console.log(this.file8);
+
+      console.log(' file 1 id success' + files);
+
+    }
+
+
+  }
+
+
+  docback(event: any) {
+    const files = event.target.files[0];
+    if (files) {
+      const fileName: string = files.name;
+      const fileextension: any = fileName.split('.').pop()?.toLowerCase();
+      const dotcount = fileName.split('.').length - 1;
+      if (dotcount > 1) {
+
+        this.errorMessage = 'Files with multiple extensions are not allowed';
+        return;
+
+
+      }
+      if (!files.type.startsWith('image/')) {
+
+        this.errorMessage = 'Only Images  are  allowed';
+        return;
+
+      }
+
+
+      this.errorMessage = ''
+      this.file9 = files;
+      console.log(this.file9);
+
+      console.log(' file 1 id success' + files);
+
+    }
+
+
+  }
+
   Submit() {
     const formData = new FormData;
     formData.append('contactEmail', this.contactEmail?.value.trim());
@@ -685,7 +787,7 @@ export class EntityAddComponent implements OnInit {
       console.log(res);
     })
   }
-// bjhb?
+  // bjhb?
 
   BankSubmit() {
     let submitModel: AddEntityBank = {
@@ -696,7 +798,7 @@ export class EntityAddComponent implements OnInit {
       branchName: this.branchName?.value,
       accountType: this.accountType?.value,
       merchantId: this.merchantid,
-      ledgerId:this.ledgerId?.value
+      ledgerId: this.ledgerId?.value
     }
     this.AddEntity.EntitybankAdd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
@@ -704,6 +806,8 @@ export class EntityAddComponent implements OnInit {
         this.Bankdetails = false;
         this.personeldetails = false;
         this.KYCdetails = true;
+    
+
 
       } else {
         this.toastr.error(res.responseMessage);
@@ -743,5 +847,23 @@ export class EntityAddComponent implements OnInit {
     });
   }
 
-  
+
+  docSubmit() {
+    const formData = new FormData();
+    formData.append('merchantId', this.merchantid);
+    formData.append('docFrontPath', this.file8);
+    formData.append('docBackPath', this.file9 || this.emptyBlob);
+    formData.append('kycCategoryId', this.kycCategoryId?.value);
+    formData.append('docNumber', this.docNumber?.value);
+    formData.append('createdBy', this.getadminname);
+    this.AddEntity.documentAdd(formData).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.toastr.success(res.responseMessage);
+      } else {
+        this.toastr.error(res.responseMessage);
+      }
+    });
+  }
+
+
 }

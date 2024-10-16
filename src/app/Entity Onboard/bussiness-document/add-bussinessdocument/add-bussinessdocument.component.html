@@ -1,0 +1,66 @@
+<div class="card-header">
+    <h3 class="mb-0" style="font-weight: 700;text-align:center;font-size: 21px;">Add Bussiness Document</h3>
+</div>
+
+<body class="page">
+    <main class="main page__main">
+        <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="fourthFormGroup">
+        
+            <div class="form__row">
+                <div class="form__linput">
+                    <label class="form__label" ><b>Document Name</b></label>
+                    <select class="form-select" formControlName="kycCategoryId"
+                        (change)="docProofChange($event)">
+                        <option *ngFor="let item of kycValue" [value]="item.kycCategoryId">{{item.kycCategoryName}}
+                        </option>
+                    </select>
+                    <div *ngIf="kycCategoryId?.invalid && kycCategoryId?.touched && kycCategoryId?.errors?.['required']"
+                        style="color: red; font-size: 12px;">
+                        Field is required
+                    </div>
+                </div>
+
+                <div class="form__linput">
+                    <label class="form__label"><b>Document Number</b></label>
+                    <input class="form-control" id="mccCode" type="text" formControlName="docNumber" required />
+                    <!-- <div *ngIf="docNumber && docNumber.invalid && (docNumber.touched || docNumber.dirty)">
+                        <small *ngIf="docNumber.errors?.['required']" style="color: red; font-size: 12px;">This field is
+                            required.</small>
+                        <small *ngIf="docNumber.errors?.['pattern']" style="color: red; font-size: 12px;">Enter a valid
+                            {{selectElement4}} number.</small>
+                    </div> -->
+                </div>
+            </div>
+
+            <div class="form__row">
+                <div class="form__linput">
+                    <label class="form__label"><b>Upload Front Path</b></label>
+                    <input class="form-control" formControlName="docFrontPath" (change)="docfront($event)" type="file"
+                        accept="image/jpeg, image/png" />
+                    <div *ngIf="docFrontPath?.invalid && docFrontPath?.touched && docFrontPath?.errors?.['required']"
+                        style="color: red; font-size: 12px;">
+                        Field is required
+                    </div>
+                </div>
+
+                <div class="form__linput">
+                    <label class="form__label"><b>Upload Back Path</b></label>
+                    <input class="form-control" formControlName="docBackPath" (change)="docback($event)" type="file"
+                        accept="image/jpeg, image/png" />
+                    <!-- <div *ngIf="docBackPath?.invalid && docBackPath?.touched && docBackPath?.errors?.['required']"
+                        style="color: red; font-size: 12px;">
+                        Field is required
+                    </div> -->
+                </div>
+            </div>
+
+            <div>
+                <button (click)="docSubmit()" [disabled]="fourthFormGroup.invalid" type="submit" class="btn mx-1 "
+                    style="background-color:#7db855be">Submit</button>
+                <button type="submit" class="btn" style="background-color:#141E46;color:white"
+                matDialogClose>Cancel</button>
+            </div>
+        
+        </form>
+    </main>
+</body>

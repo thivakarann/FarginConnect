@@ -913,3 +913,18 @@ export interface SmsUpdate {
 
 
 
+export interface documentupdate{
+  readonly merchantDocumentId:any;
+  readonly kycCategoryId:any;
+  readonly docNumber :any
+  readonly modifiedBy:any
+}
+ 
+export interface documentapproval{
+  readonly approvalBy:any
+  readonly approvalStatus:any
+  readonly reMarks:any
+}
+
+
+

@@ -33,6 +33,11 @@ import { EditOtherpaymentComponent } from '../edit-otherpayment/edit-otherpaymen
 import { EntityKyceditComponent } from '../entity-kycedit/entity-kycedit.component';
 import { SmsCreateComponent } from '../sms-create/sms-create.component';
 import { EditSmsComponent } from '../edit-sms/edit-sms.component';
+import { AddBussinessdocumentComponent } from '../bussiness-document/add-bussinessdocument/add-bussinessdocument.component';
+import { ApprovalBussinessdocumentComponent } from '../bussiness-document/approval-bussinessdocument/approval-bussinessdocument.component';
+import { CommentBussinessdocumentComponent } from '../bussiness-document/comment-bussinessdocument/comment-bussinessdocument.component';
+import { EditBussinessdocumentComponent } from '../bussiness-document/edit-bussinessdocument/edit-bussinessdocument.component';
+import { ImageBussinessdocumentComponent } from '../bussiness-document/image-bussinessdocument/image-bussinessdocument.component';
 
 @Component({
   selector: 'app-entity-view',
@@ -144,6 +149,7 @@ export class EntityViewComponent implements OnInit {
   signatureProof: any;
   smsDetails: any;
   merchantsmsId: any;
+  bussinessdoc: any;
 
   selectTab(tab: string): void {
     this.activeTab = tab;
@@ -172,9 +178,13 @@ export class EntityViewComponent implements OnInit {
       this.detaislone = res.response.merchantpersonal;
       this.bankdetails = res.response.merchantbank;
       this.KYCDetails = res.response.merchantkycdocument;
+      this.bussinessdoc = res.response.merchantbusinessdocument;
+      console.log(this.bussinessdoc+ "jdfnjksdfvls")
       this.identityProof = res.response.merchantkycdocument[0].identityProof;
       this.addressProof = res.response.merchantkycdocument[0].addressProof;
       this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+    
+      
       
 
       this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
@@ -1546,6 +1556,61 @@ export class EntityViewComponent implements OnInit {
         disableClose: true,
         data: { value: id ,value1:3}
       });
+    }
+
+
+    getdocFrontPath(id: any) {
+      this.dialog.open(ImageBussinessdocumentComponent, {
+        enterAnimationDuration: "1000ms",
+        exitAnimationDuration: "1000ms",
+        // disableClose: true,
+        data: { value: id, value1: 2 }
+      })
+    }
+   
+    getdocbackPath(id:any){
+      this.dialog.open(ImageBussinessdocumentComponent, {
+        enterAnimationDuration: "1000ms",
+        exitAnimationDuration: "1000ms",
+        // disableClose: true,
+        data: { value: id, value1: 2 }
+      })
+    }
+   
+    DocComments(id:any){
+      this.dialog.open(CommentBussinessdocumentComponent, {
+        enterAnimationDuration: "1000ms",
+        exitAnimationDuration: "1000ms",
+        // disableClose: true,
+        data: { value: id }
+      })
+    }
+   
+    docedit(id:any){
+      this.dialog.open(EditBussinessdocumentComponent, {
+        enterAnimationDuration: "1000ms",
+        exitAnimationDuration: "1000ms",
+        // disableClose: true,
+        data: { value: id }
+      })
+    }
+   
+    docApproval(id:any){
+      this.dialog.open(ApprovalBussinessdocumentComponent, {
+        enterAnimationDuration: "1000ms",
+        exitAnimationDuration: "1000ms",
+        // disableClose: true,
+        data: { value: id }
+      })
+    }
+   
+    adddoc(id:any){
+      this.dialog.open(AddBussinessdocumentComponent, {
+        enterAnimationDuration: "1000ms",
+        exitAnimationDuration: "1000ms",
+        // disableClose: true,
+        data: { value: id }
+      })
     }
 
 
