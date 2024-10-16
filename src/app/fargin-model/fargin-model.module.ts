@@ -863,4 +863,53 @@ export interface kycedit {
 }
 
 
+export interface farginadd{
+  readonly accountHolderName:any;
+  readonly accountNumber:any;
+  readonly bankName:any;
+  readonly ifscCode:any;
+  readonly branchName:any;
+  readonly ledgerId:any;
+  readonly createdBy:any;
+ 
+}
+ 
+export interface farginstatus{
+  readonly activeStatus:any;
+}
+
+
+export interface farginedit{
+  readonly accountHolderName:any;
+  readonly accountNumber:any;
+  readonly bankName:any;
+  readonly ifscCode:any;
+  readonly branchName:any;
+  readonly ledgerId:any;
+  readonly createdBy:any;
+}
+
+export interface CreateSMS{
+  readonly merchantId:any;
+  readonly type:any;
+  readonly createdBy:any;
+}
+
+export interface Logout {
+readonly adminUserId: any;
+readonly logout: any;
+}
+
+export interface SmsStatus {
+  readonly smsStatus: boolean | number;
+  readonly modifedBy: any;
+ 
+}
+export interface SmsUpdate {
+  readonly smsType: boolean | number;
+  readonly modifedBy: any;
+ 
+}
+
+
 

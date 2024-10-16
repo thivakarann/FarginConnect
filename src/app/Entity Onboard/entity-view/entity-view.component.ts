@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { ApprovalBank, bankData, bankedit, BankPrimaryStatus, BankStatus, Bankverficiation, EmailTrigger, Facheckverification, KycApproval, PassPortverification, PgOnboard, verification, verify, VoterIdVerify } from '../../fargin-model/fargin-model.module';
+import { ApprovalBank, bankData, bankedit, BankPrimaryStatus, BankStatus, Bankverficiation, EmailTrigger, Facheckverification, KycApproval, PassPortverification, PgOnboard, SmsStatus, verification, verify, VoterIdVerify } from '../../fargin-model/fargin-model.module';
 import { ApprovalForBankComponent } from '../approval-for-bank/approval-for-bank.component';
 import { CommentsForApprovalComponent } from '../comments-for-approval/comments-for-approval.component';
 import { KycApprovalComponent } from '../kyc-approval/kyc-approval.component';
@@ -31,6 +31,8 @@ import { BankVerificationMatchComponent } from '../bank-verification-match/bank-
 import { CreateOtherpaymentComponent } from '../create-otherpayment/create-otherpayment.component';
 import { EditOtherpaymentComponent } from '../edit-otherpayment/edit-otherpayment.component';
 import { EntityKyceditComponent } from '../entity-kycedit/entity-kycedit.component';
+import { SmsCreateComponent } from '../sms-create/sms-create.component';
+import { EditSmsComponent } from '../edit-sms/edit-sms.component';
 
 @Component({
   selector: 'app-entity-view',
@@ -140,6 +142,8 @@ export class EntityViewComponent implements OnInit {
   identityProof: any;
   addressProof: any;
   signatureProof: any;
+  smsDetails: any;
+  merchantsmsId: any;
 
   selectTab(tab: string): void {
     this.activeTab = tab;
@@ -362,6 +366,13 @@ export class EntityViewComponent implements OnInit {
         this.otherDetails = res.response;
       }
     });
+
+    this.MerchantView.SMSViewById(this.id).subscribe((res:any)=>{
+      if(res.flag==1){
+        this.smsDetails=res.response;
+      }
+    })
+ 
  
   }
 
@@ -1537,5 +1548,47 @@ export class EntityViewComponent implements OnInit {
       });
     }
 
+
+    smscreate(){
+      this.dialog.open(SmsCreateComponent, {
+        disableClose: true,
+        enterAnimationDuration: "1000ms",
+        exitAnimationDuration: "1000ms",
+        data: { value: this.id }
+      });
+    }
+
+    editsms(id:any){
+      this.dialog.open(EditSmsComponent, {
+        enterAnimationDuration: "1000ms",
+        exitAnimationDuration: "1000ms",
+        disableClose: true,
+        data: { value: id }
+      })  
+    }
+
+    smsStatus(event: any, id: any) {
+      this.merchantsmsId=id;
+      this.isChecked = event.checked;
+      let submitModel: SmsStatus = {
+        smsStatus: this.isChecked ? 1 : 0,
+        modifedBy:this.getadminname
+      };
+      this.MerchantView.smsStatus(this.merchantsmsId, submitModel).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.toastr.success(res.responseMessage);
+          setTimeout(() => {
+            window.location.reload()
+          }, 500);
+          this.dialog.closeAll();
+   
+        }
+        else {
+          this.toastr.error(res.responseMessage)
+        }
+      })
+    }
+   
+    
 
 }

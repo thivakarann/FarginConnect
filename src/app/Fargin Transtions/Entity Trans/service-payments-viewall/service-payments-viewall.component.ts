@@ -24,6 +24,7 @@ export class ServicePaymentsViewallComponent {
     'paymentmethod',
     'amount',
     'paidAt',
+    'receipt',
     'status',
     'view',
  
@@ -109,6 +110,19 @@ export class ServicePaymentsViewallComponent {
   reset() {
     window.location.reload();
   }
+
+  viewreciept(id:any){
+    console.log(id)
+   
+  this.service.ManualRecieptView(id).subscribe((res:any)=>{
+    const reader = new FileReader();
+    reader.readAsDataURL(res);
+    reader.onloadend = () => {
+    var downloadURL = URL.createObjectURL(res);
+    window.open(downloadURL);
+    }
+  })
+      }
  
  
   exportexcel() {

@@ -74,6 +74,10 @@ import { OtherpaymentsViewallComponent } from './Fargin Transtions/Other Payment
 import { OtherpaymentsViewComponent } from './Fargin Transtions/Other Payments/otherpayments-view/otherpayments-view.component';
 import { OtherpayTransComponent } from './Entity Onboard/otherpay-trans/otherpay-trans.component';
 import { ViewallKyccategoryComponent } from './Main Master/kyccategory/viewall-kyccategory/viewall-kyccategory.component';
+import { FarginBankviewComponent } from './Main Master/Fargin Bank/fargin-bankview/fargin-bankview.component';
+import { SMSHistoryComponent } from './SMS details/smshistory/smshistory.component';
+import { EntitySmsViewallComponent } from './SMS details/entity-sms-viewall/entity-sms-viewall.component';
+import { SMSHistoryViewComponent } from './SMS details/smshistory-view/smshistory-view.component';
 
 const routes: Routes = [
 
@@ -159,7 +163,11 @@ const routes: Routes = [
       { path: 'service-payments-viewall', component: ServicePaymentsViewallComponent },
       {path:'otherpayments-viewall',component:OtherpaymentsViewallComponent},
       {path:'otherpay-trans/:id',component:OtherpayTransComponent},
-      { path: 'viewall-kyccategory', component: ViewallKyccategoryComponent }
+      { path: 'viewall-kyccategory', component: ViewallKyccategoryComponent },
+      { path: 'fargin-viewall', component: FarginBankviewComponent },
+      {path:"entity-sms-viewall",component:EntitySmsViewallComponent},
+      {path:"smshistory",component:SMSHistoryComponent},
+      {path:"smshistory-view/:id",component:SMSHistoryViewComponent},
 
 
 

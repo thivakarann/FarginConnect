@@ -111,31 +111,55 @@
               </a>
             </li> -->
 
-            <li class="sidebar-dropdown" style="cursor: pointer;" >
+            <li class="sidebar-dropdown" style="cursor: pointer;">
               <a>
                 <i class="fa fa-globe"></i>
                 <span>Transactions</span>
               </a>
               <div class="sidebar-submenu">
                 <ul>
-                  <li >
+                  <li>
                     <a routerLink="customer-trans-viewall">
                       Customer Payments
                     </a>
                   </li>
- 
-                  <li routerLink="maintenance-trans-viewall" >
+
+                  <li routerLink="maintenance-trans-viewall">
                     <a> Subscription Payments</a>
                   </li>
-                  <li routerLink="service-payments-viewall" >
+                  <li routerLink="service-payments-viewall">
                     <a>Manual Payments</a>
                   </li>
-                  <li routerLink="otherpayments-viewall" >
+                  <li routerLink="otherpayments-viewall">
                     <a>Customization Payments</a>
                   </li>
                 </ul>
               </div>
 
+            <li class="sidebar-dropdown" style="cursor: pointer;">
+              <a>
+                <i  class="fa-solid fa-comment-sms" style="font-size: 15px;"></i>
+                <span>SMS</span>
+              </a>
+
+              <div class="sidebar-submenu">
+                <ul>
+                  <li>
+                    <a routerLink="entity-sms-viewall">
+                      Entity Sms
+                    </a>
+                  </li>
+
+                  <li>
+                    <a routerLink="smshistory">
+                      SMS History
+                    </a>
+                  </li>
+                </ul>
+
+              </div>
+
+            </li>
 
 
 
@@ -190,9 +214,9 @@
               </div>
             </li>
 
-            
 
-         
+
+
 
             <li class="sidebar-dropdown" style="cursor: pointer;">
               <a>
@@ -237,7 +261,7 @@
                   <li>
                     <a routerLink="viewall-kyccategory">KYC Category</a>
                   </li>
- 
+
                   <li [hidden]="valueBusinessKYC!=='Business KYC'">
                     <a routerLink="Business-kyc">Business KYC</a>
                   </li>
@@ -261,6 +285,13 @@
 
                   <li>
                     <a routerLink="bank-viewall">Bank Details </a>
+                  </li>
+
+                  <li>
+                    <a routerLink="bank-viewall">Bank Details </a>
+                  </li>
+                  <li>
+                    <a routerLink="fargin-viewall">Fargin bank details </a>
                   </li>
 
 

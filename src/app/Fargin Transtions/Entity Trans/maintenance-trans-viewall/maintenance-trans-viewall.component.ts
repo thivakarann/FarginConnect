@@ -26,6 +26,7 @@ export class MaintenanceTransViewallComponent {
     'paymentmethod',
     'amount',
     'paidAt',
+    'receipt',
     'status',
     'view',
  
@@ -111,6 +112,20 @@ export class MaintenanceTransViewallComponent {
   reset() {
     window.location.reload();
   }
+
+
+  viewreciept(id:any){
+    console.log(id)
+ 
+  this.service.MaintenanceReciept(id).subscribe((res:any)=>{
+    const reader = new FileReader();
+    reader.readAsDataURL(res);
+    reader.onloadend = () => {
+    var downloadURL = URL.createObjectURL(res);
+    window.open(downloadURL);
+    }
+  })
+      }
  
  
   exportexcel() {

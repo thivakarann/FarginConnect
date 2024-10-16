@@ -180,6 +180,15 @@ import { EntityKyceditComponent } from './Entity Onboard/entity-kycedit/entity-k
 import { AddKyccategoryComponent } from './Main Master/kyccategory/add-kyccategory/add-kyccategory.component';
 import { ViewallKyccategoryComponent } from './Main Master/kyccategory/viewall-kyccategory/viewall-kyccategory.component';
 import { EditKyccategoryComponent } from './Main Master/kyccategory/edit-kyccategory/edit-kyccategory.component';
+import { FarginBankAddComponent } from './Main Master/Fargin Bank/fargin-bank-add/fargin-bank-add.component';
+import { FarginBankviewComponent } from './Main Master/Fargin Bank/fargin-bankview/fargin-bankview.component';
+import { FarginBankEditComponent } from './Main Master/Fargin Bank/fargin-bank-edit/fargin-bank-edit.component';
+import { EditSmsComponent } from './Entity Onboard/edit-sms/edit-sms.component';
+import { SmsCreateComponent } from './Entity Onboard/sms-create/sms-create.component';
+import { SMSHistoryComponent } from './SMS details/smshistory/smshistory.component';
+import { SMSHistoryViewComponent } from './SMS details/smshistory-view/smshistory-view.component';
+import { EntitySmsViewallComponent } from './SMS details/entity-sms-viewall/entity-sms-viewall.component';
+import { EntitySmsViewComponent } from './SMS details/entity-sms-view/entity-sms-view.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -338,7 +347,16 @@ import { EditKyccategoryComponent } from './Main Master/kyccategory/edit-kyccate
     EntityKyceditComponent,
     AddKyccategoryComponent,
     ViewallKyccategoryComponent,
-    EditKyccategoryComponent
+    EditKyccategoryComponent,
+    FarginBankAddComponent,
+    FarginBankviewComponent,
+    FarginBankEditComponent,
+    EditSmsComponent,
+    SmsCreateComponent,
+    SMSHistoryComponent,
+    SMSHistoryViewComponent,
+    EntitySmsViewallComponent,
+    EntitySmsViewComponent,
 
   ],
 
