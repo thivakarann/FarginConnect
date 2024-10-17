@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { Logout } from '../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../service/fargin-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-logout',
@@ -10,7 +11,7 @@ import { FarginServiceService } from '../service/fargin-service.service';
   styleUrl: './logout.component.css'
 })
 export class LogoutComponent {
-  constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) {
+  constructor(private router:Router,private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) {
 
   }
 
@@ -23,7 +24,9 @@ export class LogoutComponent {
     }
     this.service.Logout(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage)
+        this.toastr.success(res.responseMessage);
+        this.dialog.closeAll();
+        this.router.navigateByUrl('/login-page')
       }
     })
 

@@ -10,61 +10,74 @@ import { Businessedit } from '../../../fargin-model/fargin-model.module';
   templateUrl: './editcategory.component.html',
   styleUrl: './editcategory.component.css'
 })
-export class EditcategoryComponent implements OnInit{
+export class EditcategoryComponent implements OnInit {
 
-  editcategory:any=FormGroup;
+  editcategory: any = FormGroup;
   businessCategoryId: any;
-getadminname = JSON.parse(localStorage.getItem('adminname') || '');
-Adminid = JSON.parse(localStorage.getItem('adminid') || '');
+  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
+  Adminid = JSON.parse(localStorage.getItem('adminid') || '');
   categorys: any;
   mccCodes: any;
 
+  days: number[] = Array.from({ length: 31 }, (_, i) => i + 1); // Generates days 1 to 31
+  autoDebitDates: any;
 
-  constructor(private fb: FormBuilder,private dialog:MatDialog,private service:FarginServiceService,private toastr:ToastrService, @Inject(MAT_DIALOG_DATA) public data: any ) {
 
-    this.businessCategoryId=data.value.businessCategoryId;
-console.log(this.businessCategoryId)
+
+  constructor(private fb: FormBuilder, private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, @Inject(MAT_DIALOG_DATA) public data: any) {
+
+    this.businessCategoryId = data.value.businessCategoryId;
+    console.log(this.businessCategoryId)
   }
 
 
 
   ngOnInit(): void {
-       
+
     this.editcategory = this.fb.group({
       categoryName: new FormControl('', [Validators.required]),
       mccCode: new FormControl('', [Validators.required]),
+      autoDebitDate: new FormControl('', [Validators.required]),
       modifiedBy: new FormControl(''),
     });
 
-    this.categorys=this.data.value.categoryName
+    this.categorys = this.data.value.categoryName
     this.editcategory.controls['categoryName'].value = this.categorys
-    
-    this.mccCodes=this.data.value.mccCode
+
+    this.mccCodes = this.data.value.mccCode
     this.editcategory.controls['mccCode'].value = this.mccCodes
-    
+
+    this.autoDebitDates = this.data.value.autoDebitDate
+    this.editcategory.controls['autoDebitDate'].value = this.autoDebitDates
+
   }
 
 
-  
-  
-get  categoryName() {
-  return this.editcategory.get('categoryName');
-}
 
-get  mccCode() {
-  return this.editcategory.get('mccCode');
-}
 
-Editsubmit(){
-
-  let submitModel:Businessedit={
-    categoryName: this.categoryName.value,
-    mccCode: this.mccCode.value,
-    modifiedBy: this.getadminname
+  get categoryName() {
+    return this.editcategory.get('categoryName');
   }
-    
-    this.service.BusinessEdit(this.businessCategoryId,submitModel).subscribe((res:any)=>{
-      if(res.flag == 1){
+
+  get autoDebitDate() {
+    return this.editcategory.get('autoDebitDate');
+  }
+
+  get mccCode() {
+    return this.editcategory.get('mccCode');
+  }
+
+  Editsubmit() {
+
+    let submitModel: Businessedit = {
+      categoryName: this.categoryName.value,
+      mccCode: this.mccCode.value,
+      modifiedBy: this.getadminname,
+      autoDebitDate: this.autoDebitDate?.value
+    }
+
+    this.service.BusinessEdit(this.businessCategoryId, submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
         this.dialog.closeAll()
         setTimeout(() => {
@@ -73,7 +86,7 @@ Editsubmit(){
       } else {
         this.toastr.error(res.responseMessage)
       }
-        })
+    })
   }
 }
 

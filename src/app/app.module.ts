@@ -194,6 +194,10 @@ import { ApprovalBussinessdocumentComponent } from './Entity Onboard/bussiness-d
 import { CommentBussinessdocumentComponent } from './Entity Onboard/bussiness-document/comment-bussinessdocument/comment-bussinessdocument.component';
 import { EditBussinessdocumentComponent } from './Entity Onboard/bussiness-document/edit-bussinessdocument/edit-bussinessdocument.component';
 import { ImageBussinessdocumentComponent } from './Entity Onboard/bussiness-document/image-bussinessdocument/image-bussinessdocument.component';
+import { SmsCostViewallComponent } from './Main Master/SMS Cost/sms-cost-viewall/sms-cost-viewall.component';
+import { SMScostAddComponent } from './Main Master/SMS Cost/smscost-add/smscost-add.component';
+import { EntityAutoDebitGetallComponent } from './entity-auto-debit-getall/entity-auto-debit-getall.component';
+import { EntityAutoDebitByIdComponent } from './entity-auto-debit-by-id/entity-auto-debit-by-id.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -366,7 +370,11 @@ import { ImageBussinessdocumentComponent } from './Entity Onboard/bussiness-docu
     EditBussinessdocumentComponent,
     ImageBussinessdocumentComponent,
     ApprovalBussinessdocumentComponent,
-    CommentBussinessdocumentComponent
+    CommentBussinessdocumentComponent,
+    SmsCostViewallComponent,
+    SMScostAddComponent,
+    EntityAutoDebitGetallComponent,
+    EntityAutoDebitByIdComponent
 
   ],
 

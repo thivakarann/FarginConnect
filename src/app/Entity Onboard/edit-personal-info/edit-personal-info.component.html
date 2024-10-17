@@ -430,7 +430,25 @@
                         Field id required*
                     </div>
                 </div>
+                <div class="col-sm-4 form-group">
+                    <label for="billing">Auto Debit</label>
+                    <select ngModel="{{detaislone?.autoDebitStatus}}" formControlName="autoDebitStatus" type="text" class="form-select" id="billing">
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                    
+                    </select>
+                    <div style="
+                        color: red;
+                        font-size: 12px;
+                        margin-top: 2px;
+                        position: relative;
+                        ;
+                      " *ngIf="autoDebitStatus?.invalid && autoDebitStatus?.touched && autoDebitStatus?.errors?.['required']">
+                        Field id required*
+                    </div>
+                </div>
             </div>
+            
             <div>
                 <button (click)="submit()" type="submit" class="btn mx-1 " style="background-color:#7db855be"
                     [disabled]="this.myForm.invalid">Submit</button>

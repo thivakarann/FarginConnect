@@ -28,6 +28,7 @@ export class ServiceproviderEditComponent implements OnInit {
 
     this.AdminForm = new FormGroup({
       providerName: new FormControl('', [Validators.required]),
+      serviceProviderLink: new FormControl('', [Validators.required, Validators.pattern("^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+\/?$")]),
     });
 
     this.service.ProviderViewById(this.serviceId).subscribe((res: any) => {
@@ -38,6 +39,11 @@ export class ServiceproviderEditComponent implements OnInit {
   get providerName() {
     return this.AdminForm.get('providerName');
   }
+
+  get serviceProviderLink() {
+    return this.AdminForm.get('serviceProviderLink');
+  }
+
   togglePasswordVisibility(passwordInput: { type: string; }) {
     this.showPassword = !this.showPassword;
     passwordInput.type = this.showPassword ? 'text' : 'password';
@@ -45,8 +51,9 @@ export class ServiceproviderEditComponent implements OnInit {
   submit() {
     let submitmodel: Providerupdate = {
       serviceProviderName: this.providerName?.value,
+      serviceProviderLink: this.serviceProviderLink?.value,
       modifiedBy: this.getadmin,
-      serviceId:this.serviceId
+      serviceId: this.serviceId
     }
 
     this.service.ServiceProviderUpdate(submitmodel).subscribe((res: any) => {

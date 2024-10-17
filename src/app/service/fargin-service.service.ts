@@ -471,6 +471,17 @@ export class FarginServiceService {
   private readonly documentfrontedit = 'merchantdocument/updateFrontPath'
   private readonly documentbackedit = 'merchantdocument/updateBacPath'
 
+  // SMS Cost Setup
+
+  private readonly SMSCostviewall = 'smsConfig/getAmountDetails'
+  private readonly SMSCostadd = 'smsConfig/addAndUpdateAmount'
+  private readonly SMSCostStatus = 'smsConfig/updateStatus/'
+
+  // Auto Debit
+
+  private readonly Autodebitgetall = 'merchantdue/getall';
+  private readonly Autodebitbymerchat = 'merchantdue/viewbymerchant/'
+
 
 
 
@@ -1764,6 +1775,28 @@ export class FarginServiceService {
  
   documentBackedit(data: FormData) {
     return this.http.put(`${this.basePath}${this.documentbackedit}`, data, this.optionsMultipart);
+  }
+
+  // SMS Cost
+
+  smscostViewall(){
+    return this.http.get(`${this.basePath}${this.SMSCostviewall}`,this.options)
+  }
+
+  smscostadd(model:any){
+    return this.http.post(`${this.basePath}${this.SMSCostadd}`,model,this.options)
+  }
+  smscoststatus(id:any,model:any){
+    return this.http.put(`${this.basePath}${this.SMSCostStatus}${id}`,model,this.options)
+  }
+
+  // AUTO Debit
+
+  autodebitgetall(){
+    return this.http.get(`${this.basePath}${this.Autodebitgetall}`,this.options)
+  }
+  autodebitbymerchat(id:any){
+    return this.http.get(`${this.basePath}${this.Autodebitbymerchat}${id}`,this.options)
   }
 
 

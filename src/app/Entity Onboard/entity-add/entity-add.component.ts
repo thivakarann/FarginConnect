@@ -150,6 +150,7 @@ export class EntityAddComponent implements OnInit {
       ]),
       merchantPlanId: new FormControl('', [Validators.required]),
       periodName: new FormControl('', [Validators.required]),
+      autoDebitStatus: new FormControl('', [Validators.required]),
       logo: new FormControl(''),
       billingMode: new FormControl("", [
         Validators.required
@@ -232,6 +233,11 @@ export class EntityAddComponent implements OnInit {
     return this.myForm.get('entityName')
 
   }
+  get autoDebitStatus() {
+    return this.myForm.get('autoDebitStatus')
+
+  }
+
   get merchantLegalName() {
     return this.myForm.get('merchantLegalName')
 
@@ -766,6 +772,7 @@ export class EntityAddComponent implements OnInit {
     formData.append('website', this.website?.value || '-');
     formData.append('merchantLogo', this.file3 || this.emptyBlob);
     formData.append('billingMode', this.billingMode?.value);
+    formData.append('autoDebitStatus', this.autoDebitStatus?.value);
 
     this.AddEntity.EntityAdd(formData).subscribe((res: any) => {
       if (res.flag == 1) {
@@ -818,9 +825,7 @@ export class EntityAddComponent implements OnInit {
   }
 
 
-  close() {
-    this.router.navigateByUrl('dashboard/entity-viewall');
-  }
+ 
 
   kycsubmit() {
     const formData = new FormData();
@@ -841,6 +846,10 @@ export class EntityAddComponent implements OnInit {
     this.AddEntity.entitykycs(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.Bankdetails = false;
+        this.personeldetails = false;
+        this.KYCdetails = false;
+        this.BussinessDocument = true;
       } else {
         this.toastr.error(res.responseMessage);
       }
@@ -863,6 +872,10 @@ export class EntityAddComponent implements OnInit {
         this.toastr.error(res.responseMessage);
       }
     });
+  }
+
+  close() {
+    this.router.navigateByUrl('dashboard/entity-viewall');
   }
 
 

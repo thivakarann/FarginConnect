@@ -16,26 +16,36 @@ export class ServiceproviderAddComponent implements OnInit {
   getadminname = JSON.parse(localStorage.getItem('adminname') || '');
 
   constructor(private service: FarginServiceService, private toaster: ToastrService, private router: Router) { }
+
+
   ngOnInit(): void {
     this.AdminForm = new FormGroup({
       providerName: new FormControl('', [Validators.required]),
+      serviceProviderLink: new FormControl('', [Validators.required, Validators.pattern("^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+\/?$")]),
+
     })
   }
 
 
-
+  togglePasswordVisibility(passwordInput: { type: string; }) {
+    this.showPassword = !this.showPassword;
+    passwordInput.type = this.showPassword ? 'text' : 'password';
+  }
 
 
   get providerName() {
     return this.AdminForm.get('providerName');
   }
-  togglePasswordVisibility(passwordInput: { type: string; }) {
-    this.showPassword = !this.showPassword;
-    passwordInput.type = this.showPassword ? 'text' : 'password';
+
+  get serviceProviderLink() {
+    return this.AdminForm.get('serviceProviderLink');
   }
+
+
   submit() {
     let submitmodel: Providercreate = {
       serviceProviderName: this.providerName?.value,
+      serviceProviderLink: this.serviceProviderLink?.value,
       createdBy: this.getadminname
     }
 

@@ -1,0 +1,103 @@
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { FarginServiceService } from '../../../service/fargin-service.service';
+import { SMScostAddComponent } from '../smscost-add/smscost-add.component';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { smscoststatus } from '../../../fargin-model/fargin-model.module';
+
+@Component({
+  selector: 'app-sms-cost-viewall',
+  templateUrl: './sms-cost-viewall.component.html',
+  styleUrl: './sms-cost-viewall.component.css'
+})
+export class SmsCostViewallComponent {
+  dataSource!: MatTableDataSource<any>;
+  displayedColumns: string[] = [
+    'smsId',
+    'amount',
+    'smsStatus',
+    'Edit',
+    'createdBy',
+    'createdDateTime',
+    'modifedBy',
+    'modifedDateTime',
+  ];
+  viewall: any;
+  @ViewChild('tableContainer') tableContainer!: ElementRef;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  isChecked: boolean = false;
+  date1: any;
+  date2: any;
+  responseDataListnew: any = [];
+  response: any = [];
+
+  constructor(
+    public smsdetails: FarginServiceService,
+    private router: Router,
+    private dialog: MatDialog,
+    private toastr: ToastrService
+  ) { }
+
+  ngOnInit(): void {
+    this.smsdetails.smscostViewall().subscribe((res: any) => {
+      this.viewall = res.response;
+      this.viewall.reverse();
+      this.dataSource = new MatTableDataSource(this.viewall);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      console.log(this.viewall);
+    });
+  }
+
+  Addsms() {
+    this.dialog.open(SMScostAddComponent, {
+      enterAnimationDuration: "500ms",
+      exitAnimationDuration: "800ms",
+      disableClose: true
+    })
+  }
+
+  EditSMS(id:any){
+
+  }
+
+  ActiveStatus(event: MatSlideToggleChange, id: any) {
+    console.log(id)
+    this.isChecked = event.checked;
+
+    let submitModel: smscoststatus = {
+      smsStatus: this.isChecked ? 1 : 0,
+
+    };
+    this.smsdetails.smscoststatus(id,submitModel).subscribe((res: any) => {
+      console.log(res);
+      if (res.flag == 1) {
+        this.toastr.success(res.responseMessage);
+        setTimeout(() => {
+          window.location.reload()
+        }, 500);
+
+      }
+      else {
+        this.toastr.error(res.responseMessage);
+      }
+
+    });
+
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+}

@@ -60,6 +60,7 @@ export interface Businessadd {
   readonly categoryName: any;
   readonly mccCode: any;
   readonly createdBy: any;
+  readonly autoDebitDate:any;
 }
 
 
@@ -67,6 +68,7 @@ export interface Businessedit {
   readonly categoryName: any;
   readonly mccCode: any;
   readonly modifiedBy: any;
+  readonly autoDebitDate:any;
 }
 
 export interface Businessstatus {
@@ -437,11 +439,13 @@ export interface Providerstatus {
 
 export interface Providercreate {
   readonly serviceProviderName: any;
+  readonly serviceProviderLink:any;
   readonly createdBy: any;
 }
 
 export interface Providerupdate {
   readonly serviceProviderName: any;
+  readonly serviceProviderLink:any;
   readonly modifiedBy: any;
   readonly serviceId: any;
 }
@@ -924,6 +928,15 @@ export interface documentapproval{
   readonly approvalBy:any
   readonly approvalStatus:any
   readonly reMarks:any
+}
+
+export interface SMSCostAdd {
+  readonly amount:any;
+  readonly createdBy:any;
+}
+
+export interface smscoststatus {
+  readonly smsStatus:any;
 }
 
 

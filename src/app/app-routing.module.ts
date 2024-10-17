@@ -78,6 +78,9 @@ import { FarginBankviewComponent } from './Main Master/Fargin Bank/fargin-bankvi
 import { SMSHistoryComponent } from './SMS details/smshistory/smshistory.component';
 import { EntitySmsViewallComponent } from './SMS details/entity-sms-viewall/entity-sms-viewall.component';
 import { SMSHistoryViewComponent } from './SMS details/smshistory-view/smshistory-view.component';
+import { SmsCostViewallComponent } from './Main Master/SMS Cost/sms-cost-viewall/sms-cost-viewall.component';
+import { EntityAutoDebitGetallComponent } from './entity-auto-debit-getall/entity-auto-debit-getall.component';
+import { EntityAutoDebitByIdComponent } from './entity-auto-debit-by-id/entity-auto-debit-by-id.component';
 
 const routes: Routes = [
 
@@ -168,6 +171,9 @@ const routes: Routes = [
       {path:"entity-sms-viewall",component:EntitySmsViewallComponent},
       {path:"smshistory",component:SMSHistoryComponent},
       {path:"smshistory-view/:id",component:SMSHistoryViewComponent},
+      {path:'sms-cost-viewall',component:SmsCostViewallComponent},
+      {path:'entity-auto-debit-getall',component:EntityAutoDebitGetallComponent},
+      {path:'entity-auto-debit-by-id/:id',component:EntityAutoDebitByIdComponent}
 
 
 

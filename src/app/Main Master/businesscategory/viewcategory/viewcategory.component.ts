@@ -23,7 +23,7 @@ export class ViewcategoryComponent implements OnInit {
 
 
   dataSource: any;
-  displayedColumns: string[] = ["businessCategoryId", "categoryname", "mccCode", "status", "Edit", "createdBy", "createdDateTime", "modifiedBy", "modifiedDateTime"]
+  displayedColumns: string[] = ["businessCategoryId", "categoryname", "mccCode","autoDebitDate",  "status", "Edit", "createdBy", "createdDateTime","modifiedBy", "modifiedDateTime"]
   businesscategory: any;
   showcategoryData: boolean = false;
   errorMsg: any;
@@ -72,7 +72,7 @@ export class ViewcategoryComponent implements OnInit {
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
-          
+
           if (this.roleId == 1) {
             this.valueCategoryAdd = 'BussinessCategory-Add';
             this.valueCategoryEdit = 'BussinessCategory-Edit';
@@ -83,7 +83,7 @@ export class ViewcategoryComponent implements OnInit {
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
-              
+
 
               if (this.actions == 'BussinessCategory-Add') {
                 this.valueCategoryAdd = 'BussinessCategory-Add';

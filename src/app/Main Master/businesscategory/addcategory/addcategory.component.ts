@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './addcategory.component.css'
 })
 export class AddcategoryComponent implements OnInit {
+  days: number[] = Array.from({ length: 31 }, (_, i) => i + 1); // Generates days 1 to 31
 
   addcategory: any = FormGroup;
   createdBy = JSON.parse(localStorage.getItem('adminname') || '');
@@ -21,9 +22,12 @@ export class AddcategoryComponent implements OnInit {
   ngOnInit(): void {
 
 
+
+
     this.addcategory = new FormGroup({
       categoryName: new FormControl('', [Validators.required]),
       mccCode: new FormControl('', [Validators.required]),
+      autoDebitDate: new FormControl('', [Validators.required]),
 
     });
 
@@ -39,11 +43,16 @@ export class AddcategoryComponent implements OnInit {
     return this.addcategory.get('mccCode');
   }
 
+  get autoDebitDate() {
+    return this.addcategory.get('autoDebitDate');
+  }
+
   submit() {
     let submitModel: Businessadd = {
       categoryName: this.categoryName.value,
       mccCode: this.mccCode.value,
-      createdBy: this.createdBy
+      createdBy: this.createdBy,
+      autoDebitDate: this.autoDebitDate?.value
     };
 
 

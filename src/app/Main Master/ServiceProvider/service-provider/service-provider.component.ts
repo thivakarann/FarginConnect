@@ -28,6 +28,7 @@ export class ServiceProviderComponent implements OnInit {
   displayedColumns: string[] = [
     "sno",
     "providername",
+    "serviceProviderLink",
     "status",
     "Edit",
     "createdBy",

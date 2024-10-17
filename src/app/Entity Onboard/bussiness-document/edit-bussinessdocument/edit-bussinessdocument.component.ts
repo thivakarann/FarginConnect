@@ -21,6 +21,7 @@ export class EditBussinessdocumentComponent {
   getadminname = JSON.parse(localStorage.getItem('adminname') || '');
   merchantDocumentId: any;
   docNumbers: any;
+  categoryvalue: any;
 
   constructor(
     public service: FarginServiceService,
@@ -34,6 +35,7 @@ export class EditBussinessdocumentComponent {
     this.documentdata = this.data.value;
     console.log(this.documentdata);
     this.merchantDocumentId = this.data.value.merchantId.merchantDocumentId
+    this.categoryvalue=this.data.value.entityKycCategory.kycCategoryId
 
     this.docNumbers=this.data.value.docNumber
 

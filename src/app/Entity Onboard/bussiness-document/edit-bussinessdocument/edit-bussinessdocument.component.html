@@ -9,7 +9,7 @@
             <div class="form__row">
                 <div class="form__linput">
                     <label class="form__label" ><b>Document Name</b></label>
-                    <select class="form-select" formControlName="kycCategoryId"
+                    <select  [value]="categoryvalue" class="form-select" formControlName="kycCategoryId"
                         (change)="docProofChange($event)" >
                         <option *ngFor="let item of kycValue" [value]="item.kycCategoryId">{{item.kycCategoryName}}
                         </option>

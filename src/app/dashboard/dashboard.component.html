@@ -138,7 +138,7 @@
 
             <li class="sidebar-dropdown" style="cursor: pointer;">
               <a>
-                <i  class="fa-solid fa-comment-sms" style="font-size: 15px;"></i>
+                <i class="fa-solid fa-comment-sms" style="font-size: 15px;"></i>
                 <span>SMS</span>
               </a>
 
@@ -159,6 +159,13 @@
 
               </div>
 
+            </li>
+
+            <li>
+              <a routerLink="entity-auto-debit-getall">
+                <i class="fa fa-user-plus"></i>
+                <span>Auto Debit</span>
+              </a>
             </li>
 
 
@@ -259,11 +266,11 @@
                   </li>
 
                   <li>
-                    <a routerLink="viewall-kyccategory">KYC Category</a>
+                    <a routerLink="viewall-kyccategory">Bussiness Doc</a>
                   </li>
 
                   <li [hidden]="valueBusinessKYC!=='Business KYC'">
-                    <a routerLink="Business-kyc">Business KYC</a>
+                    <a routerLink="Business-kyc">Business Category Doc</a>
                   </li>
                   <!-- <li [hidden]="valueRegion!=='Region'">
                     <a routerLink="Region">Region</a>
@@ -284,12 +291,13 @@
                   </li>
 
                   <li>
-                    <a routerLink="bank-viewall">Bank Details </a>
+                    <a routerLink="sms-cost-viewall">SMS Cost</a>
                   </li>
 
                   <li>
                     <a routerLink="bank-viewall">Bank Details </a>
                   </li>
+
                   <li>
                     <a routerLink="fargin-viewall">Fargin bank details </a>
                   </li>
@@ -333,16 +341,16 @@
               <div class="sidebar-submenu">
                 <ul>
                   <li [hidden]="valuechannelConfiguration!=='Channel Configuration'">
-                    <a routerLink="alacarte-viewall">Channel Configuration
+                    <a routerLink="alacarte-viewall">Channel Creation
                     </a>
                   </li>
                   <li [hidden]="valueBroadcasterConfiguration!=='Broadcaster Configuration'">
-                    <a routerLink="bouquatename-viewall">Broadcaster Configuration</a>
+                    <a routerLink="bouquatename-viewall">Broadcaster Creation</a>
                   </li>
 
                   <li [hidden]="valuePlanConfiguration!=='Plan Configuration'">
                     <a routerLink="bouquete-plan-viewall">
-                      Plan Configuration
+                      Plan Creation
                     </a>
                   </li>
 

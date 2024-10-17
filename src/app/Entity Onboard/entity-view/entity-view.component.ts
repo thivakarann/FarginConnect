@@ -820,6 +820,12 @@ export class EntityViewComponent implements OnInit {
     });
     console.log(id);
   }
+  Viewautodebit(id: any) {
+    this.router.navigate([`dashboard/entity-auto-debit-by-id/${id}`], {
+      queryParams: { Alldata: id },
+    });
+    console.log(id);
+  }
 
   viewsettlement
     (id: any) {
