@@ -18,14 +18,13 @@ export class EntitySmsViewallComponent {
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = [
     'sno',
+    'accountId',
     'entityname',
-    'merchantname',
+    'entityemail',
     'smsType',
-    'mobileNum',
     'createdBy',
     'date',
-     'modifyBy',
-    'modifiedDate'
+   
  
   ];
   viewall: any;
@@ -49,14 +48,8 @@ export class EntitySmsViewallComponent {
   message: any;
   showData: boolean=false;
   smsResponse: any;
- 
- 
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
- 
- 
- 
   ngOnInit(): void {
-   
     this.service.SmsGetAll().subscribe((res: any) => {
       if (res.flag == 1) {
         this.smsResponse=res.response;
@@ -67,12 +60,8 @@ export class EntitySmsViewallComponent {
       else if(res.flag==2){
         this.message=res.responseMessage;
       }
- 
     })
   }
- 
- 
- 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -81,12 +70,6 @@ export class EntitySmsViewallComponent {
       this.dataSource.paginator.firstPage();
     }
   }
- 
- 
- 
- 
- 
- 
   exportexcel() {
     console.log('check');
     let sno = 1;
@@ -99,22 +82,15 @@ export class EntitySmsViewallComponent {
       this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
       this.response.push(sno);
+      this.response.push(element?.merchantId?.accountId);
+ 
       this.response.push(element?.merchantId?.entityName);
-      this.response.push(element?.merchantId?.merchantLegalName);
-      if (element?.type == 'Entity') {
-        this.response.push(element?.type);
-      }
-      else if (element?.type == 'Customer') {
-        this.response.push(element?.type);
-      }
-      else if (element?.type == 'Cash') {
-        this.response.push(element?.type);
-      }
+      this.response.push(element?.merchantId?.contactEmail);
+     this.response.push(element?.type?.smsTitle)
       this.response.push(element?.merchantId?.contactMobile);
       this.response.push(element?.createdBy);
       this.response.push(this.date1);
-      this.response.push(element?.modifedBy);
-      this.response.push(this.date2);
+   
  
      
       sno++;
@@ -126,15 +102,14 @@ export class EntitySmsViewallComponent {
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
-      'sno',
+   'sno',
+    'accountId',
     'entityname',
-    'merchantname',
+    'entityemail',
     'smsType',
-    'mobileNum',
     'createdBy',
-    'Createddate',
-    'modifyBy',
-    'modifiedDate'
+    'date',
+   
     ]
  
  
@@ -173,8 +148,6 @@ export class EntitySmsViewallComponent {
       let qty4 = row.getCell(5);
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
-      let qty7 = row.getCell(8);
-      let qty8 = row.getCell(9);
  
  
  
@@ -187,8 +160,6 @@ export class EntitySmsViewallComponent {
       qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
  
  
     }
@@ -198,7 +169,7 @@ export class EntitySmsViewallComponent {
     // worksheet.getColumn(3).protection = { locked: true, hidden: true }
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      FileSaver.saveAs(blob, 'Sms-settings.xlsx');
+      FileSaver.saveAs(blob, 'Sms-ViewAll.xlsx');
     });
-  }
+}
 }

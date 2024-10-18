@@ -21,19 +21,21 @@ export class EditSmsComponent {
  
   @ViewChild('selects') selects: any = MatSelect;
   allSelected = false;
-
-  options = [
-    { value: '1', viewValue: 'Entity' },
-    { value: '2', viewValue: 'Customer' },
-    { value: '3', viewValue: 'Cash' },
-  ];
+ 
   merchantsmsId: any;
+  options: any;
  
   constructor(private router: Router, private Approval: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog) { }
   ngOnInit(): void {
+ 
+    this.Approval.SmsDropdownGetAll().subscribe((res:any)=>{
+      if(res.flag==1){
+        this.options=res.response;
+      }
+    })
     this.id = this.data.value
     this.merchantsmsId=this.data.value.merchantSmsId;
-    
+   
     console.log(this.merchantsmsId);
  
     this.myForm = new FormGroup({
@@ -47,8 +49,8 @@ export class EditSmsComponent {
     return this.myForm.get('smsFor')
  
   }
-
-
+ 
+ 
   submit() {
     let submitModel: SmsUpdate = {
       smsType: this.smsFor?.value,
@@ -60,7 +62,7 @@ export class EditSmsComponent {
         this.dialog.closeAll();
         setTimeout(() => {
           window.location.reload()
-        }, 500);   
+        }, 500);  
            }
       else {
         this.toastr.error(res.responseMessage)

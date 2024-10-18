@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { ApprovalBank, bankData, bankedit, BankPrimaryStatus, BankStatus, Bankverficiation, EmailTrigger, Facheckverification, KycApproval, PassPortverification, PgOnboard, SmsStatus, verification, verify, VoterIdVerify } from '../../fargin-model/fargin-model.module';
+import { ApprovalBank, bankData, bankedit, BankPrimaryStatus, Bankverficiation, EmailTrigger, Facheckverification, KycApproval, PassPortverification, PgOnboard, settopStatus, SmsStatus, verification, verify, VoterIdVerify } from '../../fargin-model/fargin-model.module';
 import { ApprovalForBankComponent } from '../approval-for-bank/approval-for-bank.component';
 import { CommentsForApprovalComponent } from '../comments-for-approval/comments-for-approval.component';
 import { KycApprovalComponent } from '../kyc-approval/kyc-approval.component';
@@ -38,6 +38,8 @@ import { ApprovalBussinessdocumentComponent } from '../bussiness-document/approv
 import { CommentBussinessdocumentComponent } from '../bussiness-document/comment-bussinessdocument/comment-bussinessdocument.component';
 import { EditBussinessdocumentComponent } from '../bussiness-document/edit-bussinessdocument/edit-bussinessdocument.component';
 import { ImageBussinessdocumentComponent } from '../bussiness-document/image-bussinessdocument/image-bussinessdocument.component';
+import { SmsApprovalComponent } from '../sms-approval/sms-approval.component';
+import { SmsHistoryEntityComponent } from '../sms-history-entity/sms-history-entity.component';
 
 @Component({
   selector: 'app-entity-view',
@@ -388,7 +390,7 @@ export class EntityViewComponent implements OnInit {
 
   bankStatus(event: any, id: any) {
     this.isChecked = event.checked;
-    let submitModel: BankStatus = {
+    let submitModel: settopStatus = {
       activeStatus: this.isChecked ? 1 : 0,
     };
     this.MerchantView.BankActiveStatus(id, submitModel).subscribe((res: any) => {
@@ -1660,6 +1662,24 @@ export class EntityViewComponent implements OnInit {
       })
     }
    
-    
+    SmsApproval(id:any){
+      this.dialog.open(SmsApprovalComponent,{
+        enterAnimationDuration: "1000ms",
+        exitAnimationDuration: "1000ms",
+        disableClose: true,
+        data: { value: id }
+      })
+    }
+    ViewMerchantSms(id:any){
+      this.merchantsmsId=id;
+      this.dialog.open(SmsHistoryEntityComponent, {
+        enterAnimationDuration: "1000ms",
+        exitAnimationDuration: "1000ms",
+        disableClose: true,
+        data: { value: this.id ,
+          value1:this.merchantsmsId
+        }
+      })
+    }
 
 }

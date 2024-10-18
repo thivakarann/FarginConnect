@@ -10,8 +10,8 @@
                     <label class="form__label" for="smsFor">SMS For</label>
                     <select id="Bussiness category" class="form-select" formControlName="smsFor">
                         <option value="" disabled selected>Select</option>
-                        <option  [value]="items.value" *ngFor="let items of options">
-                            {{items?.viewValue}}</option>
+                        <option  [value]="items.smsTempId" *ngFor="let items of options">
+                            {{items?.smsTitle}}</option>
                     </select>
                     <!-- <mat-select #selects style="font-size: 12px;" class="form-select" multiple formControlName="smsFor">
                         <div class="select-all">
@@ -19,10 +19,10 @@
                                 (change)="toggleAllSelection()">Select All</mat-checkbox>
                         </div>
                         <mat-option [value]="items.value" *ngFor="let items of options">
-
+ 
                             {{items?.viewValue}}</mat-option>
                     </mat-select> -->
-
+ 
                     <div style="
             color: red;
             font-size: 12px;
@@ -34,7 +34,7 @@
                     </div>
                 </div>
             </div>
-          
+         
             <div class="mb-3">
                 <button (click)="submit()" [disabled]="myForm.invalid" type="submit" class="btn mx-1 "
                     style="background-color:#7db855be">Submit</button>

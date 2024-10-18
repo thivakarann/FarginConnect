@@ -161,9 +161,16 @@
 
             </li>
 
+            <li [hidden]="valueannouncement!=='Announcement'">
+              <a routerLink="view-announcement">
+                <i class="fa fa-bullhorn"></i>
+                <span>Announcement</span>
+              </a>
+            </li>
+
             <li>
               <a routerLink="entity-auto-debit-getall">
-                <i class="fa fa-user-plus"></i>
+                <i style="font-size: 15px;" class="fa-solid fa-money-bill-transfer"></i>
                 <span>Auto Debit</span>
               </a>
             </li>

@@ -198,6 +198,13 @@ import { SmsCostViewallComponent } from './Main Master/SMS Cost/sms-cost-viewall
 import { SMScostAddComponent } from './Main Master/SMS Cost/smscost-add/smscost-add.component';
 import { EntityAutoDebitGetallComponent } from './entity-auto-debit-getall/entity-auto-debit-getall.component';
 import { EntityAutoDebitByIdComponent } from './entity-auto-debit-by-id/entity-auto-debit-by-id.component';
+import { AddAnnouncementComponent } from './Announcement/add-announcement/add-announcement.component';
+import { AnnouncementviewComponent } from './Announcement/announcementview/announcementview.component';
+import { EditAnnouncementComponent } from './Announcement/edit-announcement/edit-announcement.component';
+import { ViewAnnouncementComponent } from './Announcement/view-announcement/view-announcement.component';
+import { SmsApprovalComponent } from './Entity Onboard/sms-approval/sms-approval.component';
+import { SmsHistoryEntityComponent } from './Entity Onboard/sms-history-entity/sms-history-entity.component';
+import { PlanDetailsCustomerComponent } from './Overall-Customer/plan-details-customer/plan-details-customer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -374,7 +381,18 @@ import { EntityAutoDebitByIdComponent } from './entity-auto-debit-by-id/entity-a
     SmsCostViewallComponent,
     SMScostAddComponent,
     EntityAutoDebitGetallComponent,
-    EntityAutoDebitByIdComponent
+    EntityAutoDebitByIdComponent,
+    AddAnnouncementComponent,
+    EditAnnouncementComponent,
+    ViewAnnouncementComponent,
+    AnnouncementviewComponent,
+    SmsApprovalComponent,
+    SmsHistoryEntityComponent,
+    PlanDetailsCustomerComponent
+    
+ 
+    
+    
 
   ],
 

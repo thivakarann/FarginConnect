@@ -20,7 +20,6 @@ import { RegionStatus } from '../../fargin-model/fargin-model.module';
 })
 export class RegionComponent implements OnInit {
 
-
   dataSource: any;
   displayedColumns: string[] =
     [
@@ -71,9 +70,9 @@ export class RegionComponent implements OnInit {
       next: (res: any) => {
         console.log(res);
 
-        if (res.flag==1) {
+        if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
-          
+
           if (this.roleId == 1) {
             this.regionAdd = 'Region-Add';
             this.regionexport = 'Region-Export';
@@ -130,7 +129,9 @@ export class RegionComponent implements OnInit {
     this.dialog.open(RegionAddComponent, {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
-      disableClose:true,
+      disableClose: true,
+      width: '80vw',// Use percentage to make it responsive
+      maxWidth: '500px',
     });
   }
 
@@ -142,7 +143,7 @@ export class RegionComponent implements OnInit {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
       data: { value: id },
-      disableClose:true,
+      disableClose: true,
     });
 
   }
@@ -309,4 +310,11 @@ export class RegionComponent implements OnInit {
     }
   }
 
+
+  reload() {
+    window.location.reload()
+  }
+
 }
+
+

@@ -103,6 +103,10 @@ export class FarginServiceService {
   //Overall customer
   private readonly Overallcustomer = 'customer/viewByAll';
   private readonly Entityindividualcustomerview = 'customer/viewById/';
+  private readonly viewcustomerbasicdetails = 'customer/viewcustomer/';
+  private readonly viewSetupboxDetails = 'customer/viewcustomerstb/';
+  private readonly viewsetupboxplan = 'customer/viewcustomerstbplan/';
+  private readonly activestatussetupbox = 'customer/updateStbStatus/';
 
   //entity bank
 
@@ -449,6 +453,9 @@ export class FarginServiceService {
   private readonly smsstatus = 'merchantSms/updateStatus/';
   private readonly editsms = 'merchantSms/updateMerchantSms/';
   private readonly smsgetAll = 'merchantSms/getAllMerchantSms';
+  private readonly smsdropdown = 'merchantSms/viewsms';
+  private readonly smscount = 'smshistory/viewbymerchantandtype/';
+  private readonly smsapproval = 'merchantSms/updateApproval/';
 
   //sms history
   private readonly smshistory = 'smshistory/viewall';
@@ -480,7 +487,18 @@ export class FarginServiceService {
   // Auto Debit
 
   private readonly Autodebitgetall = 'merchantdue/getall';
-  private readonly Autodebitbymerchat = 'merchantdue/viewbymerchant/'
+  private readonly Autodebitbymerchat = 'merchantdue/viewbymerchant/';
+
+
+  //anouncement
+  private readonly announcementadd = 'announcement/add'
+  private readonly announcementviewall = 'announcement/getall'
+  private readonly announcementedit = 'announcement/update'
+  private readonly announcementstatus = 'announcement/updateStatus'
+  private readonly announcementdate = 'announcement/dateFilter/';
+
+
+
 
 
 
@@ -1305,6 +1323,24 @@ export class FarginServiceService {
     return this.http.get(`${this.basePath}${this.Entityindividualcustomerview}${id}`, this.options)
   }
 
+  ViewCustomerBasicInfo(id:any){
+    return this.http.get(`${this.basePath}${this.viewcustomerbasicdetails}${id}`,this.options)
+  }
+ 
+ 
+  ViewCustomersSetupBox(id:any){
+    return this.http.get(`${this.basePath}${this.viewSetupboxDetails}${id}`,this.options)
+  }
+ 
+ 
+  ActiveStatusSetupbox(id:any,model:any){
+    return this.http.put(`${this.basePath}${this.activestatussetupbox}${id}`,model,this.options)
+  }
+ 
+  ViewSetupBoxPlanDetails(id:any){
+    return this.http.get(`${this.basePath}${this.viewsetupboxplan}${id}`,this.options)
+  }
+
 
 
   //payment dues
@@ -1750,53 +1786,84 @@ export class FarginServiceService {
   documentAdd(data: FormData) {
     return this.http.post(`${this.basePath}${this.documentadd}`, data, this.optionsMultipart);
   }
- 
- 
- 
-  documentEdit(data:any){
+
+
+
+  documentEdit(data: any) {
     return this.http.put(`${this.basePath}${this.documentedit}`, data, this.options);
   }
-  documentApproval(id:any,data:any){
+  documentApproval(id: any, data: any) {
     return this.http.put(`${this.basePath}${this.documentapproval}${id}`, data, this.options);
   }
- 
+
   getdocumentImage(id: any, id1: any) {
     return this.http.get(`${this.basePath}${this.documentImage}${id}/${id1}`, {
       ...this.options,
       ...{ responseType: 'blob' }
     })
   }
- 
- 
+
+
   documentFrontedit(data: FormData) {
     return this.http.put(`${this.basePath}${this.documentfrontedit}`, data, this.optionsMultipart);
   }
- 
- 
+
+
   documentBackedit(data: FormData) {
     return this.http.put(`${this.basePath}${this.documentbackedit}`, data, this.optionsMultipart);
   }
 
   // SMS Cost
 
-  smscostViewall(){
-    return this.http.get(`${this.basePath}${this.SMSCostviewall}`,this.options)
+  smscostViewall() {
+    return this.http.get(`${this.basePath}${this.SMSCostviewall}`, this.options)
   }
 
-  smscostadd(model:any){
-    return this.http.post(`${this.basePath}${this.SMSCostadd}`,model,this.options)
+  smscostadd(model: any) {
+    return this.http.post(`${this.basePath}${this.SMSCostadd}`, model, this.options)
   }
-  smscoststatus(id:any,model:any){
-    return this.http.put(`${this.basePath}${this.SMSCostStatus}${id}`,model,this.options)
+  smscoststatus(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.SMSCostStatus}${id}`, model, this.options)
   }
 
   // AUTO Debit
 
-  autodebitgetall(){
-    return this.http.get(`${this.basePath}${this.Autodebitgetall}`,this.options)
+  autodebitgetall() {
+    return this.http.get(`${this.basePath}${this.Autodebitgetall}`, this.options)
   }
-  autodebitbymerchat(id:any){
-    return this.http.get(`${this.basePath}${this.Autodebitbymerchat}${id}`,this.options)
+  autodebitbymerchat(id: any) {
+    return this.http.get(`${this.basePath}${this.Autodebitbymerchat}${id}`, this.options)
+  }
+
+  //announcement
+  announcementAdd(data: any) {
+    return this.http.post(`${this.basePath}${this.announcementadd}`, data, this.options);
+  }
+
+  announcementViewall() {
+    return this.http.get(`${this.basePath}${this.announcementviewall}`, this.options)
+  }
+
+  announcementEdit(data: any) {
+    return this.http.put(`${this.basePath}${this.announcementedit}`, data, this.options);
+  }
+
+  announcementStatus(data: any) {
+    return this.http.put(`${this.basePath}${this.announcementstatus}`, data, this.options);
+  }
+
+  announcementDate(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.announcementdate}${id}/${id1}`, this.options)
+  }
+
+  SmsDropdownGetAll() {
+    return this.http.get(`${this.basePath}${this.smsdropdown}`, this.options)
+  }
+  SmsCount(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.smscount}${id}/${id1}`, this.options)
+  }
+  SmsApproval(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.smsapproval}${id}`, model, this.options)
   }
 
 

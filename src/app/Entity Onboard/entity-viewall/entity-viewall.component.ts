@@ -21,12 +21,12 @@ export class EntityViewallComponent {
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = [
     'merchantId',
-    'entityName',
-    'contactEmail',
     'accountId',
     'referenceNo',
+    // 'entityName',
     'merchantLegalName',
     'businessCategoryModel',
+    'contactEmail',
     'finalapproval',
     'pgonboard',
     'status',

@@ -171,7 +171,7 @@ export interface AddEntityBank {
 }
 
 
-export interface BankStatus {
+export interface settopStatus {
   readonly activeStatus: boolean | number;
 }
 
@@ -938,6 +938,37 @@ export interface SMSCostAdd {
 export interface smscoststatus {
   readonly smsStatus:any;
 }
+
+
+export interface announceAdd{
+  readonly businessCategoryId:any;
+  readonly announcementContentEnglish:any;
+  readonly startDate:any;
+  readonly endDate:any;
+  readonly createdBy:any
+}
+ 
+export interface announceEdit{
+  readonly announcementId:any;
+  readonly businessCategoryId:any;
+  readonly announcementContentEnglish:any;
+  readonly startDate:any;
+  readonly endDate:any;
+  readonly updatedBy:any
+}
+ 
+export interface announcestatus{
+  readonly announcementId:any;
+  readonly activeStatus:any
+}
+
+
+
+export interface SMSApproval{
+readonly smsApprovalStatus:any;
+readonly smsApprovedBy:any;
+}
+
 
 
 

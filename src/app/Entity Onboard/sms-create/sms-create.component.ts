@@ -13,30 +13,35 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   templateUrl: './sms-create.component.html',
   styleUrl: './sms-create.component.css'
 })
-export class SmsCreateComponent implements OnInit{
+export class SmsCreateComponent implements OnInit {
   merchantid: any;
-  myForm4!:FormGroup;
+  myForm4!: FormGroup;
   getadminname = JSON.parse(localStorage.getItem('adminname') || '');
+  options: any;
 
   constructor(
     public service: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
     private dialog: MatDialog,
-     @Inject(MAT_DIALOG_DATA) public data: any,) { }
+    @Inject(MAT_DIALOG_DATA) public data: any,) { }
 
   ngOnInit(): void {
-    this.merchantid=this.data.value;
+    this.merchantid = this.data.value;
 
-    
+    this.service.SmsDropdownGetAll().subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.options = res.response;
+      }
+    })
     this.myForm4 = new FormGroup({
       smsFor: new FormControl('', [
         Validators.required,
-       
+
       ]),
-    
- 
-     
+
+
+
     })
   }
 
@@ -45,42 +50,38 @@ export class SmsCreateComponent implements OnInit{
   allSelected = false;
 
   merchantId: any;
-  options = [
-    { value: '1', viewValue: 'Entity' },
-    { value: '2', viewValue: 'Customer' },
-    { value: '3', viewValue: 'Cash' },
-  ];
+
 
   get smsFor() {
     return this.myForm4.get('smsFor')
 
   }
-  toggleAllSelection(){
+  toggleAllSelection() {
     if (this.allSelected) {
       this.selects.options.forEach((item: MatOption) => item.select());
     } else {
       this.selects.options.forEach((item: MatOption) => item.deselect());
     }
   }
- 
-  smsSubmit(){
-    let submitModel:CreateSMS={
+
+  smsSubmit() {
+    let submitModel: CreateSMS = {
       merchantId: this.merchantid,
       type: this.smsFor?.value,
       createdBy: this.getadminname
     }
     console.log(submitModel)
-    this.service.CreateSMS(submitModel).subscribe((res:any)=>{
-  if(res.flag==1){
-    this.toastr.success(res.responseMessage);
-    this.dialog.closeAll();
-    setTimeout(() => {
-      window.location.reload()
-    }, 500);
-  }
-  else{
-    this.toastr.error(res.responseMessage);
-  }
-})
+    this.service.CreateSMS(submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.toastr.success(res.responseMessage);
+        this.dialog.closeAll();
+        setTimeout(() => {
+          window.location.reload()
+        }, 500);
+      }
+      else {
+        this.toastr.error(res.responseMessage);
+      }
+    })
   }
 }

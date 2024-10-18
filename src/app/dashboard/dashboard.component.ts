@@ -44,6 +44,7 @@ export class DashboardComponent implements OnInit {
   valuefarginpolicy: any;
   valueMerchantpolicy: any;
   counts: any;
+  valueannouncement:any;
 
 
   constructor(private elRef: ElementRef,
@@ -99,6 +100,7 @@ export class DashboardComponent implements OnInit {
       this.valueentitydues = 'Entity Dues';
       this.valuefarginpolicy = 'Fargin Policy'
       this.valueMerchantpolicy = 'Merchant Policy'
+      this.valueannouncement='Announcement'
 
 
     }
@@ -171,6 +173,10 @@ export class DashboardComponent implements OnInit {
         }
         if (this.roles == 'Merchant Policy') {
           this.valueMerchantpolicy = 'Merchant Policy'
+        }
+
+        if(this.roles=='Announcement'){
+          this.valueannouncement='Announcement'
         }
       }
     }

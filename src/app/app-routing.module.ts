@@ -81,6 +81,8 @@ import { SMSHistoryViewComponent } from './SMS details/smshistory-view/smshistor
 import { SmsCostViewallComponent } from './Main Master/SMS Cost/sms-cost-viewall/sms-cost-viewall.component';
 import { EntityAutoDebitGetallComponent } from './entity-auto-debit-getall/entity-auto-debit-getall.component';
 import { EntityAutoDebitByIdComponent } from './entity-auto-debit-by-id/entity-auto-debit-by-id.component';
+import { ViewAnnouncementComponent } from './Announcement/view-announcement/view-announcement.component';
+import { PlanDetailsCustomerComponent } from './Overall-Customer/plan-details-customer/plan-details-customer.component';
 
 const routes: Routes = [
 
@@ -173,7 +175,9 @@ const routes: Routes = [
       {path:"smshistory-view/:id",component:SMSHistoryViewComponent},
       {path:'sms-cost-viewall',component:SmsCostViewallComponent},
       {path:'entity-auto-debit-getall',component:EntityAutoDebitGetallComponent},
-      {path:'entity-auto-debit-by-id/:id',component:EntityAutoDebitByIdComponent}
+      {path:'entity-auto-debit-by-id/:id',component:EntityAutoDebitByIdComponent},
+      {path:'view-announcement',component:ViewAnnouncementComponent},
+      {path:'plan-details-customer/:id',component:PlanDetailsCustomerComponent}
 
 
 
