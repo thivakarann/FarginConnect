@@ -71,10 +71,11 @@ export class ResetPasswordComponent {
       newPassword: this.newPassword?.value
     }
 
+    
     this.service.ResetPassword(submitmodel).subscribe((res:any)=>{
       if(res.flag==1){
-        this.toaster.error(res.responseMessage)
-
+        this.toaster.success(res.responseMessage)
+ 
         this.router.navigate([`/login-page`], {
           // queryParams: { emailAddress: this.emailAddress },
         });
@@ -83,5 +84,6 @@ export class ResetPasswordComponent {
         this.toaster.error(res.responseMessage)
       }
     })
+ 
   }
 }

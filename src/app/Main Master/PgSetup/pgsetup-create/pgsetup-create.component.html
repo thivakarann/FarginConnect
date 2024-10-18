@@ -13,7 +13,12 @@
             <div class="form__grid">
                 <div class="form__linput">
                     <label class="form__label" for="pgMode">PG Mode</label>
-                    <input class="form-control" id="pgMode" type="text" formControlName="pgMode" placeholder="Enter PG mode..." required/>
+                    <select class="form-select" formControlName="pgMode">
+                    
+                        <option value="Live">Live</option>
+                        <option value="Test">Test</option>
+                    </select>
+                    <!-- <input class="form-control" id="pgMode" type="text" formControlName="pgMode" placeholder="Enter PG mode..." required/> -->
                     <div class="form__error" *ngIf="pgMode?.invalid && pgMode?.touched && pgMode?.errors?.['required']">
                         Field is required
                     </div>

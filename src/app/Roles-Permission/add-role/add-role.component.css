@@ -5,7 +5,7 @@
 *::after {
   box-sizing: border-box;
 }
-
+ 
  
 button {
   font: inherit;
@@ -17,7 +17,7 @@ button {
   display: grid;
   grid-template-areas: "main";
   height: auto;
-
+ 
   font-family: var(--font-sans);
 }
  
@@ -33,10 +33,10 @@ button {
 }
 .form .main__form{
   width: 500px;
-
+ 
 }
  
-
+ 
 .main__form {
   width: 100%;
   max-width: 30em;
@@ -161,4 +161,7 @@ button {
   background-color: #bcdf72;
   color: white;
   font-family: "Roboto";
+}
+mat-select{
+  width:470px
 }

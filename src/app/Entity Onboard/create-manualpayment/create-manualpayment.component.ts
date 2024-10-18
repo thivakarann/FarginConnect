@@ -60,13 +60,14 @@ export class CreateManualpaymentComponent implements OnInit{
  
     this.Approval.CreateManualPayment(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toastr.success(res.response);
+        this.toastr.success(res.responseMessage);
         this.dialog.closeAll();
         setTimeout(() => {
           window.location.reload()
         }, 500);      }
       else {
-        this.toastr.error(res.response)
+        this.toastr.error(res.responseMessage);
+        this.dialog.closeAll();
       }
     })
   }

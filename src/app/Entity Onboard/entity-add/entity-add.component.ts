@@ -53,7 +53,7 @@ export class EntityAddComponent implements OnInit {
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
   thirdFormGroup!: FormGroup;
-  fourthFormGroup!:FormGroup;
+  fourthFormGroup!: FormGroup;
   selectElement: any;
   selectElements: any;
   select: any;
@@ -114,15 +114,15 @@ export class EntityAddComponent implements OnInit {
         Validators.pattern('^[0-9]{10}$')
       ]),
       secondaryMobile: new FormControl('', [
-        // Validators.maxLength(10),
-        // Validators.pattern('^[0-9]{10}$')
+        Validators.maxLength(10),
+        Validators.pattern('^[0-9]{10}$')
       ]),
       contactEmail: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$')
       ]),
-      website: new FormControl(''),
-      gstIn: new FormControl(''),
+      website: new FormControl('',[Validators.pattern(/^(https ?: \/\/)?(www\.)?[ a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+$/)]),
+      gstIn: new FormControl("", [Validators.pattern("^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[A-Z]{1}[0-9A-Z]{1}$")]),
       billingAddress: new FormControl("", [
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9 ]*$')
@@ -213,11 +213,11 @@ export class EntityAddComponent implements OnInit {
       signatureBackPath: [null, Validators.required]
     });
 
-    this.fourthFormGroup=this._formBuilder.group({
-      kycCategoryId:['',Validators.required],
-      docNumber:[''],
-      docFrontPath :['',Validators.required],
-      docBackPath :['']
+    this.fourthFormGroup = this._formBuilder.group({
+      kycCategoryId: ['', Validators.required],
+      docNumber: [''],
+      docFrontPath: ['', Validators.required],
+      docBackPath: ['']
     })
 
 
@@ -427,19 +427,19 @@ export class EntityAddComponent implements OnInit {
 
   // Bussiness form 
 
-  get kycCategoryId(){
+  get kycCategoryId() {
     return this.fourthFormGroup.get('kycCategoryId')
   }
-   
-  get docNumber(){
+
+  get docNumber() {
     return this.fourthFormGroup.get('docNumber')
   }
-   
-  get docFrontPath (){
+
+  get docFrontPath() {
     return this.fourthFormGroup.get('docFrontPath')
   }
-   
-  get docBackPath(){
+
+  get docBackPath() {
     return this.fourthFormGroup.get('docBackPath')
   }
 
@@ -813,7 +813,7 @@ export class EntityAddComponent implements OnInit {
         this.Bankdetails = false;
         this.personeldetails = false;
         this.KYCdetails = true;
-    
+
 
 
       } else {
@@ -825,7 +825,7 @@ export class EntityAddComponent implements OnInit {
   }
 
 
- 
+
 
   kycsubmit() {
     const formData = new FormData();

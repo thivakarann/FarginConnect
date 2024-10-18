@@ -114,6 +114,10 @@ export class ViewPolicyComponent implements OnInit {
     this.router.navigateByUrl('dashboard/add-policy');
   }
 
+  close() {
+    this.dialog.closeAll();
+  }
+
 
 
   Edit(id: any) {

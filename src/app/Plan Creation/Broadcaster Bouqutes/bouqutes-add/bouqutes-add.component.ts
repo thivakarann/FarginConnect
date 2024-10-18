@@ -146,7 +146,7 @@ export class BouqutesAddComponent implements OnInit {
         // this.router.navigateByUrl('/dashboard/bouquets-viewall')
         setTimeout(() => {
           window.location.reload()
-        }, 1000)
+        },500)
 
       }
       else {

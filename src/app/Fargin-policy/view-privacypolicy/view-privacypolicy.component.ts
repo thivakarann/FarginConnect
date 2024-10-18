@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FarginServiceService } from '../../service/fargin-service.service';
 
 @Component({
@@ -9,9 +9,13 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 })
 export class ViewPrivacypolicyComponent  implements OnInit {
   privacypolicyvalue: any;
-  constructor(private service: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any,) { }
+  constructor(private dialog:MatDialog,private service: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any,) { }
   ngOnInit(): void {
     this.privacypolicyvalue = this.data.value.privacyPolicy
+  }
+
+  close() {
+    this.dialog.closeAll();
   }
 
 }

@@ -36,7 +36,7 @@ export class BouquateNameAddComponent implements OnInit {
 
   }
 
-  
+
 
   submit() {
     let submitModel: addBouquetname = {

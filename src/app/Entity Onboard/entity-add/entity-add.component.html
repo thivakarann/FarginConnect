@@ -134,28 +134,28 @@
                 <div class="col-sm-4 form-group">
                     <label for="gsts">GSTIN(Optional)</label>
                     <input formControlName="gstIn" type="text" id="gsts" class="form-control">
-                    <!-- <div style="
-                        color: red;
-                        font-size: 12px;
-                        margin-top: 2px;
-                        position: relative;
-                        ;
-                      " *ngIf="gstIn?.errors?.['pattern']">
-                        Enter a Valid GST Number
-                    </div> -->
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="gstIn?.invalid && gstIn?.touched && gstIn?.errors?.['pattern']">
+                    Enter a Valid GST Number
+                    </div>
                 </div>
                 <div class="col-sm-4 form-group">
                     <label for="websites">Website (Optional)</label>
                     <input type="text" formControlName="website" id="websites" class="form-control">
-                    <!-- <div style="
-                        color: red;
-                        font-size: 12px;
-                        margin-top: 2px;
-                        position: relative;
-                        ;
-                      " *ngIf="website?.errors?.['pattern']">
-                        Enter a Valid Website
-                    </div> -->
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="website?.invalid && website?.touched && website?.errors?.['pattern']">
+                    Enter a Valid Link
+                    </div>
                 </div>
                 <div class="col-sm-4 form-group">
                     <label for="countrys">Country*</label>
@@ -367,7 +367,7 @@
                 </div>
                 <div class="col-sm-4 form-group">
                     <label for="secondary">Secondary Mobile Number(Optional)</label>
-                    <input maxLength="10" formControlName="secondaryMobile" type="text" id="secondary"
+                    <input maxLength="10" formControlName="secondaryMobile" type="tel" id="secondary"
                         class="form-control">
                     <div style="
                     color: red;
@@ -399,7 +399,7 @@
                 </div>
                 <div class="col-sm-4 form-group">
                     <label for="Logomerchant">Merchant Logo(optional)</label>
-                    <input formControlName="logo" type="file" class="form-control" (change)="getlogo($event)">
+                    <input  formControlName="logo" type="file" class="form-control" (change)="getlogo($event)">
                     <!-- <span class="error">*Only JPG/PNG/JPEG Files Allowed And Maximum Size Upto 20MB Allowed </span> -->
                 </div>
                 <div class="col-sm-4 form-group">

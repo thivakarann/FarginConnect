@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FarginServiceService } from '../../service/fargin-service.service';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-view-disclaimer',
@@ -10,9 +10,13 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class ViewDisclaimerComponent implements OnInit {
   disclaimerValue: any;
 
-  constructor(private service: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any,) { }
+  constructor(private dialog: MatDialog, private service: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any,) { }
   ngOnInit(): void {
     this.disclaimerValue = this.data.value.disclaimer
+  }
+
+  close() {
+    this.dialog.closeAll();
   }
 
 }
