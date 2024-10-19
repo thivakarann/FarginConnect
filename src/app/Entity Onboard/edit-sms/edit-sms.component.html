@@ -8,7 +8,7 @@
             <div class="row mt-3">
                 <div class="col-12 form-group ">
                     <label class="form__label" for="smsFor">SMS For</label>
-                    <select id="Bussiness category" class="form-select" formControlName="smsFor">
+                    <select  ngModel="{{this.Smsdetails.type.smsTempId}}" id="Bussiness category" class="form-select" formControlName="smsFor">
                         <option value="" disabled selected>Select</option>
                         <option  [value]="items.smsTempId" *ngFor="let items of options">
                             {{items?.smsTitle}}</option>

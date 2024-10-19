@@ -120,14 +120,20 @@
 <div class="row">
   <div class="col-6">
     <div style="float: inline-start;">
-      <canvas id="myCanvas"></canvas>
+      <div class="card">
+        <canvas id="myCanvas"></canvas>
+
+      </div>
 
     </div>
   </div>
 
   <div class="col-6">
     <div style=" float: inline-start;">
-      <canvas id="barChartCanvas" style="width: 400px; height: 370px;"></canvas>
+      <div class="card">
+        <canvas id="barChartCanvas" style="width: 400px; height: 370px;"></canvas>
+
+      </div>
 
     </div>
 
@@ -137,9 +143,7 @@
 
 
 <div class="container mt-3">
-  <div class=" text-center">
-    <h3>Transaction Details</h3>
-  </div>
+ 
 
 
   <div class="row mt-4">
@@ -156,7 +160,11 @@
 
 
 
-
+<div class="card">
+  <div class=" text-center">
+    <h3>Transaction Details</h3>
+  </div>
+  
   <div class="col-md-4">
     <label for="period" style="font-size: 12px; font-family: Arial, Helvetica, sans-serif;">Select Merchant</label><br>
     <select style="font-size: 12px;" id="period" class="form-select" [(ngModel)]="selectedmerchant"
@@ -171,6 +179,7 @@
 
   <div class="row">
     <div class="col-md-6">
+      
       <canvas id="maintenanceChartCanvas"></canvas>
     </div>
     <div class="col-md-6">
@@ -187,7 +196,7 @@
     </div>
   </div>
   &nbsp;&nbsp;
-
+</div>
   <div class="row">
     <div class="col-6">
       <div class="card border-success">

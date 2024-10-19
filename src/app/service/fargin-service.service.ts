@@ -107,6 +107,7 @@ export class FarginServiceService {
   private readonly viewSetupboxDetails = 'customer/viewcustomerstb/';
   private readonly viewsetupboxplan = 'customer/viewcustomerstbplan/';
   private readonly activestatussetupbox = 'customer/updateStbStatus/';
+  private readonly activecustomerplan='customerplan/updatestatus/';
 
   //entity bank
 
@@ -120,7 +121,7 @@ export class FarginServiceService {
   //kyc documents
 
   private readonly editkyc = 'merchantdocument/update';
-  private readonly kycdocument = 'merchantdocument/viewimage/';
+  private readonly kycdocument = 'entityDocument/viewDocuments/';
   private readonly kycapproval = 'merchantdocument/updateapproval/';
   private readonly kycadd = 'merchantdocument/create';
   // private readonly EntityKYCBYbusinessid = 'businesskyc/viewbyid/';
@@ -905,7 +906,7 @@ export class FarginServiceService {
   KycUpdate(data: any) {
     return this.http.post(`${this.basePath}${this.editkyc}`, data, this.optionsMultipart);
   }
-  getImageview(id: any, id1: any) {
+  getImageview(id: any,id1: any) {
     return this.http.get(`${this.basePath}${this.kycdocument}${id}/${id1}`, {
       ...this.options,
       ...{ responseType: 'blob' }
@@ -1339,6 +1340,11 @@ export class FarginServiceService {
  
   ViewSetupBoxPlanDetails(id:any){
     return this.http.get(`${this.basePath}${this.viewsetupboxplan}${id}`,this.options)
+  }
+
+  ActiveStatusCustomerPlan(id:any,model:any){
+    return this.http.put(`${this.basePath}${this.activecustomerplan}${id}`,model,this.options)
+ 
   }
 
 

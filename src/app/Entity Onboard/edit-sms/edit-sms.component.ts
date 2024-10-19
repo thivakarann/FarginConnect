@@ -24,6 +24,7 @@ export class EditSmsComponent {
  
   merchantsmsId: any;
   options: any;
+  Smsdetails: any;
  
   constructor(private router: Router, private Approval: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog) { }
   ngOnInit(): void {
@@ -33,7 +34,7 @@ export class EditSmsComponent {
         this.options=res.response;
       }
     })
-    this.id = this.data.value
+    this.Smsdetails = this.data.value
     this.merchantsmsId=this.data.value.merchantSmsId;
    
     console.log(this.merchantsmsId);

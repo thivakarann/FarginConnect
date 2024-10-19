@@ -969,6 +969,10 @@ readonly smsApprovalStatus:any;
 readonly smsApprovedBy:any;
 }
 
+export interface customerplanStatus{
+  readonly activeStatus:any;
+}
+
 
 
 

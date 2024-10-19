@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { ChannelViewComponent } from '../channel-view/channel-view.component';
 import { Location } from '@angular/common';
-import { Businesskycstatus } from '../../fargin-model/fargin-model.module';
+import { Businesskycstatus, customerplanStatus } from '../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-plan-details-customer',
@@ -136,15 +136,20 @@ export class PlanDetailsCustomerComponent {
  
   ActiveStatus(event: MatSlideToggleChange, id: any) {
     this.isChecked = event.checked;
-    let submitmodel: Businesskycstatus = {
+    let submitmodel: customerplanStatus = {
       activeStatus: this.isChecked ? 1 : 0,
-
     }
-
+    this.service.ActiveStatusCustomerPlan(id, submitmodel).subscribe((res: any) => {
+      console.log(res);
+      this.toastr.success(res.responseMessage);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    });
  
-
-
-
-
+ 
+ 
+ 
+ 
   }
 }

@@ -13,7 +13,6 @@ export class KycdocumentViewComponent implements OnInit{
   imageSrc: any;
   flag: any;
   documentupload!: FormGroup;
- 
   updatedata: any;
   errorMessage: any;
   file1: any;
@@ -248,10 +247,10 @@ console.log(this.id, this.flag);
       this.service.signatureBack(formData).subscribe((res: any) => {
         if (res.flag == 1) {
           this.updatedata = res.response;
-          // this.dialog.closeAll();
-          // setTimeout(() => {
-          //   window.location.reload()
-          // }, 1000);
+          this.dialog.closeAll();
+          setTimeout(() => {
+            window.location.reload()
+          }, 1000);
         }
       })
     }

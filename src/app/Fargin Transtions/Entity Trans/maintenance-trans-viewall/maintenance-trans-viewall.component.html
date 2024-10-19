@@ -93,6 +93,20 @@
                 </td>
             </ng-container>
 
+            <ng-container matColumnDef="count">
+                <th mat-header-cell *matHeaderCellDef>Sms Count</th>
+                <td mat-cell *matCellDef="let transaction">{{transaction?.smsCount}}</td>
+            </ng-container>
+            <ng-container matColumnDef="percount">
+                <th mat-header-cell *matHeaderCellDef>SmsCost PerCount</th>
+                <td mat-cell *matCellDef="let transaction">{{transaction?.smsPerAmount}}</td>
+            </ng-container>
+            <ng-container matColumnDef="totalcost">
+                <th mat-header-cell *matHeaderCellDef>Total SmsCost</th>
+                <td mat-cell *matCellDef="let transaction">{{transaction?.smsTotalAmount}}</td>
+            </ng-container>
+ 
+
             <ng-container matColumnDef="receipt">
                 <th mat-header-cell *matHeaderCellDef>Invoice</th>
                 <td mat-cell *matCellDef="let transaction">

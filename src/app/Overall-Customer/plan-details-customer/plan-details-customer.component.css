@@ -258,3 +258,18 @@ mat-card {
     transform: scale(1);
     transition: 0s;
   }
+
+  .buttonDownload {
+    width:70px;
+    display: inline-block;
+    position: relative;
+    padding:6px;
+    background-color: #141E46;
+    color: white;
+    font-family: sans-serif;
+    text-decoration: none;
+    font-size: 1em;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+   }

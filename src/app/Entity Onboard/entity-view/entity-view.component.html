@@ -16,7 +16,8 @@
         data-target="contact" (click)="ViewRefund(this.id)"><i
             class='fas fa-hand-holding-usd'></i>&nbsp;&nbsp;Refund</button>
     <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
-        data-target="contact" (click)="Viewautodebit(this.id)"> <i class="fa-solid fa-money-bill-transfer"></i>&nbsp;&nbsp;Auto
+        data-target="contact" (click)="Viewautodebit(this.id)"> <i
+            class="fa-solid fa-money-bill-transfer"></i>&nbsp;&nbsp;Auto
         Debit</button>
     <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
         data-target="page4" (click)="Viewqr(this.id)"><i class="fa-solid fa-qrcode"></i>&nbsp;&nbsp;QR
@@ -35,8 +36,8 @@
         <button class="tab" [class.active]="activeTab === 'materials'" (click)="selectTab('materials')">Bank
             Information</button>
         <button class="tab" [class.active]="activeTab === 'videos'" (click)="selectTab('videos')">KYC Documents</button>
-        <button class="tab" [class.active]="activeTab === 'bussiness'" (click)="selectTab('bussiness')">Bussiness
-            Document
+        <button class="tab" [class.active]="activeTab === 'bussiness'" (click)="selectTab('bussiness')">Business
+            Documents
         </button>
         <button class="tab" [class.active]="activeTab === 'doot1'" (click)="selectTab('doot1')">Final Approval</button>
         <button class="tab" [class.active]="activeTab === 'doot2'" (click)="selectTab('doot2')">Manual
@@ -492,18 +493,18 @@
                                 <th>Action</th>
                                 <th>Verification</th>
                                 <th>Verification Status</th>
-                                <th>Approval</th>
+                                <th >Approval</th>
                                 <th>Approval Status</th>
                                 <th>Approved By</th>
                                 <th>Approval At</th>
                                 <th>Comments</th>
-
-
+ 
+ 
                             </tr>
                             <tbody
                                 *ngFor="let item of KYCDetails| paginate: { itemsPerPage: 3, currentPage: currentPage } | search: searchText;let i=index">
                                 <tr>
-
+ 
                                     <td>1</td>
                                     <td>Identity proof</td>
                                     <td>{{item.identityProof}}</td>
@@ -515,7 +516,7 @@
                                                 style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
                                     </td>
                                     <td><i class="fas fa-edit" (click)="identityedit(item)">
-
+ 
                                         </i></td>
                                     <td>
                                         <span>
@@ -526,10 +527,10 @@
                                                         (click)="KycInfo(item)">Info</button>
                                                     <button style="font-size: 10px;" mat-menu-item
                                                         [disabled]="item.identityFacheckStatus==1"
-                                                        (click)="kycVerificationsIdentity(item.identityProofNo,item.identityKycId,item.identityProof)">Verify</button>
+                                                        (click)="kycVerificationsIdentity(item.identityProofNo,item.proofId,item.identityProof)">Verify</button>
                                                     <button style="font-size: 10px;" mat-menu-item
                                                         [disabled]="item.identityFacheckStatus==0  || item.identityFacheckStatus==2"
-                                                        (click)="kycVerificationsIdentity(item.identityProofNo,item.identityKycId,item.identityProof)">
+                                                        (click)="kycVerificationsIdentity(item.identityProofNo,item.proofId,item.identityProof)">
                                                         Re-Verify </button>
                                                 </mat-menu>
                                             </i>
@@ -551,17 +552,17 @@
                                     green: item?.identityAdminApprovalStatus === 'approved',
                                     Red: item?.identityAdminApprovalStatus == 'Rejected'
                                   }">{{item.identityAdminApprovalStatus}}</td>
-
+ 
                                     <td> {{item.identityAdminApprovedBy}}
                                     </td>
                                     <td>{{item.identityAdminApprovedDate}}</td>
-                                    <td><span (click)="KYCComments(item.identityAdminComments)"><i
+                                    <td [hidden]="valuekyccomment!=='Entity View KYC Document-comments'"><span (click)="KYCComments(item.identityAdminComments)"><i
                                                 class="fas fa-comments"
                                                 style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
                                     </td>
                                 </tr>
-
-
+ 
+ 
                                 <tr>
                                     <td>2</td>
                                     <td>Address proof</td>
@@ -585,10 +586,10 @@
                                                         (click)="KycInfo(item)">Info</button>
                                                     <button style="font-size: 10px;" mat-menu-item
                                                         [disabled]="item.addressFacheckStatus==1"
-                                                        (click)="kycVerificationsAddress(item.addressProofNo,item.addressKycId,item.addressProof)">Verify</button>
+                                                        (click)="kycVerificationsAddress(item.addressProofNo,item.proofId,item.addressProof)">Verify</button>
                                                     <button style="font-size: 10px;" mat-menu-item
                                                         [disabled]="item.addressFacheckStatus==0  || item.addressFacheckStatus==2"
-                                                        (click)="kycVerificationsAddress(item.addressProofNo,item.addressKycId,item.addressProof)">
+                                                        (click)="kycVerificationsAddress(item.addressProofNo,item.proofId,item.addressProof)">
                                                         Re-Verify </button>
                                                 </mat-menu>
                                             </i>
@@ -605,13 +606,12 @@
                                     <td><button class="buttonDownload" (click)="KycApproval1(item)"
                                             [disabled]="item.addressAdminApprovalStatus == 'approved'">Approval</button>
                                     </td>
-
                                     <td [ngClass]="{
                                                 yellow: item?.addressAdminApprovalStatus === 'Pending',
                                                 green: item?.addressAdminApprovalStatus === 'approved',
                                                 Red: item?.addressAdminApprovalStatus == 'Rejected'
                                               }">{{item.addressAdminApprovalStatus}}</td>
-
+ 
                                     <td> {{item.addressAdminApprovedBy}}
                                     </td>
                                     <td>{{item.addressAdminApprovedDate}}</td>
@@ -620,15 +620,15 @@
                                                 style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
                                     </td>
                                 </tr>
-
-
+ 
+ 
                                 <tr>
                                     <td>3</td>
                                     <td>Signature proof</td>
                                     <td>{{item.signatureProof}}</td>
                                     <td>{{item.signatureProofNo}}</td>
-
-
+ 
+ 
                                     <td>
                                         <span (click)="signatureProofFrontPath(item.proofId)"><i
                                                 class='fa-regular fa-image'
@@ -646,10 +646,10 @@
                                                         (click)="KycInfo(item)">Info</button>
                                                     <button style="font-size: 10px;" mat-menu-item
                                                         [disabled]="item.signatureFacheckStatus==1"
-                                                        (click)="kycVerificationsSignature(item.signatureProofNo, item.signatureKycId, item.signatureProof)">Verify</button>
+                                                        (click)="kycVerificationsSignature(item.signatureProofNo, item.proofId, item.signatureProof)">Verify</button>
                                                     <button style="font-size: 10px;" mat-menu-item
                                                         [disabled]="item.signatureFacheckStatus==0 || item.signatureFacheckStatus==2"
-                                                        (click)="kycVerificationsSignature(item.signatureProofNo, item.signatureKycId, item.signatureProof)">Re-Verify</button>
+                                                        (click)="kycVerificationsSignature(item.signatureProofNo, item.proofId, item.signatureProof)">Re-Verify</button>
                                                 </mat-menu>
                                             </i>
                                         </span>
@@ -665,15 +665,15 @@
                                             Failed</span>
                                     </td>
                                     <td><button class="buttonDownload" (click)="KycApproval2(item)"
-                                            [disabled]="item.signatureAdminApprovalStatus == 'approved'">Approval</button>
+                                            [disabled]="item.signatureAdminApprovalStatus== 'approved'">Approval</button>
                                     </td>
-
+ 
                                     <td [ngClass]="{
                                                     yellow: item?.signatureAdminApprovalStatus === 'Pending',
                                                     green: item?.signatureAdminApprovalStatus === 'approved',
                                                     Red: item?.signatureAdminApprovalStatus == 'Rejected'
-                                                  }">{{item?.signatureAdminApprovalStatus}}</td>
-
+                                                  }">{{item.signatureAdminApprovalStatus}}</td>
+ 
                                     <td> {{item.signatureAdminApprovedBy}}
                                     </td>
                                     <td>{{item.signatureAdminApprovedDate}}</td>
@@ -682,8 +682,8 @@
                                                 style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
                                     </td>
                                 </tr>
-
-
+ 
+ 
                             </tbody>
                         </table>
                     </div>
@@ -1075,6 +1075,8 @@
                             <th>S No </th>
                             <th>SMS Type</th>
                             <th>SMS Description</th>
+                            <th>SMS Count</th>
+                            <th>Charge Per SMS</th>
                             <th>Approval</th>
                             <th>Approval Status</th>
                             <th>Status</th>
@@ -1090,6 +1092,8 @@
                             <td>{{i+1}}</td>
                             <td>{{item.type.smsTitle}}</td>
                             <td>{{item.type.smsTempDescription}}</td>
+                            <td>{{item.smsCount}}</td>
+                            <td>{{item.type?.smsCharge}}</td>
                             <td class="text-center">
                                 <span><button class="buttonDownload"
                                         (click)="SmsApproval(item.merchantSmsId)">Approval</button></span>

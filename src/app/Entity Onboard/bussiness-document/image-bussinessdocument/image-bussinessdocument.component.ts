@@ -34,7 +34,7 @@ export class ImageBussinessdocumentComponent {
 
     })
 
-    this.service.getImageview(this.id, this.flag).subscribe({
+    this.service.getdocumentImage(this.id, this.flag).subscribe({
       next: (res: any) => {
         console.log(this.id, this.flag);
 
