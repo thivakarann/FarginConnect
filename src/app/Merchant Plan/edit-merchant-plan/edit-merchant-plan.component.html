@@ -8,7 +8,8 @@
             <div class="row mb-3">
                 <div class="col-sm-6 form-group">
                     <label for="Entity Name">Plan Name*</label>
-                    <input [(ngModel)]="planame" type="text" id="Entity Name" formControlName="planName" class="form-control">
+                    <input [(ngModel)]="planame" type="text" id="Entity Name" formControlName="planName"
+                        class="form-control">
                     <div style="
                     color: red;
                     font-size: 12px;
@@ -21,7 +22,8 @@
                 </div>
                 <div class="col-sm-6 form-group">
                     <label for="state">Plat Form Fee*</label>
-                    <input [(ngModel)]="onetimeamount" type="text" formControlName="technicalAmount" id="state" class="form-control">
+                    <input [(ngModel)]="onetimeamount" type="text" formControlName="technicalAmount" id="state"
+                        class="form-control">
                     <div style="
                     color: red;
                     font-size: 12px;
@@ -31,12 +33,22 @@
                   " *ngIf="technicalAmount?.invalid && technicalAmount?.touched && technicalAmount?.errors?.['required']">
                         Field is required
                     </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="technicalAmount?.invalid && technicalAmount?.touched && technicalAmount?.errors?.['pattern']">
+                        Only positive numbers are allowed
+                    </div>
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col-sm-6 form-group">
                     <label for="zip">maintenance Amount*</label>
-                    <input [(ngModel)]="MaintenanceAmount" type="text" formControlName="maintenanceAmount" id="zip" class="form-control">
+                    <input [(ngModel)]="MaintenanceAmount" type="text" formControlName="maintenanceAmount" id="zip"
+                        class="form-control">
                     <div style="
                     color: red;
                     font-size: 12px;
@@ -46,11 +58,22 @@
                   " *ngIf="maintenanceAmount?.invalid && maintenanceAmount?.touched && maintenanceAmount?.errors?.['required']">
                         Field is required
                     </div>
+
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="maintenanceAmount?.invalid && maintenanceAmount?.touched && maintenanceAmount?.errors?.['pattern']">
+                        Only positive numbers are allowed
+                    </div>
                 </div>
 
                 <div class="col-sm-6 form-group">
                     <label for="Bussiness category">Frequency Type</label>
-                    <select [(ngModel)]="Frequency" formControlName="frequency" id="Bussiness category" class="form-control form-select">
+                    <select [(ngModel)]="Frequency" formControlName="frequency" id="Bussiness category"
+                        class="form-control form-select">
                         <option value="" disabled selected>Select</option>
                         <option value="Day">Day</option>
                         <option value="Week">Week</option>
@@ -79,17 +102,9 @@
                 <div class="col-sm-6 form-group">
                     <label for="zip">Renewal Amount*</label>
                     <input [(ngModel)]="RenewelAmount" type="text" formControlName="renewalAmount" id="zip" class="form-control"
-                        [(ngModel)]="numberValues" [ngClass]="{ 'is-invalid': numberValues < 0 }"
+                     
                         placeholder="Enter amount in rupees">
-                    <div style="
-                    color: red;
-                    font-size: 12px;
-                    margin-top: 2px;
-                    position: relative;
-                    ;
-                  " *ngIf="numberValues < 0" class="error">
-                        Value must be non-negative.
-                    </div>
+                 
                     <div style="
                     color: red;
                     font-size: 12px;
@@ -98,6 +113,16 @@
                     ;
                   " *ngIf="renewalAmount?.invalid && renewalAmount?.touched && renewalAmount?.errors?.['required']">
                         Field is required
+                    </div>
+
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="renewalAmount?.invalid && renewalAmount?.touched && renewalAmount?.errors?.['pattern']">
+                        Only positive numbers are allowed
                     </div>
                 </div>  
             </div>

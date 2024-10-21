@@ -17,10 +17,10 @@ export class MerchantPlanAddComponent implements OnInit {
   Adminid = JSON.parse(localStorage.getItem('adminid') || '');
   myForm!: FormGroup;
   numberValue: number | any = null;
-  numberValues:number|any=null
+  numberValues: number | any = null
 
   numberValue2: number | any = null;
-  numberValues2:number|any=null
+  numberValues2: number | any = null
   constructor(
     public Merchantplanadd: FarginServiceService,
     private router: Router,
@@ -31,10 +31,10 @@ export class MerchantPlanAddComponent implements OnInit {
 
     this.myForm = new FormGroup({
       planName: new FormControl('', Validators.required),
-      technicalAmount: new FormControl('', Validators.required),
-      maintenanceAmount: new FormControl('', Validators.required),
+      technicalAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9]\\d*)$')]),
+      maintenanceAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9]\\d*)$')]),
       frequency: new FormControl('', Validators.required),
-      renewalAmount: new FormControl('', Validators.required),
+      renewalAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9]\\d*)$')]),
 
     });
   }
@@ -70,7 +70,7 @@ export class MerchantPlanAddComponent implements OnInit {
       technicalAmount: this.technicalAmount?.value,
       maintenanceAmount: this.maintenanceAmount?.value,
       frequency: this.frequency?.value,
-      renewalAmount:this.renewalAmount?.value,
+      renewalAmount: this.renewalAmount?.value,
       createdBy: this.getadminname
     }
 

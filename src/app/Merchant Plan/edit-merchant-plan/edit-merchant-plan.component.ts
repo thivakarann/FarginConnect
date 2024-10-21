@@ -21,7 +21,7 @@ export class EditMerchantPlanComponent implements OnInit {
   MaintenanceAmount: any;
   Frequency: any;
   numberValue: number | any = null;
-  numberValues:number|any=null
+  numberValues: number | any = null
   RenewelAmount: any;
 
   constructor(
@@ -31,14 +31,14 @@ export class EditMerchantPlanComponent implements OnInit {
     private dialog: MatDialog
   ) { }
   ngOnInit(): void {
-   
+
 
     this.myForm = new FormGroup({
       planName: new FormControl('', Validators.required),
-      technicalAmount: new FormControl('', Validators.required),
-      maintenanceAmount: new FormControl('', Validators.required),
+      technicalAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9]\\d*)$')]),
+      maintenanceAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9]\\d*)$')]),
       frequency: new FormControl('', Validators.required),
-      renewalAmount: new FormControl('', Validators.required),
+      renewalAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9]\\d*)$')]),
 
     });
 
@@ -52,7 +52,7 @@ export class EditMerchantPlanComponent implements OnInit {
     this.RenewelAmount = this.data.value.renewalAmount;
     console.log("jjfcaefc" + this.planName)
 
-   
+
   }
 
   get planName() {
@@ -86,7 +86,7 @@ export class EditMerchantPlanComponent implements OnInit {
       technicalAmount: this.technicalAmount?.value,
       maintenanceAmount: this.maintenanceAmount?.value,
       frequency: this.frequency?.value,
-      renewalAmount:this.renewalAmount?.value,
+      renewalAmount: this.renewalAmount?.value,
       modifiedBy: this.getadminname
     }
 

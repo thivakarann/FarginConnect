@@ -438,7 +438,36 @@
                         Field id required*
                     </div>
                 </div>
+                <div class="col-sm-4 form-group">
+                    <label for="billing">Customer Dues</label>
+                    <select formControlName="customerDuesEnable" (change)="get($event)"  type="text" class="form-select" id="billing">
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                    
+                    </select>
+                    <div style="
+                        color: red;
+                        font-size: 12px;
+                        margin-top: 2px;
+                        position: relative;
+                        ;
+                      " *ngIf="customerDuesEnable?.invalid && customerDuesEnable?.touched && customerDuesEnable?.errors?.['required']">
+                        Field id required*
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group" *ngIf="selectperiod==1" >
+                    <label for="billing">customerDuesDate</label>
+                    <select formControlName="customerDuesDate" type="text" class="form-select" id="billing">
+                        <option value="1">Daily</option>
+                        <option value="2">Two Days Once</option>
+                        <option value="3">Three Days Once</option>
+                    
+                    </select>
+              
+                </div>
+                
             </div>
+            
             <div>
                 <button (click)="Submit()" type="submit" class="btn mx-1 " style="background-color:#7db855be"
                     [disabled]="this.myForm.invalid">Submit</button>

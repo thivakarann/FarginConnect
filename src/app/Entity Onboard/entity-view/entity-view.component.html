@@ -100,12 +100,12 @@
                                                 <div class="w-50">{{detaislone?.entityName}}</div>
                                             </div>
                                             <div class="d-flex mt-3">
-                                                <div class="w-50 font-weight-bold">Merchant Legal Name
+                                                <div class="w-50 font-weight-bold">Entity Legal Name
                                                 </div>
                                                 <div class="w-50">{{detaislone?.merchantLegalName}}</div>
                                             </div>
                                             <div class="d-flex mt-3">
-                                                <div class="w-50 font-weight-bold">Account DisplayName</div>
+                                                <div class="w-50 font-weight-bold">Entity DisplayName</div>
                                                 <div class="w-50">{{detaislone?.accountDisplayName}}</div>
                                             </div>
                                             <div class="d-flex mt-3">
@@ -144,6 +144,21 @@
                                                     <span *ngIf="this.detaislone?.billingMode!=null">
                                                         {{detaislone?.billingMode}}</span>
                                                     <span *ngIf="this.detaislone?.billingMode==null">- -</span>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex mt-3">
+                                                <div class="w-50 font-weight-bold">Auto Debit</div>
+                                                <div class="w-50">
+
+                                                    <span>{{ detaislone?.autoDebitStatus === 1 ? 'Yes' : 'No' }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex mt-3">
+                                                <div class="w-50 font-weight-bold">customer Dues Staus</div>
+                                                <div class="w-50">
+
+                                                    <span>{{ detaislone?.customerDuesEnable === 1 ? 'Yes' : 'No'
+                                                        }}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -210,6 +225,32 @@
                                                             class="fas fa-image" style="font-size:20px;"> </i></span>
                                                 </div>
                                             </div>
+
+                                            <div class="d-flex mt-3">
+                                                <div class="w-50 font-weight-bold">Period Name</div>
+                                                <div class="w-50">{{detaislone?.periodName}}</div>
+                                            </div>
+
+                                            <div class="d-flex mt-3">
+                                                <div class="w-50 font-weight-bold">Auto Debit Date</div>
+                                                <div class="w-50">{{detaislone?.businessCategoryModel?.autoDebitDate}}
+                                                </div>
+                                            </div>
+                                            <div class="d-flex mt-3">
+                                                <div class="w-50 font-weight-bold">customer DuesDate</div>
+                                                <div class="w-50">
+                                                    <ng-container
+                                                        *ngIf="detaislone?.customerDuesDate === 1">Daily</ng-container>
+                                                    <ng-container *ngIf="detaislone?.customerDuesDate === 2">Every Two
+                                                        Days</ng-container>
+                                                    <ng-container *ngIf="detaislone?.customerDuesDate === 3">Every Three
+                                                        Days</ng-container>
+                                                    <ng-container *ngIf="detaislone?.customerDuesDate == null">No Due
+                                                        Date</ng-container>
+                                                </div>
+                                            </div>
+
+
 
                                         </div>
                                     </div>
@@ -493,18 +534,18 @@
                                 <th>Action</th>
                                 <th>Verification</th>
                                 <th>Verification Status</th>
-                                <th >Approval</th>
+                                <th>Approval</th>
                                 <th>Approval Status</th>
                                 <th>Approved By</th>
                                 <th>Approval At</th>
                                 <th>Comments</th>
- 
- 
+
+
                             </tr>
                             <tbody
                                 *ngFor="let item of KYCDetails| paginate: { itemsPerPage: 3, currentPage: currentPage } | search: searchText;let i=index">
                                 <tr>
- 
+
                                     <td>1</td>
                                     <td>Identity proof</td>
                                     <td>{{item.identityProof}}</td>
@@ -516,7 +557,7 @@
                                                 style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
                                     </td>
                                     <td><i class="fas fa-edit" (click)="identityedit(item)">
- 
+
                                         </i></td>
                                     <td>
                                         <span>
@@ -552,17 +593,17 @@
                                     green: item?.identityAdminApprovalStatus === 'approved',
                                     Red: item?.identityAdminApprovalStatus == 'Rejected'
                                   }">{{item.identityAdminApprovalStatus}}</td>
- 
+
                                     <td> {{item.identityAdminApprovedBy}}
                                     </td>
                                     <td>{{item.identityAdminApprovedDate}}</td>
-                                    <td [hidden]="valuekyccomment!=='Entity View KYC Document-comments'"><span (click)="KYCComments(item.identityAdminComments)"><i
-                                                class="fas fa-comments"
+                                    <td [hidden]="valuekyccomment!=='Entity View KYC Document-comments'"><span
+                                            (click)="KYCComments(item.identityAdminComments)"><i class="fas fa-comments"
                                                 style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
                                     </td>
                                 </tr>
- 
- 
+
+
                                 <tr>
                                     <td>2</td>
                                     <td>Address proof</td>
@@ -611,7 +652,7 @@
                                                 green: item?.addressAdminApprovalStatus === 'approved',
                                                 Red: item?.addressAdminApprovalStatus == 'Rejected'
                                               }">{{item.addressAdminApprovalStatus}}</td>
- 
+
                                     <td> {{item.addressAdminApprovedBy}}
                                     </td>
                                     <td>{{item.addressAdminApprovedDate}}</td>
@@ -620,15 +661,15 @@
                                                 style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
                                     </td>
                                 </tr>
- 
- 
+
+
                                 <tr>
                                     <td>3</td>
                                     <td>Signature proof</td>
                                     <td>{{item.signatureProof}}</td>
                                     <td>{{item.signatureProofNo}}</td>
- 
- 
+
+
                                     <td>
                                         <span (click)="signatureProofFrontPath(item.proofId)"><i
                                                 class='fa-regular fa-image'
@@ -667,13 +708,13 @@
                                     <td><button class="buttonDownload" (click)="KycApproval2(item)"
                                             [disabled]="item.signatureAdminApprovalStatus== 'approved'">Approval</button>
                                     </td>
- 
+
                                     <td [ngClass]="{
                                                     yellow: item?.signatureAdminApprovalStatus === 'Pending',
                                                     green: item?.signatureAdminApprovalStatus === 'approved',
                                                     Red: item?.signatureAdminApprovalStatus == 'Rejected'
                                                   }">{{item.signatureAdminApprovalStatus}}</td>
- 
+
                                     <td> {{item.signatureAdminApprovedBy}}
                                     </td>
                                     <td>{{item.signatureAdminApprovedDate}}</td>
@@ -682,8 +723,8 @@
                                                 style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
                                     </td>
                                 </tr>
- 
- 
+
+
                             </tbody>
                         </table>
                     </div>

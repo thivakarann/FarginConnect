@@ -62,6 +62,8 @@ export class EntityAddComponent implements OnInit {
   kycValue: any;
   file8!: any;
   file9!: any;
+  id: any;
+  selectperiod: any;
   constructor(
     public AddEntity: FarginServiceService,
     private router: Router,
@@ -155,6 +157,10 @@ export class EntityAddComponent implements OnInit {
       billingMode: new FormControl("", [
         Validators.required
       ]),
+      customerDuesEnable: new FormControl('', [Validators.required]),
+
+      customerDuesDate: new FormControl('',),
+      
 
     });
     console.log('Form Valid on Init:', this.myForm.valid);
@@ -225,7 +231,11 @@ export class EntityAddComponent implements OnInit {
 
   }
 
-
+   
+get(event:any)
+{
+  this.selectperiod=event.target.value;
+}
 
   // First Form
 
@@ -322,6 +332,14 @@ export class EntityAddComponent implements OnInit {
   }
   get logo() {
     return this.myForm.get('logo')
+  }
+
+  get customerDuesEnable() {
+    return this.myForm.get('customerDuesEnable')
+  }
+
+  get customerDuesDate() {
+    return this.myForm.get('customerDuesDate')
   }
 
   // onCategoryChange(event: any): void {
@@ -773,6 +791,8 @@ export class EntityAddComponent implements OnInit {
     formData.append('merchantLogo', this.file3 || this.emptyBlob);
     formData.append('billingMode', this.billingMode?.value);
     formData.append('autoDebitStatus', this.autoDebitStatus?.value);
+    formData.append('customerDuesEnable', this.customerDuesEnable?.value);
+    formData.append('customerDuesDate', this.customerDuesDate?.value || 0);
 
     this.AddEntity.EntityAdd(formData).subscribe((res: any) => {
       if (res.flag == 1) {
