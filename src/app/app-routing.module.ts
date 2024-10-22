@@ -83,6 +83,8 @@ import { EntityAutoDebitGetallComponent } from './entity-auto-debit-getall/entit
 import { EntityAutoDebitByIdComponent } from './entity-auto-debit-by-id/entity-auto-debit-by-id.component';
 import { ViewAnnouncementComponent } from './Announcement/view-announcement/view-announcement.component';
 import { PlanDetailsCustomerComponent } from './Overall-Customer/plan-details-customer/plan-details-customer.component';
+import { CustomerSurveyquestionsComponent } from './Customer-Survey/customer-surveyquestions/customer-surveyquestions.component';
+import { SurveyviewallComponent } from './Customer-Survey/surveyviewall/surveyviewall.component';
 
 const routes: Routes = [
 
@@ -177,7 +179,9 @@ const routes: Routes = [
       {path:'entity-auto-debit-getall',component:EntityAutoDebitGetallComponent},
       {path:'entity-auto-debit-by-id/:id',component:EntityAutoDebitByIdComponent},
       {path:'view-announcement',component:ViewAnnouncementComponent},
-      {path:'plan-details-customer/:id',component:PlanDetailsCustomerComponent}
+      {path:'plan-details-customer/:id',component:PlanDetailsCustomerComponent},
+      {path:'surveyviewall',component:SurveyviewallComponent},
+      {path:'view-surveyquestions/:id',component:CustomerSurveyquestionsComponent}
 
 
 

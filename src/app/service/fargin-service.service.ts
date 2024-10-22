@@ -505,6 +505,11 @@ export class FarginServiceService {
   private readonly manualpayment = 'merchantpay/trackApi';
 
 
+  private readonly surveyviewall = 'surveyQuestion/getAll';
+  private readonly surveyviewbyid = 'surveyQuestion/getQuestions/';
+  private readonly viewbyidcustomerresponse = 'customerResponse/viewQuestion/';
+
+
 
 
 
@@ -1894,6 +1899,18 @@ export class FarginServiceService {
 
   Manualpay(model: any) {
     return this.http.post(`${this.basePath}${this.manualpayment}`, model, this.options);
+  }
+
+
+  SurveyViewAll() {
+    return this.http.get(`${this.basePath}${this.surveyviewall}`, this.options)
+  }
+  SurveyQuestionsViewById(id: any) {
+    return this.http.get(`${this.basePath}${this.surveyviewbyid}${id}`, this.options)
+  }
+
+  ViewByIdCustomerResponse(id: any) {
+    return this.http.get(`${this.basePath}${this.viewbyidcustomerresponse}${id}`, this.options)
   }
 
 

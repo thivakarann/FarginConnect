@@ -205,6 +205,9 @@ import { ViewAnnouncementComponent } from './Announcement/view-announcement/view
 import { SmsApprovalComponent } from './Entity Onboard/sms-approval/sms-approval.component';
 import { SmsHistoryEntityComponent } from './Entity Onboard/sms-history-entity/sms-history-entity.component';
 import { PlanDetailsCustomerComponent } from './Overall-Customer/plan-details-customer/plan-details-customer.component';
+import { CustomerSurveyquestionsComponent } from './Customer-Survey/customer-surveyquestions/customer-surveyquestions.component';
+import { SurveyviewallComponent } from './Customer-Survey/surveyviewall/surveyviewall.component';
+import { ViewQuestionsComponent } from './Customer-Survey/view-questions/view-questions.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -388,7 +391,10 @@ import { PlanDetailsCustomerComponent } from './Overall-Customer/plan-details-cu
     AnnouncementviewComponent,
     SmsApprovalComponent,
     SmsHistoryEntityComponent,
-    PlanDetailsCustomerComponent
+    PlanDetailsCustomerComponent,
+    CustomerSurveyquestionsComponent,
+    ViewQuestionsComponent,
+    SurveyviewallComponent
     
  
     
