@@ -72,6 +72,10 @@ export class EntitySmsViewallComponent {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  reload(){
+    window.location.reload()
+  }
   exportexcel() {
     console.log('check');
     let sno = 1;

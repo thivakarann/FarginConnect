@@ -18,13 +18,13 @@
                                     stroke-linecap="round">
                                 </path>
                             </svg>
-                            <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                            <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg" class="swap-off">
                                 <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round" stroke-linecap="round">
                                 </path>
-                            </svg>
+                            </svg> -->
                         </div>
-                        <button type="reset" class="close-btn">
+                        <button  (click)="reload()" type="reset" class="close-btn">
                             <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
                                 <path clip-rule="evenodd"
                                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -33,8 +33,9 @@
                         </button>
                     </label>
                 </form>
-
-            </div>&nbsp;&nbsp;&nbsp;
+ 
+            </div>
+&nbsp;&nbsp;&nbsp;
 
 
 
@@ -87,7 +88,8 @@
 
             <ng-container matColumnDef="rentalPeriod">
                 <th mat-header-cell *matHeaderCellDef>Rental Period</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall.rentalPeriod | date:'dd/MM/yyyy' }}
+                <td mat-cell *matCellDef="let viewall">
+                    {{ viewall.rentalPeriod.split('-')[0] }}-{{ viewall.rentalPeriod.split('-')[1] }}-{{ viewall.rentalPeriod.split('-')[2] }} to {{ viewall.rentalPeriod.split('-')[3] }}-{{ viewall.rentalPeriod.split('-')[4] }}-{{ viewall.rentalPeriod.split('-')[5] }}
                 </td>
             </ng-container>
 
@@ -123,7 +125,7 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
             <tr *matNoDataRow>
-                <td class="mat-cell" colspan="4">No Data
+                <td class="mat-cell" colspan="4">No Data For
                     {{input.value}}
                 </td>
 

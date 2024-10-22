@@ -61,4 +61,8 @@ export class EntityAutoDebitGetallComponent {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  reload(){
+    window.location.reload()
+  }
 }

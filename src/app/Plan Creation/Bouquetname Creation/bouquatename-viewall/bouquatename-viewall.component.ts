@@ -41,14 +41,14 @@ export class BouquatenameViewallComponent implements OnInit {
   date2: any;
   responseDataListnew: any = [];
   response: any = [];
-valuebroadcastAdd: any;
-valuebroadcastExport: any;
-valuebroadcastStatus: any;
-valuebroadcastEdit: any;
-getdashboard: any[] = [];
+  valuebroadcastAdd: any;
+  valuebroadcastExport: any;
+  valuebroadcastStatus: any;
+  valuebroadcastEdit: any;
+  getdashboard: any[] = [];
   roleId: any = localStorage.getItem('roleId')
-actions: any;
-errorMessage:any;
+  actions: any;
+  errorMessage: any;
 
 
   constructor(
@@ -73,32 +73,32 @@ errorMessage:any;
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
-          
-          if(this.roleId==1){
-            this.valuebroadcastAdd = 'Broadcaster Configuration-Add';
-            this.valuebroadcastEdit='Broadcaster Configuration-Edit'
-            this.valuebroadcastExport='Broadcaster Configuration-Export'
-            this.valuebroadcastStatus='Broadcaster Configuration-Status'
-                   }
-          else{
-          for (let datas of this.getdashboard) {
-            this.actions = datas.subPermissions;
-            
 
-            if (this.actions == 'Broadcaster Configuration-Add') {
-              this.valuebroadcastAdd = 'Broadcaster Configuration-Add';
-            }
-            if(this.actions=='Broadcaster Configuration-Edit'){
-              this.valuebroadcastEdit='Broadcaster Configuration-Edit'
-            }
-            if(this.actions=='Broadcaster Configuration-Export'){
-              this.valuebroadcastExport='Broadcaster Configuration-Export'
-            }
-            if(this.actions=='Broadcaster Configuration-Status'){
-              this.valuebroadcastStatus='Broadcaster Configuration-Status'
+          if (this.roleId == 1) {
+            this.valuebroadcastAdd = 'Broadcaster Configuration-Add';
+            this.valuebroadcastEdit = 'Broadcaster Configuration-Edit'
+            this.valuebroadcastExport = 'Broadcaster Configuration-Export'
+            this.valuebroadcastStatus = 'Broadcaster Configuration-Status'
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+
+
+              if (this.actions == 'Broadcaster Configuration-Add') {
+                this.valuebroadcastAdd = 'Broadcaster Configuration-Add';
+              }
+              if (this.actions == 'Broadcaster Configuration-Edit') {
+                this.valuebroadcastEdit = 'Broadcaster Configuration-Edit'
+              }
+              if (this.actions == 'Broadcaster Configuration-Export') {
+                this.valuebroadcastExport = 'Broadcaster Configuration-Export'
+              }
+              if (this.actions == 'Broadcaster Configuration-Status') {
+                this.valuebroadcastStatus = 'Broadcaster Configuration-Status'
+              }
             }
           }
-        }
         }
         else {
           this.errorMessage = res.responseMessage;
@@ -109,11 +109,15 @@ errorMessage:any;
 
   }
 
+  reload(){
+    window.location.reload()
+  }
+
   add() {
     this.dialog.open(BouquateNameAddComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
-      disableClose:true
+      disableClose: true
     })
   }
 
@@ -161,7 +165,7 @@ errorMessage:any;
 
   }
 
- 
+
   exportexcel() {
     console.log('check');
     let sno = 1;
@@ -177,10 +181,10 @@ errorMessage:any;
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.broadCasterName);
-      if(element.status==1){
+      if (element.status == 1) {
         this.response.push('Active')
       }
-      else{
+      else {
         this.response.push('Inactive')
       }
       this.response.push(element?.createdBy);
@@ -188,14 +192,14 @@ errorMessage:any;
       this.response.push(element?.modifiedBy);
       this.response.push(this.date2);
 
-    
+
 
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
- 
+
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
@@ -207,8 +211,8 @@ errorMessage:any;
       "Modified By",
       "Modified At",
     ]
- 
- 
+
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Broadcast');
@@ -227,15 +231,15 @@ errorMessage:any;
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
+
       }
- 
+
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
- 
+
     data.forEach((d: any) => {
       // console.log("row loop");
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -243,32 +247,32 @@ errorMessage:any;
       let qty3 = row.getCell(4);
       let qty4 = row.getCell(5);
       let qty5 = row.getCell(6);
-   
- 
- 
+
+
+
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty3.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-           
- 
+
+
     }
     );
- 
+
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
     // worksheet.getColumn(2).protection = { locked: true, hidden: true }
     // worksheet.getColumn(3).protection = { locked: true, hidden: true }
- 
- 
+
+
     workbook.xlsx.writeBuffer().then((data: any) => {
- 
+
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
- 
- 
+
+
       FileSaver.saveAs(blob, 'Broadcast.xlsx');
- 
+
     });
   }
 

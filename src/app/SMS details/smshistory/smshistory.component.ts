@@ -71,6 +71,11 @@ export class SMSHistoryComponent {
  
     })
   }
+
+
+  reload(){
+    window.location.reload()
+  }
  
  
  

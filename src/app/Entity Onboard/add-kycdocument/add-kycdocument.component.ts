@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -22,33 +22,64 @@ export class AddKycdocumentComponent implements OnInit {
   businessCategoryId: any;
   businesscreationId: any;
   kycDocName: any;
+  firstFormGroup!: FormGroup;
+  secondFormGroup!: FormGroup;
+  thirdFormGroup!: FormGroup;
+  fourthFormGroup!: FormGroup;
+  selectElement: any;
+  selectElements: any;
+  select: any;
+  file5!: any;
+  file6!: any;
+  kycValue: any;
+  file8!: any;
+  file9!: any;
+  id: any;
+  selectperiod: any;
+  errorMessage: any;
+  file1: any;
+  file2: any;
+  file3: any;
+  file4: any;
+  merchantid: any;
+  uploadImage: any;
 
 
-
-  constructor(private service: FarginServiceService,  private dialog: MatDialog, private toaster: ToastrService, @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(private service: FarginServiceService,  private dialog: MatDialog, private toastr: ToastrService,
+    private _formBuilder: FormBuilder,  @Inject(MAT_DIALOG_DATA) public data: any) {
 
   }
   ngOnInit(): void {
 
+    this.merchantid = this.data.value;
+    console.log(this.merchantid);
+    this.firstFormGroup = this._formBuilder.group({
+      identityProof: ['', Validators.required],
+      identityProofNo: ['', Validators.required],
+      identityFrontPath: [null, Validators.required],
+      identityBackPath: [null, Validators.required],
+      drivingLicenceDob: [''],
+      passportDob: [''],
 
-    this.merchantId = this.data.value
-    console.log(this.merchantId);
-    this.businessCategoryId = this.data.value1
-    console.log("Business", this.businessCategoryId)
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      addressProof: ['', Validators.required],
+      addressProofNo: ['', Validators.required],
+      addressFrontPath: [null, Validators.required],
+      addressBackPath: [null, Validators.required],
+      drivingLicenceDobs: [''],
+      passportDobs: [''],
+    });
 
-
-    this.KycForm = new FormGroup({
-      documentname: new FormControl('', [Validators.required]),
-      documentNumber: new FormControl('', [Validators.required, Validators.pattern("[0-9]{12}$")]),
-      panNumber: new FormControl('', [Validators.required, Validators.pattern("^[A-Za-z]{5}[0-9]{4}[A-Za-z]$")]),
-      passportNumber: new FormControl('', [Validators.required, Validators.pattern("^[A-Za-z0-9]{8,15}$")]),
-      gstNumber: new FormControl('', [Validators.required, Validators.pattern("^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[A-Z]{1}[0-9A-Z]{1}$")]),
-      drivingLicenseNumber: new FormControl('', [Validators.required,  Validators.pattern("^(([A-Z]{2}[0-9]{2})( )|([A-Z]{2}-[0-9]{2}))((19|20)[0-9][0-9])[0-9]{7}$")]),
-      cinch: new FormControl('', [Validators.required,Validators.pattern("^([LUu]{1})([0-9]{5})([A-Za-z]{2})([0-9]{4})([A-Za-z]{3})([0-9]{6})$")]),
-      voterid: new FormControl('', [Validators.required,  Validators.pattern("^[A-Z]{3}[0-9]{7}$")]),
-      documentfront: new FormControl('', [Validators.required]),
-      documentback: new FormControl('', [Validators.required]),
-    })
+    this.thirdFormGroup = this._formBuilder.group({
+      signatureProof: ['', Validators.required],
+      signatureProofNo: ['', Validators.required],
+      signatureFrontPath: [null, Validators.required],
+      signatureBackPath: [null, Validators.required],
+      drivingLicenceDobss: [''],
+      passportDobss: [''],
+    });
+   
     this.service.KycDocName(this.businessCategoryId).subscribe((res: any) => {
       if (res.flag == 1) {
         this.categorydetails = res.response;
@@ -56,129 +87,309 @@ export class AddKycdocumentComponent implements OnInit {
       }
     })
   }
-  get documentname() {
-    return this.KycForm.get('documentname');
+  get identityProof() {
+    return this.firstFormGroup.get('identityProof')
   }
-  get documentNumber() {
-    return this.KycForm.get('documentNumber');
+  get identityProofNo() {
+    return this.firstFormGroup.get('identityProofNo')
   }
-
-  get panNumber() {
-    return this.KycForm.get('panNumber');
-  }
-  get passportNumber() {
-    return this.KycForm.get('passportNumber');
+  get identityFrontPath() {
+    return this.firstFormGroup.get('identityFrontPath')
   }
 
-  get gstNumber() {
-    return this.KycForm.get('gstNumber');
+  get identityBackPath() {
+    return this.firstFormGroup.get('identityBackPath')
   }
 
-  get drivingLicenseNumber() {
-    return this.KycForm.get('drivingLicenseNumber');
+  get drivingLicenceDob() {
+    return this.firstFormGroup.get('drivingLicenceDob')
+  }
+  get passportDob() {
+    return this.firstFormGroup.get('passportDob')
   }
 
-  get cinch() {
-    return this.KycForm.get('cinch');
-  }
-  get voterid() {
-    return this.KycForm.get('voterid');
-  }
-  get documentfront() {
-    return this.KycForm.get('documentfront');
-  }
-  get documentback() {
-    return this.KycForm.get('documentback');
+  get addressProof() {
+    return this.secondFormGroup.get('addressProof')
   }
 
+  get addressProofNo() {
+    return this.secondFormGroup.get('addressProofNo')
+  }
 
-  getdocument(event: any) {
-    this.imageFile = event.target.files[0];
-    if ((this.imageFile.type == 'image/png') || (this.imageFile.type == 'image/jpeg') || (this.imageFile.type == 'image/jpg')) {
-      console.log(this.imageFile.type)
-      if (this.imageFile.size <= 20 * 1024 * 1024) {
-        this.errorShow = false;
+  get addressFrontPath() {
+    return this.secondFormGroup.get('addressFrontPath')
+  }
+
+  get addressBackPath() {
+    return this.secondFormGroup.get('addressBackPath')
+  }
+  get drivingLicenceDobs() {
+    return this.secondFormGroup.get('drivingLicenceDobs')
+  }
+  get passportDobs() {
+    return this.secondFormGroup.get('passportDobs')
+  }
+
+  get signatureProof() {
+    return this.thirdFormGroup.get('signatureProof')
+  }
+  get signatureProofNo() {
+    return this.thirdFormGroup.get('signatureProofNo')
+  }
+  get signatureFrontPath() {
+    return this.thirdFormGroup.get('signatureFrontPath')
+  }
+  get signatureBackPath() {
+    return this.thirdFormGroup.get('signatureBackPath')
+  }
+  get drivingLicenceDobss() {
+    return this.thirdFormGroup.get('drivingLicenceDobss')
+  }
+  get passportDobss() {
+    return this.thirdFormGroup.get('passportDobss')
+  }
+
+  onFileSelected(event: any) {
+    this.uploadImage = event.target.files[0];
+ 
+    // Ensure this.uploadImage is not null
+    if (this.uploadImage) {
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+ 
+      if (acceptableTypes.includes(this.uploadImage.type)) {
+        if (this.uploadImage.size <= 20 * 1024 * 1024) {
+          this.toastr.success("Image uploaded successfully");
+        } else {
+          this.toastr.error("Max Image size exceeded");
+          this.identityFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
+        }
       } else {
-        this.errorShow = true;
-        this.clearImage = '';
+        console.log(this.uploadImage.type);
+        this.toastr.error("File type not acceptable");
+        this.identityFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
-    }
-    else {
-      console.log(this.imageFile.type)
-      this.clearImage = '';
-    }
-  }
-
-  getBackdocument(event: any) {
-    this.imageFile1 = event.target.files[0];
-    if ((this.imageFile1.type == 'image/png') || (this.imageFile1.type == 'image/jpeg') || (this.imageFile1.type == 'image/jpg')) {
-      console.log(this.imageFile1.type)
-      if (this.imageFile1.size <= 20 * 1024 * 1024) {
-        this.errorShow = false;
-      } else {
-        this.errorShow = true;
-        this.clearImage = '';
-      }
-    }
-    else {
-      console.log(this.imageFile1.type)
-      this.clearImage = '';
-    }
-  }
-
-submit() {
-  const formData = new FormData();
-  formData.append('merchantId', this.merchantId);
-  formData.append('docFrontPath', this.imageFile);
-  formData.append('docBackPath', this.imageFile1);
-  formData.append('docName', this.documentname?.value);
-  formData.append('createdBy', this.createdBy);
-
-  // Determine the document number based on the selected document name
-  let docNumber: string | null = null;
-  switch (this.documentname?.value) {
-    case 'Aadhaar':
-      docNumber = this.documentNumber?.value;
-      break;
-    case 'PAN':
-      docNumber = this.panNumber?.value;
-      break;
-    case 'Passport':
-      docNumber = this.passportNumber?.value;
-      break;
-    case 'GST':
-      docNumber = this.gstNumber?.value;
-      break;
-    case 'Driving License':
-      docNumber = this.drivingLicenseNumber?.value;
-      break;
-    case 'Cin':
-      docNumber = this.cinch?.value;
-      break;
-    case 'VoterId':
-      docNumber = this.voterid?.value;
-      break;
-    default:
-      this.toaster.error('Invalid document type selected');
-      return; // Exit if the document type is not valid
-  }
-
-  formData.append('docNumber', docNumber!); // Non-null assertion because we've checked the value above
-
-  this.service.KycAdd(formData).subscribe((res: any) => {
-    if (res.flag == 1) {
-      this.details = res.response;
-      this.toaster.success(res.responseMessage);
-      this.dialog.closeAll(); // Close the dialog
-      setTimeout(() => {
-        window.location.reload()
-      }, 500);
     } else {
-      this.toaster.error(res.responseMessage);
+      this.toastr.error("No file selected");
     }
-  });
+
+
+  }
+
+  onFileSelected2(event: any) {
+    this.uploadImage = event.target.files[0];
+ 
+    // Ensure this.uploadImage is not null
+    if (this.uploadImage) {
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+ 
+      if (acceptableTypes.includes(this.uploadImage.type)) {
+        if (this.uploadImage.size <= 20 * 1024 * 1024) {
+          this.toastr.success("Image uploaded successfully");
+        } else {
+          this.toastr.error("Max Image size exceeded");
+          this.identityBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
+        }
+      } else {
+        console.log(this.uploadImage.type);
+        this.toastr.error("File type not acceptable");
+        this.identityBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
+      }
+    } else {
+      this.toastr.error("No file selected");
+    }
+
+
+  }
+  onaddressfront(event: any) {
+   
+    this.uploadImage = event.target.files[0];
+ 
+    // Ensure this.uploadImage is not null
+    if (this.uploadImage) {
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+ 
+      if (acceptableTypes.includes(this.uploadImage.type)) {
+        if (this.uploadImage.size <= 20 * 1024 * 1024) {
+          this.toastr.success("Image uploaded successfully");
+        } else {
+          this.toastr.error("Max Image size exceeded");
+          this.addressFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
+        }
+      } else {
+        console.log(this.uploadImage.type);
+        this.toastr.error("File type not acceptable");
+        this.addressFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
+      }
+    } else {
+      this.toastr.error("No file selected");
+    }
+
+  }
+  onaddressback(event: any) {
+    this.uploadImage = event.target.files[0];
+ 
+    // Ensure this.uploadImage is not null
+    if (this.uploadImage) {
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+ 
+      if (acceptableTypes.includes(this.uploadImage.type)) {
+        if (this.uploadImage.size <= 20 * 1024 * 1024) {
+          this.toastr.success("Image uploaded successfully");
+        } else {
+          this.toastr.error("Max Image size exceeded");
+          this.addressBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
+        }
+      } else {
+        console.log(this.uploadImage.type);
+        this.toastr.error("File type not acceptable");
+        this.addressBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
+      }
+    } else {
+      this.toastr.error("No file selected");
+    }
+  }
+  onasignfront(event: any) {
+    this.uploadImage = event.target.files[0];
+ 
+    // Ensure this.uploadImage is not null
+    if (this.uploadImage) {
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+ 
+      if (acceptableTypes.includes(this.uploadImage.type)) {
+        if (this.uploadImage.size <= 20 * 1024 * 1024) {
+          this.toastr.success("Image uploaded successfully");
+        } else {
+          this.toastr.error("Max Image size exceeded");
+          this.signatureFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
+        }
+      } else {
+        console.log(this.uploadImage.type);
+        this.toastr.error("File type not acceptable");
+        this.signatureFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
+      }
+    } else {
+      this.toastr.error("No file selected");
+    }
+
+  }
+  onasignback(event: any) {
+    this.uploadImage = event.target.files[0];
+ 
+    // Ensure this.uploadImage is not null
+    if (this.uploadImage) {
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+ 
+      if (acceptableTypes.includes(this.uploadImage.type)) {
+        if (this.uploadImage.size <= 20 * 1024 * 1024) {
+          this.toastr.success("Image uploaded successfully");
+        } else {
+          this.toastr.error("Max Image size exceeded");
+          this.signatureBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
+        }
+      } else {
+        console.log(this.uploadImage.type);
+        this.toastr.error("File type not acceptable");
+        this.signatureBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
+      }
+    } else {
+      this.toastr.error("No file selected");
+    }
+
+
+  }
+ 
+  onIdentityProofChange(event: any) {
+    this.selectElement = event.target.value;
+    const identityProofNoControl = this.firstFormGroup.get('identityProofNo');
+
+
+    identityProofNoControl?.clearValidators();
+
+
+    if (this.selectElement === 'Aadhar Card') {
+      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[0-9]{12}$")]); // 12 digits for Aadhar
+    } else if (this.selectElement === 'Pancard') {
+      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z]{5}[0-9]{4}[A-Za-z]$")]); // PAN format
+    } else if (this.selectElement === 'Voter Id Proof') {
+      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]); // Voter ID format
+    } else if (this.selectElement === 'Passport') {
+      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z0-9]{8,15}$")]); // Passport format
+    } else if (this.selectElement === 'Driving License') {
+      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Driving license format
+    }
+
+
+    identityProofNoControl?.updateValueAndValidity();
+  }
+
+
+  onAddressProofChange(event: any) {
+    this.selectElements = event.target.value;
+    const addressProofNoControl = this.secondFormGroup.get('addressProofNo');
+
+    addressProofNoControl?.clearValidators();
+
+
+    if (this.selectElements === 'Aadhar Card') {
+      addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[0-9]{12}$")]); // 12 digits for Aadhar
+    } else if (this.selectElements === 'Voter Id Proof') {
+      addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]); // Voter ID format
+    } else if (this.selectElements === 'Passport') {
+      addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z0-9]{8,15}$")]); // Passport format
+    } else if (this.selectElements === 'Driving License') {
+      addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Driving license format
+    }
+
+
+    addressProofNoControl?.updateValueAndValidity();
+  }
+
+  onasignproof(event: any) {
+    this.select = event.target.value;
+    const signatureProofNoControl = this.thirdFormGroup.get('signatureProofNo');
+
+
+    signatureProofNoControl?.clearValidators();
+
+
+    if (this.select === 'Pancard') {
+      signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z]{5}[0-9]{4}[A-Za-z]$")]);
+    } else if (this.select === 'Passport') {
+      signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z0-9]{8,15}$")]); // Passport format
+    } else if (this.select === 'Driving License') {
+      signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Driving license format
+    }
+
+    signatureProofNoControl?.updateValueAndValidity();
+  }
+  kycsubmit() {
+    const formData = new FormData();
+    formData.append('merchantId', this.merchantid);
+    formData.append('identityFrontPath', this.file1);
+    formData.append('identityBackPath', this.file2);
+    formData.append('identityProof', this.identityProof?.value);
+    formData.append('identityProofNo', this.identityProofNo?.value);
+    formData.append('addressFrontPath', this.file3);
+    formData.append('addressBackPath', this.file4);
+    formData.append('addressProof', this.addressProof?.value);
+    formData.append('addressProofNo', this.addressProofNo?.value);
+    formData.append('signatureFrontPath', this.file5);
+    formData.append('signatureBackPath', this.file6);
+    formData.append('signatureProof', this.signatureProof?.value);
+    formData.append('signatureProofNo', this.signatureProofNo?.value);
+    formData.append('drivingLicenceDob', this.drivingLicenceDob?.value || this.drivingLicenceDobs?.value || this.drivingLicenceDobss?.value);
+    formData.append('passportDob', this.passportDob?.value || this.passportDobs?.value || this.passportDobss?.value);
+    this.service.entitykycs(formData).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.toastr.success(res.responseMessage);
+       
+      } else {
+        this.toastr.error(res.responseMessage);
+      }
+    });
+  }
+
 }
 
 
 
-}

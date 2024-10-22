@@ -21,6 +21,7 @@ export class AddBussinessdocumentComponent implements OnInit {
   merchantid: any;
   getadminname = JSON.parse(localStorage.getItem('adminname') || '');
   emptyBlob = new Blob([], { type: 'application/pdf' })
+  uploadImage: any;
 
   constructor(
     public service: FarginServiceService,
@@ -85,25 +86,26 @@ export class AddBussinessdocumentComponent implements OnInit {
   }
 
   docfront(event: any) {
-    const files = event.target.files[0];
-    if (files) {
-      const fileName: string = files.name;
-      const fileextension: any = fileName.split('.').pop()?.toLowerCase();
-      const dotcount = fileName.split('.').length - 1;
-      if (dotcount > 1) {
-        this.errorMessage = 'Files with multiple extensions are not allowed';
-        return;
+    this.uploadImage = event.target.files[0];
+ 
+    // Ensure this.uploadImage is not null
+    if (this.uploadImage) {
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+ 
+      if (acceptableTypes.includes(this.uploadImage.type)) {
+        if (this.uploadImage.size <= 20 * 1024 * 1024) {
+          this.toastr.success("Image uploaded successfully");
+        } else {
+          this.toastr.error("Max Image size exceeded");
+          this.docFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
+        }
+      } else {
+        console.log(this.uploadImage.type);
+        this.toastr.error("File type not acceptable");
+        this.docFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
-      if (!files.type.startsWith('image/')) {
-        this.errorMessage = 'Only Images  are  allowed';
-        return;
-      }
-      this.errorMessage = ''
-      this.file8 = files;
-      console.log(this.file8);
-
-      console.log(' file 1 id success' + files);
-
+    } else {
+      this.toastr.error("No file selected");
     }
 
 
@@ -111,24 +113,29 @@ export class AddBussinessdocumentComponent implements OnInit {
 
 
   docback(event: any) {
-    const files = event.target.files[0];
-    if (files) {
-      const fileName: string = files.name;
-      const fileextension: any = fileName.split('.').pop()?.toLowerCase();
-      const dotcount = fileName.split('.').length - 1;
-      if (dotcount > 1) {
-        this.errorMessage = 'Files with multiple extensions are not allowed';
-        return;
+    this.uploadImage = event.target.files[0];
+ 
+    // Ensure this.uploadImage is not null
+    if (this.uploadImage) {
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+ 
+      if (acceptableTypes.includes(this.uploadImage.type)) {
+        if (this.uploadImage.size <= 20 * 1024 * 1024) {
+          this.toastr.success("Image uploaded successfully");
+        } else {
+          this.toastr.error("Max Image size exceeded");
+          this.docBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
+        }
+      } else {
+        console.log(this.uploadImage.type);
+        this.toastr.error("File type not acceptable");
+        this.docBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
-      if (!files.type.startsWith('image/')) {
-        this.errorMessage = 'Only Images  are  allowed';
-        return;
-      }
-      this.errorMessage = ''
-      this.file9 = files;
-      console.log(this.file9);
-      console.log(' file 1 id success' + files);
+    } else {
+      this.toastr.error("No file selected");
     }
+
+
   }
   docSubmit() {
     const formData = new FormData();

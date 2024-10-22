@@ -9,6 +9,7 @@ import FileSaver from 'file-saver';
 import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
+import { customizepay } from '../../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-otherpayments-viewall',
@@ -25,6 +26,7 @@ export class OtherpaymentsViewallComponent {
     'amount',
     'paidAt',
     'receipt',
+    'CheckStatus',
     'status',
     'view',
 
@@ -77,6 +79,26 @@ export class OtherpaymentsViewallComponent {
   reload() {
     window.location.reload()
   }
+
+  track(id:any){
+    let submitModel:customizepay={
+      payId: id?.payId,
+    }
+    this.service.Customizepay(submitModel).subscribe((res:any)=>{
+      if(res.flag==1){
+        this.toastr.success(res.responseMessage)
+        setTimeout(() => {
+          window.location.reload()
+        }, 300);
+      }
+      else {
+        this.toastr.error(res.responseMessage);
+      }
+    })
+    }
+ 
+
+  
 
 
 

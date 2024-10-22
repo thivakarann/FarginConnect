@@ -83,6 +83,10 @@ export class ViewAnnouncementComponent implements OnInit {
     })
   }
 
+  reload(){
+    window.location.reload()
+  }
+
   search(){
     this.service.announcementDate(this.fromDate, this.toDate).subscribe({
       next: (res: any) => {

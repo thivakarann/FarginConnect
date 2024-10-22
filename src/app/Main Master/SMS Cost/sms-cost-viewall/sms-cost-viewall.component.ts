@@ -21,7 +21,7 @@ export class SmsCostViewallComponent {
     'smsId',
     'amount',
     'smsStatus',
-    'Edit',
+    // 'Edit',
     'createdBy',
     'createdDateTime',
     'modifedBy',
@@ -63,8 +63,13 @@ export class SmsCostViewallComponent {
     })
   }
 
-  EditSMS(id:any){
+  EditSMS(id: any) {
 
+  }
+
+
+  reload() {
+    window.location.reload()
   }
 
   ActiveStatus(event: MatSlideToggleChange, id: any) {
@@ -75,7 +80,7 @@ export class SmsCostViewallComponent {
       smsStatus: this.isChecked ? 1 : 0,
 
     };
-    this.smsdetails.smscoststatus(id,submitModel).subscribe((res: any) => {
+    this.smsdetails.smscoststatus(id, submitModel).subscribe((res: any) => {
       console.log(res);
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);

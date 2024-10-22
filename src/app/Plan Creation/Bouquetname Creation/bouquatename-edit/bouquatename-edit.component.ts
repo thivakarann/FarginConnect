@@ -60,8 +60,8 @@ export class BouquatenameEditComponent implements OnInit {
           window.location.reload()
         }, 1000)
       }
-      else {
-        this.toastr.error(res.responseMessage);
+      else  {
+        this.toastr.error(res.errorMessage);
       }
     })
   }

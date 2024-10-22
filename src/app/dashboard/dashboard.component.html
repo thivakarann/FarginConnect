@@ -211,19 +211,24 @@
               <a>
                 <i class="fa-solid fa-ticket"></i>
                 <span>Service Request</span>
-
               </a>
               <div class="sidebar-submenu">
                 <ul>
                   <li>
-                    <a routerLink="viewticket">Entity Request&nbsp;&nbsp;&nbsp;<span class="mb-7" matBadgeColor="warn"
-                        matBadge="{{counts}}" matBadgeSize="medium" matBadgeOverlap="true">
-                      </span> </a>
+                    <a routerLink="viewticket" style="display: flex; align-items: center;">
+                      Entity Request &nbsp;
+                      <span class="matBadge"
+                            matBadgeColor="warn"
+                            matBadge="{{counts}}"
+                            matBadgeSize="medium"
+                            matBadgeOverlap="true"
+                            style="margin-left: 9px;">
+                      </span>
+                    </a>
                   </li>
                   <li>
                     <a routerLink="customer-viewall">Customer Request</a>
                   </li>
-
                 </ul>
               </div>
             </li>
@@ -273,7 +278,7 @@
                   </li>
 
                   <li>
-                    <a routerLink="viewall-kyccategory">Bussiness Doc</a>
+                    <a routerLink="viewall-kyccategory">Buisnees DoCument Type </a>
                   </li>
 
                   <li [hidden]="valueBusinessKYC!=='Business KYC'">

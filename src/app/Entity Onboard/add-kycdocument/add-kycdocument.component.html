@@ -1,149 +1,279 @@
 <div class="card-header">
     <h3 class="mb-0" style="font-weight: 700;text-align:center;font-size: 21px;">Add KYC Documents</h3>
 </div>
-<body class="page">
-    <main class="main page__main">
-        <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="KycForm">
-          <div class="row">
-            <div class="col-md-6">
+<mat-horizontal-stepper linear>
+    <mat-step [stepControl]="firstFormGroup" label="Step 1">
+        <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Identity</ng-template>
+
+            <div class="form__row">
                 <div class="form__linput">
-                    <label class="form__label" for="fname">Document Name</label>
-                    <select id="Bussiness category" class="form-control form-select" formControlName="documentname">
-                        <option value="" disabled selected>Select</option>
-                        <option *ngFor="let item of categorydetails" [value]="item.kycDocName">
-                            {{item.kycDocName}}</option>
+                    <label class="form__label" for="identityProof"><b>Identity Proof</b></label>
+                    <select formControlName="identityProof" class="form-select"
+                        (change)="onIdentityProofChange($event)">
+                        <option hidden>Select..</option>
+                        <option value="Aadhar Card">Aadhar Card</option>
+                        <option value="Pancard">Pancard</option>
+                        <option value="Voter Id Proof">Voter Id Proof</option>
+                        <option value="Passport">Passport</option>
+                        <option value="Driving License">Driving License</option>
                     </select>
-                    <div style="color: red; font-size: 12px;margin-top: 2px;"
-                        *ngIf="documentname?.invalid && documentname?.touched && documentname?.errors?.['required']">
+                    <div *ngIf="identityProof?.invalid && identityProof?.touched && identityProof?.errors?.['required']"
+                        style="color: red; font-size: 12px;">
                         Field is required
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form__linput" *ngIf="documentname?.value=='Aadhaar'">
-                    <label class="form__label" for="fname">Aadhar Cardnumber</label>
-                    <input class="form__input" id="fname" type="text" formControlName="documentNumber" name="documentNumber"
-                        placeholder="Enter Aadharcard number..." required />
-                    <div style="color: red; font-size: 12px;margin-top: 2px;"
-                        *ngIf="documentNumber?.invalid && documentNumber?.touched && documentNumber?.errors?.['required']">
-                        Field is required
-                    </div>
-                    <div style="color: red; font-size: 12px;margin-top: 2px;"
-                        *ngIf="documentNumber?.invalid && documentNumber?.touched && documentNumber?.errors?.['pattern']">
-                        Please Enter Valid Aadhar Number*
-                    </div>
-   
-                </div>
-                <div class="form__linput" *ngIf="documentname?.value=='PAN'">
-                    <label class="form__label" for="fname">Pancard Number</label>
-                    <input class="form__input" id="fname" type="text" formControlName="panNumber" name="panNumber"
-                        placeholder="Enter Pancard number..." required />
-                    <div style="color: red; font-size: 12px;margin-top: 2px;"
-                        *ngIf="panNumber?.invalid && panNumber?.touched && panNumber?.errors?.['required']">
-                        Field is required
-                    </div>
-                    <div style="color: red; font-size: 12px;margin-top: 2px;"
-                        *ngIf="panNumber?.invalid && panNumber?.touched && panNumber?.errors?.['pattern']">
-                        Please Enter Valid Pancard Number*
-                    </div>
-                </div>
-                <div class="form__linput" *ngIf="documentname?.value=='Passport'">
-                    <label class="form__label" for="fname">Passport Number</label>
-                    <input class="form__input" id="fname" type="text" formControlName="passportNumber" name="passportNumber"
-                        placeholder="Enter Passport number..." required />
-                    <div style="color: red; font-size: 12px;margin-top: 2px;"
-                        *ngIf="passportNumber?.invalid && passportNumber?.touched && passportNumber?.errors?.['required']">
-                        Field is required
-                    </div>
-                    <div style="color: red; font-size: 12px;margin-top: 2px;"
-                        *ngIf="passportNumber?.invalid && passportNumber?.touched && passportNumber?.errors?.['pattern']">
-                        Please Enter Valid Passport Number*
-                    </div>
-                </div>
-                <div class="form__linput" *ngIf="documentname?.value=='GST'">
-                    <label class="form__label" for="fname">GSt Number</label>
-                    <input class="form__input" id="fname" type="text" formControlName="gstNumber" name="gstNumber"
-                        placeholder="Enter GST number..." required />
-                    <div style="color: red; font-size: 12px;margin-top: 2px;"
-                        *ngIf="gstNumber?.invalid && gstNumber?.touched && gstNumber?.errors?.['required']">
-                        Field is required
-                    </div>
-                    <div style="color: red; font-size: 12px;margin-top: 2px;"
-                        *ngIf="gstNumber?.invalid && gstNumber?.touched && gstNumber?.errors?.['pattern']">
-                        Please Enter Valid Gst Number*
-                    </div>
-                </div>
-                <div class="form__linput" *ngIf="documentname?.value=='Driving License'">
-                    <label class="form__label" for="fname">DrivingLicense Number</label>
-                    <input class="form__input" id="fname" type="text" formControlName="drivingLicenseNumber"
-                        name="gstNumber" placeholder="Enter DrivingLicense number..." required />
-                    <div style="color: red; font-size: 12px;margin-top: 2px;"
-                        *ngIf="drivingLicenseNumber?.invalid && drivingLicenseNumber?.touched && drivingLicenseNumber?.errors?.['required']">
-                        Field is required
-                    </div>
-                    <div style="color: red; font-size: 12px;margin-top: 2px;"
-                        *ngIf="drivingLicenseNumber?.invalid && drivingLicenseNumber?.touched && drivingLicenseNumber?.errors?.['pattern']">
-                        Please Enter Valid Driving License Number*
-                    </div>
-                </div>
-                <div class="form__linput" *ngIf="documentname?.value=='Cin'">
-                    <label class="form__label" for="fname">Cin</label>
-                    <input class="form__input" id="fname" type="text" formControlName="cinch" name="gstNumber"
-                        placeholder="Enter Cinch number..." required />
-                    <div style="color: red; font-size: 12px;margin-top: 2px;"
-                        *ngIf="cinch?.invalid && cinch?.touched && cinch?.errors?.['required']">
-                        Field is required
-                    </div>
-                    <div style="color: red; font-size: 12px;margin-top: 2px;"
-                        *ngIf="cinch?.invalid && cinch?.touched && cinch?.errors?.['pattern']">
-                        Please Enter Valid Cin Number*
-                    </div>
-                </div>
-                <div class="form__linput" *ngIf="documentname?.value=='VoterId'">
-                    <label class="form__label" for="fname">VoterId Number</label>
-                    <input class="form__input" id="fname" type="text" formControlName="voterid" name="gstNumber"
-                        placeholder="Enter VoterId number..." required />
-                    <div style="color: red; font-size: 12px;margin-top: 2px;"
-                        *ngIf="voterid?.invalid && voterid?.touched && voterid?.errors?.['required']">
-                        Field is required
-                    </div>
-                    <div style="color: red; font-size: 12px;margin-top: 2px;"
-                        *ngIf="voterid?.invalid && voterid?.touched && voterid?.errors?.['pattern']">
-                        Please Enter Valid VoterId Number*
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
+
                 <div class="form__linput">
-                    <label class="form__label" for="Frontpath">Document Front-Path</label>
-                    <input class="form__input" id="Frontpath" type="file" formControlName="documentfront" name="Frontpath"
-                        required (change)="getdocument($event)" />
-                    <div style="color: red; font-size: 12px;margin-top: 2px;"
-                        *ngIf="documentfront?.invalid && documentfront?.touched && documentfront?.errors?.['required']">
-                        Field is required
+                    <label class="form__label"><b>Enter {{selectElement}} Number</b></label>
+                    <input class="form-control" id="mccCode" type="text" formControlName="identityProofNo"
+                        required />
+                    <div
+                        *ngIf="identityProofNo && identityProofNo.invalid && (identityProofNo.touched || identityProofNo.dirty)">
+                        <small *ngIf="identityProofNo.errors?.['required']"
+                            style="color: red; font-size: 12px;">This field is required.</small>
+                        <small *ngIf="identityProofNo.errors?.['pattern']"
+                            style="color: red; font-size: 12px;">Enter a valid {{selectElement}} number.</small>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+
+            <div class="form__row">
                 <div class="form__linput">
-                    <label class="form__label" for="Backpath">Document Back-Path</label>
-                    <input class="form__input" id="Backpath" type="file" formControlName="documentback" name="Backpath"
-                        placeholder="Mcc code..." required (change)="getBackdocument($event)" />
-                    <div style="color: red; font-size: 12px;margin-top: 2px;"
-                        *ngIf="documentback?.invalid && documentback?.touched && documentback?.errors?.['required']">
+                    <label class="form__label"><b>Upload Front Path</b></label>
+                    <input class="form-control" formControlName="identityFrontPath"
+                        (change)="onFileSelected($event)" type="file" accept="image/*" />
+                    <div *ngIf="identityFrontPath?.invalid && identityFrontPath?.touched && identityFrontPath?.errors?.['required']"
+                        style="color: red; font-size: 12px;">
+                        Field is required
+                    </div>
+                </div>
+
+                <div class="form__linput">
+                    <label class="form__label"><b>Upload Back Path</b></label>
+                    <input class="form-control" formControlName="identityBackPath"
+                        (change)="onFileSelected2($event)" type="file" accept="image/*" />
+                    <div *ngIf="identityBackPath?.invalid && identityBackPath?.touched && identityBackPath?.errors?.['required']"
+                        style="color: red; font-size: 12px;">
                         Field is required
                     </div>
                 </div>
             </div>
-        </div>
-            <div class="mb-3">
-                <button (click)="submit()" type="submit" class="btn mx-1 "
-                    style="background-color:#7db855be">Submit</button>
-                <button type="submit" class="btn" style="background-color:#141E46;color:white"
-                    matDialogClose>Cancel</button>
+            <div class="form__row">
+                <div class="form__linput"
+                    *ngIf="selectElement === 'Driving License' || selectElement === 'Passport'">
+                    <label class="form__label"><b>Date of Birth</b></label>
+                    <input class="form-control" id="dob" type="date"
+                        [formControlName]="selectElement === 'Driving License' ? 'drivingLicenceDob' : 'passportDob'"
+                        required />
+                    <div *ngIf="(selectElement === 'Driving License' ? drivingLicenceDob : passportDob)?.invalid &&
+                                 (selectElement === 'Driving License' ? drivingLicenceDob : passportDob)?.touched &&
+                                 (selectElement === 'Driving License' ? drivingLicenceDob : passportDob)?.errors?.['required']"
+                        style="color: red; font-size: 12px;">
+                        Field is required
+                    </div>
+                </div>
+                <div class="form__linput">
+
+                </div>
+            </div>
+
+            <div>
+                <button mat-raised-button matStepperNext [disabled]="firstFormGroup.invalid">Next</button>
+                 &nbsp;&nbsp;
+                <button  type="submit" class="btn" style="background-color:#141E46;color:white"
+                matDialogClose>Cancel</button>
+
             </div>
         </form>
-    </main>
-</body>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" label="Step 2">
+        <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Address</ng-template>
+
+            <div class="form__row">
+                <div class="form__linput">
+                    <label class="form__label" for="identityType"><b>Address Proof</b></label>
+                    <select formControlName="addressProof" class="form-select"
+                        (change)="onAddressProofChange($event)">
+                        <option hidden>Select..</option>
+                        <option *ngIf="this.selectElement !='Aadhar Card'" value="Aadhar Card">Aadhar Card
+                        </option>
+                        <option *ngIf="this.selectElement !='Voter Id Proof'" value="Voter Id Proof">Voter Id
+                            Proof</option>
+                        <option *ngIf="this.selectElement !='Passport'" value="Passport">Passport</option>
+                        <option *ngIf="this.selectElement !='Driving License'" value="Driving License">Driving
+                            License</option>
+                    </select>
+                    <div *ngIf="addressProof?.invalid && addressProof?.touched && addressProof?.errors?.['required']"
+                        style="color: red; font-size: 12px;">
+                        Field is required
+                    </div>
+                </div>
+
+                <div class="form__linput">
+                    <label class="form__label"><b>Enter {{selectElements}} Number</b></label>
+                    <input class="form-control" id="addressProofNo" type="text" formControlName="addressProofNo"
+                        required />
+                    <div
+                        *ngIf="addressProofNo && addressProofNo.invalid && (addressProofNo.touched || addressProofNo.dirty)">
+                        <small *ngIf="addressProofNo.errors?.['required']"
+                            style="color: red; font-size: 12px;">This field is required.</small>
+                        <small *ngIf="addressProofNo.errors?.['pattern']"
+                            style="color: red; font-size: 12px;">Enter a valid {{selectElements}}
+                            number.</small>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form__row">
+                <div class="form__linput">
+                    <label class="form__label"><b>Upload Front Path</b></label>
+                    <input class="form-control" formControlName="addressFrontPath"
+                        (change)="onaddressfront($event)" type="file" accept="image/*" />
+                    <div *ngIf="addressFrontPath?.invalid && addressFrontPath?.touched && addressFrontPath?.errors?.['required']"
+                        style="color: red; font-size: 12px;">
+                        Field is required
+                    </div>
+                </div>
+
+                <div class="form__linput">
+                    <label class="form__label"><b>Upload Back Path</b></label>
+                    <input class="form-control" formControlName="addressBackPath"
+                        (change)="onaddressback($event)" type="file" accept="image/*" />
+                    <div *ngIf="addressBackPath?.invalid && addressBackPath?.touched && addressBackPath?.errors?.['required']"
+                        style="color: red; font-size: 12px;">
+                        Field is required
+                    </div>
+                </div>
+            </div>
+
+            <div class="form__row">
+                <div class="form__linput"
+                    *ngIf="selectElements === 'Driving License' || selectElements === 'Passport'">
+                    <label class="form__label"><b>Date of Birth</b></label>
+                    <input class="form-control" id="dob" type="date"
+                        [formControlName]="selectElements === 'Driving License' ? 'drivingLicenceDobs' : 'passportDobs'"
+                        required />
+                    <div *ngIf="(selectElements === 'Driving License' ? drivingLicenceDobs : passportDobs)?.invalid &&
+                                 (selectElements === 'Driving License' ? drivingLicenceDobs : passportDobs)?.touched &&
+                                 (selectElements  === 'Driving License' ? drivingLicenceDobs : passportDobs)?.errors?.['required']"
+                        style="color: red; font-size: 12px;">
+                        Field is required
+                    </div>
+                </div>
+                <div class="form__linput">
+
+                </div>
+            </div>
+            <!-- <div class="form__row">
+                <div class="form__linput" *ngIf="selectElements === 'Driving License' || selectElements === 'Passport'">
+                    <label class="form__label"><b>Date of Birth</b></label>
+                    <input
+                        class="form-control"
+                        id="dob"
+                        type="date"
+                        [formControlName]="selectElements === 'Driving License' ? 'drivingLicenceDob' : 'passportDob'"
+                        required
+                    />
+                    <div *ngIf="(selectElements === 'Driving License' ? drivingLicenceDob : passportDob)?.invalid &&
+                                 (selectElements === 'Driving License' ? drivingLicenceDob : passportDob)?.touched &&
+                                 (selectElements === 'Driving License' ? drivingLicenceDob : passportDob)?.errors?.['required']"
+                         style="color: red; font-size: 12px;">
+                        Field is required
+                    </div>
+                </div>
+                <div class="form__linput">
+                   
+                </div>
+            </div> -->
+            <div>
+                <button mat-raised-button matStepperPrevious>Back</button>
+                <button mat-raised-button matStepperNext>Next</button>
+            </div>
+        </form>
+    </mat-step>
+
+    <mat-step [stepControl]="thirdFormGroup" label="Step 3">
+        <form [formGroup]="thirdFormGroup">
+            <ng-template matStepLabel>Signature</ng-template>
+            <div class="form__row">
+                <div class="form__linput">
+                    <label class="form__label" for="identityType"><b>Signature Proof</b></label>
+                    <select formControlName="signatureProof" class="form-select"
+                        (change)="onasignproof($event)">
+                        <option hidden>Select..</option>
+                        <option *ngIf="this.selectElements !='Pancard' && this.selectElement!='Pancard'"
+                            value="Pancard">Pancard</option>
+                        <option *ngIf="this.selectElements !='Passport'&& this.selectElement!='Passport'"
+                            value="Passport">Passport</option>
+                        <option
+                            *ngIf="this.selectElements !='Driving License' && this.selectElement!='Driving License'"
+                            value="Driving License">Driving License</option>
+                    </select>
+                    <div *ngIf="signatureProof?.invalid && signatureProof?.touched && signatureProof?.errors?.['required']"
+                        style="color: red; font-size: 12px;">
+                        Field is required
+                    </div>
+                </div>
+
+                <div class="form__linput">
+                    <label class="form__label"><b>Enter {{select}} Number</b></label>
+                    <input class="form-control" id="signatureProofNo" type="text"
+                        formControlName="signatureProofNo" required />
+                    <div
+                        *ngIf="signatureProofNo && signatureProofNo.invalid && (signatureProofNo.touched || signatureProofNo.dirty)">
+                        <small *ngIf="signatureProofNo.errors?.['required']"
+                            style="color: red; font-size: 12px;">This field is required.</small>
+                        <small *ngIf="signatureProofNo.errors?.['pattern']"
+                            style="color: red; font-size: 12px;">Enter a valid {{select}} number.</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form__row">
+                <div class="form__linput">
+                    <label class="form__label"><b>Upload Front Path</b></label>
+                    <input class="form-control" formControlName="signatureFrontPath"
+                        (change)="onasignfront($event)" type="file" accept="image/*" />
+                    <div *ngIf="signatureFrontPath?.invalid && signatureFrontPath?.touched && signatureFrontPath?.errors?.['required']"
+                        style="color: red; font-size: 12px;">
+                        Field is required
+                    </div>
+                </div>
+
+                <div class="form__linput">
+                    <label class="form__label"><b>Upload Back Path</b></label>
+                    <input class="form-control" formControlName="signatureBackPath"
+                        (change)="onasignback($event)" type="file" accept="image/*" />
+                    <div *ngIf="signatureBackPath?.invalid && signatureBackPath?.touched && signatureBackPath?.errors?.['required']"
+                        style="color: red; font-size: 12px;">
+                        Field is required
+                    </div>
+                </div>
+            </div>
+            <div class="form__row">
+                <div class="form__linput" *ngIf="select === 'Driving License' || select === 'Passport'">
+                    <label class="form__label"><b>Date of Birth</b></label>
+                    <input class="form-control" id="dob" type="date"
+                        [formControlName]="select === 'Driving License' ? 'drivingLicenceDobss' : 'passportDobss'"
+                        required />
+                    <div *ngIf="(select === 'Driving License' ? drivingLicenceDobss : passportDobss)?.invalid &&
+                                 (select === 'Driving License' ? drivingLicenceDobss : passportDobss)?.touched &&
+                                 (select  === 'Driving License' ? drivingLicenceDobss : passportDobss)?.errors?.['required']"
+                        style="color: red; font-size: 12px;">
+                        Field is required
+                    </div>
+                </div>
+                <div class="form__linput">
+
+                </div>
+            </div>
+            <div>
+                <button mat-raised-button matStepperPrevious>Back</button>
+                <button mat-raised-button (click)="kycsubmit()">Finish</button>
+            </div>
+        </form>
+    </mat-step>
+</mat-horizontal-stepper>

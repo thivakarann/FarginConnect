@@ -109,6 +109,10 @@ export class ViewPolicyComponent implements OnInit {
     }
   }
 
+  reload(){
+    window.location.reload()
+  }
+
 
   create() {
     this.router.navigateByUrl('dashboard/add-policy');

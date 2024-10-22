@@ -75,17 +75,24 @@ export class AdminComponent implements OnInit {
     });
   }
 
+
+
   unblock(id: any) {
     this.service.unblockAccount(id).subscribe((res: any) => {
       this.unblockvalue = res.response;
-      if(res.flag==1){
+      if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
       }
-      else{
+      else {
         this.toastr.error(res.responseMessage)
       }
     })
   }
+
+  
+reload(){
+  window.location.reload()
+}
 
 
 

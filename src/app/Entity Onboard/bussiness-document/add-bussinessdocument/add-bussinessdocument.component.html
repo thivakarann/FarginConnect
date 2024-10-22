@@ -22,7 +22,7 @@
 
                 <div class="form__linput">
                     <label class="form__label"><b>Document Number</b></label>
-                    <input class="form-control" id="mccCode" type="text" formControlName="docNumber" required />
+                    <input class="form-control" id="mccCode" type="text" formControlName="docNumber"  required />
                     <!-- <div *ngIf="docNumber && docNumber.invalid && (docNumber.touched || docNumber.dirty)">
                         <small *ngIf="docNumber.errors?.['required']" style="color: red; font-size: 12px;">This field is
                             required.</small>
@@ -36,7 +36,7 @@
                 <div class="form__linput">
                     <label class="form__label"><b>Upload Front Path</b></label>
                     <input class="form-control" formControlName="docFrontPath" (change)="docfront($event)" type="file"
-                        accept="image/jpeg, image/png" />
+                    accept="image/*" />
                     <div *ngIf="docFrontPath?.invalid && docFrontPath?.touched && docFrontPath?.errors?.['required']"
                         style="color: red; font-size: 12px;">
                         Field is required
@@ -46,7 +46,7 @@
                 <div class="form__linput">
                     <label class="form__label"><b>Upload Back Path</b></label>
                     <input class="form-control" formControlName="docBackPath" (change)="docback($event)" type="file"
-                        accept="image/jpeg, image/png" />
+                    accept="image/*" />
                     <!-- <div *ngIf="docBackPath?.invalid && docBackPath?.touched && docBackPath?.errors?.['required']"
                         style="color: red; font-size: 12px;">
                         Field is required

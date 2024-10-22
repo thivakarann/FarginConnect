@@ -70,6 +70,11 @@ export class CustomerViewallComponent implements OnInit{
   }
 
 
+  
+reload(){
+  window.location.reload()
+}
+
   Back(id: any) {
     this.router.navigate([`customer-verify-view/${id}`], {
       queryParams: { Alldata: id },

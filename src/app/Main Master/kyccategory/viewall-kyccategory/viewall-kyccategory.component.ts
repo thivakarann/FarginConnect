@@ -24,20 +24,20 @@ export class ViewallKyccategoryComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   isChecked: any;
   dataSource: any;
-  displayedColumns: string[] =['kycCategoryId','kycCategoryName','status','Edit','createdBy','createdAt','modifiedBy','modifiedAt']
+  displayedColumns: string[] = ['kycCategoryId', 'kycCategoryName', 'status', 'Edit', 'createdBy', 'createdAt', 'modifiedBy', 'modifiedAt']
   responseDataListnew: any;
   response: any;
   date2: any;
   date1: any;
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
   ngOnInit(): void {
-   this.service.viewallkycCategory().subscribe((res:any)=>{
-    this.categoryview=res.response;
-    console.log(this.categoryview);
-    this.dataSource = new MatTableDataSource(this.categoryview.reverse());
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-   })
+    this.service.viewallkycCategory().subscribe((res: any) => {
+      this.categoryview = res.response;
+      console.log(this.categoryview);
+      this.dataSource = new MatTableDataSource(this.categoryview.reverse());
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    })
   }
   onSubmit(event: MatSlideToggleChange, id: string) {
     this.isChecked = event.checked;
@@ -57,7 +57,7 @@ export class ViewallKyccategoryComponent implements OnInit {
     this.dialog.open(AddKyccategoryComponent, {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
-      disableClose:true,
+      disableClose: true,
     });
   }
 
@@ -66,8 +66,13 @@ export class ViewallKyccategoryComponent implements OnInit {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
       data: { value: id },
-      disableClose:true
+      disableClose: true
     });
+  }
+
+
+  reload() {
+    window.location.reload()
   }
   exportexcel() {
     console.log('check');
@@ -82,10 +87,10 @@ export class ViewallKyccategoryComponent implements OnInit {
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.kycCategoryName);
-      if(element.status==0){
+      if (element.status == 0) {
         this.response.push('Active')
       }
-      else{
+      else {
         this.response.push('InActive')
       }
       this.response.push(element?.createdBy);

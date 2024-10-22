@@ -140,6 +140,11 @@ export class ViewRoleComponent implements OnInit{
     });
  
   }
+
+  
+reload(){
+  window.location.reload()
+}
  
  
   permissionView(id:any){

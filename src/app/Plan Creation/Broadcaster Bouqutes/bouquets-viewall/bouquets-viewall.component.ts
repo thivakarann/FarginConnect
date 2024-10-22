@@ -30,7 +30,7 @@ export class BouquetsViewallComponent implements OnInit {
     'Edit',
     'View',
   ];
- 
+
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -47,18 +47,18 @@ export class BouquetsViewallComponent implements OnInit {
   valueBroadcasterBouquetesView: any;
   getdashboard: any[] = [];
   roleId: any = localStorage.getItem('roleId')
- values: any[]=[];
+  values: any[] = [];
   actions: any;
   errorMessage: any;
- subId: any[]=[];
-  perValueArray: any[]=[];
-  moduleName: any[]=[];
+  subId: any[] = [];
+  perValueArray: any[] = [];
+  moduleName: any[] = [];
   service: any;
   getAction: any;
   roleName: any;
   permissionview: any;
   subpermission: any;
- 
+
   perValueObject: any;
 
   valueid: any;
@@ -69,11 +69,11 @@ export class BouquetsViewallComponent implements OnInit {
   bouquet: any;
   creation: any;
   services: any;
-  broadCasterRegionsss: any[]=[];
+  broadCasterRegionsss: any[] = [];
   broadCasterAlcot: any;
-  broadCasterAlcotsss: any[]=[];
+  broadCasterAlcotsss: any[] = [];
   amount: any;
- 
+
   constructor(
     public Bouquetviewall: FarginServiceService,
     private router: Router,
@@ -138,47 +138,52 @@ export class BouquetsViewallComponent implements OnInit {
   adds() {
     this.router.navigateByUrl('/dashboard/bouqutes-add')
   }
- 
+
+  
+reload(){
+  window.location.reload()
+}
+
   add() {
     this.dialog.open(BouqutesAddComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms'
     })
   }
- 
+
   Edit(id: any) {
- 
-    this.valueid=id
+
+    this.valueid = id
     this.values = [];
-    this.broadCasterRegionsss=[]
+    this.broadCasterRegionsss = []
     this.subId = [];
     this.perValueArray = [];
     this.moduleName = [];
- 
+
     this.Bouquetviewall.BroadcasterBoucatebyid(this.valueid).subscribe({
       next: (res: any) => {
         console.log(res);
         if (res.flag == 1) {
           this.getAction = res.response;
-         
-          this.bouquet=res.response.bouquetCreation.bundleChannel.bundleChannelId
-          this.creation=res.response.bouquetCreation.boqCreationId
-          this.services=res.response.serviceProvider.serviceId
-          this.amount=res.response.amount
-         
+
+          this.bouquet = res.response.bouquetCreation.bundleChannel.bundleChannelId
+          this.creation = res.response.bouquetCreation.boqCreationId
+          this.services = res.response.serviceProvider.serviceId
+          this.amount = res.response.amount
+
           this.broadCasterRegions = this.getAction.broadCasterRegion
           console.log(this.getAction)
           for (let data of this.broadCasterRegions) {
             this.broadCasterRegionsss.push(data.broadCasterRegion.regionId)
             console.log(this.broadCasterRegionsss)
           }
- 
-          this.broadCasterAlcot=this.getAction.broadCasterAlcot
+
+          this.broadCasterAlcot = this.getAction.broadCasterAlcot
           for (let data of this.broadCasterAlcot) {
             this.broadCasterAlcotsss.push(data.broadCasterAlcot.alcotId)
             console.log(this.broadCasterRegionsss)
           }
- 
+
           //Duplicate Removal start
           this.perValueObject = new Set(this.values)
           for (let value of this.perValueObject) {
@@ -186,46 +191,46 @@ export class BouquetsViewallComponent implements OnInit {
           }
           console.log(this.perValueArray)
           this.dialog.open(BouqetsEditComponent, {
-            data: { per: this.perValueArray, bouquet: this.bouquet, creation:this.creation, services:this.services, broadCasterRegionsss: this.broadCasterRegionsss, broadCasterAlcotsss:this.broadCasterAlcotsss,amount:this.amount,valueid:this.valueid},
+            data: { per: this.perValueArray, bouquet: this.bouquet, creation: this.creation, services: this.services, broadCasterRegionsss: this.broadCasterRegionsss, broadCasterAlcotsss: this.broadCasterAlcotsss, amount: this.amount, valueid: this.valueid },
             disableClose: true,
             enterAnimationDuration: '1000ms',
             exitAnimationDuration: '1000ms',
           });
         } else if (res.flag == 2) {
- 
+
           this.errorMessage = res.responseMessage;
         } else {
           this.errorMessage = res.responseMessage;
         }
       },
     });
- 
+
   }
- 
+
   Viewdata(id: any) {
     this.router.navigate([`dashboard/bouqutes-view/${id}`], {
       queryParams: { Alldata: id },
     });
     console.log(id);
   }
- 
- 
+
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
- 
+
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
- 
- 
- 
- 
+
+
+
+
   ActiveStatus(event: MatSlideToggleChange, id: any) {
     console.log(id)
     this.isChecked = event.checked;
- 
+
     let submitModel: BroadcasterBouquetStatus = {
       status: this.isChecked ? 1 : 0,
       bouquteId: id
@@ -239,11 +244,11 @@ export class BouquetsViewallComponent implements OnInit {
       else {
         this.toastr.error(res.responseMessage);
       }
- 
+
     });
- 
+
   }
- 
+
   exportexcel() {
     console.log('check');
     let sno = 1;
@@ -251,7 +256,7 @@ export class BouquetsViewallComponent implements OnInit {
     this.viewall.forEach((element: any) => {
       // let createdate = element.createdDateTime;
       // this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
- 
+
       // let moddate = element.modifiedDateAndTime;
       // this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
@@ -261,17 +266,17 @@ export class BouquetsViewallComponent implements OnInit {
       this.response.push(element?.amount);
       // this.response.push(this.date1);
       // this.response.push(element?.modifiedBy);
- 
+
       // this.response.push(this.date2);
- 
- 
- 
+
+
+
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
- 
+
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
@@ -279,18 +284,18 @@ export class BouquetsViewallComponent implements OnInit {
       "Broadcaster Name",
       "Broadcaster Plan Name",
       "Plan Amount",
- 
+
     ]
- 
- 
+
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Broadcaster Bouquetes Creation');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
- 
- 
+
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -301,46 +306,46 @@ export class BouquetsViewallComponent implements OnInit {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
+
       }
- 
+
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
- 
+
     data.forEach((d: any) => {
       // console.log("row loop");
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
       let qty2 = row.getCell(3);
       let qty3 = row.getCell(4);
- 
- 
- 
- 
- 
+
+
+
+
+
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty3.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
- 
+
+
     }
     );
- 
+
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
     // worksheet.getColumn(2).protection = { locked: true, hidden: true }
     // worksheet.getColumn(3).protection = { locked: true, hidden: true }
- 
- 
+
+
     workbook.xlsx.writeBuffer().then((data: any) => {
- 
+
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
- 
- 
+
+
       FileSaver.saveAs(blob, 'Broadcaster Bouquetes Creation.xlsx');
- 
+
     });
   }
 }

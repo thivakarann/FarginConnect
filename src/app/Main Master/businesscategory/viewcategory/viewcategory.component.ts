@@ -23,7 +23,7 @@ export class ViewcategoryComponent implements OnInit {
 
 
   dataSource: any;
-  displayedColumns: string[] = ["businessCategoryId", "categoryname", "mccCode","autoDebitDate",  "status", "Edit", "createdBy", "createdDateTime","modifiedBy", "modifiedDateTime"]
+  displayedColumns: string[] = ["businessCategoryId", "categoryname", "mccCode", "autoDebitDate", "status", "Edit", "createdBy", "createdDateTime", "modifiedBy", "modifiedDateTime"]
   businesscategory: any;
   showcategoryData: boolean = false;
   errorMsg: any;
@@ -107,6 +107,10 @@ export class ViewcategoryComponent implements OnInit {
       }
     })
 
+  }
+
+  reload(){
+    window.location.reload()
   }
 
 

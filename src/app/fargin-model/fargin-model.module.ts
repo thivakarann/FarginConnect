@@ -817,14 +817,26 @@ export interface signature {
 
 
 export interface verification {
-  readonly docNumber: any;
+  readonly facheckDocNumber: any;
   readonly kycId: any;
 }
 
+export interface Drivingverification {
+  readonly facheckDocNumber: any;
+  readonly kycId: any;
+  readonly dateOfBirth:any;
+}
+
+export interface Pasportverify {
+  readonly kycId: any;
+  readonly facheckDocNumber: any;
+  readonly approvalBy: any;
+  readonly dateOfBirth:any;
+}
 
 export interface verify {
   readonly kycId: any;
-  readonly docNumber: any;
+  readonly facheckDocNumber: any;
   readonly approvalBy: any;
 }
 
@@ -971,6 +983,27 @@ readonly smsApprovedBy:any;
 
 export interface customerplanStatus{
   readonly activeStatus:any;
+}
+
+
+export interface customerpay{
+  readonly payId:any;
+  readonly trackId:any;
+  readonly paidAmount:any;
+}
+ 
+export interface subscriptionpay{
+  readonly payId:any;
+  readonly trackId:any;
+  readonly paidAmount:any;
+}
+ 
+export interface customizepay{
+  readonly payId:any;
+}
+ 
+export interface manualpay{
+  readonly payId:any;
 }
 
 

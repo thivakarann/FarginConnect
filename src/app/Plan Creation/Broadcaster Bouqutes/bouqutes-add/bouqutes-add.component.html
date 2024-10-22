@@ -135,6 +135,19 @@
                   " *ngIf="amount?.invalid && amount?.touched && amount?.errors?.['required']">
                         Field is required
                     </div>
+
+
+
+                    <div style="
+   color: red;
+   font-size: 12px;
+   margin-top: 2px;
+   position: relative;
+   ;
+ " *ngIf="amount?.invalid && amount?.touched && amount?.errors?.['pattern']">
+                        Only positive numbers are allowed
+                    </div>
+
                 </div>
             </div>
 

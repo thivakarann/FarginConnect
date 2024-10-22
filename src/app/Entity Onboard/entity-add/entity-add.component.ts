@@ -64,6 +64,9 @@ export class EntityAddComponent implements OnInit {
   file9!: any;
   id: any;
   selectperiod: any;
+  days: number[] = Array.from({ length: 31 }, (_, i) => i + 1); // Generates days 1 to 31
+  uploadImage: any;
+
   constructor(
     public AddEntity: FarginServiceService,
     private router: Router,
@@ -123,7 +126,7 @@ export class EntityAddComponent implements OnInit {
         Validators.required,
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$')
       ]),
-      website: new FormControl('',[Validators.pattern(/^(https ?: \/\/)?(www\.)?[ a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+$/)]),
+      website: new FormControl('', [Validators.pattern(/^(https ?: \/\/)?(www\.)?[ a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+$/)]),
       gstIn: new FormControl("", [Validators.pattern("^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[A-Z]{1}[0-9A-Z]{1}$")]),
       billingAddress: new FormControl("", [
         Validators.required,
@@ -160,7 +163,9 @@ export class EntityAddComponent implements OnInit {
       customerDuesEnable: new FormControl('', [Validators.required]),
 
       customerDuesDate: new FormControl('',),
-      
+
+      dueDate: new FormControl('',),
+
 
     });
     console.log('Form Valid on Init:', this.myForm.valid);
@@ -193,31 +198,36 @@ export class EntityAddComponent implements OnInit {
         Validators.pattern('^[a-zA-Z0-9 ]*$')
       ]),
 
-      ledgerId: new FormControl("", [
-        Validators.required,
-      ]),
+      ledgerId: new FormControl('', [Validators.pattern('^[0-9]{4}$'),]),
     })
 
     this.firstFormGroup = this._formBuilder.group({
       identityProof: ['', Validators.required],
       identityProofNo: ['', Validators.required],
       identityFrontPath: [null, Validators.required],
-      identityBackPath: [null, Validators.required]
+      identityBackPath: [null, Validators.required],
+      drivingLicenceDob: [''],
+      passportDob: [''],
 
     });
     this.secondFormGroup = this._formBuilder.group({
       addressProof: ['', Validators.required],
       addressProofNo: ['', Validators.required],
       addressFrontPath: [null, Validators.required],
-      addressBackPath: [null, Validators.required]
+      addressBackPath: [null, Validators.required],
+      drivingLicenceDobs: [''],
+      passportDobs: [''],
     });
 
     this.thirdFormGroup = this._formBuilder.group({
       signatureProof: ['', Validators.required],
       signatureProofNo: ['', Validators.required],
       signatureFrontPath: [null, Validators.required],
-      signatureBackPath: [null, Validators.required]
+      signatureBackPath: [null, Validators.required],
+      drivingLicenceDobss: [''],
+      passportDobss: [''],
     });
+
 
     this.fourthFormGroup = this._formBuilder.group({
       kycCategoryId: ['', Validators.required],
@@ -231,11 +241,10 @@ export class EntityAddComponent implements OnInit {
 
   }
 
-   
-get(event:any)
-{
-  this.selectperiod=event.target.value;
-}
+
+  get(event: any) {
+    this.selectperiod = event.target.value;
+  }
 
   // First Form
 
@@ -267,8 +276,8 @@ get(event:any)
     return this.myForm.get('contactName')
 
   }
-  get contactMobile() {
-    return this.myForm.get('contactMobile')
+  get dueDate() {
+    return this.myForm.get('dueDate')
 
   }
   get secondaryMobile() {
@@ -321,6 +330,11 @@ get(event:any)
   }
   get mccCode() {
     return this.myForm.get('mccCode')
+
+  }
+
+  get contactMobile() {
+    return this.myForm.get('contactMobile')
 
   }
 
@@ -413,6 +427,13 @@ get(event:any)
     return this.firstFormGroup.get('identityBackPath')
   }
 
+  get drivingLicenceDob() {
+    return this.firstFormGroup.get('drivingLicenceDob')
+  }
+  get passportDob() {
+    return this.firstFormGroup.get('passportDob')
+  }
+
   get addressProof() {
     return this.secondFormGroup.get('addressProof')
   }
@@ -428,7 +449,12 @@ get(event:any)
   get addressBackPath() {
     return this.secondFormGroup.get('addressBackPath')
   }
-
+  get drivingLicenceDobs() {
+    return this.secondFormGroup.get('drivingLicenceDobs')
+  }
+  get passportDobs() {
+    return this.secondFormGroup.get('passportDobs')
+  }
 
   get signatureProof() {
     return this.thirdFormGroup.get('signatureProof')
@@ -441,6 +467,12 @@ get(event:any)
   }
   get signatureBackPath() {
     return this.thirdFormGroup.get('signatureBackPath')
+  }
+  get drivingLicenceDobss() {
+    return this.thirdFormGroup.get('drivingLicenceDobss')
+  }
+  get passportDobss() {
+    return this.thirdFormGroup.get('passportDobss')
   }
 
   // Bussiness form 
@@ -462,162 +494,149 @@ get(event:any)
   }
 
   onFileSelected(event: any) {
-    const files = event.target.files[0];
-    if (files) {
-      const fileName: string = files.name;
-      const fileextension: any = fileName.split('.').pop()?.toLowerCase();
-      const dotcount = fileName.split('.').length - 1;
-      if (dotcount > 1) {
-
-        this.errorMessage = 'Files with multiple extensions are not allowed';
-        return;
-
-
+    this.uploadImage = event.target.files[0];
+ 
+    // Ensure this.uploadImage is not null
+    if (this.uploadImage) {
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+ 
+      if (acceptableTypes.includes(this.uploadImage.type)) {
+        if (this.uploadImage.size <= 20 * 1024 * 1024) {
+          this.toastr.success("Image uploaded successfully");
+        } else {
+          this.toastr.error("Max Image size exceeded");
+          this.identityFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
+        }
+      } else {
+        console.log(this.uploadImage.type);
+        this.toastr.error("File type not acceptable");
+        this.identityFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
-      if (!files.type.startsWith('image/')) {
-
-        this.errorMessage = 'Only Images  are  allowed';
-        return;
-
-      }
-
-
-      this.errorMessage = ''
-      this.file1 = files;
-      console.log(this.file1);
-
-      console.log(' file 1 id success' + files);
-
+    } else {
+      this.toastr.error("No file selected");
     }
 
 
   }
 
   onFileSelected2(event: any) {
-    const files = event.target.files[0];
-    if (files) {
-      const fileName: string = files.name;
-      const fileextension: any = fileName.split('.').pop()?.toLowerCase();
-      const dotcount = fileName.split('.').length - 1;
-      if (dotcount > 1) {
-
-        this.errorMessage = 'Files with multiple extensions are not allowed';
-        return;
-
-
+    this.uploadImage = event.target.files[0];
+ 
+    // Ensure this.uploadImage is not null
+    if (this.uploadImage) {
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+ 
+      if (acceptableTypes.includes(this.uploadImage.type)) {
+        if (this.uploadImage.size <= 20 * 1024 * 1024) {
+          this.toastr.success("Image uploaded successfully");
+        } else {
+          this.toastr.error("Max Image size exceeded");
+          this.identityBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
+        }
+      } else {
+        console.log(this.uploadImage.type);
+        this.toastr.error("File type not acceptable");
+        this.identityBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
-      if (!files.type.startsWith('image/')) {
-
-        this.errorMessage = 'Only Images  are  allowed';
-        return;
-
-      }
-
-
-      this.errorMessage = ''
-      this.file2 = files;
-      console.log(this.file2);
-
-      console.log(' file 1 id success' + files);
-
+    } else {
+      this.toastr.error("No file selected");
     }
 
 
   }
   onaddressfront(event: any) {
-    const files = event.target.files[0];
-    if (files) {
-      const fileName: string = files.name;
-      const fileextension: any = fileName.split('.').pop()?.toLowerCase();
-      const dotcount = fileName.split('.').length - 1;
-      if (dotcount > 1) {
-
-        this.errorMessage = 'Files with multiple extensions are not allowed';
-        return;
-
+   
+    this.uploadImage = event.target.files[0];
+ 
+    // Ensure this.uploadImage is not null
+    if (this.uploadImage) {
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+ 
+      if (acceptableTypes.includes(this.uploadImage.type)) {
+        if (this.uploadImage.size <= 20 * 1024 * 1024) {
+          this.toastr.success("Image uploaded successfully");
+        } else {
+          this.toastr.error("Max Image size exceeded");
+          this.addressFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
+        }
+      } else {
+        console.log(this.uploadImage.type);
+        this.toastr.error("File type not acceptable");
+        this.addressFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
-      if (!files.type.startsWith('image/')) {
-
-        this.errorMessage = 'Only Images  are  allowed';
-        return;
-      }
-
-
-      this.errorMessage = ''
-      this.file3 = files;
+    } else {
+      this.toastr.error("No file selected");
     }
-
 
   }
   onaddressback(event: any) {
-    const files = event.target.files[0];
-    if (files) {
-      const fileName: string = files.name;
-      const fileextension: any = fileName.split('.').pop()?.toLowerCase();
-      const dotcount = fileName.split('.').length - 1;
-      if (dotcount > 1) {
-
-        this.errorMessage = 'Files with multiple extensions are not allowed';
-        return;
-
+    this.uploadImage = event.target.files[0];
+ 
+    // Ensure this.uploadImage is not null
+    if (this.uploadImage) {
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+ 
+      if (acceptableTypes.includes(this.uploadImage.type)) {
+        if (this.uploadImage.size <= 20 * 1024 * 1024) {
+          this.toastr.success("Image uploaded successfully");
+        } else {
+          this.toastr.error("Max Image size exceeded");
+          this.addressBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
+        }
+      } else {
+        console.log(this.uploadImage.type);
+        this.toastr.error("File type not acceptable");
+        this.addressBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
-      if (!files.type.startsWith('image/')) {
-
-        this.errorMessage = 'Only Images  are  allowed';
-        return;
-      }
-
-
-      this.errorMessage = ''
-      this.file4 = files;
+    } else {
+      this.toastr.error("No file selected");
     }
   }
   onasignfront(event: any) {
-    const files = event.target.files[0];
-    if (files) {
-      const fileName: string = files.name;
-      const fileextension: any = fileName.split('.').pop()?.toLowerCase();
-      const dotcount = fileName.split('.').length - 1;
-      if (dotcount > 1) {
-
-        this.errorMessage = 'Files with multiple extensions are not allowed';
-        return;
-
+    this.uploadImage = event.target.files[0];
+ 
+    // Ensure this.uploadImage is not null
+    if (this.uploadImage) {
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+ 
+      if (acceptableTypes.includes(this.uploadImage.type)) {
+        if (this.uploadImage.size <= 20 * 1024 * 1024) {
+          this.toastr.success("Image uploaded successfully");
+        } else {
+          this.toastr.error("Max Image size exceeded");
+          this.signatureFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
+        }
+      } else {
+        console.log(this.uploadImage.type);
+        this.toastr.error("File type not acceptable");
+        this.signatureFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
-      if (!files.type.startsWith('image/')) {
-
-        this.errorMessage = 'Only Images  are  allowed';
-        return;
-      }
-
-
-      this.errorMessage = ''
-      this.file5 = files;
+    } else {
+      this.toastr.error("No file selected");
     }
-
 
   }
   onasignback(event: any) {
-    const files = event.target.files[0];
-    if (files) {
-      const fileName: string = files.name;
-      const fileextension: any = fileName.split('.').pop()?.toLowerCase();
-      const dotcount = fileName.split('.').length - 1;
-      if (dotcount > 1) {
-
-        this.errorMessage = 'Files with multiple extensions are not allowed';
-        return;
-
+    this.uploadImage = event.target.files[0];
+ 
+    // Ensure this.uploadImage is not null
+    if (this.uploadImage) {
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+ 
+      if (acceptableTypes.includes(this.uploadImage.type)) {
+        if (this.uploadImage.size <= 20 * 1024 * 1024) {
+          this.toastr.success("Image uploaded successfully");
+        } else {
+          this.toastr.error("Max Image size exceeded");
+          this.signatureBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
+        }
+      } else {
+        console.log(this.uploadImage.type);
+        this.toastr.error("File type not acceptable");
+        this.signatureBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
-      if (!files.type.startsWith('image/')) {
-
-        this.errorMessage = 'Only Images  are  allowed';
-        return;
-      }
-
-
-      this.errorMessage = ''
-      this.file6 = files;
+    } else {
+      this.toastr.error("No file selected");
     }
 
 
@@ -635,11 +654,11 @@ get(event:any)
     } else if (this.selectElement === 'Pancard') {
       identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z]{5}[0-9]{4}[A-Za-z]$")]); // PAN format
     } else if (this.selectElement === 'Voter Id Proof') {
-      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]); // Voter ID format
+      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("/^[A-Z]{3}[0-9]{7}$/")]); // Voter ID format
     } else if (this.selectElement === 'Passport') {
-      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z0-9]{8,15}$")]); // Passport format
+      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("/^[A-Z][1-9]\d\s?\d{4}[1-9]$/")]); // Passport format
     } else if (this.selectElement === 'Driving License') {
-      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^(([A-Z]{2}[0-9]{2})( )|([A-Z]{2}-[0-9]{2}))((19|20)[0-9][0-9])[0-9]{7}$")]); // Driving license format
+      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Driving license format
     }
 
 
@@ -661,7 +680,7 @@ get(event:any)
     } else if (this.selectElements === 'Passport') {
       addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z0-9]{8,15}$")]); // Passport format
     } else if (this.selectElements === 'Driving License') {
-      addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{7}$")]); // Driving license format
+      addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Driving license format
     }
 
 
@@ -681,54 +700,59 @@ get(event:any)
     } else if (this.select === 'Passport') {
       signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z0-9]{8,15}$")]); // Passport format
     } else if (this.select === 'Driving License') {
-      signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{7}$")]); // Driving license format
+      signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Driving license format
     }
 
     signatureProofNoControl?.updateValueAndValidity();
   }
   getlogo(event: any) {
-    const files = event.target.files[0];
-    if (files) {
-      if (!files.type.startsWith('image/')) {
-        this.errorMessage = 'Only Images are allowed';
-        return;
+    this.uploadImage = event.target.files[0];
+ 
+    // Ensure this.uploadImage is not null
+    if (this.uploadImage) {
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+ 
+      if (acceptableTypes.includes(this.uploadImage.type)) {
+        if (this.uploadImage.size <= 20 * 1024 * 1024) {
+          this.toastr.success("Image uploaded successfully");
+        } else {
+          this.toastr.error("Max Image size exceeded");
+          this.logo?.reset(); // Optional chaining to prevent error if this.logo is null
+        }
+      } else {
+        console.log(this.uploadImage.type);
+        this.toastr.error("File type not acceptable");
+        this.logo?.reset(); // Optional chaining to prevent error if this.logo is null
       }
-      this.errorMessage = ''
-      this.file3 = files;
-      console.log(this.file3);
-      console.log(' file 3 id success' + files);
-
+    } else {
+      this.toastr.error("No file selected");
     }
   }
 
+  
+
 
   docfront(event: any) {
-    const files = event.target.files[0];
-    if (files) {
-      const fileName: string = files.name;
-      const fileextension: any = fileName.split('.').pop()?.toLowerCase();
-      const dotcount = fileName.split('.').length - 1;
-      if (dotcount > 1) {
-
-        this.errorMessage = 'Files with multiple extensions are not allowed';
-        return;
-
-
+    this.uploadImage = event.target.files[0];
+ 
+    // Ensure this.uploadImage is not null
+    if (this.uploadImage) {
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+ 
+      if (acceptableTypes.includes(this.uploadImage.type)) {
+        if (this.uploadImage.size <= 20 * 1024 * 1024) {
+          this.toastr.success("Image uploaded successfully");
+        } else {
+          this.toastr.error("Max Image size exceeded");
+          this.docFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
+        }
+      } else {
+        console.log(this.uploadImage.type);
+        this.toastr.error("File type not acceptable");
+        this.docFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
-      if (!files.type.startsWith('image/')) {
-
-        this.errorMessage = 'Only Images  are  allowed';
-        return;
-
-      }
-
-
-      this.errorMessage = ''
-      this.file8 = files;
-      console.log(this.file8);
-
-      console.log(' file 1 id success' + files);
-
+    } else {
+      this.toastr.error("No file selected");
     }
 
 
@@ -736,32 +760,26 @@ get(event:any)
 
 
   docback(event: any) {
-    const files = event.target.files[0];
-    if (files) {
-      const fileName: string = files.name;
-      const fileextension: any = fileName.split('.').pop()?.toLowerCase();
-      const dotcount = fileName.split('.').length - 1;
-      if (dotcount > 1) {
-
-        this.errorMessage = 'Files with multiple extensions are not allowed';
-        return;
-
-
+    this.uploadImage = event.target.files[0];
+ 
+    // Ensure this.uploadImage is not null
+    if (this.uploadImage) {
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+ 
+      if (acceptableTypes.includes(this.uploadImage.type)) {
+        if (this.uploadImage.size <= 20 * 1024 * 1024) {
+          this.toastr.success("Image uploaded successfully");
+        } else {
+          this.toastr.error("Max Image size exceeded");
+          this.docBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
+        }
+      } else {
+        console.log(this.uploadImage.type);
+        this.toastr.error("File type not acceptable");
+        this.docBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
-      if (!files.type.startsWith('image/')) {
-
-        this.errorMessage = 'Only Images  are  allowed';
-        return;
-
-      }
-
-
-      this.errorMessage = ''
-      this.file9 = files;
-      console.log(this.file9);
-
-      console.log(' file 1 id success' + files);
-
+    } else {
+      this.toastr.error("No file selected");
     }
 
 
@@ -793,6 +811,7 @@ get(event:any)
     formData.append('autoDebitStatus', this.autoDebitStatus?.value);
     formData.append('customerDuesEnable', this.customerDuesEnable?.value);
     formData.append('customerDuesDate', this.customerDuesDate?.value || 0);
+    formData.append('dueDate', this.dueDate?.value || 0);
 
     this.AddEntity.EntityAdd(formData).subscribe((res: any) => {
       if (res.flag == 1) {
@@ -862,7 +881,8 @@ get(event:any)
     formData.append('signatureBackPath', this.file6);
     formData.append('signatureProof', this.signatureProof?.value);
     formData.append('signatureProofNo', this.signatureProofNo?.value);
-
+    formData.append('drivingLicenceDob', this.drivingLicenceDob?.value || this.drivingLicenceDobs?.value || this.drivingLicenceDobss?.value);
+    formData.append('passportDob', this.passportDob?.value || this.passportDobs?.value || this.passportDobss?.value);
     this.AddEntity.entitykycs(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
@@ -875,6 +895,8 @@ get(event:any)
       }
     });
   }
+
+
 
 
   docSubmit() {

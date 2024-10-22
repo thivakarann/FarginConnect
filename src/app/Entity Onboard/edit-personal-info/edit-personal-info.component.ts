@@ -14,7 +14,7 @@ export class EditPersonalInfoComponent implements OnInit {
 
   getadminname = JSON.parse(localStorage.getItem('adminname') || '');
   emptyBlob = new Blob([], { type: 'application/pdf' })
-
+ 
   entittyplanviewall: any;
   categorydetails: any;
   myForm!: FormGroup;
@@ -31,13 +31,19 @@ export class EditPersonalInfoComponent implements OnInit {
   errorShow!: boolean;
   clearImage!: string;
   entityname: any;
+  selectperiod: any;
+  typesign: any;
+  show:any;
+  customerDuesEnabled: any;
+  days: number[] = Array.from({ length: 31 }, (_, i) => i + 1); // Generates days 1 to 31
+
   constructor(private router: Router, private service: FarginServiceService, private toastr: ToastrService, private ActivateRoute: ActivatedRoute, private Location: Location) { }
   ngOnInit(): void {
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.id = param.Alldata;
     });
     this.myForm = new FormGroup({
-
+ 
       entityName: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9 ]*$')
@@ -84,7 +90,7 @@ export class EditPersonalInfoComponent implements OnInit {
       zipcode: new FormControl('', [
         Validators.required,
         Validators.pattern("^[1-9]{1}[0-9]{2}\\s{0,1}[0-9]{3}$")
-
+ 
       ]),
       stateName: new FormControl('', [
         Validators.required,
@@ -104,15 +110,26 @@ export class EditPersonalInfoComponent implements OnInit {
       billingMode: new FormControl("", [
         Validators.required
       ]),
-
+ 
       autoDebitStatus: new FormControl('', [Validators.required]),
+      customerDuesEnable: new FormControl('', [Validators.required]),
+ 
+      customerDuesDate: new FormControl(''),
 
+      dueDate: new FormControl('',),
     });
-
-
+ 
+ 
     this.service.EntityViewbyid(this.id).subscribe((res: any) => {
       this.details = res.response;
       this.detaislone = res.response.merchantpersonal;
+      if(this.detaislone.customerDuesEnable==1)
+      {
+            this.show=true;
+      }
+      else{
+        this.show=false;
+      }
       this.entityname = this.detaislone.entityName;
       this.mcccode = this.detaislone.mccCode
       console.log(this.mcccode)
@@ -123,15 +140,18 @@ export class EditPersonalInfoComponent implements OnInit {
     this.service.Bussinesscategoryactivelist().subscribe((res: any) => {
       this.categorydetails = res.response;
     });
-
+ 
     this.service.merchantplanactive().subscribe((res: any) => {
       this.entittyplanviewall = res.response;
     })
-
+ 
   }
-
+  get(event:any)
+  {
+    this.selectperiod=event.target.value;
+  }
   // First Form
-
+ 
   get entityName() {
     return this.myForm.get('entityName')
   }
@@ -143,12 +163,17 @@ export class EditPersonalInfoComponent implements OnInit {
   }
   get contactName() {
     return this.myForm.get('contactName')
-
+ 
   }
 
+  get dueDate() {
+    return this.myForm.get('dueDate')
+ 
+  }
+ 
   get autoDebitStatus() {
     return this.myForm.get('autoDebitStatus')
-
+ 
   }
   get contactMobile() {
     return this.myForm.get('contactMobile')
@@ -173,17 +198,17 @@ export class EditPersonalInfoComponent implements OnInit {
   }
   get zipcode() {
     return this.myForm.get('zipcode')
-
+ 
   } get stateName() {
     return this.myForm.get('stateName')
-
+ 
   }
   get city() {
     return this.myForm.get('city')
   }
   get contactPerson() {
     return this.myForm.get('contactPerson')
-
+ 
   }
   get country() {
     return this.myForm.get('country')
@@ -206,7 +231,14 @@ export class EditPersonalInfoComponent implements OnInit {
   get MccCode() {
     return this.myForm.get('MccCode')
   }
-
+  get customerDuesEnable() {
+    return this.myForm.get('customerDuesEnable')
+  }
+ 
+  get customerDuesDate() {
+    return this.myForm.get('customerDuesDate')
+  }
+ 
   getlogo(event: any) {
     this.file3 = event.target.files[0];
     if ((this.file3.type == 'image/png') || (this.file3.type == 'image/jpeg') || (this.file3.type == 'image/jpg')) {
@@ -247,7 +279,16 @@ export class EditPersonalInfoComponent implements OnInit {
     formData.append('merchantLogo', this.file3 || this.emptyBlob);
     formData.append('billingMode', this.billingMode?.value);
     formData.append('autoDebitStatus', this.autoDebitStatus?.value);
-
+    formData.append('customerDuesEnable', this.customerDuesEnable?.value);
+    this.customerDuesEnabled = this.customerDuesEnable?.value;
+    if (this.customerDuesEnabled === '0') {
+        formData.append('customerDuesDate', '0');
+        formData.append('dueDate', '0');
+    } else {
+        formData.append('customerDuesDate', this.customerDuesDate?.value || 0);
+        formData.append('dueDate', this.dueDate?.value || 0);
+    }
+ 
     this.service.UpdatePersonalEntity(this.id, formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.merchantid = res.response.merchantId;
@@ -262,7 +303,7 @@ export class EditPersonalInfoComponent implements OnInit {
         // })
         // this.Bankdetails = true;
         // this.personeldetails = false;
-
+ 
       } else {
         this.toastr.error(res.responseMessage);
       }
@@ -281,4 +322,15 @@ export class EditPersonalInfoComponent implements OnInit {
   close() {
     this.Location.back();
   }
+  typeevent(event:any)
+  {
+    this.typesign = event.target.value;
+    if (event.target.value == '0') {
+      this.show = false;
+       
+    } else {
+      this.show = true;
+    }
+  }
+
 }

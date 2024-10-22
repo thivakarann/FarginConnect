@@ -110,6 +110,10 @@ export class BouquetePlanViewallComponent {
 
   }
 
+  reload(){
+    window.location.reload()
+  }
+
   add() {
     this.dialog.open(BouquetenameAddComponent, {
       enterAnimationDuration: '500ms',

@@ -79,7 +79,7 @@ export class ServiceProviderComponent implements OnInit {
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
-          
+
           if (this.roleId == 1) {
             this.valueMSOadd = 'MSO-Add';
             this.valueMSOexport = 'MSO-Export';
@@ -90,7 +90,7 @@ export class ServiceProviderComponent implements OnInit {
             for (let datas of this.getdashboard) {
 
               this.actions = datas.subPermissions;
-              
+
 
 
               if (this.actions == 'MSO-Add') {
@@ -125,6 +125,11 @@ export class ServiceProviderComponent implements OnInit {
       exitAnimationDuration: '1000ms',
     });
   }
+
+  
+reload(){
+  window.location.reload()
+}
 
   adminedit(id: any) {
     this.adminuserId = id;

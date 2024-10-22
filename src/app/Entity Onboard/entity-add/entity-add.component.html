@@ -141,7 +141,7 @@
                     position: relative;
                     ;
                   " *ngIf="gstIn?.invalid && gstIn?.touched && gstIn?.errors?.['pattern']">
-                    Enter a Valid GST Number
+                        Enter a Valid GST Number
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
@@ -154,7 +154,7 @@
                     position: relative;
                     ;
                   " *ngIf="website?.invalid && website?.touched && website?.errors?.['pattern']">
-                    Enter a Valid Link
+                        Enter a Valid Link
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
@@ -399,7 +399,8 @@
                 </div>
                 <div class="col-sm-4 form-group">
                     <label for="Logomerchant">Merchant Logo(optional)</label>
-                    <input  formControlName="logo" type="file" class="form-control" (change)="getlogo($event)">
+                    <input accept="image/*" formControlName="logo" type="file" class="form-control"
+                        (change)="getlogo($event)">
                     <!-- <span class="error">*Only JPG/PNG/JPEG Files Allowed And Maximum Size Upto 20MB Allowed </span> -->
                 </div>
                 <div class="col-sm-4 form-group">
@@ -426,7 +427,7 @@
                     <select formControlName="autoDebitStatus" type="text" class="form-select" id="billing">
                         <option value="1">Yes</option>
                         <option value="0">No</option>
-                    
+
                     </select>
                     <div style="
                         color: red;
@@ -434,16 +435,18 @@
                         margin-top: 2px;
                         position: relative;
                         ;
-                      " *ngIf="autoDebitStatus?.invalid && autoDebitStatus?.touched && autoDebitStatus?.errors?.['required']">
+                      "
+                        *ngIf="autoDebitStatus?.invalid && autoDebitStatus?.touched && autoDebitStatus?.errors?.['required']">
                         Field id required*
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
-                    <label for="billing">Customer Dues</label>
-                    <select formControlName="customerDuesEnable" (change)="get($event)"  type="text" class="form-select" id="billing">
+                    <label for="billing">Due Alert Notification</label>
+                    <select formControlName="customerDuesEnable" (change)="get($event)" type="text" class="form-select"
+                        id="billing">
                         <option value="1">Yes</option>
                         <option value="0">No</option>
-                    
+
                     </select>
                     <div style="
                         color: red;
@@ -451,23 +454,34 @@
                         margin-top: 2px;
                         position: relative;
                         ;
-                      " *ngIf="customerDuesEnable?.invalid && customerDuesEnable?.touched && customerDuesEnable?.errors?.['required']">
+                      "
+                        *ngIf="customerDuesEnable?.invalid && customerDuesEnable?.touched && customerDuesEnable?.errors?.['required']">
                         Field id required*
                     </div>
                 </div>
-                <div class="col-sm-4 form-group" *ngIf="selectperiod==1" >
-                    <label for="billing">customerDuesDate</label>
+                <div class="col-sm-4 form-group" *ngIf="selectperiod==1">
+                    <label for="billing">Alert Notification frequency</label>
                     <select formControlName="customerDuesDate" type="text" class="form-select" id="billing">
                         <option value="1">Daily</option>
                         <option value="2">Two Days Once</option>
                         <option value="3">Three Days Once</option>
-                    
+
                     </select>
-              
+
                 </div>
-                
+
             </div>
-            
+
+            <div class="row mb-3">
+                <div class="col-sm-4 form-group" *ngIf="selectperiod==1">
+                    <label for="billing">Notiification Start due date</label>
+
+                    <select id="dayPicker" formControlName="dueDate" class="form-select">
+                        <option *ngFor="let day of days" [value]="day">{{ day }}</option>
+                    </select>
+                </div>
+            </div>
+
             <div>
                 <button (click)="Submit()" type="submit" class="btn mx-1 " style="background-color:#7db855be"
                     [disabled]="this.myForm.invalid">Submit</button>
@@ -476,7 +490,7 @@
             </div>
         </form>
     </div>
-    <div class="well" style="margin-top: 2%;" *ngIf="Bankdetails==true">
+    <div class="well" style="margin-top: 2%;" *ngIf="Bankdetails==false">
         <h4 class="card-header" style="font-weight: 500">2.Bank Details</h4>
         <form [formGroup]="myForm2" style="margin-top: 2%;">
             <div class="row mb-3">
@@ -528,17 +542,14 @@
                 <div class="col-sm-4 form-group">
                     <label for="state">Ledger ID*</label>
                     <input type="text" formControlName="ledgerId" id="state" class="form-control">
-                    <div style="
-                    color: red;
-                    font-size: 12px;
-                    margin-top: 2px;
-                    position: relative;
-                    ;
-                  " *ngIf="ledgerId?.invalid && ledgerId?.touched && ledgerId?.errors?.['required']">
-                        Field is required
+                    <div style="color: red; font-size: 12px; margin-top: 2px;"
+                        *ngIf="ledgerId?.invalid && ledgerId?.touched && ledgerId?.errors?.['pattern']">
+                        Must be exactly 4 digits and only numbers are allowed.
                     </div>
 
                 </div>
+
+
 
 
             </div>
@@ -638,7 +649,7 @@
             </div>
         </form>
     </div>
-    <div class="well" style="margin-top: 2%;" *ngIf="KYCdetails==true">
+    <div class="well" style="margin-top: 2%;" *ngIf="KYCdetails==false">
         <h4 class="card-header" style="font-weight: 500">3.KYC Details</h4>
         <mat-horizontal-stepper linear>
             <mat-step [stepControl]="firstFormGroup" label="Step 1">
@@ -680,8 +691,8 @@
                     <div class="form__row">
                         <div class="form__linput">
                             <label class="form__label"><b>Upload Front Path</b></label>
-                            <input class="form-control" formControlName="identityFrontPath"
-                                (change)="onFileSelected($event)" type="file" accept="image/jpeg, image/png" />
+                            <input class="form-control" formControlName="identityFrontPath" accept="image/*"
+                                (change)="onFileSelected($event)" type="file"/>
                             <div *ngIf="identityFrontPath?.invalid && identityFrontPath?.touched && identityFrontPath?.errors?.['required']"
                                 style="color: red; font-size: 12px;">
                                 Field is required
@@ -690,17 +701,36 @@
 
                         <div class="form__linput">
                             <label class="form__label"><b>Upload Back Path</b></label>
-                            <input class="form-control" formControlName="identityBackPath"
-                                (change)="onFileSelected2($event)" type="file" accept="image/jpeg, image/png" />
+                            <input class="form-control" formControlName="identityBackPath" accept="image/*"
+                                (change)="onFileSelected2($event)" type="file" />
                             <div *ngIf="identityBackPath?.invalid && identityBackPath?.touched && identityBackPath?.errors?.['required']"
                                 style="color: red; font-size: 12px;">
                                 Field is required
                             </div>
                         </div>
                     </div>
+                    <div class="form__row">
+                        <div class="form__linput"
+                            *ngIf="selectElement === 'Driving License' || selectElement === 'Passport'">
+                            <label class="form__label"><b>Date of Birth</b></label>
+                            <input class="form-control" id="dob" type="date"
+                                [formControlName]="selectElement === 'Driving License' ? 'drivingLicenceDob' : 'passportDob'"
+                                required />
+                            <div *ngIf="(selectElement === 'Driving License' ? drivingLicenceDob : passportDob)?.invalid &&
+                                         (selectElement === 'Driving License' ? drivingLicenceDob : passportDob)?.touched &&
+                                         (selectElement === 'Driving License' ? drivingLicenceDob : passportDob)?.errors?.['required']"
+                                style="color: red; font-size: 12px;">
+                                Field is required
+                            </div>
+                        </div>
+                        <div class="form__linput">
+
+                        </div>
+                    </div>
 
                     <div>
-                        <button mat-raised-button matStepperNext>Next</button>
+                        <button mat-raised-button matStepperNext [disabled]="firstFormGroup.invalid">Next</button>
+
                     </div>
                 </form>
             </mat-step>
@@ -748,7 +778,7 @@
                         <div class="form__linput">
                             <label class="form__label"><b>Upload Front Path</b></label>
                             <input class="form-control" formControlName="addressFrontPath"
-                                (change)="onaddressfront($event)" type="file" accept="image/jpeg, image/png" />
+                                (change)="onaddressfront($event)" type="file"accept="image/*" />
                             <div *ngIf="addressFrontPath?.invalid && addressFrontPath?.touched && addressFrontPath?.errors?.['required']"
                                 style="color: red; font-size: 12px;">
                                 Field is required
@@ -758,13 +788,53 @@
                         <div class="form__linput">
                             <label class="form__label"><b>Upload Back Path</b></label>
                             <input class="form-control" formControlName="addressBackPath"
-                                (change)="onaddressback($event)" type="file" accept="image/jpeg, image/png" />
+                                (change)="onaddressback($event)" type="file" accept="image/*" />
                             <div *ngIf="addressBackPath?.invalid && addressBackPath?.touched && addressBackPath?.errors?.['required']"
                                 style="color: red; font-size: 12px;">
                                 Field is required
                             </div>
                         </div>
                     </div>
+
+                    <div class="form__row">
+                        <div class="form__linput"
+                            *ngIf="selectElements === 'Driving License' || selectElements === 'Passport'">
+                            <label class="form__label"><b>Date of Birth</b></label>
+                            <input class="form-control" id="dob" type="date"
+                                [formControlName]="selectElements === 'Driving License' ? 'drivingLicenceDobs' : 'passportDobs'"
+                                required />
+                            <div *ngIf="(selectElements === 'Driving License' ? drivingLicenceDobs : passportDobs)?.invalid &&
+                                         (selectElements === 'Driving License' ? drivingLicenceDobs : passportDobs)?.touched &&
+                                         (selectElements  === 'Driving License' ? drivingLicenceDobs : passportDobs)?.errors?.['required']"
+                                style="color: red; font-size: 12px;">
+                                Field is required
+                            </div>
+                        </div>
+                        <div class="form__linput">
+
+                        </div>
+                    </div>
+                    <!-- <div class="form__row">
+                        <div class="form__linput" *ngIf="selectElements === 'Driving License' || selectElements === 'Passport'">
+                            <label class="form__label"><b>Date of Birth</b></label>
+                            <input
+                                class="form-control"
+                                id="dob"
+                                type="date"
+                                [formControlName]="selectElements === 'Driving License' ? 'drivingLicenceDob' : 'passportDob'"
+                                required
+                            />
+                            <div *ngIf="(selectElements === 'Driving License' ? drivingLicenceDob : passportDob)?.invalid &&
+                                         (selectElements === 'Driving License' ? drivingLicenceDob : passportDob)?.touched &&
+                                         (selectElements === 'Driving License' ? drivingLicenceDob : passportDob)?.errors?.['required']"
+                                 style="color: red; font-size: 12px;">
+                                Field is required
+                            </div>
+                        </div>
+                        <div class="form__linput">
+                           
+                        </div>
+                    </div> -->
                     <div>
                         <button mat-raised-button matStepperPrevious>Back</button>
                         <button mat-raised-button matStepperNext>Next</button>
@@ -813,7 +883,7 @@
                         <div class="form__linput">
                             <label class="form__label"><b>Upload Front Path</b></label>
                             <input class="form-control" formControlName="signatureFrontPath"
-                                (change)="onasignfront($event)" type="file" accept="image/jpeg, image/png" />
+                                (change)="onasignfront($event)" type="file" accept="image/*" />
                             <div *ngIf="signatureFrontPath?.invalid && signatureFrontPath?.touched && signatureFrontPath?.errors?.['required']"
                                 style="color: red; font-size: 12px;">
                                 Field is required
@@ -823,14 +893,30 @@
                         <div class="form__linput">
                             <label class="form__label"><b>Upload Back Path</b></label>
                             <input class="form-control" formControlName="signatureBackPath"
-                                (change)="onasignback($event)" type="file" accept="image/jpeg, image/png" />
+                                (change)="onasignback($event)" type="file" accept="image/*"/>
                             <div *ngIf="signatureBackPath?.invalid && signatureBackPath?.touched && signatureBackPath?.errors?.['required']"
                                 style="color: red; font-size: 12px;">
                                 Field is required
                             </div>
                         </div>
                     </div>
+                    <div class="form__row">
+                        <div class="form__linput" *ngIf="select === 'Driving License' || select === 'Passport'">
+                            <label class="form__label"><b>Date of Birth</b></label>
+                            <input class="form-control" id="dob" type="date"
+                                [formControlName]="select === 'Driving License' ? 'drivingLicenceDobss' : 'passportDobss'"
+                                required />
+                            <div *ngIf="(select === 'Driving License' ? drivingLicenceDobss : passportDobss)?.invalid &&
+                                         (select === 'Driving License' ? drivingLicenceDobss : passportDobss)?.touched &&
+                                         (select  === 'Driving License' ? drivingLicenceDobss : passportDobss)?.errors?.['required']"
+                                style="color: red; font-size: 12px;">
+                                Field is required
+                            </div>
+                        </div>
+                        <div class="form__linput">
 
+                        </div>
+                    </div>
                     <div>
                         <button mat-raised-button matStepperPrevious>Back</button>
                         <button mat-raised-button (click)="kycsubmit()">Finish</button>
@@ -850,7 +936,8 @@
                 <div class="form__linput">
                     <label class="form__label"><b>Document Name</b></label>
                     <select class="form-select" formControlName="kycCategoryId">
-                        <option *ngFor="let item of KYCDocNames" [value]="item.businessCreationId">{{item.entityKycCategory.kycCategoryName}}
+                        <option *ngFor="let item of KYCDocNames" [value]="item.businessCreationId">
+                            {{item.entityKycCategory.kycCategoryName}}
                         </option>
                     </select>
                     <div *ngIf="kycCategoryId?.invalid && kycCategoryId?.touched && kycCategoryId?.errors?.['required']"
@@ -875,7 +962,7 @@
                 <div class="form__linput">
                     <label class="form__label"><b>Upload Front Path</b></label>
                     <input class="form-control" formControlName="docFrontPath" (change)="docfront($event)" type="file"
-                        accept="image/jpeg, image/png" />
+                    accept="image/*"/>
                     <div *ngIf="docFrontPath?.invalid && docFrontPath?.touched && docFrontPath?.errors?.['required']"
                         style="color: red; font-size: 12px;">
                         Field is required
@@ -885,7 +972,7 @@
                 <div class="form__linput">
                     <label class="form__label"><b>Upload Back Path</b></label>
                     <input class="form-control" formControlName="docBackPath" (change)="docback($event)" type="file"
-                        accept="image/jpeg, image/png" />
+                    accept="image/*" />
                 </div>
             </div>
 

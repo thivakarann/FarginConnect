@@ -9,6 +9,7 @@ import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
 import moment from 'moment';
 import { CustomerTransViewComponent } from '../customer-trans-view/customer-trans-view.component';
+import { customerpay } from '../../../fargin-model/fargin-model.module';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class CustomerTransViewallComponent {
     'amount',
     'paidAt',
     'Receipt',
+    'CheckStatus',
     'status',
     'view',
 
@@ -79,6 +81,10 @@ export class CustomerTransViewallComponent {
     }
   }
 
+  reload() {
+    window.location.reload()
+  }
+
   renderPage(event: any) {
     this.currentPage = event;
     this.ngOnInit();
@@ -106,6 +112,13 @@ export class CustomerTransViewallComponent {
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
+      else if (res.flag == 2) {
+
+        this.transaction = res.response;
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
     })
   }
   reset() {
@@ -118,7 +131,7 @@ export class CustomerTransViewallComponent {
         var downloadURL = URL.createObjectURL(res);
         window.open(downloadURL);
       },
- 
+
     });
   }
 
@@ -238,6 +251,25 @@ export class CustomerTransViewallComponent {
       disableClose: true,
       data: {
         value: id,
+      }
+    })
+  }
+
+  track(id: any) {
+    let submitModel: customerpay = {
+      payId: id?.customerPayId,
+      trackId: id?.trackId,
+      paidAmount: id.paidAmount
+    }
+    this.service.Customerpay(submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.toastr.success(res.responseMessage);
+        setTimeout(() => {
+          window.location.reload()
+        }, 400);
+      }
+      else {
+        this.toastr.error(res.responseMessage);
       }
     })
   }

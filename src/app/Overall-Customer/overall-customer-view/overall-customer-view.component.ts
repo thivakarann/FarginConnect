@@ -106,6 +106,12 @@ date2: any;
 
   }
 
+
+  
+reload(){
+  window.location.reload()
+}
+
   Viewparticularcustomer(id:any){
     this.router.navigate([`dashboard/Overall-IndividualCustomer-view/${id}`], {
       queryParams: { Alldata: id },

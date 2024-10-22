@@ -107,7 +107,7 @@ export class FarginServiceService {
   private readonly viewSetupboxDetails = 'customer/viewcustomerstb/';
   private readonly viewsetupboxplan = 'customer/viewcustomerstbplan/';
   private readonly activestatussetupbox = 'customer/updateStbStatus/';
-  private readonly activecustomerplan='customerplan/updatestatus/';
+  private readonly activecustomerplan = 'customerplan/updatestatus/';
 
   //entity bank
 
@@ -497,6 +497,12 @@ export class FarginServiceService {
   private readonly announcementedit = 'announcement/update'
   private readonly announcementstatus = 'announcement/updateStatus'
   private readonly announcementdate = 'announcement/dateFilter/';
+
+  //customer payment
+  private readonly customerpayment = 'customerpay/trackApi';
+  private readonly subscriptionpayment = 'maintanancePay/trackApi';
+  private readonly customizationpayment = 'otherpayment/trackApi';
+  private readonly manualpayment = 'merchantpay/trackApi';
 
 
 
@@ -906,7 +912,7 @@ export class FarginServiceService {
   KycUpdate(data: any) {
     return this.http.post(`${this.basePath}${this.editkyc}`, data, this.optionsMultipart);
   }
-  getImageview(id: any,id1: any) {
+  getImageview(id: any, id1: any) {
     return this.http.get(`${this.basePath}${this.kycdocument}${id}/${id1}`, {
       ...this.options,
       ...{ responseType: 'blob' }
@@ -1324,27 +1330,27 @@ export class FarginServiceService {
     return this.http.get(`${this.basePath}${this.Entityindividualcustomerview}${id}`, this.options)
   }
 
-  ViewCustomerBasicInfo(id:any){
-    return this.http.get(`${this.basePath}${this.viewcustomerbasicdetails}${id}`,this.options)
-  }
- 
- 
-  ViewCustomersSetupBox(id:any){
-    return this.http.get(`${this.basePath}${this.viewSetupboxDetails}${id}`,this.options)
-  }
- 
- 
-  ActiveStatusSetupbox(id:any,model:any){
-    return this.http.put(`${this.basePath}${this.activestatussetupbox}${id}`,model,this.options)
-  }
- 
-  ViewSetupBoxPlanDetails(id:any){
-    return this.http.get(`${this.basePath}${this.viewsetupboxplan}${id}`,this.options)
+  ViewCustomerBasicInfo(id: any) {
+    return this.http.get(`${this.basePath}${this.viewcustomerbasicdetails}${id}`, this.options)
   }
 
-  ActiveStatusCustomerPlan(id:any,model:any){
-    return this.http.put(`${this.basePath}${this.activecustomerplan}${id}`,model,this.options)
- 
+
+  ViewCustomersSetupBox(id: any) {
+    return this.http.get(`${this.basePath}${this.viewSetupboxDetails}${id}`, this.options)
+  }
+
+
+  ActiveStatusSetupbox(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.activestatussetupbox}${id}`, model, this.options)
+  }
+
+  ViewSetupBoxPlanDetails(id: any) {
+    return this.http.get(`${this.basePath}${this.viewsetupboxplan}${id}`, this.options)
+  }
+
+  ActiveStatusCustomerPlan(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.activecustomerplan}${id}`, model, this.options)
+
   }
 
 
@@ -1871,6 +1877,25 @@ export class FarginServiceService {
   SmsApproval(id: any, model: any) {
     return this.http.put(`${this.basePath}${this.smsapproval}${id}`, model, this.options)
   }
+
+
+  //customer pay
+  Customerpay(model: any) {
+    return this.http.post(`${this.basePath}${this.customerpayment}`, model, this.options);
+  }
+
+  Subscribepay(model: any) {
+    return this.http.post(`${this.basePath}${this.subscriptionpayment}`, model, this.options);
+  }
+
+  Customizepay(model: any) {
+    return this.http.post(`${this.basePath}${this.customizationpayment}`, model, this.options);
+  }
+
+  Manualpay(model: any) {
+    return this.http.post(`${this.basePath}${this.manualpayment}`, model, this.options);
+  }
+
 
 
 

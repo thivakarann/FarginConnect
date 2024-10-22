@@ -67,7 +67,7 @@ export class AlacarteViewallComponent implements OnInit {
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
-          
+
           if (this.roleId == 1) {
             this.valuealcartAdd = 'Channel Configuration-Add';
             this.valuealcartEdit = 'Channel Configuration-Edit';
@@ -78,22 +78,22 @@ export class AlacarteViewallComponent implements OnInit {
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
-              
+
 
               if (this.actions == 'Channel Configuration-Add') {
                 this.valuealcartAdd = 'Channel Configuration-Add';
               }
-              if(this.actions=='Channel Configuration-Edit'){
-                this.valuealcartEdit='Channel Configuration-Edit';
+              if (this.actions == 'Channel Configuration-Edit') {
+                this.valuealcartEdit = 'Channel Configuration-Edit';
               }
-              if(this.actions=='Channel Configuration-Export'){
-                this.valuealcartExport='Channel Configuration-Export';
+              if (this.actions == 'Channel Configuration-Export') {
+                this.valuealcartExport = 'Channel Configuration-Export';
               }
-              if(this.actions=='Channel Configuration-View'){
-                this.valuealcartView='Channel Configuration-View'
+              if (this.actions == 'Channel Configuration-View') {
+                this.valuealcartView = 'Channel Configuration-View'
               }
-              if(this.actions=='Channel Configuration-Status'){
-                this.valuealcartStatus='Channel Configuration-Status';
+              if (this.actions == 'Channel Configuration-Status') {
+                this.valuealcartStatus = 'Channel Configuration-Status';
               }
             }
           }
@@ -104,6 +104,11 @@ export class AlacarteViewallComponent implements OnInit {
       }
     })
 
+  }
+
+
+  reload() {
+    window.location.reload()
   }
 
 

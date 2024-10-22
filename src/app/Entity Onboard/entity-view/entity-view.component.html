@@ -40,7 +40,7 @@
             Documents
         </button>
         <button class="tab" [class.active]="activeTab === 'doot1'" (click)="selectTab('doot1')">Final Approval</button>
-        <button class="tab" [class.active]="activeTab === 'doot2'" (click)="selectTab('doot2')">Manual
+        <button class="tab" [class.active]="activeTab === 'doot2'" (click)="selectTab('doot2')">One Time Setup
             Payment</button>
         <button class="tab" [class.active]="activeTab === 'doot3'" (click)="selectTab('doot3')">Customized
             Payment</button>
@@ -451,7 +451,7 @@
                                         </i>
                                     </span>
                                 </td>
-                                <td><button class="buttonDownload" [disabled]="item.facheckStatus != 1"
+                                <td><button class="buttonDownload" 
                                         (click)="BankApproval(item.merchantBankId)">Approval</button>
                                 </td>
                                 <td [ngClass]="{
@@ -512,12 +512,12 @@
                         </form>
                     </div>
                 </div>
-                <!-- <div class="col-md-2 mt-1">
+                <div class="col-md-2 mt-1">
                     <button [hidden]="valuekycadd!=='KYC-add'"
-                        (click)="addKycdocuments(this.id,this.businessCategoryId)"
+                        (click)="addKycdocuments(this.id)"
                         style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Add
                         KYC</button>
-                </div> -->
+                </div>
             </div>
         </mat-card-header>
         <div class="row mt-4">
@@ -568,10 +568,10 @@
                                                         (click)="KycInfo(item)">Info</button>
                                                     <button style="font-size: 10px;" mat-menu-item
                                                         [disabled]="item.identityFacheckStatus==1"
-                                                        (click)="kycVerificationsIdentity(item.identityProofNo,item.proofId,item.identityProof)">Verify</button>
+                                                        (click)="kycVerificationsIdentity(item.identityProofNo,item.proofId,item.identityProof,item.drivingLicenceDob,item.passportDob)">Verify</button>
                                                     <button style="font-size: 10px;" mat-menu-item
                                                         [disabled]="item.identityFacheckStatus==0  || item.identityFacheckStatus==2"
-                                                        (click)="kycVerificationsIdentity(item.identityProofNo,item.proofId,item.identityProof)">
+                                                        (click)="kycVerificationsIdentity(item.identityProofNo,item.proofId,item.identityProof,item.drivingLicenceDob,item.passportDob)">
                                                         Re-Verify </button>
                                                 </mat-menu>
                                             </i>
@@ -597,7 +597,7 @@
                                     <td> {{item.identityAdminApprovedBy}}
                                     </td>
                                     <td>{{item.identityAdminApprovedDate}}</td>
-                                    <td [hidden]="valuekyccomment!=='Entity View KYC Document-comments'"><span
+                                    <td><span
                                             (click)="KYCComments(item.identityAdminComments)"><i class="fas fa-comments"
                                                 style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
                                     </td>
@@ -627,10 +627,10 @@
                                                         (click)="KycInfo(item)">Info</button>
                                                     <button style="font-size: 10px;" mat-menu-item
                                                         [disabled]="item.addressFacheckStatus==1"
-                                                        (click)="kycVerificationsAddress(item.addressProofNo,item.proofId,item.addressProof)">Verify</button>
+                                                        (click)="kycVerificationsAddress(item.addressProofNo,item.proofId,item.addressProof,item.drivingLicenceDob,item.passportDob)">Verify</button>
                                                     <button style="font-size: 10px;" mat-menu-item
                                                         [disabled]="item.addressFacheckStatus==0  || item.addressFacheckStatus==2"
-                                                        (click)="kycVerificationsAddress(item.addressProofNo,item.proofId,item.addressProof)">
+                                                        (click)="kycVerificationsAddress(item.addressProofNo,item.proofId,item.addressProof,item.drivingLicenceDob,item.passportDob)">
                                                         Re-Verify </button>
                                                 </mat-menu>
                                             </i>
@@ -687,10 +687,10 @@
                                                         (click)="KycInfo(item)">Info</button>
                                                     <button style="font-size: 10px;" mat-menu-item
                                                         [disabled]="item.signatureFacheckStatus==1"
-                                                        (click)="kycVerificationsSignature(item.signatureProofNo, item.proofId, item.signatureProof)">Verify</button>
+                                                        (click)="kycVerificationsSignature(item.signatureProofNo, item.proofId, item.signatureProof,item.drivingLicenceDob,item.passportDob)">Verify</button>
                                                     <button style="font-size: 10px;" mat-menu-item
                                                         [disabled]="item.signatureFacheckStatus==0 || item.signatureFacheckStatus==2"
-                                                        (click)="kycVerificationsSignature(item.signatureProofNo, item.proofId, item.signatureProof)">Re-Verify</button>
+                                                        (click)="kycVerificationsSignature(item.signatureProofNo, item.proofId, item.signatureProof,item.drivingLicenceDob,item.passportDob)">Re-Verify</button>
                                                 </mat-menu>
                                             </i>
                                         </span>
@@ -937,8 +937,8 @@
                 </div>
             </div>
             <div class="col-md-2 mt-1">
-                <button (click)="createmanualPayement()"
-                    style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Create
+                <button [disabled]="this.paymentStatus=='Success'"  (click)="createmanualPayement()" 
+                    style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Manual Payment
                 </button>
             </div>
         </div>
@@ -955,6 +955,7 @@
                             <th>Edit</th>
                             <th>View</th>
                             <th>Payment Status</th>
+                            <th>Payment Method</th>
                             <th>Paid At</th>
                         </tr>
                         <tbody
@@ -963,9 +964,11 @@
                             <td>{{item.paymentId}}</td>
                             <td>{{item.totalPayableAmount}}</td>
                             <td>
-                                <span (click)="manualPayement(item)">
+                               <button  style="border:none" [disabled]="paymentMethod!=='Cash' || paymentMethod!=='UPI' || paymentMethod!=='NEFT' || paymentMethod!=='RTGS' || paymentMethod!=='IMPS' || paymentMethod!=='Cheque' " (click)="manualPayement(item)">
+                                <span>
                                     <i class="fas fa-edit" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
                                 </span>
+                            </button>
                             </td>
                             <td>
                                 <span (click)="viewmanualtransaction(item.merchantPayId)">
@@ -973,6 +976,7 @@
                                 </span>
                             </td>
                             <td>{{item.paymentStatus}}</td>
+                            <td>{{item.paymentMethod}}</td>
                             <td>{{item.paymentDateTime | date:"dd-MM-yyyy hh:mm a"}}</td>
                         </tbody>
                     </table>
