@@ -19,7 +19,7 @@ export class MaintanceViewComponent {
     console.log(this.id);
     this.service.MaintenanceTransactionsView(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.view = res.response[0];
+        this.view = res.response;
       }
     })
   }

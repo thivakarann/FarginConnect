@@ -79,25 +79,25 @@ export class PgsetupViewComponent implements OnInit {
             this.valuepgsetupStatus = 'PG SetupKey-Status';
 
           }
-          else {
-            for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
+          // else {
+          //   for (let datas of this.getdashboard) {
+          //     this.actions = datas.subPermissions;
 
 
-              if (this.actions == 'PG SetupKey-Edit') {
-                this.valuepgsetupEdit = 'PG SetupKey-Edit';
-              }
-              if (this.actions == 'PG SetupKey-Add') {
-                this.valuepgsetupAdd = 'PG SetupKey-Add';
-              }
-              if (this.actions == 'PG SetupKey-Export') {
-                this.valuepgsetupExport = 'PPG SetupKey-Export';
-              }
-              if (this.actions == 'PG SetupKey-Status') {
-                this.valuepgsetupStatus = 'PG SetupKey-Status';
-              }
-            }
-          }
+          //     if (this.actions == 'PG SetupKey-Edit') {
+          //       this.valuepgsetupEdit = 'PG SetupKey-Edit';
+          //     }
+          //     if (this.actions == 'PG SetupKey-Add') {
+          //       this.valuepgsetupAdd = 'PG SetupKey-Add';
+          //     }
+          //     if (this.actions == 'PG SetupKey-Export') {
+          //       this.valuepgsetupExport = 'PPG SetupKey-Export';
+          //     }
+          //     if (this.actions == 'PG SetupKey-Status') {
+          //       this.valuepgsetupStatus = 'PG SetupKey-Status';
+          //     }
+          //   }
+          // }
         }
         else {
           this.errorMessage = res.responseMessage;

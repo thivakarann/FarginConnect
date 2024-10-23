@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -17,17 +18,17 @@ import { Router } from '@angular/router';
 export class ProfileComponent {
 
 
-constructor( private router: Router,){}
+  constructor(private router: Router, private location: Location) { }
 
   adminname = JSON.parse(localStorage.getItem('adminname') || '');
-  emailaddress=JSON.parse(localStorage.getItem('emailaddress') || '');
-  mobilenumber=JSON.parse(localStorage.getItem('mobilenumber') || '');
-  address=JSON.parse(localStorage.getItem('address') || '');
+  emailaddress = JSON.parse(localStorage.getItem('emailaddress') || '');
+  mobilenumber = JSON.parse(localStorage.getItem('mobilenumber') || '');
+  address = JSON.parse(localStorage.getItem('address') || '');
 
 
-click(){
-  this.router.navigateByUrl('dashboard/dashboard-content')
-}
+  click() {
+    this.location.back();
+  }
 
 
 }

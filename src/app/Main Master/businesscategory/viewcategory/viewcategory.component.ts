@@ -86,7 +86,7 @@ export class ViewcategoryComponent implements OnInit {
 
 
               if (this.actions == 'Bussiness Category-Add') {
-                this.valueCategoryAdd = 'BussinessCategory-Add';
+                this.valueCategoryAdd = 'Bussiness Category-Add';
               }
               if (this.actions == 'Bussiness Category-Edit') {
                 this.valueCategoryEdit = 'Bussiness Category-Edit';

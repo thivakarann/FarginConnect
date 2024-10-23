@@ -170,12 +170,12 @@ export class DashboardComponent implements OnInit {
         if (this.roles == 'Merchant Plan') {
           this.valuemerchantPlan = 'Merchant Plan'
         }
-        if (this.roles == 'FaCheck Key') {
-          this.valueFacheck = 'FaCheck Key'
-        }
-        if (this.roles == 'PG SetupKey') {
-          this.valuepgsetupkey = 'PG SetupKey'
-        }
+        // if (this.roles == 'FaCheck Key') {
+        //   this.valueFacheck = 'FaCheck Key'
+        // }
+        // if (this.roles == 'PG SetupKey') {
+        //   this.valuepgsetupkey = 'PG SetupKey'
+        // }
         if (this.roles == 'Withdrawal Fee') {
           this.valueWithdrawalfee = 'Withdrawal Fee'
         }
@@ -224,9 +224,9 @@ export class DashboardComponent implements OnInit {
         if (this.roles == 'Bank List') {
           this.valuebankdetails = 'Bank List'
         }
-        if (this.roles == 'Fargin bank') {
-          this.valuefarginbank = 'Fargin bank'
-        }
+        // if (this.roles == 'Fargin bank') {
+        //   this.valuefarginbank = 'Fargin bank'
+        // }
         if (this.roles == 'Entity Sms') {
           this.valueentitysms = 'Entity Sms'
         }

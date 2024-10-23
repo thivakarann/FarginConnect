@@ -93,25 +93,25 @@ export class FarginBankviewComponent {
             this.valuefarginstatus = 'Fargin bank-Status';
 
           }
-          else {
-            for (let datas of this.getdashboard) {
+          // else {
+          //   for (let datas of this.getdashboard) {
 
-              this.actions = datas.subPermissions;
-              if (this.actions == 'Fargin bank-Add') {
-                this.valuefarginadd = 'Fargin bank-Add';
-              }
-              if (this.actions == 'Fargin bank-Edit') {
-                this.valuefarginedit = 'Fargin bank-Edit'
-              }
-              if (this.actions == 'Fargin bank-Status') {
-                this.valuefarginstatus = 'Fargin bank-Status'
-              }
-              if (this.actions == 'Fargin bank-Export') {
-                this.valuefarginexport = 'Fargin bank-Export'
-              }
+          //     this.actions = datas.subPermissions;
+          //     if (this.actions == 'Fargin bank-Add') {
+          //       this.valuefarginadd = 'Fargin bank-Add';
+          //     }
+          //     if (this.actions == 'Fargin bank-Edit') {
+          //       this.valuefarginedit = 'Fargin bank-Edit'
+          //     }
+          //     if (this.actions == 'Fargin bank-Status') {
+          //       this.valuefarginstatus = 'Fargin bank-Status'
+          //     }
+          //     if (this.actions == 'Fargin bank-Export') {
+          //       this.valuefarginexport = 'Fargin bank-Export'
+          //     }
 
-            }
-          }
+          //   }
+          // }
 
         }
         else {

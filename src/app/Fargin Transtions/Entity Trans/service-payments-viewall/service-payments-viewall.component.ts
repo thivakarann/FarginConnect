@@ -49,7 +49,7 @@ export class ServicePaymentsViewallComponent {
   date1: any;
   date2: any;
   transaction: any;
- 
+  showcategoryData!:boolean;
  
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
  
@@ -114,23 +114,27 @@ export class ServicePaymentsViewallComponent {
     })
     }
  
-  filterdate() {
-    // const datepipe: DatePipe = new DatePipe("en-US");
-    // let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY HH:mm");
-    // let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/YYYY HH:mm");
-    // this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
-    // this.currentPage = 1;
- 
-    this.service.OneTimeTransactionFilter(this.FromDateRange,this.ToDateRange).subscribe((res: any) => {
-      if (res.flag == 1) {
+    filterdate() {
+      // const datepipe: DatePipe = new DatePipe("en-US");
+      // let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY HH:mm");
+      // let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/YYYY HH:mm");
+      // this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
+      // this.currentPage = 1;
    
-        this.transaction=res.response;
-        this.dataSource = new MatTableDataSource(this.transaction);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      }
-    })
-  }
+      this.service.OneTimeTransactionFilter(this.FromDateRange,this.ToDateRange).subscribe((res: any) => {
+        if (res.flag == 1) {
+     
+          this.transaction=res.response;
+          this.dataSource = new MatTableDataSource(this.transaction);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.showcategoryData= false;
+        }
+        else if (res.flag == 2) {
+          this.showcategoryData = true;
+        }
+      })
+    }
   reset() {
     window.location.reload();
   }

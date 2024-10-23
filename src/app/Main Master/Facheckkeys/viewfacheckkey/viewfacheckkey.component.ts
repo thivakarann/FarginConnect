@@ -75,30 +75,30 @@ export class ViewfacheckkeyComponent {
             this.valuefacheckedit = 'FaCheck Key-Edit';
             this.valuefacheckstatus = 'FaCheck Key-Status';
           }
-          else {
-            for (let datas of this.getdashboard) {
+          // else {
+          //   for (let datas of this.getdashboard) {
 
-              this.actions = datas.subPermissions;
+          //     this.actions = datas.subPermissions;
 
 
 
-              if (this.actions == 'FaCheck Key-Add') {
-                this.valuefacheckAdd = 'FaCheck Key-Add';
-              }
+          //     if (this.actions == 'FaCheck Key-Add') {
+          //       this.valuefacheckAdd = 'FaCheck Key-Add';
+          //     }
 
-              if (this.actions == 'FaCheck Key-Export') {
-                this.valuefacheckexport = 'FaCheck Key-Export';
-              }
+          //     if (this.actions == 'FaCheck Key-Export') {
+          //       this.valuefacheckexport = 'FaCheck Key-Export';
+          //     }
 
-              if (this.actions == 'FaCheck Key-Edit') {
-                this.valuefacheckedit = 'FaCheck Key-Edit';
-              }
+          //     if (this.actions == 'FaCheck Key-Edit') {
+          //       this.valuefacheckedit = 'FaCheck Key-Edit';
+          //     }
 
-              if (this.actions == 'FaCheck Key-Status') {
-                this.valuefacheckstatus = 'FaCheck Key-Status';
-              }
-            }
-          }
+          //     if (this.actions == 'FaCheck Key-Status') {
+          //       this.valuefacheckstatus = 'FaCheck Key-Status';
+          //     }
+          //   }
+          // }
 
         }
         else {

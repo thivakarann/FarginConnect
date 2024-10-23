@@ -10,6 +10,7 @@ import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
 import { CustomerTicketapprovalComponent } from '../customer-ticketapproval/customer-ticketapproval.component';
 import { CustDescriptionCommentComponent } from '../cust-description-comment/cust-description-comment.component';
+import { CustomerticketImageComponent } from '../customerticket-image/customerticket-image.component';
 
 @Component({
   selector: 'app-customer-viewall',
@@ -32,6 +33,7 @@ export class CustomerViewallComponent implements OnInit{
     'ticketId',
     'mobileNumber',
     'categoryName',
+    'logo',
     'description',
     'ticketStatus',
     'action',
@@ -132,6 +134,20 @@ valuedescription: any;
       data: { value: id },
       disableClose: true,
       width: "50%"
+    })
+  }
+
+  viewlogo(id:any) {
+    this.dialog.open(CustomerticketImageComponent, {
+      enterAnimationDuration: '1000ms',
+      exitAnimationDuration: '1000ms',
+      disableClose: true,
+      // disableClose: true,
+      data: {
+        value: id,
+        // value1: Link
+ 
+      }
     })
   }
 

@@ -58,7 +58,7 @@ export class OtherpaymentsViewallComponent {
   roleId: any = localStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
-
+  showcategoryData!:boolean;
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
 
 
@@ -297,15 +297,17 @@ export class OtherpaymentsViewallComponent {
   }
 
   filterdate() {
-
+ 
     this.service.OtherPayFilter(this.FromDateRange, this.ToDateRange).subscribe((res: any) => {
       if (res.flag == 1) {
         this.transaction = res.response;
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+        this.showcategoryData= false;
       }
       else if (res.flag == 2) {
+        this.showcategoryData = true;
         this.message = res.responseMessage;
       }
     })

@@ -12,16 +12,16 @@ export class CustomerTransViewComponent {
 
   view: any;
   id: any;
-constructor(private service:FarginServiceService,@Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog){
- 
-}
+  constructor(private service: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog) {
+
+  }
   ngOnInit(): void {
     this.id = this.data.value
     console.log(this.id);
-   this.service.CustomerTransactionsView(this.id).subscribe((res:any)=>{
-  if(res.flag==1){
-    this.view=res.response[0];
-  }
-})
+    this.service.CustomerTransactionsView(this.id).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.view = res.response;
+      }
+    })
   }
 }

@@ -360,16 +360,16 @@ export class FarginServiceService {
   //transactions
   private readonly customeralltransactions = 'customerpay/viewAllPayments';
   private readonly customerdatefilter = 'paymentHistory/getDateFilter/';
-  private readonly customertransactionview = 'paymentHistory/viewById/'
+  private readonly customertransactionview = 'customerpay/viewbyid/'
 
   //merchant
   private readonly maintenancetransaction = 'maintanancePay/viewAll';
-  private readonly maintenancetransactionview = 'maintanancePay/viewByPayId/';
+  private readonly maintenancetransactionview = 'maintanancePay/viewById/';
   private readonly maintenancedatefilter = 'maintanancePay/dateFilter/';
 
   //onetime
   private readonly onetimtransaction = 'merchantpay/viewAll';
-  private readonly onetimtransactionview = 'maintanancePay/viewByPayId/';
+  private readonly onetimtransactionview = 'merchantpay/viewpayment/';
   private readonly onetimdatefilter = 'transhistory/getDateWise/';
 
   // QR Creation API,S
@@ -514,9 +514,10 @@ private readonly customerplanamaount='customer/viewcustomertotalamount/'
  
 
 
-
-
-
+//customer logo
+private readonly customerlogo = 'customerTickets/updatedocument';
+private readonly customerlogoview = 'customerTickets/viewimage/';
+ 
 
 
 
@@ -1925,7 +1926,18 @@ private readonly customerplanamaount='customer/viewcustomertotalamount/'
 
 
 
+ 
+//logo
+EntitylogoUpdatescustomer(data: FormData) {
+  return this.http.put(`${this.basePath}${this.customerlogo}`, data, this.optionsMultipart);
+}
 
+Entitylogoview(id: string) {
+  return this.http.get(`${this.basePath}${this.customerlogoview}${id}`, {
+    ...this.options,
+    ...{ responseType: 'blob' },
+  });
+}
 
 
 

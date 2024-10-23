@@ -51,6 +51,7 @@ export class CustomerTransViewallComponent {
   date1: any;
   date2: any;
   transaction: any;
+  showcategoryData!:boolean;
 
 
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
@@ -103,21 +104,18 @@ export class CustomerTransViewallComponent {
     // let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/YYYY HH:mm");
     // this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
     // this.currentPage = 1;
-
+ 
     this.service.CustomerTransactionsFilter(this.FromDateRange, this.ToDateRange).subscribe((res: any) => {
       if (res.flag == 1) {
-
+ 
         this.transaction = res.response;
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+        this.showcategoryData= false;
       }
       else if (res.flag == 2) {
-
-        this.transaction = res.response;
-        this.dataSource = new MatTableDataSource(this.transaction);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        this.showcategoryData = true;
       }
     })
   }
