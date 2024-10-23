@@ -34,9 +34,9 @@
       &nbsp;&nbsp;&nbsp;
 
       <button (click)="create()" style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
-        [hidden]="valueCategoryAdd!=='BussinessCategory-Add'">Create</button>
+        [hidden]="valueCategoryAdd!=='Bussiness Category-Add'">Create</button>
       <button style="color:white;background-color: #141E46;border-radius: 10px;" (click)="exportexcel()"
-        mat-raised-button [hidden]="valueCategoryexport!=='BussinessCategory-Export'">Export</button>
+        mat-raised-button [hidden]="valueCategoryexport!=='Bussiness Category-Export'">Export</button>
     </div>
   </div>
 </mat-card-header>
@@ -69,8 +69,8 @@
 
       <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef mat-sort-header
-          [hidden]="valueCategorystatus!=='BussinessCategory-Status'">Status</th>
-        <td mat-cell *matCellDef="let businesscategory" [hidden]="valueCategorystatus!=='BussinessCategory-Status'">
+          [hidden]="valueCategorystatus!=='Bussiness Category-Status'">Status</th>
+        <td mat-cell *matCellDef="let businesscategory" [hidden]="valueCategorystatus!=='Bussiness Category-Status'">
           <mat-slide-toggle class="example-margin" color="primary" [checked]="businesscategory.activeStatus === 1"
             (change)="onSubmit($event,businesscategory.businessCategoryId)">
           </mat-slide-toggle>
@@ -78,9 +78,9 @@
       </ng-container>
 
       <ng-container matColumnDef="Edit">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="valueCategoryEdit!=='BussinessCategory-Edit'">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="valueCategoryEdit!=='Bussiness Category-Edit'">
           Action </th>
-        <td mat-cell *matCellDef="let businesscategory" [hidden]="valueCategoryEdit!=='BussinessCategory-Edit'">
+        <td mat-cell *matCellDef="let businesscategory" [hidden]="valueCategoryEdit!=='Bussiness Category-Edit'">
           <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-edit"
             (click)="Edit(businesscategory)"></i>
         </td>

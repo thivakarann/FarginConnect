@@ -40,6 +40,15 @@ export class BankViewallComponent implements OnInit {
   date2: any;
   responseDataListnew: any = [];
   response: any = [];
+valuebanklistexport: any;
+valuebanklistadd: any;
+valuebankstatus: any;
+valuebankedit: any;
+errorMessage: any;
+  getdashboard: any[] = [];
+  roleId: any = localStorage.getItem('roleId')
+  actions: any;
+  valuetermViews: any;
 
   constructor(
     public bankdetails: FarginServiceService,
@@ -56,6 +65,43 @@ export class BankViewallComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       console.log(this.viewall);
     });
+
+    this.bankdetails.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        console.log(res);
+
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+
+          if (this.roleId == 1) {
+           this.valuebanklistadd='Bank List-Add'
+           this.valuebanklistexport='Bank List-Export'
+           this.valuebankstatus='Bank List-Status'
+           this.valuebankedit='Bank List-Edit'
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+            if(this.actions=='Bank List-Add'){
+              this.valuebanklistadd='Bank List-Add'
+            }
+            if(this.actions=='Bank List-Export'){
+              this.valuebanklistexport='Bank List-Export'
+            }
+            if(this.actions=='Bank List-Status'){
+              this.valuebankstatus='Bank List-Status'
+            }
+            if(this.actions=='Bank List-Edit'){
+              this.valuebankedit='Bank List-Edit'
+            }
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    })
   }
 
   AddBankDetails() {

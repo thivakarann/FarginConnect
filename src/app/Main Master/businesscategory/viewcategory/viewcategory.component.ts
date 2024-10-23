@@ -74,10 +74,10 @@ export class ViewcategoryComponent implements OnInit {
           this.getdashboard = res.response?.subPermission;
 
           if (this.roleId == 1) {
-            this.valueCategoryAdd = 'BussinessCategory-Add';
-            this.valueCategoryEdit = 'BussinessCategory-Edit';
-            this.valueCategorystatus = 'BussinessCategory-Status';
-            this.valueCategoryexport = 'BussinessCategory-Export';
+            this.valueCategoryAdd = 'Bussiness Category-Add';
+            this.valueCategoryEdit = 'Bussiness Category-Edit';
+            this.valueCategorystatus = 'Bussiness Category-Status';
+            this.valueCategoryexport = 'Bussiness Category-Export';
 
           }
           else {
@@ -85,17 +85,17 @@ export class ViewcategoryComponent implements OnInit {
               this.actions = datas.subPermissions;
 
 
-              if (this.actions == 'BussinessCategory-Add') {
+              if (this.actions == 'Bussiness Category-Add') {
                 this.valueCategoryAdd = 'BussinessCategory-Add';
               }
-              if (this.actions == 'BussinessCategory-Edit') {
-                this.valueCategoryEdit = 'BussinessCategory-Edit';
+              if (this.actions == 'Bussiness Category-Edit') {
+                this.valueCategoryEdit = 'Bussiness Category-Edit';
               }
-              if (this.actions == 'BussinessCategory-Export') {
-                this.valueCategoryexport = 'BussinessCategory-Export';
+              if (this.actions == 'Bussiness Category-Export') {
+                this.valueCategoryexport = 'Bussiness Category-Export';
               }
-              if (this.actions == 'BussinessCategory-Status') {
-                this.valueCategorystatus = 'BussinessCategory-Status';
+              if (this.actions == 'Bussiness Category-Status') {
+                this.valueCategorystatus = 'Bussiness Category-Status';
               }
 
             }

@@ -26,7 +26,7 @@ valuecustomerview: any;
     'emailaddress',
     'mobilenumber',
     'blocknum',
-    'setupbox',
+    // 'setupbox',
     'flatnum',
     'view'
   ];

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-bussinessdocument',
@@ -22,11 +22,16 @@ export class AddBussinessdocumentComponent implements OnInit {
   getadminname = JSON.parse(localStorage.getItem('adminname') || '');
   emptyBlob = new Blob([], { type: 'application/pdf' })
   uploadImage: any;
+  uploadImage8: any;
+  uploadImage9: any;
+  uploaddocfront: any;
+  uploaddocback: any;
 
   constructor(
     public service: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
+    private dialog: MatDialog,
     private _formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
@@ -86,68 +91,73 @@ export class AddBussinessdocumentComponent implements OnInit {
   }
 
   docfront(event: any) {
-    this.uploadImage = event.target.files[0];
+    this.uploaddocfront = event.target.files[0];
  
     // Ensure this.uploadImage is not null
-    if (this.uploadImage) {
+    if (this.uploaddocfront) {
       const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
  
-      if (acceptableTypes.includes(this.uploadImage.type)) {
-        if (this.uploadImage.size <= 20 * 1024 * 1024) {
+      if (acceptableTypes.includes(this.uploaddocfront.type)) {
+        if (this.uploaddocfront.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
         } else {
           this.toastr.error("Max Image size exceeded");
           this.docFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        console.log(this.uploadImage.type);
+        console.log(this.uploaddocfront.type);
         this.toastr.error("File type not acceptable");
         this.docFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
       this.toastr.error("No file selected");
     }
-
-
+ 
+ 
   }
-
-
+ 
+ 
   docback(event: any) {
-    this.uploadImage = event.target.files[0];
+    this.uploaddocback = event.target.files[0];
  
     // Ensure this.uploadImage is not null
-    if (this.uploadImage) {
+    if (this.uploaddocback) {
       const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
  
-      if (acceptableTypes.includes(this.uploadImage.type)) {
-        if (this.uploadImage.size <= 20 * 1024 * 1024) {
+      if (acceptableTypes.includes(this.uploaddocback.type)) {
+        if (this.uploaddocback.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
         } else {
           this.toastr.error("Max Image size exceeded");
           this.docBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        console.log(this.uploadImage.type);
+        console.log(this.uploaddocback.type);
         this.toastr.error("File type not acceptable");
         this.docBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
       this.toastr.error("No file selected");
     }
-
-
+ 
+ 
   }
+
   docSubmit() {
     const formData = new FormData();
     formData.append('merchantId', this.merchantid);
-    formData.append('docFrontPath', this.file8);
-    formData.append('docBackPath', this.file9|| this.emptyBlob);
+    formData.append('docFrontPath', this.uploaddocfront);
+    formData.append('docBackPath', this.uploaddocback || this.emptyBlob);
     formData.append('kycCategoryId', this.kycCategoryId?.value);
     formData.append('docNumber', this.docNumber?.value);
     formData.append('createdBy', this.getadminname);
     this.service.documentAdd(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.dialog.closeAll();
+        setTimeout(() => {
+          window.location.reload()
+        }, 500);
       } else {
         this.toastr.error(res.responseMessage);
       }

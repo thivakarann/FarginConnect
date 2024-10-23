@@ -54,6 +54,7 @@ export class DuesComponent {
   roleId: any = localStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
+valuegeneratedues: any;
 
   constructor(
     public service: FarginServiceService,
@@ -94,6 +95,7 @@ export class DuesComponent {
             this.valueentityexport = 'Entity Dues-Export';
             this.valueduesview = 'Entity Dues-View'
             this.valueduesreceipt = 'Entity Dues-Receipt'
+            this.valuegeneratedues='Entity Dues-Genarate'
           }
           else {
             for (let datas of this.getdashboard) {
@@ -106,6 +108,9 @@ export class DuesComponent {
               }
               if (this.actions == 'Entity Dues-Receipt') {
                 this.valueduesreceipt = 'Entity Dues-Receipt'
+              }
+              if(this.actions=='Entity Dues-Genarate'){
+                this.valuegeneratedues='Entity Dues-Genarate'
               }
             }
           }

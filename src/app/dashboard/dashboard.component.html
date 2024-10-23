@@ -111,32 +111,36 @@
               </a>
             </li> -->
 
-            <li class="sidebar-dropdown" style="cursor: pointer;">
+            <li class="sidebar-dropdown" style="cursor: pointer;" 
+            [hidden]="valuecustomerpayment!=='Customer Payment' &&
+            valuecustomersubscription!=='Subscription Payment' &&
+            valuecustomermanualpayment!=='Manual Payment' &&
+            valueCustomizationPayments!=='Customization Payments'">
               <a>
                 <i class="fa fa-globe"></i>
                 <span>Transactions</span>
               </a>
               <div class="sidebar-submenu">
                 <ul>
-                  <li>
+                  <li [hidden]="valuecustomerpayment!=='Customer Payment'">
                     <a routerLink="customer-trans-viewall">
                       Customer Payments
                     </a>
                   </li>
 
-                  <li routerLink="maintenance-trans-viewall">
+                  <li routerLink="maintenance-trans-viewall" [hidden]="valuecustomersubscription!=='Subscription Payment'">
                     <a> Subscription Payments</a>
                   </li>
-                  <li routerLink="service-payments-viewall">
+                  <li routerLink="service-payments-viewall" [hidden]="valuecustomermanualpayment!=='Manual Payment'">
                     <a>Manual Payments</a>
                   </li>
-                  <li routerLink="otherpayments-viewall">
+                  <li routerLink="otherpayments-viewall" [hidden]="valueCustomizationPayments!=='Customization Payments'">
                     <a>Customization Payments</a>
                   </li>
                 </ul>
               </div>
 
-            <li class="sidebar-dropdown" style="cursor: pointer;">
+            <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valueentitysms!=='Entity Sms'  && valuesmshistory!=='SMS History'">
               <a>
                 <i class="fa-solid fa-comment-sms" style="font-size: 15px;"></i>
                 <span>SMS</span>
@@ -144,13 +148,13 @@
 
               <div class="sidebar-submenu">
                 <ul>
-                  <li>
+                  <li [hidden]="valueentitysms!=='Entity Sms'">
                     <a routerLink="entity-sms-viewall">
                       Entity Sms
                     </a>
                   </li>
 
-                  <li>
+                  <li [hidden]="valuesmshistory!=='SMS History'">
                     <a routerLink="smshistory">
                       SMS History
                     </a>
@@ -168,7 +172,7 @@
               </a>
             </li>
 
-            <li>
+            <li [hidden]="valuesurvey!=='Survey'">
               <a routerLink="surveyviewall">
                 <i class="fa fa-user" aria-hidden="true"></i>
                 <span>Survey</span>
@@ -177,7 +181,7 @@
             </li>
  
 
-            <li>
+            <li [hidden]="valueautodebit!=='Auto Debit'">
               <a routerLink="entity-auto-debit-getall">
                 <i style="font-size: 15px;" class="fa-solid fa-money-bill-transfer"></i>
                 <span>Auto Debit</span>
@@ -208,22 +212,15 @@
               </div>
 
             </li>
-
-            <!-- <li>
-              <a routerLink="fas fa-user-plus">
-                <i class="fas fa-hands-holding-child icon"></i>
-                <span routerLink="Terms-policy">Terms and Policy</span>
-
-              </a>
-            </li> -->
-            <li class="sidebar-dropdown" style="cursor: pointer;">
+            <li class="sidebar-dropdown" style="cursor: pointer;"
+              [hidden]="valueTickets!=='Entity Request' && valuecustomerticket!=='Customer Request'">
               <a>
                 <i class="fa-solid fa-ticket"></i>
                 <span>Service Request</span>
               </a>
               <div class="sidebar-submenu">
                 <ul>
-                  <li>
+                  <li [hidden]="valueTickets!=='Entity Request'">
                     <a routerLink="viewticket" style="display: flex; align-items: center;">
                       Entity Request &nbsp;
                       <span class="matBadge" matBadgeColor="warn" matBadge="{{counts}}" matBadgeSize="medium"
@@ -231,18 +228,13 @@
                       </span>
                     </a>
                   </li>
-                  <li>
+                  <li [hidden]="valuecustomerticket!=='Customer Request'">
                     <a routerLink="customer-viewall">Customer Request</a>
                   </li>
                 </ul>
               </div>
             </li>
-
-
-
-
-
-            <li class="sidebar-dropdown" style="cursor: pointer;">
+            <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valueRegion!=='Region'&& ValueMSO!=='MSO'">
               <a>
                 <i class="fa fa-globe"></i>
                 <span>Service Provider</span>
@@ -261,12 +253,8 @@
 
             </li>
 
-
-
             <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valueBusinessCategory!=='BussinessCategory' && 
              valueBusinessKYC!=='Business KYC' && 
-             valueRegion!=='Region' && 
-             ValueMSO!=='MSO' &&
              valueFacheck!=='FaCheck Key' &&
              valuemerchantPlan!=='Merchant Plan' &&
              valuepgsetupkey!=='PG SetupKey' &&
@@ -277,16 +265,16 @@
               </a>
               <div class="sidebar-submenu">
                 <ul>
-                  <li [hidden]="valueBusinessCategory!=='BussinessCategory'">
+                  <li [hidden]="valueBusinessCategory!=='Bussiness Category'">
                     <a routerLink="view-category">Business Category
                     </a>
                   </li>
 
-                  <li>
-                    <a routerLink="viewall-kyccategory">Buisnees DoCument Type </a>
-                  </li>
+                  <li [hidden]="valueBuisneesDoCument!=='Buisnees Document Type'">
+                    <a routerLink="viewall-kyccategory">Buisnees Document Type </a>
+                    </li>
 
-                  <li [hidden]="valueBusinessKYC!=='Business KYC'">
+                  <li [hidden]="valueBusinessKYC!=='Business Category Doc'">
                     <a routerLink="Business-kyc">Business Category Doc</a>
                   </li>
                   <!-- <li [hidden]="valueRegion!=='Region'">
@@ -307,15 +295,15 @@
                     <a routerLink="pgsetup-view">PG Setupkey</a>
                   </li>
 
-                  <li>
+                  <li [hidden]="valuesmscost!=='SMS Cost'">
                     <a routerLink="sms-cost-viewall">SMS Cost</a>
                   </li>
 
-                  <li>
+                  <li [hidden]="valuebankdetails!=='Bank List'">
                     <a routerLink="bank-viewall">Bank Details </a>
                   </li>
 
-                  <li>
+                  <li [hidden]="valuefarginbank!=='Fargin bank'">
                     <a routerLink="fargin-viewall">Fargin bank details </a>
                   </li>
 

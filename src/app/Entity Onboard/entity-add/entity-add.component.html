@@ -490,7 +490,7 @@
             </div>
         </form>
     </div>
-    <div class="well" style="margin-top: 2%;" *ngIf="Bankdetails==false">
+    <div class="well" style="margin-top: 2%;" *ngIf="Bankdetails==true">
         <h4 class="card-header" style="font-weight: 500">2.Bank Details</h4>
         <form [formGroup]="myForm2" style="margin-top: 2%;">
             <div class="row mb-3">
@@ -649,7 +649,7 @@
             </div>
         </form>
     </div>
-    <div class="well" style="margin-top: 2%;" *ngIf="KYCdetails==false">
+    <div class="well" style="margin-top: 2%;" *ngIf="KYCdetails==true">
         <h4 class="card-header" style="font-weight: 500">3.KYC Details</h4>
         <mat-horizontal-stepper linear>
             <mat-step [stepControl]="firstFormGroup" label="Step 1">
@@ -692,7 +692,7 @@
                         <div class="form__linput">
                             <label class="form__label"><b>Upload Front Path</b></label>
                             <input class="form-control" formControlName="identityFrontPath" accept="image/*"
-                                (change)="onFileSelected($event)" type="file"/>
+                                (change)="onFileSelected($event)" type="file" />
                             <div *ngIf="identityFrontPath?.invalid && identityFrontPath?.touched && identityFrontPath?.errors?.['required']"
                                 style="color: red; font-size: 12px;">
                                 Field is required
@@ -778,7 +778,7 @@
                         <div class="form__linput">
                             <label class="form__label"><b>Upload Front Path</b></label>
                             <input class="form-control" formControlName="addressFrontPath"
-                                (change)="onaddressfront($event)" type="file"accept="image/*" />
+                                (change)="onaddressfront($event)" type="file" accept="image/*" />
                             <div *ngIf="addressFrontPath?.invalid && addressFrontPath?.touched && addressFrontPath?.errors?.['required']"
                                 style="color: red; font-size: 12px;">
                                 Field is required
@@ -893,7 +893,7 @@
                         <div class="form__linput">
                             <label class="form__label"><b>Upload Back Path</b></label>
                             <input class="form-control" formControlName="signatureBackPath"
-                                (change)="onasignback($event)" type="file" accept="image/*"/>
+                                (change)="onasignback($event)" type="file" accept="image/*" />
                             <div *ngIf="signatureBackPath?.invalid && signatureBackPath?.touched && signatureBackPath?.errors?.['required']"
                                 style="color: red; font-size: 12px;">
                                 Field is required
@@ -962,7 +962,7 @@
                 <div class="form__linput">
                     <label class="form__label"><b>Upload Front Path</b></label>
                     <input class="form-control" formControlName="docFrontPath" (change)="docfront($event)" type="file"
-                    accept="image/*"/>
+                        accept="image/*" />
                     <div *ngIf="docFrontPath?.invalid && docFrontPath?.touched && docFrontPath?.errors?.['required']"
                         style="color: red; font-size: 12px;">
                         Field is required
@@ -972,7 +972,7 @@
                 <div class="form__linput">
                     <label class="form__label"><b>Upload Back Path</b></label>
                     <input class="form-control" formControlName="docBackPath" (change)="docback($event)" type="file"
-                    accept="image/*" />
+                        accept="image/*" />
                 </div>
             </div>
 

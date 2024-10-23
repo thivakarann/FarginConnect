@@ -50,6 +50,13 @@ export class EntitySmsViewallComponent {
   message: any;
   showData: boolean=false;
   smsResponse: any;
+valueentitysmsexport: any;
+
+getdashboard: any[] = [];
+roleId: any = localStorage.getItem('roleId')
+actions: any;
+errorMessage: any;
+
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
   ngOnInit(): void {
     this.service.SmsGetAll().subscribe((res: any) => {
@@ -63,6 +70,35 @@ export class EntitySmsViewallComponent {
         this.message=res.responseMessage;
       }
     })
+
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        console.log(res);
+
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+
+          if (this.roleId == 1) {
+            this.valueentitysmsexport = 'Entity Sms-Export';
+           }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+
+
+              if (this.actions == 'Entity Sms-Export') {
+                this.valueentitysmsexport = 'Entity Sms-Export';
+              }
+             
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    })
+
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

@@ -44,6 +44,7 @@ export class EntityCustomersViewComponent {
   overallAmount: number=0;
   setupboxview: any;
   isChecked!: boolean;
+  totalamount: any;
   selectTab(tab: string) {
     this.selectedTab = tab;
   }
@@ -63,6 +64,13 @@ export class EntityCustomersViewComponent {
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.id = param.value;
     });
+
+
+    this.service.CustomerTotalPlanAmount(this.id).subscribe((res:any)=>{
+      if(res.flag==1){
+        this.totalamount = res.response.totalAmount;
+      }
+    })
  
     this.service.ViewCustomerBasicInfo(this.id).subscribe((res: any) => {
       if (res.flag == 1) {

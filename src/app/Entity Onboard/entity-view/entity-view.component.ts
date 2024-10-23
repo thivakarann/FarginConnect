@@ -79,7 +79,7 @@ export class EntityViewComponent implements OnInit {
   searchText: any;
 
 
-
+  valuesmssetting: any
   navbarEventEmitter: any;
   isDropdownOpen = false;
   searchTexts: any;
@@ -149,12 +149,35 @@ export class EntityViewComponent implements OnInit {
   identityProof: any;
   addressProof: any;
   signatureProof: any;
+  addressedit: any;
   smsDetails: any;
   merchantsmsId: any;
   bussinessdoc: any;
+  valuekycimage: any;
+  valuekycedit: any;
+  valuekycverification: any;
+  valuekycapproval: any;
+  valuebussinessdocument: any;
+  valuebussinessAdd: any;
+  valuebussinessImage: any;
+  valuebussinessapproval: any;
+  valuebussinesscomment: any;
+  valuebussinessedit: any;
+  valuemanualpayment: any;
+  valueCustomized: any;
+  valueCustomizedadd: any;
+  valueCustomizededit: any;
+  valueCustomizedview: any;
+  valuesmsadd: any;
+  valuesmsapproval: any;
+  valuesmsstatus: any;
+  valuesmsview: any;
+  valuesmsedit: any
+  valueentityautodebit: any;
+  entitypermission: any[] = [];
+  roles: any;
   paymentStatus: any;
   paymentMethod: any;
-
   selectTab(tab: string): void {
     this.activeTab = tab;
   }
@@ -179,6 +202,8 @@ export class EntityViewComponent implements OnInit {
 
     this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
       this.details = res.response;
+      console.log(this.details);
+
       this.detaislone = res.response.merchantpersonal;
       this.bankdetails = res.response.merchantbank;
       this.KYCDetails = res.response.merchantkycdocument;
@@ -206,12 +231,12 @@ export class EntityViewComponent implements OnInit {
         this.manualDetails = res.response;
 
         this.manualDetails.forEach((item: any) => {
-            this.paymentStatus = item.paymentStatus;
-            this.paymentMethod=item.paymentMethod
-            console.log(this.paymentStatus);
-           
+          this.paymentStatus = item.paymentStatus;
+          this.paymentMethod = item.paymentMethod
+          console.log(this.paymentStatus);
+
         });
-    }
+      }
     })
 
     this.MerchantView.rolegetById(this.roleId).subscribe({
@@ -220,18 +245,13 @@ export class EntityViewComponent implements OnInit {
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
+          this.entitypermission = res.response?.permission
+          console.log(this.entitypermission);
 
+          this.getpermissionValue();
           if (this.roleId == 1) {
-            this.valueentitytransaction = 'Entity View Transaction';
-            this.valuentitysettlement = 'Entity View Settlement';
-            this.valueentityRefund = 'Entity View Refund';
-            this.valueEntityqrs = 'Entity View QR';
-            this.valueentityCustomers = 'Entity View Customer';
-            this.valueentitypaylink = 'Entity View Payment Link';
-            this.valueGeneral = 'Entity View General Information';
-            this.valuebankinfo = 'Entity View Bank Information';
-            this.valuekycdocument = 'Entity View KYC Document';
-            this.valuefinalapproval = 'Entity View Final Approval';
+
+
             this.valueplatform = 'Entity View Platform Payment';
             this.valuelogo = 'Entity View-LOGO';
             this.valueeditentity = 'Entity View-Edit';
@@ -247,53 +267,60 @@ export class EntityViewComponent implements OnInit {
             this.valuebankedit = 'Bank-Edit'
             this.valuebankverify = 'Bank-Verification'
             this.valuebankapprovalsts = 'Bank-Approval Status'
-            this.valuekycadd = 'KYC-add'
-            this.valuekyccomment = 'KYC-Comment'
-            this.valuekycfile = 'KYC-Image'
-            this.valueekycedit = 'KYC-Edit'
-            this.valueapproval = 'KYC-Approval'
-            this.valuekycverfication = 'KYC-Verification'
+            this.valuekyccomment = 'Entity View KYC Document-comments'
+            this.valuekycimage = 'Entity View KYC Document-Image'
+            this.valuekycedit = 'Entity View KYC Document-Edit'
+            this.valuekycapproval = 'Entity View KYC Document-Approval'
+            this.valuekycverification = 'Entity View KYC Document-Verification'
             this.valuefinalapprovals = 'Final-Approval'
-            this.valuemanualpay = 'Manual Payment-Create'
-            this.valuemanualedit = 'Manual Payment-Edit'
-            this.valuemanualview = 'Manual Payment-View'
+            this.valuemanualpay = 'One Time Setup Payment-Create'
+            this.valuemanualedit = 'One Time Setup Payment-Edit'
+            this.valuemanualview = 'One Time Setup Payment-View'
             this.valuefinalcomment = 'Final-Comment'
+
+            this.valuebussinessAdd = 'Entity View Bussiness Document-Add'
+            this.valuebussinessapproval = 'Entity View Bussiness Document-Approval'
+            this.valuebussinesscomment = 'Entity View Bussiness Document-Comments'
+            this.valuebussinessImage = 'Entity View Bussiness Document-Image'
+            this.valuebussinessedit = 'Entity View Bussiness Document-Edit'
+
+
+            this.valueCustomizedadd = 'Customized Payment-Add'
+            this.valueCustomizededit = 'Customized Payment-Edit'
+            this.valueCustomizedview = 'Customized Payment-View'
+
+            this.valuesmsadd = 'Sms Setting-Add'
+            this.valuesmsapproval = 'Sms Setting-Approval'
+            this.valuesmsedit = 'Sms Setting-Edit'
+            this.valuesmsview = 'Sms Setting-View'
+            this.valuesmsstatus = 'Sms Setting-Status'
+            this.valuekycadd = 'Entity View KYC Document-add'
           }
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
+              if (this.actions == 'Entity View KYC Document-add') {
+                this.valuekycadd = 'Entity View KYC Document-add'
+              }
+              if (this.actions == 'Sms Setting-Edit') {
+                this.valuesmsedit = 'Sms Setting-Edit'
+              }
+              if (this.actions == 'Sms Setting-Add') {
+                this.valuesmsadd = 'Sms Setting-Add'
+              }
+              if (this.actions == 'Sms Setting-Approval') {
+                this.valuesmsapproval = 'Sms Setting-Approval'
+              }
+              if (this.actions == 'Sms Setting-View') {
+                this.valuesmsview = 'Sms Setting-View'
+              }
+              if (this.actions == 'Sms Setting-Status') {
+                this.valuesmsstatus = 'Sms Setting-Status'
+              }
 
 
-              if (this.actions == 'Entity View Transaction') {
-                this.valueentitytransaction = 'Entity View Transaction';
-              }
-              if (this.actions == 'Entity View Settlement') {
-                this.valuentitysettlement = 'Entity View Settlement'
-              }
-              if (this.actions == 'Entity View Refund') {
-                this.valueentityRefund = 'Entity View Refund'
-              }
-              if (this.actions == 'Entity View QR') {
-                this.valueEntityqrs = 'Entity View QR'
-              }
-              if (this.actions == 'Entity View Customer') {
-                this.valueentityCustomers = 'Entity View Customer'
-              }
-              if (this.actions == 'Entity View Payment Link') {
-                this.valueentitypaylink = 'Entity View Payment Link'
-              }
-              if (this.actions == 'Entity View General Information') {
-                this.valueGeneral = 'Entity View General Information'
-              }
-              if (this.actions == 'Entity View Bank Information') {
-                this.valuebankinfo = 'Entity View Bank Information'
-              }
-              if (this.actions == 'Entity View KYC Document') {
-                this.valuekycdocument = 'Entity View KYC Document'
-              }
-              if (this.actions == 'Entity View Final Approval') {
-                this.valuefinalapproval = 'Entity View Final Approval'
-              }
+
+
               if (this.actions == 'Entity View Platform Payment') {
                 this.valueplatform = 'Entity View Platform Payment'
               }
@@ -341,39 +368,68 @@ export class EntityViewComponent implements OnInit {
                 this.valuebankapprovalsts = 'Bank-Approval Status'
               }
 
-              if (this.actions == 'KYC-add') {
-                this.valuekycadd = 'KYC-add'
+              if (this.actions == 'Entity View KYC Document-comments') {
+                this.valuekyccomment = 'Entity View KYC Document-comments'
               }
-              if (this.actions == 'KYC-Comment') {
-                this.valuekyccomment = 'KYC-Comment'
+              if (this.actions == 'Entity View KYC Document-Image') {
+                this.valuekycimage = 'Entity View KYC Document-Image'
               }
-              if (this.actions == 'KYC-Image') {
-                this.valuekycfile = 'KYC-Image'
+              if (this.actions == 'Entity View KYC Document-Edit') {
+                this.valuekycedit = 'Entity View KYC Document-Edit'
               }
-              if (this.actions == 'KYC-Edit') {
-                this.valueekycedit = 'KYC-Edit'
+              if (this.actions == 'Entity View KYC Document-Approval') {
+                this.valuekycapproval = 'Entity View KYC Document-Approval'
               }
-              if (this.actions == 'KYC-Approval') {
-                this.valueapproval = 'KYC-Approval'
-              }
-              if (this.actions == 'KYC-Verification') {
-                this.valuekycverfication = 'KYC-Verification'
+              if (this.actions == 'Entity View KYC Document-Verification') {
+                this.valuekycverification = 'Entity View KYC Document-Verification'
               }
               if (this.actions == 'Final-Approval') {
                 this.valuefinalapprovals = 'Final-Approval'
               }
-              if (this.actions == 'Manual Payment-Create') {
-                this.valuemanualpay = 'Manual Payment-Create'
+              if (this.actions == 'One Time Setup Payment-Create') {
+                this.valuemanualpay = 'One Time Setup Payment-Create'
               }
-              if (this.actions == 'Manual Payment-Edit') {
-                this.valuemanualedit = 'Manual Payment-Edit'
+              if (this.actions == 'One Time Setup Payment-Edit') {
+                this.valuemanualedit = 'One Time Setup Payment-Edit'
               }
-              if (this.actions == 'Manual Payment-View') {
-                this.valuemanualview = 'Manual Payment-View'
+              if (this.actions == 'One Time Setup Payment-View') {
+                this.valuemanualview = 'One Time Setup Payment-View'
               }
               if (this.actions == 'Final-Comment') {
                 this.valuefinalcomment = 'Final-Comment'
               }
+              if (this.actions == 'Entity View Bussiness Document') {
+                this.valuebussinessdocument = 'Entity View Bussiness Document'
+              }
+              if (this.actions == 'Entity View Bussiness Document-Add') {
+                this.valuebussinessAdd = 'Entity View Bussiness Document-Add'
+              }
+              if (this.actions == 'Entity View Bussiness Document-Edit') {
+                this.valuebussinessedit = 'Entity View Bussiness Document-Edit'
+              }
+              if (this.actions == 'Entity View Bussiness Document-Image') {
+                this.valuebussinessImage = 'Entity View Bussiness Document-Image'
+              }
+              if (this.actions == 'Entity View Bussiness Document-Comments') {
+                this.valuebussinesscomment = 'Entity View Bussiness Document-Comments'
+              }
+
+              if (this.actions == 'Entity View Bussiness Document-Approval') {
+                this.valuebussinessapproval = 'Entity View Bussiness Document-Approval'
+              }
+
+
+              if (this.actions == 'Customized Payment-Add') {
+                this.valueCustomizedadd = 'Customized Payment-Add'
+              }
+              if (this.actions == 'Customized Payment-Edit') {
+                this.valueCustomizededit = 'Customized Payment-Edit'
+              }
+              if (this.actions == 'Customized Payment-View') {
+                this.valueCustomizedview = 'Customized Payment-View'
+              }
+
+
             }
           }
         }
@@ -381,8 +437,7 @@ export class EntityViewComponent implements OnInit {
           this.errorMessage = res.responseMessage;
         }
       }
-    });
-
+    })
     this.MerchantView.OtherPayByMerchantId(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
         this.otherDetails = res.response;
@@ -394,10 +449,78 @@ export class EntityViewComponent implements OnInit {
         this.smsDetails = res.response;
       }
     })
-
-
   }
+  getpermissionValue() {
 
+    if (this.roleId == 1) {
+      this.valueentitytransaction = 'Entity View Transaction';
+      this.valueentityautodebit = 'Entity View Auto Debit'
+      this.valuentitysettlement = 'Entity View Settlement';
+      this.valueentityRefund = 'Entity View Refund';
+      this.valueEntityqrs = 'Entity View QR';
+      this.valueentityCustomers = 'Entity View Customer';
+      this.valueentitypaylink = 'Entity View Payment Link';
+      this.valueGeneral = 'Entity View General Information';
+      this.valuebankinfo = 'Entity View Bank Information';
+      this.valuekycdocument = 'Entity View KYC Document';
+      this.valuefinalapproval = 'Entity View Final Approval';
+      this.valuebussinessdocument = 'Entity View Bussiness Document'
+      this.valuemanualpayment = 'One Time Setup Payment'
+      this.valueCustomized = 'Customized Payment'
+      this.valuesmssetting = 'Sms Setting'
+
+    }
+    else {
+      for (let data of this.entitypermission) {
+        this.roles = data.permission;
+        if (this.roles == 'Entity View Transaction') {
+          this.valueentitytransaction = 'Entity View Transaction';
+        }
+        if (this.roles == 'Entity View Settlement') {
+          this.valuentitysettlement = 'Entity View Settlement'
+        }
+        if (this.roles == 'Entity View Refund') {
+          this.valueentityRefund = 'Entity View Refund'
+        }
+        if (this.roles == 'Entity View QR') {
+          this.valueEntityqrs = 'Entity View QR'
+        }
+        if (this.roles == 'Entity View Customer') {
+          this.valueentityCustomers = 'Entity View Customer'
+        }
+        if (this.roles == 'Entity View Payment Link') {
+          this.valueentitypaylink = 'Entity View Payment Link'
+        }
+        if (this.roles == 'Entity View Auto Debit') {
+          this.valueentityautodebit = 'Entity View Auto Debit'
+        }
+        if (this.roles == 'Entity View Bussiness Document') {
+          this.valuebussinessdocument = 'Entity View Bussiness Document'
+        }
+        if (this.roles == 'One Time Setup Payment') {
+          this.valuemanualpayment = 'One Time Setup Payment'
+        }
+        if (this.roles == 'Entity View General Information') {
+          this.valueGeneral = 'Entity View General Information'
+        }
+        if (this.roles == 'Entity View Bank Information') {
+          this.valuebankinfo = 'Entity View Bank Information'
+        }
+        if (this.roles == 'Entity View KYC Document') {
+          this.valuekycdocument = 'Entity View KYC Document'
+        }
+        if (this.roles == 'Entity View Final Approval') {
+          this.valuefinalapproval = 'Entity View Final Approval'
+        }
+        if (this.roles == 'Customized Payment') {
+          this.valueCustomized = 'Customized Payment'
+        }
+        if (this.roles == 'Sms Setting') {
+          this.valuesmssetting = 'Sms Setting'
+        }
+      }
+    }
+  }
   bankStatus(event: any, id: any) {
     this.isChecked = event.checked;
     let submitModel: settopStatus = {
@@ -535,9 +658,9 @@ export class EntityViewComponent implements OnInit {
     // });
 
   }
-  addKycdocuments(id:any) {
+  addKycdocuments(id: any) {
     this.dialog.open(AddKycdocumentComponent, {
-      width:'40vw',
+      width: '50vw',
       enterAnimationDuration: "1000ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
@@ -981,7 +1104,7 @@ export class EntityViewComponent implements OnInit {
       data: { value: id, value1: 2 }
     })
   }
- 
+
   addressProofFrontPath(id: any) {
     this.dialog.open(KycdocumentViewComponent, {
       enterAnimationDuration: "1000ms",
@@ -990,7 +1113,7 @@ export class EntityViewComponent implements OnInit {
       data: { value: id, value1: 3 }
     })
   }
- 
+
   addressProofBackPath(id: any) {
     this.dialog.open(KycdocumentViewComponent, {
       enterAnimationDuration: "1000ms",
@@ -1007,7 +1130,7 @@ export class EntityViewComponent implements OnInit {
       data: { value: id, value1: 5 }
     })
   }
- 
+
   signatureProofBackPath(id: any) {
     this.dialog.open(KycdocumentViewComponent, {
       enterAnimationDuration: "1000ms",
@@ -1020,8 +1143,8 @@ export class EntityViewComponent implements OnInit {
 
   identityedit(id: any) {
     this.dialog.open(EntityKyceditComponent, {
-      width:'30vw',
-    
+      width: '30vw',
+
       enterAnimationDuration: "1000ms",
       exitAnimationDuration: "1000ms",
       // disableClose: true,
@@ -1035,7 +1158,7 @@ export class EntityViewComponent implements OnInit {
   addressedits(id: any) {
 
     this.dialog.open(EntityKyceditComponent, {
-      width:'30vw',
+      width: '30vw',
       enterAnimationDuration: "1000ms",
       exitAnimationDuration: "1000ms",
       // disableClose: true,
@@ -1045,7 +1168,7 @@ export class EntityViewComponent implements OnInit {
 
   signatureedits(id: any) {
     this.dialog.open(EntityKyceditComponent, {
-      width:'30vw',
+      width: '30vw',
       enterAnimationDuration: "1000ms",
       exitAnimationDuration: "1000ms",
       // disableClose: true,
@@ -1055,7 +1178,7 @@ export class EntityViewComponent implements OnInit {
 
 
   //fa check verification
-  kycVerificationsIdentity(id: any, id1: any, id2: any,id3:any,id4:any) {
+  kycVerificationsIdentity(id: any, id1: any, id2: any, id3: any, id4: any) {
     console.log(id2, id, id1);
 
 
@@ -1132,7 +1255,7 @@ export class EntityViewComponent implements OnInit {
       {
         kycId: id1,
         facheckDocNumber: id,
-        dateOfBirth:id3
+        dateOfBirth: id3
 
       }
       this.MerchantView.drivingverfiyidentity(submitModel).subscribe((res: any) => {
@@ -1156,7 +1279,7 @@ export class EntityViewComponent implements OnInit {
         kycId: id1,
         facheckDocNumber: id,
         approvalBy: this.getadminname,
-        dateOfBirth:id4
+        dateOfBirth: id4
 
       }
       this.MerchantView.passportVerifyIdentity(submitModel).subscribe((res: any) => {
@@ -1219,7 +1342,7 @@ export class EntityViewComponent implements OnInit {
   }
 
 
-  kycVerificationsAddress(id: any, id1: any, id2: any,id3:any,id4:any) {
+  kycVerificationsAddress(id: any, id1: any, id2: any, id3: any, id4: any) {
     console.log(id2, id, id1);
 
 
@@ -1296,7 +1419,7 @@ export class EntityViewComponent implements OnInit {
       {
         kycId: id1,
         facheckDocNumber: id,
-        dateOfBirth:id3,
+        dateOfBirth: id3,
 
       }
       this.MerchantView.drivingverifyaddress(submitModel).subscribe((res: any) => {
@@ -1320,7 +1443,7 @@ export class EntityViewComponent implements OnInit {
         kycId: id1,
         facheckDocNumber: id,
         approvalBy: this.getadminname,
-        dateOfBirth:id4
+        dateOfBirth: id4
 
 
       }
@@ -1384,7 +1507,7 @@ export class EntityViewComponent implements OnInit {
   }
 
 
-  kycVerificationsSignature(id: any, id1: any, id2: any,id3:any,id4:any) {
+  kycVerificationsSignature(id: any, id1: any, id2: any, id3: any, id4: any) {
     console.log(id2, id, id1);
 
     if (id2 == "Pancard") {
@@ -1460,7 +1583,7 @@ export class EntityViewComponent implements OnInit {
       {
         kycId: id1,
         facheckDocNumber: id,
-        dateOfBirth:id3,
+        dateOfBirth: id3,
 
       }
       this.MerchantView.drivingverifySignature(submitModel).subscribe((res: any) => {
@@ -1484,7 +1607,7 @@ export class EntityViewComponent implements OnInit {
         kycId: id1,
         facheckDocNumber: id,
         approvalBy: this.getadminname,
-        dateOfBirth:id4
+        dateOfBirth: id4
 
       }
       this.MerchantView.passportVerifySignature(submitModel).subscribe((res: any) => {

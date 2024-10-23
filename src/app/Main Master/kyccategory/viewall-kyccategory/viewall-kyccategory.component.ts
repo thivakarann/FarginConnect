@@ -29,6 +29,14 @@ export class ViewallKyccategoryComponent implements OnInit {
   response: any;
   date2: any;
   date1: any;
+  valuekycadd: any;
+  valuekycexport: any;
+  valuekycstatus: any;
+  valuekycedit: any;
+  getdashboard: any[] = [];
+  roleId: any = localStorage.getItem('roleId')
+  actions: any;
+  errorMessage: any;
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
   ngOnInit(): void {
     this.service.viewallkycCategory().subscribe((res: any) => {
@@ -38,6 +46,45 @@ export class ViewallKyccategoryComponent implements OnInit {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     })
+
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        console.log(res);
+
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+
+          if (this.roleId == 1) {
+            this.valuekycadd = 'Buisnees Document Type-Add';
+            this.valuekycexport = 'Buisnees Document Type-Export';
+            this.valuekycedit = 'Buisnees Document Type-Edit'
+            this.valuekycstatus = 'Buisnees Document Type-Status'
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+              if (this.actions == 'Buisnees Document Type-Add') {
+                this.valuekycadd = 'Buisnees Document Type-Add';
+              }
+              if (this.actions == 'Buisnees Document Type-Export') {
+                this.valuekycexport = 'Buisnees Document Type-Export'
+              }
+              if (this.actions == 'Buisnees Document Type-Edit') {
+                this.valuekycedit = 'Buisnees Document Type-Edit'
+              }
+              if (this.actions == 'Buisnees Document Type-Status') {
+                this.valuekycstatus = 'Buisnees Document Type-Status'
+              }
+            }
+          }
+
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    })
+
   }
   onSubmit(event: MatSlideToggleChange, id: string) {
     this.isChecked = event.checked;

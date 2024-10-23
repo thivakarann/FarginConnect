@@ -43,6 +43,13 @@ export class CustomerViewallComponent implements OnInit{
   currentYear:any;
   responseDataListnew: any = [];
   response: any = [];
+valuecustomerticketexport: any;
+valuecustomerticketedit: any;
+  errorMessage: any;
+  getdashboard: any[] = [];
+  roleId: any = localStorage.getItem('roleId')
+  actions: any;
+valuedescription: any;
 
 
   constructor(private service: FarginServiceService, private dialog: MatDialog, private ActivateRoute: ActivatedRoute, private router: Router) { }
@@ -67,13 +74,42 @@ export class CustomerViewallComponent implements OnInit{
       }
     });
 
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+          if (this.roleId == 1) {
+          this.valuecustomerticketedit='Customer Request-Edit'
+          this.valuecustomerticketexport='Customer Request-Export'
+          this.valuedescription='Customer Request-View'
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+         if(this.actions=='Customer Request-Edit'){
+          this.valuecustomerticketedit='Customer Request-Edit'
+         }
+         if(this.actions=='Customer Request-Export'){
+          this.valuecustomerticketexport='Customer Request-Export'
+         }
+         if(this.actions=='Customer Request-View'){
+          this.valuedescription='Customer Request-View'
+         }
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    })
+
   }
-
-
   
-reload(){
+  reload(){
   window.location.reload()
 }
+
 
   Back(id: any) {
     this.router.navigate([`customer-verify-view/${id}`], {

@@ -66,9 +66,7 @@ export class EntityBankaddComponent implements OnInit {
         Validators.pattern('^[a-zA-Z0-9 ]*$')
       ]),
 
-      ledgerId: new FormControl("", [
-        Validators.required,
-      ]),
+      ledgerId: new FormControl('', [Validators.pattern('^[0-9]{4}$'),]),
     })
   }
   get accountHolderName() {
@@ -107,7 +105,7 @@ export class EntityBankaddComponent implements OnInit {
       branchName: this.branchName?.value,
       accountType: this.accountType?.value,
       merchantId: this.merchantid,
-      ledgerId:this.ledgerId?.value
+      ledgerId: this.ledgerId?.value
     };
 
     this.service.EntitybankAdd(submitModel).subscribe((res: any) => {

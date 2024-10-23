@@ -23,7 +23,7 @@ export class ViewticketComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   dataSource: any;
-  displayedColumns: string[] = ["raiseTicketId", "subject", "Criticallity", "description", "image", "Status", 'Comments', "createdDateTime", "action"]
+  displayedColumns: string[] = ["Sno","raiseTicketId", "merchantName", "subject", "Criticallity", "description", "image", "Status", 'Comments', "createdDateTime", "action"]
   tickets: any;
   // response: any = [];
   businesscategory: any;
@@ -57,25 +57,25 @@ export class ViewticketComponent implements OnInit {
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
           if (this.roleId == 1) {
-            this.valueDescriptionView = 'Tickets-View';
-            this.valueTicketEdit = 'Tickets-Edit'
-            this.valueTicketExport = 'Tickets-Export'
-            this.valueTicketImage = 'Tickets-Image'
+            this.valueDescriptionView = 'Entity Request-View';
+            this.valueTicketEdit = 'Entity Request-Edit'
+            this.valueTicketExport = 'Entity Request-Export'
+            this.valueTicketImage = 'Entity Request-Image'
           }
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
-              if (this.actions == 'Tickets-Export') {
-                this.valueTicketExport = 'Tickets-Export';
+              if (this.actions == 'Entity Request-Export') {
+                this.valueTicketExport = 'Entity Request-Export';
               }
-              if (this.actions == 'Tickets-Edit') {
-                this.valueTicketEdit = 'Tickets-Edit';
+              if (this.actions == 'Entity Request-Edit') {
+                this.valueTicketEdit = 'Entity Request-Edit';
               }
-              if (this.actions == 'Tickets-Image') {
-                this.valueTicketImage = 'Tickets-Image'
+              if (this.actions == 'Entity Request-Image') {
+                this.valueTicketImage = 'Entity Request-Image'
               }
-              if (this.actions == 'Tickets-View') {
-                this.valueDescriptionView = 'Tickets-View'
+              if (this.actions == 'Entity Request-View') {
+                this.valueDescriptionView = 'Entity Request-View'
               }
             }
           }

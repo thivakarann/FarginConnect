@@ -73,6 +73,18 @@ export class ViewAnnouncementComponent implements OnInit {
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
+              if(this.actions=='Announcement-Add'){
+                this.valueannouncementAdd='Announcement-Add'
+              }
+              if(this.actions=='Announcement-Edit'){
+                this.valueannouncementEdit='Announcement-Edit'
+              }
+              if(this.actions=='Announcement-Export'){
+                this.valueannouncementexport='Announcement-Export'
+              }
+              if(this.actions=='Announcement-Status'){
+                this.valueannouncementstatus='Announcement-Status'
+              }
             }
           }
         }

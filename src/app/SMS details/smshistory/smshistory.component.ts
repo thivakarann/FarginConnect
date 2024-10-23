@@ -50,7 +50,12 @@ export class SMSHistoryComponent {
   message: any;
   showcategoryData: boolean=false;
   smsResponse: any;
- 
+  getdashboard: any[] = [];
+  roleId: any = localStorage.getItem('roleId')
+  actions: any;
+  errorMessage: any;
+valuesmshistoryexport: any;
+  
  
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog,private router:Router) { }
  
@@ -70,11 +75,34 @@ export class SMSHistoryComponent {
       }
  
     })
-  }
+
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        console.log(res);
+
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+
+          if (this.roleId == 1) {
+            this.valuesmshistoryexport = 'SMS History-Export';
+           }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
 
 
-  reload(){
-    window.location.reload()
+              if (this.actions == 'SMS History-Export') {
+                this.valuesmshistoryexport = 'SMS History-Export';
+              }
+             
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    })
   }
  
  

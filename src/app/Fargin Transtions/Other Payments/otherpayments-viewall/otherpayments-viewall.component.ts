@@ -51,7 +51,13 @@ export class OtherpaymentsViewallComponent {
   transaction: any;
   message: any;
   showData: boolean = false;
-
+  valueCustomizationexport: any;
+  valueCustomizationReceipt: any;
+  valueCustomizationView: any;
+  getdashboard: any[] = [];
+  roleId: any = localStorage.getItem('roleId')
+  actions: any;
+  errorMessage: any;
 
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
 
@@ -72,20 +78,54 @@ export class OtherpaymentsViewallComponent {
         this.message = res.responseMessage;
       }
 
+    });
+
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        console.log(res);
+ 
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+ 
+          if (this.roleId == 1) {
+            this.valueCustomizationexport = 'Customization Payments-Export'
+            this.valueCustomizationView = 'Customization Payments-View'
+            this.valueCustomizationReceipt = 'Customization Payments-Receipt'
+ 
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+              if (this.actions == 'Customization Payments-Export') {
+                this.valueCustomizationexport = 'Customization Payments-Export'
+              }
+              if (this.actions == 'Customization Payments-View') {
+                this.valueCustomizationView = 'Customization Payments-View'
+              }
+              if (this.actions == 'Customization Payments-Receipt') {
+                this.valueCustomizationReceipt = 'Customization Payments-Receipt'
+              }
+ 
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
     })
+
+
   }
 
 
-  reload() {
-    window.location.reload()
-  }
 
-  track(id:any){
-    let submitModel:customizepay={
+  track(id: any) {
+    let submitModel: customizepay = {
       payId: id?.payId,
     }
-    this.service.Customizepay(submitModel).subscribe((res:any)=>{
-      if(res.flag==1){
+    this.service.Customizepay(submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
         setTimeout(() => {
           window.location.reload()
@@ -95,10 +135,12 @@ export class OtherpaymentsViewallComponent {
         this.toastr.error(res.responseMessage);
       }
     })
-    }
- 
+  }
 
-  
+
+  reload() {
+    window.location.reload()
+  }
 
 
 

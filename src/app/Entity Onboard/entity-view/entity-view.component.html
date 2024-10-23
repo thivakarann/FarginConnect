@@ -6,47 +6,79 @@
 </div>
 <div class="navtabs">
     <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
-        data-target="home" (click)="entityTransaction(this.id)"><i
-            class="fa-solid fa-building-columns"></i>&nbsp;&nbsp;Transaction
+        data-target="home" (click)="entityTransaction(this.id)">
+        <div [hidden]="valueentitytransaction!=='Entity View Transaction'">
+            <i class="fa-solid fa-building-columns"></i>&nbsp;&nbsp;Transaction
+        </div>
+
     </button>
     <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
-        data-target="about" (click)="viewsettlement(this.id)"><i
-            class='fas fa-handshake'></i>&nbsp;&nbsp;Settlement</button>
+        data-target="about" (click)="viewsettlement(this.id)">
+        <div [hidden]="valuentitysettlement!=='Entity View Settlement'">
+            <i class='fas fa-handshake'></i>&nbsp;&nbsp;Settlement
+        </div>
+    </button>
+
+
     <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
-        data-target="contact" (click)="ViewRefund(this.id)"><i
-            class='fas fa-hand-holding-usd'></i>&nbsp;&nbsp;Refund</button>
+        data-target="contact" (click)="ViewRefund(this.id)">
+        <div [hidden]="valueentityRefund!=='Entity View Refund'">
+            <i class='fas fa-hand-holding-usd'></i>&nbsp;&nbsp;Refund
+        </div>
+    </button>
+
     <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
-        data-target="contact" (click)="Viewautodebit(this.id)"> <i
-            class="fa-solid fa-money-bill-transfer"></i>&nbsp;&nbsp;Auto
-        Debit</button>
+        data-target="contact" (click)="Viewautodebit(this.id)">
+        <div [hidden]="valueentityautodebit!=='Entity View Auto Debit'"> <i
+                class="fa-solid fa-money-bill-transfer"></i>&nbsp;&nbsp;Auto
+            Debit</div>
+    </button>
+
     <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
-        data-target="page4" (click)="Viewqr(this.id)"><i class="fa-solid fa-qrcode"></i>&nbsp;&nbsp;QR
-        Generation</button>
+        data-target="page4" (click)="Viewqr(this.id)">
+        <div [hidden]="valueEntityqrs!=='Entity View QR'"><i class="fa-solid fa-qrcode"></i>&nbsp;&nbsp;QR
+            Generation</div>
+    </button>
     <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
-        data-target="page5" (click)="Viewcustomer(this.id)"><i
-            class="fa-solid fa-user"></i>&nbsp;&nbsp;Customers</button>
+        data-target="page5" (click)="Viewcustomer(this.id)">
+        <div [hidden]="valueentityCustomers!=='Entity View Customer'"><i
+                class="fa-solid fa-user"></i>&nbsp;&nbsp;Customers
+        </div>
+    </button>
+
     <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
-        data-target="page5" (click)="viewpaymentLink(this.id)"><i class="fa fa-link"></i>&nbsp;&nbsp;Payment
-        Link</button>
+        data-target="page5" (click)="viewpaymentLink(this.id)">
+        <div [hidden]="valueentitypaylink!=='Entity View Payment Link'"><i class="fa fa-link"></i>&nbsp;&nbsp;Payment
+            Link</div>
+    </button>
 </div>
+
 <div class="tab-container">
     <div class="tabs">
-        <button class="tab" [class.active]="activeTab === 'events'" (click)="selectTab('events')">General
+        <button class="tab" [class.active]="activeTab === 'events'" (click)="selectTab('events')"
+            [hidden]="valueGeneral!=='Entity View General Information'">General
             Information</button>
-        <button class="tab" [class.active]="activeTab === 'materials'" (click)="selectTab('materials')">Bank
+        <button class="tab" [class.active]="activeTab === 'materials'" (click)="selectTab('materials')"
+            [hidden]="valuebankinfo!=='Entity View Bank Information'">Bank
             Information</button>
-        <button class="tab" [class.active]="activeTab === 'videos'" (click)="selectTab('videos')">KYC Documents</button>
-        <button class="tab" [class.active]="activeTab === 'bussiness'" (click)="selectTab('bussiness')">Business
-            Documents
+        <button class="tab" [class.active]="activeTab === 'videos'" (click)="selectTab('videos')"
+            [hidden]="valuekycdocument!=='Entity View KYC Document'">KYC Documents</button>
+        <button class="tab" [class.active]="activeTab === 'bussiness'" (click)="selectTab('bussiness')"
+            [hidden]="valuebussinessdocument!=='Entity View Bussiness Document'">Bussiness
+            Document
         </button>
-        <button class="tab" [class.active]="activeTab === 'doot1'" (click)="selectTab('doot1')">Final Approval</button>
-        <button class="tab" [class.active]="activeTab === 'doot2'" (click)="selectTab('doot2')">One Time Setup
+        <button class="tab" [class.active]="activeTab === 'doot1'" (click)="selectTab('doot1')"
+            [hidden]="valuefinalapproval!=='Entity View Final Approval'">Final Approval</button>
+        <button class="tab" [class.active]="activeTab === 'doot2'" (click)="selectTab('doot2')"
+            [hidden]="valuemanualpayment!=='One Time Setup Payment'">
+            One Time Setup Payment</button>
+        <button class="tab" [class.active]="activeTab === 'doot3'" (click)="selectTab('doot3')"
+            [hidden]="valueCustomized!=='Customized Payment'">Customized
             Payment</button>
-        <button class="tab" [class.active]="activeTab === 'doot3'" (click)="selectTab('doot3')">Customized
-            Payment</button>
-        <button class="tab" [class.active]="activeTab === 'doot4'" (click)="selectTab('doot4')">SMS Settings</button>
+        <button class="tab" [class.active]="activeTab === 'doot4'" (click)="selectTab('doot4')"
+            [hidden]="valuesmssetting!=='Sms Setting'">SMS Settings</button>
     </div>
-    <div class="tab-content" *ngIf="activeTab === 'events'">
+    <div class="tab-content" *ngIf="activeTab === 'events'" [hidden]="valueGeneral!=='Entity View General Information'">
         <div class="filters">
             <div class="col-12">
                 <div class="row" style="background-color: #bcdf72;color:#fff;">
@@ -63,11 +95,15 @@
                         <div class="buttonDownload1" [matMenuTriggerFor]="menu">
                             <i style="overflow:hidden;color:#fff;font-size:22px;" class="fa-solid fa-ellipsis-vertical">
                                 <mat-menu #menu="matMenu">
-                                    <button style="font-size: 10px;" mat-menu-item
-                                        (click)="editpersonalInfo(this.id)">Edit EntityDetails</button>
-                                    <button style="font-size: 10px;" mat-menu-item
-                                        (click)="viewOnboardInfo(this.id)">View OnboardInfo</button>
-                                    <button style="font-size: 10px;" mat-menu-item (click)="pgOnboard()">Onboard
+                                    <button style="font-size: 10px;" mat-menu-item (click)="editpersonalInfo(this.id)"
+                                        [hidden]="valueeditentity!=='Entity View-Edit'">Edit EntityDetails</button>
+                                    <button style="font-size: 10px;" mat-menu-item (click)="viewOnboardInfo(this.id)"
+                                        [disabled]="detaislone?.onBoardStatus=='false'"
+                                        [hidden]="valueviewonboard!=='Entity View-Onboard Information'">View
+                                        OnboardInfo</button>
+                                    <button style="font-size: 10px;" mat-menu-item (click)="pgOnboard()"
+                                        [disabled]="this.detaislone?.approvalStatusL2=='Pending'"
+                                        [hidden]="valueentityonboard!=='Entity View-Onboard'">Onboard
                                         Entity</button>
                                     <!-- <button style="font-size: 10px;" mat-menu-item (click)="emailtrigger()"
                                         [disabled]="detaislone?.onBoardStatus=='false'">
@@ -100,7 +136,7 @@
                                                 <div class="w-50">{{detaislone?.entityName}}</div>
                                             </div>
                                             <div class="d-flex mt-3">
-                                                <div class="w-50 font-weight-bold">Entity Legal Name
+                                                <div class="w-50 font-weight-bold">Merchant Legal Name
                                                 </div>
                                                 <div class="w-50">{{detaislone?.merchantLegalName}}</div>
                                             </div>
@@ -219,8 +255,9 @@
 
 
                                             <div class="d-flex mt-3">
-                                                <div class="w-50 font-weight-bold">Logo</div>
-                                                <div class="w-50">
+                                                <div class="w-50 font-weight-bold"
+                                                    [hidden]="valuelogo!=='Entity View-LOGO'">Logo</div>
+                                                <div class="w-50" [hidden]="valuelogo!=='Entity View-LOGO'">
                                                     <span (click)="viewlogo(this.id,this.detaislone?.logoLink)"><i
                                                             class="fas fa-image" style="font-size:20px;"> </i></span>
                                                 </div>
@@ -291,9 +328,11 @@
                                                 </div>
                                             </div>
                                             <div class="d-flex mt-3">
-                                                <div class="w-50 font-weight-bold">
+                                                <div class="w-50 font-weight-bold"
+                                                    [hidden]="valuelevelcomment!=='Entity View-Comment'">
                                                     Comments</div>
                                                 <div class="w-50 mx-2"
+                                                    [hidden]="valuelevelcomment!=='Entity View-Comment'"
                                                     style="font-size:18px;cursor: pointer;color:#141E46;"><span
                                                         (click)="leveloneComments(this.detaislone?.comment)"><i
                                                             class="fas fa-comments"></i></span></div>
@@ -312,9 +351,11 @@
                                                 </div>
                                             </div>
                                             <div class="d-flex mt-3">
-                                                <div class="w-50 font-weight-bold">Approval</div>
+                                                <div class="w-50 font-weight-bold"
+                                                    [hidden]="valueapproval!=='Entity View-Approval'">Approval</div>
                                                 <div class="w-50">
                                                     <button class="buttonDownload"
+                                                        [hidden]="valueapproval!=='Entity View-Approval'"
                                                         (click)="levelOneApproval(this.id)">Approval</button>
                                                 </div>
                                             </div>
@@ -363,7 +404,7 @@
                     </div>
                 </div>
                 <div class="col-md-2 mt-1">
-                    <button (click)="addbank(this.id)"
+                    <button (click)="addbank(this.id)" [hidden]="valuebankadd!=='Bank-Add'"
                         style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Add
                         Bank</button>
                 </div>
@@ -383,9 +424,14 @@
                                 <th>Ledger Id</th>
                                 <th>Bank Name</th>
                                 <th>Branch Name</th>
-                                <th>Bank Status</th>
-                                <th>Primary Status</th>
-                                <th>Action</th>
+                                <th [hidden]="valuebankapprovalsts!=='Bank-Approval Status'">Approval Status</th>
+                                <th [hidden]="valuebanksts!=='Bank-Status'">Bank Status</th>
+                                <th [hidden]="valueprimarysts!=='Bank Primary-Status'">Primary Status</th>
+                                <th [hidden]="valuebankapproval!=='Bank-Approval'">Approval</th>
+                                <th>Approvet At</th>
+                                <th [hidden]="valuebankcomment!=='Bank-comment'">Comments</th>
+                                <th [hidden]="valuebankedit!=='Bank-Edit'">Action</th>
+                                <th [hidden]="valuebankverify!=='Bank-Verification'">Verification</th>
                                 <th>Verification Status</th>
                                 <th>Verification</th>
                                 <th>Approval</th>
@@ -405,30 +451,39 @@
                                 <td>{{item.ledgerId}}</td>
                                 <td>{{item.bankId.bankName}}</td>
                                 <td>{{item.branchName}}</td>
-                                <td><span> <mat-slide-toggle class="example-margin" color="primary"
-                                            [checked]="item.activeStatus==1"
+                                <td [hidden]="valuebankapprovalsts!=='Bank-Approval Status'" [ngClass]="{
+                                                    yellow: item?.approvalStatus === 'Pending',
+                                                    green: item?.approvalStatus === 'approved',
+                           
+                                                    Red: item?.approvalStatus == 'Rejected'
+                                                  }">{{item.approvalStatus}}</td>
+                                <td [hidden]="valuebanksts!=='Bank-Status'"><span> <mat-slide-toggle
+                                            class="example-margin" color="primary" [checked]="item.activeStatus==1"
                                             (change)="bankStatus($event,item.merchantBankId)">
                                         </mat-slide-toggle></span>
 
                                 </td>
-                                <td><span>
+                                <td [hidden]="valueprimarysts!=='Bank Primary-Status'"><span>
                                         <mat-slide-toggle class="example-margin" color="primary"
                                             [checked]="item.primaryAccountStatus==1"
                                             (change)="onSubmit($event,item.merchantBankId)">
                                         </mat-slide-toggle>
                                     </span>
                                 </td>
-                                <td><span><i style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"
-                                            (click)="editbank(item)" class="fas fa-edit"></i></span></td>
-                                <td class="text-center">
-                                    <span *ngIf="item.facheckStatus == 0" style="font-size:14px;color:red;">
-                                        Pending</span>
-                                    <span *ngIf="item.facheckStatus == 1"
-                                        style="font-size:14px;color:green;">Verified</span>
-                                    <span *ngIf="item.facheckStatus == 2" style="font-size:14px;color:red;">
-                                        Failed</span>
+                                <td [hidden]="valuebankapproval!=='Bank-Approval'"><button class="buttonDownload"
+                                        (click)="BankApproval(item.merchantBankId)">Approval</button>
                                 </td>
-                                <td>
+
+                                <td>{{item.approvalDateTime|date:"dd/MM/yyyy hh:mm:a"}}</td>
+                                <td [hidden]="valuebankcomment!=='Bank-comment'"><span
+                                        (click)="BankComments(item.reMarks)"><i class="fas fa-comments"
+                                            style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
+                                </td>
+
+                                <td [hidden]="valuebankedit!=='Bank-Edit'"><span><i
+                                            style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"
+                                            (click)="editbank(item)" class="fas fa-edit"></i></span></td>
+                                <td [hidden]="valuebankverify!=='Bank-Verification'">
                                     <span>
                                         <i style="overflow:hidden;color:#141E46;font-size:20px;"
                                             [matMenuTriggerFor]="menu" class="fa-solid fa-circle-info">
@@ -451,7 +506,7 @@
                                         </i>
                                     </span>
                                 </td>
-                                <td><button class="buttonDownload" 
+                                <td><button class="buttonDownload"
                                         (click)="BankApproval(item.merchantBankId)">Approval</button>
                                 </td>
                                 <td [ngClass]="{
@@ -513,8 +568,7 @@
                     </div>
                 </div>
                 <div class="col-md-2 mt-1">
-                    <button [hidden]="valuekycadd!=='KYC-add'"
-                        (click)="addKycdocuments(this.id)"
+                    <button [hidden]="valuekycadd!=='Entity View KYC Document-add'" (click)="addKycdocuments(this.id)"
                         style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Add
                         KYC</button>
                 </div>
@@ -530,15 +584,16 @@
                                 <th>Document Type</th>
                                 <th>Document Name</th>
                                 <th>Document No</th>
-                                <th>Document Image</th>
-                                <th>Action</th>
-                                <th>Verification</th>
+                                <th [hidden]="valuekycimage!=='Entity View KYC Document-Image'">Document Image</th>
+                                <th [hidden]="valuekycedit!=='Entity View KYC Document-Edit'">Action</th>
+                                <th [hidden]="valuekycverification!=='Entity View KYC Document-Verification'">
+                                    Verification</th>
                                 <th>Verification Status</th>
-                                <th>Approval</th>
+                                <th [hidden]="valuekycapproval!=='Entity View KYC Document-Approval'">Approval</th>
                                 <th>Approval Status</th>
                                 <th>Approved By</th>
                                 <th>Approval At</th>
-                                <th>Comments</th>
+                                <th [hidden]="valuekyccomment!=='Entity View KYC Document-comments'">Comments</th>
 
 
                             </tr>
@@ -550,16 +605,17 @@
                                     <td>Identity proof</td>
                                     <td>{{item.identityProof}}</td>
                                     <td>{{item.identityProofNo}}</td>
-                                    <td>
+                                    <td [hidden]="valuekycimage!=='Entity View KYC Document-Image'">
                                         <span (click)="getFrontPath(item.proofId)"><i class='fa-regular fa-image'
                                                 style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
                                         <span (click)="getBackPath(item.proofId)"><i class='fa-regular fa-image mx-1'
                                                 style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
                                     </td>
-                                    <td><i class="fas fa-edit" (click)="identityedit(item)">
+                                    <td [hidden]="valuekycedit!=='Entity View KYC Document-Edit'"><i class="fas fa-edit"
+                                            (click)="identityedit(item)">
 
                                         </i></td>
-                                    <td>
+                                    <td [hidden]="valuekycverification!=='Entity View KYC Document-Verification'">
                                         <span>
                                             <i style="overflow:hidden;color:#141E46;font-size:20px;"
                                                 [matMenuTriggerFor]="menu1" class="fa-solid fa-circle-info">
@@ -585,7 +641,8 @@
                                         <span *ngIf="item.identityFacheckStatus == 2" style="font-size:14px;color:red;">
                                             Failed</span>
                                     </td>
-                                    <td><button class="buttonDownload" (click)="KycApproval(item)"
+                                    <td [hidden]="valuekycapproval!=='Entity View KYC Document-Approval'"><button
+                                            class="buttonDownload" (click)="KycApproval(item)"
                                             [disabled]="item.identityAdminApprovalStatus == 'approved'">Approval</button>
                                     </td>
                                     <td [ngClass]="{
@@ -597,7 +654,7 @@
                                     <td> {{item.identityAdminApprovedBy}}
                                     </td>
                                     <td>{{item.identityAdminApprovedDate}}</td>
-                                    <td><span
+                                    <td [hidden]="valuekyccomment!=='Entity View KYC Document-comments'"><span
                                             (click)="KYCComments(item.identityAdminComments)"><i class="fas fa-comments"
                                                 style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
                                     </td>
@@ -609,7 +666,7 @@
                                     <td>Address proof</td>
                                     <td>{{item.addressProof}}</td>
                                     <td>{{item.addressProofNo}}</td>
-                                    <td>
+                                    <td [hidden]="valuekycimage!=='Entity View KYC Document-Image'">
                                         <span (click)="addressProofFrontPath(item.proofId)"><i
                                                 class='fa-regular fa-image'
                                                 style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
@@ -617,8 +674,10 @@
                                                 class='fa-regular fa-image mx-1'
                                                 style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
                                     </td>
-                                    <td><i class="fas fa-edit" (click)="addressedits(item)"></i></td>
-                                    <td>
+                                    <td [hidden]="valuekycedit!=='Entity View KYC Document-Edit'">
+                                        <i class="fas fa-edit" (click)="addressedits(item)"></i>
+                                    </td>
+                                    <td [hidden]="valuekycverification!=='Entity View KYC Document-Verification'">
                                         <span>
                                             <i style="overflow:hidden;color:#141E46;font-size:20px;"
                                                 [matMenuTriggerFor]="menu2" class="fa-solid fa-circle-info">
@@ -644,7 +703,8 @@
                                         <span *ngIf="item.addressFacheckStatus == 2" style="font-size:14px;color:red;">
                                             Failed</span>
                                     </td>
-                                    <td><button class="buttonDownload" (click)="KycApproval1(item)"
+                                    <td [hidden]="valuekycapproval!=='Entity View KYC Document-Approval'">
+                                        <button class="buttonDownload" (click)="KycApproval1(item)"
                                             [disabled]="item.addressAdminApprovalStatus == 'approved'">Approval</button>
                                     </td>
                                     <td [ngClass]="{
@@ -656,7 +716,8 @@
                                     <td> {{item.addressAdminApprovedBy}}
                                     </td>
                                     <td>{{item.addressAdminApprovedDate}}</td>
-                                    <td><span (click)="KYCComments(item.addressAdminComments)"><i
+                                    <td [hidden]="valuekyccomment!=='Entity View KYC Document-comments'">
+                                        <span (click)="KYCComments(item.addressAdminComments)"><i
                                                 class="fas fa-comments"
                                                 style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
                                     </td>
@@ -668,9 +729,7 @@
                                     <td>Signature proof</td>
                                     <td>{{item.signatureProof}}</td>
                                     <td>{{item.signatureProofNo}}</td>
-
-
-                                    <td>
+                                    <td [hidden]="valuekycimage!=='Entity View KYC Document-Image'">
                                         <span (click)="signatureProofFrontPath(item.proofId)"><i
                                                 class='fa-regular fa-image'
                                                 style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
@@ -678,8 +737,11 @@
                                                 class='fa-regular fa-image mx-1'
                                                 style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
                                     </td>
-                                    <td><i class="fas fa-edit" (click)="signatureedits(item)"></i></td>
-                                    <td> <span>
+                                    <td [hidden]="valuekycedit!=='Entity View KYC Document-Edit'">
+                                        <i class="fas fa-edit" (click)="signatureedits(item)"></i>
+                                    </td>
+                                    <td [hidden]="valuekycverification!=='Entity View KYC Document-Verification'">
+                                        <span>
                                             <i style="overflow:hidden;color:#141E46;font-size:20px;"
                                                 [matMenuTriggerFor]="menu3" class="fa-solid fa-circle-info">
                                                 <mat-menu #menu3="matMenu">
@@ -705,7 +767,8 @@
                                             style="font-size:14px;color:red;">
                                             Failed</span>
                                     </td>
-                                    <td><button class="buttonDownload" (click)="KycApproval2(item)"
+                                    <td [hidden]="valuekycapproval!=='Entity View KYC Document-Approval'">
+                                        <button class="buttonDownload" (click)="KycApproval2(item)"
                                             [disabled]="item.signatureAdminApprovalStatus== 'approved'">Approval</button>
                                     </td>
 
@@ -718,7 +781,8 @@
                                     <td> {{item.signatureAdminApprovedBy}}
                                     </td>
                                     <td>{{item.signatureAdminApprovedDate}}</td>
-                                    <td><span (click)="KYCComments(item.signatureAdminComments)"><i
+                                    <td [hidden]="valuekyccomment!=='Entity View KYC Document-comments'">
+                                        <span (click)="KYCComments(item.signatureAdminComments)"><i
                                                 class="fas fa-comments"
                                                 style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
                                     </td>
@@ -770,7 +834,8 @@
                     </div>
                 </div>
                 <div class="col-md-2 mt-1">
-                    <button (click)="adddoc(this.id)" [hidden]="valuebankadd!=='Bank-Add'"
+                    <button (click)="adddoc(this.id)"
+                        [hidden]="valuebussinessAdd!=='Entity View Bussiness Document-Add'"
                         style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Add
                         Document</button>
                 </div>
@@ -785,13 +850,15 @@
                                 <th>S No </th>
                                 <th>Document Name</th>
                                 <th>Document Number</th>
-                                <th>Image</th>
-                                <th>Approval</th>
+                                <th [hidden]="valuebussinessImage!=='Entity View Bussiness Document-Image'">Image</th>
+                                <th [hidden]="valuebussinessapproval!=='Entity View Bussiness Document-Approval'">
+                                    Approval</th>
                                 <th>Approval Status</th>
                                 <th>Approved By</th>
                                 <th>Approved At</th>
-                                <th>Comments</th>
-                                <th>Action</th>
+                                <th [hidden]="valuebussinesscomment!=='Entity View Bussiness Document-Comments'">
+                                    Comments</th>
+                                <th [hidden]="valuebussinessedit!=='Entity View Bussiness Document-Edit'">Action</th>
 
                             </tr>
                             <tbody
@@ -799,14 +866,16 @@
                                 <td>{{i+1}}</td>
                                 <td>{{item?.entityKycCategory?.kycCategoryName}}</td>
                                 <td>{{item.docNumber}}</td>
-                                <td> <span (click)="getdocFrontPath(item.merchantDocumentId)"><i
+                                <td [hidden]="valuebussinessImage!=='Entity View Bussiness Document-Image'">
+                                    <span (click)="getdocFrontPath(item.merchantDocumentId)"><i
                                             class='fa-regular fa-image'
                                             style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
                                     <span (click)="getdocbackPath(item.merchantDocumentId)"><i
                                             class='fa-regular fa-image mx-1'
                                             style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
                                 </td>
-                                <td><button class="buttonDownload" (click)="docApproval(item)"
+                                <td [hidden]="valuebussinessapproval!=='Entity View Bussiness Document-Approval'">
+                                    <button class="buttonDownload" (click)="docApproval(item)"
                                         [disabled]="item.approvalStatus== 'approved'">Approval</button>
                                 </td>
                                 <td [ngClass]="{
@@ -816,10 +885,12 @@
                                   }">{{item.approvalStatus}}</td>
                                 <td>{{item.approvalBy}}</td>
                                 <td>{{item.approvalDateTime}}</td>
-                                <td><span (click)="DocComments(item.reMarks)"><i class="fas fa-comments"
+                                <td [hidden]="valuebussinesscomment!=='Entity View Bussiness Document-Comments'"><span
+                                        (click)="DocComments(item.reMarks)"><i class="fas fa-comments"
                                             style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
                                 </td>
-                                <td><i class="fas fa-edit" (click)="docedit(item)">
+                                <td [hidden]="valuebussinessedit!=='Entity View Bussiness Document-Edit'"><i
+                                        class="fas fa-edit" (click)="docedit(item)">
                                     </i></td>
                             </tbody>
                         </table>
@@ -876,20 +947,21 @@
                                 <th>Overall Approval Status</th>
                                 <th>Approved By</th>
                                 <th>Approval At</th>
-                                <th>Approval</th>
-                                <th>Comments</th>
+                                <th [hidden]="valuefinalapprovals!=='Final-Approval'">Approval</th>
+                                <th [hidden]="valuefinalcomment!=='Final-Comment'">Comments</th>
                             </tr>
                             <tbody>
                                 <td class="text-center">1</td>
                                 <td class="text-center">{{this.detaislone?.approvalStatusL2}}</td>
                                 <td class="text-center">{{this.detaislone?.approvedByL2}}</td>
                                 <td class="text-center">{{this.detaislone?.approvedDateTimeL2}}</td>
-                                <td class="text-center">
+                                <td class="text-center" [hidden]="valuefinalapprovals!=='Final-Approval'">
                                     <span><button class="buttonDownload" (click)="levelTwoApproval(this.id)"
                                             [disabled]="this.detaislone?.approvalStatusL1 == 'Pending' || this.detaislone?.approvalStatusL1 == 'Rejected' ">Approval</button></span>
 
 
-                                <td style="text-align: center;font-size:15px;cursor: pointer;color:#545497;"><span
+                                <td [hidden]="valuefinalcomment!=='Final-Comment'"
+                                    style="text-align: center;font-size:15px;cursor: pointer;color:#545497;"><span
                                         (click)="levelTwoComments(this.detaislone?.commentL2)"><i
                                             class="fas fa-comments"></i></span></td>
                             </tbody>
@@ -937,8 +1009,8 @@
                 </div>
             </div>
             <div class="col-md-2 mt-1">
-                <button [disabled]="this.paymentStatus=='Success'"  (click)="createmanualPayement()" 
-                    style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Manual Payment
+                <button (click)="createmanualPayement()" [hidden]="valuemanualpay!=='One Time Setup Payment-Create'"
+                    style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Create
                 </button>
             </div>
         </div>
@@ -952,8 +1024,8 @@
                             <th>S No </th>
                             <th>Payment ID</th>
                             <th>Paid Amount</th>
-                            <th>Edit</th>
-                            <th>View</th>
+                            <th [hidden]="valuemanualedit!=='One Time Setup Payment-Edit'">Edit</th>
+                            <th [hidden]="valuemanualview!=='One Time Setup Payment-View'">View</th>
                             <th>Payment Status</th>
                             <th>Payment Method</th>
                             <th>Paid At</th>
@@ -963,14 +1035,16 @@
                             <td>{{i+1}}</td>
                             <td>{{item.paymentId}}</td>
                             <td>{{item.totalPayableAmount}}</td>
-                            <td>
-                               <button  style="border:none" [disabled]="paymentMethod!=='Cash' || paymentMethod!=='UPI' || paymentMethod!=='NEFT' || paymentMethod!=='RTGS' || paymentMethod!=='IMPS' || paymentMethod!=='Cheque' " (click)="manualPayement(item)">
-                                <span>
-                                    <i class="fas fa-edit" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
-                                </span>
-                            </button>
+                            <td [hidden]="valuemanualedit!=='One Time Setup Payment-Edit'">
+                                <button style="border:none"
+                                    [disabled]="paymentMethod!=='Cash' || paymentMethod!=='UPI' || paymentMethod!=='NEFT' || paymentMethod!=='RTGS' || paymentMethod!=='IMPS' || paymentMethod!=='Cheque' "
+                                    (click)="manualPayement(item)">
+                                    <span>
+                                        <i class="fas fa-edit" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
+                                    </span>
+                                </button>
                             </td>
-                            <td>
+                            <td [hidden]="valuemanualview!=='One Time Setup Payment-View'">
                                 <span (click)="viewmanualtransaction(item.merchantPayId)">
                                     <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
                                 </span>
@@ -1024,7 +1098,7 @@
             </div>
             <div class="col-md-2 mt-1">
                 <button (click)="otherPayement()" style="color:white;background-color: #141E46;border-radius: 10px;"
-                    mat-raised-button>Create
+                    mat-raised-button [hidden]="valueCustomizedadd!=='Customized Payment-Add'">Create
                 </button>
             </div>
         </div>
@@ -1039,8 +1113,8 @@
                             <th>Payment ID</th>
                             <th>Service Name</th>
                             <th>Paid Amount</th>
-                            <th>Action</th>
-                            <th>View</th>
+                            <th [hidden]="valueCustomizededit!=='Customized Payment-Edit'">Action</th>
+                            <th [hidden]="valueCustomizedview!=='Customized Payment-View'">View</th>
                             <th>Payment Status</th>
                             <th>Paid At</th>
                         </tr>
@@ -1050,10 +1124,11 @@
                             <td>{{item.paymentId}}</td>
                             <td>{{item.serviceName}}</td>
                             <td>{{item.paidAmount}}</td>
-                            <td> <span (click)="editotherPayment(item)">
+                            <td [hidden]="valueCustomizededit!=='Customized Payment-Edit'"> <span
+                                    (click)="editotherPayment(item)">
                                     <i class="fas fa-edit" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
                                 </span></td>
-                            <td>
+                            <td [hidden]="valueCustomizedview!=='Customized Payment-View'">
                                 <span (click)="viewOthertransaction(item.payId)">
                                     <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
                                 </span>
@@ -1106,7 +1181,7 @@
             </div>
             <div class="col-md-2 mt-1">
                 <button (click)="smscreate()" style="color:white;background-color: #141E46;border-radius: 10px;"
-                    mat-raised-button>Create
+                    mat-raised-button [hidden]="valuesmsadd!=='Sms Setting-Add'">Create
                 </button>
             </div>
         </div>
@@ -1122,11 +1197,11 @@
                             <th>SMS Description</th>
                             <th>SMS Count</th>
                             <th>Charge Per SMS</th>
-                            <th>Approval</th>
+                            <th [hidden]="valuesmsapproval!=='Sms Setting-Approval'">Approval</th>
                             <th>Approval Status</th>
-                            <th>Status</th>
-                            <th>View</th>
-                            <th>Action</th>
+                            <th [hidden]="valuesmsstatus!=='Sms Setting-Status'">Status</th>
+                            <th [hidden]="valuesmsview!=='Sms Setting-View'">View</th>
+                            <th [hidden]="valuesmsedit!=='Sms Setting-Edit'">Action</th>
                             <th>Created By</th>
                             <th>Created At</th>
                             <th>Modified By</th>
@@ -1139,21 +1214,22 @@
                             <td>{{item.type.smsTempDescription}}</td>
                             <td>{{item.smsCount}}</td>
                             <td>{{item.type?.smsCharge}}</td>
-                            <td class="text-center">
+                            <td class="text-center" [hidden]="valuesmsapproval!=='Sms Setting-Approval'">
                                 <span><button class="buttonDownload"
                                         (click)="SmsApproval(item.merchantSmsId)">Approval</button></span>
                             </td>
                             <td>{{item.smsApprovalStatus}}</td>
-                            <td><span> <mat-slide-toggle class="example-margin" color="primary"
-                                        [checked]="item.smsStatus==1" (change)="smsStatus($event,item.merchantSmsId)">
+                            <td [hidden]="valuesmsstatus!=='Sms Setting-Status'"><span> <mat-slide-toggle
+                                        class="example-margin" color="primary" [checked]="item.smsStatus==1"
+                                        (change)="smsStatus($event,item.merchantSmsId)">
                                     </mat-slide-toggle></span>
                             </td>
-                            <td>
+                            <td [hidden]="valuesmsview!=='Sms Setting-View'">
                                 <span (click)="ViewMerchantSms(item.merchantSmsId)">
                                     <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
                                 </span>
                             </td>
-                            <td> <span (click)="editsms(item)">
+                            <td [hidden]="valuesmsedit!=='Sms Setting-Edit'"> <span (click)="editsms(item)">
                                     <i class="fas fa-edit" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
                                 </span></td>
                             <td>{{item.createdBy}}</td>

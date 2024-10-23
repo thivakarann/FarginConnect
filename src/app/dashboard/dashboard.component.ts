@@ -44,7 +44,21 @@ export class DashboardComponent implements OnInit {
   valuefarginpolicy: any;
   valueMerchantpolicy: any;
   counts: any;
-  valueannouncement:any;
+  valuecustomerticket: any;
+  valuecustomerpayment: any;
+  valuecustomersubscription: any;
+  valuecustomermanualpayment: any;
+  valuekyccategory: any;
+  valueannouncement: any;
+  valuesmscost: any;
+  valuebankdetails: any;
+  valuefarginbank: any;
+  valueentitysms: any;
+  valuesmshistory: any;
+  valueautodebit: any;
+  valueCustomizationPayments: any;
+  valuesurvey: any;
+  valueBuisneesDoCument: any;
 
 
   constructor(private elRef: ElementRef,
@@ -72,7 +86,7 @@ export class DashboardComponent implements OnInit {
       this.counts = res.response.totalTicketMemberOpenCount;
       console.log(this.counts);
     });
- 
+
   }
 
   getpermissionValue() {
@@ -82,9 +96,10 @@ export class DashboardComponent implements OnInit {
       this.valueCustomer = 'Customers';
       this.valueTransaction = 'Transactions';
       this.valuepayOut = 'Payout';
-      this.valueTickets = 'Tickets';
-      this.valueBusinessCategory = 'BussinessCategory';
-      this.valueBusinessKYC = 'Business KYC';
+      this.valueTickets = 'Entity Request';
+      this.valuecustomerticket = 'Customer Request'
+      this.valueBusinessCategory = 'Bussiness Category';
+      this.valueBusinessKYC = 'Business Category DocDocument Type';
       this.valueRegion = 'Region';
       this.ValueMSO = 'MSO';
       this.valuemerchantPlan = 'Merchant Plan';
@@ -100,9 +115,20 @@ export class DashboardComponent implements OnInit {
       this.valueentitydues = 'Entity Dues';
       this.valuefarginpolicy = 'Fargin Policy'
       this.valueMerchantpolicy = 'Merchant Policy'
-      this.valueannouncement='Announcement'
-
-
+      this.valuecustomerpayment = 'Customer Payment'
+      this.valuecustomersubscription = 'Subscription Payment'
+      this.valuecustomermanualpayment = 'Manual Payment'
+      this.valuekyccategory = 'Kyc Category'
+      this.valueannouncement = 'Announcement'
+      this.valuesmscost = 'SMS Cost'
+      this.valuebankdetails = 'Bank List'
+      this.valuefarginbank = 'Fargin bank'
+      this.valueentitysms = 'Entity Sms'
+      this.valuesmshistory = 'SMS History'
+      this.valueautodebit = 'Auto Debit'
+      this.valueCustomizationPayments = 'Customization Payments'
+      this.valuesurvey = 'Survey'
+      this.valueBuisneesDoCument = 'Buisnees Document Type'
     }
     else {
       for (let data of this.getdashboard) {
@@ -126,14 +152,14 @@ export class DashboardComponent implements OnInit {
         if (this.roles == 'Payout') {
           this.valuepayOut = 'Payout'
         }
-        if (this.roles == 'Tickets') {
-          this.valueTickets = 'Tickets';
+        if (this.roles == 'Entity Request') {
+          this.valueTickets = 'Entity Request';
         }
-        if (this.roles == 'BussinessCategory') {
-          this.valueBusinessCategory = 'BussinessCategory';
+        if (this.roles == 'Bussiness Category') {
+          this.valueBusinessCategory = 'Bussiness Category';
         }
-        if (this.roles == 'Business KYC') {
-          this.valueBusinessKYC = 'Business KYC';
+        if (this.roles == 'Business Category DocDocument Type') {
+          this.valueBusinessKYC = 'Business Category DocDocument Type';
         }
         if (this.roles == 'Region') {
           this.valueRegion = 'Region';
@@ -174,9 +200,52 @@ export class DashboardComponent implements OnInit {
         if (this.roles == 'Merchant Policy') {
           this.valueMerchantpolicy = 'Merchant Policy'
         }
+        if (this.roles == 'Customer Request') {
+          this.valuecustomerticket = 'Customer Request'
+        }
+        if (this.roles == 'Customer Payment') {
+          this.valuecustomerpayment = 'Customer Payment'
+        }
+        if (this.roles == 'Subscription Payment') {
+          this.valuecustomersubscription = 'Subscription Payment'
+        }
+        if (this.roles == 'Manual Payment') {
+          this.valuecustomermanualpayment = 'Manual Payment'
+        }
+        if (this.roles == 'Kyc Category') {
+          this.valuekyccategory = 'Kyc Category'
+        }
+        if (this.roles == 'Announcement') {
+          this.valueannouncement = 'Announcement'
+        }
+        if (this.roles == 'SMS Cost') {
+          this.valuesmscost = 'SMS Cost'
+        }
+        if (this.roles == 'Bank List') {
+          this.valuebankdetails = 'Bank List'
+        }
+        if (this.roles == 'Fargin bank') {
+          this.valuefarginbank = 'Fargin bank'
+        }
+        if (this.roles == 'Entity Sms') {
+          this.valueentitysms = 'Entity Sms'
+        }
+        if (this.roles == 'SMS History') {
+          this.valuesmshistory = 'SMS History'
+        }
+        if (this.roles == 'Auto Debit') {
+          this.valueautodebit = 'Auto Debit'
+        }
+        if (this.roles == 'Customization Payments') {
+          this.valueCustomizationPayments = 'Customization Payments'
+        }
 
-        if(this.roles=='Announcement'){
-          this.valueannouncement='Announcement'
+        if (this.roles == 'Buisnees Document Type') {
+          this.valueBuisneesDoCument = 'Buisnees Document Type'
+        }
+
+        if (this.roles == 'Survey') {
+          this.valuesurvey = 'Survey'
         }
       }
     }
@@ -290,9 +359,9 @@ export class DashboardComponent implements OnInit {
 
 
   changepassword() {
-    this.dialog.open(ChangePasswordComponent), {
-
-    }
+    this.dialog.open(ChangePasswordComponent, {
+      disableClose: true
+    })
   }
 
   logout() {

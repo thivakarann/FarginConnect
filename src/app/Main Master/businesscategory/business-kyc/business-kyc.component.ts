@@ -75,10 +75,10 @@ export class BusinessKycComponent implements OnInit {
           this.getdashboard = res.response?.subPermission;
  
           if (this.roleId == '1') {
-            this.valueKycexport = 'Business KYC-Export';
-            this.valueKycadd = 'Business KYC-Add';
-            this.valueKycedit = 'Business KYC-Edit';
-            this.valueKycstatus = 'Business KYC-Status';
+            this.valueKycexport = 'Business Category Doc-Export';
+            this.valueKycadd = 'Business Category Doc-Add';
+            this.valueKycedit = 'Business Category Doc-Edit';
+            this.valueKycstatus = 'Business Category Doc-Status';
  
           }
           else {
@@ -87,17 +87,17 @@ export class BusinessKycComponent implements OnInit {
               this.actions = datas.subPermissions;
  
  
-              if (this.actions == 'Business KYC-Export') {
-                this.valueKycexport = 'Business KYC-Export';
+              if (this.actions == 'Business Category Doc-Export') {
+                this.valueKycexport = 'Business Category Doc-Export';
               }
-              if (this.actions == 'Business KYC-Add') {
-                this.valueKycadd = 'Business KYC-Add';
+              if (this.actions == 'Business Category Doc-Add') {
+                this.valueKycadd = 'Business Category Doc-Add';
               }
-              if (this.actions == 'Business KYC-Edit') {
-                this.valueKycedit = 'Business KYC-Edit';
+              if (this.actions == 'Business Category Doc-Edit') {
+                this.valueKycedit = 'Business Category Doc-Edit';
               }
-              if (this.actions == 'Business KYC-Status') {
-                this.valueKycstatus = 'Business KYC-Status';
+              if (this.actions == 'Business Category Doc-Status') {
+                this.valueKycstatus = 'Business Category Doc-Status';
               }
             }
           }

@@ -66,6 +66,22 @@ export class EntityAddComponent implements OnInit {
   selectperiod: any;
   days: number[] = Array.from({ length: 31 }, (_, i) => i + 1); // Generates days 1 to 31
   uploadImage: any;
+  uploadImage1: any;
+  uploadImage2: any;
+  uploadImage3: any;
+  uploadImage4: any;
+  uploadImage5: any;
+  uploadImage6: any;
+  uploadImage7: any;
+  uploadImage8: any;
+  uploadidentityfront: any;
+  uploadidentityback: any;
+  uploadaddressfront: any;
+  uploadaddressback: any;
+  uploadsignfront: any;
+  uploadsignback: any;
+  uploaddocfront: any;
+  uploaddocback: any;
 
   constructor(
     public AddEntity: FarginServiceService,
@@ -492,99 +508,98 @@ export class EntityAddComponent implements OnInit {
   get docBackPath() {
     return this.fourthFormGroup.get('docBackPath')
   }
-
   onFileSelected(event: any) {
-    this.uploadImage = event.target.files[0];
+    this.uploadidentityfront = event.target.files[0];
  
     // Ensure this.uploadImage is not null
-    if (this.uploadImage) {
+    if (this.uploadidentityfront) {
       const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
  
-      if (acceptableTypes.includes(this.uploadImage.type)) {
-        if (this.uploadImage.size <= 20 * 1024 * 1024) {
+      if (acceptableTypes.includes(this.uploadidentityfront.type)) {
+        if (this.uploadidentityfront.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
         } else {
           this.toastr.error("Max Image size exceeded");
           this.identityFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        console.log(this.uploadImage.type);
+        console.log(this.uploadidentityfront.type);
         this.toastr.error("File type not acceptable");
         this.identityFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
       this.toastr.error("No file selected");
     }
-
-
+ 
+ 
   }
-
+ 
   onFileSelected2(event: any) {
-    this.uploadImage = event.target.files[0];
+    this.uploadidentityback = event.target.files[0];
  
     // Ensure this.uploadImage is not null
-    if (this.uploadImage) {
+    if (this.uploadidentityback) {
       const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
  
-      if (acceptableTypes.includes(this.uploadImage.type)) {
-        if (this.uploadImage.size <= 20 * 1024 * 1024) {
+      if (acceptableTypes.includes(this.uploadidentityback.type)) {
+        if (this.uploadidentityback.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
         } else {
           this.toastr.error("Max Image size exceeded");
           this.identityBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        console.log(this.uploadImage.type);
+        console.log(this.uploadidentityback.type);
         this.toastr.error("File type not acceptable");
         this.identityBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
       this.toastr.error("No file selected");
     }
-
-
+ 
+ 
   }
   onaddressfront(event: any) {
    
-    this.uploadImage = event.target.files[0];
+    this.uploadaddressfront = event.target.files[0];
  
     // Ensure this.uploadImage is not null
-    if (this.uploadImage) {
+    if (this.uploadaddressfront) {
       const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
  
-      if (acceptableTypes.includes(this.uploadImage.type)) {
-        if (this.uploadImage.size <= 20 * 1024 * 1024) {
+      if (acceptableTypes.includes(this.uploadaddressfront.type)) {
+        if (this.uploadaddressfront.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
         } else {
           this.toastr.error("Max Image size exceeded");
           this.addressFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        console.log(this.uploadImage.type);
+        console.log(this.uploadaddressfront.type);
         this.toastr.error("File type not acceptable");
         this.addressFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
       this.toastr.error("No file selected");
     }
-
+ 
   }
   onaddressback(event: any) {
-    this.uploadImage = event.target.files[0];
+    this.uploadaddressback = event.target.files[0];
  
     // Ensure this.uploadImage is not null
-    if (this.uploadImage) {
+    if (this.uploadaddressback) {
       const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
  
-      if (acceptableTypes.includes(this.uploadImage.type)) {
-        if (this.uploadImage.size <= 20 * 1024 * 1024) {
+      if (acceptableTypes.includes(this.uploadaddressback.type)) {
+        if (this.uploadaddressback.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
         } else {
           this.toastr.error("Max Image size exceeded");
           this.addressBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        console.log(this.uploadImage.type);
+        console.log(this.uploadaddressback.type);
         this.toastr.error("File type not acceptable");
         this.addressBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
@@ -593,54 +608,60 @@ export class EntityAddComponent implements OnInit {
     }
   }
   onasignfront(event: any) {
-    this.uploadImage = event.target.files[0];
+    this.uploadsignfront = event.target.files[0];
  
     // Ensure this.uploadImage is not null
-    if (this.uploadImage) {
+    if (this.uploadsignfront) {
       const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
  
-      if (acceptableTypes.includes(this.uploadImage.type)) {
-        if (this.uploadImage.size <= 20 * 1024 * 1024) {
+      if (acceptableTypes.includes(this.uploadsignfront.type)) {
+        if (this.uploadsignfront.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
         } else {
           this.toastr.error("Max Image size exceeded");
           this.signatureFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        console.log(this.uploadImage.type);
+        console.log(this.uploadsignfront.type);
         this.toastr.error("File type not acceptable");
         this.signatureFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
       this.toastr.error("No file selected");
     }
-
+ 
   }
   onasignback(event: any) {
-    this.uploadImage = event.target.files[0];
+    this.uploadsignback = event.target.files[0];
  
     // Ensure this.uploadImage is not null
-    if (this.uploadImage) {
+    if (this.uploadsignback) {
       const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
  
-      if (acceptableTypes.includes(this.uploadImage.type)) {
-        if (this.uploadImage.size <= 20 * 1024 * 1024) {
+      if (acceptableTypes.includes(this.uploadsignback.type)) {
+        if (this.uploadsignback.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
         } else {
           this.toastr.error("Max Image size exceeded");
           this.signatureBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        console.log(this.uploadImage.type);
+        console.log(this.uploadsignback.type);
         this.toastr.error("File type not acceptable");
         this.signatureBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
       this.toastr.error("No file selected");
     }
-
-
+ 
+ 
   }
+ 
+
+ 
+ 
+  
+
   onIdentityProofChange(event: any) {
     this.selectElement = event.target.value;
     const identityProofNoControl = this.firstFormGroup.get('identityProofNo');
@@ -654,9 +675,9 @@ export class EntityAddComponent implements OnInit {
     } else if (this.selectElement === 'Pancard') {
       identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z]{5}[0-9]{4}[A-Za-z]$")]); // PAN format
     } else if (this.selectElement === 'Voter Id Proof') {
-      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("/^[A-Z]{3}[0-9]{7}$/")]); // Voter ID format
+      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]); // Voter ID format
     } else if (this.selectElement === 'Passport') {
-      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("/^[A-Z][1-9]\d\s?\d{4}[1-9]$/")]); // Passport format
+      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Passport format
     } else if (this.selectElement === 'Driving License') {
       identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Driving license format
     }
@@ -678,7 +699,7 @@ export class EntityAddComponent implements OnInit {
     } else if (this.selectElements === 'Voter Id Proof') {
       addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]); // Voter ID format
     } else if (this.selectElements === 'Passport') {
-      addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z0-9]{8,15}$")]); // Passport format
+      addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Passport format
     } else if (this.selectElements === 'Driving License') {
       addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Driving license format
     }
@@ -698,7 +719,7 @@ export class EntityAddComponent implements OnInit {
     if (this.select === 'Pancard') {
       signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z]{5}[0-9]{4}[A-Za-z]$")]);
     } else if (this.select === 'Passport') {
-      signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z0-9]{8,15}$")]); // Passport format
+      signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Passport format
     } else if (this.select === 'Driving License') {
       signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Driving license format
     }
@@ -707,11 +728,11 @@ export class EntityAddComponent implements OnInit {
   }
   getlogo(event: any) {
     this.uploadImage = event.target.files[0];
- 
+
     // Ensure this.uploadImage is not null
     if (this.uploadImage) {
       const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
- 
+
       if (acceptableTypes.includes(this.uploadImage.type)) {
         if (this.uploadImage.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
@@ -729,61 +750,62 @@ export class EntityAddComponent implements OnInit {
     }
   }
 
-  
+
 
 
   docfront(event: any) {
-    this.uploadImage = event.target.files[0];
+    this.uploaddocfront = event.target.files[0];
  
     // Ensure this.uploadImage is not null
-    if (this.uploadImage) {
+    if (this.uploaddocfront) {
       const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
  
-      if (acceptableTypes.includes(this.uploadImage.type)) {
-        if (this.uploadImage.size <= 20 * 1024 * 1024) {
+      if (acceptableTypes.includes(this.uploaddocfront.type)) {
+        if (this.uploaddocfront.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
         } else {
           this.toastr.error("Max Image size exceeded");
           this.docFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        console.log(this.uploadImage.type);
+        console.log(this.uploaddocfront.type);
         this.toastr.error("File type not acceptable");
         this.docFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
       this.toastr.error("No file selected");
     }
-
-
+ 
+ 
   }
-
-
+ 
+ 
   docback(event: any) {
-    this.uploadImage = event.target.files[0];
+    this.uploaddocback = event.target.files[0];
  
     // Ensure this.uploadImage is not null
-    if (this.uploadImage) {
+    if (this.uploaddocback) {
       const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
  
-      if (acceptableTypes.includes(this.uploadImage.type)) {
-        if (this.uploadImage.size <= 20 * 1024 * 1024) {
+      if (acceptableTypes.includes(this.uploaddocback.type)) {
+        if (this.uploaddocback.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
         } else {
           this.toastr.error("Max Image size exceeded");
           this.docBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        console.log(this.uploadImage.type);
+        console.log(this.uploaddocback.type);
         this.toastr.error("File type not acceptable");
         this.docBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
       this.toastr.error("No file selected");
     }
-
-
+ 
+ 
   }
+
 
   Submit() {
     const formData = new FormData;
@@ -869,16 +891,16 @@ export class EntityAddComponent implements OnInit {
   kycsubmit() {
     const formData = new FormData();
     formData.append('merchantId', this.merchantid);
-    formData.append('identityFrontPath', this.file1);
-    formData.append('identityBackPath', this.file2);
+    formData.append('identityFrontPath', this.uploadidentityfront);
+    formData.append('identityBackPath', this.uploadidentityback);
     formData.append('identityProof', this.identityProof?.value);
     formData.append('identityProofNo', this.identityProofNo?.value);
-    formData.append('addressFrontPath', this.file3);
-    formData.append('addressBackPath', this.file4);
+    formData.append('addressFrontPath', this.uploadaddressfront);
+    formData.append('addressBackPath', this.uploadaddressback);
     formData.append('addressProof', this.addressProof?.value);
     formData.append('addressProofNo', this.addressProofNo?.value);
-    formData.append('signatureFrontPath', this.file5);
-    formData.append('signatureBackPath', this.file6);
+    formData.append('signatureFrontPath', this.uploadsignfront);
+    formData.append('signatureBackPath', this.uploadsignback);
     formData.append('signatureProof', this.signatureProof?.value);
     formData.append('signatureProofNo', this.signatureProofNo?.value);
     formData.append('drivingLicenceDob', this.drivingLicenceDob?.value || this.drivingLicenceDobs?.value || this.drivingLicenceDobss?.value);
@@ -886,24 +908,23 @@ export class EntityAddComponent implements OnInit {
     this.AddEntity.entitykycs(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
-        this.Bankdetails = false;
-        this.personeldetails = false;
         this.KYCdetails = false;
         this.BussinessDocument = true;
+       
       } else {
         this.toastr.error(res.responseMessage);
       }
     });
   }
-
-
-
-
+ 
+ 
+ 
+ 
   docSubmit() {
     const formData = new FormData();
     formData.append('merchantId', this.merchantid);
-    formData.append('docFrontPath', this.file8);
-    formData.append('docBackPath', this.file9 || this.emptyBlob);
+    formData.append('docFrontPath', this.uploaddocfront);
+    formData.append('docBackPath', this.uploaddocback || this.emptyBlob);
     formData.append('kycCategoryId', this.kycCategoryId?.value);
     formData.append('docNumber', this.docNumber?.value);
     formData.append('createdBy', this.getadminname);
@@ -915,6 +936,7 @@ export class EntityAddComponent implements OnInit {
       }
     });
   }
+
 
   close() {
     this.router.navigateByUrl('dashboard/entity-viewall');

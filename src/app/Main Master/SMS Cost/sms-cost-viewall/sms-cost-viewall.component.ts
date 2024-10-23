@@ -21,7 +21,7 @@ export class SmsCostViewallComponent {
     'smsId',
     'amount',
     'smsStatus',
-    // 'Edit',
+    'Edit',
     'createdBy',
     'createdDateTime',
     'modifedBy',
@@ -36,7 +36,13 @@ export class SmsCostViewallComponent {
   date2: any;
   responseDataListnew: any = [];
   response: any = [];
-
+valuesmsadd: any;
+valuesmsstatus: any;
+valuesmsedit: any;
+getdashboard: any[] = [];
+  roleId: any = localStorage.getItem('roleId')
+  actions: any;
+  errorMessage: any;
   constructor(
     public smsdetails: FarginServiceService,
     private router: Router,
@@ -53,6 +59,44 @@ export class SmsCostViewallComponent {
       this.dataSource.paginator = this.paginator;
       console.log(this.viewall);
     });
+
+
+    this.smsdetails.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        console.log(res);
+
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+
+          if (this.roleId == 1) {
+            this.valuesmsadd = 'SMS Cost-Add';
+            this.valuesmsedit='SMS Cost-Edit';
+            this.valuesmsstatus='SMS Cost-Status'
+           
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+
+
+              if (this.actions == 'SMS Cost-Add') {
+                this.valuesmsadd = 'SMS Cost-Add';
+              }
+              if(this.actions=='SMS Cost-Edit'){
+                this.valuesmsedit='SMS Cost-Edit'
+              }
+              if(this.actions=='SMS Cost-Status'){
+                this.valuesmsstatus='SMS Cost-Status'
+              }
+            
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    })
   }
 
   Addsms() {

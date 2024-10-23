@@ -509,6 +509,10 @@ export class FarginServiceService {
   private readonly surveyviewbyid = 'surveyQuestion/getQuestions/';
   private readonly viewbyidcustomerresponse = 'customerResponse/viewQuestion/';
 
+  //total  plan amount
+private readonly customerplanamaount='customer/viewcustomertotalamount/'
+ 
+
 
 
 
@@ -1911,6 +1915,11 @@ export class FarginServiceService {
 
   ViewByIdCustomerResponse(id: any) {
     return this.http.get(`${this.basePath}${this.viewbyidcustomerresponse}${id}`, this.options)
+  }
+
+
+  CustomerTotalPlanAmount(id:any){
+    return this.http.get(`${this.basePath}${this.customerplanamaount}${id}`,this.options)
   }
 
 
