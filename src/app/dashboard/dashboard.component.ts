@@ -100,6 +100,7 @@ export class DashboardComponent implements OnInit {
       this.valuecustomerticket = 'Customer Request'
       this.valueBusinessCategory = 'Bussiness Category';
       this.valueBusinessKYC = 'Business Category DocDocument Type';
+      this.valueBusinessKYC = 'Business Category Doc';
       this.valueRegion = 'Region';
       this.ValueMSO = 'MSO';
       this.valuemerchantPlan = 'Merchant Plan';
@@ -160,6 +161,10 @@ export class DashboardComponent implements OnInit {
         }
         if (this.roles == 'Business Category DocDocument Type') {
           this.valueBusinessKYC = 'Business Category DocDocument Type';
+        }
+
+        if (this.roles == 'Business Category Doc') {
+          this.valueBusinessKYC = 'Business Category Doc';
         }
         if (this.roles == 'Region') {
           this.valueRegion = 'Region';

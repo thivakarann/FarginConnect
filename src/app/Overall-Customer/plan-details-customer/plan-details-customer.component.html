@@ -47,7 +47,7 @@
                       <th>S No</th>
                       <th>Channel Name</th>
                       <th>Channel No</th>
-                      <th>Type</th>
+                     
                       <th>Status</th>
                       <th>Price</th>
                       <th>Language</th>
@@ -59,8 +59,7 @@
                       <td>{{ i + 1 }}</td>
                       <td>{{ row.channelName }}</td>
                       <td>{{ row.channelNo }}</td>
-                      <td>   <span *ngIf="row.type === 0">Free</span>
-                        <span  *ngIf="row.type === 1">Paid</span></td>
+                     
                       <td> <mat-slide-toggle class="example-margin" color="primary" [checked]="row.activeStatus === 1"
                           (change)="ActiveStatus($event,row.customerPlanId)">
                         </mat-slide-toggle></td>

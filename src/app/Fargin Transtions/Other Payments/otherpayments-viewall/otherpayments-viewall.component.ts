@@ -59,6 +59,9 @@ export class OtherpaymentsViewallComponent {
   actions: any;
   errorMessage: any;
   showcategoryData!:boolean;
+  valueCustomizationcheck:any;
+  
+
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
 
 
@@ -91,6 +94,7 @@ export class OtherpaymentsViewallComponent {
             this.valueCustomizationexport = 'Customization Payments-Export'
             this.valueCustomizationView = 'Customization Payments-View'
             this.valueCustomizationReceipt = 'Customization Payments-Receipt'
+             this.valueCustomizationcheck = 'Customization Payments-Check Status'
  
           }
           else {
@@ -104,6 +108,10 @@ export class OtherpaymentsViewallComponent {
               }
               if (this.actions == 'Customization Payments-Receipt') {
                 this.valueCustomizationReceipt = 'Customization Payments-Receipt'
+              }
+
+              if (this.actions == 'Customization Payments-Check Status') {
+                this.valueCustomizationcheck = 'Customization Payments-Check Status'
               }
  
             }

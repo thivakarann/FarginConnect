@@ -73,6 +73,11 @@ export class BouquetsViewallComponent implements OnInit {
   broadCasterAlcot: any;
   broadCasterAlcotsss: any[] = [];
   amount: any;
+  valuebouquetesadd: any;
+valuebouquetesexport: any;
+valuebouquetesStatus: any;
+valuebouquetesView: any;
+valuebouquetesEdit: any;
 
   constructor(
     public Bouquetviewall: FarginServiceService,
@@ -93,36 +98,36 @@ export class BouquetsViewallComponent implements OnInit {
     this.Bouquetviewall.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
         console.log(res);
-
+ 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
-
+ 
           if (this.roleId == 1) {
-            this.valueBroadcasterBouquetesAdd = 'Broadcaster Bouqutes-Add';
-            this.valueBroadcasterBouquetesEdit = 'Broadcaster Bouqutes-Edit';
-            this.valueBroadcasterBouquetesExport = 'Broadcaster Bouqutes-Export';
-            this.valueBroadcasterBouquetesStatus = 'Broadcaster Bouqutes-Status';
-            this.valueBroadcasterBouquetesView = 'Broadcaster Bouqutes-View';
+            this.valuebouquetesadd = 'Broadcaster Bouqutes-Add';
+            this.valuebouquetesEdit = 'Broadcaster Bouqutes-Edit';
+            this.valuebouquetesexport = 'Broadcaster Bouqutes-Export';
+            this.valuebouquetesStatus = 'Broadcaster Bouqutes-Status';
+            this.valuebouquetesView = 'Broadcaster Bouqutes-View';
           }
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
-
-
+ 
+ 
               if (this.actions == 'Broadcaster Bouqutes-Add') {
-                this.valueBroadcasterBouquetesAdd = 'Broadcaster Bouqutes-Add';
+                this.valuebouquetesadd = 'Broadcaster Bouqutes-Add';
               }
               if (this.actions == 'Broadcaster Bouqutes-Edit') {
-                this.valueBroadcasterBouquetesEdit = 'Broadcaster Bouqutes-Edit'
+                this.valuebouquetesEdit = 'Broadcaster Bouqutes-Edit'
               }
               if (this.actions == 'Broadcaster Bouqutes-Export') {
-                this.valueBroadcasterBouquetesExport = 'Broadcaster Bouqutes-Export'
+                this.valuebouquetesexport = 'Broadcaster Bouqutes-Export'
               }
               if (this.actions == 'Broadcaster Bouqutes-Status') {
-                this.valueBroadcasterBouquetesStatus = 'Broadcaster Bouqutes-Status'
+                this.valuebouquetesStatus = 'Broadcaster Bouqutes-Status'
               }
               if (this.actions == 'Broadcaster Bouqutes-View') {
-                this.valueBroadcasterBouquetesView = 'Broadcaster Bouqutes-View'
+                this.valuebouquetesView = 'Broadcaster Bouqutes-View'
               }
             }
           }

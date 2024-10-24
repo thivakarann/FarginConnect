@@ -10,7 +10,7 @@
 </div>
 
 <div class="row d-flex justify-content-start mt-1">
-    <div class="col-2">
+    <div class="col-2" [hidden]="detaislone?.qrGenerateLink!=null">
         <button  style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
             (click)="QRlink(this.id)">Generate</button>
     </div>

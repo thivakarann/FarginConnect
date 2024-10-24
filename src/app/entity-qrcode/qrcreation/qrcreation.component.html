@@ -32,13 +32,13 @@
               <span style="color: rgb(16, 16, 92);">{{this.EntityURLLink}}</span>  </label>
         </div>
 
-        <div class="form-check" style="margin-top: 3%;margin-left: 3%;" *ngIf="ViewURL ==true">
+        <div class="form-check" style="margin-top: 3%;margin-left: -66%;" *ngIf="ViewURL ==true">
             <input style="border: 2px solid #3F51B5;;" type="checkbox" class="form-check-input" id="exampleCheck1" [(ngModel)]="Check"
                 (ngModelChange)="selectss(Check)">
             <label class="form-check-label" for="exampleCheck1">Select & Generate
             </label>
         </div>&nbsp;&nbsp;&nbsp;
-        <button style="    background: #1a2873;
+        <button style="  margin-left: -165%;   background: #1a2873;
     border: 1px solid;" (click)="GenerateQr()" [hidden]="ADD == false" type="submit" class="my-3 btn btn-danger">Generate
             QR</button>
 

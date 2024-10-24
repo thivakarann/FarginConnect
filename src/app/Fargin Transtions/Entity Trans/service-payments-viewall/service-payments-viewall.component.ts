@@ -29,7 +29,7 @@ export class ServicePaymentsViewallComponent {
     'CheckStatus',
     'status',
     'view',
- 
+
   ];
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
@@ -49,42 +49,89 @@ export class ServicePaymentsViewallComponent {
   date1: any;
   date2: any;
   transaction: any;
-  showcategoryData!:boolean;
- 
+  showcategoryData!: boolean;
+  valueserviceexport: any;
+  valueserviceView: any;
+  getdashboard: any[] = [];
+  roleId: any = localStorage.getItem('roleId')
+  actions: any;
+  errorMessage: any;
+  valueserviceReceipt: any;
+
+  valueservicecheck: any;
+
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
- 
- 
- 
+
+
+
   ngOnInit(): void {
-   
+
     this.service.OneTimeAllTransactions().subscribe((res: any) => {
       if (res.flag == 1) {
-        this.transaction=res.response;
+        this.transaction = res.response;
         this.transaction.reverse();
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
- 
+
+    });
+
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        console.log(res);
+
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+
+          if (this.roleId == 1) {
+            this.valueserviceView = 'Manual Payment-View'
+            this.valueserviceexport = 'Manual Payment-Export'
+            this.valueserviceReceipt = 'Manual Payment-Receipt'
+            this.valueservicecheck = 'Manual Payment-Check Status'
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+              if (this.actions == 'Manual Payment-View') {
+                this.valueserviceView = 'Manual Payment-View'
+              }
+              if (this.actions == 'Manual Payment-Export') {
+                this.valueserviceexport = 'Manual Payment-Export'
+              }
+              if (this.actions == 'Manual Payment-Receipt') {
+                this.valueserviceReceipt = 'Manual Payment-Receipt'
+              }
+              if (this.actions == 'Manual Payment-Check Status') {
+                this.valueservicecheck = 'Manual Payment-Check Status'
+              }
+
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
     })
   }
 
 
-  reload(){
+  reload() {
     window.location.reload()
   }
- 
- 
- 
+
+
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
- 
+
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
- 
+
   renderPage(event: any) {
     this.currentPage = event;
     this.ngOnInit();
@@ -97,12 +144,12 @@ export class ServicePaymentsViewallComponent {
     this.ngOnInit();
   }
 
-  track(id:any){
-    let submitModel:manualpay={
+  track(id: any) {
+    let submitModel: manualpay = {
       payId: id?.merchantPayId,
     }
-    this.service.Manualpay(submitModel).subscribe((res:any)=>{
-      if(res.flag==1){
+    this.service.Manualpay(submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
         setTimeout(() => {
           window.location.reload()
@@ -112,47 +159,47 @@ export class ServicePaymentsViewallComponent {
         this.toastr.error(res.responseMessage);
       }
     })
-    }
- 
-    filterdate() {
-      // const datepipe: DatePipe = new DatePipe("en-US");
-      // let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY HH:mm");
-      // let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/YYYY HH:mm");
-      // this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
-      // this.currentPage = 1;
-   
-      this.service.OneTimeTransactionFilter(this.FromDateRange,this.ToDateRange).subscribe((res: any) => {
-        if (res.flag == 1) {
-     
-          this.transaction=res.response;
-          this.dataSource = new MatTableDataSource(this.transaction);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-          this.showcategoryData= false;
-        }
-        else if (res.flag == 2) {
-          this.showcategoryData = true;
-        }
-      })
-    }
+  }
+
+  filterdate() {
+    // const datepipe: DatePipe = new DatePipe("en-US");
+    // let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY HH:mm");
+    // let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/YYYY HH:mm");
+    // this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
+    // this.currentPage = 1;
+
+    this.service.OneTimeTransactionFilter(this.FromDateRange, this.ToDateRange).subscribe((res: any) => {
+      if (res.flag == 1) {
+
+        this.transaction = res.response;
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.showcategoryData = false;
+      }
+      else if (res.flag == 2) {
+        this.showcategoryData = true;
+      }
+    })
+  }
   reset() {
     window.location.reload();
   }
 
-  viewreciept(id:any){
+  viewreciept(id: any) {
     console.log(id)
-   
-  this.service.ManualRecieptView(id).subscribe((res:any)=>{
-    const reader = new FileReader();
-    reader.readAsDataURL(res);
-    reader.onloadend = () => {
-    var downloadURL = URL.createObjectURL(res);
-    window.open(downloadURL);
-    }
-  })
+
+    this.service.ManualRecieptView(id).subscribe((res: any) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(res);
+      reader.onloadend = () => {
+        var downloadURL = URL.createObjectURL(res);
+        window.open(downloadURL);
       }
- 
- 
+    })
+  }
+
+
   exportexcel() {
     console.log('check');
     let sno = 1;
@@ -160,7 +207,7 @@ export class ServicePaymentsViewallComponent {
     this.filteredData.forEach((element: any) => {
       let createdate = element.paymentDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
- 
+
       let moddate = element.modifiedDatetime;
       this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
@@ -170,44 +217,44 @@ export class ServicePaymentsViewallComponent {
       this.response.push(element?.paymentMethod);
       this.response.push(element?.paidAmount);
       this.response.push(this.date1);
- 
+
       if (element?.paymentStatus == 'Success') {
         this.response.push(element?.paymentStatus);
       }
       else if (element?.paymentStatus == 'Pending') {
         this.response.push(element?.paymentStatus);
       }
-      else if (element?.paymentStatus == 'Initiated'){
+      else if (element?.paymentStatus == 'Initiated') {
         this.response.push(element?.paymentStatus);
       }
- 
+
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
- 
+
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
-    'sno',
-    'paymentId',
-    'entityname',
-    'paymentmethod',
-    'amount',
-    'paidAt',
-    'status',
+      'sno',
+      'paymentId',
+      'entityname',
+      'paymentmethod',
+      'amount',
+      'paidAt',
+      'status',
     ]
- 
- 
+
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('OneTime Transactions');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
- 
- 
+
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -218,15 +265,15 @@ export class ServicePaymentsViewallComponent {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
+
       }
- 
+
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
- 
+
     data.forEach((d: any) => {
       // console.log("row loop");
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -235,7 +282,7 @@ export class ServicePaymentsViewallComponent {
       let qty4 = row.getCell(5);
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
- 
+
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -243,8 +290,8 @@ export class ServicePaymentsViewallComponent {
       qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
- 
+
+
     }
     );
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
@@ -255,9 +302,9 @@ export class ServicePaymentsViewallComponent {
       FileSaver.saveAs(blob, 'OneTime Transaction.xlsx');
     });
   }
- 
-  transactionview(id:any) {
- 
+
+  transactionview(id: any) {
+
     this.dialog.open(ServicePaymentViewComponent, {
       enterAnimationDuration: "1000ms",
       exitAnimationDuration: "1000ms",

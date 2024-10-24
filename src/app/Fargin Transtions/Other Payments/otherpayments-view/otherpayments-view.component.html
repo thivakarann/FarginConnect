@@ -17,18 +17,18 @@
             </tr>
 
             <tr>
-                <td class="datas">Customer Name</td>
-                <td id="data">{{ transaction?.merchantId?.entityName }}</td>
+                <td class="datas">Card Expiry</td>
+                <td id="data">
+                 <span  *ngIf="transaction?.cardExpiry == null || transaction?.cardExpiry == 'null' ">-</span>
+                 <span *ngIf="transaction?.cardExpiry != null || transaction?.cardExpiry == 'null'"> {{transaction?.cardExpiry}}</span>  
+                  </td>
             </tr>
-            <tr>
-                <td class="datas">Customer Email</td>
-                <td id="data">{{
-                    transaction?.merchantId?.contactEmail}}</td>
-            </tr>
-            <tr>
-                <td class="datas">Customer Mobile</td>
-                <td id="data">{{
-                    transaction?.merchantId?.contactMobile}}</td>
+            <tr >
+                <td class="datas">Card Masked No</td>
+                <td id="data">
+                    <span  *ngIf="transaction?.cardNoMasked == null || transaction?.cardNoMasked == 'null' ">-</span>
+                    <span *ngIf="transaction?.cardNoMasked != null || transaction?.cardNoMasked == 'null'">  {{transaction?.cardNoMasked}}</span>  
+                    </td>
             </tr>
             <tr>
                 <td class="datas">Order Reference</td>

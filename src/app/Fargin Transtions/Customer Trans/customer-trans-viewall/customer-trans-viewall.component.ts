@@ -51,7 +51,15 @@ export class CustomerTransViewallComponent {
   date1: any;
   date2: any;
   transaction: any;
-  showcategoryData!:boolean;
+  showcategoryData!: boolean;
+  valuepaymentexport: any;
+  valuepaymentview: any;
+  getdashboard: any[] = [];
+  roleId: any = localStorage.getItem('roleId')
+  actions: any;
+  errorMessage: any;
+  valuepaymentReceipt: any;
+  valuepaymentCheckStatus: any;
 
 
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
@@ -68,6 +76,43 @@ export class CustomerTransViewallComponent {
         this.dataSource.paginator = this.paginator;
       }
 
+    });
+
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        console.log(res);
+ 
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+ 
+          if (this.roleId == 1) {
+            this.valuepaymentexport = 'Customer Payment-Export'
+            this.valuepaymentview = 'Customer Payment-View'
+            this.valuepaymentReceipt = 'Customer Payment-Receipt'
+            this.valuepaymentCheckStatus = 'Customer Payment-Check Status'
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+              if (this.actions == 'Customer Payment-Export') {
+                this.valuepaymentexport = 'Customer Payment-Export'
+              }
+              if (this.actions == 'Customer Payment-View') {
+                this.valuepaymentview = 'Customer Payment-View'
+              }
+              if (this.actions == 'Customer Payment-Receipt') {
+                this.valuepaymentReceipt = 'Customer Payment-Receipt'
+              }
+              if (this.actions == 'Customer Payment-Check Status') {
+                this.valuepaymentCheckStatus = 'Customer Payment-Check Status'
+              }
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
     })
   }
 
@@ -104,15 +149,15 @@ export class CustomerTransViewallComponent {
     // let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/YYYY HH:mm");
     // this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
     // this.currentPage = 1;
- 
+
     this.service.CustomerTransactionsFilter(this.FromDateRange, this.ToDateRange).subscribe((res: any) => {
       if (res.flag == 1) {
- 
+
         this.transaction = res.response;
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.showcategoryData= false;
+        this.showcategoryData = false;
       }
       else if (res.flag == 2) {
         this.showcategoryData = true;

@@ -517,30 +517,33 @@ private readonly customerplanamaount='customer/viewcustomertotalamount/'
 //customer logo
 private readonly customerlogo = 'customerTickets/updatedocument';
 private readonly customerlogoview = 'customerTickets/viewimage/';
+private readonly otherpaymentviewbyid='otherpayment/getByPayId/';
  
-
-
 
 
 
   loginError = new Subject();
 
-  gettoken = localStorage.getItem('token');
+  token = localStorage.getItem('token') || null;
+  
   headers = new HttpHeaders({
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
-    X_ACCESS_TOKEN: `Bearer ${this.gettoken ? JSON.parse(localStorage.getItem('token') || '') : null
+    X_ACCESS_TOKEN: `Bearer ${this.token ? JSON.parse(localStorage.getItem('token') || '') : null
       }`,
   });
 
   headersMultipart = new HttpHeaders({
     'Access-Control-Allow-Origin': '*',
-    X_ACCESS_TOKEN: `Bearer ${this.gettoken ? JSON.parse(localStorage.getItem('token') || '') : null
+    X_ACCESS_TOKEN: `Bearer ${this.token ? JSON.parse(localStorage.getItem('token') || '') : null
       }`,
   });
   options = { headers: this.headers };
   optionsMultipart = { headers: this.headersMultipart };
 
+  getToken() {
+    return !!localStorage.getItem('token');
+  }
 
   getLogin(email: string, password: string) {
     const credentialBody = {
@@ -1940,7 +1943,9 @@ Entitylogoview(id: string) {
 }
 
 
-
+OtherPayTransactionView(id:any){
+  return this.http.get(`${this.basePath}${this.otherpaymentviewbyid}${id}`,this.options)
+}
 
 
 

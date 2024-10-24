@@ -17,7 +17,7 @@ import { CustomerticketImageComponent } from '../customerticket-image/customerti
   templateUrl: './customer-viewall.component.html',
   styleUrl: './customer-viewall.component.css'
 })
-export class CustomerViewallComponent implements OnInit{
+export class CustomerViewallComponent implements OnInit {
   strings = "@";
   dataSource!: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -31,6 +31,7 @@ export class CustomerViewallComponent implements OnInit{
   displayedColumns: string[] = [
     'sno',
     'ticketId',
+    'Customername',
     'mobileNumber',
     'categoryName',
     'logo',
@@ -38,20 +39,21 @@ export class CustomerViewallComponent implements OnInit{
     'ticketStatus',
     'action',
     'createdDateTime',
- 
+
   ];
   FormSearch!: FormGroup;
   ticket: any;
-  currentYear:any;
+  currentYear: any;
   responseDataListnew: any = [];
   response: any = [];
-valuecustomerticketexport: any;
-valuecustomerticketedit: any;
+  valuecustomerticketexport: any;
+  valuecustomerticketedit: any;
   errorMessage: any;
   getdashboard: any[] = [];
   roleId: any = localStorage.getItem('roleId')
   actions: any;
-valuedescription: any;
+  valuedescription: any;
+  valuedescriptionImage: any;
 
 
   constructor(private service: FarginServiceService, private dialog: MatDialog, private ActivateRoute: ActivatedRoute, private router: Router) { }
@@ -59,7 +61,7 @@ valuedescription: any;
   ngOnInit(): void {
 
     this.currentYear = new Date().getFullYear();
- 
+
 
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.MobileNumber = param.Alldata;
@@ -81,22 +83,27 @@ valuedescription: any;
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
           if (this.roleId == 1) {
-          this.valuecustomerticketedit='Customer Request-Edit'
-          this.valuecustomerticketexport='Customer Request-Export'
-          this.valuedescription='Customer Request-View'
+            this.valuecustomerticketedit = 'Customer Request-Edit'
+            this.valuecustomerticketexport = 'Customer Request-Export'
+            this.valuedescription = 'Customer Request-View'
+            this.valuedescriptionImage='Customer Request-Image'
           }
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
-         if(this.actions=='Customer Request-Edit'){
-          this.valuecustomerticketedit='Customer Request-Edit'
-         }
-         if(this.actions=='Customer Request-Export'){
-          this.valuecustomerticketexport='Customer Request-Export'
-         }
-         if(this.actions=='Customer Request-View'){
-          this.valuedescription='Customer Request-View'
-         }
+              if (this.actions == 'Customer Request-Edit') {
+                this.valuecustomerticketedit = 'Customer Request-Edit'
+              }
+              if (this.actions == 'Customer Request-Export') {
+                this.valuecustomerticketexport = 'Customer Request-Export'
+              }
+              if (this.actions == 'Customer Request-View') {
+                this.valuedescription = 'Customer Request-View'
+              }
+
+              if(this.actions=='Customer Request-Image'){
+                this.valuedescriptionImage='Customer Request-Image'
+               }
             }
           }
         }
@@ -107,10 +114,10 @@ valuedescription: any;
     })
 
   }
-  
-  reload(){
-  window.location.reload()
-}
+
+  reload() {
+    window.location.reload()
+  }
 
 
   Back(id: any) {
@@ -137,7 +144,7 @@ valuedescription: any;
     })
   }
 
-  viewlogo(id:any) {
+  viewlogo(id: any) {
     this.dialog.open(CustomerticketImageComponent, {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
@@ -146,7 +153,7 @@ valuedescription: any;
       data: {
         value: id,
         // value1: Link
- 
+
       }
     })
   }
@@ -173,23 +180,23 @@ valuedescription: any;
     this.excelexportCustomer();
   }
 
-  description(id:any,id2:any){
+  description(id: any, id2: any) {
     this.dialog.open(CustDescriptionCommentComponent, {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
       disableClose: true,
-      data:{value:id,Title:id2}
+      data: { value: id, Title: id2 }
     });
   }
- 
- 
-  Ticketcomment(id:any,id2:any){
- 
+
+
+  Ticketcomment(id: any, id2: any) {
+
     this.dialog.open(CustDescriptionCommentComponent, {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
       disableClose: true,
-      data:{value:id,Title:id2}
+      data: { value: id, Title: id2 }
     });
   }
 
@@ -203,7 +210,7 @@ valuedescription: any;
       "Ticket Id",
       "Ticket Status",
       "Created Date and time",
-   
+
     ]
 
 
@@ -242,7 +249,7 @@ valuedescription: any;
       let qty4 = row.getCell(5);
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
-  
+
 
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -251,7 +258,7 @@ valuedescription: any;
       qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-  
+
 
     }
     );

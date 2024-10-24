@@ -86,7 +86,7 @@ export class BouquetePlanViewallComponent {
               this.actions = datas.subPermissions;
               
 
-              if(this.actions='Plan Configuration-Add'){
+              if(this.actions =='Plan Configuration-Add'){
                 this.valuePlanAdd='Plan Configuration-Add'
               }
               if (this.actions == 'Plan Configuration-Export') {

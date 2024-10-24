@@ -64,7 +64,7 @@
         <button class="tab" [class.active]="activeTab === 'videos'" (click)="selectTab('videos')"
             [hidden]="valuekycdocument!=='Entity View KYC Document'">KYC Documents</button>
         <button class="tab" [class.active]="activeTab === 'bussiness'" (click)="selectTab('bussiness')"
-            [hidden]="valuebussinessdocument!=='Entity View Bussiness Document'">Bussiness
+            [hidden]="valuebussinessdocument!=='Entity View Bussiness Document'">Business
             Document
         </button>
         <button class="tab" [class.active]="activeTab === 'doot1'" (click)="selectTab('doot1')"
@@ -95,7 +95,7 @@
                         <div class="buttonDownload1" [matMenuTriggerFor]="menu">
                             <i style="overflow:hidden;color:#fff;font-size:22px;" class="fa-solid fa-ellipsis-vertical">
                                 <mat-menu #menu="matMenu">
-                                    <button style="font-size: 10px;" mat-menu-item (click)="editpersonalInfo(this.id)"
+                                    <button [disabled]="this.detaislone?.onBoardStatus=='true'"  style="font-size: 10px;" mat-menu-item (click)="editpersonalInfo(this.id)"
                                         [hidden]="valueeditentity!=='Entity View-Edit'">Edit EntityDetails</button>
                                     <button style="font-size: 10px;" mat-menu-item (click)="viewOnboardInfo(this.id)"
                                         [disabled]="detaislone?.onBoardStatus=='false'"
@@ -568,7 +568,7 @@
                     </div>
                 </div>
                 <div class="col-md-2 mt-1">
-                    <button [hidden]="valuekycadd!=='Entity View KYC Document-add'" (click)="addKycdocuments(this.id)"
+                    <button [hidden]="valuekycadd!=='Entity View KYC Document-add'" [disabled]="KYCDetails.length > 0" (click)="addKycdocuments(this.id)"
                         style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Add
                         KYC</button>
                 </div>
@@ -1121,7 +1121,7 @@
                         <tbody
                             *ngFor="let item of otherDetails| paginate: { itemsPerPage: 3, currentPage: currentPage } | search: searchText;let i=index">
                             <td>{{i+1}}</td>
-                            <td>{{item.paymentId}}</td>
+                            <td>{{item.pgPaymentId}}</td>
                             <td>{{item.serviceName}}</td>
                             <td>{{item.paidAmount}}</td>
                             <td [hidden]="valueCustomizededit!=='Customized Payment-Edit'"> <span

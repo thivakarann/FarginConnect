@@ -66,17 +66,10 @@
                 <td mat-cell *matCellDef="let viewall">{{viewall.paymentMethod}}</td>
             </ng-container>
             <ng-container matColumnDef="paidamount">
-                <th mat-header-cell *matHeaderCellDef>Paid Amount</th>
+                <th mat-header-cell *matHeaderCellDef>Due Amount</th>
                 <td mat-cell *matCellDef="let viewall">{{viewall.paidAmount}}</td>
             </ng-container>
-            <ng-container matColumnDef="totalpay">
-                <th mat-header-cell *matHeaderCellDef>Total PayableAmount</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall.totalPayableAmount}}</td>
-            </ng-container>
-            <ng-container matColumnDef="gstnumber">
-                <th mat-header-cell *matHeaderCellDef>Gst Number</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall.gstAmount}}</td>
-            </ng-container>
+       
          
             <ng-container matColumnDef="reference">
                 <th mat-header-cell *matHeaderCellDef>Order Reference</th>

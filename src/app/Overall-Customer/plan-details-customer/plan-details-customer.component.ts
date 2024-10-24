@@ -76,46 +76,50 @@ export class PlanDetailsCustomerComponent {
         this.alcotchannel = res.response.alcotList;
         this.bouquetPlan = res.response.bouquetList;
         this.lcopChannel = res.response.lcopList;
+   
         let totalAmount = 0;
         const alcotList = res.response.alcotList;
-
-
+   
+     
         for (let i = 0; i < alcotList.length; i++) {
-          totalAmount += alcotList[i].price;
+          if (alcotList[i].activeStatus === 1) {
+            totalAmount += alcotList[i].price;
+          }
         }
-
+   
         this.totalAmount = totalAmount;
-        this.viewData = true;
-
-
+   
         let totalbouqet = 0;
         const bouquetList = res.response.bouquetList;
-
+   
+       
         for (let i = 0; i < bouquetList.length; i++) {
-          totalbouqet += bouquetList[i].broadCasterId.amount;
+          if (bouquetList[i].activeStatus === 1) {
+            totalbouqet += bouquetList[i].broadCasterId.amount;
+          }
         }
-
+   
         this.totalbouqet = totalbouqet;
-        this.viewData = true;
-
-
+   
         let totallcop = 0;
         const lcopList = res.response.lcopList;
-
+   
         for (let i = 0; i < lcopList.length; i++) {
-          totallcop += lcopList[i].overallAmount;
+          if (lcopList[i].activeStatus === 1) {
+            totallcop += lcopList[i].overallAmount;
+          }
         }
-
+   
         this.totallcop = totallcop;
-
-        this.viewData = true;
+   
+        // Calculate overall amount
         this.overallAmount = this.totalAmount + this.totalbouqet + this.totallcop;
-      }
-      else {
+   
+        this.viewData = true; // Assuming viewData should be set true only if there are valid amounts
+      } else {
         this.viewData = false;
-
       }
-    })
+    });
 
   }
 

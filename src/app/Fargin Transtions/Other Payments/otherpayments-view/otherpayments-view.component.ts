@@ -10,17 +10,18 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 })
 export class OtherpaymentsViewComponent {
 
-  viewdata: any;
-  viewdata1: any;
-  transactiondata: any;
   transaction: any;
-  constructor(private router: Router,
-    private service: FarginServiceService,
-    private dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: any,) { }
+  id: any;
+  constructor(private service:FarginServiceService,@Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog){
+   
+  }
   ngOnInit(): void {
-    this.transaction = this.data.value;
-    console.log(this.transaction);
- 
+    this.id = this.data.value
+    console.log(this.id);
+   this.service.OtherPayTransactionView(this.id).subscribe((res:any)=>{
+    if(res.flag==1){
+    this.transaction=res.response;
+  }
+  })
   }
 }

@@ -24,7 +24,8 @@ export class SMScostAddComponent {
   ngOnInit(): void {
 
     this.myForm = new FormGroup({
-      amount: new FormControl('', Validators.required),
+      amount: new FormControl('', [Validators.required, Validators.pattern('^[1-9][0-9]*$')]),
+
     });
   }
 

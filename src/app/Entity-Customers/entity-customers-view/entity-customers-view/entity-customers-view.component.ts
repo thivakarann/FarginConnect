@@ -105,6 +105,56 @@ export class EntityCustomersViewComponent {
         this.setupboxview=res.response;
       }
     })
+
+    this.service.ViewSetupBoxPlanDetails(this.id).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.alcotchannel = res.response.alcotList;
+        this.bouquetPlan = res.response.bouquetList;
+        this.lcopChannel = res.response.lcopList;
+   
+        let totalAmount = 0;
+        const alcotList = res.response.alcotList;
+   
+     
+        for (let i = 0; i < alcotList.length; i++) {
+          if (alcotList[i].activeStatus === 1) {
+            totalAmount += alcotList[i].price;
+          }
+        }
+   
+        this.totalAmount = totalAmount;
+   
+        let totalbouqet = 0;
+        const bouquetList = res.response.bouquetList;
+   
+       
+        for (let i = 0; i < bouquetList.length; i++) {
+          if (bouquetList[i].activeStatus === 1) {
+            totalbouqet += bouquetList[i].broadCasterId.amount;
+          }
+        }
+   
+        this.totalbouqet = totalbouqet;
+   
+        let totallcop = 0;
+        const lcopList = res.response.lcopList;
+   
+        for (let i = 0; i < lcopList.length; i++) {
+          if (lcopList[i].activeStatus === 1) {
+            totallcop += lcopList[i].overallAmount;
+          }
+        }
+   
+        this.totallcop = totallcop;
+   
+        // Calculate overall amount
+        this.overallAmount = this.totalAmount + this.totalbouqet + this.totallcop;
+   
+        this.viewData = true; // Assuming viewData should be set true only if there are valid amounts
+      } else {
+        this.viewData = false;
+      }
+    });
  
   }
  

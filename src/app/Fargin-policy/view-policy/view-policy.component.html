@@ -49,9 +49,9 @@
             </ng-container>
 
             <ng-container matColumnDef="termAndCondition">
-                <th mat-header-cell *matHeaderCellDef [hidden]="valuetermViews!=='Fargin Policy-View'">Terms and
+                <th mat-header-cell *matHeaderCellDef>Terms and
                     Condition</th>
-                <td mat-cell *matCellDef="let data" [hidden]="valuetermViews!=='Fargin Policy-View'">
+                <td mat-cell *matCellDef="let data" >
                     <div class="privacy-policy-container">
                         <!-- Display the sliced text based on whether the full text is visible -->
                         <span *ngIf="!isFullPolicyVisible">
@@ -70,8 +70,8 @@
             </ng-container>
 
             <ng-container matColumnDef="disclaimer">
-                <th mat-header-cell *matHeaderCellDef [hidden]="valuetermViews!=='Fargin Policy-View'">Disclaimer</th>
-                <td mat-cell *matCellDef="let data" [hidden]="valuetermViews!=='Fargin Policy-View'">
+                <th mat-header-cell *matHeaderCellDef >Disclaimer</th>
+                <td mat-cell *matCellDef="let data" >
                     <div class="privacy-policy-container">
                         <!-- Display the sliced text based on whether the full text is visible -->
                         <span *ngIf="!isFullPolicyVisible">
@@ -90,9 +90,9 @@
             </ng-container>
 
             <ng-container matColumnDef="privacyPolicy">
-                <th mat-header-cell *matHeaderCellDef [hidden]="valuetermViews!=='Fargin Policy-View'">Privacy Policy
+                <th mat-header-cell *matHeaderCellDef>Privacy Policy
                 </th>
-                <td mat-cell *matCellDef="let data" [hidden]="valuetermViews!=='Fargin Policy-View'">
+                <td mat-cell *matCellDef="let data">
                     <div class="privacy-policy-container">
                         <!-- Display the sliced text based on whether the full text is visible -->
                         <span *ngIf="!isFullPolicyVisible">
@@ -111,9 +111,9 @@
             </ng-container>
 
             <ng-container matColumnDef="refundPolicy">
-                <th mat-header-cell *matHeaderCellDef [hidden]="valuetermViews!=='Fargin Policy-View'">Refund Policy
+                <th mat-header-cell *matHeaderCellDef >Refund Policy
                 </th>
-                <td mat-cell *matCellDef="let data" [hidden]="valuetermViews!=='Fargin Policy-View'">
+                <td mat-cell *matCellDef="let data" >
                     <div class="privacy-policy-container">
                         <!-- Display the sliced text based on whether the full text is visible -->
                         <span *ngIf="!isFullPolicyVisible">

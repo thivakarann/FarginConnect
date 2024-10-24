@@ -60,6 +60,13 @@
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="Customername">
+        <th mat-header-cell *matHeaderCellDef>Customer Name</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data.customer.customerName}}
+        </td>
+      </ng-container>
+
       <ng-container matColumnDef="categoryName">
         <th mat-header-cell *matHeaderCellDef>Category Name</th>
         <td mat-cell *matCellDef="let data">
@@ -68,8 +75,8 @@
       </ng-container>
 
     <ng-container matColumnDef="logo">
-      <th mat-header-cell *matHeaderCellDef>Logo</th>
-      <td  mat-cell *matCellDef="let data">
+      <th mat-header-cell *matHeaderCellDef [hidden]="valuedescriptionImage!=='Customer Request-Image'">File</th>
+      <td  mat-cell *matCellDef="let data" [hidden]="valuedescriptionImage!=='Customer Request-Image'">
         <span ><i (click)="viewlogo(data.raiseTicketId)"
           class="fas fa-image" style="font-size:20px;"> </i></span>
       </td>
