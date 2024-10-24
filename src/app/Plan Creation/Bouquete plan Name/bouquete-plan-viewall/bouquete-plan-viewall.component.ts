@@ -76,27 +76,27 @@ export class BouquetePlanViewallComponent {
           this.getdashboard = res.response?.subPermission;
           
           if (this.roleId == 1) {
-            this.valuePlanAdd = 'Plan Configuration-Add';
-            this.valuePlanEdit='Plan Configuration-Edit';
-            this.valuePlanExport='Plan Configuration-Export';
-            this.valuePlanStatus='Plan Configuration-Status'
+            this.valuePlanAdd = ' Plan Creation-Add';
+            this.valuePlanEdit=' Plan Creation-Edit';
+            this.valuePlanExport=' Plan Creation-Export';
+            this.valuePlanStatus=' Plan Creation-Status'
           }
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
               
 
-              if(this.actions =='Plan Configuration-Add'){
-                this.valuePlanAdd='Plan Configuration-Add'
+              if(this.actions ==' Plan Creation-Add'){
+                this.valuePlanAdd=' Plan Creation-Add'
               }
-              if (this.actions == 'Plan Configuration-Export') {
-                this.valuePlanExport = 'Plan Configuration-Export';
+              if (this.actions == ' Plan Creation-Export') {
+                this.valuePlanExport = ' Plan Creation-Export';
               }
-              if(this.actions=='Plan Configuration-Status'){
-                this.valuePlanStatus='Plan Configuration-Status'
+              if(this.actions==' Plan Creation-Status'){
+                this.valuePlanStatus=' Plan Creation-Status'
               }
-              if(this.actions=='Plan Configuration-Edit'){
-                this.valuePlanEdit='Plan Configuration-Edit'
+              if(this.actions==' Plan Creation-Edit'){
+                this.valuePlanEdit=' Plan Creation-Edit'
               }
              
             }

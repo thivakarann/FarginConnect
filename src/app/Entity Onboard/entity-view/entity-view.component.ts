@@ -285,9 +285,9 @@ export class EntityViewComponent implements OnInit {
             this.valuebussinessedit = 'Entity View Bussiness Document-Edit'
 
 
-            this.valueCustomizedadd = 'Customized Payment-Add'
-            this.valueCustomizededit = 'Customized Payment-Edit'
-            this.valueCustomizedview = 'Customized Payment-View'
+            this.valueCustomizedadd = 'Customized Transactions-Add'
+            this.valueCustomizededit = 'Customized Transactions-Edit'
+            this.valueCustomizedview = 'Customized Transactions-View'
 
             this.valuesmsadd = 'Sms Setting-Add'
             this.valuesmsapproval = 'Sms Setting-Approval'
@@ -419,14 +419,14 @@ export class EntityViewComponent implements OnInit {
               }
 
 
-              if (this.actions == 'Customized Payment-Add') {
-                this.valueCustomizedadd = 'Customized Payment-Add'
+              if (this.actions == 'Customized Transactions-Add') {
+                this.valueCustomizedadd = 'Customized Transactions-Add'
               }
-              if (this.actions == 'Customized Payment-Edit') {
-                this.valueCustomizededit = 'Customized Payment-Edit'
+              if (this.actions == 'Customized Transactions-Edit') {
+                this.valueCustomizededit = 'Customized Transactions-Edit'
               }
-              if (this.actions == 'Customized Payment-View') {
-                this.valueCustomizedview = 'Customized Payment-View'
+              if (this.actions == 'Customized Transactions-View') {
+                this.valueCustomizedview = 'Customized Transactions-View'
               }
 
 

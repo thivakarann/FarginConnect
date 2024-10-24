@@ -55,25 +55,25 @@ export class ViewallKyccategoryComponent implements OnInit {
           this.getdashboard = res.response?.subPermission;
 
           if (this.roleId == 1) {
-            this.valuekycadd = 'Buisnees Document Type-Add';
-            this.valuekycexport = 'Buisnees Document Type-Export';
-            this.valuekycedit = 'Buisnees Document Type-Edit'
-            this.valuekycstatus = 'Buisnees Document Type-Status'
+            this.valuekycadd = 'Business Document Type-Add';
+            this.valuekycexport = 'Business Document Type-Export';
+            this.valuekycedit = 'Business Document Type-Edit'
+            this.valuekycstatus = 'Business Document Type-Status'
           }
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
-              if (this.actions == 'Buisnees Document Type-Add') {
-                this.valuekycadd = 'Buisnees Document Type-Add';
+              if (this.actions == 'Business Document Type-Add') {
+                this.valuekycadd = 'Business Document Type-Add';
               }
-              if (this.actions == 'Buisnees Document Type-Export') {
-                this.valuekycexport = 'Buisnees Document Type-Export'
+              if (this.actions == 'Business Document Type-Export') {
+                this.valuekycexport = 'Business Document Type-Export'
               }
-              if (this.actions == 'Buisnees Document Type-Edit') {
-                this.valuekycedit = 'Buisnees Document Type-Edit'
+              if (this.actions == 'Business Document Type-Edit') {
+                this.valuekycedit = 'Business Document Type-Edit'
               }
-              if (this.actions == 'Buisnees Document Type-Status') {
-                this.valuekycstatus = 'Buisnees Document Type-Status'
+              if (this.actions == 'Business Document Type-Status') {
+                this.valuekycstatus = 'Business Document Type-Status'
               }
             }
           }

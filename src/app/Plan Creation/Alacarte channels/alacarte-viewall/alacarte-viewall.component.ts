@@ -69,31 +69,31 @@ export class AlacarteViewallComponent implements OnInit {
           this.getdashboard = res.response?.subPermission;
 
           if (this.roleId == 1) {
-            this.valuealcartAdd = 'Channel Configuration-Add';
-            this.valuealcartEdit = 'Channel Configuration-Edit';
-            this.valuealcartExport = 'Channel Configuration-Export'
-            this.valuealcartStatus = 'Channel Configuration-Status'
-            this.valuealcartView = 'Channel Configuration-View'
+            this.valuealcartAdd = 'Channel Creation-Add';
+            this.valuealcartEdit = 'Channel Creation-Edit';
+            this.valuealcartExport = 'Channel Creation-Export'
+            this.valuealcartStatus = 'Channel Creation-Status'
+            this.valuealcartView = 'Channel Creation-View'
           }
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
 
 
-              if (this.actions == 'Channel Configuration-Add') {
-                this.valuealcartAdd = 'Channel Configuration-Add';
+              if (this.actions == 'Channel Creation-Add') {
+                this.valuealcartAdd = 'Channel Creation-Add';
               }
-              if (this.actions == 'Channel Configuration-Edit') {
-                this.valuealcartEdit = 'Channel Configuration-Edit';
+              if (this.actions == 'Channel Creation-Edit') {
+                this.valuealcartEdit = 'Channel Creation-Edit';
               }
-              if (this.actions == 'Channel Configuration-Export') {
-                this.valuealcartExport = 'Channel Configuration-Export';
+              if (this.actions == 'Channel Creation-Export') {
+                this.valuealcartExport = 'Channel Creation-Export';
               }
-              if (this.actions == 'Channel Configuration-View') {
-                this.valuealcartView = 'Channel Configuration-View'
+              if (this.actions == 'Channel Creation-View') {
+                this.valuealcartView = 'Channel Creation-View'
               }
-              if (this.actions == 'Channel Configuration-Status') {
-                this.valuealcartStatus = 'Channel Configuration-Status';
+              if (this.actions == 'Channel Creation-Status') {
+                this.valuealcartStatus = 'Channel Creation-Status';
               }
             }
           }

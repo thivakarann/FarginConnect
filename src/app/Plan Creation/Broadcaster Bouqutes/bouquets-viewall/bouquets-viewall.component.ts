@@ -74,10 +74,10 @@ export class BouquetsViewallComponent implements OnInit {
   broadCasterAlcotsss: any[] = [];
   amount: any;
   valuebouquetesadd: any;
-valuebouquetesexport: any;
-valuebouquetesStatus: any;
-valuebouquetesView: any;
-valuebouquetesEdit: any;
+  valuebouquetesexport: any;
+  valuebouquetesStatus: any;
+  valuebouquetesView: any;
+  valuebouquetesEdit: any;
 
   constructor(
     public Bouquetviewall: FarginServiceService,
@@ -98,10 +98,10 @@ valuebouquetesEdit: any;
     this.Bouquetviewall.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
         console.log(res);
- 
+
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
- 
+
           if (this.roleId == 1) {
             this.valuebouquetesadd = 'Broadcaster Bouqutes-Add';
             this.valuebouquetesEdit = 'Broadcaster Bouqutes-Edit';
@@ -112,8 +112,8 @@ valuebouquetesEdit: any;
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
- 
- 
+
+
               if (this.actions == 'Broadcaster Bouqutes-Add') {
                 this.valuebouquetesadd = 'Broadcaster Bouqutes-Add';
               }
@@ -144,10 +144,10 @@ valuebouquetesEdit: any;
     this.router.navigateByUrl('/dashboard/bouqutes-add')
   }
 
-  
-reload(){
-  window.location.reload()
-}
+
+  reload() {
+    window.location.reload()
+  }
 
   add() {
     this.dialog.open(BouqutesAddComponent, {

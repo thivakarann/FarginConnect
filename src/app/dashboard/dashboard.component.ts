@@ -107,9 +107,9 @@ export class DashboardComponent implements OnInit {
       this.valueFacheck = 'FaCheck Key';
       this.valuepgsetupkey = 'PG SetupKey';
       this.valueWithdrawalfee = 'Withdrawal Fee'
-      this.valuechannelConfiguration = 'Channel Configuration';
-      this.valueBroadcasterConfiguration = 'Broadcaster Configuration'
-      this.valuePlanConfiguration = 'Plan Configuration'
+      this.valuechannelConfiguration = 'Channel Creation';
+      this.valueBroadcasterConfiguration = 'Broadcaster Creation'
+      this.valuePlanConfiguration = 'Plan Creation'
       this.valueBroadcasterBouqutes = 'Broadcaster Bouqutes'
       this.valueUser = 'User';
       this.valueRole = 'Role';
@@ -118,7 +118,7 @@ export class DashboardComponent implements OnInit {
       this.valueMerchantpolicy = 'Merchant Policy'
       this.valuecustomerpayment = 'Customer Payment'
       this.valuecustomersubscription = 'Subscription Payment'
-      this.valuecustomermanualpayment = 'Manual Payment'
+      this.valuecustomermanualpayment = 'one Time Payments'
       this.valuekyccategory = 'Kyc Category'
       this.valueannouncement = 'Announcement'
       this.valuesmscost = 'SMS Cost'
@@ -129,7 +129,7 @@ export class DashboardComponent implements OnInit {
       this.valueautodebit = 'Auto Debit'
       this.valueCustomizationPayments = 'Customization Payments'
       this.valuesurvey = 'Survey'
-      this.valueBuisneesDoCument = 'Buisnees Document Type'
+      this.valueBuisneesDoCument = 'Business Document Type'
     }
     else {
       for (let data of this.getdashboard) {
@@ -184,14 +184,14 @@ export class DashboardComponent implements OnInit {
         if (this.roles == 'Withdrawal Fee') {
           this.valueWithdrawalfee = 'Withdrawal Fee'
         }
-        if (this.roles == 'Channel Configuration') {
-          this.valuechannelConfiguration = 'Channel Configuration';
+        if (this.roles == 'Channel Creation') {
+          this.valuechannelConfiguration = 'Channel Creation';
         }
-        if (this.roles == 'Broadcaster Configuration') {
-          this.valueBroadcasterConfiguration = 'Broadcaster Configuration'
+        if (this.roles == 'Broadcaster Creation') {
+          this.valueBroadcasterConfiguration = 'Broadcaster Creation'
         }
-        if (this.roles == 'Plan Configuration') {
-          this.valuePlanConfiguration = 'Plan Configuration'
+        if (this.roles == 'Plan Creation') {
+          this.valuePlanConfiguration = 'Plan Creation'
         }
         if (this.roles == 'Broadcaster Bouqutes') {
           this.valueBroadcasterBouqutes = 'Broadcaster Bouqutes'
@@ -214,8 +214,8 @@ export class DashboardComponent implements OnInit {
         if (this.roles == 'Subscription Payment') {
           this.valuecustomersubscription = 'Subscription Payment'
         }
-        if (this.roles == 'Manual Payment') {
-          this.valuecustomermanualpayment = 'Manual Payment'
+        if (this.roles == 'one Time Payments') {
+          this.valuecustomermanualpayment = 'one Time Payments'
         }
         if (this.roles == 'Kyc Category') {
           this.valuekyccategory = 'Kyc Category'
@@ -245,8 +245,8 @@ export class DashboardComponent implements OnInit {
           this.valueCustomizationPayments = 'Customization Payments'
         }
 
-        if (this.roles == 'Buisnees Document Type') {
-          this.valueBuisneesDoCument = 'Buisnees Document Type'
+        if (this.roles == 'Business Document Type') {
+          this.valueBuisneesDoCument = 'Business Document Type'
         }
 
         if (this.roles == 'Survey') {

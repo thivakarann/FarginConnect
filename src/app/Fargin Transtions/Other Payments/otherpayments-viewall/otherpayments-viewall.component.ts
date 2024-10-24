@@ -22,6 +22,7 @@ export class OtherpaymentsViewallComponent {
     'sno',
     'paymentId',
     'entityname',
+    'serviceName',
     'paymentmethod',
     'amount',
     'paidAt',
@@ -71,6 +72,7 @@ export class OtherpaymentsViewallComponent {
     this.service.OtherPay().subscribe((res: any) => {
       if (res.flag == 1) {
         this.transaction = res.response;
+        this.transaction.reverse();
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;

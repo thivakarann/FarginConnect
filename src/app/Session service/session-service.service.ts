@@ -8,7 +8,7 @@ import { Location } from '@angular/common'; // Import Location service
 })
 export class SessionServiceService {
   private timer: any;
-  private timeoutInMinutes: number = 15; // Default timeout duration in minutes
+  private timeoutInMinutes: number = 1; // Default timeout duration in minutes
   private lastAction: number = Date.now();
   private isLoggedInFlag: boolean = true; // Track user authentication status
 
@@ -22,7 +22,7 @@ export class SessionServiceService {
     this.timer = setInterval(() => {
       const now = Date.now();
       const timeLeft = this.lastAction + this.timeoutInMinutes * 60 * 1000 - now;
-      // console.log("TimeLeft" + timeLeft)
+      console.log("TimeLeft" + timeLeft)
       if (timeLeft < 0) {
         this.logout(); // Timeout reached, log out the user
       }

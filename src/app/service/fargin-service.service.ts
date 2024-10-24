@@ -510,22 +510,22 @@ export class FarginServiceService {
   private readonly viewbyidcustomerresponse = 'customerResponse/viewQuestion/';
 
   //total  plan amount
-private readonly customerplanamaount='customer/viewcustomertotalamount/'
- 
+  private readonly customerplanamaount = 'customer/viewcustomertotalamount/'
 
 
-//customer logo
-private readonly customerlogo = 'customerTickets/updatedocument';
-private readonly customerlogoview = 'customerTickets/viewimage/';
-private readonly otherpaymentviewbyid='otherpayment/getByPayId/';
- 
+
+  //customer logo
+  private readonly customerlogo = 'customerTickets/updatedocument';
+  private readonly customerlogoview = 'customerTickets/viewimage/';
+  private readonly otherpaymentviewbyid = 'otherpayment/getByPayId/';
+
 
 
 
   loginError = new Subject();
 
   token = localStorage.getItem('token') || null;
-  
+
   headers = new HttpHeaders({
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
@@ -1922,30 +1922,30 @@ private readonly otherpaymentviewbyid='otherpayment/getByPayId/';
   }
 
 
-  CustomerTotalPlanAmount(id:any){
-    return this.http.get(`${this.basePath}${this.customerplanamaount}${id}`,this.options)
+  CustomerTotalPlanAmount(id: any) {
+    return this.http.get(`${this.basePath}${this.customerplanamaount}${id}`, this.options)
   }
 
 
 
 
- 
-//logo
-EntitylogoUpdatescustomer(data: FormData) {
-  return this.http.put(`${this.basePath}${this.customerlogo}`, data, this.optionsMultipart);
-}
 
-Entitylogoview(id: string) {
-  return this.http.get(`${this.basePath}${this.customerlogoview}${id}`, {
-    ...this.options,
-    ...{ responseType: 'blob' },
-  });
-}
+  //logo
+  EntitylogoUpdatescustomer(data: FormData) {
+    return this.http.put(`${this.basePath}${this.customerlogo}`, data, this.optionsMultipart);
+  }
+
+  Entitylogoview(id: string) {
+    return this.http.get(`${this.basePath}${this.customerlogoview}${id}`, {
+      ...this.options,
+      ...{ responseType: 'blob' },
+    });
+  }
 
 
-OtherPayTransactionView(id:any){
-  return this.http.get(`${this.basePath}${this.otherpaymentviewbyid}${id}`,this.options)
-}
+  OtherPayTransactionView(id: any) {
+    return this.http.get(`${this.basePath}${this.otherpaymentviewbyid}${id}`, this.options)
+  }
 
 
 

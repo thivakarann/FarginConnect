@@ -1,5 +1,5 @@
 
-<h4 style="text-align:left;color:#141E46;">Service Payments</h4>
+<h4 style="text-align:left;color:#141E46;">one Time Payments</h4>
 <div class="row" style="margin-top: 3%;">
 </div>
 <div class="row mt-3">
@@ -36,7 +36,7 @@
 
     </div>&nbsp;&nbsp;&nbsp;
     <div class="col ml-5" style="margin-top:25px;">
-        <button [hidden]="valueserviceexport!=='Manual Payment-Export'" style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
+        <button [hidden]="valueserviceexport!=='one Time Payments-Export'" style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
             (click)=" exportexcel()">Export</button>
     </div>
    
@@ -103,16 +103,16 @@
             </ng-container>
 
             <ng-container matColumnDef="receipt">
-                <th mat-header-cell *matHeaderCellDef  [hidden]="valueserviceReceipt!=='Manual Payment-Receipt'">Receipt </th>
-                <td  [hidden]="valueserviceReceipt!=='Manual Payment-Receipt'" mat-cell *matCellDef="let transaction"
+                <th mat-header-cell *matHeaderCellDef  [hidden]="valueserviceReceipt!=='one Time Payments-Invoice'">Invoice</th>
+                <td  [hidden]="valueserviceReceipt!=='one Time Payments-Invoice'" mat-cell *matCellDef="let transaction"
                 >
                 <button class="btn btn-success btn-sm" [disabled]="transaction?.paymentStatus !='Success'" style="border:none;" (click)="viewreciept(transaction?.merchantPayId)"> <i class="fa-solid fa-download" style="color:#fff;"></i></button>
                </td>
             </ng-container>
 
             <ng-container matColumnDef="CheckStatus">
-                <th mat-header-cell *matHeaderCellDef [hidden]="valueservicecheck!=='Manual Payment-Check Status'">Check Status</th>
-                <td mat-cell *matCellDef="let transaction" [hidden]="valueservicecheck!=='Manual Payment-Check Status'">
+                <th mat-header-cell *matHeaderCellDef [hidden]="valueservicecheck!=='one Time Payments-Check Status'">Check Status</th>
+                <td mat-cell *matCellDef="let transaction" [hidden]="valueservicecheck!=='one Time Payments Status'">
                   <button class="btn btn-primary btn-sm" [disabled]="transaction?.paymentStatus  != 'Initiated'" (click)="track(transaction)" style="border-radius: 10px;background-color: #141E46;"> <i style="font-size:15px;color:white;cursor: pointer;" class="fa">&#xf00c;</i></button>
                 </td>
             </ng-container>
@@ -126,8 +126,8 @@
                 </td>
             </ng-container>
             <ng-container matColumnDef="view" >
-                <th mat-header-cell *matHeaderCellDef [hidden]="valueserviceView!=='Manual Payment-View'">View</th>
-                <td mat-cell *matCellDef="let transaction" [hidden]="valueserviceView!=='Manual Payment-View'">
+                <th mat-header-cell *matHeaderCellDef [hidden]="valueserviceView!=='one Time Payments-View'">View</th>
+                <td mat-cell *matCellDef="let transaction" [hidden]="valueserviceView!=='one Time Payments-View'">
                     <i style="cursor: pointer;" class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"
                         (click)="transactionview(transaction?.merchantPayId)"></i>
                 </td>

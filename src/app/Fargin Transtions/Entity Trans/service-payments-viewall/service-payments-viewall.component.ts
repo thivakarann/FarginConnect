@@ -85,25 +85,25 @@ export class ServicePaymentsViewallComponent {
           this.getdashboard = res.response?.subPermission;
 
           if (this.roleId == 1) {
-            this.valueserviceView = 'Manual Payment-View'
-            this.valueserviceexport = 'Manual Payment-Export'
-            this.valueserviceReceipt = 'Manual Payment-Receipt'
-            this.valueservicecheck = 'Manual Payment-Check Status'
+            this.valueserviceView = 'one Time Payments-View'
+            this.valueserviceexport = 'one Time Payments-Export'
+            this.valueserviceReceipt = 'one Time Paymentst-Invoice'
+            this.valueservicecheck = 'one Time Payments-Check Status'
           }
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
-              if (this.actions == 'Manual Payment-View') {
-                this.valueserviceView = 'Manual Payment-View'
+              if (this.actions == 'one Time Payments-View') {
+                this.valueserviceView = 'one Time Payments-View'
               }
-              if (this.actions == 'Manual Payment-Export') {
-                this.valueserviceexport = 'Manual Payment-Export'
+              if (this.actions == 'one Time Payments-Export') {
+                this.valueserviceexport = 'one Time Payments-Export'
               }
-              if (this.actions == 'Manual Payment-Receipt') {
-                this.valueserviceReceipt = 'Manual Payment-Receipt'
+              if (this.actions == 'one Time Payments-Invoice') {
+                this.valueserviceReceipt = 'one Time Payments-Invoice'
               }
-              if (this.actions == 'Manual Payment-Check Status') {
-                this.valueservicecheck = 'Manual Payment-Check Status'
+              if (this.actions == 'one Time Payments-Check Status') {
+                this.valueservicecheck = 'one Time Payments-Check Status'
               }
 
             }

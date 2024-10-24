@@ -38,9 +38,9 @@
 
             <button style="color:white;background-color: #141E46;border-radius: 10px;" class="custom-btn btn-10 me-3"
                 data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button (click)="add()"
-                [hidden]="valuealcartAdd!=='Channel Configuration-Add'">Create</button>
+                [hidden]="valuealcartAdd!=='Channel Creation-Add'">Create</button>
             <button style="color:white;background-color: #141E46;border-radius: 10px;" (click)=" exportexcel()"
-                mat-raised-button [hidden]="valuealcartExport!=='Channel Configuration-Export'">Export</button>
+                mat-raised-button [hidden]="valuealcartExport!=='Channel Creation-Export'">Export</button>
 
 
         </div>
@@ -86,8 +86,8 @@
 
             <ng-container matColumnDef="alcotStatus">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header
-                    [hidden]="valuealcartStatus!=='Channel Configuration-Status'">Channel Status</th>
-                <td mat-cell *matCellDef="let viewall" [hidden]="valuealcartStatus!=='Channel Configuration-Status'">
+                    [hidden]="valuealcartStatus!=='Channel Creation-Status'">Channel Status</th>
+                <td mat-cell *matCellDef="let viewall" [hidden]="valuealcartStatus!=='Channel Creation-Status'">
                     <mat-slide-toggle class="example-margin" color="primary" [checked]="viewall.alcotStatus==1"
                         (change)="ActiveStatus($event,viewall.alcotId)">
                     </mat-slide-toggle>
@@ -95,18 +95,18 @@
             </ng-container>
             <ng-container matColumnDef="View">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header
-                    [hidden]="valuealcartView!=='Channel Configuration-View'">View</th>
+                    [hidden]="valuealcartView!=='Channel Creation-View'">View</th>
                 <td style="cursor: pointer;" mat-cell *matCellDef="let viewall" (click)="Viewdata(viewall.alcotId)"
-                    [hidden]="valuealcartView!=='Channel Configuration-View'">
+                    [hidden]="valuealcartView!=='Channel Creation-View'">
                     <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="Edit">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header
-                    [hidden]="valuealcartEdit!=='Channel Configuration-Edit'">Edit</th>
+                    [hidden]="valuealcartEdit!=='Channel Creation-Edit'">Edit</th>
                 <td style="cursor: pointer;" mat-cell *matCellDef="let viewall" (click)="Edit(viewall.alcotId)"
-                    [hidden]="valuealcartEdit!=='Channel Configuration-Edit'">
+                    [hidden]="valuealcartEdit!=='Channel Creation-Edit'">
                     <i class="fa fa-edit" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
                 </td>
             </ng-container>

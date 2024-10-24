@@ -62,7 +62,7 @@ export class AlcartEditComponent implements OnInit {
     this.myForm = new FormGroup({
       regionId: new FormControl('', Validators.required),
       channelName: new FormControl('', Validators.required),
-      price: new FormControl('',),
+      price: new FormControl('', [Validators.pattern('^[1-9][0-9]*$')]),
       type: new FormControl('', Validators.required),
       bundleChannelId: new FormControl('', Validators.required),
       generic: new FormControl('', Validators.required),

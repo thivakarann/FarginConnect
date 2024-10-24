@@ -38,9 +38,9 @@
 
             <button style="color:white;background-color: #141E46;border-radius: 10px;" class="custom-btn btn-10 me-3"
                 data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button (click)="add()"
-                [hidden]="valuebroadcastAdd!=='Broadcaster Configuration-Add'">Create</button>
+                [hidden]="valuebroadcastAdd!=='Broadcaster Creation-Add'">Create</button>
             <button style="color:white;background-color: #141E46;border-radius: 10px;" (click)=" exportexcel()"
-                mat-raised-button [hidden]="valuebroadcastExport!=='Broadcaster Configuration-Export'">Export</button>
+                mat-raised-button [hidden]="valuebroadcastExport!=='Broadcaster Creation-Export'">Export</button>
 
 
         </div>
@@ -67,9 +67,9 @@
 
             <ng-container matColumnDef="status">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header
-                    [hidden]="valuebroadcastStatus!=='Broadcaster Configuration-Status'">BroadCaster Stratus</th>
+                    [hidden]="valuebroadcastStatus!=='Broadcaster Creation-Status'">Status</th>
                 <td mat-cell *matCellDef="let viewall"
-                    [hidden]="valuebroadcastStatus!=='Broadcaster Configuration-Status'">
+                    [hidden]="valuebroadcastStatus!=='Broadcaster Creation-Status'">
                     <mat-slide-toggle class="example-margin" color="primary" [checked]="viewall.status==1"
                         (change)="ActiveStatus($event,viewall.bundleChannelId)">
                     </mat-slide-toggle>
@@ -79,9 +79,9 @@
 
             <ng-container matColumnDef="Edit">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header
-                    [hidden]="valuebroadcastEdit!=='Broadcaster Configuration-Edit'">Edit</th>
+                    [hidden]="valuebroadcastEdit!=='Broadcaster Creation-Edit'">Edit</th>
                 <td style="cursor: pointer;" mat-cell *matCellDef="let viewall" (click)="Edit(viewall.bundleChannelId)"
-                    [hidden]="valuebroadcastEdit!=='Broadcaster Configuration-Edit'">
+                    [hidden]="valuebroadcastEdit!=='Broadcaster Creation-Edit'">
                     <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-edit"></i>
                 </td>
             </ng-container>

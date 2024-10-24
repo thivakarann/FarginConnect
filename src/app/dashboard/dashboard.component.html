@@ -90,13 +90,13 @@
               </a>
             </li>
 
-            <li [hidden]="valueentitydues!=='Entity Dues'">
+            <!-- <li [hidden]="valueentitydues!=='Entity Dues'">
               <a routerLink="app-dues">
                 <i class="fa-solid fa-credit-card" aria-hidden="true"></i>
                 <span>Entity Dues</span>
 
               </a>
-            </li>
+            </li> -->
             <!-- <li [hidden]="valueTransaction!=='Transactions'">
               <a routerLink="overall-transactions-viewall">
                 <i class="fa-solid fa-credit-card" aria-hidden="true"></i>
@@ -114,10 +114,10 @@
             <li class="sidebar-dropdown" style="cursor: pointer;" 
             [hidden]="valuecustomerpayment!=='Customer Payment' &&
             valuecustomersubscription!=='Subscription Payment' &&
-            valuecustomermanualpayment!=='Manual Payment' &&
+            valuecustomermanualpayment!=='one Time Payments' &&
             valueCustomizationPayments!=='Customization Payments'">
               <a>
-                <i class="fa fa-globe"></i>
+                <i class="fa-solid fa-credit-card" aria-hidden="true"></i>
                 <span>Transactions</span>
               </a>
               <div class="sidebar-submenu">
@@ -131,8 +131,8 @@
                   <li routerLink="maintenance-trans-viewall" [hidden]="valuecustomersubscription!=='Subscription Payment'">
                     <a> Subscription Payments</a>
                   </li>
-                  <li routerLink="service-payments-viewall" [hidden]="valuecustomermanualpayment!=='Manual Payment'">
-                    <a>Manual Payments</a>
+                  <li routerLink="service-payments-viewall" [hidden]="valuecustomermanualpayment!=='one Time Payments'">
+                    <a>one Time Payments</a>
                   </li>
                   <li routerLink="otherpayments-viewall" [hidden]="valueCustomizationPayments!=='Customization Payments'">
                     <a>Customization Payments</a>
@@ -174,7 +174,7 @@
 
             <li [hidden]="valuesurvey!=='Survey'">
               <a routerLink="surveyviewall">
-                <i class="fa fa-user" aria-hidden="true"></i>
+                <i class="fa-solid fa-square-poll-vertical" style="font-size: 14px;" aria-hidden="true"></i>
                 <span>Survey</span>
  
               </a>
@@ -193,7 +193,7 @@
             <li class="sidebar-dropdown" style="cursor: pointer;"
               [hidden]="valuefarginpolicy!=='Fargin Policy' && valueMerchantpolicy!=='Merchant Policy'">
               <a>
-                <i class="fa fa-globe"></i>
+                <i class="fa-solid fa-circle-info" style="font-size: 14px;" aria-hidden="true"></i>
                 <span>Terms and Policy</span>
               </a>
               <div class="sidebar-submenu">
@@ -236,7 +236,7 @@
             </li>
             <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valueRegion!=='Region'&& ValueMSO!=='MSO'">
               <a>
-                <i class="fa fa-globe"></i>
+                <i class="fa-solid fa-people-line"></i>
                 <span>Service Provider</span>
               </a>
               <div class="sidebar-submenu">
@@ -259,7 +259,7 @@
              valuemerchantPlan!=='Merchant Plan' &&
              valuepgsetupkey!=='PG SetupKey' &&
              valueWithdrawalfee!=='Withdrawal Fee' &&
-             valueBuisneesDoCument!=='Buisnees Document Type'">
+             valueBuisneesDoCument!=='Business Document Type'">
               <a>
                 <i class="fa fa-cogs"></i>
                 <span>Main Master</span>
@@ -271,8 +271,8 @@
                     </a>
                   </li>
 
-                  <li [hidden]="valueBuisneesDoCument!=='Buisnees Document Type'">
-                    <a routerLink="viewall-kyccategory">Buisnees Document Type </a>
+                  <li [hidden]="valueBuisneesDoCument!=='Business Document Type'">
+                    <a routerLink="viewall-kyccategory">Business Document Type </a>
                     </li>
 
                   <li [hidden]="valueBusinessKYC!=='Business Category Doc'">
@@ -317,7 +317,7 @@
             </li>
             <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valueUser!=='User' && valueRole!=='Role'">
               <a>
-                <i class="fa fa-globe"></i>
+                <i class="fa-solid fa-person-circle-check"></i>
                 <span>User Management</span>
               </a>
               <div class="sidebar-submenu">
@@ -336,9 +336,9 @@
 
             </li>
 
-            <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valuechannelConfiguration!=='Channel Configuration' && 
-             valueBroadcasterConfiguration!=='Broadcaster Configuration' && 
-             valuePlanConfiguration!=='Plan Configuration' && 
+            <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valuechannelConfiguration!=='Channel Creation' && 
+             valueBroadcasterConfiguration!=='Broadcaster Creation' && 
+             valuePlanConfiguration!=='Plan Creation' && 
              valueBroadcasterBouqutes!=='Broadcaster Bouqutes'">
               <a>
                 <i class="fa-solid fa-tv"></i>
@@ -346,15 +346,15 @@
               </a>
               <div class="sidebar-submenu">
                 <ul>
-                  <li [hidden]="valuechannelConfiguration!=='Channel Configuration'">
+                  <li [hidden]="valuechannelConfiguration!=='Channel Creation'">
                     <a routerLink="alacarte-viewall">Channel Creation
                     </a>
                   </li>
-                  <li [hidden]="valueBroadcasterConfiguration!=='Broadcaster Configuration'">
+                  <li [hidden]="valueBroadcasterConfiguration!=='Broadcaster Creation'">
                     <a routerLink="bouquatename-viewall">Broadcaster Creation</a>
                   </li>
 
-                  <li [hidden]="valuePlanConfiguration!=='Plan Configuration'">
+                  <li [hidden]="valuePlanConfiguration!=='Plan Creation'">
                     <a routerLink="bouquete-plan-viewall">
                       Plan Creation
                     </a>

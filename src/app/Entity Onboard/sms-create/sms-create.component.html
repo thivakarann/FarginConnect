@@ -26,7 +26,7 @@
                 </div>
                 </div>
             <div class="mb-3">
-                <button (click)="smsSubmit()"  type="submit" class="btn mx-1 "
+                <button [disabled]="myForm4.invalid" (click)="smsSubmit()"  type="submit" class="btn mx-1 "
                     style="background-color:#7db855be">Submit</button>
                 <button type="submit" class="btn" style="background-color:#141E46;color:white"
                    mat-dialog-close>Cancel</button>

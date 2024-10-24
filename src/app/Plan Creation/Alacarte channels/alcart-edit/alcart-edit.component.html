@@ -148,15 +148,15 @@
                     <label for="Entity Name">Price</label>
                     <input [(ngModel)]="amount" type="text" id="Entity Name" formControlName="price"
                         class="form-control">
-                    <!-- <div style="
-    color: red;
-    font-size: 12px;
-    margin-top: 2px;
-    position: relative;
-    ;
-  " *ngIf="price?.invalid && price?.touched && price?.errors?.['required']">
-            Field is required
-        </div> -->
+                    <div style="
+                        color: red;
+                        font-size: 12px;
+                        margin-top: 2px;
+                        position: relative;
+                        ;
+                      " *ngIf="price?.invalid && price?.touched && price?.errors?.['pattern']">
+                        Only positive numbers are allowed
+                    </div>
                 </div>
             </div>
 

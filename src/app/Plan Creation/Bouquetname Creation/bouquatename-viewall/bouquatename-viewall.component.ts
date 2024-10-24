@@ -75,27 +75,27 @@ export class BouquatenameViewallComponent implements OnInit {
           this.getdashboard = res.response?.subPermission;
 
           if (this.roleId == 1) {
-            this.valuebroadcastAdd = 'Broadcaster Configuration-Add';
-            this.valuebroadcastEdit = 'Broadcaster Configuration-Edit'
-            this.valuebroadcastExport = 'Broadcaster Configuration-Export'
-            this.valuebroadcastStatus = 'Broadcaster Configuration-Status'
+            this.valuebroadcastAdd = 'Broadcaster Creation-Add';
+            this.valuebroadcastEdit = 'Broadcaster Creation-Edit'
+            this.valuebroadcastExport = 'Broadcaster Creation-Export'
+            this.valuebroadcastStatus = 'Broadcaster Creation-Status'
           }
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
 
 
-              if (this.actions == 'Broadcaster Configuration-Add') {
-                this.valuebroadcastAdd = 'Broadcaster Configuration-Add';
+              if (this.actions == 'Broadcaster Creation-Add') {
+                this.valuebroadcastAdd = 'Broadcaster Creation-Add';
               }
-              if (this.actions == 'Broadcaster Configuration-Edit') {
-                this.valuebroadcastEdit = 'Broadcaster Configuration-Edit'
+              if (this.actions == 'Broadcaster Creation-Edit') {
+                this.valuebroadcastEdit = 'Broadcaster Creation-Edit'
               }
-              if (this.actions == 'Broadcaster Configuration-Export') {
-                this.valuebroadcastExport = 'Broadcaster Configuration-Export'
+              if (this.actions == 'Broadcaster Creation-Export') {
+                this.valuebroadcastExport = 'Broadcaster Creation-Export'
               }
-              if (this.actions == 'Broadcaster Configuration-Status') {
-                this.valuebroadcastStatus = 'Broadcaster Configuration-Status'
+              if (this.actions == 'Broadcaster Creation-Status') {
+                this.valuebroadcastStatus = 'Broadcaster Creation-Status'
               }
             }
           }
