@@ -85,7 +85,7 @@
  
         <ng-container matColumnDef="createdAt">
             <th mat-header-cell *matHeaderCellDef>Created At</th>
-            <td mat-cell *matCellDef="let data">{{data.createdAt}}</td>
+            <td mat-cell *matCellDef="let data">{{data.createdAt |date:'dd/MM/yyyy hh:mm a'}}</td>
         </ng-container>
         <ng-container matColumnDef="modifiedBy">
             <th mat-header-cell *matHeaderCellDef>Modified By </th>
@@ -94,7 +94,7 @@
  
         <ng-container matColumnDef="modifiedAt">
             <th mat-header-cell *matHeaderCellDef>Modified At</th>
-            <td mat-cell *matCellDef="let data">{{data.modifiedAt}}</td>
+            <td mat-cell *matCellDef="let data">{{data.modifedAt|date:'dd/MM/yyyy hh:mm a'}}</td>
         </ng-container>
  
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

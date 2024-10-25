@@ -122,7 +122,7 @@
 
                 <div class="col-sm-4 form-group">
                     <label for="Bussiness category">Type</label>
-                    <select [(ngModel)]="Type" formControlName="type" id="Bussiness category"
+                    <select [(ngModel)]="Type" formControlName="type" (change)="typeevent($event)" id="Bussiness category"
                         class="form-control form-select">
                         <option value="" disabled selected>Select</option>
                         <option value="0">Free</option>
@@ -144,7 +144,7 @@
                 </div>
 
 
-                <div class="col-sm-4 form-group" *ngIf="type?.value === '1'">
+                <div class="col-sm-4 form-group" *ngIf="show" >
                     <label for="Entity Name">Price</label>
                     <input [(ngModel)]="amount" type="text" id="Entity Name" formControlName="price"
                         class="form-control">

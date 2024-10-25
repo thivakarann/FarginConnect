@@ -55,18 +55,6 @@ valuecustomerview: any;
   ) { }
   ngOnInit(): void {
 
-    this.ActivateRoute.queryParams.subscribe((param: any) => {
-      this.id = param.Alldata;
-    });
-
-    this.service.EntityCustomerview(this.id).subscribe((res: any) => {
-      this.details = res.response;
-      console.log(this.details);
-      this.dataSource = new MatTableDataSource(this.details);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-    })
-
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
         console.log(res);
@@ -91,7 +79,21 @@ valuecustomerview: any;
           this.errorMessage = res.responseMessage;
         }
       }
+    });
+
+    this.ActivateRoute.queryParams.subscribe((param: any) => {
+      this.id = param.Alldata;
+    });
+
+    this.service.EntityCustomerview(this.id).subscribe((res: any) => {
+      this.details = res.response;
+      console.log(this.details);
+      this.dataSource = new MatTableDataSource(this.details);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     })
+
+  
   }
 
 

@@ -53,14 +53,7 @@ export class AlacarteViewallComponent implements OnInit {
     private toastr: ToastrService
   ) { }
   ngOnInit(): void {
-    this.AllcartViewall.Alcartviewall().subscribe((res: any) => {
-      this.viewall = res.response;
-      this.viewall.reverse();
-      this.dataSource = new MatTableDataSource(this.viewall);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-      console.log(this.viewall);
-    });
+
     this.AllcartViewall.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
         console.log(res);
@@ -102,7 +95,18 @@ export class AlacarteViewallComponent implements OnInit {
           this.errorMessage = res.responseMessage;
         }
       }
-    })
+    });
+
+
+    this.AllcartViewall.Alcartviewall().subscribe((res: any) => {
+      this.viewall = res.response;
+      this.viewall.reverse();
+      this.dataSource = new MatTableDataSource(this.viewall);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      console.log(this.viewall);
+    });
+ 
 
   }
 

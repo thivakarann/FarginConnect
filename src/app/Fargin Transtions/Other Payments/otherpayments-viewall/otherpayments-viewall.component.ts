@@ -69,22 +69,6 @@ export class OtherpaymentsViewallComponent {
 
   ngOnInit(): void {
 
-    this.service.OtherPay().subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.transaction = res.response;
-        this.transaction.reverse();
-        this.dataSource = new MatTableDataSource(this.transaction);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.showData = false;
-      }
-      else if (res.flag == 2) {
-        this.showData = true;
-        this.message = res.responseMessage;
-      }
-
-    });
-
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
         console.log(res);
@@ -123,7 +107,25 @@ export class OtherpaymentsViewallComponent {
           this.errorMessage = res.responseMessage;
         }
       }
-    })
+    });
+
+    this.service.OtherPay().subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.transaction = res.response;
+        this.transaction.reverse();
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.showData = false;
+      }
+      else if (res.flag == 2) {
+        this.showData = true;
+        this.message = res.responseMessage;
+      }
+
+    });
+
+ 
 
 
   }

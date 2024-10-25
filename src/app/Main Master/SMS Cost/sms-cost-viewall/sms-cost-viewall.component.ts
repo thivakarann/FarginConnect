@@ -21,7 +21,7 @@ export class SmsCostViewallComponent {
     'smsId',
     'amount',
     'smsStatus',
-    'Edit',
+    // 'Edit',
     'createdBy',
     'createdDateTime',
     'modifedBy',
@@ -36,10 +36,10 @@ export class SmsCostViewallComponent {
   date2: any;
   responseDataListnew: any = [];
   response: any = [];
-valuesmsadd: any;
-valuesmsstatus: any;
-valuesmsedit: any;
-getdashboard: any[] = [];
+  valuesmsadd: any;
+  valuesmsstatus: any;
+  valuesmsedit: any;
+  getdashboard: any[] = [];
   roleId: any = localStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
@@ -51,15 +51,6 @@ getdashboard: any[] = [];
   ) { }
 
   ngOnInit(): void {
-    this.smsdetails.smscostViewall().subscribe((res: any) => {
-      this.viewall = res.response;
-      this.viewall.reverse();
-      this.dataSource = new MatTableDataSource(this.viewall);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-      console.log(this.viewall);
-    });
-
 
     this.smsdetails.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
@@ -70,9 +61,9 @@ getdashboard: any[] = [];
 
           if (this.roleId == 1) {
             this.valuesmsadd = 'SMS Cost-Add';
-            this.valuesmsedit='SMS Cost-Edit';
-            this.valuesmsstatus='SMS Cost-Status'
-           
+            this.valuesmsedit = 'SMS Cost-Edit';
+            this.valuesmsstatus = 'SMS Cost-Status'
+
           }
           else {
             for (let datas of this.getdashboard) {
@@ -82,13 +73,13 @@ getdashboard: any[] = [];
               if (this.actions == 'SMS Cost-Add') {
                 this.valuesmsadd = 'SMS Cost-Add';
               }
-              if(this.actions=='SMS Cost-Edit'){
-                this.valuesmsedit='SMS Cost-Edit'
+              if (this.actions == 'SMS Cost-Edit') {
+                this.valuesmsedit = 'SMS Cost-Edit'
               }
-              if(this.actions=='SMS Cost-Status'){
-                this.valuesmsstatus='SMS Cost-Status'
+              if (this.actions == 'SMS Cost-Status') {
+                this.valuesmsstatus = 'SMS Cost-Status'
               }
-            
+
             }
           }
         }
@@ -96,7 +87,20 @@ getdashboard: any[] = [];
           this.errorMessage = res.responseMessage;
         }
       }
-    })
+    });
+
+
+    this.smsdetails.smscostViewall().subscribe((res: any) => {
+      this.viewall = res.response;
+      this.viewall.reverse();
+      this.dataSource = new MatTableDataSource(this.viewall);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      console.log(this.viewall);
+    });
+
+
+
   }
 
   Addsms() {

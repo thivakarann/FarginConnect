@@ -57,14 +57,6 @@ errorMessage: any;
     private toastr: ToastrService
   ) { }
   ngOnInit(): void {
-    this.bankdetails.bankdetailsViewall().subscribe((res: any) => {
-      this.viewall = res.response;
-      this.viewall.reverse();
-      this.dataSource = new MatTableDataSource(this.viewall);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-      console.log(this.viewall);
-    });
 
     this.bankdetails.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
@@ -101,7 +93,19 @@ errorMessage: any;
           this.errorMessage = res.responseMessage;
         }
       }
-    })
+    });
+
+
+    this.bankdetails.bankdetailsViewall().subscribe((res: any) => {
+      this.viewall = res.response;
+      this.viewall.reverse();
+      this.dataSource = new MatTableDataSource(this.viewall);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      console.log(this.viewall);
+    });
+
+
   }
 
   AddBankDetails() {

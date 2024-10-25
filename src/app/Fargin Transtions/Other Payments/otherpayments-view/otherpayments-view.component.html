@@ -20,14 +20,14 @@
                 <td class="datas">Card Expiry</td>
                 <td id="data">
                  <span  *ngIf="transaction?.cardExpiry == null || transaction?.cardExpiry == 'null' ">-</span>
-                 <span *ngIf="transaction?.cardExpiry != null || transaction?.cardExpiry == 'null'"> {{transaction?.cardExpiry}}</span>  
+                 <span *ngIf="transaction?.cardExpiry != null && transaction?.cardExpiry != 'null'"> {{transaction?.cardExpiry}}</span>  
                   </td>
             </tr>
             <tr >
                 <td class="datas">Card Masked No</td>
                 <td id="data">
                     <span  *ngIf="transaction?.cardNoMasked == null || transaction?.cardNoMasked == 'null' ">-</span>
-                    <span *ngIf="transaction?.cardNoMasked != null || transaction?.cardNoMasked == 'null'">  {{transaction?.cardNoMasked}}</span>  
+                    <span *ngIf="transaction?.cardNoMasked != null && transaction?.cardNoMasked != 'null'">  {{transaction?.cardNoMasked}}</span>  
                     </td>
             </tr>
             <tr>

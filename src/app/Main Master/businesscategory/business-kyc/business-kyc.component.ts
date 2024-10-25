@@ -152,6 +152,7 @@ export class BusinessKycComponent implements OnInit {
       exitAnimationDuration: '1000ms',
       data: { value: id },
       disableClose: true
+      
     });
   }
  

@@ -1,6 +1,6 @@
 <div class="container" style="padding: 0;">
     <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0" >PG Setup Create</h5>
+        <h5 class="mb-0" >Create PG Setup-Key</h5>
 
     </div>
 
@@ -26,7 +26,7 @@
 
                 <div class="form__linput">
                     <label class="form__label" for="apiKey">API Key</label>
-                    <input class="form-control" id="apiKey" type="text" formControlName="apiKey" placeholder="API Key..." required/>
+                    <input class="form-control" id="apiKey" type="text" formControlName="apiKey"  required/>
                     <div class="form__error" *ngIf="apiKey?.invalid && apiKey?.touched && apiKey?.errors?.['required']">
                         Field is required
                     </div>
@@ -34,7 +34,7 @@
 
                 <div class="form__linput">
                     <label class="form__label" for="secretKey ">Secret Key</label>
-                    <input class="form-control" id="secretKey " type="text" formControlName="secretKey" placeholder="Enter Secret Key..." required/>
+                    <input class="form-control" id="secretKey " type="text" formControlName="secretKey" required/>
                     <div class="form__error" *ngIf="secretKey ?.invalid && secretKey?.touched && secretKey ?.errors?.['required']">
                         Field is required
                     </div>

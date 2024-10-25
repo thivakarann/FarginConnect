@@ -49,23 +49,6 @@ export class ViewcategoryComponent implements OnInit {
 
   ngOnInit() {
 
-
-    this.service.Businesscategory().subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.businesscategory = res.response;
-        this.businesscategory.reverse();
-        this.dataSource = new MatTableDataSource(this.businesscategory);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.showcategoryData = false;
-
-      }
-      else {
-        this.errorMsg = res.responseMessage;
-        this.showcategoryData = true;
-      }
-    });
-
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
         console.log(res);
@@ -106,6 +89,25 @@ export class ViewcategoryComponent implements OnInit {
         }
       }
     })
+
+
+    this.service.Businesscategory().subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.businesscategory = res.response;
+        this.businesscategory.reverse();
+        this.dataSource = new MatTableDataSource(this.businesscategory);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.showcategoryData = false;
+
+      }
+      else {
+        this.errorMsg = res.responseMessage;
+        this.showcategoryData = true;
+      }
+    });
+
+   
 
   }
 

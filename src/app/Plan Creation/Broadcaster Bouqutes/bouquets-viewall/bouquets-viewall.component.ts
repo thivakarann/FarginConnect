@@ -86,14 +86,6 @@ export class BouquetsViewallComponent implements OnInit {
     private dialog: MatDialog,
   ) { }
   ngOnInit(): void {
-    this.Bouquetviewall.BroadcasterBoucateviewall().subscribe((res: any) => {
-      this.viewall = res.response;
-      this.viewall.reverse();
-      this.dataSource = new MatTableDataSource(this.viewall);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-      console.log(this.viewall);
-    });
 
     this.Bouquetviewall.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
@@ -136,7 +128,19 @@ export class BouquetsViewallComponent implements OnInit {
           this.errorMessage = res.responseMessage;
         }
       }
-    })
+    });
+
+
+    this.Bouquetviewall.BroadcasterBoucateviewall().subscribe((res: any) => {
+      this.viewall = res.response;
+      this.viewall.reverse();
+      this.dataSource = new MatTableDataSource(this.viewall);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      console.log(this.viewall);
+    });
+
+
 
   }
 

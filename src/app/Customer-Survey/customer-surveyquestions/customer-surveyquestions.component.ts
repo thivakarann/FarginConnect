@@ -25,11 +25,11 @@ export class CustomerSurveyquestionsComponent {
   custresponse: any = [];
   customerresponse: any;
   customerSurveyEntity: any;
-    currentPage: string|number|undefined;
-searchText: any;
+  currentPage: string | number | undefined;
+  searchText: any;
   questionId: any;
 
-  constructor(private service:FarginServiceService,private router:Router,private dialog:MatDialog,private activaterouter:ActivatedRoute,private location:Location){
+  constructor(private service: FarginServiceService, private router: Router, private dialog: MatDialog, private activaterouter: ActivatedRoute, private location: Location) {
   }
 
   dataSource: any;
@@ -50,18 +50,18 @@ searchText: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-ngOnInit(): void {
-  this.activaterouter.queryParams.subscribe((res:any)=>{
-    this.questionId = res.Alldata;
-    console.log(this.questionId);
-  })
-  this.service.ViewByIdCustomerResponse(this.questionId).subscribe((res: any) => {
-    if (res.flag == 1) {
-      this.customerresponse = res.response;
-    }
-  })
+  ngOnInit(): void {
+    this.activaterouter.queryParams.subscribe((res: any) => {
+      this.questionId = res.Alldata;
+      console.log(this.questionId);
+    })
+    this.service.ViewByIdCustomerResponse(this.questionId).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.customerresponse = res.response;
+      }
+    })
 
-}
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -196,7 +196,7 @@ ngOnInit(): void {
     });
   }
 
-  close(){
+  close() {
     this.location.back()
   }
 

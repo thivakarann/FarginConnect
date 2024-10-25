@@ -66,7 +66,8 @@ export class BouqetsEditComponent implements OnInit {
     this.myForm = new FormGroup({
       bundleChannelId: new FormControl('', Validators.required),
       alcotId: new FormControl('', Validators.required),
-      amount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9]\\d*)$')]),      boqCreationId: new FormControl('', Validators.required),
+      amount: new FormControl('', [Validators.required, Validators.pattern('^[1-9][0-9]*(\.[0-9]+)?$')]),
+      boqCreationId: new FormControl('', Validators.required),
       serviceId: new FormControl('', Validators.required),
       regId: new FormControl('', Validators.required),
     });

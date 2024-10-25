@@ -432,11 +432,9 @@
                                 <th [hidden]="valuebankedit!=='Bank-Edit'">Action</th>
                                 <th [hidden]="valuebankverify!=='Bank-Verification'">Verification</th>
                                 <th>Verification Status</th>
-                                <th>Verification</th>
-                                <th>Approval</th>
-                                <th>Approval Status</th>
-                                <th>Approved At</th>
-                                <th>Comments</th>
+                                
+                           
+                              
 
 
                             </tr>
@@ -505,21 +503,11 @@
                                         </i>
                                     </span>
                                 </td>
-                                <td><button class="buttonDownload"
-                                        (click)="BankApproval(item.merchantBankId)">Approval</button>
+                                <td>
+                                    <span *ngIf="item.facheckStatus==0 " class="text-danger">Not-Verified</span>
+                                    <span *ngIf="item.facheckStatus==1 " class="text-success">Verified</span>
                                 </td>
-                                <td [ngClass]="{
-                                                    yellow: item?.approvalStatus === 'Pending',
-                                                    green: item?.approvalStatus === 'approved',
-                           
-                                                    Red: item?.approvalStatus == 'Rejected'
-                                                  }">{{item.approvalStatus}}</td>
-
-
-                                <td>{{item.approvalDateTime|date:"dd/MM/yyyy hh:mm:a"}}</td>
-                                <td><span (click)="BankComments(item.reMarks)"><i class="fas fa-comments"
-                                            style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
-                                </td>
+                         
 
 
 
@@ -1008,8 +996,8 @@
                 </div>
             </div>
             <div class="col-md-2 mt-1">
-                <button (click)="createmanualPayement()" [hidden]="valuemanualpay!=='One Time Setup Payment-Create'"
-                    style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Manual Payment
+                <button (click)="createmanualPayement()" [hidden]="valuemanualpay!=='One Time Setup Payment-Create' ||  paymentStatus=='Success'"
+                    style="color:white;background-color: #141E46;border-radius: 10px; width:120%" mat-raised-button>Manual Payment
                 </button>
             </div>
         </div>
@@ -1022,7 +1010,7 @@
                         <tr>
                             <th>S No </th>
                             <th>Payment ID</th>
-                            <th>Paid Amount</th>
+                            <th>Due Amount</th>
                             <th [hidden]="valuemanualedit!=='One Time Setup Payment-Edit'">Edit</th>
                             <th [hidden]="valuemanualview!=='One Time Setup Payment-View'">View</th>
                             <th>Payment Status</th>
@@ -1032,7 +1020,7 @@
                         <tbody
                             *ngFor="let item of manualDetails| paginate: { itemsPerPage: 3, currentPage: currentPage } | search: searchText;let i=index">
                             <td>{{i+1}}</td>
-                            <td>{{item.paymentId}}</td>
+                            <td>{{item.pgPaymentId}}</td>
                             <td>{{item.totalPayableAmount}}</td>
                             <td [hidden]="valuemanualedit!=='One Time Setup Payment-Edit'">
                                 <button style="border:none"
@@ -1214,7 +1202,7 @@
                             <td>{{item.smsCount}}</td>
                             <td>{{item.type?.smsCharge}}</td>
                             <td class="text-center" [hidden]="valuesmsapproval!=='Sms Setting-Approval'">
-                                <span><button class="buttonDownload"
+                                <span><button class="buttonDownload" [disabled]="item.smsApprovalStatus!=='Rejected'"
                                         (click)="SmsApproval(item.merchantSmsId)">Approval</button></span>
                             </td>
                             <td>{{item.smsApprovalStatus}}</td>

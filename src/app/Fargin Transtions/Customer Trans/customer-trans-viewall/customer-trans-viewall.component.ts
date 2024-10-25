@@ -68,16 +68,8 @@ export class CustomerTransViewallComponent {
 
   ngOnInit(): void {
 
-    this.service.CustomerAllTransactions().subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.transaction = res.response;
-        this.dataSource = new MatTableDataSource(this.transaction);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      }
 
-    });
-
+    
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
         console.log(res);
@@ -113,7 +105,18 @@ export class CustomerTransViewallComponent {
           this.errorMessage = res.responseMessage;
         }
       }
-    })
+    });
+
+    this.service.CustomerAllTransactions().subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.transaction = res.response;
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+
+    });
+
   }
 
 

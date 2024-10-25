@@ -25,7 +25,7 @@ export class AddPolicyComponent {
 
   ngOnInit(): void {
 
-  
+
 
 
     this.policycreate = new FormGroup({
@@ -34,13 +34,13 @@ export class AddPolicyComponent {
       privacyPolicy: new FormControl('', [Validators.required]),
       refundPolicy: new FormControl('', [Validators.required]),
       createdBy: new FormControl(''),
-     
+
 
     });
 
   }
 
- 
+
 
   get termAndCondition() {
     return this.policycreate.get('termAndCondition');
@@ -71,7 +71,7 @@ export class AddPolicyComponent {
       privacyPolicy: this.privacyPolicy.value,
       refundPolicy: this.refundPolicy.value,
       createdBy: this.getadminname,
-    
+
     };
 
     this.service.addTermsPolicy(submitModel).subscribe((res: any) => {

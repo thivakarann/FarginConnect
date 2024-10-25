@@ -66,6 +66,9 @@ export class DashboardComponent implements OnInit {
     private dialog: MatDialog,
     private service: FarginServiceService,) { }
   ngOnInit(): void {
+
+
+
     this.getpermissionValue();
 
     this.service.rolegetById(this.roleId).subscribe({

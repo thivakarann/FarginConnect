@@ -35,6 +35,7 @@ export class EntityKyceditComponent implements OnInit {
   pass: any;
   DrivingDob: any;
   PassportDob: any;
+  today: string;
  
   constructor(
     public service: FarginServiceService,
@@ -42,7 +43,11 @@ export class EntityKyceditComponent implements OnInit {
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder
-  ) { }
+  ) { 
+    const todayDate = new Date();
+    this.today = todayDate.toISOString().split('T')[0];
+  
+  }
  
   ngOnInit(): void {
  
@@ -214,9 +219,10 @@ export class EntityKyceditComponent implements OnInit {
     this.service.editIdentity(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.identityvalue = res.response;
+        this.toastr.success(res.responseMessage)
         this.dialog.closeAll();
         setTimeout(() => {
-          window.location.reload()
+          window.location.reload();
         }, 1000);
       }
       else {
@@ -238,6 +244,7 @@ export class EntityKyceditComponent implements OnInit {
     this.service.editAddress(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.identityvalue = res.response;
+        this.toastr.success(res.responseMessage)
         this.dialog.closeAll();
         setTimeout(() => {
           window.location.reload()
@@ -264,6 +271,7 @@ export class EntityKyceditComponent implements OnInit {
     this.service.editSignature(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.identityvalue = res.response;
+        this.toastr.success(res.responseMessage)
         this.dialog.closeAll();
         setTimeout(() => {
           window.location.reload()

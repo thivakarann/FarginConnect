@@ -54,11 +54,13 @@ export class AddKycdocumentComponent implements OnInit {
   uploadaddressback: any;
   uploadsignfront: any;
   uploadsignback: any;
+  today: string;
 
 
   constructor(private service: FarginServiceService, private dialog: MatDialog, private toastr: ToastrService,
     private _formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any) {
-
+      const todayDate = new Date();
+      this.today = todayDate.toISOString().split('T')[0];
   }
   ngOnInit(): void {
 

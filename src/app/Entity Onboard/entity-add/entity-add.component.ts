@@ -82,12 +82,16 @@ export class EntityAddComponent implements OnInit {
   uploadsignback: any;
   uploaddocfront: any;
   uploaddocback: any;
+  today: string;
 
   constructor(
     public AddEntity: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
-    private _formBuilder: FormBuilder) { }
+    private _formBuilder: FormBuilder) { 
+      const todayDate = new Date();
+      this.today = todayDate.toISOString().split('T')[0];
+    }
   ngOnInit(): void {
 
     this.AddEntity.Bussinesscategoryactivelist().subscribe((res: any) => {

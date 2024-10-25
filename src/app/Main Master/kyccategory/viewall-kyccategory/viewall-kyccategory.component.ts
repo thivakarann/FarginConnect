@@ -39,13 +39,6 @@ export class ViewallKyccategoryComponent implements OnInit {
   errorMessage: any;
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
   ngOnInit(): void {
-    this.service.viewallkycCategory().subscribe((res: any) => {
-      this.categoryview = res.response;
-      console.log(this.categoryview);
-      this.dataSource = new MatTableDataSource(this.categoryview.reverse());
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-    })
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
@@ -83,7 +76,19 @@ export class ViewallKyccategoryComponent implements OnInit {
           this.errorMessage = res.responseMessage;
         }
       }
+    });
+
+
+
+    this.service.viewallkycCategory().subscribe((res: any) => {
+      this.categoryview = res.response;
+      console.log(this.categoryview);
+      this.dataSource = new MatTableDataSource(this.categoryview.reverse());
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     })
+
+   
 
   }
   onSubmit(event: MatSlideToggleChange, id: string) {

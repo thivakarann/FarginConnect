@@ -24,4 +24,15 @@ export class CustomerTransViewComponent {
       }
     })
   }
+  
+  Receipt(id: any) {
+    this.service.CustomerReceipt(id).subscribe({
+      next: (res: any) => {
+        var downloadURL = URL.createObjectURL(res);
+        window.open(downloadURL);
+      },
+
+    });
+  }
+
 }

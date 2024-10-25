@@ -112,7 +112,7 @@
 
             <ng-container matColumnDef="CheckStatus">
                 <th mat-header-cell *matHeaderCellDef [hidden]="valueservicecheck!=='one Time Payments-Check Status'">Check Status</th>
-                <td mat-cell *matCellDef="let transaction" [hidden]="valueservicecheck!=='one Time Payments Status'">
+                <td mat-cell *matCellDef="let transaction" [hidden]="valueservicecheck!=='one Time Payments-Check Status'">
                   <button class="btn btn-primary btn-sm" [disabled]="transaction?.paymentStatus  != 'Initiated'" (click)="track(transaction)" style="border-radius: 10px;background-color: #141E46;"> <i style="font-size:15px;color:white;cursor: pointer;" class="fa">&#xf00c;</i></button>
                 </td>
             </ng-container>

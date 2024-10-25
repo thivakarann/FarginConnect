@@ -61,20 +61,8 @@ export class ViewbeneficiaryComponent {
     private router: Router
   ) { }
   ngOnInit(): void {
-    this.service.viewbeneficiarys().subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.viewbeneficiary = res.response;
-        this.viewbeneficiary.reverse();
-        this.dataSource = new MatTableDataSource(this.viewbeneficiary);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
 
-        this.showcategoryData = false;
-      } else {
-        this.errorMsg = res.responseMessage;
-        this.showcategoryData = true;
-      }
-    });
+
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
         console.log(res);
@@ -113,7 +101,25 @@ export class ViewbeneficiaryComponent {
           this.errorMessage = res.responseMessage;
         }
       }
-    })
+    });
+
+
+
+    this.service.viewbeneficiarys().subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.viewbeneficiary = res.response;
+        this.viewbeneficiary.reverse();
+        this.dataSource = new MatTableDataSource(this.viewbeneficiary);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+
+        this.showcategoryData = false;
+      } else {
+        this.errorMsg = res.responseMessage;
+        this.showcategoryData = true;
+      }
+    });
+ 
 
   }
 

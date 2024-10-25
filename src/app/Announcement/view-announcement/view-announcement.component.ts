@@ -34,7 +34,7 @@ export class ViewAnnouncementComponent implements OnInit {
   dataSource: any;
   displayedColumns: string[] = ["announcementId", "Business", "Announcement", "startDate", "endDate", "status", "Edit", "createdBy", "createdDateTime", "modifiedBy", "modifiedDateTime"]
   announcementValue: any;
-  responseDataListnew: any[]=[];
+  responseDataListnew: any[] = [];
   response: any;
   date1: any;
   date2: any;
@@ -42,23 +42,14 @@ export class ViewAnnouncementComponent implements OnInit {
   limit: number = 30;
   isChecked: any;
   id: any;
-  fromDate:any;
-  toDate:any
+  fromDate: any;
+  toDate: any
   announcementId: any;
   datefilter: any;
   dateSuccess: any;
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-
-    this.service.announcementViewall().subscribe((res: any) => {
-      this.announcementValue = res.response;
-      console.log(this.announcementValue)
-      this.announcementValue.reverse();
-      this.dataSource = new MatTableDataSource(this.announcementValue);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-    })
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
@@ -73,17 +64,17 @@ export class ViewAnnouncementComponent implements OnInit {
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
-              if(this.actions=='Announcement-Add'){
-                this.valueannouncementAdd='Announcement-Add'
+              if (this.actions == 'Announcement-Add') {
+                this.valueannouncementAdd = 'Announcement-Add'
               }
-              if(this.actions=='Announcement-Edit'){
-                this.valueannouncementEdit='Announcement-Edit'
+              if (this.actions == 'Announcement-Edit') {
+                this.valueannouncementEdit = 'Announcement-Edit'
               }
-              if(this.actions=='Announcement-Export'){
-                this.valueannouncementexport='Announcement-Export'
+              if (this.actions == 'Announcement-Export') {
+                this.valueannouncementexport = 'Announcement-Export'
               }
-              if(this.actions=='Announcement-Status'){
-                this.valueannouncementstatus='Announcement-Status'
+              if (this.actions == 'Announcement-Status') {
+                this.valueannouncementstatus = 'Announcement-Status'
               }
             }
           }
@@ -92,30 +83,41 @@ export class ViewAnnouncementComponent implements OnInit {
           this.errorMessage = res.responseMessage;
         }
       }
+    });
+
+    this.service.announcementViewall().subscribe((res: any) => {
+      this.announcementValue = res.response;
+      console.log(this.announcementValue)
+      this.announcementValue.reverse();
+      this.dataSource = new MatTableDataSource(this.announcementValue);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     })
+
+
   }
 
-  reload(){
+  reload() {
     window.location.reload()
   }
 
-  search(){
+  search() {
     this.service.announcementDate(this.fromDate, this.toDate).subscribe({
       next: (res: any) => {
-        
-          this.datefilter = res.response;
-          console.log(this.datefilter);
-          
-          this.dataSource = new MatTableDataSource(this.datefilter);
-          console.log(this.dataSource);
-          
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-          this.dateSuccess = res.responseMessage;
-          console.log(this.dateSuccess);
-          this.fromDate = '';
-          this.toDate = '';
-        
+
+        this.datefilter = res.response;
+        console.log(this.datefilter);
+
+        this.dataSource = new MatTableDataSource(this.datefilter);
+        console.log(this.dataSource);
+
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.dateSuccess = res.responseMessage;
+        console.log(this.dateSuccess);
+        this.fromDate = '';
+        this.toDate = '';
+
       }
     })
   }
@@ -133,6 +135,10 @@ export class ViewAnnouncementComponent implements OnInit {
       exitAnimationDuration: '1000ms',
       disableClose: true
     });
+  }
+
+  reset(){
+    window.location.reload()
   }
 
   create() {
@@ -153,8 +159,8 @@ export class ViewAnnouncementComponent implements OnInit {
   }
 
   onSubmit(event: MatSlideToggleChange, id: any) {
-   
-    this.announcementId=id
+
+    this.announcementId = id
     this.isChecked = event.checked;
 
     let submitModel: announcestatus = {
@@ -241,7 +247,7 @@ export class ViewAnnouncementComponent implements OnInit {
       FileSaver.saveAs(blob, 'Announcement.xlsx');
     });
   }
-  announcement(id:any){
+  announcement(id: any) {
     this.dialog.open(AnnouncementviewComponent, {
       data: { value: id },
       enterAnimationDuration: '1000ms',

@@ -60,20 +60,6 @@ export class EntitySettlementComponent {
   ) { }
   ngOnInit(): void {
 
-    this.ActivateRoute.queryParams.subscribe((param: any) => {
-      this.id = param.Alldata;
-    });
-
-    this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
-      this.details = res.response;
-      this.detaislone = res.response.merchantpersonal;
-      this.accountid = res.response.merchantpersonal.accountId;
-      console.log(this.accountid);
-      this.postrenewal();
-      // console.log(this.details);
-
-    })
-
     this.MerchantView.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
         console.log(res);
@@ -104,7 +90,23 @@ export class EntitySettlementComponent {
           this.errorMessage = res.responseMessage;
         }
       }
+    });
+
+    this.ActivateRoute.queryParams.subscribe((param: any) => {
+      this.id = param.Alldata;
+    });
+
+    this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+      this.details = res.response;
+      this.detaislone = res.response.merchantpersonal;
+      this.accountid = res.response.merchantpersonal.accountId;
+      console.log(this.accountid);
+      this.postrenewal();
+      // console.log(this.details);
+
     })
+
+
   }
 
 

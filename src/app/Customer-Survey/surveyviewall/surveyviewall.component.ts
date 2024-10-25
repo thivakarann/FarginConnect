@@ -57,17 +57,6 @@ export class SurveyviewallComponent {
 
   ngOnInit() {
 
-
-    this.service.SurveyViewAll().subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.survey = res.response;
-        this.survey.reverse();
-        this.dataSource = new MatTableDataSource(this.survey);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      }
-    })
-
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
         console.log(res);
@@ -98,10 +87,23 @@ export class SurveyviewallComponent {
           this.errorMessage = res.responseMessage;
         }
       }
+    });
+
+
+    this.service.SurveyViewAll().subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.survey = res.response;
+        this.survey.reverse();
+        this.dataSource = new MatTableDataSource(this.survey);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
     })
+
+
   }
 
-  reload(){
+  reload() {
     window.location.reload()
   }
 

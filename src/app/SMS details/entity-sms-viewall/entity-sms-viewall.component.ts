@@ -59,17 +59,6 @@ errorMessage: any;
 
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
   ngOnInit(): void {
-    this.service.SmsGetAll().subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.smsResponse=res.response;
-        this.dataSource = new MatTableDataSource(this.smsResponse);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      }
-      else if(res.flag==2){
-        this.message=res.responseMessage;
-      }
-    })
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
@@ -98,6 +87,21 @@ errorMessage: any;
         }
       }
     })
+
+
+    this.service.SmsGetAll().subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.smsResponse=res.response;
+        this.dataSource = new MatTableDataSource(this.smsResponse);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+      else if(res.flag==2){
+        this.message=res.responseMessage;
+      }
+    })
+
+   
 
   }
   applyFilter(event: Event) {

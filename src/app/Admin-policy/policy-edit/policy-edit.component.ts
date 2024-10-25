@@ -13,7 +13,6 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './policy-edit.component.css'
 })
 export class PolicyEditComponent implements OnInit {
-
   editadminpolicy!: FormGroup;
   businessCategoryId: any;
   getadminname = JSON.parse(localStorage.getItem('adminname') || '');
@@ -81,6 +80,10 @@ export class PolicyEditComponent implements OnInit {
       console.log(this.policyview)
       this.merchant=this.policyview.entityModel.merchantId
        console.log(this.merchant)
+       //search dropdown merchant
+       if (this.policyview?.entityModel?.merchantId) {
+        this.editadminpolicy.get('merchantId')?.setValue(this.policyview.entityModel.merchantId);
+      }
     });
   }
  
@@ -147,4 +150,3 @@ export class PolicyEditComponent implements OnInit {
   }
  
 }
-

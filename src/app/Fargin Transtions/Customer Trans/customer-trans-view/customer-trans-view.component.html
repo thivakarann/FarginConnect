@@ -1,4 +1,4 @@
-<div class="card" style=" font-size: 14px;height:530px;">
+<div class="card" style=" font-size: 14px;height:560px;">
     <div class="form-header d-flex justify-content-between align-items-center">
         <h6 class="mb-0 text-center" style="color:#fff;">Transaction Information</h6>
         <button type="button" class="btn btn-secondary" mat-dialog-close>Back</button>
@@ -26,9 +26,7 @@
                 <tr>
                     <td class="datas">Total Payable Amount</td>
                     <td id="data"  class="text-success">₹{{view?.paidAmount}}</td>
-                </tr>
-               
-             
+                </tr> 
                 <tr>
                     <td class="datas">Payment Method</td>
                     <td id="data" >{{view?.paymentMethod}}</td>
@@ -37,14 +35,14 @@
                 <td class="datas">Card Expiry</td>
                 <td id="data">
                  <span  *ngIf="view?.cardExpiry == null || view?.cardExpiry == 'null' ">-</span>
-                 <span *ngIf="view?.cardExpiry != null || view?.cardExpiry == 'null'">  {{view?.cardExpiry}}</span>  
+                 <span *ngIf="view?.cardExpiry != null && view?.cardExpiry != 'null'">  {{view?.cardExpiry}}</span>  
                   </td>
             </tr>
             <tr >
                 <td class="datas">Card Masked No</td>
                 <td id="data">
                     <span  *ngIf="view?.cardNoMasked == null || view?.cardNoMasked == 'null' ">-</span>
-                    <span *ngIf="view?.cardNoMasked != null || view?.cardNoMasked == 'null'">  {{view?.cardNoMasked}}</span>  
+                    <span *ngIf="view?.cardNoMasked != null && view?.cardNoMasked != 'null'">  {{view?.cardNoMasked}}</span>  
                     </td>
             </tr>
                 <tr>

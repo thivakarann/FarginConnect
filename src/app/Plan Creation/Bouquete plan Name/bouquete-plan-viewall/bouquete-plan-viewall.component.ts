@@ -59,6 +59,49 @@ export class BouquetePlanViewallComponent {
   ) { }
 
   ngOnInit(): void {
+
+
+    this.Bouqutenameviewall.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        console.log(res);
+
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+
+          if (this.roleId == 1) {
+            this.valuePlanAdd = ' Plan Creation-Add';
+            this.valuePlanEdit = ' Plan Creation-Edit';
+            this.valuePlanExport = ' Plan Creation-Export';
+            this.valuePlanStatus = ' Plan Creation-Status'
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+
+
+              if (this.actions == ' Plan Creation-Add') {
+                this.valuePlanAdd = ' Plan Creation-Add'
+              }
+              if (this.actions == ' Plan Creation-Export') {
+                this.valuePlanExport = ' Plan Creation-Export';
+              }
+              if (this.actions == ' Plan Creation-Status') {
+                this.valuePlanStatus = ' Plan Creation-Status'
+              }
+              if (this.actions == ' Plan Creation-Edit') {
+                this.valuePlanEdit = ' Plan Creation-Edit'
+              }
+
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    });
+
+
     this.Bouqutenameviewall.Bouqetenameviewall().subscribe((res: any) => {
       this.viewall = res.response;
       this.viewall.reverse();
@@ -68,49 +111,11 @@ export class BouquetePlanViewallComponent {
       console.log(this.viewall);
     });
 
-    this.Bouqutenameviewall.rolegetById(this.roleId).subscribe({
-      next: (res: any) => {
-        console.log(res);
 
-        if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
-          
-          if (this.roleId == 1) {
-            this.valuePlanAdd = ' Plan Creation-Add';
-            this.valuePlanEdit=' Plan Creation-Edit';
-            this.valuePlanExport=' Plan Creation-Export';
-            this.valuePlanStatus=' Plan Creation-Status'
-          }
-          else {
-            for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
-              
-
-              if(this.actions ==' Plan Creation-Add'){
-                this.valuePlanAdd=' Plan Creation-Add'
-              }
-              if (this.actions == ' Plan Creation-Export') {
-                this.valuePlanExport = ' Plan Creation-Export';
-              }
-              if(this.actions==' Plan Creation-Status'){
-                this.valuePlanStatus=' Plan Creation-Status'
-              }
-              if(this.actions==' Plan Creation-Edit'){
-                this.valuePlanEdit=' Plan Creation-Edit'
-              }
-             
-            }
-          }
-        }
-        else {
-          this.errorMessage = res.responseMessage;
-        }
-      }
-    })
 
   }
 
-  reload(){
+  reload() {
     window.location.reload()
   }
 
@@ -118,7 +123,7 @@ export class BouquetePlanViewallComponent {
     this.dialog.open(BouquetenameAddComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
-      disableClose:true
+      disableClose: true
     })
   }
 
@@ -164,7 +169,7 @@ export class BouquetePlanViewallComponent {
 
   }
 
- 
+
   exportexcel() {
     console.log('check');
     let sno = 1;
@@ -192,7 +197,7 @@ export class BouquetePlanViewallComponent {
     });
     this.excelexportCustomer();
   }
- 
+
 
   excelexportCustomer() {
     // const title='Business Category';
@@ -205,8 +210,8 @@ export class BouquetePlanViewallComponent {
       "Modified By",
       "Modified At",
     ]
- 
- 
+
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Plan Creation Details');
@@ -225,15 +230,15 @@ export class BouquetePlanViewallComponent {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
+
       }
- 
+
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
- 
+
     data.forEach((d: any) => {
       // console.log("row loop");
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -242,10 +247,10 @@ export class BouquetePlanViewallComponent {
       let qty4 = row.getCell(5);
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
- 
- 
- 
- 
+
+
+
+
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -253,23 +258,23 @@ export class BouquetePlanViewallComponent {
       qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      
- 
+
+
     }
     );
- 
+
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
     // worksheet.getColumn(2).protection = { locked: true, hidden: true }
     // worksheet.getColumn(3).protection = { locked: true, hidden: true }
- 
- 
+
+
     workbook.xlsx.writeBuffer().then((data: any) => {
- 
+
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
- 
- 
+
+
       FileSaver.saveAs(blob, 'Plan Creation Details.xlsx');
- 
+
     });
   }
 

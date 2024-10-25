@@ -10,18 +10,18 @@
  
                 <div class="form__linput">
                     <label class="form__label"  for="merchantId">Merchant Name:</label>
-                    <p-dropdown ngModel="{{policyview?.merchantLegalName}}"
-                        [options]="filteredMerchantNames"
-                        optionLabel="label"  
-                        optionValue="value"    
-                        [placeholder]="'---Select---'"
-                        formControlName="merchantId"
-                        [showClear]="true"
-                        [filter]="true"
-                        filterPlaceholder="Search..."
-                        (onFilter)="filterMerchantNames($event)"
-                        [style]="{'text-align': 'center', 'width': '950px'}">
-                    </p-dropdown>            
+                    <p-dropdown
+                    [options]="filteredMerchantNames"
+                    optionLabel="label"
+                    optionValue="value"
+                    [placeholder]="'---Select---'"
+                    formControlName="merchantId"
+                    [showClear]="true"
+                    [filter]="true"
+                    filterPlaceholder="Search..."
+                    (onFilter)="filterMerchantNames($event)"
+                    [style]="{'text-align': 'center', 'width': '950px'}">
+                  </p-dropdown>
                     <span style="color: red;font-size: 12px; margin-top: 2px;" class="error"
                         *ngIf="merchantId?.touched && merchantId?.errors?.['required']">Field is Required</span>
                   </div>    

@@ -48,23 +48,6 @@ export class PgsetupViewComponent implements OnInit {
 
   ngOnInit() {
 
-
-    this.service.PGsetupget().subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.pgsetup = res.response;
-        this.pgsetup.reverse();
-        this.dataSource = new MatTableDataSource(this.pgsetup);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.showcategoryData = false;
-
-      }
-      else {
-        this.errorMsg = res.responseMessage;
-        this.showcategoryData = true;
-      }
-    });
-
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
         console.log(res);
@@ -103,8 +86,32 @@ export class PgsetupViewComponent implements OnInit {
           this.errorMessage = res.responseMessage;
         }
       }
-    })
+    });
 
+
+    this.service.PGsetupget().subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.pgsetup = res.response;
+        this.pgsetup.reverse();
+        this.dataSource = new MatTableDataSource(this.pgsetup);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.showcategoryData = false;
+
+      }
+      else {
+        this.errorMsg = res.responseMessage;
+        this.showcategoryData = true;
+      }
+    });
+
+ 
+
+  }
+
+
+  reload(){
+    window.location.reload()
   }
 
 

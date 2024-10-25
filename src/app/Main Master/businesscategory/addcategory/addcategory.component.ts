@@ -26,7 +26,8 @@ export class AddcategoryComponent implements OnInit {
 
     this.addcategory = new FormGroup({
       categoryName: new FormControl('', [Validators.required]),
-      mccCode: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{4}$'),]),
+      // mccCode: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{4}$'),]),
+      mccCode: new FormControl('', [Validators.required]),
       autoDebitDate: new FormControl('', [Validators.required]),
 
     });

@@ -49,7 +49,7 @@ export class ChangePasswordComponent implements OnInit {
       this.isPasswordMatch = true;
       this.error = "Going good!!";
     } else {
-      this.isPasswordMatch = true;
+      this.isPasswordMatch = false;
       this.error = "Password Mismatch";
     }
   }

@@ -7,7 +7,7 @@
         <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="BankForm">
             <div class="row mb-3">
                 <div class="col-sm-4 form-group">
-                    <label class="form__label" for="Entity Name">AccountHolderName*</label>
+                    <label class="form__label" for="Entity Name">AccountHolderName</label>
                     <input type="text" id="Entity Name" formControlName="accountHolderName" class="form-control">
                     <div style="
                     color: red;
@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
-                    <label for="state" class="form__label">Account Number*</label>
+                    <label for="state" class="form__label">Account Number</label>
                     <input type="text" formControlName="accountNumber" id="state" class="form-control">
                     <div style="
                     color: red;
@@ -51,7 +51,7 @@
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
-                    <label for="state">Ledger ID*</label>
+                    <label for="state"  class="form__label">Ledger ID</label>
                     <input type="text" formControlName="ledgerId" id="state" class="form-control">
                     <div style="color: red; font-size: 12px; margin-top: 2px;"
                     *ngIf="ledgerId?.invalid && ledgerId?.touched && ledgerId?.errors?.['pattern']">
@@ -64,7 +64,7 @@
             <div class="row mb-3">
               
                 <div class="col-sm-4 form-group">
-                    <label for="Bussiness category">Select Bank</label>
+                    <label for="Bussiness category"  class="form__label">Select Bank</label>
                     <select formControlName="bankName" id="Bussiness category" class="form-control form-select">
                         <option *ngFor="let item of BankNames" [value]="item.bankId">{{item.bankName}}</option>
 
@@ -109,7 +109,7 @@
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
-                    <label for="Entity Name" class="form__label">BranchName*</label>
+                    <label for="Entity Name" class="form__label">Branch Name</label>
                     <input type="text" id="Entity Name" formControlName="branchName" class="form-control">
                     <div style="
                     color: red;
@@ -136,7 +136,7 @@
 
             <div class="row mb-3">
                 <div class="col-sm-4 form-group">
-                    <label for="Entity Name" class="form__label">IFSC Code*</label>
+                    <label for="Entity Name" class="form__label">IFSC Code</label>
                     <input type="text" id="Entity Name" formControlName="ifscCode" class="form-control">
                     <div style="
                     color: red;

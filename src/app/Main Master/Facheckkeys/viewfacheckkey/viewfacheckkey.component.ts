@@ -44,24 +44,6 @@ export class ViewfacheckkeyComponent {
 
   ngOnInit() {
 
-
-    this.service.viewfacheck().subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.facheck = res.response;
-        this.facheck.reverse();
-        this.dataSource = new MatTableDataSource(this.facheck);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-
-        this.showcategoryData = false;
-        // console.log(this.businesscategory) 
-      }
-      else {
-        this.errorMsg = res.responseMessage;
-        this.showcategoryData = true;
-      }
-    });
-
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
         console.log(res);
@@ -106,6 +88,26 @@ export class ViewfacheckkeyComponent {
         }
       }
     })
+
+
+    this.service.viewfacheck().subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.facheck = res.response;
+        this.facheck.reverse();
+        this.dataSource = new MatTableDataSource(this.facheck);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+
+        this.showcategoryData = false;
+        // console.log(this.businesscategory) 
+      }
+      else {
+        this.errorMsg = res.responseMessage;
+        this.showcategoryData = true;
+      }
+    });
+
+   
 
   }
 

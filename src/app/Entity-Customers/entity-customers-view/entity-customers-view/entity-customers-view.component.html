@@ -64,28 +64,30 @@
               <strong>City Name:</strong> {{ viewcustomer?.cityName }}
             </div>
             <div class="mb-3">
+              <strong>Country:</strong> {{ viewcustomer?.countryName }}
+            </div>
+            <div class="mb-3">
               <strong>Pincode:</strong> {{ viewcustomer?.pincodeName }}
             </div>
             <div class="mb-3">
               <strong>Land Mark:</strong> {{ viewcustomer?.landmark }}
             </div>
             <div class="mb-3">
-              <strong>Age:</strong> {{ viewcustomer?.age }}
+              <strong>Advance Paid:</strong>
+              <span *ngIf="viewcustomer?.advanceStatus==1">Yes</span>
+              <span *ngIf="viewcustomer?.advanceStatus==0">No</span>
             </div>
+ 
           </div>
           <div class="col-md-6">
             <div class="mb-3">
-              <strong>Flat Number:</strong> {{ viewcustomer?.flatNumber }}
+              <strong>Flat Number:</strong>
+              {{ viewcustomer?.flatNumber }}
             </div>
             <div class="mb-3">
               <strong>Block Number:</strong> {{ viewcustomer?.blockNumber }}
             </div>
-            <div class="mb-3">
-              <strong>BroadCaster:</strong> {{ viewcustomer?.stbId?.regionEntity?.service?.serviceProviderName }}
-            </div>
-            <div class="mb-3">
-              <strong>STB Number:</strong> {{ viewcustomer?.stbId?.setupBoxNumber }}
-            </div>
+ 
             <div class="mb-3">
               <strong>House Name:</strong> {{ viewcustomer?.houseName }}
             </div>
@@ -99,9 +101,21 @@
               <strong>Apartment Name:</strong> {{ viewcustomer?.apartmentName }}
             </div>
             <div class="mb-3">
-              <strong>Pincode:</strong> {{ viewcustomer?.pincodeName }}
+              <strong>State:</strong> {{ viewcustomer?.stateName }}
             </div>
+           
+            <div class="mb-3">
+              <strong>Advance Amount:</strong>
  
+              <span *ngIf="viewcustomer?.advanceStatus==1">{{ viewcustomer?.advanceAmount }}</span>
+              <span *ngIf="viewcustomer?.advanceStatus==0" style="text-align:center;">-</span>
+ 
+            </div>
+            <div class="mb-3">
+              <strong>Connection Type:</strong>
+              <span *ngIf="viewcustomer?.freeLine==1">Paid</span>
+              <span *ngIf="viewcustomer?.freeLine==0">Free</span>
+            </div>
           </div>
         </div>
       </div>
@@ -138,6 +152,7 @@
                 <th>Service Provider Name</th>
                 <th>Region</th>
                 <th>Status</th>
+                
                 <th>View</th>
                 <th>Created By</th>
                 <th>Created At</th>
@@ -157,6 +172,7 @@
             (change)="ActiveStatus($event,row.customerStbId)">
           </mat-slide-toggle>
                   </td>
+                  
                   <td style="cursor: pointer;"  (click)="view(row.stbId?.stbId)"
                   >
                     <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
@@ -201,10 +217,11 @@
  
                 <th>S No</th>
                 <th>Payment ID</th>
-                <th>Paid Amount</th>
+                <th>Due Amount</th>
                 <th>Onboard Date</th>
                 <th>Due Date</th>
                 <th>Payment Status</th>
+                <th>Reciept</th>
                 <th>Paid At</th>
               </tr>
               <span *ngIf="!showData" class="text-center" style="color:red;font-size:12px;">NO DATA FOUND</span>
@@ -225,6 +242,10 @@
                     <span *ngIf=" row.paymentStatus=='Failure'" style="color:red"> {{ row.paymentStatus}}</span>
                     <span *ngIf=" row.paymentStatus=='Initiated'" style="color:blue"> {{ row.paymentStatus}}</span>
  
+                  </td>
+                  <td>
+                    <button class="btn btn-success btn-sm"
+                        style="border:none;" (click)="Receipt(row.customerPayId)"> <i class="fa-solid fa-download" style="color:#fff;"></i></button>
                   </td>
                   <td>
                     <span *ngIf=" row.paymentDateTime!= null"> {{ row.paymentDateTime | date:"dd/MM/yyyy

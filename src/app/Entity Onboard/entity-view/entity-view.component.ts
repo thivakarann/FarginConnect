@@ -196,48 +196,6 @@ export class EntityViewComponent implements OnInit {
     private ActivateRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.ActivateRoute.queryParams.subscribe((param: any) => {
-      this.id = param.Alldata;
-    });
-
-    this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
-      this.details = res.response;
-      console.log(this.details);
-
-      this.detaislone = res.response.merchantpersonal;
-      this.bankdetails = res.response.merchantbank;
-      this.KYCDetails = res.response.merchantkycdocument;
-      this.bussinessdoc = res.response.merchantbusinessdocument;
-      console.log(this.bussinessdoc + "jdfnjksdfvls")
-      this.identityProof = res.response.merchantkycdocument[0].identityProof;
-      this.addressProof = res.response.merchantkycdocument[0].addressProof;
-      this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-
-
-
-
-      this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-      console.log('BussinessCategoryId', this.businessCategoryId);
-      console.log(this.detaislone);
-      console.log(this.bankdetails);
-      console.log(this.KYCDetails);
-
-
-    })
-
-    this.MerchantView.GetManualPay(this.id).subscribe((res: any) => {
-
-      if (res.flag == 1) {
-        this.manualDetails = res.response;
-
-        this.manualDetails.forEach((item: any) => {
-          this.paymentStatus = item.paymentStatus;
-          this.paymentMethod = item.paymentMethod
-          console.log(this.paymentStatus);
-
-        });
-      }
-    })
 
     this.MerchantView.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
@@ -437,7 +395,55 @@ export class EntityViewComponent implements OnInit {
           this.errorMessage = res.responseMessage;
         }
       }
+    });
+
+
+
+
+    this.ActivateRoute.queryParams.subscribe((param: any) => {
+      this.id = param.Alldata;
+    });
+
+    this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+      this.details = res.response;
+      console.log(this.details);
+
+      this.detaislone = res.response.merchantpersonal;
+      this.bankdetails = res.response.merchantbank;
+      this.KYCDetails = res.response.merchantkycdocument;
+      this.bussinessdoc = res.response.merchantbusinessdocument;
+      console.log(this.bussinessdoc + "jdfnjksdfvls")
+      this.identityProof = res.response.merchantkycdocument[0].identityProof;
+      this.addressProof = res.response.merchantkycdocument[0].addressProof;
+      this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+
+
+
+
+      this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+      console.log('BussinessCategoryId', this.businessCategoryId);
+      console.log(this.detaislone);
+      console.log(this.bankdetails);
+      console.log(this.KYCDetails);
+
+
     })
+
+    this.MerchantView.GetManualPay(this.id).subscribe((res: any) => {
+
+      if (res.flag == 1) {
+        this.manualDetails = res.response;
+
+        this.manualDetails.forEach((item: any) => {
+          this.paymentStatus = item.paymentStatus;
+          this.paymentMethod = item.paymentMethod
+          console.log(this.paymentStatus);
+
+        });
+      }
+    })
+
+  
     this.MerchantView.OtherPayByMerchantId(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
         this.otherDetails = res.response;
@@ -447,6 +453,7 @@ export class EntityViewComponent implements OnInit {
     this.MerchantView.SMSViewById(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
         this.smsDetails = res.response;
+
       }
     })
   }

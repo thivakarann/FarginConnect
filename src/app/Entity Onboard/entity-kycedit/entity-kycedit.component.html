@@ -38,22 +38,24 @@
                     </div>
                 </div>
  
-                <div class="form__linput" *ngIf="identityProof.value === 'Driving License' || identityProof.value === 'Passport' ">
+                <div class="form__linput" *ngIf="identityProofs=== 'Driving License' || identityProofs === 'Passport'">
                     <label class="form__label"><b>Date of Birth</b></label>
-                    <input  *ngIf="identityProof.value !== 'Driving License' || identityProof.value === 'Passport' "
+                    <input  *ngIf="identityProofs === 'Passport'"
                         class="form-control"
                         id="dob"
                         type="date"
                          ngModel="{{PassportDob}}"
-                        [formControlName]="identityProof.value === 'Driving License' ? 'drivingLicenceDob' :     'passportDob'"
+                        [formControlName]="identityProof.value === 'Driving License' ? 'drivingLicenceDob' : 'passportDob'"
+                        [max]="today"
                        
                     />
-                    <input  *ngIf="identityProof.value === 'Driving License' || identityProof.value !== 'Passport' "
+                    <input  *ngIf="identityProofs === 'Driving License'"
                     class="form-control"
                     id="dob"
                     type="date"
                      ngModel="{{DrivingDob}}"
                     [formControlName]="identityProof.value === 'Driving License' ? 'drivingLicenceDob' : 'passportDob'"
+                    [max]="today"
                    
                 />
                     <!-- <div *ngIf="(selectkyc === 'Driving License' ? drivingLicenceDob : passportDob)?.invalid &&
@@ -120,21 +122,23 @@
                             number.</small>
                     </div>
                 </div>
-                <div class="form__linput" *ngIf="addressProof.value === 'Driving License' || addressProof.value === 'Passport' ">
+                <div class="form__linput" *ngIf="addressProofvalue === 'Driving License' || addressProofvalue=== 'Passport' ">
                     <label class="form__label"><b>Date of Birth</b></label>
-                    <input  *ngIf="addressProof.value !== 'Driving License' || addressProof.value === 'Passport' "
+                    <input  *ngIf="addressProofvalue === 'Passport' "
                         class="form-control"
                         id="dob"
                         type="date"
                         ngModel="{{PassportDob}}"
                         [formControlName]="addressProof.value === 'Driving License' ? 'drivingLicenceDobs' : 'passportDobs'"
+                        [max]="today"
                     />
-                    <input  *ngIf="addressProof.value === 'Driving License' || addressProof.value !== 'Passport' "
+                    <input  *ngIf="addressProofvalue === 'Driving License'"
                     class="form-control"
                     id="dob"
                     type="date"
                     ngModel="{{DrivingDob}}"
                     [formControlName]="addressProof.value === 'Driving License' ? 'drivingLicenceDobs' : 'passportDobs'"
+                    [max]="today"
                 />
                     <!-- <div *ngIf="(addressProof.value  === 'Driving License' ? drivingLicenceDobs : passportDobs)?.invalid &&
                                  (addressProof.value  === 'Driving License' ? drivingLicenceDobs : passportDobs)?.touched &&
@@ -194,26 +198,27 @@
                         *ngIf="signatureProofNo?.invalid && signatureProofNo?.touched && signatureProofNo?.errors?.['required']">
                         Field is required
                     </div>
-                    <div style="color: red; font-size: 12px;margin-top: 2px;"
-                        *ngIf="signatureProofNo?.invalid && signatureProofNo?.touched && signatureProofNo?.errors?.['pattern']">
-                        Please Enter Valid Gst Number*
-                    </div>
+                    <small *ngIf="signatureProofNo.errors?.['pattern']"
+                    style="color: red; font-size: 12px;">Enter a valid {{select}}
+                    number.</small>
                 </div>
-                <div class="form__linput" *ngIf="signatureProofNo.value === 'Driving License' || signatureProofNo.value === 'Passport' ">
+                <div class="form__linput" *ngIf="signatureProofvalue === 'Driving License' || signatureProofvalue === 'Passport' ">
                     <label class="form__label"><b>Date of Birth</b></label>
-                    <input *ngIf="signatureProofNo.value !== 'Driving License' || signatureProofNo.value === 'Passport' "
+                    <input *ngIf="signatureProofvalue === 'Passport'"
                         class="form-control"
                         id="dob"
                         type="date"
                              ngModel="{{PassportDob}}"
-                        [formControlName]="signatureProofNo.value === 'Driving License' ? 'drivingLicenceDobss' : 'passportDobss'"
+                        [formControlName]="signatureProof.value === 'Driving License' ? 'drivingLicenceDobss' : 'passportDobss'"
+                        [max]="today"
                     />
-                    <input *ngIf="signatureProofNo.value === 'Driving License' || signatureProofNo.value !== 'Passport' "
+                    <input *ngIf="signatureProofvalue === 'Driving License'"
                     class="form-control"
                     id="dob"
                     type="date"
                          ngModel="{{DrivingDob}}"
-                    [formControlName]="signatureProofNo.value === 'Driving License' ? 'drivingLicenceDobss' : 'passportDobss'"
+                    [formControlName]="signatureProof.value === 'Driving License' ? 'drivingLicenceDobss' : 'passportDobss'"
+                    [max]="today"
                 />
                     <!-- <div *ngIf="(signatureProofNo.value === 'Driving License' ? drivingLicenceDobss : passportDobss)?.invalid &&
                                  (signatureProofNo.value === 'Driving License' ? drivingLicenceDobss : passportDobss)?.touched &&

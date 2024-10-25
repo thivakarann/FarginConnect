@@ -66,17 +66,6 @@ export class ServicePaymentsViewallComponent {
 
   ngOnInit(): void {
 
-    this.service.OneTimeAllTransactions().subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.transaction = res.response;
-        this.transaction.reverse();
-        this.dataSource = new MatTableDataSource(this.transaction);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      }
-
-    });
-
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
         console.log(res);
@@ -113,7 +102,20 @@ export class ServicePaymentsViewallComponent {
           this.errorMessage = res.responseMessage;
         }
       }
-    })
+    });
+
+    this.service.OneTimeAllTransactions().subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.transaction = res.response;
+        this.transaction.reverse();
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+
+    });
+
+ 
   }
 
 

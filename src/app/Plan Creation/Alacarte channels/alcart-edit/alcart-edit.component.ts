@@ -26,6 +26,8 @@ export class AlcartEditComponent implements OnInit {
   amount: any;
   ChannelNumber: any;
   Broadcasters: any;
+  show: any;
+  typesign: any;
 
   constructor(
     public EditAlcart: FarginServiceService,
@@ -54,7 +56,18 @@ export class AlcartEditComponent implements OnInit {
       this.Generic = res.response.generic;
       this.Language = res.response.language;
       this.Type = res.response.type;
+      if(this.Type==1)
+        {
+              this.show=true;
+        }
+        else{
+          this.show=false;
+        }
       this.amount = res.response.price;
+      if(this.amount==0)
+      {
+        this.amount=""
+      }
       this.ChannelNumber = res.response.channelNo
       console.log(this.amount);
     })
@@ -62,7 +75,7 @@ export class AlcartEditComponent implements OnInit {
     this.myForm = new FormGroup({
       regionId: new FormControl('', Validators.required),
       channelName: new FormControl('', Validators.required),
-      price: new FormControl('', [Validators.pattern('^[1-9][0-9]*$')]),
+      price: new FormControl('',Validators.pattern('^[1-9][0-9]*(\.[0-9]+)?$')),
       type: new FormControl('', Validators.required),
       bundleChannelId: new FormControl('', Validators.required),
       generic: new FormControl('', Validators.required),
@@ -72,13 +85,18 @@ export class AlcartEditComponent implements OnInit {
 
     });
 
-    this.myForm.get('type')?.valueChanges.subscribe(value => {
-      if (value !== '1') {
-        this.myForm.get('price')?.reset();
-      }
-    });
+  
   }
-
+  typeevent(event:any)
+  {
+    this.typesign = event.target.value;
+    if (event.target.value == '0') {
+      this.show = false;
+       
+    } else {
+      this.show = true;
+    }
+  }
   get regionId() {
     return this.myForm.get('regionId')
 

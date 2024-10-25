@@ -715,6 +715,7 @@
                             <label class="form__label"><b>Date of Birth</b></label>
                             <input class="form-control" id="dob" type="date"
                                 [formControlName]="selectElement === 'Driving License' ? 'drivingLicenceDob' : 'passportDob'"
+                                [max]="today"
                                 required />
                             <div *ngIf="(selectElement === 'Driving License' ? drivingLicenceDob : passportDob)?.invalid &&
                                          (selectElement === 'Driving License' ? drivingLicenceDob : passportDob)?.touched &&
@@ -802,6 +803,7 @@
                             <label class="form__label"><b>Date of Birth</b></label>
                             <input class="form-control" id="dob" type="date"
                                 [formControlName]="selectElements === 'Driving License' ? 'drivingLicenceDobs' : 'passportDobs'"
+                                [max]="today"
                                 required />
                             <div *ngIf="(selectElements === 'Driving License' ? drivingLicenceDobs : passportDobs)?.invalid &&
                                          (selectElements === 'Driving License' ? drivingLicenceDobs : passportDobs)?.touched &&
@@ -905,6 +907,7 @@
                             <label class="form__label"><b>Date of Birth</b></label>
                             <input class="form-control" id="dob" type="date"
                                 [formControlName]="select === 'Driving License' ? 'drivingLicenceDobss' : 'passportDobss'"
+                                [max]="today"
                                 required />
                             <div *ngIf="(select === 'Driving License' ? drivingLicenceDobss : passportDobss)?.invalid &&
                                          (select === 'Driving License' ? drivingLicenceDobss : passportDobss)?.touched &&

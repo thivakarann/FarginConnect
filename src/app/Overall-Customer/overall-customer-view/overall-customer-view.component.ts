@@ -59,21 +59,6 @@ date2: any;
   
   ngOnInit(): void {
 
-    this.EntityViewall.OverallCustomer().subscribe((res: any) => {
-      if(res.flag==1){
-        this.overallcustomer = res.response;
-        this.overallcustomer.reverse();
-        this.dataSource = new MatTableDataSource(this.overallcustomer);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        console.log(this.viewall); 
-         this.showcategoryData = false;
-      }
-      else{
-        this.showcategoryData = true;
-      }
-    
-    });
 
     this.EntityViewall.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
@@ -102,7 +87,27 @@ date2: any;
           this.errorMessage = res.responseMessage;
         }
       }
-    })
+    });
+
+
+
+    this.EntityViewall.OverallCustomer().subscribe((res: any) => {
+      if(res.flag==1){
+        this.overallcustomer = res.response;
+        this.overallcustomer.reverse();
+        this.dataSource = new MatTableDataSource(this.overallcustomer);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        console.log(this.viewall); 
+         this.showcategoryData = false;
+      }
+      else{
+        this.showcategoryData = true;
+      }
+    
+    });
+
+
 
   }
 

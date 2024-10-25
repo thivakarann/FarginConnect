@@ -62,14 +62,6 @@ export class MerchantPlanViewallComponent {
 
 
   ngOnInit(): void {
-    this.Merchantplanviewall.merchantplanviewall().subscribe((res: any) => {
-      this.viewall = res.response;
-      this.viewall.reverse();
-      this.dataSource = new MatTableDataSource(this.viewall);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-      console.log(this.viewall);
-    });
 
     this.Merchantplanviewall.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
@@ -108,7 +100,19 @@ export class MerchantPlanViewallComponent {
           this.errorMessage = res.responseMessage;
         }
       }
-    })
+    });
+
+
+    this.Merchantplanviewall.merchantplanviewall().subscribe((res: any) => {
+      this.viewall = res.response;
+      this.viewall.reverse();
+      this.dataSource = new MatTableDataSource(this.viewall);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      console.log(this.viewall);
+    });
+
+
 
   }
 
@@ -118,6 +122,10 @@ export class MerchantPlanViewallComponent {
       exitAnimationDuration: "1000ms",
       disableClose: true
     })
+  }
+
+  reload(){
+    window.location.reload()
   }
 
   Edit(id: any) {

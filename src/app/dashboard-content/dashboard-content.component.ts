@@ -68,53 +68,8 @@ export class DashboardContentComponent {
   constructor(private service: FarginServiceService) { }
 
   ngOnInit(): void {
-    this.service.dashboardCount().subscribe((res: any) => {
-      this.counts = res.response;
-      console.log(this.counts);
-    });
-    this.service.dashboardoverallamounts().subscribe((res: any) => {
-      this.amount = res.response;
-      console.log(this.counts);
-    });
-    this.service.dashbaordcustomerdayTransaction().subscribe((res: any) => {
-      this.todayamount = res.response;
 
-    });
-    this.service.dashboardoverallonetimes().subscribe((res: any) => {
-      this.amountonetime = res.response;
-      console.log(this.counts);
-    });
-    this.service.dashboardcustomersevenday().subscribe((res: any) => {
-      this.sevenday = res.response.method;
 
-    });
-    this.service.EntityViewall().subscribe((res: any) => {
-      this.viewall = res.response;
-      console.log(this.counts);
-      if (this.viewall.length > 0) {
-        this.selectedmerchant = this.viewall[0].merchantId;
-        this.fetchMerchantData(this.selectedmerchant);
-      }
-    });
-  }
-  fetchMerchantData(merchantId: string) {
-    this.service.dashboardoverallmerchantids(merchantId).subscribe((res: any) => {
-      if (res.flag === 1 || res.flag === 2) {
-        this.creatememberchart(res);
-      }
-    });
-
-    this.service.dashboardbusinessgetalls().subscribe((res: any) => {
-      this.category = res.response;
-      this.businessCategoryIds = res.response.businessCategoryId;
-      console.log(this.counts);
-    });
-    this.createWithCategory(this.initialCategoryId);
-
-    this.service.EntityViewall().subscribe((res: any) => {
-      this.viewmerchant = res.response;
-      this.merchantIds = res.response.merchantId;
-    });
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
@@ -166,6 +121,68 @@ export class DashboardContentComponent {
         }
       }
     })
+   
+   
+   
+   
+   
+    this.service.dashboardCount().subscribe((res: any) => {
+      this.counts = res.response;
+      console.log(this.counts);
+    });
+    this.service.dashboardoverallamounts().subscribe((res: any) => {
+      this.amount = res.response;
+      console.log(this.counts);
+    });
+    this.service.dashbaordcustomerdayTransaction().subscribe((res: any) => {
+      this.todayamount = res.response;
+
+    });
+    this.service.dashboardoverallonetimes().subscribe((res: any) => {
+      this.amountonetime = res.response;
+      console.log(this.counts);
+    });
+    this.service.dashboardcustomersevenday().subscribe((res: any) => {
+      this.sevenday = res.response.method;
+
+    });
+    this.service.EntityViewall().subscribe((res: any) => {
+
+      if (res && res.response) {
+        this.viewall = res.response;
+
+
+        if (this.viewall.length > 0) {
+          this.selectedmerchant = this.viewall[0].merchantId;
+          this.fetchMerchantData(this.selectedmerchant);
+        } else {
+          console.log("No merchants found.");
+        }
+      } else {
+        console.log("Response is undefined or does not contain data.");
+      }
+    });
+  }
+  fetchMerchantData(merchantId: string) {
+    this.service.dashboardoverallmerchantids(merchantId).subscribe((res: any) => {
+      if (res.flag === 1 || res.flag === 2) {
+        this.creatememberchart(res);
+      }
+    });
+
+    this.service.dashboardbusinessgetalls().subscribe((res: any) => {
+      this.category = res.response;
+      this.businessCategoryIds = res.response.businessCategoryId;
+      console.log(this.counts);
+    });
+    this.createWithCategory(this.initialCategoryId);
+
+    this.service.EntityViewall().subscribe((res: any) => {
+      this.viewmerchant = res.response;
+      this.merchantIds = res.response.merchantId;
+    });
+
+  
 
     // this.service.dashbaordcustomerdayTransaction().subscribe((res: any) => {
     //   if (res.flag == 1) {

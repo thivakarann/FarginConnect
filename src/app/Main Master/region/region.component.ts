@@ -59,13 +59,8 @@ export class RegionComponent implements OnInit {
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
 
   ngOnInit() {
-    this.service.RegionGet().subscribe((res: any) => {
-      this.region = res.response;
-      this.region.reverse();
-      this.dataSource = new MatTableDataSource(this.region);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-    });
+
+
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
         console.log(res);
@@ -105,7 +100,18 @@ export class RegionComponent implements OnInit {
           this.errorMessage = res.responseMessage;
         }
       }
-    })
+    });
+
+
+
+    this.service.RegionGet().subscribe((res: any) => {
+      this.region = res.response;
+      this.region.reverse();
+      this.dataSource = new MatTableDataSource(this.region);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    });
+ 
 
   }
 

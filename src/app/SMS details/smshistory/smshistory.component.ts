@@ -62,19 +62,6 @@ valuesmshistoryexport: any;
  
  
   ngOnInit(): void {
-   
-    this.service.SmsHistoryGetAll().subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.smsResponse=res.response;
-        this.dataSource = new MatTableDataSource(this.smsResponse);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      }
-      else if(res.flag==2){
-        this.message=res.responseMessage;
-      }
- 
-    })
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
@@ -103,6 +90,21 @@ valuesmshistoryexport: any;
         }
       }
     })
+   
+    this.service.SmsHistoryGetAll().subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.smsResponse=res.response;
+        this.dataSource = new MatTableDataSource(this.smsResponse);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+      else if(res.flag==2){
+        this.message=res.responseMessage;
+      }
+ 
+    })
+
+
   }
  
  

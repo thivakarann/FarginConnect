@@ -59,20 +59,7 @@ export class ServiceProviderComponent implements OnInit {
 
   constructor(private service: FarginServiceService, private toastr: ToastrService, private router: Router, private dialog: MatDialog) { }
   ngOnInit() {
-    this.service.ServiceProviderView().subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.data = res.response;
-        console.log(this.data)
-        this.dataSource = new MatTableDataSource(this.data.reverse());
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.showcategoryData = false;
-      }
-      else {
-        this.errorMsg = res.responseMessage;
-        this.showcategoryData = true;
-      }
-    });
+
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
         console.log(res);
@@ -116,7 +103,25 @@ export class ServiceProviderComponent implements OnInit {
           this.errorMessage = res.responseMessage;
         }
       }
-    })
+    });
+
+
+
+    this.service.ServiceProviderView().subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.data = res.response;
+        console.log(this.data)
+        this.dataSource = new MatTableDataSource(this.data.reverse());
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.showcategoryData = false;
+      }
+      else {
+        this.errorMsg = res.responseMessage;
+        this.showcategoryData = true;
+      }
+    });
+  
   }
 
   create() {
