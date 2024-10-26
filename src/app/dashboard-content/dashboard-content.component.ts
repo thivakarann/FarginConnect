@@ -153,7 +153,7 @@ export class DashboardContentComponent {
 
 
 
-    this.service.dashboardsevendaysamounts().subscribe((res: any) => {
+    this.service.dashboardcustomersevenday().subscribe((res: any) => {
       this.sevenper = res.response;
       console.log(this.counts);
     });

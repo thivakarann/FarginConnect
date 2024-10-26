@@ -130,7 +130,7 @@ export class DashboardComponent implements OnInit {
       this.valueentitysms = 'Entity Sms'
       this.valuesmshistory = 'SMS History'
       this.valueautodebit = 'Auto Debit'
-      this.valueCustomizationPayments = 'Customization Payments'
+      this.valueCustomizationPayments = 'Customized Payment'
       this.valuesurvey = 'Survey'
       this.valueBuisneesDoCument = 'Business Document Type'
     }
@@ -244,8 +244,8 @@ export class DashboardComponent implements OnInit {
         if (this.roles == 'Auto Debit') {
           this.valueautodebit = 'Auto Debit'
         }
-        if (this.roles == 'Customization Payments') {
-          this.valueCustomizationPayments = 'Customization Payments'
+        if (this.roles == 'Customized Payment') {
+          this.valueCustomizationPayments = 'Customized Payment'
         }
 
         if (this.roles == 'Business Document Type') {

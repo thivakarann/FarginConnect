@@ -77,27 +77,27 @@ export class OtherpaymentsViewallComponent {
           this.getdashboard = res.response?.subPermission;
  
           if (this.roleId == 1) {
-            this.valueCustomizationexport = 'Customization Payments-Export'
-            this.valueCustomizationView = 'Customization Payments-View'
-            this.valueCustomizationReceipt = 'Customization Payments-Receipt'
-             this.valueCustomizationcheck = 'Customization Payments-Check Status'
+            this.valueCustomizationexport = 'Customized Payments-Export'
+            this.valueCustomizationView = 'Customized Payment-View'
+            this.valueCustomizationReceipt = 'Customized Transaction-Receipt'
+             this.valueCustomizationcheck = 'Customized Transaction-Check Status'
  
           }
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
-              if (this.actions == 'Customization Payments-Export') {
-                this.valueCustomizationexport = 'Customization Payments-Export'
+              if (this.actions == 'Customized Transaction-Export') {
+                this.valueCustomizationexport = 'Customized Transaction-Export'
               }
-              if (this.actions == 'Customization Payments-View') {
-                this.valueCustomizationView = 'Customization Payments-View'
+              if (this.actions == 'Customized Payment-View') {
+                this.valueCustomizationView = 'Customized Payment-View'
               }
-              if (this.actions == 'Customization Payments-Receipt') {
-                this.valueCustomizationReceipt = 'Customization Payments-Receipt'
+              if (this.actions == 'Customized Transaction-Invoice') {
+                this.valueCustomizationReceipt = 'Customized Transaction-Invoice'
               }
 
-              if (this.actions == 'Customization Payments-Check Status') {
-                this.valueCustomizationcheck = 'Customization Payments-Check Status'
+              if (this.actions == 'Customized Transaction-Check Status') {
+                this.valueCustomizationcheck = 'Customized Transaction-Check Status'
               }
  
             }

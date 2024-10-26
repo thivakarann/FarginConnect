@@ -517,8 +517,7 @@ export class FarginServiceService {
   //customer logo
   private readonly customerlogo = 'customerTickets/updatedocument';
   private readonly customerlogoview = 'customerTickets/viewimage/';
-  private readonly otherpaymentviewbyid = 'otherpayment/getByPayId/';
-
+  private readonly otherpaymentviewbyid = 'otherpayment/viewbyid/';
 
 
 

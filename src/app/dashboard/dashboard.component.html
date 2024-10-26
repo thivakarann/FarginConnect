@@ -115,7 +115,7 @@
             [hidden]="valuecustomerpayment!=='Customer Payment' &&
             valuecustomersubscription!=='Subscription Payment' &&
             valuecustomermanualpayment!=='one Time Payments' &&
-            valueCustomizationPayments!=='Customization Payments'">
+            valueCustomizationPayments!=='Customized Payment'">
               <a>
                 <i class="fa-solid fa-credit-card" aria-hidden="true"></i>
                 <span>Transactions</span>
@@ -134,7 +134,7 @@
                   <li routerLink="service-payments-viewall" [hidden]="valuecustomermanualpayment!=='one Time Payments'">
                     <a>One Time Payments</a>
                   </li>
-                  <li routerLink="otherpayments-viewall" [hidden]="valueCustomizationPayments!=='Customization Payments'">
+                  <li routerLink="otherpayments-viewall" [hidden]="valueCustomizationPayments!=='Customized Payment'">
                     <a>Customization Payments</a>
                   </li>
                 </ul>

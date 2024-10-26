@@ -128,7 +128,7 @@ export class SurveyviewallComponent {
  
       this.response = [];
       this.response.push(sno);
-      this.response.push(element?.customerName);
+      this.response.push(element?.merchantId.entityName );
       this.response.push(element?.questions);
       this.response.push(element?.createdDatetime);
  

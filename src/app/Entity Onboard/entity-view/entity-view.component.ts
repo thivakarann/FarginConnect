@@ -235,6 +235,8 @@ export class EntityViewComponent implements OnInit {
             this.valuemanualedit = 'One Time Setup Payment-Edit'
             this.valuemanualview = 'One Time Setup Payment-View'
             this.valuefinalcomment = 'Final-Comment'
+             this.valuefinalcomment = 'Final-Comment'
+              this.valuefinalcomment = 'Final-Comment'
 
             this.valuebussinessAdd = 'Entity View Bussiness Document-Add'
             this.valuebussinessapproval = 'Entity View Bussiness Document-Approval'
@@ -443,7 +445,7 @@ export class EntityViewComponent implements OnInit {
       }
     })
 
-  
+
     this.MerchantView.OtherPayByMerchantId(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
         this.otherDetails = res.response;
@@ -563,6 +565,9 @@ export class EntityViewComponent implements OnInit {
     this.MerchantView.BankprimaryStatus(id, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        setTimeout(() => {
+          window.location.reload()
+        }, 500);
 
       }
       else {
