@@ -176,13 +176,14 @@ export class BouquatenameViewallComponent implements OnInit {
     let sno = 1;
     this.responseDataListnew = [];
     this.viewall.forEach((element: any) => {
-
+ 
       let createdate = element.createdAt;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-
+ 
       let moddate = element.modifiedDateAndTime;
       this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
-
+ 
+ 
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.broadCasterName);
@@ -196,15 +197,16 @@ export class BouquatenameViewallComponent implements OnInit {
       this.response.push(this.date1);
       this.response.push(element?.modifiedBy);
       this.response.push(this.date2);
-
-
-
+ 
+     
+     
+ 
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
-
+ 
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
@@ -216,16 +218,16 @@ export class BouquatenameViewallComponent implements OnInit {
       "Modified By",
       "Modified At",
     ]
-
-
+ 
+ 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Broadcast');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
-
+ 
+ 
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -236,15 +238,15 @@ export class BouquatenameViewallComponent implements OnInit {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
-
+ 
       }
-
+ 
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
-
+ 
     data.forEach((d: any) => {
       // console.log("row loop");
-
+ 
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -252,34 +254,36 @@ export class BouquatenameViewallComponent implements OnInit {
       let qty3 = row.getCell(4);
       let qty4 = row.getCell(5);
       let qty5 = row.getCell(6);
-
-
-
+      let qty6 = row.getCell(7);
+ 
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty3.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
-
+      qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+ 
     }
     );
-
+ 
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
     // worksheet.getColumn(2).protection = { locked: true, hidden: true }
     // worksheet.getColumn(3).protection = { locked: true, hidden: true }
-
-
+ 
+ 
     workbook.xlsx.writeBuffer().then((data: any) => {
-
+ 
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-
-
+ 
+ 
       FileSaver.saveAs(blob, 'Broadcast.xlsx');
-
+ 
     });
   }
+ 
+ 
+
 
 
 }

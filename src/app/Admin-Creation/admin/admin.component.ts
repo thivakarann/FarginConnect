@@ -163,54 +163,61 @@ reload(){
       this.response.push(element?.pincode);
       this.response.push(element?.state);
       this.response.push(element?.country);
-
+ 
       if (element?.accountStatus == 1) {
         this.response.push("Active");
       }
       else {
         this.response.push("InActive");
       }
-
+ 
       this.response.push(element?.createdBy);
       this.response.push(this.date1);
       this.response.push(element?.modifiedBy);
-      this.response.push(this.date2);
+      if(element?.modifiedAt){
+        this.response.push(moment(element?.modifiedAt).format('DD/MM/yyyy-hh:mm a').toString());
+      }
+      else{
+        this.response.push('');
+      }
+     
+   
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
-
+ 
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
-      "sno",
-      "name",
-      "roleName",
-      "gender",
-      "email",
-      "mobile",
-      "address",
-      "city",
-      "state",
-      "pincode",
-      "country",
-      "status",
-      "createdBy",
-      "createdDateTime",
-      "modifiedBy",
-      "modifiedDateTime"
+      "S No",
+      "Name",
+      "Role Name",
+      "Gender",
+      "Email",
+      "Mobile",
+      "Address",
+      "City",
+      "State",
+      "Pincode",
+      "Country",
+      "Status",
+      "Created By",
+      "Created At",
+      "Modified By",
+      "Modified At"
     ]
-
-
+ 
+ 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Business Category');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
-
+ 
+ 
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -221,15 +228,15 @@ reload(){
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
-
+ 
       }
-
+ 
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
-
+ 
     data.forEach((d: any) => {
       // console.log("row loop");
-
+ 
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -247,8 +254,8 @@ reload(){
       let qty13 = row.getCell(14);
       let qty14 = row.getCell(15);
       let qty15 = row.getCell(16);
-
-
+ 
+ 
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -265,26 +272,25 @@ reload(){
       qty13.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty14.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty15.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
-
+ 
+ 
     }
     );
-
+ 
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
     // worksheet.getColumn(2).protection = { locked: true, hidden: true }
     // worksheet.getColumn(3).protection = { locked: true, hidden: true }
-
-
+ 
+ 
     workbook.xlsx.writeBuffer().then((data: any) => {
-
+ 
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-
-
+ 
+ 
       FileSaver.saveAs(blob, 'Admin Creation.xlsx');
-
+ 
     });
   }
-
 
 
   applyFilter(event: Event) {

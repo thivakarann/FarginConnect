@@ -20,14 +20,14 @@ export class SMSHistoryViewComponent {
   merchantid: any;
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = [
-    'sno',
-    'entityname',
-    'smsType',
-    'mobileNum',
-    'createdBy',
-    'date',
-    'modifyBy',
-    'modifiedDate'
+    'S.No',
+    'Entity Name',
+    'Sms Type',
+    'MobileNum',
+    'Created By',
+    'Craeted At',
+    'Modify By',
+    'Moddified At'
  
   ];
   viewall: any;

@@ -118,28 +118,24 @@ valuesmshistoryexport: any;
     }
   }
  
+  
   exportexcel() {
     console.log('check');
     let sno = 1;
     this.responseDataListnew = [];
     this.smsResponse.forEach((element: any) => {
-      let createdate = element.createdDateTime;
+      let createdate = element.merchantSmsId?.createdDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
  
-      let moddate = element.modifedDateTime;
-      this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.merchantId?.accountId);
- 
       this.response.push(element?.merchantId?.entityName);
       this.response.push(element?.merchantId?.contactEmail);
-      this.response.push(element?.type?.smsTitle)
-      this.response.push(element?.merchantId?.contactMobile);
-      this.response.push(element?.createdBy);
+      this.response.push(element?.merchantSmsId?.type?.smsTitle);
+      this.response.push(element?.merchantSmsId?.type?.smsCharge);
+      this.response.push(element?.merchantSmsId?.createdBy);
       this.response.push(this.date1);
-   
- 
      
       sno++;
       this.responseDataListnew.push(this.response);
@@ -150,14 +146,14 @@ valuesmshistoryexport: any;
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
-   'sno',
-    'accountId',
-    'entityname',
-    'entityemail',
-    'smsType',
-    
-    'createdBy',
-    'date',
+    'SNo',
+    'Account Id',
+    'Entity Name',
+    'Entity Email',
+    'SMS Type',
+    'SMS Charge',
+    'Created By',
+    'Created At',
    
     ]
  
@@ -197,6 +193,8 @@ valuesmshistoryexport: any;
       let qty4 = row.getCell(5);
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
+      let qty7 = row.getCell(8);
+ 
  
  
  
@@ -209,7 +207,7 @@ valuesmshistoryexport: any;
       qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
+       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
  
     }
     );
@@ -221,6 +219,7 @@ valuesmshistoryexport: any;
       FileSaver.saveAs(blob, 'Sms-History.xlsx');
     });
   }
+
   View(id: any) {
     this.router.navigate([`dashboard/smshistory-view/${id}`], {
       queryParams: { Alldata: id },

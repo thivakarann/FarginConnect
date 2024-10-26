@@ -73,7 +73,7 @@
             [hidden]="valuemanualpayment!=='One Time Setup Payment'">
             One Time Setup Payment</button>
         <button class="tab" [class.active]="activeTab === 'doot3'" (click)="selectTab('doot3')"
-            [hidden]="valueCustomized!=='Customized Transactions'">Customized Transactions</button>
+            [hidden]="valueCustomized!=='Customized Payment'">Customized Transactions</button>
         <button class="tab" [class.active]="activeTab === 'doot4'" (click)="selectTab('doot4')"
             [hidden]="valuesmssetting!=='Sms Setting'">SMS Settings</button>
     </div>
@@ -1085,7 +1085,7 @@
             </div>
             <div class="col-md-2 mt-1">
                 <button (click)="otherPayement()" style="color:white;background-color: #141E46;border-radius: 10px;"
-                    mat-raised-button [hidden]="valueCustomizedadd!=='Customized Payment-Add'">Create
+                    mat-raised-button [hidden]="valueCustomizedadd!=='Customized Transactions-Add'">Create
                 </button>
             </div>
         </div>
@@ -1100,8 +1100,8 @@
                             <th>Payment ID</th>
                             <th>Service Name</th>
                             <th>Paid Amount</th>
-                            <th [hidden]="valueCustomizededit!=='Customized Payment-Edit'">Action</th>
-                            <th [hidden]="valueCustomizedview!=='Customized Payment-View'">View</th>
+                            <th [hidden]="valueCustomizededit!=='Customized Transactions-Edit'">Action</th>
+                            <th [hidden]="valueCustomizedview!=='Customized Transactions-View'">View</th>
                             <th>Payment Status</th>
                             <th>Paid At</th>
                         </tr>

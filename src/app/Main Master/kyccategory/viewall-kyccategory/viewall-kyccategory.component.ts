@@ -133,9 +133,7 @@ export class ViewallKyccategoryComponent implements OnInit {
     this.categoryview.forEach((element: any) => {
       let createdate = element.createdAt;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-
-      let moddate = element.modifiedAt;
-      this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
+ 
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.kycCategoryName);
@@ -148,24 +146,28 @@ export class ViewallKyccategoryComponent implements OnInit {
       this.response.push(element?.createdBy);
       this.response.push(this.date1);
       this.response.push(element?.modifiedBy);
-
-      this.response.push(this.date2);
-
-
-
+ 
+      if(element?.modifiedAt){
+        this.response.push(moment(element?.modifiedAt).format('DD/MM/yyyy-hh:mm a').toString());
+      }
+      else{
+        this.response.push('');
+      }
+ 
+ 
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
-
+ 
   excelexportCustomer() {
     const header = [
       "S.No",
-      "kyc Category Name",
-      "status",
-      "createdBy",
-      "createdAt",
+      "Document Type",
+      "Status",
+      "Created By",
+      "Created At",
       "Modified By",
       "Modified At",
     ]
@@ -207,6 +209,8 @@ export class ViewallKyccategoryComponent implements OnInit {
       FileSaver.saveAs(blob, 'KYC Category.xlsx');
     });
   }
+ 
+
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

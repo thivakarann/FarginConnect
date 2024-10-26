@@ -165,112 +165,128 @@ export class ViewcategoryComponent implements OnInit {
 
   }
 
-  exportexcel() {
-    console.log('check');
-    let sno = 1;
-    this.responseDataListnew = [];
-    this.businesscategory.forEach((element: any) => {
-      let createdate = element.createdDateTime;
-      this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-
-      let moddate = element.modifiedDateTime;
-      this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
-      this.response = [];
-      this.response.push(sno);
-      this.response.push(element?.categoryName);
-      this.response.push(element?.mccCode);
-      this.response.push(element?.createdBy);
-      this.response.push(this.date1);
-      this.response.push(element?.modifiedBy);
-
-      this.response.push(this.date2);
+   
+ exportexcel() {
+  console.log('check');
+  let sno = 1;
+  this.responseDataListnew = [];
+  this.businesscategory.forEach((element: any) => {
+    let createdate = element.createdDateTime;
+    this.date1 =  moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
 
 
 
-      sno++;
-      this.responseDataListnew.push(this.response);
-    });
-    this.excelexportCustomer();
-  }
+    this.response = [];
+    this.response.push(sno);
+    this.response.push(element?.categoryName);
+    this.response.push(element?.mccCode);
+    this.response.push(element?.autoDebitDate);
+    if (element.activeStatus == 0) {
+      this.response.push('Active')
+    }
+    else {
+      this.response.push('InActive')
+    }
 
-  excelexportCustomer() {
-    // const title='Business Category';
-    const header = [
-      "S.No",
-      "categoryname",
-      "mccCode",
-      "createdBy",
-      "createdDateTime",
-      "modifiedBy",
-      "modifiedDateTime",
-    ]
+    this.response.push(element?.createdBy);
+    this.response.push(this.date1);
+    this.response.push(element?.modifiedBy);
 
+    if(element.modifiedDateTime){
+      this.response.push(moment(element?.modifiedDateTime).format('DD/MM/yyyy-hh:mm a').toString());
+    }
+    else{
+      this.response.push('');
+    }
+    sno++;
+    this.responseDataListnew.push(this.response);
+  });
+  this.excelexportCustomer();
+}
 
-    const data = this.responseDataListnew;
-    let workbook = new Workbook();
-    let worksheet = workbook.addWorksheet('Business Category');
-    // Blank Row
-    // let titleRow = worksheet.addRow([title]);
-    // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
-
-    worksheet.addRow([]);
-    let headerRow = worksheet.addRow(header);
-    headerRow.font = { bold: true };
-    // Cell Style : Fill and Border
-    headerRow.eachCell((cell, number) => {
-      cell.fill = {
-        type: 'pattern',
-        pattern: 'solid',
-        fgColor: { argb: 'FFFFFFFF' },
-        bgColor: { argb: 'FF0000FF' },
-
-      }
-
-      cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-    });
-
-    data.forEach((d: any) => {
-      // console.log("row loop");
-
-      let row = worksheet.addRow(d);
-      let qty = row.getCell(1);
-      let qty1 = row.getCell(2);
-      let qty2 = row.getCell(3);
-      let qty3 = row.getCell(4);
-      let qty4 = row.getCell(5);
-      let qty5 = row.getCell(6);
-      let qty6 = row.getCell(7);
+excelexportCustomer() {
+  const header = [
+    "S.No",
+    "Category Name",
+    "Mcc Code",
+    "Auto Debit Date",
+    "Status",
+    "Created By",
+    "Created At",
+    "Modified By",
+    "Modified At",
+  ]
 
 
+  const data = this.responseDataListnew;
+  let workbook = new Workbook();
+  let worksheet = workbook.addWorksheet('Business Category');
+  // Blank Row
+  // let titleRow = worksheet.addRow([title]);
+  // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
 
 
-      qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty3.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
+  worksheet.addRow([]);
+  let headerRow = worksheet.addRow(header);
+  headerRow.font = { bold: true };
+  // Cell Style : Fill and Border
+  headerRow.eachCell((cell, number) => {
+    cell.fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      fgColor: { argb: 'FFFFFFFF' },
+      bgColor: { argb: 'FF0000FF' },
 
     }
-    );
 
-    // worksheet.getColumn(1).protection = { locked: true, hidden: true }
-    // worksheet.getColumn(2).protection = { locked: true, hidden: true }
-    // worksheet.getColumn(3).protection = { locked: true, hidden: true }
+    cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+  });
+
+  data.forEach((d: any) => {
+    // console.log("row loop");
+
+    let row = worksheet.addRow(d);
+    let qty = row.getCell(1);
+    let qty1 = row.getCell(2);
+    let qty2 = row.getCell(3);
+    let qty3 = row.getCell(4);
+    let qty4 = row.getCell(5);
+    let qty5 = row.getCell(6);
+    let qty6 = row.getCell(7);
+    let qty7 = row.getCell(8);
+    let qty8 = row.getCell(9);
 
 
-    workbook.xlsx.writeBuffer().then((data: any) => {
 
-      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+    qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+    qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+    qty3.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+    qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+    qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+    qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+    qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+    qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
 
-
-      FileSaver.saveAs(blob, 'Business Category.xlsx');
-
-    });
   }
+  );
+
+  // worksheet.getColumn(1).protection = { locked: true, hidden: true }
+  // worksheet.getColumn(2).protection = { locked: true, hidden: true }
+  // worksheet.getColumn(3).protection = { locked: true, hidden: true }
+
+
+  workbook.xlsx.writeBuffer().then((data: any) => {
+
+    let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+
+    FileSaver.saveAs(blob, 'Business Category.xlsx');
+
+  });
+}
+
+
 
 
   cancel() {

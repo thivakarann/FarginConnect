@@ -209,12 +209,12 @@
           <!-- First Row -->
           <div class="row">
             <div class="col">
-              <div>{{sevendays?.intiateCount}}</div>
+              <div>{{sevenper?.intiateCount}}</div>
               <div><strong> Total Request</strong></div>
 
             </div>
             <div class="col text-right">
-              <div>{{sevendays?.totalCount}}</div>
+              <div>{{sevenper?.totalCount}}</div>
               <div><strong>Total Count</strong></div>
 
             </div>
@@ -223,14 +223,14 @@
           <!-- Second Row -->
           <div class="row">
             <div class="col">
-              <div><strong>Success Amount:</strong></div>
-              <div>{{sevendays?.successAmount}}</div>
-              <div>Success Percentage:{{sevendays?.successCountPercentage}}</div>
+              <div><strong>Success Amount</strong></div>
+              <div>{{sevenper?.successAmount}}</div>
+              <div>Success Percentage {{sevenper?.successPercentage}}</div>
             </div>
             <div class="col text-right">
-              <div><strong>Failed Amount:</strong></div>
-              <div>{{sevendays?.failedAmount}}</div>
-              <div>Failed Percentage: {{sevendays?.failedCountPercentage}}</div>
+              <div><strong>Failed Amount</strong></div>
+              <div>{{sevenper?.failedAmount}}</div>
+              <div>Failed Percentage {{sevenper?.failurePercentage}}</div>
             </div>
           </div>
         </div>

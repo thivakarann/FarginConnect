@@ -60,11 +60,13 @@ export class BusinessKycEditComponent implements OnInit {
     });
  
     this.businessCreationId = this.data.value.businessCreationId
-    this.kycCategoryIds = this.data.value.kycCategoryId
-    this.editbusinesskyc.controls['kycCategoryId'].value = this.kycCategoryIds
+   
  
     this.businessCategoryIds = this.data.value.businessCategoryId.businessCategoryId
     this.editbusinesskyc.controls['businessCategoryId'].value = this.businessCategoryIds
+
+    this.kycCategoryIds = this.data.value.entityKycCategory.kycCategoryId
+    this.editbusinesskyc.controls['kycCategoryId'].value = this.kycCategoryIds
  
  
     this.service.BusinesscategoryKycactive().subscribe((res: any) => {
@@ -96,8 +98,8 @@ export class BusinessKycEditComponent implements OnInit {
  
   Editsubmit() {
     let submitModel: Businesskycedit = {
-      kycCategoryId: this.kycCategoryId.value,
-      businessCategoryId: this.businessCategoryId.value,
+      categoryKycId: this.kycCategoryId.value,
+      businessCreationId: this.businessCategoryId.value,
       modifiedBy: this.getadminname
     }
  

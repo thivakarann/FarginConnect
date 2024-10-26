@@ -7,7 +7,7 @@
         <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="myForm">
             <div class="row mb-3">
                 <div class="col-sm-6 form-group">
-                    <label for="Entity Name">Plan Name*</label>
+                    <label for="Entity Name">Plan Name</label>
                     <input type="text" id="Entity Name" formControlName="planName" class="form-control">
                     <div style="
                     color: red;
@@ -20,8 +20,8 @@
                     </div>
                 </div>
                 <div class="col-sm-6 form-group">
-                    <label for="state">PlatForm Fee*</label>
-                    <input type="text" placeholder="Enter amount in rupees" formControlName="technicalAmount" id="state"
+                    <label for="state">PlatForm Fee</label>
+                    <input type="text" formControlName="technicalAmount" id="state"
                         class="form-control">
 
                     <div style="
@@ -46,9 +46,9 @@
             </div>
             <div class="row mb-3">
                 <div class="col-sm-6 form-group">
-                    <label for="zip">Maintenance Amount*</label>
+                    <label for="zip">Maintenance Amount</label>
                     <input type="text" formControlName="maintenanceAmount" id="zip" class="form-control"
-                        placeholder="Enter amount in rupees">
+                        >
 
                     <div style="
                     color: red;
@@ -98,9 +98,9 @@
 
             <div class="row mb-3">
                 <div class="col-sm-6 form-group">
-                    <label for="zip">Renewal Amount*</label>
+                    <label for="zip">Renewal Amount</label>
                     <input type="text" formControlName="renewalAmount" id="zip" class="form-control"
-                        placeholder="Enter amount in rupees">
+                       >
               
                     <div style="
                     color: red;

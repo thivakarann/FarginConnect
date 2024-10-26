@@ -24,7 +24,7 @@
  
             <div class="form__linput">
             <label class="form__label" for="fname">Document</label>
-            <mat-select #select class="form-select" multiple formControlName="kycCategoryId"
+            <!-- <mat-select #select class="form-select" multiple formControlName="kycCategoryId"
             (ngModelChange)="kycId($event)" [value]="kycCategoryIds">
  
             <div class="select-all">
@@ -35,8 +35,15 @@
             <mat-option *ngFor="let item of kycValue"
                 [value]="item.kycCategoryId">{{item.kycCategoryName}}</mat-option>
  
-        </mat-select>
-           
+        </mat-select> -->
+        <select class="form-select" formControlName="kycCategoryId">
+            <option style="text-align: center;" selected disabled>---Select--
+            </option>
+            <option style="text-align: center;" *ngFor="let item of kycValue;"
+                [value]="item.kycCategoryId">
+                {{item.kycCategoryName}}
+            </option>
+        </select>
  
             <div style="color: red; font-size : 12px;margin-top: 2px;"
                 *ngIf="kycCategoryId?.invalid && kycCategoryId?.touched && kycCategoryId?.errors?.['required']">

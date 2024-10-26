@@ -197,53 +197,53 @@ export class OtherpaymentsViewallComponent {
     this.transaction.forEach((element: any) => {
       let createdate = element.paymentDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-
+ 
       let moddate = element.modifiedDatetime;
       this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
       this.response.push(sno);
-      this.response.push(element?.paymentId);
+      this.response.push(element?.pgPaymentId);
       this.response.push(element?.merchantId?.merchantLegalName);
       this.response.push(element?.paymentMethod);
       this.response.push(element?.paidAmount);
       this.response.push(this.date1);
-
+ 
       if (element?.paymentStatus == 'Success') {
-        this.response.push(element?.paymentStatus);
+        this.response.push('Success');
       }
       else if (element?.paymentStatus == 'Pending') {
-        this.response.push(element?.paymentStatus);
+        this.response.push('Pending');
       }
-      else if (element?.paymentStatus == 'Initiated') {
-        this.response.push(element?.paymentStatus);
+      else  {
+        this.response.push('Initiated');
       }
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
-
+ 
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
-      'sno',
-      'paymentId',
-      'entityname',
-      'paymentmethod',
-      'amount',
-      'paidAt',
-      'status',
+      'SNo',
+      'Payment Id',
+      'Entity Name',
+      'Payment Method',
+      'Amount',
+      'Paid At',
+      'Status',
     ]
-
-
+ 
+ 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
-    let worksheet = workbook.addWorksheet('Entity Transactions');
+    let worksheet = workbook.addWorksheet('Other Payment Transactions');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
-
+ 
+ 
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -254,15 +254,15 @@ export class OtherpaymentsViewallComponent {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
-
+ 
       }
-
+ 
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
-
+ 
     data.forEach((d: any) => {
       // console.log("row loop");
-
+ 
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -271,11 +271,11 @@ export class OtherpaymentsViewallComponent {
       let qty4 = row.getCell(5);
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -283,8 +283,8 @@ export class OtherpaymentsViewallComponent {
       qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
-
+ 
+ 
     }
     );
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
@@ -292,9 +292,11 @@ export class OtherpaymentsViewallComponent {
     // worksheet.getColumn(3).protection = { locked: true, hidden: true }
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      FileSaver.saveAs(blob, 'Maintenance Transaction.xlsx');
+      FileSaver.saveAs(blob, 'Other Payment Transaction.xlsx');
     });
   }
+ 
+
 
   transactionview(id: any) {
 

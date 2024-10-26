@@ -9,24 +9,24 @@
         <form [formGroup]="BankForm">
             <div class="row mb-3">
                 <div class="col-sm-4 form-group">
-                    <label for="accountHolderName"> Account Holder Name*</label>
-                    <input type="text" id="Entity Name" placeholder="Enter Account Holder Name" class="form-control"
+                    <label for="accountHolderName"> Account Holder Name</label>
+                    <input type="text" id="Entity Name" class="form-control"
                         formControlName="accountHolderName">
                     <span class="error" *ngIf="accountHolderName?.touched && accountHolderName?.errors?.['required']">Field Is
                         Required</span>
                 </div>
  
                 <div class="col-sm-4 form-group">
-                    <label for="accountNumber"> Account Number*</label>
-                    <input type="text" id="Entity Name" placeholder="Enter Account Number" class="form-control"
+                    <label for="accountNumber"> Account Number</label>
+                    <input type="text" id="Entity Name"  class="form-control"
                         formControlName="accountNumber">
                     <span class="error" *ngIf="accountNumber?.touched && accountNumber?.errors?.['required']">Field Is
                         Required</span>
                 </div>
 
                 <div class="col-sm-4 form-group">
-                    <label> Bank Name*</label>
-                    <input type="text" id="Entity Name" placeholder="Enter Bank Name" class="form-control"
+                    <label> Bank Name</label>
+                    <input type="text" id="Entity Name"  class="form-control"
                         formControlName="bankName">
                     <span class="error" *ngIf="bankName?.touched && bankName?.errors?.['required']">Field Is
                         Required</span>
@@ -37,28 +37,28 @@
             <div class="row mb-3">
                 <div class="col-sm-4 form-group">
                     <label for="ifscCode">IFSC Code</label>
-                    <input type="text"  placeholder="ifscCode.." class="form-control"
+                    <input type="text"  class="form-control"
                         formControlName="ifscCode" >
                     <span class="error"
                         *ngIf=" ifscCode?.invalid && ifscCode?.touched && ifscCode?.errors?.['required']">
-                        Field is Required*</span>
+                        Field is Required</span>
                   
                 </div>
                 <div class="col-sm-4 form-group">
                     <label >Branch Name</label>
-                    <input type="text" id="zip" placeholder="branchName.." class="form-control"
+                    <input type="text" id="zip"  class="form-control"
                         formControlName="branchName" minlength="10" maxlength="10">
                     <span class="error"
                         *ngIf=" branchName?.invalid && branchName?.touched && branchName?.errors?.['required']">
-                        Field is Required*</span>
+                        Field is Required</span>
                 </div>
 
                 <div class="col-sm-4 form-group">
                     <label for="Mcc Code">Ledger Id</label>
-                    <input  type="text" id="ledgerId" placeholder="ledgerId.." class="form-control"
+                    <input  type="text" id="ledgerId"  class="form-control"
                         formControlName="ledgerId">
                     <span class="error" *ngIf=" ledgerId?.invalid && ledgerId?.touched && ledgerId?.errors?.['required']">
-                        Field is Required*</span>
+                        Field is Required</span>
                 </div>
             </div>
          

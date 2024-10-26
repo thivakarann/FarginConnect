@@ -182,14 +182,23 @@ export class ViewAnnouncementComponent implements OnInit {
     this.announcementValue.forEach((element: any) => {
       let createdate = element.createdDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-
+ 
       let moddate = element.updateDateTime;
       this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.businessCategory?.categoryName);
       this.response.push(element?.announcementContentEnglish);
+      this.response.push(element?.startDate);
+      this.response.push(element?.endDate);
       this.response.push(element?.createdBy);
+      if (element?.activeStatus == '1') {
+        this.response.push('Active');
+      }
+      else  {
+        this.response.push('Inactive');
+      }
+   
       this.response.push(this.date1);
       this.response.push(element?.updatedBy);
       this.response.push(this.date2);
@@ -198,16 +207,19 @@ export class ViewAnnouncementComponent implements OnInit {
     });
     this.excelexportCustomer();
   }
-
+ 
   excelexportCustomer() {
     const header = [
       "S.No",
       "Business Category",
       "Announcement",
+      "Start date",
+      "End date",
       "Created By",
-      "created Date Time",
-      "updatedBy",
-      "modifiedDateTime",
+      "Status",
+      "Created Date",
+      "Modified By",
+      "Modified Date and Time",
     ]
     const data = this.responseDataListnew;
     let workbook = new Workbook();
@@ -233,6 +245,11 @@ export class ViewAnnouncementComponent implements OnInit {
       let qty4 = row.getCell(5);
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
+      let qty7 = row.getCell(8);
+      let qty8 = row.getCell(9);
+      let qty9 = row.getCell(10);
+ 
+ 
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -240,6 +257,10 @@ export class ViewAnnouncementComponent implements OnInit {
       qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+ 
     }
     );
     workbook.xlsx.writeBuffer().then((data: any) => {
@@ -247,6 +268,7 @@ export class ViewAnnouncementComponent implements OnInit {
       FileSaver.saveAs(blob, 'Announcement.xlsx');
     });
   }
+
   announcement(id: any) {
     this.dialog.open(AnnouncementviewComponent, {
       data: { value: id },

@@ -89,8 +89,8 @@ export interface Businesskycadd {
 
 
 export interface Businesskycedit {
-  readonly kycCategoryId: any;
-  readonly businessCategoryId: any;
+  readonly categoryKycId: any;
+  readonly businessCreationId: any;
   readonly modifiedBy: any;
 }
 export interface addentity {

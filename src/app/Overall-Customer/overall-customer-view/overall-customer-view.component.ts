@@ -141,72 +141,58 @@ exportexcel() {
   let sno = 1;
   this.responseDataListnew = [];
   this.overallcustomer.forEach((element: any) => {
-    // let createdate = element.createdDateTime;
-    // this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-
-    // let moddate = element.modifiedDateTime;
-    // this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
-
+ 
     this.response = [];
     this.response.push(sno);
     this.response.push(element?.customerName);
+    this.response.push(element?.merchantId?.entityName);
     this.response.push(element?.merchantId?.merchantLegalName);
     this.response.push(element?.merchantId?.businessCategoryModel?.categoryName);
     this.response.push(element?.emailAddress);
     this.response.push(element?.mobileNumber);
-    this.response.push(element?.flatNumber);
-    this.response.push(element?.blockNumber);
-    this.response.push(element?.stbId.setupBoxNumber);
-
-
+   
     sno++;
     this.responseDataListnew.push(this.response);
   });
   this.excelexportCustomer();
 }
-
+ 
 excelexportCustomer() {
-  // const title='Business Category';
   const header = [
-  'customerId',
-  'customerName',
-  'merchantLegalName',
-  'categoryName',
-  'emailAddress',
-  'mobileNumber',
-  // 'flatNumber',
-  // 'blockNumber',
-  // 'stbNumber'
+    "S.No",
+  'Customer Name',
+  'Entity Name',
+  'Merchant Legal Name',
+  'Category Name',
+  'Email Address',
+  'Mobile Number',
+ 
   ]
-
-
+ 
+ 
   const data = this.responseDataListnew;
   let workbook = new Workbook();
   let worksheet = workbook.addWorksheet('Overall customer view');
-  // Blank Row
-  // let titleRow = worksheet.addRow([title]);
-  // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
-
+ 
+ 
   worksheet.addRow([]);
   let headerRow = worksheet.addRow(header);
   headerRow.font = { bold: true };
-  // Cell Style : Fill and Border
   headerRow.eachCell((cell, number) => {
     cell.fill = {
       type: 'pattern',
       pattern: 'solid',
       fgColor: { argb: 'FFFFFFFF' },
       bgColor: { argb: 'FF0000FF' },
-
+ 
     }
-
+ 
     cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
   });
-
+ 
   data.forEach((d: any) => {
     // console.log("row loop");
-
+ 
     let row = worksheet.addRow(d);
     let qty = row.getCell(1);
     let qty1 = row.getCell(2);
@@ -215,12 +201,10 @@ excelexportCustomer() {
     let qty4 = row.getCell(5);
     let qty5 = row.getCell(6);
     let qty6 = row.getCell(7);
-    let qty7 = row.getCell(8);
-    let qty8 = row.getCell(9);
  
-
-
-
+ 
+ 
+ 
     qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -228,27 +212,27 @@ excelexportCustomer() {
     qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-    qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-    qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
 
+ 
+ 
   }
   );
-
+ 
   // worksheet.getColumn(1).protection = { locked: true, hidden: true }
   // worksheet.getColumn(2).protection = { locked: true, hidden: true }
   // worksheet.getColumn(3).protection = { locked: true, hidden: true }
-
-
+ 
+ 
   workbook.xlsx.writeBuffer().then((data: any) => {
-
+ 
     let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-
-
+ 
+ 
     FileSaver.saveAs(blob, 'Overall CustomerView.xlsx');
-
+ 
   });
 }
+ 
 
 
 

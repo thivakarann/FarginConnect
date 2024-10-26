@@ -176,55 +176,60 @@ reload(){
     this.data.forEach((element: any) => {
       let createdate = element.createdDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
+ 
 
-      let moddate = element.modifiedAt;
-      this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.serviceProviderName);
+      this.response.push(element?.serviceProviderLink);
       if (element?.status == 1) {
         this.response.push("Active");
       }
       else {
         this.response.push("InActive");
       }
-
+ 
       this.response.push(element?.createdBy);
-
+ 
       this.response.push(this.date1);
       this.response.push(element?.modifiedBy);
-
-      this.response.push(this.date2);
-
-
-
+      if(element?.modifiedAt){
+        this.response.push(moment(element?.modifiedAt).format('DD/MM/yyyy-hh:mm a').toString());
+      }
+      else{
+        this.response.push('');
+      }
+ 
+ 
+ 
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
-
+ 
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
       "S.No",
-      "Providername",
+      "Service Provider Name",
+      "Service Provider URL",
       "Status",
       "CreatedBy",
       "CreatedDateTime",
       "ModifiedBy",
       "ModifiedDateTime",
     ]
-
-
+ 
+ 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Business Category');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
-
+ 
+ 
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -235,15 +240,15 @@ reload(){
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
-
+ 
       }
-
+ 
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
-
+ 
     data.forEach((d: any) => {
       // console.log("row loop");
-
+ 
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -252,8 +257,8 @@ reload(){
       let qty4 = row.getCell(5);
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
-
-
+      let qty7 = row.getCell(8);
+ 
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -261,24 +266,24 @@ reload(){
       qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
-
-
+      qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+ 
+ 
     }
     );
-
+ 
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
     // worksheet.getColumn(2).protection = { locked: true, hidden: true }
     // worksheet.getColumn(3).protection = { locked: true, hidden: true }
-
-
+ 
+ 
     workbook.xlsx.writeBuffer().then((data: any) => {
-
+ 
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-
-
+ 
+ 
       FileSaver.saveAs(blob, 'Service-Provider.xlsx');
-
+ 
     });
   }
 

@@ -36,9 +36,11 @@
            
  
             <div>
-                <button type="submit" class="btn mx-1" style="background-color:#7db855be"
+                <button type="submit" class="btn" style="background-color:#7db855be"
                     [disabled]="regioncreate.invalid" (click)="RegionCreate()">Submit</button>&nbsp;&nbsp;&nbsp;
-                <button type="submit" class="cancel" matDialogClose (click)="close()">Cancel</button>
+                    <button type="submit" class="btn" style="background-color: #141e46; color: white" matDialogClose>
+                        Cancel
+                    </button>
  
             </div>
  

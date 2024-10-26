@@ -64,6 +64,7 @@ export class DashboardContentComponent {
   valueTransactionDetails: any;
   valuetoppay: any;
   valueTotalcount: any;
+  sevenper: any;
 
   constructor(private service: FarginServiceService) { }
 
@@ -121,11 +122,11 @@ export class DashboardContentComponent {
         }
       }
     })
-   
-   
-   
-   
-   
+
+
+
+
+
     this.service.dashboardCount().subscribe((res: any) => {
       this.counts = res.response;
       console.log(this.counts);
@@ -143,8 +144,18 @@ export class DashboardContentComponent {
       console.log(this.counts);
     });
     this.service.dashboardcustomersevenday().subscribe((res: any) => {
-      this.sevenday = res.response.method;
+      this.sevenday = res.response;
 
+
+    });
+
+
+
+
+
+    this.service.dashboardsevendaysamounts().subscribe((res: any) => {
+      this.sevenper = res.response;
+      console.log(this.counts);
     });
     this.service.EntityViewall().subscribe((res: any) => {
 
@@ -182,7 +193,7 @@ export class DashboardContentComponent {
       this.merchantIds = res.response.merchantId;
     });
 
-  
+
 
     // this.service.dashbaordcustomerdayTransaction().subscribe((res: any) => {
     //   if (res.flag == 1) {
@@ -656,15 +667,15 @@ export class DashboardContentComponent {
 
 
   createseven(data: DashboardData[]): void {
-    const labels = data.map((item: DashboardData) => {
+    // Filter out any non-date entries
+    const validData = data.filter(item => item.date);
+
+    const labels = validData.map((item: DashboardData) => {
       const date = new Date(item.date);
       return `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()}`;
     });
 
-    const totalCount = data.map((item: DashboardData) => item.totalCount);
-    // const successAmounts = data.map((item: DashboardData) => item.successAmount);
-    // const pendingAmounts = data.map((item: DashboardData) => item.pendingAmount);
-    // const failureAmounts = data.map((item: DashboardData) => item.failureAmount);
+    const totalCount = validData.map((item: DashboardData) => item.totalCount);
 
     const chartData: ChartData<'bar', number[], string> = {
       labels: labels,
@@ -674,29 +685,8 @@ export class DashboardContentComponent {
           data: totalCount,
           backgroundColor: '#2196F3',
           borderWidth: 1,
-          type: 'bar' as const, // Specify type as 'bar'
+          type: 'bar' as const,
         },
-        // {
-        //   label: 'Success Amount',
-        //   data: successAmounts,
-        //   backgroundColor: '#4CAF50',
-        //   borderWidth: 1,
-        //   type: 'bar' as const,
-        // },
-        // {
-        //   label: 'Pending Amount',
-        //   data: pendingAmounts,
-        //   backgroundColor: '#FFC107',
-        //   borderWidth: 1,
-        //   type: 'bar' as const,
-        // },
-        // {
-        //   label: 'Failure Amount',
-        //   data: failureAmounts,
-        //   backgroundColor: '#f44336',
-        //   borderWidth: 1,
-        //   type: 'bar' as const,
-        // },
       ],
     };
 
@@ -740,4 +730,5 @@ export class DashboardContentComponent {
       },
     });
   }
+
 }

@@ -133,7 +133,8 @@ errorMessage: any;
       this.response.push(element?.merchantId?.entityName);
       this.response.push(element?.merchantId?.contactEmail);
      this.response.push(element?.type?.smsTitle)
-      this.response.push(element?.merchantId?.contactMobile);
+     this.response.push(element?.smsCount)
+     this.response.push(element?.type?.smsCharge)
       this.response.push(element?.createdBy);
       this.response.push(this.date1);
    
@@ -148,13 +149,15 @@ errorMessage: any;
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
-   'sno',
-    'accountId',
-    'entityname',
-    'entityemail',
-    'smsType',
-    'createdBy',
-    'date',
+    'S.No',
+    'Account Id',
+    'Entity Name',
+    'Entity Email',
+    'SMS Type',
+    'SMS Count',
+    'Charge Per Sms',
+    'Created By',
+    'Created At',
    
     ]
  
@@ -194,6 +197,8 @@ errorMessage: any;
       let qty4 = row.getCell(5);
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
+      let qty7 = row.getCell(8);
+      let qty8 = row.getCell(9);
  
  
  
@@ -206,7 +211,8 @@ errorMessage: any;
       qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
+      qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
  
     }
     );
@@ -218,4 +224,5 @@ errorMessage: any;
       FileSaver.saveAs(blob, 'Sms-ViewAll.xlsx');
     });
 }
+
 }

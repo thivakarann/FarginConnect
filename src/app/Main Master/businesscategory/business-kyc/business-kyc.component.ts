@@ -250,4 +250,8 @@ export class BusinessKycComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+  reload(){
+    window.location.reload()
+
+  }
 }

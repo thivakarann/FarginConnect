@@ -51,7 +51,7 @@
             <ng-container matColumnDef="raiseTicketId">
                 <th mat-header-cell *matHeaderCellDef>Ticket Id</th>
                 <td mat-cell *matCellDef="let data">
-                    {{data?.raiseTicketId}}
+                    {{data?.ticketId}}
                 </td>
             </ng-container>
 
@@ -116,7 +116,7 @@
 
             <ng-container matColumnDef="createdDateTime">
                 <th mat-header-cell *matHeaderCellDef>Created At</th>
-                <td mat-cell *matCellDef="let data">{{data.createdDateTime}}</td>
+                <td mat-cell *matCellDef="let data">{{data.createdDateTime |date:'dd-MM-yyyy hh:mm a'}}</td>
             </ng-container>
 
             <ng-container matColumnDef="action">

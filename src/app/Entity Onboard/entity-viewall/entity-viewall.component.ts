@@ -168,71 +168,77 @@ export class EntityViewallComponent {
     this.viewall.forEach((element: any) => {
       let createdate = element.createdDatetime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-
-      let moddate = element.modifiedDatetime;
-      this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
+ 
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.entityName);
       this.response.push(element?.accountId);
-      this.response.push(element?.merchantLegalName);
-      this.response.push(element?.businessCategoryModel?.categoryName);
       this.response.push(element?.referenceNo);
-
+      this.response.push(element?.merchantLegalName);
+      this.response.push(element?.contactEmail);
+      this.response.push(element?.businessCategoryModel?.categoryName);
+ 
       if (element?.approvalStatusL2 == 'approved') {
         this.response.push('Approved');
       }
-      else (element?.approvalStatusL2 == 'Pending')
+      else if(element?.approvalStatusL2 == 'Pending')
       {
         this.response.push('Pending');
       }
-      if (element?.onBoardStatus == 'true') {
+      else
+      {
+        this.response.push('Rejected');
+      }
+//
+         if (element?.onBoardStatus == 'true') {
         this.response.push('Approved');
       }
-      else (element?.onBoardStatus == 'false')
+      else
       {
         this.response.push('Pending');
       }
+//
       if (element?.accountStatus == 1) {
         this.response.push('Active');
       }
-      else (element?.accountStatus == 0)
+      else
       {
         this.response.push('Inactive');
       }
-
+ 
       this.response.push(this.date1);
-
+         
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
-
+ 
   excelexportCustomer() {
-    // const title='Business Category';
+    // const title='Entity Details';
     const header = [
       "S.No",
-      'entityName',
-      'accountId',
-      'referenceNo',
-      'merchantLegalName',
-      'businessCategoryModel',
-      'finalapproval',
-      'pgonboard',
-      'status',
+      'Entity Name',
+      'Account Id',
+      'Reference No',
+      'Merchant Legal Name',
+      'Entity Email',
+      'Business Category Model',
+      'Final approval',
+      'PG Onboard',
+      'Status',
       "Created At"
     ]
-
-
+ 
+ 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Entity Details');
-    // Blank Row
+ 
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
-
+ 
+ 
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -243,15 +249,15 @@ export class EntityViewallComponent {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
-
+ 
       }
-
+ 
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
-
+ 
     data.forEach((d: any) => {
       // console.log("row loop");
-
+ 
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -263,11 +269,7 @@ export class EntityViewallComponent {
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
-
-
-
-
-
+      let qty10 = row.getCell(11);
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -278,19 +280,16 @@ export class EntityViewallComponent {
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
-
+      qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+ 
     }
     );
-    // worksheet.getColumn(1).protection = { locked: true, hidden: true }
-    // worksheet.getColumn(2).protection = { locked: true, hidden: true }
-    // worksheet.getColumn(3).protection = { locked: true, hidden: true }
+ 
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       FileSaver.saveAs(blob, 'Entity Details.xlsx');
     });
   }
-
   onSubmit(event: MatSlideToggleChange, id: any) {
     this.isChecked = event.checked;
     let submitModel: EntityStatus = {
