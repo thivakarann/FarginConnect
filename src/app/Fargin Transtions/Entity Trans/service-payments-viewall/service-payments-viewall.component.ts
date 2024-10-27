@@ -76,7 +76,7 @@ export class ServicePaymentsViewallComponent {
           if (this.roleId == 1) {
             this.valueserviceView = 'one Time Payments-View'
             this.valueserviceexport = 'one Time Payments-Export'
-            this.valueserviceReceipt = 'one Time Paymentst-Invoice'
+            this.valueserviceReceipt = 'one Time Payments-Invoice'
             this.valueservicecheck = 'one Time Payments-Check Status'
           }
           else {

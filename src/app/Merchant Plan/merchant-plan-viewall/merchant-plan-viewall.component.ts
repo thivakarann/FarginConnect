@@ -179,8 +179,6 @@ export class MerchantPlanViewallComponent {
       let createdate = element.createdDatetime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
  
-      let moddate = element.modifiedDateTime;
-      this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.planName);
@@ -195,13 +193,13 @@ export class MerchantPlanViewallComponent {
       }
       this.response.push(element?.createdBy);
       this.response.push(this.date1);
-      if (element?.modifiedBy == null) {
-        this.response.push("-")
+      this.response.push(element?.modifiedBy)
+      if(element?.modifiedDateTime){
+        this.response.push(element?.modifiedDateTime)
       }
-      else {
-        this.response.push(element?.modifiedBy)
+      else{
+        this.response.push('')
       }
-      this.response.push(this.date2);
       sno++;
       this.responseDataListnew.push(this.response);
     });
@@ -217,10 +215,10 @@ export class MerchantPlanViewallComponent {
       "Maintenance Amount",
       "Frequency",
       "Status",
-      "createdBy",
+      "Created By",
       "Created At",
-      "ModifiedBy",
-      "ModifiedAt"
+      "Modified By",
+      "Modified At"
     ]
  
  
@@ -289,6 +287,7 @@ export class MerchantPlanViewallComponent {
       FileSaver.saveAs(blob, 'Merchant Plan Details.xlsx');
     });
   }
+
 }
 
 

@@ -37,7 +37,7 @@
         <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
             (click)="AddBankDetails()" [hidden]="valuefarginadd!=='Fargin bank-Add'">Create</button>
         <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
-            [hidden]="valuefarginexport!=='Fargin bank-Export'">Export</button>
+            [hidden]="valuefarginexport!=='Fargin bank-Export'" (click)="exportexcel()">Export</button>
     </div>
 
 </div>

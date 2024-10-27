@@ -211,10 +211,10 @@ reload(){
       "S.No",
       "Bank Name",
       "Status",
-      "createdBy",
+      "Created By",
       "Created At",
-      "ModifiedBy",
-      "ModifiedAt"
+      "Modified By",
+      "Modified At"
     ]
  
  
@@ -279,6 +279,7 @@ reload(){
       FileSaver.saveAs(blob, 'Bank Details.xlsx');
     });
   }
+
 
 
 }

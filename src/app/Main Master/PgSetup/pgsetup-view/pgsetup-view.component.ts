@@ -163,6 +163,9 @@ export class PgsetupViewComponent implements OnInit {
 
   }
 
+
+ 
+ 
   exportexcel() {
     console.log('check');
     let sno = 1;
@@ -170,27 +173,39 @@ export class PgsetupViewComponent implements OnInit {
     this.pgsetup.forEach((element: any) => {
       let createdate = element.createdDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-
+ 
       let moddate = element.modifiedDateTime;
       this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
-
+ 
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.pgMode);
       this.response.push(element?.apiKey);
       this.response.push(element?.secretKey);
+      if(element?.pgOnoffStatus ==1){
+        this.response.push("Active")
+      }
+      else{
+        this.response.push("Inactive")
+      }
+      
       this.response.push(element?.createdBy);
       this.response.push(this.date1);
-
+ 
       this.response.push(element?.modifiedBy);
-      this.response.push(this.date2);
-
+      if(element?.modifiedDateTime){
+        this.response.push(element?.modifiedDateTime)
+      }
+      else{
+        this.response.push('')
+      }
+ 
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
-
+ 
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
@@ -198,22 +213,23 @@ export class PgsetupViewComponent implements OnInit {
       "PG Mode",
       "Api Key",
       "Secret Key",
+      "Status",
       "Created By",
       "Created At",
       "Modified By",
       "Modified At",
-
+ 
     ]
-
-
+ 
+ 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('PG setup details');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
-
+ 
+ 
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -224,15 +240,15 @@ export class PgsetupViewComponent implements OnInit {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
-
+ 
       }
-
+ 
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
-
+ 
     data.forEach((d: any) => {
       // console.log("row loop");
-
+ 
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -242,10 +258,10 @@ export class PgsetupViewComponent implements OnInit {
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
-
-
-
-
+      let qty8 = row.getCell(9);
+ 
+ 
+ 
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -254,25 +270,27 @@ export class PgsetupViewComponent implements OnInit {
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
 
-
+ 
     }
     );
-
+ 
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
     // worksheet.getColumn(2).protection = { locked: true, hidden: true }
     // worksheet.getColumn(3).protection = { locked: true, hidden: true }
-
-
+ 
+ 
     workbook.xlsx.writeBuffer().then((data: any) => {
-
+ 
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-
-
+ 
+ 
       FileSaver.saveAs(blob, 'PG Setup Details.xlsx');
-
+ 
     });
   }
+
 
 
   cancel() {

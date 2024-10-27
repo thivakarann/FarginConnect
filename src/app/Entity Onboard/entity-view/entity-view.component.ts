@@ -245,9 +245,9 @@ export class EntityViewComponent implements OnInit {
             this.valuebussinessedit = 'Entity View Bussiness Document-Edit'
 
 
-            this.valueCustomizedadd = 'Customized Transactions-Add'
-            this.valueCustomizededit = 'Customized Transactions-Edit'
-            this.valueCustomizedview = 'Customized Transactions-View'
+            this.valueCustomizedadd = 'Entity View Customized Payment-Add'
+            this.valueCustomizededit = 'Entity View Customized Payment-Edit'
+            this.valueCustomizedview = 'Entity View Customized Payment-View'
 
             this.valuesmsadd = 'Sms Setting-Add'
             this.valuesmsapproval = 'Sms Setting-Approval'
@@ -379,14 +379,14 @@ export class EntityViewComponent implements OnInit {
               }
 
 
-              if (this.actions == 'Customized Transactions-Add') {
-                this.valueCustomizedadd = 'Customized Transactions-Add'
+              if (this.actions == 'Entity View Customized Payment-Add') {
+                this.valueCustomizedadd = 'Entity View Customized Payment-Add'
               }
-              if (this.actions == 'Customized Transactions-Edit') {
-                this.valueCustomizededit = 'Customized Transactions-Edit'
+              if (this.actions == 'Entity View Customized Payment-Edit') {
+                this.valueCustomizededit = 'Entity View Customized Payment-Edit'
               }
-              if (this.actions == 'Customized Transactions-View') {
-                this.valueCustomizedview = 'Customized Transactions-View'
+              if (this.actions == 'Entity View Customized Payment-View') {
+                this.valueCustomizedview = 'Entity View Customized Payment-View'
               }
 
 
@@ -463,7 +463,7 @@ export class EntityViewComponent implements OnInit {
 
     if (this.roleId == 1) {
       this.valueentitytransaction = 'Entity View Transaction';
-      this.valueentityautodebit = 'Entity View Auto Debit'
+      this.valueentityautodebit = 'Entity View Rent Logs'
       this.valuentitysettlement = 'Entity View Settlement';
       this.valueentityRefund = 'Entity View Refund';
       this.valueEntityqrs = 'Entity View QR';
@@ -475,7 +475,7 @@ export class EntityViewComponent implements OnInit {
       this.valuefinalapproval = 'Entity View Final Approval';
       this.valuebussinessdocument = 'Entity View Bussiness Document'
       this.valuemanualpayment = 'One Time Setup Payment'
-      this.valueCustomized = 'Customized Payment'
+      this.valueCustomized = 'Entity View Customized Payment'
       this.valuesmssetting = 'Sms Setting'
 
     }
@@ -500,8 +500,8 @@ export class EntityViewComponent implements OnInit {
         if (this.roles == 'Entity View Payment Link') {
           this.valueentitypaylink = 'Entity View Payment Link'
         }
-        if (this.roles == 'Entity View Auto Debit') {
-          this.valueentityautodebit = 'Entity View Auto Debit'
+        if (this.roles == 'Entity View Rent Logs') {
+          this.valueentityautodebit = 'Entity View Rent Logs'
         }
         if (this.roles == 'Entity View Bussiness Document') {
           this.valuebussinessdocument = 'Entity View Bussiness Document'
@@ -521,8 +521,8 @@ export class EntityViewComponent implements OnInit {
         if (this.roles == 'Entity View Final Approval') {
           this.valuefinalapproval = 'Entity View Final Approval'
         }
-        if (this.roles == 'Customized Payment') {
-          this.valueCustomized = 'Customized Payment'
+        if (this.roles == 'Entity View Customized Payment') {
+          this.valueCustomized = 'Entity View Customized Payment'
         }
         if (this.roles == 'Sms Setting') {
           this.valuesmssetting = 'Sms Setting'

@@ -158,13 +158,13 @@ export class ViewfacheckkeyComponent {
   }
 
   exportexcel() {
-
+ 
     let sno = 1;
     this.responseDataListnew = [];
     this.facheck.forEach((element: any) => {
       let createdate = element.createdAt;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-
+ 
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.apiKey);
@@ -186,9 +186,9 @@ export class ViewfacheckkeyComponent {
     });
     this.excelexportCustomer();
   }
-
+ 
   excelexportCustomer() {
-    const title = 'Facheck';
+    // const title = 'Facheck';
     const header = [
       "S.No",
       "Api Key",
@@ -200,35 +200,35 @@ export class ViewfacheckkeyComponent {
       "Created At",
       "Modified By",
       "Modified At"
-
+ 
     ]
-
-
+ 
+ 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Facheck');
-    let titleRow = worksheet.addRow([title]);
-    titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
-
+    // let titleRow = worksheet.addRow([title]);
+    // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
+ 
+ 
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
-
+ 
     headerRow.eachCell((cell, number) => {
       cell.fill = {
         type: 'pattern',
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
-
+ 
       }
-
+ 
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
-
+ 
     data.forEach((d: any) => {
-
+ 
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -240,10 +240,10 @@ export class ViewfacheckkeyComponent {
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
-
-
-
-
+ 
+ 
+ 
+ 
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -254,7 +254,7 @@ export class ViewfacheckkeyComponent {
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
+ 
     }
     );
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
@@ -265,4 +265,5 @@ export class ViewfacheckkeyComponent {
       FileSaver.saveAs(blob, 'Facheck.xlsx');
     });
   }
+
 }

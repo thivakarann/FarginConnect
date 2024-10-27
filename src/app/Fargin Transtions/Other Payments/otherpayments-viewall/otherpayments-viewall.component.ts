@@ -77,9 +77,9 @@ export class OtherpaymentsViewallComponent {
           this.getdashboard = res.response?.subPermission;
  
           if (this.roleId == 1) {
-            this.valueCustomizationexport = 'Customized Payments-Export'
-            this.valueCustomizationView = 'Customized Payment-View'
-            this.valueCustomizationReceipt = 'Customized Transaction-Receipt'
+            this.valueCustomizationexport = 'Customized Transaction-Export'
+            this.valueCustomizationView = 'Customized Transaction-View'
+            this.valueCustomizationReceipt = 'Customized Transaction-Invoice'
              this.valueCustomizationcheck = 'Customized Transaction-Check Status'
  
           }
@@ -89,8 +89,8 @@ export class OtherpaymentsViewallComponent {
               if (this.actions == 'Customized Transaction-Export') {
                 this.valueCustomizationexport = 'Customized Transaction-Export'
               }
-              if (this.actions == 'Customized Payment-View') {
-                this.valueCustomizationView = 'Customized Payment-View'
+              if (this.actions == 'Customized Transaction-View') {
+                this.valueCustomizationView = 'Customized Transaction-View'
               }
               if (this.actions == 'Customized Transaction-Invoice') {
                 this.valueCustomizationReceipt = 'Customized Transaction-Invoice'

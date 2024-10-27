@@ -32,10 +32,6 @@ export class EditAnnouncementComponent {
     console.log(this.announcementid);
     
 
-    this.businessCategoryIds = this.data.value.businessCategory.businessCategoryId
-    this.announcementContentEnglishs = this.data.value.announcementContentEnglish
-    this.startDates = this.data.value.startDate
-    this.endDates = this.data.value.endDate
     this.service.BusinesscategoryKycactive().subscribe((res: any) => {
       this.categoryvalue = res.response;
     })
@@ -47,6 +43,22 @@ export class EditAnnouncementComponent {
       endDate: new FormControl('', [Validators.required])
     });
 
+    // this.businessCategoryIds = this.data.value.businessCategory.categoryName
+    // this.announcementContentEnglishs = this.data.value.announcementContentEnglish
+    // this.startDates = this.data.value.startDate
+    // this.endDates = this.data.value.endDate
+
+
+    if (this.data && this.data.value) {
+      this.announcementform.patchValue({
+        businessCategoryId: this.data.value.businessCategory.businessCategoryId,
+        announcementContentEnglish: this.data.value.announcementContentEnglish,
+        startDate: this.data.value.startDate,
+        endDate: this.data.value.endDate,
+      });
+    } else {
+      console.error('Data is not defined');
+    }
   }
 
 

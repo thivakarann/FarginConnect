@@ -1,5 +1,5 @@
 <div class="card-header">
-    <h3 class="mb-0" style="font-weight: 700;text-align:center;font-size: 21px;">Create Category</h3>
+    <h3 class="mb-0" style="font-weight: 700;text-align:center;font-size: 21px;">Update Annoucement</h3>
 </div>
 
 <body class="page">
@@ -7,7 +7,7 @@
         <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="announcementform">
             <div class="form__linput">
                 <label class="form__label" for="fname">Business Category</label>
-                <select class="form-select" formControlName="businessCategoryId" required ngModel="{{businessCategoryIds}}">
+                <select class="form-select" formControlName="businessCategoryId" required>
                     <option style="text-align: center;" selected disabled>---Select--
                     </option>
                     <option style="text-align: center;" *ngFor="let item of categoryvalue;"
@@ -23,7 +23,7 @@
             <div class="form__linput">
                 <label class="form__label" >Announcement</label>
                 <textarea class="form-control"  type="text" formControlName="announcementContentEnglish" 
-                   required ngModel="{{announcementContentEnglishs}}" ></textarea>
+                   required ></textarea>
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="announcementContentEnglish?.invalid && announcementContentEnglish?.touched && announcementContentEnglish?.errors?.['required']">
                     Field is required
@@ -33,7 +33,7 @@
             <div class="form__linput">
                 <label class="form__label" >Start Date</label>
                 <input class="form-control"  type="date" formControlName="startDate" 
-                   required ngModel="{{startDates}}">
+                   required >
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="startDate?.invalid && startDate?.touched && startDate?.errors?.['required']">
                     Field is required
@@ -43,7 +43,7 @@
             <div class="form__linput">
                 <label class="form__label" >End Date</label>
                 <input class="form-control"  type="date" formControlName="endDate" 
-                   required ngModel="{{endDates}}">
+                   required>
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="endDate?.invalid && endDate?.touched && endDate?.errors?.['required']">
                     Field is required

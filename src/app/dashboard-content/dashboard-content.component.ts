@@ -85,7 +85,7 @@ export class DashboardContentComponent {
             this.valuetotalmerchants = 'Dashboard-Total Merchants'
             this.valuetransactionoverview = 'Dashboard-Transaction Overview'
             this.valueTransactionDetails = 'Dashboard-Transaction Details'
-            this.valuetoppay = 'Top Payment Methods'
+            this.valuetoppay = 'Dashboard-Top Payment Methods'
             this.valueTotalcount = 'Dashboard-Total Count'
           }
           else {
@@ -108,8 +108,8 @@ export class DashboardContentComponent {
               if (this.actions == 'Dashboard-Transaction Details') {
                 this.valueTransactionDetails = 'Dashboard-Transaction Details'
               }
-              if (this.actions == 'Top Payment Methods') {
-                this.valuetoppay = 'Top Payment Methods'
+              if (this.actions == 'Dashboard-Top Payment Methods') {
+                this.valuetoppay = 'Dashboard-Top Payment Methods'
               }
               if (this.actions == 'Dashboard-Total Count') {
                 this.valueTotalcount = 'Dashboard-Total Count'

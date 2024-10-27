@@ -29,9 +29,9 @@
 
     <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
         data-target="contact" (click)="Viewautodebit(this.id)">
-        <div [hidden]="valueentityautodebit!=='Entity View Auto Debit'"> <i
-                class="fa-solid fa-money-bill-transfer"></i>&nbsp;&nbsp;Auto
-            Debit</div>
+        <div [hidden]="valueentityautodebit!=='Entity View Rent Logs'"> <i
+                class="fa-solid fa-money-bill-transfer"></i>&nbsp;&nbsp;Rent Logs
+            </div>
     </button>
 
     <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
@@ -73,7 +73,7 @@
             [hidden]="valuemanualpayment!=='One Time Setup Payment'">
             One Time Setup Payment</button>
         <button class="tab" [class.active]="activeTab === 'doot3'" (click)="selectTab('doot3')"
-            [hidden]="valueCustomized!=='Customized Payment'">Customized Transactions</button>
+            [hidden]="valueCustomized!=='Entity View Customized Payment'">Customized Payment</button>
         <button class="tab" [class.active]="activeTab === 'doot4'" (click)="selectTab('doot4')"
             [hidden]="valuesmssetting!=='Sms Setting'">SMS Settings</button>
     </div>
@@ -427,7 +427,7 @@
                                 <th [hidden]="valuebanksts!=='Bank-Status'">Bank Status</th>
                                 <th [hidden]="valueprimarysts!=='Bank Primary-Status'">Primary Status</th>
                                 <th [hidden]="valuebankapproval!=='Bank-Approval'">Approval</th>
-                                <th>Approvet At</th>
+                                <th>Approval At</th>
                                 <th [hidden]="valuebankcomment!=='Bank-comment'">Comments</th>
                                 <th [hidden]="valuebankedit!=='Bank-Edit'">Action</th>
                                 <th [hidden]="valuebankverify!=='Bank-Verification'">Verification</th>
@@ -1085,7 +1085,7 @@
             </div>
             <div class="col-md-2 mt-1">
                 <button (click)="otherPayement()" style="color:white;background-color: #141E46;border-radius: 10px;"
-                    mat-raised-button [hidden]="valueCustomizedadd!=='Customized Transactions-Add'">Create
+                    mat-raised-button [hidden]="valueCustomizedadd!=='Entity View Customized Payment-Add'">Create
                 </button>
             </div>
         </div>
@@ -1100,8 +1100,8 @@
                             <th>Payment ID</th>
                             <th>Service Name</th>
                             <th>Paid Amount</th>
-                            <th [hidden]="valueCustomizededit!=='Customized Transactions-Edit'">Action</th>
-                            <th [hidden]="valueCustomizedview!=='Customized Transactions-View'">View</th>
+                            <th [hidden]="valueCustomizededit!=='Entity View Customized Payment-Edit'">Action</th>
+                            <th [hidden]="valueCustomizedview!=='Entity View Customized Payment-View'">View</th>
                             <th>Payment Status</th>
                             <th>Paid At</th>
                         </tr>
@@ -1111,11 +1111,11 @@
                             <td>{{item.pgPaymentId}}</td>
                             <td>{{item.serviceName}}</td>
                             <td>{{item.paidAmount}}</td>
-                            <td [hidden]="valueCustomizededit!=='Customized Payment-Edit'"> <span
+                            <td [hidden]="valueCustomizededit!=='Entity View Customized Payment-Edit'"> <span
                                     (click)="editotherPayment(item)">
                                     <i class="fas fa-edit" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
                                 </span></td>
-                            <td [hidden]="valueCustomizedview!=='Customized Payment-View'">
+                            <td [hidden]="valueCustomizedview!=='Entity View Customized Payment-View'">
                                 <span (click)="viewOthertransaction(item.payId)">
                                     <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
                                 </span>

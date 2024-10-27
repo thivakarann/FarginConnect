@@ -1,6 +1,6 @@
 <div class="row mt-2">
     <div class="col-md-3">
-        <h5 style="text-align:left;color:#141E46;">Auto Debit Details</h5>
+        <h5 style="text-align:left;color:#141E46;">Rent Logs Details</h5>
     </div>
     <div class="col-md-8">
     </div>
@@ -93,10 +93,13 @@
                 <th mat-header-cell *matHeaderCellDef>Reason</th>
                 <td mat-cell *matCellDef="let viewall">{{viewall.reason}}</td>
             </ng-container>
-
             <ng-container matColumnDef="rentalPeriod">
                 <th mat-header-cell *matHeaderCellDef>Rental Period</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall.rentalPeriod | date:'dd/MM/yyyy' }}
+                <td mat-cell *matCellDef="let viewall">
+                    {{ viewall.rentalPeriod.split('-')[2] }}-{{ viewall.rentalPeriod.split('-')[1] }}-{{ viewall.rentalPeriod.split('-')[0] }}
+                    to
+                    {{ viewall.rentalPeriod.split('-')[5] }}-{{ viewall.rentalPeriod.split('-')[4] }}-{{ viewall.rentalPeriod.split('-')[3] }}
+           
                 </td>
             </ng-container>
 
@@ -105,27 +108,6 @@
                 <td mat-cell *matCellDef="let viewall">{{viewall.createAt|date:'dd/MM/yyyy' }}
                 </td>
             </ng-container>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
        
 

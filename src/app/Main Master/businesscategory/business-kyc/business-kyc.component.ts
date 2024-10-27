@@ -168,8 +168,7 @@ export class BusinessKycComponent implements OnInit {
       let createdate = element.createdDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
  
-      let moddate = element.modifiedDateAndTime;
-      this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
+     
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.kycDocName);
@@ -178,9 +177,13 @@ export class BusinessKycComponent implements OnInit {
       this.response.push(this.date1);
       this.response.push(element?.modifiedBy);
  
-      this.response.push(this.date2);
- 
- 
+    
+      if(element?.modifiedDateAndTime){
+        this.response.push(element?.modifiedDateAndTime)
+      }
+      else{
+        this.response.push('')
+      }
  
       sno++;
       this.responseDataListnew.push(this.response);
@@ -193,10 +196,10 @@ export class BusinessKycComponent implements OnInit {
       "S.No",
       "Document Name",
       "Category Name",
-      "createdBy",
-      "createdDateTime",
-      "modifiedBy",
-      "modifiedDateTime",
+      "Created By",
+      "Created At",
+      "Modified By",
+      "Modified At",
     ]
     const data = this.responseDataListnew;
     let workbook = new Workbook();
