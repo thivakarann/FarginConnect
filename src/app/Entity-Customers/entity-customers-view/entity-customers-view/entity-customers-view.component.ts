@@ -163,7 +163,7 @@ export class EntityCustomersViewComponent {
   }
  
   viewChannel(id: any) {
-    console.log('alcot', this.id)
+    
     this.dialog.open(ChannelViewComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
@@ -177,7 +177,7 @@ export class EntityCustomersViewComponent {
       activeStatus: this.isChecked ? 1 : 0,
     }
     this.service.ActiveStatusSetupbox(id, submitmodel).subscribe((res: any) => {
-      console.log(res);
+      
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
         window.location.reload();
@@ -194,7 +194,7 @@ export class EntityCustomersViewComponent {
     this.router.navigate([`dashboard/plan-details-customer/${id}`], {
       queryParams: { Alldata: id },
     });
-    console.log(id);
+    
   }
   Receipt(id: any) {
     this.service.CustomerReceipt(id).subscribe({

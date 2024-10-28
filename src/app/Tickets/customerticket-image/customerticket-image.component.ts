@@ -29,12 +29,12 @@ export class CustomerticketImageComponent {
  
   constructor(private router: Router, private service: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog) {
     this.raiseTicketId = this.data.value
-        console.log(this.raiseTicketId)
+        
   }
   ngOnInit(): void {
-    console.log(this.data.value);
+    
     this.raiseTicket = this.data.value
-    console.log(this.raiseTicketId)
+    
  
  
  
@@ -44,7 +44,7 @@ export class CustomerticketImageComponent {
         reader.readAsDataURL(res);
         reader.onloadend = () => {
           this.imageUrl = reader.result as string;
-          console.log(this.imageUrl);
+          
           this.DocView = true;
         }
       },
@@ -78,9 +78,9 @@ export class CustomerticketImageComponent {
  
       this.errorMessage = ''
       this.file1 = files;
-      console.log(this.file1);
+      
  
-      console.log(' file 1 id success' + files);
+      
  
     }
  

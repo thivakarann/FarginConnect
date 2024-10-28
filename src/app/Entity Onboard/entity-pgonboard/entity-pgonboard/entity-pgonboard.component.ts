@@ -33,7 +33,7 @@ selectedOption: any;
 
 
     this.merchantid = this.data.value
-    console.log(this.merchantid);
+    
     this.addcategory = new FormGroup({
       expiryDate: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),

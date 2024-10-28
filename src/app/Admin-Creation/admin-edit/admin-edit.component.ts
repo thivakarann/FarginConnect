@@ -25,12 +25,12 @@ constructor(private service:FarginServiceService,private toaster:ToastrService,p
 
     this.service.roleactiveViewall().subscribe((res:any)=>{
       this.activeRole=res.response;
-      console.log(this.activeRole);
+      
     })
     
     this.activeRouter.queryParams.subscribe((param: any) => {
       this.adminuserId = param.AdminUserId;
-      console.log(this.adminuserId)
+      
     })
 
 
@@ -50,7 +50,7 @@ constructor(private service:FarginServiceService,private toaster:ToastrService,p
      if(res.flag==1){
     this.viewData=res.response;
     this.data=this.viewData.adminName;
-    console.log(this.data)
+    
    }
     })
   }

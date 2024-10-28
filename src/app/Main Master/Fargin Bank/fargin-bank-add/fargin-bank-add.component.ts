@@ -20,19 +20,37 @@ export class FarginBankAddComponent {
   constructor(private service: FarginServiceService, private toaster: ToastrService, private router: Router) { }
   ngOnInit(): void {
     this.BankForm = new FormGroup({
-      accountHolderName : new FormControl('', [Validators.required]),
-      accountNumber: new FormControl('', [Validators.required]),
-      bankName: new FormControl('', [Validators.required]),
-      ifscCode: new FormControl('', [Validators.required]),
-      branchName: new FormControl('', [Validators.required]),
-      ledgerId: new FormControl('', [Validators.required]),
+      accountHolderName: new FormControl(null, [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9 ]*$')
+      ]),
+      accountNumber: new FormControl(null, [
+        Validators.required,
+        Validators.pattern("^[0-9]{9,18}$")
+      ]),
+      bankName: new FormControl("", [
+        Validators.required,
+        // Validators.pattern('^[a-zA-Z0-9 ]*$')
+      ]),
+      ifscCode: new FormControl("", [
+        Validators.required,
+        Validators.pattern("^[A-Z]{4}0[A-Z0-9]{6}$")
+      ]),
+      branchName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9 ]*$')
+      ]),
+   
+      ledgerId: new FormControl('',[Validators.required,]),
       createdBy: new FormControl(''),
      
     })
 
+    
+
     this.service.roleactiveViewall().subscribe((res:any)=>{
       this.activeRole=res.response;
-      console.log(this.activeRole);
+      
     })
   }
   get accountHolderName() {

@@ -54,7 +54,7 @@ export class SmsCostViewallComponent {
 
     this.smsdetails.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        console.log(res);
+        
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -96,7 +96,7 @@ export class SmsCostViewallComponent {
       this.dataSource = new MatTableDataSource(this.viewall);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-      console.log(this.viewall);
+      
     });
 
 
@@ -121,7 +121,7 @@ export class SmsCostViewallComponent {
   }
 
   ActiveStatus(event: MatSlideToggleChange, id: any) {
-    console.log(id)
+    
     this.isChecked = event.checked;
 
     let submitModel: smscoststatus = {
@@ -129,7 +129,7 @@ export class SmsCostViewallComponent {
 
     };
     this.smsdetails.smscoststatus(id, submitModel).subscribe((res: any) => {
-      console.log(res);
+      
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         setTimeout(() => {

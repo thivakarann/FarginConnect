@@ -65,7 +65,7 @@ export class ViewbeneficiaryComponent {
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        console.log(res);
+        
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -262,7 +262,7 @@ export class ViewbeneficiaryComponent {
     this.router.navigate([`dashboard/edit-beneficiary/${id}`], {
       queryParams: { Alldata: id },
     });
-    console.log(id);
+    
   }
   onSubmit(event: MatSlideToggleChange, id: any) {
     this.isChecked = event.checked;
@@ -272,7 +272,7 @@ export class ViewbeneficiaryComponent {
     };
 
     this.service.statusbeneficiarys(id, submitModel).subscribe((res: any) => {
-      console.log(res);
+      
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
         window.location.reload();

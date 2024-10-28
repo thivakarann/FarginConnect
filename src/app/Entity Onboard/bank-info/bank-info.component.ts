@@ -22,7 +22,7 @@ export class BankInfoComponent implements OnInit {
   ngOnInit(): void {
 
     this.bankresId = this.data.value;
-    console.log(this.bankresId);
+    
     this.service.BankVerificationResponse(this.bankresId).subscribe((res: any) => {
       if (res.statusCode == 200) {
         this.bankverifyres = res.response;

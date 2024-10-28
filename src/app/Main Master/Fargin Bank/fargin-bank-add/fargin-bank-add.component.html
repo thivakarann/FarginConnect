@@ -9,62 +9,144 @@
         <form [formGroup]="BankForm">
             <div class="row mb-3">
                 <div class="col-sm-4 form-group">
-                    <label for="accountHolderName"> Account Holder Name</label>
-                    <input type="text" id="Entity Name" class="form-control"
-                        formControlName="accountHolderName">
-                    <span class="error" *ngIf="accountHolderName?.touched && accountHolderName?.errors?.['required']">Field Is
-                        Required</span>
+                    <label for="Entity Name">AccountHolderName</label>
+                    <input type="text" id="Entity Name" formControlName="accountHolderName" class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="accountHolderName?.invalid && accountHolderName?.touched && accountHolderName?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="accountHolderName?.invalid && accountHolderName?.touched && accountHolderName?.errors?.['pattern']">
+                        Enter a Valid Name
+                    </div>
                 </div>
- 
                 <div class="col-sm-4 form-group">
-                    <label for="accountNumber"> Account Number</label>
-                    <input type="text" id="Entity Name"  class="form-control"
-                        formControlName="accountNumber">
-                    <span class="error" *ngIf="accountNumber?.touched && accountNumber?.errors?.['required']">Field Is
-                        Required</span>
+                    <label for="state">Account Number</label>
+                    <input type="text" formControlName="accountNumber" id="state" class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="accountNumber?.invalid && accountNumber?.touched && accountNumber?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="accountNumber?.invalid && accountNumber?.touched && accountNumber?.errors?.['pattern']">
+                        Enter a Valid Account Number
+                    </div>
                 </div>
 
                 <div class="col-sm-4 form-group">
-                    <label> Bank Name</label>
-                    <input type="text" id="Entity Name"  class="form-control"
-                        formControlName="bankName">
-                    <span class="error" *ngIf="bankName?.touched && bankName?.errors?.['required']">Field Is
-                        Required</span>
+                    <label for="state">Ledger ID</label>
+                    <input type="text" formControlName="ledgerId" id="state" class="form-control">
+
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="ledgerId?.invalid && ledgerId?.touched && ledgerId?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <!-- <div style="color: red; font-size: 12px; margin-top: 2px;"
+                        *ngIf="ledgerId?.invalid && ledgerId?.touched && ledgerId?.errors?.['pattern']">
+                        Must be exactly 4 digits and only numbers are allowed.
+                    </div> -->
+
                 </div>
-             
+
+
+
+
             </div>
-
             <div class="row mb-3">
+
+
                 <div class="col-sm-4 form-group">
-                    <label for="ifscCode">IFSC Code</label>
-                    <input type="text"  class="form-control"
-                        formControlName="ifscCode" >
-                    <span class="error"
-                        *ngIf=" ifscCode?.invalid && ifscCode?.touched && ifscCode?.errors?.['required']">
-                        Field is Required</span>
-                  
+                    <label for="Bussiness category">Select Bank</label>
+                    <input type="text" id="Entity Name" formControlName="bankName" class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="bankName?.invalid && bankName?.touched && bankName?.errors?.['required']">
+                        Field is required
+                    </div>
                 </div>
                 <div class="col-sm-4 form-group">
-                    <label >Branch Name</label>
-                    <input type="text" id="zip"  class="form-control"
-                        formControlName="branchName" minlength="10" maxlength="10">
-                    <span class="error"
-                        *ngIf=" branchName?.invalid && branchName?.touched && branchName?.errors?.['required']">
-                        Field is Required</span>
+                    <label for="Entity Name">BranchName</label>
+                    <input type="text" id="Entity Name" formControlName="branchName" class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="branchName?.invalid && branchName?.touched && branchName?.errors?.['required']">
+                        Field is required
+                    </div>
+
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="branchName?.invalid && branchName?.touched && branchName?.errors?.['pattern']">
+                        Enter a Valid Input
+                    </div>
                 </div>
 
                 <div class="col-sm-4 form-group">
-                    <label for="Mcc Code">Ledger Id</label>
-                    <input  type="text" id="ledgerId"  class="form-control"
-                        formControlName="ledgerId">
-                    <span class="error" *ngIf=" ledgerId?.invalid && ledgerId?.touched && ledgerId?.errors?.['required']">
-                        Field is Required</span>
+                    <label for="Entity Name">IFSC Code</label>
+                    <input type="text" id="Entity Name" formControlName="ifscCode" class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="ifscCode?.invalid && ifscCode?.touched && ifscCode?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="ifscCode?.invalid && ifscCode?.touched && ifscCode?.errors?.['pattern']">
+                        Enter a Valid IFSC Code
+                    </div>
                 </div>
+
+
             </div>
+       
          
             <div>
                 <button type="submit" class="btn mx-1 " style="background-color:#7db855be"
-                    (click)="submit()">Submit</button>
+                    (click)="submit()" [disabled]="BankForm.invalid">Submit</button>
                 <button type="submit" class="btn" style="background-color:#141E46;color:white" mat-dialog-close>Cancel</button>
             </div>
         </form>

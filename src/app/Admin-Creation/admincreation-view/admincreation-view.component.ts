@@ -17,7 +17,7 @@ export class AdmincreationViewComponent implements OnInit {
   ngOnInit(): void {
     this.activeRouter.queryParams.subscribe((param: any) => {
       this.adminuserId = param.AdminUserId;
-      console.log(this.adminuserId)
+      
     })
     this.service.AdminView(this.adminuserId).subscribe((res: any) => {
       if (res.flag == 1) {

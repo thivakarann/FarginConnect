@@ -60,7 +60,7 @@ export class PolicyEditComponent implements OnInit {
  
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.policyId = param.Alldata;
-      console.log(this.policyId)
+      
     });
  
     this.editadminpolicy = new FormGroup({
@@ -77,9 +77,9 @@ export class PolicyEditComponent implements OnInit {
  
     this.service.Adminpolicyviewbyidedit(this.policyId).subscribe((res: any) => {
       this.policyview = res.response;
-      console.log(this.policyview)
+      
       this.merchant=this.policyview.entityModel.merchantId
-       console.log(this.merchant)
+       
        //search dropdown merchant
        if (this.policyview?.entityModel?.merchantId) {
         this.editadminpolicy.get('merchantId')?.setValue(this.policyview.entityModel.merchantId);

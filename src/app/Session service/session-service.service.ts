@@ -22,7 +22,7 @@ export class SessionServiceService {
     this.timer = setInterval(() => {
       const now = Date.now();
       const timeLeft = this.lastAction + this.timeoutInMinutes * 60 * 1000 - now;
-      // console.log("TimeLeft" + timeLeft)
+      // 
       if (timeLeft < 0) {
         this.logout(); // Timeout reached, log out the user
       }

@@ -37,7 +37,7 @@ export class EditSmsComponent {
     this.Smsdetails = this.data.value
     this.merchantsmsId=this.data.value.merchantSmsId;
    
-    console.log(this.merchantsmsId);
+    
  
     this.myForm = new FormGroup({
       smsFor: new FormControl('', [Validators.required,]),

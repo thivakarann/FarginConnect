@@ -13,7 +13,7 @@ export class CommentsforApprovaloneComponent {
   }
   ngOnInit(): void {
     this.comment = this.data.value
-    console.log(this.comment);
+    
   }
 
 }

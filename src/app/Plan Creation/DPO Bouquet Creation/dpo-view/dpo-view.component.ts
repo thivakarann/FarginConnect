@@ -39,7 +39,7 @@ export class DpoViewComponent implements OnInit {
     this.viewDPOdetails.DPObyid(this.id).subscribe((res: any) => {
       this.details = res.response;
       this.channelslist = res.response.alcotChannels;
-      console.log(this.channelslist)
+      
     });
   }
 
@@ -50,7 +50,7 @@ export class DpoViewComponent implements OnInit {
 
 
   ActiveStatus(event: MatSlideToggleChange, id: any) {
-    console.log(id)
+    
     this.isChecked = event.checked;
 
     let submitModel: DPOChanneloverallstatus = {
@@ -58,7 +58,7 @@ export class DpoViewComponent implements OnInit {
       channelStatus: this.isChecked ? 1 : 0,
     };
     this.viewDPOdetails.DpoSingleChannelStatus(submitModel).subscribe((res: any) => {
-      console.log(res);
+      
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         window.location.reload();

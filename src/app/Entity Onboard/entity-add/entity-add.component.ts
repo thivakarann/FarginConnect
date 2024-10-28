@@ -108,7 +108,7 @@ export class EntityAddComponent implements OnInit {
 
     this.AddEntity.activeViewall().subscribe((res: any) => {
       this.kycValue = res.response;
-      console.log(this.kycValue);
+      
     })
 
     this.myForm = new FormGroup({
@@ -188,10 +188,10 @@ export class EntityAddComponent implements OnInit {
 
 
     });
-    console.log('Form Valid on Init:', this.myForm.valid);
-    console.log('Form Valid:', this.myForm.valid);
-    console.log('Form Errors:', this.myForm.errors);
-    console.log('Form Controls:', this.myForm.controls);
+    
+    
+    
+    
     this.myForm2 = new FormGroup({
       accountHolderName: new FormControl(null, [
         Validators.required,
@@ -218,7 +218,7 @@ export class EntityAddComponent implements OnInit {
         Validators.pattern('^[a-zA-Z0-9 ]*$')
       ]),
 
-      ledgerId: new FormControl('', [Validators.pattern('^[0-9]{4}$'),]),
+      ledgerId: new FormControl('',[Validators.required,]),
     })
 
     this.firstFormGroup = this._formBuilder.group({
@@ -377,9 +377,9 @@ export class EntityAddComponent implements OnInit {
   }
 
   // onCategoryChange(event: any): void {
-  //   console.log(event)
+  //   
   //   this.selectedCategoryId = event.target.value;
-  //   console.log(this.selectedCategoryId)
+  //   
   //   const selectedCategory = this.categorydetails.find((category: { businessCategoryId: any; }) => category.businessCategoryId === +this.selectedCategoryId);
 
   //   if (selectedCategory) {
@@ -388,7 +388,7 @@ export class EntityAddComponent implements OnInit {
 
 
   //     });
-  //     console.log(this.myForm.value.mccCode)
+  //     
   //   }
   // }
 
@@ -517,7 +517,7 @@ export class EntityAddComponent implements OnInit {
  
     // Ensure this.uploadImage is not null
     if (this.uploadidentityfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
  
       if (acceptableTypes.includes(this.uploadidentityfront.type)) {
         if (this.uploadidentityfront.size <= 20 * 1024 * 1024) {
@@ -527,7 +527,7 @@ export class EntityAddComponent implements OnInit {
           this.identityFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        console.log(this.uploadidentityfront.type);
+        
         this.toastr.error("File type not acceptable");
         this.identityFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
@@ -543,7 +543,7 @@ export class EntityAddComponent implements OnInit {
  
     // Ensure this.uploadImage is not null
     if (this.uploadidentityback) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
  
       if (acceptableTypes.includes(this.uploadidentityback.type)) {
         if (this.uploadidentityback.size <= 20 * 1024 * 1024) {
@@ -553,7 +553,7 @@ export class EntityAddComponent implements OnInit {
           this.identityBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        console.log(this.uploadidentityback.type);
+        
         this.toastr.error("File type not acceptable");
         this.identityBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
@@ -569,7 +569,7 @@ export class EntityAddComponent implements OnInit {
  
     // Ensure this.uploadImage is not null
     if (this.uploadaddressfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
  
       if (acceptableTypes.includes(this.uploadaddressfront.type)) {
         if (this.uploadaddressfront.size <= 20 * 1024 * 1024) {
@@ -579,7 +579,7 @@ export class EntityAddComponent implements OnInit {
           this.addressFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        console.log(this.uploadaddressfront.type);
+        
         this.toastr.error("File type not acceptable");
         this.addressFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
@@ -593,7 +593,7 @@ export class EntityAddComponent implements OnInit {
  
     // Ensure this.uploadImage is not null
     if (this.uploadaddressback) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
  
       if (acceptableTypes.includes(this.uploadaddressback.type)) {
         if (this.uploadaddressback.size <= 20 * 1024 * 1024) {
@@ -603,7 +603,7 @@ export class EntityAddComponent implements OnInit {
           this.addressBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        console.log(this.uploadaddressback.type);
+        
         this.toastr.error("File type not acceptable");
         this.addressBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
@@ -616,7 +616,7 @@ export class EntityAddComponent implements OnInit {
  
     // Ensure this.uploadImage is not null
     if (this.uploadsignfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
  
       if (acceptableTypes.includes(this.uploadsignfront.type)) {
         if (this.uploadsignfront.size <= 20 * 1024 * 1024) {
@@ -626,7 +626,7 @@ export class EntityAddComponent implements OnInit {
           this.signatureFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        console.log(this.uploadsignfront.type);
+        
         this.toastr.error("File type not acceptable");
         this.signatureFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
@@ -640,7 +640,7 @@ export class EntityAddComponent implements OnInit {
  
     // Ensure this.uploadImage is not null
     if (this.uploadsignback) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
  
       if (acceptableTypes.includes(this.uploadsignback.type)) {
         if (this.uploadsignback.size <= 20 * 1024 * 1024) {
@@ -650,7 +650,7 @@ export class EntityAddComponent implements OnInit {
           this.signatureBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        console.log(this.uploadsignback.type);
+        
         this.toastr.error("File type not acceptable");
         this.signatureBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
@@ -745,7 +745,7 @@ export class EntityAddComponent implements OnInit {
           this.logo?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        console.log(this.uploadImage.type);
+        
         this.toastr.error("File type not acceptable");
         this.logo?.reset(); // Optional chaining to prevent error if this.logo is null
       }
@@ -762,7 +762,7 @@ export class EntityAddComponent implements OnInit {
  
     // Ensure this.uploadImage is not null
     if (this.uploaddocfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
  
       if (acceptableTypes.includes(this.uploaddocfront.type)) {
         if (this.uploaddocfront.size <= 20 * 1024 * 1024) {
@@ -772,7 +772,7 @@ export class EntityAddComponent implements OnInit {
           this.docFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        console.log(this.uploaddocfront.type);
+        
         this.toastr.error("File type not acceptable");
         this.docFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
@@ -789,7 +789,7 @@ export class EntityAddComponent implements OnInit {
  
     // Ensure this.uploadImage is not null
     if (this.uploaddocback) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
  
       if (acceptableTypes.includes(this.uploaddocback.type)) {
         if (this.uploaddocback.size <= 20 * 1024 * 1024) {
@@ -799,7 +799,7 @@ export class EntityAddComponent implements OnInit {
           this.docBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        console.log(this.uploaddocback.type);
+        
         this.toastr.error("File type not acceptable");
         this.docBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
@@ -842,7 +842,7 @@ export class EntityAddComponent implements OnInit {
     this.AddEntity.EntityAdd(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.merchantid = res.response.merchantId;
-        console.log(this.merchantid)
+        
 
         this.bussinessid = res.response.businessCategoryModel.businessCategoryId;
         this.AddEntity.EntityGetKYCbybussinessid(this.bussinessid).subscribe((res: any) => {
@@ -856,7 +856,7 @@ export class EntityAddComponent implements OnInit {
         this.toastr.error(res.responseMessage);
       }
 
-      console.log(res);
+      
     })
   }
   // bjhb?
@@ -885,7 +885,7 @@ export class EntityAddComponent implements OnInit {
         this.toastr.error(res.responseMessage);
       }
 
-      console.log(res);
+      
     })
   }
 

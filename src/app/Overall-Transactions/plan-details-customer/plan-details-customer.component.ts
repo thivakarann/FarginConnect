@@ -124,7 +124,7 @@ export class PlanDetailsCustomerComponent {
   }
 
   Viewchannels(id: any) {
-    console.log('alcot', this.id)
+    
     this.dialog.open(ChannelViewComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",

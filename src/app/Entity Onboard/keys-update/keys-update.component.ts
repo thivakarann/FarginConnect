@@ -25,7 +25,7 @@ selectedOption: any;
   ) { }
   ngOnInit(): void {
     this.merchantId = this.data.value
-    console.log(this.merchantId);
+    
     this.myForm = new FormGroup({
       accountId: new FormControl('', [Validators.required]),
       apikey: new FormControl('', [Validators.required]),

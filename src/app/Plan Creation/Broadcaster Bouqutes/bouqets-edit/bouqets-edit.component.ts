@@ -76,51 +76,51 @@ export class BouqetsEditComponent implements OnInit {
     this.activeRouter.params.subscribe((param: any) => {
       this.getId = param.valueid;
       this.getId = this.data.valueid;
-      console.log('getRoleName ' + this.getRoleId);
+      
     });
 
     this.activeRouter.params.subscribe((param: any) => {
       this.getRoleId = param.bouquet;
       this.getRoleId = this.data.bouquet;
-      console.log('getRoleName ' + this.getRoleId);
+      
     });
 
     this.activeRouter.params.subscribe((param: any) => {
       this.getcreation = param.creation;
       this.getcreation = this.data.creation;
-      console.log('getcreation ' + this.getcreation);
+      
     });
 
     this.activeRouter.params.subscribe((param: any) => {
       this.getservices = param.services;
       this.getservices = this.data.services;
-      console.log('getcreation ' + this.getcreation);
+      
     });
 
     this.activeRouter.params.subscribe((param: any) => {
       this.getvalues = param.broadCasterRegionsss;
       this.getvalues11 = this.data.broadCasterRegionsss;
-      console.log('getvalues ' + this.getvalues);
-      console.log('getvalues11 ' + this.getvalues11);
+      
+      
     });
 
     this.activeRouter.params.subscribe((param: any) => {
       this.getalcot = param.broadCasterAlcotsss;
       this.getalcot = this.data.broadCasterAlcotsss;
-      console.log('getcreation ' + this.getcreation);
+      
     });
 
 
     this.activeRouter.params.subscribe((param: any) => {
       this.getamount = param.amount;
       this.getamount = this.data.amount;
-      console.log('getcreation ' + this.getcreation);
+      
     });
 
 
     this.BroadcasterBouquetAdd.BouqueteNameByBroadcasterid(this.getRoleId).subscribe((res: any) => {
       this.Plandetails = res.response;
-      console.log(this.Plandetails)
+      
     })
 
     this.BroadcasterBouquetAdd.ActiveRegionsbyserviceprovider(this.getservices).subscribe((res: any) => {
@@ -160,7 +160,7 @@ export class BouqetsEditComponent implements OnInit {
   }
 
   name(id: any) {
-    console.log(id)
+    
 
     this.BroadcasterBouquetAdd.BouqueteNameByBroadcasterid(id.target.value).subscribe((res: any) => {
       this.Plandetails = res.response;

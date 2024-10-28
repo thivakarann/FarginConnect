@@ -139,7 +139,7 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
     //   if (res.flag == 1) {
     //     this.viewcustomer = res.response.customerdetail;
     //     this.alcotchannel = res.response.alcotList;
-    //     console.log(this.alcotchannel);
+    //     
     //     this.bouquetPlan = res.response.bouquetList;
     //     this.lcopChannel = res.response.lcopList;
     //     let totalAmount = 0;
@@ -196,7 +196,7 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
   }
 
   viewChannel(id: any) {
-    console.log('alcot', this.id)
+    
     this.dialog.open(ChannelViewComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
@@ -210,7 +210,7 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
       activeStatus: this.isChecked ? 1 : 0,
     }
     this.service.ActiveStatusSetupbox(id, submitmodel).subscribe((res: any) => {
-      console.log(res);
+      
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
         window.location.reload();
@@ -227,7 +227,7 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
     this.router.navigate([`dashboard/plan-details-customer/${id}`], {
       queryParams: { Alldata: id },
     });
-    console.log(id);
+    
   }
 
 }

@@ -46,7 +46,7 @@ export class BouqutesViewComponent implements OnInit {
       this.details = res.response;
       this.channelslist = res.response.broadCasterAlcot;
       this.ServiceProvideregions = res.response.broadCasterRegion;
-      console.log(this.channelslist);
+      
     });
   }
 
@@ -63,7 +63,7 @@ export class BouqutesViewComponent implements OnInit {
   }
 
   ActiveStatus(event: MatSlideToggleChange, id: any) {
-    console.log(id)
+    
     this.isChecked = event.checked;
 
     let submitModel: Broadcastersinglechanelstatus = {
@@ -71,7 +71,7 @@ export class BouqutesViewComponent implements OnInit {
       channelStatus: this.isChecked ? 1 : 0,
     };
     this.viewdetails.BroadcasterSingleStatus(submitModel).subscribe((res: any) => {
-      console.log(res);
+      
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         window.location.reload();
@@ -85,7 +85,7 @@ export class BouqutesViewComponent implements OnInit {
   }
 
   Viewregions(id: any) {
-    console.log(id)
+    
     this.dialog.open(BouquetsRegionsviewComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: "100ms",

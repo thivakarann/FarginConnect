@@ -50,7 +50,7 @@ export class ViewworkflowComponent {
   //     this.dataSource = new MatTableDataSource(this.viewall);
   //     this.dataSource.sort = this.sort;
   //     this.dataSource.paginator = this.paginator;
-  //     console.log(this.viewall);
+  //     
   //   });
   // }
   }

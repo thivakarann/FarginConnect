@@ -42,7 +42,7 @@ export class ViewallKyccategoryComponent implements OnInit {
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        console.log(res);
+        
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -82,7 +82,7 @@ export class ViewallKyccategoryComponent implements OnInit {
 
     this.service.viewallkycCategory().subscribe((res: any) => {
       this.categoryview = res.response;
-      console.log(this.categoryview);
+      
       this.dataSource = new MatTableDataSource(this.categoryview.reverse());
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
@@ -127,7 +127,7 @@ export class ViewallKyccategoryComponent implements OnInit {
     window.location.reload()
   }
   exportexcel() {
-    console.log('check');
+    
     let sno = 1;
     this.responseDataListnew = [];
     this.categoryview.forEach((element: any) => {

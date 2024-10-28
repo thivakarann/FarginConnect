@@ -184,7 +184,7 @@ export class EntityViewComponent implements OnInit {
 
   clearFilters(): void {
     // Implement filter clearing logic here
-    console.log('Filters cleared');
+    
   }
 
   activeTab: string = 'events';
@@ -199,12 +199,12 @@ export class EntityViewComponent implements OnInit {
 
     this.MerchantView.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        console.log(res);
+        
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
           this.entitypermission = res.response?.permission
-          console.log(this.entitypermission);
+          
 
           this.getpermissionValue();
           if (this.roleId == 1) {
@@ -408,13 +408,13 @@ export class EntityViewComponent implements OnInit {
 
     this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
       this.details = res.response;
-      console.log(this.details);
+      
 
       this.detaislone = res.response.merchantpersonal;
       this.bankdetails = res.response.merchantbank;
       this.KYCDetails = res.response.merchantkycdocument;
       this.bussinessdoc = res.response.merchantbusinessdocument;
-      console.log(this.bussinessdoc + "jdfnjksdfvls")
+      
       this.identityProof = res.response.merchantkycdocument[0].identityProof;
       this.addressProof = res.response.merchantkycdocument[0].addressProof;
       this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
@@ -423,10 +423,10 @@ export class EntityViewComponent implements OnInit {
 
 
       this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-      console.log('BussinessCategoryId', this.businessCategoryId);
-      console.log(this.detaislone);
-      console.log(this.bankdetails);
-      console.log(this.KYCDetails);
+      
+      
+      
+      
 
 
     })
@@ -439,7 +439,7 @@ export class EntityViewComponent implements OnInit {
         this.manualDetails.forEach((item: any) => {
           this.paymentStatus = item.paymentStatus;
           this.paymentMethod = item.paymentMethod
-          console.log(this.paymentStatus);
+          
 
         });
       }
@@ -738,8 +738,8 @@ export class EntityViewComponent implements OnInit {
     })
   }
   // FacheckVerification(Docname: any, data: any, id: any, ApprovedBy: any) {
-  //   console.log(data)
-  //   console.log(ApprovedBy)
+  //   
+  //   
   //   let submitModel: Facheckverification =
   //   {
   //     kycId: id,
@@ -951,27 +951,27 @@ export class EntityViewComponent implements OnInit {
     this.router.navigate([`dashboard/entitycustomerviewAll/${id}`], {
       queryParams: { Alldata: id },
     });
-    console.log(id);
+    
   }
 
   Viewqr(id: any) {
     this.router.navigate([`dashboard/entity-qrcode/${id}`], {
       queryParams: { Alldata: id },
     });
-    console.log(id);
+    
   }
 
   ViewRefund(id: any) {
     this.router.navigate([`dashboard/entity-refund/${id}`], {
       queryParams: { Alldata: id },
     });
-    console.log(id);
+    
   }
   Viewautodebit(id: any) {
     this.router.navigate([`dashboard/entity-auto-debit-by-id/${id}`], {
       queryParams: { Alldata: id },
     });
-    console.log(id);
+    
   }
 
   viewsettlement
@@ -979,7 +979,7 @@ export class EntityViewComponent implements OnInit {
     this.router.navigate([`dashboard/entity-settlement/${id}`], {
       queryParams: { Alldata: id },
     });
-    console.log(id);
+    
   }
   editpersonalInfo(id: any) {
     this.router.navigate([`dashboard/edit-personal/${id}`], {
@@ -1031,7 +1031,7 @@ export class EntityViewComponent implements OnInit {
   }
 
   viewmanualtransaction(id: any) {
-    console.log(this.id)
+    
     this.router.navigate([`dashboard/manual-transaction/${id}`], {
       queryParams: { Alldata: id },
     });
@@ -1191,8 +1191,6 @@ export class EntityViewComponent implements OnInit {
 
   //fa check verification
   kycVerificationsIdentity(id: any, id1: any, id2: any, id3: any, id4: any) {
-    console.log(id2, id, id1);
-
 
     if (id2 == "Pancard") {
       let submitModel: verify =
@@ -1201,7 +1199,7 @@ export class EntityViewComponent implements OnInit {
         facheckDocNumber: id,
         approvalBy: this.getadminname
       }
-      console.log(submitModel);
+      
 
       this.MerchantView.panVerifysIdentity(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
@@ -1217,8 +1215,6 @@ export class EntityViewComponent implements OnInit {
 
     }
     if (id2 == "Aadhar Card") {
-      console.log(id2);
-
       let submitModel: verification =
       {
         kycId: id1,
@@ -1239,8 +1235,6 @@ export class EntityViewComponent implements OnInit {
     }
 
     if (id2 == "GST") {
-      console.log(id2);
-
       let submitModel: verification =
       {
         kycId: id1,
@@ -1261,8 +1255,6 @@ export class EntityViewComponent implements OnInit {
     }
 
     if (id2 == "Driving License") {
-      console.log(id2);
-
       let submitModel: Drivingverification =
       {
         kycId: id1,
@@ -1284,8 +1276,6 @@ export class EntityViewComponent implements OnInit {
     }
 
     if (id2 == "Passport") {
-      console.log(id2);
-
       let submitModel: Pasportverify =
       {
         kycId: id1,
@@ -1308,8 +1298,6 @@ export class EntityViewComponent implements OnInit {
     }
 
     if (id2 == "Voter Id Proof") {
-      console.log(id2);
-
       let submitModel: verification =
       {
         kycId: id1,
@@ -1330,8 +1318,6 @@ export class EntityViewComponent implements OnInit {
     }
 
     if (id2 == "Cin") {
-      console.log(id2);
-
       let submitModel: verify =
       {
         kycId: id1,
@@ -1355,8 +1341,6 @@ export class EntityViewComponent implements OnInit {
 
 
   kycVerificationsAddress(id: any, id1: any, id2: any, id3: any, id4: any) {
-    console.log(id2, id, id1);
-
 
     if (id2 == "Pancard") {
       let submitModel: verify =
@@ -1365,7 +1349,7 @@ export class EntityViewComponent implements OnInit {
         facheckDocNumber: id,
         approvalBy: this.getadminname
       }
-      console.log(submitModel);
+      
 
       this.MerchantView.panverifyAddress(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
@@ -1381,8 +1365,6 @@ export class EntityViewComponent implements OnInit {
 
     }
     if (id2 == "Aadhar Card") {
-      console.log(id2);
-
       let submitModel: verification =
       {
         kycId: id1,
@@ -1403,8 +1385,6 @@ export class EntityViewComponent implements OnInit {
     }
 
     if (id2 == "GST") {
-      console.log(id2);
-
       let submitModel: verification =
       {
         kycId: id1,
@@ -1425,8 +1405,6 @@ export class EntityViewComponent implements OnInit {
     }
 
     if (id2 == "Driving License") {
-      console.log(id2);
-
       let submitModel: Drivingverification =
       {
         kycId: id1,
@@ -1448,8 +1426,6 @@ export class EntityViewComponent implements OnInit {
     }
 
     if (id2 == "Passport") {
-      console.log(id2);
-
       let submitModel: Pasportverify =
       {
         kycId: id1,
@@ -1473,8 +1449,6 @@ export class EntityViewComponent implements OnInit {
     }
 
     if (id2 == "Voter Id Proof") {
-      console.log(id2);
-
       let submitModel: verification =
       {
         kycId: id1,
@@ -1495,8 +1469,6 @@ export class EntityViewComponent implements OnInit {
     }
 
     if (id2 == "Cin") {
-      console.log(id2);
-
       let submitModel: verify =
       {
         kycId: id1,
@@ -1520,8 +1492,6 @@ export class EntityViewComponent implements OnInit {
 
 
   kycVerificationsSignature(id: any, id1: any, id2: any, id3: any, id4: any) {
-    console.log(id2, id, id1);
-
     if (id2 == "Pancard") {
       let submitModel: verify =
       {
@@ -1529,7 +1499,7 @@ export class EntityViewComponent implements OnInit {
         facheckDocNumber: id,
         approvalBy: this.getadminname
       }
-      console.log(submitModel);
+      
 
       this.MerchantView.panverifysignature(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
@@ -1545,8 +1515,6 @@ export class EntityViewComponent implements OnInit {
 
     }
     if (id2 == "Aadhar Card") {
-      console.log(id2);
-
       let submitModel: verification =
       {
         kycId: id1,
@@ -1567,8 +1535,6 @@ export class EntityViewComponent implements OnInit {
     }
 
     if (id2 == "GST") {
-      console.log(id2);
-
       let submitModel: verification =
       {
         kycId: id1,
@@ -1589,8 +1555,6 @@ export class EntityViewComponent implements OnInit {
     }
 
     if (id2 == "Driving License") {
-      console.log(id2);
-
       let submitModel: Drivingverification =
       {
         kycId: id1,
@@ -1612,8 +1576,6 @@ export class EntityViewComponent implements OnInit {
     }
 
     if (id2 == "Passport") {
-      console.log(id2);
-
       let submitModel: Pasportverify =
       {
         kycId: id1,
@@ -1636,8 +1598,6 @@ export class EntityViewComponent implements OnInit {
     }
 
     if (id2 == "Voter Id Proof") {
-      console.log(id2);
-
       let submitModel: verification =
       {
         kycId: id1,
@@ -1658,8 +1618,6 @@ export class EntityViewComponent implements OnInit {
     }
 
     if (id2 == "Cin") {
-      console.log(id2);
-
       let submitModel: verify =
       {
         kycId: id1,

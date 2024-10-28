@@ -46,7 +46,7 @@ export class ViewticketComponent implements OnInit {
   ngOnInit(): void {
     this.service.viewTicket().subscribe((res: any) => {
       this.tickets = res.response;
-      console.log(this.tickets);
+      
       this.dataSource = new MatTableDataSource(this.tickets?.reverse())
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -145,7 +145,7 @@ export class ViewticketComponent implements OnInit {
   }
 
   exportexcel() {
-    console.log('check');
+    
     let sno = 1;
     this.responseDataListnew = [];
     this.tickets.forEach((element: any) => {
@@ -219,7 +219,7 @@ export class ViewticketComponent implements OnInit {
     });
  
     data.forEach((d: any) => {
-      // console.log("row loop");
+      // 
  
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);

@@ -20,7 +20,7 @@ export class CreateManualpaymentComponent implements OnInit{
   constructor(private router: Router, private Approval: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog) { }
   ngOnInit(): void {
     this.id = this.data.value
-    console.log(this.id);
+    
  
     this.myForm = new FormGroup({
       paidStatus: new FormControl('', [Validators.required,]),

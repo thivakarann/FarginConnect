@@ -47,7 +47,7 @@ export class EntityQrcodeComponent implements OnInit {
 
     this.MerchantView.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        console.log(res);
+        
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -80,7 +80,7 @@ export class EntityQrcodeComponent implements OnInit {
   //   this.MerchantView.EntityQrGenerate(this.id).subscribe((res: any) => {
   //     if (res.flag == 1) {
   //       this.qrCode = res.responseMessage;
-  //       console.log(this.qrCode);
+  //       
   //       this.toastr.success(res.responseMessage)
      
   //     }

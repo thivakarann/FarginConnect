@@ -96,7 +96,7 @@ export class BouqutesAddComponent implements OnInit {
   }
 
   name(id: any) {
-    console.log(id)
+    
     this.BroadcasterBouquetAdd.BouqueteNameByBroadcasterid(id).subscribe((res: any) => {
       this.Plandetails = res.response;
     })

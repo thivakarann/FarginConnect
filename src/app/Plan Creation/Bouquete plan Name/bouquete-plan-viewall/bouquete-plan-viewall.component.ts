@@ -63,7 +63,7 @@ export class BouquetePlanViewallComponent {
 
     this.Bouqutenameviewall.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        console.log(res);
+        
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -108,7 +108,7 @@ export class BouquetePlanViewallComponent {
       this.dataSource = new MatTableDataSource(this.viewall);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-      console.log(this.viewall);
+      
     });
 
 
@@ -128,7 +128,7 @@ export class BouquetePlanViewallComponent {
   }
 
   Edit(id: any) {
-    console.log(id);
+    
     this.dialog.open(BouquetenameEditComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
@@ -148,7 +148,7 @@ export class BouquetePlanViewallComponent {
   }
 
   ActiveStatus(event: MatSlideToggleChange, id: any) {
-    console.log(id)
+    
     this.isChecked = event.checked;
 
     let submitModel: BouquetenameStatus = {
@@ -156,7 +156,7 @@ export class BouquetePlanViewallComponent {
       status: this.isChecked ? 1 : 0
     };
     this.Bouqutenameviewall.Bouquetnamestatus(submitModel).subscribe((res: any) => {
-      console.log(res);
+      
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         window.location.reload();
@@ -170,7 +170,7 @@ export class BouquetePlanViewallComponent {
   }
 
   exportexcel() {
-    console.log('check');
+    
     let sno = 1;
     this.responseDataListnew = [];
     this.viewall.forEach((element: any) => {
@@ -250,7 +250,7 @@ export class BouquetePlanViewallComponent {
     });
  
     data.forEach((d: any) => {
-      // console.log("row loop");
+      // 
  
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
@@ -260,7 +260,7 @@ export class BouquetePlanViewallComponent {
       let qty4 = row.getCell(5);
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
- 
+      let qty7 = row.getCell(8);
  
  
  
@@ -271,7 +271,8 @@ export class BouquetePlanViewallComponent {
       qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-     
+      qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+
  
     }
     );

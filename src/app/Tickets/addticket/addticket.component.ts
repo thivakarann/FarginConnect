@@ -22,7 +22,7 @@ export class AddticketComponent {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    console.log(this.data.value);
+    
 
     this.raiseTicketId = this.data.value.raiseTicketId
     this.ticketFormGroup = new FormGroup({

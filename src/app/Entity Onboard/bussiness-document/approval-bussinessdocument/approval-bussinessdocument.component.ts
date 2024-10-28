@@ -30,10 +30,10 @@ export class ApprovalBussinessdocumentComponent {
 
   
     this.value = this.data.value
-    console.log(this.value);
+    
 
     this.merchantDocumentId=this.data.value.merchantDocumentId
-    console.log(this.merchantDocumentId);
+    
     
     
 

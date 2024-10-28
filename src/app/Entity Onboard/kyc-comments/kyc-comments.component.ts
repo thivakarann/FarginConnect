@@ -16,6 +16,6 @@ export class KycCommentsComponent implements OnInit {
   }
   ngOnInit(): void {
     this.remarks = this.data.value
-    console.log(this.remarks);
+    
   }
 }

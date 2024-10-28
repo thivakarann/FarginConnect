@@ -26,7 +26,7 @@ export class EditOtherpaymentComponent {
     this.payId = this.data.value.payId;
     this.servicename = this.data.value.serviceName;
     this.paidamount = this.data.value.paidAmount;
-    console.log(this.id);
+    
 
     this.myForm = new FormGroup({
       paidAmount: new FormControl('', [Validators.required,]),

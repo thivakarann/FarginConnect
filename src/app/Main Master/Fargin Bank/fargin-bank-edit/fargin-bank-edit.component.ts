@@ -38,7 +38,7 @@ export class FarginBankEditComponent {
 
     this.service.roleactiveViewall().subscribe((res:any)=>{
       this.activeRole=res.response;
-      console.log(this.activeRole);
+      
     })
 
     if (this.data && this.data.value) {

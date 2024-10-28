@@ -28,7 +28,7 @@ export class SettlementViewComponent implements OnInit {
   ngOnInit(): void {
     this.ActivateRoute.params.subscribe((param: any) => {
       this.accountId=param.id
-      console.log(this.accountId);
+      
     })
     this.postrenewal()
 
@@ -47,10 +47,10 @@ export class SettlementViewComponent implements OnInit {
     }
 
     this.MerchantView.entitySettleTransaction(submitModel).subscribe((res: any) => {
-      console.log(res);
+      
       this.Viewall = JSON.parse(res?.response);
       this.viewdata = this.Viewall?.data?.content;
-      console.log(this.viewdata);
+      
       
     })
   }
@@ -58,6 +58,6 @@ export class SettlementViewComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.viewdata.filter = filterValue.trim().toLowerCase().toUpperCase();
-    console.log(this.viewdata.filter); 
+    
   }
 }

@@ -122,9 +122,9 @@ export class AlcartAddComponent implements OnInit {
 
       this.errorMessage = ''
       this.file1 = files;
-      console.log(this.file1);
+      
 
-      console.log(' file 1 id success' + files);
+      
 
     }
 
@@ -173,7 +173,7 @@ export class AlcartAddComponent implements OnInit {
   //     type: this.type?.value
 
   //   }
-  //   console.log(this.type?.value)
+  //   
   //   this.AddAlcart.AlcardAdd(submitModel).subscribe((res: any) => {
   //     if (res.flag == 1) {
   //       this.toastr.success(res.responseMessage);

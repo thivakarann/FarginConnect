@@ -90,6 +90,8 @@
                             <i class="fas fa-edit" style="color: #fff;font-size:18px;"
                                 (click)="editpersonalInfo(this.id)"></i>
                         </span> -->
+                        
+                         <!-- [disabled]="detaislone?.onBoardStatus=='false'" //View onboardinfo -->
                         &nbsp;&nbsp;&nbsp;
                         <div class="buttonDownload1" [matMenuTriggerFor]="menu">
                             <i style="overflow:hidden;color:#fff;font-size:22px;" class="fa-solid fa-ellipsis-vertical">
@@ -97,7 +99,7 @@
                                     <button [disabled]="this.detaislone?.onBoardStatus=='true'"  style="font-size: 10px;" mat-menu-item (click)="editpersonalInfo(this.id)"
                                         [hidden]="valueeditentity!=='Entity View-Edit'">Edit EntityDetails</button>
                                     <button style="font-size: 10px;" mat-menu-item (click)="viewOnboardInfo(this.id)"
-                                        [disabled]="detaislone?.onBoardStatus=='false'"
+                                       
                                         [hidden]="valueviewonboard!=='Entity View-Onboard Information'">View
                                         OnboardInfo</button>
                                     <button style="font-size: 10px;" mat-menu-item (click)="pgOnboard()"

@@ -52,10 +52,10 @@ export class EntityKyceditComponent implements OnInit {
   ngOnInit(): void {
  
     this.value1 = this.data.value
-    console.log(this.value1);
+    
  
     this.identitydata = this.data.value1
-    console.log(this.identitydata);
+    
     this.proofId = this.data.value1.proofId
     this.identityProofs = this.data.value1.identityProof
     this.identityProofNos = this.data.value1.identityProofNo
@@ -65,13 +65,6 @@ export class EntityKyceditComponent implements OnInit {
     this.PassportDob = this.data.value1.passportDob;
     this.driving = this.DrivingDob ? moment(this.DrivingDob).format('DD-MM-YYYY') : '';
     this.pass = this.PassportDob ? moment(this.PassportDob).format('DD-MM-YYYY') : '';
- 
-    console.log('Formatted Driving DOB:', this.driving);
-    console.log('Formatted Passport DOB:', this.pass);
- 
-    console.log(this.addressProofvalue, this.addressProofNovalue);
- 
- 
     this.signatureProofvalue = this.data.value1.signatureProof
     this.signatureProofNovalue = this.data.value1.signatureProofNo
  
@@ -99,6 +92,25 @@ export class EntityKyceditComponent implements OnInit {
       drivingLicenceDobss:[''],
       passportDobss:[''],
     })
+    if (this.identityProofs) {
+      this.KycIdentityForm.get('identityProof').setValue(this.identityProofs);
+      this.onIdentityProofChange({ target: { value: this.identityProofs } });
+      this.KycIdentityForm.get('identityProofNo').setValue(this.identityProofNos);
+  }
+  if (this.addressProofvalue) {
+    this.KycAddressForm.get('addressProof').setValue(this.addressProofvalue);
+    this.onAddressProofChange({ target: { value: this.addressProofvalue } });
+
+    // Manually set the addressProofNo based on the existing data
+    this.KycAddressForm.get('addressProofNo').setValue(this.addressProofNovalue);
+}
+if (this.signatureProofvalue) {
+  this.KycsignatureForm.get('signatureProof').setValue(this.signatureProofvalue);
+  this.onasignproof({ target: { value: this.signatureProofvalue } });
+
+  // Manually set the signatureProofNo based on the existing data
+  this.KycsignatureForm.get('signatureProofNo').setValue(this.signatureProofNovalue);
+}
   }
  
  
@@ -143,25 +155,26 @@ export class EntityKyceditComponent implements OnInit {
   }
   onIdentityProofChange(event: any) {
     this.selectElement = event.target.value;
-    console.log(this.selectElement);
     const identityProofNoControl = this.KycIdentityForm.get('identityProofNo');
- 
-    identityProofNoControl?.clearValidators();
+
+  
+
+    // Handle validation based on selected identity proof
     if (this.selectElement === 'Aadhar Card') {
-      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[0-9]{12}$")]); // 12 digits for Aadhar
+        identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[0-9]{12}$")]); // 12 digits for Aadhar
     } else if (this.selectElement === 'Pancard') {
-      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z]{5}[0-9]{4}[A-Za-z]$")]); // PAN format
+        identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z]{5}[0-9]{4}[A-Za-z]$")]); // PAN format
     } else if (this.selectElement === 'Voter Id Proof') {
-      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]); // Voter ID format
+        identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]); // Voter ID format
     } else if (this.selectElement === 'Passport') {
-      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z0-9]{8,15}$")]); // Passport format
+        identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z0-9]{8,15}$")]); // Passport format
     } else if (this.selectElement === 'Driving License') {
-      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Driving license format
+        identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Driving license format
     }
- 
- 
+
+    // Revalidate based on the current input
     identityProofNoControl?.updateValueAndValidity();
-  }
+}
   change(event:any)
   {
     this.selectkyc = event.target.value;
@@ -169,43 +182,53 @@ export class EntityKyceditComponent implements OnInit {
   onAddressProofChange(event: any) {
     this.selectElements = event.target.value;
     const addressProofNoControl = this.KycAddressForm.get('addressProofNo');
- 
+
+    // Clear existing validators
     addressProofNoControl?.clearValidators();
- 
- 
+
+    // Set validators based on the selected address proof
     if (this.selectElements === 'Aadhar Card') {
-      addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[0-9]{12}$")]); // 12 digits for Aadhar
+        addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[0-9]{12}$")]); // 12 digits for Aadhar
     } else if (this.selectElements === 'Voter Id Proof') {
-      addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]); // Voter ID format
+        addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]); // Voter ID format
     } else if (this.selectElements === 'Passport') {
-      addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z0-9]{8,15}$")]); // Passport format
+        addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z0-9]{8,15}$")]); // Passport format
     } else if (this.selectElements === 'Driving License') {
-      addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Driving license format
+        addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Driving license format
     }
- 
- 
-    addressProofNoControl?.updateValueAndValidity();
- 
-  }
-  onasignproof(event: any) {
-    this.select = event.target.value;
-    const signatureProofNoControl = this.KycsignatureForm.get('signatureProofNo');
- 
- 
-    signatureProofNoControl?.clearValidators();
- 
- 
-    if (this.select === 'Pancard') {
+
+    // Check if the input already has a value
+    if (addressProofNoControl?.value) {
+        addressProofNoControl?.updateValueAndValidity();
+    } else {
+        addressProofNoControl?.updateValueAndValidity({ onlySelf: true });
+    }
+}
+
+onasignproof(event: any) {
+  this.select = event.target.value;
+  const signatureProofNoControl = this.KycsignatureForm.get('signatureProofNo');
+
+  // Clear existing validators
+  signatureProofNoControl?.clearValidators();
+
+  // Set validators based on the selected signature proof type
+  if (this.select === 'Pancard') {
       signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z]{5}[0-9]{4}[A-Za-z]$")]);
-    } else if (this.select === 'Passport') {
+  } else if (this.select === 'Passport') {
       signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z0-9]{8,15}$")]); // Passport format
-    } else if (this.select === 'Driving License') {
+  } else if (this.select === 'Driving License') {
       signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Driving license format
-    }
- 
-    signatureProofNoControl?.updateValueAndValidity();
   }
- 
+
+  // Check if the input already has a value
+  if (signatureProofNoControl?.value) {
+      signatureProofNoControl?.updateValueAndValidity();
+  } else {
+      signatureProofNoControl?.updateValueAndValidity({ onlySelf: true });
+  }
+}
+
  
   submit() {
     const formData = new FormData;
@@ -214,7 +237,7 @@ export class EntityKyceditComponent implements OnInit {
     formData.append('identityProofNo', this.identityProofNo.value);
     formData.append('drivingLicenceDob', this.drivingLicenceDob.value || this.DrivingDob);
     formData.append('passportDob', this.passportDob.value || this.PassportDob);
-    console.log(formData);
+    
  
     this.service.editIdentity(formData).subscribe((res: any) => {
       if (res.flag == 1) {
@@ -266,7 +289,7 @@ export class EntityKyceditComponent implements OnInit {
     formData.append('signatureProofNo', this.signatureProofNo.value);
     formData.append('drivingLicenceDob', this.drivingLicenceDobss.value || this.DrivingDob);
     formData.append('passportDob', this.passportDobss.value || this.PassportDob);
-    console.log(formData);
+    
  
     this.service.editSignature(formData).subscribe((res: any) => {
       if (res.flag == 1) {

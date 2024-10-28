@@ -72,7 +72,7 @@ export class CustomerTransViewallComponent {
     
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        console.log(res);
+        
  
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -183,7 +183,7 @@ export class CustomerTransViewallComponent {
 
 
   exportexcel() {
-    console.log('check');
+    
     let sno = 1;
     this.responseDataListnew = [];
     this.transaction.forEach((element: any) => {
@@ -255,7 +255,7 @@ export class CustomerTransViewallComponent {
     });
  
     data.forEach((d: any) => {
-      // console.log("row loop");
+      // 
  
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);

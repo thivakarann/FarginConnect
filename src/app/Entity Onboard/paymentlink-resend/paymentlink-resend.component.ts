@@ -19,7 +19,7 @@ export class PaymentlinkResendComponent {
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, @Inject(MAT_DIALOG_DATA) public data: any,) { }
   ngOnInit(): void {
     this.merchantid = this.data.value
-    console.log(this.merchantid);
+    
     this.addcategory = new FormGroup({
       expiryDate: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),

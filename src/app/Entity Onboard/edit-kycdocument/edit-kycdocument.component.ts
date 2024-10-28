@@ -34,16 +34,16 @@ export class EditKycdocumentComponent implements OnInit {
   ngOnInit(): void {
 
     this.merchantDocumentId = this.data.value2.merchantDocumentId
-    console.log(this.merchantDocumentId);
+    
     this.businessCategoryId = this.data.value1
-    console.log("Business", this.businessCategoryId)
+    
 
     this.docs=this.data.value2.docName
-    console.log(this.docs);
+    
     this.docNumbers=this.data.value2.docNumber
-    console.log(this.docNumbers)
+    
     this.frontpath=this.data.value2.docFrontPath
-    console.log(this.frontpath)
+    
     this.backpath=this.data.value2.docBackPath
 
 
@@ -64,7 +64,7 @@ export class EditKycdocumentComponent implements OnInit {
     this.service.KycDocName(this.businessCategoryId).subscribe((res: any) => {
       if (res.flag == 1) {
         this.categorydetails = res.response;
-        console.log(this.categorydetails)
+        
       }
     })
 
@@ -109,7 +109,7 @@ export class EditKycdocumentComponent implements OnInit {
   getdocument(event: any) {
     this.imageFile = event.target.files[0];
     if ((this.imageFile.type == 'image/png') || (this.imageFile.type == 'image/jpeg') || (this.imageFile.type == 'image/jpg')) {
-      console.log(this.imageFile.type)
+      
       if (this.imageFile.size <= 20 * 1024 * 1024) {
         this.errorShow = false;
       } else {
@@ -118,7 +118,7 @@ export class EditKycdocumentComponent implements OnInit {
       }
     }
     else {
-      console.log(this.imageFile.type)
+      
       this.clearImage = '';
     }
   }
@@ -126,7 +126,7 @@ export class EditKycdocumentComponent implements OnInit {
   getBackdocument(event: any) {
     this.imageFile1 = event.target.files[0];
     if ((this.imageFile1.type == 'image/png') || (this.imageFile1.type == 'image/jpeg') || (this.imageFile1.type == 'image/jpg')) {
-      console.log(this.imageFile1.type)
+      
       if (this.imageFile1.size <= 20 * 1024 * 1024) {
         this.errorShow = false;
       } else {
@@ -135,7 +135,7 @@ export class EditKycdocumentComponent implements OnInit {
       }
     }
     else {
-      console.log(this.imageFile1.type)
+      
       this.clearImage = '';
     }
   }

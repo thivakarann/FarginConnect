@@ -47,17 +47,17 @@
                     </div>
                 </div>
             </div>
-            <div class="row mt-3" *ngIf="this.paymentmode?.value=='cheque'">
+            <div class="row mt-3" *ngIf="this.paymentmode?.value=='Cheque'">
                 <div class="col-12 form-group">
                     <label for="address">Date</label>
                     <input id="fname" type="date" class="form__input"
                        class="form-control" formControlName="validitydate">
                 </div>
             </div>
-            <div class="row mt-3" *ngIf="this.paymentmode?.value!='cash'  && this.paymentmode?.value!='cheque'">
+            <div class="row mt-3" *ngIf="this.paymentmode?.value!='Cash'  && this.paymentmode?.value!='Cheque'">
                 <div class="col-12 form-group">
                     <label for="address">Reference Number</label>
-                    <input id="fname" type="text" class="form__input" placeholder="Enter Utr number.." cols="10"
+                    <input id="fname" type="text" class="form__input" cols="10"
                         rows="2" class="form-control" formControlName="utrnumber">
                 </div>
             </div>

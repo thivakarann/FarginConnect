@@ -36,7 +36,7 @@ export class AddRoleComponent implements OnInit {
 
     this.service.permissionget().subscribe((res: any) => {
       this.permissionValue = res.response;
-      console.log(this.permissionValue);
+      
     })
 
     this.roleformGroup = this.fb.group({
@@ -59,16 +59,16 @@ export class AddRoleComponent implements OnInit {
     return this.roleformGroup.get('subPermission')
   }
   sendPermissionId(id: any) {
-    console.log(id);
+    
 
     let submitModel: subpermission = {
       permissionsId: id,
     }
-    console.log(submitModel);
+    
     
     this.service.subPermission(submitModel).subscribe((res: any) => {
       this.subpermissionValue = res.response;
-      console.log(this.subpermissionValue);
+      
 
     })
   }
@@ -98,7 +98,7 @@ export class AddRoleComponent implements OnInit {
     }
     this.service.addRoles(submitModel).subscribe((res: any) => {
       this.roleValue = res.response;
-      console.log(this.roleValue);
+      
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.dialog.closeAll()

@@ -209,6 +209,7 @@ import { CustomerSurveyquestionsComponent } from './Customer-Survey/customer-sur
 import { SurveyviewallComponent } from './Customer-Survey/surveyviewall/surveyviewall.component';
 import { ViewQuestionsComponent } from './Customer-Survey/view-questions/view-questions.component';
 import { CustomerticketImageComponent } from './Tickets/customerticket-image/customerticket-image.component';
+import { ReadquestionsComponent } from './Customer-Survey/readquestions/readquestions.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -396,7 +397,8 @@ import { CustomerticketImageComponent } from './Tickets/customerticket-image/cus
     CustomerSurveyquestionsComponent,
     ViewQuestionsComponent,
     SurveyviewallComponent,
-    CustomerticketImageComponent
+    CustomerticketImageComponent,
+    ReadquestionsComponent
     
  
     

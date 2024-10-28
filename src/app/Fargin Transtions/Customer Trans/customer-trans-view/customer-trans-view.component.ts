@@ -17,7 +17,7 @@ export class CustomerTransViewComponent {
   }
   ngOnInit(): void {
     this.id = this.data.value
-    console.log(this.id);
+    
     this.service.CustomerTransactionsView(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
         this.view = res.response;

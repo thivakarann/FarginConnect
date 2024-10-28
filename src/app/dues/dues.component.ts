@@ -69,7 +69,7 @@ valuegeneratedues: any;
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        console.log(res);
+        
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -117,7 +117,7 @@ valuegeneratedues: any;
     this.service.DuesViewAll().subscribe((res: any) => {
       this.details = res.response;
       this.details.reverse();
-      console.log(this.details);
+      
       this.dataSource = new MatTableDataSource(this.details);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
@@ -162,7 +162,7 @@ valuegeneratedues: any;
   // }
 
   exportexcel() {
-    console.log('check');
+    
     let sno = 1;
     this.responseDataListnew = [];
     this.details.forEach((element: any) => {
@@ -230,7 +230,7 @@ valuegeneratedues: any;
     });
 
     data.forEach((d: any) => {
-      // console.log("row loop");
+      // 
 
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
@@ -276,7 +276,7 @@ valuegeneratedues: any;
 
 
   viewreciept(id: any) {
-    console.log(id)
+    
 
     this.service.MaintenanceReciept(id).subscribe((res: any) => {
       const reader = new FileReader();

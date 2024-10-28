@@ -10,7 +10,7 @@
         <form [formGroup]="myForm" style="margin-top: 1%;" autocomplete="off">
             <div class="row mb-3">
                 <div class="col-sm-4 form-group">
-                    <label for="Entity Name">Entity Name*</label>
+                    <label for="Entity Name">Entity Name</label>
                     <input type="text" id="Entity Name" formControlName="entityName" class="form-control">
                     <div style="
                     color: red;
@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
-                    <label for="legalname">Merchant Legal Name*</label>
+                    <label for="legalname">Merchant Legal Name</label>
                     <input type="text" formControlName="merchantLegalName" id="legalname" class="form-control">
                     <div style="
                     color: red;
@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
-                    <label for="accountdisplayname">Account DisplayName*</label>
+                    <label for="accountdisplayname">Account DisplayName</label>
                     <input type="text" formControlName="accountDisplayName" id="accountdisplayname"
                         class="form-control">
                     <div style="
@@ -158,7 +158,7 @@
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
-                    <label for="countrys">Country*</label>
+                    <label for="countrys">Country</label>
                     <input type="text" formControlName="country" id="countrys" class="form-control">
                     <div style="
                     color: red;
@@ -183,7 +183,7 @@
             </div>
             <div class="row mb-3">
                 <div class="col-sm-4 form-group">
-                    <label for="states">State*</label>
+                    <label for="states">State</label>
                     <input type="text" formControlName="stateName" id="states" class="form-control">
                     <div style="
                     color: red;
@@ -206,7 +206,7 @@
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
-                    <label for="citys">City*</label>
+                    <label for="citys">City</label>
                     <input type="text" formControlName="city" id="citys" class="form-control">
                     <div style="
                     color: red;
@@ -228,7 +228,7 @@
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
-                    <label for="pincode">Pincode*</label>
+                    <label for="pincode">Pincode</label>
                     <input minlength="6" maxlength="6" type="text" formControlName="zipcode" id="pincode"
                         class="form-control">
                     <div style="
@@ -253,7 +253,7 @@
             </div>
             <div class="row mb-3">
                 <div class="col-sm-4 form-group">
-                    <label for="areas">Area*</label>
+                    <label for="areas">Area</label>
                     <input type="text" formControlName="area" id="areas" class="form-control">
                     <div style="
                         color: red;
@@ -275,7 +275,7 @@
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
-                    <label for="billing">Billing Address*</label>
+                    <label for="billing">Billing Address</label>
                     <input type="text" formControlName="billingAddress" id="billing" class="form-control">
                     <div style="
                     color: red;
@@ -298,7 +298,7 @@
                 </div>
 
                 <div class="col-sm-4 form-group">
-                    <label for="contactname">Owner/Contact Name*</label>
+                    <label for="contactname">Owner/Contact Name</label>
                     <input type="text" formControlName="contactName" id="contactname" class="form-control">
                     <div style="
                     color: red;
@@ -322,7 +322,7 @@
             </div>
             <div class="row mb-3">
                 <div class="col-sm-4 form-group">
-                    <label for="emails">Owner/Contact Email*</label>
+                    <label for="emails">Owner/Contact Email</label>
                     <input type="email" formControlName="contactEmail" id="emails" class="form-control">
                     <div style="
                     color: red;
@@ -344,7 +344,7 @@
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
-                    <label for="mobile">Primary Mobile Number*</label>
+                    <label for="mobile">Primary Mobile Number</label>
                     <input type="tel" maxLength="10" formControlName="contactMobile" id="mobile" class="form-control">
                     <div style="
                     color: red;
@@ -474,7 +474,7 @@
 
             <div class="row mb-3">
                 <div class="col-sm-4 form-group" *ngIf="selectperiod==1">
-                    <label for="billing">Notiification Start due date</label>
+                    <label for="billing">Notification Start due date</label>
 
                     <select id="dayPicker" formControlName="dueDate" class="form-select">
                         <option *ngFor="let day of days" [value]="day">{{ day }}</option>
@@ -495,7 +495,7 @@
         <form [formGroup]="myForm2" style="margin-top: 2%;">
             <div class="row mb-3">
                 <div class="col-sm-4 form-group">
-                    <label for="Entity Name">AccountHolderName*</label>
+                    <label for="Entity Name">AccountHolderName</label>
                     <input type="text" id="Entity Name" formControlName="accountHolderName" class="form-control">
                     <div style="
                     color: red;
@@ -517,7 +517,7 @@
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
-                    <label for="state">Account Number*</label>
+                    <label for="state">Account Number</label>
                     <input type="text" formControlName="accountNumber" id="state" class="form-control">
                     <div style="
                     color: red;
@@ -540,12 +540,22 @@
                 </div>
 
                 <div class="col-sm-4 form-group">
-                    <label for="state">Ledger ID*</label>
+                    <label for="state">Ledger ID</label>
                     <input type="text" formControlName="ledgerId" id="state" class="form-control">
-                    <div style="color: red; font-size: 12px; margin-top: 2px;"
+
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="ledgerId?.invalid && ledgerId?.touched && ledgerId?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <!-- <div style="color: red; font-size: 12px; margin-top: 2px;"
                         *ngIf="ledgerId?.invalid && ledgerId?.touched && ledgerId?.errors?.['pattern']">
                         Must be exactly 4 digits and only numbers are allowed.
-                    </div>
+                    </div> -->
 
                 </div>
 
@@ -590,7 +600,7 @@
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
-                    <label for="Entity Name">BranchName*</label>
+                    <label for="Entity Name">BranchName</label>
                     <input type="text" id="Entity Name" formControlName="branchName" class="form-control">
                     <div style="
                     color: red;
@@ -619,7 +629,7 @@
             </div>
             <div class="row mb-3">
                 <div class="col-sm-4 form-group">
-                    <label for="Entity Name">IFSC Code*</label>
+                    <label for="Entity Name">IFSC Code</label>
                     <input type="text" id="Entity Name" formControlName="ifscCode" class="form-control">
                     <div style="
                     color: red;
@@ -691,7 +701,7 @@
                     <div class="form__row">
                         <div class="form__linput">
                             <label class="form__label"><b>Upload Front Path</b></label>
-                            <input class="form-control" formControlName="identityFrontPath" accept="image/*"
+                            <input class="form-control" formControlName="identityFrontPath" 
                                 (change)="onFileSelected($event)" type="file" />
                             <div *ngIf="identityFrontPath?.invalid && identityFrontPath?.touched && identityFrontPath?.errors?.['required']"
                                 style="color: red; font-size: 12px;">
@@ -701,7 +711,7 @@
 
                         <div class="form__linput">
                             <label class="form__label"><b>Upload Back Path</b></label>
-                            <input class="form-control" formControlName="identityBackPath" accept="image/*"
+                            <input class="form-control" formControlName="identityBackPath" 
                                 (change)="onFileSelected2($event)" type="file" />
                             <div *ngIf="identityBackPath?.invalid && identityBackPath?.touched && identityBackPath?.errors?.['required']"
                                 style="color: red; font-size: 12px;">
@@ -779,7 +789,7 @@
                         <div class="form__linput">
                             <label class="form__label"><b>Upload Front Path</b></label>
                             <input class="form-control" formControlName="addressFrontPath"
-                                (change)="onaddressfront($event)" type="file" accept="image/*" />
+                                (change)="onaddressfront($event)" type="file"/>
                             <div *ngIf="addressFrontPath?.invalid && addressFrontPath?.touched && addressFrontPath?.errors?.['required']"
                                 style="color: red; font-size: 12px;">
                                 Field is required
@@ -789,7 +799,7 @@
                         <div class="form__linput">
                             <label class="form__label"><b>Upload Back Path</b></label>
                             <input class="form-control" formControlName="addressBackPath"
-                                (change)="onaddressback($event)" type="file" accept="image/*" />
+                                (change)="onaddressback($event)" type="file"/>
                             <div *ngIf="addressBackPath?.invalid && addressBackPath?.touched && addressBackPath?.errors?.['required']"
                                 style="color: red; font-size: 12px;">
                                 Field is required
@@ -885,7 +895,7 @@
                         <div class="form__linput">
                             <label class="form__label"><b>Upload Front Path</b></label>
                             <input class="form-control" formControlName="signatureFrontPath"
-                                (change)="onasignfront($event)" type="file" accept="image/*" />
+                                (change)="onasignfront($event)" type="file"/>
                             <div *ngIf="signatureFrontPath?.invalid && signatureFrontPath?.touched && signatureFrontPath?.errors?.['required']"
                                 style="color: red; font-size: 12px;">
                                 Field is required
@@ -895,7 +905,7 @@
                         <div class="form__linput">
                             <label class="form__label"><b>Upload Back Path</b></label>
                             <input class="form-control" formControlName="signatureBackPath"
-                                (change)="onasignback($event)" type="file" accept="image/*" />
+                                (change)="onasignback($event)" type="file"/>
                             <div *ngIf="signatureBackPath?.invalid && signatureBackPath?.touched && signatureBackPath?.errors?.['required']"
                                 style="color: red; font-size: 12px;">
                                 Field is required
@@ -964,8 +974,7 @@
             <div class="form__row">
                 <div class="form__linput">
                     <label class="form__label"><b>Upload Front Path</b></label>
-                    <input class="form-control" formControlName="docFrontPath" (change)="docfront($event)" type="file"
-                        accept="image/*" />
+                    <input class="form-control" formControlName="docFrontPath" (change)="docfront($event)" type="file" />
                     <div *ngIf="docFrontPath?.invalid && docFrontPath?.touched && docFrontPath?.errors?.['required']"
                         style="color: red; font-size: 12px;">
                         Field is required
@@ -974,8 +983,7 @@
 
                 <div class="form__linput">
                     <label class="form__label"><b>Upload Back Path</b></label>
-                    <input class="form-control" formControlName="docBackPath" (change)="docback($event)" type="file"
-                        accept="image/*" />
+                    <input class="form-control" formControlName="docBackPath" (change)="docback($event)" type="file" />
                 </div>
             </div>
 

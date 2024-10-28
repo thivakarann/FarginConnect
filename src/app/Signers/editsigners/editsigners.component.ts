@@ -44,7 +44,7 @@ export class EditsignersComponent {
 
       this.toastr.info('you Uploaded ' + this.selectedFile.file.name);
       this.docName = this.selectedFile.file.name;
-      console.log('doc' + this.docName);
+      
     });
 
     this.toastr.show('Click upload For Next Process');
@@ -72,7 +72,7 @@ export class EditsignersComponent {
 
   //   this.UploadPdf.uploadDocument(formData).subscribe((res: any) => {
   //     this.Pdfid = res.data.merchantId;
-  //     console.log('pdfid ' + this.Pdfid);
+  //     
 
   //     if (res.flag == 1) {
   //       this.toastr.success(res.message);

@@ -87,7 +87,7 @@ export class DashboardComponent implements OnInit {
 
     this.service.dashboardCount().subscribe((res: any) => {
       this.counts = res.response.totalTicketMemberOpenCount;
-      console.log(this.counts);
+      
     });
 
   }
@@ -144,7 +144,7 @@ export class DashboardComponent implements OnInit {
         }
         if (this.roles == 'Entity Onboard') {
           this.valueEntity = 'Entity Onboard';
-          console.log(this.roles);
+          
 
         }
         if (this.roles == 'Customers') {

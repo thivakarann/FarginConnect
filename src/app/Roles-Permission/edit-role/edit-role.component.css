@@ -6,7 +6,6 @@
   box-sizing: border-box;
 }
  
- 
 button {
   font: inherit;
 }
@@ -17,25 +16,18 @@ button {
   display: grid;
   grid-template-areas: "main";
   height: auto;
- 
   font-family: var(--font-sans);
 }
  
 .page__main {
   grid-area: main;
- 
 }
  
 .main {
+  display: grid;
   justify-items: center;
   align-items: center;
-  width: 500px;
 }
-.form .main__form{
-  width: 500px;
- 
-}
- 
  
 .main__form {
   width: 100%;
@@ -47,7 +39,7 @@ button {
   color: var(--gray-9);
   background-color: #fff;
   display: grid;
-  width: 140%;
+  width: 100%;
   max-width: 100%;
   border: 1px solid var(--gray-4);
   border-radius: var(--radius-2);
@@ -161,7 +153,4 @@ button {
   background-color: #bcdf72;
   color: white;
   font-family: "Roboto";
-}
-mat-select{
-  width:470px
 }

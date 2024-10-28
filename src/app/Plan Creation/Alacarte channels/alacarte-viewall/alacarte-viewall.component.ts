@@ -63,7 +63,7 @@ export class AlacarteViewallComponent implements OnInit {
 
     this.AllcartViewall.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        console.log(res);
+        
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -111,7 +111,7 @@ export class AlacarteViewallComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.viewall);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-      console.log(this.viewall);
+      
     });
  
 
@@ -134,18 +134,18 @@ export class AlacarteViewallComponent implements OnInit {
     this.router.navigate([`dashboard/alcart-view/${id}`], {
       queryParams: { Alldata: id },
     });
-    console.log(id);
+    
   }
 
   Edit(id: any) {
     this.router.navigate([`dashboard/alcart-edit/${id}`], {
       queryParams: { Alldata: id },
     });
-    console.log(id);
+    
   }
 
   ActiveStatus(event: MatSlideToggleChange, id: any) {
-    console.log(id)
+    
     this.isChecked = event.checked;
 
     let submitModel: Alcartstatus = {
@@ -153,7 +153,7 @@ export class AlacarteViewallComponent implements OnInit {
       alcotStatus: this.isChecked ? 1 : 0,
     };
     this.AllcartViewall.AlcardStatus(submitModel).subscribe((res: any) => {
-      console.log(res);
+      
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         window.location.reload();
@@ -176,7 +176,7 @@ export class AlacarteViewallComponent implements OnInit {
   }
 
   exportexcel() {
-    console.log('check');
+    
     let sno = 1;
     this.responseDataListnew = [];
     this.viewall.forEach((element: any) => {
@@ -260,7 +260,7 @@ export class AlacarteViewallComponent implements OnInit {
     });
  
     data.forEach((d: any) => {
-      // console.log("row loop");
+      // 
  
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);

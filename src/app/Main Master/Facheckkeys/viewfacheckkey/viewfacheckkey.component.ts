@@ -46,7 +46,7 @@ export class ViewfacheckkeyComponent {
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        console.log(res);
+        
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -99,7 +99,7 @@ export class ViewfacheckkeyComponent {
         this.dataSource.paginator = this.paginator;
 
         this.showcategoryData = false;
-        // console.log(this.businesscategory) 
+        // 
       }
       else {
         this.errorMsg = res.responseMessage;
@@ -131,7 +131,7 @@ export class ViewfacheckkeyComponent {
     };
 
     this.service.statusfacheck(id, submitModel).subscribe((res: any) => {
-      console.log(res);
+      
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
         window.location.reload();

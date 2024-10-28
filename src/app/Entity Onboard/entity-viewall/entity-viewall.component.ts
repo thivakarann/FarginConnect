@@ -64,7 +64,7 @@ export class EntityViewallComponent {
 
     this.EntityViewall.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        console.log(res);
+        
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -112,7 +112,7 @@ export class EntityViewallComponent {
       this.dataSource = new MatTableDataSource(this.viewall);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-      console.log(this.viewall);
+      
     });
 
 
@@ -127,7 +127,7 @@ export class EntityViewallComponent {
   unblock(id: any) {
     this.EntityViewall.unblockentityAccount(id).subscribe((res: any) => {
       this.unblockvalue = res.response;
-      console.log(this.unblockvalue);
+      
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
       }
@@ -149,7 +149,7 @@ export class EntityViewallComponent {
     this.router.navigate([`dashboard/entity-view/${id}`], {
       queryParams: { Alldata: id },
     });
-    console.log(id);
+    
   }
 
   applyFilter(event: Event) {
@@ -162,7 +162,7 @@ export class EntityViewallComponent {
   }
 
   exportexcel() {
-    console.log('check');
+    
     let sno = 1;
     this.responseDataListnew = [];
     this.viewall.forEach((element: any) => {
@@ -256,7 +256,7 @@ export class EntityViewallComponent {
     });
  
     data.forEach((d: any) => {
-      // console.log("row loop");
+      // 
  
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
@@ -298,7 +298,7 @@ export class EntityViewallComponent {
     };
 
     this.EntityViewall.EntityActiveStatus(submitModel).subscribe((res: any) => {
-      console.log(res);
+      
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
         window.location.reload();

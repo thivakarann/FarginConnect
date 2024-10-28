@@ -72,7 +72,7 @@ export class ViewwithdrawalComponent {
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        console.log(res);
+        
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -233,7 +233,7 @@ export class ViewwithdrawalComponent {
       withrawalStatus: this.isChecked ? true : false,
     };
     this.service.statuswithdrawals(id, submitModel).subscribe((res: any) => {
-      console.log(res);
+      
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
         window.location.reload();

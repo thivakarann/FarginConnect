@@ -55,7 +55,7 @@ export class BusinessKycComponent implements OnInit {
     this.service.BusinesscategoryKyc().subscribe((res: any) => {
    
         this.businesscategorykyc = res.response;
-        console.log(this.businesscategorykyc)
+        
         this.businesscategorykyc.reverse();
         this.dataSource = new MatTableDataSource(this.businesscategorykyc);
         this.dataSource.sort = this.sort;
@@ -69,7 +69,7 @@ export class BusinessKycComponent implements OnInit {
  
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        console.log(res);
+        
  
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -123,7 +123,7 @@ export class BusinessKycComponent implements OnInit {
     };
  
     this.service.BusinesskycActive(id, submitModel).subscribe((res: any) => {
-      console.log(res);
+      
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
         window.location.reload();
@@ -161,7 +161,7 @@ export class BusinessKycComponent implements OnInit {
   }
  
   exportexcel() {
-    console.log('check');
+    
     let sno = 1;
     this.responseDataListnew = [];
     this.businesscategorykyc.forEach((element: any) => {

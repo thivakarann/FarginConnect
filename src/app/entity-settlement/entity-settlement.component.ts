@@ -62,7 +62,7 @@ export class EntitySettlementComponent {
 
     this.MerchantView.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        console.log(res);
+        
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -100,9 +100,9 @@ export class EntitySettlementComponent {
       this.details = res.response;
       this.detaislone = res.response.merchantpersonal;
       this.accountid = res.response.merchantpersonal.accountId;
-      console.log(this.accountid);
+      
       this.postrenewal();
-      // console.log(this.details);
+      // 
 
     })
 
@@ -119,22 +119,22 @@ export class EntitySettlementComponent {
       dateRange: "",
       status: "",
     }
-    console.log(submitModel);
+    
 
     this.MerchantView.Entitysettlement(submitModel).subscribe((res: any) => {
-      console.log(res);
+      
       this.Viewall = JSON.parse(res?.response);
       this.viewdata = this.Viewall?.data?.content;
       this.dataSource = new MatTableDataSource(this.viewdata?.reverse())
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
 
-      console.log(this.viewdata);
+      
     })
   }
 
   viewpayout(id: any) {
-    console.log(id);
+    
     this.router.navigate([`/dashboard/settlement-view/${id}`], {
       queryParams: { value: id },
     });

@@ -74,7 +74,7 @@ export class DashboardContentComponent {
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        console.log(res);
+        
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -129,11 +129,11 @@ export class DashboardContentComponent {
 
     this.service.dashboardCount().subscribe((res: any) => {
       this.counts = res.response;
-      console.log(this.counts);
+      
     });
     this.service.dashboardoverallamounts().subscribe((res: any) => {
       this.amount = res.response;
-      console.log(this.counts);
+      
     });
     this.service.dashbaordcustomerdayTransaction().subscribe((res: any) => {
       this.todayamount = res.response;
@@ -141,7 +141,7 @@ export class DashboardContentComponent {
     });
     this.service.dashboardoverallonetimes().subscribe((res: any) => {
       this.amountonetime = res.response;
-      console.log(this.counts);
+      
     });
     this.service.dashboardcustomersevenday().subscribe((res: any) => {
       this.sevenday = res.response;
@@ -150,12 +150,9 @@ export class DashboardContentComponent {
     });
 
 
-
-
-
     this.service.dashboardcustomersevenday().subscribe((res: any) => {
       this.sevenper = res.response;
-      console.log(this.counts);
+      
     });
     this.service.EntityViewall().subscribe((res: any) => {
 
@@ -167,10 +164,10 @@ export class DashboardContentComponent {
           this.selectedmerchant = this.viewall[0].merchantId;
           this.fetchMerchantData(this.selectedmerchant);
         } else {
-          console.log("No merchants found.");
+          
         }
       } else {
-        console.log("Response is undefined or does not contain data.");
+        
       }
     });
   }
@@ -184,7 +181,7 @@ export class DashboardContentComponent {
     this.service.dashboardbusinessgetalls().subscribe((res: any) => {
       this.category = res.response;
       this.businessCategoryIds = res.response.businessCategoryId;
-      console.log(this.counts);
+      
     });
     this.createWithCategory(this.initialCategoryId);
 
@@ -199,11 +196,11 @@ export class DashboardContentComponent {
     //   if (res.flag == 1) {
     //     // this.daytrasanction=res.response;
     //     this.createMixedChartDay(res.response);
-    //     console.log(res.response);
+    //     
     //   }
     //   if (res.flag == 2) {
     //     this.createMixedChartDay(res.response);
-    //     console.log(res.response);
+    //     
     //   }
     // });
 
@@ -244,7 +241,7 @@ export class DashboardContentComponent {
     this.service
       .dashboardbusinesscategorybyids(categoryId)
       .subscribe((res: any) => {
-        console.log(res);
+        
 
         const label = res.response.categoryName;
         const data = [
@@ -263,8 +260,8 @@ export class DashboardContentComponent {
           'Approved Status',
           'Active Members',
         ];
-        console.log('Data:', data);
-        console.log('Labels:', labels);
+        
+        
         // Destroy the previous chart if it exists
         if (this.doughnutChart) {
           this.doughnutChart.destroy();
@@ -332,8 +329,8 @@ export class DashboardContentComponent {
   }
 
   filter() {
-    console.log('Start Date:', this.startdates);
-    console.log('End Date:', this.enddates);
+    
+    
     this.service
       .dashboardtransactions(
         this.businessCategoryIds,

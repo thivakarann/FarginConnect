@@ -56,7 +56,7 @@ export class SMSHistoryViewComponent {
   ngOnInit(): void {
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.merchantid = param.Alldata;
-      console.log(this.merchantid)
+      
     });
    
     this.service.SMSHistoryViewById(this.merchantid).subscribe((res: any) => {
@@ -81,7 +81,7 @@ export class SMSHistoryViewComponent {
   }
  
   exportexcel() {
-    console.log('check');
+    
     let sno = 1;
     this.responseDataListnew = [];
     this.smsResponse.forEach((element: any) => {
@@ -151,7 +151,7 @@ export class SMSHistoryViewComponent {
     });
  
     data.forEach((d: any) => {
-      // console.log("row loop");
+      // 
  
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
@@ -189,7 +189,7 @@ export class SMSHistoryViewComponent {
     this.router.navigate([`dashboard/smshistory-view/${id}`], {
       queryParams: { Alldata: id },
     });
-    console.log(id);
+    
   }
  
   close(){

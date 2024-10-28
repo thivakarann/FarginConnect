@@ -73,7 +73,7 @@ export class FarginBankviewComponent {
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        console.log(res);
+        
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -119,7 +119,7 @@ export class FarginBankviewComponent {
       this.dataSource = new MatTableDataSource(this.viewall);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-      console.log(this.viewall);
+      
     });
 
 
@@ -145,17 +145,17 @@ export class FarginBankviewComponent {
 
   ActiveStatus(event: MatSlideToggleChange, id: string) {
     this.adminBankId = id;
-    console.log(this.adminBankId)
+    
     this.isChecked = event.checked;
 
     let submitModel: farginstatus = {
       activeStatus: this.isChecked ? 1 : 0,
     };
     this.service.Farginstatus(this.adminBankId, submitModel).subscribe((res: any) => {
-      console.log(res);
+      
       if (res.flag == 1) {
         this.data = res.response;
-        console.log(this.data)
+        
         this.toastr.success(res.responseMessage);
         window.location.reload();
       }
@@ -188,7 +188,7 @@ applyFilter(event: Event) {
 }
 
 exportexcel() {
-  console.log('check');
+  
   let sno = 1;
   this.responseDataListnew = [];
   this.viewall.forEach((element: any) => {
@@ -267,7 +267,7 @@ excelexportCustomer() {
   });
 
   data.forEach((d: any) => {
-    // console.log("row loop");
+    // 
 
     let row = worksheet.addRow(d);
     let qty = row.getCell(1);

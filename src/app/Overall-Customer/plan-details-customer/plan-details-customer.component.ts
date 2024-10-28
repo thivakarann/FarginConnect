@@ -128,7 +128,7 @@ export class PlanDetailsCustomerComponent {
   }
 
   Viewchannels(id: any) {
-    console.log('alcot', this.id)
+    
     this.dialog.open(ChannelViewComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
@@ -144,7 +144,7 @@ export class PlanDetailsCustomerComponent {
       activeStatus: this.isChecked ? 1 : 0,
     }
     this.service.ActiveStatusCustomerPlan(id, submitmodel).subscribe((res: any) => {
-      console.log(res);
+      
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
         window.location.reload();

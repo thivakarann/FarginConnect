@@ -10,114 +10,117 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 })
 export class ImageBussinessdocumentComponent {
   imageSrc: any;
+  pdfSrc: any; // New variable for PDF source
   id: any;
   flag: any;
   documentupload!: FormGroup;
   errorMessage: any;
   file1: any;
-  file2:any
+  file2: any;
   updatedata: any;
-
-  constructor(private service: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog) { }
-
+   
+  constructor(private service: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog) {}
+   
   ngOnInit(): void {
-
-
-    this.id = this.data.value
+    this.id = this.data.value;
     console.log(this.id);
-
-    this.flag = this.data.value1
+   
+    this.flag = this.data.value1;
     console.log(this.flag);
-
+   
     this.documentupload = new FormGroup({
       Image: new FormControl('', [Validators.required]),
-
-    })
-
+    });
+   
     this.service.getdocumentImage(this.id, this.flag).subscribe({
-      next: (res: any) => {
-        console.log(this.id, this.flag);
-
-        const reader = new FileReader();
-        reader.readAsDataURL(res);
-        reader.onloadend = () => {
-          this.imageSrc = reader.result as string;
+      next: (res: Blob) => {
+        const contentType = res.type; // Get the content type of the response
+   
+        if (contentType.startsWith('image/')) {
+          const reader = new FileReader();
+          reader.readAsDataURL(res);
+          reader.onloadend = () => {
+            this.imageSrc = reader.result as string; // For displaying the image
+            this.pdfSrc = null; // Reset PDF source
+          };
+        } else if (contentType === 'application/pdf') {
+          var downloadURL = URL.createObjectURL(res);
+          window.open(downloadURL);
+        } else {
+          console.error('Unsupported file type:', contentType);
         }
       },
-
-    })
+      error: (err) => {
+        console.error('Error fetching document image:', err);
+      }
+    });
+   
   }
-
+   
   getimageId(event: any) {
     console.log(event);
-    if(this.flag==1){
-      const files = event.target.files[0];
-      if (files) {
-        const fileName1: string = files.name;
-        if (!files.type.startsWith('image/')) {
-  
-          this.errorMessage = 'Only Images are allowed';
-          return;
-  
-        }
-        this.errorMessage = ''
+    const files = event.target.files[0];
+    if (files) {
+      const fileName = files.name;
+      const fileType = files.type;
+   
+      // Check for image files
+      if (this.flag === 1 && fileType.startsWith('image/')) {
+        this.errorMessage = '';
         this.file1 = files;
-        console.log(this.file1);
-        console.log(' file 1 id success' + files);
+        const reader = new FileReader();
+        reader.readAsDataURL(files);
+        reader.onloadend = () => {
+          this.imageSrc = reader.result as string; // For displaying the image
+        };
+        console.log('File 1 uploaded successfully: ' + fileName);
       }
-    }
-
-    if(this.flag==2){
-      const files = event.target.files[0];
-      if (files) {
-        const fileName2: string = files.name;
-        if (!files.type.startsWith('image/')) {
-  
-          this.errorMessage = 'Only Images are allowed';
-          return;
-  
-        }
-        this.errorMessage = ''
+      // Check for PDF files
+      else if (this.flag === 2 && fileType === 'application/pdf') {
+        this.errorMessage = '';
         this.file2 = files;
-        console.log(this.file2);
-        console.log(' file 1 id success' + files);
+        const reader = new FileReader();
+        reader.readAsDataURL(files);
+        reader.onloadend = () => {
+          this.pdfSrc = reader.result as string; // For displaying the PDF
+        };
+        console.log('File 2 uploaded successfully: ' + fileName);
+      }
+      else {
+        this.errorMessage = 'Only Images or PDFs are allowed';
       }
     }
   }
-
    
   Update() {
-
-    if (this.flag == 1) {
-      const formData = new FormData;
-      
-      formData.append('merchantDocumentId',this.id)
+    const formData = new FormData();
+    formData.append('merchantDocumentId', this.id);
+    formData.append('modifiedBy', this.id);
+   
+    if (this.flag === 1 && this.file1) {
       formData.append('docFrontPath', this.file1);
-      formData.append('modifiedBy', this.id);
       this.service.documentFrontedit(formData).subscribe((res: any) => {
-        if (res.flag == 1) {
+        if (res.flag === 1) {
           this.updatedata = res.response;
           this.dialog.closeAll();
           setTimeout(() => {
-            window.location.reload()
+            window.location.reload();
           }, 1000);
         }
-      })
+      });
     }
-    if (this.flag == 2) {
-      const formData = new FormData;
-      formData.append('merchantDocumentId',this.id)
+   
+    if (this.flag === 2 && this.file2) {
       formData.append('docBackPath', this.file2);
-      formData.append('modifiedBy', this.id);
       this.service.documentBackedit(formData).subscribe((res: any) => {
-        if (res.flag == 1) {
+        if (res.flag === 1) {
           this.updatedata = res.response;
           this.dialog.closeAll();
           setTimeout(() => {
-            window.location.reload()
+            window.location.reload();
           }, 1000);
         }
-      })
+      });
     }
   }
-}
+  }

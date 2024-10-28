@@ -65,7 +65,7 @@ export class ManualTransactionComponent {
      
         this.service.GetManualTransaction(this.id).subscribe((res: any) => {
           this.details = res.response;
-          console.log(this.details);
+          
           this.dataSource = new MatTableDataSource(this.details);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
@@ -90,7 +90,7 @@ export class ManualTransactionComponent {
   
 
     exportexcel() {
-      console.log('check');
+      
       let sno = 1;
       this.responseDataListnew = [];
       this.details.forEach((element: any) => {
@@ -158,7 +158,7 @@ export class ManualTransactionComponent {
       });
   
       data.forEach((d: any) => {
-        // console.log("row loop");
+        // 
   
         let row = worksheet.addRow(d);
         let qty = row.getCell(1);
@@ -204,7 +204,7 @@ export class ManualTransactionComponent {
 
 
     viewreciept(id:any){
-      console.log(id)
+      
      
     this.service.ManualRecieptView(id).subscribe((res:any)=>{
       const reader = new FileReader();

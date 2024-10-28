@@ -39,7 +39,7 @@ export class BusinessKycCreateComponent implements OnInit {
  
     this.service.activeViewall().subscribe((res: any) => {
       this.kycValue = res.response;
-      console.log(this.kycValue);
+      
     })
  
  
@@ -58,7 +58,7 @@ export class BusinessKycCreateComponent implements OnInit {
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
         this.showcategoryData = false;
-        // console.log(this.businesscategory)
+        // 
       }
       else {
         this.errorMsg = res.responseMessage;
@@ -114,6 +114,6 @@ export class BusinessKycCreateComponent implements OnInit {
   }
  
   kycId(id: any) {
-    console.log(id);
+    
   }
 }

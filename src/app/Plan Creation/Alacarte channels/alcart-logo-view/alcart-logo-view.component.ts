@@ -28,7 +28,7 @@ export class AlcartLogoViewComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     this.id = this.data.value;
-    console.log(this.id)
+    
 
     this.Viewlogoimage.AlcartImageview(this.id).subscribe({
       next: (data: any) => {
@@ -74,9 +74,9 @@ export class AlcartLogoViewComponent implements OnInit {
 
       this.errorMessage = ''
       this.file1 = files;
-      console.log(this.file1);
+      
 
-      console.log(' file 1 id success' + files);
+      
 
     }
 

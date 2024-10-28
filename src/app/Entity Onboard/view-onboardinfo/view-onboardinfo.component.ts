@@ -25,7 +25,7 @@ export class ViewOnboardinfoComponent implements OnInit {
 
 
     this.merchantId = this.data.value
-    console.log(this.merchantId);
+    
 
     this.service.EntityViewbyid(this.merchantId).subscribe((res: any) => {
       this.detaislone = res.response.merchantpersonal;
@@ -33,7 +33,7 @@ export class ViewOnboardinfoComponent implements OnInit {
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        console.log(res);
+        
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;

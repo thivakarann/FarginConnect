@@ -23,7 +23,7 @@ export class ServiceproviderEditComponent implements OnInit {
 
 
     this.serviceId = this.data.value
-    console.log(this.serviceId);
+    
 
 
     this.AdminForm = new FormGroup({

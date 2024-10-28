@@ -30,7 +30,7 @@ export class EditBankDetailsComponent implements OnInit {
     this.details = this.data.value;
     this.id = this.data.value.bankId;
     this.banks = this.data.value.bankName;
-    console.log(this.banks)
+    
 
     this.myForm = new FormGroup({
       bankName: new FormControl('', Validators.required),

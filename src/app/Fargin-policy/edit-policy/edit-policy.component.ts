@@ -36,7 +36,7 @@ export class EditPolicyComponent {
 
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.policyId = param.Alldata;
-      console.log(this.policyId)
+      
     });
 
     this.policycreate = new FormGroup({
@@ -50,7 +50,7 @@ export class EditPolicyComponent {
 
     this.service.viewbyIdpolicy(this.policyId).subscribe((res: any) => {
       this.policyview = res.response;
-      console.log(this.policyview)
+      
     
       
     });

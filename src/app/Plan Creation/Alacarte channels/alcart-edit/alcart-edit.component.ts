@@ -69,7 +69,7 @@ export class AlcartEditComponent implements OnInit {
         this.amount=""
       }
       this.ChannelNumber = res.response.channelNo
-      console.log(this.amount);
+      
     })
 
     this.myForm = new FormGroup({

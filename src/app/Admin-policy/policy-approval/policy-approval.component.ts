@@ -27,7 +27,7 @@ export class PolicyApprovalComponent {
    ngOnInit(): void {
      
      this.id = this.data.value
-     console.log(this.id);
+     
  
      
      this.myForm = new FormGroup({

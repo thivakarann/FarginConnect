@@ -15,7 +15,7 @@ export class ViewPermissionComponent {
 
   ngOnInit(): void {
     this.permissionvalue = this.data.value
-    console.log(this.permissionvalue);
+    
     
   }
 

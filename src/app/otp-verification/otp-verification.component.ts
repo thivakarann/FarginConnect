@@ -33,7 +33,7 @@ export class OtpVerificationComponent implements OnInit {
   ngOnInit(): void {
     this.activeRouter.queryParams.subscribe((param: any) => {
       this.emailAddress = param.emailAddress;
-      console.log(this.emailAddress);
+      
     })
 
 
@@ -90,7 +90,7 @@ export class OtpVerificationComponent implements OnInit {
     this.service.VerifyOtp(submitmodel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.email = res.response.emailAddress;
-        console.log(this.email);
+        
 
         this.toaster.success(res.responseMessage);
         this.router.navigate([`/reset`], {

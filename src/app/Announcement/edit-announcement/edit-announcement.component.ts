@@ -27,9 +27,9 @@ export class EditAnnouncementComponent {
 
 
   ngOnInit(): void {
-    console.log(this.data.value);
+    
     this.announcementid=this.data.value.announcementId
-    console.log(this.announcementid);
+    
     
 
     this.service.BusinesscategoryKycactive().subscribe((res: any) => {

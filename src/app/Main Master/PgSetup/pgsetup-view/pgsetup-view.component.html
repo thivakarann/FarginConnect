@@ -51,7 +51,7 @@
   
     <br><br>
     <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1"
-      *ngIf="!showcategoryData">
+    >
 
       <ng-container matColumnDef="pgModeId">
         <th mat-header-cell *matHeaderCellDef> S.No</th>
@@ -114,11 +114,11 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
       <tr *matNoDataRow>
-        <td class="mat-cell" colspan="4">No Data{{input.value}}
+        <td class="mat-cell" colspan="4">No Data For {{input.value}}
         </td>
+
       </tr>
     </table>
-
   </div>
 </mat-card-content>
 <mat-card-footer>

@@ -49,7 +49,7 @@ export class QRcreationComponent implements OnInit {
 
   selectss(id: any) {
     this.ADD = id
-    console.log(this.ADD)
+    
   }
 
   // First Form
@@ -62,7 +62,7 @@ export class QRcreationComponent implements OnInit {
 
 
     this.URLName = this.QRName?.value;
-    console.log(this.URLName);
+    
 
     this.QRcreation.QRCreateurl(this.URLName).subscribe((res: any) => {
       if (res.flag == 1) {
@@ -70,8 +70,8 @@ export class QRcreationComponent implements OnInit {
         this.Entityurlname = res.response.referenceNo;
         this.EntityURLLink = res.response.link;
         this.ViewURL = true;
-        console.log(" this.Entityurlname" + this.Entityurlname);
-        console.log("EntityURLLink" + this.EntityURLLink);
+        
+        
       }
 
       else if (res.flag == 2) {

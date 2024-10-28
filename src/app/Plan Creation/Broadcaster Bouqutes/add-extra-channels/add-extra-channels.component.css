@@ -1,6 +1,6 @@
 .container {
     width: 100%;
-    min-width: 500px;
+    min-width: 400px;
     padding: 0px;
 }
 
@@ -61,3 +61,7 @@
     color: white;
     font-family: "Roboto";
 }
+mat-select{
+    width: 390px;
+    font-size: 13px;
+  }

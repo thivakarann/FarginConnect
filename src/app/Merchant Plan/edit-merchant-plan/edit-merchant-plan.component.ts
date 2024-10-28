@@ -50,7 +50,7 @@ export class EditMerchantPlanComponent implements OnInit {
     this.MaintenanceAmount = this.data.value.maintenanceAmount;
     this.Frequency = this.data.value.frequency;
     this.RenewelAmount = this.data.value.renewalAmount;
-    console.log("jjfcaefc" + this.planName)
+    
 
 
   }

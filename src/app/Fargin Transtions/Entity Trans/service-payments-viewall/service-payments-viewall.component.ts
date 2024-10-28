@@ -68,7 +68,7 @@ export class ServicePaymentsViewallComponent {
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        console.log(res);
+        
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -189,7 +189,7 @@ export class ServicePaymentsViewallComponent {
   }
 
   viewreciept(id: any) {
-    console.log(id)
+    
 
     this.service.ManualRecieptView(id).subscribe((res: any) => {
       const reader = new FileReader();
@@ -203,7 +203,7 @@ export class ServicePaymentsViewallComponent {
 
 
   exportexcel() {
-    console.log('check');
+    
     let sno = 1;
     this.responseDataListnew = [];
     this.transaction.forEach((element: any) => {
@@ -272,7 +272,7 @@ export class ServicePaymentsViewallComponent {
     });
  
     data.forEach((d: any) => {
-      // console.log("row loop");
+      // 
  
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);

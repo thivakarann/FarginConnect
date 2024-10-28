@@ -21,6 +21,7 @@ export class KycdocumentViewComponent implements OnInit{
   file4: any;
   file5: any;
   file6: any;
+pdfSrc: any;
  
   constructor(private service: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog) { }
  
@@ -28,10 +29,10 @@ export class KycdocumentViewComponent implements OnInit{
  
  
     this.id = this.data.value
-    console.log(this.id);
+    
  
     this.flag = this.data.value1
-    console.log(this.flag);
+    
  
     this.documentupload = new FormGroup({
       Image: new FormControl('', [Validators.required]),
@@ -40,15 +41,25 @@ export class KycdocumentViewComponent implements OnInit{
  
     this.service.getImageview(this.id, this.flag).subscribe({
       next: (res: any) => {
-console.log(this.id, this.flag);
- 
-        const reader = new FileReader();
-        reader.readAsDataURL(res);
-        reader.onloadend = () => {
-          this.imageSrc = reader.result as string;
+        const contentType = res.type; // Get the content type of the response
+   
+        if (contentType.startsWith('image/')) {
+          const reader = new FileReader();
+          reader.readAsDataURL(res);
+          reader.onloadend = () => {
+            this.imageSrc = reader.result as string; // For displaying the image
+            this.pdfSrc = null; // Reset PDF source
+          };
+        } else if (contentType === 'application/pdf') {
+          var downloadURL = URL.createObjectURL(res);
+          window.open(downloadURL);
+        } else {
+          console.error('Unsupported file type:', contentType);
         }
       },
- 
+      error: (err) => {
+        console.error('Error fetching document image:', err);
+      }
     })
   }
  
@@ -58,7 +69,7 @@ console.log(this.id, this.flag);
   }
  
   getimageId(event: any) {
-    console.log(event);
+    
     if(this.flag==1){
       const files = event.target.files[0];
       if (files) {
@@ -71,8 +82,8 @@ console.log(this.id, this.flag);
         }
         this.errorMessage = ''
         this.file1 = files;
-        console.log(this.file1);
-        console.log(' file 1 id success' + files);
+        
+        
       }
     }
  
@@ -88,8 +99,8 @@ console.log(this.id, this.flag);
         }
         this.errorMessage = ''
         this.file2 = files;
-        console.log(this.file2);
-        console.log(' file 1 id success' + files);
+        
+        
       }
     }
  
@@ -105,8 +116,8 @@ console.log(this.id, this.flag);
         }
         this.errorMessage = ''
         this.file3 = files;
-        console.log(this.file3);
-        console.log(' file 1 id success' + files);
+        
+        
       }
     }
     if(this.flag==4){
@@ -121,8 +132,8 @@ console.log(this.id, this.flag);
         }
         this.errorMessage = ''
         this.file4 = files;
-        console.log(this.file4);
-        console.log(' file 1 id success' + files);
+        
+        
       }
     }
  
@@ -138,13 +149,13 @@ console.log(this.id, this.flag);
         }
         this.errorMessage = ''
         this.file5 = files;
-        console.log(this.file5);
-        console.log(' file 1 id success' + files);
+        
+        
       }
     }
  
     if(this.flag==6){
-      console.log(this.flag);
+      
      
       const files6 = event.target.files[0];
       if (files6) {
@@ -157,8 +168,8 @@ console.log(this.id, this.flag);
         }
         this.errorMessage = ''
         this.file6 = files6;
-        console.log(this.file6);
-        console.log(' file 1 id success' + files6);
+        
+        
       }
     }
   }

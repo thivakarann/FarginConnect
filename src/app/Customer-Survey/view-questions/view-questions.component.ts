@@ -35,7 +35,7 @@ export class ViewQuestionsComponent {
 
   ngOnInit(): void {
     this.question = this.data.value.questions
-    console.log(this.question)
+    
 
   }
 

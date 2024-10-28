@@ -132,10 +132,10 @@ export class EditPersonalInfoComponent implements OnInit {
       }
       this.entityname = this.detaislone.entityName;
       this.mcccode = this.detaislone.mccCode
-      console.log(this.mcccode)
+      
       this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-      console.log('BussinessCategoryId', this.businessCategoryId);
-      console.log(this.detaislone);
+      
+      
     })
     this.service.Bussinesscategoryactivelist().subscribe((res: any) => {
       this.categorydetails = res.response;
@@ -242,7 +242,7 @@ export class EditPersonalInfoComponent implements OnInit {
   getlogo(event: any) {
     this.file3 = event.target.files[0];
     if ((this.file3.type == 'image/png') || (this.file3.type == 'image/jpeg') || (this.file3.type == 'image/jpg')) {
-      console.log(this.file3.type)
+      
       if (this.file3.size <= 20 * 1024 * 1024) {
         this.errorShow = false;
       } else {
@@ -251,7 +251,7 @@ export class EditPersonalInfoComponent implements OnInit {
       }
     }
     else {
-      console.log(this.file3.type)
+      
       this.clearImage = '';
     }
   }
@@ -307,7 +307,7 @@ export class EditPersonalInfoComponent implements OnInit {
       } else {
         this.toastr.error(res.responseMessage);
       }
-      console.log(res);
+      
     })
   }
   onCategoryChange(event: any) {
@@ -315,7 +315,7 @@ export class EditPersonalInfoComponent implements OnInit {
     this.service.EntityBusinessCategoryId(this.businessId).subscribe((res: any) => {
       if (res.flag == 1) {
         this.mcccode = res.response.mccCode;
-        console.log(this.mcccode)
+        
       }
     })
   }

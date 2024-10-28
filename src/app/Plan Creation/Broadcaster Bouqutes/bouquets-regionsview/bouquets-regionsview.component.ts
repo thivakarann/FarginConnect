@@ -22,7 +22,7 @@ export class BouquetsRegionsviewComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     this.detailss = this.data.value;
-    console.log(this.detailss)
+    
   }
 
   close(){

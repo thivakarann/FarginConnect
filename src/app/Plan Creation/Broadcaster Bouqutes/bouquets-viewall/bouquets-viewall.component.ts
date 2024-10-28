@@ -89,7 +89,7 @@ export class BouquetsViewallComponent implements OnInit {
 
     this.Bouquetviewall.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        console.log(res);
+        
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -137,7 +137,7 @@ export class BouquetsViewallComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.viewall);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-      console.log(this.viewall);
+      
     });
 
 
@@ -171,7 +171,7 @@ export class BouquetsViewallComponent implements OnInit {
 
     this.Bouquetviewall.BroadcasterBoucatebyid(this.valueid).subscribe({
       next: (res: any) => {
-        console.log(res);
+        
         if (res.flag == 1) {
           this.getAction = res.response;
 
@@ -181,16 +181,16 @@ export class BouquetsViewallComponent implements OnInit {
           this.amount = res.response.amount
 
           this.broadCasterRegions = this.getAction.broadCasterRegion
-          console.log(this.getAction)
+          
           for (let data of this.broadCasterRegions) {
             this.broadCasterRegionsss.push(data.broadCasterRegion.regionId)
-            console.log(this.broadCasterRegionsss)
+            
           }
 
           this.broadCasterAlcot = this.getAction.broadCasterAlcot
           for (let data of this.broadCasterAlcot) {
             this.broadCasterAlcotsss.push(data.broadCasterAlcot.alcotId)
-            console.log(this.broadCasterRegionsss)
+            
           }
 
           //Duplicate Removal start
@@ -198,7 +198,7 @@ export class BouquetsViewallComponent implements OnInit {
           for (let value of this.perValueObject) {
             this.perValueArray.push(value)
           }
-          console.log(this.perValueArray)
+          
           this.dialog.open(BouqetsEditComponent, {
             data: { per: this.perValueArray, bouquet: this.bouquet, creation: this.creation, services: this.services, broadCasterRegionsss: this.broadCasterRegionsss, broadCasterAlcotsss: this.broadCasterAlcotsss, amount: this.amount, valueid: this.valueid },
             disableClose: true,
@@ -220,7 +220,7 @@ export class BouquetsViewallComponent implements OnInit {
     this.router.navigate([`dashboard/bouqutes-view/${id}`], {
       queryParams: { Alldata: id },
     });
-    console.log(id);
+    
   }
 
 
@@ -237,7 +237,7 @@ export class BouquetsViewallComponent implements OnInit {
 
 
   ActiveStatus(event: MatSlideToggleChange, id: any) {
-    console.log(id)
+    
     this.isChecked = event.checked;
 
     let submitModel: BroadcasterBouquetStatus = {
@@ -245,7 +245,7 @@ export class BouquetsViewallComponent implements OnInit {
       bouquteId: id
     };
     this.Bouquetviewall.BroadcasterBoucateStatus(submitModel).subscribe((res: any) => {
-      console.log(res);
+      
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         window.location.reload();
@@ -258,7 +258,7 @@ export class BouquetsViewallComponent implements OnInit {
 
   }
   exportexcel() {
-    console.log('check');
+    
     let sno = 1;
     this.responseDataListnew = [];
     this.viewall.forEach((element: any) => {
@@ -325,7 +325,7 @@ export class BouquetsViewallComponent implements OnInit {
     });
  
     data.forEach((d: any) => {
-      // console.log("row loop");
+      // 
  
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);

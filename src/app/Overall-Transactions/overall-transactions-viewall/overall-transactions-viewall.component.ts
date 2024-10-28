@@ -68,11 +68,11 @@ export class OverallTransactionsViewallComponent {
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        console.log(res);
+        
 
         if (res.flag == 1){
           this.getdashboard = res.response?.subPermission;
-          console.log(this.getdashboard);
+          
           if (this.roleId == 1) {
             this.valueTransactionExport = 'Transactions-Export';
             this.valueTransactionView = 'Transactions-View'
@@ -81,7 +81,7 @@ export class OverallTransactionsViewallComponent {
             for (let datas of this.getdashboard) {
 
               this.actions = datas.subPermissions;
-              console.log(this.actions + 'this.roles');
+              
 
               if (this.actions == 'Transactions-Export') {
                 this.valueTransactionExport = 'Transactions-Export';
@@ -111,13 +111,13 @@ export class OverallTransactionsViewallComponent {
     }
     this.service.TransactionForMerchant(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
-        console.log(JSON.parse(res.response));
+        
         this.Viewall = JSON.parse(res.response);
         this.content = this.Viewall?.data?.content;
         this.filteredData = this.content;
-        console.log(this.filteredData)
+        
         this.getallData = this.Viewall.data.totalElements;
-        console.log(this.getallData + "getitems");
+        
         // this.toastr.success(res.responseMessage);
         this.dataSource = new MatTableDataSource(this.filteredData);
         this.dataSource.sort = this.sort;
@@ -169,13 +169,13 @@ export class OverallTransactionsViewallComponent {
     }
     this.service.TransactionForMerchant(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
-        console.log(JSON.parse(res.response));
+        
         this.Viewall = JSON.parse(res.response);
         this.content = this.Viewall?.data?.content;
         this.filteredData = this.content;
 
         this.getallData = this.Viewall.data.totalElements;
-        console.log(this.getallData + "getitems");
+        
         this.toastr.success(res.responseMessage);
       }
     })
@@ -186,7 +186,7 @@ export class OverallTransactionsViewallComponent {
 
 
   exportexcel() {
-    console.log('check');
+    
     let sno = 1;
     this.responseDataListnew = [];
     this.filteredData.forEach((element: any) => {
@@ -262,7 +262,7 @@ export class OverallTransactionsViewallComponent {
     });
 
     data.forEach((d: any) => {
-      // console.log("row loop");
+      // 
 
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);

@@ -26,7 +26,7 @@ searchText: any;
  
   ngOnInit(): void {
     this.detailss = this.data.value;
-    console.log(this.detailss)
+    
   }
 
 

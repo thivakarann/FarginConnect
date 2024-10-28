@@ -49,7 +49,7 @@ export class BusinessKycEditComponent implements OnInit {
  
     this.service.activeViewall().subscribe((res: any) => {
       this.kycValue = res.response;
-      console.log(this.kycValue);
+      
     })
  
  
@@ -124,6 +124,6 @@ export class BusinessKycEditComponent implements OnInit {
   }
  
   kycId(id: any) {
-    console.log(id);
+    
   }
 }

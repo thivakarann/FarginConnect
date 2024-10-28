@@ -56,10 +56,10 @@ export class SmsHistoryEntityComponent {
 
   ngOnInit(): void {
     this.merchantId = this.data.value
-    console.log(this.merchantId);
+    
     this.merchantsmsId = this.data.value1
 
-    console.log(this.merchantsmsId);
+    
 
     this.service.SmsCount(this.merchantId, this.merchantsmsId).subscribe((res: any) => {
       if (res.flag == 1) {
@@ -78,7 +78,7 @@ export class SmsHistoryEntityComponent {
 
 
   exportexcel() {
-    console.log('check');
+    
     let sno = 1;
     this.responseDataListnew = [];
     this.smsResponse.forEach((element: any) => {
@@ -150,7 +150,7 @@ export class SmsHistoryEntityComponent {
     });
 
     data.forEach((d: any) => {
-      // console.log("row loop");
+      // 
 
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);

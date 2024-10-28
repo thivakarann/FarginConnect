@@ -70,7 +70,7 @@ export class AdminViewComponent implements OnInit {
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        console.log(res);
+        
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -118,7 +118,7 @@ export class AdminViewComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
 
         this.showcategoryData = false;
-        // console.log(this.businesscategory)
+        // 
       }
       else {
         this.errorMsg = res.responseMessage;
@@ -153,7 +153,7 @@ export class AdminViewComponent implements OnInit {
   }
 
   exportexcel() {
-    console.log('check');
+    
     let sno = 1;
     this.responseDataListnew = [];
     this.businesscategory.forEach((element: any) => {
@@ -238,7 +238,7 @@ export class AdminViewComponent implements OnInit {
     });
  
     data.forEach((d: any) => {
-      // console.log("row loop");
+      // 
  
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
@@ -341,7 +341,7 @@ export class AdminViewComponent implements OnInit {
     this.router.navigate([`dashboard/policy-edit/${id}`], {
       queryParams: { Alldata: id },
     });
-    console.log(id);
+    
   }
 
 

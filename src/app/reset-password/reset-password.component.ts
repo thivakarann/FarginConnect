@@ -24,7 +24,7 @@ export class ResetPasswordComponent {
   ngOnInit(): void {
     this.activeRouter.queryParams.subscribe((param: any) => {
       this.emailAddress = param.emailAddress;
-      console.log(this.emailAddress)
+      
     })
 
     this.resetForm = new FormGroup({

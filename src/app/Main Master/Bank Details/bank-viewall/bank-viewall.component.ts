@@ -60,7 +60,7 @@ errorMessage: any;
 
     this.bankdetails.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        console.log(res);
+        
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -102,7 +102,7 @@ errorMessage: any;
       this.dataSource = new MatTableDataSource(this.viewall);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-      console.log(this.viewall);
+      
     });
 
 
@@ -132,7 +132,7 @@ reload(){
   }
 
   ActiveStatus(event: MatSlideToggleChange, id: any) {
-    console.log(id)
+    
     this.isChecked = event.checked;
 
     let submitModel: UpdateBankdetailStatus = {
@@ -140,7 +140,7 @@ reload(){
       activeStatus: this.isChecked ? 1 : 0,
     };
     this.bankdetails.activebankdetailsstatus(submitModel).subscribe((res: any) => {
-      console.log(res);
+      
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         setTimeout(() => {
@@ -167,7 +167,7 @@ reload(){
 
 
   exportexcel() {
-    console.log('check');
+    
     let sno = 1;
     this.responseDataListnew = [];
     this.viewall.forEach((element: any) => {
@@ -243,7 +243,7 @@ reload(){
     });
  
     data.forEach((d: any) => {
-      // console.log("row loop");
+      // 
  
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);

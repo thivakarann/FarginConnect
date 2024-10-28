@@ -15,7 +15,7 @@ export class TicketImageComponent {
   showcard: boolean = true;
   constructor(private router: Router, private service: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog) { }
   ngOnInit(): void {
-    console.log(this.data.value);
+    
     this.raiseTicketId = this.data.value.raiseTicketId
 
     this.service.viewticketImage(this.raiseTicketId).subscribe({
@@ -24,7 +24,7 @@ export class TicketImageComponent {
         reader.readAsDataURL(res);
         reader.onloadend = () => {
           this.imageUrl = reader.result as string;
-          console.log(this.imageUrl);
+          
           this.DocView = true;
         }
       },

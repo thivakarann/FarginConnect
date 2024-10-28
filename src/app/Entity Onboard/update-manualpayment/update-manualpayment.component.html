@@ -33,7 +33,7 @@
                         <option value="NEFT">NEFT (National Electronic Funds Transfer) </option>
                         <option value="RTGS">RTGS(Real Time Gross Settlement) </option>
                         <option  value="IMPS">IMPS (Immediate Payment Service)</option>
-                        <option  value="cash">Cash</option>
+                        <option  value="Cash">Cash</option>
                     </select>
                     <div style="
                 color: red;
@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="row mt-3" >
-                <div class="col-12 form-group" [hidden]="this.paymentmode?.value=='cash'">
+                <div class="col-12 form-group" [hidden]="this.paymentmode?.value=='Cash'">
                     <label for="address">Reference Number</label>
                     <input id="fname" type="text" class="form__input" placeholder="Enter Utr number.." cols="10"
                         rows="2" class="form-control" formControlName="utrnumber" ngModel="{{Utrnumber}}">

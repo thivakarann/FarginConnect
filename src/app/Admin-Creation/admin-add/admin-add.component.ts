@@ -35,7 +35,7 @@ export class AdminAddComponent implements OnInit {
 
     this.service.roleactiveViewall().subscribe((res:any)=>{
       this.activeRole=res.response;
-      console.log(this.activeRole);
+      
     })
   }
   get adminName() {

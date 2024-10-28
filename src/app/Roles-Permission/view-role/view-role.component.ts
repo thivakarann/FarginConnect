@@ -63,7 +63,7 @@ export class ViewRoleComponent implements OnInit{
   }
  
   onSubmit(event: MatSlideToggleChange, id: any) {
-    console.log(id);
+    
  
     this.isChecked = event.checked;
  
@@ -73,7 +73,7 @@ export class ViewRoleComponent implements OnInit{
     };
  
     this.service.rolesStatus(submitModel).subscribe((res: any) => {
-      console.log(res);
+      
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
         window.location.reload();
@@ -83,7 +83,7 @@ export class ViewRoleComponent implements OnInit{
  
  
   edit(id: string) {
-    console.log(id);
+    
     this.values = [];
     this.subId = [];
     this.perValueArray = [];
@@ -117,6 +117,7 @@ export class ViewRoleComponent implements OnInit{
           this.dialog.open(EditRoleComponent, {
             data: { per: this.perValueArray, roleName: this.roleName, role: id, sub: this.subId, moduleNames: this.moduleName },
             disableClose: true,
+       
             enterAnimationDuration: '1000ms',
             exitAnimationDuration: '1000ms',
           });

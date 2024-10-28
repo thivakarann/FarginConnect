@@ -44,7 +44,7 @@ export class RegionEditComponent implements OnInit {
     this.Serviceid = this.data.value.service.serviceId;
     this.Regionid =this. data.value.regionId
     this.statename = this. data.value.stateName
-    console.log(this.details)
+    
 
     this.service.activeprovider().subscribe((res: any) => {
       this.activeservice = res.response;

@@ -62,7 +62,7 @@ export class ServiceProviderComponent implements OnInit {
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        console.log(res);
+        
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -110,7 +110,7 @@ export class ServiceProviderComponent implements OnInit {
     this.service.ServiceProviderView().subscribe((res: any) => {
       if (res.flag == 1) {
         this.data = res.response;
-        console.log(this.data)
+        
         this.dataSource = new MatTableDataSource(this.data.reverse());
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -145,7 +145,7 @@ reload(){
 
   ActiveStatus(event: MatSlideToggleChange, id: string) {
     this.serviceId = id;
-    console.log(this.serviceId)
+    
     this.isChecked = event.checked;
 
     let submitModel: Providerstatus = {
@@ -153,10 +153,10 @@ reload(){
       status: this.isChecked ? 1 : 0,
     };
     this.service.UpdateProviderStatus(submitModel).subscribe((res: any) => {
-      console.log(res);
+      
       if (res.flag == 1) {
         this.data = res.response;
-        console.log(this.data)
+        
         this.toastr.success(res.responseMessage);
         window.location.reload();
       }
@@ -170,7 +170,7 @@ reload(){
 
 
   exportexcel() {
-    console.log('check');
+    
     let sno = 1;
     this.responseDataListnew = [];
     this.data.forEach((element: any) => {
@@ -247,7 +247,7 @@ reload(){
     });
  
     data.forEach((d: any) => {
-      // console.log("row loop");
+      // 
  
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);

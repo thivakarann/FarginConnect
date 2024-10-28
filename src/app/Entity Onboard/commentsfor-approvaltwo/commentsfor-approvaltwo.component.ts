@@ -18,7 +18,7 @@ export class CommentsforApprovaltwoComponent  {
   }
   ngOnInit(): void {
     this.commentL2 = this.data.value
-    console.log(this.commentL2);
+    
   }
   
 }

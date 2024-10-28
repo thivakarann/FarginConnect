@@ -87,7 +87,7 @@ export class ViewAnnouncementComponent implements OnInit {
 
     this.service.announcementViewall().subscribe((res: any) => {
       this.announcementValue = res.response;
-      console.log(this.announcementValue)
+      
       this.announcementValue.reverse();
       this.dataSource = new MatTableDataSource(this.announcementValue);
       this.dataSource.sort = this.sort;
@@ -106,15 +106,15 @@ export class ViewAnnouncementComponent implements OnInit {
       next: (res: any) => {
 
         this.datefilter = res.response;
-        console.log(this.datefilter);
+        
 
         this.dataSource = new MatTableDataSource(this.datefilter);
-        console.log(this.dataSource);
+        
 
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
         this.dateSuccess = res.responseMessage;
-        console.log(this.dateSuccess);
+        
         this.fromDate = '';
         this.toDate = '';
 
@@ -169,7 +169,7 @@ export class ViewAnnouncementComponent implements OnInit {
     };
 
     this.service.announcementStatus(submitModel).subscribe((res: any) => {
-      console.log(res);
+      
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
         window.location.reload();

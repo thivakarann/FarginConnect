@@ -40,7 +40,7 @@ export class EditbeneficiaryComponent {
 
     this.activeRouter.queryParams.subscribe((param: any) => {
       this.merchantBeneficiaryId = param.Alldata;
-      console.log(this.merchantBeneficiaryId)
+      
     })
 
 

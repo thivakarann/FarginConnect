@@ -1,4 +1,4 @@
-<i class="fa-solid fa-xmark" matDialogClose style="    margin-left: 95%;
+<!-- <i class="fa-solid fa-xmark" matDialogClose style="    margin-left: 95%;
 font-size: 27px;
 margin-bottom: 1px;
 margin-top: 4px;
@@ -15,4 +15,23 @@ color: red;
         <input class="form-control sm"  type="file" name="logo" formControlName="Image" (change)="getimageId($event)">
         <button  class="buttonDownload mt-2" (click)="Update()">Update</button>
     </form>
+</div> -->
+ 
+ 
+<i class="fa-solid fa-xmark" matDialogClose style="margin-left: 95%; font-size: 27px; margin-bottom: 1px; margin-top: 4px; color: red;"></i>
+ 
+<!-- Image Display -->
+<img *ngIf="imageSrc" [src]="imageSrc" style="width:500px; height:300px; background-repeat:no-repeat; background-size:cover;">
+ 
+<!-- PDF Display -->
+<iframe *ngIf="pdfSrc" [src]="pdfSrc" style="width:500px; height:300px;" frameborder="0"></iframe>
+ 
+ 
+<div class="p-2">
+  <form>
+    <label class="form__label">Image/PDF</label>
+    <input class="form-control sm" type="file" name="document" formControlName="Image" (change)="getimageId($event)">
+    <button class="buttonDownload mt-2" (click)="Update()">Update</button>
+  </form>
 </div>
+ 

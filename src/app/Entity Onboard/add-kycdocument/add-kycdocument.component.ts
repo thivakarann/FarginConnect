@@ -65,7 +65,7 @@ export class AddKycdocumentComponent implements OnInit {
   ngOnInit(): void {
 
     this.merchantid = this.data.value;
-    console.log(this.merchantid);
+    
     this.firstFormGroup = this._formBuilder.group({
       identityProof: ['', Validators.required],
       identityProofNo: ['', Validators.required],
@@ -96,7 +96,7 @@ export class AddKycdocumentComponent implements OnInit {
     this.service.KycDocName(this.businessCategoryId).subscribe((res: any) => {
       if (res.flag == 1) {
         this.categorydetails = res.response;
-        console.log(this.categorydetails)
+        
       }
     })
   }
@@ -166,7 +166,7 @@ export class AddKycdocumentComponent implements OnInit {
  
     // Ensure this.uploadImage is not null
     if (this.uploadidentityfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
  
       if (acceptableTypes.includes(this.uploadidentityfront.type)) {
         if (this.uploadidentityfront.size <= 20 * 1024 * 1024) {
@@ -176,7 +176,7 @@ export class AddKycdocumentComponent implements OnInit {
           this.identityFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        console.log(this.uploadidentityfront.type);
+        
         this.toastr.error("File type not acceptable");
         this.identityFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
@@ -192,7 +192,7 @@ export class AddKycdocumentComponent implements OnInit {
  
     // Ensure this.uploadImage is not null
     if (this.uploadidentityback) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
  
       if (acceptableTypes.includes(this.uploadidentityback.type)) {
         if (this.uploadidentityback.size <= 20 * 1024 * 1024) {
@@ -202,7 +202,7 @@ export class AddKycdocumentComponent implements OnInit {
           this.identityBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        console.log(this.uploadidentityback.type);
+        
         this.toastr.error("File type not acceptable");
         this.identityBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
@@ -218,7 +218,7 @@ export class AddKycdocumentComponent implements OnInit {
  
     // Ensure this.uploadImage is not null
     if (this.uploadaddressfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
  
       if (acceptableTypes.includes(this.uploadaddressfront.type)) {
         if (this.uploadaddressfront.size <= 20 * 1024 * 1024) {
@@ -228,7 +228,7 @@ export class AddKycdocumentComponent implements OnInit {
           this.addressFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        console.log(this.uploadaddressfront.type);
+        
         this.toastr.error("File type not acceptable");
         this.addressFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
@@ -242,7 +242,7 @@ export class AddKycdocumentComponent implements OnInit {
  
     // Ensure this.uploadImage is not null
     if (this.uploadaddressback) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
  
       if (acceptableTypes.includes(this.uploadaddressback.type)) {
         if (this.uploadaddressback.size <= 20 * 1024 * 1024) {
@@ -252,7 +252,7 @@ export class AddKycdocumentComponent implements OnInit {
           this.addressBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        console.log(this.uploadaddressback.type);
+        
         this.toastr.error("File type not acceptable");
         this.addressBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
@@ -265,7 +265,7 @@ export class AddKycdocumentComponent implements OnInit {
  
     // Ensure this.uploadImage is not null
     if (this.uploadsignfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
  
       if (acceptableTypes.includes(this.uploadsignfront.type)) {
         if (this.uploadsignfront.size <= 20 * 1024 * 1024) {
@@ -275,7 +275,7 @@ export class AddKycdocumentComponent implements OnInit {
           this.signatureFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        console.log(this.uploadsignfront.type);
+        
         this.toastr.error("File type not acceptable");
         this.signatureFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
@@ -289,7 +289,7 @@ export class AddKycdocumentComponent implements OnInit {
  
     // Ensure this.uploadImage is not null
     if (this.uploadsignback) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
  
       if (acceptableTypes.includes(this.uploadsignback.type)) {
         if (this.uploadsignback.size <= 20 * 1024 * 1024) {
@@ -299,7 +299,7 @@ export class AddKycdocumentComponent implements OnInit {
           this.signatureBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        console.log(this.uploadsignback.type);
+        
         this.toastr.error("File type not acceptable");
         this.signatureBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
@@ -331,8 +331,6 @@ export class AddKycdocumentComponent implements OnInit {
     } else if (this.selectElement === 'Driving License') {
       identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Driving license format
     }
-
-
     identityProofNoControl?.updateValueAndValidity();
   }
 
@@ -342,8 +340,6 @@ export class AddKycdocumentComponent implements OnInit {
     const addressProofNoControl = this.secondFormGroup.get('addressProofNo');
 
     addressProofNoControl?.clearValidators();
-
-
     if (this.selectElements === 'Aadhar Card') {
       addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[0-9]{12}$")]); // 12 digits for Aadhar
     } else if (this.selectElements === 'Voter Id Proof') {
@@ -353,19 +349,13 @@ export class AddKycdocumentComponent implements OnInit {
     } else if (this.selectElements === 'Driving License') {
       addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Driving license format
     }
-
-
     addressProofNoControl?.updateValueAndValidity();
   }
 
   onasignproof(event: any) {
     this.select = event.target.value;
     const signatureProofNoControl = this.thirdFormGroup.get('signatureProofNo');
-
-
     signatureProofNoControl?.clearValidators();
-
-
     if (this.select === 'Pancard') {
       signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z]{5}[0-9]{4}[A-Za-z]$")]);
     } else if (this.select === 'Passport') {
@@ -373,7 +363,6 @@ export class AddKycdocumentComponent implements OnInit {
     } else if (this.select === 'Driving License') {
       signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Driving license format
     }
-
     signatureProofNoControl?.updateValueAndValidity();
   }
   kycsubmit() {

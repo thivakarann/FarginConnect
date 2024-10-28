@@ -27,7 +27,7 @@ constructor(private service:FarginServiceService,
   ngOnInit(): void {
     
     this.merchantId = this.data.value
-    console.log(this.merchantId);
+    
 
     
     this.myForm = new FormGroup({

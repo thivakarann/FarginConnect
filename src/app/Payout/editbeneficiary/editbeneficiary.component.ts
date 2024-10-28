@@ -59,8 +59,8 @@ export class EditbeneficiaryComponent {
     this.activeRouter.queryParams.subscribe((param: any) => {
       this.merchantBeneficiaryId = param.Alldata;
       this.upiid = param.upids;
-      console.log(this.upiid);
-      console.log(this.merchantBeneficiaryId);
+      
+      
     });
 
     this.beneficiaryFormGroup = new FormGroup({

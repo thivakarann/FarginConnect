@@ -27,7 +27,7 @@ export class EditcategoryComponent implements OnInit {
   constructor(private fb: FormBuilder, private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, @Inject(MAT_DIALOG_DATA) public data: any) {
 
     this.businessCategoryId = data.value.businessCategoryId;
-    console.log(this.businessCategoryId)
+    
   }
 
 

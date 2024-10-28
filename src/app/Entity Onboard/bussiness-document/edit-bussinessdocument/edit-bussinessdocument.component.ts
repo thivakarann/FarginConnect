@@ -33,7 +33,7 @@ export class EditBussinessdocumentComponent {
   ngOnInit(): void {
 
     this.documentdata = this.data.value;
-    console.log(this.documentdata);
+    
     this.merchantDocumentId = this.data.value.merchantId.merchantDocumentId
     this.categoryvalue=this.data.value.entityKycCategory.kycCategoryId
 
@@ -41,7 +41,7 @@ export class EditBussinessdocumentComponent {
 
     this.service.activeViewall().subscribe((res: any) => {
       this.kycValue = res.response;
-      console.log(this.kycValue);
+      
     })
 
 
@@ -64,7 +64,7 @@ export class EditBussinessdocumentComponent {
  
   docProofChange(event: any) {
     this.selectElement4 = event.target.value;
-    console.log(this.selectElement4);
+    
     const docNumbers = this.fourthFormGroup.get('docNumber');
     docNumbers?.clearValidators();
     if (this.selectElement4 === 'Aadhar') {

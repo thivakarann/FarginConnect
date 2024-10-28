@@ -16,7 +16,7 @@ export class FarginServiceService {
   constructor(private http: HttpClient,
     private router: Router, private timerService: SessionServiceService, private toastr: ToastrService) { }
 
-  // private readonly basePath = 'https://staging-api.farginconnect.com/'; //Basepath
+  // private readonly basePath = 'https://staging-api.farginconnect.com/'; 
   private readonly basePath = 'https://api.fargin.in/';
 
   // private readonly basePath = 'http://64.227.149.125:8085/'

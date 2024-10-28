@@ -17,13 +17,13 @@ export class BankVerificationMatchComponent implements OnInit {
   ngOnInit(): void {
     this.Bankdetails = this.data.value;
     this.verid = this.Bankdetails.bavId
-    console.log("bankdetails" + this.Bankdetails)
-    console.log("verid" + this.verid);
+    
+    
 
     this.service.BankVerificationResponse(this.verid).subscribe((res: any) => {
       if (res.statusCode == 200) {
         this.bankverifyres = res.response;
-        console.log("dbvkjvbs" + this.bankverifyres)
+        
       }
     })
   }

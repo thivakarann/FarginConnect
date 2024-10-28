@@ -50,7 +50,7 @@ export class EntityRefundComponent {
     });
    
     this.service.Entityrefund(this.id).subscribe((res: any) => {
-      console.log(res);
+      
       this.refundValue = res.response;
       this.dataSource=new MatTableDataSource(this.refundValue)
       this.dataSource.sort = this.sort;

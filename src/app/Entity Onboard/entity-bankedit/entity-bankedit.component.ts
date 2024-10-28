@@ -34,7 +34,7 @@ export class EntityBankeditComponent implements OnInit {
   ngOnInit(): void {
 
     this.bankData = this.data.value;
-    console.log(this.bankData);
+    
     
 
     this.merchantBankId = this.data.value.merchantBankId;

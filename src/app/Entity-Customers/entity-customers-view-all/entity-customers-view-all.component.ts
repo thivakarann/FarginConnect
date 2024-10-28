@@ -57,7 +57,7 @@ valuecustomerview: any;
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        console.log(res);
+        
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -87,7 +87,7 @@ valuecustomerview: any;
 
     this.service.EntityCustomerview(this.id).subscribe((res: any) => {
       this.details = res.response;
-      console.log(this.details);
+      
       this.dataSource = new MatTableDataSource(this.details);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
@@ -113,7 +113,7 @@ valuecustomerview: any;
     }
   }
   viewcustomer(id: any) {
-    console.log(id)
+    
     this.router.navigate([`/dashboard/entitycustomers/${id}`], {
       queryParams: { value: id },
     });

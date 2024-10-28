@@ -23,12 +23,11 @@
                     </div>
                 </div>
                
-               
-             
+
                 <div class="form__linput">
                     <label class="form__label" for="fname">Identity Proof No</label>
                     <input class="form__input" id="fname" type="text" formControlName="identityProofNo" name="gstNumber"
-                        placeholder="Enter GST number..." required ngModel="{{identityProofNos}}" />
+                      required ngModel="{{identityProofNos}}" />
                         <div
                         *ngIf="identityProofNo && identityProofNo.invalid && (identityProofNo.touched || identityProofNo.dirty)">
                         <small *ngIf="identityProofNo.errors?.['required']"
@@ -38,9 +37,9 @@
                     </div>
                 </div>
  
-                <div class="form__linput" *ngIf="identityProofs=== 'Driving License' || identityProofs === 'Passport'">
+                <div class="form__linput" *ngIf="KycIdentityForm.get('identityProof').value === 'Driving License' || KycIdentityForm.get('identityProof').value === 'Passport'">
                     <label class="form__label"><b>Date of Birth</b></label>
-                    <input  *ngIf="identityProofs === 'Passport'"
+                    <input   *ngIf="KycIdentityForm.get('identityProof').value === 'Passport'"
                         class="form-control"
                         id="dob"
                         type="date"
@@ -49,7 +48,7 @@
                         [max]="today"
                        
                     />
-                    <input  *ngIf="identityProofs === 'Driving License'"
+                    <input   *ngIf="KycIdentityForm.get('identityProof').value === 'Driving License'"
                     class="form-control"
                     id="dob"
                     type="date"
@@ -122,9 +121,9 @@
                             number.</small>
                     </div>
                 </div>
-                <div class="form__linput" *ngIf="addressProofvalue === 'Driving License' || addressProofvalue=== 'Passport' ">
+                <div class="form__linput" *ngIf="KycAddressForm.get('addressProof').value === 'Driving License' || KycAddressForm.get('addressProof').value === 'Passport'">
                     <label class="form__label"><b>Date of Birth</b></label>
-                    <input  *ngIf="addressProofvalue === 'Passport' "
+                    <input  *ngIf="KycAddressForm.get('addressProof').value === 'Passport'"
                         class="form-control"
                         id="dob"
                         type="date"
@@ -132,7 +131,7 @@
                         [formControlName]="addressProof.value === 'Driving License' ? 'drivingLicenceDobs' : 'passportDobs'"
                         [max]="today"
                     />
-                    <input  *ngIf="addressProofvalue === 'Driving License'"
+                    <input   *ngIf="KycAddressForm.get('addressProof').value === 'Driving License'"
                     class="form-control"
                     id="dob"
                     type="date"
@@ -193,7 +192,7 @@
                 <div class="form__linput">
                     <label class="form__label" for="fname">Signature Proof No</label>
                     <input class="form__input" id="fname" type="text" formControlName="signatureProofNo"
-                        placeholder="Enter GST number..." required ngModel="{{signatureProofNovalue}}" />
+                     required ngModel="{{signatureProofNovalue}}" />
                     <div style="color: red; font-size: 12px;margin-top: 2px;"
                         *ngIf="signatureProofNo?.invalid && signatureProofNo?.touched && signatureProofNo?.errors?.['required']">
                         Field is required
@@ -202,9 +201,9 @@
                     style="color: red; font-size: 12px;">Enter a valid {{select}}
                     number.</small>
                 </div>
-                <div class="form__linput" *ngIf="signatureProofvalue === 'Driving License' || signatureProofvalue === 'Passport' ">
+                <div class="form__linput" *ngIf="KycsignatureForm.get('signatureProof').value === 'Driving License' || KycsignatureForm.get('signatureProof').value === 'Passport'">
                     <label class="form__label"><b>Date of Birth</b></label>
-                    <input *ngIf="signatureProofvalue === 'Passport'"
+                    <input *ngIf="KycsignatureForm.get('signatureProof').value === 'Passport'"
                         class="form-control"
                         id="dob"
                         type="date"
@@ -212,7 +211,7 @@
                         [formControlName]="signatureProof.value === 'Driving License' ? 'drivingLicenceDobss' : 'passportDobss'"
                         [max]="today"
                     />
-                    <input *ngIf="signatureProofvalue === 'Driving License'"
+                    <input *ngIf="KycsignatureForm.get('signatureProof').value === 'Driving License'"
                     class="form-control"
                     id="dob"
                     type="date"

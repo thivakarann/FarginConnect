@@ -38,13 +38,13 @@ export class EditRoleComponent implements OnInit {
   ) { }
  
   ngOnInit(): void {
-    // console.log(this.data.value);
+    // 
  
     // this.roleid = this.data.value.roleId
-    // console.log(this.roleid);
+    // 
  
     this.service.permissionget().subscribe((res: any) => {
-      console.log(res);
+      
       if (res.flag == 1) {
         this.permissionValue = res.response;
         this.permissionValue.forEach((element: any) => {
@@ -53,7 +53,7 @@ export class EditRoleComponent implements OnInit {
  
  
           })
-          console.log(this.values2);
+          
         });
       }
       else if (res.flag == 2) {
@@ -73,26 +73,26 @@ export class EditRoleComponent implements OnInit {
     this.activeRouter.params.subscribe((param: any) => {
       this.getRoleId = param.role;
       this.getRoleId = this.data.role;
-      console.log('getRoleName ' + this.getRoleId);
+      
     });
  
     this.activeRouter.params.subscribe((param: any) => {
       this.getRoleName = param.roleName;
       this.getRoleName = this.data.roleName;
-      console.log('getRoleName ' + this.getRoleName);
+      
     });
  
  
     this.activeRouter.params.subscribe((param: any) => {
       this.getPerValue = param.per;
       this.getPerValue = this.data.per;
-      console.log('getPerValue ' + this.getPerValue);
+      
     });
  
     this.activeRouter.params.subscribe((param: any) => {
       this.getSubValue = param.sub;
       this.getSubValue = this.data.sub;
-      console.log('getSubValue ' + this.getSubValue);
+      
     });
    
  
@@ -103,21 +103,21 @@ export class EditRoleComponent implements OnInit {
   }
  
   sendPermissionId(id: any) {
-    console.log(id);
+    
     this.values = [];
     let submitModel: subpermission = {
       permissionsId: id,
     }
-    console.log(submitModel);
+    
  
     this.service.subPermission(submitModel).subscribe((res: any) => {
       this.subpermissionValue = res.response;
-      console.log(this.subpermissionValue);
+      
       this.subpermissionValue.forEach((element: any) => {
         this.values.push({
           value: element.subPermissionId, viewValue: element.subPermissions, viewValues: element.permission.permission
         });
-        console.log(this.values);
+        
        
       });
     })
@@ -143,11 +143,11 @@ export class EditRoleComponent implements OnInit {
       permission: this.permission.value,
       subPermission: this.subPermission.value,
     }
-    console.log(submitModel);
+    
  
     this.service.editRole(this.getRoleId, submitModel).subscribe((res: any) => {
       this.updateValue = res.response;
-      console.log(this.updateValue);
+      
       if (res.flag == 1) {
         this.toastr.success("Role has been Updated Successfully");
         this.dialog.closeAll();

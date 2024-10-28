@@ -44,7 +44,7 @@ export class PaymentlinkViewComponent implements OnInit {
 
     this.service.paymentLinkview(this.id).subscribe((res: any) => {
       this.paymentValue = res.response;
-      console.log(this.paymentValue);
+      
       this.dataSource = new MatTableDataSource(this.paymentValue?.reverse())
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
@@ -52,7 +52,7 @@ export class PaymentlinkViewComponent implements OnInit {
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        console.log(res);
+        
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;

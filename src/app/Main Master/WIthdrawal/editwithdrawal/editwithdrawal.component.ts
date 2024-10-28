@@ -35,7 +35,7 @@ export class EditwithdrawalComponent {
 
   ngOnInit(): void {
    
-    console.log(this.values)
+    
     this.withdrawalFormGroup = new FormGroup({
       amountRange: new FormControl('', [Validators.required]),
       amountRanges: new FormControl('', [Validators.required]),
@@ -108,7 +108,7 @@ export class EditwithdrawalComponent {
       const gst = this.gstInPercentage?.value || 0;
       let calculatedAmount = this.fee * (1 + gst / 100);
       this.values = parseFloat(calculatedAmount.toFixed(2));
-      console.log('Exclusive GST Calculation:', this.values);
+      
     } else {
       // Provide a default value if calculation cannot be performed
       this.values = 0;
@@ -120,7 +120,7 @@ export class EditwithdrawalComponent {
       const gst = this.gstInPercentage?.value || 0;
       let baseAmount = this.fee / (1 + gst / 100);
       this.values = parseFloat(baseAmount.toFixed(2));
-      console.log('Inclusive GST Calculation:', this.values);
+      
     } else {
       // Provide a default value if calculation cannot be performed
       this.values = 0;

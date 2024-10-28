@@ -174,3 +174,8 @@
     transform: scale(1);
     transition: 0s;
   }
+
+  mat-select{
+    width: 320px;
+    font-size: 13px;
+  }

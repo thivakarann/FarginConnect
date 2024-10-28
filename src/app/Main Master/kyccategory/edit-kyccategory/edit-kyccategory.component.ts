@@ -25,14 +25,14 @@ export class EditKyccategoryComponent {
   }
 
   ngOnInit(): void {
-    console.log(this.data.value);
+    
 
     this.editcategory = new FormGroup({
       kycCategoryName: new FormControl('', [Validators.required]),
     });
 
     this.kycCategoryId = this.data.value.kycCategoryId
-    console.log(this.kycCategoryId);
+    
 
     this.kycCategoryNames = this.data.value.kycCategoryName
     this.editcategory.controls['kycCategoryName'].value = this.kycCategoryNames

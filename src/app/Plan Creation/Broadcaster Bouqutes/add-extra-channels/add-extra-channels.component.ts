@@ -30,7 +30,7 @@ export class AddExtraChannelsComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.data.value;
-    console.log(this.id);
+    
 
     this.AddExtra.ActiveAlcards().subscribe((res: any) => {
       this.channelslist = res.response;

@@ -38,11 +38,11 @@ export class AddBussinessdocumentComponent implements OnInit {
   ngOnInit(): void {
 
     this.merchantid = this.data.value;
-    console.log(this.merchantid);
+    
 
     this.service.activeViewall().subscribe((res: any) => {
       this.kycValue = res.response;
-      console.log(this.kycValue);
+      
     })
 
 
@@ -73,7 +73,7 @@ export class AddBussinessdocumentComponent implements OnInit {
 
   docProofChange(event: any) {
     this.selectElement4 = event.target.value;
-    console.log(this.selectElement4);
+    
     const docNumbers = this.fourthFormGroup.get('docNumber');
     docNumbers?.clearValidators();
     if (this.selectElement4 === 'Aadhar Card') {
@@ -95,7 +95,7 @@ export class AddBussinessdocumentComponent implements OnInit {
  
     // Ensure this.uploadImage is not null
     if (this.uploaddocfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
  
       if (acceptableTypes.includes(this.uploaddocfront.type)) {
         if (this.uploaddocfront.size <= 20 * 1024 * 1024) {
@@ -105,7 +105,7 @@ export class AddBussinessdocumentComponent implements OnInit {
           this.docFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        console.log(this.uploaddocfront.type);
+        
         this.toastr.error("File type not acceptable");
         this.docFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
@@ -122,7 +122,7 @@ export class AddBussinessdocumentComponent implements OnInit {
  
     // Ensure this.uploadImage is not null
     if (this.uploaddocback) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
  
       if (acceptableTypes.includes(this.uploaddocback.type)) {
         if (this.uploaddocback.size <= 20 * 1024 * 1024) {
@@ -132,7 +132,7 @@ export class AddBussinessdocumentComponent implements OnInit {
           this.docBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        console.log(this.uploaddocback.type);
+        
         this.toastr.error("File type not acceptable");
         this.docBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }

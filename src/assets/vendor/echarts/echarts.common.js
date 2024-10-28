@@ -7900,7 +7900,7 @@
     var storedLogs = {};
     var hasConsole = typeof console !== 'undefined'
     // eslint-disable-next-line
-    && console.warn && console.log;
+    && console.warn && 
     function outputLog(type, str, onlyOnce) {
       if (hasConsole) {
         if (onlyOnce) {
@@ -14347,11 +14347,11 @@
      * @example
      *     graphic.updateProps(el, {
      *         position: [100, 100]
-     *     }, seriesModel, dataIndex, function () { console.log('Animation done!'); });
+     *     }, seriesModel, dataIndex, function () { 
      *     // Or
      *     graphic.updateProps(el, {
      *         position: [100, 100]
-     *     }, seriesModel, function () { console.log('Animation done!'); });
+     *     }, seriesModel, function () { 
      */
     function updateProps(el, props,
     // TODO: TYPE AnimatableModel
@@ -20133,8 +20133,8 @@
     //         args.push('color: green', 'color: red'),
     //         `${item.text}: %c${item.value}`
     //     )).join('%c, ');
-    //     console.log.apply(console, [msg].concat(args));
-    //     // console.log(this);
+    //     
+    //     // 
     // };
     // window.printPipeline = function (task: any, prefix: string) {
     //     const pipeline = task.__pipeline;
@@ -20172,7 +20172,7 @@
     // window.printChainAEachInChainB = function (chainHeadTaskA, chainHeadTaskB) {
     //     let chainA = window.showChain(chainHeadTaskA);
     //     for (let i = 0; i < chainA.length; i++) {
-    //         console.log('chainAIdx:', i, 'inChainB:', window.findTaskInChain(chainA[i].task, chainHeadTaskB));
+    //         
     //     }
     // };
 
@@ -22344,7 +22344,7 @@
         //   class B extends A {}
         //   var C = B.extend({xxx: 5});
         //   var c = new C();
-        //   console.log(c.xxx); // expect 5 but always 1.
+        //   
         var _this = _super !== null && _super.apply(this, arguments) || this;
         // ---------------------------------------
         // Props about data selection
@@ -26189,7 +26189,7 @@
             // the extent of the coordinate system is determined in the first frame (the
             // frame is executed immediately after task reset.
             // this._coordSysMgr.update(ecModel, api);
-            // console.log('--- ec frame visual ---', remainTime);
+            // 
             scheduler.performVisualTasks(ecModel);
             renderSeries(this, this._model, api, 'remain', {});
             remainTime -= +new Date() - startTime;
@@ -31726,7 +31726,7 @@
         for (var i = 0; i < newAddedTicks.length; i++) {
           levelTicks.push(newAddedTicks[i]);
         }
-        // newAddedTicks.length && console.log(unitName, newAddedTicks);
+        // newAddedTicks.length && 
         return newAddedTicks;
       }
       var levelsTicks = [];
@@ -56149,7 +56149,7 @@
         brushRect.attr('ignore', true);
         var brushShape = brushRect.shape;
         var brushEndTime = +new Date();
-        // console.log(brushEndTime - this._brushStartTime);
+        // 
         if (brushEndTime - this._brushStartTime < 200 && Math.abs(brushShape.width) < 5) {
           // Will treat it as a click
           return;

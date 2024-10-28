@@ -9,8 +9,8 @@
             <div>
             
                 <div class="form-group">
-                    <label class="form__label">Service ProviderName*</label>
-                    <input class="form__input" type="text" id="Entity Name" placeholder="Enter Your Name"
+                    <label class="form__label">Service ProviderName</label>
+                    <input class="form__input" type="text" id="Entity Name" 
                         class="form-control" formControlName="providerName" ngModel="{{this.viewdata.serviceProviderName}}">
                     <span class="error" *ngIf="providerName?.touched && providerName?.errors?.['required']">Field Is
                         Required</span>
@@ -19,8 +19,8 @@
                 </div>
 
                 <div class=" form-group">
-                    <label class="form__label">Service Provider URL*</label>
-                    <input ngModel="{{this.viewdata.serviceProviderLink}}" class="form__input" type="text" id="Entity Name" placeholder="Enter Your Name"
+                    <label class="form__label">Service Provider URL</label>
+                    <input ngModel="{{this.viewdata.serviceProviderLink}}" class="form__input" type="text" id="Entity Name" 
                         class="form-control" formControlName="serviceProviderLink">
                     <span style="color: red; font-size: 12px;margin-top: 2px;" class="error"
                         *ngIf="serviceProviderLink?.touched && serviceProviderLink?.errors?.['required']">Field Is

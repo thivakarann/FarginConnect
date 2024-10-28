@@ -19,10 +19,10 @@ export class CustDescriptionCommentComponent implements OnInit{
   ngOnInit(): void {
 
     this.content=this.data.value
-    console.log(this.content);
+    
     
     this.title=this.data.Title
-    console.log(this.title);
+    
 
   }
 

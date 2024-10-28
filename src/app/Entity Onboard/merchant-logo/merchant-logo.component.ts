@@ -26,12 +26,12 @@ export class MerchantLogoComponent {
   ngOnInit(): void {
 
     this.id = this.data.value
-    console.log(this.id);
+    
     this.logoLink=this.data.value1
-    console.log( this.logoLink)
+    
     
       this.logoLink1 = this.converttohhttps(this.logoLink);
-      console.log(this.logoLink1);
+      
 
 
 
@@ -71,9 +71,9 @@ converttohhttps(Url: string): string {
 
       this.errorMessage = ''
       this.file1 = files;
-      console.log(this.file1);
+      
 
-      console.log(' file 1 id success' + files);
+      
 
     }
 

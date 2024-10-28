@@ -36,7 +36,7 @@ export class AddtransferComponent {
       //     this.viewbank = res.response.merchantbank;
       //     this.primaryAccount = this.viewbank.find((account: any) => account.primaryAccountStatus === 1)?.accountNumber;
           
-      //     console.log(res.response);
+      //     
       //   },
       // });
     }

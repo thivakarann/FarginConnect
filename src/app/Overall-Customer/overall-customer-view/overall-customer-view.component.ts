@@ -62,7 +62,7 @@ date2: any;
 
     this.EntityViewall.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        console.log(res);
+        
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
 
@@ -98,7 +98,7 @@ date2: any;
         this.dataSource = new MatTableDataSource(this.overallcustomer);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        console.log(this.viewall); 
+        
          this.showcategoryData = false;
       }
       else{
@@ -121,7 +121,7 @@ reload(){
     this.router.navigate([`dashboard/Overall-IndividualCustomer-view/${id}`], {
       queryParams: { Alldata: id },
     });
-    console.log(id);
+    
   }
   
   
@@ -137,7 +137,7 @@ applyFilter(event: Event) {
 
 
 exportexcel() {
-  console.log('check');
+  
   let sno = 1;
   this.responseDataListnew = [];
   this.overallcustomer.forEach((element: any) => {
@@ -191,7 +191,7 @@ excelexportCustomer() {
   });
  
   data.forEach((d: any) => {
-    // console.log("row loop");
+    // 
  
     let row = worksheet.addRow(d);
     let qty = row.getCell(1);

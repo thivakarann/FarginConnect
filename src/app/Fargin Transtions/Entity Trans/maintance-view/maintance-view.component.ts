@@ -16,7 +16,7 @@ export class MaintanceViewComponent {
   }
   ngOnInit(): void {
     this.id = this.data.value
-    console.log(this.id);
+    
     this.service.MaintenanceTransactionsView(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
         this.view = res.response;

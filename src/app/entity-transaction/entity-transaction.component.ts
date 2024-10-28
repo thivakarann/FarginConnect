@@ -64,7 +64,7 @@ export class EntityTransactionComponent {
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        console.log(res);
+        
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -101,7 +101,7 @@ export class EntityTransactionComponent {
 
     this.service.EntityTraansaction(this.id).subscribe((res: any) => {
       this.details = res.response;
-      console.log(this.details);
+      
       this.dataSource = new MatTableDataSource(this.details.reverse());
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;

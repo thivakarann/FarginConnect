@@ -65,13 +65,13 @@ export class CustomerViewallComponent implements OnInit {
 
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.MobileNumber = param.Alldata;
-      console.log(this.MobileNumber);
+      
     });
 
     this.service.Ticketscustomer().subscribe((res: any) => {
       if (res.flag == 1) {
         this.ticket = res.response;
-        console.log(this.ticket);
+        
         this.dataSource = new MatTableDataSource(this.ticket.reverse());
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -124,7 +124,7 @@ export class CustomerViewallComponent implements OnInit {
     this.router.navigate([`customer-verify-view/${id}`], {
       queryParams: { Alldata: id },
     });
-    console.log(id);
+    
   }
 
   applyFilter(event: Event) {
@@ -159,7 +159,7 @@ export class CustomerViewallComponent implements OnInit {
   }
 
   exportexcel() {
-    console.log('check');
+    
     let sno = 1;
     this.responseDataListnew = [];
     this.ticket.forEach((element: any) => {
@@ -217,7 +217,7 @@ export class CustomerViewallComponent implements OnInit {
     });
  
     data.forEach((d: any) => {
-      // console.log("row loop");
+      // 
  
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);

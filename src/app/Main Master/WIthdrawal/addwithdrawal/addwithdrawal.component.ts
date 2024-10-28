@@ -90,7 +90,7 @@ export class AddwithdrawalComponent {
       let calculatedAmount =
         this.fee * (this.gstInPercentage?.value / 100) + this.fee;
         this.amount = calculatedAmount.toFixed(2);
-      console.log(this.amount);
+      
     }
   }
 

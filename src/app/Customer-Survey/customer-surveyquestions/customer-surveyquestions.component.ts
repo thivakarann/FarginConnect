@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { ViewQuestionsComponent } from '../view-questions/view-questions.component';
 import { Location } from '@angular/common';
+import { ReadquestionsComponent } from '../readquestions/readquestions.component';
 
 @Component({
   selector: 'app-customer-surveyquestions',
@@ -28,7 +29,8 @@ export class CustomerSurveyquestionsComponent {
   currentPage: string | number | undefined;
   searchText: any;
   questionId: any;
-
+  isFullPolicyVisible:boolean=false;
+  limit: number = 30;
   constructor(private service: FarginServiceService, private router: Router, private dialog: MatDialog, private activaterouter: ActivatedRoute, private location: Location) {
   }
 
@@ -53,7 +55,7 @@ export class CustomerSurveyquestionsComponent {
   ngOnInit(): void {
     this.activaterouter.queryParams.subscribe((res: any) => {
       this.questionId = res.Alldata;
-      console.log(this.questionId);
+      
     })
     this.service.ViewByIdCustomerResponse(this.questionId).subscribe((res: any) => {
       if (res.flag == 1) {
@@ -73,10 +75,10 @@ export class CustomerSurveyquestionsComponent {
   }
 
   exportexcel() {
-    console.log('check');
+    
     let sno = 1;
     this.responseDataListnew = [];
-    this.history.forEach((element: any) => {
+    this.customerresponse.forEach((element: any) => {
       let createdate = element.createdDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
 
@@ -85,27 +87,31 @@ export class CustomerSurveyquestionsComponent {
 
       this.response = [];
       this.response.push(sno);
-      this.response.push(element?.customerName);
-      this.response.push(element?.stbId.service.serviceProviderName);
-      this.response.push(element?.stbId.setupBoxNumber);
-      this.response.push(element?.mobileNumber);
-      this.response.push(element?.emailAddress);
-      this.response.push(element?.createdBy);
-      this.response.push(this.date1);
-      this.response.push(element?.modifiedBy);
+      this.response.push(element?.customerId?.merchantId?.merchantLegalName );
+      this.response.push(element?.customerId?.customerName);
+      this.response.push(element?.customerId?.mobileNumber);
+      this.response.push(element?.questionId?.questions );
+      // this.response.push(element?.emailAddress);
+      if(element?.answers==1)
+      {
+        this.response.push('Yes');
 
-      if (element?.modifiedDateTime) {
-        let issuedatas = element?.modifiedDateTime;
-        this.date2 = moment(issuedatas).format('yyyy-MM-DD hh:mm a').toString();
-        this.response.push(this.date2);
       }
-      else {
-        this.response.push('');
+      else{
+        this.response.push('No');
       }
+      // this.response.push(element?.createdBy);
+      // this.response.push(this.date1);
+      // this.response.push(element?.modifiedBy);
 
-
-
-
+      // if (element?.modifiedDateTime) {
+      //   let issuedatas = element?.modifiedDateTime;
+      //   this.date2 = moment(issuedatas).format('yyyy-MM-DD hh:mm a').toString();
+      //   this.response.push(this.date2);
+      // }
+      // else {
+      //   this.response.push('');
+      // }
       sno++;
       this.responseDataListnew.push(this.response);
     });
@@ -116,14 +122,12 @@ export class CustomerSurveyquestionsComponent {
     // const title='Business Category';
     const header = [
       "S.No",
+      "Entity Name",
       "Customer Name",
-      "Service Provider",
-      "Setup box Number",
-      "Email",
-      "Created By",
-      "Created At",
-      "Modified By",
-      "Modified At",
+      "Customer Mobile",
+      "Questions",
+      "Answers",
+    
     ]
 
 
@@ -152,7 +156,7 @@ export class CustomerSurveyquestionsComponent {
     });
 
     data.forEach((d: any) => {
-      // console.log("row loop");
+      // 
 
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
@@ -160,22 +164,15 @@ export class CustomerSurveyquestionsComponent {
       let qty2 = row.getCell(3);
       let qty3 = row.getCell(4);
       let qty4 = row.getCell(5);
-      let qty5 = row.getCell(6);
-      let qty6 = row.getCell(7);
-      let qty7 = row.getCell(8);
-      let qty8 = row.getCell(9);
-
-
-
+      // let qty5 = row.getCell(6);
+  
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty3.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      // qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+
 
 
     }
@@ -191,7 +188,7 @@ export class CustomerSurveyquestionsComponent {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 
 
-      FileSaver.saveAs(blob, 'Setupbox History.xlsx');
+      FileSaver.saveAs(blob, 'Questions & Answers.xlsx');
 
     });
   }
@@ -200,5 +197,15 @@ export class CustomerSurveyquestionsComponent {
     this.location.back()
   }
 
+  read(id: any) {
+    this.dialog.open(ReadquestionsComponent, {
+      data: { value: id },
+      enterAnimationDuration: '1000ms',
+      exitAnimationDuration: '1000ms',
+      disableClose: true
+    });
+  }
+  viewQuestion(){
 
+  }
 }

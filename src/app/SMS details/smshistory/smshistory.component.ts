@@ -65,7 +65,7 @@ valuesmshistoryexport: any;
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        console.log(res);
+        
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -120,7 +120,7 @@ valuesmshistoryexport: any;
  
   
   exportexcel() {
-    console.log('check');
+    
     let sno = 1;
     this.responseDataListnew = [];
     this.smsResponse.forEach((element: any) => {
@@ -183,7 +183,7 @@ valuesmshistoryexport: any;
     });
  
     data.forEach((d: any) => {
-      // console.log("row loop");
+      // 
  
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
@@ -224,7 +224,7 @@ valuesmshistoryexport: any;
     this.router.navigate([`dashboard/smshistory-view/${id}`], {
       queryParams: { Alldata: id },
     });
-    console.log(id);
+    
   }
   filterdate() {
     // const datepipe: DatePipe = new DatePipe("en-US");

@@ -50,7 +50,7 @@ export class DPOViewallComponent {
       this.dataSource = new MatTableDataSource(this.viewall);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-      console.log(this.viewall);
+      
     });
   }
 
@@ -67,7 +67,7 @@ export class DPOViewallComponent {
     this.router.navigate([`dashboard/dpo-view/${id}`], {
       queryParams: { Alldata: id },
     });
-    console.log(id);
+    
   }
 
 
@@ -83,14 +83,14 @@ export class DPOViewallComponent {
 
 
   ActiveStatus(event: MatSlideToggleChange, id: any) {
-    console.log(id)
+    
     this.isChecked = event.checked;
 
     let submitModel: DPOStatus = {
       status: this.isChecked ? 1 : 0,
     };
     this.DPOviewall.DpoStatus(id,submitModel).subscribe((res: any) => {
-      console.log(res);
+      
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         window.location.reload();

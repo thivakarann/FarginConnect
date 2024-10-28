@@ -34,7 +34,7 @@ export class EntityBankaddComponent implements OnInit {
   ngOnInit(): void {
 
     this.merchantid = this.data.value;
-    console.log(this.merchantid);
+    
 
     this.service.activebankdetails().subscribe((res: any) => {
       this.BankNames = res.response;
@@ -66,7 +66,8 @@ export class EntityBankaddComponent implements OnInit {
         Validators.pattern('^[a-zA-Z0-9 ]*$')
       ]),
 
-      ledgerId: new FormControl('', [Validators.pattern('^[0-9]{4}$'),]),
+      ledgerId: new FormControl('',[
+        Validators.required]),
     })
   }
   get accountHolderName() {

@@ -19,7 +19,7 @@ export class DuesViewComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,) { }
   ngOnInit(): void {
     this.transaction = this.data.value;
-    console.log(this.transaction);
+    
 
   }
 

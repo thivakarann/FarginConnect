@@ -34,25 +34,25 @@ export class KycInfoComponent {
   ngOnInit(): void {
  
     this.Response = this.data.value;
-    console.log(this.Response);
+    
  
     this.ResponseId = this.data.value.identityKycId || this.data.value.addressKycId || this.data.value.signatureKycId
  
  
     this.service.facheckgetbyId(this.ResponseId).subscribe((res: any) => {
-      console.log(res);
+      
  
       if (res.statusCode == 200) {
         this.kycres = res.response.response;
         this.jsonResponse = JSON.parse(this.kycres)
         this.fullName = this.jsonResponse.validated_data.full_name;
-        this.category = this.jsonResponse.validated_data.category;
-        this.panNumber = this.jsonResponse.validated_data.pan_number;
+        // this.category = this.jsonResponse.validated_data.category;
+        this.panNumber = this.jsonResponse.validated_data.pan_number || this.jsonResponse.validated_data.aadhaar_number || this.jsonResponse.validated_data.passport_number || this.jsonResponse.validated_data.license_number || this.jsonResponse.validated_data.epic_no;
         this.referenceId = this.jsonResponse.reference_id;
         this.status = this.jsonResponse.status;
         this.message = this.jsonResponse.messsage; // Note: "messsage" has a typo
         this.responseTime = this.jsonResponse.response_time;
-        console.log(this.jsonResponse)
+        
       }
     })
   }

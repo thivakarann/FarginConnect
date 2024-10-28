@@ -52,7 +52,7 @@ export class EntityAutoDebitGetallComponent {
       this.dataSource = new MatTableDataSource(this.viewall);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-      console.log(this.viewall);
+      
     });
   }
 
@@ -69,7 +69,7 @@ export class EntityAutoDebitGetallComponent {
     window.location.reload()
   }
   exportexcel() {
-    console.log('check');
+    
     let sno = 1;
     this.responseDataListnew = [];
     this.viewall.forEach((element: any) => {
@@ -134,7 +134,7 @@ export class EntityAutoDebitGetallComponent {
     });
  
     data.forEach((d: any) => {
-      // console.log("row loop");
+      // 
  
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
