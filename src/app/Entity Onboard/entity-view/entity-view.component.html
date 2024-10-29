@@ -610,7 +610,7 @@
                                                 [matMenuTriggerFor]="menu1" class="fa-solid fa-circle-info">
                                                 <mat-menu #menu1="matMenu">
                                                     <button style="font-size: 10px;" mat-menu-item
-                                                        (click)="KycInfo(item)">Info</button>
+                                                        (click)="KycInfo(item.identityKycId,item.identityProof)">Info</button>
                                                     <button style="font-size: 10px;" mat-menu-item
                                                         [disabled]="item.identityFacheckStatus==1"
                                                         (click)="kycVerificationsIdentity(item.identityProofNo,item.proofId,item.identityProof,item.drivingLicenceDob,item.passportDob)">Verify</button>
@@ -672,7 +672,7 @@
                                                 [matMenuTriggerFor]="menu2" class="fa-solid fa-circle-info">
                                                 <mat-menu #menu2="matMenu">
                                                     <button style="font-size: 10px;" mat-menu-item
-                                                        (click)="KycInfo(item)">Info</button>
+                                                        (click)="KycInfo(item.addressKycId,item.addressProof)">Info</button>
                                                     <button style="font-size: 10px;" mat-menu-item
                                                         [disabled]="item.addressFacheckStatus==1"
                                                         (click)="kycVerificationsAddress(item.addressProofNo,item.proofId,item.addressProof,item.drivingLicenceDob,item.passportDob)">Verify</button>
@@ -735,7 +735,7 @@
                                                 [matMenuTriggerFor]="menu3" class="fa-solid fa-circle-info">
                                                 <mat-menu #menu3="matMenu">
                                                     <button style="font-size: 10px;" mat-menu-item
-                                                        (click)="KycInfo(item)">Info</button>
+                                                        (click)="KycInfo(item.signatureKycId,item.signatureProof)">Info</button>
                                                     <button style="font-size: 10px;" mat-menu-item
                                                         [disabled]="item.signatureFacheckStatus==1"
                                                         (click)="kycVerificationsSignature(item.signatureProofNo, item.proofId, item.signatureProof,item.drivingLicenceDob,item.passportDob)">Verify</button>

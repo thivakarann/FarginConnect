@@ -27,34 +27,34 @@ export class BouqutesAddComponent implements OnInit {
   ActiveRegions: any;
   ActiveMSO: any;
   serviceproviderid: any;
-
+  regionId: any;
+  ActiveregionID: any;
+ 
   constructor(
     public BroadcasterBouquetAdd: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
     private dialog: MatDialog
   ) { }
-
+ 
   ngOnInit(): void {
-
+ 
     this.BroadcasterBouquetAdd.BoucatenamesActive().subscribe((res: any) => {
       this.details = res.response;
     });
-
-    this.BroadcasterBouquetAdd.ActiveAlcards().subscribe((res: any) => {
-      this.channelslist = res.response;
-    });
-
+ 
+   
+ 
     // this.BroadcasterBouquetAdd.RegionGetAllActive().subscribe((res: any) => {
     //   this.ActiveRegions = res.response;
     // });
-
-
+ 
+ 
     this.BroadcasterBouquetAdd.activeprovider().subscribe((res: any) => {
       this.ActiveMSO = res.response;
     })
-
-
+ 
+ 
     this.myForm = new FormGroup({
       bundleChannelId: new FormControl('', Validators.required),
       alcotId: new FormControl('', Validators.required),
@@ -64,51 +64,72 @@ export class BouqutesAddComponent implements OnInit {
       regId: new FormControl('', Validators.required),
     });
   }
-
+ 
   get bundleChannelId() {
     return this.myForm.get('bundleChannelId')
-
+ 
   }
-
+ 
   get alcotId() {
     return this.myForm.get('alcotId')
-
+ 
   }
-
+ 
   get amount() {
     return this.myForm.get('amount')
-
+ 
   }
-
+ 
   get boqCreationId() {
     return this.myForm.get('boqCreationId')
-
+ 
   }
-
+ 
   get regId() {
     return this.myForm.get('regId')
-
+ 
   }
-
+ 
   get serviceId() {
     return this.myForm.get('serviceId')
-
+ 
   }
-
+ 
   name(id: any) {
-    
+    console.log(id)
     this.BroadcasterBouquetAdd.BouqueteNameByBroadcasterid(id).subscribe((res: any) => {
       this.Plandetails = res.response;
     })
   }
-
+  activeregionid(id: any) {
+    console.log('Selected regionId:', id);
+    this.BroadcasterBouquetAdd.AlcotChannelActiveRegion(id).subscribe(
+      (res: any) => {
+        if (Array.isArray(res.response)) {
+          this.channelslist = res.response; // Store channels
+          console.log('Channels list:', this.channelslist); // Log channels
+        } else {
+          console.error('Unexpected response format:', res);
+        }
+      },
+      (error) => {
+        console.error('Error fetching channels for regionId:', id, error); // Handle error
+      }
+    );
+  }
   getregions(id: any) {
     this.BroadcasterBouquetAdd.ActiveRegionsbyserviceprovider(id).subscribe((res: any) => {
       this.ActiveRegions = res.response;
+      console.log( 'region' +this.ActiveRegions)
+   
+     
     })
+ 
+   
+   
   }
-
-
+ 
+ 
   toggleAllSelection() {
     if (this.allSelected) {
       this.select.options.forEach((item: MatOption) => item.select());
@@ -116,7 +137,7 @@ export class BouqutesAddComponent implements OnInit {
       this.select.options.forEach((item: MatOption) => item.deselect());
     }
   }
-
+ 
   toggleAllSelections() {
     if (this.allselected) {
       this.selects.options.forEach((item: MatOption) => item.select());
@@ -124,11 +145,11 @@ export class BouqutesAddComponent implements OnInit {
       this.selects.options.forEach((item: MatOption) => item.deselect());
     }
   }
-
+ 
   close() {
     this.router.navigateByUrl('dashboard/bouquets-viewall')
   }
-
+ 
   submit() {
     let submitModel: BroadcasterBouquetadd = {
       bundleChannelId: Number(this.bundleChannelId?.value),
@@ -139,7 +160,7 @@ export class BouqutesAddComponent implements OnInit {
       regId: this.regId?.value,
       createdBy: this.getadminname
     }
-
+ 
     this.BroadcasterBouquetAdd.BroadcasterBoucateadd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
@@ -147,13 +168,13 @@ export class BouqutesAddComponent implements OnInit {
         setTimeout(() => {
           window.location.reload()
         },500)
-
+ 
       }
       else {
         this.toastr.error(res.responseMessage);
       }
     })
   }
-
-
 }
+
+

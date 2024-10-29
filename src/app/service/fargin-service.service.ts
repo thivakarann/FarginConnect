@@ -16,8 +16,8 @@ export class FarginServiceService {
   constructor(private http: HttpClient,
     private router: Router, private timerService: SessionServiceService, private toastr: ToastrService) { }
 
-  // private readonly basePath = 'https://staging-api.farginconnect.com/'; 
-  private readonly basePath = 'https://api.fargin.in/';
+  private readonly basePath = 'https://staging-api.farginconnect.com/'; 
+  // private readonly basePath = 'https://api.fargin.in/';
 
   // private readonly basePath = 'http://64.227.149.125:8085/'
 
@@ -519,6 +519,11 @@ export class FarginServiceService {
   private readonly customerlogo = 'customerTickets/updatedocument';
   private readonly customerlogoview = 'customerTickets/viewimage/';
   private readonly otherpaymentviewbyid = 'otherpayment/viewbyid/';
+
+
+    //alcot-history
+    private readonly alcothistory='alcotchannel/viewAllHistory';
+    private readonly alcotchannelactiveregion='alcotchannel/viewregionactive/';
 
 
 
@@ -1947,7 +1952,15 @@ export class FarginServiceService {
     return this.http.get(`${this.basePath}${this.otherpaymentviewbyid}${id}`, this.options)
   }
 
-
+//alcot history
+AlcotHistoryViewAll() {
+  return this.http.get(`${this.basePath}${this.alcothistory}`, this.options)
+}
+ 
+AlcotChannelActiveRegion(id: any) {
+  return this.http.get(`${this.basePath}${this.alcotchannelactiveregion}${id}`, this.options)
+}
+ 
 
 
 

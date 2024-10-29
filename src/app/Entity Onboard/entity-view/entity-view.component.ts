@@ -1640,13 +1640,14 @@ export class EntityViewComponent implements OnInit {
   }
 
 
-  KycInfo(id: any) {
+  KycInfo(id: any,id1:any) {
     this.dialog.open(KycInfoComponent, {
       enterAnimationDuration: "1000ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: {
-        value: id,
+        value: id, value1:id1
+
       }
     })
   }

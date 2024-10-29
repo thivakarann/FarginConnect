@@ -86,6 +86,7 @@ import { PlanDetailsCustomerComponent } from './Overall-Customer/plan-details-cu
 import { CustomerSurveyquestionsComponent } from './Customer-Survey/customer-surveyquestions/customer-surveyquestions.component';
 import { SurveyviewallComponent } from './Customer-Survey/surveyviewall/surveyviewall.component';
 import { authGuard } from './auth.guard';
+import { AlcotHistoryComponent } from './Plan Creation/Alacarte channels/alcot-history/alcot-history.component';
 
 const routes: Routes = [
 
@@ -184,7 +185,8 @@ const routes: Routes = [
       { path: 'view-announcement', component: ViewAnnouncementComponent, canActivate: [authGuard] },
       { path: 'plan-details-customer/:id', component: PlanDetailsCustomerComponent, canActivate: [authGuard] },
       { path: 'surveyviewall', component: SurveyviewallComponent, canActivate: [authGuard] },
-      { path: 'view-surveyquestions/:id', component: CustomerSurveyquestionsComponent, canActivate: [authGuard] }
+      { path: 'view-surveyquestions/:id', component: CustomerSurveyquestionsComponent, canActivate: [authGuard] },
+      {path:'alcot-history',component:AlcotHistoryComponent, canActivate: [authGuard]}
     ],
 
   },

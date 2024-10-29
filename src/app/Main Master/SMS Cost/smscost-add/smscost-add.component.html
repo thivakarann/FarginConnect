@@ -19,14 +19,8 @@
                         Field is required
                     </div>
                     
-                    <div style="
-                    color: red;
-                    font-size: 12px;
-                    margin-top: 2px;
-                    position: relative;
-                    ;
-                  " *ngIf="amount?.invalid && amount?.touched && amount?.errors?.['pattern']">
-                        Only positive numbers are allowed
+                    <div style="color: red; font-size: 12px; margin-top: 2px;" *ngIf="amount?.invalid && amount?.touched && amount?.errors?.['pattern']">
+                        Only values between 0.01 and 0.99 are allowed
                     </div>
                 </div>
               

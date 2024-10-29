@@ -2,13 +2,11 @@
     <h5 class="mb-0">Create Broadcaster Bouqutes </h5>
     <button type="button" class="btn btn-secondary" matDialogClose>Back</button>
 </div>
-
-
-
+ 
 <body style="width: 700px;" class="page">
     <main class="main page__main">
         <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="myForm">
-
+ 
             <div class="row">
                 <div class="col-6 form-group">
                     <label for="Bussiness category">Select Broadcaster </label>
@@ -17,8 +15,8 @@
                         <option value="" disabled selected>Select</option>
                         <option *ngFor="let item of details" [value]="item.bundleChannelId">{{item.broadCasterName}}
                         </option>
-
-
+ 
+ 
                     </select>
                     <div style="
                     color: red;
@@ -30,15 +28,15 @@
                         Field is required
                     </div>
                 </div>
-
+ 
                 <div class="col-6 form-group">
                     <label for="Bussiness category">Broadcaster Plans</label>
                     <select formControlName="boqCreationId" id="Bussiness category" class="form-control form-select">
                         <option value="" disabled selected>Select</option>
                         <option *ngFor="let item of Plandetails" [value]="item.boqCreationId">{{item.bouquetName}}
                         </option>
-
-
+ 
+ 
                     </select>
                     <div style="
                     color: red;
@@ -59,8 +57,8 @@
                         <option value="" disabled selected>Select</option>
                         <option *ngFor="let item of ActiveMSO" [value]="item.serviceId">{{item.serviceProviderName}}
                         </option>
-
-
+ 
+ 
                     </select>
                     <div style="
                     color: red;
@@ -74,16 +72,16 @@
                 </div>
                 <div class="col-6 form-group ">
                     <label for="Entity Name">Regions</label>
-                    <mat-select #selects style="font-size: 12px;" class="form-select" multiple formControlName="regId">
+                    <mat-select #selects style="font-size: 12px;" class="form-select" multiple formControlName="regId" [(ngModel)]="ActiveregionID" (ngModelChange)="activeregionid(ActiveregionID)" >
                         <div class="select-all">
                             <mat-checkbox [(ngModel)]="allselected" [ngModelOptions]="{standalone: true}"
                                 (change)="toggleAllSelections()">Select All</mat-checkbox>
                         </div>
                         <mat-option [value]="items.regionId" *ngFor="let items of ActiveRegions">
-
+ 
                             {{items?.stateName}}</mat-option>
                     </mat-select>
-
+ 
                     <div style="
             color: red;
             font-size: 12px;
@@ -94,12 +92,8 @@
                         Field is required
                     </div>
                 </div>
-
-
             </div>
-
             <div class="row">
-
                 <div class="col-6 form-group ">
                     <label for="Entity Name">Channels List</label>
                     <mat-select #select style="font-size: 12px;" class="form-select" multiple formControlName="alcotId">
@@ -108,10 +102,9 @@
                                 (change)="toggleAllSelection()">Select All</mat-checkbox>
                         </div>
                         <mat-option [value]="items.alcotId" *ngFor="let items of channelslist">{{items?.channelslist}}
-
+ 
                             {{items?.channelName}}</mat-option>
                     </mat-select>
-
                     <div style="
             color: red;
             font-size: 12px;
@@ -122,7 +115,7 @@
                         Field is required
                     </div>
                 </div>
-
+ 
                 <div class="col-6 form-group ">
                     <label for="Entity Name">Bouquet Price</label>
                     <input type="text" id="Entity Name" formControlName="amount" class="form-control">
@@ -135,9 +128,9 @@
                   " *ngIf="amount?.invalid && amount?.touched && amount?.errors?.['required']">
                         Field is required
                     </div>
-
-
-
+ 
+ 
+ 
                     <div style="
    color: red;
    font-size: 12px;
@@ -147,14 +140,14 @@
  " *ngIf="amount?.invalid && amount?.touched && amount?.errors?.['pattern']">
                         Only positive numbers are allowed
                     </div>
-
+ 
                 </div>
             </div>
-
+ 
             <div style="margin-top: 2%;">
                 <button (click)="submit()" [disabled]="myForm.invalid" type="submit" class="btn mx-1 "
                     style="background-color:#7db855be">Submit</button>
-
+ 
             </div>
         </form>
     </main>

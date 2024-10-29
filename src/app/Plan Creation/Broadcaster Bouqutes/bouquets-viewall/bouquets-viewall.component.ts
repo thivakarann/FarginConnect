@@ -23,8 +23,8 @@ export class BouquetsViewallComponent implements OnInit {
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = [
     'bouquetId',
-    'bouquetName',
     'broadCasterName',
+    'bouquetName',
     'amount',
     'status',
     'Edit',

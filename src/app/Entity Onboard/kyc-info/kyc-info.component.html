@@ -1,4 +1,116 @@
-<mat-card>
+<mat-card *ngIf="responseidentity==='Aadhar Card' || responseaddress==='Aadhar Card' || responsesign==='Aadhar Card'">
+    <div class="form-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Facheck Verification Details</h5>
+        <button type="button" class="btn btn-secondary" mat-dialog-close>Back</button>
+    </div>
+    <!-- <div class="row p-3">
+        <div class="col-md-6">
+            <b>Name*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.fullName}}
+        </div>
+    </div> -->
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Age Range*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.age}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Gender*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.gender}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>State*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.state}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Last Digit*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.last}}
+        </div>
+    </div>
+
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Document Number*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.panNumber}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Reference ID*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.referenceId}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Status*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.status}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Message*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.message}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Remarks*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.remarks}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Mobile Verified*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.mobile}}
+        </div>
+    </div>
+  
+
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Response Time*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.responseTime | date:'dd-mm-yyyy hh:mm a'}}
+        </div>
+    </div>
+ 
+</mat-card>
+
+
+
+
+
+<!-- driving lincense -->
+<mat-card *ngIf="responseaddress === 'Driving License' || responseidentity === 'Driving License' || responsesign === 'Driving License'">
     <div class="form-header d-flex justify-content-between align-items-center">
         <h5 class="mb-0">Facheck Verification Details</h5>
         <button type="button" class="btn btn-secondary" mat-dialog-close>Back</button>
@@ -11,14 +123,165 @@
             {{this.fullName}}
         </div>
     </div>
-    <!-- <div class="row p-3">
+
+    <div class="row p-3">
         <div class="col-md-6">
-            <b>Category*</b>
+            <b>Gender*</b>
         </div>
         <div class="col-md-6">
-            {{this.category}}
+            {{this.gender}}
         </div>
-    </div> -->
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Temporary Address*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.temporary}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Initial Doi*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.initial}}
+        </div>
+    </div>
+    
+<div class="row p-3">
+    <div class="col-md-6">
+        <b>Permanent Address*</b>
+    </div>
+    <div class="col-md-6">
+        {{this.permanent}}
+    </div>
+</div>
+
+<div class="row p-3">
+    <div class="col-md-6">
+        <b>Father or Husband Name*</b>
+    </div>
+    <div class="col-md-6">
+        {{this.father}}
+    </div>
+</div>
+
+<div class="row p-3">
+    <div class="col-md-6">
+        <b>Ola Code*</b>
+    </div>
+    <div class="col-md-6">
+        {{this.ola}}
+    </div>
+</div>
+
+<div class="row p-3">
+    <div class="col-md-6">
+        <b>Image Verified*</b>
+    </div>
+    <div class="col-md-6">
+        {{this.image}}
+    </div>
+</div>
+<div class="row p-3">
+    <div class="col-md-6">
+        <b>Permanent Pincode*</b>
+    </div>
+    <div class="col-md-6">
+        {{this.permanentpin}}
+    </div>
+</div>
+<div class="row p-3">
+    <div class="col-md-6">
+        <b>Citizenship*</b>
+    </div>
+    <div class="col-md-6">
+        {{this.citizenship}}
+    </div>
+</div>
+<div class="row p-3">
+    <div class="col-md-6">
+        <b>Temporary Pincode*</b>
+    </div>
+    <div class="col-md-6">
+        {{this.temporarypin}}
+    </div>
+</div>
+<div class="row p-3">
+    <div class="col-md-6">
+        <b>Ola Name*</b>
+    </div>
+    <div class="col-md-6">
+        {{this.olaname}}
+    </div>
+</div>
+<div class="row p-3">
+    <div class="col-md-6">
+        <b>Transport doi*</b>
+    </div>
+    <div class="col-md-6">
+        {{this.transportdoi}}
+    </div>
+</div>
+<div class="row p-3">
+    <div class="col-md-6">
+        <b>Date of Birth*</b>
+    </div>
+    <div class="col-md-6">
+        {{this.dob}}
+    </div>
+</div>
+<div class="row p-3">
+    <div class="col-md-6">
+        <b>Transport Doe*</b>
+    </div>
+    <div class="col-md-6">
+        {{this.transportdoe}}
+    </div>
+</div>
+<div class="row p-3">
+    <div class="col-md-6">
+        <b>Blood Group*</b>
+    </div>
+    <div class="col-md-6">
+        {{this.bloodgroup}}
+    </div>
+</div>
+<div class="row p-3">
+    <div class="col-md-6">
+        <b>Current Status*</b>
+    </div>
+    <div class="col-md-6">
+        {{this.currentstatus}}
+    </div>
+</div>
+
+<div class="row p-3">
+    <div class="col-md-6">
+        <b>Doe*</b>
+    </div>
+    <div class="col-md-6">
+        {{this.doe}}
+    </div>
+</div>
+
+<div class="row p-3">
+    <div class="col-md-6">
+        <b>Doi*</b>
+    </div>
+    <div class="col-md-6">
+        {{this.doi}}
+    </div>
+</div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>State*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.state}}
+        </div>
+    </div>
     <div class="row p-3">
         <div class="col-md-6">
             <b>Document Number*</b>
@@ -59,5 +322,829 @@
             {{this.responseTime | date:'dd-mm-yyyy hh:mm a'}}
         </div>
     </div>
+ 
+</mat-card>
+
+
+
+<!-- Passport -->
+
+<mat-card *ngIf="responseidentity==='Passport' || responseaddress==='Passport' || responsesign==='Passport'">
+    <div class="form-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Facheck Verification Details</h5>
+        <button type="button" class="btn btn-secondary" mat-dialog-close>Back</button>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Name*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.fullName}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>File Number*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.file}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Verification Message*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.verification}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Application Type*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.application}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Date of Birth*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.dob}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Date of Application*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.date}}
+        </div>
+    </div>
+   
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Document Number*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.panNumber}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Reference ID*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.referenceId}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Status*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.status}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Message*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.message}}
+        </div>
+    </div>
+
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Response Time*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.responseTime | date:'dd-mm-yyyy hh:mm a'}}
+        </div>
+    </div>
+ 
+</mat-card>
+
+<!--Pancard -->
+<mat-card *ngIf="responseidentity==='Pancard' || responseaddress==='Pancard' || responsesign==='Pancard'">
+    <div class="form-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Facheck Verification Details</h5>
+        <button type="button" class="btn btn-secondary" mat-dialog-close>Back</button>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Name*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.fullName}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Date of Birth Verified*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.dobverified}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Date of birth Check*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.dobcheck}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Input Dob*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.inputdob}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Address*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.address}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Pincode*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.zip}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Address line 2*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.line}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Country*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.country}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>City*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.city}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>State*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.statepan}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Street Name*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.street}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Full*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.full}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Gender*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.gender}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Masked Aadhaar*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.maskedaadhaar}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Aadhaar linked*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.aadhaarlinked}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Aadhaar linked*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.aadhaarlinked}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Date of Birth*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.dob}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Mobile Number*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.phonenumber}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Category*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.categorys}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Email*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.email}}
+        </div>
+    </div>
+   
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Document Number*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.panNumber}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Reference ID*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.referenceId}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Status*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.status}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Message*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.message}}
+        </div>
+    </div>
+
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Response Time*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.responseTime | date:'dd-mm-yyyy hh:mm a'}}
+        </div>
+    </div>
+ 
+</mat-card>
+
+
+<!--Voter id  -->
+
+<mat-card *ngIf="responseidentity==='Voter Id Proof' || responseaddress==='Voter Id Proof' || responsesign==='Voter Id Proof'">
+    <div class="form-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Facheck Verification Details</h5>
+        <button type="button" class="btn btn-secondary" mat-dialog-close>Back</button>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Name*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.fullName}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Input Voter Id*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.inputvoterid}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>St Code*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.stcode}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Gender*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.gender}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Assembly Constituency Number*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.assemblyconstituencynumber}}
+        </div>
+    </div>
+
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Rln Name V2*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.rlnnamev2}}
+        </div>
+    </div>
+
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Rln Name V1*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.rlnnamev1}}
+        </div>
+    </div>
+    
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Relation Type*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.relationtype}}
+        </div>
+    </div>
+
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Rln Name V3*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.rlnnamev3}}
+        </div>
+    </div>
+
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Name V1*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.namev1}}
+        </div>
+    </div>
+    
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Client Id*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.clientid}}
+        </div>
+    </div>
+
+<!-- 
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Epic No*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.epicno}}
+        </div>
+    </div> -->
+
+
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Name V2*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.namev2}}
+        </div>
+    </div>
+
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Name V3*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.namev3}}
+        </div>
+    </div>
+
+    
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Ps Lat Long*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.pslatlong}}
+        </div>
+    </div>
+
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Last Update*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.lastupdate}}
+        </div>
+    </div>
+
+
+
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>State*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.state}}
+        </div>
+    </div>
+
+
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Id*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.id}}
+        </div>
+    </div>
+
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Assembly Constituency*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.assemblyconstituency}}
+        </div>
+    </div>
+
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Area*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.area}}
+        </div>
+    </div>
+
+
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Parliamentary Name*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.parliamentaryname}}
+        </div>
+    </div>
+
+
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Mutiple*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.multiple}}
+        </div>
+    </div>
+
+    <!-- <div class="row p-3">
+        <div class="col-md-6">
+            <b>Mutiple*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.multiple}}
+        </div>
+    </div> -->
+
+
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Parliamentary Constituency*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.parliamentaryconstituency}}
+        </div>
+    </div>
+
+
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Parliamentary Number*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.parliamentarynumber}}
+        </div>
+
+    </div>
+
+
+
+    
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>District*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.district}}
+        </div>
+    </div>
+
+
+
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>House Number*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.houseno}}
+        </div>
+    </div>
+
+
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Part Number*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.partnumber}}
+        </div>
+    </div>
+
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Polling Station*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.pollingstation}}
+        </div>
+    </div>
+
+
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Section Number*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.sectionno}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Slno Inpart*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.slnoinpart}}
+        </div>
+    </div>
+
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Relation Name*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.relationname}}
+        </div>
+    </div>
+
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Age*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.agevoter}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Part Name*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.partname}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Date of Birth*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.dob}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Reference ID*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.referenceId}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Status*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.status}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Message*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.message}}
+        </div>
+    </div>
+
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Response Time*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.responseTime | date:'dd-mm-yyyy hh:mm a'}}
+        </div>
+    </div>
+<!--    
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Date of Birth Verified*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.dobverified}}
+        </div>
+    </div>
+   
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Input Dob*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.inputdob}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Address*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.address}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Pincode*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.zip}}
+        </div>
+    </div> -->
+    <!-- <div class="row p-3">
+        <div class="col-md-6">
+            <b>Address line 2*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.line}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Country*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.country}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>City*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.city}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>State*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.statepan}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Street Name*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.street}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Full*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.full}}
+        </div>
+    </div> -->
+  
+    <!-- <div class="row p-3">
+        <div class="col-md-6">
+            <b>Masked Aadhaar*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.maskedaadhaar}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Aadhaar linked*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.aadhaarlinked}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Aadhaar linked*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.aadhaarlinked}}
+        </div>
+    </div>
+ 
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Mobile Number*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.phonenumber}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Category*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.categorys}}
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Email*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.email}}
+        </div>
+    </div>
+   
+    <div class="row p-3">
+        <div class="col-md-6">
+            <b>Document Number*</b>
+        </div>
+        <div class="col-md-6">
+            {{this.panNumber}}
+        </div>
+    </div> -->
+  
  
 </mat-card>

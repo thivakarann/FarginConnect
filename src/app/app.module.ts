@@ -210,6 +210,7 @@ import { SurveyviewallComponent } from './Customer-Survey/surveyviewall/surveyvi
 import { ViewQuestionsComponent } from './Customer-Survey/view-questions/view-questions.component';
 import { CustomerticketImageComponent } from './Tickets/customerticket-image/customerticket-image.component';
 import { ReadquestionsComponent } from './Customer-Survey/readquestions/readquestions.component';
+import { AlcotHistoryComponent } from './Plan Creation/Alacarte channels/alcot-history/alcot-history.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -398,11 +399,8 @@ import { ReadquestionsComponent } from './Customer-Survey/readquestions/readques
     ViewQuestionsComponent,
     SurveyviewallComponent,
     CustomerticketImageComponent,
-    ReadquestionsComponent
-    
- 
-    
-    
+    ReadquestionsComponent,
+    AlcotHistoryComponent 
 
   ],
 

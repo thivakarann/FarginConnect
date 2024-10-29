@@ -53,7 +53,7 @@ export class AlacarteViewallComponent implements OnInit {
   response: any = [];
   date1: any;
   date2: any;
-
+  valuealcartHistory:any;
   constructor(
     public AllcartViewall: FarginServiceService,
     private router: Router,
@@ -74,6 +74,7 @@ export class AlacarteViewallComponent implements OnInit {
             this.valuealcartExport = 'Channel Creation-Export'
             this.valuealcartStatus = 'Channel Creation-Status'
             this.valuealcartView = 'Channel Creation-View'
+            this.valuealcartHistory = 'Channel Creation-History'
           }
           else {
             for (let datas of this.getdashboard) {
@@ -94,6 +95,9 @@ export class AlacarteViewallComponent implements OnInit {
               }
               if (this.actions == 'Channel Creation-Status') {
                 this.valuealcartStatus = 'Channel Creation-Status';
+              }
+              if (this.actions == 'Channel Creation-History') {
+                this.valuealcartHistory = 'Channel Creation-History';
               }
             }
           }
@@ -302,7 +306,9 @@ export class AlacarteViewallComponent implements OnInit {
  
     });
   }
-
+  alacartehistory(){
+    this.router.navigateByUrl('dashboard/alcot-history')
+  }
 
 }
 
