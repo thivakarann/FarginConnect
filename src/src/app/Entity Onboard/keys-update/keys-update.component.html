@@ -1,0 +1,93 @@
+ 
+ 
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+ 
+<div class="card-header d-flex justify-content-between align-items-center">
+    <h5 class="mb-0">Update Onboard Details</h5>
+</div>
+<div class="container" [hidden]="this.selectedOption == 1">
+ 
+    <div class="well">
+        <p class="d-flex justify-content-center mt-3" style="color:#141E46"> <b>Are You Going To Edit Forcefully</b></p>
+        <div class="d-flex justify-content-center">
+ 
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="yes" id="yes" [value]="1"
+                    [(ngModel)]="selectedOption">
+                <label class="form-check-label" for="yes">
+                    Yes
+                </label>
+            </div>&nbsp;&nbsp;
+            <div class="form-check" mat-dialog-close>
+                <input class="form-check-input" type="radio" name="no" id="no" [value]="0"
+                    [(ngModel)]="selectedOption">
+                <label class="form-check-label" for="no">
+                    No
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" *ngIf="this.selectedOption==1">
+ 
+    <div class="well">
+        <form [formGroup]="myForm">
+            <div class="row mt-3">
+                <div class="col-12 form-group">
+                    <label   class="form__label" for="Bussiness category">Account Id</label>
+                    <input type="text" formControlName="accountId" id="Mcc Code" class="form-control" ngModel="{{ detaislone?.accountId }}" >
+                    <div style="
+                color: red;
+                font-size: 12px;
+                margin-top: 2px;
+                position: relative;
+                ;
+              " *ngIf="accountId?.invalid && accountId?.touched && accountId?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12 form-group">
+                    <label   class="form__label" for="Bussiness category">Api Key</label>
+                    <input type="text" formControlName="apikey" id="Mcc Code" class="form-control" ngModel="{{ detaislone?.apikey }}" >
+                    <div style="
+                color: red;
+                font-size: 12px;
+                margin-top: 2px;
+                position: relative;
+                ;
+              " *ngIf="apikey?.invalid && apikey?.touched && apikey?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12 form-group">
+                    <label   class="form__label" for="Bussiness category">Secret Key</label>
+                    <input type="text" formControlName="secretkey" id="Mcc Code" class="form-control"  ngModel="{{ detaislone?.secretkey }}" >
+                    <div style="
+                color: red;
+                font-size: 12px;
+                margin-top: 2px;
+                position: relative;
+                ;
+              " *ngIf="secretkey?.invalid && secretkey?.touched && secretkey?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <button (click)="submit()" [disabled]="myForm.invalid" type="submit" class="btn mx-1 "
+                    style="background-color:#7db855be">Submit</button>
+                <button type="submit" class="btn" style="background-color:#141E46;color:white"
+                    matDialogClose>Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+ 
+ 
+ 

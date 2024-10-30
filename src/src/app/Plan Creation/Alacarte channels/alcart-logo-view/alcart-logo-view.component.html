@@ -1,0 +1,52 @@
+<i class="fa-solid fa-xmark" matDialogClose style="    margin-left: 95%;
+font-size: 27px;
+margin-bottom: 1px;
+margin-top: 4px;
+color: red;
+"></i>
+
+<img [src]="images" style="width:500px;height: 300px;  background-repeat: no-repeat;
+ background-size: cover; ">
+
+<div class="well">
+   
+    <form [formGroup]="myForm">
+
+
+
+            <div class="row ">
+
+                <div class="col form-group">
+                    <label for="Entity Name">Update Channel Logo</label>
+                    <input (change)="onFileSelectedidproof($event)" type="file" id="Entity Name" formControlName="logo"
+                        placeholder="Entity Name" class="form-control">
+                    <div style="
+                color: red;
+                font-size: 12px;
+                margin-top: 2px;
+                position: relative;
+                ;
+              " *ngIf="logo?.invalid && logo?.touched && logo?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+
+                <div style="color: red; font-size: 12px;margin-top: 2px;" *ngIf="errorMessage">
+                    {{errorMessage}}
+                </div>
+
+
+
+            </div>
+
+    
+
+        <div>
+            <button (click)="submit($event)" [disabled]="myForm.invalid || errorMessage" type="submit" class="btn mx-1 "
+                style="background-color:#7db855be">Upload</button>
+    
+        </div>
+
+    </form>
+
+</div>

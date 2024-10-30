@@ -1,0 +1,319 @@
+<div [hidden]="valueDashboard!=='Dashboard-View'">
+  <div class="dashboard">
+    <div class="card border-success">
+      <div class="icon">👥</div>
+      <div class="title">Total Merchants</div>
+      <div class="value">{{counts?.totalMerchantCount}}</div>
+    </div>
+    <div class="card border-success">
+      <div class="icon">🆕</div>
+      <div class="title">Onboarded Merchants</div>
+      <div class="value">{{counts?.totalPgOnboardMerchantCount}}</div>
+    </div>
+
+    <div class="card border-success">
+      <div class="icon">👤</div>
+      <div class="title">Active Merchants</div>
+      <div class="value">{{counts?.totalactiveMerchantCount}}</div>
+    </div>
+    <div class="card border-success">
+      <div class="icon">🚫</div>
+      <div class="title">Inactive Merchants</div>
+      <div class="value">{{counts?.totalInActiveMerchantCount}}</div>
+    </div>
+    <div class="card border-success">
+      <div class="icon">🕑</div>
+      <div class="title">Pending Merchants</div>
+      <div class="value">{{counts?.totalPendingMerchantCount}}</div>
+    </div>
+    <div class="card border-success">
+      <div class="icon">✔️</div>
+      <div class="title">Approved Merchants</div>
+      <div class="value">{{counts?.totalApprovedMerchantCount}}</div>
+    </div>
+    <div class="card border-success">
+      <div class="icon">🎟️</div>
+      <div class="title">Total Tickets</div>
+      <div class="value">{{counts?.totalTicketCount}}</div>
+    </div>
+    <div class="card border-success">
+      <div class="icon">📩</div>
+      <div class="title">Total Open Tickets</div>
+      <div class="value">{{counts?.totalTicketMemberOpenCount}}</div>
+    </div>
+    <div class="card border-success">
+      <div class="icon">⏳</div>
+      <div class="title">Tickets on Hold</div>
+      <div class="value">{{counts?.totalTicketMemberHoldCount}}</div>
+    </div>
+
+
+    <div class="card border-success">
+      <div class="icon">✅</div>
+      <div class="title">Closed Tickets</div>
+      <div class="value">{{counts?.totalTicketMemberclosedCount}}</div>
+    </div>
+  </div>
+</div>
+<div class="section" [hidden]="valueDashboardTransactionOverview!=='Dashboard-Transaction Overview'">
+  <div class="card">
+    <h5>Today's Transaction Overview</h5>
+    <div class="transaction-details">
+      <div class="transaction-item">
+        <span class="amount">{{todayamount?.totalAmount || 0}}</span>
+        <p class="label total">Total Amount</p>
+      </div>
+      <div class="transaction-item">
+        <span class="amount">{{todayamount?.successAmount || 0}}</span>
+        <p class="label success">Successful Transactions</p>
+      </div>
+      <div class="transaction-item">
+        <span class="amount">{{todayamount?.failedAmount || 0}}</span>
+        <p class="label failed">Failed Transactions</p>
+      </div>
+      <div class="transaction-item">
+        <span class="amount">{{todayamount?.pendingAmount || 0}}</span>
+        <p class="label pending">Pending Transactions</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div
+  [hidden]="valuetotalmerchants!=='Dashboard-Total Merchants'&& valuetransactionoverview!=='Dashboard-Transaction Overview'">
+
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <label for="" style="font-size: 14px; font-family: Verdana, Geneva, Tahoma, sans-serif;">Merchant
+        Details</label><br>
+      <select (change)="onCategoryChange($event)" name="" id="" class="form-select" [value]="initialCategoryId">
+        <option value="" disabled selected>Select Category</option>
+        <option *ngFor="let val of category" [value]="val.businessCategoryId">{{val.categoryName}}</option>
+      </select>
+
+    </div>
+    <div class="col-md-4">
+      <label for="period" style="font-size: 12px; font-family: Arial, Helvetica, sans-serif;">Select Period</label><br>
+      <select [(ngModel)]="selectedPeriod" (ngModelChange)="get(selectedPeriod)" style="font-size: 12px;" id="period"
+        class="form-select">
+        <option hidden>Select--</option>
+        <option value="Last7Days">Last 7 Days</option>
+        <option value="Last14Days">Last 14 Days</option>
+        <option value="LastMonth">Last Month</option>
+        <option value="thisMonth">This Month</option>
+        <option value="customRange">Custom Range</option>
+      </select>
+    </div>
+    <div class="col-md-4" *ngIf="selectedPeriod === 'customRange'">
+      <label style="font-size: 12px; font-family: Arial, Helvetica, sans-serif;">From Date &nbsp; &nbsp; &nbsp; &nbsp;
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; To Date</label><br>
+      <div class="input-group">
+        <input style="font-size: 12px; height: 35px;" type="date" class="form-control" [(ngModel)]="fromDate">
+        <input type="date" style="font-size: 12px; height: 35px;" class="form-control" [(ngModel)]="toDate">
+        <button (click)="customranges()" class="btn btn"
+          style="border: none; background: linear-gradient(45deg, rgba(16, 211, 78, 0.548) 0%, rgb(43, 132, 52) 100%); color: white;">Go</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-6" [hidden]="valuetotalmerchants!=='Dashboard-Total Merchants'">
+      <div style="float: inline-start;">
+        <div class="card">
+          <canvas id="myCanvas"></canvas>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-6" [hidden]="valuetransactionoverview!=='Dashboard-Transaction Overview'">
+      <div style=" float: inline-start;">
+        <div class="card">
+          <canvas id="barChartCanvas" style="width: 400px; height: 370px;"></canvas>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="container mt-3">
+
+
+
+  <div class="row mt-4">
+
+
+
+
+
+
+  </div>
+
+
+  <br>
+
+
+
+  <div class="card" [hidden]="valueTransactionDetails!=='Dashboard-Transaction Details'">
+    <div class=" text-center">
+      <h3>Transaction Details</h3>
+    </div>
+
+    <div class="col-md-4">
+      <label for="period" style="font-size: 12px; font-family: Arial, Helvetica, sans-serif;">Select
+        Merchant</label><br>
+      <select style="font-size: 12px;" id="period" class="form-select" [(ngModel)]="selectedmerchant"
+        (change)="onMerchantChange($event)">
+        <option selected disabled>Select
+        </option>
+        <option *ngFor="let item of viewall;" [value]="item.merchantId">
+          {{item.merchantLegalName}}
+        </option>
+      </select>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+
+        <canvas id="maintenanceChartCanvas"></canvas>
+      </div>
+      <div class="col-md-6">
+        <canvas id="oneTimeChartCanvas"></canvas>
+      </div>
+
+    </div>
+
+    &nbsp;
+
+    <div class="row justify-content-center" [hidden]="valueTotalcount!=='Dashboard-Total Count'">
+      <div class="col-md-6 text-center">
+        <canvas id="otherPaymentChartCanvas"></canvas>
+      </div>
+    </div>
+    &nbsp;&nbsp;
+  </div>
+  <div class="row">
+    <div class="col-6" [hidden]="valueTotalcount!=='Dashboard-Total Count'">
+      <div class="card border-success">
+        <canvas id="sevenChartCanvas"></canvas>
+        <div class="card-body">
+          <!-- First Row -->
+          <div class="row">
+            <div class="col">
+              <div>{{sevenper?.intiateCount || 0}}</div>
+              <div><strong> Total Request</strong></div>
+
+            </div>
+            <div class="col text-right">
+              <div>{{sevenper?.totalCount || 0}}</div>
+              <div><strong>Total Count</strong></div>
+
+            </div>
+          </div>
+          <hr>
+          <!-- Second Row -->
+          <div class="row">
+            <div class="col">
+              <div><strong>Success Amount</strong></div>
+              <div>{{sevenper?.successAmount || 0}}</div>
+              <div>Success Percentage {{sevenper?.successCountPercentage ||0 }}</div>
+            </div>
+            <div class="col text-right">
+              <div><strong>Failed Amount</strong></div>
+              <div>{{sevenper?.failedAmount || 0}}</div>
+              <div>Failed Percentage {{sevenper?.failedCountPercentage ||0}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6" [hidden]="valuetoppay!=='Dashboard-Top Payment Methods'">
+      <div class="card border-success">
+        <h5>Top Payment Methods (For Past 7 Days)</h5>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Payment Method</th>
+                <th>Count</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let method of sevenday">
+                <td>{{ method.paymentMethod ? method.paymentMethod : 'Not Specified' }}</td>
+                <td>{{ method.count }}</td>
+                <td>₹{{ method.amount }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+  <!-- transaction-card.component.html -->
+  <!--
+<div class="row">
+ 
+  <div class="col-md-6 mb-4">
+    <div class="card">
+      <h5 class="card-title">Monthly Maintenance Charge</h5>
+      <div class="card-content">
+        <div class="d-flex justify-content-between">
+          <strong>Total Transactions</strong>
+          <span>{{amount?.totalCount}}</span>
+        </div>
+        <div class="d-flex justify-content-between">
+          <strong>Successful Transactions</strong>
+          <span class="text-success">{{amount?.successCount}}</span>
+        </div>
+        <div class="d-flex justify-content-between">
+          <strong>Pending Transactions</strong>
+          <span class="text-warning">{{amount?.pendingCount}}</span>
+        </div>
+        <div class="d-flex justify-content-between">
+          <strong>Failed Transactions</strong>
+          <span class="text-danger">{{amount?.failedCount}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="col-md-6 mb-4">
+    <div class="card">
+      <h5 class="card-title">One-Time Setup Fee</h5>
+      <div class="card-content">
+        <div class="d-flex justify-content-between">
+          <strong>Total One-Time Transaction</strong>
+          <span>{{amountonetime?.totalCount}}</span>
+        </div>
+        <div class="d-flex justify-content-between">
+          <strong>Successful One-Time Transaction</strong>
+          <span class="text-success">{{amountonetime?.successCount}}</span>
+        </div>
+        <div class="d-flex justify-content-between">
+          <strong>Pending One-Time Transaction</strong>
+          <span class="text-warning">{{amountonetime?.pendingCount}}</span>
+        </div>
+        <div class="d-flex justify-content-between">
+          <strong>Failed One-Time Transaction</strong>
+          <span class="text-danger">{{amountonetime?.failedCount}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->

@@ -1,0 +1,246 @@
+<mat-card-header>
+  <div class="row  d-flex justify-content-start">
+    <div class="col-md-6">
+      <h5>Customer Name: {{ viewcustomer?.customerName }}</h5>
+    </div>
+    <div class="col-md-4  mt-1">
+      <h6> Overall Plan Amount:  <span style="color:green;">₹{{ this.totalamount }}</span></h6>
+    </div>
+    <div class="col-md-2 d-flex justify-content-end mb-1">
+      <button  class="button1" (click)="close()">Back</button>
+    </div>
+   
+  </div>
+</mat-card-header>
+
+<ul class="nav nav-pills nav-fill mb-4 mx-3 mt-3">
+  <li class="nav-item">
+    <a style="cursor: pointer;font-weight: 600;" class="nav-link" [class.active]="selectedTab === 'customer-info'"
+      (click)="selectTab('customer-info')">
+      Customer Info
+    </a>
+  </li>
+  &nbsp; &nbsp;
+  <li class="nav-item">
+    <a style="cursor: pointer;font-weight: 600;" class="nav-link" [class.active]="selectedTab === 'Setup-Box'"
+      (click)="selectTab('Setup-Box')">
+      Setup Box
+    </a>
+  </li>
+  &nbsp; &nbsp;
+  <li class="nav-item">
+    <a style="cursor: pointer;font-weight: 600;" class="nav-link" [class.active]="selectedTab === 'Transaction'"
+      (click)="selectTab('Transaction')">
+      Transactions
+    </a>
+  </li>
+
+
+</ul>
+<div *ngIf="selectedTab === 'customer-info'" id="customer-info" class="mb-4">
+  <div class="container">
+    <article class="card">
+      <div class="card-body">
+        <!-- <h3 class="card-title mb-4">General Information</h3>
+                <hr> -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <strong>Customer Name:</strong> {{ viewcustomer?.customerName }}
+            </div>
+            <div class="mb-3">
+              <strong>Email Address:</strong> {{ viewcustomer?.emailAddress }}
+            </div>
+            <div class="mb-3">
+              <strong>Mobile Number:</strong> {{ viewcustomer?.mobileNumber }}
+            </div>
+            <div class="mb-3">
+              <strong>Area:</strong> {{ viewcustomer?.area }}
+            </div>
+            <div class="mb-3">
+              <strong>Street Name:</strong> {{ viewcustomer?.streetName }}
+            </div>
+            <div class="mb-3">
+              <strong>City Name:</strong> {{ viewcustomer?.cityName }}
+            </div>
+            <div class="mb-3">
+              <strong>Pincode:</strong> {{ viewcustomer?.pincodeName }}
+            </div>
+            <div class="mb-3">
+              <strong>Land Mark:</strong> {{ viewcustomer?.landmark }}
+            </div>
+            <div class="mb-3">
+              <strong>Age:</strong> {{ viewcustomer?.age }}
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <strong>Flat Number:</strong> {{ viewcustomer?.flatNumber }}
+            </div>
+            <div class="mb-3">
+              <strong>Block Number:</strong> {{ viewcustomer?.blockNumber }}
+            </div>
+            <div class="mb-3">
+              <strong>BroadCaster:</strong> {{ viewcustomer?.stbId?.regionEntity?.service?.serviceProviderName }}
+            </div>
+            <div class="mb-3">
+              <strong>STB Number:</strong> {{ viewcustomer?.stbId?.setupBoxNumber }}
+            </div>
+            <div class="mb-3">
+              <strong>House Name:</strong> {{ viewcustomer?.houseName }}
+            </div>
+            <div class="mb-3">
+              <strong>Door Number:</strong> {{ viewcustomer?.doorNumber }}
+            </div>
+            <div class="mb-3">
+              <strong>Alter Mobile Number:</strong> {{ viewcustomer?.alterMobileNumber }}
+            </div>
+            <div class="mb-3">
+              <strong>Apartment Name:</strong> {{ viewcustomer?.apartmentName }}
+            </div>
+            <div class="mb-3">
+              <strong>Pincode:</strong> {{ viewcustomer?.pincodeName }}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</div>
+
+<div id="Setup-box" *ngIf="selectedTab === 'Setup-Box'" class="mb-4">
+
+  <div>
+    <div class="row mt-5 mx-1">
+      <div class="col-md-3">
+        <div class="search me-4 mb-3">
+          <input style="font-size: 13px;" type="text" id="search" class="form-control" [(ngModel)]="searchText"
+            placeholder="search">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <!-- <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Add
+          Setupbox</button> -->
+      </div>
+      <!-- <div class="col-md-6 d-flex justify-content-end">
+        <b> Total Alcart Amount: {{ totalAmount }}</b>
+      </div> -->
+    </div>
+    <div class="row mt-1 mx-1">
+      <div class="col-12 mb-3 mb-lg-5">
+        <div class="card table-nowrap table-card">
+          <div class="table-responsive text-nowrap text-center">
+            <table class="table table-hover" id="customers">
+              <tr>
+
+                <th>S No</th>
+                <th>Setupbox Number</th>
+                <th>Service Provider Name</th>
+                <th>Region</th>
+                <th>Status</th>
+                <th>View</th>
+                <th>Created By</th>
+                <th>Created At</th>
+              </tr>
+              <!-- <span *ngIf="!showData" class="text-center" style="color:red;font-size:12px;">NO DATA FOUND</span> -->
+
+              <tbody>
+                <tr
+                  *ngFor="let row of setupboxview | paginate: { id:'pagination4', itemsPerPage: 3, currentPage: page4 } | search: searchText; let i = index">
+
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ row.stbId?.setupBoxNumber }}</td>
+                  <td>{{ row.stbId?.service?.serviceProviderName }}</td>
+                  <td>{{ row.stbId?.regionEntity?.stateName }}</td>
+                  <td>
+                    <mat-slide-toggle class="example-margin" color="primary" [checked]="row.activeStatus === 1"
+                      (change)="ActiveStatus($event,row.customerStbId)">
+                    </mat-slide-toggle>
+                  </td>
+                  <td style="cursor: pointer;" (click)="view(row.stbId?.stbId)">
+                    <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
+                  </td>
+                  <td>{{ row.stbId?.createdBy }}</td>
+                  <td>{{row.createdAt | date:"dd/MM/yyyy :hh:m:a"}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="text-end mt-3">
+              <pagination-controls id='pagination4' (pageChange)="page4 = $event"></pagination-controls>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- Transaction -->
+
+<div id="Transaction" *ngIf="selectedTab === 'Transaction'" class="mb-4">
+
+  <div>
+    <div class="row mt-5 mx-1">
+      <div class="col-md-3">
+        <div class="search me-4 mb-3">
+          <input style="font-size: 13px;" type="text" id="search" class="form-control" [(ngModel)]="searchText"
+            placeholder="search">
+        </div>
+      </div>
+    </div>
+    <div class="row mt-1 mx-1">
+      <div class="col-12 mb-3 mb-lg-5">
+        <div class="card table-nowrap table-card">
+          <div class="table-responsive text-nowrap text-center">
+            <table class="table table-hover" id="customers">
+              <tr>
+
+                <th>S No</th>
+                <th>Payment ID</th>
+                <th>Paid Amount</th>
+                <th>Plan Start Date</th>
+                <th>Plan End Date</th>
+                <th>Payment Status</th>
+                <th>Paid At</th>
+              </tr>
+              <span *ngIf="!showData" class="text-center" style="color:red;font-size:12px;">NO DATA FOUND</span>
+
+              <tbody *ngIf="showData">
+                <tr
+                  *ngFor="let row of transaction | paginate: { itemsPerPage: 5, currentPage: page } | search: searchText; let i = index">
+
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ row.paymentId }}</td>
+                  <td>{{ row.paidAmount }}</td>
+                  <td>{{row.startDate| date:"dd/MM/yyyy :hh:m:a"}}</td>
+                  <td>{{row.endDate | date:"dd/MM/yyyy :hh:m:a"}}</td>
+
+                  <td>
+                    <span *ngIf=" row.paymentStatus=='Pending'" style="color:orange"> {{ row.paymentStatus}}</span>
+                    <span *ngIf=" row.paymentStatus=='Success'" style="color:green"> {{ row.paymentStatus}}</span>
+                    <span *ngIf=" row.paymentStatus=='Failure'" style="color:red"> {{ row.paymentStatus}}</span>
+                    <span *ngIf=" row.paymentStatus=='Initiated'" style="color:blue"> {{ row.paymentStatus}}</span>
+
+                  </td>
+                  <td>
+                    <span *ngIf=" row.paymentDateTime!= null"> {{ row.paymentDateTime | date:"dd/MM/yyyy
+                      :hh:m:a"}}</span>
+                    <span *ngIf=" row.paymentDateTime==null" style="color:blue"> -</span>
+
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="text-end mt-3">
+            <pagination-controls (pageChange)="page = $event"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

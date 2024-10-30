@@ -1,0 +1,384 @@
+
+<link
+  href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css"
+/>
+
+<div class="container">
+  <div class="form-header d-flex justify-content-between align-items-center">
+    <h5 class="mb-0">Update Beneficiary</h5>
+  </div>
+
+  <div class="well" *ngIf="!upiid" >
+    <form [formGroup]="beneficiaryFormGroup">
+     
+    
+      <div class="row mb-3">
+        <div class="col-sm-4 form-group">
+          <label for="firstName">Type</label>
+          <select
+            (change)="getdropdown($event)"
+             ngModel={{typ}}
+            id="role"
+            class="form-control form-select"
+            formControlName="type"
+          >
+            <option value="" disabled selected>Select Type</option>
+            <option value="Merchant">Merchant</option>
+            <option value="Vendor" #vendor>Vendor</option>
+            <option value="Others" #others >Others</option>
+          </select>
+          <div
+            style="color: red; font-size: 12px"
+            *ngIf="type.invalid && type.touched"
+          >
+            Field is Required
+          </div>
+        </div>
+
+        <div class="col-sm-4 form-group" *ngIf="!vendor.selected && !others.selected">
+          <label for="firstName">Merchant Names</label>
+          <select type="text" class="form-select"  ngModel={{this.entityName}} formControlName="merchantId">
+            <option *ngFor="let val of viewall" [value]="val.merchantId">
+              {{ val.entityName }}
+            </option>
+          </select>
+        </div>
+        <div
+          style="color: red; font-size: 12px"
+          *ngIf="merchantId.invalid && merchantId.touched"
+        >
+          Field is Required
+        </div>
+
+        <br />
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-4 form-group">
+          <label for="lastName">Bank Account Name</label>
+          <input
+          ngModel={{this.bankNames}}
+            type="text"
+            id="lastName"
+            class="form-control"
+            formControlName="bankName"
+          />
+          <div
+            style="color: red; font-size: 12px"
+            *ngIf="bankName.invalid && bankName.touched"
+          >
+            Field is Required
+          </div>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label for="lastName">Branch Name</label>
+          <input
+          ngModel={{this.branchNames}}
+            type="text"
+            id="lastName"
+            class="form-control"
+            formControlName="branchName"
+          />
+          <div
+            style="color: red; font-size: 12px"
+            *ngIf="branchName.invalid && branchName.touched"
+          >
+            Field is Required
+          </div>
+        </div>
+
+        <div class="col-sm-4 form-group">
+          <label for="lastName">Account Holder Name</label>
+          <input
+          ngModel={{this.accountHolderNames}}
+            type="text"
+            id="lastName"
+            class="form-control"
+            formControlName="accountHolderName"
+          />
+          <div
+            style="color: red; font-size: 12px"
+            *ngIf="accountHolderName.invalid && accountHolderName.touched"
+          >
+            Field is Required
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-sm-4 form-group">
+          <label for="lastName">Account Number</label>
+          <input
+          ngModel={{this.accountNumbers}}
+            type="text"
+            id="lastName"
+            class="form-control"
+            formControlName="accountNumber"
+            [(ngModel)]="accnumber"
+            pattern="^[0-9]{9,18}$" minlength="9" maxlength="18"
+          />
+          <div
+            style="color: red; font-size: 12px"
+            *ngIf="accountNumber.invalid && accountNumber.touched"
+          >
+         Enter a Valid Account Number
+          </div>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label for="lastName">Confirm Account Number</label>
+          <input
+            type="text"
+            id="lastName"
+            ngModel={{this.accountNumbers}}
+            pattern="^[0-9]{9,18}$" minlength="9" maxlength="18"
+            class="form-control"
+            formControlName="confirmaccountNumber"
+            (keyup)="checkConform(accnumber, confirmaccnumber)"
+            [(ngModel)]="confirmaccnumber"
+           
+          />
+          <div
+                    style="color: red; font-size: 12px"
+                    *ngIf="confirmaccountNumber.invalid && confirmaccountNumber.touched"
+                  >
+                  Field is Required
+                  </div>
+                  <div
+                    [ngClass]="{ correctpassword: error == 'Going good!!',  wrongpassword: error == 'Miss Match Account Number' }"
+                    class="errormess"> {{ error }} </div>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label for="lastName">Mobile Number</label>
+          <input
+          ngModel={{this.mobileNumbers}}
+            type="text"
+            id="lastName"
+            minlength="10"
+            maxlength="10"
+            class="form-control"
+            formControlName="mobileNumber"
+          />
+          <div
+            style="color: red; font-size: 12px"
+            *ngIf="mobileNumber.invalid && mobileNumber.touched"
+          >
+            Enter a Valid Mobile Number
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-sm-4 form-group">
+          <label for="lastName">Email</label>
+          <input
+          ngModel={{this.emailAddresss}}
+            type="email"
+            id="lastName"
+            class="form-control"
+            formControlName="emailAddress"
+          />
+          <div
+            style="color: red; font-size: 12px"
+            *ngIf="emailAddress.invalid && emailAddress.touched"
+          >
+            Enter a Valid Email Address
+          </div>
+        </div>
+
+        <div class="col-sm-4 form-group">
+          <label for="lastName">Select Account Type:</label>
+          <select class="form-select" ngModel={{this.accountTypes}} formControlName="accountType">
+            <option value="" disabled selected>Select Type</option>
+            <option value="Savings">Savings</option>
+            <option value="Cuurent">Cuurent</option>
+          </select>
+          <div
+            style="color: red; font-size: 12px"
+            *ngIf="accountType.invalid && accountType.touched"
+          >
+            Enter a Valid Email Address
+          </div>
+        </div>
+
+        <div class="col-sm-4 form-group">
+          <label for="lastName">IFSC Code</label>
+          <input
+          ngModel={{this.ifscCodes}}
+            type="email"
+            id="lastName"
+            class="form-control"
+            formControlName="ifscCode"
+           
+          />
+          <div
+            style="color: red; font-size: 12px"
+            *ngIf="ifscCode.invalid && ifscCode.touched"
+          >
+            Enter a Valid IFSC Code
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button
+        (click)="Onsubmit()"
+        [disabled]="this.beneficiaryFormGroup.invalid"
+          type="submit"
+          class="btn mx-1"
+          style="background-color: #7db855be"
+        >
+          Submit
+        </button>
+        <button
+          type="submit"
+          class="btn"
+          style="background-color: #141e46; color: white"
+          (click)="close()"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="well"*ngIf="upiid" >
+    <form [formGroup]="upiFormGroup">
+ 
+        <br>
+      <div class="row mb-3">
+        <div class="col-sm-4 form-group">
+          <label for="firstName">Type</label>
+          <select
+            (change)="getdropdown($event)"
+            id="role"
+            ngModel={{typ}}
+            class="form-control form-select"
+            formControlName="types"
+          >
+            <option value="" disabled selected>Select Type</option>
+            <option value="Merchant" >Merchant</option>
+            <option value="Vendor" #vendor>Vendor</option>
+            <option value="Others" #others>Others</option>
+          </select>
+          <div
+          style="color: red; font-size: 12px"
+          *ngIf="types.invalid && types.touched"
+        >
+          Field is Required
+        </div>
+        </div>
+
+        <div  class="col-sm-4 form-group">
+          <label for="firstName">Merchant Names</label>
+          <select type="text" class="form-select" *ngIf="!vendor.selected && !others.selected" formControlName="merchantIds">
+            <option *ngFor="let val of viewall" [value]="val.merchantId">
+              {{ val.entityName }}
+            </option>
+          </select>
+        </div>
+        <div
+          style="color: red; font-size: 12px"
+          *ngIf="merchantIds.invalid && merchantIds.touched"
+        >
+          Field is Required
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-4 form-group">
+          <label for="lastName">Account Holder Name</label>
+          <input
+          ngModel={{this.accountHolderNames}}
+            type="text"
+            id="lastName"
+            class="form-control"
+            formControlName="accountHolderNameUPI"
+          />
+          <div
+            style="color: red; font-size: 12px"
+            *ngIf="accountHolderNameUPI.invalid && accountHolderNameUPI.touched"
+          >
+            Field is Required
+          </div>
+        </div>
+
+        <div class="col-sm-4 form-group">
+          <label for="lastName">Mobile Number</label>
+          <input
+          ngModel={{this.mobileNumbers}}
+            type="text"
+            id="lastName"
+            minlength="10"
+            maxlength="10"
+            class="form-control"
+            formControlName="mobile"
+          />
+          <div
+            style="color: red; font-size: 12px"
+            *ngIf="mobile.invalid && mobile.touched"
+          >
+            Enter a Valid Mobile Number
+          </div>
+        </div>
+
+        <div class="col-sm-4 form-group">
+          <label for="lastName">Email</label>
+          <input
+          ngModel={{this.emailAddresss}}
+            type="email"
+            id="lastName"
+            class="form-control"
+            formControlName="email"
+          />
+          <div
+            style="color: red; font-size: 12px"
+            *ngIf="email.invalid && email.touched"
+          >
+            Enter a Valid Email Address
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-sm-4 form-group">
+          <label for="lastName">UPI Id</label>
+          <input
+          ngModel={{this.upiIds}}
+            type="text"
+            id="lastName"
+            class="form-control"
+            formControlName="upiName"
+          />
+          <div
+            style="color: red; font-size: 12px"
+            *ngIf="upiName.invalid && upiName.touched"
+          >
+            Enter a Valid Email Address
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button
+          (click)="Onsubmit()"
+          [disabled]="this.upiFormGroup.invalid"
+          type="submit"
+          class="btn mx-1"
+          style="background-color: #7db855be"
+        >
+          Submit
+        </button>
+        <button
+          type="submit"
+          class="btn"
+          style="background-color: #141e46; color: white"
+          (click)="close()"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+

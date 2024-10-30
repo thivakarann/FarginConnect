@@ -1,0 +1,13 @@
+mat-card{
+    width:500px;
+    height: 400px;
+    overflow-x:hidden ;
+}
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    background-color:#bcdf72;
+    color: white;
+    font-family: "Roboto";
+    padding:10px;
+}

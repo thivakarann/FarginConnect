@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="well" style="margin-top: 2%;" >
+        <h4 class="card-header" style="font-weight: 500">SMS Settings</h4>
+        <form [formGroup]="myForm4" style="margin-top: 2%;">
+            <div class="row mb-3">
+                <div class="col-12 form-group ">
+                    <label for="Entity Name">SMS To:</label>
+                    <mat-select #selects style="font-size: 12px;" class="form-select" multiple formControlName="smsFor">
+                        <div class="select-all">
+                            <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
+                                (change)="toggleAllSelection()">Select All</mat-checkbox>
+                        </div>
+                        <mat-option [value]="items.smsTempId" *ngFor="let items of options">
+     
+                            {{items?.smsTitle}}</mat-option>
+                    </mat-select>
+                    <div style="
+            color: red;
+            font-size: 12px;
+            margin-top: 2px;
+            position: relative;
+            ;
+          " *ngIf="smsFor?.invalid && smsFor?.touched && smsFor?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+                </div>
+            <div class="mb-3">
+                <button [disabled]="myForm4.invalid" (click)="smsSubmit()"  type="submit" class="btn mx-1 "
+                    style="background-color:#7db855be">Submit</button>
+                <button type="submit" class="btn" style="background-color:#141E46;color:white"
+                   mat-dialog-close>Cancel</button>
+            </div>
+        </form>
+    </div>
+    </div>

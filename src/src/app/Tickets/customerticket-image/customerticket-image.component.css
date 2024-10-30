@@ -1,0 +1,25 @@
+.card-header {
+ 
+    background-color:#7db855be;
+    color: #141E46;
+    font-family: "Roboto";
+  }
+ 
+  .buttonDownload {
+    width:90px;
+    display: inline-block;
+    position: relative;
+    padding:10px;
+    background-color: #4CC713;
+    color: white;
+    font-family: sans-serif;
+    text-decoration: none;
+    font-size: 1em;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+   }
+   .form__label{
+    font-weight: 500;
+  }
+ 

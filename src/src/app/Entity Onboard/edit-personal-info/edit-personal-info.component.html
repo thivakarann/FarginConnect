@@ -1,0 +1,505 @@
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+ 
+<div class="container">
+    <div class="form-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Update Entity Onboard</h5>
+        <button type="button" class="btn btn-secondary" (click)="close()">Back</button>
+    </div>
+    <div class="well">
+        <h4 class="card-header" style="font-weight: 500">Personal Details </h4>
+        <form [formGroup]="myForm" style="margin-top: 1%;" autocomplete="off">
+            <div class="row mb-3">
+                <div class="col-sm-4 form-group">
+                    <label for="Entity Name">Entity Name*</label>
+                    <input type="text" id="Entity Name" formControlName="entityName" class="form-control"
+                        ngModel="{{detaislone?.entityName}}">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="entityName?.invalid && entityName?.touched && entityName?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="entityName?.errors?.['pattern']">
+                        Invalid format. Only alphanumeric characters are allowed
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="legalname">Merchant Legal Name*</label>
+                    <input type="text" formControlName="merchantLegalName" id="legalname" class="form-control"
+                        ngModel="{{detaislone?.merchantLegalName}}">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="merchantLegalName?.invalid && merchantLegalName?.touched && merchantLegalName?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="merchantLegalName?.errors?.['pattern']">
+                        Invalid format. Only alphanumeric characters are allowed
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="accountdisplayname">Account DisplayName*</label>
+                    <input type="text" formControlName="accountDisplayName" id="accountdisplayname" class="form-control"
+                        ngModel="{{detaislone?.accountDisplayName}}">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="accountDisplayName?.invalid && accountDisplayName?.touched && accountDisplayName?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="accountDisplayName?.errors?.['pattern']">
+                        Invalid format. Only alphanumeric characters are allowed
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-4 form-group">
+                    <label for="Bussiness category">Bussiness category</label>
+                    <select formControlName="businessCategoryIds" (change)="onCategoryChange($event)"
+                        id="Bussiness category" class="form-select"
+                        ngModel="{{detaislone?.businessCategoryModel?.businessCategoryId}}">
+                        <option value="" disabled selected>Select</option>
+                        <option *ngFor="let item of categorydetails" [value]="item.businessCategoryId">
+                            {{item.categoryName}}</option>
+                    </select>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="businessCategoryIds?.invalid && businessCategoryIds?.touched && businessCategoryIds?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="MccCode">Mcc Code</label>
+                    <input formControlName="MccCode"  type="text" id="MccCode" class="form-control"
+[(ngModel)]="mcccode">
+                    <!-- <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="mccCode?.invalid && mccCode?.touched && mccCode?.errors?.['required']">
+                        Field is required
+                    </div> -->
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="EntityPlan">Entity Plan</label>
+                    <select formControlName="merchantPlanId" id="EntityPlan" class="form-select"
+                        ngModel="{{detaislone?.merchantPlanModel?.merchantPlanId}}">
+                        <option value="" disabled selected>Select</option>
+                        <option *ngFor="let item of entittyplanviewall" [value]="item.merchantPlanId">
+                            {{item.planName}}</option>
+ 
+                    </select>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="merchantPlanId?.invalid && merchantPlanId?.touched && merchantPlanId?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-4 form-group">
+                    <label for="gsts">GSTIN(Optional)</label>
+                    <input formControlName="gstIn" type="text" id="gsts" class="form-control"
+                        ngModel="{{detaislone?.gstIn}}">
+                    <!-- <div style="
+                        color: red;
+                        font-size: 12px;
+                        margin-top: 2px;
+                        position: relative;
+                        ;
+                      " *ngIf="gstIn?.errors?.['pattern']">
+                        Enter a Valid GST Number
+                    </div> -->
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="websites">Website (Optional)</label>
+                    <input type="text" formControlName="website" id="websites" class="form-control"
+                        ngModel="{{detaislone?.website}}">
+                    <!-- <div style="
+                        color: red;
+                        font-size: 12px;
+                        margin-top: 2px;
+                        position: relative;
+                        ;
+                      " *ngIf="website?.errors?.['pattern']">
+                        Enter a Valid Website
+                    </div> -->
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="countrys">Country*</label>
+                    <input type="text" formControlName="country" id="countrys" class="form-control"
+                        ngModel="{{detaislone?.country}}">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="country?.invalid && country?.touched && country?.errors?.['required']">
+                        Field is required
+                    </div>
+ 
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="country?.errors?.['pattern']">
+                        Invalid format. Only alphanumeric characters are allowed
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-4 form-group">
+                    <label for="states">State*</label>
+                    <input type="text" formControlName="stateName" id="states" class="form-control"
+                        ngModel="{{detaislone?.stateName}}">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="stateName?.invalid && stateName?.touched && stateName?.errors?.['required']">
+                        Field is required
+                    </div>
+ 
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="stateName?.errors?.['pattern']">
+                        Invalid format. Only alphanumeric characters are allowed
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="citys">City*</label>
+                    <input type="text" formControlName="city" id="citys" class="form-control"
+                        ngModel="{{detaislone?.stateName}}">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="city?.invalid && city?.touched && city?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="city?.errors?.['pattern']">
+                        Invalid format. Only alphanumeric characters are allowed
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="pincode">Pincode*</label>
+                    <input minlength="6" maxlength="6" type="text" formControlName="zipcode" id="pincode"
+                        class="form-control" ngModel="{{detaislone?.zipcode}}">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="zipcode?.invalid && zipcode?.touched && zipcode?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="zipcode?.invalid && zipcode?.touched && zipcode?.errors?.['pattern']">
+                        Enter a valid Pincode
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-4 form-group">
+                    <label for="areas">Area*</label>
+                    <input type="text" formControlName="area" id="areas" class="form-control"
+                        ngModel="{{detaislone?.area}}">
+                    <div style="
+                        color: red;
+                        font-size: 12px;
+                        margin-top: 2px;
+                        position: relative;
+                        ;
+                      " *ngIf="area?.invalid && area?.touched && area?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                        color: red;
+                        font-size: 12px;
+                        margin-top: 2px;
+                        position: relative;
+                        ;
+                      " *ngIf="area?.errors?.['pattern']">
+                        Invalid format. Only alphanumeric characters are allowed
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="billing">Billing Address*</label>
+                    <input type="text" formControlName="billingAddress" id="billing" class="form-control"
+                        ngModel="{{detaislone?.billingAddress}}">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="billingAddress?.invalid && billingAddress?.touched && billingAddress?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="billingAddress?.invalid && billingAddress?.touched && billingAddress?.errors?.['pattern']">
+                        Field is required
+                    </div>
+                </div>
+ 
+                <div class="col-sm-4 form-group">
+                    <label for="contactname">Owner/Contact Name*</label>
+                    <input type="text" formControlName="contactName" id="contactname" class="form-control"
+                        ngModel="{{detaislone?.contactName}}">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="contactName?.invalid && contactName?.touched && contactName?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="contactName?.errors?.['pattern']">
+                        Field is required
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-4 form-group">
+                    <label for="emails">Owner/Contact Email*</label>
+                    <input type="email" formControlName="contactEmail" id="emails" class="form-control"
+                        ngModel="{{detaislone?.contactEmail}}">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="contactEmail?.invalid && contactEmail?.touched && contactEmail?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="contactEmail?.errors?.['pattern']">
+                        please Enter A valid Email
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="mobile">Primary Mobile Number*</label>
+                    <input type="text" maxLength="10" formControlName="contactMobile" id="mobile" class="form-control"
+                        ngModel="{{detaislone?.contactMobile}}">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="contactMobile?.invalid && contactMobile?.touched && contactMobile?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="contactMobile?.errors?.['pattern']">
+                        please Enter A valid Mobile Number
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="secondary">Secondary Mobile Number(Optional)</label>
+                    <input maxLength="10" formControlName="secondaryMobile" type="text" id="secondary"
+                        class="form-control" ngModel="{{detaislone?.secondaryMobile}}">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="secondaryMobile?.errors?.['pattern']">
+                        please Enter A valid Mobile Number
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-4 form-group">
+                    <label for="period">Period Name</label>
+                    <select formControlName="periodName" type="text" class="form-select" id="period"
+                        ngModel="{{detaislone?.periodName}}">
+                        <option value="Prepaid">Prepaid</option>
+                        <option value="PostPaid">PostPaid</option>
+                    </select>
+                    <div style="
+                        color: red;
+                        font-size: 12px;
+                        margin-top: 2px;
+                        position: relative;
+                        ;
+                      " *ngIf="periodName?.invalid && periodName?.touched && periodName?.errors?.['required']">
+                        Field id required*
+                    </div>
+                </div>
+ 
+                <div class="col-sm-4 form-group">
+                    <label for="billing">Billing Mode</label>
+                    <select formControlName="billingMode" type="text" class="form-select" id="billing"
+                        ngModel="{{detaislone?.billingMode}}">
+                        <option value="Prorated">Prorated</option>
+                        <option value="Month">Month</option>
+                        <option value="Full">Full</option>
+                    </select>
+                    <div style="
+                        color: red;
+                        font-size: 12px;
+                        margin-top: 2px;
+                        position: relative;
+                        ;
+                      " *ngIf="billingMode?.invalid && billingMode?.touched && billingMode?.errors?.['required']">
+                        Field id required*
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="billing">Auto Debit</label>
+                    <select ngModel="{{detaislone?.autoDebitStatus}}" formControlName="autoDebitStatus" type="text" class="form-select" id="billing">
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                   
+                    </select>
+                    <div style="
+                        color: red;
+                        font-size: 12px;
+                        margin-top: 2px;
+                        position: relative;
+                        ;
+                      " *ngIf="autoDebitStatus?.invalid && autoDebitStatus?.touched && autoDebitStatus?.errors?.['required']">
+                        Field id required*
+                    </div>
+                </div>
+ 
+ 
+            </div>
+             <div class="row mb-3">
+                <div class="col-sm-4 form-group">
+                    <label for="billing">Due Alert Notification
+                    </label>
+                    <select formControlName="customerDuesEnable"  (change)="typeevent($event)"  ngModel="{{detaislone?.customerDuesEnable}}" type="text" class="form-select" id="billing">
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                   
+                    </select>
+                    <div style="
+                        color: red;
+                        font-size: 12px;
+                        margin-top: 2px;
+                        position: relative;
+                        ;
+                      " *ngIf="customerDuesEnable?.invalid && customerDuesEnable?.touched && customerDuesEnable?.errors?.['required']">
+                        Field id required*
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group" *ngIf="show" >
+                    <label for="billing">Alert Notification frequency
+                    </label>
+                    <select formControlName="customerDuesDate"  ngModel="{{detaislone?.customerDuesDate}}" type="text" class="form-select" id="billing">
+                        <option value="1">Daily</option>
+                        <option value="2">Two Days Once</option>
+                        <option value="3">Three Days Once</option>
+                   
+                    </select>
+             
+                </div>
+
+                <div class="col-sm-4 form-group" *ngIf="show" >
+
+                    <label for="billing">Notiification Start due date</label>
+
+                    <select id="dayPicker" formControlName="dueDate" ngModel="{{detaislone?.dueDate}}" class="form-select">
+                        <option *ngFor="let day of days" [value]="day">{{ day }}</option>
+                    </select>
+
+                </div>
+               
+            </div>
+            <div>
+                <button (click)="submit()" type="submit" class="btn mx-1 " style="background-color:#7db855be"
+                    [disabled]="this.myForm.invalid">Submit</button>
+                <button type="submit" class="btn" style="background-color:#141E46;color:white"
+                    (click)="close()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>

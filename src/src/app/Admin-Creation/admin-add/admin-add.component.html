@@ -1,0 +1,126 @@
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+<div class="container">
+    <div class="form-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">User Creation</h5>
+        <button type="button" class="btn btn-secondary" (click)="close()">Back</button>
+    </div>
+
+    <div class="well">
+        <form [formGroup]="AdminForm">
+            <div class="row mb-3">
+                <div class="col-sm-4 form-group">
+                    <label for="Entity Name"> Name</label>
+                    <input type="text" id="Entity Name" class="form-control"
+                        formControlName="adminName">
+                    <span class="error" *ngIf="adminName?.touched && adminName?.errors?.['required']">Field Is
+                        Required</span>
+                    <span class="error" *ngIf="adminName?.touched && adminName?.errors?.['pattern']">Please Enter
+                        Alphabets Only*</span>
+                </div>
+ 
+                <div class="col-sm-4 form-group">
+                    <label for="state">Role</label>
+                    <select class="form-select" formControlName="roleId">
+                        <option  selected disabled>---Select Role--
+                        </option>
+                        <option *ngFor="let data of activeRole"  [value]="data.roleId"  >{{data.roleName}}</option>
+ 
+                    </select>
+                    <span class="error" *ngIf="roleId?.touched && roleId?.errors?.['required']"> Field is required</span>
+                </div>
+ 
+                <div class="col-sm-4 form-group">
+                    <label for="state">Gender</label>
+                    <select class="form-select" formControlName="gender">
+                        <option  selected disabled>---Select Gender--
+                        </option>
+                        <option value="Male">Male</option>
+                        <option  value="Female">Female</option>
+                        <option  value="Other">Other</option>
+                    </select>
+                    <span class="error" *ngIf="gender?.touched && gender?.errors?.['required']"> Field is required</span>
+                </div>
+             
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-4 form-group">
+                    <label for="zip">EmailAddress</label>
+                    <input type="text" id="zip"  class="form-control"
+                        formControlName="emailAddress" >
+                    <span class="error"
+                        *ngIf=" emailAddress?.invalid && emailAddress?.touched && emailAddress?.errors?.['required']">
+                        Field is Required*</span>
+                    <span class="error"
+                        *ngIf="emailAddress?.invalid && emailAddress?.touched && emailAddress?.errors?.['pattern']">
+                        Enter
+                        The Valid EmailAddress*</span>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="Bussiness category">Mobile Number</label>
+                    <input type="text" id="zip" class="form-control"
+                        formControlName="mobileNumber" minlength="10" maxlength="10">
+                    <span class="error"
+                        *ngIf=" mobileNumber?.invalid && mobileNumber?.touched && mobileNumber?.errors?.['required']">
+                        Field is Required*</span>
+                    <span class="error"
+                        *ngIf="mobileNumber?.invalid && mobileNumber?.touched && mobileNumber?.errors?.['pattern']">Enter
+                        The Valid Mobile Number*</span>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="Mcc Code">Address</label>
+                    <input  type="text" id="Mcc Code"  class="form-control"
+                        formControlName="address">
+                    <span class="error" *ngIf=" address?.invalid && address?.touched && address?.errors?.['required']">
+                        Field is Required*</span>
+                </div>
+            </div>
+            <div class="row mb-3">
+ 
+                
+ 
+                <div class="col-sm-4 form-group">
+                    <label for="Mcc Code">Country</label>
+                    <input type="text" id="Mcc Code"  class="form-control"
+                        formControlName="country">
+                    <span class="error" *ngIf=" country?.invalid && country?.touched && country?.errors?.['required']">
+                        Field is Required*</span>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="Entity Name">State</label>
+                    <input type="text" id="Entity Name" class="form-control"
+                        formControlName="state">
+                    <span class="error" *ngIf=" state?.invalid && state?.touched && state?.errors?.['required']">
+                        Field is Required*</span>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="Entity Name">City</label>
+                    <input type="text" id="Entity Name"  class="form-control"
+                        formControlName="city">
+                    <span class="error" *ngIf=" city?.invalid && city?.touched && city?.errors?.['required']">
+                        Field is Required*</span>
+                </div>
+             
+             
+            </div>
+         
+            <div class="row mb-3">
+              
+                <div class="col-sm-4 form-group">
+                    <label for="Mcc Code">Pincode</label>
+                    <input type="text" id="Mcc Code"  class="form-control"
+                        formControlName="pincode">
+                    <span class="error" *ngIf=" pincode?.invalid && pincode?.touched && pincode?.errors?.['required']">
+                        Field is Required*</span>
+                </div>
+               
+            </div>
+            <div>
+                <button type="submit" class="btn mx-1 " style="background-color:#7db855be"
+                    [disabled]="this.AdminForm.invalid" (click)="submit()">Submit</button>
+                <button  (click)="close()" type="submit" class="btn" style="background-color:#141E46;color:white">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
