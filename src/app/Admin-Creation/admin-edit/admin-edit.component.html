@@ -19,7 +19,7 @@
                 <div class="col-sm-4 form-group">
                     <label for="role">Role</label>
                     <select ngModel="{{this.viewData.roleModel.roleId}}" class="form-select" formControlName="roleId">
-                        <option style="text-align: center;" selected disabled>---Select Role--
+                        <option  selected disabled>---Select Role--
                         </option>
                         <option  *ngFor="let data of activeRole"  [value]="data.roleId"  >{{data.roleName}}</option>
  
@@ -30,11 +30,11 @@
                 <div class="col-sm-4 form-group">
                     <label for="gender">Gender</label>
                     <select class="form-select" formControlName="gender"  ngModel="{{this.viewData.gender}}">
-                        <option style="text-align: center;" selected disabled>---Select Gender--
+                        <option  selected disabled>---Select Gender--
                         </option>
-                        <option style="text-align: center;" value="Male">Male</option>
-                        <option style="text-align: center;" value="Female">Female</option>
-                        <option style="text-align: center;" value="Other">Other</option>
+                        <option  value="Male">Male</option>
+                        <option  value="Female">Female</option>
+                        <option  value="Other">Other</option>
                     </select>
                     <span class="error" *ngIf="gender?.touched && gender?.errors?.['required']">Please Select Flat
                         Number *</span>
