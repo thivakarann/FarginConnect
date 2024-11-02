@@ -4,7 +4,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
-import { BroadcasterBouquetadd } from '../../../fargin-model/fargin-model.module';
+import { BroadcasterBouquetadd, Region } from '../../../fargin-model/fargin-model.module';
 import { MatOption, MatSelect } from '@angular/material/select';
 
 @Component({
@@ -101,22 +101,63 @@ export class BouqutesAddComponent implements OnInit {
       this.Plandetails = res.response;
     })
   }
-  activeregionid(id: any) {
-    console.log('Selected regionId:', id);
-    this.BroadcasterBouquetAdd.AlcotChannelActiveRegion(id).subscribe(
-      (res: any) => {
+  // activeregionid(id: any) {
+  
+  //   this.BroadcasterBouquetAdd.AlcotChannelActiveRegion(id).subscribe((res: any) => {
+  //       if (Array.isArray(res.response)) {
+
+  //         this.channelslist = res.response; // Store channels
+  //         console.log('Channels list:', this.channelslist); // Log channels
+  //       } else {
+  //         console.error('Unexpected response format:', res);
+  //       }
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching channels for regionId:', id, error); // Handle error
+  //     }
+  //   );
+  // }
+
+
+  activeregionids() {
+  let submitModel:Region={
+     regionsId:this.regId?.value
+  }
+     this.BroadcasterBouquetAdd.createAlcotChannelActiveRegion(submitModel).subscribe((res:any)=>{
+      if(res.flag==1)
+      {
         if (Array.isArray(res.response)) {
+
           this.channelslist = res.response; // Store channels
           console.log('Channels list:', this.channelslist); // Log channels
         } else {
           console.error('Unexpected response format:', res);
         }
-      },
-      (error) => {
-        console.error('Error fetching channels for regionId:', id, error); // Handle error
+      
       }
-    );
+     })
   }
+
+  //   this.BroadcasterBouquetAdd.AlcotChannelActiveRegion(id).subscribe((res: any) => {
+  //       if (Array.isArray(res.response)) {
+
+  //         this.channelslist = res.response; // Store channels
+  //         console.log('Channels list:', this.channelslist); // Log channels
+  //       } else {
+  //         console.error('Unexpected response format:', res);
+  //       }
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching channels for regionId:', id, error); // Handle error
+  //     }
+  //   );
+  // }
+
+
+
+
+
+
   getregions(id: any) {
     this.BroadcasterBouquetAdd.ActiveRegionsbyserviceprovider(id).subscribe((res: any) => {
       this.ActiveRegions = res.response;

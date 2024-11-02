@@ -1013,7 +1013,8 @@
                             <th>S No </th>
                             <th>Payment ID</th>
                             <th>Due Amount</th>
-                            <th [hidden]="valuemanualedit!=='One Time Setup Payment-Edit'">Edit</th>
+                            <th [hidden]="valuemanualedit!=='One Time Setup Payment-Edit'" >
+                                <span style="background-color: #bcdf72;" *ngIf="paymentMethod=='Cash' || paymentMethod=='UPI' || paymentMethod=='NEFT' || paymentMethod=='RTGS' || paymentMethod=='IMPS' || paymentMethod=='Cheque'" >Edit </span></th>
                             <th [hidden]="valuemanualview!=='One Time Setup Payment-View'">View</th>
                             <th>Payment Status</th>
                             <th>Payment Method</th>
@@ -1026,7 +1027,7 @@
                             <td>{{item.totalPayableAmount}}</td>
                             <td [hidden]="valuemanualedit!=='One Time Setup Payment-Edit'">
                                 <button style="border:none"
-                                    [disabled]="paymentMethod!=='Cash' || paymentMethod!=='UPI' || paymentMethod!=='NEFT' || paymentMethod!=='RTGS' || paymentMethod!=='IMPS' || paymentMethod!=='Cheque' "
+                                    *ngIf="paymentMethod=='Cash' || paymentMethod=='UPI' || paymentMethod=='NEFT' || paymentMethod=='RTGS' || paymentMethod=='IMPS' || paymentMethod=='Cheque'"
                                     (click)="manualPayement(item)">
                                     <span>
                                         <i class="fas fa-edit" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
@@ -1197,7 +1198,7 @@
                             <th>Modified At</th>
                         </tr>
                         <tbody
-                            *ngFor="let item of smsDetails| paginate: { itemsPerPage: 3, currentPage: currentPage } | search: searchText;let i=index">
+                            *ngFor="let item of smsDetails| paginate: { itemsPerPage: 5, currentPage: currentPage } | search: searchText;let i=index">
                             <td>{{i+1}}</td>
                             <td>{{item.type.smsTitle}}</td>
                             <td>{{item.type.smsTempDescription}}</td>

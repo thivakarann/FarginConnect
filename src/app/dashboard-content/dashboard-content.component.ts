@@ -701,7 +701,7 @@ export class DashboardContentComponent {
             beginAtZero: true,
             title: {
               display: true,
-              text: 'Amount',
+              text: 'Count',
             },
           },
           x: {

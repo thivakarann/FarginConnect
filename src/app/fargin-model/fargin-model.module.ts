@@ -1007,5 +1007,7 @@ export interface manualpay{
 }
 
 
-
+export interface Region{
+  readonly regionsId:any
+}
 

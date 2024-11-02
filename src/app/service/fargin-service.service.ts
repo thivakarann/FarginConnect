@@ -223,6 +223,7 @@ export class FarginServiceService {
   private readonly Alcartupdate = 'alcotchannel/update';
   private readonly Alcartchannellogo = 'alcotchannel/viewLogo/';
   private readonly AlcartChannellogoUpdate = 'alcotchannel/updateLogo'
+    private readonly AlcartChannelregion = 'alcotchannel/viewregionactive/'
 
   // Broadcaster Name Creation
 
@@ -523,7 +524,7 @@ export class FarginServiceService {
 
     //alcot-history
     private readonly alcothistory='alcotchannel/viewAllHistory';
-    private readonly alcotchannelactiveregion='alcotchannel/viewregionactive/';
+    private readonly alcotchannelactiveregion='alcotchannel/viewregionactive';
 
 
 
@@ -1962,6 +1963,14 @@ AlcotChannelActiveRegion(id: any) {
 }
  
 
+createAlcotChannelActiveRegion(model:any) {
+  return this.http.post(`${this.basePath}${this.alcotchannelactiveregion}`,model, this.options)
+}
+ 
 
+AlcartChannelregions(id: any) {
+  return this.http.get(`${this.basePath}${this.AlcartChannelregion}${id}`, this.options)
+}
+ 
 
 }

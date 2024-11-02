@@ -69,7 +69,7 @@
                 </div>
                 <div class="col-6 form-group ">
                     <label for="Entity Name">Regions</label>
-                    <mat-select #selects style="font-size: 12px;" [ngModel]="getvalues11" class="form-select" multiple formControlName="regId">
+                    <mat-select #selects style="font-size: 12px;" [ngModel]="getvalues11" class="form-select" multiple formControlName="regId" (change)="activeregionids()">
                         <div class="select-all">
                             <mat-checkbox [(ngModel)]="allselected"  [ngModelOptions]="{standalone: true}"
                                 (change)="toggleAllSelections()">Select All</mat-checkbox>
@@ -102,7 +102,7 @@
                             <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
                                 (change)="toggleAllSelection()">Select All</mat-checkbox>
                         </div>
-                        <mat-option [value]="items.alcotId" *ngFor="let items of channelslist">{{items?.channelslist}}
+                        <mat-option [value]="items.alcotId" *ngFor="let items of channelslist">
 
                             {{items?.channelName}}</mat-option>
                     </mat-select>

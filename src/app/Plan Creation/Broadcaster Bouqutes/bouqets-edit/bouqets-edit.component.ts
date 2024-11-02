@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
-import { BroadcasterBouquetadd, BroadcasterBouquetupdate } from '../../../fargin-model/fargin-model.module';
+import { BroadcasterBouquetadd, BroadcasterBouquetupdate, Region } from '../../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-bouqets-edit',
@@ -36,6 +36,7 @@ export class BouqetsEditComponent implements OnInit {
   getalcot: any;
   getamount: any;
   getId: any;
+ActiveregionID: any;
 
   constructor(
     public BroadcasterBouquetAdd: FarginServiceService,
@@ -126,6 +127,7 @@ export class BouqetsEditComponent implements OnInit {
     this.BroadcasterBouquetAdd.ActiveRegionsbyserviceprovider(this.getservices).subscribe((res: any) => {
       this.ActiveRegions = res.response;
     })
+    
   }
 
 
@@ -172,7 +174,24 @@ export class BouqetsEditComponent implements OnInit {
       this.ActiveRegions = res.response;
     })
   }
-
+  activeregionids() {
+    let submitModel:Region={
+       regionsId:this.regId?.value
+    }
+       this.BroadcasterBouquetAdd.createAlcotChannelActiveRegion(submitModel).subscribe((res:any)=>{
+        if(res.flag==1)
+        {
+          if (Array.isArray(res.response)) {
+  
+            this.channelslist = res.response; // Store channels
+            console.log('Channels list:', this.channelslist); // Log channels
+          } else {
+            console.error('Unexpected response format:', res);
+          }
+        
+        }
+       })
+    }
 
   toggleAllSelection() {
     if (this.allSelected) {

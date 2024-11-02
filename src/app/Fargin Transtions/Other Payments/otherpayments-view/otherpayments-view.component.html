@@ -51,10 +51,15 @@
                     <span *ngIf="transaction?.paymentStatus == 'Success'" class="text-success">
                         {{ transaction?.paymentStatus}}</span>
 
-                    <span *ngIf="transaction?.paymentStatus   == 'Pending'" class="text-warning">
+                    <span *ngIf="transaction?.paymentStatus == 'Pending'" class="text-warning">
                         {{ transaction?.paymentStatus || '--'}}</span>
 
-                    <span *ngIf="transaction?.paymentStatus  == 'Failure'" class="text-danger">
+                        
+                    <span *ngIf="transaction?.paymentStatus== 'Initiated'" class="text-warning">
+                        {{ transaction?.paymentStatus || '--'}}</span>
+
+
+                    <span *ngIf="transaction?.paymentStatus== 'Failure'" class="text-danger">
                         {{ transaction?.paymentStatus||'--'}}</span>
 
                 </td>

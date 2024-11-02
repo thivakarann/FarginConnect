@@ -162,21 +162,21 @@ export class EntityViewallComponent {
   }
 
   exportexcel() {
-    
+   
     let sno = 1;
     this.responseDataListnew = [];
     this.viewall.forEach((element: any) => {
       let createdate = element.createdDatetime;
-      this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
+      this.date1 = moment(createdate).format('DD/MM/yyyy').toString();
  
       this.response = [];
       this.response.push(sno);
-      this.response.push(element?.entityName);
       this.response.push(element?.accountId);
-      this.response.push(element?.referenceNo);
+        this.response.push(element?.referenceNo);
       this.response.push(element?.merchantLegalName);
-      this.response.push(element?.contactEmail);
       this.response.push(element?.businessCategoryModel?.categoryName);
+ 
+      this.response.push(element?.contactEmail);
  
       if (element?.approvalStatusL2 == 'approved') {
         this.response.push('Approved');
@@ -218,12 +218,11 @@ export class EntityViewallComponent {
     // const title='Entity Details';
     const header = [
       "S.No",
-      'Entity Name',
       'Account Id',
       'Reference No',
-      'Merchant Legal Name',
-      'Entity Email',
+      'Entity Legal Name',
       'Business Category Model',
+      'Entity Email',
       'Final approval',
       'PG Onboard',
       'Status',
@@ -256,7 +255,7 @@ export class EntityViewallComponent {
     });
  
     data.forEach((d: any) => {
-      // 
+      //
  
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
@@ -269,7 +268,7 @@ export class EntityViewallComponent {
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
-      let qty10 = row.getCell(11);
+ 
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -280,7 +279,6 @@ export class EntityViewallComponent {
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
  
     }
     );

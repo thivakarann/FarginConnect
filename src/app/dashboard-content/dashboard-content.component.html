@@ -60,20 +60,20 @@
     <h5>Today's Transaction Overview</h5>
     <div class="transaction-details">
       <div class="transaction-item">
-        <span class="amount">{{todayamount?.totalAmount || 0}}</span>
+        <span class="amount">₹ {{todayamount?.totalAmount || 0}}</span>
         <p class="label total">Total Amount</p>
       </div>
       <div class="transaction-item">
-        <span class="amount">{{todayamount?.successAmount || 0}}</span>
-        <p class="label success">Successful Transactions</p>
+        <span class="amount"> ₹ {{todayamount?.successAmount || 0}}</span>
+        <p class="label success">Successful Amount</p>
       </div>
       <div class="transaction-item">
-        <span class="amount">{{todayamount?.failedAmount || 0}}</span>
-        <p class="label failed">Failed Transactions</p>
+        <span class="amount">₹ {{todayamount?.failedAmount || 0}}</span>
+        <p class="label failed">Failed Amount</p>
       </div>
       <div class="transaction-item">
-        <span class="amount">{{todayamount?.pendingAmount || 0}}</span>
-        <p class="label pending">Pending Transactions</p>
+        <span class="amount">₹ {{todayamount?.pendingAmount || 0}}</span>
+        <p class="label pending">Pending Amount</p>
       </div>
     </div>
   </div>

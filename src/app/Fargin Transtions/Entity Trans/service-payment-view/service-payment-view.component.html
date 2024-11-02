@@ -50,8 +50,12 @@
                         <span *ngIf="view?.paymentStatus   == 'Pending'" class="text-warning">
                             {{ view?.paymentStatus || '--'}}</span>
  
-                        <span *ngIf="view?.paymentStatus  == 'Initiated'" class="text-danger">
+                        <span *ngIf="view?.paymentStatus  == 'Initiated'" class="text-warning">
                             {{ view?.paymentStatus||'--'}}</span>
+
+                            <span *ngIf="view?.paymentStatus  == 'Failure'" class="text-danger">
+                                {{ view?.paymentStatus||'--'}}</span>
+     
  
                     </td>
                 </tr>

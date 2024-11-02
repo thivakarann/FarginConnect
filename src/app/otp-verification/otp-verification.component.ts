@@ -89,7 +89,7 @@ export class OtpVerificationComponent implements OnInit {
 
     this.service.VerifyOtp(submitmodel).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.email = res.response.emailAddress;
+        this.email = res.response;
         
 
         this.toaster.success(res.responseMessage);

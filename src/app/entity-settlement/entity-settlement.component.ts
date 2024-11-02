@@ -119,22 +119,16 @@ export class EntitySettlementComponent {
       dateRange: "",
       status: "",
     }
-    
-
     this.MerchantView.Entitysettlement(submitModel).subscribe((res: any) => {
-      
       this.Viewall = JSON.parse(res?.response);
       this.viewdata = this.Viewall?.data?.content;
       this.dataSource = new MatTableDataSource(this.viewdata?.reverse())
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-
-      
     })
   }
 
   viewpayout(id: any) {
-    
     this.router.navigate([`/dashboard/settlement-view/${id}`], {
       queryParams: { value: id },
     });

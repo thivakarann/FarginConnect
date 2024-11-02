@@ -29,7 +29,7 @@ export class ForgotPasswordComponent implements OnInit {
   getForgotPassword() {
     this.service.getForgotPassword(this.forgotForm.value).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.email = res.response.emailAddress;
+        this.email = res.response;
         
         this.toaster.success(res.responseMessage);
         this.router.navigate([`/otp`], {
