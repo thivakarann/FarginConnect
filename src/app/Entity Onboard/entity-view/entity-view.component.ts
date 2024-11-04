@@ -178,6 +178,7 @@ export class EntityViewComponent implements OnInit {
   roles: any;
   paymentStatus: any;
   paymentMethod: any;
+  chargepersms: any;
   selectTab(tab: string): void {
     this.activeTab = tab;
   }
@@ -458,6 +459,10 @@ export class EntityViewComponent implements OnInit {
 
       }
     })
+    this.MerchantView.smscostViewall().subscribe((res: any) => {
+      this.chargepersms = res.response[0]?.amount;
+     
+    });
   }
   getpermissionValue() {
 

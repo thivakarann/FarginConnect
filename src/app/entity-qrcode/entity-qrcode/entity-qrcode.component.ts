@@ -26,6 +26,7 @@ export class EntityQrcodeComponent implements OnInit {
   roleId: any = localStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
+valueqredit: any;
   constructor(
     public MerchantView: FarginServiceService,
     private router: Router,
@@ -53,7 +54,8 @@ export class EntityQrcodeComponent implements OnInit {
           this.getdashboard = res.response?.subPermission;
           if (this.roleId == 1) {
             this.valueqrgenerator = 'Entity View QR-Generate';
-            this.valueqrview = 'Entity View QR-View'
+            this.valueqrview = 'Entity View QR-View';
+            this.valueqredit='Entity View QR-Edit'
           }
           else {
             for (let datas of this.getdashboard) {
@@ -65,6 +67,9 @@ export class EntityQrcodeComponent implements OnInit {
               }
               if (this.actions == 'Entity View QR-View') {
                 this.valueqrview = 'Entity View QR-View'
+              }
+              if(this.actions=='Entity View QR-Edit'){
+                this.valueqredit='Entity View QR-Edit'
               }
             }
           }

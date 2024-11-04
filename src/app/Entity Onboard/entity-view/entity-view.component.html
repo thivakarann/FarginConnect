@@ -1102,7 +1102,11 @@
                             <th>S No </th>
                             <th>Payment ID</th>
                             <th>Service Name</th>
-                            <th>Paid Amount</th>
+                            <th>Service Amount</th>
+                            <th>Cgst</th>
+                            <th>Sgst</th>
+                            <th>Igst</th>
+                            <th>Total Amount</th>
                             <th [hidden]="valueCustomizededit!=='Entity View Customized Payment-Edit'">Action</th>
                             <th [hidden]="valueCustomizedview!=='Entity View Customized Payment-View'">View</th>
                             <th>Payment Status</th>
@@ -1114,6 +1118,10 @@
                             <td>{{item.pgPaymentId}}</td>
                             <td>{{item.serviceName}}</td>
                             <td>{{item.paidAmount}}</td>
+                            <td>{{item.cgstPercentage}}</td>
+                            <td>{{item.sgstPercentage}}</td>
+                            <td>{{item.igstPercentage}}</td>
+                            <td>{{item.totalPayableAmount}}</td>
                             <td [hidden]="valueCustomizededit!=='Entity View Customized Payment-Edit'"> <span
                                     (click)="editotherPayment(item)">
                                     <i class="fas fa-edit" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
@@ -1174,6 +1182,20 @@
                     mat-raised-button [hidden]="valuesmsadd!=='Sms Setting-Add'">Create
                 </button>
             </div>
+            <div class="col-md-3"></div>
+            <div class="col-md-4 mt-1">
+                <div>
+                    <article class="card car-details label-info" style="padding:1%;padding-left: 25px;">
+                        <div class="w-100">
+                            <div class="d-flex flex-md-row flex-column">
+                                <h5 class="mr-3"> Charge Per Sms  ₹{{chargepersms}}</h5>
+                            </div>
+                 
+                        </div>
+                    </article>
+                </div>
+       
+            </div>
         </div>
     </mat-card-header>
     <div class="row mt-4">
@@ -1186,7 +1208,7 @@
                             <th>SMS Type</th>
                             <th>SMS Description</th>
                             <th>SMS Count</th>
-                            <th>Charge Per SMS</th>
+                            <!-- <th>Charge Per SMS</th> -->
                             <th [hidden]="valuesmsapproval!=='Sms Setting-Approval'">Approval</th>
                             <th>Approval Status</th>
                             <th [hidden]="valuesmsstatus!=='Sms Setting-Status'">Status</th>
@@ -1203,7 +1225,7 @@
                             <td>{{item.type.smsTitle}}</td>
                             <td>{{item.type.smsTempDescription}}</td>
                             <td>{{item.smsCount}}</td>
-                            <td>{{item.type?.smsCharge}}</td>
+                            <!-- <td>{{item.type?.smsCharge}}</td> -->
                             <td class="text-center" [hidden]="valuesmsapproval!=='Sms Setting-Approval'">
                                 <span><button class="buttonDownload" [disabled]="item.smsApprovalStatus!=='Rejected'"
                                         (click)="SmsApproval(item.merchantSmsId)">Approval</button></span>
