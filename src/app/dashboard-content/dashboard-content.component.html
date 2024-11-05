@@ -64,7 +64,7 @@
         <p class="label total">Total Amount</p>
       </div>
       <div class="transaction-item">
-        <span class="amount"> ₹ {{todayamount?.successAmount || 0}}</span>
+        <span class="amount">₹ {{todayamount?.successAmount || 0}}</span>
         <p class="label success">Successful Amount</p>
       </div>
       <div class="transaction-item">
@@ -236,6 +236,8 @@
         </div>
       </div>
     </div>
+
+
     <div class="col-6" [hidden]="valuetoppay!=='Dashboard-Top Payment Methods'">
       <div class="card border-success">
         <h5>Top Payment Methods (For Past 7 Days)</h5>
@@ -249,7 +251,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let method of sevenday">
+              <tr *ngFor="let method of topseven">
                 <td>{{ method.paymentMethod ? method.paymentMethod : 'Not Specified' }}</td>
                 <td>{{ method.count }}</td>
                 <td>₹{{ method.amount }}</td>

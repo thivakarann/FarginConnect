@@ -65,6 +65,7 @@ export class DashboardContentComponent {
   valuetoppay: any;
   valueTotalcount: any;
   sevenper: any;
+  topseven: any;
 
   constructor(private service: FarginServiceService) { }
 
@@ -148,7 +149,9 @@ export class DashboardContentComponent {
 
 
     });
-
+    this.service.dashboardcustomersevenday().subscribe((res: any) => {
+      this.topseven = res.response.method;
+    });
 
     this.service.dashboardcustomersevenday().subscribe((res: any) => {
       this.sevenper = res.response;
