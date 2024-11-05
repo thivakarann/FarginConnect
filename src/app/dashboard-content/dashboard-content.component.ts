@@ -138,6 +138,10 @@ export class DashboardContentComponent {
     });
     this.service.dashbaordcustomerdayTransaction().subscribe((res: any) => {
       this.todayamount = res.response;
+      // this.todayamount.totalAmount = Math.round(this.todayamount.totalAmount);
+      // this.todayamount.successAmount = Math.round(this.todayamount.successAmount);  
+      // this.todayamount.failedAmount = Math.round(this.todayamount.failedAmount);
+      // this.todayamount.pendingAmount = Math.round(this.todayamount.pendingAmount); 
 
     });
     this.service.dashboardoverallonetimes().subscribe((res: any) => {
@@ -151,10 +155,17 @@ export class DashboardContentComponent {
     });
     this.service.dashboardcustomersevenday().subscribe((res: any) => {
       this.topseven = res.response.method;
+      // this.topseven.forEach((method: { amount: number; }) => {
+      //   method.amount = Math.round(method.amount); 
+      // });
+      
     });
 
     this.service.dashboardcustomersevenday().subscribe((res: any) => {
       this.sevenper = res.response;
+      // this.sevenper.successAmount = Math.round(this.sevenper.successAmount); 
+      // this.sevenper.failedAmount = Math.round(this.sevenper.failedAmount); 
+
       
     });
     this.service.EntityViewall().subscribe((res: any) => {

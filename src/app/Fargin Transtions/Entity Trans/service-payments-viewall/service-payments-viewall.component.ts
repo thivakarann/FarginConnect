@@ -23,6 +23,8 @@ export class ServicePaymentsViewallComponent {
     'paymentId',
     'entityname',
     'paymentmethod',
+    'paidamount',
+    'gst',
     'amount',
     'paidAt',
     'receipt',

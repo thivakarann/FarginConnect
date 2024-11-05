@@ -52,9 +52,12 @@ export class EntityAutoDebitGetallComponent {
       this.dataSource = new MatTableDataSource(this.viewall);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-      
+     
     });
   }
+
+   
+  
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
