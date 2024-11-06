@@ -469,7 +469,7 @@
                                         </mat-slide-toggle>
                                     </span>
                                 </td>
-                                <td [hidden]="valuebankapproval!=='Bank-Approval'"><button class="buttonDownload"
+                                <td [hidden]="valuebankapproval!=='Bank-Approval'"><button [disabled]="item?.approvalStatus === 'approved'" class="buttonDownload"
                                         (click)="BankApproval(item.merchantBankId)">Approval</button>
                                 </td>
 
@@ -946,7 +946,7 @@
                                 <td class="text-center">{{this.detaislone?.approvedDateTimeL2}}</td>
                                 <td class="text-center" [hidden]="valuefinalapprovals!=='Final-Approval'">
                                     <span><button class="buttonDownload" (click)="levelTwoApproval(this.id)"
-                                            [disabled]="this.detaislone?.approvalStatusL1 == 'Pending' || this.detaislone?.approvalStatusL1 == 'Rejected' ">Approval</button></span>
+                                            [hidden]="this.detaislone?.approvalStatusL1 == 'Pending' || this.detaislone?.approvalStatusL1 == 'Rejected' ">Approval</button></span>
 
 
                                 <td [hidden]="valuefinalcomment!=='Final-Comment'"
