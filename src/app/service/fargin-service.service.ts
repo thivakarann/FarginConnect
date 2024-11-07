@@ -102,7 +102,7 @@ export class FarginServiceService {
 
 
   //Overall customer
-  private readonly Overallcustomer = 'customer/viewByAll';
+  private readonly Overallcustomer = 'customer/viewByAll/';
   private readonly Entityindividualcustomerview = 'customer/viewById/';
   private readonly viewcustomerbasicdetails = 'customer/viewcustomer/';
   private readonly viewSetupboxDetails = 'customer/viewcustomerstb/';
@@ -360,19 +360,21 @@ export class FarginServiceService {
 
 
   //transactions
-  private readonly customeralltransactions = 'customerpay/viewAllPayments';
+  private readonly customeralltransactions = 'customerpay/viewAllPayments/';
   private readonly customerdatefilter = 'paymentHistory/getDateFilter/';
   private readonly customertransactionview = 'customerpay/viewbyid/'
 
   //merchant
-  private readonly maintenancetransaction = 'maintanancePay/viewAll';
-  private readonly maintenancetransactionview = 'maintanancePay/viewById/';
+  private readonly maintenancetransaction = 'maintanancePay/viewAll/';
   private readonly maintenancedatefilter = 'maintanancePay/dateFilter/';
+  private readonly maintenancetransactionview = 'maintanancePay/viewById/';
+
 
   //onetime
-  private readonly onetimtransaction = 'merchantpay/viewAll';
-  private readonly onetimtransactionview = 'merchantpay/viewpayment/';
+  private readonly onetimtransaction = 'merchantpay/viewAll/';
   private readonly onetimdatefilter = 'transhistory/getDateWise/';
+  private readonly onetimtransactionview = 'merchantpay/viewpayment/';
+
 
   // QR Creation API,S
 
@@ -382,7 +384,7 @@ export class FarginServiceService {
   //other payment
   private readonly otherpaymentmerchantid = 'otherpayment/viewByMerchant/';
   private readonly otherpaymentcreate = 'otherpayment/create';
-  private readonly otherpayment = 'otherpayment/viewall';
+  private readonly otherpayment = 'otherpayment/viewall/';
   private readonly otherpaymentupdate = 'otherpayment/update/';
   private readonly otherpaytrans = 'otherpayment/viewByPayId/';
   private readonly otherpaymentdate = 'otherpayment/dateFilter/';
@@ -455,13 +457,13 @@ export class FarginServiceService {
   private readonly smsviewbyId = 'merchantSms/getMerchantSms/';
   private readonly smsstatus = 'merchantSms/updateStatus/';
   private readonly editsms = 'merchantSms/updateMerchantSms/';
-  private readonly smsgetAll = 'merchantSms/getAllMerchantSms';
+  private readonly smsgetAll = 'merchantSms/getAllMerchantSms/';
   private readonly smsdropdown = 'merchantSms/viewsms';
   private readonly smscount = 'smshistory/viewbymerchantandtype/';
   private readonly smsapproval = 'merchantSms/updateApproval/';
 
   //sms history
-  private readonly smshistory = 'smshistory/viewall';
+  private readonly smshistory = 'smshistory/viewall/';
   private readonly smshistoryview = 'smshistory/viewbymerchant/';
   private readonly smshistoryfilter = 'smshistory/viewallfilter/';
   private readonly smshistorymerchantfilter = 'smshistory/viewmerchantfilter/';
@@ -489,7 +491,7 @@ export class FarginServiceService {
 
   // Auto Debit
 
-  private readonly Autodebitgetall = 'merchantdue/getall';
+  private readonly Autodebitgetall = 'merchantdue/getall/';
   private readonly Autodebitbymerchat = 'merchantdue/viewbymerchant/';
 
 
@@ -1058,8 +1060,8 @@ export class FarginServiceService {
   }
   //customer
 
-  EntityCustomerview(id: any) {
-    return this.http.get(`${this.basePath}${this.Entitycustomerview}${id}`, this.options)
+  EntityCustomerview(id: any,id1:any,id2:any) {
+    return this.http.get(`${this.basePath}${this.Entitycustomerview}${id}/${id1}/${id2}`, this.options)
   }
 
   ViewCustomerDetails(id: any) {
@@ -1341,8 +1343,8 @@ export class FarginServiceService {
 
 
   //overall customer
-  OverallCustomer() {
-    return this.http.get(`${this.basePath}${this.Overallcustomer}`, this.options)
+  OverallCustomer(id:any,id1:any) {
+    return this.http.get(`${this.basePath}${this.Overallcustomer}${id}/${id1}`, this.options)
   }
 
   EntityIndividualCustomerview(id: any) {
@@ -1505,12 +1507,12 @@ export class FarginServiceService {
     return this.http.put(`${this.basePath}${this.Bankdetailsstatus}`, model, this.options)
   }
 
-  CustomerAllTransactions() {
-    return this.http.get(`${this.basePath}${this.customeralltransactions}`, this.options)
+  CustomerAllTransactions(id:any,id1:any) {
+    return this.http.get(`${this.basePath}${this.customeralltransactions}${id}/${id1}`, this.options)
   }
-
-  CustomerTransactionsFilter(id1: any, id2: any) {
-    return this.http.get(`${this.basePath}${this.customerdatefilter}${id1}/${id2}`, this.options)
+ 
+  CustomerTransactionsFilter(id1: any, id2: any,id3:any,id4:any) {
+    return this.http.get(`${this.basePath}${this.customerdatefilter}${id1}/${id2}/${id3}/${id4}`, this.options)
   }
 
   CustomerTransactionsView(id1: any) {
@@ -1519,27 +1521,33 @@ export class FarginServiceService {
 
 
 
-  MaintenanceAllTransactions() {
-    return this.http.get(`${this.basePath}${this.maintenancetransaction}`, this.options)
+  MaintenanceAllTransactions(id:any,id1:any) {
+    return this.http.get(`${this.basePath}${this.maintenancetransaction}${id}/${id1}`, this.options)
+  }
+
+  MaintenanceTransactionFilter(id1: any, id2: any,id3:any,id4:any) {
+    return this.http.get(`${this.basePath}${this.maintenancedatefilter}${id1}/${id2}/${id3}/${id4}`, this.options)
   }
 
 
   MaintenanceTransactionsView(id1: any) {
     return this.http.get(`${this.basePath}${this.maintenancetransactionview}${id1}`, this.options)
   }
-  MaintenanceTransactionFilter(id1: any, id2: any) {
-    return this.http.get(`${this.basePath}${this.maintenancedatefilter}${id1}/${id2}`, this.options)
+ 
+
+  OneTimeAllTransactions(id:any,id1:any) {
+    return this.http.get(`${this.basePath}${this.onetimtransaction}${id}/${id1}`, this.options)
   }
 
-  OneTimeAllTransactions() {
-    return this.http.get(`${this.basePath}${this.onetimtransaction}`, this.options)
+  OneTimeTransactionFilter(id1: any, id2: any,id3:any,id4:any) {
+    return this.http.get(`${this.basePath}${this.onetimdatefilter}${id1}/${id2}/${id3}/${id4}`, this.options)
   }
+ 
+
   OneTimeTransactionsView(id1: any) {
     return this.http.get(`${this.basePath}${this.onetimtransactionview}${id1}`, this.options)
   }
-  OneTimeTransactionFilter(id1: any, id2: any) {
-    return this.http.get(`${this.basePath}${this.onetimdatefilter}${id1}/${id2}`, this.options)
-  }
+
 
 
   QRCreateurl(id: any) {
@@ -1558,8 +1566,8 @@ export class FarginServiceService {
     return this.http.post(`${this.basePath}${this.otherpaymentcreate}`, data, this.options);
   }
 
-  OtherPay() {
-    return this.http.get(`${this.basePath}${this.otherpayment}`, this.options)
+  OtherPay(id:any,id1:any) {
+    return this.http.get(`${this.basePath}${this.otherpayment}${id}/${id1}`, this.options)
   }
 
   OtherPaymentUpdate(id: any, model: any) {
@@ -1572,8 +1580,8 @@ export class FarginServiceService {
   OtherPayTransaction(id1: any) {
     return this.http.get(`${this.basePath}${this.otherpaytrans}${id1}`, this.options)
   }
-  OtherPayFilter(id1: any, id2: any) {
-    return this.http.get(`${this.basePath}${this.otherpaymentdate}${id1}/${id2}`, this.options)
+  OtherPayFilter(id1: any, id2: any,id3:any,id4:any) {
+    return this.http.get(`${this.basePath}${this.otherpaymentdate}${id1}/${id2}/${id3}/${id4}`, this.options)
   }
 
   OtherPayViewAll() {
@@ -1777,18 +1785,18 @@ export class FarginServiceService {
   smsUpdate(id: any, data: any) {
     return this.http.put(`${this.basePath}${this.editsms}${id}`, data, this.options)
   }
-  SmsGetAll() {
-    return this.http.get(`${this.basePath}${this.smsgetAll}`, this.options)
+  SmsGetAll(id:any,id1:any) {
+    return this.http.get(`${this.basePath}${this.smsgetAll}${id}/${id1}`, this.options)
   }
-  SmsHistoryGetAll() {
-    return this.http.get(`${this.basePath}${this.smshistory}`, this.options)
+  SmsHistoryGetAll(id:any,id1:any) {
+    return this.http.get(`${this.basePath}${this.smshistory}${id}/${id1}`, this.options)
   }
   SMSHistoryViewById(id1: any) {
     return this.http.get(`${this.basePath}${this.smshistoryview}${id1}`, this.options)
   }
 
-  SMSHistoryFilter(id: any, id1: any) {
-    return this.http.get(`${this.basePath}${this.smshistoryfilter}${id}/${id1}`, this.options)
+  SMSHistoryFilter(id: any, id1: any,id2:any,id3:any) {
+    return this.http.get(`${this.basePath}${this.smshistoryfilter}${id}/${id1}/${id2}/${id3}`, this.options)
   }
   SmsHistoryMerchantFilter(id: any, id1: any, id2: any) {
     return this.http.get(`${this.basePath}${this.smshistorymerchantfilter}${id}/${id1}/${id1}`, this.options)
@@ -1859,11 +1867,11 @@ export class FarginServiceService {
 
   // AUTO Debit
 
-  autodebitgetall() {
-    return this.http.get(`${this.basePath}${this.Autodebitgetall}`, this.options)
+  autodebitgetall(id:any,id1:any) {
+    return this.http.get(`${this.basePath}${this.Autodebitgetall}${id}/${id1}`, this.options)
   }
-  autodebitbymerchat(id: any) {
-    return this.http.get(`${this.basePath}${this.Autodebitbymerchat}${id}`, this.options)
+  autodebitbymerchat(id: any,id1:any,id2:any) {
+    return this.http.get(`${this.basePath}${this.Autodebitbymerchat}${id}/${id1}/${id2}`, this.options)
   }
 
   //announcement

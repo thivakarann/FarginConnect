@@ -10,6 +10,7 @@ import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { manualpay } from '../../../fargin-model/fargin-model.module';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-service-payments-viewall',
@@ -23,15 +24,13 @@ export class ServicePaymentsViewallComponent {
     'paymentId',
     'entityname',
     'paymentmethod',
-    'paidamount',
-    'gst',
     'amount',
     'paidAt',
     'receipt',
     'CheckStatus',
     'status',
     'view',
-
+ 
   ];
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
@@ -59,22 +58,26 @@ export class ServicePaymentsViewallComponent {
   actions: any;
   errorMessage: any;
   valueserviceReceipt: any;
-
+ 
   valueservicecheck: any;
-
+  pageIndex: number = 0;
+  pageSize=5;
+  totalPages: any;
+  totalpage: any;
+  currentpage: any;
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
-
-
-
+ 
+ 
+ 
   ngOnInit(): void {
-
+ 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        
-
+       
+ 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
-
+ 
           if (this.roleId == 1) {
             this.valueserviceView = 'one Time Payments-View'
             this.valueserviceexport = 'one Time Payments-Export'
@@ -96,7 +99,7 @@ export class ServicePaymentsViewallComponent {
               if (this.actions == 'one Time Payments-Check Status') {
                 this.valueservicecheck = 'one Time Payments-Check Status'
               }
-
+ 
             }
           }
         }
@@ -105,49 +108,41 @@ export class ServicePaymentsViewallComponent {
         }
       }
     });
-
-    this.service.OneTimeAllTransactions().subscribe((res: any) => {
+ 
+    this.service.OneTimeAllTransactions(this.pageSize,this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.transaction = res.response;
+        this.totalPages=res.pagination.totalElements;
+        this.totalpage=res.pagination.totalPages;
+       this.currentpage=res.pagination.currentPage;
         this.transaction.reverse();
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
-
+ 
     });
-
+ 
  
   }
-
-
+ 
+ 
   reload() {
     window.location.reload()
   }
-
-
-
+ 
+ 
+ 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
+ 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
-
-  renderPage(event: any) {
-    this.currentPage = event;
-    this.ngOnInit();
-  }
-  reloaddata() {
-    this.FromDateRange = "";
-    this.ToDateRange = "";
-    this.Daterange = "";
-    this.currentPage = 1;
-    this.ngOnInit();
-  }
-
+ 
+ 
   track(id: any) {
     let submitModel: manualpay = {
       payId: id?.merchantPayId,
@@ -164,18 +159,21 @@ export class ServicePaymentsViewallComponent {
       }
     })
   }
-
+ 
   filterdate() {
     // const datepipe: DatePipe = new DatePipe("en-US");
     // let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY HH:mm");
     // let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/YYYY HH:mm");
     // this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
     // this.currentPage = 1;
-
-    this.service.OneTimeTransactionFilter(this.FromDateRange, this.ToDateRange).subscribe((res: any) => {
+ 
+    this.service.OneTimeTransactionFilter(this.FromDateRange, this.ToDateRange,this.pageSize,this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
-
+ 
         this.transaction = res.response;
+        this.totalPages=res.pagination.totalElements;
+        this.totalpage=res.pagination.totalPages;
+       this.currentpage=res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -189,10 +187,10 @@ export class ServicePaymentsViewallComponent {
   reset() {
     window.location.reload();
   }
-
+ 
   viewreciept(id: any) {
-    
-
+   
+ 
     this.service.ManualRecieptView(id).subscribe((res: any) => {
       const reader = new FileReader();
       reader.readAsDataURL(res);
@@ -202,10 +200,10 @@ export class ServicePaymentsViewallComponent {
       }
     })
   }
-
-
+ 
+ 
   exportexcel() {
-    
+   
     let sno = 1;
     this.responseDataListnew = [];
     this.transaction.forEach((element: any) => {
@@ -241,7 +239,7 @@ export class ServicePaymentsViewallComponent {
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
-
+ 
       'SNo',
       'PaymentId',
       'Entity Name',
@@ -255,7 +253,7 @@ export class ServicePaymentsViewallComponent {
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('OneTime  Transactions');
-
+ 
  
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
@@ -274,7 +272,7 @@ export class ServicePaymentsViewallComponent {
     });
  
     data.forEach((d: any) => {
-      // 
+      //
  
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
@@ -308,11 +306,11 @@ export class ServicePaymentsViewallComponent {
       FileSaver.saveAs(blob, 'OneTime Transaction.xlsx');
     });
   }
-
-
-
+ 
+ 
+ 
   transactionview(id: any) {
-
+ 
     this.dialog.open(ServicePaymentViewComponent, {
       enterAnimationDuration: "1000ms",
       exitAnimationDuration: "1000ms",
@@ -321,5 +319,26 @@ export class ServicePaymentsViewallComponent {
         value: id,
       }
     })
+  }
+  renderPage(event: PageEvent) {
+    // Capture the new page index and page size from the event
+    this.pageIndex = event.pageIndex;  // Update current page index
+    this.pageSize = event.pageSize;           // Update page size (if changed)
+ 
+    // Log the new page index and page size to the console (for debugging)
+    console.log('New Page Index:', this.pageIndex);
+    console.log('New Page Size:', this.pageSize);
+ 
+    // You can now fetch or display the data for the new page index
+    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
+    this.ngOnInit()
+  }
+  changePageIndex(newPageIndex: number) {
+    this.pageIndex = newPageIndex;
+    this.renderPage({
+      pageIndex: newPageIndex,
+      pageSize: this.pageSize,
+      // length: this.totalItems
+    } as PageEvent);
   }
 }

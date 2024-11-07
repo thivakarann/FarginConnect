@@ -9,6 +9,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
 import { ChannelViewComponent } from '../channel-view/channel-view.component';
+import { PageEvent } from '@angular/material/paginator';
+
 
 @Component({
   selector: 'app-overall-customer-view',
@@ -33,7 +35,7 @@ date2: any;
     'Viewcustomer',
     // 'flatNumber',
     // 'blockNumber',
-    
+   
   ];
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
@@ -49,23 +51,27 @@ date2: any;
   getdashboard: any[] = [];
   roleId: any = localStorage.getItem('roleId')
   actions: any;
-
+  pageIndex: number = 0;
+  pageSize=5;
+  totalPages: any;
+  totalpage: any;
+  currentpage: any;
   constructor(
     public EntityViewall: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
     private ActivateRoute: ActivatedRoute
   ) { }
-  
+ 
   ngOnInit(): void {
-
-
+ 
+ 
     this.EntityViewall.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        
+       
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
-
+ 
           if (this.roleId == 1) {
             this.valueCustomerView = 'Customers-View';
             this.valueCustomerExport = 'Customers-Export'
@@ -88,56 +94,59 @@ date2: any;
         }
       }
     });
-
-
-
-    this.EntityViewall.OverallCustomer().subscribe((res: any) => {
+ 
+ 
+ 
+    this.EntityViewall.OverallCustomer(this.pageSize,this.pageIndex).subscribe((res: any) => {
       if(res.flag==1){
         this.overallcustomer = res.response;
+        this.totalPages=res.pagination.totalElements;
+        this.totalpage=res.pagination.totalPages;
+       this.currentpage=res.pagination.currentPage+1;
         this.overallcustomer.reverse();
         this.dataSource = new MatTableDataSource(this.overallcustomer);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        
+       
          this.showcategoryData = false;
       }
       else{
         this.showcategoryData = true;
       }
-    
+   
     });
-
-
-
+ 
+ 
+ 
   }
-
-
-  
+ 
+ 
+ 
 reload(){
   window.location.reload()
 }
-
+ 
   Viewparticularcustomer(id:any){
     this.router.navigate([`dashboard/Overall-IndividualCustomer-view/${id}`], {
       queryParams: { Alldata: id },
     });
-    
+   
   }
-  
-  
+ 
+ 
 applyFilter(event: Event) {
   const filterValue = (event.target as HTMLInputElement).value;
   this.dataSource.filter = filterValue.trim().toLowerCase();
-
+ 
   if (this.dataSource.paginator) {
     this.dataSource.paginator.firstPage();
   }
 }
-
-
-
+ 
+ 
+ 
 exportexcel() {
-  
+ 
   let sno = 1;
   this.responseDataListnew = [];
   this.overallcustomer.forEach((element: any) => {
@@ -191,7 +200,7 @@ excelexportCustomer() {
   });
  
   data.forEach((d: any) => {
-    // 
+    //
  
     let row = worksheet.addRow(d);
     let qty = row.getCell(1);
@@ -212,7 +221,7 @@ excelexportCustomer() {
     qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
+ 
  
  
   }
@@ -233,7 +242,28 @@ excelexportCustomer() {
   });
 }
  
-
+ 
+renderPage(event: PageEvent) {
+  // Capture the new page index and page size from the event
+  this.pageIndex = event.pageIndex;  // Update current page index
+  this.pageSize = event.pageSize;           // Update page size (if changed)
+ 
+  // Log the new page index and page size to the console (for debugging)
+  console.log('New Page Index:', this.pageIndex);
+  console.log('New Page Size:', this.pageSize);
+ 
+  // You can now fetch or display the data for the new page index
+  // Example: this.fetchData(this.currentPageIndex, this.pageSize);
+  this.ngOnInit()
+}
+changePageIndex(newPageIndex: number) {
+  this.pageIndex = newPageIndex;
+  this.renderPage({
+    pageIndex: newPageIndex,
+    pageSize: this.pageSize,
+    // length: this.totalItems
+  } as PageEvent);
+}
 
 
 }

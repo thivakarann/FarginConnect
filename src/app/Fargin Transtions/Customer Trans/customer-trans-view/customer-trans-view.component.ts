@@ -17,14 +17,14 @@ export class CustomerTransViewComponent {
   }
   ngOnInit(): void {
     this.id = this.data.value
-    
+
     this.service.CustomerTransactionsView(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
         this.view = res.response;
       }
     })
   }
-  
+
   Receipt(id: any) {
     this.service.CustomerReceipt(id).subscribe({
       next: (res: any) => {

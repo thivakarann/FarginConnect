@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
 import moment from 'moment';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-entity-auto-debit-getall',
@@ -37,17 +38,24 @@ export class EntityAutoDebitGetallComponent {
   date2: any;
   responseDataListnew: any = [];
   response: any = [];
-
+  pageIndex: number = 0;
+  pageSize=5;
+  totalPages: any;
+  totalpage: any;
+  currentpage: any;
   constructor(
     public autodebitdetails: FarginServiceService,
     private router: Router,
     private dialog: MatDialog,
     private toastr: ToastrService
   ) { }
-
+ 
   ngOnInit(): void {
-    this.autodebitdetails.autodebitgetall().subscribe((res: any) => {
+    this.autodebitdetails.autodebitgetall(this.pageSize,this.pageIndex).subscribe((res: any) => {
       this.viewall = res.response;
+      this.totalPages=res.pagination.totalElements;
+      this.totalpage=res.pagination.totalPages;
+     this.currentpage=res.pagination.currentPage+1;
       this.viewall.reverse();
       this.dataSource = new MatTableDataSource(this.viewall);
       this.dataSource.sort = this.sort;
@@ -55,24 +63,21 @@ export class EntityAutoDebitGetallComponent {
      
     });
   }
-
-   
-  
-
+ 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
+ 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
-
+ 
   reload(){
     window.location.reload()
   }
   exportexcel() {
-    
+   
     let sno = 1;
     this.responseDataListnew = [];
     this.viewall.forEach((element: any) => {
@@ -137,7 +142,7 @@ export class EntityAutoDebitGetallComponent {
     });
  
     data.forEach((d: any) => {
-      // 
+      //
  
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
@@ -177,5 +182,25 @@ export class EntityAutoDebitGetallComponent {
  
     });
   }
-
+  renderPage(event: PageEvent) {
+    // Capture the new page index and page size from the event
+    this.pageIndex = event.pageIndex;  // Update current page index
+    this.pageSize = event.pageSize;           // Update page size (if changed)
+ 
+    // Log the new page index and page size to the console (for debugging)
+    console.log('New Page Index:', this.pageIndex);
+    console.log('New Page Size:', this.pageSize);
+ 
+    // You can now fetch or display the data for the new page index
+    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
+    this.ngOnInit()
+  }
+  changePageIndex(newPageIndex: number) {
+    this.pageIndex = newPageIndex;
+    this.renderPage({
+      pageIndex: newPageIndex,
+      pageSize: this.pageSize,
+      // length: this.totalItems
+    } as PageEvent);
+  }
 }

@@ -162,8 +162,7 @@
                     <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
                   </td>
                   <td>{{ row.stbId?.createdBy }}</td>
-                  <td>{{row.createdAt | date:"dd/MM/yyyy :hh:m:a"}}
-                  </td>
+                  <td>{{row.stbId?.createdAt | date:"dd/MM/yyyy :hh:m:a"}}                  </td>
                 </tr>
               </tbody>
             </table>
@@ -219,7 +218,7 @@
                   <td>{{row.endDate | date:"dd/MM/yyyy :hh:m:a"}}</td>
 
                   <td>
-                    <span *ngIf=" row.paymentStatus=='Pending'" style="color:orange"> {{ row.paymentStatus}}</span>
+                    <span *ngIf=" row.paymentStatus=='Due Pending'" style="color:orange"> {{ row.paymentStatus}}</span>
                     <span *ngIf=" row.paymentStatus=='Success'" style="color:green"> {{ row.paymentStatus}}</span>
                     <span *ngIf=" row.paymentStatus=='Failure'" style="color:red"> {{ row.paymentStatus}}</span>
                     <span *ngIf=" row.paymentStatus=='Initiated'" style="color:blue"> {{ row.paymentStatus}}</span>

@@ -9,6 +9,7 @@ import FileSaver from 'file-saver';
 import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-smshistory',
@@ -55,29 +56,33 @@ export class SMSHistoryComponent {
   actions: any;
   errorMessage: any;
 valuesmshistoryexport: any;
-  
+  totalPages: any;
+  totalpage: any;
+  currentpage: any;
  
+  pageIndex: number = 0;
+  pageSize=5;
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog,private router:Router) { }
  
  
  
   ngOnInit(): void {
-
+ 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        
-
+       
+ 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
-
+ 
           if (this.roleId == 1) {
             this.valuesmshistoryexport = 'SMS History-Export';
            }
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
-
-
+ 
+ 
               if (this.actions == 'SMS History-Export') {
                 this.valuesmshistoryexport = 'SMS History-Export';
               }
@@ -91,9 +96,12 @@ valuesmshistoryexport: any;
       }
     })
    
-    this.service.SmsHistoryGetAll().subscribe((res: any) => {
+    this.service.SmsHistoryGetAll(this.pageSize,this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.smsResponse=res.response;
+        this.totalPages=res.pagination.totalElements;
+        this.totalpage=res.pagination.totalPages;
+       this.currentpage=res.pagination.currentPage+1;
         this.dataSource = new MatTableDataSource(this.smsResponse);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -103,8 +111,6 @@ valuesmshistoryexport: any;
       }
  
     })
-
-
   }
  
  
@@ -118,9 +124,9 @@ valuesmshistoryexport: any;
     }
   }
  
-  
+ 
   exportexcel() {
-    
+   
     let sno = 1;
     this.responseDataListnew = [];
     this.smsResponse.forEach((element: any) => {
@@ -183,7 +189,7 @@ valuesmshistoryexport: any;
     });
  
     data.forEach((d: any) => {
-      // 
+      //
  
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
@@ -219,12 +225,12 @@ valuesmshistoryexport: any;
       FileSaver.saveAs(blob, 'Sms-History.xlsx');
     });
   }
-
+ 
   View(id: any) {
     this.router.navigate([`dashboard/smshistory-view/${id}`], {
       queryParams: { Alldata: id },
     });
-    
+   
   }
   filterdate() {
     // const datepipe: DatePipe = new DatePipe("en-US");
@@ -233,10 +239,16 @@ valuesmshistoryexport: any;
     // this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
     // this.currentPage = 1;
  
-    this.service.SMSHistoryFilter(this.FromDateRange,this.ToDateRange).subscribe((res: any) => {
+    this.service.SMSHistoryFilter(this.FromDateRange,this.ToDateRange,this.pageSize,this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
    
         this.transaction=res.response;
+        this.totalPages=res.pagination.totalElements;
+        this.totalpage=res.pagination.totalPages;
+       this.currentpage=res.pagination.currentPage+1;
+        this.totalPages=res.pagination.totalElements;
+        this.totalpage=res.pagination.totalPages;
+       this.currentpage=res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -251,5 +263,27 @@ this.showcategoryData= true;
   reset() {
     window.location.reload();
   }
+  renderPage(event: PageEvent) {
+    // Capture the new page index and page size from the event
+    this.pageIndex = event.pageIndex;  // Update current page index
+    this.pageSize = event.pageSize;           // Update page size (if changed)
+ 
+    // Log the new page index and page size to the console (for debugging)
+    console.log('New Page Index:', this.pageIndex);
+    console.log('New Page Size:', this.pageSize);
+ 
+    // You can now fetch or display the data for the new page index
+    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
+    this.ngOnInit()
+  }
+  changePageIndex(newPageIndex: number) {
+    this.pageIndex = newPageIndex;
+    this.renderPage({
+      pageIndex: newPageIndex,
+      pageSize: this.pageSize,
+      // length: this.totalItems
+    } as PageEvent);
+  }
+ 
 
 }

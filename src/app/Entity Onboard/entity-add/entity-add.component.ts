@@ -83,36 +83,36 @@ export class EntityAddComponent implements OnInit {
   uploaddocfront: any;
   uploaddocback: any;
   today: string;
-
+ 
   constructor(
     public AddEntity: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
     private _formBuilder: FormBuilder) {
-    const todayDate = new Date();
-    this.today = todayDate.toISOString().split('T')[0];
-  }
+      const todayDate = new Date();
+      this.today = todayDate.toISOString().split('T')[0];
+    }
   ngOnInit(): void {
-
+ 
     this.AddEntity.Bussinesscategoryactivelist().subscribe((res: any) => {
       this.categorydetails = res.response;
     });
-
+ 
     this.AddEntity.merchantplanactive().subscribe((res: any) => {
       this.entittyplanviewall = res.response;
     });
-
+ 
     this.AddEntity.activebankdetails().subscribe((res: any) => {
       this.BankNames = res.response;
     });
-
+ 
     this.AddEntity.activeViewall().subscribe((res: any) => {
       this.kycValue = res.response;
-
+     
     })
-
+ 
     this.myForm = new FormGroup({
-
+ 
       entityName: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9 ]*$')
@@ -146,7 +146,7 @@ export class EntityAddComponent implements OnInit {
         Validators.required,
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$')
       ]),
-      website: new FormControl('', [Validators.pattern("^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[^\s]*)?(\?[a-zA-Z0-9&=]*)?$")]),
+      website: new FormControl('', [Validators.pattern(/^(https ?: \/\/)?(www\.)?[ a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+$/)]),
       gstIn: new FormControl("", [Validators.pattern("^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[A-Z]{1}[0-9A-Z]{1}$")]),
       billingAddress: new FormControl("", [
         Validators.required,
@@ -159,7 +159,7 @@ export class EntityAddComponent implements OnInit {
       zipcode: new FormControl('', [
         Validators.required,
         Validators.pattern("^[1-9]{1}[0-9]{2}\\s{0,1}[0-9]{3}$")
-
+ 
       ]),
       stateName: new FormControl('', [
         Validators.required,
@@ -181,17 +181,17 @@ export class EntityAddComponent implements OnInit {
         Validators.required
       ]),
       customerDuesEnable: new FormControl('', [Validators.required]),
-
+ 
       customerDuesDate: new FormControl('',),
-
+ 
       dueDate: new FormControl('',),
-
-
+ 
+ 
     });
-
-
-
-
+   
+   
+   
+   
     this.myForm2 = new FormGroup({
       accountHolderName: new FormControl(null, [
         Validators.required,
@@ -217,10 +217,10 @@ export class EntityAddComponent implements OnInit {
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9 ]*$')
       ]),
-
-      ledgerId: new FormControl('', [Validators.required,]),
+ 
+      ledgerId: new FormControl('',),
     })
-
+ 
     this.firstFormGroup = this._formBuilder.group({
       identityProof: ['', Validators.required],
       identityProofNo: ['', Validators.required],
@@ -228,7 +228,7 @@ export class EntityAddComponent implements OnInit {
       identityBackPath: [null, Validators.required],
       drivingLicenceDob: [''],
       passportDob: [''],
-
+ 
     });
     this.secondFormGroup = this._formBuilder.group({
       addressProof: ['', Validators.required],
@@ -238,7 +238,7 @@ export class EntityAddComponent implements OnInit {
       drivingLicenceDobs: [''],
       passportDobs: [''],
     });
-
+ 
     this.thirdFormGroup = this._formBuilder.group({
       signatureProof: ['', Validators.required],
       signatureProofNo: ['', Validators.required],
@@ -247,117 +247,117 @@ export class EntityAddComponent implements OnInit {
       drivingLicenceDobss: [''],
       passportDobss: [''],
     });
-
-
+ 
+ 
     this.fourthFormGroup = this._formBuilder.group({
       kycCategoryId: ['', Validators.required],
       docNumber: [''],
       docFrontPath: ['', Validators.required],
       docBackPath: ['']
     })
-
-
-
-
+ 
+ 
+ 
+ 
   }
-
-
+ 
+ 
   get(event: any) {
     this.selectperiod = event.target.value;
   }
-
+ 
   // First Form
-
+ 
   get entityName() {
     return this.myForm.get('entityName')
-
+ 
   }
   get autoDebitStatus() {
     return this.myForm.get('autoDebitStatus')
-
+ 
   }
-
+ 
   get merchantLegalName() {
     return this.myForm.get('merchantLegalName')
-
+ 
   }
-
+ 
   get accountDisplayName() {
     return this.myForm.get('accountDisplayName')
-
+ 
   }
-
+ 
   get billingMode() {
     return this.myForm.get('billingMode')
   }
-
-
+ 
+ 
   get contactName() {
     return this.myForm.get('contactName')
-
+ 
   }
   get dueDate() {
     return this.myForm.get('dueDate')
-
+ 
   }
   get secondaryMobile() {
     return this.myForm.get('secondaryMobile')
-
+ 
   }
   get contactEmail() {
     return this.myForm.get('contactEmail')
-
+ 
   }
   get website() {
     return this.myForm.get('website')
-
+ 
   }
   get gstIn() {
     return this.myForm.get('gstIn')
-
+ 
   }
   get billingAddress() {
     return this.myForm.get('billingAddress')
-
+ 
   }
   get area() {
     return this.myForm.get('area')
-
+ 
   }
   get zipcode() {
     return this.myForm.get('zipcode')
-
+ 
   } get stateName() {
     return this.myForm.get('stateName')
-
+ 
   }
   get city() {
     return this.myForm.get('city')
-
+ 
   }
   get contactPerson() {
     return this.myForm.get('contactPerson')
-
+ 
   }
   get country() {
     return this.myForm.get('country')
-
+ 
   }
-
+ 
   get businessCategoryIds() {
     return this.myForm.get('businessCategoryIds')
-
+ 
   }
   get mccCode() {
     return this.myForm.get('mccCode')
-
+ 
   }
-
+ 
   get contactMobile() {
     return this.myForm.get('contactMobile')
-
+ 
   }
-
+ 
   get merchantPlanId() {
     return this.myForm.get('merchantPlanId')
   }
@@ -367,31 +367,31 @@ export class EntityAddComponent implements OnInit {
   get logo() {
     return this.myForm.get('logo')
   }
-
+ 
   get customerDuesEnable() {
     return this.myForm.get('customerDuesEnable')
   }
-
+ 
   get customerDuesDate() {
     return this.myForm.get('customerDuesDate')
   }
-
+ 
   // onCategoryChange(event: any): void {
-  //   
+  //  
   //   this.selectedCategoryId = event.target.value;
-  //   
+  //  
   //   const selectedCategory = this.categorydetails.find((category: { businessCategoryId: any; }) => category.businessCategoryId === +this.selectedCategoryId);
-
+ 
   //   if (selectedCategory) {
   //     this.myForm.patchValue({
   //       mccCode: selectedCategory.mccCode
-
-
+ 
+ 
   //     });
-  //     
+  //    
   //   }
   // }
-
+ 
   onCategoryChange(event: any) {
     this.businessId = event.target.value;
     this.AddEntity.EntityBusinessCategoryId(this.businessId).subscribe((res: any) => {
@@ -400,39 +400,39 @@ export class EntityAddComponent implements OnInit {
       }
     })
   }
-
-
+ 
+ 
   // second Form
-
+ 
   get accountHolderName() {
     return this.myForm2.get('accountHolderName')
   }
-
+ 
   get accountNumber() {
     return this.myForm2.get('accountNumber')
   }
   get bankName() {
     return this.myForm2.get('bankName')
   }
-
+ 
   get ifscCode() {
     return this.myForm2.get('ifscCode')
   }
-
+ 
   get branchName() {
     return this.myForm2.get('branchName')
   }
-
+ 
   get accountType() {
     return this.myForm2.get('accountType')
   }
-
+ 
   get ledgerId() {
     return this.myForm2.get('ledgerId')
   }
-
+ 
   // third Form
-
+ 
   get identityProof() {
     return this.firstFormGroup.get('identityProof')
   }
@@ -442,30 +442,30 @@ export class EntityAddComponent implements OnInit {
   get identityFrontPath() {
     return this.firstFormGroup.get('identityFrontPath')
   }
-
+ 
   get identityBackPath() {
     return this.firstFormGroup.get('identityBackPath')
   }
-
+ 
   get drivingLicenceDob() {
     return this.firstFormGroup.get('drivingLicenceDob')
   }
   get passportDob() {
     return this.firstFormGroup.get('passportDob')
   }
-
+ 
   get addressProof() {
     return this.secondFormGroup.get('addressProof')
   }
-
+ 
   get addressProofNo() {
     return this.secondFormGroup.get('addressProofNo')
   }
-
+ 
   get addressFrontPath() {
     return this.secondFormGroup.get('addressFrontPath')
   }
-
+ 
   get addressBackPath() {
     return this.secondFormGroup.get('addressBackPath')
   }
@@ -475,7 +475,7 @@ export class EntityAddComponent implements OnInit {
   get passportDobs() {
     return this.secondFormGroup.get('passportDobs')
   }
-
+ 
   get signatureProof() {
     return this.thirdFormGroup.get('signatureProof')
   }
@@ -494,31 +494,31 @@ export class EntityAddComponent implements OnInit {
   get passportDobss() {
     return this.thirdFormGroup.get('passportDobss')
   }
-
-  // Bussiness form 
-
+ 
+  // Bussiness form
+ 
   get kycCategoryId() {
     return this.fourthFormGroup.get('kycCategoryId')
   }
-
+ 
   get docNumber() {
     return this.fourthFormGroup.get('docNumber')
   }
-
+ 
   get docFrontPath() {
     return this.fourthFormGroup.get('docFrontPath')
   }
-
+ 
   get docBackPath() {
     return this.fourthFormGroup.get('docBackPath')
   }
   onFileSelected(event: any) {
     this.uploadidentityfront = event.target.files[0];
-
+ 
     // Ensure this.uploadImage is not null
     if (this.uploadidentityfront) {
       const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
-
+ 
       if (acceptableTypes.includes(this.uploadidentityfront.type)) {
         if (this.uploadidentityfront.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
@@ -527,24 +527,24 @@ export class EntityAddComponent implements OnInit {
           this.identityFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-
+       
         this.toastr.error("File type not acceptable");
         this.identityFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
       this.toastr.error("No file selected");
     }
-
-
+ 
+ 
   }
-
+ 
   onFileSelected2(event: any) {
     this.uploadidentityback = event.target.files[0];
-
+ 
     // Ensure this.uploadImage is not null
     if (this.uploadidentityback) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
-
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
+ 
       if (acceptableTypes.includes(this.uploadidentityback.type)) {
         if (this.uploadidentityback.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
@@ -553,24 +553,24 @@ export class EntityAddComponent implements OnInit {
           this.identityBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-
+       
         this.toastr.error("File type not acceptable");
         this.identityBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
       this.toastr.error("No file selected");
     }
-
-
+ 
+ 
   }
   onaddressfront(event: any) {
-
+   
     this.uploadaddressfront = event.target.files[0];
-
+ 
     // Ensure this.uploadImage is not null
     if (this.uploadaddressfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
-
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
+ 
       if (acceptableTypes.includes(this.uploadaddressfront.type)) {
         if (this.uploadaddressfront.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
@@ -579,22 +579,22 @@ export class EntityAddComponent implements OnInit {
           this.addressFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-
+       
         this.toastr.error("File type not acceptable");
         this.addressFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
       this.toastr.error("No file selected");
     }
-
+ 
   }
   onaddressback(event: any) {
     this.uploadaddressback = event.target.files[0];
-
+ 
     // Ensure this.uploadImage is not null
     if (this.uploadaddressback) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
-
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
+ 
       if (acceptableTypes.includes(this.uploadaddressback.type)) {
         if (this.uploadaddressback.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
@@ -603,7 +603,7 @@ export class EntityAddComponent implements OnInit {
           this.addressBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-
+       
         this.toastr.error("File type not acceptable");
         this.addressBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
@@ -613,11 +613,11 @@ export class EntityAddComponent implements OnInit {
   }
   onasignfront(event: any) {
     this.uploadsignfront = event.target.files[0];
-
+ 
     // Ensure this.uploadImage is not null
     if (this.uploadsignfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
-
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
+ 
       if (acceptableTypes.includes(this.uploadsignfront.type)) {
         if (this.uploadsignfront.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
@@ -626,22 +626,22 @@ export class EntityAddComponent implements OnInit {
           this.signatureFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-
+       
         this.toastr.error("File type not acceptable");
         this.signatureFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
       this.toastr.error("No file selected");
     }
-
+ 
   }
   onasignback(event: any) {
     this.uploadsignback = event.target.files[0];
-
+ 
     // Ensure this.uploadImage is not null
     if (this.uploadsignback) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
-
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
+ 
       if (acceptableTypes.includes(this.uploadsignback.type)) {
         if (this.uploadsignback.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
@@ -650,30 +650,30 @@ export class EntityAddComponent implements OnInit {
           this.signatureBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-
+       
         this.toastr.error("File type not acceptable");
         this.signatureBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
       this.toastr.error("No file selected");
     }
-
-
+ 
+ 
   }
-
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
+ 
   onIdentityProofChange(event: any) {
     this.selectElement = event.target.value;
     const identityProofNoControl = this.firstFormGroup.get('identityProofNo');
-
-
+ 
+ 
     identityProofNoControl?.clearValidators();
-
-
+ 
+ 
     if (this.selectElement === 'Aadhar Card') {
       identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[0-9]{12}$")]); // 12 digits for Aadhar
     } else if (this.selectElement === 'Pancard') {
@@ -685,19 +685,19 @@ export class EntityAddComponent implements OnInit {
     } else if (this.selectElement === 'Driving License') {
       identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Driving license format
     }
-
-
+ 
+ 
     identityProofNoControl?.updateValueAndValidity();
   }
-
-
+ 
+ 
   onAddressProofChange(event: any) {
     this.selectElements = event.target.value;
     const addressProofNoControl = this.secondFormGroup.get('addressProofNo');
-
+ 
     addressProofNoControl?.clearValidators();
-
-
+ 
+ 
     if (this.selectElements === 'Aadhar Card') {
       addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[0-9]{12}$")]); // 12 digits for Aadhar
     } else if (this.selectElements === 'Voter Id Proof') {
@@ -707,19 +707,19 @@ export class EntityAddComponent implements OnInit {
     } else if (this.selectElements === 'Driving License') {
       addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Driving license format
     }
-
-
+ 
+ 
     addressProofNoControl?.updateValueAndValidity();
   }
-
+ 
   onasignproof(event: any) {
     this.select = event.target.value;
     const signatureProofNoControl = this.thirdFormGroup.get('signatureProofNo');
-
-
+ 
+ 
     signatureProofNoControl?.clearValidators();
-
-
+ 
+ 
     if (this.select === 'Pancard') {
       signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z]{5}[0-9]{4}[A-Za-z]$")]);
     } else if (this.select === 'Passport') {
@@ -727,16 +727,16 @@ export class EntityAddComponent implements OnInit {
     } else if (this.select === 'Driving License') {
       signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Driving license format
     }
-
+ 
     signatureProofNoControl?.updateValueAndValidity();
   }
   getlogo(event: any) {
     this.uploadImage = event.target.files[0];
-
+ 
     // Ensure this.uploadImage is not null
     if (this.uploadImage) {
       const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
-
+ 
       if (acceptableTypes.includes(this.uploadImage.type)) {
         if (this.uploadImage.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
@@ -745,7 +745,7 @@ export class EntityAddComponent implements OnInit {
           this.logo?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-
+       
         this.toastr.error("File type not acceptable");
         this.logo?.reset(); // Optional chaining to prevent error if this.logo is null
       }
@@ -753,17 +753,17 @@ export class EntityAddComponent implements OnInit {
       this.toastr.error("No file selected");
     }
   }
-
-
-
-
+ 
+ 
+ 
+ 
   docfront(event: any) {
     this.uploaddocfront = event.target.files[0];
-
+ 
     // Ensure this.uploadImage is not null
     if (this.uploaddocfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
-
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
+ 
       if (acceptableTypes.includes(this.uploaddocfront.type)) {
         if (this.uploaddocfront.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
@@ -772,25 +772,25 @@ export class EntityAddComponent implements OnInit {
           this.docFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-
+       
         this.toastr.error("File type not acceptable");
         this.docFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
       this.toastr.error("No file selected");
     }
-
-
+ 
+ 
   }
-
-
+ 
+ 
   docback(event: any) {
     this.uploaddocback = event.target.files[0];
-
+ 
     // Ensure this.uploadImage is not null
     if (this.uploaddocback) {
       const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
-
+ 
       if (acceptableTypes.includes(this.uploaddocback.type)) {
         if (this.uploaddocback.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
@@ -799,18 +799,18 @@ export class EntityAddComponent implements OnInit {
           this.docBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-
+       
         this.toastr.error("File type not acceptable");
         this.docBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
       this.toastr.error("No file selected");
     }
-
-
+ 
+ 
   }
-
-
+ 
+ 
   Submit() {
     const formData = new FormData;
     formData.append('contactEmail', this.contactEmail?.value.trim());
@@ -838,12 +838,12 @@ export class EntityAddComponent implements OnInit {
     formData.append('customerDuesEnable', this.customerDuesEnable?.value);
     formData.append('customerDuesDate', this.customerDuesDate?.value || 0);
     formData.append('dueDate', this.dueDate?.value || 0);
-
+ 
     this.AddEntity.EntityAdd(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.merchantid = res.response.merchantId;
-
-
+       
+ 
         this.bussinessid = res.response.businessCategoryModel.businessCategoryId;
         this.AddEntity.EntityGetKYCbybussinessid(this.bussinessid).subscribe((res: any) => {
           this.KYCDocNames = res.response;
@@ -851,16 +851,16 @@ export class EntityAddComponent implements OnInit {
         this.toastr.success(res.responseMessage);
         this.Bankdetails = true;
         this.personeldetails = false;
-
+ 
       } else {
         this.toastr.error(res.responseMessage);
       }
-
-
+ 
+     
     })
   }
   // bjhb?
-
+ 
   BankSubmit() {
     let submitModel: AddEntityBank = {
       accountHolderName: this.accountHolderName?.value,
@@ -878,20 +878,20 @@ export class EntityAddComponent implements OnInit {
         this.Bankdetails = false;
         this.personeldetails = false;
         this.KYCdetails = true;
-
-
-
+ 
+ 
+ 
       } else {
         this.toastr.error(res.responseMessage);
       }
-
-
+ 
+     
     })
   }
-
-
-
-
+ 
+ 
+ 
+ 
   kycsubmit() {
     const formData = new FormData();
     formData.append('merchantId', this.merchantid);
@@ -914,16 +914,16 @@ export class EntityAddComponent implements OnInit {
         this.toastr.success(res.responseMessage);
         this.KYCdetails = false;
         this.BussinessDocument = true;
-
+       
       } else {
         this.toastr.error(res.responseMessage);
       }
     });
   }
-
-
-
-
+ 
+ 
+ 
+ 
   docSubmit() {
     const formData = new FormData();
     formData.append('merchantId', this.merchantid);
@@ -940,11 +940,9 @@ export class EntityAddComponent implements OnInit {
       }
     });
   }
-
-
+ 
+ 
   close() {
     this.router.navigateByUrl('dashboard/entity-viewall');
   }
-
-
 }

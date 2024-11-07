@@ -70,7 +70,7 @@ export class SmsCreateComponent implements OnInit {
       type: this.smsFor?.value,
       createdBy: this.getadminname
     }
-    
+
     this.service.CreateSMS(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);

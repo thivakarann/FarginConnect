@@ -10,6 +10,7 @@ import FileSaver from 'file-saver';
 import moment from 'moment';
 import { CustomerTransViewComponent } from '../customer-trans-view/customer-trans-view.component';
 import { customerpay } from '../../../fargin-model/fargin-model.module';
+import { PageEvent } from '@angular/material/paginator';
 
 
 @Component({
@@ -60,7 +61,11 @@ export class CustomerTransViewallComponent {
   errorMessage: any;
   valuepaymentReceipt: any;
   valuepaymentCheckStatus: any;
-
+  pageIndex: number = 0;
+  pageSize = 5;
+  totalpage: any;
+  totalPages: any;
+  currentpage: any;
 
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
 
@@ -69,14 +74,14 @@ export class CustomerTransViewallComponent {
   ngOnInit(): void {
 
 
-    
+
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        
- 
+
+
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
- 
+
           if (this.roleId == 1) {
             this.valuepaymentexport = 'Customer Payment-Export'
             this.valuepaymentview = 'Customer Payment-View'
@@ -107,9 +112,12 @@ export class CustomerTransViewallComponent {
       }
     });
 
-    this.service.CustomerAllTransactions().subscribe((res: any) => {
+    this.service.CustomerAllTransactions(this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.transaction = res.response;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage+1;
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -134,17 +142,6 @@ export class CustomerTransViewallComponent {
     window.location.reload()
   }
 
-  renderPage(event: any) {
-    this.currentPage = event;
-    this.ngOnInit();
-  }
-  reloaddata() {
-    this.FromDateRange = "";
-    this.ToDateRange = "";
-    this.Daterange = "";
-    this.currentPage = 1;
-    this.ngOnInit();
-  }
 
   filterdate() {
     // const datepipe: DatePipe = new DatePipe("en-US");
@@ -153,10 +150,13 @@ export class CustomerTransViewallComponent {
     // this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
     // this.currentPage = 1;
 
-    this.service.CustomerTransactionsFilter(this.FromDateRange, this.ToDateRange).subscribe((res: any) => {
+    this.service.CustomerTransactionsFilter(this.FromDateRange, this.ToDateRange, this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
 
         this.transaction = res.response;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage+1;
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -183,13 +183,13 @@ export class CustomerTransViewallComponent {
 
 
   exportexcel() {
-    
+
     let sno = 1;
     this.responseDataListnew = [];
     this.transaction.forEach((element: any) => {
       let createdate = element.paymentDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
- 
+
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.pgPaymentId);
@@ -198,7 +198,7 @@ export class CustomerTransViewallComponent {
       this.response.push(element?.paymentMethod);
       this.response.push(element?.paidAmount);
       this.response.push(this.date1);
- 
+
       if (element?.paymentStatus == 'Success') {
         this.response.push('Success');
       }
@@ -208,13 +208,13 @@ export class CustomerTransViewallComponent {
       else {
         this.response.push('Initiated');
       }
- 
+
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
- 
+
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
@@ -226,18 +226,18 @@ export class CustomerTransViewallComponent {
       'Amount',
       'Paid At',
       'Status',
- 
+
     ]
- 
- 
+
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Entity Transactions');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
- 
- 
+
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -248,15 +248,15 @@ export class CustomerTransViewallComponent {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
+
       }
- 
+
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
- 
+
     data.forEach((d: any) => {
-      // 
- 
+      //
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -266,7 +266,7 @@ export class CustomerTransViewallComponent {
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
- 
+
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -275,8 +275,8 @@ export class CustomerTransViewallComponent {
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
- 
+
+
     }
     );
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
@@ -287,7 +287,7 @@ export class CustomerTransViewallComponent {
       FileSaver.saveAs(blob, 'Entity Transaction.xlsx');
     });
   }
- 
+
 
   transactionview(id: any) {
 
@@ -318,5 +318,26 @@ export class CustomerTransViewallComponent {
         this.toastr.error(res.responseMessage);
       }
     })
+  }
+  renderPage(event: PageEvent) {
+    // Capture the new page index and page size from the event
+    this.pageIndex = event.pageIndex;  // Update current page index
+    this.pageSize = event.pageSize;           // Update page size (if changed)
+
+    // Log the new page index and page size to the console (for debugging)
+    console.log('New Page Index:', this.pageIndex);
+    console.log('New Page Size:', this.pageSize);
+
+    // You can now fetch or display the data for the new page index
+    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
+    this.ngOnInit()
+  }
+  changePageIndex(newPageIndex: number) {
+    this.pageIndex = newPageIndex;
+    this.renderPage({
+      pageIndex: newPageIndex,
+      pageSize: this.pageSize,
+      // length: this.totalItems
+    } as PageEvent);
   }
 }
