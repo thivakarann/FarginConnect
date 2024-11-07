@@ -191,6 +191,16 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
 
   }
 
+  Receipt(id: any) {
+    this.service.CustomerReceipt(id).subscribe({
+      next: (res: any) => {
+        var downloadURL = URL.createObjectURL(res);
+        window.open(downloadURL);
+      },
+ 
+    });
+  }
+
   close() {
     this.location.back()
   }

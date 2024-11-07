@@ -24,7 +24,7 @@ export class EntitySmsViewallComponent {
     'entityemail',
     'smsType',
     'smscount',
-    'smscharge',
+    // 'smscharge',
     'createdBy',
     'date',
    

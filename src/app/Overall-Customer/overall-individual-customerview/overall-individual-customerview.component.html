@@ -199,10 +199,11 @@
 
                 <th>S No</th>
                 <th>Payment ID</th>
-                <th>Paid Amount</th>
+                <th>Payable Amount</th>
                 <th>Plan Start Date</th>
                 <th>Plan End Date</th>
                 <th>Payment Status</th>
+                <th>Receipt</th>
                 <th>Paid At</th>
               </tr>
               <span *ngIf="!showData" class="text-center" style="color:red;font-size:12px;">NO DATA FOUND</span>
@@ -212,7 +213,7 @@
                   *ngFor="let row of transaction | paginate: { itemsPerPage: 5, currentPage: page } | search: searchText; let i = index">
 
                   <td>{{ i + 1 }}</td>
-                  <td>{{ row.paymentId }}</td>
+                  <td>{{ row.pgPaymentId || "-" }}</td>
                   <td>{{ row.paidAmount }}</td>
                   <td>{{row.startDate| date:"dd/MM/yyyy :hh:m:a"}}</td>
                   <td>{{row.endDate | date:"dd/MM/yyyy :hh:m:a"}}</td>
@@ -223,6 +224,10 @@
                     <span *ngIf=" row.paymentStatus=='Failure'" style="color:red"> {{ row.paymentStatus}}</span>
                     <span *ngIf=" row.paymentStatus=='Initiated'" style="color:blue"> {{ row.paymentStatus}}</span>
 
+                  </td>
+                  <td>
+                    <button [disabled]="row.paymentStatus != 'Success'" class="btn btn-success btn-sm"
+                        style="border:none;" (click)="Receipt(row.customerPayId)"> <i class="fa-solid fa-download" style="color:#fff;"></i></button>
                   </td>
                   <td>
                     <span *ngIf=" row.paymentDateTime!= null"> {{ row.paymentDateTime | date:"dd/MM/yyyy

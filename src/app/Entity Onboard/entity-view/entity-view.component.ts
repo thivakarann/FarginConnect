@@ -436,6 +436,7 @@ export class EntityViewComponent implements OnInit {
 
       if (res.flag == 1) {
         this.manualDetails = res.response;
+       
 
         this.manualDetails.forEach((item: any) => {
           this.paymentStatus = item.paymentStatus;
@@ -443,6 +444,7 @@ export class EntityViewComponent implements OnInit {
           
 
         });
+         this.manualDetails.reverse();
       }
     })
 
