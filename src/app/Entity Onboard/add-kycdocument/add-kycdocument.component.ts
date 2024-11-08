@@ -197,7 +197,8 @@ export class AddKycdocumentComponent implements OnInit {
       if (acceptableTypes.includes(this.uploadidentityback.type)) {
         if (this.uploadidentityback.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
-        } else {
+        } 
+        else {
           this.toastr.error("Max Image size exceeded");
           this.identityBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
@@ -299,7 +300,6 @@ export class AddKycdocumentComponent implements OnInit {
           this.signatureBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        
         this.toastr.error("File type not acceptable");
         this.signatureBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }

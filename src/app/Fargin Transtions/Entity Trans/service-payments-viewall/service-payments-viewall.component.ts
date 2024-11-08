@@ -114,7 +114,7 @@ export class ServicePaymentsViewallComponent {
         this.transaction = res.response;
         this.totalPages=res.pagination.totalElements;
         this.totalpage=res.pagination.totalPages;
-       this.currentpage=res.pagination.currentPage;
+       this.currentpage=res.pagination.currentPage+1;
         this.transaction.reverse();
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;

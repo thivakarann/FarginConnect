@@ -26,6 +26,8 @@ export class EntityAutoDebitGetallComponent {
     'planName',
     'rentalAmount',
     'rentalPeriod',
+    'fromLedger',
+    "toLedger",
     'reason',
     'createAt'
   ];

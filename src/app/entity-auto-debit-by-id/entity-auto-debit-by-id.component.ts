@@ -25,6 +25,8 @@ export class EntityAutoDebitByIdComponent implements OnInit {
     'planName',
     'rentalAmount',
     'rentalPeriod',
+    'fromLedger',
+    'toLedger',
     'reason',
     'createAt'
   ];

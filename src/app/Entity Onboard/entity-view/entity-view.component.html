@@ -96,7 +96,7 @@
                         <div class="buttonDownload1" [matMenuTriggerFor]="menu">
                             <i style="overflow:hidden;color:#fff;font-size:22px;" class="fa-solid fa-ellipsis-vertical">
                                 <mat-menu #menu="matMenu">
-                                    <button [disabled]="this.detaislone?.onBoardStatus=='true'"  style="font-size: 10px;" mat-menu-item (click)="editpersonalInfo(this.id)"
+                                    <button   style="font-size: 10px;" mat-menu-item (click)="editpersonalInfo(this.id)"
                                         [hidden]="valueeditentity!=='Entity View-Edit'">Edit EntityDetails</button>
                                     <button style="font-size: 10px;" mat-menu-item (click)="viewOnboardInfo(this.id)"
                                        

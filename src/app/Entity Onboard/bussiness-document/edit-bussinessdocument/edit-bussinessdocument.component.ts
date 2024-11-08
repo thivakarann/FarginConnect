@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
@@ -27,6 +27,7 @@ export class EditBussinessdocumentComponent {
     public service: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
+    private dialog:MatDialog,
     private _formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
@@ -34,7 +35,8 @@ export class EditBussinessdocumentComponent {
 
     this.documentdata = this.data.value;
     
-    this.merchantDocumentId = this.data.value.merchantId.merchantDocumentId
+    this.merchantDocumentId = this.data.value.merchantDocumentId
+    console.log(this.merchantDocumentId )
     this.categoryvalue=this.data.value.entityKycCategory.kycCategoryId
 
     this.docNumbers=this.data.value.docNumber
@@ -83,16 +85,19 @@ export class EditBussinessdocumentComponent {
 
   docSubmit() {
 
-    let submitModel:documentupdate={
-      merchantDocumentId: this.merchantDocumentId,
-      kycCategoryId: this.kycCategoryId?.value,
-      docNumber: this.docNumber?.value,
-      modifiedBy: this.getadminname
-    }
+    const formData = new FormData;
+    formData.append('merchantDocumentId ',this.merchantDocumentId);
+    formData.append('kycCategoryId', this.kycCategoryId?.value);
+    formData.append('docNumber', this.docNumber?.value);
+    formData.append('modifiedBy',  this.getadminname);
+
+
+
    
-    this.service.documentEdit(submitModel).subscribe((res: any) => {
+    this.service.documentEdit(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.dialog.closeAll()
       } else {
         this.toastr.error(res.responseMessage);
       }

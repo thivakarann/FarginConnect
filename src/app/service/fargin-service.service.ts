@@ -314,7 +314,7 @@ export class FarginServiceService {
   //unblock entity account
   private readonly unblockentityaccount = 'merchant/unBlockAccount/';
   //manual payment
-  private readonly updatemanualpay = 'merchant/updateManualPayment/';
+  private readonly updatemanualpay = 'merchantpay/updateManualCash/';
   private readonly createmanualpay = 'merchantpay/manualPayment';
   private readonly manualpayget = 'merchantpay/viewMerchant/';
   private readonly manualtransaction = 'transhistory/viewMerchantPay/';
@@ -1829,7 +1829,7 @@ export class FarginServiceService {
 
 
   documentEdit(data: any) {
-    return this.http.put(`${this.basePath}${this.documentedit}`, data, this.options);
+    return this.http.put(`${this.basePath}${this.documentedit}`, data, this.optionsMultipart);
   }
   documentApproval(id: any, data: any) {
     return this.http.put(`${this.basePath}${this.documentapproval}${id}`, data, this.options);
