@@ -30,7 +30,7 @@
     <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
         data-target="contact" (click)="Viewautodebit(this.id)">
         <div [hidden]="valueentityautodebit!=='Entity View Rent Logs'"> <i
-                class="fa-solid fa-money-bill-transfer"></i>&nbsp;&nbsp;Rent Logs
+                class="fa-solid fa-money-bill-transfer"></i>&nbsp;&nbsp;MMC AutoDebit
             </div>
     </button>
 
@@ -589,7 +589,6 @@
                             <tbody
                                 *ngFor="let item of KYCDetails| paginate: { itemsPerPage: 3, currentPage: currentPage } | search: searchText;let i=index">
                                 <tr>
-
                                     <td>1</td>
                                     <td>Identity proof</td>
                                     <td>{{item.identityProof}}</td>
@@ -788,7 +787,6 @@
             </div>
         </div>
     </div>
-
     <div *ngIf="activeTab === 'bussiness'">
         <mat-card-header>
             <div class="row  d-flex justify-content-start">
@@ -1139,7 +1137,7 @@
                             </td>
                             <td>  
                                 <span *ngIf="item?.paymentStatus == 'Success'" class="text-success"> {{ item?.paymentStatus}}</span>
-                                <span *ngIf="item?.paymentStatus   == 'Pending'" class="text-warning"> {{ item?.paymentStatus}}</span>
+                                <span *ngIf="item?.paymentStatus   == 'Due Pending'" class="text-warning"> {{ item?.paymentStatus}}</span>
                                 <span *ngIf="item?.paymentStatus  == 'Initiated'" class="text-primary"> {{ item?.paymentStatus}}</span>
                                 <span *ngIf="item?.paymentStatus  == 'Failure'" class="text-danger"> {{ item?.paymentStatus}}</span>
             </td>

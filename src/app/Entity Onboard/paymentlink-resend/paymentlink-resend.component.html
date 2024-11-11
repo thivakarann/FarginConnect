@@ -7,17 +7,19 @@
         <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="addcategory">
 
             <div class="form__linput">
-                <label class="form__label" for="fname">Link </label>
+                <label class="form__label" for="fname">Redirect URL </label>
                 <input class="form__input" id="fname" type="text" formControlName="Url" name="Url"
-                    placeholder="Enter Url..." required />
-                <div style="color: red; font-size: 12px;margin-top: 2px;"
-                    *ngIf="Url?.invalid && Url?.touched && Url?.errors?.['required']">
-                    Field is required
-                </div>
-                <div style="color: red; font-size: 12px;margin-top: 2px;"
-                    *ngIf="Url?.invalid && Url?.touched && Url?.errors?.['pattern']">
-                    Field is required
-                </div>
+                placeholder="Enter Url..." required />
+         <div style="color: red; font-size: 12px; margin-top: 2px;"
+              *ngIf="Url?.invalid && Url?.touched && Url?.errors?.['required']">
+           Field is required
+         </div>
+         <div style="color: red; font-size: 12px; margin-top: 2px;"
+              *ngIf="Url?.invalid && Url?.touched && Url?.errors?.['pattern']">
+           Invalid URL format
+         </div>
+         
+         
             </div>
             <div class="form__linput">
                 <label class="form__label" for="fname">Link Expiry Date</label>

@@ -171,7 +171,7 @@
     <div class="col-md-4">
       <label for="period" style="font-size: 12px; font-family: Arial, Helvetica, sans-serif;">Select
         Merchant</label><br>
-      <select style="font-size: 12px;" id="period" class="form-select" [(ngModel)]="selectedmerchant"
+      <select style="font-size: 12px;" id="period" class="form-select" 
         (change)="onMerchantChange($event)">
         <option selected disabled>Select
         </option>

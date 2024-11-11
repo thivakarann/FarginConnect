@@ -192,7 +192,7 @@
             </div> -->
             <div>
                 <button mat-raised-button matStepperPrevious>Back</button>
-                <button mat-raised-button matStepperNext>Next</button>
+                <button mat-raised-button matStepperNext [disabled]="secondFormGroup.invalid">Next</button>
             </div>
         </form>
     </mat-step>
@@ -275,7 +275,7 @@
             </div>
             <div>
                 <button mat-raised-button matStepperPrevious>Back</button>
-                <button mat-raised-button (click)="kycsubmit()">Finish</button>
+                <button mat-raised-button [disabled]="thirdFormGroup.invalid" (click)="kycsubmit()" >Finish</button>
             </div>
         </form>
     </mat-step>

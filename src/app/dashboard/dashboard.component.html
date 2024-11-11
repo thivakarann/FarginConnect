@@ -111,8 +111,7 @@
               </a>
             </li> -->
 
-            <li class="sidebar-dropdown" style="cursor: pointer;" 
-            [hidden]="valuecustomerpayment!=='Customer Payment' &&
+            <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valuecustomerpayment!=='Customer Payment' &&
             valuecustomersubscription!=='Subscription Payment' &&
             valuecustomermanualpayment!=='one Time Payments' &&
             valueCustomizationPayments!=='Customized Payment'">
@@ -128,7 +127,8 @@
                     </a>
                   </li>
 
-                  <li routerLink="maintenance-trans-viewall" [hidden]="valuecustomersubscription!=='Subscription Payment'">
+                  <li routerLink="maintenance-trans-viewall"
+                    [hidden]="valuecustomersubscription!=='Subscription Payment'">
                     <a> Subscription Payments</a>
                   </li>
                   <li routerLink="service-payments-viewall" [hidden]="valuecustomermanualpayment!=='one Time Payments'">
@@ -140,7 +140,8 @@
                 </ul>
               </div>
 
-            <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valueentitysms!=='Entity Sms'  && valuesmshistory!=='SMS History'">
+            <li class="sidebar-dropdown" style="cursor: pointer;"
+              [hidden]="valueentitysms!=='Entity Sms'  && valuesmshistory!=='SMS History'">
               <a>
                 <i class="fa-solid fa-comment-sms" style="font-size: 15px;"></i>
                 <span>SMS</span>
@@ -176,15 +177,15 @@
               <a routerLink="surveyviewall">
                 <i class="fa-solid fa-square-poll-vertical" style="font-size: 14px;" aria-hidden="true"></i>
                 <span>Survey</span>
- 
+
               </a>
             </li>
- 
+
 
             <li [hidden]="valueautodebit!=='Rent Logs'">
               <a routerLink="entity-auto-debit-getall">
                 <i style="font-size: 15px;" class="fa-solid fa-money-bill-transfer"></i>
-                <span>Rent Logs</span>
+                <span>MMC Auto Debit</span>
               </a>
             </li>
 
@@ -273,7 +274,7 @@
 
                   <li [hidden]="valueBuisneesDoCument!=='Business Document Type'">
                     <a routerLink="viewall-kyccategory">Business Document Type </a>
-                    </li>
+                  </li>
 
                   <li [hidden]="valueBusinessKYC!=='Business Category Doc'">
                     <a routerLink="Business-kyc">Business Category Doc</a>

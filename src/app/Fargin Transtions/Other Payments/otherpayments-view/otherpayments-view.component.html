@@ -9,8 +9,13 @@
         <tbody>
             <tr>
                 <td class="datas">Transaction ID</td>
-                <td id="data">{{ transaction?.pgPaymentId }}</td>
+                <td id="data">{{ transaction?.pgPaymentId ||'--' }}</td>
             </tr>
+            <tr>
+                <td class="datas">Total Amount</td>
+                <td id="data"  class="text-success">₹{{transaction?.totalPayableAmount}}</td>
+            </tr>
+
             <tr>
                 <td class="datas">Bank Reference</td>
                 <td id="data">{{ transaction?.bankReference }}</td>
@@ -38,11 +43,11 @@
                 <td class="datas">Payment Method</td>
                 <td id="data">{{ transaction?.paymentMethod}}</td>
             </tr>
-
+            
 
             <tr>
                 <td class="datas">Paid At</td>
-                <td id="data">{{ transaction?.createdDateTime | date:'yyyy-MM-dd hh:mm a'}}
+                <td id="data">{{ transaction?.paymentDateTime | date:'dd-MM-yyyy hh:mm a'}}
                 </td>
             </tr>
             <tr>

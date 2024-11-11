@@ -149,8 +149,7 @@ export class EntityAddComponent implements OnInit {
       website: new FormControl('', [Validators.pattern(/^(https ?: \/\/)?(www\.)?[ a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+$/)]),
       gstIn: new FormControl("", [Validators.pattern("^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[A-Z]{1}[0-9A-Z]{1}$")]),
       billingAddress: new FormControl("", [
-        Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
+        Validators.required
       ]),
       area: new FormControl('', [
         Validators.required,
@@ -579,7 +578,6 @@ export class EntityAddComponent implements OnInit {
           this.addressFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-       
         this.toastr.error("File type not acceptable");
         this.addressFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
@@ -744,7 +742,8 @@ export class EntityAddComponent implements OnInit {
           this.toastr.error("Max Image size exceeded");
           this.logo?.reset(); // Optional chaining to prevent error if this.logo is null
         }
-      } else {
+      }
+       else {
        
         this.toastr.error("File type not acceptable");
         this.logo?.reset(); // Optional chaining to prevent error if this.logo is null

@@ -25,7 +25,7 @@ export class PaymentlinkResendComponent {
       description: new FormControl('', [Validators.required]),
       Url: new FormControl('', [
         Validators.required,
-        Validators.pattern("((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)")
+        Validators.pattern("((http|https)://)(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,6})+(/[-a-zA-Z0-9@:%._\\+~#?&//=]*)?")
       ]),
     });
 

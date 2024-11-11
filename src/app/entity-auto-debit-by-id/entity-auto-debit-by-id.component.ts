@@ -55,7 +55,7 @@ export class EntityAutoDebitByIdComponent implements OnInit {
  
     this.autodebitdetailsbyid.autodebitbymerchat(this.id,this.pageSize,this.pageIndex).subscribe((res: any) => {
       this.viewall = res.response;
-      this.totalPages=res.pagination.totalElements;
+      this.totalPages=res.pagination?.totalElements;
       this.totalpage=res.pagination.totalPages;
      this.currentpage=res.pagination.currentPage+1;
       this.viewall.reverse();

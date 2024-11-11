@@ -240,6 +240,10 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
     
   }
 
+  reload(){
+    window.location.reload()
+  }
+
 }
 
 

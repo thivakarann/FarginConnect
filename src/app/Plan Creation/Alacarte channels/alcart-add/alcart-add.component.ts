@@ -17,6 +17,7 @@ export class AlcartAddComponent implements OnInit {
   file1!: File;
   errorMessage: any;
   Broadcasters: any;
+broadcastersid: any;
 
 
   constructor(
@@ -26,9 +27,7 @@ export class AlcartAddComponent implements OnInit {
   ) { }
   ngOnInit(): void {
 
-    this.AddAlcart.RegionGetAllActive().subscribe((res: any) => {
-      this.regiondetails = res.response;
-    });
+ 
 
     this.AddAlcart.BoucatenamesActive().subscribe((res: any) => {
       this.Broadcasters = res.response;
@@ -97,6 +96,12 @@ export class AlcartAddComponent implements OnInit {
   get logo() {
     return this.myForm.get('logo')
 
+  }
+
+  getbuddlechanneld(id:any){
+    this.AddAlcart. ActiveRegionsbyserviceprovider(id).subscribe((res: any) => {
+      this.regiondetails = res.response;
+    });
   }
 
   onFileSelectedidproof(event: any) {
