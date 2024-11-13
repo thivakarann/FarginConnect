@@ -37,6 +37,7 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
   lcopChannel: any;
   transaction: any;
   showData: boolean = false;
+  showDatas: boolean = false;
   viewData: boolean = false;
   totalAmount: number = 0;
   totalbouqet: number = 0;
@@ -126,7 +127,7 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
     })
     this.service.CustomerTransaction(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.transaction = res.response;
+        this.transaction = res.response.reverse();
         this.showData = true;
 
       }
@@ -185,7 +186,7 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
     // })
     this.service.ViewCustomersSetupBox(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.setupboxview = res.response;
+        this.setupboxview = res.response.reverse();
       }
     })
 

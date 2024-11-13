@@ -39,7 +39,8 @@ export class CustomerViewallComponent implements OnInit {
     'ticketStatus',
     'action',
     'createdDateTime',
-
+    'ticketStatusModifedBy',
+    'ticketModifedDateTime'
   ];
   FormSearch!: FormGroup;
   ticket: any;

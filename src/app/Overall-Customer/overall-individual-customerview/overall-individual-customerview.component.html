@@ -81,7 +81,7 @@
               <strong>Block Number:</strong> {{ viewcustomer?.blockNumber }}
             </div>
             <div class="mb-3">
-              <strong>BroadCaster:</strong> {{ viewcustomer?.stbId?.regionEntity?.service?.serviceProviderName }}
+              <strong>Broadcaster:</strong> {{ viewcustomer?.stbId?.regionEntity?.service?.serviceProviderName }}
             </div>
             <div class="mb-3">
               <strong>STB Number:</strong> {{ viewcustomer?.stbId?.setupBoxNumber }}
@@ -168,9 +168,9 @@
                 <th>Created By</th>
                 <th>Created At</th>
               </tr>
-              <!-- <span *ngIf="!showData" class="text-center" style="color:red;font-size:12px;">NO DATA FOUND</span> -->
+              <span *ngIf="!showDatas" class="text-center" style="color:red;font-size:12px;">NO DATA FOUND</span>
 
-              <tbody>
+              <tbody *ngIf="showDatas">
                 <tr
                   *ngFor="let row of setupboxview | paginate: { id:'pagination4', itemsPerPage: 3, currentPage: page4 } | search: searchText; let i = index">
 

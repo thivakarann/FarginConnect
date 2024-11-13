@@ -211,6 +211,11 @@ import { ViewQuestionsComponent } from './Customer-Survey/view-questions/view-qu
 import { CustomerticketImageComponent } from './Tickets/customerticket-image/customerticket-image.component';
 import { ReadquestionsComponent } from './Customer-Survey/readquestions/readquestions.component';
 import { AlcotHistoryComponent } from './Plan Creation/Alacarte channels/alcot-history/alcot-history.component';
+import { ViewmerchantComponent } from './Merchant/viewmerchant/viewmerchant.component';
+import { AddExtraRegionComponent } from './Plan Creation/Broadcaster Bouqutes/add-extra-region/add-extra-region.component';
+import { ChanneleditComponent } from './Plan Creation/Broadcaster Bouqutes/channeledit/channeledit.component';
+import { BouqutesRegioneditComponent } from './Plan Creation/Broadcaster Bouqutes/bouqutes-regionedit/bouqutes-regionedit.component';
+import { BouqutesRegionComponent } from './Plan Creation/Broadcaster Bouqutes/bouqutes-region/bouqutes-region.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -255,6 +260,7 @@ import { AlcotHistoryComponent } from './Plan Creation/Alacarte channels/alcot-h
     AdminRefundpolicyComponent,
     ViewCommentComponent,
     ViewDescriptionComponent,
+    ViewmerchantComponent,
     TicketImageComponent,
     AddRoleComponent,
     ViewRoleComponent,
@@ -400,7 +406,11 @@ import { AlcotHistoryComponent } from './Plan Creation/Alacarte channels/alcot-h
     SurveyviewallComponent,
     CustomerticketImageComponent,
     ReadquestionsComponent,
-    AlcotHistoryComponent 
+    AlcotHistoryComponent ,
+    AddExtraRegionComponent,
+    ChanneleditComponent,
+    BouqutesRegioneditComponent,
+    BouqutesRegionComponent
 
   ],
 

@@ -195,6 +195,7 @@ export class FarginServiceService {
   private readonly regionupdate = 'region/update';
   private readonly ActiveRegions = 'region/viewOnlyActive';
   private readonly ActiveRegionbyServiceid = 'region/viewByService/'
+  private readonly regionbyitsids = 'broadCaster/getByRegionId/';
 
 
   //service provider
@@ -215,7 +216,8 @@ export class FarginServiceService {
 
   // Alcarte Creation 
 
-  private readonly alcartvieall = 'alcotchannel/viewAll';
+  private readonly  alcartviewallexport = 'alcotchannel/viewAll';
+  private readonly alcartvieall='alcotchannel/viewAll/'
   private readonly alcartAdd = 'alcotchannel/addalcot';
   private readonly alcartviewbyid = 'alcotchannel/getById/';
   private readonly alcartstatus = 'alcotchannel/updateStatus';
@@ -250,11 +252,17 @@ export class FarginServiceService {
   private readonly bouquetsviewall = 'broadCaster/getall';
   private readonly Bouquetadd = 'broadCaster/add';
   private readonly Bouquetsviewbyid = 'broadCaster/getById/';
+  private readonly Bouquetsviewbyidregion = 'broadCaster/getByregions/'; //NEW for region view
+  private readonly Bouquetsviewbyidchannel ='broadCaster/viewChannelsByRegions/' //for channel view
   private readonly Bouquetstatus = 'broadCaster/updateStatus';
   private readonly ActiveBouqutes = 'broadCaster/viewOnlyActive';
   private readonly bouquetEdit = 'broadCaster/update';
+    private readonly BroadcasterBoucatesRegionEdits='broadCaster/updateRegion';
+  private readonly BroadcasterBoucateschannelEdits='broadCaster/updateAlcotChannel'
   private readonly bouquetesinglestatus = 'broadCaster/updateChannelStatus';
-  private readonly AddChannelsbyBouquete = 'broadCaster/addextraChannel'
+  private readonly AddChannelsbyBouquete = 'broadCaster/addextraChannel';
+  private readonly bouquetsextraregions = 'broadCaster/addExtraRegion';
+  private readonly bouquetchanneledit='broadCaster/getByAlcotId/';
 
   // DPO Bouquete Creation
 
@@ -776,6 +784,10 @@ export class FarginServiceService {
   ActiveRegionsbyserviceprovider(id: any) {
     return this.http.get(`${this.basePath}${this.ActiveRegionbyServiceid}${id}`, this.options)
   }
+  regionbyitsid(id: any) {
+    return this.http.get(`${this.basePath}${this.regionbyitsids}${id}`, this.options)
+  }
+ 
 
 
   RegionCreate(model: any) {
@@ -1145,8 +1157,11 @@ export class FarginServiceService {
 
 
 
-  Alcartviewall() {
-    return this.http.get(`${this.basePath}${this.alcartvieall}`, this.options)
+  AlcartviewallExport() {
+    return this.http.get(`${this.basePath}${this.alcartviewallexport}`, this.options)
+  }
+  Alcartviewall(id:any,id1:any) {
+    return this.http.get(`${this.basePath}${this.alcartvieall}${id}/${id1}`, this.options)
   }
 
   AlcardAdd(Formdata: FormData) {
@@ -1237,39 +1252,68 @@ export class FarginServiceService {
 
 
 
-
-
+// 
   BroadcasterBoucateviewall() {
     return this.http.get(`${this.basePath}${this.bouquetsviewall}`, this.options)
   }
-
+ 
   BroadcasterBoucateadd(model: any) {
     return this.http.post(`${this.basePath}${this.Bouquetadd}`, model, this.options)
   }
-
+ 
   BroadcasterBoucatebyid(id: any) {
     return this.http.get(`${this.basePath}${this.Bouquetsviewbyid}${id}`, this.options)
   }
-
+ 
+  BroadcasterBoucatebyidregion(id: any) {
+    return this.http.get(`${this.basePath}${this.Bouquetsviewbyidregion}${id}`, this.options)
+  }
+ 
+  BroadcasterBoucatebyidchannel(id: any) {
+    return this.http.get(`${this.basePath}${this.Bouquetsviewbyidchannel}${id}`, this.options)
+  }
+ 
+ 
   BroadcasterBoucateStatus(model: any) {
     return this.http.put(`${this.basePath}${this.Bouquetstatus}`, model, this.options)
   }
-
+ 
   ActiveBroadcasterBoucates() {
     return this.http.get(`${this.basePath}${this.ActiveBouqutes}`, this.options)
   }
-
+ 
   BroadcasterBoucatesEdit(Model: any) {
     return this.http.put(`${this.basePath}${this.bouquetEdit}`, Model, this.options)
   }
-
+ 
+ 
+  BroadcasterBoucatesRegionEdit(Model: any) {
+    return this.http.put(`${this.basePath}${this.BroadcasterBoucatesRegionEdits}`, Model, this.options)
+  }
+ 
+   
+  BroadcasterBoucateschannelEdit(Model: any) {
+    return this.http.put(`${this.basePath}${this.BroadcasterBoucateschannelEdits}`, Model, this.options)
+  }
+ 
   BroadcasterSingleStatus(model: any) {
     return this.http.put(`${this.basePath}${this.bouquetesinglestatus}`, model, this.options)
   }
-
+ 
   AddExtraChannelsforBouquete(model: any) {
     return this.http.post(`${this.basePath}${this.AddChannelsbyBouquete}`, model, this.options)
   }
+ 
+ 
+BouquetsRegion(model:any) {
+  return this.http.post(`${this.basePath}${this.bouquetsextraregions}`,model, this.options)
+}
+ 
+ 
+BouquetChanneledit(id: any) {
+  return this.http.get(`${this.basePath}${this.bouquetchanneledit}${id}`, this.options)
+}
+// 
 
   DPOViewall() {
     return this.http.get(`${this.basePath}${this.DPOBouqueteViewall}`, this.options)

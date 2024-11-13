@@ -1,0 +1,70 @@
+<!-- Region -->
+
+<div class="container">
+
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Add Region</h5>
+        <button type="button" class="btn btn-secondary" matDialogClose>Back</button>
+    </div>
+
+    <div class="well" style="margin-top: 0px;">
+
+        <form [formGroup]="myForm">
+
+        <div class="row">
+        
+            <div class="col-10 form-group">
+                <label for="Bussiness category">Region </label>
+                <select  [(ngModel)]="regnId" (ngModelChange)="activeregionids(regnId)"  formControlName="regionId"
+                    id="Bussiness category" class="form-control form-select">
+                    <option value="" disabled selected>Select</option>
+                    <option *ngFor="let item of ActiveRegions" [value]="item.regionId">
+                        {{item?.stateName }}
+                    </option>
+        
+                </select>
+                <div style="
+                        color: red;
+                        font-size: 12px;
+                        margin-top: 2px;
+                        position: relative;
+                        ;
+                        " *ngIf="regionId?.invalid && regionId?.touched && regionId?.errors?.['required']">
+                    Field is required
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 form-group ">
+                <label for="Entity Name">Channels List</label>
+                <mat-select #select style="font-size: 12px;" class="form-select" multiple formControlName="alcotChannel">
+                    <div class="select-all">
+                        <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
+                            (change)="toggleAllSelection()">Select All</mat-checkbox>
+                    </div>
+                    <mat-option [value]="items.alcotId" *ngFor="let items of channelslist"> {{ items?.channelName }}
+        
+                    </mat-option>
+                </mat-select>
+                <div style="
+                color: red;
+                font-size: 12px;
+                margin-top: 2px;
+                position: relative;
+                ;
+                " *ngIf="alcotChannel?.invalid && alcotChannel?.touched && alcotChannel?.errors?.['required']">
+                    Field is required
+                </div>
+            </div>
+        
+        </div>
+
+            <div style="margin-top: 2%;">
+                <button (click)="submit()" [disabled]="myForm.invalid" type="submit" class="btn mx-1 "
+                    style="background-color:#7db855be">Submit</button>
+
+            </div>
+        </form>
+    </div>
+
+</div>

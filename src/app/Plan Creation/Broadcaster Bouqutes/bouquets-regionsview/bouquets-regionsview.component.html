@@ -7,8 +7,6 @@
                     <th>S No</th>
                     <th>MSO</th>
                     <th>Region</th>
-
-
                 </tr>
 
                 <tbody
@@ -17,17 +15,12 @@
                     <td class="text-center">{{i+1}}</td>
                     <td class="text-center">{{item.broadCasterRegion.service.serviceProviderName}}</td>
                     <td class="text-center">{{item.broadCasterRegion.stateName}}</td>
-
-
-
-
                 </tbody>
             </table>
             <div class="text-end mt-3">
                 <pagination-controls (pageChange)="currentPage= $event"></pagination-controls>
 
             </div>
-
             <div style="text-align: left;" >
                 <button
                   (click)="close()"  style="background-color: rgb(94, 94, 128);color: white;border:1px solid whitesmoke ;margin-bottom: 2%; border-radius: 5px; margin-left: 2%;">Close</button>

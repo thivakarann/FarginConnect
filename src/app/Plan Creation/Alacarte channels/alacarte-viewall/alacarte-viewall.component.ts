@@ -10,6 +10,8 @@ import { Alcartstatus } from '../../../fargin-model/fargin-model.module';
 import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
 import moment from 'moment';
+import { PageEvent } from '@angular/material/paginator';
+
 
 @Component({
   selector: 'app-alacarte-viewall',
@@ -54,6 +56,12 @@ export class AlacarteViewallComponent implements OnInit {
   date1: any;
   date2: any;
   valuealcartHistory:any;
+  pageIndex: number = 0;
+  pageSize=5;
+  totalPages: any;
+  totalpage: any;
+  currentpage: any;
+  viewallexport: any;
   constructor(
     public AllcartViewall: FarginServiceService,
     private router: Router,
@@ -107,10 +115,11 @@ export class AlacarteViewallComponent implements OnInit {
         }
       }
     });
-
-
-    this.AllcartViewall.Alcartviewall().subscribe((res: any) => {
+    this.AllcartViewall.Alcartviewall(this.pageSize,this.pageIndex).subscribe((res: any) => {
       this.viewall = res.response;
+      this.totalPages=res.pagination.totalElements;
+      this.totalpage=res.pagination.totalPages;
+     this.currentpage=res.pagination.currentPage+1;
       this.viewall.reverse();
       this.dataSource = new MatTableDataSource(this.viewall);
       this.dataSource.sort = this.sort;
@@ -180,10 +189,12 @@ export class AlacarteViewallComponent implements OnInit {
   }
 
   exportexcel() {
-    
+    this.AllcartViewall.AlcartviewallExport().subscribe((res: any) => {
+      this.viewallexport = res.response;
+    if (res?.flag == 1) {
     let sno = 1;
     this.responseDataListnew = [];
-    this.viewall.forEach((element: any) => {
+    this.viewallexport.forEach((element: any) => {
  
       let createdate = element.createdAt;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
@@ -222,6 +233,9 @@ export class AlacarteViewallComponent implements OnInit {
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
+  }
+});
+
   }
  
   excelexportCustomer() {
@@ -308,6 +322,27 @@ export class AlacarteViewallComponent implements OnInit {
   }
   alacartehistory(){
     this.router.navigateByUrl('dashboard/alcot-history')
+  }
+  renderPage(event: PageEvent) {
+    // Capture the new page index and page size from the event
+    this.pageIndex = event.pageIndex;  // Update current page index
+    this.pageSize = event.pageSize;           // Update page size (if changed)
+ 
+    // Log the new page index and page size to the console (for debugging)
+    console.log('New Page Index:', this.pageIndex);
+    console.log('New Page Size:', this.pageSize);
+ 
+    // You can now fetch or display the data for the new page index
+    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
+    this.ngOnInit()
+  }
+  changePageIndex(newPageIndex: number) {
+    this.pageIndex = newPageIndex;
+    this.renderPage({
+      pageIndex: newPageIndex,
+      pageSize: this.pageSize,
+      // length: this.totalItems
+    } as PageEvent);
   }
 
 }

@@ -13,7 +13,7 @@
                 <label for="Entity Name">Channels List</label>
 
                 <div class="form-group">
-                    <mat-select #select style="font-size: 12px;" class="form-select" multiple formControlName="alcotId">
+                    <mat-select #select style="font-size: 12px;" class="form-select" multiple formControlName="alcotChannel">
                         <div class="select-all">
                             <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
                                 (change)="toggleAllSelection()">Select All</mat-checkbox>
@@ -29,7 +29,7 @@
             margin-top: 2px;
             position: relative;
             ;
-          " *ngIf="alcotId?.invalid && alcotId?.touched && alcotId?.errors?.['required']">
+          " *ngIf="alcotChannel?.invalid && alcotChannel?.touched && alcotChannel?.errors?.['required']">
                         Field is required
                     </div>
                 </div>

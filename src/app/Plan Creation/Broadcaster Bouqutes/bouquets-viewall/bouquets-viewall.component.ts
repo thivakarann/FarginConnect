@@ -175,23 +175,23 @@ export class BouquetsViewallComponent implements OnInit {
         if (res.flag == 1) {
           this.getAction = res.response;
 
-          this.bouquet = res.response.bouquetCreation.bundleChannel.bundleChannelId
+          this.bouquet = res.response.bundleChannel.bundleChannelId
           this.creation = res.response.bouquetCreation.boqCreationId
           this.services = res.response.serviceProvider.serviceId
           this.amount = res.response.amount
 
           this.broadCasterRegions = this.getAction.broadCasterRegion
           
-          for (let data of this.broadCasterRegions) {
-            this.broadCasterRegionsss.push(data.broadCasterRegion.regionId)
+          // for (let data of this.broadCasterRegions) {
+          //   this.broadCasterRegionsss.push(data.broadCasterRegion.regionId)
             
-          }
+          // }
 
-          this.broadCasterAlcot = this.getAction.broadCasterAlcot
-          for (let data of this.broadCasterAlcot) {
-            this.broadCasterAlcotsss.push(data.broadCasterAlcot.alcotId)
+          // this.broadCasterAlcot = this.getAction.broadCasterAlcot
+          // for (let data of this.broadCasterAlcot) {
+          //   this.broadCasterAlcotsss.push(data.broadCasterAlcot.alcotId)
             
-          }
+          // }
 
           //Duplicate Removal start
           this.perValueObject = new Set(this.values)
@@ -221,8 +221,14 @@ export class BouquetsViewallComponent implements OnInit {
       queryParams: { Alldata: id },
     });
     
+
   }
 
+    Viewdatas(id: any) {
+    this.router.navigate([`dashboard/bouqutes-region/${id}`], {
+      queryParams: { Alldata: id },
+    });
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

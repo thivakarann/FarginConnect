@@ -1,0 +1,97 @@
+<!-- <div>
+    <div class="card table-nowrap table-card">
+        <div class="table-responsive text-nowrap text-center">
+            <table class="table table-hover" id="customers">
+
+                <tr style="margin-top: 2%;">
+                    <th>S No</th>
+                    <th>MSO</th>
+                    <th>Region</th>
+
+
+                </tr>
+
+                <tbody
+                    *ngFor="let item of ServiceProvideregions|paginate: { itemsPerPage:2, currentPage: currentPage } | search: searchText;let i=index">
+
+                    <td class="text-center">{{i+1}}</td>
+                    <td class="text-center">{{item.broadCasterRegion.service.serviceProviderName}}</td>
+                    <td class="text-center">{{item.broadCasterRegion.stateName}}</td>
+
+
+
+
+                </tbody>
+            </table>
+            <div class="text-end mt-3">
+                <pagination-controls (pageChange)="currentPage= $event"></pagination-controls>
+
+            </div>
+
+            <div style="text-align: left;" >
+                <button
+                  (click)="close()"  style="background-color: rgb(94, 94, 128);color: white;border:1px solid whitesmoke ;margin-bottom: 2%; border-radius: 5px; margin-left: 2%;">Close</button>
+            </div>
+        </div>
+    </div>
+
+</div> -->
+
+
+<div class="form-header d-flex justify-content-between align-items-center mx-4">
+    <h4 class="mb-0">{{details?.bundleChannel?.broadCasterName}}</h4>
+    <button type="button" class="btn btn-secondary" (click)="close()">Back</button>
+ 
+</div>
+<hr>
+
+<div class="row">
+    <div class="col-md-3 mt-4 ">
+        <div class="search me-4 mb-3">
+            <input style="font-size: 13px;" type="text" id="search" class="form-control" [(ngModel)]="term"
+                placeholder="Search">
+        </div>
+    </div>
+    <div class="col-md-6">
+    </div>
+    <div class="d-flex justify-content-end col-md-3 mt-4">
+        <button (click)="addExtraChannels(details)" style="color:white;background-color: #141E46;border-radius: 10px;"
+            mat-raised-button>Add</button>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-12 mb-3 mb-lg-5">
+        <div class="card table-nowrap table-card">
+            <div class="table-responsive text-nowrap text-center">
+                <table class="table table-hover" id="customers">
+                    <tr>
+                        <th>S No</th>
+                        <th>MSO</th>
+                        <th>Region</th>
+                  
+                        <th>Edit</th>
+                        <th>Channel View</th>
+                    </tr>
+ 
+                    <tbody
+                        *ngFor="let item of ServiceProvideregions| paginate: { itemsPerPage: 3, currentPage: page } | search: term; let i = index">
+                        <td class="text-center">{{i+1}}</td>
+                    <td class="text-center">{{item.broadCasterBouquet.serviceProvider.serviceProviderName}}</td>
+                    <td class="text-center">{{item.broadCasterRegion.stateName}}</td>
+                    <td class="text-center"><i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-edit"
+                        (click)="Edit(details?.bouquetId,item.broadCasterRegionId)"></i></td>
+                    <td class="text-center"><i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-eye"
+                        (click)="Viewdata(item?.broadCasterRegionId)"></i>
+                    </td>
+                    </tbody>
+                </table>
+             
+            </div>
+            <div class="text-end mt-3">
+                <pagination-controls (pageChange)="page = $event"></pagination-controls>
+            </div>
+            </div>
+            </div>
+            </div>

@@ -1,0 +1,60 @@
+<div class="card-header d-flex justify-content-between align-items-center">
+  <h5 class="mb-0">Update Channel</h5>
+  <button type="button" class="btn btn-secondary" matDialogClose>Back</button>
+</div>
+
+<body style="width: 400px" class="page">
+  <main class="main page__main">
+    <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="myForm">
+      <div class="row">
+        <!-- <div class="col-12 form-group">
+          <label for="Entity Name">Channel</label>
+
+          <select class="form-select" formControlName="alcotId" required>
+            <option style="text-align: center" *ngFor="let item of Regions" [value]="item.alcotId">
+              {{ item.channelName }}
+            </option>
+          </select>
+
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="alcotId?.invalid && alcotId?.touched && alcotId?.errors?.['required']">
+            Field is required
+          </div>
+        </div> -->
+
+
+        <div class="col-12 form-group ">
+          <label for="Entity Name">Channel</label>
+
+          <select [(ngModel)]="channel"  class="form-select" formControlName="alcotId" required>
+            <option style="text-align: center;" *ngFor="let item of channellist;" [value]="item.alcotId">
+              {{item.channelName}}
+            </option>
+          </select>
+
+
+          <div style="
+  color: red;
+  font-size: 12px;
+  margin-top: 2px;
+  position: relative;
+  ;
+" *ngIf="alcotId?.invalid && alcotId?.touched && alcotId?.errors?.['required']">
+            Field is required
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 2%">
+        <button (click)="submit()" [disabled]="myForm.invalid" type="submit" class="btn mx-1"
+          style="background-color: #7db855be">
+          Submit
+        </button>
+      </div>
+    </form>
+  </main>
+</body>

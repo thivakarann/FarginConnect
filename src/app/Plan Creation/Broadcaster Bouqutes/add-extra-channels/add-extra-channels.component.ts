@@ -19,6 +19,8 @@ export class AddExtraChannelsComponent implements OnInit {
   myForm!: FormGroup;
   @ViewChild('select') select: any = MatSelect;
   allSelected = false;
+  broadCasterRegionId:any;
+
   constructor(
     public AddExtra: FarginServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -30,20 +32,22 @@ export class AddExtraChannelsComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.data.value;
+    this.broadCasterRegionId = this.data.value1;
+    console.log(this.broadCasterRegionId)
     
 
     this.AddExtra.ActiveAlcards().subscribe((res: any) => {
       this.channelslist = res.response;
-    });
+         });
 
     this.myForm = new FormGroup({
-      alcotId: new FormControl('', Validators.required),
+      alcotChannel: new FormControl('', Validators.required),
     });
   }
 
 
-  get alcotId() {
-    return this.myForm.get('alcotId')
+  get alcotChannel() {
+    return this.myForm.get('alcotChannel')
   }
 
   toggleAllSelection() {
@@ -56,9 +60,11 @@ export class AddExtraChannelsComponent implements OnInit {
 
   submit() {
     let submitModel: AddExtraChannels = {
-      alcotId: this.alcotId?.value,
-      bouquteId: this.id
+      alcotChannel: this.alcotChannel?.value,
+      boqId: this.id,
+      broadCasterRegionId: this.broadCasterRegionId
     }
+    
     this.AddExtra.AddExtraChannelsforBouquete(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);

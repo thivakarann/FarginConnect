@@ -69,9 +69,6 @@
                 <td mat-cell *matCellDef="let viewall">{{viewall.bundleChannel.broadCasterName}}</td>
             </ng-container>
 
-
-  
-
             <ng-container matColumnDef="amount">
                 <th mat-header-cell *matHeaderCellDef>Plan Amount</th>
                 <td mat-cell *matCellDef="let viewall">{{viewall.amount}}</td>
@@ -86,9 +83,16 @@
                 </td>
             </ng-container>
 
-            <ng-container matColumnDef="View">
+            <!-- <ng-container matColumnDef="View">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="valuebouquetesView!=='Broadcaster Bouqutes-View'">View</th>
                 <td [hidden]="valuebouquetesView!=='Broadcaster Bouqutes-View'" style="cursor: pointer;" mat-cell *matCellDef="let viewall" (click)="Viewdata(viewall.bouquetId)">
+                    <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-eye"></i>
+                </td>
+            </ng-container> -->
+
+            <ng-container matColumnDef="View">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="valuebouquetesView!=='Broadcaster Bouqutes-View'">View</th>
+                <td [hidden]="valuebouquetesView!=='Broadcaster Bouqutes-View'" style="cursor: pointer;" mat-cell *matCellDef="let viewall" (click)="Viewdatas(viewall.bouquetId)">
                     <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-eye"></i>
                 </td>
             </ng-container>

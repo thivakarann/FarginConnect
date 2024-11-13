@@ -1,6 +1,6 @@
 <div class="form-header d-flex justify-content-between align-items-center mx-4">
     <h4 class="mb-0">{{details?.bundleChannel?.broadCasterName}}</h4>
-    <button type="button" class="btn btn-secondary" (click)="close()">Back</button>
+    <button type="button" class="btn btn-secondary" (click)="close(details?.bouquetId)">Back</button>
  
 </div>
 <hr>
@@ -26,7 +26,7 @@
     <div class="col-md-6">
     </div>
     <div class="d-flex justify-content-end col-md-3 mt-4">
-        <button (click)="addChaneels(this.id)" style="color:white;background-color: #141E46;border-radius: 10px;"
+        <button (click)="addChaneels(broadCasterBouquet.bouquetId,broadCasterRegion?.broadCasterRegionId)" style="color:white;background-color: #141E46;border-radius: 10px;"
             mat-raised-button>Add</button>
     </div>
 </div>
@@ -37,15 +37,17 @@
                 <table class="table table-hover" id="customers">
                     <tr>
                         <th>S No </th>
-                        <th>channelName</th>
-                        <th>Channel No</th>
+                        <th>Channel Name</th>
+                        <th>Channel Number</th>
+                        <th>Channel BroadCaster</th>
+                        <th>Mso</th>
+                        <th>Region</th>
+                        <th>Generic</th>
+                        <th>Language</th>
                         <th>Type</th>
                         <th>Status</th>
-                        <th>Language</th>
-                        <th>Generic</th>
-                        <th>Channel BroadCaster</th>
-                        <th>Region</th>
-                        <th>Mso</th>
+                        <th>Edit</th>
+
                     </tr>
  
                     <tbody
@@ -56,6 +58,11 @@
                         <td class="text-center">{{i+1}}</td>
                         <td class="text-center">{{item.broadCasterAlcot?.channelName}}</td>
                         <td class="text-center">{{item.broadCasterAlcot?.channelNo}}</td>
+                        <td class="text-center">{{item.broadCasterAlcot?.bundleChannelId?.broadCasterName}}</td>
+                        <td class="text-center">{{item.broadCasterAlcot?.region?.service?.serviceProviderName}}</td>
+                        <td class="text-center">{{item.broadCasterAlcot?.region?.stateName}}</td>
+                        <td class="text-center">{{item.broadCasterAlcot?.generic}}</td>
+                        <td class="text-center">{{item.broadCasterAlcot?.language}}</td>
                         <td class="text-center">{{item.broadCasterAlcot?.type == 1?'Paid':'Free'}}</td>
                         <td class="text-center">
                              <mat-slide-toggle class="example-margin" color="primary"
@@ -63,11 +70,18 @@
                                 (change)="ActiveStatus($event,item?.broadCasterAloctId)">
                             </mat-slide-toggle>
                         </td>
-                        <td class="text-center">{{item.broadCasterAlcot?.language}}</td>
-                        <td class="text-center">{{item.broadCasterAlcot?.generic}}</td>
-                        <td class="text-center">{{item.broadCasterAlcot?.bundleChannelId?.broadCasterName}}</td>
-                        <td class="text-center">{{item.broadCasterAlcot?.region?.stateName}}</td>
-                        <td class="text-center">{{item.broadCasterAlcot?.region?.service?.serviceProviderName}}</td>
+
+                        <!-- <td class="text-center">
+                            <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-edit"
+                            (click)="Edit(details?.bouquetId, item.broadCasterRegionId)"></i>
+                        </td>
+                    -->
+                    <td class="text-center">
+                        <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-edit"
+                        (click)="Edit(item.broadCasterAlcot?.region?.regionId,item.broadCasterAloctId)"></i>
+                    </td>
+               
+
                     </tbody>
                 </table>
              

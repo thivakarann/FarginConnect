@@ -533,8 +533,9 @@ export interface BroadcasterBouquetadd {
 }
 
 export interface AddExtraChannels {
-  readonly alcotId: any;
-  readonly bouquteId: any;
+  readonly alcotChannel: any;
+  readonly boqId: any;
+  readonly broadCasterRegionId:any;
 }
 
 export interface BroadcasterBouquetStatus {
@@ -553,6 +554,15 @@ export interface Broadcastersinglechanelstatus {
   readonly broadCasterAlcotId: any;
   readonly channelStatus: any;
 }
+export interface BroadcasterBoucateschannelEdits {
+  readonly broadCasterAlcotId:any;
+ readonly alcotIds: any;
+}
+export interface BroadcasterBouquetregionupdate {
+  readonly broadCasterRegionId:any;
+ readonly regionIds: any;
+}
+
 
 export interface DPOCrate {
   readonly bundleChannelId: any;
@@ -678,16 +688,23 @@ export interface editroles {
 
 
 export interface BroadcasterBouquetupdate {
-  readonly bouquteId: any
+  readonly boqId: any
   readonly boqCreationId: any;
   readonly serviceId: any;
   readonly bundleChannelId: any;
-  readonly alcotId: any;
-  readonly regId: any;
+  // readonly alcotId: any;
+  // readonly regId: any;
   readonly amount: any;
   readonly modifiedBy: any;
 
 }
+
+export interface ExtraRegion{
+  readonly boqId:any
+  readonly regionId:any
+  readonly alcotChannel:any
+}
+
 export interface manualPayment {
   readonly paymentStatus: any;
   readonly paymentMethod: any;

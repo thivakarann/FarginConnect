@@ -54,8 +54,6 @@
                         <option value="" disabled selected>Select</option>
                         <option *ngFor="let item of ActiveMSO" [value]="item.serviceId">{{item.serviceProviderName}}
                         </option>
-
-
                     </select>
                     <div style="
                     color: red;
@@ -67,7 +65,7 @@
                         Field is required
                     </div>
                 </div>
-                <div class="col-6 form-group ">
+                <!-- <div class="col-6 form-group ">
                     <label for="Entity Name">Regions</label>
                     <mat-select #selects style="font-size: 12px;" [ngModel]="getvalues11" class="form-select" multiple formControlName="regId" (change)="activeregionids()">
                         <div class="select-all">
@@ -88,35 +86,7 @@
           " *ngIf="regId?.invalid && regId?.touched && regId?.errors?.['required']">
                         Field is required
                     </div>
-                </div>
-
-
-            </div>
-
-            <div class="row">
-
-                <div class="col-6 form-group ">
-                    <label for="Entity Name">Channels List</label>
-                    <mat-select #select style="font-size: 12px;" [ngModel]="getalcot" class="form-select" multiple formControlName="alcotId">
-                        <div class="select-all">
-                            <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
-                                (change)="toggleAllSelection()">Select All</mat-checkbox>
-                        </div>
-                        <mat-option [value]="items.alcotId" *ngFor="let items of channelslist">
-
-                            {{items?.channelName}}</mat-option>
-                    </mat-select>
-
-                    <div style="
-            color: red;
-            font-size: 12px;
-            margin-top: 2px;
-            position: relative;
-            ;
-          " *ngIf="alcotId?.invalid && alcotId?.touched && alcotId?.errors?.['required']">
-                        Field is required
-                    </div>
-                </div>
+                </div> -->
 
                 <div class="col-6 form-group ">
                     <label for="Entity Name">Bouquet Price</label>
@@ -145,6 +115,34 @@
 
                     
                 </div>
+            </div>
+
+            <div class="row">
+
+                <!-- <div class="col-6 form-group ">
+                    <label for="Entity Name">Channels List</label>
+                    <mat-select #select style="font-size: 12px;" [ngModel]="getalcot" class="form-select" multiple formControlName="alcotId">
+                        <div class="select-all">
+                            <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
+                                (change)="toggleAllSelection()">Select All</mat-checkbox>
+                        </div>
+                        <mat-option [value]="items.alcotId" *ngFor="let items of channelslist">
+
+                            {{items?.channelName}}</mat-option>
+                    </mat-select>
+
+                    <div style="
+            color: red;
+            font-size: 12px;
+            margin-top: 2px;
+            position: relative;
+            ;
+          " *ngIf="alcotId?.invalid && alcotId?.touched && alcotId?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div> -->
+
+              
             </div>
 
             <div style="margin-top: 2%;">

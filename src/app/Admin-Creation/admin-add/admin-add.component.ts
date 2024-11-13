@@ -74,6 +74,12 @@ export class AdminAddComponent implements OnInit {
     return this.AdminForm.get('pincode');
   }
 
+  onMobileNumberInput(event: any): void {
+    // Restrict non-numeric input
+    const value = event.target.value.replace(/[^0-9]/g, '');
+    event.target.value = value;
+  }
+
   togglePasswordVisibility(passwordInput: { type: string; }) {
     this.showPassword = !this.showPassword;
     passwordInput.type = this.showPassword ? 'text' : 'password';

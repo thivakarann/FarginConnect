@@ -127,10 +127,8 @@ export class BouqutesAddComponent implements OnInit {
       if(res.flag==1)
       {
         if (Array.isArray(res.response)) {
-
-          this.channelslist = res.response; // Store channels
-          console.log('Channels list:', this.channelslist); // Log channels
-        } else {
+          this.channelslist = res.response;
+          console.log('Channels list:', this.channelslist);
           console.error('Unexpected response format:', res);
         }
       

@@ -60,19 +60,19 @@ export class TestpageComponent {
     );
   }
 
-  submit() {
-    let submitModel: AddExtraChannels = {
-      alcotId: this.alcotId?.value,
-      bouquteId: 4
-    };
-    this.AddExtra.AddExtraChannelsforBouquete(submitModel).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.toastr.success(res.responseMessage);
-        this.dialog.closeAll();
-        window.location.reload();
-      } else {
-        this.toastr.error(res.responseMessage);
-      }
-    });
-  }
+  // submit() {
+  //   let submitModel: AddExtraChannels = {
+  //     alcotId: this.alcotId?.value,
+  //     bouquteId: 4
+  //   };
+  //   this.AddExtra.AddExtraChannelsforBouquete(submitModel).subscribe((res: any) => {
+  //     if (res.flag == 1) {
+  //       this.toastr.success(res.responseMessage);
+  //       this.dialog.closeAll();
+  //       window.location.reload();
+  //     } else {
+  //       this.toastr.error(res.responseMessage);
+  //     }
+  //   });
+  // }
 }

@@ -87,7 +87,6 @@ export class ViewAnnouncementComponent implements OnInit {
 
     this.service.announcementViewall().subscribe((res: any) => {
       this.announcementValue = res.response;
-      
       this.announcementValue.reverse();
       this.dataSource = new MatTableDataSource(this.announcementValue);
       this.dataSource.sort = this.sort;
@@ -106,15 +105,15 @@ export class ViewAnnouncementComponent implements OnInit {
       next: (res: any) => {
 
         this.datefilter = res.response;
-        
+
 
         this.dataSource = new MatTableDataSource(this.datefilter);
-        
+
 
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
         this.dateSuccess = res.responseMessage;
-        
+
         this.fromDate = '';
         this.toDate = '';
 
@@ -137,7 +136,7 @@ export class ViewAnnouncementComponent implements OnInit {
     });
   }
 
-  reset(){
+  reset() {
     window.location.reload()
   }
 
@@ -169,7 +168,7 @@ export class ViewAnnouncementComponent implements OnInit {
     };
 
     this.service.announcementStatus(submitModel).subscribe((res: any) => {
-      
+
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
         window.location.reload();
@@ -182,7 +181,7 @@ export class ViewAnnouncementComponent implements OnInit {
     this.announcementValue.forEach((element: any) => {
       let createdate = element.createdDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
- 
+
       let moddate = element.updateDateTime;
       this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
@@ -195,10 +194,10 @@ export class ViewAnnouncementComponent implements OnInit {
       if (element?.activeStatus == '1') {
         this.response.push('Active');
       }
-      else  {
+      else {
         this.response.push('Inactive');
       }
-   
+
       this.response.push(this.date1);
       this.response.push(element?.updatedBy);
       this.response.push(this.date2);
@@ -207,7 +206,7 @@ export class ViewAnnouncementComponent implements OnInit {
     });
     this.excelexportCustomer();
   }
- 
+
   excelexportCustomer() {
     const header = [
       "S.No",
@@ -248,8 +247,8 @@ export class ViewAnnouncementComponent implements OnInit {
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
- 
- 
+
+
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -260,7 +259,7 @@ export class ViewAnnouncementComponent implements OnInit {
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
+
     }
     );
     workbook.xlsx.writeBuffer().then((data: any) => {

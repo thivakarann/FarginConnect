@@ -96,18 +96,23 @@ export class EntityAddComponent implements OnInit {
  
     this.AddEntity.Bussinesscategoryactivelist().subscribe((res: any) => {
       this.categorydetails = res.response;
+      this.categorydetails.reverse();
+
     });
  
     this.AddEntity.merchantplanactive().subscribe((res: any) => {
       this.entittyplanviewall = res.response;
+      this.entittyplanviewall.reverse();
     });
  
     this.AddEntity.activebankdetails().subscribe((res: any) => {
       this.BankNames = res.response;
+      this.BankNames.reverse();
     });
  
     this.AddEntity.activeViewall().subscribe((res: any) => {
       this.kycValue = res.response;
+      this.kycValue.reverse();
      
     })
  
