@@ -11,6 +11,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
 import moment from 'moment';
+import { PageEvent } from '@angular/material/paginator';
+ 
 import { AnnouncementviewComponent } from '../announcementview/announcementview.component';
 import { announcestatus } from '../../fargin-model/fargin-model.module';
 
@@ -47,6 +49,12 @@ export class ViewAnnouncementComponent implements OnInit {
   announcementId: any;
   datefilter: any;
   dateSuccess: any;
+  announcementexport: any;
+  pageIndex: number=0 ;
+  pageSize:number=5;
+  totalPages: any;
+  totalpage: any;
+  currentpage: any;
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -85,8 +93,11 @@ export class ViewAnnouncementComponent implements OnInit {
       }
     });
 
-    this.service.announcementViewall().subscribe((res: any) => {
-      this.announcementValue = res.response;
+    this.service.announcementViewall(this.pageSize,this.pageIndex).subscribe((res: any) => {
+      this.announcementValue = res.response.content;
+      this.totalPages=res.pagination.totalElements;
+      this.totalpage=res.pagination.totalPages;
+      this.currentpage=res.pagination.currentPage+1;
       this.announcementValue.reverse();
       this.dataSource = new MatTableDataSource(this.announcementValue);
       this.dataSource.sort = this.sort;
@@ -94,6 +105,29 @@ export class ViewAnnouncementComponent implements OnInit {
     })
 
 
+  }
+
+
+  renderPage(event: PageEvent) {
+    // Capture the new page index and page size from the event
+    this.pageIndex = event.pageIndex;  // Update current page index
+    this.pageSize = event.pageSize;           // Update page size (if changed)
+ 
+    // Log the new page index and page size to the console (for debugging)
+    console.log('New Page Index:', this.pageIndex);
+    console.log('New Page Size:', this.pageSize);
+ 
+    // You can now fetch or display the data for the new page index
+    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
+    this.ngOnInit()
+  }
+  changePageIndex(newPageIndex: number) {
+    this.pageIndex = newPageIndex;
+    this.renderPage({
+      pageIndex: newPageIndex,
+      pageSize: this.pageSize,
+      // length: this.totalItems
+    } as PageEvent);
   }
 
   reload() {
@@ -124,6 +158,8 @@ export class ViewAnnouncementComponent implements OnInit {
   togglePrivacyPolicy() {
     this.isFullPolicyVisible = !this.isFullPolicyVisible;
   }
+
+  
 
 
   Edit(id: any) {
@@ -176,12 +212,17 @@ export class ViewAnnouncementComponent implements OnInit {
     });
   }
   exportexcel() {
+    this.service.announcementViewallExport().subscribe((res: any) => {
+      this.announcementexport = res.response;
+    if(res.flag==1){
+ 
+ 
     let sno = 1;
     this.responseDataListnew = [];
-    this.announcementValue.forEach((element: any) => {
+    this.announcementexport.forEach((element: any) => {
       let createdate = element.createdDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-
+ 
       let moddate = element.updateDateTime;
       this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
@@ -197,7 +238,7 @@ export class ViewAnnouncementComponent implements OnInit {
       else {
         this.response.push('Inactive');
       }
-
+ 
       this.response.push(this.date1);
       this.response.push(element?.updatedBy);
       this.response.push(this.date2);
@@ -205,6 +246,8 @@ export class ViewAnnouncementComponent implements OnInit {
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
+  }
+});
   }
 
   excelexportCustomer() {

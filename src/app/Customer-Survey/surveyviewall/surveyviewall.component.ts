@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
 import moment from 'moment';
+import { PageEvent } from '@angular/material/paginator';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { ViewQuestionsComponent } from '../view-questions/view-questions.component';
@@ -53,6 +54,12 @@ export class SurveyviewallComponent {
   roleId: any = localStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
+  pageIndex: number=0 ;
+  pageSize:number=5;
+  totalPages: any;
+  totalpage: any;
+  currentpage: any;
+  surveyexport: any;
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit() {
@@ -90,16 +97,18 @@ export class SurveyviewallComponent {
     });
 
 
-    this.service.SurveyViewAll().subscribe((res: any) => {
+    this.service.SurveyViewAll(this.pageSize,this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.survey = res.response;
+        this.totalPages=res.pagination.totalElements;
+        this.totalpage=res.pagination.totalPages;
+        this.currentpage=res.pagination.currentPage+1;
         this.survey.reverse();
         this.dataSource = new MatTableDataSource(this.survey);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
     })
-
 
   }
 
@@ -114,12 +123,14 @@ export class SurveyviewallComponent {
       this.dataSource.paginator.firstPage();
     }
   }
-
   exportexcel() {
-    
+    this.service.SurveyViewAllExport().subscribe((res: any) => {
+        this.surveyexport = res.response;
+        if (res.flag == 1) {
+ 
     let sno = 1;
     this.responseDataListnew = [];
-    this.survey.forEach((element: any) => {
+    this.surveyexport.forEach((element: any) => {
       let createdate = element.createdDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
  
@@ -136,6 +147,8 @@ export class SurveyviewallComponent {
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
+  }
+});
   }
  
   excelexportCustomer() {
@@ -297,5 +310,27 @@ export class SurveyviewallComponent {
     this.router.navigate([`dashboard/view-surveyquestions/${id}`], {
       queryParams: { Alldata: id }
     })
+  }
+
+  renderPage(event: PageEvent) {
+    // Capture the new page index and page size from the event
+    this.pageIndex = event.pageIndex;  // Update current page index
+    this.pageSize = event.pageSize;           // Update page size (if changed)
+ 
+    // Log the new page index and page size to the console (for debugging)
+    console.log('New Page Index:', this.pageIndex);
+    console.log('New Page Size:', this.pageSize);
+ 
+    // You can now fetch or display the data for the new page index
+    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
+    this.ngOnInit()
+  }
+  changePageIndex(newPageIndex: number) {
+    this.pageIndex = newPageIndex;
+    this.renderPage({
+      pageIndex: newPageIndex,
+      pageSize: this.pageSize,
+      // length: this.totalItems
+    } as PageEvent);
   }
 }

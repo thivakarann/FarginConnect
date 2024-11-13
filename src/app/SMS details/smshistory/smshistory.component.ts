@@ -20,7 +20,7 @@ export class SMSHistoryComponent {
 
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = [
-   'sno',
+    'sno',
     'accountId',
     'entityname',
     'entityemail',
@@ -28,7 +28,7 @@ export class SMSHistoryComponent {
     // 'smscharge',
     'createdBy',
     'date',
- 
+
   ];
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
@@ -49,44 +49,45 @@ export class SMSHistoryComponent {
   date2: any;
   transaction: any;
   message: any;
-  showcategoryData: boolean=false;
+  showcategoryData: boolean = false;
   smsResponse: any;
   getdashboard: any[] = [];
   roleId: any = localStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
-valuesmshistoryexport: any;
+  valuesmshistoryexport: any;
   totalPages: any;
   totalpage: any;
   currentpage: any;
- 
+
   pageIndex: number = 0;
-  pageSize=5;
-  constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog,private router:Router) { }
- 
- 
- 
+  pageSize = 5;
+  smsResponseexport: any;
+  constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private router: Router) { }
+
+
+
   ngOnInit(): void {
- 
+
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-       
- 
+
+
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
- 
+
           if (this.roleId == 1) {
             this.valuesmshistoryexport = 'SMS History-Export';
-           }
+          }
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
- 
- 
+
+
               if (this.actions == 'SMS History-Export') {
                 this.valuesmshistoryexport = 'SMS History-Export';
               }
-             
+
             }
           }
         }
@@ -95,41 +96,44 @@ valuesmshistoryexport: any;
         }
       }
     })
-   
-    this.service.SmsHistoryGetAll(this.pageSize,this.pageIndex).subscribe((res: any) => {
+
+    this.service.SmsHistoryGetAll(this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.smsResponse=res.response;
-        this.totalPages=res.pagination.totalElements;
-        this.totalpage=res.pagination.totalPages;
-       this.currentpage=res.pagination.currentPage+1;
+        this.smsResponse = res.response;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
         this.dataSource = new MatTableDataSource(this.smsResponse);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
-      else if(res.flag==2){
-        this.message=res.responseMessage;
+      else if (res.flag == 2) {
+        this.message = res.responseMessage;
       }
- 
+
     })
   }
- 
- 
- 
+
+
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
- 
+
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
- 
- 
+
+
   exportexcel() {
-   
+    this.service.SmsHistoryGetAllExport().subscribe((res: any) => {
+        this.smsResponseexport=res.response;
+        if (res.flag == 1) {
+ 
     let sno = 1;
     this.responseDataListnew = [];
-    this.smsResponse.forEach((element: any) => {
+    this.smsResponseexport.forEach((element: any) => {
       let createdate = element.merchantSmsId?.createdDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
  
@@ -139,7 +143,7 @@ valuesmshistoryexport: any;
       this.response.push(element?.merchantId?.entityName);
       this.response.push(element?.merchantId?.contactEmail);
       this.response.push(element?.merchantSmsId?.type?.smsTitle);
-      this.response.push(element?.merchantSmsId?.type?.smsCharge);
+      // this.response.push(element?.merchantSmsId?.type?.smsCharge);
       this.response.push(element?.merchantSmsId?.createdBy);
       this.response.push(this.date1);
      
@@ -148,30 +152,32 @@ valuesmshistoryexport: any;
     });
     this.excelexportCustomer();
   }
- 
+});
+  }
+
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
-    'SNo',
-    'Account Id',
-    'Entity Name',
-    'Entity Email',
-    'SMS Type',
-    // 'SMS Charge',
-    'Created By',
-    'Created At',
-   
+      'SNo',
+      'Account Id',
+      'Entity Name',
+      'Entity Email',
+      'SMS Type',
+      // 'SMS Charge',
+      'Created By',
+      'Created At',
+
     ]
- 
- 
+
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Sms Settings');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
- 
- 
+
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -182,15 +188,15 @@ valuesmshistoryexport: any;
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
+
       }
- 
+
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
- 
+
     data.forEach((d: any) => {
       //
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -200,12 +206,12 @@ valuesmshistoryexport: any;
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
- 
- 
- 
- 
- 
- 
+
+
+
+
+
+
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -213,8 +219,8 @@ valuesmshistoryexport: any;
       qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
+      qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+
     }
     );
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
@@ -225,12 +231,12 @@ valuesmshistoryexport: any;
       FileSaver.saveAs(blob, 'Sms-History.xlsx');
     });
   }
- 
+
   View(id: any) {
     this.router.navigate([`dashboard/smshistory-view/${id}`], {
       queryParams: { Alldata: id },
     });
-   
+
   }
   filterdate() {
     // const datepipe: DatePipe = new DatePipe("en-US");
@@ -238,25 +244,25 @@ valuesmshistoryexport: any;
     // let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/YYYY HH:mm");
     // this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
     // this.currentPage = 1;
- 
-    this.service.SMSHistoryFilter(this.FromDateRange,this.ToDateRange,this.pageSize,this.pageIndex).subscribe((res: any) => {
+
+    this.service.SMSHistoryFilter(this.FromDateRange, this.ToDateRange, this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
-   
-        this.transaction=res.response;
-        this.totalPages=res.pagination.totalElements;
-        this.totalpage=res.pagination.totalPages;
-       this.currentpage=res.pagination.currentPage+1;
-        this.totalPages=res.pagination.totalElements;
-        this.totalpage=res.pagination.totalPages;
-       this.currentpage=res.pagination.currentPage;
+
+        this.transaction = res.response;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-         
-this.showcategoryData= false;
+
+        this.showcategoryData = false;
       }
-      else if(res.flag==2){
-this.showcategoryData= true;
+      else if (res.flag == 2) {
+        this.showcategoryData = true;
       }
     })
   }
@@ -267,11 +273,11 @@ this.showcategoryData= true;
     // Capture the new page index and page size from the event
     this.pageIndex = event.pageIndex;  // Update current page index
     this.pageSize = event.pageSize;           // Update page size (if changed)
- 
+
     // Log the new page index and page size to the console (for debugging)
     console.log('New Page Index:', this.pageIndex);
     console.log('New Page Size:', this.pageSize);
- 
+
     // You can now fetch or display the data for the new page index
     // Example: this.fetchData(this.currentPageIndex, this.pageSize);
     this.ngOnInit()
@@ -284,6 +290,6 @@ this.showcategoryData= true;
       // length: this.totalItems
     } as PageEvent);
   }
- 
+
 
 }

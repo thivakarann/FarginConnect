@@ -66,6 +66,7 @@ export class CustomerTransViewallComponent {
   totalpage: any;
   totalPages: any;
   currentpage: any;
+  transactionexport: any;
 
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
 
@@ -183,38 +184,41 @@ export class CustomerTransViewallComponent {
 
 
   exportexcel() {
-
-    let sno = 1;
-    this.responseDataListnew = [];
-    this.transaction.forEach((element: any) => {
-      let createdate = element.paymentDateTime;
-      this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-
-      this.response = [];
-      this.response.push(sno);
-      this.response.push(element?.pgPaymentId);
-      this.response.push(element?.customerId?.merchantId?.merchantLegalName);
-      this.response.push(element?.customerId?.customerName);
-      this.response.push(element?.paymentMethod);
-      this.response.push(element?.paidAmount);
-      this.response.push(this.date1);
-
-      if (element?.paymentStatus == 'Success') {
-        this.response.push('Success');
+    this.service.CustomerAllTransactionsExport().subscribe((res: any) => {
+    this.transactionexport = res.response;
+    if(res.flag==1){
+        let sno = 1;
+        this.responseDataListnew = [];
+        this.transactionexport.forEach((element: any) => {
+          let createdate = element.paymentDateTime;
+          this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
+     
+          this.response = [];
+          this.response.push(sno);
+          this.response.push(element?.pgPaymentId);
+          this.response.push(element?.customerId?.merchantId?.merchantLegalName);
+          this.response.push(element?.customerId?.customerName);
+          this.response.push(element?.paymentMethod);
+          this.response.push(element?.paidAmount);
+          this.response.push(this.date1);
+     
+          if (element?.paymentStatus == 'Success') {
+            this.response.push('Success');
+          }
+          else if (element?.paymentStatus == 'Pending') {
+            this.response.push('Pending');
+          }
+          else {
+            this.response.push('Initiated');
+          }
+     
+          sno++;
+          this.responseDataListnew.push(this.response);
+        });
+        this.excelexportCustomer();
       }
-      else if (element?.paymentStatus == 'Pending') {
-        this.response.push('Pending');
-      }
-      else {
-        this.response.push('Initiated');
-      }
-
-      sno++;
-      this.responseDataListnew.push(this.response);
     });
-    this.excelexportCustomer();
-  }
-
+      }
   excelexportCustomer() {
     // const title='Business Category';
     const header = [

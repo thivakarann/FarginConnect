@@ -11,6 +11,7 @@ import moment from 'moment';
 import { Workbook } from 'exceljs';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { EntityStatus } from '../../fargin-model/fargin-model.module';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-entity-viewall',
@@ -54,7 +55,12 @@ export class EntityViewallComponent {
   errorMessage: any;
   unblockvalue: any;
   valueEntityUnblock: any;
-
+  pageIndex: number=0 ;
+  pageSize:number=5;
+  totalPages: any;
+  totalpage: any;
+  currentpage: any;
+  viewallexport: any;
   constructor(
     public EntityViewall: FarginServiceService,
     private router: Router,
@@ -106,13 +112,16 @@ export class EntityViewallComponent {
     })
 
 
-    this.EntityViewall.EntityViewall().subscribe((res: any) => {
+    this.EntityViewall.EntityViewall(this.pageSize,this.pageIndex).subscribe((res: any) => {
       this.viewall = res.response;
+      this.totalPages=res.pagination.totalElements;
+      this.totalpage=res.pagination.totalPages;
+      this.currentpage=res.pagination.currentPage+1;
       this.viewall.reverse();
       this.dataSource = new MatTableDataSource(this.viewall);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-      
+     
     });
 
 
@@ -160,12 +169,13 @@ export class EntityViewallComponent {
       this.dataSource.paginator.firstPage();
     }
   }
-
   exportexcel() {
-   
+    this.EntityViewall.EntityViewallExport().subscribe((res: any) => {
+    this.viewallexport = res.response;
+   if(res.flag==1){  
     let sno = 1;
     this.responseDataListnew = [];
-    this.viewall.forEach((element: any) => {
+    this.viewallexport.forEach((element: any) => {
       let createdate = element.createdDatetime;
       this.date1 = moment(createdate).format('DD/MM/yyyy').toString();
  
@@ -212,6 +222,8 @@ export class EntityViewallComponent {
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
+  }
+});
   }
  
   excelexportCustomer() {
@@ -302,5 +314,26 @@ export class EntityViewallComponent {
         window.location.reload();
       }, 1000);
     });
+  }
+  renderPage(event: PageEvent) {
+    // Capture the new page index and page size from the event
+    this.pageIndex = event.pageIndex;  // Update current page index
+    this.pageSize = event.pageSize;           // Update page size (if changed)
+ 
+    // Log the new page index and page size to the console (for debugging)
+    console.log('New Page Index:', this.pageIndex);
+    console.log('New Page Size:', this.pageSize);
+ 
+    // You can now fetch or display the data for the new page index
+    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
+    this.ngOnInit()
+  }
+  changePageIndex(newPageIndex: number) {
+    this.pageIndex = newPageIndex;
+    this.renderPage({
+      pageIndex: newPageIndex,
+      pageSize: this.pageSize,
+      // length: this.totalItems
+    } as PageEvent);
   }
 }

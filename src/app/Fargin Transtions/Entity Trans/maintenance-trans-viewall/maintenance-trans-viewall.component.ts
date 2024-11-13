@@ -74,6 +74,7 @@ pageSize=5;
   totalPages: any;
   totalpage: any;
   currentpage: any;
+  transactionexport: any;
  
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
  
@@ -216,47 +217,51 @@ pageSize=5;
  
  
   exportexcel() {
+    this.service.MaintenanceAllTransactionsExport().subscribe((res: any) => {
+    this.transactionexport = res.response;
+     if(res.flag==1){
+      let sno = 1;
+      this.responseDataListnew = [];
+      this.transactionexport.forEach((element: any) => {
+       
    
-    let sno = 1;
-    this.responseDataListnew = [];
-    this.transaction.forEach((element: any) => {
-     
- 
-      this.response = [];
-      this.response.push(sno);
-      this.response.push(element?.pgPaymentId);
-      this.response.push(element?.merchantId?.merchantLegalName);
-      this.response.push(element?.paymentMethod);
-      this.response.push(element?.smsCount);
-      this.response.push(element?.smsPerAmount);
-      this.response.push(element?.smsTotalAmount);
- 
-      this.response.push(element?.paidAmount);
-     
- 
- 
-   //
-      if(element?.paymentDateTime){
-        this.response.push(moment(element?.paymentDateTime).format('DD/MM/yyyy-hh:mm a').toString());
-      }
-      else{
-        this.response.push('');
-      }
-     
-      if (element?.paymentStatus == 'Success') {
-        this.response.push('Success');
-      }
-      else if (element?.paymentStatus == 'Pending') {
-        this.response.push('Pending');
-      }
-      else  {
-        this.response.push('Initiated');
-      }
-      sno++;
-      this.responseDataListnew.push(this.response);
-    });
-    this.excelexportCustomer();
-  }
+        this.response = [];
+        this.response.push(sno);
+        this.response.push(element?.pgPaymentId);
+        this.response.push(element?.merchantId?.merchantLegalName);
+        this.response.push(element?.paymentMethod);
+        this.response.push(element?.smsCount);
+        this.response.push(element?.smsPerAmount);
+        this.response.push(element?.smsTotalAmount);
+   
+        this.response.push(element?.paidAmount);
+       
+   
+   
+     //
+        if(element?.paymentDateTime){
+          this.response.push(moment(element?.paymentDateTime).format('DD/MM/yyyy-hh:mm a').toString());
+        }
+        else{
+          this.response.push('');
+        }
+       
+        if (element?.paymentStatus == 'Success') {
+          this.response.push('Success');
+        }
+        else if (element?.paymentStatus == 'Pending') {
+          this.response.push('Pending');
+        }
+        else  {
+          this.response.push('Initiated');
+        }
+        sno++;
+        this.responseDataListnew.push(this.response);
+      });
+      this.excelexportCustomer();
+    }
+  });
+   }
  
   excelexportCustomer() {
     // const title='Business Category';

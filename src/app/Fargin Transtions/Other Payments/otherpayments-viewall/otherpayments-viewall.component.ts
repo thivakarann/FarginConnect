@@ -71,6 +71,7 @@ export class OtherpaymentsViewallComponent {
   currentpage: any;
   pageIndex: number = 0;
   pageSize=5;
+  transactionexport: any;
  
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
  
@@ -200,10 +201,13 @@ export class OtherpaymentsViewallComponent {
  
  
   exportexcel() {
-   
+    this.service.OtherPayExport().subscribe((res: any) => {
+        this.transactionexport = res.response;  
+    if (res.flag == 1) {
+ 
     let sno = 1;
     this.responseDataListnew = [];
-    this.transaction.forEach((element: any) => {
+    this.transactionexport.forEach((element: any) => {
       let createdate = element.paymentDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
  
@@ -231,6 +235,9 @@ export class OtherpaymentsViewallComponent {
     });
     this.excelexportCustomer();
   }
+});
+  }
+ 
  
   excelexportCustomer() {
     // const title='Business Category';

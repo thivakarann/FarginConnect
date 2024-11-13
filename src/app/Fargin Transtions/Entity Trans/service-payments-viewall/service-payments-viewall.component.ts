@@ -65,6 +65,7 @@ export class ServicePaymentsViewallComponent {
   totalPages: any;
   totalpage: any;
   currentpage: any;
+  transactionexport: any;
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
  
  
@@ -203,10 +204,12 @@ export class ServicePaymentsViewallComponent {
  
  
   exportexcel() {
-   
+    this.service.OneTimeTransactionsExport().subscribe((res: any) => {
+    this.transactionexport = res.response;
+    if (res.flag == 1) {
     let sno = 1;
     this.responseDataListnew = [];
-    this.transaction.forEach((element: any) => {
+    this.transactionexport.forEach((element: any) => {
       let createdate = element.paymentDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
  
@@ -234,6 +237,8 @@ export class ServicePaymentsViewallComponent {
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
+  }
+  });
   }
  
   excelexportCustomer() {

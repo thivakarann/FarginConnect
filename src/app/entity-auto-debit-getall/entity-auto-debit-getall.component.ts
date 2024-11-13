@@ -45,6 +45,7 @@ export class EntityAutoDebitGetallComponent {
   totalPages: any;
   totalpage: any;
   currentpage: any;
+  viewallexport: any;
   constructor(
     public autodebitdetails: FarginServiceService,
     private router: Router,
@@ -79,10 +80,13 @@ export class EntityAutoDebitGetallComponent {
     window.location.reload()
   }
   exportexcel() {
-   
+    this.autodebitdetails.autodebitgetallExport().subscribe((res: any) => {
+      this.viewallexport = res.response;
+   if(res.flag==1){
+ 
     let sno = 1;
     this.responseDataListnew = [];
-    this.viewall.forEach((element: any) => {
+    this.viewallexport.forEach((element: any) => {
       let createdate = element.createdDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
  
@@ -102,6 +106,8 @@ export class EntityAutoDebitGetallComponent {
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
+  }
+});
   }
  
   excelexportCustomer() {

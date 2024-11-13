@@ -84,8 +84,9 @@ export class FarginServiceService {
 
   // Entity Details
 
-  private readonly Entitygetall = 'merchant/getall'
-  private readonly AddEntity = 'merchant/create'
+  private readonly Entitygetallexport = 'merchant/getall';
+  private readonly entitygetall='merchant/getall/'
+    private readonly AddEntity = 'merchant/create'
   private readonly EntityKYCBYbusinessid = 'businesskyc/getcategorykyc/'
   private readonly Entityviewbyid = 'merchant/getmerchants/';
   private readonly updateEntity = 'merchant/updateMerchant/';
@@ -103,7 +104,8 @@ export class FarginServiceService {
 
   //Overall customer
   private readonly Overallcustomer = 'customer/viewByAll/';
-  private readonly Entityindividualcustomerview = 'customer/viewById/';
+  private readonly overallcustomerexport='customer/viewByAll'
+    private readonly Entityindividualcustomerview = 'customer/viewById/';
   private readonly viewcustomerbasicdetails = 'customer/viewcustomer/';
   private readonly viewSetupboxDetails = 'customer/viewcustomerstb/';
   private readonly viewsetupboxplan = 'customer/viewcustomerstbplan/';
@@ -369,17 +371,20 @@ export class FarginServiceService {
 
   //transactions
   private readonly customeralltransactions = 'customerpay/viewAllPayments/';
-  private readonly customerdatefilter = 'paymentHistory/getDateFilter/';
+  private readonly customertransactionexport='customerpay/ViewCusDetails'
+    private readonly customerdatefilter = 'paymentHistory/getDateFilter/';
   private readonly customertransactionview = 'customerpay/viewbyid/'
 
   //merchant
   private readonly maintenancetransaction = 'maintanancePay/viewAll/';
+  private readonly maintenancetransactionexport='maintanancePay/getMaintainance';  
   private readonly maintenancedatefilter = 'maintanancePay/dateFilter/';
   private readonly maintenancetransactionview = 'maintanancePay/viewById/';
 
 
   //onetime
   private readonly onetimtransaction = 'merchantpay/viewAll/';
+  private readonly onetimtransactionexport='merchantpay/getAll';
   private readonly onetimdatefilter = 'transhistory/getDateWise/';
   private readonly onetimtransactionview = 'merchantpay/viewpayment/';
 
@@ -393,6 +398,7 @@ export class FarginServiceService {
   private readonly otherpaymentmerchantid = 'otherpayment/viewByMerchant/';
   private readonly otherpaymentcreate = 'otherpayment/create';
   private readonly otherpayment = 'otherpayment/viewall/';
+  otherpaymentviewallexport='otherpayment/viewAllPayments';  
   private readonly otherpaymentupdate = 'otherpayment/update/';
   private readonly otherpaytrans = 'otherpayment/viewByPayId/';
   private readonly otherpaymentdate = 'otherpayment/dateFilter/';
@@ -466,12 +472,14 @@ export class FarginServiceService {
   private readonly smsstatus = 'merchantSms/updateStatus/';
   private readonly editsms = 'merchantSms/updateMerchantSms/';
   private readonly smsgetAll = 'merchantSms/getAllMerchantSms/';
-  private readonly smsdropdown = 'merchantSms/viewsms';
+  private readonly smsgetAllexport = 'merchantSms/getAllMerchantSms';
+    private readonly smsdropdown = 'merchantSms/viewsms';
   private readonly smscount = 'smshistory/viewbymerchantandtype/';
   private readonly smsapproval = 'merchantSms/updateApproval/';
 
   //sms history
   private readonly smshistory = 'smshistory/viewall/';
+  private readonly smhistoryexport='smshistory/viewall';  
   private readonly smshistoryview = 'smshistory/viewbymerchant/';
   private readonly smshistoryfilter = 'smshistory/viewallfilter/';
   private readonly smshistorymerchantfilter = 'smshistory/viewmerchantfilter/';
@@ -500,12 +508,14 @@ export class FarginServiceService {
   // Auto Debit
 
   private readonly Autodebitgetall = 'merchantdue/getall/';
+  private readonly autodebitgetallexport='merchantdue/getall';
   private readonly Autodebitbymerchat = 'merchantdue/viewbymerchant/';
 
 
   //anouncement
   private readonly announcementadd = 'announcement/add'
-  private readonly announcementviewall = 'announcement/getall'
+  private readonly announcementviewall = 'announcement/getall/'
+  private readonly announcementviewallexport='announcement/getall'
   private readonly announcementedit = 'announcement/update'
   private readonly announcementstatus = 'announcement/updateStatus'
   private readonly announcementdate = 'announcement/dateFilter/';
@@ -517,7 +527,8 @@ export class FarginServiceService {
   private readonly manualpayment = 'merchantpay/trackApi';
 
 
-  private readonly surveyviewall = 'surveyQuestion/getAll';
+  private readonly surveyviewallexport = 'surveyQuestion/getAll';
+  private readonly surveyviewall='surveyQuestion/getAll/';
   private readonly surveyviewbyid = 'surveyQuestion/getQuestions/';
   private readonly viewbyidcustomerresponse = 'customerResponse/viewQuestion/';
 
@@ -849,10 +860,14 @@ export class FarginServiceService {
 
 
 
-
-  EntityViewall() {
-    return this.http.get(`${this.basePath}${this.Entitygetall}`, this.options)
+ 
+  EntityViewall(id:any,id1:any) {
+    return this.http.get(`${this.basePath}${this.entitygetall}${id}/${id1}`, this.options)
   }
+  EntityViewallExport() {
+    return this.http.get(`${this.basePath}${this.Entitygetallexport}`, this.options)
+  }
+ 
 
   EntityAdd(formdata: any) {
     return this.http.post(`${this.basePath}${this.AddEntity}`, formdata, this.optionsMultipart)
@@ -1390,6 +1405,9 @@ BouquetChanneledit(id: any) {
   OverallCustomer(id:any,id1:any) {
     return this.http.get(`${this.basePath}${this.Overallcustomer}${id}/${id1}`, this.options)
   }
+  OverallCustomerExport() {
+    return this.http.get(`${this.basePath}${this.overallcustomerexport}`, this.options)
+  }
 
   EntityIndividualCustomerview(id: any) {
     return this.http.get(`${this.basePath}${this.Entityindividualcustomerview}${id}`, this.options)
@@ -1550,9 +1568,11 @@ BouquetChanneledit(id: any) {
   activebankdetailsstatus(model: any) {
     return this.http.put(`${this.basePath}${this.Bankdetailsstatus}`, model, this.options)
   }
-
   CustomerAllTransactions(id:any,id1:any) {
     return this.http.get(`${this.basePath}${this.customeralltransactions}${id}/${id1}`, this.options)
+  }
+  CustomerAllTransactionsExport() {
+    return this.http.get(`${this.basePath}${this.customertransactionexport}`, this.options)
   }
  
   CustomerTransactionsFilter(id1: any, id2: any,id3:any,id4:any) {
@@ -1568,6 +1588,9 @@ BouquetChanneledit(id: any) {
   MaintenanceAllTransactions(id:any,id1:any) {
     return this.http.get(`${this.basePath}${this.maintenancetransaction}${id}/${id1}`, this.options)
   }
+  MaintenanceAllTransactionsExport() {
+    return this.http.get(`${this.basePath}${this.maintenancetransactionexport}`, this.options)
+  }
 
   MaintenanceTransactionFilter(id1: any, id2: any,id3:any,id4:any) {
     return this.http.get(`${this.basePath}${this.maintenancedatefilter}${id1}/${id2}/${id3}/${id4}`, this.options)
@@ -1581,6 +1604,9 @@ BouquetChanneledit(id: any) {
 
   OneTimeAllTransactions(id:any,id1:any) {
     return this.http.get(`${this.basePath}${this.onetimtransaction}${id}/${id1}`, this.options)
+  }
+  OneTimeTransactionsExport() {
+    return this.http.get(`${this.basePath}${this.onetimtransactionexport}`, this.options)
   }
 
   OneTimeTransactionFilter(id1: any, id2: any,id3:any,id4:any) {
@@ -1612,6 +1638,10 @@ BouquetChanneledit(id: any) {
 
   OtherPay(id:any,id1:any) {
     return this.http.get(`${this.basePath}${this.otherpayment}${id}/${id1}`, this.options)
+  }
+ 
+  OtherPayExport() {
+    return this.http.get(`${this.basePath}${this.otherpaymentviewallexport}`, this.options)
   }
 
   OtherPaymentUpdate(id: any, model: any) {
@@ -1832,8 +1862,15 @@ BouquetChanneledit(id: any) {
   SmsGetAll(id:any,id1:any) {
     return this.http.get(`${this.basePath}${this.smsgetAll}${id}/${id1}`, this.options)
   }
+  SmsGetAllExport() {
+    return this.http.get(`${this.basePath}${this.smsgetAllexport}`, this.options)
+  }
   SmsHistoryGetAll(id:any,id1:any) {
     return this.http.get(`${this.basePath}${this.smshistory}${id}/${id1}`, this.options)
+  }
+ 
+  SmsHistoryGetAllExport() {
+    return this.http.get(`${this.basePath}${this.smhistoryexport}`, this.options)
   }
   SMSHistoryViewById(id1: any) {
     return this.http.get(`${this.basePath}${this.smshistoryview}${id1}`, this.options)
@@ -1914,6 +1951,10 @@ BouquetChanneledit(id: any) {
   autodebitgetall(id:any,id1:any) {
     return this.http.get(`${this.basePath}${this.Autodebitgetall}${id}/${id1}`, this.options)
   }
+
+  autodebitgetallExport() {
+    return this.http.get(`${this.basePath}${this.autodebitgetallexport}`, this.options)
+  }
   autodebitbymerchat(id: any,id1:any,id2:any) {
     return this.http.get(`${this.basePath}${this.Autodebitbymerchat}${id}/${id1}/${id2}`, this.options)
   }
@@ -1923,8 +1964,11 @@ BouquetChanneledit(id: any) {
     return this.http.post(`${this.basePath}${this.announcementadd}`, data, this.options);
   }
 
-  announcementViewall() {
-    return this.http.get(`${this.basePath}${this.announcementviewall}`, this.options)
+  announcementViewall(id:any,id1:any) {
+    return this.http.get(`${this.basePath}${this.announcementviewall}${id}/${id1}`, this.options)
+  }
+  announcementViewallExport() {
+    return this.http.get(`${this.basePath}${this.announcementviewallexport}`, this.options)
   }
 
   announcementEdit(data: any) {
@@ -1968,8 +2012,11 @@ BouquetChanneledit(id: any) {
   }
 
 
-  SurveyViewAll() {
-    return this.http.get(`${this.basePath}${this.surveyviewall}`, this.options)
+  SurveyViewAll(id:any,id1:any) {
+    return this.http.get(`${this.basePath}${this.surveyviewall}${id}/${id1}`, this.options)
+  }
+  SurveyViewAllExport() {
+    return this.http.get(`${this.basePath}${this.surveyviewallexport}`, this.options)
   }
   SurveyQuestionsViewById(id: any) {
     return this.http.get(`${this.basePath}${this.surveyviewbyid}${id}`, this.options)

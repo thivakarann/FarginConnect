@@ -56,6 +56,7 @@ date2: any;
   totalPages: any;
   totalpage: any;
   currentpage: any;
+  overallcustomerexport: any;
   constructor(
     public EntityViewall: FarginServiceService,
     private router: Router,
@@ -147,9 +148,17 @@ applyFilter(event: Event) {
  
 exportexcel() {
  
+  this.EntityViewall.OverallCustomerExport().subscribe((res: any) => {
+   
+      this.overallcustomerexport = res.response;
+ 
+ 
+  if(res.flag==1){
+ 
+ 
   let sno = 1;
   this.responseDataListnew = [];
-  this.overallcustomer.forEach((element: any) => {
+  this.overallcustomerexport.forEach((element: any) => {
  
     this.response = [];
     this.response.push(sno);
@@ -165,6 +174,10 @@ exportexcel() {
   });
   this.excelexportCustomer();
 }
+});
+}
+ 
+ 
  
 excelexportCustomer() {
   const header = [

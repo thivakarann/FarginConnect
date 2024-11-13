@@ -62,6 +62,7 @@ pageSize=5;
   totalPages: any;
   totalpage: any;
   currentpage: any;
+  smsResponseexport: any;
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
   ngOnInit(): void {
  
@@ -125,10 +126,12 @@ pageSize=5;
     window.location.reload()
   }
   exportexcel() {
-   
+    this.service.SmsGetAllExport().subscribe((res: any) => {
+        this.smsResponseexport=res.response.reverse();
+    if (res.flag == 1) {
     let sno = 1;
     this.responseDataListnew = [];
-    this.smsResponse.forEach((element: any) => {
+    this.smsResponseexport.forEach((element: any) => {
       let createdate = element.createdDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
  
@@ -152,6 +155,8 @@ pageSize=5;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
+  }
+});
   }
  
   excelexportCustomer() {

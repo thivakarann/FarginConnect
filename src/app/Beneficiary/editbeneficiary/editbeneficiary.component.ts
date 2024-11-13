@@ -91,7 +91,7 @@ export class EditbeneficiaryComponent {
       ]),
       createdBy:new FormControl(''),
     });
-    this.service.EntityViewall().subscribe((res: any) => {
+    this.service.EntityViewallExport().subscribe((res: any) => {
       this.viewall = res.response;
    
     });

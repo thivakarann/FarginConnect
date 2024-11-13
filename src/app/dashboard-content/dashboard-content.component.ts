@@ -153,7 +153,7 @@ export class DashboardContentComponent {
       this.sevenper = res.response;
      
     });
-    this.service.EntityViewall().subscribe((res: any) => {
+    this.service.EntityViewallExport().subscribe((res: any) => {
  
       if (res && res.response) {
         this.viewall = res.response;
@@ -184,7 +184,7 @@ export class DashboardContentComponent {
     });
     this.createWithCategory(this.initialCategoryId);
  
-    this.service.EntityViewall().subscribe((res: any) => {
+    this.service.EntityViewallExport().subscribe((res: any) => {
       this.viewmerchant = res.response;
       this.merchantIds = res.response.merchantId;
     });
