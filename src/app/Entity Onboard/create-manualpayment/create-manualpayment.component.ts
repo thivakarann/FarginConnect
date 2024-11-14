@@ -20,14 +20,14 @@ export class CreateManualpaymentComponent implements OnInit{
   constructor(private router: Router, private Approval: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog) { }
   ngOnInit(): void {
     this.id = this.data.value
-    
+   
  
     this.myForm = new FormGroup({
       paidStatus: new FormControl('', [Validators.required,]),
       paymentmode: new FormControl('', [Validators.required,]),
       utrnumber: new FormControl(''),
       validitydate:new FormControl(''),
- 
+      manualApprovalBy:new FormControl('')
     });
   }
  
@@ -47,15 +47,22 @@ export class CreateManualpaymentComponent implements OnInit{
  
   get validitydate() {
     return this.myForm.get('validitydate')
- 
   }
+ 
+  get manualApprovalBy() {
+    return this.myForm.get('manualApprovalBy')
+  }
+ 
+ 
   submit() {
     let submitModel: createManualPayment = {
-      paymentMethod:  this.paymentmode?.value,
+      // paymentMethod: this.paymentmode?.value,
+      paymentMethod: 'Success',
       utrNumber: this.utrnumber?.value,
       paymentStatus: this.paidStatus?.value,
       merchantId: this.id,
-      date:this.validitydate?.value
+      date: this.validitydate?.value,
+      manualApprovalBy: this.manualApprovalBy?.value
     }
  
     this.Approval.CreateManualPayment(submitModel).subscribe((res: any) => {
@@ -72,3 +79,4 @@ export class CreateManualpaymentComponent implements OnInit{
     })
   }
 }
+ 

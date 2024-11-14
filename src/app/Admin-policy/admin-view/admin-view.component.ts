@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
 import moment from 'moment';
+import { PageEvent } from '@angular/material/paginator';
 import { AdminCreateComponent } from '../admin-create/admin-create.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -45,6 +46,12 @@ export class AdminViewComponent implements OnInit {
   errorMsg: any;
   responseDataListnew: any = [];
   response: any = [];
+  pageIndex: number = 0;
+  pageSize: number = 5;
+  totalPages: any;
+  totalpage: any;
+  currentpage: any;
+  merchantpolicyexport: any;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -70,7 +77,7 @@ export class AdminViewComponent implements OnInit {
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        
+
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -109,16 +116,19 @@ export class AdminViewComponent implements OnInit {
 
 
 
-    this.service.adminPolicyget().subscribe((res: any) => {
+    this.service.adminPolicyget(this.pageSize,this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.businesscategory = res.response;
+        this.totalPages=res.pagination.totalElements;
+        this.totalpage=res.pagination.totalPages;
+        this.currentpage=res.pagination.currentPage+1;
         this.businesscategory.reverse();
         this.dataSource = new MatTableDataSource(this.businesscategory);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-
+ 
         this.showcategoryData = false;
-        // 
+        //
       }
       else {
         this.errorMsg = res.responseMessage;
@@ -145,6 +155,28 @@ export class AdminViewComponent implements OnInit {
     }
   }
 
+  renderPage(event: PageEvent) {
+    // Capture the new page index and page size from the event
+    this.pageIndex = event.pageIndex;  // Update current page index
+    this.pageSize = event.pageSize;           // Update page size (if changed)
+ 
+    // Log the new page index and page size to the console (for debugging)
+    console.log('New Page Index:', this.pageIndex);
+    console.log('New Page Size:', this.pageSize);
+ 
+    // You can now fetch or display the data for the new page index
+    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
+    this.ngOnInit()
+  }
+  changePageIndex(newPageIndex: number) {
+    this.pageIndex = newPageIndex;
+    this.renderPage({
+      pageIndex: newPageIndex,
+      pageSize: this.pageSize,
+      // length: this.totalItems
+    } as PageEvent);
+  }
+
   create() {
     this.router.navigateByUrl('dashboard/Termspolicy-create');
   }
@@ -153,10 +185,14 @@ export class AdminViewComponent implements OnInit {
   }
 
   exportexcel() {
-    
+   
+    this.service.adminPolicygetExport().subscribe((res: any) => {
+        this.merchantpolicyexport = res.response;
+    if (res.flag == 1) {
+ 
     let sno = 1;
     this.responseDataListnew = [];
-    this.businesscategory.forEach((element: any) => {
+    this.merchantpolicyexport.forEach((element: any) => {
  
       this.response = [];
       this.response.push(sno);
@@ -197,6 +233,10 @@ export class AdminViewComponent implements OnInit {
     this.excelexportCustomer();
   }
  
+});
+  }
+ 
+
   excelexportCustomer() {
     // const title = 'Privacy Policy';
     const header = [
@@ -211,16 +251,16 @@ export class AdminViewComponent implements OnInit {
       "modifiedBy",
       "Modified Date & Time"
     ]
- 
- 
+
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Terms and Policy');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
- 
- 
+
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -231,15 +271,15 @@ export class AdminViewComponent implements OnInit {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
+
       }
- 
+
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
- 
+
     data.forEach((d: any) => {
       // 
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -251,9 +291,9 @@ export class AdminViewComponent implements OnInit {
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
- 
- 
- 
+
+
+
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -264,23 +304,23 @@ export class AdminViewComponent implements OnInit {
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
- 
+
+
     }
     );
- 
+
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
     // worksheet.getColumn(2).protection = { locked: true, hidden: true }
     // worksheet.getColumn(3).protection = { locked: true, hidden: true }
- 
- 
+
+
     workbook.xlsx.writeBuffer().then((data: any) => {
- 
+
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
- 
- 
+
+
       FileSaver.saveAs(blob, 'Terms and Policy.xlsx');
- 
+
     });
   }
 
@@ -341,7 +381,7 @@ export class AdminViewComponent implements OnInit {
     this.router.navigate([`dashboard/policy-edit/${id}`], {
       queryParams: { Alldata: id },
     });
-    
+
   }
 
 

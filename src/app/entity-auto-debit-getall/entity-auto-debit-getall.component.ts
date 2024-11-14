@@ -127,7 +127,7 @@ export class EntityAutoDebitGetallComponent {
  
     const data = this.responseDataListnew;
     let workbook = new Workbook();
-    let worksheet = workbook.addWorksheet('Customer Onboard');
+    let worksheet = workbook.addWorksheet('MMC Auto Debit');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };

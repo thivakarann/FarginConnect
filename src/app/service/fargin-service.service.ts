@@ -16,10 +16,11 @@ export class FarginServiceService {
   constructor(private http: HttpClient,
     private router: Router, private timerService: SessionServiceService, private toastr: ToastrService) { }
 
-  private readonly basePath = 'https://staging-api.farginconnect.com/'; 
+  // private readonly basePath = 'https://staging-api.farginconnect.com/'; 
+ 
   // private readonly basePath = 'https://api.fargin.in/';
 
-  // private readonly basePath = 'http://64.227.149.125:8085/'
+  private readonly basePath = 'http://192.168.7.46:8080/';
 
   // login
 
@@ -355,7 +356,8 @@ export class FarginServiceService {
 
 
   //Tickets
-  private readonly ticketsget = 'customerTickets/getall';
+  private readonly ticketsgetexport = 'customerTickets/getall';
+  private readonly ticketsget = 'customerTickets/getall/';
   private readonly customerticketraise = 'customerTickets/updateTicketStatus/'
 
 
@@ -544,7 +546,8 @@ export class FarginServiceService {
 
 
     //alcot-history
-    private readonly alcothistory='alcotchannel/viewAllHistory';
+    private readonly alcothistory='alcotchannel/viewAllHistory/';
+    private readonly alcothistoryexport='alcotchannel/viewAllHistory';
     private readonly alcotchannelactiveregion='alcotchannel/viewregionactive';
 
 
@@ -749,7 +752,10 @@ export class FarginServiceService {
   ApprovalForPolicy(id: any, model: any) {
     return this.http.put(`${this.basePath}${this.policyapproval}${id}`, model, this.options)
   }
-  adminPolicyget() {
+  adminPolicyget(id:any,id1:any) {
+    return this.http.get(`${this.basePath}${this.adminpolicy}/${id}/${id1}`, this.options)
+  }
+  adminPolicygetExport() {
     return this.http.get(`${this.basePath}${this.adminpolicy}`, this.options)
   }
 
@@ -1531,8 +1537,12 @@ BouquetChanneledit(id: any) {
   }
 
   //tickets
-  Ticketscustomer() {
-    return this.http.get(`${this.basePath}${this.ticketsget}`, this.options)
+
+  Ticketscustomer(id:any,id1:any) {
+    return this.http.get(`${this.basePath}${this.ticketsget}${id}/${id1}`, this.options)
+  }
+  TicketscustomerExport() {
+    return this.http.get(`${this.basePath}${this.ticketsgetexport}`, this.options)
   }
 
   customerraiseticketupdate(id: any, model: any) {
@@ -2053,8 +2063,11 @@ BouquetChanneledit(id: any) {
   }
 
 //alcot history
-AlcotHistoryViewAll() {
-  return this.http.get(`${this.basePath}${this.alcothistory}`, this.options)
+AlcotHistoryViewAll(id:any,id1:any) {
+  return this.http.get(`${this.basePath}${this.alcothistory}${id}/${id1}`, this.options)
+}
+AlcotHistoryViewAllExport() {
+  return this.http.get(`${this.basePath}${this.alcothistoryexport}`, this.options)
 }
  
 AlcotChannelActiveRegion(id: any) {

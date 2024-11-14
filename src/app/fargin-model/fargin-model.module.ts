@@ -798,6 +798,7 @@ export interface createManualPayment {
   readonly paymentStatus: any;
   readonly merchantId: any;
   readonly date: any;
+  readonly manualApprovalBy: any;
 }
 
 export interface createOtherPayment {

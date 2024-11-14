@@ -62,6 +62,7 @@ export class AlacarteViewallComponent implements OnInit {
   totalpage: any;
   currentpage: any;
   viewallexport: any;
+  
   constructor(
     public AllcartViewall: FarginServiceService,
     private router: Router,
@@ -116,7 +117,7 @@ export class AlacarteViewallComponent implements OnInit {
       }
     });
     this.AllcartViewall.Alcartviewall(this.pageSize,this.pageIndex).subscribe((res: any) => {
-      this.viewall = res.response;
+      this.viewall = res.response.content;
       this.totalPages=res.pagination.totalElements;
       this.totalpage=res.pagination.totalPages;
      this.currentpage=res.pagination.currentPage+1;
@@ -124,11 +125,14 @@ export class AlacarteViewallComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.viewall);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-      
+     
     });
  
 
   }
+
+
+
 
 
   reload() {
@@ -188,7 +192,7 @@ export class AlacarteViewallComponent implements OnInit {
     }
   }
 
-  exportexcel() {
+ exportexcel() {
     this.AllcartViewall.AlcartviewallExport().subscribe((res: any) => {
       this.viewallexport = res.response;
     if (res?.flag == 1) {
@@ -235,7 +239,7 @@ export class AlacarteViewallComponent implements OnInit {
     this.excelexportCustomer();
   }
 });
-
+ 
   }
  
   excelexportCustomer() {

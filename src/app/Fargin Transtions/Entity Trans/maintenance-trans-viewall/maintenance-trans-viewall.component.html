@@ -102,8 +102,22 @@
                 <th mat-header-cell *matHeaderCellDef>IGST Percentage</th>
                 <td mat-cell *matCellDef="let transaction">{{transaction?.igstPercentage}}</td>
             </ng-container>
+
+            <ng-container matColumnDef="smscgst">
+                <th mat-header-cell *matHeaderCellDef>Sms CGST Percentage</th>
+                <td mat-cell *matCellDef="let transaction">{{transaction?.smsCgstPercentage}}</td>
+            </ng-container>
+            <ng-container matColumnDef="smssgst">
+                <th mat-header-cell *matHeaderCellDef>Sms SGST Percentage</th>
+                <td mat-cell *matCellDef="let transaction">{{transaction?.smsSgstPercentage}}</td>
+            </ng-container>
+            <ng-container matColumnDef="smsigst">
+                <th mat-header-cell *matHeaderCellDef>Sms IGST Percentage</th>
+                <td mat-cell *matCellDef="let transaction">{{transaction?.smsIgstPercentage}}</td>
+            </ng-container>
+            
             <ng-container matColumnDef="totalamount">
-                <th mat-header-cell *matHeaderCellDef>Amount</th>
+                <th mat-header-cell *matHeaderCellDef>Total Payable Amount</th>
                 <td mat-cell *matCellDef="let transaction">{{transaction?.totalPayableAmount}}</td>
             </ng-container>
 

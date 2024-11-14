@@ -92,6 +92,12 @@
                 </td>
             </ng-container>
            
+            <ng-container matColumnDef="perSmsAmount">
+                <th mat-header-cell *matHeaderCellDef>Sms Amount</th>
+                <td mat-cell *matCellDef="let transaction">
+                    {{transaction?.perSmsAmount}}
+                </td>
+            </ng-container>
 
             <!-- <ng-container matColumnDef="smscharge">
                 <th mat-header-cell *matHeaderCellDef>Sms Charge</th>

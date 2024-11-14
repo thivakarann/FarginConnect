@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { Workbook } from 'exceljs';
+import { PageEvent } from '@angular/material/paginator';
 import FileSaver from 'file-saver';
 import { CustomerTicketapprovalComponent } from '../customer-ticketapproval/customer-ticketapproval.component';
 import { CustDescriptionCommentComponent } from '../cust-description-comment/cust-description-comment.component';
@@ -55,6 +56,12 @@ export class CustomerViewallComponent implements OnInit {
   actions: any;
   valuedescription: any;
   valuedescriptionImage: any;
+  ticketexport: any;
+  pageIndex: number=0 ;
+  pageSize:number=5;
+  totalPages: any;
+  totalpage: any;
+  currentpage: any;
 
 
   constructor(private service: FarginServiceService, private dialog: MatDialog, private ActivateRoute: ActivatedRoute, private router: Router) { }
@@ -69,10 +76,12 @@ export class CustomerViewallComponent implements OnInit {
       
     });
 
-    this.service.Ticketscustomer().subscribe((res: any) => {
+    this.service.Ticketscustomer(this.pageSize,this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.ticket = res.response;
-        
+        this.totalPages=res.pagination.totalElements;
+        this.totalpage=res.pagination.totalPages;
+        this.currentpage=res.pagination.currentPage+1;
         this.dataSource = new MatTableDataSource(this.ticket.reverse());
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -121,6 +130,28 @@ export class CustomerViewallComponent implements OnInit {
   }
 
 
+  renderPage(event: PageEvent) {
+    // Capture the new page index and page size from the event
+    this.pageIndex = event.pageIndex;  // Update current page index
+    this.pageSize = event.pageSize;           // Update page size (if changed)
+ 
+    // Log the new page index and page size to the console (for debugging)
+    console.log('New Page Index:', this.pageIndex);
+    console.log('New Page Size:', this.pageSize);
+ 
+    // You can now fetch or display the data for the new page index
+    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
+    this.ngOnInit()
+  }
+  changePageIndex(newPageIndex: number) {
+    this.pageIndex = newPageIndex;
+    this.renderPage({
+      pageIndex: newPageIndex,
+      pageSize: this.pageSize,
+      // length: this.totalItems
+    } as PageEvent);
+  }
+
   Back(id: any) {
     this.router.navigate([`customer-verify-view/${id}`], {
       queryParams: { Alldata: id },
@@ -160,10 +191,13 @@ export class CustomerViewallComponent implements OnInit {
   }
 
   exportexcel() {
-    
+    this.service.TicketscustomerExport().subscribe((res: any) => {
+        this.ticketexport = res.response;
+        if (res.flag == 1) {
+ 
     let sno = 1;
     this.responseDataListnew = [];
-    this.ticket.forEach((element: any) => {
+    this.ticketexport.forEach((element: any) => {
  
       this.response = [];
       this.response.push(sno);
@@ -178,6 +212,8 @@ export class CustomerViewallComponent implements OnInit {
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
+  }
+});
   }
  
   excelexportCustomer() {

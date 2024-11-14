@@ -25,7 +25,7 @@ export class SMSHistoryComponent {
     'entityname',
     'entityemail',
     'smsType',
-    // 'smscharge',
+    'perSmsAmount',
     'createdBy',
     'date',
 
