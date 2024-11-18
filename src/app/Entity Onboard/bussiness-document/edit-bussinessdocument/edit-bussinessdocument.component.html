@@ -11,7 +11,8 @@
                     <label class="form__label" ><b>Document Name</b></label>
                     <select  [value]="categoryvalue" class="form-select" formControlName="kycCategoryId"
                         (change)="docProofChange($event)" ngModel="{{categoryvalue}}">
-                        <option *ngFor="let item of kycValue" [value]="item.kycCategoryId">{{item.kycCategoryName}}
+                        <option *ngFor="let item of kycValue" [value]="item.businessCreationId"> 
+                            {{item.entityKycCategory.kycCategoryName}}
                         </option>
                     </select>
                     <div *ngIf="kycCategoryId?.invalid && kycCategoryId?.touched && kycCategoryId?.errors?.['required']"

@@ -22,6 +22,7 @@ export class EditBussinessdocumentComponent {
   merchantDocumentId: any;
   docNumbers: any;
   categoryvalue: any;
+  bussinessid: any;
 
   constructor(
     public service: FarginServiceService,
@@ -34,6 +35,8 @@ export class EditBussinessdocumentComponent {
   ngOnInit(): void {
 
     this.documentdata = this.data.value;
+    this.bussinessid = this.data.value.merchantId?.businessCategoryModel?.businessCategoryId;
+    console.log(this.bussinessid)
     
     this.merchantDocumentId = this.data.value.merchantDocumentId
     console.log(this.merchantDocumentId )
@@ -41,9 +44,9 @@ export class EditBussinessdocumentComponent {
 
     this.docNumbers=this.data.value.docNumber
 
-    this.service.activeViewall().subscribe((res: any) => {
+ 
+    this.service.EntityGetKYCbybussinessid(this.bussinessid).subscribe((res: any) => {
       this.kycValue = res.response;
-      
     })
 
 

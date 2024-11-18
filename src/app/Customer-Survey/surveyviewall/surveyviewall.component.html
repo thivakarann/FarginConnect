@@ -81,7 +81,7 @@
       <ng-container matColumnDef="createdDateTime">
         <th mat-header-cell *matHeaderCellDef>Created Date</th>
         <td mat-cell *matCellDef="let data">
-          {{ data.createdDatetime | date : "dd-MM-yyyy hh:mm a" }}
+          {{ data.createdDatetime | date : "dd/MM/yyyy hh:mm a" }}
         </td>
       </ng-container>   
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

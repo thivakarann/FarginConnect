@@ -346,7 +346,7 @@
                                                 <div class="w-50 font-weight-bold">Approval At</div>
                                                 <div class="w-50">
                                                     <span *ngIf="this.detaislone?.approvedDateTimeL1!=null">
-                                                        {{this.detaislone?.approvedDateTimeL1}}
+                                                        {{this.detaislone?.approvedDateTimeL1 | date : "dd/MM/yyyy hh:mm a" }}
                                                     </span>
                                                     <span *ngIf="this.detaislone?.approvedDateTimeL1==null">-</span>
                                                 </div>
@@ -472,7 +472,7 @@
                                         (click)="BankApproval(item.merchantBankId)">Approval</button>
                                 </td>
 
-                                <td>{{item.approvalDateTime|date:"dd/MM/yyyy hh:mm:a"}}</td>
+                                <td>{{item.approvalDateTime|date:"dd/MM/yyyy hh:mm a"}}</td>
                                 <td [hidden]="valuebankcomment!=='Bank-comment'"><span
                                         (click)="BankComments(item.reMarks)"><i class="fas fa-comments"
                                             style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
@@ -640,7 +640,7 @@
 
                                     <td> {{item.identityAdminApprovedBy}}
                                     </td>
-                                    <td>{{item.identityAdminApprovedDate}}</td>
+                                    <td>{{item.identityAdminApprovedDate | date : "dd/MM/yyyy hh:mm a"}}</td>
                                     <td [hidden]="valuekyccomment!=='Entity View KYC Document-comments'"><span
                                             (click)="KYCComments(item.identityAdminComments)"><i class="fas fa-comments"
                                                 style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
@@ -702,7 +702,7 @@
 
                                     <td> {{item.addressAdminApprovedBy}}
                                     </td>
-                                    <td>{{item.addressAdminApprovedDate}}</td>
+                                    <td>{{item.addressAdminApprovedDate | date : "dd/MM/yyyy hh:mm a"}}</td>
                                     <td [hidden]="valuekyccomment!=='Entity View KYC Document-comments'">
                                         <span (click)="KYCComments(item.addressAdminComments)"><i
                                                 class="fas fa-comments"
@@ -767,7 +767,7 @@
 
                                     <td> {{item.signatureAdminApprovedBy}}
                                     </td>
-                                    <td>{{item.signatureAdminApprovedDate}}</td>
+                                    <td>{{item.signatureAdminApprovedDate | date : "dd/MM/yyyy hh:mm a"}}</td>
                                     <td [hidden]="valuekyccomment!=='Entity View KYC Document-comments'">
                                         <span (click)="KYCComments(item.signatureAdminComments)"><i
                                                 class="fas fa-comments"
@@ -820,7 +820,7 @@
                     </div>
                 </div>
                 <div class="col-md-2 mt-1">
-                    <button (click)="adddoc(this.id)"
+                    <button (click)="adddoc(this.detaislone?.businessCategoryModel?.businessCategoryId)"
                         [hidden]="valuebussinessAdd!=='Entity View Bussiness Document-Add'"
                         style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Add
                         Document</button>
@@ -870,7 +870,7 @@
                                     Red: item?.approvalStatus == 'Rejected'
                                   }">{{item.approvalStatus}}</td>
                                 <td>{{item.approvalBy}}</td>
-                                <td>{{item.approvalDateTime}}</td>
+                                <td>{{item.approvalDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
                                 <td [hidden]="valuebussinesscomment!=='Entity View Bussiness Document-Comments'"><span
                                         (click)="DocComments(item.reMarks)"><i class="fas fa-comments"
                                             style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
@@ -940,7 +940,7 @@
                                 <td class="text-center">1</td>
                                 <td class="text-center">{{this.detaislone?.approvalStatusL2}}</td>
                                 <td class="text-center">{{this.detaislone?.approvedByL2}}</td>
-                                <td class="text-center">{{this.detaislone?.approvedDateTimeL2}}</td>
+                                <td class="text-center">{{this.detaislone?.approvedDateTimeL2 | date : "dd/MM/yyyy hh:mm a"}}</td>
                                 <td class="text-center" [hidden]="valuefinalapprovals!=='Final-Approval'">
                                     <span><button class="buttonDownload" (click)="levelTwoApproval(this.id)"
                                             [hidden]="this.detaislone?.approvalStatusL1 == 'Pending' || this.detaislone?.approvalStatusL1 == 'Rejected' ">Approval</button></span>
@@ -1044,7 +1044,7 @@
 
                             </td>
                             <td>{{item.paymentMethod}}</td>
-                            <td>{{item.paymentDateTime | date:"dd-MM-yyyy hh:mm a"}}</td>
+                            <td>{{item.paymentDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
                         </tbody>
                     </table>
                 </div>
@@ -1140,7 +1140,7 @@
                                 <span *ngIf="item?.paymentStatus  == 'Initiated'" class="text-primary"> {{ item?.paymentStatus}}</span>
                                 <span *ngIf="item?.paymentStatus  == 'Failure'" class="text-danger"> {{ item?.paymentStatus}}</span>
             </td>
-                            <td>{{item.paymentDateTime | date:"dd-MM-yyyy hh:mm a"}}</td>
+                            <td>{{item.paymentDateTime | date:"dd/MM/yyyy hh:mm a"}}</td>
                         </tbody>
                     </table>
                 </div>
@@ -1253,9 +1253,9 @@
                                     <i class="fas fa-edit" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
                                 </span></td>
                             <td>{{item.createdBy}}</td>
-                            <td>{{item.createdDateTime | date:"dd-MM-yyyy hh:mm a"}}</td>
+                            <td>{{item.createdDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
                             <td>{{item.modifedBy}}</td>
-                            <td>{{item.modifedDateTime | date:"dd-MM-yyyy hh:mm a"}}</td>
+                            <td>{{item.modifedDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
                         </tbody>
                     </table>
                 </div>

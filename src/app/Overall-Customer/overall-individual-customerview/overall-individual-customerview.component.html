@@ -187,7 +187,7 @@
                     <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
                   </td>
                   <td>{{ row.stbId?.createdBy }}</td>
-                  <td>{{row.stbId?.createdAt | date:"dd/MM/yyyy :hh:m:a"}}                  </td>
+                  <td>{{row.stbId?.createdAt | date : "dd/MM/yyyy hh:mm a"}}                  </td>
                 </tr>
               </tbody>
             </table>
@@ -263,8 +263,8 @@
                   <td>{{ i + 1 }}</td>
                   <td>{{ row.pgPaymentId || "-" }}</td>
                   <td>{{ row.paidAmount }}</td>
-                  <td>{{row.startDate| date:"dd/MM/yyyy :hh:m:a"}}</td>
-                  <td>{{row.endDate | date:"dd/MM/yyyy :hh:m:a"}}</td>
+                  <td>{{row.startDate | date : "dd/MM/yyyy hh:mm a"}}</td>
+                  <td>{{row.endDate | date : "dd/MM/yyyy hh:mm a"}}</td>
 
                   <td>
                     <span *ngIf=" row.paymentStatus=='Due Pending'" style="color:orange"> {{ row.paymentStatus}}</span>

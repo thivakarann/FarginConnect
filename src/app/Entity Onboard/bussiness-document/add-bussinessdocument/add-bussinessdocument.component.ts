@@ -26,6 +26,7 @@ export class AddBussinessdocumentComponent implements OnInit {
   uploadImage9: any;
   uploaddocfront: any;
   uploaddocback: any;
+  bussinessid: any;
 
   constructor(
     public service: FarginServiceService,
@@ -37,12 +38,16 @@ export class AddBussinessdocumentComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.merchantid = this.data.value;
+    this.bussinessid = this.data.value;
     
 
-    this.service.activeViewall().subscribe((res: any) => {
-      this.kycValue = res.response;
+    // this.service.activeViewall().subscribe((res: any) => {
+    //   this.kycValue = res.response;
       
+    // })
+
+    this.service.EntityGetKYCbybussinessid(this.bussinessid).subscribe((res: any) => {
+      this.kycValue = res.response;
     })
 
 
