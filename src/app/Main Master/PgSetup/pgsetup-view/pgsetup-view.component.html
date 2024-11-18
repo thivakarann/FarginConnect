@@ -1,12 +1,12 @@
 <!--   -->
 <h4 style="text-align:left;color:#141E46;">PG Setup Keys</h4>
 
+<mat-card-header>
+<div class="row mt-4" >
+ 
+ 
 
-<div class="row" style="margin-left: -24px;">
-  <br>
-  <mat-card-header>
-
-    <div class="col" style="margin-top: 3%;">
+    <div class="col">
 
       <div class="search ">
         <form class="form">
@@ -43,13 +43,14 @@
       <button style="color:white;background-color: #141E46;border-radius: 10px;" (click)="exportexcel()"
         mat-raised-button [hidden]="valuepgsetupExport!=='PG SetupKey-Export'">Export</button>
     </div>
-  </mat-card-header>
+ 
 </div>
+</mat-card-header>
 <mat-card-content>
 
-  <div class="table-responsive text-nowrap" style="overflow-x: scroll; scrollbar-width: thin;">
+  <div class="table-responsive text-nowrap mt-4" style="overflow-x: scroll; scrollbar-width: thin;">
   
-    <br><br>
+  
     <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1"
     >
 

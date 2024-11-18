@@ -1,71 +1,69 @@
 <h4 style="text-align:left;color:#141E46;">SMS History</h4>
-<div class="row">
-</div>
-<div class="row mt-3">
-    <div class="col-2" style="margin-top:28px;">
-        <div class="search ">
-            <form class="form">
-                <label for="search">
-                    <input #input (keyup)="applyFilter($event)" required="" autocomplete="off" placeholder="Search"
-                        id="search" type="text">
-                    <div class="icon">
-                        <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg" class="swap-on">
-                            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
-                                stroke-linecap="round">
-                            </path>
-                        </svg>
-                        <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg" class="swap-off">
-                            <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round" stroke-linecap="round">
-                            </path>
-                        </svg> -->
-                    </div>
-                    <button  (click)="reset()" type="reset" class="close-btn">
-                        <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
-                            <path clip-rule="evenodd"
-                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                fill-rule="evenodd"></path>
-                        </svg>
-                    </button>
-                </label>
-            </form>
 
+<mat-card-header>
+    <div class="row mt-3">
+        <div class="col-2" style="margin-top:28px;">
+            <div class="search ">
+                <form class="form">
+                    <label for="search">
+                        <input #input required autocomplete="off" placeholder="Search"
+                               id="search" type="text">
+                        <div class="icon">
+                            <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                                      stroke-linecap="round"></path>
+                            </svg>
+                        </div>
+                        <button (click)="reload()" type="reset" class="close-btn">
+                            <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                                <path clip-rule="evenodd"
+                                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                      fill-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                    </label>
+                </form>
+     
+            </div>
+     
+        </div>&nbsp;&nbsp;&nbsp;
+         
+        <div class="col ml-5" style="margin-top:25px;">
+            <button (click)="smshistory(input.value)" style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Go</button>
+            &nbsp;
+            <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
+                (click)=" exportexcel()" [hidden]="valuesmshistoryexport!=='SMS History-Export'">Export</button>
         </div>
-
-    </div>&nbsp;&nbsp;&nbsp;
-    <div class="col ml-5" style="margin-top:25px;">
-        <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
-            (click)=" exportexcel()" [hidden]="valuesmshistoryexport!=='SMS History-Export'">Export</button>
+       
+        <div class="col-2">
+            <label><b>From Date:</b></label>
+            <input class="form-control" type="date" name="FromDate" [(ngModel)]="FromDateRange"
+                style="height:35px;width:150px;border-radius: 5px;">
+        </div>
+        <div class="col-2">
+            <label><b>To Date:</b></label>
+            <input class="form-control" type="date" name="ToDate" [(ngModel)]="ToDateRange"
+                style="height:35px;width:150px;border-radius: 5px;">
+        </div>
+     
+        <div class="col-1 mt-4">
+            <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
+                (click)="filterdate()">Filter</button>
+        </div>
+     
+        <div class="col-2 mt-4">
+            <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
+                (click)="reset()">Reset</button>
+        </div>
+     
     </div>
-   
-    <div class="col-2">
-        <label><b>From Date:</b></label>
-        <input class="form-control" type="date" name="FromDate" [(ngModel)]="FromDateRange"
-            style="height:35px;width:150px;border-radius: 5px;">
-    </div>
-    <div class="col-2">
-        <label><b>To Date:</b></label>
-        <input class="form-control" type="date" name="ToDate" [(ngModel)]="ToDateRange"
-            style="height:35px;width:150px;border-radius: 5px;">
-    </div>
- 
-    <div class="col-1 mt-4">
-        <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
-            (click)="filterdate()">Filter</button>
-    </div>
- 
-    <div class="col-2 mt-4">
-        <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
-            (click)="reset()">Reset</button>
-    </div>
- 
-</div>
+</mat-card-header>
 <!-- <mat-card> -->
 <mat-card-content>
     <span *ngIf="showcategoryData" style="text-align:center;color:red;" >NO DATA FOUND</span>
-    <div class="table-responsive text-nowrap" style="overflow-x: scroll; scrollbar-width: thin;">
-        <br> <br>
+    <div class="table-responsive text-nowrap mt-4" style="overflow-x: scroll; scrollbar-width: thin;">
+ 
         <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="!showcategoryData" >
             <!-- <span style="color:red;" *ngIf="!showData">{{message}}</span> -->
             <ng-container matColumnDef="sno">

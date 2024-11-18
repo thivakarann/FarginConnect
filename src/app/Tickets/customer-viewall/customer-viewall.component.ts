@@ -57,8 +57,8 @@ export class CustomerViewallComponent implements OnInit {
   valuedescription: any;
   valuedescriptionImage: any;
   ticketexport: any;
-  pageIndex: number=0 ;
-  pageSize:number=5;
+  pageIndex: number = 0;
+  pageSize: number = 5;
   totalPages: any;
   totalpage: any;
   currentpage: any;
@@ -73,15 +73,15 @@ export class CustomerViewallComponent implements OnInit {
 
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.MobileNumber = param.Alldata;
-      
+
     });
 
-    this.service.Ticketscustomer(this.pageSize,this.pageIndex).subscribe((res: any) => {
+    this.service.Ticketscustomer(this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.ticket = res.response;
-        this.totalPages=res.pagination.totalElements;
-        this.totalpage=res.pagination.totalPages;
-        this.currentpage=res.pagination.currentPage+1;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
         this.dataSource = new MatTableDataSource(this.ticket.reverse());
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -96,7 +96,7 @@ export class CustomerViewallComponent implements OnInit {
             this.valuecustomerticketedit = 'Customer Request-Edit'
             this.valuecustomerticketexport = 'Customer Request-Export'
             this.valuedescription = 'Customer Request-View'
-            this.valuedescriptionImage='Customer Request-Image'
+            this.valuedescriptionImage = 'Customer Request-Image'
           }
           else {
             for (let datas of this.getdashboard) {
@@ -111,9 +111,9 @@ export class CustomerViewallComponent implements OnInit {
                 this.valuedescription = 'Customer Request-View'
               }
 
-              if(this.actions=='Customer Request-Image'){
-                this.valuedescriptionImage='Customer Request-Image'
-               }
+              if (this.actions == 'Customer Request-Image') {
+                this.valuedescriptionImage = 'Customer Request-Image'
+              }
             }
           }
         }
@@ -134,11 +134,11 @@ export class CustomerViewallComponent implements OnInit {
     // Capture the new page index and page size from the event
     this.pageIndex = event.pageIndex;  // Update current page index
     this.pageSize = event.pageSize;           // Update page size (if changed)
- 
+
     // Log the new page index and page size to the console (for debugging)
     console.log('New Page Index:', this.pageIndex);
     console.log('New Page Size:', this.pageSize);
- 
+
     // You can now fetch or display the data for the new page index
     // Example: this.fetchData(this.currentPageIndex, this.pageSize);
     this.ngOnInit()
@@ -156,7 +156,7 @@ export class CustomerViewallComponent implements OnInit {
     this.router.navigate([`customer-verify-view/${id}`], {
       queryParams: { Alldata: id },
     });
-    
+
   }
 
   applyFilter(event: Event) {
@@ -192,30 +192,30 @@ export class CustomerViewallComponent implements OnInit {
 
   exportexcel() {
     this.service.TicketscustomerExport().subscribe((res: any) => {
-        this.ticketexport = res.response;
-        if (res.flag == 1) {
- 
-    let sno = 1;
-    this.responseDataListnew = [];
-    this.ticketexport.forEach((element: any) => {
- 
-      this.response = [];
-      this.response.push(sno);
-      this.response.push(element?.description);
-      this.response.push(element?.mobileNumber);
-      this.response.push(element?.categoryName);
-      this.response.push(element?.ticketId);
-      this.response.push(element?.ticketStatus)
-      this.response.push(element?.createdDateTime);
- 
-      sno++;
-      this.responseDataListnew.push(this.response);
+      this.ticketexport = res.response;
+      if (res.flag == 1) {
+
+        let sno = 1;
+        this.responseDataListnew = [];
+        this.ticketexport.forEach((element: any) => {
+
+          this.response = [];
+          this.response.push(sno);
+          this.response.push(element?.description);
+          this.response.push(element?.mobileNumber);
+          this.response.push(element?.categoryName);
+          this.response.push(element?.ticketId);
+          this.response.push(element?.ticketStatus)
+          this.response.push(element?.createdDateTime);
+
+          sno++;
+          this.responseDataListnew.push(this.response);
+        });
+        this.excelexportCustomer();
+      }
     });
-    this.excelexportCustomer();
   }
-});
-  }
- 
+
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
@@ -227,16 +227,16 @@ export class CustomerViewallComponent implements OnInit {
       "Ticket Status",
       "Created Date and time",
     ]
- 
- 
+
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Customer Tickets');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
- 
- 
+
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -247,15 +247,15 @@ export class CustomerViewallComponent implements OnInit {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
+
       }
- 
+
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
- 
+
     data.forEach((d: any) => {
       // 
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -266,7 +266,7 @@ export class CustomerViewallComponent implements OnInit {
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
 
- 
+
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -275,7 +275,7 @@ export class CustomerViewallComponent implements OnInit {
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
+
     }
     );
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }

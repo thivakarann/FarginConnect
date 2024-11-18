@@ -1,10 +1,11 @@
 <h4 style="text-align:left;color:#141E46;">Role Details</h4>
+<mat-card-header>
 <div class="row">
 
-  <br>
-  <mat-card-header>
 
-    <div class="col" style="margin-left: -17px;">
+  
+
+    <div class="col mt-4">
 
       <div class="search ">
         <form class="form">
@@ -44,17 +45,18 @@
       <!-- <button style="color:white;background-color: #141E46;border-radius: 10px;" 
         mat-raised-button>Export</button> -->
     </div>
-  </mat-card-header>
+ 
 </div>
+</mat-card-header>
 
 <mat-card-content>
 
-  <br><br>
-  <div class="table-responsive text-nowrap" style="overflow-x: scroll; scrollbar-width: thin;">
-    <span *ngIf="showcategoryData" class="errormge">NO DATA FOUND</span>
+
+  <div class="table-responsive text-nowrap mt-4" style="overflow-x: scroll; scrollbar-width: thin;">
+    <!-- <span *ngIf="showcategoryData" class="errormge">NO DATA FOUND</span> -->
 
     <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1"
-      *ngIf="!showcategoryData">
+      >
 
       <ng-container matColumnDef="roleid">
         <th mat-header-cell *matHeaderCellDef> S.No</th>

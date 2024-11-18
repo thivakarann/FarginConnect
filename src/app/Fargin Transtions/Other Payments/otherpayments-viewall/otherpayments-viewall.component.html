@@ -1,7 +1,6 @@
 <h4 style="text-align:left;color:#141E46;">Customized Payments</h4>
-<div class="row" style="margin-top: 3%;">
-</div>
-<div class="row mt-3">
+<mat-card-header>
+<div class="row mt-4">
     <div class="col-2" style="margin-top:28px;">
         <div class="search ">
             <form class="form">
@@ -59,10 +58,11 @@
             (click)="reset()">Reset</button>
     </div>
 </div>
+</mat-card-header>
 <!-- <mat-card> -->
 <mat-card-content>
-    <div class="table-responsive text-nowrap" style="overflow-x: scroll; scrollbar-width: thin;">
-        <br> <br>
+    <div class="table-responsive text-nowrap mt-4" style="overflow-x: scroll; scrollbar-width: thin;">
+      
         <span *ngIf="showcategoryData" style="text-align:center;color:red;">NO DATA FOUND</span>
         <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="!
         showcategoryData

@@ -245,6 +245,30 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
     window.location.reload()
   }
 
+  Customercustid(id:any,filterValue: string) {
+    if (!filterValue) {
+        this.toastr.error('Please enter a value to search');
+        return;
+    }
+   
+    this.service.Customercustomeridsearch(id,filterValue).subscribe({
+      next: (res: any) => {
+        if (res.response) {
+          this.transaction = res.response;  
+          this.showData=true;
+         
+        }
+        else if (res.flag === 2) {
+          this.transaction = [];  
+         this.showData=false;
+      }
+      },
+      error: (err: any) => {
+        this.toastr.error('Error fetching filtered regions');
+      }
+    });
+  }
+
 }
 
 

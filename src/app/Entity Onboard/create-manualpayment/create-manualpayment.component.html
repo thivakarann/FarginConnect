@@ -70,12 +70,12 @@
             </div>
             <!--  -->
  
-            <div class="row mt-3" *ngIf="this.paidStatus?.value=='Free'">
+            <div class="row mt-2" *ngIf="this.paidStatus?.value=='Free'">
                 <div class="col-12 form-group">
                     <label for="Bussiness category">Payment Method</label>
                     <select formControlName="paymentmode" id="Bussiness category" class="form-control form-select">
                         <option value="" disabled selected>Select</option>
-                        <option value="waiver">Waiver</option>
+                        <option value="Waiver">Waiver</option>
                     </select>
                     <div style="color: red;font-size: 12px;margin-top: 2px;position: relative;"
                         *ngIf="paymentmode?.invalid && paymentmode?.touched && paymentmode?.errors?.['required']">
@@ -84,7 +84,7 @@
                 </div>
             </div>
  
-            <div class="row mt-3" [hidden]="paidStatus?.value !='Free'">
+            <!-- <div class="row mt-3" [hidden]="paidStatus?.value !='Free'">
                 <div class="col-12 form-group">
                     <label for="address">Approved By</label>
                     <input [required]="paidStatus?.value =='Success'" id="fname" type="text" class="form__input"
@@ -94,7 +94,7 @@
                     *ngIf="manualApprovalBy?.invalid && manualApprovalBy?.touched && manualApprovalBy?.errors?.['required']">
                     Field is required
                 </div>
-            </div>
+            </div> -->
  
             <div class="mb-3">
                 <button (click)="submit()" [disabled]="myForm.invalid" type="submit" class="btn mx-1 "

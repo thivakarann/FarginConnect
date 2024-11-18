@@ -344,4 +344,33 @@ export class CustomerTransViewallComponent {
       // length: this.totalItems
     } as PageEvent);
   }
+
+  CustomerAdmin(filterValue: string) {
+    if (!filterValue) {
+        this.toastr.error('Please enter a value to search');
+        return;
+    }
+   
+    this.service.CustomeradminSearch(filterValue).subscribe({
+      next: (res: any) => {
+        if (res.response) {
+          this.transaction = res.response;  
+          this.transaction.reverse();
+          this.dataSource = new MatTableDataSource(this.transaction);  
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+         
+        }
+        else if (res.flag === 2) {
+          this.transaction = [];  
+          this.dataSource = new MatTableDataSource(this.transaction);  
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+      }
+      },
+      error: (err: any) => {
+        this.toastr.error('Error fetching filtered regions');
+      }
+    });
+  }
 }

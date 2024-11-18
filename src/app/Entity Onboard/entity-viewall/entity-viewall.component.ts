@@ -117,7 +117,7 @@ export class EntityViewallComponent {
       this.totalPages=res.pagination.totalElements;
       this.totalpage=res.pagination.totalPages;
       this.currentpage=res.pagination.currentPage+1;
-      this.viewall.reverse();
+      // this.viewall.reverse();
       this.dataSource = new MatTableDataSource(this.viewall);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
@@ -336,4 +336,34 @@ export class EntityViewallComponent {
       // length: this.totalItems
     } as PageEvent);
   }
+  
+  Entity(filterValue: string) {
+    if (!filterValue) {
+        this.toastr.error('Please enter a value to search');
+        return;
+    }
+ 
+ 
+    this.EntityViewall.EntitySearch(filterValue).subscribe({
+      next: (res: any) => {
+        if (res.response) {
+          this.viewall = res.response;  
+          this.viewall.reverse();
+          this.dataSource = new MatTableDataSource(this.viewall);  
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+         
+        }
+        else if (res.flag === 2) {
+          this.viewall = [];  
+          this.dataSource = new MatTableDataSource(this.viewall);  
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+      }
+      },
+      error: (err: any) => {
+        this.toastr.error('Error fetching filtered regions');
+      }
+    });
+}
 }

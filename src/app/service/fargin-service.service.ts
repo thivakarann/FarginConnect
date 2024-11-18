@@ -16,11 +16,11 @@ export class FarginServiceService {
   constructor(private http: HttpClient,
     private router: Router, private timerService: SessionServiceService, private toastr: ToastrService) { }
 
-  // private readonly basePath = 'https://staging-api.farginconnect.com/'; 
+  private readonly basePath = 'https://staging-api.farginconnect.com/'; 
  
   // private readonly basePath = 'https://api.fargin.in/';
 
-  private readonly basePath = 'http://192.168.7.46:8080/';
+  // private readonly basePath = 'http://192.168.7.46:8080/';
 
   // login
 
@@ -550,6 +550,20 @@ export class FarginServiceService {
     private readonly alcothistoryexport='alcotchannel/viewAllHistory';
     private readonly alcotchannelactiveregion='alcotchannel/viewregionactive';
 
+    
+      //search
+      private readonly regionsearch = 'region/advanceSearchEntity/';
+      private readonly entitysearch ='merchant/advanceSearch/';
+      private readonly alcotsearch ='alcotchannel/advanceSearch/';
+      private readonly entitybanksearch ='merchantbank/advanceSearch/';
+      // private readonly entitykycdocumentsearch ='entityDocument/advanceSearch/';
+      private readonly customersearch ='customer/advanceSearch/';
+      private readonly customeradminsearch ='customerpay/adminSearch/';
+      private readonly customercustomeridsearch ='customerpay/customerSearch/';
+      private readonly smshistorysearch ='smshistory/advanceSearch/';
+      private readonly mmcautodebit ='merchantdue/advanceSearch/';
+      private readonly subscriptionsearch ='maintanancePay/adminSearch/';
+      private readonly onetimepayment ='merchantpay/adminSearch/';
 
 
   loginError = new Subject();
@@ -2085,4 +2099,53 @@ AlcartChannelregions(id: any) {
 }
  
 
+Regionsearch(id:any) {
+  return this.http.get(`${this.basePath}${this.regionsearch}${id}`, this.options)
+}
+ 
+EntitySearch(id:any){
+  return this.http.get(`${this.basePath}${this.entitysearch}${id}`,this.options)
+}
+ 
+AlcotSearch(id:any){
+  return this.http.get(`${this.basePath}${this.alcotsearch}${id}`,this.options)
+}
+ 
+EntityBanksearch(id:any,id1:any){
+  return this.http.get(`${this.basePath}${this.entitybanksearch}${id}/${id1}`,this.options)
+}
+ 
+// Entitykycdocumentsearch(id:any,id1:any){
+//   return this.http.get(`${this.basePath}${this.entitykycdocumentsearch}${id}/${id1}`,this.options)
+// }
+ 
+ 
+CustomerSearch(id:any){
+  return this.http.get(`${this.basePath}${this.customersearch}${id}`,this.options)
+}
+ 
+CustomeradminSearch(id:any){
+  return this.http.get(`${this.basePath}${this.customeradminsearch}${id}`,this.options)
+}
+ 
+Customercustomeridsearch(id:any,id1:any){
+  return this.http.get(`${this.basePath}${this.customercustomeridsearch}${id}/${id1}`,this.options)
+}
+ 
+Smshistorysearch(id:any){
+  return this.http.get(`${this.basePath}${this.smshistorysearch}${id}`,this.options)
+}
+ 
+Mmcautodebit(id:any){
+  return this.http.get(`${this.basePath}${this.mmcautodebit}${id}`,this.options)
+}
+ 
+ 
+Subscriptionsearch(id:any){
+  return this.http.get(`${this.basePath}${this.subscriptionsearch}${id}`,this.options)
+}
+ 
+Onetimepayment(id:any){
+  return this.http.get(`${this.basePath}${this.onetimepayment}${id}`,this.options)
+}
 }

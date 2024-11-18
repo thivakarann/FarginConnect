@@ -11,7 +11,7 @@ import { createManualPayment, manualPayment } from '../../fargin-model/fargin-mo
   templateUrl: './create-manualpayment.component.html',
   styleUrl: './create-manualpayment.component.css'
 })
-export class CreateManualpaymentComponent implements OnInit{
+export class CreateManualpaymentComponent implements OnInit {
   Adminid = JSON.parse(localStorage.getItem('adminid') || '');
   getadminname = JSON.parse(localStorage.getItem('adminname') || '');
   id: any;
@@ -56,13 +56,12 @@ export class CreateManualpaymentComponent implements OnInit{
  
   submit() {
     let submitModel: createManualPayment = {
-      // paymentMethod: this.paymentmode?.value,
-      paymentMethod: 'Success',
+      paymentMethod: this.paymentmode?.value,
       utrNumber: this.utrnumber?.value,
-      paymentStatus: this.paidStatus?.value,
+      paymentStatus:'Success',
       merchantId: this.id,
       date: this.validitydate?.value,
-      manualApprovalBy: this.manualApprovalBy?.value
+      manualApprovalBy: this.getadminname
     }
  
     this.Approval.CreateManualPayment(submitModel).subscribe((res: any) => {
@@ -79,4 +78,3 @@ export class CreateManualpaymentComponent implements OnInit{
     })
   }
 }
- 

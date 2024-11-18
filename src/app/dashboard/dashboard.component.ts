@@ -129,7 +129,7 @@ export class DashboardComponent implements OnInit {
       this.valuefarginbank = 'Fargin bank'
       this.valueentitysms = 'Entity Sms'
       this.valuesmshistory = 'SMS History'
-      this.valueautodebit = 'Rent Logs'
+      this.valueautodebit = 'MMC Auto Debit'
       this.valueCustomizationPayments = 'Customized Payment'
       this.valuesurvey = 'Survey'
       this.valueBuisneesDoCument = 'Business Document Type'
@@ -241,8 +241,8 @@ export class DashboardComponent implements OnInit {
         if (this.roles == 'SMS History') {
           this.valuesmshistory = 'SMS History'
         }
-        if (this.roles == 'Rent Logs') {
-          this.valueautodebit = 'Rent Logs'
+        if (this.roles == 'MMC Auto Debit') {
+          this.valueautodebit = 'MMC Auto Debit'
         }
         if (this.roles == 'Customized Payment') {
           this.valueCustomizationPayments = 'Customized Payment'

@@ -278,5 +278,33 @@ changePageIndex(newPageIndex: number) {
   } as PageEvent);
 }
 
+customer(filterValue: string) {
+  if (!filterValue) {
+      this.toastr.error('Please enter a value to search');
+      return;
+  }
+ 
+  this.EntityViewall.CustomerSearch(filterValue).subscribe({
+    next: (res: any) => {
+      if (res.response) {
+        this.overallcustomer = res.response;  
+        this.overallcustomer.reverse();
+        this.dataSource = new MatTableDataSource(this.overallcustomer);  
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+       
+      }
+      else if (res.flag === 2) {
+        this.overallcustomer = [];  
+        this.dataSource = new MatTableDataSource(this.overallcustomer);  
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+    }
+    },
+    error: (err: any) => {
+      this.toastr.error('Error fetching filtered regions');
+    }
+  });
+}
 
 }

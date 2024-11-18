@@ -1,9 +1,9 @@
 <h4 style="text-align:left;color:#141E46;">Fargin Bank</h4>
+<mat-card-header>
+<div class="row mt-4">
 
-<div class="row">
-    <br>
 
-    <div class="col" style="margin-left: -5px;">
+    <div class="col">
         <div class="search ">
             <form class="form">
                 <label for="search">
@@ -41,12 +41,13 @@
     </div>
 
 </div>
+</mat-card-header>
 <!-- <mat-card> -->
 
 <mat-card-content>
-    <div class="table-responsive text-nowrap" style="overflow-x: scroll; scrollbar-width: thin;">
+    <div class="table-responsive text-nowrap mt-4" style="overflow-x: scroll; scrollbar-width: thin;">
 
-        <br><br>
+      
         <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
 
             <ng-container matColumnDef="sno">

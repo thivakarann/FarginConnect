@@ -346,4 +346,33 @@ export class ServicePaymentsViewallComponent {
       // length: this.totalItems
     } as PageEvent);
   }
+
+  onetimepay(filterValue: string) {
+    if (!filterValue) {
+        this.toastr.error('Please enter a value to search');
+        return;
+    }
+ 
+    this.service.Onetimepayment(filterValue).subscribe({
+      next: (res: any) => {
+        if (res.response) {
+          this.transaction = res.response;  
+          this.transaction.reverse();
+          this.dataSource = new MatTableDataSource(this.transaction);  
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+         
+        }
+        else if (res.flag === 2) {
+          this.transaction = [];  
+          this.dataSource = new MatTableDataSource(this.transaction);  
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+      }
+      },
+      error: (err: any) => {
+        this.toastr.error('Error fetching filtered regions');
+      }
+    });
+  }
 }

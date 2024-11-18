@@ -1,9 +1,10 @@
 <!--   -->
 
 <h4 style="text-align:left;color:#141E46;">Broadcast Creation</h4>
-<div class="row" style="margin-top: 3%;">
-    <mat-card-header>
-        <div class="col" style="margin-left: -15px;">
+<mat-card-header>
+<div class="row mt-4">
+    
+        <div class="col">
 
             <div class="search ">
                 <form class="form">
@@ -44,13 +45,14 @@
 
 
         </div>
-    </mat-card-header>
+   
 </div>
+</mat-card-header>
 <!-- <mat-card> -->
 <mat-card-content>
 
-    <div class="table-responsive text-nowrap" style="overflow-x: scroll; scrollbar-width: thin;">
-        <br> <br>
+    <div class="table-responsive text-nowrap mt-4" style="overflow-x: scroll; scrollbar-width: thin;">
+     
         <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
             <ng-container matColumnDef="bundleChannelId">

@@ -291,5 +291,37 @@ export class SMSHistoryComponent {
     } as PageEvent);
   }
 
+  smshistory(filterValue: string) {
+    if (!filterValue) {
+        this.toastr.error('Please enter a value to search');
+        return;
+    }
+ 
+    this.service.Smshistorysearch(filterValue).subscribe({
+      next: (res: any) => {
+        if (res.response) {
+          this.smsResponse = res.response;  
+          this.smsResponse.reverse();
+          this.dataSource = new MatTableDataSource(this.smsResponse);  
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+         
+        }
+        else if (res.flag === 2) {
+          this.smsResponse = [];  
+          this.dataSource = new MatTableDataSource(this.smsResponse);  
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+      }
+      },
+      error: (err: any) => {
+        this.toastr.error('Error fetching filtered regions');
+      }
+    });
+  }
+
+  reload() {
+    window.location.reload()
+  }
 
 }

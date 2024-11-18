@@ -278,6 +278,36 @@ export class RegionComponent implements OnInit {
     window.location.reload()
   }
 
+  Region(filterValue: string) {
+    if (!filterValue) {
+        this.toastr.error('Please enter a value to search');
+        return;
+    }
+ 
+ 
+    this.service.Regionsearch(filterValue).subscribe({
+      next: (res: any) => {
+        if (res.response) {
+          this.region = res.response;  
+          this.region.reverse();
+          this.dataSource = new MatTableDataSource(this.region);  
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+         
+        }
+        else if (res.flag === 2) {
+          this.region = [];  
+          this.dataSource = new MatTableDataSource(this.region);  
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+      }
+      },
+      error: (err: any) => {
+        this.toastr.error('Error fetching filtered regions');
+      }
+    });
+}
+
 }
 
 

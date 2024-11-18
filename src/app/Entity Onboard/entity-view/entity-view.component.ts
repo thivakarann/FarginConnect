@@ -93,7 +93,7 @@ export class EntityViewComponent implements OnInit {
   serviceid: any;
   ToDateRange: any;
   FromDateRange: any;
-  showdata!: boolean;
+  showData: boolean = true;
   Data: any;
   bankapproval: any;
   Kycapproval: any;
@@ -1805,4 +1805,31 @@ export class EntityViewComponent implements OnInit {
     })
   }
 
+
+  Entitybanksearch(id: any, filterValue: string) {
+    if (!filterValue) {
+        this.toastr.error('Please enter a value to search');
+        return;
+    }
+ 
+    this.MerchantView.EntityBanksearch(id, filterValue).subscribe({
+        next: (res: any) => {
+            if (res.response) {
+                this.bankdetails = res.response;  // Set bankdetails to the API response
+                this.showData = true;  // Set showData to true after data is available
+            }
+            else if (res.flag === 2) {
+                this.bankdetails = [];  // Clear bankdetails if no data found
+                this.showData = true;
+            }
+        },
+        error: (err: any) => {
+            this.toastr.error('Error fetching filtered regions');
+        }
+    });
+}
+
+reload() {
+  window.location.reload()
+}
 }
