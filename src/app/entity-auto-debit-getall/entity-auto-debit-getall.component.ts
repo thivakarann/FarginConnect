@@ -221,7 +221,7 @@ export class EntityAutoDebitGetallComponent {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 
 
-      FileSaver.saveAs(blob, 'Customer Onboard.xlsx');
+      FileSaver.saveAs(blob, 'MMC Auto Debits.xlsx');
 
     });
   }

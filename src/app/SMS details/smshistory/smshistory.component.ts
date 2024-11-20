@@ -100,6 +100,7 @@ export class SMSHistoryComponent {
     this.service.SmsHistoryGetAll(this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.smsResponse = res.response;
+        this.smsResponse.reverse();
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.totalPages;
         this.currentpage = res.pagination.currentPage + 1;

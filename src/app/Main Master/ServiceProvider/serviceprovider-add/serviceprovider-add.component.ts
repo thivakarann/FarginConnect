@@ -23,7 +23,7 @@ export class ServiceproviderAddComponent implements OnInit {
     this.AdminForm = new FormGroup({
       providerName: new FormControl('', [Validators.required]),
       serviceProviderLink: new FormControl('', [Validators.required, Validators.pattern("((http|https)://)(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,6})+(/[-a-zA-Z0-9@:%._\\+~#?&//=]*)?")]),
- 
+
     })
   }
 
@@ -52,7 +52,9 @@ export class ServiceproviderAddComponent implements OnInit {
     this.service.ServiceProviderCreate(submitmodel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toaster.success(res.responseMessage);
-        window.location.reload();
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       }
       else if (res.flag == 2) {
         this.toaster.error(res.responseMessage);

@@ -25,11 +25,16 @@
  
             <div class="form__linput">
                 <label class="form-label" for="message">Region</label>
-                <mat-form-field appearance="fill">
-                    <mat-select formControlName="stateName" [(ngModel)]="selectedStates" multiple>
+               
+                    <mat-select formControlName="stateName" class="form-select" [(ngModel)]="selectedStates" multiple #select>
+                        <div class="select-all">
+                            <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
+                                (change)="toggleAllSelection()">Select All</mat-checkbox>
+                        </div>
                         <mat-option *ngFor="let state of states" [value]="state">{{ state }}</mat-option>
                     </mat-select>
-                </mat-form-field>
+                   
+               
                 <span style="color: red; font-size: 12px; margin-top: 2px;" class="error"
                       *ngIf="stateName?.touched && stateName?.errors?.['required']">Field is Required*</span>
             </div>

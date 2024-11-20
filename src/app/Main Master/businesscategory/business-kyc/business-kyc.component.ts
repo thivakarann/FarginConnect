@@ -28,7 +28,7 @@ export class BusinessKycComponent implements OnInit {
   errorMsg: any;
   responseDataListnew: any = [];
   response: any = [];
- 
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   isChecked: any;
@@ -44,49 +44,49 @@ export class BusinessKycComponent implements OnInit {
   valueKycexport: any;
   valueKycstatus: any;
   valueKycedit: any;
- 
- 
+
+
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) {
- 
+
   }
- 
+
   ngOnInit() {
- 
+
     this.service.BusinesscategoryKyc().subscribe((res: any) => {
-   
-        this.businesscategorykyc = res.response;
-        
-        this.businesscategorykyc.reverse();
-        this.dataSource = new MatTableDataSource(this.businesscategorykyc);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
- 
-     
-       
-     
-     
+
+      this.businesscategorykyc = res.response;
+
+      this.businesscategorykyc.reverse();
+      this.dataSource = new MatTableDataSource(this.businesscategorykyc);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+
+
+
+
+
     });
- 
+
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        
- 
+
+
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
- 
+
           if (this.roleId == '1') {
             this.valueKycexport = 'Business Category Doc-Export';
             this.valueKycadd = 'Business Category Doc-Add';
             this.valueKycedit = 'Business Category Doc-Edit';
             this.valueKycstatus = 'Business Category Doc-Status';
- 
+
           }
           else {
             for (let datas of this.getdashboard) {
- 
+
               this.actions = datas.subPermissions;
- 
- 
+
+
               if (this.actions == 'Business Category Doc-Export') {
                 this.valueKycexport = 'Business Category Doc-Export';
               }
@@ -107,32 +107,32 @@ export class BusinessKycComponent implements OnInit {
         }
       }
     })
- 
- 
+
+
   }
- 
- 
- 
+
+
+
   onSubmit(event: MatSlideToggleChange, id: any) {
     this.isChecked = event.checked;
- 
+
     let submitModel: Businesskycstatus = {
       // businessCategoryId: id,
       activeStatus: this.isChecked ? 1 : 0,
       // modifiedBy: this.getadminname
     };
- 
+
     this.service.BusinesskycActive(id, submitModel).subscribe((res: any) => {
-      
+
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
         window.location.reload();
       }, 1000);
     });
   }
- 
- 
- 
+
+
+
   create() {
     this.dialog.open(BusinessKycCreateComponent, {
       width: '80vw',
@@ -142,8 +142,8 @@ export class BusinessKycComponent implements OnInit {
       disableClose: true
     });
   }
- 
- 
+
+
   Edit(id: any) {
     this.dialog.open(BusinessKycEditComponent, {
       width: '80vw',
@@ -152,23 +152,23 @@ export class BusinessKycComponent implements OnInit {
       exitAnimationDuration: '1000ms',
       data: { value: id },
       disableClose: true
-      
+
     });
   }
- 
+
   admin() {
- 
+
   }
- 
+
   exportexcel() {
-    
+
     let sno = 1;
     this.responseDataListnew = [];
     this.businesscategorykyc.forEach((element: any) => {
       let createdate = element.createdDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
- 
-     
+
+
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.kycDocName);
@@ -176,21 +176,21 @@ export class BusinessKycComponent implements OnInit {
       this.response.push(element?.createdBy);
       this.response.push(this.date1);
       this.response.push(element?.modifiedBy);
- 
-    
-      if(element?.modifiedDateAndTime){
+
+
+      if (element?.modifiedDateAndTime) {
         this.response.push(element?.modifiedDateAndTime)
       }
-      else{
+      else {
         this.response.push('')
       }
- 
+
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
- 
+
   excelexportCustomer() {
     const header = [
       "S.No",
@@ -239,21 +239,21 @@ export class BusinessKycComponent implements OnInit {
       FileSaver.saveAs(blob, 'Business KYC.xlsx');
     });
   }
- 
- 
+
+
   cancel() {
- 
+
   }
- 
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
- 
+
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
-  reload(){
+  reload() {
     window.location.reload()
 
   }

@@ -15,6 +15,7 @@ export class EntityAddComponent implements OnInit {
   Adminid = JSON.parse(localStorage.getItem('adminid') || '');
   myForm!: FormGroup;
   myForm2!: FormGroup;
+  
   myForm3!: FormGroup;
   file1!: File;
   file2!: File;
@@ -521,7 +522,7 @@ export class EntityAddComponent implements OnInit {
  
     // Ensure this.uploadImage is not null
     if (this.uploadidentityfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'application/pdf'];
  
       if (acceptableTypes.includes(this.uploadidentityfront.type)) {
         if (this.uploadidentityfront.size <= 20 * 1024 * 1024) {
@@ -547,7 +548,7 @@ export class EntityAddComponent implements OnInit {
  
     // Ensure this.uploadImage is not null
     if (this.uploadidentityback) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg','application/pdf'];
  
       if (acceptableTypes.includes(this.uploadidentityback.type)) {
         if (this.uploadidentityback.size <= 20 * 1024 * 1024) {
@@ -573,7 +574,7 @@ export class EntityAddComponent implements OnInit {
  
     // Ensure this.uploadImage is not null
     if (this.uploadaddressfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg','application/pdf'];
  
       if (acceptableTypes.includes(this.uploadaddressfront.type)) {
         if (this.uploadaddressfront.size <= 20 * 1024 * 1024) {
@@ -596,7 +597,7 @@ export class EntityAddComponent implements OnInit {
  
     // Ensure this.uploadImage is not null
     if (this.uploadaddressback) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
+      const acceptableTypes = ['image/png','image/jpeg', 'image/jpg','application/pdf'];
  
       if (acceptableTypes.includes(this.uploadaddressback.type)) {
         if (this.uploadaddressback.size <= 20 * 1024 * 1024) {
@@ -619,7 +620,7 @@ export class EntityAddComponent implements OnInit {
  
     // Ensure this.uploadImage is not null
     if (this.uploadsignfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg','application/pdf'];
  
       if (acceptableTypes.includes(this.uploadsignfront.type)) {
         if (this.uploadsignfront.size <= 20 * 1024 * 1024) {
@@ -643,7 +644,7 @@ export class EntityAddComponent implements OnInit {
  
     // Ensure this.uploadImage is not null
     if (this.uploadsignback) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg','application/pdf'];
  
       if (acceptableTypes.includes(this.uploadsignback.type)) {
         if (this.uploadsignback.size <= 20 * 1024 * 1024) {
@@ -738,7 +739,7 @@ export class EntityAddComponent implements OnInit {
  
     // Ensure this.uploadImage is not null
     if (this.uploadImage) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg'];
  
       if (acceptableTypes.includes(this.uploadImage.type)) {
         if (this.uploadImage.size <= 20 * 1024 * 1024) {
@@ -766,7 +767,7 @@ export class EntityAddComponent implements OnInit {
  
     // Ensure this.uploadImage is not null
     if (this.uploaddocfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg','application/pdf'];
  
       if (acceptableTypes.includes(this.uploaddocfront.type)) {
         if (this.uploaddocfront.size <= 20 * 1024 * 1024) {

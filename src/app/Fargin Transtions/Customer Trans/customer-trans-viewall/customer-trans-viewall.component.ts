@@ -118,7 +118,7 @@ export class CustomerTransViewallComponent {
         this.transaction = res.response;
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage+1;
+        this.currentpage = res.pagination.currentPage + 1;
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -157,7 +157,7 @@ export class CustomerTransViewallComponent {
         this.transaction = res.response;
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage+1;
+        this.currentpage = res.pagination.currentPage + 1;
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -185,14 +185,14 @@ export class CustomerTransViewallComponent {
 
   exportexcel() {
     this.service.CustomerAllTransactionsExport().subscribe((res: any) => {
-    this.transactionexport = res.response;
-    if(res.flag==1){
+      this.transactionexport = res.response;
+      if (res.flag == 1) {
         let sno = 1;
         this.responseDataListnew = [];
         this.transactionexport.forEach((element: any) => {
           let createdate = element.paymentDateTime;
           this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-     
+
           this.response = [];
           this.response.push(sno);
           this.response.push(element?.pgPaymentId);
@@ -201,7 +201,7 @@ export class CustomerTransViewallComponent {
           this.response.push(element?.paymentMethod);
           this.response.push(element?.paidAmount);
           this.response.push(this.date1);
-     
+
           if (element?.paymentStatus == 'Success') {
             this.response.push('Success');
           }
@@ -211,14 +211,14 @@ export class CustomerTransViewallComponent {
           else {
             this.response.push('Initiated');
           }
-     
+
           sno++;
           this.responseDataListnew.push(this.response);
         });
         this.excelexportCustomer();
       }
     });
-      }
+  }
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
@@ -347,26 +347,26 @@ export class CustomerTransViewallComponent {
 
   CustomerAdmin(filterValue: string) {
     if (!filterValue) {
-        this.toastr.error('Please enter a value to search');
-        return;
+      this.toastr.error('Please enter a value to search');
+      return;
     }
-   
+
     this.service.CustomeradminSearch(filterValue).subscribe({
       next: (res: any) => {
         if (res.response) {
-          this.transaction = res.response;  
+          this.transaction = res.response;
           this.transaction.reverse();
-          this.dataSource = new MatTableDataSource(this.transaction);  
+          this.dataSource = new MatTableDataSource(this.transaction);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
-         
+
         }
         else if (res.flag === 2) {
-          this.transaction = [];  
-          this.dataSource = new MatTableDataSource(this.transaction);  
+          this.transaction = [];
+          this.dataSource = new MatTableDataSource(this.transaction);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
-      }
+        }
       },
       error: (err: any) => {
         this.toastr.error('Error fetching filtered regions');

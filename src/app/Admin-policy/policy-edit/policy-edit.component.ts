@@ -127,7 +127,7 @@ export class PolicyEditComponent implements OnInit {
         this.router.navigateByUrl('dashboard/Terms-policy');
  
       } else {
-        this.toastr.warning(res.responseMessage)
+        this.toastr.error(res.responseMessage)
       }
     })
   }

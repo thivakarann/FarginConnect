@@ -107,7 +107,7 @@
 
       <ng-container matColumnDef="createdDateTime">
         <th mat-header-cell *matHeaderCellDef>Created At</th>
-        <td mat-cell *matCellDef="let businesscategory">{{businesscategory.createdAt | date:'dd-MM-yyyy hh:mm a'}}</td>
+        <td mat-cell *matCellDef="let businesscategory">{{businesscategory.createdAt | date:'dd/MM/yyyy hh:mm a'}}</td>
       </ng-container>
 
 
@@ -121,7 +121,7 @@
 
       <ng-container matColumnDef="modifiedDateTime">
         <th mat-header-cell *matHeaderCellDef> Modified At </th>
-        <td mat-cell *matCellDef="let businesscategory">{{businesscategory.modifiedAt | date:'dd-MM-yyyy hh:mm a' }}
+        <td mat-cell *matCellDef="let businesscategory">{{businesscategory.modifiedAt | date:'dd/MM/yyyy hh:mm a' }}
         </td>
       </ng-container>
 

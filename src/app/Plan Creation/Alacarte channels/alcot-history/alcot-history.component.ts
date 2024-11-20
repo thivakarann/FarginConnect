@@ -56,10 +56,11 @@ ngOnInit(): void {
   this.service.AlcotHistoryViewAll(this.pageSize,this.pageIndex).subscribe((res:any)=>{
     if(res.flag==1){
       this.history=res.response;
+      this.history.reverse();
       this.totalPages=res.pagination.totalElements;
       this.totalpage=res.pagination.totalPages;
      this.currentpage=res.pagination.currentPage+1;
-      this.history.reverse();
+    
       this.dataSource = new MatTableDataSource(this.history);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;

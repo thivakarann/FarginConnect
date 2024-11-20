@@ -145,7 +145,7 @@ pageSize=5;
       this.response.push(element?.merchantId?.contactEmail);
      this.response.push(element?.type?.smsTitle)
      this.response.push(element?.smsCount)
-     this.response.push(element?.type?.smsCharge)
+    //  this.response.push(element?.type?.smsCharge)
       this.response.push(element?.createdBy);
       this.response.push(this.date1);
    
@@ -168,7 +168,7 @@ pageSize=5;
     'Entity Email',
     'SMS Type',
     'SMS Count',
-    'Charge Per Sms',
+    // 'Charge Per Sms',
     'Created By',
     'Created At',
    
@@ -211,7 +211,7 @@ pageSize=5;
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
-      let qty8 = row.getCell(9);
+      // let qty8 = row.getCell(9);
  
  
  
@@ -225,7 +225,7 @@ pageSize=5;
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      // qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
  
     }
     );
@@ -234,7 +234,7 @@ pageSize=5;
     // worksheet.getColumn(3).protection = { locked: true, hidden: true }
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      FileSaver.saveAs(blob, 'Sms-ViewAll.xlsx');
+      FileSaver.saveAs(blob, 'Entity-Sms.xlsx');
     });
 }
 renderPage(event: PageEvent) {

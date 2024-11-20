@@ -216,6 +216,7 @@ import { AddExtraRegionComponent } from './Plan Creation/Broadcaster Bouqutes/ad
 import { ChanneleditComponent } from './Plan Creation/Broadcaster Bouqutes/channeledit/channeledit.component';
 import { BouqutesRegioneditComponent } from './Plan Creation/Broadcaster Bouqutes/bouqutes-regionedit/bouqutes-regionedit.component';
 import { BouqutesRegionComponent } from './Plan Creation/Broadcaster Bouqutes/bouqutes-region/bouqutes-region.component';
+import { AggrementSignerOneComponent } from './aggrement-signer-one/aggrement-signer-one.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -410,7 +411,8 @@ import { BouqutesRegionComponent } from './Plan Creation/Broadcaster Bouqutes/bo
     AddExtraRegionComponent,
     ChanneleditComponent,
     BouqutesRegioneditComponent,
-    BouqutesRegionComponent
+    BouqutesRegionComponent,
+    AggrementSignerOneComponent
 
   ],
 

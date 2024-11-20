@@ -154,3 +154,7 @@ button {
   color: #141E46;
   font-family: "Roboto";
 }
+
+mat-select{
+  width: 460px;
+}

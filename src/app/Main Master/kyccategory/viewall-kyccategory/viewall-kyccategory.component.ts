@@ -42,7 +42,7 @@ export class ViewallKyccategoryComponent implements OnInit {
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        
+
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -82,13 +82,13 @@ export class ViewallKyccategoryComponent implements OnInit {
 
     this.service.viewallkycCategory().subscribe((res: any) => {
       this.categoryview = res.response;
-      
+
       this.dataSource = new MatTableDataSource(this.categoryview.reverse());
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     })
 
-   
+
 
   }
   onSubmit(event: MatSlideToggleChange, id: string) {
@@ -127,13 +127,13 @@ export class ViewallKyccategoryComponent implements OnInit {
     window.location.reload()
   }
   exportexcel() {
-    
+
     let sno = 1;
     this.responseDataListnew = [];
     this.categoryview.forEach((element: any) => {
       let createdate = element.createdAt;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
- 
+
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.kycCategoryName);
@@ -146,21 +146,21 @@ export class ViewallKyccategoryComponent implements OnInit {
       this.response.push(element?.createdBy);
       this.response.push(this.date1);
       this.response.push(element?.modifiedBy);
- 
-      if(element?.modifiedAt){
+
+      if (element?.modifiedAt) {
         this.response.push(moment(element?.modifiedAt).format('DD/MM/yyyy-hh:mm a').toString());
       }
-      else{
+      else {
         this.response.push('');
       }
- 
- 
+
+
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
- 
+
   excelexportCustomer() {
     const header = [
       "S.No",
@@ -206,10 +206,10 @@ export class ViewallKyccategoryComponent implements OnInit {
     );
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      FileSaver.saveAs(blob, 'KYC Category.xlsx');
+      FileSaver.saveAs(blob, 'Business Documents.xlsx');
     });
   }
- 
+
 
 
   applyFilter(event: Event) {

@@ -122,7 +122,7 @@ export class EntityBankeditComponent implements OnInit {
           window.location.reload()
         }, 500);
       } else {
-        this.toastr.warning(res.responseMessage)
+        this.toastr.error(res.responseMessage)
       }
     })
   }

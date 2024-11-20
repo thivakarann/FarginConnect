@@ -93,7 +93,7 @@ export class EditfacheckkeyComponent {
         this.toastr.success(res.responseMessage)
         window.location.reload()
       } else {
-        this.toastr.warning(res.responseMessage)
+        this.toastr.error(res.responseMessage)
       }
     })
   }

@@ -116,7 +116,7 @@ export class ServicePaymentsViewallComponent {
         this.totalPages=res.pagination.totalElements;
         this.totalpage=res.pagination.totalPages;
        this.currentpage=res.pagination.currentPage+1;
-        this.transaction.reverse();
+        // this.transaction.reverse();
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -172,6 +172,7 @@ export class ServicePaymentsViewallComponent {
       if (res.flag == 1) {
  
         this.transaction = res.response;
+        this.transaction.reverse();
         this.totalPages=res.pagination.totalElements;
         this.totalpage=res.pagination.totalPages;
        this.currentpage=res.pagination.currentPage;

@@ -284,7 +284,7 @@ export class MerchantPlanViewallComponent {
     // worksheet.getColumn(3).protection = { locked: true, hidden: true }
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      FileSaver.saveAs(blob, 'Merchant Plan Details.xlsx');
+      FileSaver.saveAs(blob, 'Entity Plans.xlsx');
     });
   }
 

@@ -42,7 +42,7 @@ export class MaintenanceTransViewallComponent {
     'CheckStatus',
     'status',
     'view',
- 
+
   ];
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
@@ -73,25 +73,25 @@ export class MaintenanceTransViewallComponent {
   valuemaintainInvoice: any;
   valuemaintaincheck: any;
   pageIndex: number = 0;
-pageSize=5;
+  pageSize = 5;
   totalPages: any;
   totalpage: any;
   currentpage: any;
   transactionexport: any;
- 
+
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
- 
- 
- 
+
+
+
   ngOnInit(): void {
- 
+
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-       
- 
+
+
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
- 
+
           if (this.roleId == 1) {
             this.valuemaintainexport = 'Subscription Payment-Export'
             this.valuemaintainview = 'Subscription Payment-View'
@@ -113,7 +113,7 @@ pageSize=5;
               if (this.actions == 'Subscription Payment-Check Status') {
                 this.valuemaintaincheck = 'Subscription Payment-Check Status'
               }
- 
+
             }
           }
         }
@@ -122,55 +122,55 @@ pageSize=5;
         }
       }
     });
- 
-    this.service.MaintenanceAllTransactions(this.pageSize,this.pageIndex).subscribe((res: any) => {
+
+    this.service.MaintenanceAllTransactions(this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.transaction = res.response;
-        this.totalPages=res.pagination.totalElements;
-        this.totalpage=res.pagination.totalPages;
-       this.currentpage=res.pagination.currentPage+1;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
         this.transaction.reverse();
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
- 
+
     });
- 
- 
+
+
   }
- 
- 
+
+
   reload() {
     window.location.reload()
   }
- 
- 
- 
+
+
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
- 
+
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
- 
- 
+
+
   filterdate() {
     // const datepipe: DatePipe = new DatePipe("en-US");
     // let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY HH:mm");
     // let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/YYYY HH:mm");
     // this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
     // this.currentPage = 1;
- 
-    this.service.MaintenanceTransactionFilter(this.FromDateRange, this.ToDateRange,this.pageSize,this.pageIndex).subscribe((res: any) => {
+
+    this.service.MaintenanceTransactionFilter(this.FromDateRange, this.ToDateRange, this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
- 
+
         this.transaction = res.response;
-        this.totalPages=res.pagination.totalElements;
-        this.totalpage=res.pagination.totalPages;
-       this.currentpage=res.pagination.currentPage;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -184,11 +184,11 @@ pageSize=5;
   reset() {
     window.location.reload();
   }
- 
- 
+
+
   viewreciept(id: any) {
-   
- 
+
+
     this.service.MaintenanceReciept(id).subscribe((res: any) => {
       const reader = new FileReader();
       reader.readAsDataURL(res);
@@ -198,7 +198,7 @@ pageSize=5;
       }
     })
   }
- 
+
   track(id: any) {
     let submitModel: subscriptionpay = {
       payId: id?.maintenancePayId,
@@ -217,55 +217,55 @@ pageSize=5;
       }
     })
   }
- 
- 
+
+
   exportexcel() {
     this.service.MaintenanceAllTransactionsExport().subscribe((res: any) => {
-    this.transactionexport = res.response;
-     if(res.flag==1){
-      let sno = 1;
-      this.responseDataListnew = [];
-      this.transactionexport.forEach((element: any) => {
-       
-   
-        this.response = [];
-        this.response.push(sno);
-        this.response.push(element?.pgPaymentId);
-        this.response.push(element?.merchantId?.merchantLegalName);
-        this.response.push(element?.paymentMethod);
-        this.response.push(element?.smsCount);
-        this.response.push(element?.smsPerAmount);
-        this.response.push(element?.smsTotalAmount);
-   
-        this.response.push(element?.paidAmount);
-       
-   
-   
-     //
-        if(element?.paymentDateTime){
-          this.response.push(moment(element?.paymentDateTime).format('DD/MM/yyyy-hh:mm a').toString());
-        }
-        else{
-          this.response.push('');
-        }
-       
-        if (element?.paymentStatus == 'Success') {
-          this.response.push('Success');
-        }
-        else if (element?.paymentStatus == 'Pending') {
-          this.response.push('Pending');
-        }
-        else  {
-          this.response.push('Initiated');
-        }
-        sno++;
-        this.responseDataListnew.push(this.response);
-      });
-      this.excelexportCustomer();
-    }
-  });
-   }
- 
+      this.transactionexport = res.response;
+      if (res.flag == 1) {
+        let sno = 1;
+        this.responseDataListnew = [];
+        this.transactionexport.forEach((element: any) => {
+
+
+          this.response = [];
+          this.response.push(sno);
+          this.response.push(element?.pgPaymentId);
+          this.response.push(element?.merchantId?.merchantLegalName);
+          this.response.push(element?.paymentMethod);
+          this.response.push(element?.smsCount);
+          this.response.push(element?.smsPerAmount);
+          this.response.push(element?.smsTotalAmount);
+
+          this.response.push(element?.paidAmount);
+
+
+
+          //
+          if (element?.paymentDateTime) {
+            this.response.push(moment(element?.paymentDateTime).format('DD/MM/yyyy-hh:mm a').toString());
+          }
+          else {
+            this.response.push('');
+          }
+
+          if (element?.paymentStatus == 'Success') {
+            this.response.push('Success');
+          }
+          else if (element?.paymentStatus == 'Pending') {
+            this.response.push('Pending');
+          }
+          else {
+            this.response.push('Initiated');
+          }
+          sno++;
+          this.responseDataListnew.push(this.response);
+        });
+        this.excelexportCustomer();
+      }
+    });
+  }
+
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
@@ -280,16 +280,16 @@ pageSize=5;
       'Paid At',
       'Status',
     ]
- 
- 
+
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Entity Transactions');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
- 
- 
+
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -300,15 +300,15 @@ pageSize=5;
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
+
       }
- 
+
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
- 
+
     data.forEach((d: any) => {
       //
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -320,10 +320,10 @@ pageSize=5;
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
- 
- 
- 
- 
+
+
+
+
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -334,7 +334,7 @@ pageSize=5;
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
+
     }
     );
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
@@ -345,9 +345,9 @@ pageSize=5;
       FileSaver.saveAs(blob, 'Maintenance Transaction.xlsx');
     });
   }
- 
+
   transactionview(id: any) {
- 
+
     this.dialog.open(MaintanceViewComponent, {
       enterAnimationDuration: "1000ms",
       exitAnimationDuration: "1000ms",
@@ -361,11 +361,11 @@ pageSize=5;
     // Capture the new page index and page size from the event
     this.pageIndex = event.pageIndex;  // Update current page index
     this.pageSize = event.pageSize;           // Update page size (if changed)
- 
+
     // Log the new page index and page size to the console (for debugging)
     console.log('New Page Index:', this.pageIndex);
     console.log('New Page Size:', this.pageSize);
- 
+
     // You can now fetch or display the data for the new page index
     // Example: this.fetchData(this.currentPageIndex, this.pageSize);
     this.ngOnInit()
@@ -382,26 +382,26 @@ pageSize=5;
 
   subscription(filterValue: string) {
     if (!filterValue) {
-        this.toastr.error('Please enter a value to search');
-        return;
+      this.toastr.error('Please enter a value to search');
+      return;
     }
- 
+
     this.service.Subscriptionsearch(filterValue).subscribe({
       next: (res: any) => {
         if (res.response) {
-          this.transaction = res.response;  
+          this.transaction = res.response;
           this.transaction.reverse();
-          this.dataSource = new MatTableDataSource(this.transaction);  
+          this.dataSource = new MatTableDataSource(this.transaction);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
-         
+
         }
         else if (res.flag === 2) {
-          this.transaction = [];  
-          this.dataSource = new MatTableDataSource(this.transaction);  
+          this.transaction = [];
+          this.dataSource = new MatTableDataSource(this.transaction);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
-      }
+        }
       },
       error: (err: any) => {
         this.toastr.error('Error fetching filtered regions');

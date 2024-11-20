@@ -8,6 +8,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { RegionAdd } from '../../../fargin-model/fargin-model.module';
+import { MatOption, MatSelect } from '@angular/material/select';
 
 @Component({
   selector: 'app-region-add',
@@ -18,6 +19,8 @@ export class RegionAddComponent implements OnInit {
 
   getadminname = JSON.parse(localStorage.getItem('adminname') || '');
   Adminid = JSON.parse(localStorage.getItem('adminid') || '');
+  @ViewChild('select') select: any = MatSelect;
+  allSelected = false;
  
   regioncreate: any = FormGroup;
   regiongetactive: any;
@@ -92,10 +95,18 @@ export class RegionAddComponent implements OnInit {
  
       }
       else {
-        this.toastr.warning(res.responseMessage);
+        this.toastr.error(res.responseMessage);
         this.dialog.closeAll()
       }
  
     });
+  }
+
+  toggleAllSelection() {
+    if (this.allSelected) {
+      this.select.options.forEach((item: MatOption) => item.select());
+    } else {
+      this.select.options.forEach((item: MatOption) => item.deselect());
+    }
   }
 }
