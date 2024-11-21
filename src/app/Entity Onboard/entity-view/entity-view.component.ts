@@ -412,9 +412,9 @@ export class EntityViewComponent implements OnInit {
       
 
       this.detaislone = res.response.merchantpersonal;
-      this.bankdetails = res.response.merchantbank;
+      this.bankdetails = res.response.merchantbank.reverse();
       this.KYCDetails = res.response.merchantkycdocument;
-      this.bussinessdoc = res.response.merchantbusinessdocument;
+      this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
       
       this.identityProof = res.response.merchantkycdocument[0].identityProof;
       this.addressProof = res.response.merchantkycdocument[0].addressProof;
@@ -1734,12 +1734,12 @@ export class EntityViewComponent implements OnInit {
     })
   }
 
-  adddoc(id: any) {
+  adddoc(id: any,id2:any) {
     this.dialog.open(AddBussinessdocumentComponent, {
       enterAnimationDuration: "1000ms",
       exitAnimationDuration: "1000ms",
       // disableClose: true,
-      data: { value: id }
+      data: { value: id ,value2:id2 }
     })
   }
 

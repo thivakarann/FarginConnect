@@ -152,15 +152,15 @@
                     <label for="websites">Website (Optional)</label>
                     <input type="text" formControlName="website" id="websites" class="form-control"
                         ngModel="{{detaislone?.website}}">
-                    <!-- <div style="
+                        <div style="
                         color: red;
                         font-size: 12px;
                         margin-top: 2px;
                         position: relative;
                         ;
-                      " *ngIf="website?.errors?.['pattern']">
-                        Enter a Valid Website
-                    </div> -->
+                      " *ngIf="website?.invalid && website?.touched && website?.errors?.['pattern']">
+                            Enter a Valid Link
+                        </div>
                 </div>
                 <div class="col-sm-4 form-group">
                     <label for="countrys">Country*</label>

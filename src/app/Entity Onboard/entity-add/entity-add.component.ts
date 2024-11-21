@@ -152,7 +152,7 @@ export class EntityAddComponent implements OnInit {
         Validators.required,
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$')
       ]),
-      website: new FormControl('', [Validators.pattern(/^(https ?: \/\/)?(www\.)?[ a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+$/)]),
+      website: new FormControl('', [Validators.pattern("((http|https)://)(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,6})+(/[-a-zA-Z0-9@:%._\\+~#?&//=]*)?")]),
       gstIn: new FormControl("", [Validators.pattern("^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[A-Z]{1}[0-9A-Z]{1}$")]),
       billingAddress: new FormControl("", [
         Validators.required
@@ -794,7 +794,7 @@ export class EntityAddComponent implements OnInit {
  
     // Ensure this.uploadImage is not null
     if (this.uploaddocback) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg','application/pdf'];
  
       if (acceptableTypes.includes(this.uploaddocback.type)) {
         if (this.uploaddocback.size <= 20 * 1024 * 1024) {

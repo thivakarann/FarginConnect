@@ -137,12 +137,19 @@ export class ViewallKyccategoryComponent implements OnInit {
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.kycCategoryName);
-      if (element.status == 0) {
+      if (element?.activeStatus == 1) {
+
         this.response.push('Active')
+
       }
+
       else {
+
         this.response.push('InActive')
+
       }
+
+
       this.response.push(element?.createdBy);
       this.response.push(this.date1);
       this.response.push(element?.modifiedBy);

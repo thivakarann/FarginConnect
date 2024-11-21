@@ -28,7 +28,7 @@ export class EditBussinessdocumentComponent {
     public service: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
-    private dialog:MatDialog,
+    private dialog: MatDialog,
     private _formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
@@ -37,14 +37,14 @@ export class EditBussinessdocumentComponent {
     this.documentdata = this.data.value;
     this.bussinessid = this.data.value.merchantId?.businessCategoryModel?.businessCategoryId;
     console.log(this.bussinessid)
-    
+
     this.merchantDocumentId = this.data.value.merchantDocumentId
-    console.log(this.merchantDocumentId )
-    this.categoryvalue=this.data.value.entityKycCategory.kycCategoryId
+    console.log(this.merchantDocumentId)
+    this.categoryvalue = this.data.value.entityKycCategory.kycCategoryId
 
-    this.docNumbers=this.data.value.docNumber
+    this.docNumbers = this.data.value.docNumber
 
- 
+
     this.service.EntityGetKYCbybussinessid(this.bussinessid).subscribe((res: any) => {
       this.kycValue = res.response;
     })
@@ -53,7 +53,7 @@ export class EditBussinessdocumentComponent {
     this.fourthFormGroup = this._formBuilder.group({
       kycCategoryId: ['', Validators.required],
       docNumber: [''],
-     
+
     })
 
   }
@@ -66,10 +66,10 @@ export class EditBussinessdocumentComponent {
     return this.fourthFormGroup.get('docNumber')
   }
 
- 
+
   docProofChange(event: any) {
     this.selectElement4 = event.target.value;
-    
+
     const docNumbers = this.fourthFormGroup.get('docNumber');
     docNumbers?.clearValidators();
     if (this.selectElement4 === 'Aadhar') {
@@ -89,18 +89,21 @@ export class EditBussinessdocumentComponent {
   docSubmit() {
 
     const formData = new FormData;
-    formData.append('merchantDocumentId ',this.merchantDocumentId);
+    formData.append('merchantDocumentId ', this.merchantDocumentId);
     formData.append('kycCategoryId', this.kycCategoryId?.value);
     formData.append('docNumber', this.docNumber?.value);
-    formData.append('modifiedBy',  this.getadminname);
+    formData.append('modifiedBy', this.getadminname);
 
 
 
-   
+
     this.service.documentEdit(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
-        this.dialog.closeAll()
+        this.dialog.closeAll();
+        setTimeout(() => {
+          window.location.reload()
+        }, 400);
       } else {
         this.toastr.error(res.responseMessage);
       }

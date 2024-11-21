@@ -257,7 +257,7 @@ export class FarginServiceService {
   private readonly Bouquetsviewbyid = 'broadCaster/getById/';
   private readonly Bouquetsviewbyidregion = 'broadCaster/getByregions/'; //NEW for region view
   private readonly Bouquetsviewbyidchannel ='broadCaster/viewChannelsByRegions/' //for channel view
-  private readonly Bouquetstatus = 'broadCaster/updateStatus';
+  private readonly Bouquetstatus = 'broadCaster/updateBroadCaster';
   private readonly ActiveBouqutes = 'broadCaster/viewOnlyActive';
   private readonly bouquetEdit = 'broadCaster/update';
     private readonly BroadcasterBoucatesRegionEdits='broadCaster/updateRegion';

@@ -38,7 +38,14 @@ export class AddBussinessdocumentComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.bussinessid = this.data.value;
+    this.merchantid = this.data.value;
+
+    this.bussinessid = this.data.value2;
+
+    console.log("this.bussinessid" + this.bussinessid)
+    console.log("this.merchantid" + this.merchantid)
+
+
     
 
     // this.service.activeViewall().subscribe((res: any) => {
@@ -100,7 +107,7 @@ export class AddBussinessdocumentComponent implements OnInit {
  
     // Ensure this.uploadImage is not null
     if (this.uploaddocfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg','application/pdf'];
  
       if (acceptableTypes.includes(this.uploaddocfront.type)) {
         if (this.uploaddocfront.size <= 20 * 1024 * 1024) {
@@ -127,7 +134,7 @@ export class AddBussinessdocumentComponent implements OnInit {
  
     // Ensure this.uploadImage is not null
     if (this.uploaddocback) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg','application/pdf'];
  
       if (acceptableTypes.includes(this.uploaddocback.type)) {
         if (this.uploaddocback.size <= 20 * 1024 * 1024) {

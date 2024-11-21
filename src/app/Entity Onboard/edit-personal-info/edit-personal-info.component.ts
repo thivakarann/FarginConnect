@@ -77,7 +77,7 @@ export class EditPersonalInfoComponent implements OnInit {
         Validators.required,
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$')
       ]),
-      website: new FormControl(''),
+      website: new FormControl('', [Validators.pattern("((http|https)://)(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,6})+(/[-a-zA-Z0-9@:%._\\+~#?&//=]*)?")]),
       gstIn: new FormControl(''),
       billingAddress: new FormControl("", [
         Validators.required,

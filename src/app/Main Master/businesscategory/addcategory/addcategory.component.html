@@ -17,7 +17,7 @@
 
             <div class="form__linput">
                 <label class="form__label" for="fname">MCC Code</label>
-                <input class="form-control" id="fname" type="text" formControlName="mccCode" name="mccCode"
+                <input class="form-control" id="fname" type="number" formControlName="mccCode" name="mccCode"
                 required />
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="mccCode?.invalid && mccCode?.touched && mccCode?.errors?.['required']">

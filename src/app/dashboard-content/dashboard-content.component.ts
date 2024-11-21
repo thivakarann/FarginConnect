@@ -273,7 +273,7 @@ export class DashboardContentComponent {
           res.response.activeMemberCount,
         ];
         const labels = [
-          'Pending Status' + - res.response.pendingStatusCount,
+          'Pending Status',
           'Total Merchants',
           'Successful Onboard Count',
           'Inactive Members',
