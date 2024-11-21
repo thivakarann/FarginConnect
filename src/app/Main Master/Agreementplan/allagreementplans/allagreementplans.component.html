@@ -1,0 +1,580 @@
+<body>
+    <main>
+        <table am-layout="zebra-stripe">
+            <tbody>
+                <tr>
+                    <th scope="rowgroup" colspan="4" style="padding:10px;">
+                        <p style="font-family: Arial, Helvetica, sans-serif;">Plan Name : {{viewbyagreement?.planName}}</p>
+                        <button class="button" (click)="close()">
+                            Back
+                            <div class="arrow">›</div>
+                        </button>
+ 
+                    </th>
+      
+                </tbody>
+<br>
+    
+<br>
+
+                <div class="row">
+                    <div class="col-4">
+                        <table am-layout="zebra-stripe">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                        Net Banking
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>Percentage</td>
+                                    <td>Fixed Fee</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{viewbyagreement?.netBankingAmount}}</td>
+                                    <td>{{viewbyagreement?.netBankingPercentage}}</td>
+                                    <td>{{viewbyagreement?.netBankingFixedFee}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+        
+                    <div class="col-4">
+                        <table am-layout="zebra-stripe">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                        Rupay Debit Card (Maximum)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>Percentage</td>
+                                    <td>Fixed Fee</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{viewbyagreement?.rupayDebitCardMaxAmount}}</td>
+                                    <td>{{viewbyagreement?.rupayDebitCardMaxPercentage}}</td>
+                                    <td>{{viewbyagreement?.rupayDebitCardMaxFixedFee}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-4">
+                        <table am-layout="zebra-stripe">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                        Rupay Debit Card (Minimum)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>Percentage</td>
+                                    <td>Fixed Fee</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{viewbyagreement?.rupayDebitCardMinAmount}}</td>
+                                    <td>{{viewbyagreement?.rupayDebitCardMinPercentage}}</td>
+                                    <td>{{viewbyagreement?.rupayDebitCardMinFixedFee}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                  
+                </div>
+<br>
+                <div class="row">
+                    <div class="col-4">
+                        <table am-layout="zebra-stripe">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                        Other Debit Card (Maximum)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>Percentage</td>
+                                    <td>Fixed Fee</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{viewbyagreement?.otherDebitCardMaxAmount}}</td>
+                                    <td>{{viewbyagreement?.otherDebitCardMaxPercentage}}</td>
+                                    <td>{{viewbyagreement?.otherDebitCardMaxFixedFee}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+        
+                    <div class="col-4">
+                        <table am-layout="zebra-stripe">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                        Other Debit Card (Minimum)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>Percentage</td>
+                                    <td>Fixed Fee</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{viewbyagreement?.otherDebitCardMinAmount}}</td>
+                                    <td>{{viewbyagreement?.otherDebitCardMinPercentage}}</td>
+                                    <td>{{viewbyagreement?.otherDebitCardMinFixedFee}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-4">
+                        <table am-layout="zebra-stripe">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                       e-Collect
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>Percentage</td>
+                                    <td>Fixed Fee</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{viewbyagreement?.eCollectAmount}}</td>
+                                    <td>{{viewbyagreement?.eCollectPercentage}}</td>
+                                    <td>{{viewbyagreement?.eCollectFixedFee}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                  
+                </div>
+        
+                <br>
+                <div class="row">
+                    <div class="col-4">
+                        <table am-layout="zebra-stripe">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                        Disbursement Api
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>Percentage</td>
+                                    <td>Fixed Fee</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{viewbyagreement?.disbursementApiAmount}}</td>
+                                    <td>{{viewbyagreement?.disbursementApiPercentage}}</td>
+                                    <td>{{viewbyagreement?.disbursementApiFixedFee}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+        
+                    <div class="col-4">
+                        <table am-layout="zebra-stripe">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                        International Api
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>Percentage</td>
+                                    <td>Fixed Fee</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{viewbyagreement?.internationalApiAmount}}</td>
+                                    <td>{{viewbyagreement?.internationApiPercentage}}</td>
+                                    <td>{{viewbyagreement?.internationApiFixedFee}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-4">
+                        <table am-layout="zebra-stripe">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                        Amex Card
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>Percentage</td>
+                                    <td>Fixed Fee</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{viewbyagreement?.amexCardAmount}}</td>
+                                    <td>{{viewbyagreement?.amexCardPercentage}}</td>
+                                    <td>{{viewbyagreement?.amexCardFixedFee}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                  
+                </div>
+ 
+                <br>
+                <div class="row">
+                    <div class="col-4">
+                        <table am-layout="zebra-stripe">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                        Dinners Card
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>Percentage</td>
+                                    <td>Fixed Fee</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{viewbyagreement?.dinnersCardAmount}}</td>
+                                    <td>{{viewbyagreement?.dinnersCardPercentage}}</td>
+                                    <td>{{viewbyagreement?.dinnersCardFixedFee}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+        
+                    <div class="col-4">
+                        <table am-layout="zebra-stripe">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                        Corporate/Commercial Card
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>Percentage</td>
+                                    <td>Fixed Fee</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{viewbyagreement?.corporateOrCommercialCardAmount}}</td>
+                                    <td>{{viewbyagreement?.corporateOrCommercialCardPercentage}}</td>
+                                    <td>{{viewbyagreement?.corporateOrCommercialCardFixedFee}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-4">
+                        <table am-layout="zebra-stripe">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                        Prepaid Card
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>Percentage</td>
+                                    <td>Fixed Fee</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{viewbyagreement?.prepaidCardAmount}}</td>
+                                    <td>{{viewbyagreement?.prepaidCardPercentage}}</td>
+                                    <td>{{viewbyagreement?.prepaidCardFixedFee}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                  
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-6">
+                        <table am-layout="zebra-stripe">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                        UPI
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>Percentage</td>
+                                    <td>Fixed Fee</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{viewbyagreement?.upiAmount}}</td>
+                                    <td>{{viewbyagreement?.upiPercentage}}</td>
+                                    <td>{{viewbyagreement?.upiFixedFee}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+        
+                    <div class="col-6">
+                        <table am-layout="zebra-stripe">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                        Dynamic Qr
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>Percentage</td>
+                                    <td>Fixed Fee</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{viewbyagreement?.dynamicQrAmount}}</td>
+                                    <td>{{viewbyagreement?.dynamicQrPercentage}}</td>
+                                    <td>{{viewbyagreement?.dynamicQrFixedFee}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                  
+                </div>
+                <br>
+                <h5 class="mt-2" style="text-align: center;">Wallets</h5>
+                <div class="row">
+                    <div class="col-4">
+                        <table am-layout="zebra-stripe">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                        Phonepe
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>Percentage</td>
+                                    <td>Fixed Fee</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{viewbyagreement?.walletPhonepeAmount}}</td>
+                                    <td>{{viewbyagreement?.walletPhonepePercentage}}</td>
+                                    <td>{{viewbyagreement?.walletPhonepeFixedFee}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+        
+                    <div class="col-4">
+                        <table am-layout="zebra-stripe">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                        Free Charge
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>Percentage</td>
+                                    <td>Fixed Fee</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{viewbyagreement?.walletFreeChargeAmount}}</td>
+                                    <td>{{viewbyagreement?.walletFreeChargePercentage}}</td>
+                                    <td>{{viewbyagreement?.walletFreeChargeFixedFee}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-4">
+                        <table am-layout="zebra-stripe">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                        Payzapp
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>Percentage</td>
+                                    <td>Fixed Fee</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{viewbyagreement?.walletPayzappAmount}}</td>
+                                    <td>{{viewbyagreement?.walletPayzappPercentage}}</td>
+                                    <td>{{viewbyagreement?.walletPayzappFixedFee}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                  
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-4">
+                        <table am-layout="zebra-stripe">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                        Paytm
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>Percentage</td>
+                                    <td>Fixed Fee</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{viewbyagreement?.walletPaytmAmount}}</td>
+                                    <td>{{viewbyagreement?.walletPaytmPercentage}}</td>
+                                    <td>{{viewbyagreement?.walletPaytmFixedFee}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+        
+                    <div class="col-4">
+                        <table am-layout="zebra-stripe">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                        Ola Money
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>Percentage</td>
+                                    <td>Fixed Fee</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{viewbyagreement?.walletOlaMoneyAmount}}</td>
+                                    <td>{{viewbyagreement?.walletOlaMoneyPercentage}}</td>
+                                    <td>{{viewbyagreement?.walletOlaMoneyFixedFee}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-4">
+                        <table am-layout="zebra-stripe">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                        Mobikwikk
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>Percentage</td>
+                                    <td>Fixed Fee</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{viewbyagreement?.walletMobikwikkAmount}}</td>
+                                    <td>{{viewbyagreement?.walletMobikwikkPercentage}}</td>
+                                    <td>{{viewbyagreement?.walletMobikwikkFixedFee}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                  
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-6">
+                        <table am-layout="zebra-stripe">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                        Reliance Jio Money
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>Percentage</td>
+                                    <td>Fixed Fee</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{viewbyagreement?.walletRelianceJioMoneyAmount}}</td>
+                                    <td>{{viewbyagreement?.walletRelianceJioMoneyPercentage}}</td>
+                                    <td>{{viewbyagreement?.walletRelianceJioMoneyFixedFee}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+        
+                    <div class="col-6">
+                        <table am-layout="zebra-stripe">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                        Airtel Money
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>Percentage</td>
+                                    <td>Fixed Fee</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{viewbyagreement?.walletAirtelMoneyAmount}}</td>
+                                    <td>{{viewbyagreement?.walletAirtelMoneyPercentage}}</td>
+                                    <td>{{viewbyagreement?.walletAirtelMoneyFixedFee}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                  
+                </div>
+              
+             
+        </table>
+    </main>
+</body>

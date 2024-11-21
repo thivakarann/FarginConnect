@@ -16,8 +16,8 @@ export class FarginServiceService {
   constructor(private http: HttpClient,
     private router: Router, private timerService: SessionServiceService, private toastr: ToastrService) { }
 
-  private readonly basePath = 'https://staging-api.farginconnect.com/'; 
- 
+  private readonly basePath = 'https://staging-api.farginconnect.com/';
+
   // private readonly basePath = 'https://api.fargin.in/';
 
   // private readonly basePath = 'http://192.168.7.46:8080/';
@@ -86,8 +86,8 @@ export class FarginServiceService {
   // Entity Details
 
   private readonly Entitygetallexport = 'merchant/getall';
-  private readonly entitygetall='merchant/getall/'
-    private readonly AddEntity = 'merchant/create'
+  private readonly entitygetall = 'merchant/getall/'
+  private readonly AddEntity = 'merchant/create'
   private readonly EntityKYCBYbusinessid = 'businesskyc/getcategorykyc/'
   private readonly Entityviewbyid = 'merchant/getmerchants/';
   private readonly updateEntity = 'merchant/updateMerchant/';
@@ -105,8 +105,8 @@ export class FarginServiceService {
 
   //Overall customer
   private readonly Overallcustomer = 'customer/viewByAll/';
-  private readonly overallcustomerexport='customer/viewByAll'
-    private readonly Entityindividualcustomerview = 'customer/viewById/';
+  private readonly overallcustomerexport = 'customer/viewByAll'
+  private readonly Entityindividualcustomerview = 'customer/viewById/';
   private readonly viewcustomerbasicdetails = 'customer/viewcustomer/';
   private readonly viewSetupboxDetails = 'customer/viewcustomerstb/';
   private readonly viewsetupboxplan = 'customer/viewcustomerstbplan/';
@@ -219,8 +219,8 @@ export class FarginServiceService {
 
   // Alcarte Creation 
 
-  private readonly  alcartviewallexport = 'alcotchannel/viewAll';
-  private readonly alcartvieall='alcotchannel/viewAll/'
+  private readonly alcartviewallexport = 'alcotchannel/viewAll';
+  private readonly alcartvieall = 'alcotchannel/viewAll/'
   private readonly alcartAdd = 'alcotchannel/addalcot';
   private readonly alcartviewbyid = 'alcotchannel/getById/';
   private readonly alcartstatus = 'alcotchannel/updateStatus';
@@ -228,7 +228,7 @@ export class FarginServiceService {
   private readonly Alcartupdate = 'alcotchannel/update';
   private readonly Alcartchannellogo = 'alcotchannel/viewLogo/';
   private readonly AlcartChannellogoUpdate = 'alcotchannel/updateLogo'
-    private readonly AlcartChannelregion = 'alcotchannel/viewregionactive/'
+  private readonly AlcartChannelregion = 'alcotchannel/viewregionactive/'
 
   // Broadcaster Name Creation
 
@@ -256,16 +256,16 @@ export class FarginServiceService {
   private readonly Bouquetadd = 'broadCaster/add';
   private readonly Bouquetsviewbyid = 'broadCaster/getById/';
   private readonly Bouquetsviewbyidregion = 'broadCaster/getByregions/'; //NEW for region view
-  private readonly Bouquetsviewbyidchannel ='broadCaster/viewChannelsByRegions/' //for channel view
+  private readonly Bouquetsviewbyidchannel = 'broadCaster/viewChannelsByRegions/' //for channel view
   private readonly Bouquetstatus = 'broadCaster/updateBroadCaster';
   private readonly ActiveBouqutes = 'broadCaster/viewOnlyActive';
   private readonly bouquetEdit = 'broadCaster/update';
-    private readonly BroadcasterBoucatesRegionEdits='broadCaster/updateRegion';
-  private readonly BroadcasterBoucateschannelEdits='broadCaster/updateAlcotChannel'
+  private readonly BroadcasterBoucatesRegionEdits = 'broadCaster/updateRegion';
+  private readonly BroadcasterBoucateschannelEdits = 'broadCaster/updateAlcotChannel'
   private readonly bouquetesinglestatus = 'broadCaster/updateChannelStatus';
   private readonly AddChannelsbyBouquete = 'broadCaster/addextraChannel';
   private readonly bouquetsextraregions = 'broadCaster/addExtraRegion';
-  private readonly bouquetchanneledit='broadCaster/getByAlcotId/';
+  private readonly bouquetchanneledit = 'broadCaster/getByAlcotId/';
 
   // DPO Bouquete Creation
 
@@ -373,20 +373,20 @@ export class FarginServiceService {
 
   //transactions
   private readonly customeralltransactions = 'customerpay/viewAllPayments/';
-  private readonly customertransactionexport='customerpay/ViewCusDetails'
-    private readonly customerdatefilter = 'paymentHistory/getDateFilter/';
+  private readonly customertransactionexport = 'customerpay/ViewCusDetails'
+  private readonly customerdatefilter = 'paymentHistory/getDateFilter/';
   private readonly customertransactionview = 'customerpay/viewbyid/'
 
   //merchant
   private readonly maintenancetransaction = 'maintanancePay/viewAll/';
-  private readonly maintenancetransactionexport='maintanancePay/getMaintainance';  
+  private readonly maintenancetransactionexport = 'maintanancePay/getMaintainance';
   private readonly maintenancedatefilter = 'maintanancePay/dateFilter/';
   private readonly maintenancetransactionview = 'maintanancePay/viewById/';
 
 
   //onetime
   private readonly onetimtransaction = 'merchantpay/viewAll/';
-  private readonly onetimtransactionexport='merchantpay/getAll';
+  private readonly onetimtransactionexport = 'merchantpay/getAll';
   private readonly onetimdatefilter = 'transhistory/getDateWise/';
   private readonly onetimtransactionview = 'merchantpay/viewpayment/';
 
@@ -400,7 +400,7 @@ export class FarginServiceService {
   private readonly otherpaymentmerchantid = 'otherpayment/viewByMerchant/';
   private readonly otherpaymentcreate = 'otherpayment/create';
   private readonly otherpayment = 'otherpayment/viewall/';
-  otherpaymentviewallexport='otherpayment/viewAllPayments';  
+  otherpaymentviewallexport = 'otherpayment/viewAllPayments';
   private readonly otherpaymentupdate = 'otherpayment/update/';
   private readonly otherpaytrans = 'otherpayment/viewByPayId/';
   private readonly otherpaymentdate = 'otherpayment/dateFilter/';
@@ -475,13 +475,13 @@ export class FarginServiceService {
   private readonly editsms = 'merchantSms/updateMerchantSms/';
   private readonly smsgetAll = 'merchantSms/getAllMerchantSms/';
   private readonly smsgetAllexport = 'merchantSms/getAllMerchantSms';
-    private readonly smsdropdown = 'merchantSms/viewsms';
+  private readonly smsdropdown = 'merchantSms/viewsms';
   private readonly smscount = 'smshistory/viewbymerchantandtype/';
   private readonly smsapproval = 'merchantSms/updateApproval/';
 
   //sms history
   private readonly smshistory = 'smshistory/viewall/';
-  private readonly smhistoryexport='smshistory/viewall';  
+  private readonly smhistoryexport = 'smshistory/viewall';
   private readonly smshistoryview = 'smshistory/viewbymerchant/';
   private readonly smshistoryfilter = 'smshistory/viewallfilter/';
   private readonly smshistorymerchantfilter = 'smshistory/viewmerchantfilter/';
@@ -510,14 +510,14 @@ export class FarginServiceService {
   // Auto Debit
 
   private readonly Autodebitgetall = 'merchantdue/getall/';
-  private readonly autodebitgetallexport='merchantdue/getall';
+  private readonly autodebitgetallexport = 'merchantdue/getall';
   private readonly Autodebitbymerchat = 'merchantdue/viewbymerchant/';
 
 
   //anouncement
   private readonly announcementadd = 'announcement/add'
   private readonly announcementviewall = 'announcement/getall/'
-  private readonly announcementviewallexport='announcement/getall'
+  private readonly announcementviewallexport = 'announcement/getall'
   private readonly announcementedit = 'announcement/update'
   private readonly announcementstatus = 'announcement/updateStatus'
   private readonly announcementdate = 'announcement/dateFilter/';
@@ -530,7 +530,7 @@ export class FarginServiceService {
 
 
   private readonly surveyviewallexport = 'surveyQuestion/getAll';
-  private readonly surveyviewall='surveyQuestion/getAll/';
+  private readonly surveyviewall = 'surveyQuestion/getAll/';
   private readonly surveyviewbyid = 'surveyQuestion/getQuestions/';
   private readonly viewbyidcustomerresponse = 'customerResponse/viewQuestion/';
 
@@ -545,25 +545,45 @@ export class FarginServiceService {
   private readonly otherpaymentviewbyid = 'otherpayment/viewbyid/';
 
 
-    //alcot-history
-    private readonly alcothistory='alcotchannel/viewAllHistory/';
-    private readonly alcothistoryexport='alcotchannel/viewAllHistory';
-    private readonly alcotchannelactiveregion='alcotchannel/viewregionactive';
+  //alcot-history
+  private readonly alcothistory = 'alcotchannel/viewAllHistory/';
+  private readonly alcothistoryexport = 'alcotchannel/viewAllHistory';
+  private readonly alcotchannelactiveregion = 'alcotchannel/viewregionactive';
 
-    
-      //search
-      private readonly regionsearch = 'region/advanceSearchEntity/';
-      private readonly entitysearch ='merchant/advanceSearch/';
-      private readonly alcotsearch ='alcotchannel/advanceSearch/';
-      private readonly entitybanksearch ='merchantbank/advanceSearch/';
-      // private readonly entitykycdocumentsearch ='entityDocument/advanceSearch/';
-      private readonly customersearch ='customer/advanceSearch/';
-      private readonly customeradminsearch ='customerpay/adminSearch/';
-      private readonly customercustomeridsearch ='customerpay/customerSearch/';
-      private readonly smshistorysearch ='smshistory/advanceSearch/';
-      private readonly mmcautodebit ='merchantdue/advanceSearch/';
-      private readonly subscriptionsearch ='maintanancePay/adminSearch/';
-      private readonly onetimepayment ='merchantpay/adminSearch/';
+
+  //search
+  private readonly regionsearch = 'region/advanceSearchEntity/';
+  private readonly entitysearch = 'merchant/advanceSearch/';
+  private readonly alcotsearch = 'alcotchannel/advanceSearch/';
+  private readonly entitybanksearch = 'merchantbank/advanceSearch/';
+  // private readonly entitykycdocumentsearch ='entityDocument/advanceSearch/';
+  private readonly customersearch = 'customer/advanceSearch/';
+  private readonly customeradminsearch = 'customerpay/adminSearch/';
+  private readonly customercustomeridsearch = 'customerpay/customerSearch/';
+  private readonly smshistorysearch = 'smshistory/advanceSearch/';
+  private readonly mmcautodebit = 'merchantdue/advanceSearch/';
+  private readonly subscriptionsearch = 'maintanancePay/adminSearch/';
+  private readonly onetimepayment = 'merchantpay/adminSearch/';
+
+  // Fargin Signer Details
+
+  private readonly Signerdetailsgetall = 'signingAdmin/getallData';
+  private readonly SignerdetailsAdd = 'signingAdmin/add';
+  private readonly SignerdetailsUpdate = 'signingAdmin/update';
+  private readonly SignerdetailsbyId = 'signingAdmin/viewById/';
+  private readonly SignerdetaisStatus = 'signingAdmin/updateStatus';
+  private readonly SignerdetailsActiveGetall = 'signingAdmin/viewOnlyActive';
+
+  //Agreementplan
+
+  private readonly viewagreementplans = 'commercialSetup/ViewAll';
+  private readonly createagreementplans = 'commercialSetup/create';
+  private readonly editagreementplans = 'commercialSetup/update/';
+  private readonly viewbyidagreementplans = 'commercialSetup/viewById/';
+  private readonly createplan = 'agreement/create';
+  private readonly viewbyidplan = 'agreement/viewByMerchant/';
+  private readonly viewagreementdoucment = 'agreement/viewdoc/';
+  private readonly ViewAggrementbyRefference = 'agreement/viewByReferenceCode/'
 
 
   loginError = new Subject();
@@ -766,7 +786,7 @@ export class FarginServiceService {
   ApprovalForPolicy(id: any, model: any) {
     return this.http.put(`${this.basePath}${this.policyapproval}${id}`, model, this.options)
   }
-  adminPolicyget(id:any,id1:any) {
+  adminPolicyget(id: any, id1: any) {
     return this.http.get(`${this.basePath}${this.adminpolicy}/${id}/${id1}`, this.options)
   }
   adminPolicygetExport() {
@@ -818,7 +838,7 @@ export class FarginServiceService {
   regionbyitsid(id: any) {
     return this.http.get(`${this.basePath}${this.regionbyitsids}${id}`, this.options)
   }
- 
+
 
 
   RegionCreate(model: any) {
@@ -880,14 +900,14 @@ export class FarginServiceService {
 
 
 
- 
-  EntityViewall(id:any,id1:any) {
+
+  EntityViewall(id: any, id1: any) {
     return this.http.get(`${this.basePath}${this.entitygetall}${id}/${id1}`, this.options)
   }
   EntityViewallExport() {
     return this.http.get(`${this.basePath}${this.Entitygetallexport}`, this.options)
   }
- 
+
 
   EntityAdd(formdata: any) {
     return this.http.post(`${this.basePath}${this.AddEntity}`, formdata, this.optionsMultipart)
@@ -1107,7 +1127,7 @@ export class FarginServiceService {
   }
   //customer
 
-  EntityCustomerview(id: any,id1:any,id2:any) {
+  EntityCustomerview(id: any, id1: any, id2: any) {
     return this.http.get(`${this.basePath}${this.Entitycustomerview}${id}/${id1}/${id2}`, this.options)
   }
 
@@ -1195,7 +1215,7 @@ export class FarginServiceService {
   AlcartviewallExport() {
     return this.http.get(`${this.basePath}${this.alcartviewallexport}`, this.options)
   }
-  Alcartviewall(id:any,id1:any) {
+  Alcartviewall(id: any, id1: any) {
     return this.http.get(`${this.basePath}${this.alcartvieall}${id}/${id1}`, this.options)
   }
 
@@ -1287,68 +1307,68 @@ export class FarginServiceService {
 
 
 
-// 
+  // 
   BroadcasterBoucateviewall() {
     return this.http.get(`${this.basePath}${this.bouquetsviewall}`, this.options)
   }
- 
+
   BroadcasterBoucateadd(model: any) {
     return this.http.post(`${this.basePath}${this.Bouquetadd}`, model, this.options)
   }
- 
+
   BroadcasterBoucatebyid(id: any) {
     return this.http.get(`${this.basePath}${this.Bouquetsviewbyid}${id}`, this.options)
   }
- 
+
   BroadcasterBoucatebyidregion(id: any) {
     return this.http.get(`${this.basePath}${this.Bouquetsviewbyidregion}${id}`, this.options)
   }
- 
+
   BroadcasterBoucatebyidchannel(id: any) {
     return this.http.get(`${this.basePath}${this.Bouquetsviewbyidchannel}${id}`, this.options)
   }
- 
- 
+
+
   BroadcasterBoucateStatus(model: any) {
     return this.http.put(`${this.basePath}${this.Bouquetstatus}`, model, this.options)
   }
- 
+
   ActiveBroadcasterBoucates() {
     return this.http.get(`${this.basePath}${this.ActiveBouqutes}`, this.options)
   }
- 
+
   BroadcasterBoucatesEdit(Model: any) {
     return this.http.put(`${this.basePath}${this.bouquetEdit}`, Model, this.options)
   }
- 
- 
+
+
   BroadcasterBoucatesRegionEdit(Model: any) {
     return this.http.put(`${this.basePath}${this.BroadcasterBoucatesRegionEdits}`, Model, this.options)
   }
- 
-   
+
+
   BroadcasterBoucateschannelEdit(Model: any) {
     return this.http.put(`${this.basePath}${this.BroadcasterBoucateschannelEdits}`, Model, this.options)
   }
- 
+
   BroadcasterSingleStatus(model: any) {
     return this.http.put(`${this.basePath}${this.bouquetesinglestatus}`, model, this.options)
   }
- 
+
   AddExtraChannelsforBouquete(model: any) {
     return this.http.post(`${this.basePath}${this.AddChannelsbyBouquete}`, model, this.options)
   }
- 
- 
-BouquetsRegion(model:any) {
-  return this.http.post(`${this.basePath}${this.bouquetsextraregions}`,model, this.options)
-}
- 
- 
-BouquetChanneledit(id: any) {
-  return this.http.get(`${this.basePath}${this.bouquetchanneledit}${id}`, this.options)
-}
-// 
+
+
+  BouquetsRegion(model: any) {
+    return this.http.post(`${this.basePath}${this.bouquetsextraregions}`, model, this.options)
+  }
+
+
+  BouquetChanneledit(id: any) {
+    return this.http.get(`${this.basePath}${this.bouquetchanneledit}${id}`, this.options)
+  }
+  // 
 
   DPOViewall() {
     return this.http.get(`${this.basePath}${this.DPOBouqueteViewall}`, this.options)
@@ -1422,7 +1442,7 @@ BouquetChanneledit(id: any) {
 
 
   //overall customer
-  OverallCustomer(id:any,id1:any) {
+  OverallCustomer(id: any, id1: any) {
     return this.http.get(`${this.basePath}${this.Overallcustomer}${id}/${id1}`, this.options)
   }
   OverallCustomerExport() {
@@ -1552,7 +1572,7 @@ BouquetChanneledit(id: any) {
 
   //tickets
 
-  Ticketscustomer(id:any,id1:any) {
+  Ticketscustomer(id: any, id1: any) {
     return this.http.get(`${this.basePath}${this.ticketsget}${id}/${id1}`, this.options)
   }
   TicketscustomerExport() {
@@ -1592,14 +1612,14 @@ BouquetChanneledit(id: any) {
   activebankdetailsstatus(model: any) {
     return this.http.put(`${this.basePath}${this.Bankdetailsstatus}`, model, this.options)
   }
-  CustomerAllTransactions(id:any,id1:any) {
+  CustomerAllTransactions(id: any, id1: any) {
     return this.http.get(`${this.basePath}${this.customeralltransactions}${id}/${id1}`, this.options)
   }
   CustomerAllTransactionsExport() {
     return this.http.get(`${this.basePath}${this.customertransactionexport}`, this.options)
   }
- 
-  CustomerTransactionsFilter(id1: any, id2: any,id3:any,id4:any) {
+
+  CustomerTransactionsFilter(id1: any, id2: any, id3: any, id4: any) {
     return this.http.get(`${this.basePath}${this.customerdatefilter}${id1}/${id2}/${id3}/${id4}`, this.options)
   }
 
@@ -1609,14 +1629,14 @@ BouquetChanneledit(id: any) {
 
 
 
-  MaintenanceAllTransactions(id:any,id1:any) {
+  MaintenanceAllTransactions(id: any, id1: any) {
     return this.http.get(`${this.basePath}${this.maintenancetransaction}${id}/${id1}`, this.options)
   }
   MaintenanceAllTransactionsExport() {
     return this.http.get(`${this.basePath}${this.maintenancetransactionexport}`, this.options)
   }
 
-  MaintenanceTransactionFilter(id1: any, id2: any,id3:any,id4:any) {
+  MaintenanceTransactionFilter(id1: any, id2: any, id3: any, id4: any) {
     return this.http.get(`${this.basePath}${this.maintenancedatefilter}${id1}/${id2}/${id3}/${id4}`, this.options)
   }
 
@@ -1624,19 +1644,19 @@ BouquetChanneledit(id: any) {
   MaintenanceTransactionsView(id1: any) {
     return this.http.get(`${this.basePath}${this.maintenancetransactionview}${id1}`, this.options)
   }
- 
 
-  OneTimeAllTransactions(id:any,id1:any) {
+
+  OneTimeAllTransactions(id: any, id1: any) {
     return this.http.get(`${this.basePath}${this.onetimtransaction}${id}/${id1}`, this.options)
   }
   OneTimeTransactionsExport() {
     return this.http.get(`${this.basePath}${this.onetimtransactionexport}`, this.options)
   }
 
-  OneTimeTransactionFilter(id1: any, id2: any,id3:any,id4:any) {
+  OneTimeTransactionFilter(id1: any, id2: any, id3: any, id4: any) {
     return this.http.get(`${this.basePath}${this.onetimdatefilter}${id1}/${id2}/${id3}/${id4}`, this.options)
   }
- 
+
 
   OneTimeTransactionsView(id1: any) {
     return this.http.get(`${this.basePath}${this.onetimtransactionview}${id1}`, this.options)
@@ -1660,10 +1680,10 @@ BouquetChanneledit(id: any) {
     return this.http.post(`${this.basePath}${this.otherpaymentcreate}`, data, this.options);
   }
 
-  OtherPay(id:any,id1:any) {
+  OtherPay(id: any, id1: any) {
     return this.http.get(`${this.basePath}${this.otherpayment}${id}/${id1}`, this.options)
   }
- 
+
   OtherPayExport() {
     return this.http.get(`${this.basePath}${this.otherpaymentviewallexport}`, this.options)
   }
@@ -1678,7 +1698,7 @@ BouquetChanneledit(id: any) {
   OtherPayTransaction(id1: any) {
     return this.http.get(`${this.basePath}${this.otherpaytrans}${id1}`, this.options)
   }
-  OtherPayFilter(id1: any, id2: any,id3:any,id4:any) {
+  OtherPayFilter(id1: any, id2: any, id3: any, id4: any) {
     return this.http.get(`${this.basePath}${this.otherpaymentdate}${id1}/${id2}/${id3}/${id4}`, this.options)
   }
 
@@ -1883,16 +1903,16 @@ BouquetChanneledit(id: any) {
   smsUpdate(id: any, data: any) {
     return this.http.put(`${this.basePath}${this.editsms}${id}`, data, this.options)
   }
-  SmsGetAll(id:any,id1:any) {
+  SmsGetAll(id: any, id1: any) {
     return this.http.get(`${this.basePath}${this.smsgetAll}${id}/${id1}`, this.options)
   }
   SmsGetAllExport() {
     return this.http.get(`${this.basePath}${this.smsgetAllexport}`, this.options)
   }
-  SmsHistoryGetAll(id:any,id1:any) {
+  SmsHistoryGetAll(id: any, id1: any) {
     return this.http.get(`${this.basePath}${this.smshistory}${id}/${id1}`, this.options)
   }
- 
+
   SmsHistoryGetAllExport() {
     return this.http.get(`${this.basePath}${this.smhistoryexport}`, this.options)
   }
@@ -1900,7 +1920,7 @@ BouquetChanneledit(id: any) {
     return this.http.get(`${this.basePath}${this.smshistoryview}${id1}`, this.options)
   }
 
-  SMSHistoryFilter(id: any, id1: any,id2:any,id3:any) {
+  SMSHistoryFilter(id: any, id1: any, id2: any, id3: any) {
     return this.http.get(`${this.basePath}${this.smshistoryfilter}${id}/${id1}/${id2}/${id3}`, this.options)
   }
   SmsHistoryMerchantFilter(id: any, id1: any, id2: any) {
@@ -1972,14 +1992,14 @@ BouquetChanneledit(id: any) {
 
   // AUTO Debit
 
-  autodebitgetall(id:any,id1:any) {
+  autodebitgetall(id: any, id1: any) {
     return this.http.get(`${this.basePath}${this.Autodebitgetall}${id}/${id1}`, this.options)
   }
 
   autodebitgetallExport() {
     return this.http.get(`${this.basePath}${this.autodebitgetallexport}`, this.options)
   }
-  autodebitbymerchat(id: any,id1:any,id2:any) {
+  autodebitbymerchat(id: any, id1: any, id2: any) {
     return this.http.get(`${this.basePath}${this.Autodebitbymerchat}${id}/${id1}/${id2}`, this.options)
   }
 
@@ -1988,7 +2008,7 @@ BouquetChanneledit(id: any) {
     return this.http.post(`${this.basePath}${this.announcementadd}`, data, this.options);
   }
 
-  announcementViewall(id:any,id1:any) {
+  announcementViewall(id: any, id1: any) {
     return this.http.get(`${this.basePath}${this.announcementviewall}${id}/${id1}`, this.options)
   }
   announcementViewallExport() {
@@ -2036,7 +2056,7 @@ BouquetChanneledit(id: any) {
   }
 
 
-  SurveyViewAll(id:any,id1:any) {
+  SurveyViewAll(id: any, id1: any) {
     return this.http.get(`${this.basePath}${this.surveyviewall}${id}/${id1}`, this.options)
   }
   SurveyViewAllExport() {
@@ -2076,76 +2096,137 @@ BouquetChanneledit(id: any) {
     return this.http.get(`${this.basePath}${this.otherpaymentviewbyid}${id}`, this.options)
   }
 
-//alcot history
-AlcotHistoryViewAll(id:any,id1:any) {
-  return this.http.get(`${this.basePath}${this.alcothistory}${id}/${id1}`, this.options)
-}
-AlcotHistoryViewAllExport() {
-  return this.http.get(`${this.basePath}${this.alcothistoryexport}`, this.options)
-}
- 
-AlcotChannelActiveRegion(id: any) {
-  return this.http.get(`${this.basePath}${this.alcotchannelactiveregion}${id}`, this.options)
-}
- 
+  //alcot history
+  AlcotHistoryViewAll(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.alcothistory}${id}/${id1}`, this.options)
+  }
+  AlcotHistoryViewAllExport() {
+    return this.http.get(`${this.basePath}${this.alcothistoryexport}`, this.options)
+  }
 
-createAlcotChannelActiveRegion(model:any) {
-  return this.http.post(`${this.basePath}${this.alcotchannelactiveregion}`,model, this.options)
-}
- 
+  AlcotChannelActiveRegion(id: any) {
+    return this.http.get(`${this.basePath}${this.alcotchannelactiveregion}${id}`, this.options)
+  }
 
-AlcartChannelregions(id: any) {
-  return this.http.get(`${this.basePath}${this.AlcartChannelregion}${id}`, this.options)
-}
- 
 
-Regionsearch(id:any) {
-  return this.http.get(`${this.basePath}${this.regionsearch}${id}`, this.options)
-}
- 
-EntitySearch(id:any){
-  return this.http.get(`${this.basePath}${this.entitysearch}${id}`,this.options)
-}
- 
-AlcotSearch(id:any){
-  return this.http.get(`${this.basePath}${this.alcotsearch}${id}`,this.options)
-}
- 
-EntityBanksearch(id:any,id1:any){
-  return this.http.get(`${this.basePath}${this.entitybanksearch}${id}/${id1}`,this.options)
-}
- 
-// Entitykycdocumentsearch(id:any,id1:any){
-//   return this.http.get(`${this.basePath}${this.entitykycdocumentsearch}${id}/${id1}`,this.options)
-// }
- 
- 
-CustomerSearch(id:any){
-  return this.http.get(`${this.basePath}${this.customersearch}${id}`,this.options)
-}
- 
-CustomeradminSearch(id:any){
-  return this.http.get(`${this.basePath}${this.customeradminsearch}${id}`,this.options)
-}
- 
-Customercustomeridsearch(id:any,id1:any){
-  return this.http.get(`${this.basePath}${this.customercustomeridsearch}${id}/${id1}`,this.options)
-}
- 
-Smshistorysearch(id:any){
-  return this.http.get(`${this.basePath}${this.smshistorysearch}${id}`,this.options)
-}
- 
-Mmcautodebit(id:any){
-  return this.http.get(`${this.basePath}${this.mmcautodebit}${id}`,this.options)
-}
- 
- 
-Subscriptionsearch(id:any){
-  return this.http.get(`${this.basePath}${this.subscriptionsearch}${id}`,this.options)
-}
- 
-Onetimepayment(id:any){
-  return this.http.get(`${this.basePath}${this.onetimepayment}${id}`,this.options)
-}
+  createAlcotChannelActiveRegion(model: any) {
+    return this.http.post(`${this.basePath}${this.alcotchannelactiveregion}`, model, this.options)
+  }
+
+
+  AlcartChannelregions(id: any) {
+    return this.http.get(`${this.basePath}${this.AlcartChannelregion}${id}`, this.options)
+  }
+
+
+  Regionsearch(id: any) {
+    return this.http.get(`${this.basePath}${this.regionsearch}${id}`, this.options)
+  }
+
+  EntitySearch(id: any) {
+    return this.http.get(`${this.basePath}${this.entitysearch}${id}`, this.options)
+  }
+
+  AlcotSearch(id: any) {
+    return this.http.get(`${this.basePath}${this.alcotsearch}${id}`, this.options)
+  }
+
+  EntityBanksearch(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.entitybanksearch}${id}/${id1}`, this.options)
+  }
+
+  // Entitykycdocumentsearch(id:any,id1:any){
+  //   return this.http.get(`${this.basePath}${this.entitykycdocumentsearch}${id}/${id1}`,this.options)
+  // }
+
+
+  CustomerSearch(id: any) {
+    return this.http.get(`${this.basePath}${this.customersearch}${id}`, this.options)
+  }
+
+  CustomeradminSearch(id: any) {
+    return this.http.get(`${this.basePath}${this.customeradminsearch}${id}`, this.options)
+  }
+
+  Customercustomeridsearch(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.customercustomeridsearch}${id}/${id1}`, this.options)
+  }
+
+  Smshistorysearch(id: any) {
+    return this.http.get(`${this.basePath}${this.smshistorysearch}${id}`, this.options)
+  }
+
+  Mmcautodebit(id: any) {
+    return this.http.get(`${this.basePath}${this.mmcautodebit}${id}`, this.options)
+  }
+
+
+  Subscriptionsearch(id: any) {
+    return this.http.get(`${this.basePath}${this.subscriptionsearch}${id}`, this.options)
+  }
+
+  Onetimepayment(id: any) {
+    return this.http.get(`${this.basePath}${this.onetimepayment}${id}`, this.options)
+  }
+
+  // Signer Details
+
+  signergetall() {
+    return this.http.get(`${this.basePath}${this.Signerdetailsgetall}`, this.options)
+  }
+
+  signeradd(model: any) {
+    return this.http.post(`${this.basePath}${this.SignerdetailsAdd}`, model, this.options)
+  }
+
+  signerupdate(model: any) {
+    return this.http.put(`${this.basePath}${this.SignerdetailsUpdate}`, model, this.options)
+  }
+
+  signerbyid(id: any) {
+    return this.http.get(`${this.basePath}${this.SignerdetailsbyId}${id}`, this.options)
+  }
+
+  signerstatus(model: any) {
+    return this.http.put(`${this.basePath}${this.SignerdetaisStatus}`, model, this.options)
+  }
+
+  signeractivestatus() {
+    return this.http.get(`${this.basePath}${this.SignerdetailsActiveGetall}`, this.options)
+  }
+
+  //Agreement
+  viewagreementplan() {
+    return this.http.get(`${this.basePath}${this.viewagreementplans}`, this.options)
+  }
+  createagreementplan(model: any) {
+    return this.http.post(`${this.basePath}${this.createagreementplans}`, model, this.options)
+  }
+  editagreementplan(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.editagreementplans}${id}`, model, this.options)
+  }
+  viewbyidagreementplan(id: any) {
+    return this.http.get(`${this.basePath}${this.viewbyidagreementplans}${id}`, this.options)
+  }
+  createplans(model: any) {
+    return this.http.post(`${this.basePath}${this.createplan}`, model, this.options)
+  }
+  viewbyidplans(id: any) {
+    return this.http.get(`${this.basePath}${this.viewbyidplan}${id}`, this.options)
+  }
+
+
+  viewagreementdoucments(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.viewagreementdoucment}${id}/${id1}`, {
+      ...this.options,
+      ...{ responseType: 'blob' },
+    });
+  }
+
+  AggrementViewbyrefferencenumber(id: any) {
+    return this.http.get(`${this.basePath}${this.ViewAggrementbyRefference}${id}`, {
+      ...this.options,
+      ...{ responseType: 'blob' },
+    });
+  }
 }

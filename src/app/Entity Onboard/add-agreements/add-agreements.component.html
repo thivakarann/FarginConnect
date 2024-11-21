@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="well" style="margin-top: 2%;" >
+        <h4 class="card-header" style="font-weight: 500">Agreement</h4>
+        <form [formGroup]="myForm4" style="margin-top: 2%;">
+            <div class="row mb-3">
+                <div class="col-12 form-group ">
+                    <label for="Entity Name">Business Plan:</label>
+                    <select class="form-select" formControlName="commercialId" required>
+                        <option  selected disabled>---Select--
+                        </option>
+                        <option *ngFor="let item of plans;"
+                            [value]="item.commercialId">
+                            {{item.planName}}
+                        </option>
+                    </select>
+                    <div style="
+            color: red;
+            font-size: 12px;
+            margin-top: 2px;
+            position: relative;
+            ;
+          " *ngIf="commercialId?.invalid && commercialId?.touched && commercialId?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+                </div>
+            <div class="mb-3">
+                <button [disabled]="myForm4.invalid" (click)="Submit()"  type="submit" class="btn mx-1 "
+                    style="background-color:#7db855be">Submit</button>
+                <button type="submit" class="btn" style="background-color:#141E46;color:white"
+                   mat-dialog-close>Cancel</button>
+            </div>
+        </form>
+    </div>
+    </div>

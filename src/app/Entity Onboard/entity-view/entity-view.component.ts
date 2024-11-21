@@ -40,6 +40,8 @@ import { EditBussinessdocumentComponent } from '../bussiness-document/edit-bussi
 import { ImageBussinessdocumentComponent } from '../bussiness-document/image-bussinessdocument/image-bussinessdocument.component';
 import { SmsApprovalComponent } from '../sms-approval/sms-approval.component';
 import { SmsHistoryEntityComponent } from '../sms-history-entity/sms-history-entity.component';
+import { AddAgreementsComponent } from '../add-agreements/add-agreements.component';
+import { AgreementlinkComponent } from '../agreementlink/agreementlink.component';
 
 @Component({
   selector: 'app-entity-view',
@@ -179,6 +181,7 @@ export class EntityViewComponent implements OnInit {
   paymentStatus: any;
   paymentMethod: any;
   chargepersms: any;
+  agreementdetails:any;
   selectTab(tab: string): void {
     this.activeTab = tab;
   }
@@ -465,7 +468,40 @@ export class EntityViewComponent implements OnInit {
       this.chargepersms = res.response[0]?.amount;
      
     });
+    this.MerchantView.viewbyidplans(this.id).subscribe((res: any) => {
+      this.agreementdetails= res.response.reverse();
+     
+    });
   }
+  view(id: any) {
+    this.router.navigate([`/allagreementplan/${id}`], {
+      queryParams: { Alldata: id },
+    });
+  }
+
+  viewagreementdoc(id:any){    
+    this.MerchantView.viewagreementdoucments(id,1).subscribe((res:any)=>{
+      const reader = new FileReader();
+      reader.readAsDataURL(res);
+      reader.onloadend = () => {
+      var downloadURL = URL.createObjectURL(res);
+      window.open(downloadURL);
+      }
+    })
+}
+
+viewsignedagreementdoc(id:any){    
+  this.MerchantView.viewagreementdoucments(id,2).subscribe((res:any)=>{
+    const reader = new FileReader();
+    reader.readAsDataURL(res);
+    reader.onloadend = () => {
+    var downloadURL = URL.createObjectURL(res);
+    window.open(downloadURL);
+    }
+  })
+}
+
+
   getpermissionValue() {
 
     if (this.roleId == 1) {
@@ -1746,6 +1782,25 @@ export class EntityViewComponent implements OnInit {
 
   smscreate() {
     this.dialog.open(SmsCreateComponent, {
+      disableClose: true,
+      enterAnimationDuration: "1000ms",
+      exitAnimationDuration: "1000ms",
+      data: { value: this.id }
+    });
+  }
+
+  
+  agreementcreate() {
+    this.dialog.open(AddAgreementsComponent, {
+      disableClose: true,
+      enterAnimationDuration: "1000ms",
+      exitAnimationDuration: "1000ms",
+      data: { value: this.id }
+    });
+  }
+
+  agremmentlink() {
+    this.dialog.open(AgreementlinkComponent, {
       disableClose: true,
       enterAnimationDuration: "1000ms",
       exitAnimationDuration: "1000ms",

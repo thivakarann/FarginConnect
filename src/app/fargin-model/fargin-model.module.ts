@@ -1029,3 +1029,178 @@ export interface Region{
   readonly regionsId:any
 }
 
+
+export interface Addsigner {
+  readonly signAdminEmail :any,
+  readonly signAdminMobile:any,
+  readonly signAdminName:any,
+  readonly createdBy:any
+}
+
+export interface Updatesigner {
+  readonly signAdminEmail :any,
+  readonly signAdminMobile:any,
+  readonly signAdminName:any,
+  readonly modifiedBy:any,
+  readonly signId:any
+}
+
+export interface UpdatesignerStatus {
+  readonly signId:any,
+  readonly activeStatus:any
+}
+
+export interface AgreementCommerical
+{
+  readonly planName:any;
+  readonly serviceFee:any;
+  readonly createdBy:any;
+  readonly netBankingAmount:any;
+  readonly netBankingPercentage:any;
+  readonly netBankingFixedFee:any;
+  readonly rupayDebitCardMaxAmount:any;
+  readonly rupayDebitCardMaxPercentage:any;
+  readonly rupayDebitCardMaxFixedFee:any;
+  readonly rupayDebitCardMinAmount:any;
+  readonly rupayDebitCardMinPercentage:any;
+  readonly rupayDebitCardMinFixedFee:any;
+  readonly otherDebitCardMaxAmount:any;
+  readonly otherDebitCardMaxPercentage:any;
+  readonly otherDebitCardMaxFixedFee:any;
+  readonly otherDebitCardMinAmount:any;
+  readonly otherDebitCardMinPercentage:any;
+  readonly otherDebitCardMinFixedFee:any;
+  readonly eCollectAmount:any;
+  readonly eCollectPercentage:any;
+  readonly eCollectFixedFee:any;
+  readonly disbursementApiAmount:any;
+  readonly disbursementApiPercentage:any;
+  readonly disbursementApiFixedFee:any;
+  readonly internationalApiAmount:any;
+  readonly internationalApiPercentage:any;
+  readonly internationalApiFixedFee:any;
+  readonly amexCardAmount:any;
+  readonly amexCardPercentage:any;
+  readonly amexCardFixedFee:any;
+  readonly dinnersCardAmount:any;
+  readonly dinnersCardPercentage:any;
+  readonly dinnersCardFixedFee:any;
+  readonly corporateOrCommercialCardAmount:any;
+  readonly corporateOrCommercialCardPercentage:any;
+  readonly corporateOrCommercialCardFixedFee:any;
+  readonly prepaidCardAmount:any;
+  readonly prepaidCardPercentage:any;
+  readonly prepaidCardFixedFee:any;
+  readonly walletPhonepeAmount:any;
+  readonly walletPhonepePercentage:any;
+  readonly walletPhonepeFixedFee:any;
+  readonly walletFreeChargeAmount:any;
+  readonly walletFreeChargePercentage:any;
+  readonly walletFreeChargeFixedFee:any;
+  readonly walletPayzappAmount:any;
+  readonly walletPayzappPercentage:any;
+  readonly walletPayzappFixedFee:any;
+  readonly walletPaytmAmount:any;
+  readonly walletPaytmPercentage:any;
+  readonly walletPaytmFixedFee:any;
+  readonly walletOlaMoneyAmount:any;
+  readonly walletOlaMoneyPercentage:any;
+  readonly walletOlaMoneyFixedFee:any;
+  readonly walletMobikwikkAmount:any;
+  readonly walletMobikwikkPercentage:any;
+  readonly walletMobikwikkFixedFee:any;
+  readonly walletRelianceJioMoneyAmount:any;
+  readonly walletRelianceJioMoneyPercentage:any;
+  readonly walletRelianceJioMoneyFixedFee:any;
+  readonly walletAirtelMoneyAmount:any;
+  readonly walletAirtelMoneyPercentage:any;
+  readonly walletAirtelMoneyFixedFee:any;
+  readonly upiAmount:any;
+  readonly upiPercentage:any;
+  readonly upiFixedFee:any;
+  readonly dynamicQrAmount:any;
+  readonly dynamicQrPercentage:any;
+  readonly dynamicQrFixedFee:any;
+ 
+ 
+}
+export interface UpdateAgreementCommerical
+{
+  readonly planName:any;
+  readonly serviceFee:any;
+  readonly modifiedBy:any;
+  readonly netBankingAmount:any;
+  readonly netBankingPercentage:any;
+  readonly netBankingFixedFee:any;
+  readonly rupayDebitCardMaxAmount:any;
+  readonly rupayDebitCardMaxPercentage:any;
+  readonly rupayDebitCardMaxFixedFee:any;
+  readonly rupayDebitCardMinAmount:any;
+  readonly rupayDebitCardMinPercentage:any;
+  readonly rupayDebitCardMinFixedFee:any;
+  readonly otherDebitCardMaxAmount:any;
+  readonly otherDebitCardMaxPercentage:any;
+  readonly otherDebitCardMaxFixedFee:any;
+  readonly otherDebitCardMinAmount:any;
+  readonly otherDebitCardMinPercentage:any;
+  readonly otherDebitCardMinFixedFee:any;
+  readonly eCollectAmount:any;
+  readonly eCollectPercentage:any;
+  readonly eCollectFixedFee:any;
+  readonly disbursementApiAmount:any;
+  readonly disbursementApiPercentage:any;
+  readonly disbursementApiFixedFee:any;
+  readonly internationalApiAmount:any;
+  readonly internationalApiPercentage:any;
+  readonly internationalApiFixedFee:any;
+  readonly amexCardAmount:any;
+  readonly amexCardPercentage:any;
+  readonly amexCardFixedFee:any;
+  readonly dinnersCardAmount:any;
+  readonly dinnersCardPercentage:any;
+  readonly dinnersCardFixedFee:any;
+  readonly corporateOrCommercialCardAmount:any;
+  readonly corporateOrCommercialCardPercentage:any;
+  readonly corporateOrCommercialCardFixedFee:any;
+  readonly prepaidCardAmount:any;
+  readonly prepaidCardPercentage:any;
+  readonly prepaidCardFixedFee:any;
+  readonly walletPhonepeAmount:any;
+  readonly walletPhonepePercentage:any;
+  readonly walletPhonepeFixedFee:any;
+  readonly walletFreeChargeAmount:any;
+  readonly walletFreeChargePercentage:any;
+  readonly walletFreeChargeFixedFee:any;
+  readonly walletPayzappAmount:any;
+  readonly walletPayzappPercentage:any;
+  readonly walletPayzappFixedFee:any;
+  readonly walletPaytmAmount:any;
+  readonly walletPaytmPercentage:any;
+  readonly walletPaytmFixedFee:any;
+  readonly walletOlaMoneyAmount:any;
+  readonly walletOlaMoneyPercentage:any;
+  readonly walletOlaMoneyFixedFee:any;
+  readonly walletMobikwikkAmount:any;
+  readonly walletMobikwikkPercentage:any;
+  readonly walletMobikwikkFixedFee:any;
+  readonly walletRelianceJioMoneyAmount:any;
+  readonly walletRelianceJioMoneyPercentage:any;
+  readonly walletRelianceJioMoneyFixedFee:any;
+  readonly walletAirtelMoneyAmount:any;
+  readonly walletAirtelMoneyPercentage:any;
+  readonly walletAirtelMoneyFixedFee:any;
+  readonly upiAmount:any;
+  readonly upiPercentage:any;
+  readonly upiFixedFee:any;
+  readonly dynamicQrAmount:any;
+  readonly dynamicQrPercentage:any;
+  readonly dynamicQrFixedFee:any;
+ 
+ 
+}
+
+export interface CreatePlan{
+  readonly merchantId:any;
+  readonly commercialId:any;
+  readonly createdBy:any;
+}

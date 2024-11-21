@@ -1,0 +1,965 @@
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+<div class="container">
+    <div class="form-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Update Plan </h5>
+        <button type="button" class="btn btn-secondary" (click)="close()">Back</button>
+    </div>
+    <div class="well">
+        <form [formGroup]="myForm">
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <label for="firstName">Plan Name</label>
+                    <input type="text" id="firstName" class="form-control"  ngModel={{viewbyagreement?.planName}} formControlName="planName">
+                    <div style="
+                  color: red;
+                  font-size: 12px;
+                  margin-top: 2px;
+                  position: relative;
+                  ;
+                " *ngIf="planName?.invalid && planName?.touched && planName?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                  color: red;
+                  font-size: 12px;
+                  margin-top: 2px;
+                  position: relative;
+                  ;
+                " *ngIf="planName?.invalid && planName?.touched && planName?.errors?.['pattern']">
+                        Invalid format. Only alphanumeric characters are allowed
+                    </div>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label for="lastName">Service Fee</label>
+                    <input type="text" id="lastName" class="form-control" ngModel={{viewbyagreement?.serviceFee}} formControlName="servicefee" >
+                    <div style="
+                  color: red;
+                  font-size: 12px;
+                  margin-top: 2px;
+                  position: relative;
+                  ;
+                " *ngIf="servicefee?.invalid && servicefee?.touched && servicefee?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+            </div>
+         
+            <div class="row mt-3">
+                <div class="col-sm-2 form-group">
+                    <label for="netBankingAmount" style="font-size: 12px;">Net Banking</label>
+                    <input type="text" id="netBankingAmount" class="form-control" placeholder="Amount" ngModel={{viewbyagreement?.netBankingAmount}}  formControlName="netBankingAmount">
+                    <div style="
+                       color: red;
+                       font-size: 12px;
+                       margin-top: 2px;
+                       position: relative;
+                       ;
+                     " *ngIf="netBankingAmount?.invalid && netBankingAmount?.touched && netBankingAmount?.errors?.['pattern']">
+                        Only positive numbers are allowed
+                    </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="netBankingPercentage" style="font-size: 12px;">Net Banking</label>
+                    <input type="text" id="netBankingPercentage" class="form-control" placeholder="Percentage" ngModel={{viewbyagreement?.netBankingPercentage}}  formControlName="netBankingPercentage">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="netBankingPercentage?.invalid && netBankingPercentage?.touched && netBankingPercentage?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="netBankingFixedFee"style="font-size: 12px;">Net Banking</label>
+                    <input type="text" id="netBankingFixedFee" class="form-control" placeholder="Fixed Fee" ngModel={{viewbyagreement?.netBankingFixedFee}} formControlName="netBankingFixedFee">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="netBankingFixedFee?.invalid && netBankingFixedFee?.touched && netBankingFixedFee?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+
+                <div class="col-sm-2 form-group">
+                    <label for="rupaydebitcardmaxAmount" style="font-size: 12px;" >Rupay Debit Card (Maximum)</label>
+                    <input type="text" id="rupaydebitcardmaxAmount" class="form-control"  placeholder="Amount" ngModel={{viewbyagreement?.rupayDebitCardMaxAmount}} formControlName="rupaydebitcardmaxAmount">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="rupaydebitcardmaxAmount?.invalid && rupaydebitcardmaxAmount?.touched && rupaydebitcardmaxAmount?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="rupaydebitcardmaxPercentage" style="font-size: 12px;">Rupay Debit Card (Maximum)</label>
+                    <input type="text" id="rupaydebitcardmaxPercentage" class="form-control" placeholder="Percentage" ngModel={{viewbyagreement?.rupayDebitCardMaxPercentage}}  formControlName="rupaydebitcardmaxPercentage">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="rupaydebitcardmaxPercentage?.invalid && rupaydebitcardmaxPercentage?.touched && rupaydebitcardmaxPercentage?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="rupaydebitcardmaxFixedFee" style="font-size: 12px;">Rupay Debit Card (Maximum)</label>
+                    <input type="text" id="rupaydebitcardmaxFixedFee" class="form-control" placeholder="Fixed Fee"  ngModel={{viewbyagreement?.rupayDebitCardMaxFixedFee}} formControlName="rupaydebitcardmaxFixedFee">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="rupaydebitcardmaxFixedFee?.invalid && rupaydebitcardmaxFixedFee?.touched && rupaydebitcardmaxFixedFee?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+
+                <div class="col-sm-2 form-group">
+                    <label for="rupaydebitcardminAmount" style="font-size: 12px;" >Rupay Debit Card (Minimum)</label>
+                    <input type="text" id="rupaydebitcardminAmount" class="form-control"  placeholder="Amount" ngModel={{viewbyagreement?.rupayDebitCardMinAmount}} formControlName="rupaydebitcardminAmount">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="rupaydebitcardminAmount?.invalid && rupaydebitcardminAmount?.touched && rupaydebitcardminAmount?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="rupaydebitcardminPercentage" style="font-size: 12px;">Rupay Debit Card (Minimum)</label>
+                    <input type="text" id="rupaydebitcardminPercentage" class="form-control" placeholder="Percentage" ngModel={{viewbyagreement?.rupayDebitCardMinPercentage}}  formControlName="rupaydebitcardminPercentage">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="rupaydebitcardminPercentage?.invalid && rupaydebitcardminPercentage?.touched && rupaydebitcardminPercentage?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="rupaydebitcardminFixedFee" style="font-size: 12px;">Rupay Debit Card (Minimum)</label>
+                    <input type="text" id="rupaydebitcardminFixedFee" class="form-control" placeholder="Fixed Fee" ngModel={{viewbyagreement?.rupayDebitCardMinFixedFee}}  formControlName="rupaydebitcardminFixedFee">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="rupaydebitcardminFixedFee?.invalid && rupaydebitcardminFixedFee?.touched && rupaydebitcardminFixedFee?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="otherdebitcardmaxAmount" style="font-size: 12px;">Other Debit Card (Maximum)</label>
+                    <input type="text" id="otherdebitcardmaxAmount" class="form-control" placeholder="Amount"  ngModel={{viewbyagreement?.otherDebitCardMaxAmount}} formControlName="otherdebitcardmaxAmount">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="otherdebitcardmaxAmount?.invalid && otherdebitcardmaxAmount?.touched && otherdebitcardmaxAmount?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="otherdebitcardmaxPercentage" style="font-size: 12px;">Other Debit Card (Maximum)</label>
+                    <input type="text" id="otherdebitcardmaxPercentage" class="form-control" placeholder="Percentage" ngModel={{viewbyagreement?.otherDebitCardMaxPercentage}}   formControlName="otherdebitcardmaxPercentage">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="otherdebitcardmaxPercentage?.invalid && otherdebitcardmaxPercentage?.touched && otherdebitcardmaxPercentage?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="otherdebitcardmaxFixedFee"style="font-size: 12px;">Other Debit Card (Maximum)</label>
+                    <input type="text" id="otherdebitcardmaxFixedFee" class="form-control" placeholder="Fixed Fee" ngModel={{viewbyagreement?.otherDebitCardMaxFixedFee}}  formControlName="otherdebitcardmaxFixedFee">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="otherdebitcardmaxFixedFee?.invalid && otherdebitcardmaxFixedFee?.touched && otherdebitcardmaxFixedFee?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+
+            </div>
+
+            <div class="row mt-3">
+
+                
+                <div class="col-sm-2 form-group">
+                    <label for="otherdebitcardminAmount" style="font-size: 12px;" >Other Debit Card (Minimum)</label>
+                    <input type="text" id="otherdebitcardminAmount" class="form-control"  placeholder="Amount"  ngModel={{viewbyagreement?.otherDebitCardMinAmount}}  formControlName="otherdebitcardminAmount">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="otherdebitcardminAmount?.invalid && otherdebitcardminAmount?.touched && otherdebitcardminAmount?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="otherdebitcardminPercentage" style="font-size: 12px;">Other Debit Card (Minimum)</label>
+                    <input type="text" id="otherdebitcardminPercentage" class="form-control" placeholder="Percentage"  ngModel={{viewbyagreement?.otherDebitCardMinPercentage}}   formControlName="otherdebitcardminPercentage">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="otherdebitcardminPercentage?.invalid && otherdebitcardminPercentage?.touched && otherdebitcardminPercentage?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="otherdebitcardminFixedFee" style="font-size: 12px;">Other Debit Card (Minimum)</label>
+                    <input type="text" id="otherdebitcardminFixedFee" class="form-control" placeholder="Fixed Fee"  ngModel={{viewbyagreement?.otherDebitCardMinFixedFee}}  formControlName="otherdebitcardminFixedFee">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="otherdebitcardminFixedFee?.invalid && otherdebitcardminFixedFee?.touched && otherdebitcardminFixedFee?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="ecollectAmount" style="font-size: 12px;">e-Collect</label>
+                    <input type="text" id="ecollectAmount" class="form-control" placeholder="Amount"  ngModel={{viewbyagreement?.eCollectAmount}}  formControlName="ecollectAmount">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="ecollectAmount?.invalid && ecollectAmount?.touched && ecollectAmount?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="ecollectPercentage" style="font-size: 12px;">e-Collect</label>
+                    <input type="text" id="ecollectPercentage" class="form-control" placeholder="Percentage" ngModel={{viewbyagreement?.eCollectPercentage}}    formControlName="ecollectPercentage">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="ecollectPercentage?.invalid && ecollectPercentage?.touched && ecollectPercentage?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="ecollectFixedFee"style="font-size: 12px;">e-Collect</label>
+                    <input type="text" id="ecollectFixedFee" class="form-control" placeholder="Fixed Fee" ngModel={{viewbyagreement?.eCollectFixedFee}}   formControlName="ecollectFixedFee">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="ecollectFixedFee?.invalid && ecollectFixedFee?.touched && ecollectFixedFee?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+
+            </div>
+
+            <div class="row mt-3">
+
+                
+                <div class="col-sm-2 form-group">
+                    <label for="disbursementAmount" style="font-size: 12px;" >Disbursement API</label>
+                    <input type="text" id="disbursementAmount" class="form-control"  placeholder="Amount" ngModel={{viewbyagreement?.disbursementApiAmount}} formControlName="disbursementAmount">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="disbursementAmount?.invalid && disbursementAmount?.touched && disbursementAmount?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="disbursementPercentage" style="font-size: 12px;">Disbursement API</label>
+                    <input type="text" id="disbursementPercentage" class="form-control" placeholder="Percentage" ngModel={{viewbyagreement?.disbursementApiPercentage}} formControlName="disbursementPercentage">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="disbursementPercentage?.invalid && disbursementPercentage?.touched && disbursementPercentage?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="disbursementFixedFee" style="font-size: 12px;">Disbursement API</label>
+                    <input type="text" id="disbursementFixedFee" class="form-control" placeholder="Fixed Fee" ngModel={{viewbyagreement?.disbursementApiFixedFee}} formControlName="disbursementFixedFee">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="disbursementFixedFee?.invalid && disbursementFixedFee?.touched && disbursementFixedFee?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="internationalAmount" style="font-size: 12px;">International API</label>
+                    <input type="text" id="internationalAmount" class="form-control" placeholder="Amount"  ngModel={{viewbyagreement?.internationalApiAmount}} formControlName="internationalAmount">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="internationalAmount?.invalid && internationalAmount?.touched && internationalAmount?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="internationalPercentage" style="font-size: 12px;">International API</label>
+                    <input type="text" id="internationalPercentage" class="form-control" placeholder="Percentage"  ngModel={{viewbyagreement?.internationApiPercentage}} formControlName="internationalPercentage">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="internationalPercentage?.invalid && internationalPercentage?.touched && internationalPercentage?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="internationalFixedFee"style="font-size: 12px;">International API</label>
+                    <input type="text" id="internationalFixedFee" class="form-control" placeholder="Fixed Fee" ngModel={{viewbyagreement?.internationApiFixedFee}}  formControlName="internationalFixedFee">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="internationalFixedFee?.invalid && internationalFixedFee?.touched && internationalFixedFee?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-sm-2 form-group">
+                    <label for="amexAmount" style="font-size: 12px;" >Amex Card</label>
+                    <input type="text" id="amexAmount" class="form-control"  placeholder="Amount" ngModel={{viewbyagreement?.amexCardAmount}}  formControlName="amexAmount">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="amexAmount?.invalid && amexAmount?.touched && amexAmount?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="amexPercentage" style="font-size: 12px;">Amex Card</label>
+                    <input type="text" id="amexPercentage" class="form-control" placeholder="Percentage" ngModel={{viewbyagreement?.amexCardPercentage}}  formControlName="amexPercentage">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="amexPercentage?.invalid && amexPercentage?.touched && amexPercentage?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="amexFixedFee" style="font-size: 12px;">Amex Card</label>
+                    <input type="text" id="amexFixedFee" class="form-control" placeholder="Fixed Fee" ngModel={{viewbyagreement?.amexCardFixedFee}}   formControlName="amexFixedFee">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="amexFixedFee?.invalid && amexFixedFee?.touched && amexFixedFee?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="dinnerscardAmount" style="font-size: 12px;">Dinners Card </label>
+                    <input type="text" id="dinnerscardAmount" class="form-control" placeholder="Amount" ngModel={{viewbyagreement?.dinnersCardAmount}}  formControlName="dinnerscardAmount">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="dinnerscardAmount?.invalid && dinnerscardAmount?.touched && dinnerscardAmount?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="dinnerscardPercentage" style="font-size: 12px;">Dinners Card</label>
+                    <input type="text" id="dinnerscardPercentage" class="form-control" placeholder="Percentage" ngModel={{viewbyagreement?.dinnersCardPercentage}}  formControlName="dinnerscardPercentage">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="dinnerscardPercentage?.invalid && dinnerscardPercentage?.touched && dinnerscardPercentage?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="dinnerscardFixedFee"style="font-size: 12px;">Dinners Card</label>
+                    <input type="text" id="dinnerscardFixedFee" class="form-control" placeholder="Fixed Fee" ngModel={{viewbyagreement?.dinnersCardFixedFee}}   formControlName="dinnerscardFixedFee">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="dinnerscardFixedFee?.invalid && dinnerscardFixedFee?.touched && dinnerscardFixedFee?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+
+            </div>
+
+            <div class="row mt-3">
+
+                
+                <div class="col-sm-2 form-group">
+                    <label for="corporateAmount" style="font-size: 12px;" >Corporate/Commercial Card</label>
+                    <input type="text" id="corporateAmount" class="form-control"  placeholder="Amount"  ngModel={{viewbyagreement?.corporateOrCommercialCardAmount}} formControlName="corporateAmount">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="corporateAmount?.invalid && corporateAmount?.touched && corporateAmount?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="corporatePercentage" style="font-size: 12px;">Corporate/Commercial Card</label>
+                    <input type="text" id="corporatePercentage" class="form-control" placeholder="Percentage" ngModel={{viewbyagreement?.corporateOrCommercialCardPercentage}} formControlName="corporatePercentage">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="corporatePercentage?.invalid && corporatePercentage?.touched && corporatePercentage?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="corporateFixedFee" style="font-size: 12px;">Corporate/Commercial Card</label>
+                    <input type="text" id="corporateFixedFee" class="form-control" placeholder="Fixed Fee"  ngModel={{viewbyagreement?.corporateOrCommercialCardFixedFee}}  formControlName="corporateFixedFee">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="corporateFixedFee?.invalid && corporateFixedFee?.touched && corporateFixedFee?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="prepaidcardAmount" style="font-size: 12px;">Prepaid Card </label>
+                    <input type="text" id="prepaidcardAmount" class="form-control" placeholder="Amount" ngModel={{viewbyagreement?.prepaidCardAmount}}  formControlName="prepaidcardAmount">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="prepaidcardAmount?.invalid && prepaidcardAmount?.touched && prepaidcardAmount?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="prepaidcardPercentage" style="font-size: 12px;">Prepaid Card</label>
+                    <input type="text" id="prepaidcardPercentage" class="form-control" placeholder="Percentage"  ngModel={{viewbyagreement?.prepaidCardPercentage}}  formControlName="prepaidcardPercentage">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="prepaidcardPercentage?.invalid && prepaidcardPercentage?.touched && prepaidcardPercentage?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="prepaidcardFixedFee"style="font-size: 12px;">Prepaid Card</label>
+                    <input type="text" id="prepaidcardFixedFee" class="form-control" placeholder="Fixed Fee"  ngModel={{viewbyagreement?.prepaidCardFixedFee}} formControlName="prepaidcardFixedFee">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="prepaidcardFixedFee?.invalid && prepaidcardFixedFee?.touched && prepaidcardFixedFee?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+
+            </div>
+            <div class="row mt-3">
+                <div class="col-sm-2 form-group">
+                    <label for="upiAmount" style="font-size: 12px;" >UPI </label>
+                    <input type="text" id="upiAmount" class="form-control"  placeholder="Amount" ngModel={{viewbyagreement?.upiAmount}}  formControlName="upiAmount">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="upiAmount?.invalid && upiAmount?.touched && upiAmount?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="upiPercentage" style="font-size: 12px;">UPI</label>
+                    <input type="text" id="upiPercentage" class="form-control" placeholder="Percentage" ngModel={{viewbyagreement?.upiPercentage}}   formControlName="upiPercentage">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="upiPercentage?.invalid && upiPercentage?.touched && upiPercentage?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="upiFixedFee" style="font-size: 12px;">UPI</label>
+                    <input type="text" id="upiFixedFee" class="form-control" placeholder="Fixed Fee" ngModel={{viewbyagreement?.upiFixedFee}}   formControlName="upiFixedFee">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="upiFixedFee?.invalid && upiFixedFee?.touched && upiFixedFee?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="dynamicqrAmount" style="font-size: 12px;">Dynamic QR</label>
+                    <input type="text" id="dynamicqrAmount" class="form-control" placeholder="Amount" ngModel={{viewbyagreement?.dynamicQrAmount}}   formControlName="dynamicqrAmount">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="dynamicqrAmount?.invalid && dynamicqrAmount?.touched && dynamicqrAmount?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="dynamicqrPercentage" style="font-size: 12px;">Dynamic QR</label>
+                    <input type="text" id="dynamicqrPercentage" class="form-control" placeholder="Percentage" ngModel={{viewbyagreement?.dynamicQrPercentage}}   formControlName="dynamicqrPercentage">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="dynamicqrPercentage?.invalid && dynamicqrPercentage?.touched && dynamicqrPercentage?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="dynamicqrFixedFee"style="font-size: 12px;">Dynamic QR</label>
+                    <input type="text" id="dynamicqrFixedFee" class="form-control" placeholder="Fixed Fee" ngModel={{viewbyagreement?.dynamicQrFixedFee}}  formControlName="dynamicqrFixedFee">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="dynamicqrFixedFee?.invalid && dynamicqrFixedFee?.touched && dynamicqrFixedFee?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+
+            </div>
+            <h5 class="mt-3">Wallets</h5>
+            <div class="row mt-3">
+                <div class="col-sm-2 form-group">
+                    <label for="phonepeAmount" style="font-size: 12px;" >Phonepe</label>
+                    <input type="text" id="phonepeAmount" class="form-control"  placeholder="Amount" ngModel={{viewbyagreement?.walletPhonepeAmount}}  formControlName="phonepeAmount">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="phonepeAmount?.invalid && phonepeAmount?.touched && phonepeAmount?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="phonepePercentage" style="font-size: 12px;">Phonepe</label>
+                    <input type="text" id="phonepePercentage" class="form-control" placeholder="Percentage" ngModel={{viewbyagreement?.walletPhonepePercentage}}   formControlName="phonepePercentage">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="phonepePercentage?.invalid && phonepePercentage?.touched && phonepePercentage?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="phonepeFixedFee" style="font-size: 12px;">Phonepe</label>
+                    <input type="text" id="phonepeFixedFee" class="form-control" placeholder="Fixed Fee"  ngModel={{viewbyagreement?.walletPhonepeFixedFee}}  formControlName="phonepeFixedFee">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="phonepeFixedFee?.invalid && phonepeFixedFee?.touched && phonepeFixedFee?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="freechargeAmount" style="font-size: 12px;">FreeCharge </label>
+                    <input type="text" id="freechargeAmount" class="form-control" placeholder="Amount" ngModel={{viewbyagreement?.walletFreeChargeAmount}}   formControlName="freechargeAmount">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="freechargeAmount?.invalid && freechargeAmount?.touched && freechargeAmount?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="freechargePercentage" style="font-size: 12px;">FreeCharge</label>
+                    <input type="text" id="freechargePercentage" class="form-control" placeholder="Percentage" ngModel={{viewbyagreement?.walletFreeChargePercentage}} formControlName="freechargePercentage">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="freechargePercentage?.invalid && freechargePercentage?.touched && freechargePercentage?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="freechargeFixedFee"style="font-size: 12px;">FreeCharge</label>
+                    <input type="text" id="freechargeFixedFee" class="form-control" placeholder="Fixed Fee" ngModel={{viewbyagreement?.walletFreeChargeFixedFee}} formControlName="freechargeFixedFee">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="freechargeFixedFee?.invalid && freechargeFixedFee?.touched && freechargeFixedFee?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-sm-2 form-group">
+                    <label for="payzappAmount" style="font-size: 12px;" >Payzapp </label>
+                    <input type="text" id="payzappAmount" class="form-control"  placeholder="Amount" ngModel={{viewbyagreement?.walletPayzappAmount}} formControlName="payzappAmount">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="payzappAmount?.invalid && payzappAmount?.touched && payzappAmount?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="payzappPercentage" style="font-size: 12px;">Payzapp </label>
+                    <input type="text" id="payzappPercentage" class="form-control" placeholder="Percentage" ngModel={{viewbyagreement?.walletPayzappPercentage}}  formControlName="payzappPercentage">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="payzappPercentage?.invalid && payzappPercentage?.touched && payzappPercentage?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="payzappFixedFee" style="font-size: 12px;">Payzapp </label>
+                    <input type="text" id="payzappFixedFee" class="form-control" placeholder="Fixed Fee" ngModel={{viewbyagreement?.walletPayzappFixedFee}}  formControlName="payzappFixedFee">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="payzappFixedFee?.invalid && payzappFixedFee?.touched && payzappFixedFee?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="paytmAmount" style="font-size: 12px;">Paytm  </label>
+                    <input type="text" id="paytmAmount" class="form-control" placeholder="Amount" ngModel={{viewbyagreement?.walletPaytmAmount}} formControlName="paytmAmount">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="paytmAmount?.invalid && paytmAmount?.touched && paytmAmount?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="paytmPercentage" style="font-size: 12px;">Paytm </label>
+                    <input type="text" id="paytmPercentage" class="form-control" placeholder="Percentage" ngModel={{viewbyagreement?.walletPaytmPercentage}}   formControlName="paytmPercentage">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="paytmPercentage?.invalid && paytmPercentage?.touched && paytmPercentage?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="paytmFixedFee"style="font-size: 12px;">Paytm </label>
+                    <input type="text" id="paytmFixedFee" class="form-control" placeholder="Fixed Fee"  ngModel={{viewbyagreement?.walletPaytmFixedFee}}   formControlName="paytmFixedFee">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="paytmFixedFee?.invalid && paytmFixedFee?.touched && paytmFixedFee?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+
+            </div>
+
+            
+            <div class="row mt-3">
+                <div class="col-sm-2 form-group">
+                    <label for="OlamoneyAmount" style="font-size: 12px;" >Ola Money </label>
+                    <input type="text" id="OlamoneyAmount" class="form-control"  placeholder="Amount"  ngModel={{viewbyagreement?.walletOlaMoneyAmount}} formControlName="OlamoneyAmount">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="OlamoneyAmount?.invalid && OlamoneyAmount?.touched && OlamoneyAmount?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="OlamoneyPercentage" style="font-size: 12px;">Ola Money </label>
+                    <input type="text" id="OlamoneyPercentage" class="form-control" placeholder="Percentage" ngModel={{viewbyagreement?.walletOlaMoneyPercentage}}  formControlName="OlamoneyPercentage">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="OlamoneyPercentage?.invalid && OlamoneyPercentage?.touched && OlamoneyPercentage?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="OlamoneyFixedFee" style="font-size: 12px;">Ola Money </label>
+                    <input type="text" id="OlamoneyFixedFee" class="form-control" placeholder="Fixed Fee"  ngModel={{viewbyagreement?.walletOlaMoneyFixedFee}} formControlName="OlamoneyFixedFee">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="OlamoneyFixedFee?.invalid && OlamoneyFixedFee?.touched && OlamoneyFixedFee?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="mobikwikAmount" style="font-size: 12px;">Mobikwik</label>
+                    <input type="text" id="mobikwikAmount" class="form-control" placeholder="Amount" ngModel={{viewbyagreement?.walletMobikwikkAmount}} formControlName="mobikwikAmount">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="mobikwikAmount?.invalid && mobikwikAmount?.touched && mobikwikAmount?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="mobikwikPercentage" style="font-size: 12px;">Mobikwik</label>
+                    <input type="text" id="mobikwikPercentage" class="form-control" placeholder="Percentage" ngModel={{viewbyagreement?.walletMobikwikkPercentage}}  formControlName="mobikwikPercentage">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="mobikwikPercentage?.invalid && mobikwikPercentage?.touched && mobikwikPercentage?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="mobikwikFixedFee"style="font-size: 12px;">Mobikwik</label>
+                    <input type="text" id="mobikwikFixedFee" class="form-control" placeholder="Fixed Fee" ngModel={{viewbyagreement?.walletMobikwikkFixedFee}} formControlName="mobikwikFixedFee">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="mobikwikFixedFee?.invalid && mobikwikFixedFee?.touched && mobikwikFixedFee?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+
+            </div>
+            <div class="row mt-3">
+                <div class="col-sm-2 form-group">
+                    <label for="reliancejiomoneyAmount" style="font-size: 12px;" >Reliance Jio Money </label>
+                    <input type="text" id="reliancejiomoneyAmount" class="form-control"  placeholder="Amount"  ngModel={{viewbyagreement?.walletRelianceJioMoneyAmount}} formControlName="reliancejiomoneyAmount">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="reliancejiomoneyAmount?.invalid && reliancejiomoneyAmount?.touched && reliancejiomoneyAmount?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="reliancejiomoneyPercentage" style="font-size: 12px;">Reliance Jio Money </label>
+                    <input type="text" id="reliancejiomoneyPercentage" class="form-control" placeholder="Percentage" ngModel={{viewbyagreement?.walletRelianceJioMoneyPercentage}} formControlName="reliancejiomoneyPercentage">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="reliancejiomoneyPercentage?.invalid && reliancejiomoneyPercentage?.touched && reliancejiomoneyPercentage?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="reliancejiomoneyFixedFee" style="font-size: 12px;">Reliance Jio Money</label>
+                    <input type="text" id="reliancejiomoneyFixedFee" class="form-control" placeholder="Fixed Fee" ngModel={{viewbyagreement?.walletRelianceJioMoneyFixedFee}} formControlName="reliancejiomoneyFixedFee">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="reliancejiomoneyFixedFee?.invalid && reliancejiomoneyFixedFee?.touched && reliancejiomoneyFixedFee?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="airtelmoneyAmount" style="font-size: 12px;">Airtel Money</label>
+                    <input type="text" id="airtelmoneyAmount" class="form-control" placeholder="Amount"  ngModel={{viewbyagreement?.walletAirtelMoneyAmount}}  formControlName="airtelmoneyAmount">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="airtelmoneyAmount?.invalid && airtelmoneyAmount?.touched && airtelmoneyAmount?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="airtelmoneyPercentage" style="font-size: 12px;">Airtel Money</label>
+                    <input type="text" id="airtelmoneyPercentage" class="form-control" placeholder="Percentage"  ngModel={{viewbyagreement?.walletAirtelMoneyPercentage}} formControlName="airtelmoneyPercentage">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="airtelmoneyPercentage?.invalid && airtelmoneyPercentage?.touched && airtelmoneyPercentage?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="airtelmoneyFixedFee"style="font-size: 12px;">Airtel Money</label>
+                    <input type="text" id="airtelmoneyFixedFee" class="form-control" placeholder="Fixed Fee" ngModel={{viewbyagreement?.walletAirtelMoneyFixedFee}} formControlName="airtelmoneyFixedFee">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="airtelmoneyFixedFee?.invalid && airtelmoneyFixedFee?.touched && airtelmoneyFixedFee?.errors?.['pattern']">
+                     Only positive numbers are allowed
+                 </div>
+                </div>
+
+            </div>
+        
+            <div class="mt-3">
+                <button (click)="submit()" type="submit" class="btn mx-1 " style="background-color:#7db855be" 
+                    [disabled]="this.myForm.invalid">Submit</button>
+                <button (click)="close()"type="submit" class="btn" style="background-color:#141E46;color:white">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>

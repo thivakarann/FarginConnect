@@ -289,6 +289,9 @@
                     <a routerLink="merchant-plan-viewall">Entity Plan</a>
                   </li>
 
+                  <li [hidden]="valuebankdetails!=='Bank List'">
+                    <a routerLink="bank-viewall">Bank Details </a>
+                  </li>
                   <li [hidden]="valueFacheck!=='FaCheck Key'">
                     <a routerLink="viewfacheckkey">Facheck Key</a>
                   </li>
@@ -301,12 +304,16 @@
                     <a routerLink="sms-cost-viewall">SMS Cost</a>
                   </li>
 
-                  <li [hidden]="valuebankdetails!=='Bank List'">
-                    <a routerLink="bank-viewall">Bank Details </a>
-                  </li>
+                
 
                   <li [hidden]="valuefarginbank!=='Fargin bank'">
                     <a routerLink="fargin-viewall">Fargin bank details </a>
+                  </li>
+                  <li>
+                    <a routerLink="agreementplan">Plan</a>
+                  </li>
+                  <li>
+                    <a routerLink="signer-getall">Signer Details</a>
                   </li>
 
 

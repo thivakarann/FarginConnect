@@ -76,6 +76,7 @@
             [hidden]="valueCustomized!=='Entity View Customized Payment'">Customized Payment</button>
         <button class="tab" [class.active]="activeTab === 'doot4'" (click)="selectTab('doot4')"
             [hidden]="valuesmssetting!=='Sms Setting'">SMS Settings</button>
+            <button class="tab" [class.active]="activeTab === 'doot5'" (click)="selectTab('doot5')">Agreement</button>
     </div>
     <div class="tab-content" *ngIf="activeTab === 'events'" [hidden]="valueGeneral!=='Entity View General Information'">
         <div class="filters">
@@ -1256,6 +1257,107 @@
                             <td>{{item.createdDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
                             <td>{{item.modifedBy}}</td>
                             <td>{{item.modifedDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-end mt-3">
+                    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="activeTab === 'doot5'">
+    <mat-card-header>
+        <div class="row  d-flex justify-content-start">
+            <div class="col-md-3">
+                <div class="search ">
+                    <form class="form">
+                        <label for="search">
+                            <input #input required="" autocomplete="off" placeholder="Search" id="search" type="text"
+                                [(ngModel)]="searchText">
+                            <div class="icon">
+                                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                                        stroke-linecap="round"></path>
+                                </svg>
+                                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                                    <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
+                                        stroke-linecap="round">
+                                    </path>
+                                </svg>
+                            </div>
+                            <button type="reset" class="close-btn">
+                                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                                    <path clip-rule="evenodd"
+                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                        fill-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </label>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-2 mt-1" >
+                <button (click)="agreementcreate()" style="color:white;background-color: #141E46;border-radius: 10px;"
+                    mat-raised-button>Create
+                </button>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </mat-card-header>
+    <div class="row mt-4">
+        <div class="col-12 mb-3 mb-lg-5">
+            <div class="card table-nowrap table-card">
+                <div class="table-responsive text-nowrap text-center">
+                    <table class="table table-hover" id="customers">
+                        <tr>
+                            <th>S No </th>
+                            <th>Plan Name</th>
+                            <th>Service Fee</th>
+                            <th>Plan Overview</th>
+                            <th>Agreement</th>
+                            <th>Fargin Signer Status</th>
+                            <th >Entity Signer Status</th>
+                            <th >Agreement Signed Copy</th>
+                            <th>Created By</th>
+                            <th>Created At</th>
+                        </tr>
+                        <tbody
+                            *ngFor="let item of agreementdetails| paginate: { itemsPerPage: 5, currentPage: currentPage } | search: searchText;let i=index">
+                            <td>{{i+1}}</td>
+                            <td>{{item.commercialId?.planName}}</td>
+                            <td>{{item.commercialId?.serviceFee}}</td>
+                            <td>
+                                <i style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
+                                    (click)="view(item.commercialId?.commercialId)"></i>
+                            </td>
+
+                            <td>
+                                <i style="cursor: pointer;font-size: 17px;" class="fa-solid fa-file-contract"
+                                    (click)="viewagreementdoc(item.agreementId)"></i>
+                            </td>
+                            
+                            <td [ngClass]="item.adminOtpStatus == 0 ? 'not-signed' : 'signed'">
+                                {{ item.adminOtpStatus == 0 ? 'Not Signed' : 'Signed' }}
+                              </td>
+
+                              <td [ngClass]="item.merchanOtptStatus == 0 ? 'not-signed' : 'signed'">
+                                {{ item.merchanOtptStatus == 0 ? 'Not Signed' : 'Signed' }}
+                              </td>
+                              
+                              <td>
+                                <i style="cursor: pointer;font-size: 17px;" class="fa-solid fa-file-contract"
+                                    (click)="viewsignedagreementdoc(item.agreementId)"></i>
+                            </td>
+
+                            <td>{{item.createdBy}}</td>
+                            <td>{{item.createdDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
+            
                         </tbody>
                     </table>
                 </div>

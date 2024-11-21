@@ -217,6 +217,16 @@ import { ChanneleditComponent } from './Plan Creation/Broadcaster Bouqutes/chann
 import { BouqutesRegioneditComponent } from './Plan Creation/Broadcaster Bouqutes/bouqutes-regionedit/bouqutes-regionedit.component';
 import { BouqutesRegionComponent } from './Plan Creation/Broadcaster Bouqutes/bouqutes-region/bouqutes-region.component';
 import { AggrementSignerOneComponent } from './aggrement-signer-one/aggrement-signer-one.component';
+import { SignerGetallComponent } from './Main Master/Fargin Signer Details/signer-getall/signer-getall.component';
+import { SignerAddComponent } from './Main Master/Fargin Signer Details/signer-add/signer-add.component';
+import { SignerUpdateComponent } from './Main Master/Fargin Signer Details/signer-update/signer-update.component';
+
+import { AddagreementplanComponent } from './Main Master/Agreementplan/addagreementplan/addagreementplan.component';
+import { ViewagreementplanComponent } from './Main Master/Agreementplan/viewagreementplan/viewagreementplan.component';
+import { EditagreementplanComponent } from './Main Master/Agreementplan/editagreementplan/editagreementplan.component';
+import { AllagreementplansComponent } from './Main Master/Agreementplan/allagreementplans/allagreementplans.component';
+import { AddAgreementsComponent } from './Entity Onboard/add-agreements/add-agreements.component';
+import { AgreementlinkComponent } from './Entity Onboard/agreementlink/agreementlink.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -412,7 +422,16 @@ import { AggrementSignerOneComponent } from './aggrement-signer-one/aggrement-si
     ChanneleditComponent,
     BouqutesRegioneditComponent,
     BouqutesRegionComponent,
-    AggrementSignerOneComponent
+    AggrementSignerOneComponent,
+    SignerGetallComponent,
+    SignerAddComponent,
+    SignerUpdateComponent,
+    AddagreementplanComponent,
+    ViewagreementplanComponent,
+    EditagreementplanComponent,
+    AllagreementplansComponent,
+    AddAgreementsComponent,
+    AgreementlinkComponent
 
   ],
 

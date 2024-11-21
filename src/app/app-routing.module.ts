@@ -88,6 +88,12 @@ import { SurveyviewallComponent } from './Customer-Survey/surveyviewall/surveyvi
 import { authGuard } from './auth.guard';
 import { AlcotHistoryComponent } from './Plan Creation/Alacarte channels/alcot-history/alcot-history.component';
 import { BouqutesRegionComponent } from './Plan Creation/Broadcaster Bouqutes/bouqutes-region/bouqutes-region.component';
+import { SignerGetallComponent } from './Main Master/Fargin Signer Details/signer-getall/signer-getall.component';
+import { AddagreementplanComponent } from './Main Master/Agreementplan/addagreementplan/addagreementplan.component';
+import { AllagreementplansComponent } from './Main Master/Agreementplan/allagreementplans/allagreementplans.component';
+import { EditagreementplanComponent } from './Main Master/Agreementplan/editagreementplan/editagreementplan.component';
+import { ViewagreementplanComponent } from './Main Master/Agreementplan/viewagreementplan/viewagreementplan.component';
+import { AggrementSignerOneComponent } from './aggrement-signer-one/aggrement-signer-one.component';
 
 const routes: Routes = [
 
@@ -98,7 +104,10 @@ const routes: Routes = [
   { path: 'otp', component: OtpVerificationComponent },
   { path: 'reset', component: ResetPasswordComponent },
   { path: 'changepassword', component: ChangePasswordComponent },
-
+  { path: 'addagreementplan', component: AddagreementplanComponent, canActivate: [authGuard] },
+  { path: 'editagreementplan/:id', component: EditagreementplanComponent, canActivate: [authGuard] },
+  { path: 'allagreementplan/:id', component: AllagreementplansComponent, canActivate: [authGuard] },
+  { path: 'aggrement-signer-one', component: AggrementSignerOneComponent,},
 
   {
     path: 'dashboard',
@@ -187,8 +196,10 @@ const routes: Routes = [
       { path: 'plan-details-customer/:id', component: PlanDetailsCustomerComponent, canActivate: [authGuard] },
       { path: 'surveyviewall', component: SurveyviewallComponent, canActivate: [authGuard] },
       { path: 'view-surveyquestions/:id', component: CustomerSurveyquestionsComponent, canActivate: [authGuard] },
-      {path:'alcot-history',component:AlcotHistoryComponent, canActivate: [authGuard]},
-      {path:'bouqutes-region/:id',component:BouqutesRegionComponent, canActivate: [authGuard]},
+      { path: 'alcot-history', component: AlcotHistoryComponent, canActivate: [authGuard] },
+      { path: 'bouqutes-region/:id', component: BouqutesRegionComponent, canActivate: [authGuard] },
+      { path: "signer-getall", component: SignerGetallComponent, canActivate: [authGuard] },
+      { path: 'agreementplan', component: ViewagreementplanComponent, canActivate: [authGuard] },
     ],
 
   },

@@ -13,7 +13,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 export class FarginBankAddComponent {
   BankForm!: FormGroup;
   showPassword: boolean = false;
-  createdBy :any = JSON.parse(localStorage.getItem('adminname') || '');
+  createdBy: any = JSON.parse(localStorage.getItem('adminname') || '');
   activeRole: any;
 
 
@@ -40,17 +40,17 @@ export class FarginBankAddComponent {
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9 ]*$')
       ]),
-   
-      ledgerId: new FormControl('',[Validators.required,]),
+
+      ledgerId: new FormControl('', [Validators.required,]),
       createdBy: new FormControl(''),
-     
+
     })
 
-    
 
-    this.service.roleactiveViewall().subscribe((res:any)=>{
-      this.activeRole=res.response;
-      
+
+    this.service.roleactiveViewall().subscribe((res: any) => {
+      this.activeRole = res.response;
+
     })
   }
   get accountHolderName() {
@@ -62,8 +62,8 @@ export class FarginBankAddComponent {
   get bankName() {
     return this.BankForm.get('bankName');
   }
- 
-  get ifscCode(){
+
+  get ifscCode() {
     return this.BankForm.get('ifscCode')
   }
   get branchName() {
@@ -102,6 +102,6 @@ export class FarginBankAddComponent {
 
   close() {
     this.router.navigate([`/dashboard/fargin-viewall`], {
-       });
+    });
   }
 }

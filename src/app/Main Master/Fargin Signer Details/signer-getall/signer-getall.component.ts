@@ -1,44 +1,42 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { FarginServiceService } from '../../../service/fargin-service.service';
+import { SignerAddComponent } from '../signer-add/signer-add.component';
+import { SignerUpdateComponent } from '../signer-update/signer-update.component';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { farginstatus, UpdatesignerStatus } from '../../../fargin-model/fargin-model.module';
 import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
 import moment from 'moment';
-import { ToastrService } from 'ngx-toastr';
-import { FarginServiceService } from '../../../service/fargin-service.service';
-import { MatDialog } from '@angular/material/dialog';
-import { FarginBankAddComponent } from '../fargin-bank-add/fargin-bank-add.component';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { Adminstatus, farginstatus } from '../../../fargin-model/fargin-model.module';
-import { FarginBankEditComponent } from '../fargin-bank-edit/fargin-bank-edit.component';
 
 @Component({
-  selector: 'app-fargin-bankview',
-  templateUrl: './fargin-bankview.component.html',
-  styleUrl: './fargin-bankview.component.css'
+  selector: 'app-signer-getall',
+  templateUrl: './signer-getall.component.html',
+  styleUrl: './signer-getall.component.css'
 })
-export class FarginBankviewComponent {
+export class SignerGetallComponent implements OnInit {
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = [
     'sno',
-    'accountHolderName',
-    'accountNumber',
-    'bankName',
+    'signAdminName',
+    'signAdminEmail',
+    'signAdminMobile',
     'status',
-    // 'Edit',
-    'ifscCode',
-    'branchName',
-    'ledgerId',
+    'Edit',
     'createdBy',
-    'createdDateTime',
+    'createdAt',
     'modifiedBy',
-    'modifiedDateTime'
+    'modifiedAt'
 
   ];
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
+  roleId: any = localStorage.getItem('roleId')
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   isChecked: boolean = false;
@@ -46,22 +44,9 @@ export class FarginBankviewComponent {
   date2: any;
   responseDataListnew: any = [];
   response: any = [];
-  valueEntityAdd: any;
-  valueEntityExport: any;
-  valueEntityStatus: any;
-  valueEntityView: any;
-  getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
-  unblockvalue: any;
-  valueEntityUnblock: any;
-  adminBankId: any;
   data: any;
-  valuefarginadd: any;
-  valuefarginexport: any;
-  valuefarginstatus: any;
-  valuefarginedit: any;
 
   constructor(
     public service: FarginServiceService,
@@ -70,109 +55,14 @@ export class FarginBankviewComponent {
     private dialog: MatDialog,
   ) { }
   ngOnInit(): void {
-
-    this.service.rolegetById(this.roleId).subscribe({
-      next: (res: any) => {
-
-
-        if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
-
-          if (this.roleId == 1) {
-            this.valuefarginadd = 'Fargin bank-Add';
-            this.valuefarginedit = 'Fargin bank-Edit';
-            this.valuefarginexport = 'Fargin bank-Export';
-            this.valuefarginstatus = 'Fargin bank-Status';
-
-          }
-          // else {
-          //   for (let datas of this.getdashboard) {
-
-          //     this.actions = datas.subPermissions;
-          //     if (this.actions == 'Fargin bank-Add') {
-          //       this.valuefarginadd = 'Fargin bank-Add';
-          //     }
-          //     if (this.actions == 'Fargin bank-Edit') {
-          //       this.valuefarginedit = 'Fargin bank-Edit'
-          //     }
-          //     if (this.actions == 'Fargin bank-Status') {
-          //       this.valuefarginstatus = 'Fargin bank-Status'
-          //     }
-          //     if (this.actions == 'Fargin bank-Export') {
-          //       this.valuefarginexport = 'Fargin bank-Export'
-          //     }
-
-          //   }
-          // }
-
-        }
-        else {
-          this.errorMessage = res.responseMessage;
-        }
-      }
-    });
-
-
-    this.service.Farginview().subscribe((res: any) => {
-      this.viewall = res.response;
-      this.viewall.reverse();
-      this.dataSource = new MatTableDataSource(this.viewall);
+    this.service.signergetall().subscribe((res: any) => {
+      this.data = res.response;
+      this.data.reverse();
+      this.dataSource = new MatTableDataSource(this.data);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
 
     });
-
-
-
-  }
-
-  AddBankDetails() {
-    this.dialog.open(FarginBankAddComponent, {
-      enterAnimationDuration: "500ms",
-      exitAnimationDuration: "800ms",
-      disableClose: true
-    })
-  }
-
-  Edit(id: any) {
-    this.dialog.open(FarginBankEditComponent, {
-      enterAnimationDuration: "500ms",
-      exitAnimationDuration: "800ms",
-      disableClose: true,
-      data: { value: id },
-    })
-  }
-
-  ActiveStatus(event: MatSlideToggleChange, id: string) {
-    this.adminBankId = id;
-
-    this.isChecked = event.checked;
-
-    let submitModel: farginstatus = {
-      activeStatus: this.isChecked ? 1 : 0,
-    };
-    this.service.Farginstatus(this.adminBankId, submitModel).subscribe((res: any) => {
-
-      if (res.flag == 1) {
-        this.data = res.response;
-
-        this.toastr.success(res.responseMessage);
-        window.location.reload();
-      }
-      else {
-        this.toastr.error(res.responseMessage);
-      }
-
-    });
-
-  }
-
-  reloads() {
-    window.location.reload()
-  }
-
-  reload() {
-    window.location.reload()
   }
 
 
@@ -183,28 +73,68 @@ export class FarginBankviewComponent {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
 
+  reload() {
+    window.location.reload()
+  }
+
+  AddsignerDetails() {
+    this.dialog.open(SignerAddComponent, {
+      enterAnimationDuration: "500ms",
+      exitAnimationDuration: "800ms",
+      disableClose: true
+    })
+  }
+
+  Edit(id: any) {
+    this.dialog.open(SignerUpdateComponent, {
+      enterAnimationDuration: "500ms",
+      exitAnimationDuration: "800ms",
+      disableClose: true,
+      data: { value: id },
+    })
+  }
+
+  ActiveStatus(event: MatSlideToggleChange, id: string) {
+    this.isChecked = event.checked;
+    let submitModel: UpdatesignerStatus = {
+      activeStatus: this.isChecked ? 1 : 0,
+      signId: id
+    };
+    this.service.signerstatus(submitModel).subscribe((res: any) => {
+
+      if (res.flag == 1) {
+        this.data = res.response;
+        this.toastr.success(res.responseMessage);
+        setTimeout(() => {
+          window.location.reload()
+        }, 500);
+      }
+      else {
+        this.toastr.error(res.responseMessage);
+      }
+
+    });
 
   }
+
 
   exportexcel() {
 
     let sno = 1;
     this.responseDataListnew = [];
-    this.viewall.forEach((element: any) => {
-      let createdate = element.createdDateTime;
+    this.data.forEach((element: any) => {
+      let createdate = element.createdAt;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
 
-      let moddate = element.modifiedDateTime;
+      let moddate = element.modifiedAt;
       this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
       this.response.push(sno);
-      this.response.push(element?.accountHolderName);
-      this.response.push(element?.accountNumber);
-      this.response.push(element?.bankName);
-      this.response.push(element?.ifscCode);
-      this.response.push(element?.branchName);
-      this.response.push(element?.ledgerId);
+      this.response.push(element?.signAdminName);
+      this.response.push(element?.signAdminEmail);
+      this.response.push(element?.signAdminMobile);
       if (element?.activeStatus == '1') {
         this.response.push('Active')
       }
@@ -227,24 +157,21 @@ export class FarginBankviewComponent {
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
-      "S.No",
-      'AccountHolderName',
-      'AccountNumber',
-      'BankName',
-      'IFSCCode',
-      'BranchName',
-      'LedgerId',
-      'Status',
-      'Created By',
-      'Created At',
-      'Modified By',
-      "Modified At"
+      "Sno",
+      'Signer Name',
+      'Signer Email',
+      'Signer Mobile',
+      'Signer Status',
+      'createdBy',
+      'createdAt',
+      'modifiedBy',
+      'modifiedAt'
     ]
 
 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
-    let worksheet = workbook.addWorksheet('Fargin bank details');
+    let worksheet = workbook.addWorksheet('Signer Details');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
@@ -279,10 +206,8 @@ export class FarginBankviewComponent {
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
-      let qty9 = row.getCell(10);
-      let qty10 = row.getCell(11);
-      let qty11 = row.getCell(12);
-      let qty12 = row.getCell(13);
+
+
 
 
 
@@ -296,19 +221,15 @@ export class FarginBankviewComponent {
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty12.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
 
     }
     );
-    // worksheet.getColumn(1).protection = { locked: true, hidden: true }
-    // worksheet.getColumn(2).protection = { locked: true, hidden: true }
-    // worksheet.getColumn(3).protection = { locked: true, hidden: true }
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      FileSaver.saveAs(blob, 'Fargin bank details.xlsx');
+      FileSaver.saveAs(blob, 'Signer details.xlsx');
     });
   }
+
+
+
 }
