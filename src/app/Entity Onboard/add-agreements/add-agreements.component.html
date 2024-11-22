@@ -4,7 +4,7 @@
         <form [formGroup]="myForm4" style="margin-top: 2%;">
             <div class="row mb-3">
                 <div class="col-12 form-group ">
-                    <label for="Entity Name">Business Plan:</label>
+                    <label for="Entity Name">Business Plan</label>
                     <select class="form-select" formControlName="commercialId" required>
                         <option  selected disabled>---Select--
                         </option>
@@ -20,6 +20,34 @@
             position: relative;
             ;
           " *ngIf="commercialId?.invalid && commercialId?.touched && commercialId?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+                <div class="col-12 form-group ">
+                    <label for="Entity Name">Link Expiry Date</label>
+                    <input class="form-control" id="Entity Name"  type="date"  [min]="todayDate" formControlName="linkdate" 
+                   required >
+                    <div style="
+            color: red;
+            font-size: 12px;
+            margin-top: 2px;
+            position: relative;
+            ;
+          " *ngIf="linkdate?.invalid && linkdate?.touched && linkdate?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+                <div class="col-12 form-group ">
+                    <label for="merchantPosition">Desgination</label>
+                    <input class="form-control" id="merchantPosition" type="text" formControlName="merchantPosition"
+                    required />
+                    <div style="
+            color: red;
+            font-size: 12px;
+            margin-top: 2px;
+            position: relative;
+            ;
+          " *ngIf="merchantPosition?.invalid && merchantPosition?.touched && merchantPosition?.errors?.['required']">
                         Field is required
                     </div>
                 </div>

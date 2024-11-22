@@ -1,0 +1,164 @@
+<h4 style="text-align:left;color:#141E46;">Entity Agreement</h4>
+<div class="row">
+  <mat-card-header>
+    <div class="col mt-4">
+      <div class="search ">
+        <form class="form">
+            <label for="search">
+                <input #input (keyup)="applyFilter($event)" required="" autocomplete="off" placeholder="Search"
+                    id="search" type="text">
+                <div class="icon">
+                    <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                            stroke-linecap="round">
+                        </path>
+                    </svg>
+                    <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                        <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round" stroke-linecap="round">
+                        </path>
+                    </svg> -->
+                </div>
+                <button  (click)="reload()" type="reset" class="close-btn">
+                    <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                        <path clip-rule="evenodd"
+                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                            fill-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </label>
+        </form>
+
+    </div>
+      &nbsp;&nbsp;&nbsp;
+
+      <!-- <button style="color:white;background-color: #141E46;border-radius: 10px;" class="custom-btn btn-10 me-3"
+                data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button (click)="addTicket()">Create</button> -->
+            <button style="color:white;background-color: #141E46;border-radius: 10px;" 
+                mat-raised-button (click)="exportexcel()">Export</button>
+
+
+    </div>
+  </mat-card-header>
+</div>
+<mat-card-content>
+  <!-- <span style="color: red;"  class="tableError">NO DATA FOUND</span> -->
+  <div class="table-responsive text-nowrap mt-4" style="overflow-x: scroll; scrollbar-width: thin">
+    <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+      <ng-container matColumnDef="sno">
+        <th mat-header-cell *matHeaderCellDef>S.No</th>
+        <td mat-cell *matCellDef="let data; let i = index">
+          {{i+1}}
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="entityname">
+        <th mat-header-cell *matHeaderCellDef>Entity Name</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data.merchantId.entityName}}
+        </td>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="legalName">
+        <th mat-header-cell *matHeaderCellDef>Merchant LegalName</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data.merchantId.merchantLegalName }}
+        </td>
+      </ng-container> -->
+
+    <ng-container matColumnDef="planname">
+      <th mat-header-cell *matHeaderCellDef >Plan Name</th>
+      <td  mat-cell *matCellDef="let data" >{{data.commercialId?.planName}}
+       
+      </td>
+    </ng-container>
+
+      <ng-container matColumnDef="servicefee">
+        <th mat-header-cell *matHeaderCellDef >Service Fee</th>
+        <td mat-cell *matCellDef="let data">
+            {{data.commercialId?.serviceFee}}
+        </td>
+    </ng-container>
+ 
+    <ng-container matColumnDef="planoverview">
+      <th mat-header-cell *matHeaderCellDef >Plan Overview</th>
+      <td mat-cell *matCellDef="let data" >
+        <i style="cursor: pointer;font-size: 15px;" class="fas fa-eye"
+                                    (click)="view(data.commercialId?.commercialId)"></i>
+      </td>
+  </ng-container>
+ 
+      <ng-container matColumnDef="agreement">
+        <th mat-header-cell *matHeaderCellDef>Agreement</th>
+        <td mat-cell *matCellDef="let data">
+            <i style="cursor: pointer;font-size: 15px;color:#545497;" class="fa-solid fa-file-contract"
+            (click)="viewagreementdoc(data.agreementId)"></i>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="farginsignerstatus">
+        <th mat-header-cell *matHeaderCellDef>Fargin Signer Status</th>
+        <td mat-cell *matCellDef="let data" [ngClass]="data.adminOtpStatus == 0 ? 'not-signed' : 'signed'">
+            {{ data.adminOtpStatus == 0 ? 'Not Signed' : 'Signed' }}
+
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="entitysignerstatus">
+        <th mat-header-cell *matHeaderCellDef >Entity Signer Status</th>
+        <td mat-cell *matCellDef="let data" [ngClass]="data.merchanOtptStatus == 0 ? 'not-signed' : 'signed'">
+            {{ data.merchanOtptStatus == 0 ? 'Not Signed' : 'Signed' }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="signedcopy">
+        <th mat-header-cell *matHeaderCellDef >Agreement Signed Copy</th>
+        <td mat-cell *matCellDef="let data" >
+            <i style="cursor: pointer;font-size: 15px;color:#545497;" class="fa-solid fa-file-contract"
+            (click)="viewsignedagreementdoc(data.agreementId)"></i>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdat">
+        <th mat-header-cell *matHeaderCellDef>Created At</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data.createdDateTime | date:"dd/MM/yyyy hh:mm a" }}
+        </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="createdby">
+        <th mat-header-cell *matHeaderCellDef>Created By</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data.createdBy}}
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
+      <tr *matNoDataRow>
+        <td class="mat-cell" colspan="4">No Data For {{input.value}}
+        </td>
+
+      </tr>
+    </table>
+
+  </div>
+</mat-card-content>
+<mat-card-footer>
+
+  <mat-paginator [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtons
+    aria-labels="select page of users"></mat-paginator>
+    <!-- <div class=" row d-flex justify-content-end mt-3 mx-2">
+      <div class="col-md-7"></div>
+      <div class="col-md-5" id="but">
+          <button style="color:white;background-color: #141E46;" >Total Entires:{{this.totalPages}}</button>
+          <button style="color:white;background-color: #141E46;"  (click)="changePageIndex(pageIndex - 1)"[hidden]="pageIndex === 0">Previous</button>
+          <button style="color:white;background-color: #141E46;" >{{ this.currentpage}} of {{this.totalpage}} Pages</button>
+          <button style="color:white;background-color: #141E46;"   (click)="changePageIndex(pageIndex + 1)" [hidden]="pageIndex >= totalpage - 1" >Next</button>
+              </div>
+  </div> -->
+
+</mat-card-footer>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

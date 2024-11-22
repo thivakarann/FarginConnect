@@ -1,0 +1,210 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+   
+  /* Body & Layout */
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f6f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+  }
+   
+  /* Container to hold both sections */
+  .container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 1400px;
+    /* height: 100vh; */
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #fff;
+    padding: 5px;
+  }
+   
+  /* PDF Viewer Styling */
+  .pdf-container {
+    flex: 1;
+    border-right: 2px solid #ccc;
+    position: relative;
+  }
+   
+  .pdf-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 10px 0 0 10px;
+  }
+   
+  /* Right Section Styling */
+  .right-container {
+    flex: 1;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center; /* Centered content */
+    text-align: center; /* Center text */
+  }
+   
+  /* Logo and Welcome Message */
+  .logo-container {
+    display: flex;
+    justify-content: space-between; /* Space between the logo and welcome message */
+    width: 100%;
+    align-items: center;
+  }
+   
+  .logo-container img {
+    width: 130px;
+    height: 80px;
+  }
+   
+  .welcome-message {
+    font-size: 28px;
+    font-weight: 600;
+    color: #141e46;
+    line-height: 1.4;
+    text-align: center; /* Center the text */
+    flex: 1; /* Allow it to take up remaining space */
+    margin-left: 20px;
+  }
+   
+  /* Agreement Title */
+  .agreement-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #141e46;
+    margin-top: 20px;
+    text-align: center;
+  }
+   
+  /* Flex container for Image and Profile Card */
+  .image-profile-container {
+    display: flex;
+    justify-content: center; /* Center image */
+    align-items: center;
+    margin: 20px 0;
+  }
+   
+  .image-format img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #141e46;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+   
+  /* Profile Card */
+  .profile-card {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 500px; /* Increased width */
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+  }
+   
+  /* Profile Fields */
+  .profile-field {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+   
+  .profile-field label {
+    font-weight: 600;
+    color: #141e46;
+  }
+   
+  .profile-field span {
+    color: #333;
+  }
+   
+  /* Button Styling */
+  .button {
+    padding: 6px 10px;
+    background-color: #141e46;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 60%;
+    max-width: 220px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+   
+  .button:hover {
+    background-color: #3b4c79;
+    transform: scale(1.05);
+  }
+   
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+      height: auto;
+      max-width: 100%;
+    }
+   
+    .pdf-container {
+      width: 100%;
+      height: 300px;
+      border-right: none;
+      border-bottom: 2px solid black;
+    }
+   
+   
+    .button {
+      width: 80%;
+      font-size: 16px;
+    }
+   
+    .logo-container {
+      flex-direction: column; /* Stack the logo and welcome message vertically */
+      align-items: center;
+    }
+   
+    .welcome-message {
+      text-align: center; /* Ensure it's centered */
+      margin-left: 0; /* Remove margin for smaller screens */
+    }
+  }
+   
+  @media (max-width: 480px) {
+    .welcome-message {
+      font-size: 24px;
+    }
+   
+    .button {
+      padding: 12px 25px;
+      font-size: 14px;
+    }
+  }
+
+
+  .not-signed {
+    color: red;
+  }
+  
+  .signed {
+    color: green;
+  }
+   

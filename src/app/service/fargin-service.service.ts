@@ -573,6 +573,7 @@ export class FarginServiceService {
   private readonly SignerdetailsbyId = 'signingAdmin/viewById/';
   private readonly SignerdetaisStatus = 'signingAdmin/updateStatus';
   private readonly SignerdetailsActiveGetall = 'signingAdmin/viewOnlyActive';
+  
 
   //Agreementplan
 
@@ -583,7 +584,12 @@ export class FarginServiceService {
   private readonly createplan = 'agreement/create';
   private readonly viewbyidplan = 'agreement/viewByMerchant/';
   private readonly viewagreementdoucment = 'agreement/viewdoc/';
-  private readonly ViewAggrementbyRefference = 'agreement/viewByReferenceCode/'
+  private readonly ViewAggrementbyRefference = 'agreement/viewByReferenceCode/';
+  private readonly agreementgetall='agreement/getall';
+  private readonly Agreementsendotp = 'agreement/merchantsendotp/';
+  private readonly AgreementVerifyOTP = 'agreement/merchantverifyotp/';
+  private readonly AgreementConcent = 'agreement/concent';
+  private readonly AgreemntConcentLocation = 'agreement/concentlocationtracker'
 
 
   loginError = new Subject();
@@ -2223,10 +2229,26 @@ export class FarginServiceService {
     });
   }
 
-  AggrementViewbyrefferencenumber(id: any) {
-    return this.http.get(`${this.basePath}${this.ViewAggrementbyRefference}${id}`, {
-      ...this.options,
-      ...{ responseType: 'blob' },
-    });
+  AggrementViewbyrefferencenumber(id:any){
+    return this.http.get(`${this.basePath}${this.ViewAggrementbyRefference}${id}`,this.options)
+  }
+   AgreementgetAll(){
+    return this.http.get(`${this.basePath}${this.agreementgetall}`,this.options)
+  }
+
+  AgreementSendOtp(id:any,id1:any){
+    return this.http.get(`${this.basePath}${this.Agreementsendotp}${id}/${id1}`,this.options)
+  }
+
+  AgreemntVerifyOtp(id:any,id1:any,model:any){
+    return this.http.put(`${this.basePath}${this.AgreementVerifyOTP}${id}/${id1}`,model,this.options)
+  }
+
+  agreementConcent(model:any){
+    return this.http.post(`${this.basePath}${this.AgreementConcent}`,model,this.options)
+
+  }
+  agreemntconcentlocation(model:any){
+    return this.http.post(`${this.basePath}${this.AgreemntConcentLocation}`,model,this.options)
   }
 }

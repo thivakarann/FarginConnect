@@ -94,6 +94,7 @@ import { AllagreementplansComponent } from './Main Master/Agreementplan/allagree
 import { EditagreementplanComponent } from './Main Master/Agreementplan/editagreementplan/editagreementplan.component';
 import { ViewagreementplanComponent } from './Main Master/Agreementplan/viewagreementplan/viewagreementplan.component';
 import { AggrementSignerOneComponent } from './aggrement-signer-one/aggrement-signer-one.component';
+import { AgreementViewallComponent } from './agreement-viewall/agreement-viewall.component';
 
 const routes: Routes = [
 
@@ -107,7 +108,7 @@ const routes: Routes = [
   { path: 'addagreementplan', component: AddagreementplanComponent, canActivate: [authGuard] },
   { path: 'editagreementplan/:id', component: EditagreementplanComponent, canActivate: [authGuard] },
   { path: 'allagreementplan/:id', component: AllagreementplansComponent, canActivate: [authGuard] },
-  { path: 'aggrement-signer-one', component: AggrementSignerOneComponent,},
+  { path: 'aggrement-signer-one', component: AggrementSignerOneComponent },
 
   {
     path: 'dashboard',
@@ -200,6 +201,7 @@ const routes: Routes = [
       { path: 'bouqutes-region/:id', component: BouqutesRegionComponent, canActivate: [authGuard] },
       { path: "signer-getall", component: SignerGetallComponent, canActivate: [authGuard] },
       { path: 'agreementplan', component: ViewagreementplanComponent, canActivate: [authGuard] },
+      {path:'agreement-viewall',component:AgreementViewallComponent,canActivate: [authGuard]}
     ],
 
   },

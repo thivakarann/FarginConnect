@@ -19,6 +19,7 @@ export class AddAgreementsComponent {
   getadminname = JSON.parse(localStorage.getItem('adminname') || '');
   options: any;
   plans: any;
+  todayDate: string = '';
   constructor(
     public service: FarginServiceService,
     private router: Router,
@@ -28,9 +29,13 @@ export class AddAgreementsComponent {
 
   ngOnInit(): void {
     this.merchantid = this.data.value;
-
+    const today = new Date();
+    this.todayDate = today.toISOString().split('T')[0];
+    
     this.myForm4 = new FormGroup({
       commercialId: new FormControl('', [Validators.required]),
+      linkdate: new FormControl('', [Validators.required]),
+      merchantPosition: new FormControl('', [Validators.required]),
     })
     
     this.service.viewagreementplan().subscribe((res: any) => {
@@ -51,12 +56,23 @@ export class AddAgreementsComponent {
 
   }
 
+  get linkdate() {
+    return this.myForm4.get('linkdate')
 
+  }
+
+  get merchantPosition() {
+    return this.myForm4.get('merchantPosition')
+
+  }
   Submit() {
     let submitModel: CreatePlan = {
       merchantId: this.merchantid,
       commercialId: this.commercialId?.value,
-      createdBy: this.getadminname
+      createdBy: this.getadminname,
+      merchantPosition:this.merchantPosition?.value,
+      effectiveDate:this.linkdate?.value
+
     }
 
     this.service.createplans(submitModel).subscribe((res: any) => {

@@ -90,6 +90,22 @@
               </a>
             </li>
 
+            <li [hidden]="valuesurvey!=='Survey'">
+              <a routerLink="surveyviewall">
+                <i class="fa-solid fa-square-poll-vertical" style="font-size: 14px;" aria-hidden="true"></i>
+                <span>Survey</span>
+
+              </a>
+            </li>
+
+            <li [hidden]="valueannouncement!=='Announcement'">
+              <a routerLink="view-announcement">
+                <i class="fa fa-bullhorn"></i>
+                <span>Announcement</span>
+              </a>
+            </li>
+
+            
             <!-- <li [hidden]="valueentitydues!=='Entity Dues'">
               <a routerLink="app-dues">
                 <i class="fa-solid fa-credit-card" aria-hidden="true"></i>
@@ -139,6 +155,12 @@
                   </li>
                 </ul>
               </div>
+              <li [hidden]="valueautodebit!=='MMC Auto Debit'">
+                <a routerLink="entity-auto-debit-getall">
+                  <i style="font-size: 15px;" class="fa-solid fa-money-bill-transfer"></i>
+                  <span>MMC Auto Debit</span>
+                </a>
+              </li>
 
             <li class="sidebar-dropdown" style="cursor: pointer;"
               [hidden]="valueentitysms!=='Entity Sms'  && valuesmshistory!=='SMS History'">
@@ -166,35 +188,21 @@
 
             </li>
 
-            <li [hidden]="valueannouncement!=='Announcement'">
-              <a routerLink="view-announcement">
-                <i class="fa fa-bullhorn"></i>
-                <span>Announcement</span>
-              </a>
-            </li>
+            
 
-            <li [hidden]="valuesurvey!=='Survey'">
-              <a routerLink="surveyviewall">
-                <i class="fa-solid fa-square-poll-vertical" style="font-size: 14px;" aria-hidden="true"></i>
-                <span>Survey</span>
+           
 
-              </a>
-            </li>
+           
 
 
-            <li [hidden]="valueautodebit!=='MMC Auto Debit'">
-              <a routerLink="entity-auto-debit-getall">
-                <i style="font-size: 15px;" class="fa-solid fa-money-bill-transfer"></i>
-                <span>MMC Auto Debit</span>
-              </a>
-            </li>
+         
 
 
 
             <li class="sidebar-dropdown" style="cursor: pointer;"
               [hidden]="valuefarginpolicy!=='Fargin Policy' && valueMerchantpolicy!=='Merchant Policy'">
               <a>
-                <i class="fas fa-file-alt" style="font-size: 14px;" aria-hidden="true"></i>
+                <i class="fas fa-hands-holding-child icon" style="font-size: 14px;" aria-hidden="true"></i>
                 <span>Terms and Policy</span>
               </a>
               <div class="sidebar-submenu">
@@ -212,6 +220,13 @@
                 </ul>
               </div>
 
+            </li>
+
+            <li>
+              <a routerLink="agreement-viewall">
+                <i class="fa-solid fa-handshake"></i>
+                <span>Entity Agreement</span>
+              </a>
             </li>
             <li class="sidebar-dropdown" style="cursor: pointer;"
               [hidden]="valueTickets!=='Entity Request' && valuecustomerticket!=='Customer Request'">
@@ -235,24 +250,7 @@
                 </ul>
               </div>
             </li>
-            <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valueRegion!=='Region'&& ValueMSO!=='MSO'">
-              <a>
-                <i class="fa-solid fa-people-line"></i>
-                <span>Service Provider</span>
-              </a>
-              <div class="sidebar-submenu">
-                <ul>
-                  <li>
-                  <li [hidden]="valueRegion!=='Region'">
-                    <a routerLink="Region">Region</a>
-                  </li>
-                  <li [hidden]="ValueMSO!=='MSO'">
-                    <a routerLink="service-provider">MSO</a>
-                  </li>
-                </ul>
-              </div>
-
-            </li>
+          
 
             <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valueBusinessCategory!=='Bussiness Category' &&
              valueBusinessKYC!=='Business Category Doc' &&
@@ -304,7 +302,7 @@
                     <a routerLink="sms-cost-viewall">SMS Cost</a>
                   </li>
 
-                
+
 
                   <li [hidden]="valuefarginbank!=='Fargin bank'">
                     <a routerLink="fargin-viewall">Fargin bank details </a>
@@ -344,6 +342,25 @@
 
             </li>
 
+            <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valueRegion!=='Region'&& ValueMSO!=='MSO'">
+              <a>
+                <i class="fa-solid fa-people-line"></i>
+                <span>Service Provider</span>
+              </a>
+              <div class="sidebar-submenu">
+                <ul>
+                  <li>
+                  <li [hidden]="valueRegion!=='Region'">
+                    <a routerLink="Region">Region</a>
+                  </li>
+                  <li [hidden]="ValueMSO!=='MSO'">
+                    <a routerLink="service-provider">MSO</a>
+                  </li>
+                </ul>
+              </div>
+
+            </li>
+
             <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valuechannelConfiguration!=='Channel Creation' && 
              valueBroadcasterConfiguration!=='Broadcaster Creation' && 
              valuePlanConfiguration!=='Plan Creation' && 
@@ -352,6 +369,13 @@
                 <i class="fa-solid fa-tv"></i>
                 <span>Channels & Packages</span>
               </a>
+
+             
+
+
+              
+
+              
               <div class="sidebar-submenu">
                 <ul>
                   <li [hidden]="valuechannelConfiguration!=='Channel Creation'">

@@ -275,7 +275,7 @@ export class EditPersonalInfoComponent implements OnInit {
     formData.append('merchantPlanId', this.merchantPlanId?.value);
     formData.append('mccCode', this.MccCode?.value);
     formData.append('periodName', this.periodName?.value);
-    formData.append('website', this.website?.value || '-');
+    formData.append('website', this.website?.value || '');
     formData.append('merchantLogo', this.file3 || this.emptyBlob);
     formData.append('billingMode', this.billingMode?.value);
     formData.append('autoDebitStatus', this.autoDebitStatus?.value);

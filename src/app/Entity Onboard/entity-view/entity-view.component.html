@@ -1338,8 +1338,13 @@
                             </td>
 
                             <td>
-                                <i style="cursor: pointer;font-size: 17px;" class="fa-solid fa-file-contract"
-                                    (click)="viewagreementdoc(item.agreementId)"></i>
+                                <button style="background: green;
+                                color: white;
+                                border: 1px solid white;
+                                border-radius: 4px;" (click)="viewagreementdoc(item.agreementId)">
+                                 <i style="cursor: pointer;font-size: 17px;" class="fa-solid fa-file-contract"
+                                 ></i></button>
+                               
                             </td>
                             
                             <td [ngClass]="item.adminOtpStatus == 0 ? 'not-signed' : 'signed'">
@@ -1351,8 +1356,16 @@
                               </td>
                               
                               <td>
-                                <i style="cursor: pointer;font-size: 17px;" class="fa-solid fa-file-contract"
-                                    (click)="viewsignedagreementdoc(item.agreementId)"></i>
+                                <button style="background: #7db855be;
+                                color: white;
+                                border: 1px solid white;
+                                border-radius: 4px;"  (click)="viewsignedagreementdoc(item.agreementId)" [disabled]="item.adminOtpStatus == 0 && item.merchanOtptStatus== 0">
+                                    <i style="cursor: pointer;font-size: 17px;" class="fa-solid fa-file-contract"
+                              
+                                   ></i>
+                                </button>
+                               
+                            
                             </td>
 
                             <td>{{item.createdBy}}</td>

@@ -1203,4 +1203,24 @@ export interface CreatePlan{
   readonly merchantId:any;
   readonly commercialId:any;
   readonly createdBy:any;
+  readonly merchantPosition:any;
+  readonly effectiveDate:any;
+}
+
+export interface AdminsignerOtp {
+  readonly otpCode:any
+}
+
+
+export interface AgreementConsent  {
+  readonly referenceCode:any,
+  readonly flag:any,
+  readonly consent:any
+}
+
+export interface AgreementlocationTracker {
+  readonly  referenceCode:any,
+  readonly flag:any,
+  readonly consent:any,
+  readonly getLocation:any
 }

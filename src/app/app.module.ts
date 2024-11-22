@@ -227,6 +227,9 @@ import { EditagreementplanComponent } from './Main Master/Agreementplan/editagre
 import { AllagreementplansComponent } from './Main Master/Agreementplan/allagreementplans/allagreementplans.component';
 import { AddAgreementsComponent } from './Entity Onboard/add-agreements/add-agreements.component';
 import { AgreementlinkComponent } from './Entity Onboard/agreementlink/agreementlink.component';
+import { AgreementViewallComponent } from './agreement-viewall/agreement-viewall.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { AggrementSignerOtpComponent } from './aggrement-signer-otp/aggrement-signer-otp.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -431,7 +434,9 @@ import { AgreementlinkComponent } from './Entity Onboard/agreementlink/agreement
     EditagreementplanComponent,
     AllagreementplansComponent,
     AddAgreementsComponent,
-    AgreementlinkComponent
+    AgreementlinkComponent,
+    AgreementViewallComponent,
+    AggrementSignerOtpComponent
 
   ],
 
@@ -451,6 +456,7 @@ import { AgreementlinkComponent } from './Entity Onboard/agreementlink/agreement
     MatButtonToggleModule,
     MatCheckboxModule,
     MatChipsModule,
+    PdfViewerModule,
     MatCommonModule,
     MatDatepickerModule,
     NgxPaginationModule,
