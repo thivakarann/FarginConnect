@@ -47,8 +47,8 @@ export class AddfacheckkeyComponent {
   }
   submit() {
     let submitModel: Addfacheckkey = {
-      apiKey: this.apiKey.value,
-      secretKey: this.secretKey?.value,
+      apiKey: this.apiKey.value.trim(),
+      secretKey: this.secretKey?.value.trim(),
       applicationId: this.applicationId?.value,
       mode:this.mode?.value,
       createdBy:this.createdBy
@@ -59,9 +59,10 @@ export class AddfacheckkeyComponent {
 
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.dialog.closeAll()
         setTimeout(() => {
           window.location.reload();
-        }, 700);
+        },500);
       }
       else {
         this.toastr.error(res.responseMessage)

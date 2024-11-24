@@ -230,6 +230,7 @@ import { AgreementlinkComponent } from './Entity Onboard/agreementlink/agreement
 import { AgreementViewallComponent } from './agreement-viewall/agreement-viewall.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { AggrementSignerOtpComponent } from './aggrement-signer-otp/aggrement-signer-otp.component';
+import { AggrementLocationTrackerComponent } from './aggrement-location-tracker/aggrement-location-tracker.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -436,7 +437,8 @@ import { AggrementSignerOtpComponent } from './aggrement-signer-otp/aggrement-si
     AddAgreementsComponent,
     AgreementlinkComponent,
     AgreementViewallComponent,
-    AggrementSignerOtpComponent
+    AggrementSignerOtpComponent,
+    AggrementLocationTrackerComponent
 
   ],
 

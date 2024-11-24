@@ -14,7 +14,7 @@ import { role, subpermission } from '../../fargin-model/fargin-model.module';
 export class AddRoleComponent implements OnInit {
   addcategory: any = FormGroup;
   createdBy = JSON.parse(localStorage.getItem('adminname') || '');
-  
+
   categoryName: any;
   permissionValue: any;
 
@@ -36,7 +36,7 @@ export class AddRoleComponent implements OnInit {
 
     this.service.permissionget().subscribe((res: any) => {
       this.permissionValue = res.response;
-      
+
     })
 
     this.roleformGroup = this.fb.group({
@@ -59,16 +59,16 @@ export class AddRoleComponent implements OnInit {
     return this.roleformGroup.get('subPermission')
   }
   sendPermissionId(id: any) {
-    
+
 
     let submitModel: subpermission = {
       permissionsId: id,
     }
-    
-    
+
+
     this.service.subPermission(submitModel).subscribe((res: any) => {
       this.subpermissionValue = res.response;
-      
+
 
     })
   }
@@ -91,14 +91,14 @@ export class AddRoleComponent implements OnInit {
 
   submit() {
     let submitModel: role = {
-      roleName: this.roleName.value,
+      roleName: this.roleName.value.trim(),
       createdBy: this.createdBy,
       permission: this.permission?.value,
       subPermission: this.subPermission?.value
     }
     this.service.addRoles(submitModel).subscribe((res: any) => {
       this.roleValue = res.response;
-      
+
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.dialog.closeAll()

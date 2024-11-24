@@ -88,15 +88,15 @@ export class AdminAddComponent implements OnInit {
   submit() {
     let submitmodel: AdminCreate = {
       roleId: this.roleId?.value,
-      emailAddress: this.emailAddress?.value,
+      emailAddress: this.emailAddress?.value.trim(),
       // userPassword: this.password?.value,
-      mobileNumber: this.mobileNumber?.value,
-      adminName: this.adminName?.value,
-      address: this.address?.value,
-      city: this.city?.value,
-      state: this.state?.value,
-      pincode: this.pincode?.value,
-      country: this.country?.value,
+      mobileNumber: this.mobileNumber?.value.trim(),
+      adminName: this.adminName?.value.trim(),
+      address: this.address?.value.trim(),
+      city: this.city?.value.trim(),
+      state: this.state?.value.trim(),
+      pincode: this.pincode?.value.trim(),
+      country: this.country?.value.trim(),
       gender: this.gender?.value,
       createdBy: this.createdBy,
     

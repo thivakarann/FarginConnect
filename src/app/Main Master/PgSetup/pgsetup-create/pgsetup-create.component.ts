@@ -49,8 +49,8 @@ export class PgsetupCreateComponent implements OnInit{
   submit() {
     let submitModel: pgsetupadd = {
       pgMode: this.pgMode.value,
-      secretKey: this.secretKey.value,
-      apiKey: this.apiKey.value,
+      secretKey: this.secretKey.value.trim(),
+      apiKey: this.apiKey.value.trim(),
       createdBy: this.createdBy
     }
     this.service.Pgsetupcreate(submitModel).subscribe((res: any) => {
@@ -62,7 +62,7 @@ export class PgsetupCreateComponent implements OnInit{
         this.dialog.closeAll()
         setTimeout(() => {
           window.location.reload();
-        }, 2000);
+        },500);
       }
       else {
         this.toastr.error(res.responseMessage)

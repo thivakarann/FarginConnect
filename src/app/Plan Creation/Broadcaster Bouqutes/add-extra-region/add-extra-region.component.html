@@ -13,9 +13,9 @@
 
         <div class="row">
         
-            <div class="col-10 form-group">
+            <div class="col-10 form-group" >
                 <label for="Bussiness category">Region </label>
-                <select  [(ngModel)]="regnId" (ngModelChange)="activeregionids(regnId)"  formControlName="regionId"
+                <select style="width: 467px;"  [(ngModel)]="regnId" (ngModelChange)="activeregionids(regnId)"  formControlName="regionId"
                     id="Bussiness category" class="form-control form-select">
                     <option value="" disabled selected>Select</option>
                     <option *ngFor="let item of ActiveRegions" [value]="item.regionId">

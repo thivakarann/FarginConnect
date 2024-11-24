@@ -11,22 +11,21 @@ import { Location } from '@angular/common';
 export class AllagreementplansComponent {
   commercialId: any;
   viewbyagreement: any;
-  constructor( private service: FarginServiceService, private location: Location, private toaster: ToastrService, private router: Router, private activaterouter: ActivatedRoute,) {
+  constructor(private service: FarginServiceService, private location: Location, private toaster: ToastrService, private router: Router, private activaterouter: ActivatedRoute,) {
   }
   ngOnInit(): void {
 
     this.activaterouter.queryParams.subscribe((param: any) => {
       this.commercialId = param.Alldata;
     });
-    
-    this.service.viewbyidagreementplan(this.commercialId).subscribe((res:any)=>
-    {
-      this.viewbyagreement=res.response;
+
+    this.service.viewbyidagreementplan(this.commercialId).subscribe((res: any) => {
+      this.viewbyagreement = res.response;
     })
- 
+
   }
   close() {
     this.location.back()
   }
- 
+
 }

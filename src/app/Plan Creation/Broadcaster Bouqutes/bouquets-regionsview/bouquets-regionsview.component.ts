@@ -22,10 +22,10 @@ export class BouquetsRegionsviewComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     this.detailss = this.data.value;
-    
+
   }
 
-  close(){
+  close() {
     this.dialog.closeAll();
     window.location.reload();
   }

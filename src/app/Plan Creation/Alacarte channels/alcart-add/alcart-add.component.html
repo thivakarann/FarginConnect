@@ -15,8 +15,8 @@
                     <label for="Bussiness category">Broadcaster</label>
                     <select [(ngModel)]="broadcastersid" formControlName="bundleChannelId" id="Bussiness category" class="form-control form-select" (ngModelChange)="getbuddlechanneld(broadcastersid)">
                         <option value="" disabled selected>Select</option>
-                        <option *ngFor="let item of Broadcasters" [value]="item.bundleChannelId">
-                            {{item.broadCasterName}}</option>
+                        <option *ngFor="let item of Broadcasters" [value]="item.serviceId">
+                            {{item.serviceProviderName}}</option>
                     </select>
                     <div style="
                     color: red;

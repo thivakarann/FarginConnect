@@ -82,6 +82,10 @@ export class PaymentlinkViewComponent implements OnInit {
     })
   }
 
+  reload(){
+    window.location.reload()
+  }
+
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

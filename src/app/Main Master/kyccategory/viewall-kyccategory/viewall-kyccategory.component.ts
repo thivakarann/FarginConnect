@@ -107,7 +107,7 @@ export class ViewallKyccategoryComponent implements OnInit {
 
   create() {
     this.dialog.open(AddKyccategoryComponent, {
-      enterAnimationDuration: '1000ms',
+      enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       disableClose: true,
     });
@@ -115,7 +115,7 @@ export class ViewallKyccategoryComponent implements OnInit {
 
   Edit(id: string) {
     this.dialog.open(EditKyccategoryComponent, {
-      enterAnimationDuration: '1000ms',
+      enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       data: { value: id },
       disableClose: true

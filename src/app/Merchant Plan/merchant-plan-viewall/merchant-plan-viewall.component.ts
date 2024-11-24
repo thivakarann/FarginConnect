@@ -65,7 +65,7 @@ export class MerchantPlanViewallComponent {
 
     this.Merchantplanviewall.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        
+
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -109,7 +109,7 @@ export class MerchantPlanViewallComponent {
       this.dataSource = new MatTableDataSource(this.viewall);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-      
+
     });
 
 
@@ -124,7 +124,7 @@ export class MerchantPlanViewallComponent {
     })
   }
 
-  reload(){
+  reload() {
     window.location.reload()
   }
 
@@ -139,17 +139,19 @@ export class MerchantPlanViewallComponent {
 
 
   ActiveStatus(event: MatSlideToggleChange, id: any) {
-    
+
     this.isChecked = event.checked;
 
     let submitModel: MerchantPlanStatus = {
       activeStatus: this.isChecked ? 1 : 0,
     };
     this.Merchantplanviewall.merchantplanstatus(id, submitModel).subscribe((res: any) => {
-      
+
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
-        window.location.reload();
+        setTimeout(() => {
+          window.location.reload()
+        }, 500);
       }
       else {
         this.toastr.error(res.responseMessage);
@@ -172,13 +174,13 @@ export class MerchantPlanViewallComponent {
 
 
   exportexcel() {
-    
+
     let sno = 1;
     this.responseDataListnew = [];
     this.viewall.forEach((element: any) => {
       let createdate = element.createdDatetime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
- 
+
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.planName);
@@ -194,10 +196,10 @@ export class MerchantPlanViewallComponent {
       this.response.push(element?.createdBy);
       this.response.push(this.date1);
       this.response.push(element?.modifiedBy)
-      if(element?.modifiedDateTime){
+      if (element?.modifiedDateTime) {
         this.response.push(element?.modifiedDateTime)
       }
-      else{
+      else {
         this.response.push('')
       }
       sno++;
@@ -205,7 +207,7 @@ export class MerchantPlanViewallComponent {
     });
     this.excelexportCustomer();
   }
- 
+
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
@@ -220,16 +222,16 @@ export class MerchantPlanViewallComponent {
       "Modified By",
       "Modified At"
     ]
- 
- 
+
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Merchant Plan Details');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
- 
- 
+
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -240,15 +242,15 @@ export class MerchantPlanViewallComponent {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
+
       }
- 
+
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
- 
+
     data.forEach((d: any) => {
       // 
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -260,11 +262,11 @@ export class MerchantPlanViewallComponent {
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
- 
- 
- 
- 
- 
+
+
+
+
+
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -275,8 +277,8 @@ export class MerchantPlanViewallComponent {
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
- 
+
+
     }
     );
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }

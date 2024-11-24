@@ -141,18 +141,16 @@ export class ViewfacheckkeyComponent {
   add() {
 
     this.dialog.open(AddfacheckkeyComponent, {
-      width: '90vw',
-      maxWidth: '570px',
-      enterAnimationDuration: '1000ms',
+      enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
+      disableClose:true
     });
   }
   Edit(id: string) {
     this.dialog.open(EditfacheckkeyComponent, {
-      width: '90vw',
-      maxWidth: '570px',
-      enterAnimationDuration: '1000ms',
+      enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
+      disableClose:true,
       data: { value: id }
     });
   }

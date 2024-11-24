@@ -136,16 +136,12 @@ export class RegionComponent implements OnInit {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
       disableClose: true,
-      width: '80vw',// Use percentage to make it responsive
-      maxWidth: '500px',
     });
   }
 
 
   Edit(id: string) {
     this.dialog.open(RegionEditComponent, {
-      width: '80vw',
-      maxWidth: '400px',
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
       data: { value: id },

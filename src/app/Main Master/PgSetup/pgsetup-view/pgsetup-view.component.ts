@@ -138,21 +138,17 @@ export class PgsetupViewComponent implements OnInit {
 
   create() {
     this.dialog.open(PgsetupCreateComponent, {
-      width: '90vw',
-      maxWidth: '570px',
-
-      enterAnimationDuration: '1000ms',
-      exitAnimationDuration: '1000ms'
+     enterAnimationDuration: '500ms',
+      exitAnimationDuration: '1000ms',
+      disableClose:true
     });
   }
 
 
   Edit(id: string) {
     this.dialog.open(PgsetupEditComponent, {
-      width: '90vw',
-      maxWidth: '570px',
       disableClose: true,
-      enterAnimationDuration: '1000ms',
+      enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       data: { value: id }
     });

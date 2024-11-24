@@ -17,7 +17,7 @@ export class AlcartAddComponent implements OnInit {
   file1!: File;
   errorMessage: any;
   Broadcasters: any;
-broadcastersid: any;
+  broadcastersid: any;
 
 
   constructor(
@@ -27,9 +27,9 @@ broadcastersid: any;
   ) { }
   ngOnInit(): void {
 
- 
 
-    this.AddAlcart.BoucatenamesActive().subscribe((res: any) => {
+
+    this.AddAlcart.activeprovider().subscribe((res: any) => {
       this.Broadcasters = res.response;
     })
 
@@ -98,8 +98,8 @@ broadcastersid: any;
 
   }
 
-  getbuddlechanneld(id:any){
-    this.AddAlcart. ActiveRegionsbyserviceprovider(id).subscribe((res: any) => {
+  getbuddlechanneld(id: any) {
+    this.AddAlcart.ActiveRegionsbyserviceprovider(id).subscribe((res: any) => {
       this.regiondetails = res.response;
     });
   }
@@ -127,9 +127,9 @@ broadcastersid: any;
 
       this.errorMessage = ''
       this.file1 = files;
-      
 
-      
+
+
 
     }
 
@@ -140,18 +140,21 @@ broadcastersid: any;
     event.preventDefault();
     const formData = new FormData();
     formData.append('regionId', this.regionId?.value);
-    formData.append('channelName', this.channelName?.value);
-    formData.append('price', this.price?.value || "0");
+    formData.append('channelName', this.channelName?.value.trim());
+    formData.append('price', this.price?.value.trim() || "0");
     formData.append('bundleChannelId', this.bundleChannelId?.value);
-    formData.append('generic', this.generic?.value);
-    formData.append('language', this.language?.value);
+    formData.append('generic', this.generic?.value.trim());
+    formData.append('language', this.language?.value.trim());
     formData.append('createdBy', this.getadminname);
     formData.append('type', this.type?.value);
-    formData.append('channelNo', this.channelNo?.value)
+    formData.append('channelNo', this.channelNo?.value.trim())
     formData.append('logo', this.file1);
     this.AddAlcart.AlcardAdd(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        setTimeout(() => {
+          window.location.reload()
+        }, 500);
         this.router.navigateByUrl('dashboard/alacarte-viewall');
       }
       else {

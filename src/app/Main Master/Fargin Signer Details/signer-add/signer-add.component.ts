@@ -57,9 +57,9 @@ export class SignerAddComponent {
 
   submit() {
     let submitModel: Addsigner = {
-      signAdminEmail: this.signAdminEmail?.value,
-      signAdminMobile: this.signAdminMobile?.value,
-      signAdminName: this.signAdminName?.value,
+      signAdminEmail: this.signAdminEmail?.value.trim(),
+      signAdminMobile: this.signAdminMobile?.value.trim(),
+      signAdminName: this.signAdminName?.value.trim(),
       createdBy: this.createdBy
     }
 

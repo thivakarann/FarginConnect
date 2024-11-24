@@ -57,7 +57,7 @@ export class CreateManualpaymentComponent implements OnInit {
   submit() {
     let submitModel: createManualPayment = {
       paymentMethod: this.paymentmode?.value,
-      utrNumber: this.utrnumber?.value,
+      utrNumber: this.utrnumber?.value.trim(),
       paymentStatus:'Success',
       merchantId: this.id,
       date: this.validitydate?.value,

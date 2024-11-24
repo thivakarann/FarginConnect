@@ -59,13 +59,13 @@ export class AddKycdocumentComponent implements OnInit {
 
   constructor(private service: FarginServiceService, private dialog: MatDialog, private toastr: ToastrService,
     private _formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any) {
-      const todayDate = new Date();
-      this.today = todayDate.toISOString().split('T')[0];
+    const todayDate = new Date();
+    this.today = todayDate.toISOString().split('T')[0];
   }
   ngOnInit(): void {
 
     this.merchantid = this.data.value;
-    
+
     this.firstFormGroup = this._formBuilder.group({
       identityProof: ['', Validators.required],
       identityProofNo: ['', Validators.required],
@@ -96,7 +96,7 @@ export class AddKycdocumentComponent implements OnInit {
     this.service.KycDocName(this.businessCategoryId).subscribe((res: any) => {
       if (res.flag == 1) {
         this.categorydetails = res.response;
-        
+
       }
     })
   }
@@ -163,11 +163,11 @@ export class AddKycdocumentComponent implements OnInit {
   }
   onFileSelected(event: any) {
     this.uploadidentityfront = event.target.files[0];
- 
+
     // Ensure this.uploadImage is not null
     if (this.uploadidentityfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
- 
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
+
       if (acceptableTypes.includes(this.uploadidentityfront.type)) {
         if (this.uploadidentityfront.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
@@ -176,51 +176,51 @@ export class AddKycdocumentComponent implements OnInit {
           this.identityFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        
+
         this.toastr.error("File type not acceptable");
         this.identityFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
       this.toastr.error("No file selected");
     }
- 
- 
+
+
   }
- 
+
   onFileSelected2(event: any) {
     this.uploadidentityback = event.target.files[0];
- 
+
     // Ensure this.uploadImage is not null
     if (this.uploadidentityback) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
- 
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
+
       if (acceptableTypes.includes(this.uploadidentityback.type)) {
         if (this.uploadidentityback.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
-        } 
+        }
         else {
           this.toastr.error("Max Image size exceeded");
           this.identityBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        
+
         this.toastr.error("File type not acceptable");
         this.identityBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
       this.toastr.error("No file selected");
     }
- 
- 
+
+
   }
   onaddressfront(event: any) {
-   
+
     this.uploadaddressfront = event.target.files[0];
- 
+
     // Ensure this.uploadImage is not null
     if (this.uploadaddressfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
- 
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
+
       if (acceptableTypes.includes(this.uploadaddressfront.type)) {
         if (this.uploadaddressfront.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
@@ -229,22 +229,22 @@ export class AddKycdocumentComponent implements OnInit {
           this.addressFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        
+
         this.toastr.error("File type not acceptable");
         this.addressFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
       this.toastr.error("No file selected");
     }
- 
+
   }
   onaddressback(event: any) {
     this.uploadaddressback = event.target.files[0];
- 
+
     // Ensure this.uploadImage is not null
     if (this.uploadaddressback) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
- 
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
+
       if (acceptableTypes.includes(this.uploadaddressback.type)) {
         if (this.uploadaddressback.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
@@ -253,7 +253,7 @@ export class AddKycdocumentComponent implements OnInit {
           this.addressBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        
+
         this.toastr.error("File type not acceptable");
         this.addressBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
@@ -263,11 +263,11 @@ export class AddKycdocumentComponent implements OnInit {
   }
   onasignfront(event: any) {
     this.uploadsignfront = event.target.files[0];
- 
+
     // Ensure this.uploadImage is not null
     if (this.uploadsignfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
- 
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
+
       if (acceptableTypes.includes(this.uploadsignfront.type)) {
         if (this.uploadsignfront.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
@@ -276,22 +276,22 @@ export class AddKycdocumentComponent implements OnInit {
           this.signatureFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        
+
         this.toastr.error("File type not acceptable");
         this.signatureFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
       this.toastr.error("No file selected");
     }
- 
+
   }
   onasignback(event: any) {
     this.uploadsignback = event.target.files[0];
- 
+
     // Ensure this.uploadImage is not null
     if (this.uploadsignback) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif','application/pdf'];
- 
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
+
       if (acceptableTypes.includes(this.uploadsignback.type)) {
         if (this.uploadsignback.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
@@ -306,10 +306,10 @@ export class AddKycdocumentComponent implements OnInit {
     } else {
       this.toastr.error("No file selected");
     }
- 
- 
+
+
   }
- 
+
 
 
   onIdentityProofChange(event: any) {
@@ -371,15 +371,15 @@ export class AddKycdocumentComponent implements OnInit {
     formData.append('identityFrontPath', this.uploadidentityfront);
     formData.append('identityBackPath', this.uploadidentityback);
     formData.append('identityProof', this.identityProof?.value);
-    formData.append('identityProofNo', this.identityProofNo?.value);
+    formData.append('identityProofNo', this.identityProofNo?.value.trim());
     formData.append('addressFrontPath', this.uploadaddressfront);
     formData.append('addressBackPath', this.uploadaddressback);
     formData.append('addressProof', this.addressProof?.value);
-    formData.append('addressProofNo', this.addressProofNo?.value);
+    formData.append('addressProofNo', this.addressProofNo?.value.trim());
     formData.append('signatureFrontPath', this.uploadsignfront);
     formData.append('signatureBackPath', this.uploadsignback);
     formData.append('signatureProof', this.signatureProof?.value);
-    formData.append('signatureProofNo', this.signatureProofNo?.value);
+    formData.append('signatureProofNo', this.signatureProofNo?.value.trim());
     formData.append('drivingLicenceDob', this.drivingLicenceDob?.value || this.drivingLicenceDobs?.value || this.drivingLicenceDobss?.value);
     formData.append('passportDob', this.passportDob?.value || this.passportDobs?.value || this.passportDobss?.value);
     this.service.entitykycs(formData).subscribe((res: any) => {

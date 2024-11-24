@@ -84,10 +84,10 @@ export class AdminCreateComponent implements OnInit {
 
   admincreate() {
     let submitModel: AdminPolicycreate = {
-      termAndCondition: this.termAndCondition?.value,
-      disclaimer: this.disclaimer?.value,
-      privacyPolicy: this.privacyPolicy?.value,
-      refundPolicy: this.refundPolicy?.value,
+      termAndCondition: this.termAndCondition?.value.trim(),
+      disclaimer: this.disclaimer?.value.trim(),
+      privacyPolicy: this.privacyPolicy?.value.trim(),
+      refundPolicy: this.refundPolicy?.value.trim(),
       createdBy: this.getadminname,
       merchantId: this.merchantId?.value
     };

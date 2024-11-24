@@ -37,7 +37,7 @@ export class AddKyccategoryComponent {
   submit() {
     let submitModel: kycadd = {
       createdBy: this.createdBy,
-      kycCategoryName: this.kycCategoryName.value
+      kycCategoryName: this.kycCategoryName.value.trim()
     };
     this.service.addkycCategory(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {

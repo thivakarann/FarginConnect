@@ -86,12 +86,12 @@ constructor(private service:FarginServiceService,private toaster:ToastrService,p
   submit(){
     let submitmodel:AdminUpdate={
       adminUserId:this.adminuserId,
-       adminName:this.adminName?.value, 
-       address:this.address?.value,
-       city:this.city?.value,
-       state:this.state?.value,
-       pincode:this.pincode?.value,
-       country:this.country?.value,
+       adminName:this.adminName?.value.trim(), 
+       address:this.address?.value.trim(),
+       city:this.city?.value.trim(),
+       state:this.state?.value.trim(),
+       pincode:this.pincode?.value.trim(),
+       country:this.country?.value.trim(),
        gender:this.gender?.value,
        modifiedBy:this.createdBy,
        roleId:this.roleId?.value

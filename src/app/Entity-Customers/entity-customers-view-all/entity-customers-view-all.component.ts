@@ -104,6 +104,11 @@ pageSize=5;
  
  
   }
+
+
+  reload(){
+    window.location.reload()
+  }
  
  
  

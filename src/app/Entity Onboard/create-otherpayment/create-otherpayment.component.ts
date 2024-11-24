@@ -21,10 +21,10 @@ export class CreateOtherpaymentComponent {
   constructor(private router: Router, private Approval: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog) { }
   ngOnInit(): void {
     this.id = this.data.value
-    
+
 
     this.myForm = new FormGroup({
-      paidAmount: new FormControl('', [Validators.required,Validators.pattern('^[1-9][0-9]*(\.[0-9]+)?$')]),
+      paidAmount: new FormControl('', [Validators.required, Validators.pattern('^[1-9][0-9]*(\.[0-9]+)?$')]),
       serviceName: new FormControl('', [Validators.required,]),
       utrnumber: new FormControl(''),
       validitydate: new FormControl(''),
@@ -44,8 +44,8 @@ export class CreateOtherpaymentComponent {
 
   submit() {
     let submitModel: createOtherPayment = {
-      serviceName: this.serviceName?.value,
-      paidAmount: this.paidAmount?.value,
+      serviceName: this.serviceName?.value.trim(),
+      paidAmount: this.paidAmount?.value.trim(),
       createdBy: this.getadminname,
       merchantId: this.id
     }

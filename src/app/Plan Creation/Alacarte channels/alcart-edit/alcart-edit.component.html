@@ -12,11 +12,11 @@
 
                 <div class="col-sm-4 form-group">
                     <label for="Bussiness category">Broadcaster</label>
-                    <select [(ngModel)]="BroadCaster" formControlName="bundleChannelId" id="Bussiness category"
+                    <select [(ngModel)]="BroadCaster" (ngModelChange)="getbuddlechanneld(BroadCaster)"  formControlName="bundleChannelId" id="Bussiness category"
                         class="form-control form-select">
                         <option value="" disabled selected>Select</option>
-                        <option *ngFor="let item of Broadcasters" [value]="item.bundleChannelId">
-                            {{item.broadCasterName}}</option>
+                        <option *ngFor="let item of Broadcasters" [value]="item.serviceId">
+                            {{item.serviceProviderName}}</option>
                     </select>
                     <div style="
                     color: red;

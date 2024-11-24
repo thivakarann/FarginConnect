@@ -85,7 +85,7 @@
           <ng-container matColumnDef="Business">
             <th mat-header-cell *matHeaderCellDef>Business Category</th>
             <td mat-cell *matCellDef="let data">
-              {{data?.businessCategory?.categoryName}}
+              {{data.businessCategory?.categoryName}}
             </td>
           </ng-container>
 
@@ -165,7 +165,7 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
           <tr *matNoDataRow>
-            <td class="mat-cell" colspan="4">No Data {{input.value}}
+            <td class="mat-cell" colspan="4">No Data For {{input.value}}
             </td>
           </tr>
         </table>

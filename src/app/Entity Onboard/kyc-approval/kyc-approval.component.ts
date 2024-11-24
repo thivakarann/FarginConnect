@@ -54,7 +54,7 @@ export class KycApprovalComponent implements OnInit{
    if(this.value==1) {
     let submitModel: identityapprove = {
       proofId: this.id,
-      identityAdminComments: this.remarks?.value,
+      identityAdminComments: this.remarks?.value.trim(),
       identityAdminApprovalStatus: this.approvalStatus?.value,
       identityAdminApprovedBy: this.createdBy
     };

@@ -16,6 +16,7 @@ button {
   display: grid;
   grid-template-areas: "main";
   height: auto;
+  width: 450px;
   font-family: var(--font-sans);
 }
  

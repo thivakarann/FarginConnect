@@ -13,6 +13,7 @@ button {
 .page {
   color: var(--gray-9);
   background-color: #fff;
+  width: 400px;
   display: grid;
   grid-template-areas: "main";
   height: auto;

@@ -78,15 +78,18 @@ export class PgsetupEditComponent implements OnInit {
   submit() {
     let submitModel: pgsetupedit = {
       pgMode: this.pgMode.value,
-      secretKey: this.secretKey.value,
-      apiKey: this.apiKey.value,
+      secretKey: this.secretKey.value.trim(),
+      apiKey: this.apiKey.value.trim(),
       modifiedBy: this.createdBy
     }
 
     this.service.PgsetupUpdate(this.pgModeId, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
-        window.location.reload()
+        this.dialog.closeAll()
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
       } else {
         this.toastr.error(res.responseMessage)
       }

@@ -156,7 +156,8 @@ export class BouquetsViewallComponent implements OnInit {
   add() {
     this.dialog.open(BouqutesAddComponent, {
       enterAnimationDuration: '500ms',
-      exitAnimationDuration: '1000ms'
+      exitAnimationDuration: '1000ms',
+      disableClose:true
     })
   }
 

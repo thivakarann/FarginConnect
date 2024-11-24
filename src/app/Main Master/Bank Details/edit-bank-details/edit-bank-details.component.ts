@@ -45,7 +45,7 @@ export class EditBankDetailsComponent implements OnInit {
   Edit() {
     let submitModel: UpdateBankdetails = {
       bankId: this.id,
-      bankName: this.bankName?.value,
+      bankName: this.bankName?.value.trim(),
       modifiedBy: this.getadminname
     }
 

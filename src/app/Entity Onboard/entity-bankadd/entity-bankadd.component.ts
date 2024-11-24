@@ -98,14 +98,14 @@ export class EntityBankaddComponent implements OnInit {
 
   submit() {
     let submitModel: bankData = {
-      accountHolderName: this.accountHolderName?.value,
-      accountNumber: this.accountNumber?.value,
+      accountHolderName: this.accountHolderName?.value.trim(),
+      accountNumber: this.accountNumber?.value.trim(),
       bankId: this.bankName?.value,
-      ifscCode: this.ifscCode?.value,
-      branchName: this.branchName?.value,
+      ifscCode: this.ifscCode?.value.trim(),
+      branchName: this.branchName?.value.trim(),
       accountType: this.accountType?.value,
       merchantId: this.merchantid,
-      ledgerId: this.ledgerId?.value
+      ledgerId: this.ledgerId?.value.trim()
     };
 
     this.service.EntitybankAdd(submitModel).subscribe((res: any) => {

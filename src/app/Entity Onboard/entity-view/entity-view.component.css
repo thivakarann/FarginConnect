@@ -786,3 +786,18 @@ form {
 .signed {
   color: green;
 }
+/* When the button is disabled */
+.disabled-btn {
+  /* Light grey background */
+  color: black;       /* Light grey text */
+}
+ 
+.disabled-icon {
+  color: #a9a9a9;       /* Light grey icon color */
+}
+ 
+/* When the button is enabled */
+.enabled-icon {
+  color: black;       /* White icon color when active */
+}
+ 

@@ -149,8 +149,8 @@ export class EditKycdocumentComponent implements OnInit {
       formData.append('merchantDocumentId ', this.merchantDocumentId);
       formData.append('docFrontPath', this.imageFile);
       formData.append('docBackPath', this.imageFile1);
-      formData.append('docName', this.documentname?.value);
-      formData.append('docNumber', this.documentNumber?.value);
+      formData.append('docName', this.documentname?.value.trim());
+      formData.append('docNumber', this.documentNumber?.value.trim());
       formData.append('modifiedBy ', this.createdBy);
 
       this.service.KycUpdate(formData).subscribe((res: any) => {

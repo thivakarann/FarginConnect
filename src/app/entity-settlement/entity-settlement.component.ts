@@ -109,6 +109,11 @@ export class EntitySettlementComponent {
 
   }
 
+  reload(){
+    window.location.reload()
+  }
+ 
+
 
   postrenewal() {
     let submitModel: settlement = {

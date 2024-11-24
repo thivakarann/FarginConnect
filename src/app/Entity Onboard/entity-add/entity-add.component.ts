@@ -823,7 +823,7 @@ export class EntityAddComponent implements OnInit {
     formData.append('entityName', this.entityName?.value.trim());
     formData.append('merchantLegalName', this.merchantLegalName?.value.trim())
     formData.append('accountDisplayName', this.accountDisplayName?.value.trim());
-    formData.append('gstIn', this.gstIn?.value || '-');
+    formData.append('gstIn', this.gstIn?.value.trim() || '-');
     formData.append('contactName', this.contactName?.value.trim());
     formData.append('secondaryMobile', this.secondaryMobile?.value.trim());
     formData.append('billingAddress', this.billingAddress?.value.trim());
@@ -834,9 +834,9 @@ export class EntityAddComponent implements OnInit {
     formData.append('city', this.city?.value.trim())
     formData.append('businessCategoryId', this.businessId);
     formData.append('merchantPlanId', this.merchantPlanId?.value);
-    formData.append('mccCode', this.mcccode);
+    formData.append('mccCode', this.mcccode.trim());
     formData.append('periodName', this.periodName?.value);
-    formData.append('website', this.website?.value || '');
+    formData.append('website', this.website?.value.trim() || '');
     formData.append('merchantLogo', this.uploadImage || this.emptyBlob);
     formData.append('billingMode', this.billingMode?.value);
     formData.append('autoDebitStatus', this.autoDebitStatus?.value);
@@ -868,14 +868,14 @@ export class EntityAddComponent implements OnInit {
  
   BankSubmit() {
     let submitModel: AddEntityBank = {
-      accountHolderName: this.accountHolderName?.value,
-      accountNumber: this.accountNumber?.value,
+      accountHolderName: this.accountHolderName?.value.trim(),
+      accountNumber: this.accountNumber?.value.trim(),
       bankId: this.bankName?.value,
-      ifscCode: this.ifscCode?.value,
-      branchName: this.branchName?.value,
+      ifscCode: this.ifscCode?.value.trim(),
+      branchName: this.branchName?.value.trim(),
       accountType: this.accountType?.value,
       merchantId: this.merchantid,
-      ledgerId: this.ledgerId?.value
+      ledgerId: this.ledgerId?.value.trim()
     }
     this.AddEntity.EntitybankAdd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
@@ -903,15 +903,15 @@ export class EntityAddComponent implements OnInit {
     formData.append('identityFrontPath', this.uploadidentityfront);
     formData.append('identityBackPath', this.uploadidentityback);
     formData.append('identityProof', this.identityProof?.value);
-    formData.append('identityProofNo', this.identityProofNo?.value);
+    formData.append('identityProofNo', this.identityProofNo?.value.trim());
     formData.append('addressFrontPath', this.uploadaddressfront);
     formData.append('addressBackPath', this.uploadaddressback);
     formData.append('addressProof', this.addressProof?.value);
-    formData.append('addressProofNo', this.addressProofNo?.value);
+    formData.append('addressProofNo', this.addressProofNo?.value.trim());
     formData.append('signatureFrontPath', this.uploadsignfront);
     formData.append('signatureBackPath', this.uploadsignback);
     formData.append('signatureProof', this.signatureProof?.value);
-    formData.append('signatureProofNo', this.signatureProofNo?.value);
+    formData.append('signatureProofNo', this.signatureProofNo?.value.trim());
     formData.append('drivingLicenceDob', this.drivingLicenceDob?.value || this.drivingLicenceDobs?.value || this.drivingLicenceDobss?.value);
     formData.append('passportDob', this.passportDob?.value || this.passportDobs?.value || this.passportDobss?.value);
     this.AddEntity.entitykycs(formData).subscribe((res: any) => {
@@ -935,7 +935,7 @@ export class EntityAddComponent implements OnInit {
     formData.append('docFrontPath', this.uploaddocfront);
     formData.append('docBackPath', this.uploaddocback || this.emptyBlob);
     formData.append('kycCategoryId', this.kycCategoryId?.value);
-    formData.append('docNumber', this.docNumber?.value);
+    formData.append('docNumber', this.docNumber?.value.trim());
     formData.append('createdBy', this.getadminname);
     this.AddEntity.documentAdd(formData).subscribe((res: any) => {
       if (res.flag == 1) {

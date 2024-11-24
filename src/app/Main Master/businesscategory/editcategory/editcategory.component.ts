@@ -71,8 +71,8 @@ export class EditcategoryComponent implements OnInit {
   Editsubmit() {
 
     let submitModel: Businessedit = {
-      categoryName: this.categoryName.value,
-      mccCode: this.mccCode.value,
+      categoryName: this.categoryName.value.trim(),
+      mccCode: this.mccCode.value.trim(),
       modifiedBy: this.getadminname,
       autoDebitDate: this.autoDebitDate?.value
     }

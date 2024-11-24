@@ -64,7 +64,7 @@ export class BouquetenameEditComponent implements OnInit {
     let submitModel: BouquetenameUpdate = {
       bundleChannelId: this.bundleChannelId?.value,
       boqCreationId: this.id,
-      bouquetName: this.bouquetName?.value,
+      bouquetName: this.bouquetName?.value.trim(),
       modifiedBy: this.getadminname
     }
 
@@ -72,7 +72,10 @@ export class BouquetenameEditComponent implements OnInit {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.dialog.closeAll();
-        window.location.reload();
+        setTimeout(() => {
+          window.location.reload()
+        }, 500);
+
       }
       else {
         this.toastr.error(res.errorMessage);

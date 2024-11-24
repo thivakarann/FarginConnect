@@ -40,11 +40,11 @@ export class AlcartEditComponent implements OnInit {
       this.id = param.Alldata;
     });
 
-    this.EditAlcart.RegionGetAllActive().subscribe((res: any) => {
-      this.regiondetails = res.response;
-    });
+    // this.EditAlcart.RegionGetAllActive().subscribe((res: any) => {
+    //   this.regiondetails = res.response;
+    // });
 
-    this.EditAlcart.BoucatenamesActive().subscribe((res: any) => {
+    this.EditAlcart.activeprovider().subscribe((res: any) => {
       this.Broadcasters = res.response;
     })
 
@@ -56,26 +56,24 @@ export class AlcartEditComponent implements OnInit {
       this.Generic = res.response.generic;
       this.Language = res.response.language;
       this.Type = res.response.type;
-      if(this.Type==1)
-        {
-              this.show=true;
-        }
-        else{
-          this.show=false;
-        }
+      if (this.Type == 1) {
+        this.show = true;
+      }
+      else {
+        this.show = false;
+      }
       this.amount = res.response.price;
-      if(this.amount==0)
-      {
-        this.amount=""
+      if (this.amount == 0) {
+        this.amount = ""
       }
       this.ChannelNumber = res.response.channelNo
-      
+
     })
 
     this.myForm = new FormGroup({
       regionId: new FormControl('', Validators.required),
       channelName: new FormControl('', Validators.required),
-      price: new FormControl('',Validators.pattern('^[1-9][0-9]*(\.[0-9]+)?$')),
+      price: new FormControl('', Validators.pattern('^[1-9][0-9]*(\.[0-9]+)?$')),
       type: new FormControl('', Validators.required),
       bundleChannelId: new FormControl('', Validators.required),
       generic: new FormControl('', Validators.required),
@@ -85,14 +83,13 @@ export class AlcartEditComponent implements OnInit {
 
     });
 
-  
+
   }
-  typeevent(event:any)
-  {
+  typeevent(event: any) {
     this.typesign = event.target.value;
     if (event.target.value == '0') {
       this.show = false;
-       
+
     } else {
       this.show = true;
     }
@@ -135,6 +132,13 @@ export class AlcartEditComponent implements OnInit {
   }
 
 
+  getbuddlechanneld(id: any) {
+    this.EditAlcart.ActiveRegionsbyserviceprovider(id).subscribe((res: any) => {
+      this.regiondetails = res.response;
+    });
+  }
+
+
 
 
 
@@ -143,11 +147,11 @@ export class AlcartEditComponent implements OnInit {
       alcotId: this.id,
       regionId: this.regionId?.value,
       bundleChannelId: this.bundleChannelId?.value,
-      channelName: this.channelName?.value,
+      channelName: this.channelName?.value.trim(),
       type: this.type?.value,
-      generic: this.generic?.value,
-      language: this.language?.value,
-      price: this.price?.value,
+      generic: this.generic?.value.trim(),
+      language: this.language?.value.trim(),
+      price: this.price?.value.trim(),
       modifiedBy: this.getadminname,
       channelNo: this.channelNo?.value
     }
@@ -155,6 +159,9 @@ export class AlcartEditComponent implements OnInit {
     this.EditAlcart.AlcardUpdate(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        setTimeout(() => {
+          window.location.reload()
+        }, 500);
         this.router.navigateByUrl('dashboard/alacarte-viewall');
       }
       else {

@@ -109,7 +109,7 @@ export class BusinessKycEditComponent implements OnInit {
         this.dialog.closeAll()
         setTimeout(() => {
           window.location.reload()
-        }, 1000);
+        },500);
       } else {
         this.toastr.error(res.responseMessage)
       }

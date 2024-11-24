@@ -81,17 +81,20 @@ export class EditfacheckkeyComponent {
   submit() {
 
     let submitModel: Updatefacheckkey = {
-      apiKey: this.apiKey.value,
-      secretKey: this.secretKey?.value,
+      apiKey: this.apiKey.value.trim(),
+      secretKey: this.secretKey?.value.trim(),
       applicationId: this.applicationId?.value,
       mode: this.mode?.value,
       modifiedBy: this.createdBy
     }
 
-    this.service.updatefacheck(this.facheckKeyId, submitModel).subscribe((res: any) => {
+    this.service.updatefacheck(this.facheckKeyId,submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
-        window.location.reload()
+        this.dialog.closeAll()
+        setTimeout(() => {
+          window.location.reload();
+        },500);
       } else {
         this.toastr.error(res.responseMessage)
       }

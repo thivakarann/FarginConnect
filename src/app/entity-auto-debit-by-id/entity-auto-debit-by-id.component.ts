@@ -65,6 +65,11 @@ export class EntityAutoDebitByIdComponent implements OnInit {
      
     });
   }
+
+  reload(){
+    window.location.reload()
+  }
+ 
  
  
  

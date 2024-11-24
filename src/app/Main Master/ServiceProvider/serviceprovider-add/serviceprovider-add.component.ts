@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Providercreate } from '../../../fargin-model/fargin-model.module';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-serviceprovider-add',
@@ -15,7 +16,7 @@ export class ServiceproviderAddComponent implements OnInit {
   showPassword: boolean = false;
   getadminname = JSON.parse(localStorage.getItem('adminname') || '');
 
-  constructor(private service: FarginServiceService, private toaster: ToastrService, private router: Router) { }
+  constructor(private dialog:MatDialog,private service: FarginServiceService, private toaster: ToastrService, private router: Router) { }
 
 
   ngOnInit(): void {
@@ -44,17 +45,18 @@ export class ServiceproviderAddComponent implements OnInit {
 
   submit() {
     let submitmodel: Providercreate = {
-      serviceProviderName: this.providerName?.value,
-      serviceProviderLink: this.serviceProviderLink?.value,
+      serviceProviderName: this.providerName?.value.trim(),
+      serviceProviderLink: this.serviceProviderLink?.value.trim(),
       createdBy: this.getadminname
     }
 
     this.service.ServiceProviderCreate(submitmodel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toaster.success(res.responseMessage);
+        this.dialog.closeAll()
         setTimeout(() => {
           window.location.reload();
-        }, 1000);
+        },500);
       }
       else if (res.flag == 2) {
         this.toaster.error(res.responseMessage);

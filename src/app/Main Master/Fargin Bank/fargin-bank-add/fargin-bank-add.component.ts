@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AdminCreate, farginadd } from '../../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../../service/fargin-service.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-fargin-bank-add',
@@ -17,7 +18,7 @@ export class FarginBankAddComponent {
   activeRole: any;
 
 
-  constructor(private service: FarginServiceService, private toaster: ToastrService, private router: Router) { }
+  constructor(private dialog: MatDialog, private service: FarginServiceService, private toaster: ToastrService, private router: Router) { }
   ngOnInit(): void {
     this.BankForm = new FormGroup({
       accountHolderName: new FormControl(null, [
@@ -76,18 +77,19 @@ export class FarginBankAddComponent {
 
   submit() {
     let submitmodel: farginadd = {
-      accountHolderName: this.accountHolderName?.value,
-      accountNumber: this.accountNumber?.value,
-      bankName: this.bankName?.value,
-      ifscCode: this.ifscCode?.value,
-      branchName: this.branchName?.value,
-      ledgerId: this.ledgerId?.value,
+      accountHolderName: this.accountHolderName?.value.trim(),
+      accountNumber: this.accountNumber?.value.trim(),
+      bankName: this.bankName?.value.trim(),
+      ifscCode: this.ifscCode?.value.trim(),
+      branchName: this.branchName?.value.trim(),
+      ledgerId: this.ledgerId?.value.trim(),
       createdBy: this.createdBy
     }
 
     this.service.FarginCreate(submitmodel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toaster.success(res.responseMessage);
+        this.dialog.closeAll();
         setTimeout(() => {
           window.location.reload()
         }, 500);

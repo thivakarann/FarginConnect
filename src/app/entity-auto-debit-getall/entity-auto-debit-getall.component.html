@@ -4,7 +4,7 @@
 <mat-card-header>
     <div class="row mt-4">
 
-        <div class="col">
+        <div class="col-6">
 
             <div class="search ">
                 <form class="form">
@@ -35,13 +35,23 @@
             <button [hidden]="valueautodebitexport!=='MMC Auto Debit-Export'" style="color:white;background-color: #141E46;border-radius: 10px;" (click)="exportexcel()"
                 mat-raised-button>Export</button>
         </div>
+        <div class="col-6" style="    margin-left: -85px;
+    margin-top: 13px;">
+            <input
+        type="range"
+        min="0"
+        [max]="maxScroll"
+        [(ngModel)]="scrollValue"
+        (input)="onSliderChange($event)"
+      />
+        </div>
     </div>
 </mat-card-header>
 
 <!-- <mat-card> -->
 <mat-card-content>
 
-    <div class="table-responsive text-nowrap mt-4" style="overflow-x: scroll; scrollbar-width: thin;">
+    <div #tableContainer class="table-responsive text-nowrap mt-4" style="overflow-x: scroll; scrollbar-width: thin;">
 
         <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 

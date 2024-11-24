@@ -91,7 +91,7 @@ export class EditBussinessdocumentComponent {
     const formData = new FormData;
     formData.append('merchantDocumentId ', this.merchantDocumentId);
     formData.append('kycCategoryId', this.kycCategoryId?.value);
-    formData.append('docNumber', this.docNumber?.value);
+    formData.append('docNumber', this.docNumber?.value.trim());
     formData.append('modifiedBy', this.getadminname);
 
 

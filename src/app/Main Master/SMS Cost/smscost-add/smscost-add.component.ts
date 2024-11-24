@@ -39,7 +39,7 @@ export class SMScostAddComponent {
 
   submit() {
     let submitModel: SMSCostAdd = {
-      amount: this.amount?.value,
+      amount: this.amount?.value.trim(),
       createdBy: this.getadminname
     }
 

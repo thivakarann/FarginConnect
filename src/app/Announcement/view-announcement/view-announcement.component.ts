@@ -12,7 +12,7 @@ import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
 import moment from 'moment';
 import { PageEvent } from '@angular/material/paginator';
- 
+
 import { AnnouncementviewComponent } from '../announcementview/announcementview.component';
 import { announcestatus } from '../../fargin-model/fargin-model.module';
 
@@ -35,7 +35,7 @@ export class ViewAnnouncementComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   dataSource: any;
   displayedColumns: string[] = ["announcementId", "Business", "Announcement", "startDate", "endDate", "status", "Edit", "createdBy", "createdDateTime", "modifiedBy", "modifiedDateTime"]
-  announcementValue: any;
+  data: any;
   responseDataListnew: any[] = [];
   response: any;
   date1: any;
@@ -50,8 +50,8 @@ export class ViewAnnouncementComponent implements OnInit {
   datefilter: any;
   dateSuccess: any;
   announcementexport: any;
-  pageIndex: number=0 ;
-  pageSize:number=5;
+  pageIndex: number = 0;
+  pageSize: number = 5;
   totalPages: any;
   totalpage: any;
   currentpage: any;
@@ -93,13 +93,13 @@ export class ViewAnnouncementComponent implements OnInit {
       }
     });
 
-    this.service.announcementViewall(this.pageSize,this.pageIndex).subscribe((res: any) => {
-      this.announcementValue = res.response.content;
-      this.totalPages=res.pagination.totalElements;
-      this.totalpage=res.pagination.totalPages;
-      this.currentpage=res.pagination.currentPage+1;
-      this.announcementValue.reverse();
-      this.dataSource = new MatTableDataSource(this.announcementValue);
+    this.service.announcementViewall(this.pageSize, this.pageIndex).subscribe((res: any) => {
+      this.data = res.response.content;
+      this.totalPages = res.pagination.totalElements;
+      this.totalpage = res.pagination.totalPages;
+      this.currentpage = res.pagination.currentPage + 1;
+      // this.announcementValue.reverse();
+      this.dataSource = new MatTableDataSource(this.data);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     })
@@ -112,11 +112,11 @@ export class ViewAnnouncementComponent implements OnInit {
     // Capture the new page index and page size from the event
     this.pageIndex = event.pageIndex;  // Update current page index
     this.pageSize = event.pageSize;           // Update page size (if changed)
- 
+
     // Log the new page index and page size to the console (for debugging)
     console.log('New Page Index:', this.pageIndex);
     console.log('New Page Size:', this.pageSize);
- 
+
     // You can now fetch or display the data for the new page index
     // Example: this.fetchData(this.currentPageIndex, this.pageSize);
     this.ngOnInit()
@@ -159,7 +159,7 @@ export class ViewAnnouncementComponent implements OnInit {
     this.isFullPolicyVisible = !this.isFullPolicyVisible;
   }
 
-  
+
 
 
   Edit(id: any) {
@@ -178,7 +178,6 @@ export class ViewAnnouncementComponent implements OnInit {
 
   create() {
     this.dialog.open(AddAnnouncementComponent, {
-      width: '500px',
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
       disableClose: true
@@ -187,7 +186,7 @@ export class ViewAnnouncementComponent implements OnInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.dataSource.filter = filterValue.trim().toLowerCase().toUpperCase();
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
@@ -214,40 +213,40 @@ export class ViewAnnouncementComponent implements OnInit {
   exportexcel() {
     this.service.announcementViewallExport().subscribe((res: any) => {
       this.announcementexport = res.response;
-    if(res.flag==1){
- 
- 
-    let sno = 1;
-    this.responseDataListnew = [];
-    this.announcementexport.forEach((element: any) => {
-      let createdate = element.createdDateTime;
-      this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
- 
-      let moddate = element.updateDateTime;
-      this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
-      this.response = [];
-      this.response.push(sno);
-      this.response.push(element?.businessCategory?.categoryName);
-      this.response.push(element?.announcementContentEnglish);
-      this.response.push(element?.startDate);
-      this.response.push(element?.endDate);
-      this.response.push(element?.createdBy);
-      if (element?.activeStatus == '1') {
-        this.response.push('Active');
+      if (res.flag == 1) {
+
+
+        let sno = 1;
+        this.responseDataListnew = [];
+        this.announcementexport.forEach((element: any) => {
+          let createdate = element.createdDateTime;
+          this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
+
+          let moddate = element.updateDateTime;
+          this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
+          this.response = [];
+          this.response.push(sno);
+          this.response.push(element?.businessCategory?.categoryName);
+          this.response.push(element?.announcementContentEnglish);
+          this.response.push(element?.startDate);
+          this.response.push(element?.endDate);
+          this.response.push(element?.createdBy);
+          if (element?.activeStatus == '1') {
+            this.response.push('Active');
+          }
+          else {
+            this.response.push('Inactive');
+          }
+
+          this.response.push(this.date1);
+          this.response.push(element?.updatedBy);
+          this.response.push(this.date2);
+          sno++;
+          this.responseDataListnew.push(this.response);
+        });
+        this.excelexportCustomer();
       }
-      else {
-        this.response.push('Inactive');
-      }
- 
-      this.response.push(this.date1);
-      this.response.push(element?.updatedBy);
-      this.response.push(this.date2);
-      sno++;
-      this.responseDataListnew.push(this.response);
     });
-    this.excelexportCustomer();
-  }
-});
   }
 
   excelexportCustomer() {

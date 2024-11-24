@@ -1,7 +1,8 @@
 .container {
-    width: 100%;
-    min-width: 400px;
+
+    width: 500px;
     padding: 0px;
+
 }
 
 .form-header {
@@ -9,9 +10,10 @@
     /* Header background color */
     color: white;
     padding: 0.5rem;
+
     border-radius: 0.5rem 0.5rem 0 0;
     /* Rounded corners on top */
-    margin-bottom: 0.5rem;
+   
 }
 
 .form-group label {
@@ -61,7 +63,12 @@
     color: white;
     font-family: "Roboto";
 }
-mat-select{
+
+/* mat-select {
     width: 390px;
     font-size: 13px;
+} */
+
+mat-select{
+    width:470px
   }

@@ -49,7 +49,7 @@ export class BouquetenameAddComponent implements OnInit {
 
   submit() {
     let submitModel: BouquetNameadd = {
-      bouquetName: this.bouquetName?.value,
+      bouquetName: this.bouquetName?.value.trim(),
       createdBy: this.getadminname,
       bundleChannelId: this.bundleChannelId?.value
     }
@@ -60,7 +60,7 @@ export class BouquetenameAddComponent implements OnInit {
         this.dialog.closeAll()
         setTimeout(() => {
           window.location.reload()
-        }, 1000)
+        },500)
       }
 
       else if (res.flag == 2) {

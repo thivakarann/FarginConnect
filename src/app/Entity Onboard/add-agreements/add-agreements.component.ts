@@ -70,7 +70,7 @@ export class AddAgreementsComponent {
       merchantId: this.merchantid,
       commercialId: this.commercialId?.value,
       createdBy: this.getadminname,
-      merchantPosition:this.merchantPosition?.value,
+      merchantPosition:this.merchantPosition?.value.trim(),
       effectiveDate:this.linkdate?.value
 
     }

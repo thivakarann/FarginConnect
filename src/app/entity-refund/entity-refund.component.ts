@@ -77,6 +77,10 @@ export class EntityRefundComponent {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  reload(){
+    window.location.reload()
+  }
  
  
   close(){

@@ -181,14 +181,14 @@ export class EntityViewComponent implements OnInit {
   paymentStatus: any;
   paymentMethod: any;
   chargepersms: any;
-  agreementdetails:any;
+  agreementdetails: any;
   selectTab(tab: string): void {
     this.activeTab = tab;
   }
 
   clearFilters(): void {
     // Implement filter clearing logic here
-    
+
   }
 
   activeTab: string = 'events';
@@ -203,12 +203,12 @@ export class EntityViewComponent implements OnInit {
 
     this.MerchantView.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        
+
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
           this.entitypermission = res.response?.permission
-          
+
 
           this.getpermissionValue();
           if (this.roleId == 1) {
@@ -239,8 +239,8 @@ export class EntityViewComponent implements OnInit {
             this.valuemanualedit = 'One Time Setup Payment-Edit'
             this.valuemanualview = 'One Time Setup Payment-View'
             this.valuefinalcomment = 'Final-Comment'
-             this.valuefinalcomment = 'Final-Comment'
-              this.valuefinalcomment = 'Final-Comment'
+            this.valuefinalcomment = 'Final-Comment'
+            this.valuefinalcomment = 'Final-Comment'
 
             this.valuebussinessAdd = 'Entity View Bussiness Document-Add'
             this.valuebussinessapproval = 'Entity View Bussiness Document-Approval'
@@ -412,13 +412,13 @@ export class EntityViewComponent implements OnInit {
 
     this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
       this.details = res.response;
-      
+
 
       this.detaislone = res.response.merchantpersonal;
       this.bankdetails = res.response.merchantbank.reverse();
       this.KYCDetails = res.response.merchantkycdocument;
       this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-      
+
       this.identityProof = res.response.merchantkycdocument[0].identityProof;
       this.addressProof = res.response.merchantkycdocument[0].addressProof;
       this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
@@ -427,10 +427,10 @@ export class EntityViewComponent implements OnInit {
 
 
       this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-      
-      
-      
-      
+
+
+
+
 
 
     })
@@ -439,15 +439,15 @@ export class EntityViewComponent implements OnInit {
 
       if (res.flag == 1) {
         this.manualDetails = res.response;
-       
+
 
         this.manualDetails.forEach((item: any) => {
           this.paymentStatus = item.paymentStatus;
           this.paymentMethod = item.paymentMethod
-          
+
 
         });
-         this.manualDetails.reverse();
+        this.manualDetails.reverse();
       }
     })
 
@@ -466,11 +466,11 @@ export class EntityViewComponent implements OnInit {
     })
     this.MerchantView.smscostViewall().subscribe((res: any) => {
       this.chargepersms = res.response[0]?.amount;
-     
+
     });
     this.MerchantView.viewbyidplans(this.id).subscribe((res: any) => {
-      this.agreementdetails= res.response.reverse();
-     
+      this.agreementdetails = res.response.reverse();
+
     });
   }
   view(id: any) {
@@ -479,27 +479,27 @@ export class EntityViewComponent implements OnInit {
     });
   }
 
-  viewagreementdoc(id:any){    
-    this.MerchantView.viewagreementdoucments(id,1).subscribe((res:any)=>{
+  viewagreementdoc(id: any) {
+    this.MerchantView.viewagreementdoucments(id, 1).subscribe((res: any) => {
       const reader = new FileReader();
       reader.readAsDataURL(res);
       reader.onloadend = () => {
-      var downloadURL = URL.createObjectURL(res);
-      window.open(downloadURL);
+        var downloadURL = URL.createObjectURL(res);
+        window.open(downloadURL);
       }
     })
-}
+  }
 
-viewsignedagreementdoc(id:any){    
-  this.MerchantView.viewagreementdoucments(id,2).subscribe((res:any)=>{
-    const reader = new FileReader();
-    reader.readAsDataURL(res);
-    reader.onloadend = () => {
-    var downloadURL = URL.createObjectURL(res);
-    window.open(downloadURL);
-    }
-  })
-}
+  viewsignedagreementdoc(id: any) {
+    this.MerchantView.viewagreementdoucments(id, 2).subscribe((res: any) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(res);
+      reader.onloadend = () => {
+        var downloadURL = URL.createObjectURL(res);
+        window.open(downloadURL);
+      }
+    })
+  }
 
 
   getpermissionValue() {
@@ -620,7 +620,7 @@ viewsignedagreementdoc(id:any){
   }
   BankApproval(id: any) {
     this.dialog.open(ApprovalForBankComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: { value: id }
@@ -631,7 +631,7 @@ viewsignedagreementdoc(id:any){
   }
   BankComments(id: any) {
     this.dialog.open(CommentsForApprovalComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: { value: id }
@@ -658,7 +658,7 @@ viewsignedagreementdoc(id:any){
 
   viewlogo(id: any, Link: any) {
     this.dialog.open(MerchantLogoComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       // disableClose: true,
       data: {
@@ -689,7 +689,7 @@ viewsignedagreementdoc(id:any){
   }
   addbank(id: any) {
     this.dialog.open(EntityBankaddComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: {
@@ -704,7 +704,7 @@ viewsignedagreementdoc(id:any){
   editbank(id: any) {
     this.dialog.open(EntityBankeditComponent, {
       disableClose: true,
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       data: { value: id }
     });
@@ -716,7 +716,7 @@ viewsignedagreementdoc(id:any){
   addKycdocuments(id: any) {
     this.dialog.open(AddKycdocumentComponent, {
       width: '50vw',
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: {
@@ -729,7 +729,7 @@ viewsignedagreementdoc(id:any){
 
   editKycDocuments(id: any, data: any) {
     this.dialog.open(EditKycdocumentComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: {
@@ -741,7 +741,7 @@ viewsignedagreementdoc(id:any){
   }
   levelOneApproval(id: any) {
     this.dialog.open(LevelOneApprovalComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: {
@@ -752,7 +752,7 @@ viewsignedagreementdoc(id:any){
   }
   levelTwoApproval(id: any) {
     this.dialog.open(LevelTwoApprovalComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: {
@@ -938,7 +938,7 @@ viewsignedagreementdoc(id:any){
   }
   bankInfo(id: any) {
     this.dialog.open(BankInfoComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: {
@@ -949,7 +949,7 @@ viewsignedagreementdoc(id:any){
 
   BankVerificationMatch(id: any) {
     this.dialog.open(BankVerificationMatchComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: {
@@ -994,27 +994,27 @@ viewsignedagreementdoc(id:any){
     this.router.navigate([`dashboard/entitycustomerviewAll/${id}`], {
       queryParams: { Alldata: id },
     });
-    
+
   }
 
   Viewqr(id: any) {
     this.router.navigate([`dashboard/entity-qrcode/${id}`], {
       queryParams: { Alldata: id },
     });
-    
+
   }
 
   ViewRefund(id: any) {
     this.router.navigate([`dashboard/entity-refund/${id}`], {
       queryParams: { Alldata: id },
     });
-    
+
   }
   Viewautodebit(id: any) {
     this.router.navigate([`dashboard/entity-auto-debit-by-id/${id}`], {
       queryParams: { Alldata: id },
     });
-    
+
   }
 
   viewsettlement
@@ -1022,7 +1022,7 @@ viewsignedagreementdoc(id:any){
     this.router.navigate([`dashboard/entity-settlement/${id}`], {
       queryParams: { Alldata: id },
     });
-    
+
   }
   editpersonalInfo(id: any) {
     this.router.navigate([`dashboard/edit-personal/${id}`], {
@@ -1064,7 +1064,7 @@ viewsignedagreementdoc(id:any){
 
   createmanualPayement() {
     this.dialog.open(CreateManualpaymentComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: {
@@ -1074,7 +1074,7 @@ viewsignedagreementdoc(id:any){
   }
 
   viewmanualtransaction(id: any) {
-    
+
     this.router.navigate([`dashboard/manual-transaction/${id}`], {
       queryParams: { Alldata: id },
     });
@@ -1094,7 +1094,7 @@ viewsignedagreementdoc(id:any){
 
   viewOnboardInfo(id: any) {
     this.dialog.open(ViewOnboardinfoComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: {
@@ -1117,7 +1117,7 @@ viewsignedagreementdoc(id:any){
 
   otherPayement() {
     this.dialog.open(CreateOtherpaymentComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: {
@@ -1136,7 +1136,7 @@ viewsignedagreementdoc(id:any){
   editotherPayment(data: any) {
     this.dialog.open(EditOtherpaymentComponent, {
       disableClose: true,
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       data: { value: data }
     });
@@ -1145,7 +1145,7 @@ viewsignedagreementdoc(id:any){
 
   getFrontPath(id: any) {
     this.dialog.open(KycdocumentViewComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       // disableClose: true,
       data: { value: id, value1: 1 }
@@ -1153,7 +1153,7 @@ viewsignedagreementdoc(id:any){
   }
   getBackPath(id: any) {
     this.dialog.open(KycdocumentViewComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       // disableClose: true,
       data: { value: id, value1: 2 }
@@ -1162,7 +1162,7 @@ viewsignedagreementdoc(id:any){
 
   addressProofFrontPath(id: any) {
     this.dialog.open(KycdocumentViewComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       // disableClose: true,
       data: { value: id, value1: 3 }
@@ -1171,7 +1171,7 @@ viewsignedagreementdoc(id:any){
 
   addressProofBackPath(id: any) {
     this.dialog.open(KycdocumentViewComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       // disableClose: true,
       data: { value: id, value1: 4 }
@@ -1179,7 +1179,7 @@ viewsignedagreementdoc(id:any){
   }
   signatureProofFrontPath(id: any) {
     this.dialog.open(KycdocumentViewComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       // disableClose: true,
       data: { value: id, value1: 5 }
@@ -1188,7 +1188,7 @@ viewsignedagreementdoc(id:any){
 
   signatureProofBackPath(id: any) {
     this.dialog.open(KycdocumentViewComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       // disableClose: true,
       data: { value: id, value1: 6 }
@@ -1198,9 +1198,9 @@ viewsignedagreementdoc(id:any){
 
   identityedit(id: any) {
     this.dialog.open(EntityKyceditComponent, {
-      width: '30vw',
+    
 
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       // disableClose: true,
       data: {
@@ -1213,8 +1213,7 @@ viewsignedagreementdoc(id:any){
   addressedits(id: any) {
 
     this.dialog.open(EntityKyceditComponent, {
-      width: '30vw',
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       // disableClose: true,
       data: { value: 2, value1: id }
@@ -1223,7 +1222,6 @@ viewsignedagreementdoc(id:any){
 
   signatureedits(id: any) {
     this.dialog.open(EntityKyceditComponent, {
-      width: '30vw',
       enterAnimationDuration: "1000ms",
       exitAnimationDuration: "1000ms",
       // disableClose: true,
@@ -1242,7 +1240,7 @@ viewsignedagreementdoc(id:any){
         facheckDocNumber: id,
         approvalBy: this.getadminname
       }
-      
+
 
       this.MerchantView.panVerifysIdentity(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
@@ -1392,7 +1390,7 @@ viewsignedagreementdoc(id:any){
         facheckDocNumber: id,
         approvalBy: this.getadminname
       }
-      
+
 
       this.MerchantView.panverifyAddress(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
@@ -1542,7 +1540,7 @@ viewsignedagreementdoc(id:any){
         facheckDocNumber: id,
         approvalBy: this.getadminname
       }
-      
+
 
       this.MerchantView.panverifysignature(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
@@ -1683,13 +1681,13 @@ viewsignedagreementdoc(id:any){
   }
 
 
-  KycInfo(id: any,id1:any) {
+  KycInfo(id: any, id1: any) {
     this.dialog.open(KycInfoComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: {
-        value: id, value1:id1
+        value: id, value1: id1
 
       }
     })
@@ -1698,7 +1696,7 @@ viewsignedagreementdoc(id:any){
 
   KycApproval(id: any) {
     this.dialog.open(KycApprovalComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: { value: id, value1: 1 }
@@ -1707,7 +1705,7 @@ viewsignedagreementdoc(id:any){
 
   KycApproval1(id: any) {
     this.dialog.open(KycApprovalComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: { value: id, value1: 2 }
@@ -1717,7 +1715,7 @@ viewsignedagreementdoc(id:any){
 
   KycApproval2(id: any) {
     this.dialog.open(KycApprovalComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: { value: id, value1: 3 }
@@ -1727,7 +1725,7 @@ viewsignedagreementdoc(id:any){
 
   getdocFrontPath(id: any) {
     this.dialog.open(ImageBussinessdocumentComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       // disableClose: true,
       data: { value: id, value1: 1 }
@@ -1736,7 +1734,7 @@ viewsignedagreementdoc(id:any){
 
   getdocbackPath(id: any) {
     this.dialog.open(ImageBussinessdocumentComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       // disableClose: true,
       data: { value: id, value1: 2 }
@@ -1745,7 +1743,7 @@ viewsignedagreementdoc(id:any){
 
   DocComments(id: any) {
     this.dialog.open(CommentBussinessdocumentComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       // disableClose: true,
       data: { value: id }
@@ -1754,7 +1752,7 @@ viewsignedagreementdoc(id:any){
 
   docedit(id: any) {
     this.dialog.open(EditBussinessdocumentComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       // disableClose: true,
       data: { value: id }
@@ -1763,19 +1761,19 @@ viewsignedagreementdoc(id:any){
 
   docApproval(id: any) {
     this.dialog.open(ApprovalBussinessdocumentComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       // disableClose: true,
       data: { value: id }
     })
   }
 
-  adddoc(id: any,id2:any) {
+  adddoc(id: any, id2: any) {
     this.dialog.open(AddBussinessdocumentComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       // disableClose: true,
-      data: { value: id ,value2:id2 }
+      data: { value: id, value2: id2 }
     })
   }
 
@@ -1783,17 +1781,17 @@ viewsignedagreementdoc(id:any){
   smscreate() {
     this.dialog.open(SmsCreateComponent, {
       disableClose: true,
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       data: { value: this.id }
     });
   }
 
-  
+
   agreementcreate() {
     this.dialog.open(AddAgreementsComponent, {
       disableClose: true,
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       data: { value: this.id }
     });
@@ -1802,7 +1800,7 @@ viewsignedagreementdoc(id:any){
   agremmentlink() {
     this.dialog.open(AgreementlinkComponent, {
       disableClose: true,
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       data: { value: this.id }
     });
@@ -1810,7 +1808,7 @@ viewsignedagreementdoc(id:any){
 
   editsms(id: any) {
     this.dialog.open(EditSmsComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: { value: id }
@@ -1841,7 +1839,7 @@ viewsignedagreementdoc(id:any){
 
   SmsApproval(id: any) {
     this.dialog.open(SmsApprovalComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: { value: id }
@@ -1850,7 +1848,7 @@ viewsignedagreementdoc(id:any){
   ViewMerchantSms(id: any) {
     this.merchantsmsId = id;
     this.dialog.open(SmsHistoryEntityComponent, {
-      enterAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: {
@@ -1863,28 +1861,28 @@ viewsignedagreementdoc(id:any){
 
   Entitybanksearch(id: any, filterValue: string) {
     if (!filterValue) {
-        this.toastr.error('Please enter a value to search');
-        return;
+      this.toastr.error('Please enter a value to search');
+      return;
     }
- 
-    this.MerchantView.EntityBanksearch(id, filterValue).subscribe({
-        next: (res: any) => {
-            if (res.response) {
-                this.bankdetails = res.response;  // Set bankdetails to the API response
-                this.showData = true;  // Set showData to true after data is available
-            }
-            else if (res.flag === 2) {
-                this.bankdetails = [];  // Clear bankdetails if no data found
-                this.showData = true;
-            }
-        },
-        error: (err: any) => {
-            this.toastr.error('Error fetching filtered regions');
-        }
-    });
-}
 
-reload() {
-  window.location.reload()
-}
+    this.MerchantView.EntityBanksearch(id, filterValue).subscribe({
+      next: (res: any) => {
+        if (res.response) {
+          this.bankdetails = res.response;  // Set bankdetails to the API response
+          this.showData = true;  // Set showData to true after data is available
+        }
+        else if (res.flag === 2) {
+          this.bankdetails = [];  // Clear bankdetails if no data found
+          this.showData = true;
+        }
+      },
+      error: (err: any) => {
+        this.toastr.error('Error fetching filtered regions');
+      }
+    });
+  }
+
+  reload() {
+    window.location.reload()
+  }
 }

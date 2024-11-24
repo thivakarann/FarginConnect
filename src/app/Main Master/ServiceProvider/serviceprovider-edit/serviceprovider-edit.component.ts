@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Providerupdate } from '../../../fargin-model/fargin-model.module';
 
@@ -18,7 +18,7 @@ export class ServiceproviderEditComponent implements OnInit {
   serviceId: any;
   viewdata: any;
 
-  constructor(private service: FarginServiceService, private toaster: ToastrService, private router: Router, @Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(private dialog:MatDialog,private service: FarginServiceService, private toaster: ToastrService, private router: Router, @Inject(MAT_DIALOG_DATA) public data: any) { }
   ngOnInit(): void {
 
 
@@ -49,8 +49,8 @@ export class ServiceproviderEditComponent implements OnInit {
   }
   submit() {
     let submitmodel: Providerupdate = {
-      serviceProviderName: this.providerName?.value,
-      serviceProviderLink: this.serviceProviderLink?.value,
+      serviceProviderName: this.providerName?.value.trim(),
+      serviceProviderLink: this.serviceProviderLink?.value.trim(),
       modifiedBy: this.getadmin,
       serviceId: this.serviceId
     }

@@ -135,9 +135,7 @@ export class BusinessKycComponent implements OnInit {
 
   create() {
     this.dialog.open(BusinessKycCreateComponent, {
-      width: '80vw',
-      maxWidth: '400px',
-      enterAnimationDuration: '1000ms',
+      enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       disableClose: true
     });
@@ -146,9 +144,7 @@ export class BusinessKycComponent implements OnInit {
 
   Edit(id: any) {
     this.dialog.open(BusinessKycEditComponent, {
-      width: '80vw',
-      maxWidth: '400px',
-      enterAnimationDuration: '1000ms',
+      enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       data: { value: id },
       disableClose: true

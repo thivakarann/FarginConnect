@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { announceEdit, Businessadd } from '../../fargin-model/fargin-model.module';
@@ -19,34 +19,32 @@ export class EditAnnouncementComponent {
   startDates: any;
   endDates: any;
   announcementid: any;
+  minDate: any = Date;
 
   constructor(private dialog: MatDialog,
     private service: FarginServiceService,
     private toastr: ToastrService,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any, private _formBuilder: FormBuilder,) { }
 
 
   ngOnInit(): void {
-    
-    this.announcementid=this.data.value.announcementId
-    
-    
 
-    this.service.BusinesscategoryKycactive().subscribe((res: any) => {
-      this.categoryvalue = res.response;
-    })
+    this.announcementid = this.data.value.announcementId
 
-    this.announcementform = new FormGroup({
-      businessCategoryId: new FormControl('', [Validators.required]),
-      announcementContentEnglish: new FormControl('', [Validators.required]),
-      startDate: new FormControl('', [Validators.required]),
-      endDate: new FormControl('', [Validators.required])
-    });
+    const today = new Date();
+    this.minDate = today.toISOString().split('T')[0]
 
-    // this.businessCategoryIds = this.data.value.businessCategory.categoryName
-    // this.announcementContentEnglishs = this.data.value.announcementContentEnglish
-    // this.startDates = this.data.value.startDate
-    // this.endDates = this.data.value.endDate
+    this.announcementform = this._formBuilder.group(
+      {
+        businessCategoryId: ['', Validators.required],
+        announcementContentEnglish: ['', Validators.required],
+        startDate: ['', Validators.required],  // Empty start date
+        endDate: ['', Validators.required]     // Empty end date
+      },
+      {
+        validators: [this.dateRangeValidator] // Apply custom date range validator
+      }
+    );
 
 
     if (this.data && this.data.value) {
@@ -59,7 +57,45 @@ export class EditAnnouncementComponent {
     } else {
       console.error('Data is not defined');
     }
+
+
+
+    this.service.BusinesscategoryKycactive().subscribe((res: any) => {
+      this.categoryvalue = res.response;
+    })
+
+    // this.announcementform = new FormGroup({
+    //   businessCategoryId: new FormControl('', [Validators.required]),
+    //   announcementContentEnglish: new FormControl('', [Validators.required]),
+    //   startDate: new FormControl('', [Validators.required]),
+    //   endDate: new FormControl('', [Validators.required])
+    // });
+
+    // this.businessCategoryIds = this.data.value.businessCategory.categoryName
+    // this.announcementContentEnglishs = this.data.value.announcementContentEnglish
+    // this.startDates = this.data.value.startDate
+    // this.endDates = this.data.value.endDate
+
+
+
+
   }
+
+  // Custom validator to ensure endDate > startDate
+  dateRangeValidator(formGroup: FormGroup) {
+    const startDate = formGroup.get('startDate')?.value;
+    const endDate = formGroup.get('endDate')?.value;
+
+    // Validate that the endDate is greater than startDate
+    if (startDate && endDate) {
+      if (new Date(endDate) <= new Date(startDate)) {
+        return { dateRangeInvalid: true }; // Error object when dates are invalid
+      }
+    }
+
+    return null; // Return null if validation is successful
+  }
+
 
 
 
@@ -83,7 +119,7 @@ export class EditAnnouncementComponent {
     let submitModel: announceEdit = {
       announcementId: this.announcementid,
       businessCategoryId: this.businessCategoryId.value,
-      announcementContentEnglish: this.announcementContentEnglish.value,
+      announcementContentEnglish: this.announcementContentEnglish.value.trim(),
       startDate: this.startDate.value,
       endDate: this.endDate.value,
       updatedBy: this.createdBy
@@ -93,7 +129,10 @@ export class EditAnnouncementComponent {
     this.service.announcementEdit(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
-        window.location.reload();
+        this.dialog.closeAll();
+        setTimeout(() => {
+          window.location.reload()
+        }, 500);
 
       }
       else {

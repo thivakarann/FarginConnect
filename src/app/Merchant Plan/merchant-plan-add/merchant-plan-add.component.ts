@@ -31,10 +31,10 @@ export class MerchantPlanAddComponent implements OnInit {
 
     this.myForm = new FormGroup({
       planName: new FormControl('', Validators.required),
-      technicalAmount: new FormControl('', [Validators.required, Validators.pattern('^[1-9][0-9]*$')]),
-      maintenanceAmount: new FormControl('', [Validators.required, Validators.pattern('^[1-9][0-9]*$')]),
+      technicalAmount: new FormControl('', [Validators.required, Validators.pattern('^[1-9][0-9]*(\.[0-9]+)?$')]),
+      maintenanceAmount: new FormControl('', [Validators.required, Validators.pattern('^[1-9][0-9]*(\.[0-9]+)?$')]),
       frequency: new FormControl('', Validators.required),
-      renewalAmount: new FormControl('', [Validators.required, Validators.pattern('^[1-9][0-9]*$')]),
+      renewalAmount: new FormControl('', [Validators.required, Validators.pattern('^[1-9][0-9]*(\.[0-9]+)?$')]),
 
     });
   }
@@ -66,11 +66,11 @@ export class MerchantPlanAddComponent implements OnInit {
 
   submit() {
     let submitModel: MerchantplanCreate = {
-      planName: this.planName?.value,
-      technicalAmount: this.technicalAmount?.value,
-      maintenanceAmount: this.maintenanceAmount?.value,
+      planName: this.planName?.value.trim(),
+      technicalAmount: this.technicalAmount?.value.trim(),
+      maintenanceAmount: this.maintenanceAmount?.value.trim(),
       frequency: this.frequency?.value,
-      renewalAmount: this.renewalAmount?.value,
+      renewalAmount: this.renewalAmount?.value.trim(),
       createdBy: this.getadminname
     }
 

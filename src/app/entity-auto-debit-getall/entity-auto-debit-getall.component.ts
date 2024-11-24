@@ -51,6 +51,8 @@ export class EntityAutoDebitGetallComponent {
   actions: any;
   errorMessage: any;
   valueautodebitexport: any;
+  maxScroll = 100; // Set the maximum value for the slider
+  scrollValue = 0;
   constructor(
     public autodebitdetails: FarginServiceService,
     private router: Router,
@@ -100,6 +102,14 @@ export class EntityAutoDebitGetallComponent {
       this.dataSource.paginator = this.paginator;
 
     });
+  }
+
+  onSliderChange(event: any) {
+    const scrollPercentage = event.target.value / this.maxScroll;
+    const container = this.tableContainer.nativeElement;
+    if (container) {
+      container.scrollLeft = container.scrollWidth * scrollPercentage;
+    }
   }
 
   applyFilter(event: Event) {

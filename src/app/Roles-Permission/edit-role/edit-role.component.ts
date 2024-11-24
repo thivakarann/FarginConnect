@@ -138,7 +138,7 @@ export class EditRoleComponent implements OnInit {
  
   submit() {
     let submitModel: editroles = {
-      roleName: this.roleName.value,
+      roleName: this.roleName.value.trim(),
       modifiedBy: this.createdBy,
       permission: this.permission.value,
       subPermission: this.subPermission.value,

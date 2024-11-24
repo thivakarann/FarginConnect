@@ -276,7 +276,7 @@
                                                 </div>
                                             </div>
                                             <div class="d-flex mt-3">
-                                                <div class="w-50 font-weight-bold">customer Due Date</div>
+                                                <div class="w-50 font-weight-bold">Customer Due Date</div>
                                                 <div class="w-50">
                                                     <ng-container
                                                         *ngIf="detaislone?.customerDuesDate === 1">Daily</ng-container>
@@ -1271,6 +1271,9 @@
 
 <div *ngIf="activeTab === 'doot5'">
     <mat-card-header>
+        <div class="col-md-3 mr-2" style="color: blue; font-size: 12px;">
+            <p style="text-wrap: nowrap;"><strong>Note:</strong> (You can only create an agreement once the one-time payment is success).</p>
+        </div>
         <div class="row  d-flex justify-content-start">
             <div class="col-md-3">
                 <div class="search ">
@@ -1303,11 +1306,10 @@
                 </div>
             </div>
             <div class="col-md-2 mt-1" >
-                <button (click)="agreementcreate()" style="color:white;background-color: #141E46;border-radius: 10px;"
+                <button [disabled]="this.paymentStatus?.toLowerCase() !== 'success'" (click)="agreementcreate()" style="color:white;background-color: #141E46;border-radius: 10px;"
                     mat-raised-button>Create
                 </button>
             </div>
-            <div class="col-md-3"></div>
         </div>
     </mat-card-header>
     <div class="row mt-4">
@@ -1336,41 +1338,50 @@
                                 <i style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
                                     (click)="view(item.commercialId?.commercialId)"></i>
                             </td>
-
+ 
                             <td>
-                                <button style="background: green;
-                                color: white;
+                                <button style="
+                               
                                 border: 1px solid white;
                                 border-radius: 4px;" (click)="viewagreementdoc(item.agreementId)">
                                  <i style="cursor: pointer;font-size: 17px;" class="fa-solid fa-file-contract"
                                  ></i></button>
                                
                             </td>
-                            
+                           
                             <td [ngClass]="item.adminOtpStatus == 0 ? 'not-signed' : 'signed'">
                                 {{ item.adminOtpStatus == 0 ? 'Not Signed' : 'Signed' }}
                               </td>
-
+ 
                               <td [ngClass]="item.merchanOtptStatus == 0 ? 'not-signed' : 'signed'">
                                 {{ item.merchanOtptStatus == 0 ? 'Not Signed' : 'Signed' }}
                               </td>
-                              
+                             
                               <td>
-                                <button style="background: #7db855be;
-                                color: white;
-                                border: 1px solid white;
-                                border-radius: 4px;"  (click)="viewsignedagreementdoc(item.agreementId)" [disabled]="item.adminOtpStatus == 0 && item.merchanOtptStatus== 0">
-                                    <i style="cursor: pointer;font-size: 17px;" class="fa-solid fa-file-contract"
-                              
-                                   ></i>
+                                <button
+                                  style="color: white; border: 1px solid white; border-radius: 4px;"  
+                                  (click)="viewsignedagreementdoc(item.agreementId)"
+                                  [disabled]="item.adminOtpStatus == 0 || item.merchanOtptStatus == 0"
+                                  [ngClass]="{
+                                    'disabled-btn': (item.adminOtpStatus == 0 || item.merchanOtptStatus == 0),
+                                    'enabled-btn': (item.adminOtpStatus == 1 && item.merchanOtptStatus == 1)
+                                  }">
+                                  <i
+                                    style="cursor: pointer; font-size: 17px;"
+                                    class="fa-solid fa-file-contract"
+                                    [ngClass]="{
+                                      'disabled-icon': (item.adminOtpStatus == 0 || item.merchanOtptStatus == 0),
+                                      'enabled-icon': (item.adminOtpStatus == 1 && item.merchanOtptStatus == 1)
+                                    }">
+                                  </i>
                                 </button>
-                               
-                            
-                            </td>
-
+                              </td>
+                             
+                           
+ 
                             <td>{{item.createdBy}}</td>
                             <td>{{item.createdDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
-            
+           
                         </tbody>
                     </table>
                 </div>

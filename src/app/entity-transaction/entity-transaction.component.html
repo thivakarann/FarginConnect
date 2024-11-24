@@ -101,8 +101,7 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
             <tr *matNoDataRow>
-                <td class="mat-cell" colspan="4">The Filter Does not Match Any Item In The Data For This Text
-                    {{input.value}}
+                <td class="mat-cell" colspan="4">No Data For {{input.value}}
                 </td>
             </tr>
             </table>

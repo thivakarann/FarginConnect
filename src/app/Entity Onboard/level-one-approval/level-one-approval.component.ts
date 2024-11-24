@@ -50,7 +50,7 @@ constructor(private service:FarginServiceService,
       merchantId: this.merchantId,
       approvalStatusL1: this.approvalStatus?.value,
       approvedByL1: this.createdBy,
-      comment: this.remarks?.value
+      comment: this.remarks?.value.trim()
     }
     this.service.MerchantLevelApprovalOne(submitModel).subscribe((res:any)=>{
       if(res.flag==1){

@@ -46,7 +46,7 @@ export class EditKyccategoryComponent {
 
     let submitModel: kycedit = {
       modifiedBy: this.getadminname,
-      kycCategoryName: this.kycCategoryName.value,
+      kycCategoryName: this.kycCategoryName.value.trim(),
       kycCategoryId: this.kycCategoryId
     }
 

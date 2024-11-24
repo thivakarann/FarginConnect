@@ -193,7 +193,7 @@ export class BouqutesAddComponent implements OnInit {
     let submitModel: BroadcasterBouquetadd = {
       bundleChannelId: Number(this.bundleChannelId?.value),
       alcotId: this.alcotId?.value,
-      amount: Number(this.amount?.value),
+      amount: Number(this.amount?.value.trim()),
       boqCreationId: Number(this.boqCreationId?.value),
       serviceId: Number(this.serviceId?.value),
       regId: this.regId?.value,

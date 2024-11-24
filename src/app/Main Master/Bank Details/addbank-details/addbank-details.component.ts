@@ -36,7 +36,7 @@ export class AddbankDetailsComponent implements OnInit {
 
   Submit() {
     let submitModel: AddBankdetails = {
-      bankName: this.bankName?.value,
+      bankName: this.bankName?.value.trim(),
       createdBy: this.getadminname
     }
     this.Bankdetailsadd.bankdetailsAdd(submitModel).subscribe((res: any) => {

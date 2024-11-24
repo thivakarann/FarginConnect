@@ -60,7 +60,7 @@ export class ApprovalBussinessdocumentComponent {
     let submitModel: documentapproval = {
       approvalBy: this.createdBy,
       approvalStatus: this.approvalStatus?.value,
-      reMarks: this.reMarks?.value
+      reMarks: this.reMarks?.value.trim()
     };
 
     this.service.documentApproval(this.merchantDocumentId,submitModel).subscribe((res: any) => {

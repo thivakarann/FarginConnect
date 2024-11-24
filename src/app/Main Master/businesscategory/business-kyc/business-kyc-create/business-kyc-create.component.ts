@@ -93,7 +93,7 @@ export class BusinessKycCreateComponent implements OnInit {
         this.dialog.closeAll()
         setTimeout(() => {
           window.location.reload()
-        }, 1000);
+        },500);
  
       }
       else {

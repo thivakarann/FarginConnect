@@ -588,8 +588,8 @@ export class FarginServiceService {
   private readonly agreementgetall='agreement/getall';
   private readonly Agreementsendotp = 'agreement/merchantsendotp/';
   private readonly AgreementVerifyOTP = 'agreement/merchantverifyotp/';
-  private readonly AgreementConcent = 'agreement/concent';
-  private readonly AgreemntConcentLocation = 'agreement/concentlocationtracker'
+  private readonly AgreementConcent = 'agreement/consent';
+  private readonly AgreemntConcentLocation = 'agreement/consentlocationtracker'
 
 
   loginError = new Subject();
@@ -1420,7 +1420,7 @@ export class FarginServiceService {
   }
 
   merchantplanstatus(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.MerchantplanStatus}${id}`, this.options)
+    return this.http.put(`${this.basePath}${this.MerchantplanStatus}${id}`,model, this.options)
   }
 
   merchantplanactive() {

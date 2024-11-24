@@ -104,13 +104,13 @@ export class EntityBankeditComponent implements OnInit {
 
   submit() {
     let submitModel: bankedit = {
-      accountHolderName: this.accountHolderName.value,
-      accountNumber: this.accountNumber.value,
+      accountHolderName: this.accountHolderName.value.trim(),
+      accountNumber: this.accountNumber.value.trim(),
       bankId: this.bankName.value,
-      ifscCode: this.ifscCode.value,
-      branchName: this.branchName.value,
+      ifscCode: this.ifscCode.value.trim(),
+      branchName: this.branchName.value.trim(),
       accountType: this.accountType.value,
-      ledgerId:this.ledgerId?.value
+      ledgerId:this.ledgerId?.value.trim()
     }
     this.service.EntitybankEdit(this.merchantBankId, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {

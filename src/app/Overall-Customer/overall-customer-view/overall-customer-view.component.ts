@@ -32,11 +32,13 @@ export class OverallCustomerViewComponent implements OnInit {
     // 'stbNumber',
     'emailAddress',
     'mobileNumber',
+    'routeassigned',
     'Viewcustomer',
     // 'flatNumber',
     // 'blockNumber',
-
+ 
   ];
+
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
   @ViewChild(MatPaginator) paginator!: MatPaginator;

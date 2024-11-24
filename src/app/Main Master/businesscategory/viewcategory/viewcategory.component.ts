@@ -140,22 +140,18 @@ export class ViewcategoryComponent implements OnInit {
 
   create() {
     this.dialog.open(AddcategoryComponent, {
-      width: '80vw',// Use percentage to make it responsive
-      maxWidth: '400px',
-      // Ensure it doesn't get too wide on large screens
-      enterAnimationDuration: '1000ms',
+      enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
+      disableClose:true
     });
   }
 
 
   Edit(id: string) {
     this.dialog.open(EditcategoryComponent, {
-      width: '80vw',// Use percentage to make it responsive
-      maxWidth: '400px',
-      // Ensure it doesn't get too wide on large screens
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
+      disableClose:true,
       data: { value: id }
     });
 
@@ -181,7 +177,7 @@ export class ViewcategoryComponent implements OnInit {
     this.response.push(element?.categoryName);
     this.response.push(element?.mccCode);
     this.response.push(element?.autoDebitDate);
-    if (element.activeStatus == 0) {
+    if (element.activeStatus == 1) {
       this.response.push('Active')
     }
     else {

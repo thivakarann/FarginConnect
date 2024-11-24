@@ -27,7 +27,7 @@ export class SignerGetallComponent implements OnInit {
     'signAdminEmail',
     'signAdminMobile',
     'status',
-    'Edit',
+    // 'Edit',
     'createdBy',
     'createdAt',
     'modifiedBy',

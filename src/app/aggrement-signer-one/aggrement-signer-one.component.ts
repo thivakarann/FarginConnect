@@ -4,6 +4,8 @@ import { FarginServiceService } from '../service/fargin-service.service';
 import { AggrementSignerOtpComponent } from '../aggrement-signer-otp/aggrement-signer-otp.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
+import { AgreementConsent } from '../fargin-model/fargin-model.module';
+import { AggrementLocationTrackerComponent } from '../aggrement-location-tracker/aggrement-location-tracker.component';
 
 
 @Component({
@@ -36,10 +38,15 @@ export class AggrementSignerOneComponent implements OnInit {
   ) { }
   ngOnInit(): void {
 
+
     this.activatedroute.queryParams.subscribe((params: any) => {
       this.ReferenceCode = params.referenceCode;
       console.log(this.ReferenceCode)
     });
+
+    this.Location();
+
+
     this.service.AggrementViewbyrefferencenumber(this.ReferenceCode).subscribe((res: any) => {
       this.Agreementdetails = res.response;
       this.AgreementId = res.response.agreementId;
@@ -49,7 +56,7 @@ export class AggrementSignerOneComponent implements OnInit {
       // this.EntityName = res.response.merchantId.entityName;
       // this.EntityNumber = res.response.merchantId.contactMobile;
       // this.EntityEmail = res.response.merchantId.contactEmail;
-      this.service.viewagreementdoucments(this.AgreementId,1).subscribe((data) => {
+      this.service.viewagreementdoucments(this.AgreementId, 1).subscribe((data) => {
         const reader = new FileReader();
         reader.readAsDataURL(data);
         reader.onloadend = () => {
@@ -58,7 +65,7 @@ export class AggrementSignerOneComponent implements OnInit {
       })
     });
 
-   
+
     this.service.signergetall().subscribe((res: any) => {
       this.Adminsignerdetails = res.response[0];
       this.AdminSignerName = res.response[0].signAdminName;
@@ -81,6 +88,17 @@ export class AggrementSignerOneComponent implements OnInit {
       data: { value: id }
     })
   }
+
+  Location(){
+    this.dialog.open(AggrementLocationTrackerComponent,{
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '1000ms',
+      disableClose: true,
+      data: { value: this.ReferenceCode }
+    })
+  }
+
+  
 
 
 

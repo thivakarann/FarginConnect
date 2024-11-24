@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { announceAdd, Businessadd } from '../../fargin-model/fargin-model.module';
@@ -15,8 +15,10 @@ export class AddAnnouncementComponent {
   announcementform: any = FormGroup;
   createdBy = JSON.parse(localStorage.getItem('adminname') || '');
   categoryvalue: any;
+  minDate: any = Date;
 
-  constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
+
+  constructor(private _formBuilder: FormBuilder, private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
 
 
   ngOnInit(): void {
@@ -25,17 +27,44 @@ export class AddAnnouncementComponent {
       this.categoryvalue = res.response;
     })
 
-    this.announcementform = new FormGroup({
-      businessCategoryId: new FormControl('', [Validators.required]),
-      announcementContentEnglish: new FormControl('', [Validators.required]),
-      startDate: new FormControl('', [Validators.required]),
-      endDate: new FormControl('', [Validators.required])
-    });
+    const today = new Date();
+    this.minDate = today.toISOString().split('T')[0]
 
+    // this.announcementform = new FormGroup({
+    //   businessCategoryId: new FormControl('', [Validators.required]),
+    //   announcementContentEnglish: new FormControl('', [Validators.required]),
+    //   startDate: new FormControl('', [Validators.required]),
+    //   endDate: new FormControl('', [Validators.required])
+    // });
+
+    this.announcementform = this._formBuilder.group(
+      {
+        businessCategoryId: ['', Validators.required],
+        announcementContentEnglish: ['', Validators.required],
+        startDate: ['', Validators.required],  // Empty start date
+        endDate: ['', Validators.required]     // Empty end date
+      },
+      {
+        validators: [this.dateRangeValidator] // Apply custom date range validator
+      }
+    );
   }
 
+  // Custom validator to ensure endDate > startDate
+  dateRangeValidator(formGroup: FormGroup) {
+    const startDate = formGroup.get('startDate')?.value;
+    const endDate = formGroup.get('endDate')?.value;
 
+    // Validate that the endDate is greater than startDate
+    if (startDate && endDate) {
+      if (new Date(endDate) <= new Date(startDate)) {
+        return { dateRangeInvalid: true }; // Error object when dates are invalid
+      }
+    }
 
+    return null; // Return null if validation is successful
+  }
+  
   get businessCategoryId() {
     return this.announcementform.get('businessCategoryId');
   }
@@ -55,7 +84,7 @@ export class AddAnnouncementComponent {
   submit() {
     let submitModel: announceAdd = {
       businessCategoryId: this.businessCategoryId.value,
-      announcementContentEnglish: this.announcementContentEnglish.value,
+      announcementContentEnglish: this.announcementContentEnglish.value.trim(),
       startDate: this.startDate.value,
       endDate: this.endDate.value,
       createdBy: this.createdBy
@@ -64,8 +93,11 @@ export class AddAnnouncementComponent {
 
     this.service.announcementAdd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage)
-        window.location.reload();
+        this.toastr.success(res.responseMessage);
+        this.dialog.closeAll();
+        setTimeout(() => {
+          window.location.reload()
+        },500);
 
       }
       else {

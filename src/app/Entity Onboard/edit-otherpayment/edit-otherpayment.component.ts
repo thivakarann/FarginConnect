@@ -26,7 +26,7 @@ export class EditOtherpaymentComponent {
     this.payId = this.data.value.payId;
     this.servicename = this.data.value.serviceName;
     this.paidamount = this.data.value.paidAmount;
-    
+
 
     this.myForm = new FormGroup({
       paidAmount: new FormControl('', [Validators.required,]),
@@ -49,8 +49,8 @@ export class EditOtherpaymentComponent {
 
   submit() {
     let submitModel: updateOtherPayment = {
-      serviceName: this.serviceName?.value,
-      paidAmount: this.paidAmount?.value,
+      serviceName: this.serviceName?.value.trim(),
+      paidAmount: this.paidAmount?.value.trim(),
       modifiedBy: this.getadminname
     }
 

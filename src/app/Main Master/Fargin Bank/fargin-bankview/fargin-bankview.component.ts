@@ -31,8 +31,8 @@ export class FarginBankviewComponent {
     'ifscCode',
     'branchName',
     'ledgerId',
-    'createdBy',
-    'createdDateTime',
+    // 'createdBy',
+    // 'createdDateTime',
     'modifiedBy',
     'modifiedDateTime'
 

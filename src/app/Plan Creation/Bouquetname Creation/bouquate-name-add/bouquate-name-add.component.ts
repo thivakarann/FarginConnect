@@ -40,7 +40,7 @@ export class BouquateNameAddComponent implements OnInit {
 
   submit() {
     let submitModel: addBouquetname = {
-      broardCaste: this.broardCaste?.value,
+      broardCaste: this.broardCaste?.value.trim(),
       createdBy: this.getadminname
     }
 

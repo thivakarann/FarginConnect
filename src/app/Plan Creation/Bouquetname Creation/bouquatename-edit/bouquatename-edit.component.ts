@@ -47,7 +47,7 @@ export class BouquatenameEditComponent implements OnInit {
 
   submit() {
     let submitModel: UpdateBouquetname = {
-      broardCaste: this.broardCaste?.value,
+      broardCaste: this.broardCaste?.value.trim(),
       modifiedBy: this.getadminname,
       bundleChannelId: this.id
     }

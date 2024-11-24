@@ -4,7 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-fargin-bank-edit',
@@ -19,7 +19,7 @@ export class FarginBankEditComponent {
   farginbank: any;
   adminBankId:any;
 
-  constructor(private service: FarginServiceService, private toaster: ToastrService, private router: Router,@Inject(MAT_DIALOG_DATA) public data: any) { 
+  constructor(private dialog:MatDialog,  private service: FarginServiceService, private toaster: ToastrService, private router: Router,@Inject(MAT_DIALOG_DATA) public data: any) { 
 
     this.adminBankId=this.data.value.adminBankId
   }
@@ -80,18 +80,19 @@ export class FarginBankEditComponent {
 
   submit() {
     let submitmodel: farginedit = {
-      accountHolderName: this.accountHolderName?.value,
-      accountNumber: this.accountNumber?.value,
-      bankName: this.bankName?.value,
-      ifscCode: this.ifscCode?.value,
-      branchName: this.branchName?.value,
-      ledgerId: this.ledgerId?.value,
+      accountHolderName: this.accountHolderName?.value.trim(),
+      accountNumber: this.accountNumber?.value.trim(),
+      bankName: this.bankName?.value.trim(),
+      ifscCode: this.ifscCode?.value.trim(),
+      branchName: this.branchName?.value.trim(),
+      ledgerId: this.ledgerId?.value.trim(),
       createdBy: this.createdBy
     }
 
     this.service.FarginCreate(submitmodel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toaster.success(res.responseMessage);
+        this.dialog.closeAll();
         setTimeout(() => {
           window.location.reload()
         }, 500);

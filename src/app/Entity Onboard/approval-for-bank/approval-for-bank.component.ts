@@ -11,51 +11,51 @@ import { ApprovalBank } from '../../fargin-model/fargin-model.module';
   templateUrl: './approval-for-bank.component.html',
   styleUrl: './approval-for-bank.component.css'
 })
-export class ApprovalForBankComponent implements OnInit{
+export class ApprovalForBankComponent implements OnInit {
   Adminid = JSON.parse(localStorage.getItem('adminid') || '');
   getadminname = JSON.parse(localStorage.getItem('adminname') || '');
   id: any;
   myForm!: FormGroup;
-  @Output()datas= new EventEmitter<ApprovalBank>();
- 
+  @Output() datas = new EventEmitter<ApprovalBank>();
+
   constructor(private router: Router, private Approval: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog) { }
   ngOnInit(): void {
     this.id = this.data.value
-    
- 
+
+
     this.myForm = new FormGroup({
       approvalStatus: new FormControl('', [Validators.required,]),
       reMarks: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9 ]*$')]),
- 
+
     });
   }
- 
+
   get approvalStatus() {
     return this.myForm.get('approvalStatus')
- 
+
   }
- 
+
   get reMarks() {
     return this.myForm.get('reMarks')
- 
+
   }
- 
- 
+
+
   submit() {
     let submitModel: ApprovalBank = {
       approvalStatus: this.approvalStatus?.value,
-      reMarks: this.reMarks?.value,
+      reMarks: this.reMarks?.value.trim(),
       modifiedBy: this.getadminname
     }
- 
-    this.Approval.EntityBankApprovals(this.id,submitModel).subscribe((res: any) => {
+
+    this.Approval.EntityBankApprovals(this.id, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
-        this.dialog.closeAll(); 
+        this.dialog.closeAll();
         setTimeout(() => {
           window.location.reload()
-        }, 500); 
-           }
+        }, 500);
+      }
       else {
         this.toastr.error(res.responseMessage)
       }
