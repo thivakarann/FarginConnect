@@ -13,16 +13,17 @@
 
         <div class="row">
         
-            <div class="col-10 form-group" >
+            <div class="col-6 form-group" >
                 <label for="Bussiness category">Region </label>
                 <select style="width: 467px;"  [(ngModel)]="regnId" (ngModelChange)="activeregionids(regnId)"  formControlName="regionId"
                     id="Bussiness category" class="form-control form-select">
-                    <option value="" disabled selected>Select</option>
+                  
                     <option *ngFor="let item of ActiveRegions" [value]="item.regionId">
                         {{item?.stateName }}
                     </option>
         
                 </select>
+
                 <div style="
                         color: red;
                         font-size: 12px;
@@ -37,7 +38,7 @@
         <div class="row">
             <div class="col-6 form-group ">
                 <label for="Entity Name">Channels List</label>
-                <mat-select #select style="font-size: 12px;" class="form-select" multiple formControlName="alcotChannel">
+                <!-- <mat-select #select style="font-size: 12px;" class="form-select" multiple formControlName="alcotChannel">
                     <div class="select-all">
                         <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
                             (change)="toggleAllSelection()">Select All</mat-checkbox>
@@ -45,7 +46,15 @@
                     <mat-option [value]="items.alcotId" *ngFor="let items of channelslist"> {{ items?.channelName }}
         
                     </mat-option>
-                </mat-select>
+                </mat-select> -->
+                <select style="width: 467px;"   formControlName="alcotChannel"
+                id="Entity Name" class="form-control form-select">
+            
+                <option *ngFor="let item of channelslist" [value]="item.alcotId">
+                    {{item?.channelName }}
+                </option>
+    
+            </select>
                 <div style="
                 color: red;
                 font-size: 12px;

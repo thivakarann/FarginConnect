@@ -28,8 +28,8 @@ export class SMScostAddComponent {
       amount: new FormControl('', [
         Validators.required,
         Validators.pattern('^(0\\.([0-9]{2}|[0-9]{1}))?$')
-    ])
-});
+      ])
+    });
   }
 
   get amount() {

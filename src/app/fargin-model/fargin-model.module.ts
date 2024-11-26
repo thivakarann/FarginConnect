@@ -1077,8 +1077,8 @@ export interface AgreementCommerical
   readonly disbursementApiPercentage:any;
   readonly disbursementApiFixedFee:any;
   readonly internationalApiAmount:any;
-  readonly internationalApiPercentage:any;
-  readonly internationalApiFixedFee:any;
+  readonly internationApiPercentage:any;
+  readonly internationApiFixedFee:any;
   readonly amexCardAmount:any;
   readonly amexCardPercentage:any;
   readonly amexCardFixedFee:any;
@@ -1121,6 +1121,9 @@ export interface AgreementCommerical
   readonly dynamicQrAmount:any;
   readonly dynamicQrPercentage:any;
   readonly dynamicQrFixedFee:any;
+  readonly creditCardAmount:any;
+  readonly creditCardPercentage:any;
+  readonly creditCardFixedFee:any;
  
  
 }
@@ -1151,8 +1154,8 @@ export interface UpdateAgreementCommerical
   readonly disbursementApiPercentage:any;
   readonly disbursementApiFixedFee:any;
   readonly internationalApiAmount:any;
-  readonly internationalApiPercentage:any;
-  readonly internationalApiFixedFee:any;
+  readonly internationApiPercentage:any;
+  readonly internationApiFixedFee:any;
   readonly amexCardAmount:any;
   readonly amexCardPercentage:any;
   readonly amexCardFixedFee:any;
@@ -1195,16 +1198,19 @@ export interface UpdateAgreementCommerical
   readonly dynamicQrAmount:any;
   readonly dynamicQrPercentage:any;
   readonly dynamicQrFixedFee:any;
+  readonly creditCardAmount:any;
+  readonly creditCardPercentage:any;
+  readonly creditCardFixedFee:any;
+ 
  
  
 }
-
 export interface CreatePlan{
   readonly merchantId:any;
   readonly commercialId:any;
   readonly createdBy:any;
   readonly merchantPosition:any;
-  readonly effectiveDate:any;
+  readonly expiryLink:any;
 }
 
 export interface AdminsignerOtp {
@@ -1223,4 +1229,12 @@ export interface AgreementlocationTracker {
   readonly flag:any,
   readonly consent:any,
   readonly getLocation:any
+}
+
+export interface Agreementextentdate {
+  readonly expiryLink:any
+}
+
+export interface AgreementLinkExpiry {
+  readonly expiryLinkStatus:any;
 }

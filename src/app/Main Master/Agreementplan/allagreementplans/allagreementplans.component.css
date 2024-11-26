@@ -131,9 +131,8 @@
     height: 33px;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    gap: 10px;
-    padding: 0px 15px;
+  
+    padding: 10px 20px;
     background-color: rgb(66, 66, 66);
     border-radius: 10px;
     color: white;

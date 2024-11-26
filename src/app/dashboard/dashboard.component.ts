@@ -59,6 +59,7 @@ export class DashboardComponent implements OnInit {
   valueCustomizationPayments: any;
   valuesurvey: any;
   valueBuisneesDoCument: any;
+  valueentityagreement: any;
 
 
   constructor(private elRef: ElementRef,
@@ -87,7 +88,7 @@ export class DashboardComponent implements OnInit {
 
     this.service.dashboardCount().subscribe((res: any) => {
       this.counts = res.response.totalTicketMemberOpenCount;
-      
+
     });
 
   }
@@ -133,6 +134,7 @@ export class DashboardComponent implements OnInit {
       this.valueCustomizationPayments = 'Customized Payment'
       this.valuesurvey = 'Survey'
       this.valueBuisneesDoCument = 'Business Document Type'
+      this.valueentityagreement = 'Entity Agreement'
     }
     else {
       for (let data of this.getdashboard) {
@@ -144,8 +146,12 @@ export class DashboardComponent implements OnInit {
         }
         if (this.roles == 'Entity Onboard') {
           this.valueEntity = 'Entity Onboard';
-          
 
+
+        }
+
+        if (this.roles == 'Entity Agreement') {
+          this.valueentityagreement = 'Entity Agreement'
         }
         if (this.roles == 'Customers') {
           this.valueCustomer = 'Customers';

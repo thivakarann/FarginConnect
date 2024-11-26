@@ -27,6 +27,9 @@ export class AggrementSignerOneComponent implements OnInit {
   AdminSignerName: any;
   AdminSignerEmail: any;
   AdminSignerMobile: any;
+  LocationStatus: any;
+  AdminSignedDate: any;
+  EntitySignedDate: any;
 
 
   constructor(
@@ -44,7 +47,7 @@ export class AggrementSignerOneComponent implements OnInit {
       console.log(this.ReferenceCode)
     });
 
-    this.Location();
+
 
 
     this.service.AggrementViewbyrefferencenumber(this.ReferenceCode).subscribe((res: any) => {
@@ -52,17 +55,26 @@ export class AggrementSignerOneComponent implements OnInit {
       this.AgreementId = res.response.agreementId;
       console.log(this.AgreementId)
       this.AdminSignedStatus = res.response.adminOtpStatus;
-      this.EntotySignedStatus = res.response.merchanOtptStatus
-      // this.EntityName = res.response.merchantId.entityName;
-      // this.EntityNumber = res.response.merchantId.contactMobile;
-      // this.EntityEmail = res.response.merchantId.contactEmail;
-      this.service.viewagreementdoucments(this.AgreementId, 1).subscribe((data) => {
+      this.EntotySignedStatus = res.response.merchanOtptStatus;
+      this.LocationStatus = res.response.adminGetLocation;
+      this.AdminSignedDate = res.response.adminVerifiedDate;
+      this.EntitySignedDate = res.response.merchantVerifiedDate;
+      console.log(this.LocationStatus);
+      console.log(this.AdminSignedDate);
+      console.log(this.EntitySignedDate);
+
+
+
+      this.Locationaccess()
+
+
+      this.service.viewagreementdoucments(this.AgreementId,1).subscribe((data) => {
         const reader = new FileReader();
         reader.readAsDataURL(data);
         reader.onloadend = () => {
           this.pdfurl1 = reader.result as string;
         }
-      })
+      });
     });
 
 
@@ -72,6 +84,26 @@ export class AggrementSignerOneComponent implements OnInit {
       this.AdminSignerEmail = res.response[0].signAdminEmail;
       this.AdminSignerMobile = res.response[0].signAdminMobile
     });
+  }
+
+
+
+
+  Locationaccess() {
+
+    if (this.LocationStatus == false) {
+      this.dialog.open(AggrementLocationTrackerComponent, {
+        enterAnimationDuration: '500ms',
+        exitAnimationDuration: '1000ms',
+        disableClose: true,
+        data: { value: this.ReferenceCode }
+      })
+    }
+
+    else{
+      this.dialog.closeAll()
+    }
+
   }
 
   ResendOTP() {
@@ -89,16 +121,9 @@ export class AggrementSignerOneComponent implements OnInit {
     })
   }
 
-  Location(){
-    this.dialog.open(AggrementLocationTrackerComponent,{
-      enterAnimationDuration: '500ms',
-      exitAnimationDuration: '1000ms',
-      disableClose: true,
-      data: { value: this.ReferenceCode }
-    })
-  }
 
-  
+
+
 
 
 

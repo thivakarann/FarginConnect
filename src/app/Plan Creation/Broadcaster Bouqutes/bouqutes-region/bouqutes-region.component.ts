@@ -167,13 +167,12 @@ export class BouqutesRegionComponent {
 
   }
   
-
-  addExtraChannels(id:any){
+  addExtraChannels(id:any,id1:any){
     this.dialog.open(AddExtraRegionComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "500ms",
-      data: { value: id }
-
+      data: { value: id, value2:id1}
+ 
     })
   }
 

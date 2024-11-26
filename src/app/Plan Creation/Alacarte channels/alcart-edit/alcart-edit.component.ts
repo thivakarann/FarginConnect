@@ -151,7 +151,7 @@ export class AlcartEditComponent implements OnInit {
       type: this.type?.value,
       generic: this.generic?.value.trim(),
       language: this.language?.value.trim(),
-      price: this.price?.value.trim(),
+      price: this.price?.value,
       modifiedBy: this.getadminname,
       channelNo: this.channelNo?.value
     }

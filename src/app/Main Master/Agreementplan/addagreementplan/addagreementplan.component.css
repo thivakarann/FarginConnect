@@ -1,5 +1,6 @@
 .container {
     max-width: 1500px;
+    margin-bottom: 10px;
     /* Increase container width */
   }
   
@@ -8,6 +9,7 @@
     /* Header background color */
     color: white;
     padding: 0.5rem;
+    margin-top: 10px;
     border-radius: 0.5rem 0.5rem 0 0;
     /* Rounded corners on top */
     /* margin-bottom: 0.5rem; */

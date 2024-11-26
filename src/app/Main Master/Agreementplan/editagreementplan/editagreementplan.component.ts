@@ -100,6 +100,9 @@ export class EditagreementplanComponent {
       airtelmoneyAmount:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
       airtelmoneyPercentage:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
       airtelmoneyFixedFee:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      creditCardAmount:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      creditCardPercentage:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      creditCardFixedFee:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
     });
  
   
@@ -342,6 +345,15 @@ export class EditagreementplanComponent {
   get airtelmoneyFixedFee() {
     return this.myForm.get('airtelmoneyFixedFee')
   }
+  get creditCardAmount() {
+    return this.myForm.get('creditCardAmount')
+  }
+  get creditCardPercentage() {
+    return this.myForm.get('creditCardPercentage')
+  }
+  get creditCardFixedFee() {
+    return this.myForm.get('creditCardFixedFee')
+  }
   submit() {
     let submitModel: UpdateAgreementCommerical = {
       planName: this.planName?.value.trim(),
@@ -369,8 +381,8 @@ export class EditagreementplanComponent {
       disbursementApiPercentage: this.disbursementPercentage?.value.trim(),
       disbursementApiFixedFee: this.disbursementFixedFee?.value.trim(),
       internationalApiAmount: this.internationalAmount?.value.trim(),
-      internationalApiPercentage: this.internationalPercentage?.value.trim(),
-      internationalApiFixedFee: this.internationalFixedFee?.value.trim(),
+      internationApiPercentage: this.internationalPercentage?.value.trim(),
+      internationApiFixedFee: this.internationalFixedFee?.value.trim(),
       amexCardAmount: this.amexAmount?.value.trim(),
       amexCardPercentage: this.amexPercentage?.value.trim(),
       amexCardFixedFee: this.amexFixedFee?.value.trim(),
@@ -413,6 +425,9 @@ export class EditagreementplanComponent {
       walletAirtelMoneyAmount: this.airtelmoneyAmount?.value.trim(),
       walletAirtelMoneyPercentage: this.airtelmoneyPercentage?.value.trim(),
       walletAirtelMoneyFixedFee: this.airtelmoneyFixedFee?.value.trim(),
+      creditCardAmount: this.creditCardAmount?.value.trim(),
+      creditCardPercentage: this.creditCardPercentage?.value.trim(),
+      creditCardFixedFee: this.creditCardFixedFee?.value.trim(),
     };
     this.service.editagreementplan(this.commercialId,submitModel).subscribe((res: any) => {
       if (res.flag == 1) {

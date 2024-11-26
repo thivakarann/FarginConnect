@@ -29,6 +29,7 @@ ActiveregionID: any;
 serviceId:any;
 regnId: any;
 RegionIds:any
+  id1: any;
 
   constructor(
     public AddExtra: FarginServiceService,
@@ -51,6 +52,7 @@ RegionIds:any
     // });
     this.id=this.data.value;
     console.log(this.id)
+    this.id1=this.data.value2;
 
     // this.AddExtra.ActiveAlcards().subscribe((res: any) => {
     //   this.channelslist = res.response;
@@ -58,7 +60,7 @@ RegionIds:any
      
     // });
 
-    this.AddExtra.ActiveRegionsbyserviceprovider(this.id).subscribe((res: any) => {
+    this.AddExtra.ActiveRegionsbyserviceprovider(this.id1).subscribe((res: any) => {
       this.ActiveRegions = res.response;
       console.log( 'region' +this.ActiveRegions)
       console.log(this.ActiveRegions[0].regionId)
@@ -127,13 +129,14 @@ RegionIds:any
     let submitModel: ExtraRegion = {
       boqId: this.id,
       regionId: this.regionId?.value,
-      alcotChannel: this.alcotChannel?.value
+      alcotChannel: [this.alcotChannel?.value]
     }
     this.AddExtra.BouquetsRegion(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
-        this.dialog.closeAll();
-        window.location.reload();
+        setTimeout(() => {
+          window.location.reload()
+        }, 500);
       }
       else {
         this.toastr.error(res.responseMessage)

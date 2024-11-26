@@ -1,8 +1,23 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<div class="d-flex justify-content-end mb-1">
-    <button class="button1" (click)="close()">Back</button>
+
+<div class="row">
+    <div class="mb-1 ml-1">
+        <div style="font-size: x-large; font-weight: 600" class="w-50">
+            {{ detaislone?.entityName }}
+        </div>
+    </div>
+    <div class="col-md-6" style="color: #2346cf; font-weight: 600; font-size: 15px">
+        <p style="text-wrap: nowrap">
+            <strong>Note:</strong> These below tab functionalities can only be accessed after
+            the Onboard process is completed
+        </p>
+    </div>
+    <div class="col-md-6 text-end" style="margin-bottom: 16px;
+    margin-top: -4px;">
+        <button class="button1" (click)="close()">Back</button>
+    </div>
 </div>
 <div class="navtabs">
     <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
@@ -31,7 +46,7 @@
         data-target="contact" (click)="Viewautodebit(this.id)">
         <div [hidden]="valueentityautodebit!=='Entity View Rent Logs'"> <i
                 class="fa-solid fa-money-bill-transfer"></i>&nbsp;&nbsp;MMC AutoDebit
-            </div>
+        </div>
     </button>
 
     <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
@@ -76,12 +91,12 @@
             [hidden]="valueCustomized!=='Entity View Customized Payment'">Customized Payment</button>
         <button class="tab" [class.active]="activeTab === 'doot4'" (click)="selectTab('doot4')"
             [hidden]="valuesmssetting!=='Sms Setting'">SMS Settings</button>
-            <button class="tab" [class.active]="activeTab === 'doot5'" (click)="selectTab('doot5')">Agreement</button>
+        <button class="tab" [class.active]="activeTab === 'doot5'" (click)="selectTab('doot5')">Agreement</button>
     </div>
     <div class="tab-content" *ngIf="activeTab === 'events'" [hidden]="valueGeneral!=='Entity View General Information'">
         <div class="filters">
             <div class="col-12">
-                <div class="row" style="background-color: #bcdf72;color:#fff;">
+                <div class="row" style="background-color: #bcdf72;color:#141E46;">
                     <div class="col-md-10">
                         <h5 class="p-2 mx-3" style="font-weight: 500;font-size:20px;">Entity
                             Information</h5>
@@ -91,16 +106,15 @@
                             <i class="fas fa-edit" style="color: #fff;font-size:18px;"
                                 (click)="editpersonalInfo(this.id)"></i>
                         </span> -->
-                        
-                         <!-- [disabled]="detaislone?.onBoardStatus=='false'" //View onboardinfo -->
+
+                        <!-- [disabled]="detaislone?.onBoardStatus=='false'" //View onboardinfo -->
                         &nbsp;&nbsp;&nbsp;
                         <div class="buttonDownload1" [matMenuTriggerFor]="menu">
                             <i style="overflow:hidden;color:#fff;font-size:22px;" class="fa-solid fa-ellipsis-vertical">
                                 <mat-menu #menu="matMenu">
-                                    <button   style="font-size: 10px;" mat-menu-item (click)="editpersonalInfo(this.id)"
+                                    <button style="font-size: 10px;" mat-menu-item (click)="editpersonalInfo(this.id)"
                                         [hidden]="valueeditentity!=='Entity View-Edit'">Edit EntityDetails</button>
                                     <button style="font-size: 10px;" mat-menu-item (click)="viewOnboardInfo(this.id)"
-                                       
                                         [hidden]="valueviewonboard!=='Entity View-Onboard Information'">View
                                         OnboardInfo</button>
                                     <button style="font-size: 10px;" mat-menu-item (click)="pgOnboard()"
@@ -303,7 +317,8 @@
             <button class="btn clear"></button>
         </div>
 
-        <h5 class="p-2 mx-3 mt-5" style="background-color: #bcdf72;color:#fff;font-weight: 500;font-size:20px;">Level 1
+        <h5 class="p-2 mx-3 mt-5" style="background-color: #bcdf72;color:#141E46;font-weight: 500;font-size:20px;">Level
+            1
             Approval</h5>
 
         <div class="filters">
@@ -318,7 +333,15 @@
                                             <div class="d-flex mt-2">
                                                 <div class="w-50 font-weight-bold">
                                                     Approval Status</div>
-                                                <div class="w-50">{{this.detaislone?.approvalStatusL1}}</div>
+                                                <div class="w-50" [ngClass]="{
+                                                      approved:
+                                                        detaislone?.approvalStatusL1 == 'approved',
+                                                      rejected:
+                                                        detaislone?.approvalStatusL1 == 'rejected',
+                                                      pending: detaislone?.approvalStatusL1 == 'pending'
+                                                    }">
+                                                    {{ detaislone?.approvalStatusL1 }}
+                                                </div>
                                             </div>
                                             <div class="d-flex mt-3">
                                                 <div class="w-50 font-weight-bold">
@@ -347,7 +370,8 @@
                                                 <div class="w-50 font-weight-bold">Approval At</div>
                                                 <div class="w-50">
                                                     <span *ngIf="this.detaislone?.approvedDateTimeL1!=null">
-                                                        {{this.detaislone?.approvedDateTimeL1 | date : "dd/MM/yyyy hh:mm a" }}
+                                                        {{this.detaislone?.approvedDateTimeL1 | date : "dd/MM/yyyy hh:mm
+                                                        a" }}
                                                     </span>
                                                     <span *ngIf="this.detaislone?.approvedDateTimeL1==null">-</span>
                                                 </div>
@@ -379,20 +403,19 @@
                     <div class="search ">
                         <form class="form">
                             <label for="search">
-                                <input #input required autocomplete="off" placeholder="Search"
-                                       id="search" type="text">
+                                <input #input required autocomplete="off" placeholder="Search" id="search" type="text">
                                 <div class="icon">
                                     <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                                         xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                                        xmlns="http://www.w3.org/2000/svg" class="swap-on">
                                         <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
-                                              stroke-linecap="round"></path>
+                                            stroke-linecap="round"></path>
                                     </svg>
                                 </div>
                                 <button (click)="reload()" type="reset" class="close-btn">
                                     <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
                                         <path clip-rule="evenodd"
-                                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                              fill-rule="evenodd"></path>
+                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                            fill-rule="evenodd"></path>
                                     </svg>
                                 </button>
                             </label>
@@ -401,8 +424,9 @@
                     &nbsp;&nbsp;
                 </div>
                 <div class="col-md-1 mt-1">
-                    <button (click)="Entitybanksearch(id,input.value)" style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Go</button>
- 
+                    <button (click)="Entitybanksearch(id,input.value)"
+                        style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Go</button>
+
                 </div>
                 <div class="col-md-2 mt-1">
                     <button (click)="addbank(this.id)" [hidden]="valuebankadd!=='Bank-Add'"
@@ -434,9 +458,9 @@
                                 <th [hidden]="valuebankedit!=='Bank-Edit'">Action</th>
                                 <th [hidden]="valuebankverify!=='Bank-Verification'">Verification</th>
                                 <th>Verification Status</th>
-                                
-                           
-                              
+
+
+
 
 
                             </tr>
@@ -469,7 +493,8 @@
                                         </mat-slide-toggle>
                                     </span>
                                 </td>
-                                <td [hidden]="valuebankapproval!=='Bank-Approval'"><button [disabled]="item?.approvalStatus === 'approved'" class="buttonDownload"
+                                <td [hidden]="valuebankapproval!=='Bank-Approval'"><button
+                                        [disabled]="item?.approvalStatus === 'approved'" class="buttonDownload"
                                         (click)="BankApproval(item.merchantBankId)">Approval</button>
                                 </td>
 
@@ -509,7 +534,7 @@
                                     <span *ngIf="item.facheckStatus==0 " class="text-danger">Not-Verified</span>
                                     <span *ngIf="item.facheckStatus==1 " class="text-success">Verified</span>
                                 </td>
-                         
+
 
 
 
@@ -557,7 +582,8 @@
                     </div>
                 </div>
                 <div class="col-md-2 mt-1">
-                    <button [hidden]="valuekycadd!=='Entity View KYC Document-add'" [disabled]="KYCDetails.length > 0" (click)="addKycdocuments(this.id)"
+                    <button [hidden]="valuekycadd!=='Entity View KYC Document-add'" [disabled]="KYCDetails.length > 0"
+                        (click)="addKycdocuments(this.id)"
                         style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Add
                         KYC</button>
                 </div>
@@ -939,9 +965,15 @@
                             </tr>
                             <tbody>
                                 <td class="text-center">1</td>
-                                <td class="text-center">{{this.detaislone?.approvalStatusL2}}</td>
+                                <td class="text-center" [ngClass]="{approved: detaislone?.approvalStatusL2 == 'approved',
+                                                                     rejected: detaislone?.approvalStatusL2 == 'rejected',
+                    pending: detaislone?.approvalStatusL2 == 'pending'
+                  }">
+                                    {{ this.detaislone?.approvalStatusL2 }}
+                                </td>
                                 <td class="text-center">{{this.detaislone?.approvedByL2}}</td>
-                                <td class="text-center">{{this.detaislone?.approvedDateTimeL2 | date : "dd/MM/yyyy hh:mm a"}}</td>
+                                <td class="text-center">{{this.detaislone?.approvedDateTimeL2 | date : "dd/MM/yyyy hh:mm
+                                    a"}}</td>
                                 <td class="text-center" [hidden]="valuefinalapprovals!=='Final-Approval'">
                                     <span><button class="buttonDownload" (click)="levelTwoApproval(this.id)"
                                             [hidden]="this.detaislone?.approvalStatusL1 == 'Pending' || this.detaislone?.approvalStatusL1 == 'Rejected' ">Approval</button></span>
@@ -996,8 +1028,10 @@
                 </div>
             </div>
             <div class="col-md-2 mt-1">
-                <button (click)="createmanualPayement()" [hidden]="valuemanualpay!=='One Time Setup Payment-Create' ||  paymentStatus=='Success'"
-                    style="color:white;background-color: #141E46;border-radius: 10px; width:120%" mat-raised-button>Manual Payment
+                <button (click)="createmanualPayement()"
+                    [hidden]="valuemanualpay!=='One Time Setup Payment-Create' ||  paymentStatus=='Success'"
+                    style="color:white;background-color: #141E46;border-radius: 10px; width:120%"
+                    mat-raised-button>Manual Payment
                 </button>
             </div>
         </div>
@@ -1011,8 +1045,11 @@
                             <th>S No </th>
                             <th>Payment ID</th>
                             <th>Due Amount</th>
-                            <th [hidden]="valuemanualedit!=='One Time Setup Payment-Edit'" >
-                                <span style="background-color: #bcdf72;" *ngIf="paymentMethod=='Cash' || paymentMethod=='UPI' || paymentMethod=='NEFT' || paymentMethod=='RTGS' || paymentMethod=='IMPS' || paymentMethod=='Cheque'" >Edit </span></th>
+                            <th [hidden]="valuemanualedit!=='One Time Setup Payment-Edit'">
+                                <span style="background-color: #bcdf72;"
+                                    *ngIf="paymentMethod=='Cash' || paymentMethod=='UPI' || paymentMethod=='NEFT' || paymentMethod=='RTGS' || paymentMethod=='IMPS' || paymentMethod=='Cheque'">Edit
+                                </span>
+                            </th>
                             <th [hidden]="valuemanualview!=='One Time Setup Payment-View'">View</th>
                             <th>Payment Status</th>
                             <th>Payment Method</th>
@@ -1038,10 +1075,14 @@
                                 </span>
                             </td>
                             <td>
-                                <span *ngIf="item?.paymentStatus == 'Success'" class="text-success"> {{ item?.paymentStatus}}</span>
-                                <span *ngIf="item?.paymentStatus   == 'Pending'" class="text-warning"> {{ item?.paymentStatus}}</span>
-                                <span *ngIf="item?.paymentStatus  == 'Initiated'" class="text-primary"> {{ item?.paymentStatus}}</span>
-                                <span *ngIf="item?.paymentStatus  == 'Failure'" class="text-danger"> {{ item?.paymentStatus}}</span>
+                                <span *ngIf="item?.paymentStatus == 'Success'" class="text-success"> {{
+                                    item?.paymentStatus}}</span>
+                                <span *ngIf="item?.paymentStatus   == 'Pending'" class="text-warning"> {{
+                                    item?.paymentStatus}}</span>
+                                <span *ngIf="item?.paymentStatus  == 'Initiated'" class="text-primary"> {{
+                                    item?.paymentStatus}}</span>
+                                <span *ngIf="item?.paymentStatus  == 'Failure'" class="text-danger"> {{
+                                    item?.paymentStatus}}</span>
 
                             </td>
                             <td>{{item.paymentMethod}}</td>
@@ -1135,12 +1176,16 @@
                                     <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
                                 </span>
                             </td>
-                            <td>  
-                                <span *ngIf="item?.paymentStatus == 'Success'" class="text-success"> {{ item?.paymentStatus}}</span>
-                                <span *ngIf="item?.paymentStatus   == 'Due Pending'" class="text-warning"> {{ item?.paymentStatus}}</span>
-                                <span *ngIf="item?.paymentStatus  == 'Initiated'" class="text-primary"> {{ item?.paymentStatus}}</span>
-                                <span *ngIf="item?.paymentStatus  == 'Failure'" class="text-danger"> {{ item?.paymentStatus}}</span>
-            </td>
+                            <td>
+                                <span *ngIf="item?.paymentStatus == 'Success'" class="text-success"> {{
+                                    item?.paymentStatus}}</span>
+                                <span *ngIf="item?.paymentStatus   == 'Due Pending'" class="text-warning"> {{
+                                    item?.paymentStatus}}</span>
+                                <span *ngIf="item?.paymentStatus  == 'Initiated'" class="text-primary"> {{
+                                    item?.paymentStatus}}</span>
+                                <span *ngIf="item?.paymentStatus  == 'Failure'" class="text-danger"> {{
+                                    item?.paymentStatus}}</span>
+                            </td>
                             <td>{{item.paymentDateTime | date:"dd/MM/yyyy hh:mm a"}}</td>
                         </tbody>
                     </table>
@@ -1197,13 +1242,13 @@
                     <article class="card car-details label-info" style="padding:1%;padding-left: 25px;">
                         <div class="w-100">
                             <div class="d-flex flex-md-row flex-column">
-                                <h5 class="mr-3"> Charge Per Sms  ₹{{chargepersms}}</h5>
+                                <h5 class="mr-3"> Charge Per Sms ₹{{chargepersms}}</h5>
                             </div>
-                 
+
                         </div>
                     </article>
                 </div>
-       
+
             </div>
         </div>
     </mat-card-header>
@@ -1239,7 +1284,13 @@
                                 <span><button class="buttonDownload" [disabled]="item.smsApprovalStatus!=='Rejected'"
                                         (click)="SmsApproval(item.merchantSmsId)">Approval</button></span>
                             </td>
-                            <td>{{item.smsApprovalStatus}}</td>
+                            <td [ngClass]="{
+                    approved: item?.smsApprovalStatus == 'approved',
+                    rejected: item?.smsApprovalStatus == 'rejected',
+                    pending: item?.smsApprovalStatus == 'pending'
+                  }">
+                                {{ item.smsApprovalStatus }}
+                            </td>
                             <td [hidden]="valuesmsstatus!=='Sms Setting-Status'"><span> <mat-slide-toggle
                                         class="example-margin" color="primary" [checked]="item.smsStatus==1"
                                         (change)="smsStatus($event,item.merchantSmsId)">
@@ -1272,7 +1323,8 @@
 <div *ngIf="activeTab === 'doot5'">
     <mat-card-header>
         <div class="col-md-3 mr-2" style="color: blue; font-size: 12px;">
-            <p style="text-wrap: nowrap;"><strong>Note:</strong> (You can only create an agreement once the one-time payment is success).</p>
+            <p style="text-wrap: nowrap;"><strong>Note:</strong> (You can only create an agreement once the one-time
+                payment is success).</p>
         </div>
         <div class="row  d-flex justify-content-start">
             <div class="col-md-3">
@@ -1305,9 +1357,9 @@
                     </form>
                 </div>
             </div>
-            <div class="col-md-2 mt-1" >
-                <button [disabled]="this.paymentStatus?.toLowerCase() !== 'success'" (click)="agreementcreate()" style="color:white;background-color: #141E46;border-radius: 10px;"
-                    mat-raised-button>Create
+            <div class="col-md-2 mt-1">
+                <button [disabled]="this.paymentStatus?.toLowerCase() !== 'success'" (click)="agreementcreate()"
+                    style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Create
                 </button>
             </div>
         </div>
@@ -1322,10 +1374,12 @@
                             <th>Plan Name</th>
                             <th>Service Fee</th>
                             <th>Plan Overview</th>
-                            <th>Agreement</th>
                             <th>Fargin Signer Status</th>
-                            <th >Entity Signer Status</th>
-                            <th >Agreement Signed Copy</th>
+                            <th>Entity Signer Status</th>
+                            <th>Link Expiry Date</th>
+                            <th>Link Expiry Status</th>
+                            <th>Agreement</th>
+                            <th>Agreement Signed Copy</th>
                             <th>Created By</th>
                             <th>Created At</th>
                         </tr>
@@ -1338,50 +1392,61 @@
                                 <i style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
                                     (click)="view(item.commercialId?.commercialId)"></i>
                             </td>
- 
+                            <td [ngClass]="item.adminOtpStatus == 0 ? 'not-signed' : 'signed'">
+                                {{ item.adminOtpStatus == 0 ? 'Not Signed' : 'Signed' }}
+                            </td>
+
+                            <td [ngClass]="item.merchanOtptStatus == 0 ? 'not-signed' : 'signed'">
+                                {{ item.merchanOtptStatus == 0 ? 'Not Signed' : 'Signed' }}
+                            </td>
+
+                            <td>
+                                <i style="cursor: pointer;font-size: 17px;" class="fa-solid fa-calendar-days"
+                                    (click)="ExtendLinkDate(item.agreementId,item.expiryLink)"></i>
+                            </td>
+                            <td>
+                                <mat-slide-toggle
+                  class="example-margin"
+                  color="primary"
+                  [checked]="item.expiryLinkStatus == 1"
+                  (change)="LinkExpirystatus($event, item.agreementId)"
+                >
+                </mat-slide-toggle
+              ></td>
+
                             <td>
                                 <button style="
                                
                                 border: 1px solid white;
                                 border-radius: 4px;" (click)="viewagreementdoc(item.agreementId)">
-                                 <i style="cursor: pointer;font-size: 17px;" class="fa-solid fa-file-contract"
-                                 ></i></button>
-                               
+                                    <i style="cursor: pointer;font-size: 17px;"
+                                        class="fa-solid fa-file-contract"></i></button>
+
                             </td>
-                           
-                            <td [ngClass]="item.adminOtpStatus == 0 ? 'not-signed' : 'signed'">
-                                {{ item.adminOtpStatus == 0 ? 'Not Signed' : 'Signed' }}
-                              </td>
- 
-                              <td [ngClass]="item.merchanOtptStatus == 0 ? 'not-signed' : 'signed'">
-                                {{ item.merchanOtptStatus == 0 ? 'Not Signed' : 'Signed' }}
-                              </td>
-                             
-                              <td>
-                                <button
-                                  style="color: white; border: 1px solid white; border-radius: 4px;"  
-                                  (click)="viewsignedagreementdoc(item.agreementId)"
-                                  [disabled]="item.adminOtpStatus == 0 || item.merchanOtptStatus == 0"
-                                  [ngClass]="{
+
+                       
+
+                            <td>
+                                <button style="color: white; border: 1px solid white; border-radius: 4px;"
+                                    (click)="viewsignedagreementdoc(item.agreementId)"
+                                    [disabled]="item.adminOtpStatus == 0 || item.merchanOtptStatus == 0" [ngClass]="{
                                     'disabled-btn': (item.adminOtpStatus == 0 || item.merchanOtptStatus == 0),
                                     'enabled-btn': (item.adminOtpStatus == 1 && item.merchanOtptStatus == 1)
                                   }">
-                                  <i
-                                    style="cursor: pointer; font-size: 17px;"
-                                    class="fa-solid fa-file-contract"
-                                    [ngClass]="{
+                                    <i style="cursor: pointer; font-size: 17px;" class="fa-solid fa-file-contract"
+                                        [ngClass]="{
                                       'disabled-icon': (item.adminOtpStatus == 0 || item.merchanOtptStatus == 0),
                                       'enabled-icon': (item.adminOtpStatus == 1 && item.merchanOtptStatus == 1)
                                     }">
-                                  </i>
+                                    </i>
                                 </button>
-                              </td>
-                             
-                           
- 
+                            </td>
+
+
+
                             <td>{{item.createdBy}}</td>
                             <td>{{item.createdDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
-           
+
                         </tbody>
                     </table>
                 </div>

@@ -1,28 +1,33 @@
-<body>
-    <main>
+<body style="overflow-x: hidden;">
+    <main style="padding:10px 20px">
         <table am-layout="zebra-stripe">
             <tbody>
-                <tr>
-                    <th scope="rowgroup" colspan="4" style="padding:10px;">
-                        <p style="font-family: Arial, Helvetica, sans-serif;">Plan Name : {{viewbyagreement?.planName}}</p>
-                        <button class="button" (click)="close()">
-                            Back
-                            <div class="arrow">›</div>
-                        </button>
- 
+         
+                    <th  scope="rowgroup">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p style="font-family:'Times New Roman', Times, serif;font-weight: 600;font-size: large;">Plan Name : {{viewbyagreement?.planName}}</p>
+                              
+                                </div>
+                                <div class="col-md-6">
+                                    <button class="button" (click)="close()">
+                                        Back   
+                                    </button>
+                                </div>
+                        </div>
+                      
                     </th>
-      
+                    
                 </tbody>
-<br>
+                <br>
     
-<br>
 
-                <div class="row">
-                    <div class="col-4">
+                <div class="row p-2">
+                    <div class="col-4 ">
                         <table am-layout="zebra-stripe">
                             <thead>
                                 <tr>
-                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                    <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
                                         Net Banking
                                     </td>
                                 </tr>
@@ -41,110 +46,11 @@
                             </tbody>
                         </table>
                     </div>
-        
                     <div class="col-4">
                         <table am-layout="zebra-stripe">
                             <thead>
                                 <tr>
-                                    <td colspan="4" style="padding: 5px; text-align: center;">
-                                        Rupay Debit Card (Maximum)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Amount</td>
-                                    <td>Percentage</td>
-                                    <td>Fixed Fee</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{{viewbyagreement?.rupayDebitCardMaxAmount}}</td>
-                                    <td>{{viewbyagreement?.rupayDebitCardMaxPercentage}}</td>
-                                    <td>{{viewbyagreement?.rupayDebitCardMaxFixedFee}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-4">
-                        <table am-layout="zebra-stripe">
-                            <thead>
-                                <tr>
-                                    <td colspan="4" style="padding: 5px; text-align: center;">
-                                        Rupay Debit Card (Minimum)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Amount</td>
-                                    <td>Percentage</td>
-                                    <td>Fixed Fee</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{{viewbyagreement?.rupayDebitCardMinAmount}}</td>
-                                    <td>{{viewbyagreement?.rupayDebitCardMinPercentage}}</td>
-                                    <td>{{viewbyagreement?.rupayDebitCardMinFixedFee}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                  
-                </div>
-<br>
-                <div class="row">
-                    <div class="col-4">
-                        <table am-layout="zebra-stripe">
-                            <thead>
-                                <tr>
-                                    <td colspan="4" style="padding: 5px; text-align: center;">
-                                        Other Debit Card (Maximum)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Amount</td>
-                                    <td>Percentage</td>
-                                    <td>Fixed Fee</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{{viewbyagreement?.otherDebitCardMaxAmount}}</td>
-                                    <td>{{viewbyagreement?.otherDebitCardMaxPercentage}}</td>
-                                    <td>{{viewbyagreement?.otherDebitCardMaxFixedFee}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-        
-                    <div class="col-4">
-                        <table am-layout="zebra-stripe">
-                            <thead>
-                                <tr>
-                                    <td colspan="4" style="padding: 5px; text-align: center;">
-                                        Other Debit Card (Minimum)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Amount</td>
-                                    <td>Percentage</td>
-                                    <td>Fixed Fee</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{{viewbyagreement?.otherDebitCardMinAmount}}</td>
-                                    <td>{{viewbyagreement?.otherDebitCardMinPercentage}}</td>
-                                    <td>{{viewbyagreement?.otherDebitCardMinFixedFee}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-4">
-                        <table am-layout="zebra-stripe">
-                            <thead>
-                                <tr>
-                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                    <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
                                        e-Collect
                                     </td>
                                 </tr>
@@ -164,16 +70,12 @@
                         </table>
                     </div>
 
-                  
-                </div>
-        
-                <br>
-                <div class="row">
+                   
                     <div class="col-4">
                         <table am-layout="zebra-stripe">
                             <thead>
                                 <tr>
-                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                    <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
                                         Disbursement Api
                                     </td>
                                 </tr>
@@ -192,12 +94,18 @@
                             </tbody>
                         </table>
                     </div>
+                  
+                </div>
+<br>
+    
+                <div class="row p-2">
+                
         
                     <div class="col-4">
                         <table am-layout="zebra-stripe">
                             <thead>
                                 <tr>
-                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                    <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
                                         International Api
                                     </td>
                                 </tr>
@@ -220,7 +128,159 @@
                         <table am-layout="zebra-stripe">
                             <thead>
                                 <tr>
-                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                    <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
+                                        UPI
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>Percentage</td>
+                                    <td>Fixed Fee</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{viewbyagreement?.upiAmount}}</td>
+                                    <td>{{viewbyagreement?.upiPercentage}}</td>
+                                    <td>{{viewbyagreement?.upiFixedFee}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+        
+                    <div class="col-4">
+                        <table am-layout="zebra-stripe">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
+                                        Dynamic Qr
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>Percentage</td>
+                                    <td>Fixed Fee</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{viewbyagreement?.dynamicQrAmount}}</td>
+                                    <td>{{viewbyagreement?.dynamicQrPercentage}}</td>
+                                    <td>{{viewbyagreement?.dynamicQrFixedFee}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                  
+                </div>
+ 
+
+            
+                <h5 class="mt-2" style="text-align: center;color: #0e75b4;font-weight: 600;">Cards</h5>
+                <div class="row p-2">
+                    <div class="col-4">
+                        <table am-layout="zebra-stripe">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
+                                        Rupay Debit Card (Maximum)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>Percentage</td>
+                                    <td>Fixed Fee</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{viewbyagreement?.rupayDebitCardMaxAmount}}</td>
+                                    <td>{{viewbyagreement?.rupayDebitCardMaxPercentage}}</td>
+                                    <td>{{viewbyagreement?.rupayDebitCardMaxFixedFee}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-4">
+                        <table am-layout="zebra-stripe">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
+                                        Rupay Debit Card (Minimum)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>Percentage</td>
+                                    <td>Fixed Fee</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{viewbyagreement?.rupayDebitCardMinAmount}}</td>
+                                    <td>{{viewbyagreement?.rupayDebitCardMinPercentage}}</td>
+                                    <td>{{viewbyagreement?.rupayDebitCardMinFixedFee}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-4">
+                        <table am-layout="zebra-stripe">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
+                                        Other Debit Card (Maximum)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>Percentage</td>
+                                    <td>Fixed Fee</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{viewbyagreement?.otherDebitCardMaxAmount}}</td>
+                                    <td>{{viewbyagreement?.otherDebitCardMaxPercentage}}</td>
+                                    <td>{{viewbyagreement?.otherDebitCardMaxFixedFee}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+        
+                </div>
+                <br>
+                <div class="row p-2">
+                    
+                    <div class="col-4">
+                        <table am-layout="zebra-stripe">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
+                                        Other Debit Card (Minimum)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>Percentage</td>
+                                    <td>Fixed Fee</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{viewbyagreement?.otherDebitCardMinAmount}}</td>
+                                    <td>{{viewbyagreement?.otherDebitCardMinPercentage}}</td>
+                                    <td>{{viewbyagreement?.otherDebitCardMinFixedFee}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-4">
+                        <table am-layout="zebra-stripe">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
                                         Amex Card
                                     </td>
                                 </tr>
@@ -239,17 +299,11 @@
                             </tbody>
                         </table>
                     </div>
-
-                  
-                </div>
- 
-                <br>
-                <div class="row">
                     <div class="col-4">
                         <table am-layout="zebra-stripe">
                             <thead>
                                 <tr>
-                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                    <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
                                         Dinners Card
                                     </td>
                                 </tr>
@@ -269,11 +323,14 @@
                         </table>
                     </div>
         
+                </div>
+                <br>
+                <div class="row p-2">
                     <div class="col-4">
                         <table am-layout="zebra-stripe">
                             <thead>
                                 <tr>
-                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                    <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
                                         Corporate/Commercial Card
                                     </td>
                                 </tr>
@@ -296,7 +353,7 @@
                         <table am-layout="zebra-stripe">
                             <thead>
                                 <tr>
-                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                    <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
                                         Prepaid Card
                                     </td>
                                 </tr>
@@ -315,69 +372,39 @@
                             </tbody>
                         </table>
                     </div>
-
-                  
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-6">
-                        <table am-layout="zebra-stripe">
-                            <thead>
-                                <tr>
-                                    <td colspan="4" style="padding: 5px; text-align: center;">
-                                        UPI
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Amount</td>
-                                    <td>Percentage</td>
-                                    <td>Fixed Fee</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{{viewbyagreement?.upiAmount}}</td>
-                                    <td>{{viewbyagreement?.upiPercentage}}</td>
-                                    <td>{{viewbyagreement?.upiFixedFee}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-        
-                    <div class="col-6">
-                        <table am-layout="zebra-stripe">
-                            <thead>
-                                <tr>
-                                    <td colspan="4" style="padding: 5px; text-align: center;">
-                                        Dynamic Qr
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Amount</td>
-                                    <td>Percentage</td>
-                                    <td>Fixed Fee</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{{viewbyagreement?.dynamicQrAmount}}</td>
-                                    <td>{{viewbyagreement?.dynamicQrPercentage}}</td>
-                                    <td>{{viewbyagreement?.dynamicQrFixedFee}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                  
-                </div>
-                <br>
-                <h5 class="mt-2" style="text-align: center;">Wallets</h5>
-                <div class="row">
                     <div class="col-4">
                         <table am-layout="zebra-stripe">
                             <thead>
                                 <tr>
-                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                    <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
+                                       Credit Card
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>Percentage</td>
+                                    <td>Fixed Fee</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{viewbyagreement?.creditCardAmount}}</td>
+                                    <td>{{viewbyagreement?.creditCardPercentage}}</td>
+                                    <td>{{viewbyagreement?.creditCardFixedFee}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                  
+
+                </div>
+                <h5 class="mt-2" style="text-align: center;color: #0e75b4;font-weight: 600;">Wallets</h5>
+                <div class="row p-2">
+                    <div class="col-4">
+                        <table am-layout="zebra-stripe">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
                                         Phonepe
                                     </td>
                                 </tr>
@@ -401,7 +428,7 @@
                         <table am-layout="zebra-stripe">
                             <thead>
                                 <tr>
-                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                    <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
                                         Free Charge
                                     </td>
                                 </tr>
@@ -424,7 +451,7 @@
                         <table am-layout="zebra-stripe">
                             <thead>
                                 <tr>
-                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                    <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
                                         Payzapp
                                     </td>
                                 </tr>
@@ -447,12 +474,12 @@
                   
                 </div>
                 <br>
-                <div class="row">
+                <div class="row p-2">
                     <div class="col-4">
                         <table am-layout="zebra-stripe">
                             <thead>
                                 <tr>
-                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                    <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
                                         Paytm
                                     </td>
                                 </tr>
@@ -476,7 +503,7 @@
                         <table am-layout="zebra-stripe">
                             <thead>
                                 <tr>
-                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                    <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
                                         Ola Money
                                     </td>
                                 </tr>
@@ -499,7 +526,7 @@
                         <table am-layout="zebra-stripe">
                             <thead>
                                 <tr>
-                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                    <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
                                         Mobikwikk
                                     </td>
                                 </tr>
@@ -522,12 +549,12 @@
                   
                 </div>
                 <br>
-                <div class="row">
+                <div class="row p-2">
                     <div class="col-6">
                         <table am-layout="zebra-stripe">
                             <thead>
                                 <tr>
-                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                    <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
                                         Reliance Jio Money
                                     </td>
                                 </tr>
@@ -551,7 +578,7 @@
                         <table am-layout="zebra-stripe">
                             <thead>
                                 <tr>
-                                    <td colspan="4" style="padding: 5px; text-align: center;">
+                                    <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
                                         Airtel Money
                                     </td>
                                 </tr>

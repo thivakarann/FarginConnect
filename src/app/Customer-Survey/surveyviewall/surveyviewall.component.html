@@ -73,7 +73,7 @@
       </ng-container>
       <ng-container matColumnDef="view">
         <th mat-header-cell *matHeaderCellDef [hidden]="valuesurveyview!=='Survey-View'">View</th>
-        <td mat-cell *matCellDef="let data" [hidden]="valuesurveyview!=='Survey-View'">
+        <td style="cursor: pointer;" mat-cell *matCellDef="let data" [hidden]="valuesurveyview!=='Survey-View'">
           <i class="fa fa-eye" (click)="view(data.questionId)"></i>
         </td>
       </ng-container>

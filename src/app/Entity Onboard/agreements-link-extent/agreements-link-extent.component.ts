@@ -1,0 +1,60 @@
+import { Component, Inject } from '@angular/core';
+import { Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
+import { Agreementextentdate } from '../../fargin-model/fargin-model.module';
+import { FarginServiceService } from '../../service/fargin-service.service';
+
+@Component({
+  selector: 'app-agreements-link-extent',
+  templateUrl: './agreements-link-extent.component.html',
+  styleUrl: './agreements-link-extent.component.css'
+})
+export class AgreementsLinkExtentComponent {
+  Id: any;
+  myForm!: FormGroup;
+  dates:any;
+  todayDate: string = '';
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog,private service:FarginServiceService) { }
+  ngOnInit(): void {
+    this.Id = this.data.value;
+    this.dates = this.data.value2;
+    console.log(this.Id)
+    console.log(this.dates)
+    const today = new Date();
+    this.todayDate = today.toISOString().split('T')[0];
+   
+    this.myForm = new FormGroup({
+       expiryLink: new FormControl('', [Validators.required,])
+    });
+
+  }
+
+  get expiryLink() {
+    return this.myForm.get('expiryLink')
+
+  }
+
+  
+
+  submit(){
+    let submitModel:Agreementextentdate = {
+      expiryLink:this.expiryLink?.value
+    }
+    this.service.agreementextendlink(this.Id,submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.toastr.success(res.responseMessage);
+        this.dialog.closeAll();
+        setTimeout(() => {
+          window.location.reload()
+        }, 500);
+
+      }
+      else {
+        this.toastr.error(res.responseMessage);
+      }
+    })
+  }
+}

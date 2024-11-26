@@ -59,11 +59,51 @@ export class AgreementViewallComponent {
   currentpage: any;
   agreementdata:any;
   date1:any;
+  valueagreeExport:any;
+  valueagreeView:any;
+  valueagreeAgreement:any;
+  valueagreeSignedCopy:any;
 
   constructor(private service: FarginServiceService, private dialog: MatDialog, private ActivateRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
 
+
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+          if (this.roleId == '1') {
+            this.valueagreeExport = 'Entity Agreement-Export'
+            this.valueagreeView='Entity Agreement-View'
+            this.valueagreeAgreement='Entity Agreement-Agreement'
+            this.valueagreeSignedCopy='Entity Agreement-Agreement Signed Copy'
+         
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+              if (this.actions == 'Entity Agreement-Export') {
+                this.valueagreeExport = 'Entity Agreement-Export'
+              }
+              if(this.actions=='Entity Agreement-View'){
+                this.valueagreeView='Entity Agreement-View'
+              }
+              if(this.actions=='Entity Agreement-Agreement'){
+                this.valueagreeAgreement='Entity Agreement-Agreement'
+              }
+              if(this.actions=='Entity Agreement-Agreement Signed Copy'){
+                this.valueagreeSignedCopy='Entity Agreement-Agreement Signed Copy'
+              }
+         
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    });
 
 
 

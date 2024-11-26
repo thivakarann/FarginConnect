@@ -97,7 +97,7 @@ export class FarginServiceService {
   private readonly keysupdate = 'merchant/updateKey';
   private readonly paymentlink = 'paymentlink/getmerchant/';
   private readonly businessid = 'businesscategory/getById/';
-  private readonly manualreciept = 'merchantpay/viewreceipt/';
+  private readonly manualreciept = 'otherpayment/viewinvoice/';
   private readonly entitykyc = 'entityDocument/addDocuments'
 
 
@@ -259,7 +259,7 @@ export class FarginServiceService {
   private readonly Bouquetsviewbyidchannel = 'broadCaster/viewChannelsByRegions/' //for channel view
   private readonly Bouquetstatus = 'broadCaster/updateBroadCaster';
   private readonly ActiveBouqutes = 'broadCaster/viewOnlyActive';
-  private readonly bouquetEdit = 'broadCaster/update';
+  private readonly bouquetEdit = 'broadCaster/updateBroadCaster';
   private readonly BroadcasterBoucatesRegionEdits = 'broadCaster/updateRegion';
   private readonly BroadcasterBoucateschannelEdits = 'broadCaster/updateAlcotChannel'
   private readonly bouquetesinglestatus = 'broadCaster/updateChannelStatus';
@@ -589,7 +589,9 @@ export class FarginServiceService {
   private readonly Agreementsendotp = 'agreement/merchantsendotp/';
   private readonly AgreementVerifyOTP = 'agreement/merchantverifyotp/';
   private readonly AgreementConcent = 'agreement/consent';
-  private readonly AgreemntConcentLocation = 'agreement/consentlocationtracker'
+  private readonly AgreemntConcentLocation = 'agreement/consentlocationtracker';
+  private readonly AgreementLinkExtent = 'agreement/updatelink/';
+  private readonly AgreementLinkExpiry = 'agreement/updatelinkstatus/';
 
 
   loginError = new Subject();
@@ -2250,5 +2252,13 @@ export class FarginServiceService {
   }
   agreemntconcentlocation(model:any){
     return this.http.post(`${this.basePath}${this.AgreemntConcentLocation}`,model,this.options)
+  }
+
+  agreementextendlink(id:any,model:any){
+    return this.http.put(`${this.basePath}${this.AgreementLinkExtent}${id}`,model,this.options)
+  }
+
+  agreementlinkexpiry(id:any,model:any){
+    return this.http.put(`${this.basePath}${this.AgreementLinkExpiry}${id}`,model,this.options)
   }
 }

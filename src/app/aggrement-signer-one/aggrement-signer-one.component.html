@@ -28,7 +28,7 @@
 
         <!-- Agreement Title -->
         <h2 class="agreement-title">
-            <u>Fargin Connect Agreement</u>
+            <u>Fargin Network LLP Software Service Agreement</u>
         </h2>
 
         <!-- Profile Card -->
@@ -51,10 +51,19 @@
                     Status:</label>
                 <p [ngClass]="AdminSignedStatus == 0 ? 'not-signed' : 'signed'" >{{AdminSignedStatus == 0 ? 'Not Signed' : 'Signed' }}</p>
             </div>
+            <div class="profile-field" [hidden]="AdminSignedStatus==0">
+                <label><i style="color: black;font-size: 17px;" class="fa fa-user"></i>&nbsp;Fargin Signer Signed Date:</label>
+                <p>{{AdminSignedDate}}</p>
+            </div>
             <div class="profile-field">
                 <label><i style="color: black;font-size: 17px;" class="fa fa-check-circle"></i>&nbsp;Entity Signer
                     Status:</label>
                     <p [ngClass]="EntotySignedStatus == 0 ? 'not-signed' : 'signed'" >{{EntotySignedStatus == 0 ? 'Not Signed' : 'Signed' }}</p>
+            </div>
+
+            <div class="profile-field" [hidden]="EntotySignedStatus==0">
+                <label><i style="color: black;font-size: 17px;" class="fa fa-user"></i>&nbsp;Fargin Signer Signed Date:</label>
+                <p>{{EntitySignedDate}}</p>
             </div>
         </div>
 

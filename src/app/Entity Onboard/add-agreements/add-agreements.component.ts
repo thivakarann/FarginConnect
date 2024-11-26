@@ -71,7 +71,7 @@ export class AddAgreementsComponent {
       commercialId: this.commercialId?.value,
       createdBy: this.getadminname,
       merchantPosition:this.merchantPosition?.value.trim(),
-      effectiveDate:this.linkdate?.value
+      expiryLink:this.linkdate?.value
 
     }
 

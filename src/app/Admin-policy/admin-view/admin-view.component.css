@@ -225,3 +225,15 @@ mat-card-content tr:nth-child(odd) {
   height:35px;
   margin:4px;
  }
+ .approved {
+  color: green;
+}
+ 
+.pending {
+
+  color:rgb(255, 196, 0);
+}
+ 
+.rejected {
+  color: red;
+}

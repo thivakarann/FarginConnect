@@ -83,7 +83,6 @@
     font-size: 24px;
     font-weight: 700;
     color: #141e46;
-    margin-top: 20px;
     text-align: center;
   }
    
@@ -92,7 +91,7 @@
     display: flex;
     justify-content: center; /* Center image */
     align-items: center;
-    margin: 20px 0;
+    margin: 10px 0;
   }
    
   .image-format img {

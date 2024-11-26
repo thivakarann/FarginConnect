@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { ApprovalBank, bankData, bankedit, BankPrimaryStatus, Bankverficiation, Drivingverification, EmailTrigger, Facheckverification, KycApproval, Pasportverify, PassPortverification, PgOnboard, settopStatus, SmsStatus, verification, verify, VoterIdVerify } from '../../fargin-model/fargin-model.module';
+import { AgreementLinkExpiry, ApprovalBank, bankData, bankedit, BankPrimaryStatus, Bankverficiation, Drivingverification, EmailTrigger, Facheckverification, KycApproval, Pasportverify, PassPortverification, PgOnboard, settopStatus, SmsStatus, verification, verify, VoterIdVerify } from '../../fargin-model/fargin-model.module';
 import { ApprovalForBankComponent } from '../approval-for-bank/approval-for-bank.component';
 import { CommentsForApprovalComponent } from '../comments-for-approval/comments-for-approval.component';
 import { KycApprovalComponent } from '../kyc-approval/kyc-approval.component';
@@ -42,6 +42,7 @@ import { SmsApprovalComponent } from '../sms-approval/sms-approval.component';
 import { SmsHistoryEntityComponent } from '../sms-history-entity/sms-history-entity.component';
 import { AddAgreementsComponent } from '../add-agreements/add-agreements.component';
 import { AgreementlinkComponent } from '../agreementlink/agreementlink.component';
+import { AgreementsLinkExtentComponent } from '../agreements-link-extent/agreements-link-extent.component';
 
 @Component({
   selector: 'app-entity-view',
@@ -500,6 +501,36 @@ export class EntityViewComponent implements OnInit {
       }
     })
   }
+
+  ExtendLinkDate(id:any,id1:any){
+    this.dialog.open(AgreementsLinkExtentComponent,{
+      enterAnimationDuration:"500ms",
+      exitAnimationDuration:"800ms",
+      disableClose: true,
+      data: { value: id,value2:id1}
+    })
+  }
+
+  LinkExpirystatus(event: MatSlideToggleChange, id: any) {
+    
+
+    this.isChecked = event.checked;
+
+    let submitModel: AgreementLinkExpiry = {
+      expiryLinkStatus: this.isChecked ? 1 : 0,
+   
+    };
+
+    this.MerchantView.agreementlinkexpiry(id,submitModel).subscribe((res: any) => {
+      
+      this.toastr.success(res.responseMessage);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    });
+  }
+
+
 
 
   getpermissionValue() {

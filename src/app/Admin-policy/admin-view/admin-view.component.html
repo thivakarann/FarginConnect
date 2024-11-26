@@ -139,7 +139,10 @@
       </ng-container>
       <ng-container matColumnDef="approvalstatus">
         <th mat-header-cell *matHeaderCellDef>Approval Status</th>
-        <td mat-cell *matCellDef="let businesscategory">{{businesscategory.approvedStatus }}</td>
+        <td mat-cell *matCellDef="let businesscategory" [ngClass]="{'approved': businesscategory.approvedStatus == 'approved',       
+        'pending': businesscategory.approvedStatus =='Pending',       
+        'rejected': businesscategory.approvedStatus == 'Rejected'}">
+        {{ businesscategory.approvedStatus }}
       </ng-container>
       <ng-container matColumnDef="approvedBy">
         <th mat-header-cell *matHeaderCellDef>Approved By</th>
