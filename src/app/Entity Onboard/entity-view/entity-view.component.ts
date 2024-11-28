@@ -69,6 +69,7 @@ export class EntityViewComponent implements OnInit {
   startdate!: string;
   enddate!: string;
   copySuccess: boolean = false;
+  CopieedSucess: boolean = false;
   items: any[] = []; // The array of items to paginate
   currentPage: any = 1; // The current page number
   itemsPerPage = 5; // The number of items to display per page
@@ -86,6 +87,7 @@ export class EntityViewComponent implements OnInit {
   navbarEventEmitter: any;
   isDropdownOpen = false;
   searchTexts: any;
+  copiedIndex: number = -1;
 
   Daterange!: string;
   data: any;
@@ -502,27 +504,27 @@ export class EntityViewComponent implements OnInit {
     })
   }
 
-  ExtendLinkDate(id:any,id1:any){
-    this.dialog.open(AgreementsLinkExtentComponent,{
-      enterAnimationDuration:"500ms",
-      exitAnimationDuration:"800ms",
+  ExtendLinkDate(id: any, id1: any) {
+    this.dialog.open(AgreementsLinkExtentComponent, {
+      enterAnimationDuration: "500ms",
+      exitAnimationDuration: "800ms",
       disableClose: true,
-      data: { value: id,value2:id1}
+      data: { value: id, value2: id1 }
     })
   }
 
   LinkExpirystatus(event: MatSlideToggleChange, id: any) {
-    
+
 
     this.isChecked = event.checked;
 
     let submitModel: AgreementLinkExpiry = {
       expiryLinkStatus: this.isChecked ? 1 : 0,
-   
+
     };
 
-    this.MerchantView.agreementlinkexpiry(id,submitModel).subscribe((res: any) => {
-      
+    this.MerchantView.agreementlinkexpiry(id, submitModel).subscribe((res: any) => {
+
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
         window.location.reload();
@@ -1144,6 +1146,31 @@ export class EntityViewComponent implements OnInit {
     setTimeout(() => this.copySuccess = false, 2000);
   }
 
+  // copyText1(text: string) {
+  //   const el = document.createElement('textarea');
+  //   el.value = text;
+  //   document.body.appendChild(el);
+  //   el.select();
+  //   document.execCommand('copy');
+  //   document.body.removeChild(el);
+  //   this.CopieedSucess = true;
+  //   setTimeout(() => this.CopieedSucess = false, 2000);
+  // }
+
+  copyText1(text: string, index: number) {
+    const el = document.createElement('textarea');
+    el.value = text;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    this.copiedIndex = index;
+    setTimeout(() => this.copiedIndex = -1, 2000);
+  }
+
+
+
+
 
 
   otherPayement() {
@@ -1229,7 +1256,7 @@ export class EntityViewComponent implements OnInit {
 
   identityedit(id: any) {
     this.dialog.open(EntityKyceditComponent, {
-    
+
 
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",

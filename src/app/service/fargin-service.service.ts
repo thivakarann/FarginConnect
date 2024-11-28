@@ -97,7 +97,7 @@ export class FarginServiceService {
   private readonly keysupdate = 'merchant/updateKey';
   private readonly paymentlink = 'paymentlink/getmerchant/';
   private readonly businessid = 'businesscategory/getById/';
-  private readonly manualreciept = 'otherpayment/viewinvoice/';
+  private readonly manualreciept = 'merchantpay/viewreceipt/';
   private readonly entitykyc = 'entityDocument/addDocuments'
 
 
@@ -568,6 +568,7 @@ export class FarginServiceService {
   // Fargin Signer Details
 
   private readonly Signerdetailsgetall = 'signingAdmin/getallData';
+  private readonly SignerdetailsWithoutToken = '/signingAdmin/getall'
   private readonly SignerdetailsAdd = 'signingAdmin/add';
   private readonly SignerdetailsUpdate = 'signingAdmin/update';
   private readonly SignerdetailsbyId = 'signingAdmin/viewById/';
@@ -2181,6 +2182,10 @@ export class FarginServiceService {
 
   signergetall() {
     return this.http.get(`${this.basePath}${this.Signerdetailsgetall}`, this.options)
+  }
+
+  signerwithouttoken(){
+    return this.http.get(`${this.basePath}${this.SignerdetailsWithoutToken}`)
   }
 
   signeradd(model: any) {

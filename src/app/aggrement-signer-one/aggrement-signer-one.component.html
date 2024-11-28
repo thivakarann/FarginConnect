@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<div class="container">
+<div class="container" [hidden]="this.Expirystatus==true">
     <!-- PDF Viewer Section -->
     <div  class="pdf-container">
         <pdf-viewer [src]="pdfurl1" [render-text]="true" [original-size]="true" [fit-to-page]="true"
@@ -71,3 +71,29 @@
         <button [hidden]="AdminSignedStatus==1" class="button" (click)="Signer(this.ReferenceCode)">OTP VERIFY</button>
     </div>
 </div>
+
+
+
+<body  [hidden]="this.Expirystatus==false">
+    
+    <div id='oopss'>
+      <div id='error-text'>
+          <img src="/assets/link-slash-solid.svg" alt="404">
+          <span>Link Expired</span>
+          <p class="p-a">
+             .The page you were looking for is Expired</p>
+             <p class="p-b">
+              For Support Please Contact</p>
+              <a class="p-b" href="mailto: support@fargin.in">
+                  support{{strings}}fargin.in
+              </a>
+          <!-- <p class="p-b">
+              ... Back to previous page
+          </p>
+          <a href='#' class="back">... Back to previous page</a> -->
+      </div>
+  </div>
+    
+    
+  
+  </body>

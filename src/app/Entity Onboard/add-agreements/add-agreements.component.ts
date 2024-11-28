@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CreatePlan, CreateSMS } from '../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../service/fargin-service.service';
+import moment from 'moment';
 
 @Component({
   selector: 'app-add-agreements',
@@ -20,6 +21,7 @@ export class AddAgreementsComponent {
   options: any;
   plans: any;
   todayDate: string = '';
+  Expirydate: any;
   constructor(
     public service: FarginServiceService,
     private router: Router,
@@ -30,7 +32,7 @@ export class AddAgreementsComponent {
   ngOnInit(): void {
     this.merchantid = this.data.value;
     const today = new Date();
-    this.todayDate = today.toISOString().split('T')[0];
+    this.todayDate = today.toISOString().slice(0,16);
     
     this.myForm4 = new FormGroup({
       commercialId: new FormControl('', [Validators.required]),
@@ -66,12 +68,20 @@ export class AddAgreementsComponent {
 
   }
   Submit() {
+
+    this.Expirydate = this.linkdate?.value
+    console.log(this.Expirydate)
+    let startdate = moment(this.Expirydate).format('yyyy-MM-DD HH:mm:ss').toString();
+
+    console.log(startdate)
+
+
     let submitModel: CreatePlan = {
       merchantId: this.merchantid,
       commercialId: this.commercialId?.value,
       createdBy: this.getadminname,
       merchantPosition:this.merchantPosition?.value.trim(),
-      expiryLink:this.linkdate?.value
+      expiryLink: startdate
 
     }
 

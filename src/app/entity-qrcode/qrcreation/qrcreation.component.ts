@@ -14,7 +14,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 export class QRcreationComponent implements OnInit {
   myForm!: FormGroup;
   myForm2!: FormGroup;
-  viewForm: any = false
+  viewForm: any = false;
   URLName: any;
   Entityurlname: any;
   EntityURLLink: any;
@@ -37,7 +37,9 @@ export class QRcreationComponent implements OnInit {
     this.merchantid = this.data.value
 
     this.myForm = new FormGroup({
-      QRName: new FormControl(null, Validators.required),
+      QRName: new FormControl('', [
+        Validators.required,
+      ]),
     });
   };
 

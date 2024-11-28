@@ -1374,8 +1374,12 @@
                             <th>Plan Name</th>
                             <th>Service Fee</th>
                             <th>Plan Overview</th>
+                            <th>Entity Agreement Link</th>
+                            <th>Link Expiry Date</th>
                             <th>Fargin Signer Status</th>
+                            <th>Fargin Signer Signed Date</th>
                             <th>Entity Signer Status</th>
+                            <th>Entity Signer Signed Date</th>
                             <th>Link Expiry Date</th>
                             <th>Link Expiry Status</th>
                             <th>Agreement</th>
@@ -1384,16 +1388,26 @@
                             <th>Created At</th>
                         </tr>
                         <tbody
-                            *ngFor="let item of agreementdetails| paginate: { itemsPerPage: 5, currentPage: currentPage } | search: searchText;let i=index">
+                            *ngFor="let item of agreementdetails| paginate: { itemsPerPage:3, currentPage: currentPage } | search: searchText;let i=index">
                             <td>{{i+1}}</td>
                             <td>{{item.commercialId?.planName}}</td>
                             <td>{{item.commercialId?.serviceFee}}</td>
+
                             <td>
                                 <i style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
                                     (click)="view(item.commercialId?.commercialId)"></i>
                             </td>
+                            <td style="margin-top: 5px;"> {{item.agreementLink | slice: 0: 25}} <i class="fa-regular fa-copy" style="color: green; font-size: 18px;" (click)="copyText1(item.agreementLink, i)"></i> <span *ngIf="copiedIndex === i" style="color: green;">Copied!</span> </td>
+                            <td >{{item.expiryLink |date: "dd/MM/yyyy hh:mm a"}}</td>
                             <td [ngClass]="item.adminOtpStatus == 0 ? 'not-signed' : 'signed'">
                                 {{ item.adminOtpStatus == 0 ? 'Not Signed' : 'Signed' }}
+                            </td>
+
+                            <td>
+                                <span [hidden]="item.adminVerifiedDate !=null">-</span>
+                                <span [hidden]="item.adminVerifiedDate == null"> {{ item.adminVerifiedDate|date :
+                                    "dd/MM/yyyy"}}
+                                </span>
                             </td>
 
                             <td [ngClass]="item.merchanOtptStatus == 0 ? 'not-signed' : 'signed'">
@@ -1401,18 +1415,23 @@
                             </td>
 
                             <td>
+                                <span [hidden]="item.merchantVerifiedDate !=null">-</span>
+                                <span [hidden]="item.merchantVerifiedDate == null"> {{ item.merchantVerifiedDate|date :
+                                    "dd/MM/yyyy"}}
+                                </span>
+
+                            </td>
+
+                            <td>
                                 <i style="cursor: pointer;font-size: 17px;" class="fa-solid fa-calendar-days"
                                     (click)="ExtendLinkDate(item.agreementId,item.expiryLink)"></i>
                             </td>
                             <td>
-                                <mat-slide-toggle
-                  class="example-margin"
-                  color="primary"
-                  [checked]="item.expiryLinkStatus == 1"
-                  (change)="LinkExpirystatus($event, item.agreementId)"
-                >
-                </mat-slide-toggle
-              ></td>
+                                <mat-slide-toggle class="example-margin" color="primary"
+                                    [checked]="item.expiryLinkStatus == 1"
+                                    (change)="LinkExpirystatus($event, item.agreementId)">
+                                </mat-slide-toggle>
+                            </td>
 
                             <td>
                                 <button style="
@@ -1424,7 +1443,7 @@
 
                             </td>
 
-                       
+
 
                             <td>
                                 <button style="color: white; border: 1px solid white; border-radius: 4px;"

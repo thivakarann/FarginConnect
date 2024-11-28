@@ -30,6 +30,8 @@ export class AggrementSignerOneComponent implements OnInit {
   LocationStatus: any;
   AdminSignedDate: any;
   EntitySignedDate: any;
+  Expirystatus: boolean = false;
+  strings = "@";
 
 
   constructor(
@@ -41,7 +43,6 @@ export class AggrementSignerOneComponent implements OnInit {
   ) { }
   ngOnInit(): void {
 
-
     this.activatedroute.queryParams.subscribe((params: any) => {
       this.ReferenceCode = params.referenceCode;
       console.log(this.ReferenceCode)
@@ -51,34 +52,47 @@ export class AggrementSignerOneComponent implements OnInit {
 
 
     this.service.AggrementViewbyrefferencenumber(this.ReferenceCode).subscribe((res: any) => {
-      this.Agreementdetails = res.response;
-      this.AgreementId = res.response.agreementId;
-      console.log(this.AgreementId)
-      this.AdminSignedStatus = res.response.adminOtpStatus;
-      this.EntotySignedStatus = res.response.merchanOtptStatus;
-      this.LocationStatus = res.response.adminGetLocation;
-      this.AdminSignedDate = res.response.adminVerifiedDate;
-      this.EntitySignedDate = res.response.merchantVerifiedDate;
-      console.log(this.LocationStatus);
-      console.log(this.AdminSignedDate);
-      console.log(this.EntitySignedDate);
+
+      if (res.flag == 1) {
+        this.Expirystatus = false;
+        this.Agreementdetails = res.response;
+        this.AgreementId = res.response.agreementId;
+        console.log(this.AgreementId);
+        this.AdminSignedStatus = res.response.adminOtpStatus;
+        this.EntotySignedStatus = res.response.merchanOtptStatus
+        this.EntityName = res.response.merchantId.entityName;
+        this.EntityNumber = res.response.merchantId.contactMobile;
+        this.EntityEmail = res.response.merchantId.contactEmail;
+        this.LocationStatus = res.response.merchantGetLocation;
+        this.AdminSignedDate = res.response.adminVerifiedDate;
+        this.EntitySignedDate = res.response.merchantVerifiedDate;
+        console.log(this.LocationStatus);
+        console.log(this.AdminSignedDate);
+        console.log(this.EntitySignedDate);
+
+        this.Locationaccess()
+
+        this.service.viewagreementdoucments(this.AgreementId, 1).subscribe((data) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(data);
+          reader.onloadend = () => {
+            this.pdfurl1 = reader.result as string;
+          }
+        })
+
+      }
+
+      else if (res.flag == 2) {
+        this.Expirystatus = true;
+        console.log(this.Expirystatus)
+      }
 
 
 
-      this.Locationaccess()
-
-
-      this.service.viewagreementdoucments(this.AgreementId,1).subscribe((data) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(data);
-        reader.onloadend = () => {
-          this.pdfurl1 = reader.result as string;
-        }
-      });
     });
 
 
-    this.service.signergetall().subscribe((res: any) => {
+    this.service.signerwithouttoken().subscribe((res: any) => {
       this.Adminsignerdetails = res.response[0];
       this.AdminSignerName = res.response[0].signAdminName;
       this.AdminSignerEmail = res.response[0].signAdminEmail;
@@ -100,7 +114,7 @@ export class AggrementSignerOneComponent implements OnInit {
       })
     }
 
-    else{
+    else {
       this.dialog.closeAll()
     }
 

@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { Agreementextentdate } from '../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../service/fargin-service.service';
+import moment from 'moment';
 
 @Component({
   selector: 'app-agreements-link-extent',
@@ -16,6 +17,7 @@ export class AgreementsLinkExtentComponent {
   myForm!: FormGroup;
   dates:any;
   todayDate: string = '';
+  Expirydate: any;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog,private service:FarginServiceService) { }
   ngOnInit(): void {
@@ -24,7 +26,7 @@ export class AgreementsLinkExtentComponent {
     console.log(this.Id)
     console.log(this.dates)
     const today = new Date();
-    this.todayDate = today.toISOString().split('T')[0];
+    this.todayDate = today.toISOString().slice(0, 16);
    
     this.myForm = new FormGroup({
        expiryLink: new FormControl('', [Validators.required,])
@@ -40,8 +42,11 @@ export class AgreementsLinkExtentComponent {
   
 
   submit(){
-    let submitModel:Agreementextentdate = {
-      expiryLink:this.expiryLink?.value
+
+    this.Expirydate = this.expiryLink?.value
+    let startdate = moment(this.Expirydate).format('yyyy-MM-DD HH:mm:ss').toString();
+   let submitModel:Agreementextentdate = {
+      expiryLink:startdate
     }
     this.service.agreementextendlink(this.Id,submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
