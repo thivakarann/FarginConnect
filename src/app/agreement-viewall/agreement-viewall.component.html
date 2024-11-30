@@ -82,6 +82,10 @@
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="agreementLink"> 
+        <th [hidden]="valueagreementlink!=='Entity Agreement-Agreement Link'" mat-header-cell *matHeaderCellDef>Agreement Link</th> 
+        <td [hidden]="valueagreementlink!=='Entity Agreement-Agreement Link'" mat-cell *matCellDef="let data; let i = index"> {{data.agreementLink | slice: 0: 25}} <i class="fa-regular fa-copy" style="color: green; font-size: 18px;" (click)="copyText1(data.agreementLink, i)"></i> <span *ngIf="copiedIndex === i" style="color: green;">Copied!</span> </td> </ng-container>
+
       <ng-container matColumnDef="planoverview">
         <th [hidden]="valueagreeView!=='Entity Agreement-View'" mat-header-cell *matHeaderCellDef>Plan Overview</th>
         <td [hidden]="valueagreeView!=='Entity Agreement-View'" mat-cell *matCellDef="let data">

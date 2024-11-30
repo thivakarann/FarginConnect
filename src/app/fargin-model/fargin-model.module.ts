@@ -1229,6 +1229,20 @@ export interface AgreementlocationTracker {
   readonly flag:any,
   readonly consent:any,
   readonly getLocation:any
+  readonly ipAddress:any,
+  readonly locationStatus:any,
+  readonly publicIp:any,
+  readonly country:any,
+  readonly city:any,
+  readonly zip:any,
+  readonly serviceProvider:any,
+  readonly timezone:any,
+  readonly region:any,
+  readonly longitude:any,
+  readonly latitude:any,
+  readonly countryCode:any,
+  readonly regionCode:any,
+  readonly autonomousSystemNumber:any
 }
 
 export interface Agreementextentdate {

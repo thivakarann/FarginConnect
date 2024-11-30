@@ -595,6 +595,18 @@ export class FarginServiceService {
   private readonly AgreementLinkExpiry = 'agreement/updatelinkstatus/';
 
 
+  // Find Ip 
+  private ipApiUrl = 'https://api.ipify.org/?format=json';
+
+  // Find Location Details 
+
+  // private geoApiUrl = 'https://ipinfo.io/json';
+
+  private geoApiUrl = 'https://ipwhois.app/json/';
+
+  // private geoApiUrl = 'http://ip-api.com/json';
+
+
   loginError = new Subject();
 
   token = localStorage.getItem('token') || null;
@@ -657,6 +669,15 @@ export class FarginServiceService {
     });
   }
 
+
+
+  getIpAddress() {
+    return this.http.get(`${this.ipApiUrl}`)
+  }
+
+  getIpLocation (){
+    return this.http.get(`${this.geoApiUrl}`)
+  }
 
   dashboardCount() {
     return this.http.get(`${this.basePath}${this.dashboardData}`, this.options)

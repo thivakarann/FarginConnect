@@ -26,11 +26,12 @@ export class AgreementViewallComponent {
   Description = "Description";
   comments = "Comments"
   pag: number = 1;
+  copiedIndex: number = -1;
   displayedColumns: string[] = [
     'sno',
     'entityname',
-    // 'legalName',
     'planname',
+    'agreementLink',
     'servicefee',
     'planoverview',
     'agreement',
@@ -57,12 +58,13 @@ export class AgreementViewallComponent {
   totalPages: any;
   totalpage: any;
   currentpage: any;
-  agreementdata:any;
-  date1:any;
-  valueagreeExport:any;
-  valueagreeView:any;
-  valueagreeAgreement:any;
-  valueagreeSignedCopy:any;
+  agreementdata: any;
+  date1: any;
+  valueagreeExport: any;
+  valueagreeView: any;
+  valueagreeAgreement: any;
+  valueagreeSignedCopy: any;
+  valueagreementlink: any;
 
   constructor(private service: FarginServiceService, private dialog: MatDialog, private ActivateRoute: ActivatedRoute, private router: Router) { }
 
@@ -75,10 +77,11 @@ export class AgreementViewallComponent {
           this.getdashboard = res.response?.subPermission;
           if (this.roleId == '1') {
             this.valueagreeExport = 'Entity Agreement-Export'
-            this.valueagreeView='Entity Agreement-View'
-            this.valueagreeAgreement='Entity Agreement-Agreement'
-            this.valueagreeSignedCopy='Entity Agreement-Agreement Signed Copy'
-         
+            this.valueagreeView = 'Entity Agreement-View'
+            this.valueagreeAgreement = 'Entity Agreement-Agreement'
+            this.valueagreeSignedCopy = 'Entity Agreement-Agreement Signed Copy'
+            this.valueagreementlink='Entity Agreement-Agreement Link'
+
           }
           else {
             for (let datas of this.getdashboard) {
@@ -86,16 +89,19 @@ export class AgreementViewallComponent {
               if (this.actions == 'Entity Agreement-Export') {
                 this.valueagreeExport = 'Entity Agreement-Export'
               }
-              if(this.actions=='Entity Agreement-View'){
-                this.valueagreeView='Entity Agreement-View'
+              if (this.actions == 'Entity Agreement-View') {
+                this.valueagreeView = 'Entity Agreement-View'
               }
-              if(this.actions=='Entity Agreement-Agreement'){
-                this.valueagreeAgreement='Entity Agreement-Agreement'
+              if (this.actions == 'Entity Agreement-Agreement') {
+                this.valueagreeAgreement = 'Entity Agreement-Agreement'
               }
-              if(this.actions=='Entity Agreement-Agreement Signed Copy'){
-                this.valueagreeSignedCopy='Entity Agreement-Agreement Signed Copy'
+              if (this.actions == 'Entity Agreement-Agreement Signed Copy') {
+                this.valueagreeSignedCopy = 'Entity Agreement-Agreement Signed Copy'
               }
-         
+              if(this.actions=='Entity Agreement-Agreement Link'){
+                this.valueagreementlink='Entity Agreement-Agreement Link'
+              }
+
             }
           }
         }
@@ -111,22 +117,26 @@ export class AgreementViewallComponent {
     this.service.AgreementgetAll().subscribe((res: any) => {
       if (res.flag == 1) {
         this.agreementdata = res.response;
+        this.agreementdata.reverse();
         // this.totalPages = res.pagination.totalElements;
         // this.totalpage = res.pagination.totalPages;
         // this.currentpage = res.pagination.currentPage + 1;
-        this.dataSource = new MatTableDataSource(this.agreementdata.reverse());
+        this.dataSource = new MatTableDataSource(this.agreementdata);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
     });
 
-  
+
 
   }
 
   reload() {
     window.location.reload()
   }
+
+
+  copyText1(text: string, index: number) { const el = document.createElement('textarea'); el.value = text; document.body.appendChild(el); el.select(); document.execCommand('copy'); document.body.removeChild(el); this.copiedIndex = index; setTimeout(() => this.copiedIndex = -1, 2000); }
 
 
   renderPage(event: PageEvent) {
@@ -167,7 +177,7 @@ export class AgreementViewallComponent {
     }
   }
 
- 
+
 
 
 
@@ -176,70 +186,70 @@ export class AgreementViewallComponent {
       queryParams: { Alldata: id },
     });
   }
-  viewagreementdoc(id:any){    
-    this.service.viewagreementdoucments(id,1).subscribe((res:any)=>{
+  viewagreementdoc(id: any) {
+    this.service.viewagreementdoucments(id, 1).subscribe((res: any) => {
       const reader = new FileReader();
       reader.readAsDataURL(res);
       reader.onloadend = () => {
-      var downloadURL = URL.createObjectURL(res);
-      window.open(downloadURL);
+        var downloadURL = URL.createObjectURL(res);
+        window.open(downloadURL);
       }
     })
-}
-viewsignedagreementdoc(id:any){    
-  this.service.viewagreementdoucments(id,2).subscribe((res:any)=>{
-    const reader = new FileReader();
-    reader.readAsDataURL(res);
-    reader.onloadend = () => {
-    var downloadURL = URL.createObjectURL(res);
-    window.open(downloadURL);
-    }
-  })
-}
+  }
+  viewsignedagreementdoc(id: any) {
+    this.service.viewagreementdoucments(id, 2).subscribe((res: any) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(res);
+      reader.onloadend = () => {
+        var downloadURL = URL.createObjectURL(res);
+        window.open(downloadURL);
+      }
+    })
+  }
   exportexcel() {
     // this.service.TicketscustomerExport().subscribe((res: any) => {
     //   this.ticketexport = res.response;
     //   if (res.flag == 1) {
-    
 
-        let sno = 1;
-        this.responseDataListnew = [];
-        this.agreementdata.forEach((element: any) => {
 
-          let createdate = element.createdDateTime;
-          this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-     
+    let sno = 1;
+    this.responseDataListnew = [];
+    this.agreementdata.forEach((element: any) => {
 
-          this.response = [];
-          this.response.push(sno);
-          this.response.push(element?.merchantId.entityName);
-          this.response.push(element?.merchantId.merchantLegalName);
-          this.response.push(element?.commercialId?.planName);
-          this.response.push(element?.commercialId?.serviceFee);
+      let createdate = element.createdDateTime;
+      this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
 
-          if(element?.adminOtpStatus == 0){
-            this.response.push('Not Signed')
- 
-          }
-          else{
-            this.response.push('Signed')
 
-          }
-          if(element?.merchanOtptStatus == 0){
-            this.response.push('Not Signed')
- 
-          }
-          else{
-            this.response.push('Signed')
+      this.response = [];
+      this.response.push(sno);
+      this.response.push(element?.merchantId.entityName);
+      this.response.push(element?.merchantId.merchantLegalName);
+      this.response.push(element?.commercialId?.planName);
+      this.response.push(element?.commercialId?.serviceFee);
 
-          }
-          this.response.push(element?.createdDateTime);
+      if (element?.adminOtpStatus == 0) {
+        this.response.push('Not Signed')
 
-          sno++;
-          this.responseDataListnew.push(this.response);
-        });
-        this.excelexportCustomer();
       }
+      else {
+        this.response.push('Signed')
+
+      }
+      if (element?.merchanOtptStatus == 0) {
+        this.response.push('Not Signed')
+
+      }
+      else {
+        this.response.push('Signed')
+
+      }
+      this.response.push(element?.createdDateTime);
+
+      sno++;
+      this.responseDataListnew.push(this.response);
+    });
+    this.excelexportCustomer();
+  }
   //   });
   // }
 
@@ -247,14 +257,14 @@ viewsignedagreementdoc(id:any){
     // const title='Business Category';
     const header = [
       "S.No",
-    'entityname',
-    'legalName',
-    'planname',
-    'servicefee',
-    'farginsignerstatus',
-    'entitysignerstatus',
-    'createdat',
-    'createdby'
+      'entityname',
+      'legalName',
+      'planname',
+      'servicefee',
+      'farginsignerstatus',
+      'entitysignerstatus',
+      'createdat',
+      'createdby'
     ]
 
 
@@ -319,7 +329,7 @@ viewsignedagreementdoc(id:any){
 
 
   description(id: any, id2: any) {
-   
+
   }
 
 

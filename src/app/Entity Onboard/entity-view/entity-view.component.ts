@@ -185,6 +185,14 @@ export class EntityViewComponent implements OnInit {
   paymentMethod: any;
   chargepersms: any;
   agreementdetails: any;
+  valueagreementcreate: any;
+  valueagreementView: any;
+  valueagreementAgreement: any;
+  valueagreementAgreementSigned: any;
+  valueagreementlinkdate: any;
+  valueagreementlinkstatus: any;
+  valueagreementlink: any;
+  valueagreement: any;
   selectTab(tab: string): void {
     this.activeTab = tab;
   }
@@ -262,6 +270,13 @@ export class EntityViewComponent implements OnInit {
             this.valuesmsview = 'Sms Setting-View'
             this.valuesmsstatus = 'Sms Setting-Status'
             this.valuekycadd = 'Entity View KYC Document-add'
+            this.valueagreementcreate = 'Entity View Agreement-Add'
+            this.valueagreementView = 'Entity View Agreement-View'
+            this.valueagreementAgreement = 'Entity View Agreement-Agreement'
+            this.valueagreementAgreementSigned = 'Entity View Agreement-Agreement Signed Copy'
+            this.valueagreementlinkdate='Entity View Agreement-Link Expiry Date'
+            this.valueagreementlinkstatus='Entity View Agreement-Link Expiry Status'
+            this.valueagreementlink='Entity View Agreement-Entity Agreement Link'
           }
           else {
             for (let datas of this.getdashboard) {
@@ -395,7 +410,28 @@ export class EntityViewComponent implements OnInit {
               if (this.actions == 'Entity View Customized Payment-View') {
                 this.valueCustomizedview = 'Entity View Customized Payment-View'
               }
-
+              if(this.actions=='Entity View Agreement-Entity Agreement Link'){
+                this.valueagreementlink='Entity View Agreement-Entity Agreement Link'
+              }
+              if(this.actions=='Entity View Agreement-Link Expiry Status'){
+                this.valueagreementlinkstatus='Entity View Agreement-Link Expiry Status'
+              }
+              if(this.actions=='Entity View Agreement-Link Expiry Date'){
+                this.valueagreementlinkdate='Entity View Agreement-Link Expiry Date'
+              }
+              if (this.actions == 'Entity View Agreement-Add') {
+                this.valueagreementcreate = 'Entity View Agreement-Add'
+              }
+              if (this.actions == 'Entity View Agreement-View') {
+                this.valueagreementView = 'Entity View Agreement-View'
+              }
+              if (this.actions == 'Entity View Agreement-Agreement') {
+                this.valueagreementAgreement = 'Entity View Agreement-Agreement'
+              }
+              if (this.actions == 'Entity View Agreement-Agreement Signed Copy') {
+                this.valueagreementAgreementSigned = 'Entity View Agreement-Agreement Signed Copy'
+              }
+ 
 
             }
           }
@@ -553,6 +589,7 @@ export class EntityViewComponent implements OnInit {
       this.valuemanualpayment = 'One Time Setup Payment'
       this.valueCustomized = 'Entity View Customized Payment'
       this.valuesmssetting = 'Sms Setting'
+       this.valueagreement = 'Entity View Agreement'
 
     }
     else {
@@ -603,6 +640,10 @@ export class EntityViewComponent implements OnInit {
         if (this.roles == 'Sms Setting') {
           this.valuesmssetting = 'Sms Setting'
         }
+        if (this.roles == 'Entity View Agreement') {
+          this.valueagreement = 'Entity View Agreement'
+        }
+ 
       }
     }
   }

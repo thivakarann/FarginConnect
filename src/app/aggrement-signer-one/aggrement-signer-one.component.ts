@@ -34,6 +34,7 @@ export class AggrementSignerOneComponent implements OnInit {
   strings = "@";
 
 
+
   constructor(
     private activatedroute: ActivatedRoute,
     public service: FarginServiceService,
@@ -43,14 +44,14 @@ export class AggrementSignerOneComponent implements OnInit {
   ) { }
   ngOnInit(): void {
 
-    this.activatedroute.queryParams.subscribe((params: any) => {
+  
+     
+     this.activatedroute.queryParams.subscribe((params: any) => {
       this.ReferenceCode = params.referenceCode;
       console.log(this.ReferenceCode)
     });
-
-
-
-
+    
+    
     this.service.AggrementViewbyrefferencenumber(this.ReferenceCode).subscribe((res: any) => {
 
       if (res.flag == 1) {
@@ -63,7 +64,7 @@ export class AggrementSignerOneComponent implements OnInit {
         this.EntityName = res.response.merchantId.entityName;
         this.EntityNumber = res.response.merchantId.contactMobile;
         this.EntityEmail = res.response.merchantId.contactEmail;
-        this.LocationStatus = res.response.merchantGetLocation;
+        this.LocationStatus = res.response.adminGetLocation;
         this.AdminSignedDate = res.response.adminVerifiedDate;
         this.EntitySignedDate = res.response.merchantVerifiedDate;
         console.log(this.LocationStatus);
