@@ -21,14 +21,14 @@
                             </svg>
                         </button>
                     </label>
- 
+
                 </form>
- 
+
             </div>
- 
+
         </div>
- 
- 
+
+
         <div class="col-1 mt-4">
             <button (click)="subscription(input.value)"
                 style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Go</button>
@@ -38,7 +38,7 @@
                 style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
                 (click)=" exportexcel()">Export</button>
         </div>&nbsp;&nbsp;
- 
+
         <div class="col-2 mt-1">
             <label><b>From Date:</b></label>
             <input class="form-control" type="date" name="FromDate" [(ngModel)]="FromDateRange"
@@ -49,23 +49,23 @@
             <input class="form-control" type="date" name="ToDate" [(ngModel)]="ToDateRange"
                 style="height:35px;width:150px;border-radius: 5px;">
         </div>
- 
+
         <div class="col-1 mt-4">
             <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
                 (click)="filterdate()">Filter</button>
         </div>
- 
+
         <div class="col-1 mt-4">
             <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
                 (click)="reset()">Reset</button>
         </div>
- 
+
     </div>
 </mat-card-header>
 <!-- <mat-card> -->
 <mat-card-content>
-    <div class="table-responsive text-nowrap mt-4" style="overflow-x: scroll; scrollbar-width: thin;">
-      
+    <div class="example-container mt-4">
+
         <span *ngIf="showcategoryData" style="text-align:center;color:red;">NO DATA FOUND</span>
         <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="!
         showcategoryData
@@ -173,9 +173,9 @@
                         transaction?.paymentStatus}}</span>
                     <span *ngIf="transaction?.paymentStatus  == 'Initiated'" class="text-primary"> {{
                         transaction?.paymentStatus}}</span>
-                         <span *ngIf="transaction?.paymentStatus  == 'Failure'" class="text-danger"> {{
-                            transaction?.paymentStatus}}</span>
-    
+                    <span *ngIf="transaction?.paymentStatus  == 'Failure'" class="text-danger"> {{
+                        transaction?.paymentStatus}}</span>
+
 
                 </td>
             </ng-container>
@@ -187,7 +187,7 @@
                         (click)="transactionview(transaction?.maintenancePayId)"></i>
                 </td>
             </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
             <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
             <tr *matNoDataRow>
                 <td class="mat-cell" colspan="4">No Data For
@@ -201,14 +201,17 @@
     <!-- <mat-paginator (pageChange)="renderPage($event)" [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtons
         aria-labels="select page of users"></mat-paginator> -->
 
-        <div class=" row d-flex justify-content-end mt-3 mx-2">
-            <div class="col-md-7"></div>
-            <div class="col-md-5">
-                <button style="color:white;background-color: #141E46;" >Total Entires:{{this.totalPages}}</button>
-                <button style="color:white;background-color: #141E46;"  (click)="changePageIndex(pageIndex - 1)"[hidden]="pageIndex === 0">Previous</button>
-                <button style="color:white;background-color: #141E46;" >{{ this.currentpage}} of {{this.totalpage}} Pages</button>
-                <button style="color:white;background-color: #141E46;"   (click)="changePageIndex(pageIndex + 1)" [hidden]="pageIndex >= totalpage - 1" >Next</button>
-                    </div>
-       
-          </div>
+    <div class=" row d-flex justify-content-end mt-3 mx-2">
+        <div class="col-md-6"></div>
+        <div class="col-md-6">
+            <button style="color:white;background-color: #141E46;">Total Entires:{{this.totalPages}}</button>
+            <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex - 1)"
+                [hidden]="pageIndex === 0">Previous</button>
+            <button style="color:white;background-color: #141E46;">{{ this.currentpage}} of {{this.totalpage}}
+                Pages</button>
+            <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex + 1)"
+                [hidden]="pageIndex >= totalpage - 1">Next</button>
+        </div>
+
+    </div>
 </mat-card-footer>

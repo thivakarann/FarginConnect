@@ -44,7 +44,7 @@
 </div>
 <mat-card-content>
   <!-- <span style="color: red;"  class="tableError">NO DATA FOUND</span> -->
-  <div class="table-responsive text-nowrap mt-4" style="overflow-x: scroll; scrollbar-width: thin">
+  <div class="example-container mt-4" >
     <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
       <ng-container matColumnDef="sno">
         <th mat-header-cell *matHeaderCellDef>S.No</th>
@@ -82,9 +82,14 @@
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="agreementLink"> 
-        <th [hidden]="valueagreementlink!=='Entity Agreement-Agreement Link'" mat-header-cell *matHeaderCellDef>Agreement Link</th> 
-        <td [hidden]="valueagreementlink!=='Entity Agreement-Agreement Link'" mat-cell *matCellDef="let data; let i = index"> {{data.agreementLink | slice: 0: 25}} <i class="fa-regular fa-copy" style="color: green; font-size: 18px;" (click)="copyText1(data.agreementLink, i)"></i> <span *ngIf="copiedIndex === i" style="color: green;">Copied!</span> </td> </ng-container>
+      <ng-container matColumnDef="agreementLink">
+        <th [hidden]="valueagreementlink!=='Entity Agreement-Agreement Link'" mat-header-cell *matHeaderCellDef>
+          Agreement Link</th>
+        <td [hidden]="valueagreementlink!=='Entity Agreement-Agreement Link'" mat-cell
+          *matCellDef="let data; let i = index"> {{data.agreementLink | slice: 0: 25}} <i class="fa-regular fa-copy"
+            style="color: green; font-size: 18px;" (click)="copyText1(data.agreementLink, i)"></i> <span
+            *ngIf="copiedIndex === i" style="color: green;">Copied!</span> </td>
+      </ng-container>
 
       <ng-container matColumnDef="planoverview">
         <th [hidden]="valueagreeView!=='Entity Agreement-View'" mat-header-cell *matHeaderCellDef>Plan Overview</th>
@@ -95,7 +100,8 @@
       </ng-container>
 
       <ng-container matColumnDef="agreement">
-        <th [hidden]="valueagreeAgreement!=='Entity Agreement-Agreement'" mat-header-cell *matHeaderCellDef>Agreement</th>
+        <th [hidden]="valueagreeAgreement!=='Entity Agreement-Agreement'" mat-header-cell *matHeaderCellDef>Agreement
+        </th>
         <td [hidden]="valueagreeAgreement!=='Entity Agreement-Agreement'" mat-cell *matCellDef="let data">
           <i style="cursor: pointer;font-size: 15px;color:#545497;" class="fa-solid fa-file-contract"
             (click)="viewagreementdoc(data.agreementId)"></i>
@@ -117,7 +123,8 @@
         </td>
       </ng-container>
       <ng-container matColumnDef="signedcopy">
-        <th [hidden]="valueagreeSignedCopy!=='Entity Agreement-Agreement Signed Copy'" mat-header-cell *matHeaderCellDef>Agreement Signed Copy</th>
+        <th [hidden]="valueagreeSignedCopy!=='Entity Agreement-Agreement Signed Copy'" mat-header-cell
+          *matHeaderCellDef>Agreement Signed Copy</th>
         <td [hidden]="valueagreeSignedCopy!=='Entity Agreement-Agreement Signed Copy'" mat-cell *matCellDef="let data">
           <!-- <i style="cursor: pointer;font-size: 15px;color:#545497;" class="fa-solid fa-file-contract"
             (click)="viewsignedagreementdoc(data.agreementId)"></i> -->
@@ -150,7 +157,8 @@
           {{ data.createdBy}}
         </td>
       </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true
+      "></tr>
       <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
       <tr *matNoDataRow>
         <td class="mat-cell" colspan="4">No Data For {{input.value}}

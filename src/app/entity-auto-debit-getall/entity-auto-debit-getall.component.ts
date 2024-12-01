@@ -41,7 +41,7 @@ export class EntityAutoDebitGetallComponent {
   responseDataListnew: any = [];
   response: any = [];
   pageIndex: number = 0;
-  pageSize = 5;
+  pageSize = 8;
   totalPages: any;
   totalpage: any;
   currentpage: any;

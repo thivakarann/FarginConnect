@@ -110,8 +110,6 @@ export class OverallCustomerViewComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.overallcustomer);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-
-        this.showcategoryData = false;
       }
       else {
         this.showcategoryData = true;

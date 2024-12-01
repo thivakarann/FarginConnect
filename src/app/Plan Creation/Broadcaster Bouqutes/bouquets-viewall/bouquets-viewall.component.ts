@@ -89,7 +89,7 @@ export class BouquetsViewallComponent implements OnInit {
 
     this.Bouquetviewall.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        
+
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -137,7 +137,8 @@ export class BouquetsViewallComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.viewall);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-      
+      this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+
     });
 
 
@@ -157,7 +158,7 @@ export class BouquetsViewallComponent implements OnInit {
     this.dialog.open(BouqutesAddComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
-      disableClose:true
+      disableClose: true
     })
   }
 
@@ -172,7 +173,7 @@ export class BouquetsViewallComponent implements OnInit {
 
     this.Bouquetviewall.BroadcasterBoucatebyid(this.valueid).subscribe({
       next: (res: any) => {
-        
+
         if (res.flag == 1) {
           this.getAction = res.response;
 
@@ -182,16 +183,16 @@ export class BouquetsViewallComponent implements OnInit {
           this.amount = res.response.amount
 
           this.broadCasterRegions = this.getAction.broadCasterRegion
-          
+
           // for (let data of this.broadCasterRegions) {
           //   this.broadCasterRegionsss.push(data.broadCasterRegion.regionId)
-            
+
           // }
 
           // this.broadCasterAlcot = this.getAction.broadCasterAlcot
           // for (let data of this.broadCasterAlcot) {
           //   this.broadCasterAlcotsss.push(data.broadCasterAlcot.alcotId)
-            
+
           // }
 
           //Duplicate Removal start
@@ -199,7 +200,7 @@ export class BouquetsViewallComponent implements OnInit {
           for (let value of this.perValueObject) {
             this.perValueArray.push(value)
           }
-          
+
           this.dialog.open(BouqetsEditComponent, {
             data: { per: this.perValueArray, bouquet: this.bouquet, creation: this.creation, services: this.services, broadCasterRegionsss: this.broadCasterRegionsss, broadCasterAlcotsss: this.broadCasterAlcotsss, amount: this.amount, valueid: this.valueid },
             disableClose: true,
@@ -221,11 +222,11 @@ export class BouquetsViewallComponent implements OnInit {
     this.router.navigate([`dashboard/bouqutes-view/${id}`], {
       queryParams: { Alldata: id },
     });
-    
+
 
   }
 
-    Viewdatas(id: any) {
+  Viewdatas(id: any) {
     this.router.navigate([`dashboard/bouqutes-region/${id}`], {
       queryParams: { Alldata: id },
     });
@@ -244,7 +245,7 @@ export class BouquetsViewallComponent implements OnInit {
 
 
   ActiveStatus(event: MatSlideToggleChange, id: any) {
-    
+
     this.isChecked = event.checked;
 
     let submitModel: BroadcasterBouquetStatus = {
@@ -252,7 +253,7 @@ export class BouquetsViewallComponent implements OnInit {
       bouquteId: id
     };
     this.Bouquetviewall.BroadcasterBoucateStatus(submitModel).subscribe((res: any) => {
-      
+
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         window.location.reload();
@@ -265,13 +266,13 @@ export class BouquetsViewallComponent implements OnInit {
 
   }
   exportexcel() {
-    
+
     let sno = 1;
     this.responseDataListnew = [];
     this.viewall.forEach((element: any) => {
       // let createdate = element.createdDateTime;
       // this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
- 
+
       // let moddate = element.modifiedDateAndTime;
       // this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
@@ -279,21 +280,21 @@ export class BouquetsViewallComponent implements OnInit {
       this.response.push(element?.bundleChannel.broadCasterName);
       this.response.push(element?.bouquetCreation.bouquetName);
       this.response.push(element?.amount);
-   if(element?.status==1){
-    this.response.push('Active')
-   }
-   else{
-    this.response.push('Inactive')
-   }
- 
- 
- 
+      if (element?.status == 1) {
+        this.response.push('Active')
+      }
+      else {
+        this.response.push('Inactive')
+      }
+
+
+
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
- 
+
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
@@ -303,18 +304,18 @@ export class BouquetsViewallComponent implements OnInit {
       "Plan Amount",
       "Bouquetes Status",
 
- 
+
     ]
- 
- 
+
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Broadcaster Bouquetes Creation');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
- 
- 
+
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -325,15 +326,15 @@ export class BouquetsViewallComponent implements OnInit {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
+
       }
- 
+
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
- 
+
     data.forEach((d: any) => {
       // 
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -341,29 +342,29 @@ export class BouquetsViewallComponent implements OnInit {
       let qty3 = row.getCell(4);
       let qty4 = row.getCell(5);
 
- 
- 
+
+
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty3.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } } 
- 
+      qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+
     }
     );
- 
+
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
     // worksheet.getColumn(2).protection = { locked: true, hidden: true }
     // worksheet.getColumn(3).protection = { locked: true, hidden: true }
- 
- 
+
+
     workbook.xlsx.writeBuffer().then((data: any) => {
- 
+
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
- 
- 
+
+
       FileSaver.saveAs(blob, 'Broadcaster Bouquetes Creation.xlsx');
- 
+
     });
   }
 }

@@ -32,6 +32,7 @@ export class CustomerViewallComponent implements OnInit {
   displayedColumns: string[] = [
     'sno',
     'ticketId',
+    "merchantLegalName",
     'Customername',
     'mobileNumber',
     'categoryName',
@@ -85,6 +86,7 @@ export class CustomerViewallComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.ticket.reverse());
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
       }
     });
 

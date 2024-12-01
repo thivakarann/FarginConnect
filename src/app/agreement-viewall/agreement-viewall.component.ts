@@ -80,7 +80,7 @@ export class AgreementViewallComponent {
             this.valueagreeView = 'Entity Agreement-View'
             this.valueagreeAgreement = 'Entity Agreement-Agreement'
             this.valueagreeSignedCopy = 'Entity Agreement-Agreement Signed Copy'
-            this.valueagreementlink='Entity Agreement-Agreement Link'
+            this.valueagreementlink = 'Entity Agreement-Agreement Link'
 
           }
           else {
@@ -98,8 +98,8 @@ export class AgreementViewallComponent {
               if (this.actions == 'Entity Agreement-Agreement Signed Copy') {
                 this.valueagreeSignedCopy = 'Entity Agreement-Agreement Signed Copy'
               }
-              if(this.actions=='Entity Agreement-Agreement Link'){
-                this.valueagreementlink='Entity Agreement-Agreement Link'
+              if (this.actions == 'Entity Agreement-Agreement Link') {
+                this.valueagreementlink = 'Entity Agreement-Agreement Link'
               }
 
             }
@@ -124,6 +124,9 @@ export class AgreementViewallComponent {
         this.dataSource = new MatTableDataSource(this.agreementdata);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+
+        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+
       }
     });
 

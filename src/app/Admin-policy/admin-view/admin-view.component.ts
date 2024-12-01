@@ -116,17 +116,20 @@ export class AdminViewComponent implements OnInit {
 
 
 
-    this.service.adminPolicyget(this.pageSize,this.pageIndex).subscribe((res: any) => {
+    this.service.adminPolicyget(this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.businesscategory = res.response;
-        this.totalPages=res.pagination.totalElements;
-        this.totalpage=res.pagination.totalPages;
-        this.currentpage=res.pagination.currentPage+1;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
         this.businesscategory.reverse();
         this.dataSource = new MatTableDataSource(this.businesscategory);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
- 
+
+        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+
+
         this.showcategoryData = false;
         //
       }
@@ -159,11 +162,11 @@ export class AdminViewComponent implements OnInit {
     // Capture the new page index and page size from the event
     this.pageIndex = event.pageIndex;  // Update current page index
     this.pageSize = event.pageSize;           // Update page size (if changed)
- 
+
     // Log the new page index and page size to the console (for debugging)
     console.log('New Page Index:', this.pageIndex);
     console.log('New Page Size:', this.pageSize);
- 
+
     // You can now fetch or display the data for the new page index
     // Example: this.fetchData(this.currentPageIndex, this.pageSize);
     this.ngOnInit()
@@ -185,57 +188,57 @@ export class AdminViewComponent implements OnInit {
   }
 
   exportexcel() {
-   
+
     this.service.adminPolicygetExport().subscribe((res: any) => {
-        this.merchantpolicyexport = res.response;
-    if (res.flag == 1) {
- 
-    let sno = 1;
-    this.responseDataListnew = [];
-    this.merchantpolicyexport.forEach((element: any) => {
- 
-      this.response = [];
-      this.response.push(sno);
-      this.response.push(element?.entityModel?.merchantLegalName);
-      this.response.push(element?.termAndCondition);
-      this.response.push(element?.disclaimer);
-      this.response.push(element?.privacyPolicy);
-      this.response.push(element?.refundPolicy);
-      this.response.push(element?.createdBy);
- 
-      if (element?.createdDateTime != null) {
-        let createdate = element?.createdDateTime;
-        this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-        this.response.push(this.date1);
+      this.merchantpolicyexport = res.response;
+      if (res.flag == 1) {
+
+        let sno = 1;
+        this.responseDataListnew = [];
+        this.merchantpolicyexport.forEach((element: any) => {
+
+          this.response = [];
+          this.response.push(sno);
+          this.response.push(element?.entityModel?.merchantLegalName);
+          this.response.push(element?.termAndCondition);
+          this.response.push(element?.disclaimer);
+          this.response.push(element?.privacyPolicy);
+          this.response.push(element?.refundPolicy);
+          this.response.push(element?.createdBy);
+
+          if (element?.createdDateTime != null) {
+            let createdate = element?.createdDateTime;
+            this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
+            this.response.push(this.date1);
+          }
+          else {
+            this.response.push();
+          }
+
+          // this.response.push(this.date1);
+          this.response.push(element?.modifiedBy);
+
+          // this.response.push(this.date2);
+
+          if (element?.modifiedDateTime != null) {
+            let moddate = element?.modifiedDateTime;
+            this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
+            this.response.push(this.date2);
+          }
+          else {
+            this.response.push();
+          }
+
+
+          sno++;
+          this.responseDataListnew.push(this.response);
+        });
+        this.excelexportCustomer();
       }
-      else {
-        this.response.push();
-      }
- 
-      // this.response.push(this.date1);
-      this.response.push(element?.modifiedBy);
- 
-      // this.response.push(this.date2);
- 
-      if (element?.modifiedDateTime != null) {
-        let moddate = element?.modifiedDateTime;
-        this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
-        this.response.push(this.date2);
-      }
-      else {
-        this.response.push();
-      }
- 
- 
-      sno++;
-      this.responseDataListnew.push(this.response);
+
     });
-    this.excelexportCustomer();
   }
- 
-});
-  }
- 
+
 
   excelexportCustomer() {
     // const title = 'Privacy Policy';

@@ -9,20 +9,19 @@
             <div class="search ">
                 <form class="form">
                     <label for="search">
-                        <input #input required autocomplete="off" placeholder="Search"
-                               id="search" type="text">
+                        <input #input required autocomplete="off" placeholder="Search" id="search" type="text">
                         <div class="icon">
                             <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                                xmlns="http://www.w3.org/2000/svg" class="swap-on">
                                 <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
-                                      stroke-linecap="round"></path>
+                                    stroke-linecap="round"></path>
                             </svg>
                         </div>
                         <button (click)="reload()" type="reset" class="close-btn">
                             <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
                                 <path clip-rule="evenodd"
-                                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                      fill-rule="evenodd"></path>
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    fill-rule="evenodd"></path>
                             </svg>
                         </button>
                     </label>
@@ -30,20 +29,16 @@
 
             </div>
             &nbsp;&nbsp;&nbsp;
-            <button (click)="autodebit(input.value)" style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Go</button>
+            <button (click)="autodebit(input.value)" style="color:white;background-color: #141E46;border-radius: 10px;"
+                mat-raised-button>Go</button>
             &nbsp;
-            <button [hidden]="valueautodebitexport!=='MMC Auto Debit-Export'" style="color:white;background-color: #141E46;border-radius: 10px;" (click)="exportexcel()"
+            <button [hidden]="valueautodebitexport!=='MMC Auto Debit-Export'"
+                style="color:white;background-color: #141E46;border-radius: 10px;" (click)="exportexcel()"
                 mat-raised-button>Export</button>
         </div>
         <div class="col-6" style="    margin-left: -85px;
     margin-top: 13px;">
-            <input
-        type="range"
-        min="0"
-        [max]="maxScroll"
-        [(ngModel)]="scrollValue"
-        (input)="onSliderChange($event)"
-      />
+            <input type="range" min="0" [max]="maxScroll" [(ngModel)]="scrollValue" (input)="onSliderChange($event)" />
         </div>
     </div>
 </mat-card-header>
@@ -51,9 +46,9 @@
 <!-- <mat-card> -->
 <mat-card-content>
 
-    <div #tableContainer class="table-responsive text-nowrap mt-4" style="overflow-x: scroll; scrollbar-width: thin;">
+    <div #tableContainer class="example-container mat-elevation-z8 mt-2">
 
-        <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <table matSort mat-table [dataSource]="dataSource">
 
             <ng-container matColumnDef="merchantLogId">
                 <th mat-header-cell *matHeaderCellDef> S.No</th>
@@ -93,7 +88,7 @@
             <ng-container matColumnDef="rentalPeriod">
                 <th mat-header-cell *matHeaderCellDef>MMC Period</th>
                 <td mat-cell *matCellDef="let viewall">
-                    {{ viewall.rentalPeriod  }}
+                    {{ viewall.rentalPeriod }}
                 </td>
             </ng-container>
 
@@ -135,7 +130,7 @@
 
 
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
             <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
             <tr *matNoDataRow>
                 <td class="mat-cell" colspan="4">No Data For
@@ -148,19 +143,20 @@
     </div>
 </mat-card-content>
 
-    <!-- <mat-paginator  [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtons
+<!-- <mat-paginator  [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtons
         aria-labels="select page of users"></mat-paginator> -->
-    <div class=" row d-flex justify-content-end mt-3 mx-2">
-        <div class="col-md-7"></div>
-        <div class="col-md-5">
-            <button style="color:white;background-color: #141E46;">Total Entires:{{this.totalPages}}</button>
-            <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex - 1)"
-                [hidden]="pageIndex === 0">Previous</button>
-            <button style="color:white;background-color: #141E46;">{{ this.currentpage}} of {{this.totalpage}}
-                Pages</button>
-            <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex + 1)"
-                [hidden]="pageIndex >= totalpage - 1">Next</button>
-        </div>
+<div class=" row d-flex justify-content-end mt-2 ">
+    <div class="col-md-6"></div>
+    <div class="col-md-6">
+
+        <button style="color:white;background-color: #141E46;">Total Entires:{{this.totalPages}}</button>
+        <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex - 1)"
+            [hidden]="pageIndex === 0">Previous</button>
+        <button style="color:white;background-color: #141E46;">{{ this.currentpage}} of {{this.totalpage}}
+            Pages</button>
+        <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex + 1)"
+            [hidden]="pageIndex >= totalpage - 1">Next</button>
+    </div>
 
 </div>
 <!-- </mat-card> -->

@@ -237,3 +237,15 @@ mat-card-content tr:nth-child(odd) {
 .rejected {
   color: red;
 }
+
+
+.example-container {
+  max-height: 275px;
+  height: 100%;
+  overflow: auto;
+  scrollbar-width: auto;
+}
+
+table {
+  width: 100%;
+}

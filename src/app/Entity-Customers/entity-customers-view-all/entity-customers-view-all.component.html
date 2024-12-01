@@ -98,9 +98,9 @@
 </mat-card-content>
 <mat-card-footer>
 
-    <div class=" row d-flex justify-content-end mt-3 mx-2">
-        <div class="col-md-7"></div>
-        <div class="col-md-5">
+    <div class=" row d-flex justify-content-end mt-2">
+        <div class="col-md-6"></div>
+        <div class="col-md-6">
             <button style="color:white;background-color: #141E46;" >Total Entires:{{this.totalPages}}</button>
             <button style="color:white;background-color: #141E46;"  (click)="changePageIndex(pageIndex - 1)"[hidden]="pageIndex === 0">Previous</button>
             <button style="color:white;background-color: #141E46;" >{{ this.currentpage}} of {{this.totalpage}} Pages</button>

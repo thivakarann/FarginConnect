@@ -110,6 +110,7 @@ export class RegionComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.region);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+      
     });
  
 
