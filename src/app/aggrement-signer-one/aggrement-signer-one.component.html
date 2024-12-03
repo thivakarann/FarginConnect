@@ -4,6 +4,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
+
+
 <div class="container" [hidden]="this.Expirystatus==true">
     <!-- PDF Viewer Section -->
     <div  class="pdf-container">
@@ -53,7 +55,7 @@
             </div>
             <div class="profile-field" [hidden]="AdminSignedStatus==0">
                 <label><i style="color: black;font-size: 17px;" class="fa fa-user"></i>&nbsp;Fargin Signer Signed Date:</label>
-                <p>{{AdminSignedDate}}</p>
+                <p>{{AdminSignedDate|date:"dd/MM/yyyy"}}</p>
             </div>
             <div class="profile-field">
                 <label><i style="color: black;font-size: 17px;" class="fa fa-check-circle"></i>&nbsp;Entity Signer
@@ -63,14 +65,41 @@
 
             <div class="profile-field" [hidden]="EntotySignedStatus==0">
                 <label><i style="color: black;font-size: 17px;" class="fa fa-user"></i>&nbsp;Fargin Signer Signed Date:</label>
-                <p>{{EntitySignedDate}}</p>
+                <p>{{EntitySignedDate|date:"dd/MM/yyyy hh:mm a"}}</p>
             </div>
         </div>
 
         <!-- OTP Verify Button -->
-        <button [hidden]="AdminSignedStatus==1" class="button" (click)="Signer(this.ReferenceCode)">OTP VERIFY</button>
+        <button [hidden]="AdminSignedStatus==1" class="button" (click)="Signer(this.ReferenceCode)">Sign Now</button>
     </div>
 </div>
+
+
+<body  *ngIf="AdminSignedStatus==1" >
+    
+    <div id='oopss'>
+      <div id='error-text'>
+          <img src="/assets/Active.png" alt="404">
+          <span style="color: white;">Thank you</span>
+          <p class="p-a">
+             .You have already signed this Agreement</p>
+             <p class="p-b">
+              For Support Please Contact</p>
+              <a class="p-b" href="mailto: support@fargin.in">
+                  support{{strings}}fargin.in
+              </a>
+          <!-- <p class="p-b">
+              ... Back to previous page
+          </p>
+          <a href='#' class="back">... Back to previous page</a> -->
+      </div>
+  </div>
+    
+    
+  
+  </body>
+
+
 
 
 
@@ -97,3 +126,6 @@
     
   
   </body>
+
+  
+

@@ -1252,3 +1252,27 @@ export interface Agreementextentdate {
 export interface AgreementLinkExpiry {
   readonly expiryLinkStatus:any;
 }
+export interface OffilneTransaction{
+  readonly accountId:any;
+  readonly pageNo:any;
+  readonly  query:any;
+  readonly size:any;
+  readonly dateRange:any;
+  readonly status:any;
+  readonly terminalId:any;
+}
+export interface OfflineSettlement{
+  readonly accountId:any;
+  readonly pageNo:any;
+  readonly  query:any;
+  readonly size:any;
+  readonly dateRange:any;
+}
+export interface PayoutOfflineSettlement{
+  readonly accountId:any;
+  readonly pageNo:any;
+  readonly  query:any;
+  readonly size:any;
+  readonly dateRange:any;
+  readonly payoutId:any
+}

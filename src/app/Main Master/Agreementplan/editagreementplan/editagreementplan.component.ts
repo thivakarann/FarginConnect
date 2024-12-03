@@ -33,7 +33,7 @@ export class EditagreementplanComponent {
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9 ]*$')]),
  
-      servicefee: new FormControl('', [ Validators.required]),
+      servicefee: new FormControl('',[Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
       netBankingAmount: new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
       netBankingPercentage: new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
       netBankingFixedFee: new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),

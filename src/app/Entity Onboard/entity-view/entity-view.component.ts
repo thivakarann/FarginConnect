@@ -1976,12 +1976,19 @@ export class EntityViewComponent implements OnInit {
         }
       },
       error: (err: any) => {
-        this.toastr.error('Error fetching filtered regions');
+        this.toastr.error('No Data Found');
       }
     });
   }
 
   reload() {
     window.location.reload()
+  }
+  Viewoffline(id:any,dta:any){
+    this.router.navigate([`dashboard/offline-transactions/${id}`], {
+      queryParams: { Alldata: id,
+        Alldata1:dta
+       },
+    });
   }
 }

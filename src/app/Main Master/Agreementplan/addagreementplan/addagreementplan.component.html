@@ -61,6 +61,17 @@
           >
             Field is required
           </div>
+          <div
+          style="
+            color: red;
+            font-size: 12px;
+            margin-top: 2px;
+            position: relative; ;
+          "
+          *ngIf="servicefee?.invalid && servicefee?.touched && servicefee?.errors?.['pattern']"
+        >
+          Only positive numbers are allowed
+        </div>
         </div>
       </div>
 

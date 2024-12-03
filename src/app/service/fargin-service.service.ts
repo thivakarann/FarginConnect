@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
   providedIn: 'root'
 })
 export class FarginServiceService {
+ 
 
   constructor(private http: HttpClient,
     private router: Router, private timerService: SessionServiceService, private toastr: ToastrService) { }
@@ -316,6 +317,7 @@ export class FarginServiceService {
   private readonly dashboardData = 'dashBoard/dashBoardCount'
   private readonly dashboardbusinessgetall = 'businesscategory/getall'
   private readonly dashboardbusinesscategorybyid = 'dashBoard/businessCategory/'
+   private readonly dashboardbusinesscategory='merchant/viewCategory/'
   private readonly dashboardtransaction = 'dashBoard/transaction/'
 
   //unblock account
@@ -594,6 +596,13 @@ export class FarginServiceService {
   private readonly AgreementLinkExtent = 'agreement/updatelink/';
   private readonly AgreementLinkExpiry = 'agreement/updatelinkstatus/';
 
+  //offline transactions
+  private readonly offlinetransactions='transactions/getMerchantOfflinePaymentList';
+  private readonly successofftransactions='transactions/getMerchofflineSfulPayment/';
+  private readonly failureofftransactions='transactions/getMerchOfflineFailPayment/';
+  private readonly offlinesettlement='transactions/getOfflinePayouts';
+  private readonly offlinepayoutsettelemnt='transactions/getOfflinePayoutTransactions';
+
 
   // Find Ip 
   private ipApiUrl = 'https://api.ipify.org/?format=json';
@@ -687,6 +696,9 @@ export class FarginServiceService {
   }
   dashboardbusinesscategorybyids(id: any) {
     return this.http.get(`${this.basePath}${this.dashboardbusinesscategorybyid}${id}`, this.options)
+  }
+  dashboardbusinesscategorys(id: any) {
+    return this.http.get(`${this.basePath}${this.dashboardbusinesscategory}${id}`, this.options)
   }
   dashboardtransactions(id: any, id1: any, id2: any, id3: any) {
     return this.http.get(`${this.basePath}${this.dashboardtransaction}${id}/${id1}/${id2}/${id3}`, this.options)
@@ -2286,5 +2298,24 @@ export class FarginServiceService {
 
   agreementlinkexpiry(id:any,model:any){
     return this.http.put(`${this.basePath}${this.AgreementLinkExpiry}${id}`,model,this.options)
+  }
+  //offline transaction
+  OfflineTransactions(model:any){
+    return this.http.post(`${this.basePath}${this.offlinetransactions}`,model,this.options)
+  }
+ 
+  SuccessOffTransaction(id:any,id1:any){
+    return this.http.get(`${this.basePath}${this.successofftransactions}${id}/${id1}`,this.options)
+  }
+ 
+  FailureOffTransaction(id:any,id1:any){
+    return this.http.get(`${this.basePath}${this.failureofftransactions}${id}/${id1}`,this.options)
+  }
+ 
+  OfflineSettlement(model:any){
+    return this.http.post(`${this.basePath}${this.offlinesettlement}`,model,this.options)
+  }
+  PayoutOfflineSettlement(model:any){
+    return this.http.post(`${this.basePath}${this.offlinepayoutsettelemnt}`,model,this.options)
   }
 }

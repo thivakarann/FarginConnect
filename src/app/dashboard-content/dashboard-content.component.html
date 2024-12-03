@@ -167,19 +167,33 @@
     <div class=" text-center">
       <h3>Transaction Details</h3>
     </div>
+    <div class="row">
+      <div class="col-md-6">
+        <label for="period" style="font-size: 14px; font-weight: 600;">Select
+          Business Category</label><br>
+        <select (change)="categorybusiness($event)"
+        id="Bussiness category" class="form-select">
+        <option value="" disabled selected>Select</option>
+        <option *ngFor="let item of categorydetails" [value]="item.businessCategoryId">
+            {{item.categoryName}}</option>
  
-    <div class="col-md-4">
-      <label for="period" style="font-size: 14px;">Select
-        Merchant</label><br>
-      <select style="font-size: 14px;" id="period" class="form-select"
-        (change)="onMerchantChange($event)">
-        <option selected disabled>Select
-        </option>
-        <option *ngFor="let item of viewall;" [value]="item.merchantId">
-          {{item.merchantLegalName}}
-        </option>
-      </select>
+    </select>
+      </div>
+   
+      <div class="col-md-6">
+        <label for="period" style="font-size: 14px;font-weight: 600;">Select
+          Merchant</label><br>
+        <select style="font-size: 14px;" id="period" class="form-select" [ngModel]="selectedmerchant"
+          (change)="onMerchantChange($event)">
+          <option selected disabled>Select
+          </option>
+          <option *ngFor="let item of catgry;" [value]="item.merchantId">
+            {{item.merchantLegalName}}
+          </option>
+        </select>
+      </div>
     </div>
+   
  
     <div class="row">
       <div class="col-md-6">
@@ -201,6 +215,11 @@
     </div>
     &nbsp;&nbsp;
   </div>
+ 
+
+
+
+
   <div class="row">
     <div class="col-6" [hidden]="valueTotalcount!=='Dashboard-Total Count'">
       <div class="card border-success">

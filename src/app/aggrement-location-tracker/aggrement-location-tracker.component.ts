@@ -75,13 +75,13 @@ export class AggrementLocationTrackerComponent {
     this.FinalLocationAccess();
   }
 
-  No() {
-    this.Flag = 0;
-    this.Consent = false;
-    this.Location = false;
-    this.LocationAccess();
-    this.FinalLocationAccess();
-  }
+  // No() {
+  //   this.Flag = 0;
+  //   this.Consent = false;
+  //   this.Location = false;
+  //   this.LocationAccess();
+  //   this.FinalLocationAccess();
+  // }
 
 
 

@@ -49,6 +49,7 @@ export class EntityTransactionComponent {
   actions: any;
   responseDataListnew: any=[];
   response: any=[];
+  AccountId: any;
 
   constructor(
     public service: FarginServiceService,
@@ -218,4 +219,5 @@ export class EntityTransactionComponent {
   close() {
     this.location.back();
   }
+
 }

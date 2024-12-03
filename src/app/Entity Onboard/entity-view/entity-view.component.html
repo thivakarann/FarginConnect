@@ -28,6 +28,13 @@
 
     </button>
     <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
+        data-target="home"  (click)="Viewoffline(this.id,this.detaislone?.accountId)">
+        <div>
+            <i class="fa-solid fa-building-columns"></i>&nbsp;&nbsp; Offline
+        </div>
+ 
+    </button>
+    <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
         data-target="about" (click)="viewsettlement(this.id)">
         <div [hidden]="valuentitysettlement!=='Entity View Settlement'">
             <i class='fas fa-handshake'></i>&nbsp;&nbsp;Settlement

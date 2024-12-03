@@ -57,6 +57,11 @@
                 <td mat-cell *matCellDef="let viewall">{{viewall.customerName}}</td>
             </ng-container>
 
+            <ng-container matColumnDef="customerReferenceId">
+                <th mat-header-cell *matHeaderCellDef>Customer Id</th>
+                <td mat-cell *matCellDef="let viewall">{{viewall.customerReferenceId}}</td>
+            </ng-container>
+
             <ng-container matColumnDef="entityName">
                 <th mat-header-cell *matHeaderCellDef>Entity Name</th>
                 <td mat-cell *matCellDef="let viewall">{{viewall.merchantId?.entityName}}</td>

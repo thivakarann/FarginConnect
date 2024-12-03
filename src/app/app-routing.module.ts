@@ -95,6 +95,10 @@ import { EditagreementplanComponent } from './Main Master/Agreementplan/editagre
 import { ViewagreementplanComponent } from './Main Master/Agreementplan/viewagreementplan/viewagreementplan.component';
 import { AggrementSignerOneComponent } from './aggrement-signer-one/aggrement-signer-one.component';
 import { AgreementViewallComponent } from './agreement-viewall/agreement-viewall.component';
+import { OfflineTransactionsComponent } from './Entity Onboard/Offline-Transactions/offline-transactions/offline-transactions.component';
+import { FailureOfftransactionsComponent } from './Entity Onboard/Offline-Transactions/failure-offtransactions/failure-offtransactions.component';
+import { OfflineSettlementComponent } from './Entity Onboard/Offline-Transactions/offline-settlement/offline-settlement.component';
+import { SuccessOfftransactionsComponent } from './Entity Onboard/Offline-Transactions/success-offtransactions/success-offtransactions.component';
 
 const routes: Routes = [
 
@@ -201,7 +205,11 @@ const routes: Routes = [
       { path: 'bouqutes-region/:id', component: BouqutesRegionComponent, canActivate: [authGuard] },
       { path: "signer-getall", component: SignerGetallComponent, canActivate: [authGuard] },
       { path: 'agreementplan', component: ViewagreementplanComponent, canActivate: [authGuard] },
-      {path:'agreement-viewall',component:AgreementViewallComponent,canActivate: [authGuard]}
+      {path:'agreement-viewall',component:AgreementViewallComponent,canActivate: [authGuard]},
+      {path:'offline-transactions/:id',component:OfflineTransactionsComponent,canActivate: [authGuard]},
+      {path:'success-offtransactions',component:SuccessOfftransactionsComponent,canActivate: [authGuard]},
+      {path:'failure-offtransactions',component:FailureOfftransactionsComponent,canActivate: [authGuard]},
+      {path:'offline-settlement/:id',component:OfflineSettlementComponent,canActivate: [authGuard]}
     ],
 
   },

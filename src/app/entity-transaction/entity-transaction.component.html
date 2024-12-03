@@ -42,6 +42,7 @@
             </div>&nbsp;&nbsp;&nbsp;
             <button style="color:white;background-color: #141E46;border-radius: 10px;"(click)="exportexcel()"
                 mat-raised-button [hidden]="valuetransactionExport!=='Entity View Transaction-Export'">Export</button>
+                
         </div>
     </div>
     </mat-card-header>
@@ -101,7 +102,7 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
             <tr *matNoDataRow>
-                <td class="mat-cell" colspan="4">No Data For {{input.value}}
+                <td class="mat-cell" colspan="0">No Data Found {{input.value}}
                 </td>
             </tr>
             </table>

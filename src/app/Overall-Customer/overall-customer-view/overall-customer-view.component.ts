@@ -25,6 +25,7 @@ export class OverallCustomerViewComponent implements OnInit {
   date2: any;
   displayedColumns: string[] = [
     'customerId',
+    'customerReferenceId',
     'customerName',
     'entityName',
     'merchantLegalName',
@@ -106,7 +107,7 @@ export class OverallCustomerViewComponent implements OnInit {
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.totalPages;
         this.currentpage = res.pagination.currentPage + 1;
-        this.overallcustomer.reverse();
+        // this.overallcustomer.reverse();
         this.dataSource = new MatTableDataSource(this.overallcustomer);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -302,7 +303,7 @@ export class OverallCustomerViewComponent implements OnInit {
         }
       },
       error: (err: any) => {
-        this.toastr.error('Error fetching filtered regions');
+        this.toastr.error('No Data Found');
       }
     });
   }

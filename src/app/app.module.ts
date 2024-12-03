@@ -232,6 +232,11 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { AggrementSignerOtpComponent } from './aggrement-signer-otp/aggrement-signer-otp.component';
 import { AggrementLocationTrackerComponent } from './aggrement-location-tracker/aggrement-location-tracker.component';
 import { AgreementsLinkExtentComponent } from './Entity Onboard/agreements-link-extent/agreements-link-extent.component';
+import { FailureOfftransactionsComponent } from './Entity Onboard/Offline-Transactions/failure-offtransactions/failure-offtransactions.component';
+import { OffileSettlementPayoutComponent } from './Entity Onboard/Offline-Transactions/offile-settlement-payout/offile-settlement-payout.component';
+import { OfflineSettlementComponent } from './Entity Onboard/Offline-Transactions/offline-settlement/offline-settlement.component';
+import { OfflineTransactionsComponent } from './Entity Onboard/Offline-Transactions/offline-transactions/offline-transactions.component';
+import { SuccessOfftransactionsComponent } from './Entity Onboard/Offline-Transactions/success-offtransactions/success-offtransactions.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -440,7 +445,12 @@ import { AgreementsLinkExtentComponent } from './Entity Onboard/agreements-link-
     AgreementViewallComponent,
     AggrementSignerOtpComponent,
     AggrementLocationTrackerComponent,
-    AgreementsLinkExtentComponent
+    AgreementsLinkExtentComponent,
+    OfflineTransactionsComponent,
+    SuccessOfftransactionsComponent,
+    FailureOfftransactionsComponent,
+    OfflineSettlementComponent,
+    OffileSettlementPayoutComponent
 
   ],
 

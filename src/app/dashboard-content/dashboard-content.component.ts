@@ -66,6 +66,9 @@ export class DashboardContentComponent {
   valueTotalcount: any;
   sevenper: any;
   topseven: any;
+  catgry: any;
+  businessCategoryId: any;
+  categorydetails: any;
  
   constructor(private service: FarginServiceService) { }
  
@@ -169,7 +172,23 @@ export class DashboardContentComponent {
        
       }
     });
+    this.service.Bussinesscategoryactivelist().subscribe((res: any) => {
+      this.categorydetails = res.response;
+    });
   }
+
+  categorybusiness(event: any) {
+    this.catgry = [];
+    this.selectedmerchant = [];
+    this.businessCategoryId = event.target.value;
+ 
+    this.service.dashboardbusinesscategorys(this.businessCategoryId).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.catgry = res.response
+      }
+    })
+  }
+
   fetchMerchantData(merchantId: string) {
     // this.service.dashboardoverallmerchantids(merchantId).subscribe((res: any) => {
     //   if (res.flag === 1 || res.flag === 2) {
