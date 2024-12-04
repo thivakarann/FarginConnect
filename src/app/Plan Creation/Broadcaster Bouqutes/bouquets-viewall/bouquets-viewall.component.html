@@ -37,9 +37,11 @@
             </div>
             &nbsp;&nbsp;&nbsp;
 
-            <button [hidden]="valuebouquetesadd!=='Broadcaster Bouqutes-Add'" style="color:white;background-color: #141E46;border-radius: 10px;" class="custom-btn btn-10 me-3"
+            <button [hidden]="valuebouquetesadd!=='Broadcaster Bouqutes-Add'"
+                style="color:white;background-color: #141E46;border-radius: 10px;" class="custom-btn btn-10 me-3"
                 data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button (click)="add()">Create</button>
-            <button [hidden]="valuebouquetesexport!=='Broadcaster Bouqutes-Export'" style="color:white;background-color: #141E46;border-radius: 10px;" (click)="exportexcel()"
+            <button [hidden]="valuebouquetesexport!=='Broadcaster Bouqutes-Export'"
+                style="color:white;background-color: #141E46;border-radius: 10px;" (click)="exportexcel()"
                 mat-raised-button>Export</button>
 
 
@@ -63,7 +65,7 @@
                 <th mat-header-cell *matHeaderCellDef>Broadcaster Plan Name</th>
                 <td mat-cell *matCellDef="let viewall">{{viewall.bouquetCreation.bouquetName}}</td>
             </ng-container>
-            
+
             <ng-container matColumnDef="bouquetName">
                 <th mat-header-cell *matHeaderCellDef>BroadCaster Name</th>
                 <td mat-cell *matCellDef="let viewall">{{viewall.bundleChannel.broadCasterName}}</td>
@@ -75,7 +77,8 @@
             </ng-container>
 
             <ng-container matColumnDef="status">
-                <th [hidden]="valuebouquetesStatus!=='Broadcaster Bouqutes-Status'" mat-header-cell *matHeaderCellDef mat-sort-header>Bouquetes Status</th>
+                <th [hidden]="valuebouquetesStatus!=='Broadcaster Bouqutes-Status'" mat-header-cell *matHeaderCellDef
+                    mat-sort-header>Bouquetes Status</th>
                 <td mat-cell *matCellDef="let viewall" [hidden]="valuebouquetesStatus!=='Broadcaster Bouqutes-Status'">
                     <mat-slide-toggle class="example-margin" color="primary" [checked]="viewall.status==1"
                         (change)="ActiveStatus($event,viewall.bouquetId)">
@@ -91,15 +94,19 @@
             </ng-container> -->
 
             <ng-container matColumnDef="View">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="valuebouquetesView!=='Broadcaster Bouqutes-View'">View</th>
-                <td [hidden]="valuebouquetesView!=='Broadcaster Bouqutes-View'" style="cursor: pointer;" mat-cell *matCellDef="let viewall" (click)="Viewdatas(viewall.bouquetId)">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header
+                    [hidden]="valuebouquetesView!=='Broadcaster Bouqutes-View'">View</th>
+                <td [hidden]="valuebouquetesView!=='Broadcaster Bouqutes-View'" style="cursor: pointer;" mat-cell
+                    *matCellDef="let viewall" (click)="Viewdatas(viewall.bouquetId)">
                     <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-eye"></i>
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="Edit">
-                <th [hidden]="valuebouquetesEdit!=='Broadcaster Bouqutes-Edit'" mat-header-cell *matHeaderCellDef mat-sort-header>Edit</th>
-                <td [hidden]="valuebouquetesEdit!=='Broadcaster Bouqutes-Edit'" style="cursor: pointer;" mat-cell *matCellDef="let viewall">
+                <th [hidden]="valuebouquetesEdit!=='Broadcaster Bouqutes-Edit'" mat-header-cell *matHeaderCellDef
+                    mat-sort-header>Edit</th>
+                <td [hidden]="valuebouquetesEdit!=='Broadcaster Bouqutes-Edit'" style="cursor: pointer;" mat-cell
+                    *matCellDef="let viewall">
                     <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-edit"
                         (click)="Edit(viewall.bouquetId)"></i>
                 </td>

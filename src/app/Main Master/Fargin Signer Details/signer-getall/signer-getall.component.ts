@@ -30,8 +30,8 @@ export class SignerGetallComponent implements OnInit {
     // 'Edit',
     'createdBy',
     'createdAt',
-    'modifiedBy',
-    'modifiedAt'
+    // 'modifiedBy',
+    // 'modifiedAt'
 
   ];
   viewall: any;

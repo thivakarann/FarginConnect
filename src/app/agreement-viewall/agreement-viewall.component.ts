@@ -216,7 +216,7 @@ export class AgreementViewallComponent {
 
       let createdate = element.createdDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy hh:mm a').toString();
- 
+
 
       this.response = [];
       this.response.push(sno);
@@ -225,107 +225,107 @@ export class AgreementViewallComponent {
       this.response.push(element?.commercialId?.planName);
       this.response.push(element?.commercialId?.serviceFee);
 
-      if(element?.adminOtpStatus == 0){
+      if (element?.adminOtpStatus == 0) {
         this.response.push('Not Signed')
 
       }
-      else{
+      else {
         this.response.push('Signed')
 
       }
-      if(element?.merchanOtptStatus == 0){
+      if (element?.merchanOtptStatus == 0) {
         this.response.push('Not Signed')
 
       }
-      else{
+      else {
         this.response.push('Signed')
 
       }
       this.response.push(element?.createdBy);
       this.response.push(this.date1);
-   
+
 
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
-//   });
-// }
+  //   });
+  // }
 
-excelexportCustomer() {
-// const title='Business Category';
-const header = [
-"S.No",
-'Entity Name',
-'Legal Name',
-'Plan Name',
-'Service Fee',
-'Fargin Signer Status',
-'Entity Signer Status',
-'Created By',
-'Created At'
-]
-
-
-const data = this.responseDataListnew;
-let workbook = new Workbook();
-let worksheet = workbook.addWorksheet('Entity Agreement');
-// Blank Row
-// let titleRow = worksheet.addRow([title]);
-// titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
+  excelexportCustomer() {
+    // const title='Business Category';
+    const header = [
+      "S.No",
+      'Entity Name',
+      'Legal Name',
+      'Plan Name',
+      'Service Fee',
+      'Fargin Signer Status',
+      'Entity Signer Status',
+      'Created By',
+      'Created At'
+    ]
 
 
-worksheet.addRow([]);
-let headerRow = worksheet.addRow(header);
-headerRow.font = { bold: true };
-// Cell Style : Fill and Border
-headerRow.eachCell((cell, number) => {
-  cell.fill = {
-    type: 'pattern',
-    pattern: 'solid',
-    fgColor: { argb: 'FFFFFFFF' },
-    bgColor: { argb: 'FF0000FF' },
+    const data = this.responseDataListnew;
+    let workbook = new Workbook();
+    let worksheet = workbook.addWorksheet('Entity Agreement');
+    // Blank Row
+    // let titleRow = worksheet.addRow([title]);
+    // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
 
+
+    worksheet.addRow([]);
+    let headerRow = worksheet.addRow(header);
+    headerRow.font = { bold: true };
+    // Cell Style : Fill and Border
+    headerRow.eachCell((cell, number) => {
+      cell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'FFFFFFFF' },
+        bgColor: { argb: 'FF0000FF' },
+
+      }
+
+      cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+    });
+
+    data.forEach((d: any) => {
+      //
+
+      let row = worksheet.addRow(d);
+      let qty = row.getCell(1);
+      let qty1 = row.getCell(2);
+      let qty2 = row.getCell(3);
+      let qty3 = row.getCell(4);
+      let qty4 = row.getCell(5);
+      let qty5 = row.getCell(6);
+      let qty6 = row.getCell(7);
+      let qty7 = row.getCell(8);
+      let qty8 = row.getCell(9);
+
+
+      qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty3.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+    }
+    );
+    // worksheet.getColumn(1).protection = { locked: true, hidden: true }
+    // worksheet.getColumn(2).protection = { locked: true, hidden: true }
+    // worksheet.getColumn(3).protection = { locked: true, hidden: true }
+    workbook.xlsx.writeBuffer().then((data: any) => {
+      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      FileSaver.saveAs(blob, 'Entity Agreement.xlsx');
+    });
   }
-
-  cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-});
-
-data.forEach((d: any) => {
-  //
-
-  let row = worksheet.addRow(d);
-  let qty = row.getCell(1);
-  let qty1 = row.getCell(2);
-  let qty2 = row.getCell(3);
-  let qty3 = row.getCell(4);
-  let qty4 = row.getCell(5);
-  let qty5 = row.getCell(6);
-  let qty6 = row.getCell(7);
-  let qty7 = row.getCell(8);
-  let qty8= row.getCell(9);
-
-
-  qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-  qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-  qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-  qty3.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-  qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-  qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-  qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-  qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-  qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-}
-);
-// worksheet.getColumn(1).protection = { locked: true, hidden: true }
-// worksheet.getColumn(2).protection = { locked: true, hidden: true }
-// worksheet.getColumn(3).protection = { locked: true, hidden: true }
-workbook.xlsx.writeBuffer().then((data: any) => {
-  let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-  FileSaver.saveAs(blob, 'Entity Agreement.xlsx');
-});
-}
 
 
 
