@@ -168,8 +168,8 @@ export class BusinessKycComponent implements OnInit {
 
       this.response = [];
       this.response.push(sno);
-      this.response.push(element?.kycDocName);
       this.response.push(element?.businessCategoryId?.categoryName);
+      this.response.push(element?.entityKycCategory?.kycCategoryName);
       this.response.push(element?.createdBy);
       this.response.push(this.date1);
       this.response.push(element?.modifiedBy);
@@ -191,8 +191,8 @@ export class BusinessKycComponent implements OnInit {
   excelexportCustomer() {
     const header = [
       "S.No",
-      "Document Name",
-      "Category Name",
+    "Business Category",
+      "Document Type",
       "Created By",
       "Created At",
       "Modified By",

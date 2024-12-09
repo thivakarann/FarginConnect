@@ -28,7 +28,8 @@ export class OfflineTransactionsComponent {
     'paymentId',
     'entityname',
     // 'reference',
-    //   'customername',
+      'customername',
+      'vpa',
     //  'customermobile',
     // 'paymentmethod',
     'ordrnum',
@@ -137,8 +138,8 @@ export class OfflineTransactionsComponent {
 
   filterdate() {
     const datepipe: DatePipe = new DatePipe("en-US");
-    let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY");
-    let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/YYYY");
+    let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY hh:mm");
+    let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/YYYY hh:mm");
     this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
     this.currentPage = 1;
 

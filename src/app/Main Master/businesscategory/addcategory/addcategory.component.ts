@@ -55,7 +55,7 @@ export class AddcategoryComponent implements OnInit {
   submit() {
     let submitModel: Businessadd = {
       categoryName: this.categoryName.value.trim(),
-      mccCode: this.mccCode.value.trim(),
+      mccCode: this.mccCode.value,
       createdBy: this.createdBy,
       autoDebitDate: this.autoDebitDate?.value
     };

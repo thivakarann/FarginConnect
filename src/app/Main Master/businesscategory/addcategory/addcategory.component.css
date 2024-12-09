@@ -155,3 +155,10 @@ button {
   color: #141E46;
   font-family: "Roboto";
 }
+
+/* Hides the spinner arrows on number inputs */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

@@ -83,8 +83,8 @@ export class EditMerchantPlanComponent implements OnInit {
   submit() {
     let submitModel: MerchantplanUpdate = {
       planName: this.planName?.value.trim(),
-      technicalAmount: this.technicalAmount?.value.trim(),
-      maintenanceAmount: this.maintenanceAmount?.value.trim(),
+      technicalAmount: this.technicalAmount?.value,
+      maintenanceAmount: this.maintenanceAmount?.value,
       frequency: this.frequency?.value,
       renewalAmount: this.renewalAmount?.value.trim(),
       modifiedBy: this.getadminname

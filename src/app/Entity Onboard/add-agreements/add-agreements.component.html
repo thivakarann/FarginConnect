@@ -1,15 +1,14 @@
 <div class="container">
-    <div class="well" style="margin-top: 2%;" >
+    <div class="well" style="margin-top: 2%;">
         <h4 class="card-header" style="font-weight: 500">Agreement</h4>
         <form [formGroup]="myForm4" style="margin-top: 2%;">
             <div class="row mb-3">
                 <div class="col-12 form-group ">
                     <label for="Entity Name">Business Plan</label>
                     <select class="form-select" formControlName="commercialId" required>
-                        <option  selected disabled>Select
+                        <option selected disabled>Select
                         </option>
-                        <option *ngFor="let item of plans;"
-                            [value]="item.commercialId">
+                        <option *ngFor="let item of plans;" [value]="item.commercialId">
                             {{item.planName}}
                         </option>
                     </select>
@@ -25,8 +24,8 @@
                 </div>
                 <div class="col-12 form-group ">
                     <label for="Entity Name">Link Expiry Date</label>
-                    <input class="form-control" id="Entity Name"  type="datetime-local"  [min]="todayDate" formControlName="linkdate" 
-                   required >
+                    <input class="form-control" id="Entity Name" type="datetime-local" [min]="todayDate"
+                        formControlName="linkdate" required>
                     <div style="
             color: red;
             font-size: 12px;
@@ -38,9 +37,23 @@
                     </div>
                 </div>
                 <div class="col-12 form-group ">
-                    <label for="merchantPosition">Designation</label>
+                    <label for="merchantPosition">Authorized Signatory Name</label>
+                    <input class="form-control" id="authorizedName" type="text" formControlName="authorizedName"
+                        required />
+                    <div style="
+            color: red;
+            font-size: 12px;
+            margin-top: 2px;
+            position: relative;
+            ;
+          " *ngIf="authorizedName?.invalid && authorizedName?.touched && authorizedName?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+                <div class="col-12 form-group ">
+                    <label for="merchantPosition">Authorized Signatory Designation</label>
                     <input class="form-control" id="merchantPosition" type="text" formControlName="merchantPosition"
-                    required />
+                        required />
                     <div style="
             color: red;
             font-size: 12px;
@@ -51,13 +64,13 @@
                         Field is required
                     </div>
                 </div>
-                </div>
+            </div>
             <div class="mb-3">
-                <button [disabled]="myForm4.invalid" (click)="Submit()"  type="submit" class="btn mx-1 "
+                <button [disabled]="myForm4.invalid" (click)="Submit()" type="submit" class="btn mx-1 "
                     style="background-color:#7db855be">Submit</button>
                 <button type="submit" class="btn" style="background-color:#141E46;color:white"
-                   mat-dialog-close>Cancel</button>
+                    mat-dialog-close>Cancel</button>
             </div>
         </form>
     </div>
-    </div>
+</div>

@@ -1211,6 +1211,7 @@ export interface CreatePlan{
   readonly createdBy:any;
   readonly merchantPosition:any;
   readonly expiryLink:any;
+  readonly authorizedName:any
 }
 
 export interface AdminsignerOtp {

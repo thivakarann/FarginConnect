@@ -14,7 +14,7 @@ export class EditPersonalInfoComponent implements OnInit {
 
   getadminname = JSON.parse(localStorage.getItem('adminname') || '');
   emptyBlob = new Blob([], { type: 'application/pdf' })
- 
+
   entittyplanviewall: any;
   categorydetails: any;
   myForm!: FormGroup;
@@ -33,7 +33,7 @@ export class EditPersonalInfoComponent implements OnInit {
   entityname: any;
   selectperiod: any;
   typesign: any;
-  show:any;
+  show: any;
   customerDuesEnabled: any;
   days: number[] = Array.from({ length: 31 }, (_, i) => i + 1); // Generates days 1 to 31
 
@@ -43,7 +43,7 @@ export class EditPersonalInfoComponent implements OnInit {
       this.id = param.Alldata;
     });
     this.myForm = new FormGroup({
- 
+
       entityName: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9 ]*$')
@@ -90,7 +90,7 @@ export class EditPersonalInfoComponent implements OnInit {
       zipcode: new FormControl('', [
         Validators.required,
         Validators.pattern("^[1-9]{1}[0-9]{2}\\s{0,1}[0-9]{3}$")
- 
+
       ]),
       stateName: new FormControl('', [
         Validators.required,
@@ -110,48 +110,70 @@ export class EditPersonalInfoComponent implements OnInit {
       billingMode: new FormControl("", [
         Validators.required
       ]),
- 
+
       autoDebitStatus: new FormControl('', [Validators.required]),
       customerDuesEnable: new FormControl('', [Validators.required]),
- 
+
       customerDuesDate: new FormControl(''),
 
       dueDate: new FormControl('',),
+
+      offlineQrEnable: new FormControl('', [Validators.required]),
+
+      payoutEnable: new FormControl('', [Validators.required]),
+
+      withdrawalLimit: new FormControl('', [Validators.pattern('(0|[1-9][0-9]*)(\.[0-9]+)?$')]),
+
+      withdrawalDailylimit: new FormControl('', [Validators.pattern('(0|[1-9][0-9]*)(\.[0-9]+)?$')]),
+
+      withdrawalDailyCount: new FormControl('', [Validators.pattern('^[0-9]+$')]),
+
+      withdrawalMonthlyCount: new FormControl('', [Validators.pattern('^[0-9]+$')]),
+
+      customerManualStatus: new FormControl('', [Validators.required]),
+
+
+
+
+
+
+
+
+
+
     });
- 
- 
+
+
     this.service.EntityViewbyid(this.id).subscribe((res: any) => {
       this.details = res.response;
       this.detaislone = res.response.merchantpersonal;
-      if(this.detaislone.customerDuesEnable==1)
-      {
-            this.show=true;
+      if (this.detaislone.customerDuesEnable == 1) {
+        this.show = true;
       }
-      else{
-        this.show=false;
+      else {
+        this.show = false;
       }
       this.entityname = this.detaislone.entityName;
       this.mcccode = this.detaislone.mccCode
-      
+
       this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-      
-      
+
+
     })
     this.service.Bussinesscategoryactivelist().subscribe((res: any) => {
       this.categorydetails = res.response;
     });
- 
+
     this.service.merchantplanactive().subscribe((res: any) => {
       this.entittyplanviewall = res.response;
     })
- 
+
   }
-  get(event:any)
-  {
-    this.selectperiod=event.target.value;
+  get(event: any) {
+    this.selectperiod = event.target.value;
   }
   // First Form
- 
+
   get entityName() {
     return this.myForm.get('entityName')
   }
@@ -163,17 +185,17 @@ export class EditPersonalInfoComponent implements OnInit {
   }
   get contactName() {
     return this.myForm.get('contactName')
- 
+
   }
 
   get dueDate() {
     return this.myForm.get('dueDate')
- 
+
   }
- 
+
   get autoDebitStatus() {
     return this.myForm.get('autoDebitStatus')
- 
+
   }
   get contactMobile() {
     return this.myForm.get('contactMobile')
@@ -198,17 +220,17 @@ export class EditPersonalInfoComponent implements OnInit {
   }
   get zipcode() {
     return this.myForm.get('zipcode')
- 
+
   } get stateName() {
     return this.myForm.get('stateName')
- 
+
   }
   get city() {
     return this.myForm.get('city')
   }
   get contactPerson() {
     return this.myForm.get('contactPerson')
- 
+
   }
   get country() {
     return this.myForm.get('country')
@@ -234,15 +256,45 @@ export class EditPersonalInfoComponent implements OnInit {
   get customerDuesEnable() {
     return this.myForm.get('customerDuesEnable')
   }
- 
+
   get customerDuesDate() {
     return this.myForm.get('customerDuesDate')
   }
- 
+
+  get offlineQrEnable() {
+    return this.myForm.get('offlineQrEnable')
+  }
+
+  get payoutEnable() {
+    return this.myForm.get('payoutEnable')
+  }
+
+  get withdrawalLimit() {
+    return this.myForm.get('withdrawalLimit')
+  }
+
+  get withdrawalDailylimit() {
+    return this.myForm.get('withdrawalDailylimit')
+  }
+
+  get withdrawalDailyCount() {
+    return this.myForm.get('withdrawalDailyCount')
+  }
+
+  get withdrawalMonthlyCount() {
+    return this.myForm.get('withdrawalMonthlyCount')
+  }
+
+  get customerManualStatus() {
+    return this.myForm.get('customerManualStatus')
+  }
+
+
+
   getlogo(event: any) {
     this.file3 = event.target.files[0];
     if ((this.file3.type == 'image/png') || (this.file3.type == 'image/jpeg') || (this.file3.type == 'image/jpg')) {
-      
+
       if (this.file3.size <= 20 * 1024 * 1024) {
         this.errorShow = false;
       } else {
@@ -251,7 +303,7 @@ export class EditPersonalInfoComponent implements OnInit {
       }
     }
     else {
-      
+
       this.clearImage = '';
     }
   }
@@ -278,17 +330,25 @@ export class EditPersonalInfoComponent implements OnInit {
     formData.append('website', this.website?.value || '');
     formData.append('merchantLogo', this.file3 || this.emptyBlob);
     formData.append('billingMode', this.billingMode?.value);
+    formData.append('offlineQrEnable', this.offlineQrEnable?.value);
+    formData.append('payoutEnable', this.payoutEnable?.value);
     formData.append('autoDebitStatus', this.autoDebitStatus?.value);
     formData.append('customerDuesEnable', this.customerDuesEnable?.value);
+    formData.append('customerManualStatus', this.customerManualStatus?.value);
+    formData.append('withdrawalLimit', this.withdrawalLimit?.value || "");
+    formData.append('withdrawalDailylimit', this.withdrawalDailylimit?.value || 0);
+    formData.append('withdrawalDailyCount', this.withdrawalDailyCount?.value || 0);
+    formData.append('withdrawalMonthlyCount', this.withdrawalMonthlyCount?.value || 0);
     this.customerDuesEnabled = this.customerDuesEnable?.value;
+     this.customerDuesEnabled = this.customerDuesEnable?.value;
     if (this.customerDuesEnabled === '0') {
-        formData.append('customerDuesDate', '0');
-        formData.append('dueDate', '0');
+      formData.append('customerDuesDate', '0');
+      formData.append('dueDate', '0');
     } else {
-        formData.append('customerDuesDate', this.customerDuesDate?.value || 0);
-        formData.append('dueDate', this.dueDate?.value || 0);
+      formData.append('customerDuesDate', this.customerDuesDate?.value || 0);
+      formData.append('dueDate', this.dueDate?.value || 0);
     }
- 
+
     this.service.UpdatePersonalEntity(this.id, formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.merchantid = res.response.merchantId;
@@ -303,11 +363,11 @@ export class EditPersonalInfoComponent implements OnInit {
         // })
         // this.Bankdetails = true;
         // this.personeldetails = false;
- 
+
       } else {
         this.toastr.error(res.responseMessage);
       }
-      
+
     })
   }
   onCategoryChange(event: any) {
@@ -315,19 +375,18 @@ export class EditPersonalInfoComponent implements OnInit {
     this.service.EntityBusinessCategoryId(this.businessId).subscribe((res: any) => {
       if (res.flag == 1) {
         this.mcccode = res.response.mccCode;
-        
+
       }
     })
   }
   close() {
     this.Location.back();
   }
-  typeevent(event:any)
-  {
+  typeevent(event: any) {
     this.typesign = event.target.value;
     if (event.target.value == '0') {
       this.show = false;
-       
+
     } else {
       this.show = true;
     }

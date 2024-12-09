@@ -450,11 +450,13 @@
  
  
             </div>
-             <div class="row mb-3">
+
+            <div class="row mb-3">
+             
+
                 <div class="col-sm-4 form-group">
-                    <label for="billing">Due Alert Notification
-                    </label>
-                    <select formControlName="customerDuesEnable"  (change)="typeevent($event)"  ngModel="{{detaislone?.customerDuesEnable}}" type="text" class="form-select" id="billing">
+                    <label for="billing">offlineQr</label>
+                    <select ngModel="{{detaislone?.offlineQrEnableStatus}}" formControlName="offlineQrEnable" type="text" class="form-select" id="billing">
                         <option value="1">Yes</option>
                         <option value="0">No</option>
                    
@@ -465,21 +467,155 @@
                         margin-top: 2px;
                         position: relative;
                         ;
-                      " *ngIf="customerDuesEnable?.invalid && customerDuesEnable?.touched && customerDuesEnable?.errors?.['required']">
+                      " *ngIf="offlineQrEnable?.invalid && offlineQrEnable?.touched && offlineQrEnable?.errors?.['required']">
                         Field id required*
                     </div>
                 </div>
-                <div class="col-sm-4 form-group" *ngIf="show" >
-                    <label for="billing">Alert Notification frequency
-                    </label>
-                    <select formControlName="customerDuesDate"  ngModel="{{detaislone?.customerDuesDate}}" type="text" class="form-select" id="billing">
-                        <option value="1">Daily</option>
-                        <option value="2">Two Days Once</option>
-                        <option value="3">Three Days Once</option>
+
+                <div class="col-sm-4 form-group">
+                    <label for="billing">Payout</label>
+                    <select ngModel="{{detaislone?.payoutEnableStatus}}" formControlName="payoutEnable" type="text" class="form-select" id="billing">
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
                    
                     </select>
-             
+                    <div style="
+                        color: red;
+                        font-size: 12px;
+                        margin-top: 2px;
+                        position: relative;
+                        ;
+                      " *ngIf="payoutEnable?.invalid && payoutEnable?.touched && payoutEnable?.errors?.['required']">
+                        Field id required*
+                    </div>
                 </div>
+                <div class="col-sm-4 form-group">
+                    <label for="contactname">Montly withdrawal Limit (optional)</label>
+                    <input type="text" formControlName="withdrawalLimit" id="contactname" class="form-control"
+                        ngModel="{{detaislone?.withdrawalLimit}}">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="withdrawalLimit?.invalid && withdrawalLimit?.touched && withdrawalLimit?.errors?.['pattern']">
+                        *only positive values are allowed
+                    </div>
+                  
+                </div>
+
+               
+            </div>
+
+            
+            <div class="row mb-3">
+                <div class="col-sm-4 form-group">
+                    <label for="contactname">Per day withdrawal Limit(optional)</label>
+                    <input type="text" formControlName="withdrawalDailylimit" id="contactname" class="form-control"
+                        ngModel="{{detaislone?.withdrawalDailylimit}}">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="withdrawalDailylimit?.invalid && withdrawalDailylimit?.touched && withdrawalDailylimit?.errors?.['pattern']">
+                        *only positive values are allowed
+                    </div>
+                  
+                </div>
+
+                <div class="col-sm-4 form-group">
+                    <label for="contactname">Monthly withdrawal Count (optional)</label>
+                    <input type="text" formControlName="withdrawalMonthlyCount" id="contactname" class="form-control"
+                        ngModel="{{detaislone?.withdrawalMonthlyCount}}">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="withdrawalMonthlyCount?.invalid && withdrawalMonthlyCount?.touched && withdrawalMonthlyCount?.errors?.['pattern']">
+                        *only Numbers values are allowed
+                    </div>
+                  
+                </div>
+
+                <div class="col-sm-4 form-group">
+                    <label for="contactname">Per Day withdrawal Count (optional)</label>
+                    <input type="text" formControlName="withdrawalDailyCount" id="contactname" class="form-control"
+                        ngModel="{{detaislone?.withdrawalDailyCount}}">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="withdrawalDailyCount?.invalid && withdrawalDailyCount?.touched && withdrawalDailyCount?.errors?.['pattern']">
+                        *only Numbers values are allowed
+                    </div>
+                  
+                </div>
+            </div>
+
+
+<div class="row mb-3">
+    <div class="col-sm-4 form-group">
+        <label for="billing">Manual Trans OTP Status</label>
+        <select ngModel="{{detaislone?.customerManualStatus}}" formControlName="customerManualStatus" type="text" class="form-select" id="billing">
+            <option value="1">Enable</option>
+            <option value="0">Disable</option>
+       
+        </select>
+        <div style="
+            color: red;
+            font-size: 12px;
+            margin-top: 2px;
+            position: relative;
+            ;
+          " *ngIf="customerManualStatus?.invalid && customerManualStatus?.touched && customerManualStatus?.errors?.['required']">
+            Field id required*
+        </div>
+    </div>
+
+    <div class="col-sm-4 form-group">
+        <label for="billing">Due Alert Notification
+        </label>
+        <select formControlName="customerDuesEnable"  (change)="typeevent($event)"  ngModel="{{detaislone?.customerDuesEnable}}" type="text" class="form-select" id="billing">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+       
+        </select>
+        <div style="
+            color: red;
+            font-size: 12px;
+            margin-top: 2px;
+            position: relative;
+            ;
+          " *ngIf="customerDuesEnable?.invalid && customerDuesEnable?.touched && customerDuesEnable?.errors?.['required']">
+            Field id required*
+        </div>
+    </div>
+
+    <div class="col-sm-4 form-group" *ngIf="show" >
+        <label for="billing">Alert Notification frequency
+        </label>
+        <select formControlName="customerDuesDate"  ngModel="{{detaislone?.customerDuesDate}}" type="text" class="form-select" id="billing">
+            <option value="1">Daily</option>
+            <option value="2">Two Days Once</option>
+            <option value="3">Three Days Once</option>
+       
+        </select>
+ 
+    </div>
+</div>
+
+             <div class="row mb-3">
+
+             
+              
+           
 
                 <div class="col-sm-4 form-group" *ngIf="show" >
 
@@ -490,8 +626,11 @@
                     </select>
 
                 </div>
+
+              
                
             </div>
+
             <div>
                 <button (click)="submit()" type="submit" class="btn mx-1 " style="background-color:#7db855be"
                     [disabled]="this.myForm.invalid">Submit</button>

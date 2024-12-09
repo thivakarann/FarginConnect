@@ -32,14 +32,15 @@ export class AddAgreementsComponent {
   ngOnInit(): void {
     this.merchantid = this.data.value;
     const today = new Date();
-    this.todayDate = today.toISOString().slice(0,16);
-    
+    this.todayDate = today.toISOString().slice(0, 16);
+
     this.myForm4 = new FormGroup({
       commercialId: new FormControl('', [Validators.required]),
       linkdate: new FormControl('', [Validators.required]),
       merchantPosition: new FormControl('', [Validators.required]),
+      authorizedName: new FormControl('', [Validators.required]),
     })
-    
+
     this.service.viewagreementplan().subscribe((res: any) => {
       if (res.flag == 1) {
         this.plans = res.response;
@@ -67,6 +68,13 @@ export class AddAgreementsComponent {
     return this.myForm4.get('merchantPosition')
 
   }
+
+  get authorizedName() {
+    return this.myForm4.get('authorizedName')
+
+  }
+
+
   Submit() {
 
     this.Expirydate = this.linkdate?.value
@@ -80,7 +88,8 @@ export class AddAgreementsComponent {
       merchantId: this.merchantid,
       commercialId: this.commercialId?.value,
       createdBy: this.getadminname,
-      merchantPosition:this.merchantPosition?.value.trim(),
+      authorizedName:this.authorizedName?.value.trim(),
+      merchantPosition: this.merchantPosition?.value.trim(),
       expiryLink: startdate
 
     }

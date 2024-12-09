@@ -10,8 +10,7 @@
     </div>
     <div class="col-md-6" style="color: #2346cf; font-weight: 600; font-size: 15px">
         <p style="text-wrap: nowrap">
-            <strong>Note:</strong> These below tab functionalities can only be accessed after
-            the Onboard process is completed
+            <strong>Note:</strong> ("The functionalities of the tabs listed below can only be accessed once the Onboarding process is completed")
         </p>
     </div>
     <div class="col-md-6 text-end" style="margin-bottom: 16px;
@@ -28,11 +27,11 @@
 
     </button>
     <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
-        data-target="home"  (click)="Viewoffline(this.id,this.detaislone?.accountId)">
+        data-target="home" (click)="Viewoffline(this.id,this.detaislone?.accountId)">
         <div>
             <i class="fa-solid fa-building-columns"></i>&nbsp;&nbsp; Offline
         </div>
- 
+
     </button>
     <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
         data-target="about" (click)="viewsettlement(this.id)">
@@ -98,7 +97,8 @@
             [hidden]="valueCustomized!=='Entity View Customized Payment'">Customized Payment</button>
         <button class="tab" [class.active]="activeTab === 'doot4'" (click)="selectTab('doot4')"
             [hidden]="valuesmssetting!=='Sms Setting'">SMS Settings</button>
-        <button class="tab" [class.active]="activeTab === 'doot5'"  (click)="selectTab('doot5')" [hidden]="valueagreement!=='Entity View Agreement'">Agreement</button>
+        <button class="tab" [class.active]="activeTab === 'doot5'" (click)="selectTab('doot5')"
+            [hidden]="valueagreement!=='Entity View Agreement'">Agreement</button>
     </div>
     <div class="tab-content" *ngIf="activeTab === 'events'" [hidden]="valueGeneral!=='Entity View General Information'">
         <div class="filters">
@@ -220,6 +220,41 @@
                                                         }}</span>
                                                 </div>
                                             </div>
+                                            <div class="d-flex mt-3">
+                                                <div class="w-50 font-weight-bold">OfflineQr</div>
+                                                <div class="w-50">
+
+                                                    <span>{{ detaislone?.offlineQrEnableStatus === 1 ? 'Yes' : 'No'
+                                                        }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex mt-3">
+                                                <div class="w-50 font-weight-bold">Montly withdrawal Limit</div>
+                                                <div class="w-50">
+
+                                                    <span>{{ detaislone?.withdrawalLimit
+                                                        }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex mt-3">
+                                                <div class="w-50 font-weight-bold">Per day withdrawal Limit</div>
+                                                <div class="w-50">
+
+                                                    <span>{{ detaislone?.withdrawalDailylimit
+                                                        }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex mt-3">
+                                                <div class="w-50 font-weight-bold">Manual Trans OTP Status</div>
+                                                <div class="w-50">
+
+                                                    <span>{{ detaislone?.customerManualStatus === 1 ? 'Enabled' : 'Disabled'
+                                                        }}</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-12">
@@ -307,6 +342,34 @@
                                                         Days</ng-container>
                                                     <ng-container *ngIf="detaislone?.customerDuesDate == null">No Due
                                                         Date</ng-container>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="d-flex mt-3">
+                                                <div class="w-50 font-weight-bold">Payout</div>
+                                                <div class="w-50">
+
+                                                    <span>{{ detaislone?.payoutEnableStatus === 1 ? 'Yes' : 'No'
+                                                        }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex mt-3">
+                                                <div class="w-50 font-weight-bold">Monthly withdrawal Count</div>
+                                                <div class="w-50">
+
+                                                    <span>{{ detaislone?.withdrawalMonthlyCount
+                                                        }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex mt-3">
+                                                <div class="w-50 font-weight-bold">Per Day withdrawal Count</div>
+                                                <div class="w-50">
+
+                                                    <span>{{ detaislone?.withdrawalDailyCount
+                                                        }}</span>
                                                 </div>
                                             </div>
 
@@ -1329,8 +1392,7 @@
 <div *ngIf="activeTab === 'doot5'">
     <mat-card-header>
         <div class="col-md-3 mr-2" style="color: blue; font-size: 12px;">
-            <p style="text-wrap: nowrap;"><strong>Note:</strong> (You can only create an agreement once the one-time
-                payment is success).</p>
+            <p style="text-wrap: nowrap;"><strong>Note:</strong> ("You can only create an agreement once the one-time payment is successful")</p>
         </div>
         <div class="row  d-flex justify-content-start">
             <div class="col-md-3">
@@ -1365,7 +1427,8 @@
             </div>
             <div class="col-md-2 mt-1">
                 <button [disabled]="this.paymentStatus?.toLowerCase() !== 'success'" (click)="agreementcreate()"
-                    style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button [hidden]="valueagreementcreate!=='Entity View Agreement-Add'">Create
+                    style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
+                    [hidden]="valueagreementcreate!=='Entity View Agreement-Add'">Create
                 </button>
             </div>
         </div>
@@ -1380,16 +1443,21 @@
                             <th>Plan Name</th>
                             <th>Service Fee</th>
                             <th [hidden]="valueagreementView!=='Entity View Agreement-View'">Plan Overview</th>
-                            <th [hidden]="valueagreementlink!=='Entity View Agreement-Entity Agreement Link'">Entity Agreement Link</th>
+                            <th [hidden]="valueagreementlink!=='Entity View Agreement-Entity Agreement Link'">Entity
+                                Agreement Link</th>
                             <th>Link Expiry Date</th>
                             <th>Fargin Signer Status</th>
                             <th>Fargin Signer Signed Date</th>
                             <th>Entity Signer Status</th>
                             <th>Entity Signer Signed Date</th>
-                            <th [hidden]="valueagreementlinkdate!=='Entity View Agreement-Link Expiry Date'">Link Expiry Date</th>
-                            <th [hidden]="valueagreementlinkstatus!=='Entity View Agreement-Link Expiry Status'">Link Expiry Status</th>
+                            <th [hidden]="valueagreementlinkdate!=='Entity View Agreement-Link Expiry Date'">Link Expiry
+                                Date</th>
+                            <th [hidden]="valueagreementlinkstatus!=='Entity View Agreement-Link Expiry Status'">Link
+                                Expiry Status</th>
                             <th [hidden]="valueagreementAgreement!=='Entity View Agreement-Agreement'">Agreement</th>
-                            <th [hidden]="valueagreementAgreementSigned!=='Entity View Agreement-Agreement Signed Copy'">Agreement Signed Copy</th>
+                            <th
+                                [hidden]="valueagreementAgreementSigned!=='Entity View Agreement-Agreement Signed Copy'">
+                                Agreement Signed Copy</th>
                             <th>Created By</th>
                             <th>Created At</th>
                         </tr>
@@ -1398,36 +1466,40 @@
                             <td>{{i+1}}</td>
                             <td>{{item.commercialId?.planName}}</td>
                             <td>{{item.commercialId?.serviceFee}}</td>
- 
+
                             <td [hidden]="valueagreementView!=='Entity View Agreement-View'">
                                 <i style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
                                     (click)="view(item.commercialId?.commercialId)"></i>
                             </td>
-                            <td [hidden]="valueagreementlink!=='Entity View Agreement-Entity Agreement Link'" style="margin-top: 5px;"> {{item.agreementLink | slice: 0: 25}} <i class="fa-regular fa-copy" style="color: green; font-size: 18px;" (click)="copyText1(item.agreementLink, i)"></i> <span *ngIf="copiedIndex === i" style="color: green;">Copied!</span> </td>
-                            <td >{{item.expiryLink |date: "dd/MM/yyyy hh:mm a"}}</td>
+                            <td [hidden]="valueagreementlink!=='Entity View Agreement-Entity Agreement Link'"
+                                style="margin-top: 5px;"> {{item.agreementLink | slice: 0: 25}} <i
+                                    class="fa-regular fa-copy" style="color: green; font-size: 18px;"
+                                    (click)="copyText1(item.agreementLink, i)"></i> <span *ngIf="copiedIndex === i"
+                                    style="color: green;">Copied!</span> </td>
+                            <td>{{item.expiryLink |date: "dd/MM/yyyy hh:mm a"}}</td>
                             <td [ngClass]="item.adminOtpStatus == 0 ? 'not-signed' : 'signed'">
                                 {{ item.adminOtpStatus == 0 ? 'Not Signed' : 'Signed' }}
                             </td>
- 
+
                             <td>
                                 <span [hidden]="item.adminVerifiedDate !=null">-</span>
                                 <span [hidden]="item.adminVerifiedDate == null"> {{ item.adminVerifiedDate|date :
                                     "dd/MM/yyyy"}}
                                 </span>
                             </td>
- 
+
                             <td [ngClass]="item.merchanOtptStatus == 0 ? 'not-signed' : 'signed'">
                                 {{ item.merchanOtptStatus == 0 ? 'Not Signed' : 'Signed' }}
                             </td>
- 
+
                             <td>
                                 <span [hidden]="item.merchantVerifiedDate !=null">-</span>
                                 <span [hidden]="item.merchantVerifiedDate == null"> {{ item.merchantVerifiedDate|date :
                                     "dd/MM/yyyy"}}
                                 </span>
- 
+
                             </td>
- 
+
                             <td [hidden]="valueagreementlinkdate!=='Entity View Agreement-Link Expiry Date'">
                                 <i style="cursor: pointer;font-size: 17px;" class="fa-solid fa-calendar-days"
                                     (click)="ExtendLinkDate(item.agreementId,item.expiryLink)"></i>
@@ -1438,7 +1510,7 @@
                                     (change)="LinkExpirystatus($event, item.agreementId)">
                                 </mat-slide-toggle>
                             </td>
- 
+
                             <td [hidden]="valueagreementAgreement!=='Entity View Agreement-Agreement'">
                                 <button style="
                                
@@ -1446,12 +1518,13 @@
                                 border-radius: 4px;" (click)="viewagreementdoc(item.agreementId)">
                                     <i style="cursor: pointer;font-size: 17px;"
                                         class="fa-solid fa-file-contract"></i></button>
- 
+
                             </td>
- 
- 
- 
-                            <td [hidden]="valueagreementAgreementSigned!=='Entity View Agreement-Agreement Signed Copy'">
+
+
+
+                            <td
+                                [hidden]="valueagreementAgreementSigned!=='Entity View Agreement-Agreement Signed Copy'">
                                 <button style="color: white; border: 1px solid white; border-radius: 4px;"
                                     (click)="viewsignedagreementdoc(item.agreementId)"
                                     [disabled]="item.adminOtpStatus == 0 || item.merchanOtptStatus == 0" [ngClass]="{
@@ -1466,12 +1539,12 @@
                                     </i>
                                 </button>
                             </td>
- 
- 
- 
+
+
+
                             <td>{{item.createdBy}}</td>
                             <td>{{item.createdDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
- 
+
                         </tbody>
                     </table>
                 </div>
