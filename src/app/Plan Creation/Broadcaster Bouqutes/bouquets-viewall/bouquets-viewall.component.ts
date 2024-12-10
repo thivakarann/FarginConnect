@@ -256,7 +256,9 @@ export class BouquetsViewallComponent implements OnInit {
 
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
-        window.location.reload();
+        setTimeout(() => {
+          window.location.reload()
+        }, 500);
       }
       else {
         this.toastr.error(res.responseMessage);

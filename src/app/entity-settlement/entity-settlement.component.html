@@ -100,11 +100,7 @@
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
-            <tr *matNoDataRow>
-                <td class="mat-cell"  >No Data For
-                    {{input.value}}
-                </td>
-            </tr>
+            <tr *matNoDataRow> <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data For {{input.value}}</td> <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">No data Found</td> </tr>
         </table>
     </div>
 </mat-card-content>

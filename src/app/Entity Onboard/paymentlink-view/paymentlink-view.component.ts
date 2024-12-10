@@ -21,7 +21,7 @@ export class PaymentlinkViewComponent implements OnInit {
     'reference',
     'expiry',
     'generatedat',
-    
+
   ];
   id: any;
   paymentValue: any;
@@ -32,6 +32,7 @@ export class PaymentlinkViewComponent implements OnInit {
   errorMessage: any;
   getdashboard: any[] = [];
   roleId: any = localStorage.getItem('roleId')
+  searchPerformed: boolean = false;
   actions: any;
   constructor(
     public location: Location, public service: FarginServiceService, private ActivateRoute: ActivatedRoute, private dialog: MatDialog
@@ -43,16 +44,17 @@ export class PaymentlinkViewComponent implements OnInit {
     });
 
     this.service.paymentLinkview(this.id).subscribe((res: any) => {
-      this.paymentValue = res.response;
+        this.paymentValue = res.response;
+        this.dataSource = new MatTableDataSource(this.paymentValue?.reverse())
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       
-      this.dataSource = new MatTableDataSource(this.paymentValue?.reverse())
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
+
     })
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        
+
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -82,7 +84,7 @@ export class PaymentlinkViewComponent implements OnInit {
     })
   }
 
-  reload(){
+  reload() {
     window.location.reload()
   }
 
@@ -90,13 +92,13 @@ export class PaymentlinkViewComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
+     this.searchPerformed = filterValue.length > 0;
+     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
 
-  resendLink(id:any){
+  resendLink(id: any) {
     this.dialog.open(PaymentlinkResendComponent, {
       enterAnimationDuration: "1000ms",
       exitAnimationDuration: "1000ms",
@@ -105,9 +107,9 @@ export class PaymentlinkViewComponent implements OnInit {
         value: this.id,
       }
     })
- 
+
   }
-  close(){
+  close() {
     this.location.back()
-   }
+  }
 }

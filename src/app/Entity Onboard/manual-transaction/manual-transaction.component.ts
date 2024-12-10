@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 import { DuesViewComponent } from '../../dues/dues-view/dues-view.component';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { Location } from '@angular/common';
+import moment from 'moment';
 
 @Component({
   selector: 'app-manual-transaction',
@@ -24,6 +25,8 @@ export class ManualTransactionComponent {
         'Id',
         'paymentId',
         'method',
+        'cardNumber',
+        'cardexpiry',
         'paidamount',
         'gstnumber',
         'totalpay',
@@ -46,6 +49,7 @@ export class ManualTransactionComponent {
       accountid: any;
       Viewall: any;
      duesValue: any;
+  date1: any;
        
       constructor(
         public service: FarginServiceService,
@@ -89,57 +93,61 @@ export class ManualTransactionComponent {
   
 
     exportexcel() {
-      
+     
       let sno = 1;
       this.responseDataListnew = [];
       this.details.forEach((element: any) => {
-        let createdate = element.createdDateTime;
-        // this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-  
-        let moddate = element.modifiedDateTime;
+        let createdate = element.paymentDateTime;
+        this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
+ 
+        // let moddate = element.modifiedDateTime;
         // this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
         this.response = [];
         this.response.push(sno);
         this.response.push(element?.paymentId);
         this.response.push(element?.paymentMethod);
+        this.response.push(element?.cardNumber);
+        this.response.push(element?.cardExpiry);
         this.response.push(element?.paidAmount);
         this.response.push(element?.totalPayableAmount);
         this.response.push(element?.gstAmount);
-        this.response.push(element?.orderReference);
+        this.response.push(element?.bankReference);
         this.response.push(element?.paymentStatus);
-        this.response.push(element?.paymentDateTime);
-  
-  
-  
+        this.response.push(this.date1);
+ 
+ 
+ 
         sno++;
         this.responseDataListnew.push(this.response);
       });
       this.excelexportCustomer();
     }
-  
+ 
     excelexportCustomer() {
       // const title='Business Category';
       const header = [
         'Id',
         'PaymentId',
         'Payment Method',
+        'Card Number',
+        'Card Expiry',
         'Paidamount',
         'totalpay',
         'gstnumber',
-        'reference',
+        'Bankreference',
         'status',
         'paymentAt',
       ]
-  
-  
+ 
+ 
       const data = this.responseDataListnew;
       let workbook = new Workbook();
       let worksheet = workbook.addWorksheet('Payment Dues');
       // Blank Row
       // let titleRow = worksheet.addRow([title]);
       // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-  
-  
+ 
+ 
       worksheet.addRow([]);
       let headerRow = worksheet.addRow(header);
       headerRow.font = { bold: true };
@@ -150,15 +158,14 @@ export class ManualTransactionComponent {
           pattern: 'solid',
           fgColor: { argb: 'FFFFFFFF' },
           bgColor: { argb: 'FF0000FF' },
-  
         }
-  
+ 
         cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       });
-  
+ 
       data.forEach((d: any) => {
-        // 
-  
+        //
+ 
         let row = worksheet.addRow(d);
         let qty = row.getCell(1);
         let qty1 = row.getCell(2);
@@ -169,9 +176,11 @@ export class ManualTransactionComponent {
         let qty6 = row.getCell(7);
         let qty7 = row.getCell(8);
         let qty8 = row.getCell(9);
-
-  
-  
+        let qty9 = row.getCell(10);
+        let qty10 = row.getCell(11);
+ 
+ 
+ 
         qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
         qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
         qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -181,26 +190,27 @@ export class ManualTransactionComponent {
         qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
         qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
         qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
-  
+        qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+        qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+ 
+ 
       }
       );
-  
+ 
       // worksheet.getColumn(1).protection = { locked: true, hidden: true }
       // worksheet.getColumn(2).protection = { locked: true, hidden: true }
       // worksheet.getColumn(3).protection = { locked: true, hidden: true }
-  
-  
+ 
+ 
       workbook.xlsx.writeBuffer().then((data: any) => {
-  
+ 
         let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-  
-  
-        FileSaver.saveAs(blob, 'Payment Dues.xlsx');
-  
+ 
+ 
+        FileSaver.saveAs(blob, 'One-TimePayment Dues.xlsx');
+ 
       });
     }
-
 
     viewreciept(id:any){
       

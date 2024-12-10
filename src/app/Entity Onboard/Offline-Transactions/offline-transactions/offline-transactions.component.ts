@@ -28,8 +28,8 @@ export class OfflineTransactionsComponent {
     'paymentId',
     'entityname',
     // 'reference',
-      'customername',
-      'vpa',
+    'customername',
+    'vpa',
     //  'customermobile',
     // 'paymentmethod',
     'ordrnum',
@@ -69,6 +69,8 @@ export class OfflineTransactionsComponent {
   accountId: any
   Button: boolean = false;
   AccountId: any;
+  searchPerformed: boolean = false;
+
 
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private ActivateRoute: ActivatedRoute, private router: Router, private location: Location) { }
 
@@ -118,10 +120,16 @@ export class OfflineTransactionsComponent {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.searchPerformed = filterValue.length > 0;
+
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  reload(){
+    window.location.reload()
   }
 
   renderPage(event: any) {

@@ -50,6 +50,7 @@ export class EntityTransactionComponent {
   responseDataListnew: any=[];
   response: any=[];
   AccountId: any;
+  searchPerformed: boolean = false;
 
   constructor(
     public service: FarginServiceService,
@@ -89,12 +90,24 @@ export class EntityTransactionComponent {
     });
 
     this.service.EntityTraansaction(this.id).subscribe((res: any) => {
-      this.details = res.response;
-
-      this.dataSource = new MatTableDataSource(this.details.reverse());
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
+      if(res.flag ==1){
+        this.details = res.response;
+        this.dataSource = new MatTableDataSource(this.details.reverse());
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+  
     });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.searchPerformed = filterValue.length > 0;
+ 
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
   exportexcel() {
     let sno = 1;
@@ -208,16 +221,13 @@ export class EntityTransactionComponent {
       FileSaver.saveAs(blob, 'Entity Transaction.xlsx');
     });
   }
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
- 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
+
   close() {
     this.location.back();
+  }
+
+  reload(){
+    window.location.reload();
   }
 
 }

@@ -10,7 +10,8 @@
     </div>
     <div class="col-md-6" style="color: #2346cf; font-weight: 600; font-size: 15px">
         <p style="text-wrap: nowrap">
-            <strong>Note:</strong> ("The functionalities of the tabs listed below can only be accessed once the Onboarding process is completed")
+            <strong>Note:</strong> ("The functionalities of the tabs listed below can only be accessed once the
+            Onboarding process is completed.")
         </p>
     </div>
     <div class="col-md-6 text-end" style="margin-bottom: 16px;
@@ -251,7 +252,8 @@
                                                 <div class="w-50 font-weight-bold">Manual Trans OTP Status</div>
                                                 <div class="w-50">
 
-                                                    <span>{{ detaislone?.customerManualStatus === 1 ? 'Enabled' : 'Disabled'
+                                                    <span>{{ detaislone?.customerManualStatus === 1 ? 'Enabled' :
+                                                        'Disabled'
                                                         }}</span>
                                                 </div>
                                             </div>
@@ -491,7 +493,7 @@
                             </label>
                         </form>
                     </div>
-                    &nbsp;&nbsp;
+
                 </div>
                 <div class="col-md-1 mt-1">
                     <button (click)="Entitybanksearch(id,input.value)"
@@ -620,42 +622,16 @@
     </div>
     <div *ngIf="activeTab === 'videos'">
         <mat-card-header>
+            <button  [hidden]="valuekycadd!=='Entity View KYC Document-add'" [disabled]="KYCDetails.length > 0"
+                (click)="addKycdocuments(this.id)" style="color:white;background-color: #141E46;border-radius: 10px;"
+                mat-raised-button>Add
+                KYC</button>
             <div class="row  d-flex justify-content-start">
                 <div class="col-md-3">
-                    <div class="search ">
-                        <form class="form">
-                            <label for="search">
-                                <input #input required="" autocomplete="off" placeholder="Search" id="search"
-                                    type="text" [(ngModel)]="searchText">
-                                <div class="icon">
-                                    <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg" class="swap-on">
-                                        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
-                                            stroke-linecap="round"></path>
-                                    </svg>
-                                    <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg" class="swap-off">
-                                        <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
-                                            stroke-linecap="round">
-                                        </path>
-                                    </svg>
-                                </div>
-                                <button type="reset" class="close-btn">
-                                    <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
-                                        <path clip-rule="evenodd"
-                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                            fill-rule="evenodd"></path>
-                                    </svg>
-                                </button>
-                            </label>
-                        </form>
-                    </div>
+
                 </div>
                 <div class="col-md-2 mt-1">
-                    <button [hidden]="valuekycadd!=='Entity View KYC Document-add'" [disabled]="KYCDetails.length > 0"
-                        (click)="addKycdocuments(this.id)"
-                        style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Add
-                        KYC</button>
+
                 </div>
             </div>
         </mat-card-header>
@@ -1392,7 +1368,8 @@
 <div *ngIf="activeTab === 'doot5'">
     <mat-card-header>
         <div class="col-md-3 mr-2" style="color: blue; font-size: 12px;">
-            <p style="text-wrap: nowrap;"><strong>Note:</strong> ("You can only create an agreement once the one-time payment is successful")</p>
+            <p style="text-wrap: nowrap;"><strong>Note:</strong> ("You can only create an agreement once the one-time
+                payment is successful.")</p>
         </div>
         <div class="row  d-flex justify-content-start">
             <div class="col-md-3">

@@ -64,6 +64,11 @@
                 <td mat-cell *matCellDef="let viewall">{{viewall.channelName}}</td>
             </ng-container>
 
+            <ng-container matColumnDef="channelNo">
+                <th mat-header-cell *matHeaderCellDef>Channel No</th>
+                <td mat-cell *matCellDef="let viewall">{{viewall.channelNo}}</td>
+            </ng-container>
+
             <ng-container matColumnDef="type">
                 <th mat-header-cell *matHeaderCellDef>Channel Type</th>
                 <td mat-cell *matCellDef="let viewall">{{viewall.type==1 ? 'Paid' : 'Free'}}</td>

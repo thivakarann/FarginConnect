@@ -23,6 +23,7 @@ export class AggrementSignerOtpComponent implements OnInit {
   displayTimer: boolean = true;
   display!: string;
   RefferenceCode: any;
+  mobilenumber: any;
 
 
   constructor(
@@ -36,6 +37,18 @@ export class AggrementSignerOtpComponent implements OnInit {
   ngOnInit(): void {
 
     this.RefferenceCode = this.data.value;
+
+    this.mobilenumber = this.maskMobileNumber(this.data.value2);
+  }
+
+  
+  maskMobileNumber(mobilenumber: string): string {
+    if (mobilenumber.length <= 3) {
+      return mobilenumber; // If the number is too short, return the original number
+    }
+    const lastThree = mobilenumber.slice(-3);
+    const maskedPart = 'xxx'.repeat((mobilenumber.length - 3) / 3);
+     return `${maskedPart}${lastThree}`;
   }
 
 

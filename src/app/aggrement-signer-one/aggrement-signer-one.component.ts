@@ -111,7 +111,7 @@ export class AggrementSignerOneComponent implements OnInit {
         enterAnimationDuration: '500ms',
         exitAnimationDuration: '1000ms',
         disableClose: true,
-        data: { value: this.ReferenceCode }
+        data: { value: this.ReferenceCode ,value2:this.EntityNumber }
       })
     }
 
@@ -132,7 +132,7 @@ export class AggrementSignerOneComponent implements OnInit {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       disableClose: true,
-      data: { value: id }
+      data: { value: id ,value2:this.EntityNumber}
     })
   }
 

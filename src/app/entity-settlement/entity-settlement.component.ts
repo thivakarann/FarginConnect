@@ -20,7 +20,7 @@ export class EntitySettlementComponent {
   valuesettlementview: any;
   valuesettlementexport: any;
   errorMessage: any;
- 
+
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = [
     'settlementId',
@@ -48,8 +48,9 @@ export class EntitySettlementComponent {
   getdashboard: any[] = [];
   roleId: any = localStorage.getItem('roleId')
   actions: any;
-  responseDataListnew: any=[];
-  response: any=[];
+  responseDataListnew: any = [];
+  response: any = [];
+  searchPerformed: boolean = false;
   constructor(
     public MerchantView: FarginServiceService,
     private router: Router,
@@ -61,7 +62,7 @@ export class EntitySettlementComponent {
 
     this.MerchantView.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        
+
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -99,7 +100,7 @@ export class EntitySettlementComponent {
       this.details = res.response;
       this.detaislone = res.response.merchantpersonal;
       this.accountid = res.response.merchantpersonal.accountId;
-      
+
       this.postrenewal();
       // 
 
@@ -108,10 +109,10 @@ export class EntitySettlementComponent {
 
   }
 
-  reload(){
+  reload() {
     window.location.reload()
   }
- 
+
 
 
   postrenewal() {
@@ -158,9 +159,9 @@ export class EntitySettlementComponent {
     });
     this.excelexportCustomer();
   }
- 
+
   excelexportCustomer() {
- 
+
     const header = [
       'S.No',
       'Payout ID',
@@ -172,7 +173,7 @@ export class EntitySettlementComponent {
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Entity Settlement');
- 
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -184,7 +185,7 @@ export class EntitySettlementComponent {
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
       };
- 
+
       cell.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
@@ -192,10 +193,10 @@ export class EntitySettlementComponent {
         right: { style: 'thin' },
       };
     });
- 
+
     data.forEach((d: any) => {
       //
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -203,8 +204,8 @@ export class EntitySettlementComponent {
       let qty3 = row.getCell(4);
       let qty4 = row.getCell(5);
       let qty5 = row.getCell(6);
-   
- 
+
+
       qty.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
@@ -241,23 +242,26 @@ export class EntitySettlementComponent {
         bottom: { style: 'thin' },
         right: { style: 'thin' },
       };
-   
+
     });
- 
- 
- 
+
+
+
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], {
         type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       });
- 
+
       FileSaver.saveAs(blob, 'Entity Settlement.xlsx');
     });
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
- 
+
+    this.searchPerformed = filterValue.length > 0;
+
+
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }

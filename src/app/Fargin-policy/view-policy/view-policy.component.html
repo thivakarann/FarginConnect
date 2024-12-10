@@ -20,7 +20,7 @@
                                 </path>
                             </svg> -->
                         </div>
-                        <button  (click)="reload()" type="reset" class="close-btn">
+                        <button (click)="reload()" type="reset" class="close-btn">
                             <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
                                 <path clip-rule="evenodd"
                                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -29,11 +29,14 @@
                         </button>
                     </label>
                 </form>
- 
+
             </div>
-&nbsp;&nbsp;&nbsp;
-            <button (click)="create()" style="color:white;background-color: #141E46;border-radius: 10px;"
-                mat-raised-button [hidden]="valuefarginpolicyadd!=='Fargin Policy-Add'"> Create</button>
+            &nbsp;&nbsp;&nbsp;
+            <div [hidden]="hidecreate ==true">
+                <button (click)="create()" style="color:white;background-color: #141E46;border-radius: 10px;"
+                    mat-raised-button [hidden]="valuefarginpolicyadd!=='Fargin Policy-Add'"> Create</button>
+            </div>
+
             <button style="color:white;background-color: #141E46;border-radius: 10px;" (click)="exportexcel()"
                 mat-raised-button [hidden]="valuefarginpolicyexport!=='Fargin Policy-Export'">Export</button>
         </div>
@@ -51,7 +54,7 @@
             <ng-container matColumnDef="termAndCondition">
                 <th mat-header-cell *matHeaderCellDef>Terms and
                     Condition</th>
-                <td mat-cell *matCellDef="let data" >
+                <td mat-cell *matCellDef="let data">
                     <div class="privacy-policy-container">
                         <!-- Display the sliced text based on whether the full text is visible -->
                         <span *ngIf="!isFullPolicyVisible">
@@ -70,8 +73,8 @@
             </ng-container>
 
             <ng-container matColumnDef="disclaimer">
-                <th mat-header-cell *matHeaderCellDef >Disclaimer</th>
-                <td mat-cell *matCellDef="let data" >
+                <th mat-header-cell *matHeaderCellDef>Disclaimer</th>
+                <td mat-cell *matCellDef="let data">
                     <div class="privacy-policy-container">
                         <!-- Display the sliced text based on whether the full text is visible -->
                         <span *ngIf="!isFullPolicyVisible">
@@ -111,9 +114,9 @@
             </ng-container>
 
             <ng-container matColumnDef="refundPolicy">
-                <th mat-header-cell *matHeaderCellDef >Refund Policy
+                <th mat-header-cell *matHeaderCellDef>Refund Policy
                 </th>
-                <td mat-cell *matCellDef="let data" >
+                <td mat-cell *matCellDef="let data">
                     <div class="privacy-policy-container">
                         <!-- Display the sliced text based on whether the full text is visible -->
                         <span *ngIf="!isFullPolicyVisible">

@@ -33,6 +33,7 @@ export class EntityViewallComponent {
     'status',
     'View',
     'createdDatetime',
+    'accountStatus',
     'unblock'
 
   ];

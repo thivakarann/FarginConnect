@@ -25,6 +25,7 @@ export class ViewPolicyComponent implements OnInit {
   dataSource: any;
   valuetermView: any;
   isFullPolicyVisible: boolean = false;
+  hidecreate:boolean = false
   limit: number = 30;
   valuetermAction: any;
   displayedColumns: string[] = [
@@ -56,12 +57,6 @@ export class ViewPolicyComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   ngOnInit(): void {
-    this.service.viewfarginPolicy().subscribe((res: any) => {
-      this.policyvalue = res.response;
-      this.dataSource = new MatTableDataSource(this.policyvalue.reverse());
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-    })
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
@@ -99,6 +94,18 @@ export class ViewPolicyComponent implements OnInit {
         }
       }
     })
+    this.service.viewfarginPolicy().subscribe((res: any) => {
+      if(res.flag==1){
+        this.policyvalue = res.response;
+        this.dataSource = new MatTableDataSource(this.policyvalue.reverse());
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.hidecreate = true;
+      }
+
+    })
+
+   
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

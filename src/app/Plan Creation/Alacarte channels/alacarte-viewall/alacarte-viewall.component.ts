@@ -23,9 +23,10 @@ export class AlacarteViewallComponent implements OnInit {
   displayedColumns: string[] = [
     'alcotId',
     'channelName',
+    'channelNo',
     'type',
     'price',
-    // 'language',
+  
     // 'generic',
     'alcotStatus',
     'View',

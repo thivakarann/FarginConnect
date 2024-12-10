@@ -78,7 +78,7 @@
 
             <ng-container matColumnDef="status">
                 <th [hidden]="valuebouquetesStatus!=='Broadcaster Bouqutes-Status'" mat-header-cell *matHeaderCellDef
-                    mat-sort-header>Bouquetes Status</th>
+                    mat-sort-header>Bouquets Status</th>
                 <td mat-cell *matCellDef="let viewall" [hidden]="valuebouquetesStatus!=='Broadcaster Bouqutes-Status'">
                     <mat-slide-toggle class="example-margin" color="primary" [checked]="viewall.status==1"
                         (change)="ActiveStatus($event,viewall.bouquetId)">

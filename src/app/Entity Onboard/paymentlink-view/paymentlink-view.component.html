@@ -41,7 +41,8 @@
 
             </div>&nbsp;&nbsp;&nbsp;
             <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
-                (click)="resendLink(this.id)" [hidden]="valueresendlink!=='Entity View Payment Link-Resend'">Create</button>
+                (click)="resendLink(this.id)"
+                [hidden]="valueresendlink!=='Entity View Payment Link-Resend'">Create</button>
 
         </div>
     </div>
@@ -88,8 +89,10 @@
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
+
             <tr *matNoDataRow>
-                <td class="mat-cell" colspan="4">No Data For {{input.value}}
+                <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data For {{input.value}}</td>
+                <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">No data Found
                 </td>
             </tr>
         </table>

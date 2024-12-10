@@ -36,44 +36,45 @@ export class EntityRefundComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   isChecked: boolean = false;
-    id: any;
-    showcategoryData: boolean = false;
+  id: any;
+  showcategoryData: boolean = false;
   refundValue: any;
-  responseDataListnew: any=[];
+  responseDataListnew: any = [];
   date1: any;
-  response: any=[];
-   
+  response: any = [];
+  searchPerformed: boolean = false;
+
   constructor(
     public service: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
-    private ActivateRoute:ActivatedRoute,
-    private Location:Location
+    private ActivateRoute: ActivatedRoute,
+    private Location: Location
   ) { }
   ngOnInit(): void {
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.id = param.Alldata;
     });
-   
+
     this.service.Entityrefund(this.id).subscribe((res: any) => {
-      
+
       this.refundValue = res.response;
-      this.dataSource=new MatTableDataSource(this.refundValue)
+      this.dataSource = new MatTableDataSource(this.refundValue)
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     })
   }
-   
 
-  reload(){
+
+  reload() {
     window.location.reload()
   }
- 
- 
-  close(){
+
+
+  close() {
     this.Location.back()
-   }
-   exportexcel() {
+  }
+  exportexcel() {
     let sno = 1;
     this.responseDataListnew = [];
     this.refundValue.forEach((element: any) => {
@@ -91,17 +92,17 @@ export class EntityRefundComponent {
       this.response.push(element?.refundAmount);
       this.response.push(element?.totalPayableAmount);
       this.response.push(element?.refundStatus);
- 
+
       this.response.push(element?.date1);
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
- 
+
   excelexportCustomer() {
     const header = [
-     'S.No',
+      'S.No',
       'Type',
       'Customer Refund Id',
       'Customer Name',
@@ -114,7 +115,7 @@ export class EntityRefundComponent {
       'Refund Status',
       'Refund Date & Time'
     ]
- 
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Employee');
@@ -132,7 +133,7 @@ export class EntityRefundComponent {
     });
     data.forEach((d: any) => {
       let row = worksheet.addRow(d);
- 
+
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
       let qty2 = row.getCell(3);
@@ -145,7 +146,7 @@ export class EntityRefundComponent {
       let qty9 = row.getCell(10);
       let qty10 = row.getCell(11);
       let qty11 = row.getCell(12);
- 
+
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -158,7 +159,7 @@ export class EntityRefundComponent {
       qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
+
     }
     );
     workbook.xlsx.writeBuffer().then((data: any) => {
@@ -166,12 +167,13 @@ export class EntityRefundComponent {
       FileSaver.saveAs(blob, 'Employee.xlsx');
     });
   }
- 
- 
+
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-   
+    this.searchPerformed = filterValue.length > 0
+
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
