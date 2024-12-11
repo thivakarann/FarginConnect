@@ -132,15 +132,11 @@ export class EditPersonalInfoComponent implements OnInit {
 
       customerManualStatus: new FormControl('', [Validators.required]),
 
-
-
-
-
-
-
-
-
-
+      smsMerchantName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9 ]*$')
+      ]),
+    
     });
 
 
@@ -290,6 +286,13 @@ export class EditPersonalInfoComponent implements OnInit {
   }
 
 
+  get smsMerchantName() {
+    return this.myForm.get('smsMerchantName')
+  }
+
+
+
+
 
   getlogo(event: any) {
     this.file3 = event.target.files[0];
@@ -335,6 +338,7 @@ export class EditPersonalInfoComponent implements OnInit {
     formData.append('autoDebitStatus', this.autoDebitStatus?.value);
     formData.append('customerDuesEnable', this.customerDuesEnable?.value);
     formData.append('customerManualStatus', this.customerManualStatus?.value);
+    formData.append('smsMerchantName', this.smsMerchantName?.value);
     formData.append('withdrawalLimit', this.withdrawalLimit?.value || "");
     formData.append('withdrawalDailylimit', this.withdrawalDailylimit?.value || 0);
     formData.append('withdrawalDailyCount', this.withdrawalDailyCount?.value || 0);

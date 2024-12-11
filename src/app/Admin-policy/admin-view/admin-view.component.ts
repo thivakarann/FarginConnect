@@ -122,7 +122,7 @@ export class AdminViewComponent implements OnInit {
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.totalPages;
         this.currentpage = res.pagination.currentPage + 1;
-        this.businesscategory.reverse();
+        // this.businesscategory.reverse();
         this.dataSource = new MatTableDataSource(this.businesscategory);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;

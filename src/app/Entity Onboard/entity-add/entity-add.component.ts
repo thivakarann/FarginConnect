@@ -195,7 +195,17 @@ export class EntityAddComponent implements OnInit {
 
       payoutEnable: new FormControl ("",[Validators.required]),
 
-      customerManualStatus: new FormControl ("",[Validators.required])
+      customerManualStatus: new FormControl ("",[Validators.required]),
+
+      customerPaymentMode: new FormControl ("",[Validators.required]),
+
+      smsMerchantName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9 ]*$')
+      ]),
+
+
+
 
 
 
@@ -398,6 +408,15 @@ export class EntityAddComponent implements OnInit {
 
   get customerManualStatus() {
     return this.myForm.get('customerManualStatus')
+  }
+
+
+  get customerPaymentMode() {
+    return this.myForm.get('customerPaymentMode')
+  }
+
+  get smsMerchantName() {
+    return this.myForm.get('smsMerchantName')
   }
 
   // onCategoryChange(event: any): void {
@@ -864,6 +883,7 @@ export class EntityAddComponent implements OnInit {
     formData.append('dueDate', this.dueDate?.value || 0);
     formData.append('offlineQrEnable', this.offlineQrEnable?.value);
     formData.append('payoutEnable', this.payoutEnable?.value);
+    formData.append('customerPaymentMode', this.customerPaymentMode?.value);
     formData.append('customerManualStatus', this.customerManualStatus?.value);
     this.AddEntity.EntityAdd(formData).subscribe((res: any) => {
       if (res.flag == 1) {

@@ -74,7 +74,7 @@ export class FarginServiceService {
   private readonly Adminpolicycreate = 'policy/createmerchantpolicy';
   private readonly Adminpolicyedit = 'policy/updatemerchant/';
   private readonly adminpolicyviewbyidedit = 'policy/getpolicy/';
-  private readonly policymerchant = 'merchant/approvedMerchant';
+  private readonly policymerchant = 'policy/getMerchant';
   private readonly policiesbyid = 'policy/getpolicy/';
   private readonly policyapproval = 'policy/updateStatus/';
 
