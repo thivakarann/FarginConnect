@@ -505,7 +505,7 @@ export class DashboardContentComponent {
           x: {
             title: {
               display: true,
-              text: 'Transaction Types', // Optional: add a title to the x-axis
+              text: 'Transaction Status', // Optional: add a title to the x-axis
             },
           },
         },
@@ -561,7 +561,7 @@ export class DashboardContentComponent {
           x: {
             title: {
               display: true,
-              text: 'Transaction Types', // Optional: add a title to the x-axis
+              text: 'Transaction Status', // Optional: add a title to the x-axis
             },
           },
         },
@@ -680,7 +680,7 @@ export class DashboardContentComponent {
           x: {
             title: {
               display: true,
-              text: 'Transaction Types',
+              text: 'Transaction Status',
             },
           },
         },

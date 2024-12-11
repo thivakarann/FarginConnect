@@ -34,6 +34,7 @@ export class EditPersonalInfoComponent implements OnInit {
   selectperiod: any;
   typesign: any;
   show: any;
+  websites = ""
   customerDuesEnabled: any;
   days: number[] = Array.from({ length: 31 }, (_, i) => i + 1); // Generates days 1 to 31
 
@@ -330,7 +331,7 @@ export class EditPersonalInfoComponent implements OnInit {
     formData.append('merchantPlanId', this.merchantPlanId?.value);
     formData.append('mccCode', this.MccCode?.value);
     formData.append('periodName', this.periodName?.value);
-    formData.append('website', this.website?.value || '');
+    formData.append('website', this.website?.value || this.websites);
     formData.append('merchantLogo', this.file3 || this.emptyBlob);
     formData.append('billingMode', this.billingMode?.value);
     formData.append('offlineQrEnable', this.offlineQrEnable?.value);
@@ -342,16 +343,18 @@ export class EditPersonalInfoComponent implements OnInit {
     formData.append('withdrawalLimit', this.withdrawalLimit?.value || "");
     formData.append('withdrawalDailylimit', this.withdrawalDailylimit?.value || 0);
     formData.append('withdrawalDailyCount', this.withdrawalDailyCount?.value || 0);
+    formData.append('merchantId', this.id);
     formData.append('withdrawalMonthlyCount', this.withdrawalMonthlyCount?.value || 0);
-    this.customerDuesEnabled = this.customerDuesEnable?.value;
-     this.customerDuesEnabled = this.customerDuesEnable?.value;
-    if (this.customerDuesEnabled === '0') {
-      formData.append('customerDuesDate', '0');
-      formData.append('dueDate', '0');
-    } else {
-      formData.append('customerDuesDate', this.customerDuesDate?.value || 0);
-      formData.append('dueDate', this.dueDate?.value || 0);
-    }
+    
+    // this.customerDuesEnabled = this.customerDuesEnable?.value;
+    //  this.customerDuesEnabled = this.customerDuesEnable?.value;
+    // if (this.customerDuesEnabled === '0') {
+    //   formData.append('customerDuesDate', '0');
+    //   formData.append('dueDate', '0');
+    // } else {
+    //   formData.append('customerDuesDate', this.customerDuesDate?.value || 0);
+    //   formData.append('dueDate', this.dueDate?.value || 0);
+    // }
 
     this.service.UpdatePersonalEntity(this.id, formData).subscribe((res: any) => {
       if (res.flag == 1) {

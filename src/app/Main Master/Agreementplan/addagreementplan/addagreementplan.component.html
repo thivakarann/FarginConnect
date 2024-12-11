@@ -26,7 +26,7 @@
               margin-top: 2px;
               position: relative; ;
             " *ngIf="planName?.invalid && planName?.touched && planName?.errors?.['pattern']">
-            Invalid format. Only alphanumeric characters are allowed
+            Invalid format.Only alphanumeric characters are allowed
           </div>
         </div>
         <div class="col-sm-6 form-group">
@@ -52,10 +52,11 @@
           <input type="text" id="netBankingAmount" class="form-control" placeholder="Amount"
             formControlName="netBankingAmount" />
           <div style="
-            color: red;
-            font-size: 12px;
-            margin-top: 2px;
-            position: relative;" *ngIf="netBankingAmount?.touched ">
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative; ;
+            " *ngIf="netBankingAmount?.invalid && netBankingAmount?.touched && netBankingAmount?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -72,10 +73,12 @@
           <input type="text" id="netBankingPercentage" class="form-control" placeholder="Percentage"
             formControlName="netBankingPercentage" />
           <div style="
-            color: red;
-            font-size: 12px;
-            margin-top: 2px;
-            position: relative;" *ngIf="netBankingPercentage?.touched ">
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative; ;
+            "
+            *ngIf="netBankingPercentage?.invalid && netBankingPercentage?.touched && netBankingPercentage?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -96,7 +99,9 @@
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="netBankingFixedFee?.touched ">
+            position: relative; ;
+          "
+            *ngIf="netBankingFixedFee?.invalid && netBankingFixedFee?.touched && netBankingFixedFee?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -117,7 +122,8 @@
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="ecollectAmount?.touched ">
+            position: relative; ;
+          " *ngIf="ecollectAmount?.invalid && ecollectAmount?.touched && ecollectAmount?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -137,7 +143,9 @@
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="ecollectPercentage?.touched ">
+            position: relative; ;
+          "
+            *ngIf="ecollectPercentage?.invalid && ecollectPercentage?.touched && ecollectPercentage?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -158,7 +166,8 @@
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="ecollectFixedFee?.touched ">
+            position: relative; ;
+          " *ngIf="ecollectFixedFee?.invalid && ecollectFixedFee?.touched && ecollectFixedFee?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -177,14 +186,16 @@
           <label for="disbursementAmount" style="font-size: 12px">Disbursement API</label>
           <input type="text" id="disbursementAmount" class="form-control" placeholder="Amount"
             formControlName="disbursementAmount" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="disbursementAmount?.touched ">
+            position: relative; ;
+          "
+            *ngIf="disbursementAmount?.invalid && disbursementAmount?.touched && disbursementAmount?.errors?.['required']">
             Field is required
           </div>
-      
+
           <div style="
               color: red;
               font-size: 12px;
@@ -203,7 +214,9 @@
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="disbursementPercentage?.touched ">
+            position: relative; ;
+          "
+            *ngIf="disbursementPercentage?.invalid && disbursementPercentage?.touched && disbursementPercentage?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -224,7 +237,9 @@
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="disbursementFixedFee?.touched ">
+            position: relative; ;
+          "
+            *ngIf="disbursementFixedFee?.invalid && disbursementFixedFee?.touched && disbursementFixedFee?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -245,7 +260,9 @@
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="internationalAmount?.touched ">
+            position: relative; ;
+          "
+            *ngIf="internationalAmount?.invalid && internationalAmount?.touched && internationalAmount?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -266,7 +283,9 @@
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="internationalPercentage?.touched ">
+            position: relative; ;
+          "
+            *ngIf="internationalPercentage?.invalid && internationalPercentage?.touched && internationalPercentage?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -287,7 +306,9 @@
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="internationalFixedFee?.touched ">
+            position: relative; ;
+          "
+            *ngIf="internationalFixedFee?.invalid && internationalFixedFee?.touched && internationalFixedFee?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -310,7 +331,8 @@
           color: red;
           font-size: 12px;
           margin-top: 2px;
-          position: relative;" *ngIf="upiAmount?.touched ">
+          position: relative; ;
+        " *ngIf="upiAmount?.invalid && upiAmount?.touched && upiAmount?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -326,11 +348,12 @@
           <label for="upiPercentage" style="font-size: 12px">UPI</label>
           <input type="text" id="upiPercentage" class="form-control" placeholder="Percentage"
             formControlName="upiPercentage" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="upiPercentage?.touched ">
+            position: relative; ;
+          " *ngIf="upiPercentage?.invalid && upiPercentage?.touched && upiPercentage?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -346,11 +369,12 @@
           <label for="upiFixedFee" style="font-size: 12px">UPI</label>
           <input type="text" id="upiFixedFee" class="form-control" placeholder="Fixed Fee"
             formControlName="upiFixedFee" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="upiFixedFee?.touched ">
+            position: relative; ;
+          " *ngIf="upiFixedFee?.invalid && upiFixedFee?.touched && upiFixedFee?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -366,11 +390,12 @@
           <label for="dynamicqrAmount" style="font-size: 12px">Dynamic QR</label>
           <input type="text" id="dynamicqrAmount" class="form-control" placeholder="Amount"
             formControlName="dynamicqrAmount" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="dynamicqrAmount?.touched ">
+            position: relative; ;
+          " *ngIf="dynamicqrAmount?.invalid && dynamicqrAmount?.touched && dynamicqrAmount?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -386,11 +411,13 @@
           <label for="dynamicqrPercentage" style="font-size: 12px">Dynamic QR</label>
           <input type="text" id="dynamicqrPercentage" class="form-control" placeholder="Percentage"
             formControlName="dynamicqrPercentage" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="dynamicqrPercentage?.touched ">
+            position: relative; ;
+          "
+            *ngIf="dynamicqrPercentage?.invalid && dynamicqrPercentage?.touched && dynamicqrPercentage?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -407,11 +434,13 @@
           <label for="dynamicqrFixedFee" style="font-size: 12px">Dynamic QR</label>
           <input type="text" id="dynamicqrFixedFee" class="form-control" placeholder="Fixed Fee"
             formControlName="dynamicqrFixedFee" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="dynamicqrFixedFee?.touched ">
+            position: relative; ;
+          "
+            *ngIf="dynamicqrFixedFee?.invalid && dynamicqrFixedFee?.touched && dynamicqrFixedFee?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -432,11 +461,13 @@
           <label for="rupaydebitcardmaxAmount" style="font-size: 12px">Rupay Debit Card (Maximum)</label>
           <input type="text" id="rupaydebitcardmaxAmount" class="form-control" placeholder="Amount"
             formControlName="rupaydebitcardmaxAmount" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="rupaydebitcardmaxAmount?.touched ">
+            position: relative; ;
+          "
+            *ngIf="rupaydebitcardmaxAmount?.invalid && rupaydebitcardmaxAmount?.touched && rupaydebitcardmaxAmount?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -453,11 +484,13 @@
           <label for="rupaydebitcardmaxPercentage" style="font-size: 12px">Rupay Debit Card (Maximum)</label>
           <input type="text" id="rupaydebitcardmaxPercentage" class="form-control" placeholder="Percentage"
             formControlName="rupaydebitcardmaxPercentage" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="rupaydebitcardmaxPercentage?.touched ">
+            position: relative; ;
+          "
+            *ngIf="rupaydebitcardmaxPercentage?.invalid && rupaydebitcardmaxPercentage?.touched && rupaydebitcardmaxPercentage?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -474,11 +507,13 @@
           <label for="rupaydebitcardmaxFixedFee" style="font-size: 12px">Rupay Debit Card (Maximum)</label>
           <input type="text" id="rupaydebitcardmaxFixedFee" class="form-control" placeholder="Fixed Fee"
             formControlName="rupaydebitcardmaxFixedFee" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="rupaydebitcardmaxFixedFee?.touched ">
+            position: relative; ;
+          "
+            *ngIf="rupaydebitcardmaxFixedFee?.invalid && rupaydebitcardmaxFixedFee?.touched && rupaydebitcardmaxFixedFee?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -495,11 +530,13 @@
           <label for="rupaydebitcardminAmount" style="font-size: 12px">Rupay Debit Card (Minimum)</label>
           <input type="text" id="rupaydebitcardminAmount" class="form-control" placeholder="Amount"
             formControlName="rupaydebitcardminAmount" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="rupaydebitcardminAmount?.touched ">
+            position: relative; ;
+          "
+            *ngIf="rupaydebitcardminAmount?.invalid && rupaydebitcardminAmount?.touched && rupaydebitcardminAmount?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -516,11 +553,13 @@
           <label for="rupaydebitcardminPercentage" style="font-size: 12px">Rupay Debit Card (Minimum)</label>
           <input type="text" id="rupaydebitcardminPercentage" class="form-control" placeholder="Percentage"
             formControlName="rupaydebitcardminPercentage" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="rupaydebitcardminPercentage?.touched ">
+            position: relative; ;
+          "
+            *ngIf="rupaydebitcardminPercentage?.invalid && rupaydebitcardminPercentage?.touched && rupaydebitcardminPercentage?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -537,11 +576,13 @@
           <label for="rupaydebitcardminFixedFee" style="font-size: 12px">Rupay Debit Card (Minimum)</label>
           <input type="text" id="rupaydebitcardminFixedFee" class="form-control" placeholder="Fixed Fee"
             formControlName="rupaydebitcardminFixedFee" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="rupaydebitcardminFixedFee?.touched ">
+            position: relative; ;
+          "
+            *ngIf="rupaydebitcardminFixedFee?.invalid && rupaydebitcardminFixedFee?.touched && rupaydebitcardminFixedFee?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -561,11 +602,13 @@
           <label for="otherdebitcardmaxAmount" style="font-size: 12px">Other Debit Card (Maximum)</label>
           <input type="text" id="otherdebitcardmaxAmount" class="form-control" placeholder="Amount"
             formControlName="otherdebitcardmaxAmount" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="otherdebitcardmaxAmount?.touched ">
+            position: relative; ;
+          "
+            *ngIf="otherdebitcardmaxAmount?.invalid && otherdebitcardmaxAmount?.touched && otherdebitcardmaxAmount?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -582,11 +625,13 @@
           <label for="otherdebitcardmaxPercentage" style="font-size: 12px">Other Debit Card (Maximum)</label>
           <input type="text" id="otherdebitcardmaxPercentage" class="form-control" placeholder="Percentage"
             formControlName="otherdebitcardmaxPercentage" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="otherdebitcardmaxPercentage?.touched ">
+            position: relative; ;
+          "
+            *ngIf="otherdebitcardmaxPercentage?.invalid && otherdebitcardmaxPercentage?.touched && otherdebitcardmaxPercentage?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -603,11 +648,13 @@
           <label for="otherdebitcardmaxFixedFee" style="font-size: 12px">Other Debit Card (Maximum)</label>
           <input type="text" id="otherdebitcardmaxFixedFee" class="form-control" placeholder="Fixed Fee"
             formControlName="otherdebitcardmaxFixedFee" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="otherdebitcardmaxFixedFee?.touched ">
+            position: relative; ;
+          "
+            *ngIf="otherdebitcardmaxFixedFee?.invalid && otherdebitcardmaxFixedFee?.touched && otherdebitcardmaxFixedFee?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -625,11 +672,13 @@
           <label for="otherdebitcardminAmount" style="font-size: 12px">Other Debit Card (Minimum)</label>
           <input type="text" id="otherdebitcardminAmount" class="form-control" placeholder="Amount"
             formControlName="otherdebitcardminAmount" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="otherdebitcardminAmount?.touched ">
+            position: relative; ;
+          "
+            *ngIf="otherdebitcardminAmount?.invalid && otherdebitcardminAmount?.touched && otherdebitcardminAmount?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -646,11 +695,13 @@
           <label for="otherdebitcardminPercentage" style="font-size: 12px">Other Debit Card (Minimum)</label>
           <input type="text" id="otherdebitcardminPercentage" class="form-control" placeholder="Percentage"
             formControlName="otherdebitcardminPercentage" />
-            <div style="
-            color: red;
-            font-size: 12px;
-            margin-top: 2px;
-            position: relative;" *ngIf="otherdebitcardminPercentage?.touched ">
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative; ;
+            "
+            *ngIf="otherdebitcardminPercentage?.invalid && otherdebitcardminPercentage?.touched && otherdebitcardminPercentage?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -667,11 +718,13 @@
           <label for="otherdebitcardminFixedFee" style="font-size: 12px">Other Debit Card (Minimum)</label>
           <input type="text" id="otherdebitcardminFixedFee" class="form-control" placeholder="Fixed Fee"
             formControlName="otherdebitcardminFixedFee" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="otherdebitcardminFixedFee?.touched ">
+            position: relative; ;
+          "
+            *ngIf="otherdebitcardminFixedFee?.invalid && otherdebitcardminFixedFee?.touched && otherdebitcardminFixedFee?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -693,9 +746,10 @@
           color: red;
           font-size: 12px;
           margin-top: 2px;
-          position: relative;" *ngIf="amexAmount?.touched ">
-          Field is required
-        </div>
+          position: relative; ;
+        " *ngIf="amexAmount?.invalid && amexAmount?.touched && amexAmount?.errors?.['required']">
+            Field is required
+          </div>
           <div style="
               color: red;
               font-size: 12px;
@@ -709,11 +763,12 @@
           <label for="amexPercentage" style="font-size: 12px">Amex Card</label>
           <input type="text" id="amexPercentage" class="form-control" placeholder="Percentage"
             formControlName="amexPercentage" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="amexPercentage?.touched ">
+            position: relative; ;
+          " *ngIf="amexPercentage?.invalid && amexPercentage?.touched && amexPercentage?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -729,11 +784,12 @@
           <label for="amexFixedFee" style="font-size: 12px">Amex Card</label>
           <input type="text" id="amexFixedFee" class="form-control" placeholder="Fixed Fee"
             formControlName="amexFixedFee" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="amexFixedFee?.touched ">
+            position: relative; ;
+          " *ngIf="amexFixedFee?.invalid && amexFixedFee?.touched && amexFixedFee?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -750,11 +806,13 @@
           </label>
           <input type="text" id="dinnerscardAmount" class="form-control" placeholder="Amount"
             formControlName="dinnerscardAmount" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="dinnerscardAmount?.touched ">
+            position: relative; ;
+          "
+            *ngIf="dinnerscardAmount?.invalid && dinnerscardAmount?.touched && dinnerscardAmount?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -771,11 +829,13 @@
           <label for="dinnerscardPercentage" style="font-size: 12px">Dinners Card</label>
           <input type="text" id="dinnerscardPercentage" class="form-control" placeholder="Percentage"
             formControlName="dinnerscardPercentage" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="dinnerscardPercentage?.touched ">
+            position: relative; ;
+          "
+            *ngIf="dinnerscardPercentage?.invalid && dinnerscardPercentage?.touched && dinnerscardPercentage?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -792,11 +852,13 @@
           <label for="dinnerscardFixedFee" style="font-size: 12px">Dinners Card</label>
           <input type="text" id="dinnerscardFixedFee" class="form-control" placeholder="Fixed Fee"
             formControlName="dinnerscardFixedFee" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="dinnerscardFixedFee?.touched ">
+            position: relative; ;
+          "
+            *ngIf="dinnerscardFixedFee?.invalid && dinnerscardFixedFee?.touched && dinnerscardFixedFee?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -815,11 +877,12 @@
           <label for="corporateAmount" style="font-size: 12px">Corporate/Commercial Card</label>
           <input type="text" id="corporateAmount" class="form-control" placeholder="Amount"
             formControlName="corporateAmount" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="corporateAmount?.touched ">
+            position: relative; ;
+          " *ngIf="corporateAmount?.invalid && corporateAmount?.touched && corporateAmount?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -835,11 +898,13 @@
           <label for="corporatePercentage" style="font-size: 12px">Corporate/Commercial Card</label>
           <input type="text" id="corporatePercentage" class="form-control" placeholder="Percentage"
             formControlName="corporatePercentage" />
-            <div style="
-            color: red;
-            font-size: 12px;
-            margin-top: 2px;
-            position: relative;" *ngIf="corporatePercentage?.touched ">
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative; ;
+            "
+            *ngIf="corporatePercentage?.invalid && corporatePercentage?.touched && corporatePercentage?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -856,11 +921,13 @@
           <label for="corporateFixedFee" style="font-size: 12px">Corporate/Commercial Card</label>
           <input type="text" id="corporateFixedFee" class="form-control" placeholder="Fixed Fee"
             formControlName="corporateFixedFee" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="corporateFixedFee?.touched ">
+            position: relative; ;
+          "
+            *ngIf="corporateFixedFee?.invalid && corporateFixedFee?.touched && corporateFixedFee?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -878,11 +945,13 @@
           </label>
           <input type="text" id="prepaidcardAmount" class="form-control" placeholder="Amount"
             formControlName="prepaidcardAmount" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="prepaidcardAmount?.touched ">
+            position: relative; ;
+          "
+            *ngIf="prepaidcardAmount?.invalid && prepaidcardAmount?.touched && prepaidcardAmount?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -899,11 +968,13 @@
           <label for="prepaidcardPercentage" style="font-size: 12px">Prepaid Card</label>
           <input type="text" id="prepaidcardPercentage" class="form-control" placeholder="Percentage"
             formControlName="prepaidcardPercentage" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="prepaidcardPercentage?.touched ">
+            position: relative; ;
+          "
+            *ngIf="prepaidcardPercentage?.invalid && prepaidcardPercentage?.touched && prepaidcardPercentage?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -920,11 +991,13 @@
           <label for="prepaidcardFixedFee" style="font-size: 12px">Prepaid Card</label>
           <input type="text" id="prepaidcardFixedFee" class="form-control" placeholder="Fixed Fee"
             formControlName="prepaidcardFixedFee" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="prepaidcardFixedFee?.touched ">
+            position: relative; ;
+          "
+            *ngIf="prepaidcardFixedFee?.invalid && prepaidcardFixedFee?.touched && prepaidcardFixedFee?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -944,11 +1017,12 @@
           </label>
           <input type="text" id="creditCardAmount" class="form-control" placeholder="Amount"
             formControlName="creditCardAmount" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="creditCardAmount?.touched ">
+            position: relative; ;
+          " *ngIf="creditCardAmount?.invalid && creditCardAmount?.touched && creditCardAmount?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -965,11 +1039,13 @@
           </label>
           <input type="text" id="creditCardPercentage" class="form-control" placeholder="Percentage"
             formControlName="creditCardPercentage" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="creditCardPercentage?.touched ">
+            position: relative; ;
+          "
+            *ngIf="creditCardPercentage?.invalid && creditCardPercentage?.touched && creditCardPercentage?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -987,11 +1063,13 @@
           </label>
           <input type="text" id="creditCardFixedFee" class="form-control" placeholder="Fixed Fee"
             formControlName="creditCardFixedFee" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="creditCardFixedFee?.touched ">
+            position: relative; ;
+          "
+            *ngIf="creditCardFixedFee?.invalid && creditCardFixedFee?.touched && creditCardFixedFee?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -1012,11 +1090,12 @@
           <label for="phonepeAmount" style="font-size: 12px">Phonepe</label>
           <input type="text" id="phonepeAmount" class="form-control" placeholder="Amount"
             formControlName="phonepeAmount" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="phonepeAmount?.touched ">
+            position: relative; ;
+          " *ngIf="phonepeAmount?.invalid && phonepeAmount?.touched && phonepeAmount?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -1032,11 +1111,13 @@
           <label for="phonepePercentage" style="font-size: 12px">Phonepe</label>
           <input type="text" id="phonepePercentage" class="form-control" placeholder="Percentage"
             formControlName="phonepePercentage" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="phonepePercentage?.touched ">
+            position: relative; ;
+          "
+            *ngIf="phonepePercentage?.invalid && phonepePercentage?.touched && phonepePercentage?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -1053,11 +1134,12 @@
           <label for="phonepeFixedFee" style="font-size: 12px">Phonepe</label>
           <input type="text" id="phonepeFixedFee" class="form-control" placeholder="Fixed Fee"
             formControlName="phonepeFixedFee" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="phonepeFixedFee?.touched ">
+            position: relative; ;
+          " *ngIf="phonepeFixedFee?.invalid && phonepeFixedFee?.touched && phonepeFixedFee?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -1074,11 +1156,12 @@
           </label>
           <input type="text" id="freechargeAmount" class="form-control" placeholder="Amount"
             formControlName="freechargeAmount" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="freechargeAmount?.touched ">
+            position: relative; ;
+          " *ngIf="freechargeAmount?.invalid && freechargeAmount?.touched && freechargeAmount?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -1094,11 +1177,13 @@
           <label for="freechargePercentage" style="font-size: 12px">FreeCharge</label>
           <input type="text" id="freechargePercentage" class="form-control" placeholder="Percentage"
             formControlName="freechargePercentage" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="freechargePercentage?.touched ">
+            position: relative; ;
+          "
+            *ngIf="freechargePercentage?.invalid && freechargePercentage?.touched && freechargePercentage?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -1115,11 +1200,13 @@
           <label for="freechargeFixedFee" style="font-size: 12px">FreeCharge</label>
           <input type="text" id="freechargeFixedFee" class="form-control" placeholder="Fixed Fee"
             formControlName="freechargeFixedFee" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="freechargeFixedFee?.touched ">
+            position: relative; ;
+          "
+            *ngIf="freechargeFixedFee?.invalid && freechargeFixedFee?.touched && freechargeFixedFee?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -1139,11 +1226,12 @@
           <label for="payzappAmount" style="font-size: 12px">Payzapp </label>
           <input type="text" id="payzappAmount" class="form-control" placeholder="Amount"
             formControlName="payzappAmount" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="payzappAmount?.touched ">
+            position: relative; ;
+          " *ngIf="payzappAmount?.invalid && payzappAmount?.touched && payzappAmount?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -1160,11 +1248,13 @@
           </label>
           <input type="text" id="payzappPercentage" class="form-control" placeholder="Percentage"
             formControlName="payzappPercentage" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="payzappPercentage?.touched ">
+            position: relative; ;
+          "
+            *ngIf="payzappPercentage?.invalid && payzappPercentage?.touched && payzappPercentage?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -1181,11 +1271,12 @@
           <label for="payzappFixedFee" style="font-size: 12px">Payzapp </label>
           <input type="text" id="payzappFixedFee" class="form-control" placeholder="Fixed Fee"
             formControlName="payzappFixedFee" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="payzappFixedFee?.touched ">
+            position: relative; ;
+          " *ngIf="payzappFixedFee?.invalid && payzappFixedFee?.touched && payzappFixedFee?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -1204,9 +1295,10 @@
           color: red;
           font-size: 12px;
           margin-top: 2px;
-          position: relative;" *ngIf="paytmAmount?.touched ">
-          Field is required
-        </div>
+          position: relative; ;
+        " *ngIf="paytmAmount?.invalid && paytmAmount?.touched && paytmAmount?.errors?.['required']">
+            Field is required
+          </div>
           <div style="
               color: red;
               font-size: 12px;
@@ -1220,11 +1312,12 @@
           <label for="paytmPercentage" style="font-size: 12px">Paytm </label>
           <input type="text" id="paytmPercentage" class="form-control" placeholder="Percentage"
             formControlName="paytmPercentage" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="paytmPercentage?.touched ">
+            position: relative; ;
+          " *ngIf="paytmPercentage?.invalid && paytmPercentage?.touched && paytmPercentage?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -1240,11 +1333,12 @@
           <label for="paytmFixedFee" style="font-size: 12px">Paytm </label>
           <input type="text" id="paytmFixedFee" class="form-control" placeholder="Fixed Fee"
             formControlName="paytmFixedFee" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="paytmFixedFee?.touched ">
+            position: relative; ;
+          " *ngIf="paytmFixedFee?.invalid && paytmFixedFee?.touched && paytmFixedFee?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -1263,11 +1357,12 @@
           <label for="OlamoneyAmount" style="font-size: 12px">Ola Money </label>
           <input type="text" id="OlamoneyAmount" class="form-control" placeholder="Amount"
             formControlName="OlamoneyAmount" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="OlamoneyAmount?.touched ">
+            position: relative; ;
+          " *ngIf="OlamoneyAmount?.invalid && OlamoneyAmount?.touched && OlamoneyAmount?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -1284,11 +1379,13 @@
           </label>
           <input type="text" id="OlamoneyPercentage" class="form-control" placeholder="Percentage"
             formControlName="OlamoneyPercentage" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="OlamoneyPercentage?.touched ">
+            position: relative; ;
+          "
+            *ngIf="OlamoneyPercentage?.invalid && OlamoneyPercentage?.touched && OlamoneyPercentage?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -1306,11 +1403,12 @@
           </label>
           <input type="text" id="OlamoneyFixedFee" class="form-control" placeholder="Fixed Fee"
             formControlName="OlamoneyFixedFee" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="OlamoneyFixedFee?.touched ">
+            position: relative; ;
+          " *ngIf="OlamoneyFixedFee?.invalid && OlamoneyFixedFee?.touched && OlamoneyFixedFee?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -1326,11 +1424,12 @@
           <label for="mobikwikAmount" style="font-size: 12px">Mobikwik</label>
           <input type="text" id="mobikwikAmount" class="form-control" placeholder="Amount"
             formControlName="mobikwikAmount" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="mobikwikAmount?.touched ">
+            position: relative; ;
+          " *ngIf="mobikwikAmount?.invalid && mobikwikAmount?.touched && mobikwikAmount?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -1346,11 +1445,13 @@
           <label for="mobikwikPercentage" style="font-size: 12px">Mobikwik</label>
           <input type="text" id="mobikwikPercentage" class="form-control" placeholder="Percentage"
             formControlName="mobikwikPercentage" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="mobikwikPercentage?.touched ">
+            position: relative; ;
+          "
+            *ngIf="mobikwikPercentage?.invalid && mobikwikPercentage?.touched && mobikwikPercentage?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -1367,11 +1468,12 @@
           <label for="mobikwikFixedFee" style="font-size: 12px">Mobikwik</label>
           <input type="text" id="mobikwikFixedFee" class="form-control" placeholder="Fixed Fee"
             formControlName="mobikwikFixedFee" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="mobikwikFixedFee?.touched ">
+            position: relative; ;
+          " *ngIf="mobikwikFixedFee?.invalid && mobikwikFixedFee?.touched && mobikwikFixedFee?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -1390,11 +1492,13 @@
           </label>
           <input type="text" id="reliancejiomoneyAmount" class="form-control" placeholder="Amount"
             formControlName="reliancejiomoneyAmount" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="reliancejiomoneyAmount?.touched ">
+            position: relative; ;
+          "
+            *ngIf="reliancejiomoneyAmount?.invalid && reliancejiomoneyAmount?.touched && reliancejiomoneyAmount?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -1412,11 +1516,13 @@
           </label>
           <input type="text" id="reliancejiomoneyPercentage" class="form-control" placeholder="Percentage"
             formControlName="reliancejiomoneyPercentage" />
-            <div style="
-            color: red;
-            font-size: 12px;
-            margin-top: 2px;
-            position: relative;" *ngIf="reliancejiomoneyPercentage?.touched ">
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative; ;
+            "
+            *ngIf="reliancejiomoneyPercentage?.invalid && reliancejiomoneyPercentage?.touched && reliancejiomoneyPercentage?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -1433,11 +1539,13 @@
           <label for="reliancejiomoneyFixedFee" style="font-size: 12px">Reliance Jio Money</label>
           <input type="text" id="reliancejiomoneyFixedFee" class="form-control" placeholder="Fixed Fee"
             formControlName="reliancejiomoneyFixedFee" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="reliancejiomoneyFixedFee?.touched ">
+            position: relative; ;
+          "
+            *ngIf="reliancejiomoneyFixedFee?.invalid && reliancejiomoneyFixedFee?.touched && reliancejiomoneyFixedFee?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -1454,11 +1562,13 @@
           <label for="airtelmoneyAmount" style="font-size: 12px">Airtel Money</label>
           <input type="text" id="airtelmoneyAmount" class="form-control" placeholder="Amount"
             formControlName="airtelmoneyAmount" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="airtelmoneyAmount?.touched ">
+            position: relative; ;
+          "
+            *ngIf="airtelmoneyAmount?.invalid && airtelmoneyAmount?.touched && airtelmoneyAmount?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -1475,11 +1585,13 @@
           <label for="airtelmoneyPercentage" style="font-size: 12px">Airtel Money</label>
           <input type="text" id="airtelmoneyPercentage" class="form-control" placeholder="Percentage"
             formControlName="airtelmoneyPercentage" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="airtelmoneyPercentage?.touched ">
+            position: relative; ;
+          "
+            *ngIf="airtelmoneyPercentage?.invalid && airtelmoneyPercentage?.touched && airtelmoneyPercentage?.errors?.['required']">
             Field is required
           </div>
           <div style="
@@ -1496,11 +1608,13 @@
           <label for="airtelmoneyFixedFee" style="font-size: 12px">Airtel Money</label>
           <input type="text" id="airtelmoneyFixedFee" class="form-control" placeholder="Fixed Fee"
             formControlName="airtelmoneyFixedFee" />
-            <div style="
+          <div style="
             color: red;
             font-size: 12px;
             margin-top: 2px;
-            position: relative;" *ngIf="airtelmoneyFixedFee?.touched ">
+            position: relative; ;
+          "
+            *ngIf="airtelmoneyFixedFee?.invalid && airtelmoneyFixedFee?.touched && airtelmoneyFixedFee?.errors?.['required']">
             Field is required
           </div>
           <div style="

@@ -86,7 +86,7 @@ export class EditMerchantPlanComponent implements OnInit {
       technicalAmount: this.technicalAmount?.value,
       maintenanceAmount: this.maintenanceAmount?.value,
       frequency: this.frequency?.value,
-      renewalAmount: this.renewalAmount?.value.trim(),
+      renewalAmount: this.renewalAmount?.value,
       modifiedBy: this.getadminname
     }
 

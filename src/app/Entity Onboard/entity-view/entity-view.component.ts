@@ -494,6 +494,7 @@ export class EntityViewComponent implements OnInit {
     this.MerchantView.OtherPayByMerchantId(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
         this.otherDetails = res.response;
+        this.otherDetails.reverse();
       }
     });
 

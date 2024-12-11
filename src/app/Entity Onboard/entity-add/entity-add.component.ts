@@ -885,6 +885,7 @@ export class EntityAddComponent implements OnInit {
     formData.append('payoutEnable', this.payoutEnable?.value);
     formData.append('customerPaymentMode', this.customerPaymentMode?.value);
     formData.append('customerManualStatus', this.customerManualStatus?.value);
+    formData.append('smsMerchantName', this.smsMerchantName?.value);
     this.AddEntity.EntityAdd(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.merchantid = res.response.merchantId;

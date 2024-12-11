@@ -71,10 +71,10 @@
         <span class="amount">₹ {{todayamount?.failedAmount || 0}}</span>
         <p class="label failed">Failed Amount</p>
       </div>
-      <div class="transaction-item">
+      <!-- <div class="transaction-item">
         <span class="amount">₹ {{todayamount?.pendingAmount || 0}}</span>
         <p class="label pending">Pending Amount</p>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
@@ -90,7 +90,7 @@
       <label for="" style="font-size: 14px; ">Select Category</label><br>
       <select (change)="onCategoryChange($event)" name="" id="" class="form-select" [value]="initialCategoryId">
         <option value="" disabled selected>Select Category</option>
-        <option *ngFor="let val of category" [value]="val.businessCategoryId">{{val.categoryName}}</option>
+        <option *ngFor="let val of categorydetails" [value]="val.businessCategoryId">{{val.categoryName}}</option>
       </select>
  
     </div>
@@ -227,7 +227,7 @@
         <div class="card-body">
           <!-- First Row -->
           <div class="row">
-            <div class="col">
+            <!-- <div class="col">
               <div>{{sevenper?.intiateCount || 0}}</div>
               <div><strong> Total Request</strong></div>
  
@@ -236,8 +236,10 @@
               <div>{{sevenper?.totalCount || 0}}</div>
               <div><strong>Total Count</strong></div>
  
-            </div>
+            </div> -->
           </div>
+          <div>{{sevenper?.totalCount || 0}}</div>
+          <div><strong>Total Count</strong></div>
           <hr style="height:2px;border-width:0;color:gray;background-color:gray">
           <!-- Second Row -->
           <div class="row">

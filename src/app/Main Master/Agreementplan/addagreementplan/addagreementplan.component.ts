@@ -17,145 +17,144 @@ export class AddagreementplanComponent {
   createdBy = JSON.parse(localStorage.getItem('adminname') || '');
   merchantId: any = localStorage.getItem('merchantId');
   createagreementplan: any;
-  constructor( private service: FarginServiceService, private location: Location, private toaster: ToastrService, private router: Router) {
+  constructor(private service: FarginServiceService, private location: Location, private toaster: ToastrService, private router: Router) {
   }
- 
+
   ngOnInit(): void {
     this.myForm = new FormGroup({
       planName: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9 ]*$')]),
- 
-      servicefee: new FormControl('', [ Validators.required,Validators.pattern('^[0-9]+$')]),
-      netBankingAmount: new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      netBankingPercentage: new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      netBankingFixedFee: new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      rupaydebitcardmaxAmount: new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      rupaydebitcardmaxPercentage:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      rupaydebitcardmaxFixedFee:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      rupaydebitcardminAmount:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      rupaydebitcardminPercentage:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      rupaydebitcardminFixedFee:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      otherdebitcardmaxAmount:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      otherdebitcardmaxPercentage:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      otherdebitcardmaxFixedFee:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      otherdebitcardminAmount:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      otherdebitcardminPercentage:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      otherdebitcardminFixedFee:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      ecollectAmount:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      ecollectPercentage:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      ecollectFixedFee:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      disbursementAmount:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      disbursementPercentage:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      disbursementFixedFee:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      internationalAmount:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      internationalPercentage:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      internationalFixedFee:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      amexAmount:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      amexPercentage:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      amexFixedFee:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      dinnerscardAmount:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      dinnerscardPercentage:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      dinnerscardFixedFee:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      corporateAmount:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      corporatePercentage:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      corporateFixedFee:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      prepaidcardAmount:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      prepaidcardPercentage:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      prepaidcardFixedFee:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      upiAmount:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      upiPercentage:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      upiFixedFee:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      dynamicqrAmount:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      dynamicqrPercentage:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      dynamicqrFixedFee:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      phonepeAmount:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      phonepePercentage:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      phonepeFixedFee:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      freechargeAmount:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      freechargePercentage:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      freechargeFixedFee:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      payzappAmount:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      payzappPercentage:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      payzappFixedFee:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      paytmAmount:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      paytmPercentage:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      paytmFixedFee:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      OlamoneyAmount:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      OlamoneyPercentage:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      OlamoneyFixedFee:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      mobikwikAmount:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      mobikwikPercentage:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      mobikwikFixedFee:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      reliancejiomoneyAmount:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      reliancejiomoneyPercentage:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      reliancejiomoneyFixedFee:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      airtelmoneyAmount:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      airtelmoneyPercentage:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      airtelmoneyFixedFee:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      creditCardAmount:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      creditCardPercentage:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
-      creditCardFixedFee:new FormControl('', [Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      servicefee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      netBankingAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      netBankingPercentage: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      netBankingFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      rupaydebitcardmaxAmount: new FormControl('', [Validators.required,Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      rupaydebitcardmaxFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      rupaydebitcardmaxPercentage:new FormControl('', [Validators.required,Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      rupaydebitcardminAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      rupaydebitcardminPercentage: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      rupaydebitcardminFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      otherdebitcardmaxAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      otherdebitcardmaxPercentage: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      otherdebitcardmaxFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      otherdebitcardminAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      otherdebitcardminPercentage: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      otherdebitcardminFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      ecollectAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      ecollectPercentage: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      ecollectFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      disbursementAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      disbursementPercentage: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      disbursementFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      internationalAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      internationalPercentage: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      internationalFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      amexAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      amexPercentage: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      amexFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      dinnerscardAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      dinnerscardPercentage: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      dinnerscardFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      corporateAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      corporatePercentage: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      corporateFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      prepaidcardAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      prepaidcardPercentage: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      prepaidcardFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      upiAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      upiPercentage: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      upiFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      dynamicqrAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      dynamicqrPercentage: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      dynamicqrFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      phonepeAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      phonepePercentage: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      phonepeFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      freechargeAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      freechargePercentage: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      freechargeFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      payzappAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      payzappPercentage: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      payzappFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      paytmAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      paytmPercentage: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      paytmFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      OlamoneyAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      OlamoneyPercentage: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      OlamoneyFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      mobikwikAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      mobikwikPercentage: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      mobikwikFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      reliancejiomoneyAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      reliancejiomoneyPercentage: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      reliancejiomoneyFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      airtelmoneyAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      airtelmoneyPercentage: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      airtelmoneyFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      creditCardAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      creditCardPercentage: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
+      creditCardFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*(\.[0-9]+)?|0\.[0-9]+)$')]),
     });
- 
-  
- 
+
+
+
   }
- 
+
 
   get planName() {
     return this.myForm.get('planName')
- 
+
   }
   get servicefee() {
     return this.myForm.get('servicefee')
- 
+
   }
   get netBankingAmount() {
     return this.myForm.get('netBankingAmount')
   }
- 
+
   get netBankingPercentage() {
     return this.myForm.get('netBankingPercentage')
- 
+
   }
   get netBankingFixedFee() {
     return this.myForm.get('netBankingFixedFee')
- 
+
   }
   get rupaydebitcardmaxAmount() {
     return this.myForm.get('rupaydebitcardmaxAmount')
- 
+
   }
- 
- 
+
+
   get rupaydebitcardmaxPercentage() {
     return this.myForm.get('rupaydebitcardmaxPercentage')
- 
+
   }
   get rupaydebitcardmaxFixedFee() {
     return this.myForm.get('rupaydebitcardmaxFixedFee')
- 
+
   }
   get rupaydebitcardminAmount() {
     return this.myForm.get('rupaydebitcardminAmount')
- 
+
   }
   get rupaydebitcardminPercentage() {
     return this.myForm.get('rupaydebitcardminPercentage')
- 
+
   }
   get rupaydebitcardminFixedFee() {
     return this.myForm.get('rupaydebitcardminFixedFee')
- 
+
   }
   get otherdebitcardmaxAmount() {
     return this.myForm.get('otherdebitcardmaxAmount')
- 
+
   }
   get otherdebitcardmaxPercentage() {
     return this.myForm.get('otherdebitcardmaxPercentage')
- 
+
   }
 
   get otherdebitcardmaxFixedFee() {
@@ -164,32 +163,32 @@ export class AddagreementplanComponent {
 
   get otherdebitcardminAmount() {
     return this.myForm.get('otherdebitcardminAmount')
- 
+
   }
   get otherdebitcardminPercentage() {
     return this.myForm.get('otherdebitcardminPercentage')
- 
+
   }
   get otherdebitcardminFixedFee() {
     return this.myForm.get('otherdebitcardminFixedFee')
- 
+
   }
- 
+
   get ecollectAmount() {
     return this.myForm.get('ecollectAmount')
- 
+
   }
   get ecollectPercentage() {
     return this.myForm.get('ecollectPercentage')
   }
- 
+
   get ecollectFixedFee() {
     return this.myForm.get('ecollectFixedFee')
- 
+
   }
   get disbursementAmount() {
     return this.myForm.get('disbursementAmount')
- 
+
   }
   get disbursementPercentage() {
     return this.myForm.get('disbursementPercentage')
@@ -346,9 +345,9 @@ export class AddagreementplanComponent {
   submit() {
     let submitModel: AgreementCommerical = {
       planName: this.planName?.value.trim(),
-      serviceFee: this.servicefee?.value.trim(),
+      serviceFee: this.servicefee?.value,
       createdBy: this.createdBy,
-      netBankingAmount: this.netBankingAmount?.value.trim(),
+      netBankingAmount: this.netBankingAmount?.value,
       netBankingPercentage: this.netBankingPercentage?.value.trim(),
       netBankingFixedFee: this.netBankingFixedFee?.value.trim(),
       rupayDebitCardMaxAmount: this.rupaydebitcardmaxAmount?.value.trim(),
@@ -433,7 +432,7 @@ export class AddagreementplanComponent {
       }
     })
   }
- 
+
   close() {
     this.location.back()
   }

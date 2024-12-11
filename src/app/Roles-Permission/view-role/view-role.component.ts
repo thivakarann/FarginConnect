@@ -17,10 +17,10 @@ import { ViewSubpermissionComponent } from '../view-subpermission/view-subpermis
   templateUrl: './view-role.component.html',
   styleUrl: './view-role.component.css'
 })
-export class ViewRoleComponent implements OnInit{
+export class ViewRoleComponent implements OnInit {
   showcategoryData: any;
   dataSource: any;
-  displayedColumns: any[] = ["roleid", "rolename", "permissionName", "actionName", "status", "action", "CreatedBy", "CreatedAt","modifiedBy","modifiedAt"];
+  displayedColumns: any[] = ["roleid", "rolename", "permissionName", "actionName", "status", "action", "CreatedBy", "CreatedAt", "modifiedBy", "modifiedAt"];
   isChecked: any;
   roledata: any;
   dataValue: any;
@@ -40,11 +40,11 @@ export class ViewRoleComponent implements OnInit{
   permissionview: any;
   subpermission: any;
   perValueObject: any;
- 
+
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
   ngOnInit(): void {
- 
- 
+
+
     this.service.viewRoles().subscribe((res: any) => {
       this.roledata = res.response;
       this.dataSource = new MatTableDataSource(this.roledata?.reverse())
@@ -52,113 +52,113 @@ export class ViewRoleComponent implements OnInit{
       this.dataSource.sort = this.sort;
     });
   }
- 
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
- 
+
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
- 
+
   onSubmit(event: MatSlideToggleChange, id: any) {
-    
- 
+
+
     this.isChecked = event.checked;
- 
+
     let submitModel: roleactiveInactive = {
       roleId: id,
       status: this.isChecked ? 1 : 0,
     };
- 
+
     this.service.rolesStatus(submitModel).subscribe((res: any) => {
-      
+
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
         window.location.reload();
       }, 1000);
     });
   }
- 
- 
+
+
   edit(id: string) {
-    
+
     this.values = [];
     this.subId = [];
     this.perValueArray = [];
     this.moduleName = [];
- 
+
     this.service.rolegetById(id).subscribe({
       next: (res: any) => {
-       
+
         if (res.flag == 1) {
           this.getAction = res.response;
           this.roleName = this.getAction.roleName;
           this.permissionview = this.getAction.permission
           this.subpermission = this.getAction.subPermission
-       
+
           for (let data of this.permissionview) {
             this.values.push(data.permissionId)
           }
- 
+
           //Duplicate Removal start
           this.perValueObject = new Set(this.values)
           for (let value of this.perValueObject) {
             this.perValueArray.push(value)
           }
-          
+
           //Duplicate Removal end
- 
+
           for (let data1 of this.subpermission) {
             this.subId.push(data1.subPermissionId)
           }
-         
+
           this.dialog.open(EditRoleComponent, {
             data: { per: this.perValueArray, roleName: this.roleName, role: id, sub: this.subId, moduleNames: this.moduleName },
             disableClose: true,
-       
+
             enterAnimationDuration: '1000ms',
             exitAnimationDuration: '1000ms',
           });
         } else if (res.flag == 2) {
- 
+
           this.errorMessage = res.responseMessage;
         } else {
           this.errorMessage = res.responseMessage;
         }
       },
     });
- 
+
   }
- 
+
   create() {
     this.dialog.open(AddRoleComponent, {
       disableClose: true,
-          // Ensure it doesn't get too wide on large screens
+      // Ensure it doesn't get too wide on large screens
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
     });
- 
+
   }
 
-  
-reload(){
-  window.location.reload()
-}
- 
- 
-  permissionView(id:any){
+
+  reload() {
+    window.location.reload()
+  }
+
+
+  permissionView(id: any) {
     this.dialog.open(ViewPermissionComponent, {
-      data:{value:id},
+      data: { value: id },
       disableClose: true,
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
     });
   }
-  subpermissionView(id:any){
+  subpermissionView(id: any) {
     this.dialog.open(ViewSubpermissionComponent, {
-      data:{value:id},
+      data: { value: id },
       disableClose: true,
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',

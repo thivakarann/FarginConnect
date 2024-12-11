@@ -622,7 +622,7 @@
     </div>
     <div *ngIf="activeTab === 'videos'">
         <mat-card-header>
-            <button  [hidden]="valuekycadd!=='Entity View KYC Document-add'" [disabled]="KYCDetails.length > 0"
+            <button [hidden]="valuekycadd!=='Entity View KYC Document-add'" [disabled]="KYCDetails.length > 0"
                 (click)="addKycdocuments(this.id)" style="color:white;background-color: #141E46;border-radius: 10px;"
                 mat-raised-button>Add
                 KYC</button>
@@ -1419,6 +1419,8 @@
                             <th>S No </th>
                             <th>Plan Name</th>
                             <th>Service Fee</th>
+                            <th>Authorized Signatory Name</th>
+                            <th>Authorized Signatory Designation</th>
                             <th [hidden]="valueagreementView!=='Entity View Agreement-View'">Plan Overview</th>
                             <th [hidden]="valueagreementlink!=='Entity View Agreement-Entity Agreement Link'">Entity
                                 Agreement Link</th>
@@ -1443,6 +1445,8 @@
                             <td>{{i+1}}</td>
                             <td>{{item.commercialId?.planName}}</td>
                             <td>{{item.commercialId?.serviceFee}}</td>
+                            <td>{{item.merchantName}}</td>
+                            <td>{{item.merchantDesignation}}</td>
 
                             <td [hidden]="valueagreementView!=='Entity View Agreement-View'">
                                 <i style="cursor: pointer;font-size: 17px;" class="fa fa-eye"

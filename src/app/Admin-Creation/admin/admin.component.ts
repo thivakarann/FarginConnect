@@ -37,11 +37,13 @@ export class AdminComponent implements OnInit {
     "status",
     "Edit",
     "view",
+    
+    "accountStatusss",
+    "unblock",
     "createdBy",
     "createdDateTime",
     "modifiedBy",
     "modifiedDateTime",
-    "unblock"
   ]
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
