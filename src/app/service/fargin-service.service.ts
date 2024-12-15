@@ -482,6 +482,7 @@ export class FarginServiceService {
   private readonly smsdropdown = 'merchantSms/viewsms';
   private readonly smscount = 'smshistory/viewbymerchantandtype/';
   private readonly smsapproval = 'merchantSms/updateApproval/';
+  private readonly smsfreepaiddropdown = 'merchantSms/viewFreePaidsms/';
 
   //sms history
   private readonly smshistory = 'smshistory/viewall/';
@@ -604,6 +605,14 @@ export class FarginServiceService {
   private readonly failureofftransactions='transactions/getMerchOfflineFailPayment/';
   private readonly offlinesettlement='transactions/getOfflinePayouts';
   private readonly offlinepayoutsettelemnt='transactions/getOfflinePayoutTransactions';
+
+    //branch entity view
+    private readonly branchget='bankBranch/view/'
+    // private readonly branchget='bankBranch/viewData/';
+    private readonly branchcreate='bankBranch/createBranch';
+    private readonly branchedit='bankBranch/update/';
+    private readonly branchstatus='bankBranch/updateStatus/';
+    private readonly branchindividualview='bankBranch/viewAll';
 
 
   // Find Ip 
@@ -1956,6 +1965,9 @@ export class FarginServiceService {
   SmsHistoryGetAll(id: any, id1: any) {
     return this.http.get(`${this.basePath}${this.smshistory}${id}/${id1}`, this.options)
   }
+  smsfreepaiddropdowns(id: any) {
+    return this.http.get(`${this.basePath}${this.smsfreepaiddropdown}${id}`, this.options)
+  }
 
   SmsHistoryGetAllExport() {
     return this.http.get(`${this.basePath}${this.smhistoryexport}`, this.options)
@@ -2319,5 +2331,28 @@ export class FarginServiceService {
   }
   PayoutOfflineSettlement(model:any){
     return this.http.post(`${this.basePath}${this.offlinepayoutsettelemnt}`,model,this.options)
+  }
+
+  //branch
+  BranchGet(id:any){
+    return this.http.get(`${this.basePath}${this.branchget}${id}`,this.options)
+  }
+ 
+   
+  BranchAdd(model:any){
+    return this.http.post(`${this.basePath}${this.branchcreate}`,model,this.options)
+  }
+ 
+  BranchUpdate(id:any,model:any){
+    return this.http.put(`${this.basePath}${this.branchedit}${id}`,model,this.options)
+  }
+ 
+ 
+  BranchStatus(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.branchstatus}${id}`, model, this.options)
+  }
+ 
+  BranchIndividualView() {
+    return this.http.get(`${this.basePath}${this.branchindividualview}`,this.options)
   }
 }

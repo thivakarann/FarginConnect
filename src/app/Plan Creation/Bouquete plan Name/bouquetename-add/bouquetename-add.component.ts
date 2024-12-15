@@ -64,7 +64,7 @@ export class BouquetenameAddComponent implements OnInit {
       }
 
       else if (res.flag == 2) {
-        this.toastr.error(res.errorMessage);
+        this.toastr.error(res.responseMessage);
       }
       else {
         this.toastr.error(res.responseMessage);

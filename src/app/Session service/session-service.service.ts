@@ -61,7 +61,7 @@ export class SessionServiceService {
   private clearHistoryAndNavigateToLogin(): void {
     localStorage.clear();
     localStorage.removeItem('token');
-    this.router.navigateByUrl('/login-page', { replaceUrl: true });
+    this.router.navigateByUrl('login-page', { replaceUrl: true });
   }
 
 
@@ -76,7 +76,7 @@ export class SessionServiceService {
     this.router.events
       .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
-        if (!this.isLoggedInFlag && event.url !== '/login-page') {
+        if (!this.isLoggedInFlag && event.url !== 'login-page') {
           this.clearHistoryAndNavigateToLogin();
         }
       });

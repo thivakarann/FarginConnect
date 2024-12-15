@@ -162,10 +162,12 @@ export class AdminComponent implements OnInit {
       this.response.push(element?.emailAddress);
       this.response.push(element?.mobileNumber);
       this.response.push(element?.address);
-      this.response.push(element?.city);
-      this.response.push(element?.pincode);
-      this.response.push(element?.state);
       this.response.push(element?.country);
+      this.response.push(element?.city);
+      this.response.push(element?.state);
+      this.response.push(element?.pincode);
+      
+      
 
       if (element?.accountStatus == 1) {
         this.response.push("Active");
@@ -201,10 +203,10 @@ export class AdminComponent implements OnInit {
       "Email",
       "Mobile",
       "Address",
+      "Country",
       "City",
       "State",
       "Pincode",
-      "Country",
       "Status",
       "Created By",
       "Created At",

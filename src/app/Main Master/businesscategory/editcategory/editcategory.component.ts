@@ -37,7 +37,7 @@ export class EditcategoryComponent implements OnInit {
     this.editcategory = this.fb.group({
       categoryName: new FormControl('', [Validators.required]),
       // mccCode: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{4}$'),]),
-      mccCode: new FormControl('', [Validators.required]),
+      mccCode: new FormControl('', [Validators.required,Validators.pattern('^[0-9]*$')]),
       autoDebitDate: new FormControl('', [Validators.required]),
       modifiedBy: new FormControl(''),
     });

@@ -18,43 +18,47 @@ export class SmsCreateComponent implements OnInit {
   myForm4!: FormGroup;
   getadminname = JSON.parse(localStorage.getItem('adminname') || '');
   options: any;
-
+  free: any;
+  paid: any;
+  allSelecteds = false;
+  @ViewChild('selectspaid') selectspaid: any = MatSelect;
+  @ViewChild('selects') selects: any = MatSelect;
+  allSelected = false;
+ 
+  merchantId: any;
+ 
   constructor(
     public service: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
     private dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: any,) { }
-
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {}
+ 
   ngOnInit(): void {
     this.merchantid = this.data.value;
-
-    this.service.SmsDropdownGetAll().subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.options = res.response;
-      }
-    })
     this.myForm4 = new FormGroup({
-      smsFor: new FormControl('', [
-        Validators.required,
-
-      ]),
-
-
-
-    })
+      smsFor: new FormControl('', [Validators.required]),
+      smsForpaid: new FormControl('', [Validators.required]),
+    });
+    this.service.smsfreepaiddropdowns(0).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.free = res.response;
+      }
+    });
+    this.service.smsfreepaiddropdowns(1).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.paid = res.response;
+      }
+    });
   }
-
-
-  @ViewChild('selects') selects: any = MatSelect;
-  allSelected = false;
-
-  merchantId: any;
-
-
+ 
   get smsFor() {
-    return this.myForm4.get('smsFor')
-
+    return this.myForm4.get('smsFor');
+  }
+ 
+  get smsForpaid() {
+    return this.myForm4.get('smsForpaid');
   }
   toggleAllSelection() {
     if (this.allSelected) {
@@ -63,25 +67,32 @@ export class SmsCreateComponent implements OnInit {
       this.selects.options.forEach((item: MatOption) => item.deselect());
     }
   }
-
+  toggleAll() {
+    if (this.allSelecteds) {
+      this.selectspaid.options.forEach((item: MatOption) => item.select());
+    } else {
+      this.selectspaid.options.forEach((item: MatOption) => item.deselect());
+    }
+  }
   smsSubmit() {
+    const smsFor = this.smsFor?.value || [];
+    const smsForpaid = this.smsForpaid?.value || [];
+    const combinedSmsFor = [...smsFor, ...smsForpaid];
     let submitModel: CreateSMS = {
       merchantId: this.merchantid,
-      type: this.smsFor?.value,
-      createdBy: this.getadminname
-    }
-
+      type: combinedSmsFor,
+      createdBy: this.getadminname,
+    };
     this.service.CreateSMS(submitModel).subscribe((res: any) => {
-      if (res.flag == 1) {
+      if (res.flag === 1) {
         this.toastr.success(res.responseMessage);
         this.dialog.closeAll();
         setTimeout(() => {
-          window.location.reload()
+          window.location.reload();
         }, 500);
-      }
-      else {
+      } else {
         this.toastr.error(res.responseMessage);
       }
-    })
+    });
   }
 }

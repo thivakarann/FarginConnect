@@ -495,7 +495,7 @@
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
-                    <label for="contactname">Montly withdrawal Limit (optional)</label>
+                    <label for="contactname">Monthly withdrawal Limit (optional)</label>
                     <input type="text" formControlName="withdrawalLimit" id="contactname" class="form-control"
                         ngModel="{{detaislone?.withdrawalLimit}}">
                     <div style="
@@ -587,7 +587,7 @@
 
                 <div class="col-sm-4 form-group">
                     <label for="billing">customer DueGeneration Mode</label>
-                    <select formControlName="customerPaymentMode" (change)="get($event)" type="text" class="form-select"
+                    <select formControlName="customerPaymentMode" ngModel="{{detaislone?.customerPaymentMode}}" (change)="get($event)" type="text" class="form-select"
                         id="billing">
                         <option value="Manual">Manual</option>
                         <option value="Auto">Auto</option>
@@ -599,14 +599,14 @@
             margin-top: 2px;
             position: relative;
             ;
-          " *ngIf="customerDuesEnable?.invalid && customerDuesEnable?.touched && customerDuesEnable?.errors?.['required']">
+          " *ngIf="customerPaymentMode?.invalid && customerPaymentMode?.touched && customerPaymentMode?.errors?.['required']">
                         Field id required*
                     </div>
                 </div>
 
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">SMS MerchantName</label>
-                    <input type="text" id="Entity Name" formControlName="smsMerchantName" class="form-control">
+                    <input type="text" id="Entity Name" formControlName="smsMerchantName" ngModel="{{detaislone?.smsMerchantName}}" class="form-control">
                     <div style="
                     color: red;
                     font-size: 12px;

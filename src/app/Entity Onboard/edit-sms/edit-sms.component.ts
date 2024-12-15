@@ -25,31 +25,44 @@ export class EditSmsComponent {
   merchantsmsId: any;
   options: any;
   Smsdetails: any;
+  smsCharge: any;
+  paid: any;
+  free: any;
  
   constructor(private router: Router, private Approval: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog) { }
   ngOnInit(): void {
- 
-    this.Approval.SmsDropdownGetAll().subscribe((res:any)=>{
-      if(res.flag==1){
-        this.options=res.response;
-      }
-    })
     this.Smsdetails = this.data.value
     this.merchantsmsId=this.data.value.merchantSmsId;
+    this.smsCharge=this.data.value.type.smsCharge
    
-    
- 
     this.myForm = new FormGroup({
       smsFor: new FormControl('', [Validators.required,]),
-     
+   
  
     });
+ 
+    this.Approval.smsfreepaiddropdowns(0).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.free = res.response;
+      }
+    });
+    this.Approval.smsfreepaiddropdowns(1).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.paid = res.response;
+      }
+    });
+   
+   
+ 
+   
   }
  
   get smsFor() {
     return this.myForm.get('smsFor')
  
   }
+ 
+ 
  
  
   submit() {
@@ -76,5 +89,6 @@ export class EditSmsComponent {
     } else {
       this.selects.options.forEach((item: MatOption) => item.deselect());
     }
-  }
+
+}
 }

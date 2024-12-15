@@ -12,46 +12,46 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AddcategoryComponent implements OnInit {
   days: number[] = Array.from({ length: 31 }, (_, i) => i + 1); // Generates days 1 to 31
-
+ 
   addcategory: any = FormGroup;
   createdBy = JSON.parse(localStorage.getItem('adminname') || '');
-
+ 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
-
-
+ 
+ 
   ngOnInit(): void {
-
-
-
-
+ 
+ 
+ 
+ 
     this.addcategory = new FormGroup({
       categoryName: new FormControl('', [Validators.required]),
-      // mccCode: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{4}$'),]),
-      mccCode: new FormControl('', [Validators.required]),
-      autoDebitDate: new FormControl('', [Validators.required]),
-
-    });
-
-  }
-
-
-
  
-
-
-
+      mccCode: new FormControl('', [Validators.required,Validators.pattern('^[0-9]*$')]),
+      autoDebitDate: new FormControl('', [Validators.required]),
+ 
+    });
+ 
+  }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
   get categoryName() {
     return this.addcategory.get('categoryName');
   }
-
+ 
   get mccCode() {
     return this.addcategory.get('mccCode');
   }
-
+ 
   get autoDebitDate() {
     return this.addcategory.get('autoDebitDate');
   }
-
+ 
   submit() {
     let submitModel: Businessadd = {
       categoryName: this.categoryName.value.trim(),
@@ -59,21 +59,23 @@ export class AddcategoryComponent implements OnInit {
       createdBy: this.createdBy,
       autoDebitDate: this.autoDebitDate?.value
     };
-
-
+ 
+ 
     this.service.BusinessCreate(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
-        window.location.reload();
-
+        this.dialog.closeAll()
+        setTimeout(() => {
+          window.location.reload()
+        }, 1000);
+ 
       }
       else {
         this.toastr.error(res.responseMessage);
-        this.dialog.closeAll()
       }
-
+ 
     });
-
+ 
   }
 
 

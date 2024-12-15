@@ -1277,3 +1277,32 @@ export interface PayoutOfflineSettlement{
   readonly dateRange:any;
   readonly payoutId:any
 }
+
+export interface Branchadd{
+  readonly branchName:any;
+  readonly apiKey:any;
+  readonly secretKey:any;
+  readonly bankName:any;
+  readonly accountHolderName:any;
+  readonly accountNumber:any
+  readonly ifscCode:any;
+  readonly createdBy:any;
+  readonly merchantId:any
+}
+ 
+ 
+export interface BranchEdit{
+  readonly branchName:any;
+  readonly apiKey:any;
+  readonly secretKey:any;
+  readonly bankName:any;
+  readonly accountHolderName:any;
+  readonly accountNumber:any
+  readonly ifscCode:any;
+  readonly modifiedBy:any;
+}
+ 
+export interface Branchstatus {
+  readonly accountStatus: any;
+}
+ 

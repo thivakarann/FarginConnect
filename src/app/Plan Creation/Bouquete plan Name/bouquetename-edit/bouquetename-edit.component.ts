@@ -78,7 +78,7 @@ export class BouquetenameEditComponent implements OnInit {
 
       }
       else {
-        this.toastr.error(res.errorMessage);
+        this.toastr.error(res.responseMessage);
       }
     })
   }

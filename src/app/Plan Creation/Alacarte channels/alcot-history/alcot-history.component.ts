@@ -15,19 +15,19 @@ import { PageEvent } from '@angular/material/paginator';
   templateUrl: './alcot-history.component.html',
   styleUrl: './alcot-history.component.css'
 })
-export class AlcotHistoryComponent implements OnInit{
+export class AlcotHistoryComponent implements OnInit {
   merchantid: any = localStorage.getItem('merchantId')
   history: any;
   date2: any;
   date1: any;
   pageIndex: number = 0;
-  pageSize=5;
+  pageSize = 5;
   totalPages: any;
   totalpage: any;
   currentpage: any;
   historyexport: any;
 
-  constructor(private location:Location,private service:FarginServiceService){
+  constructor(private location: Location, private service: FarginServiceService) {
   }
 
   dataSource: any;
@@ -42,7 +42,7 @@ export class AlcotHistoryComponent implements OnInit{
       "generic",
       "createdBy",
       "createdDateTime",
-      
+
     ]
 
   showcategoryData: boolean = false;
@@ -52,26 +52,26 @@ export class AlcotHistoryComponent implements OnInit{
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-ngOnInit(): void {
-  this.service.AlcotHistoryViewAll(this.pageSize,this.pageIndex).subscribe((res:any)=>{
-    if(res.flag==1){
-      this.history=res.response;
-      this.history.reverse();
-      this.totalPages=res.pagination.totalElements;
-      this.totalpage=res.pagination.totalPages;
-     this.currentpage=res.pagination.currentPage+1;
-    
-      this.dataSource = new MatTableDataSource(this.history);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-    }
-    })
-     
-}
+  ngOnInit(): void {
+    this.service.AlcotHistoryViewAll(this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.history = res.response;
+        // this.history.reverse();
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
 
-reload(){
-  window.location.reload()
-}
+        this.dataSource = new MatTableDataSource(this.history);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+    })
+
+  }
+
+  reload() {
+    window.location.reload()
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -82,39 +82,53 @@ reload(){
     }
   }
   exportexcel() {
-    this.service.AlcotHistoryViewAllExport().subscribe((res:any)=>{
-        this.historyexport=res.response.reverse();
-      if(res.flag==1){
-    console.log('check');
-    let sno = 1;
-    this.responseDataListnew = [];
-    this.historyexport.forEach((element: any) => {
-      let createdate = element.createdDateTime;
-      this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
- 
-      // let moddate = element.modifiedDateTime;
-      // this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
- 
-      this.response = [];
-      this.response.push(sno);
-      this.response.push(element?.channelName);
-      this.response.push(element?.channelNo);
-      this.response.push(element?.price);
-      this.response.push(element?.language);
-      this.response.push(element?.generic);
-      this.response.push(element?.createdBy);
-      this.response.push(this.date1);
- 
-     
- 
- 
- 
-      sno++;
-      this.responseDataListnew.push(this.response);
+    this.service.AlcotHistoryViewAllExport().subscribe((res: any) => {
+      this.historyexport = res.response;
+      if (res.flag == 1) {
+        console.log('check');
+        let sno = 1;
+        this.responseDataListnew = [];
+        this.historyexport.forEach((element: any) => {
+          // let createdate = element.createdDateTime;
+          // this.date1 =  moment(createdate).format('DD/MM/yyyy hh:mm a').toString();
+
+          let moddate = element?.alcotChannel?.modifiedAt;
+          this.date2 = moment(moddate).format('DD/MM/yyyy hh:mm a').toString();
+
+          this.response = [];
+          this.response.push(sno);
+          this.response.push(element?.channelName);
+          this.response.push(element?.channelNo);
+          this.response.push(element?.price);
+
+
+          if (element?.type == 0) {
+            this.response.push("Free");
+          }
+          else {
+            this.response.push("Paid");
+          }
+          this.response.push(element?.language);
+          this.response.push(element?.generic);
+          this.response.push(element?.alcotChannel?.modifiedBy);
+          // if(element?.alcotChannel?.modifiedAt){
+          //   this.response.push(moment(element?.alcotChannel?.modifiedAt).format('DD/MM/yyyy hh:mm a').toString());
+          // }
+          // else{
+          //   this.response.push('');
+          // }
+          this.response.push(this.date2);
+
+
+
+
+
+          sno++;
+          this.responseDataListnew.push(this.response);
+        });
+        this.excelexportCustomer();
+      }
     });
-    this.excelexportCustomer();
-  }
-});
   }
 
   excelexportCustomer() {
@@ -124,11 +138,11 @@ reload(){
       "Channel Name",
       "Channel Number",
       "Price",
-      "language",
       "Type",
+      "language",
       "Generic",
-      "Created By",
-      "Created At",
+      "Modified By",
+      "Modified At",
     ]
 
 
@@ -199,18 +213,18 @@ reload(){
     });
   }
 
-  close(){
-   this.location.back()
+  close() {
+    this.location.back()
   }
   renderPage(event: PageEvent) {
     // Capture the new page index and page size from the event
     this.pageIndex = event.pageIndex;  // Update current page index
     this.pageSize = event.pageSize;           // Update page size (if changed)
- 
+
     // Log the new page index and page size to the console (for debugging)
     console.log('New Page Index:', this.pageIndex);
     console.log('New Page Size:', this.pageSize);
- 
+
     // You can now fetch or display the data for the new page index
     // Example: this.fetchData(this.currentPageIndex, this.pageSize);
     this.ngOnInit()

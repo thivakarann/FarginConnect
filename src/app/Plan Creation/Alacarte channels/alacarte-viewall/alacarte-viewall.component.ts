@@ -26,8 +26,6 @@ export class AlacarteViewallComponent implements OnInit {
     'channelNo',
     'type',
     'price',
-  
-    // 'generic',
     'alcotStatus',
     'View',
     'Edit',

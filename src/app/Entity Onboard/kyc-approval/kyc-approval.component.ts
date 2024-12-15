@@ -67,7 +67,11 @@ export class KycApprovalComponent implements OnInit{
           window.location.reload()
         }, 500);
       } else {
+        this.dialog.closeAll();
         this.toaster.error(res.responseMessage);
+        setTimeout(() => {
+          window.location.reload()
+        }, 500);
       }
     });
   }

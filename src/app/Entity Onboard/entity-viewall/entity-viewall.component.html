@@ -5,27 +5,27 @@
             <div class="search ">
                 <form class="form">
                     <label for="search">
-                        <input #input required autocomplete="off" placeholder="Search"
-                               id="search" type="text">
+                        <input #input required autocomplete="off" placeholder="Search" id="search" type="text">
                         <div class="icon">
                             <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                                xmlns="http://www.w3.org/2000/svg" class="swap-on">
                                 <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
-                                      stroke-linecap="round"></path>
+                                    stroke-linecap="round"></path>
                             </svg>
                         </div>
                         <button (click)="reload()" type="reset" class="close-btn">
                             <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
                                 <path clip-rule="evenodd"
-                                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                      fill-rule="evenodd"></path>
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    fill-rule="evenodd"></path>
                             </svg>
                         </button>
                     </label>
                 </form>
 
             </div> &nbsp;
-            <button (click)="Entity(input.value)" style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Go</button>
+            <button (click)="Entity(input.value)" style="color:white;background-color: #141E46;border-radius: 10px;"
+                mat-raised-button>Go</button>
             &nbsp;
             <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button (click)="add()"
                 [hidden]="valueEntityAdd!=='Entity Onboard-Add'">Create</button>
@@ -78,7 +78,7 @@
                 <td mat-cell *matCellDef="let viewall">
                     <span *ngIf="viewall?.approvalStatusL2 == 'approved'" style="color:green;">Approved</span>
                     <span *ngIf="viewall?.approvalStatusL2 == 'Pending'" style="color:red;">Pending</span>
-                    <span *ngIf="viewall?.onBoardStatus == 'Rejected'" style="color:orange;">Rejected</span>
+                    <span *ngIf="viewall?.approvalStatusL2 == 'Rejected'" style="color:orange;">Rejected</span>
 
                 </td>
             </ng-container>
@@ -91,7 +91,7 @@
                 </td>
             </ng-container>
 
-           
+
             <ng-container matColumnDef="status">
                 <th mat-header-cell *matHeaderCellDef [hidden]="valueEntityStatus!=='Entity Onboard-Status'">Status</th>
                 <td mat-cell *matCellDef="let viewall" [hidden]="valueEntityStatus!=='Entity Onboard-Status'">
@@ -121,15 +121,41 @@
             </ng-container>
 
             <ng-container matColumnDef="accountStatus">
-                <th mat-header-cell *matHeaderCellDef>Block/unblock Status</th>
+                <th mat-header-cell *matHeaderCellDef>Block/Unblock Status</th>
                 <td mat-cell *matCellDef="let viewall">
-                    <span *ngIf="viewall.accountStatus == 1" style="color:green;">Open</span>
+                    <span *ngIf="viewall.accountStatus == 1" style="color:green;">Unblocked</span>
                     <span *ngIf="viewall.accountStatus == 0" style="color:red;">blocked</span>
 
                 </td>
             </ng-container>
 
+            <ng-container matColumnDef="failedLoginCount">
+                <th mat-header-cell *matHeaderCellDef>Login count</th>
+                <td mat-cell *matCellDef="let viewall">
+                    <span *ngIf="viewall.failedLoginCount == 0" style="color:green;">Unblocked</span>
+                    <span *ngIf="viewall.failedLoginCount == 6" style="color:red;">Blocked</span>
+
+                </td>
+            </ng-container>
             <ng-container matColumnDef="unblock">
+                <th mat-header-cell *matHeaderCellDef [hidden]="valueEntityUnblock !== 'Entity Onboard-Unblock'">
+                    Unblock Account
+                </th>
+                <td style="cursor:pointer;" mat-cell *matCellDef="let businesscategory"
+                    [hidden]="valueEntityUnblock !== 'Entity Onboard-Unblock'">
+
+                    <span *ngIf="businesscategory.failedLoginCount == 0">
+                        <i class="fa fa-unlock" style="font-size: 20px; color: rgb(39, 39, 95);"></i>
+                    </span>
+
+                    <span *ngIf="businesscategory.failedLoginCount == 6">
+                        <i class="fa fa-lock" (click)="unblock(businesscategory.merchantId)"
+                            style="font-size: 20px; color: rgb(39, 39, 95);"></i>
+                    </span>
+                </td>
+            </ng-container>
+
+            <!-- <ng-container matColumnDef="unblock">
                 <th mat-header-cell *matHeaderCellDef [hidden]="valueEntityUnblock!=='Entity Onboard-Unblock'">Unblock
                     Account</th>
                 <td style="cursor:pointer;" mat-cell *matCellDef="let businesscategory"
@@ -137,7 +163,7 @@
                     <i class="fa fa-lock" (click)="unblock(businesscategory.merchantId)"
                         style="font-size: 20px;color: rgb(39, 39, 95);"></i>
                 </td>
-            </ng-container>
+            </ng-container> -->
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
             <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
@@ -152,11 +178,14 @@
     <div class=" row d-flex justify-content-end mt-3 mx-2">
         <div class="col-md-6"></div>
         <div class="col-md-6">
-            <button style="color:white;background-color: #141E46;" >Total Entires:{{this.totalPages}}</button>
-            <button style="color:white;background-color: #141E46;"  (click)="changePageIndex(pageIndex - 1)"[hidden]="pageIndex === 0">Previous</button>
-            <button style="color:white;background-color: #141E46;" >{{ this.currentpage}} of {{this.totalpage}} Pages</button>
-            <button style="color:white;background-color: #141E46;"   (click)="changePageIndex(pageIndex + 1)" [hidden]="pageIndex >= totalpage - 1" >Next</button>
-                </div>
-  </div>
+            <button style="color:white;background-color: #141E46;">Total Entires:{{this.totalPages}}</button>
+            <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex - 1)"
+                [hidden]="pageIndex === 0">Previous</button>
+            <button style="color:white;background-color: #141E46;">{{ this.currentpage}} of {{this.totalpage}}
+                Pages</button>
+            <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex + 1)"
+                [hidden]="pageIndex >= totalpage - 1">Next</button>
+        </div>
+    </div>
 </mat-card-footer>
 <!-- </mat-card> -->

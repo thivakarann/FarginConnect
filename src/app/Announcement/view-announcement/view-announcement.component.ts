@@ -217,16 +217,16 @@ export class ViewAnnouncementComponent implements OnInit {
     this.service.announcementViewallExport().subscribe((res: any) => {
       this.announcementexport = res.response;
       if (res.flag == 1) {
-
-
+ 
+ 
         let sno = 1;
         this.responseDataListnew = [];
         this.announcementexport.forEach((element: any) => {
-          let createdate = element.createdDateTime;
-          this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-
-          let moddate = element.updateDateTime;
-          this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
+          // let createdate = element.createdDateTime;
+          // this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
+ 
+          // let moddate = element.updateDateTime;
+          // this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
           this.response = [];
           this.response.push(sno);
           this.response.push(element?.businessCategory?.categoryName);
@@ -240,10 +240,22 @@ export class ViewAnnouncementComponent implements OnInit {
           else {
             this.response.push('Inactive');
           }
-
-          this.response.push(this.date1);
+ 
+          // this.response.push(this.date1 ||'-');
+             if (element?.createdDateTime) {
+                  this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy-hh:mm a').toString());
+                }
+                else {
+                  this.response.push('-');
+                }
+         
           this.response.push(element?.updatedBy);
-          this.response.push(this.date2);
+          if (element?.updateDateTime) {
+            this.response.push(moment(element?.updateDateTime).format('DD/MM/yyyy-hh:mm a').toString());
+          }
+          else {
+            this.response.push('-');
+          }
           sno++;
           this.responseDataListnew.push(this.response);
         });
@@ -251,7 +263,7 @@ export class ViewAnnouncementComponent implements OnInit {
       }
     });
   }
-
+ 
   excelexportCustomer() {
     const header = [
       "S.No",
@@ -292,8 +304,8 @@ export class ViewAnnouncementComponent implements OnInit {
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
-
-
+ 
+ 
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -304,7 +316,7 @@ export class ViewAnnouncementComponent implements OnInit {
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
+ 
     }
     );
     workbook.xlsx.writeBuffer().then((data: any) => {

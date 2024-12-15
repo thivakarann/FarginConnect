@@ -128,7 +128,7 @@ export class ServiceProviderComponent implements OnInit {
     this.dialog.open(ServiceproviderAddComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
-      disableClose:true
+      disableClose: true
     });
   }
 
@@ -169,20 +169,23 @@ export class ServiceProviderComponent implements OnInit {
 
   }
 
-
   exportexcel() {
-
+    console.log('check');
     let sno = 1;
     this.responseDataListnew = [];
     this.data.forEach((element: any) => {
-      let createdate = element.createdDateTime;
+      let createdate = element.createdAt;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
 
-
+      let moddate = element.modifiedAt;
+      this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
       this.response.push(sno);
+      this.response.push(element?.companyName);
       this.response.push(element?.serviceProviderName);
-      this.response.push(element?.serviceProviderLink);
+      this.response.push(element?.emailAddress);
+      this.response.push(element?.mobileNumber);
+      this.response.push(element?.location);
       if (element?.status == 1) {
         this.response.push("Active");
       }
@@ -194,12 +197,8 @@ export class ServiceProviderComponent implements OnInit {
 
       this.response.push(this.date1);
       this.response.push(element?.modifiedBy);
-      if (element?.modifiedAt) {
-        this.response.push(moment(element?.modifiedAt).format('DD/MM/yyyy-hh:mm a').toString());
-      }
-      else {
-        this.response.push('');
-      }
+
+      this.response.push(this.date2);
 
 
 
@@ -213,8 +212,11 @@ export class ServiceProviderComponent implements OnInit {
     // const title='Business Category';
     const header = [
       "S.No",
-      "Service Provider Name",
-      "Service Provider URL",
+      "Companyname",
+      "Providername",
+      "Email",
+      "Mobile",
+      "Address",
       "Status",
       "CreatedBy",
       "CreatedDateTime",
@@ -248,7 +250,7 @@ export class ServiceProviderComponent implements OnInit {
     });
 
     data.forEach((d: any) => {
-      // 
+      // console.log("row loop");
 
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
@@ -259,6 +261,9 @@ export class ServiceProviderComponent implements OnInit {
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
+      let qty8 = row.getCell(9);
+      let qty9 = row.getCell(10);
+
 
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -268,6 +273,9 @@ export class ServiceProviderComponent implements OnInit {
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+
 
 
     }
@@ -287,7 +295,6 @@ export class ServiceProviderComponent implements OnInit {
 
     });
   }
-
 
 
   applyFilter(event: Event) {

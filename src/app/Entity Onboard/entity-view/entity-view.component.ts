@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { AgreementLinkExpiry, ApprovalBank, bankData, bankedit, BankPrimaryStatus, Bankverficiation, Drivingverification, EmailTrigger, Facheckverification, KycApproval, Pasportverify, PassPortverification, PgOnboard, settopStatus, SmsStatus, verification, verify, VoterIdVerify } from '../../fargin-model/fargin-model.module';
+import { AgreementLinkExpiry, ApprovalBank, bankData, bankedit, BankPrimaryStatus, Bankverficiation, Branchstatus, Drivingverification, EmailTrigger, Facheckverification, KycApproval, Pasportverify, PassPortverification, PgOnboard, settopStatus, SmsStatus, verification, verify, VoterIdVerify } from '../../fargin-model/fargin-model.module';
 import { ApprovalForBankComponent } from '../approval-for-bank/approval-for-bank.component';
 import { CommentsForApprovalComponent } from '../comments-for-approval/comments-for-approval.component';
 import { KycApprovalComponent } from '../kyc-approval/kyc-approval.component';
@@ -43,6 +43,8 @@ import { SmsHistoryEntityComponent } from '../sms-history-entity/sms-history-ent
 import { AddAgreementsComponent } from '../add-agreements/add-agreements.component';
 import { AgreementlinkComponent } from '../agreementlink/agreementlink.component';
 import { AgreementsLinkExtentComponent } from '../agreements-link-extent/agreements-link-extent.component';
+import { BranchAddComponent } from '../Branch/branch-add/branch-add.component';
+import { BranchEditComponent } from '../Branch/branch-edit/branch-edit.component';
 
 @Component({
   selector: 'app-entity-view',
@@ -193,6 +195,7 @@ export class EntityViewComponent implements OnInit {
   valueagreementlinkstatus: any;
   valueagreementlink: any;
   valueagreement: any;
+  branchget: any;
   selectTab(tab: string): void {
     this.activeTab = tab;
   }
@@ -490,6 +493,7 @@ export class EntityViewComponent implements OnInit {
       }
     })
 
+    
 
     this.MerchantView.OtherPayByMerchantId(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
@@ -497,6 +501,12 @@ export class EntityViewComponent implements OnInit {
         this.otherDetails.reverse();
       }
     });
+    
+    this.MerchantView.BranchGet(this.id).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.branchget = res.response;
+      }
+    })
 
     this.MerchantView.SMSViewById(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
@@ -1990,6 +2000,41 @@ export class EntityViewComponent implements OnInit {
       queryParams: { Alldata: id,
         Alldata1:dta
        },
+    });
+  }
+
+  branchcreate(){
+    this.dialog.open(BranchAddComponent,{
+      disableClose:true,
+      enterAnimationDuration:"500ms",
+      exitAnimationDuration:"1000ms",
+      data: { value: this.id }
+    });
+  }
+ 
+  branchedit(id:any){
+    this.dialog.open(BranchEditComponent,{
+      disableClose:true,
+      enterAnimationDuration:"500ms",
+      exitAnimationDuration:"1000ms",
+      data: { value: id }
+    });
+  }
+
+  status(event: MatSlideToggleChange, id: any) {
+    this.isChecked = event.checked;
+
+    let submitModel: Branchstatus = {
+
+      accountStatus: this.isChecked ? 1 : 0,
+    };
+
+    this.MerchantView.BranchStatus(id, submitModel).subscribe((res: any) => {
+     
+      this.toastr.success(res.responseMessage);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     });
   }
 }

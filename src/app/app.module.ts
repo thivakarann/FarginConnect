@@ -237,6 +237,10 @@ import { OffileSettlementPayoutComponent } from './Entity Onboard/Offline-Transa
 import { OfflineSettlementComponent } from './Entity Onboard/Offline-Transactions/offline-settlement/offline-settlement.component';
 import { OfflineTransactionsComponent } from './Entity Onboard/Offline-Transactions/offline-transactions/offline-transactions.component';
 import { SuccessOfftransactionsComponent } from './Entity Onboard/Offline-Transactions/success-offtransactions/success-offtransactions.component';
+import { BranchAddComponent } from './Entity Onboard/Branch/branch-add/branch-add.component';
+import { BranchEditComponent } from './Entity Onboard/Branch/branch-edit/branch-edit.component';
+import { BranchViewallComponent } from './branch-viewall/branch-viewall.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -450,7 +454,10 @@ import { SuccessOfftransactionsComponent } from './Entity Onboard/Offline-Transa
     SuccessOfftransactionsComponent,
     FailureOfftransactionsComponent,
     OfflineSettlementComponent,
-    OffileSettlementPayoutComponent
+    OffileSettlementPayoutComponent,
+    BranchAddComponent,
+    BranchEditComponent,
+    BranchViewallComponent
 
   ],
 

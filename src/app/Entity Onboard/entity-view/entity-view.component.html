@@ -8,10 +8,10 @@
             {{ detaislone?.entityName }}
         </div>
     </div>
-    <div class="col-md-6" style="color: #2346cf; font-weight: 600; font-size: 15px">
+    <div class="col-md-6" style="color: #2346cf; font-weight: 600; font-size: 14px">
         <p style="text-wrap: nowrap">
             <strong>Note:</strong> ("The functionalities of the tabs listed below can only be accessed once the
-            Onboarding process is completed.")
+            Onboarding process is completed,except Payment Link.")
         </p>
     </div>
     <div class="col-md-6 text-end" style="margin-bottom: 16px;
@@ -67,8 +67,8 @@
                 class="fa-solid fa-user"></i>&nbsp;&nbsp;Customers
         </div>
     </button>
-
-    <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
+    <!-- [disabled]="detaislone?.onBoardStatus !='true'" -->
+    <button style="background-color: #fff;border:none"  class="navtab"
         data-target="page5" (click)="viewpaymentLink(this.id)">
         <div [hidden]="valueentitypaylink!=='Entity View Payment Link'"><i class="fa fa-link"></i>&nbsp;&nbsp;Payment
             Link</div>
@@ -100,6 +100,8 @@
             [hidden]="valuesmssetting!=='Sms Setting'">SMS Settings</button>
         <button class="tab" [class.active]="activeTab === 'doot5'" (click)="selectTab('doot5')"
             [hidden]="valueagreement!=='Entity View Agreement'">Agreement</button>
+            <button class="tab" [class.active]="activeTab === 'doot6'" (click)="selectTab('doot6')"
+           >Branch</button>
     </div>
     <div class="tab-content" *ngIf="activeTab === 'events'" [hidden]="valueGeneral!=='Entity View General Information'">
         <div class="filters">
@@ -231,7 +233,7 @@
                                             </div>
 
                                             <div class="d-flex mt-3">
-                                                <div class="w-50 font-weight-bold">Montly withdrawal Limit</div>
+                                                <div class="w-50 font-weight-bold">Monthly withdrawal Limit</div>
                                                 <div class="w-50">
 
                                                     <span>{{ detaislone?.withdrawalLimit
@@ -1308,7 +1310,7 @@
                             <th>SMS Type</th>
                             <th>SMS Description</th>
                             <th>SMS Count</th>
-                            <!-- <th>Charge Per SMS</th> -->
+                            <th>SMS Charge Type</th>
                             <th [hidden]="valuesmsapproval!=='Sms Setting-Approval'">Approval</th>
                             <th>Approval Status</th>
                             <th [hidden]="valuesmsstatus!=='Sms Setting-Status'">Status</th>
@@ -1322,10 +1324,10 @@
                         <tbody
                             *ngFor="let item of smsDetails| paginate: { itemsPerPage: 5, currentPage: currentPage } | search: searchText;let i=index">
                             <td>{{i+1}}</td>
-                            <td>{{item.type.smsTitle}}</td>
-                            <td>{{item.type.smsTempDescription}}</td>
-                            <td>{{item.smsCount}}</td>
-                            <!-- <td>{{item.type?.smsCharge}}</td> -->
+                            <td>{{item?.type?.smsTitle}}</td>
+                            <td>{{item?.type?.smsTempDescription}}</td>
+                            <td>{{item?.smsCount}}</td>
+                            <td>{{ item?.type?.smsCharge }}</td>
                             <td class="text-center" [hidden]="valuesmsapproval!=='Sms Setting-Approval'">
                                 <span><button class="buttonDownload" [disabled]="item.smsApprovalStatus!=='Rejected'"
                                         (click)="SmsApproval(item.merchantSmsId)">Approval</button></span>
@@ -1350,10 +1352,10 @@
                             <td [hidden]="valuesmsedit!=='Sms Setting-Edit'"> <span (click)="editsms(item)">
                                     <i class="fas fa-edit" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
                                 </span></td>
-                            <td>{{item.createdBy}}</td>
-                            <td>{{item.createdDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
-                            <td>{{item.modifedBy}}</td>
-                            <td>{{item.modifedDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
+                            <td>{{item?.createdBy}}</td>
+                            <td>{{item?.createdDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
+                            <td>{{item?.modifedBy}}</td>
+                            <td>{{item?.modifedDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
                         </tbody>
                     </table>
                 </div>
@@ -1526,6 +1528,106 @@
                             <td>{{item.createdBy}}</td>
                             <td>{{item.createdDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
 
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-end mt-3">
+                    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="activeTab === 'doot6'">
+    <mat-card-header>
+        <div class="col-md-3 mr-2" style="color: blue; font-size: 12px;">
+           
+        </div>
+        <div class="row  d-flex justify-content-start">
+            <div class="col-md-3">
+                <div class="search ">
+                    <form class="form">
+                        <label for="search">
+                            <input #input required="" autocomplete="off" placeholder="Search" id="search" type="text"
+                                [(ngModel)]="searchText" name="searchText">
+                            <div class="icon">
+                                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                                        stroke-linecap="round"></path>
+                                </svg>
+                                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                                    <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
+                                        stroke-linecap="round">
+                                    </path>
+                                </svg>
+                            </div>
+                            <button type="reset" class="close-btn">
+                                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                                    <path clip-rule="evenodd"
+                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                        fill-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </label>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-2 mt-1">
+                <button  (click)="branchcreate()"
+                    style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Create
+                </button>
+            </div>
+        </div>
+    </mat-card-header>
+    <div class="row mt-4">
+        <div class="col-12 mb-3 mb-lg-5">
+            <div class="card table-nowrap table-card">
+                <div class="table-responsive text-nowrap text-center">
+                    <table class="table table-hover" id="customers">
+                        <tr>
+                            <th>S.No </th>
+                            <th>Branch Name</th>
+                            <th>Api key </th>
+                            <th>Secret key </th>
+                            <th>Bank Name</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                            <th>ifsc code</th>
+                            <th>Account HolderName</th>
+                            <th>Account Number</th>
+                            <th>Created By</th>
+                            <th>Created At</th>
+                            <th>Modified By</th>
+                            <th>Modified At</th>
+                        </tr>
+                        <tbody
+                            *ngFor="let item of branchget| paginate: { itemsPerPage:3, currentPage: currentPage } | search: searchText;let i=index">
+                            <td>{{i+1}}</td>
+                            <td>{{item.branchName}}</td>
+                            <td>{{item.apiKey}}</td>
+                            <td>{{item.secretKey}}</td>
+                            <td>{{item.bankName}}</td>
+                            <td>
+                                <mat-slide-toggle class="example-margin" color="primary" [checked]="item.accountStatus === 1"
+                                    (change)="status($event,item.branchId)">
+                                </mat-slide-toggle>
+                            </td>
+                            <td>
+                                <span><i style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"
+                                            (click)="branchedit(item)" class="fas fa-edit">
+                                    </i></span>
+                                    </td>
+                            <td>{{item.ifscCode}}</td>
+                            <td>{{item.accountHolderName}}</td>
+                            <td>{{item.accountNumber}}</td>
+                            <td>{{item.createdBy}}</td>
+                            <td>{{item.createdAt | date : "dd/MM/yyyy hh:mm a"}}</td>      
+                             <td>{{item.modifiedBy }}</td>
+                             <td>{{item.modifiedAt | date : "dd/MM/yyyy hh:mm a"}}</td>
+                         
                         </tbody>
                     </table>
                 </div>

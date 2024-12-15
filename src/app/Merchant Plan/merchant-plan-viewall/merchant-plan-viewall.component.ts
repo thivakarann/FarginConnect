@@ -176,13 +176,13 @@ export class MerchantPlanViewallComponent {
 
 
   exportexcel() {
-
+ 
     let sno = 1;
     this.responseDataListnew = [];
     this.viewall.forEach((element: any) => {
-      let createdate = element.createdDatetime;
+      let createdate = element.createdDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-
+ 
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.planName);
@@ -196,7 +196,7 @@ export class MerchantPlanViewallComponent {
         this.response.push("InActive");
       }
       this.response.push(element?.createdBy);
-      this.response.push(this.date1);
+      this.response.push(element.createdDateTime);
       this.response.push(element?.modifiedBy)
       if (element?.modifiedDateTime) {
         this.response.push(element?.modifiedDateTime)
@@ -209,6 +209,7 @@ export class MerchantPlanViewallComponent {
     });
     this.excelexportCustomer();
   }
+
 
   excelexportCustomer() {
     // const title='Business Category';

@@ -1,0 +1,125 @@
+<div class="container">
+    <div class="well" style="margin-top: 2%;">
+        <h4 class="card-header" style="font-weight: 500">Update Branch</h4>
+        <form [formGroup]="branchedit" style="margin-top: 2%;">
+            <div class="row">
+                <div class="col form-group ">
+                    <label for="branchName">Branch Name</label>
+                    <input ngModel="{{this.branch}}" class="form-control" id="branchName" type="text"
+                        formControlName="branchName" required />
+                    <div style="
+            color: red;
+            font-size: 12px;
+            margin-top: 2px;
+            position: relative;
+            ;
+          " *ngIf="branchName?.invalid && branchName?.touched && branchName?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+
+                <div class="col form-group ">
+                    <label for="apiKey">Api Key</label>
+                    <input ngModel="{{this.key}}" class="form-control" id="apiKey" type="text" formControlName="apiKey"
+                        required>
+                    <div style="
+            color: red;
+            font-size: 12px;
+            margin-top: 2px;
+            position: relative;
+            ;
+          " *ngIf="apiKey?.invalid && apiKey?.touched && apiKey?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col form-group ">
+                    <label for="secretKey">Secret key</label>
+                    <input ngModel="{{this.secret}}" class="form-control" id="secretKey" type="text"
+                        formControlName="secretKey" required />
+                    <div style="
+            color: red;
+            font-size: 12px;
+            margin-top: 2px;
+            position: relative;
+            ;
+          " *ngIf="secretKey?.invalid && secretKey?.touched && secretKey?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+
+
+
+                <div class="col form-group ">
+                    <label for="bankName">Bank Name</label>
+                    <input ngModel="{{bank}}" class="form-control" id="bankName" type="text"
+                        formControlName="bankName" required />
+                    <div style="
+            color: red;
+            font-size: 12px;
+            margin-top: 2px;
+            position: relative;
+            ;
+          " *ngIf="bankName?.invalid && bankName?.touched && bankName?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col form-group ">
+                    <label for="accountHolderName">Account Holder name</label>
+                    <input ngModel="{{holdername}}" class="form-control" id="accountHolderName" type="text"
+                        formControlName="accountHolderName" required />
+                    <div style="
+        color: red;
+        font-size: 12px;
+        margin-top: 2px;
+        position: relative;
+        ;
+      " *ngIf="accountHolderName?.invalid && accountHolderName?.touched && accountHolderName?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+
+                <div class="col form-group ">
+                    <label for="accountNumber">Account Number</label>
+                    <input ngModel="{{number}}" class="form-control" id="accountNumber" type="text"
+                        formControlName="accountNumber" required />
+                    <div style="
+    color: red;
+    font-size: 12px;
+    margin-top: 2px;
+    position: relative;
+    ;
+  " *ngIf="accountNumber?.invalid && accountNumber?.touched && accountNumber?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col form-group ">
+                    <label foM="ifscCode">IFSC code</label>
+                    <input ngModel="{{code}}" class="form-control" id="ifscCode" type="text"
+                        formControlName="ifscCode" required />
+                    <div style="
+color: red;
+font-size: 12px;
+margin-top: 2px;
+position: relative;
+;
+" *ngIf="ifscCode?.invalid && ifscCode?.touched && ifscCode?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <button  (click)="Submit()" type="submit" class="btn mx-1 "
+                    style="background-color:#7db855be">Submit</button>
+                <button type="submit" class="btn" style="background-color:#141E46;color:white"
+                    mat-dialog-close>Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
