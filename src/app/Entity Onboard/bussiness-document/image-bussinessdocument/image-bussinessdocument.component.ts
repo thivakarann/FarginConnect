@@ -63,31 +63,52 @@ export class ImageBussinessdocumentComponent {
     if (files) {
       const fileName = files.name;
       const fileType = files.type;
-   
-      // Check for image files
-      if (this.flag === 1 && fileType.startsWith('image/')) {
+      if (this.flag === 1) {
         this.errorMessage = '';
-        this.file1 = files;
-        const reader = new FileReader();
-        reader.readAsDataURL(files);
-        reader.onloadend = () => {
-          this.imageSrc = reader.result as string; // For displaying the image
-        };
-        console.log('File 1 uploaded successfully: ' + fileName);
-      }
-      // Check for PDF files
-      else if (this.flag === 2 && fileType === 'application/pdf') {
+        if (fileType.startsWith('image/')) {
+          this.file1 = files;
+          const reader = new FileReader();
+          reader.readAsDataURL(files);
+          reader.onloadend = () => {
+            this.imageSrc = reader.result as string;
+            this.pdfSrc = null;
+          };
+          console.log('Image file uploaded successfully: ' + fileName);
+        } else if (fileType === 'application/pdf') {
+          this.file1 = files;
+          const reader = new FileReader();
+          reader.readAsDataURL(files);
+          reader.onloadend = () => {
+            this.pdfSrc = reader.result as string;
+            this.imageSrc = null;
+          };
+          console.log('PDF file uploaded successfully: ' + fileName);
+        } else {
+          this.errorMessage = 'Only Images or PDFs are allowed';
+        }
+      } else if (this.flag === 2) {
         this.errorMessage = '';
-        this.file2 = files;
-        const reader = new FileReader();
-        reader.readAsDataURL(files);
-        reader.onloadend = () => {
-          this.pdfSrc = reader.result as string; // For displaying the PDF
-        };
-        console.log('File 2 uploaded successfully: ' + fileName);
-      }
-      else {
-        this.errorMessage = 'Only Images or PDFs are allowed';
+        if (fileType.startsWith('image/')) {
+          this.file2 = files;
+          const reader = new FileReader();
+          reader.readAsDataURL(files);
+          reader.onloadend = () => {
+            this.imageSrc = reader.result as string;
+            this.pdfSrc = null;
+          };
+          console.log('Image file uploaded successfully: ' + fileName);
+        } else if (fileType === 'application/pdf') {
+          this.file2 = files;
+          const reader = new FileReader();
+          reader.readAsDataURL(files);
+          reader.onloadend = () => {
+            this.pdfSrc = reader.result as string;
+            this.imageSrc = null;
+          };
+          console.log('PDF file uploaded successfully: ' + fileName);
+        } else {
+          this.errorMessage = 'Only Images or PDFs are allowed ';
+        }
       }
     }
   }
