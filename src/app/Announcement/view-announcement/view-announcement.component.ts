@@ -55,6 +55,16 @@ export class ViewAnnouncementComponent implements OnInit {
   totalPages: any;
   totalpage: any;
   currentpage: any;
+
+
+  totalpage1: any;
+  totalPages1: any;
+  currentpage1: any;
+  pageSize1: number = 5;
+ 
+  filter: boolean = true;
+  pageIndex1: number = 0;
+
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -102,6 +112,7 @@ export class ViewAnnouncementComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.data);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+      this.filter = false;
       this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
     })
 
@@ -134,24 +145,29 @@ export class ViewAnnouncementComponent implements OnInit {
   reload() {
     window.location.reload()
   }
-
   search() {
-    this.service.announcementDate(this.fromDate, this.toDate).subscribe({
+    this.service.announcementDate(this.fromDate, this.toDate,this.pageSize1, this.pageIndex1).subscribe({
       next: (res: any) => {
-
-        this.datefilter = res.response;
-
-
-        this.dataSource = new MatTableDataSource(this.datefilter);
-
-
+        if (res.flag == 1) {
+          this.data = res.response.content;
+         
+        this.totalPages1 = res.pagination.totalElements;
+        this.totalpage1 = res.pagination.totalPages;
+        this.currentpage1 = res.pagination.currentPage + 1;
+ 
+        this.dataSource = new MatTableDataSource(this.data);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.dateSuccess = res.responseMessage;
-
-        this.fromDate = '';
-        this.toDate = '';
-
+        // this.dateSuccess = res.responseMessage;
+ 
+        // this.fromDate = '';
+        // this.toDate = '';
+        this.filter = true;
+      }
+ 
+      else if (res.flag == 2) {
+        this.filter = false;
+       }
       }
     })
   }
@@ -333,4 +349,27 @@ export class ViewAnnouncementComponent implements OnInit {
       disableClose: true
     });
   }
+  renderPage1(event: PageEvent) {
+    // Capture the new page index and page size from the event
+    this.pageIndex1 = event.pageIndex;  // Update current page index
+    this.pageSize1 = event.pageSize;           // Update page size (if changed)
+ 
+    // Log the new page index and page size to the console (for debugging)
+    console.log('New Page Index:', this.pageIndex1);
+    console.log('New Page Size:', this.pageSize1);
+ 
+    // You can now fetch or display the data for the new page index
+    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
+    this.search();
+  }
+ 
+  changePageIndex1(newPageIndex1: number) {
+    this.pageIndex1 = newPageIndex1;
+    this.renderPage1({
+      pageIndex: newPageIndex1,
+      pageSize: this.pageSize1,
+      // length: this.totalItems
+    } as PageEvent);
+  }
+  
 }

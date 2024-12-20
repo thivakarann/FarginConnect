@@ -86,7 +86,7 @@ export class OfflineTransactionsComponent {
 
 
     let submitModel: OffilneTransaction = {
-      accountId: this.accountId,
+      merchantId: this.id,
       pageNo: this.currentPage,
       size: '20',
       query: '',
@@ -152,7 +152,7 @@ export class OfflineTransactionsComponent {
     this.currentPage = 1;
 
     let submitModel: OffilneTransaction = {
-      accountId: this.accountId,
+      merchantId: this.id,
       pageNo: this.currentPage,
       size: '20',
       query: '',
@@ -304,7 +304,7 @@ export class OfflineTransactionsComponent {
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: {
-        value: id,
+        value: this.id,
         value1: id1
       }
     })
@@ -316,7 +316,7 @@ export class OfflineTransactionsComponent {
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: {
-        value: id,
+        value: this.id,
         value1: id1
       }
     })

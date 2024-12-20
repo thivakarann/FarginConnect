@@ -201,7 +201,8 @@ export class EntityAddComponent implements OnInit {
 
       smsMerchantName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
+        Validators.pattern('^[a-zA-Z0-9 ]*$'),
+        Validators.maxLength(25)
       ]),
 
 
@@ -719,7 +720,7 @@ export class EntityAddComponent implements OnInit {
     if (this.selectElement === 'Aadhar Card') {
       identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[0-9]{12}$")]); // 12 digits for Aadhar
     } else if (this.selectElement === 'Pancard') {
-      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z]{5}[0-9]{4}[A-Za-z]$")]); // PAN format
+      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{5}[0-9]{4}[A-Z]$")]); // PAN format
     } else if (this.selectElement === 'Voter Id Proof') {
       identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]); // Voter ID format
     } else if (this.selectElement === 'Passport') {
@@ -763,7 +764,7 @@ export class EntityAddComponent implements OnInit {
 
 
     if (this.select === 'Pancard') {
-      signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z]{5}[0-9]{4}[A-Za-z]$")]);
+      signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{5}[0-9]{4}[A-Z]$")]);
     } else if (this.select === 'Passport') {
       signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Passport format
     } else if (this.select === 'Driving License') {

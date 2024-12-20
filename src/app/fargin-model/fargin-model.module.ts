@@ -927,6 +927,7 @@ export interface CreateSMS{
   readonly merchantId:any;
   readonly type:any;
   readonly createdBy:any;
+  readonly smsCharge:any
 }
 
 export interface Logout {
@@ -940,8 +941,9 @@ export interface SmsStatus {
  
 }
 export interface SmsUpdate {
-  readonly smsType: boolean | number;
+  readonly smsType:any;
   readonly modifedBy: any;
+  readonly smsCharge:any
  
 }
 
@@ -1254,7 +1256,7 @@ export interface AgreementLinkExpiry {
   readonly expiryLinkStatus:any;
 }
 export interface OffilneTransaction{
-  readonly accountId:any;
+  readonly merchantId:any;
   readonly pageNo:any;
   readonly  query:any;
   readonly size:any;
@@ -1287,7 +1289,8 @@ export interface Branchadd{
   readonly accountNumber:any
   readonly ifscCode:any;
   readonly createdBy:any;
-  readonly merchantId:any
+  readonly merchantId:any;
+  readonly accountId:any;
 }
  
  
@@ -1300,9 +1303,15 @@ export interface BranchEdit{
   readonly accountNumber:any
   readonly ifscCode:any;
   readonly modifiedBy:any;
+  readonly accountId:any;
 }
  
 export interface Branchstatus {
   readonly accountStatus: any;
 }
  
+export interface additionalcustomerpay{
+  readonly payId:any;
+  // readonly trackId:any;
+  // readonly paidAmount:any;
+}

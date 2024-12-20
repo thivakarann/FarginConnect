@@ -205,7 +205,7 @@ export class AlacarteViewallComponent implements OnInit {
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.channelName);
-      if (element.alcotStatus == 1) {
+      if (element.type == 1) {
         this.response.push('Paid')
       }
       else {

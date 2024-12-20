@@ -26,6 +26,7 @@ export class SmsCreateComponent implements OnInit {
   allSelected = false;
  
   merchantId: any;
+  freepaid: any;
  
   constructor(
     public service: FarginServiceService,
@@ -40,6 +41,11 @@ export class SmsCreateComponent implements OnInit {
     this.myForm4 = new FormGroup({
       smsFor: new FormControl('', [Validators.required]),
       smsForpaid: new FormControl('', [Validators.required]),
+    });
+    this.service.SmsDropdownGetAll(this.merchantid).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.freepaid = res.response;
+      }
     });
     this.service.smsfreepaiddropdowns(0).subscribe((res: any) => {
       if (res.flag == 1) {
@@ -75,13 +81,14 @@ export class SmsCreateComponent implements OnInit {
     }
   }
   smsSubmit() {
-    const smsFor = this.smsFor?.value || [];
-    const smsForpaid = this.smsForpaid?.value || [];
-    const combinedSmsFor = [...smsFor, ...smsForpaid];
+    // const smsFor = this.smsFor?.value || [];
+    // const smsForpaid = this.smsForpaid?.value || [];
+    // const combinedSmsFor = [...smsFor, ...smsForpaid];
     let submitModel: CreateSMS = {
       merchantId: this.merchantid,
-      type: combinedSmsFor,
+      type: this.smsFor?.value,
       createdBy: this.getadminname,
+      smsCharge:this.smsForpaid?.value
     };
     this.service.CreateSMS(submitModel).subscribe((res: any) => {
       if (res.flag === 1) {

@@ -168,24 +168,20 @@ export class ServiceProviderComponent implements OnInit {
     });
 
   }
-
   exportexcel() {
     console.log('check');
     let sno = 1;
     this.responseDataListnew = [];
     this.data.forEach((element: any) => {
       let createdate = element.createdAt;
-      this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
+      this.date1 = moment(createdate).format('DD/MM/yyyy hh:mm a').toString();
 
       let moddate = element.modifiedAt;
-      this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
+      this.date2 = moment(moddate).format('DD/MM/yyyy hh:mm a').toString();
       this.response = [];
       this.response.push(sno);
-      this.response.push(element?.companyName);
       this.response.push(element?.serviceProviderName);
-      this.response.push(element?.emailAddress);
-      this.response.push(element?.mobileNumber);
-      this.response.push(element?.location);
+      this.response.push(element?.serviceProviderLink);
       if (element?.status == 1) {
         this.response.push("Active");
       }
@@ -195,10 +191,24 @@ export class ServiceProviderComponent implements OnInit {
 
       this.response.push(element?.createdBy);
 
-      this.response.push(this.date1);
+      if (element?.createdAt) {
+        let issuedatas = element?.createdAt;
+        this.date1 = moment(issuedatas).format(('DD/MM/yyyy hh:mm a')).toString();
+        this.response.push(this.date1);
+      }
+      else {
+        this.response.push('');
+      }
       this.response.push(element?.modifiedBy);
 
-      this.response.push(this.date2);
+      if (element?.modifiedAt) {
+        let issuedatas = element?.modifiedAt;
+        this.date2 = moment(issuedatas).format('DD/MM/yyyy hh:mm a').toString();
+        this.response.push(this.date2);
+      }
+      else {
+        this.response.push('');
+      }
 
 
 
@@ -212,11 +222,8 @@ export class ServiceProviderComponent implements OnInit {
     // const title='Business Category';
     const header = [
       "S.No",
-      "Companyname",
-      "Providername",
-      "Email",
-      "Mobile",
-      "Address",
+      "Provider Name",
+      "Service Provider Link",
       "Status",
       "CreatedBy",
       "CreatedDateTime",
@@ -261,8 +268,6 @@ export class ServiceProviderComponent implements OnInit {
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
-      let qty8 = row.getCell(9);
-      let qty9 = row.getCell(10);
 
 
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -273,8 +278,6 @@ export class ServiceProviderComponent implements OnInit {
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
 
 
 
@@ -295,6 +298,7 @@ export class ServiceProviderComponent implements OnInit {
 
     });
   }
+
 
 
   applyFilter(event: Event) {

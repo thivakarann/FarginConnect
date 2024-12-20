@@ -36,15 +36,15 @@ export class SuccessOfftransactionsComponent {
   accountId:any;
   paymentId:any;
   successres:any;
-  accountid: any;
+  merchantid: any;
 
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog,@Inject(MAT_DIALOG_DATA) public data:any ) { }
   ngOnInit(): void {
 
-    this.accountid=this.data.value;
+    this.merchantid=this.data.value;
     this.paymentId=this.data.value1;
     
-  this.service.SuccessOffTransaction(this.accountid,this.paymentId).subscribe((res:any)=>{
+  this.service.SuccessOffTransaction(this.merchantid,this.paymentId).subscribe((res:any)=>{
   if(res.flag==1){
     this.content = JSON.parse(res.response);
     // this.content = this.Viewall?.attempt;

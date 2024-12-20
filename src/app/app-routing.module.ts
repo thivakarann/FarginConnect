@@ -100,6 +100,8 @@ import { FailureOfftransactionsComponent } from './Entity Onboard/Offline-Transa
 import { OfflineSettlementComponent } from './Entity Onboard/Offline-Transactions/offline-settlement/offline-settlement.component';
 import { SuccessOfftransactionsComponent } from './Entity Onboard/Offline-Transactions/success-offtransactions/success-offtransactions.component';
 import { BranchViewallComponent } from './branch-viewall/branch-viewall.component';
+import { AdditionalpaymentsComponent } from './Fargin Transtions/additionalpayments/additionalpayments.component';
+import { BranchCustomerViewComponent } from './branch-customer-view/branch-customer-view.component';
 
 const routes: Routes = [
 
@@ -211,7 +213,11 @@ const routes: Routes = [
       {path:'success-offtransactions',component:SuccessOfftransactionsComponent,canActivate: [authGuard]},
       {path:'failure-offtransactions',component:FailureOfftransactionsComponent,canActivate: [authGuard]},
       {path:'offline-settlement/:id',component:OfflineSettlementComponent,canActivate: [authGuard]},
-      {path:'Branch-viewall', component: BranchViewallComponent, canActivate: [authGuard] }
+      {path:'Branch-viewall', component: BranchViewallComponent, canActivate: [authGuard] },
+      {path:'branch-customer-view/:id',component:BranchCustomerViewComponent,canActivate:[authGuard]},
+      {path:'additional-payments',component:AdditionalpaymentsComponent,canActivate: [authGuard]},
+         
+      // {path:'merchant-additional/:id',component:MercahntbasedadditionalComponent,canActivate: [authGuard]},
     ],
 
   },

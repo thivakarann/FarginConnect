@@ -240,6 +240,10 @@ import { SuccessOfftransactionsComponent } from './Entity Onboard/Offline-Transa
 import { BranchAddComponent } from './Entity Onboard/Branch/branch-add/branch-add.component';
 import { BranchEditComponent } from './Entity Onboard/Branch/branch-edit/branch-edit.component';
 import { BranchViewallComponent } from './branch-viewall/branch-viewall.component';
+import { ViewadditionalpaymentsComponent } from './Fargin Transtions/additionalpayments/viewadditionalpayments/viewadditionalpayments.component';
+import { AdditionalpaymentsComponent } from './Fargin Transtions/additionalpayments/additionalpayments.component';
+import { BranchIndividualviewComponent } from './branch-individualview/branch-individualview.component';
+import { BranchCustomerViewComponent } from './branch-customer-view/branch-customer-view.component';
 
 @NgModule({
   declarations: [
@@ -457,7 +461,11 @@ import { BranchViewallComponent } from './branch-viewall/branch-viewall.componen
     OffileSettlementPayoutComponent,
     BranchAddComponent,
     BranchEditComponent,
-    BranchViewallComponent
+    BranchViewallComponent,
+    ViewadditionalpaymentsComponent,
+    AdditionalpaymentsComponent,
+    BranchIndividualviewComponent,
+    BranchCustomerViewComponent
 
   ],
 

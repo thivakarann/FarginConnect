@@ -14,7 +14,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 export class BranchEditComponent {
   id: any;
   branchid: any;
-
+ 
   branchedit!: FormGroup;
   getadminname = JSON.parse(localStorage.getItem('adminname') || '');
   options: any;
@@ -28,18 +28,19 @@ export class BranchEditComponent {
   bank:any;
   holdername:any;
   number:any;
-  
+  accountid:any;
+ 
   constructor(
     public service: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
     private dialog: MatDialog,
   @Inject(MAT_DIALOG_DATA) public data: any,) { }
-
+ 
   ngOnInit(): void {
     this.id = this.data.value;
     this.branchid=this.data.value.branchId
-
+ 
     this.branch=this.data.value.branchName
     this.key=this.data.value.apiKey
     this.secret=this.data.value.secretKey
@@ -48,9 +49,10 @@ export class BranchEditComponent {
     this.holdername=this.data.value.accountHolderName
     this.holdername=this.data.value.accountNumber
     this.number=this.data.value.accountNumber
-
-
-
+    this.accountid=this.data.value.accountId
+ 
+ 
+ 
     this.branchedit = new FormGroup({
       branchName: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z0-9 ]*$')]),
       apiKey: new FormControl('', [Validators.required]),
@@ -61,52 +63,57 @@ export class BranchEditComponent {
       ifscCode: new FormControl('', [Validators.required,Validators.pattern("^[A-Z]{4}0[A-Z0-9]{6}$")]),
       createdBy: new FormControl(''),
       merchantId: new FormControl(''),
-
+      accountId: new FormControl(''),
     })
-
-
+ 
+ 
   }
-
-
-
+ 
+ 
+ 
   get branchName() {
     return this.branchedit.get('branchName')
-
+ 
   }
-
+ 
   get apiKey() {
     return this.branchedit.get('apiKey')
-
+ 
   }
-
+ 
   get secretKey() {
     return this.branchedit.get('secretKey')
-
+ 
   }
-
+ 
   get bankName() {
     return this.branchedit.get('bankName')
-
+ 
   }
-
+  get accountId() {
+    return this.branchedit.get('accountId')
+ 
+  }
+ 
   get accountHolderName() {
     return this.branchedit.get('accountHolderName')
-
+ 
   }
   get accountNumber() {
     return this.branchedit.get('accountNumber')
-
+ 
   }
   get ifscCode() {
     return this.branchedit.get('ifscCode')
-
+ 
   }
-
-
+ 
+ 
   Submit() {
-
+ 
     let submitModel: BranchEdit = {
       branchName: this.branchName?.value,
+      accountId: this.accountId?.value,
       apiKey: this.apiKey?.value,
       secretKey: this.secretKey?.value,
       bankName: this.bankName?.value,
@@ -115,7 +122,7 @@ export class BranchEditComponent {
       ifscCode: this.ifscCode?.value,
       modifiedBy: this.getadminname
     }
-
+ 
     this.service.BranchUpdate(this.branchid,submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);

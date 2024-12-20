@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ChangePassword } from '../fargin-model/fargin-model.module';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-change-password',
@@ -24,7 +25,8 @@ export class ChangePasswordComponent implements OnInit {
   constructor(
     private router: Router,
     private service: FarginServiceService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private dialog:MatDialog
   ) { }
   ngOnInit(): void {
     this.changeForm = new FormGroup({
@@ -73,9 +75,10 @@ export class ChangePasswordComponent implements OnInit {
     this.service.ChangePassword(this.adminId, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.dialog.closeAll();
         setTimeout(() => {
           window.location.reload();
-        }, 2000);
+        }, 500);
       }
       else {
         this.toastr.error(res.responseMessage);

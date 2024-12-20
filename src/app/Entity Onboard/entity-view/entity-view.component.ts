@@ -1220,10 +1220,11 @@ export class EntityViewComponent implements OnInit {
     setTimeout(() => this.copiedIndex = -1, 2000);
   }
 
-
-
-
-
+  Viewcustomerbranch(id:any){
+    this.router.navigate([`dashboard/branch-customer-view/${id}`], {
+      queryParams: { Alldata: id },
+    });
+  }
 
   otherPayement() {
     this.dialog.open(CreateOtherpaymentComponent, {

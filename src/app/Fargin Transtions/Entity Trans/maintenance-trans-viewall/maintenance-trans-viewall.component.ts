@@ -79,6 +79,19 @@ export class MaintenanceTransViewallComponent {
   currentpage: any;
   transactionexport: any;
 
+
+  pageIndex1: number = 0;
+  pageSize1 = 5;
+ 
+  totalpage1: any;
+  totalPages1: any;
+  currentpage1: any;
+ 
+  filter: boolean = true;
+ 
+ 
+ 
+
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
 
 
@@ -133,6 +146,8 @@ export class MaintenanceTransViewallComponent {
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+        this.filter = false;
+
       }
 
     });
@@ -164,20 +179,23 @@ export class MaintenanceTransViewallComponent {
     // this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
     // this.currentPage = 1;
 
-    this.service.MaintenanceTransactionFilter(this.FromDateRange, this.ToDateRange, this.pageSize, this.pageIndex).subscribe((res: any) => {
+    this.service.MaintenanceTransactionFilter(this.FromDateRange, this.ToDateRange, this.pageSize1, this.pageIndex1).subscribe((res: any) => {
       if (res.flag == 1) {
 
         this.transaction = res.response;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage;
+
+        this.totalPages1 = res.pagination.totalElements;
+        this.totalpage1 = res.pagination.totalPages;
+        this.currentpage1 = res.pagination.currentPage + 1;
+
+
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.showcategoryData = false;
+        this.filter = true;
       }
       else if (res.flag == 2) {
-        this.showcategoryData = true;
+        this.filter = false;
       }
     })
   }
@@ -408,4 +426,28 @@ export class MaintenanceTransViewallComponent {
       }
     });
   }
+
+  renderPage1(event: PageEvent) {
+    // Capture the new page index and page size from the event
+    this.pageIndex1 = event.pageIndex;  // Update current page index
+    this.pageSize1 = event.pageSize;           // Update page size (if changed)
+ 
+    // Log the new page index and page size to the console (for debugging)
+    console.log('New Page Index:', this.pageIndex1);
+    console.log('New Page Size:', this.pageSize1);
+ 
+    // You can now fetch or display the data for the new page index
+    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
+    this.filterdate();
+  }
+ 
+  changePageIndex1(newPageIndex1: number) {
+    this.pageIndex1 = newPageIndex1;
+    this.renderPage1({
+      pageIndex: newPageIndex1,
+      pageSize: this.pageSize1,
+      // length: this.totalItems
+    } as PageEvent);
+  }
+ 
 }

@@ -1,0 +1,77 @@
+<div class="card" style=" font-size: 14px;height:560px;">
+    <div class="form-header d-flex justify-content-between align-items-center">
+        <h6 class="mb-0 text-center" style="color:#fff;">Additional Payments Information</h6>
+        <button type="button" class="btn btn-secondary" mat-dialog-close>Back</button>
+    </div>
+        <table class="table table-bordered"
+            style="background-color: white; text-align: left;border: 1px solid rgb(154, 154, 153);">
+            <tbody>
+                <tr>
+                    <td class="datas">Transaction ID</td>
+                    <td id="data">{{view?.pgPaymentId ||'--'}}</td>
+                </tr>
+                <tr>
+                    <td class="datas">Bank Reference</td>
+                    <span  *ngIf="view?.bankReference == null || view?.bankReference == 'null' ">-</span>
+                    <span *ngIf="view?.bankReference != null && view?.bankReference != 'null'">  {{view?.bankReference}}</span>
+                </tr>
+               
+                <tr>
+                    <td class="datas">Customer Name</td>
+                    <td id="data">{{view?.customerId?.customerName}}</td>
+                </tr>
+                <tr>
+                    <td class="datas">Customer Mobile</td>
+                    <td id="data">{{view?.customerId?.mobileNumber}}</td>
+                </tr>
+                <tr>
+                    <td class="datas">Total Payable Amount</td>
+                    <td id="data"  class="text-success">₹{{view?.paidAmount}}</td>
+                </tr> 
+                <tr>
+                    <td class="datas">Payment Method</td>
+                    <td id="data" >{{view?.paymentMethod}}</td>
+                </tr>
+                <tr>
+                <td class="datas">Card Expiry</td>
+                <td id="data">
+                 <span  *ngIf="view?.cardExpiry == null || view?.cardExpiry == 'null' ">-</span>
+                 <span *ngIf="view?.cardExpiry != null && view?.cardExpiry != 'null'">  {{view?.cardExpiry}}</span>  
+                  </td>
+            </tr>
+            <tr >
+                <td class="datas">Card Masked No</td>
+                <td id="data">
+                    <span  *ngIf="view?.cardNoMasked == null || view?.cardNoMasked == 'null' ">-</span>
+                    <span *ngIf="view?.cardNoMasked != null && view?.cardNoMasked != 'null'">  {{view?.cardNoMasked}}</span>  
+                    </td>
+            </tr>
+                <tr>
+                    <td class="datas">Paid At</td>
+                    <td id="data">{{ view?.paymentDateTime | date:'dd-MM-yyyy hh:mm a'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="datas">Status</td>
+                    <td id="data" style="font-weight: 500;">
+                        <span *ngIf="view?.paymentStatus == 'Success'" class="text-success">
+                            {{ view?.paymentStatus}}</span>
+ 
+                        <span *ngIf="view?.paymentStatus   == 'Pending'" class="text-warning">
+                            {{ view?.paymentStatus || '--'}}</span>
+ 
+                        <span *ngIf="view?.paymentStatus  == 'Initiated'" class="text-warning">
+                            {{ view?.paymentStatus||'--'}}</span>
+ 
+                            <span *ngIf="view?.paymentStatus  == 'Failure'" class="text-danger">
+                                {{ view?.paymentStatus||'--'}}</span>
+     
+                    </td>
+                </tr>
+             
+            </tbody>
+        </table>
+ 
+ 
+    </div>
+ 

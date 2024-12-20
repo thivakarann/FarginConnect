@@ -533,6 +533,10 @@
                   " *ngIf="smsMerchantName?.errors?.['pattern']">
                         Invalid format. Only alphanumeric characters are allowed
                     </div>
+                    <div style="color: red; font-size: 12px; margin-top: 2px; position: relative;"
+                    *ngIf="smsMerchantName?.errors?.['maxlength']">
+                    Only 25 characters are allowed
+                </div>
                 </div>
 
 

@@ -16,7 +16,23 @@
                         Field is required
                     </div>
                 </div>
-
+ 
+                <div class="col form-group ">
+                    <label for="accountId">Account Id</label>
+                    <input class="form-control" id="accountId" type="text" formControlName="accountId" required />
+                    <div style="
+color: red;
+font-size: 12px;
+margin-top: 2px;
+position: relative;
+;
+" *ngIf="accountId?.invalid && accountId?.touched && accountId?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+ 
+            </div>
+            <div class="row">
                 <div class="col form-group ">
                     <label for="apiKey">Api Key</label>
                     <input class="form-control" id="apiKey" type="text" formControlName="apiKey" required>
@@ -30,8 +46,7 @@
                         Field is required
                     </div>
                 </div>
-            </div>
-            <div class="row">
+ 
                 <div class="col form-group ">
                     <label for="secretKey">Secret key</label>
                     <input class="form-control" id="secretKey" type="text" formControlName="secretKey" required />
@@ -45,9 +60,10 @@
                         Field is required
                     </div>
                 </div>
-
-          
-          
+ 
+            </div>
+            <div class="row">
+ 
                 <div class="col form-group ">
                     <label for="bankName">Bank Name</label>
                     <input class="form-control" id="bankName" type="text" formControlName="bankName" required />
@@ -61,8 +77,6 @@
                         Field is required
                     </div>
                 </div>
-</div>
-<div class="row">
                 <div class="col form-group ">
                     <label for="accountHolderName">Account Holder name</label>
                     <input class="form-control" id="accountHolderName" type="text" formControlName="accountHolderName"
@@ -77,7 +91,11 @@
                         Field is required
                     </div>
                 </div>
-
+ 
+            </div>
+            <div class="row">
+ 
+ 
                 <div class="col form-group ">
                     <label for="accountNumber">Account Number</label>
                     <input class="form-control" id="accountNumber" type="text" formControlName="accountNumber"
@@ -92,9 +110,7 @@
                         Field is required
                     </div>
                 </div>
-
-</div>
-<div class="row">
+ 
                 <div class="col form-group ">
                     <label for="ifscCode">IFSC code</label>
                     <input class="form-control" id="ifscCode" type="text" formControlName="ifscCode" required />

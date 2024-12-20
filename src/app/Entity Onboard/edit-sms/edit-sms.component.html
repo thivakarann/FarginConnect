@@ -8,37 +8,59 @@
   <div class="well">
     <form [formGroup]="myForm">
       <div class="row mt-3">
-        <div class="col-12 form-group" *ngIf="smsCharge == 'Free'">
-          <label class="form__label" for="smsFors">Free</label>
+        <div class="col-12 form-group">
+          <label class="form__label" for="smsFors">SMS Type</label>
           <select
-            ngModel="{{ this.Smsdetails.type.smsTempId }}"
-            id="smsFors"
             class="form-select"
-            formControlName="smsFor"
+            id="period"
+            formControlName="smsForpaid"
+            ngModel="{{ Smsdetails?.smsCharge }}"
           >
-            <option value="" disabled selected>Select</option>
-            <option [value]="items.smsTempId" *ngFor="let items of free">
+            <option hidden>Select--</option>
+ 
+            <option value="Free">Free</option>
+            <option value="Paid">Paid</option>
+          </select>
+ 
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="smsForpaid?.invalid && smsForpaid?.touched && smsForpaid?.errors?.['required']"
+          >
+            Field is required
+          </div>
+        </div>
+ 
+        <div class="col-12 form-group ">
+          <label class="form__label" for="merchantPosition">Selected SMS Template </label>
+          <input class="form-control" id="merchantPosition" type="text" readonly  ngModel="{{ Smsdetails?.type?.smsTitle }}"  formControlName="selected">
+         
+      </div>
+        <div class="col-12 form-group">
+          <label class="form__label" for="Bussiness category"
+            >SMS Template</label
+          >
+          <select id="smsFors" class="form-select" formControlName="smsFor">
+            <option [value]="items.smsTempId" *ngFor="let items of freepaid">
               {{ items?.smsTitle }}
             </option>
           </select>
  
-          <div style="color: red; font-size: 12px; margin-top: 2px; position: relative;" *ngIf="smsFor?.invalid && smsFor?.touched && smsFor?.errors?.['required']" > Field is required </div>
-        </div>
-        <div class="col-12 form-group" *ngIf="smsCharge == 'Paid'">
-          <label class="form__label" for="Bussiness category">Paid</label>
-          <select
-          ngModel="{{ this.Smsdetails.type.smsTempId }}"
-          id="smsFors"
-          class="form-select"
-          formControlName="smsFor"
-        >
-          <option value="" disabled selected>Select</option>
-          <option [value]="items.smsTempId" *ngFor="let items of paid">
-            {{ items?.smsTitle }}
-          </option>
-        </select>
- 
-        <div style="color: red; font-size: 12px; margin-top: 2px; position: relative;" *ngIf="smsFor?.invalid && smsFor?.touched && smsFor?.errors?.['required']" > Field is required </div>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="smsFor?.invalid && smsFor?.touched && smsFor?.errors?.['required']"
+          >
+            Field is required
+          </div>
         </div>
       </div>
  

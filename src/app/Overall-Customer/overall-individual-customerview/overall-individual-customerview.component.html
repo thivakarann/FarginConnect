@@ -168,9 +168,9 @@
                 <th>Created By</th>
                 <th>Created At</th>
               </tr>
-              <span *ngIf="!showDatas" class="text-center" style="color:red;font-size:12px;">NO DATA FOUND</span>
+              <span *ngIf="showDatas" class="text-center" style="color:red;font-size:12px;">NO DATA FOUND</span>
 
-              <tbody *ngIf="showDatas">
+              <tbody *ngIf="!showDatas">
                 <tr
                   *ngFor="let row of setupboxview | paginate: { id:'pagination4', itemsPerPage: 3, currentPage: page4 } | search: searchText; let i = index">
 

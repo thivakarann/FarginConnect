@@ -123,20 +123,22 @@ export class EditPersonalInfoComponent implements OnInit {
 
       payoutEnable: new FormControl('', [Validators.required]),
 
-      withdrawalLimit: new FormControl('', [Validators.pattern('(0|[1-9][0-9]*)(\.[0-9]+)?$')]),
+      platformfee: new FormControl('', [Validators.pattern('(0|[1-9][0-9]*)(\.[0-9]+)?$')]),
 
-      withdrawalDailylimit: new FormControl('', [Validators.pattern('(0|[1-9][0-9]*)(\.[0-9]+)?$')]),
+      // withdrawalDailylimit: new FormControl('', [Validators.pattern('(0|[1-9][0-9]*)(\.[0-9]+)?$')]),
 
-      withdrawalDailyCount: new FormControl('', [Validators.pattern('^[0-9]+$')]),
+      // withdrawalDailyCount: new FormControl('', [Validators.pattern('^[0-9]+$')]),
 
-      withdrawalMonthlyCount: new FormControl('', [Validators.pattern('^[0-9]+$')]),
+      // withdrawalMonthlyCount: new FormControl('', [Validators.pattern('^[0-9]+$')]),
 
       customerManualStatus: new FormControl('', [Validators.required]),
       customerPaymentMode:new FormControl('',[Validators.required],),
 
       smsMerchantName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
+        Validators.pattern('^[a-zA-Z0-9 ]*$'),
+        Validators.maxLength(25)
+
       ]),
     
     });
@@ -270,20 +272,20 @@ export class EditPersonalInfoComponent implements OnInit {
     return this.myForm.get('payoutEnable')
   }
 
-  get withdrawalLimit() {
-    return this.myForm.get('withdrawalLimit')
-  }
+  // get withdrawalLimit() {
+  //   return this.myForm.get('withdrawalLimit')
+  // }
 
-  get withdrawalDailylimit() {
-    return this.myForm.get('withdrawalDailylimit')
-  }
+  // get withdrawalDailylimit() {
+  //   return this.myForm.get('withdrawalDailylimit')
+  // }
 
-  get withdrawalDailyCount() {
-    return this.myForm.get('withdrawalDailyCount')
-  }
+  // get withdrawalDailyCount() {
+  //   return this.myForm.get('withdrawalDailyCount')
+  // }
 
-  get withdrawalMonthlyCount() {
-    return this.myForm.get('withdrawalMonthlyCount')
+  get platformfee() {
+    return this.myForm.get('platformfee')
   }
 
   get customerManualStatus() {
@@ -345,11 +347,11 @@ export class EditPersonalInfoComponent implements OnInit {
     formData.append('customerDuesEnable', this.customerDuesEnable?.value);
     formData.append('customerManualStatus', this.customerManualStatus?.value);
     formData.append('smsMerchantName', this.smsMerchantName?.value);
-    formData.append('withdrawalLimit', this.withdrawalLimit?.value || "");
-    formData.append('withdrawalDailylimit', this.withdrawalDailylimit?.value || 0);
-    formData.append('withdrawalDailyCount', this.withdrawalDailyCount?.value || 0);
+    // formData.append('withdrawalLimit', this.withdrawalLimit?.value || "");
+    // formData.append('withdrawalDailylimit', this.withdrawalDailylimit?.value || 0);
+    formData.append('platformfee', this.platformfee?.value);
     formData.append('merchantId', this.id);
-    formData.append('withdrawalMonthlyCount', this.withdrawalMonthlyCount?.value || 0);
+    // formData.append('withdrawalMonthlyCount', this.withdrawalMonthlyCount?.value || 0);
     
     this.customerDuesEnabled = this.customerDuesEnable?.value;
      this.customerDuesEnabled = this.customerDuesEnable?.value;

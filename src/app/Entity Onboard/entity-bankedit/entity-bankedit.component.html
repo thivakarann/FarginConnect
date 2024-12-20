@@ -52,7 +52,7 @@
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
-                    <label for="state">Ledger ID*</label>
+                    <label for="state" class="form__label">Ledger ID</label>
                     <input  ngModel="{{this.bankData?.ledgerId}}" type="text" formControlName="ledgerId" id="state" class="form-control">
                     <!-- <div style="
                     color: red;
@@ -68,7 +68,7 @@
             </div>
             <div class="row mb-3">
                 <div class="col-sm-4 form-group">
-                    <label for="Bussiness category">Select Bank</label>
+                    <label for="Bussiness category" class="form__label">Select Bank</label>
                     <select  ngModel="{{this.bankData?.bankId?.bankId}}" formControlName="bankName" id="Bussiness category" class="form-control form-select">
                         <option *ngFor="let item of BankNames" [value]="item.bankId">{{item.bankName}}</option>
 

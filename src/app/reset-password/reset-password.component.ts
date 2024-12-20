@@ -19,17 +19,17 @@ export class ResetPasswordComponent {
   passwordsMatching: boolean = false;
   error: any;
   emailAddress: any;
-  constructor(private service: FarginServiceService, private router: Router, private activeRouter: ActivatedRoute,private toaster:ToastrService) {
+  constructor(private service: FarginServiceService, private router: Router, private activeRouter: ActivatedRoute, private toaster: ToastrService) {
   }
   ngOnInit(): void {
     this.activeRouter.queryParams.subscribe((param: any) => {
       this.emailAddress = param.emailAddress;
-      
+
     })
 
     this.resetForm = new FormGroup({
-      newPassword: new FormControl('', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}')]),
-      confirmpassword: new FormControl('', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}')]),
+      newPassword: new FormControl('', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!#^%*?&])[A-Za-z\d$@$!#^%*?&].{7,}')]),
+      confirmpassword: new FormControl('', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!#^%*?&])[A-Za-z\d$@$!#^%*?&].{7,}')]),
     })
   }
   get newPassword() {
@@ -71,19 +71,19 @@ export class ResetPasswordComponent {
       newPassword: this.newPassword?.value
     }
 
-    
-    this.service.ResetPassword(submitmodel).subscribe((res:any)=>{
-      if(res.flag==1){
+
+    this.service.ResetPassword(submitmodel).subscribe((res: any) => {
+      if (res.flag == 1) {
         this.toaster.success(res.responseMessage)
- 
+
         this.router.navigate([`/login-page`], {
           // queryParams: { emailAddress: this.emailAddress },
         });
       }
-      else{
+      else {
         this.toaster.error(res.responseMessage)
       }
     })
- 
+
   }
 }

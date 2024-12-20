@@ -20,9 +20,12 @@
                 </tr>
                 <tr>
                     <td class="datas">Bank Reference
-                    <span  *ngIf="content?.bankReference == null || content?.bankReference == 'null' ">-</span>
-                    <span *ngIf="content?.bankReference != null && content?.bankReference != 'null'">  {{content?.bankReference}}</span>
-                </td>
+                        <td class="datas">Bank Reference
+                            <td id="data" *ngIf="content?.bankReference == null || content?.bankReference == 'null' ">-</td>
+ 
+                 <td id="data" *ngIf="content?.bankReference != null && content?.bankReference != 'null'">
+                     {{content?.bankReference}}</td>
+            
             </tr>
                
                 <tr>

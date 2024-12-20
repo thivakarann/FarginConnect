@@ -166,7 +166,7 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
           <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
           <tr *matNoDataRow>
-            <td class="mat-cell" colspan="4">No Data Found{{input.value}}
+            <td class="mat-cell" colspan="4">No Data for {{input.value}}
             </td>
           </tr>
         </table>
@@ -174,11 +174,11 @@
       </div>
     </mat-card-content>
     <mat-card-footer>
-
+ 
       <!-- <mat-paginator [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtons
         aria-labels="select page of users"></mat-paginator> -->
-
-        <div class="row d-flex justify-content-end mt-3 mx-2">
+ 
+        <div class="row d-flex justify-content-end mt-3 mx-2" *ngIf="!filter">
           <div class="col-md-6"></div>
           <div class="col-md-6" id="but">
               <button style="color:white;background-color: #141E46;" >Total Entires:{{this.totalPages}}</button>
@@ -186,7 +186,20 @@
               <button style="color:white;background-color: #141E46;" >{{ this.currentpage}} of {{this.totalpage}} Pages</button>
               <button style="color:white;background-color: #141E46;"   (click)="changePageIndex(pageIndex + 1)" [hidden]="pageIndex >= totalpage - 1" >Next</button>
                   </div>
-    </div>
-
+       </div>
+ 
+       <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="filter">
+        <div class="col-md-6"></div>
+        <div class="col-md-6">
+            <button style="color:white;background-color: #141E46;font-size:15px;">Total Entires:{{this.totalPages1}}</button>
+            <button style="color:white;background-color: #141E46;font-size:15px;" (click)="changePageIndex1(pageIndex1 - 1)"
+                [hidden]="pageIndex1 === 0">Previous</button>
+            <button style="color:white;background-color: #141E46;font-size:15px;">{{this.currentpage1}} of {{this.totalpage1}}
+                Pages</button>
+            <button style="color:white;background-color: #141E46;font-size:15px;" (click)="changePageIndex1(pageIndex1 + 1)"
+                [hidden]="pageIndex1 >= totalpage1 - 1">Next</button>
+        </div>
+       </div>
+ 
     </mat-card-footer>
     <!-- </mat-card> -->

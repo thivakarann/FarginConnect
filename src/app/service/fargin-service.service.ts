@@ -479,7 +479,7 @@ export class FarginServiceService {
   private readonly editsms = 'merchantSms/updateMerchantSms/';
   private readonly smsgetAll = 'merchantSms/getAllMerchantSms/';
   private readonly smsgetAllexport = 'merchantSms/getAllMerchantSms';
-  private readonly smsdropdown = 'merchantSms/viewsms';
+  private readonly smsdropdown = 'merchantSms/viewMerchantSms/';
   private readonly smscount = 'smshistory/viewbymerchantandtype/';
   private readonly smsapproval = 'merchantSms/updateApproval/';
   private readonly smsfreepaiddropdown = 'merchantSms/viewFreePaidsms/';
@@ -613,6 +613,7 @@ export class FarginServiceService {
     private readonly branchedit='bankBranch/update/';
     private readonly branchstatus='bankBranch/updateStatus/';
     private readonly branchindividualview='bankBranch/viewAll';
+    private readonly branchcustomerget='customer/customersByBranch/';
 
 
   // Find Ip 
@@ -625,6 +626,19 @@ export class FarginServiceService {
   private geoApiUrl = 'https://ipwhois.app/json/';
 
   // private geoApiUrl = 'http://ip-api.com/json';
+
+
+  //Additional Payment
+  private readonly additionalpayment = 'customerotherpayment/viewall/'
+  private readonly additionalpaymentsfilters = 'customerotherpayment/dateFilter/'
+ 
+  private readonly additionalpaymentssearchfilters = 'customerotherpayment/search/'
+  private readonly additionalpaymentsviewbyids = 'customerotherpayment/viewbyid/'
+  private readonly additionalpaymentsreceipt = 'customerotherpayment/viewinvoice/'
+   private readonly additionalpaymentscheck = 'otherpayment/trackApi'
+      private readonly merchantadditionalpayment = 'customerotherpayment/viewmerchants/'
+       private readonly additionalsearchfilters = 'customerotherpayment/advancesearch/'
+       private readonly additionalexports = 'customerotherpayment/viewall'
 
 
   loginError = new Subject();
@@ -2079,12 +2093,12 @@ export class FarginServiceService {
     return this.http.put(`${this.basePath}${this.announcementstatus}`, data, this.options);
   }
 
-  announcementDate(id: any, id1: any) {
-    return this.http.get(`${this.basePath}${this.announcementdate}${id}/${id1}`, this.options)
+  announcementDate(id: any, id1: any, id2: any, id3: any) {
+    return this.http.get(`${this.basePath}${this.announcementdate}${id}/${id1}/${id2}/${id3}`, this.options)
   }
 
-  SmsDropdownGetAll() {
-    return this.http.get(`${this.basePath}${this.smsdropdown}`, this.options)
+  SmsDropdownGetAll(id:any) {
+    return this.http.get(`${this.basePath}${this.smsdropdown}${id}`, this.options)
   }
   SmsCount(id: any, id1: any) {
     return this.http.get(`${this.basePath}${this.smscount}${id}/${id1}`, this.options)
@@ -2354,5 +2368,39 @@ export class FarginServiceService {
  
   BranchIndividualView() {
     return this.http.get(`${this.basePath}${this.branchindividualview}`,this.options)
+  }
+  //Additional Payments
+  additionalpayments(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.additionalpayment}${id}/${id1}`, this.options)
+  }
+  additionalpaymentsfilter(id: any, id1: any, id2:any,id3:any) {
+    return this.http.get(`${this.basePath}${this.additionalpaymentsfilters}${id}/${id1}/${id2}/${id3}`, this.options)
+  }
+  additionalpaymentssearchfilter(id: any, id1: any, id2:any,id3:any) {
+    return this.http.get(`${this.basePath}${this.additionalpaymentssearchfilters}${id}/${id1}/${id2}/${id3}`, this.options)
+  }
+ 
+  additionalpaymentsviewbyid(id: any) {
+    return this.http.get(`${this.basePath}${this.additionalpaymentsviewbyids}${id}`, this.options)
+  }
+ 
+  additionalsearchfilter(id: any, id1: any,id2:any) {
+    return this.http.get(`${this.basePath}${this.additionalsearchfilters}${id}/${id1}/${id2}`, this.options)
+  }
+  additionalpaymentsreceipts(id: any) {
+    return this.http.get(`${this.basePath}${this.additionalpaymentsreceipt}${id}`, {
+      ...this.options,
+      ...{ responseType: 'blob' },
+    });
+  }
+ 
+  additionalpaymentscheckstatus(model: any) {
+    return this.http.post(`${this.basePath}${this.additionalpaymentscheck}`, model, this.options);
+  }
+  additionalexport() {
+    return this.http.get(`${this.basePath}${this.additionalexports}`, this.options)
+  }
+  BranchCustomer(id:any){
+    return this.http.get(`${this.basePath}${this.branchcustomerget}${id}`,this.options)
   }
 }

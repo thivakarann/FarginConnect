@@ -25,10 +25,10 @@ export class BranchAddComponent {
     private toastr: ToastrService,
     private dialog: MatDialog,
   @Inject(MAT_DIALOG_DATA) public data: any,) { }
-
+ 
   ngOnInit(): void {
     this.merchantid = this.data.value;
-
+ 
     this.branch = new FormGroup({
       branchName: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z0-9 ]*$')]),
       apiKey: new FormControl('', [Validators.required]),
@@ -39,52 +39,59 @@ export class BranchAddComponent {
       ifscCode: new FormControl('', [Validators.required,Validators.pattern("^[A-Z]{4}0[A-Z0-9]{6}$")]),
       createdBy: new FormControl(''),
       merchantId: new FormControl(''),
-
+      accountId: new FormControl('',[Validators.required]),
+ 
     })
-
-
+ 
+ 
   }
-
-
-
+ 
+ 
+ 
   get branchName() {
     return this.branch.get('branchName')
-
+ 
   }
-
+ 
   get apiKey() {
     return this.branch.get('apiKey')
-
+ 
   }
-
+ 
   get secretKey() {
     return this.branch.get('secretKey')
-
+ 
   }
-
+ 
   get bankName() {
     return this.branch.get('bankName')
-
+ 
   }
-
+ 
+  get accountId() {
+    return this.branch.get('accountId')
+ 
+  }
+ 
   get accountHolderName() {
     return this.branch.get('accountHolderName')
-
+ 
   }
   get accountNumber() {
     return this.branch.get('accountNumber')
-
+ 
   }
   get ifscCode() {
     return this.branch.get('ifscCode')
-
+ 
   }
-
-
+ 
+ 
   Submit() {
-
+ 
     let submitModel: Branchadd = {
       branchName: this.branchName?.value,
+      accountId: this.accountId?.value,
       apiKey: this.apiKey?.value,
       secretKey: this.secretKey?.value,
       bankName: this.bankName?.value,
@@ -94,7 +101,7 @@ export class BranchAddComponent {
       createdBy: this.getadminname,
       merchantId: this.merchantid
     }
-
+ 
     this.service.BranchAdd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
