@@ -46,6 +46,7 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
   setupboxview: any;
   isChecked!: boolean;
   totalamount: any;
+  additionlpay: any;
   selectTab(tab: string) {
     this.selectedTab = tab;
   }
@@ -189,6 +190,11 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
         this.setupboxview = res.response.reverse();
       }
     })
+    this.service.AdditionalPaymentsCustomerTransaction(this.id).subscribe((res:any)=>{
+      if(res.flag==1){
+        this.additionlpay=res.response.reverse();
+      }
+    })
 
   }
 
@@ -267,6 +273,17 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
         this.toastr.error('No Data Found');
       }
     });
+  }
+
+  viewreciept(id: any) {
+    this.service.additionalpaymentsreceipts(id).subscribe((res: any) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(res);
+      reader.onloadend = () => {
+        var downloadURL = URL.createObjectURL(res);
+        window.open(downloadURL);
+      }
+    })
   }
 
 }

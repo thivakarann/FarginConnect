@@ -60,6 +60,8 @@ export class DashboardComponent implements OnInit {
   valuesurvey: any;
   valueBuisneesDoCument: any;
   valueentityagreement: any;
+  valueBusinessPlan:any;
+  valueSignerDetails:any;
 
 
   constructor(private elRef: ElementRef,
@@ -135,6 +137,8 @@ export class DashboardComponent implements OnInit {
       this.valuesurvey = 'Survey'
       this.valueBuisneesDoCument = 'Business Document Type'
       this.valueentityagreement = 'Entity Agreement'
+       this.valueBusinessPlan='Business Plan'
+      this.valueSignerDetails='Signer Details'
     }
     else {
       for (let data of this.getdashboard) {
@@ -260,6 +264,13 @@ export class DashboardComponent implements OnInit {
 
         if (this.roles == 'Survey') {
           this.valuesurvey = 'Survey'
+        }
+        if(this.roles=='Business Plan'){
+          this.valueBusinessPlan='Business Plan'
+        }
+       
+        if(this.roles=='Signer Details'){
+          this.valueSignerDetails='Signer Details'
         }
       }
     }

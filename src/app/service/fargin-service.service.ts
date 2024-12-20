@@ -639,6 +639,8 @@ export class FarginServiceService {
       private readonly merchantadditionalpayment = 'customerotherpayment/viewmerchants/'
        private readonly additionalsearchfilters = 'customerotherpayment/advancesearch/'
        private readonly additionalexports = 'customerotherpayment/viewall'
+       //Additional paymrnts
+    private readonly additionaltransviewbyid = 'customerotherpayment/viewByCustomer/';
 
 
   loginError = new Subject();
@@ -2402,5 +2404,9 @@ export class FarginServiceService {
   }
   BranchCustomer(id:any){
     return this.http.get(`${this.basePath}${this.branchcustomerget}${id}`,this.options)
+  }
+  AdditionalPaymentsCustomerTransaction(id: any) {
+    return this.http.get(`${this.basePath}${this.additionaltransviewbyid}${id}`, this.options)
+ 
   }
 }

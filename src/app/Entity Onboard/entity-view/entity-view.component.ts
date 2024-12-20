@@ -196,6 +196,7 @@ export class EntityViewComponent implements OnInit {
   valueagreementlink: any;
   valueagreement: any;
   branchget: any;
+  valuentityOffline:any;
   selectTab(tab: string): void {
     this.activeTab = tab;
   }
@@ -280,6 +281,7 @@ export class EntityViewComponent implements OnInit {
             this.valueagreementlinkdate='Entity View Agreement-Link Expiry Date'
             this.valueagreementlinkstatus='Entity View Agreement-Link Expiry Status'
             this.valueagreementlink='Entity View Agreement-Entity Agreement Link'
+            this.valuentityOffline='Entity View Static QR Payments'
           }
           else {
             for (let datas of this.getdashboard) {
@@ -433,6 +435,10 @@ export class EntityViewComponent implements OnInit {
               }
               if (this.actions == 'Entity View Agreement-Agreement Signed Copy') {
                 this.valueagreementAgreementSigned = 'Entity View Agreement-Agreement Signed Copy'
+              }
+
+              if(this.roles=='Entity View Static QR Payments'){
+                this.valuentityOffline='Entity View Static QR Payments'
               }
  
 

@@ -63,12 +63,46 @@ export class OfflineSettlementComponent {
   errorMessage: any;
   id:any;
   accountId:any
+  valuestaticsettlementExport:any;
+  valuestaticsettlementView:any;
 
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog,private ActivateRoute:ActivatedRoute,private router:Router) { }
 
 
 
   ngOnInit(): void {
+
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+       
+ 
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+          if (this.roleId == 1) {
+            this.valuestaticsettlementExport = 'Entity View Static QR Payments-Settlement Export';
+            this.valuestaticsettlementView='Entity View Static QR Payments-Settlement View'
+         
+          }
+          else {
+            for (let datas of this.getdashboard) {
+ 
+              this.actions = datas.subPermissions;
+              if (this.actions == 'Entity View Static QR Payments-Settlement Export') {
+                this.valuestaticsettlementExport = 'Entity View Static QR Payments-Settlement Export';
+              }
+             if(this.actions=='Entity View Static QR Payments-Settlement View'){
+              this.valuestaticsettlementView='Entity View Static QR Payments-Settlement View'
+             }
+ 
+            }
+          }
+ 
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    })
 
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.accountId=param.Alldata

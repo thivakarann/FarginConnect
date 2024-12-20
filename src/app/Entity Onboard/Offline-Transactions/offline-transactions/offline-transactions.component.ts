@@ -70,6 +70,9 @@ export class OfflineTransactionsComponent {
   Button: boolean = false;
   AccountId: any;
   searchPerformed: boolean = false;
+  valuestaticexport:any;
+  valuestaticsettlement:any;
+  valuestaticview:any;
 
 
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private ActivateRoute: ActivatedRoute, private router: Router, private location: Location) { }
@@ -77,6 +80,42 @@ export class OfflineTransactionsComponent {
 
 
   ngOnInit(): void {
+
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+       
+ 
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+          if (this.roleId == 1) {
+            this.valuestaticexport = 'Entity View Static QR Payments-Export';
+            this.valuestaticsettlement='Entity View Static QR Payments-Settlement';
+            this.valuestaticview='Entity View Static QR Payments-View';
+           
+          }
+          else {
+            for (let datas of this.getdashboard) {
+ 
+              this.actions = datas.subPermissions;
+              if (this.actions == 'Entity View Static QR Payments-Export') {
+                this.valuestaticexport = 'Entity View Static QR Payments-Export';
+              }
+              if(this.actions=='Entity View Static QR Payments-Settlement'){
+                this.valuestaticsettlement='Entity View Static QR Payments-Settlement';
+              }
+             if(this.actions=='Entity View Static QR Payments-View'){
+              this.valuestaticview='Entity View Static QR Payments-View';
+             }
+ 
+            }
+          }
+ 
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    })
 
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.id = param.Alldata;

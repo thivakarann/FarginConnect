@@ -47,6 +47,9 @@ export class SignerGetallComponent implements OnInit {
   actions: any;
   errorMessage: any;
   data: any;
+  valueSignerDetailsStatus: any;
+  valueSignerDetailscreate: any;
+  getdashboard: any;
 
   constructor(
     public service: FarginServiceService,
@@ -55,6 +58,39 @@ export class SignerGetallComponent implements OnInit {
     private dialog: MatDialog,
   ) { }
   ngOnInit(): void {
+
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+
+
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+
+          if (this.roleId == 1) {
+            this.valueSignerDetailscreate = 'Signer Details-Add'
+            this.valueSignerDetailsStatus = 'Signer Details-Status'
+
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+              if (this.actions == 'Signer Details-Add') {
+                this.valueSignerDetailscreate = 'Signer Details-Add'
+              }
+              if (this.actions == 'Signer Details-Status') {
+                this.valueSignerDetailsStatus = 'Signer Details-Status'
+              }
+
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    });
+
+
     this.service.signergetall().subscribe((res: any) => {
       this.data = res.response;
       this.data.reverse();

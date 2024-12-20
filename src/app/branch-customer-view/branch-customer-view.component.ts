@@ -7,6 +7,7 @@ import { FarginServiceService } from '../service/fargin-service.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-branch-customer-view',
@@ -46,7 +47,8 @@ export class BranchCustomerViewComponent implements OnInit {
     private dialog: MatDialog,
     private formBuilder: FormBuilder,
     private ActivateRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private location:Location
   ) { }
 
 
@@ -88,8 +90,10 @@ export class BranchCustomerViewComponent implements OnInit {
     }
   }
 
-
   
+  close() {
+    this.location.back()
+  }
 
 
 }

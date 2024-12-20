@@ -27,9 +27,10 @@
         </div>
 
     </button>
+
     <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
         data-target="home" (click)="Viewoffline(this.id,this.detaislone?.accountId)">
-        <div>
+        <div [hidden]="valuentityOffline!=='Entity View Static QR Payments'">
             <i class="fa-solid fa-building-columns"></i>&nbsp;&nbsp; Offline
         </div>
 
@@ -68,8 +69,8 @@
         </div>
     </button>
     <!-- [disabled]="detaislone?.onBoardStatus !='true'" -->
-    <button style="background-color: #fff;border:none"  class="navtab"
-        data-target="page5" (click)="viewpaymentLink(this.id)">
+    <button style="background-color: #fff;border:none" class="navtab" data-target="page5"
+        (click)="viewpaymentLink(this.id)">
         <div [hidden]="valueentitypaylink!=='Entity View Payment Link'"><i class="fa fa-link"></i>&nbsp;&nbsp;Payment
             Link</div>
     </button>
@@ -100,8 +101,7 @@
             [hidden]="valuesmssetting!=='Sms Setting'">SMS Settings</button>
         <button class="tab" [class.active]="activeTab === 'doot5'" (click)="selectTab('doot5')"
             [hidden]="valueagreement!=='Entity View Agreement'">Agreement</button>
-            <button class="tab" [class.active]="activeTab === 'doot6'" (click)="selectTab('doot6')"
-           >Branch</button>
+        <button class="tab" [class.active]="activeTab === 'doot6'" (click)="selectTab('doot6')">Branch</button>
     </div>
     <div class="tab-content" *ngIf="activeTab === 'events'" [hidden]="valueGeneral!=='Entity View General Information'">
         <div class="filters">
@@ -1314,7 +1314,7 @@
                             <th [hidden]="valuesmsapproval!=='Sms Setting-Approval'">Approval</th>
                             <th>Approval Status</th>
                             <th [hidden]="valuesmsstatus!=='Sms Setting-Status'">Status</th>
-                          <!--<th [hidden]="valuesmsview!=='Sms Setting-View'">View</th>-->  
+                            <!--<th [hidden]="valuesmsview!=='Sms Setting-View'">View</th>-->
                             <th [hidden]="valuesmsedit!=='Sms Setting-Edit'">Action</th>
                             <th>Created By</th>
                             <th>Created At</th>
@@ -1344,11 +1344,11 @@
                                         (change)="smsStatus($event,item.merchantSmsId)">
                                     </mat-slide-toggle></span>
                             </td>
-                          <!--<td [hidden]="valuesmsview!=='Sms Setting-View'">
+                            <!--<td [hidden]="valuesmsview!=='Sms Setting-View'">
                                 <span (click)="ViewMerchantSms(item.merchantSmsId)">
                                     <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
                                 </span>
-                            </td>-->  
+                            </td>-->
                             <td [hidden]="valuesmsedit!=='Sms Setting-Edit'"> <span (click)="editsms(item)">
                                     <i class="fas fa-edit" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
                                 </span></td>
@@ -1542,7 +1542,7 @@
 <div *ngIf="activeTab === 'doot6'">
     <mat-card-header>
         <div class="col-md-3 mr-2" style="color: blue; font-size: 12px;">
-           
+
         </div>
         <div class="row  d-flex justify-content-start">
             <div class="col-md-3">
@@ -1576,8 +1576,8 @@
                 </div>
             </div>
             <div class="col-md-2 mt-1">
-                <button  (click)="branchcreate()"
-                    style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Create
+                <button (click)="branchcreate()" style="color:white;background-color: #141E46;border-radius: 10px;"
+                    mat-raised-button>Create
                 </button>
             </div>
         </div>
@@ -1613,26 +1613,26 @@
                             <td>{{item.apiKey}}</td>
                             <td>{{item.secretKey}}</td>
                             <td><i style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
-                                (click)="Viewcustomerbranch(item.branchId)"></i> </td>
+                                    (click)="Viewcustomerbranch(item.branchId)"></i> </td>
                             <td>{{item.bankName}}</td>
                             <td>
-                                <mat-slide-toggle class="example-margin" color="primary" [checked]="item.accountStatus === 1"
-                                    (change)="status($event,item.branchId)">
+                                <mat-slide-toggle class="example-margin" color="primary"
+                                    [checked]="item.accountStatus === 1" (change)="status($event,item.branchId)">
                                 </mat-slide-toggle>
                             </td>
                             <td>
                                 <span><i style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"
-                                            (click)="branchedit(item)" class="fas fa-edit">
+                                        (click)="branchedit(item)" class="fas fa-edit">
                                     </i></span>
-                                    </td>
+                            </td>
                             <td>{{item.ifscCode}}</td>
                             <td>{{item.accountHolderName}}</td>
                             <td>{{item.accountNumber}}</td>
                             <td>{{item.createdBy}}</td>
-                            <td>{{item.createdAt | date : "dd/MM/yyyy hh:mm a"}}</td>      
-                             <td>{{item.modifiedBy }}</td>
-                             <td>{{item.modifiedAt | date : "dd/MM/yyyy hh:mm a"}}</td>
-                         
+                            <td>{{item.createdAt | date : "dd/MM/yyyy hh:mm a"}}</td>
+                            <td>{{item.modifiedBy }}</td>
+                            <td>{{item.modifiedAt | date : "dd/MM/yyyy hh:mm a"}}</td>
+
                         </tbody>
                     </table>
                 </div>

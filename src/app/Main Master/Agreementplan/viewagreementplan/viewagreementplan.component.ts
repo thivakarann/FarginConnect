@@ -40,52 +40,54 @@ export class ViewagreementplanComponent {
   actions: any;
   errorMessage: any;
   agreementplan: any;
+  valuebussinesscreate:any;
+  valuebussinessexport:any;
+  valuebussinessedit:any;
+  valuebussinessview:any;
 
 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService,private router:Router) { }
 
   ngOnInit() {
 
-    // this.service.rolegetById(this.roleId).subscribe({
-    //   next: (res: any) => {
-        
-
-    //     if (res.flag == 1) {
-    //       this.getdashboard = res.response?.subPermission;
-
-    //       if (this.roleId == 1) {
-    //         this.valueCategoryAdd = 'Bussiness Category-Add';
-    //         this.valueCategoryEdit = 'Bussiness Category-Edit';
-    //         this.valueCategorystatus = 'Bussiness Category-Status';
-    //         this.valueCategoryexport = 'Bussiness Category-Export';
-
-    //       }
-    //       else {
-    //         for (let datas of this.getdashboard) {
-    //           this.actions = datas.subPermissions;
-
-
-    //           if (this.actions == 'Bussiness Category-Add') {
-    //             this.valueCategoryAdd = 'Bussiness Category-Add';
-    //           }
-    //           if (this.actions == 'Bussiness Category-Edit') {
-    //             this.valueCategoryEdit = 'Bussiness Category-Edit';
-    //           }
-    //           if (this.actions == 'Bussiness Category-Export') {
-    //             this.valueCategoryexport = 'Bussiness Category-Export';
-    //           }
-    //           if (this.actions == 'Bussiness Category-Status') {
-    //             this.valueCategorystatus = 'Bussiness Category-Status';
-    //           }
-
-    //         }
-    //       }
-    //     }
-    //     else {
-    //       this.errorMessage = res.responseMessage;
-    //     }
-    //   }
-    // })
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+       
+ 
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+ 
+          if (this.roleId == 1) {
+           this.valuebussinesscreate='Business Plan-Add'
+           this.valuebussinessexport='Business Plan-Export'
+           this.valuebussinessedit='Business Plan-Edit'
+           this.valuebussinessview='Business Plan-View'
+       
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+            if(this.actions=='Business Plan-Add'){
+              this.valuebussinesscreate='Business Plan-Add'
+            }
+            if(this.actions=='Business Plan-Export'){
+              this.valuebussinessexport='Business Plan-Export'
+            }
+            if(this.actions=='Business Plan-Edit'){
+              this.valuebussinessedit='Business Plan-Edit'
+            }
+            if(this.actions=='Business Plan-View'){
+              this.valuebussinessview='Business Plan-View'
+            }
+           
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    });
 
 
     this.service.viewagreementplan().subscribe((res: any) => {

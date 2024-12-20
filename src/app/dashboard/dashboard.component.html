@@ -264,74 +264,76 @@
           
 
             <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valueBusinessCategory!=='Bussiness Category' &&
-             valueBusinessKYC!=='Business Category Doc' &&
-             valueFacheck!=='FaCheck Key' &&
-             valuemerchantPlan!=='Merchant Plan' &&
-             valuepgsetupkey!=='PG SetupKey' &&
-             valueWithdrawalfee!=='Withdrawal Fee' &&
-             valueBuisneesDoCument!=='Business Document Type'">
-              <a>
-                <i class="fa fa-cogs"></i>
-                <span>Main Master</span>
-              </a>
-              <div class="sidebar-submenu">
-                <ul>
-                  <li [hidden]="valueBusinessCategory!=='Bussiness Category'">
-                    <a routerLink="view-category">Business Category
-                    </a>
-                  </li>
+            valueBusinessKYC!=='Business Category Doc' &&
+            valueFacheck!=='FaCheck Key' &&
+            valuemerchantPlan!=='Merchant Plan' &&
+            valuepgsetupkey!=='PG SetupKey' &&
+            valueWithdrawalfee!=='Withdrawal Fee' &&
+            valueBuisneesDoCument!=='Business Document Type' &&
+            valueBusinessPlan!=='Business Plan' &&
+            valueSignerDetails!=='Signer Details'">
+             <a>
+               <i class="fa fa-cogs"></i>
+               <span>Main Master</span>
+             </a>
+             <div class="sidebar-submenu">
+               <ul>
+                 <li [hidden]="valueBusinessCategory!=='Bussiness Category'">
+                   <a routerLink="view-category">Business Category
+                   </a>
+                 </li>
 
-                  <li [hidden]="valueBuisneesDoCument!=='Business Document Type'">
-                    <a routerLink="viewall-kyccategory">Business Document Type </a>
-                  </li>
+                 <li [hidden]="valueBuisneesDoCument!=='Business Document Type'">
+                   <a routerLink="viewall-kyccategory">Business Document Type </a>
+                 </li>
 
-                  <li [hidden]="valueBusinessKYC!=='Business Category Doc'">
-                    <a routerLink="Business-kyc">Business Category Doc</a>
-                  </li>
-                  <!-- <li [hidden]="valueRegion!=='Region'">
-                    <a routerLink="Region">Region</a>
-                  </li>
-                  <li [hidden]="ValueMSO!=='MSO'">
-                    <a routerLink="service-provider">MSO</a>
-                  </li> -->
-                  <li [hidden]="valuemerchantPlan!=='Merchant Plan'">
-                    <a routerLink="merchant-plan-viewall">Entity Plan</a>
-                  </li>
+                 <li [hidden]="valueBusinessKYC!=='Business Category Doc'">
+                   <a routerLink="Business-kyc">Business Category Doc</a>
+                 </li>
+                 <!-- <li [hidden]="valueRegion!=='Region'">
+                   <a routerLink="Region">Region</a>
+                 </li>
+                 <li [hidden]="ValueMSO!=='MSO'">
+                   <a routerLink="service-provider">MSO</a>
+                 </li> -->
+                 <li [hidden]="valuemerchantPlan!=='Merchant Plan'">
+                   <a routerLink="merchant-plan-viewall">Entity Plan</a>
+                 </li>
 
-                  <li [hidden]="valuebankdetails!=='Bank List'">
-                    <a routerLink="bank-viewall">Bank Details </a>
-                  </li>
-                  <li [hidden]="valueFacheck!=='FaCheck Key'">
-                    <a routerLink="viewfacheckkey">Facheck Key</a>
-                  </li>
+                 <li [hidden]="valuebankdetails!=='Bank List'">
+                   <a routerLink="bank-viewall">Bank Details </a>
+                 </li>
+                 <li [hidden]="valueFacheck!=='FaCheck Key'">
+                   <a routerLink="viewfacheckkey">Facheck Key</a>
+                 </li>
 
-                  <li [hidden]="valuepgsetupkey!=='PG SetupKey'">
-                    <a routerLink="pgsetup-view">PG Setupkey</a>
-                  </li>
+                 <li [hidden]="valuepgsetupkey!=='PG SetupKey'">
+                   <a routerLink="pgsetup-view">PG Setupkey</a>
+                 </li>
 
-                  <li [hidden]="valuesmscost!=='SMS Cost'">
-                    <a routerLink="sms-cost-viewall">SMS Cost</a>
-                  </li>
-
-
-
-                  <li [hidden]="valuefarginbank!=='Fargin bank'">
-                    <a routerLink="fargin-viewall">Fargin bank details </a>
-                  </li>
-                  <li>
-                    <a routerLink="agreementplan">Business Plan</a>
-                  </li>
-                  <li>
-                    <a routerLink="signer-getall">Signer Details</a>
-                  </li>
+                 <li [hidden]="valuesmscost!=='SMS Cost'">
+                   <a routerLink="sms-cost-viewall">SMS Cost</a>
+                 </li>
 
 
-                  <!-- <li [hidden]="valueWithdrawalfee!=='Withdrawal Fee'">
-                    <a routerLink="viewwithdrawal">Withdrawal Fee</a>
-                  </li> -->
-                </ul>
-              </div>
-            </li>
+
+                 <li [hidden]="valuefarginbank!=='Fargin bank'">
+                   <a routerLink="fargin-viewall">Fargin bank details </a>
+                 </li>
+                 <li [hidden]="valueBusinessPlan!=='Business Plan'">
+                   <a routerLink="agreementplan">Business Plan</a>
+                 </li>
+                 <li [hidden]="valueSignerDetails!=='Signer Details'">
+                   <a routerLink="signer-getall">Signer Details</a>
+                 </li>
+
+
+                 <!-- <li [hidden]="valueWithdrawalfee!=='Withdrawal Fee'">
+                   <a routerLink="viewwithdrawal">Withdrawal Fee</a>
+                 </li> -->
+               </ul>
+             </div>
+           </li>
             <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valueUser!=='User' && valueRole!=='Role'">
               <a>
                 <i class="fa-solid fa-person-circle-check"></i>

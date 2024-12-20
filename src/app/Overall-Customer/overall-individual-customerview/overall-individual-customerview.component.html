@@ -12,7 +12,7 @@
    
   </div>
 </mat-card-header>
-
+ 
 <ul class="nav nav-pills nav-fill mb-4 mx-3 mt-3">
   <li class="nav-item">
     <a style="cursor: pointer;font-weight: 600;" class="nav-link" [class.active]="selectedTab === 'customer-info'"
@@ -34,123 +34,224 @@
       Transactions
     </a>
   </li>
-
-
+  &nbsp;&nbsp;
+  <li class="nav-item">
+    <a style="cursor: pointer;font-weight: 600;" class="nav-link" [class.active]="selectedTab === 'Additional-Payments'"
+      (click)="selectTab('Additional-Payments')">
+      Additional Payments
+    </a>
+  </li>
+ 
+ 
 </ul>
 <div *ngIf="selectedTab === 'customer-info'" id="customer-info" class="mb-4">
   <div class="container">
     <article class="card">
       <div class="card-body">
         <!-- <h3 class="card-title mb-4">General Information</h3>
-                <hr> -->
-        <div class="row">
-          <div class="col-md-6">
-            <div class="mb-3">
-              <strong>Customer Name:</strong> {{ viewcustomer?.customerName }}
+              <hr> -->
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-6 col-12">
+              <div class="d-flex flex-column">
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">
+                    Customer Id:</div>
+                  <div class="w-50">{{ viewcustomer?.customerReferenceId }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">
+                    Customer Name:</div>
+                  <div class="w-50">{{ viewcustomer?.customerName }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">
+                    Email Address</div>
+                  <div class="w-50">{{ viewcustomer?.emailAddress }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">Mobile Number:
+                  </div>
+                  <div class="w-50">{{ viewcustomer?.mobileNumber }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">Age:</div>
+                  <div class="w-50">{{ viewcustomer?.age }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">Area:</div>
+                  <div class="w-50"> {{ viewcustomer?.area }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">Street Name:</div>
+                  <div class="w-50">{{ viewcustomer?.streetName }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">Country
+                  </div>
+                  <div class="w-50">{{ viewcustomer?.countryName }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">State Name:</div>
+                  <div class="w-50"> {{ viewcustomer?.stateName }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">Branch Name:</div>
+                  <div class="w-50"> {{ viewcustomer?.branchId }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">City Name:</div>
+                  <div class="w-50">{{ viewcustomer?.cityName }}</div>
+                </div>
+ 
+             
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">Pincode</div>
+                  <div class="w-50">{{ viewcustomer?.pincodeName }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">Land Mark:</div>
+                  <div class="w-50">{{ viewcustomer?.landmark }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">Advance Paid:</div>
+                  <div class="w-50">
+                    <div class="w-50">{{ viewcustomer?.advanceStatus }}</div>
+                  </div>
+                </div>
+ 
+               
+             
+              </div>
             </div>
-            <div class="mb-3">
-              <strong>Email Address:</strong> {{ viewcustomer?.emailAddress }}
+ 
+ 
+            <div class="col-md-6 col-12">
+              <div class="d-flex flex-column">
+ 
+ 
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">MSO-Customer ID:</div>
+                  <div class="w-50">
+                    <div class="w-50">{{ viewcustomer?.customerMsoId }}</div>
+                  </div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">Flat Number:</div>
+                  <div class="w-50">{{ viewcustomer?.flatNumber }}</div>
+                </div>
+             
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">Block Number:</div>
+                  <div class="w-50">{{ viewcustomer?.blockNumber }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">House Name:</div>
+                  <div class="w-50"> {{ viewcustomer?.houseName }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">Door Number:</div>
+                  <div class="w-50"> {{ viewcustomer?.doorNumber }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">Alter Mobile Number:</div>
+                  <div class="w-50"> {{ viewcustomer?.alterMobileNumber }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">Apartment Name:</div>
+                  <div class="w-50"> {{ viewcustomer?.apartmentName }}</div>
+                </div>
+             
+               
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">Advance Amount:</div>
+                  <div class="w-50">
+                    {{viewcustomer?.advanceAmount}}
+                  </div>
+                </div>
+               
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">Connection Type:</div>
+                  <div class="w-50">
+                    <div class="w-50"> {{ viewcustomer?.freeLine }}</div>
+                  </div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">Branch Status:</div>
+                  <div class="w-50"> {{ viewcustomer?.branchStatus }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">Created At:</div>
+                  <div class="w-50">
+                    <div class="w-50"> {{ viewcustomer?.createdDateTime|date:"dd/MM/yyyy" }}</div>
+                  </div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">Created By:</div>
+                  <div class="w-50">{{ viewcustomer?.createdBy }}</div>
+                </div>
+ 
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">Modified By:</div>
+                  <div class="w-50">{{ viewcustomer?.modifiedBy }}</div>
+                </div>
+ 
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">Modified At:</div>
+                  <div class="w-50">
+                    <div class="w-50"> {{ viewcustomer?.modifiedDateTime | date:"dd/MM/yyyy" }}</div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="mb-3">
-              <strong>Mobile Number:</strong> {{ viewcustomer?.mobileNumber }}
-            </div>
-            <div class="mb-3">
-              <strong>Area:</strong> {{ viewcustomer?.area }}
-            </div>
-            <div class="mb-3">
-              <strong>Street Name:</strong> {{ viewcustomer?.streetName }}
-            </div>
-            <div class="mb-3">
-              <strong>City Name:</strong> {{ viewcustomer?.cityName }}
-            </div>
-            <div class="mb-3">
-              <strong>Pincode:</strong> {{ viewcustomer?.pincodeName }}
-            </div>
-            <div class="mb-3">
-              <strong>Land Mark:</strong> {{ viewcustomer?.landmark }}
-            </div>
-            <div class="mb-3">
-              <strong>Age:</strong> {{ viewcustomer?.age }}
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="mb-3">
-              <strong>Flat Number:</strong> {{ viewcustomer?.flatNumber }}
-            </div>
-            <div class="mb-3">
-              <strong>Block Number:</strong> {{ viewcustomer?.blockNumber }}
-            </div>
-            <div class="mb-3">
-              <strong>Broadcaster:</strong> {{ viewcustomer?.stbId?.regionEntity?.service?.serviceProviderName }}
-            </div>
-            <div class="mb-3">
-              <strong>STB Number:</strong> {{ viewcustomer?.stbId?.setupBoxNumber }}
-            </div>
-            <div class="mb-3">
-              <strong>House Name:</strong> {{ viewcustomer?.houseName }}
-            </div>
-            <div class="mb-3">
-              <strong>Door Number:</strong> {{ viewcustomer?.doorNumber }}
-            </div>
-            <div class="mb-3">
-              <strong>Alter Mobile Number:</strong> {{ viewcustomer?.alterMobileNumber }}
-            </div>
-            <div class="mb-3">
-              <strong>Apartment Name:</strong> {{ viewcustomer?.apartmentName }}
-            </div>
-            <div class="mb-3">
-              <strong>Pincode:</strong> {{ viewcustomer?.pincodeName }}
-            </div>
-
+ 
           </div>
         </div>
       </div>
     </article>
   </div>
 </div>
-
+ 
 <div id="Setup-box" *ngIf="selectedTab === 'Setup-Box'" class="mb-4">
-
+ 
   <div>
     <div class="row mt-5 mx-1">
       <div class="col-md-3">
         <div class="search ">
           <form class="form">
-              <label for="search">
-                <input style="font-size: 13px;" type="text" id="search"  [(ngModel)]="searchText"
+            <label for="search">
+              <input style="font-size: 13px;" type="text" id="search" [(ngModel)]="searchText" name="searchText"
                 placeholder="search">
-                  <div class="icon">
-                      <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                          xmlns="http://www.w3.org/2000/svg" class="swap-on">
-                          <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
-                              stroke-linecap="round"></path>
-                      </svg>
-                      <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                          xmlns="http://www.w3.org/2000/svg" class="swap-off">
-                          <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
-                              stroke-linecap="round">
-                          </path>
-                      </svg>
-                  </div>
-                  <button  (click)="reload()"  type="reset" class="close-btn">
-                      <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
-                          <path clip-rule="evenodd"
-                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                              fill-rule="evenodd"></path>
-                      </svg>
-                  </button>
-              </label>
+              <div class="icon">
+                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                  <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
+                  </path>
+                </svg>
+                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                  <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round" stroke-linecap="round">
+                  </path>
+                </svg>
+              </div>
+              <button (click)="reload()" type="reset" class="close-btn">
+                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                  <path clip-rule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    fill-rule="evenodd"></path>
+                </svg>
+              </button>
+            </label>
           </form>
+        </div>
       </div>
-       
+      <div class="col-md-2">
+     
       </div>
-      <div class="col-md-3">
-        <!-- <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Add
-          Setupbox</button> -->
+      <div class="col">
+        <!-- <button  (click)="setuphistory(this.id)" style="color:white;background-color: #141E46;border-radius: 10px;"
+    mat-raised-button >History</button> -->
       </div>
-      <!-- <div class="col-md-6 d-flex justify-content-end">
-        <b> Total Alcart Amount: {{ totalAmount }}</b>
-      </div> -->
     </div>
     <div class="row mt-1 mx-1">
       <div class="col-12 mb-3 mb-lg-5">
@@ -158,7 +259,7 @@
           <div class="table-responsive text-nowrap text-center">
             <table class="table table-hover" id="customers">
               <tr>
-
+ 
                 <th>S No</th>
                 <th>Setupbox Number</th>
                 <th>Service Provider Name</th>
@@ -169,11 +270,11 @@
                 <th>Created At</th>
               </tr>
               <span *ngIf="showDatas" class="text-center" style="color:red;font-size:12px;">NO DATA FOUND</span>
-
+ 
               <tbody *ngIf="!showDatas">
                 <tr
                   *ngFor="let row of setupboxview | paginate: { id:'pagination4', itemsPerPage: 3, currentPage: page4 } | search: searchText; let i = index">
-
+ 
                   <td>{{ i + 1 }}</td>
                   <td>{{ row.stbId?.setupBoxNumber }}</td>
                   <td>{{ row.stbId?.service?.serviceProviderName }}</td>
@@ -195,17 +296,17 @@
               <pagination-controls id='pagination4' (pageChange)="page4 = $event"></pagination-controls>
             </div>
           </div>
-
+ 
         </div>
       </div>
     </div>
   </div>
-
+ 
 </div>
 <!-- Transaction -->
-
+ 
 <div id="Transaction" *ngIf="selectedTab === 'Transaction'" class="mb-4">
-
+ 
   <div>
     <div class="row mt-5 mx-1">
       <div class="col-md-3">
@@ -236,7 +337,7 @@
         <button (click)="Customercustid(this.id,input.value)" style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Go</button>
         &nbsp;
       </div>
-
+ 
     </div>
     <div class="row mt-1 mx-1">
       <div class="col-12 mb-3 mb-lg-5">
@@ -244,7 +345,7 @@
           <div class="table-responsive text-nowrap text-center">
             <table class="table table-hover" id="customers">
               <tr>
-
+ 
                 <th>S No</th>
                 <th>Payment ID</th>
                 <th>Payable Amount</th>
@@ -255,23 +356,23 @@
                 <th>Paid At</th>
               </tr>
               <span *ngIf="!showData" class="text-center" style="color:red;font-size:12px;">NO DATA FOUND</span>
-
+ 
               <tbody *ngIf="showData">
                 <tr
                   *ngFor="let row of transaction | paginate: { itemsPerPage: 5, currentPage: page } | search: searchText; let i = index">
-
+ 
                   <td>{{ i + 1 }}</td>
                   <td>{{ row.pgPaymentId || "-" }}</td>
                   <td>{{ row.paidAmount }}</td>
                   <td>{{row.startDate | date : "dd/MM/yyyy hh:mm a"}}</td>
                   <td>{{row.endDate | date : "dd/MM/yyyy hh:mm a"}}</td>
-
+ 
                   <td>
                     <span *ngIf=" row.paymentStatus=='Due Pending'" style="color:orange"> {{ row.paymentStatus}}</span>
                     <span *ngIf=" row.paymentStatus=='Success'" style="color:green"> {{ row.paymentStatus}}</span>
                     <span *ngIf=" row.paymentStatus=='Failure'" style="color:red"> {{ row.paymentStatus}}</span>
                     <span *ngIf=" row.paymentStatus=='Initiated'" style="color:blue"> {{ row.paymentStatus}}</span>
-
+ 
                   </td>
                   <td>
                     <button [disabled]="row.paymentStatus != 'Success'" class="btn btn-success btn-sm"
@@ -281,7 +382,7 @@
                     <span *ngIf=" row.paymentDateTime!= null"> {{ row.paymentDateTime | date:"dd/MM/yyyy
                       :hh:m:a"}}</span>
                     <span *ngIf=" row.paymentDateTime==null" style="color:blue"> -</span>
-
+ 
                   </td>
                 </tr>
               </tbody>
@@ -294,5 +395,103 @@
       </div>
     </div>
   </div>
-
+ 
+</div>
+<div id="Additional" *ngIf="selectedTab === 'Additional-Payments'" class="mb-4">
+  <div>
+    <div class="row mt-5 mx-1">
+      <div class="col-md-3">
+        <div class="search ">
+          <form class="form">
+            <label for="search">
+              <input style="font-size: 13px;" type="text" id="search" [(ngModel)]="searchText" name="searchText"
+                placeholder="search">
+              <div class="icon">
+                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                  <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
+                  </path>
+                </svg>
+                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                  <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round" stroke-linecap="round">
+                  </path>
+                </svg>
+              </div>
+              <button (click)="reload()" type="reset" class="close-btn">
+                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                  <path clip-rule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    fill-rule="evenodd"></path>
+                </svg>
+              </button>
+            </label>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-2">
+     
+      </div>
+      <div class="col">
+        <!-- <button  (click)="setuphistory(this.id)" style="color:white;background-color: #141E46;border-radius: 10px;"
+    mat-raised-button >History</button> -->
+      </div>
+    </div>
+    <div class="row mt-1 mx-1">
+      <div class="col-12 mb-3 mb-lg-5">
+        <div class="card table-nowrap table-card">
+          <div class="table-responsive text-nowrap text-center">
+            <table class="table table-hover" id="customers">
+              <tr>
+ 
+                <th>S No</th>
+                <th>Service Name</th>
+                <th>Payment Id</th>
+                <th>Payment Method</th>
+                <th>Payment Status</th>
+                <th>Service Amount</th>
+             
+                <th>Invoice</th>
+                <th>Paid At</th>
+ 
+              </tr>
+              <!-- <span *ngIf="!showData" class="text-center" style="color:red;font-size:12px;">NO DATA FOUND</span> -->
+ 
+              <tbody>
+                <tr
+                  *ngFor="let item of additionlpay | paginate: { id:'pagination4', itemsPerPage: 3, currentPage: page4 } | search: searchText; let i = index">
+ 
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ item.addtionalCategory?.serviceName}}</td>
+                  <td>{{ item.pgPaymentId ||'--'}}</td>
+                  <td>{{ item.paymentMethod ||'--'}}</td>
+                  <td>
+                    <span *ngIf="item?.paymentStatus == 'Success'" class="text-success"> {{
+                      item?.paymentStatus}}</span>
+                    <span *ngIf="item?.paymentStatus   == 'Due Pending'" class="text-warning"> {{
+                      item?.paymentStatus}}</span>
+                    <span *ngIf="item?.paymentStatus  == 'Initiated'" class="text-primary"> {{
+                      item?.paymentStatus}}</span>
+                    <span *ngIf="item?.paymentStatus  == 'Failure'" class="text-danger"> {{
+                      item?.paymentStatus}}</span>
+ 
+                  </td>
+                  <td>{{ item.paidAmount}}</td>
+                 
+                  <td> <button class="btn btn-success btn-sm" [disabled]="transaction?.paymentStatus != 'Success'"
+                      style="border:none;" (click)="viewreciept(item?.customerpaymentId)"> <i
+                        class="fa-solid fa-download" style="color:#fff;"></i></button></td>
+                  <td>{{item.paymentDateTime| date:'dd/MM/yyyy hh:mm'}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-end mt-3">
+      <pagination-controls id='pagination4' (pageChange)="page4 = $event"></pagination-controls>
+    </div>
+  </div>
+ 
 </div>
