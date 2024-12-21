@@ -229,6 +229,7 @@ export class ViewAnnouncementComponent implements OnInit {
       }, 1000);
     });
   }
+ 
   exportexcel() {
     this.service.announcementViewallExport().subscribe((res: any) => {
       this.announcementexport = res.response;
@@ -289,9 +290,9 @@ export class ViewAnnouncementComponent implements OnInit {
       "End date",
       "Created By",
       "Status",
-      "Created Date",
+      "Created At",
       "Modified By",
-      "Modified Date and Time",
+      "Modified At",
     ]
     const data = this.responseDataListnew;
     let workbook = new Workbook();
@@ -340,6 +341,7 @@ export class ViewAnnouncementComponent implements OnInit {
       FileSaver.saveAs(blob, 'Announcement.xlsx');
     });
   }
+ 
 
   announcement(id: any) {
     this.dialog.open(AnnouncementviewComponent, {

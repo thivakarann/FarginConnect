@@ -201,7 +201,7 @@ export class AdditionalpaymentsComponent {
         this.transactionexport.forEach((element: any) => {
           // let createdate = element.paymentDateTime;
           // this.date1 = moment(createdate).format('DD/MM/yyyy hh:mm a').toString();
-        
+       
           this.response = [];
           this.response.push(sno);
           this.response.push(element?.pgPaymentId);
@@ -216,7 +216,7 @@ export class AdditionalpaymentsComponent {
           else{
             this.response.push('');
           }
-
+ 
           if (element?.paymentStatus == 'Success') {
             this.response.push('Success');
           }
@@ -226,8 +226,8 @@ export class AdditionalpaymentsComponent {
           else {
             this.response.push('Initiated');
           }
-          
-
+         
+ 
           sno++;
           this.responseDataListnew.push(this.response);
         });
@@ -246,18 +246,18 @@ export class AdditionalpaymentsComponent {
       'Amount',
       'Paid At',
       'Status',
-
+ 
     ]
-
-
+ 
+ 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Additional Payments');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
-
+ 
+ 
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -268,15 +268,15 @@ export class AdditionalpaymentsComponent {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
-
+ 
       }
-
+ 
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
-
+ 
     data.forEach((d: any) => {
       //
-
+ 
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -286,7 +286,7 @@ export class AdditionalpaymentsComponent {
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
-
+ 
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -295,8 +295,8 @@ export class AdditionalpaymentsComponent {
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
-
+ 
+ 
     }
     );
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
@@ -307,7 +307,7 @@ export class AdditionalpaymentsComponent {
       FileSaver.saveAs(blob, 'Additional Payments.xlsx');
     });
   }
-
+ 
 
   transactionview(id: any) {
 

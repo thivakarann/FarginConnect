@@ -244,8 +244,8 @@ export class MaintenanceTransViewallComponent {
         let sno = 1;
         this.responseDataListnew = [];
         this.transactionexport.forEach((element: any) => {
-
-
+ 
+ 
           this.response = [];
           this.response.push(sno);
           this.response.push(element?.pgPaymentId);
@@ -254,19 +254,19 @@ export class MaintenanceTransViewallComponent {
           this.response.push(element?.smsCount);
           this.response.push(element?.smsPerAmount);
           this.response.push(element?.smsTotalAmount);
-
           this.response.push(element?.paidAmount);
-
-
-
-          //
-          if (element?.paymentDateTime) {
-            this.response.push(moment(element?.paymentDateTime).format('DD/MM/yyyy-hh:mm a').toString());
+          this.response.push(element?.cgstPercentage);
+          this.response.push(element?.igstPercentage);
+          this.response.push(element?.sgstPercentage);
+          this.response.push(element?.totalPayableAmount);
+       
+          if(element.paymentDateTime){
+            this.response.push(moment(element?.paymentDateTime).format('DD/MM/yyyy hh:mm a').toString());
           }
-          else {
+          else if (element.paymentDateTime =='null'){
             this.response.push('');
           }
-
+ 
           if (element?.paymentStatus == 'Success') {
             this.response.push('Success');
           }
@@ -283,7 +283,7 @@ export class MaintenanceTransViewallComponent {
       }
     });
   }
-
+ 
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
@@ -295,19 +295,23 @@ export class MaintenanceTransViewallComponent {
       'Sms Cost Per Count',
       'Total Sms Cost',
       'Amount',
+      'CGST Percentage',
+      'IGST Percentage',
+      'SGST Percentage',
+      'Total Payable Amount',
       'Paid At',
       'Status',
     ]
-
-
+ 
+ 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Entity Transactions');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
-
+ 
+ 
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -318,15 +322,15 @@ export class MaintenanceTransViewallComponent {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
-
+ 
       }
-
+ 
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
-
+ 
     data.forEach((d: any) => {
       //
-
+ 
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -338,10 +342,14 @@ export class MaintenanceTransViewallComponent {
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
-
-
-
-
+      let qty10 = row.getCell(11);
+      let qty11 = row.getCell(12);
+      let qty12 = row.getCell(13);
+      let qty13 = row.getCell(14);
+ 
+ 
+ 
+ 
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -352,7 +360,11 @@ export class MaintenanceTransViewallComponent {
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
+      qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty12.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty13.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+ 
     }
     );
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }

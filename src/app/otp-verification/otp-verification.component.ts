@@ -62,6 +62,8 @@ export class OtpVerificationComponent implements OnInit {
     let textSec: any = '0';
     let statSec: number = 60;
     const prefix = minute < 10 ? '0' : '';
+    this.resendOtp = false;
+    this.displayTimer = true;
     this.timerId = setInterval(() => {
       seconds--;
       if (statSec != 0) statSec--;

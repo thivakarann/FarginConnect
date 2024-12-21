@@ -43,17 +43,13 @@ export class AggrementSignerOneComponent implements OnInit {
     private router: Router
   ) { }
   ngOnInit(): void {
-
-  
-     
-     this.activatedroute.queryParams.subscribe((params: any) => {
+    
+    this.activatedroute.queryParams.subscribe((params: any) => {
       this.ReferenceCode = params.referenceCode;
       console.log(this.ReferenceCode)
     });
     
-    
     this.service.AggrementViewbyrefferencenumber(this.ReferenceCode).subscribe((res: any) => {
-
       if (res.flag == 1) {
         this.Expirystatus = false;
         this.Agreementdetails = res.response;
@@ -71,7 +67,7 @@ export class AggrementSignerOneComponent implements OnInit {
         console.log(this.AdminSignedDate);
         console.log(this.EntitySignedDate);
 
-        this.Locationaccess()
+        // this.Locationaccess():
 
         this.service.viewagreementdoucments(this.AgreementId, 1).subscribe((data) => {
           const reader = new FileReader();
@@ -102,37 +98,41 @@ export class AggrementSignerOneComponent implements OnInit {
   }
 
 
-
+  ResendOTP() {
+    this.service.AgreementSendOtp(this.ReferenceCode,2).subscribe((res: any) => {
+    })
+  }
 
   Locationaccess() {
 
-    if (this.LocationStatus == false) {
+    if (this.LocationStatus == false || this.AdminSignedStatus == 0) {
       this.dialog.open(AggrementLocationTrackerComponent, {
         enterAnimationDuration: '500ms',
         exitAnimationDuration: '1000ms',
         disableClose: true,
-        data: { value: this.ReferenceCode ,value2:this.EntityNumber }
+        data: {value: this.ReferenceCode,value2:this.AdminSignerMobile}
       })
     }
 
-    else {
+    else if(this.LocationStatus == true || this.AdminSignedStatus == 1){
+      this.Signer()
+    }
+
+    else  {
       this.dialog.closeAll()
     }
 
   }
 
-  ResendOTP() {
-    this.service.AgreementSendOtp(this.ReferenceCode, 2).subscribe((res: any) => {
-    })
-  }
 
-  Signer(id: any) {
+
+  Signer() {
     this.ResendOTP();
     this.dialog.open(AggrementSignerOtpComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       disableClose: true,
-      data: { value: id ,value2:this.EntityNumber}
+      data: {value: this.ReferenceCode ,value2:this.AdminSignerMobile}
     })
   }
 

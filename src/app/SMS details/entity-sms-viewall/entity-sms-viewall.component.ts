@@ -127,6 +127,7 @@ export class EntitySmsViewallComponent {
   reload() {
     window.location.reload()
   }
+ 
   exportexcel() {
     this.service.SmsGetAllExport().subscribe((res: any) => {
       this.smsResponseexport = res.response.reverse();
@@ -136,23 +137,29 @@ export class EntitySmsViewallComponent {
         this.smsResponseexport.forEach((element: any) => {
           let createdate = element.createdDateTime;
           this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-
-          let moddate = element.modifedDateTime;
-          this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
+ 
+          // let moddate = element.modifedDateTime;
+          // this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
           this.response = [];
           this.response.push(sno);
           this.response.push(element?.merchantId?.accountId);
-
+ 
           this.response.push(element?.merchantId?.entityName);
           this.response.push(element?.merchantId?.contactEmail);
           this.response.push(element?.type?.smsTitle)
           this.response.push(element?.smsCount)
           //  this.response.push(element?.type?.smsCharge)
           this.response.push(element?.createdBy);
-          this.response.push(this.date1);
-
-
-
+ 
+          if(element.createdDateTime){
+            this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
+          }
+          else{
+            this.response.push('');
+          }
+ 
+ 
+ 
           sno++;
           this.responseDataListnew.push(this.response);
         });
@@ -160,7 +167,7 @@ export class EntitySmsViewallComponent {
       }
     });
   }
-
+ 
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
@@ -170,21 +177,21 @@ export class EntitySmsViewallComponent {
       'Entity Email',
       'SMS Type',
       'SMS Count',
-      // 'Charge Per Sms',
+      // 'SMS Charge',
       'Created By',
       'Created At',
-
+ 
     ]
-
-
+ 
+ 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Sms Settings');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
-
+ 
+ 
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -195,15 +202,15 @@ export class EntitySmsViewallComponent {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
-
+ 
       }
-
+ 
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
-
+ 
     data.forEach((d: any) => {
       //
-
+ 
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -214,11 +221,11 @@ export class EntitySmsViewallComponent {
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
       // let qty8 = row.getCell(9);
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -228,7 +235,7 @@ export class EntitySmsViewallComponent {
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       // qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
+ 
     }
     );
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
@@ -239,6 +246,7 @@ export class EntitySmsViewallComponent {
       FileSaver.saveAs(blob, 'Entity-Sms.xlsx');
     });
   }
+  
   renderPage(event: PageEvent) {
     // Capture the new page index and page size from the event
     this.pageIndex = event.pageIndex;  // Update current page index

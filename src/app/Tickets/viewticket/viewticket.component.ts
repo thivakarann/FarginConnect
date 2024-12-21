@@ -145,7 +145,7 @@ export class ViewticketComponent implements OnInit {
   }
 
   exportexcel() {
-    
+   
     let sno = 1;
     this.responseDataListnew = [];
     this.tickets.forEach((element: any) => {
@@ -155,16 +155,25 @@ export class ViewticketComponent implements OnInit {
       // this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
       this.response.push(sno);
-      this.response.push(element?.categoryName);
-      this.response.push(element?.merchantName);
       this.response.push(element?.ticketId);
+      this.response.push(element?.merchantName);
       this.response.push(element?.subject);
-      this.response.push(element?.ticketStatus)
+      // this.response.push(element?.categoryName);
+ 
+      if(element?.ticketStatus =="Low"){
+        this.response.push("Low");
+      }
+      else if(element?.ticketStatus =="Medium"){
+        this.response.push("Medium");
+      }
+      else{
+        this.response.push("High")
+      }
       this.response.push(element?.description);
       this.response.push(element?.approvalStatus);
       this.response.push(element?.remarks)
       // this.response.push(this.date2);
-      
+     
       if(element?.createdDateTime){
         this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy-hh:mm a').toString());
       }
@@ -182,11 +191,11 @@ export class ViewticketComponent implements OnInit {
     // const title='Business Category';
     const header = [
       "S.No",
-      "Categoryname",
-      "Merchant Name",
       "Ticket Id",
+      "Merchant Name",
       "Subject",
-      "Criticallity",
+      // "Categoryname",
+      "Ticket Status",
       "Description",
       "Approval Status",
       "remarks",
@@ -219,7 +228,7 @@ export class ViewticketComponent implements OnInit {
     });
  
     data.forEach((d: any) => {
-      // 
+      //
  
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);

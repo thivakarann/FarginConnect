@@ -3,6 +3,7 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../service/fargin-service.service';
 import { AgreementConsent, AgreementlocationTracker } from '../fargin-model/fargin-model.module';
+import { AggrementSignerOtpComponent } from '../aggrement-signer-otp/aggrement-signer-otp.component';
 
 @Component({
   selector: 'app-aggrement-location-tracker',
@@ -25,6 +26,7 @@ export class AggrementLocationTrackerComponent {
   Locationlongitude: any;
   LocationCountryphone: any;
   Locationtimezone: any;
+  mobilenumber: any;
 
 
   constructor(
@@ -37,11 +39,12 @@ export class AggrementLocationTrackerComponent {
 
   ngOnInit(): void {
     this.RefferenceCode = this.data.value;
+    this.mobilenumber = this.data.value2;
 
-    this.Service.getIpAddress().subscribe((res: any) => {
+    
+     this.Service.getIpAddress().subscribe((res: any) => {
       this.ipAddress = res.ip;
-
-    })
+    });
 
     this.Service.getIpLocation().subscribe((res: any) => {
       this.geoDetails = res;
@@ -106,6 +109,11 @@ export class AggrementLocationTrackerComponent {
     });
   }
 
+  ResendOTP() {
+    this.Service.AgreementSendOtp(this.RefferenceCode,2).subscribe((res: any) => {
+    })
+  }
+
   FinalLocationAccess() {
     let submitModel: AgreementlocationTracker = {
       referenceCode: this.RefferenceCode,
@@ -132,9 +140,13 @@ export class AggrementLocationTrackerComponent {
       if (res.flag == 1) {
         this.details = res.response;
         this.dialog.closeAll();
-        setTimeout(() => {
-          window.location.reload()
-        }, 500);
+        this.ResendOTP();
+        this.dialog.open(AggrementSignerOtpComponent, {
+          enterAnimationDuration: '500ms',
+          exitAnimationDuration: '1000ms',
+          disableClose: true,
+          data: { value: this.RefferenceCode, value2: this.mobilenumber }
+        });
       }
       // else {
       //   window.alert(res.responseMessage)

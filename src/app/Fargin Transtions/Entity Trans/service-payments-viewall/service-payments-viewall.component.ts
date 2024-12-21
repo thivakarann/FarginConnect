@@ -220,7 +220,6 @@ export class ServicePaymentsViewallComponent {
     })
   }
  
- 
   exportexcel() {
     this.service.OneTimeTransactionsExport().subscribe((res: any) => {
     this.transactionexport = res.response;
@@ -228,8 +227,6 @@ export class ServicePaymentsViewallComponent {
     let sno = 1;
     this.responseDataListnew = [];
     this.transactionexport.forEach((element: any) => {
-      let createdate = element.paymentDateTime;
-      this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
  
       let moddate = element.modifiedDatetime;
       this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
@@ -239,7 +236,14 @@ export class ServicePaymentsViewallComponent {
       this.response.push(element?.merchantId?.merchantLegalName);
       this.response.push(element?.paymentMethod);
       this.response.push(element?.paidAmount);
-      this.response.push(this.date1);
+      this.response.push(element?.gstAmount);
+      this.response.push(element?.totalPayableAmount);
+      if(element.paymentDateTime){
+        this.response.push(moment(element?.paymentDateTime).format('DD/MM/yyyy hh:mm a').toString());
+      }
+      else{
+        this.response.push('');
+      }
  
       if (element?.paymentStatus == 'Success') {
         this.response.push('Success');
@@ -268,6 +272,8 @@ export class ServicePaymentsViewallComponent {
       'Entity Name',
       'Payment Method',
       'Amount',
+      'GST',
+      'Total Amount',
       'Paid At',
       'Status',
     ]
@@ -305,9 +311,8 @@ export class ServicePaymentsViewallComponent {
       let qty4 = row.getCell(5);
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
- 
- 
- 
+      let qty7 = row.getCell(8);
+      let qty8 = row.getCell(9);
  
  
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -317,6 +322,8 @@ export class ServicePaymentsViewallComponent {
       qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
  
  
     }
@@ -328,8 +335,7 @@ export class ServicePaymentsViewallComponent {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       FileSaver.saveAs(blob, 'OneTime Transaction.xlsx');
     });
-  }
- 
+  } 
  
  
   transactionview(id: any) {

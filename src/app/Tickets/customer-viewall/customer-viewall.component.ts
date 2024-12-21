@@ -196,20 +196,23 @@ export class CustomerViewallComponent implements OnInit {
     this.service.TicketscustomerExport().subscribe((res: any) => {
       this.ticketexport = res.response;
       if (res.flag == 1) {
-
+ 
         let sno = 1;
         this.responseDataListnew = [];
         this.ticketexport.forEach((element: any) => {
-
+ 
           this.response = [];
           this.response.push(sno);
-          this.response.push(element?.description);
+          this.response.push(element?.ticketId);
+          this.response.push(element?.entity.merchantLegalName);
+          this.response.push(element?.customer.customerName);
           this.response.push(element?.mobileNumber);
           this.response.push(element?.categoryName);
-          this.response.push(element?.ticketId);
           this.response.push(element?.ticketStatus)
           this.response.push(element?.createdDateTime);
-
+          this.response.push(element?.ticketStatusModifedBy);
+          this.response.push(element?.ticketModifedDateTime);
+ 
           sno++;
           this.responseDataListnew.push(this.response);
         });
@@ -217,28 +220,31 @@ export class CustomerViewallComponent implements OnInit {
       }
     });
   }
-
+ 
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
       "S.No",
-      "Description",
+      "Ticket Id",
+      "Entity Name",
+      "Customer Name",
       "Mobile Number",
       "Category Name",
-      "Ticket Id",
       "Ticket Status",
-      "Created Date and time",
+      "Created At",
+      "Status Updated By",
+      "Status Updated At",
     ]
-
-
+ 
+ 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Customer Tickets');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
-
+ 
+ 
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -249,15 +255,15 @@ export class CustomerViewallComponent implements OnInit {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
-
+ 
       }
-
+ 
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
-
+ 
     data.forEach((d: any) => {
-      // 
-
+      //
+ 
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -267,8 +273,10 @@ export class CustomerViewallComponent implements OnInit {
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
-
-
+      let qty8 = row.getCell(9);
+      let qty9 = row.getCell(10);
+ 
+ 
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -277,7 +285,9 @@ export class CustomerViewallComponent implements OnInit {
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
+      qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+ 
     }
     );
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
@@ -288,7 +298,6 @@ export class CustomerViewallComponent implements OnInit {
       FileSaver.saveAs(blob, 'Customer Tickets.xlsx');
     });
   }
-
 
 
   description(id: any, id2: any) {

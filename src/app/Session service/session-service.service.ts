@@ -22,6 +22,7 @@ export class SessionServiceService {
     this.timer = setInterval(() => {
       const now = Date.now();
       const timeLeft = this.lastAction + this.timeoutInMinutes * 60 * 1000 - now;
+      // console.log("jfnwljfnweklf"+timeLeft)
       // 
       if (timeLeft < 0) {
         this.logout(); // Timeout reached, log out the user
@@ -61,7 +62,7 @@ export class SessionServiceService {
   private clearHistoryAndNavigateToLogin(): void {
     localStorage.clear();
     localStorage.removeItem('token');
-    this.router.navigateByUrl('login-page', { replaceUrl: true });
+    this.router.navigateByUrl('/login-page', { replaceUrl: true });
   }
 
 
@@ -76,7 +77,7 @@ export class SessionServiceService {
     this.router.events
       .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
-        if (!this.isLoggedInFlag && event.url !== 'login-page') {
+        if (!this.isLoggedInFlag && event.url !== '/login-page') {
           this.clearHistoryAndNavigateToLogin();
         }
       });

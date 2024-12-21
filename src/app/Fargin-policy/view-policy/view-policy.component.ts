@@ -175,7 +175,7 @@ export class ViewPolicyComponent implements OnInit {
   }
 
   exportexcel() {
-    
+   
     let sno = 1;
     this.responseDataListnew = [];
     this.policyvalue.forEach((element: any) => {
@@ -227,9 +227,9 @@ export class ViewPolicyComponent implements OnInit {
       "Privacy Policy",
       "Refund Policy",
       "Created By",
-      "Created Date & Time",
-      "modifiedBy",
-      "Modified Date & Time"
+      "Created At",
+      "Modified By",
+      "Modified At"
     ]
  
  
@@ -258,7 +258,7 @@ export class ViewPolicyComponent implements OnInit {
     });
  
     data.forEach((d: any) => {
-      // 
+      //
  
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);

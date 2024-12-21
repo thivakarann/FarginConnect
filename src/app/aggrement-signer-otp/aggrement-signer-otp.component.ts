@@ -101,6 +101,9 @@ export class AggrementSignerOtpComponent implements OnInit {
     this.SignerOTP.AgreementSendOtp(this.RefferenceCode, 2).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.resendOtp = false;
+        this.displayTimer = true;
+        this.timer(1);
 
       }
       else {
@@ -116,7 +119,7 @@ export class AggrementSignerOtpComponent implements OnInit {
       otpCode: this.otpCode1 + this.otpCode2 + this.otpCode3 + this.otpCode4 + this.otpCode5 + this.otpCode6
     }
 
-    this.SignerOTP.AgreemntVerifyOtp(this.RefferenceCode, 2, submitModel).subscribe((res: any) => {
+    this.SignerOTP.AgreemntVerifyOtp(this.RefferenceCode,2,submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         setTimeout(() => {

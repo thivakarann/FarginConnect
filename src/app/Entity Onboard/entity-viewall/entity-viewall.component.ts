@@ -171,6 +171,7 @@ export class EntityViewallComponent {
       this.dataSource.paginator.firstPage();
     }
   }
+
   exportexcel() {
     this.EntityViewall.EntityViewallExport().subscribe((res: any) => {
     this.viewallexport = res.response;
@@ -178,8 +179,6 @@ export class EntityViewallComponent {
     let sno = 1;
     this.responseDataListnew = [];
     this.viewallexport.forEach((element: any) => {
-      let createdate = element.createdDatetime;
-      this.date1 = moment(createdate).format('DD/MM/yyyy').toString();
  
       this.response = [];
       this.response.push(sno);
@@ -217,8 +216,21 @@ export class EntityViewallComponent {
       {
         this.response.push('Inactive');
       }
+      if(element.createdDatetime){
+        this.response.push(moment(element?.createdDatetime).format('DD/MM/yyyy hh:mm a').toString());
+      }
+      else{
+        this.response.push('');
+      }
  
-      this.response.push(this.date1);
+      if (element?.failedLoginCount != 6) {
+        this.response.push('Unblocked');
+      }
+      else
+      {
+        this.response.push('blocked');
+      }
+ 
          
       sno++;
       this.responseDataListnew.push(this.response);
@@ -240,7 +252,8 @@ export class EntityViewallComponent {
       'Final approval',
       'PG Onboard',
       'Status',
-      "Created At"
+      "Created At",
+      "Login Count"
     ]
  
  
@@ -282,6 +295,7 @@ export class EntityViewallComponent {
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
+      let qty10 = row.getCell(11);
  
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -293,6 +307,7 @@ export class EntityViewallComponent {
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
  
     }
     );
@@ -302,6 +317,7 @@ export class EntityViewallComponent {
       FileSaver.saveAs(blob, 'Entity Details.xlsx');
     });
   }
+
   onSubmit(event: MatSlideToggleChange, id: any) {
     this.isChecked = event.checked;
     let submitModel: EntityStatus = {

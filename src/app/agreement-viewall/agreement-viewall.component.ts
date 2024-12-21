@@ -209,73 +209,75 @@ export class AgreementViewallComponent {
       }
     })
   }
+
   exportexcel() {
     let sno = 1;
     this.responseDataListnew = [];
     this.agreementdata.forEach((element: any) => {
-
-      let createdate = element.createdDateTime;
-      this.date1 = moment(createdate).format('DD/MM/yyyy hh:mm a').toString();
-
-
+ 
+      // let createdate = element.createdDateTime;
+      // this.date1 = moment(createdate).format('DD/MM/yyyy hh:mm a').toString();
+ 
+ 
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.merchantId.entityName);
-      this.response.push(element?.merchantId.merchantLegalName);
       this.response.push(element?.commercialId?.planName);
       this.response.push(element?.commercialId?.serviceFee);
-
+ 
       if (element?.adminOtpStatus == 0) {
         this.response.push('Not Signed')
-
       }
       else {
         this.response.push('Signed')
-
+ 
       }
       if (element?.merchanOtptStatus == 0) {
         this.response.push('Not Signed')
-
+ 
       }
       else {
         this.response.push('Signed')
-
+ 
+      }
+      if(element.createdDateTime){
+        this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
+      }
+      else{
+        this.response.push('');
       }
       this.response.push(element?.createdBy);
-      this.response.push(this.date1);
-
-
+   
+ 
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
-  //   });
-  // }
-
+ 
+ 
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
       "S.No",
       'Entity Name',
-      'Legal Name',
       'Plan Name',
       'Service Fee',
       'Fargin Signer Status',
       'Entity Signer Status',
-      'Created By',
-      'Created At'
+      'Created At',
+      'Created By'
     ]
-
-
+ 
+ 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Entity Agreement');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
-
+ 
+ 
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -286,15 +288,15 @@ export class AgreementViewallComponent {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
-
+ 
       }
-
+ 
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
-
+ 
     data.forEach((d: any) => {
       //
-
+ 
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -304,9 +306,8 @@ export class AgreementViewallComponent {
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
-      let qty8 = row.getCell(9);
-
-
+ 
+ 
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -315,7 +316,7 @@ export class AgreementViewallComponent {
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      // qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     }
     );
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
@@ -326,8 +327,6 @@ export class AgreementViewallComponent {
       FileSaver.saveAs(blob, 'Entity Agreement.xlsx');
     });
   }
-
-
 
   description(id: any, id2: any) {
 
