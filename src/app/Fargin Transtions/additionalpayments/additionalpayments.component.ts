@@ -86,31 +86,31 @@ export class AdditionalpaymentsComponent {
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-
-
+ 
+ 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
-
+ 
           if (this.roleId == 1) {
-            this.valuepaymentexport = 'Customer Payment-Export'
-            this.valuepaymentview = 'Customer Payment-View'
-            this.valuepaymentReceipt = 'Customer Payment-Receipt'
-            this.valuepaymentCheckStatus = 'Customer Payment-Check Status'
+            this.valuepaymentexport = 'Additional Payments-Export'
+            this.valuepaymentview = 'Additional Payments-View'
+            this.valuepaymentReceipt = 'Additional Payments-Receipt'
+            this.valuepaymentCheckStatus = 'Additional Payments-Check Status'
           }
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
-              if (this.actions == 'Customer Payment-Export') {
-                this.valuepaymentexport = 'Customer Payment-Export'
+              if (this.actions == 'Additional Payments-Export') {
+                this.valuepaymentexport = 'Additional Payments-Export'
               }
-              if (this.actions == 'Customer Payment-View') {
-                this.valuepaymentview = 'Customer Payment-View'
+              if (this.actions == 'Additional Payments-View') {
+                this.valuepaymentview = 'Additional Payments-View'
               }
-              if (this.actions == 'Customer Payment-Receipt') {
-                this.valuepaymentReceipt = 'Customer Payment-Receipt'
+              if (this.actions == 'Additional Payments-Receipt') {
+                this.valuepaymentReceipt = 'Additional Payments-Receipt'
               }
-              if (this.actions == 'Customer Payment-Check Status') {
-                this.valuepaymentCheckStatus = 'Customer Payment-Check Status'
+              if (this.actions == 'Additional Payments-Check Status') {
+                this.valuepaymentCheckStatus = 'Additional Payments-Check Status'
               }
             }
           }
@@ -120,6 +120,7 @@ export class AdditionalpaymentsComponent {
         }
       }
     });
+
 
     this.service.additionalpayments(this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {

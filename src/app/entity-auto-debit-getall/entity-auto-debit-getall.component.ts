@@ -41,7 +41,7 @@ export class EntityAutoDebitGetallComponent {
   responseDataListnew: any = [];
   response: any = [];
   pageIndex: number = 0;
-  pageSize = 8;
+  pageSize = 5;
   totalPages: any;
   totalpage: any;
   currentpage: any;
@@ -53,6 +53,16 @@ export class EntityAutoDebitGetallComponent {
   valueautodebitexport: any;
   maxScroll = 100; // Set the maximum value for the slider
   scrollValue = 0;
+  pageIndex1: number = 0;
+  pageSize1 = 5;
+ 
+  totalpage1: any;
+  totalPages1: any;
+  currentpage1: any;
+ 
+  filter: boolean = true;
+  currentFilterValue: string = '';
+
   constructor(
     public autodebitdetails: FarginServiceService,
     private router: Router,
@@ -100,6 +110,7 @@ export class EntityAutoDebitGetallComponent {
       this.dataSource = new MatTableDataSource(this.viewall);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+      this.filter=false;
 
     });
   }
@@ -262,28 +273,31 @@ export class EntityAutoDebitGetallComponent {
       // length: this.totalItems
     } as PageEvent);
   }
-
   autodebit(filterValue: string) {
     if (!filterValue) {
       this.toastr.error('Please enter a value to search');
       return;
     }
-
-    this.autodebitdetails.Mmcautodebit(filterValue).subscribe({
+ 
+    this.autodebitdetails.Mmcautodebit(filterValue,this.pageSize1,this.pageIndex1).subscribe({
       next: (res: any) => {
         if (res.response) {
           this.viewall = res.response;
-          this.viewall.reverse();
+          // this.viewall.reverse();
+          this.totalPages1 = res.pagination.totalElements;
+          this.totalpage1 = res.pagination.totalPages;
+          this.currentpage1 = res.pagination.currentPage + 1;
           this.dataSource = new MatTableDataSource(this.viewall);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
-
+          this.filter = true;
         }
         else if (res.flag === 2) {
           this.viewall = [];
           this.dataSource = new MatTableDataSource(this.viewall);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
+          this.filter = false;
         }
       },
       error: (err: any) => {
@@ -291,4 +305,33 @@ export class EntityAutoDebitGetallComponent {
       }
     });
   }
+ 
+  renderPage1(event: PageEvent) {
+    // Capture the new page index and page size from the event
+    this.pageIndex1 = event.pageIndex;  // Update current page index
+    this.pageSize1 = event.pageSize;           // Update page size (if changed)
+ 
+    // Log the new page index and page size to the console (for debugging)
+    console.log('New Page Index:', this.pageIndex1);
+    console.log('New Page Size:', this.pageSize1);
+ 
+    // You can now fetch or display the data for the new page index
+    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
+    this.autodebit(this.currentFilterValue);
+  }
+ 
+  changePageIndex1(newPageIndex1: number) {
+    this.pageIndex1 = newPageIndex1;
+    this.renderPage1({
+      pageIndex: newPageIndex1,
+      pageSize: this.pageSize1,
+      // length: this.totalItems
+    } as PageEvent);
+  }
+ 
+ 
+  search(filterValue: string) {
+    this.currentFilterValue = filterValue;
+    this.pageIndex1 = 0; // Reset to the first page for a new search this.autodebit(filterValue); // Initiate the search with the new filter value }
+}
 }

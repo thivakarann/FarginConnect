@@ -62,6 +62,8 @@ export class DashboardComponent implements OnInit {
   valueentityagreement: any;
   valueBusinessPlan:any;
   valueSignerDetails:any;
+valueAdditionalPayments: any;
+valuebranch: any;
 
 
   constructor(private elRef: ElementRef,
@@ -139,6 +141,8 @@ export class DashboardComponent implements OnInit {
       this.valueentityagreement = 'Entity Agreement'
        this.valueBusinessPlan='Business Plan'
       this.valueSignerDetails='Signer Details'
+       this.valueAdditionalPayments = 'Additional Payments'
+        this.valuebranch = 'Branch'
     }
     else {
       for (let data of this.getdashboard) {
@@ -271,6 +275,12 @@ export class DashboardComponent implements OnInit {
        
         if(this.roles=='Signer Details'){
           this.valueSignerDetails='Signer Details'
+        }
+        if (this.roles == 'Additional Payments') {
+          this.valueAdditionalPayments = 'Additional Payments'
+        }
+        if (this.roles == 'Branch') {
+          this.valuebranch = 'Branch'
         }
       }
     }

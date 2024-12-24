@@ -101,7 +101,7 @@
             [hidden]="valuesmssetting!=='Sms Setting'">SMS Settings</button>
         <button class="tab" [class.active]="activeTab === 'doot5'" (click)="selectTab('doot5')"
             [hidden]="valueagreement!=='Entity View Agreement'">Agreement</button>
-        <button class="tab" [class.active]="activeTab === 'doot6'" (click)="selectTab('doot6')">Branch</button>
+        <button class="tab" [class.active]="activeTab === 'doot6'" [hidden]="valuebranch!=='Entity View Branch'" (click)="selectTab('doot6')">Branch</button>
     </div>
     <div class="tab-content" *ngIf="activeTab === 'events'" [hidden]="valueGeneral!=='Entity View General Information'">
         <div class="filters">
@@ -1576,7 +1576,7 @@
                 </div>
             </div>
             <div class="col-md-2 mt-1">
-                <button (click)="branchcreate()" style="color:white;background-color: #141E46;border-radius: 10px;"
+                <button (click)="branchcreate()" [hidden]="valuebranchcreate!=='Entity View Branch-Add'" style="color:white;background-color: #141E46;border-radius: 10px;"
                     mat-raised-button>Create
                 </button>
             </div>
@@ -1593,11 +1593,11 @@
                             <th>Account Id</th>
                             <th>Api key </th>
                             <th>Secret key </th>
-                            <th>Customer view</th>
+                            <th [hidden]="valuebranchCustomerview!=='Entity View Branch-Customer View'">Customer view</th>
                             <th>Bank Name</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                            <th>ifsc code</th>
+                            <th [hidden]="valuebranchStatus!=='Entity View Branch-Status'">Status</th>
+                            <th [hidden]="valuebranchAction!=='Entity View Branch-Action'">Action</th>
+                            <th>Ifsc code</th>
                             <th>Account HolderName</th>
                             <th>Account Number</th>
                             <th>Created By</th>
@@ -1612,15 +1612,15 @@
                             <td>{{item.accountId}}</td>
                             <td>{{item.apiKey}}</td>
                             <td>{{item.secretKey}}</td>
-                            <td><i style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
+                            <td [hidden]="valuebranchCustomerview!=='Entity View Branch-Customer View'"><i  style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
                                     (click)="Viewcustomerbranch(item.branchId)"></i> </td>
                             <td>{{item.bankName}}</td>
-                            <td>
+                            <td  [hidden]="valuebranchStatus!=='Entity View Branch-Status'">
                                 <mat-slide-toggle class="example-margin" color="primary"
                                     [checked]="item.accountStatus === 1" (change)="status($event,item.branchId)">
                                 </mat-slide-toggle>
                             </td>
-                            <td>
+                            <td  [hidden]="valuebranchAction!=='Entity View Branch-Action'">
                                 <span><i style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"
                                         (click)="branchedit(item)" class="fas fa-edit">
                                     </i></span>

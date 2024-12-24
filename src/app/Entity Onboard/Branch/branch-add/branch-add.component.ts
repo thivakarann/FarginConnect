@@ -30,7 +30,7 @@ export class BranchAddComponent {
     this.merchantid = this.data.value;
  
     this.branch = new FormGroup({
-      branchName: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z0-9 ]*$')]),
+      branchName: new FormControl('', [Validators.required]),
       apiKey: new FormControl('', [Validators.required]),
       secretKey: new FormControl('', [Validators.required]),
       bankName: new FormControl('', [Validators.required]),

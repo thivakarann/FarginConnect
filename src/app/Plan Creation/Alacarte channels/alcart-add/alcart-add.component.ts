@@ -29,15 +29,18 @@ export class AlcartAddComponent implements OnInit {
 
 
 
-    this.AddAlcart.activeprovider().subscribe((res: any) => {
+    this.AddAlcart.BroadCasterGetAllActive().subscribe((res: any) => {
       this.Broadcasters = res.response;
+    })
+    this.AddAlcart.RegionGetAll().subscribe((res: any) => {
+      this.regiondetails = res.response;
     })
 
 
     this.myForm = new FormGroup({
       regionId: new FormControl('', Validators.required),
       channelName: new FormControl('', Validators.required),
-      price: new FormControl('', [Validators.pattern("^[1-9][0-9]*(\.[0-9]+)?$")]),
+      price: new FormControl('', [Validators.pattern("^[1-9][0-9]*(\.[0-9]{1,2})?$")]),
       type: new FormControl('', Validators.required),
       bundleChannelId: new FormControl('', Validators.required),
       generic: new FormControl('', Validators.required),
@@ -98,11 +101,11 @@ export class AlcartAddComponent implements OnInit {
 
   }
 
-  getbuddlechanneld(id: any) {
-    this.AddAlcart.ActiveRegionsbyserviceprovider(id).subscribe((res: any) => {
-      this.regiondetails = res.response;
-    });
-  }
+  // getbuddlechanneld(id: any) {
+  //   this.AddAlcart.ActiveRegionsbyserviceprovider(id).subscribe((res: any) => {
+  //     this.regiondetails = res.response;
+  //   });
+  // }
 
   onFileSelectedidproof(event: any) {
     const files = event.target.files[0];

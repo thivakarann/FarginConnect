@@ -527,10 +527,8 @@
                     </div>
 
                 </div>-->
-                
-                <div class="row mb-3">
-                 
-    
+            </div>    
+                <div class="row mb-3">  
                     <div class="col-sm-4 form-group">
                         <label for="billing">Customer DueGeneration Mode</label>
                         <select formControlName="customerPaymentMode" ngModel="{{detaislone?.customerPaymentMode}}" (change)="get($event)" type="text" class="form-select"
@@ -552,7 +550,7 @@
     
                     <div class="col-sm-4 form-group">
                         <label for="Entity Name">SMS MerchantName</label>
-                        <input type="text" id="Entity Name" formControlName="smsMerchantName" ngModel="{{detaislone?.smsMerchantName}}" class="form-control">
+                        <input placeholder="maximum 25 characters are allowed"  type="text" id="Entity Name" formControlName="smsMerchantName" ngModel="{{detaislone?.smsMerchantName}}" class="form-control">
                         <div style="
                         color: red;
                         font-size: 12px;
@@ -601,9 +599,7 @@
     
                 </div>
 
-             
-
-            </div>
+    
 
  <!--<div class="row mb-3">
                

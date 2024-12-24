@@ -566,8 +566,8 @@ export class FarginServiceService {
   private readonly customeradminsearch = 'customerpay/adminSearch/';
   private readonly customercustomeridsearch = 'customerpay/customerSearch/';
   private readonly smshistorysearch = 'smshistory/advanceSearch/';
-  private readonly mmcautodebit = 'merchantdue/advanceSearch/';
-  private readonly subscriptionsearch = 'maintanancePay/adminSearch/';
+  private readonly mmcautodebit = 'merchantdue/search/';
+    private readonly subscriptionsearch = 'maintanancePay/adminSearch/';
   private readonly onetimepayment = 'merchantpay/adminSearch/';
 
   // Fargin Signer Details
@@ -641,6 +641,12 @@ export class FarginServiceService {
        private readonly additionalexports = 'customerotherpayment/viewall'
        //Additional paymrnts
     private readonly additionaltransviewbyid = 'customerotherpayment/viewByCustomer/';
+    private readonly broadcastergetallctive='bundleChannel/viewOnlyActive';
+ 
+ 
+    private readonly regiongetall='region/viewAllRegion';
+   
+   
 
 
   loginError = new Subject();
@@ -2228,8 +2234,8 @@ export class FarginServiceService {
     return this.http.get(`${this.basePath}${this.smshistorysearch}${id}`, this.options)
   }
 
-  Mmcautodebit(id: any) {
-    return this.http.get(`${this.basePath}${this.mmcautodebit}${id}`, this.options)
+  Mmcautodebit(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.mmcautodebit}${id}/${id1}/${id2}`, this.options)
   }
 
 
@@ -2407,6 +2413,15 @@ export class FarginServiceService {
   }
   AdditionalPaymentsCustomerTransaction(id: any) {
     return this.http.get(`${this.basePath}${this.additionaltransviewbyid}${id}`, this.options)
+ 
+  }
+  BroadCasterGetAllActive(){
+    return this.http.get(`${this.basePath}${this.broadcastergetallctive}`, this.options)
+ 
+  }
+ 
+  RegionGetAll(){
+    return this.http.get(`${this.basePath}${this.regiongetall}`, this.options)
  
   }
 }

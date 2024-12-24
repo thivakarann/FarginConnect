@@ -96,6 +96,15 @@
         " *ngIf="accountHolderName?.invalid && accountHolderName?.touched && accountHolderName?.errors?.['required']">
                         Field is required
                     </div>
+                      <div style="
+        color: red;
+        font-size: 12px;
+        margin-top: 2px;
+        position: relative;
+        ;
+        " *ngIf="accountHolderName?.invalid && accountHolderName?.touched && accountHolderName?.errors?.['required']">
+                        Field is required
+                    </div>
                 </div>
  
             </div>
@@ -114,6 +123,15 @@
         " *ngIf="accountNumber?.invalid && accountNumber?.touched && accountNumber?.errors?.['required']">
                         Field is required
                     </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                    " *ngIf="accountNumber?.invalid && accountNumber?.touched && accountNumber?.errors?.['pattern']">
+                                    Field is required
+                                </div>
                 </div>
  
                 <div class="col form-group ">
@@ -129,11 +147,20 @@
         " *ngIf="ifscCode?.invalid && ifscCode?.touched && ifscCode?.errors?.['required']">
                         Field is required
                     </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                    " *ngIf="ifscCode?.invalid && ifscCode?.touched && ifscCode?.errors?.['pattern']">
+                                    Field is required
+                                </div>
                 </div>
             </div>
             <div class="mb-3">
                 <button (click)="Submit()" type="submit" class="btn mx-1 "
-                    style="background-color:#7db855be">Submit</button>
+                    style="background-color:#7db855be" [disabled]="this.branchedit.invalid">Submit</button>
                 <button type="submit" class="btn" style="background-color:#141E46;color:white"
                     mat-dialog-close>Cancel</button>
             </div>

@@ -58,7 +58,7 @@ export class BouqutesAddComponent implements OnInit {
     this.myForm = new FormGroup({
       bundleChannelId: new FormControl('', Validators.required),
       alcotId: new FormControl('', Validators.required),
-      amount: new FormControl('', [Validators.required, Validators.pattern('^[1-9][0-9]*(\.[0-9]+)?$')]),
+      amount: new FormControl('', [Validators.required, Validators.pattern('^[1-9][0-9]*(\.[0-9]{1,2})?$')]),
       boqCreationId: new FormControl('', Validators.required),
       serviceId: new FormControl('', Validators.required),
       regId: new FormControl('', Validators.required),

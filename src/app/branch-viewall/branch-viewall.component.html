@@ -34,7 +34,7 @@
 
       <!-- <button style="color:white;background-color: #141E46;border-radius: 10px;" class="custom-btn btn-10 me-3"
                 data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button (click)="addTicket()">Create</button> -->
-      <button (click)="exportexcel()"
+      <button (click)="exportexcel()" [hidden]="valuebranchexport!=='Branch-Export'"
         style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
         >Export</button>
 
@@ -72,16 +72,16 @@
       </ng-container>
 
       <ng-container matColumnDef="view">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> View </th>
-        <td style="text-wrap: wrap;" mat-cell *matCellDef="let data">
+        <th [hidden]="valuebranchView!=='Branch-View'" mat-header-cell *matHeaderCellDef mat-sort-header> View </th>
+        <td [hidden]="valuebranchView!=='Branch-View'" style="text-wrap: wrap;" mat-cell *matCellDef="let data">
             <i style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
                 (click)="viewbranch(data)"></i>
         </td>
     </ng-container>
 
     <ng-container matColumnDef="Customerview">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Customer Details</th>
-      <td style="text-wrap: wrap;" mat-cell *matCellDef="let data">
+      <th [hidden]="valuebranchCustomerDetails!=='Branch-Customer Details'" mat-header-cell *matHeaderCellDef mat-sort-header>Customer Details</th>
+      <td [hidden]="valuebranchCustomerDetails!=='Branch-Customer Details'" style="text-wrap: wrap;" mat-cell *matCellDef="let data">
           <i style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
               (click)="Viewcustomer(data.branchId)"></i>
       </td>

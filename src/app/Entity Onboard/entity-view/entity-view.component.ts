@@ -197,6 +197,11 @@ export class EntityViewComponent implements OnInit {
   valueagreement: any;
   branchget: any;
   valuentityOffline:any;
+valuebranch: any;
+valuebranchcreate: any;
+valuebranchCustomerview: any;
+valuebranchStatus: any;
+valuebranchAction: any;
   selectTab(tab: string): void {
     this.activeTab = tab;
   }
@@ -281,7 +286,11 @@ export class EntityViewComponent implements OnInit {
             this.valueagreementlinkdate='Entity View Agreement-Link Expiry Date'
             this.valueagreementlinkstatus='Entity View Agreement-Link Expiry Status'
             this.valueagreementlink='Entity View Agreement-Entity Agreement Link'
-            this.valuentityOffline='Entity View Static QR Payments'
+        
+            this.valuebranchcreate='Entity View Branch-Add'
+            this.valuebranchCustomerview='Entity View Branch-Customer View'
+            this.valuebranchStatus='Entity View Branch-Status'
+            this.valuebranchAction='Entity View Branch-Action'
           }
           else {
             for (let datas of this.getdashboard) {
@@ -304,9 +313,6 @@ export class EntityViewComponent implements OnInit {
               if (this.actions == 'Sms Setting-Status') {
                 this.valuesmsstatus = 'Sms Setting-Status'
               }
-
-
-
 
               if (this.actions == 'Entity View Platform Payment') {
                 this.valueplatform = 'Entity View Platform Payment'
@@ -405,7 +411,6 @@ export class EntityViewComponent implements OnInit {
                 this.valuebussinessapproval = 'Entity View Bussiness Document-Approval'
               }
 
-
               if (this.actions == 'Entity View Customized Payment-Add') {
                 this.valueCustomizedadd = 'Entity View Customized Payment-Add'
               }
@@ -436,12 +441,18 @@ export class EntityViewComponent implements OnInit {
               if (this.actions == 'Entity View Agreement-Agreement Signed Copy') {
                 this.valueagreementAgreementSigned = 'Entity View Agreement-Agreement Signed Copy'
               }
-
-              if(this.roles=='Entity View Static QR Payments'){
-                this.valuentityOffline='Entity View Static QR Payments'
+              if (this.actions == 'Entity View Branch-Add') {
+                this.valuebranchcreate = 'Entity View Branch-Add'
               }
- 
-
+              if (this.actions == 'Entity View Branch-Customer View') {
+                this.valuebranchCustomerview = 'Entity View Branch-Customer View'
+              }
+              if (this.actions == 'Entity View Branch-Status') {
+                this.valuebranchStatus = 'Entity View Branch-Status'
+              }
+              if(this.actions=='Entity View Branch-Action'){
+                this.valuebranchAction='Entity View Branch-Action'
+              }
             }
           }
         }
@@ -510,7 +521,7 @@ export class EntityViewComponent implements OnInit {
     
     this.MerchantView.BranchGet(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.branchget = res.response;
+        this.branchget = res.response.reverse();
       }
     })
 
@@ -607,6 +618,8 @@ export class EntityViewComponent implements OnInit {
       this.valueCustomized = 'Entity View Customized Payment'
       this.valuesmssetting = 'Sms Setting'
        this.valueagreement = 'Entity View Agreement'
+       this.valuentityOffline='Entity View Static QR Payments'
+         this.valuebranch = 'Entity View Branch'
 
     }
     else {
@@ -660,7 +673,12 @@ export class EntityViewComponent implements OnInit {
         if (this.roles == 'Entity View Agreement') {
           this.valueagreement = 'Entity View Agreement'
         }
- 
+        if(this.roles=='Entity View Static QR Payments'){
+          this.valuentityOffline='Entity View Static QR Payments'
+        }
+        if (this.roles == 'Entity View Branch') {
+          this.valuebranch = 'Entity View Branch'
+        }
       }
     }
   }

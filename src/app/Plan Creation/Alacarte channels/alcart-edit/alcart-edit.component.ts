@@ -44,9 +44,14 @@ export class AlcartEditComponent implements OnInit {
     //   this.regiondetails = res.response;
     // });
 
-    this.EditAlcart.activeprovider().subscribe((res: any) => {
+   
+    this.EditAlcart.BroadCasterGetAllActive().subscribe((res: any) => {
       this.Broadcasters = res.response;
     })
+    this.EditAlcart.RegionGetAll().subscribe((res: any) => {
+      this.regiondetails = res.response;
+    })
+
 
     this.EditAlcart.Alcardviewbyid(this.id).subscribe((res: any) => {
       this.alcardsdetails = res.response;
@@ -73,7 +78,7 @@ export class AlcartEditComponent implements OnInit {
     this.myForm = new FormGroup({
       regionId: new FormControl('', Validators.required),
       channelName: new FormControl('', Validators.required),
-      price: new FormControl('', Validators.pattern('^[1-9][0-9]*(\.[0-9]+)?$')),
+      price: new FormControl('', Validators.pattern('^[1-9][0-9]*(\.[0-9]{1,2})?$')),
       type: new FormControl('', Validators.required),
       bundleChannelId: new FormControl('', Validators.required),
       generic: new FormControl('', Validators.required),
@@ -132,11 +137,11 @@ export class AlcartEditComponent implements OnInit {
   }
 
 
-  getbuddlechanneld(id: any) {
-    this.EditAlcart.ActiveRegionsbyserviceprovider(id).subscribe((res: any) => {
-      this.regiondetails = res.response;
-    });
-  }
+  // getbuddlechanneld(id: any) {
+  //   this.EditAlcart.ActiveRegionsbyserviceprovider(id).subscribe((res: any) => {
+  //     this.regiondetails = res.response;
+  //   });
+  // }
 
 
 

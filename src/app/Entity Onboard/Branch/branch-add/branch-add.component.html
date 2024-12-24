@@ -109,6 +109,15 @@ position: relative;
   " *ngIf="accountNumber?.invalid && accountNumber?.touched && accountNumber?.errors?.['required']">
                         Field is required
                     </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="accountNumber?.invalid && accountNumber?.touched && accountNumber?.errors?.['pattern']">
+                                        Field is required
+                                    </div>
                 </div>
  
                 <div class="col form-group ">
@@ -123,6 +132,15 @@ position: relative;
 " *ngIf="ifscCode?.invalid && ifscCode?.touched && ifscCode?.errors?.['required']">
                         Field is required
                     </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                    " *ngIf="ifscCode?.invalid && ifscCode?.touched && ifscCode?.errors?.['pattern']">
+                                            Field is required
+                                        </div>
                 </div>
             </div>
             <div class="mb-3">

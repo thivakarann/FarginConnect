@@ -31,10 +31,10 @@ export class MerchantPlanAddComponent implements OnInit {
 
     this.myForm = new FormGroup({
       planName: new FormControl('', Validators.required),
-      technicalAmount: new FormControl('', [Validators.required, Validators.pattern('^[1-9][0-9]*(\.[0-9]+)?$')]),
-      maintenanceAmount: new FormControl('', [Validators.required, Validators.pattern('^[1-9][0-9]*(\.[0-9]+)?$')]),
+      technicalAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\\.[0-9]{1,2})?$')]),
+      maintenanceAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\\.[0-9]{1,2})?$')]),
       frequency: new FormControl('', Validators.required),
-      renewalAmount: new FormControl('', [Validators.required, Validators.pattern('^[1-9][0-9]*(\.[0-9]+)?$')]),
+      renewalAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\\.[0-9]{1,2})?$')]),
 
     });
   }

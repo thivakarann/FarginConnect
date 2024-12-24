@@ -130,7 +130,7 @@
             <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valuecustomerpayment!=='Customer Payment' &&
             valuecustomersubscription!=='Subscription Payment' &&
             valuecustomermanualpayment!=='one Time Payments' &&
-            valueCustomizationPayments!=='Customized Payment'">
+            valueCustomizationPayments!=='Customized Payment' && valueAdditionalPayments!=='Additional Payments'">
               <a>
                 <i class="fa-solid fa-credit-card" aria-hidden="true"></i>
                 <span>Transactions</span>
@@ -153,7 +153,7 @@
                   <li routerLink="otherpayments-viewall" [hidden]="valueCustomizationPayments!=='Customized Payment'">
                     <a>Customization Payments</a>
                   </li>
-                  <li routerLink="additional-payments">
+                  <li routerLink="additional-payments" [hidden]="valueAdditionalPayments!=='Additional Payments'" >
                     <a>Additional Payments</a>
                   </li>
                 </ul>
@@ -232,7 +232,7 @@
               </a>
             </li>
 
-            <li>
+            <li [hidden]="valuebranch!=='Branch'">
               <a routerLink="Branch-viewall">
                 <i class="fa-solid fa-sitemap"></i>
                 <span>Branch</span>
@@ -406,7 +406,7 @@
                   </li>
 
                   <li [hidden]="valueBroadcasterBouqutes!=='Broadcaster Bouqutes'">
-                    <a routerLink="bouquets-viewall">Broadcaster Bouquetes</a>
+                    <a routerLink="bouquets-viewall">Broadcaster Bouquets</a>
                   </li>
                   <!-- 
                   <li>
