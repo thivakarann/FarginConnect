@@ -30,9 +30,9 @@ export class EntityCustomersViewAllComponent {
     'customername',
     'emailaddress',
     'mobilenumber',
-    'blocknum',
+    // 'blocknum',
     // 'setupbox',
-    'flatnum',
+    // 'flatnum',
     'view'
   ];
   viewall: any;

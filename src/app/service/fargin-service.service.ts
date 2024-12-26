@@ -645,6 +645,11 @@ export class FarginServiceService {
  
  
     private readonly regiongetall='region/viewAllRegion';
+
+    //Channels List
+    private readonly channelslist='broadCaster/viewByChennals/';
+      //survey  search
+      private readonly surveysearch='surveyQuestion/advanceSearch/';
    
    
 
@@ -2423,5 +2428,14 @@ export class FarginServiceService {
   RegionGetAll(){
     return this.http.get(`${this.basePath}${this.regiongetall}`, this.options)
  
+  }
+
+  ChannelsList(id:any){
+    return this.http.get(`${this.basePath}${this.channelslist}${id}`, this.options)
+ 
+  
+  }
+  SurveySearch(id:any){
+    return this.http.get(`${this.basePath}${this.surveysearch}${id}`,this.options)
   }
 }

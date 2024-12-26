@@ -60,6 +60,7 @@ export class SurveyviewallComponent {
   totalpage: any;
   currentpage: any;
   surveyexport: any;
+  filter:boolean=false;
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit() {
@@ -329,4 +330,34 @@ export class SurveyviewallComponent {
       // length: this.totalItems
     } as PageEvent);
   }
+  search(filterval:any){
+    if (!filterval) {
+      this.toastr.error('Please enter a value to search');
+      return;
+  }
+ 
+ 
+  this.service.SurveySearch(filterval).subscribe({
+    next: (res: any) => {
+      if (res.response) {
+        this.survey = res.response;  
+        // this.viewall.reverse();
+        this.dataSource = new MatTableDataSource(this.survey);  
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.filter=false;
+       
+      }
+      else if (res.flag === 2) {
+        this.survey = [];  
+        this.dataSource = new MatTableDataSource(this.survey);  
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+    }
+    },
+    error: (err: any) => {
+      this.toastr.error('No Data Found');
+    }
+  });
+}
 }

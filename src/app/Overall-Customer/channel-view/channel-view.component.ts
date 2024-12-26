@@ -15,6 +15,7 @@ export class ChannelViewComponent {
   currentPage: any = 1; // The current page number
   itemsPerPage = 5; //
 searchText: any;
+bouquetId:any;
  
   constructor(
     public LCOPChannelList: FarginServiceService,
@@ -25,7 +26,11 @@ searchText: any;
  
  
   ngOnInit(): void {
-    this.detailss = this.data.value;
+    this.bouquetId = this.data.value;
+
+    this.LCOPChannelList.ChannelsList(this.bouquetId).subscribe((res:any)=>{
+      this.detailss=res.response;
+    })
     
   }
 
