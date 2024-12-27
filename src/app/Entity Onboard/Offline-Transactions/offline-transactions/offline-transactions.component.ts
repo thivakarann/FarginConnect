@@ -137,16 +137,15 @@ export class OfflineTransactionsComponent {
       if (res.flag == 1) {
 
         this.Viewall = JSON.parse(res.response);
-        this.content = this.Viewall?.content;
+        this.content = this.Viewall?.content || [];
         console.log(this.content)
         this.filteredData = this.content;
-
-        // this.getallData = this.Viewall.data.totalElements;
-
-        // this.toastr.success(res.responseMessage);
-        this.dataSource = new MatTableDataSource(this.filteredData);
+          this.dataSource = new MatTableDataSource(this.filteredData);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+        if (this.content.length === 0) {
+          this.dataSource = new MatTableDataSource();
+         }
       }
 
     })
@@ -203,13 +202,17 @@ export class OfflineTransactionsComponent {
       if (res.flag == 1) {
 
         this.Viewall = JSON.parse(res.response);
-        this.content = this.Viewall?.content;
+        this.content = this.Viewall?.content || [];
         this.filteredData = this.content;
 
-        // this.getallData = this.Viewall.data.totalElements;
 
-        this.toastr.success(res.responseMessage);
-      }
+        this.dataSource = new MatTableDataSource(this.filteredData);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        if (this.content.length === 0) {
+          this.dataSource = new MatTableDataSource();
+         }     
+       }
     })
   }
   reset() {
@@ -218,25 +221,26 @@ export class OfflineTransactionsComponent {
 
 
   exportexcel() {
-
+ 
     let sno = 1;
     this.responseDataListnew = [];
     this.filteredData.forEach((element: any) => {
       let createdate = element.createdAt;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-
+ 
       let moddate = element.modifiedDatetime;
       this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.accountId);
       this.response.push(element?.id);
-      this.response.push(element?.request?.customerName);
-      this.response.push(element?.etc?.customer);
-      this.response.push(element?.etc.paymentMethod);
+      this.response.push(element?.terminalId);
+ 
+      this.response.push(element?.customer);
+      this.response.push(element?.vpa);
+      this.response.push(element?.merchantOrderNo);
       this.response.push(element?.amount);
-      this.response.push(this.date1);
-
+ 
       if (element?.completed == 'ATTEMPTED') {
         this.response.push(element?.completed);
       }
@@ -246,37 +250,38 @@ export class OfflineTransactionsComponent {
       else {
         this.response.push(element?.completed);
       }
-
+ 
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
-
+ 
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
       'sno',
-      'accountId',
-      'paymentId',
-      'entityname',
-      'customername',
-      'paymentmethod',
-      'amount',
-      'paidAt',
-      'status',
-
+      'AccountId',
+      'PaymentId',
+      'Terminal Id',
+      'Customername',
+      'VPA',
+      'Merchant Order Number',
+      'Amount',
+      'PaymentStatus',
+     
+ 
     ]
-
-
+ 
+ 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
-    let worksheet = workbook.addWorksheet('Entity Transactions');
+    let worksheet = workbook.addWorksheet('Static Qr Transactions');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
-
+ 
+ 
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -287,15 +292,15 @@ export class OfflineTransactionsComponent {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
-
+ 
       }
-
+ 
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
-
+ 
     data.forEach((d: any) => {
-      // 
-
+      //
+ 
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -306,11 +311,11 @@ export class OfflineTransactionsComponent {
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -320,8 +325,8 @@ export class OfflineTransactionsComponent {
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
-
+ 
+ 
     }
     );
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
@@ -329,9 +334,10 @@ export class OfflineTransactionsComponent {
     // worksheet.getColumn(3).protection = { locked: true, hidden: true }
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      FileSaver.saveAs(blob, 'Entity Transaction.xlsx');
+      FileSaver.saveAs(blob, 'Static QR Transaction.xlsx');
     });
   }
+ 
 
   transactionview() {
     this.dialog.open(MerchantTransactionViewComponent)

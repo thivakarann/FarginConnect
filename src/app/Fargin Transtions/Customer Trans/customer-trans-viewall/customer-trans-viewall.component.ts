@@ -135,6 +135,12 @@ export class CustomerTransViewallComponent {
         this.dataSource.paginator = this.paginator;
         this.filter = false;
       }
+      else{
+        this.transaction = [];
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;  
+      }
 
     });
 
@@ -181,6 +187,10 @@ export class CustomerTransViewallComponent {
         this.filter = true;   
          }
       else if (res.flag == 2) {
+        this.transaction = [];
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;  
         this.filter = false;
             }
     })

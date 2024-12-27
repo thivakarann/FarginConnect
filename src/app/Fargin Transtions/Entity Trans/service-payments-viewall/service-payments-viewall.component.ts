@@ -135,6 +135,12 @@ export class ServicePaymentsViewallComponent {
         this.dataSource.paginator = this.paginator;
         this.filter = false;
       }
+      else{
+        this.transaction = [];
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;  
+      }
  
     });
  
@@ -199,7 +205,11 @@ export class ServicePaymentsViewallComponent {
         this.filter = true;     
        }
       else if (res.flag == 2) {
-        this.filter = false;      
+        this.filter = false; 
+        this.transaction = [];
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;       
       }
     })
   }
