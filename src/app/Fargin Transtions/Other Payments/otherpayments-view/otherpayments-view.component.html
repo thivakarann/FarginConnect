@@ -18,7 +18,10 @@
 
             <tr>
                 <td class="datas">Bank Reference</td>
-                <td id="data">{{ transaction?.bankReference }}</td>
+                <td id="data">
+                    <span  *ngIf="transaction?.bankReference == null || transaction?.bankReference == 'null' ">-</span>
+                    <span *ngIf="transaction?.bankReference != null && transaction?.bankReference != 'null'"> {{transaction?.bankReference}}</span>  
+                </td>
             </tr>
 
             <tr>

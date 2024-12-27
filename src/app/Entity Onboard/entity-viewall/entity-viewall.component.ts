@@ -57,8 +57,8 @@ export class EntityViewallComponent {
   errorMessage: any;
   unblockvalue: any;
   valueEntityUnblock: any;
-  pageIndex: number=0 ;
-  pageSize:number=5;
+  pageIndex: number = 0;
+  pageSize: number = 5;
   totalPages: any;
   totalpage: any;
   currentpage: any;
@@ -72,7 +72,7 @@ export class EntityViewallComponent {
 
     this.EntityViewall.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        
+
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -114,23 +114,23 @@ export class EntityViewallComponent {
     })
 
 
-    this.EntityViewall.EntityViewall(this.pageSize,this.pageIndex).subscribe((res: any) => {
+    this.EntityViewall.EntityViewall(this.pageSize, this.pageIndex).subscribe((res: any) => {
       this.viewall = res.response;
-      this.totalPages=res.pagination.totalElements;
-      this.totalpage=res.pagination.totalPages;
-      this.currentpage=res.pagination.currentPage+1;
+      this.totalPages = res.pagination.totalElements;
+      this.totalpage = res.pagination.totalPages;
+      this.currentpage = res.pagination.currentPage + 1;
       // this.viewall.reverse();
       this.dataSource = new MatTableDataSource(this.viewall);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-     
+
     });
 
 
   }
 
 
-  reload(){
+  reload() {
     window.location.reload()
   }
 
@@ -138,7 +138,7 @@ export class EntityViewallComponent {
   unblock(id: any) {
     this.EntityViewall.unblockentityAccount(id).subscribe((res: any) => {
       this.unblockvalue = res.response;
-      
+
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         setTimeout(() => {
@@ -163,7 +163,7 @@ export class EntityViewallComponent {
     this.router.navigate([`dashboard/entity-view/${id}`], {
       queryParams: { Alldata: id },
     });
-    
+
   }
 
   applyFilter(event: Event) {
@@ -177,72 +177,67 @@ export class EntityViewallComponent {
 
   exportexcel() {
     this.EntityViewall.EntityViewallExport().subscribe((res: any) => {
-    this.viewallexport = res.response;
-   if(res.flag==1){  
-    let sno = 1;
-    this.responseDataListnew = [];
-    this.viewallexport.forEach((element: any) => {
- 
-      this.response = [];
-      this.response.push(sno);
-      this.response.push(element?.accountId);
-        this.response.push(element?.referenceNo);
-      this.response.push(element?.merchantLegalName);
-      this.response.push(element?.businessCategoryModel?.categoryName);
- 
-      this.response.push(element?.contactEmail);
- 
-      if (element?.approvalStatusL2 == 'approved') {
-        this.response.push('Approved');
+      this.viewallexport = res.response;
+      if (res.flag == 1) {
+        let sno = 1;
+        this.responseDataListnew = [];
+        this.viewallexport.forEach((element: any) => {
+
+          this.response = [];
+          this.response.push(sno);
+          this.response.push(element?.accountId);
+          this.response.push(element?.referenceNo);
+          this.response.push(element?.merchantLegalName);
+          this.response.push(element?.businessCategoryModel?.categoryName);
+
+          this.response.push(element?.contactEmail);
+
+          if (element?.approvalStatusL2 == 'approved') {
+            this.response.push('Approved');
+          }
+          else if (element?.approvalStatusL2 == 'Pending') {
+            this.response.push('Pending');
+          }
+          else {
+            this.response.push('Rejected');
+          }
+          //
+          if (element?.onBoardStatus == 'true') {
+            this.response.push('Approved');
+          }
+          else {
+            this.response.push('Pending');
+          }
+          //
+          if (element?.accountStatus == 1) {
+            this.response.push('Active');
+          }
+          else {
+            this.response.push('Inactive');
+          }
+          if (element.createdDatetime) {
+            this.response.push(moment(element?.createdDatetime).format('DD/MM/yyyy hh:mm a').toString());
+          }
+          else {
+            this.response.push('');
+          }
+
+          if (element?.failedLoginCount != 6) {
+            this.response.push('Unblocked');
+          }
+          else {
+            this.response.push('blocked');
+          }
+
+
+          sno++;
+          this.responseDataListnew.push(this.response);
+        });
+        this.excelexportCustomer();
       }
-      else if(element?.approvalStatusL2 == 'Pending')
-      {
-        this.response.push('Pending');
-      }
-      else
-      {
-        this.response.push('Rejected');
-      }
-//
-         if (element?.onBoardStatus == 'true') {
-        this.response.push('Approved');
-      }
-      else
-      {
-        this.response.push('Pending');
-      }
-//
-      if (element?.accountStatus == 1) {
-        this.response.push('Active');
-      }
-      else
-      {
-        this.response.push('Inactive');
-      }
-      if(element.createdDatetime){
-        this.response.push(moment(element?.createdDatetime).format('DD/MM/yyyy hh:mm a').toString());
-      }
-      else{
-        this.response.push('');
-      }
- 
-      if (element?.failedLoginCount != 6) {
-        this.response.push('Unblocked');
-      }
-      else
-      {
-        this.response.push('blocked');
-      }
- 
-         
-      sno++;
-      this.responseDataListnew.push(this.response);
     });
-    this.excelexportCustomer();
   }
-});
-  }
- 
+
   excelexportCustomer() {
     // const title='Entity Details';
     const header = [
@@ -258,16 +253,16 @@ export class EntityViewallComponent {
       "Created At",
       "Login Count"
     ]
- 
- 
+
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Entity Details');
- 
+
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
- 
- 
+
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -278,15 +273,15 @@ export class EntityViewallComponent {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
+
       }
- 
+
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
- 
+
     data.forEach((d: any) => {
       //
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -299,7 +294,7 @@ export class EntityViewallComponent {
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
       let qty10 = row.getCell(11);
- 
+
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -311,10 +306,10 @@ export class EntityViewallComponent {
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
+
     }
     );
- 
+
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       FileSaver.saveAs(blob, 'Entity Details.xlsx');
@@ -329,7 +324,7 @@ export class EntityViewallComponent {
     };
 
     this.EntityViewall.EntityActiveStatus(submitModel).subscribe((res: any) => {
-      
+
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
         window.location.reload();
@@ -340,11 +335,11 @@ export class EntityViewallComponent {
     // Capture the new page index and page size from the event
     this.pageIndex = event.pageIndex;  // Update current page index
     this.pageSize = event.pageSize;           // Update page size (if changed)
- 
+
     // Log the new page index and page size to the console (for debugging)
     console.log('New Page Index:', this.pageIndex);
     console.log('New Page Size:', this.pageSize);
- 
+
     // You can now fetch or display the data for the new page index
     // Example: this.fetchData(this.currentPageIndex, this.pageSize);
     this.ngOnInit()
@@ -357,34 +352,34 @@ export class EntityViewallComponent {
       // length: this.totalItems
     } as PageEvent);
   }
-  
+
   Entity(filterValue: string) {
     if (!filterValue) {
-        this.toastr.error('Please enter a value to search');
-        return;
+      this.toastr.error('Please enter a value to search');
+      return;
     }
- 
- 
+
+
     this.EntityViewall.EntitySearch(filterValue).subscribe({
       next: (res: any) => {
         if (res.response) {
-          this.viewall = res.response;  
+          this.viewall = res.response;
           this.viewall.reverse();
-          this.dataSource = new MatTableDataSource(this.viewall);  
+          this.dataSource = new MatTableDataSource(this.viewall);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
-         
+
         }
         else if (res.flag === 2) {
-          this.viewall = [];  
-          this.dataSource = new MatTableDataSource(this.viewall);  
+          this.viewall = [];
+          this.dataSource = new MatTableDataSource(this.viewall);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
-      }
+        }
       },
       error: (err: any) => {
         this.toastr.error('No Data Found');
       }
     });
-}
+  }
 }

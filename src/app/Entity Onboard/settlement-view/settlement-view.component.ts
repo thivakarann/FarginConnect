@@ -2,10 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { settlement, settlements } from '../../Fargin Model/fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { settlements } from '../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-settlement-view',

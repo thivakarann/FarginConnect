@@ -203,7 +203,7 @@ export class OtherpayTransComponent {
   viewreciept() {
     // 
 
-    this.service.ManualRecieptView(this.id).subscribe((res: any) => {
+    this.service.OtherPaymentReciept(this.id).subscribe((res: any) => {
       const reader = new FileReader();
       reader.readAsDataURL(res);
       reader.onloadend = () => {
