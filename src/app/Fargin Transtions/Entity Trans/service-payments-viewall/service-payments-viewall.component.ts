@@ -192,8 +192,6 @@ export class ServicePaymentsViewallComponent {
       if (res.flag == 1) {
  
         this.transaction = res.response;
-
-
         this.totalPages1 = res.pagination.totalElements;
         this.totalpage1 = res.pagination.totalPages;
         this.currentpage1 = res.pagination.currentPage + 1;

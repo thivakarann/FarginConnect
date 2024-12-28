@@ -31,19 +31,23 @@ export class EditSmsComponent {
   freepaid: any;
   merchantid: any;
   smstitle: any;
+  smsTempId: any;
  
   constructor(private router: Router, private Approval: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog) { }
   ngOnInit(): void {
     this.merchantid = this.data.value.merchantId?.merchantId;
     this.Smsdetails = this.data.value
  
+    this.smsTempId=this.data.value.type?.smsTempId
+    console.log(this.smsTempId)
     this.merchantsmsId=this.data.value.merchantSmsId;
     this.smsCharge=this.data.value.type.smsCharge
    
     this.myForm = new FormGroup({
-      smsFor: new FormControl('', [Validators.required,]),
+      smsFor: new FormControl(this.Smsdetails?.type?.smsTitle),
       smsForpaid: new FormControl('', [Validators.required,]),
-      selected: new FormControl(''),
+      modifedBy:new FormControl(this.getadminname),
+      // selected: new FormControl(''),
     });
  
     this.Approval.SmsDropdownGetAll(this.merchantid).subscribe((res: any) => {
@@ -82,7 +86,7 @@ export class EditSmsComponent {
   submit() {
     let submitModel: SmsUpdate = {
       smsCharge:this.smsForpaid?.value,
-      smsType: this.smsFor?.value,
+      smsType: this.smsTempId,
       modifedBy: this.getadminname,
      
     }
