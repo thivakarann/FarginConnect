@@ -143,7 +143,11 @@ export class OtherpaymentsViewallComponent {
         this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
       }
       else if (res.flag == 2) {
-
+        this.transaction = [];
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;  
+        this.filter = false;
         this.message = res.responseMessage;
       }
 
@@ -377,7 +381,11 @@ export class OtherpaymentsViewallComponent {
         this.dataSource.paginator = this.paginator;
         this.filter = true;      }
       else if (res.flag == 2) {
-        this.filter = false;
+        this.transaction = [];
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;  
+        this.filter = true;
       }
     })
   }

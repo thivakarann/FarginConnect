@@ -166,7 +166,11 @@ export class ViewAnnouncementComponent implements OnInit {
       }
  
       else if (res.flag == 2) {
-        this.filter = false;
+        this.filter = true;
+        this.data = [];
+        this.dataSource = new MatTableDataSource(this.data);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
        }
       }
     })

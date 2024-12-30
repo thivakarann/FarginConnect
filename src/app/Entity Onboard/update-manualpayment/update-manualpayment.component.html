@@ -24,7 +24,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row mt-3">
+            <div class="row ">
                 <div class="col-12 form-group">
                     <label for="Bussiness category">Payment Method</label>
                     <select formControlName="paymentmode" id="Bussiness category" class="form-select" ngModel="{{this.paymentMethod}}">
@@ -34,6 +34,7 @@
                         <option value="RTGS">RTGS(Real Time Gross Settlement) </option>
                         <option  value="IMPS">IMPS (Immediate Payment Service)</option>
                         <option  value="Cash">Cash</option>
+                        <option value="Cheque">Cheque</option>
                     </select>
                     <div style="
                 color: red;
@@ -52,6 +53,14 @@
                     <input id="fname" type="text" class="form__input" placeholder="Enter Utr number.." cols="10"
                         rows="2" class="form-control" formControlName="utrnumber" ngModel="{{Utrnumber}}">
                     
+                </div>
+            </div>
+
+            <div class="row " *ngIf="this.paymentmode?.value=='Cheque'">
+                <div class="col-12 form-group">
+                    <label for="address">Date</label>
+                    <input id="fname" type="date" class="form__input" class="form-control"
+                        formControlName="date" ngModel="{{dates}}">
                 </div>
             </div>
             <div class="mb-3">

@@ -128,7 +128,7 @@
                                         [hidden]="valueviewonboard!=='Entity View-Onboard Information'">View
                                         OnboardInfo</button>
                                     <button style="font-size: 10px;" mat-menu-item (click)="pgOnboard()"
-                                        [disabled]="this.detaislone?.approvalStatusL2=='Pending'"
+                                         [disabled]="this.detaislone?.approvalStatusL2 =='Pending' || this.detaislone?.approvalStatusL2=='Rejected'"
                                         [hidden]="valueentityonboard!=='Entity View-Onboard'">Onboard
                                         Entity</button>
                                     <!-- <button style="font-size: 10px;" mat-menu-item (click)="emailtrigger()"
@@ -178,6 +178,10 @@
                                             <div class="d-flex mt-3">
                                                 <div class="w-50 font-weight-bold">MCC Code</div>
                                                 <div class="w-50">{{detaislone?.mccCode}}</div>
+                                            </div>
+                                            <div class="d-flex mt-3">
+                                                <div class="w-50 font-weight-bold">Business Plan</div>
+                                                <div class="w-50">{{detaislone?.merchantPlanModel?.planName}}</div>
                                             </div>
 
                                             <div class="d-flex mt-3">
@@ -296,6 +300,10 @@
                                             </div>
                                             <div class="d-flex mt-3">
                                                 <div class="w-50 font-weight-bold">Pincode</div>
+                                                <div class="w-50">{{detaislone?.zipcode}}</div>
+                                            </div>
+                                            <div class="d-flex mt-3">
+                                                <div class="w-50 font-weight-bold">Plan Amount</div>
                                                 <div class="w-50">{{detaislone?.zipcode}}</div>
                                             </div>
                                             <div class="d-flex mt-3">
@@ -1101,6 +1109,8 @@
                             <th [hidden]="valuemanualview!=='One Time Setup Payment-View'">View</th>
                             <th>Payment Status</th>
                             <th>Payment Method</th>
+                          
+                            <th>Date</th>
                             <th>Paid At</th>
                         </tr>
                         <tbody
@@ -1134,6 +1144,8 @@
 
                             </td>
                             <td>{{item.paymentMethod}}</td>
+                       
+                            <td>{{item.date}}</td>
                             <td>{{item.paymentDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
                         </tbody>
                     </table>

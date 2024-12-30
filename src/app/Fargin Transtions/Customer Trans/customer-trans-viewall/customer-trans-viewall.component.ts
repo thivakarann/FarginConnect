@@ -74,8 +74,19 @@ export class CustomerTransViewallComponent {
   totalpage1: any;
   totalPages1: any;
   currentpage1: any;
+
+  pageIndex2: number = 0;
+  pageSize2 = 5;
  
-  filter: boolean = true;
+  totalpage2: any;
+  totalPages2: any;
+  currentpage2: any;
+ 
+  filter: boolean = false;
+  filter1: boolean = false;
+  filters: boolean = false;
+  currentfilval: any;
+
 
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
 
@@ -133,13 +144,23 @@ export class CustomerTransViewallComponent {
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.filter = false;
+        this.filter = true;
+        this.filter1 = false;
+        this.filter1 = false;
+
       }
       else{
         this.transaction = [];
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;  
+        this.dataSource.paginator = this.paginator;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+        this.filter = true;
+        this.filter1 = false;
+        this.filter1 = false;
+          
       }
 
     });
@@ -184,15 +205,21 @@ export class CustomerTransViewallComponent {
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.filter = true;   
-         }
+        this.filter = false;
+        this.filter1 = true;
+        this.filters = false;         }
       else if (res.flag == 2) {
         this.transaction = [];
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;  
+        this.dataSource.paginator = this.paginator;
+        this.totalPages1 = res.pagination.totalElements;
+        this.totalpage1 = res.pagination.totalPages;
+        this.currentpage1 = res.pagination.currentPage + 1;
+   
         this.filter = false;
-            }
+        this.filter1 = true;
+        this.filters = false;            }
     })
   }
   reset() {
@@ -380,7 +407,7 @@ export class CustomerTransViewallComponent {
       return;
     }
 
-    this.service.CustomeradminSearch(filterValue).subscribe({
+    this.service.CustomeradminSearch(filterValue,this.pageSize2,this.pageIndex2).subscribe({
       next: (res: any) => {
         if (res.response) {
           this.transaction = res.response;
@@ -388,6 +415,13 @@ export class CustomerTransViewallComponent {
           this.dataSource = new MatTableDataSource(this.transaction);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
+          this.totalPages2 = res.pagination.totalElements;
+          this.totalpage2 = res.pagination.totalPages;
+          this.currentpage2 = res.pagination.currentPage + 1;
+          this.filters=true;
+          this.filter1=false;
+          this.filter=false;
+
 
         }
         else if (res.flag === 2) {
@@ -395,6 +429,12 @@ export class CustomerTransViewallComponent {
           this.dataSource = new MatTableDataSource(this.transaction);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
+          this.totalPages2 = res.pagination.totalElements;
+          this.totalpage2 = res.pagination.totalPages;
+          this.currentpage2 = res.pagination.currentPage + 1;
+          this.filters=true;
+          this.filter1=false;
+          this.filter=false;
         }
       },
       error: (err: any) => {
@@ -425,4 +465,27 @@ export class CustomerTransViewallComponent {
       // length: this.totalItems
     } as PageEvent);
   }
+  renderPage2(event: PageEvent) {
+    // Capture the new page index and page size from the event
+    this.pageIndex2 = event.pageIndex;  // Update current page index
+    this.pageSize2 = event.pageSize;           // Update page size (if changed)
+ 
+    // Log the new page index and page size to the console (for debugging)
+    console.log('New Page Index:', this.pageIndex1);
+    console.log('New Page Size:', this.pageSize1);
+ 
+    // You can now fetch or display the data for the new page index
+    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
+    this.CustomerAdmin(this.currentfilval);
+  }
+ 
+  changePageIndex2(newPageIndex1: number) {
+    this.pageIndex2 = newPageIndex1;
+    this.renderPage2({
+      pageIndex: newPageIndex1,
+      pageSize: this.pageSize2,
+      // length: this.totalItems
+    } as PageEvent);
+  }
 }
+

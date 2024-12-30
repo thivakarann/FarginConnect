@@ -61,6 +61,15 @@ export class SurveyviewallComponent {
   currentpage: any;
   surveyexport: any;
   filter:boolean=false;
+      
+  pageIndex1: number = 0;
+  pageSize1 = 5;
+ 
+  totalpage1: any;
+  totalPages1: any;
+  currentpage1: any;
+
+  currentfilval:any;
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit() {
@@ -108,6 +117,13 @@ export class SurveyviewallComponent {
         this.dataSource = new MatTableDataSource(this.survey);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+        this.filter=false;
+      }
+      else {
+        this.filter=false;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
       }
     })
 
@@ -337,15 +353,18 @@ export class SurveyviewallComponent {
   }
  
  
-  this.service.SurveySearch(filterval).subscribe({
+  this.service.SurveySearch(filterval,this.pageSize1,this.pageIndex1).subscribe({
     next: (res: any) => {
       if (res.response) {
-        this.survey = res.response;  
+        this.survey = res.response.content;  
         // this.viewall.reverse();
         this.dataSource = new MatTableDataSource(this.survey);  
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.filter=false;
+        this.totalPages1 = res.pagination.totalElements;
+        this.totalpage1 = res.pagination.totalPages;
+        this.currentpage1 = res.pagination.currentPage + 1;
+        this.filter=true;
        
       }
       else if (res.flag === 2) {
@@ -353,11 +372,38 @@ export class SurveyviewallComponent {
         this.dataSource = new MatTableDataSource(this.survey);  
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+        this.filter=true;
+        this.totalPages1 = res.pagination.totalElements;
+        this.totalpage1 = res.pagination.totalPages;
+        this.currentpage1 = res.pagination.currentPage + 1;
+
     }
     },
     error: (err: any) => {
       this.toastr.error('No Data Found');
     }
   });
+}
+renderPage1(event: PageEvent) {
+  // Capture the new page index and page size from the event
+  this.pageIndex1 = event.pageIndex;  // Update current page index
+  this.pageSize1 = event.pageSize;           // Update page size (if changed)
+
+  // Log the new page index and page size to the console (for debugging)
+  console.log('New Page Index:', this.pageIndex1);
+  console.log('New Page Size:', this.pageSize1);
+
+  // You can now fetch or display the data for the new page index
+  // Example: this.fetchData(this.currentPageIndex, this.pageSize);
+  this.search(this.currentfilval);
+}
+
+changePageIndex1(newPageIndex1: number) {
+  this.pageIndex1 = newPageIndex1;
+  this.renderPage1({
+    pageIndex: newPageIndex1,
+    pageSize: this.pageSize1,
+    // length: this.totalItems
+  } as PageEvent);
 }
 }

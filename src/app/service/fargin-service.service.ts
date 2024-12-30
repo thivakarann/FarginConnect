@@ -623,7 +623,9 @@ export class FarginServiceService {
 
   // private geoApiUrl = 'https://ipinfo.io/json';
 
-  private geoApiUrl = 'https://ipwhois.app/json/';
+  // private geoApiUrl = 'https://ipwhois.app/json/';
+
+  private geoApiUrl = 'http://ip-api.com/json/'
 
   // private geoApiUrl = 'http://ip-api.com/json';
 
@@ -2206,12 +2208,12 @@ export class FarginServiceService {
     return this.http.get(`${this.basePath}${this.regionsearch}${id}`, this.options)
   }
 
-  EntitySearch(id: any) {
-    return this.http.get(`${this.basePath}${this.entitysearch}${id}`, this.options)
+  EntitySearch(id: any,id1:any,id2:any) {
+    return this.http.get(`${this.basePath}${this.entitysearch}${id}/${id1}/${id2}`, this.options)
   }
 
-  AlcotSearch(id: any) {
-    return this.http.get(`${this.basePath}${this.alcotsearch}${id}`, this.options)
+  AlcotSearch(id: any,id1:any,id2:any) {
+    return this.http.get(`${this.basePath}${this.alcotsearch}${id}/${id1}/${id2}`, this.options)
   }
 
   EntityBanksearch(id: any, id1: any) {
@@ -2223,20 +2225,20 @@ export class FarginServiceService {
   // }
 
 
-  CustomerSearch(id: any) {
-    return this.http.get(`${this.basePath}${this.customersearch}${id}`, this.options)
+  CustomerSearch(id: any,id1:any,id2:any) {
+    return this.http.get(`${this.basePath}${this.customersearch}${id}/${id1}/${id2}`, this.options)
   }
 
-  CustomeradminSearch(id: any) {
-    return this.http.get(`${this.basePath}${this.customeradminsearch}${id}`, this.options)
+  CustomeradminSearch(id: any,id1:any,id2:any) {
+    return this.http.get(`${this.basePath}${this.customeradminsearch}${id}/${id1}/${id2}`, this.options)
   }
 
   Customercustomeridsearch(id: any, id1: any) {
     return this.http.get(`${this.basePath}${this.customercustomeridsearch}${id}/${id1}`, this.options)
   }
 
-  Smshistorysearch(id: any) {
-    return this.http.get(`${this.basePath}${this.smshistorysearch}${id}`, this.options)
+  Smshistorysearch(id: any,id1:any,id2:any) {
+    return this.http.get(`${this.basePath}${this.smshistorysearch}${id}/${id1}/${id2}`, this.options)
   }
 
   Mmcautodebit(id: any, id1: any, id2: any) {
@@ -2244,12 +2246,12 @@ export class FarginServiceService {
   }
 
 
-  Subscriptionsearch(id: any) {
-    return this.http.get(`${this.basePath}${this.subscriptionsearch}${id}`, this.options)
+  Subscriptionsearch(id: any,id1:any,id2:any) {
+    return this.http.get(`${this.basePath}${this.subscriptionsearch}${id}/${id1}/${id2}`, this.options)
   }
 
-  Onetimepayment(id: any) {
-    return this.http.get(`${this.basePath}${this.onetimepayment}${id}`, this.options)
+  Onetimepayment(id: any,id1:any,id2:any) {
+    return this.http.get(`${this.basePath}${this.onetimepayment}${id}/${id1}/${id2}`, this.options)
   }
 
   // Signer Details
@@ -2435,7 +2437,7 @@ export class FarginServiceService {
  
   
   }
-  SurveySearch(id:any){
-    return this.http.get(`${this.basePath}${this.surveysearch}${id}`,this.options)
+  SurveySearch(id:any,id1:any,id2:any){
+    return this.http.get(`${this.basePath}${this.surveysearch}${id}/${id1}/${id2}`,this.options)
   }
 }

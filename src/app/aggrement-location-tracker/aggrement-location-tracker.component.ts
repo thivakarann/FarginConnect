@@ -42,20 +42,21 @@ export class AggrementLocationTrackerComponent {
     this.mobilenumber = this.data.value2;
 
     
-     this.Service.getIpAddress().subscribe((res: any) => {
-      this.ipAddress = res.ip;
-    });
+    //  this.Service.getIpAddress().subscribe((res: any) => {
+    //   this.ipAddress = res.ip;
+    // });
 
     this.Service.getIpLocation().subscribe((res: any) => {
       this.geoDetails = res;
       this.LocationCountry = res.country;
-      this.LocationCountrycode = res.country_code;
+      this.LocationCountrycode = res.countryCode;
       this.LocationCountryphone = res.country_phone;
       this.Locationtimezone = res.timezone;
       this.LocationRegion = res.region;
       this.LocationCity = res.city;
-      this.Locationlatitude = res.latitude;
-      this.Locationlongitude = res.longitude;
+      this.Locationlatitude = res.lat;
+      this.Locationlongitude = res.lon;
+      this.ipAddress = res.query
       // const [latitude, longitude] = res.loc.split(','); this.Locationlatitude = latitude; this.Locationlongitude = longitude;
 
       console.log("this.geoDetails" + this.geoDetails)

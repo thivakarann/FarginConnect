@@ -202,6 +202,7 @@ valuebranchcreate: any;
 valuebranchCustomerview: any;
 valuebranchStatus: any;
 valuebranchAction: any;
+  paymentutrnumber: any;
   selectTab(tab: string): void {
     this.activeTab = tab;
   }
@@ -498,12 +499,12 @@ valuebranchAction: any;
 
       if (res.flag == 1) {
         this.manualDetails = res.response;
+       
 
 
         this.manualDetails.forEach((item: any) => {
           this.paymentStatus = item.paymentStatus;
           this.paymentMethod = item.paymentMethod
-
 
         });
         this.manualDetails.reverse();

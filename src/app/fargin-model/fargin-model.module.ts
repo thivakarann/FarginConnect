@@ -711,6 +711,7 @@ export interface manualPayment {
   readonly utrNumber: any;
   readonly merchantId: any;
   readonly paidAmount: any;
+  readonly date:any
 }
 
 export interface createManualPayment {

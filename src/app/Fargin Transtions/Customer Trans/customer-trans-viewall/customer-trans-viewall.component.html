@@ -162,7 +162,7 @@
     </div>
 </mat-card-content>
 <mat-card-footer>
-    <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="!filter">
+    <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="filter">
         <div class="col-md-6"></div>
         <div class="col-md-6">
             <button style="color:white;background-color: #141E46;">Total Entires:{{this.totalPages}}</button>
@@ -176,7 +176,7 @@
  
     </div>
  
-    <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="filter">
+    <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="filter1">
         <div class="col-md-6"></div>
         <div class="col-md-6">
             <button style="color:white;background-color: #141E46;">Total Entires:{{this.totalPages1}}</button>
@@ -186,6 +186,18 @@
                 Pages</button>
             <button style="color:white;background-color: #141E46;" (click)="changePageIndex1(pageIndex1 + 1)"
                 [hidden]="pageIndex1 >= totalpage1 - 1">Next</button>
+        </div>
+    </div>
+    <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="filters">
+        <div class="col-md-6"></div>
+        <div class="col-md-6">
+            <button style="color:white;background-color: #141E46;">Total Entires:{{this.totalPages2}}</button>
+            <button style="color:white;background-color: #141E46;" (click)="changePageIndex2(pageIndex2 - 1)"
+                [hidden]="pageIndex2 === 0">Previous</button>
+            <button style="color:white;background-color: #141E46;">{{this.currentpage2}} of {{this.totalpage2}}
+                Pages</button>
+            <button style="color:white;background-color: #141E46;" (click)="changePageIndex2(pageIndex2 + 1)"
+                [hidden]="pageIndex2 >= totalpage2 - 1">Next</button>
         </div>
     </div>
 </mat-card-footer>

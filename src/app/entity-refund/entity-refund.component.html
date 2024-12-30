@@ -57,13 +57,13 @@
                 <th mat-header-cell *matHeaderCellDef>Type</th>
                 <td mat-cell *matCellDef="let viewall">{{viewall.type}}</td>
             </ng-container>
-            <ng-container matColumnDef="Customer Refund">
+            <!-- <ng-container matColumnDef="Customer Refund">
                 <th mat-header-cell *matHeaderCellDef>Customer Refund Id</th>
                 <td mat-cell *matCellDef="let viewall">{{viewall.customerRefundId}}</td>
-            </ng-container>
+            </ng-container> -->
             <ng-container matColumnDef="Customer Name">
                 <th mat-header-cell *matHeaderCellDef>Customer Name</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall.customerName}}</td>
+                <td mat-cell *matCellDef="let viewall">{{viewall.customerId?.customerName}}</td>
             </ng-container>
             <ng-container matColumnDef="Payment ID">
                 <th mat-header-cell *matHeaderCellDef>Payment ID</th>
@@ -85,12 +85,12 @@
                 <th mat-header-cell *matHeaderCellDef>Refund Amount</th>
                 <td mat-cell *matCellDef="let viewall">{{viewall.refundAmount}}</td>
             </ng-container>
-            <ng-container matColumnDef="Total Refunded Amount">
+            <!-- <ng-container matColumnDef="Total Refunded Amount">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Refunded Amount</th>
                 <td style="cursor: pointer;" mat-cell *matCellDef="let viewall">
                   {{viewall.totalPayableAmount}}
                 </td>
-            </ng-container>
+            </ng-container> -->
  
          
             <ng-container matColumnDef="Refund Status">

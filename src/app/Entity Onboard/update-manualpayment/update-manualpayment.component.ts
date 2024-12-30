@@ -25,6 +25,8 @@ export class UpdateManualpaymentComponent {
   merchantId: any;
   paymentMethod: any;
   Utrnumber: any;
+  dates: any;
+
 
  
   constructor(private router: Router, private Approval: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog) { }
@@ -34,6 +36,7 @@ this.payamount=this.data.value.paidAmount;
 this.merchantId=this.data.value.merchantId.merchantId;
 this.paymentMethod=this.data.value.paymentMethod;
 this.Utrnumber=this.data.value.utrNumber;
+this.dates=this.data.value.date
 
     
  
@@ -41,6 +44,7 @@ this.Utrnumber=this.data.value.utrNumber;
       paidStatus: new FormControl('', [Validators.required,]),
       paymentmode: new FormControl('', [Validators.required,]),
       utrnumber: new FormControl(''),
+      date: new FormControl(''),
  
     });
     if (this.data && this.data.value) {
@@ -48,7 +52,7 @@ this.Utrnumber=this.data.value.utrNumber;
         paidStatus: this.data.value.paymentStatus,
         paymentmode: this.data.value.paymentMethod,
         utrnumber: this.data.value.utrNumber,
-     
+        date:this.data.value.date,
       });
     } else {
       console.error('Data is not defined');
@@ -68,6 +72,10 @@ this.Utrnumber=this.data.value.utrNumber;
     return this.myForm.get('utrnumber')
  
   }
+  get date() {
+    return this.myForm.get('date')
+ 
+  }
  
  
   submit() {
@@ -75,6 +83,7 @@ this.Utrnumber=this.data.value.utrNumber;
       paymentStatus: this.paidStatus?.value,
       paymentMethod: this.paymentmode?.value,
       utrNumber: this.utrnumber?.value,
+      date:this.date?.value,
       merchantId: this.merchantId,
       paidAmount: this.payamount
     }

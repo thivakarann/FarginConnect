@@ -19,7 +19,7 @@ export class EntityRefundComponent {
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = [
     'customerId',
-    'Customer Refund',
+    // 'Customer Refund',
     'Type',
     'Customer Name',
     'Payment ID',
@@ -27,7 +27,7 @@ export class EntityRefundComponent {
     'Activity ID',
     'Paid Amount',
     'Refund Amount',
-    'Total Refunded Amount',
+    // 'Total Refunded Amount',
     'Refund Status',
     'Refund Date & Time'
   ];

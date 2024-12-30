@@ -61,7 +61,15 @@ export class AlacarteViewallComponent implements OnInit {
   totalpage: any;
   currentpage: any;
   viewallexport: any;
-  
+  pageIndex1: number = 0;
+  pageSize1 = 5;
+ 
+  totalpage1: any;
+  totalPages1: any;
+  currentpage1: any;
+  filter: boolean = true;
+  currentfilval: any;
+
   constructor(
     public AllcartViewall: FarginServiceService,
     private router: Router,
@@ -116,6 +124,8 @@ export class AlacarteViewallComponent implements OnInit {
       }
     });
     this.AllcartViewall.Alcartviewall(this.pageSize,this.pageIndex).subscribe((res: any) => {
+      if (res.flag == 1) {
+
       this.viewall = res.response.content;
       this.totalPages=res.pagination.totalElements;
       this.totalpage=res.pagination.totalPages;
@@ -124,6 +134,16 @@ export class AlacarteViewallComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.viewall);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+      this.filter = false;
+
+      }
+      else if (res.flag == 2) {
+        this.viewall = [];
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;  
+        this.filter = false;
+      }
      
     });
  
@@ -182,14 +202,7 @@ export class AlacarteViewallComponent implements OnInit {
 
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
 
  exportexcel() {
     this.AllcartViewall.AlcartviewallExport().subscribe((res: any) => {
@@ -354,7 +367,7 @@ export class AlacarteViewallComponent implements OnInit {
         return;
     }
  
-    this.AllcartViewall.AlcotSearch(filterValue).subscribe({
+    this.AllcartViewall.AlcotSearch(filterValue,this.pageSize1,this.pageIndex1).subscribe({
       next: (res: any) => {
         if (res.response) {
           this.viewall = res.response;  
@@ -362,6 +375,10 @@ export class AlacarteViewallComponent implements OnInit {
           this.dataSource = new MatTableDataSource(this.viewall);  
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
+          this.totalPages1 = res.pagination.totalElements;
+          this.totalpage1 = res.pagination.totalPages;
+          this.currentpage1 = res.pagination.currentPage + 1;
+          this.filter=true;
          
         }
         else if (res.flag === 2) {
@@ -369,12 +386,39 @@ export class AlacarteViewallComponent implements OnInit {
           this.dataSource = new MatTableDataSource(this.viewall);  
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
+          this.totalPages1 = res.pagination.totalElements;
+          this.totalpage1 = res.pagination.totalPages;
+          this.currentpage1 = res.pagination.currentPage + 1;
+          this.filter=true;
+
       }
       },
       error: (err: any) => {
         this.toastr.error('No Data Found');
       }
     });
+}
+renderPage1(event: PageEvent) {
+  // Capture the new page index and page size from the event
+  this.pageIndex1 = event.pageIndex;  // Update current page index
+  this.pageSize1 = event.pageSize;           // Update page size (if changed)
+
+  // Log the new page index and page size to the console (for debugging)
+  console.log('New Page Index:', this.pageIndex1);
+  console.log('New Page Size:', this.pageSize1);
+
+  // You can now fetch or display the data for the new page index
+  // Example: this.fetchData(this.currentPageIndex, this.pageSize);
+  this.Alacarte(this.currentfilval);
+}
+
+changePageIndex1(newPageIndex1: number) {
+  this.pageIndex1 = newPageIndex1;
+  this.renderPage1({
+    pageIndex: newPageIndex1,
+    pageSize: this.pageSize1,
+    // length: this.totalItems
+  } as PageEvent);
 }
 
 }

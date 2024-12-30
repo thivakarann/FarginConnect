@@ -8,6 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Location } from '@angular/common';
 import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
+import moment from 'moment';
 
 @Component({
   selector: 'app-entity-transaction',
@@ -22,13 +23,13 @@ export class EntityTransactionComponent {
  
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = [
-    'settlementId',
+   'settlementId',
     'payoutId',
     'amount',
     'reference',
+    'status',
     'txnItem',
     'createdAt',
-    'View',
   ];
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
@@ -115,11 +116,17 @@ export class EntityTransactionComponent {
     this.details.forEach((element: any) => {
       this.response = [];
       this.response.push(sno);
-      this.response.push(element?.payoutId);
-      this.response.push(element?.amount);
-      this.response.push(element?.reference);
-      this.response.push(element?.txnItem);
-      this.response.push(element?.createdAt);
+      this.response.push(element?.pgPaymentId || element?.paymentId);
+      this.response.push(element?.paidAmount);
+      this.response.push(element?.paymentMethod);
+      this.response.push(element?.paymentStatus);
+      this.response.push(element?.orderReference);
+      if(element.createdDateTime){
+        this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
+      }
+      else{
+        this.response.push('');
+      }
       sno++;
       this.responseDataListnew.push(this.response);
     });
@@ -129,12 +136,13 @@ export class EntityTransactionComponent {
   excelexportCustomer() {
  
     const header = [
-      'S.No',
-      'Payout ID',
-      'Amount',
-      'Reference',
-      'Txn Item',
-      'Txn Time',
+     'SNO',
+    'Payment Id',
+    'Amount',
+    'Payment Method',
+    'Payment Status',
+    'Order Reference',
+    'CreatedAt',
     ];
     const data = this.responseDataListnew;
     let workbook = new Workbook();
@@ -170,7 +178,7 @@ export class EntityTransactionComponent {
       let qty3 = row.getCell(4);
       let qty4 = row.getCell(5);
       let qty5 = row.getCell(6);
-   
+      let qty6 = row.getCell(7);
  
       qty.border = {
         top: { style: 'thin' },
@@ -208,6 +216,12 @@ export class EntityTransactionComponent {
         bottom: { style: 'thin' },
         right: { style: 'thin' },
       };
+      qty6.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
      
     });
  
@@ -221,6 +235,7 @@ export class EntityTransactionComponent {
       FileSaver.saveAs(blob, 'Entity Transaction.xlsx');
     });
   }
+ 
 
   close() {
     this.location.back();
