@@ -95,6 +95,9 @@ export class AddagreementplanComponent {
       creditCardAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
       creditCardPercentage: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
       creditCardFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
+      mmcAmount:new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
+      securityDepositAmount:new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
+
     });
 
 
@@ -342,6 +345,14 @@ export class AddagreementplanComponent {
   get creditCardFixedFee() {
     return this.myForm.get('creditCardFixedFee')
   }
+  get mmcAmount() {
+    return this.myForm.get('mmcAmount')
+  }
+  get securityDepositAmount() {
+    return this.myForm.get('securityDepositAmount')
+  }
+
+
   submit() {
     let submitModel: AgreementCommerical = {
       planName: this.planName?.value.trim(),
@@ -416,6 +427,8 @@ export class AddagreementplanComponent {
       creditCardAmount: this.creditCardAmount?.value.trim(),
       creditCardPercentage: this.creditCardPercentage?.value.trim(),
       creditCardFixedFee: this.creditCardFixedFee?.value.trim(),
+      mmcAmount:this.mmcAmount?.value.trim(),
+      securityDepositAmount:this.securityDepositAmount?.value.trim()
     };
     this.service.createagreementplan(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {

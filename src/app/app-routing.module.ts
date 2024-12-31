@@ -115,7 +115,7 @@ const routes: Routes = [
   { path: 'addagreementplan', component: AddagreementplanComponent, canActivate: [authGuard] },
   { path: 'editagreementplan/:id', component: EditagreementplanComponent, canActivate: [authGuard] },
   { path: 'allagreementplan/:id', component: AllagreementplansComponent, canActivate: [authGuard] },
-  { path: 'aggrement-signer-one', component: AggrementSignerOneComponent },
+  { path: 'Agreement-signer-one', component: AggrementSignerOneComponent },
 
   {
     path: 'dashboard',

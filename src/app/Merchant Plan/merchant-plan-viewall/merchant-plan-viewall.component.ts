@@ -71,27 +71,27 @@ export class MerchantPlanViewallComponent {
           this.getdashboard = res.response?.subPermission;
 
           if (this.roleId == 1) {
-            this.valueMerchantAdd = 'Merchant Plan-Add';
-            this.valueMerchantEdit = 'Merchant Plan-Edit'
-            this.valueMerchantExport = 'Merchant Plan-Export'
-            this.valueMerchantStatus = 'Merchant Plan-Status'
+            this.valueMerchantAdd = 'Entity Plan-Add';
+            this.valueMerchantEdit = 'Entity Plan-Edit'
+            this.valueMerchantExport = 'Entity Plan-Export'
+            this.valueMerchantStatus = 'Entity Plan-Status'
           }
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
 
 
-              if (this.actions == 'Merchant Plan-Add') {
-                this.valueMerchantAdd = 'Merchant Plan-Add';
+              if (this.actions == 'Entity Plan-Add') {
+                this.valueMerchantAdd = 'Entity Plan-Add';
               }
-              if (this.actions == 'Merchant Plan-Edit') {
-                this.valueMerchantEdit = 'Merchant Plan-Edit'
+              if (this.actions == 'Entity Plan-Edit') {
+                this.valueMerchantEdit = 'Entity Plan-Edit'
               }
-              if (this.actions == 'Merchant Plan-Export') {
-                this.valueMerchantExport = 'Merchant Plan-Export'
+              if (this.actions == 'Entity Plan-Export') {
+                this.valueMerchantExport = 'Entity Plan-Export'
               }
-              if (this.actions == 'Merchant Plan-Status') {
-                this.valueMerchantStatus = 'Merchant Plan-Status'
+              if (this.actions == 'Entity Plan-Status') {
+                this.valueMerchantStatus = 'Entity Plan-Status'
               }
             }
           }

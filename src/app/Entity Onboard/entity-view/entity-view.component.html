@@ -1101,6 +1101,7 @@
                             <th>S No </th>
                             <th>Payment ID</th>
                             <th>Due Amount</th>
+                            <th>Reference Number</th>
                             <th [hidden]="valuemanualedit!=='One Time Setup Payment-Edit'">
                                 <span style="background-color: #bcdf72;"
                                     *ngIf="paymentMethod=='Cash' || paymentMethod=='UPI' || paymentMethod=='NEFT' || paymentMethod=='RTGS' || paymentMethod=='IMPS' || paymentMethod=='Cheque'">Edit
@@ -1118,6 +1119,7 @@
                             <td>{{i+1}}</td>
                             <td>{{item.pgPaymentId}}</td>
                             <td>{{item.totalPayableAmount}}</td>
+                            <td>{{item.utrNumber}}</td>
                             <td [hidden]="valuemanualedit!=='One Time Setup Payment-Edit'">
                                 <button style="border:none"
                                     *ngIf="paymentMethod=='Cash' || paymentMethod=='UPI' || paymentMethod=='NEFT' || paymentMethod=='RTGS' || paymentMethod=='IMPS' || paymentMethod=='Cheque'"

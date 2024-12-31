@@ -9,6 +9,7 @@ import { settlement } from '../fargin-model/fargin-model.module';
 import { Location } from '@angular/common';
 import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-entity-settlement',
@@ -51,6 +52,13 @@ export class EntitySettlementComponent {
   responseDataListnew: any = [];
   response: any = [];
   searchPerformed: boolean = false;
+  FromDateRange!: string;
+  currentPage: any;
+  ToDateRange!: string;
+  Daterange!: string;
+  content: any;
+  filteredData: any;
+
   constructor(
     public MerchantView: FarginServiceService,
     private router: Router,
@@ -130,9 +138,43 @@ export class EntitySettlementComponent {
       this.dataSource = new MatTableDataSource(this.viewdata?.reverse())
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+      if (this.content.length === 0) {
+        this.dataSource = new MatTableDataSource();
+       }    
     })
   }
 
+    filterdate() {
+      const datepipe: DatePipe = new DatePipe("en-US");
+      let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY hh:mm");
+      let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/YYYY hh:mm");
+      this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
+      this.currentPage = 1;
+  
+      let submitModel: settlement = {
+        accountId: this.accountid,
+        pageNo: this.currentPage,
+        size: '20',
+        query: '',
+        dateRange: this.Daterange,
+        status: "",
+      }
+      this.MerchantView.Entitysettlement(submitModel).subscribe((res: any) => {        if (res.flag == 1) {
+  
+          this.Viewall = JSON.parse(res.response);
+          this.content = this.Viewall?.content || [];
+          this.filteredData = this.content;
+  
+  
+          this.dataSource = new MatTableDataSource(this.filteredData);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          if (this.content.length === 0) {
+            this.dataSource = new MatTableDataSource();
+           }     
+         }
+      })
+    }
   viewpayout(id: any) {
     this.router.navigate([`/dashboard/settlement-view/${id}`], {
       queryParams: { value: id },
@@ -265,6 +307,10 @@ export class EntitySettlementComponent {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+  reset(){
+    window.location.reload()
+
   }
 
 }

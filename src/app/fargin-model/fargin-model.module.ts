@@ -1127,6 +1127,8 @@ export interface AgreementCommerical
   readonly creditCardAmount:any;
   readonly creditCardPercentage:any;
   readonly creditCardFixedFee:any;
+  readonly mmcAmount:any;
+  readonly securityDepositAmount:any
  
  
 }
@@ -1204,6 +1206,8 @@ export interface UpdateAgreementCommerical
   readonly creditCardAmount:any;
   readonly creditCardPercentage:any;
   readonly creditCardFixedFee:any;
+  readonly mmcAmount:any;
+  readonly securityDepositAmount:any
  
  
  

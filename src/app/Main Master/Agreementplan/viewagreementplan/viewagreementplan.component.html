@@ -66,6 +66,17 @@
         <th mat-header-cell *matHeaderCellDef>Service Fee</th>
         <td mat-cell *matCellDef="let data">{{data.serviceFee}}</td>
       </ng-container>
+      
+      <ng-container matColumnDef="mmcamount">
+        <th mat-header-cell *matHeaderCellDef>MMC Amount</th>
+        <td mat-cell *matCellDef="let data">{{data.mmcAmount}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="securitydepositamount">
+        <th mat-header-cell *matHeaderCellDef>Security DepositAmount</th>
+        <td mat-cell *matCellDef="let data">{{data.securityDepositAmount}}</td>
+      </ng-container>
+
 
 
       <ng-container matColumnDef="Edit">

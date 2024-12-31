@@ -361,7 +361,8 @@
                 <th>S No</th>
                 <th>Payment ID</th>
                 <th>Due Amount</th>
-                <th>Onboard Date</th>
+                <th>Payment Method</th>
+                <th>Bank Reference</th>
                 <th>Due Date</th>
                 <th>Payment Status</th>
                 <th>Reciept</th>
@@ -376,10 +377,12 @@
                   <td>{{ i + 1 }}</td>
                   <td>{{ row.pgPaymentId || "-" }}</td>
                   <td>{{ row.paidAmount }}</td>
-                  <td>{{row.startDate| date : "dd/MM/yyyy hh:mm a"}}</td>
-                  <td>{{row.endDate | date : "dd/MM/yyyy hh:mm a"}}</td>
- 
+                  <td>{{ row.paymentMethod }}</td>
+                  <td>{{ row.bankReference }}</td>
+                  <td>{{row.createdDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
                   <td>
+                    <span *ngIf=" row.paymentStatus=='Due Cancelled'" style="color:darkred;font-weight:500"> {{ row.paymentStatus}}</span>
+
                     <span *ngIf=" row.paymentStatus=='Due Pending'" style="color:orange"> {{ row.paymentStatus}}</span>
                     <span *ngIf=" row.paymentStatus=='Success'" style="color:green"> {{ row.paymentStatus}}</span>
                     <span *ngIf=" row.paymentStatus=='Failure'" style="color:red"> {{ row.paymentStatus}}</span>

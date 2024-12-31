@@ -19,7 +19,8 @@ export class ViewagreementplanComponent {
 
 
   dataSource: any;
-  displayedColumns: string[] = ["businessCategoryId", "planname", "servicefee","Edit", "view","createdBy", "createdDateTime", "modifiedBy", "modifiedDateTime"]
+  displayedColumns: string[] = ["businessCategoryId", "planname", "servicefee","mmcamount","securitydepositamount",
+    "Edit", "view","createdBy", "createdDateTime", "modifiedBy", "modifiedDateTime"]
   businesscategory: any;
   showcategoryData: boolean = false;
   errorMsg: any;

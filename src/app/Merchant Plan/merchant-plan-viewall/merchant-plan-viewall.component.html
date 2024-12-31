@@ -34,9 +34,9 @@
  
             </div>  &nbsp;&nbsp;&nbsp;
  
-            <button [hidden]="valueMerchantAdd!=='Merchant Plan-Add'" style="color:white;background-color: #141E46;border-radius: 10px;" class="custom-btn btn-10 me-3"
+            <button [hidden]="valueMerchantAdd!=='Entity Plan-Add'" style="color:white;background-color: #141E46;border-radius: 10px;" class="custom-btn btn-10 me-3"
                 data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button (click)="Add()">Create</button>
-            <button [hidden]="valueMerchantExport!=='Merchant Plan-Export'" style="color:white;background-color: #141E46;border-radius: 10px;" (click)=" exportexcel()"
+            <button [hidden]="valueMerchantExport!=='Entity Plan-Export'" style="color:white;background-color: #141E46;border-radius: 10px;" (click)=" exportexcel()"
                 mat-raised-button>Export</button>
  
  
@@ -80,8 +80,8 @@
  
  
             <ng-container matColumnDef="activeStatus">
-                <th [hidden]="valueMerchantStatus!=='Merchant Plan-Status'" mat-header-cell *matHeaderCellDef mat-sort-header>Plan Status</th>
-                <td [hidden]="valueMerchantStatus!=='Merchant Plan-Status'" mat-cell *matCellDef="let viewall">
+                <th [hidden]="valueMerchantStatus!=='Entity Plan-Status'" mat-header-cell *matHeaderCellDef mat-sort-header>Plan Status</th>
+                <td [hidden]="valueMerchantStatus!=='Entity Plan-Status'" mat-cell *matCellDef="let viewall">
                     <mat-slide-toggle class="example-margin" color="primary" [checked]="viewall.activeStatus===1"
                         (change)="ActiveStatus($event,viewall.merchantPlanId)">
                     </mat-slide-toggle>
@@ -96,8 +96,8 @@
  
  
             <ng-container matColumnDef="Edit">
-                <th  [hidden]="valueMerchantEdit!=='Merchant Plan-Edit'" mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
-                <td  [hidden]="valueMerchantEdit!=='Merchant Plan-Edit'" mat-cell *matCellDef="let viewall" (click)="Edit(viewall)">
+                <th  [hidden]="valueMerchantEdit!=='Entity Plan-Edit'" mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+                <td  [hidden]="valueMerchantEdit!=='Entity Plan-Edit'" mat-cell *matCellDef="let viewall" (click)="Edit(viewall)">
                     <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-edit"></i>
                 </td>
             </ng-container>

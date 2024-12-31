@@ -45,6 +45,46 @@
           </div>
         </div>
       </div>
+      <div class="row mt-2">
+        <div class="col-sm-6 form-group">
+          <label for="firstName">MMC Amount</label>
+          <input type="text" id="firstName" class="form-control" formControlName="mmcAmount"  ngModel="{{ viewbyagreement?.mmcAmount}}"/>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative; ;
+            " *ngIf="mmcAmount?.invalid && mmcAmount?.touched && mmcAmount?.errors?.['required']">
+            Field is required
+          </div>
+          <div *ngIf="mmcAmount?.hasError('pattern')" class="text-danger">
+            Only positive numbers are allowed.
+          </div>
+          <!-- <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative; ;
+            " *ngIf="planName?.invalid && planName?.touched && planName?.errors?.['pattern']">
+            Invalid format.Only alphanumeric characters are allowed
+          </div> -->
+        </div>
+        <div class="col-sm-6 form-group">
+          <label for="lastName">Security DepositAmount</label>
+          <input type="text" id="lastName" class="form-control" formControlName="securityDepositAmount"  ngModel="{{ viewbyagreement?.securityDepositAmount }}"/>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative; ;
+            " *ngIf="securityDepositAmount?.invalid && securityDepositAmount?.touched && securityDepositAmount?.errors?.['required']">
+            Field is required
+          </div>
+          <div *ngIf="securityDepositAmount?.hasError('pattern')" class="text-danger">
+            Only positive numbers are allowed.
+          </div>
+        </div>
+      </div>
 
       <div class="row mt-3">
         <div class="col-sm-2 form-group">

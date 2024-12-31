@@ -69,20 +69,20 @@ export class DashboardContentComponent {
   catgry: any;
   businessCategoryId: any;
   categorydetails: any;
- 
+
   constructor(private service: FarginServiceService) { }
- 
+
   ngOnInit(): void {
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-       
- 
+
+
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
- 
+
           if (this.roleId == 1) {
             this.valueDashboard = 'Dashboard-View';
-            this.valueDashboardTransactionOverview = 'Dashboard-Transaction Overview'
+            this.valueDashboardTransactionOverview = 'Dashboard-Today Transaction Overview'
             this.valuetotalmerchants = 'Dashboard-Total Merchants'
             this.valuetransactionoverview = 'Dashboard-Transaction Overview'
             this.valueTransactionDetails = 'Dashboard-Transaction Details'
@@ -92,13 +92,13 @@ export class DashboardContentComponent {
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
- 
- 
+
+
               if (this.actions == 'Dashboard-View') {
                 this.valueDashboard = 'Dashboard-View';
               }
-              if (this.actions == 'Dashboard-Transaction Overview') {
-                this.valueDashboardTransactionOverview = 'Dashboard-Transaction Overview'
+              if (this.actions == 'Dashboard-Today Transaction Overview') {
+                this.valueDashboardTransactionOverview = 'Dashboard-Today Transaction Overview'
               }
               if (this.actions == 'Dashboard-Total Merchants') {
                 this.valuetotalmerchants = 'Dashboard-Total Merchants'
@@ -123,53 +123,53 @@ export class DashboardContentComponent {
         }
       }
     })
- 
- 
+
+
     this.createEmptyCharts();
- 
+
     this.service.dashboardCount().subscribe((res: any) => {
       this.counts = res.response;
-     
+
     });
     this.service.dashboardoverallamounts().subscribe((res: any) => {
       this.amount = res.response;
-     
+
     });
     this.service.dashbaordcustomerdayTransaction().subscribe((res: any) => {
       this.todayamount = res.response;
- 
+
     });
     this.service.dashboardoverallonetimes().subscribe((res: any) => {
       this.amountonetime = res.response;
-     
+
     });
     this.service.dashboardcustomersevenday().subscribe((res: any) => {
       this.sevenday = res.response;
- 
- 
+
+
     });
     this.service.dashboardcustomersevenday().subscribe((res: any) => {
       this.topseven = res.response.method;
     });
- 
+
     this.service.dashboardcustomersevenday().subscribe((res: any) => {
       this.sevenper = res.response;
-     
+
     });
     this.service.EntityViewallExport().subscribe((res: any) => {
- 
+
       if (res && res.response) {
         this.viewall = res.response;
- 
- 
+
+
         if (this.viewall.length > 0) {
           this.selectedmerchant = this.viewall[0].merchantId;
           this.fetchMerchantData(this.selectedmerchant);
         } else {
-         
+
         }
       } else {
-       
+
       }
     });
     this.service.Bussinesscategoryactivelist().subscribe((res: any) => {
@@ -181,7 +181,7 @@ export class DashboardContentComponent {
     this.catgry = [];
     this.selectedmerchant = [];
     this.businessCategoryId = event.target.value;
- 
+
     this.service.dashboardbusinesscategorys(this.businessCategoryId).subscribe((res: any) => {
       if (res.flag == 1) {
         this.catgry = res.response
@@ -195,21 +195,21 @@ export class DashboardContentComponent {
     //     this.creatememberchart(res);
     //   }
     // });
- 
+
     this.service.dashboardbusinessgetalls().subscribe((res: any) => {
       this.category = res.response;
       this.businessCategoryIds = res.response.businessCategoryId;
-     
+
     });
     this.createWithCategory(this.initialCategoryId);
- 
+
     this.service.EntityViewallExport().subscribe((res: any) => {
       this.viewmerchant = res.response;
       this.merchantIds = res.response.merchantId;
     });
- 
- 
- 
+
+
+
     // this.service.dashbaordcustomerdayTransaction().subscribe((res: any) => {
     //   if (res.flag == 1) {
     //     // this.daytrasanction=res.response;
@@ -221,7 +221,7 @@ export class DashboardContentComponent {
     //    
     //   }
     // });
- 
+
     this.service.dashboardcustomeroveralls().subscribe((res: any) => {
       if (res.flag == 1) {
         this.createMixedChart(res.response);
@@ -265,7 +265,7 @@ export class DashboardContentComponent {
         },
       ],
     };
- 
+
     // Initialize empty charts for all categories
     this.renderChart('maintenanceChartCanvas', emptyChartData);
     this.renderChart('oneTimeChartCanvas', emptyChartData);
@@ -280,8 +280,8 @@ export class DashboardContentComponent {
     this.service
       .dashboardbusinesscategorybyids(categoryId)
       .subscribe((res: any) => {
-       
- 
+
+
         const label = res.response.categoryName;
         const data = [
           res.response.pendingStatusCount,
@@ -299,8 +299,8 @@ export class DashboardContentComponent {
           'Approved Status',
           'Active Members',
         ];
-       
-       
+
+
         // Destroy the previous chart if it exists
         if (this.doughnutChart) {
           this.doughnutChart.destroy();
@@ -357,7 +357,7 @@ export class DashboardContentComponent {
         });
       });
   }
- 
+
   onCategoryChangetransaction(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
     this.businessCategoryIds = selectElement.value;
@@ -366,10 +366,10 @@ export class DashboardContentComponent {
     const selectElements = event.target as HTMLSelectElement;
     this.merchantIds = selectElements.value;
   }
- 
+
   filter() {
-   
-   
+
+
     this.service
       .dashboardtransactions(
         this.businessCategoryIds,
@@ -422,7 +422,7 @@ export class DashboardContentComponent {
         }
       });
     }
- 
+
     if (event == 'Last14Days') {
       this.service.dashboardcustomerfifteenday().subscribe((res: any) => {
         if (this.barChart) {
@@ -438,7 +438,7 @@ export class DashboardContentComponent {
         }
       });
     }
- 
+
     if (event == 'LastMonth') {
       this.service.dashboardcustomerlastmonth().subscribe((res: any) => {
         if (this.barChart) {
@@ -454,7 +454,7 @@ export class DashboardContentComponent {
         }
       });
     }
- 
+
     if (event == 'thisMonth') {
       this.service.dashboardcustomerthismonth().subscribe((res: any) => {
         if (this.barChart) {
@@ -471,10 +471,10 @@ export class DashboardContentComponent {
       });
     }
   }
- 
+
   createMixedChartDay(data: any): void {
     const { totalCount, successCount, failedCount, pendingCount } = data;
- 
+
     const chartData = {
       labels: ['Total', 'Success', 'Failed', 'Pending'],
       datasets: [
@@ -488,7 +488,7 @@ export class DashboardContentComponent {
         },
       ],
     };
- 
+
     this.chart = new Chart('barCanvas', {
       type: 'bar',
       data: chartData,
@@ -525,10 +525,10 @@ export class DashboardContentComponent {
       },
     });
   }
- 
+
   createMixedChart(data: any): void {
     const { totalCount, successCount, failedCount, pendingCount } = data;
- 
+
     const chartData = {
       labels: ['Total', 'Success', 'Failed', 'Pending'],
       datasets: [
@@ -582,13 +582,13 @@ export class DashboardContentComponent {
     });
   }
   // Create empty charts with zero values
- 
+
   creatememberchart(data: any): void {
     const response = data.response;
- 
+
     // Define colors for each category
     const colors = ['#2196F3', '#4CAF50', '#FF9800', '#F44336']; // Total, Success, Pending, Failed
- 
+
     // Maintenance data
     const maintenanceAmountData = [
       response.maintanaceTotalAmount || 0,
@@ -596,7 +596,7 @@ export class DashboardContentComponent {
       response.maintanacePendingAmount || 0,
       response.maintanaceFailedAmount || 0,
     ];
- 
+
     const maintenanceChartData = {
       labels: ['Total', 'Success', 'Pending', 'Failed'],
       datasets: [
@@ -611,7 +611,7 @@ export class DashboardContentComponent {
       ],
     };
     this.renderChart('maintenanceChartCanvas', maintenanceChartData);
- 
+
     // One-Time Payment data
     const oneTimeAmountData = [
       response.oneTimeTotalAmount || 0,
@@ -619,7 +619,7 @@ export class DashboardContentComponent {
       response.oneTimePendingAmount || 0,
       response.oneTimeFailedAmount || 0,
     ];
- 
+
     const oneTimeChartData = {
       labels: ['Total', 'Success', 'Pending', 'Failed'],
       datasets: [
@@ -634,7 +634,7 @@ export class DashboardContentComponent {
       ],
     };
     this.renderChart('oneTimeChartCanvas', oneTimeChartData);
- 
+
     // Other Payment data
     const otherPaymentAmountData = [
       response.otherPaymentTotalAmount || 0,
@@ -642,7 +642,7 @@ export class DashboardContentComponent {
       response.otherPaymentPendingAmount || 0,
       response.otherPaymentFailedAmount || 0,
     ];
- 
+
     const otherPaymentChartData = {
       labels: ['Total', 'Success', 'Pending', 'Failed'],
       datasets: [
@@ -658,12 +658,12 @@ export class DashboardContentComponent {
     };
     this.renderChart('otherPaymentChartCanvas', otherPaymentChartData);
   }
- 
+
   renderChart(canvasId: string, chartData: any): void {
     if (this.charts[canvasId]) {
       this.charts[canvasId]?.destroy(); // Safely destroy the existing chart if it exists
     }
- 
+
     this.charts[canvasId] = new Chart(canvasId, {
       type: 'bar',
       data: chartData,
@@ -699,21 +699,21 @@ export class DashboardContentComponent {
       },
     });
   }
- 
- 
- 
- 
+
+
+
+
   createseven(data: DashboardData[]): void {
     // Filter out any non-date entries
     const validData = data.filter(item => item.date);
- 
+
     const labels = validData.map((item: DashboardData) => {
       const date = new Date(item.date);
       return `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()}`;
     });
- 
+
     const totalCount = validData.map((item: DashboardData) => item.totalCount);
- 
+
     const chartData: ChartData<'bar', number[], string> = {
       labels: labels,
       datasets: [
@@ -726,11 +726,11 @@ export class DashboardContentComponent {
         },
       ],
     };
- 
+
     if (this.sevenChart) {
       this.sevenChart.destroy();
     }
- 
+
     this.sevenChart = new Chart('sevenChartCanvas', {
       type: 'bar',
       data: chartData,

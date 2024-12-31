@@ -77,7 +77,7 @@ export class AgreementViewallComponent {
           this.getdashboard = res.response?.subPermission;
           if (this.roleId == '1') {
             this.valueagreeExport = 'Entity Agreement-Export'
-            this.valueagreeView = 'Entity Agreement-View'
+            this.valueagreeView = 'Entity Agreement-Plan Overview'
             this.valueagreeAgreement = 'Entity Agreement-Agreement'
             this.valueagreeSignedCopy = 'Entity Agreement-Agreement Signed Copy'
             this.valueagreementlink = 'Entity Agreement-Agreement Link'
@@ -89,8 +89,8 @@ export class AgreementViewallComponent {
               if (this.actions == 'Entity Agreement-Export') {
                 this.valueagreeExport = 'Entity Agreement-Export'
               }
-              if (this.actions == 'Entity Agreement-View') {
-                this.valueagreeView = 'Entity Agreement-View'
+              if (this.actions == 'Entity Agreement-Plan Overview') {
+                this.valueagreeView = 'Entity Agreement-Plan Overview'
               }
               if (this.actions == 'Entity Agreement-Agreement') {
                 this.valueagreeAgreement = 'Entity Agreement-Agreement'

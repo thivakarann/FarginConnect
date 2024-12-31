@@ -92,8 +92,8 @@
       </ng-container>
 
       <ng-container matColumnDef="planoverview">
-        <th [hidden]="valueagreeView!=='Entity Agreement-View'" mat-header-cell *matHeaderCellDef>Plan Overview</th>
-        <td [hidden]="valueagreeView!=='Entity Agreement-View'" mat-cell *matCellDef="let data">
+        <th [hidden]="valueagreeView!=='Entity Agreement-Plan Overview'" mat-header-cell *matHeaderCellDef>Plan Overview</th>
+        <td [hidden]="valueagreeView!=='Entity Agreement-Plan Overview'" mat-cell *matCellDef="let data">
           <i style="cursor: pointer;font-size: 15px;" class="fas fa-eye"
             (click)="view(data.commercialId?.commercialId)"></i>
         </td>
