@@ -71,6 +71,7 @@ export class ApprovalBussinessdocumentComponent {
           window.location.reload()
         }, 500);
       } else {
+        this.dialog.closeAll();
         this.toaster.error(res.responseMessage);
       }
     });

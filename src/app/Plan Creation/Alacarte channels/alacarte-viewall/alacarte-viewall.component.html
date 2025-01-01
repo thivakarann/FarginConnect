@@ -1,6 +1,6 @@
 <!--   -->
 
-<h4 style="text-align:left;color:#141E46;">A-LA-CARTE channels Details</h4>
+<h4 style="text-align:left;color:#141E46;">A-LA-CARTE Channels </h4>
 <mat-card-header>
 <div class="row mt-4">
  
@@ -10,7 +10,7 @@
                 <form class="form">
                     <label for="search">
                         <input #input required autocomplete="off" placeholder="Search"
-                               id="search" type="text">
+                               id="search" type="text" name="search" [(ngModel)]="currentfilval">
                         <div class="icon">
                             <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                                  xmlns="http://www.w3.org/2000/svg" class="swap-on">
@@ -30,7 +30,7 @@
 
             </div>
             &nbsp;
-            <button (click)="Alacarte(input.value)" style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Go</button>
+            <button (click)="Alacarte(currentfilval)" style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Go</button>
             &nbsp;
             &nbsp;
 
@@ -182,5 +182,5 @@
                 [hidden]="pageIndex1 >= totalpage1 - 1">Next</button>
         </div>
     </div>
-</mat-card-footer>>
+</mat-card-footer>
 <!-- </mat-card> -->

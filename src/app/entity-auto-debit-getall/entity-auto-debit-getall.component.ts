@@ -329,9 +329,5 @@ export class EntityAutoDebitGetallComponent {
     } as PageEvent);
   }
  
- 
-  search(filterValue: string) {
-    this.currentFilterValue = filterValue;
-    this.pageIndex1 = 0; // Reset to the first page for a new search this.autodebit(filterValue); // Initiate the search with the new filter value }
-}
+
 }

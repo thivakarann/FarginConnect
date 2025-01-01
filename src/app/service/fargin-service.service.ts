@@ -612,8 +612,10 @@ export class FarginServiceService {
     private readonly branchcreate='bankBranch/createBranch';
     private readonly branchedit='bankBranch/update/';
     private readonly branchstatus='bankBranch/updateStatus/';
-    private readonly branchindividualview='bankBranch/viewAll';
+    private readonly branchindividualview='bankBranch/viewAll/';
     private readonly branchcustomerget='customer/customersByBranch/';
+    private readonly branchcustomersearch='customer/customersByBranchs/';
+
 
 
   // Find Ip 
@@ -625,9 +627,9 @@ export class FarginServiceService {
 
   // private geoApiUrl = 'https://ipwhois.app/json/';
 
-  private geoApiUrl = 'http://ip-api.com/json/'
+  // private geoApiUrl = 'http://ip-api.com/json/'
 
-  // private geoApiUrl = 'http://ip-api.com/json';
+  private geoApiUrl = 'https://data.handyapi.com/geoip/'
 
 
   //Additional Payment
@@ -652,6 +654,12 @@ export class FarginServiceService {
     private readonly channelslist='broadCaster/viewByChennals/';
       //survey  search
       private readonly surveysearch='surveyQuestion/advanceSearch/';
+       
+      private readonly refundgetall='refund/getall/';
+      private readonly  refundsearch='refund/getall/';
+      private readonly refundforcustomer='refund/getcustomer/';
+      private readonly refundexport='refund/getall';
+
    
    
 
@@ -724,8 +732,8 @@ export class FarginServiceService {
     return this.http.get(`${this.ipApiUrl}`)
   }
 
-  getIpLocation (){
-    return this.http.get(`${this.geoApiUrl}`)
+  getIpLocation(model:any) {
+    return this.http.post(`${this.geoApiUrl}`,model)
   }
 
   dashboardCount() {
@@ -2381,9 +2389,19 @@ export class FarginServiceService {
     return this.http.put(`${this.basePath}${this.branchstatus}${id}`, model, this.options)
   }
  
-  BranchIndividualView() {
-    return this.http.get(`${this.basePath}${this.branchindividualview}`,this.options)
+  BranchIndividualView(id:any,id1:any) {
+    return this.http.get(`${this.basePath}${this.branchindividualview}${id}/${id1}`,this.options)
   }
+  BranchViewallSearch(id:any,id1:any,id2:any){
+    return this.http.get(`${this.basePath}${this.branchindividualview}${id}/${id1}/${id2}`,this.options)
+  }
+  BranchCustomerSearch(id: any,id1:any,id2:any,id3:any) {
+    return this.http.get(`${this.basePath}${this.branchcustomersearch}${id}/${id1}/${id2}/${id3}`, this.options)
+  }
+  BranchCustomerExport(id: any) {
+    return this.http.get(`${this.basePath}${this.branchcustomerget}${id}`, this.options)
+  }
+
   //Additional Payments
   additionalpayments(id: any, id1: any) {
     return this.http.get(`${this.basePath}${this.additionalpayment}${id}/${id1}`, this.options)
@@ -2415,8 +2433,8 @@ export class FarginServiceService {
   additionalexport() {
     return this.http.get(`${this.basePath}${this.additionalexports}`, this.options)
   }
-  BranchCustomer(id:any){
-    return this.http.get(`${this.basePath}${this.branchcustomerget}${id}`,this.options)
+  BranchCustomer(id:any,id1:any,id2:any){
+    return this.http.get(`${this.basePath}${this.branchcustomerget}${id}/${id1}/${id2}`,this.options)
   }
   AdditionalPaymentsCustomerTransaction(id: any) {
     return this.http.get(`${this.basePath}${this.additionaltransviewbyid}${id}`, this.options)
@@ -2440,4 +2458,18 @@ export class FarginServiceService {
   SurveySearch(id:any,id1:any,id2:any){
     return this.http.get(`${this.basePath}${this.surveysearch}${id}/${id1}/${id2}`,this.options)
   }
+  RefundGetAll(id:any,id1:any){
+    return this.http.get(`${this.basePath}${this.refundgetall}${id}/${id1}`,this.options)
+  }
+  RefundGetAllSearch(id:any,id1:any,id2:any){
+    return this.http.get(`${this.basePath}${this.refundsearch}${id}/${id1}/${id2}`,this.options)
+  }
+  RefundExport(){
+    return this.http.get(`${this.basePath}${this.refundexport}`,this.options)
+ 
+  }
+  RefundForCustomerView(id:any){
+    return this.http.get(`${this.basePath}${this.refundforcustomer}${id}`, this.options)
+  }
+ 
 }

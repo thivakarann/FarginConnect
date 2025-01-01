@@ -8,8 +8,8 @@
       <div class="search ">
         <form class="form">
           <label for="search">
-            <input #input (keyup)="applyFilter($event)" required="" autocomplete="off" placeholder="Search" id="search"
-              type="text">
+            <input #input  required="" autocomplete="off" placeholder="Search" id="search"
+              type="text" name="search" [(ngModel)]="currentfilval">
             <div class="icon">
               <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                 xmlns="http://www.w3.org/2000/svg" class="swap-on">
@@ -34,7 +34,11 @@
  
       </div>
       &nbsp;&nbsp;&nbsp;
- 
+
+      <button (click)="branch(currentfilval)" style="color:white;background-color: #141E46;border-radius: 10px;"
+                mat-raised-button>Go</button> 
+                <button (click)="exportexcel()" style="color:white;background-color: #141E46;border-radius: 10px;"
+                mat-raised-button>Export</button>
  
     </div>
   </mat-card-header>
@@ -116,19 +120,30 @@
   </div>
 </mat-card-content>
 <mat-card-footer>
- 
-  <mat-paginator [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtons
-    aria-labels="select page of users"></mat-paginator>
-  <!-- <div class=" row d-flex justify-content-end mt-3 mx-2">
-      <div class="col-md-7"></div>
-      <div class="col-md-5" id="but">
-          <button style="color:white;background-color: #141E46;" >Total Entires:{{this.totalPages}}</button>
-          <button style="color:white;background-color: #141E46;"  (click)="changePageIndex(pageIndex - 1)"[hidden]="pageIndex === 0">Previous</button>
-          <button style="color:white;background-color: #141E46;" >{{ this.currentpage}} of {{this.totalpage}} Pages</button>
-          <button style="color:white;background-color: #141E46;"   (click)="changePageIndex(pageIndex + 1)" [hidden]="pageIndex >= totalpage - 1" >Next</button>
-              </div>
-  </div> -->
- 
+  <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="!filter">
+      <div class="col-md-6"></div>
+      <div class="col-md-6">
+          <button style="color:white;background-color: #141E46;">Total Entires:{{this.totalPages}}</button>
+          <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex - 1)"
+              [hidden]="pageIndex === 0">Previous</button>
+          <button style="color:white;background-color: #141E46;">{{ this.currentpage}} of {{this.totalpage}}
+              Pages</button>
+          <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex + 1)"
+              [hidden]="pageIndex >= totalpage - 1">Next</button>
+      </div>
+  </div>
+  <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="filter">
+      <div class="col-md-6"></div>
+      <div class="col-md-6">
+          <button style="color:white;background-color: #141E46;">Total Entires:{{this.totalPages1}}</button>
+          <button style="color:white;background-color: #141E46;" (click)="changePageIndex1(pageIndex1 - 1)"
+              [hidden]="pageIndex1 === 0">Previous</button>
+          <button style="color:white;background-color: #141E46;">{{this.currentpage1}} of {{this.totalpage1}}
+              Pages</button>
+          <button style="color:white;background-color: #141E46;" (click)="changePageIndex1(pageIndex1 + 1)"
+              [hidden]="pageIndex1 >= totalpage1 - 1">Next</button>
+      </div>
+  </div>
 </mat-card-footer>
  
  

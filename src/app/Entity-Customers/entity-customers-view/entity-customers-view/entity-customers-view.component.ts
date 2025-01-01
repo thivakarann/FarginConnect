@@ -24,6 +24,7 @@ export class EntityCustomersViewComponent {
   itemsPerPage = 3; //
   page: number = 1;
   page4:number=1;
+  page5:number=1;
   term: any;
   selected: any;
  
@@ -46,6 +47,7 @@ export class EntityCustomersViewComponent {
   isChecked!: boolean;
   totalamount: any;
   additionlpay: any;
+  refundval: any;
   selectTab(tab: string) {
     this.selectedTab = tab;
   }
@@ -161,6 +163,18 @@ export class EntityCustomersViewComponent {
         this.additionlpay=res.response.reverse();
       }
     })
+    this.service.RefundForCustomerView(this.id).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.refundval = res.response.reverse();
+     
+      }
+      else if (res.flag === 2) {
+        this.refundval = [];
+     
+ 
+      }
+    })
+
  
   }
  

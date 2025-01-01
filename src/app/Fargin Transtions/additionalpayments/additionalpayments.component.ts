@@ -402,10 +402,8 @@ export class AdditionalpaymentsComponent {
   }
 
   CustomerAdmin(filterValue: string) {
-    if (!filterValue) {
-      this.toastr.error('Please enter a value to search');
-      return;
-    }
+
+    if (filterValue) {
 
     this.service.additionalsearchfilter(filterValue,this.pageSize2, this.pageIndex2).subscribe({
       next: (res: any) => {
@@ -441,6 +439,11 @@ export class AdditionalpaymentsComponent {
         this.toastr.error('Error fetching filtered regions');
       }
     });
+  }
+  else if (!filterValue) {
+    this.toastr.error('Please enter a value to search');
+    return;
+  }
   }
 
   renderPage1(event: PageEvent) {
@@ -487,8 +490,5 @@ export class AdditionalpaymentsComponent {
       // length: this.totalItems
     } as PageEvent);
   }
-  search(filterValue: string) {
-    this.currentfilVal = filterValue;
-    this.pageIndex1 = 0; // Reset to the first page for a new search this.autodebit(filterValue); // Initiate the search with the new filter value }
-}
+
 }

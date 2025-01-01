@@ -379,12 +379,7 @@ export class EntityViewallComponent {
   }
 
   Entity(filterValue: string) {
-    if (!filterValue) {
-      this.toastr.error('Please enter a value to search');
-      return;
-    }
-
-
+    if (filterValue) {
     this.EntityViewall.EntitySearch(filterValue,this.pageSize1,this.pageIndex1).subscribe({
       next: (res: any) => {
         if (res.response) {
@@ -415,6 +410,12 @@ export class EntityViewallComponent {
       }
     });
   }
+    else if (!filterValue) {
+      this.toastr.error('Please enter a value to search');
+      return;
+    }
+  
+  }
   renderPage1(event: PageEvent) {
     // Capture the new page index and page size from the event
     this.pageIndex1 = event.pageIndex;  // Update current page index
@@ -437,4 +438,5 @@ export class EntityViewallComponent {
       // length: this.totalItems
     } as PageEvent);
   }
+
 }

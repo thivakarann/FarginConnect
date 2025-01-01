@@ -24,6 +24,7 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
   itemsPerPage = 3; //
   page: number = 1;
   page4: number = 1;
+  page5:number=1;
   term: any;
   selected: any;
 
@@ -38,6 +39,7 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
   transaction: any;
   showData: boolean = false;
   showDatas: boolean = false;
+  showData1: boolean = false;
   viewData: boolean = false;
   totalAmount: number = 0;
   totalbouqet: number = 0;
@@ -47,6 +49,19 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
   isChecked!: boolean;
   totalamount: any;
   additionlpay: any;
+  valuecustomerinfo: any;
+  valueSetupBox: any;
+  valueTransactions: any;
+  valueAdditionalPayments: any;
+  valuesetsts: any;
+  valuesetview: any;
+  valuetransreceipt: any;
+  valueaddinvoice: any;
+  errorMessage: any;
+  getdashboard: any[] = [];
+  roleId: any = localStorage.getItem('roleId')
+  actions: any;
+  refundval: any;
   selectTab(tab: string) {
     this.selectedTab = tab;
   }
@@ -62,6 +77,60 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
 
   ngOnInit(): void {
 
+
+
+ this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+ 
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+ 
+          if (this.roleId == 1) {
+            this.valuecustomerinfo = 'Customers-Customer Info';
+            this.valueSetupBox = 'Customers-Setup Box';
+            this.valueTransactions = 'Customers-Transaction';
+            this.valueAdditionalPayments = 'Customers-Additional Payments';
+            this.valuesetsts = 'Customers-Setup Box Status'
+            this.valuesetview = 'Customers-Setup Box View'
+            this.valuetransreceipt = 'Customers-Transaction Receipt'
+            this.valueaddinvoice = 'Customers-Additional Payments Invoice'
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+             
+              if (this.actions == 'Customers-Additional Payments Invoice') {
+                this.valueaddinvoice = 'Customers-Additional Payments Invoice'
+              }
+              if (this.actions == 'Customers-Transaction Receipt') {
+                this.valuetransreceipt = 'Customers-Transaction Receipt'
+              }
+              if (this.actions == 'Customers-Setup Box Status') {
+                this.valuesetsts = 'Customers-Setup Box Status'
+              }
+              if (this.actions = 'Customers-Setup Box View') {
+                this.valuesetview = 'Customers-Setup Box View'
+              }
+              if (this.actions == 'Customers-Customer Info') {
+                this.valuecustomerinfo = 'Customers-Customer Info';
+              }
+              if (this.actions == 'Customers-Setup Box') {
+                this.valueSetupBox = 'Customers-Setup Box'
+              }
+              if (this.actions == 'Customers-Transaction') {
+                this.valueTransactions = 'Customers-Transaction'
+              }
+              if (this.actions == 'Customers-Additional Payments') {
+                this.valueAdditionalPayments = 'Customers-Additional Payments'
+              }
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    });
 
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.id = param.Alldata;
@@ -136,6 +205,17 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
         this.showData = false
       }
     });
+    this.service.RefundForCustomerView(this.id).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.refundval = res.response.reverse();
+     
+      }
+      else if (res.flag === 2) {
+        this.refundval = [];
+     
+ 
+      }
+    })
 
     // this.service.ViewCustomerDetails(this.id).subscribe((res: any) => {
     //   if (res.flag == 1) {
@@ -193,6 +273,10 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
     this.service.AdditionalPaymentsCustomerTransaction(this.id).subscribe((res:any)=>{
       if(res.flag==1){
         this.additionlpay=res.response.reverse();
+        this.showData1 = true;
+      }
+      else {
+        this.showData1 = false
       }
     })
 

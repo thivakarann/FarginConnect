@@ -406,6 +406,7 @@ export class CustomerTransViewallComponent {
       this.toastr.error('Please enter a value to search');
       return;
     }
+    if (filterValue) {
 
     this.service.CustomeradminSearch(filterValue,this.pageSize2,this.pageIndex2).subscribe({
       next: (res: any) => {
@@ -441,6 +442,7 @@ export class CustomerTransViewallComponent {
         this.toastr.error('No Data Found');
       }
     });
+  }
   }
 
   renderPage1(event: PageEvent) {

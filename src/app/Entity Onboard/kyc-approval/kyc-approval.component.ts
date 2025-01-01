@@ -92,6 +92,7 @@ export class KycApprovalComponent implements OnInit{
           window.location.reload()
         }, 500);
       } else {
+        this.dialog.closeAll();
         this.toaster.error(res.responseMessage);
       }
     });
@@ -112,8 +113,12 @@ export class KycApprovalComponent implements OnInit{
         setTimeout(() => {
           window.location.reload()
         }, 500);
-      } else {
+      } else if(res.flag==2) {
         this.toaster.error(res.responseMessage);
+        this.dialog.closeAll();  // Close the dialog
+        setTimeout(() => {
+          window.location.reload()
+        }, 500);
       }
     });
   }

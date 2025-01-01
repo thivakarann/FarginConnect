@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,6 +10,7 @@ import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
 import { BranchIndividualviewComponent } from '../branch-individualview/branch-individualview.component';
 import moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-branch-viewall',
@@ -33,10 +34,10 @@ export class BranchViewallComponent {
     'ifscCode',
     'accountHolderName',
     'accountNumber',
-    'createdat',
-    'createdby',
-    'modifiedBy',
-    'modifiedAt'
+    // 'createdat',
+    // 'createdby',
+    // 'modifiedBy',
+    // 'modifiedAt'
   ];
 
 
@@ -51,8 +52,21 @@ export class BranchViewallComponent {
   roleId: any = localStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
-
-  constructor(private service: FarginServiceService, private dialog: MatDialog, private ActivateRoute: ActivatedRoute, private router: Router) { }
+  pageIndex1: number = 0;
+  pageSize1 = 5;
+ 
+  totalpage1: any;
+  totalPages1: any;
+  currentpage1: any;
+ 
+  filter:boolean=false;
+  currentfilval:any;
+  pageIndex: number = 0;
+  pageSize: number = 5;
+  totalPages: any;
+  totalpage: any;
+  currentpage: any;
+  constructor(private service: FarginServiceService, private dialog: MatDialog, private ActivateRoute: ActivatedRoute, private router: Router,private toastr:ToastrService) { }
 
   ngOnInit(): void {
 
@@ -90,16 +104,29 @@ export class BranchViewallComponent {
     });
 
 
-    this.service.BranchIndividualView().subscribe((res: any) => {
+    this.service.BranchIndividualView(this.pageSize,this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.branchview = res.response;
         this.branchview.reverse();
-        // this.totalPages = res.pagination.totalElements;
-        // this.totalpage = res.pagination.totalPages;
-        // this.currentpage = res.pagination.currentPage + 1;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
         this.dataSource = new MatTableDataSource(this.branchview);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+        this.filter=false;
+      }
+      else if (res.flag === 2) {
+        this.branchview = [];
+        this.dataSource = new MatTableDataSource(this.branchview);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.filter=false;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+        this.filter=false;
+ 
       }
     });
 
@@ -270,6 +297,89 @@ export class BranchViewallComponent {
       FileSaver.saveAs(blob, 'Branch.xlsx');
     });
   }
+  renderPage(event: PageEvent) {
+    // Capture the new page index and page size from the event
+    this.pageIndex = event.pageIndex;  // Update current page index
+    this.pageSize = event.pageSize;           // Update page size (if changed)
+
+    // Log the new page index and page size to the console (for debugging)
+    console.log('New Page Index:', this.pageIndex);
+    console.log('New Page Size:', this.pageSize);
+
+    // You can now fetch or display the data for the new page index
+    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
+    this.ngOnInit()
+  }
+  changePageIndex(newPageIndex: number) {
+    this.pageIndex = newPageIndex;
+    this.renderPage({
+      pageIndex: newPageIndex,
+      pageSize: this.pageSize,
+      // length: this.totalItems
+    } as PageEvent);
+  }
+
+  branchviewall(filterValue: string) {
+  console.log(filterValue);
+ 
+
+    if (filterValue) {
+    this.service.BranchViewallSearch(filterValue,this.pageSize1,this.pageIndex1).subscribe({
+      next: (res: any) => {
+        if (res.response) {
+          this.branchview = res.response;
+          this.branchview.reverse();
+          this.dataSource = new MatTableDataSource(this.branchview);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.totalPages1 = res.pagination.totalElements;
+          this.totalpage1 = res.pagination.totalPages;
+          this.currentpage1 = res.pagination.currentPage + 1;
+          this.filter=true
+
+        }
+        else if (res.flag === 2) {
+          this.branchview = [];
+          this.dataSource = new MatTableDataSource(this.branchview);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.totalPages1 = res.pagination.totalElements;
+          this.totalpage1 = res.pagination.totalPages;
+          this.currentpage1 = res.pagination.currentPage + 1;
+          this.filter=true
+        }
+      },
+   
+    });
+  }
+  else if(!filterValue) {
+    this.toastr.error('Please enter a value to search');
+    return;
+  }
+  }
+  renderPage1(event: PageEvent) {
+    // Capture the new page index and page size from the event
+    this.pageIndex1 = event.pageIndex;  // Update current page index
+    this.pageSize1 = event.pageSize;           // Update page size (if changed)
+ 
+    // Log the new page index and page size to the console (for debugging)
+    console.log('New Page Index:', this.pageIndex1);
+    console.log('New Page Size:', this.pageSize1);
+ 
+    // You can now fetch or display the data for the new page index
+    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
+    this.branchviewall(this.currentfilval);
+  }
+ 
+  changePageIndex1(newPageIndex1: number) {
+    this.pageIndex1 = newPageIndex1;
+    this.renderPage1({
+      pageIndex: newPageIndex1,
+      pageSize: this.pageSize1,
+      // length: this.totalItems
+    } as PageEvent);
+  }
+
 
 }
 

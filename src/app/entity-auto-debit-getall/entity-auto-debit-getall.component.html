@@ -7,7 +7,7 @@
             <div class="search ">
                 <form class="form">
                     <label for="search">
-                        <input #input (input)="search(input.value)" required autocomplete="off" placeholder="Search" id="search" type="text">
+                        <input #input  required autocomplete="off" placeholder="Search" id="search" type="text" name="search" [(ngModel)]="currentFilterValue">
                         <div class="icon">
                             <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg" class="swap-on">
@@ -27,7 +27,7 @@
  
             </div>
             &nbsp;&nbsp;&nbsp;
-            <button (click)="autodebit(input.value)" style="color:white;background-color: #141E46;border-radius: 10px;"
+            <button (click)="autodebit(currentFilterValue)" style="color:white;background-color: #141E46;border-radius: 10px;"
                 mat-raised-button>Go</button>
             &nbsp;
             <button [hidden]="valueautodebitexport!=='MMC Auto Debit-Export'"

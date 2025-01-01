@@ -90,6 +90,7 @@ export class EntityViewComponent implements OnInit {
   isDropdownOpen = false;
   searchTexts: any;
   copiedIndex: number = -1;
+  copiedIndex2: number = -1;
 
   Daterange!: string;
   data: any;
@@ -281,7 +282,7 @@ valuebranchAction: any;
             this.valuesmsstatus = 'Sms Setting-Status'
             this.valuekycadd = 'Entity View KYC Document-add'
             this.valueagreementcreate = 'Entity View Agreement-Add'
-            this.valueagreementView = 'Entity View Agreement-View'
+            this.valueagreementView = 'Entity View Agreement-Plan Overview'
             this.valueagreementAgreement = 'Entity View Agreement-Agreement'
             this.valueagreementAgreementSigned = 'Entity View Agreement-Agreement Signed Copy'
             this.valueagreementlinkdate='Entity View Agreement-Link Expiry Date'
@@ -433,8 +434,8 @@ valuebranchAction: any;
               if (this.actions == 'Entity View Agreement-Add') {
                 this.valueagreementcreate = 'Entity View Agreement-Add'
               }
-              if (this.actions == 'Entity View Agreement-View') {
-                this.valueagreementView = 'Entity View Agreement-View'
+              if (this.actions == 'Entity View Agreement-Plan Overview') {
+                this.valueagreementView = 'Entity View Agreement-Plan Overview'
               }
               if (this.actions == 'Entity View Agreement-Agreement') {
                 this.valueagreementAgreement = 'Entity View Agreement-Agreement'
@@ -604,7 +605,7 @@ valuebranchAction: any;
 
     if (this.roleId == 1) {
       this.valueentitytransaction = 'Entity View Transaction';
-      this.valueentityautodebit = 'Entity View Rent Logs'
+      this.valueentityautodebit = 'Entity View MMC AutoDebit'
       this.valuentitysettlement = 'Entity View Settlement';
       this.valueentityRefund = 'Entity View Refund';
       this.valueEntityqrs = 'Entity View QR';
@@ -644,8 +645,8 @@ valuebranchAction: any;
         if (this.roles == 'Entity View Payment Link') {
           this.valueentitypaylink = 'Entity View Payment Link'
         }
-        if (this.roles == 'Entity View Rent Logs') {
-          this.valueentityautodebit = 'Entity View Rent Logs'
+        if (this.roles == 'Entity View MMC AutoDebit') {
+          this.valueentityautodebit = 'Entity View MMC AutoDebit'
         }
         if (this.roles == 'Entity View Bussiness Document') {
           this.valuebussinessdocument = 'Entity View Bussiness Document'
@@ -1243,6 +1244,17 @@ valuebranchAction: any;
     document.body.removeChild(el);
     this.copiedIndex = index;
     setTimeout(() => this.copiedIndex = -1, 2000);
+  }
+
+  copyText2(text: string, index: number) {
+    const el = document.createElement('textarea');
+    el.value = text;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    this.copiedIndex2 = index;
+    setTimeout(() => this.copiedIndex2 = -1, 2000);
   }
 
   Viewcustomerbranch(id:any){

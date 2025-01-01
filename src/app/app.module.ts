@@ -244,6 +244,7 @@ import { ViewadditionalpaymentsComponent } from './Fargin Transtions/additionalp
 import { AdditionalpaymentsComponent } from './Fargin Transtions/additionalpayments/additionalpayments.component';
 import { BranchIndividualviewComponent } from './branch-individualview/branch-individualview.component';
 import { BranchCustomerViewComponent } from './branch-customer-view/branch-customer-view.component';
+import { RefundGetallComponent } from './Refund/refund-getall/refund-getall.component';
 
 @NgModule({
   declarations: [
@@ -465,7 +466,8 @@ import { BranchCustomerViewComponent } from './branch-customer-view/branch-custo
     ViewadditionalpaymentsComponent,
     AdditionalpaymentsComponent,
     BranchIndividualviewComponent,
-    BranchCustomerViewComponent
+    BranchCustomerViewComponent,
+    RefundGetallComponent
 
   ],
 

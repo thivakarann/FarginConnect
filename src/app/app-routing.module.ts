@@ -102,6 +102,7 @@ import { SuccessOfftransactionsComponent } from './Entity Onboard/Offline-Transa
 import { BranchViewallComponent } from './branch-viewall/branch-viewall.component';
 import { AdditionalpaymentsComponent } from './Fargin Transtions/additionalpayments/additionalpayments.component';
 import { BranchCustomerViewComponent } from './branch-customer-view/branch-customer-view.component';
+import { RefundGetallComponent } from './Refund/refund-getall/refund-getall.component';
 
 const routes: Routes = [
 
@@ -216,7 +217,8 @@ const routes: Routes = [
       {path:'Branch-viewall', component: BranchViewallComponent, canActivate: [authGuard] },
       {path:'branch-customer-view/:id',component:BranchCustomerViewComponent,canActivate:[authGuard]},
       {path:'additional-payments',component:AdditionalpaymentsComponent,canActivate: [authGuard]},
-         
+      {path:'refund-getall',component:RefundGetallComponent,canActivate: [authGuard]},
+ 
       // {path:'merchant-additional/:id',component:MercahntbasedadditionalComponent,canActivate: [authGuard]},
     ],
 

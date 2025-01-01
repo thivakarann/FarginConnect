@@ -82,7 +82,7 @@ export class EditPersonalInfoComponent implements OnInit {
       gstIn: new FormControl(''),
       billingAddress: new FormControl("", [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
+        // Validators.pattern('^[a-zA-Z0-9 ]*$')
       ]),
       area: new FormControl('', [
         Validators.required,
@@ -319,25 +319,25 @@ export class EditPersonalInfoComponent implements OnInit {
   }
   submit() {
     const formData = new FormData;
-    formData.append('contactEmail', this.contactEmail?.value,);
-    formData.append('contactMobile', this.contactMobile?.value,);
-    formData.append('entityName', this.entityName?.value);
-    formData.append('merchantLegalName', this.merchantLegalName?.value)
-    formData.append('accountDisplayName', this.accountDisplayName?.value);
+    formData.append('contactEmail', this.contactEmail?.value.trim());
+    formData.append('contactMobile', this.contactMobile?.value.trim());
+    formData.append('entityName', this.entityName?.value.trim());
+    formData.append('merchantLegalName', this.merchantLegalName?.value.trim())
+    formData.append('accountDisplayName', this.accountDisplayName?.value.trim());
     formData.append('gstIn', this.gstIn?.value || '-');
-    formData.append('contactName', this.contactName?.value);
-    formData.append('secondaryMobile', this.secondaryMobile?.value,);
-    formData.append('billingAddress', this.billingAddress?.value);
-    formData.append('area', this.area?.value,)
-    formData.append('stateName', this.stateName?.value);
-    formData.append('country', this.country?.value);
-    formData.append('zipcode', this.zipcode?.value);
-    formData.append('city', this.city?.value)
+    formData.append('contactName', this.contactName?.value.trim());
+    formData.append('secondaryMobile', this.secondaryMobile?.value.trim());
+    formData.append('billingAddress', this.billingAddress?.value.trim());
+    formData.append('area', this.area?.value.trim())
+    formData.append('stateName', this.stateName?.value.trim());
+    formData.append('country', this.country?.value.trim());
+    formData.append('zipcode', this.zipcode?.value.trim());
+    formData.append('city', this.city?.value.trim())
     formData.append('businessCategoryId', this.businessCategoryIds?.value);
     formData.append('merchantPlanId', this.merchantPlanId?.value);
-    formData.append('mccCode', this.MccCode?.value);
+    formData.append('mccCode', this.MccCode?.value.trim());
     formData.append('periodName', this.periodName?.value);
-    formData.append('website', this.website?.value || this.websites);
+    formData.append('website', this.website?.value || this.websites.trim());
     formData.append('merchantLogo', this.file3 || this.emptyBlob);
     formData.append('billingMode', this.billingMode?.value);
     formData.append('offlineQrEnable', this.offlineQrEnable?.value);

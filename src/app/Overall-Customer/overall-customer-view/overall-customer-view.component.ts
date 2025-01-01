@@ -294,10 +294,8 @@ export class OverallCustomerViewComponent implements OnInit {
   }
 
   customer(filterValue: string) {
-    if (!filterValue) {
-      this.toastr.error('Please enter a value to search');
-      return;
-    }
+  
+    if (filterValue) {
 
     this.EntityViewall.CustomerSearch(filterValue,this.pageSize1,this.pageIndex1).subscribe({
       next: (res: any) => {
@@ -328,6 +326,11 @@ export class OverallCustomerViewComponent implements OnInit {
         this.toastr.error('No Data Found');
       }
     });
+  }
+  else if (!filterValue) {
+    this.toastr.error('Please enter a value to search');
+    return;
+  }
   }
   renderPage1(event: PageEvent) {
     // Capture the new page index and page size from the event

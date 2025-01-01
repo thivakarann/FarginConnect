@@ -14,38 +14,45 @@
 </mat-card-header>
  
 <ul class="nav nav-pills nav-fill mb-4 mx-3 mt-3">
-  <li class="nav-item">
+  <li class="nav-item" [hidden]="valuecustomerinfo!=='Customers-Customer Info'">
     <a style="cursor: pointer;font-weight: 600;" class="nav-link" [class.active]="selectedTab === 'customer-info'"
       (click)="selectTab('customer-info')">
       Customer Info
     </a>
   </li>
   &nbsp; &nbsp;
-  <li class="nav-item">
+  <li class="nav-item" [hidden]="valueSetupBox!=='Customers-Setup Box'">
     <a style="cursor: pointer;font-weight: 600;" class="nav-link" [class.active]="selectedTab === 'Setup-Box'"
       (click)="selectTab('Setup-Box')">
       Setup Box
     </a>
   </li>
   &nbsp; &nbsp;
-  <li class="nav-item">
+  <li class="nav-item" [hidden]="valueTransactions!=='Customers-Transaction'">
     <a style="cursor: pointer;font-weight: 600;" class="nav-link" [class.active]="selectedTab === 'Transaction'"
       (click)="selectTab('Transaction')">
       Transactions
     </a>
   </li>
   &nbsp;&nbsp;
-  <li class="nav-item">
+  <li class="nav-item" [hidden]="valueAdditionalPayments!=='Customers-Additional Payments'">
     <a style="cursor: pointer;font-weight: 600;" class="nav-link" [class.active]="selectedTab === 'Additional-Payments'"
       (click)="selectTab('Additional-Payments')">
       Additional Payments
+    </a>
+  </li>
+  &nbsp;&nbsp;
+  <li class="nav-item">
+    <a style="cursor: pointer;font-weight: 600;" class="nav-link" [class.active]="selectedTab === 'Refund'"
+      (click)="selectTab('Refund')">
+     Refunds
     </a>
   </li>
  
  
 </ul>
 <div *ngIf="selectedTab === 'customer-info'" id="customer-info" class="mb-4">
-  <div class="container">
+  <div class="container" [hidden]="valuecustomerinfo!=='Customers-Customer Info'">
     <article class="card">
       <div class="card-body">
         <!-- <h3 class="card-title mb-4">General Information</h3>
@@ -265,7 +272,7 @@
                 <th>Service Provider Name</th>
                 <th>Region</th>
                 <!-- <th>Status</th> -->
-                <th>View</th>
+                <th [hidden]="valuesetview!=='Customers-Setup Box View'">View</th>
                 <th>Created By</th>
                 <th>Created At</th>
               </tr>
@@ -284,7 +291,7 @@
                       (change)="ActiveStatus($event,row.customerStbId)">
                     </mat-slide-toggle>
                   </td> -->
-                  <td style="cursor: pointer;" (click)="view(row.customerStbId)">
+                  <td [hidden]="valuesetview!=='Customers-Setup Box View'" style="cursor: pointer;" (click)="view(row.customerStbId)">
                     <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
                   </td>
                   <td>{{ row.stbId?.createdBy }}</td>
@@ -353,7 +360,7 @@
                 <th>Bank Reference</th>
                 <th>Due Date</th>
                 <th>Payment Status</th>
-                <th>Receipt</th>
+                <th [hidden]="valuetransreceipt!=='Customers-Transaction Receipt'">Receipt</th>
                 <th>Paid At</th>
               </tr>
               <span *ngIf="!showData" class="text-center" style="color:red;font-size:12px;">NO DATA FOUND</span>
@@ -377,7 +384,7 @@
                     <span *ngIf=" row.paymentStatus=='Initiated'" style="color:blue"> {{ row.paymentStatus}}</span>
  
                   </td>
-                  <td>
+                  <td [hidden]="valuetransreceipt!=='Customers-Transaction Receipt'">
                     <button [disabled]="row.paymentStatus != 'Success'" class="btn btn-success btn-sm"
                         style="border:none;" (click)="Receipt(row.customerPayId)"> <i class="fa-solid fa-download" style="color:#fff;"></i></button>
                   </td>
@@ -454,13 +461,13 @@
                 <th>Payment Status</th>
                 <th>Service Amount</th>
              
-                <th>Invoice</th>
+                <th [hidden]="valueaddinvoice!=='Customers-Additional Payments Invoice'">Invoice</th>
                 <th>Paid At</th>
  
               </tr>
-              <!-- <span *ngIf="!showData" class="text-center" style="color:red;font-size:12px;">NO DATA FOUND</span> -->
+               <span *ngIf="!showData1" class="text-center" style="color:red;font-size:12px;">NO DATA FOUND</span> 
  
-              <tbody>
+              <tbody *ngIf="showData1" >
                 <tr
                   *ngFor="let item of additionlpay | paginate: { id:'pagination4', itemsPerPage: 3, currentPage: page4 } | search: searchText; let i = index">
  
@@ -481,7 +488,7 @@
                   </td>
                   <td>{{ item.paidAmount}}</td>
                  
-                  <td> <button class="btn btn-success btn-sm" [disabled]="transaction?.paymentStatus != 'Success'"
+                  <td [hidden]="valueaddinvoice!=='Customers-Additional Payments Invoice'"> <button class="btn btn-success btn-sm" [disabled]="transaction?.paymentStatus != 'Success'"
                       style="border:none;" (click)="viewreciept(item?.customerpaymentId)"> <i
                         class="fa-solid fa-download" style="color:#fff;"></i></button></td>
                   <td>{{item.paymentDateTime| date:'dd/MM/yyyy hh:mm'}}</td>
@@ -495,6 +502,94 @@
     <div class="text-end mt-3">
       <pagination-controls id='pagination4' (pageChange)="page4 = $event"></pagination-controls>
     </div>
+  </div>
+ 
+</div>
+<div id="refund" *ngIf="selectedTab === 'Refund'" class="mb-4">
+  <div>
+    <div class="row mt-4 mx-1">
+      <div class="col ">
+        <div class="search ">
+          <form class="form">
+            <label for="search">
+              <input style="font-size: 13px;" type="text" id="search" [(ngModel)]="searchText" name="searchText"
+                placeholder="search">
+              <div class="icon">
+                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                  <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
+                  </path>
+                </svg>
+                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                  <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round" stroke-linecap="round">
+                  </path>
+                </svg>
+              </div>
+              <button (click)="reload()" type="reset" class="close-btn">
+                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                  <path clip-rule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    fill-rule="evenodd"></path>
+                </svg>
+              </button>
+            </label>
+          </form>
+        </div> &nbsp;
+          <!-- <button (click)="refundsearch(input.value)"  style="color:white;background-color: #141E46;border-radius: 10px;"
+              mat-raised-button>Go</button>
+          -->
+      </div>
+  </div>
+    <div class="row mt-1 mx-1">
+      <div class="col-12 mb-3 mb-lg-5">
+        <div class="card table-nowrap table-card">
+          <div class="table-responsive text-nowrap text-center">
+            <table class="table table-hover" id="customers">
+              <tr>
+ 
+                <th>S No</th>
+                <th>Type</th>
+                <th>Refund Amount</th>
+                <th>Payment ID</th>
+                <th>Request ID</th>
+                <th>Activity ID</th>
+                <th>Paid Amount</th>
+ 
+                <th>Refund Amount</th>
+                <th>Refund Status</th>
+                <!-- <th>Created date</th> -->
+                <th>Refund Date</th>
+ 
+              </tr>
+              <!-- <span *ngIf="!showData" class="text-center" style="color:red;font-size:12px;">NO DATA FOUND</span> -->
+ 
+              <tbody>
+                <tr
+                  *ngFor="let item of refundval | paginate: { id:'pagination5', itemsPerPage: 3, currentPage: page4 } | search: searchText; let i = index" >
+ 
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ item.type}}</td>
+                  <td>{{ item.refundAmount ||'--'}}</td>
+                  <td>{{ item.paymentId ||'--'}}</td>
+                 
+                  <td>{{ item.requestId}}</td>
+                  <td>{{ item.activityId}}</td>
+                  <td>{{ item.paymentModel?.paidAmount}}</td>
+                  <td>{{ item.refundAmount}}</td>
+                  <td>{{ item.refundStatus}}</td>
+                  <!-- <td>{{item.createdAt| date:'dd/MM/yyyy hh:mm'}}</td> -->
+                  <td>{{item.refundDateTime| date:'dd/MM/yyyy hh:mm'}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-end mt-3">
+      <pagination-controls id='pagination5' (pageChange)="page5 = $event"></pagination-controls>
+  </div>
   </div>
  
 </div>

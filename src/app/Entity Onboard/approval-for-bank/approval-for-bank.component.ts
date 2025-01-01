@@ -57,6 +57,7 @@ export class ApprovalForBankComponent implements OnInit {
         }, 500);
       }
       else {
+        this.dialog.closeAll();
         this.toastr.error(res.responseMessage)
       }
     })

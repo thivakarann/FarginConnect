@@ -347,12 +347,10 @@ export class SurveyviewallComponent {
     } as PageEvent);
   }
   search(filterval:any){
-    if (!filterval) {
-      this.toastr.error('Please enter a value to search');
-      return;
-  }
+  
  
- 
+  if (filterval) {
+
   this.service.SurveySearch(filterval,this.pageSize1,this.pageIndex1).subscribe({
     next: (res: any) => {
       if (res.response) {
@@ -383,6 +381,11 @@ export class SurveyviewallComponent {
       this.toastr.error('No Data Found');
     }
   });
+}
+else if (!filterval) {
+  this.toastr.error('Please enter a value to search');
+  return;
+}
 }
 renderPage1(event: PageEvent) {
   // Capture the new page index and page size from the event

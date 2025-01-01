@@ -27,6 +27,8 @@ export class AggrementLocationTrackerComponent {
   LocationCountryphone: any;
   Locationtimezone: any;
   mobilenumber: any;
+  SignedTime: any;
+  LocationRegionCode: any;
 
 
   constructor(
@@ -42,33 +44,13 @@ export class AggrementLocationTrackerComponent {
     this.mobilenumber = this.data.value2;
 
     
-    //  this.Service.getIpAddress().subscribe((res: any) => {
-    //   this.ipAddress = res.ip;
-    // });
+     this.Service.getIpAddress().subscribe((res: any) => {
+      this.ipAddress = res.ip;
+      console.log("IPAdress" +this.ipAddress )
+      this.getlocationbyid();
+    });
 
-    this.Service.getIpLocation().subscribe((res: any) => {
-      this.geoDetails = res;
-      this.LocationCountry = res.country;
-      this.LocationCountrycode = res.countryCode;
-      this.LocationCountryphone = res.country_phone;
-      this.Locationtimezone = res.timezone;
-      this.LocationRegion = res.region;
-      this.LocationCity = res.city;
-      this.Locationlatitude = res.lat;
-      this.Locationlongitude = res.lon;
-      this.ipAddress = res.query
-      // const [latitude, longitude] = res.loc.split(','); this.Locationlatitude = latitude; this.Locationlongitude = longitude;
-
-      console.log("this.geoDetails" + this.geoDetails)
-      console.log("this.LocationCountry" + this.LocationCountry)
-      console.log("this.LocationCountrycode" + this.LocationCountrycode)
-      console.log("this.LocationCountryphone" + this.LocationCountryphone)
-      console.log("this.Locationtimezone" + this.Locationtimezone)
-      console.log("this.LocationRegion" + this.LocationRegion)
-      console.log("this.LocationCity" + this.LocationCity)
-      console.log("this.Locationlatitude" + this.Locationlatitude)
-      console.log("this.Locationlongitude" + this.Locationlongitude)
-    })
+    
   }
 
   Yes() {
@@ -86,6 +68,38 @@ export class AggrementLocationTrackerComponent {
   //   this.LocationAccess();
   //   this.FinalLocationAccess();
   // }
+
+
+  getlocationbyid (){
+    // let submitModel:getiplocation = {
+    //   ip: this. ipAddress
+    // }
+
+    this.Service.getIpLocation(this.ipAddress).subscribe((res:any)=>{
+      this.geoDetails = res;
+      this.LocationCountry = res.A2;
+      this.LocationCountrycode = res.A2;
+      this.LocationCountryphone = res.country_phone;
+      this.SignedTime = res.Current_Time;
+      this.Locationtimezone = res.Timezone;
+      this.LocationRegion = res.Region;
+      this.LocationRegionCode = res.RegionCode
+      this.LocationCity = res.City;
+      this.Locationlatitude = res.Latitude;
+      this.Locationlongitude = res.Longitude;
+      console.log("this.geoDetails" + this.geoDetails)
+      console.log("this.LocationCountry" + this.LocationCountry)
+      console.log("this.LocationCountrycode" + this.LocationCountrycode)
+      console.log("this.LocationCountryphone" + this.LocationCountryphone)
+      console.log("this.Locationtimezone" + this.Locationtimezone)
+      console.log("this.LocationRegion" + this.LocationRegion)
+      console.log("this.LocationRegionCode" + this.LocationRegionCode)
+      console.log("this.LocationCity" + this.LocationCity)
+      console.log("this.Locationlatitude" + this.Locationlatitude)
+      console.log("this.Locationlongitude" + this.Locationlongitude)
+      console.log("this.ipAddress" + this.ipAddress)
+    })
+  }
 
 
 

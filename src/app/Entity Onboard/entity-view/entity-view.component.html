@@ -52,7 +52,7 @@
 
     <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
         data-target="contact" (click)="Viewautodebit(this.id)">
-        <div [hidden]="valueentityautodebit!=='Entity View Rent Logs'"> <i
+        <div [hidden]="valueentityautodebit!=='Entity View MMC AutoDebit'"> <i
                 class="fa-solid fa-money-bill-transfer"></i>&nbsp;&nbsp;MMC AutoDebit
         </div>
     </button>
@@ -304,7 +304,7 @@
                                             </div>
                                             <div class="d-flex mt-3">
                                                 <div class="w-50 font-weight-bold">Plan Amount</div>
-                                                <div class="w-50">{{detaislone?.zipcode}}</div>
+                                                <div class="w-50">{{detaislone?.technicalAmount}}</div>
                                             </div>
                                             <div class="d-flex mt-3">
                                                 <div class="w-50 font-weight-bold">State</div>
@@ -352,7 +352,7 @@
                                                         Days</ng-container>
                                                     <ng-container *ngIf="detaislone?.customerDuesDate === 3">Every Three
                                                         Days</ng-container>
-                                                    <ng-container *ngIf="detaislone?.customerDuesDate == null">No Due
+                                                    <ng-container *ngIf="detaislone?.customerDuesDate == 0">No Due
                                                         Date</ng-container>
                                                 </div>
                                             </div>
@@ -1437,7 +1437,9 @@
                             <th>Service Fee</th>
                             <th>Authorized Signatory Name</th>
                             <th>Authorized Signatory Designation</th>
-                            <th [hidden]="valueagreementView!=='Entity View Agreement-View'">Plan Overview</th>
+                            <th [hidden]="valueagreementView!=='Entity View Agreement-Plan Overview'">Plan Overview</th>
+                            <th [hidden]="valueagreementlink!=='Entity View Agreement-Entity Agreement Link'">
+                             Admin Agreement Link</th>
                             <th [hidden]="valueagreementlink!=='Entity View Agreement-Entity Agreement Link'">Entity
                                 Agreement Link</th>
                             <th>Link Expiry Date</th>
@@ -1464,10 +1466,15 @@
                             <td>{{item.merchantName}}</td>
                             <td>{{item.merchantDesignation}}</td>
 
-                            <td [hidden]="valueagreementView!=='Entity View Agreement-View'">
+                            <td [hidden]="valueagreementView!=='Entity View Agreement-Plan Overview'">
                                 <i style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
                                     (click)="view(item.commercialId?.commercialId)"></i>
                             </td>
+                            <td [hidden]="valueagreementlink!=='Entity View Agreement-Entity Agreement Link'"
+                                style="margin-top: 5px;"> {{item.adminAgreementLink | slice: 0: 25}} <i
+                                    class="fa-regular fa-copy" style="color: green; font-size: 18px;"
+                                    (click)="copyText2(item.adminAgreementLink, i)"></i> <span *ngIf="copiedIndex2 === i"
+                                    style="color: green;">Copied!</span> </td>
                             <td [hidden]="valueagreementlink!=='Entity View Agreement-Entity Agreement Link'"
                                 style="margin-top: 5px;"> {{item.agreementLink | slice: 0: 25}} <i
                                     class="fa-regular fa-copy" style="color: green; font-size: 18px;"
