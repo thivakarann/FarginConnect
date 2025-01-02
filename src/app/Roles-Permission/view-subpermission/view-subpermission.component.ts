@@ -9,7 +9,7 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class ViewSubpermissionComponent {
   streetValue: any;
   subpermissionValue: any;
-  currentPage: any = 1; // The current page number
+  currentPage: number = 1; 
   searchText: any;
 
   constructor(private dialog: MatDialog,
@@ -21,5 +21,19 @@ export class ViewSubpermissionComponent {
 
   back() {
     this.dialog.closeAll()
+  }
+
+  onSearchTextChange(): void {
+    // Reset to the first page whenever the search text changes
+    this.currentPage = 1;
+  }
+
+  transform(value: any[], searchText: string): any[] {
+    if (!value || !searchText) {
+      return value;
+    }
+    return value.filter(item =>
+      item.subpermissionValue.toLowerCase().includes(searchText.toLowerCase())
+    );
   }
 }
