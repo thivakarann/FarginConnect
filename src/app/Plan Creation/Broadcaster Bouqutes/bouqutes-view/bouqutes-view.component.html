@@ -1,6 +1,6 @@
 <div class="form-header d-flex justify-content-between align-items-center mx-4">
-    <h4 class="mb-0">{{channelslist[0].broadCasterBouquet.serviceProvider.serviceProviderName}}</h4>
-    <button type="button" class="btn btn-secondary" (click)="close(details?.bouquetId)">Back</button>
+    <h4 class="mb-0">{{broadCasterBouquet?.serviceProvider.serviceProviderName}}</h4>
+    <button type="button" class="btn btn-secondary" (click)="close()">Back</button>
  
 </div>
 <hr>
@@ -49,6 +49,7 @@
                         <th>Edit</th>
 
                     </tr>
+                    <span *ngIf="this.flag==2" style="color:red;">{{this.message}}</span>
  
                     <tbody
                         *ngFor="let item of channelslist| paginate: { itemsPerPage: 3, currentPage: page } | search: term; let i = index">

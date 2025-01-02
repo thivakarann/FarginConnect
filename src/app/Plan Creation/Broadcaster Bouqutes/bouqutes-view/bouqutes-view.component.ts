@@ -8,6 +8,7 @@ import { Broadcastersinglechanelstatus } from '../../../fargin-model/fargin-mode
 import { BouquetsRegionsviewComponent } from '../bouquets-regionsview/bouquets-regionsview.component';
 import { AddExtraChannelsComponent } from '../add-extra-channels/add-extra-channels.component';
 import { ChanneleditComponent } from '../channeledit/channeledit.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-bouqutes-view',
@@ -47,13 +48,15 @@ export class BouqutesViewComponent implements OnInit {
   back:any;
   broadCasterRegion: any;
   broadCasterBouquet:any;
+  flag: any;
+  message: any;
 
   constructor(
     public viewdetails: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
     private ActivateRoute: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,private location:Location
   ) { }
   ngOnInit(): void {
     this.ActivateRoute.queryParams.subscribe((param: any) => {
@@ -61,29 +64,39 @@ export class BouqutesViewComponent implements OnInit {
     });
 
     this.viewdetails.BroadcasterBoucatebyidchannel(this.id).subscribe((res: any) => {
-      this.details = res.response;
-    
-      if (res.response && res.response.length > 0) {
-        this.details = res.response[0].broadCasterBouquet;
-        console.log(this.details);
-    } 
-
-    if(res.response && res.response.length > 0){
-      this.back=res.response.broadCasterRegion
-    }
+      if(res.flag==1){
  
-      this.channelslist = res.response;
-
-      this.broadCasterRegion = res.response[0].broadCasterRegion;
-
-      this.broadCasterBouquet = res.response[0].broadCasterBouquet;
-
-      this.ServiceProvideregions = res.response;
-      if (res.response && res.response.length > 0) {
-        this.channel = res.response[0].broadCasterRegion.broadCasterRegion;
-        console.log(this.details);
-    } 
-      
+   
+        this.details = res.response;
+     
+        if (res.response && res.response.length > 0) {
+          this.details = res.response[0].broadCasterBouquet;
+          console.log(this.details);
+      }
+   
+      if(res.response && res.response.length > 0){
+        this.back=res.response.broadCasterRegion
+      }
+   
+        this.channelslist = res.response;
+   
+        this.broadCasterRegion = res.response[0].broadCasterRegion;
+   
+        this.broadCasterBouquet = res.response[0].broadCasterBouquet;
+   
+        this.ServiceProvideregions = res.response;
+        if (res.response && res.response.length > 0) {
+          this.channel = res.response[0].broadCasterRegion.broadCasterRegion;
+          console.log(this.details);
+      }
+    }
+   
+    else if(res.flag == 2){
+      this.flag=res.flag;
+      this.message=res.responseMessage;
+      console.log( this.flag);
+      console.log( this.message)
+    }
     });
   }
 
@@ -95,10 +108,11 @@ export class BouqutesViewComponent implements OnInit {
     })
   }
 
-  close(id:any) {
-this.router.navigate([`dashboard/bouqutes-region/${id}`], {
-    queryParams: { Alldata: id }
-  });
+  close() {
+// this.router.navigate([`dashboard/bouqutes-region/${id}`], {
+//     queryParams: { Alldata: id }
+//   });
+this.location.back()
   }
 
 

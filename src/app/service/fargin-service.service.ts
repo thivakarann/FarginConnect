@@ -623,13 +623,13 @@ export class FarginServiceService {
 
   // Find Location Details 
 
-  // private geoApiUrl = 'https://ipinfo.io/json';
+  private geoApiUrl = 'https://ipinfo.io/json';
 
   // private geoApiUrl = 'https://ipwhois.app/json/';
 
   // private geoApiUrl = 'http://ip-api.com/json/'
 
-  private geoApiUrl = 'https://data.handyapi.com/geoip/'
+  // private geoApiUrl = 'https://data.handyapi.com/geoip/'
 
 
   //Additional Payment

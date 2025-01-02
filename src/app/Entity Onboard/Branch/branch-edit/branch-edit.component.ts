@@ -47,7 +47,6 @@ export class BranchEditComponent {
     this.bank=this.data.value.bankName
     this.code=this.data.value.ifscCode
     this.holdername=this.data.value.accountHolderName
-    this.holdername=this.data.value.accountNumber
     this.number=this.data.value.accountNumber
     this.accountid=this.data.value.accountId
  

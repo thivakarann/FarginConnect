@@ -48,6 +48,24 @@ export class EntityCustomersViewComponent {
   totalamount: any;
   additionlpay: any;
   refundval: any;
+
+
+valuecustomerinfo: any;
+valuecustomerSetupBox: any;
+valuecustomerTransactions: any;
+valuecustomeradditional: any;
+valuecustomerRefunds: any;
+valuesetupsts: any;
+valuesetupview: any;
+valuetransreceipt: any;
+valueadditionalinvoice: any;
+
+getdashboard: any[] = [];
+roleId: any = localStorage.getItem('roleId')
+actions: any;
+errorMessage: any;
+
+
   selectTab(tab: string) {
     this.selectedTab = tab;
   }
@@ -62,6 +80,63 @@ export class EntityCustomersViewComponent {
   ) { }
  
   ngOnInit(): void {
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+ 
+ 
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+ 
+          if (this.roleId == 1) {
+            this.valuecustomerinfo = 'Customer Info'
+            this.valuecustomerSetupBox = 'Setup Box'
+            this.valuecustomerTransactions = 'Transactions'
+            this.valuecustomeradditional = 'Additional Payments'
+            this.valuecustomerRefunds = 'Refunds'
+            this.valuesetupsts = 'Setup Box-Status'
+            this.valuesetupview = 'Setup Box-View'
+            this.valuetransreceipt = 'Transactions-Reciept'
+            this.valueadditionalinvoice = 'Additional Payments-Invoice'
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+ 
+              if (this.actions == 'Customer Info') {
+                this.valuecustomerinfo = 'Customer Info'
+              }
+              if (this.actions == 'Setup Box') {    
+                this.valuecustomerSetupBox = 'Setup Box'
+              }
+              if (this.actions == 'Transactions') {
+                this.valuecustomerTransactions = 'Transactions'
+              }
+              if (this.actions == 'Additional Payments') {
+                this.valuecustomeradditional = 'Additional Payments'
+              }
+              if (this.actions == 'Refunds') {
+                this.valuecustomerRefunds = 'Refunds'
+              }
+              if (this.actions == 'Setup Box-Status') {
+                this.valuesetupsts = 'Setup Box-Status'
+              }
+              if (this.actions == 'Setup Box-View') {
+                this.valuesetupview = 'Setup Box-View'
+              }
+              if (this.actions == 'Transactions-Reciept') {
+                this.valuetransreceipt = 'Transactions-Reciept'
+              }
+              if (this.actions == 'Additional Payments-Invoice') {
+                this.valueadditionalinvoice = 'Additional Payments-Invoice'
+              }
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    });
  
  
     this.ActivateRoute.queryParams.subscribe((param: any) => {

@@ -42,7 +42,7 @@
     </a>
   </li>
   &nbsp;&nbsp;
-  <li class="nav-item">
+  <li class="nav-item" [hidden]="valuecustomerRefunds!=='Customers-Refunds'">
     <a style="cursor: pointer;font-weight: 600;" class="nav-link" [class.active]="selectedTab === 'Refund'"
       (click)="selectTab('Refund')">
      Refunds
@@ -390,7 +390,7 @@
                   </td>
                   <td>
                     <span *ngIf=" row.paymentDateTime!= null"> {{ row.paymentDateTime | date:"dd/MM/yyyy
-                      :hh:m:a"}}</span>
+                      hh:m:a"}}</span>
                     <span *ngIf=" row.paymentDateTime==null" style="color:blue"> -</span>
  
                   </td>

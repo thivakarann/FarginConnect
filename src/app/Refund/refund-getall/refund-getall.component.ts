@@ -68,10 +68,35 @@ export class RefundGetallComponent {
   totalpage: any;
   currentpage: any;
   refundexport: any;
+  valuerefundexport:any;
+  errorMessage: any;
 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit(): void {
+
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+ 
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+          if (this.roleId == 1) {
+            this.valuerefundexport = 'Online Refunds-Export'
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+              if (this.actions == 'Online Refunds-Export') {
+                this.valuerefundexport = 'Online Refunds-Export'
+              }
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    });
     this.service.RefundGetAll(this.pageSize,this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.refund = res.response;
@@ -212,7 +237,6 @@ export class RefundGetallComponent {
       // length: this.totalItems
     } as PageEvent);
   }
-
   exportexcel() {
     this.service.RefundExport().subscribe((res: any) => {
       this.refundexport = res.response;
@@ -220,22 +244,25 @@ export class RefundGetallComponent {
         let sno = 1;
         this.responseDataListnew = [];
         this.refundexport.forEach((element: any) => {
-
+ 
           this.response = [];
           this.response.push(sno);
           this.response.push(element?.type);
-          this.response.push(element?.refundAmount);
           this.response.push(element?.paymentId);
           this.response.push(element?.requestId);
-
+ 
           this.response.push(element?.activityId);
-
+ 
           this.response.push(element?.customerId?.customerName );
           this.response.push(element?.customerId?.emailAddress );
+ 
           this.response.push(element?.customerId?.mobileNumber );
-          this.response.push(element?.refundStatus);
           this.response.push(element?.paymentModel?.paidAmount );
-
+ 
+          this.response.push(element?.refundAmount);
+ 
+          this.response.push(element?.refundStatus);
+ 
        
           if (element.refundDateTime) {
             this.response.push(moment(element?.refundDateTime).format('DD/MM/yyyy hh:mm a').toString());
@@ -243,9 +270,9 @@ export class RefundGetallComponent {
           else {
             this.response.push('');
           }
-
-        
-
+ 
+       
+ 
           sno++;
           this.responseDataListnew.push(this.response);
         });
@@ -253,22 +280,22 @@ export class RefundGetallComponent {
       }
     });
   }
-
+ 
   excelexportCustomer() {
     // const title='Entity Details';
     const header = [
      "SNo","Type", "PgPaymentId", "ReqId","ActivityId", "CustomerName","CustomerEmail","CustomerMobile",  "PaidAmount", "RefundAmount","Status","RefundDate"
     ]
-
-
+ 
+ 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Online Refunds');
-
+ 
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
-
+ 
+ 
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -279,15 +306,15 @@ export class RefundGetallComponent {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
-
+ 
       }
-
+ 
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
-
+ 
     data.forEach((d: any) => {
       //
-
+ 
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -301,8 +328,8 @@ export class RefundGetallComponent {
       let qty9 = row.getCell(10);
       let qty10 = row.getCell(11);
       let qty11 = row.getCell(12);
-
-
+ 
+ 
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -315,10 +342,10 @@ export class RefundGetallComponent {
       qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
+ 
     }
     );
-
+ 
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       FileSaver.saveAs(blob, 'Online Refunds.xlsx');

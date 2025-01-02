@@ -93,7 +93,7 @@ export class EntityTransactionComponent {
     this.service.EntityTraansaction(this.id).subscribe((res: any) => {
       if(res.flag ==1){
         this.details = res.response;
-        this.dataSource = new MatTableDataSource(this.details.reverse());
+        this.dataSource = new MatTableDataSource(this.details);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }

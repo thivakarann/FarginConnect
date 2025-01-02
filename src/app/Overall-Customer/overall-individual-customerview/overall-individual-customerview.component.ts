@@ -65,6 +65,7 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
   selectTab(tab: string) {
     this.selectedTab = tab;
   }
+  valuecustomerRefunds:any;
 
 
   constructor(
@@ -94,6 +95,7 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
             this.valuesetview = 'Customers-Setup Box View'
             this.valuetransreceipt = 'Customers-Transaction Receipt'
             this.valueaddinvoice = 'Customers-Additional Payments Invoice'
+            this.valuecustomerRefunds='Customers-Refunds'
           }
           else {
             for (let datas of this.getdashboard) {
@@ -122,6 +124,9 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
               }
               if (this.actions == 'Customers-Additional Payments') {
                 this.valueAdditionalPayments = 'Customers-Additional Payments'
+              }
+              if(this.actions=='Customers-Refunds'){
+                this.valuecustomerRefunds='Customers-Refunds'
               }
             }
           }

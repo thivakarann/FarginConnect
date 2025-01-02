@@ -29,6 +29,7 @@ export class AggrementLocationTrackerComponent {
   mobilenumber: any;
   SignedTime: any;
   LocationRegionCode: any;
+  locationforlatlong: any;
 
 
   constructor(
@@ -77,16 +78,20 @@ export class AggrementLocationTrackerComponent {
 
     this.Service.getIpLocation(this.ipAddress).subscribe((res:any)=>{
       this.geoDetails = res;
-      this.LocationCountry = res.A2;
-      this.LocationCountrycode = res.A2;
-      this.LocationCountryphone = res.country_phone;
-      this.SignedTime = res.Current_Time;
-      this.Locationtimezone = res.Timezone;
-      this.LocationRegion = res.Region;
+      this.LocationCountry = res.country;
+      this.LocationCountrycode = res.country;
+      // this.LocationCountryphone = res.country_phone;
+      // this.SignedTime = res.Current_Time;
+      this.Locationtimezone = res.timezone;
+      this.LocationRegion = res.region;
       this.LocationRegionCode = res.RegionCode
-      this.LocationCity = res.City;
-      this.Locationlatitude = res.Latitude;
-      this.Locationlongitude = res.Longitude;
+      this.LocationCity = res.city;
+      this.locationforlatlong = res["loc"].split(",") 
+       this.Locationlatitude = this.locationforlatlong[0]
+       this.Locationlongitude = this.locationforlatlong[1]
+      
+      // this.Locationlatitude = res.Latitude;
+      // this.Locationlongitude = res.Longitude;
       console.log("this.geoDetails" + this.geoDetails)
       console.log("this.LocationCountry" + this.LocationCountry)
       console.log("this.LocationCountrycode" + this.LocationCountrycode)

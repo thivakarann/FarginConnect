@@ -64,6 +64,7 @@ export class DashboardComponent implements OnInit {
   valueSignerDetails:any;
 valueAdditionalPayments: any;
 valuebranch: any;
+  valueonlienrefund: any;
 
 
   constructor(private elRef: ElementRef,
@@ -143,6 +144,7 @@ valuebranch: any;
       this.valueSignerDetails='Signer Details'
        this.valueAdditionalPayments = 'Additional Payments'
         this.valuebranch = 'Branch'
+        this.valueonlienrefund = 'Online Refunds'
     }
     else {
       for (let data of this.getdashboard) {
@@ -281,6 +283,9 @@ valuebranch: any;
         }
         if (this.roles == 'Branch') {
           this.valuebranch = 'Branch'
+        }
+        if (this.roles == 'Online Refunds') {
+          this.valueonlienrefund = 'Online Refunds'
         }
       }
     }

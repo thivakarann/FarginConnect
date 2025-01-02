@@ -12,14 +12,14 @@
   </div>
 </mat-card-header>
 <ul class="nav nav-pills nav-fill mb-4 mx-3 mt-3">
-  <li class="nav-item">
+  <li class="nav-item" [hidden]="valuecustomerinfo!=='Customer Info'">
     <a style="cursor: pointer;font-weight: 600;" class="nav-link" [class.active]="selectedTab === 'customer-info'"
       (click)="selectTab('customer-info')">
       Customer Info
     </a>
   </li>
   &nbsp; &nbsp;
-  <li class="nav-item">
+  <li class="nav-item" [hidden]="valuecustomerSetupBox!=='Setup Box'">
     <a style="cursor: pointer;font-weight: 600;"
        class="nav-link"
        [class.active]="selectedTab === 'Setup-Box'"
@@ -28,21 +28,21 @@
     </a>
 </li>
 &nbsp; &nbsp;
-  <li class="nav-item">
+  <li class="nav-item" [hidden]="valuecustomerTransactions!=='Transactions'">
     <a style="cursor: pointer;font-weight: 600;" class="nav-link" [class.active]="selectedTab === 'Transaction'"
       (click)="selectTab('Transaction')">
       Transactions
     </a>
   </li>
   &nbsp;&nbsp;
-  <li class="nav-item">
+  <li class="nav-item" [hidden]="valuecustomeradditional!=='Additional Payments'">
     <a style="cursor: pointer;font-weight: 600;" class="nav-link" [class.active]="selectedTab === 'Additional-Payments'"
       (click)="selectTab('Additional-Payments')">
       Additional Payments
     </a>
   </li>
   &nbsp;&nbsp;
-  <li class="nav-item">
+  <li class="nav-item" [hidden]="valuecustomerRefunds!=='Refunds'">
     <a style="cursor: pointer;font-weight: 600;" class="nav-link" [class.active]="selectedTab === 'Refund'"
       (click)="selectTab('Refund')">
      Refunds
@@ -52,8 +52,8 @@
  
  
 </ul>
-<div *ngIf="selectedTab === 'customer-info'" id="customer-info" class="mb-4">
-  <div class="container">
+<div *ngIf="selectedTab === 'customer-info'" id="customer-info" class="mb-4" >
+  <div class="container" [hidden]="valuecustomerinfo!=='Customer Info'">
     <article class="card">
       <div class="card-body">
         <!-- <h3 class="card-title mb-4">General Information</h3>
@@ -271,9 +271,9 @@
                 <th>Setupbox Number</th>
                 <th>Service Provider Name</th>
                 <th>Region</th>
-                <th>Status</th>
+                <th [hidden]="valuesetupsts!=='Setup Box-Status'">Status</th>
                
-                <th>View</th>
+                <th [hidden]="valuesetupview!=='Setup Box-View'">View</th>
                 <th>Created By</th>
                 <th>Created At</th>
               </tr>
@@ -287,13 +287,13 @@
                   <td>{{ row.stbId?.setupBoxNumber }}</td>
                   <td>{{ row.stbId?.service?.serviceProviderName }}</td>
                   <td>{{ row.stbId?.regionEntity?.stateName }}</td>
-                  <td>
+                  <td [hidden]="valuesetupsts!=='Setup Box-Status'">
                     <mat-slide-toggle class="example-margin" color="primary" [checked]="row.activeStatus === 1"
             (change)="ActiveStatus($event,row.customerStbId)">
           </mat-slide-toggle>
                   </td>
                  
-                  <td style="cursor: pointer;"  (click)="view(row.customerStbId)"
+                  <td   [hidden]="valuesetupview!=='Setup Box-View'"style="cursor: pointer;"  (click)="view(row.customerStbId)"
                   >
                     <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
                   </td>
@@ -372,7 +372,7 @@
                 <th>Bank Reference</th>
                 <th>Due Date</th>
                 <th>Payment Status</th>
-                <th>Reciept</th>
+                <th [hidden]="valuetransreceipt!=='Transactions-Reciept'">Reciept</th>
                 <th>Paid At</th>
               </tr>
               <span *ngIf="!showData" class="text-center" style="color:red;font-size:12px;">NO DATA FOUND</span>
@@ -396,7 +396,7 @@
                     <span *ngIf=" row.paymentStatus=='Initiated'" style="color:blue"> {{ row.paymentStatus}}</span>
  
                   </td>
-                  <td>
+                  <td [hidden]="valuetransreceipt!=='Transactions-Reciept'">
                     <button [disabled]="row.paymentStatus != 'Success'" class="btn btn-success btn-sm"
                         style="border:none;" (click)="Receipt(row.customerPayId)"> <i class="fa-solid fa-download" style="color:#fff;"></i></button>
                   </td>
@@ -473,7 +473,7 @@
                 <th>Payment Status</th>
                 <th>Service Amount</th>
              
-                <th>Invoice</th>
+                <th [hidden]="valueadditionalinvoice!=='Additional Payments-Invoice'">Invoice</th>
                 <th>Paid At</th>
  
               </tr>
@@ -500,7 +500,7 @@
                   </td>
                   <td>{{ item.paidAmount}}</td>
                  
-                  <td> <button class="btn btn-success btn-sm" [disabled]="transaction?.paymentStatus != 'Success'"
+                  <td [hidden]="valueadditionalinvoice!=='Additional Payments-Invoice'"> <button class="btn btn-success btn-sm" [disabled]="transaction?.paymentStatus != 'Success'"
                       style="border:none;" (click)="viewreciept(item?.customerpaymentId)"> <i
                         class="fa-solid fa-download" style="color:#fff;"></i></button></td>
                   <td>{{item.paymentDateTime| date:'dd/MM/yyyy hh:mm'}}</td>

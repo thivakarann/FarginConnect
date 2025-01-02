@@ -35,7 +35,7 @@
       <button (click)="refundsearch(currentfilval)" style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Go</button>
       &nbsp;
       <button  style="color:white;background-color: #141E46;border-radius: 10px;" (click)="exportexcel()"
-        mat-raised-button>Export</button>
+        mat-raised-button [hidden]="valuerefundexport!=='Online Refunds-Export'">Export</button>
 
     </div>
   </div>

@@ -130,7 +130,7 @@
             </ng-container> -->
 
             <ng-container matColumnDef="failedLoginCount">
-                <th mat-header-cell *matHeaderCellDef>Login count</th>
+                <th mat-header-cell *matHeaderCellDef>Login Account</th>
                 <td mat-cell *matCellDef="let viewall">
                     <span *ngIf="viewall?.failedLoginCount != 6" style="color:green;">Unblocked</span>
                     <span *ngIf="viewall?.failedLoginCount == 6" style="color:red;">Blocked</span>

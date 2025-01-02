@@ -7,6 +7,7 @@ import { BouqetsEditComponent } from '../bouqets-edit/bouqets-edit.component';
 import { BouqutesRegioneditComponent } from '../bouqutes-regionedit/bouqutes-regionedit.component';
 import { AddExtraRegionComponent } from '../add-extra-region/add-extra-region.component';
 import { Console } from 'console';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-bouqutes-region',
@@ -61,7 +62,8 @@ export class BouqutesRegionComponent {
     private router: Router,
     private toastr: ToastrService,
     private ActivateRoute: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private location:Location
 
   ) { }
   ngOnInit(): void {
@@ -116,7 +118,8 @@ export class BouqutesRegionComponent {
 
   }
   close() {
-    this.router.navigateByUrl('dashboard/bouquets-viewall');
+    // this.router.navigateByUrl('dashboard/bouquets-viewall');
+    this.location.back()
   }
   Edit(id: any,id1:any) {
 
