@@ -30,6 +30,7 @@ export class AggrementLocationTrackerComponent {
   SignedTime: any;
   LocationRegionCode: any;
   locationforlatlong: any;
+  ipAddressfinder: any;
 
 
   constructor(
@@ -46,8 +47,8 @@ export class AggrementLocationTrackerComponent {
 
     
      this.Service.getIpAddress().subscribe((res: any) => {
-      this.ipAddress = res.ip;
-      console.log("IPAdress" +this.ipAddress )
+      this.ipAddressfinder = res.ip;
+      console.log("IPAdress" +this.ipAddressfinder )
       this.getlocationbyid();
     });
 
@@ -76,8 +77,9 @@ export class AggrementLocationTrackerComponent {
     //   ip: this. ipAddress
     // }
 
-    this.Service.getIpLocation(this.ipAddress).subscribe((res:any)=>{
+    this.Service.getIpLocation(this.ipAddressfinder).subscribe((res:any)=>{
       this.geoDetails = res;
+      this.ipAddress = res.ip;
       this.LocationCountry = res.country;
       this.LocationCountrycode = res.country;
       // this.LocationCountryphone = res.country_phone;
