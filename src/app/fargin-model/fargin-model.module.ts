@@ -653,7 +653,7 @@ export interface pgsetupedit {
 
 //entity settlement
 export interface settlement {
-  readonly accountId: any;
+  readonly merchantId: any;
   readonly pageNo: any;
   readonly query: any;
   readonly size: any;

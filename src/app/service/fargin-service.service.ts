@@ -659,6 +659,7 @@ export class FarginServiceService {
       private readonly  refundsearch='refund/getall/';
       private readonly refundforcustomer='refund/getcustomer/';
       private readonly refundexport='refund/getall';
+      private readonly refunddatefilter='refund/getAll/';
 
    
    
@@ -2470,6 +2471,9 @@ export class FarginServiceService {
   }
   RefundForCustomerView(id:any){
     return this.http.get(`${this.basePath}${this.refundforcustomer}${id}`, this.options)
+  }
+  RefundGetAllDateFilter(id:any,id1:any,id2:any,id3:any){
+    return this.http.get(`${this.basePath}${this.refunddatefilter}${id}/${id1}/${id2}/${id3}`,this.options)
   }
  
 }

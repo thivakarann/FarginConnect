@@ -1,9 +1,8 @@
 <h4 style="text-align:left;color:#141E46;">Online Refunds</h4>
 
 <mat-card-header>
-  <div class="row mt-4">
-    <div class="col">
-
+  <div class="row ">
+    <div class="col-5 mt-4">
       <div class="search ">
         <form class="form">
           <label for="search">
@@ -31,13 +30,31 @@
           </label>
         </form>
 
-      </div>&nbsp;&nbsp;&nbsp;
+      </div>
       <button (click)="refundsearch(currentfilval)" style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Go</button>
-      &nbsp;
       <button  style="color:white;background-color: #141E46;border-radius: 10px;" (click)="exportexcel()"
         mat-raised-button [hidden]="valuerefundexport!=='Online Refunds-Export'">Export</button>
-
     </div>
+    <div class="col-2">
+      <label><b>From Date:</b></label>
+      <input class="form-control" type="date" name="FromDate" [(ngModel)]="FromDateRange"
+          style="height:35px;width:150px;border-radius: 5px;">
+  </div>
+  <div class="col-2">
+      <label><b>To Date:</b></label>
+      <input class="form-control" type="date" name="ToDate" [(ngModel)]="ToDateRange"
+          style="height:35px;width:150px;border-radius: 5px;">
+  </div>
+
+  <div class="col-1 mt-4">
+      <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
+          (click)="filterdate()">Filter</button>
+  </div>
+
+  <div class="col-1 mt-4">
+      <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
+          (click)="reset()">Reset</button>
+  </div>
   </div>
 </mat-card-header>
 
@@ -155,28 +172,42 @@
   </div>
 </mat-card-content>
 <mat-card-footer>
-    <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="!filter">
-        <div class="col-md-6"></div>
-        <div class="col-md-6">
-            <button style="color:white;background-color: #141E46;">Total Entires:{{this.totalPages}}</button>
-            <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex - 1)"
-                [hidden]="pageIndex === 0">Previous</button>
-            <button style="color:white;background-color: #141E46;">{{ this.currentpage}} of {{this.totalpage}}
-                Pages</button>
-            <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex + 1)"
-                [hidden]="pageIndex >= totalpage - 1">Next</button>
-        </div>
-    </div>
-    <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="filter">
-        <div class="col-md-6"></div>
-        <div class="col-md-6">
-            <button style="color:white;background-color: #141E46;">Total Entires:{{this.totalPages1}}</button>
-            <button style="color:white;background-color: #141E46;" (click)="changePageIndex1(pageIndex1 - 1)"
-                [hidden]="pageIndex1 === 0">Previous</button>
-            <button style="color:white;background-color: #141E46;">{{this.currentpage1}} of {{this.totalpage1}}
-                Pages</button>
-            <button style="color:white;background-color: #141E46;" (click)="changePageIndex1(pageIndex1 + 1)"
-                [hidden]="pageIndex1 >= totalpage1 - 1">Next</button>
-        </div>
-    </div>
+  <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="filter">
+      <div class="col-md-6"></div>
+      <div class="col-md-6">
+          <button style="color:white;background-color: #141E46;">Total Entries:{{this.totalPages}}</button>
+          <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex - 1)"
+              [hidden]="pageIndex === 0">Previous</button>
+          <button style="color:white;background-color: #141E46;">{{ this.currentpage}} of {{this.totalpage}}
+              Pages</button>
+          <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex + 1)"
+              [hidden]="pageIndex >= totalpage - 1">Next</button>
+      </div>
+
+  </div>
+
+  <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="filter1">
+      <div class="col-md-6"></div>
+      <div class="col-md-6">
+          <button style="color:white;background-color: #141E46;">Total Entries:{{this.totalPages1}}</button>
+          <button style="color:white;background-color: #141E46;" (click)="changePageIndex1(pageIndex1 - 1)"
+              [hidden]="pageIndex1 === 0">Previous</button>
+          <button style="color:white;background-color: #141E46;">{{this.currentpage1}} of {{this.totalpage1}}
+              Pages</button>
+          <button style="color:white;background-color: #141E46;" (click)="changePageIndex1(pageIndex1 + 1)"
+              [hidden]="pageIndex1 >= totalpage1 - 1">Next</button>
+      </div>
+  </div>
+  <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="filters">
+      <div class="col-md-6"></div>
+      <div class="col-md-6">
+          <button style="color:white;background-color: #141E46;">Total Entries:{{this.totalPages2}}</button>
+          <button style="color:white;background-color: #141E46;" (click)="changePageIndex2(pageIndex2 - 1)"
+              [hidden]="pageIndex2 === 0">Previous</button>
+          <button style="color:white;background-color: #141E46;">{{this.currentpage2}} of {{this.totalpage2}}
+              Pages</button>
+          <button style="color:white;background-color: #141E46;" (click)="changePageIndex2(pageIndex2 + 1)"
+              [hidden]="pageIndex2 >= totalpage2 - 1">Next</button>
+      </div>
+  </div>
 </mat-card-footer>

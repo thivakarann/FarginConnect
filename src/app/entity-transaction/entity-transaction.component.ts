@@ -24,11 +24,13 @@ export class EntityTransactionComponent {
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = [
    'settlementId',
+   'customername',
+   'email',
     'payoutId',
     'amount',
     'reference',
     'status',
-    'txnItem',
+   'bankref',
     'createdAt',
   ];
   viewall: any;
@@ -116,11 +118,14 @@ export class EntityTransactionComponent {
     this.details.forEach((element: any) => {
       this.response = [];
       this.response.push(sno);
+      this.response.push(element?.customerId?. customerName);
+      this.response.push(element?.customerId?. emailAddress);
+
       this.response.push(element?.pgPaymentId || element?.paymentId);
       this.response.push(element?.paidAmount);
       this.response.push(element?.paymentMethod);
       this.response.push(element?.paymentStatus);
-      this.response.push(element?.orderReference);
+      this.response.push(element?.bankReference);
       if(element.createdDateTime){
         this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
       }
@@ -137,11 +142,13 @@ export class EntityTransactionComponent {
  
     const header = [
      'SNO',
+     'CustomerName',
+   'Email',
     'Payment Id',
     'Amount',
     'Payment Method',
     'Payment Status',
-    'Order Reference',
+    'Bank Reference',
     'CreatedAt',
     ];
     const data = this.responseDataListnew;
@@ -179,7 +186,9 @@ export class EntityTransactionComponent {
       let qty4 = row.getCell(5);
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
- 
+      let qty7 = row.getCell(8);
+      let qty8 = row.getCell(9);
+  
       qty.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
@@ -222,6 +231,25 @@ export class EntityTransactionComponent {
         bottom: { style: 'thin' },
         right: { style: 'thin' },
       };
+      qty6.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty7.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty8.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+     
      
     });
  

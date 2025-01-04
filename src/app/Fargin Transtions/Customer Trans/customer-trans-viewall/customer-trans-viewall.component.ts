@@ -24,7 +24,11 @@ export class CustomerTransViewallComponent {
     'sno',
     'paymentId',
     'entityname',
+    'customerid',
     'customername',
+    'customemobile',
+    'service',
+    'setupbox',
     'paymentmethod',
     'amount',
     'paidAt',
@@ -248,7 +252,11 @@ export class CustomerTransViewallComponent {
           this.response.push(sno);
           this.response.push(element?.pgPaymentId);
           this.response.push(element?.customerId?.merchantId?.merchantLegalName);
+          this.response.push(element?.customerId?.customerId);
           this.response.push(element?.customerId?.customerName);
+          this.response.push(element?.customerId?.mobileNumber);
+          this.response.push(element?.customerStbId?.stbId?.service?.serviceProviderName);
+          this.response.push(element?.customerStbId?.stbId?.setupBoxNumber);
           this.response.push(element?.paymentMethod);
           this.response.push(element?.paidAmount);
  
@@ -281,7 +289,11 @@ export class CustomerTransViewallComponent {
       'sno',
       'Payment Id',
       'Entity Name',
+      'Customer Id',
       'Customer Name',
+      'CustomerMobile',
+      'Service ProviderName',
+      'Setupbox Number',
       'Payment Method',
       'Amount',
       'Paid At',
@@ -326,6 +338,10 @@ export class CustomerTransViewallComponent {
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
+      let qty8 = row.getCell(9);
+      let qty9 = row.getCell(10);
+      let qty10 = row.getCell(11);
+      let qty11 = row.getCell(12);
  
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -335,7 +351,11 @@ export class CustomerTransViewallComponent {
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
+      qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+
  
     }
     );

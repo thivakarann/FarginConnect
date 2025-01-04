@@ -125,7 +125,7 @@ export class EntitySettlementComponent {
 
   postrenewal() {
     let submitModel: settlement = {
-      accountId: this.accountid,
+      merchantId: this.id,
       pageNo: "",
       size: "",
       query: "",
@@ -146,13 +146,13 @@ export class EntitySettlementComponent {
 
     filterdate() {
       const datepipe: DatePipe = new DatePipe("en-US");
-      let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY hh:mm");
-      let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/YYYY hh:mm");
+      let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY 00:00");
+      let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/YYYY 23:59");
       this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
       this.currentPage = 1;
   
       let submitModel: settlement = {
-        accountId: this.accountid,
+        merchantId: this.id,
         pageNo: this.currentPage,
         size: '20',
         query: '',

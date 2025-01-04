@@ -17,7 +17,7 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 })
 export class RefundGetallComponent {
   dataSource: any;
-  displayedColumns: string[] = ["sno","type", "pgPaymentId", "reqid","activityid", "custname","custemail","custmobile",  "paidAmount", "refund","status","refundDate","entityname"]
+  displayedColumns: string[] = ["sno","entityname","type", "pgPaymentId", "reqid","activityid", "custname","custemail","custmobile",  "paidAmount", "refund","status","refundDate"]
   showcategoryData: boolean = false;
   errorMsg: any;
   responseDataListnew: any = [];
@@ -70,6 +70,19 @@ export class RefundGetallComponent {
   refundexport: any;
   valuerefundexport:any;
   errorMessage: any;
+FromDateRange: any;
+ToDateRange: any;
+
+pageIndex2: number = 0;
+pageSize2 = 5;
+
+totalpage2: any;
+totalPages2: any;
+currentpage2: any;
+
+filter1: boolean = false;
+filters: boolean = false;
+  transaction: any;
 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private router: Router) { }
 
@@ -104,10 +117,13 @@ export class RefundGetallComponent {
         this.dataSource = new MatTableDataSource(this.refund);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.filter=false;
+       
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.totalPages;
         this.currentpage = res.pagination.currentPage + 1;
+        this.filter=true;
+        this.filter1=false; 
+        this.filters=false;
 
       }
 
@@ -116,10 +132,12 @@ export class RefundGetallComponent {
         this.dataSource = new MatTableDataSource(this.refund);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.filter=false;
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.totalPages;
         this.currentpage = res.pagination.currentPage + 1;
+        this.filter=true;
+        this.filter1=false; 
+        this.filters=false;
 
       }
     });
@@ -174,7 +192,10 @@ export class RefundGetallComponent {
           this.totalPages1 = res.pagination.totalElements;
           this.totalpage1 = res.pagination.totalPages;
           this.currentpage1 = res.pagination.currentPage + 1;
-          this.filter=true
+          this.filter=false;
+        this.filter1=true; 
+        this.filters=false;
+
 
         }
         else if (res.flag === 2) {
@@ -185,7 +206,9 @@ export class RefundGetallComponent {
           this.totalPages1 = res.pagination.totalElements;
           this.totalpage1 = res.pagination.totalPages;
           this.currentpage1 = res.pagination.currentPage + 1;
-          this.filter=true
+          this.filter=false;
+          this.filter1=true; 
+          this.filters=false;
         }
       },
       error: (err: any) => {
@@ -350,5 +373,72 @@ export class RefundGetallComponent {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       FileSaver.saveAs(blob, 'Online Refunds.xlsx');
     });
+  }
+  
+  filterdate() {
+    // const datepipe: DatePipe = new DatePipe("en-US");
+    // let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY HH:mm");
+    // let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/YYYY HH:mm");
+    // this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
+    // this.currentPage = 1;
+
+    this.service.CustomerTransactionsFilter(this.FromDateRange, this.ToDateRange, this.pageSize1, this.pageIndex1).subscribe((res: any) => {
+      if (res.flag == 1) {
+
+        this.transaction = res.response;
+
+
+        this.totalPages2 = res.pagination.totalElements;
+        this.totalpage2 = res.pagination.totalPages;
+        this.currentpage2 = res.pagination.currentPage + 1;
+ 
+
+
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.filter = false;
+        this.filter1 = false;
+        this.filters = true;        
+       }
+      else if (res.flag == 2) {
+        this.transaction = [];
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.totalPages2 = res.pagination.totalElements;
+        this.totalpage2 = res.pagination.totalPages;
+        this.currentpage2 = res.pagination.currentPage + 1;
+ 
+   
+        this.filter = false;
+        this.filter1 = false;
+        this.filters = true;            }
+    })
+  }
+  reset() {
+    window.location.reload();
+  }
+  renderPage2(event: PageEvent) {
+    // Capture the new page index and page size from the event
+    this.pageIndex2 = event.pageIndex;  // Update current page index
+    this.pageSize2 = event.pageSize;           // Update page size (if changed)
+ 
+    // Log the new page index and page size to the console (for debugging)
+    console.log('New Page Index:', this.pageIndex1);
+    console.log('New Page Size:', this.pageSize1);
+ 
+    // You can now fetch or display the data for the new page index
+    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
+    this.filterdate();
+  }
+ 
+  changePageIndex2(newPageIndex1: number) {
+    this.pageIndex2 = newPageIndex1;
+    this.renderPage2({
+      pageIndex: newPageIndex1,
+      pageSize: this.pageSize2,
+      // length: this.totalItems
+    } as PageEvent);
   }
 }
