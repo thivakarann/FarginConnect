@@ -25,12 +25,14 @@ export class EntitySettlementComponent {
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = [
     'settlementId',
+    'accoundid',
     'payoutId',
+    'benificiary',
     'amount',
     'reference',
     'txnItem',
     'createdAt',
-    'View',
+   
 
   ];
   viewall: any;
@@ -149,26 +151,28 @@ export class EntitySettlementComponent {
       let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY 00:00");
       let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/YYYY 23:59");
       this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
-      this.currentPage = 1;
   
       let submitModel: settlement = {
         merchantId: this.id,
-        pageNo: this.currentPage,
-        size: '20',
-        query: '',
-        dateRange: this.Daterange,
+        pageNo: "",
+        size: "",
+        query: "",
+        dateRange:this.Daterange,
         status: "",
+
       }
       this.MerchantView.Entitysettlement(submitModel).subscribe((res: any) => {        if (res.flag == 1) {
   
           this.Viewall = JSON.parse(res.response);
-          this.content = this.Viewall?.content || [];
+          this.content = this.Viewall?.data?.content;
           this.filteredData = this.content;
+          console.log(  this.filteredData)
   
   
           this.dataSource = new MatTableDataSource(this.filteredData);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
+
           if (this.content.length === 0) {
             this.dataSource = new MatTableDataSource();
            }     

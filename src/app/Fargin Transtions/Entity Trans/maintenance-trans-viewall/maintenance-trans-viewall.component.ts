@@ -151,7 +151,7 @@ export class MaintenanceTransViewallComponent {
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.totalPages;
         this.currentpage = res.pagination.currentPage + 1;
-        this.transaction.reverse();
+        // this.transaction.reverse();
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -249,7 +249,7 @@ export class MaintenanceTransViewallComponent {
     let submitModel: subscriptionpay = {
       payId: id?.maintenancePayId,
       trackId: id?.trackId,
-      paidAmount: id.paidAmount
+      paidAmount: id.totalPayableAmount
     }
     this.service.Subscribepay(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {

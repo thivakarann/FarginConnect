@@ -45,6 +45,7 @@ export class SmsCreateComponent implements OnInit {
     this.service.SmsDropdownGetAll(this.merchantid).subscribe((res: any) => {
       if (res.flag == 1) {
         this.freepaid = res.response;
+
       }
     });
     this.service.smsfreepaiddropdowns(0).subscribe((res: any) => {
