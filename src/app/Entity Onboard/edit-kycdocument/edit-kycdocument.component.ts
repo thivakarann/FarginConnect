@@ -54,7 +54,7 @@ export class EditKycdocumentComponent implements OnInit {
       panNumber: new FormControl('', [Validators.required, Validators.pattern("^[A-Za-z]{5}[0-9]{4}[A-Za-z]$")]),
       passportNumber: new FormControl('', [Validators.required, Validators.pattern("^[A-Za-z0-9]{8,15}$")]),
       gstNumber: new FormControl('', [Validators.required, Validators.pattern("/^[A-Z]{2}[0-9A-Z]{10}[A-Z0-9]{3}$/")]),
-      drivingLicenseNumber: new FormControl('', [Validators.required, Validators.pattern("^(([A-Z]{2}[0-9]{2})( )|([A-Z]{2}-[0-9]{2}))((19|20)[0-9][0-9])[0-9]{7}$")]),
+      drivingLicenseNumber: new FormControl('', [Validators.required]),
       cinch: new FormControl('', [Validators.required,Validators.pattern("^([LUu]{1})([0-9]{5})([A-Za-z]{2})([0-9]{4})([A-Za-z]{3})([0-9]{6})$")]),
       voterid: new FormControl('', [Validators.required,  Validators.pattern("^[A-Z]{3}[0-9]{7}$")]),
       documentfront: new FormControl('', [Validators.required]),

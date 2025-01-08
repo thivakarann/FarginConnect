@@ -78,10 +78,10 @@
                     *ngIf="drivingLicenseNumber?.invalid && drivingLicenseNumber?.touched && drivingLicenseNumber?.errors?.['required']">
                     Field is required
                 </div>
-                <div style="color: red; font-size: 12px;margin-top: 2px;"
+                <!-- <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="drivingLicenseNumber?.invalid && drivingLicenseNumber?.touched && drivingLicenseNumber?.errors?.['pattern']">
                     Please Enter Valid DrivingLicense Number*
-                </div>
+                </div> -->
             </div>
             <div class="form__linput" *ngIf="documentname?.value=='Cin'">
                 <label class="form__label" for="fname">Cinch Number</label>

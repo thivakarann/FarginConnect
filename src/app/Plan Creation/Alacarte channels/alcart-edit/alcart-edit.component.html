@@ -1,15 +1,15 @@
 <div class="container">
-
+ 
     <div class="form-header d-flex justify-content-between align-items-center">
         <h5 class="mb-0">Edit A-LA-CARTE</h5>
         <button type="button" class="btn btn-secondary" (click)="close()">Back</button>
     </div>
-
+ 
     <div class="well">
         <h4 class="card-header" style="font-weight: 500">Channel Details</h4>
         <form [formGroup]="myForm" style="margin-top: 2%;">
             <div class="row mb-3">
-
+ 
                 <div class="col-sm-4 form-group">
                     <label for="Bussiness category">Broadcaster</label>
                     <select [(ngModel)]="BroadCaster"   formControlName="bundleChannelId" id="Bussiness category"
@@ -28,13 +28,31 @@
                         Field is required
                     </div>
                 </div>
-
+ 
+                <div class="col-sm-4 form-group">
+                    <label for="Bussiness category">MSO</label>
+                    <select [(ngModel)]="msoservice"  formControlName="msoserviceactive" (change)="mso($event)" id="Bussiness category" class="form-control form-select" >
+                        <option value="" disabled selected>Select</option>
+                        <option *ngFor="let item of msoactive" [value]="item.serviceId">
+                            {{item.serviceProviderName}}</option>
+                    </select>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="msoserviceactive?.invalid && msoserviceactive?.touched && msoserviceactive?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+ 
                 <div class="col-sm-4 form-group">
                     <label for="Bussiness category">Region</label>
                     <select [(ngModel)]="regionname" formControlName="regionId" id="Bussiness category"
                         class="form-control form-select">
                         <option value="" disabled selected>Select</option>
-                        <option *ngFor="let item of regiondetails" [value]="item.regionId">{{item.stateName}}</option>
+                        <option *ngFor="let item of msroregion" [value]="item.regionId">{{item.stateName}}</option>
                     </select>
                     <div style="
                     color: red;
@@ -46,7 +64,13 @@
                         Field is required
                     </div>
                 </div>
-
+ 
+ 
+ 
+            </div>
+ 
+            <div class="row mb-3">
+               
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">Channel Name*</label>
                     <input [(ngModel)]="ChennelName" type="text" id="Entity Name" formControlName="channelName"
@@ -61,14 +85,9 @@
                         Field is required
                     </div>
                 </div>
-
-
-
-
-            </div>
-
-            <div class="row mb-3">
-
+ 
+ 
+ 
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">Channel Number*</label>
                     <input [(ngModel)]="ChannelNumber" type="text" id="Entity Name" formControlName="channelNo"
@@ -83,7 +102,7 @@
                         Field is required
                     </div>
                 </div>
-
+ 
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">Generic</label>
                     <input [(ngModel)]="Generic" type="text" id="Entity Name" formControlName="generic"
@@ -98,7 +117,14 @@
                         Field is required
                     </div>
                 </div>
-
+ 
+             
+ 
+ 
+ 
+            </div>
+ 
+            <div class="row mb-3">
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">Language</label>
                     <input [(ngModel)]="Language" type="text" id="Entity Name" formControlName="language"
@@ -113,13 +139,7 @@
                         Field is required
                     </div>
                 </div>
-
-
-
-            </div>
-
-            <div class="row mb-3">
-
+ 
                 <div class="col-sm-4 form-group">
                     <label for="Bussiness category">Type</label>
                     <select [(ngModel)]="Type" formControlName="type" (change)="typeevent($event)" id="Bussiness category"
@@ -127,10 +147,10 @@
                         <option value="" disabled selected>Select</option>
                         <option value="0">Free</option>
                         <option value="1">Paid</option>
-
-
-
-
+ 
+ 
+ 
+ 
                     </select>
                     <div style="
                     color: red;
@@ -142,8 +162,8 @@
                         Field is required
                     </div>
                 </div>
-
-
+ 
+ 
                 <div class="col-sm-4 form-group" *ngIf="show" >
                     <label for="Entity Name">Price</label>
                     <input [(ngModel)]="amount" type="text" id="Entity Name" formControlName="price"
@@ -159,8 +179,8 @@
                     </div>
                 </div>
             </div>
-
-
+ 
+ 
             <div>
                 <button [disabled]="myForm.invalid" type="submit" class="btn mx-1 " style="background-color:#7db855be"
                     (click)="submit()">Submit</button>
@@ -169,8 +189,8 @@
             </div>
         </form>
     </div>
-
-
-
-
+ 
+ 
+ 
+ 
 </div>

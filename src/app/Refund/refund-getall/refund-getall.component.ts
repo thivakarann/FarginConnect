@@ -382,7 +382,7 @@ filters: boolean = false;
     // this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
     // this.currentPage = 1;
 
-    this.service.CustomerTransactionsFilter(this.FromDateRange, this.ToDateRange, this.pageSize1, this.pageIndex1).subscribe((res: any) => {
+    this.service.RefundGetAllDateFilter(this.FromDateRange, this.ToDateRange, this.pageSize2, this.pageIndex2).subscribe((res: any) => {
       if (res.flag == 1) {
 
         this.transaction = res.response;

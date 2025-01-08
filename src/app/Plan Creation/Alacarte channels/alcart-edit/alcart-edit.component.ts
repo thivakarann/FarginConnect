@@ -28,7 +28,15 @@ export class AlcartEditComponent implements OnInit {
   Broadcasters: any;
   show: any;
   typesign: any;
-
+  broadcastersid: any;
+  msoactive:any;
+serviceId: any;
+msoregion:any;
+msroregion:any;
+regionsss:any
+ 
+msoservice:any
+ 
   constructor(
     public EditAlcart: FarginServiceService,
     private router: Router,
@@ -39,11 +47,11 @@ export class AlcartEditComponent implements OnInit {
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.id = param.Alldata;
     });
-
+ 
     // this.EditAlcart.RegionGetAllActive().subscribe((res: any) => {
     //   this.regiondetails = res.response;
     // });
-
+ 
    
     this.EditAlcart.BroadCasterGetAllActive().subscribe((res: any) => {
       this.Broadcasters = res.response;
@@ -51,11 +59,27 @@ export class AlcartEditComponent implements OnInit {
     this.EditAlcart.RegionGetAll().subscribe((res: any) => {
       this.regiondetails = res.response;
     })
-
-
+ 
+    this.EditAlcart.MSOActive().subscribe((res: any) => {
+      this.msoactive = res.response;
+    })
+ 
+ 
+ 
     this.EditAlcart.Alcardviewbyid(this.id).subscribe((res: any) => {
       this.alcardsdetails = res.response;
+      console.log(this.alcardsdetails)
+      this.msoservice = res.response.region.service.serviceId;
+      console.log(this.msoservice)
+ 
       this.regionname = res.response.region.regionId;
+ 
+      this.EditAlcart.MSORegions(this.msoservice).subscribe((res: any) => {
+        this.msroregion = res.response;
+      })
+ 
+      console.log(this.regionname)
+ 
       this.ChennelName = res.response.channelName;
       this.BroadCaster = res.response.bundleChannelId.bundleChannelId;
       this.Generic = res.response.generic;
@@ -72,9 +96,13 @@ export class AlcartEditComponent implements OnInit {
         this.amount = ""
       }
       this.ChannelNumber = res.response.channelNo
-
+     
     })
-
+    this.EditAlcart.MSORegions(this.msoservice).subscribe((res: any) => {
+      console.log(this.msoservice)
+      this.msroregion = res.response;
+   
+    })
     this.myForm = new FormGroup({
       regionId: new FormControl('', Validators.required),
       channelName: new FormControl('', Validators.required),
@@ -84,69 +112,79 @@ export class AlcartEditComponent implements OnInit {
       generic: new FormControl('', Validators.required),
       language: new FormControl('', Validators.required),
       channelNo: new FormControl('', Validators.required),
-
-
+      msoserviceactive: new FormControl('', Validators.required),
+ 
     });
-
-
+ 
+ 
   }
   typeevent(event: any) {
     this.typesign = event.target.value;
     if (event.target.value == '0') {
       this.show = false;
-
+ 
     } else {
       this.show = true;
     }
   }
   get regionId() {
     return this.myForm.get('regionId')
-
+ 
   }
   get channelName() {
     return this.myForm.get('channelName')
-
+ 
   }
-
+ 
   get price() {
     return this.myForm.get('price')
-
+ 
   }
   get type() {
     return this.myForm.get('type')
-
+ 
   }
-
+  get msoserviceactive() {
+    return this.myForm.get('msoserviceactive')
+ 
+  }
+ 
   get bundleChannelId() {
     return this.myForm.get('bundleChannelId')
-
+ 
   }
   get generic() {
     return this.myForm.get('generic')
-
+ 
   }
-
+ 
   get language() {
     return this.myForm.get('language')
-
+ 
   }
-
+ 
   get channelNo() {
     return this.myForm.get('channelNo')
-
+ 
   }
-
-
+ 
+ 
   // getbuddlechanneld(id: any) {
   //   this.EditAlcart.ActiveRegionsbyserviceprovider(id).subscribe((res: any) => {
   //     this.regiondetails = res.response;
   //   });
   // }
-
-
-
-
-
+ 
+ 
+  mso(event:any){
+    this.msroregion=[]
+    this.msoregion=event?.target?.value
+    this.EditAlcart.MSORegions(this.msoregion).subscribe((res: any) => {
+      this.msroregion = res.response;
+    })
+  }
+ 
+ 
   submit() {
     let submitModel: UpdateAlcart = {
       alcotId: this.id,
@@ -160,7 +198,7 @@ export class AlcartEditComponent implements OnInit {
       modifiedBy: this.getadminname,
       channelNo: this.channelNo?.value
     }
-
+ 
     this.EditAlcart.AlcardUpdate(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
@@ -174,11 +212,10 @@ export class AlcartEditComponent implements OnInit {
       }
     })
   }
-
-
+ 
   close() {
     this.router.navigateByUrl('dashboard/alacarte-viewall');
   }
-
-
+ 
 }
+ 

@@ -726,7 +726,8 @@ export class EntityAddComponent implements OnInit {
     } else if (this.selectElement === 'Passport') {
       identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Passport format
     } else if (this.selectElement === 'Driving License') {
-      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Driving license format
+      identityProofNoControl?.setValidators([Validators.required]);
+      // identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Driving license format
     }
 
 
@@ -748,7 +749,7 @@ export class EntityAddComponent implements OnInit {
     } else if (this.selectElements === 'Passport') {
       addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Passport format
     } else if (this.selectElements === 'Driving License') {
-      addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Driving license format
+      addressProofNoControl?.setValidators([Validators.required]); // Driving license format
     }
 
 
@@ -768,7 +769,7 @@ export class EntityAddComponent implements OnInit {
     } else if (this.select === 'Passport') {
       signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Passport format
     } else if (this.select === 'Driving License') {
-      signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Driving license format
+      signatureProofNoControl?.setValidators([Validators.required]); // Driving license format
     }
 
     signatureProofNoControl?.updateValueAndValidity();

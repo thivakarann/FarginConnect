@@ -661,6 +661,9 @@ export class FarginServiceService {
       private readonly refundexport='refund/getall';
       private readonly refunddatefilter='refund/getAll/';
 
+      //alcarte mso
+   private readonly msoactive='serviceProvider/viewActive';
+   private readonly msoregions='region/viewByService/';
    
    
 
@@ -2474,6 +2477,15 @@ export class FarginServiceService {
   }
   RefundGetAllDateFilter(id:any,id1:any,id2:any,id3:any){
     return this.http.get(`${this.basePath}${this.refunddatefilter}${id}/${id1}/${id2}/${id3}`,this.options)
+  }
+
+
+  MSOActive(){
+    return this.http.get(`${this.basePath}${this.msoactive}`,this.options)
+  }
+ 
+  MSORegions(id:any){
+    return this.http.get(`${this.basePath}${this.msoregions}${id}`,this.options)
   }
  
 }

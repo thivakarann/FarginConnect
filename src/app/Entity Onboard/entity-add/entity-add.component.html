@@ -85,7 +85,7 @@
                         <option value="" disabled selected>Select</option>
                         <option *ngFor="let item of categorydetails" [value]="item.businessCategoryId">
                             {{item.categoryName}}</option>
- 
+
                     </select>
                     <div style="
                     color: red;
@@ -117,7 +117,7 @@
                         <option value="" disabled selected>Select</option>
                         <option *ngFor="let item of entittyplanviewall" [value]="item.merchantPlanId">
                             {{item.planName}}</option>
- 
+
                     </select>
                     <div style="
                     color: red;
@@ -169,7 +169,7 @@
                   " *ngIf="country?.invalid && country?.touched && country?.errors?.['required']">
                         Field is required
                     </div>
- 
+
                     <div style="
                     color: red;
                     font-size: 12px;
@@ -194,7 +194,7 @@
                   " *ngIf="stateName?.invalid && stateName?.touched && stateName?.errors?.['required']">
                         Field is required
                     </div>
- 
+
                     <div style="
                     color: red;
                     font-size: 12px;
@@ -287,7 +287,7 @@
                         Field is required
                     </div>
                 </div>
- 
+
                 <div class="col-sm-4 form-group">
                     <label for="contactname">Owner/Contact Name</label>
                     <input type="text" formControlName="contactName" id="contactname" class="form-control">
@@ -390,8 +390,7 @@
                 </div>
                 <div class="col-sm-4 form-group">
                     <label for="Logomerchant">Merchant Logo(optional)</label>
-                    <input  formControlName="logo" type="file" class="form-control"
-                        (change)="getlogo($event)">
+                    <input formControlName="logo" type="file" class="form-control" (change)="getlogo($event)">
                     <!-- <span class="error">*Only JPG/PNG/JPEG Files Allowed And Maximum Size Upto 20MB Allowed </span> -->
                 </div>
                 <div class="col-sm-4 form-group">
@@ -418,7 +417,7 @@
                     <select formControlName="autoDebitStatus" type="text" class="form-select" id="billing">
                         <option value="1">Yes</option>
                         <option value="0">No</option>
- 
+
                     </select>
                     <div style="
                         color: red;
@@ -437,7 +436,7 @@
                     <select formControlName="offlineQrEnable" type="text" class="form-select" id="billing">
                         <option value="1">Yes</option>
                         <option value="0">No</option>
- 
+
                     </select>
                     <div style="
                         color: red;
@@ -456,7 +455,7 @@
                     <select formControlName="payoutEnable" type="text" class="form-select" id="billing">
                         <option value="1">Yes</option>
                         <option value="0">No</option>
- 
+
                     </select>
                     <div style="
                         color: red;
@@ -464,15 +463,14 @@
                         margin-top: 2px;
                         position: relative;
                         ;
-                      "
-                        *ngIf="payoutEnable?.invalid && payoutEnable?.touched && payoutEnable?.errors?.['required']">
+                      " *ngIf="payoutEnable?.invalid && payoutEnable?.touched && payoutEnable?.errors?.['required']">
                         Field id required*
                     </div>
                 </div>
-            
- 
+
+
             </div>
- 
+
             <div class="row mb-3">
 
                 <div class="col-sm-4 form-group">
@@ -498,7 +496,7 @@
                         id="billing">
                         <!-- <option value="Manual">Manual</option> -->
                         <option value="Auto">Auto</option>
- 
+
                     </select>
                     <div style="
                         color: red;
@@ -514,7 +512,8 @@
 
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">SMS MerchantName</label>
-                    <input placeholder="Maximum 25 Characters Allowed" type="text" id="Entity Name" formControlName="smsMerchantName" class="form-control">
+                    <input placeholder="Maximum 25 Characters Allowed" type="text" id="Entity Name"
+                        formControlName="smsMerchantName" class="form-control">
                     <div style="
                     color: red;
                     font-size: 12px;
@@ -534,16 +533,16 @@
                         Invalid format. Only alphanumeric characters are allowed
                     </div>
                     <div style="color: red; font-size: 12px; margin-top: 2px; position: relative;"
-                    *ngIf="smsMerchantName?.errors?.['maxlength']">
-                    Only 25 characters are allowed
+                        *ngIf="smsMerchantName?.errors?.['maxlength']">
+                        Only 25 characters are allowed
+                    </div>
                 </div>
-                </div>
 
 
 
-          
-               
-               
+
+
+
             </div>
 
             <div class="row mb-3">
@@ -555,7 +554,7 @@
                         id="billing">
                         <option value="1">Yes</option>
                         <option value="0">No</option>
- 
+
                     </select>
                     <div style="
                         color: red;
@@ -575,14 +574,14 @@
                         <option value="1">Daily</option>
                         <option value="2">Two Days Once</option>
                         <option value="3">Three Days Once</option>
- 
+
                     </select>
- 
+
                 </div>
 
                 <div class="col-sm-4 form-group" *ngIf="selectperiod==1">
                     <label for="billing">Notification Start due date</label>
- 
+
                     <select id="dayPicker" formControlName="dueDate" class="form-select">
                         <option *ngFor="let day of days" [value]="day">{{ day }}</option>
                     </select>
@@ -590,7 +589,7 @@
             </div>
 
 
- 
+
             <div>
                 <button (click)="Submit()" type="submit" class="btn mx-1 " style="background-color:#7db855be"
                     [disabled]="this.myForm.invalid">Submit</button>
@@ -768,13 +767,13 @@
             </div>
         </form>
     </div>
-    <div class="well" style="margin-top: 2%;" *ngIf="KYCdetails==true">
+    <div class="well" style="margin-top: 2%;" *ngIf="Bankdetails==true">
         <h4 class="card-header" style="font-weight: 500">3.KYC Details</h4>
         <mat-horizontal-stepper linear>
             <mat-step [stepControl]="firstFormGroup" label="Step 1">
                 <form [formGroup]="firstFormGroup">
                     <ng-template matStepLabel>Identity</ng-template>
-         
+
                     <div class="form__row">
                         <div class="form__linput">
                             <label class="form__label" for="identityProof"><b>Identity Proof</b></label>
@@ -792,11 +791,10 @@
                                 Field is required
                             </div>
                         </div>
-         
+
                         <div class="form__linput">
                             <label class="form__label"><b>Enter {{selectElement}} Number</b></label>
-                            <input class="form-control" id="mccCode" type="text" formControlName="identityProofNo"
-                                 />
+                            <input class="form-control" id="mccCode" type="text" formControlName="identityProofNo" />
                             <div
                                 *ngIf="identityProofNo && identityProofNo.invalid && (identityProofNo.touched || identityProofNo.dirty)">
                                 <small *ngIf="identityProofNo.errors?.['required']"
@@ -806,7 +804,7 @@
                             </div>
                         </div>
                     </div>
-         
+
                     <div class="form__row">
                         <div class="form__linput">
                             <label class="form__label"><b>Upload Front Path</b></label>
@@ -817,7 +815,7 @@
                                 Field is required
                             </div>
                         </div>
-         
+
                         <div class="form__linput">
                             <label class="form__label"><b>Upload Back Path</b></label>
                             <input class="form-control" formControlName="identityBackPath"
@@ -830,12 +828,13 @@
                     </div>
                     <div class="form__row">
                         <div class="form__linput"
-                            [hidden]="identityProof?.value !=='Driving License' && identityProof?.value !== 'Passport'" >
+                            [hidden]="identityProof?.value !=='Driving License' && identityProof?.value !== 'Passport'">
                             <label class="form__label"><b>Date of Birth</b></label>
-                            <input [required]="identityProof?.value === 'Driving License' || identityProof?.value === 'Passport'" class="form-control" id="dob" type="date"
+                            <input
+                                [required]="identityProof?.value === 'Driving License' || identityProof?.value === 'Passport'"
+                                class="form-control" id="dob" type="date"
                                 [formControlName]="selectElement === 'Driving License' ? 'drivingLicenceDob' : 'passportDob'"
-                                [max]="today"
-                                 />
+                                [max]="today" />
                             <div *ngIf="(selectElement === 'Driving License' ? drivingLicenceDob : passportDob)?.invalid &&
                                          (selectElement === 'Driving License' ? drivingLicenceDob : passportDob)?.touched &&
                                          (selectElement === 'Driving License' ? drivingLicenceDob : passportDob)?.errors?.['required']"
@@ -844,20 +843,20 @@
                             </div>
                         </div>
                         <div class="form__linput">
-         
+
                         </div>
                     </div>
-         
+
                     <div>
                         <button mat-raised-button matStepperNext [disabled]="firstFormGroup.invalid">Next</button>
-         
+
                     </div>
                 </form>
             </mat-step>
             <mat-step [stepControl]="secondFormGroup" label="Step 2">
                 <form [formGroup]="secondFormGroup">
                     <ng-template matStepLabel>Address</ng-template>
-         
+
                     <div class="form__row">
                         <div class="form__linput">
                             <label class="form__label" for="identityType"><b>Address Proof</b></label>
@@ -877,11 +876,11 @@
                                 Field is required
                             </div>
                         </div>
-         
+
                         <div class="form__linput">
                             <label class="form__label"><b>Enter {{selectElements}} Number</b></label>
-                            <input class="form-control" id="addressProofNo" type="text" formControlName="addressProofNo"
-                                 />
+                            <input class="form-control" id="addressProofNo" type="text"
+                                formControlName="addressProofNo" />
                             <div
                                 *ngIf="addressProofNo && addressProofNo.invalid && (addressProofNo.touched || addressProofNo.dirty)">
                                 <small *ngIf="addressProofNo.errors?.['required']"
@@ -891,39 +890,40 @@
                                     number.</small>
                             </div>
                         </div>
-         
+
                     </div>
-         
+
                     <div class="form__row">
                         <div class="form__linput">
                             <label class="form__label"><b>Upload Front Path</b></label>
                             <input class="form-control" formControlName="addressFrontPath"
-                                (change)="onaddressfront($event)" type="file"/>
+                                (change)="onaddressfront($event)" type="file" />
                             <div *ngIf="addressFrontPath?.invalid && addressFrontPath?.touched && addressFrontPath?.errors?.['required']"
                                 style="color: red; font-size: 12px;">
                                 Field is required
                             </div>
                         </div>
-         
+
                         <div class="form__linput">
                             <label class="form__label"><b>Upload Back Path</b></label>
                             <input class="form-control" formControlName="addressBackPath"
-                                (change)="onaddressback($event)" type="file"/>
+                                (change)="onaddressback($event)" type="file" />
                             <div *ngIf="addressBackPath?.invalid && addressBackPath?.touched && addressBackPath?.errors?.['required']"
                                 style="color: red; font-size: 12px;">
                                 Field is required
                             </div>
                         </div>
                     </div>
-         
+
                     <div class="form__row">
                         <div class="form__linput"
-                        [hidden]="addressProof?.value !=='Driving License' && addressProof?.value !== 'Passport'" >
+                            [hidden]="addressProof?.value !=='Driving License' && addressProof?.value !== 'Passport'">
                             <label class="form__label"><b>Date of Birth</b></label>
-                            <input [required]="addressProof?.value === 'Driving License' || addressProof?.value === 'Passport'" class="form-control" id="dob" type="date"
+                            <input
+                                [required]="addressProof?.value === 'Driving License' || addressProof?.value === 'Passport'"
+                                class="form-control" id="dob" type="date"
                                 [formControlName]="selectElements === 'Driving License' ? 'drivingLicenceDobs' : 'passportDobs'"
-                                [max]="today"
-                                 />
+                                [max]="today" />
                             <div *ngIf="(selectElements === 'Driving License' ? drivingLicenceDobs : passportDobs)?.invalid &&
                                          (selectElements === 'Driving License' ? drivingLicenceDobs : passportDobs)?.touched &&
                                          (selectElements  === 'Driving License' ? drivingLicenceDobs : passportDobs)?.errors?.['required']"
@@ -932,7 +932,7 @@
                             </div>
                         </div>
                         <div class="form__linput">
-         
+
                         </div>
                     </div>
                     <div>
@@ -941,7 +941,7 @@
                     </div>
                 </form>
             </mat-step>
-         
+
             <mat-step [stepControl]="thirdFormGroup" label="Step 3">
                 <form [formGroup]="thirdFormGroup">
                     <ng-template matStepLabel>Signature</ng-template>
@@ -964,11 +964,11 @@
                                 Field is required
                             </div>
                         </div>
-         
+
                         <div class="form__linput">
                             <label class="form__label"><b>Enter {{select}} Number</b></label>
                             <input class="form-control" id="signatureProofNo" type="text"
-                                formControlName="signatureProofNo"  />
+                                formControlName="signatureProofNo" />
                             <div
                                 *ngIf="signatureProofNo && signatureProofNo.invalid && (signatureProofNo.touched || signatureProofNo.dirty)">
                                 <small *ngIf="signatureProofNo.errors?.['required']"
@@ -978,22 +978,22 @@
                             </div>
                         </div>
                     </div>
-         
+
                     <div class="form__row">
                         <div class="form__linput">
                             <label class="form__label"><b>Upload Front Path</b></label>
                             <input class="form-control" formControlName="signatureFrontPath"
-                                (change)="onasignfront($event)" type="file"/>
+                                (change)="onasignfront($event)" type="file" />
                             <div *ngIf="signatureFrontPath?.invalid && signatureFrontPath?.touched && signatureFrontPath?.errors?.['required']"
                                 style="color: red; font-size: 12px;">
                                 Field is required
                             </div>
                         </div>
-         
+
                         <div class="form__linput">
                             <label class="form__label"><b>Upload Back Path</b></label>
                             <input class="form-control" formControlName="signatureBackPath"
-                                (change)="onasignback($event)" type="file"/>
+                                (change)="onasignback($event)" type="file" />
                             <div *ngIf="signatureBackPath?.invalid && signatureBackPath?.touched && signatureBackPath?.errors?.['required']"
                                 style="color: red; font-size: 12px;">
                                 Field is required
@@ -1001,12 +1001,14 @@
                         </div>
                     </div>
                     <div class="form__row">
-                        <div class="form__linput" [hidden]="signatureProof?.value !=='Driving License' && signatureProof?.value !== 'Passport'">
+                        <div class="form__linput"
+                            [hidden]="signatureProof?.value !=='Driving License' && signatureProof?.value !== 'Passport'">
                             <label class="form__label"><b>Date of Birth</b></label>
-                            <input [required]="signatureProof?.value === 'Driving License' || signatureProof?.value === 'Passport'" class="form-control" id="dob" type="date"
+                            <input
+                                [required]="signatureProof?.value === 'Driving License' || signatureProof?.value === 'Passport'"
+                                class="form-control" id="dob" type="date"
                                 [formControlName]="select === 'Driving License' ? 'drivingLicenceDobss' : 'passportDobss'"
-                                [max]="today"
-                                 />
+                                [max]="today" />
                             <div *ngIf="(select === 'Driving License' ? drivingLicenceDobss : passportDobss)?.invalid &&
                                          (select === 'Driving License' ? drivingLicenceDobss : passportDobss)?.touched &&
                                          (select  === 'Driving License' ? drivingLicenceDobss : passportDobss)?.errors?.['required']"
@@ -1015,18 +1017,19 @@
                             </div>
                         </div>
                         <div class="form__linput">
-         
+
                         </div>
                     </div>
                     <div>
                         <button mat-raised-button matStepperPrevious>Back</button>
-                        <button mat-raised-button (click)="kycsubmit()" [disabled]="thirdFormGroup.invalid">Finish</button>
+                        <button mat-raised-button (click)="kycsubmit()"
+                            [disabled]="thirdFormGroup.invalid">Finish</button>
                     </div>
                 </form>
             </mat-step>
         </mat-horizontal-stepper>
-         
-        
+
+
 
     </div>
 
@@ -1064,7 +1067,8 @@
             <div class="form__row">
                 <div class="form__linput">
                     <label class="form__label"><b>Upload Front Path</b></label>
-                    <input class="form-control" formControlName="docFrontPath" (change)="docfront($event)" type="file" />
+                    <input class="form-control" formControlName="docFrontPath" (change)="docfront($event)"
+                        type="file" />
                     <div *ngIf="docFrontPath?.invalid && docFrontPath?.touched && docFrontPath?.errors?.['required']"
                         style="color: red; font-size: 12px;">
                         Field is required

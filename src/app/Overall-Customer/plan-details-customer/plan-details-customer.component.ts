@@ -87,7 +87,7 @@ export class PlanDetailsCustomerComponent {
           }
         }
    
-        this.totalAmount = totalAmount;
+        this.totalAmount = parseFloat(totalAmount.toFixed(2));
    
         let totalbouqet = 0;
         const bouquetList = res.response.bouquetList;
@@ -99,7 +99,7 @@ export class PlanDetailsCustomerComponent {
           }
         }
    
-        this.totalbouqet = totalbouqet;
+        this.totalbouqet = parseFloat(totalbouqet.toFixed(2));
    
         let totallcop = 0;
         const lcopList = res.response.lcopList;
@@ -110,10 +110,10 @@ export class PlanDetailsCustomerComponent {
           }
         }
    
-        this.totallcop = totallcop;
+        this.totallcop = parseFloat(totallcop.toFixed(2));
    
         // Calculate overall amount
-        this.overallAmount = this.totalAmount + this.totalbouqet + this.totallcop;
+        this.overallAmount = parseFloat((this.totalAmount + this.totalbouqet + this.totallcop).toFixed(2));
    
         this.viewData = true; // Assuming viewData should be set true only if there are valid amounts
       } else {
