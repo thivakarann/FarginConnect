@@ -6,7 +6,7 @@
     <mat-step [stepControl]="firstFormGroup" label="Step 1">
         <form [formGroup]="firstFormGroup">
             <ng-template matStepLabel>Identity</ng-template>
- 
+
             <div class="form__row">
                 <div class="form__linput">
                     <label class="form__label" for="identityProof"><b>Identity Proof</b></label>
@@ -24,11 +24,10 @@
                         Field is required
                     </div>
                 </div>
- 
+
                 <div class="form__linput">
                     <label class="form__label"><b>Enter {{selectElement}} Number</b></label>
-                    <input class="form-control" id="mccCode" type="text" formControlName="identityProofNo"
-                         />
+                    <input class="form-control" id="mccCode" type="text" formControlName="identityProofNo" />
                     <div
                         *ngIf="identityProofNo && identityProofNo.invalid && (identityProofNo.touched || identityProofNo.dirty)">
                         <small *ngIf="identityProofNo.errors?.['required']"
@@ -38,7 +37,7 @@
                     </div>
                 </div>
             </div>
- 
+
             <div class="form__row">
                 <div class="form__linput">
                     <label class="form__label"><b>Upload Front Path</b></label>
@@ -49,7 +48,7 @@
                         Field is required
                     </div>
                 </div>
- 
+
                 <div class="form__linput">
                     <label class="form__label"><b>Upload Back Path</b></label>
                     <input class="form-control" formControlName="identityBackPath"
@@ -62,34 +61,44 @@
             </div>
             <div class="form__row">
                 <div class="form__linput"
-                    [hidden]="identityProof?.value !=='Driving License' && identityProof?.value !== 'Passport'" >
+                    [hidden]="identityProof?.value !='Driving License' && identityProof?.value != 'Passport'">
                     <label class="form__label"><b>Date of Birth</b></label>
-                    <input [required]="identityProof?.value === 'Driving License' || identityProof?.value === 'Passport'" class="form-control" id="dob" type="date"
-                        [formControlName]="selectElement === 'Driving License' ? 'drivingLicenceDob' : 'passportDob'"
-                        [max]="today"
-                         />
-                    <div *ngIf="(selectElement === 'Driving License' ? drivingLicenceDob : passportDob)?.invalid &&
-                                 (selectElement === 'Driving License' ? drivingLicenceDob : passportDob)?.touched &&
-                                 (selectElement === 'Driving License' ? drivingLicenceDob : passportDob)?.errors?.['required']"
+                    <input
+                    *ngIf="identityProof?.value =='Driving License'"
+                        [required]="identityProof?.value == 'Driving License' || identityProof?.value == 'Passport'"
+                        class="form-control" id="dob" type="date"
+                        formControlName="drivingLicenceDob"
+                       
+                        [max]="today" />
+
+                        <input
+                        *ngIf="identityProof?.value =='Passport'"
+                        [required]="identityProof?.value == 'Driving License' || identityProof?.value == 'Passport'"
+                        class="form-control" id="dob" type="date"
+                        formControlName="passportDob"
+                        [max]="today" />
+                    <div *ngIf="(identityProof?.value == 'Driving License' ? drivingLicenceDob : passportDob)?.invalid &&
+                                 (identityProof?.value == 'Driving License' ? drivingLicenceDob : passportDob)?.touched &&
+                                 (identityProof?.value == 'Driving License' ? drivingLicenceDob : passportDob)?.errors?.['required']"
                         style="color: red; font-size: 12px;">
                         Field is required
                     </div>
                 </div>
                 <div class="form__linput">
- 
+
                 </div>
             </div>
- 
+
             <div>
                 <button mat-raised-button matStepperNext [disabled]="firstFormGroup.invalid">Next</button>
- 
+
             </div>
         </form>
     </mat-step>
     <mat-step [stepControl]="secondFormGroup" label="Step 2">
         <form [formGroup]="secondFormGroup">
             <ng-template matStepLabel>Address</ng-template>
- 
+
             <div class="form__row">
                 <div class="form__linput">
                     <label class="form__label" for="identityType"><b>Address Proof</b></label>
@@ -109,11 +118,11 @@
                         Field is required
                     </div>
                 </div>
- 
+
                 <div class="form__linput">
                     <label class="form__label"><b>Enter {{selectElements}} Number</b></label>
-                    <input class="form-control" id="addressProofNo" type="text" formControlName="addressProofNo"
-                         />
+                    <input class="form-control" id="addressProofNo" type="text"
+                        formControlName="addressProofNo" />
                     <div
                         *ngIf="addressProofNo && addressProofNo.invalid && (addressProofNo.touched || addressProofNo.dirty)">
                         <small *ngIf="addressProofNo.errors?.['required']"
@@ -123,39 +132,44 @@
                             number.</small>
                     </div>
                 </div>
- 
+
             </div>
- 
+
             <div class="form__row">
                 <div class="form__linput">
                     <label class="form__label"><b>Upload Front Path</b></label>
                     <input class="form-control" formControlName="addressFrontPath"
-                        (change)="onaddressfront($event)" type="file"/>
+                        (change)="onaddressfront($event)" type="file" />
                     <div *ngIf="addressFrontPath?.invalid && addressFrontPath?.touched && addressFrontPath?.errors?.['required']"
                         style="color: red; font-size: 12px;">
                         Field is required
                     </div>
                 </div>
- 
+
                 <div class="form__linput">
                     <label class="form__label"><b>Upload Back Path</b></label>
                     <input class="form-control" formControlName="addressBackPath"
-                        (change)="onaddressback($event)" type="file"/>
+                        (change)="onaddressback($event)" type="file" />
                     <div *ngIf="addressBackPath?.invalid && addressBackPath?.touched && addressBackPath?.errors?.['required']"
                         style="color: red; font-size: 12px;">
                         Field is required
                     </div>
                 </div>
             </div>
- 
+
             <div class="form__row">
                 <div class="form__linput"
-                [hidden]="addressProof?.value !=='Driving License' && addressProof?.value !== 'Passport'" >
+                    [hidden]="addressProof?.value !=='Driving License' && addressProof?.value !== 'Passport'">
                     <label class="form__label"><b>Date of Birth</b></label>
-                    <input [required]="addressProof?.value === 'Driving License' || addressProof?.value === 'Passport'" class="form-control" id="dob" type="date"
-                        [formControlName]="selectElements === 'Driving License' ? 'drivingLicenceDobs' : 'passportDobs'"
-                        [max]="today"
-                         />
+                    <input  *ngIf="addressProof?.value =='Driving License'"
+                    [required]="addressProof?.value == 'Driving License' || addressProof?.value == 'Passport'"
+                    class="form-control" id="dob" type="date"
+                    formControlName="drivingLicenceDobs"
+                    [max]="today" />
+                    <input *ngIf="addressProof?.value =='Passport'"
+                        [required]="addressProof?.value == 'Driving License' || addressProof?.value == 'Passport'"
+                        class="form-control" id="dob" type="date"
+                        formControlName="passportDobs" [max]="today" />
                     <div *ngIf="(selectElements === 'Driving License' ? drivingLicenceDobs : passportDobs)?.invalid &&
                                  (selectElements === 'Driving License' ? drivingLicenceDobs : passportDobs)?.touched &&
                                  (selectElements  === 'Driving License' ? drivingLicenceDobs : passportDobs)?.errors?.['required']"
@@ -164,7 +178,7 @@
                     </div>
                 </div>
                 <div class="form__linput">
- 
+
                 </div>
             </div>
             <div>
@@ -173,7 +187,7 @@
             </div>
         </form>
     </mat-step>
- 
+
     <mat-step [stepControl]="thirdFormGroup" label="Step 3">
         <form [formGroup]="thirdFormGroup">
             <ng-template matStepLabel>Signature</ng-template>
@@ -196,11 +210,11 @@
                         Field is required
                     </div>
                 </div>
- 
+
                 <div class="form__linput">
                     <label class="form__label"><b>Enter {{select}} Number</b></label>
                     <input class="form-control" id="signatureProofNo" type="text"
-                        formControlName="signatureProofNo"  />
+                        formControlName="signatureProofNo" />
                     <div
                         *ngIf="signatureProofNo && signatureProofNo.invalid && (signatureProofNo.touched || signatureProofNo.dirty)">
                         <small *ngIf="signatureProofNo.errors?.['required']"
@@ -210,22 +224,22 @@
                     </div>
                 </div>
             </div>
- 
+
             <div class="form__row">
                 <div class="form__linput">
                     <label class="form__label"><b>Upload Front Path</b></label>
                     <input class="form-control" formControlName="signatureFrontPath"
-                        (change)="onasignfront($event)" type="file"/>
+                        (change)="onasignfront($event)" type="file" />
                     <div *ngIf="signatureFrontPath?.invalid && signatureFrontPath?.touched && signatureFrontPath?.errors?.['required']"
                         style="color: red; font-size: 12px;">
                         Field is required
                     </div>
                 </div>
- 
+
                 <div class="form__linput">
                     <label class="form__label"><b>Upload Back Path</b></label>
                     <input class="form-control" formControlName="signatureBackPath"
-                        (change)="onasignback($event)" type="file"/>
+                        (change)="onasignback($event)" type="file" />
                     <div *ngIf="signatureBackPath?.invalid && signatureBackPath?.touched && signatureBackPath?.errors?.['required']"
                         style="color: red; font-size: 12px;">
                         Field is required
@@ -233,12 +247,20 @@
                 </div>
             </div>
             <div class="form__row">
-                <div class="form__linput" [hidden]="signatureProof?.value !=='Driving License' && signatureProof?.value !== 'Passport'">
+                <div class="form__linput"
+                    [hidden]="signatureProof?.value !='Driving License' && signatureProof?.value != 'Passport'">
                     <label class="form__label"><b>Date of Birth</b></label>
-                    <input [required]="signatureProof?.value === 'Driving License' || signatureProof?.value === 'Passport'" class="form-control" id="dob" type="date"
-                        [formControlName]="select === 'Driving License' ? 'drivingLicenceDobss' : 'passportDobss'"
-                        [max]="today"
-                         />
+                    <input *ngIf="signatureProof?.value =='Driving License'"
+                        [required]="signatureProof?.value == 'Driving License' || signatureProof?.value == 'Passport'"
+                        class="form-control" id="dob" type="date"
+                        formControlName="drivingLicenceDobss"
+                        [max]="today" />
+
+                           <input *ngIf="signatureProof?.value =='Passport'"
+                        [required]="signatureProof?.value == 'Driving License' || signatureProof?.value == 'Passport'"
+                        class="form-control" id="dob" type="date"
+                        formControlName="passportDobss"
+                        [max]="today" />
                     <div *ngIf="(select === 'Driving License' ? drivingLicenceDobss : passportDobss)?.invalid &&
                                  (select === 'Driving License' ? drivingLicenceDobss : passportDobss)?.touched &&
                                  (select  === 'Driving License' ? drivingLicenceDobss : passportDobss)?.errors?.['required']"
@@ -247,15 +269,15 @@
                     </div>
                 </div>
                 <div class="form__linput">
- 
+
                 </div>
             </div>
             <div>
                 <button mat-raised-button matStepperPrevious>Back</button>
-                <button mat-raised-button (click)="kycsubmit()" [disabled]="thirdFormGroup.invalid">Finish</button>
+                <button mat-raised-button (click)="kycsubmit()"
+                    [disabled]="thirdFormGroup.invalid">Finish</button>
             </div>
         </form>
     </mat-step>
 </mat-horizontal-stepper>
- 
 

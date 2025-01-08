@@ -651,7 +651,7 @@
                     <label for="state">Ledger ID</label>
                     <input type="text" formControlName="ledgerId" id="state" class="form-control">
 
-                    <!-- <div style="
+                    <div style="
                     color: red;
                     font-size: 12px;
                     margin-top: 2px;
@@ -659,11 +659,11 @@
                     ;
                   " *ngIf="ledgerId?.invalid && ledgerId?.touched && ledgerId?.errors?.['required']">
                         Field is required
-                    </div> -->
-                    <!-- <div style="color: red; font-size: 12px; margin-top: 2px;"
+                    </div>
+                    <div style="color: red; font-size: 12px; margin-top: 2px;"
                         *ngIf="ledgerId?.invalid && ledgerId?.touched && ledgerId?.errors?.['pattern']">
                         Must be exactly 4 digits and only numbers are allowed.
-                    </div> -->
+                    </div>
 
                 </div>
 
@@ -767,7 +767,7 @@
             </div>
         </form>
     </div>
-    <div class="well" style="margin-top: 2%;" *ngIf="Bankdetails==true">
+    <div class="well" style="margin-top: 2%;" *ngIf="KYCdetails==true">
         <h4 class="card-header" style="font-weight: 500">3.KYC Details</h4>
         <mat-horizontal-stepper linear>
             <mat-step [stepControl]="firstFormGroup" label="Step 1">
@@ -828,16 +828,25 @@
                     </div>
                     <div class="form__row">
                         <div class="form__linput"
-                            [hidden]="identityProof?.value !=='Driving License' && identityProof?.value !== 'Passport'">
+                            [hidden]="identityProof?.value !='Driving License' && identityProof?.value != 'Passport'">
                             <label class="form__label"><b>Date of Birth</b></label>
                             <input
-                                [required]="identityProof?.value === 'Driving License' || identityProof?.value === 'Passport'"
+                            *ngIf="identityProof?.value =='Driving License'"
+                                [required]="identityProof?.value == 'Driving License' || identityProof?.value == 'Passport'"
                                 class="form-control" id="dob" type="date"
-                                [formControlName]="selectElement === 'Driving License' ? 'drivingLicenceDob' : 'passportDob'"
+                                formControlName="drivingLicenceDob"
+                               
                                 [max]="today" />
-                            <div *ngIf="(selectElement === 'Driving License' ? drivingLicenceDob : passportDob)?.invalid &&
-                                         (selectElement === 'Driving License' ? drivingLicenceDob : passportDob)?.touched &&
-                                         (selectElement === 'Driving License' ? drivingLicenceDob : passportDob)?.errors?.['required']"
+
+                                <input
+                                *ngIf="identityProof?.value =='Passport'"
+                                [required]="identityProof?.value == 'Driving License' || identityProof?.value == 'Passport'"
+                                class="form-control" id="dob" type="date"
+                                formControlName="passportDob"
+                                [max]="today" />
+                            <div *ngIf="(identityProof?.value == 'Driving License' ? drivingLicenceDob : passportDob)?.invalid &&
+                                         (identityProof?.value == 'Driving License' ? drivingLicenceDob : passportDob)?.touched &&
+                                         (identityProof?.value == 'Driving License' ? drivingLicenceDob : passportDob)?.errors?.['required']"
                                 style="color: red; font-size: 12px;">
                                 Field is required
                             </div>
@@ -919,11 +928,15 @@
                         <div class="form__linput"
                             [hidden]="addressProof?.value !=='Driving License' && addressProof?.value !== 'Passport'">
                             <label class="form__label"><b>Date of Birth</b></label>
-                            <input
-                                [required]="addressProof?.value === 'Driving License' || addressProof?.value === 'Passport'"
+                            <input  *ngIf="addressProof?.value =='Driving License'"
+                            [required]="addressProof?.value == 'Driving License' || addressProof?.value == 'Passport'"
+                            class="form-control" id="dob" type="date"
+                            formControlName="drivingLicenceDobs"
+                            [max]="today" />
+                            <input *ngIf="addressProof?.value =='Passport'"
+                                [required]="addressProof?.value == 'Driving License' || addressProof?.value == 'Passport'"
                                 class="form-control" id="dob" type="date"
-                                [formControlName]="selectElements === 'Driving License' ? 'drivingLicenceDobs' : 'passportDobs'"
-                                [max]="today" />
+                                formControlName="passportDobs" [max]="today" />
                             <div *ngIf="(selectElements === 'Driving License' ? drivingLicenceDobs : passportDobs)?.invalid &&
                                          (selectElements === 'Driving License' ? drivingLicenceDobs : passportDobs)?.touched &&
                                          (selectElements  === 'Driving License' ? drivingLicenceDobs : passportDobs)?.errors?.['required']"
@@ -1002,12 +1015,18 @@
                     </div>
                     <div class="form__row">
                         <div class="form__linput"
-                            [hidden]="signatureProof?.value !=='Driving License' && signatureProof?.value !== 'Passport'">
+                            [hidden]="signatureProof?.value !='Driving License' && signatureProof?.value != 'Passport'">
                             <label class="form__label"><b>Date of Birth</b></label>
-                            <input
-                                [required]="signatureProof?.value === 'Driving License' || signatureProof?.value === 'Passport'"
+                            <input *ngIf="signatureProof?.value =='Driving License'"
+                                [required]="signatureProof?.value == 'Driving License' || signatureProof?.value == 'Passport'"
                                 class="form-control" id="dob" type="date"
-                                [formControlName]="select === 'Driving License' ? 'drivingLicenceDobss' : 'passportDobss'"
+                                formControlName="drivingLicenceDobss"
+                                [max]="today" />
+
+                                   <input *ngIf="signatureProof?.value =='Passport'"
+                                [required]="signatureProof?.value == 'Driving License' || signatureProof?.value == 'Passport'"
+                                class="form-control" id="dob" type="date"
+                                formControlName="passportDobss"
                                 [max]="today" />
                             <div *ngIf="(select === 'Driving License' ? drivingLicenceDobss : passportDobss)?.invalid &&
                                          (select === 'Driving License' ? drivingLicenceDobss : passportDobss)?.touched &&

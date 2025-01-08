@@ -55,13 +55,14 @@ export class EntityKyceditComponent implements OnInit {
     
  
     this.identitydata = this.data.value1
-    
+    console.log(this.identitydata)
     this.proofId = this.data.value1.proofId
     this.identityProofs = this.data.value1.identityProof
     this.identityProofNos = this.data.value1.identityProofNo
     this.addressProofvalue = this.data.value1.addressProof
     this.addressProofNovalue = this.data.value1.addressProofNo
     this.DrivingDob = this.data.value1.drivingLicenceDob;
+    console.log(this.DrivingDob)
     this.PassportDob = this.data.value1.passportDob;
     this.driving = this.DrivingDob ? moment(this.DrivingDob).format('DD-MM-YYYY') : '';
     this.pass = this.PassportDob ? moment(this.PassportDob).format('DD-MM-YYYY') : '';

@@ -367,7 +367,7 @@ export class AdditionalpaymentsComponent {
       // trackId: id?.trackId,
       // paidAmount: id.paidAmount
     }
-    this.service.additionalpaymentscheckstatus(submitModel).subscribe((res: any) => {
+    this.service.additionalpaycheck(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         setTimeout(() => {
@@ -379,6 +379,7 @@ export class AdditionalpaymentsComponent {
       }
     })
   }
+  
   renderPage(event: PageEvent) {
     // Capture the new page index and page size from the event
     this.pageIndex = event.pageIndex;  // Update current page index

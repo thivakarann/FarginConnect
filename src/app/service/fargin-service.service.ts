@@ -639,7 +639,10 @@ export class FarginServiceService {
   private readonly additionalpaymentssearchfilters = 'customerotherpayment/search/'
   private readonly additionalpaymentsviewbyids = 'customerotherpayment/viewbyid/'
   private readonly additionalpaymentsreceipt = 'customerotherpayment/viewinvoice/'
-   private readonly additionalpaymentscheck = 'otherpayment/trackApi'
+   private readonly additionalpaymentscheck = 'otherpayment/trackApi';
+   
+   private readonly additionalpaycheckstatus = 'customerotherpayment/trackApi';
+
       private readonly merchantadditionalpayment = 'customerotherpayment/viewmerchants/'
        private readonly additionalsearchfilters = 'customerotherpayment/advancesearch/'
        private readonly additionalexports = 'customerotherpayment/viewall'
@@ -665,6 +668,7 @@ export class FarginServiceService {
    private readonly msoactive='serviceProvider/viewActive';
    private readonly msoregions='region/viewByService/';
    
+
    
 
 
@@ -2488,4 +2492,7 @@ export class FarginServiceService {
     return this.http.get(`${this.basePath}${this.msoregions}${id}`,this.options)
   }
  
+  additionalpaycheck(model:any){
+    return this.http.post(`${this.basePath}${this.additionalpaycheckstatus}`,model,this.options)
+  }
 }

@@ -241,7 +241,7 @@ export class EntityAddComponent implements OnInit {
         Validators.pattern('^[a-zA-Z0-9 ]*$')
       ]),
 
-      ledgerId: new FormControl('',),
+      ledgerId: new FormControl('',[Validators.required,Validators.pattern('^[A-Za-z0-9]{4}$')]),
     })
 
     this.firstFormGroup = this._formBuilder.group({
@@ -914,7 +914,7 @@ export class EntityAddComponent implements OnInit {
     let submitModel: AddEntityBank = {
       accountHolderName: this.accountHolderName?.value.trim(),
       accountNumber: this.accountNumber?.value.trim(),
-      bankId: this.bankName?.value,
+      bankId: this.bankName?.value, 
       ifscCode: this.ifscCode?.value.trim(),
       branchName: this.branchName?.value.trim(),
       accountType: this.accountType?.value,
