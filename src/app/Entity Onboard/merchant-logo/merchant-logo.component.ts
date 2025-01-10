@@ -28,9 +28,12 @@ export class MerchantLogoComponent {
     this.id = this.data.value
     
     this.logoLink=this.data.value1
+    console.log("logo"+ this.logoLink )
     
     
       this.logoLink1 = this.converttohhttps(this.logoLink);
+
+      console.log("ConvertImage" + this.logoLink1)
       
 
 
@@ -53,7 +56,7 @@ export class MerchantLogoComponent {
   
 
 converttohhttps(Url: string): string {
-  return Url.replace('http:/', 'http://')
+  return Url.replace('https:/', 'https://')
   }
 
 

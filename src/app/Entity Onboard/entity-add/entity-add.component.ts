@@ -241,7 +241,7 @@ export class EntityAddComponent implements OnInit {
         Validators.pattern('^[a-zA-Z0-9 ]*$')
       ]),
 
-      ledgerId: new FormControl('',[Validators.required,Validators.pattern('^[A-Za-z0-9]{4}$')]),
+      ledgerId: new FormControl('',[Validators.required]),
     })
 
     this.firstFormGroup = this._formBuilder.group({
