@@ -28,7 +28,7 @@
                             <thead>
                                 <tr>
                                     <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
-                                        Net Banking
+                                        Net Banking  (HDFC/SBI/Kotak/ICICI/Axis)
                                     </td>
                                 </tr>
                                 <tr>
@@ -42,6 +42,29 @@
                                     <td>{{viewbyagreement?.netBankingAmount}}</td>
                                     <td>{{viewbyagreement?.netBankingPercentage}}</td>
                                     <td>{{viewbyagreement?.netBankingFixedFee}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-4 ">
+                        <table am-layout="zebra-stripe">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
+                                        Net Banking OtherBank  (HDFC/SBI/Kotak/ICICI/Axis)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>Percentage</td>
+                                    <td>Fixed Fee</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{viewbyagreement?.nbOtherBankAmount}}</td>
+                                    <td>{{viewbyagreement?.nbOtherBankPercentage}}</td>
+                                    <td>{{viewbyagreement?.nbOtherBankFixedFee}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -71,82 +94,88 @@
                     </div>
 
                    
-                    <div class="col-4">
-                        <table am-layout="zebra-stripe">
-                            <thead>
-                                <tr>
-                                    <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
-                                        Disbursement Api
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Amount</td>
-                                    <td>Percentage</td>
-                                    <td>Fixed Fee</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{{viewbyagreement?.disbursementApiAmount}}</td>
-                                    <td>{{viewbyagreement?.disbursementApiPercentage}}</td>
-                                    <td>{{viewbyagreement?.disbursementApiFixedFee}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                 
                   
                 </div>
+                
+<br>
+<div class="row p-2">
+    <div class="col-4">
+        <table am-layout="zebra-stripe">
+            <thead>
+                <tr>
+                    <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
+                        Disbursement Api
+                    </td>
+                </tr>
+                <tr>
+                    <td>Amount</td>
+                    <td>Percentage</td>
+                    <td>Fixed Fee</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{viewbyagreement?.disbursementApiAmount}}</td>
+                    <td>{{viewbyagreement?.disbursementApiPercentage}}</td>
+                    <td>{{viewbyagreement?.disbursementApiFixedFee}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-4">
+        <table am-layout="zebra-stripe">
+            <thead>
+                <tr>
+                    <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
+                        International Api
+                    </td>
+                </tr>
+                <tr>
+                    <td>Amount</td>
+                    <td>Percentage</td>
+                    <td>Fixed Fee</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{viewbyagreement?.internationalApiAmount}}</td>
+                    <td>{{viewbyagreement?.internationApiPercentage}}</td>
+                    <td>{{viewbyagreement?.internationApiFixedFee}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-4">
+        <table am-layout="zebra-stripe">
+            <thead>
+                <tr>
+                    <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
+                        UPI
+                    </td>
+                </tr>
+                <tr>
+                    <td>Amount</td>
+                    <td>Percentage</td>
+                    <td>Fixed Fee</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{viewbyagreement?.upiAmount}}</td>
+                    <td>{{viewbyagreement?.upiPercentage}}</td>
+                    <td>{{viewbyagreement?.upiFixedFee}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 <br>
     
                 <div class="row p-2">
                 
         
-                    <div class="col-4">
-                        <table am-layout="zebra-stripe">
-                            <thead>
-                                <tr>
-                                    <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
-                                        International Api
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Amount</td>
-                                    <td>Percentage</td>
-                                    <td>Fixed Fee</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{{viewbyagreement?.internationalApiAmount}}</td>
-                                    <td>{{viewbyagreement?.internationApiPercentage}}</td>
-                                    <td>{{viewbyagreement?.internationApiFixedFee}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-4">
-                        <table am-layout="zebra-stripe">
-                            <thead>
-                                <tr>
-                                    <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
-                                        UPI
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Amount</td>
-                                    <td>Percentage</td>
-                                    <td>Fixed Fee</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{{viewbyagreement?.upiAmount}}</td>
-                                    <td>{{viewbyagreement?.upiPercentage}}</td>
-                                    <td>{{viewbyagreement?.upiFixedFee}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                 
         
                     <div class="col-4">
                         <table am-layout="zebra-stripe">
@@ -184,7 +213,7 @@
                             <thead>
                                 <tr>
                                     <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
-                                        Rupay Debit Card (Maximum)
+                                        Rupay Debit Card (> 2000 )
                                     </td>
                                 </tr>
                                 <tr>
@@ -207,7 +236,7 @@
                             <thead>
                                 <tr>
                                     <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
-                                        Rupay Debit Card (Minimum)
+                                        Rupay Debit Card (< 2000)
                                     </td>
                                 </tr>
                                 <tr>
@@ -230,7 +259,7 @@
                             <thead>
                                 <tr>
                                     <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
-                                        Other Debit Card (Maximum)
+                                        Other Debit Card (> 2000 )
                                     </td>
                                 </tr>
                                 <tr>
@@ -258,7 +287,7 @@
                             <thead>
                                 <tr>
                                     <td colspan="4" style="padding: 5px; text-align: center;font-weight: 600;">
-                                        Other Debit Card (Minimum)
+                                        Other Debit Card (< 2000 )
                                     </td>
                                 </tr>
                                 <tr>

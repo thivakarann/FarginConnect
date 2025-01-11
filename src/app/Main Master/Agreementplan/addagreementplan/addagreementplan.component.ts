@@ -97,6 +97,10 @@ export class AddagreementplanComponent {
       creditCardFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
       mmcAmount:new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
       securityDepositAmount:new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
+      nbOtherBankAmount:new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
+      nbOtherBankPercentage:new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
+      nbOtherBankFixedFee:new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
+
 
     });
 
@@ -352,6 +356,19 @@ export class AddagreementplanComponent {
     return this.myForm.get('securityDepositAmount')
   }
 
+  get nbOtherBankAmount() {
+    return this.myForm.get('nbOtherBankAmount')
+  }
+
+  get nbOtherBankPercentage() {
+    return this.myForm.get('nbOtherBankPercentage')
+  }
+
+  get nbOtherBankFixedFee() {
+    return this.myForm.get('nbOtherBankFixedFee')
+  }
+  
+
 
   submit() {
     let submitModel: AgreementCommerical = {
@@ -427,8 +444,11 @@ export class AddagreementplanComponent {
       creditCardAmount: this.creditCardAmount?.value.trim(),
       creditCardPercentage: this.creditCardPercentage?.value.trim(),
       creditCardFixedFee: this.creditCardFixedFee?.value.trim(),
-      mmcAmount:this.mmcAmount?.value.trim(),
-      securityDepositAmount:this.securityDepositAmount?.value.trim()
+      mmcAmount: this.mmcAmount?.value.trim(),
+      securityDepositAmount: this.securityDepositAmount?.value.trim(),
+      nbOtherBankAmount:this.nbOtherBankAmount?.value.trim(),
+      nbOtherBankPercentage:this.nbOtherBankPercentage?.value.trim(),
+      nbOtherBankFixedFee:this.nbOtherBankFixedFee?.value.trim()
     };
     this.service.createagreementplan(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {

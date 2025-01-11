@@ -88,7 +88,7 @@
 
       <div class="row mt-3">
         <div class="col-sm-2 form-group">
-          <label for="netBankingAmount" style="font-size: 12px">Net Banking</label>
+          <label for="netBankingAmount" style="font-size: 12px">Net Banking (HDFC/SBI/Kotak/ICICI/Axis)</label>
           <input  ngModel="{{ viewbyagreement?.netBankingAmount }}"
           type="text" id="netBankingAmount" class="form-control" placeholder="Amount"
             formControlName="netBankingAmount" />
@@ -110,7 +110,7 @@
           </div>
         </div>
         <div class="col-sm-2 form-group">
-          <label for="netBankingPercentage" style="font-size: 12px">Net Banking</label>
+          <label for="netBankingPercentage" style="font-size: 12px">Net Banking (HDFC/SBI/Kotak/ICICI/Axis)</label>
           <input ngModel="{{ viewbyagreement?.netBankingPercentage }}"
           type="text" id="netBankingPercentage" class="form-control" placeholder="Percentage"
             formControlName="netBankingPercentage" />
@@ -134,7 +134,7 @@
           </div>
         </div>
         <div class="col-sm-2 form-group">
-          <label for="netBankingFixedFee" style="font-size: 12px">Net Banking</label>
+          <label for="netBankingFixedFee" style="font-size: 12px">Net Banking (HDFC/SBI/Kotak/ICICI/Axis)</label>
           <input  ngModel="{{ viewbyagreement?.netBankingFixedFee }}"
           type="text" id="netBankingFixedFee" class="form-control" placeholder="Fixed Fee"
             formControlName="netBankingFixedFee" />
@@ -157,6 +157,77 @@
             Only positive numbers are allowed
           </div>
         </div>
+        <div class="col-sm-2 form-group">
+          <label for="ecollectAmount" style="font-size: 12px">Net Banking Other Bank (HDFC/SBI/Kotak/ICICI/Axis)</label>
+          <input ngModel="{{ viewbyagreement?.nbOtherBankAmount }}"
+          type="text" id="ecollectAmount" class="form-control" placeholder="Amount"
+            formControlName="nbOtherBankAmount" />
+          <div style="
+            color: red;
+            font-size: 12px;
+            margin-top: 2px;
+            position: relative; ;
+          " *ngIf="nbOtherBankAmount?.invalid && nbOtherBankAmount?.touched && nbOtherBankAmount?.errors?.['required']">
+            Field is required
+          </div>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative; ;
+            " *ngIf="nbOtherBankAmount?.invalid && nbOtherBankAmount?.touched && nbOtherBankAmount?.errors?.['pattern']">
+            Only positive numbers are allowed
+          </div>
+        </div>
+        <div class="col-sm-2 form-group">
+          <label for="ecollectPercentage" style="font-size: 12px">Net Banking Other Bank (HDFC/SBI/Kotak/ICICI/Axis)</label>
+          <input ngModel="{{ viewbyagreement?.nbOtherBankPercentage }}"
+          type="text" id="ecollectPercentage" class="form-control" placeholder="Percentage"
+            formControlName="nbOtherBankPercentage" />
+          <div style="
+            color: red;
+            font-size: 12px;
+            margin-top: 2px;
+            position: relative; ;
+          "
+            *ngIf="nbOtherBankPercentage?.invalid && nbOtherBankPercentage?.touched && nbOtherBankPercentage?.errors?.['required']">
+            Field is required
+          </div>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative; ;
+            "
+            *ngIf="nbOtherBankPercentage?.invalid && nbOtherBankPercentage?.touched && nbOtherBankPercentage?.errors?.['pattern']">
+            Only positive numbers are allowed
+          </div>
+        </div>
+        <div class="col-sm-2 form-group">
+          <label for="ecollectFixedFee" style="font-size: 12px">Net Banking Other Bank (HDFC/SBI/Kotak/ICICI/Axis)</label>
+          <input ngModel="{{ viewbyagreement?.nbOtherBankFixedFee }}" type="text" id="ecollectFixedFee" class="form-control" placeholder="Fixed Fee"
+            formControlName="nbOtherBankFixedFee"/>
+          <div style="
+            color: red;
+            font-size: 12px;
+            margin-top: 2px;
+            position: relative; ;
+          " *ngIf="nbOtherBankFixedFee?.invalid && nbOtherBankFixedFee?.touched && nbOtherBankFixedFee?.errors?.['required']">
+            Field is required
+          </div>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative; ;
+            " *ngIf="nbOtherBankFixedFee?.invalid && nbOtherBankFixedFee?.touched && nbOtherBankFixedFee?.errors?.['pattern']">
+            Only positive numbers are allowed
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+
         <div class="col-sm-2 form-group">
           <label for="ecollectAmount" style="font-size: 12px">e-Collect</label>
           <input ngModel="{{ viewbyagreement?.eCollectAmount }}"
@@ -224,9 +295,6 @@
             Only positive numbers are allowed
           </div>
         </div>
-      </div>
-
-      <div class="row mt-3">
         <div class="col-sm-2 form-group">
           <label for="disbursementAmount" style="font-size: 12px">Disbursement API</label>
           <input ngModel="{{ viewbyagreement?.disbursementApiAmount }}"
@@ -369,9 +437,6 @@
             Only positive numbers are allowed
           </div>
         </div>
-      </div>
-
-      <div class="row mt-3">
         <div class="col-sm-2 form-group">
           <label for="upiAmount" style="font-size: 12px">UPI </label>
           <input ngModel="{{ viewbyagreement?.upiAmount }}" type="text" id="upiAmount" class="form-control" placeholder="Amount" formControlName="upiAmount" />
@@ -435,6 +500,10 @@
             Only positive numbers are allowed
           </div>
         </div>
+      </div>
+
+      <div class="row mt-3">
+     
         <div class="col-sm-2 form-group">
           <label for="dynamicqrAmount" style="font-size: 12px">Dynamic QR</label>
           <input ngModel="{{ viewbyagreement?.dynamicQrAmount }}" type="text" id="dynamicqrAmount" class="form-control" placeholder="Amount"
@@ -508,7 +577,7 @@
       <h5 class="mt-3">Card</h5>
       <div class="row mt-3">
         <div class="col-sm-2 form-group">
-          <label for="rupaydebitcardmaxAmount" style="font-size: 12px">Rupay Debit Card (Maximum)</label>
+          <label for="rupaydebitcardmaxAmount" style="font-size: 12px">Rupay Debit Card (> 2000 )</label>
           <input ngModel="{{ viewbyagreement?.rupayDebitCardMaxAmount }}"
           type="text" id="rupaydebitcardmaxAmount" class="form-control" placeholder="Amount"
             formControlName="rupaydebitcardmaxAmount" />
@@ -532,7 +601,7 @@
           </div>
         </div>
         <div class="col-sm-2 form-group">
-          <label for="rupaydebitcardmaxPercentage" style="font-size: 12px">Rupay Debit Card (Maximum)</label>
+          <label for="rupaydebitcardmaxPercentage" style="font-size: 12px">Rupay Debit Card (> 2000 )</label>
           <input ngModel="{{ viewbyagreement?.rupayDebitCardMaxPercentage }}" type="text" id="rupaydebitcardmaxPercentage" class="form-control" placeholder="Percentage"
             formControlName="rupaydebitcardmaxPercentage" />
           <div style="
@@ -555,7 +624,7 @@
           </div>
         </div>
         <div class="col-sm-2 form-group">
-          <label for="rupaydebitcardmaxFixedFee" style="font-size: 12px">Rupay Debit Card (Maximum)</label>
+          <label for="rupaydebitcardmaxFixedFee" style="font-size: 12px">Rupay Debit Card (> 2000 )</label>
           <input  ngModel="{{ viewbyagreement?.rupayDebitCardMaxFixedFee }}" type="text" id="rupaydebitcardmaxFixedFee" class="form-control" placeholder="Fixed Fee"
             formControlName="rupaydebitcardmaxFixedFee" />
           <div style="
@@ -578,7 +647,7 @@
           </div>
         </div>
         <div class="col-sm-2 form-group">
-          <label for="rupaydebitcardminAmount" style="font-size: 12px">Rupay Debit Card (Minimum)</label>
+          <label for="rupaydebitcardminAmount" style="font-size: 12px">Rupay Debit Card (< 2000)</label>
           <input ngModel="{{ viewbyagreement?.rupayDebitCardMinAmount }}" type="text" id="rupaydebitcardminAmount" class="form-control" placeholder="Amount"
             formControlName="rupaydebitcardminAmount" />
           <div style="
@@ -601,7 +670,7 @@
           </div>
         </div>
         <div class="col-sm-2 form-group">
-          <label for="rupaydebitcardminPercentage" style="font-size: 12px">Rupay Debit Card (Minimum)</label>
+          <label for="rupaydebitcardminPercentage" style="font-size: 12px">Rupay Debit Card (< 2000)</label>
           <input ngModel="{{ viewbyagreement?.rupayDebitCardMinPercentage }}" type="text" id="rupaydebitcardminPercentage" class="form-control" placeholder="Percentage"
             formControlName="rupaydebitcardminPercentage" />
           <div style="
@@ -624,7 +693,7 @@
           </div>
         </div>
         <div class="col-sm-2 form-group">
-          <label for="rupaydebitcardminFixedFee" style="font-size: 12px">Rupay Debit Card (Minimum)</label>
+          <label for="rupaydebitcardminFixedFee" style="font-size: 12px">Rupay Debit Card (< 2000)</label>
           <input ngModel="{{ viewbyagreement?.rupayDebitCardMinFixedFee }}" type="text" id="rupaydebitcardminFixedFee" class="form-control" placeholder="Fixed Fee"
             formControlName="rupaydebitcardminFixedFee" />
           <div style="
@@ -650,7 +719,7 @@
 
       <div class="row mt-3">
         <div class="col-sm-2 form-group">
-          <label for="otherdebitcardmaxAmount" style="font-size: 12px">Other Debit Card (Maximum)</label>
+          <label for="otherdebitcardmaxAmount" style="font-size: 12px">Other Debit Card (> 2000 )</label>
           <input ngModel="{{ viewbyagreement?.otherDebitCardMaxAmount }}" type="text" id="otherdebitcardmaxAmount" class="form-control" placeholder="Amount"
             formControlName="otherdebitcardmaxAmount" />
           <div style="
@@ -673,7 +742,7 @@
           </div>
         </div>
         <div class="col-sm-2 form-group">
-          <label for="otherdebitcardmaxPercentage" style="font-size: 12px">Other Debit Card (Maximum)</label>
+          <label for="otherdebitcardmaxPercentage" style="font-size: 12px">Other Debit Card (> 2000 )</label>
           <input  ngModel="{{ viewbyagreement?.otherDebitCardMaxPercentage }}" type="text" id="otherdebitcardmaxPercentage" class="form-control" placeholder="Percentage"
             formControlName="otherdebitcardmaxPercentage" />
           <div style="
@@ -696,7 +765,7 @@
           </div>
         </div>
         <div class="col-sm-2 form-group">
-          <label for="otherdebitcardmaxFixedFee" style="font-size: 12px">Other Debit Card (Maximum)</label>
+          <label for="otherdebitcardmaxFixedFee" style="font-size: 12px">Other Debit Card (> 2000 )</label>
           <input  ngModel="{{ viewbyagreement?.otherDebitCardMaxFixedFee }}" type="text" id="otherdebitcardmaxFixedFee" class="form-control" placeholder="Fixed Fee"
             formControlName="otherdebitcardmaxFixedFee" />
           <div style="
@@ -720,7 +789,7 @@
         </div>
 
         <div class="col-sm-2 form-group">
-          <label for="otherdebitcardminAmount" style="font-size: 12px">Other Debit Card (Minimum)</label>
+          <label for="otherdebitcardminAmount" style="font-size: 12px">Other Debit Card (< 2000)</label>
           <input  ngModel="{{ viewbyagreement?.otherDebitCardMinAmount }}" type="text" id="otherdebitcardminAmount" class="form-control" placeholder="Amount"
             formControlName="otherdebitcardminAmount" />
           <div style="
@@ -743,7 +812,7 @@
           </div>
         </div>
         <div class="col-sm-2 form-group">
-          <label for="otherdebitcardminPercentage" style="font-size: 12px">Other Debit Card (Minimum)</label>
+          <label for="otherdebitcardminPercentage" style="font-size: 12px">Other Debit Card (< 2000)</label>
           <input ngModel="{{ viewbyagreement?.otherDebitCardMinPercentage }}"
           type="text" id="otherdebitcardminPercentage" class="form-control" placeholder="Percentage"
             formControlName="otherdebitcardminPercentage" />
@@ -767,7 +836,7 @@
           </div>
         </div>
         <div class="col-sm-2 form-group">
-          <label for="otherdebitcardminFixedFee" style="font-size: 12px">Other Debit Card (Minimum)</label>
+          <label for="otherdebitcardminFixedFee" style="font-size: 12px">Other Debit Card (< 2000)</label>
           <input ngModel="{{ viewbyagreement?.otherDebitCardMinFixedFee }}" type="text" id="otherdebitcardminFixedFee" class="form-control" placeholder="Fixed Fee"
             formControlName="otherdebitcardminFixedFee" />
           <div style="

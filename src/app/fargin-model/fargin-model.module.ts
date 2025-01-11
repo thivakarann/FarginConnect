@@ -1128,7 +1128,10 @@ export interface AgreementCommerical
   readonly creditCardPercentage:any;
   readonly creditCardFixedFee:any;
   readonly mmcAmount:any;
-  readonly securityDepositAmount:any
+  readonly securityDepositAmount:any;
+  readonly nbOtherBankAmount:any;
+  readonly nbOtherBankPercentage:any;
+  readonly nbOtherBankFixedFee:any;
  
  
 }
@@ -1207,7 +1210,10 @@ export interface UpdateAgreementCommerical
   readonly creditCardPercentage:any;
   readonly creditCardFixedFee:any;
   readonly mmcAmount:any;
-  readonly securityDepositAmount:any
+  readonly securityDepositAmount:any;
+  readonly nbOtherBankAmount:any;
+  readonly nbOtherBankPercentage:any;
+  readonly nbOtherBankFixedFee:any;
  
  
  
