@@ -177,8 +177,8 @@ export class EntityAutoDebitGetallComponent {
       "Merchant Legal Name",
       "Business Category",
       "Plan Name",
-      "MMC Amount",
-      "MMC Period",
+      "Cloud Fee Amount",
+      "Cloud Fee Period",
       "From Ledger Id",
       "To Ledger Id",
       "Reason",
@@ -188,7 +188,7 @@ export class EntityAutoDebitGetallComponent {
  
     const data = this.responseDataListnew;
     let workbook = new Workbook();
-    let worksheet = workbook.addWorksheet('MMC Auto Debit');
+    let worksheet = workbook.addWorksheet('Cloud Fee Auto Debit');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };

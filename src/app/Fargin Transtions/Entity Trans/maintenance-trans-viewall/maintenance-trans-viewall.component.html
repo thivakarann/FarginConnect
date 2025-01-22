@@ -1,4 +1,4 @@
-<h4 style="text-align:left;color:#141E46;">Subscription Payments</h4>
+<h4 style="text-align:left;color:#141E46;">Cloud Fee Payments</h4>
 <mat-card-header>
     <div class="row ">
         <div class="col-3 mt-4">
@@ -79,7 +79,7 @@
             </ng-container>
             <ng-container matColumnDef="entityname">
                 <th mat-header-cell *matHeaderCellDef>Entity Name</th>
-                <td mat-cell *matCellDef="let transaction"> {{ transaction?.merchantId?.merchantLegalName }}</td>
+                <td mat-cell *matCellDef="let transaction"> {{ transaction?.merchantId?.entityName }}</td>
             </ng-container>
 
             <ng-container matColumnDef="paymentmethod">
@@ -179,6 +179,20 @@
 
                 </td>
             </ng-container>
+
+            <ng-container matColumnDef="Manualpay">
+                <!-- [hidden]="valueduesmanual!=='Customer dues-Manual Payment'" -->
+                <th mat-header-cell *matHeaderCellDef>Manual
+                    Payment</th>
+                <!-- [hidden]="valueduesmanual!=='Customer dues-Manual Payment'" -->
+                <td mat-cell *matCellDef="let viewall">
+                    <button [disabled]="viewall.paymentStatus == 'Success' || viewall.paymentStatus == 'Due Cancelled' "
+                        class="btn btn-success btn-sm" style="border:none;"
+                        (click)="manuvalpayments(viewall.maintenancePayId)"> <i class="fa-solid fa-address-card"
+                            style="color:#fff;cursor:pointer"></i></button>
+                </td>
+            </ng-container>
+            
             <ng-container matColumnDef="view">
                 <th mat-header-cell *matHeaderCellDef [hidden]="valuemaintainview!=='Subscription Payment-View'">View
                 </th>

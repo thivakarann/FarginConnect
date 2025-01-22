@@ -1,26 +1,24 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { OtpVerificationComponent } from './otp-verification/otp-verification.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { LoadingInterceptor } from './Loading Interceptor/loading.interceptor.spec';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { EntityLoginpageComponent } from './entity-loginpage/entity-loginpage.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { OtpPageComponent } from './otp-page/otp-page.component';
-import { ChangePasswordComponent } from './change-password/change-password.component';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { TestpageComponent } from './testpage/testpage.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
-
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -32,244 +30,222 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { AddadminComponent } from './Admin/addadmin/addadmin.component';
-import { ViewadminComponent } from './Admin/viewadmin/viewadmin.component';
-import { EditadminComponent } from './Admin/editadmin/editadmin.component';
-import { ViewemployeeComponent } from './Employee/viewemployee/viewemployee.component';
-import { AddemployeeComponent } from './Employee/addemployee/addemployee.component';
-import { EditemployeeComponent } from './Employee/editemployee/editemployee.component';
-import { ViewtermsComponent } from './Terms & Policy/viewterms/viewterms.component';
-import { ViewdisclaimerComponent } from './Terms & Policy/viewdisclaimer/viewdisclaimer.component';
-import { ViewprivacyComponent } from './Terms & Policy/viewprivacy/viewprivacy.component';
-import { ViewrefundComponent } from './Terms & Policy/viewrefund/viewrefund.component';
-import { ProfileComponent } from './profile/profile.component';
-import { ViewemailverfiyComponent } from './Verfication/viewemailverfiy/viewemailverfiy.component';
-import { OtpemailverfiyComponent } from './Verfication/otpemailverfiy/otpemailverfiy.component';
-import { AddServiceticketComponent } from './servicetickets/add-serviceticket/add-serviceticket.component';
-import { ViewServiceticketComponent } from './servicetickets/view-serviceticket/view-serviceticket.component';
-import { EditServiceticketComponent } from './servicetickets/edit-serviceticket/edit-serviceticket.component';
-import { ViewTicketcommentComponent } from './servicetickets/view-ticketcomment/view-ticketcomment.component';
-import { ViewTicketdescriptionComponent } from './servicetickets/view-ticketdescription/view-ticketdescription.component';
-import { ViewTicketimageComponent } from './servicetickets/view-ticketimage/view-ticketimage.component';
-import { ViewRoleComponent } from './Roles-Permission/view-role/view-role.component';
+import { ViewcategoryComponent } from './Main Master/businesscategory/viewcategory/viewcategory.component';
+import { AddcategoryComponent } from './Main Master/businesscategory/addcategory/addcategory.component';
+import { EditcategoryComponent } from './Main Master/businesscategory/editcategory/editcategory.component';
+import { ViewticketComponent } from './Tickets/viewticket/viewticket.component';
+import { AddticketComponent } from './Tickets/addticket/addticket.component';
+import { EditticketComponent } from './Tickets/editticket/editticket.component';
+import { ViewCommentComponent } from './Tickets/view-comment/view-comment.component';
+import { ViewDescriptionComponent } from './Tickets/view-description/view-description.component';
+import { TicketImageComponent } from './Tickets/ticket-image/ticket-image.component';
 import { AddRoleComponent } from './Roles-Permission/add-role/add-role.component';
+import { ViewRoleComponent } from './Roles-Permission/view-role/view-role.component';
 import { EditRoleComponent } from './Roles-Permission/edit-role/edit-role.component';
-
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { BusinessKycComponent } from './Main Master/businesscategory/business-kyc/business-kyc.component';
+import { BusinessKycCreateComponent } from './Main Master/businesscategory/business-kyc/business-kyc-create/business-kyc-create.component';
+import { BusinessKycEditComponent } from './Main Master/businesscategory/business-kyc/business-kyc-edit/business-kyc-edit.component';
+import { PermissionComponent } from './RolesandPermission/RolePermission/permission/permission.component';
+import { SubPermissionComponent } from './RolesandPermission/RolePermission/sub-permission/sub-permission.component';
+import { EntityViewallComponent } from './Entity Onboard/entity-viewall/entity-viewall.component';
+import { EntityAddComponent } from './Entity Onboard/entity-add/entity-add.component';
+import { DashboardContentComponent } from './dashboard-content/dashboard-content.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { AdminCreateComponent } from './Admin-policy/admin-create/admin-create.component';
+import { AdminViewComponent } from './Admin-policy/admin-view/admin-view.component';
+import { AdminTermsConditionComponent } from './Admin-policy/admin-terms-condition/admin-terms-condition.component';
+import { AdminDisclaimerComponent } from './Admin-policy/admin-disclaimer/admin-disclaimer.component';
+import { AdminPrivacypolicyComponent } from './Admin-policy/admin-privacypolicy/admin-privacypolicy.component';
+import { AdminRefundpolicyComponent } from './Admin-policy/admin-refundpolicy/admin-refundpolicy.component';
 import { MatSelectModule } from '@angular/material/select';
-import { MatOptionModule } from '@angular/material/core';
-import { ViewcustomerComponent } from './Customer/viewcustomer/viewcustomer.component';
-import { PersonalviewComponent } from './Customer/personalview/personalview.component';
+import { PolicyEditComponent } from './Admin-policy/policy-edit/policy-edit.component';
+import { AdminComponent } from './Admin-Creation/admin/admin.component';
+import { AdminAddComponent } from './Admin-Creation/admin-add/admin-add.component';
+import { ApprovalForBankComponent } from './Entity Onboard/approval-for-bank/approval-for-bank.component';
+import { CommentsForApprovalComponent } from './Entity Onboard/comments-for-approval/comments-for-approval.component';
+import { RegionComponent } from './Main Master/region/region.component';
+import { RegionAddComponent } from './Main Master/region/region-add/region-add.component';
+import { RegionEditComponent } from './Main Master/region/region-edit/region-edit.component';
+import { ServiceProviderComponent } from './Main Master/ServiceProvider/service-provider/service-provider.component';
+import { ServiceproviderAddComponent } from './Main Master/ServiceProvider/serviceprovider-add/serviceprovider-add.component';
+import { ServiceproviderEditComponent } from './Main Master/ServiceProvider/serviceprovider-edit/serviceprovider-edit.component';
+import { AdmincreationViewComponent } from './Admin-Creation/admincreation-view/admincreation-view.component';
+import { AdminEditComponent } from './Admin-Creation/admin-edit/admin-edit.component';
+import { AddfacheckkeyComponent } from './Main Master/Facheckkeys/addfacheckkey/addfacheckkey.component';
+import { EditfacheckkeyComponent } from './Main Master/Facheckkeys/editfacheckkey/editfacheckkey.component';
+import { ViewfacheckkeyComponent } from './Main Master/Facheckkeys/viewfacheckkey/viewfacheckkey.component';
+import { AlacarteViewallComponent } from './Plan Creation/Alacarte channels/alacarte-viewall/alacarte-viewall.component';
+import { AlcartAddComponent } from './Plan Creation/Alacarte channels/alcart-add/alcart-add.component';
+import { AlcartViewComponent } from './Plan Creation/Alacarte channels/alcart-view/alcart-view.component';
+import { AlcartEditComponent } from './Plan Creation/Alacarte channels/alcart-edit/alcart-edit.component';
+import { AlcartLogoViewComponent } from './Plan Creation/Alacarte channels/alcart-logo-view/alcart-logo-view.component';
+import { BouquatenameViewallComponent } from './Plan Creation/Bouquetname Creation/bouquatename-viewall/bouquatename-viewall.component';
+import { BouquateNameAddComponent } from './Plan Creation/Bouquetname Creation/bouquate-name-add/bouquate-name-add.component';
+import { BouquatenameEditComponent } from './Plan Creation/Bouquetname Creation/bouquatename-edit/bouquatename-edit.component';
+import { BouquetsViewallComponent } from './Plan Creation/Broadcaster Bouqutes/bouquets-viewall/bouquets-viewall.component';
+import { BouqutesAddComponent } from './Plan Creation/Broadcaster Bouqutes/bouqutes-add/bouqutes-add.component';
+import { BouqetsEditComponent } from './Plan Creation/Broadcaster Bouqutes/bouqets-edit/bouqets-edit.component';
+import { BouqutesViewComponent } from './Plan Creation/Broadcaster Bouqutes/bouqutes-view/bouqutes-view.component';
+import { DPOViewallComponent } from './Plan Creation/DPO Bouquet Creation/dpoviewall/dpoviewall.component';
+import { KycApprovalComponent } from './Entity Onboard/kyc-approval/kyc-approval.component';
+import { KycdocumentViewComponent } from './Entity Onboard/kycdocument-view/kycdocument-view.component';
+import { KycCommentsComponent } from './Entity Onboard/kyc-comments/kyc-comments.component';
+import { AddKycdocumentComponent } from './Entity Onboard/add-kycdocument/add-kycdocument.component';
+import { EditKycdocumentComponent } from './Entity Onboard/edit-kycdocument/edit-kycdocument.component';
+import { CommentsforApprovaloneComponent } from './Entity Onboard/commentsfor-approvalone/commentsfor-approvalone.component';
+import { CommentsforApprovaltwoComponent } from './Entity Onboard/commentsfor-approvaltwo/commentsfor-approvaltwo.component';
+import { LevelOneApprovalComponent } from './Entity Onboard/level-one-approval/level-one-approval.component';
+import { LevelTwoApprovalComponent } from './Entity Onboard/level-two-approval/level-two-approval.component';
+import { EntityBankaddComponent } from './Entity Onboard/entity-bankadd/entity-bankadd.component';
+import { EntityBankeditComponent } from './Entity Onboard/entity-bankedit/entity-bankedit.component';
+import { BankInfoComponent } from './Entity Onboard/bank-info/bank-info.component';
+import { KycInfoComponent } from './Entity Onboard/kyc-info/kyc-info.component';
+import { BouquetePlanViewallComponent } from './Plan Creation/Bouquete plan Name/bouquete-plan-viewall/bouquete-plan-viewall.component';
+import { BouquetenameAddComponent } from './Plan Creation/Bouquete plan Name/bouquetename-add/bouquetename-add.component';
+import { BouquetenameEditComponent } from './Plan Creation/Bouquete plan Name/bouquetename-edit/bouquetename-edit.component';
+import { MerchantPlanViewallComponent } from './Merchant Plan/merchant-plan-viewall/merchant-plan-viewall.component';
+import { MerchantPlanAddComponent } from './Merchant Plan/merchant-plan-add/merchant-plan-add.component';
+import { EditMerchantPlanComponent } from './Merchant Plan/edit-merchant-plan/edit-merchant-plan.component';
+import { LogoutComponent } from './logout/logout.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { FilterPipeModule } from 'ngx-filter-pipe';
-import { ViewlogoComponent } from './Customer/viewlogo/viewlogo.component';
-import { SetupComponent } from './Onetimesetup/setup/setup.component';
-import { ReturnsuccessComponent } from './Onetimesetup/returnsuccess/returnsuccess.component';
-import { ReturnfailureComponent } from './Onetimesetup/returnfailure/returnfailure.component';
-import { DashboardcontentComponent } from './dashboard/dashboardcontent/dashboardcontent.component';
-import { ViewwithdrawalComponent } from './Quickwithdrawal/viewwithdrawal/viewwithdrawal.component';
-import { AddwithdrawalComponent } from './Quickwithdrawal/addwithdrawal/addwithdrawal.component';
-
-import { AddBeneficiaryComponent } from './Beneficiary/add-beneficiary/add-beneficiary.component';
-import { EditBeneficiaryComponent } from './Beneficiary/edit-beneficiary/edit-beneficiary.component';
-import { ViewBeneficiaryComponent } from './Beneficiary/view-beneficiary/view-beneficiary.component';
-import { AddSetupboxComponent } from './main-master/setupbox/add-setupbox/add-setupbox.component';
-import { ViewSetupboxComponent } from './main-master/setupbox/view-setupbox/view-setupbox.component';
-import { EditSetupboxComponent } from './main-master/setupbox/edit-setupbox/edit-setupbox.component';
-import { ViewRouteComponent } from './main-master/route/view-route/view-route.component';
-import { AddRouteComponent } from './main-master/route/add-route/add-route.component';
-import { EditRouteComponent } from './main-master/route/edit-route/edit-route.component';
-import { ViewRegionComponent } from './main-master/region/view-region/view-region.component';
-import { TransactionViewComponent } from './Transaction/transaction-view/transaction-view.component';
-import { TransactionViewbyidComponent } from './Transaction/transaction-viewbyid/transaction-viewbyid.component';
-import { ChannelConfigurationComponent } from './Channels-Packages/channel-configuration/channel-configuration.component';
-import { PlanConfigurationComponent } from './Channels-Packages/plan-configuration/plan-configuration.component';
-import { LCOPviewallComponent } from './Channels-Packages/LCOP-Plan-creation/lcopviewall/lcopviewall.component';
-import { LCOPAddComponent } from './Channels-Packages/LCOP-Plan-creation/lcopadd/lcopadd.component';
-import { LCOPViewComponent } from './Channels-Packages/LCOP-Plan-creation/lcopview/lcopview.component';
-import { SearchPipe } from './search.pipe';
-import { LcopChannelListComponent } from './Channels-Packages/LCOP-Plan-creation/lcop-channel-list/lcop-channel-list.component';
-import { MobileVerficationComponent } from './Customer Transtions/mobile-verfication/mobile-verfication.component';
-import { CustomerPaymentsViewComponent } from './Customer Transtions/customer-payments-view/customer-payments-view.component';
-import { CustomerPaymentsInfoComponent } from './Customer Transtions/customer-payments-info/customer-payments-info.component';
-import { CustomerPaymentSuccessComponent } from './Customer Transtions/customer-payment-success/customer-payment-success.component';
-import { CustomerPaymentFailureComponent } from './Customer Transtions/customer-payment-failure/customer-payment-failure.component';
-import { CreateBulkComponent } from './main-master/setupbox/setupbox-bulkupload/create-bulk/create-bulk.component';
-import { ResponseBulkComponent } from './main-master/setupbox/setupbox-bulkupload/response-bulk/response-bulk.component';
-import { ViewBulkComponent } from './main-master/setupbox/setupbox-bulkupload/view-bulk/view-bulk.component';
-import { StreetViewComponent } from './main-master/route/street-view/street-view.component';
-import { AreaViewComponent } from './main-master/route/area-view/area-view.component';
-import { AddcustomerComponent } from './Customer/addcustomer/addcustomer.component';
-import { OtpmobileverifyComponent } from './Verfication/otpmobileverify/otpmobileverify.component';
+import { SearchPipe } from './serach pipe/search.pipe';
+import { DPOBouqueteAddComponent } from './Plan Creation/DPO Bouquet Creation/dpobouquete-add/dpobouquete-add.component';
+import { DpoViewComponent } from './Plan Creation/DPO Bouquet Creation/dpo-view/dpo-view.component';
+import { PgsetupViewComponent } from './Main Master/PgSetup/pgsetup-view/pgsetup-view.component';
+import { PgsetupCreateComponent } from './Main Master/PgSetup/pgsetup-create/pgsetup-create.component';
+import { PgsetupEditComponent } from './Main Master/PgSetup/pgsetup-edit/pgsetup-edit.component';
+import { OverallCustomerViewComponent } from './Overall-Customer/overall-customer-view/overall-customer-view.component';
+import { OverallIndividualCustomerviewComponent } from './Overall-Customer/overall-individual-customerview/overall-individual-customerview.component';
+import { EntityViewComponent } from './Entity Onboard/entity-view/entity-view.component';
+import { EntityQrcodeComponent } from './entity-qrcode/entity-qrcode/entity-qrcode.component';
+import { EntityRefundComponent } from './entity-refund/entity-refund.component';
+import { EntitySettlementComponent } from './entity-settlement/entity-settlement.component';
+import { SettlementViewComponent } from './settlement-view/settlement-view/settlement-view.component';
+import { EntityPgonboardComponent } from './Entity Onboard/entity-pgonboard/entity-pgonboard/entity-pgonboard.component';
+import { EntityCustomersViewAllComponent } from './Entity-Customers/entity-customers-view-all/entity-customers-view-all.component';
+import { EntityCustomersViewComponent } from './Entity-Customers/entity-customers-view/entity-customers-view/entity-customers-view.component';
+import { OverallTransactionsViewallComponent } from './Overall-Transactions/overall-transactions-viewall/overall-transactions-viewall.component';
+import { MerchantTransactionViewComponent } from './Overall-Transactions/merchant-transaction-view/merchant-transaction-view.component';
+import { ViewwithdrawalComponent } from './Main Master/WIthdrawal/viewwithdrawal/viewwithdrawal.component';
+import { AddwithdrawalComponent } from './Main Master/WIthdrawal/addwithdrawal/addwithdrawal.component';
+import { EditwithdrawalComponent } from './Main Master/WIthdrawal/editwithdrawal/editwithdrawal.component';
+import { AddbeneficiaryComponent } from './Beneficiary/addbeneficiary/addbeneficiary.component';
+import { ViewbeneficiaryComponent } from './Beneficiary/viewbeneficiary/viewbeneficiary.component';
+import { EditbeneficiaryComponent } from './Beneficiary/editbeneficiary/editbeneficiary.component';
+import { ProfileComponent } from './profile/profile.component';
 import { ViewPermissionComponent } from './Roles-Permission/view-permission/view-permission.component';
 import { ViewSubpermissionComponent } from './Roles-Permission/view-subpermission/view-subpermission.component';
-import { OnetimesetupComponent } from './Transaction/onetimesetup/onetimesetup.component';
-import { PlanConfigurationDetailsComponent } from './Channels-Packages/plan-configuration-details/plan-configuration-details.component';
-import { TestPageComponent } from './test-page/test-page.component';
-import { EditcustomerComponent } from './Customer/editcustomer/editcustomer.component';
-import { ChannelViewComponent } from './Customer/channel-view/channel-view.component';
-import { MerchantViewallComponent } from './Merchant-Dues/merchant-viewall/merchant-viewall.component';
-import { MerchantViewbyidComponent } from './Merchant-Dues/merchant-viewbyid/merchant-viewbyid.component';
-import { MerchantduesFailureComponent } from './Merchant-Dues/merchantdues-failure/merchantdues-failure.component';
-import { MerchantduesSuccessComponent } from './Merchant-Dues/merchantdues-success/merchantdues-success.component';
-import { ChannelconfigurationSingleviewComponent } from './Channels-Packages/channelconfiguration-singleview/channelconfiguration-singleview.component';
-import { LcopEditComponent } from './Channels-Packages/LCOP-Plan-creation/lcop-edit/lcop-edit.component';
-import { TransactionManualpayComponent } from './Transaction/transaction-manualpay/transaction-manualpay.component';
-import { CustomerPrivacyPolicyComponent } from './Customer Transtions/customer-privacy-policy/customer-privacy-policy.component';
-import { CustomerDisclaimerComponent } from './Customer Transtions/customer-disclaimer/customer-disclaimer.component';
-import { CustomerRefundPolicyComponent } from './Customer Transtions/customer-refund-policy/customer-refund-policy.component';
-import { CustomerTermsandpolicyComponent } from './Customer Transtions/customer-termsandpolicy/customer-termsandpolicy.component';
-import { CustomerTransactionviewsComponent } from './Customer Transtions/customer-transactionviews/customer-transactionviews.component';
-import { CustomerTransactionIndividualviewComponent } from './Customer Transtions/customer-transaction-individualview/customer-transaction-individualview.component';
-import { CusticketsViewallComponent } from './Customer Transtions/customer Tickets/custickets-viewall/custickets-viewall.component';
-import { CusTicketeCreateComponent } from './Customer Transtions/customer Tickets/cus-tickete-create/cus-tickete-create.component';
-import { CusTicketEditComponent } from './Customer Transtions/customer Tickets/cus-ticket-edit/cus-ticket-edit.component';
-import { CustomerSolutionsComponent } from './Customer Transtions/customer-solutions/customer-solutions.component';
-import { CustomerFarginPolicyComponent } from './Customer Transtions/customer-fargin-policy/customer-fargin-policy.component';
-import { ByRedirectComponent } from './by-redirect/by-redirect.component';
-import { SetupboxHistoryComponent } from './Customer/setupbox-history/setupbox-history.component';
-import { CustLogoComponent } from './Customer Transtions/customer Tickets/cust-logo/cust-logo.component';
-import { CustomerViewallComponent } from './servicetickets/customer-viewall/customer-viewall.component';
-import { CustomerTicketraiseComponent } from './servicetickets/customer-ticketraise/customer-ticketraise.component';
-import { ProfileViewComponent } from './profile/profile-view/profile-view.component';
-import { AddAlcotComponent } from './Customer/add-alcot/add-alcot.component';
-import { BouquetaddComponent } from './Customer/bouquetadd/bouquetadd.component';
-import { LcopaddComponent } from './Customer/lcopadd/lcopadd.component';
-import { CustomerDiscriptionComponent } from './Customer Transtions/customer-discription/customer-discription.component';
-import { ViewDiscriptioncustomerComponent } from './servicetickets/view-discriptioncustomer/view-discriptioncustomer.component';
+import { BouquetsRegionsviewComponent } from './Plan Creation/Broadcaster Bouqutes/bouquets-regionsview/bouquets-regionsview.component';
+import { AddExtraChannelsComponent } from './Plan Creation/Broadcaster Bouqutes/add-extra-channels/add-extra-channels.component';
+import { EditPersonalInfoComponent } from './Entity Onboard/edit-personal-info/edit-personal-info.component';
+import { EntityTransactionComponent } from './entity-transaction/entity-transaction.component';
+import { ChannelViewComponent } from './Overall-Customer/channel-view/channel-view.component';
+import { DuesViewComponent } from './dues/dues-view/dues-view.component';
+import { DuesComponent } from './dues/dues.component';
+import { UpdateManualpaymentComponent } from './Entity Onboard/update-manualpayment/update-manualpayment.component';
+import { MerchantLogoComponent } from './Entity Onboard/merchant-logo/merchant-logo.component';
+import { ManualTransactionComponent } from './Entity Onboard/manual-transaction/manual-transaction.component';
+import { CreateManualpaymentComponent } from './Entity Onboard/create-manualpayment/create-manualpayment.component';
+import { KeysUpdateComponent } from './Entity Onboard/keys-update/keys-update.component';
+import { ViewOnboardinfoComponent } from './Entity Onboard/view-onboardinfo/view-onboardinfo.component';
+import { PaymentlinkViewComponent } from './Entity Onboard/paymentlink-view/paymentlink-view.component';
+import { PaymentlinkResendComponent } from './Entity Onboard/paymentlink-resend/paymentlink-resend.component';
+import { ViewPolicyComponent } from './Fargin-policy/view-policy/view-policy.component';
+import { AddPolicyComponent } from './Fargin-policy/add-policy/add-policy.component';
+import { EditPolicyComponent } from './Fargin-policy/edit-policy/edit-policy.component';
+import { CustomerViewallComponent } from './Tickets/customer-viewall/customer-viewall.component';
+import { CustomerTicketapprovalComponent } from './Tickets/customer-ticketapproval/customer-ticketapproval.component';
+import { CustDescriptionCommentComponent } from './Tickets/cust-description-comment/cust-description-comment.component';
 import { MatBadgeModule } from '@angular/material/badge';
-import { OtherPaymentsViewallComponent } from './Other Payments/other-payments-viewall/other-payments-viewall.component';
-import { OtherPaymentsSuccessComponent } from './Other Payments/other-payments-success/other-payments-success.component';
-import { OtherpaymentsFailureComponent } from './Other Payments/otherpayments-failure/otherpayments-failure.component';
-import { ReturnDuesComponent } from './Transaction/return-dues/return-dues.component';
-import { CustomerBulkuploadComponent } from './Customer/customer-bulkupload/customer-bulkupload.component';
-import { CustomerBulkresponseComponent } from './Customer/customer-bulkresponse/customer-bulkresponse.component';
-import { ViewrenewalComponent } from './Renewal/viewrenewal/viewrenewal.component';
-import { RenewaltransactiondetailsComponent } from './Renewal/renewaltransactiondetails/renewaltransactiondetails.component';
-import { ReturnrewealfailureComponent } from './Renewal/returnrewealfailure/returnrewealfailure.component';
-import { ReturnrewealsuccessComponent } from './Renewal/returnrewealsuccess/returnrewealsuccess.component';
-import { SetupformComponent } from './Renewal/setupform/setupform.component';
-import { AddsettopboxPlanComponent } from './Customer/addsettopbox-plan/addsettopbox-plan.component';
-import { ServiceProviderLinkViewallComponent } from './Service Provide Link/service-provider-link-viewall/service-provider-link-viewall.component';
-import { CustomerOtpVerifyComponent } from './Customer Transtions/customer-otp-verify/customer-otp-verify.component';
-import { CustomerStatusComponent } from './Customer/customer-status/customer-status.component';
-import { AddSetupboxPlanComponent } from './Customer/add-setupbox-plan/add-setupbox-plan.component';
-import { PlanParticularSetupboxComponent } from './Customer/plan-particular-setupbox/plan-particular-setupbox.component';
-import { SmshistoryComponent } from './SMSDetails/smshistory/smshistory.component';
-import { SmsviewhistoryComponent } from './SMSDetails/smsviewhistory/smsviewhistory.component';
-import { SmsapprovalComponent } from './SMSDetails/viewsms/smsapproval/smsapproval.component';
-import { ViewsmsComponent } from './SMSDetails/viewsms/viewsms.component';
-import { CustomerresponseCreateComponent } from './CustomerResponse/customerresponse-create/customerresponse-create.component';
-import { ViewCustomerResponseComponent } from './CustomerResponse/view-customer-response/view-customer-response.component';
-import { AddSurveyquestionsComponent } from './Servey/add-surveyquestions/add-surveyquestions.component';
-import { UpdateSurveyquestionsComponent } from './Servey/update-surveyquestions/update-surveyquestions.component';
-import { ViewQuestionsComponent } from './Servey/view-questions/view-questions.component';
-import { ViewSurveyquestionsComponent } from './Servey/view-surveyquestions/view-surveyquestions.component';
-import { CustomersurveyIndividualviewComponent } from './Customer Transtions/Customersurvey/customersurvey-individualview/customersurvey-individualview.component';
-import { CustomerSurveyViewComponent } from './Customer Transtions/Customersurvey/customer-survey-view/customer-survey-view.component';
-import { ServicecustomerTicketImageComponent } from './servicetickets/servicecustomer-ticket-image/servicecustomer-ticket-image.component';
-import { OtherpayViewComponent } from './Other Payments/otherpay-view/otherpay-view.component';
-import { CustomerviewrouteComponent } from './main-master/route/customerviewroute/customerviewroute.component';
-import { ExtraaddrouteComponent } from './main-master/route/extraaddroute/extraaddroute.component';
-import { AllcustomerrouteComponent } from './main-master/route/allcustomerroute/allcustomerroute.component';
-import { ExtraareaComponent } from './main-master/route/extraarea/extraarea.component';
-import { ExtrastreetComponent } from './main-master/route/extrastreet/extrastreet.component';
-import { ExtracustomerComponent } from './main-master/route/extracustomer/extracustomer.component';
-import { CustomertransactionrouteComponent } from './main-master/route/customertransactionroute/customertransactionroute.component';
-import { AdmincustomerdetailsComponent } from './main-master/route/admincustomerdetails/admincustomerdetails.component';
-import { AdmincustomertransactionComponent } from './main-master/route/admincustomertransaction/admincustomertransaction.component';
-import { PascustomerdetailsComponent } from './main-master/route/pascustomerdetails/pascustomerdetails.component';
-import { CustomersetupboxhistoryComponent } from './Customer/customersetupboxhistory/customersetupboxhistory.component';
-import { AggrementSignerTwoComponent } from './aggrement-signer-two/aggrement-signer-two.component';
-import { AdminViewComponent } from './Admin/admin-view/admin-view.component';
-import { ViewagreementsComponent } from './Agreement/viewagreements/viewagreements.component';
-import { AggrementSignerTwoOtpComponent } from './aggrement-signer-two-otp/aggrement-signer-two-otp.component';
-import { AggrementLocationTwoTrackerComponent } from './aggrement-location-two-tracker/aggrement-location-two-tracker.component';
+import { BankViewallComponent } from './Main Master/Bank Details/bank-viewall/bank-viewall.component';
+import { AddbankDetailsComponent } from './Main Master/Bank Details/addbank-details/addbank-details.component';
+import { EditBankDetailsComponent } from './Main Master/Bank Details/edit-bank-details/edit-bank-details.component';
+import { PolicyApprovalComponent } from './Admin-policy/policy-approval/policy-approval.component';
+import { CustomerTransViewallComponent } from './Fargin Transtions/Customer Trans/customer-trans-viewall/customer-trans-viewall.component';
+import { CustomerTransViewComponent } from './Fargin Transtions/Customer Trans/customer-trans-view/customer-trans-view.component';
+import { MaintenanceTransViewallComponent } from './Fargin Transtions/Entity Trans/maintenance-trans-viewall/maintenance-trans-viewall.component';
+import { MaintanceViewComponent } from './Fargin Transtions/Entity Trans/maintance-view/maintance-view.component';
+import { ServicePaymentsViewallComponent } from './Fargin Transtions/Entity Trans/service-payments-viewall/service-payments-viewall.component';
+import { ServicePaymentViewComponent } from './Fargin Transtions/Entity Trans/service-payment-view/service-payment-view.component';
+import { DropdownModule } from 'primeng/dropdown';
+import { QRcreationComponent } from './entity-qrcode/qrcreation/qrcreation.component';
+import { BankVerificationMatchComponent } from './Entity Onboard/bank-verification-match/bank-verification-match.component';
+import { OtherpaymentsViewallComponent } from './Fargin Transtions/Other Payments/otherpayments-viewall/otherpayments-viewall.component';
+import { OtherpaymentsViewComponent } from './Fargin Transtions/Other Payments/otherpayments-view/otherpayments-view.component';
+import { CreateOtherpaymentComponent } from './Entity Onboard/create-otherpayment/create-otherpayment.component';
+import { EditOtherpaymentComponent } from './Entity Onboard/edit-otherpayment/edit-otherpayment.component';
+import { OtherpayTransComponent } from './Entity Onboard/otherpay-trans/otherpay-trans.component';
+import { EntityKyceditComponent } from './Entity Onboard/entity-kycedit/entity-kycedit.component';
+import { AddKyccategoryComponent } from './Main Master/kyccategory/add-kyccategory/add-kyccategory.component';
+import { ViewallKyccategoryComponent } from './Main Master/kyccategory/viewall-kyccategory/viewall-kyccategory.component';
+import { EditKyccategoryComponent } from './Main Master/kyccategory/edit-kyccategory/edit-kyccategory.component';
+import { FarginBankAddComponent } from './Main Master/Fargin Bank/fargin-bank-add/fargin-bank-add.component';
+import { FarginBankviewComponent } from './Main Master/Fargin Bank/fargin-bankview/fargin-bankview.component';
+import { FarginBankEditComponent } from './Main Master/Fargin Bank/fargin-bank-edit/fargin-bank-edit.component';
+import { EditSmsComponent } from './Entity Onboard/edit-sms/edit-sms.component';
+import { SmsCreateComponent } from './Entity Onboard/sms-create/sms-create.component';
+import { SMSHistoryComponent } from './SMS details/smshistory/smshistory.component';
+import { SMSHistoryViewComponent } from './SMS details/smshistory-view/smshistory-view.component';
+import { EntitySmsViewallComponent } from './SMS details/entity-sms-viewall/entity-sms-viewall.component';
+import { EntitySmsViewComponent } from './SMS details/entity-sms-view/entity-sms-view.component';
+import { AddBussinessdocumentComponent } from './Entity Onboard/bussiness-document/add-bussinessdocument/add-bussinessdocument.component';
+import { ApprovalBussinessdocumentComponent } from './Entity Onboard/bussiness-document/approval-bussinessdocument/approval-bussinessdocument.component';
+import { CommentBussinessdocumentComponent } from './Entity Onboard/bussiness-document/comment-bussinessdocument/comment-bussinessdocument.component';
+import { EditBussinessdocumentComponent } from './Entity Onboard/bussiness-document/edit-bussinessdocument/edit-bussinessdocument.component';
+import { ImageBussinessdocumentComponent } from './Entity Onboard/bussiness-document/image-bussinessdocument/image-bussinessdocument.component';
+import { SmsCostViewallComponent } from './Main Master/SMS Cost/sms-cost-viewall/sms-cost-viewall.component';
+import { SMScostAddComponent } from './Main Master/SMS Cost/smscost-add/smscost-add.component';
+import { EntityAutoDebitGetallComponent } from './entity-auto-debit-getall/entity-auto-debit-getall.component';
+import { EntityAutoDebitByIdComponent } from './entity-auto-debit-by-id/entity-auto-debit-by-id.component';
+import { AddAnnouncementComponent } from './Announcement/add-announcement/add-announcement.component';
+import { AnnouncementviewComponent } from './Announcement/announcementview/announcementview.component';
+import { EditAnnouncementComponent } from './Announcement/edit-announcement/edit-announcement.component';
+import { ViewAnnouncementComponent } from './Announcement/view-announcement/view-announcement.component';
+import { SmsApprovalComponent } from './Entity Onboard/sms-approval/sms-approval.component';
+import { SmsHistoryEntityComponent } from './Entity Onboard/sms-history-entity/sms-history-entity.component';
+import { PlanDetailsCustomerComponent } from './Overall-Customer/plan-details-customer/plan-details-customer.component';
+import { CustomerSurveyquestionsComponent } from './Customer-Survey/customer-surveyquestions/customer-surveyquestions.component';
+import { SurveyviewallComponent } from './Customer-Survey/surveyviewall/surveyviewall.component';
+import { ViewQuestionsComponent } from './Customer-Survey/view-questions/view-questions.component';
+import { CustomerticketImageComponent } from './Tickets/customerticket-image/customerticket-image.component';
+import { ReadquestionsComponent } from './Customer-Survey/readquestions/readquestions.component';
+import { AlcotHistoryComponent } from './Plan Creation/Alacarte channels/alcot-history/alcot-history.component';
+import { ViewmerchantComponent } from './Merchant/viewmerchant/viewmerchant.component';
+import { AddExtraRegionComponent } from './Plan Creation/Broadcaster Bouqutes/add-extra-region/add-extra-region.component';
+import { ChanneleditComponent } from './Plan Creation/Broadcaster Bouqutes/channeledit/channeledit.component';
+import { BouqutesRegioneditComponent } from './Plan Creation/Broadcaster Bouqutes/bouqutes-regionedit/bouqutes-regionedit.component';
+import { BouqutesRegionComponent } from './Plan Creation/Broadcaster Bouqutes/bouqutes-region/bouqutes-region.component';
+import { AggrementSignerOneComponent } from './aggrement-signer-one/aggrement-signer-one.component';
+import { SignerGetallComponent } from './Main Master/Fargin Signer Details/signer-getall/signer-getall.component';
+import { SignerAddComponent } from './Main Master/Fargin Signer Details/signer-add/signer-add.component';
+import { SignerUpdateComponent } from './Main Master/Fargin Signer Details/signer-update/signer-update.component';
+
+import { AddagreementplanComponent } from './Main Master/Agreementplan/addagreementplan/addagreementplan.component';
+import { ViewagreementplanComponent } from './Main Master/Agreementplan/viewagreementplan/viewagreementplan.component';
+import { EditagreementplanComponent } from './Main Master/Agreementplan/editagreementplan/editagreementplan.component';
+import { AllagreementplansComponent } from './Main Master/Agreementplan/allagreementplans/allagreementplans.component';
+import { AddAgreementsComponent } from './Entity Onboard/add-agreements/add-agreements.component';
+import { AgreementlinkComponent } from './Entity Onboard/agreementlink/agreementlink.component';
+import { AgreementViewallComponent } from './agreement-viewall/agreement-viewall.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { CustomersetupboxbulkresponseComponent } from './Customer/customersetupboxbulkresponse/customersetupboxbulkresponse.component';
-import { CustomerextrasetupboxbulkComponent } from './Customer/customerextrasetupboxbulk/customerextrasetupboxbulk.component';
-import { SetupboxCustomerviewComponent } from './main-master/setupbox/setupbox-bulkupload/setupbox-customerview/setupbox-customerview.component';
-import { FinalPaymentComponent } from './Customer Transtions/final-payment/final-payment.component';
-import { FailureTransactionsComponent } from './Offline-Transaction/failure-transactions/failure-transactions.component';
-import { OfflineTransactionsComponent } from './Offline-Transaction/offline-transactions/offline-transactions.component';
-import { SuccessTransactionsComponent } from './Offline-Transaction/success-transactions/success-transactions.component';
-import { CusduelogsbymerchantComponent } from './Transaction/cusduelogsbymerchant/cusduelogsbymerchant.component';
-import { UpdateCusduesComponent } from './Transaction/update-cusdues/update-cusdues.component';
-import { UpdatedDuesdetailsComponent } from './Transaction/updated-duesdetails/updated-duesdetails.component';
-import { PlanConfigurationChannelviewComponent } from './Channels-Packages/plan-configuration-channelview/plan-configuration-channelview/plan-configuration-channelview.component';
-import { SuccessForAdditionalComponent } from './Customer Transtions/success-for-additional/success-for-additional.component';
-import { FailureForAdditionalComponent } from './Customer Transtions/failure-for-additional/failure-for-additional.component';
-import { ManuvalpayWithoutOtpComponent } from './Transaction/manuvalpay-without-otp/manuvalpay-without-otp.component';
-import { StbStatusComponent } from './main-master/setupbox/setupbox-bulkupload/stb-status/stb-status.component';
-import { ViewsetupboxreportsComponent } from './Reports/Setupboxreports/viewsetupboxreports/viewsetupboxreports.component';
-import { ViewcustomerreportsComponent } from './Reports/Customerreports/viewcustomerreports/viewcustomerreports.component';
-import { ViewduesreportsComponent } from './Reports/Duesreports/viewduesreports/viewduesreports.component';
-import { AreaViewallComponent } from './main-master/Area/area-viewall/area-viewall.component';
-import { CreateAreaComponent } from './main-master/Area/create-area/create-area.component';
-import { EditAreaComponent } from './main-master/Area/edit-area/edit-area.component';
-import { CreatePincodeComponent } from './main-master/Pincode/create-pincode/create-pincode.component';
-import { EditPincodeComponent } from './main-master/Pincode/edit-pincode/edit-pincode.component';
-import { PincodeViewComponent } from './main-master/Pincode/pincode-view/pincode-view.component';
-import { PincodeComponent } from './main-master/Pincode/pincode/pincode.component';
-import { EditStreetComponent } from './main-master/Street/edit-street/edit-street.component';
-import { StreetCreateComponent } from './main-master/Street/street-create/street-create.component';
-import { StreetViewallComponent } from './main-master/Street/street-viewall/street-viewall.component';
-import { SMSDescriptionComponent } from './SMSDetails/smsdescription/smsdescription.component';
-import { ViewReasonComponent } from './Transaction/view-reason/view-reason.component';
-
-import { DashboardviewbookingComponent } from './dashboard/dashboardviewbooking/dashboardviewbooking.component';
-import { DashboardviewfreeComponent } from './dashboard/dashboardviewfree/dashboardviewfree.component';
-import { DashboardviewfaultyComponent } from './dashboard/dashboardviewfaulty/dashboardviewfaulty.component';
-import { DashboardviewactivecustomerComponent } from './dashboard/dashboardviewactivecustomer/dashboardviewactivecustomer.component';
-import { DashboardviewinactivecustomerComponent } from './dashboard/dashboardviewinactivecustomer/dashboardviewinactivecustomer.component';
-import { DashboardviewpendingcustomerComponent } from './dashboard/dashboardviewpendingcustomer/dashboardviewpendingcustomer.component';
-import { DashboardviewactiveempolyeeComponent } from './dashboard/dashboardviewactiveempolyee/dashboardviewactiveempolyee.component';
-import { DashboardviewinactiveemployeeComponent } from './dashboard/dashboardviewinactiveemployee/dashboardviewinactiveemployee.component';
-import { AdditinalFinalpayComponent } from './Customer Transtions/Additional-Payment-transaction/additinal-finalpay/additinal-finalpay.component';
-import { AdditionalCustomerpayinfoComponent } from './Customer Transtions/Additional-Payment-transaction/additional-customerpayinfo/additional-customerpayinfo.component';
-import { AdditionalpayViewComponent } from './Customer Transtions/Additional-Payment-transaction/additionalpay-view/additionalpay-view.component';
-import { AdditionaLTransactionhistoryComponent } from './Customer Transtions/Additional-Payment-transaction/additional-transactionhistory/additiona-l-transactionhistory.component';
-import { AdditionaltransactionIndividualviewComponent } from './Customer Transtions/Additional-Payment-transaction/additionaltransaction-individualview/additionaltransaction-individualview.component';
-import { AddCategoryComponent } from './main-master/Category/add-category/add-category.component';
-import { CategoryViewallComponent } from './main-master/Category/category-viewall/category-viewall.component';
-import { UpdateCategoryComponent } from './main-master/Category/update-category/update-category.component';
-import { CreateAdditionalComponent } from './Customer/Additional-Payments/create-additional/create-additional.component';
-import { UpdateAdditionalComponent } from './Customer/Additional-Payments/update-additional/update-additional.component';
-import { AdditionalTransactionsComponent } from './Additional-Transactions/additional-transactions/additional-transactions.component';
-import { AdditionalPayviewComponent } from './Additional-Transactions/additional-payview/additional-payview.component';
-import { DashboardviewopenticketComponent } from './dashboard/dashboardviewopenticket/dashboardviewopenticket.component';
-import { DashboardviewclosedticketComponent } from './dashboard/dashboardviewclosedticket/dashboardviewclosedticket.component';
-import { DashboardviewholdticketComponent } from './dashboard/dashboardviewholdticket/dashboardviewholdticket.component';
-import { ManualduesgenerateComponent } from './Customer/manualduesgenerate/manualduesgenerate.component';
-import { BranchesViewallComponent } from './Branches/branches-viewall/branches-viewall.component';
-import { BranchesIndividualViewComponent } from './Branches/branches-individual-view/branches-individual-view.component';
-import { EditcustomerSetupboxComponent } from './Customer/editcustomer-setupbox/editcustomer-setupbox.component';
-import { BranchCustomerIndividualviewComponent } from './Branches/branch-customer-individualview/branch-customer-individualview.component';
-import { BranchCustomerViewComponent } from './Branches/branch-customer-view/branch-customer-view.component';
-import { InactiveStatusComponent } from './Customer/inactive-status/inactive-status.component';
-import { RemainderstatusComponent } from './Customer/remainderstatus/remainderstatus.component';
-import { DuestatusonoffComponent } from './Customer/duestatusonoff/duestatusonoff.component';
-import { OnstatusComponent } from './dashboard/onstatus/onstatus.component';
-import { OffstatusComponent } from './dashboard/offstatus/offstatus.component';
-import { YesterdayoffstatusComponent } from './dashboard/yesterdayoffstatus/yesterdayoffstatus.component';
-import { YesterdayonoffstatusComponent } from './dashboard/yesterdayonoffstatus/yesterdayonoffstatus.component';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { CreateroutebulkComponent } from './main-master/route/createroutebulk/createroutebulk.component';
-import { RoutebulkresponseComponent } from './main-master/route/routebulkresponse/routebulkresponse.component';
-import { DuestatushistoryComponent } from './Due History/duestatushistory/duestatushistory.component';
-import { HistoryforreminderComponent } from './Customer/historyforreminder/historyforreminder.component';
-import { BookedCustomerViewComponent } from './dashboard/booked-customer-view/booked-customer-view.component';
-import { DamagedCustomerViewComponent } from './dashboard/damaged-customer-view/damaged-customer-view.component';
-import { DuestatusoffdetailsComponent } from './dashboard/duestatusoffdetails/duestatusoffdetails.component';
-import { RefundForMerchantComponent } from './Refund/refund-for-merchant/refund-for-merchant.component';
-import { SetupboxHistoryviewComponent } from './Customer/setupbox-historyview/setupbox-historyview.component';
-import { CustomerStatusHistoryComponent } from './Customer/customer-status-history/customer-status-history.component';
-import { LcopchannelviewComponent } from './Customer/lcopchannelview/lcopchannelview.component';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-
-
-export function HttpLoaderFactory(http: HttpClient) { return new TranslateHttpLoader(http, './assets/Translate/', '.json'); }
-
+import { AggrementSignerOtpComponent } from './aggrement-signer-otp/aggrement-signer-otp.component';
+import { AggrementLocationTrackerComponent } from './aggrement-location-tracker/aggrement-location-tracker.component';
+import { AgreementsLinkExtentComponent } from './Entity Onboard/agreements-link-extent/agreements-link-extent.component';
+import { FailureOfftransactionsComponent } from './Entity Onboard/Offline-Transactions/failure-offtransactions/failure-offtransactions.component';
+import { OffileSettlementPayoutComponent } from './Entity Onboard/Offline-Transactions/offile-settlement-payout/offile-settlement-payout.component';
+import { OfflineSettlementComponent } from './Entity Onboard/Offline-Transactions/offline-settlement/offline-settlement.component';
+import { OfflineTransactionsComponent } from './Entity Onboard/Offline-Transactions/offline-transactions/offline-transactions.component';
+import { SuccessOfftransactionsComponent } from './Entity Onboard/Offline-Transactions/success-offtransactions/success-offtransactions.component';
+import { BranchAddComponent } from './Entity Onboard/Branch/branch-add/branch-add.component';
+import { BranchEditComponent } from './Entity Onboard/Branch/branch-edit/branch-edit.component';
+import { BranchViewallComponent } from './branch-viewall/branch-viewall.component';
+import { ViewadditionalpaymentsComponent } from './Fargin Transtions/additionalpayments/viewadditionalpayments/viewadditionalpayments.component';
+import { AdditionalpaymentsComponent } from './Fargin Transtions/additionalpayments/additionalpayments.component';
+import { BranchIndividualviewComponent } from './branch-individualview/branch-individualview.component';
+import { BranchCustomerViewComponent } from './branch-customer-view/branch-customer-view.component';
+import { RefundGetallComponent } from './Refund/refund-getall/refund-getall.component';
+import { TransManualPayComponent } from './Fargin Transtions/Entity Trans/trans-manual-pay/trans-manual-pay.component';
 
 @NgModule({
   declarations: [
@@ -277,255 +253,233 @@ export function HttpLoaderFactory(http: HttpClient) { return new TranslateHttpLo
     LoginPageComponent,
     SpinnerComponent,
     DashboardComponent,
-    EntityLoginpageComponent,
-    ForgotPasswordComponent,
-    ResetPasswordComponent,
-    OtpPageComponent,
-    ChangePasswordComponent,
-    AddadminComponent,
-    ViewadminComponent,
-    EditadminComponent,
-    ViewemployeeComponent,
-    AddemployeeComponent,
-    EditemployeeComponent,
-    ViewtermsComponent,
-    ViewdisclaimerComponent,
-    ViewprivacyComponent,
-    ViewrefundComponent,
-    ProfileComponent,
-    ViewemailverfiyComponent,
-    OtpemailverfiyComponent,
-    AddServiceticketComponent,
-    ViewServiceticketComponent,
-    EditServiceticketComponent,
-    ViewTicketimageComponent,
-    ViewTicketcommentComponent,
-    ViewTicketdescriptionComponent,
-    ViewRoleComponent,
-    AddRoleComponent,
-    EditRoleComponent,
-    ViewcustomerComponent,
-    PersonalviewComponent,
-    ViewlogoComponent,
-    SetupComponent,
-    ReturnsuccessComponent,
-    ReturnfailureComponent,
-    DashboardcontentComponent,
-    ViewwithdrawalComponent,
+    TestpageComponent,
+    ViewcategoryComponent,
+    AddcategoryComponent,
+    EditcategoryComponent,
+    ViewticketComponent,
+    AddticketComponent,
+    EditticketComponent,
     AddwithdrawalComponent,
-    AddBeneficiaryComponent,
-    ViewBeneficiaryComponent,
-    EditBeneficiaryComponent,
-    AddSetupboxComponent,
-    ViewSetupboxComponent,
-    EditSetupboxComponent,
-    ViewRouteComponent,
-    AddRouteComponent,
-    EditRouteComponent,
-    ViewRegionComponent,
-    TransactionViewComponent,
-    TransactionViewbyidComponent,
-    ChannelConfigurationComponent,
-    PlanConfigurationComponent,
-    LCOPviewallComponent,
-    LCOPAddComponent,
-    LCOPViewComponent,
+    ViewwithdrawalComponent,
+    EditwithdrawalComponent,
+    BusinessKycComponent,
+    BusinessKycCreateComponent,
+    BusinessKycEditComponent,
+    PermissionComponent,
+    SubPermissionComponent,
+    EntityViewallComponent,
+    EntityAddComponent,
+    PgsetupCreateComponent,
+    MerchantTransactionViewComponent,
+    PgsetupEditComponent,
+    DashboardContentComponent,
+    OverallCustomerViewComponent,
+    OverallIndividualCustomerviewComponent,
+    EntityViewComponent,
+    PgsetupViewComponent,
+    ForgotPasswordComponent,
+    OtpVerificationComponent,
+    ResetPasswordComponent,
+    ChangePasswordComponent,
+    AdminCreateComponent,
+    PolicyEditComponent,
+    AdminViewComponent,
+    AdminTermsConditionComponent,
+    AdminDisclaimerComponent,
+    AdminPrivacypolicyComponent,
+    AdminRefundpolicyComponent,
+    ViewCommentComponent,
+    ViewDescriptionComponent,
+    ViewmerchantComponent,
+    TicketImageComponent,
+    AddRoleComponent,
+    ViewRoleComponent,
+    EditRoleComponent,
+    AdminComponent,
+    AdminAddComponent,
+    AdminEditComponent,
+    AdminViewComponent,
+    ApprovalForBankComponent,
+    CommentsForApprovalComponent,
+    RegionComponent,
+    RegionAddComponent,
+    RegionEditComponent,
+    ServiceProviderComponent,
+    ServiceproviderAddComponent,
+    ServiceproviderEditComponent,
+    AdmincreationViewComponent,
+    AddfacheckkeyComponent,
+    EditfacheckkeyComponent,
+    ViewfacheckkeyComponent,
+    AlacarteViewallComponent,
+    AlcartAddComponent,
+    AlcartViewComponent,
+    AlcartEditComponent,
+    AlcartLogoViewComponent,
+    EditPersonalInfoComponent,
+    BouquatenameViewallComponent,
+    BouquateNameAddComponent,
+    BouquatenameEditComponent,
+    AddExtraChannelsComponent,
+    BouquetsViewallComponent,
+    BouqutesAddComponent,
+    BouqetsEditComponent,
+    BouqutesViewComponent,
+    DPOViewallComponent,
+    ApprovalForBankComponent,
+    CommentsForApprovalComponent,
+    KycApprovalComponent,
+    KycdocumentViewComponent,
+    KycCommentsComponent,
+    AddKycdocumentComponent,
+    EditKycdocumentComponent,
+    CommentsforApprovaloneComponent,
+    CommentsforApprovaltwoComponent,
+    LevelOneApprovalComponent,
+    LevelTwoApprovalComponent,
+    EntityBankaddComponent,
+    EntityBankeditComponent,
+    BankInfoComponent,
+    KycInfoComponent,
+    BouquetePlanViewallComponent,
+    BouquetenameAddComponent,
+    BouquetenameEditComponent,
+    MerchantPlanViewallComponent,
+    MerchantPlanAddComponent,
+    EditMerchantPlanComponent,
+    LogoutComponent,
     SearchPipe,
-    LcopChannelListComponent,
-    MobileVerficationComponent,
-    CustomerPaymentsViewComponent,
-    CustomerPaymentsInfoComponent,
-    CustomerPaymentSuccessComponent,
-    CustomerPaymentFailureComponent,
-    CreateBulkComponent,
-    ResponseBulkComponent,
-    ViewBulkComponent,
-    StreetViewComponent,
-    AreaViewComponent,
-    AddcustomerComponent,
-    OtpmobileverifyComponent,
+    DPOBouqueteAddComponent,
+    DpoViewComponent,
+    EntitySettlementComponent,
+    EntityRefundComponent,
+    EntityQrcodeComponent,
+    SettlementViewComponent,
+    EntityPgonboardComponent,
+    EntityCustomersViewAllComponent,
+    EntityCustomersViewComponent,
+    OverallTransactionsViewallComponent,
+    AddbeneficiaryComponent,
+    ViewbeneficiaryComponent,
+    EditbeneficiaryComponent,
+    ProfileComponent,
+    BouquetsRegionsviewComponent,
     ViewPermissionComponent,
     ViewSubpermissionComponent,
-    ViewwithdrawalComponent,
-    AddwithdrawalComponent,
-    OnetimesetupComponent,
-    PlanConfigurationDetailsComponent,
-    TestPageComponent,
-    EditcustomerComponent,
+    EntityTransactionComponent,
     ChannelViewComponent,
-    MerchantViewallComponent,
-    MerchantViewbyidComponent,
-    MerchantduesFailureComponent,
-    MerchantduesSuccessComponent,
-    ChannelconfigurationSingleviewComponent,
-    LcopEditComponent,
-    TransactionManualpayComponent,
-    CustomerTermsandpolicyComponent,
-    CustomerPrivacyPolicyComponent,
-    CustomerRefundPolicyComponent,
-    CustomerDisclaimerComponent,
-    CustomerTransactionviewsComponent,
-    CustomerTransactionIndividualviewComponent,
-    CusticketsViewallComponent,
-    CusTicketeCreateComponent,
-    CusTicketEditComponent,
-    CustomerSolutionsComponent,
-    CustomerFarginPolicyComponent,
-    ByRedirectComponent,
-    SetupboxHistoryComponent,
-    CustLogoComponent,
+    DuesViewComponent,
+    DuesComponent,
+    UpdateManualpaymentComponent,
+    MerchantLogoComponent,
+    ManualTransactionComponent,
+    CreateManualpaymentComponent,
+    KeysUpdateComponent,
+    ViewOnboardinfoComponent,
+    PaymentlinkViewComponent,
+    PaymentlinkResendComponent,
+    ViewPolicyComponent,
+    AddPolicyComponent,
+    EditPolicyComponent,
     CustomerViewallComponent,
-    CustomerTicketraiseComponent,
-    ProfileViewComponent,
-    AddAlcotComponent,
-    ReturnDuesComponent,
-    BouquetaddComponent,
-    LcopaddComponent,
-    CustomerDisclaimerComponent,
-    CustomerDiscriptionComponent,
-    ViewDiscriptioncustomerComponent,
-    OtherPaymentsViewallComponent,
-    OtherPaymentsSuccessComponent,
-    OtherpaymentsFailureComponent,
-    CustomerBulkuploadComponent,
-    CustomerBulkresponseComponent,
-    ViewrenewalComponent,
-    SetupformComponent,
-    ReturnrewealsuccessComponent,
-    ReturnrewealfailureComponent,
-    RenewaltransactiondetailsComponent,
-    AddsettopboxPlanComponent,
-    ServiceProviderLinkViewallComponent,
-    CustomerOtpVerifyComponent,
-    CustomerStatusComponent,
-    AddSetupboxPlanComponent,
-    PlanParticularSetupboxComponent,
-    ViewsmsComponent,
-    SmsapprovalComponent,
-    SmsviewhistoryComponent,
-    SmshistoryComponent,
-    AddSurveyquestionsComponent,
-    ViewSurveyquestionsComponent,
-    UpdateSurveyquestionsComponent,
+    CustomerTicketapprovalComponent,
+    CustDescriptionCommentComponent,
+    BankViewallComponent,
+    AddbankDetailsComponent,
+    EditBankDetailsComponent,
+    PolicyApprovalComponent,
+    CustomerTransViewallComponent,
+    CustomerTransViewComponent,
+    MaintenanceTransViewallComponent,
+    MaintanceViewComponent,
+    ServicePaymentsViewallComponent,
+    ServicePaymentViewComponent,
+    QRcreationComponent,
+    BankVerificationMatchComponent,
+    OtherpaymentsViewallComponent,
+    OtherpaymentsViewComponent,
+    CreateOtherpaymentComponent,
+    EditOtherpaymentComponent,
+    OtherpayTransComponent,
+    EntityKyceditComponent,
+    EntityKyceditComponent,
+    AddKyccategoryComponent,
+    ViewallKyccategoryComponent,
+    EditKyccategoryComponent,
+    FarginBankAddComponent,
+    FarginBankviewComponent,
+    FarginBankEditComponent,
+    EditSmsComponent,
+    SmsCreateComponent,
+    SMSHistoryComponent,
+    SMSHistoryViewComponent,
+    EntitySmsViewallComponent,
+    EntitySmsViewComponent,
+    AddBussinessdocumentComponent,
+    EditBussinessdocumentComponent,
+    ImageBussinessdocumentComponent,
+    ApprovalBussinessdocumentComponent,
+    CommentBussinessdocumentComponent,
+    SmsCostViewallComponent,
+    SMScostAddComponent,
+    EntityAutoDebitGetallComponent,
+    EntityAutoDebitByIdComponent,
+    AddAnnouncementComponent,
+    EditAnnouncementComponent,
+    ViewAnnouncementComponent,
+    AnnouncementviewComponent,
+    SmsApprovalComponent,
+    SmsHistoryEntityComponent,
+    PlanDetailsCustomerComponent,
+    CustomerSurveyquestionsComponent,
     ViewQuestionsComponent,
-    CustomerresponseCreateComponent,
-    ViewCustomerResponseComponent,
-    CustomerSurveyViewComponent,
-    CustomersurveyIndividualviewComponent,
-    ServicecustomerTicketImageComponent,
-    OtherpayViewComponent,
-    CustomerviewrouteComponent,
-    ExtraaddrouteComponent,
-    AllcustomerrouteComponent,
-    ExtraareaComponent,
-    ExtrastreetComponent,
-    ExtracustomerComponent,
-    CustomertransactionrouteComponent,
-    AdmincustomerdetailsComponent,
-    AdmincustomertransactionComponent,
-    PascustomerdetailsComponent,
-    AdminViewComponent,
-    CustomersetupboxhistoryComponent,
-    AggrementSignerTwoComponent,
-    ViewagreementsComponent,
-    AggrementSignerTwoOtpComponent,
-    AggrementLocationTwoTrackerComponent,
-    CustomersetupboxbulkresponseComponent,
-    CustomerextrasetupboxbulkComponent,
-    SetupboxCustomerviewComponent,
-    FinalPaymentComponent,
+    SurveyviewallComponent,
+    CustomerticketImageComponent,
+    ReadquestionsComponent,
+    AlcotHistoryComponent ,
+    AddExtraRegionComponent,
+    ChanneleditComponent,
+    BouqutesRegioneditComponent,
+    BouqutesRegionComponent,
+    AggrementSignerOneComponent,
+    SignerGetallComponent,
+    SignerAddComponent,
+    SignerUpdateComponent,
+    AddagreementplanComponent,
+    ViewagreementplanComponent,
+    EditagreementplanComponent,
+    AllagreementplansComponent,
+    AddAgreementsComponent,
+    AgreementlinkComponent,
+    AgreementViewallComponent,
+    AggrementSignerOtpComponent,
+    AggrementLocationTrackerComponent,
+    AgreementsLinkExtentComponent,
     OfflineTransactionsComponent,
-    FailureTransactionsComponent,
-    SuccessTransactionsComponent,
-    CusduelogsbymerchantComponent,
-    UpdateCusduesComponent,
-    UpdatedDuesdetailsComponent,
-    PlanConfigurationChannelviewComponent,
-    SuccessForAdditionalComponent,
-    FailureForAdditionalComponent,
-    ManuvalpayWithoutOtpComponent,
-    StbStatusComponent,
-    ViewsetupboxreportsComponent,
-    ViewcustomerreportsComponent,
-    ViewduesreportsComponent,
-    PincodeComponent,
-    CreatePincodeComponent,
-    EditPincodeComponent,
-    CreateAreaComponent,
-    AreaViewallComponent,
-    EditAreaComponent,
-    StreetViewallComponent,
-    StreetCreateComponent,
-    EditStreetComponent,
-    PincodeViewComponent,
-    SMSDescriptionComponent,
-    ViewReasonComponent,
-    DashboardviewbookingComponent,
-    DashboardviewfreeComponent,
-    DashboardviewfaultyComponent,
-    DashboardviewactivecustomerComponent,
-    DashboardviewinactivecustomerComponent,
-    DashboardviewpendingcustomerComponent,
-    DashboardviewactiveempolyeeComponent,
-    DashboardviewinactiveemployeeComponent,
-    AdditinalFinalpayComponent,
-    AdditionalCustomerpayinfoComponent,
-    AdditionalpayViewComponent,
-    AdditionaLTransactionhistoryComponent,
-    AdditionaltransactionIndividualviewComponent,
-    AddCategoryComponent,
-    UpdateCategoryComponent,
-    CategoryViewallComponent,
-    CreateAdditionalComponent,
-    UpdateAdditionalComponent,
-    AdditionalTransactionsComponent,
-    AdditionalPayviewComponent,
-    DashboardviewopenticketComponent,
-    DashboardviewclosedticketComponent,
-    DashboardviewholdticketComponent,
-    InactiveStatusComponent,
-    ManualduesgenerateComponent,
-    BranchesViewallComponent,
-    BranchesIndividualViewComponent,
-    EditcustomerSetupboxComponent,
-    BranchCustomerIndividualviewComponent,
+    SuccessOfftransactionsComponent,
+    FailureOfftransactionsComponent,
+    OfflineSettlementComponent,
+    OffileSettlementPayoutComponent,
+    BranchAddComponent,
+    BranchEditComponent,
+    BranchViewallComponent,
+    ViewadditionalpaymentsComponent,
+    AdditionalpaymentsComponent,
+    BranchIndividualviewComponent,
     BranchCustomerViewComponent,
-    RemainderstatusComponent,
-    DuestatusonoffComponent,
-    OnstatusComponent,
-    OffstatusComponent,
-    YesterdayonoffstatusComponent,
-    YesterdayoffstatusComponent,
-    CreateroutebulkComponent,
-    RoutebulkresponseComponent,
-    HistoryforreminderComponent,
-    DuestatushistoryComponent,
-    BookedCustomerViewComponent,
-    DamagedCustomerViewComponent,
-    DuestatusoffdetailsComponent,
-    RefundForMerchantComponent,
-    SetupboxHistoryviewComponent,
-    CustomerStatusHistoryComponent,
-    LcopchannelviewComponent
-
+    RefundGetallComponent,
+    TransManualPayComponent
 
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    TranslateModule.forRoot({
-      loader:
-      {
-        provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [HttpClient]
-
-      }
-    }),
-    PdfViewerModule,
     BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
     MatMenuModule,
+    MatBadgeModule,
     MatTableModule,
     MatCardModule,
     MatPaginatorModule,
@@ -534,10 +488,11 @@ export function HttpLoaderFactory(http: HttpClient) { return new TranslateHttpLo
     MatButtonModule,
     MatButtonToggleModule,
     MatCheckboxModule,
-    NgxPaginationModule,
     MatChipsModule,
+    PdfViewerModule,
     MatCommonModule,
     MatDatepickerModule,
+    NgxPaginationModule,
     MatDialogModule,
     MatPaginatorModule,
     MatInputModule,
@@ -546,21 +501,13 @@ export function HttpLoaderFactory(http: HttpClient) { return new TranslateHttpLo
     MatGridListModule,
     MatSlideToggleModule,
     MatSelectModule,
-    MatOptionModule,
-    NgxPaginationModule,
-    FilterPipeModule,
-    MatBadgeModule,
-    MatDialogModule,
-    MatTooltipModule,
-    ToastrModule.forRoot(),
+    DropdownModule, 
+    ToastrModule.forRoot()
+
   ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: LoadingInterceptor,
-      multi: true,
-    },
-  ],
-  bootstrap: [AppComponent],
+  providers: [{
+    provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true
+  }],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

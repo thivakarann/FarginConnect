@@ -2,105 +2,57 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<!------ Include the above in your HEAD tag ---------->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
   integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
   crossorigin="anonymous" referrerpolicy="no-referrer" />
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description"
-    content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3" />
+    content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
   <title>Sidebar template</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
-  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet" />
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+
 
 </head>
 
 <body>
   <div class="page-wrapper chiller-theme toggled">
     <div class="toggle">
+
       <a id="show-sidebar" class="btn btn-sm btn-dark">
-        <i class="fas fa-bars"> </i>
+        <i class="fas fa-bars">
+        </i>
       </a>
 
-      <div class="text-start" style="margin-left:260px; margin-top: 20px;">
-        <h5 style="color: white;">
-          Welcome,{{adminName}}
-        </h5>
-
-
+      <div class="center">
+        <h2 style="font-size: 20px; margin-left:45px;">FARGIN CONNECT</h2>
       </div>
-      <div class="search-dropdown">
-      <!-- From Uiverse.io by 3bdel3ziz-T --> 
-      <div class="select">
-  <div
-      class="selected"
-      data-default="English"
-      data-one="Tamil"
-      data-two="Hindi"
-  >
-  <svg
-        xmlns="http://www.w3.org/2000/svg"
-        height="1em"
-        viewBox="0 0 512 512"
-        class="arrow"
-  >
-  <path
-          d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"
-          fill="#141E46"
-          ></path>
-  </svg>
-  </div>
-  <div class="options">
-  <div title="all">
-  <input id="all" name="option" type="radio" checked=""  (click)="switchLanguage('en')" />
-  <label class="option" for="all"   data-txt="English"></label>
-  </div>
-  <div title="option-1">
-  <input id="option-1" name="option" type="radio" (click)="switchLanguage('ta')" />
-  <label class="option" for="option-1" data-txt="Tamil"></label>
-  </div>
-  <div title="option-2">
-  <input id="option-2" name="option" type="radio" (click)="switchLanguage('hi')" />
-  <label class="option" for="option-2" data-txt="Hindi"></label>
-  </div>
-  </div>
-  </div>
-
-             
-      </div>
-
       <div class="dropdown" id="profile-dropdown">
         <button class="btn dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-user"></i>
-
         </button>
-        <!-- [hidden]="valueprofile!=='Profile'" -->
         <div class="dropdown-content">
-          <a routerLink="view-profile"><i class="fa fa-user" aria-hidden="true"></i>
-            &nbsp; Profile</a>
-          <a (click)="changepassword()"><i class="fa fa-key" aria-hidden="true"></i> &nbsp; Change
-            Password</a>
+          <a routerLink="viewprofile"><i class="fa fa-user" aria-hidden="true"></i>&nbsp; Profile</a>
+          <a (click)="changepassword()"><i class="fa fa-key" aria-hidden="true"></i> &nbsp; Change Password</a>
           <a (click)="logout()"><i class="fas fa-sign-out-alt"></i> &nbsp; Log Out</a>
         </div>
       </div>
+
     </div>
     <nav id="sidebar" class="sidebar-wrapper">
       <div class="sidebar-content">
         <div class="sidebar-brand">
           <div class="img">
-            <img style="width: 70px; height: 45px" src="assets/fargin_blue.png" />
+            <img style="width: 70px;height: 50px;" src="assets/farginblue.png">
           </div>
-          <a style="color: white">Fargin Connect
-            Entity
-          </a>
+          <a style="color: white;">Fargin Connect Super Admin</a>
           <div id="close-sidebar">
             <i class="fas fa-bars"></i>
           </div>
@@ -109,454 +61,389 @@
 
         </div>
 
-        <div class="sidebar-menu" style="cursor: pointer">
+        <!-- sidebar-search  -->
+        <div class="sidebar-menu">
           <ul>
             <li class="header-menu">
               <span></span>
             </li>
-            <!-- [hidden]="valueDashboard!=='Dashboard'" -->
+
             <li [hidden]="valueDashboard!=='Dashboard'">
-              <a routerLink="content">
-                <i class="fa fa-windows"></i>
-                <span style="font-size: 13px;">{{"Dashboard" | translate}}</span>
+              <a routerLink="dashboard-content">
+                <i class="fa fa-dashboard"></i>
+                <span>Dashboard Sections</span>
               </a>
             </li>
 
-            <li>
-              <a routerLink="view-email" [hidden]="valueVerification!=='Verification'">
-                <i class="fa fa-check-circle"></i>
-                <span style="font-size: 13px;">{{"Verfication" | translate}}</span>
+            <li [hidden]="valueEntity!=='Entity Onboard'">
+              <a routerLink="entity-viewall">
+                <i class="fa fa-user-plus"></i>
+                <span>Entity Onboard</span>
               </a>
             </li>
 
-            <div [hidden]="valueCustomer!=='Customer'">
-              <li [hidden]="!checkStatus">
-                <a routerLink="view-customer">
-                  <i class="fa fa-user-plus"></i>
-                  <span style="font-size: 13px">{{"CustomerOnboard" | translate}}</span>
-                </a>
-              </li>
-            </div>
-            <li [hidden]="valueAgreement!=='Agreement'">
-              <a routerLink="viewagreements">
-                <i class="fa fa-handshake"></i>
-                <span style="font-size: 13px">{{"Agreement" | translate}}</span>
+            <li [hidden]="valueCustomer!=='Customers'">
+              <a routerLink="Overall-Customer-view">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <span>Customers</span>
+
               </a>
             </li>
-            <div [hidden]="valueDues!=='Subscription'">
-              <li [hidden]="!checkStatus">
-                <a routerLink="Merchant-view">
-                  <i class="fa-regular fa-clock"></i>
-                  <span style="font-size: 13px">{{"Subscription" | translate}}
-                  </span>
-                </a>
-              </li>
-            </div>
-            <div [hidden]="valuerenewal!=='Renewal'">
-              <li [hidden]="!checkStatus">
-                <a routerLink="viewrenewal">
-                  <i class="fas fa-sync"></i>
-                  <span style="font-size: 13px">{{"Renewal" | translate}}
-                  </span>
-                </a>
-              </li>
-            </div>
-            <div [hidden]="offlineQrEnableStatus=='0'">
-              <div [hidden]="valuestatic!=='Static QR Transactions'">
-                <li [hidden]="!checkStatus">
-                  <a routerLink="offline-transactions">
-                    <i class="fa fa-qrcode"></i>
-                    <span style="font-size: 13px">{{"Static QR Transactions" | translate}}</span>
-                  </a>
-                </li>
-              </div>
+
+            <li [hidden]="valuesurvey!=='Survey'">
+              <a routerLink="surveyviewall">
+                <i class="fa-solid fa-square-poll-vertical" style="font-size: 14px;" aria-hidden="true"></i>
+                <span>Survey</span>
+
+              </a>
+            </li>
+
+            <li [hidden]="valueannouncement!=='Announcement'">
+              <a routerLink="view-announcement">
+                <i class="fa fa-bullhorn"></i>
+                <span>Announcement</span>
+              </a>
+            </li>
+
             
-            </div>
-            <div [hidden]="valueonline!=='Online Refunds'">
-              <li [hidden]="!checkStatus">
-                <a routerLink="refund-for-merchant">
-                  <i class="fa-solid fa-money-bills" style="font-size: 14px;" aria-hidden="true"></i>
-              
-                  <span style="font-size: 13px">{{"Online Refunds" | translate}}
-                  </span>
-                </a>
-              </li>
-            </div>
+            <!-- <li [hidden]="valueentitydues!=='Entity Dues'">
+              <a routerLink="app-dues">
+                <i class="fa-solid fa-credit-card" aria-hidden="true"></i>
+                <span>Entity Dues</span>
 
-            <div [hidden]="valuecustomerdues!=='Customer dues'">
-              <li [hidden]="!checkStatus">
-                <a routerLink="transaction-view">
-                  <i class="fas fa-rupee-sign"></i>
-                  <span style="font-size: 13px;">{{"Customer Dues" | translate}}</span>
-                </a>
-              </li>
-            </div>
-            <div [hidden]="valueAdditionalTransactions!=='Additional Transactions'">
-              <li [hidden]="!checkStatus">
-                <a routerLink="additional-transactions">
-                  <i class="fa fa-money"></i>
-                  <span style="font-size: 13px">{{"Additional Transactions" | translate}}</span>
-                </a>
-              </li>
-            </div>
+              </a>
+            </li> -->
+            <!-- <li [hidden]="valueTransaction!=='Transactions'">
+              <a routerLink="overall-transactions-viewall">
+                <i class="fa-solid fa-credit-card" aria-hidden="true"></i>
+                <span>Transactions</span>
+              </a>
+            </li> -->
 
-            <div [hidden]="valueCustomizations!=='Customizations Payments'">
-              <li [hidden]="!checkStatus">
-                <a routerLink="other-payments-viewall">
-                  <i class="fa-solid fa-money-bill"></i>
-                  <span style="font-size: 13px">{{"Customization Payments" | translate}}</span>
-                </a>
-              </li>
-            </div>
-           
+            <!-- <li [hidden]="valuepayOut!=='Payout'">
+              <a routerLink="view-beneficiary">
+                <i class="fas fa-landmark icon"></i>
+                <span>Payout</span>
+              </a>
+            </li> -->
 
-            <div [hidden]="valueDueStatusHistory!=='Due Status History'">
-              <li [hidden]="!checkStatus">
-                <a routerLink="duestatushistory">
-                  <i class="fa fa-history" style="font-size: 14px;" aria-hidden="true"></i>
-                  <span style="font-size: 13px">{{"Due Status History" | translate}}
-                  </span>
-                </a>
-              </li>
-            </div>
-            <div [hidden]="valuesurvey!=='Customer Survey'">
-              <li [hidden]="!checkStatus">
-                <a routerLink="view-surveyquestions">
-                  <i class="fa-solid fa-square-poll-vertical" style="font-size: 14px;" aria-hidden="true"></i>
-                  <span style="font-size: 13px" >{{"Customer Survey" | translate}}
-                  </span>
-                </a>
-              </li>
-            </div>
-
-            <div [hidden]="branchstatus==false">
-              <li [hidden]="valueBranch!=='Branch'">
-                <a routerLink="branches-viewall">
-                  <i class="fa-solid fa-sitemap" style="font-size: 14px;" aria-hidden="true"></i>
-                  <span style="font-size: 13px">{{"Branch" | translate}}
-                  </span>
-                </a>
-              </li>
-            </div>
-
-
-
-            <div [hidden]="valueserviceticket!=='Support Request' && valuecutomerticket!=='Customer Request'">
-              <li class="sidebar-dropdown">
-                <a>
-                  <i class="fa-solid fa-ticket"></i>
-                  <span style="font-size: 13px">{{"Service Request" | translate}}</span>
-                </a>
-                <div class="sidebar-submenu">
-                  <ul>
-                    <li routerLink="view-serviceticket" [hidden]="valueserviceticket!=='Support Request'">
-                      <a>{{"Support Request" | translate}}</a>
-                    </li>
-                    <li [hidden]="valuecutomerticket!=='Customer Request'">
-                      <a routerLink="customer-viewall">{{"Customer Request" | translate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-                          class="mb-2" matBadgeColor="warn" matBadge="{{customercount?.totalOpenTicketCount}}"
-                          matBadgeSize="medium" matBadgeOverlap="true">
-                        </span> </a>
-                    </li>
-
-                  </ul>
-                </div>
-              </li>
-            </div>
-
-            <!-- <div
-            [hidden]="valuecustomerreport!=='Customer Reports'
-            && valueDuesReports!=='Dues Reports'
-            && valueSetupboxReports!=='Setupbox Reports' ">
-            <li [hidden]="checkStatus!==true" class="sidebar-dropdown">
+            <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valuecustomerpayment!=='Customer Payment' &&
+            valuecustomersubscription!=='Subscription Payment' &&
+            valuecustomermanualpayment!=='one Time Payments' &&
+            valueCustomizationPayments!=='Customized Payment' && valueAdditionalPayments!=='Additional Payments'">
               <a>
-                <i class="fas fa-file-alt"></i>
-                <span style="font-size: 13px">Reports</span>
+                <i class="fa-solid fa-credit-card" aria-hidden="true"></i>
+                <span>Transactions</span>
               </a>
               <div class="sidebar-submenu">
                 <ul>
-                  <li [hidden]="valuecustomerreport!=='Customer Reports'">
-                    <a routerLink="view-customerreports">Customer Reports</a>
-                  </li>
-                  <li [hidden]="valueDuesReports!=='Dues Reports'">
-                    <a routerLink="view-duesreports">Dues Reports</a>
+                  <li [hidden]="valuecustomerpayment!=='Customer Payment'">
+                    <a routerLink="customer-trans-viewall">
+                      Customer Payments
+                    </a>
                   </li>
 
-                  <li [hidden]="valueSetupboxReports!=='Setup Box Reports'">
-                    <a routerLink="view-setupboxreports">Setupbox Reports</a>
+                  <li routerLink="maintenance-trans-viewall"
+                    [hidden]="valuecustomersubscription!=='Subscription Payment'">
+                    <a> Cloud Fee Payments</a>
+                  </li>
+                  <li routerLink="service-payments-viewall" [hidden]="valuecustomermanualpayment!=='one Time Payments'">
+                    <a>One Time Payments</a>
+                  </li>
+                  <li routerLink="otherpayments-viewall" [hidden]="valueCustomizationPayments!=='Customized Payment'">
+                    <a>Customization Payments</a>
+                  </li>
+                  <li routerLink="additional-payments" [hidden]="valueAdditionalPayments!=='Additional Payments'" >
+                    <a>Additional Payments</a>
+                  </li>
+                </ul>
+              </div>
+              <li [hidden]="valueautodebit!=='MMC Auto Debit'">
+                <a routerLink="entity-auto-debit-getall">
+                  <i style="font-size: 15px;" class="fa-solid fa-money-bill-transfer"></i>
+                  <span>Cloud Fee Auto Debit</span>
+                </a>
+              </li>
+
+            <li class="sidebar-dropdown" style="cursor: pointer;"
+              [hidden]="valueentitysms!=='Entity Sms'  && valuesmshistory!=='SMS History'">
+              <a>
+                <i class="fa-solid fa-comment-sms" style="font-size: 15px;"></i>
+                <span>SMS</span>
+              </a>
+
+              <div class="sidebar-submenu">
+                <ul>
+                  <li [hidden]="valueentitysms!=='Entity Sms'">
+                    <a routerLink="entity-sms-viewall">
+                      Entity Sms
+                    </a>
+                  </li>
+
+                  <li [hidden]="valuesmshistory!=='SMS History'">
+                    <a routerLink="smshistory">
+                      SMS History
+                    </a>
+                  </li>
+                </ul>
+
+              </div>
+
+            </li>
+            <div>
+              <li [hidden]="valueonlienrefund!=='Online Refunds'">
+                <a routerLink="refund-getall">
+                  <i class="fa-solid fa-sitemap" style="font-size: 14px;" aria-hidden="true"></i>
+                  <span style="font-size: 13px">Online Refunds
+                  </span>
+                </a>
+              </li>
+            </div>
+            
+
+           
+
+           
+
+
+         
+
+
+
+            <li class="sidebar-dropdown" style="cursor: pointer;"
+              [hidden]="valuefarginpolicy!=='Fargin Policy' && valueMerchantpolicy!=='Merchant Policy'">
+              <a>
+                <i class="fas fa-hands-holding-child icon" style="font-size: 14px;" aria-hidden="true"></i>
+                <span>Terms and Policy</span>
+              </a>
+              <div class="sidebar-submenu">
+                <ul>
+                  <li [hidden]="valuefarginpolicy!=='Fargin Policy'">
+                    <a routerLink="view-policy">
+                      Fargin Policy
+                    </a>
+                  </li>
+
+                  <li routerLink="Terms-policy" [hidden]="valueMerchantpolicy!=='Merchant Policy'">
+                    <a>Merchant Policy</a>
                   </li>
 
                 </ul>
               </div>
+
             </li>
-          </div> -->
- 
-            <!-- <div [hidden]="valueBeneficiary!=='Beneficiary' && valuefunds!=='Fund Transfer'">
-              <li *ngIf="emailststaus==1 && smsstatus==1 && technical=='SUCCESS'|| technical=='Success'"
-                class="sidebar-dropdown">
-                <a>
-                  <i class="fa fa-credit-card"></i>
-                  <span>Pay Out</span>
-                </a>
-                <div class="sidebar-submenu">
-                  <ul>
-                    <li routerLink="view-beneficiary" [hidden]="valueBeneficiary!=='Beneficiary'">
-                      <a>Beneficiary</a>
-                    </li>
-                    <li routerLink="viewwithdrawal" [hidden]="valuefunds!=='Fund Transfer'">
-                      <a>Fund Transfer</a>
-                    </li>
 
-                  </ul>
-                </div>
-              </li>
-            </div>
-             <li *ngIf="emailststaus==1 && smsstatus==1" >
-                <a routerLink="view-withdrawal">
-                  <i class="fa fa-times"></i>
-                  <span>Withdrawal Request</span>
-                </a>
-              </li> -->
-            <!-- <div >
-              <li [hidden]="checkStatus!==true" class="sidebar-dropdown">
+            <li [hidden]="valueentityagreement!=='Entity Agreement'">
+              <a routerLink="agreement-viewall">
+                <i class="fa-solid fa-handshake"></i>
+                <span>Entity Agreement</span>
+              </a>
+            </li>
 
-                <a>
-                  <i class="fas fa-hands-holding-child icon"></i>
-                  <span style="font-size: 13px">Payout</span>
-                </a>
-                <div class="sidebar-submenu">
-                  <ul>
-                  
-                  </ul>
-                </div>
-              </li>
-            </div> -->
+            <li [hidden]="valuebranch!=='Branch'">
+              <a routerLink="Branch-viewall">
+                <i class="fa-solid fa-sitemap"></i>
+                <span>Branch</span>
+              </a>
+            </li>
 
-            <div [hidden]="valuetermscondition!=='Terms and Condition' && valuedisclaimer!=='Disclaimer' 
-                && valueprivacypolicy!=='Privacy Policy' && valuerefund!=='Refund Policy'">
-              <li class="sidebar-dropdown">
-                <a>
-                  <i class="fas fa-hands-holding-child icon"></i>
-                  <span style="font-size: 13px">{{"Policies" | translate}}</span>
-                </a>
-                <div class="sidebar-submenu">
-                  <ul>
-                    <li [hidden]="valuetermscondition!=='Terms and Condition'">
-                      <a routerLink="view-terms">{{"Terms and Condition" | translate}}</a>
-                    </li>
-                    <li [hidden]="valuedisclaimer!=='Disclaimer'">
-                      <a routerLink="view-disclaimer">{{"Disclaimer" | translate}}</a>
-                    </li>
-                    <li [hidden]="valueprivacypolicy!=='Privacy Policy'">
-                      <a routerLink="view-privacy">{{"Privacy Policy" | translate}}</a>
-                    </li>
-                    <li [hidden]="valuerefund!=='Refund Policy'">
-                      <a routerLink="view-refund">{{"Refund Policy" | translate}}</a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-            </div>
-
-            <div [hidden]="valuesms!=='SMS Service' && valuesmshistory!=='SMS History'">
-              <li class="sidebar-dropdown" [hidden]="smsactive==0">
-                <a>
-                  <i class="fas fa-sms"></i>
-                  <span style="font-size: 13px">{{"SMS" | translate}}</span>
-                </a>
-                <div class="sidebar-submenu">
-                  <ul>
-                    <li routerLink="viewsms" [hidden]="valuesms!=='SMS Service'">
-                      <a>{{"SMS Service" | translate}}</a>
-                    </li>
-                    <li routerLink="smshistory" [hidden]="valuesmshistory!=='SMS History'">
-                      <a>{{"SMS History" | translate}}</a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-            </div>
-
-            <div [hidden]="valueChannelConfiguration!=='Channel Configuration' 
-              && valuePlanConfiguration!=='Plan Configuration'
-               && valueLCOPPlanConfiguration!=='LCOP Plan Configuration'">
-
-              <li [hidden]="!checkStatus" class="sidebar-dropdown">
-                <a>
-                  <i class="fa-solid fa-tv"></i>
-                  <span style="font-size: 13px;">{{"Channels & Packages" | translate}}</span>
-                </a>
-                <div class="sidebar-submenu">
-                  <ul>
-                    <li [hidden]="valueChannelConfiguration!=='Channel Configuration'">
-                      <a routerLink="channel-configuration">{{"Channel Configuration" | translate}}</a>
-                    </li>
-                    <li [hidden]="valuePlanConfiguration!=='Plan Configuration'">
-                      <a routerLink="plan-configuration">{{"Plan Configuration" | translate}}</a>
-                    </li>
-
-                    <li [hidden]="valueLCOPPlanConfiguration!=='LCOP Plan Configuration'">
-                      <a routerLink="lcopviewall">{{"LCOP Plan Configuration" | translate}}</a>
-                    </li>
-
-                  </ul>
-                </div>
-              </li>
-            </div>
-
-
-            <div [hidden]="valuebulksetup!=='Setup box Status'&& valuecustomerbulk!=='Customer Status' && valuecustomerbulksetupbox!=='Customer Setupbox Status'&& valueRouteStatus!=='Route Status'">
-              <li class="sidebar-dropdown" [hidden]="!checkStatus">
-                <a>
-                  <i class="fas fa-upload"></i>
-                  <span style="font-size: 13px">{{"Bulk Upload Status" | translate}}</span>
-                </a>
-
-                <div class="sidebar-submenu" >
-                  <ul>
-                    <li [hidden]="valuebulksetup!=='Setup box Status'">
-                      <a routerLink="response-bulk">
-                        <span>{{"Setupbox Status" | translate}}</span>
-                      </a>
-                    </li>
-                    <!-- [hidden]="valuecustomerbulk!=='Customer Status'" -->
-                    <li [hidden]="valuecustomerbulk!=='Customer Status'">
-                      <a routerLink="customer-bulkresponse">
-                        <span>{{"Customer Status" | translate}}</span>
-                      </a>
-                    </li>
-                    <li [hidden]="valuecustomerbulksetupbox!=='Customer Setupbox Status'">
-                      <a routerLink="setupboxresponse">
-                        <span>
-                          {{"Customer Setupbox Status" | translate}}</span>
-                      </a>
-                    </li>
-                    <li [hidden]="valueRouteStatus!=='Route Status'" >
-                      <a routerLink="route-bulkresponse">
-                        <span>  {{"Route Status" | translate}}</span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-            </div>
-
-            <!-- <div>
-              <ul>
-                <li [hidden]="!checkStatus" class="sidebar-dropdown">
-                  <a>
-                    <i class="fas fa-user-cog"></i>
-                    <span style="font-size: 13px">Language</span>
-                  </a>
-                  <div class="sidebar-submenu">
-                    <ul>
-                      <li>
-                        <a (click)="switchLanguage('en')">English</a>
-                      </li>
-
-                      <li>
-                        <a (click)="switchLanguage('ta')">Tamil</a>
-                      </li>
-                      <li>
-                        <a (click)="switchLanguage('te')">Telugu</a>
-                      </li>
-                      <li>
-                        <a (click)="switchLanguage('kn')">Kannada</a>
-                      </li>
-                      <li>
-                        <a (click)="switchLanguage('ml')">Malayalam</a>
-                      </li>
-                      <li>
-                        <a (click)="switchLanguage('hi')">Hindi</a>
-                      </li>
-
-                    
-                    
-                    </ul>
-                  </div>
-                </li>
-              </ul>
-            </div> -->
-
-            <div
-              [hidden]="valueregion!=='Region' && valueRouteConfiguration=='Route Configuration' && valuesetup!=='Setup Box Inventory' && valueServiceProvider!=='Service Provider Payments' && valueCategory!=='Category'">
-              <li [hidden]="!checkStatus" class="sidebar-dropdown">
-                <a>
-                  <i class="fa fa-globe"></i>
-                  <span style="font-size: 13px">  {{"Main Master" | translate}}</span>
-                </a>
-                <div class="sidebar-submenu">
-                  <ul>
-                    <li [hidden]="valueServiceProvider!=='Service Provider Payments'">
-                      <a style="text-wrap: nowrap;" routerLink="service-provider-link-viewall">{{"Service Provider Payments" | translate}}</a>
-                    </li>
-                    <li routerLink="view-region" [hidden]="valueregion!=='Region'">
-                      <a> {{"Region" | translate}}</a>
-                    </li>
-                    <li routerLink="view-route">
-                      <a>{{"Route Configuration" | translate}}</a>
-                    </li>
-
-                    <li routerLink="view-bulk" [hidden]="valuesetup!=='Setup Box Inventory'">
-                      <a>{{"Setupbox Inventory" | translate}}</a>
-                    </li>
-                    <li [hidden]="valueCategory!=='Category'">
-                      <a routerLink="category-viewall">{{ 'Category' | translate }}</a>
-                    </li>
-                    <!-- <li routerLink="app-pincode">
-                      <a>Pincode</a>
-                    </li>
-                    <li routerLink="area-viewall">
-                      <a>Area</a>
-                    </li>
-                    <li routerLink="street-viewall">
-                      <a>Street</a>
-                    </li> -->
- 
-                  </ul>
-                </div>
-              </li>
-            </div>
-
-            <div [hidden]="valuerole!=='Role' && valueemployee!=='Employee'">
-              <ul>
-                <li [hidden]="!checkStatus" class="sidebar-dropdown">
-                  <a>
-                    <i class="fas fa-user-cog"></i>
-                    <span style="font-size: 13px">{{ 'User Management' | translate }}</span>
-                  </a>
-                  <div class="sidebar-submenu">
-                    <ul>
-                      <li routerLink="view-role" [hidden]="valuerole!=='Role'">
-                        <a>{{ 'Role' | translate }}</a>
-                      </li>
-                      <li routerLink="view-admin" [hidden]="valueemployee!=='Employee'">
-                        <a>{{ 'Employee' | translate }}</a>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-              </ul>
-            </div>
-
+            <li class="sidebar-dropdown" style="cursor: pointer;"
+              [hidden]="valueTickets!=='Entity Request' && valuecustomerticket!=='Customer Request'">
+              <a>
+                <i class="fa-solid fa-ticket"></i>
+                <span>Service Request</span>
+              </a>
+              <div class="sidebar-submenu">
+                <ul>
+                  <li [hidden]="valueTickets!=='Entity Request'">
+                    <a routerLink="viewticket" style="display: flex; align-items: center;">
+                      Entity Request &nbsp;
+                      <span class="matBadge" matBadgeColor="warn" matBadge="{{counts}}" matBadgeSize="medium"
+                        matBadgeOverlap="true" style="margin-left: 9px;">
+                      </span>
+                    </a>
+                  </li>
+                  <li [hidden]="valuecustomerticket!=='Customer Request'">
+                    <a routerLink="customer-viewall">Customer Request</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
           
+
+            <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valueBusinessCategory!=='Bussiness Category' &&
+            valueBusinessKYC!=='Business Category Doc' &&
+            valueFacheck!=='FaCheck Key' &&
+            valuemerchantPlan!=='Merchant Plan' &&
+            valuepgsetupkey!=='PG SetupKey' &&
+            valueWithdrawalfee!=='Withdrawal Fee' &&
+            valueBuisneesDoCument!=='Business Document Type' &&
+            valueBusinessPlan!=='Business Plan' &&
+            valueSignerDetails!=='Signer Details'">
+             <a>
+               <i class="fa fa-cogs"></i>
+               <span>Main Master</span>
+             </a>
+             <div class="sidebar-submenu">
+               <ul>
+                 <li [hidden]="valueBusinessCategory!=='Bussiness Category'">
+                   <a routerLink="view-category">Business Category
+                   </a>
+                 </li>
+
+                 <li [hidden]="valueBuisneesDoCument!=='Business Document Type'">
+                   <a routerLink="viewall-kyccategory">Business Document Type </a>
+                 </li>
+
+                 <li [hidden]="valueBusinessKYC!=='Business Category Doc'">
+                   <a routerLink="Business-kyc">Business Category Doc</a>
+                 </li>
+                 <!-- <li [hidden]="valueRegion!=='Region'">
+                   <a routerLink="Region">Region</a>
+                 </li>
+                 <li [hidden]="ValueMSO!=='MSO'">
+                   <a routerLink="service-provider">MSO</a>
+                 </li> -->
+                 <li [hidden]="valuemerchantPlan!=='Merchant Plan'">
+                   <a routerLink="merchant-plan-viewall">Entity Plan</a>
+                 </li>
+
+                 <li [hidden]="valuebankdetails!=='Bank List'">
+                   <a routerLink="bank-viewall">Bank Details </a>
+                 </li>
+                 <li [hidden]="valueFacheck!=='FaCheck Key'">
+                   <a routerLink="viewfacheckkey">Facheck Key</a>
+                 </li>
+
+                 <li [hidden]="valuepgsetupkey!=='PG SetupKey'">
+                   <a routerLink="pgsetup-view">PG Setupkey</a>
+                 </li>
+
+                 <li [hidden]="valuesmscost!=='SMS Cost'">
+                   <a routerLink="sms-cost-viewall">SMS Cost</a>
+                 </li>
+
+
+
+                 <li [hidden]="valuefarginbank!=='Fargin bank'">
+                   <a routerLink="fargin-viewall">Fargin bank details </a>
+                 </li>
+                 <li [hidden]="valueBusinessPlan!=='Business Plan'">
+                   <a routerLink="agreementplan">Business Plan</a>
+                 </li>
+                 <li [hidden]="valueSignerDetails!=='Signer Details'">
+                   <a routerLink="signer-getall">Signer Details</a>
+                 </li>
+
+
+                 <!-- <li [hidden]="valueWithdrawalfee!=='Withdrawal Fee'">
+                   <a routerLink="viewwithdrawal">Withdrawal Fee</a>
+                 </li> -->
+               </ul>
+             </div>
+           </li>
+            <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valueUser!=='User' && valueRole!=='Role'">
+              <a>
+                <i class="fa-solid fa-person-circle-check"></i>
+                <span>User Management</span>
+              </a>
+              <div class="sidebar-submenu">
+                <ul>
+                  <li [hidden]="valueUser!=='User'">
+                    <a routerLink="/dashboard/admindetails">User
+                    </a>
+                  </li>
+
+                  <li routerLink="view-role" [hidden]="valueRole!=='Role'">
+                    <a>Role</a>
+                  </li>
+
+                </ul>
+              </div>
+
+            </li>
+
+            <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valueRegion!=='Region'&& ValueMSO!=='MSO'">
+              <a>
+                <i class="fa-solid fa-people-line"></i>
+                <span>Service Provider</span>
+              </a>
+              <div class="sidebar-submenu">
+                <ul>
+                  <li>
+                  <li [hidden]="valueRegion!=='Region'">
+                    <a routerLink="Region">Region</a>
+                  </li>
+                  <li [hidden]="ValueMSO!=='MSO'">
+                    <a routerLink="service-provider">MSO</a>
+                  </li>
+                </ul>
+              </div>
+
+            </li>
+
+            <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valuechannelConfiguration!=='Channel Creation' && 
+             valueBroadcasterConfiguration!=='Broadcaster Creation' && 
+             valuePlanConfiguration!=='Plan Creation' && 
+             valueBroadcasterBouqutes!=='Broadcaster Bouqutes'">
+              <a>
+                <i class="fa-solid fa-tv"></i>
+                <span>Channels & Packages</span>
+              </a>
+
+             
+
+
+              
+
+              
+              <div class="sidebar-submenu">
+                <ul>
+                  <li [hidden]="valuechannelConfiguration!=='Channel Creation'">
+                    <a routerLink="alacarte-viewall">Channel Creation
+                    </a>
+                  </li>
+                  <li [hidden]="valueBroadcasterConfiguration!=='Broadcaster Creation'">
+                    <a routerLink="bouquatename-viewall">Broadcaster Creation</a>
+                  </li>
+
+                  <li [hidden]="valuePlanConfiguration!=='Plan Creation'">
+                    <a routerLink="bouquete-plan-viewall">
+                      Plan Creation
+                    </a>
+                  </li>
+
+                  <li [hidden]="valueBroadcasterBouqutes!=='Broadcaster Bouqutes'">
+                    <a routerLink="bouquets-viewall">Broadcaster Bouquets</a>
+                  </li>
+                  <!-- 
+                  <li>
+                    <a routerLink="dpoviewall">DPO Bouqutes</a>
+                  </li> -->
+                </ul>
+              </div>
+
+
+
 
 
           </ul>
         </div>
+        <!-- sidebar-menu  -->
       </div>
+
     </nav>
+    <!-- sidebar-wrapper  -->
+    <main class="page-content" style="background-color:#dde1e9;height: 100vh;">
+      <div style="margin-top:50px;">
 
-    <div>
-      <main class="page-content" style="background-color: #dde1e9; height: 100vh">
-        <div style="margin-top: 50px">
-          <router-outlet></router-outlet>
-        </div>
-      </main>
-    </div>
 
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+    <!-- page-content" -->
   </div>
-
+  <!-- page-wrapper -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
     integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
@@ -565,6 +452,7 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </body>
 
 </html>

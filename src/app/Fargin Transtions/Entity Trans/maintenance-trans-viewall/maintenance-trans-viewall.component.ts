@@ -11,6 +11,7 @@ import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { subscriptionpay } from '../../../fargin-model/fargin-model.module';
 import { PageEvent } from '@angular/material/paginator';
+import { TransManualPayComponent } from '../trans-manual-pay/trans-manual-pay.component';
 
 @Component({
   selector: 'app-maintenance-trans-viewall',
@@ -37,10 +38,11 @@ export class MaintenanceTransViewallComponent {
     'igst',
     'sgst',
     'totalamount',
-    'paidAt',
-    'receipt',
-    'CheckStatus',
     'status',
+    'Manualpay',
+    'paidAt',
+    'CheckStatus',
+    'receipt',
     'view',
 
   ];
@@ -291,7 +293,7 @@ export class MaintenanceTransViewallComponent {
           if(element.paymentDateTime){
             this.response.push(moment(element?.paymentDateTime).format('DD/MM/yyyy hh:mm a').toString());
           }
-          else if (element.paymentDateTime =='null'){
+          else {
             this.response.push('');
           }
  
@@ -525,6 +527,46 @@ export class MaintenanceTransViewallComponent {
       // length: this.totalItems
     } as PageEvent);
   }
+
+  manuvalpayments(id: any) {
+ 
+    this.dialog.open(TransManualPayComponent, {
+      data: { value: id },
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '800ms',
+    })
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.service.MaintenanceAllTransactions(this.pageSize, this.pageIndex).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.transaction = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.totalPages;
+          this.currentpage = res.pagination.currentPage + 1;
+          // this.transaction.reverse();
+          this.dataSource = new MatTableDataSource(this.transaction);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.filter = true;
+          this.filter1=false;
+          this.filters=false;
+        }
+        else{
+          this.transaction = [];
+          this.dataSource = new MatTableDataSource(this.transaction);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.totalPages;
+          this.currentpage = res.pagination.currentPage + 1;
+          this.filter = true;
+          this.filter1=false;
+          this.filters=false;
+        }
+ 
+      });
+    })
+
+}
 
  
 }

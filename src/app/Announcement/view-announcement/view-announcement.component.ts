@@ -254,14 +254,14 @@ export class ViewAnnouncementComponent implements OnInit {
           this.response.push(element?.announcementContentEnglish);
           this.response.push(element?.startDate);
           this.response.push(element?.endDate);
-          this.response.push(element?.createdBy);
           if (element?.activeStatus == '1') {
             this.response.push('Active');
           }
           else {
             this.response.push('Inactive');
           }
- 
+          this.response.push(element?.createdBy);
+
           // this.response.push(this.date1 ||'-');
              if (element?.createdDateTime) {
                   this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy-hh:mm a').toString());

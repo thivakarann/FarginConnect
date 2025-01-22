@@ -31,6 +31,15 @@ export class AggrementLocationTrackerComponent {
   LocationRegionCode: any;
   locationforlatlong: any;
   ipAddressfinder: any;
+  ips: any;
+  countryname: any;
+  citys: any;
+  timezone: any;
+  stateprov: any;
+  latitudes: any;
+  longitudes: any;
+  countrycode2: any;
+  regioncode: any;
 
 
   constructor(
@@ -51,7 +60,25 @@ export class AggrementLocationTrackerComponent {
       console.log("IPAdress" +this.ipAddressfinder )
       this.getlocationbyid();
     });
-
+    this.Service.abstarctipadd().subscribe((res: any) => {
+      this.ips = res.ip_address;
+      this.countryname=res.country;
+      this.citys=res.city;
+      this.timezone=res.timezone?.name;
+      this.stateprov=res.region;
+      this.latitudes=res.latitude;
+      this.longitudes=res.longitude;
+      this.countrycode2=res.country_code;
+      this.regioncode=res.region_iso_code;
+ 
+ 
+ 
+ 
+     
+ 
+      console.log(this.ips)
+     
+    });
     
   }
 
@@ -142,36 +169,38 @@ export class AggrementLocationTrackerComponent {
       flag: this.Flag,
       consent: this.Consent,
       getLocation: this.Location,
-      ipAddress: this.ipAddress,
+      ipAddress: this.ips,
       locationStatus: true,
       publicIp: '',
-      country: this.LocationCountry,
-      city: this.LocationCity,
+      country: this.countryname,
+      city: this.citys,
       zip: '',
       serviceProvider: '',
-      timezone: this.Locationtimezone,
-      region: this.LocationRegion,
-      longitude: this.Locationlongitude,
-      latitude: this.Locationlatitude,
-      countryCode: this.LocationCountrycode,
-      regionCode: '',
-      autonomousSystemNumber: ''
-    }
-
+      timezone: this.timezone,
+      region: this.stateprov,
+      longitude:this.longitudes,
+      latitude: this.latitudes,
+      countryCode: this.countrycode2,
+      regionCode:  this.regioncode,
+      autonomousSystemNumber: '',
+    };
+ 
     this.Service.agreemntconcentlocation(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.details = res.response;
         this.dialog.closeAll();
-        this.ResendOTP();
-        this.dialog.open(AggrementSignerOtpComponent, {
-          enterAnimationDuration: '500ms',
-          exitAnimationDuration: '1000ms',
-          disableClose: true,
-          data: { value: this.RefferenceCode, value2: this.mobilenumber }
-        });
+        setTimeout(() => {
+          this.ResendOTP();
+          this.dialog.open(AggrementSignerOtpComponent, {
+            // enterAnimationDuration: '500ms',
+            // exitAnimationDuration: '1000ms',
+            disableClose: true,
+            data: { value: this.RefferenceCode, value2: this.mobilenumber },
+          });
+        }, 1000);
       }
-      // else {
-      //   window.alert(res.responseMessage)
+      //  else {
+      //   window.alert(res.responseMessage);
       // }
     });
   }

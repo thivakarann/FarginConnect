@@ -18,7 +18,6 @@ export class SessionServiceService {
     this.initRouterListener();
   }
 
-
   private initTimer(): void {
     this.timer = setInterval(() => {
       const now = Date.now();
@@ -31,11 +30,13 @@ export class SessionServiceService {
     }, 1000);
   }
 
+
   private initListener(): void {
     ['click', 'mousemove', 'keypress', 'touchstart'].forEach(eventName => {
       document.addEventListener(eventName, () => this.updateLastAction());
     });
   }
+
 
   private updateLastAction(): void {
     this.lastAction = Date.now();
@@ -61,7 +62,7 @@ export class SessionServiceService {
   private clearHistoryAndNavigateToLogin(): void {
     localStorage.clear();
     localStorage.removeItem('token');
-    this.router.navigateByUrl('/by-redirect', { replaceUrl: true });
+    this.router.navigateByUrl('/login-page', { replaceUrl: true });
   }
 
 
@@ -72,12 +73,11 @@ export class SessionServiceService {
     this.isLoggedInFlag = true; // Reset authentication flag
   }
 
-
   private initRouterListener(): void {
     this.router.events
       .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
-        if (!this.isLoggedInFlag && event.url !== '/by-redirect') {
+        if (!this.isLoggedInFlag && event.url !== '/login-page') {
           this.clearHistoryAndNavigateToLogin();
         }
       });
@@ -86,5 +86,4 @@ export class SessionServiceService {
   public isLoggedIn(): boolean {
     return this.isLoggedInFlag;
   }
-
 }

@@ -186,14 +186,18 @@ export class PgsetupViewComponent implements OnInit {
       }
       
       this.response.push(element?.createdBy);
-      this.response.push(this.date1);
- 
+      if(element?.createdDateTime){
+        this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy-hh:mm a').toString());
+       }
+        else{
+        this.response.push('');
+        } 
       this.response.push(element?.modifiedBy);
       if(element?.modifiedDateTime){
-        this.response.push(element?.modifiedDateTime)
+        this.response.push(moment(element?.modifiedDateTime).format('DD/MM/yyyy-hh:mm a').toString());
       }
       else{
-        this.response.push('')
+        this.response.push('');
       }
  
       sno++;

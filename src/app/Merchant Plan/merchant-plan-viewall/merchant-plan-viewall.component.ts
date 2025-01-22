@@ -173,8 +173,6 @@ export class MerchantPlanViewallComponent {
     }
   }
 
-
-
   exportexcel() {
  
     let sno = 1;
@@ -186,9 +184,14 @@ export class MerchantPlanViewallComponent {
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.planName);
+ 
       this.response.push(element?.technicalAmount);
+     
+      this.response.push(element?.renewalAmount);
+ 
       this.response.push(element?.maintenanceAmount);
       this.response.push(element?.frequency);
+ 
       if (element?.activeStatus == 1) {
         this.response.push("Active");
       }
@@ -196,27 +199,36 @@ export class MerchantPlanViewallComponent {
         this.response.push("InActive");
       }
       this.response.push(element?.createdBy);
-      this.response.push(element.createdDateTime);
-      this.response.push(element?.modifiedBy)
-      if (element?.modifiedDateTime) {
-        this.response.push(element?.modifiedDateTime)
-      }
-      else {
-        this.response.push('')
-      }
+ 
+  if(element?.createdDateTime){
+    this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy-hh:mm a').toString());
+  }
+  else{
+  this.response.push('');
+  }
+      this.response.push(element?.modifiedBy);
+ 
+        if(element?.modifiedDateTime){
+          this.response.push(moment(element?.modifiedDateTime).format('DD/MM/yyyy-hh:mm a').toString());
+        }
+        else{
+          this.response.push('');
+        }
+   
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
-
-
+ 
+ 
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
       "S.No",
       "PlanName",
-      "Technical Amount",
+      "Setup Cost",
+      "Renewal Amount",
       "Maintenance Amount",
       "Frequency",
       "Status",
@@ -225,16 +237,16 @@ export class MerchantPlanViewallComponent {
       "Modified By",
       "Modified At"
     ]
-
-
+ 
+ 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Merchant Plan Details');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
-
+ 
+ 
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -245,15 +257,15 @@ export class MerchantPlanViewallComponent {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
-
+ 
       }
-
+ 
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
-
+ 
     data.forEach((d: any) => {
-      // 
-
+      //
+ 
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -265,11 +277,12 @@ export class MerchantPlanViewallComponent {
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
-
-
-
-
-
+      let qty10 = row.getCell(11);
+ 
+ 
+ 
+ 
+ 
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -280,8 +293,9 @@ export class MerchantPlanViewallComponent {
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
-
+      qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+ 
+ 
     }
     );
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
@@ -289,7 +303,7 @@ export class MerchantPlanViewallComponent {
     // worksheet.getColumn(3).protection = { locked: true, hidden: true }
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      FileSaver.saveAs(blob, 'Entity Plans.xlsx');
+      FileSaver.saveAs(blob, 'Entity Plan.xlsx');
     });
   }
 

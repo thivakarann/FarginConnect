@@ -176,10 +176,18 @@ export class ViewfacheckkeyComponent {
         this.response.push("Inactive");
       }
       this.response.push(element?.createdBy);
-      this.response.push(element?.createdAt);
-      this.response.push(element?.modifiedBy);
-      this.response.push(element?.modifiedAt);
-      sno++;
+      if(element?.createdAt){
+        this.response.push(moment(element?.createdAt).format('DD/MM/yyyy-hh:mm a').toString());
+      }
+      else{
+        this.response.push('');
+      }      this.response.push(element?.modifiedBy);
+      if(element?.modifiedAt){
+        this.response.push(moment(element?.modifiedAt).format('DD/MM/yyyy-hh:mm a').toString());
+      }
+      else{
+        this.response.push('');
+      }      sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();

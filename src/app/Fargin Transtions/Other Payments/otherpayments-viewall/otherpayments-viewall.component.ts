@@ -72,16 +72,25 @@ export class OtherpaymentsViewallComponent {
   pageIndex: number = 0;
   pageSize = 5;
   transactionexport: any;
-
-
+ 
+ 
   pageIndex1: number = 0;
   pageSize1 = 5;
  
   totalpage1: any;
   totalPages1: any;
   currentpage1: any;
+  pageIndex2: number = 0;
+  pageSize2 = 5;
+ 
+  totalpage2: any;
+  totalPages2: any;
+  currentpage2: any;
  
   filter: boolean = true;
+  filter1: boolean = true;
+  filter2: boolean = true;
+currentfilVal: any;
 
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
 
@@ -139,15 +148,19 @@ export class OtherpaymentsViewallComponent {
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.filter = false;
+       
         this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-      }
+        this.filter = true;
+        this.filter1 = false;
+        this.filter2 = false;      }
       else if (res.flag == 2) {
         this.transaction = [];
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;  
-        this.filter = false;
+        this.filter = true;
+        this.filter1 = false;
+        this.filter2 = false;
         this.message = res.responseMessage;
       }
 
@@ -379,13 +392,20 @@ export class OtherpaymentsViewallComponent {
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.filter = true;      }
+        this.filter1 = true;
+     
+        this.filter = false;
+        this.filter2 = false;     
+      }
       else if (res.flag == 2) {
         this.transaction = [];
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;  
-        this.filter = true;
+        this.filter1 = true;
+     
+        this.filter = false;
+        this.filter2 = false;
       }
     })
   }
@@ -435,5 +455,71 @@ export class OtherpaymentsViewallComponent {
       pageSize: this.pageSize1,
       // length: this.totalItems
     } as PageEvent);
+  }
+  renderPage2(event: PageEvent) {
+    // Capture the new page index and page size from the event
+    this.pageIndex2 = event.pageIndex;  // Update current page index
+    this.pageSize2 = event.pageSize;           // Update page size (if changed)
+ 
+    // Log the new page index and page size to the console (for debugging)
+    console.log('New Page Index:', this.pageIndex2);
+    console.log('New Page Size:', this.pageSize2);
+ 
+    // You can now fetch or display the data for the new page index
+    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
+    this.custopay(this.currentfilVal);
+  }
+ 
+  changePageIndex2(newPageIndex1: number) {
+    this.pageIndex1 = newPageIndex1;
+    this.renderPage2({
+      pageIndex: newPageIndex1,
+      pageSize: this.pageSize1,
+      // length: this.totalItems
+    } as PageEvent);
+  }
+  custopay(filterValue: string) {
+ 
+    if (filterValue) {
+ 
+    this.service.CustomizationPaySearch(filterValue,this.pageSize2,this.pageIndex2).subscribe({
+      next: (res: any) => {
+        if (res.response) {
+          this.transaction = res.response.content;  
+          this.transaction.reverse();
+          this.dataSource = new MatTableDataSource(this.transaction);  
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.totalPages2 = res.pagination.totalElements;
+          this.totalpage2 = res.pagination.totalPages;
+          this.currentpage2 = res.pagination.currentPage + 1;
+          this.filter2=true;
+          this.filter1 = false;
+          this.filter = false;
+         
+        }
+        else if (res.flag === 2) {
+          this.transaction = [];  
+          this.dataSource = new MatTableDataSource(this.transaction);  
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.totalPages2 = res.pagination.totalElements;
+          this.totalpage2 = res.pagination.totalPages;
+          this.currentpage2 = res.pagination.currentPage + 1;
+         
+          this.filter2=true;
+          this.filter1 = false;
+          this.filter = false;  
+      }
+      },
+      error: (err: any) => {
+        this.toastr.error('No Data Found');
+      }
+    });
+  }
+  else if (!filterValue) {
+    this.toastr.error('Please enter a value to search');
+    return;
+}
   }
 }

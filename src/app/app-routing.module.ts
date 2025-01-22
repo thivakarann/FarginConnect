@@ -1,192 +1,122 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { TestpageComponent } from './testpage/testpage.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { EntityLoginpageComponent } from './entity-loginpage/entity-loginpage.component';
+import { ViewticketComponent } from './Tickets/viewticket/viewticket.component';
+import { ViewcategoryComponent } from './Main Master/businesscategory/viewcategory/viewcategory.component';
+import { BusinessKycComponent } from './Main Master/businesscategory/business-kyc/business-kyc.component';
+import { PermissionComponent } from './RolesandPermission/RolePermission/permission/permission.component';
+import { SubPermissionComponent } from './RolesandPermission/RolePermission/sub-permission/sub-permission.component';
+import { RolesComponent } from './RolesandPermission/roles/roles.component';
+import { EntityViewallComponent } from './Entity Onboard/entity-viewall/entity-viewall.component';
+import { DashboardContentComponent } from './dashboard-content/dashboard-content.component';
+import { EntityViewComponent } from './Entity Onboard/entity-view/entity-view.component';
+import { EntityAddComponent } from './Entity Onboard/entity-add/entity-add.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { OtpPageComponent } from './otp-page/otp-page.component';
+import { OtpVerificationComponent } from './otp-verification/otp-verification.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
-import { ViewadminComponent } from './Admin/viewadmin/viewadmin.component';
-import { AddadminComponent } from './Admin/addadmin/addadmin.component';
-import { ViewemployeeComponent } from './Employee/viewemployee/viewemployee.component';
-import { AddemployeeComponent } from './Employee/addemployee/addemployee.component';
-import { EditadminComponent } from './Admin/editadmin/editadmin.component';
-import { ViewtermsComponent } from './Terms & Policy/viewterms/viewterms.component';
-import { ViewdisclaimerComponent } from './Terms & Policy/viewdisclaimer/viewdisclaimer.component';
-import { ViewprivacyComponent } from './Terms & Policy/viewprivacy/viewprivacy.component';
-import { ViewrefundComponent } from './Terms & Policy/viewrefund/viewrefund.component';
-import { ProfileComponent } from './profile/profile.component';
-import { ViewemailverfiyComponent } from './Verfication/viewemailverfiy/viewemailverfiy.component';
-import { ViewServiceticketComponent } from './servicetickets/view-serviceticket/view-serviceticket.component';
-import { AddServiceticketComponent } from './servicetickets/add-serviceticket/add-serviceticket.component';
+import { AdminComponent } from './Admin-Creation/admin/admin.component';
+import { AdminAddComponent } from './Admin-Creation/admin-add/admin-add.component';
+import { AdminEditComponent } from './Admin-Creation/admin-edit/admin-edit.component';
+
+import { AdminViewComponent } from './Admin-policy/admin-view/admin-view.component';
+import { AdminCreateComponent } from './Admin-policy/admin-create/admin-create.component';
 import { ViewRoleComponent } from './Roles-Permission/view-role/view-role.component';
-import { ViewcustomerComponent } from './Customer/viewcustomer/viewcustomer.component';
-import { AddcustomerComponent } from './Customer/addcustomer/addcustomer.component';
-import { EditcustomerComponent } from './Customer/editcustomer/editcustomer.component';
-import { PersonalviewComponent } from './Customer/personalview/personalview.component';
-import { SetupComponent } from './Onetimesetup/setup/setup.component';
-import { DashboardcontentComponent } from './dashboard/dashboardcontent/dashboardcontent.component';
-import { ViewwithdrawalComponent } from './Quickwithdrawal/viewwithdrawal/viewwithdrawal.component';
-import { EditServiceticketComponent } from './servicetickets/edit-serviceticket/edit-serviceticket.component';
-import { AddBeneficiaryComponent } from './Beneficiary/add-beneficiary/add-beneficiary.component';
-import { EditBeneficiaryComponent } from './Beneficiary/edit-beneficiary/edit-beneficiary.component';
-import { ViewRegionComponent } from './main-master/region/view-region/view-region.component';
-import { ViewRouteComponent } from './main-master/route/view-route/view-route.component';
-import { ViewBeneficiaryComponent } from './Beneficiary/view-beneficiary/view-beneficiary.component';
-import { ViewSetupboxComponent } from './main-master/setupbox/view-setupbox/view-setupbox.component';
-import { TransactionViewComponent } from './Transaction/transaction-view/transaction-view.component';
-import { ReturnsuccessComponent } from './Onetimesetup/returnsuccess/returnsuccess.component';
-import { ReturnfailureComponent } from './Onetimesetup/returnfailure/returnfailure.component';
-import { ChannelConfigurationComponent } from './Channels-Packages/channel-configuration/channel-configuration.component';
-import { PlanConfigurationComponent } from './Channels-Packages/plan-configuration/plan-configuration.component';
-import { LCOPviewallComponent } from './Channels-Packages/LCOP-Plan-creation/lcopviewall/lcopviewall.component';
-import { LCOPAddComponent } from './Channels-Packages/LCOP-Plan-creation/lcopadd/lcopadd.component';
-import { LCOPViewComponent } from './Channels-Packages/LCOP-Plan-creation/lcopview/lcopview.component';
-import { MobileVerficationComponent } from './Customer Transtions/mobile-verfication/mobile-verfication.component';
-import { CustomerPaymentsViewComponent } from './Customer Transtions/customer-payments-view/customer-payments-view.component';
-import { CustomerPaymentsInfoComponent } from './Customer Transtions/customer-payments-info/customer-payments-info.component';
-import { CustomerPaymentSuccessComponent } from './Customer Transtions/customer-payment-success/customer-payment-success.component';
-import { CustomerPaymentFailureComponent } from './Customer Transtions/customer-payment-failure/customer-payment-failure.component';
-import { ViewBulkComponent } from './main-master/setupbox/setupbox-bulkupload/view-bulk/view-bulk.component';
-import { ResponseBulkComponent } from './main-master/setupbox/setupbox-bulkupload/response-bulk/response-bulk.component';
-import { OnetimesetupComponent } from './Transaction/onetimesetup/onetimesetup.component';
-import { PlanConfigurationDetailsComponent } from './Channels-Packages/plan-configuration-details/plan-configuration-details.component';
-import { TestPageComponent } from './test-page/test-page.component';
-import { MerchantViewallComponent } from './Merchant-Dues/merchant-viewall/merchant-viewall.component';
-import { MerchantduesSuccessComponent } from './Merchant-Dues/merchantdues-success/merchantdues-success.component';
-import { MerchantduesFailureComponent } from './Merchant-Dues/merchantdues-failure/merchantdues-failure.component';
-import { ChannelconfigurationSingleviewComponent } from './Channels-Packages/channelconfiguration-singleview/channelconfiguration-singleview.component';
-import { CustomerTermsandpolicyComponent } from './Customer Transtions/customer-termsandpolicy/customer-termsandpolicy.component';
-import { CustomerPrivacyPolicyComponent } from './Customer Transtions/customer-privacy-policy/customer-privacy-policy.component';
-import { CustomerDisclaimerComponent } from './Customer Transtions/customer-disclaimer/customer-disclaimer.component';
-import { CustomerRefundPolicyComponent } from './Customer Transtions/customer-refund-policy/customer-refund-policy.component';
-import { CustomerTransactionviewsComponent } from './Customer Transtions/customer-transactionviews/customer-transactionviews.component';
-import { CustomerVerifyViewComponent } from './Customer Transtions/customer-verify-view/customer-verify-view.component';
-import { CusticketsViewallComponent } from './Customer Transtions/customer Tickets/custickets-viewall/custickets-viewall.component';
-import { CustomerSolutionsComponent } from './Customer Transtions/customer-solutions/customer-solutions.component';
-import { CustomerFarginPolicyComponent } from './Customer Transtions/customer-fargin-policy/customer-fargin-policy.component';
-import { SetupboxHistoryComponent } from './Customer/setupbox-history/setupbox-history.component';
-import { CustomerViewallComponent } from './servicetickets/customer-viewall/customer-viewall.component';
-import { ByRedirectComponent } from './by-redirect/by-redirect.component';
-import { OtherPaymentsSuccessComponent } from './Other Payments/other-payments-success/other-payments-success.component';
-import { OtherpaymentsFailureComponent } from './Other Payments/otherpayments-failure/otherpayments-failure.component';
-import { CustomerBulkresponseComponent } from './Customer/customer-bulkresponse/customer-bulkresponse.component';
-import { ViewrenewalComponent } from './Renewal/viewrenewal/viewrenewal.component';
-import { SetupformComponent } from './Renewal/setupform/setupform.component';
-import { ServiceProviderLinkViewallComponent } from './Service Provide Link/service-provider-link-viewall/service-provider-link-viewall.component';
-import { CustomerOtpVerifyComponent } from './Customer Transtions/customer-otp-verify/customer-otp-verify.component';
-import { PlanParticularSetupboxComponent } from './Customer/plan-particular-setupbox/plan-particular-setupbox.component';
-import { ViewsmsComponent } from './SMSDetails/viewsms/viewsms.component';
-import { SmshistoryComponent } from './SMSDetails/smshistory/smshistory.component';
-import { OtherPaymentsViewallComponent } from './Other Payments/other-payments-viewall/other-payments-viewall.component';
-import { CustomerresponseCreateComponent } from './CustomerResponse/customerresponse-create/customerresponse-create.component';
-import { ViewCustomerResponseComponent } from './CustomerResponse/view-customer-response/view-customer-response.component';
-import { AddSurveyquestionsComponent } from './Servey/add-surveyquestions/add-surveyquestions.component';
-import { ViewSurveyquestionsComponent } from './Servey/view-surveyquestions/view-surveyquestions.component';
-import { CustomerSurveyViewComponent } from './Customer Transtions/Customersurvey/customer-survey-view/customer-survey-view.component';
+import { PolicyEditComponent } from './Admin-policy/policy-edit/policy-edit.component';
+import { RegionComponent } from './Main Master/region/region.component';
+import { ServiceProviderComponent } from './Main Master/ServiceProvider/service-provider/service-provider.component';
+import { AdmincreationViewComponent } from './Admin-Creation/admincreation-view/admincreation-view.component';
+import { ViewfacheckkeyComponent } from './Main Master/Facheckkeys/viewfacheckkey/viewfacheckkey.component';
+import { AlacarteViewallComponent } from './Plan Creation/Alacarte channels/alacarte-viewall/alacarte-viewall.component';
+import { AlcartAddComponent } from './Plan Creation/Alacarte channels/alcart-add/alcart-add.component';
+import { AlcartViewComponent } from './Plan Creation/Alacarte channels/alcart-view/alcart-view.component';
+import { AlcartEditComponent } from './Plan Creation/Alacarte channels/alcart-edit/alcart-edit.component';
+import { BouquatenameViewallComponent } from './Plan Creation/Bouquetname Creation/bouquatename-viewall/bouquatename-viewall.component';
+import { BouquetsViewallComponent } from './Plan Creation/Broadcaster Bouqutes/bouquets-viewall/bouquets-viewall.component';
+import { BouqutesViewComponent } from './Plan Creation/Broadcaster Bouqutes/bouqutes-view/bouqutes-view.component';
+import { BouquetePlanViewallComponent } from './Plan Creation/Bouquete plan Name/bouquete-plan-viewall/bouquete-plan-viewall.component';
+import { MerchantPlanViewallComponent } from './Merchant Plan/merchant-plan-viewall/merchant-plan-viewall.component';
+import { DPOViewallComponent } from './Plan Creation/DPO Bouquet Creation/dpoviewall/dpoviewall.component';
+import { DpoViewComponent } from './Plan Creation/DPO Bouquet Creation/dpo-view/dpo-view.component';
+import { PgsetupViewComponent } from './Main Master/PgSetup/pgsetup-view/pgsetup-view.component';
+import { OverallCustomerViewComponent } from './Overall-Customer/overall-customer-view/overall-customer-view.component';
+import { OverallIndividualCustomerviewComponent } from './Overall-Customer/overall-individual-customerview/overall-individual-customerview.component';
+import { EntityQrcodeComponent } from './entity-qrcode/entity-qrcode/entity-qrcode.component';
+import { EntityRefundComponent } from './entity-refund/entity-refund.component';
+import { EntitySettlementComponent } from './entity-settlement/entity-settlement.component';
+import { SettlementViewComponent } from './settlement-view/settlement-view/settlement-view.component';
+import { EntityCustomersViewComponent } from './Entity-Customers/entity-customers-view/entity-customers-view/entity-customers-view.component';
+import { EntityCustomersViewAllComponent } from './Entity-Customers/entity-customers-view-all/entity-customers-view-all.component';
+import { OverallTransactionsViewallComponent } from './Overall-Transactions/overall-transactions-viewall/overall-transactions-viewall.component';
+import { ViewwithdrawalComponent } from './Main Master/WIthdrawal/viewwithdrawal/viewwithdrawal.component';
+import { ViewbeneficiaryComponent } from './Beneficiary/viewbeneficiary/viewbeneficiary.component';
+import { AddbeneficiaryComponent } from './Beneficiary/addbeneficiary/addbeneficiary.component';
+import { EditbeneficiaryComponent } from './Beneficiary/editbeneficiary/editbeneficiary.component';
+import { ProfileComponent } from './profile/profile.component';
+import { BouqutesAddComponent } from './Plan Creation/Broadcaster Bouqutes/bouqutes-add/bouqutes-add.component';
+import { EditPersonalInfoComponent } from './Entity Onboard/edit-personal-info/edit-personal-info.component';
+import { EntityTransactionComponent } from './entity-transaction/entity-transaction.component';
+import { DuesComponent } from './dues/dues.component';
+import { UpdateManualpaymentComponent } from './Entity Onboard/update-manualpayment/update-manualpayment.component';
+import { ManualTransactionComponent } from './Entity Onboard/manual-transaction/manual-transaction.component';
+import { PaymentlinkViewComponent } from './Entity Onboard/paymentlink-view/paymentlink-view.component';
+import { ViewPolicyComponent } from './Fargin-policy/view-policy/view-policy.component';
+import { AddPolicyComponent } from './Fargin-policy/add-policy/add-policy.component';
+import { EditPolicyComponent } from './Fargin-policy/edit-policy/edit-policy.component';
+import { CustomerViewallComponent } from './Tickets/customer-viewall/customer-viewall.component';
+import { BankViewallComponent } from './Main Master/Bank Details/bank-viewall/bank-viewall.component';
+import { MaintenanceTransViewallComponent } from './Fargin Transtions/Entity Trans/maintenance-trans-viewall/maintenance-trans-viewall.component';
+import { ServicePaymentsViewallComponent } from './Fargin Transtions/Entity Trans/service-payments-viewall/service-payments-viewall.component';
+import { CustomerTransViewallComponent } from './Fargin Transtions/Customer Trans/customer-trans-viewall/customer-trans-viewall.component';
+import { OtherpaymentsViewallComponent } from './Fargin Transtions/Other Payments/otherpayments-viewall/otherpayments-viewall.component';
+import { OtherpaymentsViewComponent } from './Fargin Transtions/Other Payments/otherpayments-view/otherpayments-view.component';
+import { OtherpayTransComponent } from './Entity Onboard/otherpay-trans/otherpay-trans.component';
+import { ViewallKyccategoryComponent } from './Main Master/kyccategory/viewall-kyccategory/viewall-kyccategory.component';
+import { FarginBankviewComponent } from './Main Master/Fargin Bank/fargin-bankview/fargin-bankview.component';
+import { SMSHistoryComponent } from './SMS details/smshistory/smshistory.component';
+import { EntitySmsViewallComponent } from './SMS details/entity-sms-viewall/entity-sms-viewall.component';
+import { SMSHistoryViewComponent } from './SMS details/smshistory-view/smshistory-view.component';
+import { SmsCostViewallComponent } from './Main Master/SMS Cost/sms-cost-viewall/sms-cost-viewall.component';
+import { EntityAutoDebitGetallComponent } from './entity-auto-debit-getall/entity-auto-debit-getall.component';
+import { EntityAutoDebitByIdComponent } from './entity-auto-debit-by-id/entity-auto-debit-by-id.component';
+import { ViewAnnouncementComponent } from './Announcement/view-announcement/view-announcement.component';
+import { PlanDetailsCustomerComponent } from './Overall-Customer/plan-details-customer/plan-details-customer.component';
+import { CustomerSurveyquestionsComponent } from './Customer-Survey/customer-surveyquestions/customer-surveyquestions.component';
+import { SurveyviewallComponent } from './Customer-Survey/surveyviewall/surveyviewall.component';
 import { authGuard } from './auth.guard';
-import { AdmincustomerdetailsComponent } from './main-master/route/admincustomerdetails/admincustomerdetails.component';
-import { AdmincustomertransactionComponent } from './main-master/route/admincustomertransaction/admincustomertransaction.component';
-import { AllcustomerrouteComponent } from './main-master/route/allcustomerroute/allcustomerroute.component';
-import { AreaViewComponent } from './main-master/route/area-view/area-view.component';
-import { CustomertransactionrouteComponent } from './main-master/route/customertransactionroute/customertransactionroute.component';
-import { CustomerviewrouteComponent } from './main-master/route/customerviewroute/customerviewroute.component';
-import { StreetViewComponent } from './main-master/route/street-view/street-view.component';
-import { PascustomerdetailsComponent } from './main-master/route/pascustomerdetails/pascustomerdetails.component';
-import { CustomersetupboxhistoryComponent } from './Customer/customersetupboxhistory/customersetupboxhistory.component';
-import { AdminViewComponent } from './Admin/admin-view/admin-view.component';
-import { AggrementSignerTwoComponent } from './aggrement-signer-two/aggrement-signer-two.component';
-import { ViewagreementsComponent } from './Agreement/viewagreements/viewagreements.component';
-import { CustomersetupboxbulkresponseComponent } from './Customer/customersetupboxbulkresponse/customersetupboxbulkresponse.component';
-import { SetupboxCustomerviewComponent } from './main-master/setupbox/setupbox-bulkupload/setupbox-customerview/setupbox-customerview.component';
-import { OfflineTransactionsComponent } from './Offline-Transaction/offline-transactions/offline-transactions.component';
-import { PlanConfigurationChannelviewComponent } from './Channels-Packages/plan-configuration-channelview/plan-configuration-channelview/plan-configuration-channelview.component';
-import { ViewduesreportsComponent } from './Reports/Duesreports/viewduesreports/viewduesreports.component';
-import { ViewcustomerreportsComponent } from './Reports/Customerreports/viewcustomerreports/viewcustomerreports.component';
-import { ViewsetupboxreportsComponent } from './Reports/Setupboxreports/viewsetupboxreports/viewsetupboxreports.component';
-import { CusduelogsbymerchantComponent } from './Transaction/cusduelogsbymerchant/cusduelogsbymerchant.component';
-import { UpdatedDuesdetailsComponent } from './Transaction/updated-duesdetails/updated-duesdetails.component';
-import { AreaViewallComponent } from './main-master/Area/area-viewall/area-viewall.component';
-import { PincodeComponent } from './main-master/Pincode/pincode/pincode.component';
-import { StreetViewallComponent } from './main-master/Street/street-viewall/street-viewall.component';
-import { DashboardviewactivecustomerComponent } from './dashboard/dashboardviewactivecustomer/dashboardviewactivecustomer.component';
-import { DashboardviewactiveempolyeeComponent } from './dashboard/dashboardviewactiveempolyee/dashboardviewactiveempolyee.component';
-import { DashboardviewbookingComponent } from './dashboard/dashboardviewbooking/dashboardviewbooking.component';
-import { DashboardviewfaultyComponent } from './dashboard/dashboardviewfaulty/dashboardviewfaulty.component';
-import { DashboardviewfreeComponent } from './dashboard/dashboardviewfree/dashboardviewfree.component';
-import { DashboardviewinactivecustomerComponent } from './dashboard/dashboardviewinactivecustomer/dashboardviewinactivecustomer.component';
-import { DashboardviewinactiveemployeeComponent } from './dashboard/dashboardviewinactiveemployee/dashboardviewinactiveemployee.component';
-import { DashboardviewpendingcustomerComponent } from './dashboard/dashboardviewpendingcustomer/dashboardviewpendingcustomer.component';
-import { AdditionalpayViewComponent } from './Customer Transtions/Additional-Payment-transaction/additionalpay-view/additionalpay-view.component';
-import { AdditionaLTransactionhistoryComponent } from './Customer Transtions/Additional-Payment-transaction/additional-transactionhistory/additiona-l-transactionhistory.component';
-import { FailureForAdditionalComponent } from './Customer Transtions/failure-for-additional/failure-for-additional.component';
-import { SuccessForAdditionalComponent } from './Customer Transtions/success-for-additional/success-for-additional.component';
-import { AdditionalCustomerpayinfoComponent } from './Customer Transtions/Additional-Payment-transaction/additional-customerpayinfo/additional-customerpayinfo.component';
-import { AdditionalTransactionsComponent } from './Additional-Transactions/additional-transactions/additional-transactions.component';
-import { CategoryViewallComponent } from './main-master/Category/category-viewall/category-viewall.component';
-import { DashboardviewclosedticketComponent } from './dashboard/dashboardviewclosedticket/dashboardviewclosedticket.component';
-import { DashboardviewholdticketComponent } from './dashboard/dashboardviewholdticket/dashboardviewholdticket.component';
-import { DashboardviewopenticketComponent } from './dashboard/dashboardviewopenticket/dashboardviewopenticket.component';
-import { BranchesViewallComponent } from './Branches/branches-viewall/branches-viewall.component';
-import { BranchCustomerViewComponent } from './Branches/branch-customer-view/branch-customer-view.component';
-import { OffstatusComponent } from './dashboard/offstatus/offstatus.component';
-import { OnstatusComponent } from './dashboard/onstatus/onstatus.component';
-import { YesterdayoffstatusComponent } from './dashboard/yesterdayoffstatus/yesterdayoffstatus.component';
-import { YesterdayonoffstatusComponent } from './dashboard/yesterdayonoffstatus/yesterdayonoffstatus.component';
-import { RoutebulkresponseComponent } from './main-master/route/routebulkresponse/routebulkresponse.component';
-import { DuestatushistoryComponent } from './Due History/duestatushistory/duestatushistory.component';
-import { HistoryforreminderComponent } from './Customer/historyforreminder/historyforreminder.component';
-import { BookedCustomerViewComponent } from './dashboard/booked-customer-view/booked-customer-view.component';
-import { DamagedCustomerViewComponent } from './dashboard/damaged-customer-view/damaged-customer-view.component';
-import { DuestatusoffdetailsComponent } from './dashboard/duestatusoffdetails/duestatusoffdetails.component';
-import { RefundForMerchantComponent } from './Refund/refund-for-merchant/refund-for-merchant.component';
-import { SetupboxHistoryviewComponent } from './Customer/setupbox-historyview/setupbox-historyview.component';
-import { CustomerStatusHistoryComponent } from './Customer/customer-status-history/customer-status-history.component';
-import { LcopchannelviewComponent } from './Customer/lcopchannelview/lcopchannelview.component';
-
-
+import { AlcotHistoryComponent } from './Plan Creation/Alacarte channels/alcot-history/alcot-history.component';
+import { BouqutesRegionComponent } from './Plan Creation/Broadcaster Bouqutes/bouqutes-region/bouqutes-region.component';
+import { SignerGetallComponent } from './Main Master/Fargin Signer Details/signer-getall/signer-getall.component';
+import { AddagreementplanComponent } from './Main Master/Agreementplan/addagreementplan/addagreementplan.component';
+import { AllagreementplansComponent } from './Main Master/Agreementplan/allagreementplans/allagreementplans.component';
+import { EditagreementplanComponent } from './Main Master/Agreementplan/editagreementplan/editagreementplan.component';
+import { ViewagreementplanComponent } from './Main Master/Agreementplan/viewagreementplan/viewagreementplan.component';
+import { AggrementSignerOneComponent } from './aggrement-signer-one/aggrement-signer-one.component';
+import { AgreementViewallComponent } from './agreement-viewall/agreement-viewall.component';
+import { OfflineTransactionsComponent } from './Entity Onboard/Offline-Transactions/offline-transactions/offline-transactions.component';
+import { FailureOfftransactionsComponent } from './Entity Onboard/Offline-Transactions/failure-offtransactions/failure-offtransactions.component';
+import { OfflineSettlementComponent } from './Entity Onboard/Offline-Transactions/offline-settlement/offline-settlement.component';
+import { SuccessOfftransactionsComponent } from './Entity Onboard/Offline-Transactions/success-offtransactions/success-offtransactions.component';
+import { BranchViewallComponent } from './branch-viewall/branch-viewall.component';
+import { AdditionalpaymentsComponent } from './Fargin Transtions/additionalpayments/additionalpayments.component';
+import { BranchCustomerViewComponent } from './branch-customer-view/branch-customer-view.component';
+import { RefundGetallComponent } from './Refund/refund-getall/refund-getall.component';
 
 const routes: Routes = [
-  { path: 'admin/login', component: EntityLoginpageComponent },
-  { path: 'by-redirect', component: ByRedirectComponent },
-  { path: '', redirectTo: '/by-redirect', pathMatch: 'full' },
 
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'admin/login', component: EntityLoginpageComponent },
+
+  { path: 'login-page', component: LoginPageComponent },
+  { path: '', redirectTo: '/login-page', pathMatch: 'full' },
   { path: 'forgot', component: ForgotPasswordComponent },
-  { path: 'otp', component: OtpPageComponent },
+  { path: 'otp', component: OtpVerificationComponent },
   { path: 'reset', component: ResetPasswordComponent },
   { path: 'changepassword', component: ChangePasswordComponent },
-  { path: 'return-success', component: ReturnsuccessComponent },
-  { path: 'return-failure', component: ReturnfailureComponent },
-  { path: 'test-page', component: TestPageComponent },
-  { path: "customer/login", component: MobileVerficationComponent },
-  { path: "customer-payments-view/:id", component: CustomerPaymentsViewComponent },
-  { path: "customer-payments-info/:id", component: CustomerPaymentsInfoComponent },
-  { path: 'customer-payment-success', component: CustomerPaymentSuccessComponent },
-  { path: "customer-payment-failure", component: CustomerPaymentFailureComponent },
-  { path: "merchantdues-success", component: MerchantduesSuccessComponent },
-  { path: "merchantdues-failure", component: MerchantduesFailureComponent },
-  { path: "customer-termsandpolicy", component: CustomerTermsandpolicyComponent },
-  { path: "customer-privacy-policy", component: CustomerPrivacyPolicyComponent },
-  { path: "customer-refund-policy", component: CustomerRefundPolicyComponent },
-  { path: "customer-disclaimer", component: CustomerDisclaimerComponent },
-  { path: "customer-transactionviews/:id", component: CustomerTransactionviewsComponent },
-  { path: "customer-verify-view/:id", component: CustomerVerifyViewComponent },
-  { path: "custickets-viewall/:id", component: CusticketsViewallComponent },
-  { path: "customer-solutions", component: CustomerSolutionsComponent },
-  { path: "customer-fargin-policy/:id", component: CustomerFarginPolicyComponent },
-  { path: 'other-payments-success', component: OtherPaymentsSuccessComponent },
-  { path: 'otherpayments-failure', component: OtherpaymentsFailureComponent },
-  { path: 'customer-otp-verify/:id', component: CustomerOtpVerifyComponent },
-  { path: 'customer-survey-view/:id', component: CustomerSurveyViewComponent },
-  { path: 'Agreement-signer-two', component: AggrementSignerTwoComponent, },
-  { path: 'Additional-pay/:id', component: AdditionalpayViewComponent },
-  { path: 'Additional-transactionhistory/:id', component: AdditionaLTransactionhistoryComponent },
-  { path: 'success-for-additional', component: SuccessForAdditionalComponent },
-  { path: "failure-for-additional", component: FailureForAdditionalComponent },
-  { path: "Additional-customerpay-info/:id", component: AdditionalCustomerpayinfoComponent },
-
+  { path: 'addagreementplan', component: AddagreementplanComponent, canActivate: [authGuard] },
+  { path: 'editagreementplan/:id', component: EditagreementplanComponent, canActivate: [authGuard] },
+  { path: 'allagreementplan/:id', component: AllagreementplansComponent, canActivate: [authGuard] },
+  { path: 'Agreement-signer-one', component: AggrementSignerOneComponent },
 
   {
     path: 'dashboard',
@@ -194,135 +124,113 @@ const routes: Routes = [
     canActivate: [authGuard],
     children: [
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-      { path: 'content', component: DashboardcontentComponent, canActivate: [authGuard] },
-      { path: 'view-admin', component: ViewadminComponent, canActivate: [authGuard] },
-      { path: 'add-admin', component: AddadminComponent, canActivate: [authGuard] },
-      { path: 'edit-admin/:id', component: EditadminComponent, canActivate: [authGuard] },
-      { path: 'view-employee', component: ViewemployeeComponent, canActivate: [authGuard] },
-      { path: 'add-employee', component: AddemployeeComponent, canActivate: [authGuard] },
-      { path: 'view-terms', component: ViewtermsComponent, canActivate: [authGuard] },
-      { path: 'view-disclaimer', component: ViewdisclaimerComponent, canActivate: [authGuard] },
-      { path: 'view-privacy', component: ViewprivacyComponent, canActivate: [authGuard] },
-      { path: 'view-refund', component: ViewrefundComponent, canActivate: [authGuard] },
-      { path: 'view-profile', component: ProfileComponent, canActivate: [authGuard] },
-      { path: 'view-email', component: ViewemailverfiyComponent, canActivate: [authGuard] },
-      { path: 'view-serviceticket', component: ViewServiceticketComponent, canActivate: [authGuard] },
+      { path: 'dashboard-content', component: DashboardContentComponent, canActivate: [authGuard] },
+      { path: 'view-category', component: ViewcategoryComponent, canActivate: [authGuard] },
+      { path: 'Business-kyc', component: BusinessKycComponent, canActivate: [authGuard] },
+      { path: 'test', component: TestpageComponent, canActivate: [authGuard] },
+      { path: 'roles', component: RolesComponent, canActivate: [authGuard] },
+      { path: 'permission', component: PermissionComponent, canActivate: [authGuard] },
+      { path: 'sub-permission', component: SubPermissionComponent, canActivate: [authGuard] },
+      { path: 'dashboard-content', component: DashboardContentComponent, canActivate: [authGuard] },
+      { path: 'entity-viewall', component: EntityViewallComponent, canActivate: [authGuard] },
+      { path: 'entity-view/:id', component: EntityViewComponent, canActivate: [authGuard] },
+      { path: 'entity-add', component: EntityAddComponent, canActivate: [authGuard] },
+      { path: 'Terms-policy', component: AdminViewComponent, canActivate: [authGuard] },
+      { path: 'Termspolicy-create', component: AdminCreateComponent, canActivate: [authGuard] },
+      { path: 'policy-edit/:id', component: PolicyEditComponent, canActivate: [authGuard] },
+      { path: 'admindetails', component: AdminComponent, canActivate: [authGuard] },
+      { path: 'admincreate', component: AdminAddComponent, canActivate: [authGuard] },
+      { path: 'adminedit/:id', component: AdminEditComponent, canActivate: [authGuard] },
+      { path: 'testpage', component: TestpageComponent, canActivate: [authGuard] },
+      { path: 'viewticket', component: ViewticketComponent, canActivate: [authGuard] },
       { path: 'view-role', component: ViewRoleComponent, canActivate: [authGuard] },
-      { path: 'view-customer', component: ViewcustomerComponent, canActivate: [authGuard] },
-      { path: 'add-customer', component: AddcustomerComponent, canActivate: [authGuard] },
-      { path: 'editcustomer/:id', component: EditcustomerComponent, canActivate: [authGuard] },
-      { path: 'personal-view/:id', component: PersonalviewComponent, canActivate: [authGuard] },
-      { path: 'setup', component: SetupComponent, canActivate: [authGuard] },
-      { path: 'view-withdrawal', component: ViewwithdrawalComponent, canActivate: [authGuard] },
-      { path: 'view-serviceticket', component: ViewServiceticketComponent, canActivate: [authGuard] },
-      { path: 'add-serviceticket', component: AddServiceticketComponent, canActivate: [authGuard] },
-      { path: 'view-role', component: ViewRoleComponent, canActivate: [authGuard] },
-      { path: 'view-setupbox', component: ViewSetupboxComponent, canActivate: [authGuard] },
-      { path: 'view-beneficiary', component: ViewBeneficiaryComponent, canActivate: [authGuard] },
-      { path: 'view-admin', component: ViewadminComponent, canActivate: [authGuard] },
-      { path: 'add-admin', component: AddadminComponent, canActivate: [authGuard] },
-      { path: 'edit-admin/:id', component: EditadminComponent, canActivate: [authGuard] },
-      { path: 'add-beneficiary', component: AddBeneficiaryComponent, canActivate: [authGuard] },
-      { path: 'edit-beneficiary/:id', component: EditBeneficiaryComponent, canActivate: [authGuard] },
-      { path: 'view-region', component: ViewRegionComponent, canActivate: [authGuard] },
-      { path: 'view-route', component: ViewRouteComponent, canActivate: [authGuard] },
-      { path: 'view-bulk', component: ViewBulkComponent, canActivate: [authGuard] },
-      { path: 'response-bulk', component: ResponseBulkComponent, canActivate: [authGuard] },
-      { path: 'transaction-view', component: TransactionViewComponent, canActivate: [authGuard] },
-      { path: 'channel-configuration', component: ChannelConfigurationComponent, canActivate: [authGuard] },
-      { path: 'plan-configuration', component: PlanConfigurationComponent, canActivate: [authGuard] },
-      { path: "lcopviewall", component: LCOPviewallComponent, canActivate: [authGuard] },
-      { path: 'lcopadd', component: LCOPAddComponent, canActivate: [authGuard] },
-      { path: "lcopview/:id", component: LCOPViewComponent, canActivate: [authGuard] },
-      { path: 'customer-viewall', component: CustomerViewallComponent, canActivate: [authGuard] },
+      { path: 'Region', component: RegionComponent, canActivate: [authGuard] },
+      { path: "dashboard-content", component: DashboardComponent, canActivate: [authGuard] },
+      { path: 'view-serviceprovider', component: ServiceProviderComponent, canActivate: [authGuard] },
+      { path: 'view-admin/:id', component: AdmincreationViewComponent, canActivate: [authGuard] },
+      { path: 'service-provider', component: ServiceProviderComponent, canActivate: [authGuard] },
+      { path: "viewfacheckkey", component: ViewfacheckkeyComponent, canActivate: [authGuard] },
+      { path: 'alacarte-viewall', component: AlacarteViewallComponent, canActivate: [authGuard] },
+      { path: 'alcart-add', component: AlcartAddComponent, canActivate: [authGuard] },
+      { path: 'alcart-view/:id', component: AlcartViewComponent, canActivate: [authGuard] },
+      { path: 'alcart-edit/:id', component: AlcartEditComponent, canActivate: [authGuard] },
+      { path: 'bouquatename-viewall', component: BouquatenameViewallComponent, canActivate: [authGuard] },
+      { path: 'bouquets-viewall', component: BouquetsViewallComponent, canActivate: [authGuard] },
+      { path: "bouqutes-view/:id", component: BouqutesViewComponent, canActivate: [authGuard] },
+      { path: 'bouquete-plan-viewall', component: BouquetePlanViewallComponent, canActivate: [authGuard] },
+      { path: "dpoviewall", component: DPOViewallComponent, canActivate: [authGuard] },
+      { path: 'bouqutes-add', component: BouqutesAddComponent, canActivate: [authGuard] },
+      { path: "dpo-view/:id", component: DpoViewComponent, canActivate: [authGuard] },
+      { path: 'merchant-plan-viewall', component: MerchantPlanViewallComponent, canActivate: [authGuard] },
+      { path: "pgsetup-view", component: PgsetupViewComponent, canActivate: [authGuard] },
+      { path: 'Overall-Customer-view', component: OverallCustomerViewComponent, canActivate: [authGuard] },
+      { path: 'Overall-IndividualCustomer-view/:id', component: OverallIndividualCustomerviewComponent, canActivate: [authGuard] },
+      { path: 'entity-qrcode/:id', component: EntityQrcodeComponent, canActivate: [authGuard] },
+      { path: 'entity-refund/:id', component: EntityRefundComponent, canActivate: [authGuard] },
+      { path: 'entity-settlement/:id', component: EntitySettlementComponent, canActivate: [authGuard] },
+      { path: 'settlement-view/:id', component: SettlementViewComponent, canActivate: [authGuard] },
+      { path: "overall-transactions-viewall", component: OverallTransactionsViewallComponent, canActivate: [authGuard] },
       { path: 'viewwithdrawal', component: ViewwithdrawalComponent, canActivate: [authGuard] },
-      { path: 'view-onetimetransaction', component: OnetimesetupComponent, canActivate: [authGuard] },
-      { path: "plan-configuration-details/:id", component: PlanConfigurationDetailsComponent, canActivate: [authGuard] },
-      { path: "Merchant-view", component: MerchantViewallComponent, canActivate: [authGuard] },
-      { path: 'channelconfiguration-singleview/:id', component: ChannelconfigurationSingleviewComponent, canActivate: [authGuard] },
-      { path: 'setupboxhistory', component: SetupboxHistoryComponent, canActivate: [authGuard] },
-      { path: 'customer-bulkresponse', component: CustomerBulkresponseComponent, canActivate: [authGuard] },
-      { path: 'viewrenewal', component: ViewrenewalComponent, canActivate: [authGuard] },
-      { path: 'setupform', component: SetupformComponent, canActivate: [authGuard] },
-      { path: "service-provider-link-viewall", component: ServiceProviderLinkViewallComponent, canActivate: [authGuard] },
-      { path: 'plan-particular-setupbox/:id', component: PlanParticularSetupboxComponent, canActivate: [authGuard] },
-      { path: 'viewsms', component: ViewsmsComponent, canActivate: [authGuard] },
-      { path: 'smshistory', component: SmshistoryComponent, canActivate: [authGuard] },
-      { path: 'other-payments-viewall', component: OtherPaymentsViewallComponent, canActivate: [authGuard] },
-      { path: 'view-surveyquestions', component: ViewSurveyquestionsComponent, canActivate: [authGuard] },
-      { path: 'add-surveyquestions', component: AddSurveyquestionsComponent, canActivate: [authGuard] },
-      { path: 'view-customer-response/:id', component: ViewCustomerResponseComponent, canActivate: [authGuard] },
-      { path: 'customerresponse-create', component: CustomerresponseCreateComponent, canActivate: [authGuard] },
-      { path: 'customerviewroute/:id', component: CustomerviewrouteComponent, canActivate: [authGuard] },
-      { path: 'areaviewroute/:id', component: AreaViewComponent, canActivate: [authGuard] },
-      { path: 'streetviewroute/:id', component: StreetViewComponent, canActivate: [authGuard] },
-      { path: 'allcustomerviewroute/:id', component: AllcustomerrouteComponent, canActivate: [authGuard] },
-      { path: 'customertransactionroute/:id', component: CustomertransactionrouteComponent, canActivate: [authGuard] },
-      { path: 'admincustomerdetailsroute/:id', component: AdmincustomerdetailsComponent, canActivate: [authGuard] },
-      { path: 'admincustomertransactionroute/:id', component: AdmincustomertransactionComponent, canActivate: [authGuard] },
-      { path: 'customersdetails/:id', component: PascustomerdetailsComponent, canActivate: [authGuard] },
-      { path: 'setupboxhistorys', component: CustomersetupboxhistoryComponent, canActivate: [authGuard] },
-      { path: 'admin-view/:id', component: AdminViewComponent, canActivate: [authGuard] },
-      { path: 'viewagreements', component: ViewagreementsComponent, canActivate: [authGuard] },
-      { path: 'setupboxresponse', component: CustomersetupboxbulkresponseComponent, canActivate: [authGuard] },
-      { path: 'setupbox-customerview/:id', component: SetupboxCustomerviewComponent, canActivate: [authGuard] },
-      { path: 'offline-transactions', component: OfflineTransactionsComponent, canActivate: [authGuard] },
-      { path: 'channel-view/:id', component: PlanConfigurationChannelviewComponent, canActivate: [authGuard] },
-      { path: 'view-setupboxreports', component: ViewsetupboxreportsComponent, canActivate: [authGuard] },
-      { path: 'view-customerreports', component: ViewcustomerreportsComponent, canActivate: [authGuard] },
-      { path: 'view-duesreports', component: ViewduesreportsComponent, canActivate: [authGuard] },
-      { path: 'cusduelogsbymerchant', component: CusduelogsbymerchantComponent, canActivate: [authGuard] },
-      { path: 'updated-duesdetails', component: UpdatedDuesdetailsComponent, canActivate: [authGuard] },
-      { path: 'app-pincode', component: PincodeComponent, canActivate: [authGuard] },
-      { path: 'area-viewall', component: AreaViewallComponent, canActivate: [authGuard] },
-      { path: 'street-viewall', component: StreetViewallComponent, canActivate: [authGuard] },
-      { path: 'setupboxresponse', component: CustomersetupboxbulkresponseComponent, canActivate: [authGuard] },
-      { path: 'view-setupboxreports', component: ViewsetupboxreportsComponent, canActivate: [authGuard] },
-      { path: 'view-customerreports', component: ViewcustomerreportsComponent, canActivate: [authGuard] },
-      { path: 'view-duesreports', component: ViewduesreportsComponent, canActivate: [authGuard] },
-      { path: 'view-booking', component: DashboardviewbookingComponent, canActivate: [authGuard] },
-      { path: 'view-free', component: DashboardviewfreeComponent, canActivate: [authGuard] },
-      { path: 'view-faulty', component: DashboardviewfaultyComponent, canActivate: [authGuard] },
-      { path: 'view-active', component: DashboardviewactivecustomerComponent, canActivate: [authGuard] },
-      { path: 'view-inactive', component: DashboardviewinactivecustomerComponent, canActivate: [authGuard] },
-      { path: 'view-pending', component: DashboardviewpendingcustomerComponent, canActivate: [authGuard] },
-      { path: 'view-activecustomer', component: DashboardviewactiveempolyeeComponent, canActivate: [authGuard] },
-      { path: 'view-inactivecustomer', component: DashboardviewinactiveemployeeComponent, canActivate: [authGuard] },
-      { path: 'category-viewall', component: CategoryViewallComponent, canActivate: [authGuard] },
-      { path: 'additional-transactions', component: AdditionalTransactionsComponent, canActivate: [authGuard] },
-      {path:'view-openticket',component:DashboardviewopenticketComponent,canActivate:[authGuard]},
-      {path:'view-holdticket',component:DashboardviewholdticketComponent,canActivate:[authGuard]},
-      {path:'view-closedticket',component:DashboardviewclosedticketComponent,canActivate:[authGuard]},
-      {path:'branches-viewall',component:BranchesViewallComponent,canActivate:[authGuard]},
+      { path: 'view-beneficiary', component: ViewbeneficiaryComponent, canActivate: [authGuard] },
+      { path: 'add-beneficiary', component: AddbeneficiaryComponent, canActivate: [authGuard] },
+      { path: 'edit-beneficiary/:id', component: EditbeneficiaryComponent, canActivate: [authGuard] },
+      { path: 'viewprofile', component: ProfileComponent, canActivate: [authGuard] },
+      { path: 'edit-personal/:id', component: EditPersonalInfoComponent, canActivate: [authGuard] },
+      { path: 'entity-transaction/:id', component: EntityTransactionComponent, canActivate: [authGuard] },
+      { path: 'entitycustomers/:id', component: EntityCustomersViewComponent, canActivate: [authGuard] },
+      { path: 'entitycustomerviewAll/:id', component: EntityCustomersViewAllComponent, canActivate: [authGuard] },
+      { path: "app-dues", component: DuesComponent, canActivate: [authGuard] },
+      { path: 'manual-payment', component: UpdateManualpaymentComponent, canActivate: [authGuard] },
+      { path: 'manual-transaction/:id', component: ManualTransactionComponent, canActivate: [authGuard] },
+      { path: 'paymentlink-view/:id', component: PaymentlinkViewComponent, canActivate: [authGuard] },
+      { path: 'view-policy', component: ViewPolicyComponent, canActivate: [authGuard] },
+      { path: 'add-policy', component: AddPolicyComponent, canActivate: [authGuard] },
+      { path: 'edit-policy/:id', component: EditPolicyComponent, canActivate: [authGuard] },
+      { path: 'customer-viewall', component: CustomerViewallComponent, canActivate: [authGuard] },
+      { path: 'bank-viewall', component: BankViewallComponent, canActivate: [authGuard] },
+      { path: 'customer-trans-viewall', component: CustomerTransViewallComponent, canActivate: [authGuard] },
+      { path: 'maintenance-trans-viewall', component: MaintenanceTransViewallComponent, canActivate: [authGuard] },
+      { path: 'service-payments-viewall', component: ServicePaymentsViewallComponent, canActivate: [authGuard] },
+      { path: 'otherpayments-viewall', component: OtherpaymentsViewallComponent, canActivate: [authGuard] },
+      { path: 'otherpay-trans/:id', component: OtherpayTransComponent, canActivate: [authGuard] },
+      { path: 'viewall-kyccategory', component: ViewallKyccategoryComponent, canActivate: [authGuard] },
+      { path: 'fargin-viewall', component: FarginBankviewComponent, canActivate: [authGuard] },
+      { path: "entity-sms-viewall", component: EntitySmsViewallComponent, canActivate: [authGuard] },
+      { path: "smshistory", component: SMSHistoryComponent, canActivate: [authGuard] },
+      { path: "smshistory-view/:id", component: SMSHistoryViewComponent, canActivate: [authGuard] },
+      { path: 'sms-cost-viewall', component: SmsCostViewallComponent, canActivate: [authGuard] },
+      { path: 'entity-auto-debit-getall', component: EntityAutoDebitGetallComponent, canActivate: [authGuard] },
+      { path: 'entity-auto-debit-by-id/:id', component: EntityAutoDebitByIdComponent, canActivate: [authGuard] },
+      { path: 'view-announcement', component: ViewAnnouncementComponent, canActivate: [authGuard] },
+      { path: 'plan-details-customer/:id', component: PlanDetailsCustomerComponent, canActivate: [authGuard] },
+      { path: 'surveyviewall', component: SurveyviewallComponent, canActivate: [authGuard] },
+      { path: 'view-surveyquestions/:id', component: CustomerSurveyquestionsComponent, canActivate: [authGuard] },
+      { path: 'alcot-history', component: AlcotHistoryComponent, canActivate: [authGuard] },
+      { path: 'bouqutes-region/:id', component: BouqutesRegionComponent, canActivate: [authGuard] },
+      { path: "signer-getall", component: SignerGetallComponent, canActivate: [authGuard] },
+      { path: 'agreementplan', component: ViewagreementplanComponent, canActivate: [authGuard] },
+      {path:'agreement-viewall',component:AgreementViewallComponent,canActivate: [authGuard]},
+      {path:'offline-transactions/:id',component:OfflineTransactionsComponent,canActivate: [authGuard]},
+      {path:'success-offtransactions',component:SuccessOfftransactionsComponent,canActivate: [authGuard]},
+      {path:'failure-offtransactions',component:FailureOfftransactionsComponent,canActivate: [authGuard]},
+      {path:'offline-settlement/:id',component:OfflineSettlementComponent,canActivate: [authGuard]},
+      {path:'Branch-viewall', component: BranchViewallComponent, canActivate: [authGuard] },
       {path:'branch-customer-view/:id',component:BranchCustomerViewComponent,canActivate:[authGuard]},
-      {path:'onstatus',component:OnstatusComponent,canActivate:[authGuard]},
-      {path:'offstatus',component:OffstatusComponent,canActivate:[authGuard]},
-      {path:'yesterdayonstatus',component:YesterdayonoffstatusComponent,canActivate:[authGuard]},
-      {path:'yesterdayoffstatus',component:YesterdayoffstatusComponent,canActivate:[authGuard]},
-      {path:'route-bulkresponse',component:RoutebulkresponseComponent,canActivate:[authGuard]},
-      {path:'historyforremainder/:id',component:HistoryforreminderComponent,canActivate:[authGuard]},
-      {path:'duestatushistory',component:DuestatushistoryComponent,canActivate:[authGuard]},
-      {
-        path:'booked-customer-view/:id',component:BookedCustomerViewComponent,canActivate:[authGuard]
-      },
-      {path:'damaged-customer-view/:id',component:DamagedCustomerViewComponent,canActivate:[authGuard]},
-      {path:'duestatusoff',component:DuestatusoffdetailsComponent,canActivate:[authGuard]},
-      {path:'refund-for-merchant',component:RefundForMerchantComponent,canActivate:[authGuard]},
-      {path:'setupbox-history/:id/:id',component:SetupboxHistoryviewComponent,canActivate:[authGuard]},
-      {path:'setupbox-history/:id/:id',component:SetupboxHistoryviewComponent,canActivate:[authGuard]},
-      {path:'customer-status-history/:id',component:CustomerStatusHistoryComponent,canActivate:[authGuard]},
-      {path:'Lcop-Channel/:id',component:LcopchannelviewComponent,canActivate:[authGuard]},
-
+      {path:'additional-payments',component:AdditionalpaymentsComponent,canActivate: [authGuard]},
+      {path:'refund-getall',component:RefundGetallComponent,canActivate: [authGuard]},
+ 
+      // {path:'merchant-additional/:id',component:MercahntbasedadditionalComponent,canActivate: [authGuard]},
     ],
 
   },
+]
 
-  // Add a wildcard route for 404
-  { path: '**', component: ByRedirectComponent }
-];
+
+
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }

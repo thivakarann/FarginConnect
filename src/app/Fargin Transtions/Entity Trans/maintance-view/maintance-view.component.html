@@ -26,6 +26,14 @@
                     <td id="data">{{view?.paymentMethod}}</td>
                 </tr>
                 <tr>
+                    <td class="datas">Reference Number</td>
+                    <td id="data">{{ view?.utrNumber|| '-'}}</td>
+                </tr>
+                <tr>
+                    <td class="datas">Updated By</td>
+                    <td id="data">{{ view?.updatedBy|| '-'}}</td>
+                </tr>
+                <tr>
                     <td class="datas">Card Expiry</td>
                     <td id="data">
                      <span  *ngIf="view?.cardExpiry == null || view?.cardExpiry == 'null' ">-</span>

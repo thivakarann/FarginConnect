@@ -52,6 +52,7 @@ ActiveregionID: any;
 
     this.BroadcasterBouquetAdd.BoucatenamesActive().subscribe((res: any) => {
       this.details = res.response;
+      this.details.sort((a: any, b: any) => a.broadCasterName.localeCompare(b.broadCasterName));
     });
 
     this.BroadcasterBouquetAdd.ActiveAlcards().subscribe((res: any) => {
@@ -61,6 +62,7 @@ ActiveregionID: any;
 
     this.BroadcasterBouquetAdd.activeprovider().subscribe((res: any) => {
       this.ActiveMSO = res.response;
+      this.ActiveMSO.sort((a: any, b: any) => a.serviceProviderName.localeCompare(b.serviceProviderName));
     })
 
 
@@ -121,11 +123,13 @@ ActiveregionID: any;
 
     this.BroadcasterBouquetAdd.BouqueteNameByBroadcasterid(this.getRoleId).subscribe((res: any) => {
       this.Plandetails = res.response;
+      this.Plandetails.sort((a: any, b: any) => a.bouquetName.localeCompare(b.bouquetName));
       
     })
 
     this.BroadcasterBouquetAdd.ActiveRegionsbyserviceprovider(this.getservices).subscribe((res: any) => {
       this.ActiveRegions = res.response;
+      this.ActiveRegions.sort((a: any, b: any) => a.stateName.localeCompare(b.stateName));
     })
     
   }

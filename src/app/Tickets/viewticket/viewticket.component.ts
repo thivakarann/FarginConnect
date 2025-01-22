@@ -240,7 +240,6 @@ export class ViewticketComponent implements OnInit {
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
-      let qty9 = row.getCell(10);
  
  
  
@@ -254,7 +253,6 @@ export class ViewticketComponent implements OnInit {
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
  
  
     }

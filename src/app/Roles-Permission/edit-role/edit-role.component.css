@@ -12,7 +12,7 @@ button {
  
 .page {
   color: var(--gray-9);
-  /* background-color: var(--gray-0); */
+  background-color: #fff;
   display: grid;
   grid-template-areas: "main";
   height: auto;
@@ -27,7 +27,6 @@ button {
   display: grid;
   justify-items: center;
   align-items: center;
-  
 }
  
 .main__form {
@@ -38,7 +37,7 @@ button {
  
 .form {
   color: var(--gray-9);
-  /* background-color: var(--gray-3); */
+  background-color: #fff;
   display: grid;
   width: 100%;
   max-width: 100%;
@@ -144,17 +143,14 @@ button {
   }
 }
  
- 
-.card-header {
- 
-  background-color: #7db855be;
-  color: #141E46;
-  font-family: "Roboto";
+.form__label {
+  font-weight: 500;
 }
  
-mat-select{
-  background-color: white;
-  width: 530px;
-  height: 40px;
-  border-radius: 8px;
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #bcdf72;
+  color: #141E46;
+  font-family: "Roboto";
 }

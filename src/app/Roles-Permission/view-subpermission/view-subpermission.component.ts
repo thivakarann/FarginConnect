@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -6,11 +6,12 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
   templateUrl: './view-subpermission.component.html',
   styleUrl: './view-subpermission.component.css'
 })
-export class ViewSubpermissionComponent implements OnInit {
+export class ViewSubpermissionComponent {
   streetValue: any;
   subpermissionValue: any;
-  currentPage: number = 1; // The current page number
+  currentPage: number = 1; 
   searchText: any;
+
   constructor(private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
@@ -21,6 +22,12 @@ export class ViewSubpermissionComponent implements OnInit {
   back() {
     this.dialog.closeAll()
   }
+
+  onSearchTextChange(): void {
+    // Reset to the first page whenever the search text changes
+    this.currentPage = 1;
+  }
+
   transform(value: any[], searchText: string): any[] {
     if (!value || !searchText) {
       return value;
@@ -28,10 +35,5 @@ export class ViewSubpermissionComponent implements OnInit {
     return value.filter(item =>
       item.subpermissionValue.toLowerCase().includes(searchText.toLowerCase())
     );
-  }
-
-  onSearchTextChange(): void {
-    // Reset to the first page whenever the search text changes
-    this.currentPage = 1;
   }
 }

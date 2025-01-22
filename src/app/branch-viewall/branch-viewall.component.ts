@@ -163,16 +163,16 @@ export class BranchViewallComponent {
     });
   }
 
-
   exportexcel() {
-
+ 
     let sno = 1;
     this.responseDataListnew = [];
     this.branchview.forEach((element: any) => {
-
-
+ 
+ 
       this.response = [];
       this.response.push(sno);
+      this.response.push(element?.entityName);
       this.response.push(element?.branchName);
       this.response.push(element?.apiKey);
       this.response.push(element?.secretKey);
@@ -180,12 +180,7 @@ export class BranchViewallComponent {
       this.response.push(element?.ifscCode);
       this.response.push(element?.accountHolderName);
       this.response.push(element?.accountNumber);
-      if (element?.accountStatus == '1') {
-        this.response.push('Active')
-      }
-      else {
-        this.response.push('Inactive')
-      }
+   
       this.response.push(element?.createdBy);
       if (element.createdAt) {
         this.response.push(moment(element?.createdAt).format('DD/MM/yyyy hh:mm a').toString());
@@ -200,41 +195,38 @@ export class BranchViewallComponent {
       else {
         this.response.push('');
       }
-
-
+ 
+ 
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
-
+ 
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
       'sno',
-      'branchName',
-      'apiKey',
-      'secretKey',
-      'bankName',
-      'ifscCode',
-      'accountHolderName',
-      'accountNumber',
-      'Status',
-      'createdby',
-      'createdat',
-      'modifiedBy',
-      'modifiedAt'
+      'Entity Name',
+      'BranchName',
+      'ApiKey',
+      'SecretKey',
+      'BankName',
+      'IfscCode',
+      'AccountHolderName',
+      'AccountNumber',
+   
     ]
-
-
+ 
+ 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Branch');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
-
+ 
+ 
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -245,15 +237,15 @@ export class BranchViewallComponent {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
-
+ 
       }
-
+ 
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
-
+ 
     data.forEach((d: any) => {
       //
-
+ 
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -264,14 +256,10 @@ export class BranchViewallComponent {
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
-      let qty9 = row.getCell(10);
-      let qty10 = row.getCell(11);
-      let qty11 = row.getCell(12);
-      let qty12 = row.getCell(13);
-
-
-
-
+ 
+ 
+ 
+ 
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -281,12 +269,8 @@ export class BranchViewallComponent {
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty12.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
-
+ 
+ 
     }
     );
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }

@@ -12,6 +12,7 @@ import FileSaver from 'file-saver';
 import { CustomerTicketapprovalComponent } from '../customer-ticketapproval/customer-ticketapproval.component';
 import { CustDescriptionCommentComponent } from '../cust-description-comment/cust-description-comment.component';
 import { CustomerticketImageComponent } from '../customerticket-image/customerticket-image.component';
+import moment from 'moment';
 
 @Component({
   selector: 'app-customer-viewall',
@@ -209,10 +210,19 @@ export class CustomerViewallComponent implements OnInit {
           this.response.push(element?.mobileNumber);
           this.response.push(element?.categoryName);
           this.response.push(element?.ticketStatus)
-          this.response.push(element?.createdDateTime);
+          if(element?.createdDateTime){
+            this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy-hh:mm a').toString());
+          }
+          else{
+            this.response.push('');
+          }
           this.response.push(element?.ticketStatusModifedBy);
-          this.response.push(element?.ticketModifedDateTime);
- 
+          if(element?.ticketModifedDateTime){
+            this.response.push(moment(element?.ticketModifedDateTime).format('DD/MM/yyyy-hh:mm a').toString());
+          }
+          else{
+            this.response.push('');
+          } 
           sno++;
           this.responseDataListnew.push(this.response);
         });

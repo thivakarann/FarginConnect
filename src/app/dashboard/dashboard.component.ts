@@ -1,12 +1,8 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, Renderer2, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangePasswordComponent } from '../change-password/change-password.component';
-import { ProfileComponent } from '../profile/profile.component';
-import { LogOutComponent } from '../log-out/log-out.component';
+import { LogoutComponent } from '../logout/logout.component';
 import { FarginServiceService } from '../service/fargin-service.service';
-import { log } from 'console';
-import { LanguageService } from '../Language service/language-service.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,483 +10,285 @@ import { Subscription } from 'rxjs';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit {
-
-  emailststaus = Number(localStorage.getItem('emailOtpVerificationStatus')) || '';
-  smsstatus = Number(localStorage.getItem('smsOtpVerificationstatus')) || '';
-  modifiedDateTime = localStorage.getItem('modifiedDateTime') || '';
-  entityname = localStorage.getItem('entityname') || '';
-  lastLoggedOn = localStorage.getItem('lastLoggedOn') || '';
-  technicalAmount = Number(localStorage.getItem('technicalAmount')) || '';
-  technical = localStorage.getItem('technicalPayStatus') || '';
-  adminName = localStorage.getItem('adminName');
-  offlineQrEnableStatus = localStorage.getItem('offlineQrEnableStatus');
-
-  merchantId = Number(localStorage.getItem('merchantId')) || '';
   private sidebarDropdowns: HTMLElement[] = [];
   private pageWrapper: HTMLElement | null = null;
-  valueDashboard: any;
   getdashboard: any[] = [];
-  actions: any;
   roleId: any = localStorage.getItem('roleId')
   errorMessage: any;
+  valueDashboard: any;
+  valueBusinessCategory: any;
+  valueBusinessKYC: any;
+  valueCreditcart: any;
+  valueUser: any;
+  valueRole: any;
+  valueTickets: any;
+  valueTermsandPolicy: any;
+  valueEntity: any;
+  valueRegion: any;
+  ValueMSO: any;
+  valueFacheck: any;
   roles: any;
-  valueVerification: any;
   valueCustomer: any;
-  valuetermscondition: any;
-  valuedisclaimer: any;
-  valueprivacypolicy: any;
-  valuerefund: any;
-  valueserviceticket: any;
   valueTransaction: any;
-  valuecustomerdues: any;
-  valueBeneficiary: any;
-  valuefunds: any;
-  valueChannelConfiguration: any;
+  valuepayOut: any;
+  valuemerchantPlan: any;
+  valuepgsetupkey: any;
+  valueWithdrawalfee: any;
+  valuechannelConfiguration: any;
+  valueBroadcasterConfiguration: any;
   valuePlanConfiguration: any;
-  LCOPPlanConfiguration: any;
-  valueLCOPPlanConfiguration: any;
-  valuebulksetup: any;
-  valueregion: any;
-  valueRouteConfiguration: any;
-  valuesetup: any;
-  valuerole: any;
-  valueemployee: any;
+  valueBroadcasterBouqutes: any;
   valueprofile: any;
   valuechangepassword: any;
-  valueDues: any;
-  valuecutomerticket: any;
-  customercount: any;
-  policyId: any;
-  approvedstatus: any;
-  terms: any;
-  sms: any;
-  checkStatus: boolean = false;
-  FourtStataus: boolean = false;
-  valuecustomerbulk: any;
-  valuerenewal: any;
-  valueCustomizations: any;
-  valueServiceProvider: any;
-  valuesms: any;
+  valueentitydues: any;
+  valuefarginpolicy: any;
+  valueMerchantpolicy: any;
+  counts: any;
+  valuecustomerticket: any;
+  valuecustomerpayment: any;
+  valuecustomersubscription: any;
+  valuecustomermanualpayment: any;
+  valuekyccategory: any;
+  valueannouncement: any;
+  valuesmscost: any;
+  valuebankdetails: any;
+  valuefarginbank: any;
+  valueentitysms: any;
   valuesmshistory: any;
-  roleName = localStorage.getItem('roleName')
+  valueautodebit: any;
+  valueCustomizationPayments: any;
   valuesurvey: any;
-  smsactive = Number(localStorage.getItem('smsStatus')) || '';
-  valueAgreement: any;
-  valuecustomerbulksetupbox: any;
-  valuestatic: any;
-  valuecustomerreport: any;
-  valueDuesReports: any;
-  valueSetupboxReports: any;
-  valueBranch: any;
-  valueCategory: any;
-  valueAdditionalTransactions: any;
-  branchviews: any;
-  branchstatus: boolean = false;
-  valueRouteStatus: any;
-  valueDueStatusHistory: any;
-  valueonline: any;
-  currentLanguageSubscription!: Subscription;
-   currentLanguage!: string;
-   selectedLanguage: string = 'en';
-
-  constructor(private languageService: LanguageService, private cdRef: ChangeDetectorRef, private elRef: ElementRef, private renderer: Renderer2, private dialog: MatDialog, private service: FarginServiceService,) { }
+  valueBuisneesDoCument: any;
+  valueentityagreement: any;
+  valueBusinessPlan:any;
+  valueSignerDetails:any;
+valueAdditionalPayments: any;
+valuebranch: any;
+  valueonlienrefund: any;
 
 
-
-
-
-
+  constructor(private elRef: ElementRef,
+    private renderer: Renderer2,
+    private dialog: MatDialog,
+    private service: FarginServiceService,) { }
   ngOnInit(): void {
 
-    this.service.viewterm(this.merchantId).subscribe((res: any) => {
-      this.terms = res.response;
-      this.policyId = res.response?.EntityModel?.policyId;
-
-      this.service.viewapprovepolicy(this.policyId).subscribe((res: any) => {
-        this.approvedstatus = res.response.approvalStatus;
-        this.checkConditions();
-      });
-    });
-
-    this.service.smsmerchants(this.merchantId).subscribe((res: any) => {
-      this.sms = res.response;
-      this.checkConditions();
-      console.log(this.sms + "sms Aproved or Pending")
-    })
-
-    setTimeout(() => {
-      this.emailststaus = 1;
-      this.smsstatus = 1;
-      this.technical.toLowerCase() == 'success'
-      this.checkConditions();
-    }, 300);
-
-    this.currentLanguageSubscription = this.languageService.language.subscribe(lang => { this.currentLanguage = lang; });
-
-    // const time = setTimeout(() => {
-    //   console.log(" this.emailststaus" + this.emailststaus)
-    //   console.log(" this.smsstatus" + this.smsstatus)
-    //   console.log(" this.technical" + this.technical)
-    //   console.log(" this.approvedstatus" + this.approvedstatus)
-    //   if (
-    //     this.emailststaus == 1 &&
-    //     this.smsstatus == 1 &&
-    //     this.technical.toLowerCase() == 'success' &&
-    //     this.approvedstatus == 'Approved'
-
-    //   ) {
-    //     this.FourtStataus = true
-    //     console.log("this.FourtStataus for condi" + this.FourtStataus)
-    //   }
-
-    //   console.log("this.FourtStataus" + this.FourtStataus)
-    //   console.log("this.smsactive" + this.smsactive)
-    //   console.log("this.sms" + this.sms)
-
-    //   if (this.FourtStataus == true) {
-    //     this.checkStatus = true
-    //     if (this.smsactive == 1 && this.sms == 'Pending') {
-    //       this.checkStatus = false
-    //       console.log("checkStatus for sms" + this.checkStatus)
-    //     }
-    //   }
-
-    //   if (this.FourtStataus == false) {
-    //     this.checkStatus = false
-    //     console.log("checkStatuses" + this.checkStatus)
-    //   }
-    //   console.log("checkStatus" + this.checkStatus)
 
 
+    this.getpermissionValue();
 
-
-    // }, 300);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // const time = setTimeout(() => {
-    //   if (
-    //     this.sms != 'Pending' &&
-    //     this.emailststaus == 1 &&
-    //     this.smsstatus == 1 &&
-    //     this.technical == 'Success' &&
-    //     this.approvedstatus == 'Approved' &&
-    //     this.smsactive == 1
-
-    //   ) {
-    //     this.checkStatus = true;
-    //   }
-    // }, 500);
-    //     const time = setTimeout(() => {
-    //       console.log(this.sms + "sms")
-    //       console.log(this.emailststaus + "emailststaus")
-    //       console.log(this.smsstatus + "smsstatus")
-    //       console.log(this.technical + "technical")
-    //       console.log(this.approvedstatus + "approvedstatus")
-    //       console.log(this.smsactive + "smsactive")
-    //       if (
-
-
-    //         this.emailststaus == 1 &&
-    //         this.smsstatus == 1 &&
-    //         this.technical.toLowerCase() == 'success' &&
-    //         this.approvedstatus == 'Approved'
-
-    //       ) {
-    //         this.checkStatus = true;
-    //         console.error(this.sms + "" + this.smsactive + "check pending")
-
-
-
-    //         if (this.sms !== 'Pending' &&
-    //           this.smsactive === 1) {
-    //           this.checkStatus = false;
-
-    // console.log(this.checkStatus)
-    //         }
-
-    //       }
-    //       console.log(this.checkStatus + "fwjekfbjewk")
-    //       console.log(this.technical.toLowerCase() + "jsdbkjqewbd")
-    //     }, 500);
-
-
-    if (this.roleName == 'Merchant Super admin') {
-      this.valueDashboard = 'Dashboard';
-      this.valueVerification = 'Verification';
-      this.valueCustomer = 'Customer';
-      this.valuetermscondition = 'Terms and Condition';
-      this.valuedisclaimer = 'Disclaimer';
-      this.valueprivacypolicy = 'Privacy Policy';
-      this.valuerefund = 'Refund Policy';
-      this.valueserviceticket = 'Support Request'
-      this.valuecustomerdues = 'Customer dues';
-      this.valueBeneficiary = 'Beneficiary';
-      this.valuefunds = 'Fund Transfer';
-      this.valueChannelConfiguration = 'Channel Configuration';
-      this.valuePlanConfiguration = 'Plan Configuration';
-      this.valueLCOPPlanConfiguration = 'LCOP Plan Configuration';
-      this.valuebulksetup = 'Setup box Status';
-      this.valueregion = 'Region'
-      // this.valueRouteConfiguration = 'Route Configuration';
-      this.valuesetup = 'Setup Box Inventory';
-      this.valuerole = 'Role';
-      this.valueemployee = 'Employee';
-      this.valueprofile = 'Profile';
-      this.valueDues = 'Subscription'
-      this.valuecutomerticket = 'Customer Request'
-      this.valuecustomerbulk = 'Customer Status'
-      this.valuerenewal = 'Renewal'
-      this.valueCustomizations = 'Customizations Payments'
-      this.valuesms = 'SMS Service'
-      this.valuesmshistory = 'SMS History'
-      this.valuesurvey = 'Customer Survey'
-      this.valueAgreement = 'Agreement'
-      this.valuecustomerbulksetupbox = 'Customer Setupbox Status'
-      this.valueServiceProvider = 'Service Provider Payments'
-      this.valuecustomerreport = 'Customer Reports'
-      this.valueDuesReports = 'Dues Reports'
-      this.valueSetupboxReports = 'Setup Box Reports'
-      this.valuestatic = 'Static QR Transactions'
-      this.valueBranch = 'Branch'
-      this.valueCategory = 'Category'
-      this.valueAdditionalTransactions = 'Additional Transactions'
-      this.valueRouteStatus = 'Route Status'
-      this.valueDueStatusHistory = 'Due Status History'
-      this.valueonline = 'Online Refunds'
-
-    }
-
-
-    else {
-      this.service.viewRole(this.roleId).subscribe((res: any) => {
-
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
 
         if (res.flag == 1) {
-          this.getdashboard = res.response.merchantPermission
-          this.getpermissionValue()
+          this.getdashboard = res.response?.permission;
+
+          this.getpermissionValue();
         }
         else {
-          this.errorMessage = res.responseMessage
+          this.errorMessage = res.responseMessage;
         }
-      })
-    }
-
-
-    this.service.dashboardcount(this.merchantId).subscribe((res: any) => {
-      this.customercount = res.response;
+      }
     });
 
-    this.service.viewterm(this.merchantId).subscribe((res: any) => {
-      this.terms = res.response;
-      this.policyId = res.response?.EntityModel?.policyId;
+    this.service.dashboardCount().subscribe((res: any) => {
+      this.counts = res.response.totalTicketMemberOpenCount;
 
-      this.service.viewapprovepolicy(this.policyId).subscribe((res: any) => {
-        this.approvedstatus = res.response.approvalStatus;
-
-      });
     });
-
-    this.service.BranchView(this.merchantId).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.branchviews = res.response;
-        this.branchstatus = true;
-      }
-      else if (res.flag == 2) {
-        this.branchstatus = false;
-      }
-    })
-
-
-
-
 
   }
-
-  
-
-
-  switchLanguage(lang: string) {
-     this.languageService.setLanguage(lang);
-     console.log("lang" + lang)
-
-   }
-
 
   getpermissionValue() {
+    if (this.roleId == '1') {
+      this.valueDashboard = 'Dashboard';
+      this.valueEntity = 'Entity Onboard';
+      this.valueCustomer = 'Customers';
+      this.valueTransaction = 'Transactions';
+      this.valuepayOut = 'Payout';
+      this.valueTickets = 'Entity Request';
+      this.valuecustomerticket = 'Customer Request'
+      this.valueBusinessCategory = 'Bussiness Category';
+      this.valueBusinessKYC = 'Business Category DocDocument Type';
+      this.valueBusinessKYC = 'Business Category Doc';
+      this.valueRegion = 'Region';
+      this.ValueMSO = 'MSO';
+      this.valuemerchantPlan = 'Merchant Plan';
+      this.valueFacheck = 'FaCheck Key';
+      this.valuepgsetupkey = 'PG SetupKey';
+      this.valueWithdrawalfee = 'Withdrawal Fee'
+      this.valuechannelConfiguration = 'Channel Creation';
+      this.valueBroadcasterConfiguration = 'Broadcaster Creation'
+      this.valuePlanConfiguration = 'Plan Creation'
+      this.valueBroadcasterBouqutes = 'Broadcaster Bouqutes'
+      this.valueUser = 'User';
+      this.valueRole = 'Role';
+      this.valueentitydues = 'Entity Dues';
+      this.valuefarginpolicy = 'Fargin Policy'
+      this.valueMerchantpolicy = 'Merchant Policy'
+      this.valuecustomerpayment = 'Customer Payment'
+      this.valuecustomersubscription = 'Subscription Payment'
+      this.valuecustomermanualpayment = 'one Time Payments'
+      this.valuekyccategory = 'Kyc Category'
+      this.valueannouncement = 'Announcement'
+      this.valuesmscost = 'SMS Cost'
+      this.valuebankdetails = 'Bank List'
+      this.valuefarginbank = 'Fargin bank'
+      this.valueentitysms = 'Entity Sms'
+      this.valuesmshistory = 'SMS History'
+      this.valueautodebit = 'MMC Auto Debit'
+      this.valueCustomizationPayments = 'Customized Payment'
+      this.valuesurvey = 'Survey'
+      this.valueBuisneesDoCument = 'Business Document Type'
+      this.valueentityagreement = 'Entity Agreement'
+       this.valueBusinessPlan='Business Plan'
+      this.valueSignerDetails='Signer Details'
+       this.valueAdditionalPayments = 'Additional Payments'
+        this.valuebranch = 'Branch'
+        this.valueonlienrefund = 'Online Refunds'
+    }
+    else {
+      for (let data of this.getdashboard) {
+        this.roles = data.permission;
 
 
-    for (let datas of this.getdashboard) {
-      this.roles = datas.permissions
-      if (this.roles == 'Dashboard') {
-        this.valueDashboard = 'Dashboard';
-      }
-      if (this.roles == 'Verification') {
-        this.valueVerification = 'Verification'
-      }
-      if (this.roles == 'Customer') {
-        this.valueCustomer = 'Customer'
-      }
-      if (this.roles == 'Terms and Condition') {
-        this.valuetermscondition = 'Terms and Condition'
-      }
-      if (this.roles == 'Disclaimer') {
-        this.valuedisclaimer = 'Disclaimer'
-      }
-      if (this.roles == 'Privacy Policy') {
-        this.valueprivacypolicy = 'Privacy Policy'
-      }
-      if (this.roles == 'Refund Policy') {
-        this.valuerefund = 'Refund Policy'
-      }
-      if (this.roles == 'Support Request') {
-        this.valueserviceticket = 'Support Request'
-      }
-      if (this.roles == 'Customer dues') {
-        this.valuecustomerdues = 'Customer dues'
-      }
-      if (this.roles == 'Beneficiary') {
-        this.valueBeneficiary = 'Beneficiary'
-      }
-      if (this.roles == 'Fund Transfer') {
-        this.valuefunds = 'Fund Transfer'
-      }
-      if (this.roles == 'Channel Configuration') {
-        this.valueChannelConfiguration = 'Channel Configuration'
-      }
-      if (this.roles == 'Plan Configuration') {
-        this.valuePlanConfiguration = 'Plan Configuration'
-      }
-      if (this.roles == 'LCOP Plan Configuration') {
-        this.valueLCOPPlanConfiguration = 'LCOP Plan Configuration'
-      }
-      if (this.roles == 'Setup box Status') {
-        this.valuebulksetup = 'Setup box Status'
-      }
-      if (this.roles == 'Region') {
-        this.valueregion = 'Region'
-      }
-      // if (this.roles == 'Route Configuration') {
-      //   this.valueRouteConfiguration = 'Route Configuration'
-      // }
-      if (this.roles == 'Setup Box Inventory') {
-        this.valuesetup = 'Setup Box Inventory'
-      }
-      if (this.roles == 'Profile') {
-        this.valueprofile = 'Profile'
-      }
-      if (this.roles == 'Subscription') {
-        this.valueDues = 'Subscription'
-      }
-      if (this.roles == 'Customer Request') {
-        this.valuecutomerticket = 'Customer Request'
-      }
-      if (this.roles == 'Customer Status') {
-        this.valuecustomerbulk = 'Customer Status'
-      }
-      if (this.roles == 'Renewal') {
-        this.valuerenewal = 'Renewal'
-      }
-      if (this.roles == 'Customizations Payments') {
-        this.valueCustomizations = 'Customizations Payments'
-      }
-      if (this.roles == 'SMS Service') {
-        this.valuesms = 'SMS Service'
-      }
-      if (this.roles == 'SMS History') {
-        this.valuesmshistory = 'SMS History'
-      }
-      if (this.roles == 'Customer Survey') {
-        this.valuesurvey = 'Customer Survey'
-      }
+        if (this.roles == 'Dashboard') {
+          this.valueDashboard = 'Dashboard';
+        }
+        if (this.roles == 'Entity Onboard') {
+          this.valueEntity = 'Entity Onboard';
 
-      if (this.roles == 'Agreement') {
-        this.valueAgreement = 'Agreement'
-      }
-      if (this.roles == 'Customer Setupbox Status') {
-        this.valuecustomerbulksetupbox = 'Customer Setupbox Status'
-      }
-      if (this.roles == 'Service Provider Payments') {
-        this.valueServiceProvider = 'Service Provider Payments'
-      }
-      if (this.roles == 'Static QR Transactions') {
-        this.valuestatic = 'Static QR Transactions'
-      }
 
-      if (this.roles == 'Customer Reports') {
-        this.valuecustomerreport = 'Customer Reports'
-      }
-      if (this.roles == 'Dues Reports') {
-        this.valueDuesReports = 'Dues Reports'
-      }
-      if (this.roles == 'Setup Box Reports') {
-        this.valueSetupboxReports = 'Setup Box Reports'
-      }
-      if (this.roles == 'Branch') {
-        this.valueBranch = 'Branch'
-      }
-      if (this.roles == 'Category') {
-        this.valueCategory = 'Category'
-      }
-      if (this.roles == 'Additional Transactions') {
-        this.valueAdditionalTransactions = 'Additional Transactions'
-      }
-      if (this.roles == 'Route Status') {
-        this.valueRouteStatus = 'Route Status'
-      }
+        }
 
-      if (this.roles == 'Due Status History') {
-        this.valueDueStatusHistory = 'Due Status History'
-      }
+        if (this.roles == 'Entity Agreement') {
+          this.valueentityagreement = 'Entity Agreement'
+        }
+        if (this.roles == 'Customers') {
+          this.valueCustomer = 'Customers';
+        }
+        if (this.roles == 'Transactions') {
+          this.valueTransaction = 'Transactions'
+        }
+        if (this.roles == 'Payout') {
+          this.valuepayOut = 'Payout'
+        }
+        if (this.roles == 'Entity Request') {
+          this.valueTickets = 'Entity Request';
+        }
+        if (this.roles == 'Bussiness Category') {
+          this.valueBusinessCategory = 'Bussiness Category';
+        }
+        if (this.roles == 'Business Category DocDocument Type') {
+          this.valueBusinessKYC = 'Business Category DocDocument Type';
+        }
 
-      if (this.roles == 'Online Refunds') {
-        this.valueonline = 'Online Refunds'
+        if (this.roles == 'Business Category Doc') {
+          this.valueBusinessKYC = 'Business Category Doc';
+        }
+        if (this.roles == 'Region') {
+          this.valueRegion = 'Region';
+        }
+        if (this.roles == 'MSO') {
+          this.ValueMSO = 'MSO';
+        }
+        if (this.roles == 'Merchant Plan') {
+          this.valuemerchantPlan = 'Merchant Plan'
+        }
+        // if (this.roles == 'FaCheck Key') {
+        //   this.valueFacheck = 'FaCheck Key'
+        // }
+        // if (this.roles == 'PG SetupKey') {
+        //   this.valuepgsetupkey = 'PG SetupKey'
+        // }
+        if (this.roles == 'Withdrawal Fee') {
+          this.valueWithdrawalfee = 'Withdrawal Fee'
+        }
+        if (this.roles == 'Channel Creation') {
+          this.valuechannelConfiguration = 'Channel Creation';
+        }
+        if (this.roles == 'Broadcaster Creation') {
+          this.valueBroadcasterConfiguration = 'Broadcaster Creation'
+        }
+        if (this.roles == 'Plan Creation') {
+          this.valuePlanConfiguration = 'Plan Creation'
+        }
+        if (this.roles == 'Broadcaster Bouqutes') {
+          this.valueBroadcasterBouqutes = 'Broadcaster Bouqutes'
+        }
+        if (this.roles == 'Entity Dues') {
+          this.valueentitydues = 'Entity Dues'
+        }
+        if (this.roles == 'Fargin Policy') {
+          this.valuefarginpolicy = 'Fargin Policy'
+        }
+        if (this.roles == 'Merchant Policy') {
+          this.valueMerchantpolicy = 'Merchant Policy'
+        }
+        if (this.roles == 'Customer Request') {
+          this.valuecustomerticket = 'Customer Request'
+        }
+        if (this.roles == 'Customer Payment') {
+          this.valuecustomerpayment = 'Customer Payment'
+        }
+        if (this.roles == 'Subscription Payment') {
+          this.valuecustomersubscription = 'Subscription Payment'
+        }
+        if (this.roles == 'one Time Payments') {
+          this.valuecustomermanualpayment = 'one Time Payments'
+        }
+        if (this.roles == 'Kyc Category') {
+          this.valuekyccategory = 'Kyc Category'
+        }
+        if (this.roles == 'Announcement') {
+          this.valueannouncement = 'Announcement'
+        }
+        if (this.roles == 'SMS Cost') {
+          this.valuesmscost = 'SMS Cost'
+        }
+        if (this.roles == 'Bank List') {
+          this.valuebankdetails = 'Bank List'
+        }
+        // if (this.roles == 'Fargin bank') {
+        //   this.valuefarginbank = 'Fargin bank'
+        // }
+        if (this.roles == 'Entity Sms') {
+          this.valueentitysms = 'Entity Sms'
+        }
+        if (this.roles == 'SMS History') {
+          this.valuesmshistory = 'SMS History'
+        }
+        if (this.roles == 'MMC Auto Debit') {
+          this.valueautodebit = 'MMC Auto Debit'
+        }
+        if (this.roles == 'Customized Payment') {
+          this.valueCustomizationPayments = 'Customized Payment'
+        }
+
+        if (this.roles == 'Business Document Type') {
+          this.valueBuisneesDoCument = 'Business Document Type'
+        }
+
+        if (this.roles == 'Survey') {
+          this.valuesurvey = 'Survey'
+        }
+        if(this.roles=='Business Plan'){
+          this.valueBusinessPlan='Business Plan'
+        }
+       
+        if(this.roles=='Signer Details'){
+          this.valueSignerDetails='Signer Details'
+        }
+        if (this.roles == 'Additional Payments') {
+          this.valueAdditionalPayments = 'Additional Payments'
+        }
+        if (this.roles == 'Branch') {
+          this.valuebranch = 'Branch'
+        }
+        if (this.roles == 'Online Refunds') {
+          this.valueonlienrefund = 'Online Refunds'
+        }
       }
     }
-
-  }
-  checkConditions() {
-    console.log('this.emailststaus' + this.emailststaus);
-    console.log('this.smsstatus' + this.smsstatus);
-    console.log('this.technical' + this.technical);
-    console.log('this.approvedstatus' + this.approvedstatus);
-    if (
-      this.emailststaus === 1 &&
-      this.smsstatus === 1 &&
-      this.technical.toLowerCase() === 'success' &&
-      this.approvedstatus === 'Approved'
-    ) {
-      this.FourtStataus = true;
-      console.log('this.FourtStataus for condi' + this.FourtStataus);
-    }
-    console.log('this.FourtStataus' + this.FourtStataus);
-    console.log('this.smsactive' + this.smsactive);
-    console.log('this.sms' + this.sms);
-    if (this.FourtStataus === true) {
-      this.checkStatus = true;
-      if (this.smsactive === 1 && this.sms === 'Pending') {
-        this.checkStatus = false;
-        console.log('checkStatus for sms' + this.checkStatus);
-      }
-    }
-    if (this.FourtStataus === false) {
-      this.checkStatus = false;
-      console.log('checkStatuses' + this.checkStatus);
-    }
-    console.log('checkStatus' + this.checkStatus);
-    this.cdRef.detectChanges();
   }
 
   ngAfterViewInit() {
@@ -598,34 +396,18 @@ export class DashboardComponent implements OnInit {
       }
     }
   }
+
+
   changepassword() {
-
     this.dialog.open(ChangePasswordComponent, {
-
-      enterAnimationDuration: '1000ms',
-      exitAnimationDuration: '1000ms',
-    });
+      disableClose: true
+    })
   }
 
   logout() {
-
-    this.dialog.open(LogOutComponent, {
-      // width:'350px',
-      // position:{top:'0px'}
+    this.dialog.open(LogoutComponent, {
+      enterAnimationDuration: "300ms",
+      exitAnimationDuration: "500ms",
     })
-
-  }
-
-  getFontSize() {
-    if (this.selectedLanguage === 'en') {
-      return '14px';
-    } else if (this.selectedLanguage === 'kn' || this.selectedLanguage === 'ml') {
-      return '12px'; // Adjust for Kannada and Malayalam
-    }
-    else if (this.selectedLanguage === 'ta') {
-      return '12px'; // Adjust for Kannada and Malayalam
-    } else {
-      return '12px'; // Default for other languages
-    }
   }
 }

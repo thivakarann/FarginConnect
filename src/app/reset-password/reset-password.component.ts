@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FarginServiceService } from '../service/fargin-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.css'
 })
-export class ResetPasswordComponent implements OnInit{
+export class ResetPasswordComponent {
   resetForm!: FormGroup;
   showPassword: boolean = false;
   showPassword1: boolean = false;
@@ -19,12 +19,12 @@ export class ResetPasswordComponent implements OnInit{
   passwordsMatching: boolean = false;
   error: any;
   emailAddress: any;
-  constructor(private service: FarginServiceService, private router: Router, private activeRouter: ActivatedRoute,private toaster:ToastrService) {
+  constructor(private service: FarginServiceService, private router: Router, private activeRouter: ActivatedRoute, private toaster: ToastrService) {
   }
   ngOnInit(): void {
     this.activeRouter.queryParams.subscribe((param: any) => {
       this.emailAddress = param.emailAddress;
-      
+
     })
 
     this.resetForm = new FormGroup({
@@ -38,6 +38,9 @@ export class ResetPasswordComponent implements OnInit{
   get confirmpassword() {
     return this.resetForm.get('confirmpassword');
   }
+
+
+
   togglePasswordVisibility(passwordInput: { type: string; }) {
     this.showPassword = !this.showPassword;
     passwordInput.type = this.showPassword ? 'text' : 'password';
@@ -64,20 +67,23 @@ export class ResetPasswordComponent implements OnInit{
   }
   resetpassword() {
     let submitmodel: ResetPassword = {
-      contactEmail: this.emailAddress,
-      password: this.newPassword?.value
+      emailAddress: this.emailAddress,
+      newPassword: this.newPassword?.value
     }
 
-    this.service.ResetPassword(submitmodel).subscribe((res:any)=>{
-      if(res.flag==1){
-      this.toaster.success(res.responseMessage);
-        this.router.navigate([`/admin/login`], {
+
+    this.service.ResetPassword(submitmodel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.toaster.success(res.responseMessage)
+
+        this.router.navigate([`/login-page`], {
+          // queryParams: { emailAddress: this.emailAddress },
         });
       }
-      else{
-        this.toaster.error(res.responseMessage);
-
+      else {
+        this.toaster.error(res.responseMessage)
       }
     })
+
   }
 }

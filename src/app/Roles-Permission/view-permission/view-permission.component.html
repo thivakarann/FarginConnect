@@ -4,26 +4,26 @@
 
 
 <div class="form-header d-flex justify-content-between align-items-center">
-    <h5 class="mx-3">Permission View</h5>
-    <button type="button" class="btn btn-secondary" (click)="back()">Back</button>
+  <h5 class="p-2 m-0 ml-3">Permission View</h5>
+  <button type="button" class="btn btn-secondary btn-sm mr-3" (click)="back()">Back</button>
 </div>
 <div class="well">
   <div class="col-md-5 mb-2" style="margin-left: -10px;">
     <div class="search">
-      <input type="text" [(ngModel)]="searchText"  (ngModelChange)="onSearchTextChange()" class="form-control" placeholder="Search...">
+       <input type="text" [(ngModel)]="searchText"  (ngModelChange)="onSearchTextChange()" class="form-control" placeholder="Search...">
     </div>
-  </div>
+</div>
     <div class="table-responsive text-nowrap">
         <table class="table table-hover" id="customers">
-          <tr>
+          <tr >
             <th style="background-color: white; color: black">S.No</th>
             <th style="background-color: white; color: black">
               Enabled Permission
             </th>
           </tr>
-          <tr *ngFor="let data of permissionvalue | search: searchText | paginate: { itemsPerPage: 5, currentPage: currentPage };let i=index">
+          <tr *ngFor="let data of permissionvalue | paginate: { itemsPerPage: 5, currentPage: currentPage } | search: searchText;let i=index">
             <td class="text-center">{{ i + 1 }}</td>
-            <td class="text-center">{{ data?.permissions }}</td>
+            <td class="text-center">{{ data?.permission }}</td>
           </tr>
         </table>
         <div class="text-end mt-3">

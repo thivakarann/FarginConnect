@@ -68,6 +68,7 @@ export class AdminViewComponent implements OnInit {
   roleId: any = localStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
+  date3: any;
 
 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private router: Router) { }
@@ -206,8 +207,14 @@ export class AdminViewComponent implements OnInit {
           this.response.push(element?.refundPolicy);
           this.response.push(element?.approvedStatus);
           this.response.push(element?.approvedBy);
-          this.response.push(element?.approvedAt);
- 
+          if (element?.approvedDateTime != null) {
+            let createdate1 = element?.approvedDateTime;
+            this.date3 = moment(createdate1).format('DD/MM/yyyy-hh:mm a').toString();
+            this.response.push(this.date3);
+          }
+          else {
+            this.response.push();
+          } 
           this.response.push(element?.createdBy);
  
           if (element?.createdDateTime != null) {

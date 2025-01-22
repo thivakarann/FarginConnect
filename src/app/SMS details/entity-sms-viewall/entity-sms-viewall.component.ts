@@ -62,7 +62,32 @@ export class EntitySmsViewallComponent {
   totalPages: any;
   totalpage: any;
   currentpage: any;
+
+
+
+
+  pageIndex1: number = 0;
+pageSize1 = 5;
+ 
+totalpage1: any;
+totalPages1: any;
+currentpage1: any;
+ 
+pageIndex2: number = 0;
+pageSize2 = 5;
+ 
+totalpage2: any;
+totalPages2: any;
+currentpage2: any;
+ 
+filter: boolean = false;
+filter1: boolean = false;
+filters: boolean = false;
+
   smsResponseexport: any;
+  currentfilval: any;
+
+
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
   ngOnInit(): void {
 
@@ -105,10 +130,20 @@ export class EntitySmsViewallComponent {
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
         this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-
+       this.filter=true;
+        this.filter1=false;
       }
       else if (res.flag == 2) {
-        this.message = res.responseMessage;
+        this.filter=true;
+        this.filter1=false;
+        this.smsResponse = [];
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+       
       }
     })
 
@@ -265,6 +300,72 @@ export class EntitySmsViewallComponent {
     this.renderPage({
       pageIndex: newPageIndex,
       pageSize: this.pageSize,
+      // length: this.totalItems
+    } as PageEvent);
+  }
+  smsSearch(filterValue: string) {
+ 
+    if (filterValue) {
+ 
+    this.service.SmsviewallSearch(filterValue,this.pageSize1,this.pageIndex1).subscribe({
+      next: (res: any) => {
+        if (res.response) {
+          this.transaction = res.response;
+          this.transaction.reverse();
+          this.dataSource = new MatTableDataSource(this.transaction);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.totalPages1 = res.pagination.totalElements;
+          this.totalpage1 = res.pagination.totalPages;
+          this.currentpage1 = res.pagination.currentPage + 1;
+          this.filter=false;
+          this.filter1=true;
+     
+ 
+        }
+        else if (res.flag === 2) {
+          this.transaction = [];
+          this.dataSource = new MatTableDataSource(this.transaction);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.totalPages1 = res.pagination.totalElements;
+          this.totalpage1 = res.pagination.totalPages;
+          this.currentpage1 = res.pagination.currentPage + 1;
+          this.filter=false;
+          this.filter1=true;
+     
+        }
+      },
+   
+    });
+  }
+ 
+  if (!filterValue) {
+    this.toastr.error('Please enter a value to search');
+    return;
+  }
+  }
+ 
+  renderPage1(event: PageEvent) {
+    // Capture the new page index and page size from the event
+    this.pageIndex1 = event.pageIndex;  // Update current page index
+    this.pageSize1 = event.pageSize;           // Update page size (if changed)
+ 
+    // Log the new page index and page size to the console (for debugging)
+    console.log('New Page Index:', this.pageIndex1);
+    console.log('New Page Size:', this.pageSize1);
+ 
+    // You can now fetch or display the data for the new page index
+    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
+    this.smsSearch(this.currentfilval);
+ 
+  }
+ 
+  changePageIndex1(newPageIndex1: number) {
+    this.pageIndex1 = newPageIndex1;
+    this.renderPage1({
+      pageIndex: newPageIndex1,
+      pageSize: this.pageSize1,
       // length: this.totalItems
     } as PageEvent);
   }

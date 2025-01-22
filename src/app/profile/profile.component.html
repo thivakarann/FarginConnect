@@ -1,154 +1,83 @@
 <div class="container">
   <div class="main-body">
+    <nav aria-label="breadcrumb" class="main-breadcrumb">
+      <ol class="breadcrumb">
+        <li style="color:#141E46;font-weight: 700;font-family: 'Times New Roman', Times, serif;"
+          class="breadcrumb-item active" aria-current="page">USER PROFILE</li>
+      </ol>
+    </nav>
 
-        <nav aria-label="breadcrumb" class="main-breadcrumb">
-            <ol class="breadcrumb">
-                <li style="color:#141E46;font-weight: 700;font-family: 'Times New Roman', Times, serif;"
-                    class="breadcrumb-item active" aria-current="page">USER PROFILE</li>
-            </ol>
-        </nav>
 
-        <div class="row gutters-sm">
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex flex-column align-items-center text-center">
-                            <div [hidden]="logoLink!== 'NA'">
-                                <img src="/assets/fargin_blue.png"  class="w-100" />
-                            </div>
-
-                            <div [hidden]="logoLink=='NA'">
-                                <img [src]="logoLink" class="w-100" />
-                            </div>
-                         
-<!--                            
-                            <div class="mt-3">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFCm6U-R7Dh4WAGASSJFN9RaPTnxmDeV1cVqitzJ1yXslCORiVstDy8rB0YgI5YCRkCJo&usqp=CAU" alt="Admin" class="rounded-circle" width="150">
-                            </div> -->
-                                 
-                            <div class="mt-3">
-                             
-                                <h4>{{viewmerchant?.merchantpersonal?.entityName}}</h4>
-                                <p class="text-secondary mb-1">{{viewmerchant?.merchantpersonal?.merchantLegalName}}</p>
-                                <!-- <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="row gutters-sm">
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex flex-column align-items-center text-center">
+              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKkAAACUCAMAAADf7/luAAAAMFBMVEXk5ueutLfp6+y4vsCqsLTd4OHg4+S2u76nrrHAxcfFycva3d68wcSzuLvLz9HR1dZLOKU8AAAD4klEQVR4nO2cyXLDIAxAjVi8gOH//7bGSdM4cROQHMmZ4Z06Pb2RJcSarms0Go1Go9FoNBqNRqMhAgB01nufvMt/nhabJmUGkxkGM0/JSRvtAT4GZdSGQY3JniyyYMOsdjBqHk/lavWw53mNbDhLEoCbzP+ea2CjtOMK+Pm1aEafIQXie89MkvbsxjJRNQhnAIRC0SVbJ8kEcLrUM6uOgqblEV0TYJSKKpTm6C2qUUYVCqv+HpkRwFd7Loi0q5pq+sUE/u8P04tW/0I1sava+iRd6S2zKIw40aX+mU1R5XSBuahqh9K7oPJ2VYcWXVQ5TTGD/p8pZ6cCvOdC4BPtPCGkSs2eTRQmUkwNY/fHNNI7U76Jqu1JpmpmG1ITTVQNbKaUMWo1ZUvUNzsRb2EbUV2giSrFtqAiFtQy9eMy3d3Wq2HmMiWm6QJXnpJNuaZT32NK//psplRRtjz9otrvqZ+fazx1dVt8O7D1qK/p+12izqXYlifU+alhm59S5/yabxuFNu0zE5soRFpMGdemtM7PuTEJpETlPEIByjhl+LZQMpSY8u6f4xfSfEvoCxY7nzI9r2gH6N7Pf3iGFNXsosjyZy78C5hDiUHkkB9TVJwb539A/R76zH3A96taO6iKJOmFOlXuMR+vyn8MvVEtPjsXjWimeE0ll6NXii7LKaOFqn6j6t62ACN9Ae1Gerwi+0Av/uV/AYi9+Ve2F7oltQ+4qIcdVzOE5M4kumKfzn3NHE9QSDsAuDQF3a/oMC3RPF04b8Bia6331nUntszABmmbJxYlZ31KMX/6ZdJq1nFg1mGcYsrxPYXzIuFzcs5qfRqxLajLv/owRumUXSxj3vd526NyiKfUCd0+7WwKpuYW4jD00bPf6ru8MqlenSypwBzaRNrrizxdC3IvQl09/YvsEPznZSE9vS3CuCodP5sE4DVd8+o6f3KKZcPefAkv+6FpFtjxgO++ddWfWK5Sz0v+cR2PPpo6LkEfVY/eT/1IQK+u45F9i3yV6zVHZSv4oyvpkYMW2UA9eS7AHLGvij96qKKnt6yR1uOLmamvJ7GPNqoxNNWKB4UHQEkA/JsNFPiBlXYZvp4e2VpJR+NIVdz390xVfwfuhooj397DgJivMI34j9Q/SoDE/+0ziMeTIp6q/vGk0LfPVA5VhAeFVCofTzI3py01QaXfLidQczuVd2LyrFpRUzIj1M20uPw51iMvKb//Q36rQ6X09NKLdPx7Cgcq8Y+vVOkv/cj1pxtlplU/cvIZCq/RO2nP4le+AnP9J8ouKAvNTDeUPfY5QUEVNtTYa3EKL/7CCSgzbTTOxg9RuDPIovZyNwAAAABJRU5ErkJggg==" alt="Admin" class="rounded-circle"
+                width="150">
+              <div class="mt-3">
+                <h4>{{adminname}}</h4>
+                <!-- <p class="text-secondary mb-1">Full Stack Developer</p>
+                      <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p> -->
+                <!-- <button style="background-color: #7db855be;" class="btn btn mx-2">Follow</button>
+                      <button style="background-color: #141E46;color: white;" class="btn btn-outline">Message</button> -->
+              </div>
             </div>
- 
-            <div class="col-md-8">
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Full Name</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                {{adminName}}
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Email</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                {{email}}
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Mobile</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                {{mobilenumber}}
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Address</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                {{address}}
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 style="white-space: nowrap;" class="mb-0">One time setup fee</h6>
-                            </div>
-                            <div class="col-sm-3 text-secondary">
-                                <span  style="font-size: 14px; font-weight: 700;"  class=text-warning *ngIf="viewmerchant?.merchantpersonal?.technicalPayStatus=='Pending' ">
-                                    Pending
-                                  </span>
-                                  <span  style="font-size: 14px; font-weight: 700;"  class=text-success *ngIf="viewmerchant?.merchantpersonal?.technicalPayStatus == 'SUCCESS' || viewmerchant?.merchantpersonal?.technicalPayStatus == 'Success'">
-                                    Success
-                                  </span>
-                                  <span   style="font-size: 14px; font-weight: 700;"  class=text-danger *ngIf="viewmerchant?.merchantpersonal?.technicalPayStatus == 'Failure'">
-                                    Failure
-                                  </span>
-                                 
-                                  <span   style="font-size: 14px; font-weight: 700;"   class=text-warning *ngIf="viewmerchant?.merchantpersonal?.technicalPayStatus == 'Initiated'">
-                                    Failure
-                                  </span>
-                            </div>
-                            <!-- <div class="col-sm-2">
-                                <a [hidden]="viewmerchant?.merchantpersonal?.technicalPayStatus=='Success' || viewmerchant?.merchantpersonal?.technicalPayStatus=='SUCCESS'"
-                                    (click)="OnSubmit()" style="background-color:#7db855be;color: white;"
-                                    class="btn btn-info">Pay Now</a>
-                            </div> -->
-                        </div>
-                        <hr>
-                        <!-- one time setup fee -->
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 style="white-space: nowrap;" class="mb-0">Invoice</h6>
-                            </div>
-                            <div class="col-sm-3 text-secondary">
-                           <span>
-                            <button class="btn btn-success btn-sm" *ngIf="viewmerchant?.merchantpersonal?.technicalPayStatus =='Success'" style="border:none;" (click)="viewreciept(viewmerchant?.merchantpersonal?.merchantId)"> <i class="fa-solid fa-download" style="color:#fff;"></i></button>
-                           </span>
-                        </div>
-                        </div>
-                        <hr>
-                        <div class="row"  [hidden]="viewmerchant?.merchantpersonal?.technicalPayStatus?.toLowerCase() !== 'success'">
-                            <div class="col-sm-3" [hidden]="viewmerchant?.merchantpersonal?.qrImage == null">
-                                <h6 class="mb-0">QR</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary" [hidden]="viewmerchant?.merchantpersonal?.qrImage ==null">
-                                <button
-                             
-                                (click)="viewQr()"
-                            >
-                                <i class="fas fa-qrcode" style="font-size:20px"></i>
-                            </button>
-                            </div>
-                            <div class="col-sm-3" >
-                                <h6 class="mb-0" [hidden]="viewmerchant?.merchantpersonal?.qrImage!=null">QR</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary" [hidden]="viewmerchant?.merchantpersonal?.qrImage!=null">
-                                <button
-                             
-                                (click)="viewQrmessage()"
-                            >
-                                <i class="fas fa-qrcode" style="font-size:20px"></i>
-                            </button>
-                            </div>
-                            
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <a style="background-color:#7db855be;width: max-content;font-weight:500;" class="btn btn-info" target="__blank" (click)="goback()">Back</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+
+      </div>
+      <div class="col-md-8">
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Full Name</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{adminname}}
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Email</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+
+                {{emailaddress}}
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Mobile Number</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{mobilenumber}}
+              </div>
+            </div>
+            <hr>
+
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Address</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{address}}
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-12">
+                <a  (click)="click()" style="background-color:#7db855be;width: max-content;font-weight:500;" class="btn btn-info "
+                  >Back</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
   </div>
-   
+</div>
