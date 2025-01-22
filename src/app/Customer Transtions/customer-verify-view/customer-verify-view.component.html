@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fargin Connect</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css?family=Kaushan+Script|Source+Sans+Pro" rel="stylesheet">
+ 
+</head>
+<body class="d-flex flex-column min-vh-100"> <!-- Flex column to push footer down -->
+ 
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" >FARGIN CONNECT</a>
+    <div class="navbar-nav ml-auto">
+        <img src="assets/flagimage.png" alt="Flag Image" class="flag-img">
+    </div>
+</nav>
+
+<br><br>
+<div class="container flex-grow-1"> <!-- Flex-grow to take available space -->
+    <div class="row">
+        <div class="col-md-4 mt-3 p-1">
+            <div class="card shadow">
+                <div class="card-body text-center">
+                    <h2 class="card-title">Billing Information</h2>
+                    <p>You can continue with the Payment Now..</p>
+                    <button (click)="Customerinfo(MobileNumber)" class="btn btn-success">View Info</button>
+                </div>
+            </div>
+        </div>
+ 
+        <div class="col-md-4 mt-3 p-1">
+            <div class="card shadow">
+                <div class="card-body text-center">
+                    <h2 class="card-title">Transaction History</h2>
+                    <p>You can check the Transaction History Here..</p>
+                    <button (click)="Viewdata(MobileNumber)" class="btn btn-success">View History</button>
+                </div>
+            </div>
+        </div>
+ 
+        <div class="col-md-4 mt-3 p-1">
+            <div class="card shadow">
+                <div class="card-body text-center">
+                    <h2 class="card-title">Complaints</h2>
+                    <p>If you have any issues, Raise a complaint.</p>
+                    <button (click)="Customerraise(MobileNumber)" class="btn btn-success">View Info</button>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+ 
+    <!--  -->
+    <div class="row">
+               
+        <div class="col-md-4 mt-3 p-1">
+            <div class="card shadow">
+                <div class="card-body text-center">
+                    <h2 class="card-title">Additional Payments</h2>
+                    <p>You can check your Additional Payment Here.. </p>
+                    <button (click)="AdditionalPay(MobileNumber)" class="btn btn-success">View Payment</button>
+                    <!-- (click)="Viewrequest(MobileNumber,this.customerId)" -->
+                </div>
+            </div>
+        </div>
+ 
+        <div class="col-md-4 mt-3 p-1">
+            <div class="card shadow">
+                <div class="card-body text-center">
+                    <h2 class="card-title">Transaction History</h2>
+                    <p>You can check your additional transaction.. </p>
+                    <button (click)="Additionaltransaction(MobileNumber)" class="btn btn-success">View Transaction</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mt-3 p-1">
+            <div class="card shadow">
+                <div class="card-body text-center">
+                    <h2 class="card-title">Customer Survey</h2>
+                    <p>You can check the Customer Survey Here.. </p>
+                    <button (click)="Customersurvey(MobileNumber)"  class="btn btn-success">View Survey</button>
+                </div>
+            </div>
+        </div>
+    </div>
+     
+</div>
+ 
+
+<body>
+    <footer>
+        <p class="footer-text">
+            <span class="copyright">Copyright &copy; {{this.currentYear}}, All Rights Reserved</span>
+            <a href="https://codepen.io/anupkumar92/" target="_blank"></a>
+            <a href="customer/login">  Home</a> <span style="color: #141E46;font-weight: 600;">|</span>
+            <a href="customer-solutions">Solutions</a> <span style="color: #141E46;font-weight: 600;">|</span>
+            <a  href="customer-termsandpolicy">Terms and Conditions</a> <span style="color: #141E46;font-weight: 600;">|</span>
+            <a href="customer-privacy-policy">Privacy Policy</a> <span style="color: #141E46;font-weight: 600;">|</span>
+            <a href="customer-refund-policy">Refund Policy</a> <span style="color: #141E46;font-weight: 600;">|</span>
+            <a href="customer-disclaimer">Disclaimer</a> <span style="color: #141E46;font-weight: 600;">|</span>
+            <a class="support" href="mailto:support@fargin.in">  &nbsp;support{{strings}}fargin.in</a>
+        </p>
+    </footer>
+  </body>

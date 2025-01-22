@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { MatOption, MatSelect } from '@angular/material/select';
-import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
-import { role, subpermission } from '../../fargin-model/fargin-model.module';
+import { MatDialog } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatOption } from '@angular/material/core';
+import { MatSelect } from '@angular/material/select';
+import { roles, subpermission } from '../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-add-role',
@@ -12,65 +13,54 @@ import { role, subpermission } from '../../fargin-model/fargin-model.module';
   styleUrl: './add-role.component.css'
 })
 export class AddRoleComponent implements OnInit {
-  addcategory: any = FormGroup;
-  createdBy = JSON.parse(localStorage.getItem('adminname') || '');
-
-  categoryName: any;
-  permissionValue: any;
-
   @ViewChild('select') select: any = MatSelect;
   @ViewChild('selects') selects: any = MatSelect;
-
   allSelected = false;
   allSelected1 = false;
-  subpermissionValue: any;
-  roleValue: any;
   roleformGroup: any = FormGroup;
-  getpermission: any;
+  getpermissionvalue: any;
+  subpermissionValue: any;
+  merchantId: any = localStorage.getItem('merchantId');
+  entityname: any = localStorage.getItem('adminName')
+    rolevalue: any;
 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private fb: FormBuilder,) { }
-
   ngOnInit(): void {
-
-
-
-    this.service.permissionget().subscribe((res: any) => {
-      this.permissionValue = res.response;
-
+    this.service.viewallPermission().subscribe((res: any) => {
+      this.getpermissionvalue = res.response;
+      
     })
 
     this.roleformGroup = this.fb.group({
-      roleName: ['', [Validators.required]],
-      permission: ['', [Validators.required]],
-      subPermission: ['', [Validators.required]]
-
+      roleName: ['', Validators.required],
+      merchantPermission: ['', Validators.required],
+      merchantSubPermission: ['', Validators.required],
     })
   }
+
+  sendPermissionId(id: any) {
+    
+    let submitModel: subpermission = {
+      permissionIds: id,
+    }
+    this.service.subpermissionValue(submitModel).subscribe((res: any) => {
+      this.subpermissionValue = res.response;
+      
+    })
+  }
+
+
 
   get roleName() {
     return this.roleformGroup.get('roleName')
   }
 
-  get permission() {
-    return this.roleformGroup.get('permission')
+  get merchantPermission() {
+    return this.roleformGroup.get('merchantPermission')
   }
 
-  get subPermission() {
-    return this.roleformGroup.get('subPermission')
-  }
-  sendPermissionId(id: any) {
-
-
-    let submitModel: subpermission = {
-      permissionsId: id,
-    }
-
-
-    this.service.subPermission(submitModel).subscribe((res: any) => {
-      this.subpermissionValue = res.response;
-
-
-    })
+  get merchantSubPermission() {
+    return this.roleformGroup.get('merchantSubPermission')
   }
 
   toggleAllSelection() {
@@ -90,25 +80,28 @@ export class AddRoleComponent implements OnInit {
   }
 
   submit() {
-    let submitModel: role = {
+    let submitModel: roles = {
       roleName: this.roleName.value.trim(),
-      createdBy: this.createdBy,
-      permission: this.permission?.value,
-      subPermission: this.subPermission?.value
+      merchantPermission: this.merchantPermission.value,
+      merchantSubPermission: this.merchantSubPermission.value,
+      createdBy: this.entityname,
+      merchantId: this.merchantId
     }
-    this.service.addRoles(submitModel).subscribe((res: any) => {
-      this.roleValue = res.response;
-
+    this.service.createroles(submitModel).subscribe((res: any) => {
+      this.rolevalue = res.response;
+      
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.dialog.closeAll()
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+       
       }
       else {
         this.toastr.error(res.responseMessage)
       }
     })
+  }
+
+  close(){
+    this.dialog.closeAll()
   }
 }

@@ -1,0 +1,553 @@
+
+<mat-card-header>
+  <div class="row d-flex justify-content-end mt-2">
+    <div class="col-md-7">
+      <h4 style="text-align:left;color:#141E46;">Customer</h4>
+    </div>
+    <div class="col-md-2 search-dropdown">
+      <!-- <label class="form__label" style="font-size: 16px;  ">Search</label> -->
+      <div class="search-container">
+        <select class="form-select" (change)="Filter($event)">
+          <option value="" disabled selected>Filter</option>
+          <option value="Filterbymso">Filter By MSO</option>
+          <option value="Filterbysetupbox">Filter By SetupBox Number</option>
+        </select>
+  
+      </div>
+    </div>
+    <div class="col-md-3">
+      <button (click)="filterexport()"  style="color:white; background-color: #141E46;border-radius: 10px;" 
+      mat-raised-button>Filter Export</button>&nbsp;
+      <button style="color:white;background-color: rgb(179, 3, 3);border-radius: 10px;" (click)="reload()"
+      mat-raised-button>Reset</button>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-md-3">
+      <div class="search">
+        <form class="form1">
+          <div class="search ">
+            <form class="form1">
+                <label for="search">
+                    <input #input  required="" autocomplete="off" placeholder="Search"
+                        id="search" type="text" name="search" [(ngModel)]="currentfilval">
+                    <div class="icon">
+                        <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                                stroke-linecap="round">
+                            </path>
+                        </svg>
+                        <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                            <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round" stroke-linecap="round">
+                            </path>
+                        </svg> -->
+                    </div>
+                    <button  (click)="reload()" type="reset" class="close-btn">
+                        <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                            <path clip-rule="evenodd"
+                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                fill-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </label>
+            </form>
+     
+        </div>
+
+        </form>
+ 
+    </div>
+
+    </div>
+    <!-- <div class="col-md-9">
+      <div class="d-flex flex-wrap gap-">
+        <button (click)="customeronboard(this.merchantid, input.value)" style="color:white; background-color: #141E46; border-radius: 10px;" mat-raised-button>Go</button>
+        <button style="color:white; background-color: #141E46; border-radius: 10px;" class="custom-btn btn-10"
+                data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button (click)="add()" [hidden]="valueCustomerAdd!=='Customer-Add'">Create</button>
+        <button (click)="exportexcel()" style="color:white; background-color: #141E46; border-radius: 10px;" mat-raised-button [hidden]="valueCustomerExport!=='Customer-Export'">Export</button>
+        <button style="color:white; background-color: #141E46; border-radius: 10px;" mat-raised-button (click)="setuphistory()" [hidden]="valueCustomerhistory!=='Customer-History'">History</button>
+      </div>
+    </div> -->
+
+    <div class="col-md-9 d-flex flex-wrap">
+      <button (click)="customeronboard(currentfilval)"
+        style="color:white; background-color: #141E46; border-radius: 10px; width: 2%;" mat-raised-button>Go</button>
+      <button style="color:white; background-color: #141E46;font-size: smaller;  border-radius: 10px;   width: 5%;"
+        class="custom-btn btn-10" data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button
+        (click)="add()" [hidden]="valueCustomerAdd!=='Customer-Add'">Create</button>
+      <button (click)="exportexcel()"
+        style="color:white; background-color: #141E46; border-radius: 10px;font-size: smaller;   width: 5%;"
+        class="custom-btn btn-10" mat-raised-button [hidden]="valueCustomerExport!=='Customer-Export'">Export</button>
+      <button (click)="setuphistory()"
+        style="color:white; background-color: #141E46;font-size: smaller; border-radius: 10px;font-size: smaller;   width: 5%;"
+        class="custom-btn btn-10" mat-raised-button
+        [hidden]="valueCustomerhistory!=='Customer-History'">History</button>
+
+        
+        <div class="dropdown" [hidden]="valuecustomerupload !== 'Customer-Upload Customer File'
+        && valuecustomerimport !== 'Customer-Download Customer Template'
+        && valuecustomerExcelSetupbox!=='Customer-Download Setupbox Template'
+        && valuecustomerfileSetupbox!=='Customer-Upload Setupbox File'">
+          <button class="btn btn-secondary dropdown-toggle custom-btn btn-10" style="color:white; background-color: #141E46;font-size: smaller; border-radius: 10px;font-size: small;width:80px; height:37px;font-weight: 500;"
+                     type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+            Actions
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li>
+              <button class="dropdown-item" (click)="excelexportDetails()"
+                [hidden]="valuecustomerimport !== 'Customer-Download Customer Template'">
+                Download Customer Template
+              </button>
+            </li>
+            <li>
+              <button class="dropdown-item" (click)="create()" [hidden]="valuecustomerupload !== 'Customer-Upload Customer File'">
+                Upload Customer File
+              </button>
+            </li>
+            <li [hidden]="valuecustomerExcelSetupbox!=='Customer-Download Setupbox Template'" >
+              <button class="dropdown-item" (click)="excelsetupbox()">
+                Download Setupbox Template
+              </button>
+            </li>
+            <li [hidden]="valuecustomerfileSetupbox!=='Customer-Upload Setupbox File'">
+              <button class="dropdown-item" (click)="creates()">
+                Upload Setupbox File
+              </button>
+            </li>
+          </ul>
+        </div>
+
+
+      <!-- <button (click)="duegenerate()" *ngIf="customerPaymentMode=='Manual'"
+        style="color:white; background-color: #141E46;font-size:small; border-radius: 10px;  margin-left: 8px; width: 15%; text-wrap: nowrap;"
+        class="custom-btn btn-10" mat-raised-button>Due Generate</button> -->
+
+
+    </div>
+  </div>
+
+
+
+</mat-card-header>
+
+<!-- <mat-card> -->
+<mat-card-content>
+  <div class="example-container text-nowrap mt-2">
+    <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+      <ng-container matColumnDef="sno">
+        <th mat-header-cell *matHeaderCellDef>S.No</th>
+        <td mat-cell *matCellDef="let data; let i = index">
+          {{ i + 1 }}
+        </td>
+      </ng-container>
+      <!-- 
+      <ng-container matColumnDef="customerReferenceId">
+        <th mat-header-cell *matHeaderCellDef>
+          <input type="checkbox"(change)="masterToggle($event)" title="Select All Customer ID">&nbsp;Customer Id
+        </th>
+        <td mat-cell *matCellDef="let data">
+          <input  type="checkbox" title="Select CustomerId"
+            (change)="
+              toggleSelection(
+                data?.customerReferenceId
+              )
+            "
+            [checked]="
+              isSelected(
+                data?.customerReferenceId
+              )
+            "
+          >
+            {{ data?.customerReferenceId  }}
+         
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="customerMsoId">
+        <th mat-header-cell *matHeaderCellDef>
+          <input type="checkbox"(change)="masterToggleformso($event)" title="Select All Customer MSOId">&nbsp;Customer MSOId
+        </th>
+        <td mat-cell *matCellDef="let data">
+          <input  type="checkbox" title="Select Customer MSOId"
+            (change)="
+              toggleSelection(
+                data?.customerMsoId
+              )
+            "
+            [checked]="
+              isSelected(
+                data?.customerMsoId
+              )
+            "
+          >
+            {{ data?.customerMsoId  }}
+         
+        </td>
+      </ng-container> -->
+      <ng-container matColumnDef="customerReferenceId">
+        <th mat-header-cell *matHeaderCellDef>Customer ID</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data?.customerReferenceId }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="customerMsoId">
+        <th mat-header-cell *matHeaderCellDef>Customer MSOId</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data?.customerMsoId }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Customer Name</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data.customerName }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="stbnumber">
+        <th mat-header-cell *matHeaderCellDef>Setupbox Number</th>
+        <td mat-cell *matCellDef="let data">
+          <div class="privacy-policy-container">
+            <span *ngIf="!isFullPolicyVisible">
+              <!-- Check if setupBox is not empty and slice it -->
+              {{ getDisplayText(data?.setupBox) }}
+              <!-- Only show "..." if setupBox length exceeds the limit -->
+              <span *ngIf="data?.setupBox?.length > limit">...</span>
+            </span>
+            <span *ngIf="isFullPolicyVisible">
+              {{ data?.setupBox?.join(', ') }}
+            </span>
+
+            <!-- Only show the "Read More" button if setupBox has items and length exceeds limit -->
+            <i *ngIf="data?.setupBox?.length > limit && data?.setupBox?.length > 0"
+              style="color: #141E46; font-weight: 600; cursor: pointer;" class="read-more"
+              (click)="number(data?.setupBox,Setupboxvalue)">
+              <br>
+              {{ isFullPolicyVisible ? 'Read Less' : 'Read More' }}
+            </i>
+          </div>
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="mso">
+        <th mat-header-cell *matHeaderCellDef>MSO</th>
+        <td mat-cell *matCellDef="let data">
+          <div class="privacy-policy-container">
+            <span *ngIf="!isFullPolicyVisible">
+              <!-- Check if setupBox is not empty and slice it -->
+              {{ getDisplayText(data?.serviceProviderName) }}
+              <!-- Only show "..." if setupBox length exceeds the limit -->
+              <span *ngIf="data?.serviceProviderName?.length > limit">...</span>
+            </span>
+            <span *ngIf="isFullPolicyVisible">
+              {{ data?.serviceProviderName?.join(', ') }}
+            </span>
+
+            
+
+            <!-- Only show the "Read More" button if setupBox has items and length exceeds limit -->
+            <i *ngIf="data?.serviceProviderName?.length > limit && data?.serviceProviderName?.length > 0"
+              style="color: #141E46; font-weight: 600; cursor: pointer;" class="read-more"
+              (click)="number(data?.serviceProviderName,MsoValue)">
+              <br>
+              {{ isFullPolicyVisible ? 'Read Less' : 'Read More' }}
+            </i>
+          </div>
+        </td>
+      </ng-container>
+
+
+
+      <ng-container matColumnDef="mobilenumber">
+        <th mat-header-cell *matHeaderCellDef>Mobile Number</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data.mobileNumber }}
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="doorNumber">
+        <th mat-header-cell *matHeaderCellDef>Door Number</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data.doorNumber }}
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="area">
+        <th mat-header-cell *matHeaderCellDef>Area</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data.area }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="streetName">
+        <th mat-header-cell *matHeaderCellDef>Street</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data.streetName }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="cityName">
+        <th mat-header-cell *matHeaderCellDef>City</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data.cityName }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="pincodeName">
+        <th mat-header-cell *matHeaderCellDef>Pincode</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data.pincodeName }}
+        </td>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data.emailAddress }}
+        </td>
+      </ng-container> -->
+
+      <ng-container matColumnDef="routeAssignedStatus">
+        <th mat-header-cell *matHeaderCellDef>Route Assigned Status</th>
+        <td mat-cell *matCellDef="let data" [ngClass]="data.routeAssignedStatus == 0 ? 'not-Assigned' : 'Assigned'">
+          {{ data.routeAssignedStatus == 0 ? 'Not Assigned' : 'Assigned' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="merchantAdminId">
+        <th mat-header-cell *matHeaderCellDef>Route Executive Name</th>
+        <td mat-cell *matCellDef="let data">
+          <span></span>
+          {{ data?.merchantAdminName }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="valueCustomerEdit!=='Customer-Edit'">Action</th>
+        <td style="text-wrap: wrap" mat-cell *matCellDef="let data" [hidden]="valueCustomerEdit!=='Customer-Edit'">
+          <i (click)="edit(data.customerId)" class="fas fa-edit"></i>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="Viewhistory">
+        <th [hidden]="valueCustomerhistory!=='Customer-History'" mat-header-cell *matHeaderCellDef mat-sort-header >Status History View</th>
+        <td [hidden]="valueCustomerhistory!=='Customer-History'" style="cursor: pointer;" mat-cell *matCellDef="let data" (click)="Viewstatushistory(data.customerId)"
+         >
+          <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="View">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="valueCustomerView!=='Customer-View'">View</th>
+        <td style="cursor: pointer;" mat-cell *matCellDef="let data" (click)="Viewdata(data.customerId)"
+          [hidden]="valueCustomerView!=='Customer-View'">
+          <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
+        </td>
+      </ng-container>
+
+
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="valueCustomerStatus!=='Customer-Status'">Status
+        </th>
+        <td mat-cell *matCellDef="let data" [hidden]="valueCustomerStatus!=='Customer-Status'">
+          <img (click)="  ActiveStatus(data.customerId,data.activeStatus)" style="width: 34px; height: 35px"
+            src="/assets/Active.png" *ngIf="data.activeStatus == 1" />
+          <img (click)="  ActiveStatus(data.customerId,data.activeStatus)" style="width: 34px; height: 35px"
+            src="/assets/Inactive.png" *ngIf="data.activeStatus == 0" />
+
+          <!-- <mat-slide-toggle class="example-margin" color="primary" [checked]="data.activeStatus === 1"
+            (change)="Inactive($event,data.customerId)">
+          </mat-slide-toggle> -->
+        </td>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="createdBy">
+        <th mat-header-cell *matHeaderCellDef>Created By</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data.createdBy }}
+        </td>
+      </ng-container> -->
+
+      <!-- <ng-container matColumnDef="createdDateTime">
+        <th mat-header-cell *matHeaderCellDef>Created At</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data.createdDateTime | date : "dd/MM/yyyy hh:mm a" }}
+        </td>
+      </ng-container> -->
+
+      <!-- <ng-container matColumnDef="modifiedBy">
+        <th mat-header-cell *matHeaderCellDef>Modified By</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data.modifiedBy }}
+        </td>
+      </ng-container> -->
+
+      <!-- <ng-container matColumnDef="modifiedDateTime">
+        <th mat-header-cell *matHeaderCellDef>Modified At</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data.modifiedDateTime | date : "dd/MM/yyyy hh:mm a" }}
+        </td>
+      </ng-container> -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
+      <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
+
+      <tr *matNoDataRow>
+        <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data For {{input.value}}</td>
+        <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">No Data
+        </td>
+      </tr>
+    </table>
+
+  </div>
+</mat-card-content>
+<mat-card-footer>
+  <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="filter">
+      <div class="col-md-6"></div>
+      <div class="col-md-6">
+          <button style="color:white;background-color: #141E46;">Total Entries:{{this.totalPages}}</button>
+          <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex - 1)"
+              [hidden]="pageIndex === 0">Previous</button>
+          <button style="color:white;background-color: #141E46;">{{ this.currentpage}} of {{this.totalpage}}
+              Pages</button>
+          <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex + 1)"
+              [hidden]="pageIndex >= totalpage - 1">Next</button>
+      </div>
+  </div>
+  <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="filter1">
+      <div class="col-md-6"></div>
+      <div class="col-md-6">
+          <button style="color:white;background-color: #141E46;">Total Entries:{{this.totalPages1}}</button>
+          <button style="color:white;background-color: #141E46;" (click)="changePageIndex1(pageIndex1 - 1)"
+              [hidden]="pageIndex1 === 0">Previous</button>
+          <button style="color:white;background-color: #141E46;">{{this.currentpage1}} of {{this.totalpage1}}
+              Pages</button>
+          <button style="color:white;background-color: #141E46;" (click)="changePageIndex1(pageIndex1 + 1)"
+              [hidden]="pageIndex1 >= totalpage1 - 1">Next</button>
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-md-9"></div>
+    <div *ngIf="showentries" class="p-3">
+      <button style="color:white;background-color: #141E46;">Total Entries:{{this.totalCount}}</button>
+ 
+    </div>
+  </div>
+</mat-card-footer>
+
+
+<ng-template #dialogTemplate>
+  <div class="dialog-card-header">
+    <h3 class="mb-0" style="font-weight: 700; text-align: center; font-size: 21px;">
+      Due Generate
+    </h3>
+    <div class="col-md-2 d-flex justify-content-end mb-1">
+      <button class="button1" (click)="dialogRef.close()">Back</button>
+    </div>
+  </div>
+  <div class="dialog-body page">
+    <main class="main page__main">
+      <form class="form main__form" autocomplete="off" role="form">
+        <!-- <div class="form__linput">
+          <label class="form__label custom-label" for="fname">Customer Id</label>
+          <textarea class="form-control" id="fname" type="text" [(ngModel)]="customerid"
+            [disabled]="shouldDisable('customerid')" name="customerid" required></textarea>
+        </div> -->
+        <div class="form__linput">
+          <label class="form__label custom-label" for="fnames">Setupbox</label>
+          <textarea class="form-control" id="fnames" type="text" [(ngModel)]="customermsoid"
+            name="customermsoid" required></textarea>
+        </div>
+
+        <div class="mt-3">
+          <button type="submit" (click)="submit()" class="btn mx-1" style="background-color: #7db855be">
+            Filter
+          </button>
+          <button type="button" class="btn" style="background-color: #141e46; color: white" (click)="reset()">
+            Reset
+          </button>
+        </div>
+      </form>
+    </main>
+  </div>
+</ng-template>
+
+<ng-template #MSOdialogTemplate>
+  <div class="dialog-card-header">
+    <h3 class="mb-0" style="font-weight: 700; text-align: center; font-size: 21px;">
+    Filter By MSO
+    </h3>
+    <div class="col-md-2 d-flex justify-content-end mb-1">
+      <button class="button1" (click)="dialogRef.close()" (click)="reset1()">Back</button>
+    </div>
+  </div>
+  <div class="dialog-body page">
+    <main class="main page__main">
+      <form class="form main__form" autocomplete="off" role="form">
+        <div class="form__linput">
+          <label class="form__label custom-label" for="fname">MSO</label>
+          <textarea class="form-control" id="fname" type="text"
+            name="msoname" required [(ngModel)]="msoname"
+            [disabled]="shouldDisable1('msoname')"></textarea>
+        </div>
+        <div class="form__linput">
+          <label class="form__label custom-label" for="fname">Field ExecutiveName</label>
+          <textarea class="form-control" id="fname" type="text"
+            name="fieldexecutivename" required  [(ngModel)]="fieldexecutivename"
+            [disabled]="shouldDisable1('fieldexecutivename')"></textarea>
+        </div>
+ 
+        <div class="mt-3">
+          <button type="submit" (click)="msosubmit()" class="btn mx-1" style="background-color: #7db855be;height:39px;">
+            Filter
+          </button>
+          <button type="button" class="btn" style="background-color: #141e46; color: white;height:39px;" (click)="reset1()">
+            Reset
+          </button>
+        </div>
+      </form>
+    </main>
+  </div>
+</ng-template>
+<ng-template #SetupboxdialogTemplate>
+  <div class="dialog-card-header">
+    <h3 class="mb-0" style="font-weight: 700; text-align: center; font-size: 21px;">
+      Filter By SetupBox Number
+    </h3>
+    <div class="col-md-2 d-flex justify-content-end mb-1">
+      <button class="button1" (click)="dialogRef.close()" (click)="reset1()">Back</button>
+    </div>
+  </div>
+  <div class="dialog-body page">
+    <main class="main page__main">
+      <form class="form main__form" autocomplete="off" role="form" >
+        <div class="form__linput">
+          <label class="form__label custom-label" for="fname">Customer ReferenceId </label>
+          <textarea class="form-control" id="fname" type="text"
+           name="customerRefId" required  [(ngModel)]="customerRefId"
+           [disabled]="shouldDisable2('customerRefId')"></textarea>
+        </div>
+       
+        <div class="form__linput">
+          <label class="form__label custom-label" for="fname">SetupBox Number </label>
+          <textarea class="form-control" id="fname" type="text"
+           name="setupboxnumber" required  [(ngModel)]="setupboxnumber"
+           [disabled]="shouldDisable2('setupboxnumber')"></textarea>
+        </div>
+       
+        <div class="mt-3">
+          <button type="submit" (click)="settopboxsubmit()" class="btn mx-1" style="background-color: #7db855be;height:39px;">
+            Filter
+          </button>
+          <button type="button" class="btn" style="background-color: #141e46; color: white;height:39px;" (click)="reset2()">
+            Reset
+          </button>
+        </div>
+      </form>
+    </main>
+  </div>
+</ng-template>

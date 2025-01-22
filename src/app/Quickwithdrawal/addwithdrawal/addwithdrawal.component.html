@@ -1,0 +1,64 @@
+<div class="card-header">
+    <h3 class="mb-0" style="font-weight: 700;text-align:center;font-size: 21px;">Create Withdrawal</h3>
+</div>
+
+<body class="page">
+    <main class="main page__main">
+
+        <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="withdrawalFormGroup">
+
+
+            <div class="form-group">
+                <label class="form-label" for="message">Beneficiary Name</label>
+                <select class="form-select" type="text" formControlName="employeeId" required
+                (ngModelChange)="viewTypes($event)">
+                <option value="" selected disabled>Select Beneficiary Name</option>
+                <option *ngFor="let datas of employee" [value]="datas.employeeId">
+                    {{datas?.adminName}}</option>
+            </select>
+                <div style="color: red; font-size: 12px;margin-top: 2px;"
+                *ngIf="LedgerId?.invalid && LedgerId?.touched && LedgerId?.errors?.['required']">
+                Field is required
+            </div>
+            </div>
+
+            <div class="form__linput">
+                <label class="form__label" for="fname">Withdrawal Note</label>
+                <textarea class="form-control" id="fname" type="text" formControlName="note" name="mccCode"
+            required ></textarea>
+                <div style="color: red; font-size: 12px;margin-top: 2px;"
+                    *ngIf="note?.invalid && note?.touched && note?.errors?.['required']">
+                    Field is required
+                </div>
+            </div>
+
+            <div class="form__linput">
+                <label class="form__label" for="fname">Withdrawal Amount</label>
+                <input class="form-control" id="fname" type="text" formControlName="amount" name="mccCode"
+                 required />
+                <div style="color: red; font-size: 12px;margin-top: 2px;"
+                    *ngIf="amount?.invalid && amount?.touched && amount?.errors?.['required']">
+                    Field is required
+                </div>
+            </div>
+
+
+            <div class="row">
+                <p class="col-6">Convenience Fees: </p>
+                <p class="col-6">Withdrawal:  </p>
+            </div>
+
+            <!-- Account Balance Display -->
+            <div class="row" >
+                <p class="col-6" >Account Balance: </p>
+            </div>
+            <div class="flex">
+                <button type="submit" class="submit" (click)="submit()" [disabled]="withdrawalFormGroup.invalid" >Submit</button>
+                <button type="submit" class="cancel" matDialogClose>Cancel</button>
+
+            </div>
+
+
+        </form>
+    </main>
+</body>

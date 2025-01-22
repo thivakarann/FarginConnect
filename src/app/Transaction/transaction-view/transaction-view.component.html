@@ -1,0 +1,760 @@
+<h4 style="text-align: left; color: #141e46">Customer Dues</h4>
+<mat-card-header>
+  <div class="row mt-4">
+    <div class="col-md-7">
+      <div class="search">
+        <form class="form1">
+          <label for="search">
+            <input #input required autocomplete="off" placeholder="Search" id="search" type="text" name="search"
+              [(ngModel)]="currentfilval" />
+            <div class="icon">
+              <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
+                </path>
+              </svg>
+            </div>
+            <button (click)="reload()" type="reset" class="close-btn">
+              <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                <path clip-rule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  fill-rule="evenodd"></path>
+              </svg>
+            </button>
+          </label>
+        </form>
+      </div>
+      &nbsp;
+      <button (click)="customerpay(currentfilval)" style="color:white;background-color: #141E46;border-radius: 10px;"
+        mat-raised-button>Go</button>
+
+      <button style="color: white; background-color: #141e46; border-radius: 10px" (click)="exportexcel()"
+        mat-raised-button [hidden]="valueduesexport !== 'Customer dues-Export'">
+        Export
+      </button>
+      <button [hidden]="valueduesLogs !== 'Customer dues-Audit Logs'"
+        style="color: white; background-color: #141e46; border-radius: 10px" (click)="logs()" mat-raised-button>
+        Audit Logs
+      </button>
+    </div>
+    <div class="col-md-2 search-dropdown" [hidden]="valueduesfilter !== 'Customer dues-Filter'">
+      <!-- <label class="form__label" style="font-size: 16px;  ">Search</label> -->
+      <div class="search-container">
+        <select class="form-select" (change)="PaidUnpaidFilter($event)">
+          <option value="" disabled selected>Filter</option>
+          <option value="1">Paid</option>
+          <option value="Paid CustomRange">Paid CustomRange</option>
+          <option value="0">Unpaid</option>
+          <option value="Unpaid CustomRange">UnPaid CustomRange</option>
+          <option value="Due Pending">Due Pending</option>
+          <option value="Due CustomerRange">Due Pending CustomerRange</option>
+          <option value="Due Cancelled">Due Cancelled</option>
+          <option value="DueCancel CustomerRange">Due Cancelled CustomerRange</option>
+          <option value="Setupbox PaymentStatus"> Filter By Payment Status</option>
+          <option value="Update Payment Status">Update Payment Status</option>
+          <option value="filterbyemployee">Field Executive</option>
+
+        </select>
+
+      </div>
+    </div>
+    <div class="col-md-1 ">
+      <button style="color:white;background-color: rgb(179, 3, 3);border-radius: 10px;" (click)="reload()"
+        mat-raised-button>Reset</button>
+    </div>
+    <div class="col-md-2">
+
+      <button [hidden]="valueduesFilterExportt !== 'Customer dues-Filter Export'"
+        style="color: white; background-color: #141e46; border-radius: 10px" (click)="filterexport()"
+        mat-raised-button>Filter Export</button>
+    </div>
+  </div>
+</mat-card-header>
+
+<!-- <mat-card> -->
+<mat-card-content>
+
+  <div class="example-container
+    mt-4">
+    <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="sno">
+        <th mat-header-cell *matHeaderCellDef> S.No</th>
+        <td mat-cell *matCellDef="let viewall; let i = index"> {{i+1}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="setupBoxNumber">
+        <th mat-header-cell *matHeaderCellDef>
+
+          <!-- <mat-checkbox (change)="masterToggleSetupBox($event)">
+                    STB NO
+                  </mat-checkbox> -->
+
+          <input type="checkbox" (change)="masterToggleSetupBox($event)" title="Select All STBNO">&nbsp;STB NO
+        </th>
+        <td mat-cell *matCellDef="let viewall">
+          <span></span><input type="checkbox" title="Select STBNO" (change)="
+                      toggleSelection(viewall?.customerStbId?.stbId?.setupBoxNumber)
+                    " [checked]="isSelected(viewall?.customerStbId?.stbId?.setupBoxNumber)">
+          {{ viewall?.customerStbId?.stbId?.setupBoxNumber==null
+          ?viewall?.setupBoxNumber:viewall?.customerStbId?.stbId?.setupBoxNumber }}
+
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="serviceProviderName">
+        <th mat-header-cell *matHeaderCellDef>
+          <input type="checkbox" (change)="masterToggleMso($event)" title="Select All MSO">&nbsp;Service Provider Name
+        </th>
+        <td mat-cell *matCellDef="let viewall">
+          <input type="checkbox" title="Select MSO" (change)="
+                      toggleSelection(
+                        viewall?.customerStbId?.stbId?.service?.serviceProviderName
+                      )
+                    " [checked]="
+                      isSelected(
+                        viewall?.customerStbId?.stbId?.service?.serviceProviderName
+                      )
+                    ">
+          {{ viewall?.customerStbId?.stbId?.service?.serviceProviderName==null
+          ?viewall?.serviceProviderName:viewall?.customerStbId?.stbId?.service?.serviceProviderName }}
+
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="customerReferenceId">
+        <th mat-header-cell *matHeaderCellDef>
+          <input type="checkbox" (change)="masterToggle($event)" title="Select All CustomerId">&nbsp;Customer Id
+
+        </th>
+        <td mat-cell *matCellDef="let viewall">
+          <input type="checkbox" title="Select CustomerId"
+            (change)="toggleSelection(viewall?.customerId?.customerReferenceId)"
+            [checked]="isSelected(viewall?.customerId?.customerReferenceId)">
+          {{ viewall?.customerId?.customerReferenceId==null?
+          viewall?.customerReferenceId:viewall?.customerId?.customerReferenceId }}
+
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="logsview">
+        <th [hidden]="valuedueslogview !== 'Customer dues-Logs View'" mat-header-cell *matHeaderCellDef>Logs View
+        </th>
+        <td [hidden]="valuedueslogview !== 'Customer dues-Logs View'" mat-cell *matCellDef="let viewall">
+          <i class="fa fa-eye" (click)="logsview(viewall.customerPayId)"></i>
+
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="customername">
+        <th mat-header-cell *matHeaderCellDef>Customer Name</th>
+        <td mat-cell *matCellDef="let viewall">
+          {{ viewall?.customerId?.customerName==null?viewall?.customerName:viewall?.customerId?.customerName }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="transactionId">
+        <th mat-header-cell *matHeaderCellDef>Payment Id</th>
+
+        <td mat-cell *matCellDef="let viewall">
+          {{viewall?.pgPaymentId || "-"}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef>Amount</th>
+        <td mat-cell *matCellDef="let viewall">
+          {{viewall.paidAmount || '-'}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="paymentMethod">
+        <th mat-header-cell *matHeaderCellDef>Payment Method</th>
+        <td mat-cell *matCellDef="let viewall">
+          {{viewall.paymentMethod || '-'}}
+        </td>
+      </ng-container>
+
+
+
+
+      <ng-container matColumnDef="mobileNumber">
+        <th mat-header-cell *matHeaderCellDef>Mobile Number</th>
+        <td mat-cell *matCellDef="let viewall">
+          {{ viewall?.customerId?.mobileNumber==null ? viewall?.mobileNumber : viewall?.customerId?.mobileNumber}}
+        </td>
+      </ng-container>
+
+
+
+      <ng-container matColumnDef="merchantAdminId">
+        <th mat-header-cell *matHeaderCellDef>Field Executive Name</th>
+        <td mat-cell *matCellDef="let viewall">
+          {{ viewall?.customerId?.merchantAdminId?.adminName==null ? viewall?.adminName :
+          viewall?.customerId?.merchantAdminId?.adminName}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let viewall">
+          <span *ngIf="viewall.paymentStatus=='Success'" style="color:green;"><b>{{viewall?.paymentStatus}}</b></span>
+          <span *ngIf="viewall.paymentStatus=='Due Pending'"
+            style="color:orange;"><b>{{viewall?.paymentStatus}}</b></span>
+          <span *ngIf="viewall.paymentStatus=='Failure'" style="color:red;"><b>{{viewall?.paymentStatus}}</b></span>
+          <span *ngIf="viewall.paymentStatus=='Initiated'" style="color:blue;"><b>{{viewall?.paymentStatus}}</b></span>
+          <span *ngIf="viewall.paymentStatus=='Due Cancelled'"
+            style="color:red;"><b>{{viewall?.paymentStatus}}</b></span>
+
+
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="branchName">
+        <th mat-header-cell *matHeaderCellDef>Branch Name</th>
+        <td mat-cell *matCellDef="let viewall">
+          {{viewall.customerStbId?.customerId?.branchId?.branchName}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="dues">
+        <th mat-header-cell *matHeaderCellDef [hidden]="valueReverseDues!=='Customer dues-Reverse Dues'">Reverse
+          Dues</th>
+        <td mat-cell *matCellDef="let viewall" [hidden]="valueReverseDues!=='Customer dues-Reverse Dues'">
+          <button [disabled]="viewall.paymentStatus=='Success'" (click)="dues(viewall)">
+            <i style="font-size: 20px; cursor: pointer" class="fa fa-edit"></i>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="reverse">
+        <th mat-header-cell *matHeaderCellDef>Reverse Status</th>
+        <td mat-cell *matCellDef="let viewall">
+          {{ viewall.dueStatus === 2 ? 'Dues Reversed' : 'Not Reversed' }}
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="view">
+        <th mat-header-cell *matHeaderCellDef [hidden]="valueduesview!=='Customer dues-View'">View</th>
+        <td mat-cell *matCellDef="let viewall" [hidden]="valueduesview!=='Customer dues-View'">
+          <i class="fa fa-eye" (click)="view(viewall.customerPayId)"></i>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdat">
+        <th mat-header-cell *matHeaderCellDef>Due Generated At</th>
+        <td mat-cell *matCellDef="let viewall">
+          {{viewall.createdDateTime | date:'dd/MM/yyyy hh:mm a'}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="paidat">
+        <th mat-header-cell *matHeaderCellDef>Paid At</th>
+        <td mat-cell *matCellDef="let viewall">
+          {{viewall.paymentDateTime | date:'dd/MM/yyyy hh:mm a'}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Receipt">
+        <th mat-header-cell *matHeaderCellDef [hidden]="valueduesReceipt!=='Customer dues-Receipt'">Receipt</th>
+        <td mat-cell *matCellDef="let viewall" [hidden]="valueduesReceipt!=='Customer dues-Receipt'">
+          <!-- <button class="btn btn-success btn-sm"  [disabled]="viewall?.paymentStatus!='Success'" >   <i  class="fas fa-receipt" (click)="Receipt(viewall.customerPayId)"></i></button> -->
+          <button class="btn btn-success btn-sm" [disabled]="viewall.paymentStatus!='Success'" style="border:none;"
+            (click)="Receipt(viewall.customerPayId)"> <i class="fas fa-receipt" style="color:#fff;"></i></button>
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="manualpayment">
+        <th mat-header-cell *matHeaderCellDef [hidden]="valueduesmanual!=='Customer dues-Manual Payment'">Manual
+          Payment</th>
+        <td mat-cell *matCellDef="let viewall" [hidden]="valueduesmanual!=='Customer dues-Manual Payment'">
+          <button [disabled]="viewall.paymentStatus == 'Success' || viewall.paymentStatus == 'Due Cancelled' "
+            class="btn btn-success btn-sm" style="border:none;" (click)="manuvalpayments(viewall.customerPayId)"> <i
+              class="fa-solid fa-address-card" style="color:#fff;cursor:pointer"></i></button>
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="updateamount">
+        <th mat-header-cell *matHeaderCellDef [hidden]="valueduesUpdate!=='Customer dues-Update Amount'">Update Amount
+        </th>
+        <td mat-cell *matCellDef="let viewall" [hidden]="valueduesUpdate!=='Customer dues-Update Amount'">
+          <button class="btn btn-success btn-sm" (click)="Updatedue(viewall)" style="border:none;"
+            [disabled]="viewall.paymentStatus=='Success'">
+            <i class="fa-regular fa-money-bill-1"></i>
+          </button>
+        </td>
+      </ng-container>
+
+
+
+      <ng-container matColumnDef="refund">
+        <th mat-header-cell *matHeaderCellDef [hidden]="valueduesRefund!=='Customer dues-Refund'">Refund</th>
+        <td mat-cell *matCellDef="let viewall" [hidden]="valueduesRefund!=='Customer dues-Refund'">
+          <button (click)="refund(viewall)"
+            [disabled]="viewall.pgPaymentId == null || viewall.paymentStatus !== 'Success'">
+            <i class="fa fa-undo"></i>
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="commentby">
+        <th mat-header-cell *matHeaderCellDef>Comment By</th>
+        <td mat-cell *matCellDef="let viewall">
+          <div class="privacy-policy-container">
+
+            <span *ngIf="!isFullPolicyVisible">
+              {{ viewall.commentsBy | slice:0:limit }}
+            </span>
+            <span *ngIf="isFullPolicyVisible">
+              {{ viewall.commentsBy }}
+            </span>
+            <i style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more">
+              <br>
+              {{ isFullPolicyVisible ? 'Read Less' : '...Read More' }}
+            </i>
+          </div>
+        </td>
+      </ng-container> -->
+
+
+      <ng-container matColumnDef="commentby">
+        <th mat-header-cell *matHeaderCellDef>Comment By</th>
+        <td mat-cell *matCellDef="let viewall">
+          <div class="privacy-policy-container">
+            <span *ngIf="!isFullPolicyVisible">
+              <!-- Check if setupBox is not empty and slice it -->
+              {{ getDisplayText(viewall?.commentsBy) }}
+              <!-- Only show "..." if setupBox length exceeds the limit -->
+              <span *ngIf="viewall?.commentsBy?.length > limit">...</span>
+            </span>
+            <span *ngIf="isFullPolicyVisible">
+              {{ viewall?.commentsBy?.join(', ') }}
+            </span>
+
+            <!-- Only show the "Read More" button if setupBox has items and length exceeds limit -->
+            <i *ngIf="viewall?.commentsBy?.length > limit && viewall?.commentsBy?.length > 0"
+              style="color: #141E46; font-weight: 600; cursor: pointer;" class="read-more" (click)="comment(viewall)">
+              <br>
+              {{ isFullPolicyVisible ? 'Read Less' : 'Read More' }}
+            </i>
+          </div>
+        </td>
+      </ng-container>
+
+
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
+      <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
+      <tr *matNoDataRow>
+        <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data For {{input.value}}</td>
+        <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">No Data
+        </td>
+      </tr>
+
+    </table>
+
+  </div>
+</mat-card-content>
+<mat-card-footer>
+
+  <!-- <mat-paginator [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtons
+      aria-labels="select page of users"></mat-paginator> -->
+
+
+  <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="filter">
+    <div class="col-md-7"></div>
+    <div class="col-md-5">
+      <button style="color:white;background-color: #141E46;">Total Entries:{{this.totalPages}}</button>
+      <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex - 1)"
+        [hidden]="pageIndex === 0">Previous</button>
+      <button style="color:white;background-color: #141E46;">{{ this.currentpage}} of {{this.totalpage}}
+        Pages</button>
+      <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex + 1)"
+        [hidden]="pageIndex >= totalpage - 1">Next</button>
+    </div>
+  </div>
+  <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="filter1">
+    <div class="col-md-6"></div>
+    <div class="col-md-6">
+      <button style="color:white;background-color: #141E46;">Total Entries:{{this.totalPages1}}</button>
+      <button style="color:white;background-color: #141E46;" (click)="changePageIndex1(pageIndex1 - 1)"
+        [hidden]="pageIndex1 === 0">Previous</button>
+      <button style="color:white;background-color: #141E46;">{{this.currentpage1}} of {{this.totalpage1}}
+        Pages</button>
+      <button style="color:white;background-color: #141E46;" (click)="changePageIndex1(pageIndex1 + 1)"
+        [hidden]="pageIndex1 >= totalpage1 - 1">Next</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-9"></div>
+    <div *ngIf="paidfilter" class="p-3">
+      <button style="color:white;background-color: #141E46;">Total Entries:{{this.totalCount}}</button>
+
+    </div>
+  </div>
+
+</mat-card-footer>
+
+
+
+<ng-template #dialogTemplate>
+  <div class="dialog-card-header">
+    <h3 class="mb-0" style="font-weight: 700; text-align: center; font-size: 21px;">
+      Due Pending SetupboxNumber
+    </h3>
+    <div class="col-md-2 d-flex justify-content-end mb-1">
+      <button class="button1" (click)="dialogRef.close()">Back</button>
+    </div>
+  </div>
+  <div class="dialog-body page">
+    <main class="main page__main">
+      <form class="form main__form" autocomplete="off" [formGroup]="stbNumbers" role="form">
+        <div class="form__linput">
+          <label class="form__label" for="fname">Setupbox Number</label>
+          <textarea class="form-control" id="fname" type="text" formControlName="stb" name="setupboxnum"
+            required></textarea>
+        </div>
+
+        <div class="mt-3">
+          <button type="submit" class="btn mx-1" style="background-color: #7db855be" (click)="submit()">
+            Filter
+          </button>
+          <button type="button" class="btn" style="background-color: #141e46; color: white" (click)="resetForm()">
+            Reset
+          </button>
+        </div>
+      </form>
+    </main>
+  </div>
+</ng-template>
+
+
+
+
+
+<ng-template #dialogcustomrangeTemplate>
+  <div class="dialog-card-header">
+    <h3 class="mb-0" style="font-weight: 700; text-align: center; font-size: 21px;">
+      Due Pending Custom Range
+    </h3>
+    <div class="col-md-2 d-flex justify-content-end mb-1">
+      <button class="button1" (click)="dialogRef.close()">Back</button>
+    </div>
+  </div>
+  <div class="dialog-body page">
+    <main class="main page__main">
+      <form class="form main__form" autocomplete="off" [formGroup]="stbNumberscustom" role="form">
+        <div class="form__linput">
+          <label class="form__label" for="fname">Setupbox Number</label>
+          <textarea class="form-control" id="fname" type="text" formControlName="setupboxnum" name="setupboxnum"
+            required></textarea>
+        </div>
+        <div class="form__linput">
+          <label class="form__label" for="fname">From Date</label>
+          <input class="form-control" id="fname" type="date" formControlName="fromdate" name="fromdate" required />
+        </div>
+        <div class="form__linput">
+          <label class="form__label" for="fname">To Date</label>
+          <input class="form-control" id="fname" type="date" formControlName="todate" name="todate" required />
+        </div>
+
+        <div class="mt-3">
+          <button type="submit" class="btn mx-1" style="background-color: #7db855be" (click)="customsubmit()">
+            Filter
+          </button>
+          <button type="button" class="btn" style="background-color: #141e46; color: white"
+            (click)="resetFormcustomrange()">
+            Reset
+          </button>
+        </div>
+      </form>
+    </main>
+  </div>
+</ng-template>
+<ng-template #SetupboxpaymentStatus>
+  <div class="dialog-card-header">
+    <h3 class="mb-0" style="font-weight: 700; text-align: center; font-size: 21px;">
+      Filter by PaymentStatus
+    </h3>
+    <div class="col-md-2 d-flex justify-content-end mb-1">
+      <button class="button1" (click)="dialogRef.close()">Back</button>
+    </div>
+  </div>
+  <div class="dialog-body page">
+    <main class="main page__main">
+      <form class="form main__form" autocomplete="off" [formGroup]="stbNumberspayment" role="form">
+        <div class="form__linput">
+          <label class="form__label" for="fname">Setupbox Number</label>
+          <textarea class="form-control" id="fname" type="text" formControlName="setupboxnumber" name="setupboxnum"
+            required></textarea>
+        </div>
+        <div class="form__linput">
+          <label class="form__label" for="fname">From Date</label>
+          <input class="form-control" id="fname" type="date" formControlName="fromdatepaymnet" name="fromdatepaymnet"
+            required />
+        </div>
+        <div class="form__linput">
+          <label class="form__label" for="fname">To Date</label>
+          <input class="form-control" id="fname" type="date" formControlName="todatepaymnet" name="todatepaymnet"
+            required />
+        </div>
+
+
+        <div class="form__linput">
+          <label class="form__label" for="paymentStatus"> Payment Status</label>
+          <select class="form-control form-select" formControlName="paymentstatus" name="paymentstatus">
+            <option value="Success">Success</option>
+            <option value="Initiated">Initiated</option>
+            <option value="Due Pending">Due Pending</option>
+            <option value="Failure">Failure</option>
+          </select>
+        </div>
+
+
+        <div class="mt-3">
+          <button type="submit" class="btn mx-1" style="background-color: #7db855be" (click)="paysubmit()">
+            Filter
+          </button>
+          <button type="button" class="btn" style="background-color: #141e46; color: white"
+            (click)="resetFormpaysubmit()">
+            Reset
+          </button>
+        </div>
+      </form>
+    </main>
+  </div>
+</ng-template>
+
+<ng-template #updatepaymentStatus>
+  <div class="dialog-card-header">
+    <h3 class="mb-0" style="font-weight: 700; text-align: center; font-size: 21px;">
+      Update PaymentStatus
+    </h3>
+    <div class="col-md-2 d-flex justify-content-end mb-1">
+      <button class="button1" (click)="dialogRef.close()">Back</button>
+    </div>
+  </div>
+  <div class="dialog-body page">
+    <main class="main page__main">
+      <form class="form main__form" autocomplete="off" [formGroup]="paymentstatusform" role="form">
+        <div class="form__linput">
+          <label class="form__label" for="fname">Setupbox Number</label>
+          <textarea class="form-control" id="fname" type="text" formControlName="setupboxnumbers" name="setupboxnum"
+            required></textarea>
+        </div>
+
+
+        <div class="form__linput">
+          <label class="form__label" for="paymentStatus"> Payment Status</label>
+          <select class="form-control form-select" formControlName="Status" name="Status">
+            <option value="Success">Success</option>
+            <!-- <option value="Initiated">Initiated</option>
+                <option value="Due Pending">Due Pending</option>
+                <option value="Failure">Failure</option> -->
+          </select>
+        </div>
+
+        <div class="d-flex justify-content-start mx-3">
+          <div class="form-check mt-4">
+            <input [(ngModel)]="Check" (change)="select($event)" type="checkbox" class="form-check-input"
+              id="exampleCheck1" style="border:2px solid black;font-size:15px;" formControlName="check">
+            <label class="form-check-label" for="exampleCheck1" style="font-size:14px;font-weight:400"><b>Are You Sure
+                to Change the Payment Status?</b></label>
+          </div>
+
+
+        </div>
+
+
+        <div class="mt-3">
+          <button [hidden]="Check ==false" type="submit" class="btn mx-1" style="background-color: #7db855be"
+            (click)="paymentstatussubmit()">
+            Submit
+          </button>
+          <button type="button" class="btn" style="background-color: #141e46; color: white"
+            (click)="paymentstatussubmitreset()">
+            Reset
+          </button>
+        </div>
+      </form>
+    </main>
+  </div>
+</ng-template>
+
+
+<ng-template #filterbyemployees>
+  <div class="dialog-card-header">
+    <h3 class="mb-0" style="font-weight: 700; text-align: center; font-size: 21px;">
+      Field Executive
+    </h3>
+    <div class="col-md-2 d-flex justify-content-end mb-1">
+      <button class="button1" (click)="dialogRef.close()">Back</button>
+    </div>
+  </div>
+  <div class="dialog-body page">
+    <main class="main page__main">
+      <form class="form main__form" autocomplete="off" [formGroup]="filteremployeepayment" role="form">
+        <div class="form__linput">
+          <label class="form__label" for="fname">Employee Name</label>
+          <select class="form-select" formControlName="employeeview">
+            <!-- <option  selected disabled>---Select Role--
+            </option> -->
+            <option *ngFor="let data of activemployee" [value]="data.merchantAdminId">{{data.adminName}}</option>
+
+          </select>
+        </div>
+        <div class="form__linput">
+          <label class="form__label" for="fname">From Date</label>
+          <input class="form-control" id="fname" type="date" formControlName="fromdateemployee" name="fromdateemployee"
+            required />
+        </div>
+        <div class="form__linput">
+          <label class="form__label" for="fname">To Date</label>
+          <input class="form-control" id="fname" type="date" formControlName="todateemployee" name="todateemployee"
+            required />
+        </div>
+
+
+        <div class="form__linput">
+          <label class="form__label" for="paymentstatusemployee"> Payment Status</label>
+          <select class="form-control form-select" formControlName="paymentstatusemployee" name="paymentstatusemployee">
+            <option value="Success">Success</option>
+            <option value="Initiated">Initiated</option>
+            <option value="Due Pending">Due Pending</option>
+            <option value="Failure">Failure</option>
+          </select>
+        </div>
+
+
+        <div class="mt-3">
+          <button type="submit" class="btn mx-1" style="background-color: #7db855be" (click)="employeepaymentsubmit()">
+            Filter
+          </button>
+          <button type="button" class="btn" style="background-color: #141e46; color: white"
+            (click)="filteremployeepayments()">
+            Reset
+          </button>
+        </div>
+      </form>
+    </main>
+  </div>
+</ng-template>
+
+<ng-template #paidcustomrange>
+  <div class="dialog-card-header">
+    <h3 class="mb-0" style="font-weight: 700; text-align: center; font-size: 21px;">
+      Paid CustomRange
+    </h3>
+    <div class="col-md-2 d-flex justify-content-end mb-1">
+      <button class="button1" (click)="dialogRef.close()">Back</button>
+    </div>
+  </div>
+  <div class="dialog-body page">
+    <main class="main page__main">
+      <form class="form main__form" autocomplete="off" [formGroup]="Paidcustomrangeform" role="form">
+
+        <div class="form__linput">
+          <label class="form__label" for="fname">From Date</label>
+          <input class="form-control" id="fname" type="date" formControlName="fromdatecustrangepaid"
+            name="fromdateemployee" required />
+        </div>
+        <div class="form__linput">
+          <label class="form__label" for="fname">To Date</label>
+          <input class="form-control" id="fname" type="date" formControlName="todatecustrangepaid" name="todateemployee"
+            required />
+        </div>
+
+
+        <div class="mt-3">
+          <button type="submit" class="btn mx-1" style="background-color: #7db855be" (click)="paidcustrangesubmit()">
+            Filter
+          </button>
+          <button type="button" class="btn" style="background-color: #141e46; color: white"
+            (click)="paidcustrangereset()">
+            Reset
+          </button>
+        </div>
+      </form>
+    </main>
+  </div>
+</ng-template>
+
+<ng-template #unpaidcustomrange>
+  <div class="dialog-card-header">
+    <h3 class="mb-0" style="font-weight: 700; text-align: center; font-size: 21px;">
+      UnPaid CustomRange
+    </h3>
+    <div class="col-md-2 d-flex justify-content-end mb-1">
+      <button class="button1" (click)="dialogRef.close()">Back</button>
+    </div>
+  </div>
+  <div class="dialog-body page">
+    <main class="main page__main">
+      <form class="form main__form" autocomplete="off" [formGroup]="UnPaidcustomrangeform" role="form">
+
+        <div class="form__linput">
+          <label class="form__label" for="fname">From Date</label>
+          <input class="form-control" id="fname" type="date" formControlName="fromdatecustrangeunpaid"
+            name="fromdateemployee" required />
+        </div>
+        <div class="form__linput">
+          <label class="form__label" for="fname">To Date</label>
+          <input class="form-control" id="fname" type="date" formControlName="todatecustrangeunpaid"
+            name="todateemployee" required />
+        </div>
+
+
+        <div class="mt-3">
+          <button type="submit" class="btn mx-1" style="background-color: #7db855be" (click)="unpaidcustrangesubmit()">
+            Filter
+          </button>
+          <button type="button" class="btn" style="background-color: #141e46; color: white"
+            (click)="unpaidcustrangereset()">
+            Reset
+          </button>
+        </div>
+      </form>
+    </main>
+  </div>
+</ng-template>
+
+<ng-template #duecancelcustomrange>
+  <div class="dialog-card-header">
+    <h3 class="mb-0" style="font-weight: 700; text-align: center; font-size: 21px;">
+      Due Cancelled CustomRange
+    </h3>
+    <div class="col-md-2 d-flex justify-content-end mb-1">
+      <button class="button1" (click)="dialogRef.close()">Back</button>
+    </div>
+  </div>
+  <div class="dialog-body page">
+    <main class="main page__main">
+      <form class="form main__form" autocomplete="off" [formGroup]="duecancellcustomrangeform" role="form">
+
+        <div class="form__linput">
+          <label class="form__label" for="fname">From Date</label>
+          <input class="form-control" id="fname" type="date" formControlName="fromdatecustrangeduecancel"
+            name="fromdatecustrangeduecancel" required />
+        </div>
+        <div class="form__linput">
+          <label class="form__label" for="fname">To Date</label>
+          <input class="form-control" id="fname" type="date" formControlName="todatecustrangeduecancel"
+            name="todatecustrangeduecancel" required />
+        </div>
+
+
+        <div class="mt-3">
+          <button type="submit" class="btn mx-1" style="background-color: #7db855be"
+            (click)="duecancellcustomrangeformsubmit()">
+            Filter
+          </button>
+          <button type="button" class="btn" style="background-color: #141e46; color: white"
+            (click)="duecancelcustrangereset()">
+            Reset
+          </button>
+        </div>
+      </form>
+    </main>
+  </div>
+</ng-template>

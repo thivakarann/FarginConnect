@@ -1,0 +1,107 @@
+@import "https://unpkg.com/open-props";
+ 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+ 
+.container{
+  width:600px;
+}
+ 
+button {
+  font: inherit;
+}
+ 
+.page {
+  color: var(--gray-9);
+  background-color: var(--gray-0);
+  display: grid;
+  grid-template-areas: "main";
+  height: auto;
+  font-family: var(--font-sans);
+}
+ 
+.page__main {
+  grid-area: main;
+}
+ 
+.main {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+ 
+.main__form {
+  width: 100%;
+  max-width: 30em;
+  /* Max width for the form */
+}
+ 
+.form {
+  color: var(--gray-9);
+  background-color: var(--gray-3);
+  display: grid;
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid var(--gray-4);
+  border-radius: var(--radius-2);
+  padding: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+ 
+.form__linput {
+  display: grid;
+  margin-bottom: 20px;
+}
+ 
+.form__label {
+  margin-bottom: var(--size-2);
+}
+ 
+.form__input,
+.form__select,
+.form__textarea {
+  padding: 0.5em 0.7rem;
+  border: 1px solid var(--gray-4);
+  border-radius: var(--radius-2);
+  width: 100%;
+}
+ 
+.form__select {
+  background: inherit;
+}
+ 
+.form__textarea {
+  padding: 1em 0.7rem;
+  resize: vertical;
+  font: inherit;
+}
+ 
+.form__btn {
+  margin-right: auto;
+}
+ 
+ 
+@media (max-width: 600px) {
+  .main__form {
+    padding: var(--size-2);
+  }
+ 
+  .form {
+    padding: var(--size-2);
+  }
+ 
+}
+ 
+ 
+.card-header {
+  background-color: #bcdf72;
+  color: #fff;
+  font-family: "Roboto";
+}
+.form__label{
+  font-weight: 500;
+}

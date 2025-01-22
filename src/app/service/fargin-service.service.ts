@@ -1,622 +1,504 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Subject } from 'rxjs';
-import { BankPrimaryStatus } from '../fargin-model/fargin-model.module';
-import { SessionServiceService } from '../Session service/session-service.service';
-import { json } from 'stream/consumers';
+import { lastValueFrom, Subject } from 'rxjs';
+import {
+  Addadmins,
+  addbeneficiary,
+  Addemployees,
+  Addonetime,
+  AddWithdrawal,
+  editbenificiary,
+  EmailOtpVerfiy,
+  employeeStatus,
+  extraarearoute,
+  extracustomerroute,
+  extraroute,
+  extrastreetroute,
+  postsetupbox,
+  primaryStatus,
+  ResetPassword,
+  roles,
+  roleStatus,
+  route,
+  routests,
+  routeupdate,
+  setupStatus,
+  SmsOtpVerfiy,
+  Statusadmin,
+  subpermission,
+  Tickets,
+  Upadteadmins,
+  updaterole,
+  updatesetupbox,
+  VerifyOtp,
+} from '../fargin-model/fargin-model.module';
 import { ToastrService } from 'ngx-toastr';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FarginServiceService {
- 
 
-  constructor(private http: HttpClient,
-    private router: Router, private timerService: SessionServiceService, private toastr: ToastrService) { }
+
+  constructor(private http: HttpClient, private toastr: ToastrService, private router: Router) { }
 
   // private readonly basePath = 'https://staging-api.farginconnect.com/';    //Staging server
-  
+
   private readonly basePath = 'https://dev-api.farginconnect.com/';     //  Dev Server
-  
-  // private readonly basePath = 'https://api.fargin.in/';       //  Production server
+
+  // private readonly basePath ='https://api.fargin.in/';   //  production server
 
 
 
   // login
-
-  private readonly adminlogin = 'adminUser/adminlogin';
-  private readonly forgotpassword = 'adminUser/verifyEmail';
-  private readonly verifyotp = 'adminUser/verifyOtp';
-  private readonly resendotp = 'adminUser/resendOtp';
-  private readonly resetpassword = 'adminUser/reset';
+  private readonly entitylogin = 'merchant/entitylogin';
+  private readonly forgotpassword = 'merchant/emailverify/';
+  private readonly verifyotp = 'merchant/otpverify/';
+  private readonly resendotp = 'merchant/resendotp/';
+  private readonly resetpassword = 'merchant/reset';
 
   //change password
-  private readonly changepassword = 'adminUser/changePassword/';
+  private readonly changepassword = 'merchant/changepassword';
+
+  // Admin Onboard
+  private readonly addadmin = 'merchantadminlogin/create';
+  private readonly viewadmin = 'merchantadminlogin/viewall';
+  private readonly viewbyidadmin = 'merchantadminlogin/viewbyid/';
+  private readonly editadmin = 'merchantadminlogin/updateadmin/';
+  private readonly statusadmin = 'merchantadminlogin/updatestatus/';
+  private readonly getActiveRole = 'merchantrole/activeRole/';
+  private readonly viewadminbyid = 'merchantadminlogin/viewAll/';
+  private readonly ViewadminforCollectionamount = 'customer/viewemp/';
+
+  // Employee Onboard
+  private readonly addemployee = 'employee/create';
+  private readonly viewemployee = 'employee/viewmerchantemployees/';
+  private readonly viewactiveemploye = 'merchantadminlogin/merchantActiveStatus/';
+
+  //Terms & Policy
+  // private readonly viewterms = 'policy/getpolicybymerchant/';
+
+  private readonly viewterms = 'policy/adminApprovedByMerchant/'
+
+  //Email Verfiy
+  private readonly emailverfiy = 'merchant/emailverification/';
+  private readonly emailotp = 'merchant/emailotpverification/';
+  private readonly verifyemailresend = 'merchant/emailResendOtp/';
+  //Mobile Verify
+  private readonly mobileverify = 'merchant/mobileVerification/';
+  private readonly mobileotp = 'merchant/mobileotpverification/';
+  private readonly verifymobileresend = 'merchant/mobileResentsOtp/'
 
 
+  //Merchant 
+  private readonly merchantbyid = 'merchant/getmerchants/'
 
-
-
-  //business category
-  private readonly businesscategoryget = 'businesscategory/getall';
-  private readonly businesscategoryAdd = 'businesscategory/create';
-  private readonly businesscategoryEdit = 'businesscategory/update/';
-  private readonly businesscategorystatus = 'businesscategory/updateactive/';
-
-  //Business KYC
-  private readonly businesscategorykycget = 'businesskyc/getall';
-  private readonly businesscategorykycactive = 'businesskyc/updateactive/';
-  private readonly businesskycAdd = 'businesskyc/create';
-  private readonly businesskycdocactive = 'businesscategory/getallactive';
-  private readonly businesskycupdate = 'businesskyc/update/';
-
-  //Ticket
-  private readonly viewallTicket = 'tickets/getall';
-  private readonly updateTicket = 'tickets/updateapproval/';
+  //Service Tickets
+  private readonly viewallTicket = 'tickets/viewbymerchant/';
+  private readonly addTicket = 'tickets/create';
   private readonly viewTicketImage = 'tickets/viewimage/';
+  private readonly editTicket = 'tickets/updateticket';
+  private readonly editImage = 'tickets/updatedocument';
 
-  //Roles & Permission
-  private readonly permissiongetall = 'permission/activepermission';
-  private readonly getsubPermission = 'subpermission/getpermissionlist';
-  private readonly addRole = 'role/create';
-  private readonly roleStatus = 'role/updatestatus';
-  private readonly viewallRoles = 'role/viewall';
-  private readonly viewPermissionSubpermission = 'role/viewpermission/';
-  private readonly updateRole = 'role/updaterole/';
-  private readonly rolegetByid = 'role/viewbyid/';
+  //Roles and permission
+  private readonly viewallRole = 'merchantrole/viewmerchantrole/';
+  private readonly viewRoles = 'merchantrole/viewpermissionandsubpermmission/';
+  // private readonly viewRoles = 'role/viewbyid/';
 
+  private readonly getallPermission = 'merchantpermission/getActive';
+  private readonly getSubpermission =
+    'merchantsubpermisssion/getpermissionlist';
+  private readonly createrole = 'merchantrole/create';
+  private readonly updateRole = 'merchantrole/updaterole/';
+  private readonly statusRole = 'merchantrole/updatestatus';
 
-  //Admin Policy
-  private readonly adminpolicy = 'policy/viewallmerchant/2';
-  private readonly Adminpolicycreate = 'policy/createmerchantpolicy';
-  private readonly Adminpolicyedit = 'policy/updatemerchant/';
-  private readonly adminpolicyviewbyidedit = 'policy/getpolicy/';
-  private readonly policymerchant = 'policy/getMerchant';
-  private readonly policiesbyid = 'policy/getpolicy/';
-  private readonly policyapproval = 'policy/updateStatus/';
+  // customer onboard
 
+  private readonly merchantview = 'customer/viewbymerchant/';
+  private readonly merchantviewexcel = 'customer/viewExcel/';
+  private readonly customercreate = 'customer/create';
+  private readonly customergetall = 'customer/viewByAll';
+  private readonly customerupdate = 'customer/updateCustomer/';
+  private readonly customerview = 'customer/viewById/';
+  private readonly customeractivestatus = 'customer/activeInactive/';
+  private readonly duestatusonoff = 'duegenerate/updateDue/'
 
-  private readonly admingetall = 'adminUser/viewall';
-  private readonly adminstatus = 'adminUser/updateStatus';
-  private readonly admincreate = 'adminUser/addUser';
-  private readonly adminupdate = 'adminUser/update';
-  private readonly adminview = 'adminUser/viewById/';
-  private readonly roleactiveviewall = 'role/viewactive';
-
-  // Entity Details
-
-  private readonly Entitygetallexport = 'merchant/getall';
-  private readonly entitygetall = 'merchant/getall/'
-  private readonly AddEntity = 'merchant/create'
-  private readonly EntityKYCBYbusinessid = 'businesskyc/getcategorykyc/'
-  private readonly Entityviewbyid = 'merchant/getmerchants/';
-  private readonly updateEntity = 'merchant/updateMerchant/';
-  private readonly entityactivestatus = 'merchant/updateStatus';
-  private readonly emailtrigger = 'merchantOnboard/resendmail';
-  private readonly merchantlogo = 'merchant/updateimage ';
-  private readonly keysupdate = 'merchant/updateKey';
-  private readonly paymentlink = 'paymentlink/getmerchant/';
-  private readonly businessid = 'businesscategory/getById/';
-  private readonly manualreciept = 'merchantpay/viewreceipt/';
-  private readonly entitykyc = 'entityDocument/addDocuments'
+  //service provider
+  private readonly serviceprovideractive = 'serviceProvider/viewActive';
+  private readonly Activeserviceproviderfromstb = 'setupbox/getserviceprovider/';
+  private readonly editsettopbox = 'customer/updatecustomerstb/';
 
 
 
 
-  //Overall customer
-  private readonly Overallcustomer = 'customer/viewByAll/';
-  private readonly overallcustomerexport = 'customer/viewByAll'
-  private readonly Entityindividualcustomerview = 'customer/viewById/';
+  //Customer
+  private readonly viewcustomerbymerchantid = 'customer/viewbymerchant/';
+  private readonly viewcustomerbyid = 'customer/viewById/';
+  private readonly alcotlogo = 'alcotchannel/viewLogo/';
+  private readonly customertransaction = 'customerpay/viewcustomers/';
+  private readonly Activesetupboxmerchantid = 'setupbox/getMerchantAndService/'
+  private readonly Activeplanmerchant = 'lcop/getactiveMerchant/';
+  private readonly customeridsearchs = 'customerpay/monthlystbdues';
+  private readonly customeridmonthmanualdue = 'customerpay/monthduesmanual';
+  private readonly customeridfullmanualdue = 'customerpay/fullproduesmanual';
+  private readonly createremainder = 'customer/remainder/'
+
+  //One Time Setup fee
+  private readonly addonetime = 'merchantpay/makepayment';
+  private readonly pgmode = 'pgmode/activepg';
+  private readonly createcost = 'merchantpay/createorder/';
+  private readonly initiatecost = 'merchantpay/initiate/';
+  private readonly getonetimesucces = 'transhistory/getbyid/';
+
+  //Withdrawal Request
+  private readonly viewbymerchantid = 'merchant/getmerchants/';
+  private readonly addwithdrawal = 'withderawal/withdrawalRequest';
+
+
+
+  //Route configuration
+  private readonly routeviewall = 'route/viewAll';
+  private readonly routemerchantid = 'route/viewByMerchant/';
+  private readonly routemerchantadminIds = 'route/viewByEmplyee/'
+  private readonly routeCreate = 'route/create';
+  private readonly extraroutecreates = 'route/addroute';
+  private readonly extraarearoutecreates = 'route/addarea';
+  private readonly extrastreetroutecreates = 'route/addStreet';
+  private readonly extracustomerroutecreates = 'route/addCustomer'
+  private readonly routeEdit = 'route/update/';
+  private readonly viewStreetName = 'customer/viewallStreetName/';
+  private readonly viewAreaName = 'customer/viewallArea/';
+  private readonly routeStatus = 'route/activeInactive/';
+  private readonly activeEmployee = 'merchantadminlogin/merchantActiveStatus/';
+  private readonly customerrouteid = 'route/viewroutePincodes/';
+  private readonly viewrouteareas = 'route/viewrouteAreas/';
+  private readonly viewroutestrreets = 'route/viewrouteStreets/';
+  private readonly viewcustomerbtstreets = 'route/viewrouteCustomers/';
+  private readonly viewByRoutePincodeIds = 'route/viewByRoutePincodeId/';
+
+
+  private readonly pincodestatus = 'route/updatePincodeStatus/';
+  private readonly areastatus = 'route/updateAreaStatus/';
+  private readonly streetstatus = 'route/updateStreetStatus/';
+  private readonly customerStatus = 'route/updateCustomerRouteStatus/'
+
+
+  private readonly routebyitsids = 'route/getbyid/';
+  private readonly pincodeviewall = 'customer/viewPincodes/';
+  private readonly areaViewAll = 'customer/viewArea/';
+  private readonly streetViewalls = 'customer/viewStreet/';
+  private readonly customerViewalls = 'customer/viewCustomer/'
+  private readonly pincodepost = 'customer/viewArea'
+  private readonly areapost = 'customer/viewStreets';
+  private readonly streetpost = 'customer/viewCustomerDetails';
+
+
+  //region
+  private readonly regionviewall = 'region/viewAllRegion';
+  private readonly regionViewbyid = 'region/viewByService/';
+  private readonly regionViewactive = 'region/viewOnlyActive';
+
+  //service
+  private readonly serviceActive = 'serviceProvider/viewActive';
+  private readonly ServiceProvideLinks = "setupbox/merchantBasedService/"
+
+  //Beneficiary
+  private readonly Beneficiaryadd = 'employeebeneficiary/create';
+  private readonly BeneficiaryView = 'employeebeneficiary/viewmerchant/';
+  private readonly BeneficiaryemployeeView = 'merchantadminlogin/viewbyid/';
+  private readonly BeneficiaryemployeeEdit = 'employeebeneficiary/update/';
+  private readonly BeneficiaryViewbyid = 'employeebeneficiary/viewbyid/';
+  private readonly BeneficiaryStatus = 'employeebeneficiary/updateactive/';
+  private readonly BeneficiaryPrimary = 'employeebeneficiary/updateprimary/';
+
+  //Transaction
+  // private readonly transaction = 'paymentHistory/viewByMerchant/';
+
+  //Channel configuration
+  private readonly channelConfigurationexport = 'alcotchannel/viewOnlyActive';
+  private readonly channelConfiguration = 'alcotchannel/viewOnlyActive/';
+  private readonly Alcartchannellogo = 'alcotchannel/viewLogo/';
+  private readonly alcartviewbyid = 'alcotchannel/getById/';
+
+  //Plan configuration
+  private readonly planConfiguration = 'broadCaster/viewOnlyActive';
+  // private readonly Bouquetsviewbyid = 'broadCaster/getById/';
+  private readonly Bouquetsviewbyid = 'broadCaster/getByregions/';
+  private readonly Bouquetsviewbyidchannel = 'broadCaster/viewActiveChannelsByRegions/' //for channel view
+
+
+  // Bouquete plan Active
+
+  private readonly ActiveBiuquetePlans = 'broadCaster/viewOnlyActive'
+
+
+  // LCOP Plan creation
+
+  private readonly Freechannel = 'lcop/viewFree';
+  private readonly PaidChannel = 'lcop/viewPaid';
+  private readonly PlanCalculation = 'lcop/calculate';
+  private readonly PlanCreation = 'lcop/addpackage';
+  private readonly PlanViewall = 'lcop/viewAll';
+  private readonly PlanViewbyid = 'lcop/viewById/';
+  private readonly PlanViewbyidcust = 'lcop/viewActiveChannels/'; //for customer onboard channels
+  private readonly LcopFreechannelstatus = 'lcop/updateFreeStatus';
+  private readonly LcopPaidChannelstatus = 'lcop/updatePaidStatus';
+  private readonly LcopBouqutesstatus = 'lcop/updatebouquetStatus';
+  private readonly PlanStatus = 'lcop/updateStatus';
+  private readonly ActivePlans = 'lcop/activeData';
+  private readonly PaidChannelStatus = 'lcop/updatePaidStatus';
+  private readonly FreeChannelStatus = 'lcop/updateFreeStatus';
+  private readonly BouQuetePlanStatus = 'lcop/updatebouquetStatus';
+  private readonly PlanViewalls = 'lcop/viewByMerchant/';
+  private readonly Lcopupdate = 'lcop/addExtraPackage';
+  private readonly Paidchannelactive = 'lcop/viewActivePaid';
+  private readonly Freechannelactive = 'lcop/viewActiveFree';
+  private readonly FreeChannelforEdit = 'lcop/getFree/';
+  private readonly PaidChannelforEdit = 'lcop/getPaid/';
+  private readonly BouquetsforEdit = 'lcop/getBouquet/';
+  private readonly LCOPcalculationEdit = 'lcop/updateCalculate/'
+
+
+  //setupbox
+  private readonly setupboxViewall = 'setupbox/viewAll';
+  private readonly setupboxStatus = 'setupbox/updateStatus';
+  private readonly setupboxadd = 'setupbox/create';
+  private readonly setupboxedit = 'setupbox/update';
+  private readonly setupboxmerchantid = 'setupbox/viewByMerchant/';
+  private readonly setupboxactive = 'setupbox/viewByService/';
+
+
+  //setupbox bulk upload
+  private readonly bulkUploadsetupbox = 'setupbox/uploadsetupboxnumber/';
+  private readonly bulkuploadexport = 'setupbox/getuploaddatabymerchant/'
+  private readonly bulkUploadView = 'setupbox/getuploaddatabymerchant/';
+  private readonly bulkuploadResponse = 'setupbox/uploadList/';
+  private readonly bulkuploadbyId = 'setupbox/response/';
+  private readonly stbcustomerview = 'customer/viewStb/';
+  private readonly STBstatus = 'setupbox/updateBookingStatus'
+  private readonly SetupBoxflags = 'setupbox/advanceSearchEntity/';
+
+  //Customer dues
+  private readonly transaction = 'customerpay/viewbycustomers/';
+  private readonly generatedues = 'customerpay/createDues/';
+  private readonly customerreceipt = 'customerpay/viewReceipt/';
+  private readonly transactionmanualpay = 'customerpay/manualCash/';  //Manuval payment with otp
+  private readonly transmanuvalpaywithoutOTP = 'customerpay/manualCashWithoutotp/';  //Manuval payment withOUTotp
+  private readonly transactiondues = 'customerpay/updateduestatus/';
+
+  // Customer dues Update
+  private readonly custransamountupdate = 'customerpay/updatepayment/';
+  private readonly customerupdatebyid = 'customerpayauditlog/viewByCustomerPayId/';
+  private readonly Customedueslogbyid = '/customerpayauditlog/viewByMerchant/';
+  private readonly customerduessearch = 'customerpayauditlog/viewAdvanceSearch/';
+  private readonly customerduelogsgetall = 'customerpayauditlog/viewAllByMerchant/';
+
+  //QR View
+  private readonly merchantQr = 'merchant/qrViewImage/';
+
+  //  Customer Payments  
+
+  private readonly CustomerPaymentDetails = 'customerpay/customerpayments/';
+  private readonly CustomerMakePayment = 'customerpay/makepayment';
+  private readonly CustomerPgCreateOrder = 'customerpay/createorder/';
+  private readonly CustomerPgInitiate = 'customerpay/initiate/';
+  private readonly CustomerTransDetails = 'paymentHistory/viewByPaynumber/';
+  private readonly CustomerDetails = 'customerpay/viewbyid/';
+  private readonly Customertransactiondetail = 'customerpay/customertransactions/';
+  private readonly CutsomerRefund = 'refund/create';
+  private readonly PaymentKeys = 'pgmode/activepg'
+
+  //Merchant Dues
+  private readonly dues = 'maintanancePay/viewByMerchant/';
+  private readonly duesmakepayment = 'maintanancePay/maintanancemakepayment';
+  private readonly createorderdues = 'maintanancePay/createorder/';
+  private readonly initiatedues = 'maintanancePay/initiate/';
+  private readonly transactiondetails = 'maintanancePay/viewByPayNumber/';
+  private readonly transactioninvoice = 'maintanancePay/receiptView/';
+
+  // Customer Tickets
+
+  //ticket customer
+  private readonly custmerchantticket = 'customerTickets/getall/';
+  private readonly customerticketraise = 'customerTickets/updateTicketStatus/';
+
+
+
+  //customer setupbox history
+  private readonly viewbymerchant = 'customer/viewMerchant/';
+  private readonly viewebycustomer = 'customer/view/';
+  private readonly customersetupboxhistorys = 'customer/viewStbHistory/';
+
+  private readonly planbouquetadd = 'customerplan/bouqetcreate';
+  private readonly planalcotadd = 'customerplan/alcotcreate';
+  private readonly planlcopadd = 'customerplan/lcopcreate';
+  private readonly planstatus = 'customerplan/updatestatus/';
+
+  //policy update
+  private readonly privacypolicyupdate = 'policy/updatepolicyStatus/';
+  private readonly termspolicyupdate = 'policy/updatetcStatus/';
+  private readonly disclaimerpolicyupdate = 'policy/updatedisStatus/';
+  private readonly refundpolicyupdate = 'policy/updaterefundStatus/';
+  private readonly approvepolicy = 'policy/updatePoliciesStatus/';
+  private readonly smsmerchant = 'merchantSms/viewmerchantstatus/'
+
+  //customer bulk upload
+  private readonly customeraddBulk = 'customer/uploadDetails/';
+  private readonly customerbulkresponse = 'customer/uploadedList/';
+  private readonly customerbulkbyid = 'customer/getResponse/';
+  private readonly customersetupboxbulkResponses = 'customer/viewStbUploadResponse/';
+  private readonly customerbulkviewall = 'customer/getuploaddatabymerchant/';
+  private readonly customersetupboxbulkbyIds = 'customer/getresponse/';
+  private readonly customersetupAddBulks = 'customer/uploadBulkStb/'
+
+
+
+  //Dashboard
+  private readonly dashbordcustomercount = 'dashBoard/customerCount/';
+  private readonly dashboardcustomersevendays = 'entitydashboard/lasts7days/';
+  private readonly dashboardcustomerfifteendays = 'entitydashboard/lastsfifteendays/';
+  private readonly dashboardcustomerthirtydays = 'dashBoard/thirtydays/';
+  private readonly dashboardcustomerlastmonth = 'entitydashboard/lastMonthCustomerTransactionAmount/';
+  private readonly dashboardcustomerthismonth = 'entitydashboard/thisMonthCustomerTransactionsAmount/';
+
+  // private readonly dashboardcustomerstartenddate = 'entitydashboard/customerTransaction/';
+  private readonly dashboardcustomerstartenddate = 'entitydashboard/customerRangeTransaction/'
+  private readonly dashbaordcustomerdayTransactions = 'entitydashboard/dayTransactions/';
+  private readonly dashbaordcustomermobilenumber = 'entitydashboard/customerTransactions/';
+  private readonly dashboardcustomeroverall = 'entitydashboard/overAllTransaction/';
+  private readonly dashboardcustomersevenamount = 'entitydashboard/lasts7daysAmounts/';
+  private readonly dashboardthismonthcustomertransaction = 'entitydashboard/thisMonthCustomerTransactions/';
+  private readonly dashboardlastmonthcustomertransaction = 'entitydashboard/lastMonthCustomerTransactions/';
+  private readonly dashboarddatecustomertransaction = 'entitydashboard/customerRangeTransaction/';
+
+  private readonly dashboardtodayemployee = 'customerpay/getEmployeePayment/';
+  private readonly dashboardsevendayemployee = 'customerpay/getWeekPayment/';
+  private readonly dashboardmonthemployee = 'customerpay/getMonthPayment/';
+  private readonly dashboardpendingemployee = 'customerpay/viewbyPendingCustomers/';
+  private readonly dashboardticket = 'customerTickets/statusList/';
+  private readonly dashboardbranchmonths = 'entitydashboard/thisMonthBranchTransactions/';
+  private readonly dashboardbranchlastmonths = 'entitydashboard/lastMonthBranchTransactions/';
+  private readonly dashboardbranchcustomeranges = 'entitydashboard/branchRangeTransaction/';
+  private readonly dashboardsetupboxallcote = 'setupbox/getAllocatedCount/'
+  private readonly dashboardsetupboxfree = 'setupbox/getFreeSetupBox/'
+  private readonly dashboardsetupboxbookingstatus = 'setupbox/updateBookingStatus';
+  private readonly dashboardsetupboxstatus = 'setupbox/viewAllocate/';
+  private readonly dashboardviewactivecustomer = 'merchantadminlogin/activeInactive/';
+  private readonly dashboardviewinactivecustomer = 'merchantadminlogin/activeInactive/';
+  private readonly dashboardviewpending = 'customerpay/viewbyPendingCustomers/';
+  private readonly dashboardviewallpending = 'customerpay/duependingTransaction/';
+  private readonly dashboardemployeecount = 'merchantadminlogin/activeInactiveCount/';
+  private readonly dashboardactiveinactivecustomer = 'customer/merchantActive/';
+  private readonly dashbaordonoffstatus = 'customer/viewByDay/';
+  private readonly dashbaordyesterdayonoffstatus = 'customer/viewByYesterday/';
+  private readonly dashbaordtodayonoffcount = 'customer/todayDateCount/';
+  private readonly dashbaordyesterdayonoffcount = 'customer/yesterdaDateCount/';
+  private readonly dashbaordduestatusoffs = 'customer/viewOffStb/';
+  private readonly merchantviewactiveinactiveexcel = 'customer/viewExcel/';
+  //other payments
+  private readonly otherpayviewall = 'otherpayment/viewByMerchant/';
+  private readonly othermakepay = 'otherpayment/makepayment';
+  private readonly otherpaycreateorder = 'otherpayment/createorder/';
+  private readonly otherpayinitiate = 'otherpayment/checkrequest/';
+  private readonly otherpaySuccess = 'otherpayment/viewbytrackid/';
+  private readonly otherpayReciept = 'otherpayment/viewinvoice/';
+
+  //Renewal
+  private readonly viewrenewal = 'merchantpay/viewRenewalMerchant/'
+  private readonly craeterenewal = 'merchantpay/renewalmakepayment';
+  private readonly renewalinvoice = 'merchantpay/viewreceipt/';
+
+  // OTP for Manuval payment
+
+  private readonly getotpforManuvelpayment = 'customerpay/manualsendotp/'
+
+  //Announcement
+  private readonly announcementview = 'announcement/viewByBusinessCategory/'
+
+  //addsetupbox plan
+  private readonly addsetupboxplan = 'customer/createStbAndPlan';
   private readonly viewcustomerbasicdetails = 'customer/viewcustomer/';
   private readonly viewSetupboxDetails = 'customer/viewcustomerstb/';
   private readonly viewsetupboxplan = 'customer/viewcustomerstbplan/';
   private readonly activestatussetupbox = 'customer/updateStbStatus/';
-  private readonly activecustomerplan = 'customerplan/updatestatus/';
 
-  //entity bank
+  //SMS
+  private readonly viewmerchantsms = 'merchantSms/viewpaidsms/';
+  private readonly viewmerchantsmstype = 'smshistory/viewbymerchantandtype/';
+  private readonly updatesmsapproval = 'merchantSms/updateApproval/';
+  private readonly updateactivestatus = 'merchantSms/updateStatus/';
+  private readonly viewsmshistory = 'smshistory/viewbymerchant/';
+  private readonly viewsmsdate = 'smshistory/viewmerchantfilter/';
 
-  private readonly EntityBankAdd = 'merchantbank/create';
-  private readonly EntityBankEdit = 'merchantbank/updatebank/';
-  private readonly bankprimarystatus = 'merchantbank/updateprimaryaccount/';
-  private readonly bankactivestatus = 'merchantbank/updateactive/'
-  private readonly EntityBankApproval = 'merchantbank/updatebankapproval/';
 
-
-  //kyc documents
-
-  private readonly editkyc = 'merchantdocument/update';
-  private readonly kycdocument = 'entityDocument/viewDocuments/';
-  private readonly kycapproval = 'merchantdocument/updateapproval/';
-  private readonly kycadd = 'merchantdocument/create';
-  // private readonly EntityKYCBYbusinessid = 'businesskyc/viewbyid/';
-  private readonly Kycdocname = 'businesskyc/getcategorykyc/';
-
-
-  //Level1 Approval
-
-  private readonly merchantlevel1 = 'merchantapproval/approvalLvl1';
-  private readonly merchantlevel2 = 'merchantapproval/approvalLvl2/';
-
-  //facheck verification
-
-  private readonly bankverify = 'facheck/bankverify';
-  private readonly bankgetfacheck = 'facheck/bankres/';
-
-  private readonly aadharverify = 'facheck/aadhaarVerify';
-  private readonly panverify = 'facheck/panVerify';
-  private readonly passportverify = 'facheck/passportVerify';
-  private readonly cinchverify = 'facheck/cinVerify';
-
-  private readonly drivinglicense = 'facheck/drivingLicenseVerify';
-  private readonly gstnumber = 'facheck/merchantGstVerify';
-  private readonly voterId = 'facheck/voteridVerify';
-
-  //facheck verification response
-
-  private readonly drivinglicenseinfo = 'facheck/drivingLicense/';
-  private readonly voteridinfo = 'facheck/voterid/';
-  private readonly gstinfo = 'facheck/merchantGst/';
-  private readonly passportinfo = 'facheck/passport/';
-  private readonly cinchinfo = 'facheck/cin/';
-  private readonly aadharinfo = 'facheck/aadhar/';
-  private readonly paninfo = 'facheck/pan/';
-
-  //facheck verification response
-  // private readonly facheckresponse = 'facheck/getkycId/';
-
-  //pG on board
-  private readonly pgonboard = 'merchantOnboard/onboard';
-
-  //customers
-  private readonly Entitycustomerview = 'customer/viewbymerchant/';
-  private readonly customerview = 'customer/viewById/';
-  private readonly customertransaction = 'customerpay/viewcustomers/';
-
-  //QRcode
-  private readonly EntityQrgenerate = 'merchant/qrgenerate/';
-  private readonly qrimageview = 'merchant/qrViewImage/';
-
-  //refund
-  private readonly EntityRefund = 'refund/getmerchant/'
-
-  //settlement
-  private readonly EntitySettlement = 'transactions/getPayouts'
-  private readonly EntitySettlementtransaction = 'transactions/getPayoutTransactions'
-
-
-  //Entity Transaction
-  private readonly entitytransaction = 'paymentHistory/viewByMerchant/';
-
-  //merchant transaction
-  private readonly transactionformerchant = 'transactions/getadminPaymentList';
-
-  //Region
-  private readonly Regionget = 'region/viewAllRegion';
-  private readonly Regiongetallactive = 'region/viewOnlyActive';
-  private readonly Regioncreate = 'region/addRegion';
-  private readonly regionstatus = 'region/updateStatus';
-  private readonly regionupdate = 'region/update';
-  private readonly ActiveRegions = 'region/viewOnlyActive';
-  private readonly ActiveRegionbyServiceid = 'region/viewByService/'
-  private readonly regionbyitsids = 'broadCaster/getByRegionId/';
-
-
-  //service provider
-  private readonly providergetall = 'serviceProvider/viewAllProvider';
-  private readonly providercreate = 'serviceProvider/createProvider';
-  private readonly providerupdate = 'serviceProvider/update';
-  private readonly providerstatus = 'serviceProvider/updateStatus';
-  private readonly providergetbyid = 'serviceProvider/viewByservice/';
-  private readonly Activeprovider = 'serviceProvider/viewActive';
-
-
-  //Facheckkey
-  private readonly addfacheckkey = 'facheckkey/create'
-  private readonly viewfacheckkey = 'facheckkey/getall'
-  private readonly updatefacheckkey = 'facheckkey/update/'
-  private readonly statusfacheckkey = 'facheckkey/updatestatus/'
-
-
-  // Alcarte Creation 
-
-  private readonly alcartviewallexport = 'alcotchannel/viewAll';
-  private readonly alcartvieall = 'alcotchannel/viewAll/'
-  private readonly alcartAdd = 'alcotchannel/addalcot';
-  private readonly alcartviewbyid = 'alcotchannel/getById/';
-  private readonly alcartstatus = 'alcotchannel/updateStatus';
-  private readonly activealcards = 'alcotchannel/viewOnlyActive';
-  private readonly Alcartupdate = 'alcotchannel/update';
-  private readonly Alcartchannellogo = 'alcotchannel/viewLogo/';
-  private readonly AlcartChannellogoUpdate = 'alcotchannel/updateLogo'
-  private readonly AlcartChannelregion = 'alcotchannel/viewregionactive/'
-
-  // Broadcaster Name Creation
-
-  private readonly BoucatenameViewall = 'bundleChannel/getallChannel';
-  private readonly BoucatenameAdd = 'bundleChannel/addbouquet';
-  private readonly Boutenamebyid = 'bundleChannel/getChannelId/';
-  private readonly BoutenameUpdate = 'bundleChannel/update';
-  private readonly Boucatenamestatus = 'bundleChannel/updateStatus';
-  private readonly BoucateGetactive = 'bundleChannel/viewOnlyActive'
-
-
-  //Broadcaster Bouquete name creation
-
-  private readonly Bouquetenameviewall = 'bouquetCreation/viewAll';
-  private readonly Bouquetenameadd = 'bouquetCreation/add';
-  private readonly Bouquetenamebyid = 'bouquetCreation/viewById/';
-  private readonly Bouquetenameupdate = 'bouquetCreation/update';
-  private readonly Bouquetenamestatus = 'bouquetCreation/updateStatus';
-  private readonly Bouquetenameactive = 'bouquetCreation/viewOnlyActive';
-  private readonly BouquetenamebyBoueteid = 'bouquetCreation/viewByBroadCasterId/'
-
-  // Broadcaster  Bouquete Creation
-
-  private readonly bouquetsviewall = 'broadCaster/getall';
-  private readonly Bouquetadd = 'broadCaster/add';
-  private readonly Bouquetsviewbyid = 'broadCaster/getById/';
-  private readonly Bouquetsviewbyidregion = 'broadCaster/getByregions/'; //NEW for region view
-  private readonly Bouquetsviewbyidchannel = 'broadCaster/viewChannelsByRegions/' //for channel view
-  private readonly Bouquetstatus = 'broadCaster/updateStatus';
-  private readonly ActiveBouqutes = 'broadCaster/viewOnlyActive';
-  private readonly bouquetEdit = 'broadCaster/updateBroadCaster';
-  private readonly BroadcasterBoucatesRegionEdits = 'broadCaster/updateRegion';
-  private readonly BroadcasterBoucateschannelEdits = 'broadCaster/updateAlcotChannel'
-  private readonly bouquetesinglestatus = 'broadCaster/updateChannelStatus';
-  private readonly AddChannelsbyBouquete = 'broadCaster/addextraChannel';
-  private readonly bouquetsextraregions = 'broadCaster/addExtraRegion';
-  private readonly bouquetchanneledit = 'broadCaster/getByAlcotId/';
-
-  // DPO Bouquete Creation
-
-  private readonly DPOBouqueteViewall = 'dpoBouquet/viewAll';
-  private readonly DPOBouqueteadd = 'dpoBouquet/create';
-  private readonly DPOBouqueteviewbyid = 'dpoBouquet/viewid/';
-  private readonly DPOBouqueteUpdate = 'dpoBouquet/update/';
-  private readonly DPOBouquetestatus = 'dpoBouquet/updateStatus/';
-  private readonly DPOActiveBouqutes = 'dpoBouquet/viewOnlyActive';
-  private readonly DPOSinglechannelstatus = 'dpoBouquet/updateChannelStatus';
-
-
-  // Merchant Plan Creation
-
-  private readonly Merchantplanviewall = 'merchantplan/getall';
-  private readonly MerchantplanAdd = 'merchantplan/create';
-  private readonly MerchantplanUpdate = 'merchantplan/update/';
-  private readonly MerchantplanStatus = 'merchantplan/updateactive/';
-  private readonly MerchantActivePlans = 'merchantplan/getallactive';
-
-
-  //PGsetup
-  private readonly pgsetupget = 'pgmode/getall';
-  private readonly pgsetupstatus = 'pgmode/updatestatus/';
-  private readonly pgsetupadd = 'pgmode/add';
-  private readonly pgsetupedit = 'pgmode/update/';
-
-
-  //Withdrawal
-  private readonly viewwithdrawal = 'tresHold/getall';
-  private readonly addwithdrawal = 'tresHold/create';
-  private readonly editwithdrawal = 'tresHold/update/';
-  private readonly statuswithdrawal = 'tresHold/updateStatus/'
-
-
-  //Beneficiary
-  private readonly addbeneficiary = 'merchantbeneficiary/create'
-  private readonly viewbeneficiary = 'merchantbeneficiary/getall'
-  private readonly viewbyidbeneficiary = 'merchantbeneficiary/viewbyid/'
-  private readonly statusbeneficiary = 'merchantbeneficiary/updateactive/'
-
-  //payment dues
-  private readonly paymentdues = 'maintanancePay/viewAll'
-  private readonly generatedues = 'maintanancePay/createDues'
-  private readonly maintenance = 'maintanancePay/receiptView/'
-
-  //Dashboard
-  private readonly dashboardData = 'dashBoard/dashBoardCount'
-  private readonly dashboardbusinessgetall = 'businesscategory/getall'
-  private readonly dashboardbusinesscategorybyid = 'dashBoard/businessCategory/'
-   private readonly dashboardbusinesscategory='merchant/viewCategory/'
-  private readonly dashboardtransaction = 'dashBoard/transaction/'
-
-  //unblock account
-  private readonly unblockaccount = 'adminUser/unBlockAccount/';
-
-
-  //unblock entity account
-  private readonly unblockentityaccount = 'merchant/unBlockAccount/';
-  //manual payment
-  private readonly updatemanualpay = 'merchantpay/updateManualCash/';
-  private readonly createmanualpay = 'merchantpay/manualPayment';
-  private readonly manualpayget = 'merchantpay/viewMerchant/';
-  private readonly manualtransaction = 'transhistory/viewMerchantPay/';
-
-
-
-
-  //Fargin terms and policy
-  private readonly viewtermspolicy = 'policy/getallpolicy';
-  private readonly addtermspolicy = 'policy/createpolicy';
-  private readonly edittermspolicy = 'policy/updateadminpolicy/';
-  private readonly viewbyidpolicy = 'policy/getpolicy/';
-
-
-  //Dahboard
-  private readonly dashboarddaytransaction = 'dashBoardd/overDayTotalTransactionsAmount';
-  private readonly dashboardlastssevendays = 'dashBoardd/over7DayTotalTransactionsAmount';
-  private readonly dashboardfifteendays = 'dashBoardd/fifteendays';
-  private readonly dashboardthirtydays = 'dashBoard/thirtydays';
-  private readonly dashboardlastmonth = 'dashBoardd/lastMonthTotalTransactionsAmount';
-  private readonly dashboardthismonth = 'dashBoardd/thisMonthTotalTransactionsAmount'
-  private readonly dashboardcustomrange = 'dashBoard/transaction/';
-  private readonly dashboardoverall = 'dashBoardd/totalTransactionsAmount';
-  private readonly dashboardoverallmerchantid = 'dashBoardd/totalTransactionsAmount/';
-  private readonly dashboardoverallamount = 'dashBoard/overallTransactionsAmount';
-  private readonly dashboardoverallonetime = 'dashBoard/overallOneTimeTransactionsAmount';
-  private readonly dashboardsevendaysamount = 'dashBoardd/over7dayAmounts'
-
-
-  //Tickets
-  private readonly ticketsgetexport = 'customerTickets/getall';
-  private readonly ticketsget = 'customerTickets/getall/';
-  private readonly customerticketraise = 'customerTickets/updateTicketStatus/'
-
-
-  // Bank Details Main Master
-
-  private readonly BankdetailsViewall = 'bankDetails/viewAllBank';
-  private readonly AddBankDetails = 'bankDetails/addBank';
-  private readonly EditBankdetails = 'bankDetails/update';
-  private readonly Bankdetailsviewbyid = 'bankDetails/viewById/';
-  private readonly ActiveBankDetails = 'bankDetails/viewOnlyActive';
-  private readonly Bankdetailsstatus = 'bankDetails/updateStatus';
-
-
-  //transactions
-  private readonly customeralltransactions = 'customerpay/viewAllPayments/';
-  private readonly customertransactionexport = 'customerpay/ViewCusDetails'
-  private readonly customerdatefilter = 'paymentHistory/getDateFilter/';
-  private readonly customertransactionview = 'customerpay/viewbyid/'
-
-  //merchant
-  private readonly maintenancetransaction = 'maintanancePay/viewAll/';
-  private readonly maintenancetransactionexport = 'maintanancePay/getMaintainance';
-  private readonly maintenancedatefilter = 'maintanancePay/dateFilter/';
-  private readonly maintenancetransactionview = 'maintanancePay/viewById/';
-
-
-  //onetime
-  private readonly onetimtransaction = 'merchantpay/viewAll/';
-  private readonly onetimtransactionexport = 'merchantpay/getAll';
-  private readonly onetimdatefilter = 'transhistory/getDateWise/';
-  private readonly onetimtransactionview = 'merchantpay/viewpayment/';
-
-
-  // QR Creation API,S
-
-  private readonly QrcreateName = 'merchant/qrnamegenerate/';
-  private readonly QrCreationimage = 'merchant/qrgenerate';
-
-  //other payment
-  private readonly otherpaymentmerchantid = 'otherpayment/viewByMerchant/';
-  private readonly otherpaymentcreate = 'otherpayment/create';
-  private readonly otherpayment = 'otherpayment/viewall/';
-  otherpaymentviewallexport = 'otherpayment/viewAllPayments';
-  private readonly otherpaymentupdate = 'otherpayment/update/';
-  private readonly otherpaytrans = 'otherpayment/viewByPayId/';
-  private readonly otherpaymentdate = 'otherpayment/dateFilter/';
-  private readonly otherpaymentviewall = 'merchantdue/getall';
-
-
-  // KYC category
-  private readonly viewallkyccategory = 'kycCategory/getall';
-  private readonly addkyccategory = 'kycCategory/addCategory';
-  private readonly editkyccategory = 'kycCategory/update';
-  private readonly statuskyccategory = 'kycCategory/statusUpdate';
-  private readonly activeviewall = 'kycCategory/viewOnlyActive'
-
-  private readonly kycviewall = 'entityDocument/viewAll'
-  private readonly identityfront = 'entityDocument/identityFront';
-  private readonly identityback = 'entityDocument/identityBack';
-  private readonly addressfront = 'entityDocument/addressFront'
-  private readonly addressback = 'entityDocument/addressBack';
-  private readonly signaturefront = 'entityDocument/signatureFront';
-  private readonly signatureback = 'entityDocument/signatureBack';
-  private readonly editidentity = 'entityDocument/updateIdentity';
-  private readonly editaddress = 'entityDocument/updateAddress';
-  private readonly editsignature = 'entityDocument/updateSignature';
-  private readonly identityapproval = 'entityDocument/approvalForidentity';
-  private readonly addressapproval = 'entityDocument/approvalForAddress';
-  private readonly signatureapproval = 'entityDocument/approvalForSignature';
-  private readonly facheckresponse = 'merchantFacheck/getById/';
-
-
-  //facheck verification
-  private readonly adharverifyidentity = 'merchantFacheck/identityAadharVerify';
-  private readonly adharverifyaddress = 'merchantFacheck/addressAadharVerify';
-  private readonly adharverifysignature = 'merchantFacheck/signatureAadharVerify';
-
-  private readonly panverifyIdentity = 'merchantFacheck/identityPanVerify';
-  private readonly panverifyaddress = 'merchantFacheck/addressPanVerify'
-  private readonly panverifySignature = 'merchantFacheck/signaturePanVerify';
-
-  private readonly passportverifyIdentity = 'merchantFacheck/identityPassportVerify';
-  private readonly passportverifyAddress = 'merchantFacheck/addressPassportVerify';
-  private readonly passportverifySignature = 'merchantFacheck/signaturePassportVerify'
-
-  private readonly cinverifyIdentity = 'merchantFacheck/identityCinVerify';
-  private readonly cinverifyAddress = 'merchantFacheck/addressCinVerify';
-  private readonly cinverifysignature = 'merchantFacheck/signatureCinVerify'
-
-  private readonly gstverifyIdentity = 'merchantFacheck/identityGstVerify';
-  private readonly gstverifyaddress = 'merchantFacheck/addressGstVerify';
-  private readonly gstverifysignature = 'merchantFacheck/signatureGstVerify';
-
-  private readonly voterverifyidentity = 'merchantFacheck/identityVoterVerify';
-  private readonly voterverifyaddress = 'merchantFacheck/addressVoterVerify';
-  private readonly voterverifysignature = 'merchantFacheck/signatureVoterVerify';
-
-  private readonly drivingverfiyIdentity = 'merchantFacheck/identityDrivingVerify';
-  private readonly drivingverifyAddress = 'merchantFacheck/addressDrivingVerify';
-  private readonly drivingverifysignature = 'merchantFacheck/signatureDrivingVerify';
-
-
-
-  //farginbank
-  private readonly farginview = 'adminBankDetails/getBankDetails';
-  private readonly fargincreate = 'adminBankDetails/createbankdetails';
-  private readonly farginstatus = 'adminBankDetails/updateStatus/';
-  private readonly farginEdit = 'adminBankDetails/createbankdetails';
-
-
-  //sms settings
-  private readonly smscreate = 'merchantSms/createSms';
-  private readonly smsviewbyId = 'merchantSms/getMerchantSms/';
-  private readonly smsstatus = 'merchantSms/updateStatus/';
-  private readonly editsms = 'merchantSms/updateMerchantSms/';
-  private readonly smsgetAll = 'merchantSms/getAllMerchantSms/';
-  private readonly smsgetAllexport = 'merchantSms/getAllMerchantSms';
-  private readonly smsdropdown = 'merchantSms/viewMerchantSms/';
-  private readonly smscount = 'smshistory/viewbymerchantandtype/';
-  private readonly smsapproval = 'merchantSms/updateApproval/';
-  private readonly smsfreepaiddropdown = 'merchantSms/viewFreePaidsms/';
-
-  //sms history
-  private readonly smshistory = 'smshistory/viewall/';
-  private readonly smhistoryexport = 'smshistory/viewall';
-  private readonly smshistoryview = 'smshistory/viewbymerchant/';
-  private readonly smshistoryfilter = 'smshistory/viewallfilter/';
-  private readonly smshistorymerchantfilter = 'smshistory/viewmerchantfilter/';
-  private readonly logout = 'adminUser/logout';
-
-
-  // Overall trans Receipt
-
-  private readonly customerreceipt = 'customerpay/viewReceipt/';
-  private readonly otherpayReciept = 'otherpayment/viewinvoice/';
-
-  //bussiness document
-  private readonly documentadd = 'merchantdocument/create';
-  private readonly documentedit = 'merchantdocument/updateData';
-  private readonly documentapproval = 'merchantdocument/updateapproval/';
-  private readonly documentImage = 'merchantdocument/viewimage/';
-  private readonly documentfrontedit = 'merchantdocument/updateFrontPath'
-  private readonly documentbackedit = 'merchantdocument/updateBacPath'
-
-  // SMS Cost Setup
-
-  private readonly SMSCostviewall = 'smsConfig/getAmountDetails'
-  private readonly SMSCostadd = 'smsConfig/addAndUpdateAmount'
-  private readonly SMSCostStatus = 'smsConfig/updateStatus/'
-
-  // Auto Debit
-
-  private readonly Autodebitgetall = 'merchantdue/getall/';
-  private readonly autodebitgetallexport = 'merchantdue/getall';
-  private readonly Autodebitbymerchat = 'merchantdue/viewbymerchant/';
-
-
-  //anouncement
-  private readonly announcementadd = 'announcement/add'
-  private readonly announcementviewall = 'announcement/getall/'
-  private readonly announcementviewallexport = 'announcement/getall'
-  private readonly announcementedit = 'announcement/update'
-  private readonly announcementstatus = 'announcement/updateStatus'
-  private readonly announcementdate = 'announcement/dateFilter/';
-
-  //customer payment
-  private readonly customerpayment = 'customerpay/trackApi';
-  private readonly subscriptionpayment = 'maintanancePay/trackApi';
-  private readonly customizationpayment = 'otherpayment/trackApi';
-  private readonly manualpayment = 'merchantpay/trackApi';
-
-
-  private readonly surveyviewallexport = 'surveyQuestion/getAll';
-  private readonly surveyviewall = 'surveyQuestion/getAll/';
+  //survey
+  private readonly surveycreate = 'surveyQuestion/createQuestions';
   private readonly surveyviewbyid = 'surveyQuestion/getQuestions/';
+  private readonly surveyactivestatus = 'surveyQuestion/updatestatus/';
+  private readonly surveyquestionsupdate = 'surveyQuestion/updateQuestions/';
+
+  private readonly surveyanswerremarks = 'customerResponse/responses';
+  private readonly viewcustomerresponse = 'customerResponse/view/';
   private readonly viewbyidcustomerresponse = 'customerResponse/viewQuestion/';
+  private readonly activequestions = 'surveyQuestion/activeQuestions/';
+  private readonly activecustomers = '/customer/activecustomers';
 
   //total  plan amount
   private readonly customerplanamaount = 'customer/viewcustomertotalamount/'
 
 
-
   //customer logo
   private readonly customerlogo = 'customerTickets/updatedocument';
   private readonly customerlogoview = 'customerTickets/viewimage/';
+
+  //view payment details
+  private readonly maintenancetransactionview = 'maintanancePay/viewById/';
+  private readonly onetimetransactionview = 'merchantpay/viewpayment/';
   private readonly otherpaymentviewbyid = 'otherpayment/viewbyid/';
+  private readonly customertransactionview = 'customerpay/viewbyid/';
 
-
-  //alcot-history
-  private readonly alcothistory = 'alcotchannel/viewAllHistory/';
-  private readonly alcothistoryexport = 'alcotchannel/viewAllHistory';
-  private readonly alcotchannelactiveregion = 'alcotchannel/viewregionactive';
+  //profile
+  private readonly onetimeinvoice = 'merchant/viewInvoice/';
 
 
   //search
-  private readonly regionsearch = 'region/advanceSearchEntity/';
-  private readonly entitysearch = 'merchant/advanceSearch/';
-  private readonly alcotsearch = 'alcotchannel/advanceSearch/';
-  private readonly entitybanksearch = 'merchantbank/advanceSearch/';
-  // private readonly entitykycdocumentsearch ='entityDocument/advanceSearch/';
-  private readonly customersearch = 'customer/advanceSearch/';
-  private readonly customeradminsearch = 'customerpay/adminSearch/';
-  private readonly customercustomeridsearch = 'customerpay/customerSearch/';
-  private readonly smshistorysearch = 'smshistory/advanceSearch/';
-  private readonly mmcautodebit = 'merchantdue/search/';
-    private readonly subscriptionsearch = 'maintanancePay/adminSearch/';
-  private readonly onetimepayment = 'merchantpay/adminSearch/';
+  private readonly otherpayment = 'otherpayment/advanceSearch/';
+  private readonly subscription = 'maintanancePay/advanceSearchEntity/';
+  private readonly customeronboard = 'customer/advanceSearchEntity/';
+  private readonly customeronboards = 'customer/advanceSearchEntity/';
+  private readonly customertickets = 'customerTickets/advanceSearchEntity/';
+  private readonly servicetickets = 'tickets/advanceSearchEntity/';
+  private readonly lcopplan = 'lcop/advanceSearchEntity/';
+  private readonly viewrole = 'merchantrole/advanceSearch/';
+  private readonly employeedetailssearch = 'merchantadminlogin/advanceSearchEntity/';
+  private readonly customerpay = 'customerpay/advanceSearchEntity/';
+  private readonly customerpaydue = 'customerpay/search/';
+  private readonly setupbox = 'setupbox/advanceSearchEntity/';
+  private readonly viewbymerchantadminid = 'merchantadminlogin/viewbyid/';
 
-  // Fargin Signer Details
 
-  private readonly Signerdetailsgetall = 'signingAdmin/getallData';
-  private readonly SignerdetailsWithoutToken = '/signingAdmin/getall'
-  private readonly SignerdetailsAdd = 'signingAdmin/add';
-  private readonly SignerdetailsUpdate = 'signingAdmin/update';
-  private readonly SignerdetailsbyId = 'signingAdmin/viewById/';
-  private readonly SignerdetaisStatus = 'signingAdmin/updateStatus';
-  private readonly SignerdetailsActiveGetall = 'signingAdmin/viewOnlyActive';
-  
+  private readonly customerhistoryremainder = 'dueStatus/getStb/';
+  private readonly customerduestatushistorys = 'dueStatus/getMerchant/'
 
-  //Agreementplan
-
-  private readonly viewagreementplans = 'commercialSetup/ViewAll';
-  private readonly createagreementplans = 'commercialSetup/create';
-  private readonly editagreementplans = 'commercialSetup/update/';
-  private readonly viewbyidagreementplans = 'commercialSetup/viewById/';
-  private readonly createplan = 'agreement/create';
+  //Agreement
   private readonly viewbyidplan = 'agreement/viewByMerchant/';
   private readonly viewagreementdoucment = 'agreement/viewdoc/';
   private readonly ViewAggrementbyRefference = 'agreement/viewByReferenceCode/';
-  private readonly agreementgetall='agreement/getall';
   private readonly Agreementsendotp = 'agreement/merchantsendotp/';
   private readonly AgreementVerifyOTP = 'agreement/merchantverifyotp/';
   private readonly AgreementConcent = 'agreement/consent';
-  private readonly AgreemntConcentLocation = 'agreement/consentlocationtracker';
-  private readonly AgreementLinkExtent = 'agreement/updatelink/';
-  private readonly AgreementLinkExpiry = 'agreement/updatelinkstatus/';
+  private readonly AgreemntConcentLocation = 'agreement/consentlocationtracker'
 
   //offline transactions
-  private readonly offlinetransactions='transactions/getMerchantOfflinePaymentList';
-  private readonly successofftransactions='transactions/getMerchofflineSfulPayment/';
-  private readonly failureofftransactions='transactions/getMerchOfflineFailPayment/';
-  private readonly offlinesettlement='transactions/getOfflinePayouts';
-  private readonly offlinepayoutsettelemnt='transactions/getOfflinePayoutTransactions';
+  private readonly offlinetransactions = 'transactions/getMerchantOfflinePaymentList';
+  private readonly successofftransactions = 'transactions/getMerchofflineSfulPayment/';
+  private readonly failureofftransactions = 'transactions/getMerchOfflineFailPayment/';
 
-    //branch entity view
-    private readonly branchget='bankBranch/view/'
-    // private readonly branchget='bankBranch/viewData/';
-    private readonly branchcreate='bankBranch/createBranch';
-    private readonly branchedit='bankBranch/update/';
-    private readonly branchstatus='bankBranch/updateStatus/';
-    private readonly branchindividualview='bankBranch/viewAll/';
-    private readonly branchcustomerget='customer/customersByBranch/';
-    private readonly branchcustomersearch='customer/customersByBranchs/';
-
-
+  //Route Bulk
+  private readonly customerrouteAddBulks = 'route/bulkUpload/';
+  private readonly routebulkuploadresponses = 'route/uploadedList/';
+  private readonly routebulkuploadByIds = 'route/getResponse/'
 
   // Find Ip 
   private ipApiUrl = 'https://api.ipify.org/?format=json';
@@ -625,56 +507,159 @@ export class FarginServiceService {
 
   private geoApiUrl = 'https://ipinfo.io/json';
 
-  // private geoApiUrl = 'https://ipwhois.app/json/';
+
+
+  private paidipaddress='https://api.ipgeolocation.io/ipgeo?apiKey=e4d18a0faefd43a2982674ac6d4565a9'
+
+   private abstarctipaddress='https://ipgeolocation.abstractapi.com/v1/?api_key=dc919b65a0184a6fb10a07b13733027b'
 
   // private geoApiUrl = 'http://ip-api.com/json/'
 
   // private geoApiUrl = 'https://data.handyapi.com/geoip/'
 
 
-  //Additional Payment
-  private readonly additionalpayment = 'customerotherpayment/viewall/'
-  private readonly additionalpaymentsfilters = 'customerotherpayment/dateFilter/'
- 
-  private readonly additionalpaymentssearchfilters = 'customerotherpayment/search/'
-  private readonly additionalpaymentsviewbyids = 'customerotherpayment/viewbyid/'
-  private readonly additionalpaymentsreceipt = 'customerotherpayment/viewinvoice/'
-   private readonly additionalpaymentscheck = 'otherpayment/trackApi';
-   
-   private readonly additionalpaycheckstatus = 'customerotherpayment/trackApi';
 
-      private readonly merchantadditionalpayment = 'customerotherpayment/viewmerchants/'
-       private readonly additionalsearchfilters = 'customerotherpayment/advancesearch/'
-       private readonly additionalexports = 'customerotherpayment/viewall'
-       //Additional paymrnts
-    private readonly additionaltransviewbyid = 'customerotherpayment/viewByCustomer/';
-    private readonly broadcastergetallctive='bundleChannel/viewOnlyActive';
- 
- 
-    private readonly regiongetall='region/viewAllRegion';
+  // private geoApiUrl = 'http://ip-api.com/json';
 
-    //Channels List
-    private readonly channelslist='broadCaster/viewByChennals/';
-      //survey  search
-      private readonly surveysearch='surveyQuestion/advanceSearch/';
-       
-      private readonly refundgetall='refund/getall/';
-      private readonly  refundsearch='refund/getall/';
-      private readonly refundforcustomer='refund/getcustomer/';
-      private readonly refundexport='refund/getall';
-      private readonly refunddatefilter='refund/getAll/';
 
-      //alcarte mso
-   private readonly msoactive='serviceProvider/viewActive';
-   private readonly msoregions='region/viewByService/';
-   
+  //Search for customer dues
 
-   
+  private readonly yesterdaysearch = 'customerpay/customerYesterDayTransaction/';
+  private readonly todaysearch = 'customerpay/customerDayTransaction/';
+  private readonly customsearch = 'customerpay/customercustomRangeTransactions/';
+  private readonly customsearchwithstatus = 'customerpay/customercustomRangeTransaction/';
 
+
+
+  //pincode
+
+  private readonly pincodecreate = 'merchantPincode/create/';
+  private readonly pincodeupdate = 'merchantPincode/update';
+  private readonly pincodeviewbyid = 'merchantPincode/viewByMerchant/';
+  private readonly pincodeactivestatus = 'merchantPincode/updateStatus/';
+  private readonly pincodeactivegetall = 'merchantPincode/viewOnlyActive';
+
+
+  //area
+
+  private readonly areacreate = 'merchantArea/add/';
+  private readonly areaupdate = 'merchantArea/update';
+  private readonly areaactivestatus = 'merchantArea/updateStatus/';
+  private readonly areaviewbyid = 'merchantArea/viewByPincode/';
+  private readonly areagetall = 'merchantArea/viewall';
+  private readonly areadactivegetall = 'merchantArea/viewActiveArea'
+
+
+  //street
+
+  private readonly streetcreate = 'merchantStreet/addStreet/';
+  private readonly streetupdate = 'merchantStreet/update ';
+  private readonly streetactivestatus = 'merchantStreet/updateStatus/';
+  private readonly streetgetall = 'merchantStreet/viewAll';
+
+
+
+  //Additional category
+
+  private readonly categorycreate = 'addcategory/createcategory';
+  private readonly categoryupdate = 'addcategory/updatecategory/';
+  private readonly categoryactivestatus = 'addcategory/updatestatus/';
+  private readonly viewcategorybymerchant = 'addcategory/getmerchantid/';
+  private readonly categorygetallactive = 'addcategory/getactivestatusmerchant/';
+
+
+  //Additional payment
+
+  private readonly additionalpaycreate = 'customerotherpayment/create';
+  private readonly additionalpayupdate = 'customerotherpayment/update/';
+  private readonly additionaltransviewbyid = 'customerotherpayment/viewByCustomer/';
+  private readonly additionaltranscheckstatus = 'customerotherpayment/checkrequest/';
+  private readonly additionalpayinvoice = 'customerotherpayment/viewinvoice/';
+  private readonly additionalpaydatefilter = 'customerotherpayment/dateFilter/';
+  private readonly additionalpayviewbyMerchant = 'customerotherpayment/viewmerchants/';
+  private readonly additionalpayviewbyId = 'customerotherpayment/viewbyid/';
+
+  //branch
+  private readonly branchview = 'bankBranch/viewData/';
+
+  //filter
+  private readonly paidunpaidfilter = 'customerpay/paidUnpaid/';
+  private readonly duependingsetupboxfilter = 'customerpay/merchantStbNumber/';
+  private readonly duependingsetupboxcustomrange = 'customerpay/stbNumbers/';
+  private readonly SetupboxpayStatus = 'customerpay/stbNo/';
+  private readonly Updatepaymentstatus = 'customerpay/updatePaymentStatus/';
+  private readonly filteremployeepayments = 'customerpay/employee/';
+  private readonly paidcustrangefilter = 'customerpay/cusRange/';
+
+  //Branch
+  private readonly branchindividualview = 'bankBranch/view/';
+  private readonly branchcustomerget = 'customer/customersByBranch/';
+  private readonly branchcustomergetexport = 'customer/customersByBranch/';
+
+  //unblock
+
+  private readonly unblockadmin = 'merchant/unBlockAccountAdmin/';
+  //filter
+  private readonly customermsofilter = 'customer/msoSearchPage/';
+  private readonly customersettopboxfilter = 'customer/merchantSearchPage/';
+
+
+  //channelslist
+  private readonly channelslist = 'broadCaster/viewByChennals/';
+  //survey  search
+  private readonly surveysearch = 'surveyQuestion/advanceSearch/';
+  //branch search
+  private readonly branchsearch = 'bankBranch/branchSearch/';
+  private readonly branchcustomersearch = 'customer/customersByBranchs/';
+
+  private readonly damagecustomerview = 'customer/viewDamageStb/'
+
+  private readonly refundformerchant = 'refund/getmerchant/';
+  private readonly refundsearch = 'refund/getmerchant/'
+  private readonly refundmerchantgetall = 'refund/getmerchant/';
+
+
+
+
+
+  private readonly refundforcustomer = 'refund/getcustomer/';
+  private readonly refundcustomersearch = 'refund/getcustomer/';
+
+
+
+  private readonly duecancelled = 'customerpay/viewMerchantDueCancel/';
+  private readonly duecancelcustomrange = 'customerpay/viewMerchantDueCancel/';
+  private readonly duependingdashboardsearch = 'customerpay/duependingTransaction/';
+  private readonly dashboardviewallpendingexport = 'customerpay/duependingTransaction/';
+
+
+  private readonly additionaltranssearch = 'customerotherpayment/search/';
+  private readonly customerduestatushistorysearch = 'dueStatus/getMerchant/';
+  private readonly smshistorysearch = 'smshistory/advanceSearchEntity/';
+  private readonly channelsearch = 'alcotchannel/advanceSearch/';
+
+  private readonly Setupboxhistory = 'customer/viewStbHistory/';
+  private readonly activeinactivesearch = 'customer/viewActiveCustomer/';
+  private readonly activeinactivegetall = 'customer/viewActiveCustomer/';
+  private readonly activeinactiveexport = 'customer/merchantActive/';
+  private readonly duestatushistoryexport = 'dueStatus/getMerchant/';
+  private readonly additionaltransexport = 'customerotherpayment/getMerchantId/'
+  private readonly customerduesearch = 'customer/advanceSearchEntitypagiantion/';
+
+  private readonly customeractivestatushistory = 'customer/getCustomerStatusHistory/';
+  private readonly onlinerefunddatefilter = 'refund/getmerchant/';
+  private readonly viewlcopids = 'lcop/viewById/';
+
+  private readonly surveyqtAnssearch = 'customerResponse/advanceSearchQusandAnswer/';
+  private readonly customersearchmso = 'customer/msoSearch/';
+  private readonly customermerchantsearch = 'customer/merchantSearch/';
+  private readonly dashboardsetupboxsearch = 'setupbox/viewAllocateSearch/'
+
+  private readonly setupboxstatuspagination='setupbox/viewAllocatePagination/'
 
   loginError = new Subject();
 
-  token = localStorage.getItem('token') || null;
+  token = localStorage.getItem('token');
 
   headers = new HttpHeaders({
     'Content-Type': 'application/json',
@@ -694,139 +679,321 @@ export class FarginServiceService {
   getToken() {
     return !!localStorage.getItem('token');
   }
-
-  getLogin(email: string, password: string) {
+  getEntityLogin(email: string, password: string) {
     const credentialBody = {
-      emailAddress: email,
-      userPassword: password,
+      contactEmail: email,
+      password: password,
     };
+    return this.http
+      .post(`${this.basePath}${this.entitylogin}`, credentialBody)
+      .subscribe((res: any) => {
+        if (res.flag == 1) {
+          localStorage.setItem(
+            'token',
+            JSON.stringify(
+              res.response.login_history?.jwtResponse?.X_ACCESS_TOKEN
+            )
+          );
+          localStorage.setItem(
+            'merchantId',
+            res.response.login_history?.merchantId || res.response.login_history?.entityId?.merchantId
+          );
+          localStorage.setItem('bussinessId', res.response.login_history?.businessCategoryModel?.businessCategoryId || res.response.login_history?.entityId?.businessCategoryModel?.businessCategoryId)
+          localStorage.setItem('adminName', res.response?.login_history?.adminName || res.response?.login_history?.entityName)
 
-    return this.http.post(`${this.basePath}${this.adminlogin}`, credentialBody).subscribe((res: any) => {
-      if (res.flag == 1) {
-        localStorage.setItem('token', JSON.stringify(res.response.login_history.adminUser.jwtResponse.X_ACCESS_TOKEN));
-        localStorage.setItem('adminid', JSON.stringify(res.response.login_history?.adminUser?.adminUserId));
-        localStorage.setItem('adminname', JSON.stringify(res.response.login_history?.adminUser?.adminName));
-        localStorage.setItem('emailaddress', JSON.stringify(res.response.login_history?.adminUser?.emailAddress));
-        localStorage.setItem('address', JSON.stringify(res.response.login_history?.adminUser?.address));
-        localStorage.setItem('mobilenumber', JSON.stringify(res.response.login_history?.adminUser?.mobileNumber));
-        localStorage.setItem('lastlogin', JSON.stringify(res.response.login_history?.adminUser?.lastLogin));
-        localStorage.setItem('fullname', JSON.stringify(res.response.login_history?.adminUser?.createdBy));
-        localStorage.setItem('roleId', JSON.stringify(res.response.login_history?.adminUser?.roleModel?.roleId));
+          localStorage.setItem(
+            'logoLink',
+            res.response.login_history?.logoLink || res.response?.login_history?.entityId?.logoLink
+          );
 
-        this.router.navigateByUrl('/dashboard/dashboard-content', {
-          replaceUrl: true,
-        });
-        this.timerService.restartTimer();
-        setTimeout(() => {
-          window.location.reload();
-        }, 200);
 
-        this.toastr.success(res.responseMessage)
-        // location.href = '/dashboard/dashboard-content';   need to add After login
+          localStorage.setItem('gstAmount', res.response.login_history?.gstAmount || res.response.login_history?.entityId?.gstAmount)
 
-      }
-      else if (res.flag == 2) {
-        this.toastr.error(res.responseMessage)
-      }
-      else {
-        this.toastr.error(res.responseMessage)
-      }
-    });
+          localStorage.setItem(
+            'merchantname',
+            res.response.login_history?.merchantLegalName || res.response.login_history?.entityId?.merchantLegalName
+          );
+          localStorage.setItem(
+            'email',
+            res.response.login_history?.contactEmail || res.response.login_history?.adminEmail
+          );
+          localStorage.setItem(
+            'mobilenumber',
+            res.response.login_history?.contactMobile || res.response.login_history?.mobileNumber
+          );
+          localStorage.setItem(
+            'address',
+            res.response.login_history?.billingAddress || res.response.login_history?.address
+          );
+          localStorage.setItem(
+            'area',
+            res.response.login_history?.area || res.response.login_history?.entityId?.area
+          );
+          localStorage.setItem(
+            'pincode',
+            res.response.login_history?.zipcode || res.response.login_history?.entityId?.zipcode
+          );
+          localStorage.setItem(
+            'city',
+            res.response.login_history?.city || res.response.login_history?.entityId?.city
+          );
+
+          localStorage.setItem(
+            'fullname',
+            res.response.login_history?.entityName || res.response.login_history?.entityId?.adminName
+          );
+
+          localStorage.setItem(
+            'stateName',
+            res.response.login_history?.stateName || res.response.login_history?.entityId?.stateName
+          );
+
+          localStorage.setItem(
+            'technicalTotalAmount',
+            res.response.login_history?.technicalTotalAmount || res.response.login_history?.entityId?.technicalTotalAmount
+          );
+          localStorage.setItem(
+            'emailOtpVerificationStatus', res.response.login_history?.emailOtpVerificationStatus || res.response.login_history?.entityId?.emailOtpVerificationStatus
+          );
+          localStorage.setItem(
+            'smsOtpVerificationstatus', res.response.login_history?.smsOtpVerificationstatus || res.response.login_history?.entityId?.smsOtpVerificationstatus);
+          localStorage.setItem(
+            'technicalPayStatus',
+
+            res.response.login_history?.technicalPayStatus || res.response.login_history?.entityId?.technicalPayStatus
+          );
+          localStorage.setItem('technicalAmount', res.response.login_history?.merchantPlanModel?.technicalAmount || res.response.login_history?.entityId?.technicalAmount);
+          localStorage.setItem(
+            'merchantPlanId',
+
+            res.response.login_history?.merchantPlanModel
+              ?.merchantPlanId
+          );
+
+
+          localStorage.setItem(
+            'modifiedDateTime',
+            res.response.login_history?.modifiedDateTime || res.response.login_history?.modifiedDateTime
+          );
+
+          // localStorage.setItem(
+          //   'roleId',
+          //   res.response.login_history?.roleModel?.roleId || res.response?.login_history?.merchantRoleId?.merchantRoleId
+          // );
+
+          localStorage.setItem(
+            'roleName', res.response?.login_history?.roleModel?.roleName || res.response?.login_history?.merchantRoleId?.roleName
+          );
+
+          localStorage.setItem('adminName', res.response?.login_history?.adminName || res.response?.login_history?.entityName)
+          localStorage.setItem('smsStatus', res.response?.login_history?.smsStatus || res.response.login_history?.entityId?.smsStatus)
+          localStorage.setItem('roleId', res.response?.login_history?.merchantRoleId?.merchantRoleId);
+          localStorage.setItem('roleIds', res.response.login_history?.roleModel?.roleId)
+
+          localStorage.setItem('merchantAdminId', res.response.login_history?.merchantAdminId)
+          localStorage.setItem('accountId', res.response.login_history?.accountId)
+
+          localStorage.setItem('customerManualStatus', res.response.login_history?.customerManualStatus)
+          localStorage.setItem('customerPaymentMode', res.response.login_history?.customerPaymentMode)
+          localStorage.setItem('billingMode', res.response.login_history?.billingMode)
+          localStorage.setItem('offlineQrEnableStatus', res.response.login_history?.offlineQrEnableStatus)
+          // location.href = '/dashboard/content';
+
+          this.router.navigateByUrl('/dashboard/content', {
+            replaceUrl: true,
+          });
+          setTimeout(() => {
+            window.location.reload()
+          }, 300);
+
+
+          // this.router.navigate(['/dashboard/content']).then(() => {
+          //  setTimeout(() => {
+          //   window.location.reload()
+          // }, 300);
+          // });
+
+        }
+        else {
+          this.toastr.error(res.responseMessage)
+        }
+
+        // else {
+        //   this.loginError.next(res.responseMessage);
+        // }
+      });
   }
-
-
 
   getIpAddress() {
     return this.http.get(`${this.ipApiUrl}`)
   }
 
-  getIpLocation(model:any) {
-    return this.http.post(`${this.geoApiUrl}`,model)
-  }
-
-  dashboardCount() {
-    return this.http.get(`${this.basePath}${this.dashboardData}`, this.options)
-  }
-  dashboardbusinessgetalls() {
-    return this.http.get(`${this.basePath}${this.dashboardbusinessgetall}`, this.options)
-  }
-  dashboardbusinesscategorybyids(id: any) {
-    return this.http.get(`${this.basePath}${this.dashboardbusinesscategorybyid}${id}`, this.options)
-  }
-  dashboardbusinesscategorys(id: any) {
-    return this.http.get(`${this.basePath}${this.dashboardbusinesscategory}${id}`, this.options)
-  }
-  dashboardtransactions(id: any, id1: any, id2: any, id3: any) {
-    return this.http.get(`${this.basePath}${this.dashboardtransaction}${id}/${id1}/${id2}/${id3}`, this.options)
-  }
-  //business category
-
-  Businesscategory() {
-    return this.http.get(`${this.basePath}${this.businesscategoryget}`, this.options);
-  }
-
-  BusinessCreate(model: any) {
-    return this.http.post(`${this.basePath}${this.businesscategoryAdd}`, model, this.options);
+  getIpLocation(model: any) {
+    return this.http.post(`${this.geoApiUrl}`, model)
   }
 
 
-  BusinessEdit(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.businesscategoryEdit}${id}`, model, this.options)
-  }
-
-  Businessactive(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.businesscategorystatus}${id}`, model, this.options)
-  }
-
-  //business category kyc
-  BusinesscategoryKyc() {
-    return this.http.get(`${this.basePath}${this.businesscategorykycget}`, this.options);
-  }
-
-  BusinesskycActive(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.businesscategorykycactive}${id}`, model, this.options)
-  }
-
-  BusinesskycCreate(model: any) {
-    return this.http.post(`${this.basePath}${this.businesskycAdd}`, model, this.options);
-  }
-
-  BusinesscategoryKycactive() {
-    return this.http.get(`${this.basePath}${this.businesskycdocactive}`, this.options);
-  }
 
 
-  Businesskycupdate(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.businesskycupdate}${id}`, model, this.options)
+
+  getForgotPassword(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.forgotpassword}${id}`,
+      this.options
+    );
   }
-  getForgotPassword(data: any) {
-    return this.http.post(`${this.basePath}${this.forgotpassword}`, data, this.options)
+  VerifyOtp(id: any, data: VerifyOtp) {
+    return this.http.put(
+      `${this.basePath}${this.verifyotp}${id}`,
+      data,
+      this.options
+    );
   }
-  VerifyOtp(data: any) {
-    return this.http.post(`${this.basePath}${this.verifyotp}`, data, this.options)
+  ResendOtp(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.resendotp}${id}`,
+      this.options
+    );
   }
-  ResendOtp(data: any) {
-    return this.http.post(`${this.basePath}${this.resendotp}`, data, this.options)
+  ResetPassword(data: ResetPassword) {
+    return this.http.post(
+      `${this.basePath}${this.resetpassword}`,
+      data,
+      this.options
+    );
   }
-  ResetPassword(data: any) {
-    return this.http.post(`${this.basePath}${this.resetpassword}`, data, this.options)
+  ChangePassword(data: any) {
+    return this.http.put(
+      `${this.basePath}${this.changepassword}`,
+      data,
+      this.options
+    );
   }
-  ChangePassword(id: any, data: any) {
-    return this.http.put(`${this.basePath}${this.changepassword}${id}`, data, this.options)
+  // Admin Method
+  addadmins(model: Addadmins) {
+    return this.http.post(
+      `${this.basePath}${this.addadmin}`,
+      model,
+      this.options
+    );
+  }
+  viewadmins() {
+    return this.http.get(`${this.basePath}${this.viewadmin}`, this.options);
+  }
+  viewadminbyId(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.viewadminbyid}${id}`,
+      this.options
+    );
   }
 
-  GetAdminDetails() {
-    return this.http.get(`${this.basePath}${this.admingetall}`, this.options);
+  ViewAdminforcollections(id: any) {
+    return this.http.get(`${this.basePath}${this.ViewadminforCollectionamount}${id}`, this.options)
   }
-  UpdateAdminStatus(data: any) {
-    return this.http.put(`${this.basePath}${this.adminstatus}`, data, this.options);
+  viewbyidadmins(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.viewbyidadmin}${id}`,
+      this.options
+    );
   }
-  viewTicket() {
-    return this.http.get(`${this.basePath}${this.viewallTicket}`, this.options);
+  editadmins(id: any, model: Upadteadmins) {
+    return this.http.put(
+      `${this.basePath}${this.editadmin}${id}`,
+      model,
+      this.options
+    );
+  }
+  statusadmins(id: any, model: Statusadmin) {
+    return this.http.put(
+      `${this.basePath}${this.statusadmin}${id}`,
+      model,
+      this.options
+    );
+  }
+  getactiveRole(id: any) {
+    return this.http.get(`${this.basePath}${this.getActiveRole}${id}`, this.options)
+  }
+  //Empolyee Method
+  addemployees(model: Addemployees) {
+    return this.http.post(
+      `${this.basePath}${this.addemployee}`,
+      model,
+      this.options
+    );
+  }
+  viewemployees(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.viewemployee}${id}`,
+      this.options
+    );
   }
 
-  updatetickets(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.updateTicket}${id}`, model, this.options)
+  //Terms and policy method
+  viewterm(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.viewterms}${id}`,
+      this.options
+    );
+  }
+
+  //Email Method
+  emailverifys(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.emailverfiy}${id}`,
+      this.options
+    );
+  }
+  otpemail(id: any, model: EmailOtpVerfiy) {
+    return this.http.put(
+      `${this.basePath}${this.emailotp}${id}`,
+      model,
+      this.options
+    );
+  }
+
+  verifyemailresends(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.verifyemailresend}${id}`,
+      this.options
+    );
+  }
+
+  //Mobile Verify
+  mobileverifys(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.mobileverify}${id}`,
+      this.options
+    );
+  }
+  otpmobile(id: any, model: SmsOtpVerfiy) {
+    return this.http.put(
+      `${this.basePath}${this.mobileotp}${id}`,
+      model,
+      this.options
+    );
+  }
+
+  verifymobileresends(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.verifymobileresend}${id}`,
+      this.options
+    );
+  }
+
+  //Service Ticket
+  viewTicket(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.viewallTicket}${id}`,
+      this.options
+    );
+  }
+
+  addserviceTicket(FormData: FormData) {
+    return this.http.post(
+      `${this.basePath}${this.addTicket}`,
+      FormData,
+      this.optionsMultipart
+    );
   }
 
   viewticketImage(id: string) {
@@ -836,501 +1003,460 @@ export class FarginServiceService {
     });
   }
 
-
-  //Roles and permission
-
-  permissionget() {
-    return this.http.get(`${this.basePath}${this.permissiongetall}`, this.options)
-  }
-
-  subPermission(model: any) {
-    return this.http.post(`${this.basePath}${this.getsubPermission}`, model, this.options)
-  }
-
-  addRoles(model: any) {
-    return this.http.post(`${this.basePath}${this.addRole}`, model, this.options)
-  }
-
-  rolesStatus(model: any) {
-    return this.http.put(`${this.basePath}${this.roleStatus}`, model, this.options)
-  }
-
-  viewRoles() {
-    return this.http.get(`${this.basePath}${this.viewallRoles}`, this.options)
-  }
-
-  viewPermissionSubPermission(id: any) {
-    return this.http.get(`${this.basePath}${this.viewPermissionSubpermission}${id}`, this.options)
-  }
-
-  editRole(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.updateRole}${id}`, model, this.options)
-  }
-  rolegetById(id: any) {
-    return this.http.get(`${this.basePath}${this.rolegetByid}${id}`, this.options)
-  }
-
-  //privacy policy
-
-  Policymerchant() {
-    return this.http.get(`${this.basePath}${this.policymerchant}`, this.options)
-  }
-
-
-  Policiesgetbyid(id: any) {
-    return this.http.get(`${this.basePath}${this.policiesbyid}${id}`, this.options)
-  }
-
-  ApprovalForPolicy(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.policyapproval}${id}`, model, this.options)
-  }
-  adminPolicyget(id: any, id1: any) {
-    return this.http.get(`${this.basePath}${this.adminpolicy}/${id}/${id1}`, this.options)
-  }
-  adminPolicygetExport() {
-    return this.http.get(`${this.basePath}${this.adminpolicy}`, this.options)
-  }
-
-  adminpolicycreate(model: any) {
-    return this.http.post(`${this.basePath}${this.Adminpolicycreate}`, model, this.options);
-  }
-
-  adminpolicyedit(id: any, data: any) {
-    return this.http.put(`${this.basePath}${this.Adminpolicyedit}${id}`, data, this.options)
-  }
-
-  Adminpolicyviewbyidedit(id: any) {
-    return this.http.get(`${this.basePath}${this.adminpolicyviewbyidedit}${id}`, this.options);
-  }
-  AdminCreate(data: any) {
-    return this.http.post(`${this.basePath}${this.admincreate}`, data, this.options);
-  }
-  AdminUpdate(data: any) {
-    return this.http.put(`${this.basePath}${this.adminupdate}`, data, this.options);
-  }
-  AdminView(id: any) {
-    return this.http.get(`${this.basePath}${this.adminview}${id}`, this.options);
-  }
-
-  roleactiveViewall() {
-    return this.http.get(`${this.basePath}${this.roleactiveviewall}`, this.options)
-  }
-
-  Bussinesscategoryactivelist() {
-    return this.http.get(`${this.basePath}${this.businesskycdocactive}`, this.options)
-  }
-
-  //Region
-
-  RegionGet() {
-    return this.http.get(`${this.basePath}${this.Regionget}`, this.options)
-  }
-
-  RegionGetAllActive() {
-    return this.http.get(`${this.basePath}${this.Regiongetallactive}`, this.options)
-  }
-
-  ActiveRegionsbyserviceprovider(id: any) {
-    return this.http.get(`${this.basePath}${this.ActiveRegionbyServiceid}${id}`, this.options)
-  }
-  regionbyitsid(id: any) {
-    return this.http.get(`${this.basePath}${this.regionbyitsids}${id}`, this.options)
-  }
-
-
-
-  RegionCreate(model: any) {
-    return this.http.post(`${this.basePath}${this.Regioncreate}`, model, this.options)
-  }
-
-  RegionStatus(model: any) {
-    return this.http.put(`${this.basePath}${this.regionstatus}`, model, this.options)
-  }
-
-  RegionEdit(model: any) {
-    return this.http.put(`${this.basePath}${this.regionupdate}`, model, this.options)
-  }
-
-  Activeregions() {
-    return this.http.get(`${this.basePath}${this.ActiveRegions}`, this.options)
-  }
-
-
-
-  //service provider
-  ServiceProviderView() {
-    return this.http.get(`${this.basePath}${this.providergetall}`, this.options);
-  }
-  ServiceProviderCreate(data: any) {
-    return this.http.post(`${this.basePath}${this.providercreate}`, data, this.options);
-  }
-
-  ServiceProviderUpdate(data: any) {
-    return this.http.put(`${this.basePath}${this.providerupdate}`, data, this.options);
-  }
-  UpdateProviderStatus(data: any) {
-    return this.http.put(`${this.basePath}${this.providerstatus}`, data, this.options);
-  }
-
-  ProviderViewById(id: any) {
-    return this.http.get(`${this.basePath}${this.providergetbyid}${id}`, this.options);
-  }
-
-  activeprovider() {
-    return this.http.get(`${this.basePath}${this.Activeprovider}`, this.options)
-  }
-
-
-  //FA Check key
-  addfacheck(model: any) {
-    return this.http.post(`${this.basePath}${this.addfacheckkey}`, model, this.options)
-  }
-  viewfacheck() {
-    return this.http.get(`${this.basePath}${this.viewfacheckkey}`, this.options)
-  }
-  statusfacheck(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.statusfacheckkey}${id}`, model, this.options)
-  }
-  updatefacheck(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.updatefacheckkey}${id}`, model, this.options)
-  }
-
-
-
-
-
-  EntityViewall(id: any, id1: any) {
-    return this.http.get(`${this.basePath}${this.entitygetall}${id}/${id1}`, this.options)
-  }
-  EntityViewallExport() {
-    return this.http.get(`${this.basePath}${this.Entitygetallexport}`, this.options)
-  }
-
-
-  EntityAdd(formdata: any) {
-    return this.http.post(`${this.basePath}${this.AddEntity}`, formdata, this.optionsMultipart)
-  }
-
-  UpdatePersonalEntity(id: any, formdata: any) {
-    return this.http.put(`${this.basePath}${this.updateEntity}${id}`, formdata, this.optionsMultipart)
-  }
-
-
-  //email trigger
-  EmailTrigger(data: any) {
-    return this.http.post(`${this.basePath}${this.emailtrigger}`, data, this.options);
-  }
-
-
-
-  EntitylogoUpdate(data: FormData) {
-    return this.http.put(`${this.basePath}${this.merchantlogo}`, data, this.optionsMultipart);
-  }
-
-  KeysUpdate(model: any) {
-    return this.http.put(`${this.basePath}${this.keysupdate}`, model, this.options)
-  }
-
-
-  paymentLinkview(id: any) {
-    return this.http.get(`${this.basePath}${this.paymentlink}${id}`, this.options)
-  }
-
-
-
-
-
-
-  EntityGetKYCbybussinessid(id: any) {
-    return this.http.get(`${this.basePath}${this.EntityKYCBYbusinessid}${id}`, this.options)
-  }
-
-  ManualRecieptView(id: any) {
-    return this.http.get(`${this.basePath}${this.manualreciept}${id}`, {
-      ...this.options,
-      ...{ responseType: 'blob' },
-    })
-  }
-
-  // EntityAddKyc(formdata: FormData) {
-  //   return this.http.post(`${this.basePath}${this.AddEntityKYC}`, formdata, this.optionsMultipart)
-  // }
-
-  EntityViewbyid(id: any) {
-    return this.http.get(`${this.basePath}${this.Entityviewbyid}${id}`, this.options)
-  }
-
-  EntityActiveStatus(model: any) {
-    return this.http.put(`${this.basePath}${this.entityactivestatus}`, model, this.options)
-  }
-
-  //bank
-
-  EntitybankAdd(model: any) {
-    return this.http.post(`${this.basePath}${this.EntityBankAdd}`, model, this.options)
-  }
-
-  EntitybankEdit(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.EntityBankEdit}${id}`, model, this.options)
-  }
-  BankActiveStatus(id: any, data: any) {
-    return this.http.put(`${this.basePath}${this.bankactivestatus}${id}`, data, this.options);
-  }
-
-  BankprimaryStatus(id: any, data: any) {
-    return this.http.put(`${this.basePath}${this.bankprimarystatus}${id}`, data, this.options);
-  }
-
-
-  EntityBankApprovals(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.EntityBankApproval}${id}`, model, this.options)
-  }
-
-
-  //kyc document
-  entitykycs(formdata: FormData) {
-    return this.http.post(`${this.basePath}${this.entitykyc}`, formdata, this.optionsMultipart)
-  }
-  KycAdd(data: any) {
-    return this.http.post(`${this.basePath}${this.kycadd}`, data, this.optionsMultipart);
-  }
-
-  KycUpdate(data: any) {
-    return this.http.post(`${this.basePath}${this.editkyc}`, data, this.optionsMultipart);
-  }
-  getImageview(id: any, id1: any) {
-    return this.http.get(`${this.basePath}${this.kycdocument}${id}/${id1}`, {
-      ...this.options,
-      ...{ responseType: 'blob' }
-    })
-  }
-
-  KycApproval(id: any, data: any) {
-    return this.http.put(`${this.basePath}${this.kycapproval}${id}`, data, this.options);
-  }
-
-  KycDocName(id: any) {
-    return this.http.get(`${this.basePath}${this.Kycdocname}${id}`, this.options)
-  }
-
-
-  FacheckVoterIdVerification(data: any) {
-    return this.http.post(`${this.basePath}${this.voterId}`, data, this.options);
-  }
-
-
-  //verification response
-
-  // FacheckVerificationResponse(id: any) {
-  //   return this.http.get(`${this.basePath}${this.facheckresponse}${id}`, this.options)
-  // }
-
-  EntityBusinessCategoryId(id: any) {
-    return this.http.get(`${this.basePath}${this.businessid}${id}`, this.options)
-  }
-
-
-
-  //verification response
-
-  AaadharVerificationResponse(id: any) {
-    return this.http.get(`${this.basePath}${this.aadharinfo}${id}`, this.options)
-  }
-  PanVerificationResponse(id: any) {
-    return this.http.get(`${this.basePath}${this.paninfo}${id}`, this.options)
-  }
-  PassportVerificationResponse(id: any) {
-    return this.http.get(`${this.basePath}${this.passportinfo}${id}`, this.options)
-  }
-  CinchVerificationResponse(id: any) {
-    return this.http.get(`${this.basePath}${this.cinchinfo}${id}`, this.options)
-  }
-  GstVerificationResponse(id: any) {
-    return this.http.get(`${this.basePath}${this.gstinfo}${id}`, this.options)
-  }
-  VoterIdVerificationResponse(id: any) {
-    return this.http.get(`${this.basePath}${this.voteridinfo}${id}`, this.options)
-  }
-  DrivingLicenseVerificationResponse(id: any) {
-    return this.http.get(`${this.basePath}${this.drivinglicenseinfo}${id}`, this.options)
-  }
-
-
-  //Level one Approval
-  MerchantLevelApprovalOne(Model: any) {
-    return this.http.put(`${this.basePath}${this.merchantlevel1}`, Model, this.options);
-  }
-  MerchantLevel2ApprovalTwo(id: any, data: any) {
-    return this.http.put(`${this.basePath}${this.merchantlevel2}${id}`, data, this.options);
-  }
-  //Bank Verification
-  BankVerification(data: any) {
-    return this.http.post(`${this.basePath}${this.bankverify}`, data, this.options);
-  }
-  BankVerificationResponse(id: any) {
-    return this.http.get(`${this.basePath}${this.bankgetfacheck}${id}`, this.options)
-  }
-  //Facheck
-
-  FacheckAadharVerification(data: any) {
-    return this.http.post(`${this.basePath}${this.aadharverify}`, data, this.options);
-  }
-  FacheckPanVerification(data: any) {
-    return this.http.post(`${this.basePath}${this.panverify}`, data, this.options);
-  }
-  FacheckPassportVerification(data: any) {
-    return this.http.post(`${this.basePath}${this.passportverify}`, data, this.options);
-  }
-  FacheckLicenseVerification(data: any) {
-    return this.http.post(`${this.basePath}${this.drivinglicense}`, data, this.options);
-  }
-  FacheckGSTVerification(data: any) {
-    return this.http.post(`${this.basePath}${this.gstnumber}`, data, this.options);
-  }
-  FacheckCinchVerification(data: any) {
-    return this.http.post(`${this.basePath}${this.cinchverify}`, data, this.options);
-  }
-
-  // BankprimaryStatus(id: any, model: any) {
-  //   return this.http.put(`${this.basePath}${this.BankPrimaryStatus}${id}`, model, this.options)
-  // }
-
-  // EntityBankApprovals(id: any, model: any) {
-  //   return this.http.put(`${this.basePath}${this.EntityBankApproval}${id}`, model, this.options)
-  // }
-
-  //manual payment
-
-
-  UpdateManualPayment(id: any, data: any) {
-    return this.http.put(`${this.basePath}${this.updatemanualpay}${id}`, data, this.options);
-
-  }
-
-  CreateManualPayment(data: any) {
-    return this.http.post(`${this.basePath}${this.createmanualpay}`, data, this.options);
-
-  }
-
-  GetManualPay(id: any) {
-    return this.http.get(`${this.basePath}${this.manualpayget}${id}`, this.options)
-  }
-  GetManualTransaction(id: any) {
-    return this.http.get(`${this.basePath}${this.manualtransaction}${id}`, this.options)
-  }
-
-  //pg onboard
-  PgOnboard(model: any) {
-    return this.http.post(`${this.basePath}${this.pgonboard}`, model, this.options)
-  }
-  //customer
-
-  EntityCustomerview(id: any, id1: any, id2: any) {
-    return this.http.get(`${this.basePath}${this.Entitycustomerview}${id}/${id1}/${id2}`, this.options)
-  }
-
-  ViewCustomerDetails(id: any) {
-    return this.http.get(`${this.basePath}${this.customerview}${id}`, this.options)
-  }
-
-  CustomerTransaction(id: any) {
-    return this.http.get(
-      `${this.basePath}${this.customertransaction}${id}`,
+  updateTickets(model: Tickets) {
+    return this.http.put(
+      `${this.basePath}${this.editTicket}`,
+      model,
       this.options
     );
   }
-  //entity transaction
 
-  EntityTraansaction(id: any) {
-    return this.http.get(`${this.basePath}${this.entitytransaction}${id}`, this.options)
+  editTicketImage(formData: FormData) {
+    return this.http.put(
+      `${this.basePath}${this.editImage}`,
+      formData,
+      this.optionsMultipart
+    );
+  }
+  //Roles and permisiion
+  viewRole(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.viewRoles}${id}`,
+      this.options
+    );
   }
 
-  TransactionForMerchant(model: any) {
-    return this.http.post(`${this.basePath}${this.transactionformerchant}`, model, this.options)
+  viewallPermission() {
+    return this.http.get(
+      `${this.basePath}${this.getallPermission}`,
+      this.options
+    );
   }
 
-  //qr
-
-  EntityQrGenerate(id: any) {
-    return this.http.get(`${this.basePath}${this.EntityQrgenerate}${id}`, this.options)
+  subpermissionValue(model: subpermission) {
+    return this.http.post(
+      `${this.basePath}${this.getSubpermission}`,
+      model,
+      this.options
+    );
+  }
+  createroles(model: roles) {
+    return this.http.post(
+      `${this.basePath}${this.createrole}`,
+      model,
+      this.options
+    );
   }
 
-  QRImageView(id: any) {
-    return this.http.get(`${this.basePath}${this.qrimageview}${id}`, {
+  updateRoles(id: any, model: updaterole) {
+    return this.http.put(
+      `${this.basePath}${this.updateRole}${id}`,
+      model,
+      this.options
+    );
+  }
+
+  statusRoles(model: roleStatus) {
+    return this.http.put(
+      `${this.basePath}${this.statusRole}`,
+      model,
+      this.options
+    );
+  }
+
+  getallRole(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.viewallRole}${id}`,
+      this.options
+    );
+  }
+
+  //Customer Method
+  viewcustomerbyids(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.viewcustomerbymerchantid}${id}`,
+      this.options
+    );
+  }
+  viewcustomer(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.viewcustomerbyid}${id}`,
+      this.options
+    );
+  }
+  createremainders(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.createremainder}${id}`, model, this.options)
+  }
+  alcotlogos(id: string) {
+    return this.http.get(`${this.basePath}${this.alcotlogo}${id}`, {
       ...this.options,
       ...{ responseType: 'blob' },
-    })
+    });
   }
-  //refund
-  Entityrefund(id: any) {
-    return this.http.get(`${this.basePath}${this.EntityRefund}${id}`, this.options)
+  customeridsearch(model: any) {
+    return this.http.post(`${this.basePath}${this.customeridsearchs}`, model, this.options)
   }
-
-  //settlement
-  Entitysettlement(model: any) {
-    return this.http.post(`${this.basePath}${this.EntitySettlement}`, model, this.options);
+  customeridmonthmanualdues(model: any) {
+    return this.http.post(`${this.basePath}${this.customeridmonthmanualdue}`, model, this.options)
   }
-  entitySettleTransaction(model: any) {
-    return this.http.post(`${this.basePath}${this.EntitySettlementtransaction}`, model, this.options);
+  customeridfullmanualdues(model: any) {
+    return this.http.post(`${this.basePath}${this.customeridfullmanualdue}`, model, this.options)
   }
-
-
-  //Withdrawal Method
-  viewwithdrawals() {
-    return this.http.get(`${this.basePath}${this.viewwithdrawal}`, this.options)
-  }
-  addwithdrawals(model: any) {
-    return this.http.post(`${this.basePath}${this.addwithdrawal}`, model, this.options)
-  }
-  editwithdrawals(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.editwithdrawal}${id}`, model, this.options)
+  //One time setup
+  addonetimes(model: Addonetime) {
+    return this.http.post(
+      `${this.basePath}${this.addonetime}`,
+      model,
+      this.options
+    );
   }
 
-  statuswithdrawals(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.statuswithdrawal}${id}`, model, this.options)
+  pgmodes() {
+    return this.http.get(`${this.basePath}${this.pgmode}`, this.options);
+  }
+  getCreateCost(id: any, id1: any) {
+    return this.http.get(
+      `${this.basePath}${this.createcost}${id}/${id1}`,
+      this.options
+    );
+  }
+
+  getinitateCost(id: any, id1: any) {
+    return this.http.get(
+      `${this.basePath}${this.initiatecost}${id}/${id1}`,
+      this.options
+    );
+  }
+
+  getonetimesuccess(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.getonetimesucces}${id}`,
+      this.options
+    );
+  }
+  //Withdrawal Request
+  viewbymerchantids(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.viewbymerchantid}${id}`,
+      this.options
+    );
+  }
+  addwithdrawals(model: AddWithdrawal) {
+    return this.http.post(
+      `${this.basePath}${this.addwithdrawal}`,
+      model,
+      this.options
+    );
+  }
+  beneficiaryAdd(model: addbeneficiary) {
+    return this.http.post(
+      `${this.basePath}${this.Beneficiaryadd}`,
+      model,
+      this.options
+    );
+  }
+
+  BeneficiaryViewall(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.BeneficiaryView}${id}`,
+      this.options
+    );
+  }
+
+  BeneficiaryEmployeeView(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.BeneficiaryemployeeView}${id}`,
+      this.options
+    );
+  }
+
+  BeneficiaryEmployeeEdit(id: any, model: editbenificiary) {
+    return this.http.put(
+      `${this.basePath}${this.BeneficiaryemployeeEdit}${id}`,
+      model,
+      this.options
+    );
+  }
+
+  BeneficiaryViewbyId(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.BeneficiaryViewbyid}${id}`,
+      this.options
+    );
+  }
+
+  Beneficiarystatus(id: any, model: employeeStatus) {
+    return this.http.put(
+      `${this.basePath}${this.BeneficiaryStatus}${id}`,
+      model,
+      this.options
+    );
+  }
+
+  BeneficiaryPrimarystatus(id: any, model: primaryStatus) {
+    return this.http.put(
+      `${this.basePath}${this.BeneficiaryPrimary}${id}`,
+      model,
+      this.options
+    );
+  }
+
+  routeViewall() {
+    return this.http.get(`${this.basePath}${this.routeviewall}`, this.options);
+  }
+
+  routecreate(model: route) {
+    return this.http.post(
+      `${this.basePath}${this.routeCreate}`,
+      model,
+      this.options
+    );
+  }
+  extraroutecreate(model: extraroute) {
+    return this.http.post(
+      `${this.basePath}${this.extraroutecreates}`,
+      model,
+      this.options
+    );
+  }
+  extraarearoutecreate(model: extraarearoute) {
+    return this.http.post(
+      `${this.basePath}${this.extraarearoutecreates}`,
+      model,
+      this.options
+    );
+  }
+  extrastreetroutecreate(model: extrastreetroute) {
+    return this.http.post(
+      `${this.basePath}${this.extrastreetroutecreates}`,
+      model,
+      this.options
+    );
+  }
+  extracustomerroutecreate(model: extracustomerroute) {
+    return this.http.post(
+      `${this.basePath}${this.extracustomerroutecreates}`,
+      model,
+      this.options
+    );
+  }
+  routebyitsid(id: any) {
+    return this.http.get(`${this.basePath}${this.routebyitsids}${id}`, this.options);
+  }
+  pincodeViewall(id: any) {
+    return this.http.get(`${this.basePath}${this.pincodeviewall}${id}`, this.options);
+  }
+  areaViewall(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.areaViewAll}${id}/${id1}`, this.options);
+  }
+  streetViewall(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.streetViewalls}${id}/${id1}/${id2}`, this.options);
+  }
+  customerViewall(id: any, id1: any, id2: any, id3: any) {
+    return this.http.get(`${this.basePath}${this.customerViewalls}${id}/${id1}/${id2}/${id3}`, this.options);
+  }
+  pincodePost(data: any) {
+    return this.http.post(`${this.basePath}${this.pincodepost}`, data, this.options);
+  }
+
+  areaPost(data: any) {
+    return this.http.post(`${this.basePath}${this.areapost}`, data, this.options);
+  }
+  streetPost(data: any) {
+    return this.http.post(`${this.basePath}${this.streetpost}`, data, this.options);
+  }
+
+  routeedit(id: any, model: routeupdate) {
+    return this.http.put(
+      `${this.basePath}${this.routeEdit}${id}`,
+      model,
+      this.options
+    );
+  }
+  viewstreetName(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.viewStreetName}${id}`,
+      this.options
+    );
+  }
+
+  viewareaName(id: any) {
+    return this.http.get(`${this.basePath}${this.viewAreaName}${id}`, this.options);
+  }
+
+  routestatus(id: any, model: routests) {
+    return this.http.put(
+      `${this.basePath}${this.routeStatus}${id}`,
+      model,
+      this.options
+    );
+  }
+
+
+  activeEmployees(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.activeEmployee}${id}`,
+      this.options
+    );
+  }
+  viewactiveemployes(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.viewactiveemploye}${id}`,
+      this.options
+    );
+  }
+  customerrouteids(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.customerrouteid}${id}`,
+      this.options
+    );
+  }
+  viewroutearea(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.viewrouteareas}${id}`,
+      this.options
+    );
+  }
+  viewroutestrreet(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.viewroutestrreets}${id}`,
+      this.options
+    );
+  }
+  viewcustomerbtstreet(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.viewcustomerbtstreets}${id}`,
+      this.options
+    );
+  }
+  viewByRoutePincodeId(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.viewByRoutePincodeIds}${id}`,
+      this.options
+    );
+  }
+  routemerchantadminId(id: any) {
+    return this.http.get(`${this.basePath}${this.routemerchantadminIds}${id}`, this.options)
+  }
+
+  pinStatus(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.pincodestatus}${id}`, model, this.options)
+  }
+  areasStatus(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.areastatus}${id}`, model, this.options)
+  }
+  streetsStatus(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.streetstatus}${id}`, model, this.options)
+  }
+  customersStatus(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.customerStatus}${id}`, model, this.options)
+  }
+
+  routemerchantId(id: any) {
+    return this.http.get(`${this.basePath}${this.routemerchantid}${id}`, this.options)
+  }
+
+  regionview() {
+    return this.http.get(`${this.basePath}${this.regionviewall}`, this.options);
+  }
+  regionViewActive() {
+    return this.http.get(`${this.basePath}${this.regionViewactive}`, this.options)
+  }
+
+
+  regionViewByid(id: any) {
+    return this.http.get(`${this.basePath}${this.regionViewbyid}${id}`, this.options);
+  }
+
+  serviceactive() {
+    return this.http.get(`${this.basePath}${this.serviceActive}`, this.options)
+  }
+
+  ServiceprovideLinks(id: any) {
+    return this.http.get(`${this.basePath}${this.ServiceProvideLinks}${id}`, this.options)
+  }
+
+
+  ActiveSetupBox(id: any) {
+    return this.http.get(`${this.basePath}${this.setupboxactive}${id}`, this.options)
+  }
+
+  ActiveServiceProvider() {
+    return this.http.get(`${this.basePath}${this.serviceprovideractive}`, this.options)
+  }
+
+  ActiveMsobySTB(id: any) {
+    return this.http.get(`${this.basePath}${this.Activeserviceproviderfromstb}${id}`, this.options)
+  }
+  EditSetUpboxonly(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.editsettopbox}${id}`, model, this.options)
+  }
+
+  CustomergetAll() {
+    return this.http.get(`${this.basePath}${this.customergetall}`, this.options)
+  }
+
+  OnboardCustomer(model: any) {
+    return this.http.post(`${this.basePath}${this.customercreate}`, model, this.options)
+  }
+  UpdateCustomer(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.customerupdate}${id}`, model, this.options)
+  }
+  ViewCustomerDetails(id: any) {
+    return this.http.get(`${this.basePath}${this.customerview}${id}`, this.options)
+  }
+  ActiveStatusCustomer(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.customeractivestatus}${id}`, model, this.options)
+  }
+  duestatusonoffs(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.duestatusonoff}${id}`, model, this.options)
+  }
+
+
+  ViewCustomerByMerchantDetails(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.merchantview}${id}/${id1}/${id2}`, this.options)
+  }
+
+  merchantviewexcels(id: any) {
+    return this.http.get(`${this.basePath}${this.merchantviewexcel}${id}`, this.options)
+  }
+
+  ViewCustomerByMerchantDetail(id: any) {
+    return this.http.get(`${this.basePath}${this.merchantview}${id}`, this.options)
+  }
+
+
+  ViewCustomerByMerchantExport(id: any) {
+    return this.http.get(`${this.basePath}${this.merchantview}${id}`, this.options)
   }
 
 
 
-  //Beneficiary
-  addbeneficiarys(model: any) {
-    return this.http.post(`${this.basePath}${this.addbeneficiary}`, model, this.options)
-  }
-  viewbeneficiarys() {
-    return this.http.get(`${this.basePath}${this.viewbeneficiary}`, this.options)
-  }
-  viewbyidbeneficiarys(id: any) {
-    return this.http.get(`${this.basePath}${this.viewbyidbeneficiary}${id}`, this.options)
+  transactionView(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.transaction}${id}/${id1}/${id2}`, this.options)
   }
 
-  statusbeneficiarys(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.statusbeneficiary}${id}`, model, this.options)
+  transactionViewExport(id: any) {
+    return this.http.get(`${this.basePath}${this.transaction}${id}`, this.options)
   }
 
-
-
-
-  AlcartviewallExport() {
-    return this.http.get(`${this.basePath}${this.alcartviewallexport}`, this.options)
-  }
-  Alcartviewall(id: any, id1: any) {
-    return this.http.get(`${this.basePath}${this.alcartvieall}${id}/${id1}`, this.options)
+  generateDues(id: any) {
+    return this.http.get(`${this.basePath}${this.generatedues}${id}`, this.options)
   }
 
-  AlcardAdd(Formdata: FormData) {
-    return this.http.post(`${this.basePath}${this.alcartAdd}`, Formdata, this.optionsMultipart)
+  FilterUnpaidPaid(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.paidunpaidfilter}${id}/${id1}`, this.options)
+
   }
 
-  AlcardUpdate(model: any) {
-    return this.http.put(`${this.basePath}${this.Alcartupdate}`, model, this.optionsMultipart)
+  //Channel
+
+  channelconfiguration(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.channelConfiguration}${id}/${id1}`, this.options)
   }
 
-  Alcardviewbyid(id: any) {
-    return this.http.get(`${this.basePath}${this.alcartviewbyid}${id}`, this.options)
-  }
-
-  AlcardStatus(model: any) {
-    return this.http.put(`${this.basePath}${this.alcartstatus}`, model, this.options)
+  channelconfigurationExport() {
+    return this.http.get(`${this.basePath}${this.channelConfigurationexport}`, this.options)
   }
 
   AlcartImageview(id: any) {
@@ -1339,342 +1465,347 @@ export class FarginServiceService {
       ...{ responseType: 'blob' },
     })
   }
-
-  AlcartImageUpdate(formdata: FormData) {
-    return this.http.put(`${this.basePath}${this.AlcartChannellogoUpdate}`, formdata, this.optionsMultipart)
+  Alcardviewbyid(id: any) {
+    return this.http.get(`${this.basePath}${this.alcartviewbyid}${id}`, this.options)
   }
 
-  ActiveAlcards() {
-    return this.http.get(`${this.basePath}${this.activealcards}`, this.options)
+  //Plan
+  planconfiguration() {
+    return this.http.get(`${this.basePath}${this.planConfiguration}`, this.options)
   }
 
+  // Bouquete Active Plans 
 
-  BouquetnameViewall() {
-    return this.http.get(`${this.basePath}${this.BoucatenameViewall}`, this.options)
+  ActiveBouquetePlans() {
+    return this.http.get(`${this.basePath}${this.ActiveBiuquetePlans}`, this.options)
   }
-
-  BouquetAdd(model: any) {
-    return this.http.post(`${this.basePath}${this.BoucatenameAdd}`, model, this.options)
-  }
-
-  Bouquetnamebyid(id: any) {
-    return this.http.get(`${this.basePath}${this.Boutenamebyid}${id}`, this.options)
-  }
-
-  BouquetnameUpdate(model: any) {
-    return this.http.put(`${this.basePath}${this.BoutenameUpdate}`, model, this.options)
-  }
-
-  Bouquetstatusforbroadcaster(model: any) {
-    return this.http.put(`${this.basePath}${this.Boucatenamestatus}`, model, this.options)
-  }
-
-  BoucatenamesActive() {
-    return this.http.get(`${this.basePath}${this.BoucateGetactive}`, this.options)
-  }
-
-  //Broadcaster Bouquete name creation
-
-  Bouqetenameviewall() {
-    return this.http.get(`${this.basePath}${this.Bouquetenameviewall}`, this.options)
-  }
-
-  BouquetenameAdd(model: any) {
-    return this.http.post(`${this.basePath}${this.Bouquetenameadd}`, model, this.options)
-  }
-
-  Bouquetenameupdatae(model: any) {
-    return this.http.put(`${this.basePath}${this.Bouquetenameupdate}`, model, this.options)
-  }
-
-  Bouquenamebyid(id: any) {
-    return this.http.get(`${this.basePath}${this.Bouquetenamebyid}${id}`, this.options)
-  }
-
-  Bouquetnamestatus(model: any) {
-    return this.http.put(`${this.basePath}${this.Bouquetenamestatus}`, model, this.options)
-  }
-
-  BouquetenameActive() {
-    return this.http.get(`${this.basePath}${this.Bouquetenameactive}`, this.options)
-  }
-
-  BouqueteNameByBroadcasterid(id: any) {
-    return this.http.get(`${this.basePath}${this.BouquetenamebyBoueteid}${id}`, this.options)
-  }
-
-
-
-  // 
-  BroadcasterBoucateviewall() {
-    return this.http.get(`${this.basePath}${this.bouquetsviewall}`, this.options)
-  }
-
-  BroadcasterBoucateadd(model: any) {
-    return this.http.post(`${this.basePath}${this.Bouquetadd}`, model, this.options)
-  }
-
   BroadcasterBoucatebyid(id: any) {
     return this.http.get(`${this.basePath}${this.Bouquetsviewbyid}${id}`, this.options)
   }
 
-  BroadcasterBoucatebyidregion(id: any) {
-    return this.http.get(`${this.basePath}${this.Bouquetsviewbyidregion}${id}`, this.options)
+  // Lcop Plan API,S
+
+  Freechannels() {
+    return this.http.get(`${this.basePath}${this.Freechannel}`, this.options)
   }
 
-  BroadcasterBoucatebyidchannel(id: any) {
-    return this.http.get(`${this.basePath}${this.Bouquetsviewbyidchannel}${id}`, this.options)
+  PaidChannels() {
+    return this.http.get(`${this.basePath}${this.PaidChannel}`, this.options)
   }
 
-
-  BroadcasterBoucateStatus(model: any) {
-    return this.http.put(`${this.basePath}${this.Bouquetstatus}`, model, this.options)
+  PaidChannelsActive() {
+    return this.http.get(`${this.basePath}${this.Paidchannelactive}`, this.options)
   }
 
-  ActiveBroadcasterBoucates() {
-    return this.http.get(`${this.basePath}${this.ActiveBouqutes}`, this.options)
+  FreechannelsActive() {
+    return this.http.get(`${this.basePath}${this.Freechannelactive}`, this.options)
   }
 
-  BroadcasterBoucatesEdit(Model: any) {
-    return this.http.put(`${this.basePath}${this.bouquetEdit}`, Model, this.options)
+  FreeChannelForEdit(id:any){
+    return this.http.get(`${this.basePath}${this.FreeChannelforEdit}${id}`,this.options)
+  }
+  PaidChannelForEdit(id:any){
+    return this.http.get(`${this.basePath}${this.PaidChannelforEdit}${id}`,this.options)
   }
 
-
-  BroadcasterBoucatesRegionEdit(Model: any) {
-    return this.http.put(`${this.basePath}${this.BroadcasterBoucatesRegionEdits}`, Model, this.options)
+  BouqueteForEdit(id:any){
+    return this.http.get(`${this.basePath}${this.BouquetsforEdit}${id}`,this.options)
   }
 
-
-  BroadcasterBoucateschannelEdit(Model: any) {
-    return this.http.put(`${this.basePath}${this.BroadcasterBoucateschannelEdits}`, Model, this.options)
+  LCOPCalculationForEdit(id:any,model:any){
+    return this.http.post(`${this.basePath}${this.LCOPcalculationEdit}${id}`,model,this.options)
   }
 
-  BroadcasterSingleStatus(model: any) {
-    return this.http.put(`${this.basePath}${this.bouquetesinglestatus}`, model, this.options)
+  LcopViewall() {
+    return this.http.get(`${this.basePath}${this.PlanViewall}`, this.options)
   }
 
-  AddExtraChannelsforBouquete(model: any) {
-    return this.http.post(`${this.basePath}${this.AddChannelsbyBouquete}`, model, this.options)
+  LCOPPlanCalculation(model: any) {
+    return this.http.post(`${this.basePath}${this.PlanCalculation}`, model, this.options)
   }
 
-
-  BouquetsRegion(model: any) {
-    return this.http.post(`${this.basePath}${this.bouquetsextraregions}`, model, this.options)
+  LcopPlanCreation(model: any) {
+    return this.http.post(`${this.basePath}${this.PlanCreation}`, model, this.options)
   }
 
-
-  BouquetChanneledit(id: any) {
-    return this.http.get(`${this.basePath}${this.bouquetchanneledit}${id}`, this.options)
-  }
-  // 
-
-  DPOViewall() {
-    return this.http.get(`${this.basePath}${this.DPOBouqueteViewall}`, this.options)
+  LCOPPlanStatus(model: any) {
+    return this.http.put(`${this.basePath}${this.PlanStatus}`, model, this.options)
   }
 
-  DPOAdd(model: any) {
-    return this.http.post(`${this.basePath}${this.DPOBouqueteadd}`, model, this.options)
+  LCOPViewbyid(id: any) {
+    return this.http.get(`${this.basePath}${this.PlanViewbyid}${id}`, this.options)
   }
 
-  DPObyid(id: any) {
-    return this.http.get(`${this.basePath}${this.DPOBouqueteviewbyid}${id}`, this.options)
+  LCOPViewbyidcust(id: any) {
+    return this.http.get(`${this.basePath}${this.PlanViewbyidcust}${id}`, this.options)
   }
 
-  DPOUpdate(model: any) {
-    return this.http.put(`${this.basePath}${this.DPOBouqueteUpdate}`, model, this.options)
+  LCOPFreeChannelStatus(model: any) {
+    return this.http.put(`${this.basePath}${this.LcopFreechannelstatus}`, model, this.options)
   }
 
-  DpoStatus(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.DPOBouquetestatus}${id}`, model, this.options)
+  LCOPPaidchannelStatus(model: any) {
+    return this.http.put(`${this.basePath}${this.LcopPaidChannelstatus}`, model, this.options)
   }
 
-  ActiveDPO() {
-    return this.http.get(`${this.basePath}${this.DPOActiveBouqutes}`, this.options)
+  LCOPBouquteStatus(model: any) {
+    return this.http.put(`${this.basePath}${this.LcopBouqutesstatus}`, model, this.options)
   }
 
-  DpoSingleChannelStatus(model: any) {
-    return this.http.put(`${this.basePath}${this.DPOSinglechannelstatus}`, model, this.options)
+  ActiveLCOP() {
+    return this.http.get(`${this.basePath}${this.ActivePlans}`, this.options)
   }
 
-  //Merchant plan creation
-
-
-  merchantplanviewall() {
-    return this.http.get(`${this.basePath}${this.Merchantplanviewall}`, this.options)
+  LcopViewalls(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.PlanViewalls}${id}/${id1}/${id2}`, this.options)
   }
 
-  merchantplanadd(model: any) {
-    return this.http.post(`${this.basePath}${this.MerchantplanAdd}`, model, this.options)
+  LcopViewallsExport(id: any) {
+    return this.http.get(`${this.basePath}${this.PlanViewalls}${id}`, this.options)
   }
 
-  merchantplanUpdate(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.MerchantplanUpdate}${id}`, model, this.options)
+  Lcopedit(model: any) {
+    return this.http.put(`${this.basePath}${this.Lcopupdate}`, model, this.options)
   }
 
-  merchantplanstatus(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.MerchantplanStatus}${id}`,model, this.options)
+  PaidChannelstatusforlcop(model: any) {
+    return this.http.put(`${this.basePath}${this.PaidChannelStatus}`, model, this.options)
   }
 
-  merchantplanactive() {
-    return this.http.get(`${this.basePath}${this.MerchantActivePlans}`, this.options)
+  Paidchannelstatusforlcop(model: any) {
+    return this.http.put(`${this.basePath}${this.FreeChannelStatus}`, model, this.options)
   }
 
-
-
-  //PG Setup
-  PGsetupget() {
-    return this.http.get(`${this.basePath}${this.pgsetupget}`, this.options);
+  Bouquestplanstatusforlcop(model: any) {
+    return this.http.put(`${this.basePath}${this.BouQuetePlanStatus}`, model, this.options)
   }
 
-  Pgsetupstatus(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.pgsetupstatus}${id}`, model, this.options)
-  }
-
-  Pgsetupcreate(model: any) {
-    return this.http.post(`${this.basePath}${this.pgsetupadd}`, model, this.options)
-  }
-
-  PgsetupUpdate(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.pgsetupedit}${id}`, model, this.options)
-  }
+  // Setupbox
 
 
-  //overall customer
-  OverallCustomer(id: any, id1: any) {
-    return this.http.get(`${this.basePath}${this.Overallcustomer}${id}/${id1}`, this.options)
-  }
-  OverallCustomerExport() {
-    return this.http.get(`${this.basePath}${this.overallcustomerexport}`, this.options)
+  setupboxView() {
+    return this.http.get(`${this.basePath}${this.setupboxViewall}`, this.options)
   }
 
-  EntityIndividualCustomerview(id: any) {
-    return this.http.get(`${this.basePath}${this.Entityindividualcustomerview}${id}`, this.options)
+  setupboxstatus(model: setupStatus) {
+    return this.http.put(`${this.basePath}${this.setupboxStatus}`, model, this.options)
   }
 
-  ViewCustomerBasicInfo(id: any) {
-    return this.http.get(`${this.basePath}${this.viewcustomerbasicdetails}${id}`, this.options)
+  setupboxCreate(model: postsetupbox) {
+    return this.http.post(`${this.basePath}${this.setupboxadd}`, model, this.options)
+  }
+
+  setupboxEdit(model: updatesetupbox) {
+    return this.http.put(`${this.basePath}${this.setupboxedit}`, model, this.options)
+  }
+
+  setupboxbyid(id: any) {
+    return this.http.get(`${this.basePath}${this.setupboxmerchantid}${id}`, this.options)
   }
 
 
-  ViewCustomersSetupBox(id: any) {
-    return this.http.get(`${this.basePath}${this.viewSetupboxDetails}${id}`, this.options)
+  bulkuploadViewall(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.bulkUploadView}${id}/${id1}/${id2}`, this.options);
+  }
+
+  SetupBoxflag(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.SetupBoxflags}${id}/${id1}/${id2}`, this.options)
+  }
+  STBStatus(model: any) {
+    return this.http.put(`${this.basePath}${this.STBstatus}`, model, this.options)
+  }
+
+  setupboxcustomerview(id: any) {
+    return this.http.get(`${this.basePath}${this.stbcustomerview}${id}`, this.options)
+  }
+
+  bulkuploadExport(id: any) {
+    return this.http.get(`${this.basePath}${this.bulkuploadexport}${id}`, this.options)
+  }
+  bulkUploadSetupbox(id: any, id1: any, formData: any[]) {
+    return this.http.post(`${this.basePath}${this.bulkUploadsetupbox}${id}/${id1}`, formData, this.options)
+  }
+
+  bulkuploadresponse(id: any) {
+    return this.http.get(`${this.basePath}${this.bulkuploadResponse}${id}`, this.options)
+  }
+
+  bulkuploadById(id: any) {
+    return this.http.get(`${this.basePath}${this.bulkuploadbyId}${id}`, this.options)
   }
 
 
-  ActiveStatusSetupbox(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.activestatussetupbox}${id}`, model, this.options)
-  }
+  //Merchant
 
-  ViewSetupBoxPlanDetails(id: any) {
-    return this.http.get(`${this.basePath}${this.viewsetupboxplan}${id}`, this.options)
-  }
-
-  ActiveStatusCustomerPlan(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.activecustomerplan}${id}`, model, this.options)
-
+  merchantbyids(id: any) {
+    return this.http.get(`${this.basePath}${this.merchantbyid}${id}`, this.options)
   }
 
 
+  // Customer Payments API,S
 
-  //payment dues
-
-  DuesViewAll() {
-    return this.http.get(`${this.basePath}${this.paymentdues}`, this.options)
+  CustomerPaymentsList(id: any) {
+    return this.http.get(`${this.basePath}${this.CustomerPaymentDetails}${id}`, this.options)
   }
 
-  DuesGenerate() {
-    return this.http.get(`${this.basePath}${this.generatedues}`, this.options)
+  CustomerMakePayments(model: any) {
+    return this.http.post(`${this.basePath}${this.CustomerMakePayment}`, model, this.options)
+  }
+
+  CustomerPGCreateOrder(id: any) {
+    return this.http.get(`${this.basePath}${this.CustomerPgCreateOrder}${id}`, this.options)
   }
 
 
-  MaintenanceReciept(id: any) {
-    return this.http.get(`${this.basePath}${this.maintenance}${id}`, {
+  CustomerPGinitiate(id: any) {
+    return this.http.get(`${this.basePath}${this.CustomerPgInitiate}${id}`, this.options)
+  }
+
+  Customertransactioninfo(id: any) {
+    return this.http.get(`${this.basePath}${this.Customertransactiondetail}${id}`, this.options)
+  }
+
+  CustomerPaymentdetails(id: any) {
+    return this.http.get(`${this.basePath}${this.CustomerTransDetails}${id}`, this.options)
+  }
+
+  CustomersinglePaymentDetails(id: any) {
+    return this.http.get(`${this.basePath}${this.CustomerDetails}${id}`, this.options)
+  }
+
+  CutsomerRefunds(model: any) {
+    return this.http.post(`${this.basePath}${this.CutsomerRefund}`, model, this.options)
+  }
+
+  CustomerAPIKeys() {
+    return this.http.get(`${this.basePath}${this.PaymentKeys}`, this.options)
+  }
+
+
+
+
+
+  CustomerTransaction(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.customertransaction}${id}`,
+      this.options
+    );
+  }
+
+  ActiveSetupBoxByMerchantId(id: any, id1: any) {
+    return this.http.get(
+      `${this.basePath}${this.Activesetupboxmerchantid}${id}/${id1}`,
+      this.options
+    );
+  }
+  ActiveLcop(id: any) {
+    return this.http.get(`${this.basePath}${this.Activeplanmerchant}${id}`, this.options)
+  }
+
+
+  QRImageView(id: any) {
+    return this.http.get(`${this.basePath}${this.merchantQr}${id}`, {
       ...this.options,
       ...{ responseType: 'blob' },
     })
   }
 
-  unblockAccount(id: any) {
-    return this.http.get(`${this.basePath}${this.unblockaccount}${id}`, this.options)
-  }
-
-  unblockentityAccount(id: any) {
-    return this.http.get(`${this.basePath}${this.unblockentityaccount}${id}`, this.options)
-  }
 
 
+  // Merchant Dues
 
-  //fargin policy
-
-  viewfarginPolicy() {
-    return this.http.get(`${this.basePath}${this.viewtermspolicy}`, this.options)
-  }
-
-  addTermsPolicy(model: any) {
-    return this.http.post(`${this.basePath}${this.addtermspolicy}`, model, this.options)
+  MerchantDues(id: any) {
+    return this.http.get(`${this.basePath}${this.dues}${id}`, this.options);
   }
 
-  editTermsPolicy(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.edittermspolicy}${id}`, model, this.options)
+  Duesmakepay(model: any) {
+    return this.http.post(`${this.basePath}${this.duesmakepayment}`, model, this.options)
   }
 
-  viewbyIdpolicy(id: any) {
-    return this.http.get(`${this.basePath}${this.viewbyidpolicy}${id}`, this.options)
+  createdues(id: any) {
+    return this.http.get(`${this.basePath}${this.createorderdues}${id}`, this.options)
   }
 
-  //Dashboard
-
-  dashboardcustomersevenday() {
-    return this.http.get(`${this.basePath}${this.dashboardlastssevendays}`, this.options)
-  }
-  dashboardcustomerfifteenday() {
-    return this.http.get(`${this.basePath}${this.dashboardfifteendays}`, this.options)
-  }
-  dashboardcustomerthirtyday() {
-    return this.http.get(`${this.basePath}${this.dashboardthirtydays}`, this.options)
-  }
-  dashboardcustomerlastmonth() {
-    return this.http.get(`${this.basePath}${this.dashboardlastmonth}`, this.options)
-  }
-  dashboardcustomerthismonth() {
-    return this.http.get(`${this.basePath}${this.dashboardthismonth}`, this.options)
-  }
-  dashboardcustomerstartenddates(id: any, id1: any) {
-    return this.http.get(`${this.basePath}${this.dashboardcustomrange}${id}/${id1}`, this.options)
+  Initiatedues(id: any) {
+    return this.http.get(`${this.basePath}${this.initiatedues}${id}`, this.options)
   }
 
-  dashbaordcustomerdayTransaction() {
-    return this.http.get(`${this.basePath}${this.dashboarddaytransaction}`, this.options)
+
+  Transactiondues(id: any) {
+    return this.http.get(`${this.basePath}${this.transactiondetails}${id}`, this.options)
   }
 
-  // dashbaordcustomermobilenumbers(id: any,id1:any) {
-  //   return this.http.get(`${this.basePath}${this.dashbaordcustomermobilenumber}${id}/${id1}`, this.options)
-  // }
-
-  dashboardcustomeroveralls() {
-    return this.http.get(`${this.basePath}${this.dashboardoverall}`, this.options)
-  }
-  dashboardoverallmerchantids(id: any) {
-    return this.http.get(`${this.basePath}${this.dashboardoverallmerchantid}${id}`, this.options)
+  Trasactionreceipt(id: string) {
+    return this.http.get(`${this.basePath}${this.transactioninvoice}${id}`, {
+      ...this.options,
+      ...{ responseType: 'blob' },
+    });
   }
 
-  dashboardoverallamounts() {
-    return this.http.get(`${this.basePath}${this.dashboardoverallamount}`, this.options)
-  }
-  dashboardoverallonetimes() {
-    return this.http.get(`${this.basePath}${this.dashboardoverallonetime}`, this.options)
-  }
-  dashboardsevendaysamounts() {
-    return this.http.get(`${this.basePath}${this.dashboardsevendaysamount}`, this.options)
+  Manualpaytransaction(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.transactionmanualpay}${id}`, model, this.options)
   }
 
-  //tickets
-
-  Ticketscustomer(id: any, id1: any) {
-    return this.http.get(`${this.basePath}${this.ticketsget}${id}/${id1}`, this.options)
+  Manuvaltranswithoutotp(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.transmanuvalpaywithoutOTP}${id}`, model, this.options)
   }
-  TicketscustomerExport() {
-    return this.http.get(`${this.basePath}${this.ticketsgetexport}`, this.options)
+
+  transactiondue(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.transactiondues}${id}`, model, this.options)
+  }
+
+  CustomerReceipt(id: any) {
+    return this.http.get(`${this.basePath}${this.customerreceipt}${id}`, {
+      ...this.options,
+      ...{ responseType: 'blob' },
+    });
+  }
+
+  // Customer Dues update
+
+  Updatecustomerdues(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.custransamountupdate}${id}`, model, this.options)
+  }
+
+
+  updatedduesdetailsbyid(id: any, id2: any, id3: any) {
+    return this.http.get(`${this.basePath}${this.customerupdatebyid}${id}/${id2}/${id3}`, this.options)
+  }
+
+  updatedduesbymerchantid(id: any, id2: any, id3: any) {
+    return this.http.get(`${this.basePath}${this.Customedueslogbyid}${id}/${id2}/${id3}`, this.options)
+  }
+
+  CustomerDuesAuditLogs(id: any, id1: any, id2: any, id3: any) {
+    return this.http.get(`${this.basePath}${this.customerduessearch}${id}/${id1}/${id2}/${id3}`, this.options)
+  }
+
+  CustomerDuesAuditLogsGetAll(id: any) {
+    return this.http.get(`${this.basePath}${this.customerduelogsgetall}${id}`, this.options)
+  }
+
+
+  //customer setupbox history
+  ViewByMerchant(id: any) {
+    return this.http.get(`${this.basePath}${this.viewbymerchant}${id}`, this.options)
+  }
+  ViewByCustomer(id: any) {
+    return this.http.get(`${this.basePath}${this.viewebycustomer}${id}`, this.options)
+  }
+  customersetupboxhistory(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.customersetupboxhistorys}${id}/${id1}`, this.options)
+  }
+  customersetupboxbulkbyId(id: any) {
+    return this.http.get(`${this.basePath}${this.customersetupboxbulkbyIds}${id}`, this.options)
+  }
+  customersetupAddBulk(id: any, id1: any, formData: any[]): Promise<any> {
+    return lastValueFrom(this.http.post(`${this.basePath}${this.customersetupAddBulks}${id}/${id1}`, formData, this.options))
+  }
+  Customermerchanttickets(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.custmerchantticket}${id}/${id1}/${id2}`, this.options)
+  }
+  CustomermerchantticketsExport(id: any) {
+    return this.http.get(`${this.basePath}${this.custmerchantticket}${id}`, this.options)
   }
 
   customerraiseticketupdate(id: any, model: any) {
@@ -1685,359 +1816,218 @@ export class FarginServiceService {
     );
   }
 
-  // Bank Details Main Master
-
-  bankdetailsViewall() {
-    return this.http.get(`${this.basePath}${this.BankdetailsViewall}`, this.options)
+  //Dashboard
+  dashboardcount(id: any) {
+    return this.http.get(`${this.basePath}${this.dashbordcustomercount}${id}`, this.options)
+  }
+  dashboardcustomersevenday(id: any) {
+    return this.http.get(`${this.basePath}${this.dashboardcustomersevendays}${id}`, this.options)
+  }
+  dashboardcustomerfifteenday(id: any) {
+    return this.http.get(`${this.basePath}${this.dashboardcustomerfifteendays}${id}`, this.options)
+  }
+  dashboardcustomerthirtyday(id: any) {
+    return this.http.get(`${this.basePath}${this.dashboardcustomerthirtydays}${id}`, this.options)
+  }
+  dashboardcustomerlastmonths(id: any) {
+    return this.http.get(`${this.basePath}${this.dashboardcustomerlastmonth}${id}`, this.options)
+  }
+  dashboardcustomerthismonths(id: any) {
+    return this.http.get(`${this.basePath}${this.dashboardcustomerthismonth}${id}`, this.options)
+  }
+  dashboardcustomerstartenddates(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.dashboardcustomerstartenddate}${id}/${id1}/${id2}`, this.options)
   }
 
-  bankdetailsAdd(model: any) {
-    return this.http.post(`${this.basePath}${this.AddBankDetails}`, model, this.options)
+  dashbaordcustomerdayTransaction(id: any) {
+    return this.http.get(`${this.basePath}${this.dashbaordcustomerdayTransactions}${id}`, this.options)
   }
 
-  bankdetailsviewbyid(id: any) {
-    return this.http.get(`${this.basePath}${this.Bankdetailsviewbyid}${id}`, this.options)
+  dashbaordcustomermobilenumbers(id: any) {
+    return this.http.get(`${this.basePath}${this.dashbaordcustomermobilenumber}${id}`, this.options)
   }
 
-  bankdetailsUpdate(model: any) {
-    return this.http.put(`${this.basePath}${this.EditBankdetails}`, model, this.options)
+  dashboardcustomeroveralls(id: any) {
+    return this.http.get(`${this.basePath}${this.dashboardcustomeroverall}${id}`, this.options)
+  }
+  dashboardcustomersevenamounts(id: any) {
+    return this.http.get(`${this.basePath}${this.dashboardcustomersevenamount}${id}`, this.options)
   }
 
-  activebankdetails() {
-    return this.http.get(`${this.basePath}${this.ActiveBankDetails}`, this.options)
+  dashboardthismonthcustomertransactions(id: any) {
+    return this.http.get(`${this.basePath}${this.dashboardthismonthcustomertransaction}${id}`, this.options)
+  }
+  dashboardlastmonthcustomertransactions(id: any) {
+    return this.http.get(`${this.basePath}${this.dashboardlastmonthcustomertransaction}${id}`, this.options)
+  }
+  dashboarddatecustomertransactions(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.dashboarddatecustomertransaction}${id}/${id1}/${id2}`, this.options)
+  }
+  dashboardpendingemployees(id: any) {
+    return this.http.get(`${this.basePath}${this.dashboardpendingemployee}${id}`, this.options)
+  }
+  dashboardsetupboxallcotes(id: any) {
+    return this.http.get(`${this.basePath}${this.dashboardsetupboxallcote}${id}`, this.options)
+  }
+  dashboardsetupboxfrees(id: any) {
+    return this.http.get(`${this.basePath}${this.dashboardsetupboxfree}${id}`, this.options)
+  }
+  dashboardsetupboxbooking(id: any) {
+    return this.http.get(`${this.basePath}${this.dashboardsetupboxbookingstatus}${id}`, this.options)
+  }
+  
+
+  dashboardsetupboxStatusPagination(id: any, id1: any, id2: any, id3: any) {
+    return this.http.get(`${this.basePath}${this.setupboxstatuspagination}${id}/${id1}/${id2}/${id3}`, this.options)
+  }
+  
+  dashboardsetupboxStatusExport(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.dashboardsetupboxstatus}${id}/${id1}`, this.options)
+  }
+  dashboardviewactivecustomers(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.dashboardviewactivecustomer}${id}/${id1}`, this.options)
+  }
+  dashboardviewinactivecustomers(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.dashboardviewinactivecustomer}${id}/${id1}`, this.options)
+  }
+  dashboardviewpendings(id: any) {
+    return this.http.get(`${this.basePath}${this.dashboardviewpending}${id}`, this.options)
+  }
+  dashboardviewallpendings(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.dashboardviewallpending}${id}/${id1}/${id2}`, this.options)
+  }
+  dashboardemployeecounts(id: any) {
+    return this.http.get(`${this.basePath}${this.dashboardemployeecount}${id}`, this.options)
   }
 
-  activebankdetailsstatus(model: any) {
-    return this.http.put(`${this.basePath}${this.Bankdetailsstatus}`, model, this.options)
+  dashboardActiveInactiveCustomers(id: any, id1: any, id2: any, id3: any) {
+    return this.http.get(`${this.basePath}${this.activeinactivegetall}${id}/${id1}/${id2}/${id3}`, this.options)
   }
-  CustomerAllTransactions(id: any, id1: any) {
-    return this.http.get(`${this.basePath}${this.customeralltransactions}${id}/${id1}`, this.options)
+  dashboardbranchmonth(id: any) {
+    return this.http.get(`${this.basePath}${this.dashboardbranchmonths}${id}`, this.options)
   }
-  CustomerAllTransactionsExport() {
-    return this.http.get(`${this.basePath}${this.customertransactionexport}`, this.options)
+  dashboardbranchlastmonth(id: any) {
+    return this.http.get(`${this.basePath}${this.dashboardbranchlastmonths}${id}`, this.options)
   }
-
-  CustomerTransactionsFilter(id1: any, id2: any, id3: any, id4: any) {
-    return this.http.get(`${this.basePath}${this.customerdatefilter}${id1}/${id2}/${id3}/${id4}`, this.options)
+  dashboardbranchcustomerange(id: any,id1:any,id2:any) {
+    return this.http.get(`${this.basePath}${this.dashboardbranchcustomeranges}${id}/${id1}/${id2}`, this.options)
   }
-
-  CustomerTransactionsView(id1: any) {
-    return this.http.get(`${this.basePath}${this.customertransactionview}${id1}`, this.options)
+  merchantviewactiveinactiveexcels(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.merchantviewactiveinactiveexcel}${id}/${id1}`, this.options)
   }
 
 
-
-  MaintenanceAllTransactions(id: any, id1: any) {
-    return this.http.get(`${this.basePath}${this.maintenancetransaction}${id}/${id1}`, this.options)
+  dashboardtodayemployees(id: any) {
+    return this.http.get(`${this.basePath}${this.dashboardtodayemployee}${id}`, this.options)
   }
-  MaintenanceAllTransactionsExport() {
-    return this.http.get(`${this.basePath}${this.maintenancetransactionexport}`, this.options)
+  dashboardsevendayemployees(id: any) {
+    return this.http.get(`${this.basePath}${this.dashboardsevendayemployee}${id}`, this.options)
   }
-
-  MaintenanceTransactionFilter(id1: any, id2: any, id3: any, id4: any) {
-    return this.http.get(`${this.basePath}${this.maintenancedatefilter}${id1}/${id2}/${id3}/${id4}`, this.options)
+  dashboardmonthemployees(id: any) {
+    return this.http.get(`${this.basePath}${this.dashboardmonthemployee}${id}`, this.options)
   }
-
-
-  MaintenanceTransactionsView(id1: any) {
-    return this.http.get(`${this.basePath}${this.maintenancetransactionview}${id1}`, this.options)
+  dashboardticketstatus(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.dashboardticket}${id}/${id1}`, this.options)
   }
-
-
-  OneTimeAllTransactions(id: any, id1: any) {
-    return this.http.get(`${this.basePath}${this.onetimtransaction}${id}/${id1}`, this.options)
+  dashbaordonoffstatu(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.dashbaordonoffstatus}${id}/${id1}`, this.options)
   }
-  OneTimeTransactionsExport() {
-    return this.http.get(`${this.basePath}${this.onetimtransactionexport}`, this.options)
+  dashbaordyesterdayonoffstatu(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.dashbaordyesterdayonoffstatus}${id}/${id1}`, this.options)
   }
-
-  OneTimeTransactionFilter(id1: any, id2: any, id3: any, id4: any) {
-    return this.http.get(`${this.basePath}${this.onetimdatefilter}${id1}/${id2}/${id3}/${id4}`, this.options)
+  dashbaordtodayonoffcounts(id: any) {
+    return this.http.get(`${this.basePath}${this.dashbaordtodayonoffcount}${id}`, this.options)
   }
-
-
-  OneTimeTransactionsView(id1: any) {
-    return this.http.get(`${this.basePath}${this.onetimtransactionview}${id1}`, this.options)
+  dashbaordyesterdayonoffcounts(id: any) {
+    return this.http.get(`${this.basePath}${this.dashbaordyesterdayonoffcount}${id}`, this.options)
+  }
+  dashbaordduestatusoff(id: any) {
+    return this.http.get(`${this.basePath}${this.dashbaordduestatusoffs}${id}`, this.options)
+  }
+  PlanBouequetAdd(model: any) {
+    return this.http.post(`${this.basePath}${this.planbouquetadd}`, model, this.options)
   }
 
 
-
-  QRCreateurl(id: any) {
-    return this.http.get(`${this.basePath}${this.QrcreateName}${id}`, this.options)
+  PlanAlcotAdd(model: any) {
+    return this.http.post(`${this.basePath}${this.planalcotadd}`, model, this.options)
   }
 
-  QRURLcreation(model: any) {
-    return this.http.post(`${this.basePath}${this.QrCreationimage}`, model, this.options)
+  PlanlcopAdd(model: any) {
+    return this.http.post(`${this.basePath}${this.planlcopadd}`, model, this.options)
+  }
+  CustomerPlanStatus(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.planstatus}${id}`, model, this.options)
   }
 
-  OtherPayByMerchantId(id1: any) {
-    return this.http.get(`${this.basePath}${this.otherpaymentmerchantid}${id1}`, this.options)
+  //policyapproval
+  PrivacyPolicyUpdate(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.privacypolicyupdate}${id}`, model, this.options)
+  }
+  TermsPolicyUpdate(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.termspolicyupdate}${id}`, model, this.options)
+  }
+  DisclaimerPolicyUpdate(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.disclaimerpolicyupdate}${id}`, model, this.options)
   }
 
-  CreateOtherPayment(data: any) {
-    return this.http.post(`${this.basePath}${this.otherpaymentcreate}`, data, this.options);
+  RefundPolicyUpdate(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.refundpolicyupdate}${id}`, model, this.options)
   }
 
-  OtherPay(id: any, id1: any) {
-    return this.http.get(`${this.basePath}${this.otherpayment}${id}/${id1}`, this.options)
-  }
-
-  OtherPayExport() {
-    return this.http.get(`${this.basePath}${this.otherpaymentviewallexport}`, this.options)
-  }
-
-  OtherPaymentUpdate(id: any, model: any) {
-    return this.http.put(
-      `${this.basePath}${this.otherpaymentupdate}${id}`,
-      model,
+  viewapprovepolicy(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.approvepolicy}${id}`,
       this.options
     );
   }
-  OtherPayTransaction(id1: any) {
-    return this.http.get(`${this.basePath}${this.otherpaytrans}${id1}`, this.options)
-  }
-  OtherPayFilter(id1: any, id2: any, id3: any, id4: any) {
-    return this.http.get(`${this.basePath}${this.otherpaymentdate}${id1}/${id2}/${id3}/${id4}`, this.options)
-  }
 
-  OtherPayViewAll() {
-    return this.http.get(`${this.basePath}${this.otherpaymentviewall}`, this.options)
+  smsmerchants(id: any) {
+    return this.http.get(`${this.basePath}${this.smsmerchant}${id}`, this.options)
   }
 
 
 
-  identityFront(data: FormData) {
-    return this.http.put(`${this.basePath}${this.identityfront}`, data, this.optionsMultipart);
+  customerAddBulk(id: any, id1: any, formData: any[]): Promise<any> {
+    return lastValueFrom(this.http.post(`${this.basePath}${this.customeraddBulk}${id}/${id1}`, formData, this.options))
   }
 
-  identityBack(data: FormData) {
-    return this.http.put(`${this.basePath}${this.identityback}`, data, this.optionsMultipart);
+  customerbulkResponse(id: any) {
+    return this.http.get(`${this.basePath}${this.customerbulkresponse}${id}`, this.options)
   }
 
-  addressFront(data: FormData) {
-    return this.http.put(`${this.basePath}${this.addressfront}`, data, this.optionsMultipart);
+  customerbulkbyId(id: any) {
+    return this.http.get(`${this.basePath}${this.customerbulkbyid}${id}`, this.options)
+  }
+  customersetupboxbulkResponse(id: any) {
+    return this.http.get(`${this.basePath}${this.customersetupboxbulkResponses}${id}`, this.options)
   }
 
-
-  addressBack(data: FormData) {
-    return this.http.put(`${this.basePath}${this.addressback}`, data, this.optionsMultipart);
-  }
-
-  signatureFront(data: FormData) {
-    return this.http.put(`${this.basePath}${this.signaturefront}`, data, this.optionsMultipart);
-  }
-
-  signatureBack(data: FormData) {
-    return this.http.put(`${this.basePath}${this.signatureback}`, data, this.optionsMultipart)
+  customerbulkViewall(id: any) {
+    return this.http.get(`${this.basePath}${this.customerbulkviewall}${id}`, this.options)
   }
 
 
-  editIdentity(data: FormData) {
-    return this.http.put(`${this.basePath}${this.editidentity}`, data, this.optionsMultipart);
-  }
-
-  editAddress(data: FormData) {
-    return this.http.put(`${this.basePath}${this.editaddress}`, data, this.optionsMultipart);
-  }
-
-  editSignature(data: FormData) {
-    return this.http.put(`${this.basePath}${this.editsignature}`, data, this.optionsMultipart);
-  }
-
-  //facheck
-  adharVerifyIdentity(data: any) {
-    return this.http.post(`${this.basePath}${this.adharverifyidentity}`, data, this.options);
-  }
-
-  adharverifyAddress(data: any) {
-    return this.http.post(`${this.basePath}${this.adharverifyaddress}`, data, this.options);
-  }
-
-  adharverifySignature(data: any) {
-    return this.http.post(`${this.basePath}${this.adharverifysignature}`, data, this.options);
-  }
-
-  panVerifysIdentity(data: any) {
-    return this.http.post(`${this.basePath}${this.panverifyIdentity}`, data, this.options);
-  }
-
-  panverifyAddress(data: any) {
-    return this.http.post(`${this.basePath}${this.panverifyaddress}`, data, this.options);
-  }
-  panverifysignature(data: any) {
-    return this.http.post(`${this.basePath}${this.panverifySignature}`, data, this.options);
-  }
-
-
-  passportVerifyIdentity(data: any) {
-    return this.http.post(`${this.basePath}${this.passportverifyIdentity}`, data, this.options);
-  }
-  passportVerifyAddress(data: any) {
-    return this.http.post(`${this.basePath}${this.passportverifyAddress}`, data, this.options);
-  }
-  passportVerifySignature(data: any) {
-    return this.http.post(`${this.basePath}${this.passportverifySignature}`, data, this.options);
-  }
-
-  cinVerifyIdentity(data: any) {
-    return this.http.post(`${this.basePath}${this.cinverifyIdentity}`, data, this.options);
-  }
-
-
-  cinVerifyAddress(data: any) {
-    return this.http.post(`${this.basePath}${this.cinverifyAddress}`, data, this.options);
-  }
-
-  cinverifySignature(data: any) {
-    return this.http.post(`${this.basePath}${this.cinverifysignature}`, data, this.options);
-  }
-
-  gstVerifyIdentity(data: any) {
-    return this.http.post(`${this.basePath}${this.gstverifyIdentity}`, data, this.options);
-  }
-
-  gstverifyAddress(data: any) {
-    return this.http.post(`${this.basePath}${this.gstverifyaddress}`, data, this.options);
-  }
-
-  gstverifySignature(data: any) {
-    return this.http.post(`${this.basePath}${this.gstverifysignature}`, data, this.options);
-  }
-
-
-  voterverifyIdentity(data: any) {
-    return this.http.post(`${this.basePath}${this.voterverifyidentity}`, data, this.options);
-  }
-
-  voterverifyAddress(data: any) {
-    return this.http.post(`${this.basePath}${this.voterverifyaddress}`, data, this.options);
-  }
-
-  voterverifySignature(data: any) {
-    return this.http.post(`${this.basePath}${this.voterverifysignature}`, data, this.options);
-  }
-
-  drivingverfiyidentity(data: any) {
-    return this.http.post(`${this.basePath}${this.drivingverfiyIdentity}`, data, this.options);
-  }
-
-  drivingverifyaddress(data: any) {
-    return this.http.post(`${this.basePath}${this.drivingverifyAddress}`, data, this.options);
-  }
-  drivingverifySignature(data: any) {
-    return this.http.post(`${this.basePath}${this.drivingverifysignature}`, data, this.options);
-  }
-
-  identityApproval(data: any) {
-    return this.http.put(`${this.basePath}${this.identityapproval}`, data, this.options);
-  }
-
-  addressApproval(data: any) {
-    return this.http.put(`${this.basePath}${this.addressapproval}`, data, this.options);
-  }
-
-  signatureApproval(data: any) {
-    return this.http.put(`${this.basePath}${this.signatureapproval}`, data, this.options);
-  }
-
-  facheckgetbyId(id: any) {
-    return this.http.get(`${this.basePath}${this.facheckresponse}${id}`, this.options)
-  }
-
-  viewallkycCategory() {
-    return this.http.get(`${this.basePath}${this.viewallkyccategory}`, this.options)
-  }
-
-
-  addkycCategory(data: any) {
-    return this.http.post(`${this.basePath}${this.addkyccategory}`, data, this.options);
-  }
-
-
-  editkycCategory(data: any) {
-    return this.http.put(`${this.basePath}${this.editkyccategory}`, data, this.options);
-  }
-
-  statuskycCategory(data: any) {
-    return this.http.put(`${this.basePath}${this.statuskyccategory}`, data, this.options);
-  }
-
-  activeViewall() {
-    return this.http.get(`${this.basePath}${this.activeviewall}`, this.options)
-  }
-
-
-  //Fargin banks
-  Farginview() {
-    return this.http.get(`${this.basePath}${this.farginview}`, this.options);
-  }
-
-
-  FarginCreate(model: any) {
-    return this.http.post(`${this.basePath}${this.fargincreate}`, model, this.options)
-  }
-
-  Farginstatus(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.farginstatus}${id}`, model, this.options)
-  }
-
-  Farginedit(model: any) {
-    return this.http.put(`${this.basePath}${this.farginEdit}`, model, this.options)
+  OtherpaymentById(id: any) {
+    return this.http.get(`${this.basePath}${this.otherpayviewall}${id}`, this.options)
   }
 
 
 
-  //smscreate
-
-  CreateSMS(data: any) {
-    return this.http.post(`${this.basePath}${this.smscreate}`, data, this.options);
+  OtherMakePayment(model: any) {
+    return this.http.post(`${this.basePath}${this.othermakepay}`, model, this.options)
   }
-  SMSViewById(id1: any) {
-    return this.http.get(`${this.basePath}${this.smsviewbyId}${id1}`, this.options)
-  }
-  smsStatus(id: any, data: any) {
-    return this.http.put(`${this.basePath}${this.smsstatus}${id}`, data, this.options)
-  }
-  smsUpdate(id: any, data: any) {
-    return this.http.put(`${this.basePath}${this.editsms}${id}`, data, this.options)
-  }
-  SmsGetAll(id: any, id1: any) {
-    return this.http.get(`${this.basePath}${this.smsgetAll}${id}/${id1}`, this.options)
-  }
-  SmsGetAllExport() {
-    return this.http.get(`${this.basePath}${this.smsgetAllexport}`, this.options)
-  }
-  SmsHistoryGetAll(id: any, id1: any) {
-    return this.http.get(`${this.basePath}${this.smshistory}${id}/${id1}`, this.options)
-  }
-  smsfreepaiddropdowns(id: any) {
-    return this.http.get(`${this.basePath}${this.smsfreepaiddropdown}${id}`, this.options)
+  OtherPaymentCreateOrder(id: any) {
+    return this.http.get(`${this.basePath}${this.otherpaycreateorder}${id}`, this.options)
   }
 
-  SmsHistoryGetAllExport() {
-    return this.http.get(`${this.basePath}${this.smhistoryexport}`, this.options)
+  OtherPaymentInitiateOrder(id: any) {
+    return this.http.get(`${this.basePath}${this.otherpayinitiate}${id}`, this.options)
   }
-  SMSHistoryViewById(id1: any) {
-    return this.http.get(`${this.basePath}${this.smshistoryview}${id1}`, this.options)
-  }
-
-  SMSHistoryFilter(id: any, id1: any, id2: any, id3: any) {
-    return this.http.get(`${this.basePath}${this.smshistoryfilter}${id}/${id1}/${id2}/${id3}`, this.options)
-  }
-  SmsHistoryMerchantFilter(id: any, id1: any, id2: any) {
-    return this.http.get(`${this.basePath}${this.smshistorymerchantfilter}${id}/${id1}/${id1}`, this.options)
+  OtherPaymentSuccessPage(id: any) {
+    return this.http.get(`${this.basePath}${this.otherpaySuccess}${id}`, this.options)
   }
 
-  Logout(model: any) {
-    return this.http.put(`${this.basePath}${this.logout}`, model, this.options)
-  }
-
-  CustomerReceipt(id: any) {
-    return this.http.get(`${this.basePath}${this.customerreceipt}${id}`, {
-      ...this.options,
-      ...{ responseType: 'blob' },
-    });
-  }
 
   OtherPaymentReciept(id: any) {
     return this.http.get(`${this.basePath}${this.otherpayReciept}${id}`, {
@@ -2047,136 +2037,123 @@ export class FarginServiceService {
   }
 
 
+  //Renewal
 
-  documentAdd(data: FormData) {
-    return this.http.post(`${this.basePath}${this.documentadd}`, data, this.optionsMultipart);
+  viewrenewals(id: any) {
+    return this.http.get(`${this.basePath}${this.viewrenewal}${id}`, this.options)
   }
 
-
-
-  documentEdit(data: any) {
-    return this.http.put(`${this.basePath}${this.documentedit}`, data, this.optionsMultipart);
-  }
-  documentApproval(id: any, data: any) {
-    return this.http.put(`${this.basePath}${this.documentapproval}${id}`, data, this.options);
+  craeterenewals(model: any) {
+    return this.http.put(`${this.basePath}${this.craeterenewal}`, model, this.options)
   }
 
-  getdocumentImage(id: any, id1: any) {
-    return this.http.get(`${this.basePath}${this.documentImage}${id}/${id1}`, {
+  renewalinvoices(id: string) {
+    return this.http.get(`${this.basePath}${this.renewalinvoice}${id}`, {
       ...this.options,
-      ...{ responseType: 'blob' }
-    })
+      ...{ responseType: 'blob' },
+    });
+  }
+
+  // OTP for Manuvel Payment
+
+  ManuvelPaymentOtp(id: any) {
+    return this.http.get(`${this.basePath}${this.getotpforManuvelpayment}${id}`, this.options)
   }
 
 
-  documentFrontedit(data: FormData) {
-    return this.http.put(`${this.basePath}${this.documentfrontedit}`, data, this.optionsMultipart);
+  announcementView(id: any) {
+    return this.http.get(`${this.basePath}${this.announcementview}${id}`, this.options)
+  }
+
+  AddSetupBoxPlan(model: any) {
+    return this.http.post(`${this.basePath}${this.addsetupboxplan}`, model, this.options)
   }
 
 
-  documentBackedit(data: FormData) {
-    return this.http.put(`${this.basePath}${this.documentbackedit}`, data, this.optionsMultipart);
-  }
 
-  // SMS Cost
 
-  smscostViewall() {
-    return this.http.get(`${this.basePath}${this.SMSCostviewall}`, this.options)
-  }
-
-  smscostadd(model: any) {
-    return this.http.post(`${this.basePath}${this.SMSCostadd}`, model, this.options)
-  }
-  smscoststatus(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.SMSCostStatus}${id}`, model, this.options)
-  }
-
-  // AUTO Debit
-
-  autodebitgetall(id: any, id1: any) {
-    return this.http.get(`${this.basePath}${this.Autodebitgetall}${id}/${id1}`, this.options)
-  }
-
-  autodebitgetallExport() {
-    return this.http.get(`${this.basePath}${this.autodebitgetallexport}`, this.options)
-  }
-  autodebitbymerchat(id: any, id1: any, id2: any) {
-    return this.http.get(`${this.basePath}${this.Autodebitbymerchat}${id}/${id1}/${id2}`, this.options)
-  }
-
-  //announcement
-  announcementAdd(data: any) {
-    return this.http.post(`${this.basePath}${this.announcementadd}`, data, this.options);
-  }
-
-  announcementViewall(id: any, id1: any) {
-    return this.http.get(`${this.basePath}${this.announcementviewall}${id}/${id1}`, this.options)
-  }
-  announcementViewallExport() {
-    return this.http.get(`${this.basePath}${this.announcementviewallexport}`, this.options)
-  }
-
-  announcementEdit(data: any) {
-    return this.http.put(`${this.basePath}${this.announcementedit}`, data, this.options);
-  }
-
-  announcementStatus(data: any) {
-    return this.http.put(`${this.basePath}${this.announcementstatus}`, data, this.options);
-  }
-
-  announcementDate(id: any, id1: any, id2: any, id3: any) {
-    return this.http.get(`${this.basePath}${this.announcementdate}${id}/${id1}/${id2}/${id3}`, this.options)
-  }
-
-  SmsDropdownGetAll(id:any) {
-    return this.http.get(`${this.basePath}${this.smsdropdown}${id}`, this.options)
-  }
-  SmsCount(id: any, id1: any) {
-    return this.http.get(`${this.basePath}${this.smscount}${id}/${id1}`, this.options)
-  }
-  SmsApproval(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.smsapproval}${id}`, model, this.options)
+  ViewCustomerBasicInfo(id: any) {
+    return this.http.get(`${this.basePath}${this.viewcustomerbasicdetails}${id}`, this.options)
   }
 
 
-  //customer pay
-  Customerpay(model: any) {
-    return this.http.post(`${this.basePath}${this.customerpayment}`, model, this.options);
+  ViewCustomersSetupBox(id: any) {
+    return this.http.get(`${this.basePath}${this.viewSetupboxDetails}${id}`, this.options)
   }
 
-  Subscribepay(model: any) {
-    return this.http.post(`${this.basePath}${this.subscriptionpayment}`, model, this.options);
+  ViewSetupBoxPlanDetails(id: any) {
+    return this.http.get(`${this.basePath}${this.viewsetupboxplan}${id}`, this.options)
+  }
+  ActiveStatusSetupbox(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.activestatussetupbox}${id}`, model, this.options)
   }
 
-  Customizepay(model: any) {
-    return this.http.post(`${this.basePath}${this.customizationpayment}`, model, this.options);
+  //SMS
+  viewmerchantssms(id: any) {
+    return this.http.get(`${this.basePath}${this.viewmerchantsms}${id}`, this.options)
+  }
+  viewmerchantsmstypes(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.viewmerchantsmstype}${id}/${id1}`, this.options)
   }
 
-  Manualpay(model: any) {
-    return this.http.post(`${this.basePath}${this.manualpayment}`, model, this.options);
+  updatemerchantsms(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.updatesmsapproval}${id}`, model, this.options)
+  }
+
+  updateactivesstatus(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.updateactivestatus}${id}`, model, this.options)
+  }
+  viewsmshistorys(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.viewsmshistory}${id}/${id1}/${id2}`, this.options)
+  }
+  SmsHitoryExport(id: any) {
+    return this.http.get(`${this.basePath}${this.viewsmshistory}${id}`, this.options)
+  }
+
+  viewsmsdates(id: any, id1: any, id2: any, id3: any, id4: any) {
+    return this.http.get(`${this.basePath}${this.viewsmsdate}${id}/${id1}/${id2}/${id3}/${id4}`, this.options)
   }
 
 
-  SurveyViewAll(id: any, id1: any) {
-    return this.http.get(`${this.basePath}${this.surveyviewall}${id}/${id1}`, this.options)
+  CreateSurveyQuestions(model: any) {
+    return this.http.post(`${this.basePath}${this.surveycreate}`, model, this.options)
   }
-  SurveyViewAllExport() {
-    return this.http.get(`${this.basePath}${this.surveyviewallexport}`, this.options)
+
+  SurveyQuestionsViewById(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.surveyviewbyid}${id}/${id1}/${id2}`, this.options)
   }
-  SurveyQuestionsViewById(id: any) {
+  SurveyQuestionsviewExport(id: any) {
     return this.http.get(`${this.basePath}${this.surveyviewbyid}${id}`, this.options)
   }
 
+
+
+  Surveyactivesstatus(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.surveyactivestatus}${id}`, model, this.options)
+  }
+  SurveyQuestionsUpdate(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.surveyquestionsupdate}${id}`, model, this.options)
+  }
+
+  AddCustomerResponse(model: any) {
+    return this.http.post(`${this.basePath}${this.surveyanswerremarks}`, model, this.options)
+  }
+  ViewCustomerResponse(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.viewcustomerresponse}${id}/${id1}`, this.options)
+  }
   ViewByIdCustomerResponse(id: any) {
     return this.http.get(`${this.basePath}${this.viewbyidcustomerresponse}${id}`, this.options)
   }
-
+  ActiveQuestions(id: any) {
+    return this.http.get(`${this.basePath}${this.activequestions}${id}`, this.options)
+  }
+  ActiveCustomers() {
+    return this.http.get(`${this.basePath}${this.activecustomers}`, this.options)
+  }
 
   CustomerTotalPlanAmount(id: any) {
     return this.http.get(`${this.basePath}${this.customerplanamaount}${id}`, this.options)
   }
-
-
 
 
 
@@ -2191,308 +2168,465 @@ export class FarginServiceService {
       ...{ responseType: 'blob' },
     });
   }
+  ViewCustomerbyMerchantId(id: any) {
+    return this.http.get(`${this.basePath}${this.viewcustomerbymerchantid}${id}`, this.options)
+  }
 
-
+  MaintenanceTransactionsView(id1: any) {
+    return this.http.get(`${this.basePath}${this.maintenancetransactionview}${id1}`, this.options)
+  }
+  RenewalTransactionsView(id1: any) {
+    return this.http.get(`${this.basePath}${this.onetimetransactionview}${id1}`, this.options)
+  }
   OtherPayTransactionView(id: any) {
     return this.http.get(`${this.basePath}${this.otherpaymentviewbyid}${id}`, this.options)
   }
-
-  //alcot history
-  AlcotHistoryViewAll(id: any, id1: any) {
-    return this.http.get(`${this.basePath}${this.alcothistory}${id}/${id1}`, this.options)
-  }
-  AlcotHistoryViewAllExport() {
-    return this.http.get(`${this.basePath}${this.alcothistoryexport}`, this.options)
-  }
-
-  AlcotChannelActiveRegion(id: any) {
-    return this.http.get(`${this.basePath}${this.alcotchannelactiveregion}${id}`, this.options)
+  CustomerTransactionsView(id1: any) {
+    return this.http.get(`${this.basePath}${this.customertransactionview}${id1}`, this.options)
   }
 
 
-  createAlcotChannelActiveRegion(model: any) {
-    return this.http.post(`${this.basePath}${this.alcotchannelactiveregion}`, model, this.options)
+  onetimepaymentinvoice(id: any) {
+    return this.http.get(`${this.basePath}${this.onetimeinvoice}${id}`, {
+      ...this.options,
+      ...{ responseType: 'blob' },
+    });
+  }
+
+  //search
+  OtherPayment(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.otherpayment}${id}/${id1}`, this.options);
+  }
+
+  Subscription(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.subscription}${id}/${id1}`, this.options)
+  }
+
+  Customeronboard(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.customeronboard}${id}/${id1}`, this.options)
+  }
+  Customeronboards(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.customeronboards}${id}/${id1}/${id2}`, this.options)
   }
 
 
-  AlcartChannelregions(id: any) {
-    return this.http.get(`${this.basePath}${this.AlcartChannelregion}${id}`, this.options)
+
+
+  CustomerTickets(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.customertickets}${id}/${id1}`, this.options)
   }
 
 
-  Regionsearch(id: any) {
-    return this.http.get(`${this.basePath}${this.regionsearch}${id}`, this.options)
+  CustomerTicketsSearch(id: any, id1: any, id2: any, id3: any) {
+    return this.http.get(`${this.basePath}${this.customertickets}${id}/${id1}/${id2}/${id3}`, this.options)
   }
 
-  EntitySearch(id: any,id1:any,id2:any) {
-    return this.http.get(`${this.basePath}${this.entitysearch}${id}/${id1}/${id2}`, this.options)
+  ServiceTickets(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.servicetickets}${id}/${id1}`, this.options)
   }
 
-  AlcotSearch(id: any,id1:any,id2:any) {
-    return this.http.get(`${this.basePath}${this.alcotsearch}${id}/${id1}/${id2}`, this.options)
+  LcopPlan(id: any, id1: any, id2: any, id3: any) {
+    return this.http.get(`${this.basePath}${this.lcopplan}${id}/${id1}/${id2}/${id3}`, this.options)
   }
 
-  EntityBanksearch(id: any, id1: any) {
-    return this.http.get(`${this.basePath}${this.entitybanksearch}${id}/${id1}`, this.options)
+  MerchantRole(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.viewrole}${id}/${id1}`, this.options)
   }
 
-  // Entitykycdocumentsearch(id:any,id1:any){
-  //   return this.http.get(`${this.basePath}${this.entitykycdocumentsearch}${id}/${id1}`,this.options)
-  // }
-
-
-  CustomerSearch(id: any,id1:any,id2:any) {
-    return this.http.get(`${this.basePath}${this.customersearch}${id}/${id1}/${id2}`, this.options)
+  Employeedetails(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.employeedetailssearch}${id}/${id1}`, this.options)
   }
 
-  CustomeradminSearch(id: any,id1:any,id2:any) {
-    return this.http.get(`${this.basePath}${this.customeradminsearch}${id}/${id1}/${id2}`, this.options)
+  CustomerPay(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.customerpay}${id}/${id1}`, this.options)
   }
 
-  Customercustomeridsearch(id: any, id1: any) {
-    return this.http.get(`${this.basePath}${this.customercustomeridsearch}${id}/${id1}`, this.options)
+  Customerdue(id: any, id1: any, id2: any, id3: any) {
+    return this.http.get(`${this.basePath}${this.customerpaydue}${id}/${id1}/${id2}/${id3}`, this.options)
   }
 
-  Smshistorysearch(id: any,id1:any,id2:any) {
-    return this.http.get(`${this.basePath}${this.smshistorysearch}${id}/${id1}/${id2}`, this.options)
+  SetupBox(id: any, id1: any, id2: any, id3: any) {
+    return this.http.get(`${this.basePath}${this.setupbox}${id}/${id1}/${id2}/${id3}`, this.options)
   }
 
-  Mmcautodebit(id: any, id1: any, id2: any) {
-    return this.http.get(`${this.basePath}${this.mmcautodebit}${id}/${id1}/${id2}`, this.options)
+  viewbymerchantadminId(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.viewbymerchantadminid}${id}`,
+      this.options
+    );
   }
-
-
-  Subscriptionsearch(id: any,id1:any,id2:any) {
-    return this.http.get(`${this.basePath}${this.subscriptionsearch}${id}/${id1}/${id2}`, this.options)
-  }
-
-  Onetimepayment(id: any,id1:any,id2:any) {
-    return this.http.get(`${this.basePath}${this.onetimepayment}${id}/${id1}/${id2}`, this.options)
-  }
-
-  // Signer Details
-
-  signergetall() {
-    return this.http.get(`${this.basePath}${this.Signerdetailsgetall}`, this.options)
-  }
-
-  signerwithouttoken(){
-    return this.http.get(`${this.basePath}${this.SignerdetailsWithoutToken}`)
-  }
-
-  signeradd(model: any) {
-    return this.http.post(`${this.basePath}${this.SignerdetailsAdd}`, model, this.options)
-  }
-
-  signerupdate(model: any) {
-    return this.http.put(`${this.basePath}${this.SignerdetailsUpdate}`, model, this.options)
-  }
-
-  signerbyid(id: any) {
-    return this.http.get(`${this.basePath}${this.SignerdetailsbyId}${id}`, this.options)
-  }
-
-  signerstatus(model: any) {
-    return this.http.put(`${this.basePath}${this.SignerdetaisStatus}`, model, this.options)
-  }
-
-  signeractivestatus() {
-    return this.http.get(`${this.basePath}${this.SignerdetailsActiveGetall}`, this.options)
-  }
-
   //Agreement
-  viewagreementplan() {
-    return this.http.get(`${this.basePath}${this.viewagreementplans}`, this.options)
-  }
-  createagreementplan(model: any) {
-    return this.http.post(`${this.basePath}${this.createagreementplans}`, model, this.options)
-  }
-  editagreementplan(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.editagreementplans}${id}`, model, this.options)
-  }
-  viewbyidagreementplan(id: any) {
-    return this.http.get(`${this.basePath}${this.viewbyidagreementplans}${id}`, this.options)
-  }
-  createplans(model: any) {
-    return this.http.post(`${this.basePath}${this.createplan}`, model, this.options)
-  }
   viewbyidplans(id: any) {
     return this.http.get(`${this.basePath}${this.viewbyidplan}${id}`, this.options)
   }
-
 
   viewagreementdoucments(id: any, id1: any) {
     return this.http.get(`${this.basePath}${this.viewagreementdoucment}${id}/${id1}`, {
       ...this.options,
       ...{ responseType: 'blob' },
     });
-  }
 
-  AggrementViewbyrefferencenumber(id:any){
-    return this.http.get(`${this.basePath}${this.ViewAggrementbyRefference}${id}`,this.options)
-  }
-   AgreementgetAll(){
-    return this.http.get(`${this.basePath}${this.agreementgetall}`,this.options)
-  }
-
-  AgreementSendOtp(id:any,id1:any){
-    return this.http.get(`${this.basePath}${this.Agreementsendotp}${id}/${id1}`,this.options)
-  }
-
-  AgreemntVerifyOtp(id:any,id1:any,model:any){
-    return this.http.put(`${this.basePath}${this.AgreementVerifyOTP}${id}/${id1}`,model,this.options)
-  }
-
-  agreementConcent(model:any){
-    return this.http.post(`${this.basePath}${this.AgreementConcent}`,model,this.options)
 
   }
-  agreemntconcentlocation(model:any){
-    return this.http.post(`${this.basePath}${this.AgreemntConcentLocation}`,model,this.options)
+
+  AggrementViewbyrefferencenumber(id: any) {
+    return this.http.get(`${this.basePath}${this.ViewAggrementbyRefference}${id}`, this.options)
   }
 
-  agreementextendlink(id:any,model:any){
-    return this.http.put(`${this.basePath}${this.AgreementLinkExtent}${id}`,model,this.options)
+  AgreementSendOtp(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.Agreementsendotp}${id}/${id1}`, this.options)
   }
 
-  agreementlinkexpiry(id:any,model:any){
-    return this.http.put(`${this.basePath}${this.AgreementLinkExpiry}${id}`,model,this.options)
+  AgreemntVerifyOtp(id: any, id1: any, model: any) {
+    return this.http.put(`${this.basePath}${this.AgreementVerifyOTP}${id}/${id1}`, model, this.options)
   }
+
+  agreementConcent(model: any) {
+    return this.http.post(`${this.basePath}${this.AgreementConcent}`, model, this.options)
+
+  }
+  agreemntconcentlocation(model: any) {
+    return this.http.post(`${this.basePath}${this.AgreemntConcentLocation}`, model, this.options)
+  }
+
   //offline transaction
-  OfflineTransactions(model:any){
-    return this.http.post(`${this.basePath}${this.offlinetransactions}`,model,this.options)
-  }
- 
-  SuccessOffTransaction(id:any,id1:any){
-    return this.http.get(`${this.basePath}${this.successofftransactions}${id}/${id1}`,this.options)
-  }
- 
-  FailureOffTransaction(id:any,id1:any){
-    return this.http.get(`${this.basePath}${this.failureofftransactions}${id}/${id1}`,this.options)
-  }
- 
-  OfflineSettlement(model:any){
-    return this.http.post(`${this.basePath}${this.offlinesettlement}`,model,this.options)
-  }
-  PayoutOfflineSettlement(model:any){
-    return this.http.post(`${this.basePath}${this.offlinepayoutsettelemnt}`,model,this.options)
+  OfflineTransactions(model: any) {
+    return this.http.post(`${this.basePath}${this.offlinetransactions}`, model, this.options)
   }
 
-  //branch
-  BranchGet(id:any){
-    return this.http.get(`${this.basePath}${this.branchget}${id}`,this.options)
+  SuccessOffTransaction(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.successofftransactions}${id}/${id1}`, this.options)
   }
- 
-   
-  BranchAdd(model:any){
-    return this.http.post(`${this.basePath}${this.branchcreate}`,model,this.options)
+
+  FailureOffTransaction(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.failureofftransactions}${id}/${id1}`, this.options)
   }
- 
-  BranchUpdate(id:any,model:any){
-    return this.http.put(`${this.basePath}${this.branchedit}${id}`,model,this.options)
+
+  BroadcasterBoucatebyidchannel(id: any) {
+    return this.http.get(`${this.basePath}${this.Bouquetsviewbyidchannel}${id}`, this.options)
   }
- 
- 
-  BranchStatus(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.branchstatus}${id}`, model, this.options)
+  //Search for customer dues
+  yesterdaysearchs(id: any, id1: any, id2: any, id3: any) {
+    return this.http.get(`${this.basePath}${this.yesterdaysearch}${id}/${id1}/${id2}/${id3}`, this.options)
   }
- 
-  BranchIndividualView(id:any,id1:any) {
-    return this.http.get(`${this.basePath}${this.branchindividualview}${id}/${id1}`,this.options)
+  todaysearchs(id: any, id1: any, id2: any, id3: any) {
+    return this.http.get(`${this.basePath}${this.todaysearch}${id}/${id1}/${id2}/${id3}`, this.options)
   }
-  BranchViewallSearch(id:any,id1:any,id2:any){
-    return this.http.get(`${this.basePath}${this.branchindividualview}${id}/${id1}/${id2}`,this.options)
+  customsearchs(id: any, id1: any, id2: any, id3: any, id4: any, id5: any) {
+    return this.http.get(`${this.basePath}${this.customsearch}${id}/${id1}/${id2}/${id3}/${id4}/${id5}`, this.options)
   }
-  BranchCustomerSearch(id: any,id1:any,id2:any,id3:any) {
-    return this.http.get(`${this.basePath}${this.branchcustomersearch}${id}/${id1}/${id2}/${id3}`, this.options)
+  customsearchwithStatus(id: any, id1: any, id2: any, id3: any, id4: any, id5: any, id6: any) {
+    return this.http.get(`${this.basePath}${this.customsearchwithstatus}${id}/${id1}/${id2}/${id3}/${id4}/${id5}/${id6}`, this.options)
+  }
+  //pincode
+
+  CreatePincode(id: any, model: any) {
+    return this.http.post(`${this.basePath}${this.pincodecreate}${id}`, model, this.options)
+  }
+
+  UpdatePincode(model: any) {
+    return this.http.put(`${this.basePath}${this.pincodeupdate}`, model, this.options)
+  }
+
+  PincodeViewById(id: any) {
+    return this.http.get(`${this.basePath}${this.pincodeviewbyid}${id}`, this.options)
+  }
+
+  PincodeActiveStatus(id: any, model: any) {
+
+    return this.http.put(`${this.basePath}${this.pincodeactivestatus}${id}`, model, this.options)
+  }
+  PincodeActiveGetAll() {
+    return this.http.get(`${this.basePath}${this.pincodeactivegetall}`, this.options)
+  }
+
+  //Area
+
+  AreaCreate(id: any, model: any) {
+    return this.http.post(`${this.basePath}${this.areacreate}${id}`, model, this.options)
+
+  }
+  UpdateArea(model: any) {
+    return this.http.put(`${this.basePath}${this.areaupdate}`, model, this.options)
+  }
+  AreaActiveStatus(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.areaactivestatus}${id}`, model, this.options)
+  }
+  AreaGetAll() {
+    return this.http.get(`${this.basePath}${this.areagetall}`, this.options)
+  }
+
+  AreaActiveGetAll() {
+    return this.http.get(`${this.basePath}${this.areadactivegetall}`, this.options)
+  }
+  //street
+
+  StreetCreate(id: any, model: any) {
+    return this.http.post(`${this.basePath}${this.streetcreate}${id}`, model, this.options)
+
+  }
+  UpdateStreet(model: any) {
+    return this.http.put(`${this.basePath}${this.streetupdate}`, model, this.options)
+  }
+  StreetActiveStatus(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.streetactivestatus}${id}`, model, this.options)
+  }
+  streetGetAll() {
+    return this.http.get(`${this.basePath}${this.streetgetall}`, this.options)
+  }
+
+  //Category create
+
+  CreateCategory(model: any) {
+    return this.http.post(`${this.basePath}${this.categorycreate}`, model, this.options)
+  }
+
+  UpdateCategory(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.categoryupdate}${id}`, model, this.options)
+  }
+
+  CategoryActiveStatus(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.categoryactivestatus}${id}`, model, this.options)
+  }
+
+  ViewCategoryByMerchant(id: any) {
+    return this.http.get(`${this.basePath}${this.viewcategorybymerchant}${id}`, this.options)
+  }
+
+  CategoryGetallActive(id: any) {
+    return this.http.get(`${this.basePath}${this.categorygetallactive}${id}`, this.options)
+  }
+
+  //Additional payments
+
+  CreateAdditionalPayments(model: any) {
+    return this.http.post(`${this.basePath}${this.additionalpaycreate}`, model, this.options)
+  }
+
+  UpdateAdditionalPayments(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.additionalpayupdate}${id}`, model, this.options)
+
+  }
+
+  AdditionalPaymentsCustomerTransaction(id: any) {
+    return this.http.get(`${this.basePath}${this.additionaltransviewbyid}${id}`, this.options)
+
+  }
+
+  ChecKStatusAdditionalPayments(id: any) {
+    return this.http.get(`${this.basePath}${this.additionaltranscheckstatus}${id}`, this.options)
+
+  }
+
+  InvoiceAdditionalPayments(id: any) {
+    return this.http.get(`${this.basePath}${this.additionalpayinvoice}${id}`, {
+      ...this.options,
+      ...{ responseType: 'blob' },
+    });
+  }
+
+  AdditionalPaymentsViewByMerchant(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.additionalpayviewbyMerchant}${id}/${id1}/${id2}`, this.options)
+
+  }
+  AdditionalPaymentsDateFilter(id: any, id1: any, id2: any, id3: any,id4:any) {
+    return this.http.get(`${this.basePath}${this.additionalpaydatefilter}${id}/${id1}/${id2}/${id3}/${id4}`, this.options)
+  }
+
+  AdditionalPaymentsViewById(id: any) {
+    return this.http.get(`${this.basePath}${this.additionalpayviewbyId}${id}`, this.options)
+  }
+
+  BranchView(id: any) {
+    return this.http.get(`${this.basePath}${this.branchview}${id}`, this.options)
+  }
+
+
+  DuePendingSetupBoxFilter(id: any, model: any) {
+    return this.http.post(`${this.basePath}${this.duependingsetupboxfilter}${id}`, model, this.options)
+
+  }
+
+  DuePendingCustomRange(id: any, id1: any, id2: any, model: any) {
+    return this.http.post(`${this.basePath}${this.duependingsetupboxcustomrange}${id}/${id1}/${id2}`, model, this.options)
+
+  }
+
+  SetupboxpaymentStatus(id: any, id1: any, id2: any, model: any) {
+    return this.http.post(`${this.basePath}${this.SetupboxpayStatus}${id}/${id1}/${id2}`, model, this.options)
+  }
+
+  UpdatePaymentStatus(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.Updatepaymentstatus}${id}`, model, this.options)
+  }
+  filteremployeepayment(id: any, id1: any, id2: any, model: any) {
+    return this.http.post(`${this.basePath}${this.filteremployeepayments}${id}/${id1}/${id2}`, model, this.options)
+
+  }
+
+  BranchIndividualView(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.branchindividualview}${id}/${id1}/${id2}`, this.options)
+  }
+
+  BranchCustomer(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.branchcustomerget}${id}/${id1}/${id2}`, this.options)
   }
   BranchCustomerExport(id: any) {
     return this.http.get(`${this.basePath}${this.branchcustomerget}${id}`, this.options)
   }
 
-  //Additional Payments
-  additionalpayments(id: any, id1: any) {
-    return this.http.get(`${this.basePath}${this.additionalpayment}${id}/${id1}`, this.options)
+  UnblockAdmin(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.unblockadmin}${id}`, model, this.options)
   }
-  additionalpaymentsfilter(id: any, id1: any, id2:any,id3:any) {
-    return this.http.get(`${this.basePath}${this.additionalpaymentsfilters}${id}/${id1}/${id2}/${id3}`, this.options)
+  PaidUnPaidCustomRangeFilter(id: any, id1: any, id2: any, id3: any) {
+    return this.http.get(`${this.basePath}${this.paidcustrangefilter}${id}/${id1}/${id2}/${id3}`, this.options)
   }
-  additionalpaymentssearchfilter(id: any, id1: any, id2:any,id3:any) {
-    return this.http.get(`${this.basePath}${this.additionalpaymentssearchfilters}${id}/${id1}/${id2}/${id3}`, this.options)
+  //filter
+
+  CustomerFilterByMso(id: any, id1: any, id2: any, model: any) {
+    return this.http.post(`${this.basePath}${this.customermsofilter}${id}/${id1}/${id2}`, model, this.options)
+
   }
- 
-  additionalpaymentsviewbyid(id: any) {
-    return this.http.get(`${this.basePath}${this.additionalpaymentsviewbyids}${id}`, this.options)
+  CustomerFilterBySetTopBox(id: any, id1: any, id2: any, model: any) {
+    return this.http.post(`${this.basePath}${this.customersettopboxfilter}${id}/${id1}/${id2}`, model, this.options)
+
   }
- 
-  additionalsearchfilter(id: any, id1: any,id2:any) {
-    return this.http.get(`${this.basePath}${this.additionalsearchfilters}${id}/${id1}/${id2}`, this.options)
+  ChannelsList(id: any) {
+    return this.http.get(`${this.basePath}${this.channelslist}${id}`, this.options)
+
   }
-  additionalpaymentsreceipts(id: any) {
-    return this.http.get(`${this.basePath}${this.additionalpaymentsreceipt}${id}`, {
-      ...this.options,
-      ...{ responseType: 'blob' },
-    });
-  }
- 
-  additionalpaymentscheckstatus(model: any) {
-    return this.http.post(`${this.basePath}${this.additionalpaymentscheck}`, model, this.options);
-  }
-  additionalexport() {
-    return this.http.get(`${this.basePath}${this.additionalexports}`, this.options)
-  }
-  BranchCustomer(id:any,id1:any,id2:any){
-    return this.http.get(`${this.basePath}${this.branchcustomerget}${id}/${id1}/${id2}`,this.options)
-  }
-  AdditionalPaymentsCustomerTransaction(id: any) {
-    return this.http.get(`${this.basePath}${this.additionaltransviewbyid}${id}`, this.options)
- 
-  }
-  BroadCasterGetAllActive(){
-    return this.http.get(`${this.basePath}${this.broadcastergetallctive}`, this.options)
- 
-  }
- 
-  RegionGetAll(){
-    return this.http.get(`${this.basePath}${this.regiongetall}`, this.options)
- 
+  //Route
+  customerrouteAddBulk(id: any, id1: any, formData: any[]) {
+    return this.http.post(`${this.basePath}${this.customerrouteAddBulks}${id}/${id1}`, formData, this.options)
   }
 
-  ChannelsList(id:any){
-    return this.http.get(`${this.basePath}${this.channelslist}${id}`, this.options)
- 
-  
+  routebulkuploadresponse(id: any) {
+    return this.http.get(`${this.basePath}${this.routebulkuploadresponses}${id}`, this.options)
   }
-  SurveySearch(id:any,id1:any,id2:any){
-    return this.http.get(`${this.basePath}${this.surveysearch}${id}/${id1}/${id2}`,this.options)
+  routebulkuploadById(id: any) {
+    return this.http.get(`${this.basePath}${this.routebulkuploadByIds}${id}`, this.options)
   }
-  RefundGetAll(id:any,id1:any){
-    return this.http.get(`${this.basePath}${this.refundgetall}${id}/${id1}`,this.options)
+  SurveySearch(id: any) {
+    return this.http.get(`${this.basePath}${this.surveysearch}${id}`, this.options)
   }
-  RefundGetAllSearch(id:any,id1:any,id2:any){
-    return this.http.get(`${this.basePath}${this.refundsearch}${id}/${id1}/${id2}`,this.options)
+  SurveyQuestionsSearch(id: any, id1: any, id2: any, id3: any) {
+    return this.http.get(`${this.basePath}${this.surveysearch}${id}/${id1}/${id2}/${id3}`, this.options)
   }
-  RefundExport(){
-    return this.http.get(`${this.basePath}${this.refundexport}`,this.options)
- 
+  customerhistoryremainders(id: any) {
+    return this.http.get(`${this.basePath}${this.customerhistoryremainder}${id}`, this.options)
   }
-  RefundForCustomerView(id:any){
+
+  customerduestatushistory(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.customerduestatushistorys}${id}/${id1}/${id2}`, this.options)
+  }
+  BranchSearch(id: any, id1: any, id2: any, id3: any) {
+    return this.http.get(`${this.basePath}${this.branchsearch}${id}/${id1}/${id2}/${id3}`, this.options)
+  }
+  BranchCustomerSearch(id: any, id1: any, id2: any, id3: any) {
+    return this.http.get(`${this.basePath}${this.branchcustomersearch}${id}/${id1}/${id2}/${id3}`, this.options)
+  }
+  Damagecustomerview(id: any) {
+    return this.http.get(`${this.basePath}${this.damagecustomerview}${id}`, this.options)
+
+  }
+  RefundForMerchantView(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.refundformerchant}${id}/${id1}/${id2}`, this.options)
+
+  }
+  RefundForMerchantsearch(id: any, id1: any, id2: any, id3: any) {
+    return this.http.get(`${this.basePath}${this.refundsearch}${id}/${id1}/${id2}/${id3}`, this.options)
+
+  }
+  RefundForCustomerView(id: any) {
     return this.http.get(`${this.basePath}${this.refundforcustomer}${id}`, this.options)
   }
-  RefundGetAllDateFilter(id:any,id1:any,id2:any,id3:any){
-    return this.http.get(`${this.basePath}${this.refunddatefilter}${id}/${id1}/${id2}/${id3}`,this.options)
+  RefundForCustomersearch(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.refundcustomersearch}${id}/${id1}`, this.options)
   }
 
+  DueCancelledGetAll(id: any) {
+    return this.http.get(`${this.basePath}${this.duecancelled}${id}`, this.options)
+  }
+  DuecancelCustomrange(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.duecancelcustomrange}${id}/${id1}/${id2}`, this.options)
+  }
+  RefundMerchantGetAll(id: any) {
+    return this.http.get(`${this.basePath}${this.refundmerchantgetall}${id}`, this.options)
 
-  MSOActive(){
-    return this.http.get(`${this.basePath}${this.msoactive}`,this.options)
   }
- 
-  MSORegions(id:any){
-    return this.http.get(`${this.basePath}${this.msoregions}${id}`,this.options)
+  dashboardviewallpendingsExport(id: any) {
+    return this.http.get(`${this.basePath}${this.dashboardviewallpendingexport}${id}`, this.options)
   }
- 
-  additionalpaycheck(model:any){
-    return this.http.post(`${this.basePath}${this.additionalpaycheckstatus}`,model,this.options)
+  DuePendingdashboardsearch(id: any, id1: any, id2: any, id3: any) {
+    return this.http.get(`${this.basePath}${this.duependingdashboardsearch}${id}/${id1}/${id2}/${id3}`, this.options)
+
   }
+  AdditionalTransSearch(id: any, id1: any, id2: any, id3: any) {
+    return this.http.get(`${this.basePath}${this.additionaltranssearch}${id}/${id1}/${id2}/${id3}`, this.options)
+
+  }
+  customerduestatushistorySearch(id: any, id1: any, id2: any, id3: any) {
+    return this.http.get(`${this.basePath}${this.customerduestatushistorysearch}${id}/${id1}/${id2}/${id3}`, this.options)
+  }
+  SMShistorySearch(id: any, id1: any, id2: any, id3: any) {
+    return this.http.get(`${this.basePath}${this.smshistorysearch}${id}/${id1}/${id2}/${id3}`, this.options)
+
+  }
+  ChannelConfigurationSearch(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.channelsearch}${id}/${id1}/${id2}`, this.options)
+
+  }
+  CustomerActiveSearch(id: any, id1: any, id2: any, id3: any, id4: any) {
+    return this.http.get(`${this.basePath}${this.activeinactivesearch}${id}/${id1}/${id2}/${id3}/${id4}`, this.options)
+  }
+
+  SetupBoxHistory(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.Setupboxhistory}${id}/${id1}/${id2}`, this.options)
+  }
+  dashboardactiveinactiveexport(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.activeinactiveexport}${id}/${id1}`, this.options)
+  }
+  DueStatusHistoryexport(id: any) {
+    return this.http.get(`${this.basePath}${this.duestatushistoryexport}${id}`, this.options)
+  }
+  Additionaltransexport(id: any) {
+    return this.http.get(`${this.basePath}${this.additionaltransexport}${id}`, this.options)
+  }
+  Customerduessearch(id: any, id1: any, id2: any, id3: any) {
+    return this.http.get(`${this.basePath}${this.customerduesearch}${id}/${id1}/${id2}/${id3}`, this.options)
+  }
+  CustomerActiveInactiveStatusHIstory(id: any) {
+    return this.http.get(`${this.basePath}${this.customeractivestatushistory}${id}`, this.options)
+  }
+  OnlineRfundsDateFilter(id: any, id1: any, id2: any, id3: any, id4: any) {
+    return this.http.get(`${this.basePath}${this.onlinerefunddatefilter}${id}/${id1}/${id2}/${id3}/${id4}`, this.options)
+  }
+  viewlcopid(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.viewlcopids}${id}`,
+      this.options
+    );
+  }
+
+  CustomerQtsAnsSearch(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.surveyqtAnssearch}${id}/${id1}`, this.options)
+  }
+
+  CustomerMSOSearch(id: any, model: any) {
+    return this.http.post(`${this.basePath}${this.customersearchmso}${id}`, model, this.options)
+  }
+  CustomerMerchantSearch(id: any, model: any) {
+    return this.http.post(`${this.basePath}${this.customermerchantsearch}${id}`, model, this.options)
+  }
+  SetupboxDashboardSearch(id: any, id1: any, id2: any, id3: any, id4: any) {
+    return this.http.get(`${this.basePath}${this.dashboardsetupboxsearch}${id}/${id1}/${id2}/${id3}/${id4}`, this.options)
+  }
+  paidipaddres() {
+    return this.http.get(`${this.paidipaddress}`)
+  }
+  abstarctipadd() {
+    return this.http.get(`${this.abstarctipaddress}`)
+  }
+
 }
+

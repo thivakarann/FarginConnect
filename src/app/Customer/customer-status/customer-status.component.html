@@ -1,0 +1,50 @@
+<div class="card-header">
+    <h3 class="mb-0" style="font-weight: 700;text-align:center;font-size: 21px;">Change Status</h3>
+</div>
+ 
+<body class="page">
+    <main class="main page__main" [hidden]=" this.status==1">
+        <div class="form main__form">
+            <div>
+                <p class="d-flex justify-content-center" style="color:#141E46"> <b>* Please Check the Customer Details & Setupbox Status and then Active the Customer</b></p>
+                <div class="d-flex justify-content-center">
+                    <div class="form-check">
+                        <input  class="input green" type="radio" [value]="1" name="yes" id="yes"
+                            (input)="activeStatus($event)" />
+                        <label class="form-check-label" for="yes">
+                            Active
+                        </label>
+                    </div>&nbsp;&nbsp;
+                    <div class="form-check">
+                        <input  class="input yellow" type="button" name="no" id="no" (click)="close()">
+                        <label class="form-check-label" for="no">
+                            Close
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <main class="main page__main" [hidden]=" this.status==0">
+        <div class="form main__form">
+            <div>
+                <p class="d-flex justify-content-center" style="color:#141E46"> <b>Are You Going to InActive the Customer? *After that All the Setupbox are Inactive Automatically </b></p>
+                <div class="d-flex justify-content-center">
+                    <div class="form-check">
+                        <input class="input green" type="radio" name="yes" id="yes" [value]="0"
+                            (input)="inactiveStatus($event)">
+                        <label class="form-check-label" for="yes">
+                            InActive
+                        </label>
+                    </div>&nbsp;&nbsp;
+                    <div class="form-check">
+                        <input class="input yellow"  type="button" name="no" id="no" (click)="close()">
+                        <label class="form-check-label" for="no">
+                            Close
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>

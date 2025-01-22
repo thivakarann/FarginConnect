@@ -1,0 +1,75 @@
+<div class="form-header d-flex justify-content-between align-items-center">
+    <h6 class="mb-0 text-center" style="color:#fff;position:sticky">Branch Customer Information</h6>
+    <button class="buttonDownload" mat-dialog-close>Close</button>
+</div>
+<div class="card" style=" font-size: 14px;height:440px;">
+
+    <table class="table table-bordered"
+        style="background-color: white; text-align: left;border: 1px solid rgb(154, 154, 153);">
+        <tbody>
+            <!-- <tr>
+                    <td class="datas">Account ID</td>
+                    <td id="data">{{id1?.accountId }}</td>
+                </tr> -->
+            <!-- <tr>
+                    <td class="datas">Api Key</td>
+                    <td id="data" >{{ id1?.apiKey | slice:0:10 }} &nbsp;<i class="fa-regular fa-copy" style="color:green;font-size:18px"  (click)="copyText(id1?.apiKey)"></i>
+                        <span *ngIf="copySuccess" style="color: green;">Copied!</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="datas">Secret Key</td>
+                    <td id="data">{{ id1?.secretKey | slice:0:10 }}
+                        &nbsp;<i class="fa-regular fa-copy" style="color:green;font-size:18px"  (click)="copyText1(id1?.secretKey)"></i>
+                        <span *ngIf="copySuccesss" style="color: green;">Copied!</span>
+                    </td>
+                </tr> -->
+
+            <tr>
+                <td class="datas">Area</td>
+                <td id="data">{{id?.area}}</td>
+            </tr>
+
+            <tr>
+                <td class="datas">Street Name</td>
+                <td id="data">{{id?.streetName}}</td>
+            </tr>
+
+            <tr>
+                <td class="datas">City Name</td>
+                <td id="data">{{id?.cityName}}</td>
+            </tr>
+
+            <tr>
+                <td class="datas">Pincode</td>
+                <td id="data">{{id?.pincodeName}}</td>
+            </tr>
+
+            <tr>
+                <td class="datas">Land Mark</td>
+                <td id="data">{{id?.landmark}}</td>
+            </tr>
+
+            <tr>
+                <td class="datas">Age</td>
+                <td id="data">{{id?.age}}</td>
+            </tr>
+
+            <tr>
+                <td class="datas">Flat Number</td>
+                <td id="data">{{id?.flatNumber}}</td>
+            </tr>
+
+            <tr>
+                <td class="datas">State Name</td>
+                <td id="data">{{id?.stateName}}</td>
+            </tr>
+
+            <tr>
+                <td class="datas">Apartment Name</td>
+                <td id="data">{{id?.apartmentName}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

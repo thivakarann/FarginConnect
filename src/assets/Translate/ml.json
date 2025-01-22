@@ -1,0 +1,52 @@
+{ 
+ "Dashboard":"ഡാഷ്ബോർഡ്",
+ "Verfication" :"സ്ഥിരീകരണം",
+ "CustomerOnboard": "കസ്റ്റമർ ഓൺബോർഡ്",
+ "Agreement":"കരാർ",
+ "Subscription":"സബ്സ്ക്രിപ്ഷൻ",
+ "Renewal":"പുതുക്കൽ",
+ "Online Refunds":"ഓൺലൈൻ റീഫണ്ടുകൾ",
+ "Customer Dues": "ഉപഭോക്തൃ കുടിശ്ശിക",
+ "Additional Transactions":"അധിക ഇടപാടുകൾ" ,
+ "Customization Payments":"കസ്റ്റമൈസേഷൻ പേയ്‌മെൻ്റുകൾ",
+ "Due Status History" :"ഡ്യൂ സ്റ്റാറ്റസ് ചരിത്രം",
+ "Customer Survey":"ഉപഭോക്തൃ സർവേ",
+ "Branch": "ശാഖ",
+ 
+ "Service Request":"സേവന അഭ്യർത്ഥന",
+ "Support Request":"പിന്തുണ അഭ്യർത്ഥന",
+ "Customer Request": "ഉപഭോക്തൃ അഭ്യർത്ഥന",
+
+ "Policies": "നയങ്ങൾ",
+ "Terms and Condition": "നിബന്ധനകളും വ്യവസ്ഥകളും",
+ "Disclaimer": "നിരാകരണം",
+ "Privacy Policy":"സ്വകാര്യതാ നയം",
+"Refund Policy":"റീഫണ്ട് നയം",
+
+"SMS":"എസ്എംഎസ്",
+"SMS Service":"എസ്എംഎസ് സേവനം",
+"SMS History":"എസ്എംഎസ് ചരിത്രം",
+
+"Channels & Packages":"ചാനലുകളും പാക്കേജുകളും",
+"Channel Configuration":"ചാനൽ കോൺഫിഗറേഷൻ",
+"Plan Configuration":"പ്ലാൻ കോൺഫിഗറേഷൻ",
+"LCOP Plan Configuration":"LCOP പ്ലാൻ കോൺഫിഗറേഷൻ",
+
+"Bulk Upload Status":"ബൾക്ക് അപ്‌ലോഡ് നില",
+"Setupbox Status":"സെറ്റപ്പ്ബോക്സ് നില",
+"Customer Status":"ഉപഭോക്തൃ നില",
+"Customer Setupbox Status":"ഉപഭോക്തൃ സെറ്റപ്പ്ബോക്സ് നില",
+"Route Status":"റൂട്ട് നില",
+
+"Main Master":"പ്രധാന മാസ്റ്റർ",
+"Service Provider Payments":"സേവന ദാതാവിൻ്റെ പേയ്‌മെൻ്റുകൾ",
+"Region":"മേഖല",
+"Route Configuration":"റൂട്ട് കോൺഫിഗറേഷൻ",
+"Setupbox Inventory":"സെറ്റപ്പ്ബോക്സ് ഇൻവെൻ്ററി",
+"Category":"വിഭാഗം",
+
+"User Management":"ഉപയോക്തൃ മാനേജ്മെൻ്റ്",
+"Role":"പങ്ക്",
+"Employee":"ജീവനക്കാരൻ"
+
+ }

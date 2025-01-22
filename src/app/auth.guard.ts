@@ -9,5 +9,5 @@ export const authGuard: CanActivateFn = () => {
     return true;
   }
   // Redirect to the login page
-  return router.parseUrl('/login-page');
+  return router.parseUrl('/admin/login');
 }

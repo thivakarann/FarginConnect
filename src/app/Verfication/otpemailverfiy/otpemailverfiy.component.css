@@ -1,0 +1,129 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+.mat-dialog-content {
+  padding: 20px;
+}
+
+.otp-container {
+  text-align: center;
+}
+
+.otp-title {
+  color: #141E46;
+  margin-bottom: 20px;
+}
+
+.otp-field {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.otp-input {
+  height: 50px;
+  width: 50px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 1.125rem;
+  text-align: center;
+  outline: none;
+}
+
+.otp-input:focus {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+/* Add spacing for the verify button and timer message */
+button {
+width: 80%;
+height: 46px;
+border-radius: 5px;
+border: none;
+background: #141E46;
+color: #fff;
+font-size: 18px;
+font-weight: 500;
+text-transform: uppercase;
+cursor: pointer;
+margin-top: 20px; /* Existing margin */
+margin-bottom: 10px; /* Add bottom margin for spacing */
+transition: 0.3s ease;
+}
+
+.otp-timer {
+margin: 20px 0; /* Add space above and below the timer */
+}
+
+.resend {
+font-size: 12px;
+margin-top: 10px; /* Existing margin for spacing */
+margin-bottom: 20px; /* Add bottom margin for more space */
+}
+
+
+.otp-timer {
+  margin-top: 10px;
+}
+
+.resend {
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.resend-link {
+  color: #9184ed;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@media (max-width: 868px) {
+  .otp-field {
+    gap: 5px;
+  }
+
+  .otp-input {
+    height: 40px;
+    width: 40px;
+    font-size: 1rem;
+  }
+}
+/* Base styles for OTP input fields */
+.otp-input {
+  width: 40px;
+  text-align: center;
+  font-size: 1.2rem;
+  margin-right: 5px;
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+}
+
+/* Styles for email OTP */
+.email-otp .otp-input {
+  background-color: #f0f8ff; /* Light blue background */
+  border-color: #b0e0e6; /* Light blue border */
+}
+
+/* Styles for mobile OTP */
+.mobile-otp .otp-input {
+  background-color: #fff0f5; /* Light pink background */
+  border-color: #ffb6c1; /* Light pink border */
+}
+
+/* Button styling */
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}

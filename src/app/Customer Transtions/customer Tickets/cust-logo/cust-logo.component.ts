@@ -1,0 +1,122 @@
+import { Component, Inject } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { FarginServiceService } from '../../../service/fargin-service.service';
+import { CustServiceService } from '../../../Customer-service/cust-service.service';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-cust-logo',
+  templateUrl: './cust-logo.component.html',
+  styleUrl: './cust-logo.component.css'
+})
+export class CustLogoComponent {
+  raiseTicketId: any;
+  imageUrl: any;
+  logoUpdate!:FormGroup;
+  DocView: boolean = false;
+  showcard: boolean = true;
+
+  id: any;
+  imageSrc: any;
+  flag: any;
+  imageFile1!: string | Blob;
+  updatedata: any;
+  errorMessage!: string;
+  file1: any;
+  logoLink: any;
+  logoLink1: any;
+  raiseTicket:any;
+  uploadidentityfront: any;
+
+  constructor(private router: Router, private service: CustServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog) { 
+    this.raiseTicketId = this.data.value
+        
+  }
+  ngOnInit(): void {
+    
+    this.raiseTicket = this.data.value
+    
+
+
+
+    this.service.Entitylogoview(this.raiseTicketId).subscribe({
+      next: (res: any) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(res);
+        reader.onloadend = () => {
+          this.imageUrl = reader.result as string;
+          
+          this.DocView = true;
+        }
+      },
+
+    });
+
+
+    this.logoUpdate = new FormGroup({
+      raiseTicketId : new FormControl(''),
+      fileImage  : new FormControl('', [Validators.required]),
+
+    })
+  }
+
+  get fileImage() {
+    return this.logoUpdate.get('fileImage');
+  }
+
+
+
+
+  onFileSelected(event: any) {
+    this.uploadidentityfront = event.target.files[0];
+ 
+    // Ensure this.uploadImage is not null
+    if (this.uploadidentityfront) {
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+ 
+      if (acceptableTypes.includes(this.uploadidentityfront.type)) {
+        if (this.uploadidentityfront.size <= 20 * 1024 * 1024) {
+ 
+        } else {
+          window.alert("Max Image size exceeded");
+          this.fileImage?.reset(); // Optional chaining to prevent error if this.logo is null
+        }
+      } else {
+        
+        window.alert("File type not acceptable");
+        this.fileImage?.reset(); // Optional chaining to prevent error if this.logo is null
+      }
+    } else {
+      window.alert("No file selected");
+    }
+ 
+ 
+  }
+
+  Update(){
+    const formData = new FormData;
+    formData.append('raiseTicketId ', this.raiseTicketId);
+    formData.append('fileImage ', this.uploadidentityfront);
+ 
+    this.service.EntitylogoUpdate(formData).subscribe((res:any)=>{
+      if(res.flag==1){
+        this.updatedata=res.response;
+      this.dialog.closeAll();
+      // setTimeout(() => {
+      //   window.location.reload()
+      // }, 1000);
+      }
+    })  
+  }
+
+  converttohhttps(Url: string): string {
+    return Url.replace('http:/', 'http://')
+    }
+  
+
+  close() {
+    this.dialog.closeAll()
+  }
+
+}

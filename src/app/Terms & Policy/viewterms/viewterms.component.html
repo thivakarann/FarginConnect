@@ -1,0 +1,27 @@
+<section style="height: 485px;" class="container" [hidden]="valuetermsandpolicy!=='Terms and Condition-View'">
+  <!-- <div class="ml-3">
+    <h6><b style="color: red;font-size: small;">Note:- If you want to Update the Policy please Raise a Ticket </b></h6>
+  </div> -->
+  <div class="container__heading text-left ml-3" >
+    <h2>Terms & Conditions:
+      <b style="color: rgb(19, 19, 170);font-size: small;">&nbsp;&nbsp;(Note :- If you want to Update the Policy please
+        Raise a Ticket) </b>
+    </h2>
+  </div>
+  <div class="container__content" [hidden]="ApprovedStatus !='approved'">
+    {{ this.viewterms }}
+  </div>
+  <div class="d-flex justify-content-start mx-3" >
+    <div class="form-check mt-4" [hidden]="ApprovedStatus !='approved' || PolicyApprovedStatus =='approved'
+      ">
+      <input  type="checkbox" class="form-check-input" id="exampleCheck1" style="border:2px solid black;font-size:15px;"
+        [(ngModel)]="Check" (ngModelChange)="select(Check)">
+      <label class="form-check-label" for="exampleCheck1"><b>I have Read and Accept Terms and Conditions</b></label>
+    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <button [hidden]="Check ==false" class=" btn my-3" (click)="Accept()" style="background-color: #08124a !important;
+color: white;
+border-radius: 7px;">Accept</button>
+  </div>
+
+</section>

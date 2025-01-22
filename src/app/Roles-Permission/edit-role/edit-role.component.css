@@ -12,7 +12,7 @@ button {
  
 .page {
   color: var(--gray-9);
-  background-color: #fff;
+  /* background-color: var(--gray-0); */
   display: grid;
   grid-template-areas: "main";
   height: auto;
@@ -27,6 +27,7 @@ button {
   display: grid;
   justify-items: center;
   align-items: center;
+  
 }
  
 .main__form {
@@ -37,7 +38,7 @@ button {
  
 .form {
   color: var(--gray-9);
-  background-color: #fff;
+  /* background-color: var(--gray-3); */
   display: grid;
   width: 100%;
   max-width: 100%;
@@ -143,14 +144,17 @@ button {
   }
 }
  
-.form__label {
-  font-weight: 500;
-}
  
 .card-header {
-  display: flex;
-  justify-content: space-between;
-  background-color: #bcdf72;
+ 
+  background-color: #7db855be;
   color: #141E46;
   font-family: "Roboto";
+}
+ 
+mat-select{
+  background-color: white;
+  width: 530px;
+  height: 40px;
+  border-radius: 8px;
 }

@@ -1,0 +1,68 @@
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+
+<div class="card-header">
+    <h3 class="mb-0" style="font-weight: 700;text-align:center;font-size: 21px;">Edit Service Ticket</h3>
+</div>
+
+<body class="page">
+    <main class="main page__main">
+        <div class="form main__form">
+    <form  [formGroup]="editFormGroup">
+
+        <div class="row">
+            <div class="form-group col-sm-6 mb-3">
+                <label for="subject">Subject of the Ticket</label>
+                <input type="text" id="subject" class="form-control" formControlName="subject" required
+                    value="{{subjects}}">
+                <span class="errormge" *ngIf="subject?.touched && subject?.errors?.['required']">Field
+                    is required*</span>
+            </div>
+
+            <div class="form-group col-sm-6 mb-3">
+                <label for="critical">Criticality</label>
+                <select class="form-select" formControlName="ticketStatus" required value="{{critical}}">
+
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+                <span class="errormge" *ngIf="ticketStatus?.touched && ticketStatus?.errors?.['required']">Field
+                    is required*</span>
+            </div>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="description">Ticket Description</label>
+            <textarea id="description" rows="3" class="form-control" formControlName="description"
+                value="{{descriptions}}"></textarea>
+            <span class="errormge" *ngIf="description?.touched && description?.errors?.['required']">Field
+                is required*</span>
+        </div>
+        <div class="d-flex">
+            <button type="submit" class="btn mx-1" style="background-color:#7db855be" (click)="save()"
+            (click)="onsubmit($event)">Submit</button>
+        <button type="submit" class="btn" style="background-color:#141E46;color:white"
+            (click)="cancel()">Cancel</button>
+        </div>
+ 
+       
+    </form>
+    <form  [formGroup]="editImageForm">
+        <div class="row">
+            <div class="col-md-8 mt-1">
+                <label for="document">Document</label>
+                <input type="file" id="email" class="form-control" formControlName="document" accept="image/*"
+                    (change)="onFileSelected($event)">
+            </div>
+            <div class="col-md-4 mt-4">
+                <button [disabled]="editImageForm.invalid" type="submit" class="btn mx-1" style="background-color:#7db855be;margin-top: 10px;" 
+            (click)="onsubmit($event)">Upload</button>
+            </div>
+        </div>
+    </form>
+</div>
+</main>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>

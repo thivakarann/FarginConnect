@@ -1,0 +1,168 @@
+<div class="form-header d-flex justify-content-between align-items-center">
+  <h4 class="mb-0 text-center" style="color:Black;">Branch Customer View </h4>
+  <button (click)="close()" type="button" class="btn btn-secondary" mat-dialog-close>Back</button>
+</div>
+<div class="row">
+  <mat-card-header>
+    <div class="col mt-4">
+      <div class="search ">
+        <form class="form">
+          <label for="search">
+            <input #input  required="" autocomplete="off" placeholder="Search" id="search" name="search"
+              type="text" [(ngModel)]="currentfilval">
+            <div class="icon">
+              <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
+                </path>
+              </svg>
+              <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                        <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round" stroke-linecap="round">
+                        </path>
+                    </svg> -->
+            </div>
+            <button (click)="reload()" type="reset" class="close-btn">
+              <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                <path clip-rule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  fill-rule="evenodd"></path>
+              </svg>
+            </button>
+          </label>
+        </form>
+
+      </div>
+      &nbsp;&nbsp;&nbsp;
+
+      <button (click)="branch(currentfilval)" style="color:white;background-color: #141E46;border-radius: 10px;"
+                mat-raised-button>Go</button>
+                
+                <button (click)="exportexcel()" style="color:white;background-color: #141E46;border-radius: 10px;"
+                mat-raised-button>Export</button>
+
+    </div>
+  </mat-card-header>
+</div>
+<mat-card-content>
+  <!-- <span style="color: red;"  class="tableError">NO DATA FOUND</span> -->
+  <div class="example-container mt-4">
+    <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+      <ng-container matColumnDef="sno">
+        <th mat-header-cell *matHeaderCellDef>S.No</th>
+        <td mat-cell *matCellDef="let data; let i = index">
+          {{i+1}}
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="customerReferenceId">
+        <th mat-header-cell *matHeaderCellDef>Customer Reference Id</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data?.customerReferenceId}}
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="customerName">
+        <th mat-header-cell *matHeaderCellDef>Customer Name</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data.customerName}}
+        </td>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="emailAddress">
+        <th mat-header-cell *matHeaderCellDef>Email Address</th>
+        <td mat-cell *matCellDef="let data">
+          {{data.emailAddress}}
+        </td>
+      </ng-container> -->
+
+      <ng-container matColumnDef="mobileNumber">
+        <th mat-header-cell *matHeaderCellDef>Mobile Number</th>
+        <td mat-cell *matCellDef="let data">
+          {{data.mobileNumber}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="alterMobileNumber">
+        <th mat-header-cell *matHeaderCellDef>Alternate Mobile Number</th>
+        <td mat-cell *matCellDef="let data">
+          {{data.alterMobileNumber}}
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="view">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> View </th>
+        <td style="text-wrap: wrap;" mat-cell *matCellDef="let data">
+          <i style="cursor: pointer;font-size: 17px;" class="fa fa-eye" (click)="viewcustomer(data)"></i>
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="blockNumber">
+        <th mat-header-cell *matHeaderCellDef>Block Number</th>
+        <td mat-cell *matCellDef="let data">
+          {{data.blockNumber}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="doorNumber">
+        <th mat-header-cell *matHeaderCellDef>Door Number</th>
+        <td mat-cell *matCellDef="let data">
+          {{data.doorNumber}}
+        </td>
+      </ng-container>
+
+
+
+      <ng-container matColumnDef="freeLine">
+        <th mat-header-cell *matHeaderCellDef>Connection Type</th>
+        <td mat-cell *matCellDef="let data">
+          {{data.freeLine}}
+        </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true
+      "></tr>
+      <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
+      <tr *matNoDataRow>
+        <td class="mat-cell" colspan="4">No Data For {{input.value}}
+        </td>
+
+      </tr>
+    </table>
+
+  </div>
+</mat-card-content>
+<mat-card-footer>
+  <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="!filter">
+      <div class="col-md-6"></div>
+      <div class="col-md-6">
+          <button style="color:white;background-color: #141E46;">Total Entries:{{this.totalPages}}</button>
+          <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex - 1)"
+              [hidden]="pageIndex === 0">Previous</button>
+          <button style="color:white;background-color: #141E46;">{{ this.currentpage}} of {{this.totalpage}}
+              Pages</button>
+          <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex + 1)"
+              [hidden]="pageIndex >= totalpage - 1">Next</button>
+      </div>
+  </div>
+  <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="filter">
+      <div class="col-md-6"></div>
+      <div class="col-md-6">
+          <button style="color:white;background-color: #141E46;">Total Entries:{{this.totalPages1}}</button>
+          <button style="color:white;background-color: #141E46;" (click)="changePageIndex1(pageIndex1 - 1)"
+              [hidden]="pageIndex1 === 0">Previous</button>
+          <button style="color:white;background-color: #141E46;">{{this.currentpage1}} of {{this.totalpage1}}
+              Pages</button>
+          <button style="color:white;background-color: #141E46;" (click)="changePageIndex1(pageIndex1 + 1)"
+              [hidden]="pageIndex1 >= totalpage1 - 1">Next</button>
+      </div>
+  </div>
+</mat-card-footer>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

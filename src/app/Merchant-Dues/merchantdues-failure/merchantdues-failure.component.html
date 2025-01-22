@@ -1,0 +1,59 @@
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand">
+      <img style="margin-left: 20px;" src="assets/fargin_connect_logo.jpg" alt="Fargin Connect Logo">
+      FARGIN CONNECT
+    </a>
+    <div class="navbar-nav">
+      <img style="margin-right: 20px;" src="assets/flagimage.png" alt="Flag Image">
+    </div>
+  </nav>
+   
+  <!-- payment failure  design -->
+   
+  <body>
+    <div class="wrapperAlert">
+      <div class="contentAlert">
+        <div class="topHalf">
+          <p>
+            <svg viewBox="0 0 512 512" width="100" title="check-xmark">
+              <path
+                d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
+            </svg>
+          </p>
+   
+          <h1>{{PaymentDetails?.paymentStatus}}</h1>
+   
+          <ul class="bg-bubbles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+        </div>
+   
+        <div class="bottomHalf">
+          <p>Oops! Something went wrong.</p>
+          <p>Transaction Amount : {{PaymentDetails?.totalPayableAmount}} </p>
+          <p>Transaction Id : {{PaymentDetails?.pgPaymentId}}</p>
+          <p>paymentMode : {{PaymentDetails?.paymentMethod}} </p>
+          <p>Date & Time :  {{PaymentDetails?.paymentDateTime|date:"dd/MM/yyyy hh:mm:a"}}</p>
+          <!-- {{paymenydate|date:"dd/MM/yyyy,h:mm a'"}} -->
+          <div style="display: flex; gap: 5px; justify-content: center">
+            <button (click)="Home()" style="color: white; background-color: red" id="alertMO">
+              Exit
+            </button>
+   
+            <!-- <button id="alertMO" (click)="ReturnurlFailure()">Try Again</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+   
+  <!-- payment failure  design -->

@@ -1,0 +1,165 @@
+<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- Custom CSS -->
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand">
+        <img style="margin-left: 20px;" src="assets/fargin_connect_logo.jpg" alt="Fargin Connect Logo">
+        FARGIN CONNECT
+    </a>
+    <div class="navbar-nav">
+        <img style="margin-right: 20px;" src="assets/flagimage.png" alt="Flag Image">
+    </div>
+</nav>
+
+
+<div style="box-shadow: 10px 10px 5px 12px whitesmoke;" class="container bootstrap snippets bootdey">
+    <br>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-5">
+            <h5 style="text-align: center;color: #141E46;">PAYMENT INFORMATION</h5>
+        </div>
+        <div class="col-md-3 mb-1">
+            <button (click)="click(details?.customerId?.mobileNumber)" type="button"
+                class="btn btn-secondary btn-align-right">Back</button>
+        </div>
+    </div>
+    <br><br>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 text-left">
+                    <h4 style="color: #7db855be;"><strong>Entity Details</strong></h4>
+                    <ul class="list-unstyled">
+                        <li><strong style="color: #141E46;">Entity Name:</strong>
+                            {{details?.customerId?.merchantId?.merchantLegalName}}</li>
+                        <li><strong>Contact Number:</strong> {{details?.customerId?.merchantId?.contactMobile}}</li>
+                        <li><strong>Email:</strong> {{details?.customerId?.merchantId?.contactEmail}}</li>
+                    </ul>
+                </div>
+
+                <div class="col-md-6 col-sm-6 text-end">
+                    <h4 style="color: #7db855be;"><strong>Customer Details</strong></h4>
+                    <ul class="list-unstyled">
+                        <li><strong>Name:</strong> {{details?.customerId?.customerName}}</li>
+                        <li><strong>Mobile Number:</strong>{{details?.customerId?.mobileNumber}}</li>
+                        <!-- <li><strong>Email:</strong>{{details?.customerId?.emailAddress}}</li> -->
+                    </ul>
+                </div>
+            </div>
+            <br>
+
+            <div class="table-responsive">
+                <table class="table table-condensed nomargin">
+                    <thead>
+                        <tr>
+                            <!-- <th style="background-color:gray;color: white;">Payment To</th> -->
+                            <!-- <th style="background-color:gray;color: white;">Plan Start Date</th> -->
+                            <th style="background-color:gray;color: white;">Service Type</th>
+                            <th style="background-color:gray;color: white;">Setupbox Number</th>
+                            <th style="background-color: gray;color: white;">Billing Date</th>
+                            <th style="background-color:gray;color: white;">Due Amount</th>
+                            <th style="background-color: gray;color: white;">Payment Status</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <!-- <td data-label="Payment To">
+                                <strong>{{details?.customerId?.merchantId?.merchantLegalName}}</strong>
+                            </td> -->
+                            <!-- <td data-label="Payment From">{{details?.startDate|date:"dd/MM/yyyy"}}</td> -->
+                            <td data-label="Payment Name">
+                                {{details.customerId.merchantId.businessCategoryModel.categoryName}}</td>
+                                <td data-label="Payment To">{{details?.customerStbId?.stbId?.setupBoxNumber}}</td>
+                            <td data-label="Payment To">{{details?.createdDateTime|date:"dd/MM/yyyy"}}</td>
+                           
+                            <td data-label="Payable Amount">₹ {{details?.paidAmount}}</td>
+                            <td data-label="Total Price">
+
+                                <span *ngIf="details?.paymentStatus=='Initiated'" style="color:blue;"
+                                    class="font-weight-bold text-gray">{{details.paymentStatus}}</span>
+                                <span *ngIf="details.paymentStatus=='Success'" style="color:green;"
+                                    class="font-weight-bold text-gray">{{details.paymentStatus}}</span>
+                                <span *ngIf="details.paymentStatus=='Due Pending'" style="color:orange;"
+                                    class="font-weight-bold text-gray">{{details.paymentStatus}}</span>
+                                <span *ngIf="details.paymentStatus=='Failure'" style="color:red;"
+                                    class="font-weight-bold text-gray">{{details.paymentStatus}}</span>
+
+                            </td>
+                        </tr>
+                        <!-- <tr>
+                            <td data-label="Payment To"><strong>Side panel with TAC 2.0 ventilation</strong></td>
+                            <td data-label="Payment From">2</td>
+                            <td data-label="Payment To">$67.00</td>
+                            <td data-label="Payable Amount">$1.80</td>
+                            <td data-label="Total Price">$68.80</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Payment To"><strong>Mesh front panel design to improve air</strong></td>
+                            <td data-label="Payment From">3</td>
+                            <td data-label="Payment To">$335.00</td>
+                            <td data-label="Payable Amount">$100.20</td>
+                            <td data-label="Total Price">$435.20</td>
+                        </tr> -->
+                    </tbody>
+                </table>
+            </div>
+
+
+            <hr class="nomargin-top">
+            <div class="row">
+                <div class="col-sm-6 text-left">
+                    <!-- <h4 style="color: #7db855be;"><strong>Address</strong> Details</h4>
+             
+
+                    <address>
+                        Contact Person: {{details?.customerId?.merchantId?.contactName}} <br>
+                        Area: {{details?.customerId?.merchantId?.area}}<br>
+                        City: {{details?.customerId?.merchantId?.city}}<br>
+                        Postal Code: {{details?.customerId?.merchantId?.zipcode}} <br>
+                    </address> -->
+                </div>
+
+                <div class="col-sm-6 text-end ">
+                    <ul class="list-unstyled">
+                        <!-- <li style="color: #4b7e2abe;"><strong>Sub - Total Amount:</strong> $2162.00</li>
+                        <li style="color: #4b7e2abe;"><strong>Discount:</strong> 10.0%</li>
+                        <li style="color: #4b7e2abe;"><strong>VAT ($6):</strong> $12.0</li> -->
+                        <li><strong>Grand Total:</strong> ₹{{details?.paidAmount}} </li>
+                    </ul>
+                    <!-- <a class="btn btn-default" style="background-color: #7db855be;font-weight: 600;">MAKE PAYMENT</a> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+</div>
+
+<!-- <body> -->
+<footer>
+    <p class="footer-text">
+        <span class="copyright">Copyright &copy; {{this.currentYear}}, All Rights Reserved</span>
+        <a href="https://codepen.io/anupkumar92/" target="_blank"></a>
+        <a href="customer/login"> Home</a> <span style="color: #141E46;font-weight: 600;">|</span>
+        <a href="customer-solutions">Solutions</a> <span style="color: #141E46;font-weight: 600;">|</span>
+        <a href="customer-termsandpolicy">Terms and Conditions</a> <span
+            style="color: #141E46;font-weight: 600;">|</span>
+        <a href="customer-privacy-policy">Privacy Policy</a> <span style="color: #141E46;font-weight: 600;">|</span>
+        <a href="customer-refund-policy">Refund Policy</a> <span style="color: #141E46;font-weight: 600;">|</span>
+        <a href="customer-disclaimer">Disclaimer</a> <span style="color: #141E46;font-weight: 600;">|</span>
+        <a class="support" href="mailto:support@fargin.in"> &nbsp;support{{strings}}fargin.in</a>
+    </p>
+</footer>
+<!-- </body> -->

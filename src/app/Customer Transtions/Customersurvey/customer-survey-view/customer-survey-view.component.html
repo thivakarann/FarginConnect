@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fargin Connect</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/css?family=Kaushan+Script|Source+Sans+Pro" rel="stylesheet">
+   <!-- Ensure to link your styles -->
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand">FARGIN CONNECT</a>
+    <div class="navbar-nav ml-auto">
+      <img src="assets/flagimage.png" alt="Flag Image" class="flag-img">
+    </div>
+  </nav>
+
+  <div class="container mt-5">
+    <div class="float-end ">
+      <button (click)="Back(MobileNumber)" type="button" class="btn btn-secondary mr-4 mt-1"
+        style="text-align:center;">Back</button>
+     
+    </div>
+    <h2 style="text-align:center;color:#141E46;">Customer Survey</h2>
+    <div class="row mt-4">
+      <div class="col d-flex align-items-center">
+        <!-- Search Form -->
+        <div class="search">
+          <form class="form">
+            <label for="search">
+              <input #input (keyup)="applyFilter($event)" required="" autocomplete="off" placeholder="Search"
+                id="search" type="text">
+              <div class="icon">
+                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                  <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
+                  </path>
+                </svg>
+              </div>
+              <button (click)="reload()" type="reset" class="close-btn">
+                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                  <path clip-rule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    fill-rule="evenodd"></path>
+                </svg>
+              </button>
+            </label>
+          </form>
+        </div>
+        &nbsp;
+       </div>
+    </div>
+
+    <mat-card-content>
+      <!-- <span style="color: red;" *ngIf="show" class="tableError">NO DATA FOUND</span> -->
+      <div class="table-responsive text-nowrap mt-4" >
+        <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+          <ng-container matColumnDef="sno">
+            <th mat-header-cell *matHeaderCellDef>S.No</th>
+            <td mat-cell *matCellDef="let data; let i = index">{{i+1}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="merchantLegalName">
+            <th mat-header-cell *matHeaderCellDef>Entity Name</th>
+            <td mat-cell *matCellDef="let data">
+            {{data.questionId.merchantId.merchantLegalName}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="customerName">
+            <th mat-header-cell *matHeaderCellDef>Customer Name</th>
+            <td mat-cell *matCellDef="let data">
+            {{data.customerId.customerName}}
+            </td>
+          </ng-container>
+          
+          <ng-container matColumnDef="Question">
+            <th mat-header-cell *matHeaderCellDef>Question</th>
+            <td mat-cell *matCellDef="let data">
+              <div class="privacy-policy-container">
+                <!-- Display the sliced text based on whether the full text is visible -->
+                <span *ngIf="!isFullPolicyVisible">
+                  {{ data.questionId.questions | slice:0:limit }}
+                </span>
+                <span *ngIf="isFullPolicyVisible">
+                  {{ data.questionId.questions }}
+                </span>
+                <i style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more" (click)="questions(data.customerResponseId,data.questionId.questions)">
+                  <br>
+                  {{ isFullPolicyVisible ? 'Read Less' : '...Read More' }}
+                </i>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="answer">
+            <th mat-header-cell *matHeaderCellDef>Answer</th>
+            <td mat-cell *matCellDef="let data">
+              <span *ngIf="data?.answers=='1'" style="color: green;font-weight: 600;">Yes</span>
+              <span *ngIf="data?.answers=='0'" style="color: red;font-weight: 600;">No</span>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="createdat">
+            <th mat-header-cell *matHeaderCellDef>Created At</th>
+            <td mat-cell *matCellDef="let data">{{ data?.createdDatetime | date:'dd-MM-yyyy hh:mm a'}}</td>
+             
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
+          <tr *matNoDataRow>
+            <td class="mat-cell" colspan="100%"  style="color: red;"  *ngIf="searchPerformed">No Data For {{input.value}}</td>
+            <td class="mat-cell" colspan="100%" style="color: red;" *ngIf="!searchPerformed && dataSource.data.length === 0">No Data
+        </td>
+        </table>
+      </div>
+    </mat-card-content>
+
+    <mat-card-footer>
+      <mat-paginator [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtons aria-labels="select page of users"></mat-paginator>
+    </mat-card-footer>
+  </div>
+
+  <footer>
+    <p class="footer-text">
+      <span class="copyright">Copyright &copy; {{this.currentYear}}, All Rights Reserved</span>
+      <a href="customer/login">  Home</a> <span style="color: #141E46;font-weight: 600;">|</span>
+      <a href="customer-solutions">Solutions</a> <span style="color: #141E46;font-weight: 600;">|</span>
+      <a href="customer-termsandpolicy">Terms and Conditions</a> <span style="color: #141E46;font-weight: 600;">|</span>
+      <a href="customer-privacy-policy">Privacy Policy</a> <span style="color: #141E46;font-weight: 600;">|</span>
+      <a href="customer-refund-policy">Refund Policy</a> <span style="color: #141E46;font-weight: 600;">|</span>
+      <a href="customer-disclaimer">Disclaimer</a> <span style="color: #141E46;font-weight: 600;">|</span>
+      <a class="support" href="mailto:support@fargin.in">&nbsp;support{{strings}}fargin.in</a>
+    </p>
+  </footer>
+
+</body>
+
+</html>

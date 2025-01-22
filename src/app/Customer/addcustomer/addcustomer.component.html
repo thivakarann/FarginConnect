@@ -1,0 +1,552 @@
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+<div class="container">
+    <div class="form-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Create </h5>
+        <button type="button" class="btn btn-secondary" (click)="close()">Back</button>
+    </div>
+    <div class="well">
+        <h4 class="card-header" style="font-weight: 500">Customer Details </h4>
+        <form [formGroup]="myForm">
+            <div class="row mt-3">
+                <div class="col-sm-4 form-group">
+                    <label for="customerReferenceId">Customer Id</label>
+                    <input type="text" id="customerReferenceId" class="form-control" formControlName="customerReferenceId">
+                    <div style="
+                  color: red;
+                  font-size: 12px;
+                  margin-top: 2px;
+                  position: relative;
+                  ;
+                " *ngIf="customerReferenceId?.invalid && customerReferenceId?.touched && customerReferenceId?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="customerReferenceId?.invalid && customerReferenceId?.touched && customerReferenceId?.errors?.['pattern']">
+                        Only positive numbers are allowed
+                    </div>
+                </div>
+
+                <div class="col-sm-4 form-group">
+                    <label for="customerReferenceId">MSO-Customer ID (Optional)</label>
+                    <input type="text" id="customerMsoId" class="form-control" formControlName="customerMsoId">
+                    <!-- <div style="
+                  color: red;
+                  font-size: 12px;
+                  margin-top: 2px;
+                  position: relative;
+                  ;
+                " *ngIf="customerMsoId?.invalid && customerMsoId?.touched && customerMsoId?.errors?.['required']">
+                        Field is required
+                    </div> -->
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="customerMsoId?.invalid && customerMsoId?.touched && customerMsoId?.errors?.['pattern']">
+                        Enter a Valid Input
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="firstName">Name</label>
+                    <input type="text" id="firstName" class="form-control" formControlName="Name">
+                    <div style="
+                  color: red;
+                  font-size: 12px;
+                  margin-top: 2px;
+                  position: relative;
+                  ;
+                " *ngIf="Name?.invalid && Name?.touched && Name?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                  color: red;
+                  font-size: 12px;
+                  margin-top: 2px;
+                  position: relative;
+                  ;
+                " *ngIf="Name?.invalid && Name?.touched && Name?.errors?.['pattern']">
+                        Invalid format. Only alphanumeric characters are allowed
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="lastName">Mobile Number</label>
+                    <input type="text" id="lastName" class="form-control" formControlName="mobilenumber" minlength="10"
+                        maxlength="10">
+                    <div style="
+                  color: red;
+                  font-size: 12px;
+                  margin-top: 2px;
+                  position: relative;
+                  ;
+                " *ngIf="mobilenumber?.invalid && mobilenumber?.touched && mobilenumber?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                  color: red;
+                  font-size: 12px;
+                  margin-top: 2px;
+                  position: relative;
+                  ;
+                " *ngIf="mobilenumber?.invalid && mobilenumber?.touched && mobilenumber?.errors?.['pattern']">
+                        please Enter A valid Mobile Number
+                    </div>
+                    
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="address">Alternative Mobile Number(Optional)</label>
+                    <input type="text" id="lastName" class="form-control" minlength="10" maxlength="10"
+                        formControlName="alternativemobilenumber">
+                    <div style="
+                color: red;
+                font-size: 12px;
+                margin-top: 2px;
+                position: relative;
+                ;
+              " *ngIf="alternativemobilenumber?.invalid && alternativemobilenumber?.touched && alternativemobilenumber?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                color: red;
+                font-size: 12px;
+                margin-top: 2px;
+                position: relative;
+                ;
+              " *ngIf="alternativemobilenumber?.invalid && alternativemobilenumber?.touched && alternativemobilenumber?.errors?.['pattern']">
+                        please Enter A valid Mobile Number
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="city">Email Id (Optional)</label>
+                    <input type="email" id="city" class="form-control" formControlName="contactEmail">
+                    <div style="
+                  color: red;
+                  font-size: 12px;
+                  margin-top: 2px;
+                  position: relative;
+                  ;
+                " *ngIf="contactEmail?.invalid && contactEmail?.touched && contactEmail?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                  color: red;
+                  font-size: 12px;
+                  margin-top: 2px;
+                  position: relative;
+                  ;
+                " *ngIf="contactEmail?.invalid && contactEmail?.touched && contactEmail?.errors?.['pattern']">
+                        please Enter A valid Email
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+               
+                <div class="col-sm-4 form-group">
+                    <label for="age">Age</label>
+                    <input type="text" id="age" class="form-control" formControlName="age">
+                    <!-- <div style="
+                  color: red;
+                  font-size: 12px;
+                  margin-top: 2px;
+                  position: relative;
+                  ;
+                " *ngIf="age?.invalid && age?.touched && age?.errors?.['required']">
+                        Field is required
+                    </div> -->
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="customerReferenceId?.invalid && customerReferenceId?.touched && customerReferenceId?.errors?.['pattern']">
+                        Only positive numbers are allowed
+                    </div>
+                </div>
+
+                <div class="col-sm-4 form-group">
+                    <label for="state">Door No</label>
+                    <input type="text" id="state" class="form-control" formControlName="oldDoorNo">
+                    <div style="
+                  color: red;
+                  font-size: 12px;
+                  margin-top: 2px;
+                  position: relative;
+                  ;
+                " *ngIf="oldDoorNo?.invalid && oldDoorNo?.touched && oldDoorNo?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="zip">Block No (Optional)</label>
+                    <input type="text" id="zip" class="form-control" formControlName="NewDoorNo">
+                    <!-- <div style="
+                  color: red;
+                  font-size: 12px;
+                  margin-top: 2px;
+                  position: relative;
+                  ;
+                " *ngIf="NewDoorNo?.invalid && NewDoorNo?.touched && NewDoorNo?.errors?.['required']">
+                        Field is required
+                    </div> -->
+                </div>
+             
+            </div>
+            <div class="row mt-3">
+              
+                <div class="col-sm-4 form-group">
+                    <label for="title">Flat No (Optional)</label>
+                    <input type="text" id="title" class="form-control" formControlName="FlatNo">
+                    <!-- <div style="
+                  color: red;
+                  font-size: 12px;
+                  margin-top: 2px;
+                  position: relative;
+                  ;
+                " *ngIf="FlatNo?.invalid && FlatNo?.touched && FlatNo?.errors?.['required']">
+                        Field is required
+                    </div> -->
+                </div>
+
+                <div class="col-sm-4 form-group">
+                    <label for="company">House Name (Optional) </label>
+                    <input type="text" id="company" class="form-control" formControlName="housename">
+                    <!-- <div style="
+                color: red;
+                font-size: 12px;
+                margin-top: 2px;
+                position: relative;
+                ;
+              " *ngIf="housename?.invalid && housename?.touched && housename?.errors?.['required']">
+                        Field is required
+                    </div> -->
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="company">Apartment (Optional) </label>
+                    <input type="text" id="company" class="form-control" formControlName="Apartment">
+                    <!-- <div style="
+                  color: red;
+                  font-size: 12px;
+                  margin-top: 2px;
+                  position: relative;
+                  ;
+                " *ngIf="Apartment?.invalid && Apartment?.touched && Apartment?.errors?.['required']">
+                        Field is required
+                    </div> -->
+                </div>
+               
+            </div>
+            <div class="row mt-3">
+            
+                <div class="col-sm-4 form-group">
+                    <label for="email">Street Name</label>
+                    <input type="email" id="email" class="form-control" formControlName="Streetname">
+                    <div style="
+                color: red;
+                font-size: 12px;
+                margin-top: 2px;
+                position: relative;
+                ;
+              " *ngIf="Streetname?.invalid && Streetname?.touched && Streetname?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+
+                <div class="col-sm-4 form-group">
+                    <label for="website">Area</label>
+                    <input type="url" id="website" class="form-control" formControlName="area">
+                    <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+              ;
+            " *ngIf="area?.invalid && area?.touched && area?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="website">Landmark (Optional)</label>
+                    <input type="url" id="website" class="form-control" formControlName="landmark">
+                    <!-- <div style="
+            color: red;
+            font-size: 12px;
+            margin-top: 2px;
+            position: relative;
+            ;
+          " *ngIf="landmark?.invalid && landmark?.touched && landmark?.errors?.['required']">
+                        Field is required
+                    </div> -->
+                </div>
+             
+            </div>
+ 
+            <div class="row mt-3">
+             
+                <div class="col-sm-4 form-group">
+                    <label for="website">Country </label>
+                    <input type="url" id="website" class="form-control" formControlName="country">
+                    <div style="
+            color: red;
+            font-size: 12px;
+            margin-top: 2px;
+            position: relative;
+            ;
+          " *ngIf="country?.invalid && country?.touched && country?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+
+                <div class="col-sm-4 form-group">
+                    <label for="website">State </label>
+                    <input type="url" id="website" class="form-control" formControlName="state">
+                    <div style="
+            color: red;
+            font-size: 12px;
+            margin-top: 2px;
+            position: relative;
+            ;
+          " *ngIf="state?.invalid && state?.touched && state?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="website">City </label>
+                    <input type="url" id="website" class="form-control" formControlName="city">
+                    <div style="
+            color: red;
+            font-size: 12px;
+            margin-top: 2px;
+            position: relative;
+            ;
+          " *ngIf="city?.invalid && city?.touched && city?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+               
+ 
+            </div>
+            <div class="row mt-3">
+             
+                <div class="col-sm-4 form-group">
+                    <label for="website">Pincode</label>
+                    <input type="url" id="website" class="form-control" formControlName="pincode" minlength="6"
+                        maxlength="6">
+                    <div style="
+            color: red;
+            font-size: 12px;
+            margin-top: 2px;
+            position: relative;
+            ;
+          " *ngIf="pincode?.invalid && pincode?.touched && pincode?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+
+                <div class="col-md-4 form-group">
+                    <label for="Mcc Code">Connection Type</label>
+                    <select formControlName="lineType" type="text" id="Mcc Code" class="form-select">
+                        <option value="Paid">Paid</option>
+                        <option value="Free">Free</option>
+                    </select>
+                    <div style="
+                        color: red;
+                        font-size: 12px;
+                        margin-top: 2px;
+                        position: relative;
+                        ;
+                      " *ngIf="lineType?.invalid && lineType?.touched && lineType?.errors?.['required']">
+                        Field id required*
+                    </div>
+                </div>
+                <div class="col-md-4 form-group" >
+                    <label for="Mcc Code">Branch Status</label>
+                    <select formControlName="branchStatus" type="text" id="Mcc Code" class="form-select">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                    <div style="
+                        color: red;
+                        font-size: 12px;
+                        margin-top: 2px;
+                        position: relative;
+                        ;
+                      " *ngIf="branchStatus?.invalid && branchStatus?.touched && branchStatus?.errors?.['required']">
+                        Field id required*
+                    </div>
+                </div>
+             
+             
+            </div>
+            <div class="row mt-3" >
+                <div [hidden]="branchstatus==false" class="col-md-4 form-group" *ngIf="this.branchStatus?.value=='Yes'">
+                    <label for="website">Branch Name</label>
+                    <!-- <input type="text" id="website" class="form-control" formControlName="branchId"> -->
+                    <select formControlName="branchId"
+                    id="branchId" class="form-select">
+                    <option value="" disabled selected>Select</option>
+                    <option *ngFor="let item of branchviews" [value]="item.branchId">
+                        {{item.branchName}}</option>
+ 
+                </select>
+                </div>
+               
+
+                <div class="col-md-4 form-group">
+                    <label for="Mcc Code">Advance Paid</label>
+                    <select formControlName="advance" type="text" id="Mcc Code" class="form-select">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                    <div style="
+                        color: red;
+                        font-size: 12px;
+                        margin-top: 2px;
+                        position: relative;
+                        ;
+                      " *ngIf="advance?.invalid && advance?.touched && advance?.errors?.['required']">
+                        Field id required*
+                    </div>
+                </div>
+            
+                <div class="col-md-4 form-group" *ngIf="this.advance?.value=='Yes'">
+                    <label for="website">Amount </label>
+                    <input type="text" id="website" class="form-control" formControlName="amount">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="amount?.invalid && amount?.touched && amount?.errors?.['pattern']">
+                        Only positive numbers are allowed
+                    </div>
+                </div>
+            </div>
+ 
+<!--
+            <h4 class="card-header" style="font-weight: 500">Customer Plan Details </h4>
+            <div class="row mt-3">
+                <div class="col-sm-6 form-group">
+                    <label for="website">Service Provider</label>
+                    <select class="form-select" formControlName="mso" (change)="getServiceId($event)">
+                        <option [value]="items.serviceId" *ngFor=" let items of Activeserviceprovider">
+                            {{items?.serviceProviderName}}</option>
+                    </select>
+                    <div style="
+        color: red;
+        font-size: 12px;
+        margin-top: 2px;
+        position: relative;
+        ;
+      " *ngIf="mso?.invalid && mso?.touched && mso?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label for="website">Setup Box Number</label>
+                    <select class="form-select" formControlName="setupbox">
+                        <option [value]="items.stbId" *ngFor=" let items of ActiveSetupbox "> {{items?.setupBoxNumber}}
+                        </option>
+                    </select>
+                    <div style="
+      color: red;
+      font-size: 12px;
+      margin-top: 2px;
+      position: relative;
+      ;
+    " *ngIf="setupbox?.invalid && setupbox?.touched && setupbox?.errors?.['required']">
+                        Field is required
+                    </div>
+ 
+                </div>
+            </div> -->
+            <!-- <div class="row mt-3">
+                <div class="col-sm-6 form-group">
+                    <label for="website">Paid Channel</label>
+ 
+                    <mat-select #select1 style="font-size: 12px;" class="form-select" multiple
+                        formControlName="paidChannel">
+                        <div class="select-all">
+                            <mat-checkbox [(ngModel)]="allSelected1" [ngModelOptions]="{standalone: true}"
+                                (change)="toggleAllSelection1()">Select All</mat-checkbox>
+                        </div>
+                        <mat-option [value]="items.alcotId" *ngFor="let items of Channels">
+ 
+                            {{items?.channelName}}</mat-option>
+                    </mat-select> -->
+                    <!-- <div style="
+        color: red;
+        font-size: 12px;
+        margin-top: 2px;
+        position: relative;
+        ;
+      " *ngIf="paidChannel?.invalid && paidChannel?.touched && paidChannel?.errors?.['required']">
+                        Field is required
+                    </div> -->
+                <!-- </div>
+                <div class="col-sm-6 form-group">
+                    <label>Broadcaster Plans</label>
+                    <mat-select #select2 style="font-size: 12px;" class="form-select" multiple
+                        formControlName="broadcaster">
+                        <div class="select-all">
+                            <mat-checkbox [(ngModel)]="allSelected2" [ngModelOptions]="{standalone: true}"
+                                (change)="toggleAllSelection2()">Select All</mat-checkbox>
+                        </div>
+                        <mat-option [value]="items.bouquetId" *ngFor="let items of ActivePlans">
+                            {{items?.bouquetCreation.bouquetName}} -->
+                        <!-- </mat-option>
+                    </mat-select> -->
+                    <!-- <div style="
+      color: red;
+      font-size: 12px;
+      margin-top: 2px;
+      position: relative;
+      ;
+    " *ngIf="broadcaster?.invalid && broadcaster?.touched && broadcaster?.errors?.['required']">
+                        Field is required
+                    </div> -->
+                <!-- </div>
+            </div> -->
+            <!-- <div class="row mt-3">
+                <div class="col-sm-6 form-group">
+                    <label for="website">LCOP Plans </label>
+                    <mat-select #select3 style="font-size: 12px;" class="form-select" multiple formControlName="lcop">
+                        <div class="select-all">
+                            <mat-checkbox [(ngModel)]="allSelected3" [ngModelOptions]="{standalone: true}"
+                                (change)="toggleAllSelection3()">Select All</mat-checkbox>
+                        </div>
+                        <mat-option [value]="items.lcopId" *ngFor="let items of ActiveLCOP">
+                            {{items?.planName}}
+                        </mat-option>
+                    </mat-select>
+                    <div style="
+        color: red;
+        font-size: 12px;
+        margin-top: 2px;
+        position: relative;
+        ;
+      " *ngIf="lcop?.invalid && lcop?.touched && lcop?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+                <div class="col-md-6">
+ 
+                </div>
+            </div> -->
+            <div class="mt-3">
+                <button type="submit" class="btn mx-1 " style="background-color:#7db855be" (click)="submit()"
+                    [disabled]="this.myForm.invalid">Submit</button>
+                <button (click)="close()"type="submit" class="btn" style="background-color:#141E46;color:white">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>

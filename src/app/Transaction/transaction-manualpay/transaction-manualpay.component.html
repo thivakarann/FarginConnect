@@ -1,0 +1,91 @@
+<div class="card">
+    <h4 class="p-2" style="font-weight: 700">Transaction Manual Pay <button matDialogClose style="float: right;"
+            class="button1">Close</button></h4>
+ 
+ 
+ 
+</div>
+ 
+<body class="page">
+    <main class="main page__main">
+        <form style="width: 600px;" class="form main__form" autocomplete="off" class="form" role="form"
+            [formGroup]="manualpay">
+            <a  style="font-weight:500"><i style="font-size:20px;color: green;" class="fa">&#xf00c;</i>&nbsp;{{message}} <span *ngIf="displayTimer" style="color: red;">{{display}}</span>
+            &nbsp;&nbsp;<a *ngIf="resendOtp"  style="color: gray;text-decoration: underline;" (click)="resendotp()">Resend OTP</a>
+            </a>
+            <br>
+            <label class="form__label" for="fname">Please enter your 6-digit OTP code:</label>
+ 
+            <div class=".otp-field">
+                <input formControlName="otpCode" type="text" style="width: 60px;height:50px;" name="otpCode1"
+                    [(ngModel)]="otpCode1" (keyup)="move($event,'',first,second)" #first
+                    class="form-control me-4 d-inline" maxlength="1" />
+                <input formControlName="otpCode" type="text" style="width: 60px;height:50px;" name="otpCode2"
+                    [(ngModel)]="otpCode2" (keyup)="move($event,first,second,third)" #second
+                    class="form-control me-4 d-inline" maxlength="1" />
+                <input formControlName="otpCode" type="text" style="width: 60px;height:50px;" name="otpCode3"
+                    [(ngModel)]="otpCode3" (keyup)="move($event,second,third,fourth)" #third
+                    class="form-control me-4 d-inline" maxlength="1" />
+                <input formControlName="otpCode" type="text" style="width: 60px;height:50px;" name="otpCode4"
+                    [(ngModel)]="otpCode4" (keyup)="move($event,third,fourth,fifth)" #fourth
+                    class="form-control me-4 d-inline" maxlength="1" />
+                <input formControlName="otpCode" type="text" style="width: 60px;height:50px;" name="otpCode5"
+                    [(ngModel)]="otpCode5" (keyup)="move($event,fourth,fifth,six)" #fifth
+                    class="form-control me-4 d-inline" maxlength="1" />
+                <input formControlName="otpCode" type="text" style="width: 60px;height:50px;" name="otpCode6"
+                    [(ngModel)]="otpCode6" (keyup)="move($event,fifth,six, '')" #six class="form-control me-4 d-inline"
+                    maxlength="1" />
+            </div>
+            <br>
+            <div class="form__linput">
+                <label class="form__label" for="fname">Payment Mode</label>
+ 
+                <select formControlName="paymentMethod" id="paymentMethod" class="form-control form-select">
+                    <option value="" disabled selected>Select</option>
+                    <option value="UPI-Manual">UPI (Unified Payments Interface)</option>
+                    <option value="NEFT">NEFT (National Electronic Funds Transfer) </option>
+                    <option value="RTGS">RTGS(Real Time Gross Settlement) </option>
+                    <option value="IMPS">IMPS (Immediate Payment Service)</option>
+                    <option value="Cash">Cash</option>
+                </select>
+                <div style="color: red; font-size: 12px;margin-top: 2px;"
+                    *ngIf="paymentMethod?.invalid && paymentMethod?.touched && paymentMethod?.errors?.['required']">
+                    Field is required
+                </div>
+            </div>
+ 
+            <div [hidden]="manualpay.controls['paymentMethod'].value == 'Cash'" class="form__linput">
+                <label class="form__label" for="fname">Reference Number</label>
+                <input class="form__input" id="fname" type="text" formControlName="utrNumber" name="utrNumber"
+                    placeholder="Reference Number..." required />
+                <div style="color: red; font-size: 12px;margin-top: 2px;"
+                    *ngIf="utrNumber?.invalid && utrNumber?.touched && utrNumber?.errors?.['required']">
+                    Field is required
+                </div>
+            </div>
+ 
+            <div class="form__linput">
+                <label class="form__label" for="fname">Technical Pay status</label>
+ 
+                <select formControlName="paymentStatus" id="paymentStatus" class="form-control form-select">
+                    <option value="" disabled selected>Select</option>
+                    <option value="Success">Paid</option>
+                    <!-- <option value="Unpaid">Unpaid</option> -->
+                </select>
+                <div style="color: red; font-size: 12px;margin-top: 2px;"
+                    *ngIf="paymentStatus?.invalid && paymentStatus?.touched && paymentStatus?.errors?.['required']">
+                    Field is required
+                </div>
+            </div>
+ 
+            <div class="mt-3">
+                <button [disabled]="manualpay.invalid" (click)="Transactionpay(this.transactionValue)" type="submit" class="btn mx-1 "
+                    style="background-color:#7db855be">Submit</button>
+                <button type="submit" class="btn" style="background-color:#141E46;color:white"
+                    matDialogClose>Cancel</button>
+            </div>
+ 
+ 
+        </form>
+    </main>
+</body>

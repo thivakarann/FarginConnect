@@ -1,0 +1,54 @@
+{ 
+ "Dashboard":"डैशबोर्ड",
+ "Verfication" :"सत्यापन",
+ "CustomerOnboard": "ग्राहक जहाज पर",
+ "Agreement":"समझौता",
+ "Subscription":"सदस्यता",
+ "Renewal":"नवीनीकरण",
+ "Static QR Transactions":"स्थैतिक क्यूआर लेनदेन",
+
+ "Online Refunds":"ऑनलाइन रिफंड",
+ "Customer Dues": "ग्राहक बकाया",
+ "Additional Transactions":"अतिरिक्त लेनदेन" ,
+ "Customization Payments":"अनुकूलन भुगतान",
+ "Due Status History" :"देय स्थिति इतिहास",
+ "Customer Survey":"ग्राहक सर्वेक्षण",
+ "Branch": "शाखा",
+ 
+ "Service Request":"सेवा अनुरोध",
+ "Support Request":"समर्थन अनुरोध",
+ "Customer Request": "ग्राहक अनुरोध",
+
+ "Policies": "नीतियों",
+ "Terms and Condition": "नियम व शर्तें",
+ "Disclaimer": "अस्वीकरण",
+ "Privacy Policy":"गोपनीयता नीति",
+"Refund Policy":"भुगतान वापसी की नीति",
+
+"SMS":"एसएमएस",
+"SMS Service":"एसएमएस सेवा",
+"SMS History":"एसएमएस इतिहास",
+
+"Channels & Packages":"चैनल और पैकेज",
+"Channel Configuration":"चैनल कॉन्फ़िगरेशन",
+"Plan Configuration":"योजना विन्यास",
+"LCOP Plan Configuration":"एलसीओपी योजना विन्यास",
+
+"Bulk Upload Status":"थोक अपलोड स्थिति",
+"Setupbox Status":"सेटअपबॉक्स स्थिति",
+"Customer Status":"ग्राहक स्थिति",
+"Customer Setupbox Status":"ग्राहक सेटअपबॉक्स स्थिति",
+"Route Status":"मार्ग स्थिति",
+
+"Main Master":"मुख्य गुरु",
+"Service Provider Payments":"सेवा प्रदाता भुगतान",
+"Region":"क्षेत्र",
+"Route Configuration":"मार्ग विन्यास",
+"Setupbox Inventory":"सेटअपबॉक्स इन्वेंटरी",
+"Category":"वर्ग",
+
+"User Management":"प्रयोक्ता प्रबंधन",
+"Role":"भूमिका",
+"Employee":"कर्मचारी"
+
+ }

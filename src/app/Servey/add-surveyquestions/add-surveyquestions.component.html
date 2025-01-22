@@ -1,0 +1,47 @@
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+
+<div class="container">
+    <div class="form-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Create Survey Questions </h5>
+        <button type="button" class="btn btn-secondary" (click)="close()">Back</button>
+    </div>
+    <div class="well" >
+        <!-- <h4 class="card-header" style="font-weight: 500">Survey Questions</h4> -->
+
+        <form class="form main__form" autocomplete="off" class="form" [formGroup]="questionsForm"> 
+            <div formArrayName="AddQuestionsDynamicArray"> 
+            <div *ngFor="let item of AddQuestionsDynamicArray.controls;let i=index;trackBy:trackByFn">
+            <div  class="row" [formGroupName]="i">
+            <div class="form__linput">
+                <label class="form__label">Questions</label>
+                <textarea class="form-control" type="text" formControlName="questions" required >
+               
+                <div style="color: red; font-size: 12px;margin-top: 2px;"
+                    *ngIf="questions?.invalid && questions?.touched && questions?.errors?.['required']">
+                    Field is required
+                </div>
+            </textarea>
+            </div>
+            <div class="col-md-12 mt-1 d-flex justify-content-end">
+                <button [disabled]="questionsForm.invalid"  style="font-size: 12px"
+                  class="btn btn-success me-3 mt-2 px-3" (click)="addUserField()"><i style="color: #fff; font-size: 20px;" class="fa fa-plus"
+                  ></i></button>
+                  <button [disabled]="questionsForm.invalid"  style="font-size: 12px"
+                  class="btn btn-success me-3 mt-2 px-3" (click)="removeUserField(i)"><i style="color: #fff; font-size: 20px;" class="fa fa-trash"
+                  ></i></button>
+            </div>
+            </div> 
+            </div>
+            </div>
+            <div class="mt-3">
+                <button type="submit" class="btn mx-1 " style="background-color:#7db855be" 
+                    [disabled]="questionsForm.invalid" (click)="submit()">Submit</button>
+                <button (click)="close()"  type="submit" class="btn" style="background-color:#141E46;color:white">Cancel</button>
+            </div>
+        </form>
+    </div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>

@@ -1,0 +1,190 @@
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+
+<div class="container" [hidden]=" viewForm==true">
+    <div class="form-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Create LCOP Plan</h5>
+        <button type="button" class="btn btn-secondary" (click)="close()">Back</button>
+    </div>
+
+
+    <div class="well">
+        <h4 class="card-header" style="font-weight: 500">Plan Details</h4>
+        <form [formGroup]="myForm" style="margin-top: 1%;">
+
+            <div class="row mb-3">
+                <div class="  col-6 form-group ">
+                    <label for="Entity Name">Free Channels</label>
+                    <mat-select #select style="font-size: 12px;" class="form-select" multiple
+                        formControlName="freeChannel">
+                        <div class="select-all">
+                            <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
+                                (change)="toggleAllSelection()">Select All</mat-checkbox>
+                        </div>
+                        <mat-option [value]="items.alcotId" *ngFor="let items of Freechannels">
+
+                            {{items?.channelName}}</mat-option>
+                    </mat-select>
+
+                    <!-- <div style="
+        color: red;
+        font-size: 12px;
+        margin-top: 2px;
+        position: relative;
+        ;
+      " *ngIf="freeChannel?.invalid && freeChannel?.touched && freeChannel?.errors?.['required']">
+                        Field is required
+                    </div> -->
+                </div>
+
+                <div class="  col-6 form-group ">
+                    <label for="Entity Name">Paid Channels</label>
+                    <mat-select #select1 style="font-size: 12px;" class="form-select" multiple
+                        formControlName="paidChannel">
+                        <div class="select-all">
+                            <mat-checkbox [(ngModel)]="allSelected1" [ngModelOptions]="{standalone: true}"
+                                (change)="toggleAllSelection1()">Select All</mat-checkbox>
+                        </div>
+                        <mat-option [value]="items.alcotId" *ngFor="let items of PaidChannels">
+
+                            {{items?.channelName}}</mat-option>
+                    </mat-select>
+
+                    <!-- <div style="
+        color: red;
+        font-size: 12px;
+        margin-top: 2px;
+        position: relative;
+        ;
+      " *ngIf="paidChannel?.invalid && paidChannel?.touched && paidChannel?.errors?.['required']">
+                        Field is required
+                    </div> -->
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="  col-6 form-group ">
+                    <label for="Entity Name">BroadCaster Plans</label>
+                    <mat-select #select2 style="font-size: 12px;" class="form-select" multiple
+                        formControlName="bouquetId">
+                        <div class="select-all">
+                            <mat-checkbox [(ngModel)]="allSelected2" [ngModelOptions]="{standalone: true}"
+                                (change)="toggleAllSelection2()">Select All</mat-checkbox>
+                        </div>
+                        <mat-option [value]="items.bouquetId" *ngFor="let items of ActivePlans">
+
+                            {{items?.bouquetCreation.bouquetName}}</mat-option>
+                    </mat-select>
+
+                    <div style="
+        color: red;
+        font-size: 12px;
+        margin-top: 2px;
+        position: relative;
+        ;
+      " *ngIf="bouquetId?.invalid && bouquetId?.touched && bouquetId?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <div>
+                <button (click)="Calculate()" [disabled]="myForm.invalid" type="submit" class="btn mx-1 "
+                    style="background-color:#141E46;color:white">Calculate Package Amount</button>
+            </div>
+
+        </form>
+
+        <div class="form-check" style="margin-top: 3%;" *ngIf="Viewamount ==true">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1" [(ngModel)]="Check"
+                (ngModelChange)="selectss(Check)">
+            <label class="form-check-label" for="exampleCheck1">The Selected Channels / Plans Package Overall Amount is{{this.CalculatedAmount}}<br>To proceed further with this LCOP Plan Creation, Enable the check box and click the next button.</label>
+        </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <button (click)=" showToggle()" [hidden]="ADD == false" type="submit" class="my-3 btn btn-danger">Next</button>
+
+    </div>
+
+
+
+</div>
+
+<div class="container" *ngIf="viewForm==true">
+
+    <div class="card-header" style="font-weight: 500">
+        <h5 class="mb-0">Final Plan Details</h5>
+        <button type="button" class="btn btn-secondary" (click)="close()">Cancel</button>
+    </div>
+    <div class="well">
+        <form [formGroup]="myForm2" style="margin-top: 1%;">
+
+            <div class="row mb-3">
+
+                <div class=" col-6 form-group">
+                    <label for="Entity Name">Plan Name</label>
+                    <input type="text" id="Entity Name" formControlName="plan" 
+                        class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="plan?.invalid && plan?.touched && plan?.errors?.['required']">
+                        Field is required
+                    </div>
+
+                </div>
+                <div class=" col-6 form-group">
+                    <label for="Entity Name">Selected Package Amount</label>
+                    <input [value]="this.CalculatedAmount" readonly class="form-control">
+                </div>
+                <div class=" col-6 form-group">
+                    <label for="Entity Name">Margin Amount</label>
+                    <input [(ngModel)]="Pricess" type="text" id="Entity Name" formControlName="price"
+                       class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="price?.invalid && price?.touched && price?.errors?.['required']">
+                        Field is required
+                    </div>
+
+
+                    <div style="
+    color: red;
+    font-size: 12px;
+    margin-top: 2px;
+    position: relative;
+    ;
+  " *ngIf="price?.invalid && price?.touched && price?.errors?.['pattern']">
+                        Only positive numbers are allowed
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- <div>
+                <button (click)="CreatePlans()" type="submit" class="btn mx-1 "
+                    style="background-color:#141E46;color:white">Submit</button>
+                <button (click)=" showToggle()">Back</button>
+            </div> -->
+
+
+            <div>
+                <button (click)="CreatePlans()" [disabled]="myForm2.invalid" type="submit" class="btn mx-1 "
+                    style="background-color:#7db855be">Submit</button>
+                <button type="submit" class="btn" style="background-color:#141E46;color:white"
+                    (click)=" showToggle()">Back</button>
+            </div>
+        </form>
+
+    </div>
+
+
+</div>

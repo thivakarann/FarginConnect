@@ -6,36 +6,29 @@
   box-sizing: border-box;
 }
  
- 
 button {
   font: inherit;
 }
  
 .page {
   color: var(--gray-9);
-  background-color: #fff;
+  /* background-color: var(--gray-0); */
   display: grid;
   grid-template-areas: "main";
   height: auto;
- 
   font-family: var(--font-sans);
 }
  
 .page__main {
   grid-area: main;
- 
 }
  
 .main {
+  display: grid;
   justify-items: center;
   align-items: center;
-  width: 500px;
+  
 }
-.form .main__form{
-  width: 500px;
- 
-}
- 
  
 .main__form {
   width: 100%;
@@ -45,9 +38,9 @@ button {
  
 .form {
   color: var(--gray-9);
-  background-color: #fff;
+  /* background-color: var(--gray-3); */
   display: grid;
-  width: 140%;
+  width: 100%;
   max-width: 100%;
   border: 1px solid var(--gray-4);
   border-radius: var(--radius-2);
@@ -151,17 +144,17 @@ button {
   }
 }
  
-.form__label {
-  font-weight: 500;
-}
  
 .card-header {
-  display: flex;
-  justify-content: space-between;
-  background-color: #bcdf72;
+ 
+  background-color: #7db855be;
   color: #141E46;
   font-family: "Roboto";
 }
+ 
 mat-select{
-  width:470px
+  background-color: white;
+  width: 530px;
+  height: 40px;
+  border-radius: 8px;
 }

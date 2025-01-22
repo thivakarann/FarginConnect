@@ -1,0 +1,63 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<body>
+    <div class="card-container">
+
+        <div class="top-head">
+
+        </div>
+        <h3></h3>
+
+
+        <p>* Incase You are not read Terms & policies,Please Check the Read More Sections in Payment Information
+        </p>
+
+
+
+        <p> <input type="checkbox" style="cursor: pointer;" [(ngModel)]="Button"
+                (ngModelChange)="select(Button)">&nbsp;I Read & Accept All
+            terms and policies & Make Payment</p>
+
+
+
+
+        <div class="button-container">
+            <button [ngClass]="{'low-green': Button === false, 'dark-green': Button === true}" class="button joined-btn"
+                [disabled]="Button==false">Pay</button>
+            <button class="button create-post-btn" matDialogClose>Close</button>
+        </div>
+
+
+    </div>
+    <div class="card-container">
+
+      <div class="top-head">
+
+      </div>
+      <h3>Payment to  MerchantName</h3>
+
+
+      <p>* Incase You are not read Terms & policies,Please Check the Read More Sections in Payment Information
+      </p>
+
+
+
+      <p> <input type="checkbox" style="cursor: pointer;" [(ngModel)]="Button"
+              (ngModelChange)="select(Button)">&nbsp;I Read & Accept All
+          terms and policies & Make Payment</p>
+
+
+
+
+      <div class="button-container">
+          <button [ngClass]="{'low-green': Button === false, 'dark-green': Button === true}" class="button joined-btn"
+              [disabled]="Button==false">Pay</button>
+          <button class="button create-post-btn" matDialogClose>Close</button>
+      </div>
+
+
+  </div>
+</body>
+
+
+

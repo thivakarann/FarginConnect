@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -6,7 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './log-out.component.html',
   styleUrl: './log-out.component.css'
 })
-export class LogOutComponent {
+export class LogOutComponent implements OnInit {
+  
   constructor(private dialog:MatDialog){
  
   }
@@ -17,7 +18,7 @@ export class LogOutComponent {
   logout(){
     localStorage.clear();
     // localStorage.removeItem('token');
-    location.href = '/login-page';
+    location.href = 'admin/login';
   }
   close(){
     this.dialog.closeAll()

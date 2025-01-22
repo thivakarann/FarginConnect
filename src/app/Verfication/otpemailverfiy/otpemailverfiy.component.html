@@ -1,0 +1,34 @@
+<div class="mat-dialog-content">
+    <div class="otp-container">
+        <form>
+
+            <h3 class="otp-title">Email OTP Verification</h3>
+            <p>Please enter your 6-digit OTP code</p>
+
+            <div class="otp-field mb-4 mt-3">
+                <input type="text" [(ngModel)]="otpCode1" name="otpCode1" (keyup)="move($event, '', first, second)"
+                    #first class="form-control otp-input" maxlength="1" />
+                <input type="text" [(ngModel)]="otpCode2" name="otpCode2" (keyup)="move($event, first, second, third)"
+                    #second class="form-control otp-input" maxlength="1" />
+                <input type="text" [(ngModel)]="otpCode3" name="otpCode3" (keyup)="move($event, second, third, fourth)"
+                    #third class="form-control otp-input" maxlength="1" />
+                <input type="text" [(ngModel)]="otpCode4" name="otpCode4" (keyup)="move($event, third, fourth, fifth)"
+                    #fourth class="form-control otp-input" maxlength="1" />
+                <input type="text" [(ngModel)]="otpCode5" name="otpCode5" (keyup)="move($event, fourth, fifth, six)"
+                    #fifth class="form-control otp-input" maxlength="1" />
+                <input type="text" [(ngModel)]="otpCode6" name="otpCode6" (keyup)="move($event, fifth, six, '')" #six
+                    class="form-control otp-input" maxlength="1" />
+            </div>
+         
+            <button (click)="verifyotps()" style="color:white;background-color: #141E46;" mat-raised-button
+                type="submit">Verify</button>
+                <p *ngIf="displayTimer"> OTP Will be Expired Within:<span style="color:red;">{{display}}</span></p>
+                <p class="resend text-muted mb-0" *ngIf="resendOtp">
+                    Didn't receive code? &nbsp;&nbsp;&nbsp;&nbsp; <a style="cursor: pointer;font-size: 15px;color:#9184ed ;"
+                        (click)="getresendOtp()">Request again</a>
+                </p>
+
+        </form>
+        <button style="width: 94px;" mat-dialog-close>Close</button>
+    </div>
+</div>

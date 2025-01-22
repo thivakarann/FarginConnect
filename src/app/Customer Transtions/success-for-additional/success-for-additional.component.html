@@ -1,0 +1,51 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+ 
+ 
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <a class="navbar-brand">
+    <img style="margin-left: 20px;" src="assets/fargin_blue.png" alt="Fargin Connect Logo">
+    FARGIN CONNECT
+  </a>
+  <div class="navbar-nav">
+    <img style="margin-right: 20px;" src="assets/flagimage.png" alt="Flag Image">
+  </div>
+</nav>
+ 
+<!-- payment sucess design -->
+ 
+<body>
+    <div class="wrapper">
+      <input type="radio" name="slider" id="tab-1">
+      <input type="radio" name="slider" id="tab-2" checked>
+      <input type="radio" name="slider" id="tab-3">
+      <header>
+        <label  class="tab-1"></label>
+        <label  class="tab-2">PAYMENT SUCCESS</label>
+        <label  class="tab-3"></label>
+        <div class="slider"></div>
+      </header>
+      <div class="card-area">
+        <div class="cards">
+       
+           <div class="row">
+            <div class="price-details">
+              <span class="price">{{PaymentDetails?.payAmount}}</span>
+              <p>Payment Status :{{PaymentDetails?.paymentStatus}}</p>
+            </div>
+            <ul class="features">
+              <li><i class="fas fa-check"></i><span>Bank Reference Number: {{PaymentDetails?.bankReference}}</span></li>
+              <li><i class="fas fa-check"></i><span>Pay Id : {{PaymentDetails?.pgPaymentId}}</span></li>
+              <!-- <li><i class="fas fa-check"></i><span>order reference : {{PaymentDetails?.orderReference}}</span></li> -->
+              <li><i class="fas fa-check"></i><span>payment mode : {{PaymentDetails?.paymentMethod}}</span></li>
+              <li><i class="fas fa-check"></i><span>Date & Time: {{PaymentDetails?.paymentDateTime|date:"dd/MM/yyyy hh:mm:a"}}</span></li>
+              <!-- {{paymenydate|date:"dd/MM/yyyy,h:mm a'"}} -->
+            </ul>
+          </div>
+       
+        </div>
+      </div>
+      <button (click)="click(PaymentDetails?.mobileNumber)" >Back</button>
+    </div>
+ 
+</body>
+ 

@@ -1,0 +1,38 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+ 
+ 
+<!-- payment sucess design -->
+ 
+<body>
+    <div class="wrapper">
+      <input type="radio" name="slider" id="tab-1">
+      <input type="radio" name="slider" id="tab-2" checked>
+      <input type="radio" name="slider" id="tab-3">
+      <header>
+        <label  class="tab-1"></label>
+        <label  class="tab-2">PAYMENT DETAILS</label>
+        <label  class="tab-3"></label>
+        <div class="slider"></div>
+      </header>
+      <div class="card-area">
+        <div class="cards">
+         
+          <div class="row">
+            <div class="price-details">
+              <span class="price">{{data.paidAmount}}</span>
+              <p>Payment Status : {{data.paymentStatus}} </p>
+            </div>
+            <ul class="features">
+              <li><i class="fas fa-check"></i><span>Bank Reference Number: {{data.bankReference}}</span></li>
+              <li><i class="fas fa-check"></i><span>Receipt Number : {{data.receiptNumber}} </span></li>
+              <!-- <li><i class="fas fa-check"></i><span>Order Reference : {{data.orderReference}}</span></li> -->
+              <li><i class="fas fa-check"></i><span>Payment Mode : {{data.paymentMethod}}</span></li>
+              <li><i class="fas fa-check"></i><span>Date & Time: {{data.createdDateTime}}</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <button (click)=" Returnurl()"  >Back </button>
+    </div>
+ 
+</body>

@@ -1,0 +1,301 @@
+<mat-card-header>
+  <div class="row  d-flex justify-content-start">
+    <div class="col-md-6">
+      <h5>Customer Plan Details</h5>
+    </div>
+    <div class="col-md-4  mt-1">
+      <h6> Total Plan Amount: <span style="color:green;">₹{{ overallAmount }}</span></h6>
+    </div>
+    <div class="col-md-2 d-flex justify-content-end mb-1">
+      <button class="buttonDownload" (click)="close()">Back</button>
+    </div>
+   
+  </div>
+</mat-card-header>
+<div class="mb-4">
+  <mat-stepper orientation="vertical" (selectionChange)="onStepChange($event)">
+    <mat-step>
+      <ng-template matStepLabel><b>Alcarte Channels </b> </ng-template>
+      <span *ngIf="!viewData" style="color:red;font-size:12px;text-align: center;">NO DATA FOUND</span>
+      <ng-template matStepContent>
+        <div class="row mt-1 mx-1">
+          <div class="col-md-4">
+            <div class="search me-4 mb-3">
+              <div class="search ">
+                <form class="form">
+                    <label for="search">
+                        <input (ngModelChange)="onSearchTextChange()" #input name="search" required autocomplete="off" placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
+ 
+                        <div class="icon">
+                            <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                                    stroke-linecap="round"></path>
+                            </svg>
+                            <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                                <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
+                                    stroke-linecap="round">
+                                </path>
+                            </svg>
+                        </div>
+                        <form>
+                         
+                        </form>
+                        <button type="reset" class="close-btn">
+                            <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                                <path clip-rule="evenodd"
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    fill-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                    </label>
+                </form>
+            </div>
+
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <button (click)="addalcot()" style="color:white;background-color: #141E46;border-radius: 10px;"
+              mat-raised-button>Add Alcot</button>
+          </div>
+          <div class="col-md-4 d-flex justify-content-end">
+            <b> Total Alcart Amount: {{ totalAmount }}</b>
+          </div>
+        </div>
+        <div class="row mt-1 mx-1">
+          <div class="col-12 mb-3 mb-lg-5">
+            <div class="card table-nowrap table-card">
+              <div class="table-responsive text-nowrap text-center">
+                <table class="table table-hover" id="customers" *ngIf="viewData">
+                  <tr>
+                    <th>S No</th>
+                    <th>Channel Name</th>
+                    <th>Channel No</th>
+                    <th>Channel Type </th>
+                    <th>Status</th>
+                    <th>Price</th>
+                    <th>Language</th>
+                    <th>Generic</th>
+                   
+                  </tr>
+                  <span *ngIf="!viewData || (viewData && alcotchannel.length === 0)"
+                  style="color:red;font-size:12px;text-align: center;">NO DATA</span>
+                  <tbody
+                    *ngFor="let row of alcotchannel | search: searchText | paginate: { itemsPerPage: 3, currentPage: currentPage }; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ row.channelName }}</td>
+                    <td>{{ row.channelNo }}</td>
+                    <td>{{row?.type == 0 ? 'Paid' : 'Free'}}</td>
+                    <td> <mat-slide-toggle class="example-margin" color="primary" [checked]="row.activeStatus === 1"
+                        (change)="ActiveStatus($event,row.customerPlanId)">
+                      </mat-slide-toggle></td>
+                    <td>{{ row.price }}</td>
+                    <td>{{ row.language}}</td>
+                    <td>{{ row.generic }}</td>
+
+                  </tbody>
+                </table>
+              </div>
+              <div class="text-end mt-3">
+                <pagination-controls (pageChange)="currentPage= $event"></pagination-controls>
+ 
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </ng-template>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel><b>Bouquet Plans</b></ng-template>
+      <ng-template matStepContent>
+        <div class="row mt-2 mx-1">
+          <div class="col-md-4">
+            <div class="search me-4 mb-3">
+              <div class="search ">
+                <form class="form">
+                    <label for="search">
+                        <input (ngModelChange)="onSearchTextChange()" #input name="search" required autocomplete="off" placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
+ 
+                        <div class="icon">
+                            <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                                    stroke-linecap="round"></path>
+                            </svg>
+                            <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                                <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
+                                    stroke-linecap="round">
+                                </path>
+                            </svg>
+                        </div>
+                        <form>
+                         
+                        </form>
+                        <button type="reset" class="close-btn">
+                            <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                                <path clip-rule="evenodd"
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    fill-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                    </label>
+                </form>
+            </div>
+
+            </div>
+          </div>
+          <div class="col-md-4">
+            <button (click)="addbouquet()" style="color:white;background-color: #141E46;border-radius: 10px;"
+              mat-raised-button>Add Bouquet</button>
+          </div>
+          <div class="col-md-4 d-flex justify-content-end">
+            <b> Total Bouquet Amount: {{ totalbouqet }}</b>
+          </div>
+        </div>
+        <div class="row mt-1 mx-1">
+          <div class="col-12 mb-3 mb-lg-5">
+            <div class="card table-nowrap table-card">
+              <div class="table-responsive text-nowrap text-center">
+                <table class="table table-hover" id="customers" *ngIf="viewData">
+                  <tr>
+                  <th>S No</th>
+                  <th>BroadCaster Name</th>
+                  <th>BroadCaster PlanName</th>
+                  <th>BroadCaster PlanAmount</th>
+                  <th>MSO</th>
+                  <th>Status</th>
+                  <th>Channels</th>
+                  <th>Created By</th>
+                  <th>Created At</th>
+                </tr>
+                <span *ngIf="!viewData || (viewData && bouquetPlan.length === 0)"
+                style="color:red;font-size:12px;text-align: center;">NO DATA</span>
+                  <tbody
+                    *ngFor="let row of bouquetPlan | search: searchText | paginate: { itemsPerPage: 3, currentPage: currentPage }; let i = index">
+                    <span *ngIf="!viewData" style="color:red;font-size:12px;text-align: center;">NO DATA FOUND</span>
+
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ row.broadCasterId?.bundleChannel?.broadCasterName}}</td>
+                    <td>{{ row.broadCasterId?.bouquetCreation?.bouquetName }}</td>
+                    <td>{{ row.broadCasterId?.amount }}</td>
+                    <td>{{ row.broadCasterId?.serviceProvider?.serviceProviderName }}</td>
+                    <td><span><mat-slide-toggle class="example-margin" color="primary"
+                          [checked]="row.activeStatus === 1" (change)="ActiveStatus($event,row.customerPlanId)">
+                        </mat-slide-toggle></span> </td>
+                    <td><i class="fas fa-eye" (click)="Viewchannels(row.broadCasterId?.bouquetId)"> </i></td>
+                    <td>{{ row.broadCasterId?.createdBy }}</td>
+                    <td>{{ row.broadCasterId?.createdAt  | date : "dd-MM-yyyy hh:mm a" }}</td>
+
+                  </tbody>
+                </table>
+                <div class="text-end mt-3">
+                  <pagination-controls (pageChange)="currentPage= $event"></pagination-controls>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </ng-template>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel><b>LCOP Plans</b> </ng-template>
+      <span *ngIf="!viewData" style="color:red;font-size:12px;text-align: center;">NO DATA FOUND</span>
+      <div class="row mt-2 mx-1">
+        <div class="col-md-4">
+          <div class="search me-4 mb-3">
+            <div class="search ">
+              <form class="form">
+                  <label for="search">
+                      <input (ngModelChange)="onSearchTextChange()" #input name="search" required autocomplete="off" placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
+
+                      <div class="icon">
+                          <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                              <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                                  stroke-linecap="round"></path>
+                          </svg>
+                          <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                              <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
+                                  stroke-linecap="round">
+                              </path>
+                          </svg>
+                      </div>
+                      <form>
+                       
+                      </form>
+                      <button type="reset" class="close-btn">
+                          <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                              <path clip-rule="evenodd"
+                                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                  fill-rule="evenodd"></path>
+                          </svg>
+                      </button>
+                  </label>
+              </form>
+          </div>
+
+          </div>
+        </div>
+        <div class="col-md-4">
+          <button (click)="addLcop()" style="color:white;background-color: #141E46;border-radius: 10px;"
+            mat-raised-button>Add LCOP</button>
+        </div>
+        <div class="col-md-4 d-flex justify-content-end">
+          <b> Total Lcop Amount: {{ totallcop }}</b>
+        </div>
+      </div>
+      <div class="row mt-1 mx-1">
+        <div class="col-12 mb-3 mb-lg-5">
+          <div class="card table-nowrap table-card">
+            <div class="table-responsive text-nowrap text-center">
+              <table class="table table-hover" id="customers" *ngIf="viewData">
+                <tr>
+                  <th>S No</th>
+                  <th>Plan Name</th>
+                  <th>Price</th>
+                  <th>Status</th>
+                  <th>Total Amount</th>
+                  <th>OverAll Amount</th>
+                  <th>View Plans</th>
+                  <th>Created By</th>
+                  <th>Created At</th>
+                </tr>
+                <span *ngIf="!viewData || (viewData && lcopChannel.length === 0)"
+                style="color:red;font-size:12px;text-align: center;">NO DATA</span>
+                <tbody
+                  *ngFor="let row of this.lcopChannel | search: searchText | paginate: { itemsPerPage: 3, currentPage: currentPage }; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{row.planName }}</td>
+                  <td>{{row.price }}</td>
+                  <td> <mat-slide-toggle class="example-margin" color="primary" [checked]="row.activeStatus === 1"
+                      (change)="ActiveStatus($event,row.customerPlanId)">
+                    </mat-slide-toggle></td>
+                  <td>{{row.totalAmount }}</td>
+                  <td>{{row.overallAmount }}</td>
+                  <td><i class="fas fa-eye" (click)="Lcopplans(row.lcopId,row.planName)"> </i></td>
+                  <td>{{row.createdBy }}</td>
+                  <td>{{row.createdAt  | date : "dd-MM-yyyy hh:mm a" }}</td>
+                </tbody>
+              </table>
+              <div class="text-end mt-3">
+                <pagination-controls (pageChange)="currentPage= $event"></pagination-controls>
+ 
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </mat-step>
+  </mat-stepper>
+</div>

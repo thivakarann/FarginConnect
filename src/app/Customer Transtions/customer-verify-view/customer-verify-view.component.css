@@ -1,0 +1,87 @@
+* {
+  box-sizing: border-box;
+}
+ 
+ 
+.card {
+  border-radius: 10px;
+  transition: box-shadow 0.3s ease;
+}
+ 
+.card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+ 
+.card-title {
+  color: #333;
+  font-weight: 600;
+}
+ 
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+  border-radius: 30px;
+  padding: 10px 30px;
+}
+ 
+.flag-img {
+  height: 30px;
+}
+ 
+@media (max-width: 576px) {
+  .navbar-brand {
+      font-size: 1em;
+  }
+ 
+  .card {
+      margin: 10px 0;
+  }
+}
+ 
+ 
+/*  */
+footer {
+  background-color: #b7e651; /* Dark background color */
+  padding: 20px 20px; /* Increased padding */
+  text-align: center;
+  border-top: 1px solid #ccc;
+}
+ 
+footer p {
+  margin: 0;
+  font-size: 16px; /* Increased font size */
+  font-family: 'Arial', sans-serif; /* Change font family */
+  color: #ffffff; /* White text color */
+}
+ 
+footer .copyright {
+  font-size: 15px; /* Larger font size for copyright */
+  color: black; /* Gray color */
+  font-weight: 600;
+}
+ 
+footer .support {
+  color:black; /* Gray color for support link */
+  font-size: 15px; /* Same font size as copyright */
+  font-weight: 600;
+ 
+}
+ 
+footer a {
+  color: #141E46; /* Link color */
+  text-decoration: none;
+  margin: 0 5px;
+  font-weight: 500;
+  font-family: 'Georgia', serif; /* Different font family for links */
+}
+ 
+footer a:hover {
+  text-decoration: underline;
+  color: black; /* Darker link color on hover */
+}
+ 
+@media (max-width: 600px) {
+  footer p {
+      font-size: 14px; /* Adjusted font size for mobile */
+  }
+}

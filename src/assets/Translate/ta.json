@@ -1,0 +1,54 @@
+{ 
+ "Dashboard":"டாஷ்போர்டு",
+ "Verfication" :"சரிபார்ப்பு",
+ "CustomerOnboard": "கஸ்டமர் ஆன்போர்டு",
+ "Agreement":"ஒப்பந்தம்",
+ "Subscription":"சந்தா",
+ "Renewal":"புதுப்பித்தல்",
+ "Static QR Transactions":"நிலையான QR பரிவர்த்தனைகள்",
+
+ "Online Refunds":"பணத்தை திரும்பப் பெறுதல்",
+ "Customer Dues": "வாடிக்கையாளர் நிலுவைத் தொகை",
+ "Additional Transactions":"கூடுதல் பரிவர்த்தனைகள்" ,
+ "Customization Payments":"பொருத்தம் பொருத்தம்",
+ "Due Status History" :"நிலுவை நிலைமை வரலாறு",
+ "Customer Survey":"வாடிக்கையாளர் கணக்கெடுப்பு",
+ "Branch": "கிளை",
+ 
+ "Service Request":"சேவை கோரிக்கை",
+ "Support Request":"சேவை கோரிக்கை",
+ "Customer Request": "வாடிக்கையாளர் கோரிக்கை",
+
+ "Policies": "கொள்கைகள்",
+ "Terms and Condition": "விதிமுறைகள் மற்றும் நிபந்தனைகள்",
+ "Disclaimer": "இயல்பு திருத்தம்",
+ "Privacy Policy":"தனியுரிமைக் கொள்கை",
+"Refund Policy":"திரும்பப்பெறுதலுக்கான கொள்கை",
+
+"SMS":"குறுந்தகவல் சேவை",
+"SMS Service":"குறுந்தகவல் சேவை",
+"SMS History":"குறுந்தகவல் வரலாறு",
+
+"Channels & Packages":"சேனல்கள் மற்றும் தொகுப்புகள்",
+"Channel Configuration":"சேனல் அமைப்பு",
+"Plan Configuration":"திட்ட அமைப்பு",
+"LCOP Plan Configuration":"LCOP திட்ட அமைப்பு",
+
+"Bulk Upload Status":"தொகுதி பதிவேற்ற நிலை",
+"Setupbox Status":"செட்-டாப் பாக்ஸ் நிலை",
+"Customer Status":"வாடிக்கையாளர் நிலை",
+"Customer Setupbox Status":"வாடிக்கையாளர் செட்-டாப் பாக்ஸ் நிலை",
+"Route Status":"பாதை நிலை",
+
+"Main Master":"முதன்மை மாஸ்டர்",
+"Service Provider Payments":"சேவை வழங்குநர் கட்டணம்",
+"Region":"பிராந்தியம்",
+"Route Configuration":"பாதை அமைப்பு",
+"Setupbox Inventory":"செட்-டாப் பாக்ஸ் இருப்பு",
+"Category":"வகை",
+
+"User Management":"பயனர் மேலாண்மை",
+"Role":"பங்கு",
+"Employee":"ஊழியர்"
+
+ }

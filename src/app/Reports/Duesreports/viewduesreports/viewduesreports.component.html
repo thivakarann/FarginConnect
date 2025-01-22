@@ -1,0 +1,504 @@
+<h4 style="text-align: left; color: #141e46">Customer Dues Report </h4>
+<mat-card-header>
+  <div class="row mt-4">
+    <div class="col-md-3 search-dropdown">
+        <label class="form__label" style="font-size: 16px;  ">Search</label>
+        <div class="search-container" >
+          <select id="MccCode" class="form-select"  [(ngModel)]="selectedOption" (ngModelChange)="onOptionChange($event)">
+            <option value="yesterday">Yesterday</option>
+            <option value="today">Today</option>
+            <option value="customRange">Custom Range</option>
+            <option value="customRangeWithStatus">Custom Range With Status</option>
+          </select>
+          <i class="fa fa-search search-icon"></i>
+        </div>
+      </div>
+
+      <div class="col-md-1 mt-auto">
+            
+        <button style="color:white;background-color: rgb(179, 3, 3);border-radius: 10px;" (click)="reload()"
+        mat-raised-button >Reset</button>
+    </div>
+      
+    <div class="col-md-3 mt-auto" >
+      <button [hidden]="valueduesexport !== 'Customer Dues Report-Export'" class="btn"
+        style="color: white; background-color: #141e46; border-radius: 10px"
+        (click)="exportexcel()"
+        mat-raised-butt
+      >
+        Export
+      </button>
+    </div>
+  </div>
+</mat-card-header>
+
+<!-- <mat-card> -->
+<mat-card-content>
+  <div class="example-container
+  mt-4">
+  <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="sno">
+        <th mat-header-cell *matHeaderCellDef>S.No</th>
+        <td mat-cell *matCellDef="let viewall; let i = index">{{ i + 1 }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="customerReferenceId">
+        <th mat-header-cell *matHeaderCellDef>Customer Id</th>
+        <td mat-cell *matCellDef="let viewall">
+            {{viewall.customerId?.customerReferenceId}}
+        </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="mobileNumber">
+        <th mat-header-cell *matHeaderCellDef>Mobile Number</th>
+        <td mat-cell *matCellDef="let viewall">
+            {{viewall.customerId.mobileNumber}}
+        </td>
+    </ng-container>
+
+
+
+      <ng-container matColumnDef="customername">
+        <th mat-header-cell *matHeaderCellDef>Customer Name</th>
+        <td mat-cell *matCellDef="let viewall">
+          {{ viewall.customerId.customerName }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="customeremail">
+        <th mat-header-cell *matHeaderCellDef>Customer Email</th>
+        <td mat-cell *matCellDef="let viewall">
+          {{ viewall.customerId.emailAddress }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="transactionId">
+        <th mat-header-cell *matHeaderCellDef>Payment Id</th>
+        <td mat-cell *matCellDef="let viewall">
+          {{ viewall.pgPaymentId || "-" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef>Amount</th>
+        <td mat-cell *matCellDef="let viewall">
+          {{ viewall.paidAmount || "-" }}
+        </td>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="paymentmethod">
+                <th mat-header-cell *matHeaderCellDef>Payment Method</th>
+                <td mat-cell *matCellDef="let viewall">
+                    {{viewall?.paymentMethod}}
+                </td>
+            </ng-container> -->
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let viewall">
+          <span *ngIf="viewall.paymentStatus == 'Success'" style="color: green"
+            ><b>{{ viewall?.paymentStatus }}</b></span
+          >
+          <span
+            *ngIf="viewall.paymentStatus == 'Due Pending'"
+            style="color: orange"
+            ><b>{{ viewall?.paymentStatus }}</b></span
+          >
+          <span *ngIf="viewall.paymentStatus == 'Failure'" style="color: red"
+            ><b>{{ viewall?.paymentStatus }}</b></span
+          >
+          <span *ngIf="viewall.paymentStatus == 'Initiated'" style="color: blue"
+            ><b>{{ viewall?.paymentStatus }}</b></span
+          >
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="dues">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          [hidden]="valueReverseDues !== 'Customer dues-Reverse Dues'"
+        >
+          Reverse Dues
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let viewall"
+          [hidden]="valueReverseDues !== 'Customer dues-Reverse Dues'"
+        >
+          <button
+            class="btn btn-success btn-sm"
+            [disabled]="
+              viewall.dueStatus === 1 && viewall.paymentStatus != 'Success'
+            "
+            (click)="dues(viewall)"
+          >
+            <i style="font-size: 20px; cursor: pointer" class="fa fa-edit"></i>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="reverse">
+        <th mat-header-cell *matHeaderCellDef>Reverse Status</th>
+        <td mat-cell *matCellDef="let viewall">
+          {{ viewall.dueStatus === 1 ? "Dues Reversed" : "Not Reversed" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="view">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          [hidden]="valueduesview !== 'Customer dues-View'"
+        >
+          View
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let viewall"
+          [hidden]="valueduesview !== 'Customer dues-View'"
+        >
+          <i class="fa fa-eye" (click)="view(viewall.customerPayId)"></i>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="paidat">
+        <th mat-header-cell *matHeaderCellDef>Due Generated At</th>
+        <td mat-cell *matCellDef="let viewall">
+          {{ viewall.createdDateTime | date : "dd/MM/yyyy hh:mm a" }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="commentby">
+        <th mat-header-cell *matHeaderCellDef>Comment By</th>
+        <td mat-cell *matCellDef="let viewall">
+          <div class="privacy-policy-container">
+            <span *ngIf="!isFullPolicyVisible">
+              {{ viewall.commentsBy | slice : 0 : limit }}
+            </span>
+            <span *ngIf="isFullPolicyVisible">
+              {{ viewall.commentsBy }}
+            </span>
+            <i
+              style="color: #141e46; font-weight: 600; cursor: pointer"
+              class="read-more"
+              (click)="comment(viewall)"
+            >
+              <br />
+              {{ isFullPolicyVisible ? "Read Less" : "...Read More" }}
+            </i>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Receipt">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          [hidden]="valueduesReceipt !== 'Customer dues-Receipt'"
+        >
+          Receipt
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let viewall"
+          [hidden]="valueduesReceipt !== 'Customer dues-Receipt'"
+        >
+          <!-- <button class="btn btn-success btn-sm"  [disabled]="viewall?.paymentStatus!='Success'" >   <i  class="fas fa-receipt" (click)="Receipt(viewall.customerPayId)"></i></button> -->
+          <button
+            class="btn btn-success btn-sm"
+            [disabled]="viewall.paymentStatus != 'Success'"
+            style="border: none"
+            (click)="Receipt(viewall.customerPayId)"
+          >
+            <i class="fas fa-receipt" style="color: #fff"></i>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="manualpayment">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          [hidden]="valueduesmanual !== 'Customer dues-Manual Payment'"
+        >
+          Manual Payment
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let viewall"
+          [hidden]="valueduesmanual !== 'Customer dues-Manual Payment'"
+        >
+          <button [disabled]="viewall.paymentStatus == 'Success'">
+            <i
+              style="font-size: 20px; cursor: pointer"
+              class="fa-solid fa-address-card"
+              (click)="viewpay(viewall.customerPayId)"
+            ></i>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="refund">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          [hidden]="valueduesRefund !== 'Customer dues-Refund'"
+        >
+          Refund
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let viewall"
+          [hidden]="valueduesRefund !== 'Customer dues-Refund'"
+        >
+          <button
+            (click)="refund(viewall)"
+            [disabled]="
+              viewall.pgPaymentId == null || viewall.paymentStatus !== 'Success'
+            "
+          >
+            <i class="fa fa-undo"></i>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      <tr *matNoDataRow>
+        <td class="mat-cell" colspan="4">No Data</td>
+      </tr>
+    </table>
+  </div>
+</mat-card-content>
+<mat-card-footer >
+  <div class="row d-flex justify-content-end mt-3 mx-2"  *ngIf="showFooter">
+    <div class="col-md-7"></div>
+    <div class="col-md-5">
+      <button style="color: white; background-color: #141e46">
+        Total Entries:{{ this.totalPages }}
+      </button>
+      <button
+        style="color: white; background-color: #141e46"
+        (click)="changePageIndex(pageIndex - 1)"
+        [hidden]="pageIndex === 0"
+      >
+        Previous
+      </button>
+      <button style="color: white; background-color: #141e46">
+        {{ this.currentpage }} of {{ this.totalpage }} Pages
+      </button>
+      <button
+        style="color: white; background-color: #141e46"
+        (click)="changePageIndex(pageIndex + 1)"
+        [hidden]="pageIndex >= totalpage - 1"
+      >
+        Next
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-9"></div>
+    <div *ngIf="showentries" class="p-3">
+      <button style="color:white;background-color: #141E46;">Total Entries:{{this.totalCount}}</button>
+
+    </div>
+  </div>
+</mat-card-footer>
+
+<ng-template #dialogTemplate>
+    <div class="dialog-card-header">
+      <h3 class="mb-0" style="font-weight: 700; text-align: center; font-size: 21px;">
+      Yesterday's    
+      </h3>
+      <div class="col-md-2 d-flex justify-content-end mb-1">
+        <button  class="button1" (click)="dialogRef.close()">Back</button>
+      </div>
+    </div>
+    <div class="dialog-body page">
+      <main class="main page__main">
+        <form class="form main__form" autocomplete="off" role="form">
+          <div class="form__linput">
+            <label class="form__label" for="fname">Customer Id</label>
+            <input class="form-control" id="fname" type="text" [(ngModel)]="customerid" [disabled]="shouldDisable('customerid')" name="customerid" required />
+          </div>
+          <div class="form__linput">
+            <label class="form__label" for="fname">Customer Name</label>
+            <input class="form-control" id="fname" type="text" [(ngModel)]="customername"  [disabled]="shouldDisable('customername')" name="customername" required />
+          </div>
+          <div class="form__linput">
+            <label class="form__label" for="fname">Mobile Number</label>
+            <input class="form-control" id="fname" type="text" [(ngModel)]="mobile"  [disabled]="shouldDisable('mobile')" name="mobile" required />
+          </div>
+          <div class="form__linput">
+            <label class="form__label" for="paymentStatus"> Payment Status</label>
+            <select class="form-control form-select" [(ngModel)]="payment"   [disabled]="shouldDisable('payment')"  name="payment">
+            <option value="Success">Success</option>
+            <option value="Initiated">Initiated</option>
+            <option value="Due Pending">Due Pending</option>
+            <option value="Failure">Failure</option>
+            </select>
+        </div>
+          <div class="mt-3">
+            <button type="submit" (click)="yesterdaysubmit()" class="btn mx-1" style="background-color: #7db855be">
+              Filter
+            </button>
+            <button type="button" class="btn" style="background-color: #141e46; color: white" (click)="reset()">
+              Reset
+            </button>
+          </div>
+        </form>
+      </main>
+    </div>
+  </ng-template>
+  
+
+  <ng-template #todaydialogTemplate>
+    <div class="dialog-card-header">
+      <h3 class="mb-0" style="font-weight: 700; text-align: center; font-size: 21px;">
+       Today's
+      </h3>
+      <div class="col-md-2 d-flex justify-content-end mb-1">
+        <button  class="button1" (click)="dialogRef.close()">Back</button>
+      </div>
+    </div>
+    <div class="dialog-body page">
+      <main class="main page__main">
+        <form class="form main__form" autocomplete="off" role="form">
+            <div class="form__linput">
+                <label class="form__label" for="fname">Customer Id</label>
+                <input class="form-control" id="fname" type="text" [(ngModel)]="todaycustomerid" [disabled]="todayshouldDisable('todaycustomerid')" name="todaycustomerid" required />
+              </div>
+              <div class="form__linput">
+                <label class="form__label" for="fname">Customer Name</label>
+                <input class="form-control" id="fname" type="text" [(ngModel)]="todaycustomername"  [disabled]="todayshouldDisable('todaycustomername')" name="todaycustomername" required />
+              </div>
+              <div class="form__linput">
+                <label class="form__label" for="fname">Mobile Number</label>
+                <input class="form-control" id="fname" type="text" [(ngModel)]="todaymobile"  [disabled]="todayshouldDisable('todaymobile')" name="todaymobile" required />
+              </div>
+              <div class="form__linput">
+                <label class="form__label" for="paymentStatus"> Payment Status</label>
+                <select class="form-control form-select" [(ngModel)]="todaypayment"   [disabled]="todayshouldDisable('todaypayment')"  name="todaypayment">
+                <option value="Success">Success</option>
+                <option value="Initiated">Initiated</option>
+                <option value="Due Pending">Due Pending</option>
+                <option value="Failure">Failure</option>
+                </select>
+            </div>
+          <div class="mt-3">
+            <button type="submit" (click)="todaysubmit()" class="btn mx-1" style="background-color: #7db855be">
+              Filter
+            </button>
+            <button type="button" class="btn" style="background-color: #141e46; color: white"  (click)="todayreset()">
+              Reset
+            </button>
+          </div>
+        </form>
+      </main>
+    </div>
+  </ng-template>
+  
+
+  <ng-template #customdialogTemplate>
+    <div class="dialog-card-header">
+      <h3 class="mb-0" style="font-weight: 700; text-align: center; font-size: 21px;">
+       Custom Range
+      </h3>
+      <div class="col-md-2 d-flex justify-content-end mb-1">
+        <button  class="button1" (click)="dialogRef.close()">Back</button>
+      </div>
+    </div>
+    <div class="dialog-body page">
+      <main class="main page__main">
+        <form class="form main__form" autocomplete="off" role="form">
+            <div class="form__linput">
+                <label class="form__label" for="fname">Customer Id</label>
+                <input class="form-control" id="fname" type="text" [(ngModel)]="customcustomerid" [disabled]="custompaymentshouldDisable('customcustomerid')" name="customcustomerid" required />
+              </div>
+              <div class="form__linput">
+                <label class="form__label" for="fname">Customer Name</label>
+                <input class="form-control" id="fname" type="text" [(ngModel)]="customcustomername"  [disabled]="custompaymentshouldDisable('customcustomername')" name="customcustomername" required />
+              </div>
+              <div class="form__linput">
+                <label class="form__label" for="fname">Mobile Number</label>
+                <input class="form-control" id="fname" type="text" [(ngModel)]="custommobile"  [disabled]="custompaymentshouldDisable('custommobile')" name="custommobile" required />
+              </div>
+
+          <div class="form__linput">
+            <label class="form__label" for="fromDate">From Date</label>
+            <input class="form-control" id="fromDate" type="date" [(ngModel)]="customfromdate"   name="customfromdate" required />
+          </div>
+          <div class="form__linput">
+            <label class="form__label" for="toDate">To Date</label>
+            <input class="form-control" id="toDate" type="date" [(ngModel)]="customtodate"name="customtodate" required />
+          </div>
+          <div class="mt-3">
+            <button type="submit" (click)="customsubmit()" class="btn mx-1" style="background-color: #7db855be">
+              Filter
+            </button>
+            <button type="button" class="btn" style="background-color: #141e46; color: white"  (click)="customtodayreset()">
+              Reset
+            </button>
+          </div>
+        </form>
+      </main>
+    </div>
+  </ng-template>
+  
+
+  <ng-template #customsearchdialogTemplate>
+    <div class="dialog-card-header">
+      <h3 class="mb-0" style="font-weight: 700; text-align: center; font-size: 21px;">
+        Custom Range
+      </h3>
+      <div class="col-md-2 d-flex justify-content-end mb-1">
+        <button  class="button1" (click)="dialogRef.close()">Back</button>
+      </div>
+    </div>
+    <div class="dialog-body page">
+      <main class="main page__main">
+        <form class="form main__form" autocomplete="off" role="form">
+            <div class="form__linput">
+                <label class="form__label" for="fname">Customer Id</label>
+                <input class="form-control" id="fname" type="text" [(ngModel)]="customstatuscustomerid" [disabled]="customstatuspaymentshouldDisable('customstatuscustomerid')" name="customstatuscustomerid" required />
+              </div>
+              <div class="form__linput">
+                <label class="form__label" for="fname">Customer Name</label>
+                <input class="form-control" id="fname" type="text" [(ngModel)]="customstatuscustomername"  [disabled]="customstatuspaymentshouldDisable('customstatuscustomername')" name="customstatuscustomername" required />
+              </div>
+              <div class="form__linput">
+                <label class="form__label" for="fname">Mobile Number</label>
+                <input class="form-control" id="fname" type="text" [(ngModel)]="custostatusmmobile"  [disabled]="customstatuspaymentshouldDisable('custostatusmmobile')" name="custostatusmmobile" required />
+              </div>
+          <div class="form__linput">
+            <label class="form__label" for="paymentStatus">Payment Status</label>
+            <select class="form-control form-select" id="paymentStatus" [(ngModel)]="paymentStatus" name="paymentStatus">
+              <option value="Success">Success</option>
+              <option value="Due Pending">Due Pending</option>
+              <option value="Initiated">Initiated</option>
+              <option value="Failure">Failure</option>
+            </select>
+          </div>
+          <div class="form__linput">
+            <label class="form__label" for="fromDate">From Date</label>
+            <input class="form-control" id="fromDate" type="date" [(ngModel)]="fromDate" name="fromDate" required />
+          </div>
+          <div class="form__linput">
+            <label class="form__label" for="toDate">To Date</label>
+            <input class="form-control" id="toDate" type="date" [(ngModel)]="toDate" name="toDate" required />
+          </div>
+          <div class="mt-3">
+            <button type="submit"  (click)="customstatussubmit()" class="btn mx-1" style="background-color: #7db855be">
+              Filter
+            </button>
+            <button type="button" class="btn" style="background-color: #141e46; color: white"  (click)="customstatusreset()">
+              Reset
+            </button>
+          </div>
+        </form>
+      </main>
+    </div>
+  </ng-template>
+  
+  
