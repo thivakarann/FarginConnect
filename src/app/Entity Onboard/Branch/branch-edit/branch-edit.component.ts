@@ -29,6 +29,7 @@ export class BranchEditComponent {
   holdername:any;
   number:any;
   accountid:any;
+  smsmerchantNames: any;
  
   constructor(
     public service: FarginServiceService,
@@ -49,6 +50,7 @@ export class BranchEditComponent {
     this.holdername=this.data.value.accountHolderName
     this.number=this.data.value.accountNumber
     this.accountid=this.data.value.accountId
+    this.smsmerchantNames=this.data.value.smsMerchantName
  
  
  
@@ -63,6 +65,12 @@ export class BranchEditComponent {
       createdBy: new FormControl(''),
       merchantId: new FormControl(''),
       accountId: new FormControl(''),
+      smsmerchantname: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9 ]*$'),
+        Validators.maxLength(25)
+      ]),
+ 
     })
  
  
@@ -107,7 +115,10 @@ export class BranchEditComponent {
  
   }
  
+  get smsmerchantname() {
+    return this.branchedit.get('smsmerchantname')
  
+  }
   Submit() {
  
     let submitModel: BranchEdit = {
@@ -119,15 +130,14 @@ export class BranchEditComponent {
       accountHolderName: this.accountHolderName?.value,
       accountNumber: this.accountNumber?.value,
       ifscCode: this.ifscCode?.value,
+      smsMerchantName:this.smsmerchantname?.value,
       modifiedBy: this.getadminname
     }
  
     this.service.BranchUpdate(this.branchid,submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
-        setTimeout(() => {
-          window.location.reload()
-        }, 500);
+      this.dialog.closeAll();
       }
       else {
         this.toastr.error(res.responseMessage);

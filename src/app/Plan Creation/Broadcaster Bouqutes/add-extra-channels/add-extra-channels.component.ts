@@ -69,7 +69,7 @@ export class AddExtraChannelsComponent implements OnInit {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.dialog.closeAll();
-        window.location.reload();
+      
       }
 
       else {

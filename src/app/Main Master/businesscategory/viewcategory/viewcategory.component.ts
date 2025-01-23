@@ -144,6 +144,24 @@ export class ViewcategoryComponent implements OnInit {
       exitAnimationDuration: '1000ms',
       disableClose:true
     });
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.service.Businesscategory().subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.businesscategory = res.response;
+          this.businesscategory.reverse();
+          this.dataSource = new MatTableDataSource(this.businesscategory);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.showcategoryData = false;
+  
+        }
+        else {
+          this.errorMsg = res.responseMessage;
+          this.showcategoryData = true;
+        }
+      });
+  
+    })
   }
 
 
@@ -154,7 +172,24 @@ export class ViewcategoryComponent implements OnInit {
       disableClose:true,
       data: { value: id }
     });
-
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.service.Businesscategory().subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.businesscategory = res.response;
+          this.businesscategory.reverse();
+          this.dataSource = new MatTableDataSource(this.businesscategory);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.showcategoryData = false;
+  
+        }
+        else {
+          this.errorMsg = res.responseMessage;
+          this.showcategoryData = true;
+        }
+      });
+  
+    })
   }
 
   admin() {

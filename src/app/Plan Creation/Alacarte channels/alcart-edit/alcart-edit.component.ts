@@ -202,9 +202,7 @@ msoservice:any
     this.EditAlcart.AlcardUpdate(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
-        setTimeout(() => {
-          window.location.reload()
-        }, 500);
+      
         this.router.navigateByUrl('dashboard/alacarte-viewall');
       }
       else {

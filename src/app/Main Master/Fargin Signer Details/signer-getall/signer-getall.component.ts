@@ -121,6 +121,16 @@ export class SignerGetallComponent implements OnInit {
       exitAnimationDuration: "800ms",
       disableClose: true
     })
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.service.signergetall().subscribe((res: any) => {
+        this.data = res.response;
+        this.data.reverse();
+        this.dataSource = new MatTableDataSource(this.data);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+  
+      });
+    })
   }
 
   Edit(id: any) {

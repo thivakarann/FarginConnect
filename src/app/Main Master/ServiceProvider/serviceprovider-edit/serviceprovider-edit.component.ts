@@ -58,7 +58,7 @@ export class ServiceproviderEditComponent implements OnInit {
     this.service.ServiceProviderUpdate(submitmodel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toaster.success(res.responseMessage);
-        window.location.reload();
+       this.dialog.closeAll();
       }
       else if (res.flag == 2) {
         this.toaster.error(res.responseMessage);

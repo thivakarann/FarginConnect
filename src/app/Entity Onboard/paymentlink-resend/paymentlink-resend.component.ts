@@ -58,9 +58,7 @@ export class PaymentlinkResendComponent {
       if (res.response.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.dialog.closeAll()
-        setTimeout(() => {
-          window.location.reload()
-        }, 1000);
+       
       }
       else {
         this.toastr.error(res.responseMessage);

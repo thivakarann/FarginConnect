@@ -62,7 +62,8 @@ export class AddBussinessdocumentComponent implements OnInit {
       kycCategoryId: ['', Validators.required],
       docNumber: [''],
       docFrontPath: ['', Validators.required],
-      docBackPath: ['']
+      docBackPath: [''],
+      expiryDate: ['']
     })
 
   }
@@ -81,6 +82,9 @@ export class AddBussinessdocumentComponent implements OnInit {
 
   get docBackPath() {
     return this.fourthFormGroup.get('docBackPath')
+  }
+  get expiryDate() {
+    return this.fourthFormGroup.get('expiryDate')
   }
 
   docProofChange(event: any) {
@@ -163,13 +167,13 @@ export class AddBussinessdocumentComponent implements OnInit {
     formData.append('kycCategoryId', this.kycCategoryId?.value);
     formData.append('docNumber', this.docNumber?.value);
     formData.append('createdBy', this.getadminname);
+    formData.append('expiryDate', this.expiryDate?.value);
+    
     this.service.documentAdd(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.dialog.closeAll();
-        setTimeout(() => {
-          window.location.reload()
-        }, 500);
+      
       } else {
         this.toastr.error(res.responseMessage);
       }

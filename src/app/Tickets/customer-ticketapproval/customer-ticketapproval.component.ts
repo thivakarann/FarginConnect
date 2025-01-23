@@ -51,9 +51,7 @@ export class CustomerTicketapprovalComponent {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.dialog.closeAll()
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+       
       }
       else {
         this.toastr.error(res.responseMessage)

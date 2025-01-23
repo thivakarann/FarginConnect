@@ -125,7 +125,31 @@
                   " *ngIf="renewalAmount?.invalid && renewalAmount?.touched && renewalAmount?.errors?.['pattern']">
                         Only positive numbers are allowed
                     </div>
-                </div>  
+                </div> 
+                <div class="col-sm-6 form-group">
+                    <label for="count">Plan Customer Limit</label>
+                    <input type="text" formControlName="countLimit" id="count" class="form-control"
+                    [(ngModel)]="countlimit" >
+             
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="countLimit?.invalid && countLimit?.touched && countLimit?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="countLimit?.invalid && countLimit?.touched && countLimit?.errors?.['pattern']">
+                        *Only Positive Number are allowed
+                    </div>
+                </div> 
             </div>
 
 

@@ -181,8 +181,31 @@ currentfilVal: any;
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
         setTimeout(() => {
-          window.location.reload()
-        }, 300);
+          this.service.OtherPay(this.pageSize, this.pageIndex).subscribe((res: any) => {
+            if (res.flag == 1) {
+              this.transaction = res.response;
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.totalPages;
+              this.currentpage = res.pagination.currentPage + 1;
+              this.transaction.reverse();
+              this.dataSource = new MatTableDataSource(this.transaction);
+              this.dataSource.sort = this.sort;
+              this.dataSource.paginator = this.paginator;
+              this.filter = false;
+              this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+            }
+            else if (res.flag == 2) {
+              this.transaction = [];
+              this.dataSource = new MatTableDataSource(this.transaction);
+              this.dataSource.sort = this.sort;
+              this.dataSource.paginator = this.paginator;  
+              this.filter = false;
+              this.message = res.responseMessage;
+            }
+      
+          });
+      
+        }, 500);
       }
       else {
         this.toastr.error(res.responseMessage);
@@ -409,8 +432,35 @@ currentfilVal: any;
       }
     })
   }
-  reset() {
-    window.location.reload();
+ reset() {
+    this.service.OtherPay(this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.transaction = res.response;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+        this.transaction.reverse();
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.filter = false;
+        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+        this.FromDateRange='';
+        this.ToDateRange='';
+      }
+      else if (res.flag == 2) {
+        this.transaction = [];
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;  
+        this.filter = false;
+        this.message = res.responseMessage;
+        this.FromDateRange='';
+        this.ToDateRange='';
+      }
+
+    });
+
   }
   renderPage(event: PageEvent) {
     // Capture the new page index and page size from the event

@@ -23,6 +23,7 @@ export class EditBussinessdocumentComponent {
   docNumbers: any;
   categoryvalue: any;
   bussinessid: any;
+  expiryDates:any;
 
   constructor(
     public service: FarginServiceService,
@@ -43,7 +44,7 @@ export class EditBussinessdocumentComponent {
     this.categoryvalue = this.data.value.entityKycCategory.kycCategoryId
 
     this.docNumbers = this.data.value.docNumber
-
+  this.expiryDates =this.data.value.expiryDate
 
     this.service.EntityGetKYCbybussinessid(this.bussinessid).subscribe((res: any) => {
       this.kycValue = res.response;
@@ -53,7 +54,7 @@ export class EditBussinessdocumentComponent {
     this.fourthFormGroup = this._formBuilder.group({
       kycCategoryId: ['', Validators.required],
       docNumber: [''],
-
+      expiryDate: [''],
     })
 
   }
@@ -66,6 +67,9 @@ export class EditBussinessdocumentComponent {
     return this.fourthFormGroup.get('docNumber')
   }
 
+  get expiryDate() {
+    return this.fourthFormGroup.get('expiryDate')
+  }
 
   docProofChange(event: any) {
     this.selectElement4 = event.target.value;
@@ -93,17 +97,13 @@ export class EditBussinessdocumentComponent {
     formData.append('kycCategoryId', this.kycCategoryId?.value);
     formData.append('docNumber', this.docNumber?.value.trim());
     formData.append('modifiedBy', this.getadminname);
-
-
-
+    formData.append('expiryDate', this.expiryDate?.value);
 
     this.service.documentEdit(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.dialog.closeAll();
-        setTimeout(() => {
-          window.location.reload()
-        }, 400);
+     
       } else {
         this.toastr.error(res.responseMessage);
       }

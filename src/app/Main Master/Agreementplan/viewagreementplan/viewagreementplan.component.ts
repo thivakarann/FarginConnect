@@ -177,9 +177,7 @@ export class ViewagreementplanComponent {
       this.response.push(sno);
       this.response.push(element?.planName);
       this.response.push(element?.serviceFee);
-      this.response.push(element?.mmcAmount);
-      this.response.push(element?.securityDepositAmount);
- 
+   
       this.response.push(element?.createdBy);
       if(element.createdAt){
         this.response.push(moment(element?.createdAt).format('DD/MM/yyyy-hh:mm a').toString());
@@ -206,8 +204,6 @@ export class ViewagreementplanComponent {
       "SNo",
       "Planname",
       "Servicefee",
-      "MMc Amount",
-      "Security DepositAmount",
        "CreatedBy",
        "CreatedDateTime",
        "ModifiedBy",
@@ -250,9 +246,7 @@ export class ViewagreementplanComponent {
       let qty4 = row.getCell(5);
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
-      let qty7 = row.getCell(8);
-      let qty8 = row.getCell(9);
- 
+   
    
    
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -262,8 +256,6 @@ export class ViewagreementplanComponent {
       qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
  
     }
     );

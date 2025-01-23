@@ -313,8 +313,27 @@ export class EntitySettlementComponent {
     }
   }
   reset(){
-    window.location.reload()
-
-  }
+  
+      let submitModel: settlement = {
+        merchantId: this.id,
+        pageNo: "",
+        size: "",
+        query: "",
+        dateRange: "",
+        status: "",
+      }
+      this.MerchantView.Entitysettlement(submitModel).subscribe((res: any) => {
+        this.Viewall = JSON.parse(res?.response);
+        this.viewdata = this.Viewall?.data?.content;
+        this.dataSource = new MatTableDataSource(this.viewdata?.reverse())
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        if (this.content.length === 0) {
+          this.dataSource = new MatTableDataSource();
+         }    
+         this.FromDateRange='';
+         this.ToDateRange='';
+      })
+    }
 
 }

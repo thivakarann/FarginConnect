@@ -151,9 +151,7 @@ export class EditRoleComponent implements OnInit {
       if (res.flag == 1) {
         this.toastr.success("Role has been Updated Successfully");
         this.dialog.closeAll();
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+     
       }
       else {
         this.toastr.error(res.responseMessage);

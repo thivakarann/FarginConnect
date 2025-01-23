@@ -616,6 +616,7 @@ export interface MerchantplanCreate {
   readonly frequency: any;
   readonly createdBy: any;
   readonly renewalAmount: any;
+  readonly countLimit:any;
 }
 
 export interface MerchantplanUpdate {
@@ -625,6 +626,7 @@ export interface MerchantplanUpdate {
   readonly frequency: any;
   readonly modifiedBy: any;
   readonly renewalAmount: any;
+  readonly countLimit:any;
 }
 
 export interface MerchantPlanStatus {
@@ -1302,6 +1304,7 @@ export interface Branchadd{
   readonly createdBy:any;
   readonly merchantId:any;
   readonly accountId:any;
+  readonly smsMerchantName:any;
 }
  
  
@@ -1315,6 +1318,8 @@ export interface BranchEdit{
   readonly ifscCode:any;
   readonly modifiedBy:any;
   readonly accountId:any;
+  readonly smsMerchantName:any;
+  
 }
  
 export interface Branchstatus {

@@ -87,9 +87,7 @@ export class PgsetupEditComponent implements OnInit {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
         this.dialog.closeAll()
-        setTimeout(() => {
-          window.location.reload();
-        }, 500);
+      
       } else {
         this.toastr.error(res.responseMessage)
       }

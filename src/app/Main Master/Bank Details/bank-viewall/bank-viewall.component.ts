@@ -114,6 +114,17 @@ errorMessage: any;
       exitAnimationDuration: "800ms",
       disableClose: true
     })
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.bankdetails.bankdetailsViewall().subscribe((res: any) => {
+        this.viewall = res.response;
+        this.viewall.reverse();
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        
+      });
+  
+    })
   }
 
   
@@ -128,6 +139,17 @@ reload(){
       exitAnimationDuration: "1000ms",
       data: { value: id },
       disableClose: true
+    })
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.bankdetails.bankdetailsViewall().subscribe((res: any) => {
+        this.viewall = res.response;
+        this.viewall.reverse();
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        
+      });
+  
     })
   }
 
@@ -144,7 +166,14 @@ reload(){
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         setTimeout(() => {
-          window.location.reload()
+          this.bankdetails.bankdetailsViewall().subscribe((res: any) => {
+            this.viewall = res.response;
+            this.viewall.reverse();
+            this.dataSource = new MatTableDataSource(this.viewall);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+            
+          });
         }, 500);
 
       }

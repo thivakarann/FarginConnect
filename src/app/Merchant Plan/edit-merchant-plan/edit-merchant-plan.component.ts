@@ -23,6 +23,7 @@ export class EditMerchantPlanComponent implements OnInit {
   numberValue: number | any = null;
   numberValues: number | any = null
   RenewelAmount: any;
+  countlimit: any;
 
   constructor(
     public merchantplanedit: FarginServiceService,
@@ -39,7 +40,7 @@ export class EditMerchantPlanComponent implements OnInit {
       maintenanceAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\\.[0-9]{1,2})?$')]),
       frequency: new FormControl('', Validators.required),
       renewalAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\\.[0-9]{1,2})?$')]),
-
+      countLimit:new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\\.[0-9]{1,2})?$')]),
     });
 
 
@@ -50,6 +51,7 @@ export class EditMerchantPlanComponent implements OnInit {
     this.MaintenanceAmount = this.data.value.maintenanceAmount;
     this.Frequency = this.data.value.frequency;
     this.RenewelAmount = this.data.value.renewalAmount;
+    this.countlimit= this.data.value.countLimit;
     
 
 
@@ -79,6 +81,11 @@ export class EditMerchantPlanComponent implements OnInit {
     return this.myForm.get('renewalAmount')
 
   }
+  get countLimit() {
+    return this.myForm.get('countLimit')
+ 
+  }
+ 
 
   submit() {
     let submitModel: MerchantplanUpdate = {
@@ -87,6 +94,7 @@ export class EditMerchantPlanComponent implements OnInit {
       maintenanceAmount: this.maintenanceAmount?.value,
       frequency: this.frequency?.value,
       renewalAmount: this.renewalAmount?.value,
+      countLimit:this.countLimit?.value.trim(),
       modifiedBy: this.getadminname
     }
 
@@ -94,9 +102,7 @@ export class EditMerchantPlanComponent implements OnInit {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.dialog.closeAll();
-        setTimeout(() => {
-          window.location.reload()
-        }, 500);
+    
 
       }
       else {

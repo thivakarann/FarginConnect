@@ -69,6 +69,13 @@ export class ViewOnboardinfoComponent implements OnInit {
       }
     })
 
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.service.EntityViewbyid(this.merchantId).subscribe((res: any) => {
+        this.detaislone = res.response.merchantpersonal;
+      })
+    })
+
+
   }
 
   copyText(text: string) {

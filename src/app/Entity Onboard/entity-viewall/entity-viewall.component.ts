@@ -167,7 +167,34 @@ export class EntityViewallComponent {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         setTimeout(() => {
-          window.location.reload()
+        
+    this.EntityViewall.EntityViewall(this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if (res.flag === 1) {
+
+     this.viewall = res.response;
+     this.totalPages = res.pagination.totalElements;
+     this.totalpage = res.pagination.totalPages;
+     this.currentpage = res.pagination.currentPage + 1;
+     // this.viewall.reverse();
+     this.dataSource = new MatTableDataSource(this.viewall);
+     this.dataSource.sort = this.sort;
+     this.dataSource.paginator = this.paginator;
+     this.filter=false;
+     }
+     else if (res.flag === 2) {
+       this.viewall = [];
+       this.dataSource = new MatTableDataSource(this.viewall);
+       this.dataSource.sort = this.sort;
+       this.dataSource.paginator = this.paginator;
+       this.filter=false;
+       this.totalPages = res.pagination.totalElements;
+       this.totalpage = res.pagination.totalPages;
+       this.currentpage = res.pagination.currentPage + 1;
+
+     }
+
+   });
+
         }, 500);
       }
       else {
@@ -352,7 +379,34 @@ export class EntityViewallComponent {
 
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
-        window.location.reload();
+     
+    this.EntityViewall.EntityViewall(this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if (res.flag === 1) {
+
+     this.viewall = res.response;
+     this.totalPages = res.pagination.totalElements;
+     this.totalpage = res.pagination.totalPages;
+     this.currentpage = res.pagination.currentPage + 1;
+     // this.viewall.reverse();
+     this.dataSource = new MatTableDataSource(this.viewall);
+     this.dataSource.sort = this.sort;
+     this.dataSource.paginator = this.paginator;
+     this.filter=false;
+     }
+     else if (res.flag === 2) {
+       this.viewall = [];
+       this.dataSource = new MatTableDataSource(this.viewall);
+       this.dataSource.sort = this.sort;
+       this.dataSource.paginator = this.paginator;
+       this.filter=false;
+       this.totalPages = res.pagination.totalElements;
+       this.totalpage = res.pagination.totalPages;
+       this.currentpage = res.pagination.currentPage + 1;
+
+     }
+
+   });
+
       }, 1000);
     });
   }

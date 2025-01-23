@@ -26,6 +26,7 @@ export class MerchantPlanViewallComponent {
     'planName',
     'serviceAmount',
     'renewalAmount',
+    'countLimit',
     'maintenanceAmount',
     'frequency',
     'activeStatus',
@@ -124,6 +125,20 @@ export class MerchantPlanViewallComponent {
       exitAnimationDuration: "1000ms",
       disableClose: true
     })
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.Merchantplanviewall.merchantplanviewall().subscribe((res: any) => {
+        this.viewall = res.response;
+        this.viewall.reverse();
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+  
+  
+      });
+  
+  
+    })
   }
 
   reload() {
@@ -136,6 +151,20 @@ export class MerchantPlanViewallComponent {
       exitAnimationDuration: "1000ms",
       data: { value: id },
       disableClose: true
+    })
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.Merchantplanviewall.merchantplanviewall().subscribe((res: any) => {
+        this.viewall = res.response;
+        this.viewall.reverse();
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+  
+  
+      });
+  
+  
     })
   }
 
@@ -152,7 +181,17 @@ export class MerchantPlanViewallComponent {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         setTimeout(() => {
-          window.location.reload()
+          this.Merchantplanviewall.merchantplanviewall().subscribe((res: any) => {
+            this.viewall = res.response;
+            this.viewall.reverse();
+            this.dataSource = new MatTableDataSource(this.viewall);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+      
+      
+          });
+      
         }, 500);
       }
       else {
@@ -188,6 +227,7 @@ export class MerchantPlanViewallComponent {
       this.response.push(element?.technicalAmount);
      
       this.response.push(element?.renewalAmount);
+      this.response.push(element?.countLimit);
  
       this.response.push(element?.maintenanceAmount);
       this.response.push(element?.frequency);
@@ -229,6 +269,7 @@ export class MerchantPlanViewallComponent {
       "PlanName",
       "Setup Cost",
       "Renewal Amount",
+      "Count Limit",
       "Maintenance Amount",
       "Frequency",
       "Status",
@@ -278,7 +319,8 @@ export class MerchantPlanViewallComponent {
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
       let qty10 = row.getCell(11);
- 
+      let qty11 = row.getCell(12);
+
  
  
  
@@ -294,7 +336,8 @@ export class MerchantPlanViewallComponent {
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
+      qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+
  
     }
     );
@@ -303,7 +346,7 @@ export class MerchantPlanViewallComponent {
     // worksheet.getColumn(3).protection = { locked: true, hidden: true }
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      FileSaver.saveAs(blob, 'Entity Plan.xlsx');
+      FileSaver.saveAs(blob, 'Entity Plans.xlsx');
     });
   }
 

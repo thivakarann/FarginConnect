@@ -5,16 +5,17 @@
 <body class="page">
     <main class="main page__main">
         <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="fourthFormGroup">
-        
-            <div class="form__row">
+            <div class="row">
+ 
+                <div class="col">
                 <div class="form__linput">
                     <label class="form__label" ><b>Document Name</b></label>
                     <select class="form-select" formControlName="kycCategoryId"
                         (change)="docProofChange($event)">
-                        <option *ngFor="let item of kycValue" [value]="item.entityKycCategory?.kycCategoryId"> 
+                        <option *ngFor="let item of kycValue" [value]="item.entityKycCategory?.kycCategoryId">
                             {{item.entityKycCategory.kycCategoryName}}
                         </option>
-
+ 
                        
                     </select>
                     <div *ngIf="kycCategoryId?.invalid && kycCategoryId?.touched && kycCategoryId?.errors?.['required']"
@@ -22,7 +23,9 @@
                         Field is required
                     </div>
                 </div>
-
+                </div>
+ 
+                <div class="col">
                 <div class="form__linput">
                     <label class="form__label"><b>Document Number</b></label>
                     <input class="form-control" id="mccCode" type="text" formControlName="docNumber"  required />
@@ -33,18 +36,36 @@
                             {{selectElement4}} number.</small>
                     </div> -->
                 </div>
+                </div>
+ 
             </div>
-
-            <div class="form__row">
-                <div class="form__linput">
-                    <label class="form__label"><b>Upload Front Path</b></label>
-                    <input class="form-control" formControlName="docFrontPath" (change)="docfront($event)" type="file"/>
-                    <div *ngIf="docFrontPath?.invalid && docFrontPath?.touched && docFrontPath?.errors?.['required']"
-                        style="color: red; font-size: 12px;">
-                        Field is required
+ 
+            <div class="row">
+                <div class="col">
+                    <div class="form__linput">
+                        <label class="form__label"><b>Expiry Date</b></label>
+                        <input class="form-control"  type="date" formControlName="expiryDate">
+                        <!-- <div style="color: red; font-size: 12px;margin-top: 2px;"
+                            *ngIf="expiryDate?.invalid && expiryDate?.touched && expiryDate?.errors?.['required']">
+                            Field is required
+                        </div> -->
                     </div>
                 </div>
-
+                <div class="col">
+                    <div class="form__linput">
+                        <label class="form__label"><b>Upload Front Path</b></label>
+                        <input class="form-control" formControlName="docFrontPath" (change)="docfront($event)" type="file"/>
+                        <div *ngIf="docFrontPath?.invalid && docFrontPath?.touched && docFrontPath?.errors?.['required']"
+                            style="color: red; font-size: 12px;">
+                            Field is required
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+ 
+            <div class="row">  
+                <div class="col">    
                 <div class="form__linput">
                     <label class="form__label"><b>Upload Back Path</b></label>
                     <input class="form-control" formControlName="docBackPath" (change)="docback($event)" type="file"/>
@@ -52,6 +73,10 @@
                         style="color: red; font-size: 12px;">
                         Field is required
                     </div> -->
+                </div>
+                </div>
+                <div class="col">
+ 
                 </div>
             </div>
 

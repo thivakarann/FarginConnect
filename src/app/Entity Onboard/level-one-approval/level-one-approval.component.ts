@@ -57,9 +57,7 @@ constructor(private service:FarginServiceService,
         this.approval=res.response; 
         this.toaster.success(res.responseMessage);
         this.dialog.closeAll();
-        setTimeout(() => {
-          window.location.reload()
-        }, 500);
+       
       }
       else if(res.flag == 2){
         this.toaster.error(res.responseMessage)

@@ -90,9 +90,7 @@ export class FarginBankAddComponent {
       if (res.flag == 1) {
         this.toaster.success(res.responseMessage);
         this.dialog.closeAll();
-        setTimeout(() => {
-          window.location.reload()
-        }, 500);
+    
       }
       else {
         this.toaster.error(res.responseMessage);

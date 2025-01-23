@@ -76,8 +76,13 @@ export class ViewRoleComponent implements OnInit {
 
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+        this.service.viewRoles().subscribe((res: any) => {
+          this.roledata = res.response;
+          this.dataSource = new MatTableDataSource(this.roledata?.reverse())
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        });
+      }, 500);
     });
   }
 
@@ -121,6 +126,14 @@ export class ViewRoleComponent implements OnInit {
             enterAnimationDuration: '1000ms',
             exitAnimationDuration: '1000ms',
           });
+          this.dialog.afterAllClosed.subscribe(() => {
+            this.service.viewRoles().subscribe((res: any) => {
+              this.roledata = res.response;
+              this.dataSource = new MatTableDataSource(this.roledata?.reverse())
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sort = this.sort;
+            });
+          })
         } else if (res.flag == 2) {
 
           this.errorMessage = res.responseMessage;
@@ -139,6 +152,14 @@ export class ViewRoleComponent implements OnInit {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
     });
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.service.viewRoles().subscribe((res: any) => {
+        this.roledata = res.response;
+        this.dataSource = new MatTableDataSource(this.roledata?.reverse())
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      });
+    })
 
   }
 

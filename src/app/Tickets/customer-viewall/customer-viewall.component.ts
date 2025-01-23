@@ -177,6 +177,23 @@ export class CustomerViewallComponent implements OnInit {
       disableClose: true,
       width: "50%"
     })
+
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.service.Ticketscustomer(this.pageSize, this.pageIndex).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.ticket = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.totalPages;
+          this.currentpage = res.pagination.currentPage + 1;
+          this.dataSource = new MatTableDataSource(this.ticket.reverse());
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+        }
+      });
+    }
+      )
+
   }
 
   viewlogo(id: any) {
@@ -210,19 +227,10 @@ export class CustomerViewallComponent implements OnInit {
           this.response.push(element?.mobileNumber);
           this.response.push(element?.categoryName);
           this.response.push(element?.ticketStatus)
-          if(element?.createdDateTime){
-            this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy-hh:mm a').toString());
-          }
-          else{
-            this.response.push('');
-          }
+          this.response.push(element?.createdDateTime);
           this.response.push(element?.ticketStatusModifedBy);
-          if(element?.ticketModifedDateTime){
-            this.response.push(moment(element?.ticketModifedDateTime).format('DD/MM/yyyy-hh:mm a').toString());
-          }
-          else{
-            this.response.push('');
-          } 
+          this.response.push(element?.ticketModifedDateTime);
+ 
           sno++;
           this.responseDataListnew.push(this.response);
         });

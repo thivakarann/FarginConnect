@@ -11,7 +11,7 @@
                     <label class="form__label" ><b>Document Name</b></label>
                     <select  [value]="categoryvalue" class="form-select" formControlName="kycCategoryId"
                         (change)="docProofChange($event)" ngModel="{{categoryvalue}}">
-                        <option *ngFor="let item of kycValue" [value]="item.entityKycCategory?.kycCategoryId"> 
+                        <option *ngFor="let item of kycValue" [value]="item.entityKycCategory?.kycCategoryId">
                             {{item.entityKycCategory.kycCategoryName}}
                         </option>
                     </select>
@@ -20,7 +20,7 @@
                         Field is required
                     </div>
                 </div>
-
+ 
                 <div class="form__linput">
                     <label class="form__label"><b>Document Number</b></label>
                     <input class="form-control"  type="text" formControlName="docNumber" required ngModel="{{docNumbers}}"/>
@@ -31,6 +31,15 @@
                             {{selectElement4}} number.</small>
                     </div> -->
                 </div>
+            </div>
+ 
+            <div class="form__linput">
+                <label class="form__label"><b>Expiry Date</b></label>
+                <input ngModel="{{expiryDates}}" class="form-control"  type="date" formControlName="expiryDate">
+                <!-- <div style="color: red; font-size: 12px;margin-top: 2px;"
+                    *ngIf="expiryDate?.invalid && expiryDate?.touched && expiryDate?.errors?.['required']">
+                    Field is required
+                </div> -->
             </div>
 
           

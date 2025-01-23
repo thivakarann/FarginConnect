@@ -67,9 +67,7 @@ export class ApprovalBussinessdocumentComponent {
       if (res.flag === 1) {
         this.toaster.success(res.responseMessage);
         this.dialog.closeAll();  // Close the dialog
-        setTimeout(() => {
-          window.location.reload()
-        }, 500);
+      
       } else {
         this.dialog.closeAll();
         this.toaster.error(res.responseMessage);

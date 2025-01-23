@@ -126,8 +126,16 @@ export class RegionComponent implements OnInit {
       
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+        this.service.RegionGet().subscribe((res: any) => {
+          this.region = res.response;
+          this.region.reverse();
+          this.dataSource = new MatTableDataSource(this.region);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          
+        });
+     
+      }, 500);
     });
   }
 
@@ -138,6 +146,17 @@ export class RegionComponent implements OnInit {
       exitAnimationDuration: '1000ms',
       disableClose: true,
     });
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.service.RegionGet().subscribe((res: any) => {
+        this.region = res.response;
+        this.region.reverse();
+        this.dataSource = new MatTableDataSource(this.region);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        
+      });
+   
+    })
   }
 
 
@@ -148,6 +167,17 @@ export class RegionComponent implements OnInit {
       data: { value: id },
       disableClose: true,
     });
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.service.RegionGet().subscribe((res: any) => {
+        this.region = res.response;
+        this.region.reverse();
+        this.dataSource = new MatTableDataSource(this.region);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        
+      });
+   
+    })
 
   }
 

@@ -106,6 +106,43 @@ export class BouqutesViewComponent implements OnInit {
       exitAnimationDuration: "500ms",
       data: { value: id ,value1:id1 }
     })
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.viewdetails.BroadcasterBoucatebyidchannel(this.id).subscribe((res: any) => {
+        if(res.flag==1){
+   
+     
+          this.details = res.response;
+       
+          if (res.response && res.response.length > 0) {
+            this.details = res.response[0].broadCasterBouquet;
+            console.log(this.details);
+        }
+     
+        if(res.response && res.response.length > 0){
+          this.back=res.response.broadCasterRegion
+        }
+     
+          this.channelslist = res.response;
+     
+          this.broadCasterRegion = res.response[0].broadCasterRegion;
+     
+          this.broadCasterBouquet = res.response[0].broadCasterBouquet;
+     
+          this.ServiceProvideregions = res.response;
+          if (res.response && res.response.length > 0) {
+            this.channel = res.response[0].broadCasterRegion.broadCasterRegion;
+            console.log(this.details);
+        }
+      }
+     
+      else if(res.flag == 2){
+        this.flag=res.flag;
+        this.message=res.responseMessage;
+        console.log( this.flag);
+        console.log( this.message)
+      }
+      });
+    })
   }
 
   close() {
@@ -128,7 +165,43 @@ this.location.back()
       
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
-        window.location.reload();
+        setTimeout(() => {
+          this.viewdetails.BroadcasterBoucatebyidchannel(this.id).subscribe((res: any) => {
+            if(res.flag==1){
+       
+         
+              this.details = res.response;
+           
+              if (res.response && res.response.length > 0) {
+                this.details = res.response[0].broadCasterBouquet;
+                console.log(this.details);
+            }
+         
+            if(res.response && res.response.length > 0){
+              this.back=res.response.broadCasterRegion
+            }
+         
+              this.channelslist = res.response;
+         
+              this.broadCasterRegion = res.response[0].broadCasterRegion;
+         
+              this.broadCasterBouquet = res.response[0].broadCasterBouquet;
+         
+              this.ServiceProvideregions = res.response;
+              if (res.response && res.response.length > 0) {
+                this.channel = res.response[0].broadCasterRegion.broadCasterRegion;
+                console.log(this.details);
+            }
+          }
+         
+          else if(res.flag == 2){
+            this.flag=res.flag;
+            this.message=res.responseMessage;
+            console.log( this.flag);
+            console.log( this.message)
+          }
+          });
+        }, 1000);
       }
       else {
         this.toastr.error(res.responseMessage);
@@ -158,6 +231,43 @@ this.location.back()
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
     });
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.viewdetails.BroadcasterBoucatebyidchannel(this.id).subscribe((res: any) => {
+        if(res.flag==1){
+   
+     
+          this.details = res.response;
+       
+          if (res.response && res.response.length > 0) {
+            this.details = res.response[0].broadCasterBouquet;
+            console.log(this.details);
+        }
+     
+        if(res.response && res.response.length > 0){
+          this.back=res.response.broadCasterRegion
+        }
+     
+          this.channelslist = res.response;
+     
+          this.broadCasterRegion = res.response[0].broadCasterRegion;
+     
+          this.broadCasterBouquet = res.response[0].broadCasterBouquet;
+     
+          this.ServiceProvideregions = res.response;
+          if (res.response && res.response.length > 0) {
+            this.channel = res.response[0].broadCasterRegion.broadCasterRegion;
+            console.log(this.details);
+        }
+      }
+     
+      else if(res.flag == 2){
+        this.flag=res.flag;
+        this.message=res.responseMessage;
+        console.log( this.flag);
+        console.log( this.message)
+      }
+      });
+    })
 
     // this.viewdetails.BroadcasterBoucatebyid(this.valueid).subscribe({
     //   next: (res: any) => {

@@ -455,9 +455,7 @@ export class AddagreementplanComponent {
         this.createagreementplan = res.response;
         this.toaster.success(res.responseMessage);
         this.router.navigateByUrl('dashboard/agreementplan')
-        setTimeout(() => {
-          window.location.reload()
-        }, 500);
+      
 
       }
       else {

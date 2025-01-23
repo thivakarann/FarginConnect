@@ -204,6 +204,8 @@ valuebranchCustomerview: any;
 valuebranchStatus: any;
 valuebranchAction: any;
   paymentutrnumber: any;
+  copiedapikey: any;
+  copiedsecretkey: any;
   selectTab(tab: string): void {
     this.activeTab = tab;
   }
@@ -577,6 +579,14 @@ valuebranchAction: any;
       disableClose: true,
       data: { value: id, value2: id1 }
     })
+    this.dialog.afterAllClosed.subscribe(()=>{
+     
+      this.MerchantView.viewbyidplans(this.id).subscribe((res: any) => {
+        this.agreementdetails = res.response.reverse();
+  
+      });
+      })
+
   }
 
   LinkExpirystatus(event: MatSlideToggleChange, id: any) {
@@ -593,8 +603,11 @@ valuebranchAction: any;
 
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+        this.MerchantView.viewbyidplans(this.id).subscribe((res: any) => {
+          this.agreementdetails = res.response.reverse();
+    
+        });
+      }, 500);
     });
   }
 
@@ -693,7 +706,20 @@ valuebranchAction: any;
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         setTimeout(() => {
-          window.location.reload()
+          this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+            this.details = res.response;
+      
+      
+            this.detaislone = res.response.merchantpersonal;
+            this.bankdetails = res.response.merchantbank.reverse();
+            this.KYCDetails = res.response.merchantkycdocument;
+            this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+      
+            this.identityProof = res.response.merchantkycdocument[0].identityProof;
+            this.addressProof = res.response.merchantkycdocument[0].addressProof;
+            this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+            this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+          })
         }, 500);
         this.dialog.closeAll();
 
@@ -720,7 +746,22 @@ valuebranchAction: any;
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         setTimeout(() => {
-          window.location.reload()
+          this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+            this.details = res.response;
+      
+      
+            this.detaislone = res.response.merchantpersonal;
+            this.bankdetails = res.response.merchantbank.reverse();
+            this.KYCDetails = res.response.merchantkycdocument;
+            this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+      
+            this.identityProof = res.response.merchantkycdocument[0].identityProof;
+            this.addressProof = res.response.merchantkycdocument[0].addressProof;
+            this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+            this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+  
+      
+          })
         }, 500);
 
       }
@@ -739,6 +780,32 @@ valuebranchAction: any;
     // dialogRef.componentInstance.datas.subscribe((newBankData: ApprovalBank) => {
     //   this.bankdetails.push(newBankData);
     // });
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+        this.details = res.response;
+  
+  
+        this.detaislone = res.response.merchantpersonal;
+        this.bankdetails = res.response.merchantbank.reverse();
+        this.KYCDetails = res.response.merchantkycdocument;
+        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+  
+        this.identityProof = res.response.merchantkycdocument[0].identityProof;
+        this.addressProof = res.response.merchantkycdocument[0].addressProof;
+        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+  
+  
+  
+  
+        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+  
+  
+  
+  
+  
+  
+      })
+    })
   }
   BankComments(id: any) {
     this.dialog.open(CommentsForApprovalComponent, {
@@ -778,6 +845,32 @@ valuebranchAction: any;
 
       }
     })
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+        this.details = res.response;
+  
+  
+        this.detaislone = res.response.merchantpersonal;
+        this.bankdetails = res.response.merchantbank.reverse();
+        this.KYCDetails = res.response.merchantkycdocument;
+        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+  
+        this.identityProof = res.response.merchantkycdocument[0].identityProof;
+        this.addressProof = res.response.merchantkycdocument[0].addressProof;
+        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+  
+  
+  
+  
+        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+  
+  
+  
+  
+  
+  
+      })
+    })
   }
   // KycApproval(id: any) {
   //   this.dialog.open(KycApprovalComponent, {
@@ -807,10 +900,32 @@ valuebranchAction: any;
         value: id,
       }
     });
-
-    // dialogRef.componentInstance.dataSubmitted.subscribe((newBankData: bankData) => {
-    //   this.bankdetails.push(newBankData);
-    // });
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+        this.details = res.response;
+  
+  
+        this.detaislone = res.response.merchantpersonal;
+        this.bankdetails = res.response.merchantbank.reverse();
+        this.KYCDetails = res.response.merchantkycdocument;
+        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+  
+        this.identityProof = res.response.merchantkycdocument[0].identityProof;
+        this.addressProof = res.response.merchantkycdocument[0].addressProof;
+        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+  
+  
+  
+  
+        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+  
+  
+  
+  
+  
+  
+      })
+    })
   }
   editbank(id: any) {
     this.dialog.open(EntityBankeditComponent, {
@@ -819,9 +934,32 @@ valuebranchAction: any;
       exitAnimationDuration: "1000ms",
       data: { value: id }
     });
-    // dialogRef.componentInstance.dataSubmitteds.subscribe((newBankData: bankedit) => {
-    //   this.bankdetails.push(newBankData);
-    // });
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+        this.details = res.response;
+  
+  
+        this.detaislone = res.response.merchantpersonal;
+        this.bankdetails = res.response.merchantbank.reverse();
+        this.KYCDetails = res.response.merchantkycdocument;
+        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+  
+        this.identityProof = res.response.merchantkycdocument[0].identityProof;
+        this.addressProof = res.response.merchantkycdocument[0].addressProof;
+        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+  
+  
+  
+  
+        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+  
+  
+  
+  
+  
+  
+      })
+    })
 
   }
   addKycdocuments(id: any) {
@@ -834,7 +972,32 @@ valuebranchAction: any;
         value: id,
       }
     })
-
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+        this.details = res.response;
+  
+  
+        this.detaislone = res.response.merchantpersonal;
+        this.bankdetails = res.response.merchantbank.reverse();
+        this.KYCDetails = res.response.merchantkycdocument;
+        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+  
+        this.identityProof = res.response.merchantkycdocument[0].identityProof;
+        this.addressProof = res.response.merchantkycdocument[0].addressProof;
+        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+  
+  
+  
+  
+        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+  
+  
+  
+  
+  
+  
+      })
+    })
 
   }
 
@@ -858,6 +1021,33 @@ valuebranchAction: any;
       data: {
         value: id,
       }
+
+    })
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+        this.details = res.response;
+  
+  
+        this.detaislone = res.response.merchantpersonal;
+        this.bankdetails = res.response.merchantbank.reverse();
+        this.KYCDetails = res.response.merchantkycdocument;
+        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+  
+        this.identityProof = res.response.merchantkycdocument[0].identityProof;
+        this.addressProof = res.response.merchantkycdocument[0].addressProof;
+        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+  
+  
+  
+  
+        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+  
+  
+  
+  
+  
+  
+      })
     })
 
   }
@@ -869,6 +1059,32 @@ valuebranchAction: any;
       data: {
         value: id,
       }
+    })
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+        this.details = res.response;
+  
+  
+        this.detaislone = res.response.merchantpersonal;
+        this.bankdetails = res.response.merchantbank.reverse();
+        this.KYCDetails = res.response.merchantkycdocument;
+        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+  
+        this.identityProof = res.response.merchantkycdocument[0].identityProof;
+        this.addressProof = res.response.merchantkycdocument[0].addressProof;
+        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+  
+  
+  
+  
+        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+  
+  
+  
+  
+  
+  
+      })
     })
   }
   leveloneComments(comment: any) {
@@ -1037,7 +1253,30 @@ valuebranchAction: any;
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         setTimeout(() => {
-          window.location.reload()
+          this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+            this.details = res.response;
+      
+      
+            this.detaislone = res.response.merchantpersonal;
+            this.bankdetails = res.response.merchantbank.reverse();
+            this.KYCDetails = res.response.merchantkycdocument;
+            this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+      
+            this.identityProof = res.response.merchantkycdocument[0].identityProof;
+            this.addressProof = res.response.merchantkycdocument[0].addressProof;
+            this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+      
+      
+      
+      
+            this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+      
+      
+      
+      
+      
+      
+          })
         }, 500);
 
 
@@ -1091,7 +1330,31 @@ valuebranchAction: any;
         this.toastr.success(res.response.message);
         this.dialog.closeAll();
         setTimeout(() => {
-          window.location.reload()
+          this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+            this.details = res.response;
+      
+      
+            this.detaislone = res.response.merchantpersonal;
+            this.bankdetails = res.response.merchantbank.reverse();
+            this.KYCDetails = res.response.merchantkycdocument;
+            this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+      
+            this.identityProof = res.response.merchantkycdocument[0].identityProof;
+            this.addressProof = res.response.merchantkycdocument[0].addressProof;
+            this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+      
+      
+      
+      
+            this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+      
+      
+      
+      
+      
+      
+          })
+      
         }, 500);
       }
       else {
@@ -1182,6 +1445,23 @@ valuebranchAction: any;
         value: this.id,
       }
     })
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.MerchantView.GetManualPay(this.id).subscribe((res: any) => {
+
+        if (res.flag == 1) {
+          this.manualDetails = res.response;
+         
+  
+  
+          this.manualDetails.forEach((item: any) => {
+            this.paymentStatus = item.paymentStatus;
+            this.paymentMethod = item.paymentMethod
+  
+          });
+          this.manualDetails.reverse();
+        }
+      })
+    })
   }
 
   viewmanualtransaction(id: any) {
@@ -1201,6 +1481,24 @@ valuebranchAction: any;
         value: id,
       }
     })
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.MerchantView.GetManualPay(this.id).subscribe((res: any) => {
+
+        if (res.flag == 1) {
+          this.manualDetails = res.response;
+         
+  
+  
+          this.manualDetails.forEach((item: any) => {
+            this.paymentStatus = item.paymentStatus;
+            this.paymentMethod = item.paymentMethod
+  
+          });
+          this.manualDetails.reverse();
+        }
+      })
+    })
+
   }
 
   viewOnboardInfo(id: any) {
@@ -1223,7 +1521,28 @@ valuebranchAction: any;
     this.copySuccess = true;
     setTimeout(() => this.copySuccess = false, 2000);
   }
-
+  copyApikey(text: string, index: number) {
+    const el = document.createElement('textarea');
+    el.value = text;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    this.copiedapikey = index;
+    setTimeout(() => this.copiedapikey = -1, 2000);
+  }
+  copySecretkey(text: string, index: number) {
+    const el = document.createElement('textarea');
+    el.value = text;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    this.copiedsecretkey = index;
+    setTimeout(() => this.copiedsecretkey = -1, 2000);
+  }
+ 
+ 
   // copyText1(text: string) {
   //   const el = document.createElement('textarea');
   //   el.value = text;
@@ -1272,6 +1591,18 @@ valuebranchAction: any;
         value: this.id,
       }
     })
+    this.dialog.afterAllClosed.subscribe(()=>{
+     
+    this.MerchantView.OtherPayByMerchantId(this.id).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.otherDetails = res.response;
+        this.otherDetails.reverse();
+      }
+    });
+    })
+    
+  
+
   }
 
   viewOthertransaction(id: any) {
@@ -1288,6 +1619,15 @@ valuebranchAction: any;
       exitAnimationDuration: "1000ms",
       data: { value: data }
     });
+    this.dialog.afterAllClosed.subscribe(()=>{
+     
+      this.MerchantView.OtherPayByMerchantId(this.id).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.otherDetails = res.response;
+          this.otherDetails.reverse();
+        }
+      });
+      })
   }
 
 
@@ -1298,6 +1638,32 @@ valuebranchAction: any;
       // disableClose: true,
       data: { value: id, value1: 1 }
     })
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+        this.details = res.response;
+  
+  
+        this.detaislone = res.response.merchantpersonal;
+        this.bankdetails = res.response.merchantbank.reverse();
+        this.KYCDetails = res.response.merchantkycdocument;
+        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+  
+        this.identityProof = res.response.merchantkycdocument[0].identityProof;
+        this.addressProof = res.response.merchantkycdocument[0].addressProof;
+        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+  
+  
+  
+  
+        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+  
+  
+  
+  
+  
+  
+      })
+    })
   }
   getBackPath(id: any) {
     this.dialog.open(KycdocumentViewComponent, {
@@ -1305,6 +1671,32 @@ valuebranchAction: any;
       exitAnimationDuration: "1000ms",
       // disableClose: true,
       data: { value: id, value1: 2 }
+    })
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+        this.details = res.response;
+  
+  
+        this.detaislone = res.response.merchantpersonal;
+        this.bankdetails = res.response.merchantbank.reverse();
+        this.KYCDetails = res.response.merchantkycdocument;
+        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+  
+        this.identityProof = res.response.merchantkycdocument[0].identityProof;
+        this.addressProof = res.response.merchantkycdocument[0].addressProof;
+        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+  
+  
+  
+  
+        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+  
+  
+  
+  
+  
+  
+      })
     })
   }
 
@@ -1315,6 +1707,32 @@ valuebranchAction: any;
       // disableClose: true,
       data: { value: id, value1: 3 }
     })
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+        this.details = res.response;
+  
+  
+        this.detaislone = res.response.merchantpersonal;
+        this.bankdetails = res.response.merchantbank.reverse();
+        this.KYCDetails = res.response.merchantkycdocument;
+        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+  
+        this.identityProof = res.response.merchantkycdocument[0].identityProof;
+        this.addressProof = res.response.merchantkycdocument[0].addressProof;
+        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+  
+  
+  
+  
+        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+  
+  
+  
+  
+  
+  
+      })
+    })
   }
 
   addressProofBackPath(id: any) {
@@ -1324,6 +1742,32 @@ valuebranchAction: any;
       // disableClose: true,
       data: { value: id, value1: 4 }
     })
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+        this.details = res.response;
+  
+  
+        this.detaislone = res.response.merchantpersonal;
+        this.bankdetails = res.response.merchantbank.reverse();
+        this.KYCDetails = res.response.merchantkycdocument;
+        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+  
+        this.identityProof = res.response.merchantkycdocument[0].identityProof;
+        this.addressProof = res.response.merchantkycdocument[0].addressProof;
+        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+  
+  
+  
+  
+        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+  
+  
+  
+  
+  
+  
+      })
+    })
   }
   signatureProofFrontPath(id: any) {
     this.dialog.open(KycdocumentViewComponent, {
@@ -1331,6 +1775,32 @@ valuebranchAction: any;
       exitAnimationDuration: "1000ms",
       // disableClose: true,
       data: { value: id, value1: 5 }
+    })
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+        this.details = res.response;
+  
+  
+        this.detaislone = res.response.merchantpersonal;
+        this.bankdetails = res.response.merchantbank.reverse();
+        this.KYCDetails = res.response.merchantkycdocument;
+        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+  
+        this.identityProof = res.response.merchantkycdocument[0].identityProof;
+        this.addressProof = res.response.merchantkycdocument[0].addressProof;
+        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+  
+  
+  
+  
+        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+  
+  
+  
+  
+  
+  
+      })
     })
   }
 
@@ -1340,6 +1810,32 @@ valuebranchAction: any;
       exitAnimationDuration: "1000ms",
       // disableClose: true,
       data: { value: id, value1: 6 }
+    })
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+        this.details = res.response;
+  
+  
+        this.detaislone = res.response.merchantpersonal;
+        this.bankdetails = res.response.merchantbank.reverse();
+        this.KYCDetails = res.response.merchantkycdocument;
+        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+  
+        this.identityProof = res.response.merchantkycdocument[0].identityProof;
+        this.addressProof = res.response.merchantkycdocument[0].addressProof;
+        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+  
+  
+  
+  
+        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+  
+  
+  
+  
+  
+  
+      })
     })
   }
 
@@ -1355,6 +1851,33 @@ valuebranchAction: any;
         value: 1,
         value1: id
       }
+      
+    })
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+        this.details = res.response;
+  
+  
+        this.detaislone = res.response.merchantpersonal;
+        this.bankdetails = res.response.merchantbank.reverse();
+        this.KYCDetails = res.response.merchantkycdocument;
+        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+  
+        this.identityProof = res.response.merchantkycdocument[0].identityProof;
+        this.addressProof = res.response.merchantkycdocument[0].addressProof;
+        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+  
+  
+  
+  
+        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+  
+  
+  
+  
+  
+  
+      })
     })
   }
 
@@ -1366,6 +1889,32 @@ valuebranchAction: any;
       // disableClose: true,
       data: { value: 2, value1: id }
     })
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+        this.details = res.response;
+  
+  
+        this.detaislone = res.response.merchantpersonal;
+        this.bankdetails = res.response.merchantbank.reverse();
+        this.KYCDetails = res.response.merchantkycdocument;
+        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+  
+        this.identityProof = res.response.merchantkycdocument[0].identityProof;
+        this.addressProof = res.response.merchantkycdocument[0].addressProof;
+        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+  
+  
+  
+  
+        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+  
+  
+  
+  
+  
+  
+      })
+    })
   }
 
   signatureedits(id: any) {
@@ -1374,6 +1923,32 @@ valuebranchAction: any;
       exitAnimationDuration: "1000ms",
       // disableClose: true,
       data: { value: 3, value1: id }
+    })
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+        this.details = res.response;
+  
+  
+        this.detaislone = res.response.merchantpersonal;
+        this.bankdetails = res.response.merchantbank.reverse();
+        this.KYCDetails = res.response.merchantkycdocument;
+        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+  
+        this.identityProof = res.response.merchantkycdocument[0].identityProof;
+        this.addressProof = res.response.merchantkycdocument[0].addressProof;
+        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+  
+  
+  
+  
+        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+  
+  
+  
+  
+  
+  
+      })
     })
   }
 
@@ -1394,7 +1969,30 @@ valuebranchAction: any;
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           setTimeout(() => {
-            window.location.reload()
+            this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+              this.details = res.response;
+        
+        
+              this.detaislone = res.response.merchantpersonal;
+              this.bankdetails = res.response.merchantbank.reverse();
+              this.KYCDetails = res.response.merchantkycdocument;
+              this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+        
+              this.identityProof = res.response.merchantkycdocument[0].identityProof;
+              this.addressProof = res.response.merchantkycdocument[0].addressProof;
+              this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+        
+        
+        
+        
+              this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+        
+        
+        
+        
+        
+        
+            })
           }, 500);
         }
         else {
@@ -1414,7 +2012,30 @@ valuebranchAction: any;
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           setTimeout(() => {
-            window.location.reload()
+            this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+              this.details = res.response;
+        
+        
+              this.detaislone = res.response.merchantpersonal;
+              this.bankdetails = res.response.merchantbank.reverse();
+              this.KYCDetails = res.response.merchantkycdocument;
+              this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+        
+              this.identityProof = res.response.merchantkycdocument[0].identityProof;
+              this.addressProof = res.response.merchantkycdocument[0].addressProof;
+              this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+        
+        
+        
+        
+              this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+        
+        
+        
+        
+        
+        
+            })
           }, 500);
         }
         else {
@@ -1434,7 +2055,30 @@ valuebranchAction: any;
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           setTimeout(() => {
-            window.location.reload()
+            this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+              this.details = res.response;
+        
+        
+              this.detaislone = res.response.merchantpersonal;
+              this.bankdetails = res.response.merchantbank.reverse();
+              this.KYCDetails = res.response.merchantkycdocument;
+              this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+        
+              this.identityProof = res.response.merchantkycdocument[0].identityProof;
+              this.addressProof = res.response.merchantkycdocument[0].addressProof;
+              this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+        
+        
+        
+        
+              this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+        
+        
+        
+        
+        
+        
+            })
           }, 500);
         }
         else {
@@ -1455,7 +2099,30 @@ valuebranchAction: any;
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           setTimeout(() => {
-            window.location.reload()
+            this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+              this.details = res.response;
+        
+        
+              this.detaislone = res.response.merchantpersonal;
+              this.bankdetails = res.response.merchantbank.reverse();
+              this.KYCDetails = res.response.merchantkycdocument;
+              this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+        
+              this.identityProof = res.response.merchantkycdocument[0].identityProof;
+              this.addressProof = res.response.merchantkycdocument[0].addressProof;
+              this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+        
+        
+        
+        
+              this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+        
+        
+        
+        
+        
+        
+            })
           }, 500);
         }
         else {
@@ -1477,7 +2144,30 @@ valuebranchAction: any;
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           setTimeout(() => {
-            window.location.reload()
+            this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+              this.details = res.response;
+        
+        
+              this.detaislone = res.response.merchantpersonal;
+              this.bankdetails = res.response.merchantbank.reverse();
+              this.KYCDetails = res.response.merchantkycdocument;
+              this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+        
+              this.identityProof = res.response.merchantkycdocument[0].identityProof;
+              this.addressProof = res.response.merchantkycdocument[0].addressProof;
+              this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+        
+        
+        
+        
+              this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+        
+        
+        
+        
+        
+        
+            })
           }, 500);
         }
         else {
@@ -1497,7 +2187,30 @@ valuebranchAction: any;
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           setTimeout(() => {
-            window.location.reload()
+            this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+              this.details = res.response;
+        
+        
+              this.detaislone = res.response.merchantpersonal;
+              this.bankdetails = res.response.merchantbank.reverse();
+              this.KYCDetails = res.response.merchantkycdocument;
+              this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+        
+              this.identityProof = res.response.merchantkycdocument[0].identityProof;
+              this.addressProof = res.response.merchantkycdocument[0].addressProof;
+              this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+        
+        
+        
+        
+              this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+        
+        
+        
+        
+        
+        
+            })
           }, 500);
         }
         else {
@@ -1518,7 +2231,30 @@ valuebranchAction: any;
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           setTimeout(() => {
-            window.location.reload()
+            this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+              this.details = res.response;
+        
+        
+              this.detaislone = res.response.merchantpersonal;
+              this.bankdetails = res.response.merchantbank.reverse();
+              this.KYCDetails = res.response.merchantkycdocument;
+              this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+        
+              this.identityProof = res.response.merchantkycdocument[0].identityProof;
+              this.addressProof = res.response.merchantkycdocument[0].addressProof;
+              this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+        
+        
+        
+        
+              this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+        
+        
+        
+        
+        
+        
+            })
           }, 500);
         }
         else {
@@ -1544,7 +2280,30 @@ valuebranchAction: any;
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           setTimeout(() => {
-            window.location.reload()
+            this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+              this.details = res.response;
+        
+        
+              this.detaislone = res.response.merchantpersonal;
+              this.bankdetails = res.response.merchantbank.reverse();
+              this.KYCDetails = res.response.merchantkycdocument;
+              this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+        
+              this.identityProof = res.response.merchantkycdocument[0].identityProof;
+              this.addressProof = res.response.merchantkycdocument[0].addressProof;
+              this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+        
+        
+        
+        
+              this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+        
+        
+        
+        
+        
+        
+            })
           }, 500);
         }
         else {
@@ -1564,7 +2323,30 @@ valuebranchAction: any;
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           setTimeout(() => {
-            window.location.reload()
+            this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+              this.details = res.response;
+        
+        
+              this.detaislone = res.response.merchantpersonal;
+              this.bankdetails = res.response.merchantbank.reverse();
+              this.KYCDetails = res.response.merchantkycdocument;
+              this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+        
+              this.identityProof = res.response.merchantkycdocument[0].identityProof;
+              this.addressProof = res.response.merchantkycdocument[0].addressProof;
+              this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+        
+        
+        
+        
+              this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+        
+        
+        
+        
+        
+        
+            })
           }, 500);
         }
         else {
@@ -1584,7 +2366,30 @@ valuebranchAction: any;
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           setTimeout(() => {
-            window.location.reload()
+            this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+              this.details = res.response;
+        
+        
+              this.detaislone = res.response.merchantpersonal;
+              this.bankdetails = res.response.merchantbank.reverse();
+              this.KYCDetails = res.response.merchantkycdocument;
+              this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+        
+              this.identityProof = res.response.merchantkycdocument[0].identityProof;
+              this.addressProof = res.response.merchantkycdocument[0].addressProof;
+              this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+        
+        
+        
+        
+              this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+        
+        
+        
+        
+        
+        
+            })
           }, 500);
         }
         else {
@@ -1605,7 +2410,30 @@ valuebranchAction: any;
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           setTimeout(() => {
-            window.location.reload()
+            this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+              this.details = res.response;
+        
+        
+              this.detaislone = res.response.merchantpersonal;
+              this.bankdetails = res.response.merchantbank.reverse();
+              this.KYCDetails = res.response.merchantkycdocument;
+              this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+        
+              this.identityProof = res.response.merchantkycdocument[0].identityProof;
+              this.addressProof = res.response.merchantkycdocument[0].addressProof;
+              this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+        
+        
+        
+        
+              this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+        
+        
+        
+        
+        
+        
+            })
           }, 500);
         }
         else {
@@ -1628,7 +2456,30 @@ valuebranchAction: any;
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           setTimeout(() => {
-            window.location.reload()
+            this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+              this.details = res.response;
+        
+        
+              this.detaislone = res.response.merchantpersonal;
+              this.bankdetails = res.response.merchantbank.reverse();
+              this.KYCDetails = res.response.merchantkycdocument;
+              this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+        
+              this.identityProof = res.response.merchantkycdocument[0].identityProof;
+              this.addressProof = res.response.merchantkycdocument[0].addressProof;
+              this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+        
+        
+        
+        
+              this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+        
+        
+        
+        
+        
+        
+            })
           }, 500);
         }
         else {
@@ -1648,7 +2499,30 @@ valuebranchAction: any;
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           setTimeout(() => {
-            window.location.reload()
+            this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+              this.details = res.response;
+        
+        
+              this.detaislone = res.response.merchantpersonal;
+              this.bankdetails = res.response.merchantbank.reverse();
+              this.KYCDetails = res.response.merchantkycdocument;
+              this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+        
+              this.identityProof = res.response.merchantkycdocument[0].identityProof;
+              this.addressProof = res.response.merchantkycdocument[0].addressProof;
+              this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+        
+        
+        
+        
+              this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+        
+        
+        
+        
+        
+        
+            })
           }, 500);
         }
         else {
@@ -1669,7 +2543,30 @@ valuebranchAction: any;
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           setTimeout(() => {
-            window.location.reload()
+            this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+              this.details = res.response;
+        
+        
+              this.detaislone = res.response.merchantpersonal;
+              this.bankdetails = res.response.merchantbank.reverse();
+              this.KYCDetails = res.response.merchantkycdocument;
+              this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+        
+              this.identityProof = res.response.merchantkycdocument[0].identityProof;
+              this.addressProof = res.response.merchantkycdocument[0].addressProof;
+              this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+        
+        
+        
+        
+              this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+        
+        
+        
+        
+        
+        
+            })
           }, 500);
         }
         else {
@@ -1694,7 +2591,30 @@ valuebranchAction: any;
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           setTimeout(() => {
-            window.location.reload()
+            this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+              this.details = res.response;
+        
+        
+              this.detaislone = res.response.merchantpersonal;
+              this.bankdetails = res.response.merchantbank.reverse();
+              this.KYCDetails = res.response.merchantkycdocument;
+              this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+        
+              this.identityProof = res.response.merchantkycdocument[0].identityProof;
+              this.addressProof = res.response.merchantkycdocument[0].addressProof;
+              this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+        
+        
+        
+        
+              this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+        
+        
+        
+        
+        
+        
+            })
           }, 500);
         }
         else {
@@ -1714,7 +2634,30 @@ valuebranchAction: any;
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           setTimeout(() => {
-            window.location.reload()
+            this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+              this.details = res.response;
+        
+        
+              this.detaislone = res.response.merchantpersonal;
+              this.bankdetails = res.response.merchantbank.reverse();
+              this.KYCDetails = res.response.merchantkycdocument;
+              this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+        
+              this.identityProof = res.response.merchantkycdocument[0].identityProof;
+              this.addressProof = res.response.merchantkycdocument[0].addressProof;
+              this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+        
+        
+        
+        
+              this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+        
+        
+        
+        
+        
+        
+            })
           }, 500);
         }
         else {
@@ -1734,7 +2677,30 @@ valuebranchAction: any;
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           setTimeout(() => {
-            window.location.reload()
+            this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+              this.details = res.response;
+        
+        
+              this.detaislone = res.response.merchantpersonal;
+              this.bankdetails = res.response.merchantbank.reverse();
+              this.KYCDetails = res.response.merchantkycdocument;
+              this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+        
+              this.identityProof = res.response.merchantkycdocument[0].identityProof;
+              this.addressProof = res.response.merchantkycdocument[0].addressProof;
+              this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+        
+        
+        
+        
+              this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+        
+        
+        
+        
+        
+        
+            })
           }, 500);
         }
         else {
@@ -1755,7 +2721,30 @@ valuebranchAction: any;
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           setTimeout(() => {
-            window.location.reload()
+            this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+              this.details = res.response;
+        
+        
+              this.detaislone = res.response.merchantpersonal;
+              this.bankdetails = res.response.merchantbank.reverse();
+              this.KYCDetails = res.response.merchantkycdocument;
+              this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+        
+              this.identityProof = res.response.merchantkycdocument[0].identityProof;
+              this.addressProof = res.response.merchantkycdocument[0].addressProof;
+              this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+        
+        
+        
+        
+              this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+        
+        
+        
+        
+        
+        
+            })
           }, 500);
         }
         else {
@@ -1777,7 +2766,30 @@ valuebranchAction: any;
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           setTimeout(() => {
-            window.location.reload()
+            this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+              this.details = res.response;
+        
+        
+              this.detaislone = res.response.merchantpersonal;
+              this.bankdetails = res.response.merchantbank.reverse();
+              this.KYCDetails = res.response.merchantkycdocument;
+              this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+        
+              this.identityProof = res.response.merchantkycdocument[0].identityProof;
+              this.addressProof = res.response.merchantkycdocument[0].addressProof;
+              this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+        
+        
+        
+        
+              this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+        
+        
+        
+        
+        
+        
+            })
           }, 500);
         }
         else {
@@ -1797,7 +2809,30 @@ valuebranchAction: any;
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           setTimeout(() => {
-            window.location.reload()
+            this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+              this.details = res.response;
+        
+        
+              this.detaislone = res.response.merchantpersonal;
+              this.bankdetails = res.response.merchantbank.reverse();
+              this.KYCDetails = res.response.merchantkycdocument;
+              this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+        
+              this.identityProof = res.response.merchantkycdocument[0].identityProof;
+              this.addressProof = res.response.merchantkycdocument[0].addressProof;
+              this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+        
+        
+        
+        
+              this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+        
+        
+        
+        
+        
+        
+            })
           }, 500);
         }
         else {
@@ -1818,7 +2853,30 @@ valuebranchAction: any;
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           setTimeout(() => {
-            window.location.reload()
+            this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+              this.details = res.response;
+        
+        
+              this.detaislone = res.response.merchantpersonal;
+              this.bankdetails = res.response.merchantbank.reverse();
+              this.KYCDetails = res.response.merchantkycdocument;
+              this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+        
+              this.identityProof = res.response.merchantkycdocument[0].identityProof;
+              this.addressProof = res.response.merchantkycdocument[0].addressProof;
+              this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+        
+        
+        
+        
+              this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+        
+        
+        
+        
+        
+        
+            })
           }, 500);
         }
         else {
@@ -1849,6 +2907,32 @@ valuebranchAction: any;
       disableClose: true,
       data: { value: id, value1: 1 }
     });
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+        this.details = res.response;
+  
+  
+        this.detaislone = res.response.merchantpersonal;
+        this.bankdetails = res.response.merchantbank.reverse();
+        this.KYCDetails = res.response.merchantkycdocument;
+        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+  
+        this.identityProof = res.response.merchantkycdocument[0].identityProof;
+        this.addressProof = res.response.merchantkycdocument[0].addressProof;
+        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+  
+  
+  
+  
+        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+  
+  
+  
+  
+  
+  
+      })
+    })
   }
 
   KycApproval1(id: any) {
@@ -1858,6 +2942,32 @@ valuebranchAction: any;
       disableClose: true,
       data: { value: id, value1: 2 }
     });
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+        this.details = res.response;
+  
+  
+        this.detaislone = res.response.merchantpersonal;
+        this.bankdetails = res.response.merchantbank.reverse();
+        this.KYCDetails = res.response.merchantkycdocument;
+        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+  
+        this.identityProof = res.response.merchantkycdocument[0].identityProof;
+        this.addressProof = res.response.merchantkycdocument[0].addressProof;
+        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+  
+  
+  
+  
+        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+  
+  
+  
+  
+  
+  
+      })
+    })
   }
 
 
@@ -1868,6 +2978,32 @@ valuebranchAction: any;
       disableClose: true,
       data: { value: id, value1: 3 }
     });
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+        this.details = res.response;
+  
+  
+        this.detaislone = res.response.merchantpersonal;
+        this.bankdetails = res.response.merchantbank.reverse();
+        this.KYCDetails = res.response.merchantkycdocument;
+        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+  
+        this.identityProof = res.response.merchantkycdocument[0].identityProof;
+        this.addressProof = res.response.merchantkycdocument[0].addressProof;
+        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+  
+  
+  
+  
+        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+  
+  
+  
+  
+  
+  
+      })
+    })
   }
 
 
@@ -1878,6 +3014,32 @@ valuebranchAction: any;
       // disableClose: true,
       data: { value: id, value1: 1 }
     })
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+        this.details = res.response;
+  
+  
+        this.detaislone = res.response.merchantpersonal;
+        this.bankdetails = res.response.merchantbank.reverse();
+        this.KYCDetails = res.response.merchantkycdocument;
+        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+  
+        this.identityProof = res.response.merchantkycdocument[0].identityProof;
+        this.addressProof = res.response.merchantkycdocument[0].addressProof;
+        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+  
+  
+  
+  
+        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+  
+  
+  
+  
+  
+  
+      })
+    })
   }
 
   getdocbackPath(id: any) {
@@ -1886,6 +3048,30 @@ valuebranchAction: any;
       exitAnimationDuration: "1000ms",
       // disableClose: true,
       data: { value: id, value1: 2 }
+    })
+    this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+      this.details = res.response;
+
+
+      this.detaislone = res.response.merchantpersonal;
+      this.bankdetails = res.response.merchantbank.reverse();
+      this.KYCDetails = res.response.merchantkycdocument;
+      this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+
+      this.identityProof = res.response.merchantkycdocument[0].identityProof;
+      this.addressProof = res.response.merchantkycdocument[0].addressProof;
+      this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+
+
+
+
+      this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+
+
+
+
+
+
     })
   }
 
@@ -1905,6 +3091,32 @@ valuebranchAction: any;
       // disableClose: true,
       data: { value: id }
     })
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+        this.details = res.response;
+  
+  
+        this.detaislone = res.response.merchantpersonal;
+        this.bankdetails = res.response.merchantbank.reverse();
+        this.KYCDetails = res.response.merchantkycdocument;
+        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+  
+        this.identityProof = res.response.merchantkycdocument[0].identityProof;
+        this.addressProof = res.response.merchantkycdocument[0].addressProof;
+        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+  
+  
+  
+  
+        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+  
+  
+  
+  
+  
+  
+      })
+    })
   }
 
   docApproval(id: any) {
@@ -1914,6 +3126,32 @@ valuebranchAction: any;
       // disableClose: true,
       data: { value: id }
     })
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+        this.details = res.response;
+  
+  
+        this.detaislone = res.response.merchantpersonal;
+        this.bankdetails = res.response.merchantbank.reverse();
+        this.KYCDetails = res.response.merchantkycdocument;
+        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+  
+        this.identityProof = res.response.merchantkycdocument[0].identityProof;
+        this.addressProof = res.response.merchantkycdocument[0].addressProof;
+        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+  
+  
+  
+  
+        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+  
+  
+  
+  
+  
+  
+      })
+    })
   }
 
   adddoc(id: any, id2: any) {
@@ -1922,6 +3160,32 @@ valuebranchAction: any;
       exitAnimationDuration: "1000ms",
       // disableClose: true,
       data: { value: id, value2: id2 }
+    })
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+        this.details = res.response;
+  
+  
+        this.detaislone = res.response.merchantpersonal;
+        this.bankdetails = res.response.merchantbank.reverse();
+        this.KYCDetails = res.response.merchantkycdocument;
+        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+  
+        this.identityProof = res.response.merchantkycdocument[0].identityProof;
+        this.addressProof = res.response.merchantkycdocument[0].addressProof;
+        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+  
+  
+  
+  
+        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+  
+  
+  
+  
+  
+  
+      })
     })
   }
 
@@ -1933,6 +3197,15 @@ valuebranchAction: any;
       exitAnimationDuration: "1000ms",
       data: { value: this.id }
     });
+    this.dialog.afterAllClosed.subscribe(()=>{
+     
+      this.MerchantView.SMSViewById(this.id).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.smsDetails = res.response;
+  
+        }
+      })
+      })
   }
 
 
@@ -1943,6 +3216,13 @@ valuebranchAction: any;
       exitAnimationDuration: "1000ms",
       data: { value: this.id }
     });
+    this.dialog.afterAllClosed.subscribe(()=>{
+     
+      this.MerchantView.viewbyidplans(this.id).subscribe((res: any) => {
+        this.agreementdetails = res.response.reverse();
+  
+      });
+      })
   }
 
   agremmentlink() {
@@ -1961,6 +3241,15 @@ valuebranchAction: any;
       disableClose: true,
       data: { value: id }
     })
+      this.dialog.afterAllClosed.subscribe(()=>{
+     
+      this.MerchantView.SMSViewById(this.id).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.smsDetails = res.response;
+  
+        }
+      })
+      })
   }
 
   smsStatus(event: any, id: any) {
@@ -1974,7 +3263,12 @@ valuebranchAction: any;
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         setTimeout(() => {
-          window.location.reload()
+          this.MerchantView.SMSViewById(this.id).subscribe((res: any) => {
+            if (res.flag == 1) {
+              this.smsDetails = res.response;
+      
+            }
+          })
         }, 500);
         this.dialog.closeAll();
 
@@ -1992,6 +3286,15 @@ valuebranchAction: any;
       disableClose: true,
       data: { value: id }
     })
+    this.dialog.afterAllClosed.subscribe(()=>{
+     
+      this.MerchantView.SMSViewById(this.id).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.smsDetails = res.response;
+  
+        }
+      })
+      })
   }
   ViewMerchantSms(id: any) {
     this.merchantsmsId = id;
@@ -2048,6 +3351,16 @@ valuebranchAction: any;
       exitAnimationDuration:"1000ms",
       data: { value: this.id }
     });
+    this.dialog.afterAllClosed.subscribe(()=>{
+     
+      this.MerchantView.BranchGet(this.id).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.branchget = res.response.reverse();
+        }
+      })
+      })
+
+
   }
  
   branchedit(id:any){
@@ -2057,6 +3370,15 @@ valuebranchAction: any;
       exitAnimationDuration:"1000ms",
       data: { value: id }
     });
+    this.dialog.afterAllClosed.subscribe(()=>{
+     
+      this.MerchantView.BranchGet(this.id).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.branchget = res.response.reverse();
+        }
+      })
+      })
+
   }
 
   status(event: MatSlideToggleChange, id: any) {
@@ -2071,8 +3393,12 @@ valuebranchAction: any;
      
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+        this.MerchantView.BranchGet(this.id).subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.branchget = res.response.reverse();
+          }
+        })
+      }, 500);
     });
   }
 }

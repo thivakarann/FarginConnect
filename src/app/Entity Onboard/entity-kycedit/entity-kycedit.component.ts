@@ -245,9 +245,7 @@ onasignproof(event: any) {
         this.identityvalue = res.response;
         this.toastr.success(res.responseMessage)
         this.dialog.closeAll();
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+      
       }
       else {
         this.toastr.error(res.responseMessage)
@@ -270,9 +268,7 @@ onasignproof(event: any) {
         this.identityvalue = res.response;
         this.toastr.success(res.responseMessage)
         this.dialog.closeAll();
-        setTimeout(() => {
-          window.location.reload()
-        }, 1000);
+       
       }
       else {
         this.toastr.error(res.responseMessage)
@@ -297,9 +293,7 @@ onasignproof(event: any) {
         this.identityvalue = res.response;
         this.toastr.success(res.responseMessage)
         this.dialog.closeAll();
-        setTimeout(() => {
-          window.location.reload()
-        }, 1000);
+      
       }
       else {
         this.toastr.error(res.responseMessage)

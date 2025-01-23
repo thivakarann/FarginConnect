@@ -54,9 +54,7 @@ export class ServiceproviderAddComponent implements OnInit {
       if (res.flag == 1) {
         this.toaster.success(res.responseMessage);
         this.dialog.closeAll()
-        setTimeout(() => {
-          window.location.reload();
-        },500);
+      
       }
       else if (res.flag == 2) {
         this.toaster.error(res.responseMessage);

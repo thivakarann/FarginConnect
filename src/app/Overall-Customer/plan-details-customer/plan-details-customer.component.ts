@@ -147,8 +147,56 @@ export class PlanDetailsCustomerComponent {
       
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+        this.service.ViewSetupBoxPlanDetails(this.id).subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.alcotchannel = res.response.alcotList;
+            this.bouquetPlan = res.response.bouquetList;
+            this.lcopChannel = res.response.lcopList;
+       
+            let totalAmount = 0;
+            const alcotList = res.response.alcotList;
+       
+         
+            for (let i = 0; i < alcotList.length; i++) {
+              if (alcotList[i].activeStatus === 1) {
+                totalAmount += alcotList[i].price;
+              }
+            }
+       
+            this.totalAmount = parseFloat(totalAmount.toFixed(2));
+       
+            let totalbouqet = 0;
+            const bouquetList = res.response.bouquetList;
+       
+           
+            for (let i = 0; i < bouquetList.length; i++) {
+              if (bouquetList[i].activeStatus === 1) {
+                totalbouqet += bouquetList[i].broadCasterId.amount;
+              }
+            }
+       
+            this.totalbouqet = parseFloat(totalbouqet.toFixed(2));
+       
+            let totallcop = 0;
+            const lcopList = res.response.lcopList;
+       
+            for (let i = 0; i < lcopList.length; i++) {
+              if (lcopList[i].activeStatus === 1) {
+                totallcop += lcopList[i].overallAmount;
+              }
+            }
+       
+            this.totallcop = parseFloat(totallcop.toFixed(2));
+       
+            // Calculate overall amount
+            this.overallAmount = parseFloat((this.totalAmount + this.totalbouqet + this.totallcop).toFixed(2));
+       
+            this.viewData = true; // Assuming viewData should be set true only if there are valid amounts
+          } else {
+            this.viewData = false;
+          }
+        });
+      }, 500);
     });
  
  

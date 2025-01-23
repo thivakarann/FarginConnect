@@ -40,6 +40,11 @@ export class BranchAddComponent {
       createdBy: new FormControl(''),
       merchantId: new FormControl(''),
       accountId: new FormControl('',[Validators.required]),
+      smsmerchantname: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9 ]*$'),
+        Validators.maxLength(25)
+      ]),
  
     })
  
@@ -86,7 +91,10 @@ export class BranchAddComponent {
  
   }
  
+  get smsmerchantname() {
+    return this.branch.get('smsmerchantname')
  
+  }
   Submit() {
  
     let submitModel: Branchadd = {
@@ -98,6 +106,7 @@ export class BranchAddComponent {
       accountHolderName: this.accountHolderName?.value,
       accountNumber: this.accountNumber?.value,
       ifscCode: this.ifscCode?.value,
+      smsMerchantName:this.smsmerchantname?.value,
       createdBy: this.getadminname,
       merchantId: this.merchantid
     }
@@ -105,12 +114,11 @@ export class BranchAddComponent {
     this.service.BranchAdd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
-        setTimeout(() => {
-          window.location.reload()
-        }, 500);
+       this.dialog.closeAll();
       }
       else {
         this.toastr.error(res.responseMessage);
+        this.dialog.closeAll();
       }
     })
   }

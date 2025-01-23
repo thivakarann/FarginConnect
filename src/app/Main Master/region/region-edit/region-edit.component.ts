@@ -34,7 +34,7 @@ export class RegionEditComponent implements OnInit {
   Serviceid: any;
 
 
-  constructor( private service: FarginServiceService, private toastr: ToastrService, @Inject(MAT_DIALOG_DATA) public data: any) {}
+  constructor( private service: FarginServiceService, private toastr: ToastrService, @Inject(MAT_DIALOG_DATA) public data: any ,private dialog: MatDialog) {}
 
 
 
@@ -75,7 +75,7 @@ export class RegionEditComponent implements OnInit {
     this.service.RegionEdit(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
-        window.location.reload()
+        this.dialog.closeAll()
       } else {
         this.toastr.error(res.responseMessage)
       }

@@ -93,9 +93,7 @@ converttohhttps(Url: string): string {
       if(res.flag==1){
         this.updatedata=res.response;
       this.dialog.closeAll();
-      setTimeout(() => {
-        window.location.reload()
-      }, 1000);
+
       }
     })
 

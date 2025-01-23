@@ -91,12 +91,12 @@ export class RegionAddComponent implements OnInit {
       if (res.flag == 1) {
  
         this.toastr.success(res.responseMessage)
-        window.location.reload()
+        this.dialog.closeAll()
  
       }
       else {
         this.toastr.error(res.responseMessage);
-        this.dialog.closeAll()
+       
       }
  
     });

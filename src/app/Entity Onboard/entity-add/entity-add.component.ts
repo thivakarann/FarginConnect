@@ -275,6 +275,7 @@ export class EntityAddComponent implements OnInit {
     this.fourthFormGroup = this._formBuilder.group({
       kycCategoryId: ['', Validators.required],
       docNumber: [''],
+      expiryDate: [''],
       docFrontPath: ['', Validators.required],
       docBackPath: ['']
     })
@@ -547,6 +548,10 @@ export class EntityAddComponent implements OnInit {
 
   get docNumber() {
     return this.fourthFormGroup.get('docNumber')
+  }
+
+  get expiryDate() {
+    return this.fourthFormGroup.get('expiryDate')
   }
 
   get docFrontPath() {
@@ -980,6 +985,7 @@ export class EntityAddComponent implements OnInit {
     formData.append('docBackPath', this.uploaddocback || this.emptyBlob);
     formData.append('kycCategoryId', this.kycCategoryId?.value);
     formData.append('docNumber', this.docNumber?.value.trim());
+    formData.append('expiryDate', this.expiryDate?.value);
     formData.append('createdBy', this.getadminname);
     this.AddEntity.documentAdd(formData).subscribe((res: any) => {
       if (res.flag == 1) {

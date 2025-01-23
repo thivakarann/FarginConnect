@@ -24,6 +24,11 @@ export class AlacarteViewallComponent implements OnInit {
     'alcotId',
     'channelName',
     'channelNo',
+    'Broadcaster',
+    'msos',
+    'region',
+    'generic',
+    'language',
     'type',
     'price',
     'alcotStatus',
@@ -76,7 +81,7 @@ export class AlacarteViewallComponent implements OnInit {
     private toastr: ToastrService
   ) { }
   ngOnInit(): void {
-
+    this.loadData();
     this.AllcartViewall.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
         
@@ -192,7 +197,32 @@ export class AlacarteViewallComponent implements OnInit {
       
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
-        window.location.reload();
+        setTimeout(() => {
+          this.AllcartViewall.Alcartviewall(this.pageSize,this.pageIndex).subscribe((res: any) => {
+            if (res.flag == 1) {
+      
+            this.viewall = res.response.content;
+            this.totalPages=res.pagination.totalElements;
+            this.totalpage=res.pagination.totalPages;
+           this.currentpage=res.pagination.currentPage+1;
+            // this.viewall.reverse();
+            this.dataSource = new MatTableDataSource(this.viewall);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+            this.filter = false;
+      
+            }
+            else if (res.flag == 2) {
+              this.viewall = [];
+              this.dataSource = new MatTableDataSource(this.viewall);
+              this.dataSource.sort = this.sort;
+              this.dataSource.paginator = this.paginator;  
+              this.filter = false;
+            }
+           
+          });
+       
+        }, 500);
       }
       else {
         this.toastr.error(res.responseMessage);
@@ -218,6 +248,13 @@ export class AlacarteViewallComponent implements OnInit {
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.channelName);
+      this.response.push(element?.channelNo);
+      this.response.push(element?.bundleChannelId?.broadCasterName);
+      this.response.push(element?.region?.service?.serviceProviderName);
+      this.response.push(element?.region?.stateName);
+      this.response.push(element?.generic);
+      this.response.push(element?.language);
+
       if (element.type == 1) {
         this.response.push('Paid')
       }
@@ -259,6 +296,12 @@ export class AlacarteViewallComponent implements OnInit {
     const header = [
       "S.No",
       "Channel Name",
+      "Channel No",
+      "Broadcaster",
+      "Service Provider Name",
+      "Region",
+      "Generic",
+      "Language",
       "Channel Type",
       "Price",
       "Channel Status",
@@ -306,7 +349,14 @@ export class AlacarteViewallComponent implements OnInit {
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
-      // let qty9 = row.getCell(10);
+      let qty9 = row.getCell(10);
+      let qty10 = row.getCell(11);
+      let qty11 = row.getCell(12);
+      let qty12 = row.getCell(13);
+      let qty13 = row.getCell(14);
+      let qty14 = row.getCell(15);
+      // let qty15 = row.getCell(16);
+      // let qty16 = row.getCell(16);
  
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -317,8 +367,15 @@ export class AlacarteViewallComponent implements OnInit {
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      // qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
+      qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty12.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty13.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty14.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      // qty15.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      // qty16.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+     
     }
     );
  
@@ -424,6 +481,36 @@ changePageIndex1(newPageIndex1: number) {
   } as PageEvent);
 }
 
+
+onPageChange(event: PageEvent) {
+  // Update the page index and size
+  this.pageIndex = event.pageIndex;
+  this.pageSize = event.pageSize;
+ 
+  // Reload the data with the new page index and page size
+  this.loadData();
+}
+ 
+loadData() {
+  this.AllcartViewall.Alcartviewall(this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if (res.flag === 1) {
+          this.viewall = res.response.content;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.totalPages;
+          this.currentpage = res.pagination.currentPage + 1;
+          this.dataSource = new MatTableDataSource(this.viewall);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.filter = false;
+      } else {
+          this.viewall = [];
+          this.dataSource = new MatTableDataSource(this.viewall);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.filter = false;
+      }
+  });
+}
 }
 
 

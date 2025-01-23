@@ -55,9 +55,7 @@ export class LevelTwoApprovalComponent {
         this.approval = res.response;
         this.dialog.closeAll();
         this.toaster.success(res.responseMessage)
-        setTimeout(() => {
-          window.location.reload()
-        }, 500);
+        
       }
       else {
         this.toaster.error(res.responseMessage)

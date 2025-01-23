@@ -227,7 +227,73 @@ export class CustomerTransViewallComponent {
     })
   }
   reset() {
-    window.location.reload();
+    this.service.CustomerAllTransactions(this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.transaction = res.response;
+
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+        
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.filter = true;
+        this.filter1 = false;
+        this.filter1 = false;
+
+      }
+      else{
+        this.transaction = [];
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+        this.filter = true;
+        this.filter1 = false;
+        this.filter1 = false;
+          
+      }
+
+    });
+    this.service.CustomerAllTransactions(this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.transaction = res.response;
+
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+        
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.filter = true;
+        this.filter1 = false;
+        this.filter1 = false;
+        this.FromDateRange='';
+        this.ToDateRange='';
+
+      }
+      else{
+        this.transaction = [];
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+        this.filter = true;
+        this.filter1 = false;
+        this.filter1 = false;
+        this.FromDateRange='';
+        this.ToDateRange='';
+          
+      }
+
+    });
+
   }
 
   Receipt(id: any) {
@@ -391,8 +457,38 @@ export class CustomerTransViewallComponent {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         setTimeout(() => {
-          window.location.reload()
-        }, 400);
+          this.service.CustomerAllTransactions(this.pageSize, this.pageIndex).subscribe((res: any) => {
+            if (res.flag == 1) {
+              this.transaction = res.response;
+      
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.totalPages;
+              this.currentpage = res.pagination.currentPage + 1;
+              
+              this.dataSource = new MatTableDataSource(this.transaction);
+              this.dataSource.sort = this.sort;
+              this.dataSource.paginator = this.paginator;
+              this.filter = true;
+              this.filter1 = false;
+              this.filter1 = false;
+      
+            }
+            else{
+              this.transaction = [];
+              this.dataSource = new MatTableDataSource(this.transaction);
+              this.dataSource.sort = this.sort;
+              this.dataSource.paginator = this.paginator;
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.totalPages;
+              this.currentpage = res.pagination.currentPage + 1;
+              this.filter = true;
+              this.filter1 = false;
+              this.filter1 = false;
+                
+            }
+      
+          });
+        }, 500);
       }
       else {
         this.toastr.error(res.responseMessage);

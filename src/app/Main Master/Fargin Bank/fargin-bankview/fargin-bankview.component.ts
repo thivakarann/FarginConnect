@@ -132,6 +132,16 @@ export class FarginBankviewComponent {
       exitAnimationDuration: "800ms",
       disableClose: true
     })
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.service.Farginview().subscribe((res: any) => {
+        this.viewall = res.response;
+        this.viewall.reverse();
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+  
+      });
+    })
   }
 
   Edit(id: any) {
@@ -140,6 +150,16 @@ export class FarginBankviewComponent {
       exitAnimationDuration: "800ms",
       disableClose: true,
       data: { value: id },
+    })
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.service.Farginview().subscribe((res: any) => {
+        this.viewall = res.response;
+        this.viewall.reverse();
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+  
+      });
     })
   }
 
@@ -157,7 +177,16 @@ export class FarginBankviewComponent {
         this.data = res.response;
 
         this.toastr.success(res.responseMessage);
-        window.location.reload();
+     setTimeout(() => {
+      this.service.Farginview().subscribe((res: any) => {
+        this.viewall = res.response;
+        this.viewall.reverse();
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+  
+      });
+     }, 500);
       }
       else {
         this.toastr.error(res.responseMessage);
@@ -192,7 +221,11 @@ export class FarginBankviewComponent {
     let sno = 1;
     this.responseDataListnew = [];
     this.viewall.forEach((element: any) => {
-     
+      let createdate = element.createdDateTime;
+      this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
+
+      let moddate = element.modifiedDateTime;
+      this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.accountHolderName);
@@ -207,15 +240,12 @@ export class FarginBankviewComponent {
       else {
         this.response.push('Inactive')
       }
+      this.response.push(element?.createdBy);
+      this.response.push(this.date1);
       this.response.push(element.modifiedBy);
-       if(element?.modifiedDateTime){
-          this.response.push(moment(element?.modifiedDateTime).format('DD/MM/yyyy-hh:mm a').toString());
-         }
-        else{
-        this.response.push('');
-         }
- 
- 
+      this.response.push(this.date1);
+
+
       sno++;
       this.responseDataListnew.push(this.response);
     });
@@ -233,6 +263,8 @@ export class FarginBankviewComponent {
       'BranchName',
       'LedgerId',
       'Status',
+      'Created By',
+      'Created At',
       'Modified By',
       "Modified At"
     ]
@@ -240,7 +272,7 @@ export class FarginBankviewComponent {
  
     const data = this.responseDataListnew;
     let workbook = new Workbook();
-    let worksheet = workbook.addWorksheet('Fargin Bank');
+    let worksheet = workbook.addWorksheet('Fargin bank details');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
@@ -276,10 +308,13 @@ export class FarginBankviewComponent {
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
- 
- 
- 
- 
+      let qty10 = row.getCell(11);
+      let qty11 = row.getCell(12);
+      let qty12 = row.getCell(13);
+
+
+
+
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -290,7 +325,10 @@ export class FarginBankviewComponent {
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
+      qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty12.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+
     }
     );
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
@@ -298,7 +336,7 @@ export class FarginBankviewComponent {
     // worksheet.getColumn(3).protection = { locked: true, hidden: true }
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      FileSaver.saveAs(blob, 'Fargin Bank .xlsx');
+      FileSaver.saveAs(blob, 'Fargin bank details.xlsx');
     });
   }
 }

@@ -134,8 +134,24 @@ export class ViewfacheckkeyComponent {
       
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+        this.service.viewfacheck().subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.facheck = res.response;
+            this.facheck.reverse();
+            this.dataSource = new MatTableDataSource(this.facheck);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+    
+            this.showcategoryData = false;
+            // 
+          }
+          else {
+            this.errorMsg = res.responseMessage;
+            this.showcategoryData = true;
+          }
+        });
+    
+      }, 500);
     });
   }
   add() {
@@ -145,6 +161,26 @@ export class ViewfacheckkeyComponent {
       exitAnimationDuration: '1000ms',
       disableClose:true
     });
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.service.viewfacheck().subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.facheck = res.response;
+          this.facheck.reverse();
+          this.dataSource = new MatTableDataSource(this.facheck);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+  
+          this.showcategoryData = false;
+          // 
+        }
+        else {
+          this.errorMsg = res.responseMessage;
+          this.showcategoryData = true;
+        }
+      });
+  
+  
+    })
   }
   Edit(id: string) {
     this.dialog.open(EditfacheckkeyComponent, {
@@ -153,6 +189,26 @@ export class ViewfacheckkeyComponent {
       disableClose:true,
       data: { value: id }
     });
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.service.viewfacheck().subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.facheck = res.response;
+          this.facheck.reverse();
+          this.dataSource = new MatTableDataSource(this.facheck);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+  
+          this.showcategoryData = false;
+          // 
+        }
+        else {
+          this.errorMsg = res.responseMessage;
+          this.showcategoryData = true;
+        }
+      });
+  
+  
+    })
   }
 
   exportexcel() {

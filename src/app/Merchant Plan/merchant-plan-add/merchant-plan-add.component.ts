@@ -35,7 +35,8 @@ export class MerchantPlanAddComponent implements OnInit {
       maintenanceAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\\.[0-9]{1,2})?$')]),
       frequency: new FormControl('', Validators.required),
       renewalAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\\.[0-9]{1,2})?$')]),
-
+      countLimit:new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\\.[0-9]{1,2})?$')]),
+ 
     });
   }
 
@@ -63,7 +64,10 @@ export class MerchantPlanAddComponent implements OnInit {
     return this.myForm.get('renewalAmount')
 
   }
-
+  get countLimit() {
+    return this.myForm.get('countLimit')
+ 
+  }
   submit() {
     let submitModel: MerchantplanCreate = {
       planName: this.planName?.value.trim(),
@@ -71,6 +75,7 @@ export class MerchantPlanAddComponent implements OnInit {
       maintenanceAmount: this.maintenanceAmount?.value.trim(),
       frequency: this.frequency?.value,
       renewalAmount: this.renewalAmount?.value.trim(),
+      countLimit:this.countLimit?.value.trim(),
       createdBy: this.getadminname
     }
 
@@ -78,9 +83,7 @@ export class MerchantPlanAddComponent implements OnInit {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.dialog.closeAll();
-        setTimeout(() => {
-          window.location.reload()
-        }, 500);
+    
 
       }
       else {

@@ -100,8 +100,15 @@ export class ViewallKyccategoryComponent implements OnInit {
     this.service.statuskycCategory(submitModel).subscribe((res: any) => {
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+        this.service.viewallkycCategory().subscribe((res: any) => {
+          this.categoryview = res.response;
+    
+          this.dataSource = new MatTableDataSource(this.categoryview.reverse());
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        })
+    
+      }, 500);
     });
   }
 
@@ -111,6 +118,16 @@ export class ViewallKyccategoryComponent implements OnInit {
       exitAnimationDuration: '1000ms',
       disableClose: true,
     });
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.service.viewallkycCategory().subscribe((res: any) => {
+        this.categoryview = res.response;
+  
+        this.dataSource = new MatTableDataSource(this.categoryview.reverse());
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      })
+  
+    })
   }
 
   Edit(id: string) {
@@ -120,6 +137,16 @@ export class ViewallKyccategoryComponent implements OnInit {
       data: { value: id },
       disableClose: true
     });
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.service.viewallkycCategory().subscribe((res: any) => {
+        this.categoryview = res.response;
+  
+        this.dataSource = new MatTableDataSource(this.categoryview.reverse());
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      })
+  
+    })
   }
 
 

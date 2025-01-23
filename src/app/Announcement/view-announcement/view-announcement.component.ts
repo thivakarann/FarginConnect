@@ -191,10 +191,39 @@ export class ViewAnnouncementComponent implements OnInit {
       exitAnimationDuration: '1000ms',
       disableClose: true
     });
+    this.dialog.afterAllClosed.subscribe(()=>{
+     
+      this.service.announcementViewall(this.pageSize, this.pageIndex).subscribe((res: any) => {
+        this.data = res.response.content;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+        // this.announcementValue.reverse();
+        this.dataSource = new MatTableDataSource(this.data);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.filter = false;
+        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+      })
+  
+    })
   }
 
   reset() {
-    window.location.reload()
+  this.service.announcementViewall(this.pageSize, this.pageIndex).subscribe((res: any) => {
+      this.data = res.response.content;
+      this.totalPages = res.pagination.totalElements;
+      this.totalpage = res.pagination.totalPages;
+      this.currentpage = res.pagination.currentPage + 1;
+      // this.announcementValue.reverse();
+      this.dataSource = new MatTableDataSource(this.data);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      this.filter = false;
+      this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+      this.fromDate='';
+      this.toDate='';
+    })
   }
 
   create() {
@@ -203,6 +232,22 @@ export class ViewAnnouncementComponent implements OnInit {
       exitAnimationDuration: '1000ms',
       disableClose: true
     });
+    this.dialog.afterAllClosed.subscribe(()=>{
+     
+      this.service.announcementViewall(this.pageSize, this.pageIndex).subscribe((res: any) => {
+        this.data = res.response.content;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+        // this.announcementValue.reverse();
+        this.dataSource = new MatTableDataSource(this.data);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.filter = false;
+        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+      })
+  
+    })
   }
 
   // applyFilter(event: Event) {
@@ -229,8 +274,19 @@ export class ViewAnnouncementComponent implements OnInit {
 
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+        this.service.announcementViewall(this.pageSize, this.pageIndex).subscribe((res: any) => {
+          this.data = res.response.content;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.totalPages;
+          this.currentpage = res.pagination.currentPage + 1;
+          // this.announcementValue.reverse();
+          this.dataSource = new MatTableDataSource(this.data);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.filter = false;
+          this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+        })
+      }, 500);
     });
   }
  

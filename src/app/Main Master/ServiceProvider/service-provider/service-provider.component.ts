@@ -130,6 +130,24 @@ export class ServiceProviderComponent implements OnInit {
       exitAnimationDuration: '1000ms',
       disableClose: true
     });
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.service.ServiceProviderView().subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.data = res.response;
+  
+          this.dataSource = new MatTableDataSource(this.data.reverse());
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.showcategoryData = false;
+        }
+        else {
+          this.errorMsg = res.responseMessage;
+          this.showcategoryData = true;
+        }
+      });
+  
+   
+    })
   }
 
 
@@ -159,7 +177,23 @@ export class ServiceProviderComponent implements OnInit {
         this.data = res.response;
 
         this.toastr.success(res.responseMessage);
-        window.location.reload();
+        setTimeout(() => {
+          this.service.ServiceProviderView().subscribe((res: any) => {
+            if (res.flag == 1) {
+              this.data = res.response;
+      
+              this.dataSource = new MatTableDataSource(this.data.reverse());
+              this.dataSource.sort = this.sort;
+              this.dataSource.paginator = this.paginator;
+              this.showcategoryData = false;
+            }
+            else {
+              this.errorMsg = res.responseMessage;
+              this.showcategoryData = true;
+            }
+          });
+       
+        }, 500); 
       }
       else {
         this.toastr.error(res.responseMessage);
@@ -316,6 +350,24 @@ export class ServiceProviderComponent implements OnInit {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
     });
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.service.ServiceProviderView().subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.data = res.response;
+  
+          this.dataSource = new MatTableDataSource(this.data.reverse());
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.showcategoryData = false;
+        }
+        else {
+          this.errorMsg = res.responseMessage;
+          this.showcategoryData = true;
+        }
+      });
+  
+   
+    })
   }
 }
 

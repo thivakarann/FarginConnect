@@ -216,7 +216,34 @@ export class OfflineTransactionsComponent {
     })
   }
   reset() {
-    window.location.reload();
+    let submitModel: OffilneTransaction = {
+      merchantId: this.id,
+      pageNo: this.currentPage,
+      size: '20',
+      query: '',
+      dateRange: this.Daterange,
+      status: "",
+      terminalId: ""
+    }
+    this.service.OfflineTransactions(submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+
+        this.Viewall = JSON.parse(res.response);
+        this.content = this.Viewall?.content || [];
+        console.log(this.content)
+        this.filteredData = this.content;
+          this.dataSource = new MatTableDataSource(this.filteredData);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        if (this.content.length === 0) {
+          this.dataSource = new MatTableDataSource();
+         }
+         this.FromDateRange='';
+         this.ToDateRange='';
+      }
+
+    })
+
   }
 
 

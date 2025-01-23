@@ -109,6 +109,19 @@ export class SmsCostViewallComponent {
       exitAnimationDuration: "800ms",
       disableClose: true
     })
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.smsdetails.smscostViewall().subscribe((res: any) => {
+        this.viewall = res.response;
+        this.viewall.reverse();
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+  
+      });
+  
+  
+  
+    })
   }
 
   EditSMS(id: any) {
@@ -133,7 +146,15 @@ export class SmsCostViewallComponent {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         setTimeout(() => {
-          window.location.reload()
+          this.smsdetails.smscostViewall().subscribe((res: any) => {
+            this.viewall = res.response;
+            this.viewall.reverse();
+            this.dataSource = new MatTableDataSource(this.viewall);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+      
+          });
+      
         }, 500);
 
       }

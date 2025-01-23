@@ -130,8 +130,22 @@ export class PgsetupViewComponent implements OnInit {
       
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+        this.service.PGsetupget().subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.pgsetup = res.response;
+            this.pgsetup.reverse();
+            this.dataSource = new MatTableDataSource(this.pgsetup);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+            this.showcategoryData = false;
+    
+          }
+          else {
+            this.errorMsg = res.responseMessage;
+            this.showcategoryData = true;
+          }
+        });
+      }, 500);
     });
   }
 
@@ -142,6 +156,25 @@ export class PgsetupViewComponent implements OnInit {
       exitAnimationDuration: '1000ms',
       disableClose:true
     });
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.service.PGsetupget().subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.pgsetup = res.response;
+          this.pgsetup.reverse();
+          this.dataSource = new MatTableDataSource(this.pgsetup);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.showcategoryData = false;
+  
+        }
+        else {
+          this.errorMsg = res.responseMessage;
+          this.showcategoryData = true;
+        }
+      });
+  
+  
+    })
   }
 
 
@@ -152,7 +185,25 @@ export class PgsetupViewComponent implements OnInit {
       exitAnimationDuration: '1000ms',
       data: { value: id }
     });
-
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.service.PGsetupget().subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.pgsetup = res.response;
+          this.pgsetup.reverse();
+          this.dataSource = new MatTableDataSource(this.pgsetup);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.showcategoryData = false;
+  
+        }
+        else {
+          this.errorMsg = res.responseMessage;
+          this.showcategoryData = true;
+        }
+      });
+  
+  
+    })
   }
 
   admin() {

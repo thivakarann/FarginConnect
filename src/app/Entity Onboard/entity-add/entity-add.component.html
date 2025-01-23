@@ -1085,6 +1085,14 @@
 
             <div class="form__row">
                 <div class="form__linput">
+                    <label class="form__label"><b>Expiry Date</b></label>
+                    <input class="form-control"  type="date" formControlName="expiryDate">
+                    <!-- <div style="color: red; font-size: 12px;margin-top: 2px;"
+                        *ngIf="expiryDate?.invalid && expiryDate?.touched && expiryDate?.errors?.['required']">
+                        Field is required
+                    </div> -->
+                </div>
+                <div class="form__linput">
                     <label class="form__label"><b>Upload Front Path</b></label>
                     <input class="form-control" formControlName="docFrontPath" (change)="docfront($event)"
                         type="file" />
@@ -1093,11 +1101,18 @@
                         Field is required
                     </div>
                 </div>
-
-                <div class="form__linput">
-                    <label class="form__label"><b>Upload Back Path</b></label>
-                    <input class="form-control" formControlName="docBackPath" (change)="docback($event)" type="file" />
-                </div>
+           
+            </div>
+            <div class="form__row">
+            <div class="form__linput">
+                <label class="form__label"><b>Upload Back Path</b></label>
+                <input class="form-control" formControlName="docBackPath" (change)="docback($event)" type="file" />
+            </div>
+ 
+            <div class="form__linput">
+             
+            </div>
+ 
             </div>
 
             <div>

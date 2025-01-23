@@ -116,5 +116,12 @@ valueqredit: any;
       disableClose: true,
       data: { value: id }
     })
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+        this.details = res.response;
+        this.detaislone = res.response.merchantpersonal;
+      });
+  
+    })
   }
 }

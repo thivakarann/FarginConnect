@@ -126,6 +126,20 @@ export class BouquetePlanViewallComponent {
       exitAnimationDuration: '1000ms',
       disableClose: true
     })
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.Bouqutenameviewall.Bouqetenameviewall().subscribe((res: any) => {
+        this.viewall = res.response;
+        this.viewall.reverse();
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+  
+      });
+  
+  
+   
+    })
   }
 
   Edit(id: any) {
@@ -135,6 +149,20 @@ export class BouquetePlanViewallComponent {
       exitAnimationDuration: '1000ms',
       disableClose: true,
       data: { value: id }
+    })
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.Bouqutenameviewall.Bouqetenameviewall().subscribe((res: any) => {
+        this.viewall = res.response;
+        this.viewall.reverse();
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+  
+      });
+  
+  
+   
     })
   }
 
@@ -160,7 +188,23 @@ export class BouquetePlanViewallComponent {
 
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
-        window.location.reload();
+        setTimeout(() => {
+          this.dialog.afterAllClosed.subscribe(() => {
+            this.Bouqutenameviewall.Bouqetenameviewall().subscribe((res: any) => {
+              this.viewall = res.response;
+              this.viewall.reverse();
+              this.dataSource = new MatTableDataSource(this.viewall);
+              this.dataSource.sort = this.sort;
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+        
+            });
+        
+        
+         
+          })
+       
+        }, 500);
       }
       else {
         this.toastr.error(res.responseMessage);
