@@ -1338,3 +1338,13 @@ export interface subsmanualpay {
   readonly utrNumber: any;
   readonly updatedBy: any;
 }
+
+export interface stickeradd {
+  readonly stickerPerAmount: any;
+  readonly deliveryDays: any;
+  readonly createdBy: any;
+}
+ 
+export interface stickerstatus {
+  readonly activeStatus:any;
+}

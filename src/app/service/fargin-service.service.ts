@@ -676,7 +676,14 @@ export class FarginServiceService {
    
    private readonly subscriptionmanualpay= 'maintanancePay/manualCash/';
    
+   //sticker
+   private readonly stickerget='stickerconfig/getall';
+   private readonly stickerAdd='stickerconfig/create';
+   private readonly stickerstatus='stickerconfig/updatestatus/';
+  //Campagin
+    private addcampagins='emailbroadcaster/sendemail'
 
+     private readonly activemerchantemail = 'merchant/activeMerchants'
 
   loginError = new Subject();
 
@@ -2514,4 +2521,28 @@ export class FarginServiceService {
   abstarctipadd() {
     return this.http.get(`${this.abstarctipaddress}`)
   }
+
+  Sticker(){
+    return this.http.get(`${this.basePath}${this.stickerget}`,this.options)
+  }
+ 
+  StickerCreate(model: any) {
+    return this.http.post(`${this.basePath}${this.stickerAdd}`, model, this.options);
+  }
+ 
+  StickerStatus(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.stickerstatus}${id}`, model, this.options)
+  }
+   //Campagin
+   addcampagin(FormData: FormData) {
+    return this.http.post(
+      `${this.basePath}${this.addcampagins}`,
+      FormData,
+      this.optionsMultipart
+    );
+  }
+    activemerchantemails()
+    {
+      return this.http.get(`${this.basePath}${this.activemerchantemail}`,this.options)
+    }
 }

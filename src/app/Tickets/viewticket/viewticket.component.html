@@ -69,6 +69,13 @@
                 </td>
             </ng-container>
 
+            <ng-container matColumnDef="stickerCount">
+                <th mat-header-cell *matHeaderCellDef>Sticker Count</th>
+                <td mat-cell *matCellDef="let data">
+                    {{data?.stickerCount}}
+                </td>
+            </ng-container>
+
 
             <ng-container matColumnDef="Criticallity">
                 <th mat-header-cell *matHeaderCellDef>Ticket Status</th>

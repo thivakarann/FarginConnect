@@ -33,6 +33,8 @@ export class MaintenanceTransViewallComponent {
     // 'smssgst',
     // 'smsigst',
     'totalcost',
+    'otherPayAmount',
+    'stickerCount',
     'amount',
     'cgst',
     'igst',
@@ -342,6 +344,8 @@ export class MaintenanceTransViewallComponent {
           this.response.push(element?.smsCount);
           this.response.push(element?.smsPerAmount);
           this.response.push(element?.smsTotalAmount);
+          this.response.push(element?.otherPayAmount);
+          this.response.push(element?.stickerCount);
           this.response.push(element?.paidAmount);
           this.response.push(element?.cgstPercentage);
           this.response.push(element?.igstPercentage);
@@ -382,6 +386,8 @@ export class MaintenanceTransViewallComponent {
       'Sms Count',
       'Sms Cost Per Count',
       'Total Sms Cost',
+      'Other Pay Amount',
+      'Sticker Count',
       'Amount',
       'CGST Percentage',
       'IGST Percentage',
@@ -434,6 +440,8 @@ export class MaintenanceTransViewallComponent {
       let qty11 = row.getCell(12);
       let qty12 = row.getCell(13);
       let qty13 = row.getCell(14);
+      let qty14 = row.getCell(15);
+      let qty15 = row.getCell(16);
  
  
  
@@ -452,6 +460,8 @@ export class MaintenanceTransViewallComponent {
       qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty12.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty13.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty14.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty15.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
  
     }
     );

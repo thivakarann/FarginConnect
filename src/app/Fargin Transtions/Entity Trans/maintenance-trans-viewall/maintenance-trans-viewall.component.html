@@ -142,6 +142,17 @@
             </ng-container>
 
 
+            <ng-container matColumnDef="stickerCount">
+                <th mat-header-cell *matHeaderCellDef>Sticker Count</th>
+                <td mat-cell *matCellDef="let transaction">{{transaction?.stickerCount}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="otherPayAmount">
+                <th mat-header-cell *matHeaderCellDef>Otherpay Amount</th>
+                <td mat-cell *matCellDef="let transaction">{{transaction?.otherPayAmount}}</td>
+            </ng-container>
+
+
             <ng-container matColumnDef="receipt">
                 <th mat-header-cell *matHeaderCellDef [hidden]="valuemaintainInvoice!=='Subscription Payment-Invoice'">
                     Invoice</th>

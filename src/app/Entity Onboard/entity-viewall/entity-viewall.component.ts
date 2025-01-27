@@ -12,6 +12,8 @@ import { Workbook } from 'exceljs';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { EntityStatus } from '../../fargin-model/fargin-model.module';
 import { PageEvent } from '@angular/material/paginator';
+import { CreateCampaginComponent } from '../../Announcement/create-campagin/create-campagin.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-entity-viewall',
@@ -76,7 +78,8 @@ export class EntityViewallComponent {
   constructor(
     public EntityViewall: FarginServiceService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private dialog:MatDialog
   ) { }
   ngOnInit(): void {
 
@@ -492,5 +495,13 @@ export class EntityViewallComponent {
       // length: this.totalItems
     } as PageEvent);
   }
+  addcampagin() {
+    this.dialog.open(CreateCampaginComponent, {
 
+      disableClose: true,
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '1000ms',
+    })
+   
+  }
 }

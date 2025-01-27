@@ -103,6 +103,7 @@ import { BranchViewallComponent } from './branch-viewall/branch-viewall.componen
 import { AdditionalpaymentsComponent } from './Fargin Transtions/additionalpayments/additionalpayments.component';
 import { BranchCustomerViewComponent } from './branch-customer-view/branch-customer-view.component';
 import { RefundGetallComponent } from './Refund/refund-getall/refund-getall.component';
+import { ViewStickerComponent } from './StickerCost/view-sticker/view-sticker.component';
 
 const routes: Routes = [
 
@@ -218,7 +219,7 @@ const routes: Routes = [
       {path:'branch-customer-view/:id',component:BranchCustomerViewComponent,canActivate:[authGuard]},
       {path:'additional-payments',component:AdditionalpaymentsComponent,canActivate: [authGuard]},
       {path:'refund-getall',component:RefundGetallComponent,canActivate: [authGuard]},
- 
+      {path:'sticker-view',component:ViewStickerComponent,canActivate: [authGuard]},
       // {path:'merchant-additional/:id',component:MercahntbasedadditionalComponent,canActivate: [authGuard]},
     ],
 

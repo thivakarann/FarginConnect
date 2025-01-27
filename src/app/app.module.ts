@@ -246,6 +246,9 @@ import { BranchIndividualviewComponent } from './branch-individualview/branch-in
 import { BranchCustomerViewComponent } from './branch-customer-view/branch-customer-view.component';
 import { RefundGetallComponent } from './Refund/refund-getall/refund-getall.component';
 import { TransManualPayComponent } from './Fargin Transtions/Entity Trans/trans-manual-pay/trans-manual-pay.component';
+import { AddStickerComponent } from './StickerCost/add-sticker/add-sticker.component';
+import { ViewStickerComponent } from './StickerCost/view-sticker/view-sticker.component';
+import { CreateCampaginComponent } from './Announcement/create-campagin/create-campagin.component';
 
 @NgModule({
   declarations: [
@@ -469,7 +472,10 @@ import { TransManualPayComponent } from './Fargin Transtions/Entity Trans/trans-
     BranchIndividualviewComponent,
     BranchCustomerViewComponent,
     RefundGetallComponent,
-    TransManualPayComponent
+    TransManualPayComponent,
+    AddStickerComponent,
+    ViewStickerComponent,
+    CreateCampaginComponent
 
   ],
 

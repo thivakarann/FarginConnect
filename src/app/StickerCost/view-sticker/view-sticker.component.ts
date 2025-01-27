@@ -1,0 +1,141 @@
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { FarginServiceService } from '../../service/fargin-service.service';
+import { AddStickerComponent } from '../add-sticker/add-sticker.component';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { stickerstatus } from '../../fargin-model/fargin-model.module';
+
+@Component({
+  selector: 'app-view-sticker',
+  templateUrl: './view-sticker.component.html',
+  styleUrl: './view-sticker.component.css'
+})
+export class ViewStickerComponent {
+  dataSource!: MatTableDataSource<any>;
+  displayedColumns: string[] = [
+    'stickerId',
+    'stickerPerAmount',
+    'activeStatus',
+    'deliveryDays',
+    'createdBy',
+    'createdDateTime',
+    'modifiedBy',
+    'modifiedDateTime',
+  ];
+  viewall: any;
+  @ViewChild('tableContainer') tableContainer!: ElementRef;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  isChecked: boolean = false;
+  date1: any;
+  date2: any;
+  responseDataListnew: any = [];
+  response: any = [];
+  valuesmsadd: any;
+  valuesmsstatus: any;
+  valuesmsedit: any;
+  getdashboard: any[] = [];
+  roleId: any = localStorage.getItem('roleId')
+  actions: any;
+  errorMessage: any;
+  constructor(
+    public service: FarginServiceService,
+    private router: Router,
+    private dialog: MatDialog,
+    private toastr: ToastrService
+  ) { }
+
+  ngOnInit(): void {
+
+    this.service.Sticker().subscribe((res: any) => {
+      this.viewall = res.response;
+      this.viewall.reverse();
+      this.dataSource = new MatTableDataSource(this.viewall);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    });
+
+
+  }
+
+  AddSticker() {
+    this.dialog.open(AddStickerComponent, {
+      enterAnimationDuration: "500ms",
+      exitAnimationDuration: "800ms",
+      disableClose: true
+    })
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.service.Sticker().subscribe((res: any) => {
+        this.viewall = res.response;
+        this.viewall.reverse();
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      });
+    })
+  }
+
+
+  EditSMS(id: any) {
+
+  }
+
+
+  reload() {
+    this.service.Sticker().subscribe((res: any) => {
+      this.viewall = res.response;
+      this.viewall.reverse();
+      this.dataSource = new MatTableDataSource(this.viewall);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+
+    });
+  }
+
+  ActiveStatus(event: MatSlideToggleChange, id: any) {
+
+    this.isChecked = event.checked;
+
+    let submitModel: stickerstatus = {
+      activeStatus: this.isChecked ? 'Active' : 'Inactive',
+
+    };
+    this.service.StickerStatus(id, submitModel).subscribe((res: any) => {
+
+      if (res.flag == 1) {
+        this.toastr.success(res.responseMessage);
+        setTimeout(() => {
+          this.service.Sticker().subscribe((res: any) => {
+            this.viewall = res.response;
+            this.viewall.reverse();
+            this.dataSource = new MatTableDataSource(this.viewall);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+          });      
+
+        }, 500);
+
+      }
+      else {
+        this.toastr.error(res.responseMessage);
+      }
+
+    });
+
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+}
+
