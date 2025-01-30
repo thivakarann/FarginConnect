@@ -26,7 +26,7 @@ export class CustomerSurveyquestionsComponent {
   custresponse: any = [];
   customerresponse: any;
   customerSurveyEntity: any;
-  currentPage: string | number | undefined;
+  currentPage: number=1;
   searchText: any;
   questionId: any;
   isFullPolicyVisible:boolean=false;
@@ -205,7 +205,18 @@ export class CustomerSurveyquestionsComponent {
       disableClose: true
     });
   }
-  viewQuestion(){
-
+  transform(value: any[], searchText: string): any[] {
+    if (!value || !searchText) {
+      return value;
+    }
+    return value.filter(item =>
+      item.subpermissionValue.toLowerCase().includes(searchText.toLowerCase())
+    );
   }
+ 
+  onSearchTextChange(): void {
+    // Reset to the first page whenever the search text changes
+    this.currentPage = 1;
+  }
+
 }

@@ -100,9 +100,6 @@ constructor(private service:FarginServiceService,private toaster:ToastrService,p
     this.service.AdminUpdate(submitmodel).subscribe((res:any)=>{
       if(res.flag==1){
         this.toaster.success(res.responseMessage);
-        setTimeout(() => {
-          window.location.reload()
-        }, 500);
         this.router.navigateByUrl(`/dashboard/admindetails`);
       }
       else{

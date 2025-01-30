@@ -111,7 +111,21 @@ export class PgsetupViewComponent implements OnInit {
 
 
   reload(){
-    window.location.reload()
+    this.service.PGsetupget().subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.pgsetup = res.response;
+        this.pgsetup.reverse();
+        this.dataSource = new MatTableDataSource(this.pgsetup);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.showcategoryData = false;
+
+      }
+      else {
+        this.errorMsg = res.responseMessage;
+        this.showcategoryData = true;
+      }
+    });
   }
 
 

@@ -183,7 +183,36 @@ export class CustomerTransViewallComponent {
   }
 
   reload() {
-    window.location.reload()
+    
+    this.service.CustomerAllTransactions(this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.transaction = res.response;
+
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+        
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.filter = true;
+        this.filter1=false;
+        this.filters=false;
+      
+      }
+      
+      else {
+        this.filter=false;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+      }
+
+
+    });
+
+ 
+
   }
 
 
@@ -209,9 +238,14 @@ export class CustomerTransViewallComponent {
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.filter = false;
         this.filter1 = true;
-        this.filters = false;         }
+        this.filter = false;
+       
+        this.filters = false;
+        
+     
+      
+      }
       else if (res.flag == 2) {
         this.transaction = [];
         this.dataSource = new MatTableDataSource(this.transaction);

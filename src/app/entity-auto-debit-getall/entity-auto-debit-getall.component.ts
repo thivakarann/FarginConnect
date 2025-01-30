@@ -133,7 +133,18 @@ export class EntityAutoDebitGetallComponent {
   }
 
   reload() {
-    window.location.reload()
+    this.autodebitdetails.autodebitgetall(this.pageSize, this.pageIndex).subscribe((res: any) => {
+      this.viewall = res.response;
+      this.totalPages = res.pagination.totalElements;
+      this.totalpage = res.pagination.totalPages;
+      this.currentpage = res.pagination.currentPage + 1;
+      this.viewall.reverse();
+      this.dataSource = new MatTableDataSource(this.viewall);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      this.filter=false;
+
+    });
   }
 
   exportexcel() {

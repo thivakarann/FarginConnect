@@ -140,7 +140,27 @@ export class OverallCustomerViewComponent implements OnInit {
 
 
   reload() {
-    window.location.reload()
+    this.EntityViewall.OverallCustomer(this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.overallcustomer = res.response;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+        this.dataSource = new MatTableDataSource(this.overallcustomer);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.filter=false;
+      }
+      else {
+        this.filter=false;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+      }
+
+    });
+
+    
   }
 
   Viewparticularcustomer(id: any) {

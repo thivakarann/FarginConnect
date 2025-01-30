@@ -112,7 +112,23 @@ export class ViewfacheckkeyComponent {
   }
 
   reload() {
-    window.location.reload()
+    
+    this.service.viewfacheck().subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.facheck = res.response;
+        this.facheck.reverse();
+        this.dataSource = new MatTableDataSource(this.facheck);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+
+        this.showcategoryData = false;
+        // 
+      }
+      else {
+        this.errorMsg = res.responseMessage;
+        this.showcategoryData = true;
+      }
+    });
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

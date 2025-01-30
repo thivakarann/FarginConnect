@@ -143,7 +143,19 @@ export class ViewAnnouncementComponent implements OnInit {
   }
 
   reload() {
-    window.location.reload()
+    this.service.announcementViewall(this.pageSize, this.pageIndex).subscribe((res: any) => {
+      this.data = res.response.content;
+      this.totalPages = res.pagination.totalElements;
+      this.totalpage = res.pagination.totalPages;
+      this.currentpage = res.pagination.currentPage + 1;
+      // this.announcementValue.reverse();
+      this.dataSource = new MatTableDataSource(this.data);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      this.filter = false;
+      this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+    })
+
   }
   search() {
     this.service.announcementDate(this.fromDate, this.toDate,this.pageSize1, this.pageIndex1).subscribe({
@@ -310,13 +322,14 @@ export class ViewAnnouncementComponent implements OnInit {
           this.response.push(element?.announcementContentEnglish);
           this.response.push(element?.startDate);
           this.response.push(element?.endDate);
+          this.response.push(element?.createdBy);
           if (element?.activeStatus == '1') {
             this.response.push('Active');
           }
           else {
             this.response.push('Inactive');
           }
-          this.response.push(element?.createdBy);
+         
 
           // this.response.push(this.date1 ||'-');
              if (element?.createdDateTime) {

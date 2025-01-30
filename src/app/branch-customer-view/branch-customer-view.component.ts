@@ -59,6 +59,7 @@ export class BranchCustomerViewComponent implements OnInit {
  
   filter:boolean=false;
   currentfilval:any;
+searchPerformed: boolean=false;
 
   constructor(
     private service: FarginServiceService,

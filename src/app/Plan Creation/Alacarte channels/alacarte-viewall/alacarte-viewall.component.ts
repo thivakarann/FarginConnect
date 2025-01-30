@@ -20,13 +20,13 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class AlacarteViewallComponent implements OnInit {
   dataSource!: MatTableDataSource<any>;
-  displayedColumns: string[] = [
+ displayedColumns: string[] = [
     'alcotId',
     'channelName',
     'channelNo',
     'Broadcaster',
-    // 'mso',
-    // 'region',
+    'msos',
+    'region',
     'generic',
     'language',
     'type',
@@ -160,7 +160,29 @@ export class AlacarteViewallComponent implements OnInit {
 
 
   reload() {
-    window.location.reload()
+    this.AllcartViewall.Alcartviewall(this.pageSize,this.pageIndex).subscribe((res: any) => {
+      if (res.flag == 1) {
+
+      this.viewall = res.response.content;
+      this.totalPages=res.pagination.totalElements;
+      this.totalpage=res.pagination.totalPages;
+     this.currentpage=res.pagination.currentPage+1;
+      // this.viewall.reverse();
+      this.dataSource = new MatTableDataSource(this.viewall);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      this.filter = false;
+
+      }
+      else if (res.flag == 2) {
+        this.viewall = [];
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;  
+        this.filter = false;
+      }
+     
+    });
   }
 
 

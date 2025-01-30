@@ -130,7 +130,14 @@ export class SmsCostViewallComponent {
 
 
   reload() {
-    window.location.reload()
+    this.smsdetails.smscostViewall().subscribe((res: any) => {
+      this.viewall = res.response;
+      this.viewall.reverse();
+      this.dataSource = new MatTableDataSource(this.viewall);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+
+    });
   }
 
   ActiveStatus(event: MatSlideToggleChange, id: any) {

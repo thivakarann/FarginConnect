@@ -89,7 +89,13 @@ export class ViewticketComponent implements OnInit {
   }
 
   reload(){
-    window.location.reload()
+    this.service.viewTicket().subscribe((res: any) => {
+      this.tickets = res.response;
+      
+      this.dataSource = new MatTableDataSource(this.tickets?.reverse())
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    })
   }
 
 
@@ -141,6 +147,16 @@ export class ViewticketComponent implements OnInit {
       width: "50%",
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
+    })
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.service.viewTicket().subscribe((res: any) => {
+        this.tickets = res.response;
+        
+        this.dataSource = new MatTableDataSource(this.tickets?.reverse())
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      })
+  
     })
   }
 

@@ -98,7 +98,7 @@ export class AddAnnouncementComponent {
       }
       else {
         this.toastr.error(res.responseMessage);
-        this.dialog.closeAll()
+      
       }
 
     });

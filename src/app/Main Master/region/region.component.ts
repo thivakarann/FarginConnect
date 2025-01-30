@@ -302,7 +302,14 @@ export class RegionComponent implements OnInit {
 
 
   reload() {
-    window.location.reload()
+    this.service.RegionGet().subscribe((res: any) => {
+      this.region = res.response;
+      this.region.reverse();
+      this.dataSource = new MatTableDataSource(this.region);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      
+    });
   }
 
   Region(filterValue: string) {

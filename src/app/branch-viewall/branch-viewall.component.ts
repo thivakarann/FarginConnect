@@ -136,7 +136,33 @@ export class BranchViewallComponent {
   }
 
   reload() {
-    window.location.reload()
+  
+    this.service.BranchIndividualView(this.pageSize,this.pageIndex).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.branchview = res.response;
+        this.branchview.reverse();
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+        this.dataSource = new MatTableDataSource(this.branchview);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.filter=false;
+      }
+      else if (res.flag === 2) {
+        this.branchview = [];
+        this.dataSource = new MatTableDataSource(this.branchview);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.filter=false;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+        this.filter=false;
+ 
+      }
+    });
+
   }
 
 

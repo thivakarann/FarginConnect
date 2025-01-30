@@ -7,6 +7,7 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 import { ChannelViewComponent } from '../channel-view/channel-view.component';
 import { Location } from '@angular/common';
 import { Businesskycstatus, customerplanStatus } from '../../fargin-model/fargin-model.module';
+import { StepperSelectionEvent } from '@angular/cdk/stepper';
 
 @Component({
   selector: 'app-plan-details-customer',
@@ -51,6 +52,7 @@ export class PlanDetailsCustomerComponent {
   totallcop: number = 0;
   overallAmount: number = 0;
   setupboxview: any;
+  currentPage: number=1;
 
 
   selectTab(tab: string) {
@@ -203,5 +205,43 @@ export class PlanDetailsCustomerComponent {
  
  
  
+  }
+
+  alcartePage() {
+    this.currentPage = 1;
+   
+  }
+  boquetePage() {
+    this.currentPage = 1;
+    
+  }
+  lcopPage() {
+    this.currentPage = 1;
+   
+  }
+  onStepChange(event: StepperSelectionEvent): void {
+    if (event.selectedIndex === 0) {
+      this.alcartePage();
+    } else if (event.selectedIndex === 1) {
+      this.boquetePage();
+    }
+    else if(event.selectedIndex === 2)
+    {
+      this.lcopPage();
+    }
+  }
+  
+  transform(value: any[], searchText: string): any[] {
+    if (!value || !searchText) {
+      return value;
+    }
+    return value.filter((item) =>
+      item.subpermissionValue.toLowerCase().includes(searchText.toLowerCase())
+    );
+  }
+ 
+  onSearchTextChange(): void {
+    // Reset to the first page whenever the search text changes
+    this.currentPage = 1;
   }
 }

@@ -489,26 +489,33 @@
             <div class="row  d-flex justify-content-start">
                 <div class="col-md-3">
                     <div class="search ">
-                        <form class="form">
-                            <label for="search">
-                                <input #input required autocomplete="off" placeholder="Search" id="search" type="text">
-                                <div class="icon">
-                                    <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg" class="swap-on">
-                                        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
-                                            stroke-linecap="round"></path>
-                                    </svg>
-                                </div>
-                                <button (click)="reload()" type="reset" class="close-btn">
-                                    <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
-                                        <path clip-rule="evenodd"
-                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                            fill-rule="evenodd"></path>
-                                    </svg>
-                                </button>
-                            </label>
-                        </form>
-                    </div>
+          <form class="form">
+              <label for="search">
+                  <input (ngModelChange)="onSearchTextChange()" #input name="search" required autocomplete="off" placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
+ 
+                  <div class="icon">
+                      <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                          xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                          <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                              stroke-linecap="round"></path>
+                      </svg>
+                      <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                          xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                          <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
+                              stroke-linecap="round">
+                          </path>
+                      </svg> -->
+                  </div>
+                  <button type="reset" class="close-btn">
+                      <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                          <path clip-rule="evenodd"
+                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                              fill-rule="evenodd"></path>
+                      </svg>
+                  </button>
+              </label>
+          </form>
+      </div>
 
                 </div>
                 <div class="col-md-1 mt-1">
@@ -553,7 +560,7 @@
 
                             </tr>
                             <tbody
-                                *ngFor="let item of bankdetails| paginate: { itemsPerPage: 3, currentPage: currentPage } | search: searchText;let i=index">
+                                *ngFor="let item of bankdetails  | search: searchText | paginate: { itemsPerPage: 3, currentPage: currentPage }; let i=index">
                                 <td>{{i+1}}</td>
                                 <td>{{item.accountHolderName}}</td>
                                 <td>{{item.accountNumber}}</td>
@@ -630,7 +637,7 @@
                         </table>
                     </div>
                     <div class="text-end mt-3">
-                        <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+                        <pagination-controls (pageChange)="currentPage= $event"></pagination-controls>
                     </div>
                 </div>
             </div>
@@ -642,14 +649,7 @@
                 (click)="addKycdocuments(this.id)" style="color:white;background-color: #141E46;border-radius: 10px;"
                 mat-raised-button>Add
                 KYC</button>
-            <div class="row  d-flex justify-content-start">
-                <div class="col-md-3">
-
-                </div>
-                <div class="col-md-2 mt-1">
-
-                </div>
-            </div>
+          
         </mat-card-header>
         <div class="row mt-4">
             <div class="col-12 mb-3 mb-lg-5">
@@ -869,9 +869,8 @@
                         </table>
                     </div>
                 </div>
-                <div class="text-end mt-3">
-                    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
-                </div>
+                
+               
             </div>
         </div>
     </div>
@@ -880,33 +879,33 @@
             <div class="row  d-flex justify-content-start">
                 <div class="col-md-3">
                     <div class="search ">
-                        <form class="form">
-                            <label for="search">
-                                <input #input required="" autocomplete="off" placeholder="Search" id="search"
-                                    type="text" [(ngModel)]="searchText">
-                                <div class="icon">
-                                    <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg" class="swap-on">
-                                        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
-                                            stroke-linecap="round"></path>
-                                    </svg>
-                                    <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg" class="swap-off">
-                                        <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
-                                            stroke-linecap="round">
-                                        </path>
-                                    </svg>
-                                </div>
-                                <button type="reset" class="close-btn">
-                                    <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
-                                        <path clip-rule="evenodd"
-                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                            fill-rule="evenodd"></path>
-                                    </svg>
-                                </button>
-                            </label>
-                        </form>
-                    </div>
+          <form class="form">
+              <label for="search">
+                  <input (ngModelChange)="onSearchTextChange()" #input name="search" required autocomplete="off" placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
+ 
+                  <div class="icon">
+                      <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                          xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                          <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                              stroke-linecap="round"></path>
+                      </svg>
+                      <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                          xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                          <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
+                              stroke-linecap="round">
+                          </path>
+                      </svg> -->
+                  </div>
+                  <button type="reset" class="close-btn">
+                      <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                          <path clip-rule="evenodd"
+                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                              fill-rule="evenodd"></path>
+                      </svg>
+                  </button>
+              </label>
+          </form>
+      </div>
                 </div>
                 <div class="col-md-2 mt-1">
                     <button (click)="adddoc(this.id,this.detaislone?.businessCategoryModel?.businessCategoryId)"
@@ -938,7 +937,7 @@
 
                             </tr>
                             <tbody
-                                *ngFor="let item of bussinessdoc| paginate: { itemsPerPage: 3, currentPage: currentPage } | search: searchText;let i=index">
+                                *ngFor="let item of bussinessdoc  | search: searchText | paginate: { itemsPerPage: 3, currentPage: currentPage };let i=index">
                                 <td>{{i+1}}</td>
                                 <td>{{item?.entityKycCategory?.kycCategoryName}}</td>
                                 <td>{{item.docNumber}}</td>
@@ -973,48 +972,15 @@
                         </table>
                     </div>
                     <div class="text-end mt-3">
-                        <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+ <pagination-controls (pageChange)="currentPage= $event"></pagination-controls>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div *ngIf="activeTab === 'doot1'">
-        <mat-card-header>
-            <div class="row  d-flex justify-content-start">
-                <div class="col-md-3">
-                    <div class="search ">
-                        <form class="form">
-                            <label for="search">
-                                <input #input required="" autocomplete="off" placeholder="Search" id="search"
-                                    type="text" [(ngModel)]="searchText">
-                                <div class="icon">
-                                    <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg" class="swap-on">
-                                        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
-                                            stroke-linecap="round"></path>
-                                    </svg>
-                                    <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg" class="swap-off">
-                                        <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
-                                            stroke-linecap="round">
-                                        </path>
-                                    </svg>
-                                </div>
-                                <button type="reset" class="close-btn">
-                                    <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
-                                        <path clip-rule="evenodd"
-                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                            fill-rule="evenodd"></path>
-                                    </svg>
-                                </button>
-                            </label>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </mat-card-header>
-        <div class="row mt-4">
+      
+        <div class="row mt-2">
             <div class="col-12 mb-3 mb-lg-5">
                 <div class="card table-nowrap table-card">
                     <div class="table-responsive text-nowrap text-center">
@@ -1051,9 +1017,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="text-end mt-3">
-                    <pagination-controls (pageChange)="p= $event"></pagination-controls>
-                </div>
+               
             </div>
         </div>
     </div>
@@ -1063,33 +1027,33 @@
         <div class="row  d-flex justify-content-start">
             <div class="col-md-3">
                 <div class="search ">
-                    <form class="form">
-                        <label for="search">
-                            <input #input required="" autocomplete="off" placeholder="Search" id="search" type="text"
-                                [(ngModel)]="searchText">
-                            <div class="icon">
-                                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg" class="swap-on">
-                                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
-                                        stroke-linecap="round"></path>
-                                </svg>
-                                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg" class="swap-off">
-                                    <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
-                                        stroke-linecap="round">
-                                    </path>
-                                </svg>
-                            </div>
-                            <button type="reset" class="close-btn">
-                                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
-                                    <path clip-rule="evenodd"
-                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                        fill-rule="evenodd"></path>
-                                </svg>
-                            </button>
-                        </label>
-                    </form>
-                </div>
+          <form class="form">
+              <label for="search">
+                  <input (ngModelChange)="onSearchTextChange()" #input name="search" required autocomplete="off" placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
+ 
+                  <div class="icon">
+                      <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                          xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                          <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                              stroke-linecap="round"></path>
+                      </svg>
+                      <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                          xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                          <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
+                              stroke-linecap="round">
+                          </path>
+                      </svg> -->
+                  </div>
+                  <button type="reset" class="close-btn">
+                      <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                          <path clip-rule="evenodd"
+                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                              fill-rule="evenodd"></path>
+                      </svg>
+                  </button>
+              </label>
+          </form>
+      </div>
             </div>
             <div class="col-md-2 mt-1">
                 <button (click)="createmanualPayement()"
@@ -1123,7 +1087,7 @@
                             <th>Paid At</th>
                         </tr>
                         <tbody
-                            *ngFor="let item of manualDetails| paginate: { itemsPerPage: 3, currentPage: currentPage } | search: searchText;let i=index">
+                            *ngFor="let item of manualDetails | search: searchText | paginate: { itemsPerPage: 3, currentPage: currentPage };let i=index">
                             <td>{{i+1}}</td>
                             <td>{{item.pgPaymentId}}</td>
                             <td>{{item.totalPayableAmount}}</td>
@@ -1160,7 +1124,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="text-end mt-3">
+                <div class="text-end mt-2">
                     <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
                 </div>
             </div>
@@ -1173,33 +1137,33 @@
         <div class="row  d-flex justify-content-start">
             <div class="col-md-3">
                 <div class="search ">
-                    <form class="form">
-                        <label for="search">
-                            <input #input required="" autocomplete="off" placeholder="Search" id="search" type="text"
-                                [(ngModel)]="searchText">
-                            <div class="icon">
-                                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg" class="swap-on">
-                                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
-                                        stroke-linecap="round"></path>
-                                </svg>
-                                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg" class="swap-off">
-                                    <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
-                                        stroke-linecap="round">
-                                    </path>
-                                </svg>
-                            </div>
-                            <button type="reset" class="close-btn">
-                                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
-                                    <path clip-rule="evenodd"
-                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                        fill-rule="evenodd"></path>
-                                </svg>
-                            </button>
-                        </label>
-                    </form>
-                </div>
+          <form class="form">
+              <label for="search">
+                  <input (ngModelChange)="onSearchTextChange()" #input name="search" required autocomplete="off" placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
+ 
+                  <div class="icon">
+                      <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                          xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                          <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                              stroke-linecap="round"></path>
+                      </svg>
+                      <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                          xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                          <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
+                              stroke-linecap="round">
+                          </path>
+                      </svg> -->
+                  </div>
+                  <button type="reset" class="close-btn">
+                      <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                          <path clip-rule="evenodd"
+                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                              fill-rule="evenodd"></path>
+                      </svg>
+                  </button>
+              </label>
+          </form>
+      </div>
             </div>
             <div class="col-md-2 mt-1" [hidden]="detaislone?.onBoardStatus !='true'">
                 <button (click)="otherPayement()" style="color:white;background-color: #141E46;border-radius: 10px;"
@@ -1228,7 +1192,7 @@
                             <th>Paid At</th>
                         </tr>
                         <tbody
-                            *ngFor="let item of otherDetails| paginate: { itemsPerPage: 3, currentPage: currentPage } | search: searchText;let i=index">
+                            *ngFor="let item of otherDetails  | search: searchText | paginate: { itemsPerPage: 3, currentPage: currentPage };let i=index">
                             <td>{{i+1}}</td>
                             <td>{{item.pgPaymentId}}</td>
                             <td>{{item.serviceName}}</td>
@@ -1273,33 +1237,33 @@
         <div class="row  d-flex justify-content-start">
             <div class="col-md-3">
                 <div class="search ">
-                    <form class="form">
-                        <label for="search">
-                            <input #input required="" autocomplete="off" placeholder="Search" id="search" type="text"
-                                [(ngModel)]="searchText">
-                            <div class="icon">
-                                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg" class="swap-on">
-                                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
-                                        stroke-linecap="round"></path>
-                                </svg>
-                                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg" class="swap-off">
-                                    <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
-                                        stroke-linecap="round">
-                                    </path>
-                                </svg>
-                            </div>
-                            <button type="reset" class="close-btn">
-                                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
-                                    <path clip-rule="evenodd"
-                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                        fill-rule="evenodd"></path>
-                                </svg>
-                            </button>
-                        </label>
-                    </form>
-                </div>
+          <form class="form">
+              <label for="search">
+                  <input (ngModelChange)="onSearchTextChange()" #input name="search" required autocomplete="off" placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
+ 
+                  <div class="icon">
+                      <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                          xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                          <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                              stroke-linecap="round"></path>
+                      </svg>
+                      <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                          xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                          <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
+                              stroke-linecap="round">
+                          </path>
+                      </svg> -->
+                  </div>
+                  <button type="reset" class="close-btn">
+                      <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                          <path clip-rule="evenodd"
+                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                              fill-rule="evenodd"></path>
+                      </svg>
+                  </button>
+              </label>
+          </form>
+      </div>
             </div>
             <div class="col-md-2 mt-1" [hidden]="detaislone?.onBoardStatus !='true'">
                 <button (click)="smscreate()" style="color:white;background-color: #141E46;border-radius: 10px;"
@@ -1344,7 +1308,7 @@
                             <th>Modified At</th>
                         </tr>
                         <tbody
-                            *ngFor="let item of smsDetails| paginate: { itemsPerPage: 5, currentPage: currentPage } | search: searchText;let i=index">
+                            *ngFor="let item of smsDetails  | search: searchText | paginate: { itemsPerPage: 3, currentPage: currentPage };let i=index">
                             <td>{{i+1}}</td>
                             <td>{{item?.type?.smsTitle}}</td>
                             <td>{{item?.type?.smsTempDescription}}</td>
@@ -1398,33 +1362,33 @@
         <div class="row  d-flex justify-content-start">
             <div class="col-md-3">
                 <div class="search ">
-                    <form class="form">
-                        <label for="search">
-                            <input #input required="" autocomplete="off" placeholder="Search" id="search" type="text"
-                                [(ngModel)]="searchText">
-                            <div class="icon">
-                                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg" class="swap-on">
-                                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
-                                        stroke-linecap="round"></path>
-                                </svg>
-                                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg" class="swap-off">
-                                    <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
-                                        stroke-linecap="round">
-                                    </path>
-                                </svg>
-                            </div>
-                            <button type="reset" class="close-btn">
-                                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
-                                    <path clip-rule="evenodd"
-                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                        fill-rule="evenodd"></path>
-                                </svg>
-                            </button>
-                        </label>
-                    </form>
-                </div>
+          <form class="form">
+              <label for="search">
+                  <input (ngModelChange)="onSearchTextChange()" #input name="search" required autocomplete="off" placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
+ 
+                  <div class="icon">
+                      <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                          xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                          <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                              stroke-linecap="round"></path>
+                      </svg>
+                      <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                          xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                          <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
+                              stroke-linecap="round">
+                          </path>
+                      </svg> -->
+                  </div>
+                  <button type="reset" class="close-btn">
+                      <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                          <path clip-rule="evenodd"
+                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                              fill-rule="evenodd"></path>
+                      </svg>
+                  </button>
+              </label>
+          </form>
+      </div>
             </div>
             <div class="col-md-2 mt-1">
                 <button [disabled]="this.paymentStatus?.toLowerCase() !== 'success'" (click)="agreementcreate()"
@@ -1467,7 +1431,7 @@
                             <th>Created At</th>
                         </tr>
                         <tbody
-                            *ngFor="let item of agreementdetails| paginate: { itemsPerPage:3, currentPage: currentPage } | search: searchText;let i=index">
+                            *ngFor="let item of agreementdetails  | search: searchText | paginate: { itemsPerPage: 3, currentPage: currentPage };let i=index">
                             <td>{{i+1}}</td>
                             <td>{{item.commercialId?.planName}}</td>
                             <td>{{item.commercialId?.serviceFee}}</td>
@@ -1576,33 +1540,33 @@
         <div class="row  d-flex justify-content-start">
             <div class="col-md-3">
                 <div class="search ">
-                    <form class="form">
-                        <label for="search">
-                            <input #input required="" autocomplete="off" placeholder="Search" id="search" type="text"
-                                [(ngModel)]="searchText" name="searchText">
-                            <div class="icon">
-                                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg" class="swap-on">
-                                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
-                                        stroke-linecap="round"></path>
-                                </svg>
-                                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg" class="swap-off">
-                                    <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
-                                        stroke-linecap="round">
-                                    </path>
-                                </svg>
-                            </div>
-                            <button type="reset" class="close-btn">
-                                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
-                                    <path clip-rule="evenodd"
-                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                        fill-rule="evenodd"></path>
-                                </svg>
-                            </button>
-                        </label>
-                    </form>
-                </div>
+          <form class="form">
+              <label for="search">
+                  <input (ngModelChange)="onSearchTextChange()" #input name="search" required autocomplete="off" placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
+ 
+                  <div class="icon">
+                      <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                          xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                          <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                              stroke-linecap="round"></path>
+                      </svg>
+                      <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                          xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                          <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
+                              stroke-linecap="round">
+                          </path>
+                      </svg> -->
+                  </div>
+                  <button type="reset" class="close-btn">
+                      <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                          <path clip-rule="evenodd"
+                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                              fill-rule="evenodd"></path>
+                      </svg>
+                  </button>
+              </label>
+          </form>
+      </div>
             </div>
             <div class="col-md-2 mt-1">
                 <button (click)="branchcreate()" [hidden]="valuebranchcreate!=='Entity View Branch-Add'" style="color:white;background-color: #141E46;border-radius: 10px;"
@@ -1636,7 +1600,7 @@
                             <th>Modified At</th>
                         </tr>
                         <tbody
-                            *ngFor="let item of branchget| paginate: { itemsPerPage:3, currentPage: currentPage } | search: searchText;let i=index">
+                            *ngFor="let item of branchget | search: searchText | paginate: { itemsPerPage: 3, currentPage: currentPage }; let i=index">
                             <td>{{i+1}}</td>
                             <td>{{item.branchName}}</td>
                             <td>{{item.accountId}}</td>

@@ -151,7 +151,13 @@ export class ViewallKyccategoryComponent implements OnInit {
 
 
   reload() {
-    window.location.reload()
+    this.service.viewallkycCategory().subscribe((res: any) => {
+      this.categoryview = res.response;
+
+      this.dataSource = new MatTableDataSource(this.categoryview.reverse());
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    })
   }
   exportexcel() {
 

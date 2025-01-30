@@ -40,6 +40,7 @@ export class EntityAutoDebitByIdComponent implements OnInit {
   currentpage: any;
   pageIndex: number = 0;
   pageSize = 5;
+searchPerformed: boolean =false;
   constructor(
     public autodebitdetailsbyid: FarginServiceService,
     private router: Router,
@@ -54,15 +55,30 @@ export class EntityAutoDebitByIdComponent implements OnInit {
     });
 
     this.autodebitdetailsbyid.autodebitbymerchat(this.id, this.pageSize, this.pageIndex).subscribe((res: any) => {
-      this.viewall = res.response;
-      this.totalPages = res.pagination?.totalElements;
-      this.totalpage = res.pagination.totalPages;
-      this.currentpage = res.pagination.currentPage + 1;
-      this.viewall.reverse();
-      this.dataSource = new MatTableDataSource(this.viewall);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+      if(res.flag==1)
+      {
+        this.viewall = res.response;
+        this.totalPages = res.pagination?.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+        this.viewall.reverse();
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+      }
+      else if (res.flag === 2) {
+        this.viewall = [];
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+ 
+      }
+   
+    
 
     });
   }

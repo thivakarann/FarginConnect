@@ -134,7 +134,7 @@ export class EditAnnouncementComponent {
       }
       else {
         this.toastr.error(res.responseMessage);
-        this.dialog.closeAll()
+      
       }
 
     });

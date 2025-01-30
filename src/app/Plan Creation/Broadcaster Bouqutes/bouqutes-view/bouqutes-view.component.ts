@@ -306,7 +306,19 @@ this.location.back()
     // });
 
   }
-
+  transform(value: any[], searchText: string): any[] {
+    if (!value || !searchText) {
+      return value;
+    }
+    return value.filter(item =>
+      item.subpermissionValue.toLowerCase().includes(searchText.toLowerCase())
+    );
+  }
+ 
+  onSearchTextChange(): void {
+    // Reset to the first page whenever the search text changes
+    this.currentPage = 1;
+  }
 
 
 }

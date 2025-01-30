@@ -129,7 +129,15 @@ errorMessage: any;
 
   
 reload(){
-  window.location.reload()
+  this.bankdetails.bankdetailsViewall().subscribe((res: any) => {
+    this.viewall = res.response;
+    this.viewall.reverse();
+    this.dataSource = new MatTableDataSource(this.viewall);
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    
+  });
+
 }
 
 

@@ -135,7 +135,21 @@ export class AgreementViewallComponent {
   }
 
   reload() {
-    window.location.reload()
+    this.service.AgreementgetAll().subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.agreementdata = res.response;
+        this.agreementdata.reverse();
+        // this.totalPages = res.pagination.totalElements;
+        // this.totalpage = res.pagination.totalPages;
+        // this.currentpage = res.pagination.currentPage + 1;
+        this.dataSource = new MatTableDataSource(this.agreementdata);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+
+        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+
+      }
+    });
   }
 
 

@@ -121,9 +121,7 @@ export class PolicyEditComponent implements OnInit {
     this.service.adminpolicyedit(this.policyId, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+       
         this.router.navigateByUrl('dashboard/Terms-policy');
  
       } else {

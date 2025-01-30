@@ -60,6 +60,26 @@ export class AggrementLocationTrackerComponent {
       console.log("IPAdress" +this.ipAddressfinder )
       this.getlocationbyid();
     });
+    // this.Service.paidipaddres().subscribe((res: any) => {
+    //   this.ips = res.ip;
+    //   this.countryname=res.country_name;
+    //   this.citys=res.city;
+    //   this.timezone=res.time_zone?.name;
+    //   this.stateprov=res.state_prov;
+    //   this.latitudes=res.latitude;
+    //   this.longitudes=res.longitude;
+    //   this.countrycode2=res.country_code2;
+    //   this.regioncode=res.state_code;
+
+
+
+
+      
+
+    //   console.log(this.ips)
+      
+    // });
+
     this.Service.abstarctipadd().subscribe((res: any) => {
       this.ips = res.ip_address;
       this.countryname=res.country;
@@ -162,6 +182,44 @@ export class AggrementLocationTrackerComponent {
     this.Service.AgreementSendOtp(this.RefferenceCode,2).subscribe((res: any) => {
     })
   }
+
+  // FinalLocationAccess() {
+  //   let submitModel: AgreementlocationTracker = {
+  //     referenceCode: this.RefferenceCode,
+  //     flag: this.Flag,
+  //     consent: this.Consent,
+  //     getLocation: this.Location,
+  //     ipAddress: this.ipAddress,
+  //     locationStatus: true,
+  //     publicIp: '',
+  //     country: this.LocationCountry,
+  //     city: this.LocationCity,
+  //     zip: '',
+  //     serviceProvider: '',
+  //     timezone: this.Locationtimezone,
+  //     region: this.LocationRegion,
+  //     longitude: this.Locationlongitude,
+  //     latitude: this.Locationlatitude,
+  //     countryCode: this.LocationCountrycode,
+  //     regionCode: '',
+  //     autonomousSystemNumber: ''
+  //   }
+
+  //   this.Service.agreemntconcentlocation(submitModel).subscribe((res: any) => {
+  //     if (res.flag == 1) {
+  //       this.details = res.response;
+  //       this.dialog.closeAll();
+  //       this.ResendOTP();
+  //       this.dialog.open(AggrementSignerOtpComponent, {
+  //         enterAnimationDuration: '500ms',
+  //         exitAnimationDuration: '1000ms',
+  //         disableClose: true,
+  //         data: { value: this.RefferenceCode, value2: this.mobilenumber }
+  //       });
+  //     }
+      
+  //   });
+  // }
 
   FinalLocationAccess() {
     let submitModel: AgreementlocationTracker = {

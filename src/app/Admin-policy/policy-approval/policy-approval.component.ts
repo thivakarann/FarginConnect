@@ -52,9 +52,7 @@ export class PolicyApprovalComponent {
        if (res.flag === 1) {
          this.toaster.success(res.responseMessage);
          this.dialog.closeAll();  // Close the dialog
-         setTimeout(() => {
-           window.location.reload()
-         }, 500);
+       
        } else {
          this.toaster.error(res.responseMessage);  
        }

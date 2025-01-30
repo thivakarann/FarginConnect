@@ -152,7 +152,20 @@ export class ServiceProviderComponent implements OnInit {
 
 
   reload() {
-    window.location.reload()
+    this.service.ServiceProviderView().subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.data = res.response;
+
+        this.dataSource = new MatTableDataSource(this.data.reverse());
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.showcategoryData = false;
+      }
+      else {
+        this.errorMsg = res.responseMessage;
+        this.showcategoryData = true;
+      }
+    });
   }
 
   adminedit(id: any) {

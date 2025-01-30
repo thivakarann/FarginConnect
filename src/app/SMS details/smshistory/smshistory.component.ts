@@ -392,7 +392,35 @@ export class SMSHistoryComponent {
   }
 
   reload() {
-    window.location.reload()
+    this.service.SmsHistoryGetAll(this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.smsResponse = res.response;
+        this.smsResponse.reverse();
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+        this.dataSource = new MatTableDataSource(this.smsResponse);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.filter = true;
+        this.filter1 = false;    
+        this.filters = false;
+      }
+      else if (res.flag == 2) {
+        this.message = res.responseMessage;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+        this.filter = true;
+        this.filter1 = false;    
+        this.filters = false;
+        this.smsResponse = [];
+        this.dataSource = new MatTableDataSource(this.smsResponse);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator; 
+      }
+
+    })
   }
   renderPage1(event: PageEvent) {
     // Capture the new page index and page size from the event

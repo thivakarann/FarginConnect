@@ -112,7 +112,14 @@ export class SignerGetallComponent implements OnInit {
   }
 
   reload() {
-    window.location.reload()
+    this.service.signergetall().subscribe((res: any) => {
+      this.data = res.response;
+      this.data.reverse();
+      this.dataSource = new MatTableDataSource(this.data);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+
+    });
   }
 
   AddsignerDetails() {
@@ -154,7 +161,14 @@ export class SignerGetallComponent implements OnInit {
         this.data = res.response;
         this.toastr.success(res.responseMessage);
         setTimeout(() => {
-          window.location.reload()
+          this.service.signergetall().subscribe((res: any) => {
+            this.data = res.response;
+            this.data.reverse();
+            this.dataSource = new MatTableDataSource(this.data);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+      
+          });
         }, 500);
       }
       else {

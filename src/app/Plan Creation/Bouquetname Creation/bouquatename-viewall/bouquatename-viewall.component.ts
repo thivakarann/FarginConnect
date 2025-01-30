@@ -115,7 +115,15 @@ export class BouquatenameViewallComponent implements OnInit {
   }
 
   reload(){
-    window.location.reload()
+    this.boardcasternameviewall.BouquetnameViewall().subscribe((res: any) => {
+      this.viewall = res.response;
+      this.viewall.reverse();
+      this.dataSource = new MatTableDataSource(this.viewall);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      
+    });
+
   }
 
   add() {
@@ -123,6 +131,19 @@ export class BouquatenameViewallComponent implements OnInit {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       disableClose: true
+    })
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.boardcasternameviewall.BouquetnameViewall().subscribe((res: any) => {
+        this.viewall = res.response;
+        this.viewall.reverse();
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        
+      });
+  
+  
+   
     })
   }
 
@@ -133,6 +154,19 @@ export class BouquatenameViewallComponent implements OnInit {
       exitAnimationDuration: '1000ms',
       disableClose: true,
       data: { value: id }
+    })
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.boardcasternameviewall.BouquetnameViewall().subscribe((res: any) => {
+        this.viewall = res.response;
+        this.viewall.reverse();
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        
+      });
+  
+  
+   
     })
   }
 

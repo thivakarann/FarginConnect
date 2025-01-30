@@ -165,7 +165,12 @@ export class ViewRoleComponent implements OnInit {
 
 
   reload() {
-    window.location.reload()
+    this.service.viewRoles().subscribe((res: any) => {
+      this.roledata = res.response;
+      this.dataSource = new MatTableDataSource(this.roledata?.reverse())
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
   }
 
 

@@ -39,8 +39,8 @@ export class AdminComponent implements OnInit {
     "status",
     "Edit",
     "view",    
-    "loginFailedCount",
-    "unblock",
+  
+   
     "createdBy",
     "createdDateTime",
     "modifiedBy",
@@ -95,7 +95,21 @@ export class AdminComponent implements OnInit {
 
 
   reload() {
-    window.location.reload()
+    this.service.GetAdminDetails().subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.data = res.response;
+
+        this.dataSource = new MatTableDataSource(this.data.reverse());
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+
+      }
+      else {
+        this.errorMsg = res.responseMessage;
+        this.showcategoryData = true;
+      }
+    });
   }
 
 
@@ -135,7 +149,23 @@ export class AdminComponent implements OnInit {
         this.data = res.response;
 
         this.toastr.success(res.responseMessage);
-        window.location.reload();
+        setTimeout(() => {
+          this.service.GetAdminDetails().subscribe((res: any) => {
+            if (res.flag == 1) {
+              this.data = res.response;
+      
+              this.dataSource = new MatTableDataSource(this.data.reverse());
+              this.dataSource.sort = this.sort;
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+      
+            }
+            else {
+              this.errorMsg = res.responseMessage;
+              this.showcategoryData = true;
+            }
+          });
+        }, 500);
       }
       else {
         this.toastr.error(res.responseMessage);

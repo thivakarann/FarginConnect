@@ -147,7 +147,28 @@ export class AdminViewComponent implements OnInit {
 
 
   reload() {
-    window.location.reload()
+    this.service.adminPolicyget(this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.businesscategory = res.response;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+        // this.businesscategory.reverse();
+        this.dataSource = new MatTableDataSource(this.businesscategory);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+
+        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+
+
+        this.showcategoryData = false;
+        //
+      }
+      else {
+        this.errorMsg = res.responseMessage;
+        this.showcategoryData = true;
+      }
+    });
   }
 
   applyFilter(event: Event) {
@@ -352,6 +373,32 @@ export class AdminViewComponent implements OnInit {
       exitAnimationDuration: '1000ms',
       disableClose: true
     });
+    this.dialog.afterAllClosed.subscribe(()=>{
+     
+      this.service.adminPolicyget(this.pageSize, this.pageIndex).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.businesscategory = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.totalPages;
+          this.currentpage = res.pagination.currentPage + 1;
+          // this.businesscategory.reverse();
+          this.dataSource = new MatTableDataSource(this.businesscategory);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+  
+          this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+  
+  
+          this.showcategoryData = false;
+          //
+        }
+        else {
+          this.errorMsg = res.responseMessage;
+          this.showcategoryData = true;
+        }
+      });
+  
+    })
   }
 
 
