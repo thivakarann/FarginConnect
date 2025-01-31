@@ -249,6 +249,13 @@ import { TransManualPayComponent } from './Fargin Transtions/Entity Trans/trans-
 import { AddStickerComponent } from './StickerCost/add-sticker/add-sticker.component';
 import { ViewStickerComponent } from './StickerCost/view-sticker/view-sticker.component';
 import { CreateCampaginComponent } from './Announcement/create-campagin/create-campagin.component';
+import { BranchKycComponent } from './Entity Onboard/Branch/branch-kyc/branch-kyc.component';
+import { BranchkycApprovalComponent } from './Entity Onboard/Branch/branchkyc-approval/branchkyc-approval.component';
+import { BranchkycCommetsComponent } from './Entity Onboard/Branch/branchkyc-commets/branchkyc-commets.component';
+import { BranchkycEditComponent } from './Entity Onboard/Branch/branchkyc-edit/branchkyc-edit.component';
+import { BranchkycExtraComponent } from './Entity Onboard/Branch/branchkyc-extra/branchkyc-extra.component';
+import { BranchkycInfoComponent } from './Entity Onboard/Branch/branchkyc-info/branchkyc-info.component';
+import { KycbranchImageComponent } from './Entity Onboard/Branch/kycbranch-image/kycbranch-image.component';
 
 @NgModule({
   declarations: [
@@ -475,7 +482,14 @@ import { CreateCampaginComponent } from './Announcement/create-campagin/create-c
     TransManualPayComponent,
     AddStickerComponent,
     ViewStickerComponent,
-    CreateCampaginComponent
+    CreateCampaginComponent,
+    BranchKycComponent,
+    KycbranchImageComponent,
+    BranchkycEditComponent,
+    BranchkycInfoComponent,
+    BranchkycApprovalComponent,
+    BranchkycCommetsComponent,
+    BranchkycExtraComponent
 
   ],
 

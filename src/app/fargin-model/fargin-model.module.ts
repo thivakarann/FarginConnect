@@ -1307,7 +1307,18 @@ export interface Branchadd{
   readonly smsMerchantName:any;
 }
  
- 
+export interface Branchadds{
+  readonly branchName:any;
+  readonly apiKey:any;
+  readonly secretKey:any;
+  readonly bankName:any;
+  readonly accountHolderName:any;
+  readonly accountNumber:any
+  readonly ifscCode:any;
+  readonly createdBy:any;
+  readonly merchantId:any;
+  readonly accountId:any;
+}
 export interface BranchEdit{
   readonly branchName:any;
   readonly apiKey:any;
@@ -1347,4 +1358,50 @@ export interface stickeradd {
  
 export interface stickerstatus {
   readonly activeStatus:any;
+}
+
+ 
+export interface identitybranchapprove {
+  readonly branchProofId: any;
+  readonly identityAdminComments: any;
+  readonly identityAdminApprovalStatus: any
+  readonly identityAdminApprovedBy: any
+}
+ 
+export interface addressbranchapprove {
+  readonly branchProofId: any;
+  readonly addressAdminApprovalStatus: any
+  readonly addressAdminComments: any;
+  readonly addressAdminApprovedBy: any
+}
+export interface signaturebranchapprove {
+  readonly branchProofId: any;
+  readonly signatureAdminApprovalStatus: any;
+  readonly signatureAdminComments: any
+  readonly signatureAdminApprovedBy: any
+}
+ 
+export interface branchverification {
+  readonly facheckDocNumber: any;
+  readonly branchProofId: any;
+}
+ 
+export interface branchDrivingverification {
+  readonly facheckDocNumber: any;
+  readonly branchProofId: any;
+  readonly dateOfBirth:any;
+  readonly approvalBy: any;
+}
+ 
+export interface branchPasportverify {
+  readonly branchProofId: any;
+  readonly facheckDocNumber: any;
+  readonly approvalBy: any;
+  readonly dateOfBirth:any;
+}
+ 
+export interface branchverify {
+  readonly branchProofId: any;
+  readonly facheckDocNumber: any;
+  readonly approvalBy: any;
 }

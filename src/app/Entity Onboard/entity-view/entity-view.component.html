@@ -1535,7 +1535,7 @@
 <div *ngIf="activeTab === 'doot6'">
     <mat-card-header>
         <div class="col-md-3 mr-2" style="color: blue; font-size: 12px;">
-
+ 
         </div>
         <div class="row  d-flex justify-content-start">
             <div class="col-md-3">
@@ -1569,7 +1569,7 @@
       </div>
             </div>
             <div class="col-md-2 mt-1">
-                <button (click)="branchcreate()" [hidden]="valuebranchcreate!=='Entity View Branch-Add'" style="color:white;background-color: #141E46;border-radius: 10px;"
+                <button (click)="branchcreate(id)" [hidden]="valuebranchcreate!=='Entity View Branch-Add'" style="color:white;background-color: #141E46;border-radius: 10px;"
                     mat-raised-button>Create
                 </button>
             </div>
@@ -1582,18 +1582,22 @@
                     <table class="table table-hover" id="customers">
                         <tr>
                             <th>S.No </th>
-                            <th>Branch Name</th>
+                         
+ 
+                            <th>Account Holder Name</th>
+                            <th>Account Number</th>
                             <th>Account Id</th>
+                            <th>Branch Name</th>
+                            <th>Bank Name</th>
+                            <th>IFSC Code</th>
                             <th>Api key </th>
                             <th>Secret key </th>
-                            <th [hidden]="valuebranchCustomerview!=='Entity View Branch-Customer View'">Customer view</th>
-                            <th>Bank Name</th>
+                            <th [hidden]="valuebranchCustomerview!=='Entity View Branch-Customer View'">Customer View</th>
+                            <th>KYC View</th>
                             <th [hidden]="valuebranchStatus!=='Entity View Branch-Status'">Status</th>
                             <th [hidden]="valuebranchAction!=='Entity View Branch-Action'">Action</th>
-                            <th>Ifsc code</th>
-                            <th>Account HolderName</th>
-                            <th>Account Number</th>
-                            <th>SMS BranchName</th>
+                           
+                           
                             <th>Created By</th>
                             <th>Created At</th>
                             <th>Modified By</th>
@@ -1602,20 +1606,21 @@
                         <tbody
                             *ngFor="let item of branchget | search: searchText | paginate: { itemsPerPage: 3, currentPage: currentPage }; let i=index">
                             <td>{{i+1}}</td>
-                            <td>{{item.branchName}}</td>
+                       
+                            <td>{{item.accountHolderName}}</td>
+                            <td>{{item.accountNumber}}</td>
                             <td>{{item.accountId}}</td>
-                            <td>{{item.apiKey | slice: 0: 10}} <i
-                                    class="fa-regular fa-copy" style="color: green; font-size: 18px;"
-                                    (click)="copyApikey(item.apiKey, i)"></i> <span *ngIf="copiedapikey === i"
-                                    style="color: green;">Copied!</span> </td>
-                            <td>{{item.secretKey | slice: 0: 10}}
-                                <i
-                                    class="fa-regular fa-copy" style="color: green; font-size: 18px;"
-                                    (click)="copySecretkey(item.secretKey, i)"></i> <span *ngIf="copiedsecretkey === i"
-                                    style="color: green;">Copied!</span> </td>
+                            <td>{{item.branchName}}</td>
+                            <td>{{item.bankName}}</td>
+                            <td>{{item.ifscCode}}</td>
+                            <td>{{item.apiKey}}</td>
+                            <td>{{item.secretKey}}</td>
                             <td [hidden]="valuebranchCustomerview!=='Entity View Branch-Customer View'"><i  style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
                                     (click)="Viewcustomerbranch(item.branchId)"></i> </td>
-                            <td>{{item.bankName}}</td>
+                           
+                          <td><i  style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
+                                        (click)="Viewkycbranch(item.branchId, item.entityModel?.merchantId)"></i> </td>
+                         
                             <td  [hidden]="valuebranchStatus!=='Entity View Branch-Status'">
                                 <mat-slide-toggle class="example-margin" color="primary"
                                     [checked]="item.accountStatus === 1" (change)="status($event,item.branchId)">
@@ -1626,15 +1631,13 @@
                                         (click)="branchedit(item)" class="fas fa-edit">
                                     </i></span>
                             </td>
-                            <td>{{item.ifscCode}}</td>
-                            <td>{{item.accountHolderName}}</td>
-                            <td>{{item.accountNumber}}</td>
-                            <td>{{item.smsMerchantName}}</td>
+                           
+                         
                             <td>{{item.createdBy}}</td>
                             <td>{{item.createdAt | date : "dd/MM/yyyy hh:mm a"}}</td>
                             <td>{{item.modifiedBy }}</td>
                             <td>{{item.modifiedAt | date : "dd/MM/yyyy hh:mm a"}}</td>
-
+ 
                         </tbody>
                     </table>
                 </div>

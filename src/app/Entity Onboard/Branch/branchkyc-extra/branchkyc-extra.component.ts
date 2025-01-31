@@ -1,76 +1,74 @@
 import { Component, Inject } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
-import { Branchadd, Branchadds } from '../../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 
 @Component({
-  selector: 'app-branch-add',
-  templateUrl: './branch-add.component.html',
-  styleUrl: './branch-add.component.css'
+  selector: 'app-branchkyc-extra',
+  templateUrl: './branchkyc-extra.component.html',
+  styleUrl: './branchkyc-extra.component.css'
 })
-export class BranchAddComponent {
-  merchantid: any;
-  branch!: FormGroup;
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
-  options: any;
-  plans: any;
-  todayDate: string = '';
-  Expirydate: any;
-  Bankdetails: boolean = true;
-  id: any;
+export class BranchkycExtraComponent {
+ KycForm!: FormGroup;
+  imageFile!: File;
+  imageFile1!: File;
+  errorShow!: boolean;
+  clearImage: any = '';
+  createdBy: any = localStorage.getItem('adminname');
+  details: any;
+  merchantId: any;
+  categorydetails: any;
+  businessCategoryId: any;
+  businesscreationId: any;
+  kycDocName: any;
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
   thirdFormGroup!: FormGroup;
+  fourthFormGroup!: FormGroup;
   selectElement: any;
   selectElements: any;
   select: any;
-  uploadsignback: any;
+  file5!: any;
+  file6!: any;
+  kycValue: any;
+  file8!: any;
+  file9!: any;
+  id: any;
+  selectperiod: any;
+  errorMessage: any;
+  file1: any;
+  file2: any;
+  file3: any;
+  file4: any;
+  merchantid: any;
+  uploadImage: any;
+  uploadImage2: any;
+  uploadImage3: any;
+  uploadImage4: any;
+  uploadImage5: any;
+  uploadImage6: any;
   uploadidentityfront: any;
   uploadidentityback: any;
   uploadaddressfront: any;
   uploadaddressback: any;
   uploadsignfront: any;
-  KYCdetails: boolean = false;
+  uploadsignback: any;
   today: string;
   branchId: any;
-  constructor(
-    public service: FarginServiceService,
-    private router: Router,
-    private toastr: ToastrService,
-   private ActivateRoute: ActivatedRoute,
-       private _formBuilder: FormBuilder
- ) {
-  const todayDate = new Date();
-  this.today = todayDate.toISOString().split('T')[0];
+  router: any;
+
+  merchant:any
+  constructor(private service: FarginServiceService, private dialog: MatDialog, private toastr: ToastrService,
+    private _formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any) {
+    const todayDate = new Date();
+    this.today = todayDate.toISOString().split('T')[0];
   }
- 
   ngOnInit(): void {
- 
- 
-   
-    this.ActivateRoute.queryParams.subscribe((param: any) => {
-      this.id = param.Alldata;
-    });
- 
-    this.branch = new FormGroup({
-      branchName: new FormControl('', [Validators.required]),
-      apiKey: new FormControl('', [Validators.required]),
-      secretKey: new FormControl('', [Validators.required]),
-      bankName: new FormControl('', [Validators.required]),
-      accountHolderName: new FormControl('', [Validators.required]),
-      accountNumber: new FormControl('', [Validators.required,Validators.pattern("^[0-9]{9,18}$")]),
-      ifscCode: new FormControl('', [Validators.required,Validators.pattern("^[A-Z]{4}0[A-Z0-9]{6}$")]),
-      createdBy: new FormControl(''),
-      merchantId: new FormControl(''),
-      accountId: new FormControl('',[Validators.required]),
- 
-    })
- 
- 
- 
+
+    this.branchId = this.data.value;
+    this.merchant=this.data.value2
+
     this.firstFormGroup = this._formBuilder.group({
       identityProof: ['', Validators.required],
       identityProofNo: ['', Validators.required],
@@ -78,7 +76,7 @@ export class BranchAddComponent {
       identityBackPath: [null, Validators.required],
       drivingLicenceDob: [''],
       passportDob: [''],
- 
+
     });
     this.secondFormGroup = this._formBuilder.group({
       addressProof: ['', Validators.required],
@@ -88,7 +86,7 @@ export class BranchAddComponent {
       drivingLicenceDobs: [''],
       passportDobs: [''],
     });
- 
+
     this.thirdFormGroup = this._formBuilder.group({
       signatureProof: ['', Validators.required],
       signatureProofNo: ['', Validators.required],
@@ -97,54 +95,15 @@ export class BranchAddComponent {
       drivingLicenceDobss: [''],
       passportDobss: [''],
     });
- 
- 
+
+    this.service.KycDocName(this.businessCategoryId).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.categorydetails = res.response;
+
+      }
+    })
   }
- 
- 
- 
-  get branchName() {
-    return this.branch.get('branchName')
- 
-  }
- 
-  get apiKey() {
-    return this.branch.get('apiKey')
- 
-  }
- 
-  get secretKey() {
-    return this.branch.get('secretKey')
- 
-  }
- 
-  get bankName() {
-    return this.branch.get('bankName')
- 
-  }
- 
-  get accountId() {
-    return this.branch.get('accountId')
- 
-  }
- 
-  get accountHolderName() {
-    return this.branch.get('accountHolderName')
- 
-  }
-  get accountNumber() {
-    return this.branch.get('accountNumber')
- 
-  }
-  get ifscCode() {
-    return this.branch.get('ifscCode')
- 
-  }
- 
- 
-   // second Form
- 
-   get identityProof() {
+  get identityProof() {
     return this.firstFormGroup.get('identityProof')
   }
   get identityProofNo() {
@@ -153,30 +112,30 @@ export class BranchAddComponent {
   get identityFrontPath() {
     return this.firstFormGroup.get('identityFrontPath')
   }
- 
+
   get identityBackPath() {
     return this.firstFormGroup.get('identityBackPath')
   }
- 
+
   get drivingLicenceDob() {
     return this.firstFormGroup.get('drivingLicenceDob')
   }
   get passportDob() {
     return this.firstFormGroup.get('passportDob')
   }
- 
+
   get addressProof() {
     return this.secondFormGroup.get('addressProof')
   }
- 
+
   get addressProofNo() {
     return this.secondFormGroup.get('addressProofNo')
   }
- 
+
   get addressFrontPath() {
     return this.secondFormGroup.get('addressFrontPath')
   }
- 
+
   get addressBackPath() {
     return this.secondFormGroup.get('addressBackPath')
   }
@@ -186,7 +145,7 @@ export class BranchAddComponent {
   get passportDobs() {
     return this.secondFormGroup.get('passportDobs')
   }
- 
+
   get signatureProof() {
     return this.thirdFormGroup.get('signatureProof')
   }
@@ -205,16 +164,13 @@ export class BranchAddComponent {
   get passportDobss() {
     return this.thirdFormGroup.get('passportDobss')
   }
- 
- 
- 
   onFileSelected(event: any) {
     this.uploadidentityfront = event.target.files[0];
- 
+
     // Ensure this.uploadImage is not null
     if (this.uploadidentityfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'application/pdf'];
- 
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
+
       if (acceptableTypes.includes(this.uploadidentityfront.type)) {
         if (this.uploadidentityfront.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
@@ -223,50 +179,51 @@ export class BranchAddComponent {
           this.identityFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
- 
+
         this.toastr.error("File type not acceptable");
         this.identityFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
       this.toastr.error("No file selected");
     }
- 
- 
+
+
   }
- 
+
   onFileSelected2(event: any) {
     this.uploadidentityback = event.target.files[0];
- 
+
     // Ensure this.uploadImage is not null
     if (this.uploadidentityback) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'application/pdf'];
- 
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
+
       if (acceptableTypes.includes(this.uploadidentityback.type)) {
         if (this.uploadidentityback.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
-        } else {
+        }
+        else {
           this.toastr.error("Max Image size exceeded");
           this.identityBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
- 
+
         this.toastr.error("File type not acceptable");
         this.identityBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
       this.toastr.error("No file selected");
     }
- 
- 
+
+
   }
   onaddressfront(event: any) {
- 
+
     this.uploadaddressfront = event.target.files[0];
- 
+
     // Ensure this.uploadImage is not null
     if (this.uploadaddressfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'application/pdf'];
- 
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
+
       if (acceptableTypes.includes(this.uploadaddressfront.type)) {
         if (this.uploadaddressfront.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
@@ -275,21 +232,22 @@ export class BranchAddComponent {
           this.addressFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
+
         this.toastr.error("File type not acceptable");
         this.addressFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
       this.toastr.error("No file selected");
     }
- 
+
   }
   onaddressback(event: any) {
     this.uploadaddressback = event.target.files[0];
- 
+
     // Ensure this.uploadImage is not null
     if (this.uploadaddressback) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'application/pdf'];
- 
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
+
       if (acceptableTypes.includes(this.uploadaddressback.type)) {
         if (this.uploadaddressback.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
@@ -298,7 +256,7 @@ export class BranchAddComponent {
           this.addressBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
- 
+
         this.toastr.error("File type not acceptable");
         this.addressBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
@@ -308,11 +266,11 @@ export class BranchAddComponent {
   }
   onasignfront(event: any) {
     this.uploadsignfront = event.target.files[0];
- 
+
     // Ensure this.uploadImage is not null
     if (this.uploadsignfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'application/pdf'];
- 
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
+
       if (acceptableTypes.includes(this.uploadsignfront.type)) {
         if (this.uploadsignfront.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
@@ -321,22 +279,22 @@ export class BranchAddComponent {
           this.signatureFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
- 
+
         this.toastr.error("File type not acceptable");
         this.signatureFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
       this.toastr.error("No file selected");
     }
- 
+
   }
   onasignback(event: any) {
     this.uploadsignback = event.target.files[0];
- 
+
     // Ensure this.uploadImage is not null
     if (this.uploadsignback) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'application/pdf'];
- 
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
+
       if (acceptableTypes.includes(this.uploadsignback.type)) {
         if (this.uploadsignback.size <= 20 * 1024 * 1024) {
           this.toastr.success("Image uploaded successfully");
@@ -345,53 +303,46 @@ export class BranchAddComponent {
           this.signatureBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
- 
         this.toastr.error("File type not acceptable");
         this.signatureBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
       this.toastr.error("No file selected");
     }
- 
- 
+
+
   }
- 
- 
- 
- 
+
+
+
   onIdentityProofChange(event: any) {
     this.selectElement = event.target.value;
     const identityProofNoControl = this.firstFormGroup.get('identityProofNo');
- 
- 
+
+
     identityProofNoControl?.clearValidators();
- 
- 
+
+
     if (this.selectElement === 'Aadhar Card') {
       identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[0-9]{12}$")]); // 12 digits for Aadhar
     } else if (this.selectElement === 'Pancard') {
-      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{5}[0-9]{4}[A-Z]$")]); // PAN format
+      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z]{5}[0-9]{4}[A-Za-z]$")]); // PAN format
     } else if (this.selectElement === 'Voter Id Proof') {
       identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]); // Voter ID format
     } else if (this.selectElement === 'Passport') {
       identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Passport format
     } else if (this.selectElement === 'Driving License') {
-      identityProofNoControl?.setValidators([Validators.required]);
-      // identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Driving license format
+      identityProofNoControl?.setValidators([Validators.required]); // Driving license format
     }
- 
- 
     identityProofNoControl?.updateValueAndValidity();
   }
- 
- 
+
+
   onAddressProofChange(event: any) {
     this.selectElements = event.target.value;
     const addressProofNoControl = this.secondFormGroup.get('addressProofNo');
- 
+
     addressProofNoControl?.clearValidators();
- 
- 
     if (this.selectElements === 'Aadhar Card') {
       addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[0-9]{12}$")]); // 12 digits for Aadhar
     } else if (this.selectElements === 'Voter Id Proof') {
@@ -401,67 +352,25 @@ export class BranchAddComponent {
     } else if (this.selectElements === 'Driving License') {
       addressProofNoControl?.setValidators([Validators.required]); // Driving license format
     }
- 
- 
     addressProofNoControl?.updateValueAndValidity();
   }
- 
+
   onasignproof(event: any) {
     this.select = event.target.value;
     const signatureProofNoControl = this.thirdFormGroup.get('signatureProofNo');
- 
- 
     signatureProofNoControl?.clearValidators();
- 
- 
     if (this.select === 'Pancard') {
-      signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{5}[0-9]{4}[A-Z]$")]);
+      signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z]{5}[0-9]{4}[A-Za-z]$")]);
     } else if (this.select === 'Passport') {
       signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Passport format
     } else if (this.select === 'Driving License') {
       signatureProofNoControl?.setValidators([Validators.required]); // Driving license format
     }
- 
     signatureProofNoControl?.updateValueAndValidity();
   }
- 
- 
-  Submit() {
- 
-    let submitModel: Branchadds = {
-      branchName: this.branchName?.value,
-      accountId: this.accountId?.value,
-      apiKey: this.apiKey?.value,
-      secretKey: this.secretKey?.value,
-      bankName: this.bankName?.value,
-      accountHolderName: this.accountHolderName?.value,
-      accountNumber: this.accountNumber?.value,
-      ifscCode: this.ifscCode?.value,
-      createdBy: this.getadminname,
-      merchantId: this.id
-    }
- 
-    this.service.BranchAdd(submitModel).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.branchId = res.response.branchId;
-        this.toastr.success(res.responseMessage);
-       
-        this.Bankdetails = false;
-        this.KYCdetails=true;
-     
-      }
-      else {
-        this.toastr.error(res.responseMessage);
-   
-      }
-    })
-  }
- 
- 
- 
   kycsubmit() {
     const formData = new FormData();
-    formData.append('merchantId', this.id);
+    formData.append('merchantId', this.merchant);
     formData.append('branchId', this.branchId);
     formData.append('identityFrontPath', this.uploadidentityfront);
     formData.append('identityBackPath', this.uploadidentityback);
@@ -480,16 +389,13 @@ export class BranchAddComponent {
     this.service.addkycbranch(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
-        this.router.navigateByUrl(`/dashboard/entity-view`);
-     
-     
- 
+      this.dialog.closeAll()
+      
+      
+
       } else {
         this.toastr.error(res.responseMessage);
       }
     });
-  }
-  close() {
-    this.router.navigateByUrl('dashboard/entity-viewall');
   }
 }

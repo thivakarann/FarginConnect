@@ -3344,23 +3344,11 @@ valuebranchAction: any;
     });
   }
 
-  branchcreate(){
-    this.dialog.open(BranchAddComponent,{
-      disableClose:true,
-      enterAnimationDuration:"500ms",
-      exitAnimationDuration:"1000ms",
-      data: { value: this.id }
-    });
-    this.dialog.afterAllClosed.subscribe(()=>{
-     
-      this.MerchantView.BranchGet(this.id).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.branchget = res.response.reverse();
-        }
-      })
-      })
-
-
+  branchcreate(id:any) {
+   
+    this.router.navigate([`dashboard/branch-add/${id}`], {
+    queryParams: { Alldata: id },
+  });
   }
  
   branchedit(id:any){
@@ -3413,5 +3401,10 @@ valuebranchAction: any;
   onSearchTextChange(): void {
     // Reset to the first page whenever the search text changes
     this.currentPage = 1;
+  }
+  Viewkycbranch(id:any,id1:any){
+    this.router.navigate([`dashboard/branch-kyc/${id}/${id1}`], {
+      queryParams: { Alldata: id, All:id1 },
+    });
   }
 }

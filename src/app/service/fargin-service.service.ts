@@ -12,15 +12,15 @@ import { ToastrService } from 'ngx-toastr';
   providedIn: 'root'
 })
 export class FarginServiceService {
- 
+
 
   constructor(private http: HttpClient,
     private router: Router, private timerService: SessionServiceService, private toastr: ToastrService) { }
 
   // private readonly basePath = 'https://staging-api.farginconnect.com/';    //Staging server
-  
+
   private readonly basePath = 'https://dev-api.farginconnect.com/';     //  Dev Server
-  
+
   // private readonly basePath = 'https://api.fargin.in/';       //  Production server
 
 
@@ -319,7 +319,7 @@ export class FarginServiceService {
   private readonly dashboardData = 'dashBoard/dashBoardCount'
   private readonly dashboardbusinessgetall = 'businesscategory/getall'
   private readonly dashboardbusinesscategorybyid = 'dashBoard/businessCategory/'
-   private readonly dashboardbusinesscategory='merchant/viewCategory/'
+  private readonly dashboardbusinesscategory = 'merchant/viewCategory/'
   private readonly dashboardtransaction = 'dashBoard/transaction/'
 
   //unblock account
@@ -567,7 +567,7 @@ export class FarginServiceService {
   private readonly customercustomeridsearch = 'customerpay/customerSearch/';
   private readonly smshistorysearch = 'smshistory/advanceSearch/';
   private readonly mmcautodebit = 'merchantdue/search/';
-    private readonly subscriptionsearch = 'maintanancePay/adminSearch/';
+  private readonly subscriptionsearch = 'maintanancePay/adminSearch/';
   private readonly onetimepayment = 'merchantpay/adminSearch/';
 
   // Fargin Signer Details
@@ -579,7 +579,7 @@ export class FarginServiceService {
   private readonly SignerdetailsbyId = 'signingAdmin/viewById/';
   private readonly SignerdetaisStatus = 'signingAdmin/updateStatus';
   private readonly SignerdetailsActiveGetall = 'signingAdmin/viewOnlyActive';
-  
+
 
   //Agreementplan
 
@@ -591,7 +591,7 @@ export class FarginServiceService {
   private readonly viewbyidplan = 'agreement/viewByMerchant/';
   private readonly viewagreementdoucment = 'agreement/viewdoc/';
   private readonly ViewAggrementbyRefference = 'agreement/viewByReferenceCode/';
-  private readonly agreementgetall='agreement/getall';
+  private readonly agreementgetall = 'agreement/getall';
   private readonly Agreementsendotp = 'agreement/merchantsendotp/';
   private readonly AgreementVerifyOTP = 'agreement/merchantverifyotp/';
   private readonly AgreementConcent = 'agreement/consent';
@@ -600,21 +600,21 @@ export class FarginServiceService {
   private readonly AgreementLinkExpiry = 'agreement/updatelinkstatus/';
 
   //offline transactions
-  private readonly offlinetransactions='transactions/getMerchantOfflinePaymentList';
-  private readonly successofftransactions='transactions/getMerchofflineSfulPayment/';
-  private readonly failureofftransactions='transactions/getMerchOfflineFailPayment/';
-  private readonly offlinesettlement='transactions/getOfflinePayouts';
-  private readonly offlinepayoutsettelemnt='transactions/getOfflinePayoutTransactions';
+  private readonly offlinetransactions = 'transactions/getMerchantOfflinePaymentList';
+  private readonly successofftransactions = 'transactions/getMerchofflineSfulPayment/';
+  private readonly failureofftransactions = 'transactions/getMerchOfflineFailPayment/';
+  private readonly offlinesettlement = 'transactions/getOfflinePayouts';
+  private readonly offlinepayoutsettelemnt = 'transactions/getOfflinePayoutTransactions';
 
-    //branch entity view
-    private readonly branchget='bankBranch/view/'
-    // private readonly branchget='bankBranch/viewData/';
-    private readonly branchcreate='bankBranch/createBranch';
-    private readonly branchedit='bankBranch/update/';
-    private readonly branchstatus='bankBranch/updateStatus/';
-    private readonly branchindividualview='bankBranch/viewAll/';
-    private readonly branchcustomerget='customer/customersByBranch/';
-    private readonly branchcustomersearch='customer/customersByBranchs/';
+  //branch entity view
+  private readonly branchget = 'bankBranch/view/'
+  // private readonly branchget='bankBranch/viewData/';
+  private readonly branchcreate = 'bankBranch/createBranch';
+  private readonly branchedit = 'bankBranch/update/';
+  private readonly branchstatus = 'bankBranch/updateStatus/';
+  private readonly branchindividualview = 'bankBranch/viewAll/';
+  private readonly branchcustomerget = 'customer/customersByBranch/';
+  private readonly branchcustomersearch = 'customer/customersByBranchs/';
 
 
 
@@ -625,7 +625,7 @@ export class FarginServiceService {
 
   private geoApiUrl = 'https://ipinfo.io/json';
 
-   private abstarctipaddress='https://ipgeolocation.abstractapi.com/v1/?api_key=dc919b65a0184a6fb10a07b13733027b'
+  private abstarctipaddress = 'https://ipgeolocation.abstractapi.com/v1/?api_key=dc919b65a0184a6fb10a07b13733027b'
 
   // private geoApiUrl = 'https://ipwhois.app/json/';
 
@@ -637,53 +637,99 @@ export class FarginServiceService {
   //Additional Payment
   private readonly additionalpayment = 'customerotherpayment/viewall/'
   private readonly additionalpaymentsfilters = 'customerotherpayment/dateFilter/'
- 
+
   private readonly additionalpaymentssearchfilters = 'customerotherpayment/search/'
   private readonly additionalpaymentsviewbyids = 'customerotherpayment/viewbyid/'
   private readonly additionalpaymentsreceipt = 'customerotherpayment/viewinvoice/'
-   private readonly additionalpaymentscheck = 'otherpayment/trackApi';
-   
-   private readonly additionalpaycheckstatus = 'customerotherpayment/trackApi';
+  private readonly additionalpaymentscheck = 'otherpayment/trackApi';
 
-      private readonly merchantadditionalpayment = 'customerotherpayment/viewmerchants/'
-       private readonly additionalsearchfilters = 'customerotherpayment/advancesearch/'
-       private readonly additionalexports = 'customerotherpayment/viewall'
-       //Additional paymrnts
-    private readonly additionaltransviewbyid = 'customerotherpayment/viewByCustomer/';
-    private readonly broadcastergetallctive='bundleChannel/viewOnlyActive';
- 
- 
-    private readonly regiongetall='region/viewAllRegion';
+  private readonly additionalpaycheckstatus = 'customerotherpayment/trackApi';
 
-    //Channels List
-    private readonly channelslist='broadCaster/viewByChennals/';
-      //survey  search
-      private readonly surveysearch='surveyQuestion/advanceSearch/';
-       
-      private readonly refundgetall='refund/getall/';
-      private readonly  refundsearch='refund/getall/';
-      private readonly refundforcustomer='refund/getcustomer/';
-      private readonly refundexport='refund/getall';
-      private readonly refunddatefilter='refund/getAll/';
+  private readonly merchantadditionalpayment = 'customerotherpayment/viewmerchants/'
+  private readonly additionalsearchfilters = 'customerotherpayment/advancesearch/'
+  private readonly additionalexports = 'customerotherpayment/viewall'
+  //Additional paymrnts
+  private readonly additionaltransviewbyid = 'customerotherpayment/viewByCustomer/';
+  private readonly broadcastergetallctive = 'bundleChannel/viewOnlyActive';
 
-      //alcarte mso
-   private readonly msoactive='serviceProvider/viewActive';
-   private readonly msoregions='region/viewByService/';
 
-   
-   private readonly custopay='otherpayment/advanceSearch/';
-   private readonly smssearch='merchantSms/getAllMerchantSms/';
-   
-   private readonly subscriptionmanualpay= 'maintanancePay/manualCash/';
-   
-   //sticker
-   private readonly stickerget='stickerconfig/getall';
-   private readonly stickerAdd='stickerconfig/create';
-   private readonly stickerstatus='stickerconfig/updatestatus/';
+  private readonly regiongetall = 'region/viewAllRegion';
+
+  //Channels List
+  private readonly channelslist = 'broadCaster/viewByChennals/';
+  //survey  search
+  private readonly surveysearch = 'surveyQuestion/advanceSearch/';
+
+  private readonly refundgetall = 'refund/getall/';
+  private readonly refundsearch = 'refund/getall/';
+  private readonly refundforcustomer = 'refund/getcustomer/';
+  private readonly refundexport = 'refund/getall';
+  private readonly refunddatefilter = 'refund/getAll/';
+
+  //alcarte mso
+  private readonly msoactive = 'serviceProvider/viewActive';
+  private readonly msoregions = 'region/viewByService/';
+
+
+  private readonly custopay = 'otherpayment/advanceSearch/';
+  private readonly smssearch = 'merchantSms/getAllMerchantSms/';
+
+  private readonly subscriptionmanualpay = 'maintanancePay/manualCash/';
+
+  //sticker
+  private readonly stickerget = 'stickerconfig/getall';
+  private readonly stickerAdd = 'stickerconfig/create';
+  private readonly stickerstatus = 'stickerconfig/updatestatus/';
   //Campagin
-    private addcampagins='emailbroadcaster/sendemail'
+  private addcampagins = 'emailbroadcaster/sendemail'
 
-     private readonly activemerchantemail = 'merchant/activeMerchants'
+  private readonly activemerchantemail = 'merchant/activeMerchants'
+
+
+  //Branchkyc
+  private readonly addkycbranchs='bankBranchProof/addProof';
+  private readonly branchkycviews='bankBranchProof/viewByBrandId/';
+  private readonly branchidentityFronts='bankBranchProof/identityFront';
+  private readonly branchidentitybacks='bankBranchProof/identityBack';
+
+  private readonly branchaddressFronts='bankBranchProof/addressFront';
+  private readonly branchaddressbacks='bankBranchProof/addressBack';
+
+  private readonly branchsignFronts='bankBranchProof/signatureFront';
+  private readonly branchsignbacks='bankBranchProof/signatureBack';
+  
+  private readonly getbranchkycImages='bankBranchProof/viewDocuments/';
+  private readonly editbranchIdentitys='bankBranchProof/updateIdentity';
+
+  private readonly editbranchAddres='bankBranchProof/updateAddress';
+  private readonly editbranchSigns='bankBranchProof/updateSignature';
+  private readonly branchkycinfos='branchFacheckVerify/getById/';
+  private readonly identitybranchApprovals='bankBranchProof/approvalForidentity';
+  private readonly addressbranchApprovals='bankBranchProof/approvalForAddress'
+ private readonly signbranchApprovals='bankBranchProof/approvalForSignature';
+
+ private readonly adharbranchVerifyIdentitys='branchFacheckVerify/identityAadharVerify';
+private readonly adharbranchVerifyAddres='branchFacheckVerify/addressAadharVerify';
+private readonly adharbranchVerifySign='branchFacheckVerify/signatureAadharVerify';
+
+private readonly panbranchVerifyIdentitys='branchFacheckVerify/identityPanVerify';
+private readonly panbranchVerifyAddres='branchFacheckVerify/addressPanVerify';
+private readonly panbranchVerifySign='branchFacheckVerify/signaturePanVerify';
+
+
+private readonly passportbranchVerifyIdentitys='branchFacheckVerify/identityPassportVerify';
+private readonly passportbranchVerifyAddres='branchFacheckVerify/addressPassportVerify';
+private readonly passportbranchVerifySign='branchFacheckVerify/signaturePassportVerify';
+
+private readonly drivingbranchVerifyIdentitys='branchFacheckVerify/identityDrivingVerify';
+private readonly drivingbranchVerifyAddres='branchFacheckVerify/addressDrivingVerify';
+private readonly drivingbranchVerifySign='branchFacheckVerify/signatureDrivingVerify';
+
+
+private readonly voterbranchVerifyIdentitys='branchFacheckVerify/identityVoterVerify';
+private readonly voterbranchVerifyAddres='branchFacheckVerify/addressVoterVerify';
+private readonly voterbranchVerifySign='branchFacheckVerify/signatureVoterVerify';
+
 
   loginError = new Subject();
 
@@ -753,8 +799,8 @@ export class FarginServiceService {
     return this.http.get(`${this.ipApiUrl}`)
   }
 
-  getIpLocation(model:any) {
-    return this.http.post(`${this.geoApiUrl}`,model)
+  getIpLocation(model: any) {
+    return this.http.post(`${this.geoApiUrl}`, model)
   }
 
   dashboardCount() {
@@ -1525,7 +1571,7 @@ export class FarginServiceService {
   }
 
   merchantplanstatus(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.MerchantplanStatus}${id}`,model, this.options)
+    return this.http.put(`${this.basePath}${this.MerchantplanStatus}${id}`, model, this.options)
   }
 
   merchantplanactive() {
@@ -2141,7 +2187,7 @@ export class FarginServiceService {
     return this.http.get(`${this.basePath}${this.announcementdate}${id}/${id1}/${id2}/${id3}`, this.options)
   }
 
-  SmsDropdownGetAll(id:any) {
+  SmsDropdownGetAll(id: any) {
     return this.http.get(`${this.basePath}${this.smsdropdown}${id}`, this.options)
   }
   SmsCount(id: any, id1: any) {
@@ -2237,11 +2283,11 @@ export class FarginServiceService {
     return this.http.get(`${this.basePath}${this.regionsearch}${id}`, this.options)
   }
 
-  EntitySearch(id: any,id1:any,id2:any) {
+  EntitySearch(id: any, id1: any, id2: any) {
     return this.http.get(`${this.basePath}${this.entitysearch}${id}/${id1}/${id2}`, this.options)
   }
 
-  AlcotSearch(id: any,id1:any,id2:any) {
+  AlcotSearch(id: any, id1: any, id2: any) {
     return this.http.get(`${this.basePath}${this.alcotsearch}${id}/${id1}/${id2}`, this.options)
   }
 
@@ -2254,11 +2300,11 @@ export class FarginServiceService {
   // }
 
 
-  CustomerSearch(id: any,id1:any,id2:any) {
+  CustomerSearch(id: any, id1: any, id2: any) {
     return this.http.get(`${this.basePath}${this.customersearch}${id}/${id1}/${id2}`, this.options)
   }
 
-  CustomeradminSearch(id: any,id1:any,id2:any) {
+  CustomeradminSearch(id: any, id1: any, id2: any) {
     return this.http.get(`${this.basePath}${this.customeradminsearch}${id}/${id1}/${id2}`, this.options)
   }
 
@@ -2266,7 +2312,7 @@ export class FarginServiceService {
     return this.http.get(`${this.basePath}${this.customercustomeridsearch}${id}/${id1}`, this.options)
   }
 
-  Smshistorysearch(id: any,id1:any,id2:any) {
+  Smshistorysearch(id: any, id1: any, id2: any) {
     return this.http.get(`${this.basePath}${this.smshistorysearch}${id}/${id1}/${id2}`, this.options)
   }
 
@@ -2275,11 +2321,11 @@ export class FarginServiceService {
   }
 
 
-  Subscriptionsearch(id: any,id1:any,id2:any) {
+  Subscriptionsearch(id: any, id1: any, id2: any) {
     return this.http.get(`${this.basePath}${this.subscriptionsearch}${id}/${id1}/${id2}`, this.options)
   }
 
-  Onetimepayment(id: any,id1:any,id2:any) {
+  Onetimepayment(id: any, id1: any, id2: any) {
     return this.http.get(`${this.basePath}${this.onetimepayment}${id}/${id1}/${id2}`, this.options)
   }
 
@@ -2289,7 +2335,7 @@ export class FarginServiceService {
     return this.http.get(`${this.basePath}${this.Signerdetailsgetall}`, this.options)
   }
 
-  signerwithouttoken(){
+  signerwithouttoken() {
     return this.http.get(`${this.basePath}${this.SignerdetailsWithoutToken}`)
   }
 
@@ -2341,82 +2387,82 @@ export class FarginServiceService {
     });
   }
 
-  AggrementViewbyrefferencenumber(id:any){
-    return this.http.get(`${this.basePath}${this.ViewAggrementbyRefference}${id}`,this.options)
+  AggrementViewbyrefferencenumber(id: any) {
+    return this.http.get(`${this.basePath}${this.ViewAggrementbyRefference}${id}`, this.options)
   }
-   AgreementgetAll(){
-    return this.http.get(`${this.basePath}${this.agreementgetall}`,this.options)
-  }
-
-  AgreementSendOtp(id:any,id1:any){
-    return this.http.get(`${this.basePath}${this.Agreementsendotp}${id}/${id1}`,this.options)
+  AgreementgetAll() {
+    return this.http.get(`${this.basePath}${this.agreementgetall}`, this.options)
   }
 
-  AgreemntVerifyOtp(id:any,id1:any,model:any){
-    return this.http.put(`${this.basePath}${this.AgreementVerifyOTP}${id}/${id1}`,model,this.options)
+  AgreementSendOtp(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.Agreementsendotp}${id}/${id1}`, this.options)
   }
 
-  agreementConcent(model:any){
-    return this.http.post(`${this.basePath}${this.AgreementConcent}`,model,this.options)
-
-  }
-  agreemntconcentlocation(model:any){
-    return this.http.post(`${this.basePath}${this.AgreemntConcentLocation}`,model,this.options)
+  AgreemntVerifyOtp(id: any, id1: any, model: any) {
+    return this.http.put(`${this.basePath}${this.AgreementVerifyOTP}${id}/${id1}`, model, this.options)
   }
 
-  agreementextendlink(id:any,model:any){
-    return this.http.put(`${this.basePath}${this.AgreementLinkExtent}${id}`,model,this.options)
+  agreementConcent(model: any) {
+    return this.http.post(`${this.basePath}${this.AgreementConcent}`, model, this.options)
+
+  }
+  agreemntconcentlocation(model: any) {
+    return this.http.post(`${this.basePath}${this.AgreemntConcentLocation}`, model, this.options)
   }
 
-  agreementlinkexpiry(id:any,model:any){
-    return this.http.put(`${this.basePath}${this.AgreementLinkExpiry}${id}`,model,this.options)
+  agreementextendlink(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.AgreementLinkExtent}${id}`, model, this.options)
+  }
+
+  agreementlinkexpiry(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.AgreementLinkExpiry}${id}`, model, this.options)
   }
   //offline transaction
-  OfflineTransactions(model:any){
-    return this.http.post(`${this.basePath}${this.offlinetransactions}`,model,this.options)
+  OfflineTransactions(model: any) {
+    return this.http.post(`${this.basePath}${this.offlinetransactions}`, model, this.options)
   }
- 
-  SuccessOffTransaction(id:any,id1:any){
-    return this.http.get(`${this.basePath}${this.successofftransactions}${id}/${id1}`,this.options)
+
+  SuccessOffTransaction(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.successofftransactions}${id}/${id1}`, this.options)
   }
- 
-  FailureOffTransaction(id:any,id1:any){
-    return this.http.get(`${this.basePath}${this.failureofftransactions}${id}/${id1}`,this.options)
+
+  FailureOffTransaction(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.failureofftransactions}${id}/${id1}`, this.options)
   }
- 
-  OfflineSettlement(model:any){
-    return this.http.post(`${this.basePath}${this.offlinesettlement}`,model,this.options)
+
+  OfflineSettlement(model: any) {
+    return this.http.post(`${this.basePath}${this.offlinesettlement}`, model, this.options)
   }
-  PayoutOfflineSettlement(model:any){
-    return this.http.post(`${this.basePath}${this.offlinepayoutsettelemnt}`,model,this.options)
+  PayoutOfflineSettlement(model: any) {
+    return this.http.post(`${this.basePath}${this.offlinepayoutsettelemnt}`, model, this.options)
   }
 
   //branch
-  BranchGet(id:any){
-    return this.http.get(`${this.basePath}${this.branchget}${id}`,this.options)
+  BranchGet(id: any) {
+    return this.http.get(`${this.basePath}${this.branchget}${id}`, this.options)
   }
- 
-   
-  BranchAdd(model:any){
-    return this.http.post(`${this.basePath}${this.branchcreate}`,model,this.options)
+
+
+  BranchAdd(model: any) {
+    return this.http.post(`${this.basePath}${this.branchcreate}`, model, this.options)
   }
- 
-  BranchUpdate(id:any,model:any){
-    return this.http.put(`${this.basePath}${this.branchedit}${id}`,model,this.options)
+
+  BranchUpdate(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.branchedit}${id}`, model, this.options)
   }
- 
- 
+
+
   BranchStatus(id: any, model: any) {
     return this.http.put(`${this.basePath}${this.branchstatus}${id}`, model, this.options)
   }
- 
-  BranchIndividualView(id:any,id1:any) {
-    return this.http.get(`${this.basePath}${this.branchindividualview}${id}/${id1}`,this.options)
+
+  BranchIndividualView(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.branchindividualview}${id}/${id1}`, this.options)
   }
-  BranchViewallSearch(id:any,id1:any,id2:any){
-    return this.http.get(`${this.basePath}${this.branchindividualview}${id}/${id1}/${id2}`,this.options)
+  BranchViewallSearch(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.branchindividualview}${id}/${id1}/${id2}`, this.options)
   }
-  BranchCustomerSearch(id: any,id1:any,id2:any,id3:any) {
+  BranchCustomerSearch(id: any, id1: any, id2: any, id3: any) {
     return this.http.get(`${this.basePath}${this.branchcustomersearch}${id}/${id1}/${id2}/${id3}`, this.options)
   }
   BranchCustomerExport(id: any) {
@@ -2427,18 +2473,18 @@ export class FarginServiceService {
   additionalpayments(id: any, id1: any) {
     return this.http.get(`${this.basePath}${this.additionalpayment}${id}/${id1}`, this.options)
   }
-  additionalpaymentsfilter(id: any, id1: any, id2:any,id3:any) {
+  additionalpaymentsfilter(id: any, id1: any, id2: any, id3: any) {
     return this.http.get(`${this.basePath}${this.additionalpaymentsfilters}${id}/${id1}/${id2}/${id3}`, this.options)
   }
-  additionalpaymentssearchfilter(id: any, id1: any, id2:any,id3:any) {
+  additionalpaymentssearchfilter(id: any, id1: any, id2: any, id3: any) {
     return this.http.get(`${this.basePath}${this.additionalpaymentssearchfilters}${id}/${id1}/${id2}/${id3}`, this.options)
   }
- 
+
   additionalpaymentsviewbyid(id: any) {
     return this.http.get(`${this.basePath}${this.additionalpaymentsviewbyids}${id}`, this.options)
   }
- 
-  additionalsearchfilter(id: any, id1: any,id2:any) {
+
+  additionalsearchfilter(id: any, id1: any, id2: any) {
     return this.http.get(`${this.basePath}${this.additionalsearchfilters}${id}/${id1}/${id2}`, this.options)
   }
   additionalpaymentsreceipts(id: any) {
@@ -2447,102 +2493,235 @@ export class FarginServiceService {
       ...{ responseType: 'blob' },
     });
   }
- 
+
   additionalpaymentscheckstatus(model: any) {
     return this.http.post(`${this.basePath}${this.additionalpaymentscheck}`, model, this.options);
   }
   additionalexport() {
     return this.http.get(`${this.basePath}${this.additionalexports}`, this.options)
   }
-  BranchCustomer(id:any,id1:any,id2:any){
-    return this.http.get(`${this.basePath}${this.branchcustomerget}${id}/${id1}/${id2}`,this.options)
+  BranchCustomer(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.branchcustomerget}${id}/${id1}/${id2}`, this.options)
   }
   AdditionalPaymentsCustomerTransaction(id: any) {
     return this.http.get(`${this.basePath}${this.additionaltransviewbyid}${id}`, this.options)
- 
+
   }
-  BroadCasterGetAllActive(){
+  BroadCasterGetAllActive() {
     return this.http.get(`${this.basePath}${this.broadcastergetallctive}`, this.options)
- 
-  }
- 
-  RegionGetAll(){
-    return this.http.get(`${this.basePath}${this.regiongetall}`, this.options)
- 
+
   }
 
-  ChannelsList(id:any){
+  RegionGetAll() {
+    return this.http.get(`${this.basePath}${this.regiongetall}`, this.options)
+
+  }
+
+  ChannelsList(id: any) {
     return this.http.get(`${this.basePath}${this.channelslist}${id}`, this.options)
- 
-  
+
+
   }
-  SurveySearch(id:any,id1:any,id2:any){
-    return this.http.get(`${this.basePath}${this.surveysearch}${id}/${id1}/${id2}`,this.options)
+  SurveySearch(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.surveysearch}${id}/${id1}/${id2}`, this.options)
   }
-  RefundGetAll(id:any,id1:any){
-    return this.http.get(`${this.basePath}${this.refundgetall}${id}/${id1}`,this.options)
+  RefundGetAll(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.refundgetall}${id}/${id1}`, this.options)
   }
-  RefundGetAllSearch(id:any,id1:any,id2:any){
-    return this.http.get(`${this.basePath}${this.refundsearch}${id}/${id1}/${id2}`,this.options)
+  RefundGetAllSearch(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.refundsearch}${id}/${id1}/${id2}`, this.options)
   }
-  RefundExport(){
-    return this.http.get(`${this.basePath}${this.refundexport}`,this.options)
- 
+  RefundExport() {
+    return this.http.get(`${this.basePath}${this.refundexport}`, this.options)
+
   }
-  RefundForCustomerView(id:any){
+  RefundForCustomerView(id: any) {
     return this.http.get(`${this.basePath}${this.refundforcustomer}${id}`, this.options)
   }
-  RefundGetAllDateFilter(id:any,id1:any,id2:any,id3:any){
-    return this.http.get(`${this.basePath}${this.refunddatefilter}${id}/${id1}/${id2}/${id3}`,this.options)
+  RefundGetAllDateFilter(id: any, id1: any, id2: any, id3: any) {
+    return this.http.get(`${this.basePath}${this.refunddatefilter}${id}/${id1}/${id2}/${id3}`, this.options)
   }
 
 
-  MSOActive(){
-    return this.http.get(`${this.basePath}${this.msoactive}`,this.options)
+  MSOActive() {
+    return this.http.get(`${this.basePath}${this.msoactive}`, this.options)
   }
- 
-  MSORegions(id:any){
-    return this.http.get(`${this.basePath}${this.msoregions}${id}`,this.options)
+
+  MSORegions(id: any) {
+    return this.http.get(`${this.basePath}${this.msoregions}${id}`, this.options)
   }
- 
-  additionalpaycheck(model:any){
-    return this.http.post(`${this.basePath}${this.additionalpaycheckstatus}`,model,this.options)
+
+  additionalpaycheck(model: any) {
+    return this.http.post(`${this.basePath}${this.additionalpaycheckstatus}`, model, this.options)
   }
-  CustomizationPaySearch(id: any,id1:any,id2:any) {
+  CustomizationPaySearch(id: any, id1: any, id2: any) {
     return this.http.get(`${this.basePath}${this.custopay}${id}/${id1}/${id2}`, this.options)
   }
-  SmsviewallSearch(id: any,id1:any,id2:any) {
+  SmsviewallSearch(id: any, id1: any, id2: any) {
     return this.http.get(`${this.basePath}${this.smssearch}${id}/${id1}/${id2}`, this.options)
   }
 
-  ManualPay(id: any, model: any){
+  ManualPay(id: any, model: any) {
     return this.http.put(`${this.basePath}${this.subscriptionmanualpay}${id}`, model, this.options)
   }
   abstarctipadd() {
     return this.http.get(`${this.abstarctipaddress}`)
   }
 
-  Sticker(){
-    return this.http.get(`${this.basePath}${this.stickerget}`,this.options)
+  Sticker() {
+    return this.http.get(`${this.basePath}${this.stickerget}`, this.options)
   }
- 
+
   StickerCreate(model: any) {
     return this.http.post(`${this.basePath}${this.stickerAdd}`, model, this.options);
   }
- 
+
   StickerStatus(id: any, model: any) {
     return this.http.put(`${this.basePath}${this.stickerstatus}${id}`, model, this.options)
   }
-   //Campagin
-   addcampagin(FormData: FormData) {
+  //Campagin
+  addcampagin(FormData: FormData) {
     return this.http.post(
       `${this.basePath}${this.addcampagins}`,
       FormData,
       this.optionsMultipart
     );
   }
-    activemerchantemails()
-    {
-      return this.http.get(`${this.basePath}${this.activemerchantemail}`,this.options)
-    }
+  activemerchantemails() {
+    return this.http.get(`${this.basePath}${this.activemerchantemail}`, this.options)
+  }
+
+
+  //branchkyc
+  addkycbranch(FormData: FormData) {
+    return this.http.post(
+      `${this.basePath}${this.addkycbranchs}`,
+      FormData,
+      this.optionsMultipart
+    );
+  }
+ 
+  branchkycview(id:any){
+    return this.http.get(`${this.basePath}${this.branchkycviews}${id}`,this.options)
+  }
+ 
+ 
+  getbranchkycImage(id: any, id1: any) {
+    return this.http.get(`${this.basePath}${this.getbranchkycImages}${id}/${id1}`, {
+      ...this.options,
+      ...{ responseType: 'blob' }
+    })
+  }
+ 
+  branchidentityFront(data: FormData) {
+    return this.http.put(`${this.basePath}${this.branchidentityFronts}`, data, this.optionsMultipart);
+  }
+ 
+  branchidentityback(data: FormData) {
+    return this.http.put(`${this.basePath}${this.branchidentitybacks}`, data, this.optionsMultipart);
+  }
+ 
+  branchaddressFront(data: FormData) {
+    return this.http.put(`${this.basePath}${this.branchaddressFronts}`, data, this.optionsMultipart);
+  }
+   
+  branchaddressback(data: FormData) {
+    return this.http.put(`${this.basePath}${this.branchaddressbacks}`, data, this.optionsMultipart);
+  }
+  branchsignFront(data: FormData) {
+    return this.http.put(`${this.basePath}${this.branchsignFronts}`, data, this.optionsMultipart);
+  }
+  branchsignback(data: FormData) {
+    return this.http.put(`${this.basePath}${this.branchsignbacks}`, data, this.optionsMultipart);
+  }
+ 
+  editbranchIdentity(data: FormData) {
+    return this.http.put(`${this.basePath}${this.editbranchIdentitys}`, data, this.optionsMultipart);
+  }
+ 
+  editbranchAddress(data: FormData) {
+    return this.http.put(`${this.basePath}${this.editbranchAddres}`, data, this.optionsMultipart);
+  }
+ 
+  editbranchSign(data: FormData) {
+    return this.http.put(`${this.basePath}${this.editbranchSigns}`, data, this.optionsMultipart);
+  }
+ 
+  branchkycinfo(id:any){
+    return this.http.get(`${this.basePath}${this.branchkycinfos}${id}`,this.options)
+  }
+ 
+  identitybranchApproval(data: any) {
+    return this.http.put(`${this.basePath}${this.identitybranchApprovals}`, data, this.options);
+  }
+ 
+  addressbranchApproval(data: any) {
+    return this.http.put(`${this.basePath}${this.addressbranchApprovals}`, data, this.options);
+  }
+ 
+  signbranchApproval(data: any) {
+    return this.http.put(`${this.basePath}${this.signbranchApprovals}`, data, this.options);
+  }
+ 
+  adharbranchVerifyIdentity(data: any) {
+    return this.http.post(`${this.basePath}${this.adharbranchVerifyIdentitys}`, data, this.options);
+  }
+  adharbranchVerifyAddress(data: any) {
+    return this.http.post(`${this.basePath}${this.adharbranchVerifyAddres}`, data, this.options);
+  }
+ 
+  adharbranchVerifySigns(data: any) {
+    return this.http.post(`${this.basePath}${this.adharbranchVerifySign}`, data, this.options);
+  }
+ 
+ 
+  panbranchVerifyIdentity(data: any) {
+    return this.http.post(`${this.basePath}${this.panbranchVerifyIdentitys}`, data, this.options);
+  }
+  panbranchVerifyAddress(data: any) {
+    return this.http.post(`${this.basePath}${this.panbranchVerifyAddres}`, data, this.options);
+  }
+ 
+  panbranchVerifySigns(data: any) {
+    return this.http.post(`${this.basePath}${this.panbranchVerifySign}`, data, this.options);
+  }
+ 
+ 
+ 
+  passportbranchVerifyIdentity(data: any) {
+    return this.http.post(`${this.basePath}${this.passportbranchVerifyIdentitys}`, data, this.options);
+  }
+  passportbranchVerifyAddress(data: any) {
+    return this.http.post(`${this.basePath}${this.passportbranchVerifyAddres}`, data, this.options);
+  }
+ 
+  passportbranchVerifySigns(data: any) {
+    return this.http.post(`${this.basePath}${this.passportbranchVerifySign}`, data, this.options);
+  }
+ 
+ 
+  drivingbranchVerifyIdentity(data: any) {
+    return this.http.post(`${this.basePath}${this.drivingbranchVerifyIdentitys}`, data, this.options);
+  }
+  drivingbranchVerifyAddress(data: any) {
+    return this.http.post(`${this.basePath}${this.drivingbranchVerifyAddres}`, data, this.options);
+  }
+ 
+  drivingbranchVerifySigns(data: any) {
+    return this.http.post(`${this.basePath}${this.drivingbranchVerifySign}`, data, this.options);
+  }
+ 
+ 
+ 
+  voterbranchVerifyIdentity(data: any) {
+    return this.http.post(`${this.basePath}${this.voterbranchVerifyIdentitys}`, data, this.options);
+  }
+  voterbranchVerifyAddress(data: any) {
+    return this.http.post(`${this.basePath}${this.voterbranchVerifyAddres}`, data, this.options);
+  }
+ 
+  voterbranchVerifySigns(data: any) {
+    return this.http.post(`${this.basePath}${this.voterbranchVerifySign}`, data, this.options);
+  }
+
 }

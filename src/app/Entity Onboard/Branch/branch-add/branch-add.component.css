@@ -1,110 +1,93 @@
-@import "https://unpkg.com/open-props";
- 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+.container {
+  max-width: 900;
+  /* Increase container width */
 }
  
-button {
-  font: inherit;
+.form-header {
+  background-color: #141E46;
+  /* Header background color */
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.5rem 0.5rem 0 0;
+  /* Rounded corners on top */
+  margin-bottom: 0.5rem;
 }
  
-.page {
-  color: var(--gray-9);
-  background-color: var(--gray-0);
-  display: grid;
-  grid-template-areas: "main";
-  height: auto;
-  font-family: var(--font-sans);
-}
- 
-.page__main {
-  grid-area: main;
-}
- 
-.main {
-  display: grid;
-  justify-items: center;
-  align-items: center;
-}
- 
-.main__form {
-  width: 100%;
-  max-width: 35em;
-  /* Max width for the form */
-}
- 
-.form {
-  color: var(--gray-9);
-  background-color: var(--gray-3);
-  display: grid;
-  width: 100%;
-  max-width: 100%;
-  border: 1px solid var(--gray-4);
-  border-radius: var(--radius-2);
-  padding: 30px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-}
- 
-.form__linput {
-  display: grid;
-  margin-bottom: 20px;
-}
- 
-.form__label {
-  margin-bottom: var(--size-2);
-}
- 
-.form__input,
-.form__select,
-.form__textarea {
-  padding: 0.5em 0.7rem;
-  border: 1px solid var(--gray-4);
-  border-radius: var(--radius-2);
-  width: 100%;
-}
- 
-.form__select {
-  background: inherit;
-}
- 
-.form__textarea {
-  padding: 1em 0.7rem;
-  resize: vertical;
-  font: inherit;
-}
- 
-.form__btn {
-  margin-right: auto;
-}
- 
- 
-@media (max-width: 600px) {
-  .main__form {
-    padding: var(--size-2);
-  }
- 
-  .form {
-    padding: var(--size-2);
-  }
- 
-  .submit,
-  .cancel {
-    padding: 0.5em 1em;
-    font-size: 0.875rem;
-  }
-}
- 
- 
-.card-header {
-  background-color: #bcdf72;
-  color: #141E46;
-  font-family: "Roboto";
-}
-.form__label{
+.form-group label {
   font-weight: 500;
 }
  
+.form-control {
+  border-radius: 0.375rem;
+}
  
+ 
+ 
+.well {
+  background-color: #ffffff;
+  /* Card background color */
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  /* margin-top: 27px; */
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+  /* Light shadow */
+}
+ 
+@media (max-width: 576px) {
+  .form-group label {
+      font-size: 0.9rem;
+      /* Adjust label font size for smaller screens */
+  }
+}
+ 
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #bcdf72;
+  color: white;
+  font-family: "Roboto";
+}
+.table{
+  max-height: 100px; /* Adjust based on your needs */
+  position: relative;
+  overflow-y: hidden;
+  padding:10px;
+}
+ 
+th{
+  background-color: #bcdf72 !important;
+  color: #fff;
+  font-weight: 600;
+  font-size:14px;
+  white-space: nowrap;
+  text-shadow: #ffffff;
+  text-align: center;
+}
+ 
+td{
+  white-space: nowrap;
+  background-color: #fff;
+  font-weight: 600;
+  font-size:14px;
+  text-align: center;
+ 
+}
+ 
+.form__label{
+  font-weight: 500;
+}
+.form__row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+ 
+.form__linput {
+  flex: 1; /* Allows each input to take equal space */
+  margin-right: 10px; /* Adds space between inputs */
+}
+ 
+.form__linput:last-child {
+  margin-right: 0; /* Remove margin for the last item */
+}
