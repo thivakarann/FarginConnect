@@ -1405,3 +1405,34 @@ export interface branchverify {
   readonly facheckDocNumber: any;
   readonly approvalBy: any;
 }
+
+export interface branchstatus{
+  readonly activeStatus:any;
+}
+
+export interface branchterminaladd {
+  readonly terminalNumber: any;
+  readonly merchantId: any;
+  readonly branchId: any;
+  readonly createdBy:any;
+}
+
+export interface branchterminaledit {
+  readonly terminalNo: any;
+  readonly modifiedBy: any;
+}
+ 
+export interface Entitystatus{
+  readonly activeStatus:any;
+}
+
+export interface entityterminaladd {
+  readonly merchantId: any;
+  readonly terminalNumber: any;
+  readonly createdBy: any;
+}
+
+export interface entityterminaledit {
+  readonly terminalNo: any;
+  readonly modifiedBy: any;
+}

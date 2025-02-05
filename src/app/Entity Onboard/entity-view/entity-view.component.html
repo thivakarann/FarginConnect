@@ -131,6 +131,8 @@
                                          [disabled]="this.detaislone?.approvalStatusL2 =='Pending' || this.detaislone?.approvalStatusL2=='Rejected'"
                                         [hidden]="valueentityonboard!=='Entity View-Onboard'">Onboard
                                         Entity</button>
+                                        <!--  -->
+                                    <button style="font-size: 10px;" mat-menu-item (click)="EntityTerminal(this.id)">Entity Terminal</button>
                                     <!-- <button style="font-size: 10px;" mat-menu-item (click)="emailtrigger()"
                                         [disabled]="detaislone?.onBoardStatus=='false'">
                                         Email Notification</button> -->
@@ -1594,6 +1596,7 @@
                             <th>Secret key </th>
                             <th [hidden]="valuebranchCustomerview!=='Entity View Branch-Customer View'">Customer View</th>
                             <th>KYC View</th>
+                            <th>Terminal View</th>
                             <th [hidden]="valuebranchStatus!=='Entity View Branch-Status'">Status</th>
                             <th [hidden]="valuebranchAction!=='Entity View Branch-Action'">Action</th>
                            
@@ -1620,6 +1623,8 @@
                            
                           <td><i  style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
                                         (click)="Viewkycbranch(item.branchId, item.entityModel?.merchantId)"></i> </td>
+                         <td><i  style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
+                            (click)="ViewTerminal(item.branchId, item.entityModel?.merchantId)"></i> </td>
                          
                             <td  [hidden]="valuebranchStatus!=='Entity View Branch-Status'">
                                 <mat-slide-toggle class="example-margin" color="primary"

@@ -1371,6 +1371,12 @@ valuebranchAction: any;
 
   }
 
+  EntityTerminal(id:any){
+    this.router.navigate([`dashboard/EntityTerminal/${id}`], {
+      queryParams: { Alldata: id },
+    });
+  }
+
   Viewqr(id: any) {
     this.router.navigate([`dashboard/entity-qrcode/${id}`], {
       queryParams: { Alldata: id },
@@ -3404,6 +3410,12 @@ valuebranchAction: any;
   }
   Viewkycbranch(id:any,id1:any){
     this.router.navigate([`dashboard/branch-kyc/${id}/${id1}`], {
+      queryParams: { Alldata: id, All:id1 },
+    });
+  }
+
+  ViewTerminal(id:any,id1:any){
+    this.router.navigate([`dashboard/Terminalview/${id}/${id1}`], {
       queryParams: { Alldata: id, All:id1 },
     });
   }

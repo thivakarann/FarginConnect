@@ -256,6 +256,12 @@ import { BranchkycEditComponent } from './Entity Onboard/Branch/branchkyc-edit/b
 import { BranchkycExtraComponent } from './Entity Onboard/Branch/branchkyc-extra/branchkyc-extra.component';
 import { BranchkycInfoComponent } from './Entity Onboard/Branch/branchkyc-info/branchkyc-info.component';
 import { KycbranchImageComponent } from './Entity Onboard/Branch/kycbranch-image/kycbranch-image.component';
+import { BranchTerminalviewComponent } from './Entity Onboard/BranchTerminal/branch-terminalview/branch-terminalview.component';
+import { BranchTerminalAddComponent } from './Entity Onboard/BranchTerminal/branch-terminal-add/branch-terminal-add.component';
+import { BranchTerminalEditComponent } from './Entity Onboard/BranchTerminal/branch-terminal-edit/branch-terminal-edit.component';
+import { EntityTerminalViewComponent } from './Entity Onboard/EntityTerminal/entity-terminal-view/entity-terminal-view.component';
+import { EntityTerminalAddComponent } from './Entity Onboard/EntityTerminal/entity-terminal-add/entity-terminal-add.component';
+import { EntityTerminalEditComponent } from './Entity Onboard/EntityTerminal/entity-terminal-edit/entity-terminal-edit.component';
 
 @NgModule({
   declarations: [
@@ -489,7 +495,13 @@ import { KycbranchImageComponent } from './Entity Onboard/Branch/kycbranch-image
     BranchkycInfoComponent,
     BranchkycApprovalComponent,
     BranchkycCommetsComponent,
-    BranchkycExtraComponent
+    BranchkycExtraComponent,
+    BranchTerminalviewComponent,
+    BranchTerminalAddComponent,
+    BranchTerminalEditComponent,
+    EntityTerminalViewComponent,
+    EntityTerminalAddComponent,
+    EntityTerminalEditComponent
 
   ],
 

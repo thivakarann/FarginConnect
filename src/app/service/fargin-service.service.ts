@@ -730,6 +730,17 @@ private readonly voterbranchVerifyIdentitys='branchFacheckVerify/identityVoterVe
 private readonly voterbranchVerifyAddres='branchFacheckVerify/addressVoterVerify';
 private readonly voterbranchVerifySign='branchFacheckVerify/signatureVoterVerify';
 
+//branch terminal view
+private readonly branchterminalview='branchTerminal/getAll';
+private readonly branchterminalstatus='branchTerminal/updateStatus/';
+private readonly branchterminalcreate='branchTerminal/add';
+private readonly branchterminaledit='branchTerminal/update/';
+
+//entity terminal view
+private readonly entityterminalview='entityTerminal/getall';
+private readonly entityterminalstatus='entityTerminal/updateStatus/';
+private readonly entityterminalcreate ='entityTerminal/create';
+private readonly entityterminalupdate ='entityTerminal/update/';
 
   loginError = new Subject();
 
@@ -2722,6 +2733,38 @@ private readonly voterbranchVerifySign='branchFacheckVerify/signatureVoterVerify
  
   voterbranchVerifySigns(data: any) {
     return this.http.post(`${this.basePath}${this.voterbranchVerifySign}`, data, this.options);
+  }
+// 
+  BranchTerminal() {
+    return this.http.get(`${this.basePath}${this.branchterminalview}`, this.options);
+  }
+
+  BranchTerminalStatus(id:any,model:any) {
+    return this.http.put(`${this.basePath}${this.branchterminalstatus}${id}`,model, this.options);
+  }
+
+  BranchTerminalCreate(data: any) {
+    return this.http.post(`${this.basePath}${this.branchterminalcreate}`, data, this.options);
+  }
+
+  BranchTerminalEdit(id:any,data: any) {
+    return this.http.put(`${this.basePath}${this.branchterminaledit}${id}`, data, this.options);
+  }
+
+  EntityTerminalget() {
+    return this.http.get(`${this.basePath}${this.entityterminalview}`, this.options);
+  }
+
+  EntityTerminalStatus(id:any,model:any) {
+    return this.http.put(`${this.basePath}${this.entityterminalstatus}${id}`,model, this.options);
+  }
+
+  EntityTerminalCreate(data: any) {
+    return this.http.post(`${this.basePath}${this.entityterminalcreate}`, data, this.options);
+  }
+
+  EntityTerminalUpdate(id:any,data:any){
+    return this.http.put(`${this.basePath}${this.entityterminalupdate}${id}`,data,this.options);
   }
 
 }

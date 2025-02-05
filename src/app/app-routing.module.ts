@@ -106,6 +106,8 @@ import { RefundGetallComponent } from './Refund/refund-getall/refund-getall.comp
 import { ViewStickerComponent } from './StickerCost/view-sticker/view-sticker.component';
 import { BranchAddComponent } from './Entity Onboard/Branch/branch-add/branch-add.component';
 import { BranchKycComponent } from './Entity Onboard/Branch/branch-kyc/branch-kyc.component';
+import { BranchTerminalviewComponent } from './Entity Onboard/BranchTerminal/branch-terminalview/branch-terminalview.component';
+import { EntityTerminalViewComponent } from './Entity Onboard/EntityTerminal/entity-terminal-view/entity-terminal-view.component';
 
 const routes: Routes = [
 
@@ -224,6 +226,9 @@ const routes: Routes = [
       {path:'sticker-view',component:ViewStickerComponent,canActivate: [authGuard]},
       {path:'branch-add/:id',component:BranchAddComponent,canActivate: [authGuard]},
       {path:'branch-kyc/:id/:id1',component:BranchKycComponent,canActivate: [authGuard]},
+      {path:'Terminalview/:id/:id1',component:BranchTerminalviewComponent,canActivate: [authGuard]},
+      {path:'EntityTerminal/:id',component:EntityTerminalViewComponent,canActivate: [authGuard]},
+
       // {path:'merchant-additional/:id',component:MercahntbasedadditionalComponent,canActivate: [authGuard]},
     ],
 
