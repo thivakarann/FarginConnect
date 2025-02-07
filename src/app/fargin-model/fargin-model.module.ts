@@ -1436,3 +1436,24 @@ export interface entityterminaledit {
   readonly terminalNo: any;
   readonly modifiedBy: any;
 }
+
+export interface entityterminaltransaction{
+  readonly pageNo:any,
+  readonly query:any,
+  readonly  size:any,
+  readonly  dateRange:any,
+  readonly status:any,
+  readonly  merchantId:any,
+  readonly  entityTerminalId:any
+}
+
+
+    export interface Branchtransaction{
+      readonly pageNo:any,
+      readonly query:any,
+      readonly  size:any,
+      readonly  dateRange:any,
+      readonly status:any,
+      readonly  merchantId:any,
+      readonly  branchTerminalId:any
+    }

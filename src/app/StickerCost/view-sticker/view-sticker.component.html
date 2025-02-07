@@ -34,9 +34,8 @@
  
             </div>&nbsp;&nbsp;&nbsp;
  
-            <button  style="color:white;background-color: #141E46;border-radius: 10px;" class="custom-btn btn-10 me-3"
-                data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button (click)="AddSticker()"
-              >Create</button>
+            <button [hidden]="valuestickeradd!=='View Sticker-Add'" style="color:white;background-color: #141E46;border-radius: 10px;" class="custom-btn btn-10 me-3"
+                data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button (click)="AddSticker()">Create</button>
               <!-- [hidden]="valuesmsadd!=='SMS Cost-Add'" -->
 
 
@@ -67,10 +66,9 @@
      
      
                 <ng-container matColumnDef="activeStatus">
-                    <!-- [hidden]="valuesmsstatus!=='SMS Cost-Status'" -->
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header >Status</th>
-                    <!-- [hidden]="valuesmsstatus!=='SMS Cost-Status'" -->
-                    <td mat-cell *matCellDef="let viewall" >
+                    <th [hidden]="valuestickerstatus!=='View Sticker-Status'"  mat-header-cell *matHeaderCellDef mat-sort-header >Status</th>
+            
+                    <td [hidden]="valuestickerstatus!=='View Sticker-Status'"  mat-cell *matCellDef="let viewall" >
                         <mat-slide-toggle class="example-margin" color="primary" [checked]="viewall.activeStatus==='Active'"
                         (change)="ActiveStatus($event,viewall.stickerId)">
                         </mat-slide-toggle>

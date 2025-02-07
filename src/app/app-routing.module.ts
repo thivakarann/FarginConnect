@@ -108,6 +108,8 @@ import { BranchAddComponent } from './Entity Onboard/Branch/branch-add/branch-ad
 import { BranchKycComponent } from './Entity Onboard/Branch/branch-kyc/branch-kyc.component';
 import { BranchTerminalviewComponent } from './Entity Onboard/BranchTerminal/branch-terminalview/branch-terminalview.component';
 import { EntityTerminalViewComponent } from './Entity Onboard/EntityTerminal/entity-terminal-view/entity-terminal-view.component';
+import { TerminalTransactionsComponent } from './Entity Onboard/EntityTerminal/terminal-transactions/terminal-transactions.component';
+import { BranchTransactionsComponent } from './Entity Onboard/BranchTerminal/branch-transactions/branch-transactions.component';
 
 const routes: Routes = [
 
@@ -228,6 +230,10 @@ const routes: Routes = [
       {path:'branch-kyc/:id/:id1',component:BranchKycComponent,canActivate: [authGuard]},
       {path:'Terminalview/:id/:id1',component:BranchTerminalviewComponent,canActivate: [authGuard]},
       {path:'EntityTerminal/:id',component:EntityTerminalViewComponent,canActivate: [authGuard]},
+      {path:'terminal-transactions/:id',component:TerminalTransactionsComponent,canActivate: [authGuard]},
+      {path:'branch-transactions/:id',component:BranchTransactionsComponent,canActivate: [authGuard]},
+
+      
 
       // {path:'merchant-additional/:id',component:MercahntbasedadditionalComponent,canActivate: [authGuard]},
     ],

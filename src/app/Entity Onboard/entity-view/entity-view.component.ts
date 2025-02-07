@@ -197,15 +197,19 @@ export class EntityViewComponent implements OnInit {
   valueagreementlink: any;
   valueagreement: any;
   branchget: any;
-  valuentityOffline:any;
-valuebranch: any;
-valuebranchcreate: any;
-valuebranchCustomerview: any;
-valuebranchStatus: any;
-valuebranchAction: any;
+  valuentityOffline: any;
+  valuebranch: any;
+  valuebranchcreate: any;
+  valuebranchCustomerview: any;
+  valuebranchStatus: any;
+  valuebranchAction: any;
   paymentutrnumber: any;
   copiedapikey: any;
   copiedsecretkey: any;
+  valueentityterminal: any;
+  valuebranchterminal: any;
+  valuebranchKYCview: any;
+
   selectTab(tab: string): void {
     this.activeTab = tab;
   }
@@ -287,14 +291,20 @@ valuebranchAction: any;
             this.valueagreementView = 'Entity View Agreement-Plan Overview'
             this.valueagreementAgreement = 'Entity View Agreement-Agreement'
             this.valueagreementAgreementSigned = 'Entity View Agreement-Agreement Signed Copy'
-            this.valueagreementlinkdate='Entity View Agreement-Link Expiry Date'
-            this.valueagreementlinkstatus='Entity View Agreement-Link Expiry Status'
-            this.valueagreementlink='Entity View Agreement-Entity Agreement Link'
-        
-            this.valuebranchcreate='Entity View Branch-Add'
-            this.valuebranchCustomerview='Entity View Branch-Customer View'
-            this.valuebranchStatus='Entity View Branch-Status'
-            this.valuebranchAction='Entity View Branch-Action'
+            this.valueagreementlinkdate = 'Entity View Agreement-Link Expiry Date'
+            this.valueagreementlinkstatus = 'Entity View Agreement-Link Expiry Status'
+            this.valueagreementlink = 'Entity View Agreement-Entity Agreement Link'
+
+            this.valuebranchcreate = 'Entity View Branch-Add'
+            this.valuebranchCustomerview = 'Entity View Branch-Customer View'
+            this.valuebranchStatus = 'Entity View Branch-Status'
+            this.valuebranchAction = 'Entity View Branch-Action'
+
+            this.valueentityterminal = 'Entity View Entity-Terminal'
+            this.valuebranchterminal = 'Entity View Branch-Terminal'
+            this.valuebranchKYCview = 'Entity View Branch-KYC View'
+
+
           }
           else {
             for (let datas of this.getdashboard) {
@@ -424,14 +434,14 @@ valuebranchAction: any;
               if (this.actions == 'Entity View Customized Payment-View') {
                 this.valueCustomizedview = 'Entity View Customized Payment-View'
               }
-              if(this.actions=='Entity View Agreement-Entity Agreement Link'){
-                this.valueagreementlink='Entity View Agreement-Entity Agreement Link'
+              if (this.actions == 'Entity View Agreement-Entity Agreement Link') {
+                this.valueagreementlink = 'Entity View Agreement-Entity Agreement Link'
               }
-              if(this.actions=='Entity View Agreement-Link Expiry Status'){
-                this.valueagreementlinkstatus='Entity View Agreement-Link Expiry Status'
+              if (this.actions == 'Entity View Agreement-Link Expiry Status') {
+                this.valueagreementlinkstatus = 'Entity View Agreement-Link Expiry Status'
               }
-              if(this.actions=='Entity View Agreement-Link Expiry Date'){
-                this.valueagreementlinkdate='Entity View Agreement-Link Expiry Date'
+              if (this.actions == 'Entity View Agreement-Link Expiry Date') {
+                this.valueagreementlinkdate = 'Entity View Agreement-Link Expiry Date'
               }
               if (this.actions == 'Entity View Agreement-Add') {
                 this.valueagreementcreate = 'Entity View Agreement-Add'
@@ -454,8 +464,17 @@ valuebranchAction: any;
               if (this.actions == 'Entity View Branch-Status') {
                 this.valuebranchStatus = 'Entity View Branch-Status'
               }
-              if(this.actions=='Entity View Branch-Action'){
-                this.valuebranchAction='Entity View Branch-Action'
+              if (this.actions == 'Entity View Branch-Action') {
+                this.valuebranchAction = 'Entity View Branch-Action'
+              }
+              if (this.actions == 'Entity View Entity-Terminal') {
+                this.valueentityterminal = 'Entity View Entity-Terminal'
+              }
+              if (this.actions == 'Entity View Branch-Terminal') {
+                this.valuebranchterminal = 'Entity View Branch-Terminal'
+              }
+              if (this.actions == 'Entity View Branch-KYC View') {
+                this.valuebranchKYCview = 'Entity View Branch-KYC View'
               }
             }
           }
@@ -502,7 +521,7 @@ valuebranchAction: any;
 
       if (res.flag == 1) {
         this.manualDetails = res.response;
-       
+
 
 
         this.manualDetails.forEach((item: any) => {
@@ -514,7 +533,7 @@ valuebranchAction: any;
       }
     })
 
-    
+
 
     this.MerchantView.OtherPayByMerchantId(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
@@ -522,7 +541,7 @@ valuebranchAction: any;
         this.otherDetails.reverse();
       }
     });
-    
+
     this.MerchantView.BranchGet(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
         this.branchget = res.response.reverse();
@@ -579,13 +598,13 @@ valuebranchAction: any;
       disableClose: true,
       data: { value: id, value2: id1 }
     })
-    this.dialog.afterAllClosed.subscribe(()=>{
-     
+    this.dialog.afterAllClosed.subscribe(() => {
+
       this.MerchantView.viewbyidplans(this.id).subscribe((res: any) => {
         this.agreementdetails = res.response.reverse();
-  
+
       });
-      })
+    })
 
   }
 
@@ -605,7 +624,7 @@ valuebranchAction: any;
       setTimeout(() => {
         this.MerchantView.viewbyidplans(this.id).subscribe((res: any) => {
           this.agreementdetails = res.response.reverse();
-    
+
         });
       }, 500);
     });
@@ -632,9 +651,9 @@ valuebranchAction: any;
       this.valuemanualpayment = 'One Time Setup Payment'
       this.valueCustomized = 'Entity View Customized Payment'
       this.valuesmssetting = 'Sms Setting'
-       this.valueagreement = 'Entity View Agreement'
-       this.valuentityOffline='Entity View Static QR Payments'
-         this.valuebranch = 'Entity View Branch'
+      this.valueagreement = 'Entity View Agreement'
+      this.valuentityOffline = 'Entity View Static QR Payments'
+      this.valuebranch = 'Entity View Branch'
 
     }
     else {
@@ -688,8 +707,8 @@ valuebranchAction: any;
         if (this.roles == 'Entity View Agreement') {
           this.valueagreement = 'Entity View Agreement'
         }
-        if(this.roles=='Entity View Static QR Payments'){
-          this.valuentityOffline='Entity View Static QR Payments'
+        if (this.roles == 'Entity View Static QR Payments') {
+          this.valuentityOffline = 'Entity View Static QR Payments'
         }
         if (this.roles == 'Entity View Branch') {
           this.valuebranch = 'Entity View Branch'
@@ -708,13 +727,13 @@ valuebranchAction: any;
         setTimeout(() => {
           this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
             this.details = res.response;
-      
-      
+
+
             this.detaislone = res.response.merchantpersonal;
             this.bankdetails = res.response.merchantbank.reverse();
             this.KYCDetails = res.response.merchantkycdocument;
             this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-      
+
             this.identityProof = res.response.merchantkycdocument[0].identityProof;
             this.addressProof = res.response.merchantkycdocument[0].addressProof;
             this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
@@ -748,19 +767,19 @@ valuebranchAction: any;
         setTimeout(() => {
           this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
             this.details = res.response;
-      
-      
+
+
             this.detaislone = res.response.merchantpersonal;
             this.bankdetails = res.response.merchantbank.reverse();
             this.KYCDetails = res.response.merchantkycdocument;
             this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-      
+
             this.identityProof = res.response.merchantkycdocument[0].identityProof;
             this.addressProof = res.response.merchantkycdocument[0].addressProof;
             this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
             this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-  
-      
+
+
           })
         }, 500);
 
@@ -780,30 +799,30 @@ valuebranchAction: any;
     // dialogRef.componentInstance.datas.subscribe((newBankData: ApprovalBank) => {
     //   this.bankdetails.push(newBankData);
     // });
-    this.dialog.afterAllClosed.subscribe(()=>{
+    this.dialog.afterAllClosed.subscribe(() => {
       this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
         this.details = res.response;
-  
-  
+
+
         this.detaislone = res.response.merchantpersonal;
         this.bankdetails = res.response.merchantbank.reverse();
         this.KYCDetails = res.response.merchantkycdocument;
         this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-  
+
         this.identityProof = res.response.merchantkycdocument[0].identityProof;
         this.addressProof = res.response.merchantkycdocument[0].addressProof;
         this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-  
-  
-  
-  
+
+
+
+
         this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
       })
     })
   }
@@ -845,30 +864,30 @@ valuebranchAction: any;
 
       }
     })
-    this.dialog.afterAllClosed.subscribe(()=>{
+    this.dialog.afterAllClosed.subscribe(() => {
       this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
         this.details = res.response;
-  
-  
+
+
         this.detaislone = res.response.merchantpersonal;
         this.bankdetails = res.response.merchantbank.reverse();
         this.KYCDetails = res.response.merchantkycdocument;
         this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-  
+
         this.identityProof = res.response.merchantkycdocument[0].identityProof;
         this.addressProof = res.response.merchantkycdocument[0].addressProof;
         this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-  
-  
-  
-  
+
+
+
+
         this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
       })
     })
   }
@@ -900,30 +919,30 @@ valuebranchAction: any;
         value: id,
       }
     });
-    this.dialog.afterAllClosed.subscribe(()=>{
+    this.dialog.afterAllClosed.subscribe(() => {
       this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
         this.details = res.response;
-  
-  
+
+
         this.detaislone = res.response.merchantpersonal;
         this.bankdetails = res.response.merchantbank.reverse();
         this.KYCDetails = res.response.merchantkycdocument;
         this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-  
+
         this.identityProof = res.response.merchantkycdocument[0].identityProof;
         this.addressProof = res.response.merchantkycdocument[0].addressProof;
         this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-  
-  
-  
-  
+
+
+
+
         this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
       })
     })
   }
@@ -934,30 +953,30 @@ valuebranchAction: any;
       exitAnimationDuration: "1000ms",
       data: { value: id }
     });
-    this.dialog.afterAllClosed.subscribe(()=>{
+    this.dialog.afterAllClosed.subscribe(() => {
       this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
         this.details = res.response;
-  
-  
+
+
         this.detaislone = res.response.merchantpersonal;
         this.bankdetails = res.response.merchantbank.reverse();
         this.KYCDetails = res.response.merchantkycdocument;
         this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-  
+
         this.identityProof = res.response.merchantkycdocument[0].identityProof;
         this.addressProof = res.response.merchantkycdocument[0].addressProof;
         this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-  
-  
-  
-  
+
+
+
+
         this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
       })
     })
 
@@ -972,30 +991,30 @@ valuebranchAction: any;
         value: id,
       }
     })
-    this.dialog.afterAllClosed.subscribe(()=>{
+    this.dialog.afterAllClosed.subscribe(() => {
       this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
         this.details = res.response;
-  
-  
+
+
         this.detaislone = res.response.merchantpersonal;
         this.bankdetails = res.response.merchantbank.reverse();
         this.KYCDetails = res.response.merchantkycdocument;
         this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-  
+
         this.identityProof = res.response.merchantkycdocument[0].identityProof;
         this.addressProof = res.response.merchantkycdocument[0].addressProof;
         this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-  
-  
-  
-  
+
+
+
+
         this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
       })
     })
 
@@ -1023,30 +1042,30 @@ valuebranchAction: any;
       }
 
     })
-    this.dialog.afterAllClosed.subscribe(()=>{
+    this.dialog.afterAllClosed.subscribe(() => {
       this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
         this.details = res.response;
-  
-  
+
+
         this.detaislone = res.response.merchantpersonal;
         this.bankdetails = res.response.merchantbank.reverse();
         this.KYCDetails = res.response.merchantkycdocument;
         this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-  
+
         this.identityProof = res.response.merchantkycdocument[0].identityProof;
         this.addressProof = res.response.merchantkycdocument[0].addressProof;
         this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-  
-  
-  
-  
+
+
+
+
         this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
       })
     })
 
@@ -1060,30 +1079,30 @@ valuebranchAction: any;
         value: id,
       }
     })
-    this.dialog.afterAllClosed.subscribe(()=>{
+    this.dialog.afterAllClosed.subscribe(() => {
       this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
         this.details = res.response;
-  
-  
+
+
         this.detaislone = res.response.merchantpersonal;
         this.bankdetails = res.response.merchantbank.reverse();
         this.KYCDetails = res.response.merchantkycdocument;
         this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-  
+
         this.identityProof = res.response.merchantkycdocument[0].identityProof;
         this.addressProof = res.response.merchantkycdocument[0].addressProof;
         this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-  
-  
-  
-  
+
+
+
+
         this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
       })
     })
   }
@@ -1255,27 +1274,27 @@ valuebranchAction: any;
         setTimeout(() => {
           this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
             this.details = res.response;
-      
-      
+
+
             this.detaislone = res.response.merchantpersonal;
             this.bankdetails = res.response.merchantbank.reverse();
             this.KYCDetails = res.response.merchantkycdocument;
             this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-      
+
             this.identityProof = res.response.merchantkycdocument[0].identityProof;
             this.addressProof = res.response.merchantkycdocument[0].addressProof;
             this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-      
-      
-      
-      
+
+
+
+
             this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-      
-      
-      
-      
-      
-      
+
+
+
+
+
+
           })
         }, 500);
 
@@ -1332,29 +1351,29 @@ valuebranchAction: any;
         setTimeout(() => {
           this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
             this.details = res.response;
-      
-      
+
+
             this.detaislone = res.response.merchantpersonal;
             this.bankdetails = res.response.merchantbank.reverse();
             this.KYCDetails = res.response.merchantkycdocument;
             this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-      
+
             this.identityProof = res.response.merchantkycdocument[0].identityProof;
             this.addressProof = res.response.merchantkycdocument[0].addressProof;
             this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-      
-      
-      
-      
+
+
+
+
             this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-      
-      
-      
-      
-      
-      
+
+
+
+
+
+
           })
-      
+
         }, 500);
       }
       else {
@@ -1371,7 +1390,7 @@ valuebranchAction: any;
 
   }
 
-  EntityTerminal(id:any){
+  EntityTerminal(id: any) {
     this.router.navigate([`dashboard/EntityTerminal/${id}`], {
       queryParams: { Alldata: id },
     });
@@ -1451,18 +1470,18 @@ valuebranchAction: any;
         value: this.id,
       }
     })
-    this.dialog.afterAllClosed.subscribe(()=>{
+    this.dialog.afterAllClosed.subscribe(() => {
       this.MerchantView.GetManualPay(this.id).subscribe((res: any) => {
 
         if (res.flag == 1) {
           this.manualDetails = res.response;
-         
-  
-  
+
+
+
           this.manualDetails.forEach((item: any) => {
             this.paymentStatus = item.paymentStatus;
             this.paymentMethod = item.paymentMethod
-  
+
           });
           this.manualDetails.reverse();
         }
@@ -1487,18 +1506,18 @@ valuebranchAction: any;
         value: id,
       }
     })
-    this.dialog.afterAllClosed.subscribe(()=>{
+    this.dialog.afterAllClosed.subscribe(() => {
       this.MerchantView.GetManualPay(this.id).subscribe((res: any) => {
 
         if (res.flag == 1) {
           this.manualDetails = res.response;
-         
-  
-  
+
+
+
           this.manualDetails.forEach((item: any) => {
             this.paymentStatus = item.paymentStatus;
             this.paymentMethod = item.paymentMethod
-  
+
           });
           this.manualDetails.reverse();
         }
@@ -1547,8 +1566,8 @@ valuebranchAction: any;
     this.copiedsecretkey = index;
     setTimeout(() => this.copiedsecretkey = -1, 2000);
   }
- 
- 
+
+
   // copyText1(text: string) {
   //   const el = document.createElement('textarea');
   //   el.value = text;
@@ -1582,7 +1601,7 @@ valuebranchAction: any;
     setTimeout(() => this.copiedIndex2 = -1, 2000);
   }
 
-  Viewcustomerbranch(id:any){
+  Viewcustomerbranch(id: any) {
     this.router.navigate([`dashboard/branch-customer-view/${id}`], {
       queryParams: { Alldata: id },
     });
@@ -1597,17 +1616,17 @@ valuebranchAction: any;
         value: this.id,
       }
     })
-    this.dialog.afterAllClosed.subscribe(()=>{
-     
-    this.MerchantView.OtherPayByMerchantId(this.id).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.otherDetails = res.response;
-        this.otherDetails.reverse();
-      }
-    });
+    this.dialog.afterAllClosed.subscribe(() => {
+
+      this.MerchantView.OtherPayByMerchantId(this.id).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.otherDetails = res.response;
+          this.otherDetails.reverse();
+        }
+      });
     })
-    
-  
+
+
 
   }
 
@@ -1625,15 +1644,15 @@ valuebranchAction: any;
       exitAnimationDuration: "1000ms",
       data: { value: data }
     });
-    this.dialog.afterAllClosed.subscribe(()=>{
-     
+    this.dialog.afterAllClosed.subscribe(() => {
+
       this.MerchantView.OtherPayByMerchantId(this.id).subscribe((res: any) => {
         if (res.flag == 1) {
           this.otherDetails = res.response;
           this.otherDetails.reverse();
         }
       });
-      })
+    })
   }
 
 
@@ -1644,30 +1663,30 @@ valuebranchAction: any;
       // disableClose: true,
       data: { value: id, value1: 1 }
     })
-    this.dialog.afterAllClosed.subscribe(()=>{
+    this.dialog.afterAllClosed.subscribe(() => {
       this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
         this.details = res.response;
-  
-  
+
+
         this.detaislone = res.response.merchantpersonal;
         this.bankdetails = res.response.merchantbank.reverse();
         this.KYCDetails = res.response.merchantkycdocument;
         this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-  
+
         this.identityProof = res.response.merchantkycdocument[0].identityProof;
         this.addressProof = res.response.merchantkycdocument[0].addressProof;
         this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-  
-  
-  
-  
+
+
+
+
         this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
       })
     })
   }
@@ -1678,30 +1697,30 @@ valuebranchAction: any;
       // disableClose: true,
       data: { value: id, value1: 2 }
     })
-    this.dialog.afterAllClosed.subscribe(()=>{
+    this.dialog.afterAllClosed.subscribe(() => {
       this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
         this.details = res.response;
-  
-  
+
+
         this.detaislone = res.response.merchantpersonal;
         this.bankdetails = res.response.merchantbank.reverse();
         this.KYCDetails = res.response.merchantkycdocument;
         this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-  
+
         this.identityProof = res.response.merchantkycdocument[0].identityProof;
         this.addressProof = res.response.merchantkycdocument[0].addressProof;
         this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-  
-  
-  
-  
+
+
+
+
         this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
       })
     })
   }
@@ -1713,30 +1732,30 @@ valuebranchAction: any;
       // disableClose: true,
       data: { value: id, value1: 3 }
     })
-    this.dialog.afterAllClosed.subscribe(()=>{
+    this.dialog.afterAllClosed.subscribe(() => {
       this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
         this.details = res.response;
-  
-  
+
+
         this.detaislone = res.response.merchantpersonal;
         this.bankdetails = res.response.merchantbank.reverse();
         this.KYCDetails = res.response.merchantkycdocument;
         this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-  
+
         this.identityProof = res.response.merchantkycdocument[0].identityProof;
         this.addressProof = res.response.merchantkycdocument[0].addressProof;
         this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-  
-  
-  
-  
+
+
+
+
         this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
       })
     })
   }
@@ -1748,30 +1767,30 @@ valuebranchAction: any;
       // disableClose: true,
       data: { value: id, value1: 4 }
     })
-    this.dialog.afterAllClosed.subscribe(()=>{
+    this.dialog.afterAllClosed.subscribe(() => {
       this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
         this.details = res.response;
-  
-  
+
+
         this.detaislone = res.response.merchantpersonal;
         this.bankdetails = res.response.merchantbank.reverse();
         this.KYCDetails = res.response.merchantkycdocument;
         this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-  
+
         this.identityProof = res.response.merchantkycdocument[0].identityProof;
         this.addressProof = res.response.merchantkycdocument[0].addressProof;
         this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-  
-  
-  
-  
+
+
+
+
         this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
       })
     })
   }
@@ -1782,30 +1801,30 @@ valuebranchAction: any;
       // disableClose: true,
       data: { value: id, value1: 5 }
     })
-    this.dialog.afterAllClosed.subscribe(()=>{
+    this.dialog.afterAllClosed.subscribe(() => {
       this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
         this.details = res.response;
-  
-  
+
+
         this.detaislone = res.response.merchantpersonal;
         this.bankdetails = res.response.merchantbank.reverse();
         this.KYCDetails = res.response.merchantkycdocument;
         this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-  
+
         this.identityProof = res.response.merchantkycdocument[0].identityProof;
         this.addressProof = res.response.merchantkycdocument[0].addressProof;
         this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-  
-  
-  
-  
+
+
+
+
         this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
       })
     })
   }
@@ -1817,30 +1836,30 @@ valuebranchAction: any;
       // disableClose: true,
       data: { value: id, value1: 6 }
     })
-    this.dialog.afterAllClosed.subscribe(()=>{
+    this.dialog.afterAllClosed.subscribe(() => {
       this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
         this.details = res.response;
-  
-  
+
+
         this.detaislone = res.response.merchantpersonal;
         this.bankdetails = res.response.merchantbank.reverse();
         this.KYCDetails = res.response.merchantkycdocument;
         this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-  
+
         this.identityProof = res.response.merchantkycdocument[0].identityProof;
         this.addressProof = res.response.merchantkycdocument[0].addressProof;
         this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-  
-  
-  
-  
+
+
+
+
         this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
       })
     })
   }
@@ -1857,32 +1876,32 @@ valuebranchAction: any;
         value: 1,
         value1: id
       }
-      
+
     })
-    this.dialog.afterAllClosed.subscribe(()=>{
+    this.dialog.afterAllClosed.subscribe(() => {
       this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
         this.details = res.response;
-  
-  
+
+
         this.detaislone = res.response.merchantpersonal;
         this.bankdetails = res.response.merchantbank.reverse();
         this.KYCDetails = res.response.merchantkycdocument;
         this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-  
+
         this.identityProof = res.response.merchantkycdocument[0].identityProof;
         this.addressProof = res.response.merchantkycdocument[0].addressProof;
         this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-  
-  
-  
-  
+
+
+
+
         this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
       })
     })
   }
@@ -1895,30 +1914,30 @@ valuebranchAction: any;
       // disableClose: true,
       data: { value: 2, value1: id }
     })
-    this.dialog.afterAllClosed.subscribe(()=>{
+    this.dialog.afterAllClosed.subscribe(() => {
       this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
         this.details = res.response;
-  
-  
+
+
         this.detaislone = res.response.merchantpersonal;
         this.bankdetails = res.response.merchantbank.reverse();
         this.KYCDetails = res.response.merchantkycdocument;
         this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-  
+
         this.identityProof = res.response.merchantkycdocument[0].identityProof;
         this.addressProof = res.response.merchantkycdocument[0].addressProof;
         this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-  
-  
-  
-  
+
+
+
+
         this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
       })
     })
   }
@@ -1930,30 +1949,30 @@ valuebranchAction: any;
       // disableClose: true,
       data: { value: 3, value1: id }
     })
-    this.dialog.afterAllClosed.subscribe(()=>{
+    this.dialog.afterAllClosed.subscribe(() => {
       this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
         this.details = res.response;
-  
-  
+
+
         this.detaislone = res.response.merchantpersonal;
         this.bankdetails = res.response.merchantbank.reverse();
         this.KYCDetails = res.response.merchantkycdocument;
         this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-  
+
         this.identityProof = res.response.merchantkycdocument[0].identityProof;
         this.addressProof = res.response.merchantkycdocument[0].addressProof;
         this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-  
-  
-  
-  
+
+
+
+
         this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
       })
     })
   }
@@ -1977,27 +1996,27 @@ valuebranchAction: any;
           setTimeout(() => {
             this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
               this.details = res.response;
-        
-        
+
+
               this.detaislone = res.response.merchantpersonal;
               this.bankdetails = res.response.merchantbank.reverse();
               this.KYCDetails = res.response.merchantkycdocument;
               this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-        
+
               this.identityProof = res.response.merchantkycdocument[0].identityProof;
               this.addressProof = res.response.merchantkycdocument[0].addressProof;
               this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-        
-        
-        
-        
+
+
+
+
               this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
             })
           }, 500);
         }
@@ -2020,27 +2039,27 @@ valuebranchAction: any;
           setTimeout(() => {
             this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
               this.details = res.response;
-        
-        
+
+
               this.detaislone = res.response.merchantpersonal;
               this.bankdetails = res.response.merchantbank.reverse();
               this.KYCDetails = res.response.merchantkycdocument;
               this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-        
+
               this.identityProof = res.response.merchantkycdocument[0].identityProof;
               this.addressProof = res.response.merchantkycdocument[0].addressProof;
               this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-        
-        
-        
-        
+
+
+
+
               this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
             })
           }, 500);
         }
@@ -2063,27 +2082,27 @@ valuebranchAction: any;
           setTimeout(() => {
             this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
               this.details = res.response;
-        
-        
+
+
               this.detaislone = res.response.merchantpersonal;
               this.bankdetails = res.response.merchantbank.reverse();
               this.KYCDetails = res.response.merchantkycdocument;
               this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-        
+
               this.identityProof = res.response.merchantkycdocument[0].identityProof;
               this.addressProof = res.response.merchantkycdocument[0].addressProof;
               this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-        
-        
-        
-        
+
+
+
+
               this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
             })
           }, 500);
         }
@@ -2107,27 +2126,27 @@ valuebranchAction: any;
           setTimeout(() => {
             this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
               this.details = res.response;
-        
-        
+
+
               this.detaislone = res.response.merchantpersonal;
               this.bankdetails = res.response.merchantbank.reverse();
               this.KYCDetails = res.response.merchantkycdocument;
               this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-        
+
               this.identityProof = res.response.merchantkycdocument[0].identityProof;
               this.addressProof = res.response.merchantkycdocument[0].addressProof;
               this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-        
-        
-        
-        
+
+
+
+
               this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
             })
           }, 500);
         }
@@ -2152,27 +2171,27 @@ valuebranchAction: any;
           setTimeout(() => {
             this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
               this.details = res.response;
-        
-        
+
+
               this.detaislone = res.response.merchantpersonal;
               this.bankdetails = res.response.merchantbank.reverse();
               this.KYCDetails = res.response.merchantkycdocument;
               this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-        
+
               this.identityProof = res.response.merchantkycdocument[0].identityProof;
               this.addressProof = res.response.merchantkycdocument[0].addressProof;
               this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-        
-        
-        
-        
+
+
+
+
               this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
             })
           }, 500);
         }
@@ -2195,27 +2214,27 @@ valuebranchAction: any;
           setTimeout(() => {
             this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
               this.details = res.response;
-        
-        
+
+
               this.detaislone = res.response.merchantpersonal;
               this.bankdetails = res.response.merchantbank.reverse();
               this.KYCDetails = res.response.merchantkycdocument;
               this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-        
+
               this.identityProof = res.response.merchantkycdocument[0].identityProof;
               this.addressProof = res.response.merchantkycdocument[0].addressProof;
               this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-        
-        
-        
-        
+
+
+
+
               this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
             })
           }, 500);
         }
@@ -2239,27 +2258,27 @@ valuebranchAction: any;
           setTimeout(() => {
             this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
               this.details = res.response;
-        
-        
+
+
               this.detaislone = res.response.merchantpersonal;
               this.bankdetails = res.response.merchantbank.reverse();
               this.KYCDetails = res.response.merchantkycdocument;
               this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-        
+
               this.identityProof = res.response.merchantkycdocument[0].identityProof;
               this.addressProof = res.response.merchantkycdocument[0].addressProof;
               this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-        
-        
-        
-        
+
+
+
+
               this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
             })
           }, 500);
         }
@@ -2288,27 +2307,27 @@ valuebranchAction: any;
           setTimeout(() => {
             this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
               this.details = res.response;
-        
-        
+
+
               this.detaislone = res.response.merchantpersonal;
               this.bankdetails = res.response.merchantbank.reverse();
               this.KYCDetails = res.response.merchantkycdocument;
               this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-        
+
               this.identityProof = res.response.merchantkycdocument[0].identityProof;
               this.addressProof = res.response.merchantkycdocument[0].addressProof;
               this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-        
-        
-        
-        
+
+
+
+
               this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
             })
           }, 500);
         }
@@ -2331,27 +2350,27 @@ valuebranchAction: any;
           setTimeout(() => {
             this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
               this.details = res.response;
-        
-        
+
+
               this.detaislone = res.response.merchantpersonal;
               this.bankdetails = res.response.merchantbank.reverse();
               this.KYCDetails = res.response.merchantkycdocument;
               this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-        
+
               this.identityProof = res.response.merchantkycdocument[0].identityProof;
               this.addressProof = res.response.merchantkycdocument[0].addressProof;
               this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-        
-        
-        
-        
+
+
+
+
               this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
             })
           }, 500);
         }
@@ -2374,27 +2393,27 @@ valuebranchAction: any;
           setTimeout(() => {
             this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
               this.details = res.response;
-        
-        
+
+
               this.detaislone = res.response.merchantpersonal;
               this.bankdetails = res.response.merchantbank.reverse();
               this.KYCDetails = res.response.merchantkycdocument;
               this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-        
+
               this.identityProof = res.response.merchantkycdocument[0].identityProof;
               this.addressProof = res.response.merchantkycdocument[0].addressProof;
               this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-        
-        
-        
-        
+
+
+
+
               this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
             })
           }, 500);
         }
@@ -2418,27 +2437,27 @@ valuebranchAction: any;
           setTimeout(() => {
             this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
               this.details = res.response;
-        
-        
+
+
               this.detaislone = res.response.merchantpersonal;
               this.bankdetails = res.response.merchantbank.reverse();
               this.KYCDetails = res.response.merchantkycdocument;
               this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-        
+
               this.identityProof = res.response.merchantkycdocument[0].identityProof;
               this.addressProof = res.response.merchantkycdocument[0].addressProof;
               this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-        
-        
-        
-        
+
+
+
+
               this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
             })
           }, 500);
         }
@@ -2464,27 +2483,27 @@ valuebranchAction: any;
           setTimeout(() => {
             this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
               this.details = res.response;
-        
-        
+
+
               this.detaislone = res.response.merchantpersonal;
               this.bankdetails = res.response.merchantbank.reverse();
               this.KYCDetails = res.response.merchantkycdocument;
               this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-        
+
               this.identityProof = res.response.merchantkycdocument[0].identityProof;
               this.addressProof = res.response.merchantkycdocument[0].addressProof;
               this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-        
-        
-        
-        
+
+
+
+
               this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
             })
           }, 500);
         }
@@ -2507,27 +2526,27 @@ valuebranchAction: any;
           setTimeout(() => {
             this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
               this.details = res.response;
-        
-        
+
+
               this.detaislone = res.response.merchantpersonal;
               this.bankdetails = res.response.merchantbank.reverse();
               this.KYCDetails = res.response.merchantkycdocument;
               this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-        
+
               this.identityProof = res.response.merchantkycdocument[0].identityProof;
               this.addressProof = res.response.merchantkycdocument[0].addressProof;
               this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-        
-        
-        
-        
+
+
+
+
               this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
             })
           }, 500);
         }
@@ -2551,27 +2570,27 @@ valuebranchAction: any;
           setTimeout(() => {
             this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
               this.details = res.response;
-        
-        
+
+
               this.detaislone = res.response.merchantpersonal;
               this.bankdetails = res.response.merchantbank.reverse();
               this.KYCDetails = res.response.merchantkycdocument;
               this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-        
+
               this.identityProof = res.response.merchantkycdocument[0].identityProof;
               this.addressProof = res.response.merchantkycdocument[0].addressProof;
               this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-        
-        
-        
-        
+
+
+
+
               this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
             })
           }, 500);
         }
@@ -2599,27 +2618,27 @@ valuebranchAction: any;
           setTimeout(() => {
             this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
               this.details = res.response;
-        
-        
+
+
               this.detaislone = res.response.merchantpersonal;
               this.bankdetails = res.response.merchantbank.reverse();
               this.KYCDetails = res.response.merchantkycdocument;
               this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-        
+
               this.identityProof = res.response.merchantkycdocument[0].identityProof;
               this.addressProof = res.response.merchantkycdocument[0].addressProof;
               this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-        
-        
-        
-        
+
+
+
+
               this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
             })
           }, 500);
         }
@@ -2642,27 +2661,27 @@ valuebranchAction: any;
           setTimeout(() => {
             this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
               this.details = res.response;
-        
-        
+
+
               this.detaislone = res.response.merchantpersonal;
               this.bankdetails = res.response.merchantbank.reverse();
               this.KYCDetails = res.response.merchantkycdocument;
               this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-        
+
               this.identityProof = res.response.merchantkycdocument[0].identityProof;
               this.addressProof = res.response.merchantkycdocument[0].addressProof;
               this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-        
-        
-        
-        
+
+
+
+
               this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
             })
           }, 500);
         }
@@ -2685,27 +2704,27 @@ valuebranchAction: any;
           setTimeout(() => {
             this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
               this.details = res.response;
-        
-        
+
+
               this.detaislone = res.response.merchantpersonal;
               this.bankdetails = res.response.merchantbank.reverse();
               this.KYCDetails = res.response.merchantkycdocument;
               this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-        
+
               this.identityProof = res.response.merchantkycdocument[0].identityProof;
               this.addressProof = res.response.merchantkycdocument[0].addressProof;
               this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-        
-        
-        
-        
+
+
+
+
               this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
             })
           }, 500);
         }
@@ -2729,27 +2748,27 @@ valuebranchAction: any;
           setTimeout(() => {
             this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
               this.details = res.response;
-        
-        
+
+
               this.detaislone = res.response.merchantpersonal;
               this.bankdetails = res.response.merchantbank.reverse();
               this.KYCDetails = res.response.merchantkycdocument;
               this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-        
+
               this.identityProof = res.response.merchantkycdocument[0].identityProof;
               this.addressProof = res.response.merchantkycdocument[0].addressProof;
               this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-        
-        
-        
-        
+
+
+
+
               this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
             })
           }, 500);
         }
@@ -2774,27 +2793,27 @@ valuebranchAction: any;
           setTimeout(() => {
             this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
               this.details = res.response;
-        
-        
+
+
               this.detaislone = res.response.merchantpersonal;
               this.bankdetails = res.response.merchantbank.reverse();
               this.KYCDetails = res.response.merchantkycdocument;
               this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-        
+
               this.identityProof = res.response.merchantkycdocument[0].identityProof;
               this.addressProof = res.response.merchantkycdocument[0].addressProof;
               this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-        
-        
-        
-        
+
+
+
+
               this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
             })
           }, 500);
         }
@@ -2817,27 +2836,27 @@ valuebranchAction: any;
           setTimeout(() => {
             this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
               this.details = res.response;
-        
-        
+
+
               this.detaislone = res.response.merchantpersonal;
               this.bankdetails = res.response.merchantbank.reverse();
               this.KYCDetails = res.response.merchantkycdocument;
               this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-        
+
               this.identityProof = res.response.merchantkycdocument[0].identityProof;
               this.addressProof = res.response.merchantkycdocument[0].addressProof;
               this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-        
-        
-        
-        
+
+
+
+
               this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
             })
           }, 500);
         }
@@ -2861,27 +2880,27 @@ valuebranchAction: any;
           setTimeout(() => {
             this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
               this.details = res.response;
-        
-        
+
+
               this.detaislone = res.response.merchantpersonal;
               this.bankdetails = res.response.merchantbank.reverse();
               this.KYCDetails = res.response.merchantkycdocument;
               this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-        
+
               this.identityProof = res.response.merchantkycdocument[0].identityProof;
               this.addressProof = res.response.merchantkycdocument[0].addressProof;
               this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-        
-        
-        
-        
+
+
+
+
               this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
             })
           }, 500);
         }
@@ -2913,30 +2932,30 @@ valuebranchAction: any;
       disableClose: true,
       data: { value: id, value1: 1 }
     });
-    this.dialog.afterAllClosed.subscribe(()=>{
+    this.dialog.afterAllClosed.subscribe(() => {
       this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
         this.details = res.response;
-  
-  
+
+
         this.detaislone = res.response.merchantpersonal;
         this.bankdetails = res.response.merchantbank.reverse();
         this.KYCDetails = res.response.merchantkycdocument;
         this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-  
+
         this.identityProof = res.response.merchantkycdocument[0].identityProof;
         this.addressProof = res.response.merchantkycdocument[0].addressProof;
         this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-  
-  
-  
-  
+
+
+
+
         this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
       })
     })
   }
@@ -2948,30 +2967,30 @@ valuebranchAction: any;
       disableClose: true,
       data: { value: id, value1: 2 }
     });
-    this.dialog.afterAllClosed.subscribe(()=>{
+    this.dialog.afterAllClosed.subscribe(() => {
       this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
         this.details = res.response;
-  
-  
+
+
         this.detaislone = res.response.merchantpersonal;
         this.bankdetails = res.response.merchantbank.reverse();
         this.KYCDetails = res.response.merchantkycdocument;
         this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-  
+
         this.identityProof = res.response.merchantkycdocument[0].identityProof;
         this.addressProof = res.response.merchantkycdocument[0].addressProof;
         this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-  
-  
-  
-  
+
+
+
+
         this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
       })
     })
   }
@@ -2984,30 +3003,30 @@ valuebranchAction: any;
       disableClose: true,
       data: { value: id, value1: 3 }
     });
-    this.dialog.afterAllClosed.subscribe(()=>{
+    this.dialog.afterAllClosed.subscribe(() => {
       this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
         this.details = res.response;
-  
-  
+
+
         this.detaislone = res.response.merchantpersonal;
         this.bankdetails = res.response.merchantbank.reverse();
         this.KYCDetails = res.response.merchantkycdocument;
         this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-  
+
         this.identityProof = res.response.merchantkycdocument[0].identityProof;
         this.addressProof = res.response.merchantkycdocument[0].addressProof;
         this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-  
-  
-  
-  
+
+
+
+
         this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
       })
     })
   }
@@ -3020,30 +3039,30 @@ valuebranchAction: any;
       // disableClose: true,
       data: { value: id, value1: 1 }
     })
-    this.dialog.afterAllClosed.subscribe(()=>{
+    this.dialog.afterAllClosed.subscribe(() => {
       this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
         this.details = res.response;
-  
-  
+
+
         this.detaislone = res.response.merchantpersonal;
         this.bankdetails = res.response.merchantbank.reverse();
         this.KYCDetails = res.response.merchantkycdocument;
         this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-  
+
         this.identityProof = res.response.merchantkycdocument[0].identityProof;
         this.addressProof = res.response.merchantkycdocument[0].addressProof;
         this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-  
-  
-  
-  
+
+
+
+
         this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
       })
     })
   }
@@ -3097,30 +3116,30 @@ valuebranchAction: any;
       // disableClose: true,
       data: { value: id }
     })
-    this.dialog.afterAllClosed.subscribe(()=>{
+    this.dialog.afterAllClosed.subscribe(() => {
       this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
         this.details = res.response;
-  
-  
+
+
         this.detaislone = res.response.merchantpersonal;
         this.bankdetails = res.response.merchantbank.reverse();
         this.KYCDetails = res.response.merchantkycdocument;
         this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-  
+
         this.identityProof = res.response.merchantkycdocument[0].identityProof;
         this.addressProof = res.response.merchantkycdocument[0].addressProof;
         this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-  
-  
-  
-  
+
+
+
+
         this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
       })
     })
   }
@@ -3132,30 +3151,30 @@ valuebranchAction: any;
       // disableClose: true,
       data: { value: id }
     })
-    this.dialog.afterAllClosed.subscribe(()=>{
+    this.dialog.afterAllClosed.subscribe(() => {
       this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
         this.details = res.response;
-  
-  
+
+
         this.detaislone = res.response.merchantpersonal;
         this.bankdetails = res.response.merchantbank.reverse();
         this.KYCDetails = res.response.merchantkycdocument;
         this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-  
+
         this.identityProof = res.response.merchantkycdocument[0].identityProof;
         this.addressProof = res.response.merchantkycdocument[0].addressProof;
         this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-  
-  
-  
-  
+
+
+
+
         this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
       })
     })
   }
@@ -3167,30 +3186,30 @@ valuebranchAction: any;
       // disableClose: true,
       data: { value: id, value2: id2 }
     })
-    this.dialog.afterAllClosed.subscribe(()=>{
+    this.dialog.afterAllClosed.subscribe(() => {
       this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
         this.details = res.response;
-  
-  
+
+
         this.detaislone = res.response.merchantpersonal;
         this.bankdetails = res.response.merchantbank.reverse();
         this.KYCDetails = res.response.merchantkycdocument;
         this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-  
+
         this.identityProof = res.response.merchantkycdocument[0].identityProof;
         this.addressProof = res.response.merchantkycdocument[0].addressProof;
         this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-  
-  
-  
-  
+
+
+
+
         this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
       })
     })
   }
@@ -3203,15 +3222,15 @@ valuebranchAction: any;
       exitAnimationDuration: "1000ms",
       data: { value: this.id }
     });
-    this.dialog.afterAllClosed.subscribe(()=>{
-     
+    this.dialog.afterAllClosed.subscribe(() => {
+
       this.MerchantView.SMSViewById(this.id).subscribe((res: any) => {
         if (res.flag == 1) {
           this.smsDetails = res.response;
-  
+
         }
       })
-      })
+    })
   }
 
 
@@ -3222,13 +3241,13 @@ valuebranchAction: any;
       exitAnimationDuration: "1000ms",
       data: { value: this.id }
     });
-    this.dialog.afterAllClosed.subscribe(()=>{
-     
+    this.dialog.afterAllClosed.subscribe(() => {
+
       this.MerchantView.viewbyidplans(this.id).subscribe((res: any) => {
         this.agreementdetails = res.response.reverse();
-  
+
       });
-      })
+    })
   }
 
   agremmentlink() {
@@ -3247,15 +3266,15 @@ valuebranchAction: any;
       disableClose: true,
       data: { value: id }
     })
-      this.dialog.afterAllClosed.subscribe(()=>{
-     
+    this.dialog.afterAllClosed.subscribe(() => {
+
       this.MerchantView.SMSViewById(this.id).subscribe((res: any) => {
         if (res.flag == 1) {
           this.smsDetails = res.response;
-  
+
         }
       })
-      })
+    })
   }
 
   smsStatus(event: any, id: any) {
@@ -3272,7 +3291,7 @@ valuebranchAction: any;
           this.MerchantView.SMSViewById(this.id).subscribe((res: any) => {
             if (res.flag == 1) {
               this.smsDetails = res.response;
-      
+
             }
           })
         }, 500);
@@ -3292,15 +3311,15 @@ valuebranchAction: any;
       disableClose: true,
       data: { value: id }
     })
-    this.dialog.afterAllClosed.subscribe(()=>{
-     
+    this.dialog.afterAllClosed.subscribe(() => {
+
       this.MerchantView.SMSViewById(this.id).subscribe((res: any) => {
         if (res.flag == 1) {
           this.smsDetails = res.response;
-  
+
         }
       })
-      })
+    })
   }
   ViewMerchantSms(id: any) {
     this.merchantsmsId = id;
@@ -3342,36 +3361,37 @@ valuebranchAction: any;
   reload() {
     window.location.reload()
   }
-  Viewoffline(id:any,dta:any){
+  Viewoffline(id: any, dta: any) {
     this.router.navigate([`dashboard/offline-transactions/${id}`], {
-      queryParams: { Alldata: id,
-        Alldata1:dta
-       },
+      queryParams: {
+        Alldata: id,
+        Alldata1: dta
+      },
     });
   }
 
-  branchcreate(id:any) {
-   
+  branchcreate(id: any) {
+
     this.router.navigate([`dashboard/branch-add/${id}`], {
-    queryParams: { Alldata: id },
-  });
+      queryParams: { Alldata: id },
+    });
   }
- 
-  branchedit(id:any){
-    this.dialog.open(BranchEditComponent,{
-      disableClose:true,
-      enterAnimationDuration:"500ms",
-      exitAnimationDuration:"1000ms",
+
+  branchedit(id: any) {
+    this.dialog.open(BranchEditComponent, {
+      disableClose: true,
+      enterAnimationDuration: "500ms",
+      exitAnimationDuration: "1000ms",
       data: { value: id }
     });
-    this.dialog.afterAllClosed.subscribe(()=>{
-     
+    this.dialog.afterAllClosed.subscribe(() => {
+
       this.MerchantView.BranchGet(this.id).subscribe((res: any) => {
         if (res.flag == 1) {
           this.branchget = res.response.reverse();
         }
       })
-      })
+    })
 
   }
 
@@ -3384,7 +3404,7 @@ valuebranchAction: any;
     };
 
     this.MerchantView.BranchStatus(id, submitModel).subscribe((res: any) => {
-     
+
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
         this.MerchantView.BranchGet(this.id).subscribe((res: any) => {
@@ -3403,20 +3423,20 @@ valuebranchAction: any;
       item.subpermissionValue.toLowerCase().includes(searchText.toLowerCase())
     );
   }
- 
+
   onSearchTextChange(): void {
     // Reset to the first page whenever the search text changes
     this.currentPage = 1;
   }
-  Viewkycbranch(id:any,id1:any){
+  Viewkycbranch(id: any, id1: any) {
     this.router.navigate([`dashboard/branch-kyc/${id}/${id1}`], {
-      queryParams: { Alldata: id, All:id1 },
+      queryParams: { Alldata: id, All: id1 },
     });
   }
 
-  ViewTerminal(id:any,id1:any){
+  ViewTerminal(id: any, id1: any) {
     this.router.navigate([`dashboard/Terminalview/${id}/${id1}`], {
-      queryParams: { Alldata: id, All:id1 },
+      queryParams: { Alldata: id, All: id1 },
     });
   }
 }

@@ -65,6 +65,7 @@ export class DashboardComponent implements OnInit {
 valueAdditionalPayments: any;
 valuebranch: any;
   valueonlienrefund: any;
+  valuestickercost:any;
 
 
   constructor(private elRef: ElementRef,
@@ -145,6 +146,9 @@ valuebranch: any;
        this.valueAdditionalPayments = 'Additional Payments'
         this.valuebranch = 'Branch'
         this.valueonlienrefund = 'Online Refunds'
+
+        this.valuestickercost = 'Sticker Cost'
+
     }
     else {
       for (let data of this.getdashboard) {
@@ -286,6 +290,10 @@ valuebranch: any;
         }
         if (this.roles == 'Online Refunds') {
           this.valueonlienrefund = 'Online Refunds'
+        }
+
+        if (this.roles == 'Sticker Cost') {
+          this.valuestickercost = 'Sticker Cost'
         }
       }
     }

@@ -617,6 +617,10 @@ export class FarginServiceService {
   private readonly branchcustomersearch = 'customer/customersByBranchs/';
 
 
+  private readonly entityterminaltrans='transactions/getMerchantOfflinePaymentListForAdmin';
+  private readonly branchtrans='transactions/getMerchantOfflinePaymentListForBranch'
+
+
 
   // Find Ip 
   private ipApiUrl = 'https://api.ipify.org/?format=json';
@@ -2766,5 +2770,10 @@ private readonly entityterminalupdate ='entityTerminal/update/';
   EntityTerminalUpdate(id:any,data:any){
     return this.http.put(`${this.basePath}${this.entityterminalupdate}${id}`,data,this.options);
   }
-
+  EntityTerminalTransactions(data:any){
+    return this.http.post(`${this.basePath}${this.entityterminaltrans}`,data,this.options);
+  }
+  BranchTransactions(data:any){
+    return this.http.post(`${this.basePath}${this.branchtrans}`,data,this.options);
+  }
 }

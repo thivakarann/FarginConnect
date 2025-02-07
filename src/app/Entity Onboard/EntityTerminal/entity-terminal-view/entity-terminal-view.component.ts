@@ -23,15 +23,21 @@ export class EntityTerminalViewComponent implements OnInit{
   terminal:any;
   isChecked:any;
   dataSource: any;
-  displayedColumns: string[] = ["sno","terminalNumber", "status", "edit", "createdBy","createdAt","modifiedBy","modifiedAt"]
+  displayedColumns: string[] = ["sno", "accountId", "terminalNumber", "status","View", "edit", "createdBy","createdAt","modifiedBy","modifiedAt"]
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  
-
+  roleId: any = localStorage.getItem('roleId')
+  errorMessage:any;
+  actions: any;
   searchPerformed: boolean=false;
   id: any;
   merchantId: any;
-
+  getdashboard: any[] = [];
+  valueTerminalAdd:any;
+  valueTerminalStatus:any;
+  valueTerminalEdit:any;
+  valueTerminalview:any;
+  
    constructor(
       public service: FarginServiceService,
       private router: Router,
@@ -43,6 +49,42 @@ export class EntityTerminalViewComponent implements OnInit{
   
 
   ngOnInit() {
+
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+
+          if (this.roleId == 1) {
+            this.valueTerminalAdd = 'Terminal Entity-Add';
+            this.valueTerminalStatus = 'Terminal Entity-Status';
+            this.valueTerminalEdit = 'Terminal Entity-Edit';
+            this.valueTerminalview = 'Terminal Entity Transaction-View';
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+
+              if (this.actions == 'Terminal Entity-Add') {
+                this.valueTerminalAdd = 'Terminal Entity-Add';
+              }
+              if (this.actions == 'Terminal Entity-Status') {
+                this.valueTerminalStatus = 'Terminal Entity-Status';
+              }
+              if (this.actions == 'Terminal Entity-Edit') {
+                this.valueTerminalEdit = 'Terminal Entity-Edit';
+              }
+              if (this.actions == 'Terminal Entity Transaction-View') {
+                this.valueTerminalview = 'Terminal Entity Transaction-View';
+              }
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    })  
 
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.merchantId=param.Alldata;
@@ -160,5 +202,13 @@ export class EntityTerminalViewComponent implements OnInit{
     
   close(){
     this.location.back()
+  }
+  transactions(id:any,id1:any){
+    this.router.navigate([`dashboard/terminal-transactions/${id}`], {
+      queryParams: { Alldata: id ,
+        Alldata1:id1
+
+      },
+    });
   }
 }

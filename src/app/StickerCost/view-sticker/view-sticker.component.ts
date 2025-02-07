@@ -43,6 +43,10 @@ export class ViewStickerComponent {
   roleId: any = localStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
+  valuestickeradd:any;
+  valuestickerstatus:any;
+
+  
   constructor(
     public service: FarginServiceService,
     private router: Router,
@@ -51,6 +55,35 @@ export class ViewStickerComponent {
   ) { }
 
   ngOnInit(): void {
+
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+
+          if (this.roleId == 1) {
+            this.valuestickeradd = 'View Sticker-Add';
+            this.valuestickerstatus = 'View Sticker-Status';
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+              
+              if (this.actions == 'View Sticker-Add') {
+                this.valuestickeradd = 'View Sticker-Add';
+              }
+              if (this.actions == 'View Sticker-Status') {
+                this.valuestickerstatus = 'View Sticker-Status';
+              }
+            
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    })
 
     this.service.Sticker().subscribe((res: any) => {
       this.viewall = res.response;
