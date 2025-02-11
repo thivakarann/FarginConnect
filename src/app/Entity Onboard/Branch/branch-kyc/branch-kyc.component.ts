@@ -25,6 +25,17 @@ export class BranchKycComponent {
   kycbranchdetails: any;
   merchantId:any
   getadminname = JSON.parse(localStorage.getItem('adminname') || '');
+  roleId: any = localStorage.getItem('roleId')
+  actions: any;
+  errorMessage: any;
+  getdashboard: any[] = [];
+  valuebranchkycadd:any;
+  valuebranchkycdocimage:any;
+  valuebranchkycedit:any;
+  valuebranchkycverification:any;
+  valuebranchkycApproval:any;
+  valuebranchkycComments:any;
+  
   constructor(
     public service: FarginServiceService,
     private router: Router,
@@ -50,6 +61,49 @@ export class BranchKycComponent {
       }
 
     });
+
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+          if (this.roleId == 1) {
+            this.valuebranchkycadd = 'Entity View BranchKYC-Add';
+            this.valuebranchkycdocimage = 'Entity View BranchKYC-DocumentImage';
+            this.valuebranchkycedit = 'Entity View BranchKYC-Edit';
+            this.valuebranchkycverification = 'Entity View BranchKYC-Verification';
+            this.valuebranchkycApproval = 'Entity View BranchKYC-Approval';
+            this.valuebranchkycComments = 'Entity View BranchKYC-Comments';
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+             
+              if (this.actions == 'Entity View BranchKYC-Add') {
+                this.valuebranchkycadd = 'Entity View BranchKYC-Add';
+              }
+              if (this.actions == 'Entity View BranchKYC-DocumentImage') {
+                this.valuebranchkycdocimage = 'Entity View BranchKYC-DocumentImage';
+              }
+              if (this.actions == 'Entity View BranchKYC-Edit') {
+                this.valuebranchkycedit = 'Entity View BranchKYC-Edit';
+              }    
+              if (this.actions == 'Entity View BranchKYC-Verification') {
+                this.valuebranchkycverification = 'Entity View BranchKYC-Verification';
+              }    
+              if (this.actions == 'Entity View BranchKYC-Approval') {
+                this.valuebranchkycApproval = 'Entity View BranchKYC-Approval';
+              }    
+              if (this.actions == 'Entity View BranchKYC-Comments') {
+                this.valuebranchkycComments = 'Entity View BranchKYC-Comments';
+              }
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    })
   }
 
   getFrontPath(id: any) {

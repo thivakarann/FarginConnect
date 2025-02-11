@@ -54,26 +54,26 @@ export class BranchTerminalviewComponent implements OnInit {
           this.getdashboard = res.response?.subPermission;
 
           if (this.roleId == 1) {
-            this.valuebranchTerminalAdd = 'Terminal branch-Add';
-            this.valuebranchTerminalStatus = 'Terminal branch-Status';
-            this.valuebranchTerminalEdit = 'Terminal branch-Edit';
-            this.valuebranchTerminalView = 'Terminal branch Transaction-View';
+            this.valuebranchTerminalAdd = 'Entity View Terminal branch-Add';
+            this.valuebranchTerminalStatus = 'Entity View Terminal branch-Status';
+            this.valuebranchTerminalEdit = 'Entity View Terminal branch-Edit';
+            this.valuebranchTerminalView = 'Entity View Terminal branch Transaction-View';
           }
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
 
-              if (this.actions == 'Terminal branch-Add') {
-                this.valuebranchTerminalAdd = 'Terminal branch-Add';
+              if (this.actions == 'Entity View Terminal branch-Add') {
+                this.valuebranchTerminalAdd = 'Entity View Terminal branch-Add';
               }
-              if (this.actions == 'Terminal branch-Status') {
-                this.valuebranchTerminalStatus = 'Terminal branch-Status';
+              if (this.actions == 'Entity View Terminal branch-Status') {
+                this.valuebranchTerminalStatus = 'Entity View Terminal branch-Status';
               }
-              if (this.actions == 'Terminal branch-Edit') {
-                this.valuebranchTerminalEdit = 'Terminal branch-Edit';
+              if (this.actions == 'Entity View Terminal branch-Edit') {
+                this.valuebranchTerminalEdit = 'Entity View Terminal branch-Edit';
               }
-              if (this.actions == 'Terminal branch Transaction-View') {
-                this.valuebranchTerminalView = 'Terminal branch Transaction-View';
+              if (this.actions == 'Entity View Terminal branch Transaction-View') {
+                this.valuebranchTerminalView = 'Entity View Terminal branch Transaction-View';
               }
             }
           }

@@ -1,8 +1,6 @@
 <mat-card-header>
-    <button  
-        (click)="addKycdocuments(this.id, this.merchantId)"  [disabled]="kycbranchdetails!='NO DATA FOUND'" style="color:white;background-color: #141E46;border-radius: 10px;" 
-        mat-raised-button>Add
-        KYC</button>
+    <button [hidden]="valuebranchkycadd!=='Entity View BranchKYC-Add'"  (click)="addKycdocuments(this.id, this.merchantId)"  [disabled]="kycbranchdetails!='NO DATA FOUND'" style="color:white;background-color: #141E46;border-radius: 10px;" 
+        mat-raised-button>Add KYC</button>
   
 </mat-card-header>
  <div class="row mt-4">
@@ -15,15 +13,15 @@
                         <th>Document Type</th>
                         <th>Document Name</th>
                         <th>Document No</th>
-                        <th>Document Image</th>
-                        <th>Action</th>
-                        <th>Verification</th>
+                        <th  [hidden]="valuebranchkycdocimage!=='Entity View BranchKYC-DocumentImage'">Document Image</th>
+                        <th [hidden]="valuebranchkycedit!=='Entity View BranchKYC-Edit'">Action</th>
+                        <th [hidden]="valuebranchkycverification!=='Entity View BranchKYC-Verification'">Verification</th>
                         <th>Verification Status</th>
-                        <th>Approval</th>
+                        <th  [hidden]="valuebranchkycApproval!=='Entity View BranchKYC-Approval'">Approval</th>
                         <th>Approval Status</th>
                         <th>Approved By</th>
                         <th>Approval At</th>
-                        <th>Comments</th>
+                        <th  [hidden]="valuebranchkycComments!=='Entity View BranchKYC-Comments'">Comments</th>
 
 
                     </tr>
@@ -34,17 +32,17 @@
                             <td>Identity proof</td>
                             <td>{{item.identityProof}}</td>
                             <td>{{item.identityProofNo}}</td>
-                            <td >
+                            <td [hidden]="valuebranchkycdocimage!=='Entity View BranchKYC-DocumentImage'">
                                 <span (click)="getFrontPath(item.branchProofId)"><i class='fa-regular fa-image'
                                         style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
                                 <span (click)="getBackPath(item.branchProofId)"><i class='fa-regular fa-image mx-1'
                                         style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
                             </td>
-                            <td><i class="fas fa-edit"
+                            <td [hidden]="valuebranchkycedit!=='Entity View BranchKYC-Edit'"><i class="fas fa-edit"
                                     (click)="identityedit(item)">
 
                                 </i></td>
-                            <td >
+                            <td [hidden]="valuebranchkycverification!=='Entity View BranchKYC-Verification'">
                                 <span>
                                     <i style="overflow:hidden;color:#141E46;font-size:20px;"
                                         [matMenuTriggerFor]="menu1" class="fa-solid fa-circle-info">
@@ -70,7 +68,7 @@
                                 <span *ngIf="item.identityFacheckStatus == 2" style="font-size:14px;color:red;">
                                     Failed</span>
                             </td>
-                            <td ><button
+                            <td  [hidden]="valuebranchkycApproval!=='Entity View BranchKYC-Approval'"><button
                                     class="buttonDownload" (click)="KycApproval(item)"
                                     [disabled]="item.identityAdminApprovalStatus == 'approved'">Approval</button>
                             </td>
@@ -83,7 +81,7 @@
                             <td> {{item.identityAdminApprovedBy}}
                             </td>
                             <td>{{item.identityAdminApprovedDate | date : "dd/MM/yyyy hh:mm a"}}</td>
-                            <td><span
+                            <td [hidden]="valuebranchkycComments!=='Entity View BranchKYC-Comments'"><span
                                     (click)="KYCComments(item.identityAdminComments)"><i class="fas fa-comments"
                                         style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
                             </td>
@@ -95,7 +93,7 @@
                             <td>Address proof</td>
                             <td>{{item.addressProof}}</td>
                             <td>{{item.addressProofNo}}</td>
-                            <td>
+                            <td [hidden]="valuebranchkycdocimage!=='Entity View BranchKYC-DocumentImage'">
                                 <span (click)="addressProofFrontPath(item.branchProofId)"><i
                                         class='fa-regular fa-image'
                                         style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
@@ -103,10 +101,10 @@
                                         class='fa-regular fa-image mx-1'
                                         style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
                             </td>
-                            <td>
+                            <td [hidden]="valuebranchkycedit!=='Entity View BranchKYC-Edit'">
                                 <i class="fas fa-edit" (click)="addressedits(item)"></i>
                             </td>
-                            <td>
+                            <td [hidden]="valuebranchkycverification!=='Entity View BranchKYC-Verification'">
                                 <span>
                                     <i style="overflow:hidden;color:#141E46;font-size:20px;"
                                         [matMenuTriggerFor]="menu2" class="fa-solid fa-circle-info">
@@ -132,7 +130,7 @@
                                 <span *ngIf="item.addressFacheckStatus == 2" style="font-size:14px;color:red;">
                                     Failed</span>
                             </td>
-                            <td>
+                            <td [hidden]="valuebranchkycApproval!=='Entity View BranchKYC-Approval'">
                                 <button class="buttonDownload" (click)="KycApproval1(item)"
                                     [disabled]="item.addressAdminApprovalStatus == 'approved'">Approval</button>
                             </td>
@@ -145,7 +143,7 @@
                             <td> {{item.addressAdminApprovedBy}}
                             </td>
                             <td>{{item.addressAdminApprovedDate | date : "dd/MM/yyyy hh:mm a"}}</td>
-                            <td>
+                            <td [hidden]="valuebranchkycComments!=='Entity View BranchKYC-Comments'">
                                 <span (click)="KYCComments(item.addressAdminComments)"><i
                                         class="fas fa-comments"
                                         style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
@@ -158,7 +156,7 @@
                             <td>Signature proof</td>
                             <td>{{item.signatureProof}}</td>
                             <td>{{item.signatureProofNo}}</td>
-                            <td >
+                            <td [hidden]="valuebranchkycdocimage!=='Entity View BranchKYC-DocumentImage'">
                                 <span (click)="signatureProofFrontPath(item.branchProofId)"><i
                                         class='fa-regular fa-image'
                                         style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
@@ -166,10 +164,10 @@
                                         class='fa-regular fa-image mx-1'
                                         style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
                             </td>
-                            <td >
+                            <td [hidden]="valuebranchkycedit!=='Entity View BranchKYC-Edit'">
                                 <i class="fas fa-edit" (click)="signatureedits(item)"></i>
                             </td>
-                            <td>
+                            <td [hidden]="valuebranchkycverification!=='Entity View BranchKYC-Verification'">
                                 <span>
                                     <i style="overflow:hidden;color:#141E46;font-size:20px;"
                                         [matMenuTriggerFor]="menu3" class="fa-solid fa-circle-info">
@@ -196,7 +194,7 @@
                                     style="font-size:14px;color:red;">
                                     Failed</span>
                             </td>
-                            <td>
+                            <td [hidden]="valuebranchkycApproval!=='Entity View BranchKYC-Approval'">
                                 <button class="buttonDownload" (click)="KycApproval2(item)"
                                     [disabled]="item.signatureAdminApprovalStatus== 'approved'">Approval</button>
                             </td>
@@ -210,7 +208,7 @@
                             <td> {{item.signatureAdminApprovedBy}}
                             </td>
                             <td>{{item.signatureAdminApprovedDate | date : "dd/MM/yyyy hh:mm a"}}</td>
-                            <td >
+                            <td [hidden]="valuebranchkycComments!=='Entity View BranchKYC-Comments'">
                                 <span (click)="KYCComments(item.signatureAdminComments)"><i
                                         class="fas fa-comments"
                                         style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
