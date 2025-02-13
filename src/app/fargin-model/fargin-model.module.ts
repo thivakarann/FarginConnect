@@ -1318,6 +1318,7 @@ export interface Branchadds{
   readonly createdBy:any;
   readonly merchantId:any;
   readonly accountId:any;
+  readonly smsMerchantName:any;
 }
 export interface BranchEdit{
   readonly branchName:any;

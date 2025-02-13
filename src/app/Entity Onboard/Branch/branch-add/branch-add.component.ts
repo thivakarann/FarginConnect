@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Branchadd, Branchadds } from '../../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../../service/fargin-service.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-branch-add',
@@ -41,7 +42,8 @@ export class BranchAddComponent {
     private router: Router,
     private toastr: ToastrService,
    private ActivateRoute: ActivatedRoute,
-       private _formBuilder: FormBuilder
+       private _formBuilder: FormBuilder,
+       private location:Location
  ) {
   const todayDate = new Date();
   this.today = todayDate.toISOString().split('T')[0];
@@ -66,7 +68,11 @@ export class BranchAddComponent {
       createdBy: new FormControl(''),
       merchantId: new FormControl(''),
       accountId: new FormControl('',[Validators.required]),
- 
+      smsmerchantname: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9 ]*$'),
+        Validators.maxLength(25)
+      ]),
     })
  
  
@@ -105,6 +111,10 @@ export class BranchAddComponent {
  
   get branchName() {
     return this.branch.get('branchName')
+ 
+  }
+  get smsmerchantname() {
+    return this.branch.get('smsmerchantname')
  
   }
  
@@ -438,7 +448,8 @@ export class BranchAddComponent {
       accountNumber: this.accountNumber?.value,
       ifscCode: this.ifscCode?.value,
       createdBy: this.getadminname,
-      merchantId: this.id
+      merchantId: this.id,
+      smsMerchantName:this.smsmerchantname?.value
     }
  
     this.service.BranchAdd(submitModel).subscribe((res: any) => {
@@ -490,6 +501,7 @@ export class BranchAddComponent {
     });
   }
   close() {
-    this.router.navigateByUrl('dashboard/entity-viewall');
+    // this.router.navigateByUrl('dashboard/entity-viewall');
+    this.location.back()
   }
 }
