@@ -19,8 +19,8 @@ export class ViewagreementplanComponent {
 
 
   dataSource: any;
-  displayedColumns: string[] = ["businessCategoryId", "planname", "servicefee","mmcamount","securitydepositamount",
-    "Edit", "view","createdBy", "createdDateTime", "modifiedBy", "modifiedDateTime"]
+  displayedColumns: string[] = ["businessCategoryId", "planname", "servicefee", "mmcamount", "securitydepositamount",
+    "Edit", "view", "createdBy", "createdDateTime", "modifiedBy", "modifiedDateTime"]
   businesscategory: any;
   showcategoryData: boolean = false;
   errorMsg: any;
@@ -41,46 +41,46 @@ export class ViewagreementplanComponent {
   actions: any;
   errorMessage: any;
   agreementplan: any;
-  valuebussinesscreate:any;
-  valuebussinessexport:any;
-  valuebussinessedit:any;
-  valuebussinessview:any;
+  valuebussinesscreate: any;
+  valuebussinessexport: any;
+  valuebussinessedit: any;
+  valuebussinessview: any;
 
 
-  constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService,private router:Router) { }
+  constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit() {
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-       
- 
+
+
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
- 
+
           if (this.roleId == 1) {
-           this.valuebussinesscreate='Business Plan-Add'
-           this.valuebussinessexport='Business Plan-Export'
-           this.valuebussinessedit='Business Plan-Edit'
-           this.valuebussinessview='Business Plan-View'
-       
+            this.valuebussinesscreate = 'Business Plan-Add'
+            this.valuebussinessexport = 'Business Plan-Export'
+            this.valuebussinessedit = 'Business Plan-Edit'
+            this.valuebussinessview = 'Business Plan-View'
+
           }
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
-            if(this.actions=='Business Plan-Add'){
-              this.valuebussinesscreate='Business Plan-Add'
-            }
-            if(this.actions=='Business Plan-Export'){
-              this.valuebussinessexport='Business Plan-Export'
-            }
-            if(this.actions=='Business Plan-Edit'){
-              this.valuebussinessedit='Business Plan-Edit'
-            }
-            if(this.actions=='Business Plan-View'){
-              this.valuebussinessview='Business Plan-View'
-            }
-           
+              if (this.actions == 'Business Plan-Add') {
+                this.valuebussinesscreate = 'Business Plan-Add'
+              }
+              if (this.actions == 'Business Plan-Export') {
+                this.valuebussinessexport = 'Business Plan-Export'
+              }
+              if (this.actions == 'Business Plan-Edit') {
+                this.valuebussinessedit = 'Business Plan-Edit'
+              }
+              if (this.actions == 'Business Plan-View') {
+                this.valuebussinessview = 'Business Plan-View'
+              }
+
             }
           }
         }
@@ -107,7 +107,7 @@ export class ViewagreementplanComponent {
       }
     });
 
-   
+
 
   }
 
@@ -120,13 +120,13 @@ export class ViewagreementplanComponent {
     });
 
   }
-   view(id: any) {
+  view(id: any) {
     this.router.navigate([`/allagreementplan/${id}`], {
       queryParams: { Alldata: id },
     });
   }
 
-  reload(){
+  reload() {
     this.service.viewagreementplan().subscribe((res: any) => {
       if (res.flag == 1) {
         this.agreementplan = res.response;
@@ -161,13 +161,13 @@ export class ViewagreementplanComponent {
   //   this.isChecked = event.checked;
 
   //   let submitModel: Businessstatus = {
-    
+
   //     activeStatus: this.isChecked ? 1 : 0,
 
   //   };
 
   //   this.service.Businessactive(id, submitModel).subscribe((res: any) => {
-      
+
   //     this.toastr.success(res.responseMessage);
   //     setTimeout(() => {
   //       window.location.reload();
@@ -176,36 +176,36 @@ export class ViewagreementplanComponent {
   // }
 
 
- 
+
 
   exportexcel() {
- 
+
     let sno = 1;
     this.responseDataListnew = [];
     this.agreementplan.forEach((element: any) => {
       // let createdate = element.createdAt;
       // this.date1 =  moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-   
-   
-   
+
+
+
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.planName);
       this.response.push(element?.serviceFee);
-   
+
       this.response.push(element?.createdBy);
-      if(element.createdAt){
+      if (element.createdAt) {
         this.response.push(moment(element?.createdAt).format('DD/MM/yyyy-hh:mm a').toString());
       }
-      else{
+      else {
         this.response.push('-');
       }
       this.response.push(element?.modifiedBy);
-   
-      if(element.modifiedAt){
+
+      if (element.modifiedAt) {
         this.response.push(moment(element?.modifiedAt).format('DD/MM/yyyy-hh:mm a').toString());
       }
-      else{
+      else {
         this.response.push('-');
       }
       sno++;
@@ -213,27 +213,27 @@ export class ViewagreementplanComponent {
     });
     this.excelexportCustomer();
   }
-   
+
   excelexportCustomer() {
     const header = [
       "SNo",
       "Planname",
       "Servicefee",
-       "CreatedBy",
-       "CreatedDateTime",
-       "ModifiedBy",
-       "ModifiedDateTime"
+      "CreatedBy",
+      "CreatedDateTime",
+      "ModifiedBy",
+      "ModifiedDateTime"
     ]
-   
-   
+
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Business Plan');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-   
-   
+
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -244,15 +244,15 @@ export class ViewagreementplanComponent {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
-   
+
       }
-   
+
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
-   
+
     data.forEach((d: any) => {
       //
-   
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -261,9 +261,9 @@ export class ViewagreementplanComponent {
       let qty4 = row.getCell(5);
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
-   
-   
-   
+
+
+
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -271,25 +271,25 @@ export class ViewagreementplanComponent {
       qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
+
     }
     );
-   
+
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
     // worksheet.getColumn(2).protection = { locked: true, hidden: true }
     // worksheet.getColumn(3).protection = { locked: true, hidden: true }
-   
-   
+
+
     workbook.xlsx.writeBuffer().then((data: any) => {
-   
+
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-   
-   
+
+
       FileSaver.saveAs(blob, 'Business Plan.xlsx');
-   
+
     });
   }
- 
+
 
 
 }

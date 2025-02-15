@@ -1084,8 +1084,10 @@
                             <th [hidden]="valuemanualview!=='One Time Setup Payment-View'">View</th>
                             <th>Payment Status</th>
                             <th>Payment Method</th>
+                            <th>Cheque Date</th>
                           
-                            <th>Date</th>
+                            <th>Manual CreatedBy</th>
+                            <th>Manual UpdatedBy</th>
                             <th>Paid At</th>
                         </tr>
                         <tbody
@@ -1120,8 +1122,9 @@
 
                             </td>
                             <td>{{item.paymentMethod}}</td>
-                       
-                            <td>{{item.date}}</td>
+                         <td>{{item.date |date : "dd/MM/yyyy"}}</td>
+                            <td>{{item?.manualApprovalBy}}</td>
+                            <td>{{item?.updatedBy}}</td>
                             <td>{{item.paymentDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
                         </tbody>
                     </table>

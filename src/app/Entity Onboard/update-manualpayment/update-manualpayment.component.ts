@@ -85,7 +85,8 @@ this.dates=this.data.value.date
       utrNumber: this.utrnumber?.value,
       date:this.date?.value,
       merchantId: this.merchantId,
-      paidAmount: this.payamount
+      paidAmount: this.payamount,
+      updatedby :this.getadminname
     }
  
     this.Approval.UpdateManualPayment(this.merchantpayid,submitModel).subscribe((res: any) => {
