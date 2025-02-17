@@ -94,11 +94,11 @@ export class BranchTransactionsComponent {
 
  
     let submitModel: Branchtransaction = {
-      pageNo: this.currentPage,
+      pageNo: '1',
       query: '',
       size: '20',
       dateRange: '',
-      status: this.Daterange,
+      status: '',
       merchantId: this.merchantId,
       branchTerminalId: this.branchterminalId
     }
@@ -138,11 +138,11 @@ export class BranchTransactionsComponent {
   reload() {
    
     let submitModel: Branchtransaction = {
-      pageNo: this.currentPage,
+      pageNo: '1',
       query: '',
       size: '20',
       dateRange: '',
-      status: this.Daterange,
+      status: '',
       merchantId: this.merchantId,
       branchTerminalId: this.branchterminalId
     }
@@ -189,11 +189,11 @@ export class BranchTransactionsComponent {
     this.currentPage = 1;
  
     let submitModel: Branchtransaction = {
-      pageNo: this.currentPage,
+      pageNo: '1',
       query: '',
       size: '20',
       dateRange: '',
-      status: this.Daterange,
+      status: '',
       merchantId: this.merchantId,
       branchTerminalId: this.branchterminalId
     }
@@ -219,11 +219,11 @@ export class BranchTransactionsComponent {
   reset() {
   this.Daterange = '';
   let submitModel: Branchtransaction = {
-    pageNo: this.currentPage,
+    pageNo:'1',
     query: '',
     size: '20',
     dateRange: '',
-    status: this.Daterange,
+    status: '',
     merchantId: this.merchantId,
     branchTerminalId: this.branchterminalId
   }

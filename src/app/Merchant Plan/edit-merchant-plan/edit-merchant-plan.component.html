@@ -7,7 +7,7 @@
         <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="myForm">
             <p style="color:red;font-size:small"><b>Note: Please enter the amount excluding GST.</b></p>
             <div class="row mb-3">
-                <div class="col-sm-6 form-group">
+                <div class="col-sm-4 form-group">
                     <label for="Entity Name">Plan Name</label>
                     <input [(ngModel)]="planame" type="text" id="Entity Name" formControlName="planName"
                         class="form-control">
@@ -21,7 +21,7 @@
                         Field is required
                     </div>
                 </div>
-                <div class="col-sm-6 form-group">
+                <div class="col-sm-4 form-group">
                     <label for="state">PlatForm Fee</label>
                     <input [(ngModel)]="onetimeamount" type="text" formControlName="technicalAmount" id="state"
                         class="form-control">
@@ -44,9 +44,8 @@
                         Only positive numbers are allowed
                     </div>
                 </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-sm-6 form-group">
+
+                <div class="col-sm-4 form-group">
                     <label for="zip">Maintenance Amount</label>
                     <input [(ngModel)]="MaintenanceAmount" type="text" formControlName="maintenanceAmount" id="zip"
                         class="form-control">
@@ -70,8 +69,59 @@
                         Only positive numbers are allowed
                     </div>
                 </div>
+            </div>
+            <div class="row mb-3">
+               
 
-                <div class="col-sm-6 form-group">
+                <div class="col-sm-4 form-group">
+                    <label for="state">VoiceBox Advance Cost</label>
+                    <input type="text" [(ngModel)]="VoiceBoxAdv" formControlName="voiceBoxAdvRent" id="state" class="form-control">
+
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="voiceBoxAdvRent?.invalid && voiceBoxAdvRent?.touched && voiceBoxAdvRent?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="voiceBoxAdvRent?.invalid && voiceBoxAdvRent?.touched && voiceBoxAdvRent?.errors?.['pattern']">
+                        Only positive numbers are allowed
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="zip">VoiceBox Setup Cost</label>
+                    <input type="text" [(ngModel)]="VoiceBoxSet" formControlName="voiceBoxSetupFee" id="zip" class="form-control">
+
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="voiceBoxSetupFee?.invalid && voiceBoxSetupFee?.touched && voiceBoxSetupFee?.errors?.['required']">
+                        Field is required
+                    </div>
+
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="voiceBoxSetupFee?.invalid && voiceBoxSetupFee?.touched && voiceBoxSetupFee?.errors?.['pattern']">
+                        Only positive numbers are allowed
+                    </div>
+                </div>
+
+                <div class="col-sm-4 form-group">
                     <label for="Bussiness category">Frequency Type</label>
                     <select [(ngModel)]="Frequency" formControlName="frequency" id="Bussiness category"
                         class="form-control form-select">
@@ -100,7 +150,7 @@
             </div>
 
             <div class="row mb-3">
-                <div class="col-sm-6 form-group">
+                <div class="col-sm-4 form-group">
                     <label for="zip">Renewal Amount</label>
                     <input [(ngModel)]="RenewelAmount" type="text" formControlName="renewalAmount" id="zip" class="form-control"
                      
@@ -126,7 +176,7 @@
                         Only positive numbers are allowed
                     </div>
                 </div> 
-                <div class="col-sm-6 form-group">
+                <div class="col-sm-4 form-group">
                     <label for="count">Plan Customer Limit</label>
                     <input type="text" formControlName="countLimit" id="count" class="form-control"
                     [(ngModel)]="countlimit" >

@@ -16,6 +16,7 @@ export class CreateManualpaymentComponent implements OnInit {
   getadminname = JSON.parse(localStorage.getItem('adminname') || '');
   id: any;
   myForm!: FormGroup;
+  chequedate: any;
  
   constructor(private router: Router, private Approval: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog) { }
   ngOnInit(): void {
@@ -55,12 +56,22 @@ export class CreateManualpaymentComponent implements OnInit {
  
  
   submit() {
+    if(this.paymentmode?.value !='Cheque'){
+      this.chequedate = '-';
+console.log(this.chequedate)
+  }
+ 
+  else {
+    this.chequedate = this.validitydate?.value
+console.log(this.chequedate)
+  }
+
     let submitModel: createManualPayment = {
       paymentMethod: this.paymentmode?.value,
       utrNumber: this.utrnumber?.value.trim(),
       paymentStatus:'Success',
       merchantId: this.id,
-      date: this.validitydate?.value,
+      date: this.chequedate,
       manualApprovalBy: this.getadminname
     }
  

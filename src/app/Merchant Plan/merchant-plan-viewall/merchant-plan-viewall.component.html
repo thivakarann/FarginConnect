@@ -67,6 +67,15 @@
                 <td mat-cell *matCellDef="let viewall">{{viewall.maintenanceAmount}}</td>
             </ng-container>
  
+
+            <ng-container matColumnDef="voiceBoxSetupFee">
+                <th mat-header-cell *matHeaderCellDef>VoiceBoxSetUp Cost</th>
+                <td mat-cell *matCellDef="let viewall">{{viewall.voiceBoxSetupFee}}</td>
+            </ng-container>
+            <ng-container matColumnDef="voiceBoxAdvRent">
+                <th mat-header-cell *matHeaderCellDef>VoiceBox AdvRent</th>
+                <td mat-cell *matCellDef="let viewall">{{viewall.voiceBoxAdvRent}}</td>
+            </ng-container>
             <ng-container matColumnDef="frequency">
                 <th mat-header-cell *matHeaderCellDef>Frequency</th>
                 <td mat-cell *matCellDef="let viewall">{{viewall.frequency}}</td>
@@ -78,7 +87,7 @@
             </ng-container>
  
             <ng-container matColumnDef="countLimit">
-                <th mat-header-cell *matHeaderCellDef>Plan Customer Limit</th>
+                <th mat-header-cell *matHeaderCellDef>Customer Limit</th>
                 <td mat-cell *matCellDef="let viewall">{{viewall.countLimit}}</td>
             </ng-container>
  

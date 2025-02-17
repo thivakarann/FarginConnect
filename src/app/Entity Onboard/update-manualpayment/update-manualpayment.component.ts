@@ -26,6 +26,7 @@ export class UpdateManualpaymentComponent {
   paymentMethod: any;
   Utrnumber: any;
   dates: any;
+  chequedate: any;
 
 
  
@@ -79,11 +80,21 @@ this.dates=this.data.value.date
  
  
   submit() {
+    if(this.paymentmode?.value !='Cheque'){
+      this.chequedate = '-';
+console.log(this.chequedate)
+  }
+ 
+  else {
+    this.chequedate = this.date?.value
+console.log(this.chequedate)
+  }
+
     let submitModel: manualPayment = {
       paymentStatus: this.paidStatus?.value,
       paymentMethod: this.paymentmode?.value,
       utrNumber: this.utrnumber?.value,
-      date:this.date?.value,
+      date:this.chequedate,
       merchantId: this.merchantId,
       paidAmount: this.payamount,
       updatedby :this.getadminname

@@ -35,8 +35,10 @@ export class MerchantPlanAddComponent implements OnInit {
       maintenanceAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\\.[0-9]{1,2})?$')]),
       frequency: new FormControl('', Validators.required),
       renewalAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\\.[0-9]{1,2})?$')]),
-      countLimit:new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\\.[0-9]{1,2})?$')]),
- 
+      voiceBoxAdvRent: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\\.[0-9]{1,2})?$')]),
+      voiceBoxSetupFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\\.[0-9]{1,2})?$')]),
+      countLimit: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\\.[0-9]{1,2})?$')]),
+
     });
   }
 
@@ -64,18 +66,30 @@ export class MerchantPlanAddComponent implements OnInit {
     return this.myForm.get('renewalAmount')
 
   }
+
+  get voiceBoxAdvRent() {
+    return this.myForm.get('voiceBoxAdvRent')
+
+  }
+
+  get voiceBoxSetupFee() {
+    return this.myForm.get('voiceBoxSetupFee')
+
+  }
   get countLimit() {
     return this.myForm.get('countLimit')
- 
+
   }
   submit() {
     let submitModel: MerchantplanCreate = {
       planName: this.planName?.value.trim(),
-      technicalAmount: this.technicalAmount?.value.trim(),
-      maintenanceAmount: this.maintenanceAmount?.value.trim(),
+      technicalAmount: this.technicalAmount?.value,
+      maintenanceAmount: this.maintenanceAmount?.value,
+      voiceBoxAdvRent: this.voiceBoxAdvRent?.value,
+      voiceBoxSetupFee: this.voiceBoxSetupFee?.value,
       frequency: this.frequency?.value,
-      renewalAmount: this.renewalAmount?.value.trim(),
-      countLimit:this.countLimit?.value.trim(),
+      renewalAmount: this.renewalAmount?.value,
+      countLimit: this.countLimit?.value,
       createdBy: this.getadminname
     }
 
@@ -83,7 +97,7 @@ export class MerchantPlanAddComponent implements OnInit {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.dialog.closeAll();
-    
+
 
       }
       else {

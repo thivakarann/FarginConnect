@@ -24,6 +24,8 @@ export class EditMerchantPlanComponent implements OnInit {
   numberValues: number | any = null
   RenewelAmount: any;
   countlimit: any;
+  VoiceBoxAdv: any;
+  VoiceBoxSet: any;
 
   constructor(
     public merchantplanedit: FarginServiceService,
@@ -39,6 +41,8 @@ export class EditMerchantPlanComponent implements OnInit {
       technicalAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\\.[0-9]{1,2})?$')]),
       maintenanceAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\\.[0-9]{1,2})?$')]),
       frequency: new FormControl('', Validators.required),
+      voiceBoxAdvRent: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\\.[0-9]{1,2})?$')]),
+      voiceBoxSetupFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\\.[0-9]{1,2})?$')]),
       renewalAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\\.[0-9]{1,2})?$')]),
       countLimit:new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\\.[0-9]{1,2})?$')]),
     });
@@ -51,7 +55,10 @@ export class EditMerchantPlanComponent implements OnInit {
     this.MaintenanceAmount = this.data.value.maintenanceAmount;
     this.Frequency = this.data.value.frequency;
     this.RenewelAmount = this.data.value.renewalAmount;
+    this.VoiceBoxAdv = this.data.value.voiceBoxAdvRent;
+    this.VoiceBoxSet = this.data.value.voiceBoxSetupFee;
     this.countlimit= this.data.value.countLimit;
+    console.log(" VoiceBoxAdv" +   this.VoiceBoxAdv)
     
 
 
@@ -85,6 +92,16 @@ export class EditMerchantPlanComponent implements OnInit {
     return this.myForm.get('countLimit')
  
   }
+
+  get voiceBoxAdvRent() {
+    return this.myForm.get('voiceBoxAdvRent')
+
+  }
+
+  get voiceBoxSetupFee() {
+    return this.myForm.get('voiceBoxSetupFee')
+
+  }
  
 
   submit() {
@@ -93,8 +110,10 @@ export class EditMerchantPlanComponent implements OnInit {
       technicalAmount: this.technicalAmount?.value,
       maintenanceAmount: this.maintenanceAmount?.value,
       frequency: this.frequency?.value,
+      voiceBoxAdvRent: this.voiceBoxAdvRent?.value,
+      voiceBoxSetupFee: this.voiceBoxSetupFee?.value,
       renewalAmount: this.renewalAmount?.value,
-      countLimit:this.countLimit?.value.trim(),
+      countLimit:this.countLimit?.value,
       modifiedBy: this.getadminname
     }
 

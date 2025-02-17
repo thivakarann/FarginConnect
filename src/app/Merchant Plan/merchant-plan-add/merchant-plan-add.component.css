@@ -14,7 +14,7 @@ button {
   color: var(--gray-9);
   background-color: #fff;
   display: grid;
-  width: 500px;
+  width: 640px;
   grid-template-areas: "main";
   height: auto;
   font-family: var(--font-sans);
@@ -40,8 +40,8 @@ button {
   color: var(--gray-9);
   background-color: #fff;
   display: grid;
-  width: 100%;
-  max-width: 100%;
+  width:640px;
+  /* max-width: 100%; */
   border: 1px solid var(--gray-4);
   border-radius: var(--radius-2);
   padding: var(--size-3);

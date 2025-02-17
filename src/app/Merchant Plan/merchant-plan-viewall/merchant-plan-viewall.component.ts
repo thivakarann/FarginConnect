@@ -24,13 +24,15 @@ export class MerchantPlanViewallComponent {
   displayedColumns: string[] = [
     'merchantPlanId',
     'planName',
-    'serviceAmount',
-    'renewalAmount',
     'countLimit',
-    'maintenanceAmount',
-    'frequency',
     'activeStatus',
     'Edit',
+    'serviceAmount',
+    'renewalAmount',
+    'maintenanceAmount',
+    'voiceBoxSetupFee',
+    'voiceBoxAdvRent',
+    'frequency',
     'createdBy',
     'createdDateTime',
     'modifiedBy',
@@ -232,13 +234,14 @@ export class MerchantPlanViewallComponent {
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.planName);
- 
       this.response.push(element?.technicalAmount);
-     
       this.response.push(element?.renewalAmount);
+      this.response.push(element?.maintenanceAmount);
+      this.response.push(element?.voiceBoxSetupFee);
+      this.response.push(element?.voiceBoxSetupFee);
       this.response.push(element?.countLimit);
  
-      this.response.push(element?.maintenanceAmount);
+      
       this.response.push(element?.frequency);
  
       if (element?.activeStatus == 1) {
@@ -278,8 +281,10 @@ export class MerchantPlanViewallComponent {
       "PlanName",
       "Setup Cost",
       "Renewal Amount",
-      "Count Limit",
       "Maintenance Amount",
+      "voiceBoxSetupFee",
+      "voiceBoxAdvRent",
+      "Customer Limit",
       "Frequency",
       "Status",
       "Created By",
@@ -329,6 +334,10 @@ export class MerchantPlanViewallComponent {
       let qty9 = row.getCell(10);
       let qty10 = row.getCell(11);
       let qty11 = row.getCell(12);
+      let qty12 = row.getCell(13);
+      let qty13 = row.getCell(14);
+      let qty14 = row.getCell(15);
+
 
  
  
@@ -346,6 +355,9 @@ export class MerchantPlanViewallComponent {
       qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty12.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty13.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty14.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
 
  
     }

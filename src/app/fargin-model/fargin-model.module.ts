@@ -617,6 +617,8 @@ export interface MerchantplanCreate {
   readonly createdBy: any;
   readonly renewalAmount: any;
   readonly countLimit:any;
+  readonly voiceBoxAdvRent:any;
+  readonly voiceBoxSetupFee:any;
 }
 
 export interface MerchantplanUpdate {
@@ -626,6 +628,8 @@ export interface MerchantplanUpdate {
   readonly frequency: any;
   readonly modifiedBy: any;
   readonly renewalAmount: any;
+  readonly voiceBoxAdvRent:any;
+  readonly voiceBoxSetupFee:any;
   readonly countLimit:any;
 }
 

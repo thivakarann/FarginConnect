@@ -7,7 +7,7 @@
         <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="myForm">
             <p style="color:red;font-size:small"><b>Note: Please enter the amount excluding GST.</b></p>
             <div class="row mb-3">
-                <div class="col-sm-6 form-group">
+                <div class="col-sm-4 form-group">
                     <label for="Entity Name">Plan Name</label>
                     <input type="text" id="Entity Name" formControlName="planName" class="form-control">
                     <div style="
@@ -20,10 +20,9 @@
                         Field is required
                     </div>
                 </div>
-                <div class="col-sm-6 form-group">
+                <div class="col-sm-4 form-group">
                     <label for="state">PlatForm Fee</label>
-                    <input type="text" formControlName="technicalAmount" id="state"
-                        class="form-control">
+                    <input type="text" formControlName="technicalAmount" id="state" class="form-control">
 
                     <div style="
                     color: red;
@@ -44,12 +43,9 @@
                         Only positive numbers are allowed
                     </div>
                 </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-sm-6 form-group">
+                <div class="col-sm-4 form-group">
                     <label for="zip">Maintenance Amount</label>
-                    <input type="text" formControlName="maintenanceAmount" id="zip" class="form-control"
-                        >
+                    <input type="text" formControlName="maintenanceAmount" id="zip" class="form-control">
 
                     <div style="
                     color: red;
@@ -71,8 +67,57 @@
                         Only positive numbers are allowed
                     </div>
                 </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-4 form-group">
+                    <label for="state">VoiceBox Advance Cost</label>
+                    <input type="text" formControlName="voiceBoxAdvRent" id="state" class="form-control">
 
-                <div class="col-sm-6 form-group">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="voiceBoxAdvRent?.invalid && voiceBoxAdvRent?.touched && voiceBoxAdvRent?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="voiceBoxAdvRent?.invalid && voiceBoxAdvRent?.touched && voiceBoxAdvRent?.errors?.['pattern']">
+                        Only positive numbers are allowed
+                    </div>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="zip">VoiceBox Setup Cost</label>
+                    <input type="text" formControlName="voiceBoxSetupFee" id="zip" class="form-control">
+
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="voiceBoxSetupFee?.invalid && voiceBoxSetupFee?.touched && voiceBoxSetupFee?.errors?.['required']">
+                        Field is required
+                    </div>
+
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="voiceBoxSetupFee?.invalid && voiceBoxSetupFee?.touched && voiceBoxSetupFee?.errors?.['pattern']">
+                        Only positive numbers are allowed
+                    </div>
+                </div>
+
+                <div class="col-sm-4 form-group">
                     <label for="Bussiness category">Frequency Type</label>
                     <select formControlName="frequency" id="Bussiness category" class="form-control form-select">
                         <option value="" disabled selected>Select</option>
@@ -92,7 +137,7 @@
                     position: relative;
                     ;
                   " *ngIf="frequency?.invalid && frequency?.touched && frequency?.errors?.['required']">
-                         Field is Required
+                        Field is Required
                     </div>
                 </div>
 
@@ -100,11 +145,10 @@
             </div>
 
             <div class="row mb-3">
-                <div class="col-sm-6 form-group">
+                <div class="col-sm-4 form-group">
                     <label for="zip">Renewal Amount</label>
-                    <input type="text" formControlName="renewalAmount" id="zip" class="form-control"
-                       >
-              
+                    <input type="text" formControlName="renewalAmount" id="zip" class="form-control">
+
                     <div style="
                     color: red;
                     font-size: 12px;
@@ -124,11 +168,10 @@
                         *Only Positive Number are allowed
                     </div>
                 </div>
-                <div class="col-sm-6 form-group">
-                    <label for="count">Plan Customer Limit</label>
-                    <input type="text" formControlName="countLimit" id="count" class="form-control"
-                       >
-             
+                <div class="col-sm-4 form-group">
+                    <label for="count">Customer Limit</label>
+                    <input type="text" formControlName="countLimit" id="count" class="form-control">
+
                     <div style="
                     color: red;
                     font-size: 12px;
