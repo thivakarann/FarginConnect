@@ -30,6 +30,7 @@ export class OtherpaymentsViewallComponent {
     'sgst',
     'igst',
     'totalamount',
+    'createdDateTime',
     'paidAt',
     'receipt',
     'CheckStatus',
@@ -295,6 +296,13 @@ currentfilVal: any;
           this.response.push(element?.sgstPercentage);
           this.response.push(element?.igstPercentage);
           this.response.push(element?.totalPayableAmount);
+
+          if(element.createdDateTime){
+            this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
+          }
+          else{
+            this.response.push('');
+          }
        
           if(element.paymentDateTime){
             this.response.push(moment(element?.paymentDateTime).format('DD/MM/yyyy hh:mm a').toString());
@@ -334,6 +342,7 @@ currentfilVal: any;
       'SGST Percentage',
       'IGST Pecentage',
       'Total Payable Amount',
+      'Due Generated At',
       'Paid At',
       'Status',
     ]

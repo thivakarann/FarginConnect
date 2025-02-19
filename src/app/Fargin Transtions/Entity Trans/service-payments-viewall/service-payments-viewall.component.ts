@@ -25,6 +25,7 @@ export class ServicePaymentsViewallComponent {
     'entityname',
     'paymentmethod',
     'amount',
+    'createdDateTime',
     'paidAt',
     'receipt',
     'CheckStatus',
@@ -357,6 +358,12 @@ export class ServicePaymentsViewallComponent {
       this.response.push(element?.paidAmount);
       this.response.push(element?.gstAmount);
       this.response.push(element?.totalPayableAmount);
+      if(element.createdDateTime){
+        this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
+      }
+      else{
+        this.response.push('');
+      }
       if(element.paymentDateTime){
         this.response.push(moment(element?.paymentDateTime).format('DD/MM/yyyy hh:mm a').toString());
       }

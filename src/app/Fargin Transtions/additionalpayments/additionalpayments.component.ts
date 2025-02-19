@@ -26,6 +26,7 @@ export class AdditionalpaymentsComponent {
     'customername',
     'paymentmethod',
     'amount',
+    'createdDateTime',
     'paidAt',
     'Receipt',
     'CheckStatus',
@@ -308,6 +309,12 @@ export class AdditionalpaymentsComponent {
           this.response.push(element?.paymentMethod);
           this.response.push(element?.paidAmount);
           // this.response.push(this.date1);
+          if(element.createdDateTime){
+            this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
+          }
+          else{
+            this.response.push('');
+          }
           if(element.paymentDateTime){
             this.response.push(moment(element?.paymentDateTime).format('DD/MM/yyyy hh:mm a').toString());
           }
@@ -342,6 +349,7 @@ export class AdditionalpaymentsComponent {
       'Customer Name',
       'Payment Method',
       'Amount',
+      "Due Generated At",
       'Paid At',
       'Status',
  
