@@ -24,12 +24,12 @@ export class CustomerTransViewallComponent {
     'sno',
     'paymentId',
     'entityname',
-    'customerid',
     'customername',
     'customemobile',
-    'service',
     'setupbox',
+    'service',
     'paymentmethod',
+    'createdDateTime',
     'amount',
     'paidAt',
     'Receipt',
@@ -366,6 +366,12 @@ export class CustomerTransViewallComponent {
           else{
             this.response.push('');
           }
+          if(element.createdDateTime){
+            this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
+          }
+          else{
+            this.response.push('');
+          }
           if (element?.paymentStatus == 'Success') {
             this.response.push('Success');
           }
@@ -396,6 +402,7 @@ export class CustomerTransViewallComponent {
       'Setupbox Number',
       'Payment Method',
       'Amount',
+      'Due Generated At ',
       'Paid At',
       'Status',
  

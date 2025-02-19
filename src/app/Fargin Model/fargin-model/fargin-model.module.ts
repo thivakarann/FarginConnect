@@ -177,6 +177,10 @@ export interface ApprovalforBank {
   readonly modifiedBy: any;
 }
 
+export interface Manuvelduesforcloudfee {
+  readonly merchantId: any;
+}
+
 
 
 

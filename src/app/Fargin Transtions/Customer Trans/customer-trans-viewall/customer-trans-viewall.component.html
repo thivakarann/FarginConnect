@@ -88,10 +88,6 @@
                 <td mat-cell *matCellDef="let transaction"> {{ transaction?.customerId?.merchantId?.entityName }}
                 </td>
             </ng-container>
-            <ng-container matColumnDef="customerid">
-                <th mat-header-cell *matHeaderCellDef>Customer ID</th>
-                <td mat-cell *matCellDef="let transaction"> {{transaction?.customerId?.customerId }}</td>
-            </ng-container>
             <ng-container matColumnDef="customername">
                 <th mat-header-cell *matHeaderCellDef>Customer Name</th>
                 <td mat-cell *matCellDef="let transaction"> {{transaction?.customerId?.customerName }}</td>
@@ -104,6 +100,13 @@
                 <th mat-header-cell *matHeaderCellDef>Service ProviderName</th>
                 <td mat-cell *matCellDef="let transaction">
                     {{transaction?.customerStbId?.stbId?.service?.serviceProviderName }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="createdDateTime">
+                <th mat-header-cell *matHeaderCellDef>Due Generated At</th>
+                <td mat-cell *matCellDef="let transaction"> {{ transaction.createdDateTime | date : "dd-MM-yyyy hh:mm a"
+                    }}
+                </td>
             </ng-container>
             <ng-container matColumnDef="setupbox">
                 <th mat-header-cell *matHeaderCellDef>Setupbox Number</th>

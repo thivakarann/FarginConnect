@@ -386,6 +386,7 @@ export class FarginServiceService {
   private readonly maintenancetransactionexport = 'maintanancePay/getMaintainance';
   private readonly maintenancedatefilter = 'maintanancePay/dateFilter/';
   private readonly maintenancetransactionview = 'maintanancePay/viewById/';
+  private readonly Manuveldueformaintenance = 'maintanancePay/due-generate';
 
 
   //onetime
@@ -1803,6 +1804,10 @@ private readonly entityterminalupdate ='entityTerminal/update/';
 
   MaintenanceAllTransactions(id: any, id1: any) {
     return this.http.get(`${this.basePath}${this.maintenancetransaction}${id}/${id1}`, this.options)
+  }
+
+  MaintenancedueManuvelgenerate(model:any){
+    return this.http.post(`${this.basePath}${this.Manuveldueformaintenance}`,model,this.options)
   }
   MaintenanceAllTransactionsExport() {
     return this.http.get(`${this.basePath}${this.maintenancetransactionexport}`, this.options)
