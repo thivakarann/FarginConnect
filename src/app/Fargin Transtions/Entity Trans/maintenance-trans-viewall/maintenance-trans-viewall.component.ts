@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, TemplateRef, ViewChild } from '@angular/core';
 import { MaintanceViewComponent } from '../maintance-view/maintance-view.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { FarginServiceService } from '../../../service/fargin-service.service';
@@ -9,9 +9,15 @@ import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
 import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
-import { subscriptionpay } from '../../../fargin-model/fargin-model.module';
+import { Cloudfee, subscriptionpay } from '../../../fargin-model/fargin-model.module';
 import { PageEvent } from '@angular/material/paginator';
 import { TransManualPayComponent } from '../trans-manual-pay/trans-manual-pay.component';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+interface Option {
+  entityName: string;
+  merchantId: number;
+}
 
 @Component({
   selector: 'app-maintenance-trans-viewall',
@@ -104,9 +110,25 @@ export class MaintenanceTransViewallComponent {
   filter1: boolean = false;
   filters: boolean = false;
   currentfilVal:any="";
- 
 
-  constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
+  backs: any = '';
+  userInput: string = '';
+  options: Option[] = [];
+  search: any;
+  filterValue: any;
+  
+  @ViewChild('dialogTemplate') dialogTemplate!: TemplateRef<any>;
+  dialogRef: any;
+  @ViewChild('CloudFeeDateFilter') CloudFeeDateFilter!: TemplateRef<any>;
+  @ViewChild('CloudFeeSearch') CloudFeeSearch!: TemplateRef<any>;
+  cloudfeesearch: any = FormGroup;
+  Datefiltercloudfee:any= FormGroup;
+  merchantId: any;
+  flags: any;
+  cloudfee: any;
+  selectedOption: any;
+
+  constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog,private fb:FormBuilder) { }
 
 
 
@@ -179,9 +201,32 @@ export class MaintenanceTransViewallComponent {
 
     });
 
+    this.cloudfeesearch = this.fb.group({
+          pay: ['', [Validators.required]],
+          startDate: ['',],
+          endDate: ['',],
+          search: ['', [Validators.required]]
+        });
+    
+        this.Datefiltercloudfee = this.fb.group({
+          FromDateRange: ['', Validators.required],
+          ToDateRange: ['', Validators.required]
+        });
 
   }
 
+  
+
+  get pay() {
+    return this.cloudfeesearch.get('pay');
+  }
+
+  get startDate() {
+    return this.cloudfeesearch.get('startDate');
+  }
+  get endDate() {
+    return this.cloudfeesearch.get('endDate');
+  }
 
   reload() {
     this.service.MaintenanceAllTransactions(this.pageSize, this.pageIndex).subscribe((res: any) => {
@@ -230,35 +275,48 @@ export class MaintenanceTransViewallComponent {
 
 
   filterdate() {
-    // const datepipe: DatePipe = new DatePipe("en-US");
-    // let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY HH:mm");
-    // let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/YYYY HH:mm");
-    // this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
-    // this.currentPage = 1;
+    const fromDate = this.Datefiltercloudfee.get('FromDateRange')?.value;
+    const toDate = this.Datefiltercloudfee.get('ToDateRange')?.value;
 
-    this.service.MaintenanceTransactionFilter(this.FromDateRange, this.ToDateRange, this.pageSize1, this.pageIndex1).subscribe((res: any) => {
+
+    this.service.MaintenanceTransactionFilter(fromDate, toDate, this.pageSize2, this.pageIndex2).subscribe((res: any) => {
       if (res.flag == 1) {
 
         this.transaction = res.response;
-
-        this.totalPages1 = res.pagination.totalElements;
-        this.totalpage1 = res.pagination.totalPages;
-        this.currentpage1 = res.pagination.currentPage + 1;
-
-
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.filter1 = true; 
-        this.filter=false;
-        this.filters=false;       }
+        this.totalPages2 = res.pagination.totalElements;
+        this.totalpage2 = res.pagination.totalPages;
+        this.currentpage2 = res.pagination.currentPage + 1;
+
+        this.filter1 = false;
+        this.filter = false;
+
+        this.filters = true;
+        this.dialog.closeAll()
+            }
       else if (res.flag == 2) {
-        this.filter1 = true; 
-        this.filter=false;
-        this.filters=false;         this.transaction = [];
+        this.toastr.error(res.responseMessage)
+        this.dialog.closeAll()
+
+        this.transaction = [];
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;  
+        this.dataSource.paginator = this.paginator;
+        this.totalPages2 = res.pagination.totalElements;
+        this.totalpage2 = res.pagination.totalPages;
+        this.currentpage2 = res.pagination.currentPage + 1;
+
+        this.filter = false;
+        this.filter1 = false;
+        this.filters = true;
+        // this.filter1 = true; 
+        // this.filter=false;
+        // this.filters=false;         this.transaction = [];
+        // this.dataSource = new MatTableDataSource(this.transaction);
+        // this.dataSource.sort = this.sort;
+        // this.dataSource.paginator = this.paginator;  
       }
     })
   }
@@ -295,6 +353,15 @@ export class MaintenanceTransViewallComponent {
       }
 
     });
+
+    
+    this.backs = '';
+    this.filterValue = '';
+    this.userInput = '';
+    this.Datefiltercloudfee.reset();
+    this.cloudfeesearch.reset()
+    this.options = [];
+    this.search = ''
   }
 
 
@@ -575,7 +642,7 @@ export class MaintenanceTransViewallComponent {
     });
   }
   else if (!filterValue) {
-    this.toastr.error('Please enter a value to search');
+    // this.toastr.error('Please enter a value to search');
     return;
   }
   }
@@ -591,7 +658,8 @@ export class MaintenanceTransViewallComponent {
  
     // You can now fetch or display the data for the new page index
     // Example: this.fetchData(this.currentPageIndex, this.pageSize);
-    this.filterdate();
+    this.CloudFee()
+
   }
  
   changePageIndex1(newPageIndex1: number) {
@@ -614,6 +682,8 @@ export class MaintenanceTransViewallComponent {
     // You can now fetch or display the data for the new page index
     // Example: this.fetchData(this.currentPageIndex, this.pageSize);
     this.subscription(this.currentfilVal);
+    this.filterdate()
+
   }
  
   changePageIndex2(newPageIndex1: number) {
@@ -664,6 +734,133 @@ export class MaintenanceTransViewallComponent {
     })
 
 }
+
+
+
+Filter(event: any) {
+  console.log(event.target.value);
+  this.filterValue = event.target.value;
+  this.filterbymso();
+}
+
+filterbymso() {
+  if (this.filterValue == 'Filterbycloudffeesearch') {
+    this.dialogRef = this.dialog.open(this.CloudFeeSearch, {
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '1000ms',
+      disableClose: true,
+      position: { right: '0px' },
+      // width: '30%'
+    });
+  }
+  else if (this.filterValue == 'Datefiltercloudfee') {
+    this.dialogRef = this.dialog.open(this.CloudFeeDateFilter, {
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '1000ms',
+      disableClose: true,
+      position: { right: '0px' },
+      // width: '30%'
+    });
+  }
+}
+
+
+  onInputChange(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    this.userInput = inputElement.value;
+  }
+
+  onSearchClick(): void {
+    this.searchAPI(this.userInput);
+  }
+
+  onDropdownChange(event: any): void {
+    this.search = event.value.entityName;
+    this.merchantId = event.value?.merchantId;
+    this.closeDropdown();
+  }
+  closeDropdown(): void {
+
+  }
+
+  searchAPI(query: string): void {
+    this.service.CloudFeeSearch(query).subscribe((res: any) => {
+      if (res.flag === 1) {
+        this.options = res.response.map((item: any) => ({
+          entityName: item.entityName,
+          merchantId: item.merchantId
+        }));
+      } else {
+        this.toastr.error(res.responseMessage);
+      }
+    },
+      (error) => {
+        console.error('Error fetching data from API', error);
+      });
+  }
+  CloudFee() {
+
+    if (!this.startDate?.value && !this.endDate?.value) {
+      this.flags = 1;
+      console.log('Flag set to 1:', this.flags);
+    } else {
+      this.flags = 2;
+      console.log('Flag set to 2:', this.flags);
+    }
+    let submitModel: Cloudfee = {
+      paymentStatus: this.pay?.value,
+      merchantId: this.merchantId,
+      flag: this.flags,
+      startDate: this.startDate?.value,
+      endDate: this.endDate?.value
+    };
+    this.service.CloudFeeDateFilter(this.pageSize1, this.pageIndex1, submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.cloudfee = res.response;
+        this.dataSource = new MatTableDataSource(this.cloudfee);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.totalPages1 = res.pagination.totalElements;
+        this.totalpage1 = res.pagination.totalPages;
+        this.currentpage1 = res.pagination.currentPage + 1;
+        this.filter1 = true;
+        this.filter = false;
+
+        this.filters = false;
+        this.dialog.closeAll();
+      } else {
+        this.toastr.error(res.responseMessage);
+        this.dialog.closeAll()
+        this.cloudfee = [];
+        this.dataSource = new MatTableDataSource(this.cloudfee);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.totalPages1 = res.pagination.totalElements;
+        this.totalpage1 = res.pagination.totalPages;
+        this.currentpage1 = res.pagination.currentPage + 1;
+        this.filter = false;
+        this.filter1 = true;
+        this.filters = false;
+      }
+    });
+
+
+  }
+
+  close() {
+    this.dialog.closeAll();
+  }
+
+  resetsearch(): void {
+    this.cloudfeesearch.reset()
+    this.userInput = '';
+    this.options = [];
+    this.search = ''
+  }
+
+  resetfilter(){
+    this.Datefiltercloudfee.reset();
+  }
 
  
 }

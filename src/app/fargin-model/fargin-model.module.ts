@@ -1463,3 +1463,44 @@ export interface entityterminaltransaction{
       readonly  merchantId:any,
       readonly  branchTerminalId:any
     }
+
+    export interface customerpayfilter{
+      readonly paymentStatus:any;
+      readonly flag:any;
+      readonly startDate:any;
+      readonly endDate:any;
+      readonly merchantId:any;
+    }
+
+    export interface additionapayfilter{
+      readonly paymentStatus:any;
+      readonly flag:any;
+      readonly startDate:any;
+      readonly endDate:any;
+      readonly merchantId:any;
+    }
+
+    export interface Cloudfee{
+      readonly paymentStatus:any;
+      readonly flag:any;
+      readonly startDate:any;
+      readonly endDate:any;
+      readonly merchantId:any;
+    }
+
+    export interface Onetimepay{
+      readonly paymentStatus:any;
+      readonly flag:any;
+      readonly startDate:any;
+      readonly endDate:any;
+      readonly merchantId:any;
+    }
+
+    
+    export interface Otherpayment{
+      readonly paymentStatus:any;
+      readonly flag:any;
+      readonly startDate:any;
+      readonly endDate:any;
+      readonly merchantId:any;
+    }

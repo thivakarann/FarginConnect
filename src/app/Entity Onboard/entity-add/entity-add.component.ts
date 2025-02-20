@@ -205,6 +205,11 @@ export class EntityAddComponent implements OnInit {
         Validators.maxLength(25)
       ]),
 
+      customerSmsTag: new FormControl ("",[Validators.required]),
+
+
+
+
 
 
 
@@ -419,6 +424,10 @@ export class EntityAddComponent implements OnInit {
 
   get smsMerchantName() {
     return this.myForm.get('smsMerchantName')
+  }
+
+  get customerSmsTag() {
+    return this.myForm.get('customerSmsTag')
   }
 
   // onCategoryChange(event: any): void {
@@ -893,6 +902,7 @@ export class EntityAddComponent implements OnInit {
     formData.append('customerPaymentMode', this.customerPaymentMode?.value);
     formData.append('customerManualStatus', this.customerManualStatus?.value);
     formData.append('smsMerchantName', this.smsMerchantName?.value);
+    formData.append('customerSmsTag', this.customerSmsTag?.value);
     this.AddEntity.EntityAdd(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.merchantid = res.response.merchantId;

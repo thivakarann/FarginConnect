@@ -215,3 +215,205 @@ mat-card-content tr:nth-child(odd) {
 table {
   width: 100%;
 }
+
+.dialog-card-header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #bcdf72;
+  color: #141E46;
+  font-family: "Roboto";
+  padding: 10px;
+}
+ 
+.button1 {
+  background-color: #141E46;
+  border: 1px solid #141E46;
+  border-radius: .5rem;
+  color: #f9fafb;
+  font-size: .875rem;
+  line-height: 1.25rem;
+  padding: .25rem 0.50rem;
+  width: 80px;
+  text-align: center;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+}
+.dialog-body {
+  background-color: rgb(192, 190, 190);
+}
+ 
+.dialog-body .form {
+  box-shadow: none;
+}
+ 
+.dialog-body .form__linput,
+.dialog-body .form__label,
+.dialog-body .form__input {
+  margin-bottom: 12px; /* Adjust this value as needed for spacing */
+}
+ 
+.dialog-body .btn {
+  margin-top: 10px;
+}
+
+.example-container {
+  max-height: 346px;
+  height: 100%;
+  overflow: auto;
+  scrollbar-width: auto;
+}
+ 
+input {
+  margin-bottom: 10px;
+  padding: 8px;
+  font-size: 16px;
+}
+ 
+select {
+  padding: 8px;
+  font-size: 16px;
+  margin-top: 10px;
+}
+.search-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.search-input:focus {
+  border-color: #007bff;
+}
+
+.dropdown {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.dropdown:focus {
+  border-color: #007bff;
+}
+
+
+/*  */
+.search-dropdown-container {
+  /* display: flex; */
+  flex-direction: column;
+  /* gap: 8px; */
+  align-items: center;
+  margin: 20px;
+  width: 100%;
+  max-width: 900px;
+}
+
+.form__linput {
+  width: 100%;
+  max-width: 100%;  /* Adjust this to make the inputs occupy more space */
+  margin-bottom: 15px;
+}
+
+.form__label {
+  display: block;
+  margin-bottom: 8px;
+  /* font-weight: 600; */
+  color: #333;
+}
+
+.search-input-with-button {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+  outline: none;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  border-color: #007bff;
+  background-color: #ffffff;
+}
+
+.search-button {
+  padding: 7px 25px;
+  margin-bottom: 13px;
+  background-color: #141E46;
+  color: #ffffff;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  outline: none;
+}
+
+.search-button:hover {
+  transition: background-color 0.3s ease;
+
+}
+
+.dropdown {
+  position: absolute;
+  width: 100%;
+  padding: 12px;
+  margin-top: 0; 
+  border-radius: 10px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.dropdown:focus {
+  border-color: #007bff;
+}
+
+@media (max-width: 768px) {
+  .search-dropdown-container {
+    gap: 10px;
+    max-width: 100%;
+  }
+  .form__linput {
+    width: 100%;
+  }
+}
+
+
+
+.form__linput {
+  position: relative;
+}
+
+.search-input-with-button {
+  display: flex;
+  align-items: center;
+  height: 27px;
+}
+
+.search-input-with-button .wider-input {
+  width: 400px; /* Adjust the width as needed */
+  flex: 1;
+}

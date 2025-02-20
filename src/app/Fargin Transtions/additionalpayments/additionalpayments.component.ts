@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -7,10 +7,17 @@ import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
 import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
-import { additionalcustomerpay, customerpay } from '../../fargin-model/fargin-model.module';
+import { additionalcustomerpay, additionapayfilter, customerpay } from '../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { CustomerTransViewComponent } from '../Customer Trans/customer-trans-view/customer-trans-view.component';
 import { ViewadditionalpaymentsComponent } from './viewadditionalpayments/viewadditionalpayments.component';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+interface Option {
+  entityName: string;
+  merchantId: number;
+}
+
 
 @Component({
   selector: 'app-additionalpayments',
@@ -82,14 +89,28 @@ export class AdditionalpaymentsComponent {
   totalpage2: any;
   totalPages2: any;
   currentpage2: any;
- 
+  filterValue: any;
   filter: boolean = false;
   filter1: boolean = false;
   filters: boolean = false;
   currentfilVal:any="";
 
+  @ViewChild('dialogTemplate') dialogTemplate!: TemplateRef<any>;
+  dialogRef: any;
+  @ViewChild('AdditionalPaymentDateFilter') AdditionalPaymentDateFilter!: TemplateRef<any>;
+  @ViewChild('AdditionalPayment') AdditionalPayment!: TemplateRef<any>;
+  backs: any = '';
+  userInput: string = '';
+  options: Option[] = [];
+  search: any;
+  additionalpay: any = FormGroup;
+  Datefilteradditionalpay: any = FormGroup;
+  flags: any
+  addpay: any;
+  merchantId: any;
+  selectedOption: any;
 
-  constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
+  constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private fb: FormBuilder) { }
 
 
 
@@ -99,8 +120,8 @@ export class AdditionalpaymentsComponent {
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
- 
- 
+
+
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
  
@@ -164,8 +185,30 @@ export class AdditionalpaymentsComponent {
 
     });
 
+    this.additionalpay = this.fb.group({
+      pay: ['', [Validators.required]],
+      startDate: ['',],
+      endDate: ['',],
+      search: ['', [Validators.required]]
+    });
+
+    this.Datefilteradditionalpay = this.fb.group({
+      FromDateRange: ['', Validators.required],
+      ToDateRange: ['', Validators.required]
+    });
   }
 
+
+  get pay() {
+    return this.additionalpay.get('pay');
+  }
+
+  get startDate() {
+    return this.additionalpay.get('startDate');
+  }
+  get endDate() {
+    return this.additionalpay.get('endDate');
+  }
 
 
   applyFilter(event: Event) {
@@ -210,38 +253,42 @@ export class AdditionalpaymentsComponent {
 
 
   filterdate() {
-    // const datepipe: DatePipe = new DatePipe("en-US");
-    // let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY HH:mm");
-    // let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/YYYY HH:mm");
-    // this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
-    // this.currentPage = 1;
+    const fromDate = this.Datefilteradditionalpay.get('FromDateRange')?.value;
+    const toDate = this.Datefilteradditionalpay.get('ToDateRange')?.value;
 
-    this.service.additionalpaymentsfilter(this.FromDateRange, this.ToDateRange, this.pageSize1, this.pageIndex1).subscribe((res: any) => {
+    this.service.additionalpaymentsfilter(fromDate, toDate, this.pageSize2, this.pageIndex2).subscribe((res: any) => {
       if (res.flag == 1) {
 
         this.transaction = res.response;
-
-        this.totalPages1 = res.pagination.totalElements;
-        this.totalpage1 = res.pagination.totalPages;
-        this.currentpage1 = res.pagination.currentPage + 1;
-
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.filter1 = true; 
-        this.filter=false;
-        this.filters=false;     }
+        this.totalPages2 = res.pagination.totalElements;
+        this.totalpage2 = res.pagination.totalPages;
+        this.currentpage2 = res.pagination.currentPage + 1;
+
+        this.filter1 = false;
+        this.filter = false;
+
+        this.filters = true;
+        this.dialog.closeAll()
+      }
       else if (res.flag == 2) {
-        this.filter1 = true; 
-        this.filter=false;
-        this.filters=false;     
+        this.toastr.error(res.responseMessage)
+        this.dialog.closeAll()
+
         this.transaction = [];
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator; 
-        this.totalPages1 = res.pagination.totalElements;
-        this.totalpage1 = res.pagination.totalPages;
-        this.currentpage1 = res.pagination.currentPage + 1; 
+        this.dataSource.paginator = this.paginator;
+        this.totalPages2 = res.pagination.totalElements;
+        this.totalpage2 = res.pagination.totalPages;
+        this.currentpage2 = res.pagination.currentPage + 1;
+
+        this.filter = false;
+        this.filter1 = false;
+        this.filters = true;
+        
       }
     })
   }
@@ -278,6 +325,14 @@ export class AdditionalpaymentsComponent {
       
 
     });
+
+    this.backs = '';
+    this.filterValue = '';
+    this.userInput = '';
+    this.Datefilteradditionalpay.reset();
+    this.additionalpay.reset()
+    this.options = [];
+    this.search = ''
   }
 
   Receipt(id: any) {
@@ -475,16 +530,12 @@ export class AdditionalpaymentsComponent {
   }
   
   renderPage(event: PageEvent) {
-    // Capture the new page index and page size from the event
-    this.pageIndex = event.pageIndex;  // Update current page index
-    this.pageSize = event.pageSize;           // Update page size (if changed)
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
 
-    // Log the new page index and page size to the console (for debugging)
     console.log('New Page Index:', this.pageIndex);
     console.log('New Page Size:', this.pageSize);
 
-    // You can now fetch or display the data for the new page index
-    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
     this.ngOnInit()
   }
   changePageIndex(newPageIndex: number) {
@@ -536,25 +587,21 @@ export class AdditionalpaymentsComponent {
     });
   }
   else if (!filterValue) {
-    this.toastr.error('Please enter a value to search');
+    //this.toastr.error('Please enter a value to search');
     return;
   }
   }
 
   renderPage1(event: PageEvent) {
-    // Capture the new page index and page size from the event
-    this.pageIndex1 = event.pageIndex;  // Update current page index
-    this.pageSize1 = event.pageSize;           // Update page size (if changed)
- 
-    // Log the new page index and page size to the console (for debugging)
+    this.pageIndex1 = event.pageIndex;
+    this.pageSize1 = event.pageSize;
+
     console.log('New Page Index:', this.pageIndex1);
     console.log('New Page Size:', this.pageSize1);
- 
-    // You can now fetch or display the data for the new page index
-    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
-    this.filterdate();
+   
+    this.Additionalpay()
   }
- 
+
   changePageIndex1(newPageIndex1: number) {
     this.pageIndex1 = newPageIndex1;
     this.renderPage1({
@@ -564,26 +611,148 @@ export class AdditionalpaymentsComponent {
     } as PageEvent);
   }
   renderPage2(event: PageEvent) {
-    // Capture the new page index and page size from the event
-    this.pageIndex2 = event.pageIndex;  // Update current page index
-    this.pageSize2 = event.pageSize;           // Update page size (if changed)
- 
-    // Log the new page index and page size to the console (for debugging)
+    this.pageIndex2 = event.pageIndex;
+    this.pageSize2 = event.pageSize;
     console.log('New Page Index:', this.pageIndex2);
     console.log('New Page Size:', this.pageSize2);
- 
-    // You can now fetch or display the data for the new page index
-    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
+
     this.CustomerAdmin(this.currentfilVal);
+    this.filterdate()
+
   }
- 
-  changePageIndex2(newPageIndex1: number) {
-    this.pageIndex2 = newPageIndex1;
+
+  changePageIndex2(newPageIndex2: number) {
+    this.pageIndex2 = newPageIndex2;
     this.renderPage2({
-      pageIndex: newPageIndex1,
+      pageIndex: newPageIndex2,
       pageSize: this.pageSize2,
-      // length: this.totalItems
     } as PageEvent);
   }
 
+
+  Filter(event: any) {
+    console.log(event.target.value);
+    this.filterValue = event.target.value;
+    this.filterbymso();
+  }
+
+  filterbymso() {
+    if (this.filterValue == 'Filterbyadditionalpayment') {
+      this.dialogRef = this.dialog.open(this.AdditionalPayment, {
+        enterAnimationDuration: '500ms',
+        exitAnimationDuration: '1000ms',
+        disableClose: true,
+        position: { right: '0px' },
+        // width: '30%'
+      });
+    }
+    else if (this.filterValue == 'AdditionalpayDatefilter') {
+      this.dialogRef = this.dialog.open(this.AdditionalPaymentDateFilter, {
+        enterAnimationDuration: '500ms',
+        exitAnimationDuration: '1000ms',
+        disableClose: true,
+        position: { right: '0px' },
+        // width: '30%'
+      });
+    }
+  }
+
+
+
+  onInputChange(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    this.userInput = inputElement.value;
+  }
+
+  onSearchClick(): void {
+    this.searchAPI(this.userInput);
+  }
+
+  onDropdownChange(event: any): void {
+    this.search = event.value.entityName;
+    this.merchantId = event.value?.merchantId;
+    this.closeDropdown();
+  }
+  closeDropdown(): void {
+
+  }
+
+  searchAPI(query: string): void {
+    this.service.AdditionalPaySearch(query).subscribe((res: any) => {
+      if (res.flag === 1) {
+        this.options = res.response.map((item: any) => ({
+          entityName: item.entityName,
+          merchantId: item.merchantId
+        }));
+      } else {
+        this.toastr.error(res.responseMessage);
+      }
+    },
+      (error) => {
+        console.error('Error fetching data from API', error);
+      });
+  }
+  Additionalpay() {
+
+    if (!this.startDate?.value && !this.endDate?.value) {
+      this.flags = 1;
+      console.log('Flag set to 1:', this.flags);
+    } else {
+      this.flags = 2;
+      console.log('Flag set to 2:', this.flags);
+    }
+    let submitModel: additionapayfilter = {
+      paymentStatus: this.pay?.value,
+      merchantId: this.merchantId,
+      flag: this.flags,
+      startDate: this.startDate?.value,
+      endDate: this.endDate?.value
+    };
+    this.service.AdditionalPayDateFilter(this.pageSize1, this.pageIndex1, submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.addpay = res.response;
+        this.dataSource = new MatTableDataSource(this.addpay);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.totalPages1 = res.pagination.totalElements;
+        this.totalpage1 = res.pagination.totalPages;
+        this.currentpage1 = res.pagination.currentPage + 1;
+        this.filter1 = true;
+        this.filter = false;
+
+        this.filters = false;
+        this.dialog.closeAll();
+      } else {
+        this.toastr.error(res.responseMessage);
+        this.dialog.closeAll()
+        this.addpay = [];
+        this.dataSource = new MatTableDataSource(this.addpay);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.totalPages1 = res.pagination.totalElements;
+        this.totalpage1 = res.pagination.totalPages;
+        this.currentpage1 = res.pagination.currentPage + 1;
+        this.filter = false;
+        this.filter1 = true;
+        this.filters = false;
+      }
+    });
+
+
+  }
+
+  close() {
+    this.dialog.closeAll();
+  }
+
+  resetcustomer(): void {
+    this.additionalpay.reset()
+    this.userInput = '';
+    this.options = [];
+    this.search = ''
+  }
+
+  resetfilter(){
+    this.Datefilteradditionalpay.reset();
+  }
 }

@@ -43,26 +43,21 @@
         </div>&nbsp;&nbsp;&nbsp;&nbsp;
 
         <div class="col-2">
-            <label><b>From Date:</b></label>
-            <input class="form-control" type="date" name="FromDate" [(ngModel)]="FromDateRange"
-                style="height:35px;width:150px;border-radius: 5px;">
+          
         </div>
-        <div class="col-2">
-            <label><b>To Date:</b></label>
-            <input class="form-control" type="date" name="ToDate" [(ngModel)]="ToDateRange"
-                style="height:35px;width:150px;border-radius: 5px;">
+       
+        <div class="col-3 mt-4">
+            <select [(ngModel)]="backs" class="form-select" (change)="Filter($event)">
+                <option value="" disabled selected>Filter</option>
+                <option value="Filterbycustomerpay">Filter By Customer Payment</option>
+                <option value="Datefilter">Date Filter</option>
+            </select>
         </div>
-
-        <div class="col-1 mt-4">
-            <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
-                (click)="filterdate()">Filter</button>
-        </div>
-
+ 
         <div class="col-1 mt-4">
             <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
                 (click)="reset()">Reset</button>
         </div>
-
     </div>
 </mat-card-header>
 <!-- <mat-card> -->
@@ -222,3 +217,115 @@
         </div>
     </div>
 </mat-card-footer>
+
+
+<!-- customer payment -->
+  
+<ng-template #CustomerPayment>
+    <div style="width:386px" class="dialog-card-header">
+        <h3 class="mb-0" style="text-align: center; font-size: 20px;">
+            Filter Customer Payment
+        </h3>
+        <div class="col-md-2 d-flex justify-content-end mb-1">
+            <button class="button1" (click)="close()">Back</button>
+          </div>
+    </div>
+    <!-- <div class="dialog-body page"> -->
+        <main class="main page__main">
+            <form  [formGroup]="customerPay"  class="form main__form" autocomplete="off" role="form">
+                <div class="search-dropdown-container">
+                   
+                    <div class="form__linput">
+                        <label class="form__label custom-label" for="fnames">Search entity</label>
+                        <div class="search-input-with-button">
+                            <input formControlName="search" style="border: 1px solid #ccc;" class="form-control wider-input" id="fnames" (input)="onInputChange($event)" type="text" [(ngModel)]="search" name="search" required/>
+                            <button type="button" (click)="onSearchClick()" class="search-button">Go</button>
+                        </div>
+                        <p-dropdown  
+                            *ngIf="options && options.length" 
+                            [options]="options" 
+                            [(ngModel)]="selectedOption" 
+                            optionLabel="entityName" 
+                            placeholder="Select Entity"
+                            [style]="{'width':'261px', 'margin-top': '-2',height:'40px'}" 
+                            (onChange)="onDropdownChange($event)">
+                        </p-dropdown>
+                    </div>
+
+                    <div class="form__linput">
+                        <label class="form__label" for="pay">Payment Status</label>
+                        <select style="width: 260px;" class="form-control form-select wider-input" formControlName="pay" name="pay">
+                          <option value="Success">Success</option>
+                          <option value="Initiated">Initiated</option>
+                          <option value="Due Pending">Due Pending</option>
+                          <option value="Failure">Failure</option>
+                        </select>
+                      </div>
+                        </div>
+                    
+                    <div style="margin-left:20px" class="form__linput ">
+                        <label class="form__label custom-label" for="startDate">Start Date</label>
+                        <input  formControlName="startDate" style="border: 1px solid #ccc;width:260px" class="form-control wider-input" id="startDate" type="date" name="startDate">
+                        
+                    </div>
+
+                    <div style="margin-left:20px" class="form__linput">
+                        <label class="form__label custom-label" for="endDate">End Date</label>
+                        <input  formControlName="endDate" style="border: 1px solid #ccc;width:260px" class="form-control wider-input" id="endDate" type="date" name="endDate">
+                    </div>
+
+
+                <div style="margin-left:20px" class="mt-3">
+                    <button type="submit" [disabled]="customerPay.invalid" (click)="customerpay()" class="btn mx-1" style="background-color: #7db855be;height:39px;">
+                      Filter
+                    </button>
+                    <button (click)="resetcustomer()" type="button" class="btn" style="background-color: #141e46; color: white;height:39px;">
+                      Reset
+                    </button>
+                  </div>
+                  <br>
+            </form>
+        </main>
+    <!-- </div> -->
+</ng-template>
+
+
+
+<!-- Date filter customer -->
+<ng-template #DateFilter>
+    <div style="width:386px" class="dialog-card-header">
+        <h3 class="mb-0" style="text-align: center; font-size: 20px;">
+            Filter Customer Payment
+        </h3>
+        <div class="col-md-2 d-flex justify-content-end mb-1">
+            <button class="button1" (click)="close()">Back</button>
+        </div>
+    </div>
+
+    <main class="main page__main">
+        <form [formGroup]="Datefiltercustomer" class="form main__form" autocomplete="off" role="form">
+            <div class="search-dropdown-container">
+
+                <div class="form__linput">
+                    <label class="form__label custom-label" for="FromDateRange">From Date:</label>
+                    <input class="form-control"  formControlName="FromDateRange" style="border: 1px solid #ccc;width:322px" class="form-control wider-input" id="FromDateRange" type="date">
+                </div>
+
+                <div  class="form__linput ">
+                    <label class="form__label custom-label" for="ToDateRange">To Date:</label>
+                    <input class="form-control"  formControlName="ToDateRange" style="border: 1px solid #ccc;width:322px" class="form-control wider-input" id="ToDateRange" type="date">
+                </div>
+
+                <div style="margin-left:20px" class="mt-3">
+                    <button type="submit" [disabled]="Datefiltercustomer.invalid" (click)="filterdate()" class="btn mx-1" style="background-color: #7db855be;height:39px;">
+                        Filter
+                    </button>
+                    <button (click)="resetfilter()" type="button" class="btn" style="background-color: #141e46; color: white;height:39px;">
+                        Reset
+                    </button>
+                </div>
+                <br>
+            </div>
+        </form>
+    </main>
+</ng-template>

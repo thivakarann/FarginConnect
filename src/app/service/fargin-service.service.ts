@@ -351,7 +351,7 @@ export class FarginServiceService {
   private readonly dashboardthirtydays = 'dashBoard/thirtydays';
   private readonly dashboardlastmonth = 'dashBoardd/lastMonthTotalTransactionsAmount';
   private readonly dashboardthismonth = 'dashBoardd/thisMonthTotalTransactionsAmount'
-  private readonly dashboardcustomrange = 'dashBoard/transaction/';
+  private readonly dashboardcustomrange = 'dashBoardd/transaction/';
   private readonly dashboardoverall = 'dashBoardd/totalTransactionsAmount';
   private readonly dashboardoverallmerchantid = 'dashBoardd/totalTransactionsAmount/';
   private readonly dashboardoverallamount = 'dashBoard/overallTransactionsAmount';
@@ -746,6 +746,23 @@ private readonly entityterminalview='entityTerminal/getall';
 private readonly entityterminalstatus='entityTerminal/updateStatus/';
 private readonly entityterminalcreate ='entityTerminal/create';
 private readonly entityterminalupdate ='entityTerminal/update/';
+
+//customer payments
+private readonly customerpayget = 'customerpay/viewEntitySearch/';
+private readonly customerpayfilter = 'customerpay/viewPaymentStatusFilter/';
+
+private readonly Additionalpaysearch = 'customerotherpayment/viewEntitySearch/';
+private readonly Additionalpayfilter = 'customerotherpayment/viewPaymentStatusFilter/';
+
+private readonly Cloudfeesearch = 'maintanancePay/viewEntitySearch/';
+private readonly Cloudfeefilter = 'maintanancePay/viewPaymentStatusFilter/';
+
+private readonly Onetimepaysearch = 'merchantpay/viewEntitySearch/';
+private readonly Onetimepaydatefilter = 'merchantpay/viewPaymentStatusFilter/';
+
+private readonly Otherpaymentsearch = 'otherpayment/viewEntitySearch/';
+private readonly Otherpaydatefilter = 'otherpayment/viewPaymentStatusFilter/';
+
 
   loginError = new Subject();
 
@@ -2780,5 +2797,50 @@ private readonly entityterminalupdate ='entityTerminal/update/';
   }
   BranchTransactions(data:any){
     return this.http.post(`${this.basePath}${this.branchtrans}`,data,this.options);
+  }
+
+// customer trans
+    CustomerpayFilter(id:any,id1:any,model:any){
+    return this.http.post(`${this.basePath}${this.customerpayfilter}${id}/${id1}`,model,this.options);
+    }
+
+  Customerpaysearchfilter(id:any) {
+    return this.http.get(`${this.basePath}${this.customerpayget}${id}`, this.options);
+  }
+
+  //additional trans
+  AdditionalPaySearch(id:any) {
+    return this.http.get(`${this.basePath}${this.Additionalpaysearch}${id}`, this.options);
+  }
+
+  AdditionalPayDateFilter(id:any,id1:any,model:any){
+    return this.http.post(`${this.basePath}${this.Additionalpayfilter}${id}/${id1}`,model,this.options);
+  }
+
+  // cloud fee
+  CloudFeeSearch(id:any) {
+    return this.http.get(`${this.basePath}${this.Cloudfeesearch}${id}`, this.options);
+  }
+
+  CloudFeeDateFilter(id:any,id1:any,model:any){
+    return this.http.post(`${this.basePath}${this.Cloudfeefilter}${id}/${id1}`,model,this.options);
+  }
+
+  //onetimepay
+  OneTimepaySearch(id:any) {
+    return this.http.get(`${this.basePath}${this.Onetimepaysearch}${id}`, this.options);
+  }
+
+  OneTimepayFilter(id:any,id1:any,model:any){
+    return this.http.post(`${this.basePath}${this.Onetimepaydatefilter}${id}/${id1}`,model,this.options);
+  }
+
+  //customize pay
+  OtherPaymentSearch(id:any) {
+    return this.http.get(`${this.basePath}${this.Otherpaymentsearch}${id}`, this.options);
+  }
+
+  OtherPaymentFilter(id:any,id1:any,model:any){
+    return this.http.post(`${this.basePath}${this.Otherpaydatefilter}${id}/${id1}`,model,this.options);
   }
 }

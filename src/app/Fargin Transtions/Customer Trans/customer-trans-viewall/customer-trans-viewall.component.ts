@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, TemplateRef, ViewChild } from '@angular/core';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
@@ -9,10 +9,14 @@ import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
 import moment from 'moment';
 import { CustomerTransViewComponent } from '../customer-trans-view/customer-trans-view.component';
-import { customerpay } from '../../../fargin-model/fargin-model.module';
+import { customerpay, customerpayfilter } from '../../../fargin-model/fargin-model.module';
 import { PageEvent } from '@angular/material/paginator';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-
+interface Option {
+  entityName: string;
+  merchantId: number;}
+  
 @Component({
   selector: 'app-customer-trans-viewall',
   templateUrl: './customer-trans-viewall.component.html',
@@ -90,9 +94,31 @@ export class CustomerTransViewallComponent {
   filter1: boolean = false;
   filters: boolean = false;
   currentfilval: any;
+  filterValue: any;
+  @ViewChild('dialogTemplate') dialogTemplate!: TemplateRef<any>;
+  dialogRef: any;
+  @ViewChild('CustomerPayment') CustomerPayment!: TemplateRef<any>;
+  @ViewChild('DateFilter') DateFilter!: TemplateRef<any>;
 
+ 
+  userInput: string = '';
+  
+  options: Option[]=[];
+  // currentfil: any = { entityName: '' };
+  // filterResults: any[] = [];
+  currentfil:any
+  search: any;
+  selectedDate: any;
+  selectedDate1: any;
+  selectedOption: any;
+  customerPay: any = FormGroup;
+  Datefiltercustomer:any=FormGroup;
+  custpay: any;
+  merchantId: any;
+  flags:any;
+  backs:any ='';
 
-  constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
+  constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private fb: FormBuilder) { }
 
 
 
@@ -169,10 +195,35 @@ export class CustomerTransViewallComponent {
 
     });
 
+    
+    this.customerPay = this.fb.group({
+      pay: ['', [Validators.required]],
+      startDate: ['', ],
+      endDate: ['',],
+      search: ['', [Validators.required]]
+
+    });
+
+    this.Datefiltercustomer = this.fb.group({
+      FromDateRange: ['', Validators.required],
+      ToDateRange: ['', Validators.required]
+    });
+
   }
 
 
+  get pay() {
+    return this.customerPay.get('pay');
+  }
 
+  get startDate() {
+    return this.customerPay.get('startDate');
+  }
+  get endDate() {
+    return this.customerPay.get('endDate');
+  }
+
+ 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -217,47 +268,43 @@ export class CustomerTransViewallComponent {
 
 
   filterdate() {
-    // const datepipe: DatePipe = new DatePipe("en-US");
-    // let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY HH:mm");
-    // let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/YYYY HH:mm");
-    // this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
-    // this.currentPage = 1;
+    const fromDate = this.Datefiltercustomer.get('FromDateRange')?.value;
+    const toDate = this.Datefiltercustomer.get('ToDateRange')?.value;
 
-    this.service.CustomerTransactionsFilter(this.FromDateRange, this.ToDateRange, this.pageSize1, this.pageIndex1).subscribe((res: any) => {
+    this.service.CustomerTransactionsFilter(fromDate, toDate, this.pageSize2, this.pageIndex2).subscribe((res: any) => {
       if (res.flag == 1) {
 
         this.transaction = res.response;
-
-
-        this.totalPages1 = res.pagination.totalElements;
-        this.totalpage1 = res.pagination.totalPages;
-        this.currentpage1 = res.pagination.currentPage + 1;
- 
-
-
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.filter1 = true;
+        this.totalPages2 = res.pagination.totalElements;
+        this.totalpage2 = res.pagination.totalPages;
+        this.currentpage2 = res.pagination.currentPage + 1;
+ 
+        this.filter1 = false;
         this.filter = false;
        
-        this.filters = false;
+        this.filters = true;
+        this.dialog.closeAll()
         
-     
-      
+        
       }
       else if (res.flag == 2) {
+        this.toastr.error(res.responseMessage)
+        this.dialog.closeAll()
+
         this.transaction = [];
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.totalPages1 = res.pagination.totalElements;
-        this.totalpage1 = res.pagination.totalPages;
-        this.currentpage1 = res.pagination.currentPage + 1;
+        this.totalPages2 = res.pagination.totalElements;
+        this.totalpage2 = res.pagination.totalPages;
+        this.currentpage2 = res.pagination.currentPage + 1;
    
         this.filter = false;
-        this.filter1 = true;
-        this.filters = false;            }
+        this.filter1 = false;
+        this.filters = true;            }
     })
   }
   reset() {
@@ -274,8 +321,7 @@ export class CustomerTransViewallComponent {
         this.dataSource.paginator = this.paginator;
         this.filter = true;
         this.filter1 = false;
-        this.filter1 = false;
-
+        this.filters = false;
       }
       else{
         this.transaction = [];
@@ -287,47 +333,24 @@ export class CustomerTransViewallComponent {
         this.currentpage = res.pagination.currentPage + 1;
         this.filter = true;
         this.filter1 = false;
-        this.filter1 = false;
+        this.filters = false;
           
       }
 
     });
-    this.service.CustomerAllTransactions(this.pageSize, this.pageIndex).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.transaction = res.response;
+    
+    this.backs ='';
+    this.filterValue='';
+    this.Datefiltercustomer.reset();
+    this.customerPay.reset()
+    this.userInput = '';
+    this.options = [];
+    this.search=''
+  }
 
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-        
-        this.dataSource = new MatTableDataSource(this.transaction);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.filter = true;
-        this.filter1 = false;
-        this.filter1 = false;
-        this.FromDateRange='';
-        this.ToDateRange='';
 
-      }
-      else{
-        this.transaction = [];
-        this.dataSource = new MatTableDataSource(this.transaction);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-        this.filter = true;
-        this.filter1 = false;
-        this.filter1 = false;
-        this.FromDateRange='';
-        this.ToDateRange='';
-          
-      }
-
-    });
-
+  resetfilter(){
+    this.Datefiltercustomer.reset();
   }
 
   Receipt(id: any) {
@@ -560,7 +583,7 @@ export class CustomerTransViewallComponent {
 
   CustomerAdmin(filterValue: string) {
     if (!filterValue) {
-      this.toastr.error('Please enter a value to search');
+      // this.toastr.error('Please enter a value to search');
       return;
     }
     if (filterValue) {
@@ -611,9 +634,8 @@ export class CustomerTransViewallComponent {
     console.log('New Page Index:', this.pageIndex1);
     console.log('New Page Size:', this.pageSize1);
  
-    // You can now fetch or display the data for the new page index
-    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
-    this.filterdate();
+    this.customerpay()
+
   }
  
   changePageIndex1(newPageIndex1: number) {
@@ -636,15 +658,174 @@ export class CustomerTransViewallComponent {
     // You can now fetch or display the data for the new page index
     // Example: this.fetchData(this.currentPageIndex, this.pageSize);
     this.CustomerAdmin(this.currentfilval);
+    this.filterdate()
+
+  }
+
+  
+  resets()
+  {
+    window.location.reload()
   }
  
-  changePageIndex2(newPageIndex1: number) {
-    this.pageIndex2 = newPageIndex1;
+  changePageIndex2(newPageIndex2: number) {
+    this.pageIndex2 = newPageIndex2;
     this.renderPage2({
-      pageIndex: newPageIndex1,
+      pageIndex: newPageIndex2,
       pageSize: this.pageSize2,
-      // length: this.totalItems
     } as PageEvent);
   }
+
+ 
+
+  Filter(event: any) {
+    console.log(event.target.value);
+    this.filterValue = event.target.value;
+    this.filterbymso();
+  }
+
+  filterbymso() {
+    if (this.filterValue == 'Filterbycustomerpay') {
+      this.dialogRef = this.dialog.open(this.CustomerPayment, {
+        enterAnimationDuration: '500ms',
+        exitAnimationDuration: '1000ms',
+        disableClose: true,
+        position: { right: '0px' },
+        // width: '30%'
+      });
+    }
+     else if (this.filterValue == 'Datefilter') {
+      this.dialogRef = this.dialog.open(this.DateFilter, {
+        enterAnimationDuration: '500ms',
+        exitAnimationDuration: '1000ms',
+        disableClose: true,
+        position: { right: '0px' },
+        // width: '30%'
+      });
+    }
+  }
+
+
+
+  onInputChange(event: Event): void {
+      const inputElement = event.target as HTMLInputElement;
+      this.userInput = inputElement.value;
+  }
+  
+  onSearchClick(): void {
+      this.searchAPI(this.userInput);
+  }
+  
+  onDropdownChange(event: any): void {
+      this.search = event.value.entityName;
+      this.merchantId = event.value?.merchantId; 
+      this.closeDropdown();
+  }
+  closeDropdown(): void {
+      // Assuming the dropdown component will be closed automatically after selection, 
+      // you may not need to manually close it. If needed, you could add logic here.
+  }
+  
+  searchAPI(query: string): void {
+      this.service.Customerpaysearchfilter(query).subscribe((res: any) => {
+          if (res.flag === 1) {
+              this.options = res.response.map((item: any) => ({
+                  entityName: item.entityName,
+                  merchantId: item.merchantId
+              }));
+          } else {
+            this.toastr.error(res.responseMessage);
+          }
+      },
+      (error) => {
+          console.error('Error fetching data from API', error);
+      });
+  }
+  customerpay(){
+
+    if (!this.startDate?.value && !this.endDate?.value) {
+      this.flags = 1;  
+      console.log('Flag set to 1:', this.flags);
+    } else {
+      this.flags = 2; 
+      console.log('Flag set to 2:', this.flags);
+    }
+    let submitModel: customerpayfilter = {
+      paymentStatus: this.pay?.value,
+      merchantId: this.merchantId,
+      flag: this.flags ,
+      startDate: this.startDate?.value,
+      endDate: this.endDate?.value
+    };
+    this.service.CustomerpayFilter(this.pageSize1,this.pageIndex1,submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.custpay = res.response;
+        this.dataSource = new MatTableDataSource(this.custpay);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.totalPages1 = res.pagination.totalElements;
+        this.totalpage1 = res.pagination.totalPages;
+        this.currentpage1 = res.pagination.currentPage + 1;
+        this.filter1 = true;
+        this.filter = false;
+       
+        this.filters = false;
+        this.dialog.closeAll();
+      } else {
+        this.toastr.error(res.responseMessage);
+        this.dialog.closeAll()
+        this.custpay = [];
+        this.dataSource = new MatTableDataSource(this.custpay);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.totalPages1 = res.pagination.totalElements;
+        this.totalpage1 = res.pagination.totalPages;
+        this.currentpage1 = res.pagination.currentPage + 1;
+        this.filter = false;
+        this.filter1 = true;
+        this.filters = false;    
+        
+      }
+    });
+      
+   
+  }
+
+  resetcustomer(): void {
+    this.customerPay.reset()
+    this.userInput = '';
+    this.options = [];
+    this.search=''
+  }
+
+  close(){
+    this.dialog.closeAll()
+   
+  }
+
+ 
+  shouldDisable(fieldName: string): boolean {
+    const fields = [
+      this.search
+    ];
+
+    // Check if any field is filled except for the current field
+    return (
+      fields.filter(
+        (value, index) => value && index !== this.getFieldIndex(fieldName)
+      ).length > 0
+    );
+  }
+
+  // custom filter disables fuctions
+  private getFieldIndex(fieldName: string): number {
+    const fieldNames = [
+      'search'
+    ];
+
+    return fieldNames.indexOf(fieldName);
+  }
+
+
 }
 

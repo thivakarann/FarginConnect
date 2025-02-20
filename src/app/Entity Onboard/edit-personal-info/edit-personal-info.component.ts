@@ -122,6 +122,7 @@ export class EditPersonalInfoComponent implements OnInit {
       offlineQrEnable: new FormControl('', [Validators.required]),
 
       payoutEnable: new FormControl('', [Validators.required]),
+      
 
       platformfee: new FormControl('', [Validators.pattern('(0|[1-9][0-9]*)(\.[0-9]+)?$')]),
 
@@ -140,6 +141,9 @@ export class EditPersonalInfoComponent implements OnInit {
         Validators.maxLength(25)
 
       ]),
+
+      customerSmsTag: new FormControl('', [Validators.required]),
+
     
     });
 
@@ -272,6 +276,10 @@ export class EditPersonalInfoComponent implements OnInit {
     return this.myForm.get('payoutEnable')
   }
 
+  get customerSmsTag() {
+    return this.myForm.get('customerSmsTag')
+  }
+
   // get withdrawalLimit() {
   //   return this.myForm.get('withdrawalLimit')
   // }
@@ -350,6 +358,8 @@ export class EditPersonalInfoComponent implements OnInit {
     // formData.append('withdrawalLimit', this.withdrawalLimit?.value || "");
     // formData.append('withdrawalDailylimit', this.withdrawalDailylimit?.value || 0);
     formData.append('platformfee', this.platformfee?.value);
+    formData.append('customerSmsTag', this.customerSmsTag?.value);
+
     formData.append('merchantId', this.id);
     // formData.append('withdrawalMonthlyCount', this.withdrawalMonthlyCount?.value || 0);
     
