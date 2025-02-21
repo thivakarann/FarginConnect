@@ -117,6 +117,13 @@ export class CustomerTransViewallComponent {
   merchantId: any;
   flags:any;
   backs:any ='';
+// 
+  pageIndex3: number = 0;
+  pageSize3 = 5;
+  totalPages3: any;
+  currentpage3: any;
+  totalpage3: any;
+  filter3: boolean = true;
 
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private fb: FormBuilder) { }
 
@@ -177,6 +184,7 @@ export class CustomerTransViewallComponent {
         this.filter = true;
         this.filter1 = false;
         this.filter1 = false;
+        this.filter3=false;  
 
       }
       else{
@@ -190,7 +198,7 @@ export class CustomerTransViewallComponent {
         this.filter = true;
         this.filter1 = false;
         this.filter1 = false;
-          
+        this.filter3=false;  
       }
 
     });
@@ -249,11 +257,12 @@ export class CustomerTransViewallComponent {
         this.filter = true;
         this.filter1=false;
         this.filters=false;
-      
+        this.filter3=false;  
       }
       
       else {
         this.filter=false;
+        this.filter3=false;  
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.totalPages;
         this.currentpage = res.pagination.currentPage + 1;
@@ -284,7 +293,7 @@ export class CustomerTransViewallComponent {
  
         this.filter1 = false;
         this.filter = false;
-       
+        this.filter3=false;  
         this.filters = true;
         this.dialog.closeAll()
         
@@ -301,7 +310,7 @@ export class CustomerTransViewallComponent {
         this.totalPages2 = res.pagination.totalElements;
         this.totalpage2 = res.pagination.totalPages;
         this.currentpage2 = res.pagination.currentPage + 1;
-   
+        this.filter3=false;  
         this.filter = false;
         this.filter1 = false;
         this.filters = true;            }
@@ -322,6 +331,7 @@ export class CustomerTransViewallComponent {
         this.filter = true;
         this.filter1 = false;
         this.filters = false;
+        this.filter3=false;  
       }
       else{
         this.transaction = [];
@@ -334,7 +344,7 @@ export class CustomerTransViewallComponent {
         this.filter = true;
         this.filter1 = false;
         this.filters = false;
-          
+        this.filter3=false;  
       }
 
     });
@@ -535,7 +545,7 @@ export class CustomerTransViewallComponent {
               this.filter = true;
               this.filter1 = false;
               this.filter1 = false;
-      
+              this.filter3=false;  
             }
             else{
               this.transaction = [];
@@ -548,7 +558,7 @@ export class CustomerTransViewallComponent {
               this.filter = true;
               this.filter1 = false;
               this.filter1 = false;
-                
+              this.filter3=false;  
             }
       
           });
@@ -588,7 +598,7 @@ export class CustomerTransViewallComponent {
     }
     if (filterValue) {
 
-    this.service.CustomeradminSearch(filterValue,this.pageSize2,this.pageIndex2).subscribe({
+    this.service.CustomeradminSearch(filterValue,this.pageSize3,this.pageIndex3).subscribe({
       next: (res: any) => {
         if (res.response) {
           this.transaction = res.response;
@@ -596,13 +606,13 @@ export class CustomerTransViewallComponent {
           this.dataSource = new MatTableDataSource(this.transaction);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
-          this.totalPages2 = res.pagination.totalElements;
-          this.totalpage2 = res.pagination.totalPages;
-          this.currentpage2 = res.pagination.currentPage + 1;
-          this.filters=true;
+          this.totalPages3 = res.pagination.totalElements;
+          this.totalpage3 = res.pagination.totalPages;
+          this.currentpage3 = res.pagination.currentPage + 1;
+          this.filters=false;
           this.filter1=false;
           this.filter=false;
-
+          this.filter3=true;  
 
         }
         else if (res.flag === 2) {
@@ -610,12 +620,13 @@ export class CustomerTransViewallComponent {
           this.dataSource = new MatTableDataSource(this.transaction);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
-          this.totalPages2 = res.pagination.totalElements;
-          this.totalpage2 = res.pagination.totalPages;
-          this.currentpage2 = res.pagination.currentPage + 1;
-          this.filters=true;
+          this.totalPages3 = res.pagination.totalElements;
+          this.totalpage3 = res.pagination.totalPages;
+          this.currentpage3 = res.pagination.currentPage + 1;
+          this.filters=false;
           this.filter1=false;
           this.filter=false;
+          this.filter3=true;  
         }
       },
       error: (err: any) => {
@@ -655,14 +666,10 @@ export class CustomerTransViewallComponent {
     console.log('New Page Index:', this.pageIndex1);
     console.log('New Page Size:', this.pageSize1);
  
-    // You can now fetch or display the data for the new page index
-    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
-    this.CustomerAdmin(this.currentfilval);
     this.filterdate()
 
   }
-
-  
+ 
   resets()
   {
     window.location.reload()
@@ -675,6 +682,27 @@ export class CustomerTransViewallComponent {
       pageSize: this.pageSize2,
     } as PageEvent);
   }
+
+  renderPage3(event: PageEvent) {
+    this.pageIndex3 = event.pageIndex;  
+    this.pageSize3 = event.pageSize;           
+ 
+    console.log('New Page Index:', this.pageIndex3);
+    console.log('New Page Size:', this.pageSize3);
+   
+    this.CustomerAdmin(this.currentfilval);
+
+  }
+ 
+  changePageIndex3(newPageIndex3: number) {
+    this.pageIndex3 = newPageIndex3;
+    this.renderPage3({
+      pageIndex: newPageIndex3,
+      pageSize: this.pageSize3,
+      // length: this.totalItems
+    } as PageEvent);
+  }
+
 
  
 
@@ -768,7 +796,7 @@ export class CustomerTransViewallComponent {
         this.currentpage1 = res.pagination.currentPage + 1;
         this.filter1 = true;
         this.filter = false;
-       
+        this.filter3=false;  
         this.filters = false;
         this.dialog.closeAll();
       } else {
@@ -784,7 +812,7 @@ export class CustomerTransViewallComponent {
         this.filter = false;
         this.filter1 = true;
         this.filters = false;    
-        
+        this.filter3=false;  
       }
     });
       

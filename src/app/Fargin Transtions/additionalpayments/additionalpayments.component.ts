@@ -109,7 +109,12 @@ export class AdditionalpaymentsComponent {
   addpay: any;
   merchantId: any;
   selectedOption: any;
-
+  pageIndex3: number = 0;
+  pageSize3 = 5;
+  totalPages3: any;
+  currentpage3: any;
+  totalpage3: any;
+  filter3: boolean = true;
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private fb: FormBuilder) { }
 
 
@@ -168,6 +173,7 @@ export class AdditionalpaymentsComponent {
         this.filter = true;
         this.filter1=false;
         this.filters=false;
+        this.filter3=false;  
       }
         else{
           this.transaction = [];
@@ -180,6 +186,7 @@ export class AdditionalpaymentsComponent {
           this.filter = true;
           this.filter1=false;
           this.filters=false;
+          this.filter3=false;  
         }
       
 
@@ -232,6 +239,7 @@ export class AdditionalpaymentsComponent {
         this.dataSource.paginator = this.paginator;
         this.filter = true;
         this.filter1=false;
+        this.filter3=false;  
         this.filters=false;
       }
         else{
@@ -245,6 +253,7 @@ export class AdditionalpaymentsComponent {
           this.filter = true;
           this.filter1=false;
           this.filters=false;
+          this.filter3=false;  
         }
       
 
@@ -269,7 +278,7 @@ export class AdditionalpaymentsComponent {
 
         this.filter1 = false;
         this.filter = false;
-
+        this.filter3=false;  
         this.filters = true;
         this.dialog.closeAll()
       }
@@ -284,7 +293,7 @@ export class AdditionalpaymentsComponent {
         this.totalPages2 = res.pagination.totalElements;
         this.totalpage2 = res.pagination.totalPages;
         this.currentpage2 = res.pagination.currentPage + 1;
-
+        this.filter3=false;  
         this.filter = false;
         this.filter1 = false;
         this.filters = true;
@@ -305,6 +314,7 @@ export class AdditionalpaymentsComponent {
         this.filter = true;
         this.filter1=false;
         this.filters=false;
+        this.filter3=false;  
         this.FromDateRange='';
         this.ToDateRange='';
       }
@@ -319,6 +329,7 @@ export class AdditionalpaymentsComponent {
           this.filter = true;
           this.filter1=false;
           this.filters=false;
+          this.filter3=false;  
           this.FromDateRange='';
           this.ToDateRange='';
         }
@@ -504,6 +515,7 @@ export class AdditionalpaymentsComponent {
               this.filter = true;
               this.filter1=false;
               this.filters=false;
+              this.filter3=false;  
             }
               else{
                 this.transaction = [];
@@ -516,6 +528,7 @@ export class AdditionalpaymentsComponent {
                 this.filter = true;
                 this.filter1=false;
                 this.filters=false;
+                this.filter3=false;  
               }
             
       
@@ -551,33 +564,34 @@ export class AdditionalpaymentsComponent {
 
     if (filterValue) {
 
-    this.service.additionalsearchfilter(filterValue,this.pageSize2, this.pageIndex2).subscribe({
+    this.service.additionalsearchfilter(filterValue,this.pageSize3, this.pageIndex3).subscribe({
       next: (res: any) => {
         if (res.response) {
           this.transaction = res.response;
           this.transaction.reverse();
-          this.totalPages2 = res.pagination.totalElements;
-          this.totalpage2 = res.pagination.totalPages;
-          this.currentpage2 = res.pagination.currentPage + 1;
+          this.totalPages3 = res.pagination.totalElements;
+          this.totalpage3 = res.pagination.totalPages;
+          this.currentpage3 = res.pagination.currentPage + 1;
           this.dataSource = new MatTableDataSource(this.transaction);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
-          this.filters=true;
+          this.filters=false;
           this.filter1=false;
           this.filter=false;
-
+          this.filter3=true;  
         }
         else if (res.flag === 2) {
           this.transaction = [];
           this.dataSource = new MatTableDataSource(this.transaction);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
-          this.filters=true;
+          this.filters=false;
           this.filter1=false;
           this.filter=false;
-          this.totalPages2 = res.pagination.totalElements;
-          this.totalpage2 = res.pagination.totalPages;
-          this.currentpage2 = res.pagination.currentPage + 1;
+          this.filter3=true;  
+          this.totalPages3 = res.pagination.totalElements;
+          this.totalpage3 = res.pagination.totalPages;
+          this.currentpage3 = res.pagination.currentPage + 1;
 
         }
       },
@@ -616,7 +630,6 @@ export class AdditionalpaymentsComponent {
     console.log('New Page Index:', this.pageIndex2);
     console.log('New Page Size:', this.pageSize2);
 
-    this.CustomerAdmin(this.currentfilVal);
     this.filterdate()
 
   }
@@ -626,6 +639,25 @@ export class AdditionalpaymentsComponent {
     this.renderPage2({
       pageIndex: newPageIndex2,
       pageSize: this.pageSize2,
+    } as PageEvent);
+  }
+
+  renderPage3(event: PageEvent) {
+    this.pageIndex3 = event.pageIndex;  
+    this.pageSize3 = event.pageSize;           
+ 
+    console.log('New Page Index:', this.pageIndex3);
+    console.log('New Page Size:', this.pageSize3);
+    this.CustomerAdmin(this.currentfilVal);
+
+  }
+ 
+  changePageIndex3(newPageIndex3: number) {
+    this.pageIndex3 = newPageIndex3;
+    this.renderPage3({
+      pageIndex: newPageIndex3,
+      pageSize: this.pageSize3,
+      // length: this.totalItems
     } as PageEvent);
   }
 
@@ -719,7 +751,7 @@ export class AdditionalpaymentsComponent {
         this.currentpage1 = res.pagination.currentPage + 1;
         this.filter1 = true;
         this.filter = false;
-
+        this.filter3=false;  
         this.filters = false;
         this.dialog.closeAll();
       } else {
@@ -735,6 +767,7 @@ export class AdditionalpaymentsComponent {
         this.filter = false;
         this.filter1 = true;
         this.filters = false;
+        this.filter3=false;  
       }
     });
 

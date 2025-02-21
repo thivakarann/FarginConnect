@@ -128,6 +128,14 @@ export class MaintenanceTransViewallComponent {
   cloudfee: any;
   selectedOption: any;
 
+  pageIndex3: number = 0;
+  pageSize3 = 5;
+  totalPages3: any;
+  currentpage3: any;
+  totalpage3: any;
+  filter3: boolean = true;
+
+
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog,private fb:FormBuilder) { }
 
 
@@ -185,6 +193,7 @@ export class MaintenanceTransViewallComponent {
         this.filter = true;
         this.filter1=false;
         this.filters=false;
+        this.filter3=false;  
       }
       else{
         this.transaction = [];
@@ -197,6 +206,7 @@ export class MaintenanceTransViewallComponent {
         this.filter = true;
         this.filter1=false;
         this.filters=false; 
+        this.filter3=false;  
       }
 
     });
@@ -242,6 +252,7 @@ export class MaintenanceTransViewallComponent {
         this.filter = true;
         this.filter1=false;
         this.filters=false;
+        this.filter3=false;  
       }
       else{
         this.transaction = [];
@@ -253,7 +264,8 @@ export class MaintenanceTransViewallComponent {
         this.currentpage = res.pagination.currentPage + 1;
         this.filter = true;
         this.filter1=false;
-        this.filters=false; 
+        this.filters=false;
+        this.filter3=false;   
       }
 
     });
@@ -292,7 +304,7 @@ export class MaintenanceTransViewallComponent {
 
         this.filter1 = false;
         this.filter = false;
-
+        this.filter3=false;  
         this.filters = true;
         this.dialog.closeAll()
             }
@@ -307,7 +319,7 @@ export class MaintenanceTransViewallComponent {
         this.totalPages2 = res.pagination.totalElements;
         this.totalpage2 = res.pagination.totalPages;
         this.currentpage2 = res.pagination.currentPage + 1;
-
+        this.filter3=false;  
         this.filter = false;
         this.filter1 = false;
         this.filters = true;
@@ -334,6 +346,7 @@ export class MaintenanceTransViewallComponent {
         this.filter = true;
         this.filter1=false;
         this.filters=false;
+        this.filter3=false;  
         this.FromDateRange='';
         this.ToDateRange='';
       }
@@ -348,6 +361,7 @@ export class MaintenanceTransViewallComponent {
         this.filter = true;
         this.filter1=false;
         this.filters=false; 
+        this.filter3=false;  
         this.FromDateRange='';
         this.ToDateRange='';
       }
@@ -401,6 +415,7 @@ export class MaintenanceTransViewallComponent {
               this.filter = true;
               this.filter1=false;
               this.filters=false;
+              this.filter3=false;  
             }
             else{
               this.transaction = [];
@@ -413,6 +428,7 @@ export class MaintenanceTransViewallComponent {
               this.filter = true;
               this.filter1=false;
               this.filters=false; 
+              this.filter3=false;  
             }
       
           });
@@ -603,12 +619,26 @@ export class MaintenanceTransViewallComponent {
     } as PageEvent);
   }
 
+  renderPage3(event: PageEvent) {
+    this.pageIndex3 = event.pageIndex;  
+    this.pageSize3 = event.pageSize;       
+ 
+    this.subscription(this.currentfilVal);
+  }
+ 
+  changePageIndex3(newPageIndex3: number) {
+    this.pageIndex3 = newPageIndex3;
+    this.renderPage3({
+      pageIndex: newPageIndex3,
+      pageSize: this.pageSize3,
+      // length: this.totalItems
+    } as PageEvent);
+  }
 
   subscription(filterValue: string) {
   
     if (filterValue) {
-
-    this.service.Subscriptionsearch(filterValue,this.pageSize2,this.pageIndex2).subscribe({
+    this.service.Subscriptionsearch(filterValue,this.pageSize3,this.pageIndex3).subscribe({
       next: (res: any) => {
         if (res.response) {
           this.transaction = res.response;
@@ -616,24 +646,26 @@ export class MaintenanceTransViewallComponent {
           this.dataSource = new MatTableDataSource(this.transaction);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
-          this.totalPages2 = res.pagination.totalElements;
-          this.totalpage2 = res.pagination.totalPages;
-          this.currentpage2 = res.pagination.currentPage + 1;
-          this.filters=true;
+          this.totalPages3 = res.pagination.totalElements;
+          this.totalpage3 = res.pagination.totalPages;
+          this.currentpage3 = res.pagination.currentPage + 1;
+          this.filters=false;
           this.filter1=false;
           this.filter=false;
+          this.filter3=true;  
         }
         else if (res.flag === 2) {
           this.transaction = [];
           this.dataSource = new MatTableDataSource(this.transaction);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
-          this.totalPages2 = res.pagination.totalElements;
-          this.totalpage2 = res.pagination.totalPages;
-          this.currentpage2 = res.pagination.currentPage + 1;
-          this.filters=true;
+          this.totalPages3 = res.pagination.totalElements;
+          this.totalpage3 = res.pagination.totalPages;
+          this.currentpage3 = res.pagination.currentPage + 1;
+          this.filters=false;
           this.filter1=false;
           this.filter=false;
+          this.filter3=true;  
         }
       },
       error: (err: any) => {
@@ -716,6 +748,7 @@ export class MaintenanceTransViewallComponent {
           this.filter = true;
           this.filter1=false;
           this.filters=false;
+          this.filter3=false;  
         }
         else{
           this.transaction = [];
@@ -728,6 +761,7 @@ export class MaintenanceTransViewallComponent {
           this.filter = true;
           this.filter1=false;
           this.filters=false;
+          this.filter3=false;  
         }
  
       });
@@ -825,7 +859,7 @@ filterbymso() {
         this.currentpage1 = res.pagination.currentPage + 1;
         this.filter1 = true;
         this.filter = false;
-
+        this.filter3=false;  
         this.filters = false;
         this.dialog.closeAll();
       } else {
@@ -841,6 +875,7 @@ filterbymso() {
         this.filter = false;
         this.filter1 = true;
         this.filters = false;
+        this.filter3=false;  
       }
     });
 

@@ -89,7 +89,14 @@ export class OtherpaymentsViewallComponent {
   currentpage1: any;
   pageIndex2: number = 0;
   pageSize2 = 5;
- 
+
+//for search 3
+  pageIndex3: number = 0;
+  pageSize3 = 5;
+  totalPages3: any;
+  currentpage3: any;
+  totalpage3: any;
+
   totalpage2: any;
   totalPages2: any;
   currentpage2: any;
@@ -97,6 +104,7 @@ export class OtherpaymentsViewallComponent {
   filter: boolean = true;
   filter1: boolean = true;
   filter2: boolean = true;
+  filter3: boolean = true;
 currentfilVal: any;
 
   @ViewChild('dialogTemplate') dialogTemplate!: TemplateRef<any>;
@@ -174,7 +182,8 @@ currentfilVal: any;
         this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
         this.filter = true;
         this.filter1 = false;
-        this.filter2 = false;      
+        this.filter2 = false; 
+        this.filter3=false;     
       }
       else if (res.flag == 2) {
         this.transaction = [];
@@ -184,6 +193,7 @@ currentfilVal: any;
         this.filter = true;
         this.filter1 = false;
         this.filter2 = false;
+        this.filter3=false;    
         this.message = res.responseMessage;
       }
 
@@ -492,7 +502,7 @@ currentfilVal: any;
 
         this.filter1 = false;
         this.filter = false;
-
+        this.filter3=false;    
         this.filter2 = true;
         this.dialog.closeAll()
               // this.transaction = res.response;
@@ -525,6 +535,7 @@ currentfilVal: any;
         this.filter = false;
         this.filter1 = false;
         this.filter2 = true;
+        this.filter3=false;    
       }
     })
   }
@@ -543,7 +554,8 @@ currentfilVal: any;
       this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
       this.filter = true;
       this.filter1 = false;
-      this.filter2 = false;      
+      this.filter2 = false;  
+      this.filter3=false;      
     }
     else if (res.flag == 2) {
       this.transaction = [];
@@ -553,6 +565,7 @@ currentfilVal: any;
       this.filter = true;
       this.filter1 = false;
       this.filter2 = false;
+      this.filter3=false;  
       this.message = res.responseMessage;
     }
 
@@ -615,7 +628,7 @@ currentfilVal: any;
     console.log('New Page Index:', this.pageIndex2);
     console.log('New Page Size:', this.pageSize2);
  
-    this.custopay(this.currentfilVal);
+    // this.custopay(this.currentfilVal);
     this.filterdate()
 
   }
@@ -628,12 +641,33 @@ currentfilVal: any;
       // length: this.totalItems
     } as PageEvent);
   }
+
+  renderPage3(event: PageEvent) {
+    this.pageIndex3 = event.pageIndex;  
+    this.pageSize3 = event.pageSize;           
+ 
+    console.log('New Page Index:', this.pageIndex3);
+    console.log('New Page Size:', this.pageSize3);
+ 
+    this.custopay(this.currentfilVal);
+  
+
+  }
+ 
+  changePageIndex3(newPageIndex3: number) {
+    this.pageIndex3 = newPageIndex3;
+    this.renderPage3({
+      pageIndex: newPageIndex3,
+      pageSize: this.pageSize3,
+      // length: this.totalItems
+    } as PageEvent);
+  }
+
   custopay(filterValue: string) {
 console.log(filterValue)
     if (filterValue) {
     
- 
-    this.service.CustomizationPaySearch(filterValue,this.pageSize2,this.pageIndex2).subscribe({
+    this.service.CustomizationPaySearch(filterValue,this.pageSize3,this.pageIndex3).subscribe({
       next: (res: any) => {
         if (res.response) {
           this.transaction = res.response.content;  
@@ -641,24 +675,24 @@ console.log(filterValue)
           this.dataSource = new MatTableDataSource(this.transaction);  
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
-          this.totalPages2 = res.pagination.totalElements;
-          this.totalpage2 = res.pagination.totalPages;
-          this.currentpage2 = res.pagination.currentPage + 1;
-          this.filter2=true;
+          this.totalPages3 = res.pagination.totalElements;
+          this.totalpage3 = res.pagination.totalPages;
+          this.currentpage3 = res.pagination.currentPage + 1;
+          this.filter2=false;
           this.filter1 = false;
           this.filter = false;
-         
+          this.filter3=true;
         }
         else if (res.flag === 2) {
           this.transaction = [];  
           this.dataSource = new MatTableDataSource(this.transaction);  
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
-          this.totalPages2 = res.pagination.totalElements;
-          this.totalpage2 = res.pagination.totalPages;
-          this.currentpage2 = res.pagination.currentPage + 1;
-         
-          this.filter2=true;
+          this.totalPages3 = res.pagination.totalElements;
+          this.totalpage3 = res.pagination.totalPages;
+          this.currentpage3 = res.pagination.currentPage + 1;
+          this.filter3=true;
+          this.filter2=false;
           this.filter1 = false;
           this.filter = false;  
       }
@@ -766,6 +800,7 @@ console.log(filterValue)
           this.filter1 = true;
           this.filter = false;
           this.filter2 = false;
+          this.filter3=false;    
           this.dialog.closeAll();
 
         } else {
@@ -781,6 +816,7 @@ console.log(filterValue)
           this.filter = false;
           this.filter1 = true;
           this.filter2 = false;
+          this.filter3=false;    
         }
       });
     }
