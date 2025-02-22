@@ -264,6 +264,7 @@ import { EntityTerminalAddComponent } from './Entity Onboard/EntityTerminal/enti
 import { EntityTerminalEditComponent } from './Entity Onboard/EntityTerminal/entity-terminal-edit/entity-terminal-edit.component';
 import { TerminalTransactionsComponent } from './Entity Onboard/EntityTerminal/terminal-transactions/terminal-transactions.component';
 import { BranchTransactionsComponent } from './Entity Onboard/BranchTerminal/branch-transactions/branch-transactions.component';
+import { EntityPlanHistoryComponent } from './Entity Onboard/entity-plan-history/entity-plan-history.component';
 
 @NgModule({
   declarations: [
@@ -505,7 +506,8 @@ import { BranchTransactionsComponent } from './Entity Onboard/BranchTerminal/bra
     EntityTerminalAddComponent,
     EntityTerminalEditComponent,
     TerminalTransactionsComponent,
-    BranchTransactionsComponent
+    BranchTransactionsComponent,
+    EntityPlanHistoryComponent
 
   ],
 

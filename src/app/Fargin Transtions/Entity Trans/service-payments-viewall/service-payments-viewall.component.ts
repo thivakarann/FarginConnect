@@ -119,13 +119,18 @@ export class ServicePaymentsViewallComponent {
   currentpage3: any;
   totalpage3: any;
   filter3: boolean = true;
-  
+  search1:any;
+  maxDate:any;
 
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog,private fb:FormBuilder) { }
  
  
  
   ngOnInit(): void {
+
+    const today = new Date();
+    this.maxDate = moment(today).format('yyyy-MM-DD').toString()
+
  
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
@@ -200,7 +205,8 @@ export class ServicePaymentsViewallComponent {
           pay: ['', [Validators.required]],
           startDate: ['',],
           endDate: ['',],
-          search: ['', [Validators.required]]
+          search: ['', [Validators.required]],
+          search1:['']
         });
     
         this.Onetimepayfilter = this.fb.group({
@@ -411,6 +417,7 @@ export class ServicePaymentsViewallComponent {
     this.Onetimepayfilter.reset()
     this.options = [];
     this.search = ''
+    this.search1 = ''
   }
  
   viewreciept(id: any) {
@@ -813,11 +820,17 @@ export class ServicePaymentsViewallComponent {
       this.Onetimepay.reset()
       this.userInput = '';
       this.options = [];
-      this.search = ''
+      this.search = '';
+      this.search1 = '';
     }
   
     resetfilter(){
       this.Onetimepayfilter.reset();
     }
+
+    
+ future(value: any) {
+  value.reset()
+}
   
 }

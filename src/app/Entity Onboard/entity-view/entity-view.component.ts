@@ -1462,6 +1462,12 @@ export class EntityViewComponent implements OnInit {
     });
   }
 
+  Entityplan(){
+    this.router.navigate([`dashboard/entity-plan-history/${this.id}`],{
+      queryParams:{Alldata:this.id},
+    })
+  }
+
   Manuvelduesforcloudfee() {
  let submitModel:Manuvelduesforcloudfee = {
    merchantId: this.id

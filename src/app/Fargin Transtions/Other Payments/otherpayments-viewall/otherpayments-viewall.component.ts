@@ -79,7 +79,7 @@ export class OtherpaymentsViewallComponent {
   pageIndex: number = 0;
   pageSize = 5;
   transactionexport: any;
- 
+ search1:any;
  
   pageIndex1: number = 0;
   pageSize1 = 5;
@@ -123,10 +123,15 @@ currentfilVal: any;
   selectedOption: any;  
   filters: boolean = false;
   filterValue: any;
+  maxDate:any;
   
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog,private fb:FormBuilder) { }
 
   ngOnInit(): void {
+
+    const today = new Date();
+    this.maxDate = moment(today).format('yyyy-MM-DD').toString()
+
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
@@ -204,7 +209,9 @@ currentfilVal: any;
       pay: ['', [Validators.required]],
       startDate: ['',],
       endDate: ['',],
-      search: ['', [Validators.required]]
+      search: ['', [Validators.required]],
+      search1: ['']
+
     });
 
     this.Otherpaymentfilter = this.fb.group({
@@ -577,6 +584,7 @@ currentfilVal: any;
     this.Otherpaymentfilter.reset()
     this.options = [];
     this.search = ''
+      this.search1 = ''
   }
   renderPage(event: PageEvent) {
     // Capture the new page index and page size from the event
@@ -830,10 +838,15 @@ console.log(filterValue)
       this.userInput = '';
       this.options = [];
       this.search = ''
+      this.search1 = ''
     }
   
     resetfilter(){
       this.Otherpaymentfilter.reset();
+    }
+
+    future(value: any) {
+      value.reset()
     }
   
 }

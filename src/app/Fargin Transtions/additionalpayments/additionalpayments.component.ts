@@ -94,6 +94,7 @@ export class AdditionalpaymentsComponent {
   filter1: boolean = false;
   filters: boolean = false;
   currentfilVal:any="";
+  search1:any;
 
   @ViewChild('dialogTemplate') dialogTemplate!: TemplateRef<any>;
   dialogRef: any;
@@ -115,12 +116,16 @@ export class AdditionalpaymentsComponent {
   currentpage3: any;
   totalpage3: any;
   filter3: boolean = true;
+  maxDate:any;
+  
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private fb: FormBuilder) { }
 
 
 
   ngOnInit(): void {
 
+    const today = new Date();
+    this.maxDate = moment(today).format('yyyy-MM-DD').toString()
 
 
     this.service.rolegetById(this.roleId).subscribe({
@@ -196,7 +201,8 @@ export class AdditionalpaymentsComponent {
       pay: ['', [Validators.required]],
       startDate: ['',],
       endDate: ['',],
-      search: ['', [Validators.required]]
+      search: ['', [Validators.required]],
+      search1:['']
     });
 
     this.Datefilteradditionalpay = this.fb.group({
@@ -343,7 +349,9 @@ export class AdditionalpaymentsComponent {
     this.Datefilteradditionalpay.reset();
     this.additionalpay.reset()
     this.options = [];
-    this.search = ''
+    this.search = '';
+    this.search1 = ''
+
   }
 
   Receipt(id: any) {
@@ -782,10 +790,17 @@ export class AdditionalpaymentsComponent {
     this.additionalpay.reset()
     this.userInput = '';
     this.options = [];
-    this.search = ''
+    this.search = '';
+    this.search1 = ''
+
   }
 
   resetfilter(){
     this.Datefilteradditionalpay.reset();
+  }
+
+
+  future(value: any) {
+    value.reset()
   }
 }

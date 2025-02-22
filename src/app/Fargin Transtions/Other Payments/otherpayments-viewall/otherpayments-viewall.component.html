@@ -228,7 +228,7 @@
                 [hidden]="pageIndex3 === 0">Previous</button>
             <button style="color:white;background-color: #141E46;">{{this.currentpage3}} of {{this.totalpage3}}
                 Pages</button>
-            <button style="color:white;background-color: #141E46;" (click)="changePageIndex3(pageIndex2 + 1)"
+            <button style="color:white;background-color: #141E46;" (click)="changePageIndex3(pageIndex3 + 1)"
                 [hidden]="pageIndex3 >= totalpage3 - 1">Next</button>
         </div>
     </div>
@@ -255,12 +255,12 @@
                 <div class="form__linput">
                     <label class="form__label custom-label" for="fnames">Search entity</label>
                     <div class="search-input-with-button">
-                        <input formControlName="search" style="border: 1px solid #ccc;" class="form-control wider-input"
+                        <input formControlName="search1" style="border: 1px solid #ccc;" class="form-control wider-input"
                             id="fnames" (input)="onInputChange($event)" type="text" [(ngModel)]="search" name="search"
                             required />
                         <button type="button" (click)="onSearchClick()" class="search-button">Go</button>
                     </div>
-                    <p-dropdown *ngIf="options && options.length" [options]="options" [(ngModel)]="selectedOption"
+                    <p-dropdown formControlName="search" *ngIf="options && options.length" [options]="options" [(ngModel)]="selectedOption"
                         optionLabel="entityName" placeholder="Select Entity"
                         [style]="{'width':'261px', 'margin-top': '-2',height:'40px'}"
                         (onChange)="onDropdownChange($event)">
@@ -281,14 +281,14 @@
 
             <div style="margin-left:20px" class="form__linput ">
                 <label class="form__label custom-label" for="startDate">Start Date</label>
-                <input formControlName="startDate" style="border: 1px solid #ccc;width:260px"
+                <input (change)="future(endDate)" [max]="maxDate" formControlName="startDate" style="border: 1px solid #ccc;width:260px"
                     class="form-control wider-input" id="startDate" type="date" name="startDate">
 
             </div>
 
             <div style="margin-left:20px" class="form__linput">
                 <label class="form__label custom-label" for="endDate">End Date</label>
-                <input formControlName="endDate" style="border: 1px solid #ccc;width:260px"
+                <input [min]="startDate?.value" [max]="maxDate" formControlName="endDate" style="border: 1px solid #ccc;width:260px"
                     class="form-control wider-input" id="endDate" type="date" name="endDate">
             </div>
 

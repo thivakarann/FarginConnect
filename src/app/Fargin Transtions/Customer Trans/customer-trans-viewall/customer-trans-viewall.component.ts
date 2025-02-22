@@ -108,6 +108,7 @@ export class CustomerTransViewallComponent {
   // filterResults: any[] = [];
   currentfil:any
   search: any;
+  search1:any;
   selectedDate: any;
   selectedDate1: any;
   selectedOption: any;
@@ -124,13 +125,16 @@ export class CustomerTransViewallComponent {
   currentpage3: any;
   totalpage3: any;
   filter3: boolean = true;
-
+  maxDate:any;
+  
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private fb: FormBuilder) { }
 
 
 
   ngOnInit(): void {
 
+    const today = new Date();
+    this.maxDate = moment(today).format('yyyy-MM-DD').toString()
 
 
     this.service.rolegetById(this.roleId).subscribe({
@@ -208,7 +212,8 @@ export class CustomerTransViewallComponent {
       pay: ['', [Validators.required]],
       startDate: ['', ],
       endDate: ['',],
-      search: ['', [Validators.required]]
+      search: ['', [Validators.required]],
+      search1:['']
 
     });
 
@@ -356,6 +361,7 @@ export class CustomerTransViewallComponent {
     this.userInput = '';
     this.options = [];
     this.search=''
+      this.search1=''
   }
 
 
@@ -746,6 +752,7 @@ export class CustomerTransViewallComponent {
   
   onDropdownChange(event: any): void {
       this.search = event.value.entityName;
+        this.search1=event.value.entityName
       this.merchantId = event.value?.merchantId; 
       this.closeDropdown();
   }
@@ -824,6 +831,7 @@ export class CustomerTransViewallComponent {
     this.userInput = '';
     this.options = [];
     this.search=''
+    this.search1=''
   }
 
   close(){
@@ -831,27 +839,8 @@ export class CustomerTransViewallComponent {
    
   }
 
- 
-  shouldDisable(fieldName: string): boolean {
-    const fields = [
-      this.search
-    ];
-
-    // Check if any field is filled except for the current field
-    return (
-      fields.filter(
-        (value, index) => value && index !== this.getFieldIndex(fieldName)
-      ).length > 0
-    );
-  }
-
-  // custom filter disables fuctions
-  private getFieldIndex(fieldName: string): number {
-    const fieldNames = [
-      'search'
-    ];
-
-    return fieldNames.indexOf(fieldName);
+  future(value: any) {
+    value.reset()
   }
 
 

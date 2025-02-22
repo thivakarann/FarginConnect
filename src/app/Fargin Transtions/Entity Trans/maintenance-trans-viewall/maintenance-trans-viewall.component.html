@@ -45,9 +45,10 @@
 
         <div class="col-3 mt-4">
             <select [(ngModel)]="backs" class="form-select" (change)="Filter($event)">
-                <option value="" disabled selected>Filter</option>
+                <option value="" disabled selected>Dues,Filters</option>
                 <option value="Filterbycloudffeesearch">Filter By Cloud Fee</option>
                 <option value="Datefiltercloudfee">Date Filter</option>
+                <option value="DuegenerateCloudFee">Due Generation</option>
               </select>
         </div>
 
@@ -272,7 +273,7 @@
                 [hidden]="pageIndex3 === 0">Previous</button>
             <button style="color:white;background-color: #141E46;">{{this.currentpage3}} of {{this.totalpage3}}
                 Pages</button>
-            <button style="color:white;background-color: #141E46;" (click)="changePageIndex3(pageIndex2 + 1)"
+            <button style="color:white;background-color: #141E46;" (click)="changePageIndex3(pageIndex3 + 1)"
                 [hidden]="pageIndex3 >= totalpage3 - 1">Next</button>
         </div>
     </div>
@@ -298,10 +299,11 @@
                     <div class="form__linput">
                         <label class="form__label custom-label" for="fnames">Search entity</label>
                         <div class="search-input-with-button">
-                            <input formControlName="search" style="border: 1px solid #ccc;" class="form-control wider-input" id="fnames" (input)="onInputChange($event)" type="text" [(ngModel)]="search" name="search" required/>
+                            <input formControlName="search1" style="border: 1px solid #ccc;" class="form-control wider-input" id="fnames" (input)="onInputChange($event)" type="text"  name="search" required/>
                             <button type="button" (click)="onSearchClick()" class="search-button">Go</button>
                         </div>
                         <p-dropdown  
+                        formControlName="search" 
                             *ngIf="options && options.length" 
                             [options]="options" 
                             [(ngModel)]="selectedOption" 
@@ -325,13 +327,13 @@
                     
                     <div style="margin-left:20px" class="form__linput ">
                         <label class="form__label custom-label" for="startDate">Start Date</label>
-                        <input  formControlName="startDate" style="border: 1px solid #ccc;width:260px" class="form-control wider-input" id="startDate" type="date" name="startDate">
+                        <input (change)="future(endDate)" [max]="maxDate" formControlName="startDate" style="border: 1px solid #ccc;width:260px" class="form-control wider-input" id="startDate" type="date" name="startDate">
                         
                     </div>
 
                     <div style="margin-left:20px" class="form__linput">
                         <label class="form__label custom-label" for="endDate">End Date</label>
-                        <input  formControlName="endDate" style="border: 1px solid #ccc;width:260px" class="form-control wider-input" id="endDate" type="date" name="endDate">
+                        <input [min]="startDate?.value" [max]="maxDate" formControlName="endDate" style="border: 1px solid #ccc;width:260px" class="form-control wider-input" id="endDate" type="date" name="endDate">
                     </div>
 
 
@@ -388,4 +390,59 @@
             </div>
         </form>
     </main>
+</ng-template>
+
+
+<!-- Due Generation -->
+<ng-template #DueGenerated>
+    <div style="width:386px" class="dialog-card-header">
+        <h3 class="mb-0" style="text-align: center; font-size: 20px;">
+           Due Generation
+        </h3>
+        <div class="col-md-2 d-flex justify-content-end mb-1">
+            <button class="button1" (click)="close()">Back</button>
+          </div>
+    </div>
+    <!-- <div class="dialog-body page"> -->
+        <main  style="height:387px" class="main page__main">
+            <form  [formGroup]="Duegenerate"  class="form main__form" autocomplete="off" role="form">
+               
+                <div class="search-dropdown-container">
+                   <p style="color:blue;text-wrap: nowrap;">Note: Generate Dues for Particular Merchants</p>
+                    <div class="form__linput">
+                        <label class="form__label custom-label" style="margin-top: -4px;" for="fnames">Search entity</label>
+                        <div class="search-input-with-button">
+                            <input formControlName="search2" style="border: 1px solid #ccc;" class="form-control wider-input" id="fnames" (input)="onInputChange($event)" type="text"  name="search" required/>
+                            <button type="button" (click)="onSearchClick()" class="search-button">Go</button>
+                        </div>
+                        <p-dropdown 
+                        formControlName="searches" 
+                        [options]="options" 
+                        [(ngModel)]="selectedOption" 
+                        optionLabel="entityName" 
+                        placeholder="Select Entity"
+                        [style]="{'width':'265px', 'margin-top': '8px','height':'45px'}" 
+                        (onChange)="onDropdownChange($event)">
+                    </p-dropdown>
+                    </div>
+ 
+                </div>
+                
+            <div style="margin-left:16px;margin-top:51px;" class="row">
+            <div class='col-8'>
+                    <button type="submit" (click)="Duegeneration()" [disabled]="Duegenerate.invalid" class="btn mx-1" style="background-color: #7db855be;height:39px;">
+                        Generate Due
+                    </button>
+            </div>
+            <div class='col-4'>
+                    <button (click)="resetdue()" type="button" class="btn" style="background-color: #141e46; color: white;height:39px;">
+                      Reset
+                    </button>
+            </div>
+
+            </div>
+                  <br>
+            </form>
+        </main>
+    <!-- </div> -->
 </ng-template>

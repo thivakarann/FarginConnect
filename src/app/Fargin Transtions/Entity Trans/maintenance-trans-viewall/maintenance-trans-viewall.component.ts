@@ -13,6 +13,7 @@ import { Cloudfee, subscriptionpay } from '../../../fargin-model/fargin-model.mo
 import { PageEvent } from '@angular/material/paginator';
 import { TransManualPayComponent } from '../trans-manual-pay/trans-manual-pay.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Manuvelduesforcloudfee } from '../../../Fargin Model/fargin-model/fargin-model.module';
 
 interface Option {
   entityName: string;
@@ -105,12 +106,13 @@ export class MaintenanceTransViewallComponent {
   totalpage2: any;
   totalPages2: any;
   currentpage2: any;
- 
+ search1:any;
   filter: boolean = false;
   filter1: boolean = false;
   filters: boolean = false;
   currentfilVal:any="";
-
+  search2:any;
+  searches:any;
   backs: any = '';
   userInput: string = '';
   options: Option[] = [];
@@ -121,8 +123,10 @@ export class MaintenanceTransViewallComponent {
   dialogRef: any;
   @ViewChild('CloudFeeDateFilter') CloudFeeDateFilter!: TemplateRef<any>;
   @ViewChild('CloudFeeSearch') CloudFeeSearch!: TemplateRef<any>;
+  @ViewChild('DueGenerated') DueGenerated!: TemplateRef<any>;
   cloudfeesearch: any = FormGroup;
   Datefiltercloudfee:any= FormGroup;
+  Duegenerate:any=FormGroup
   merchantId: any;
   flags: any;
   cloudfee: any;
@@ -134,13 +138,16 @@ export class MaintenanceTransViewallComponent {
   currentpage3: any;
   totalpage3: any;
   filter3: boolean = true;
-
+  maxDate:any;
 
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog,private fb:FormBuilder) { }
 
 
 
   ngOnInit(): void {
+    const today = new Date();
+    this.maxDate = moment(today).format('yyyy-MM-DD').toString()
+
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
@@ -215,13 +222,22 @@ export class MaintenanceTransViewallComponent {
           pay: ['', [Validators.required]],
           startDate: ['',],
           endDate: ['',],
-          search: ['', [Validators.required]]
+          search: ['', [Validators.required]],
+          search1:['']
+
         });
     
         this.Datefiltercloudfee = this.fb.group({
           FromDateRange: ['', Validators.required],
           ToDateRange: ['', Validators.required]
         });
+
+        this.Duegenerate = this.fb.group({
+          searches: ['', Validators.required],
+          search2:['']
+        });
+
+        
 
   }
 
@@ -375,7 +391,10 @@ export class MaintenanceTransViewallComponent {
     this.Datefiltercloudfee.reset();
     this.cloudfeesearch.reset()
     this.options = [];
-    this.search = ''
+    this.search = '';
+     this.search1 = ''
+     this.search2 = ''
+
   }
 
 
@@ -796,6 +815,15 @@ filterbymso() {
       // width: '30%'
     });
   }
+  else if (this.filterValue == 'DuegenerateCloudFee') {
+    this.dialogRef = this.dialog.open(this.DueGenerated, {
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '1000ms',
+      disableClose: true,
+      position: { right: '0px' },
+      // width: '30%'
+    });
+  }
 }
 
 
@@ -891,11 +919,44 @@ filterbymso() {
     this.userInput = '';
     this.options = [];
     this.search = ''
+     this.search1 = ''
   }
 
   resetfilter(){
     this.Datefiltercloudfee.reset();
   }
 
+  resetdue(){
+    this.Duegenerate.reset();
+    this.search2 = ''
+  this.searches = ''
+  }
+
+  Duegeneration(){
+    if (!this.startDate?.value && !this.endDate?.value) {
+      this.flags = 1;
+      console.log('Flag set to 1:', this.flags);
+    } else {
+      this.flags = 2;
+      console.log('Flag set to 2:', this.flags);
+    }
+    let submitModel:Manuvelduesforcloudfee = {
+      merchantId: this.merchantId
+    }
+    this.service.MaintenancedueManuvelgenerate(submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.toastr.success(res.responseMessage)
+      }
+
+      else {
+        this.toastr.error(res.responseMessage)
+
+      }
+    })
+  }
+
+  future(value: any) {
+    value.reset()
+  }
  
 }

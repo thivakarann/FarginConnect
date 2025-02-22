@@ -101,7 +101,8 @@ export class FarginServiceService {
   private readonly paymentlink = 'paymentlink/getmerchant/';
   private readonly businessid = 'businesscategory/getById/';
   private readonly manualreciept = 'merchantpay/viewreceipt/';
-  private readonly entitykyc = 'entityDocument/addDocuments'
+  private readonly entitykyc = 'entityDocument/addDocuments';
+  private readonly EntityPlanDetails = 'merchant/viewMerchantPlanHistory/'
 
 
 
@@ -387,6 +388,7 @@ export class FarginServiceService {
   private readonly maintenancedatefilter = 'maintanancePay/dateFilter/';
   private readonly maintenancetransactionview = 'maintanancePay/viewById/';
   private readonly Manuveldueformaintenance = 'maintanancePay/due-generate';
+  
 
 
   //onetime
@@ -1142,6 +1144,10 @@ private readonly Otherpaydatefilter = 'otherpayment/viewPaymentStatusFilter/';
       ...this.options,
       ...{ responseType: 'blob' },
     })
+  }
+
+  MerchatPlandetails(id:any){
+    return this.http.get(`${this.basePath}${this.EntityPlanDetails}${id}`,this.options)
   }
 
   // EntityAddKyc(formdata: FormData) {

@@ -124,6 +124,7 @@
                                 <mat-menu #menu="matMenu">
                                     <button style="font-size: 10px;" mat-menu-item (click)="editpersonalInfo(this.id)"
                                         [hidden]="valueeditentity!=='Entity View-Edit'">Edit EntityDetails</button>
+                                        <button style="font-size: 10px;" mat-menu-item (click)="Entityplan()">Entity Plan Details</button>
                                     <button style="font-size: 10px;" mat-menu-item (click)="viewOnboardInfo(this.id)"
                                         [hidden]="valueviewonboard!=='Entity View-Onboard Information'">View
                                         OnboardInfo</button>
@@ -131,8 +132,9 @@
                                          [disabled]="this.detaislone?.approvalStatusL2 =='Pending' || this.detaislone?.approvalStatusL2=='Rejected'"
                                         [hidden]="valueentityonboard!=='Entity View-Onboard'">Onboard
                                         Entity</button>
+                                        
                                         <!--  -->
-                                    <button style="font-size: 10px;" mat-menu-item (click)="Manuvelduesforcloudfee()">Generate Cloud Fee</button>
+                                    <!-- <button style="font-size: 10px;" mat-menu-item (click)="Manuvelduesforcloudfee()">Generate Cloud Fee</button> -->
                                    
                                     <!-- <button style="font-size: 10px;" mat-menu-item (click)="emailtrigger()"
                                         [disabled]="detaislone?.onBoardStatus=='false'">
