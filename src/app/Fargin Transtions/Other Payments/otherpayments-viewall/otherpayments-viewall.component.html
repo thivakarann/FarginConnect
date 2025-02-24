@@ -327,14 +327,14 @@
             <div class="search-dropdown-container">
                 <div class="form__linput">
                     <label class="form__label custom-label" for="FromDateRange">From Date:</label>
-                    <input class="form-control" formControlName="FromDateRange"
+                    <input (change)="future(this.Otherpaymentfilter.get('ToDateRange')?.value)" [max]="maxDate" class="form-control" formControlName="FromDateRange"
                         style="border: 1px solid #ccc;width:322px" class="form-control wider-input" id="FromDateRange"
                         type="date">
                 </div>
 
                 <div class="form__linput ">
-                    <label class="form__label custom-label" for="ToDateRange">To Date:</label>
-                    <input class="form-control" formControlName="ToDateRange" style="border: 1px solid #ccc;width:322px"
+                    <label class="form__label custom-label" for="a">To Date:</label>
+                    <input [min]="this.Otherpaymentfilter.get('FromDateRange')?.value" [max]="maxDate" class="form-control" formControlName="ToDateRange" style="border: 1px solid #ccc;width:322px"
                         class="form-control wider-input" id="ToDateRange" type="date">
                 </div>
 

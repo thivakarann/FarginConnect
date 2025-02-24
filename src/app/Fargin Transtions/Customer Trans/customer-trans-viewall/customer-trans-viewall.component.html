@@ -323,12 +323,12 @@
 
                 <div class="form__linput">
                     <label class="form__label custom-label" for="FromDateRange">From Date:</label>
-                    <input class="form-control"  formControlName="FromDateRange" style="border: 1px solid #ccc;width:322px" class="form-control wider-input" id="FromDateRange" type="date">
+                    <input  (change)="future(this.Datefiltercustomer.get('ToDateRange')?.value)" [max]="maxDate" class="form-control"  formControlName="FromDateRange" style="border: 1px solid #ccc;width:322px" class="form-control wider-input" id="FromDateRange" type="date">
                 </div>
 
                 <div  class="form__linput ">
                     <label class="form__label custom-label" for="ToDateRange">To Date:</label>
-                    <input class="form-control"  formControlName="ToDateRange" style="border: 1px solid #ccc;width:322px" class="form-control wider-input" id="ToDateRange" type="date">
+                    <input [min]="this.Datefiltercustomer.get('FromDateRange')?.value" [max]="maxDate"  class="form-control"  formControlName="ToDateRange" style="border: 1px solid #ccc;width:322px" class="form-control wider-input" id="ToDateRange" type="date">
                 </div>
 
                 <div style="margin-left:20px" class="mt-3">

@@ -8,7 +8,6 @@ import moment from 'moment';
 import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
 import { Location } from '@angular/common';
-import { __param } from 'tslib';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({

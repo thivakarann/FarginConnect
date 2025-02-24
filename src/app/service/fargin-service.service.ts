@@ -102,7 +102,7 @@ export class FarginServiceService {
   private readonly businessid = 'businesscategory/getById/';
   private readonly manualreciept = 'merchantpay/viewreceipt/';
   private readonly entitykyc = 'entityDocument/addDocuments';
-  private readonly EntityPlanDetails = 'merchant/viewMerchantPlanHistory/'
+  private readonly EntityPlanDetails = 'merchant/viewMerchantPlanHistorys/'
 
 
 
