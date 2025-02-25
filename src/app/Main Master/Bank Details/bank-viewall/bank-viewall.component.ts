@@ -40,11 +40,11 @@ export class BankViewallComponent implements OnInit {
   date2: any;
   responseDataListnew: any = [];
   response: any = [];
-valuebanklistexport: any;
-valuebanklistadd: any;
-valuebankstatus: any;
-valuebankedit: any;
-errorMessage: any;
+  valuebanklistexport: any;
+  valuebanklistadd: any;
+  valuebankstatus: any;
+  valuebankedit: any;
+  errorMessage: any;
   getdashboard: any[] = [];
   roleId: any = localStorage.getItem('roleId')
   actions: any;
@@ -60,32 +60,32 @@ errorMessage: any;
 
     this.bankdetails.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        
+
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
 
           if (this.roleId == 1) {
-           this.valuebanklistadd='Bank List-Add'
-           this.valuebanklistexport='Bank List-Export'
-           this.valuebankstatus='Bank List-Status'
-           this.valuebankedit='Bank List-Edit'
+            this.valuebanklistadd = 'Bank List-Add'
+            this.valuebanklistexport = 'Bank List-Export'
+            this.valuebankstatus = 'Bank List-Status'
+            this.valuebankedit = 'Bank List-Edit'
           }
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
-            if(this.actions=='Bank List-Add'){
-              this.valuebanklistadd='Bank List-Add'
-            }
-            if(this.actions=='Bank List-Export'){
-              this.valuebanklistexport='Bank List-Export'
-            }
-            if(this.actions=='Bank List-Status'){
-              this.valuebankstatus='Bank List-Status'
-            }
-            if(this.actions=='Bank List-Edit'){
-              this.valuebankedit='Bank List-Edit'
-            }
+              if (this.actions == 'Bank List-Add') {
+                this.valuebanklistadd = 'Bank List-Add'
+              }
+              if (this.actions == 'Bank List-Export') {
+                this.valuebanklistexport = 'Bank List-Export'
+              }
+              if (this.actions == 'Bank List-Status') {
+                this.valuebankstatus = 'Bank List-Status'
+              }
+              if (this.actions == 'Bank List-Edit') {
+                this.valuebankedit = 'Bank List-Edit'
+              }
             }
           }
         }
@@ -102,7 +102,7 @@ errorMessage: any;
       this.dataSource = new MatTableDataSource(this.viewall);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-      
+
     });
 
 
@@ -121,24 +121,24 @@ errorMessage: any;
         this.dataSource = new MatTableDataSource(this.viewall);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        
+
       });
-  
+
     })
   }
 
-  
-reload(){
-  this.bankdetails.bankdetailsViewall().subscribe((res: any) => {
-    this.viewall = res.response;
-    this.viewall.reverse();
-    this.dataSource = new MatTableDataSource(this.viewall);
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    
-  });
 
-}
+  reload() {
+    this.bankdetails.bankdetailsViewall().subscribe((res: any) => {
+      this.viewall = res.response;
+      this.viewall.reverse();
+      this.dataSource = new MatTableDataSource(this.viewall);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+
+    });
+
+  }
 
 
   Editbankdetails(id: any) {
@@ -155,14 +155,14 @@ reload(){
         this.dataSource = new MatTableDataSource(this.viewall);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        
+
       });
-  
+
     })
   }
 
   ActiveStatus(event: MatSlideToggleChange, id: any) {
-    
+
     this.isChecked = event.checked;
 
     let submitModel: UpdateBankdetailStatus = {
@@ -170,7 +170,7 @@ reload(){
       activeStatus: this.isChecked ? 1 : 0,
     };
     this.bankdetails.activebankdetailsstatus(submitModel).subscribe((res: any) => {
-      
+
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         setTimeout(() => {
@@ -180,7 +180,7 @@ reload(){
             this.dataSource = new MatTableDataSource(this.viewall);
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
-            
+
           });
         }, 500);
 
@@ -204,44 +204,44 @@ reload(){
 
 
   exportexcel() {
-    
+
     let sno = 1;
     this.responseDataListnew = [];
     this.viewall.forEach((element: any) => {
       let createdate = element.createdAt;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-     
+
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.bankName);
       if (element?.activeStatus == 1) {
         this.response.push("Active");
       }
- 
+
       else {
         this.response.push("InActive");
       }
       this.response.push(element?.createdBy);
       this.response.push(this.date1);
       this.response.push(element?.modifiedBy);
- 
+
       if (element?.modifiedAt != null) {
         let moddate = element.modifiedAt;
-      this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
+        this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
         this.response.push(this.date2);
       }
       else {
         this.response.push();
       }
- 
- 
- 
+
+
+
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
- 
+
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
@@ -253,16 +253,16 @@ reload(){
       "Modified By",
       "Modified At"
     ]
- 
- 
+
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Bank Details');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
- 
- 
+
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -273,15 +273,15 @@ reload(){
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
+
       }
- 
+
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
- 
+
     data.forEach((d: any) => {
       // 
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -290,12 +290,12 @@ reload(){
       let qty4 = row.getCell(5);
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
- 
- 
- 
- 
- 
- 
+
+
+
+
+
+
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -303,9 +303,9 @@ reload(){
       qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
- 
- 
+
+
+
     }
     );
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }

@@ -111,6 +111,7 @@ import { EntityTerminalViewComponent } from './Entity Onboard/EntityTerminal/ent
 import { TerminalTransactionsComponent } from './Entity Onboard/EntityTerminal/terminal-transactions/terminal-transactions.component';
 import { BranchTransactionsComponent } from './Entity Onboard/BranchTerminal/branch-transactions/branch-transactions.component';
 import { EntityPlanHistoryComponent } from './Entity Onboard/entity-plan-history/entity-plan-history.component';
+import { RefundPeriodViewallComponent } from './Main Master/Refund Period/refund-period-viewall/refund-period-viewall.component';
 
 const routes: Routes = [
 
@@ -233,7 +234,8 @@ const routes: Routes = [
       {path:'EntityTerminal/:id',component:EntityTerminalViewComponent,canActivate: [authGuard]},
       {path:'terminal-transactions/:id',component:TerminalTransactionsComponent,canActivate: [authGuard]},
       {path:'branch-transactions/:id',component:BranchTransactionsComponent,canActivate: [authGuard]},
-      {path:'entity-plan-history/:id',component:EntityPlanHistoryComponent,canActivate:[authGuard]}
+      {path:'entity-plan-history/:id',component:EntityPlanHistoryComponent,canActivate:[authGuard]},
+      {path:"refund-period-viewall",component:RefundPeriodViewallComponent,canActivate:[authGuard]}
 
       
 

@@ -752,18 +752,22 @@ private readonly entityterminalupdate ='entityTerminal/update/';
 //customer payments
 private readonly customerpayget = 'customerpay/viewEntitySearch/';
 private readonly customerpayfilter = 'customerpay/viewPaymentStatusFilter/';
-
 private readonly Additionalpaysearch = 'customerotherpayment/viewEntitySearch/';
 private readonly Additionalpayfilter = 'customerotherpayment/viewPaymentStatusFilter/';
-
 private readonly Cloudfeesearch = 'maintanancePay/viewEntitySearch/';
 private readonly Cloudfeefilter = 'maintanancePay/viewPaymentStatusFilter/';
-
 private readonly Onetimepaysearch = 'merchantpay/viewEntitySearch/';
 private readonly Onetimepaydatefilter = 'merchantpay/viewPaymentStatusFilter/';
-
 private readonly Otherpaymentsearch = 'otherpayment/viewEntitySearch/';
 private readonly Otherpaydatefilter = 'otherpayment/viewPaymentStatusFilter/';
+
+
+// Refund Period
+
+private readonly refundperiodviewall = 'refundDayLimit/getAll';
+private readonly refundperiodadd = 'refundDayLimit/createRefundDays';
+private readonly refundperiodupdate = 'refundDayLimit/updateRefundDays/';
+private readonly refundperiodbyid = 'refundDayLimit/getDays/';
 
 
   loginError = new Subject();
@@ -2848,5 +2852,24 @@ private readonly Otherpaydatefilter = 'otherpayment/viewPaymentStatusFilter/';
 
   OtherPaymentFilter(id:any,id1:any,model:any){
     return this.http.post(`${this.basePath}${this.Otherpaydatefilter}${id}/${id1}`,model,this.options);
+  }
+
+
+  // Refund period
+
+  RefundperiodGetall(){
+    return this.http.get(`${this.basePath}${this.refundperiodviewall}`,this.options)
+  }
+
+  Refundperiodadd(model:any){
+    return this.http.post(`${this.basePath}${this.refundperiodadd}`,model,this.options)
+  }
+
+  RefundPeriodUpdate(id:any,model:any){
+    return this.http.put(`${this.basePath}${this.refundperiodupdate}${id}`,model,this.options)
+  }
+
+  RefundPeriodbyid(id:any){
+    return this.http.get(`${this.basePath}${this.refundperiodbyid}${id}`,this.options)
   }
 }

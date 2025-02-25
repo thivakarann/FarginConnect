@@ -265,6 +265,9 @@ import { EntityTerminalEditComponent } from './Entity Onboard/EntityTerminal/ent
 import { TerminalTransactionsComponent } from './Entity Onboard/EntityTerminal/terminal-transactions/terminal-transactions.component';
 import { BranchTransactionsComponent } from './Entity Onboard/BranchTerminal/branch-transactions/branch-transactions.component';
 import { EntityPlanHistoryComponent } from './Entity Onboard/entity-plan-history/entity-plan-history.component';
+import { RefundPeriodViewallComponent } from './Main Master/Refund Period/refund-period-viewall/refund-period-viewall.component';
+import { RefundPeriodAddComponent } from './Main Master/Refund Period/refund-period-add/refund-period-add.component';
+import { RefundPeriodEditComponent } from './Main Master/Refund Period/refund-period-edit/refund-period-edit.component';
 
 @NgModule({
   declarations: [
@@ -507,7 +510,10 @@ import { EntityPlanHistoryComponent } from './Entity Onboard/entity-plan-history
     EntityTerminalEditComponent,
     TerminalTransactionsComponent,
     BranchTransactionsComponent,
-    EntityPlanHistoryComponent
+    EntityPlanHistoryComponent,
+    RefundPeriodViewallComponent,
+    RefundPeriodAddComponent,
+    RefundPeriodEditComponent
 
   ],
 

@@ -181,6 +181,18 @@ export interface Manuvelduesforcloudfee {
   readonly merchantId: any;
 }
 
+export interface Refundperiodadd {
+  readonly paymentMethod:any;
+  readonly day:any;
+  readonly createdBy:any;
+}
+
+
+export interface RefundPeriodUpdate {
+  readonly paymentMethod:any;
+  readonly day:any;
+  readonly modifiedBy:any;
+}
 
 
 
