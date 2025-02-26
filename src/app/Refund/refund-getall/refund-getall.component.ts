@@ -17,7 +17,7 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 })
 export class RefundGetallComponent {
   dataSource: any;
-  displayedColumns: string[] = ["sno","entityname","type", "pgPaymentId", "reqid","activityid", "custname","custemail","custmobile",  "paidAmount", "refund","status","refundDate"]
+  displayedColumns: string[] = ["sno", "type", "entityname", "custname", "custmobile", "pgPaymentId", "reqid", "activityid", "paidAmount", "refund", "status", "refundDate"]
   showcategoryData: boolean = false;
   errorMsg: any;
   responseDataListnew: any = [];
@@ -55,33 +55,33 @@ export class RefundGetallComponent {
 
   pageIndex1: number = 0;
   pageSize1 = 5;
- 
+
   totalpage1: any;
   totalPages1: any;
   currentpage1: any;
 
-  filter:boolean=false;
-  currentfilval:any;
+  filter: boolean = false;
+  currentfilval: any;
   pageIndex: number = 0;
   pageSize: number = 5;
   totalPages: any;
   totalpage: any;
   currentpage: any;
   refundexport: any;
-  valuerefundexport:any;
+  valuerefundexport: any;
   errorMessage: any;
-FromDateRange: any;
-ToDateRange: any;
+  FromDateRange: any;
+  ToDateRange: any;
 
-pageIndex2: number = 0;
-pageSize2 = 5;
+  pageIndex2: number = 0;
+  pageSize2 = 5;
 
-totalpage2: any;
-totalPages2: any;
-currentpage2: any;
+  totalpage2: any;
+  totalPages2: any;
+  currentpage2: any;
 
-filter1: boolean = false;
-filters: boolean = false;
+  filter1: boolean = false;
+  filters: boolean = false;
   transaction: any;
 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private router: Router) { }
@@ -90,7 +90,7 @@ filters: boolean = false;
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
- 
+
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
           if (this.roleId == 1) {
@@ -110,38 +110,38 @@ filters: boolean = false;
         }
       }
     });
-    this.service.RefundGetAll(this.pageSize,this.pageIndex).subscribe((res: any) => {
+    this.service.RefundGetAll(this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.refund = res.response;
 
         this.dataSource = new MatTableDataSource(this.refund);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-       
+
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.totalPages;
         this.currentpage = res.pagination.currentPage + 1;
-        this.filter=true;
-        this.filter1=false; 
-        this.filters=false;
+        this.filter = true;
+        this.filter1 = false;
+        this.filters = false;
 
       }
 
-      else if(res.flag==2){
-        this.dataSource = new MatTableDataSource([]); 
+      else if (res.flag == 2) {
+        this.dataSource = new MatTableDataSource([]);
         this.dataSource = new MatTableDataSource(this.refund);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.totalPages;
         this.currentpage = res.pagination.currentPage + 1;
-        this.filter=true;
-        this.filter1=false; 
-        this.filters=false;
+        this.filter = true;
+        this.filter1 = false;
+        this.filters = false;
 
       }
     });
-  
+
 
   }
 
@@ -155,45 +155,45 @@ filters: boolean = false;
     }
   }
   reload() {
-    this.service.RefundGetAll(this.pageSize,this.pageIndex).subscribe((res: any) => {
+    this.service.RefundGetAll(this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.refund = res.response;
 
         this.dataSource = new MatTableDataSource(this.refund);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-       
+
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.totalPages;
         this.currentpage = res.pagination.currentPage + 1;
-        this.filter=true;
-        this.filter1=false; 
-        this.filters=false;
+        this.filter = true;
+        this.filter1 = false;
+        this.filters = false;
 
       }
 
-      else if(res.flag==2){
-        this.dataSource = new MatTableDataSource([]); 
+      else if (res.flag == 2) {
+        this.dataSource = new MatTableDataSource([]);
         this.dataSource = new MatTableDataSource(this.refund);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.totalPages;
         this.currentpage = res.pagination.currentPage + 1;
-        this.filter=true;
-        this.filter1=false; 
-        this.filters=false;
+        this.filter = true;
+        this.filter1 = false;
+        this.filters = false;
 
       }
     });
   }
 
 
- 
+
 
 
   view(id: any) {
-   
+
   }
 
   // invoice(id: any) {
@@ -211,7 +211,7 @@ filters: boolean = false;
       return;
     }
 
-    this.service.RefundGetAllSearch(filterValue,this.pageSize1,this.pageIndex1).subscribe({
+    this.service.RefundGetAllSearch(filterValue, this.pageSize1, this.pageIndex1).subscribe({
       next: (res: any) => {
         if (res.response) {
           this.refund = res.response;
@@ -222,9 +222,9 @@ filters: boolean = false;
           this.totalPages1 = res.pagination.totalElements;
           this.totalpage1 = res.pagination.totalPages;
           this.currentpage1 = res.pagination.currentPage + 1;
-          this.filter=false;
-        this.filter1=true; 
-        this.filters=false;
+          this.filter = false;
+          this.filter1 = true;
+          this.filters = false;
 
 
         }
@@ -236,9 +236,9 @@ filters: boolean = false;
           this.totalPages1 = res.pagination.totalElements;
           this.totalpage1 = res.pagination.totalPages;
           this.currentpage1 = res.pagination.currentPage + 1;
-          this.filter=false;
-          this.filter1=true; 
-          this.filters=false;
+          this.filter = false;
+          this.filter1 = true;
+          this.filters = false;
         }
       },
       error: (err: any) => {
@@ -251,16 +251,16 @@ filters: boolean = false;
     // Capture the new page index and page size from the event
     this.pageIndex1 = event.pageIndex;  // Update current page index
     this.pageSize1 = event.pageSize;           // Update page size (if changed)
- 
+
     // Log the new page index and page size to the console (for debugging)
     console.log('New Page Index:', this.pageIndex1);
     console.log('New Page Size:', this.pageSize1);
- 
+
     // You can now fetch or display the data for the new page index
     // Example: this.fetchData(this.currentPageIndex, this.pageSize);
     this.refundsearch(this.currentfilval);
   }
- 
+
   changePageIndex1(newPageIndex1: number) {
     this.pageIndex1 = newPageIndex1;
     this.renderPage1({
@@ -297,35 +297,29 @@ filters: boolean = false;
         let sno = 1;
         this.responseDataListnew = [];
         this.refundexport.forEach((element: any) => {
- 
+
           this.response = [];
           this.response.push(sno);
           this.response.push(element?.type);
+          this.response.push(element?.customerId?.merchantId?.merchantLegalName);
+          this.response.push(element?.customerId?.customerName);
+          this.response.push(element?.customerId?.mobileNumber);
           this.response.push(element?.paymentId);
           this.response.push(element?.requestId);
- 
-          this.response.push(element?.activityId);
- 
-          this.response.push(element?.customerId?.customerName );
-          this.response.push(element?.customerId?.emailAddress );
- 
-          this.response.push(element?.customerId?.mobileNumber );
-          this.response.push(element?.paymentModel?.paidAmount );
- 
+          this.response.push(element?.activityId);this.response.push(element?.paymentModel?.paidAmount);
           this.response.push(element?.refundAmount);
- 
           this.response.push(element?.refundStatus);
- 
-       
-          if (element.refundDateTime) {
-            this.response.push(moment(element?.refundDateTime).format('DD/MM/yyyy hh:mm a').toString());
+
+
+          if (element.createdAt) {
+            this.response.push(moment(element?.createdAt).format('DD/MM/yyyy hh:mm a').toString());
           }
           else {
             this.response.push('');
           }
- 
-       
- 
+
+
+
           sno++;
           this.responseDataListnew.push(this.response);
         });
@@ -333,22 +327,22 @@ filters: boolean = false;
       }
     });
   }
- 
+
   excelexportCustomer() {
     // const title='Entity Details';
     const header = [
-     "SNo","Type", "PgPaymentId", "ReqId","ActivityId", "CustomerName","CustomerEmail","CustomerMobile",  "PaidAmount", "RefundAmount","Status","RefundDate"
+      "SNo", "Type", "EntityName", "CustomerName",  "CustomerMobile", "PgPaymentId", "ReqId", "ActivityId","PaidAmount", "RefundAmount", "Status", "Requested Date"
     ]
- 
- 
+
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Online Refunds');
- 
+
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
- 
- 
+
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -359,15 +353,15 @@ filters: boolean = false;
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
+
       }
- 
+
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
- 
+
     data.forEach((d: any) => {
       //
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -381,8 +375,8 @@ filters: boolean = false;
       let qty9 = row.getCell(10);
       let qty10 = row.getCell(11);
       let qty11 = row.getCell(12);
- 
- 
+
+
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -395,16 +389,16 @@ filters: boolean = false;
       qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
+
     }
     );
- 
+
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       FileSaver.saveAs(blob, 'Online Refunds.xlsx');
     });
   }
-  
+
   filterdate() {
     // const datepipe: DatePipe = new DatePipe("en-US");
     // let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY HH:mm");
@@ -421,7 +415,7 @@ filters: boolean = false;
         this.totalPages2 = res.pagination.totalElements;
         this.totalpage2 = res.pagination.totalPages;
         this.currentpage2 = res.pagination.currentPage + 1;
- 
+
 
 
         this.dataSource = new MatTableDataSource(this.transaction);
@@ -429,8 +423,8 @@ filters: boolean = false;
         this.dataSource.paginator = this.paginator;
         this.filter = false;
         this.filter1 = false;
-        this.filters = true;        
-       }
+        this.filters = true;
+      }
       else if (res.flag == 2) {
         this.transaction = [];
         this.dataSource = new MatTableDataSource(this.transaction);
@@ -439,11 +433,12 @@ filters: boolean = false;
         this.totalPages2 = res.pagination.totalElements;
         this.totalpage2 = res.pagination.totalPages;
         this.currentpage2 = res.pagination.currentPage + 1;
- 
-   
+
+
         this.filter = false;
         this.filter1 = false;
-        this.filters = true;            }
+        this.filters = true;
+      }
     })
   }
   reset() {
@@ -453,16 +448,16 @@ filters: boolean = false;
     // Capture the new page index and page size from the event
     this.pageIndex2 = event.pageIndex;  // Update current page index
     this.pageSize2 = event.pageSize;           // Update page size (if changed)
- 
+
     // Log the new page index and page size to the console (for debugging)
     console.log('New Page Index:', this.pageIndex1);
     console.log('New Page Size:', this.pageSize1);
- 
+
     // You can now fetch or display the data for the new page index
     // Example: this.fetchData(this.currentPageIndex, this.pageSize);
     this.filterdate();
   }
- 
+
   changePageIndex2(newPageIndex1: number) {
     this.pageIndex2 = newPageIndex1;
     this.renderPage2({

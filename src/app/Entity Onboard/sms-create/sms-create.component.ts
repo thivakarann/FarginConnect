@@ -48,16 +48,16 @@ export class SmsCreateComponent implements OnInit {
 
       }
     });
-    this.service.smsfreepaiddropdowns(0).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.free = res.response;
-      }
-    });
-    this.service.smsfreepaiddropdowns(1).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.paid = res.response;
-      }
-    });
+    // this.service.smsfreepaiddropdowns(0).subscribe((res: any) => {
+    //   if (res.flag == 1) {
+    //     this.free = res.response;
+    //   }
+    // });
+    // this.service.smsfreepaiddropdowns(1).subscribe((res: any) => {
+    //   if (res.flag == 1) {
+    //     this.paid = res.response;
+    //   }
+    // });
   }
  
   get smsFor() {

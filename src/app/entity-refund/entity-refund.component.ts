@@ -9,6 +9,8 @@ import { Location } from '@angular/common';
 import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
 import moment from 'moment';
+import { EntityOfflineviewComponent } from '../Entity Onboard/entity-offlineview/entity-offlineview.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-entity-refund',
@@ -17,20 +19,8 @@ import moment from 'moment';
 })
 export class EntityRefundComponent {
   dataSource!: MatTableDataSource<any>;
-  displayedColumns: string[] = [
-    'customerId',
-    // 'Customer Refund',
-    'Type',
-    'Customer Name',
-    'Payment ID',
-    'Request ID',
-    'Activity ID',
-    'Paid Amount',
-    'Refund Amount',
-    // 'Total Refunded Amount',
-    'Refund Status',
-    'Refund Date & Time'
-  ];
+  displayedColumns: string[] = ["sno", "setupbox", "custname", "custmobile",  "type",  "reqid", "pgPaymentId", "paidAmount", "refund", "status", "View", "createdAt",]
+
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -38,7 +28,7 @@ export class EntityRefundComponent {
   isChecked: boolean = false;
   id: any;
   showcategoryData: boolean = false;
-  refundValue: any;
+  transaction: any;
   responseDataListnew: any = [];
   date1: any;
   response: any = [];
@@ -49,7 +39,8 @@ export class EntityRefundComponent {
     private router: Router,
     private toastr: ToastrService,
     private ActivateRoute: ActivatedRoute,
-    private Location: Location
+    private Location: Location,
+    private dialog:MatDialog
   ) { }
   ngOnInit(): void {
     this.ActivateRoute.queryParams.subscribe((param: any) => {
@@ -58,8 +49,8 @@ export class EntityRefundComponent {
 
     this.service.Entityrefund(this.id).subscribe((res: any) => {
 
-      this.refundValue = res.response;
-      this.dataSource = new MatTableDataSource(this.refundValue)
+      this.transaction = res.response;
+      this.dataSource = new MatTableDataSource(this.transaction)
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     })
@@ -70,6 +61,15 @@ export class EntityRefundComponent {
     window.location.reload()
   }
 
+  view(id: any) {
+    this.dialog.open(EntityOfflineviewComponent,{
+     enterAnimationDuration:"500ms",
+     exitAnimationDuration:"500ms",
+     data:{value:id},
+     disableClose:true
+    })
+   }
+
 
   close() {
     this.Location.back()
@@ -77,23 +77,24 @@ export class EntityRefundComponent {
   exportexcel() {
     let sno = 1;
     this.responseDataListnew = [];
-    this.refundValue.forEach((element: any) => {
-      let createdate = element.refundDateTime;
-      this.date1 = moment(createdate).format('DD/MM/yyyy hh:mm a').toString();
+    this.transaction.forEach((element: any) => {
       this.response = [];
-      this.response.push(sno);
-      this.response.push(element?.type);
-      this.response.push(element?.customerRefundId);
-      this.response.push(element?.customerName);
-      this.response.push(element?.paymentId);
-      this.response.push(element?.requestId);
-      this.response.push(element?.activityId);
-      this.response.push(element?.paymentModel?.paidAmount);
-      this.response.push(element?.refundAmount);
-      this.response.push(element?.totalPayableAmount);
-      this.response.push(element?.refundStatus);
-
-      this.response.push(element?.date1);
+          this.response.push(sno);
+          this.response.push(element?.paymentModel?.customerStbId?.stbId?.setupBoxNumber);
+          this.response.push(element?.customerId?.customerName);
+          this.response.push(element?.customerId?.mobileNumber);
+          this.response.push(element?.typeMode);
+          this.response.push(element?.requestId);
+          this.response.push(element?.paymentId);
+          this.response.push(element?.paymentModel?.paidAmount);
+          this.response.push(element?.refundAmount);
+          this.response.push(element?.refundStatus);
+          if (element.createdAt) {
+            this.response.push(moment(element?.createdAt).format('DD/MM/yyyy hh:mm a').toString());
+          }
+          else {
+            this.response.push('');
+          }
       sno++;
       this.responseDataListnew.push(this.response);
     });
@@ -101,39 +102,50 @@ export class EntityRefundComponent {
   }
 
   excelexportCustomer() {
+    // const title='Entity Details';
     const header = [
-      'S.No',
-      'Type',
-      'Customer Refund Id',
-      'Customer Name',
-      'Payment ID',
-      'Request ID',
-      'Activity ID',
-      'Paid Amount',
-      'Refund Amount',
-      'Total Refunded Amount',
-      'Refund Status',
-      'Refund Date & Time'
+      "SNo",
+      "Setupbox",
+      "CustomerName",
+      "CustomerMobile",
+      "Type",
+      "Request ID",
+      "Payment ID",
+      "PaidAmount",
+      "RefundAmount",
+      "Status",
+      "Requested Date"
     ]
+
 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
-    let worksheet = workbook.addWorksheet('Employee');
+    let worksheet = workbook.addWorksheet('Refunds');
+
+    // let titleRow = worksheet.addRow([title]);
+    // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
+
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
+    // Cell Style : Fill and Border
     headerRow.eachCell((cell, number) => {
       cell.fill = {
         type: 'pattern',
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
+
       }
+
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
-    data.forEach((d: any) => {
-      let row = worksheet.addRow(d);
 
+    data.forEach((d: any) => {
+      //
+
+      let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
       let qty2 = row.getCell(3);
@@ -145,7 +157,8 @@ export class EntityRefundComponent {
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
       let qty10 = row.getCell(11);
-      let qty11 = row.getCell(12);
+    
+
 
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -158,13 +171,13 @@ export class EntityRefundComponent {
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
 
     }
     );
+
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      FileSaver.saveAs(blob, 'Employee.xlsx');
+      FileSaver.saveAs(blob, 'Refunds.xlsx');
     });
   }
 

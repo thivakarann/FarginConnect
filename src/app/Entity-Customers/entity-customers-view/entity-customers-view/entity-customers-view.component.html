@@ -521,33 +521,7 @@
   <div>
     <div class="row mt-4 mx-1">
       <div class="col ">
-        <div class="search ">
-          <form class="form">
-            <label for="search">
-              <input style="font-size: 13px;" type="text" id="search" [(ngModel)]="searchText" name="searchText"
-                placeholder="search">
-              <div class="icon">
-                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                  xmlns="http://www.w3.org/2000/svg" class="swap-on">
-                  <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
-                  </path>
-                </svg>
-                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                  xmlns="http://www.w3.org/2000/svg" class="swap-off">
-                  <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round" stroke-linecap="round">
-                  </path>
-                </svg>
-              </div>
-              <button (click)="reload()" type="reset" class="close-btn">
-                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
-                  <path clip-rule="evenodd"
-                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    fill-rule="evenodd"></path>
-                </svg>
-              </button>
-            </label>
-          </form>
-        </div> &nbsp;
+      
           <!-- <button (click)="refundsearch(input.value)"  style="color:white;background-color: #141E46;border-radius: 10px;"
               mat-raised-button>Go</button>
           -->
@@ -561,37 +535,48 @@
               <tr>
  
                 <th>S No</th>
+                <th>STB Number</th>
                 <th>Type</th>
-                <th>Refund Amount</th>
-                <th>Payment ID</th>
                 <th>Request ID</th>
-                <th>Activity ID</th>
+                <th>Payment ID</th>
                 <th>Paid Amount</th>
- 
                 <th>Refund Amount</th>
                 <th>Refund Status</th>
-                <!-- <th>Created date</th> -->
-                <th>Refund Date</th>
+                <th>Requested Date</th>
+              
+               
+              
+              
+ 
+               
+               
+               
  
               </tr>
               <!-- <span *ngIf="!showData" class="text-center" style="color:red;font-size:12px;">NO DATA FOUND</span> -->
  
               <tbody>
                 <tr
-                  *ngFor="let item of refundval | paginate: { id:'pagination5', itemsPerPage: 3, currentPage: page4 } | search: searchText; let i = index" >
+                  *ngFor="let item of refundval | search: searchText | paginate: { itemsPerPage: 3, currentPage: currentPage }; let i = index" >
  
                   <td>{{ i + 1 }}</td>
+                  <td>{{item.paymentModel ?.customerStbId?. stbId?. setupBoxNumber
+                  }}</td>
                   <td>{{ item.type}}</td>
-                  <td>{{ item.refundAmount ||'--'}}</td>
+                  <td>{{ item.requestId || "-"}}</td>
                   <td>{{ item.paymentId ||'--'}}</td>
-                 
-                  <td>{{ item.requestId}}</td>
-                  <td>{{ item.activityId}}</td>
                   <td>{{ item.paymentModel?.paidAmount}}</td>
-                  <td>{{ item.refundAmount}}</td>
+                  <td>{{ item.refundAmount ||'--'}}</td>
                   <td>{{ item.refundStatus}}</td>
-                  <!-- <td>{{item.createdAt| date:'dd/MM/yyyy hh:mm'}}</td> -->
-                  <td>{{item.refundDateTime| date:'dd/MM/yyyy hh:mm'}}</td>
+                  <td>{{item.createdAt| date:'dd/MM/yyyy hh:mm'}}</td> 
+              
+                  
+                
+                 
+                 
+                 
+                
+                
                 </tr>
               </tbody>
             </table>
@@ -600,7 +585,7 @@
       </div>
     </div>
     <div class="text-end mt-3">
-      <pagination-controls id='pagination5' (pageChange)="page5 = $event"></pagination-controls>
+      <pagination-controls (pageChange)="currentPage= $event"></pagination-controls>
   </div>
   </div>
  

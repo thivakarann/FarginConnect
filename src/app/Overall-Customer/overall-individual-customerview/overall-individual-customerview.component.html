@@ -558,17 +558,22 @@
               <tr>
  
                 <th>S No</th>
+                <th>STB Number</th>
                 <th>Type</th>
-                <th>Refund Amount</th>
-                <th>Payment ID</th>
                 <th>Request ID</th>
-                <th>Activity ID</th>
+                <th>Payment ID</th>
                 <th>Paid Amount</th>
- 
                 <th>Refund Amount</th>
                 <th>Refund Status</th>
-                <!-- <th>Created date</th> -->
-                <th>Refund Date</th>
+                <th>Requested Date</th>
+              
+               
+              
+              
+ 
+               
+               
+               
  
               </tr>
               <!-- <span *ngIf="!showData" class="text-center" style="color:red;font-size:12px;">NO DATA FOUND</span> -->
@@ -578,17 +583,23 @@
                   *ngFor="let item of refundval | search: searchText | paginate: { itemsPerPage: 3, currentPage: currentPage }; let i = index" >
  
                   <td>{{ i + 1 }}</td>
+                  <td>{{item.paymentModel ?.customerStbId?. stbId?. setupBoxNumber
+                  }}</td>
                   <td>{{ item.type}}</td>
-                  <td>{{ item.refundAmount ||'--'}}</td>
+                  <td>{{ item.requestId || "-"}}</td>
                   <td>{{ item.paymentId ||'--'}}</td>
-                 
-                  <td>{{ item.requestId}}</td>
-                  <td>{{ item.activityId}}</td>
                   <td>{{ item.paymentModel?.paidAmount}}</td>
-                  <td>{{ item.refundAmount}}</td>
+                  <td>{{ item.refundAmount ||'--'}}</td>
                   <td>{{ item.refundStatus}}</td>
-                  <!-- <td>{{item.createdAt| date:'dd/MM/yyyy hh:mm'}}</td> -->
-                  <td>{{item.refundDateTime| date:'dd/MM/yyyy hh:mm'}}</td>
+                  <td>{{item.createdAt| date:'dd/MM/yyyy hh:mm'}}</td> 
+              
+                  
+                
+                 
+                 
+                 
+                
+                
                 </tr>
               </tbody>
             </table>

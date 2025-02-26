@@ -268,6 +268,7 @@ import { EntityPlanHistoryComponent } from './Entity Onboard/entity-plan-history
 import { RefundPeriodViewallComponent } from './Main Master/Refund Period/refund-period-viewall/refund-period-viewall.component';
 import { RefundPeriodAddComponent } from './Main Master/Refund Period/refund-period-add/refund-period-add.component';
 import { RefundPeriodEditComponent } from './Main Master/Refund Period/refund-period-edit/refund-period-edit.component';
+import { EntityOfflineviewComponent } from './Entity Onboard/entity-offlineview/entity-offlineview.component';
 
 @NgModule({
   declarations: [
@@ -513,7 +514,8 @@ import { RefundPeriodEditComponent } from './Main Master/Refund Period/refund-pe
     EntityPlanHistoryComponent,
     RefundPeriodViewallComponent,
     RefundPeriodAddComponent,
-    RefundPeriodEditComponent
+    RefundPeriodEditComponent,
+    EntityOfflineviewComponent
 
   ],
 
