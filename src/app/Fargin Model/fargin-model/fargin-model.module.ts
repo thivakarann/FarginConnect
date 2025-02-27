@@ -194,7 +194,13 @@ export interface RefundPeriodUpdate {
   readonly modifiedBy:any;
 }
 
-
+export interface updatecamapaign
+{
+  readonly subject:any,
+  readonly emailContent:any,
+  readonly emailDate:any,
+  readonly modifiedBy:any,
+}
 
 
 

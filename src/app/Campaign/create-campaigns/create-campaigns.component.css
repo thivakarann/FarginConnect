@@ -1,0 +1,168 @@
+@import "https://unpkg.com/open-props";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+button {
+  font: inherit;
+}
+
+.page {
+  color: var(--gray-9);
+  background-color: #fff;
+  display: grid;
+  grid-template-areas: "main";
+  height: auto;
+  font-family: var(--font-sans);
+  width: 100%;
+  max-width: 510px;
+  margin: 0 auto;
+}
+
+.page__main {
+  grid-area: main;
+}
+
+.main {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
+.main__form {
+  width: 100%;
+  max-width: 30em;
+}
+
+.form {
+  color: var(--gray-9);
+  background-color: #fff;
+  display: grid;
+  gap: var(--size-3);
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid var(--gray-4);
+  border-radius: var(--radius-2);
+  padding: var(--size-3);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--size-3);
+  margin-bottom: var(--size-3);
+}
+
+.form__linput {
+  flex: 1;
+  min-width: 200px;
+}
+
+.form__label {
+  font-weight: 500;
+  margin-bottom: var(--size-2);
+}
+
+.form__input,
+.form__select,
+.form__textarea {
+  padding: 0.5em 0.7rem;
+  border: 1px solid var(--gray-4);
+  border-radius: var(--radius-2);
+  width: 100%;
+}
+
+.form__select {
+  background: inherit;
+}
+
+.form__textarea {
+  padding: 1em 0.7rem;
+  resize: vertical;
+  font: inherit;
+}
+
+.primary-btn {
+  transition: 180ms ease-in;
+  color: var(--gray-0);
+  background-color: var(--green-9);
+  padding: 0.7em var(--size-3);
+  border: 0;
+  border-radius: var(--radius-2);
+  cursor: pointer;
+}
+
+.primary-btn:hover {
+  background-color: var(--green-6);
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5em;
+}
+
+.submit,
+.cancel {
+  border: none;
+  border-radius: var(--radius-2);
+  padding: 0.5em 1em;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.submit {
+  background-color: #1a202c;
+  color: #fff;
+}
+
+.submit:hover {
+  background-color: #2d3748;
+}
+
+.cancel {
+  background-color: #b44640;
+  color: #fff;
+}
+
+.cancel:hover {
+  background-color: #c53030;
+}
+
+
+
+@media (max-width: 600px) {
+  .main__form {
+    padding: var(--size-2);
+  }
+
+  .form {
+    padding: var(--size-2);
+  }
+
+  .submit,
+  .cancel {
+    padding: 0.5em 1em;
+    font-size: 0.875rem;
+  }
+}
+
+.card-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #bcdf72;
+  color: #141E46;
+  font-family: "Roboto";
+  padding: var(--size-3);
+}
+
+mat-select {
+  width: 100%;
+  max-width: 475px;
+}

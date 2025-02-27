@@ -112,6 +112,8 @@ import { TerminalTransactionsComponent } from './Entity Onboard/EntityTerminal/t
 import { BranchTransactionsComponent } from './Entity Onboard/BranchTerminal/branch-transactions/branch-transactions.component';
 import { EntityPlanHistoryComponent } from './Entity Onboard/entity-plan-history/entity-plan-history.component';
 import { RefundPeriodViewallComponent } from './Main Master/Refund Period/refund-period-viewall/refund-period-viewall.component';
+import { ViewRecordcampaignsComponent } from './Campaign/view-recordcampaigns/view-recordcampaigns.component';
+import { ViewCampaignsComponent } from './Campaign/view-campaigns/view-campaigns.component';
 
 const routes: Routes = [
 
@@ -235,7 +237,9 @@ const routes: Routes = [
       {path:'terminal-transactions/:id',component:TerminalTransactionsComponent,canActivate: [authGuard]},
       {path:'branch-transactions/:id',component:BranchTransactionsComponent,canActivate: [authGuard]},
       {path:'entity-plan-history/:id',component:EntityPlanHistoryComponent,canActivate:[authGuard]},
-      {path:"refund-period-viewall",component:RefundPeriodViewallComponent,canActivate:[authGuard]}
+      {path:"refund-period-viewall",component:RefundPeriodViewallComponent,canActivate:[authGuard]},
+      {path:'view-campaign',component:ViewCampaignsComponent,canActivate: [authGuard]},
+      {path:'view-record/:id',component:ViewRecordcampaignsComponent,canActivate: [authGuard]},
 
       
 

@@ -1504,3 +1504,6 @@ export interface entityterminaltransaction{
       readonly endDate:any;
       readonly merchantId:any;
     }
+
+
+    

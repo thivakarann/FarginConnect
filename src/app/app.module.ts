@@ -269,6 +269,13 @@ import { RefundPeriodViewallComponent } from './Main Master/Refund Period/refund
 import { RefundPeriodAddComponent } from './Main Master/Refund Period/refund-period-add/refund-period-add.component';
 import { RefundPeriodEditComponent } from './Main Master/Refund Period/refund-period-edit/refund-period-edit.component';
 import { EntityOfflineviewComponent } from './Entity Onboard/entity-offlineview/entity-offlineview.component';
+import { CreateBulkcampaignsComponent } from './Campaign/create-bulkcampaigns/create-bulkcampaigns.component';
+import { CreateCampaignsComponent } from './Campaign/create-campaigns/create-campaigns.component';
+import { CreateCommentcampaignsComponent } from './Campaign/create-commentcampaigns/create-commentcampaigns.component';
+import { EditCampaignComponent } from './Campaign/edit-campaign/edit-campaign.component';
+import { ViewCampaignsComponent } from './Campaign/view-campaigns/view-campaigns.component';
+import { ViewImagecampaignsComponent } from './Campaign/view-imagecampaigns/view-imagecampaigns.component';
+import { ViewRecordcampaignsComponent } from './Campaign/view-recordcampaigns/view-recordcampaigns.component';
 
 @NgModule({
   declarations: [
@@ -515,7 +522,14 @@ import { EntityOfflineviewComponent } from './Entity Onboard/entity-offlineview/
     RefundPeriodViewallComponent,
     RefundPeriodAddComponent,
     RefundPeriodEditComponent,
-    EntityOfflineviewComponent
+    EntityOfflineviewComponent,
+    CreateCampaignsComponent,
+    ViewCampaignsComponent,
+    CreateCommentcampaignsComponent,
+    CreateBulkcampaignsComponent,
+    ViewImagecampaignsComponent,
+    ViewRecordcampaignsComponent,
+    EditCampaignComponent
 
   ],
 

@@ -770,6 +770,17 @@ private readonly refundperiodupdate = 'refundDayLimit/updateRefundDays/';
 private readonly refundperiodbyid = 'refundDayLimit/getDays/';
 
 
+//campaign
+private readonly viewcampaigns='emailbroadcaster/viewevent/';
+private readonly campaignimageUpdates='emailbroadcaster/updateimage';
+private readonly campaignimageviews='emailbroadcaster/viewimage/';
+private readonly campaignstatu='emailbroadcaster/activestatusupdate/'
+private readonly viewrecordcampaign='emailbroadcaster/getemailaddress/'
+private readonly viewresponsecampaign='emailbroadcaster/viewemailaddressonly/'
+private readonly editcampaigns='emailbroadcaster/updatedata/'
+ 
+
+
   loginError = new Subject();
 
   token = localStorage.getItem('token') || null;
@@ -2871,5 +2882,43 @@ private readonly refundperiodbyid = 'refundDayLimit/getDays/';
 
   RefundPeriodbyid(id:any){
     return this.http.get(`${this.basePath}${this.refundperiodbyid}${id}`,this.options)
+  }
+
+   //Campaign
+   viewcampaign(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.viewcampaigns}${id}`,
+      this.options
+    );
+  }
+  campaignimageUpdate(data: FormData) {
+    return this.http.put(`${this.basePath}${this.campaignimageUpdates}`, data, this.optionsMultipart);
+  }
+  campaignimageview(id: string) {
+    return this.http.get(`${this.basePath}${this.campaignimageviews}${id}`, {
+      ...this.options,
+      ...{ responseType: 'blob' },
+    });
+  }
+ 
+  campaignstatus(id: any, id1: any) {
+    return this.http.put(`${this.basePath}${this.campaignstatu}${id}/${id1}`,'', this.options)
+ 
+  }
+  viewrecordcampaigns(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.viewrecordcampaign}${id}`,
+      this.options
+    );
+  }
+  viewresponsecampaigns(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.viewresponsecampaign}${id}`,
+      this.options
+    );
+  }
+ 
+  editcampaign(id:any,model: any ) {
+    return this.http.put(`${this.basePath}${this.editcampaigns}${id}`, model, this.options)
   }
 }
