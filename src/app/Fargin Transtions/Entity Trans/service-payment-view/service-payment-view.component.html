@@ -84,6 +84,8 @@
  
                         <span *ngIf="view?.paymentStatus  == 'Initiated'" class="text-primary">
                             {{ view?.paymentStatus||'--'}}</span>
+                            <span *ngIf="view?.paymentStatus  == 'Payment Incomplete'" class="text-danger">
+                                {{ view?.paymentStatus||'--'}}</span>
 
                             <span *ngIf="view?.paymentStatus  == 'Failure'" class="text-danger">
                                 {{ view?.paymentStatus||'--'}}</span>

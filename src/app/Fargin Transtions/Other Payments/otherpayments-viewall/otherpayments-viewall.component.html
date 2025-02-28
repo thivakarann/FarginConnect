@@ -128,10 +128,14 @@
                 <td mat-cell *matCellDef="let transaction">
                     <span *ngIf="transaction?.paymentStatus == 'Success'" class="text-success"> {{
                         transaction?.paymentStatus}}</span>
-                    <span *ngIf="transaction?.paymentStatus   == 'Pending'" class="text-warning"> {{
+                    <span *ngIf="transaction?.paymentStatus   == 'Due Pending'" class="text-warning"> {{
                         transaction?.paymentStatus}}</span>
                     <span *ngIf="transaction?.paymentStatus  == 'Initiated'" class="text-primary"> {{
                         transaction?.paymentStatus}}</span>
+                        <span *ngIf="transaction?.paymentStatus  == 'Payment Incomplete'" class="text-danger"> {{
+                            transaction?.paymentStatus}}</span>
+    
+    
                     <span *ngIf="transaction?.paymentStatus  == 'Failure'" class="text-danger"> {{
                         transaction?.paymentStatus}}</span>
 
@@ -275,6 +279,7 @@
                         <option value="Initiated">Initiated</option>
                         <option value="Due Pending">Due Pending</option>
                         <option value="Failure">Failure</option>
+                        <option value="Payment Incomplete">InComplete</option>
                     </select>
                 </div>
             </div>

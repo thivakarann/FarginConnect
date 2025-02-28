@@ -45,10 +45,10 @@
 
         <div class="col-3 mt-4">
             <select [(ngModel)]="backs" class="form-select" (change)="Filter($event)">
-                <option value="" disabled selected>Dues,Filters</option>
+                <option value="" disabled selected>Filters</option>
                 <option value="Filterbycloudffeesearch">Filter By Cloud Fee</option>
                 <option value="Datefiltercloudfee">Date Filter</option>
-                <option value="DuegenerateCloudFee">Due Generation</option>
+                <!-- <option value="DuegenerateCloudFee">Due Generation</option> -->
               </select>
         </div>
 
@@ -188,6 +188,8 @@
                         transaction?.paymentStatus}}</span>
                     <span *ngIf="transaction?.paymentStatus  == 'Initiated'" class="text-primary"> {{
                         transaction?.paymentStatus}}</span>
+                        <span *ngIf="transaction?.paymentStatus  == 'Payment Incomplete'" class="text-danger"> {{
+                        transaction?.paymentStatus}}</span>
                     <span *ngIf="transaction?.paymentStatus  == 'Failure'" class="text-danger"> {{
                         transaction?.paymentStatus}}</span>
 
@@ -320,6 +322,7 @@
                           <option value="Success">Success</option>
                           <option value="Initiated">Initiated</option>
                           <option value="Due Pending">Due Pending</option>
+                          <option value="Payment Incomplete">InComplete</option>
                           <option value="Failure">Failure</option>
                         </select>
                       </div>

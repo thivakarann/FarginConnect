@@ -142,6 +142,8 @@
                         transaction?.paymentStatus}}</span>
                     <span *ngIf="transaction?.paymentStatus  == 'Initiated'" class="text-primary"> {{
                         transaction?.paymentStatus}}</span>
+                        <span *ngIf="transaction?.paymentStatus  == 'Payment Incomplete'" class="text-danger"> {{
+                        transaction?.paymentStatus}}</span>
                     <span *ngIf="transaction?.paymentStatus  == 'Failure'" class="text-danger"> {{
                         transaction?.paymentStatus}}</span>
 
@@ -260,6 +262,7 @@
                           <option value="Success">Success</option>
                           <option value="Initiated">Initiated</option>
                           <option value="Due Pending">Due Pending</option>
+                          <option value="Payment Incomplete">InComplete</option>
                           <option value="Failure">Failure</option>
                         </select>
                       </div>

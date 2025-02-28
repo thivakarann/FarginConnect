@@ -388,6 +388,7 @@ export class FarginServiceService {
   private readonly maintenancedatefilter = 'maintanancePay/dateFilter/';
   private readonly maintenancetransactionview = 'maintanancePay/viewById/';
   private readonly Manuveldueformaintenance = 'maintanancePay/due-generate';
+  private readonly customermanuvalduegenerate = 'customerpay/merchant/generate-dues';
   
 
 
@@ -1846,6 +1847,10 @@ private readonly editcampaigns='emailbroadcaster/updatedata/'
 
   MaintenancedueManuvelgenerate(model:any){
     return this.http.post(`${this.basePath}${this.Manuveldueformaintenance}`,model,this.options)
+  }
+
+  CustomerManuvalDusegenrate(model:any){
+    return this.http.post(`${this.basePath}${this.customermanuvalduegenerate}`,model,this.options)
   }
   MaintenanceAllTransactionsExport() {
     return this.http.get(`${this.basePath}${this.maintenancetransactionexport}`, this.options)

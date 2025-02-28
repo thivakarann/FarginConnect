@@ -45,7 +45,7 @@ import { AgreementlinkComponent } from '../agreementlink/agreementlink.component
 import { AgreementsLinkExtentComponent } from '../agreements-link-extent/agreements-link-extent.component';
 import { BranchAddComponent } from '../Branch/branch-add/branch-add.component';
 import { BranchEditComponent } from '../Branch/branch-edit/branch-edit.component';
-import { Manuvelduesforcloudfee } from '../../Fargin Model/fargin-model/fargin-model.module';
+import { manuvalduecreation, Manuvelduesforcloudfee } from '../../Fargin Model/fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-entity-view',
@@ -1478,6 +1478,21 @@ export class EntityViewComponent implements OnInit {
         this.toastr.success(res.responseMessage)
       }
 
+      else {
+        this.toastr.error(res.responseMessage)
+
+      }
+    })
+  }
+
+  Manuvalduesforcustomer() {
+    let submitModel: manuvalduecreation = {
+      merchantId: this.id
+    }
+    this.MerchantView.CustomerManuvalDusegenrate(submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.toastr.success(res.responseMessage)
+      }
       else {
         this.toastr.error(res.responseMessage)
 

@@ -202,5 +202,13 @@ export interface updatecamapaign
   readonly modifiedBy:any,
 }
 
+export interface manuvalduecreation {
+  readonly merchantId: any,
+}
+
+
+
+
+
 
 

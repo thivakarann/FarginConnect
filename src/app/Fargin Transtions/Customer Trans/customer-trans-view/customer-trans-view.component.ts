@@ -14,6 +14,7 @@ export class CustomerTransViewComponent {
   id: any;
   constructor(private service: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog) {
 
+    
   }
   ngOnInit(): void {
     this.id = this.data.value

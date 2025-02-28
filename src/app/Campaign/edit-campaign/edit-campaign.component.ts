@@ -23,7 +23,7 @@ export class EditCampaignComponent {
   serviceValue: any;
   view: any;
   broadcasterId: any;
-
+  minDate: any = Date;
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
@@ -37,6 +37,9 @@ export class EditCampaignComponent {
 
     this.broadcasterId = this.data.value.broadcasterId;
 
+
+    const today = new Date();
+    this.minDate = today.toISOString().split('T')[0]
 
     this.setupformGroup = this.fb.group({
       subject: ['', Validators.required],

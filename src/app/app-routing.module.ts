@@ -240,6 +240,8 @@ const routes: Routes = [
       {path:"refund-period-viewall",component:RefundPeriodViewallComponent,canActivate:[authGuard]},
       {path:'view-campaign',component:ViewCampaignsComponent,canActivate: [authGuard]},
       {path:'view-record/:id',component:ViewRecordcampaignsComponent,canActivate: [authGuard]},
+      {path:'view-campaign',component:ViewCampaignsComponent,canActivate: [authGuard]},
+      {path:'view-record/:id',component:ViewRecordcampaignsComponent,canActivate: [authGuard]},
 
       
 
