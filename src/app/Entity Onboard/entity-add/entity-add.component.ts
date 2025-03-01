@@ -875,6 +875,7 @@ export class EntityAddComponent implements OnInit {
     formData.append('contactEmail', this.contactEmail?.value.trim());
     formData.append('contactMobile', this.contactMobile?.value.trim());
     formData.append('entityName', this.entityName?.value.trim());
+    formData.append('planModifyBy', this.getadminname);
     formData.append('merchantLegalName', this.merchantLegalName?.value.trim())
     formData.append('accountDisplayName', this.accountDisplayName?.value.trim());
     formData.append('gstIn', this.gstIn?.value.trim() || '-');

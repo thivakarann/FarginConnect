@@ -17,7 +17,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class EntityPlanHistoryComponent implements OnInit {
   dataSource: any;
-  displayedColumns: string[] = ["planHistoryId", "planName", "frequency", "countLimit", "technicalAmount", "renewalAmount", "maintenanceAmount", "voiceBoxAdvRent", "voiceBoxSetupFee", "modifiedBy", "modifiedDateTime"]
+  displayedColumns: string[] = ["planHistoryId", "planName", "frequency", "countLimit", "technicalAmount", "renewalAmount", "maintenanceAmount", "voiceBoxAdvRent", "voiceBoxSetupFee", "createdBy","createdDateTime","modifiedBy", "modifiedDateTime"]
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   roleId: any = localStorage.getItem('roleId');
@@ -75,8 +75,7 @@ export class EntityPlanHistoryComponent implements OnInit {
     let sno = 1;
     this.responseDataListnew = [];
     this.details.forEach((element: any) => {
-      let createdate = element.modifiedDateTime;
-      this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
+      
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.merchantPlanModel?.planName);
@@ -87,8 +86,20 @@ export class EntityPlanHistoryComponent implements OnInit {
       this.response.push(element?.merchantPlanModel?.maintenanceAmount);
       this.response.push(element?.merchantPlanModel?.voiceBoxAdvRent);
       this.response.push(element?.merchantPlanModel?.voiceBoxSetupFee);
+      this.response.push(element?.createdBy);
+      if (element.createdDateTime) {
+        this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
+      }
+      else {
+        this.response.push('');
+      }
       this.response.push(element?.modifiedBy);
-      this.response.push(this.date1);
+      if (element.modifiedDateTime) {
+        this.response.push(moment(element?.modifiedDateTime).format('DD/MM/yyyy hh:mm a').toString());
+      }
+      else {
+        this.response.push('');
+      }
       sno++;
       this.responseDataListnew.push(this.response);
     });
@@ -107,6 +118,8 @@ export class EntityPlanHistoryComponent implements OnInit {
         "Renewal Cost",
         "VoiceBox AdvRent",
         "VoiceBoxSetUp Cost",
+        "Created By",
+        "Created At",
         "Modified By",
         "Modified At"
       ]
@@ -146,6 +159,8 @@ export class EntityPlanHistoryComponent implements OnInit {
         let qty8 = row.getCell(9);
         let qty9 = row.getCell(10);
         let qty10 = row.getCell(11);
+        let qty11 = row.getCell(12);
+        let qty12 = row.getCell(13);
    
    
    
@@ -160,6 +175,8 @@ export class EntityPlanHistoryComponent implements OnInit {
         qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
         qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
         qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+        qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+        qty12.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
    
    
       }

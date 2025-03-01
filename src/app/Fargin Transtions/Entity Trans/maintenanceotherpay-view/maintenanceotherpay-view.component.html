@@ -1,4 +1,4 @@
-<h4 style="text-align:left;color:#141E46;">Entity Plan Details</h4>&nbsp;&nbsp;
+<h4 style="text-align:left;color:#141E46;">Other Payments</h4>&nbsp;&nbsp;
 <mat-card-header>
   <div class="row mt-4">
   <div class="col">
@@ -40,91 +40,37 @@
 <mat-card-content>
 <div class="table-responsive text-nowrap mt-4" style="overflow-x: scroll; scrollbar-width: thin">
   <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
-    <ng-container matColumnDef="planHistoryId">
+    <ng-container matColumnDef="Sno">
       <th mat-header-cell *matHeaderCellDef>S.No</th>
       <td mat-cell *matCellDef="let data; let i = index">
         {{ i + 1 }}
       </td>
     </ng-container>
-  
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef>Type</th>
+      <td mat-cell *matCellDef="let data">
+        {{ data?.type}}
+      </td>
+    </ng-container>
     
-    <ng-container matColumnDef="planName">
-      <th mat-header-cell *matHeaderCellDef>Plan Name</th>
+    <ng-container matColumnDef="otherFeeCount">
+      <th mat-header-cell *matHeaderCellDef>Count</th>
       <td mat-cell *matCellDef="let data">
-        {{ data?.merchantPlanModel?.planName}}
+        {{ data?.otherFeeCount || "-" }}
       </td>
     </ng-container>
-    <ng-container matColumnDef="frequency">
-        <th mat-header-cell *matHeaderCellDef>Frequency</th>
+    <ng-container matColumnDef="otherFeeAmount">
+        <th mat-header-cell *matHeaderCellDef>Amount</th>
         <td mat-cell *matCellDef="let data">
-          {{ data?.merchantPlanModel?.frequency }}
+          {{ data?.otherFeeAmount }}
         </td>
       </ng-container>
-    <ng-container matColumnDef="countLimit">
-      <th mat-header-cell *matHeaderCellDef>Customer Onboard Limit</th>
+ 
+
+    <ng-container matColumnDef="requestDate">
+      <th mat-header-cell *matHeaderCellDef>Created At</th>
       <td mat-cell *matCellDef="let data">
-        {{ data?.merchantPlanModel?.countLimit }}
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="technicalAmount">
-        <th mat-header-cell *matHeaderCellDef>SetUp Cost</th>
-        <td mat-cell *matCellDef="let data">
-          {{ data?.merchantPlanModel?.technicalAmount }}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="renewalAmount">
-        <th mat-header-cell *matHeaderCellDef>Renewwel Cost</th>
-        <td mat-cell *matCellDef="let data">
-          {{ data?.merchantPlanModel?.renewalAmount }}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="maintenanceAmount">
-        <th mat-header-cell *matHeaderCellDef>Maintenance Cost</th>
-        <td mat-cell *matCellDef="let data">
-          {{ data?.merchantPlanModel?.maintenanceAmount }}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="voiceBoxAdvRent">
-        <th mat-header-cell *matHeaderCellDef>voiceBoxAdv Rent</th>
-        <td mat-cell *matCellDef="let data">
-          {{ data?.merchantPlanModel?.voiceBoxAdvRent }}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="voiceBoxSetupFee">
-        <th mat-header-cell *matHeaderCellDef>VoiceBoxSetup Cost</th>
-        <td mat-cell *matCellDef="let data">
-          {{ data?.merchantPlanModel?.voiceBoxSetupFee }}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="createdBy">
-        <th mat-header-cell *matHeaderCellDef>Created By</th>
-        <td mat-cell *matCellDef="let data">
-          {{ data?.createdBy }}
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="createdDateTime">
-        <th mat-header-cell *matHeaderCellDef>Created At</th>
-        <td mat-cell *matCellDef="let data">
-          {{ data?.createdDateTime| date : "dd/MM/yyyy hh:mm a" }}
-        </td>
-      </ng-container>
-   
-    <ng-container matColumnDef="modifiedBy">
-      <th mat-header-cell *matHeaderCellDef>Modified By</th>
-      <td mat-cell *matCellDef="let data">
-        {{ data?.modifiedBy }}
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="modifiedDateTime">
-      <th mat-header-cell *matHeaderCellDef>Modified At</th>
-      <td mat-cell *matCellDef="let data">
-        {{ data?.modifiedDateTime| date : "dd/MM/yyyy hh:mm a" }}
+        {{ data?.requestDate | date : "dd/MM/yyyy hh:mm a" }}
       </td>
     </ng-container>
 
@@ -139,7 +85,7 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
     <tr *matNoDataRow>
-      <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data For{{input.value}}</td>
+      <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data For {{input.value}}</td>
       <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">No Data</td>
     </tr>
   </table>

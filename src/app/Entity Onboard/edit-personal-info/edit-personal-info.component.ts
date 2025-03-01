@@ -332,6 +332,7 @@ export class EditPersonalInfoComponent implements OnInit {
     formData.append('entityName', this.entityName?.value.trim());
     formData.append('merchantLegalName', this.merchantLegalName?.value.trim())
     formData.append('accountDisplayName', this.accountDisplayName?.value.trim());
+    formData.append('planModifyBy', this.getadminname);
     formData.append('gstIn', this.gstIn?.value || '-');
     formData.append('contactName', this.contactName?.value.trim());
     formData.append('secondaryMobile', this.secondaryMobile?.value.trim());

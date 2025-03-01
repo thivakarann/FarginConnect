@@ -14,6 +14,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { TransManualPayComponent } from '../trans-manual-pay/trans-manual-pay.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Manuvelduesforcloudfee } from '../../../Fargin Model/fargin-model/fargin-model.module';
+import { Router } from '@angular/router';
 
 interface Option {
   entityName: string;
@@ -41,7 +42,7 @@ export class MaintenanceTransViewallComponent {
     // 'smsigst',
     'totalcost',
     'otherPayAmount',
-    'stickerCount',
+    'otherpaymentview',
     'amount',
     'cgst',
     'igst',
@@ -140,7 +141,7 @@ export class MaintenanceTransViewallComponent {
   filter3: boolean = true;
   maxDate:any;
 
-  constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog,private fb:FormBuilder) { }
+  constructor(private router:Router,private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog,private fb:FormBuilder) { }
 
 
 
@@ -253,6 +254,18 @@ export class MaintenanceTransViewallComponent {
   get endDate() {
     return this.cloudfeesearch.get('endDate');
   }
+
+
+
+  OtherpaymentsView(id:any){
+    this.router.navigate([`dashboard/maintenanceotherpay-view/${id}`],{
+      queryParams:{alldata:id}
+    })  
+    }
+  
+
+
+
 
   reload() {
     this.service.MaintenanceAllTransactions(this.pageSize, this.pageIndex).subscribe((res: any) => {

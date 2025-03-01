@@ -276,6 +276,7 @@ import { EditCampaignComponent } from './Campaign/edit-campaign/edit-campaign.co
 import { ViewCampaignsComponent } from './Campaign/view-campaigns/view-campaigns.component';
 import { ViewImagecampaignsComponent } from './Campaign/view-imagecampaigns/view-imagecampaigns.component';
 import { ViewRecordcampaignsComponent } from './Campaign/view-recordcampaigns/view-recordcampaigns.component';
+import { MaintenanceotherpayViewComponent } from './Fargin Transtions/Entity Trans/maintenanceotherpay-view/maintenanceotherpay-view.component';
 
 @NgModule({
   declarations: [
@@ -529,7 +530,8 @@ import { ViewRecordcampaignsComponent } from './Campaign/view-recordcampaigns/vi
     CreateBulkcampaignsComponent,
     ViewImagecampaignsComponent,
     ViewRecordcampaignsComponent,
-    EditCampaignComponent
+    EditCampaignComponent,
+    MaintenanceotherpayViewComponent
 
   ],
 

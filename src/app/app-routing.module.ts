@@ -114,6 +114,7 @@ import { EntityPlanHistoryComponent } from './Entity Onboard/entity-plan-history
 import { RefundPeriodViewallComponent } from './Main Master/Refund Period/refund-period-viewall/refund-period-viewall.component';
 import { ViewRecordcampaignsComponent } from './Campaign/view-recordcampaigns/view-recordcampaigns.component';
 import { ViewCampaignsComponent } from './Campaign/view-campaigns/view-campaigns.component';
+import { MaintenanceotherpayViewComponent } from './Fargin Transtions/Entity Trans/maintenanceotherpay-view/maintenanceotherpay-view.component';
 
 const routes: Routes = [
 
@@ -242,6 +243,7 @@ const routes: Routes = [
       {path:'view-record/:id',component:ViewRecordcampaignsComponent,canActivate: [authGuard]},
       {path:'view-campaign',component:ViewCampaignsComponent,canActivate: [authGuard]},
       {path:'view-record/:id',component:ViewRecordcampaignsComponent,canActivate: [authGuard]},
+      {path:'maintenanceotherpay-view/:id',component:MaintenanceotherpayViewComponent,canActivate: [authGuard]},
 
       
 
