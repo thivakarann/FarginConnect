@@ -15,6 +15,7 @@ import { ViewImagecampaignsComponent } from '../view-imagecampaigns/view-imageca
 import { CreateCommentcampaignsComponent } from '../create-commentcampaigns/create-commentcampaigns.component';
 import { CreateBulkcampaignsComponent } from '../create-bulkcampaigns/create-bulkcampaigns.component';
 import { EditCampaignComponent } from '../edit-campaign/edit-campaign.component';
+import { UpdateBulkcampaignComponent } from '../update-bulkcampaign/update-bulkcampaign.component';
 
 @Component({
   selector: 'app-view-campaigns',
@@ -29,11 +30,14 @@ export class ViewCampaignsComponent {
     'Comments',
     'Date',
     'image',
-
+ 
     'status',
     'edit',
+    'editbulk',
+    'emailrecord',
+   
     'Record',
-  
+ 
   ];
   tickets: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -52,6 +56,9 @@ export class ViewCampaignsComponent {
   valueTicketsImage: any;
   valueTicketsedit: any;
   valueTicketsview: any;
+  responseExcelData: any = [];
+  dataPush: any = [];
+  responseData: any;
   getdashboard: any[] = [];
   actions: any;
   roleId: any = localStorage.getItem('roleId');
@@ -59,7 +66,7 @@ export class ViewCampaignsComponent {
   searchPerformed: boolean = false;
   isChecked: any;
   status: any;
-
+ 
   constructor(
     private router: Router,
     private service: FarginServiceService,
@@ -70,7 +77,7 @@ export class ViewCampaignsComponent {
     this.service.viewcampaign(1).subscribe((res: any) => {
       if (res.flag == 1) {
         this.tickets = res.response;
-
+ 
         this.dataSource = new MatTableDataSource(this.tickets?.reverse());
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -83,12 +90,12 @@ export class ViewCampaignsComponent {
     });
    
   }
-
+ 
   reload() {
-    this.service.viewcampaign(this.merchantId).subscribe((res: any) => {
+    this.service.viewcampaign(1).subscribe((res: any) => {
       if (res.flag == 1) {
         this.tickets = res.response;
-
+ 
         this.dataSource = new MatTableDataSource(this.tickets?.reverse());
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -100,7 +107,7 @@ export class ViewCampaignsComponent {
       }
     });
   }
-
+ 
   addCampaign() {
     this.dialog.open(CreateCampaignsComponent, {
       disableClose: true,
@@ -113,7 +120,7 @@ export class ViewCampaignsComponent {
       this.service.viewcampaign(1).subscribe((res: any) => {
         if (res.flag == 1) {
           this.tickets = res.response;
-  
+ 
           this.dataSource = new MatTableDataSource(this.tickets?.reverse());
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -130,7 +137,7 @@ export class ViewCampaignsComponent {
     const regex = /^\d{2}\/\d{2}\/\d{4}$/;
     return regex.test(value);
   }
-
+ 
   formatDate(date: string | Date): string {
     if (date) {
       const formattedDate = new Date(date);
@@ -138,13 +145,13 @@ export class ViewCampaignsComponent {
     }
     return '';
   }
-
+ 
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value
     .trim()
     .toLowerCase();
     this.searchPerformed = filterValue.length > 0;
-
+ 
     if (this.isDate(filterValue)) {
       this.dataSource.filterPredicate = (data: any, filter: string) => {
         const formattedDate = this.formatDate(data.emailDate).toLowerCase();
@@ -157,7 +164,7 @@ export class ViewCampaignsComponent {
       };
     }
     this.dataSource.filter = filterValue;
-
+ 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
@@ -178,14 +185,14 @@ export class ViewCampaignsComponent {
       } else if (element?.activeStatus == '0') {
         this.response.push('Inactive');
       }
-    
-
+   
+ 
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
-
+ 
   excelexportCustomer() {
     const header = [
       'S.No',
@@ -194,7 +201,7 @@ export class ViewCampaignsComponent {
       'Date',
       'Status',
     ];
-
+ 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Campaign Reports');
@@ -210,7 +217,7 @@ export class ViewCampaignsComponent {
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
       };
-
+ 
       cell.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
@@ -218,7 +225,7 @@ export class ViewCampaignsComponent {
         right: { style: 'thin' },
       };
     });
-
+ 
     data.forEach((d: any) => {
       //
       let row = worksheet.addRow(d);
@@ -230,7 +237,7 @@ export class ViewCampaignsComponent {
       // let qty5 = row.getCell(6);
       // let qty6 = row.getCell(7);
       // let qty7 = row.getCell(8);
-
+ 
       qty.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
@@ -290,8 +297,8 @@ export class ViewCampaignsComponent {
       FileSaver.saveAs(blob, 'Campaign Reports.xlsx');
     });
   }
-
-
+ 
+ 
   comments(id: any) {
     this.dialog.open(CreateCommentcampaignsComponent, {
       disableClose: true,
@@ -301,7 +308,7 @@ export class ViewCampaignsComponent {
       exitAnimationDuration: '1000ms',
     });
   }
-
+ 
   image(id: any) {
     this.dialog.open(ViewImagecampaignsComponent, {
       data: { value: id },
@@ -309,8 +316,24 @@ export class ViewCampaignsComponent {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
     });
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.service.viewcampaign(1).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.tickets = res.response;
+ 
+          this.dataSource = new MatTableDataSource(this.tickets?.reverse());
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        } else if (res.flag == 2) {
+          this.dataSource = new MatTableDataSource([]);
+          this.dataSource = new MatTableDataSource(this.tickets.reverse());
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        }
+      });
+    });
   }
-
+ 
   edit(id: any) {
     this.dialog.open(EditCampaignComponent, {
       data: { value: id },
@@ -324,7 +347,7 @@ export class ViewCampaignsComponent {
       this.service.viewcampaign(1).subscribe((res: any) => {
         if (res.flag == 1) {
           this.tickets = res.response;
-  
+ 
           this.dataSource = new MatTableDataSource(this.tickets?.reverse());
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -337,13 +360,13 @@ export class ViewCampaignsComponent {
       });
     });
   }
-
+ 
   // serviceticket(id: any, filterValue: string) {
   //   if (!filterValue) {
   //     this.toastr.error('Please enter a value to search');
   //     return;
   //   }
-
+ 
   //   this.service.ServiceTickets(id, filterValue).subscribe({
   //     next: (res: any) => {
   //       if (res.response) {
@@ -364,8 +387,8 @@ export class ViewCampaignsComponent {
   //     },
   //   });
   // }
-
-
+ 
+ 
   openExcel() {
       const header = [
         "emailAddress",
@@ -394,7 +417,7 @@ export class ViewCampaignsComponent {
       const blob = new Blob([csvContent.join('\n')], { type: 'text/csv;charset=utf-8;' });
       FileSaver.saveAs(blob, 'Campaign.csv');
     }
-
+ 
   create() {
     this.dialog.open(CreateBulkcampaignsComponent, {
       disableClose: true,
@@ -422,31 +445,33 @@ export class ViewCampaignsComponent {
     //       this.dataSource.sort = this.sort;
     //       this.dataSource.paginator = this.paginator;
     //     }
-
+ 
     //   })
-
+ 
     // })
   }
-
+ 
   onSubmit(event: MatSlideToggleChange, id: any) {
     this.isChecked = event.checked;
      this.status= this.isChecked ? 1 : 0
     this.service.campaignstatus(id, this.status).subscribe((res: any) => {
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
-        this.service.viewcampaign(this.merchantId).subscribe((res: any) => {
-          if (res.flag == 1) {
-            this.tickets = res.response;
-
-            this.dataSource = new MatTableDataSource(this.tickets?.reverse());
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
-          } else if (res.flag == 2) {
-            this.dataSource = new MatTableDataSource([]);
-            this.dataSource = new MatTableDataSource(this.tickets.reverse());
-            this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator;
-          }
+        this.dialog.afterAllClosed.subscribe(() => {
+          this.service.viewcampaign(1).subscribe((res: any) => {
+            if (res.flag == 1) {
+              this.tickets = res.response;
+     
+              this.dataSource = new MatTableDataSource(this.tickets?.reverse());
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sort = this.sort;
+            } else if (res.flag == 2) {
+              this.dataSource = new MatTableDataSource([]);
+              this.dataSource = new MatTableDataSource(this.tickets.reverse());
+              this.dataSource.sort = this.sort;
+              this.dataSource.paginator = this.paginator;
+            }
+          });
         });
       }, 1000);
     });
@@ -456,4 +481,130 @@ export class ViewCampaignsComponent {
       queryParams: { Alldata: id },
     });
   }
+  responseDownload(uploadId: any) {
+    this.service.viewemailsendresponsecampaigns(uploadId).subscribe((res: any) => {
+      this.responseData = res.response.data;
+ 
+      if (res.flag == 1) {
+        let sno = 1;
+        this.responseExcelData = [];
+        this.responseData?.forEach((element: any) => {
+          this.dataPush = [];
+          this.dataPush.push(sno);
+          this.dataPush.push(element?.email);
+          this.dataPush.push(element?.message);
+          sno++;
+          this.responseExcelData.push(this.dataPush);
+        });
+        this.responseExcel();
+      } else {
+        this.toastr.error(res.responseMessage);
+      }
+    });
+  }
+  responseExcel() {
+    const header = ['S.No', 'Email Address','Remarks'];
+ 
+    const data = this.responseExcelData;
+    let workbook = new Workbook();
+    let worksheet = workbook.addWorksheet('Campaign Upload Response');
+ 
+    worksheet.addRow([]);
+ 
+    let headerRow = worksheet.addRow(header);
+ 
+    headerRow.font = { bold: true };
+ 
+    headerRow.eachCell((cell, number) => {
+      cell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'FFFFFFFF' },
+        bgColor: { argb: 'FF0000FF' },
+      };
+ 
+      cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+    });
+ 
+    data.forEach((d: any) => {
+      //
+ 
+      let row = worksheet.addRow(d);
+      let qty = row.getCell(1);
+      let qty1 = row.getCell(2);
+      // let qty2 = row.getCell(3);
+      // let qty3 = row.getCell(4);
+   
+ 
+      qty.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty1.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };  
+      //  qty2.border = {
+      //   top: { style: 'thin' },
+      //   left: { style: 'thin' },
+      //   bottom: { style: 'thin' },
+      //   right: { style: 'thin' },
+      // };
+      // qty3.border = {
+      //   top: { style: 'thin' },
+      //   left: { style: 'thin' },
+      //   bottom: { style: 'thin' },
+      //   right: { style: 'thin' },
+      // };
+     
+    });
+ 
+    workbook.xlsx.writeBuffer().then((data) => {
+      let blob = new Blob([data], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      });
+ 
+      FileSaver.saveAs(blob, 'Campaign.csv');
+    });
+  }
+ 
+  editbulk(id: any) {
+    this.dialog.open(UpdateBulkcampaignComponent, {
+      data: { value: id },
+      disableClose: true,
+ 
+      enterAnimationDuration: '1000ms',
+      exitAnimationDuration: '1000ms',
+      position: { right: '0px' },
+ 
+      width: '35%'
+    });
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.service.viewcampaign(1).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.tickets = res.response;
+ 
+          this.dataSource = new MatTableDataSource(this.tickets?.reverse());
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        } else if (res.flag == 2) {
+          this.dataSource = new MatTableDataSource([]);
+          this.dataSource = new MatTableDataSource(this.tickets.reverse());
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        }
+      });
+     
+    });
+  }
+ 
 }

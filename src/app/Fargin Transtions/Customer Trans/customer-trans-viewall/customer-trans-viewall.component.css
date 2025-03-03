@@ -417,3 +417,7 @@ select {
   width: 400px; /* Adjust the width as needed */
   flex: 1;
 }
+
+.search-input-with-button ng-select {
+  min-width: 250px; /* Adjust this value as needed */
+}

@@ -201,7 +201,9 @@ export class AdditionalpaymentsComponent {
       pay: ['', [Validators.required]],
       startDate: ['',],
       endDate: ['',],
-      search: ['', [Validators.required]],
+      // search: ['', [Validators.required]],
+      // search1:['']
+      selectedOption: ['', [Validators.required]],
       search1:['']
     });
 
@@ -349,7 +351,7 @@ export class AdditionalpaymentsComponent {
     this.Datefilteradditionalpay.reset();
     this.additionalpay.reset()
     this.options = [];
-    this.search = '';
+    this.selectedOption = '';
     this.search1 = ''
 
   }
@@ -709,7 +711,7 @@ export class AdditionalpaymentsComponent {
   }
 
   onDropdownChange(event: any): void {
-    this.search = event.value.entityName;
+    this.selectedOption = event.value.entityName;
     this.merchantId = event.value?.merchantId;
     this.closeDropdown();
   }
@@ -790,7 +792,7 @@ export class AdditionalpaymentsComponent {
     this.additionalpay.reset()
     this.userInput = '';
     this.options = [];
-    this.search = '';
+    this.selectedOption = '';
     this.search1 = ''
 
   }

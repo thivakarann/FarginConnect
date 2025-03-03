@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { FarginServiceService } from '../../service/fargin-service.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-view-imagecampaigns',
@@ -28,7 +29,7 @@ export class ViewImagecampaignsComponent {
   raiseTicket:any;
   uploadidentityfront: any;
 
-  constructor(private router: Router, private service: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog) { 
+  constructor(private router: Router, private service: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog, private toastr: ToastrService) { 
     this.raiseTicketId = this.data.value.broadcasterId
         
   }
@@ -94,12 +95,12 @@ export class ViewImagecampaignsComponent {
     formData.append('image ', this.uploadidentityfront);
  
     this.service.campaignimageUpdate(formData).subscribe((res:any)=>{
-      if(res.flag==1){
-        this.updatedata=res.response;
-      this.dialog.closeAll();
-      // setTimeout(() => {
-      //   window.location.reload()
-      // }, 1000);
+      this.updatedata=res.response;
+      if (res.flag == 1) {
+        this.toastr.success(res.responseMessage);
+        this.dialog.closeAll();
+      } else {
+        this.toastr.error(res.responseMessage);
       }
     })  
   }

@@ -223,7 +223,9 @@ export class MaintenanceTransViewallComponent {
           pay: ['', [Validators.required]],
           startDate: ['',],
           endDate: ['',],
-          search: ['', [Validators.required]],
+          // search: ['', [Validators.required]],
+          // search1:['']
+          selectedOption: ['', [Validators.required]],
           search1:['']
 
         });
@@ -404,7 +406,7 @@ export class MaintenanceTransViewallComponent {
     this.Datefiltercloudfee.reset();
     this.cloudfeesearch.reset()
     this.options = [];
-    this.search = '';
+    this.selectedOption = '';
      this.search1 = ''
      this.search2 = ''
 
@@ -850,7 +852,7 @@ filterbymso() {
   }
 
   onDropdownChange(event: any): void {
-    this.search = event.value.entityName;
+    this.selectedOption = event.value.entityName;
     this.merchantId = event.value?.merchantId;
     this.closeDropdown();
   }
@@ -931,7 +933,7 @@ filterbymso() {
     this.cloudfeesearch.reset()
     this.userInput = '';
     this.options = [];
-    this.search = ''
+    this.selectedOption = ''
      this.search1 = ''
   }
 

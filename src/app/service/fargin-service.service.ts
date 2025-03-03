@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { lastValueFrom, Subject } from 'rxjs';
 import { BankPrimaryStatus } from '../fargin-model/fargin-model.module';
 import { SessionServiceService } from '../Session service/session-service.service';
 import { json } from 'stream/consumers';
@@ -781,6 +781,9 @@ private readonly campaignstatu='emailbroadcaster/activestatusupdate/'
 private readonly viewrecordcampaign='emailbroadcaster/getemailaddress/'
 private readonly viewresponsecampaign='emailbroadcaster/viewemailaddressonly/'
 private readonly editcampaigns='emailbroadcaster/updatedata/'
+private readonly updatebulks='emailbroadcaster/uploadbulkemail/'
+private readonly viewemailsendresponsecampaign='emailbroadcaster/getemailaddress/'
+ 
  
 
 
@@ -2931,5 +2934,14 @@ private readonly editcampaigns='emailbroadcaster/updatedata/'
  
   editcampaign(id:any,model: any ) {
     return this.http.put(`${this.basePath}${this.editcampaigns}${id}`, model, this.options)
+  }
+  updatebulk(id: any, id1: any, payload: { emailId: any[] }): Promise<any> {
+    return lastValueFrom(this.http.put(`${this.basePath}${this.updatebulks}${id}/${id1}`, payload, this.options))
+  }
+  viewemailsendresponsecampaigns(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.viewemailsendresponsecampaign}${id}`,
+      this.options
+    );
   }
 }

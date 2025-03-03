@@ -212,7 +212,9 @@ export class CustomerTransViewallComponent {
       pay: ['', [Validators.required]],
       startDate: ['', ],
       endDate: ['',],
-      search: ['', [Validators.required]],
+      // search: ['', [Validators.required]],
+      selectedOption: ['', [Validators.required]],
+
       search1:['']
 
     });
@@ -360,7 +362,7 @@ export class CustomerTransViewallComponent {
     this.customerPay.reset()
     this.userInput = '';
     this.options = [];
-    this.search=''
+    this.selectedOption=''
       this.search1=''
   }
 
@@ -750,34 +752,40 @@ export class CustomerTransViewallComponent {
       this.searchAPI(this.userInput);
   }
   
-  onDropdownChange(event: any): void {
-      this.search = event.value.entityName;
-        this.search1=event.value.entityName
-      this.merchantId = event.value?.merchantId; 
-      this.closeDropdown();
-  }
-  closeDropdown(): void {
-      // Assuming the dropdown component will be closed automatically after selection, 
-      // you may not need to manually close it. If needed, you could add logic here.
-  }
-  
-  searchAPI(query: string): void {
-      this.service.Customerpaysearchfilter(query).subscribe((res: any) => {
-          if (res.flag === 1) {
-              this.options = res.response.map((item: any) => ({
-                  entityName: item.entityName,
-                  merchantId: item.merchantId
-              }));
+onRemoveClick() {
+  this.selectedOption = null;
+  this.options = []; // Set options to empty array to show "No data found"
+  console.log('No data found');
+}
+
+searchAPI(query: string): void {
+    this.service.Customerpaysearchfilter(query).subscribe((res: any) => {
+        if (res.flag === 1) {
+            this.options = res.response.map((item: any) => ({
+                entityName: item.entityName,
+                merchantId: item.merchantId
+            }));
+
+            if (this.options.length > 0) {
+                this.selectedOption = this.options[0];
+                this.onDropdownChange({ value: this.selectedOption });
+            }
           } else {
             this.toastr.error(res.responseMessage);
-          }
-      },
-      (error) => {
-          console.error('Error fetching data from API', error);
-      });
-  }
-  customerpay(){
+        }
+    },
+    (error) => {
+        console.error('Error fetching data from API', error);
+    });
+}
 
+onDropdownChange(event: any): void {
+    this.selectedOption = event.value.entityName;
+    this.search1 = event.value.entityName;
+    this.merchantId = event.value?.merchantId;
+}
+
+customerpay(){
     if (!this.startDate?.value && !this.endDate?.value) {
       this.flags = 1;  
       console.log('Flag set to 1:', this.flags);
@@ -830,7 +838,7 @@ export class CustomerTransViewallComponent {
     this.customerPay.reset()
     this.userInput = '';
     this.options = [];
-    this.search=''
+    this.selectedOption=''
     this.search1=''
   }
 

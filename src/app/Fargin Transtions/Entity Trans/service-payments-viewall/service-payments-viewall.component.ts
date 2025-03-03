@@ -205,7 +205,10 @@ export class ServicePaymentsViewallComponent {
           pay: ['', [Validators.required]],
           startDate: ['',],
           endDate: ['',],
-          search: ['', [Validators.required]],
+          // search: ['', [Validators.required]],
+          // search1:['']
+          selectedOption: ['', [Validators.required]],
+
           search1:['']
         });
     
@@ -416,7 +419,8 @@ export class ServicePaymentsViewallComponent {
     this.Onetimepay.reset();
     this.Onetimepayfilter.reset()
     this.options = [];
-    this.search = ''
+    // this.search = ''
+     this.selectedOption=''
     this.search1 = ''
   }
  
@@ -739,7 +743,7 @@ export class ServicePaymentsViewallComponent {
     }
   
     onDropdownChange(event: any): void {
-      this.search = event.value.entityName;
+      this.selectedOption = event.value.entityName;
       this.merchantId = event.value?.merchantId;
       this.closeDropdown();
     }
@@ -820,7 +824,7 @@ export class ServicePaymentsViewallComponent {
       this.Onetimepay.reset()
       this.userInput = '';
       this.options = [];
-      this.search = '';
+      this.selectedOption = '';
       this.search1 = '';
     }
   

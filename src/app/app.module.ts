@@ -277,6 +277,8 @@ import { ViewCampaignsComponent } from './Campaign/view-campaigns/view-campaigns
 import { ViewImagecampaignsComponent } from './Campaign/view-imagecampaigns/view-imagecampaigns.component';
 import { ViewRecordcampaignsComponent } from './Campaign/view-recordcampaigns/view-recordcampaigns.component';
 import { MaintenanceotherpayViewComponent } from './Fargin Transtions/Entity Trans/maintenanceotherpay-view/maintenanceotherpay-view.component';
+import { UpdateBulkcampaignComponent } from './Campaign/update-bulkcampaign/update-bulkcampaign.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -531,7 +533,8 @@ import { MaintenanceotherpayViewComponent } from './Fargin Transtions/Entity Tra
     ViewImagecampaignsComponent,
     ViewRecordcampaignsComponent,
     EditCampaignComponent,
-    MaintenanceotherpayViewComponent
+    MaintenanceotherpayViewComponent,
+    UpdateBulkcampaignComponent
 
   ],
 
@@ -564,6 +567,7 @@ import { MaintenanceotherpayViewComponent } from './Fargin Transtions/Entity Tra
     MatSlideToggleModule,
     MatSelectModule,
     DropdownModule, 
+    NgSelectModule,
     ToastrModule.forRoot()
 
   ],

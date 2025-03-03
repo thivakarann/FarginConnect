@@ -241,19 +241,16 @@
                     <div class="form__linput">
                         <label class="form__label custom-label" for="fnames">Search entity</label>
                         <div class="search-input-with-button">
-                            <input formControlName="search1" style="border: 1px solid #ccc;" class="form-control wider-input" id="fnames" (input)="onInputChange($event)" type="text" [(ngModel)]="search" name="search" required/>
+                            <ng-select formControlName="selectedOption" [items]="options" bindLabel="entityName"
+                                placeholder="Select an Entity" [searchable]="true" (input)="onInputChange($event)">
+                                <ng-template ng-label-tmp let-item="item">
+                                    <div class="flex align-items-center gap-2">
+                                        <div>{{ item.entityName }}</div>
+                                    </div>
+                                </ng-template>
+                            </ng-select>
                             <button type="button" (click)="onSearchClick()" class="search-button">Go</button>
                         </div>
-                        <p-dropdown  
-                        formControlName="search"
-                            *ngIf="options && options.length" 
-                            [options]="options" 
-                            [(ngModel)]="selectedOption" 
-                            optionLabel="entityName" 
-                            placeholder="Select Entity"
-                            [style]="{'width':'261px', 'margin-top': '-2',height:'40px'}" 
-                            (onChange)="onDropdownChange($event)">
-                        </p-dropdown>
                     </div>
 
                     <div class="form__linput">

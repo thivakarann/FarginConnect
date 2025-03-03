@@ -352,3 +352,6 @@ table {
   touch-action: manipulation;
 }
 
+.search-input-with-button ng-select {
+  min-width: 250px; /* Adjust this value as needed */
+}

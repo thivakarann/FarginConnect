@@ -209,9 +209,10 @@ currentfilVal: any;
       pay: ['', [Validators.required]],
       startDate: ['',],
       endDate: ['',],
-      search: ['', [Validators.required]],
-      search1: ['']
-
+      // search: ['', [Validators.required]],
+      // search1: ['']
+      selectedOption: ['', [Validators.required]],
+      search1:['']
     });
 
     this.Otherpaymentfilter = this.fb.group({
@@ -583,7 +584,7 @@ currentfilVal: any;
     this.Otherpayment.reset();
     this.Otherpaymentfilter.reset()
     this.options = [];
-    this.search = ''
+    this.selectedOption = ''
       this.search1 = ''
   }
   renderPage(event: PageEvent) {
@@ -757,7 +758,7 @@ console.log(filterValue)
     }
   
     onDropdownChange(event: any): void {
-      this.search = event.value.entityName;
+      this.selectedOption = event.value.entityName;
       this.merchantId = event.value?.merchantId;
       this.closeDropdown();
     }
@@ -837,7 +838,7 @@ console.log(filterValue)
       this.Otherpayment.reset()
       this.userInput = '';
       this.options = [];
-      this.search = ''
+      this.selectedOption = ''
       this.search1 = ''
     }
   
