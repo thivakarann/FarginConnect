@@ -279,6 +279,7 @@ import { ViewRecordcampaignsComponent } from './Campaign/view-recordcampaigns/vi
 import { MaintenanceotherpayViewComponent } from './Fargin Transtions/Entity Trans/maintenanceotherpay-view/maintenanceotherpay-view.component';
 import { UpdateBulkcampaignComponent } from './Campaign/update-bulkcampaign/update-bulkcampaign.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { UpdateStickerTicketComponent } from './Tickets/update-sticker-ticket/update-sticker-ticket.component';
 
 @NgModule({
   declarations: [
@@ -534,7 +535,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ViewRecordcampaignsComponent,
     EditCampaignComponent,
     MaintenanceotherpayViewComponent,
-    UpdateBulkcampaignComponent
+    UpdateBulkcampaignComponent,
+    UpdateStickerTicketComponent
 
   ],
 

@@ -14,17 +14,23 @@ import { ToastrService } from 'ngx-toastr';
 export class AddticketComponent {
   ticketFormGroup: any = FormGroup;
   description: any;
-  adminname: any = localStorage.getItem('adminname')
+  adminname :any = JSON.parse(localStorage.getItem('adminname') || '');
   raiseTicketId: any;
   ticketValue: any;
+  tickets:any;
+  raise:any;
+  stickerPerAmount: any;
+  totalAmount: any;
 
   constructor(private service: FarginServiceService, private router: Router, private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any,
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    
 
+    
+   
     this.raiseTicketId = this.data.value.raiseTicketId
+ 
     this.ticketFormGroup = new FormGroup({
       remarks: new FormControl('', [Validators.required]),
       approvalStatus: new FormControl('', [Validators.required])
@@ -37,6 +43,9 @@ export class AddticketComponent {
   get approvalStatus() {
     return this.ticketFormGroup.get('approvalStatus')
   }
+
+
+  
   save() {
     let submitModel: ticket = {
       updatedBy: this.adminname,

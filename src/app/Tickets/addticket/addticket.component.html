@@ -17,8 +17,10 @@
                 is required</span>
         </div>
 
-    
-        <div class="form-group mb-3">
+                
+    <!-- <p style="text-indent: 55px;"> "{{"Maximum delivery days is"}}<b> {{deliveryDays}}</b></p> -->
+
+    <div class="form-group mb-3">
             <label for="description">Remarks</label>
             <textarea id="description" rows="3" class="form-control" formControlName="remarks"></textarea>
             <span class="errormge" *ngIf="remarks?.touched && remarks?.errors?.['required']">Field

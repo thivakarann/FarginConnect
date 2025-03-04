@@ -14,6 +14,7 @@ import * as FileSaver from 'file-saver';
 import moment from 'moment';
 import { Workbook } from 'exceljs';
 import { log } from 'console';
+import { UpdateStickerTicketComponent } from '../update-sticker-ticket/update-sticker-ticket.component';
 @Component({
   selector: 'app-viewticket',
   templateUrl: './viewticket.component.html',
@@ -23,7 +24,7 @@ export class ViewticketComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   dataSource: any;
-  displayedColumns: string[] = ["Sno","raiseTicketId", "merchantName", "subject","stickerCount", "Criticallity", "description", "image","action", "Status", 'Comments', "createdDateTime"]
+  displayedColumns: string[] = ["Sno","raiseTicketId", "merchantName", "subject","stickerCount", "Criticallity", "description", "image","action","stickeraction", "Status", 'Comments', "createdDateTime"]
   tickets: any;
   // response: any = [];
   businesscategory: any;
@@ -157,6 +158,26 @@ export class ViewticketComponent implements OnInit {
         this.dataSource.sort = this.sort;
       })
   
+    })
+  }
+
+  stickerupdate(id: any) {
+    this.dialog.open(UpdateStickerTicketComponent, {
+      data: { value: id },
+      disableClose: true,
+      width: "50%",
+      enterAnimationDuration: '1000ms',
+      exitAnimationDuration: '1000ms',
+    })
+    this.dialog.afterAllClosed.subscribe(()=>{
+      this.service.viewTicket().subscribe((res: any) => {
+        this.tickets = res.response;
+       
+        this.dataSource = new MatTableDataSource(this.tickets?.reverse())
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      })
+ 
     })
   }
 

@@ -378,7 +378,14 @@ export interface ticket {
   readonly updatedBy: any;
   readonly remarks: any;
   readonly approvalStatus: any;
+}
 
+export interface updatestickerticket{
+  readonly raiseTicketId: any;
+  readonly stickerCount: any;
+  readonly subject: any;
+  readonly merchantId:any;
+ 
 }
 
 export interface subpermission {

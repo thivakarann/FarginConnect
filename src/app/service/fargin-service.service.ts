@@ -56,6 +56,7 @@ export class FarginServiceService {
   //Ticket
   private readonly viewallTicket = 'tickets/getall';
   private readonly updateTicket = 'tickets/updateapproval/';
+  private readonly updatestickerticket='tickets/updateticket'
   private readonly viewTicketImage = 'tickets/viewimage/';
 
   //Roles & Permission
@@ -778,7 +779,7 @@ private readonly viewcampaigns='emailbroadcaster/viewevent/';
 private readonly campaignimageUpdates='emailbroadcaster/updateimage';
 private readonly campaignimageviews='emailbroadcaster/viewimage/';
 private readonly campaignstatu='emailbroadcaster/activestatusupdate/'
-private readonly viewrecordcampaign='emailbroadcaster/getemailaddress/'
+private readonly viewrecordcampaign='emailbroadcaster/viewemailsentresponse/'
 private readonly viewresponsecampaign='emailbroadcaster/viewemailaddressonly/'
 private readonly editcampaigns='emailbroadcaster/updatedata/'
 private readonly updatebulks='emailbroadcaster/uploadbulkemail/'
@@ -943,6 +944,11 @@ private readonly viewemailsendresponsecampaign='emailbroadcaster/getemailaddress
   updatetickets(id: any, model: any) {
     return this.http.put(`${this.basePath}${this.updateTicket}${id}`, model, this.options)
   }
+
+ UpdateStickerTickets(model: any) {
+    return this.http.put(`${this.basePath}${this.updatestickerticket}`, model, this.options)
+  }
+ 
 
   viewticketImage(id: string) {
     return this.http.get(`${this.basePath}${this.viewTicketImage}${id}`, {

@@ -109,18 +109,95 @@ export class CreateCampaignsComponent {
       }
     }
 
-    uploadBulkFile(event: any) {
-      const file = event.target.files[0];
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        const workbook = XLSX.read(e.target.result, { type: 'binary' });
-        const firstSheetName = workbook.SheetNames[0];
-        const worksheet = workbook.Sheets[firstSheetName];
-        this.excelData = XLSX.utils.sheet_to_json(worksheet, { raw: true });
-        console.log('Excel data:', this.excelData);
-      };
-      reader.readAsBinaryString(file);
-    }
+//     uploadBulkFile(event: any) {
+//       const file = event.target.files[0];
+//       const reader = new FileReader();
+//       reader.onload = (e: any) => {
+//         const workbook = XLSX.read(e.target.result, { type: 'binary' });
+//         const firstSheetName = workbook.SheetNames[0];
+//         const worksheet = workbook.Sheets[firstSheetName];
+//         this.excelData = XLSX.utils.sheet_to_json(worksheet, { raw: true });
+//         console.log('Excel data:', this.excelData);
+//       };
+//       reader.readAsBinaryString(file);
+//     }
+
+//     save() {
+//      const formData = new FormData();
+//      formData.append('image', this.uploadidentityfront);
+//      formData.append('emailContent', this.contents?.value);
+//      formData.append('subject', this.subject?.value);
+//      formData.append('emailDate', this.startDate?.value);
+//      formData.append('createdBy', this.createdBy);
+//      formData.append('merchantId', '0');
+
+//      formData.append('flag', '1');
+
+//      const emailAddresses = this.excelData.map(data => data.emailAddress);
+//      const emailBinary = new Blob([JSON.stringify(emailAddresses)], { type: 'application/json' });
+//      formData.append('emailAddress', emailBinary);
+    
+//      this.service.addcampagin(formData).subscribe((res: any) => {
+//          this.campagin = res.response;
+         
+//          if (res.flag == 1) {
+//           this.toastr.success(res.responseMessage);
+//           this.dialog.closeAll();
+//         } else {
+//           this.toastr.error(res.responseMessage);
+//         }
+//      });
+//  }
+
+
+uploadBulkFile(event: Event): void {
+  const inputElement = event.target as HTMLInputElement;
+  const file = inputElement.files?.[0] ?? null;
+  this.file = file;
+ 
+  if (!this.file) {
+      this.toastr.error('No file selected');
+      console.error('No file selected');
+      return;
+  }
+ 
+  const fileExtension = this.file.name.split('.').pop()?.toLowerCase();
+  const mimeType = this.file.type;
+ 
+  if (fileExtension === 'pdf' || mimeType === 'application/pdf') {
+      this.toastr.error('PDF files are not accepted');
+      console.error('PDF files are not accepted');
+      return;
+  }
+ 
+  const fileReader = new FileReader();
+  fileReader.readAsBinaryString(this.file);
+ 
+  fileReader.onload = (e) => {
+      const rABS = !!fileReader.readAsArrayBuffer;
+      const workbook = XLSX.read(fileReader.result, {
+          type: rABS ? 'binary' : 'string',
+      });
+      const sheetName = workbook.SheetNames[0];
+      this.arrayExcel = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
+      this.arrayExcel = this.arrayExcel.map((row:any) => {
+       
+ 
+          return {
+            emailAddress: row.emailAddress || '',
+           
+          };
+      });
+  };
+ 
+  fileReader.onerror = (error) => {
+      console.error('Error reading file:', error);
+  };
+}
+ 
+ 
+   
+ 
 
     save() {
      const formData = new FormData();
@@ -130,13 +207,13 @@ export class CreateCampaignsComponent {
      formData.append('emailDate', this.startDate?.value);
      formData.append('createdBy', this.createdBy);
      formData.append('merchantId', '0');
-
+ 
      formData.append('flag', '1');
-
-     const emailAddresses = this.excelData.map(data => data.emailAddress);
-     const emailBinary = new Blob([JSON.stringify(emailAddresses)], { type: 'application/json' });
-     formData.append('emailAddress', emailBinary);
-    
+ 
+     const emailAddresses = this.arrayExcel.flatMap((item: any) => item.emailAddress);
+     formData.append('emailAddress', emailAddresses.join(','));
+   
+   
      this.service.addcampagin(formData).subscribe((res: any) => {
          this.campagin = res.response;
          
@@ -148,4 +225,5 @@ export class CreateCampaignsComponent {
         }
      });
  }
+ 
 }

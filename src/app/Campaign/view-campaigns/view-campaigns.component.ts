@@ -388,35 +388,44 @@ export class ViewCampaignsComponent {
   //   });
   // }
  
- 
   openExcel() {
-      const header = [
-        "emailAddress",
-      ];
-   
-      const data = this.responseDataListnew;
-   
-      // Prepare CSV content
-      const csvContent = [];
-   
-      // Add header to CSV
-      csvContent.push(header.map(item => `"${item}"`).join(','));
-   
-      data.forEach((d: any) => {
+    const header = ['emailAddress'];
+ 
+    const data = this.responseDataListnew;
+ 
+    // Prepare CSV content
+    const csvContent = [];
+ 
+    // Add header to CSV
+    csvContent.push(header.map((item) => `"${item}"`).join(','));
+ 
+    const emailAddresses = [];
+ 
+    data.forEach((d: any) => {
+        // Collect email address
+        if (d.emailAddress) {
+            emailAddresses.push(d.emailAddress);
+        }
+ 
         // Prepare the row data
         const rowData = [
-         d.emailAddress  || '',
-   
-          // Add any other fields as needed
-        ].map(item => `"${item.replace(/"/g, '""')}"`); // Escape double quotes
-   
-        csvContent.push(rowData.join(','));
-      });
-   
-      // Create a Blob and save as CSV
-      const blob = new Blob([csvContent.join('\n')], { type: 'text/csv;charset=utf-8;' });
-      FileSaver.saveAs(blob, 'Campaign.csv');
-    }
+            d.emailAddress || ''
+ 
+ 
+ 
+        // Add any other fields as needed
+      ].map((item) => `"${item.replace(/"/g, '""')}"`); // Escape double quotes
+ 
+      csvContent.push(rowData.join(','));
+    });
+ 
+    // Create a Blob and save as CSV
+    const blob = new Blob([csvContent.join('\n')], {
+      type: 'text/csv;charset=utf-8;',
+    });
+    FileSaver.saveAs(blob, 'Campaign.csv');
+  }
+ 
  
   create() {
     this.dialog.open(CreateBulkcampaignsComponent, {
