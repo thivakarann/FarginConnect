@@ -28,7 +28,7 @@ export class OverallCustomerViewComponent implements OnInit {
     'customerReferenceId',
     'customerName',
     'entityName',
-    'merchantLegalName',
+    // 'merchantLegalName',
     'categoryName',
     // 'stbNumber',
     'emailAddress',
@@ -200,7 +200,7 @@ export class OverallCustomerViewComponent implements OnInit {
           this.response.push(element?.customerReferenceId)
           this.response.push(element?.customerName);
           this.response.push(element?.merchantId?.entityName);
-          this.response.push(element?.merchantId?.merchantLegalName);
+          // this.response.push(element?.merchantId?.merchantLegalName);
           this.response.push(element?.merchantId?.businessCategoryModel?.categoryName);
           this.response.push(element?.emailAddress);
           this.response.push(element?.mobileNumber);
@@ -225,7 +225,7 @@ export class OverallCustomerViewComponent implements OnInit {
       'Customer ReferenceId',
       'Customer Name',
       'Entity Name',
-      'Merchant Legal Name',
+      // 'Merchant Legal Name',
       'Category Name',
       'Email Address',
       'Mobile Number',

@@ -77,13 +77,12 @@ export class ViewCampaignsComponent {
     this.service.viewcampaign(1).subscribe((res: any) => {
       if (res.flag == 1) {
         this.tickets = res.response;
- 
-        this.dataSource = new MatTableDataSource(this.tickets?.reverse());
+        this.dataSource = new MatTableDataSource(this.tickets);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       } else if (res.flag == 2) {
         this.dataSource = new MatTableDataSource([]);
-        this.dataSource = new MatTableDataSource(this.tickets.reverse());
+        this.dataSource = new MatTableDataSource(this.tickets);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }

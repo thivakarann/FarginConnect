@@ -267,7 +267,7 @@ export class EntityViewallComponent {
           this.response.push(sno);
           this.response.push(element?.accountId);
           this.response.push(element?.referenceNo);
-          this.response.push(element?.merchantLegalName);
+          this.response.push(element?.entityName);
           this.response.push(element?.businessCategoryModel?.categoryName);
 
           this.response.push(element?.contactEmail);
@@ -324,7 +324,7 @@ export class EntityViewallComponent {
       "S.No",
       'Account Id',
       'Reference No',
-      'Entity Legal Name',
+      'Entity Name',
       'Business Category Model',
       'Entity Email',
       'Final approval',

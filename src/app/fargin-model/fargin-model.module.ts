@@ -385,6 +385,7 @@ export interface updatestickerticket{
   readonly stickerCount: any;
   readonly subject: any;
   readonly merchantId:any;
+  readonly ticketStatus:any;
  
 }
 
