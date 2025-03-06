@@ -107,7 +107,6 @@ export class BranchViewallComponent {
     this.service.BranchIndividualView(this.pageSize,this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.branchview = res.response;
-        this.branchview.reverse();
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.totalPages;
         this.currentpage = res.pagination.currentPage + 1;

@@ -90,7 +90,7 @@ export class BranchTerminalviewComponent implements OnInit {
       this.merchantId = param.All;
     });
 
-    this.service.BranchTerminal().subscribe((res: any) => {
+    this.service.Branchterminalbyids(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
         this.terminal = res.response;
         this.dataSource = new MatTableDataSource(this.terminal.reverse());
@@ -116,7 +116,7 @@ export class BranchTerminalviewComponent implements OnInit {
 
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
-        this.service.BranchTerminal().subscribe((res: any) => {
+        this.service.Branchterminalbyids(this.id).subscribe((res: any) => {
           if (res.flag == 1) {
             this.terminal = res.response;
             this.dataSource = new MatTableDataSource(this.terminal.reverse());
@@ -146,7 +146,7 @@ export class BranchTerminalviewComponent implements OnInit {
       data: { value: id, value2: id1 }
     })
     this.dialog.afterAllClosed.subscribe(() => {
-      this.service.BranchTerminal().subscribe((res: any) => {
+      this.service.Branchterminalbyids(this.id).subscribe((res: any) => {
         if (res.flag == 1) {
           this.terminal = res.response;
           this.dataSource = new MatTableDataSource(this.terminal.reverse());
@@ -172,7 +172,7 @@ export class BranchTerminalviewComponent implements OnInit {
     })
 
     this.dialog.afterAllClosed.subscribe(() => {
-      this.service.BranchTerminal().subscribe((res: any) => {
+      this.service.Branchterminalbyids(this.id).subscribe((res: any) => {
         if (res.flag == 1) {
           this.terminal = res.response;
           this.dataSource = new MatTableDataSource(this.terminal.reverse());

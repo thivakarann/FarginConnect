@@ -128,6 +128,9 @@
                                     <button style="font-size: 10px;" mat-menu-item (click)="viewOnboardInfo(this.id)"
                                         [hidden]="valueviewonboard!=='Entity View-Onboard Information'">View
                                         OnboardInfo</button>
+                                        <button style="font-size: 10px;" mat-menu-item (click)="EntityTerminal(this.id)"
+                                        [hidden]="valueentityterminal!=='Entity View Entity-Terminal'">Entity Terminal View</button>
+                                       
                                     <button style="font-size: 10px;" mat-menu-item (click)="pgOnboard()"
                                          [disabled]="this.detaislone?.approvalStatusL2 =='Pending' || this.detaislone?.approvalStatusL2=='Rejected'"
                                         [hidden]="valueentityonboard!=='Entity View-Onboard'">Onboard

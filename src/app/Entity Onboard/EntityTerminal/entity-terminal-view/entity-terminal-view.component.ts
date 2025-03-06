@@ -90,7 +90,7 @@ export class EntityTerminalViewComponent implements OnInit{
       this.merchantId=param.Alldata;
     });
 
-    this.service.EntityTerminalget().subscribe((res: any) => {
+    this.service.EntityTerminalviewMerchant(this.merchantId).subscribe((res: any) => {
       if(res.flag==1)
       {
         this.terminal = res.response;
@@ -117,7 +117,7 @@ export class EntityTerminalViewComponent implements OnInit{
   
         this.toastr.success(res.responseMessage);
         setTimeout(() => {
-          this.service.EntityTerminalget().subscribe((res: any) => {
+          this.service.EntityTerminalviewMerchant(this.merchantId).subscribe((res: any) => {
             if(res.flag==1)
             {
               this.terminal = res.response;
@@ -148,7 +148,7 @@ export class EntityTerminalViewComponent implements OnInit{
         data: {value:id}
       })
       this.dialog.afterAllClosed.subscribe(()=>{
-        this.service.EntityTerminalget().subscribe((res: any) => {
+        this.service.EntityTerminalviewMerchant(this.merchantId).subscribe((res: any) => {
           if(res.flag==1)
           {
             this.terminal = res.response;
@@ -174,7 +174,7 @@ export class EntityTerminalViewComponent implements OnInit{
         data: {value: id}
       })
       this.dialog.afterAllClosed.subscribe(()=>{
-        this.service.EntityTerminalget().subscribe((res: any) => {
+        this.service.EntityTerminalviewMerchant(this.merchantId).subscribe((res: any) => {
           if(res.flag==1)
           {
             this.terminal = res.response;

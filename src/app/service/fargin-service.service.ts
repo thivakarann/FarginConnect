@@ -743,12 +743,14 @@ private readonly voterbranchVerifySign='branchFacheckVerify/signatureVoterVerify
 
 //branch terminal view
 private readonly branchterminalview='branchTerminal/getAll';
+private readonly branchtermialviewbyid = 'branchTerminal/getByBranch/'
 private readonly branchterminalstatus='branchTerminal/updateStatus/';
 private readonly branchterminalcreate='branchTerminal/add';
 private readonly branchterminaledit='branchTerminal/update/';
 
 //entity terminal view
 private readonly entityterminalview='entityTerminal/getall';
+private readonly entityterminalviewmerchant='entityTerminal/viewByMerchant/';
 private readonly entityterminalstatus='entityTerminal/updateStatus/';
 private readonly entityterminalcreate ='entityTerminal/create';
 private readonly entityterminalupdate ='entityTerminal/update/';
@@ -2812,8 +2814,12 @@ private readonly viewemailsendresponsecampaign='emailbroadcaster/getemailaddress
     return this.http.post(`${this.basePath}${this.voterbranchVerifySign}`, data, this.options);
   }
 // 
-  BranchTerminal() {
-    return this.http.get(`${this.basePath}${this.branchterminalview}`, this.options);
+  BranchTerminal(id:any) {
+    return this.http.get(`${this.basePath}${this.branchterminalview}${id}`, this.options);
+  }
+
+  Branchterminalbyids(id:any){
+    return this.http.get(`${this.basePath}${this.branchtermialviewbyid}${id}`,this.options)
   }
 
   BranchTerminalStatus(id:any,model:any) {
@@ -2830,6 +2836,10 @@ private readonly viewemailsendresponsecampaign='emailbroadcaster/getemailaddress
 
   EntityTerminalget() {
     return this.http.get(`${this.basePath}${this.entityterminalview}`, this.options);
+  }
+
+  EntityTerminalviewMerchant(id:any) {
+    return this.http.get(`${this.basePath}${this.entityterminalviewmerchant}${id}`, this.options);
   }
 
   EntityTerminalStatus(id:any,model:any) {

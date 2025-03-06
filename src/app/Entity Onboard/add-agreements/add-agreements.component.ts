@@ -43,7 +43,7 @@ export class AddAgreementsComponent {
 
     this.service.viewagreementplan().subscribe((res: any) => {
       if (res.flag == 1) {
-        this.plans = res.response;
+        this.plans = res.response.reverse();
       }
     })
   }

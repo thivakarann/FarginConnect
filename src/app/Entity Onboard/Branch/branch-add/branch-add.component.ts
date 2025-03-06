@@ -491,7 +491,8 @@ export class BranchAddComponent {
     this.service.addkycbranch(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
-        this.router.navigateByUrl(`/dashboard/entity-view`);
+        // this.router.navigateByUrl(`/dashboard/entity-view`);
+        this.location.back()
      
      
  
