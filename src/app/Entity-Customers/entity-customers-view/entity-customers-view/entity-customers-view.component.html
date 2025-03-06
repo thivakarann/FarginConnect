@@ -222,7 +222,7 @@
 <div id="Setup-box" *ngIf="selectedTab === 'Setup-Box'" class="mb-4">
  
   <div>
-    <div class="row mt-5 mx-1">
+    <div class="row mt-2 mx-1">
       <div class="col-md-3">
         <div class="search ">
           <form class="form">
@@ -320,7 +320,7 @@
 <div id="Transaction" *ngIf="selectedTab === 'Transaction'" class="mb-4">
  
   <div>
-    <div class="row mt-5 mx-1">
+    <!-- <div class="row mt-2 mx-1">
       <div class="col-md-3">
         <div class="search ">
           <form class="form">
@@ -354,10 +354,9 @@
      
       </div>
       <div class="col">
-        <!-- <button  (click)="setuphistory(this.id)" style="color:white;background-color: #141E46;border-radius: 10px;"
-    mat-raised-button >History</button> -->
+      
       </div>
-    </div>
+    </div> -->
     <div class="row mt-1 mx-1">
       <div class="col-12 mb-3 mb-lg-5">
         <div class="card table-nowrap table-card">
@@ -375,11 +374,11 @@
                 <th [hidden]="valuetransreceipt!=='Transactions-Reciept'">Reciept</th>
                 <th>Paid At</th>
               </tr>
-              <span *ngIf="!showData" class="text-center" style="color:red;font-size:12px;">NO DATA FOUND</span>
+              <!-- <span *ngIf="!showData" class="text-center" style="color:red;font-size:12px;">NO DATA FOUND</span> -->
  
-              <tbody *ngIf="showData">
+              <tbody>
                 <tr
-                  *ngFor="let row of transaction | paginate: { itemsPerPage: 3, currentPage: page } | search: searchText; let i = index">
+                  *ngFor="let row of transaction; let i = index">
  
                   <td>{{ i + 1 }}</td>
                   <td>{{ row.pgPaymentId || "-" }}</td>
@@ -410,9 +409,24 @@
               </tbody>
             </table>
           </div>
-          <div class="text-end mt-3">
-            <pagination-controls (pageChange)="page = $event"></pagination-controls>
-          </div>
+          
+        </div>
+        <div class="text-end">
+          <div class=" row d-flex justify-content-end mt-3 mx-2">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <button style="color:white;background-color: #141E46;">Total Entries : {{this.totalPages}}</button> &nbsp;
+                <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex - 1)"
+                    [hidden]="pageIndex === 0">Previous</button>&nbsp;
+                <button style="color:white;background-color: #141E46;">{{ this.currentpage}} of {{this.totalpage}}
+                    Pages</button>&nbsp;
+                <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex + 1)"
+                    [hidden]="pageIndex >= totalpage - 1">Next</button>&nbsp;
+            </div>
+     
+        </div>
+     
+      
         </div>
       </div>
     </div>
@@ -421,8 +435,8 @@
 </div>
 <div id="Additional" *ngIf="selectedTab === 'Additional-Payments'" class="mb-4">
   <div>
-    <div class="row mt-5 mx-1">
-      <div class="col-md-3">
+    <div class="row mt-2 mx-1">
+      <!-- <div class="col-md-3">
         <div class="search ">
           <form class="form">
             <label for="search">
@@ -455,9 +469,9 @@
      
       </div>
       <div class="col">
-        <!-- <button  (click)="setuphistory(this.id)" style="color:white;background-color: #141E46;border-radius: 10px;"
-    mat-raised-button >History</button> -->
-      </div>
+        <button  (click)="setuphistory(this.id)" style="color:white;background-color: #141E46;border-radius: 10px;"
+    mat-raised-button >History</button>
+      </div> -->
     </div>
     <div class="row mt-1 mx-1">
       <div class="col-12 mb-3 mb-lg-5">
@@ -481,7 +495,7 @@
  
               <tbody>
                 <tr
-                  *ngFor="let item of additionlpay | paginate: { id:'pagination4', itemsPerPage: 3, currentPage: page4 } | search: searchText; let i = index">
+                  *ngFor="let item of additionlpay ; let i = index">
  
                   <td>{{ i + 1 }}</td>
                   <td>{{ item.addtionalCategory?.serviceName}}</td>
@@ -509,10 +523,47 @@
             </table>
           </div>
         </div>
+        <div class="text-end">
+          <div class=" row d-flex justify-content-end mt-3 mx-2">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <button style="color:white;background-color: #141E46;">Total Entries : {{this.total}}</button> &nbsp;
+                <button style="color:white;background-color: #141E46;" (click)="changePageIndexadd(pageIndexadd - 1)"
+                    [hidden]="pageIndexadd === 0">Previous</button>&nbsp;
+                <button style="color:white;background-color: #141E46;">{{ this.currentpages}} of {{this.totalpages}}
+                    Pages</button>&nbsp;
+                <button style="color:white;background-color: #141E46;" (click)="changePageIndexadd(pageIndexadd + 1)"
+                    [hidden]="pageIndexadd >= totalpages - 1">Next</button>&nbsp;
+            </div>
+     
+        </div>
+     
+        <!-- <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="filter1">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <button style="color:white;background-color: #141E46;">Total Entries:{{this.totalPages1}}</button>
+                <button style="color:white;background-color: #141E46;" (click)="changePageIndex1(pageIndex1 - 1)"
+                    [hidden]="pageIndex1 === 0">Previous</button>
+                <button style="color:white;background-color: #141E46;">{{this.currentpage1}} of {{this.totalpage1}}
+                    Pages</button>
+                <button style="color:white;background-color: #141E46;" (click)="changePageIndex1(pageIndex1 + 1)"
+                    [hidden]="pageIndex1 >= totalpage1 - 1">Next</button>
+            </div>
+        </div>
+        <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="filter2">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <button style="color:white;background-color: #141E46;">Total Entries:{{this.totalPages2}}</button>
+                <button style="color:white;background-color: #141E46;" (click)="changePageIndex1(pageIndex2 - 1)"
+                    [hidden]="pageIndex2 === 0">Previous</button>
+                <button style="color:white;background-color: #141E46;">{{this.currentpage2}} of {{this.totalpage2}}
+                    Pages</button>
+                <button style="color:white;background-color: #141E46;" (click)="changePageIndex1(pageIndex2 + 1)"
+                    [hidden]="pageIndex2 >= totalpage2 - 1">Next</button>
+            </div>
+        </div> -->
+        </div>
       </div>
-    </div>
-    <div class="text-end mt-3">
-      <pagination-controls id='pagination4' (pageChange)="page4 = $event"></pagination-controls>
     </div>
   </div>
  

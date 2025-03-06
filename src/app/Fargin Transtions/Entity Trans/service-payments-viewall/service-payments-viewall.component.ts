@@ -12,6 +12,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 import { manualpay, Onetimepay } from '../../../fargin-model/fargin-model.module';
 import { PageEvent } from '@angular/material/paginator';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgSelectComponent } from '@ng-select/ng-select';
 
 interface Option {
   entityName: string;
@@ -738,8 +739,12 @@ export class ServicePaymentsViewallComponent {
       this.userInput = inputElement.value;
     }
   
-    onSearchClick(): void {
+    onSearchClick(searchSelect: NgSelectComponent): void {
       this.searchAPI(this.userInput);
+    // Keep the dropdown open after the search
+    if (!searchSelect.isOpen) {
+      searchSelect.open();
+    }
     }
   
     onDropdownChange(event: any): void {
@@ -758,6 +763,10 @@ export class ServicePaymentsViewallComponent {
             entityName: item.entityName,
             merchantId: item.merchantId
           }));
+          if (this.options.length > 0) {
+            this.selectedOption = this.options[0];
+            this.onDropdownChange({ value: this.selectedOption });
+          }
         } else {
           this.toastr.error(res.responseMessage);
         }

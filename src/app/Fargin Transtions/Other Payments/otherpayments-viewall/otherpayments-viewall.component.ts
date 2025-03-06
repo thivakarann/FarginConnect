@@ -12,6 +12,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 import { customizepay, Otherpayment } from '../../../fargin-model/fargin-model.module';
 import { PageEvent } from '@angular/material/paginator';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgSelectComponent } from '@ng-select/ng-select';
 
 interface Option {
   entityName: string;
@@ -752,10 +753,14 @@ console.log(filterValue)
       this.userInput = inputElement.value;
     }
   
-    onSearchClick(): void {
+    onSearchClick(searchSelect: NgSelectComponent): void {
       this.searchAPI(this.userInput);
+    // Keep the dropdown open after the search
+    if (!searchSelect.isOpen) {
+      searchSelect.open();
     }
-  
+    }
+    
     onDropdownChange(event: any): void {
       this.selectedOption = event.value.entityName;
       this.merchantId = event.value?.merchantId;
@@ -772,6 +777,12 @@ console.log(filterValue)
             entityName: item.entityName,
             merchantId: item.merchantId
           }));
+          
+          if (this.options.length > 0) {
+            this.selectedOption = this.options[0];
+            this.onDropdownChange({ value: this.selectedOption });
+          }
+
         } else {
           this.toastr.error(res.responseMessage);
         }

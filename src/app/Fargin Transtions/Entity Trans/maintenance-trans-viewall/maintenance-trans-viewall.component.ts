@@ -15,6 +15,7 @@ import { TransManualPayComponent } from '../trans-manual-pay/trans-manual-pay.co
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Manuvelduesforcloudfee } from '../../../Fargin Model/fargin-model/fargin-model.module';
 import { Router } from '@angular/router';
+import { NgSelectComponent } from '@ng-select/ng-select';
 
 interface Option {
   entityName: string;
@@ -847,8 +848,13 @@ filterbymso() {
     this.userInput = inputElement.value;
   }
 
-  onSearchClick(): void {
+  onSearchClick(searchSelect: NgSelectComponent): void {
     this.searchAPI(this.userInput);
+
+  // Keep the dropdown open after the search
+  if (!searchSelect.isOpen) {
+    searchSelect.open();
+  }
   }
 
   onDropdownChange(event: any): void {
@@ -867,6 +873,10 @@ filterbymso() {
           entityName: item.entityName,
           merchantId: item.merchantId
         }));
+        if (this.options.length > 0) {
+          this.selectedOption = this.options[0];
+          this.onDropdownChange({ value: this.selectedOption });
+        }
       } else {
         this.toastr.error(res.responseMessage);
       }

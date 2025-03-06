@@ -198,7 +198,7 @@ export class ViewCampaignsComponent {
       'Subject',
       'Content',
       'Date',
-      'Status',
+      'Email Status',
     ];
  
     const data = this.responseDataListnew;

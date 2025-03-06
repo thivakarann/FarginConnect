@@ -660,7 +660,7 @@ export class FarginServiceService {
   private readonly additionalsearchfilters = 'customerotherpayment/advancesearch/'
   private readonly additionalexports = 'customerotherpayment/viewall'
   //Additional paymrnts
-  private readonly additionaltransviewbyid = 'customerotherpayment/viewByCustomer/';
+  private readonly additionaltransviewbyid = 'customerotherpayment/viewcustomers/';
   private readonly broadcastergetallctive = 'bundleChannel/viewOnlyActive';
 
 
@@ -1358,9 +1358,15 @@ private readonly viewemailsendresponsecampaign='emailbroadcaster/getemailaddress
     return this.http.get(`${this.basePath}${this.customerview}${id}`, this.options)
   }
 
-  CustomerTransaction(id: any) {
+  CustomerTransactions(id: any) {
     return this.http.get(
       `${this.basePath}${this.customertransaction}${id}`,
+      this.options
+    );
+  }
+  CustomerTransaction(id: any, id1:any, id2:any) {
+    return this.http.get(
+      `${this.basePath}${this.customertransaction}${id}/${id1}/${id2}`,
       this.options
     );
   }
@@ -2581,7 +2587,11 @@ private readonly viewemailsendresponsecampaign='emailbroadcaster/getemailaddress
   BranchCustomer(id: any, id1: any, id2: any) {
     return this.http.get(`${this.basePath}${this.branchcustomerget}${id}/${id1}/${id2}`, this.options)
   }
-  AdditionalPaymentsCustomerTransaction(id: any) {
+  AdditionalPaymentsCustomerTransaction(id: any, id1:any, id2:any) {
+    return this.http.get(`${this.basePath}${this.additionaltransviewbyid}${id}/${id1}/${id2}`, this.options)
+
+  }
+  AdditionalPaymentsCustomerTransactions(id: any) {
     return this.http.get(`${this.basePath}${this.additionaltransviewbyid}${id}`, this.options)
 
   }

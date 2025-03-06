@@ -42,19 +42,18 @@
                 (click)="exportexcel()" [hidden]="valuepaymentexport!=='Customer Payment-Export'">Export</button>
         </div>&nbsp;&nbsp;&nbsp;&nbsp;
 
-        <div class="col-2">
-          
+        <div class="col-1">
         </div>
        
-        <div class="col-3 mt-4">
-            <select [(ngModel)]="backs" class="form-select" (change)="Filter($event)">
+        <div style="margin-top: 12px;" class="col-3">
+            <select  [(ngModel)]="backs" class="form-select" (change)="Filter($event)">
                 <option value="" disabled selected>Filter</option>
                 <option value="Filterbycustomerpay">Filter By Customer Payment</option>
-                <option value="Datefilter">Date Filter</option>
+                <option value="Datefilter">Date Filter for Success</option>
             </select>
         </div>
  
-        <div class="col-1 mt-4">
+        <div style="margin-top: 18px;" class="col-1">
             <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
                 (click)="reset()">Reset</button>
         </div>
@@ -134,6 +133,8 @@
                         <span *ngIf="transaction?.paymentStatus  == 'Payment Incomplete'" class="text-danger"> {{
                         transaction?.paymentStatus}}</span>
                     <span *ngIf="transaction?.paymentStatus  == 'Failure'" class="text-danger"> {{
+                        transaction?.paymentStatus}}</span>
+                    <span *ngIf="transaction?.paymentStatus  == 'Due Cancelled'" class="text-danger"> {{
                         transaction?.paymentStatus}}</span>
 
                 </td>
@@ -254,15 +255,15 @@
                 <div class="form__linput">
                     <label class="form__label custom-label" for="fnames">Search entity</label>
                     <div class="search-input-with-button">
-                        <ng-select formControlName="selectedOption" [items]="options" bindLabel="entityName"
-                            placeholder="Select an Entity" [searchable]="true" (input)="onInputChange($event)">
-                            <ng-template ng-label-tmp let-item="item">
-                                <div class="flex align-items-center gap-2">
-                                    <div>{{ item.entityName }}</div>
-                                </div>
-                            </ng-template>
-                        </ng-select>
-                        <button type="button" (click)="onSearchClick()" class="search-button">Go</button>
+                      <ng-select #searchSelect formControlName="selectedOption" [items]="options" bindLabel="entityName"
+                                 placeholder="Select an Entity" [searchable]="true" (input)="onInputChange($event)">
+                        <ng-template ng-label-tmp let-item="item">
+                          <div class="flex align-items-center gap-2">
+                            <div>{{ item.entityName }}</div>
+                          </div>
+                        </ng-template>
+                      </ng-select>
+                      <button type="button" (click)="onSearchClick(searchSelect)" class="search-button">Go</button>
                     </div>
                 </div>
 
@@ -273,19 +274,20 @@
                           <option value="Initiated">Initiated</option>
                           <option value="Due Pending">Due Pending</option>
                           <option value="Payment Incomplete">InComplete</option>
+                          <option value="Due Cancelled">Due Cancelled</option>
                           <option value="Failure">Failure</option>
                         </select>
                       </div>
                         </div>
                     
                     <div style="margin-left:20px" class="form__linput ">
-                        <label class="form__label custom-label" for="startDate">Start Date</label>
+                        <label class="form__label custom-label" for="startDate">Start Date (Optional)</label>
                         <input (change)="future(endDate)" [max]="maxDate"  formControlName="startDate" style="border: 1px solid #ccc;width:260px" class="form-control wider-input" id="startDate" type="date" name="startDate">
                         
                     </div>
 
                     <div style="margin-left:20px" class="form__linput">
-                        <label class="form__label custom-label" for="endDate">End Date</label>
+                        <label class="form__label custom-label" for="endDate">End Date (Optional)</label>
                         <input [min]="startDate?.value" [max]="maxDate"  formControlName="endDate" style="border: 1px solid #ccc;width:260px" class="form-control wider-input" id="endDate" type="date" name="endDate">
                     </div>
 

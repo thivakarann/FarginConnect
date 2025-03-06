@@ -7,6 +7,7 @@ import { Location } from '@angular/common';
 import { ChannelViewComponent } from '../../../Overall-Customer/channel-view/channel-view.component';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { settopStatus } from '../../../fargin-model/fargin-model.module';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-entity-customers-view',
@@ -64,12 +65,26 @@ getdashboard: any[] = [];
 roleId: any = localStorage.getItem('roleId')
 actions: any;
 errorMessage: any;
+  totalPages: any;
+  totalpage: any;
+  currentpage: any;
+  total: any;
+  totalpages: any;
+  currentpages: any;
 
 
   selectTab(tab: string) {
     this.selectedTab = tab;
   }
  
+ 
+  pageIndex: number = 0;
+  pageSize: number = 3;
+  pageSizeadd: number=3;
+  pageIndexadd:number=0;
+  filter: boolean = false;
+  filter1: boolean = false;
+  filter2: boolean = false;
  
   constructor(
     public service: FarginServiceService,
@@ -166,14 +181,23 @@ errorMessage: any;
  
  
     })
-    this.service.CustomerTransaction(this.id).subscribe((res: any) => {
+    this.service.CustomerTransaction(this.id, this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.transaction = res.response;
-        this.showData = true;
- 
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+      
+
       }
-      else {
-        this.showData = false
+
+      else if (res.flag == 2) {
+       
+
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+       
       }
     });
  
@@ -233,9 +257,22 @@ errorMessage: any;
         this.viewData = false;
       }
     });
-    this.service.AdditionalPaymentsCustomerTransaction(this.id).subscribe((res:any)=>{
-      if(res.flag==1){
-        this.additionlpay=res.response.reverse();
+    this.service.AdditionalPaymentsCustomerTransaction(this.id, this.pageSizeadd, this.pageIndexadd).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.additionlpay = res.response;
+        this.total = res.pagination.totalElements;
+        this.totalpages = res.pagination.totalPages;
+        this.currentpages = res.pagination.currentPage + 1;
+    
+      }
+      else if (res.flag == 2) {
+       
+
+        this.total = res.pagination.totalElements;
+        this.totalpages = res.pagination.totalPages;
+        this.currentpages = res.pagination.currentPage + 1;
+ 
+      
       }
     })
     this.service.RefundForCustomerView(this.id).subscribe((res: any) => {
@@ -301,7 +338,11 @@ errorMessage: any;
     });
   }
   reload(){
-    window.location.reload()
+    this.service.ViewCustomersSetupBox(this.id).subscribe((res:any)=>{
+      if(res.flag==1){
+        this.setupboxview=res.response;
+      }
+    });
   }
   
   viewreciept(id: any) {
@@ -314,5 +355,46 @@ errorMessage: any;
       }
     })
   }
+  renderPage(event: PageEvent) {
+    // Capture the new page index and page size from the event
+    this.pageIndex = event.pageIndex;  // Update current page index
+    this.pageSize = event.pageSize;           // Update page size (if changed)
 
+    // Log the new page index and page size to the console (for debugging)
+    console.log('New Page Index:', this.pageIndex);
+    console.log('New Page Size:', this.pageSize);
+
+    // You can now fetch or display the data for the new page index
+    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
+    this.ngOnInit()
+  }
+  changePageIndex(newPageIndex: number) {
+    this.pageIndex = newPageIndex;
+    this.renderPage({
+      pageIndex: newPageIndex,
+      pageSize: this.pageSize,
+      // length: this.totalItems
+    } as PageEvent);
+  }
+  renderPageadd(event: PageEvent) {
+    // Capture the new page index and page size from the event
+    this.pageIndexadd = event.pageIndex;  // Update current page index
+    this.pageSizeadd = event.pageSize;           // Update page size (if changed)
+
+    // Log the new page index and page size to the console (for debugging)
+    console.log('New Page Index:', this.pageIndex);
+    console.log('New Page Size:', this.pageSize);
+
+    // You can now fetch or display the data for the new page index
+    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
+    this.ngOnInit()
+  }
+  changePageIndexadd(newPageIndexs: number) {
+    this.pageIndexadd = newPageIndexs;
+    this.renderPage({
+      pageIndex: newPageIndexs,
+      pageSize: this.pageSizeadd,
+      // length: this.totalItems
+    } as PageEvent);
+  }
 }

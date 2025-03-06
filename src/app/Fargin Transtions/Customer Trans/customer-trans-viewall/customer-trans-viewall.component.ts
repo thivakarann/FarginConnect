@@ -12,6 +12,7 @@ import { CustomerTransViewComponent } from '../customer-trans-view/customer-tran
 import { customerpay, customerpayfilter } from '../../../fargin-model/fargin-model.module';
 import { PageEvent } from '@angular/material/paginator';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgSelectComponent } from '@ng-select/ng-select';
 
 interface Option {
   entityName: string;
@@ -748,13 +749,17 @@ export class CustomerTransViewallComponent {
       this.userInput = inputElement.value;
   }
   
-  onSearchClick(): void {
+onSearchClick(searchSelect: NgSelectComponent): void {
       this.searchAPI(this.userInput);
+  // Keep the dropdown open after the search
+  if (!searchSelect.isOpen) {
+    searchSelect.open();
   }
-  
+}
+
 onRemoveClick() {
   this.selectedOption = null;
-  this.options = []; // Set options to empty array to show "No data found"
+  this.options = [];
   console.log('No data found');
 }
 
@@ -766,17 +771,16 @@ searchAPI(query: string): void {
                 merchantId: item.merchantId
             }));
 
-            if (this.options.length > 0) {
-                this.selectedOption = this.options[0];
-                this.onDropdownChange({ value: this.selectedOption });
-            }
-          } else {
-            this.toastr.error(res.responseMessage);
-        }
-    },
-    (error) => {
-        console.error('Error fetching data from API', error);
-    });
+      if (this.options.length > 0) {
+        this.selectedOption = this.options[0];
+        this.onDropdownChange({ value: this.selectedOption });
+      }
+    } else {
+      this.toastr.error(res.responseMessage);
+    }
+  }, (error) => {
+    console.error('Error fetching data from API', error);
+  });
 }
 
 onDropdownChange(event: any): void {

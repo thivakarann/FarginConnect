@@ -51,7 +51,7 @@
             <select [(ngModel)]="backs" class="form-select" (change)="Filter($event)">
                 <option value="" disabled selected>Filter</option>
                 <option value="FilterbyCustomizedpay">Filter By Customized Payment</option>
-                <option value="CustomizedPaymentdatefilter">Date Filter</option>
+                <option value="CustomizedPaymentdatefilter">Date Filter for success</option>
             </select>
         </div>
         <div class="col-1 mt-4">
@@ -259,7 +259,7 @@
                 <div class="form__linput">
                     <label class="form__label custom-label" for="fnames">Search entity</label>
                     <div class="search-input-with-button">
-                        <ng-select formControlName="selectedOption" [items]="options" bindLabel="entityName"
+                        <ng-select #searchSelect formControlName="selectedOption" [items]="options" bindLabel="entityName"
                             placeholder="Select an Entity" [searchable]="true" (input)="onInputChange($event)">
                             <ng-template ng-label-tmp let-item="item">
                                 <div class="flex align-items-center gap-2">
@@ -267,7 +267,7 @@
                                 </div>
                             </ng-template>
                         </ng-select>
-                        <button type="button" (click)="onSearchClick()" class="search-button">Go</button>
+                        <button type="button" (click)="onSearchClick(searchSelect)" class="search-button">Go</button>
                     </div>
                 </div>
 
@@ -285,14 +285,14 @@
             </div>
 
             <div style="margin-left:20px" class="form__linput ">
-                <label class="form__label custom-label" for="startDate">Start Date</label>
+                <label class="form__label custom-label" for="startDate">Start Date (Optional)</label>
                 <input (change)="future(endDate)" [max]="maxDate" formControlName="startDate" style="border: 1px solid #ccc;width:260px"
                     class="form-control wider-input" id="startDate" type="date" name="startDate">
 
             </div>
 
             <div style="margin-left:20px" class="form__linput">
-                <label class="form__label custom-label" for="endDate">End Date</label>
+                <label class="form__label custom-label" for="endDate">End Date (Optional)</label>
                 <input [min]="startDate?.value" [max]="maxDate" formControlName="endDate" style="border: 1px solid #ccc;width:260px"
                     class="form-control wider-input" id="endDate" type="date" name="endDate">
             </div>

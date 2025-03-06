@@ -8,7 +8,7 @@ import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-view-recordcampaigns',
   templateUrl: './view-recordcampaigns.component.html',
@@ -20,7 +20,6 @@ export class ViewRecordcampaignsComponent {
     'totalRecord',
     'successCount',
     'failedCount',
-    'UploadedBy',
     'UploadedAt',
     'Response',
   ];
@@ -46,6 +45,7 @@ searchPerformed: boolean=false;
     private service: FarginServiceService,
     private toastr: ToastrService,
     private activated:ActivatedRoute,
+    private location: Location
 
   ) {}
 
@@ -84,7 +84,7 @@ searchPerformed: boolean=false;
   }
   responseDownload(uploadId: any) {
     this.service.viewresponsecampaigns(uploadId).subscribe((res: any) => {
-      this.responseData = res.response.jsonNode.data;
+      this.responseData = res.response.data;
 
       if (res.flag == 1) {
         let sno = 1;
@@ -109,7 +109,7 @@ searchPerformed: boolean=false;
 
     const data = this.responseExcelData;
     let workbook = new Workbook();
-    let worksheet = workbook.addWorksheet('Campaign Upload Response');
+    let worksheet = workbook.addWorksheet('Email-Details');
 
     worksheet.addRow([]);
 
@@ -139,7 +139,7 @@ searchPerformed: boolean=false;
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
-      // let qty2 = row.getCell(3);
+      let qty2 = row.getCell(3);
       // let qty3 = row.getCell(4);
     
 
@@ -155,12 +155,12 @@ searchPerformed: boolean=false;
         bottom: { style: 'thin' },
         right: { style: 'thin' },
       };  
-      //  qty2.border = {
-      //   top: { style: 'thin' },
-      //   left: { style: 'thin' },
-      //   bottom: { style: 'thin' },
-      //   right: { style: 'thin' },
-      // };
+       qty2.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
       // qty3.border = {
       //   top: { style: 'thin' },
       //   left: { style: 'thin' },
@@ -175,7 +175,10 @@ searchPerformed: boolean=false;
         type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       });
 
-      FileSaver.saveAs(blob, 'Route UploadResponse.csv');
+      FileSaver.saveAs(blob, 'Email-Details.csv');
     });
+  }
+  close() {
+    this.location.back()     
   }
 }
