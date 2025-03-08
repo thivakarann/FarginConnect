@@ -788,6 +788,9 @@ private readonly updatebulks='emailbroadcaster/uploadbulkemail/'
 private readonly viewemailsendresponsecampaign='emailbroadcaster/getemailaddress/'
  
  
+//peronsalview
+private readonly customertransactionsearchs='customerpay/viewByCustomerSearch/';
+private readonly customeradditionaltransactionsearchs='customerotherpayment/viewByCustomerSearch/';
 
 
   loginError = new Subject();
@@ -2969,5 +2972,11 @@ private readonly viewemailsendresponsecampaign='emailbroadcaster/getemailaddress
       `${this.basePath}${this.viewemailsendresponsecampaign}${id}`,
       this.options
     );
+  }
+  customertransactionsearch(id: any, id1: any, id2: any, id3: any) {
+    return this.http.get(`${this.basePath}${this.customertransactionsearchs}${id}/${id1}/${id2}/${id3}`, this.options)
+  }
+  customeradditionaltransactionsearch(id: any, id1: any, id2: any, id3: any) {
+    return this.http.get(`${this.basePath}${this.customeradditionaltransactionsearchs}${id}/${id1}/${id2}/${id3}`, this.options)
   }
 }

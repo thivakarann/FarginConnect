@@ -69,6 +69,10 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
   total: any;
   totalpages: any;
   currentpages: any;
+  totalsearch: any;
+  totalpagesearch: any;
+  currentpagesearch: any;
+  currentfilval: any;
   selectTab(tab: string) {
     this.selectedTab = tab;
   }
@@ -80,7 +84,15 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
   filter: boolean = false;
   filter1: boolean = false;
   filter2: boolean = false;
-
+  pageIndex1: number = 0;
+  pageSize1 = 3;
+  currentfilvaladd: any;
+  filter3: boolean=false;
+  totalsearchadd: any;
+  totalpagesearchadd: any;
+  currentpagesearchadd: any;
+  pageadd: number = 0;
+  pagesizeadd = 3;
   constructor(
     public service: FarginServiceService,
     private router: Router,
@@ -219,8 +231,12 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.totalPages;
         this.currentpage = res.pagination.currentPage + 1;
-      
-
+    
+        this.filter = true;
+        this.filter1 = false;
+        console.log( this.filter1)
+     
+ 
       }
 
       else if (res.flag == 2) {
@@ -229,9 +245,12 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.totalPages;
         this.currentpage = res.pagination.currentPage + 1;
+        
+        this.filter = true;
+        this.filter1 = false;
        
       }
-    });
+    })
     this.service.RefundForCustomerView(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
         this.refundval = res.response.reverse();
@@ -303,6 +322,9 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
         this.total = res.pagination.totalElements;
         this.totalpages = res.pagination.totalPages;
         this.currentpages = res.pagination.currentPage + 1;
+        
+        this.filter2 = true;
+        this.filter3 = false;
     
       }
       else if (res.flag == 2) {
@@ -311,7 +333,8 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
         this.total = res.pagination.totalElements;
         this.totalpages = res.pagination.totalPages;
         this.currentpages = res.pagination.currentPage + 1;
- 
+        this.filter2 = true;
+        this.filter3 = false;
       
       }
     })
@@ -367,9 +390,36 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
     
   }
 
-  reload(){
-    window.location.reload()
-  }
+  reload()
+{
+  this.service.CustomerTransaction(this.id, this.pageSize, this.pageIndex).subscribe((res: any) => {
+    if (res.flag == 1) {
+      this.transaction = res.response;
+      this.totalPages = res.pagination.totalElements;
+      
+      this.totalpage = res.pagination.totalPages;
+      this.currentpage = res.pagination.currentPage + 1;
+  
+      this.filter = true;
+      this.filter1 = false;
+      console.log( this.filter1)
+   
+
+    }
+
+    else if (res.flag == 2) {
+     
+
+      this.totalPages = res.pagination.totalElements;
+      this.totalpage = res.pagination.totalPages;
+      this.currentpage = res.pagination.currentPage + 1;
+      
+      this.filter = true;
+      this.filter1 = false;
+     
+    }
+  })
+}
 
   Customercustid(id:any,filterValue: string) {
     if (!filterValue) {
@@ -461,6 +511,113 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
       // length: this.totalItems
     } as PageEvent);
   }
+
+// Handle pagination for filtered search results
+renderPage1(event: PageEvent) {
+  this.pageIndex1 = event.pageIndex;
+  this.pageSize1 = event.pageSize;
+  console.log('New Page Index:', this.pageIndex1);
+  console.log('New Page Size:', this.pageSize1);
+  this.customerpay(this.currentfilval);
+}
+
+// Change page index for filtered search results
+changePageIndex1(newPageIndex1: number) {
+  this.pageIndex1 = newPageIndex1;
+  this.renderPage1({
+    pageIndex: newPageIndex1,
+    pageSize: this.pageSize1
+  } as PageEvent);
+}
+
+// Perform the search and update the filtered results
+customerpay(filterValue: string) {
+  if (filterValue) {
+    console.log(filterValue);
+    this.service.customertransactionsearch(this.id, filterValue, this.pageSize1, this.pageIndex1).subscribe({
+      next: (res: any) => {
+        if (res.response) {
+          this.transaction = res.response;
+          this.totalsearch = res.pagination.totalElements;
+          this.totalpagesearch = res.pagination.totalPages;
+          this.currentpagesearch = res.pagination.currentPage + 1;
+          this.filter = false;
+          this.filter1 = true;
+        }
+      },
+      error: (err: any) => {
+        this.toastr.error('No Data Found');
+      }
+    });
+  } else {
+    this.toastr.error('Please enter a value to search');
+  }
+}
+
+// Handle pagination for filtered search results
+renderadd(event: PageEvent) {
+  this.pageadd = event.pageIndex;
+  this.pagesizeadd = event.pageSize;
+ 
+  this.customerpayadd(this.currentfilvaladd);
+}
+
+// Change page index for filtered search results
+changePageadd(newPageadd: number) {
+  this.pageadd = newPageadd;
+  this.renderadd({
+    pageIndex: newPageadd,
+    pageSize: this.pagesizeadd
+  } as PageEvent);
+}
+
+// Perform the search and update the filtered results
+customerpayadd(filterValue: string) {
+  if (filterValue) {
+    console.log(filterValue);
+    this.service.customeradditionaltransactionsearch(this.id, filterValue, this.pagesizeadd, this.pageadd).subscribe({
+      next: (res: any) => {
+        if (res.response) {
+          this.additionlpay = res.response;
+          this.totalsearchadd = res.pagination.totalElements;
+          this.totalpagesearchadd = res.pagination.totalPages;
+          this.currentpagesearchadd= res.pagination.currentPage + 1;
+          this.filter2 = false;
+          this.filter3 = true;
+        }
+      },
+      error: (err: any) => {
+        this.toastr.error('No Data Found');
+      }
+    });
+  } else {
+    this.toastr.error('Please enter a value to search');
+  }
+}
+reloadadd() {
+  this.service.AdditionalPaymentsCustomerTransaction(this.id, this.pageSizeadd, this.pageIndexadd).subscribe((res: any) => {
+    if (res.flag == 1) {
+      this.additionlpay = res.response;
+      this.total = res.pagination.totalElements;
+      this.totalpages = res.pagination.totalPages;
+      this.currentpages = res.pagination.currentPage + 1;
+      
+      this.filter2 = true;
+      this.filter3 = false;
+  
+    }
+    else if (res.flag == 2) {
+     
+
+      this.total = res.pagination.totalElements;
+      this.totalpages = res.pagination.totalPages;
+      this.currentpages = res.pagination.currentPage + 1;
+      this.filter2 = true;
+      this.filter3 = false;
+    
+    }
+  })
+}
 
 }
 
