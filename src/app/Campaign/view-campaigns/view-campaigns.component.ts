@@ -302,7 +302,9 @@ export class ViewCampaignsComponent {
     this.dialog.open(CreateCommentcampaignsComponent, {
       disableClose: true,
       data: { value: id },
-      width: '30%',
+      width: '90vw',
+      maxHeight:'500px',
+      maxWidth: '500px',
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
     });

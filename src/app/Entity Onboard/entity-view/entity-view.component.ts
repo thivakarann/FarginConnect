@@ -75,12 +75,15 @@ export class EntityViewComponent implements OnInit {
   CopieedSucess: boolean = false;
   items: any[] = []; // The array of items to paginate
   currentPage: any = 1; // The current page number
-  itemsPerPage = 5; // The number of items to display per page
+  itemsPerPage = 3; // The number of items to display per page
   selected: any;
   selecteded: string = '5';
-
-
-  p: any = 1;
+  currentPagebusniess: any = 1;
+  currentonetime:any = 1;
+  currentcustomized:any = 1;
+  currentsms:any = 1;
+  currentagreement:any = 1;
+  currentbranch:any = 1;
 
   alltransactions: any;
   searchText: any;
@@ -3466,6 +3469,30 @@ export class EntityViewComponent implements OnInit {
   onSearchTextChange(): void {
     // Reset to the first page whenever the search text changes
     this.currentPage = 1;
+  }
+  onSearchTextBusiness(): void {
+    // Reset to the first page whenever the search text changes
+    this.currentPagebusniess = 1;
+  }
+  onSearchTextonetime(): void {
+    // Reset to the first page whenever the search text changes
+    this.currentonetime = 1;
+  }
+  onSearchTextcustomized(): void {
+    // Reset to the first page whenever the search text changes
+    this.currentcustomized = 1;
+  }
+  onSearchTextsms(): void {
+    // Reset to the first page whenever the search text changes
+    this.currentsms = 1;
+  }
+  onSearchTextagreement(): void {
+    // Reset to the first page whenever the search text changes
+    this.currentagreement= 1;
+  }
+  onSearchTextbranch(): void {
+    // Reset to the first page whenever the search text changes
+    this.currentbranch= 1;
   }
   Viewkycbranch(id: any, id1: any) {
     this.router.navigate([`dashboard/branch-kyc/${id}/${id1}`], {

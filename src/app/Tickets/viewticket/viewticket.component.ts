@@ -165,7 +165,7 @@ export class ViewticketComponent implements OnInit {
     this.dialog.open(UpdateStickerTicketComponent, {
       data: { value: id },
       disableClose: true,
-      width: "50%",
+      width: "35%",
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
     })

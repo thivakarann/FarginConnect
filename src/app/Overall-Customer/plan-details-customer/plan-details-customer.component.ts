@@ -53,6 +53,8 @@ export class PlanDetailsCustomerComponent {
   overallAmount: number = 0;
   setupboxview: any;
   currentPage: number=1;
+  currentPagebouquet=1;
+currentPagelcop=1;
 
 
   selectTab(tab: string) {
@@ -244,4 +246,14 @@ export class PlanDetailsCustomerComponent {
     // Reset to the first page whenever the search text changes
     this.currentPage = 1;
   }
+  onSearchbouquet(): void {
+    // Reset to the first page whenever the search text changes
+    this.currentPagebouquet = 1;
+  }
+
+  onSearchTextlcop(): void {
+    // Reset to the first page whenever the search text changes
+    this.currentPagelcop = 1;
+  }
+
 }

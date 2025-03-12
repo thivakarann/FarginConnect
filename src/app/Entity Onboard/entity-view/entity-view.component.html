@@ -579,7 +579,7 @@
 
                             </tr>
                             <tbody
-                                *ngFor="let item of bankdetails  | search: searchText | paginate: { itemsPerPage: 3, currentPage: currentPage }; let i=index">
+                                *ngFor="let item of bankdetails  | search: searchText | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }; let i=index">
                                 <td>{{i+1}}</td>
                                 <td>{{item.accountHolderName}}</td>
                                 <td>{{item.accountNumber}}</td>
@@ -694,7 +694,7 @@
 
                             </tr>
                             <tbody
-                                *ngFor="let item of KYCDetails| paginate: { itemsPerPage: 3, currentPage: currentPage } | search: searchText;let i=index">
+                                *ngFor="let item of KYCDetails| paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage } | search: searchText;let i=index">
                                 <tr>
                                     <td>1</td>
                                     <td>Identity proof</td>
@@ -900,7 +900,7 @@
                     <div class="search ">
           <form class="form">
               <label for="search">
-                  <input (ngModelChange)="onSearchTextChange()" #input name="search" required autocomplete="off" placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
+                  <input (ngModelChange)="onSearchTextBusiness()" #input name="search" required autocomplete="off" placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
  
                   <div class="icon">
                       <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
@@ -956,7 +956,7 @@
 
                             </tr>
                             <tbody
-                                *ngFor="let item of bussinessdoc  | search: searchText | paginate: { itemsPerPage: 3, currentPage: currentPage };let i=index">
+                                *ngFor="let item of bussinessdoc  | search: searchText | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPagebusniess };let i=index">
                                 <td>{{i+1}}</td>
                                 <td>{{item?.entityKycCategory?.kycCategoryName}}</td>
                                 <td>{{item.docNumber}}</td>
@@ -991,7 +991,7 @@
                         </table>
                     </div>
                     <div class="text-end mt-3">
- <pagination-controls (pageChange)="currentPage= $event"></pagination-controls>
+ <pagination-controls (pageChange)="currentPagebusniess= $event"></pagination-controls>
                     </div>
                 </div>
             </div>
@@ -1048,7 +1048,7 @@
                 <div class="search ">
           <form class="form">
               <label for="search">
-                  <input (ngModelChange)="onSearchTextChange()" #input name="search" required autocomplete="off" placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
+                  <input (ngModelChange)="onSearchTextonetime()" #input name="search" required autocomplete="off" placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
  
                   <div class="icon">
                       <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
@@ -1108,7 +1108,7 @@
                             <th>Paid At</th>
                         </tr>
                         <tbody
-                            *ngFor="let item of manualDetails | search: searchText | paginate: { itemsPerPage: 3, currentPage: currentPage };let i=index">
+                            *ngFor="let item of manualDetails | search: searchText | paginate: { itemsPerPage: itemsPerPage, currentPage: currentonetime };let i=index">
                             <td>{{i+1}}</td>
                             <td>{{item.pgPaymentId}}</td>
                             <td>{{item.totalPayableAmount}}</td>
@@ -1147,7 +1147,7 @@
                     </table>
                 </div>
                 <div class="text-end mt-2">
-                    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+                    <pagination-controls (pageChange)="currentonetime= $event"></pagination-controls>
                 </div>
             </div>
         </div>
@@ -1161,7 +1161,7 @@
                 <div class="search ">
           <form class="form">
               <label for="search">
-                  <input (ngModelChange)="onSearchTextChange()" #input name="search" required autocomplete="off" placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
+                  <input (ngModelChange)="onSearchTextcustomized()" #input name="search" required autocomplete="off" placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
  
                   <div class="icon">
                       <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
@@ -1214,7 +1214,7 @@
                             <th>Paid At</th>
                         </tr>
                         <tbody
-                            *ngFor="let item of otherDetails  | search: searchText | paginate: { itemsPerPage: 3, currentPage: currentPage };let i=index">
+                            *ngFor="let item of otherDetails  | search: searchText | paginate: { itemsPerPage: itemsPerPage, currentPage: currentcustomized };let i=index">
                             <td>{{i+1}}</td>
                             <td>{{item.pgPaymentId}}</td>
                             <td>{{item.serviceName}}</td>
@@ -1247,7 +1247,7 @@
                     </table>
                 </div>
                 <div class="text-end mt-3">
-                    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+                    <pagination-controls (pageChange)="currentcustomized = $event"></pagination-controls>
                 </div>
             </div>
         </div>
@@ -1261,7 +1261,7 @@
                 <div class="search ">
           <form class="form">
               <label for="search">
-                  <input (ngModelChange)="onSearchTextChange()" #input name="search" required autocomplete="off" placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
+                  <input (ngModelChange)="onSearchTextsms()" #input name="search" required autocomplete="off" placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
  
                   <div class="icon">
                       <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
@@ -1330,7 +1330,7 @@
                             <th>Modified At</th>
                         </tr>
                         <tbody
-                            *ngFor="let item of smsDetails  | search: searchText | paginate: { itemsPerPage: 3, currentPage: currentPage };let i=index">
+                            *ngFor="let item of smsDetails  | search: searchText | paginate: { itemsPerPage: itemsPerPage, currentPage: currentsms };let i=index">
                             <td>{{i+1}}</td>
                             <td>{{item?.type?.smsTitle}}</td>
                             <td>{{item?.type?.smsTempDescription}}</td>
@@ -1368,7 +1368,7 @@
                     </table>
                 </div>
                 <div class="text-end mt-3">
-                    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+                    <pagination-controls (pageChange)="currentsms = $event"></pagination-controls>
                 </div>
             </div>
         </div>
@@ -1386,7 +1386,7 @@
                 <div class="search ">
           <form class="form">
               <label for="search">
-                  <input (ngModelChange)="onSearchTextChange()" #input name="search" required autocomplete="off" placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
+                  <input (ngModelChange)="onSearchTextagreement()" #input name="search" required autocomplete="off" placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
  
                   <div class="icon">
                       <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
@@ -1453,7 +1453,7 @@
                             <th>Created At</th>
                         </tr>
                         <tbody
-                            *ngFor="let item of agreementdetails  | search: searchText | paginate: { itemsPerPage: 3, currentPage: currentPage };let i=index">
+                            *ngFor="let item of agreementdetails  | search: searchText | paginate: { itemsPerPage: itemsPerPage, currentPage: currentagreement };let i=index">
                             <td>{{i+1}}</td>
                             <td>{{item.commercialId?.planName}}</td>
                             <td>{{item.commercialId?.serviceFee}}</td>
@@ -1547,7 +1547,7 @@
                     </table>
                 </div>
                 <div class="text-end mt-3">
-                    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+                    <pagination-controls (pageChange)="currentagreement = $event"></pagination-controls>
                 </div>
             </div>
         </div>
@@ -1564,7 +1564,7 @@
                 <div class="search ">
           <form class="form">
               <label for="search">
-                  <input (ngModelChange)="onSearchTextChange()" #input name="search" required autocomplete="off" placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
+                  <input (ngModelChange)="onSearchTextbranch()" #input name="search" required autocomplete="off" placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
  
                   <div class="icon">
                       <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
@@ -1628,7 +1628,7 @@
                             <th>Modified At</th>
                         </tr>
                         <tbody
-                            *ngFor="let item of branchget | search: searchText | paginate: { itemsPerPage: 3, currentPage: currentPage }; let i=index">
+                            *ngFor="let item of branchget | search: searchText | paginate: { itemsPerPage: itemsPerPage, currentPage: currentbranch }; let i=index">
                             <td>{{i+1}}</td>
                        
                             <td>{{item.accountHolderName}}</td>
@@ -1669,7 +1669,7 @@
                     </table>
                 </div>
                 <div class="text-end mt-3">
-                    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+                    <pagination-controls (pageChange)="currentbranch = $event"></pagination-controls>
                 </div>
             </div>
         </div>
