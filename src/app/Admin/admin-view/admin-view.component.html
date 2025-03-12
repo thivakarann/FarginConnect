@@ -1,0 +1,123 @@
+
+<div class="col-12">
+    <div  class="form-header d-flex justify-content-between align-items-center">
+        <h4  class="mb-0"> {{"View  User Details"|translate}}</h4>
+        <button type="button" class="btn btn-secondary" (click)="close()">{{"Back"|translate}}</button>
+    
+    </div>
+    <article class="card car-details label-info">
+        <div class="card-body">
+            <div class="d-flex flex-md-row align-items-md-start align-items-center flex-column">
+                <div class="w-100">
+                    <div class="d-flex flex-md-row flex-column">
+                        <h3 class="mr-3">{{"General Information"|translate}}</h3>
+                    </div>
+                    <hr>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6 col-12">
+                                <div class="d-flex flex-column">
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">
+                                            {{"Name"|translate}}</div>
+                                        <div class="w-50">{{this.viewData?.adminName}}</div>
+                                    </div>
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">
+                                            {{"Role"|translate}}</div>
+                                        <div class="w-50">{{this.viewData?.merchantRoleId?.roleName}}</div>
+                                    </div>
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">
+                                            {{"Gender"|translate}}</div>
+                                        <div class="w-50">{{this.viewData?.gender}}</div>
+                                    </div>
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">{{"EmailAddress"|translate}}
+                                        </div>
+                                        <div class="w-50">{{this.viewData?.adminEmail}}</div>
+                                    </div>
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">{{"Mobile Number"|translate}}</div>
+                                        <div class="w-50">{{this.viewData?.mobileNumber}}</div>
+                                    </div>
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">{{"Address"|translate}}</div>
+                                        <div class="w-50">{{this.viewData?.address}}</div>
+                                    </div>
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">{{"City"|translate}}</div>
+                                        <div class="w-50">{{this.viewData?.cityName}}</div>
+                                    </div>
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">{{"State"|translate}}</div>
+                                        <div class="w-50">{{this.viewData?.stateName}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="d-flex flex-column">
+
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">{{"Country"|translate}}
+                                        </div>
+                                        <div class="w-50">{{this.viewData?.countryName}}</div>
+                                    </div>
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">
+                                            {{"RoleType"|translate}}</div>
+                                        <div class="w-50">{{this.viewData?.roleType ||'--'}}</div>
+                                    </div>
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">{{"Pincode"|translate}}</div>
+                                        <div class="w-50">{{this.viewData?.pincodeName}}</div>
+                                    </div>
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">{{"Account Status"|translate}}</div>
+                                        <div class="w-50">
+                                            <span *ngIf="this.viewData?.accountStatus==1"
+                                                style="color:green;">{{"Active"|translate}}</span>
+                                            <span *ngIf="this.viewData?.accountStatus==0"
+                                                style="color:red;">{{"InActive"|translate}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">{{"Created By"|translate}}</div>
+                                        <div class="w-50">{{this.viewData?.createdBy}}</div>
+                                    </div>
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">{{"Created At"|translate}}</div>
+                                        <div class="w-50">{{this.viewData?.createdAt}}</div>
+                                    </div>
+
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">{{"Modified By"|translate}}</div>
+                                        <div class="w-50">{{this.viewData?.modifiedBy}}</div>
+                                    </div>
+                                    <div class="d-flex mb-2">
+                                        <div class="w-50 font-weight-bold">{{"Modified At"|translate}}</div>
+                                        <div class="w-50">{{this.viewData?.modifiedAt}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-12">
+                                <div class="d-flex flex-md-row flex-column align-items-center justify-content-end">
+                                    <button class="btn btn-success w-100 mb-md-0 mb-3 mr-md-3 mr-0"><i
+                                            class="fas fa-phone"></i> Contact Seller</button>
+                                    <button class="btn btn-default w-100 mb-md-0 mb-3 mr-md-3 mr-0"><i
+                                            class="fas fa-parking"></i> Park</button>
+                                    <button class="btn btn-default w-100"><i class="fas fa-comment"></i> Comments
+                                        (18)</button>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+
+
+</div>

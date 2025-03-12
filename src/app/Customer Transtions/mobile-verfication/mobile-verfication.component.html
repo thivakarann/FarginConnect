@@ -1,0 +1,92 @@
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<body>
+    <div class="div">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand">{{"Welcome"|translate}}</a>
+            <div class="Go-dropdown mt-1">
+                <div class="select" (click)="toggleDropdowns()">
+                  <div class="selected" data-default="English" data-one="தமிழ்" data-two="हिन्दी">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" class="arrow">
+                      <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" fill="#141E46"></path>
+                    </svg>
+                  </div>
+                  <div class="options">
+                    <div title="all">
+                      <input id="all" name="option" type="radio" checked  value="en" [(ngModel)]="selectedLang" (change)="switchcustomerLanguage('en')" />
+                      <label class="option" for="all" data-txt="English"></label>
+                    </div>
+                    <div title="option-1">
+                      <input id="option-1" name="option" type="radio"  value="ta" [(ngModel)]="selectedLang" (change)="switchcustomerLanguage('ta')" />
+                      <label class="option" for="option-1" data-txt="தமிழ்"></label>
+                    </div>
+                    <div title="option-2">
+                      <input id="option-2" name="option" type="radio"  value="hi" [(ngModel)]="selectedLang" (change)="switchcustomerLanguage('hi')" />
+                      <label class="option" for="option-2" data-txt="हिन्दी"></label>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="navbar-nav">
+                <img src="assets/flagimage.png" alt="Flag Image">
+            </div>
+        </nav>
+
+        <section class="h-custom">
+            <div class="container">
+                <div class="row d-flex justify-content-center align-items-center">
+                    <div class="col-md-9 col-lg-5 col-xl-5 mb-5 text-center">
+                        <img src="/assets/fargin_blue.png" class="img-fluid" alt="Fargin Connect Logo"
+                            style="border-radius: 40px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);">
+                    </div>
+                    <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                        <form autocomplete="off" [formGroup]="myForm" (ngSubmit)="verify()">
+                            <div class="text-center mb-4">
+                                <h2 style="margin-bottom:45px;">Mobile Verification</h2>
+                                <p style="color: #666;">Please enter your mobile number to verify your account.</p>
+                            </div>
+       
+                            <div class="form-outline mb-4 position-relative">
+                                <i class="fas fa-mobile-alt input-icon position-absolute" style="bottom: 5px; left: 10px;"></i>
+                                <input style="border: 1px solid #ced4da; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); padding-left: 35px;"
+                                    [maxlength]="10" [(ngModel)]="MobileNumber" formControlName="MobileNumbers"
+                                    type="tel" id="form3Example4" class="form-control form-control-lg"
+                                    placeholder="Enter Mobile Number" />
+                                <div *ngIf="MobileNumbers?.invalid && MobileNumbers?.touched"
+                                    style="color: red; font-size: 12px; margin-top: 2px;">
+                                    <div *ngIf="MobileNumbers?.errors?.['required']">Field is required</div>
+                                    <div *ngIf="MobileNumbers?.errors?.['pattern']">Please enter a valid mobile number</div>
+                                </div>
+                            </div>
+       
+                            <div class="d-flex justify-content-center">
+                                <button [disabled]="myForm.invalid" type="submit" class="btn btn-primary btn-lg"
+                                    style="border-radius: 20px; padding: 10px 30px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); transition: background-color 0.3s;">
+                                    Verify
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p class="footer-text">
+                <span class="copyright">Copyright &copy; {{this.currentYear}}, All Rights Reserved</span>
+                <a href="customer/login">Home</a> <span style="color: #141E46;font-weight: 600;">|</span>
+                <a href="customer-solutions">Solutions</a> <span style="color: #141E46;font-weight: 600;">|</span>
+                <a href="customer-termsandpolicy">Terms and Conditions</a> <span
+                    style="color: #141E46;font-weight: 600;">|</span>
+                <a href="customer-privacy-policy">Privacy Policy</a> <span
+                    style="color: #141E46;font-weight: 600;">|</span>
+                <a href="customer-refund-policy">Refund Policy</a> <span
+                    style="color: #141E46;font-weight: 600;">|</span>
+                <a href="customer-disclaimer">Disclaimer</a> <span style="color: #141E46;font-weight: 600;">|</span>
+                <a class="support">support{{strings}}fargin.in</a>
+            </p>
+        </footer>
+    </div>
+</body>

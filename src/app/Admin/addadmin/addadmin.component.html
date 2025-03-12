@@ -1,0 +1,131 @@
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+
+<div class="container">
+  <div class="form-header d-flex justify-content-between align-items-center">
+    <h5 class="mb-0">{{"Employee Creation"|translate}}</h5>
+  </div>
+  <div class="well">
+    <form [formGroup]="adminFormGroup" autocomplete="off">
+      <div class="row mb-3">
+        <div class="col-sm-4 form-group">
+          <label class="form-label">{{"Role Type"|translate}}</label>
+          <select class="form-select" formControlName="merchantroletype">
+            <option value="" disabled selected>{{"Select RoleType"|translate}}</option>
+            <option value="PanelAdmin">{{"Panel Admin"|translate}}</option>
+            <option value="FieldExecutive">{{"Field Executive"|translate}}</option>
+          </select>
+          <div style="color: red; font-size: 12px" *ngIf="merchantroletype.invalid && merchantroletype.touched">
+            Field is Required
+          </div>
+        </div>
+
+        <div class="col-sm-4 form-group" *ngIf="this.merchantroletype?.value=='PanelAdmin'">
+          <label class="form-label">{{"Role"|translate}}</label>
+          <select class="form-select" formControlName="merchantRoleId">
+            <option value="" disabled selected>{{"Select Role"|translate}}</option>
+            <option *ngFor="let data of viewactive" [value]="data.merchantRoleId">
+              {{data.roleName}}
+            </option>
+          </select>
+          <div style="color: red; font-size: 12px" *ngIf="merchantRoleId.invalid && merchantRoleId.touched">
+            Field is Required
+          </div>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label class="form-label">{{"Employee Name"|translate}}</label>
+          <input type="text" class="form-control" formControlName="adminName">
+          <div style="color: red; font-size: 12px" *ngIf="adminName.invalid && adminName.touched">
+            Field is Required
+          </div>
+        </div>
+
+        <div class="col-sm-4 form-group">
+          <label class="form-label">{{"Age"|translate}}</label>
+          <input type="text" class="form-control" formControlName="age" maxlength="2" minlength="2"
+            (keypress)="numbers($event)">
+          <div style="color: red; font-size: 12px" *ngIf="age.invalid && age.touched">
+            Field is Required
+          </div>
+        </div>
+     
+        <div class="col-sm-4 form-group">
+          <label class="form-label">{{"Gender"|translate}}</label>
+          <select class="form-control form-select" formControlName="gender">
+            <option value="" disabled selected>{{"Select Gender"|translate}}</option>
+            <option value="Male">{{"Male"|translate}}</option>
+            <option value="Female">{{"Female"|translate}}</option>
+            <option value="Others">{{"Others"|translate}}</option>
+          </select>
+          <div style="color: red; font-size: 12px" *ngIf="gender.invalid && gender.touched">
+            Field is Required
+          </div>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label class="form-label">{{"Mobile Number"|translate}}</label>
+          <input type="text" minlength="10" maxlength="10" class="form-control" formControlName="mobileNumber"
+            (keypress)="numbers($event)">
+          <div style="color: red; font-size: 12px" *ngIf="mobileNumber.invalid && mobileNumber.touched">
+            Enter a Valid Mobile Number
+          </div>
+        </div>
+
+        <div class="col-sm-4 form-group">
+          <label class="form-label">{{"Email"|translate}}</label>
+          <input type="email" class="form-control" autocomplete="off" formControlName="email">
+          <div style="color: red; font-size: 12px" *ngIf="email.invalid && email.touched">
+            Enter a Valid Email Address
+          </div>
+        </div>
+     
+
+        <div class="col-sm-4 form-group">
+          <label class="form-label">{{"Address"|translate}}</label>
+          <input type="text"  class="form-control" formControlName="address">
+          <div style="color: red; font-size: 12px" *ngIf="address.invalid && address.touched">
+            Field is Required
+          </div>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label >{{"Country Name"|translate}}</label>
+          <input type="text" class="form-control" formControlName="countryName">
+          <div style="color: red; font-size: 12px" *ngIf="countryName.invalid && countryName.touched">
+            Field is Required
+          </div>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label >{{"State Name"|translate}}</label>
+          <input type="text"  class="form-control" formControlName="stateName">
+          <div style="color: red; font-size: 12px" *ngIf="stateName.invalid && stateName.touched">
+            Field is Required
+          </div>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label class="form-label">{{"City Name"|translate}}</label>
+          <input formControlName="cityName" type="text"  class="form-control">
+          <div style="color: red; font-size: 12px" *ngIf="cityName.invalid && cityName.touched">
+            Field is Required
+          </div>
+        </div>
+
+
+
+        <div class="col-sm-4 form-group">
+          <label class="form-label">{{"Pincode"|translate}}</label>
+          <input type="text" class="form-control" formControlName="pincodeName" maxlength="6" minlength="6"
+            (keypress)="numbers($event)">
+          <div style="color: red; font-size: 12px" *ngIf="pincodeName.invalid && pincodeName.touched">
+            Field is Required
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button (click)="OnSubmit()" [disabled]="adminFormGroup.invalid" type="submit" class="btn mx-1 "
+          style="background-color:#7db855be">{{"Submit"|translate}}</button>
+        <button type="submit" class="btn" style="background-color:#141E46;color:white" (click)="close()">{{"Cancel"|translate}}</button>
+      </div>
+    </form>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>

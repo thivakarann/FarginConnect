@@ -1,0 +1,95 @@
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" />
+ 
+<div class="card-header">
+  <h3 class="mb-0" style="font-weight: 700; text-align: center; font-size: 21px">
+    {{"Add Service Ticket" |translate}}
+  </h3>
+</div>
+ 
+<body class="page">
+  <main class="main page__main">
+    <form class="form main__form" [formGroup]="ticketFormGroup">
+      <div class="row">
+        <div class="form-group col-sm-6 mb-3">
+          <label for="subject">{{"Subject of the Ticket" |translate}}</label>
+          <select class="form-select" formControlName="subject" required>
+            <option value="" selected hidden>{{"Select an Option"|translate}}</option>
+            <option value="Sticker Request">Sticker Request-Add</option>
+            <option value="Payment Processing Failures">Payment Processing FailuresRequest-Add</option>
+            <option value="Refunds/Chargebacks">Refunds/ChargebacksRequest-Add</option>
+            <option value="Incorrect Billing">Incorrect BillingRequest-Add</option>
+            <option value="Failed Transactions">Failed TransactionsRequest-Add</option>
+            <option value="Payment Confirmation Delays">Payment Confirmation DelaysRequest-Add</option>
+            <option value="Compatibility Problems">Compatibility ProblemsRequest-Add</option>
+            <option value="Data Loss/Corruption">Data Loss/CorruptionRequest-Add</option>
+            <option value="Performance Issues">Performance IssuesRequest-Add</option>
+            <option value="Installation/Setup Problems">Installation/Setup ProblemsRequest-Add</option>
+            <option value="Software Bugs/Errors">Software Bugs/ErrorsRequest-Add</option>
+          </select>
+          <!-- <input type="text" id="subject" class="form-control" formControlName="subject" required /> -->
+          <span class="errormge" *ngIf="subject?.touched && subject?.errors?.['required']">Field is required*</span>
+        </div>
+ 
+        <div [hidden]="subject?.value!='Sticker Request'" class="form-group col-sm-6 mb-3">
+          <label for="stickerCount">{{"Sticker Count" |translate}}</label>
+          <input [required]="subject?.value=='Sticker Request'" [pattern]="'^[0-9]+$'"  type="text" id="stickerCount" class="form-control" formControlName="stickerCount" (input)="calculateTotal(stickerCount.value)"  />
+          <span class="errormge" *ngIf="stickerCount?.touched && stickerCount?.errors?.['required']">Field is required*</span>
+          <span class="errormge" *ngIf="stickerCount?.touched && stickerCount?.errors?.['pattern']">
+            Please enter a valid positive number*
+          </span>
+        </div>
+        <br>
+        <br>
+        <div *ngIf="subject?.value === 'Sticker Request'" class="form-group  mb-3">
+          <label style="text-align: wrap;text-indent: 5px;font-weight: 500;"><b>{{"Note" |translate}}:</b> "{{"Total Amount for Sticker cost is" |translate}}<b> {{totalAmountControl.value}}</b>",
+            <br><p style="text-indent: 55px;"> "{{"Maximum delivery days is" |translate}}<b> {{deliveryDays}}</b></p></label>
+        </div>
+        <!-- </div> -->
+     
+       
+      <!-- </div> -->
+ 
+      <!-- <div class="row mb-3"> -->
+      <div class="form-group col-sm-6 mb-3">
+        <label for="critical">{{"Criticality" |translate}}</label>
+        <select class="form-select" formControlName="ticketStatus" required>
+          <option value="" selected hidden>{{"Select an Option" |translate}}</option>
+          <option>Low</option>
+          <option>Medium</option>
+          <option>High</option>
+        </select>
+        <span class="errormge" *ngIf="ticketStatus?.touched && ticketStatus?.errors?.['required']">Field is
+          required*</span>
+      </div>
+ 
+      <div class="form-group col-sm-6 mb-3">
+        <label for="document">{{"Document" |translate}}</label>
+        <input type="file" id="email" accept="image/*" (change)="onFileSelected($event)" class="form-control"
+          formControlName="document" />
+        <!-- <span class="errormge" *ngIf="document?.touched && document?.errors?.['required']">Field is required*</span> -->
+      </div>
+      <!-- </div> -->
+ 
+ 
+      <div class="form-group mb-3">
+        <label for="description">{{"Ticket Description" |translate}}</label>
+        <textarea id="description" rows="3" class="form-control" formControlName="description"></textarea>
+        <span class="errormge" *ngIf="description?.touched && description?.errors?.['required']">Field is
+          required*</span>
+      </div>
+</div>
+      <div class="d-flex">
+        <button type="submit" class="btn mx-1" style="background-color: #7db855be" [disabled]="ticketFormGroup.invalid"
+          (click)="save()">
+          {{"Submit" |translate}}
+        </button>
+        <button type="submit" class="btn" style="background-color: #141e46; color: white" matDialogClose>
+          {{"Cancel" |translate}}
+        </button>
+      </div>
+    </form>
+  </main>
+</body>
+ 
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>

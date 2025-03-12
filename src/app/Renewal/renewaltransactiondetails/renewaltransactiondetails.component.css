@@ -1,0 +1,24 @@
+.datas {
+    color: black;
+    font-weight: 700;
+  }
+   
+  .green {
+    color: green;
+  }
+   
+  .orange {
+    color: orange;
+  }
+   
+  .Red {
+    color: red;
+  }
+
+  .form-header {
+    background-color: #7db855be;
+    /* color: whitesmoke; */
+    padding: 0.7rem;
+    /* border-radius: 0.5rem 0.5rem 0 0; */
+    margin-bottom: 0.1rem;
+  }

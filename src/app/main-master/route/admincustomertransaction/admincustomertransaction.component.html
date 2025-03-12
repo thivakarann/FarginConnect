@@ -1,0 +1,152 @@
+<h4 style="text-align: left; color: #141e46">Customer Transaction</h4>
+<br />
+   
+  <mat-card-header>
+    <div class="row d-flex justify-content-start">
+      <div class="col-md-10">
+        <div class="search">
+          <form class="form">
+            <label for="search">
+              <input
+                #input
+                name="search"
+                required
+                autocomplete="off"
+                placeholder="Search"
+                id="search"
+                type="text"
+                [(ngModel)]="searchText"
+              />
+  
+              <div class="icon">
+                <svg
+                  stroke-width="2"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="swap-on"
+                >
+                  <path
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                  ></path>
+                </svg>
+                <svg
+                  stroke-width="2"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="swap-off"
+                >
+                  <path
+                    d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                  ></path>
+                </svg>
+              </div>
+              <button type="reset" class="close-btn">
+                <svg
+                  viewBox="0 0 20 20"
+                  class="h-5 w-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    fill-rule="evenodd"
+                  ></path>
+                </svg>
+              </button>
+            </label>
+          </form>
+        </div>
+      </div>
+     
+      <div class="col-md-2 d-flex justify-content-end mb-1">
+        <button
+          style="color: white; background-color: #141e46; border-radius: 10px"
+          (click)="close()"
+        >
+          Back
+        </button>
+      </div>
+    </div>
+  </mat-card-header>
+
+
+
+      <div class="row mt-4">
+        <div class="col-12 mb-3 mb-lg-5">
+          <div class="card table-nowrap table-card">
+            <div class="table-responsive text-nowrap text-center">
+              <table class="table table-hover" id="customers">
+                <tr>
+  
+                  <th>S No</th>
+                  <th>Transaction ID</th>
+                  <th>Payable Amount</th>
+                  <th>Payment Status</th>
+                  <!-- <th>Onboard Date</th> -->
+                  <th>Due Date</th>
+                  <th>Revere Dues</th>
+                  <th>Manual Payment</th>
+                  <th>View</th>
+                  <th>Reciept</th>
+                  <th>Paid At</th>
+                </tr>
+               <span *ngIf="!showData" class="no-data-message text-center" style="color:red;font-size:12px;">NO DATA FOUND</span>
+  
+                <tbody *ngIf="showData">
+                  <tr
+                    *ngFor="let row of transaction | paginate: { id:'pagination4', itemsPerPage: 3, currentPage: page4 } | search: searchText; let i = index">
+  
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ row.paymentId }}</td>
+                    <td>{{ row.paidAmount }}</td>
+                    <td>
+                      <span *ngIf=" row.paymentStatus=='Pending'" style="color:orange"> {{ row.paymentStatus}}</span>
+                      <span *ngIf=" row.paymentStatus=='Success'" style="color:green"> {{ row.paymentStatus}}</span>
+                      <span *ngIf=" row.paymentStatus=='Failure'" style="color:red"> {{ row.paymentStatus}}</span>
+                      <span *ngIf=" row.paymentStatus=='Initiated'" style="color:blue"> {{ row.paymentStatus}}</span>
+                      <span *ngIf=" row.paymentStatus=='Due Cancelled'" style="color:red"> {{ row.paymentStatus}}</span>
+                      <span *ngIf=" row.paymentStatus=='Payment Incomplete'" style="color:red"> {{ row.paymentStatus}}</span>
+                    </td>
+                    <!-- <td>{{row.startDate| date:"dd/MM/yyyy"}}</td> -->
+                    <td>{{row.endDate | date:"dd/MM/yyyy"}}</td>
+   
+                  
+            <td> <button [disabled]="row.dueStatus === 1 && row.paymentStatus!='Success'" (click)="dues(row)">
+              <i style="font-size: 20px; cursor: pointer" class="fa fa-edit"></i>
+          </button></td>
+                    <td>
+                        <i class="fa fa-eye" (click)="view(row?.customerPayId)"></i>
+                    </td>
+                    <td>
+                      <button class="btn btn-success btn-sm"
+                          style="border:none;" (click)="Receipt(row.customerPayId)"> <i class="fa-solid fa-download" style="color:#fff;"></i></button>
+                    </td>
+                    <td>  <button [disabled]="row?.paymentStatus=='Success'"><i style="font-size: 20px;cursor:pointer"
+                      class="fa-solid fa-address-card" (click)="viewpay(row.customerPayId)"></i></button></td>
+   
+                    <td>
+                      <span *ngIf=" row.paymentDateTime!= null"> {{ row.paymentDateTime | date:"dd/MM/yyyy:hh:m:a"}}</span>
+                      <span *ngIf=" row.paymentDateTime==null" style="color:blue"> -</span>
+  
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="text-end mt-3">
+                <pagination-controls id='pagination4' (pageChange)="page4 = $event"></pagination-controls>
+              </div>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+
+  

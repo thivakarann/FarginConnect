@@ -1,0 +1,224 @@
+<h4 style="text-align:left;color:#141E46;">{{"Online Refunds" |translate}}</h4>
+
+<mat-card-header>
+  <div class="row">
+    <div class="col-5 mt-4">
+
+      <div class="search ">
+        <form class="form">
+          <label for="search">
+            <input #input  required="" autocomplete="off" placeholder="Search" id="search"
+              type="text" name="search" [(ngModel)]="currentfilval">
+            <div class="icon">
+              <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
+                </path>
+              </svg>
+              <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round" stroke-linecap="round">
+                </path>
+              </svg> -->
+            </div>
+            <button type="reset" (click)="reload()" class="close-btn">
+              <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                <path clip-rule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  fill-rule="evenodd"></path>
+              </svg>
+            </button>
+          </label>
+        </form>
+
+      </div>&nbsp;
+      <button (click)="refundsearch(currentfilval)" style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button>{{"Go" |translate}}</button>
+      <button [hidden]="vaalueonlinerefundexport!=='Online Refunds-Export'"  style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" (click)="exportexcel()"
+        mat-raised-button>{{"Export" |translate}}</button>
+
+    </div>
+    <div class="col-2 mt-1">
+      <label><b>{{"From Date" |translate}}:</b></label>
+      <input class="form-control" type="date" name="FromDate" [(ngModel)]="FromDateRange"
+          style="height:35px;width:150px;border-radius: 5px;">
+  </div>
+  <div class="col-2 mt-1">
+      <label><b>{{"To Date" |translate}}:</b></label>
+      <input class="form-control" type="date" name="ToDate" [(ngModel)]="ToDateRange"
+          style="height:35px;width:150px;border-radius: 5px;">
+  </div>
+  <div class="col-1 mt-4">
+      <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button
+          (click)="filterdate()">{{"Search" |translate}}</button>
+  </div>
+  <div class="col-1 mt-4">
+  
+
+          <button style="color:white;background-color:#141E46; border-radius: 10px;font-size: 12px;" class="custom-button" mat-raised-button
+          (click)="reset()">{{"Reset" |translate}}</button>
+  </div>
+  </div>
+</mat-card-header>
+
+<!-- <mat-card> -->
+<mat-card-content>
+  <div class="example-container text-nowrap mt-2">
+    <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+  
+      <ng-container matColumnDef="sno">
+        <th mat-header-cell *matHeaderCellDef>{{"S.No" |translate}}</th>
+        <td mat-cell *matCellDef="let data; let i = index">
+          {{ i + 1 }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="setupbox">
+        <th mat-header-cell *matHeaderCellDef>{{"Setupbox Number" |translate}}</th>
+        <td mat-cell *matCellDef="let transaction">{{ transaction?.paymentModel?.customerStbId?.stbId?.setupBoxNumber || "-"}}</td>
+      </ng-container>
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef>{{"Type" |translate}}</th>
+        <td mat-cell *matCellDef="let transaction">{{ transaction?.typeMode || "-"}}</td>
+      </ng-container>
+      <ng-container matColumnDef="refund">
+        <th mat-header-cell *matHeaderCellDef>{{"Refund Amount" |translate}}</th>
+        <td mat-cell *matCellDef="let transaction">{{ transaction?.refundAmount || "-"}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="pgPaymentId">
+        <th mat-header-cell *matHeaderCellDef>{{"Payment ID" |translate}}</th>
+        <td mat-cell *matCellDef="let transaction">{{ transaction?.paymentId || "-"}}</td>
+      </ng-container>
+      <ng-container matColumnDef="reqid">
+        <th mat-header-cell *matHeaderCellDef>{{"Request ID" |translate}}</th>
+        <td mat-cell *matCellDef="let transaction">{{ transaction?.requestId || "-"}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="View">
+        <th mat-header-cell *matHeaderCellDef>{{"OfflineDetails"  |translate}}</th>
+        <td mat-cell *matCellDef="let transaction" >
+          <button (click)="view(transaction)"  style="border: none; background:none"  [disabled]="transaction?.typeMode !='Offline'">
+            <i class="fa fa-eye" style="border: none; background:none;font-size:15px"   ></i>
+
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="activityid">
+        <th mat-header-cell *matHeaderCellDef>{{"Activity ID" |translate}}</th>
+        <td mat-cell *matCellDef="let transaction">{{ transaction?.activityId || "-"}}</td>
+      </ng-container> -->
+      <ng-container matColumnDef="custname">
+        <th mat-header-cell *matHeaderCellDef>{{"Customer Name" |translate}}</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data?.customerId?.customerName }}
+        </td>
+      </ng-container>
+      <!-- <ng-container matColumnDef="custemail">
+        <th mat-header-cell *matHeaderCellDef>{{"Customer Email" |translate}}</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data?.customerId?.emailAddress ||'-'}}
+        </td>
+      </ng-container> -->
+      <ng-container matColumnDef="custmobile">
+        <th mat-header-cell *matHeaderCellDef>{{"Customer Mobile Number" |translate}}</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data?.customerId?.mobileNumber }}
+        </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>{{"Refund Status" |translate}}</th>
+        <td mat-cell *matCellDef="let data">
+          <span *ngIf="data.refundStatus=='COMPLETED'" style="color:green;"><b>{{data?.refundStatus}}</b></span>
+          <span *ngIf="data.refundStatus=='INITIATED'"
+            style="color:orange;"><b>{{data?.refundStatus}}</b></span>
+        </td>
+      </ng-container>
+
+
+     
+
+
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef>{{"Requested Date"|translate}}</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data?.createdAt | date : "dd-MM-yyyy hh:mm a" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="paidAmount">
+        <th mat-header-cell *matHeaderCellDef>{{"Paid Amount" |translate}}</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data?.paymentModel?.paidAmount }}
+        </td>
+      </ng-container>
+      <!-- <ng-container matColumnDef="createDate">
+        <th mat-header-cell *matHeaderCellDef>Created date</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data?.createdAt | date : "dd-MM-yyyy" }}
+        </td>
+      </ng-container> -->
+
+      <!-- <ng-container matColumnDef="refundDate">
+        <th mat-header-cell *matHeaderCellDef>{{"Refund Date" | translate}}</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data?.refundDateTime | date : "dd-MM-yyyy hh:mm a" }}
+        </td>
+      </ng-container> -->
+
+
+
+
+      
+   
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
+      <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
+      <tr *matNoDataRow>
+        <td class="mat-cell" colspan="0" *ngIf="searchPerformed">{{"No Data For" |translate}} {{input.value}}</td>
+        <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">{{"No Data" |translate}}</td>
+      </tr>
+    </table>
+
+  </div>
+</mat-card-content>
+<mat-card-footer>
+    <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="filter">
+        <div class="col-md-6"></div>
+        <div class="col-md-6">
+            <button style="color:white;background-color: #141E46;">Total Entries:{{this.totalPages}}</button>
+            <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex - 1)"
+                [hidden]="pageIndex === 0">Previous</button>
+            <button style="color:white;background-color: #141E46;">{{ this.currentpage}} of {{this.totalpage}}
+                Pages</button>
+            <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex + 1)"
+                [hidden]="pageIndex >= totalpage - 1">Next</button>
+        </div>
+ 
+    </div>
+ 
+    <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="filter1">
+        <div class="col-md-6"></div>
+        <div class="col-md-6">
+            <button style="color:white;background-color: #141E46;">Total Entries:{{this.totalPages1}}</button>
+            <button style="color:white;background-color: #141E46;" (click)="changePageIndex1(pageIndex1 - 1)"
+                [hidden]="pageIndex1 === 0">Previous</button>
+            <button style="color:white;background-color: #141E46;">{{this.currentpage1}} of {{this.totalpage1}}
+                Pages</button>
+            <button style="color:white;background-color: #141E46;" (click)="changePageIndex1(pageIndex1 + 1)"
+                [hidden]="pageIndex1 >= totalpage1 - 1">Next</button>
+        </div>
+    </div>
+    <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="filter2">
+        <div class="col-md-6"></div>
+        <div class="col-md-6">
+            <button style="color:white;background-color: #141E46;">Total Entries:{{this.totalPages2}}</button>
+            <button style="color:white;background-color: #141E46;" (click)="changePageIndex1(pageIndex2 - 1)"
+                [hidden]="pageIndex2 === 0">Previous</button>
+            <button style="color:white;background-color: #141E46;">{{this.currentpage2}} of {{this.totalpage2}}
+                Pages</button>
+            <button style="color:white;background-color: #141E46;" (click)="changePageIndex1(pageIndex2 + 1)"
+                [hidden]="pageIndex2 >= totalpage2 - 1">Next</button>
+        </div>
+    </div>
+</mat-card-footer>

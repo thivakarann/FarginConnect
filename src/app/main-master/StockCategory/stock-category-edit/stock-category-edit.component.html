@@ -1,0 +1,35 @@
+<div class="card-header">
+    <h3 class="mb-0" style="font-weight: 700;text-align:center;font-size: 21px;">{{"Edit Stock Category"|translate}}</h3>
+</div>
+
+<body class="page">
+    <main class="main page__main">
+        <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="Editcategory">
+
+            <div class=" mb-3">
+                <div class="form-group">
+                    <label for="critical">{{"Category Name" |translate}}</label>
+                  
+                    <input ngModel="{{ stockview?.inventoryName }}" class="form-control" type="text" formControlName="inventoryName" required >
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;"
+                    *ngIf="inventoryName?.invalid && inventoryName?.touched && inventoryName?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>      
+
+       
+            </div>
+
+            <div>
+                <button (click)="submit()" [disabled]="Editcategory.invalid" type="submit" class="btn mx-1 "
+                    style="background-color:#7db855be">{{"Submit"|translate}}</button>
+                <button type="submit" class="btn" style="background-color:#141E46;color:white"
+                    matDialogClose>{{"Cancel"|translate}}</button>
+            </div>
+        </form>
+    </main>
+</body>

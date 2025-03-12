@@ -1,0 +1,47 @@
+<div class="card-header">
+    <h3 class="mb-0" style="font-weight: 700;text-align:center;font-size: 21px; ">{{"Settopbox Active/Inactive Bulk Upload"|translate}}</h3>
+</div>
+
+<body class="page">
+    <main class="main page__main">
+        <form class="form main__form" autocomplete="off" class="form" [formGroup]="customerformGroup">
+
+            <div class="form__linput">
+                <label class="form__label">{{"Upload File"|translate}}</label>
+                <input type="file"  class="form-control"  formControlName="uploadFile" required 
+                (change)="uploadBulkFile($event)"/>
+                <div style="color: red; font-size: 12px;margin-top: 2px;"
+                    *ngIf="uploadFile?.invalid && uploadFile?.touched && uploadFile?.errors?.['required']">
+                    Field is required
+                </div>
+            </div>
+
+            <h5>{{"Notes"|translate}}:</h5>
+            <div class="notes-container">
+            <ul>
+             
+             
+              <li style="color: red;">{{"Maximum 500 Records Only Allowed to Upload For Single Time"|translate}}</li>
+
+
+              <li>
+                {{"mobileNumber: Enter the customer's registered mobile number"|translate}}
+              </li>
+              <li>
+                {{"setupBoxNumber: Provide the setopbox number that has been mapped with the customer" |translate}}
+              </li>
+              <li>
+                {{"status: If you want to activate the settop box, enter 1. If you want to deactivate the settop box, enter 0." |translate }}
+              </li>
+              
+            </ul>
+          </div>
+
+            <div class="mt-3">
+                <button type="submit" class="btn mx-1 " style="background-color:#7db855be" (click)="submit()"
+                    [disabled]="this.customerformGroup.invalid">{{"Submit"|translate}}</button>
+                <button type="submit" class="btn" style="background-color:#141E46;color:white" (click)="close()">{{"Cancel"|translate}}</button>
+            </div>
+        </form>
+    </main>
+</body>

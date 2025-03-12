@@ -1,0 +1,250 @@
+<div style="overflow: hidden;" class="div">
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand">FARGIN CONNECT</a>
+    <div class="navbar-nav">
+      <img src="assets/flagimage.png" alt="Flag Image" class="img-fluid" style="max-width: 50px;">
+    </div>
+  </nav>
+
+  <div class="d-flex justify-content-end mt-3" style="margin-right: 20px;"> <!-- Adjust margin-right as needed -->
+    <button (click)="click(MobileNumberss)" type="button" class="btn btn-secondary"
+      style="text-align:center;">Back</button>
+  </div>
+
+
+  <div class="text-center mt-3">
+    <h3 class="title" style="color: #141E46; font-weight: 600;">PAYMENT INFORMATIONS</h3>
+  </div>
+
+  <div class="row" *ngIf="viewData">
+    <div class="col"></div>
+    <div class="col mt-5 text-danger text-center font-weight-bold">NO DATA FOUND</div>
+    <div class="col"></div>
+  </div>
+
+  <section *ngIf="!viewData">
+    <div class="container py-3">
+      <div class="row justify-content-center mb-3">
+        <div class="col-md-12 col-xl-10">
+          <div class="card shadow-0 border rounded-3">
+            <div class="card-body" *ngFor="let item of DetailsView">
+              <div class="row">
+                <div class="col-md-12 col-lg-3 mb-4">
+                  <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                    <div [hidden]="item.customerId.merchantId.logoLink !== 'NA'">
+                      <img src="/assets/fargin_blue.png" class="w-100" />
+
+                    </div>
+
+
+                    <div [hidden]="item.customerId.merchantId.logoLink == 'NA'">
+                      <img [src]="item.customerId.merchantId.logoLink" class="w-100" />
+
+                    </div>
+                    <a>
+                      <div class="hover-overlay">
+                        <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+
+                <div class="col-md-6 col-lg-6">
+                  <h5>Entity Name: {{item.customerId.merchantId.merchantLegalName}}</h5>
+                  <div class="mb-2 text-muted large">
+                    <span>Customer Name</span>
+                    <span class="text-primary"> •• </span>
+                    <span>{{item.customerId.customerName}}</span>
+                  </div>
+                  <div class="mb-2 text-muted large">
+                    <span>Payment For</span>
+                    <span class="text-primary"> •• </span>
+                    <span>{{item?.customerId?.merchantId?.businessCategoryModel?.categoryName}}</span>
+                  </div>
+                  <div class="mb-2 text-muted large">
+                    <span>Setupbox Number</span>
+                    <span class="text-primary"> •• </span>
+                    <span>{{item?.customerStbId?.stbId?.setupBoxNumber}}</span>
+                  </div>
+                  <p class="text-truncate mb-4">Payment Status:
+                    <span *ngIf="item?.paymentStatus=='Initiated'" style="color:blue;"
+                      class="font-weight-bold text-gray">{{item.paymentStatus}}</span>
+                    <span *ngIf="item.paymentStatus=='Success'" style="color:green;"
+                      class="font-weight-bold text-gray">{{item.paymentStatus}}</span>
+                    <span *ngIf="item.paymentStatus=='Due Pending'" style="color:orange;"
+                      class="font-weight-bold text-gray">{{item.paymentStatus}}</span>
+                    <span *ngIf="item.paymentStatus=='Failure'" style="color:red;"
+                      class="font-weight-bold text-gray">{{item.paymentStatus}}</span>
+                      <span *ngIf="item.paymentStatus=='Due Cancelled'" style="color:red;"
+                      class="font-weight-bold text-gray">{{item.paymentStatus}}</span>
+                    <span *ngIf="item.paymentStatus=='Payment Incomplete'" style="color:red;"
+                      class="font-weight-bold text-gray">{{item.paymentStatus}}</span>
+                  </p>
+                </div>
+                <div class="col-md-6 col-lg-3 border-start">
+                  <h6 class="text-success">Amount To Be Paid</h6>
+                  <h4 class="mb-1">₹{{item.paidAmount}}</h4>
+                  <div class="d-flex flex-column mt-4">
+                    <button class="btn btn-primary btn-sm" type="button" (click)="PAYNOW(item)">PAY
+                      NOW</button>
+                    <button class="btn btn-outline-primary btn-sm mt-2" type="button"
+                      (click)="Payments(item.customerPayId)">Payment Details</button>
+                    <button class="btn btn-outline-primary btn-sm dropdown-toggle mt-2" type="button" id="moreDropdown"
+                      data-bs-toggle="dropdown" aria-expanded="false">
+                      Read More...
+                    </button>
+                    <div class="dropdown mt-2">
+                      <ul class="dropdown-menu" aria-labelledby="moreDropdown">
+                        <li><a style="cursor: pointer;"
+                            (click)="Terms(item.customerId.merchantId.merchantId, Termscondition)"
+                            class="dropdown-item">Terms & Conditions</a></li>
+                        <li><a style="cursor: pointer;"
+                            (click)="Terms(item.customerId.merchantId.merchantId, Privacypolicy)"
+                            class="dropdown-item">Privacy Policy</a></li>
+                        <li><a style="cursor: pointer;"
+                            (click)="Terms(item.customerId.merchantId.merchantId, RefundPolicy)"
+                            class="dropdown-item">Refund Policy</a></li>
+                        <li><a style="cursor: pointer;"
+                            (click)="Terms(item.customerId.merchantId.merchantId, Disclaimer)"
+                            class="dropdown-item">Disclaimer</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- payment flow form  -->
+
+<!-- <form name="form" id="FormType" action="https://connect.basispay.in/checkout" method="POST"> -->
+<!-- <form name="form" id="FormType" action="https://staging-connect.basispay.in/checkout" method="POST">
+  <div style="display: none">
+    <div class="row">
+      <div class="col-4">
+        <div class="mb-3">
+          <input type="hidden" name="address" [(ngModel)]="CustomerStreetName" />
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="mb-3">
+          <input type="hidden" name="apiKey" [(ngModel)]="apikey" />
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="mb-3">
+          <input type="hidden" name="city" [(ngModel)]="CityName" />
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="mb-3">
+          <input type="hidden" name="country" value="IND" />
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="mb-3">
+          <input type="hidden" name="customerEmail" [(ngModel)]="CustomerEmail" />
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="mb-3">
+          <input type="hidden" name="customerMobile" [(ngModel)]="CustomerMobile" />
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="mb-3">
+          <input type="hidden" name="customerName" [(ngModel)]="CustomerName" />
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="mb-3">
+          <input type="hidden" name="deliveryAddress" value="" />
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="mb-3">
+          <input type="hidden" name="deliveryCity" value="" />
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="mb-3">
+          <input type="hidden" name="deliveryCountry" value="" />
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="mb-3">
+          <input type="hidden" name="deliveryMobile" value="" />
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="mb-3">
+          <input type="hidden" name="deliveryName" value="" />
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="mb-3">
+          <input type="hidden" name="deliveryPostalCode" value="" />
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="mb-3">
+          <input type="hidden" name="deliveryRegion" value="" />
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="mb-3">
+          <input type="hidden" name="orderReference" [(ngModel)]="OrderRefference" />
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="mb-3">
+          <input type="hidden" name="postalCode" [(ngModel)]="Pincode" />
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="mb-3">
+          <input type="hidden" name="region" [(ngModel)]="StateName" />
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="mb-3">
+          <input type="hidden" name="secureHash" [(ngModel)]="SecureHash" />
+        </div>
+      </div>
+    </div>
+  </div>
+</form> -->
+
+<!-- payment flow form  -->
+
+<footer>
+  <p class="footer-text">
+    <span class="copyright">Copyright &copy; {{this.currentYear}}, All Rights Reserved</span>
+    <a href="customer/login"> Home</a> <span style="color: #141E46;font-weight: 600;">|</span>
+    <a href="customer-solutions">Solutions</a> <span style="color: #141E46;font-weight: 600;">|</span>
+    <a href="customer-termsandpolicy">Terms and Conditions</a> <span style="color: #141E46;font-weight: 600;">|</span>
+    <a href="customer-privacy-policy">Privacy Policy</a> <span style="color: #141E46;font-weight: 600;">|</span>
+    <a href="customer-refund-policy">Refund Policy</a> <span style="color: #141E46;font-weight: 600;">|</span>
+    <a href="customer-disclaimer">Disclaimer</a> <span style="color: #141E46;font-weight: 600;">|</span>
+    <a class="support" href="mailto:support@fargin.in">&nbsp;support{{strings}}fargin.in</a>
+  </p>
+</footer>

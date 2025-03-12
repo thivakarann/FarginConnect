@@ -1,0 +1,44 @@
+
+<div class="card" style=" font-size: 14px;height:250px;" >
+    <div class="form-header d-flex justify-content-between align-items-center">
+        <h6 class="mb-0 text-center" style="color:#fff;">Branch Information</h6>
+       
+    </div>
+        <table class="table table-bordered"
+            style="background-color: white; text-align: left;border: 1px solid rgb(154, 154, 153);">
+            <tbody>
+                <tr>
+                    <td class="datas">Account ID</td>
+                    <td id="data">{{this.accountid }}</td>
+                </tr>
+                <tr>
+                    <td class="datas">Api Key</td>
+                    <td id="data" >{{ this.apikey | slice:0:10 }} &nbsp;<i class="fa-regular fa-copy" style="color:green;font-size:18px"  (click)="copyText(this.apikey)"></i>
+                        <span *ngIf="copySuccess" style="color: green;">Copied!</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="datas">Secret Key</td>
+                    <td id="data">{{ this.secretkey | slice:0:10 }}
+                        &nbsp;<i class="fa-regular fa-copy" style="color:green;font-size:18px"  (click)="copyText1(this.secretkey)"></i>
+                        <span *ngIf="copySuccesss" style="color: green;">Copied!</span>
+                    </td>
+                </tr>
+                <!-- <tr>
+                    <td class="datas">Onboard Status</td>
+                    <td id="data">
+
+                        <span *ngIf="detaislone?.onBoardStatus == 'true'">Approved</span>
+                        <span *ngIf="detaislone?.onBoardStatus == 'false'">Pending</span>
+                    </td>
+                </tr>           -->
+            </tbody>
+        </table>
+       <div class="text-start mt-0 mx-3">
+        <button class="buttonDownload" 
+        mat-dialog-close>Close</button>
+       </div>
+    </div>
+    
+
+

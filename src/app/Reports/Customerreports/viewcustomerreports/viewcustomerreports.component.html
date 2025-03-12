@@ -1,0 +1,217 @@
+<h4 style="text-align:left;color:#141E46;">Customer Reports</h4>
+
+
+
+<mat-card-header>
+    <div class="row mt-4">
+        <div class="col-md-1">
+
+            <button style="color:white;background-color: #141E46;border-radius: 10px;" (click)="reports()"
+            mat-raised-button >Search</button>
+
+           </div>
+            <div class="col-md-1" style="gap:5px">
+            
+              <button style="color:white;background-color: rgb(179, 3, 3);border-radius: 10px;" (click)="reload()"
+              mat-raised-button >Reset</button>
+          </div>
+  
+
+          <div class="col-md-1" [hidden]="valuecusreportexport!=='Customer Reports-Export'">
+            <button style="color:white;background-color: #141E46;border-radius: 10px;" (click)="exportexcel()"
+                mat-raised-button >Export</button>
+        </div>
+        
+    </div>
+
+</mat-card-header>
+<mat-card-content>
+  <div class="example-container
+  mt-4">
+  <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="sno">
+          <th mat-header-cell *matHeaderCellDef>S.No</th>
+          <td mat-cell *matCellDef="let data; let i = index">
+            {{ i + 1 }}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Customer Name</th>
+          <td mat-cell *matCellDef="let data">
+            {{ data.customerName }}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="mobilenumber">
+          <th mat-header-cell *matHeaderCellDef>Mobile Number</th>
+          <td mat-cell *matCellDef="let data">
+            {{ data.mobileNumber }}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <td mat-cell *matCellDef="let data">
+            {{ data.emailAddress || '-'}}
+          </td>
+        </ng-container>
+  
+    
+  
+  
+      
+  
+  
+  
+       
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+          <td mat-cell *matCellDef="let data">
+            <span *ngIf="data.activeStatus == '0'" style="color: red">
+              <b>Inactive</b>
+            </span>
+            <span *ngIf="data.activeStatus == '1'" style="color: blue">
+              <b>Active</b>
+            </span>
+          </td>
+        </ng-container>
+        
+
+        <ng-container matColumnDef="routeAssignedStatus">
+            <th mat-header-cell *matHeaderCellDef>Route Assigned Status</th>
+            <td mat-cell *matCellDef="let data" [ngClass]="data.routeAssignedStatus == 0 ? 'not-Assigned' : 'Assigned'">
+              {{ data.routeAssignedStatus == 0 ? 'Not Assigned' : 'Assigned' }}
+            </td>
+          </ng-container>
+  
+        <!-- <ng-container matColumnDef="createdBy">
+          <th mat-header-cell *matHeaderCellDef>Created By</th>
+          <td mat-cell *matCellDef="let data">
+            {{ data.createdBy }}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="createdDateTime">
+          <th mat-header-cell *matHeaderCellDef>Created At</th>
+          <td mat-cell *matCellDef="let data">
+            {{ data.createdDateTime | date : "dd/MM/yyyy hh:mm a" }}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="modifiedBy">
+          <th mat-header-cell *matHeaderCellDef>Modified By</th>
+          <td mat-cell *matCellDef="let data">
+            {{ data.modifiedBy }}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="modifiedDateTime">
+          <th mat-header-cell *matHeaderCellDef>Modified At</th>
+          <td mat-cell *matCellDef="let data">
+            {{ data.modifiedDateTime | date : "dd/MM/yyyy hh:mm a" }}''
+          </td>
+        </ng-container> -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+        <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
+        <tr *matNoDataRow>
+        
+          <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">No Data</td>
+        </tr>
+      </table>
+  
+    </div>
+  </mat-card-content>
+  <mat-card-footer >
+  
+    <!-- <mat-paginator [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtons
+      aria-labels="select page of users"></mat-paginator> -->
+  
+      <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="showFooter">
+        <div class="col-md-7"></div>
+        <div class="col-md-5">
+            <button style="color:white;background-color: #141E46;" >Total Entries:{{this.totalPages}}</button>
+            <button style="color:white;background-color: #141E46;"  (click)="changePageIndex(pageIndex - 1)"[hidden]="pageIndex === 0">Previous</button>
+            <button style="color:white;background-color: #141E46;" >{{ this.currentpage}} of {{this.totalpage}} Pages</button>
+            <button style="color:white;background-color: #141E46;"   (click)="changePageIndex(pageIndex + 1)" [hidden]="pageIndex >= totalpage - 1" >Next</button>
+                </div>
+  </div>
+  <div class="row">
+    <div class="col-md-9"></div>
+    <div *ngIf="showentries" class="p-3">
+      <button style="color:white;background-color: #141E46;">Total Entries:{{this.totalCount}}</button>
+
+    </div>
+  </div>
+  
+  </mat-card-footer>
+
+
+
+  <ng-template #dialogTemplate>
+    <div class="dialog-card-header">
+    <h3 class="mb-0" style="font-weight: 700; text-align: center; font-size: 21px;">
+  Search
+    </h3>
+   
+    <div class="col-md-2 d-flex justify-content-end mb-1">
+        <button  class="button1" (click)="dialogRef.close()">Back</button>
+      </div>
+    </div>
+    <div class="dialog-body page">
+    <main class="main page__main">
+        <form class="form main__form" autocomplete="off" role="form">
+        <div class="form__linput">
+            <label class="form__label" for="fname">Customer Name</label>
+            <input class="form-control" id="fname" type="text" [(ngModel)]="customernanme"  [disabled]="shouldDisable('customernanme')"   name="customernanme" required />
+        </div>
+        <div class="form__linput">
+            <label class="form__label" for="fromDate">Mobile Number</label>
+            <input class="form-control" id="fromDate" type="text" name="mobilenumber"  [(ngModel)]="mobilenumber"    [disabled]="shouldDisable('mobilenumber')" required />
+        </div>
+        <div class="form__linput">
+            <label class="form__label" for="toDate">Email</label>
+            <input class="form-control" id="toDate" type="text"  name="email" [(ngModel)]="email"   [disabled]="shouldDisable('email')" required />
+        </div>
+        <!-- <div class="form__linput">
+            <label class="form__label" for="toDate">Route Assigned Status</label>
+            <input class="form-control" id="toDate" type="text"  name="route" [(ngModel)]="route"   [disabled]="shouldDisable('route')" required />
+        </div> -->
+ 
+        <div class="form__linput">
+          <label class="form__label" for="paymentStatus">Route Assigned Status</label>
+          <select class="form-control form-select"  [(ngModel)]="route"   [disabled]="shouldDisable('route')" name="route">
+          <option value="1">Assigned</option>
+          <option value="0">Not Assigned</option>
+ 
+          </select>
+      </div>
+        <div class="form__linput">
+            <label class="form__label" for="paymentStatus">Status</label>
+            <select class="form-control form-select"  [(ngModel)]="statused"   [disabled]="shouldDisable('statused')"  name="statused">
+            <option value="1">Active</option>
+            <option value="0">Inactive</option>
+ 
+            </select>
+        </div>
+        <!-- <div class="form__linput">
+            <label class="form__label" for="paymentStatus">Booking Status</label>
+            <select class="form-select"  [(ngModel)]="bookingStatus"   [disabled]="shouldDisable('bookingStatus')"  name="bookingStatus">
+            <option value="1">Booked</option>
+            <option value="0">Free</option>
+ 
+            </select>
+        </div> -->
+        <div class="mt-3">
+            <button type="submit" (click)="customers() " class="btn mx-1" style="background-color: #7db855be">
+            Filter
+            </button>
+            <button type="button" (click)="reset()" class="btn" style="background-color: #141e46; color: white" >
+            Reset
+            </button>
+        </div>
+        </form>
+    </main>
+    </div>
+</ng-template>
+ 

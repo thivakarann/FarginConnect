@@ -1,0 +1,890 @@
+<mat-card-header>
+  <div class="row mx-auto d-flex justify-content-start">
+    <div class="col-md-6">
+      <h5>{{"Customer Name"|translate}}: {{ viewcustomer?.customerName }}</h5>
+    </div>
+    <!-- <div class="col-md-4  mt-1">
+      <h6> Overall Plan Amount: <span style="color:green;">₹{{ this.totalamounts }}</span></h6>
+    </div> -->
+    <div class="col-md-6 d-flex justify-content-end mb-1">
+      <button class="button1" style="font-size: 13px;" (click)="close()">{{"Back"|translate}}</button>
+    </div>
+
+  </div>
+</mat-card-header>
+
+<ul class="nav nav-pills nav-fill mb-4 mx-3 mt-2"
+  [hidden]="valuecustomerinfo!=='Customer-Customer Information' && valuecustomerplan!=='Customer-Setup-box' && valuecustomertransaction!=='Customer-Transaction'">
+  <li class="nav-item" [hidden]="valuecustomerinfo!=='Customer-Customer Information'">
+    <a style="cursor: pointer;font-weight: 600;" class="nav-link" [class.active]="selectedTab === 'customer-info'"
+      (click)="selectTab('customer-info')">
+      {{"Customer Info"|translate}}
+    </a>
+  </li>
+  &nbsp; &nbsp;
+  <li class="nav-item" [hidden]="valuecustomerplan!=='Customer-Setup-box'">
+    <a style="cursor: pointer;font-weight: 600;" class="nav-link" [class.active]="selectedTab === 'Setup-box'"
+      (click)="selectTab('Setup-box')">
+      {{"Setup-box"|translate}}
+    </a>
+  </li>
+  &nbsp; &nbsp;
+  <li class="nav-item" [hidden]="valuecustomertransaction!=='Customer-Transaction'">
+    <a style="cursor: pointer;font-weight: 600;" class="nav-link" [class.active]="selectedTab === 'Transaction'"
+      (click)="selectTab('Transaction')">
+      {{"Transactions"|translate}}
+    </a>
+  </li>
+  &nbsp;&nbsp;
+  <li class="nav-item" [hidden]="valueAdditionalPayments!=='Customer-Additional Payments'">
+    <a style="cursor: pointer;font-weight: 600;" class="nav-link" [class.active]="selectedTab === 'Additional-Payments'"
+      (click)="selectTab('Additional-Payments')">
+      {{"Additional Payments"|translate}}
+    </a>
+  </li>
+  &nbsp;&nbsp;<li class="nav-item" [hidden]="valueRefunds!=='Customer-Refunds'">
+    <a style="cursor: pointer;font-weight: 600;" class="nav-link" [class.active]="selectedTab === 'Refund'"
+      (click)="selectTab('Refund')">
+      {{"Refunds"|translate}}
+    </a>
+  </li>
+</ul>
+
+<div *ngIf="selectedTab === 'customer-info'" id="customer-info" class="mb-4">
+  <div class="container">
+    <article class="card">
+      <div class="card-body">
+        <!-- <h3 class="card-title mb-4">General Information</h3>
+              <hr> -->
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-6 col-12">
+              <div class="d-flex flex-column">
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">
+                    {{"Customer Id"|translate}}:</div>
+                  <div class="w-50">{{ viewcustomer?.customerReferenceId || '-' }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">
+                    {{"Customer Name"|translate}}:</div>
+                  <div class="w-50">{{ viewcustomer?.customerName || '-' }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">
+                    {{"Email Address"|translate}}:</div>
+                  <div class="w-50">{{ viewcustomer?.emailAddress || '-' }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">{{"Mobile Number"|translate}}:
+                  </div>
+                  <div class="w-50">{{ viewcustomer?.mobileNumber || '-' }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">{{"Age"|translate}}:</div>
+                  <div class="w-50">{{ viewcustomer?.age || '-' }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">{{"Area"|translate}}:</div>
+                  <div class="w-50"> {{ viewcustomer?.area || '-' }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">{{"Street Name"|translate}}:</div>
+                  <div class="w-50">{{ viewcustomer?.streetName || '-' }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">{{"Country"|translate}}
+                  </div>
+                  <div class="w-50">{{ viewcustomer?.countryName || '-' }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">{{"State Name"|translate}}:</div>
+                  <div class="w-50"> {{ viewcustomer?.stateName || '-' }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">{{"Branch Name"|translate}}:</div>
+                  <div class="w-50"> {{ viewcustomer?.branchId?.branchName || '-' }}</div>
+                </div>
+
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">{{"City Name"|translate}}:</div>
+                  <div class="w-50">{{ viewcustomer?.cityName || '-' }}</div>
+                </div>
+
+
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">{{"Pincode"|translate}}</div>
+                  <div class="w-50">{{ viewcustomer?.pincodeName || '-' }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">{{"Land Mark"|translate}}:</div>
+                  <div class="w-50">{{ viewcustomer?.landmark || '-' }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">{{"Advance Paid"|translate}}:</div>
+                  <div class="w-50">
+                    <div class="w-50">{{ viewcustomer?.advanceStatus || '-' }}</div>
+                  </div>
+                </div>
+
+
+
+              </div>
+            </div>
+
+
+            <div class="col-md-6 col-12">
+              <div class="d-flex flex-column">
+
+
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">{{"MSO-Customer ID"|translate}}:</div>
+                  <div class="w-50">
+                    <div class="w-50">{{ viewcustomer?.customerMsoId || '-' }}</div>
+                  </div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">{{"Flat Number"|translate}}:</div>
+                  <div class="w-50">{{ viewcustomer?.flatNumber || '-' }}</div>
+                </div>
+
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">{{"Block Number"|translate}}:</div>
+                  <div class="w-50">{{ viewcustomer?.blockNumber || '-' }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">{{"House Name"|translate}}:</div>
+                  <div class="w-50"> {{ viewcustomer?.houseName || '-' }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">{{"Door Number"|translate}}:</div>
+                  <div class="w-50"> {{ viewcustomer?.doorNumber || '-' }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">{{"Alternative Mobile Number"|translate}}:</div>
+                  <div class="w-50"> {{ viewcustomer?.alterMobileNumber || '-' }}</div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">{{"Apartment Name"|translate}}:</div>
+                  <div class="w-50"> {{ viewcustomer?.apartmentName || '-' }}</div>
+                </div>
+
+
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">{{"Advance Amount"|translate}}:</div>
+                  <div class="w-50">
+                    {{viewcustomer?.advanceAmount || 0.0}}
+                  </div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">{{"Connection Type"|translate}}:</div>
+                  <div class="w-50">
+                    <div class="w-50"> {{ viewcustomer?.freeLine || '-' }}</div>
+                  </div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">{{"Branch Status"|translate}}:</div>
+                  <div class="w-50"> {{ viewcustomer?.branchStatus || '-' }}</div>
+                </div>
+
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">{{"Created At"|translate}}:</div>
+                  <div class="w-50">
+                    <div class="w-50"> {{ viewcustomer?.createdDateTime|date:"dd/MM/yyyy" }}</div>
+                  </div>
+                </div>
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">{{"Created By"|translate}}:</div>
+                  <div class="w-50">{{ viewcustomer?.createdBy || '-' }}</div>
+                </div>
+
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">{{"Modified By"|translate}}:</div>
+                  <div class="w-50">{{ viewcustomer?.modifiedBy|| '-' }}</div>
+                </div>
+
+                <div class="d-flex mb-2">
+                  <div class="w-50 font-weight-bold">{{"Modified At"|translate}}:</div>
+                  <div class="w-50">
+                    <div class="w-50"> {{ viewcustomer?.modifiedDateTime | date:"dd/MM/yyyy" }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</div>
+
+<!-- Transaction -->
+
+
+<div id="Transaction" *ngIf="selectedTab === 'Transaction'" class="mb-4">
+
+  <div>
+    <div class="row mt-2 mx-1">
+      
+      <div class="col">
+        <div class="search">
+          <form class="form">
+            <label for="search">
+              <input
+                #input
+                required
+                autocomplete="off"
+                placeholder="Search"
+                id="search"
+                type="text"
+                name="search"  [(ngModel)]="currentfilval"
+              />
+              <div class="icon">
+                <svg
+                  stroke-width="2"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="swap-on"
+                >
+                  <path
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                  ></path>
+                </svg>
+              </div>
+              <button (click)="reload()" type="reset" class="close-btn">
+                <svg
+                  viewBox="0 0 20 20"
+                  class="h-5 w-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    fill-rule="evenodd"
+                  ></path>
+                </svg>
+              </button>
+            </label>
+          </form>
+        </div>
+        &nbsp;&nbsp;&nbsp;
+        <button (click)="customerpay(currentfilval)" style="color:white;background-color: #141E46;border-radius: 10px;"
+          mat-raised-button>{{"Go"|translate}}</button>
+  
+      </div>
+    </div>
+    <div class="row mt-1 mx-1">
+      <div class="col-12 mb-3 mb-lg-5">
+        <div class="card table-nowrap table-card">
+          <div class="table-responsive text-nowrap text-center">
+            <table class="table table-hover" id="customers">
+              <tr>
+
+                <th>{{"S.No"|translate}}</th>
+                <th>{{"Payment Id"|translate}}</th>
+                <th>{{"Customer Id"|translate}}</th>
+                <th>{{"STB Number"|translate}}</th>
+                <th>{{"MSO"|translate}}</th>
+                <th>{{"Customer Name"|translate}}</th>
+                <th>{{"Customer Email"|translate}}</th>
+                <th>{{"Mobile Number"|translate}}</th>
+                <th>{{"Amount"|translate}}</th>
+                <th>{{"Payment Status"|translate}}</th>
+                <th [hidden]="valuetransamt!=='Customer-Transaction Updated Amount'">{{"Updated Amount"|translate}}</th>
+                <th>{{"Due Generated At"|translate}}</th>
+                <th>{{"Paid At"|translate}}</th>
+                <th [hidden]="valuetransview!=='Customer-Transaction View'">{{"View"|translate}}</th>
+                <th [hidden]="valuetransReciept!=='Customer-Transaction Reciept'">{{"Reciept"|translate}}</th>
+                <th [hidden]="valuetransManualPayment!=='Customer-Transaction Manual Payment'">{{"Manual Payment"|translate}}</th>
+                <th [hidden]="valuetransRefund!=='Customer-Transaction Refund'">{{"Refund"|translate}}</th>
+                <th [hidden]="valuetransReverseDues!=='Customer-Transaction Reverse Dues'">{{"Reverse Dues"|translate}}</th>
+                <th>{{"Reverse Status"|translate}}</th>
+                <th>{{"Comment By"|translate}}</th>
+              </tr>
+              <!-- <span *ngIf="!showData" class="text-center" style="color:red;font-size:12px;">NO DATA FOUND</span> -->
+
+              <tbody>
+                <tr
+                  *ngFor="let row of transaction ; let i = index">
+
+                  <td>{{ i + 1 }}</td>
+                  <td> {{row.pgPaymentId || '-'}}</td>
+                  <td>{{ row.customerReferenceId}}</td>
+
+                  <td>{{ row.stbNumber}}</td>
+                  <td>{{ row.serviceProviderName}}</td>
+                  <td>{{ row.customerName}}</td>
+                  <td>{{ row.emailAddress}}</td>
+                  <td>{{ row.mobileNumber}}</td>
+                  <td>{{row.paidAmount || '-'}}</td>
+                  <td>
+
+
+                    <span *ngIf="row.paymentStatus=='Success'" style="color:green;"><b>{{row?.paymentStatus}}</b></span>
+                    <span *ngIf="row.paymentStatus=='Due Pending'"
+                      style="color:orange;"><b>{{row?.paymentStatus}}</b></span>
+                    <span *ngIf="row.paymentStatus=='Failure'" style="color:red;"><b>{{row?.paymentStatus}}</b></span>
+                    <span *ngIf="row.paymentStatus=='Initiated'"
+                      style="color:blue;"><b>{{row?.paymentStatus}}</b></span>
+                    <span *ngIf="row.paymentStatus=='Due Cancelled'"
+                      style="color:darkred;"><b>{{row?.paymentStatus}}</b></span>
+                      <span *ngIf="row.paymentStatus=='Payment Incomplete'"
+                      style="color:darkred;"><b>{{row?.paymentStatus}}</b></span>
+
+                  </td>
+                  <td [hidden]="valuetransamt!=='Customer-Transaction Updated Amount'">
+                    <button class="btn btn-success btn-sm" (click)="Updatedue(row)"  style="border:none; font-size:12px;"
+                      [disabled]="row.paymentStatus=='Success'">
+                      <i class="fa-regular fa-money-bill-1"></i>
+                    </button>
+                  </td>
+                  <td> {{row.createdDateTime | date:'dd/MM/yyyy hh:mm a'}}</td>
+                  <td> {{row.paymentDateTime | date:'dd/MM/yyyy hh:mm a'}}</td>
+                  <td [hidden]="valuetransview!=='Customer-Transaction View'">
+                    <i class="fa fa-eye" (click)="view(row.customerPayId)"></i>
+                  </td>
+                  <td [hidden]="valuetransReciept!=='Customer-Transaction Reciept'">
+                    <button class="btn btn-success btn-sm" [disabled]="row.paymentStatus!='Success'"
+                    style="border:none; font-size:12px;" (click)="Receipt(row.customerPayId)"> <i class="fas fa-receipt"
+                        style="color:#fff;"></i></button>
+                  </td>
+                  <td [hidden]="valuetransManualPayment!=='Customer-Transaction Manual Payment'">
+                    <button [disabled]="row.paymentStatus == 'Success'" class="btn btn-success btn-sm"
+                    style="border:none; font-size:12px;" (click)="manuvalpayments(row.customerPayId)"> <i
+                        class="fa-solid fa-address-card" style="color:#fff;cursor:pointer"></i></button>
+                  </td>
+                  <td [hidden]="valuetransRefund!=='Customer-Transaction Refund'">
+                    <button (click)="RefundsView(row)" class="btn btn-success btn-sm"   style="border:none;"
+                      [disabled]="row.paymentStatus !== 'Success'">
+                      <i class="fa fa-undo" style="font-size: 12px; cursor: pointer;background: none;"></i>
+                    </button>
+                  </td>
+                  <td [hidden]="valuetransReverseDues!=='Customer-Transaction Reverse Dues'">
+                    <button [disabled]="row.paymentStatus=='Success'" style="border:none;background: none;" (click)="dues(row)">
+                      <i style="font-size: 20px; cursor: pointer;background: none;" class="fa fa-edit"></i>
+                    </button>
+                  </td>
+                  <td>{{ row.dueStatus === 1 ? 'Dues Reversed' : 'Not Reversed' }}</td>
+
+                  <td>
+                    <span *ngIf="!isFullPolicyVisible">
+                      {{ row.commentsBy | slice:0:limit }}
+                    </span>
+                    <span *ngIf="isFullPolicyVisible">
+                      {{ row.commentsBy }}
+                    </span>
+                    <i style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more"
+                      (click)="comment(row)">
+                   
+                      {{ isFullPolicyVisible ? 'Read Less' : '...Read More' }}
+                    </i>
+                  </td>
+
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+
+        </div>
+        <div class="text-end">
+       
+<div class="row d-flex justify-content-end mt-3 mx-2" *ngIf="filter">
+  <div class="col-md-6"></div>
+  <div class="col-md-6">
+    <button style="color:white;background-color: #141E46;">Total Entries : {{totalPages}}</button>&nbsp;
+    <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex - 1)" [hidden]="pageIndex === 0">Previous</button>&nbsp;
+    <button style="color:white;background-color: #141E46;">{{currentpage}} of {{totalpage}} Pages</button>&nbsp;
+    <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex + 1)" [hidden]="pageIndex >= totalpage - 1">Next</button>&nbsp;
+  </div>
+</div>
+
+<!-- Pagination controls for filtered search results -->
+<div class="row d-flex justify-content-end mt-3 mx-2" *ngIf="filter1">
+  <div class="col-md-6"></div>
+  <div class="col-md-6">
+    <button style="color:white;background-color: #141E46;">Total Entries: {{totalsearch}}</button>&nbsp;
+    <button style="color:white;background-color: #141E46;" (click)="changePageIndex1(pageIndex1 - 1)" [hidden]="pageIndex1 === 0">Previous</button>&nbsp;
+    <button style="color:white;background-color: #141E46;">{{currentpagesearch}} of {{totalpagesearch}} Pages</button>&nbsp;
+    <button style="color:white;background-color: #141E46;" (click)="changePageIndex1(pageIndex1 + 1)" [hidden]="pageIndex1 >= totalpagesearch - 1">Next</button>&nbsp;
+  </div>
+</div>
+
+     
+     
+        </div>
+      </div>
+    </div>
+   
+  </div>
+
+</div>
+
+
+<div id="Setup-box" *ngIf="selectedTab === 'Setup-box'" class="mb-4">
+
+  <div>
+    <div class="row mt-2 mx-1">
+      <div class="col-md-3">
+        <div class="search ">
+          <form class="form">
+            <label for="search">
+              <input (ngModelChange)="onSearchTextChange()" #input name="search" required autocomplete="off"
+                placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
+
+              <div class="icon">
+                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                  <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
+                  </path>
+                </svg>
+                <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                          xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                          <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
+                              stroke-linecap="round">
+                          </path>
+                      </svg> -->
+              </div>
+              <button type="reset" class="close-btn">
+                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                  <path clip-rule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    fill-rule="evenodd"></path>
+                </svg>
+              </button>
+            </label>
+          </form>
+        </div>
+
+      </div>
+      <div class="col-md-2">
+        <button (click)="addsetupboxplan(this.viewcustomer)" style="color:white;background-color: #141E46;border-radius: 10px;"
+          mat-raised-button [hidden]="valueaddsetupbox!=='Customer-Setupbox Add'">{{"Add Setupbox"|translate}}</button>
+
+      </div>
+      <div class="col">
+        <button (click)="setuphistory(this.id)" style="color:white;background-color: #141E46;border-radius: 10px;"
+          mat-raised-button [hidden]="valueaddsetupboxhistory!=='Customer-Setupbox History'">{{"STB Status History"|translate}}</button>
+      </div>
+
+    </div>
+
+    <div class="row mt-1 mx-1">
+      <div class="col-12 mb-3 mb-lg-5">
+        <div class="card table-nowrap table-card">
+          <div class="table-responsive text-nowrap text-center">
+            <table class="table table-hover" id="customers">
+              <tr>
+
+                <th>{{"S.No"|translate}}</th>
+                <th>{{"Setupbox Number"|translate}}</th>
+                <th>{{"Service Provider Name"|translate}}</th>
+                <th>{{"Region"|translate}}</th>
+                <th>{{"Door No"|translate}}</th>
+                <th>{{"Area"|translate}}</th>
+                <th>{{"Street Name"|translate}}</th>
+              
+                <th [hidden]="valuesetupboxduestatus!=='Customer-Setupbox Due Status'">{{"Due Status"|translate}}</th>
+                <th [hidden]="valuesetupboxDueStatusHistory!=='Customer-Setupbox Due Status History'">{{"Due Status History"|translate}}
+                </th>
+                <th [hidden]="valueaddsetupboxhistory!=='Customer-Setupbox History'">{{"Setupbox History"|translate}}</th>
+                <th [hidden]="valuesetupboxstatus!=='Customer-Setupbox Status'">{{"Status"|translate}}</th>
+                <th [hidden]="valuesetupboxview!=='Customer-Setupbox View'">{{"View Plan"|translate}}</th>
+                <th [hidden]="valuesetupboxReminder!=='Customer-Setupbox Reminder'">{{"Reminder"|translate}}</th>
+                <th [hidden]="valuesetupboxedit!=='Customer-Setupbox Edit'">{{"Action"|translate}}</th>
+                <th>{{"STB Edit History"|translate}}</th>
+                <th>{{"Billing Date"|translate}}</th>
+                <th>{{"Activation Date"|translate}}</th>
+                <th>{{"Inactivation Date"|translate}}</th>
+                <th>{{"Description"|translate}}</th>
+                <th>{{"Created By"|translate}}</th>
+                <th>{{"Created At"|translate}}</th>
+              </tr>
+              <!-- <span *ngIf="!showData" class="text-center" style="color:red;font-size:12px;">NO DATA FOUND</span> -->
+
+              <tbody>
+                <tr
+                  *ngFor="let row of setupboxview | search: searchText | paginate: { itemsPerPage: 3, currentPage: currentPage }; let i = index">
+
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ row.stbId?.setupBoxNumber }}</td>
+                  <td>{{ row.stbId?.service?.serviceProviderName }}</td>
+                  <td>{{ row.stbId?.regionEntity?.stateName }}</td>
+                  <td>{{ row?.doorNumber }}</td>
+                  <td>{{ row?.areaName }}</td>
+                  <td>{{ row?.streetName }}</td>
+               
+                  <td [hidden]="valuesetupboxduestatus!=='Customer-Setupbox Due Status'">
+
+                    <span matTooltip="Click here to change the due status"
+                      (click)="dueStatus(row.customerStbId,row.dueStatus)" *ngIf="row.dueStatus == 'ON'"
+                      style="color: green;background-color: rgb(177, 243, 177);border-radius: 5px;padding: 5px;cursor: pointer;">ON</span>
+
+
+
+
+                    <span (click)="dueStatus(row.customerStbId,row.dueStatus)"
+                      matTooltip="Click here to change the due status" *ngIf="row.dueStatus == 'OFF'"
+                      style="color: red;background-color:antiquewhite;border-radius: 5px;padding: 5px;cursor: pointer;">OFF</span>
+
+
+                    <!-- <img (click)="dueStatus(row.customerStbId,row.dueStatus)" style="width: 50%;"
+                      src="/assets/onstatus.png" *ngIf="row.dueStatus == 'ON'" /> -->
+                    <!-- <img (click)="dueStatus(row.customerStbId,row.dueStatus)" style="width: 50%;"
+                      src="/assets/offstatus.png" *ngIf="row.dueStatus == 'OFF'" />     -->
+
+                    <!-- <mat-slide-toggle class="example-margin" color="primary" [checked]="data.activeStatus === 1"
+                      (change)="Inactive($event,data.customerId)">
+                    </mat-slide-toggle> -->
+                  </td>
+                  <td [hidden]="valuesetupboxDueStatusHistory!=='Customer-Setupbox Due Status History'"
+                    style="cursor: pointer;" (click)="Viewhistory(row.customerStbId)">
+                    <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
+                  </td>
+                  <td [hidden]="valueaddsetupboxhistory!=='Customer-Setupbox History'" style="cursor: pointer;"
+                    (click)="setupboxviewhistory(row.customerId.customerId,row.customerStbId)">
+                    <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
+                  </td>
+                  <td [hidden]="valuesetupboxstatus!=='Customer-Setupbox Status'">
+                    <mat-slide-toggle class="example-margin" color="primary" [checked]="row.activeStatus === 1"
+                      (change)="ActiveStatus($event,row.customerStbId)">
+                    </mat-slide-toggle>
+                  </td>
+                  <td [hidden]="valuesetupboxview!=='Customer-Setupbox View'" style="cursor: pointer;"
+                    (click)="Viewdata(row.customerStbId)">
+                    <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
+                  </td>
+                  <td [hidden]="valuesetupboxReminder!=='Customer-Setupbox Reminder'" style="cursor: pointer;"
+                    (click)="remainderstatus(row.customerStbId)">
+                    <i class="fa-solid fa-bell" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
+                  </td>
+                  <td [hidden]="valuesetupboxedit!=='Customer-Setupbox Edit'" style="cursor: pointer;"
+                    (click)="editsetupboxplan(row,this.viewcustomer)">
+                    <i class="fas fa-edit" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
+                  </td>
+                  <td
+                  (click)="Stbedithistory(row.customerStbId)">
+                  <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
+                </td>
+                  <td>{{ row?.billingDate | date:'dd/MM/yyyy'}}</td>
+                  <td>{{ row?.activatedDate | date:'dd/MM/yyyy'}}</td>
+                  <td>{{ row?.inActivatedDate | date:'dd/MM/yyyy'}}</td>
+                  <td>{{ row?.description}}</td>
+                  <td>{{ row.createdBy }}</td>
+                  <td>{{row.createdAt | date:'dd/MM/yyyy hh:mm a'}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="text-end">
+      <pagination-controls (pageChange)="currentPage= $event"></pagination-controls>
+    </div>
+  </div>
+
+</div>
+<div id="Additional" *ngIf="selectedTab === 'Additional-Payments'" class="mb-4">
+  <div>
+    <div class="row mt-2 mx-auto">
+      <div class="col-md-3">
+        <div class="search">
+          <form class="form">
+            <label for="search">
+              <input
+                #input
+                required
+                autocomplete="off"
+                placeholder="Search"
+                id="search"
+                type="text"
+                name="search"  [(ngModel)]="currentfilvaladd"
+              />
+              <div class="icon">
+                <svg
+                  stroke-width="2"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="swap-on"
+                >
+                  <path
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                  ></path>
+                </svg>
+              </div>
+              <button (click)="reloadadd()" type="reset" class="close-btn">
+                <svg
+                  viewBox="0 0 20 20"
+                  class="h-5 w-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    fill-rule="evenodd"
+                  ></path>
+                </svg>
+              </button>
+            </label>
+          </form>
+        </div>
+        &nbsp;&nbsp;&nbsp;
+      
+      </div>
+
+      <div class="col-md-1">
+        <button (click)="customerpayadd(currentfilvaladd)" style="color:white;background-color: #141E46;border-radius: 10px;"
+        mat-raised-button>{{"Go"|translate}}</button> &nbsp;
+
+        </div>  
+        <div class="col">
+          <button [hidden]="valueAdditionalPaymentsadd!=='Customer-Additional Payments Add'" (click)="addAdditional()"
+          style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>{{"Create"|translate}}</button>
+        </div>  
+
+    </div>
+    <div class="row mx-1">
+      <div class="col-12 mb-3 mb-lg-5">
+        <div class="card table-nowrap table-card">
+          <div class="table-responsive text-nowrap text-center">
+            <table class="table table-hover" id="customers">
+              <tr>
+
+                <th>{{"S.No"|translate}}</th>
+                <th>{{"Stock Category"|translate}}</th>
+                <th>{{"Stock Quantity"|translate}}</th>
+                <th>{{"Service Amount"|translate}}</th>
+                <th>{{"Payment Id"|translate}}</th>
+                <th>{{"Bank Reference"|translate}}</th>
+                <th>{{"Reference No"|translate}}</th>
+                <th>{{"Payment Method"|translate}}</th>
+                <th>{{"Manual Updated By"|translate}}</th>
+                <th>{{"Payment Status"|translate}}</th>
+                <th [hidden]="valueAdditionalPaymentsManualPay!=='Customer-AdditionalPayments ManualPay'">{{"Manual Payment"|translate}}</th>
+                <th [hidden]="valueAdditionalPaymentsReverseDues!=='Customer-AdditionalPayments ReverseDues'">{{"Reverse Dues"|translate}}</th>
+
+                <th>{{"Card Expiry"|translate}}</th>
+                <th>{{"Card Masked No"|translate}}</th>
+               <th [hidden]="valueAdditionalPaymentsaction!=='Customer-Additional Payments Edit'">{{"Action"|translate}}</th>
+                <th [hidden]="valueAdditionalPaymentsInvoice!=='Customer-Additional Payments Invoice'">{{"Invoice"|translate}}</th>
+                <th>{{"Created By"|translate}}</th>
+              
+                 <th>{{"Due Generated At"|translate}}</th>
+                <th>{{"Paid At"|translate}}</th>
+                <th [hidden]="valueAdditionalPaymentscomments!=='Customer-AdditionalPayments Comments'">{{"Comments"|translate}}</th>
+              </tr>
+              <!-- <span *ngIf="!showData" class="text-center" style="color:red;font-size:12px;">NO DATA FOUND</span> -->
+
+              <tbody>
+                <tr
+                  *ngFor="let item of additionlpay;  let i = index">
+
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ item.stockCategory}}</td> 
+                  <td>{{item.quantity}}</td>
+                   <td>{{ item.paidAmount}}</td>
+                  <td>{{ item.pgPaymentId ||'--'}}</td>
+                  <td>{{item.bankReference ||'--'}}</td>
+                  <td>{{item.utrNumber ||'--'}}</td>
+                  <td>{{ item.paymentMethod ||'--'}}</td>
+                  <td>{{ item.modifiedBy ||'--'}}</td>
+                  <td>
+                    <span *ngIf="item?.paymentStatus == 'Success'" class="text-success"> {{
+                      item?.paymentStatus}}</span>
+                    <span *ngIf="item?.paymentStatus   == 'Due Pending'" class="text-warning"> {{
+                      item?.paymentStatus}}</span>
+                    <span *ngIf="item?.paymentStatus  == 'Initiated'" class="text-primary"> {{
+                      item?.paymentStatus}}</span>
+                    <span *ngIf="item?.paymentStatus  == 'Failure'" class="text-danger"> {{
+                      item?.paymentStatus}}</span>
+                       <span *ngIf="item?.paymentStatus  == 'Due Cancelled'" class="text-danger"> {{
+                      item?.paymentStatus}}</span>
+                     <span *ngIf="item?.paymentStatus  == 'Payment Incomplete'" class="text-danger"> {{
+                      item?.paymentStatus}}</span>
+                  </td>
+                  <td [hidden]="valueAdditionalPaymentsManualPay!=='Customer-AdditionalPayments ManualPay'">
+                    <button [disabled]="item.paymentStatus == 'Success' || item.paymentStatus == 'Due Cancelled' "
+                      class="btn btn-success btn-sm" style="border:none; font-size: 12px;" (click)="AdditionalManuvalPayment(item.customerpaymentId)"> <i
+                        class="fa-solid fa-address-card" style="color:#fff;cursor:pointer"></i></button>
+                  </td>
+                  <td  [hidden]="valueAdditionalPaymentsReverseDues!=='Customer-AdditionalPayments ReverseDues'">
+                    <button [disabled]="item.paymentStatus=='Success'"  style="border: none; background: none;" (click)="addtransdues(item.customerpaymentId)">
+                      <i style="font-size: 20px; cursor: pointer; background: none;" class="fa fa-edit"></i>
+                    </button>
+                  </td>
+                  <td>{{ item.cardExpiry ||'--'}}</td>
+                  <td>{{ item.cardNoMasked ||'--'}}</td>
+            
+                
+                  <td [hidden]="valueAdditionalPaymentsaction!=='Customer-Additional Payments Edit'">
+                    <button [disabled]="item?.paymentStatus == 'Success'"  style="border: none; background: none;"(click)="editpayment(item)">
+                      <i style="text-align: center;cursor: pointer;font-size:15px; color:#545497; background: none;"
+                        class="fas fa-edit"></i>
+                    </button>
+                  </td>
+                  <td [hidden]="valueAdditionalPaymentsInvoice!=='Customer-Additional Payments Invoice'"> <button
+                      class="btn btn-success btn-sm" [disabled]="item?.paymentStatus != 'Success'" style="border:none;"
+                      (click)="viewreciept(item?.customerpaymentId)"> <i class="fa-solid fa-download"
+                        style="color:#fff;"></i></button></td>
+                        <td>{{item.createdBy}}</td>
+                         <td> {{item?.createdDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
+                   
+                  <td>{{item.paymentDateTime| date:'dd/MM/yyyy hh:mm'}}</td>
+                  <td [hidden]="valueAdditionalPaymentscomments!=='Customer-AdditionalPayments Comments'">
+                    <span (click)="comments(item)">
+                        <i style="font-size: 15px; cursor: pointer" class="fa fa-eye"></i></span>
+                </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="text-end">
+          <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="filter2">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <button style="color:white;background-color: #141E46;">Total Entries : {{this.total}}</button> &nbsp;
+                <button style="color:white;background-color: #141E46;" (click)="changePageIndexadd(pageIndexadd - 1)"
+                    [hidden]="pageIndexadd === 0">Previous</button>&nbsp;
+                <button style="color:white;background-color: #141E46;">{{ this.currentpages}} of {{this.totalpages}}
+                    Pages</button>&nbsp;
+                <button style="color:white;background-color: #141E46;" (click)="changePageIndexadd(pageIndexadd + 1)"
+                    [hidden]="pageIndexadd >= totalpages - 1">Next</button>&nbsp;
+            </div>
+     
+        </div>
+     
+        <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="filter3">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <button style="color:white;background-color: #141E46;">Total Entries : {{this.totalsearchadd}}</button>&nbsp;
+                <button style="color:white;background-color: #141E46;" (click)="changePageadd(pageadd - 1)"
+                    [hidden]="pageadd === 0">Previous</button>&nbsp;
+                <button style="color:white;background-color: #141E46;">{{this.currentpagesearchadd}} of {{this.totalpagesearchadd}}
+                    Pages</button>&nbsp;
+                <button style="color:white;background-color: #141E46;" (click)="changePageadd(pageadd + 1)"
+                    [hidden]="pageadd >= totalpagesearchadd - 1">Next</button>&nbsp;
+            </div>
+        </div>
+     
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div id="refund" *ngIf="selectedTab === 'Refund'" class="mb-4">
+  <div>
+    <div class="row mt-4 mx-1">
+      <div class="col ">
+        <div class="search ">
+          <form class="form">
+            <label for="search">
+              <input (ngModelChange)="Search()" #input name="search" required autocomplete="off"
+                placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
+
+              <div class="icon">
+                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                  <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
+                  </path>
+                </svg>
+                <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                    <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
+                        stroke-linecap="round">
+                    </path>
+                </svg> -->
+              </div>
+              <button type="reset" class="close-btn">
+                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                  <path clip-rule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    fill-rule="evenodd"></path>
+                </svg>
+              </button>
+            </label>
+          </form>
+        </div> &nbsp;
+        <!-- <button (click)="refundsearch(input.value)"  style="color:white;background-color: #141E46;border-radius: 10px;"
+              mat-raised-button>Go</button>
+          -->
+      </div>
+    </div>
+    <div class="row mt-1 mx-1">
+      <div class="col-12 mb-3 mb-lg-5">
+        <div class="card table-nowrap table-card">
+          <div class="table-responsive text-nowrap text-center">
+            <table class="table table-hover" id="customers">
+              <tr>
+
+                <th>{{"S.No"|translate}}</th>
+                <th>{{"Setupbox Number"|translate}}</th>
+                <th>{{"Type"|translate}}</th>
+                <th>{{"Request ID"|translate}}</th>
+                <th>{{"Payment ID"|translate}}</th>
+                <th>{{"Paid Amount"|translate}}</th>
+                <th>{{"Refund Amount"|translate}}</th>
+                <th>{{"Refund Status"|translate}}</th>
+                <th>{{"OfflineDetails"  |translate}}</th>
+                <th> {{"Requested At"  |translate}}</th>
+
+              </tr>
+              <!-- <span *ngIf="!showData" class="text-center" style="color:red;font-size:12px;">NO DATA FOUND</span> -->
+
+              <tbody>
+                <tr
+                  *ngFor="let item of refundval  | search: searchText | paginate: { itemsPerPage: 3, currentPage: currentrefund }; let i = index">
+
+                  <td>{{ i + 1 }}</td>
+                  <td>{{item.paymentModel ?.customerStbId?. stbId?. setupBoxNumber
+                    }}</td>
+                  <td>{{ item.typeMode}}</td>
+                  <td>{{ item.requestId ||'--'}}</td>
+                  <td>{{ item.paymentId ||'--'}}</td>
+                  <td>{{ item.paymentModel?.paidAmount}}</td>
+                  <td>{{ item.refundAmount ||'--'}}</td>
+                 
+                
+                
+                  <td>
+                  <span *ngIf="item.refundStatus=='COMPLETED'" style="color:green;"><b>{{item?.refundStatus}}</b></span>
+                  <span *ngIf="item.refundStatus=='INITIATED'"
+                    style="color:orange;"><b>{{item?.refundStatus}}</b></span>
+                  </td>
+                    <td>
+                    <button (click)="views(item)"  style="border: none;background: none;"  [disabled]="item?.typeMode !='Offline'">
+                      <i class="fa fa-eye" style="border: none;background: none; font-size:14px" ></i>
+          
+                    </button>
+                  </td>
+
+                  <td>{{item.createdAt| date:'dd/MM/yyyy hh:mm'}}</td>
+                 
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-end">
+      <pagination-controls (pageChange)="currentrefund= $event"></pagination-controls>
+
+    </div>
+  </div>
+
+</div>

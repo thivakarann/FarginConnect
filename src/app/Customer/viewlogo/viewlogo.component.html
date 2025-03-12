@@ -1,0 +1,19 @@
+<div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Logo
+      </h5>
+    </div>
+    <div class="modal-body">
+      <div *ngIf="DocView">
+        <img [src]="imageUrl" style="width: 500px;height: 250px;justify-content: center;" class="center" />
+      </div>
+      <div *ngIf="!DocView">
+        <div class="text-center mt-4" style="width: 500px;height: 250px;justify-content: center;">
+          <h2>No Data Found</h2>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" (click)="close()">Close</button>
+    </div>
+  </div>

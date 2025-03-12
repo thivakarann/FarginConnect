@@ -1,0 +1,93 @@
+<body>
+    <span>
+        <div class="card" style="width: 570px; font-size: 14px;height:auto">
+            <div class="form-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Renewal</h5>
+                <button type="button" class="btn btn-secondary" mat-dialog-close>Back</button>
+            </div>
+            <div class="card">
+                <table class="table table-bordered">
+                    <tbody style="width:900px">
+ 
+                        <tr>
+                            <td class="datas">Payment Id</td>
+                            <td id="data">{{renweal?.pgPaymentId }}</td>
+                        </tr>
+                     <tr>
+                            <td class="datas">Payment Method</td>
+                            <td id="data">{{ renweal?.paymentMethod }}</td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="datas">Card Expiry</td>
+                            <td id="data">
+                             <span  *ngIf="renweal?.cardExpiry == null || renweal?.cardExpiry == 'null'  ">-</span>
+                             <span *ngIf="renweal?.cardExpiry != null && renweal?.cardExpiry !== 'null' ">  {{renweal?.cardExpiry}}</span>  
+                              </td>
+                        </tr>
+                        <tr >
+                            <td class="datas">Card Masked No</td>
+                            <td id="data">
+                                <span  *ngIf="renweal?.cardNoMasked == null  || renweal?.cardNoMasked == 'null'  ">-</span>
+                                <span *ngIf="renweal?.cardNoMasked != null  && renweal?.cardNoMasked !== 'null' ">  {{renweal?.cardNoMasked}}</span>  
+                                </td>
+                        </tr>
+ 
+                        <tr>
+                            <td class="datas">Paid Amount</td>
+                            <td id="data" class="text-success">₹{{ renweal?.totalPayableAmount }}</td>
+                        </tr>
+                       
+ 
+                       
+                        <!-- <tr>
+                            <td class="datas">Order Reference No</td>
+                            <td id="data">{{ renweal?.orderReference}}</td>
+                        </tr> -->
+                        <tr>
+                            <td class="datas">Bank Reference No</td>
+                            <td id="data">{{ renweal?.bankReference}}</td>
+                        </tr>
+ 
+                        <tr>
+                            <td class="datas">Paid At</td>
+                            <td id="data">{{ renweal?.paymentDateTime | date:"dd/MM/yyyy hh:mm a" }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="datas">Payment Status</td>
+                            <td id="data" style="font-weight: 500;">
+                                <span *ngIf="renweal?.paymentStatus == 'Success'" class="text-success">
+                                    {{ renweal?.paymentStatus}}</span>
+ 
+                                <span *ngIf="renweal?.paymentStatus   == 'Pending'" class="text-warning">
+                                    {{ renweal?.paymentStatus }}</span>
+ 
+                                <span *ngIf="renweal?.paymentStatus  == 'Failure'" class="text-danger">
+                                    {{ renweal?.paymentStatus}}</span>
+ 
+                            <span *ngIf="renweal?.paymentStatus  == 'Initiated'" class="text-secondary">
+                                {{ renweal?.paymentStatus}}</span>
+                                
+                                <span *ngIf="renweal?.paymentStatus  == 'Due Cancelled'" class="text-danger">
+                                    {{ renweal?.paymentStatus}}</span>
+ 
+                            <span *ngIf="renweal?.paymentStatus  == 'Payment Incomplete'" class="text-danger">
+                                {{ renweal?.paymentStatus}}</span>
+                            </td>
+                        </tr>
+                     
+                    </tbody>
+                </table>
+ 
+ 
+            </div>
+            <!-- <div class="text-center mb-1">
+                <button type="submit" class="btn" style="background-color:#141E46;color:white"
+                    (click)="cancel()">Close</button>
+            </div> -->
+        </div>
+    </span>
+</body>
+ 

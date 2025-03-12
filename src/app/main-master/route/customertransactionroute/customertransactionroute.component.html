@@ -1,0 +1,164 @@
+<h4 style="text-align: left; color: #141e46">{{"Customer Transaction" |translate}}</h4>
+<br />
+
+<mat-card-header>
+  <div class="row d-flex justify-content-start">
+    <div class="col-md-10">
+    
+        <div class="search">
+          <form class="form">
+            <label for="search">
+              <input
+                #input
+                required
+                autocomplete="off"
+                placeholder="Search"
+                id="search"
+                type="text"
+                name="search"  [(ngModel)]="currentfilval"
+              />
+              <div class="icon">
+                <svg
+                  stroke-width="2"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="swap-on"
+                >
+                  <path
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                  ></path>
+                </svg>
+              </div>
+              <button (click)="reload()" type="reset" class="close-btn">
+                <svg
+                  viewBox="0 0 20 20"
+                  class="h-5 w-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    fill-rule="evenodd"
+                  ></path>
+                </svg>
+              </button>
+            </label>
+          </form>
+        </div>
+        &nbsp;&nbsp;&nbsp;
+        <button (click)="customerpay(currentfilval)" style="color:white;background-color: #141E46;border-radius: 10px;"
+          mat-raised-button>{{"Go"|translate}}</button>
+  
+      </div>
+ 
+
+    <div class="col-md-2 d-flex justify-content-end mb-1">
+      <button style="color: white; background-color: #141e46; border-radius: 10px" (click)="close()">
+        {{"Back"|translate}}
+      </button>
+    </div>
+  </div>
+</mat-card-header>
+
+
+
+<div class="row mt-4">
+  <div class="col-12 mb-3 mb-lg-5">
+    <div class="card table-nowrap table-card">
+      <div class="table-responsive text-nowrap text-center">
+        <table class="table table-hover" id="customers">
+          <tr>
+
+            <th>{{"S.No"|translate}}</th>
+            <th>{{"Transaction ID"|translate}}</th>
+            <th>{{"Setupbox Number"|translate}}</th>
+            <th>{{"Payable Amount"|translate}}</th>
+            <th>{{"Payment Status"|translate}}</th>
+            <th>{{"Due Generated At"|translate}}</th>
+            <th>{{"Revere Dues"|translate}}</th>
+            <th>{{"View"|translate}}</th>
+            <th>{{"Manual Payment"|translate}}</th>
+            <th>{{"Receipt"|translate}}</th>
+          
+            <th>{{"Paid At"|translate}}</th>
+          </tr>
+          <!-- <span *ngIf="!showData" class="no-data-message text-center" style="color:red;font-size:12px;">{{"No Data Found"|translate}}</span> -->
+
+          <tbody>
+            <tr
+              *ngFor="let row of transaction ; let i = index">
+
+              <td>{{ i + 1 }}</td>
+              <td>{{ row.paymentId }}</td>
+              <td>{{row.stbNumber}}</td>
+              <td>{{ row.paidAmount }}</td>
+              <td>
+                <span *ngIf=" row.paymentStatus=='Pending'" style="color:orange"> {{ row.paymentStatus}}</span>
+                <span *ngIf=" row.paymentStatus=='Due Pending'" style="color:orange"> {{ row.paymentStatus}}</span>
+                <span *ngIf=" row.paymentStatus=='Success'" style="color:green"> {{ row.paymentStatus}}</span>
+                <span *ngIf=" row.paymentStatus=='Failure'" style="color:red"> {{ row.paymentStatus}}</span>
+                <span *ngIf=" row.paymentStatus=='Initiated'" style="color:blue"> {{ row.paymentStatus}}</span>
+                <span *ngIf=" row.paymentStatus=='Due Cancelled'" style="color:red"> {{ row.paymentStatus}}</span>
+                <span *ngIf=" row.paymentStatus=='Payment Incomplete'" style="color:red"> {{ row.paymentStatus}}</span>
+              </td>
+              <!-- <td>{{row.startDate| date:"dd/MM/yyyy"}}</td> -->
+              <td>{{row?.createdDateTime | date:"dd/MM/yyyy"}}</td>
+
+
+              <td> <button [disabled]="row.paymentStatus =='Success'" style="border:none; background: none;"(click)="dues(row)">
+                  <i style="font-size: 18px; cursor: pointer; border:none; background: none;" class="fa fa-edit"></i>
+                </button></td>
+              <td>
+                <i style="font-size: 18px;" class="fa fa-eye" (click)="view(row?.customerPayId)"></i>
+              </td>
+            
+              <td> <button style="border:none; background: none;"  (click)="viewpay(row.customerPayId)" [disabled]="row.paymentStatus == 'Success' || row.paymentStatus == 'Due Cancelled' "><i
+                    style="font-size: 20px;cursor:pointer;border:none; background: none;" class="fa-solid fa-address-card"
+                   ></i></button></td>
+
+                   <td>
+                    <button class="btn btn-success btn-sm"  style="border:none;cursor:pointer;" (click)="Receipt(row.customerPayId)"> <i
+                        class="fa-solid fa-download" style="color:#fff; font-size: 14px;"></i></button>
+                  </td>
+              <td>
+                <span *ngIf=" row.paymentDateTime!= null"> {{ row.paymentDateTime | date:'dd/MM/yyyy hh:mm a'}}</span>
+                <span *ngIf=" row.paymentDateTime==null" style="color:blue"> -</span>
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      
+      </div>
+
+    </div>
+    <div class="text-end">
+      <!-- Pagination controls for general results -->
+<div class="row d-flex justify-content-end mt-3 mx-2" *ngIf="filter">
+<div class="col-md-6"></div>
+<div class="col-md-6">
+<button style="color:white;background-color: #141E46;">Total Entries : {{totalPages}}</button>&nbsp;
+<button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex - 1)" [hidden]="pageIndex === 0">Previous</button>&nbsp;
+<button style="color:white;background-color: #141E46;">{{currentpage}} of {{totalpage}} Pages</button>&nbsp;
+<button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex + 1)" [hidden]="pageIndex >= totalpage - 1">Next</button>&nbsp;
+</div>
+</div>
+
+<!-- Pagination controls for filtered search results -->
+<div class="row d-flex justify-content-end mt-3 mx-2" *ngIf="filter1">
+<div class="col-md-6"></div>
+<div class="col-md-6">
+<button style="color:white;background-color: #141E46;">Total Entries: {{totalsearch}}</button>&nbsp;
+<button style="color:white;background-color: #141E46;" (click)="changePageIndex1(pageIndex1 - 1)" [hidden]="pageIndex1 === 0">Previous</button>&nbsp;
+<button style="color:white;background-color: #141E46;">{{currentpagesearch}} of {{totalpagesearch}} Pages</button>&nbsp;
+<button style="color:white;background-color: #141E46;" (click)="changePageIndex1(pageIndex1 + 1)" [hidden]="pageIndex1 >= totalpagesearch - 1">Next</button>&nbsp;
+</div>
+</div>
+
+    </div>
+  </div>
+</div>

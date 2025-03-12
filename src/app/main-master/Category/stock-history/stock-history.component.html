@@ -1,0 +1,139 @@
+<div class="form-header d-flex justify-content-between align-items-center">
+    <h4 class="mb-0 text-center" style="color:Black;">{{"Stock History"|translate}}</h4>
+    <button (click)="close()" type="button" class="btn btn-secondary" mat-dialog-close>{{"Back"|translate}}</button>
+  </div>
+  <mat-card-header>
+  <div class="row mt-4">
+  
+        <div class="col">
+            <div class="search ">
+              <form class="form">
+                <label for="search">
+                  <input #input (keyup)="applyFilter($event)" required="" autocomplete="off" placeholder="Search"
+                    id="search" type="text">
+                  <div class="icon">
+                    <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                      xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                      <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                        stroke-linecap="round">
+                      </path>
+                    </svg>
+                    <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                          xmlns="http://www.w3.org/2000/svg" class="swap-off">
+                          <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round" stroke-linecap="round">
+                          </path>
+                      </svg> -->
+                  </div>
+                  <button (click)="reload()" type="reset" class="close-btn">
+                    <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                      <path clip-rule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        fill-rule="evenodd"></path>
+                    </svg>
+                  </button>
+                </label>
+              </form>
+    
+            </div>
+    
+    
+          </div>
+ 
+  </div>
+</mat-card-header>
+  <mat-card-content>
+    <!-- <span style="color: red;"  class="tableError">NO DATA FOUND</span> -->
+    <div class="example-container mt-4">
+      <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+        <ng-container matColumnDef="sno">
+          <th mat-header-cell *matHeaderCellDef>{{"S.No"|translate}}</th>
+          <td mat-cell *matCellDef="let Viewall; let i = index">
+            {{i+1}}
+          </td>
+        </ng-container>
+
+   
+        <ng-container matColumnDef="serviceName">
+            <th mat-header-cell *matHeaderCellDef>{{"Stock Category"|translate}}</th>
+            <td mat-cell *matCellDef="let Viewall">
+              {{ Viewall.additionPaymentCategory?.inventoryNameCreate?.inventoryName}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="inventoryStock">
+            <th mat-header-cell *matHeaderCellDef>{{"New Stock"|translate}}</th>
+            <td mat-cell *matCellDef="let Viewall">
+              {{ Viewall.updatedStock}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Count">
+            <th mat-header-cell *matHeaderCellDef>{{"Updated Count"|translate}}</th>
+            <td mat-cell *matCellDef="let Viewall">
+              <!-- {{ Viewall.updatedStock}} -->
+              <span *ngIf="Viewall?.flag=='0'" style="color:rgb(184, 184, 61);"
+              class="font-weight-bold text-gray">Not Updated {{Viewall.inventoryStock}}</span>
+          <span *ngIf="Viewall.flag=='1'" style="color:green;"
+              class="font-weight-bold text-gray">Increased {{Viewall.inventoryStock}}</span>
+              <span *ngIf="Viewall.flag=='2'" style="color:red;"
+              class="font-weight-bold text-gray">Decreased {{Viewall.inventoryStock}}</span>
+            </td>
+          </ng-container>
+   
+        <ng-container matColumnDef="oldStock">
+          <th mat-header-cell *matHeaderCellDef>{{"Old Stock"|translate}}</th>
+          <td mat-cell *matCellDef="let Viewall">
+            {{ Viewall.oldStock}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="updatedBy">
+            <th mat-header-cell *matHeaderCellDef>{{"Updated By"|translate}}</th>
+            <td mat-cell *matCellDef="let Viewall"> {{ Viewall.updatedBy}}
+            </td>
+        </ng-container>
+   
+    
+
+
+        <ng-container matColumnDef="updatedAt">
+            <th mat-header-cell *matHeaderCellDef>{{"Updated At"|translate}}</th>
+            <td mat-cell *matCellDef="let Viewall"> {{ Viewall.updatedAt | date : "dd/MM/yyyy hh:mm a" }}
+            </td>
+        </ng-container>
+
+      
+   
+   
+   
+      
+   
+   
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
+          <tr *matNoDataRow>
+            <td class="mat-cell" colspan="0"  *ngIf="searchPerformed">{{"No Data For"|translate}} {{input.value}}</td>
+            <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">{{"No Data"|translate}}</td>
+          </tr>
+      </table>
+   
+    </div>
+  </mat-card-content>
+  <mat-card-footer>
+    <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="!filter">
+        <div class="col-md-6"></div>
+        <div class="col-md-6">
+            <button style="color:white;background-color: #141E46;">Total Entries:{{this.totalPages}}</button>
+            <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex - 1)"
+                [hidden]="pageIndex === 0">Previous</button>
+            <button style="color:white;background-color: #141E46;">{{ this.currentpage}} of {{this.totalpage}}
+                Pages</button>
+            <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex + 1)"
+                [hidden]="pageIndex >= totalpage - 1">Next</button>
+        </div>
+    </div>
+ 
+  </mat-card-footer>
+   
+   
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
