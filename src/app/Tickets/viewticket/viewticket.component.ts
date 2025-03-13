@@ -115,7 +115,9 @@ export class ViewticketComponent implements OnInit {
     this.dialog.open(ViewDescriptionComponent, {
       data: { value: id },
       disableClose: true,
-      width: "50%",
+      width: '90vw',
+      maxHeight:'500px',
+      maxWidth: '500px',
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
     })
@@ -127,7 +129,9 @@ export class ViewticketComponent implements OnInit {
       disableClose: true,
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
-      width: "50%"
+      width: '90vw',
+      maxHeight:'500px',
+      maxWidth: '500px',
     })
   }
 

@@ -334,7 +334,10 @@ export class CustomerViewallComponent implements OnInit {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
       disableClose: true,
-      data: { value: id, Title: id2 }
+      data: { value: id, Title: id2 },
+      width: '90vw',
+      maxHeight:'500px',
+      maxWidth: '500px',
     });
   }
 
@@ -345,6 +348,9 @@ export class CustomerViewallComponent implements OnInit {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
       disableClose: true,
+      width: '90vw',
+      maxHeight:'500px',
+      maxWidth: '500px',
       data: { value: id, Title: id2 }
     });
   }

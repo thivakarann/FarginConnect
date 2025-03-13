@@ -106,7 +106,7 @@
                 <td mat-cell *matCellDef="let transaction">{{transaction?.igstPercentage}}</td>
             </ng-container>
             <ng-container matColumnDef="totalamount">
-                <th mat-header-cell *matHeaderCellDef>Amount</th>
+                <th mat-header-cell *matHeaderCellDef>TotalPayable Amount</th>
                 <td mat-cell *matCellDef="let transaction">{{transaction?.totalPayableAmount}}</td>
             </ng-container>
             <ng-container matColumnDef="createdDateTime">
@@ -119,7 +119,10 @@
 
             <ng-container matColumnDef="paidAt">
                 <th mat-header-cell *matHeaderCellDef>Paid At</th>
-                <td mat-cell *matCellDef="let transaction"> {{transaction?.paymentDateTime | date : "dd/MM/yyyy hh:mm a"
+                <td mat-cell *matCellDef="let transaction"> 
+                    
+                    
+                    {{transaction?.paymentDateTime | date : "dd/MM/yyyy hh:mm a"
                     }}
                 </td>
             </ng-container>
