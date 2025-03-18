@@ -783,6 +783,13 @@ searchAPI(query: string): void {
   });
 }
 
+onClear(): void {
+  this.options = []; // Clear dropdown options
+  this.selectedOption = null; // Reset the selected option
+  this.userInput = ''; // Clear the input variable, if any
+  console.log('Clear action triggered!');
+}
+
 onDropdownChange(event: any): void {
     this.selectedOption = event.value.entityName;
     this.search1 = event.value.entityName;

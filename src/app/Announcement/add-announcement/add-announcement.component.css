@@ -17,7 +17,7 @@ button {
   grid-template-areas: "main";
   height: auto;
   font-family: var(--font-sans);
-  width: 500px;
+  width:auto;
 }
  
 .page__main {
@@ -30,31 +30,32 @@ button {
   align-items: center;
 }
  
-.main__form {
+/* .main__form {
   width: 100%;
-  max-width: 30em;
-  /* Max width for the form */
-}
+  max-width: 700px;
+
+ 
+} */
  
 .form {
   color: var(--gray-9);
   background-color: #fff;
   display: grid;
-  width: 100%;
-  max-width: 100%;
+  width: 100%; /* Instead of 500px */
+  max-width: 500px; /* Keep as maximum width */
   border: 1px solid var(--gray-4);
   border-radius: var(--radius-2);
-  padding: var(--size-3);
+  padding: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
  
 .form__linput {
   display: grid;
-  margin-bottom: var(--size-3);
+  margin-bottom: 10px;
 }
  
 .form__label {
-  margin-bottom: var(--size-2);
+  margin-bottom: 10px;
 }
  
 .form__input,
@@ -64,6 +65,7 @@ button {
   border: 1px solid var(--gray-4);
   border-radius: var(--radius-2);
   width: 100%;
+  max-width: 100%
 }
  
 .form__select {

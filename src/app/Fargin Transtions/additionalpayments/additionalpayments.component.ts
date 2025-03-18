@@ -743,6 +743,14 @@ export class AdditionalpaymentsComponent {
         console.error('Error fetching data from API', error);
       });
   }
+
+  onClear(): void {
+    this.options = []; // Clear dropdown options
+    this.selectedOption = null; // Reset the selected option
+    this.userInput = ''; // Clear the input variable, if any
+    console.log('Clear action triggered!');
+  }
+  
   Additionalpay() {
 
     if (!this.startDate?.value && !this.endDate?.value) {

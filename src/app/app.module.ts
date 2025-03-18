@@ -280,6 +280,7 @@ import { MaintenanceotherpayViewComponent } from './Fargin Transtions/Entity Tra
 import { UpdateBulkcampaignComponent } from './Campaign/update-bulkcampaign/update-bulkcampaign.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { UpdateStickerTicketComponent } from './Tickets/update-sticker-ticket/update-sticker-ticket.component';
+import { OfflineDetailsComponent } from './Overall-Customer/offline-details/offline-details.component';
 
 @NgModule({
   declarations: [
@@ -536,7 +537,8 @@ import { UpdateStickerTicketComponent } from './Tickets/update-sticker-ticket/up
     EditCampaignComponent,
     MaintenanceotherpayViewComponent,
     UpdateBulkcampaignComponent,
-    UpdateStickerTicketComponent
+    UpdateStickerTicketComponent,
+    OfflineDetailsComponent
 
   ],
 

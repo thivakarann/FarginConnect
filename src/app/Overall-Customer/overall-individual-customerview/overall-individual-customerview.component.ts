@@ -8,6 +8,7 @@ import { ChannelViewComponent } from '../channel-view/channel-view.component';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { settopStatus } from '../../fargin-model/fargin-model.module';
 import { PageEvent } from '@angular/material/paginator';
+import { OfflineDetailsComponent } from '../offline-details/offline-details.component';
 
 @Component({
   selector: 'app-overall-individual-customerview',
@@ -73,6 +74,7 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
   totalpagesearch: any;
   currentpagesearch: any;
   currentfilval: any;
+  vaaluedetails:any;
   selectTab(tab: string) {
     this.selectedTab = tab;
   }
@@ -119,15 +121,16 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
             this.valuesetsts = 'Customers-Setup Box Status'
             this.valuesetview = 'Customers-Setup Box View'
             this.valuetransreceipt = 'Customers-Transaction Receipt'
-            this.valueaddinvoice = 'Customers-Additional Payments Invoice'
+            this.valueaddinvoice = 'Customers-Additional Payments Receipt'
             this.valuecustomerRefunds='Customers-Refunds'
+            this.vaaluedetails = 'Customers-Refunds-View';
           }
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
              
-              if (this.actions == 'Customers-Additional Payments Invoice') {
-                this.valueaddinvoice = 'Customers-Additional Payments Invoice'
+              if (this.actions == 'Customers-Additional Payments Receipt') {
+                this.valueaddinvoice = 'Customers-Additional Payments Receipt'
               }
               if (this.actions == 'Customers-Transaction Receipt') {
                 this.valuetransreceipt = 'Customers-Transaction Receipt'
@@ -152,6 +155,9 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
               }
               if(this.actions=='Customers-Refunds'){
                 this.valuecustomerRefunds='Customers-Refunds'
+              }
+              if(this.actions=='Customers-Refunds-View'){
+                this.vaaluedetails='Customers-Refunds-View'
               }
             }
           }
@@ -360,6 +366,14 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
     this.dialog.open(ChannelViewComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
+      data: { value: id }
+    })
+  }
+  offline(id: any) {
+    
+    this.dialog.open(OfflineDetailsComponent, {
+      enterAnimationDuration: "500ms",
+      exitAnimationDuration: "500ms",
       data: { value: id }
     })
   }

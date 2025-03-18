@@ -115,7 +115,7 @@
                   </ng-container>
  
                 <ng-container matColumnDef="Record">
-                    <th  mat-header-cell *matHeaderCellDef mat-sort-header>Email Status</th>
+                    <th  mat-header-cell *matHeaderCellDef mat-sort-header>View</th>
                     <td  style="text-wrap: wrap;" mat-cell *matCellDef="let data">
                         <i style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
                             (click)="Viewcustomer(data.broadcasterId)"></i>
@@ -123,14 +123,14 @@
                 </ng-container>
  
                 <ng-container matColumnDef="emailrecord">
-                    <th  mat-header-cell *matHeaderCellDef >Uploaded Email Status</th>
+                    <th  mat-header-cell *matHeaderCellDef >Uploaded Email Details</th>
                     <td  mat-cell *matCellDef="let data">
                         <i style="font-size:18px;" class="fa fa-download" (click)="responseDownload(data?.broadcasterId)"></i>
                     </td>
                 </ng-container>
              
                 <ng-container matColumnDef="editbulk">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header >Upload Email</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header >Update Email</th>
                     <td style="text-wrap: wrap" mat-cell *matCellDef="let data">
                       <i style="font-size: 20px;" (click)="editbulk(data)" class="fa-solid fa-file-arrow-up"></i>
                     </td>

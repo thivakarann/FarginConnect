@@ -31,7 +31,7 @@ export class OverallCustomerViewComponent implements OnInit {
     // 'merchantLegalName',
     'categoryName',
     // 'stbNumber',
-    'emailAddress',
+    // 'emailAddress',
     'mobileNumber',
     'routeassigned',
     'Viewcustomer',

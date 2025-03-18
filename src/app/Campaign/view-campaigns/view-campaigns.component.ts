@@ -66,6 +66,8 @@ export class ViewCampaignsComponent {
   searchPerformed: boolean = false;
   isChecked: any;
   status: any;
+  valueAdd:any;
+  errorMessage:any;
  
   constructor(
     private router: Router,
@@ -74,6 +76,38 @@ export class ViewCampaignsComponent {
     private toastr: ToastrService
   ) {}
   ngOnInit(): void {
+
+
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+
+
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+
+          if (this.roleId == 1) {
+            this.valueAdd = 'Entity Onboard-Add';
+           
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+
+
+              if (this.actions == 'Entity Onboard-Add') {
+                this.valueAdd = 'Entity Onboard-Add';
+              }
+            
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    });
+    
+    
     this.service.viewcampaign(1).subscribe((res: any) => {
       if (res.flag == 1) {
         this.tickets = res.response;

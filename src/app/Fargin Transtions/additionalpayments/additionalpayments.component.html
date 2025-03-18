@@ -232,7 +232,7 @@
                         <label class="form__label custom-label" for="fnames">Search entity</label>
                         <div class="search-input-with-button">
                             <ng-select #searchSelect formControlName="selectedOption" [items]="options" bindLabel="entityName"
-                                placeholder="Select an Entity" [searchable]="true" (input)="onInputChange($event)">
+                                placeholder="Select an Entity" [searchable]="true" (input)="onInputChange($event)" (clear)="onClear()">
                                 <ng-template ng-label-tmp let-item="item">
                                     <div class="flex align-items-center gap-2">
                                         <div>{{ item.entityName }}</div>

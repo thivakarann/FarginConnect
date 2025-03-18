@@ -29,7 +29,7 @@ export class EntityViewallComponent {
     // 'entityName',
     'merchantLegalName',
     'businessCategoryModel',
-    'contactEmail',
+    // 'contactEmail',
     'finalapproval',
     'pgonboard',
     'status',
@@ -124,7 +124,7 @@ export class EntityViewallComponent {
           this.errorMessage = res.responseMessage;
         }
       }
-    })
+    });
 
 
     this.EntityViewall.EntityViewall(this.pageSize, this.pageIndex).subscribe((res: any) => {

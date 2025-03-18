@@ -242,7 +242,9 @@ export class ViewAnnouncementComponent implements OnInit {
     this.dialog.open(AddAnnouncementComponent, {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
-      disableClose: true
+      disableClose: true,
+      width: '80vw',// Use percentage to make it responsive
+      maxWidth: '400px',
     });
     this.dialog.afterAllClosed.subscribe(()=>{
      
