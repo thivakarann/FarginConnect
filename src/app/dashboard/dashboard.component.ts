@@ -60,12 +60,14 @@ export class DashboardComponent implements OnInit {
   valuesurvey: any;
   valueBuisneesDoCument: any;
   valueentityagreement: any;
-  valueBusinessPlan:any;
-  valueSignerDetails:any;
-valueAdditionalPayments: any;
-valuebranch: any;
+  valueBusinessPlan: any;
+  valueSignerDetails: any;
+  valueAdditionalPayments: any;
+  valuebranch: any;
   valueonlienrefund: any;
-  valuestickercost:any;
+  valuestickercost: any;
+  valuecampign:any;
+  valuerefundper:any;
 
 
   constructor(private elRef: ElementRef,
@@ -127,7 +129,7 @@ valuebranch: any;
       this.valuefarginpolicy = 'Fargin Policy'
       this.valueMerchantpolicy = 'Merchant Policy'
       this.valuecustomerpayment = 'Customer Payment'
-      this.valuecustomersubscription = 'Subscription Payment'
+      this.valuecustomersubscription = 'Cloud Fee Payments'
       this.valuecustomermanualpayment = 'one Time Payments'
       this.valuekyccategory = 'Kyc Category'
       this.valueannouncement = 'Announcement'
@@ -136,18 +138,19 @@ valuebranch: any;
       this.valuefarginbank = 'Fargin bank'
       this.valueentitysms = 'Entity Sms'
       this.valuesmshistory = 'SMS History'
-      this.valueautodebit = 'MMC Auto Debit'
+      this.valueautodebit = 'Cloud Fee AutoDebit'
       this.valueCustomizationPayments = 'Customized Payment'
       this.valuesurvey = 'Survey'
       this.valueBuisneesDoCument = 'Business Document Type'
       this.valueentityagreement = 'Entity Agreement'
-       this.valueBusinessPlan='Business Plan'
-      this.valueSignerDetails='Signer Details'
-       this.valueAdditionalPayments = 'Additional Payments'
-        this.valuebranch = 'Branch'
-        this.valueonlienrefund = 'Online Refunds'
-
-        this.valuestickercost = 'Sticker Cost'
+      this.valueBusinessPlan = 'Business Plan'
+      this.valueSignerDetails = 'Signer Details'
+      this.valueAdditionalPayments = 'Additional Payments'
+      this.valuebranch = 'Branch'
+      this.valueonlienrefund = 'Online Refunds'
+      this.valuestickercost = 'Sticker Cost'
+      this.valuecampign = 'Campaign'
+      this.valuerefundper = 'Refund Period'
 
     }
     else {
@@ -160,9 +163,7 @@ valuebranch: any;
         }
         if (this.roles == 'Entity Onboard') {
           this.valueEntity = 'Entity Onboard';
-
-
-        }
+         }
 
         if (this.roles == 'Entity Agreement') {
           this.valueentityagreement = 'Entity Agreement'
@@ -234,8 +235,8 @@ valuebranch: any;
         if (this.roles == 'Customer Payment') {
           this.valuecustomerpayment = 'Customer Payment'
         }
-        if (this.roles == 'Subscription Payment') {
-          this.valuecustomersubscription = 'Subscription Payment'
+        if (this.roles == 'Cloud Fee Payments') {
+          this.valuecustomersubscription = 'Cloud Fee Payments'
         }
         if (this.roles == 'one Time Payments') {
           this.valuecustomermanualpayment = 'one Time Payments'
@@ -261,8 +262,8 @@ valuebranch: any;
         if (this.roles == 'SMS History') {
           this.valuesmshistory = 'SMS History'
         }
-        if (this.roles == 'MMC Auto Debit') {
-          this.valueautodebit = 'MMC Auto Debit'
+        if (this.roles == 'Cloud Fee AutoDebit') {
+          this.valueautodebit = 'Cloud Fee AutoDebit'
         }
         if (this.roles == 'Customized Payment') {
           this.valueCustomizationPayments = 'Customized Payment'
@@ -275,12 +276,12 @@ valuebranch: any;
         if (this.roles == 'Survey') {
           this.valuesurvey = 'Survey'
         }
-        if(this.roles=='Business Plan'){
-          this.valueBusinessPlan='Business Plan'
+        if (this.roles == 'Business Plan') {
+          this.valueBusinessPlan = 'Business Plan'
         }
-       
-        if(this.roles=='Signer Details'){
-          this.valueSignerDetails='Signer Details'
+
+        if (this.roles == 'Signer Details') {
+          this.valueSignerDetails = 'Signer Details'
         }
         if (this.roles == 'Additional Payments') {
           this.valueAdditionalPayments = 'Additional Payments'
@@ -294,6 +295,15 @@ valuebranch: any;
 
         if (this.roles == 'Sticker Cost') {
           this.valuestickercost = 'Sticker Cost'
+        }
+        if (this.roles == 'Sticker Cost') {
+          this.valuestickercost = 'Sticker Cost'
+        }
+        if (this.roles == 'Campaign') {
+          this.valuecampign = 'Campaign'
+        }
+        if (this.roles == 'Refund Period') {
+          this.valuerefundper = 'Refund Period'
         }
       }
     }

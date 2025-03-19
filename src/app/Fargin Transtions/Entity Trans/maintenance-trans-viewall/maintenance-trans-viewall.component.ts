@@ -159,25 +159,25 @@ export class MaintenanceTransViewallComponent {
           this.getdashboard = res.response?.subPermission;
 
           if (this.roleId == 1) {
-            this.valuemaintainexport = 'Subscription Payment-Export'
-            this.valuemaintainview = 'Subscription Payment-View'
-            this.valuemaintainInvoice = 'Subscription Payment-Invoice'
-            this.valuemaintaincheck = 'Subscription Payment-Check Status'
+            this.valuemaintainexport = 'Cloud Fee Payments-Export'
+            this.valuemaintainview = 'Cloud Fee Payments-View'
+            this.valuemaintainInvoice = 'Cloud Fee Payments-Invoice'
+            this.valuemaintaincheck = 'Cloud Fee Payments-Check Status'
           }
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
-              if (this.actions == 'Subscription Payment-Export') {
-                this.valuemaintainexport = 'Subscription Payment-Export'
+              if (this.actions == 'Cloud Fee Payments-Export') {
+                this.valuemaintainexport = 'Cloud Fee Payments-Export'
               }
-              if (this.actions == 'Subscription Payment-View') {
-                this.valuemaintainview = 'Subscription Payment-View'
+              if (this.actions == 'Cloud Fee Payments-View') {
+                this.valuemaintainview = 'Cloud Fee Payments-View'
               }
-              if (this.actions == 'Subscription Payment-Invoice') {
-                this.valuemaintainInvoice = 'Subscription Payment-Invoice'
+              if (this.actions == 'Cloud Fee Payments-Invoice') {
+                this.valuemaintainInvoice = 'Cloud Fee Payments-Invoice'
               }
-              if (this.actions == 'Subscription Payment-Check Status') {
-                this.valuemaintaincheck = 'Subscription Payment-Check Status'
+              if (this.actions == 'Cloud Fee Payments-Check Status') {
+                this.valuemaintaincheck = 'Cloud Fee Payments-Check Status'
               }
 
             }

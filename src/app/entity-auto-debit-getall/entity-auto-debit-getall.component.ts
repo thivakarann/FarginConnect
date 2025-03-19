@@ -81,14 +81,14 @@ export class EntityAutoDebitGetallComponent {
           this.getdashboard = res.response?.subPermission;
 
           if (this.roleId == 1) {
-            this.valueautodebitexport = 'MMC Auto Debit-Export'
+            this.valueautodebitexport = 'Cloud Fee AutoDebit-Export'
 
           }
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
-              if (this.actions == 'MMC Auto Debit-Export') {
-                this.valueautodebitexport = 'MMC Auto Debit-Export'
+              if (this.actions == 'Cloud Fee AutoDebit-Export') {
+                this.valueautodebitexport = 'Cloud Fee AutoDebit-Export'
               }
 
             }

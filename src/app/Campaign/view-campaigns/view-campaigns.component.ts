@@ -30,14 +30,14 @@ export class ViewCampaignsComponent {
     'Comments',
     'Date',
     'image',
- 
+
     'status',
     'edit',
     'editbulk',
     'emailrecord',
-   
+
     'Record',
- 
+
   ];
   tickets: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -66,15 +66,23 @@ export class ViewCampaignsComponent {
   searchPerformed: boolean = false;
   isChecked: any;
   status: any;
-  valueAdd:any;
-  errorMessage:any;
- 
+  errorMessage: any;
+  valueAdd: any;
+  valueExport: any;
+  valueImage: any;
+  valueedit: any;
+  valueview: any;
+  valuedownload:any;
+  ValueUpdateEmail:any;
+  valueUplodedstatus:any;
+  valuestatus:any;
+
   constructor(
     private router: Router,
     private service: FarginServiceService,
     private dialog: MatDialog,
     private toastr: ToastrService
-  ) {}
+  ) { }
   ngOnInit(): void {
 
 
@@ -86,18 +94,50 @@ export class ViewCampaignsComponent {
           this.getdashboard = res.response?.subPermission;
 
           if (this.roleId == 1) {
-            this.valueAdd = 'Entity Onboard-Add';
-           
+            this.valueAdd = 'Campaign-Add';
+            this.valueExport = 'Campaign-Export';
+            this.valueImage = 'Campaign-Image';
+            this.valueedit = 'Campaign-Edit';
+            this.valueview = 'Campaign-View';
+            this.valuedownload = 'Campaign-Download-Template';
+            this.ValueUpdateEmail = 'Campaign-Update-Email'
+            this.valueUplodedstatus = 'Campaign-Uploaded-EmailDetails'
+            this.valuestatus = 'Campaign-Status'
+
           }
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
 
 
-              if (this.actions == 'Entity Onboard-Add') {
-                this.valueAdd = 'Entity Onboard-Add';
+              if (this.actions == 'Campaign-Add') {
+                this.valueAdd = 'Campaign-Add';
               }
-            
+              if (this.actions == 'Campaign-Export') {
+                this.valueExport = 'Campaign-Export';
+              }
+              if (this.actions == 'Campaign-Image') {
+                this.valueImage = 'Campaign-Image';
+              }
+              if (this.actions == 'Campaign-Edit') {
+                this.valueedit = 'Campaign-Edit';
+              }
+              if (this.actions == 'Campaign-View') {
+                this.valueview = 'Campaign-View';
+              }
+              if (this.actions == 'Campaign-Download-Template') {
+                this.valuedownload = 'Campaign-Download-Template';
+              }
+              if (this.actions == 'Campaign-Update-Email') {
+                this.ValueUpdateEmail = 'Campaign-Update-Email';
+              }
+              if (this.actions == 'Campaign-Uploaded-EmailDetails') {
+                this.valueUplodedstatus = 'Campaign-Uploaded-EmailDetails';
+              }
+              if (this.actions == 'Campaign-Status') {
+                this.valuestatus = 'Campaign-Status';
+              }
+
             }
           }
         }
@@ -106,8 +146,8 @@ export class ViewCampaignsComponent {
         }
       }
     });
-    
-    
+
+
     this.service.viewcampaign(1).subscribe((res: any) => {
       if (res.flag == 1) {
         this.tickets = res.response;
@@ -121,14 +161,14 @@ export class ViewCampaignsComponent {
         this.dataSource.paginator = this.paginator;
       }
     });
-   
+
   }
- 
+
   reload() {
     this.service.viewcampaign(1).subscribe((res: any) => {
       if (res.flag == 1) {
         this.tickets = res.response;
- 
+
         this.dataSource = new MatTableDataSource(this.tickets?.reverse());
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -140,7 +180,7 @@ export class ViewCampaignsComponent {
       }
     });
   }
- 
+
   addCampaign() {
     this.dialog.open(CreateCampaignsComponent, {
       disableClose: true,
@@ -153,7 +193,7 @@ export class ViewCampaignsComponent {
       this.service.viewcampaign(1).subscribe((res: any) => {
         if (res.flag == 1) {
           this.tickets = res.response;
- 
+
           this.dataSource = new MatTableDataSource(this.tickets?.reverse());
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -170,7 +210,7 @@ export class ViewCampaignsComponent {
     const regex = /^\d{2}\/\d{2}\/\d{4}$/;
     return regex.test(value);
   }
- 
+
   formatDate(date: string | Date): string {
     if (date) {
       const formattedDate = new Date(date);
@@ -178,13 +218,13 @@ export class ViewCampaignsComponent {
     }
     return '';
   }
- 
+
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value
-    .trim()
-    .toLowerCase();
+      .trim()
+      .toLowerCase();
     this.searchPerformed = filterValue.length > 0;
- 
+
     if (this.isDate(filterValue)) {
       this.dataSource.filterPredicate = (data: any, filter: string) => {
         const formattedDate = this.formatDate(data.emailDate).toLowerCase();
@@ -197,7 +237,7 @@ export class ViewCampaignsComponent {
       };
     }
     this.dataSource.filter = filterValue;
- 
+
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
@@ -218,14 +258,14 @@ export class ViewCampaignsComponent {
       } else if (element?.activeStatus == '0') {
         this.response.push('Inactive');
       }
-   
- 
+
+
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
- 
+
   excelexportCustomer() {
     const header = [
       'S.No',
@@ -234,7 +274,7 @@ export class ViewCampaignsComponent {
       'Date',
       'Email Status',
     ];
- 
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Campaign Reports');
@@ -250,7 +290,7 @@ export class ViewCampaignsComponent {
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
       };
- 
+
       cell.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
@@ -258,7 +298,7 @@ export class ViewCampaignsComponent {
         right: { style: 'thin' },
       };
     });
- 
+
     data.forEach((d: any) => {
       //
       let row = worksheet.addRow(d);
@@ -270,7 +310,7 @@ export class ViewCampaignsComponent {
       // let qty5 = row.getCell(6);
       // let qty6 = row.getCell(7);
       // let qty7 = row.getCell(8);
- 
+
       qty.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
@@ -330,20 +370,20 @@ export class ViewCampaignsComponent {
       FileSaver.saveAs(blob, 'Campaign Reports.xlsx');
     });
   }
- 
- 
+
+
   comments(id: any) {
     this.dialog.open(CreateCommentcampaignsComponent, {
       disableClose: true,
       data: { value: id },
       width: '90vw',
-      maxHeight:'500px',
+      maxHeight: '500px',
       maxWidth: '500px',
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
     });
   }
- 
+
   image(id: any) {
     this.dialog.open(ViewImagecampaignsComponent, {
       data: { value: id },
@@ -355,7 +395,7 @@ export class ViewCampaignsComponent {
       this.service.viewcampaign(1).subscribe((res: any) => {
         if (res.flag == 1) {
           this.tickets = res.response;
- 
+
           this.dataSource = new MatTableDataSource(this.tickets?.reverse());
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -368,7 +408,7 @@ export class ViewCampaignsComponent {
       });
     });
   }
- 
+
   edit(id: any) {
     this.dialog.open(EditCampaignComponent, {
       data: { value: id },
@@ -382,7 +422,7 @@ export class ViewCampaignsComponent {
       this.service.viewcampaign(1).subscribe((res: any) => {
         if (res.flag == 1) {
           this.tickets = res.response;
- 
+
           this.dataSource = new MatTableDataSource(this.tickets?.reverse());
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -395,13 +435,13 @@ export class ViewCampaignsComponent {
       });
     });
   }
- 
+
   // serviceticket(id: any, filterValue: string) {
   //   if (!filterValue) {
   //     this.toastr.error('Please enter a value to search');
   //     return;
   //   }
- 
+
   //   this.service.ServiceTickets(id, filterValue).subscribe({
   //     next: (res: any) => {
   //       if (res.response) {
@@ -422,46 +462,46 @@ export class ViewCampaignsComponent {
   //     },
   //   });
   // }
- 
+
   openExcel() {
     const header = ['emailAddress'];
- 
+
     const data = this.responseDataListnew;
- 
+
     // Prepare CSV content
     const csvContent = [];
- 
+
     // Add header to CSV
     csvContent.push(header.map((item) => `"${item}"`).join(','));
- 
+
     const emailAddresses = [];
- 
+
     data.forEach((d: any) => {
-        // Collect email address
-        if (d.emailAddress) {
-            emailAddresses.push(d.emailAddress);
-        }
- 
-        // Prepare the row data
-        const rowData = [
-            d.emailAddress || ''
- 
- 
- 
+      // Collect email address
+      if (d.emailAddress) {
+        emailAddresses.push(d.emailAddress);
+      }
+
+      // Prepare the row data
+      const rowData = [
+        d.emailAddress || ''
+
+
+
         // Add any other fields as needed
       ].map((item) => `"${item.replace(/"/g, '""')}"`); // Escape double quotes
- 
+
       csvContent.push(rowData.join(','));
     });
- 
+
     // Create a Blob and save as CSV
     const blob = new Blob([csvContent.join('\n')], {
       type: 'text/csv;charset=utf-8;',
     });
     FileSaver.saveAs(blob, 'Campaign.csv');
   }
- 
- 
+
+
   create() {
     this.dialog.open(CreateBulkcampaignsComponent, {
       disableClose: true,
@@ -489,15 +529,15 @@ export class ViewCampaignsComponent {
     //       this.dataSource.sort = this.sort;
     //       this.dataSource.paginator = this.paginator;
     //     }
- 
+
     //   })
- 
+
     // })
   }
- 
+
   onSubmit(event: MatSlideToggleChange, id: any) {
     this.isChecked = event.checked;
-     this.status= this.isChecked ? 1 : 0
+    this.status = this.isChecked ? 1 : 0
     this.service.campaignstatus(id, this.status).subscribe((res: any) => {
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
@@ -505,7 +545,7 @@ export class ViewCampaignsComponent {
           this.service.viewcampaign(1).subscribe((res: any) => {
             if (res.flag == 1) {
               this.tickets = res.response;
-     
+
               this.dataSource = new MatTableDataSource(this.tickets?.reverse());
               this.dataSource.paginator = this.paginator;
               this.dataSource.sort = this.sort;
@@ -528,7 +568,7 @@ export class ViewCampaignsComponent {
   responseDownload(uploadId: any) {
     this.service.viewemailsendresponsecampaigns(uploadId).subscribe((res: any) => {
       this.responseData = res.response.data;
- 
+
       if (res.flag == 1) {
         let sno = 1;
         this.responseExcelData = [];
@@ -547,18 +587,18 @@ export class ViewCampaignsComponent {
     });
   }
   responseExcel() {
-    const header = ['S.No', 'Email Address','Remarks'];
- 
+    const header = ['S.No', 'Email Address', 'Remarks'];
+
     const data = this.responseExcelData;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Campaign Upload Response');
- 
+
     worksheet.addRow([]);
- 
+
     let headerRow = worksheet.addRow(header);
- 
+
     headerRow.font = { bold: true };
- 
+
     headerRow.eachCell((cell, number) => {
       cell.fill = {
         type: 'pattern',
@@ -566,7 +606,7 @@ export class ViewCampaignsComponent {
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
       };
- 
+
       cell.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
@@ -574,17 +614,17 @@ export class ViewCampaignsComponent {
         right: { style: 'thin' },
       };
     });
- 
+
     data.forEach((d: any) => {
       //
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
       // let qty2 = row.getCell(3);
       // let qty3 = row.getCell(4);
-   
- 
+
+
       qty.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
@@ -596,7 +636,7 @@ export class ViewCampaignsComponent {
         left: { style: 'thin' },
         bottom: { style: 'thin' },
         right: { style: 'thin' },
-      };  
+      };
       //  qty2.border = {
       //   top: { style: 'thin' },
       //   left: { style: 'thin' },
@@ -609,34 +649,34 @@ export class ViewCampaignsComponent {
       //   bottom: { style: 'thin' },
       //   right: { style: 'thin' },
       // };
-     
+
     });
- 
+
     workbook.xlsx.writeBuffer().then((data) => {
       let blob = new Blob([data], {
         type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       });
- 
+
       FileSaver.saveAs(blob, 'Campaign.csv');
     });
   }
- 
+
   editbulk(id: any) {
     this.dialog.open(UpdateBulkcampaignComponent, {
       data: { value: id },
       disableClose: true,
- 
+
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
       position: { right: '0px' },
- 
+
       width: '35%'
     });
     this.dialog.afterAllClosed.subscribe(() => {
       this.service.viewcampaign(1).subscribe((res: any) => {
         if (res.flag == 1) {
           this.tickets = res.response;
- 
+
           this.dataSource = new MatTableDataSource(this.tickets?.reverse());
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -647,8 +687,8 @@ export class ViewCampaignsComponent {
           this.dataSource.paginator = this.paginator;
         }
       });
-     
+
     });
   }
- 
+
 }

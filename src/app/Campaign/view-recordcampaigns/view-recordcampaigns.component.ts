@@ -36,40 +36,68 @@ export class ViewRecordcampaignsComponent {
   actions: any;
   roleId: any = localStorage.getItem('roleId');
   roleName = localStorage.getItem('roleName');
-  valueRouteStatusresponse:any;
-searchPerformed: boolean=false;
+  valueRouteStatusresponse: any;
+  searchPerformed: boolean = false;
   id: any;
+  errorMessage: any;
+  valueEmails: any;
 
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
     private toastr: ToastrService,
-    private activated:ActivatedRoute,
+    private activated: ActivatedRoute,
     private location: Location
 
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.activated.queryParams.subscribe((param: any) => {
       this.id = param.Alldata;
     });
+
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+
+
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+
+          if (this.roleId == 1) {
+            this.valueEmails = 'Campaign-EmailsList';
+
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+              if (this.actions == 'Campaign-EmailsList') {
+                this.valueEmails = 'Campaign-EmailsList'
+              }
+
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    });
     this.service.viewrecordcampaigns(this.id).subscribe((res: any) => {
-      if(res.flag==1)
-      {
+      if (res.flag == 1) {
         this.viewBulk = res.response;
 
         this.dataSource = new MatTableDataSource(this.viewBulk?.reverse());
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }
-      else if(res.flag==2){
+      else if (res.flag == 2) {
         this.dataSource = new MatTableDataSource([]);
         this.dataSource = new MatTableDataSource(this.viewBulk.reverse());
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
     });
- 
+
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -105,7 +133,7 @@ searchPerformed: boolean=false;
   }
 
   responseExcel() {
-    const header = ['S.No', 'Email Address','Remarks'];
+    const header = ['S.No', 'Email Address', 'Remarks'];
 
     const data = this.responseExcelData;
     let workbook = new Workbook();
@@ -141,7 +169,7 @@ searchPerformed: boolean=false;
       let qty1 = row.getCell(2);
       let qty2 = row.getCell(3);
       // let qty3 = row.getCell(4);
-    
+
 
       qty.border = {
         top: { style: 'thin' },
@@ -154,8 +182,8 @@ searchPerformed: boolean=false;
         left: { style: 'thin' },
         bottom: { style: 'thin' },
         right: { style: 'thin' },
-      };  
-       qty2.border = {
+      };
+      qty2.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
         bottom: { style: 'thin' },
@@ -167,7 +195,7 @@ searchPerformed: boolean=false;
       //   bottom: { style: 'thin' },
       //   right: { style: 'thin' },
       // };
-     
+
     });
 
     workbook.xlsx.writeBuffer().then((data) => {
@@ -179,6 +207,6 @@ searchPerformed: boolean=false;
     });
   }
   close() {
-    this.location.back()     
+    this.location.back()
   }
 }

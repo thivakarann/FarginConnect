@@ -35,9 +35,9 @@
             </div>
             &nbsp;&nbsp;&nbsp;
 
-            <button style="color:white;background-color: #141E46;border-radius: 10px;" class="custom-btn btn-10 me-3"
+            <button [hidden]="valueadd!=='Refund Period-Add'" style="color:white;background-color: #141E46;border-radius: 10px;" class="custom-btn btn-10 me-3"
                 data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button (click)="Addrefund()">Create</button>
-            <button style="color:white;background-color: #141E46;border-radius: 10px;" (click)="exportexcel()"
+            <button [hidden]="valueexport!=='Refund Period-Export'" style="color:white;background-color: #141E46;border-radius: 10px;" (click)="exportexcel()"
                 mat-raised-button >Export</button>
  
  
@@ -68,8 +68,8 @@
             </ng-container>
 
                 <ng-container matColumnDef="Edit">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Edit</th>
-                <td mat-cell *matCellDef="let viewall" (click)="Editrefunds(viewall)">
+                <th [hidden]="valueedit!=='Refund Period-Edit'" mat-header-cell *matHeaderCellDef mat-sort-header>Edit</th>
+                <td [hidden]="valueedit!=='Refund Period-Edit'" mat-cell *matCellDef="let viewall" (click)="Editrefunds(viewall)">
                     <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-edit"></i>
                 </td>
             </ng-container>

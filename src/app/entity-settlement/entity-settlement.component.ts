@@ -30,6 +30,7 @@ export class EntitySettlementComponent {
     'benificiary',
     'amount',
     'reference',
+    'View',
     'txnItem',
     'createdAt',
    

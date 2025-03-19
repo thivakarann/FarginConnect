@@ -90,8 +90,8 @@
  
 
             <ng-container matColumnDef="Response">
-                <th  mat-header-cell *matHeaderCellDef >Emails </th>
-                <td  mat-cell *matCellDef="let data">
+                <th [hidden]="valueEmails!=='Campaign-EmailsList'"  mat-header-cell *matHeaderCellDef >Emails </th>
+                <td  [hidden]="valueEmails!=='Campaign-EmailsList'" mat-cell *matCellDef="let data">
                     <i class="fa fa-download" (click)="responseDownload(data?.emailUploadId)"></i>
                 </td>
             </ng-container>

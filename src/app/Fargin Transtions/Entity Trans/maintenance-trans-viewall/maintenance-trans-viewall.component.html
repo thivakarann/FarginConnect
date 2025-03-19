@@ -34,7 +34,7 @@
                 style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Go</button>
         </div>
         <div class="col-1 mt-4">
-            <button [hidden]="valuemaintainexport!=='Subscription Payment-Export'"
+            <button [hidden]="valuemaintainexport!=='Cloud Fee Payments-Export'"
                 style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
                 (click)=" exportexcel()">Export</button>
         </div>&nbsp;&nbsp;
@@ -160,10 +160,10 @@
 
 
             <ng-container matColumnDef="receipt">
-                <th mat-header-cell *matHeaderCellDef [hidden]="valuemaintainInvoice!=='Subscription Payment-Invoice'">
+                <th mat-header-cell *matHeaderCellDef [hidden]="valuemaintainInvoice!=='Cloud Fee Payments-Invoice'">
                     Invoice</th>
                 <td mat-cell *matCellDef="let transaction"
-                    [hidden]="valuemaintainInvoice!=='Subscription Payment-Invoice'">
+                    [hidden]="valuemaintainInvoice!=='Cloud Fee Payments-Invoice'">
                     <button class="btn btn-success btn-sm" [disabled]="transaction?.paymentStatus!='Success'"
                         style="border:none;" (click)="viewreciept(transaction?.maintenancePayId)"> <i
                             class="fa-solid fa-download" style="color:#fff;"></i></button>
@@ -172,9 +172,9 @@
 
             <ng-container matColumnDef="CheckStatus">
                 <th mat-header-cell *matHeaderCellDef
-                    [hidden]="valuemaintaincheck!=='Subscription Payment-Check Status'">Check Status</th>
+                    [hidden]="valuemaintaincheck!=='Cloud Fee Payments-Check Status'">Check Status</th>
                 <td mat-cell *matCellDef="let transaction"
-                    [hidden]="valuemaintaincheck!=='Subscription Payment-Check Status'">
+                    [hidden]="valuemaintaincheck!=='Cloud Fee Payments-Check Status'">
                     <button class="btn btn-primary btn-sm" [disabled]="transaction?.paymentStatus  != 'Initiated'"
                         (click)="track(transaction)" style="border-radius: 10px;background-color: #141E46;"> <i
                             style="font-size:15px;color:white;cursor: pointer;" class="fa">&#xf00c;</i></button>
@@ -213,9 +213,9 @@
             </ng-container>
             
             <ng-container matColumnDef="view">
-                <th mat-header-cell *matHeaderCellDef [hidden]="valuemaintainview!=='Subscription Payment-View'">View
+                <th mat-header-cell *matHeaderCellDef [hidden]="valuemaintainview!=='Cloud Fee Payments-View'">View
                 </th>
-                <td mat-cell *matCellDef="let transaction" [hidden]="valuemaintainview!=='Subscription Payment-View'">
+                <td mat-cell *matCellDef="let transaction" [hidden]="valuemaintainview!=='Cloud Fee Payments-View'">
                     <i style="cursor: pointer;" class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"
                         (click)="transactionview(transaction?.maintenancePayId)"></i>
                 </td>

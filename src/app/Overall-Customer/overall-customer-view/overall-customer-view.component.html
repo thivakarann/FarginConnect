@@ -86,8 +86,8 @@
                 <td mat-cell *matCellDef="let viewall">{{viewall.mobileNumber}}</td>
             </ng-container>
             <ng-container matColumnDef="routeassigned">
-                <th mat-header-cell *matHeaderCellDef>Route Assigned Status</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall.routeAssignedStatus==0? 'Not Assigned':'Signed'}}</td>
+                <th mat-header-cell *matHeaderCellDef>Customer Status</th>
+                <td mat-cell *matCellDef="let viewall">{{viewall.Status==0? 'Inactive':'Active'}}</td>
             </ng-container>
             <!-- <ng-container matColumnDef="flatNumber">
                 <th mat-header-cell *matHeaderCellDef>Flat Number</th>

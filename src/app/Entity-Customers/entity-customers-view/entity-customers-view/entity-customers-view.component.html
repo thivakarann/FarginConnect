@@ -271,7 +271,7 @@
                 <th>Setupbox Number</th>
                 <th>Service Provider Name</th>
                 <th>Region</th>
-                <th [hidden]="valuesetupsts!=='Setup Box-Status'">Status</th>
+                <!-- <th [hidden]="valuesetupsts!=='Setup Box-Status'">Status</th> -->
                
                 <th [hidden]="valuesetupview!=='Setup Box-View'">View</th>
                 <th>Created By</th>
@@ -287,11 +287,11 @@
                   <td>{{ row.stbId?.setupBoxNumber }}</td>
                   <td>{{ row.stbId?.service?.serviceProviderName }}</td>
                   <td>{{ row.stbId?.regionEntity?.stateName }}</td>
-                  <td [hidden]="valuesetupsts!=='Setup Box-Status'">
+                  <!-- <td [hidden]="valuesetupsts!=='Setup Box-Status'">
                     <mat-slide-toggle class="example-margin" color="primary" [checked]="row.activeStatus === 1"
             (change)="ActiveStatus($event,row.customerStbId)">
           </mat-slide-toggle>
-                  </td>
+                  </td> -->
                  
                   <td   [hidden]="valuesetupview!=='Setup Box-View'"style="cursor: pointer;"  (click)="view(row.customerStbId)"
                   >
@@ -531,7 +531,7 @@
                 <th>Payment Status</th>
                 <th>Service Amount</th>
              
-                <th [hidden]="valueadditionalinvoice!=='Additional Payments-Invoice'">Invoice</th>
+                <th [hidden]="valueadditionalinvoice!=='Additional Payments-Reciept'">Invoice</th>
                 <th>Paid At</th>
  
               </tr>
@@ -558,7 +558,7 @@
                   </td>
                   <td>{{ item.paidAmount}}</td>
                  
-                  <td [hidden]="valueadditionalinvoice!=='Additional Payments-Invoice'"> <button class="btn btn-success btn-sm" [disabled]="transaction?.paymentStatus != 'Success'"
+                  <td [hidden]="valueadditionalinvoice!=='Additional Payments-Reciept'"> <button class="btn btn-success btn-sm" [disabled]="transaction?.paymentStatus != 'Success'"
                       style="border:none;" (click)="viewreciept(item?.customerpaymentId)"> <i
                         class="fa-solid fa-download" style="color:#fff;"></i></button></td>
                   <td>{{item.paymentDateTime| date:'dd/MM/yyyy hh:mm'}}</td>
@@ -625,6 +625,7 @@
                 <th>Payment ID</th>
                 <th>Paid Amount</th>
                 <th>Refund Amount</th>
+                <th [hidden]="vaaluedetails!=='Refunds-View'" >Offline Details</th>
                 <th>Refund Status</th>
                 <th>Requested Date</th>
               
@@ -651,6 +652,10 @@
                   <td>{{ item.paymentId ||'--'}}</td>
                   <td>{{ item.paymentModel?.paidAmount}}</td>
                   <td>{{ item.refundAmount ||'--'}}</td>
+                  <td  [hidden]="vaaluedetails!=='Refunds-View'"> <button (click)="offline(item)"  style="border: none; background:none"  [disabled]="item?.typeMode !='Offline'">
+                    <i class="fa fa-eye" style="border: none; background:none;font-size:15px"   ></i>
+        
+                  </button></td>
                   <td>{{ item.refundStatus}}</td>
                   <td>{{item.createdAt| date:'dd/MM/yyyy hh:mm'}}</td> 
               

@@ -9,6 +9,8 @@ import { Location } from '@angular/common';
 import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
 import moment from 'moment';
+import { CustomerTransViewComponent } from '../Fargin Transtions/Customer Trans/customer-trans-view/customer-trans-view.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-entity-transaction',
@@ -20,18 +22,22 @@ export class EntityTransactionComponent {
   valuetransactionExport: any;
   valuetransactionview: any;
 
- 
+
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = [
-   'settlementId',
-   'customername',
-   'email',
+    'settlementId',
     'payoutId',
+    'customername',
+    'mobileNumber',
+    "STB",
+    "ServiceProvider",
     'amount',
     'reference',
     'status',
-   'bankref',
+    'Receipt',
+    'View',
     'createdAt',
+    'paidAt'
   ];
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
@@ -50,18 +56,20 @@ export class EntityTransactionComponent {
   getdashboard: any[] = [];
   roleId: any = localStorage.getItem('roleId');
   actions: any;
-  responseDataListnew: any=[];
-  response: any=[];
+  responseDataListnew: any = [];
+  response: any = [];
   AccountId: any;
   searchPerformed: boolean = false;
+  valueinvoice:any;
 
   constructor(
     public service: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
     private ActivateRoute: ActivatedRoute,
-    private location: Location
-  ) {}
+    private location: Location,
+    private dialog: MatDialog
+  ) { }
   ngOnInit(): void {
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
@@ -71,6 +79,7 @@ export class EntityTransactionComponent {
           if (this.roleId == 1) {
             this.valuetransactionExport = 'Entity View Transaction-Export';
             this.valuetransactionview = 'Entity View Transaction-View';
+            this.valueinvoice = 'Entity View Transaction-Receipt';
           } else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
@@ -79,6 +88,9 @@ export class EntityTransactionComponent {
               }
               if (this.actions == 'Entity View Transaction-View') {
                 this.valuetransactionview = 'Entity View Transaction-View';
+              }
+              if (this.actions == 'Entity View Transaction-Receipt') {
+                this.valueinvoice = 'Entity View Transaction-Receipt';
               }
             }
           }
@@ -93,21 +105,44 @@ export class EntityTransactionComponent {
     });
 
     this.service.EntityTraansaction(this.id).subscribe((res: any) => {
-      if(res.flag ==1){
+      if (res.flag == 1) {
         this.details = res.response;
         this.dataSource = new MatTableDataSource(this.details);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
-  
+
     });
+  }
+
+  Receipt(id: any) {
+    this.service.CustomerReceipt(id).subscribe({
+      next: (res: any) => {
+        var downloadURL = URL.createObjectURL(res);
+        window.open(downloadURL);
+      },
+
+    });
+  }
+
+
+  transactionview(id: any) {
+
+    this.dialog.open(CustomerTransViewComponent, {
+      enterAnimationDuration: "1000ms",
+      exitAnimationDuration: "1000ms",
+      disableClose: true,
+      data: {
+        value: id,
+      }
+    })
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.searchPerformed = filterValue.length > 0;
- 
+
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
@@ -118,18 +153,18 @@ export class EntityTransactionComponent {
     this.details.forEach((element: any) => {
       this.response = [];
       this.response.push(sno);
-      this.response.push(element?.customerId?. customerName);
-      this.response.push(element?.customerId?. emailAddress);
+      this.response.push(element?.customerId?.customerName);
+      this.response.push(element?.customerId?.emailAddress);
 
       this.response.push(element?.pgPaymentId || element?.paymentId);
       this.response.push(element?.paidAmount);
       this.response.push(element?.paymentMethod);
       this.response.push(element?.paymentStatus);
       this.response.push(element?.bankReference);
-      if(element.createdDateTime){
+      if (element.createdDateTime) {
         this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
       }
-      else{
+      else {
         this.response.push('');
       }
       sno++;
@@ -137,24 +172,24 @@ export class EntityTransactionComponent {
     });
     this.excelexportCustomer();
   }
- 
+
   excelexportCustomer() {
- 
+
     const header = [
-     'SNO',
-     'CustomerName',
-   'Email',
-    'Payment Id',
-    'Amount',
-    'Payment Method',
-    'Payment Status',
-    'Bank Reference',
-    'CreatedAt',
+      'SNO',
+      'CustomerName',
+      'Email',
+      'Payment Id',
+      'Amount',
+      'Payment Method',
+      'Payment Status',
+      'Bank Reference',
+      'CreatedAt',
     ];
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Entity Transaction');
- 
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -166,7 +201,7 @@ export class EntityTransactionComponent {
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
       };
- 
+
       cell.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
@@ -174,10 +209,10 @@ export class EntityTransactionComponent {
         right: { style: 'thin' },
       };
     });
- 
+
     data.forEach((d: any) => {
       //
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -188,7 +223,7 @@ export class EntityTransactionComponent {
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
-  
+
       qty.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
@@ -249,27 +284,27 @@ export class EntityTransactionComponent {
         bottom: { style: 'thin' },
         right: { style: 'thin' },
       };
-     
-     
+
+
     });
- 
- 
- 
+
+
+
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], {
         type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       });
- 
+
       FileSaver.saveAs(blob, 'Entity Transaction.xlsx');
     });
   }
- 
+
 
   close() {
     this.location.back();
   }
 
-  reload(){
+  reload() {
     window.location.reload();
   }
 

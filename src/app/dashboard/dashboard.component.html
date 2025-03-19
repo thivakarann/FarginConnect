@@ -136,7 +136,7 @@
             </li> -->
 
             <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valuecustomerpayment!=='Customer Payment' &&
-            valuecustomersubscription!=='Subscription Payment' &&
+            valuecustomersubscription!=='Cloud Fee Payments' &&
             valuecustomermanualpayment!=='one Time Payments' &&
             valueCustomizationPayments!=='Customized Payment' && valueAdditionalPayments!=='Additional Payments'">
               <a>
@@ -152,7 +152,7 @@
                   </li>
 
                   <li routerLink="maintenance-trans-viewall"
-                    [hidden]="valuecustomersubscription!=='Subscription Payment'">
+                    [hidden]="valuecustomersubscription!=='Cloud Fee Payments'">
                     <a> Cloud Fee Payments</a>
                   </li>
                   <li routerLink="service-payments-viewall" [hidden]="valuecustomermanualpayment!=='one Time Payments'">
@@ -166,7 +166,7 @@
                   </li>
                 </ul>
               </div>
-              <li [hidden]="valueautodebit!=='MMC Auto Debit'">
+              <li [hidden]="valueautodebit!=='Cloud Fee AutoDebit'">
                 <a routerLink="entity-auto-debit-getall">
                   <i style="font-size: 15px;" class="fa-solid fa-money-bill-transfer"></i>
                   <span>Cloud Fee Auto Debit</span>
@@ -287,6 +287,7 @@
             valueWithdrawalfee!=='Withdrawal Fee' &&
             valueBuisneesDoCument!=='Business Document Type' &&
             valueBusinessPlan!=='Business Plan' &&
+            valuerefundper!=='Refund Period' &&
             valueSignerDetails!=='Signer Details'">
              <a>
                <i class="fa fa-cogs"></i>
@@ -319,7 +320,7 @@
                  <li [hidden]="valuebankdetails!=='Bank List'">
                    <a routerLink="bank-viewall">Bank Details </a>
                  </li>
-                 <li>
+                 <li [hidden]="valuerefundper!=='Refund Period'">
                   <a routerLink="refund-period-viewall">Refund Period</a>
                 </li>
                  <li [hidden]="valueFacheck!=='FaCheck Key'">

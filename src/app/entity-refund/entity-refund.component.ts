@@ -33,6 +33,11 @@ export class EntityRefundComponent {
   date1: any;
   response: any = [];
   searchPerformed: boolean = false;
+  errorMessage:any;
+  roleId: any = localStorage.getItem('roleId');
+  getdashboard: any[] = [];
+  valueview:any;
+  actions:any;
 
   constructor(
     public service: FarginServiceService,
@@ -45,6 +50,33 @@ export class EntityRefundComponent {
   ngOnInit(): void {
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.id = param.Alldata;
+    });
+
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+
+
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+
+          if (this.roleId == 1) {
+            this.valueview = 'Entity View Refund-View'
+
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+              if (this.actions == 'Entity View Refund-View') {
+                this.valueview = 'Entity View Refund-View'
+              }
+
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
     });
 
     this.service.Entityrefund(this.id).subscribe((res: any) => {

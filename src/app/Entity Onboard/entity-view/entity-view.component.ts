@@ -79,11 +79,11 @@ export class EntityViewComponent implements OnInit {
   selected: any;
   selecteded: string = '5';
   currentPagebusniess: any = 1;
-  currentonetime:any = 1;
-  currentcustomized:any = 1;
-  currentsms:any = 1;
-  currentagreement:any = 1;
-  currentbranch:any = 1;
+  currentonetime: any = 1;
+  currentcustomized: any = 1;
+  currentsms: any = 1;
+  currentagreement: any = 1;
+  currentbranch: any = 1;
 
   alltransactions: any;
   searchText: any;
@@ -213,6 +213,8 @@ export class EntityViewComponent implements OnInit {
   valueentityterminal: any;
   valuebranchterminal: any;
   valuebranchKYCview: any;
+  valuebranchkyc: any;
+  valuebranchTerminal: any;
 
   selectTab(tab: string): void {
     this.activeTab = tab;
@@ -307,6 +309,9 @@ export class EntityViewComponent implements OnInit {
             this.valueentityterminal = 'Entity View Entity-Terminal'
             this.valuebranchterminal = 'Entity View Branch-Terminal'
             this.valuebranchKYCview = 'Entity View Branch-KYC View'
+
+            this.valuebranchkyc = 'Entity View Branch-KYC'
+            this.valuebranchTerminal = 'Entity View Branch-Terminal'
 
 
           }
@@ -480,6 +485,14 @@ export class EntityViewComponent implements OnInit {
               if (this.actions == 'Entity View Branch-KYC View') {
                 this.valuebranchKYCview = 'Entity View Branch-KYC View'
               }
+
+              if (this.roles == 'Entity View Branch-KYC') {
+                this.valuebranchkyc = 'Entity View Branch-KYC'
+              }
+
+              if (this.roles == 'Entity View Branch-Terminal') {
+                this.valuebranchTerminal = 'Entity View Branch-Terminal'
+              }
             }
           }
         }
@@ -641,7 +654,7 @@ export class EntityViewComponent implements OnInit {
 
     if (this.roleId == 1) {
       this.valueentitytransaction = 'Entity View Transaction';
-      this.valueentityautodebit = 'Entity View MMC AutoDebit'
+      this.valueentityautodebit = 'Entity View Cloud Fee AutoDebit'
       this.valuentitysettlement = 'Entity View Settlement';
       this.valueentityRefund = 'Entity View Refund';
       this.valueEntityqrs = 'Entity View QR';
@@ -654,10 +667,12 @@ export class EntityViewComponent implements OnInit {
       this.valuebussinessdocument = 'Entity View Bussiness Document'
       this.valuemanualpayment = 'One Time Setup Payment'
       this.valueCustomized = 'Entity View Customized Payment'
-      this.valuesmssetting = 'Sms Setting'
+      this.valuesmssetting = 'Entity View-SMS Settings'
       this.valueagreement = 'Entity View Agreement'
       this.valuentityOffline = 'Entity View Static QR Payments'
       this.valuebranch = 'Entity View Branch'
+      this.valuebranchkyc = 'Entity View Branch-KYC'
+      this.valuebranchTerminal = 'Entity View Branch-Terminal'
 
     }
     else {
@@ -681,8 +696,8 @@ export class EntityViewComponent implements OnInit {
         if (this.roles == 'Entity View Payment Link') {
           this.valueentitypaylink = 'Entity View Payment Link'
         }
-        if (this.roles == 'Entity View MMC AutoDebit') {
-          this.valueentityautodebit = 'Entity View MMC AutoDebit'
+        if (this.roles == 'Entity View Cloud Fee AutoDebit') {
+          this.valueentityautodebit = 'Entity View Cloud Fee AutoDebit'
         }
         if (this.roles == 'Entity View Bussiness Document') {
           this.valuebussinessdocument = 'Entity View Bussiness Document'
@@ -705,8 +720,8 @@ export class EntityViewComponent implements OnInit {
         if (this.roles == 'Entity View Customized Payment') {
           this.valueCustomized = 'Entity View Customized Payment'
         }
-        if (this.roles == 'Sms Setting') {
-          this.valuesmssetting = 'Sms Setting'
+        if (this.roles == 'Entity View-SMS Settings') {
+          this.valuesmssetting = 'Entity View-SMS Settings'
         }
         if (this.roles == 'Entity View Agreement') {
           this.valueagreement = 'Entity View Agreement'
@@ -716,6 +731,13 @@ export class EntityViewComponent implements OnInit {
         }
         if (this.roles == 'Entity View Branch') {
           this.valuebranch = 'Entity View Branch'
+        }
+        if (this.roles == 'Entity View Branch-KYC') {
+          this.valuebranchkyc = 'Entity View Branch-KYC'
+        }
+
+        if (this.roles == 'Entity View Branch-Terminal') {
+          this.valuebranchTerminal = 'Entity View Branch-Terminal'
         }
       }
     }
@@ -1465,16 +1487,16 @@ export class EntityViewComponent implements OnInit {
     });
   }
 
-  Entityplan(){
-    this.router.navigate([`dashboard/entity-plan-history/${this.id}`],{
-      queryParams:{Alldata:this.id},
+  Entityplan() {
+    this.router.navigate([`dashboard/entity-plan-history/${this.id}`], {
+      queryParams: { Alldata: this.id },
     })
   }
 
   Manuvelduesforcloudfee() {
- let submitModel:Manuvelduesforcloudfee = {
-   merchantId: this.id
- }
+    let submitModel: Manuvelduesforcloudfee = {
+      merchantId: this.id
+    }
 
     this.MerchantView.MaintenancedueManuvelgenerate(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
@@ -3488,11 +3510,11 @@ export class EntityViewComponent implements OnInit {
   }
   onSearchTextagreement(): void {
     // Reset to the first page whenever the search text changes
-    this.currentagreement= 1;
+    this.currentagreement = 1;
   }
   onSearchTextbranch(): void {
     // Reset to the first page whenever the search text changes
-    this.currentbranch= 1;
+    this.currentbranch = 1;
   }
   Viewkycbranch(id: any, id1: any) {
     this.router.navigate([`dashboard/branch-kyc/${id}/${id1}`], {

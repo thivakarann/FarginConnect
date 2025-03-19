@@ -52,7 +52,7 @@
 
     <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
         data-target="contact" (click)="Viewautodebit(this.id)">
-        <div [hidden]="valueentityautodebit!=='Entity View MMC AutoDebit'"> <i
+        <div [hidden]="valueentityautodebit!=='Entity View Cloud Fee AutoDebit'"> <i
                 class="fa-solid fa-money-bill-transfer"></i>&nbsp;&nbsp;Cloud Fee AutoDebit
         </div>
     </button>
@@ -98,7 +98,7 @@
         <button class="tab" [class.active]="activeTab === 'doot3'" (click)="selectTab('doot3')"
             [hidden]="valueCustomized!=='Entity View Customized Payment'">Customized Payment</button>
         <button class="tab" [class.active]="activeTab === 'doot4'" (click)="selectTab('doot4')"
-            [hidden]="valuesmssetting!=='Sms Setting'">SMS Settings</button>
+            [hidden]="valuesmssetting!=='Entity View-SMS Settings'">SMS Settings</button>
         <button class="tab" [class.active]="activeTab === 'doot5'" (click)="selectTab('doot5')"
             [hidden]="valueagreement!=='Entity View Agreement'">Agreement</button>
         <button class="tab" [class.active]="activeTab === 'doot6'" [hidden]="valuebranch!=='Entity View Branch'" (click)="selectTab('doot6')">Branch</button>
@@ -1616,8 +1616,8 @@
                             <th>Api key </th>
                             <th>Secret key </th>
                             <th [hidden]="valuebranchCustomerview!=='Entity View Branch-Customer View'">Customer View</th>
-                            <th [hidden]="valuebranchKYCview!=='Entity View Branch-KYC View'">KYC View</th>
-                            <th [hidden]="valuebranchterminal!=='Entity View Branch-Terminal'">Terminal View</th>
+                            <th [hidden]="valuebranchkyc!=='Entity View Branch-KYC'">KYC View</th>
+                            <th [hidden]="valuebranchTerminal!=='Entity View Branch-Terminal'">Terminal View</th>
                             <th [hidden]="valuebranchStatus!=='Entity View Branch-Status'">Status</th>
                             <th [hidden]="valuebranchAction!=='Entity View Branch-Action'">Action</th>
                            

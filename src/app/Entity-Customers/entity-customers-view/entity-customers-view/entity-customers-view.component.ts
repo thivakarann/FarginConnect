@@ -8,6 +8,7 @@ import { ChannelViewComponent } from '../../../Overall-Customer/channel-view/cha
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { settopStatus } from '../../../fargin-model/fargin-model.module';
 import { PageEvent } from '@angular/material/paginator';
+import { OfflineDetailsComponent } from '../../../Overall-Customer/offline-details/offline-details.component';
 
 @Component({
   selector: 'app-entity-customers-view',
@@ -24,11 +25,11 @@ export class EntityCustomersViewComponent {
   currentPage: any = 1; // The current page number
   itemsPerPage = 3; //
   page: number = 1;
-  page4:number=1;
-  page5:number=1;
+  page4: number = 1;
+  page5: number = 1;
   term: any;
   selected: any;
- 
+
   dataSource: any;
   searchText: any;
   data: any;
@@ -40,10 +41,10 @@ export class EntityCustomersViewComponent {
   transaction: any;
   showData: boolean = false;
   viewData: boolean = false;
-  totalAmount: number=0;
-  totalbouqet: number=0;
-  totallcop: number=0;
-  overallAmount: number=0;
+  totalAmount: number = 0;
+  totalbouqet: number = 0;
+  totallcop: number = 0;
+  overallAmount: number = 0;
   setupboxview: any;
   isChecked!: boolean;
   totalamount: any;
@@ -51,20 +52,20 @@ export class EntityCustomersViewComponent {
   refundval: any;
 
 
-valuecustomerinfo: any;
-valuecustomerSetupBox: any;
-valuecustomerTransactions: any;
-valuecustomeradditional: any;
-valuecustomerRefunds: any;
-valuesetupsts: any;
-valuesetupview: any;
-valuetransreceipt: any;
-valueadditionalinvoice: any;
+  valuecustomerinfo: any;
+  valuecustomerSetupBox: any;
+  valuecustomerTransactions: any;
+  valuecustomeradditional: any;
+  valuecustomerRefunds: any;
+  valuesetupsts: any;
+  valuesetupview: any;
+  valuetransreceipt: any;
+  valueadditionalinvoice: any;
 
-getdashboard: any[] = [];
-roleId: any = localStorage.getItem('roleId')
-actions: any;
-errorMessage: any;
+  getdashboard: any[] = [];
+  roleId: any = localStorage.getItem('roleId')
+  actions: any;
+  errorMessage: any;
   totalPages: any;
   totalpage: any;
   currentpage: any;
@@ -72,17 +73,18 @@ errorMessage: any;
   totalpages: any;
   currentpages: any;
   currentfilval: any;
+  vaaluedetails: any;
 
 
   selectTab(tab: string) {
     this.selectedTab = tab;
   }
- 
- 
+
+
   pageIndex: number = 0;
   pageSize: number = 3;
-  pageSizeadd: number=3;
-  pageIndexadd:number=0;
+  pageSizeadd: number = 3;
+  pageIndexadd: number = 0;
   filter: boolean = false;
   filter1: boolean = false;
   filter2: boolean = false;
@@ -91,7 +93,7 @@ errorMessage: any;
   currentpagesearch: any;
   transactionvalue: any;
   currentfilvaladd: any;
-  filter3: boolean=false;
+  filter3: boolean = false;
   totalsearchadd: any;
   totalpagesearchadd: any;
   currentpagesearchadd: any;
@@ -106,15 +108,15 @@ errorMessage: any;
     private dialog: MatDialog,
     private ActivateRoute: ActivatedRoute, private location: Location
   ) { }
- 
+
   ngOnInit(): void {
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
- 
- 
+
+
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
- 
+
           if (this.roleId == 1) {
             this.valuecustomerinfo = 'Customer Info'
             this.valuecustomerSetupBox = 'Setup Box'
@@ -124,16 +126,17 @@ errorMessage: any;
             this.valuesetupsts = 'Setup Box-Status'
             this.valuesetupview = 'Setup Box-View'
             this.valuetransreceipt = 'Transactions-Reciept'
-            this.valueadditionalinvoice = 'Additional Payments-Invoice'
+            this.valueadditionalinvoice = 'Additional Payments-Reciept'
+            this.vaaluedetails = 'Refunds-View'
           }
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
- 
+
               if (this.actions == 'Customer Info') {
                 this.valuecustomerinfo = 'Customer Info'
               }
-              if (this.actions == 'Setup Box') {    
+              if (this.actions == 'Setup Box') {
                 this.valuecustomerSetupBox = 'Setup Box'
               }
               if (this.actions == 'Transactions') {
@@ -154,8 +157,11 @@ errorMessage: any;
               if (this.actions == 'Transactions-Reciept') {
                 this.valuetransreceipt = 'Transactions-Reciept'
               }
-              if (this.actions == 'Additional Payments-Invoice') {
-                this.valueadditionalinvoice = 'Additional Payments-Invoice'
+              if (this.actions == 'Additional Payments-Reciept') {
+                this.valueadditionalinvoice = 'Additional Payments-Reciept'
+              }
+              if (this.actions == 'Refunds-View') {
+                this.vaaluedetails = 'Refunds-View'
               }
             }
           }
@@ -165,34 +171,34 @@ errorMessage: any;
         }
       }
     });
- 
- 
+
+
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.id = param.value;
     });
 
 
-    this.service.CustomerTotalPlanAmount(this.id).subscribe((res:any)=>{
-      if(res.flag==1){
+    this.service.CustomerTotalPlanAmount(this.id).subscribe((res: any) => {
+      if (res.flag == 1) {
         this.totalamount = res.response.totalAmount;
       }
     })
- 
+
     this.service.ViewCustomerBasicInfo(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
         this.viewcustomer = res.response;
-     
+
       }
- 
- 
- 
+
+
+
       else {
         this.viewData = false;
- 
+
       }
- 
- 
- 
+
+
+
     })
     this.service.CustomerTransaction(this.id, this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
@@ -200,53 +206,53 @@ errorMessage: any;
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.totalPages;
         this.currentpage = res.pagination.currentPage + 1;
-    
+
         this.filter = true;
         this.filter1 = false;
-        console.log( this.filter1)
-     
- 
+        console.log(this.filter1)
+
+
       }
 
       else if (res.flag == 2) {
-       
+
 
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.totalPages;
         this.currentpage = res.pagination.currentPage + 1;
-        
+
         this.filter = true;
         this.filter1 = false;
-       
+
       }
     })
- 
+
     this.service.AdditionalPaymentsCustomerTransaction(this.id, this.pageSizeadd, this.pageIndexadd).subscribe((res: any) => {
       if (res.flag == 1) {
         this.additionlpay = res.response;
         this.total = res.pagination.totalElements;
         this.totalpages = res.pagination.totalPages;
         this.currentpages = res.pagination.currentPage + 1;
-        
+
         this.filter2 = true;
         this.filter3 = false;
-    
+
       }
       else if (res.flag == 2) {
-       
+
 
         this.total = res.pagination.totalElements;
         this.totalpages = res.pagination.totalPages;
         this.currentpages = res.pagination.currentPage + 1;
         this.filter2 = true;
         this.filter3 = false;
-      
+
       }
     })
-   
-    this.service.ViewCustomersSetupBox(this.id).subscribe((res:any)=>{
-      if(res.flag==1){
-        this.setupboxview=res.response;
+
+    this.service.ViewCustomersSetupBox(this.id).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.setupboxview = res.response;
       }
     })
 
@@ -255,105 +261,114 @@ errorMessage: any;
         this.alcotchannel = res.response.alcotList;
         this.bouquetPlan = res.response.bouquetList;
         this.lcopChannel = res.response.lcopList;
-   
+
         let totalAmount = 0;
         const alcotList = res.response.alcotList;
-   
-     
+
+
         for (let i = 0; i < alcotList.length; i++) {
           if (alcotList[i].activeStatus === 1) {
             totalAmount += alcotList[i].price;
           }
         }
-   
+
         this.totalAmount = totalAmount;
-   
+
         let totalbouqet = 0;
         const bouquetList = res.response.bouquetList;
-   
-       
+
+
         for (let i = 0; i < bouquetList.length; i++) {
           if (bouquetList[i].activeStatus === 1) {
             totalbouqet += bouquetList[i].broadCasterId.amount;
           }
         }
-   
+
         this.totalbouqet = totalbouqet;
-   
+
         let totallcop = 0;
         const lcopList = res.response.lcopList;
-   
+
         for (let i = 0; i < lcopList.length; i++) {
           if (lcopList[i].activeStatus === 1) {
             totallcop += lcopList[i].overallAmount;
           }
         }
-   
+
         this.totallcop = totallcop;
-   
+
         // Calculate overall amount
         this.overallAmount = this.totalAmount + this.totalbouqet + this.totallcop;
-   
+
         this.viewData = true; // Assuming viewData should be set true only if there are valid amounts
       } else {
         this.viewData = false;
       }
     });
- 
-      
-    
+
+
+
     this.service.RefundForCustomerView(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
         this.refundval = res.response.reverse();
-     
+
       }
       else if (res.flag === 2) {
         this.refundval = [];
-     
- 
+
+
       }
     })
 
- 
+
   }
- 
+
   close() {
     this.location.back()
   }
- 
+
+    offline(id: any) {
+      
+      this.dialog.open(OfflineDetailsComponent, {
+        enterAnimationDuration: "500ms",
+        exitAnimationDuration: "500ms",
+        data: { value: id }
+      })
+    }
+
   viewChannel(id: any) {
-    
+
     this.dialog.open(ChannelViewComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       data: { value: id }
     })
   }
- 
+
   ActiveStatus(event: MatSlideToggleChange, id: any) {
     this.isChecked = event.checked;
     let submitmodel: settopStatus = {
       activeStatus: this.isChecked ? 1 : 0,
     }
     this.service.ActiveStatusSetupbox(id, submitmodel).subscribe((res: any) => {
-      
+
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
         window.location.reload();
       }, 1000);
     });
- 
- 
- 
- 
- 
+
+
+
+
+
   }
- 
+
   view(id: any) {
     this.router.navigate([`dashboard/plan-details-customer/${id}`], {
       queryParams: { Alldata: id },
     });
-    
+
   }
   Receipt(id: any) {
     this.service.CustomerReceipt(id).subscribe({
@@ -361,17 +376,17 @@ errorMessage: any;
         var downloadURL = URL.createObjectURL(res);
         window.open(downloadURL);
       },
- 
+
     });
   }
-  reload(){
-    this.service.ViewCustomersSetupBox(this.id).subscribe((res:any)=>{
-      if(res.flag==1){
-        this.setupboxview=res.response;
+  reload() {
+    this.service.ViewCustomersSetupBox(this.id).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.setupboxview = res.response;
       }
     });
   }
-  
+
   viewreciept(id: any) {
     this.service.additionalpaymentsreceipts(id).subscribe((res: any) => {
       const reader = new FileReader();
@@ -425,141 +440,140 @@ errorMessage: any;
     } as PageEvent);
   }
   // Handle pagination for filtered search results
-renderPage1(event: PageEvent) {
-  this.pageIndex1 = event.pageIndex;
-  this.pageSize1 = event.pageSize;
-  console.log('New Page Index:', this.pageIndex1);
-  console.log('New Page Size:', this.pageSize1);
-  this.customerpay(this.currentfilval);
-}
+  renderPage1(event: PageEvent) {
+    this.pageIndex1 = event.pageIndex;
+    this.pageSize1 = event.pageSize;
+    console.log('New Page Index:', this.pageIndex1);
+    console.log('New Page Size:', this.pageSize1);
+    this.customerpay(this.currentfilval);
+  }
 
-// Change page index for filtered search results
-changePageIndex1(newPageIndex1: number) {
-  this.pageIndex1 = newPageIndex1;
-  this.renderPage1({
-    pageIndex: newPageIndex1,
-    pageSize: this.pageSize1
-  } as PageEvent);
-}
+  // Change page index for filtered search results
+  changePageIndex1(newPageIndex1: number) {
+    this.pageIndex1 = newPageIndex1;
+    this.renderPage1({
+      pageIndex: newPageIndex1,
+      pageSize: this.pageSize1
+    } as PageEvent);
+  }
 
-// Perform the search and update the filtered results
-customerpay(filterValue: string) {
-  if (filterValue) {
-    console.log(filterValue);
-    this.service.customertransactionsearch(this.id, filterValue, this.pageSize1, this.pageIndex1).subscribe({
-      next: (res: any) => {
-        if (res.response) {
-          this.transaction = res.response;
-          this.totalsearch = res.pagination.totalElements;
-          this.totalpagesearch = res.pagination.totalPages;
-          this.currentpagesearch = res.pagination.currentPage + 1;
-          this.filter = false;
-          this.filter1 = true;
+  // Perform the search and update the filtered results
+  customerpay(filterValue: string) {
+    if (filterValue) {
+      console.log(filterValue);
+      this.service.customertransactionsearch(this.id, filterValue, this.pageSize1, this.pageIndex1).subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.transaction = res.response;
+            this.totalsearch = res.pagination.totalElements;
+            this.totalpagesearch = res.pagination.totalPages;
+            this.currentpagesearch = res.pagination.currentPage + 1;
+            this.filter = false;
+            this.filter1 = true;
+          }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
         }
-      },
-      error: (err: any) => {
-        this.toastr.error('No Data Found');
-      }
-    });
-  } else {
-    this.toastr.error('Please enter a value to search');
+      });
+    } else {
+      this.toastr.error('Please enter a value to search');
+    }
   }
-}
 
 
-// Handle pagination for filtered search results
-renderadd(event: PageEvent) {
-  this.pageadd = event.pageIndex;
-  this.pagesizeadd = event.pageSize;
- 
-  this.customerpayadd(this.currentfilvaladd);
-}
+  // Handle pagination for filtered search results
+  renderadd(event: PageEvent) {
+    this.pageadd = event.pageIndex;
+    this.pagesizeadd = event.pageSize;
 
-// Change page index for filtered search results
-changePageadd(newPageadd: number) {
-  this.pageadd = newPageadd;
-  this.renderadd({
-    pageIndex: newPageadd,
-    pageSize: this.pagesizeadd
-  } as PageEvent);
-}
+    this.customerpayadd(this.currentfilvaladd);
+  }
 
-// Perform the search and update the filtered results
-customerpayadd(filterValue: string) {
-  if (filterValue) {
-    console.log(filterValue);
-    this.service.customeradditionaltransactionsearch(this.id, filterValue, this.pagesizeadd, this.pageadd).subscribe({
-      next: (res: any) => {
-        if (res.response) {
-          this.additionlpay = res.response;
-          this.totalsearchadd = res.pagination.totalElements;
-          this.totalpagesearchadd = res.pagination.totalPages;
-          this.currentpagesearchadd= res.pagination.currentPage + 1;
-          this.filter2 = false;
-          this.filter3 = true;
+  // Change page index for filtered search results
+  changePageadd(newPageadd: number) {
+    this.pageadd = newPageadd;
+    this.renderadd({
+      pageIndex: newPageadd,
+      pageSize: this.pagesizeadd
+    } as PageEvent);
+  }
+
+  // Perform the search and update the filtered results
+  customerpayadd(filterValue: string) {
+    if (filterValue) {
+      console.log(filterValue);
+      this.service.customeradditionaltransactionsearch(this.id, filterValue, this.pagesizeadd, this.pageadd).subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.additionlpay = res.response;
+            this.totalsearchadd = res.pagination.totalElements;
+            this.totalpagesearchadd = res.pagination.totalPages;
+            this.currentpagesearchadd = res.pagination.currentPage + 1;
+            this.filter2 = false;
+            this.filter3 = true;
+          }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
         }
-      },
-      error: (err: any) => {
-        this.toastr.error('No Data Found');
+      });
+    } else {
+      this.toastr.error('Please enter a value to search');
+    }
+  }
+  reloadadd() {
+    this.service.AdditionalPaymentsCustomerTransaction(this.id, this.pageSizeadd, this.pageIndexadd).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.additionlpay = res.response;
+        this.total = res.pagination.totalElements;
+        this.totalpages = res.pagination.totalPages;
+        this.currentpages = res.pagination.currentPage + 1;
+
+        this.filter2 = true;
+        this.filter3 = false;
+
       }
-    });
-  } else {
-    this.toastr.error('Please enter a value to search');
-  }
-}
-reloadadd() {
-  this.service.AdditionalPaymentsCustomerTransaction(this.id, this.pageSizeadd, this.pageIndexadd).subscribe((res: any) => {
-    if (res.flag == 1) {
-      this.additionlpay = res.response;
-      this.total = res.pagination.totalElements;
-      this.totalpages = res.pagination.totalPages;
-      this.currentpages = res.pagination.currentPage + 1;
-      
-      this.filter2 = true;
-      this.filter3 = false;
-  
-    }
-    else if (res.flag == 2) {
-     
+      else if (res.flag == 2) {
 
-      this.total = res.pagination.totalElements;
-      this.totalpages = res.pagination.totalPages;
-      this.currentpages = res.pagination.currentPage + 1;
-      this.filter2 = true;
-      this.filter3 = false;
-    
-    }
-  })
-}
 
-reloads()
-{
-this.service.CustomerTransaction(this.id, this.pageSize, this.pageIndex).subscribe((res: any) => {
-  if (res.flag == 1) {
-    this.transaction = res.response;
-    this.totalPages = res.pagination.totalElements;
-    
-    this.totalpage = res.pagination.totalPages;
-    this.currentpage = res.pagination.currentPage + 1;
+        this.total = res.pagination.totalElements;
+        this.totalpages = res.pagination.totalPages;
+        this.currentpages = res.pagination.currentPage + 1;
+        this.filter2 = true;
+        this.filter3 = false;
 
-    this.filter = true;
-    this.filter1 = false;
-    console.log( this.filter1)
- 
-
+      }
+    })
   }
 
-  else if (res.flag == 2) {
-   
+  reloads() {
+    this.service.CustomerTransaction(this.id, this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.transaction = res.response;
+        this.totalPages = res.pagination.totalElements;
 
-    this.totalPages = res.pagination.totalElements;
-    this.totalpage = res.pagination.totalPages;
-    this.currentpage = res.pagination.currentPage + 1;
-    
-    this.filter = true;
-    this.filter1 = false;
-   
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+
+        this.filter = true;
+        this.filter1 = false;
+        console.log(this.filter1)
+
+
+      }
+
+      else if (res.flag == 2) {
+
+
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+
+        this.filter = true;
+        this.filter1 = false;
+
+      }
+    })
   }
-})
-}
 }

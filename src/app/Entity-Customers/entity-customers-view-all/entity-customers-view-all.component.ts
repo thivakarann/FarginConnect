@@ -27,9 +27,10 @@ export class EntityCustomersViewAllComponent {
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = [
     'settlementId',
+    'customerReferenceId',
     'customername',
-    'emailaddress',
     'mobilenumber',
+    'routeassigned',
     // 'blocknum',
     // 'setupbox',
     // 'flatnum',
