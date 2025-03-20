@@ -107,10 +107,10 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
 
 
 
- this.service.rolegetById(this.roleId).subscribe({
-      next: (res: any) => {
- 
-        if (res.flag == 1) {
+ this.service.rolegetById(this.roleId).subscribe({next: (res: any) => {
+
+         if (res.flag == 1) {
+
           this.getdashboard = res.response?.subPermission;
  
           if (this.roleId == 1) {
@@ -124,11 +124,12 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
             this.valueaddinvoice = 'Customers-Additional Payments Receipt'
             this.valuecustomerRefunds='Customers-Refunds'
             this.vaaluedetails = 'Customers-Refunds-View';
+        
           }
-          else {
+          else { 
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions;
-             
+              this.actions = datas.subPermissions; 
+
               if (this.actions == 'Customers-Additional Payments Receipt') {
                 this.valueaddinvoice = 'Customers-Additional Payments Receipt'
               }
@@ -138,11 +139,12 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
               if (this.actions == 'Customers-Setup Box Status') {
                 this.valuesetsts = 'Customers-Setup Box Status'
               }
-              if (this.actions = 'Customers-Setup Box View') {
+              if (this.actions == 'Customers-Setup Box View') {
                 this.valuesetview = 'Customers-Setup Box View'
               }
               if (this.actions == 'Customers-Customer Info') {
                 this.valuecustomerinfo = 'Customers-Customer Info';
+        
               }
               if (this.actions == 'Customers-Setup Box') {
                 this.valueSetupBox = 'Customers-Setup Box'
@@ -153,10 +155,10 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
               if (this.actions == 'Customers-Additional Payments') {
                 this.valueAdditionalPayments = 'Customers-Additional Payments'
               }
-              if(this.actions=='Customers-Refunds'){
+              if(this.actions =='Customers-Refunds'){
                 this.valuecustomerRefunds='Customers-Refunds'
               }
-              if(this.actions=='Customers-Refunds-View'){
+              if(this.actions =='Customers-Refunds-View'){
                 this.vaaluedetails='Customers-Refunds-View'
               }
             }

@@ -105,7 +105,7 @@
               </a>
             </li>
 
-            <li>
+            <li [hidden]="valuecampaign!=='Campaign'">
               <a routerLink="view-campaign">
                 <i class="fa fa-bullhorn"></i>
                 <span>Campaign</span>
@@ -288,7 +288,7 @@
             valueBuisneesDoCument!=='Business Document Type' &&
             valueBusinessPlan!=='Business Plan' &&
             valuerefundper!=='Refund Period' &&
-            valueSignerDetails!=='Signer Details'">
+            valueSignerDetails!=='Signer Details' && valuestickercost!=='Sticker Cost'  && valuebankdetails!=='Bank List' && valuesmscost!=='SMS Cost' && valuemerchantPlan!=='Entity Plan'">
              <a>
                <i class="fa fa-cogs"></i>
                <span>Main Master</span>
@@ -313,7 +313,7 @@
                  <li [hidden]="ValueMSO!=='MSO'">
                    <a routerLink="service-provider">MSO</a>
                  </li> -->
-                 <li [hidden]="valuemerchantPlan!=='Merchant Plan'">
+                 <li [hidden]="valuemerchantPlan!=='Entity Plan'">
                    <a routerLink="merchant-plan-viewall">Entity Plan</a>
                  </li>
 

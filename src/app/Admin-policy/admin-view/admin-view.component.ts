@@ -69,6 +69,7 @@ export class AdminViewComponent implements OnInit {
   actions: any;
   errorMessage: any;
   date3: any;
+  valuetermApproval:any;
 
 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private router: Router) { }
@@ -88,6 +89,7 @@ export class AdminViewComponent implements OnInit {
             this.valuetermExport = 'Merchant Policy-Export';
             this.valuetermView = 'Merchant Policy-View';
             this.valuetermAction = 'Merchant Policy-Edit'
+            this.valuetermApproval = 'Merchant Policy-Approval'
           }
           else {
             for (let datas of this.getdashboard) {
@@ -105,6 +107,9 @@ export class AdminViewComponent implements OnInit {
               }
               if (this.actions == 'Merchant Policy-Edit') {
                 this.valuetermAction = 'Merchant Policy-Edit'
+              }
+              if (this.actions == 'Merchant Policy-Approval') {
+                this.valuetermApproval = 'Merchant Policy-Approval'
               }
             }
           }

@@ -56,26 +56,26 @@ export class EntityTerminalViewComponent implements OnInit{
           this.getdashboard = res.response?.subPermission;
 
           if (this.roleId == 1) {
-            this.valueTerminalAdd = 'Terminal Entity-Add';
-            this.valueTerminalStatus = 'Terminal Entity-Status';
-            this.valueTerminalEdit = 'Terminal Entity-Edit';
-            this.valueTerminalview = 'Terminal Entity Transaction-View';
+            this.valueTerminalAdd = 'Entity Terminal View-Add';
+            this.valueTerminalStatus = 'Entity Terminal View-Status';
+            this.valueTerminalEdit = 'Entity Terminal View-Edit';
+            this.valueTerminalview = 'Entity Terminal View Transactions-View';
           }
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
 
-              if (this.actions == 'Terminal Entity-Add') {
-                this.valueTerminalAdd = 'Terminal Entity-Add';
+              if (this.actions == 'Entity Terminal View-Add') {
+                this.valueTerminalAdd = 'Entity Terminal View-Add';
               }
-              if (this.actions == 'Terminal Entity-Status') {
-                this.valueTerminalStatus = 'Terminal Entity-Status';
+              if (this.actions == 'Entity Terminal View-Status') {
+                this.valueTerminalStatus = 'Entity Terminal View-Status';
               }
-              if (this.actions == 'Terminal Entity-Edit') {
-                this.valueTerminalEdit = 'Terminal Entity-Edit';
+              if (this.actions == 'Entity Terminal View-Edit') {
+                this.valueTerminalEdit = 'Entity Terminal View-Edit';
               }
-              if (this.actions == 'Terminal Entity Transaction-View') {
-                this.valueTerminalview = 'Terminal Entity Transaction-View';
+              if (this.actions == 'Entity Terminal View Transaction-View') {
+                this.valueTerminalview = 'Entity Terminal View Transaction-View';
               }
             }
           }

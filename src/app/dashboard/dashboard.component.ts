@@ -68,6 +68,7 @@ export class DashboardComponent implements OnInit {
   valuestickercost: any;
   valuecampign:any;
   valuerefundper:any;
+  valuecampaign: any;
 
 
   constructor(private elRef: ElementRef,
@@ -115,7 +116,7 @@ export class DashboardComponent implements OnInit {
       this.valueBusinessKYC = 'Business Category Doc';
       this.valueRegion = 'Region';
       this.ValueMSO = 'MSO';
-      this.valuemerchantPlan = 'Merchant Plan';
+      this.valuemerchantPlan = 'Entity Plan';
       this.valueFacheck = 'FaCheck Key';
       this.valuepgsetupkey = 'PG SetupKey';
       this.valueWithdrawalfee = 'Withdrawal Fee'
@@ -133,6 +134,7 @@ export class DashboardComponent implements OnInit {
       this.valuecustomermanualpayment = 'one Time Payments'
       this.valuekyccategory = 'Kyc Category'
       this.valueannouncement = 'Announcement'
+         this.valuecampaign = 'Campaign'
       this.valuesmscost = 'SMS Cost'
       this.valuebankdetails = 'Bank List'
       this.valuefarginbank = 'Fargin bank'
@@ -196,8 +198,8 @@ export class DashboardComponent implements OnInit {
         if (this.roles == 'MSO') {
           this.ValueMSO = 'MSO';
         }
-        if (this.roles == 'Merchant Plan') {
-          this.valuemerchantPlan = 'Merchant Plan'
+        if (this.roles == 'Entity Plan') {
+          this.valuemerchantPlan = 'Entity Plan'
         }
         // if (this.roles == 'FaCheck Key') {
         //   this.valueFacheck = 'FaCheck Key'
@@ -246,6 +248,9 @@ export class DashboardComponent implements OnInit {
         }
         if (this.roles == 'Announcement') {
           this.valueannouncement = 'Announcement'
+        }
+        if (this.roles == 'Campaign') {
+          this.valuecampaign = 'Campaign'
         }
         if (this.roles == 'SMS Cost') {
           this.valuesmscost = 'SMS Cost'
@@ -296,9 +301,7 @@ export class DashboardComponent implements OnInit {
         if (this.roles == 'Sticker Cost') {
           this.valuestickercost = 'Sticker Cost'
         }
-        if (this.roles == 'Sticker Cost') {
-          this.valuestickercost = 'Sticker Cost'
-        }
+    
         if (this.roles == 'Campaign') {
           this.valuecampign = 'Campaign'
         }

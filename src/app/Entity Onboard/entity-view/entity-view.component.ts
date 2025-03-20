@@ -215,6 +215,10 @@ export class EntityViewComponent implements OnInit {
   valuebranchKYCview: any;
   valuebranchkyc: any;
   valuebranchTerminal: any;
+  valueplandetails: any;
+  valuefee: any;
+  valuedues: any;
+  valueterminal:any;
 
   selectTab(tab: string): void {
     this.activeTab = tab;
@@ -312,6 +316,13 @@ export class EntityViewComponent implements OnInit {
 
             this.valuebranchkyc = 'Entity View Branch-KYC'
             this.valuebranchTerminal = 'Entity View Branch-Terminal'
+
+            this.valueplandetails = 'Entity Plan Details'
+            this.valuefee = 'Generate Cloud Fee'
+            this.valuedues = 'Generate Customer Dues'
+            this.valueterminal = 'Entity Terminal View'
+
+
 
 
           }
@@ -492,6 +503,18 @@ export class EntityViewComponent implements OnInit {
 
               if (this.roles == 'Entity View Branch-Terminal') {
                 this.valuebranchTerminal = 'Entity View Branch-Terminal'
+              }
+              if (this.roles == 'Entity Plan Details') {
+                this.valueplandetails = 'Entity Plan Details'
+              }
+              if (this.roles == 'Generate Cloud Fee') {
+                this.valuefee = 'Generate Cloud Fee'
+              }
+              if (this.roles == 'Generate Customer Dues') {
+                this.valuedues = 'Generate Customer Dues'
+              }
+              if (this.roles == 'Entity Terminal View') {
+                this.valueterminal = 'Entity Terminal View'
               }
             }
           }

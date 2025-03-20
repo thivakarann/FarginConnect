@@ -82,11 +82,10 @@
  
  
  
-<div
-  [hidden]="valuetotalmerchants!=='Dashboard-Total Merchants'&& valuetransactionoverview!=='Dashboard-Transaction Overview'">
+
  
   <div class="row mb-3">
-    <div class="col-md-4">
+    <div class="col-md-4" [hidden]="valuetotalmerchants!=='Dashboard-Total Merchants'">
       <label for="" style="font-size: 14px; ">Select Category</label><br>
       <select (change)="onCategoryChange($event)" name="" id="" class="form-select" [value]="initialCategoryId">
         <option value="" disabled selected>Select Category</option>
@@ -94,7 +93,7 @@
       </select>
  
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4" [hidden]="valuetransactionoverview!=='Dashboard-Transaction Overview'">
       <label for="period" style="font-size: 14px;">Select Period</label><br>
       <select [(ngModel)]="selectedPeriod" (ngModelChange)="get(selectedPeriod)"  id="period"
         class="form-select">
@@ -106,7 +105,7 @@
         <option value="customRange">Custom Range</option>
       </select>
     </div>
-    <div class="col-md-4" *ngIf="selectedPeriod === 'customRange'">
+    <div class="col-md-4" *ngIf="selectedPeriod === 'customRange'" [hidden]="valuetransactionoverview!=='Dashboard-Transaction Overview'">
       <label style="font-size: 14px;">From Date &nbsp; &nbsp; &nbsp; &nbsp;
         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; To Date</label><br>
       <div class="input-group">
@@ -142,7 +141,7 @@
     </div>
    
   </div>
-</div>
+
  
  
 <div class="container mt-3">
@@ -208,7 +207,7 @@
  
     &nbsp;
  
-    <div class="row justify-content-center" [hidden]="valueTotalcount!=='Dashboard-Total Count'">
+    <div class="row justify-content-center">
       <div class="col-md-6 text-center">
         <canvas id="otherPaymentChartCanvas"></canvas>
       </div>
@@ -259,7 +258,7 @@
     </div>
  
  
-    <div class="col-6" [hidden]="valuetoppay!=='Dashboard-Top Payment Methods'">
+    <div class="col-6" [hidden]="valuetoppaymentmethod!=='Dashboard-Seven Days Payment Method'">
       <div class="card border-success">
         <h5>Top Payment Methods (For Past 7 Days)</h5>
         <div class="table-responsive">

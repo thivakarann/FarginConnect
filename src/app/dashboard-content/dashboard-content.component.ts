@@ -69,6 +69,7 @@ export class DashboardContentComponent {
   catgry: any;
   businessCategoryId: any;
   categorydetails: any;
+  valuetoppaymentmethod:any;
 
   constructor(private service: FarginServiceService) { }
 
@@ -88,6 +89,7 @@ export class DashboardContentComponent {
             this.valueTransactionDetails = 'Dashboard-Transaction Details'
             this.valuetoppay = 'Dashboard-Top Payment Methods'
             this.valueTotalcount = 'Dashboard-Total Count'
+             this.valuetoppaymentmethod='Dashboard-Seven Days Payment Method'
           }
           else {
             for (let datas of this.getdashboard) {
@@ -114,6 +116,10 @@ export class DashboardContentComponent {
               }
               if (this.actions == 'Dashboard-Total Count') {
                 this.valueTotalcount = 'Dashboard-Total Count'
+              }
+              if (this.actions == 'Dashboard-Seven Days Payment Method') {
+                this.valuetoppaymentmethod = 'Dashboard-Seven Days Payment Method'
+           
               }
             }
           }

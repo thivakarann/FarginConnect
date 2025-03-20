@@ -32,10 +32,10 @@
 
             </div>
             &nbsp;&nbsp;&nbsp;
-            <div [hidden]="hidecreate ==true">
-                <button (click)="create()" style="color:white;background-color: #141E46;border-radius: 10px;"
+            <!-- <div> -->
+                <button  *ngIf="hidecreate ==true" (click)="create()" style="color:white;background-color: #141E46;border-radius: 10px;"
                     mat-raised-button [hidden]="valuefarginpolicyadd!=='Fargin Policy-Add'"> Create</button>
-            </div>
+            <!-- </div> -->
 
             <button style="color:white;background-color: #141E46;border-radius: 10px;" (click)="exportexcel()"
                 mat-raised-button [hidden]="valuefarginpolicyexport!=='Fargin Policy-Export'">Export</button>

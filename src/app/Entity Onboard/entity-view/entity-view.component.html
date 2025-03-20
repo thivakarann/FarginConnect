@@ -129,7 +129,7 @@
                                         [hidden]="valueviewonboard!=='Entity View-Onboard Information'">View
                                         OnboardInfo</button>
                                         <button style="font-size: 10px;" mat-menu-item (click)="EntityTerminal(this.id)"
-                                        [hidden]="valueentityterminal!=='Entity View Entity-Terminal'">Entity Terminal View</button>
+                                        [hidden]="valueterminal!=='Entity Terminal View'">Entity Terminal View</button>
                                        
                                     <button style="font-size: 10px;" mat-menu-item (click)="pgOnboard()"
                                          [disabled]="this.detaislone?.approvalStatusL2 =='Pending' || this.detaislone?.approvalStatusL2=='Rejected'"
@@ -137,8 +137,8 @@
                                         Entity</button>
                                         
                                         <!--  -->
-                                    <button style="font-size: 10px;" mat-menu-item (click)="Manuvelduesforcloudfee()">Generate Cloud Fee</button>
-                                    <button style="font-size: 10px;" mat-menu-item (click)="Manuvalduesforcustomer()">Generate Customer Dues</button>
+                                    <button [hidden]="valuefee!=='Generate Cloud Fee'" style="font-size: 10px;" mat-menu-item (click)="Manuvelduesforcloudfee()">Generate Cloud Fee</button>
+                                    <button [hidden]="valuedues!=='Generate Customer Dues'" style="font-size: 10px;" mat-menu-item (click)="Manuvalduesforcustomer()">Generate Customer Dues</button>
 
                                     <!-- <button style="font-size: 10px;" mat-menu-item (click)="emailtrigger()"
                                         [disabled]="detaislone?.onBoardStatus=='false'">
