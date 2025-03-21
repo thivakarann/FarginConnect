@@ -488,7 +488,7 @@ export class MaintenanceTransViewallComponent {
           this.response = [];
           this.response.push(sno);
           this.response.push(element?.pgPaymentId);
-          this.response.push(element?.merchantId?.merchantLegalName);
+          this.response.push(element?.entityName);
           this.response.push(element?.paymentMethod);
           this.response.push(element?.smsCount);
           this.response.push(element?.smsPerAmount);
@@ -517,8 +517,17 @@ export class MaintenanceTransViewallComponent {
           if (element?.paymentStatus == 'Success') {
             this.response.push('Success');
           }
-          else if (element?.paymentStatus == 'Pending') {
+          else if (element?.paymentStatus == 'Due Pending') {
             this.response.push('Pending');
+          }
+          else if (element?.paymentStatus == 'Payment Incomplete') {
+            this.response.push('Payment Incomplete');
+          }
+          else if (element?.paymentStatus == 'Failure') {
+            this.response.push('Payment Failed');
+          }
+          else if (element?.paymentStatus == 'Due Cancelled') {
+            this.response.push('Due-Cancelled');
           }
           else {
             this.response.push('Initiated');

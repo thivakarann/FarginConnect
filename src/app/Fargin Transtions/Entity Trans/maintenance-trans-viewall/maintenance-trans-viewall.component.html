@@ -1,67 +1,45 @@
 <h4 style="text-align:left;color:#141E46;">Cloud Fee Payments</h4>
+
+
 <mat-card-header>
-    <div class="row ">
-        <div class="col-3 mt-4">
-            <div class="search ">
+    <div class="row d-flex flex-wrap align-items-center " style="gap: 10px; flex-wrap: nowrap;">
+        <div class="col-md-6 d-flex flex-wrap align-items-center mt-4">
+            <div class="search">
                 <form class="form">
                     <label for="search">
-                        <input #input required autocomplete="off" placeholder="Search" id="search" type="text" name="search" [(ngModel)]="currentfilVal">
+                        <input #input required="" autocomplete="off" placeholder="Search" id="search" type="text" name="search" [(ngModel)]="currentfilVal">
                         <div class="icon">
-                            <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg" class="swap-on">
-                                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
-                                    stroke-linecap="round"></path>
+                            <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round"></path>
                             </svg>
                         </div>
                         <button (click)="reload()" type="reset" class="close-btn">
                             <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
-                                <path clip-rule="evenodd"
-                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                    fill-rule="evenodd"></path>
+                                <path clip-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" fill-rule="evenodd"></path>
                             </svg>
                         </button>
                     </label>
-
                 </form>
+            </div> &nbsp;&nbsp;&nbsp;
 
-            </div>
+            <button class="mt-1" (click)="subscription(currentfilVal)" style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Go</button>
+            <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button (click)="exportexcel()" [hidden]="valuemaintainexport!=='Cloud Fee Payments-Export'">Export</button>
+        </div> 
 
-        </div>
-
-
-        <div class="col-1 mt-4">
-            <button (click)="subscription(currentfilVal)"
-                style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Go</button>
-        </div>
-        <div class="col-1 mt-4">
-            <button [hidden]="valuemaintainexport!=='Cloud Fee Payments-Export'"
-                style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
-                (click)=" exportexcel()">Export</button>
-        </div>&nbsp;&nbsp;
-
-        <div class="col-2">
-          
-        </div>
-
-        <div class="col-3 mt-4">
-            <select [(ngModel)]="backs" class="form-select" (change)="Filter($event)">
+        <div class="col-md-4 d-flex align-items-center mt-3" style="gap: 10px;">
+            <select [(ngModel)]="backs" class="form-select" style="height: 40px; font-size: 15px; margin: 1px; width: 200px;" (change)="Filter($event)">
                 <option value="" disabled selected>Filter</option>
                 <option value="Filterbycloudffeesearch">Filter By Cloud Fee</option>
                 <option value="Datefiltercloudfee">Date Filter for Success</option>
-                <!-- <option value="DuegenerateCloudFee">Due Generation</option> -->
-              </select>
+            </select>
+            <button class="mt-2.5" style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button (click)="reset()">Reset</button>
         </div>
-
-        <div class="col-1 mt-4">
-            <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
-                (click)="reset()">Reset</button>
-        </div>
-
     </div>
 </mat-card-header>
-<!-- <mat-card> -->
+
+
 <mat-card-content>
-    <div class="example-container mt-4">
+    <div class="example-container mt-3">
 
         <span *ngIf="showcategoryData" style="text-align:center;color:red;">NO DATA FOUND</span>
         <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="!
@@ -76,7 +54,7 @@
             </ng-container>
             <ng-container matColumnDef="entityname">
                 <th mat-header-cell *matHeaderCellDef>Entity Name</th>
-                <td mat-cell *matCellDef="let transaction"> {{ transaction?.merchantId?.entityName }}</td>
+                <td mat-cell *matCellDef="let transaction"> {{ transaction?.entityName }}</td>
             </ng-container>
 
             <ng-container matColumnDef="paymentmethod">

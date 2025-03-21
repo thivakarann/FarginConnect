@@ -74,8 +74,32 @@
     </div>
 </div>
 
+<body    [hidden]="this.Expirystatus==false">
+    
+    <div id='oopss'>
+      <div id='error-text'>
+          <img src="/assets/link-slash-solid.svg" alt="404">
+          <span>Link Expired</span>
+          <p class="p-a">
+             .The page you were looking for is Expired</p>
+             <p class="p-b">
+              For Support Please Contact</p>
+              <a class="p-b" href="mailto: support@fargin.in">
+                  support{{strings}}fargin.in
+              </a>
+          <!-- <p class="p-b">
+              ... Back to previous page
+          </p>
+          <a href='#' class="back">... Back to previous page</a> -->
+      </div>
+  </div>
+    
+    
+  
+  </body>
 
-<body  *ngIf="AdminSignedStatus==1" >
+
+<body [hidden]="Signed==false"  >
     
     <div id='oopss'>
       <div id='error-text'>
@@ -103,29 +127,7 @@
 
 
 
-<body  [hidden]="this.Expirystatus==false">
-    
-    <div id='oopss'>
-      <div id='error-text'>
-          <img src="/assets/link-slash-solid.svg" alt="404">
-          <span>Link Expired</span>
-          <p class="p-a">
-             .The page you were looking for is Expired</p>
-             <p class="p-b">
-              For Support Please Contact</p>
-              <a class="p-b" href="mailto: support@fargin.in">
-                  support{{strings}}fargin.in
-              </a>
-          <!-- <p class="p-b">
-              ... Back to previous page
-          </p>
-          <a href='#' class="back">... Back to previous page</a> -->
-      </div>
-  </div>
-    
-    
-  
-  </body>
+
 
   
 

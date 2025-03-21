@@ -37,7 +37,7 @@
        
  
         </div>
-        <div class="col-md-9">
+        <div class="col-md-6">
            
            
             <button [hidden]="valueAdd!=='Campaign-Add'" style="color:white;background-color: #141E46;border-radius: 10px;" (click)="addCampaign()"
@@ -95,7 +95,7 @@
  
              
                 <ng-container matColumnDef="status">
-                    <th [hidden]="valuestatus!=='Campaign-Status'" mat-header-cell *matHeaderCellDef >Eamil Status</th>
+                    <th [hidden]="valuestatus!=='Campaign-Status'" mat-header-cell *matHeaderCellDef >Email Status</th>
                     <td [hidden]="valuestatus!=='Campaign-Status'" mat-cell *matCellDef="let data" >
                         <mat-slide-toggle class="example-margin" color="primary"
                         [checked]="data.activeStatus === 1"  (change)="onSubmit($event,data.broadcasterId)" >

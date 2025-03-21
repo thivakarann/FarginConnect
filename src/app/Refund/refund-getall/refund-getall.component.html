@@ -2,7 +2,7 @@
 
 <mat-card-header>
   <div class="row ">
-    <div class="col-5 mt-4">
+    <div class="col mt-4">
       <div class="search ">
         <form class="form">
           <label for="search">
@@ -30,23 +30,23 @@
           </label>
         </form>
 
-      </div>
+      </div> &nbsp;
       <button (click)="refundsearch(currentfilval)" style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Go</button>
       <button  style="color:white;background-color: #141E46;border-radius: 10px;" (click)="exportexcel()"
         mat-raised-button [hidden]="valuerefundexport!=='Online Refunds-Export'">Export</button>
     </div>
-    <div class="col-2">
+    <div class="col-2 mr-3">
       <label><b>From Date:</b></label>
       <input class="form-control" type="date" name="FromDate" [(ngModel)]="FromDateRange"
           style="height:35px;width:150px;border-radius: 5px;">
   </div>
-  <div class="col-2">
+  <div class="col-2 mr-2">
       <label><b>To Date:</b></label>
       <input class="form-control" type="date" name="ToDate" [(ngModel)]="ToDateRange"
           style="height:35px;width:150px;border-radius: 5px;">
   </div>
 
-  <div class="col-1 mt-4">
+  <div class="col-1 mt-4 mr-2">
       <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
           (click)="filterdate()">Filter</button>
   </div>

@@ -393,12 +393,12 @@ export class CustomerTransViewallComponent {
           this.response = [];
           this.response.push(sno);
           this.response.push(element?.pgPaymentId);
-          this.response.push(element?.customerId?.merchantId?.merchantLegalName);
-          this.response.push(element?.customerId?.customerId);
-          this.response.push(element?.customerId?.customerName);
-          this.response.push(element?.customerId?.mobileNumber);
-          this.response.push(element?.customerStbId?.stbId?.service?.serviceProviderName);
-          this.response.push(element?.customerStbId?.stbId?.setupBoxNumber);
+          this.response.push(element?.entityName);
+          this.response.push(element?.customerId);
+          this.response.push(element?.customerName);
+          this.response.push(element?.mobileNumber);
+          this.response.push(element?.serviceProviderName);
+          this.response.push(element?.setupBoxNumber);
           this.response.push(element?.paymentMethod);
           this.response.push(element?.paidAmount);
  
@@ -417,8 +417,17 @@ export class CustomerTransViewallComponent {
           if (element?.paymentStatus == 'Success') {
             this.response.push('Success');
           }
-          else if (element?.paymentStatus == 'Pending') {
+          else if (element?.paymentStatus == 'Due Pending') {
             this.response.push('Pending');
+          }
+          else if (element?.paymentStatus == 'Payment Incomplete') {
+            this.response.push('Payment Incomplete');
+          }
+          else if (element?.paymentStatus == 'Failure') {
+            this.response.push('Payment Failed');
+          }
+          else if (element?.paymentStatus == 'Due Cancelled') {
+            this.response.push('Due-Cancelled');
           }
           else {
             this.response.push('Initiated');

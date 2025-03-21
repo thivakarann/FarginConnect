@@ -31,10 +31,9 @@
             </div>
             &nbsp;
             <button (click)="Alacarte(currentfilval)" style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Go</button>
-            &nbsp;
-            &nbsp;
+          
 
-            <button style="color:white;background-color: #141E46;border-radius: 10px;" class="custom-btn btn-10 me-3"
+            <button style="color:white;background-color: #141E46;border-radius: 10px;" class="custom-btn btn-10 "
                 data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button (click)="add()"
                 [hidden]="valuealcartAdd!=='Channel Creation-Add'">Create</button>
                 <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
@@ -50,7 +49,7 @@
 <!-- <mat-card> -->
 <mat-card-content>
 
-    <div class="example-container text-nowrap mt-2" style="overflow-x: scroll; scrollbar-width: thin;">
+    <div class="example-container text-nowrap mt-3" style="overflow-x: scroll; scrollbar-width: thin;">
        
         <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 

@@ -597,7 +597,8 @@ export class FarginServiceService {
   private readonly createplan = 'agreement/create';
   private readonly viewbyidplan = 'agreement/viewByMerchant/';
   private readonly viewagreementdoucment = 'agreement/viewdoc/';
-  private readonly ViewAggrementbyRefference = 'agreement/viewByReferenceCode/';
+  // private readonly ViewAggrementbyRefference = 'agreement/viewByReferenceCode/';
+    private readonly ViewAggrementbyRefference = 'agreement/viewByAdminReferenceCode/';
   private readonly agreementgetall = 'agreement/getall';
   private readonly Agreementsendotp = 'agreement/merchantsendotp/';
   private readonly AgreementVerifyOTP = 'agreement/merchantverifyotp/';

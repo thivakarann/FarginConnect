@@ -190,6 +190,7 @@ export class EntityViewComponent implements OnInit {
   roles: any;
   paymentStatus: any;
   paymentMethod: any;
+  onBoardStatus:any;
   chargepersms: any;
   agreementdetails: any;
   valueagreementcreate: any;
@@ -537,6 +538,8 @@ export class EntityViewComponent implements OnInit {
 
 
       this.detaislone = res.response.merchantpersonal;
+      
+      this.onBoardStatus = res.response.merchantpersonal?.onBoardStatus;
       this.bankdetails = res.response.merchantbank.reverse();
       this.KYCDetails = res.response.merchantkycdocument;
       this.bussinessdoc = res.response.merchantbusinessdocument.reverse();

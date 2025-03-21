@@ -116,6 +116,7 @@ mat-card-content tr:nth-child(odd) {
   outline: none;
   background: none;
   border: 0;
+  padding-top: 16px;
 }
 
 /* style for both icons -- search,close */

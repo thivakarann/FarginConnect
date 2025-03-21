@@ -1,7 +1,7 @@
 <h4 style="text-align:left;color:#141E46;">Entity SMS </h4>
 <mat-card-header>
     <div class="row">
-        <div class="col-3 mt-4 ">
+        <div class="col mt-4 ">
             <div class="search">
                 <form class="form">
                     <label for="search">
@@ -29,22 +29,17 @@
                         </button>
                     </label>
                 </form>
-
-            </div>
-
-        </div>&nbsp;
-        <div class="col-1 mt-4">
+ 
+            </div> &nbsp;&nbsp;
             <button (click)="smsSearch(currentfilval)"
-                style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Go</button>
-        </div>
-        <div class="col-4 mt-4">
+            style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Go</button>
             <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
-                (click)=" exportexcel()" [hidden]="valueentitysmsexport!=='Entity Sms-Export'">Export</button>
+            (click)=" exportexcel()" [hidden]="valueentitysmsexport!=='Entity Sms-Export'">Export</button>
         </div>
-
+ 
     </div>
 </mat-card-header>
-<!-- <mat-card> -->
+ 
 <mat-card-content>
     <div class="example-container mt-4">
 

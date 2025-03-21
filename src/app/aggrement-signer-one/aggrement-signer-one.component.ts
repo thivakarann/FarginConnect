@@ -32,6 +32,7 @@ export class AggrementSignerOneComponent implements OnInit {
   EntitySignedDate: any;
   Expirystatus: boolean = false;
   strings = "@";
+  Signed:boolean = false;
 
 
 
@@ -82,6 +83,11 @@ export class AggrementSignerOneComponent implements OnInit {
       else if (res.flag == 2) {
         this.Expirystatus = true;
         console.log(this.Expirystatus)
+      }
+
+      else if (res.flag == 3) {
+        this.Signed = true;
+        console.log(this.Signed)
       }
 
 

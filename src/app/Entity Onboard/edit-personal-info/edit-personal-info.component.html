@@ -527,78 +527,82 @@
                     </div>
 
                 </div>-->
-            </div>    
-                <div class="row mb-3">  
-                    <div class="col-sm-4 form-group">
-                        <label for="billing">Customer DueGeneration Mode</label>
-                        <select formControlName="customerPaymentMode" ngModel="{{detaislone?.customerPaymentMode}}" (change)="get($event)" type="text" class="form-select"
-                            id="billing">
-                            <option value="Manual">Manual</option>
-                            <option value="Auto">Auto</option>
-    
-                        </select>
-                        <div style="
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-4 form-group">
+                    <label for="billing">Customer DueGeneration Mode</label>
+                    <select formControlName="customerPaymentMode" ngModel="{{detaislone?.customerPaymentMode}}"
+                        (change)="get($event)" type="text" class="form-select" id="billing">
+                        <!-- <option value="Manual">Manual</option> -->
+                        <option value="Auto">Auto</option>
+
+                    </select>
+                    <div style="
                 color: red;
                 font-size: 12px;
                 margin-top: 2px;
                 position: relative;
                 ;
               " *ngIf="customerPaymentMode?.invalid && customerPaymentMode?.touched && customerPaymentMode?.errors?.['required']">
-                            Field id required*
-                        </div>
+                        Field id required*
                     </div>
-    
-                    <div class="col-sm-4 form-group">
-                        <label for="Entity Name">SMS MerchantName</label>
-                        <input placeholder="maximum 25 characters are allowed"  type="text" id="Entity Name" formControlName="smsMerchantName" ngModel="{{detaislone?.smsMerchantName}}" class="form-control">
-                        <div style="
+                </div>
+
+                <div class="col-sm-4 form-group">
+                    <label for="Entity Name">SMS MerchantName</label>
+                    <input placeholder="maximum 25 characters are allowed" type="text" id="Entity Name"
+                        formControlName="smsMerchantName" ngModel="{{detaislone?.smsMerchantName}}"
+                        class="form-control">
+                    <div style="
                         color: red;
                         font-size: 12px;
                         margin-top: 2px;
                         position: relative;
                         ;
-                      " *ngIf="smsMerchantName?.invalid && smsMerchantName?.touched && smsMerchantName?.errors?.['required']">
-                            Field is required
-                        </div>
-                        <div style="
+                      "
+                        *ngIf="smsMerchantName?.invalid && smsMerchantName?.touched && smsMerchantName?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
                         color: red;
                         font-size: 12px;
                         margin-top: 2px;
                         position: relative;
                         ;
                       " *ngIf="smsMerchantName?.errors?.['pattern']">
-                            Invalid format. Only alphanumeric characters are allowed
-                        </div>
-                        <div style="color: red; font-size: 12px; margin-top: 2px; position: relative;"
+                        Invalid format. Only alphanumeric characters are allowed
+                    </div>
+                    <div style="color: red; font-size: 12px; margin-top: 2px; position: relative;"
                         *ngIf="smsMerchantName?.errors?.['maxlength']">
                         Only 25 characters are allowed
                     </div>
-                    </div>
+                </div>
 
-                    <div class="col-sm-4 form-group">
-                        <label for="Entity Name"> Plat formfee</label>
-                        <input type="text" id="Entity Name" formControlName="platformfee" ngModel="{{detaislone?.platformFee}}" class="form-control">
-                        <div style="
+                <div class="col-sm-4 form-group">
+                    <label for="Entity Name"> Plat formfee</label>
+                    <input type="text" id="Entity Name" formControlName="platformfee"
+                        ngModel="{{detaislone?.platformFee}}" class="form-control">
+                    <div style="
                         color: red;
                         font-size: 12px;
                         margin-top: 2px;
                         position: relative;
                         ;
                       " *ngIf="platformfee?.invalid && platformfee?.touched && platformfee?.errors?.['pattern']">
-                           *only Numbers values are allowed
-                        </div>
-                     
-                     
+                        *only Numbers values are allowed
                     </div>
-    
-    
-                  
-    
+
+
                 </div>
 
-    
 
- <!--<div class="row mb-3">
+
+
+            </div>
+
+
+
+            <!--<div class="row mb-3">
                
                 <div class="col-sm-4 form-group">
                     <label for="contactname">Perday Withdrawal Limit(optional)</label>
@@ -648,72 +652,72 @@
 
                 </div>
             </div>-->
-            
 
 
-           
+
+
 
             <div class="row mb-3">
 
-                
-                    <div class="col-sm-4 form-group">
-                        <label for="billing">Customer SmsTag</label>
-                        <select formControlName="customerSmsTag" ngModel="{{detaislone?.customerSmsTag}}" type="text" class="form-select"
-                            id="billing">
-                            <option value="Single">Single</option>
-                            <option value="Multiple">Multiple</option>
-    
-                        </select>
-                        <div style="
+
+                <div class="col-sm-4 form-group">
+                    <label for="billing">Customer SmsTag</label>
+                    <select formControlName="customerSmsTag" ngModel="{{detaislone?.customerSmsTag}}" type="text"
+                        class="form-select" id="billing">
+                        <option value="Single">Single</option>
+                        <option value="Multiple">Multiple</option>
+
+                    </select>
+                    <div style="
                             color: red;
                             font-size: 12px;
                             margin-top: 2px;
                             position: relative;
                             ;
                           "
-                            *ngIf="customerSmsTag?.invalid && customerSmsTag?.touched && customerSmsTag?.errors?.['required']">
-                            Field id required*
-                        </div>
+                        *ngIf="customerSmsTag?.invalid && customerSmsTag?.touched && customerSmsTag?.errors?.['required']">
+                        Field id required*
                     </div>
-    
-                    <div class="col-sm-4 form-group">
-                        <label for="billing">Customer Due Alert Notification</label>
-                        <select formControlName="customerDuesEnable" (change)="get($event)" type="text" class="form-select"
-                            id="billing">
-                            <option value="1">Yes</option>
-                            <option value="0">No</option>
-    
-                        </select>
-                        <div style="
+                </div>
+<!-- 
+                <div class="col-sm-4 form-group">
+                    <label for="billing">Customer Due Alert Notification</label>
+                    <select formControlName="customerDuesEnable" (change)="get($event)" type="text" class="form-select"
+                        id="billing">
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+
+                    </select>
+                    <div style="
                             color: red;
                             font-size: 12px;
                             margin-top: 2px;
                             position: relative;
                             ;
                           "
-                            *ngIf="customerDuesEnable?.invalid && customerDuesEnable?.touched && customerDuesEnable?.errors?.['required']">
-                            Field id required*
-                        </div>
+                        *ngIf="customerDuesEnable?.invalid && customerDuesEnable?.touched && customerDuesEnable?.errors?.['required']">
+                        Field id required*
                     </div>
-    
-                    <div class="col-sm-4 form-group" *ngIf="selectperiod==1">
-                        <label for="billing">Customer Alert Notification frequency</label>
-                        <select formControlName="customerDuesDate" type="text" class="form-select" id="billing">
-                            <option value="1">Daily</option>
-                            <option value="2">Two Days Once</option>
-                            <option value="3">Three Days Once</option>
-                            <option value="4">Once</option>
-    
-                        </select>
-    
-                    </div>
-    
-                   
-                
+                </div> -->
+
+                <div class="col-sm-4 form-group" *ngIf="selectperiod==1">
+                    <label for="billing">Customer Alert Notification frequency</label>
+                    <select formControlName="customerDuesDate" type="text" class="form-select" id="billing">
+                        <option value="1">Daily</option>
+                        <option value="2">Two Days Once</option>
+                        <option value="3">Three Days Once</option>
+                        <option value="4">Once</option>
+
+                    </select>
+
+                </div>
+
+
+
 
 
                 <div class="col-sm-4 form-group">
-                    <label for="billing">Due Alert Notification
+                    <label for="billing">Customer Due Alert Notification
                     </label>
                     <select formControlName="customerDuesEnable" (change)="typeevent($event)"
                         ngModel="{{detaislone?.customerDuesEnable}}" type="text" class="form-select" id="billing">
@@ -732,9 +736,9 @@
                         Field id required*
                     </div>
                 </div>
-               
+
                 <div class="col-sm-4 form-group" *ngIf="show">
-                    <label for="billing">Alert Notification frequency
+                    <label for="billing">Customer Alert Notification frequency
                     </label>
                     <select formControlName="customerDuesDate" ngModel="{{detaislone?.customerDuesDate}}" type="text"
                         class="form-select" id="billing">
@@ -749,7 +753,7 @@
 
                 <div class="col-sm-4 form-group" *ngIf="show">
 
-                    <label for="billing">Notiification Start due date</label>
+                    <label for="billing">Customer Notification Start due date</label>
 
                     <select id="dayPicker" formControlName="dueDate" ngModel="{{detaislone?.dueDate}}"
                         class="form-select">
@@ -757,13 +761,13 @@
                     </select>
 
                 </div>
-               
+
 
 
 
             </div>
 
-          
+
 
             <div>
                 <button (click)="submit()" type="submit" class="btn mx-1 " style="background-color:#7db855be"

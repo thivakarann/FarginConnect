@@ -198,7 +198,8 @@ export class ViewAnnouncementComponent implements OnInit {
   Edit(id: any) {
     this.dialog.open(EditAnnouncementComponent, {
       data: { value: id },
-      width: '500px',
+      width: '80vw',// Use percentage to make it responsive
+      maxWidth: '500px',
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
       disableClose: true
@@ -244,7 +245,7 @@ export class ViewAnnouncementComponent implements OnInit {
       exitAnimationDuration: '1000ms',
       disableClose: true,
       width: '80vw',// Use percentage to make it responsive
-      maxWidth: '400px',
+      maxWidth: '500px',
     });
     this.dialog.afterAllClosed.subscribe(()=>{
      

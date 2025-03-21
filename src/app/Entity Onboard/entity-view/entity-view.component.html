@@ -1076,7 +1076,7 @@
             </div>
             <div class="col-md-2 mt-1">
                 <button (click)="createmanualPayement()"
-                    [hidden]="valuemanualpay!=='One Time Setup Payment-Create' ||  paymentStatus=='Success'"
+                    [hidden]="valuemanualpay!=='One Time Setup Payment-Create' ||  paymentStatus=='Success' || onBoardStatus=='false'"
                     style="color:white;background-color: #141E46;border-radius: 10px; width:120%"
                     mat-raised-button>Manual Payment
                 </button>
