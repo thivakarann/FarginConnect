@@ -25,10 +25,11 @@ export class BouquetePlanViewallComponent {
     'boqCreationId',
     'broadCasterName',
     'bouquetName',
+    'Edit',
     'status',
     'createdBy',
     'createdAt',
-    'Edit',
+  
     'modifiedBy',
     'modifiedAt',
   ];

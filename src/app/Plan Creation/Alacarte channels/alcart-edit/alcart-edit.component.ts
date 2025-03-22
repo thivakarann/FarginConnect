@@ -118,15 +118,15 @@ msoservice:any
  
  
   }
-  typeevent(event: any) {
-    this.typesign = event.target.value;
-    if (event.target.value == '0') {
-      this.show = false;
+  // typeevent(event: any) {
+  //   this.typesign = event.target.value;
+  //   if (event.target.value == '0') {
+  //     this.show = false;
  
-    } else {
-      this.show = true;
-    }
-  }
+  //   } else {
+  //     this.show = true;
+  //   }
+  // }
   get regionId() {
     return this.myForm.get('regionId')
  
@@ -184,6 +184,9 @@ msoservice:any
     })
   }
  
+  typechange(event:any){
+    this.myForm.get('price')?.setValue('');
+  }
  
   submit() {
     let submitModel: UpdateAlcart = {

@@ -10,7 +10,7 @@
 
 
             <div class="form-group">
-                <label class="form-label" for="message">MSO:</label>
+                <label class="form__label" for="message">MSO</label>
                 <select [(ngModel)]="Serviceid" class="form-select" formControlName="serviceId">
                     <option style="text-align: center;" selected disabled>Select
                     </option>
@@ -24,7 +24,7 @@
 
 
             <div class="form__linput">
-                <label class="form-label" for="message">Region</label>
+                <label class="form__label" for="message">Region</label>
                 <select [(ngModel)]="statename" class="form-select" formControlName="stateName">
                     <option selected disabled>---Select--
                     </option>
@@ -62,9 +62,9 @@
                     *ngIf="stateName?.touched && stateName?.errors?.['required']">Field is Required*</span>
             </div>
 
-            <div>
+            <div class="mt-3">
                 <button type="submit" class="btn mx-1" style="background-color:#7db855be"
-                    [disabled]="regionedit.invalid" (click)="Editsubmit()">Submit</button>&nbsp;&nbsp;&nbsp;
+                    [disabled]="regionedit.invalid" (click)="Editsubmit()">Submit</button>&nbsp;
                     <button type="submit" class="btn" style="background-color: #141e46; color: white" matDialogClose>
                         Cancel
                     </button>

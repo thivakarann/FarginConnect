@@ -173,8 +173,10 @@ export class EditPersonalInfoComponent implements OnInit {
     })
 
   }
-  get(event: any) {
-    this.selectperiod = event.target.value;
+  duealert(event:any){
+    this.myForm.get('customerDuesDate')?.setValue('');
+    this.myForm.get('dueDate')?.setValue('');
+
   }
   // First Form
 

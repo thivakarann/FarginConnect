@@ -101,7 +101,8 @@
             [hidden]="valuesmssetting!=='Entity View-SMS Settings'">SMS Settings</button>
         <button class="tab" [class.active]="activeTab === 'doot5'" (click)="selectTab('doot5')"
             [hidden]="valueagreement!=='Entity View Agreement'">Agreement</button>
-        <button class="tab" [class.active]="activeTab === 'doot6'" [hidden]="valuebranch!=='Entity View Branch'" (click)="selectTab('doot6')">Branch</button>
+        <button class="tab" [class.active]="activeTab === 'doot6'" [hidden]="valuebranch!=='Entity View Branch'"
+            (click)="selectTab('doot6')">Branch</button>
     </div>
     <div class="tab-content" *ngIf="activeTab === 'events'" [hidden]="valueGeneral!=='Entity View General Information'">
         <div class="filters">
@@ -124,21 +125,24 @@
                                 <mat-menu #menu="matMenu">
                                     <button style="font-size: 10px;" mat-menu-item (click)="editpersonalInfo(this.id)"
                                         [hidden]="valueeditentity!=='Entity View-Edit'">Edit EntityDetails</button>
-                                        <button style="font-size: 10px;" mat-menu-item (click)="Entityplan()">Entity Plan Details</button>
+                                    <button style="font-size: 10px;" mat-menu-item (click)="Entityplan()">Entity Plan
+                                        Details</button>
                                     <button style="font-size: 10px;" mat-menu-item (click)="viewOnboardInfo(this.id)"
                                         [hidden]="valueviewonboard!=='Entity View-Onboard Information'">View
                                         OnboardInfo</button>
-                                        <button style="font-size: 10px;" mat-menu-item (click)="EntityTerminal(this.id)"
+                                    <button style="font-size: 10px;" mat-menu-item (click)="EntityTerminal(this.id)"
                                         [hidden]="valueterminal!=='Entity Terminal View'">Entity Terminal View</button>
-                                       
+
                                     <button style="font-size: 10px;" mat-menu-item (click)="pgOnboard()"
-                                         [disabled]="this.detaislone?.approvalStatusL2 =='Pending' || this.detaislone?.approvalStatusL2=='Rejected'"
+                                        [disabled]="this.detaislone?.approvalStatusL2 =='Pending' || this.detaislone?.approvalStatusL2=='Rejected'"
                                         [hidden]="valueentityonboard!=='Entity View-Onboard'">Onboard
                                         Entity</button>
-                                        
-                                        <!--  -->
-                                    <button [hidden]="valuefee!=='Generate Cloud Fee'" style="font-size: 10px;" mat-menu-item (click)="Manuvelduesforcloudfee()">Generate Cloud Fee</button>
-                                    <button [hidden]="valuedues!=='Generate Customer Dues'" style="font-size: 10px;" mat-menu-item (click)="Manuvalduesforcustomer()">Generate Customer Dues</button>
+
+                                    <!--  -->
+                                    <button [hidden]="valuefee!=='Generate Cloud Fee'" style="font-size: 10px;"
+                                        mat-menu-item (click)="Manuvelduesforcloudfee()">Generate Cloud Fee</button>
+                                    <button [hidden]="valuedues!=='Generate Customer Dues'" style="font-size: 10px;"
+                                        mat-menu-item (click)="Manuvalduesforcustomer()">Generate Customer Dues</button>
 
                                     <!-- <button style="font-size: 10px;" mat-menu-item (click)="emailtrigger()"
                                         [disabled]="detaislone?.onBoardStatus=='false'">
@@ -320,7 +324,7 @@
                                                 <div class="w-50 font-weight-bold">Plan Customer Limit</div>
                                                 <div class="w-50">{{detaislone?.merchantPlanModel?.countLimit}}</div>
                                             </div>
- 
+
                                             <div class="d-flex mt-3">
                                                 <div class="w-50 font-weight-bold">Pincode</div>
                                                 <div class="w-50">{{detaislone?.zipcode}}</div>
@@ -375,10 +379,11 @@
                                                         Days</ng-container>
                                                     <ng-container *ngIf="detaislone?.customerDuesDate === 3">Every Three
                                                         Days</ng-container>
-                                                        <ng-container *ngIf="detaislone?.customerDuesDate === 4">Once</ng-container>
+                                                    <ng-container
+                                                        *ngIf="detaislone?.customerDuesDate === 4">Once</ng-container>
                                                     <ng-container *ngIf="detaislone?.customerDuesDate == 0">No Due
                                                         Date</ng-container>
-                                                        
+
                                                 </div>
                                             </div>
 
@@ -409,7 +414,7 @@
                                                 </div>
                                             </div> -->
 
-                                          
+
 
 
                                         </div>
@@ -508,33 +513,35 @@
             <div class="row  d-flex justify-content-start">
                 <div class="col-md-3">
                     <div class="search ">
-          <form class="form">
-              <label for="search">
-                  <input (ngModelChange)="onSearchTextChange()" #input name="search" required autocomplete="off" placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
- 
-                  <div class="icon">
-                      <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                          xmlns="http://www.w3.org/2000/svg" class="swap-on">
-                          <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
-                              stroke-linecap="round"></path>
-                      </svg>
-                      <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                        <form class="form">
+                            <label for="search">
+                                <input (ngModelChange)="onSearchTextChange()" #input name="search" required
+                                    autocomplete="off" placeholder="Search" id="search" type="text"
+                                    [(ngModel)]="searchText">
+
+                                <div class="icon">
+                                    <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                                        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                                            stroke-linecap="round"></path>
+                                    </svg>
+                                    <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                           xmlns="http://www.w3.org/2000/svg" class="swap-off">
                           <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
                               stroke-linecap="round">
                           </path>
                       </svg> -->
-                  </div>
-                  <button type="reset" class="close-btn">
-                      <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
-                          <path clip-rule="evenodd"
-                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                              fill-rule="evenodd"></path>
-                      </svg>
-                  </button>
-              </label>
-          </form>
-      </div>
+                                </div>
+                                <button type="reset" class="close-btn">
+                                    <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                                        <path clip-rule="evenodd"
+                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                            fill-rule="evenodd"></path>
+                                    </svg>
+                                </button>
+                            </label>
+                        </form>
+                    </div>
 
                 </div>
                 <div class="col-md-1 mt-1">
@@ -668,7 +675,7 @@
                 (click)="addKycdocuments(this.id)" style="color:white;background-color: #141E46;border-radius: 10px;"
                 mat-raised-button>Add
                 KYC</button>
-          
+
         </mat-card-header>
         <div class="row mt-4">
             <div class="col-12 mb-3 mb-lg-5">
@@ -888,8 +895,8 @@
                         </table>
                     </div>
                 </div>
-                
-               
+
+
             </div>
         </div>
     </div>
@@ -898,33 +905,35 @@
             <div class="row  d-flex justify-content-start">
                 <div class="col-md-3">
                     <div class="search ">
-          <form class="form">
-              <label for="search">
-                  <input (ngModelChange)="onSearchTextBusiness()" #input name="search" required autocomplete="off" placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
- 
-                  <div class="icon">
-                      <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                          xmlns="http://www.w3.org/2000/svg" class="swap-on">
-                          <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
-                              stroke-linecap="round"></path>
-                      </svg>
-                      <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                        <form class="form">
+                            <label for="search">
+                                <input (ngModelChange)="onSearchTextBusiness()" #input name="search" required
+                                    autocomplete="off" placeholder="Search" id="search" type="text"
+                                    [(ngModel)]="searchText">
+
+                                <div class="icon">
+                                    <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                                        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                                            stroke-linecap="round"></path>
+                                    </svg>
+                                    <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                           xmlns="http://www.w3.org/2000/svg" class="swap-off">
                           <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
                               stroke-linecap="round">
                           </path>
                       </svg> -->
-                  </div>
-                  <button type="reset" class="close-btn">
-                      <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
-                          <path clip-rule="evenodd"
-                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                              fill-rule="evenodd"></path>
-                      </svg>
-                  </button>
-              </label>
-          </form>
-      </div>
+                                </div>
+                                <button type="reset" class="close-btn">
+                                    <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                                        <path clip-rule="evenodd"
+                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                            fill-rule="evenodd"></path>
+                                    </svg>
+                                </button>
+                            </label>
+                        </form>
+                    </div>
                 </div>
                 <div class="col-md-2 mt-1">
                     <button (click)="adddoc(this.id,this.detaislone?.businessCategoryModel?.businessCategoryId)"
@@ -991,14 +1000,14 @@
                         </table>
                     </div>
                     <div class="text-end mt-3">
- <pagination-controls (pageChange)="currentPagebusniess= $event"></pagination-controls>
+                        <pagination-controls (pageChange)="currentPagebusniess= $event"></pagination-controls>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div *ngIf="activeTab === 'doot1'">
-      
+
         <div class="row mt-2">
             <div class="col-12 mb-3 mb-lg-5">
                 <div class="card table-nowrap table-card">
@@ -1036,7 +1045,7 @@
                         </table>
                     </div>
                 </div>
-               
+
             </div>
         </div>
     </div>
@@ -1046,33 +1055,35 @@
         <div class="row  d-flex justify-content-start">
             <div class="col-md-3">
                 <div class="search ">
-          <form class="form">
-              <label for="search">
-                  <input (ngModelChange)="onSearchTextonetime()" #input name="search" required autocomplete="off" placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
- 
-                  <div class="icon">
-                      <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                          xmlns="http://www.w3.org/2000/svg" class="swap-on">
-                          <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
-                              stroke-linecap="round"></path>
-                      </svg>
-                      <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                    <form class="form">
+                        <label for="search">
+                            <input (ngModelChange)="onSearchTextonetime()" #input name="search" required
+                                autocomplete="off" placeholder="Search" id="search" type="text"
+                                [(ngModel)]="searchText">
+
+                            <div class="icon">
+                                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                                        stroke-linecap="round"></path>
+                                </svg>
+                                <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                           xmlns="http://www.w3.org/2000/svg" class="swap-off">
                           <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
                               stroke-linecap="round">
                           </path>
                       </svg> -->
-                  </div>
-                  <button type="reset" class="close-btn">
-                      <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
-                          <path clip-rule="evenodd"
-                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                              fill-rule="evenodd"></path>
-                      </svg>
-                  </button>
-              </label>
-          </form>
-      </div>
+                            </div>
+                            <button type="reset" class="close-btn">
+                                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                                    <path clip-rule="evenodd"
+                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                        fill-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </label>
+                    </form>
+                </div>
             </div>
             <div class="col-md-2 mt-1">
                 <button (click)="createmanualPayement()"
@@ -1102,7 +1113,7 @@
                             <th>Payment Status</th>
                             <th>Payment Method</th>
                             <th>Cheque Date</th>
-                          
+
                             <th>Manual CreatedBy</th>
                             <th>Manual UpdatedBy</th>
                             <th>Paid At</th>
@@ -1139,7 +1150,7 @@
 
                             </td>
                             <td>{{item.paymentMethod}}</td>
-                         <td>{{item.date |date : "dd/MM/yyyy"}}</td>
+                            <td>{{item.date |date : "dd/MM/yyyy"}}</td>
                             <td>{{item?.manualApprovalBy}}</td>
                             <td>{{item?.updatedBy}}</td>
                             <td>{{item.paymentDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
@@ -1159,33 +1170,35 @@
         <div class="row  d-flex justify-content-start">
             <div class="col-md-3">
                 <div class="search ">
-          <form class="form">
-              <label for="search">
-                  <input (ngModelChange)="onSearchTextcustomized()" #input name="search" required autocomplete="off" placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
- 
-                  <div class="icon">
-                      <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                          xmlns="http://www.w3.org/2000/svg" class="swap-on">
-                          <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
-                              stroke-linecap="round"></path>
-                      </svg>
-                      <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                    <form class="form">
+                        <label for="search">
+                            <input (ngModelChange)="onSearchTextcustomized()" #input name="search" required
+                                autocomplete="off" placeholder="Search" id="search" type="text"
+                                [(ngModel)]="searchText">
+
+                            <div class="icon">
+                                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                                        stroke-linecap="round"></path>
+                                </svg>
+                                <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                           xmlns="http://www.w3.org/2000/svg" class="swap-off">
                           <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
                               stroke-linecap="round">
                           </path>
                       </svg> -->
-                  </div>
-                  <button type="reset" class="close-btn">
-                      <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
-                          <path clip-rule="evenodd"
-                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                              fill-rule="evenodd"></path>
-                      </svg>
-                  </button>
-              </label>
-          </form>
-      </div>
+                            </div>
+                            <button type="reset" class="close-btn">
+                                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                                    <path clip-rule="evenodd"
+                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                        fill-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </label>
+                    </form>
+                </div>
             </div>
             <div class="col-md-2 mt-1" [hidden]="detaislone?.onBoardStatus !='true'">
                 <button (click)="otherPayement()" style="color:white;background-color: #141E46;border-radius: 10px;"
@@ -1259,33 +1272,34 @@
         <div class="row  d-flex justify-content-start">
             <div class="col-md-3">
                 <div class="search ">
-          <form class="form">
-              <label for="search">
-                  <input (ngModelChange)="onSearchTextsms()" #input name="search" required autocomplete="off" placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
- 
-                  <div class="icon">
-                      <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                          xmlns="http://www.w3.org/2000/svg" class="swap-on">
-                          <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
-                              stroke-linecap="round"></path>
-                      </svg>
-                      <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                    <form class="form">
+                        <label for="search">
+                            <input (ngModelChange)="onSearchTextsms()" #input name="search" required autocomplete="off"
+                                placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
+
+                            <div class="icon">
+                                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                                        stroke-linecap="round"></path>
+                                </svg>
+                                <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                           xmlns="http://www.w3.org/2000/svg" class="swap-off">
                           <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
                               stroke-linecap="round">
                           </path>
                       </svg> -->
-                  </div>
-                  <button type="reset" class="close-btn">
-                      <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
-                          <path clip-rule="evenodd"
-                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                              fill-rule="evenodd"></path>
-                      </svg>
-                  </button>
-              </label>
-          </form>
-      </div>
+                            </div>
+                            <button type="reset" class="close-btn">
+                                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                                    <path clip-rule="evenodd"
+                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                        fill-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </label>
+                    </form>
+                </div>
             </div>
             <div class="col-md-2 mt-1" [hidden]="detaislone?.onBoardStatus !='true'">
                 <button (click)="smscreate()" style="color:white;background-color: #141E46;border-radius: 10px;"
@@ -1384,33 +1398,35 @@
         <div class="row  d-flex justify-content-start">
             <div class="col-md-3">
                 <div class="search ">
-          <form class="form">
-              <label for="search">
-                  <input (ngModelChange)="onSearchTextagreement()" #input name="search" required autocomplete="off" placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
- 
-                  <div class="icon">
-                      <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                          xmlns="http://www.w3.org/2000/svg" class="swap-on">
-                          <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
-                              stroke-linecap="round"></path>
-                      </svg>
-                      <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                    <form class="form">
+                        <label for="search">
+                            <input (ngModelChange)="onSearchTextagreement()" #input name="search" required
+                                autocomplete="off" placeholder="Search" id="search" type="text"
+                                [(ngModel)]="searchText">
+
+                            <div class="icon">
+                                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                                        stroke-linecap="round"></path>
+                                </svg>
+                                <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                           xmlns="http://www.w3.org/2000/svg" class="swap-off">
                           <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
                               stroke-linecap="round">
                           </path>
                       </svg> -->
-                  </div>
-                  <button type="reset" class="close-btn">
-                      <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
-                          <path clip-rule="evenodd"
-                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                              fill-rule="evenodd"></path>
-                      </svg>
-                  </button>
-              </label>
-          </form>
-      </div>
+                            </div>
+                            <button type="reset" class="close-btn">
+                                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                                    <path clip-rule="evenodd"
+                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                        fill-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </label>
+                    </form>
+                </div>
             </div>
             <div class="col-md-2 mt-1">
                 <button [disabled]="this.paymentStatus?.toLowerCase() !== 'success'" (click)="agreementcreate()"
@@ -1433,7 +1449,7 @@
                             <th>Authorized Signatory Designation</th>
                             <th [hidden]="valueagreementView!=='Entity View Agreement-Plan Overview'">Plan Overview</th>
                             <th [hidden]="valueagreementlink!=='Entity View Agreement-Entity Agreement Link'">
-                             Admin Agreement Link</th>
+                                Admin Agreement Link</th>
                             <th [hidden]="valueagreementlink!=='Entity View Agreement-Entity Agreement Link'">Entity
                                 Agreement Link</th>
                             <th>Link Expiry Date</th>
@@ -1467,8 +1483,8 @@
                             <td [hidden]="valueagreementlink!=='Entity View Agreement-Entity Agreement Link'"
                                 style="margin-top: 5px;"> {{item.adminAgreementLink | slice: 0: 25}} <i
                                     class="fa-regular fa-copy" style="color: green; font-size: 18px;"
-                                    (click)="copyText2(item.adminAgreementLink, i)"></i> <span *ngIf="copiedIndex2 === i"
-                                    style="color: green;">Copied!</span> </td>
+                                    (click)="copyText2(item.adminAgreementLink, i)"></i> <span
+                                    *ngIf="copiedIndex2 === i" style="color: green;">Copied!</span> </td>
                             <td [hidden]="valueagreementlink!=='Entity View Agreement-Entity Agreement Link'"
                                 style="margin-top: 5px;"> {{item.agreementLink | slice: 0: 25}} <i
                                     class="fa-regular fa-copy" style="color: green; font-size: 18px;"
@@ -1557,42 +1573,44 @@
 <div *ngIf="activeTab === 'doot6'">
     <mat-card-header>
         <div class="col-md-3 mr-2" style="color: blue; font-size: 12px;">
- 
+
         </div>
         <div class="row  d-flex justify-content-start">
             <div class="col-md-3">
                 <div class="search ">
-          <form class="form">
-              <label for="search">
-                  <input (ngModelChange)="onSearchTextbranch()" #input name="search" required autocomplete="off" placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
- 
-                  <div class="icon">
-                      <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                          xmlns="http://www.w3.org/2000/svg" class="swap-on">
-                          <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
-                              stroke-linecap="round"></path>
-                      </svg>
-                      <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                    <form class="form">
+                        <label for="search">
+                            <input (ngModelChange)="onSearchTextbranch()" #input name="search" required
+                                autocomplete="off" placeholder="Search" id="search" type="text"
+                                [(ngModel)]="searchText">
+
+                            <div class="icon">
+                                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                                        stroke-linecap="round"></path>
+                                </svg>
+                                <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                           xmlns="http://www.w3.org/2000/svg" class="swap-off">
                           <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
                               stroke-linecap="round">
                           </path>
                       </svg> -->
-                  </div>
-                  <button type="reset" class="close-btn">
-                      <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
-                          <path clip-rule="evenodd"
-                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                              fill-rule="evenodd"></path>
-                      </svg>
-                  </button>
-              </label>
-          </form>
-      </div>
+                            </div>
+                            <button type="reset" class="close-btn">
+                                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                                    <path clip-rule="evenodd"
+                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                        fill-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </label>
+                    </form>
+                </div>
             </div>
             <div class="col-md-2 mt-1">
-                <button (click)="branchcreate(id)" [hidden]="valuebranchcreate!=='Entity View Branch-Add'" style="color:white;background-color: #141E46;border-radius: 10px;"
-                    mat-raised-button>Create
+                <button (click)="branchcreate(id)" [hidden]="valuebranchcreate!=='Entity View Branch-Add'"
+                    style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Create
                 </button>
             </div>
         </div>
@@ -1604,8 +1622,8 @@
                     <table class="table table-hover" id="customers">
                         <tr>
                             <th>S.No </th>
-                         
- 
+
+
                             <th>Account Holder Name</th>
                             <th>Account Number</th>
                             <th>Account Id</th>
@@ -1615,13 +1633,14 @@
                             <th>IFSC Code</th>
                             <th>Api key </th>
                             <th>Secret key </th>
-                            <th [hidden]="valuebranchCustomerview!=='Entity View Branch-Customer View'">Customer View</th>
+                            <th [hidden]="valuebranchCustomerview!=='Entity View Branch-Customer View'">Customer View
+                            </th>
                             <th [hidden]="valuebranchkyc!=='Entity View Branch-KYC'">KYC View</th>
                             <th [hidden]="valuebranchTerminal!=='Entity View Branch-Terminal'">Terminal View</th>
                             <th [hidden]="valuebranchStatus!=='Entity View Branch-Status'">Status</th>
                             <th [hidden]="valuebranchAction!=='Entity View Branch-Action'">Action</th>
-                           
-                           
+
+
                             <th>Created By</th>
                             <th>Created At</th>
                             <th>Modified By</th>
@@ -1630,7 +1649,7 @@
                         <tbody
                             *ngFor="let item of branchget | search: searchText | paginate: { itemsPerPage: itemsPerPage, currentPage: currentbranch }; let i=index">
                             <td>{{i+1}}</td>
-                       
+
                             <td>{{item.accountHolderName}}</td>
                             <td>{{item.accountNumber}}</td>
                             <td>{{item.accountId}}</td>
@@ -1640,31 +1659,32 @@
                             <td>{{item.ifscCode}}</td>
                             <td>{{item.apiKey}}</td>
                             <td>{{item.secretKey}}</td>
-                            <td [hidden]="valuebranchCustomerview!=='Entity View Branch-Customer View'"><i  style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
+                            <td [hidden]="valuebranchCustomerview!=='Entity View Branch-Customer View'"><i
+                                    style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
                                     (click)="Viewcustomerbranch(item.branchId)"></i> </td>
-                           
-                          <td><i  style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
-                                        (click)="Viewkycbranch(item.branchId, item.entityModel?.merchantId)"></i> </td>
-                         <td><i  style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
-                            (click)="ViewTerminal(item.branchId, item.entityModel?.merchantId)"></i> </td>
-                         
-                            <td  [hidden]="valuebranchStatus!=='Entity View Branch-Status'">
+
+                            <td><i style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
+                                    (click)="Viewkycbranch(item.branchId, item.entityModel?.merchantId)"></i> </td>
+                            <td><i style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
+                                    (click)="ViewTerminal(item.branchId, item.entityModel?.merchantId)"></i> </td>
+
+                            <td [hidden]="valuebranchStatus!=='Entity View Branch-Status'">
                                 <mat-slide-toggle class="example-margin" color="primary"
                                     [checked]="item.accountStatus === 1" (change)="status($event,item.branchId)">
                                 </mat-slide-toggle>
                             </td>
-                            <td  [hidden]="valuebranchAction!=='Entity View Branch-Action'">
+                            <td [hidden]="valuebranchAction!=='Entity View Branch-Action'">
                                 <span><i style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"
                                         (click)="branchedit(item)" class="fas fa-edit">
                                     </i></span>
                             </td>
-                           
-                         
+
+
                             <td>{{item.createdBy}}</td>
                             <td>{{item.createdAt | date : "dd/MM/yyyy hh:mm a"}}</td>
                             <td>{{item.modifiedBy }}</td>
                             <td>{{item.modifiedAt | date : "dd/MM/yyyy hh:mm a"}}</td>
- 
+
                         </tbody>
                     </table>
                 </div>

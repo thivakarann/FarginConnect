@@ -149,7 +149,7 @@
                 </div>
                 <div class="col-sm-4 form-group">
                     <label for="Bussiness category">Type</label>
-                    <select formControlName="type" id="Bussiness category" class="form-control form-select">
+                    <select (change)="typechange($event)" formControlName="type" id="Bussiness category" class="form-control form-select">
                         <option value="" disabled selected>Select</option>
                         <option value="0">Free</option>
                         <option value="1">Paid</option>
@@ -169,9 +169,9 @@
                     </div>
                 </div>
  
-                <div class="col-sm-4 form-group" *ngIf="type?.value === '1'">
+                <div class="col-sm-4 form-group" [hidden]="type?.value!='1'">
                     <label for="Entity Name">Price</label>
-                    <input type="text" id="Entity Name" formControlName="price" class="form-control">
+                    <input [required]="type?.value=='1'" type="text" id="Entity Name" formControlName="price" class="form-control">
                     <div style="
                     color: red;
                     font-size: 12px;
@@ -180,6 +180,15 @@
                     ;
                   " *ngIf="price?.invalid && price?.touched && price?.errors?.['pattern']">
                         Only positive numbers are allowed
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                " *ngIf="price?.invalid && price?.touched && price?.errors?.['required']">
+                    Field is required*
                     </div>
                 </div>
  

@@ -130,13 +130,13 @@
         <td [hidden]="valueagreeSignedCopy!=='Entity Agreement-Agreement Signed Copy'" mat-cell *matCellDef="let data">
           <!-- <i style="cursor: pointer;font-size: 15px;color:#545497;" class="fa-solid fa-file-contract"
             (click)="viewsignedagreementdoc(data.agreementId)"></i> -->
-          <button style="color: white; border: 1px solid white; border-radius: 4px;"
+          <button style="color: white; border: 1px solid white; border-radius: 4px; border: none;background: none; "
             (click)="viewsignedagreementdoc(data.agreementId)"
             [disabled]="data.adminOtpStatus == 0 || data.merchanOtptStatus == 0" [ngClass]="{
                                     'disabled-btn': (data.adminOtpStatus == 0 || data.merchanOtptStatus == 0),
                                     'enabled-btn': (data.adminOtpStatus == 1 && data.merchanOtptStatus == 1)
                                   }">
-            <i style="cursor: pointer; font-size: 17px;" class="fa-solid fa-file-contract" [ngClass]="{
+            <i style="cursor: pointer; font-size: 17px;border: none;background: none;" class="fa-solid fa-file-contract" [ngClass]="{
                                       'disabled-icon': (data.adminOtpStatus == 0 || data.merchanOtptStatus == 0),
                                       'enabled-icon': (data.adminOtpStatus == 1 && data.merchanOtptStatus == 1)
                                     }">

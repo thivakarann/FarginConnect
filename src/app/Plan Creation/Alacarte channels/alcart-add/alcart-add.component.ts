@@ -56,11 +56,11 @@ msroregion:any
  
     });
  
-    this.myForm.get('type')?.valueChanges.subscribe(value => {
-      if (value !== '1') {
-        this.myForm.get('price')?.reset();
-      }
-    });
+    // this.myForm.get('type')?.valueChanges.subscribe(value => {
+    //   if (value !== '1') {
+    //     this.myForm.get('price')?.reset();
+    //   }
+    // });
  
  
   }
@@ -117,6 +117,10 @@ msroregion:any
   //   });
   // }
  
+  typechange(event:any){
+    this.myForm.get('price')?.setValue('');
+  }
+
   onFileSelectedidproof(event: any) {
     const files = event.target.files[0];
     if (files) {

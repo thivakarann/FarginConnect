@@ -1,4 +1,4 @@
-@import "https://unpkg.com/open-props";
+
  
 *,
 *::before,
@@ -11,8 +11,7 @@ button {
 }
  
 .page {
-  color: var(--gray-9);
-  background-color: var(--gray-0);
+ 
   display: grid;
   grid-template-areas: "main";
   height: auto;
@@ -36,14 +35,12 @@ button {
 }
  
 .form {
-  color: var(--gray-9);
-  background-color: var(--gray-3);
+
   display: grid;
   width: 100%;
   max-width: 100%;
-  border: 1px solid var(--gray-4);
-  border-radius: var(--radius-2);
-  padding: 30px;
+
+  padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: #fff;
 }
@@ -54,15 +51,14 @@ button {
 }
  
 .form__label {
-  margin-bottom: var(--size-2);
+  margin-bottom: 10px;
 }
  
 .form__input,
 .form__select,
 .form__textarea {
   padding: 0.5em 0.7rem;
-  border: 1px solid var(--gray-4);
-  border-radius: var(--radius-2);
+
   width: 100%;
 }
  
@@ -83,11 +79,11 @@ button {
 
 @media (max-width: 600px) {
   .main__form {
-    padding: var(--size-2);
+    padding: 10px;
   }
  
   .form {
-    padding: var(--size-2);
+    padding: 10px;
   }
  
   .submit,

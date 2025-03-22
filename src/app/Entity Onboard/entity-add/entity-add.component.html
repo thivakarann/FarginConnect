@@ -365,7 +365,6 @@
                     font-size: 12px;
                     margin-top: 2px;
                     position: relative;
-                    ;
                   " *ngIf="secondaryMobile?.errors?.['pattern']">
                         please Enter A valid Mobile Number
                     </div>
@@ -491,8 +490,8 @@
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
-                    <label for="billing">customer DueGeneration Mode</label>
-                    <select formControlName="customerPaymentMode" (change)="get($event)" type="text" class="form-select"
+                    <label for="billing">Customer DueGeneration Mode</label>
+                    <select formControlName="customerPaymentMode"  type="text" class="form-select"
                         id="billing">
                         <!-- <option value="Manual">Manual</option> -->
                         <option value="Auto">Auto</option>
@@ -505,7 +504,7 @@
                         position: relative;
                         ;
                       "
-                        *ngIf="customerDuesEnable?.invalid && customerDuesEnable?.touched && customerDuesEnable?.errors?.['required']">
+                        *ngIf="customerPaymentMode?.invalid && customerPaymentMode?.touched && customerPaymentMode?.errors?.['required']">
                         Field id required*
                     </div>
                 </div>
@@ -568,11 +567,10 @@
 
                 <div class="col-sm-4 form-group">
                     <label for="billing">Customer Due Alert Notification</label>
-                    <select formControlName="customerDuesEnable" (change)="get($event)" type="text" class="form-select"
+                    <select (change)="duealert($event)" formControlName="customerDuesEnable"  type="text" class="form-select"
                         id="billing">
                         <option value="1">Yes</option>
                         <option value="0">No</option>
-
                     </select>
                     <div style="
                         color: red;
@@ -586,28 +584,42 @@
                     </div>
                 </div>
 
-                <div class="col-sm-4 form-group" *ngIf="selectperiod==1">
+                <div class="col-sm-4 form-group" [hidden]="customerDuesEnable?.value!='1'" >
                     <label for="billing">Customer Alert Notification frequency</label>
-                    <select formControlName="customerDuesDate" type="text" class="form-select" id="billing">
+                    <select  [required]="customerDuesEnable?.value=='1'" formControlName="customerDuesDate" type="text" class="form-select" id="billing">
                         <option value="1">Daily</option>
                         <option value="2">Two Days Once</option>
                         <option value="3">Three Days Once</option>
                         <option value="4">Once</option>
-
                     </select>
-
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                " *ngIf="customerDuesDate?.invalid && customerDuesDate?.touched && customerDuesDate?.errors?.['required']">
+                    Field is required*
+                    </div>
                 </div>
-
-               
             </div>
 
             <div class="row mb-3">
-                <div class="col-sm-4 form-group" *ngIf="selectperiod==1">
+                <div class="col-sm-4 form-group" [hidden]="customerDuesEnable?.value!='1'" >
                     <label for="billing">Customer Notification Start due date</label>
 
-                    <select id="dayPicker" formControlName="dueDate" class="form-select">
+                    <select  [required]="customerDuesEnable?.value=='1'" id="dayPicker" formControlName="dueDate" class="form-select">
                         <option *ngFor="let day of days" [value]="day">{{ day }}</option>
                     </select>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                " *ngIf="dueDate?.invalid && dueDate?.touched && dueDate?.errors?.['required']">
+                    Field is required*
+                    </div>
                 </div>
             </div>
 

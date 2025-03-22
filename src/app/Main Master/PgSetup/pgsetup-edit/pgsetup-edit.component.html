@@ -27,7 +27,7 @@
 
                 <div class="form__linput">
                     <label class="form__label" for="apiKey">API Key</label>
-                    <input class="form__input" id="apiKey" type="text" formControlName="apiKey"  required/>
+                    <input class="form__input form-control" id="apiKey" type="text" formControlName="apiKey"  required/>
                     <div class="form__error" *ngIf="apiKey?.invalid && apiKey?.touched && apiKey?.errors?.['required']">
                         Field is required
                     </div>
@@ -35,7 +35,7 @@
 
                 <div class="form__linput">
                     <label class="form__label" for="secretKey ">Secret Key</label>
-                    <input class="form__input" id="secretKey " type="text" formControlName="secretKey"  required/>
+                    <input class="form__input form-control" id="secretKey " type="text" formControlName="secretKey"  required/>
                     <div class="form__error" *ngIf="secretKey ?.invalid && secretKey?.touched && secretKey ?.errors?.['required']">
                         Field is required
                     </div>
@@ -44,10 +44,10 @@
               
             </div>
 
-            <div class="form__buttons">
-                <button [disabled]="pgsetupformedit.invalid" type="submit" class="btn mx-3" style="background-color:#7db855be"
+            <div class="mt-3">
+                <button [disabled]="pgsetupformedit.invalid" type="submit" class="btn " style="background-color:#7db855be"
                  (click)="submit()">Submit</button> 
-                <button  type="submit" class="cancel" matDialogClose class="btn" style="background-color:#141E46;color:white" >Cancel</button>
+                <button  type="submit" class="cancel" matDialogClose class="btn mx-2" style="background-color:#141E46;color:white" >Cancel</button>
             </div>
         </form>
     </main>

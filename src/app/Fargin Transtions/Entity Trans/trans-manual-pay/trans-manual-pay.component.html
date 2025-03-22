@@ -1,6 +1,6 @@
 <div class="card">
-    <h4 class="p-2" style="font-weight: 700">Cloud Fees Manual Update<button matDialogClose style="float: right;"
-            class="button1">Close</button></h4>
+    <h4 class="p-2" style="font-weight: 500;color:black">Cloud Fees Manual Update<button matDialogClose style="float: right;"
+            class="button1">Back</button></h4>
  
  
  
@@ -11,7 +11,7 @@
         <form style="width: 600px;" class="form main__form" autocomplete="off" class="form" role="form"
             [formGroup]="manualpay">
                   
-            <br>
+  
             <div class="form__linput">
                 <label class="form__label" for="fname">Payment Mode</label>
  
@@ -31,7 +31,7 @@
  
             <div [hidden]="manualpay.controls['paymentMode'].value == 'Cash'" class="form__linput">
                 <label class="form__label" for="fname">Reference Number</label>
-                <input class="form__input" id="fname" type="text" formControlName="utrNumber" name="utrNumber"
+                <input class="form__input form-control" id="fname" type="text" formControlName="utrNumber" name="utrNumber"
                     placeholder="Reference Number..." required />
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="utrNumber?.invalid && utrNumber?.touched && utrNumber?.errors?.['required']">

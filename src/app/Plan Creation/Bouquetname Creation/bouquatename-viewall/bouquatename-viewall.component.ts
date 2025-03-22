@@ -24,10 +24,11 @@ export class BouquatenameViewallComponent implements OnInit {
   displayedColumns: string[] = [
     'bundleChannelId',
     'broadCasterName',
+    'Edit',
     'status',
     'createdBy',
     'createdAt',
-    'Edit',
+
     'modifiedBy',
     'modifiedAt',
   ];

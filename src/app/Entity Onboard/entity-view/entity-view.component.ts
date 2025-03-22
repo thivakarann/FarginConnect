@@ -190,7 +190,7 @@ export class EntityViewComponent implements OnInit {
   roles: any;
   paymentStatus: any;
   paymentMethod: any;
-  onBoardStatus:any;
+  onBoardStatus: any;
   chargepersms: any;
   agreementdetails: any;
   valueagreementcreate: any;
@@ -219,7 +219,7 @@ export class EntityViewComponent implements OnInit {
   valueplandetails: any;
   valuefee: any;
   valuedues: any;
-  valueterminal:any;
+  valueterminal: any;
 
   selectTab(tab: string): void {
     this.activeTab = tab;
@@ -538,7 +538,7 @@ export class EntityViewComponent implements OnInit {
 
 
       this.detaislone = res.response.merchantpersonal;
-      
+
       this.onBoardStatus = res.response.merchantpersonal?.onBoardStatus;
       this.bankdetails = res.response.merchantbank.reverse();
       this.KYCDetails = res.response.merchantkycdocument;
@@ -3384,12 +3384,20 @@ export class EntityViewComponent implements OnInit {
 
             }
           })
-        }, 500);
-        this.dialog.closeAll();
+        },500);
+        // this.dialog.closeAll();
 
       }
       else {
-        this.toastr.error(res.responseMessage)
+        this.toastr.error(res.responseMessage);
+        setTimeout(() => {
+          this.MerchantView.SMSViewById(this.id).subscribe((res: any) => {
+            if (res.flag == 1) {
+              this.smsDetails = res.response;
+
+            }
+          })
+        },500);
       }
     })
   }
