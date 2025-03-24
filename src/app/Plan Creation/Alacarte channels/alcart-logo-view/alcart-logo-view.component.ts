@@ -18,6 +18,8 @@ export class AlcartLogoViewComponent implements OnInit {
   id: any;
   images!: string;
   errorMessage: any;
+  uploadidentityfront: any;
+  identityFrontPath: any;
 
   constructor(
     public Viewlogoimage: FarginServiceService,
@@ -51,41 +53,39 @@ export class AlcartLogoViewComponent implements OnInit {
 
   }
 
-  onFileSelectedidproof(event: any) {
-    const files = event.target.files[0];
-    if (files) {
-      const fileName: string = files.name;
-      const fileextension: any = fileName.split('.').pop()?.toLowerCase();
-      const dotcount = fileName.split('.').length - 1;
-      // if (dotcount > 1) {
-
-      //   this.errorMessage = 'Files with multiple extensions are not allowed';
-      //   return;
+ 
 
 
-      // }
-      if (!files.type.startsWith('image/')) {
-
-        this.errorMessage = 'Only Images are allowed';
-        return;
-
+  onFileSelected(event: any) {
+    this.uploadidentityfront = event.target.files[0];
+ 
+    // Ensure this.uploadImage is not null
+    if (this.uploadidentityfront) {
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+ 
+      if (acceptableTypes.includes(this.uploadidentityfront.type)) {
+        if (this.uploadidentityfront.size <= 20 * 1024 * 1024) {
+          this.toastr.success("Image uploaded successfully");
+        } else {
+          this.toastr.error("Max Image size exceeded");
+          this.logo?.reset(); // Optional chaining to prevent error if this.logo is null
+        }
+      } else {
+ 
+        this.toastr.error("File type not acceptable");
+        this.logo?.reset(); // Optional chaining to prevent error if this.logo is null
       }
-
-
-      this.errorMessage = ''
-      this.file1 = files;
-      
-
-      
-
+    } else {
+      this.toastr.error("No file selected");
     }
-
-
+ 
+ 
   }
+
 
   submit(event: Event) {
     const formData = new FormData();
-    formData.append('logo', this.file1);
+    formData.append('logo', this.uploadidentityfront);
     formData.append('modifiedBy', this.getadminname);
     formData.append('alcotId', this.id);
 
