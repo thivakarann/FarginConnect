@@ -14,8 +14,8 @@ import { AgreementCommerical } from '../../../fargin-model/fargin-model.module';
 })
 export class AddagreementplanComponent {
   myForm!: FormGroup;
-  createdBy = JSON.parse(localStorage.getItem('adminname') || '');
-  merchantId: any = localStorage.getItem('merchantId');
+  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
+  merchantId: any = sessionStorage.getItem('merchantId');
   createagreementplan: any;
   constructor(private service: FarginServiceService, private location: Location, private toaster: ToastrService, private router: Router) {
   }

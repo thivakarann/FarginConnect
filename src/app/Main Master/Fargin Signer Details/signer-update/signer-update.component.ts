@@ -13,7 +13,7 @@ import { Updatesigner } from '../../../fargin-model/fargin-model.module';
 })
 export class SignerUpdateComponent implements OnInit {
   MyForm!: FormGroup;
-  createdBy: any = JSON.parse(localStorage.getItem('adminname') || '');
+  createdBy: any = JSON.parse(sessionStorage.getItem('adminname') || '');
   Id: any;
   Name: any;
   Email: any;

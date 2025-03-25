@@ -23,12 +23,12 @@ export class DashboardContentComponent {
   counts: any;
   valueDashboard: any;
   getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
   category: any;
   businessCategoryIds: any;
-  merchantId = localStorage.getItem('merchantId') || '';
+  merchantId = sessionStorage.getItem('merchantId') || '';
   chart: any;
   toastr: any;
   initialCategoryId = 1;

@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class KycApprovalComponent implements OnInit{
 
-  createdBy = JSON.parse(localStorage.getItem('adminname') || '');
+  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
  
   myForm!: FormGroup;
   id: any;

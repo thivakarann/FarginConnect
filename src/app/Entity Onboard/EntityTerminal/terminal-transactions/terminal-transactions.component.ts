@@ -19,7 +19,7 @@ import { entityterminaltransaction, OffilneTransaction } from '../../../fargin-m
 })
 export class TerminalTransactionsComponent {
   dataSource!: MatTableDataSource<any>;
-  merchantId: any = localStorage.getItem('merchantId')
+  merchantId: any = sessionStorage.getItem('merchantId')
 
   displayedColumns: string[] = [
     'sno',
@@ -61,8 +61,8 @@ export class TerminalTransactionsComponent {
   valueTransactionExport: any;
   valueTransactionView: any;
   getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
-  accountId: any = localStorage.getItem('accountId');
+  roleId: any = sessionStorage.getItem('roleId')
+  accountId: any = sessionStorage.getItem('accountId');
   searchPerformed: boolean = false;
 
   actions: any;
@@ -71,7 +71,7 @@ export class TerminalTransactionsComponent {
   id: any;
   Button: boolean = false;
   valuestaticview:any;
-  roleName = localStorage.getItem('roleName')
+  roleName = sessionStorage.getItem('roleName')
   valuestaticexport:any;
   terminalId: any;
 

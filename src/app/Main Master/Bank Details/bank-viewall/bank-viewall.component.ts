@@ -46,7 +46,7 @@ export class BankViewallComponent implements OnInit {
   valuebankedit: any;
   errorMessage: any;
   getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   valuetermViews: any;
 

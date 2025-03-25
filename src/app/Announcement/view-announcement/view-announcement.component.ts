@@ -27,7 +27,7 @@ export class ViewAnnouncementComponent implements OnInit {
   valueannouncementexport: any;
   valueannouncementstatus: any;
   getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
   valueannouncementEdit: any;

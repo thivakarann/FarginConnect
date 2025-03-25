@@ -13,7 +13,7 @@ export class DashboardComponent implements OnInit {
   private sidebarDropdowns: HTMLElement[] = [];
   private pageWrapper: HTMLElement | null = null;
   getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId')
   errorMessage: any;
   valueDashboard: any;
   valueBusinessCategory: any;

@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
 })
 export class CreateCampaginComponent {
   announcementform: any = FormGroup;
-  createdBy = JSON.parse(localStorage.getItem('adminname') || '');
+  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
   categoryvalue: any;
   minDate: any = Date;
   uploadidentityfront: any;

@@ -39,7 +39,7 @@ export class PgsetupViewComponent implements OnInit {
   valuepgsetupStatus: any;
   valuepgsetupEdit: any;
   getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
 

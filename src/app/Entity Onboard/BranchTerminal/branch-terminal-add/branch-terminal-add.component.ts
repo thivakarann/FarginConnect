@@ -13,7 +13,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 export class BranchTerminalAddComponent implements OnInit {
 
   AddTerminal: any = FormGroup;
-  createdBy = JSON.parse(localStorage.getItem('adminname') || '');
+  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
   branchId:any;
   merchantId:any
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService,@Inject(MAT_DIALOG_DATA) public data: any) { }

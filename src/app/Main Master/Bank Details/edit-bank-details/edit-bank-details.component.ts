@@ -11,8 +11,8 @@ import { UpdateBankdetails, UpdateBankdetailStatus } from '../../../fargin-model
   styleUrl: './edit-bank-details.component.css'
 })
 export class EditBankDetailsComponent implements OnInit {
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(localStorage.getItem('adminid') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
   myForm!: FormGroup;
   id: any;
   details: any;

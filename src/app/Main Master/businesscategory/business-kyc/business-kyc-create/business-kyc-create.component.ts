@@ -20,7 +20,7 @@ export class BusinessKycCreateComponent implements OnInit {
   @ViewChild('select') select: any = MatSelect;
   allSelected = false;
   addbusinesskyc: any = FormGroup;
-  createdBy = JSON.parse(localStorage.getItem('adminname') || '');
+  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
   showcategoryData: boolean = false;
   errorMsg: any;
   responseDataListnew: any = [];

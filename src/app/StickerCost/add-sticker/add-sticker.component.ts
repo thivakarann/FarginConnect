@@ -11,8 +11,8 @@ import { FarginServiceService } from '../../service/fargin-service.service';
   styleUrl: './add-sticker.component.css'
 })
 export class AddStickerComponent  {
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(localStorage.getItem('adminid') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
   myForm!: FormGroup;
 
   constructor(

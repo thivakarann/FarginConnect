@@ -13,8 +13,8 @@ import { MatOption, MatSelect } from '@angular/material/select';
   styleUrl: './bouqutes-add.component.css'
 })
 export class BouqutesAddComponent implements OnInit {
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(localStorage.getItem('adminid') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
   myForm!: FormGroup;
   details: any;
   channelslist: any;

@@ -1142,6 +1142,10 @@
             <div class="form__linput">
                 <label class="form__label"><b>Upload Back Path</b></label>
                 <input class="form-control" formControlName="docBackPath" (change)="docback($event)" type="file" />
+                <div *ngIf="docBackPath?.invalid && docBackPath?.touched && docBackPath?.errors?.['required']"
+                style="color: red; font-size: 12px;">
+                Field is required
+            </div>
             </div>
  
             <div class="form__linput">

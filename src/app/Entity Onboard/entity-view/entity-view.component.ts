@@ -54,8 +54,8 @@ import { manuvalduecreation, Manuvelduesforcloudfee } from '../../Fargin Model/f
 })
 export class EntityViewComponent implements OnInit {
 
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(localStorage.getItem('adminid') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
   id: any;
   details: any;
   detaislone: any;
@@ -117,7 +117,7 @@ export class EntityViewComponent implements OnInit {
   merchantpayid: any;
   id2: any;
   getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
   valueentitytransaction: any;
@@ -1403,30 +1403,18 @@ export class EntityViewComponent implements OnInit {
         setTimeout(() => {
           this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
             this.details = res.response;
-
-
             this.detaislone = res.response.merchantpersonal;
             this.bankdetails = res.response.merchantbank.reverse();
             this.KYCDetails = res.response.merchantkycdocument;
             this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-
             this.identityProof = res.response.merchantkycdocument[0].identityProof;
             this.addressProof = res.response.merchantkycdocument[0].addressProof;
             this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-
-
-
-
             this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-
-
-
-
-
-
           })
 
         }, 500);
+        
       }
       else {
         this.toastr.error(res.response.message)

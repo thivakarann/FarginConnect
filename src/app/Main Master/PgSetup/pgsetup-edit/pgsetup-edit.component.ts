@@ -14,7 +14,7 @@ import { pgsetupedit, Updatefacheckkey } from '../../../fargin-model/fargin-mode
 export class PgsetupEditComponent implements OnInit {
 
   pgsetupformedit: any = FormGroup;
-  createdBy = JSON.parse(localStorage.getItem('adminname') || '');
+  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
   facheckkey: any;
   pgModeId: any;
   apikeys: any;

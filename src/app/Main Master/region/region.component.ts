@@ -51,7 +51,7 @@ export class RegionComponent implements OnInit {
   regionStatus: any;
   regionEdit: any;
   getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
 

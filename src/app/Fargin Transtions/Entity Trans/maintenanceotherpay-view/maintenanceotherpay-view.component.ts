@@ -20,7 +20,7 @@ export class MaintenanceotherpayViewComponent {
   displayedColumns: string[] = ["Sno", "type", "otherFeeCount", "otherFeeAmount", "requestDate"]
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  roleId: any = localStorage.getItem('roleId');
+  roleId: any = sessionStorage.getItem('roleId');
   Merchatid: any;
   searchPerformed: boolean = false;
   responseDataListnew: any = [];

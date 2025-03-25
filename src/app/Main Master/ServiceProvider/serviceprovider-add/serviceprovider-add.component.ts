@@ -14,7 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class ServiceproviderAddComponent implements OnInit {
   AdminForm!: FormGroup;
   showPassword: boolean = false;
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
 
   constructor(private dialog:MatDialog,private service: FarginServiceService, private toaster: ToastrService, private router: Router) { }
 

@@ -26,7 +26,7 @@ export class EntityTerminalViewComponent implements OnInit{
   displayedColumns: string[] = ["sno", "accountId", "terminalNumber", "status","View", "edit", "createdBy","createdAt","modifiedBy","modifiedAt"]
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  roleId: any = localStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId')
   errorMessage:any;
   actions: any;
   searchPerformed: boolean=false;

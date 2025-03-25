@@ -65,7 +65,7 @@ export class AdminViewComponent implements OnInit {
   valuetermCreate: any;
   valuetermExport: any;
   getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
   date3: any;

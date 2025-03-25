@@ -50,7 +50,7 @@ export class EntitySettlementComponent {
   accountid: any;
   Viewall: any;
   getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   responseDataListnew: any = [];
   response: any = [];

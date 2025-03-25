@@ -12,7 +12,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 })
 export class AddKyccategoryComponent {
   addkyccategory: any = FormGroup;
-  createdBy = JSON.parse(localStorage.getItem('adminname') || '');
+  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
 

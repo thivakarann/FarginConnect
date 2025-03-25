@@ -49,7 +49,7 @@ export class BranchViewallComponent {
   valuebranchView: any;
   valuebranchCustomerDetails: any;
   getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
   pageIndex1: number = 0;

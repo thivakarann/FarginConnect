@@ -13,8 +13,8 @@ import { SmsUpdate } from '../../fargin-model/fargin-model.module';
   styleUrl: './edit-sms.component.css'
 })
 export class EditSmsComponent {
-  Adminid = JSON.parse(localStorage.getItem('adminid') || '');
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
+  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
   id: any;
   myForm!: FormGroup;
   payId: any;

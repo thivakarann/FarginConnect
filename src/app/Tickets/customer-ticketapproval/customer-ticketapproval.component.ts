@@ -15,7 +15,7 @@ export class CustomerTicketapprovalComponent {
 
   ticketFormGroup: any = FormGroup;
   description: any;
-  adminname: any = localStorage.getItem('adminname')
+  adminname: any = sessionStorage.getItem('adminname')
   raiseTicketId: any;
   ticketValue: any;
 

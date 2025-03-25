@@ -18,7 +18,7 @@ export class EditBussinessdocumentComponent {
   errorMessage: any;
   close: any;
   documentdata: any;
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
   merchantDocumentId: any;
   docNumbers: any;
   categoryvalue: any;

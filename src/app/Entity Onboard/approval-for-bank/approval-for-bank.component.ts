@@ -12,8 +12,8 @@ import { ApprovalBank } from '../../fargin-model/fargin-model.module';
   styleUrl: './approval-for-bank.component.css'
 })
 export class ApprovalForBankComponent implements OnInit {
-  Adminid = JSON.parse(localStorage.getItem('adminid') || '');
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
+  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
   id: any;
   myForm!: FormGroup;
   @Output() datas = new EventEmitter<ApprovalBank>();

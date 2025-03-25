@@ -13,7 +13,7 @@ import { Addfacheckkey } from '../../../fargin-model/fargin-model.module';
 })
 export class AddfacheckkeyComponent {
   facheckkeyFormGroup: any = FormGroup;
-  createdBy = JSON.parse(localStorage.getItem('adminname') || '');
+  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
   facheckkey: any;
   constructor(
     private service: FarginServiceService,

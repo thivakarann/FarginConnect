@@ -11,7 +11,7 @@ import { KycApproval, policyApproval } from '../../fargin-model/fargin-model.mod
   styleUrl: './policy-approval.component.css'
 })
 export class PolicyApprovalComponent {
-  createdBy = JSON.parse(localStorage.getItem('adminname') || '');
+  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
 
   myForm!:FormGroup;
    id: any;

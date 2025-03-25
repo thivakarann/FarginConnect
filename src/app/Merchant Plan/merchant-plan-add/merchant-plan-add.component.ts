@@ -13,8 +13,8 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class MerchantPlanAddComponent implements OnInit {
 
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(localStorage.getItem('adminid') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
   myForm!: FormGroup;
   numberValue: number | any = null;
   numberValues: number | any = null

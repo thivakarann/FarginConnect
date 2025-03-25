@@ -15,7 +15,7 @@ export class BranchkycExtraComponent {
   imageFile1!: File;
   errorShow!: boolean;
   clearImage: any = '';
-  createdBy: any = localStorage.getItem('adminname');
+  createdBy: any = sessionStorage.getItem('adminname');
   details: any;
   merchantId: any;
   categorydetails: any;

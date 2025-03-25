@@ -14,8 +14,8 @@ import { BroadcasterBouquetadd, BroadcasterBouquetupdate, Region } from '../../.
   styleUrl: './bouqets-edit.component.css'
 })
 export class BouqetsEditComponent implements OnInit {
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(localStorage.getItem('adminid') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
   myForm!: FormGroup;
   details: any;
   channelslist: any;

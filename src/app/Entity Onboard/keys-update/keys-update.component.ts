@@ -11,7 +11,7 @@ import { KeysUpdate } from '../../fargin-model/fargin-model.module';
   styleUrl: './keys-update.component.css'
 })
 export class KeysUpdateComponent {
-  createdBy = JSON.parse(localStorage.getItem('adminname') || '');
+  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
   myForm!: FormGroup;
   merchantId: any;
   approval: any;

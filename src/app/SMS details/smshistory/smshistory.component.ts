@@ -23,12 +23,14 @@ export class SMSHistoryComponent {
     'sno',
     'accountId',
     'entityname',
-    'entityemail',
+    // 'entityemail',
     'mobile',
     'smsType',
-    'smscharge',
+    'responseCode',
+    'responseStatus',
+     'smscharge',
     'perSmsAmount',
-    'createdBy',
+    // 'createdBy',
     'date',
 
   ];
@@ -54,7 +56,7 @@ export class SMSHistoryComponent {
   showcategoryData: boolean = false;
   smsResponse: any;
   getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
   valuesmshistoryexport: any;
@@ -179,12 +181,13 @@ export class SMSHistoryComponent {
       this.response.push(sno);
       this.response.push(element?.merchantId?.accountId);
       this.response.push(element?.merchantId?.entityName);
-      this.response.push(element?.merchantId?.contactEmail);
       this.response.push(element?.mobileNumber);
       this.response.push(element?.merchantSmsId?.type?.smsTitle);
-      this.response.push(element?.merchantSmsId?.type?.smsCharge);
+      this.response.push(element?.responseCode);
+      this.response.push(element?.responseStatus);
+      this.response.push(element?.smsChargeStatus);
       this.response.push(element?.perSmsAmount);
-      this.response.push(element?.merchantSmsId?.createdBy);
+      // this.response.push(element?.merchantSmsId?.createdBy);
       if(element.merchantSmsId?.createdDateTime){
         this.response.push(moment(element?.merchantSmsId?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
       }
@@ -206,12 +209,12 @@ export class SMSHistoryComponent {
       'SNo',
       'Account Id',
       'Entity Name',
-      'Entity Email',
       'Mobile Number',
       'SMS Type',
+      'SMS Code',
+      'SMS Status',
       'SMS Charge type',
-      'SMS Amount',
-      'Created By',
+      'Charge For SMS',
       'Created At',
  
     ]
@@ -255,6 +258,8 @@ export class SMSHistoryComponent {
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
+      let qty10 = row.getCell(11);
+      // let qty11 = row.getCell(12);
  
  
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -267,6 +272,8 @@ export class SMSHistoryComponent {
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      // qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
  
     }
     );

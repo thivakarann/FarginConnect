@@ -13,8 +13,8 @@ import { DPOCrate } from '../../../fargin-model/fargin-model.module';
   styleUrl: './dpobouquete-add.component.css'
 })
 export class DPOBouqueteAddComponent implements OnInit {
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(localStorage.getItem('adminid') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
   myForm!: FormGroup;
   details: any;
   channelslist: any;

@@ -2323,7 +2323,7 @@ Initial list of features and changes is available at https://www.tiny.cloud/docs
 - Fixed a bug where running getSelectedBlocks with a collapsed selection between block elements would produce incorrect results. #TINY-1787
 - Fixed a bug where the ScriptLoaders loadScript method would not work as expected in FireFox when loaded on the same page as a ShadowDOM polyfill. #TINY-1786
 - Removed reference to ShadowDOM event.path as Blink based browsers now support event.composedPath. #TINY-1785
-- Fixed a bug where a reference to localStorage would throw an "access denied" error in IE11 with strict security settings. #TINY-1782
+- Fixed a bug where a reference to sessionStorage would throw an "access denied" error in IE11 with strict security settings. #TINY-1782
 - Fixed a bug where pasting using the toolbar button on an inline editor in IE11 would cause a looping behaviour. #TINY-1768
 
 ## 4.8.1 - 2018-07-26

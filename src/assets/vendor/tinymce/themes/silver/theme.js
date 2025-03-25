@@ -12583,17 +12583,17 @@
     };
     const onActionExecCommand = (editor, command) => () => editor.execCommand(command);
 
-    var global$4 = tinymce.util.Tools.resolve('tinymce.util.LocalStorage');
+    var global$4 = tinymce.util.Tools.resolve('tinymce.util.sessionStorage');
 
     const cacheStorage = {};
     const ColorCache = (storageId, max = 10) => {
       const storageString = global$4.getItem(storageId);
-      const localstorage = isString(storageString) ? JSON.parse(storageString) : [];
+      const sessionStorage = isString(storageString) ? JSON.parse(storageString) : [];
       const prune = list => {
         const diff = max - list.length;
         return diff < 0 ? list.slice(0, max) : list;
       };
-      const cache = prune(localstorage);
+      const cache = prune(sessionStorage);
       const add = key => {
         indexOf(cache, key).each(remove);
         cache.unshift(key);

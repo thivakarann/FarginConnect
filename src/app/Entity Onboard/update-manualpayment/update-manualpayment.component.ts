@@ -12,8 +12,8 @@ import { manualPayment } from '../../fargin-model/fargin-model.module';
   styleUrl: './update-manualpayment.component.css'
 })
 export class UpdateManualpaymentComponent {
-  Adminid = JSON.parse(localStorage.getItem('adminid') || '');
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
+  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
   id: any;
   myForm!: FormGroup;
   PaidAmount: any;

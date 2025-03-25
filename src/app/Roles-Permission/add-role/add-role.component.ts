@@ -13,7 +13,7 @@ import { role, subpermission } from '../../fargin-model/fargin-model.module';
 })
 export class AddRoleComponent implements OnInit {
   addcategory: any = FormGroup;
-  createdBy = JSON.parse(localStorage.getItem('adminname') || '');
+  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
 
   categoryName: any;
   permissionValue: any;

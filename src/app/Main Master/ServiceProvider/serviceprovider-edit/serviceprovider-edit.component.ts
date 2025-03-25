@@ -14,7 +14,7 @@ import { Providerupdate } from '../../../fargin-model/fargin-model.module';
 export class ServiceproviderEditComponent implements OnInit {
   AdminForm!: FormGroup;
   showPassword: boolean = false;
-  getadmin = JSON.parse(localStorage.getItem('adminname') || '');
+  getadmin = JSON.parse(sessionStorage.getItem('adminname') || '');
   serviceId: any;
   viewdata: any;
 

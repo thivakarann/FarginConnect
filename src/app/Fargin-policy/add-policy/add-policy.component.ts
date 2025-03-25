@@ -12,8 +12,8 @@ import { FarginServiceService } from '../../service/fargin-service.service';
   styleUrl: './add-policy.component.css'
 })
 export class AddPolicyComponent {
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(localStorage.getItem('adminid') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
   policycreate: any = FormGroup;
   MerchantName: any;
   dataSource: any;

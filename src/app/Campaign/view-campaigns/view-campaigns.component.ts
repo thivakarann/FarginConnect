@@ -48,7 +48,7 @@ export class ViewCampaignsComponent {
   date1: any;
   viewall: any;
   ticketId: any;
-  merchantId: any = localStorage.getItem('merchantId');
+  merchantId: any = sessionStorage.getItem('merchantId');
   showcategoryData: any;
   valueTickets: any;
   valueTicketsAdd: any;
@@ -61,8 +61,8 @@ export class ViewCampaignsComponent {
   responseData: any;
   getdashboard: any[] = [];
   actions: any;
-  roleId: any = localStorage.getItem('roleId');
-  roleName = localStorage.getItem('roleName');
+  roleId: any = sessionStorage.getItem('roleId');
+  roleName = sessionStorage.getItem('roleName');
   searchPerformed: boolean = false;
   isChecked: any;
   status: any;

@@ -11,8 +11,8 @@ import { MerchantplanUpdate } from '../../fargin-model/fargin-model.module';
   styleUrl: './edit-merchant-plan.component.css'
 })
 export class EditMerchantPlanComponent implements OnInit {
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(localStorage.getItem('adminid') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
   myForm!: FormGroup;
   details: any;
   id: any;

@@ -32,7 +32,7 @@ export class SurveyviewallComponent {
   errorMsg: any;
   responseDataListnew: any = [];
   response: any = [];
-  merchantid: any = localStorage.getItem('merchantId')
+  merchantid: any = sessionStorage.getItem('merchantId')
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   isFullPolicyVisible: boolean = false;
@@ -51,7 +51,7 @@ export class SurveyviewallComponent {
   valuesurveyexport: any;
   valuesurveyview: any;
   getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
   pageIndex: number=0 ;

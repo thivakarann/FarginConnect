@@ -16,7 +16,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class SmsCreateComponent implements OnInit {
   merchantid: any;
   myForm4!: FormGroup;
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
   options: any;
   free: any;
   paid: any;

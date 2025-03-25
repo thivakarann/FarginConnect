@@ -24,8 +24,8 @@ export class BranchKycComponent {
   id: any;
   kycbranchdetails: any;
   merchantId:any
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
-  roleId: any = localStorage.getItem('roleId')
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
   getdashboard: any[] = [];

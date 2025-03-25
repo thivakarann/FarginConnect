@@ -3188,7 +3188,7 @@ interface TinyMCE extends EditorManager {
         EventDispatcher: EventDispatcherConstructor<any>;
         Observable: Observable<any>;
         I18n: I18n;
-        LocalStorage: Storage;
+        sessionStorage: Storage;
         ImageUploader: ImageUploader;
     };
     dom: {

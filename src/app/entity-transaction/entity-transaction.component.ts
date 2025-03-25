@@ -22,8 +22,7 @@ export class EntityTransactionComponent {
   valuetransactionExport: any;
   valuetransactionview: any;
 
-
-  dataSource!: MatTableDataSource<any>;
+  dataSource: any;
   displayedColumns: string[] = [
     'settlementId',
     'payoutId',
@@ -54,13 +53,24 @@ export class EntityTransactionComponent {
   Viewall: any;
   errorMessage: any;
   getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId');
+  roleId: any = sessionStorage.getItem('roleId');
   actions: any;
   responseDataListnew: any = [];
   response: any = [];
   AccountId: any;
   searchPerformed: boolean = false;
   valueinvoice:any;
+  pageIndex: number = 0;
+  pageSize = 5;
+currentfilval: any;
+  totalPages: any;
+  totalpage: any;
+  currentpage: any;
+  transactionValue: any;
+  currentfilvalShow!: boolean;
+
+  transdetails: any;
+  transaction: any;
 
   constructor(
     public service: FarginServiceService,
@@ -104,12 +114,21 @@ export class EntityTransactionComponent {
       this.id = param.Alldata;
     });
 
-    this.service.EntityTraansaction(this.id).subscribe((res: any) => {
-      if (res.flag == 1) {
+    this.service.EntityTraansaction(this.id, this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if (res.flag === 1) {
         this.details = res.response;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.details);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+     
+      } else if (res.flag === 2) {
+        this.dataSource = new MatTableDataSource([]);
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage
+     
+
       }
 
     });
@@ -148,38 +167,48 @@ export class EntityTransactionComponent {
     }
   }
   exportexcel() {
-    let sno = 1;
-    this.responseDataListnew = [];
-    this.details.forEach((element: any) => {
-      this.response = [];
-      this.response.push(sno);
-      this.response.push(element?.customerId?.customerName);
-      this.response.push(element?.customerId?.emailAddress);
+    this.service.EntityTransactionexport(this.id).subscribe((res: any) => {
+      this.transaction = res.response;
+      if (res.flag == 1) {
+        let sno = 1;
+        this.responseDataListnew = [];
+        this.transaction.forEach((element: any) => {
+          this.response = [];
+          this.response.push(sno);
+          this.response.push(element?.pgPaymentId || '-');
+          this.response.push(element?.customerName);
+          this.response.push(element?.mobileNumber);
+          this.response.push(element?.setUpBoxNumber)
+          this.response.push(element?.serviceProviderName)
+          this.response.push(element?.paidAmount);
+          this.response.push(element?.paymentMethod);
+          this.response.push(element?.paymentStatus);
+      
+    
+            if (element.createdDateTime) {
+                      this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
+                    }
+                    else {
+                      this.response.push('');
+                    }
 
-      this.response.push(element?.pgPaymentId || element?.paymentId);
-      this.response.push(element?.paidAmount);
-      this.response.push(element?.paymentMethod);
-      this.response.push(element?.paymentStatus);
-      this.response.push(element?.bankReference);
-      if (element.createdDateTime) {
-        this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
+          sno++;
+          this.responseDataListnew.push(this.response);
+        });
+        this.excelexportCustomer();
       }
-      else {
-        this.response.push('');
-      }
-      sno++;
-      this.responseDataListnew.push(this.response);
     });
-    this.excelexportCustomer();
   }
 
   excelexportCustomer() {
 
     const header = [
-      'SNO',
-      'CustomerName',
-      'Email',
+      'S No',
       'Payment Id',
+      'Customer Name',
+      'Customer Mobile Number',
+      'STB Number',
+      'Service Provider',
       'Amount',
       'Payment Method',
       'Payment Status',
@@ -223,7 +252,7 @@ export class EntityTransactionComponent {
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
-
+      let qty9 = row.getCell(10);
       qty.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
@@ -284,6 +313,13 @@ export class EntityTransactionComponent {
         bottom: { style: 'thin' },
         right: { style: 'thin' },
       };
+      qty9.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+
 
 
     });
@@ -308,4 +344,86 @@ export class EntityTransactionComponent {
     window.location.reload();
   }
 
+  customerpay(filterValue: string) {
+
+    if (filterValue) {
+
+      this.service.EntityTraansactionSearch(this.id, filterValue, this.pageSize, this.pageIndex).subscribe({
+        next: (res: any) => {
+          if (res.flag === 1) {
+            this.transdetails = res.response;
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.transdetails);
+            this.currentfilvalShow=true;
+         
+          } else if (res.flag === 2) {
+            this.dataSource = new MatTableDataSource([]);
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage
+         
+    
+          }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
+        }
+      });
+    }
+    else if (!filterValue) {
+      this.toastr.error('Please enter a value to search');
+      return;
+    }
+  }
+
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      this.service.EntityTraansactionSearch(this.id, this.currentfilval, event.pageSize, event.pageIndex).subscribe({
+        next: (res: any) => {
+          if (res.flag === 1) {
+            this.transdetails = res.response;
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.transdetails);
+         
+          } else if (res.flag === 2) {
+            this.dataSource = new MatTableDataSource([]);
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage
+         
+    
+          }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
+        }
+      });
+    }
+
+    else  {
+      this.service.EntityTraansaction(this.id, event.pageSize, event.pageIndex).subscribe((res: any) => {
+        if (res.flag === 1) {
+          this.details = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.details);
+       
+        } else if (res.flag === 2) {
+          this.dataSource = new MatTableDataSource([]);
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage
+       
+  
+        }
+  
+      });
+    }
+  }
+ 
 }

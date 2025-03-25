@@ -12,8 +12,8 @@ import { DPOChanneloverallstatus } from '../../../fargin-model/fargin-model.modu
   styleUrl: './dpo-view.component.css'
 })
 export class DpoViewComponent implements OnInit {
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(localStorage.getItem('adminid') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
   id: any;
   details: any;
   channelslist: any;

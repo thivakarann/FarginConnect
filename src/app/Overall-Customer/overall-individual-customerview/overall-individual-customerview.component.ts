@@ -61,7 +61,7 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
   valueaddinvoice: any;
   errorMessage: any;
   getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   refundval: any;
   totalPages: any;

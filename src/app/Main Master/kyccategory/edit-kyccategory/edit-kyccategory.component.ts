@@ -13,8 +13,8 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 export class EditKyccategoryComponent {
   editcategory: any = FormGroup;
   businessCategoryId: any;
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(localStorage.getItem('adminid') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
   categorys: any;
   mccCodes: any;
   kycCategoryId: any;

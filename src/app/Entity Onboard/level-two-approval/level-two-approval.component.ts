@@ -11,7 +11,7 @@ import { LevelTwoApproval } from '../../fargin-model/fargin-model.module';
   styleUrl: './level-two-approval.component.css'
 })
 export class LevelTwoApprovalComponent {
-  createdBy = JSON.parse(localStorage.getItem('adminname') || '');
+  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
 
   myForm!: FormGroup;
   merchantId: any;

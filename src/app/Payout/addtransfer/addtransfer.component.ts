@@ -12,7 +12,7 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 })
 export class AddtransferComponent {
   withdrawalFormGroup: any;
-    merchantId = localStorage.getItem('merchantId') || '';
+    merchantId = sessionStorage.getItem('merchantId') || '';
     viewbank: any;
     withdrawal: any;
     primaryAccount: string | null = null; 

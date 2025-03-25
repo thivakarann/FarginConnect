@@ -50,7 +50,7 @@ export class EntityCustomersViewAllComponent {
   accountid: any;
   Viewall: any;
   getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   pageIndex: number = 0;
   pageSize = 5;

@@ -39,7 +39,7 @@ export class RefundPeriodViewallComponent implements OnInit {
   date2: any;
   responseDataListnew: any = [];
   response: any = [];
-  roleId: any = localStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId')
   getdashboard: any[] = [];
   valueexport: any;
   errorMessage: any;

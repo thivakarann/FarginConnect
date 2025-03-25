@@ -34,8 +34,8 @@ export class ViewRecordcampaignsComponent {
   valueresponse: any;
   getdashboard: any[] = [];
   actions: any;
-  roleId: any = localStorage.getItem('roleId');
-  roleName = localStorage.getItem('roleName');
+  roleId: any = sessionStorage.getItem('roleId');
+  roleName = sessionStorage.getItem('roleName');
   valueRouteStatusresponse: any;
   searchPerformed: boolean = false;
   id: any;

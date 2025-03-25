@@ -13,7 +13,7 @@ export class MerchantLogoComponent {
   imageSrc: any;
   flag: any;
   logoUpdate!:FormGroup;
-  modifiedBy = JSON.parse(localStorage.getItem('adminname') || '');
+  modifiedBy = JSON.parse(sessionStorage.getItem('adminname') || '');
   imageFile1!: string | Blob;
   updatedata: any;
   errorMessage!: string;

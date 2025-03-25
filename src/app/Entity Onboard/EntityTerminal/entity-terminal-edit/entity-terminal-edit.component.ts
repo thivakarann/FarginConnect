@@ -13,7 +13,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 export class EntityTerminalEditComponent implements OnInit {
 
   Entityedit: any = FormGroup;
-  createdBy = JSON.parse(localStorage.getItem('adminname') || '');
+  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
   entityTerminalId:any;
   TerminalNumber:any;
 

@@ -34,7 +34,7 @@
 
     var global$3 = tinymce.util.Tools.resolve('tinymce.util.Delay');
 
-    var global$2 = tinymce.util.Tools.resolve('tinymce.util.LocalStorage');
+    var global$2 = tinymce.util.Tools.resolve('tinymce.util.sessionStorage');
 
     var global$1 = tinymce.util.Tools.resolve('tinymce.util.Tools');
 

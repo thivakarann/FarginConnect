@@ -11,7 +11,7 @@ import { LeveloneApproval } from '../../fargin-model/fargin-model.module';
   styleUrl: './level-one-approval.component.css'
 })
 export class LevelOneApprovalComponent implements OnInit{
-  createdBy = JSON.parse(localStorage.getItem('adminname') || '');
+  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
 
  myForm!:FormGroup;
  merchantId: any;

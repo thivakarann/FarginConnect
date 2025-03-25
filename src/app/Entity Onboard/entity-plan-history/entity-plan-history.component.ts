@@ -20,7 +20,7 @@ export class EntityPlanHistoryComponent implements OnInit {
   displayedColumns: string[] = ["planHistoryId", "planName", "frequency", "countLimit", "technicalAmount", "renewalAmount", "maintenanceAmount", "voiceBoxAdvRent", "voiceBoxSetupFee", "createdBy","createdDateTime","modifiedBy", "modifiedDateTime"]
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  roleId: any = localStorage.getItem('roleId');
+  roleId: any = sessionStorage.getItem('roleId');
   Merchatid: any;
   searchPerformed: boolean = false;
   responseDataListnew: any = [];

@@ -14,8 +14,8 @@ import { UpdateAgreementCommerical } from '../../../fargin-model/fargin-model.mo
 })
 export class EditagreementplanComponent {
   myForm!: FormGroup;
-  createdBy = JSON.parse(localStorage.getItem('adminname') || '');
-  merchantId: any = localStorage.getItem('merchantId');
+  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
+  merchantId: any = sessionStorage.getItem('merchantId');
   createagreementplan: any;
   id: any;
   commercialId: any;

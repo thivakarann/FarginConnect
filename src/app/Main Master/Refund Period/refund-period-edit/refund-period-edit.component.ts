@@ -11,8 +11,8 @@ import { RefundPeriodUpdate } from '../../../Fargin Model/fargin-model/fargin-mo
   styleUrl: './refund-period-edit.component.css'
 })
 export class RefundPeriodEditComponent implements OnInit {
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(localStorage.getItem('adminid') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
   myForm!: FormGroup;
   id: any;
   details: any;

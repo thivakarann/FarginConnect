@@ -12,8 +12,8 @@ import { AddBankdetails } from '../../../fargin-model/fargin-model.module';
 })
 export class AddbankDetailsComponent implements OnInit {
 
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(localStorage.getItem('adminid') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
   myForm!: FormGroup;
 
 

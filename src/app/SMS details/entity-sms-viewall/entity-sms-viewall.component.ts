@@ -54,7 +54,7 @@ export class EntitySmsViewallComponent {
   valueentitysmsexport: any;
 
   getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
   pageIndex: number = 0;

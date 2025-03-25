@@ -37,7 +37,7 @@ export class BranchCustomerViewComponent implements OnInit {
 
   branchview: any;
   responseDataListnew: any = [];
-  merchantid: any = localStorage.getItem('merchantId')
+  merchantid: any = sessionStorage.getItem('merchantId')
   response: any = [];
   id: any;
   branchcustview: any;

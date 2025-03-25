@@ -15,7 +15,7 @@ import { editroles, subpermission } from '../../fargin-model/fargin-model.module
 })
 export class EditRoleComponent implements OnInit {
   editRole: any = FormGroup;
-  createdBy = JSON.parse(localStorage.getItem('adminname') || '');
+  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
   categoryName: any;
   @ViewChild('select') select: any = MatSelect;
   @ViewChild('selects') selects: any = MatSelect;

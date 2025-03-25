@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 export class AddticketComponent {
   ticketFormGroup: any = FormGroup;
   description: any;
-  adminname :any = JSON.parse(localStorage.getItem('adminname') || '');
+  adminname :any = JSON.parse(sessionStorage.getItem('adminname') || '');
   raiseTicketId: any;
   ticketValue: any;
   tickets:any;

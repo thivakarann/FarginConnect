@@ -51,7 +51,7 @@ export class DuesComponent {
   valueduesview: any;
   valueduesreceipt: any;
   getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
 valuegeneratedues: any;

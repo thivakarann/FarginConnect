@@ -14,7 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class FarginBankAddComponent {
   BankForm!: FormGroup;
   showPassword: boolean = false;
-  createdBy: any = JSON.parse(localStorage.getItem('adminname') || '');
+  createdBy: any = JSON.parse(sessionStorage.getItem('adminname') || '');
   activeRole: any;
 
 

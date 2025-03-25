@@ -20,10 +20,10 @@ export class ProfileComponent {
 
   constructor(private router: Router, private location: Location) { }
 
-  adminname = JSON.parse(localStorage.getItem('adminname') || '');
-  emailaddress = JSON.parse(localStorage.getItem('emailaddress') || '');
-  mobilenumber = JSON.parse(localStorage.getItem('mobilenumber') || '');
-  address = JSON.parse(localStorage.getItem('address') || '');
+  adminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  emailaddress = JSON.parse(sessionStorage.getItem('emailaddress') || '');
+  mobilenumber = JSON.parse(sessionStorage.getItem('mobilenumber') || '');
+  address = JSON.parse(sessionStorage.getItem('address') || '');
 
 
   click() {

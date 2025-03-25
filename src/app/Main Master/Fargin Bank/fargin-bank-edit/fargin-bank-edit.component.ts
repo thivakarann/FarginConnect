@@ -14,7 +14,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 export class FarginBankEditComponent {
   BankFormedit!: FormGroup;
   showPassword: boolean = false;
-  createdBy :any = JSON.parse(localStorage.getItem('adminname') || '');
+  createdBy :any = JSON.parse(sessionStorage.getItem('adminname') || '');
   activeRole: any;
   farginbank: any;
   adminBankId:any;

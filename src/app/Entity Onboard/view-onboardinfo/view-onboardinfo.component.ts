@@ -15,7 +15,7 @@ export class ViewOnboardinfoComponent implements OnInit {
   copySuccesss: boolean = false;
   valueonboardadd: any;
   getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
   constructor(private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, private service: FarginServiceService) {

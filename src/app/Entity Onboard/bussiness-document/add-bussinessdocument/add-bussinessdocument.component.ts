@@ -19,7 +19,7 @@ export class AddBussinessdocumentComponent implements OnInit {
   file9!: any;
   close: any;
   merchantid: any;
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
   emptyBlob = new Blob([], { type: 'application/pdf' })
   uploadImage: any;
   uploadImage8: any;

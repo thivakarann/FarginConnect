@@ -12,8 +12,8 @@ import { Router } from '@angular/router';
   styleUrl: './admin-create.component.css'
 })
 export class AdminCreateComponent implements OnInit {
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(localStorage.getItem('adminid') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
   policycreate!: FormGroup;
   MerchantName: any;
   filteredMerchantNames: any[] = [];

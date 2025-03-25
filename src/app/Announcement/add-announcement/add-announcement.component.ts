@@ -13,7 +13,7 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 export class AddAnnouncementComponent {
 
   announcementform: any = FormGroup;
-  createdBy = JSON.parse(localStorage.getItem('adminname') || '');
+  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
   categoryvalue: any;
   minDate: any = Date;
 

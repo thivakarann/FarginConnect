@@ -15,7 +15,7 @@ import {
   styleUrl: './editbeneficiary.component.css',
 })
 export class EditbeneficiaryComponent {
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
   beneficiaryFormGroup: any = FormGroup;
   upiFormGroup: any = FormGroup;
   data: any;

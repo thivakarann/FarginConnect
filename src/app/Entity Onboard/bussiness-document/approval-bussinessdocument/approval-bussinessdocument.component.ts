@@ -16,7 +16,7 @@ export class ApprovalBussinessdocumentComponent {
   approval: any;
   @Output() dataApproval = new EventEmitter<KycApproval>();
   value: any;
-  createdBy = JSON.parse(localStorage.getItem('adminname') || '');
+  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
   merchantDocumentId: any;
 
   constructor(private service: FarginServiceService,

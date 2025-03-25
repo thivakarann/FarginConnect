@@ -12,8 +12,8 @@ import { BouquetenameUpdate } from '../../../fargin-model/fargin-model.module';
   styleUrl: './bouquetename-edit.component.css'
 })
 export class BouquetenameEditComponent implements OnInit {
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(localStorage.getItem('adminid') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
   myForm!: FormGroup;
   id: any;
   details: any;

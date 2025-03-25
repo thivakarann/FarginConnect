@@ -14,7 +14,7 @@ import { updatecamapaign } from '../../Fargin Model/fargin-model/fargin-model.mo
 export class EditCampaignComponent {
   setupformGroup: any = FormGroup;
   viewData: any;
-  getadminname = localStorage.getItem('fullname');
+  getadminname = sessionStorage.getItem('fullname');
   boxnumber: any;
   setupid: any;
   regionactive: any;

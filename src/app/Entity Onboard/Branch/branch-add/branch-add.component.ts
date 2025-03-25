@@ -15,7 +15,7 @@ import { Location } from '@angular/common';
 export class BranchAddComponent {
   merchantid: any;
   branch!: FormGroup;
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
   options: any;
   plans: any;
   todayDate: string = '';

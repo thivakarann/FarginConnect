@@ -12,7 +12,7 @@ import { Location } from '@angular/common';
 })
 export class EditPersonalInfoComponent implements OnInit {
 
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
   emptyBlob = new Blob([], { type: 'application/pdf' })
 
   entittyplanviewall: any;

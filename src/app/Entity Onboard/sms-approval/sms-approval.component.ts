@@ -12,8 +12,8 @@ import { FarginServiceService } from '../../service/fargin-service.service';
   styleUrl: './sms-approval.component.css'
 })
 export class SmsApprovalComponent implements OnInit{
-  Adminid = JSON.parse(localStorage.getItem('adminid') || '');
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
+  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
   id: any;
   myForm!: FormGroup;
  

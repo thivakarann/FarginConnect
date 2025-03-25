@@ -16,7 +16,7 @@ import { PageEvent } from '@angular/material/paginator';
   styleUrl: './alcot-history.component.css'
 })
 export class AlcotHistoryComponent implements OnInit {
-  merchantid: any = localStorage.getItem('merchantId')
+  merchantid: any = sessionStorage.getItem('merchantId')
   history: any;
   date2: any;
   date1: any;

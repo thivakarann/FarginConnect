@@ -12,7 +12,7 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 })
 export class EditAnnouncementComponent {
   announcementform: any = FormGroup;
-  createdBy = JSON.parse(localStorage.getItem('adminname') || '');
+  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
   categoryvalue: any;
   businessCategoryIds: any;
   announcementContentEnglishs: any;

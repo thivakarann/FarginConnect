@@ -22,7 +22,7 @@ export class RefundGetallComponent {
   errorMsg: any;
   responseDataListnew: any = [];
   response: any = [];
-  merchantId: any = localStorage.getItem('merchantId')
+  merchantId: any = sessionStorage.getItem('merchantId')
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   refund: any;
@@ -42,12 +42,12 @@ export class RefundGetallComponent {
   secretKey: any;
   getdashboard: any[] = [];
   actions: any;
-  roleId: any = localStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId')
   valuerenewexport: any;
   valuerenewview: any;
   valuerenewpay: any;
   valuerenewinvoice: any;
-  roleName = localStorage.getItem('roleName')
+  roleName = sessionStorage.getItem('roleName')
   searchPerformed: boolean = false;
   date1: any;
   date2: any;

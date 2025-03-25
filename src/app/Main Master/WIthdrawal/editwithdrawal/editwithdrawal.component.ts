@@ -14,7 +14,7 @@ import { Editwithdrawal } from '../../../fargin-model/fargin-model.module';
 export class EditwithdrawalComponent {
   withdrawalFormGroup: any = FormGroup;
   amount: any;
-  createdBy = JSON.parse(localStorage.getItem('adminname') || '');
+  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
   show: any;
   fee: any;
   infee: any;

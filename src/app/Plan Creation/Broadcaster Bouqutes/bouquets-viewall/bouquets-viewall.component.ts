@@ -46,7 +46,7 @@ export class BouquetsViewallComponent implements OnInit {
   valueBroadcasterBouquetesEdit: any;
   valueBroadcasterBouquetesView: any;
   getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId')
   values: any[] = [];
   actions: any;
   errorMessage: any;

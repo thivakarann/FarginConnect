@@ -23,7 +23,7 @@ export class EntityQrcodeComponent implements OnInit {
   valueqrgenerator: any;
   valueqrview: any;
   getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
 valueqredit: any;

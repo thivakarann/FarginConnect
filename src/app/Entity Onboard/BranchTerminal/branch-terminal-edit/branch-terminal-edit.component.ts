@@ -13,7 +13,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 export class BranchTerminalEditComponent implements OnInit {
 
   EditTerminal: any = FormGroup;
-  createdBy = JSON.parse(localStorage.getItem('adminname') || '');
+  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
   branchTerminalId:any;
   TerminalNumber:any;
 

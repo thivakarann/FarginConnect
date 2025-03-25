@@ -22,7 +22,7 @@ export class QRcreationComponent implements OnInit {
   Check: any;
   ADD: boolean = false;
   merchantid: any;
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
   QRdetaisl: any;
 
   constructor(

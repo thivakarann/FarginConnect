@@ -13,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AdminEditComponent implements OnInit{
   AdminForm!:FormGroup;
   showPassword:boolean=false;
-  createdBy :any = JSON.parse(localStorage.getItem('adminname') || '');
+  createdBy :any = JSON.parse(sessionStorage.getItem('adminname') || '');
   adminuserId: any;
   viewData: any;
   data: any;

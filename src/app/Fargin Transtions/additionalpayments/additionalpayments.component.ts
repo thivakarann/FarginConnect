@@ -64,7 +64,7 @@ export class AdditionalpaymentsComponent {
   valuepaymentexport: any;
   valuepaymentview: any;
   getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
   valuepaymentReceipt: any;

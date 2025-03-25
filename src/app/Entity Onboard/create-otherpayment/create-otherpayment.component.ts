@@ -13,8 +13,8 @@ import { createOtherPayment } from '../../fargin-model/fargin-model.module';
   styleUrl: './create-otherpayment.component.css'
 })
 export class CreateOtherpaymentComponent {
-  Adminid = JSON.parse(localStorage.getItem('adminid') || '');
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
+  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
   id: any;
   myForm!: FormGroup;
 

@@ -10,8 +10,8 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './alcart-add.component.css'
 })
 export class AlcartAddComponent implements OnInit {
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(localStorage.getItem('adminid') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
   myForm!: FormGroup;
   regiondetails: any;
   file1!: File;

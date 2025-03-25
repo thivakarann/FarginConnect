@@ -63,7 +63,7 @@ export class EntityCustomersViewComponent {
   valueadditionalinvoice: any;
 
   getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
   totalPages: any;

@@ -15,8 +15,8 @@ export class LogOutComponent {
   }
  
   logout(){
-    localStorage.clear();
-    // localStorage.removeItem('token');
+    sessionStorage.clear();
+    // sessionStorage.removeItem('token');
     location.href = '/login-page';
   }
   close(){

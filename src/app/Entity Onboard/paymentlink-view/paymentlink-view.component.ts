@@ -31,7 +31,7 @@ export class PaymentlinkViewComponent implements OnInit {
   valuepaymentlink: any;
   errorMessage: any;
   getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId')
   searchPerformed: boolean = false;
   actions: any;
   constructor(

@@ -10,8 +10,8 @@ import * as XLSX from 'xlsx';
   styleUrl: './update-bulkcampaign.component.css'
 })
 export class UpdateBulkcampaignComponent {
-merchantId: any = localStorage.getItem('merchantId');
-  entityname: any = localStorage.getItem('fullname');
+merchantId: any = sessionStorage.getItem('merchantId');
+  entityname: any = sessionStorage.getItem('fullname');
   customerformGroup: any = FormGroup;
   ExcelData: any;
   parsedJson: any;

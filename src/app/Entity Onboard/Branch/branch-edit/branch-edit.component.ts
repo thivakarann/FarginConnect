@@ -16,7 +16,7 @@ export class BranchEditComponent {
   branchid: any;
  
   branchedit!: FormGroup;
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
   options: any;
   plans: any;
   todayDate: string = '';

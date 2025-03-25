@@ -18,7 +18,7 @@ export class OtpVerificationComponent implements OnInit {
   otpCode6: any;
   resendOtp: boolean = false;
   displayTimer: boolean = true;
-  userId: any = localStorage.getItem('id');
+  userId: any = sessionStorage.getItem('id');
   display!: string;
   signupId: any;
   emailAddress: any;

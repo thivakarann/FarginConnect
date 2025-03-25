@@ -69,7 +69,7 @@ export class OtherpaymentsViewallComponent {
   valueCustomizationReceipt: any;
   valueCustomizationView: any;
   getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
   showcategoryData!: boolean;

@@ -21,7 +21,7 @@ export class ChangePasswordComponent implements OnInit {
   isConformPassword: boolean = false;
   isPasswordMatch: boolean = false;
   changeForm!: FormGroup;
-  adminId: any = localStorage.getItem('adminid');
+  adminId: any = sessionStorage.getItem('adminid');
   constructor(
     private router: Router,
     private service: FarginServiceService,

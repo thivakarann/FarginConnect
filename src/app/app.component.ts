@@ -17,7 +17,7 @@ export class AppComponent {
   ngOnInit(): void {
     this.bnIdle.startWatching(900).subscribe((isTimedOut: boolean) => {
       if (isTimedOut) {
-        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
         location.href = '/login';
         // this.toast.warning('Session Time Out')
 

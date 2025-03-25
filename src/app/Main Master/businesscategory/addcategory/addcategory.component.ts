@@ -14,7 +14,7 @@ export class AddcategoryComponent implements OnInit {
   days: number[] = Array.from({ length: 31 }, (_, i) => i + 1); // Generates days 1 to 31
  
   addcategory: any = FormGroup;
-  createdBy = JSON.parse(localStorage.getItem('adminname') || '');
+  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
  
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
  

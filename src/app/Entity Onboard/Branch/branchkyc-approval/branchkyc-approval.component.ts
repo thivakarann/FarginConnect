@@ -11,7 +11,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
   styleUrl: './branchkyc-approval.component.css'
 })
 export class BranchkycApprovalComponent {
-createdBy = JSON.parse(localStorage.getItem('adminname') || '');
+createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
  
   myForm!: FormGroup;
   id: any;

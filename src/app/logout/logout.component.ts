@@ -11,11 +11,11 @@ import { Router } from '@angular/router';
   styleUrl: './logout.component.css'
 })
 export class LogoutComponent {
-  constructor(private router:Router,private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) {
+  constructor(private router: Router, private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) {
 
   }
 
-  AdminId = JSON.parse(localStorage.getItem('adminid') || '')
+  AdminId = JSON.parse(sessionStorage.getItem('adminid') || '')
   logout() {
 
     let submitModel: Logout = {
@@ -24,9 +24,11 @@ export class LogoutComponent {
     }
     this.service.Logout(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage);
+        // this.toastr.success(res.responseMessage);
         this.dialog.closeAll();
-        this.router.navigateByUrl('/login-page')
+        sessionStorage.removeItem('token');
+        this.router.navigateByUrl('/login-page');
+       
       }
     })
 

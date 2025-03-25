@@ -23,7 +23,7 @@ export class CreateCampaignsComponent {
   activeemail: any;
   campagin: any;
 
-  createdBy = JSON.parse(localStorage.getItem('adminname') || '');
+  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
   file: any;
   ExcelData: any;
   parsedJson: any;

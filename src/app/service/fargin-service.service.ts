@@ -190,7 +190,9 @@ export class FarginServiceService {
 
 
   //Entity Transaction
-  private readonly entitytransaction = 'paymentHistory/viewByMerchant/';
+  private readonly entitytransaction = 'paymentHistory/viewByMerchantPage/';
+  private readonly entitytraansactionSearchs='paymentHistory/viewByMerchantSearch/';
+  private readonly EntityTransactionexports='paymentHistory/viewByMerchant/'
 
   //merchant transaction
   private readonly transactionformerchant = 'transactions/getadminPaymentList';
@@ -796,25 +798,25 @@ private readonly customeradditionaltransactionsearchs='customerotherpayment/view
 
   loginError = new Subject();
 
-  token = localStorage.getItem('token') || null;
+  token = sessionStorage.getItem('token') || null;
 
   headers = new HttpHeaders({
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
-    X_ACCESS_TOKEN: `Bearer ${this.token ? JSON.parse(localStorage.getItem('token') || '') : null
+    X_ACCESS_TOKEN: `Bearer ${this.token ? JSON.parse(sessionStorage.getItem('token') || '') : null
       }`,
   });
 
   headersMultipart = new HttpHeaders({
     'Access-Control-Allow-Origin': '*',
-    X_ACCESS_TOKEN: `Bearer ${this.token ? JSON.parse(localStorage.getItem('token') || '') : null
+    X_ACCESS_TOKEN: `Bearer ${this.token ? JSON.parse(sessionStorage.getItem('token') || '') : null
       }`,
   });
   options = { headers: this.headers };
   optionsMultipart = { headers: this.headersMultipart };
 
   getToken() {
-    return !!localStorage.getItem('token');
+    return !!sessionStorage.getItem('token');
   }
 
   getLogin(email: string, password: string) {
@@ -825,15 +827,15 @@ private readonly customeradditionaltransactionsearchs='customerotherpayment/view
 
     return this.http.post(`${this.basePath}${this.adminlogin}`, credentialBody).subscribe((res: any) => {
       if (res.flag == 1) {
-        localStorage.setItem('token', JSON.stringify(res.response.login_history.adminUser.jwtResponse.X_ACCESS_TOKEN));
-        localStorage.setItem('adminid', JSON.stringify(res.response.login_history?.adminUser?.adminUserId));
-        localStorage.setItem('adminname', JSON.stringify(res.response.login_history?.adminUser?.adminName));
-        localStorage.setItem('emailaddress', JSON.stringify(res.response.login_history?.adminUser?.emailAddress));
-        localStorage.setItem('address', JSON.stringify(res.response.login_history?.adminUser?.address));
-        localStorage.setItem('mobilenumber', JSON.stringify(res.response.login_history?.adminUser?.mobileNumber));
-        localStorage.setItem('lastlogin', JSON.stringify(res.response.login_history?.adminUser?.lastLogin));
-        localStorage.setItem('fullname', JSON.stringify(res.response.login_history?.adminUser?.createdBy));
-        localStorage.setItem('roleId', JSON.stringify(res.response.login_history?.adminUser?.roleModel?.roleId));
+        sessionStorage.setItem('token', JSON.stringify(res.response.login_history.adminUser.jwtResponse.X_ACCESS_TOKEN));
+        sessionStorage.setItem('adminid', JSON.stringify(res.response.login_history?.adminUser?.adminUserId));
+        sessionStorage.setItem('adminname', JSON.stringify(res.response.login_history?.adminUser?.adminName));
+        sessionStorage.setItem('emailaddress', JSON.stringify(res.response.login_history?.adminUser?.emailAddress));
+        sessionStorage.setItem('address', JSON.stringify(res.response.login_history?.adminUser?.address));
+        sessionStorage.setItem('mobilenumber', JSON.stringify(res.response.login_history?.adminUser?.mobileNumber));
+        sessionStorage.setItem('lastlogin', JSON.stringify(res.response.login_history?.adminUser?.lastLogin));
+        sessionStorage.setItem('fullname', JSON.stringify(res.response.login_history?.adminUser?.createdBy));
+        sessionStorage.setItem('roleId', JSON.stringify(res.response.login_history?.adminUser?.roleModel?.roleId));
 
         this.router.navigateByUrl('/dashboard/dashboard-content', {
           replaceUrl: true,
@@ -843,7 +845,7 @@ private readonly customeradditionaltransactionsearchs='customerotherpayment/view
           window.location.reload();
         }, 200);
 
-        this.toastr.success(res.responseMessage)
+        this.toastr.success(res.responseMessage);
         // location.href = '/dashboard/dashboard-content';   need to add After login
 
       }
@@ -1378,8 +1380,14 @@ private readonly customeradditionaltransactionsearchs='customerotherpayment/view
   }
   //entity transaction
 
-  EntityTraansaction(id: any) {
-    return this.http.get(`${this.basePath}${this.entitytransaction}${id}`, this.options)
+  EntityTraansaction(id: any, id1:any, id2:any) {
+    return this.http.get(`${this.basePath}${this.entitytransaction}${id}/${id1}/${id2}`, this.options)
+  }
+  EntityTraansactionSearch(id: any,id1:any, id2:any,id3:any) {
+    return this.http.get(`${this.basePath}${this.entitytraansactionSearchs}${id}/${id1}/${id2}/${id3}`, this.options)
+  }
+  EntityTransactionexport(id: any) {
+    return this.http.get(`${this.basePath}${this.EntityTransactionexports}${id}`, this.options)
   }
 
   TransactionForMerchant(model: any) {

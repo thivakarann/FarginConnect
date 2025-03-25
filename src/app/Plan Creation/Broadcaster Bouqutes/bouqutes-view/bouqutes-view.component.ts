@@ -16,8 +16,8 @@ import { Location } from '@angular/common';
   styleUrl: './bouqutes-view.component.css'
 })
 export class BouqutesViewComponent implements OnInit {
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(localStorage.getItem('adminid') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
   id: any;
   details: any;
   channelslist: any;

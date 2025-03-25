@@ -14,7 +14,7 @@ import { updatestickerticket } from '../../fargin-model/fargin-model.module';
 export class UpdateStickerTicketComponent implements OnInit {
   updatestickerticket: any = FormGroup;
   description: any;
-  adminname: any = JSON.parse(localStorage.getItem('adminname') || '');
+  adminname: any = JSON.parse(sessionStorage.getItem('adminname') || '');
   raiseTicketId: any;
   ticketValue: any;
   tickets: any;

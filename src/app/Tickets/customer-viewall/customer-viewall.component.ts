@@ -54,7 +54,7 @@ export class CustomerViewallComponent implements OnInit {
   valuecustomerticketedit: any;
   errorMessage: any;
   getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   valuedescription: any;
   valuedescriptionImage: any;

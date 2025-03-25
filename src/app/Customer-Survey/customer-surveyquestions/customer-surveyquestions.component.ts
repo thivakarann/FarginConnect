@@ -19,7 +19,7 @@ import { ReadquestionsComponent } from '../readquestions/readquestions.component
   styleUrl: './customer-surveyquestions.component.css'
 })
 export class CustomerSurveyquestionsComponent {
-  merchantid: any = localStorage.getItem('merchantId')
+  merchantid: any = sessionStorage.getItem('merchantId')
   history: any;
   date2: any;
   date1: any;

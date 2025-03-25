@@ -15,7 +15,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 export class PgsetupCreateComponent implements OnInit{
 
   pgsetupform: any = FormGroup;
-  createdBy = JSON.parse(localStorage.getItem('adminname') || '');
+  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
   facheckkey: any;
   constructor(
     private service: FarginServiceService,

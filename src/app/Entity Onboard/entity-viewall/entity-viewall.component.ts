@@ -54,7 +54,7 @@ export class EntityViewallComponent {
   valueEntityStatus: any;
   valueEntityView: any;
   getdashboard: any[] = [];
-  roleId: any = localStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
   unblockvalue: any;

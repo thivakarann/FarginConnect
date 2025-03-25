@@ -31,7 +31,7 @@ export class TransManualPayComponent implements OnInit {
   resendOtp: boolean = false;
   displayTimer: boolean = true;
   display!: string;
-  createdBy = JSON.parse(localStorage.getItem('adminname') || '');
+  createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
 
   constructor(
     private dialog: MatDialog,

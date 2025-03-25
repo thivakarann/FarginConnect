@@ -34,7 +34,7 @@ export class EntityRefundComponent {
   response: any = [];
   searchPerformed: boolean = false;
   errorMessage:any;
-  roleId: any = localStorage.getItem('roleId');
+  roleId: any = sessionStorage.getItem('roleId');
   getdashboard: any[] = [];
   valueview:any;
   actions:any;

@@ -12,8 +12,8 @@ import { BouquetNameadd } from '../../../fargin-model/fargin-model.module';
   styleUrl: './bouquetename-add.component.css'
 })
 export class BouquetenameAddComponent implements OnInit {
-  getadminname = JSON.parse(localStorage.getItem('adminname') || '');
-  Adminid = JSON.parse(localStorage.getItem('adminid') || '');
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
   myForm!: FormGroup;
   details: any;
 
