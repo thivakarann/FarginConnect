@@ -274,12 +274,11 @@ export class EntityViewComponent implements OnInit {
             this.valuekycapproval = 'Entity View KYC Document-Approval'
             this.valuekycverification = 'Entity View KYC Document-Verification'
             this.valuefinalapprovals = 'Final-Approval'
-            this.valuemanualpay = 'One Time Setup Payment-Create'
-            this.valuemanualedit = 'One Time Setup Payment-Edit'
-            this.valuemanualview = 'One Time Setup Payment-View'
+            this.valuemanualpay = 'Entity View One Time Setup Payment-Create'
+            this.valuemanualedit = 'Entity View One Time Setup Payment-Edit'
+            this.valuemanualview = 'Entity View One Time Setup Payment-View'
             this.valuefinalcomment = 'Final-Comment'
-            this.valuefinalcomment = 'Final-Comment'
-            this.valuefinalcomment = 'Final-Comment'
+        
 
             this.valuebussinessAdd = 'Entity View Bussiness Document-Add'
             this.valuebussinessapproval = 'Entity View Bussiness Document-Approval'
@@ -414,14 +413,14 @@ export class EntityViewComponent implements OnInit {
               if (this.actions == 'Final-Approval') {
                 this.valuefinalapprovals = 'Final-Approval'
               }
-              if (this.actions == 'One Time Setup Payment-Create') {
-                this.valuemanualpay = 'One Time Setup Payment-Create'
+              if (this.actions == 'Entity View One Time Setup Payment-Create') {
+                this.valuemanualpay = 'Entity View One Time Setup Payment-Create'
               }
-              if (this.actions == 'One Time Setup Payment-Edit') {
-                this.valuemanualedit = 'One Time Setup Payment-Edit'
+              if (this.actions == 'Entity View One Time Setup Payment-Edit') {
+                this.valuemanualedit = 'Entity View One Time Setup Payment-Edit'
               }
-              if (this.actions == 'One Time Setup Payment-View') {
-                this.valuemanualview = 'One Time Setup Payment-View'
+              if (this.actions == 'Entity View One Time Setup Payment-View') {
+                this.valuemanualview = 'Entity View One Time Setup Payment-View'
               }
               if (this.actions == 'Final-Comment') {
                 this.valuefinalcomment = 'Final-Comment'
@@ -691,14 +690,15 @@ export class EntityViewComponent implements OnInit {
       this.valuekycdocument = 'Entity View KYC Document';
       this.valuefinalapproval = 'Entity View Final Approval';
       this.valuebussinessdocument = 'Entity View Bussiness Document'
-      this.valuemanualpayment = 'One Time Setup Payment'
+      this.valuemanualpayment = 'Entity View One Time Setup Payment'
       this.valueCustomized = 'Entity View Customized Payment'
       this.valuesmssetting = 'Entity View-SMS Settings'
       this.valueagreement = 'Entity View Agreement'
-      this.valuentityOffline = 'Entity View Static QR Payments'
+      this.valuentityOffline = 'Entity View Offline'
       this.valuebranch = 'Entity View Branch'
       this.valuebranchkyc = 'Entity View Branch-KYC'
       this.valuebranchTerminal = 'Entity View Branch-Terminal'
+      this.valueplandetails = 'Entity Plan Details'
 
     }
     else {
@@ -728,8 +728,8 @@ export class EntityViewComponent implements OnInit {
         if (this.roles == 'Entity View Bussiness Document') {
           this.valuebussinessdocument = 'Entity View Bussiness Document'
         }
-        if (this.roles == 'One Time Setup Payment') {
-          this.valuemanualpayment = 'One Time Setup Payment'
+        if (this.roles == 'Entity View One Time Setup Payment') {
+          this.valuemanualpayment = 'Entity View One Time Setup Payment'
         }
         if (this.roles == 'Entity View General Information') {
           this.valueGeneral = 'Entity View General Information'
@@ -752,8 +752,8 @@ export class EntityViewComponent implements OnInit {
         if (this.roles == 'Entity View Agreement') {
           this.valueagreement = 'Entity View Agreement'
         }
-        if (this.roles == 'Entity View Static QR Payments') {
-          this.valuentityOffline = 'Entity View Static QR Payments'
+        if (this.roles == 'Entity View Offline') {
+          this.valuentityOffline = 'Entity View Offline'
         }
         if (this.roles == 'Entity View Branch') {
           this.valuebranch = 'Entity View Branch'
@@ -764,6 +764,9 @@ export class EntityViewComponent implements OnInit {
 
         if (this.roles == 'Entity View Branch-Terminal') {
           this.valuebranchTerminal = 'Entity View Branch-Terminal'
+        }
+        if (this.roles == 'Entity Plan Details') {
+          this.valueplandetails = 'Entity Plan Details'
         }
       }
     }

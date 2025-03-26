@@ -41,7 +41,7 @@
                 </form>
  
             </div>&nbsp;&nbsp;&nbsp;
-            <button style="color:white;background-color: #141E46;border-radius: 10px;" (click)="exportexcel()"
+            <button [hidden]="valueexport!=='Entity View Refund-Export'" style="color:white;background-color: #141E46;border-radius: 10px;" (click)="exportexcel()"
         mat-raised-button>Export</button>
         </div>
     </div>

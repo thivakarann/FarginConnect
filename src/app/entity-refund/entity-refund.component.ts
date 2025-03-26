@@ -38,6 +38,7 @@ export class EntityRefundComponent {
   getdashboard: any[] = [];
   valueview:any;
   actions:any;
+  valueexport:any;
 
   constructor(
     public service: FarginServiceService,
@@ -61,6 +62,7 @@ export class EntityRefundComponent {
 
           if (this.roleId == 1) {
             this.valueview = 'Entity View Refund-View'
+            this.valueexport = 'Entity View Refund-Export'
 
           }
           else {
@@ -68,6 +70,9 @@ export class EntityRefundComponent {
               this.actions = datas.subPermissions;
               if (this.actions == 'Entity View Refund-View') {
                 this.valueview = 'Entity View Refund-View'
+              }
+              if (this.actions == 'Entity View Refund-Export') {
+                this.valueexport = 'Entity View Refund-Export'
               }
 
             }

@@ -125,8 +125,8 @@ export class EntityCustomersViewComponent {
             this.valuecustomerRefunds = 'Refunds'
             this.valuesetupsts = 'Setup Box-Status'
             this.valuesetupview = 'Setup Box-View'
-            this.valuetransreceipt = 'Transactions-Reciept'
-            this.valueadditionalinvoice = 'Additional Payments-Reciept'
+            this.valuetransreceipt = 'Transactions-Receipt'
+            this.valueadditionalinvoice = 'Additional Payments-Receipt'
             this.vaaluedetails = 'Refunds-View'
           }
           else {
@@ -154,11 +154,11 @@ export class EntityCustomersViewComponent {
               if (this.actions == 'Setup Box-View') {
                 this.valuesetupview = 'Setup Box-View'
               }
-              if (this.actions == 'Transactions-Reciept') {
-                this.valuetransreceipt = 'Transactions-Reciept'
+              if (this.actions == 'Transactions-Receipt') {
+                this.valuetransreceipt = 'Transactions-Receipt'
               }
-              if (this.actions == 'Additional Payments-Reciept') {
-                this.valueadditionalinvoice = 'Additional Payments-Reciept'
+              if (this.actions == 'Additional Payments-Receipt') {
+                this.valueadditionalinvoice = 'Additional Payments-Receipt'
               }
               if (this.actions == 'Refunds-View') {
                 this.vaaluedetails = 'Refunds-View'

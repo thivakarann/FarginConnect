@@ -42,7 +42,7 @@
             </div>&nbsp;&nbsp;&nbsp;
             <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
                 (click)="resendLink(this.id)"
-                [hidden]="valueresendlink!=='Entity View Payment Link-Resend'">Create</button>
+                [hidden]="valueresendlink!=='Entity View Payment Link-Add'">Create</button>
 
         </div>
     </div>
@@ -59,9 +59,9 @@
             </ng-container>
 
             <ng-container matColumnDef="paymentlink">
-                <th mat-header-cell *matHeaderCellDef [hidden]="valuepaymentlink!=='Entity View Payment Link-View'">
+                <th mat-header-cell *matHeaderCellDef [hidden]="valuepaymentlink!=='Entity View Payment Link-Link'">
                     Payment Link</th>
-                <td mat-cell *matCellDef="let data" [hidden]="valuepaymentlink!=='Entity View Payment Link-View'">
+                <td mat-cell *matCellDef="let data" [hidden]="valuepaymentlink!=='Entity View Payment Link-Link'">
                     <a [href]="data?.payLink" target="_blank"> {{data?.payLink}}</a>
                 </td>
             </ng-container>

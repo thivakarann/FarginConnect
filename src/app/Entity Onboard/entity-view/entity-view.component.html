@@ -30,7 +30,7 @@
 
     <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
         data-target="home" (click)="Viewoffline(this.id,this.detaislone?.accountId)">
-        <div [hidden]="valuentityOffline!=='Entity View Static QR Payments'">
+        <div [hidden]="valuentityOffline!=='Entity View Offline'">
             <i class="fa-solid fa-building-columns"></i>&nbsp;&nbsp; Offline
         </div>
 
@@ -93,7 +93,7 @@
         <button class="tab" [class.active]="activeTab === 'doot1'" (click)="selectTab('doot1')"
             [hidden]="valuefinalapproval!=='Entity View Final Approval'">Final Approval</button>
         <button class="tab" [class.active]="activeTab === 'doot2'" (click)="selectTab('doot2')"
-            [hidden]="valuemanualpayment!=='One Time Setup Payment'">
+            [hidden]="valuemanualpayment!=='Entity View One Time Setup Payment'">
             One Time Setup Payment</button>
         <button class="tab" [class.active]="activeTab === 'doot3'" (click)="selectTab('doot3')"
             [hidden]="valueCustomized!=='Entity View Customized Payment'">Customized Payment</button>
@@ -120,12 +120,14 @@
 
                         <!-- [disabled]="detaislone?.onBoardStatus=='false'" //View onboardinfo -->
                         &nbsp;&nbsp;&nbsp;
-                        <div class="buttonDownload1" [matMenuTriggerFor]="menu">
+                        <div class="buttonDownload1" [matMenuTriggerFor]="menu"
+                            [hidden]="valueeditentity!=='Entity View-Edit' && valueplandetails!=='Entity Plan Details' && valueviewonboard!=='Entity View-Onboard Information' && valueterminal!=='Entity Terminal View' && valueentityonboard!=='Entity View-Onboard' && valuefee!=='Generate Cloud Fee' && valuedues!=='Generate Customer Dues' ">
                             <i style="overflow:hidden;color:#fff;font-size:22px;" class="fa-solid fa-ellipsis-vertical">
                                 <mat-menu #menu="matMenu">
                                     <button style="font-size: 10px;" mat-menu-item (click)="editpersonalInfo(this.id)"
                                         [hidden]="valueeditentity!=='Entity View-Edit'">Edit EntityDetails</button>
-                                    <button style="font-size: 10px;" mat-menu-item (click)="Entityplan()">Entity Plan
+                                    <button [hidden]="valueplandetails!=='Entity Plan Details'" style="font-size: 10px;"
+                                        mat-menu-item (click)="Entityplan()">Entity Plan
                                         Details</button>
                                     <button style="font-size: 10px;" mat-menu-item (click)="viewOnboardInfo(this.id)"
                                         [hidden]="valueviewonboard!=='Entity View-Onboard Information'">View
@@ -1087,7 +1089,7 @@
             </div>
             <div class="col-md-2 mt-1">
                 <button (click)="createmanualPayement()"
-                    [hidden]="valuemanualpay!=='One Time Setup Payment-Create' ||  paymentStatus=='Success' || onBoardStatus=='false'"
+                    [hidden]="valuemanualpay!=='Entity View One Time Setup Payment-Create' ||  paymentStatus=='Success' || onBoardStatus=='false'"
                     style="color:white;background-color: #141E46;border-radius: 10px; width:120%"
                     mat-raised-button>Manual Payment
                 </button>
@@ -1104,12 +1106,12 @@
                             <th>Payment ID</th>
                             <th>Due Amount</th>
                             <th>Reference Number</th>
-                            <th [hidden]="valuemanualedit!=='One Time Setup Payment-Edit'">
+                            <th [hidden]="valuemanualedit!=='Entity View One Time Setup Payment-Edit'">
                                 <span style="background-color: #bcdf72;"
                                     *ngIf="paymentMethod=='Cash' || paymentMethod=='UPI' || paymentMethod=='NEFT' || paymentMethod=='RTGS' || paymentMethod=='IMPS' || paymentMethod=='Cheque'">Edit
                                 </span>
                             </th>
-                            <th [hidden]="valuemanualview!=='One Time Setup Payment-View'">View</th>
+                            <th [hidden]="valuemanualview!=='Entity View One Time Setup Payment-View'">View</th>
                             <th>Payment Status</th>
                             <th>Payment Method</th>
                             <th>Cheque Date</th>
@@ -1124,7 +1126,7 @@
                             <td>{{item.pgPaymentId}}</td>
                             <td>{{item.totalPayableAmount}}</td>
                             <td>{{item.utrNumber}}</td>
-                            <td [hidden]="valuemanualedit!=='One Time Setup Payment-Edit'">
+                            <td [hidden]="valuemanualedit!=='Entity View One Time Setup Payment-Edit'">
                                 <button style="border:none"
                                     *ngIf="paymentMethod=='Cash' || paymentMethod=='UPI' || paymentMethod=='NEFT' || paymentMethod=='RTGS' || paymentMethod=='IMPS' || paymentMethod=='Cheque'"
                                     (click)="manualPayement(item)">
@@ -1133,7 +1135,7 @@
                                     </span>
                                 </button>
                             </td>
-                            <td [hidden]="valuemanualview!=='One Time Setup Payment-View'">
+                            <td [hidden]="valuemanualview!=='Entity View One Time Setup Payment-View'">
                                 <span (click)="viewmanualtransaction(item.merchantPayId)">
                                     <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
                                 </span>

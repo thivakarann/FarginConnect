@@ -40,6 +40,7 @@ export class ViewticketComponent implements OnInit {
   roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
+  valuestickeredit:any;
 
 
   constructor(private router: Router, private service: FarginServiceService, private dialog: MatDialog) { }
@@ -59,9 +60,10 @@ export class ViewticketComponent implements OnInit {
           this.getdashboard = res.response?.subPermission;
           if (this.roleId == 1) {
             this.valueDescriptionView = 'Entity Request-View';
-            this.valueTicketEdit = 'Entity Request-Edit'
-            this.valueTicketExport = 'Entity Request-Export'
-            this.valueTicketImage = 'Entity Request-Image'
+            this.valueTicketEdit = 'Entity Request-Edit';
+            this.valueTicketExport = 'Entity Request-Export';
+            this.valueTicketImage = 'Entity Request-Image';
+            this.valuestickeredit = 'Entity Request-EditSticker-Count'
           }
           else {
             for (let datas of this.getdashboard) {
@@ -77,6 +79,9 @@ export class ViewticketComponent implements OnInit {
               }
               if (this.actions == 'Entity Request-View') {
                 this.valueDescriptionView = 'Entity Request-View'
+              }
+              if (this.actions == 'Entity Request-EditSticker-Count') {
+                this.valuestickeredit = 'Entity Request-EditSticker-Count'
               }
             }
           }

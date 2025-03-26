@@ -66,25 +66,25 @@ export class BankViewallComponent implements OnInit {
           this.getdashboard = res.response?.subPermission;
 
           if (this.roleId == 1) {
-            this.valuebanklistadd = 'Bank List-Add'
-            this.valuebanklistexport = 'Bank List-Export'
-            this.valuebankstatus = 'Bank List-Status'
-            this.valuebankedit = 'Bank List-Edit'
+            this.valuebanklistadd = 'Bank Details-Add'
+            this.valuebanklistexport = 'Bank Details-Export'
+            this.valuebankstatus = 'Bank Details-Status'
+            this.valuebankedit = 'Bank Details-Edit'
           }
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
-              if (this.actions == 'Bank List-Add') {
-                this.valuebanklistadd = 'Bank List-Add'
+              if (this.actions == 'Bank Details-Add') {
+                this.valuebanklistadd = 'Bank Details-Add'
               }
-              if (this.actions == 'Bank List-Export') {
-                this.valuebanklistexport = 'Bank List-Export'
+              if (this.actions == 'Bank Details-Export') {
+                this.valuebanklistexport = 'Bank Details-Export'
               }
-              if (this.actions == 'Bank List-Status') {
-                this.valuebankstatus = 'Bank List-Status'
+              if (this.actions == 'Bank Details-Status') {
+                this.valuebankstatus = 'Bank Details-Status'
               }
-              if (this.actions == 'Bank List-Edit') {
-                this.valuebankedit = 'Bank List-Edit'
+              if (this.actions == 'Bank Details-Edit') {
+                this.valuebankedit = 'Bank Details-Edit'
               }
             }
           }

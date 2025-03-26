@@ -135,8 +135,8 @@
             </ng-container>
 
             <ng-container matColumnDef="stickeraction">
-                <th  mat-header-cell *matHeaderCellDef>Edit Sticker</th>
-                <td  mat-cell *matCellDef="let data">
+                <th [hidden]="valuestickeredit!=='Entity Request-EditSticker-Count'"  mat-header-cell *matHeaderCellDef>Edit Sticker</th>
+                <td  [hidden]="valuestickeredit!=='Entity Request-EditSticker-Count'" mat-cell *matCellDef="let data">
                 <button class="btn btn btn-sm" [disabled]="data?.subject != 'Sticker Request'"
                       style="border:none;" (click)="stickerupdate(data)"> <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-edit"></i></button>
                 </td>

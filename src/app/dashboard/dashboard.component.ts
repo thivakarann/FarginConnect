@@ -136,7 +136,7 @@ export class DashboardComponent implements OnInit {
       this.valueannouncement = 'Announcement'
          this.valuecampaign = 'Campaign'
       this.valuesmscost = 'SMS Cost'
-      this.valuebankdetails = 'Bank List'
+      this.valuebankdetails = 'Bank Details'
       this.valuefarginbank = 'Fargin bank'
       this.valueentitysms = 'Entity Sms'
       this.valuesmshistory = 'SMS History'

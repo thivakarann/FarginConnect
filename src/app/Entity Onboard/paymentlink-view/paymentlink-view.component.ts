@@ -59,18 +59,18 @@ export class PaymentlinkViewComponent implements OnInit {
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
           if (this.roleId == 1) {
-            this.valueresendlink = 'Entity View Payment Link-Resend';
-            this.valuepaymentlink = 'Entity View Payment Link-View';
+            this.valueresendlink = 'Entity View Payment Link-Add';
+            this.valuepaymentlink = 'Entity View Payment Link-Link';
           }
           else {
             for (let datas of this.getdashboard) {
 
               this.actions = datas.subPermissions;
-              if (this.actions == 'Entity View Payment Link-Resend') {
-                this.valueresendlink = 'Entity View Payment Link-Resend'
+              if (this.actions == 'Entity View Payment Link-Add') {
+                this.valueresendlink = 'Entity View Payment Link-Add'
               }
-              if (this.actions == 'Entity View Payment Link-View') {
-                this.valuepaymentlink = 'Entity View Payment Link-View'
+              if (this.actions == 'Entity View Payment Link-Link') {
+                this.valuepaymentlink = 'Entity View Payment Link-Link'
               }
 
             }

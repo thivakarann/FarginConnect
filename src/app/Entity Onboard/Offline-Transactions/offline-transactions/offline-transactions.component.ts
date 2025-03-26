@@ -88,23 +88,23 @@ export class OfflineTransactionsComponent {
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
           if (this.roleId == 1) {
-            this.valuestaticexport = 'Entity View Static QR Payments-Export';
-            this.valuestaticsettlement='Entity View Static QR Payments-Settlement';
-            this.valuestaticview='Entity View Static QR Payments-View';
+            this.valuestaticexport = 'Entity View Offline-Export';
+            this.valuestaticsettlement='Entity View Offline-Settlement';
+            this.valuestaticview='Entity View Offline-View';
            
           }
           else {
             for (let datas of this.getdashboard) {
  
               this.actions = datas.subPermissions;
-              if (this.actions == 'Entity View Static QR Payments-Export') {
-                this.valuestaticexport = 'Entity View Static QR Payments-Export';
+              if (this.actions == 'Entity View Offline-Export') {
+                this.valuestaticexport = 'Entity View Offline-Export';
               }
-              if(this.actions=='Entity View Static QR Payments-Settlement'){
-                this.valuestaticsettlement='Entity View Static QR Payments-Settlement';
+              if(this.actions=='Entity View Offline-Settlement'){
+                this.valuestaticsettlement='Entity View Offline-Settlement';
               }
-             if(this.actions=='Entity View Static QR Payments-View'){
-              this.valuestaticview='Entity View Static QR Payments-View';
+             if(this.actions=='Entity View Offline-View'){
+              this.valuestaticview='Entity View Offline-View';
              }
  
             }

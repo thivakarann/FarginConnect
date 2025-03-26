@@ -96,30 +96,30 @@
               </a>
             </li>
             <li class="sidebar-dropdown" style="cursor: pointer;"
-            [hidden]="valueentitysms!=='Entity Sms'  && valuesmshistory!=='SMS History'">
-            <a>
-              <i class="fa-solid fa-comment-sms" style="font-size: 15px;"></i>
-              <span>SMS</span>
-            </a>
+              [hidden]="valueentitysms!=='Entity Sms'  && valuesmshistory!=='SMS History'">
+              <a>
+                <i class="fa-solid fa-comment-sms" style="font-size: 15px;"></i>
+                <span>SMS</span>
+              </a>
 
-            <div class="sidebar-submenu">
-              <ul>
-                <li [hidden]="valueentitysms!=='Entity Sms'">
-                  <a routerLink="entity-sms-viewall">
-                    Entity Sms
-                  </a>
-                </li>
+              <div class="sidebar-submenu">
+                <ul>
+                  <li [hidden]="valueentitysms!=='Entity Sms'">
+                    <a routerLink="entity-sms-viewall">
+                      Entity Sms
+                    </a>
+                  </li>
 
-                <li [hidden]="valuesmshistory!=='SMS History'">
-                  <a routerLink="smshistory">
-                    SMS History
-                  </a>
-                </li>
-              </ul>
+                  <li [hidden]="valuesmshistory!=='SMS History'">
+                    <a routerLink="smshistory">
+                      SMS History
+                    </a>
+                  </li>
+                </ul>
 
-            </div>
+              </div>
 
-          </li>
+            </li>
             <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valuecustomerpayment!=='Customer Payment' &&
             valuecustomersubscription!=='Cloud Fee Payments' &&
             valuecustomermanualpayment!=='one Time Payments' &&
@@ -146,32 +146,32 @@
                   <li routerLink="otherpayments-viewall" [hidden]="valueCustomizationPayments!=='Customized Payment'">
                     <a>Customization Payments</a>
                   </li>
-                  <li routerLink="additional-payments" [hidden]="valueAdditionalPayments!=='Additional Payments'" >
+                  <li routerLink="additional-payments" [hidden]="valueAdditionalPayments!=='Additional Payments'">
                     <a>Additional Payments</a>
                   </li>
                 </ul>
               </div>
-              <li [hidden]="valueonlienrefund!=='Online Refunds'">
-                <a routerLink="refund-getall">
-                  <i class="fa-solid fa-sitemap" style="font-size: 14px;" aria-hidden="true"></i>
-                  <span style="font-size: 13px">Online Refunds
-                  </span>
-                </a>
-              </li>
-              <li [hidden]="valueautodebit!=='Cloud Fee AutoDebit'">
-                <a routerLink="entity-auto-debit-getall">
-                  <i style="font-size: 15px;" class="fa-solid fa-money-bill-transfer"></i>
-                  <span>Cloud Fee Auto Debit</span>
-                </a>
-              </li>
+            <li [hidden]="valueonlienrefund!=='Online Refunds'">
+              <a routerLink="refund-getall">
+                <i class="fa-solid fa-sitemap" style="font-size: 14px;" aria-hidden="true"></i>
+                <span style="font-size: 13px">Online Refunds
+                </span>
+              </a>
+            </li>
+            <li [hidden]="valueautodebit!=='Cloud Fee AutoDebit'">
+              <a routerLink="entity-auto-debit-getall">
+                <i style="font-size: 15px;" class="fa-solid fa-money-bill-transfer"></i>
+                <span>Cloud Fee Auto Debit</span>
+              </a>
+            </li>
 
-              <li [hidden]="valuebranch!=='Branch'">
-                <a routerLink="Branch-viewall">
-                  <i class="fa-solid fa-sitemap"></i>
-                  <span>Branch</span>
-                </a>
-              </li>
-              <li class="sidebar-dropdown" style="cursor: pointer;"
+            <li [hidden]="valuebranch!=='Branch'">
+              <a routerLink="Branch-viewall">
+                <i class="fa-solid fa-sitemap"></i>
+                <span>Branch</span>
+              </a>
+            </li>
+            <li class="sidebar-dropdown" style="cursor: pointer;"
               [hidden]="valuefarginpolicy!=='Fargin Policy' && valueMerchantpolicy!=='Merchant Policy'">
               <a>
                 <i class="fas fa-hands-holding-child icon" style="font-size: 14px;" aria-hidden="true"></i>
@@ -195,89 +195,90 @@
             </li>
 
             <li class="sidebar-dropdown" style="cursor: pointer;"
-            [hidden]="valueTickets!=='Entity Request' && valuecustomerticket!=='Customer Request'">
-            <a>
-              <i class="fa-solid fa-ticket"></i>
-              <span>Service Request</span>
-            </a>
-            <div class="sidebar-submenu">
-              <ul>
-                <li [hidden]="valueTickets!=='Entity Request'">
-                  <a routerLink="viewticket" style="display: flex; align-items: center;">
-                    Entity Request &nbsp;
-                    <span class="matBadge" matBadgeColor="warn" matBadge="{{counts}}" matBadgeSize="medium"
-                      matBadgeOverlap="true" style="margin-left: 9px;">
-                    </span>
-                  </a>
-                </li>
-                <li [hidden]="valuecustomerticket!=='Customer Request'">
-                  <a routerLink="customer-viewall">Customer Request</a>
-                </li>
-              </ul>
-            </div>
-          </li>
+              [hidden]="valueTickets!=='Entity Request' && valuecustomerticket!=='Customer Request'">
+              <a>
+                <i class="fa-solid fa-ticket"></i>
+                <span>Service Request</span>
+              </a>
+              <div class="sidebar-submenu">
+                <ul>
+                  <li [hidden]="valueTickets!=='Entity Request'">
+                    <a routerLink="viewticket" style="display: flex; align-items: center;">
+                      Entity Request &nbsp;
+                      <span class="matBadge" matBadgeColor="warn" matBadge="{{counts}}" matBadgeSize="medium"
+                        matBadgeOverlap="true" style="margin-left: 9px;">
+                      </span>
+                    </a>
+                  </li>
+                  <li [hidden]="valuecustomerticket!=='Customer Request'">
+                    <a routerLink="customer-viewall">Customer Request</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
 
-          <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valueRegion!=='Region'&& ValueMSO!=='MSO'">
-            <a>
-              <i class="fa-solid fa-people-line"></i>
-              <span>Service Provider</span>
-            </a>
-            <div class="sidebar-submenu">
-              <ul>
-                <li>
-                <li [hidden]="valueRegion!=='Region'">
-                  <a routerLink="Region">Region</a>
-                </li>
-                <li [hidden]="ValueMSO!=='MSO'">
-                  <a routerLink="service-provider">MSO</a>
-                </li>
-              </ul>
-            </div>
+            <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valueRegion!=='Region'&& ValueMSO!=='MSO'">
+              <a>
+                <i class="fa-solid fa-people-line"></i>
+                <span>Service Provider</span>
+              </a>
+              <div class="sidebar-submenu">
+                <ul>
+                  <li>
+                  <li [hidden]="valueRegion!=='Region'">
+                    <a routerLink="Region">Region</a>
+                  </li>
+                  <li [hidden]="ValueMSO!=='MSO'">
+                    <a routerLink="service-provider">MSO</a>
+                  </li>
+                </ul>
+              </div>
 
-          </li>
+            </li>
 
-          <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valuechannelConfiguration!=='Channel Creation' && 
+            <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valuechannelConfiguration!=='Channel Creation' && 
           valueBroadcasterConfiguration!=='Broadcaster Creation' && 
           valuePlanConfiguration!=='Plan Creation' && 
           valueBroadcasterBouqutes!=='Broadcaster Bouqutes'">
-           <a>
-             <i class="fa-solid fa-tv"></i>
-             <span>Channels & Packages</span>
-           </a>
-
-          
+              <a>
+                <i class="fa-solid fa-tv"></i>
+                <span>Channels & Packages</span>
+              </a>
 
 
-           
 
-           
-           <div class="sidebar-submenu">
-             <ul>
-               <li [hidden]="valuechannelConfiguration!=='Channel Creation'">
-                 <a routerLink="alacarte-viewall">Channel Creation
-                 </a>
-               </li>
-               <li [hidden]="valueBroadcasterConfiguration!=='Broadcaster Creation'">
-                 <a routerLink="bouquatename-viewall">Broadcaster Creation</a>
-               </li>
 
-               <li [hidden]="valuePlanConfiguration!=='Plan Creation'">
-                 <a routerLink="bouquete-plan-viewall">
-                   Plan Creation
-                 </a>
-               </li>
 
-               <li [hidden]="valueBroadcasterBouqutes!=='Broadcaster Bouqutes'">
-                 <a routerLink="bouquets-viewall">Broadcaster Bouquets</a>
-               </li>
-               <!-- 
+
+
+              <div class="sidebar-submenu">
+                <ul>
+                  <li [hidden]="valuechannelConfiguration!=='Channel Creation'">
+                    <a routerLink="alacarte-viewall">Channel Creation
+                    </a>
+                  </li>
+                  <li [hidden]="valueBroadcasterConfiguration!=='Broadcaster Creation'">
+                    <a routerLink="bouquatename-viewall">Broadcaster Creation</a>
+                  </li>
+
+                  <li [hidden]="valuePlanConfiguration!=='Plan Creation'">
+                    <a routerLink="bouquete-plan-viewall">
+                      Plan Creation
+                    </a>
+                  </li>
+
+                  <li [hidden]="valueBroadcasterBouqutes!=='Broadcaster Bouqutes'">
+                    <a routerLink="bouquets-viewall">Broadcaster Bouquets</a>
+                  </li>
+                  <!-- 
                <li>
                  <a routerLink="dpoviewall">DPO Bouqutes</a>
                </li> -->
-             </ul>
-           </div>
+                </ul>
+              </div>
 
-           <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valueBusinessCategory!=='Bussiness Category' &&
+            <li class="sidebar-dropdown" style="cursor: pointer;"
+           [hidden]="valueBusinessCategory!=='Bussiness Category' &&
            valueBusinessKYC!=='Business Category Doc' &&
            valueFacheck!=='FaCheck Key' &&
            valuemerchantPlan!=='Merchant Plan' &&
@@ -286,99 +287,99 @@
            valueBuisneesDoCument!=='Business Document Type' &&
            valueBusinessPlan!=='Business Plan' &&
            valuerefundper!=='Refund Period' &&
-           valueSignerDetails!=='Signer Details' && valuestickercost!=='Sticker Cost'  && valuebankdetails!=='Bank List' && valuesmscost!=='SMS Cost' && valuemerchantPlan!=='Entity Plan'">
-            <a>
-              <i class="fa fa-cogs"></i>
-              <span>Main Master</span>
-            </a>
-            <div class="sidebar-submenu">
-              <ul>
-                <li [hidden]="valueBusinessCategory!=='Bussiness Category'">
-                  <a routerLink="view-category">Business Category
-                  </a>
-                </li>
+           valueSignerDetails!=='Signer Details' && valuestickercost!=='Sticker Cost'  && valuebankdetails!=='Bank Details' && valuesmscost!=='SMS Cost' && valuemerchantPlan!=='Entity Plan'">
+              <a>
+                <i class="fa fa-cogs"></i>
+                <span>Main Master</span>
+              </a>
+              <div class="sidebar-submenu">
+                <ul>
+                  <li [hidden]="valueBusinessCategory!=='Bussiness Category'">
+                    <a routerLink="view-category">Business Category
+                    </a>
+                  </li>
 
-                <li [hidden]="valueBuisneesDoCument!=='Business Document Type'">
-                  <a routerLink="viewall-kyccategory">Business Document Type </a>
-                </li>
+                  <li [hidden]="valueBuisneesDoCument!=='Business Document Type'">
+                    <a routerLink="viewall-kyccategory">Business Document Type </a>
+                  </li>
 
-                <li [hidden]="valueBusinessKYC!=='Business Category Doc'">
-                  <a routerLink="Business-kyc">Business Category Doc</a>
-                </li>
-                <!-- <li [hidden]="valueRegion!=='Region'">
+                  <li [hidden]="valueBusinessKYC!=='Business Category Doc'">
+                    <a routerLink="Business-kyc">Business Category Doc</a>
+                  </li>
+                  <!-- <li [hidden]="valueRegion!=='Region'">
                   <a routerLink="Region">Region</a>
                 </li>
                 <li [hidden]="ValueMSO!=='MSO'">
                   <a routerLink="service-provider">MSO</a>
                 </li> -->
-                <li [hidden]="valuemerchantPlan!=='Entity Plan'">
-                  <a routerLink="merchant-plan-viewall">Entity Plan</a>
-                </li>
+                  <li [hidden]="valuemerchantPlan!=='Entity Plan'">
+                    <a routerLink="merchant-plan-viewall">Entity Plan</a>
+                  </li>
 
-                <li [hidden]="valuebankdetails!=='Bank List'">
-                  <a routerLink="bank-viewall">Bank Details </a>
-                </li>
-                <li [hidden]="valuerefundper!=='Refund Period'">
-                 <a routerLink="refund-period-viewall">Refund Period</a>
-               </li>
-                <li [hidden]="valueFacheck!=='FaCheck Key'">
-                  <a routerLink="viewfacheckkey">Facheck Key</a>
-                </li>
+                  <li [hidden]="valuebankdetails!=='Bank Details'">
+                    <a routerLink="bank-viewall">Bank Details </a>
+                  </li>
+                  <li [hidden]="valuerefundper!=='Refund Period'">
+                    <a routerLink="refund-period-viewall">Refund Period</a>
+                  </li>
+                  <li [hidden]="valueFacheck!=='FaCheck Key'">
+                    <a routerLink="viewfacheckkey">Facheck Key</a>
+                  </li>
 
-                <li [hidden]="valuepgsetupkey!=='PG SetupKey'">
-                  <a routerLink="pgsetup-view">PG Setupkey</a>
-                </li>
+                  <li [hidden]="valuepgsetupkey!=='PG SetupKey'">
+                    <a routerLink="pgsetup-view">PG Setupkey</a>
+                  </li>
 
-                <li [hidden]="valuesmscost!=='SMS Cost'">
-                  <a routerLink="sms-cost-viewall">SMS Cost</a>
-                </li>
+                  <li [hidden]="valuesmscost!=='SMS Cost'">
+                    <a routerLink="sms-cost-viewall">SMS Cost</a>
+                  </li>
 
-                <li [hidden]="valuestickercost!=='Sticker Cost'">
-                 <a routerLink="sticker-view">Sticket Cost</a>
-               </li>
-               
-               <li [hidden]="valuefarginbank!=='Fargin bank'">
-                  <a routerLink="fargin-viewall">Fargin bank details </a>
-                </li>
-                <li [hidden]="valueBusinessPlan!=='Business Plan'">
-                  <a routerLink="agreementplan">Business Plan</a>
-                </li>
-                <li [hidden]="valueSignerDetails!=='Signer Details'">
-                  <a routerLink="signer-getall">Signer Details</a>
-                </li>
+                  <li [hidden]="valuestickercost!=='Sticker Cost'">
+                    <a routerLink="sticker-view">Sticket Cost</a>
+                  </li>
+
+                  <li [hidden]="valuefarginbank!=='Fargin bank'">
+                    <a routerLink="fargin-viewall">Fargin bank details </a>
+                  </li>
+                  <li [hidden]="valueBusinessPlan!=='Business Plan'">
+                    <a routerLink="agreementplan">Business Plan</a>
+                  </li>
+                  <li [hidden]="valueSignerDetails!=='Signer Details'">
+                    <a routerLink="signer-getall">Signer Details</a>
+                  </li>
 
 
-                <!-- <li [hidden]="valueWithdrawalfee!=='Withdrawal Fee'">
+                  <!-- <li [hidden]="valueWithdrawalfee!=='Withdrawal Fee'">
                   <a routerLink="viewwithdrawal">Withdrawal Fee</a>
                 </li> -->
-              </ul>
-            </div>
-          </li>
-              
-          <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valueUser!=='User' && valueRole!=='Role'">
-            <a>
-              <i class="fa-solid fa-person-circle-check"></i>
-              <span>User Management</span>
-            </a>
-            <div class="sidebar-submenu">
-              <ul>
-                <li [hidden]="valueUser!=='User'">
-                  <a routerLink="/dashboard/admindetails">User
-                  </a>
-                </li>
+                </ul>
+              </div>
+            </li>
 
-                <li routerLink="view-role" [hidden]="valueRole!=='Role'">
-                  <a>Role</a>
-                </li>
+            <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valueUser!=='User' && valueRole!=='Role'">
+              <a>
+                <i class="fa-solid fa-person-circle-check"></i>
+                <span>User Management</span>
+              </a>
+              <div class="sidebar-submenu">
+                <ul>
+                  <li [hidden]="valueUser!=='User'">
+                    <a routerLink="/dashboard/admindetails">User
+                    </a>
+                  </li>
 
-              </ul>
-            </div>
+                  <li routerLink="view-role" [hidden]="valueRole!=='Role'">
+                    <a>Role</a>
+                  </li>
 
-          </li>
-          
+                </ul>
+              </div>
+
+            </li>
 
 
-         
+
+
 
             <li [hidden]="valueannouncement!=='Announcement'">
               <a routerLink="view-announcement">
@@ -401,9 +402,9 @@
 
               </a>
             </li>
- 
 
-            
+
+
             <!-- <li [hidden]="valueentitydues!=='Entity Dues'">
               <a routerLink="app-dues">
                 <i class="fa-solid fa-credit-card" aria-hidden="true"></i>
@@ -425,35 +426,35 @@
               </a>
             </li> -->
 
-            
-           
-           
-            
-
-           
-
-           
-
-
-         
 
 
 
-          
 
-         
 
-         
 
-        
-          
 
-        
-         
 
-       
 
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
