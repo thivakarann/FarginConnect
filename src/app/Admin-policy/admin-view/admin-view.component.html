@@ -160,7 +160,7 @@
         <td mat-cell *matCellDef="let businesscategory">{{businesscategory.createdBy}}</td>
       </ng-container>
       <ng-container matColumnDef="createdDateTime">
-        <th mat-header-cell *matHeaderCellDef>Created At</th>
+        <th mat-header-cell *matHeaderCellDef>Created Date/Time</th>
         <td mat-cell *matCellDef="let businesscategory">{{businesscategory.createdDateTime|date:"dd/MM/yyyy hh:mm a"}}
         </td>
       </ng-container>
@@ -169,7 +169,7 @@
         <td mat-cell *matCellDef="let businesscategory">{{businesscategory.modifiedBy}}</td>
       </ng-container>
       <ng-container matColumnDef="modifiedDateTime">
-        <th mat-header-cell *matHeaderCellDef>Modified At</th>
+        <th mat-header-cell *matHeaderCellDef>Modified Date/Time</th>
         <td mat-cell *matCellDef="let businesscategory">{{businesscategory.modifiedDateTime|date:"dd/MM/yyyy hh:mm a"}}
         </td>
       </ng-container>

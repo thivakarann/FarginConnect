@@ -96,11 +96,11 @@
               </a>
             </li>
             <li class="sidebar-dropdown" style="cursor: pointer;"
-              [hidden]="valueentitysms!=='Entity Sms'  && valuesmshistory!=='SMS History'">
-              <a>
-                <i class="fa-solid fa-comment-sms" style="font-size: 15px;"></i>
-                <span>SMS</span>
-              </a>
+            [hidden]="valueentitysms!=='Entity Sms'  && valuesmshistory!=='SMS History'">
+            <a>
+              <i class="fa-solid fa-comment-sms" style="font-size: 14px;"></i>
+              <span>SMS</span>
+            </a>
 
               <div class="sidebar-submenu">
                 <ul>
@@ -151,19 +151,19 @@
                   </li>
                 </ul>
               </div>
-            <li [hidden]="valueonlienrefund!=='Online Refunds'">
-              <a routerLink="refund-getall">
-                <i class="fa-solid fa-sitemap" style="font-size: 14px;" aria-hidden="true"></i>
-                <span style="font-size: 13px">Online Refunds
-                </span>
-              </a>
-            </li>
-            <li [hidden]="valueautodebit!=='Cloud Fee AutoDebit'">
-              <a routerLink="entity-auto-debit-getall">
-                <i style="font-size: 15px;" class="fa-solid fa-money-bill-transfer"></i>
-                <span>Cloud Fee Auto Debit</span>
-              </a>
-            </li>
+              <li [hidden]="valueonlienrefund!=='Online Refunds'">
+                <a routerLink="refund-getall">
+                  <i class="fa-solid fa-sitemap"  aria-hidden="true"></i>
+                  <span>Online Refunds
+                  </span>
+                </a>
+              </li>
+              <li [hidden]="valueautodebit!=='Cloud Fee AutoDebit'">
+                <a routerLink="entity-auto-debit-getall">
+                  <i class="fa-solid fa-money-bill-transfer"></i>
+                  <span>Cloud Fee Auto Debit</span>
+                </a>
+              </li>
 
             <li [hidden]="valuebranch!=='Branch'">
               <a routerLink="Branch-viewall">
@@ -174,7 +174,7 @@
             <li class="sidebar-dropdown" style="cursor: pointer;"
               [hidden]="valuefarginpolicy!=='Fargin Policy' && valueMerchantpolicy!=='Merchant Policy'">
               <a>
-                <i class="fas fa-hands-holding-child icon" style="font-size: 14px;" aria-hidden="true"></i>
+                <i class="fas fa-hands-holding-child icon"   aria-hidden="true"></i>
                 <span>Terms and Policy</span>
               </a>
               <div class="sidebar-submenu">
@@ -277,8 +277,7 @@
                 </ul>
               </div>
 
-            <li class="sidebar-dropdown" style="cursor: pointer;"
-           [hidden]="valueBusinessCategory!=='Bussiness Category' &&
+           <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valueBusinessCategory!=='Bussiness Category' &&
            valueBusinessKYC!=='Business Category Doc' &&
            valueFacheck!=='FaCheck Key' &&
            valuemerchantPlan!=='Merchant Plan' &&
@@ -397,7 +396,7 @@
 
             <li [hidden]="valuesurvey!=='Survey'">
               <a routerLink="surveyviewall">
-                <i class="fa-solid fa-square-poll-vertical" style="font-size: 14px;" aria-hidden="true"></i>
+                <i class="fa-solid fa-square-poll-vertical"  aria-hidden="true"></i>
                 <span>Survey</span>
 
               </a>

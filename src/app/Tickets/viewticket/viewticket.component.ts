@@ -245,7 +245,7 @@ export class ViewticketComponent implements OnInit {
       "Description",
       "Approval Status",
       "remarks",
-      "Created At"
+      "Created Date/Time"
     ]
  
  

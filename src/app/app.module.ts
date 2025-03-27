@@ -282,6 +282,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { UpdateStickerTicketComponent } from './Tickets/update-sticker-ticket/update-sticker-ticket.component';
 import { OfflineDetailsComponent } from './Overall-Customer/offline-details/offline-details.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

@@ -227,7 +227,7 @@ export class ViewPolicyComponent implements OnInit {
       "Privacy Policy",
       "Refund Policy",
       "Created By",
-      "Created At",
+      "Created Date/Time",
       "Modified By",
       "Modified At"
     ]

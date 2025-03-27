@@ -239,7 +239,7 @@ export class BusinessKycComponent implements OnInit {
     "Business Category",
       "Document Type",
       "Created By",
-      "Created At",
+      "Created Date/Time",
       "Modified By",
       "Modified At",
     ]

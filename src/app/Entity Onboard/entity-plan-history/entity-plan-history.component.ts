@@ -119,7 +119,7 @@ export class EntityPlanHistoryComponent implements OnInit {
         "VoiceBox AdvRent",
         "VoiceBoxSetUp Cost",
         "Created By",
-        "Created At",
+        "Created Date/Time",
         "Modified By",
         "Modified At"
       ]

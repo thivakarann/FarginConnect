@@ -249,7 +249,7 @@ export class BankViewallComponent implements OnInit {
       "Bank Name",
       "Status",
       "Created By",
-      "Created At",
+      "Created Date/Time",
       "Modified By",
       "Modified At"
     ]

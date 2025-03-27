@@ -286,6 +286,22 @@
                                                         }}</span>
                                                 </div>
                                             </div>
+                                            <div class="d-flex mt-3">
+                                                <div class="w-50 font-weight-bold">Created By</div>
+                                                <div class="w-50">
+
+                                                    <span>{{ detaislone?.createdBy
+                                                        }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex mt-3">
+                                                <div class="w-50 font-weight-bold">Created Date/time</div>
+                                                <div class="w-50">
+
+                                                    <span>{{ detaislone?.createdDatetime | date:"dd/MM/yyyy hh:MM: a"
+                                                        }}</span>
+                                                </div>
+                                            </div>
 
                                         </div>
                                     </div>
@@ -406,6 +422,20 @@
                                                     <span>{{ detaislone?.customerSmsTag}}</span>
                                                 </div>
                                             </div>
+                                            <div class="d-flex mt-3">
+                                                <div class="w-50 font-weight-bold">Modified By</div>
+                                                <div class="w-50">
+
+                                                    <span>{{ detaislone?.modifiedBy}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex mt-3">
+                                                <div class="w-50 font-weight-bold">Modified Date/Time</div>
+                                                <div class="w-50">
+
+                                                    <span>{{ detaislone?.modifiedDatetime | date:"dd/MM/yyyy hh:mm a"}}</span>
+                                                </div>
+                                            </div>
 
                                             <!-- <div class="d-flex mt-3">
                                                 <div class="w-50 font-weight-bold">Monthly withdrawal Count</div>
@@ -447,58 +477,50 @@
                                             <div class="d-flex mt-2">
                                                 <div class="w-50 font-weight-bold">
                                                     Approval Status</div>
-                                                <div class="w-50" [ngClass]="{
-                                                      approved:
-                                                        detaislone?.approvalStatusL1 == 'approved',
-                                                      rejected:
-                                                        detaislone?.approvalStatusL1 == 'rejected',
-                                                      pending: detaislone?.approvalStatusL1 == 'pending'
-                                                    }">
-                                                    {{ detaislone?.approvalStatusL1 }}
+                                                <div class="w-50">
+                                                      <span style="color:green" *ngIf="detaislone?.approvalStatusL1 == 'approved'">
+                                                        {{ detaislone?.approvalStatusL1 }}
+                                                    </span>
+                                                    <span style="color:red"  *ngIf="detaislone?.approvalStatusL1 == 'Rejected'">
+                                                        {{ detaislone?.approvalStatusL1 }}
+                                                    </span>
+                                                    <span style="color:orange"  *ngIf="detaislone?.approvalStatusL1 == 'Pending'">
+                                                        {{ detaislone?.approvalStatusL1 }}
+                                                    </span>
                                                 </div>
                                             </div>
                                             <div class="d-flex mt-3">
-                                                <div class="w-50 font-weight-bold">
-                                                    Approved By</div>
+                                                <div class="w-50 font-weight-bold">Updated By</div>
                                                 <div class="w-50">
                                                     <span *ngIf="this.detaislone?.approvedByL1!=null">
                                                         {{this.detaislone?.approvedByL1}}</span>
                                                     <span *ngIf="this.detaislone?.approvedByL1==null">-</span>
                                                 </div>
+                                               
                                             </div>
-                                            <div class="d-flex mt-3">
-                                                <div class="w-50 font-weight-bold"
-                                                    [hidden]="valuelevelcomment!=='Entity View-Comment'">
-                                                    Comments</div>
-                                                <div class="w-50 mx-2"
-                                                    [hidden]="valuelevelcomment!=='Entity View-Comment'"
-                                                    style="font-size:18px;cursor: pointer;color:#141E46;"><span
-                                                        (click)="leveloneComments(this.detaislone?.comment)"><i
-                                                            class="fas fa-comments"></i></span></div>
-                                            </div>
+                                          
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-12">
-                                        <div class="d-flex flex-column">
-                                            <div class="d-flex mt-3">
-                                                <div class="w-50 font-weight-bold">Approval At</div>
-                                                <div class="w-50">
-                                                    <span *ngIf="this.detaislone?.approvedDateTimeL1!=null">
-                                                        {{this.detaislone?.approvedDateTimeL1 | date : "dd/MM/yyyy hh:mm
-                                                        a" }}
-                                                    </span>
-                                                    <span *ngIf="this.detaislone?.approvedDateTimeL1==null">-</span>
-                                                </div>
+                                        <div class="d-flex mt-3">
+                                            <div class="w-50 font-weight-bold">Update Date&Time</div>
+                                            <div class="w-50">
+                                                <span>
+                                                    {{ this.detaislone?.approvedDateTimeL1!=null ? (this.detaislone?.approvedDateTimeL1 | date : "dd/MM/yyyy hh:mm a") : '--' }}
+
+                                                </span>
                                             </div>
-                                            <div class="d-flex mt-3">
-                                                <div class="w-50 font-weight-bold"
-                                                    [hidden]="valueapproval!=='Entity View-Approval'">Approval</div>
-                                                <div class="w-50">
-                                                    <button class="buttonDownload"
-                                                        [hidden]="valueapproval!=='Entity View-Approval'"
-                                                        (click)="levelOneApproval(this.id)">Approval</button>
-                                                </div>
-                                            </div>
+                                           
+                                        </div>
+                                        <div class="d-flex mt-3">
+                                            <div class="w-50 font-weight-bold"
+                                                [hidden]="valuelevelcomment!=='Entity View-Comment'">
+                                                Comments</div>
+                                            <div class="w-50 mx-2"
+                                                [hidden]="valuelevelcomment!=='Entity View-Comment'"
+                                                style="font-size:18px;cursor: pointer;color:#141E46;"><span
+                                                    (click)="leveloneComments(this.detaislone?.comment)"><i
+                                                        class="fas fa-comments"></i></span></div>
                                         </div>
                                     </div>
                                 </div>
@@ -572,20 +594,24 @@
                                 <th>Ledger Id</th>
                                 <th>Bank Name</th>
                                 <th>Branch Name</th>
-                                <th [hidden]="valuebankapprovalsts!=='Bank-Approval Status'">Approval Status</th>
                                 <th [hidden]="valuebanksts!=='Bank-Status'">Bank Status</th>
                                 <th [hidden]="valueprimarysts!=='Bank Primary-Status'">Primary Status</th>
                                 <th [hidden]="valuebankapproval!=='Bank-Approval'">Approval</th>
-                                <th>Approval At</th>
+                                <th [hidden]="valuebankapprovalsts!=='Bank-Approval Status'">Approval Status</th>
+                                <th>Updated By</th>
+
+                                <!-- approved datetime -->
+                                <th>Updated Date&Time</th>
+                               
+                                <!-- approved datetime -->
                                 <th [hidden]="valuebankcomment!=='Bank-comment'">Comments</th>
                                 <th [hidden]="valuebankedit!=='Bank-Edit'">Action</th>
                                 <th [hidden]="valuebankverify!=='Bank-Verification'">Verification</th>
                                 <th>Verification Status</th>
-
-
-
-
-
+                                <th>Created By</th>
+                                <th>Created Date/Time</th>
+                                <th>Modified By</th>
+                                <th>Modified Date/Time</th>
                             </tr>
                             <tbody
                                 *ngFor="let item of bankdetails  | search: searchText | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }; let i=index">
@@ -597,12 +623,7 @@
                                 <td>{{item.ledgerId}}</td>
                                 <td>{{item.bankId.bankName}}</td>
                                 <td>{{item.branchName}}</td>
-                                <td [hidden]="valuebankapprovalsts!=='Bank-Approval Status'" [ngClass]="{
-                                                    yellow: item?.approvalStatus === 'Pending',
-                                                    green: item?.approvalStatus === 'approved',
-                           
-                                                    Red: item?.approvalStatus == 'Rejected'
-                                                  }">{{item.approvalStatus}}</td>
+                                
                                 <td [hidden]="valuebanksts!=='Bank-Status'"><span> <mat-slide-toggle
                                             class="example-margin" color="primary" [checked]="item.activeStatus==1"
                                             (change)="bankStatus($event,item.merchantBankId)">
@@ -620,8 +641,19 @@
                                         [disabled]="item?.approvalStatus === 'approved'" class="buttonDownload"
                                         (click)="BankApproval(item.merchantBankId)">Approval</button>
                                 </td>
+                                <td [hidden]="valuebankapprovalsts!=='Bank-Approval Status'" [ngClass]="{
+                                    yellow: item?.approvalStatus === 'Pending',
+                                    green: item?.approvalStatus === 'approved',
+           
+                                    Red: item?.approvalStatus == 'Rejected'
+                                  }">{{item.approvalStatus}}</td>
 
-                                <td>{{item.approvalDateTime|date:"dd/MM/yyyy hh:mm a"}}</td>
+                                       <td>{{item.approvalBy}}</td>
+                                       <!-- approved datetime -->    
+                            
+                                <td>{{ item.approvalDateTime!="NA" ? (item.approvalDateTime | date : "dd/MM/yyyy hh:mm a") : '--' }}</td>
+                               
+                                   <!-- approved datetime -->
                                 <td [hidden]="valuebankcomment!=='Bank-comment'"><span
                                         (click)="BankComments(item.reMarks)"><i class="fas fa-comments"
                                             style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
@@ -657,9 +689,10 @@
                                     <span *ngIf="item.facheckStatus==0 " class="text-danger">Not-Verified</span>
                                     <span *ngIf="item.facheckStatus==1 " class="text-success">Verified</span>
                                 </td>
-
-
-
+                                <td>{{item.createdBy}}</td>
+                                <td>{{item.createdDateTime | date:"dd/MM/yyyy hh:mm:a"}}</td>
+                                <td>{{item.modifiedBy}}</td>
+                                <td>{{item.modifiedDateTime | date:"dd/MM/yyyy hh:mm:a"}}</td>
 
                             </tbody>
                         </table>
@@ -696,10 +729,13 @@
                                 <th>Verification Status</th>
                                 <th [hidden]="valuekycapproval!=='Entity View KYC Document-Approval'">Approval</th>
                                 <th>Approval Status</th>
-                                <th>Approved By</th>
-                                <th>Approval At</th>
+                                <th>Updated By</th>
+                                <th>Updated Date&Time</th>
                                 <th [hidden]="valuekyccomment!=='Entity View KYC Document-comments'">Comments</th>
-
+                                <th>Created By</th>
+                                <th>Created Date&Time</th>
+                                <th>Modified By</th>
+                                <th>Modified Date&Time</th>
 
                             </tr>
                             <tbody
@@ -762,6 +798,10 @@
                                             (click)="KYCComments(item.identityAdminComments)"><i class="fas fa-comments"
                                                 style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
                                     </td>
+                                    <td>{{item.createdBy}}</td>
+                                    <td>{{item.createdDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
+                                    <td>{{item.modifiedBy}}</td>
+                                    <td>{{item.modifiedDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
                                 </tr>
 
 
@@ -825,6 +865,10 @@
                                                 class="fas fa-comments"
                                                 style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
                                     </td>
+                                    <td>{{item.createdBy}}</td>
+                                    <td>{{item.createdDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
+                                    <td>{{item.modifiedBy}}</td>
+                                    <td>{{item.modifiedDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
                                 </tr>
 
 
@@ -890,6 +934,10 @@
                                                 class="fas fa-comments"
                                                 style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
                                     </td>
+                                    <td>{{item.createdBy}}</td>
+                                    <td>{{item.createdDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
+                                    <td>{{item.modifiedBy}}</td>
+                                    <td>{{item.modifiedDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
                                 </tr>
 
 
@@ -959,11 +1007,15 @@
                                 <th [hidden]="valuebussinessapproval!=='Entity View Bussiness Document-Approval'">
                                     Approval</th>
                                 <th>Approval Status</th>
-                                <th>Approved By</th>
-                                <th>Approved At</th>
+                                <th>Updated By</th>
+                                <th>Updated Date&Time</th>
                                 <th [hidden]="valuebussinesscomment!=='Entity View Bussiness Document-Comments'">
                                     Comments</th>
                                 <th [hidden]="valuebussinessedit!=='Entity View Bussiness Document-Edit'">Action</th>
+                                <th>Created By</th>
+                                <th>Created Date&Time</th>
+                                <th>Modified By</th>
+                                <th>Modified Date&Time</th>
 
                             </tr>
                             <tbody
@@ -998,6 +1050,10 @@
                                 <td [hidden]="valuebussinessedit!=='Entity View Bussiness Document-Edit'"><i
                                         class="fas fa-edit" (click)="docedit(item)">
                                     </i></td>
+                                    <td>{{item.createdBy}}</td>
+                                    <td>{{item.createdDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
+                                    <td>{{item.modifiedBy}}</td>
+                                    <td>{{item.modifiedDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
                             </tbody>
                         </table>
                     </div>
@@ -1017,32 +1073,34 @@
                         <table class="table table-hover" id="customers">
                             <tr>
                                 <th>S No </th>
-                                <th>Overall Approval Status</th>
-                                <th>Approved By</th>
-                                <th>Approval At</th>
-                                <th [hidden]="valuefinalapprovals!=='Final-Approval'">Approval</th>
+                                <th>Approval</th>
+                                <th>Approval Status</th>
                                 <th [hidden]="valuefinalcomment!=='Final-Comment'">Comments</th>
+                                <th>Updated By</th>
+                                <th>Updated Date&Time</th>
+                                
                             </tr>
                             <tbody>
                                 <td class="text-center">1</td>
-                                <td class="text-center" [ngClass]="{approved: detaislone?.approvalStatusL2 == 'approved',
-                                                                     rejected: detaislone?.approvalStatusL2 == 'rejected',
-                    pending: detaislone?.approvalStatusL2 == 'pending'
-                  }">
-                                    {{ this.detaislone?.approvalStatusL2 }}
-                                </td>
-                                <td class="text-center">{{this.detaislone?.approvedByL2}}</td>
-                                <td class="text-center">{{this.detaislone?.approvedDateTimeL2 | date : "dd/MM/yyyy hh:mm
-                                    a"}}</td>
                                 <td class="text-center" [hidden]="valuefinalapprovals!=='Final-Approval'">
                                     <span><button class="buttonDownload" (click)="levelTwoApproval(this.id)"
                                             [hidden]="this.detaislone?.approvalStatusL1 == 'Pending' || this.detaislone?.approvalStatusL1 == 'Rejected' ">Approval</button></span>
-
-
+</td>
+                                <td class="text-center"> 
+                                    <span style="color:green" *ngIf="detaislone?.approvalStatusL2 == 'approved'">{{this.detaislone?.approvalStatusL2 }}</span>
+                                    <span style="color:orange" *ngIf="detaislone?.approvalStatusL2 == 'Pending'">{{this.detaislone?.approvalStatusL2 }}</span>
+                                    <span style="color:red" *ngIf="detaislone?.approvalStatusL2 == 'Rejected'">{{this.detaislone?.approvalStatusL2 }}</span>
+                                </td>
                                 <td [hidden]="valuefinalcomment!=='Final-Comment'"
-                                    style="text-align: center;font-size:15px;cursor: pointer;color:#545497;"><span
-                                        (click)="levelTwoComments(this.detaislone?.commentL2)"><i
-                                            class="fas fa-comments"></i></span></td>
+                                style="text-align: center;font-size:15px;cursor: pointer;color:#545497;"><span
+                                    (click)="levelTwoComments(this.detaislone?.commentL2)"><i
+                                        class="fas fa-comments"></i></span></td>
+                                <td class="text-center">{{this.detaislone?.approvedByL2}}</td>
+                                <td class="text-center">{{this.detaislone?.approvedDateTimeL2 | date : "dd/MM/yyyy hh:mm a"}}</td>
+                            
+   
+
+                            
                             </tbody>
                         </table>
                     </div>
@@ -1118,7 +1176,7 @@
 
                             <th>Manual CreatedBy</th>
                             <th>Manual UpdatedBy</th>
-                            <th>Paid At</th>
+                            <th>Paid Date&Time</th>
                         </tr>
                         <tbody
                             *ngFor="let item of manualDetails | search: searchText | paginate: { itemsPerPage: itemsPerPage, currentPage: currentonetime };let i=index">
@@ -1226,7 +1284,7 @@
                             <th [hidden]="valueCustomizededit!=='Entity View Customized Payment-Edit'">Action</th>
                             <th [hidden]="valueCustomizedview!=='Entity View Customized Payment-View'">View</th>
                             <th>Payment Status</th>
-                            <th>Paid At</th>
+                            <th>Paid Date&Time</th>
                         </tr>
                         <tbody
                             *ngFor="let item of otherDetails  | search: searchText | paginate: { itemsPerPage: itemsPerPage, currentPage: currentcustomized };let i=index">
@@ -1341,9 +1399,9 @@
                             <!--<th [hidden]="valuesmsview!=='Sms Setting-View'">View</th>-->
                             <th [hidden]="valuesmsedit!=='Sms Setting-Edit'">Action</th>
                             <th>Created By</th>
-                            <th>Created At</th>
+                            <th>Created Date&Time</th>
                             <th>Modified By</th>
-                            <th>Modified At</th>
+                            <th>Modified Date&Time</th>
                         </tr>
                         <tbody
                             *ngFor="let item of smsDetails  | search: searchText | paginate: { itemsPerPage: itemsPerPage, currentPage: currentsms };let i=index">
@@ -1468,7 +1526,7 @@
                                 [hidden]="valueagreementAgreementSigned!=='Entity View Agreement-Agreement Signed Copy'">
                                 Agreement Signed Copy</th>
                             <th>Created By</th>
-                            <th>Created At</th>
+                            <th>Created Date&Time</th>
                         </tr>
                         <tbody
                             *ngFor="let item of agreementdetails  | search: searchText | paginate: { itemsPerPage: itemsPerPage, currentPage: currentagreement };let i=index">
@@ -1644,9 +1702,9 @@
 
 
                             <th>Created By</th>
-                            <th>Created At</th>
+                            <th>Created Date&Time</th>
                             <th>Modified By</th>
-                            <th>Modified At</th>
+                            <th>Modified Date&Time</th>
                         </tr>
                         <tbody
                             *ngFor="let item of branchget | search: searchText | paginate: { itemsPerPage: itemsPerPage, currentPage: currentbranch }; let i=index">

@@ -288,9 +288,9 @@ export class MerchantPlanViewallComponent {
       "Frequency",
       "Status",
       "Created By",
-      "Created At",
+      "Created Date/Time",
       "Modified By",
-      "Modified At"
+      "Modified Date/Time"
     ]
  
  

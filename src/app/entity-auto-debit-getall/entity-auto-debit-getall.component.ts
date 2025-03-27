@@ -193,7 +193,7 @@ export class EntityAutoDebitGetallComponent {
       "From Ledger Id",
       "To Ledger Id",
       "Reason",
-      "Created At"
+      "Created Date/Time"
     ]
  
  

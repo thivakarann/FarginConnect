@@ -688,7 +688,7 @@ console.log(filterValue)
     this.service.CustomizationPaySearch(filterValue,this.pageSize3,this.pageIndex3).subscribe({
       next: (res: any) => {
         if (res.response) {
-          this.transaction = res.response.content;  
+          this.transaction = res.response;  
           this.transaction.reverse();
           this.dataSource = new MatTableDataSource(this.transaction);  
           this.dataSource.sort = this.sort;

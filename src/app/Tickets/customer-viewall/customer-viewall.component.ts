@@ -260,9 +260,9 @@ export class CustomerViewallComponent implements OnInit {
       "Mobile Number",
       "Category Name",
       "Ticket Status",
-      "Created At",
+      "Created Date/Time",
       "Status Updated By",
-      "Status Updated At",
+      "Status Updated Date/Time",
     ]
  
  

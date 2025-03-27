@@ -167,9 +167,9 @@ export class ViewwithdrawalComponent {
       "Gst Type",
       "Status",
       "Created By",
-      "Created At",
+      "Created Date/Time",
       "Modified By",
-      "Modified At"
+      "Modified Date/Time"
     ]
     const data = this.responseDataListnew;
     let workbook = new Workbook();

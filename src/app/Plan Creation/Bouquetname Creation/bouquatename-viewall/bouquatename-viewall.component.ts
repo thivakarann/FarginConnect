@@ -257,9 +257,9 @@ export class BouquatenameViewallComponent implements OnInit {
       "BroadCaster Name",
       "Status",
       "Created By",
-      "Created At",
+      "Created Date/Time",
       "Modified By",
-      "Modified At",
+      "Modified Date/Time",
     ]
  
  

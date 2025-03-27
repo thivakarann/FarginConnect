@@ -199,9 +199,9 @@ export class RefundPeriodViewallComponent implements OnInit {
       "Payment Method",
       "Refund Period",
       "Created By",
-      "Created At",
+      "Created Date/Time",
       "Modified By",
-      "Modified At"
+      "Modified Date/Time"
     ]
 
 

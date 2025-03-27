@@ -279,7 +279,7 @@ export class AgreementViewallComponent {
       'Service Fee',
       'Fargin Signer Status',
       'Entity Signer Status',
-      'Created At',
+      'Created Date/Time',
       'Created By'
     ]
  

@@ -225,9 +225,9 @@ export class RegionComponent implements OnInit {
       "Service Provider Name",
       "Status",
       "Created By",
-      "Created At",
+      "Created Date/Time",
       "Modified By",
-      "Modified At"
+      "Modified Date/Time"
     ]
  
     const data = this.responseDataListnew;

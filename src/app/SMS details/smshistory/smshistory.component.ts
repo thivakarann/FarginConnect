@@ -215,7 +215,7 @@ export class SMSHistoryComponent {
       'SMS Status',
       'SMS Charge type',
       'Charge For SMS',
-      'Created At',
+      'Created Date/Time',
  
     ]
  

@@ -15,7 +15,7 @@ export class AddKycdocumentComponent implements OnInit {
   imageFile1!: File;
   errorShow!: boolean;
   clearImage: any = '';
-  createdBy: any = sessionStorage.getItem('adminname');
+  getadminname :any = JSON.parse(sessionStorage.getItem('adminname') || '');
   details: any;
   merchantId: any;
   categorydetails: any;
@@ -377,6 +377,7 @@ export class AddKycdocumentComponent implements OnInit {
     formData.append('addressProof', this.addressProof?.value);
     formData.append('addressProofNo', this.addressProofNo?.value.trim());
     formData.append('signatureFrontPath', this.uploadsignfront);
+    formData.append('createdBy',this.getadminname)
     formData.append('signatureBackPath', this.uploadsignback);
     formData.append('signatureProof', this.signatureProof?.value);
     formData.append('signatureProofNo', this.signatureProofNo?.value.trim());

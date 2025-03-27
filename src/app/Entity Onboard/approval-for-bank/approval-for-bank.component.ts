@@ -45,7 +45,7 @@ export class ApprovalForBankComponent implements OnInit {
     let submitModel: ApprovalBank = {
       approvalStatus: this.approvalStatus?.value,
       reMarks: this.reMarks?.value.trim(),
-      modifiedBy: this.getadminname
+      approvalBy: this.getadminname,
     }
 
     this.Approval.EntityBankApprovals(this.id, submitModel).subscribe((res: any) => {
@@ -56,7 +56,7 @@ export class ApprovalForBankComponent implements OnInit {
       }
       else {
         this.dialog.closeAll();
-        this.toastr.error(res.responseMessage)
+        this.toastr.error(res.responseMessage);
       }
     })
   }

@@ -205,7 +205,7 @@ export class EntityAddComponent implements OnInit {
         Validators.maxLength(25)
       ]),
 
-      customerSmsTag: new FormControl ("",[Validators.required]),
+      customerSmsTag: new FormControl (""),
 
 
 
@@ -297,7 +297,7 @@ export class EntityAddComponent implements OnInit {
   duealert(event:any){
     this.myForm.get('customerDuesDate')?.setValue('');
     this.myForm.get('dueDate')?.setValue('');
-
+    this.myForm.get('customerSmsTag')?.setValue('');
   }
 
   // First Form
@@ -935,12 +935,13 @@ export class EntityAddComponent implements OnInit {
     let submitModel: AddEntityBank = {
       accountHolderName: this.accountHolderName?.value.trim(),
       accountNumber: this.accountNumber?.value.trim(),
-      bankId: this.bankName?.value, 
+      bankId: this.bankName?.value,
       ifscCode: this.ifscCode?.value.trim(),
       branchName: this.branchName?.value.trim(),
       accountType: this.accountType?.value,
       merchantId: this.merchantid,
-      ledgerId: this.ledgerId?.value.trim()
+      ledgerId: this.ledgerId?.value.trim(),
+      createdBy:this.getadminname
     }
     this.AddEntity.EntitybankAdd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
@@ -975,6 +976,7 @@ export class EntityAddComponent implements OnInit {
     formData.append('addressProofNo', this.addressProofNo?.value.trim());
     formData.append('signatureFrontPath', this.uploadsignfront);
     formData.append('signatureBackPath', this.uploadsignback);
+    formData.append('createdBy',this.getadminname)
     formData.append('signatureProof', this.signatureProof?.value);
     formData.append('signatureProofNo', this.signatureProofNo?.value.trim());
     formData.append('drivingLicenceDob', this.drivingLicenceDob?.value || this.drivingLicenceDobs?.value || this.drivingLicenceDobss?.value);

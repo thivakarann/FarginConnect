@@ -23,6 +23,7 @@ export class EntityBankeditComponent implements OnInit {
   merchantBankId: any;
   bankData: any;
   BankNames: any;
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
 
   constructor(
     public service: FarginServiceService,
@@ -110,7 +111,8 @@ export class EntityBankeditComponent implements OnInit {
       ifscCode: this.ifscCode.value.trim(),
       branchName: this.branchName.value.trim(),
       accountType: this.accountType.value,
-      ledgerId:this.ledgerId?.value.trim()
+      ledgerId: this.ledgerId?.value.trim(),
+      modifiedBy: this.getadminname
     }
     this.service.EntitybankEdit(this.merchantBankId, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {

@@ -273,9 +273,9 @@ export class BouquetePlanViewallComponent {
       "BroadCaster Plan",
       "Plan Status",
       "Created By",
-      "Created At",
+      "Created Date/Time",
       "Modified By",
-      "Modified At",
+      "Modified Date/Time",
     ]
 
 

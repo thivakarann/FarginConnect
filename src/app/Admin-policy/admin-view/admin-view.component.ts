@@ -290,9 +290,9 @@ export class AdminViewComponent implements OnInit {
       "Approval By",
       "Approval At",
       "Created By",
-      "Created At",
+      "Created Date/Time",
       "Modified By",
-      "Modified At"
+      "Modified Date/Time"
     ]
  
  

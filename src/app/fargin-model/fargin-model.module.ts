@@ -168,6 +168,7 @@ export interface AddEntityBank {
   readonly accountType: any;
   readonly merchantId: any;
   readonly ledgerId: any;
+  readonly createdBy:any;
 }
 
 
@@ -184,7 +185,7 @@ export interface BankPrimaryStatus {
 export interface ApprovalBank {
   readonly approvalStatus: any;
   readonly reMarks: any;
-  readonly modifiedBy: any;
+  readonly approvalBy: any;
 }
 
 export interface KycApproval {
@@ -258,6 +259,7 @@ export interface bankData {
   readonly accountType: any;
   readonly merchantId: any;
   readonly ledgerId: any;
+  readonly createdBy:any;
 }
 
 export interface bankedit {
@@ -268,6 +270,7 @@ export interface bankedit {
   readonly branchName: any;
   readonly accountType: any;
   readonly ledgerId: any;
+  readonly modifiedBy:any;
 }
 
 
@@ -412,11 +415,11 @@ export interface BankPrimaryStatus {
 }
 
 
-export interface ApprovalBank {
-  readonly approvalStatus: any;
-  readonly reMarks: any;
-  readonly modifiedBy: any;
-}
+// export interface ApprovalBank {
+//   readonly approvalStatus: any;
+//   readonly reMarks: any;
+//   readonly modifiedBy: any;
+// }
 
 
 export interface RegionAdd {

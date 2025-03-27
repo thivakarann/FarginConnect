@@ -22,6 +22,7 @@ export class EntityBankaddComponent implements OnInit {
   documentback: any;
   merchantid: any;
   BankNames: any;
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
 
 
   constructor(
@@ -106,7 +107,8 @@ export class EntityBankaddComponent implements OnInit {
       branchName: this.branchName?.value.trim(),
       accountType: this.accountType?.value,
       merchantId: this.merchantid,
-      ledgerId: this.ledgerId?.value.trim()
+      ledgerId: this.ledgerId?.value.trim(),
+      createdBy:this.getadminname
     };
 
     this.service.EntitybankAdd(submitModel).subscribe((res: any) => {

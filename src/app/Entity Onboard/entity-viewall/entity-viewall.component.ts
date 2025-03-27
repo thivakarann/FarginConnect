@@ -418,7 +418,7 @@ export class EntityViewallComponent {
       'Final approval',
       'PG Onboard',
       'Status',
-      "Created At",
+      "Created Date/Time",
       "Login Count"
     ]
 
