@@ -62,7 +62,7 @@ export class AddBussinessdocumentComponent implements OnInit {
       kycCategoryId: ['', Validators.required],
       docNumber: [''],
       docFrontPath: ['', Validators.required],
-      docBackPath: [''],
+      docBackPath: ['', Validators.required],
       expiryDate: ['']
     })
 

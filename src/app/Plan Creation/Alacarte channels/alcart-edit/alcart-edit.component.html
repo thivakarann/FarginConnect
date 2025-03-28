@@ -142,7 +142,7 @@
  
                 <div class="col-sm-4 form-group">
                     <label for="Bussiness category">Type</label>
-                    <select [(ngModel)]="Type" formControlName="type" (change)="typechange($event)" id="Bussiness category"
+                    <select [(ngModel)]="Type" formControlName="type"  id="Bussiness category"
                         class="form-control form-select">
                         <option value="" disabled selected>Select</option>
                         <option value="0">Free</option>
@@ -156,8 +156,7 @@
                     color: red;
                     font-size: 12px;
                     margin-top: 2px;
-                    position: relative;
-                    ;
+                    position: relative; 
                   " *ngIf="type?.invalid && type?.touched && type?.errors?.['required']">
                         Field is required
                     </div>

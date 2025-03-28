@@ -85,6 +85,11 @@ msoservice:any
       this.Generic = res.response.generic;
       this.Language = res.response.language;
       this.Type = res.response.type;
+      
+      if(this.Type=="1"){
+        this.myForm.get('price')?.setValue(res.response.price) 
+      }
+
       if (this.Type == 1) {
         this.show = true;
       }
@@ -184,12 +189,14 @@ msoservice:any
     })
   }
  
-  typechange(event:any){
-    this.myForm.get('price')?.setValue('');
-  }
+  // typechange(event:any){
+  //   this.myForm.get('price')?.setValue('');
+  // }
  
   submit() {
-    let submitModel: UpdateAlcart = {
+    const prices = this.myForm.get('type')?.value == '0' ? '0' : this.price?.value;
+  
+     let submitModel: UpdateAlcart = {
       alcotId: this.id,
       regionId: this.regionId?.value,
       bundleChannelId: this.bundleChannelId?.value,
@@ -197,7 +204,7 @@ msoservice:any
       type: this.type?.value,
       generic: this.generic?.value.trim(),
       language: this.language?.value.trim(),
-      price: this.price?.value,
+      price: prices,
       modifiedBy: this.getadminname,
       channelNo: this.channelNo?.value
     }

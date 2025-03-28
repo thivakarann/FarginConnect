@@ -129,9 +129,14 @@
                                     <button [hidden]="valueplandetails!=='Entity Plan Details'" style="font-size: 10px;"
                                         mat-menu-item (click)="Entityplan()">Entity Plan
                                         Details</button>
-                                    <button style="font-size: 10px;" mat-menu-item (click)="viewOnboardInfo(this.id)"
+                                    <button [disabled]="this.detaislone?.approvalStatusL1 !== 'approved' || 
+                                    this.detaislone?.approvalStatusL2 !== 'approved' || 
+                                    this.detaislone?.onBoardStatus !== 'true'" style="font-size: 10px;" mat-menu-item
+                                        (click)="viewOnboardInfo(this.id)"
                                         [hidden]="valueviewonboard!=='Entity View-Onboard Information'">View
                                         OnboardInfo</button>
+
+
                                     <button style="font-size: 10px;" mat-menu-item (click)="EntityTerminal(this.id)"
                                         [hidden]="valueterminal!=='Entity Terminal View'">Entity Terminal View</button>
 
@@ -220,7 +225,7 @@
                                                 </div>
                                             </div>
                                             <div class="d-flex mt-3">
-                                                <div class="w-50 font-weight-bold">Billing Mode</div>
+                                                <div class="w-50 font-weight-bold">LCO Customer Billing Cycle</div>
                                                 <div class="w-50">
                                                     <span *ngIf="this.detaislone?.billingMode!=null">
                                                         {{detaislone?.billingMode}}</span>
@@ -228,7 +233,7 @@
                                                 </div>
                                             </div>
                                             <div class="d-flex mt-3">
-                                                <div class="w-50 font-weight-bold">Auto Debit</div>
+                                                <div class="w-50 font-weight-bold">LCO Cloud Fee Auto Debit</div>
                                                 <div class="w-50">
 
                                                     <span>{{ detaislone?.autoDebitStatus === 1 ? 'Yes' : 'No' }}</span>
@@ -278,14 +283,14 @@
                                                         }}</span>
                                                 </div>
                                             </div>
-                                            <div class="d-flex mt-3">
+                                            <!-- <div class="d-flex mt-3">
                                                 <div class="w-50 font-weight-bold">Payout Platform Fee</div>
                                                 <div class="w-50">
 
                                                     <span>{{ detaislone?.platformFee
                                                         }}</span>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="d-flex mt-3">
                                                 <div class="w-50 font-weight-bold">Created By</div>
                                                 <div class="w-50">
@@ -299,6 +304,14 @@
                                                 <div class="w-50">
 
                                                     <span>{{ detaislone?.createdDatetime | date:"dd/MM/yyyy hh:MM: a"
+                                                        }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex mt-3">
+                                                <div class="w-50 font-weight-bold">LCO Customer Notification Start Date</div>
+                                                <div class="w-50">
+
+                                                    <span>{{ detaislone?.dueDate
                                                         }}</span>
                                                 </div>
                                             </div>
@@ -339,7 +352,7 @@
                                                 <div class="w-50">{{detaislone?.billingAddress}}</div>
                                             </div>
                                             <div class="d-flex mt-3">
-                                                <div class="w-50 font-weight-bold">Plan Customer Limit</div>
+                                                <div class="w-50 font-weight-bold">Customer Onboard Limit</div>
                                                 <div class="w-50">{{detaislone?.merchantPlanModel?.countLimit}}</div>
                                             </div>
 
@@ -379,17 +392,17 @@
                                             </div>
 
                                             <div class="d-flex mt-3">
-                                                <div class="w-50 font-weight-bold">Period Name</div>
+                                                <div class="w-50 font-weight-bold">LCO Billing Model</div>
                                                 <div class="w-50">{{detaislone?.periodName}}</div>
                                             </div>
 
                                             <div class="d-flex mt-3">
-                                                <div class="w-50 font-weight-bold">Auto Debit Date</div>
+                                                <div class="w-50 font-weight-bold">LCO Cloud Fee Auto Debit Date</div>
                                                 <div class="w-50">{{detaislone?.businessCategoryModel?.autoDebitDate}}
                                                 </div>
                                             </div>
                                             <div class="d-flex mt-3">
-                                                <div class="w-50 font-weight-bold">Customer Due Date</div>
+                                                <div class="w-50 font-weight-bold">LCO Customer Notification Frequency</div>
                                                 <div class="w-50">
                                                     <ng-container
                                                         *ngIf="detaislone?.customerDuesDate === 1">Daily</ng-container>
@@ -433,7 +446,8 @@
                                                 <div class="w-50 font-weight-bold">Modified Date/Time</div>
                                                 <div class="w-50">
 
-                                                    <span>{{ detaislone?.modifiedDatetime | date:"dd/MM/yyyy hh:mm a"}}</span>
+                                                    <span>{{ detaislone?.modifiedDatetime | date:"dd/MM/yyyy hh:mm
+                                                        a"}}</span>
                                                 </div>
                                             </div>
 
@@ -474,19 +488,13 @@
                                 <div class="row">
                                     <div class="col-md-6 col-12">
                                         <div class="d-flex flex-column">
-                                            <div class="d-flex mt-2">
-                                                <div class="w-50 font-weight-bold">
-                                                    Approval Status</div>
+                                            <div class="d-flex mt-3">
+                                                <div class="w-50 font-weight-bold"
+                                                    [hidden]="valueapproval!=='Entity View-Approval'">Approval</div>
                                                 <div class="w-50">
-                                                      <span style="color:green" *ngIf="detaislone?.approvalStatusL1 == 'approved'">
-                                                        {{ detaislone?.approvalStatusL1 }}
-                                                    </span>
-                                                    <span style="color:red"  *ngIf="detaislone?.approvalStatusL1 == 'Rejected'">
-                                                        {{ detaislone?.approvalStatusL1 }}
-                                                    </span>
-                                                    <span style="color:orange"  *ngIf="detaislone?.approvalStatusL1 == 'Pending'">
-                                                        {{ detaislone?.approvalStatusL1 }}
-                                                    </span>
+                                                    <button class="buttonDownload"
+                                                        [hidden]="valueapproval!=='Entity View-Approval'"
+                                                        (click)="levelOneApproval(this.id)">Approval</button>
                                                 </div>
                                             </div>
                                             <div class="d-flex mt-3">
@@ -496,32 +504,56 @@
                                                         {{this.detaislone?.approvedByL1}}</span>
                                                     <span *ngIf="this.detaislone?.approvedByL1==null">-</span>
                                                 </div>
-                                               
+
                                             </div>
-                                          
+                                            <div class="d-flex mt-3">
+                                                <div class="w-50 font-weight-bold"
+                                                    [hidden]="valuelevelcomment!=='Entity View-Comment'">
+                                                    Comments</div>
+                                                <div class="w-50 mx-2"
+                                                    [hidden]="valuelevelcomment!=='Entity View-Comment'"
+                                                    style="font-size:18px;cursor: pointer;color:#141E46;"><span
+                                                        (click)="leveloneComments(this.detaislone?.comment)"><i
+                                                            class="fas fa-comments"></i></span></div>
+                                            </div>
+
+
+
+
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-12">
+                                        <div class="d-flex mt-2">
+                                            <div class="w-50 font-weight-bold">
+                                                Approval Status</div>
+                                            <div class="w-50">
+                                                <span style="color:green"
+                                                    *ngIf="detaislone?.approvalStatusL1 == 'approved'">
+                                                    {{ detaislone?.approvalStatusL1 }}
+                                                </span>
+                                                <span style="color:red"
+                                                    *ngIf="detaislone?.approvalStatusL1 == 'Rejected'">
+                                                    {{ detaislone?.approvalStatusL1 }}
+                                                </span>
+                                                <span style="color:orange"
+                                                    *ngIf="detaislone?.approvalStatusL1 == 'Pending'">
+                                                    {{ detaislone?.approvalStatusL1 }}
+                                                </span>
+                                            </div>
+                                        </div>
                                         <div class="d-flex mt-3">
                                             <div class="w-50 font-weight-bold">Update Date&Time</div>
                                             <div class="w-50">
                                                 <span>
-                                                    {{ this.detaislone?.approvedDateTimeL1!=null ? (this.detaislone?.approvedDateTimeL1 | date : "dd/MM/yyyy hh:mm a") : '--' }}
+                                                    {{ this.detaislone?.approvedDateTimeL1!=null ?
+                                                    (this.detaislone?.approvedDateTimeL1 | date : "dd/MM/yyyy hh:mm a")
+                                                    : '--' }}
 
                                                 </span>
                                             </div>
-                                           
+
                                         </div>
-                                        <div class="d-flex mt-3">
-                                            <div class="w-50 font-weight-bold"
-                                                [hidden]="valuelevelcomment!=='Entity View-Comment'">
-                                                Comments</div>
-                                            <div class="w-50 mx-2"
-                                                [hidden]="valuelevelcomment!=='Entity View-Comment'"
-                                                style="font-size:18px;cursor: pointer;color:#141E46;"><span
-                                                    (click)="leveloneComments(this.detaislone?.comment)"><i
-                                                        class="fas fa-comments"></i></span></div>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -591,7 +623,7 @@
                                 <th>Account Number</th>
                                 <th>Account Type</th>
                                 <th>IFSC Code</th>
-                                <th>Ledger Id</th>
+                                <th>PG Ledger Id</th>
                                 <th>Bank Name</th>
                                 <th>Branch Name</th>
                                 <th [hidden]="valuebanksts!=='Bank-Status'">Bank Status</th>
@@ -602,7 +634,7 @@
 
                                 <!-- approved datetime -->
                                 <th>Updated Date&Time</th>
-                               
+
                                 <!-- approved datetime -->
                                 <th [hidden]="valuebankcomment!=='Bank-comment'">Comments</th>
                                 <th [hidden]="valuebankedit!=='Bank-Edit'">Action</th>
@@ -623,7 +655,7 @@
                                 <td>{{item.ledgerId}}</td>
                                 <td>{{item.bankId.bankName}}</td>
                                 <td>{{item.branchName}}</td>
-                                
+
                                 <td [hidden]="valuebanksts!=='Bank-Status'"><span> <mat-slide-toggle
                                             class="example-margin" color="primary" [checked]="item.activeStatus==1"
                                             (change)="bankStatus($event,item.merchantBankId)">
@@ -648,12 +680,13 @@
                                     Red: item?.approvalStatus == 'Rejected'
                                   }">{{item.approvalStatus}}</td>
 
-                                       <td>{{item.approvalBy}}</td>
-                                       <!-- approved datetime -->    
-                            
-                                <td>{{ item.approvalDateTime!="NA" ? (item.approvalDateTime | date : "dd/MM/yyyy hh:mm a") : '--' }}</td>
-                               
-                                   <!-- approved datetime -->
+                                <td>{{item.approvalBy}}</td>
+                                <!-- approved datetime -->
+
+                                <td>{{ item.approvalDateTime!="NA" ? (item.approvalDateTime | date : "dd/MM/yyyy hh:mm
+                                    a") : '--' }}</td>
+
+                                <!-- approved datetime -->
                                 <td [hidden]="valuebankcomment!=='Bank-comment'"><span
                                         (click)="BankComments(item.reMarks)"><i class="fas fa-comments"
                                             style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
@@ -667,7 +700,7 @@
                                         <i style="overflow:hidden;color:#141E46;font-size:20px;"
                                             [matMenuTriggerFor]="menu" class="fa-solid fa-circle-info">
                                             <mat-menu #menu="matMenu">
-                                                <button style="font-size: 10px;" mat-menu-item
+                                                <button [disabled]="item.facheckStatus==0  || item.facheckStatus==2" style="font-size: 10px;" mat-menu-item
                                                     (click)="bankInfo(item.bavId)">Info</button>
                                                 <button style="font-size: 10px;" mat-menu-item
                                                     [disabled]="item.facheckStatus==1"
@@ -721,7 +754,7 @@
                                 <th>S No </th>
                                 <th>Document Type</th>
                                 <th>Document Name</th>
-                                <th>Document No</th>
+                                <th>Document ID</th>
                                 <th [hidden]="valuekycimage!=='Entity View KYC Document-Image'">Document Image</th>
                                 <th [hidden]="valuekycedit!=='Entity View KYC Document-Edit'">Action</th>
                                 <th [hidden]="valuekycverification!=='Entity View KYC Document-Verification'">
@@ -760,7 +793,7 @@
                                             <i style="overflow:hidden;color:#141E46;font-size:20px;"
                                                 [matMenuTriggerFor]="menu1" class="fa-solid fa-circle-info">
                                                 <mat-menu #menu1="matMenu">
-                                                    <button style="font-size: 10px;" mat-menu-item
+                                                    <button  [disabled]="item.identityFacheckStatus==0  || item.identityFacheckStatus==2" style="font-size: 10px;" mat-menu-item
                                                         (click)="KycInfo(item.identityKycId,item.identityProof)">Info</button>
                                                     <button style="font-size: 10px;" mat-menu-item
                                                         [disabled]="item.identityFacheckStatus==1"
@@ -826,7 +859,7 @@
                                             <i style="overflow:hidden;color:#141E46;font-size:20px;"
                                                 [matMenuTriggerFor]="menu2" class="fa-solid fa-circle-info">
                                                 <mat-menu #menu2="matMenu">
-                                                    <button style="font-size: 10px;" mat-menu-item
+                                                    <button [disabled]="item.addressFacheckStatus==0  || item.addressFacheckStatus==2" style="font-size: 10px;" mat-menu-item
                                                         (click)="KycInfo(item.addressKycId,item.addressProof)">Info</button>
                                                     <button style="font-size: 10px;" mat-menu-item
                                                         [disabled]="item.addressFacheckStatus==1"
@@ -893,7 +926,7 @@
                                             <i style="overflow:hidden;color:#141E46;font-size:20px;"
                                                 [matMenuTriggerFor]="menu3" class="fa-solid fa-circle-info">
                                                 <mat-menu #menu3="matMenu">
-                                                    <button style="font-size: 10px;" mat-menu-item
+                                                    <button  [disabled]="item.signatureFacheckStatus==0 || item.signatureFacheckStatus==2" style="font-size: 10px;" mat-menu-item
                                                         (click)="KycInfo(item.signatureKycId,item.signatureProof)">Info</button>
                                                     <button style="font-size: 10px;" mat-menu-item
                                                         [disabled]="item.signatureFacheckStatus==1"
@@ -1050,10 +1083,10 @@
                                 <td [hidden]="valuebussinessedit!=='Entity View Bussiness Document-Edit'"><i
                                         class="fas fa-edit" (click)="docedit(item)">
                                     </i></td>
-                                    <td>{{item.createdBy}}</td>
-                                    <td>{{item.createdDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
-                                    <td>{{item.modifiedBy}}</td>
-                                    <td>{{item.modifiedDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
+                                <td>{{item.createdBy}}</td>
+                                <td>{{item.createdDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
+                                <td>{{item.modifiedBy}}</td>
+                                <td>{{item.modifiedDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
                             </tbody>
                         </table>
                     </div>
@@ -1078,29 +1111,36 @@
                                 <th [hidden]="valuefinalcomment!=='Final-Comment'">Comments</th>
                                 <th>Updated By</th>
                                 <th>Updated Date&Time</th>
-                                
+
                             </tr>
                             <tbody>
                                 <td class="text-center">1</td>
                                 <td class="text-center" [hidden]="valuefinalapprovals!=='Final-Approval'">
                                     <span><button class="buttonDownload" (click)="levelTwoApproval(this.id)"
                                             [hidden]="this.detaislone?.approvalStatusL1 == 'Pending' || this.detaislone?.approvalStatusL1 == 'Rejected' ">Approval</button></span>
-</td>
-                                <td class="text-center"> 
-                                    <span style="color:green" *ngIf="detaislone?.approvalStatusL2 == 'approved'">{{this.detaislone?.approvalStatusL2 }}</span>
-                                    <span style="color:orange" *ngIf="detaislone?.approvalStatusL2 == 'Pending'">{{this.detaislone?.approvalStatusL2 }}</span>
-                                    <span style="color:red" *ngIf="detaislone?.approvalStatusL2 == 'Rejected'">{{this.detaislone?.approvalStatusL2 }}</span>
+                                </td>
+                                <td class="text-center">
+                                    <span style="color:green"
+                                        *ngIf="detaislone?.approvalStatusL2 == 'approved'">{{this.detaislone?.approvalStatusL2
+                                        }}</span>
+                                    <span style="color:orange"
+                                        *ngIf="detaislone?.approvalStatusL2 == 'Pending'">{{this.detaislone?.approvalStatusL2
+                                        }}</span>
+                                    <span style="color:red"
+                                        *ngIf="detaislone?.approvalStatusL2 == 'Rejected'">{{this.detaislone?.approvalStatusL2
+                                        }}</span>
                                 </td>
                                 <td [hidden]="valuefinalcomment!=='Final-Comment'"
-                                style="text-align: center;font-size:15px;cursor: pointer;color:#545497;"><span
-                                    (click)="levelTwoComments(this.detaislone?.commentL2)"><i
-                                        class="fas fa-comments"></i></span></td>
+                                    style="text-align: center;font-size:15px;cursor: pointer;color:#545497;"><span
+                                        (click)="levelTwoComments(this.detaislone?.commentL2)"><i
+                                            class="fas fa-comments"></i></span></td>
                                 <td class="text-center">{{this.detaislone?.approvedByL2}}</td>
-                                <td class="text-center">{{this.detaislone?.approvedDateTimeL2 | date : "dd/MM/yyyy hh:mm a"}}</td>
-                            
-   
+                                <td class="text-center">{{this.detaislone?.approvedDateTimeL2 | date : "dd/MM/yyyy hh:mm
+                                    a"}}</td>
 
-                            
+
+
+
                             </tbody>
                         </table>
                     </div>

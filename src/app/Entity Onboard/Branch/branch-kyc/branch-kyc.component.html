@@ -1,9 +1,10 @@
 <mat-card-header>
-    <button [hidden]="valuebranchkycadd!=='Entity View BranchKYC-Add'"  (click)="addKycdocuments(this.id, this.merchantId)"  [disabled]="kycbranchdetails!='NO DATA FOUND'" style="color:white;background-color: #141E46;border-radius: 10px;" 
-        mat-raised-button>Add KYC</button>
-  
+    <button [hidden]="valuebranchkycadd!=='Entity View BranchKYC-Add'"
+        (click)="addKycdocuments(this.id, this.merchantId)" [disabled]="kycbranchdetails!='NO DATA FOUND'"
+        style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Add KYC</button>
+
 </mat-card-header>
- <div class="row mt-4">
+<div class="row mt-4">
     <div class="col-12 mb-3 mb-lg-5">
         <div class="card table-nowrap table-card">
             <div class="table-responsive text-nowrap text-center">
@@ -13,20 +14,21 @@
                         <th>Document Type</th>
                         <th>Document Name</th>
                         <th>Document No</th>
-                        <th  [hidden]="valuebranchkycdocimage!=='Entity View BranchKYC-DocumentImage'">Document Image</th>
+                        <th [hidden]="valuebranchkycdocimage!=='Entity View BranchKYC-DocumentImage'">Document Image
+                        </th>
                         <th [hidden]="valuebranchkycedit!=='Entity View BranchKYC-Edit'">Action</th>
-                        <th [hidden]="valuebranchkycverification!=='Entity View BranchKYC-Verification'">Verification</th>
+                        <th [hidden]="valuebranchkycverification!=='Entity View BranchKYC-Verification'">Verification
+                        </th>
                         <th>Verification Status</th>
-                        <th  [hidden]="valuebranchkycApproval!=='Entity View BranchKYC-Approval'">Approval</th>
+                        <th [hidden]="valuebranchkycApproval!=='Entity View BranchKYC-Approval'">Approval</th>
                         <th>Approval Status</th>
                         <th>Updated By</th>
                         <th>Updatedl Date&Time</th>
-                        <th  [hidden]="valuebranchkycComments!=='Entity View BranchKYC-Comments'">Comments</th>
+                        <th [hidden]="valuebranchkycComments!=='Entity View BranchKYC-Comments'">Comments</th>
 
 
                     </tr>
-                    <tbody
-                        *ngFor="let item of kycbranchdetails, let i=index">
+                    <tbody *ngFor="let item of kycbranchdetails, let i=index">
                         <tr>
                             <td>1</td>
                             <td>Identity proof</td>
@@ -44,10 +46,12 @@
                                 </i></td>
                             <td [hidden]="valuebranchkycverification!=='Entity View BranchKYC-Verification'">
                                 <span>
-                                    <i style="overflow:hidden;color:#141E46;font-size:20px;"
-                                        [matMenuTriggerFor]="menu1" class="fa-solid fa-circle-info">
+                                    <i style="overflow:hidden;color:#141E46;font-size:20px;" [matMenuTriggerFor]="menu1"
+                                        class="fa-solid fa-circle-info">
                                         <mat-menu #menu1="matMenu">
-                                            <button style="font-size: 10px;" mat-menu-item
+                                            <button
+                                                [disabled]="item.identityFacheckStatus==0  || item.identityFacheckStatus==2"
+                                                style="font-size: 10px;" mat-menu-item
                                                 (click)="KycInfo(item.identityKycId,item.identityProof)">Info</button>
                                             <button style="font-size: 10px;" mat-menu-item
                                                 [disabled]="item.identityFacheckStatus==1"
@@ -68,7 +72,7 @@
                                 <span *ngIf="item.identityFacheckStatus == 2" style="font-size:14px;color:red;">
                                     Failed</span>
                             </td>
-                            <td  [hidden]="valuebranchkycApproval!=='Entity View BranchKYC-Approval'"><button
+                            <td [hidden]="valuebranchkycApproval!=='Entity View BranchKYC-Approval'"><button
                                     class="buttonDownload" (click)="KycApproval(item)"
                                     [disabled]="item.identityAdminApprovalStatus == 'approved'">Approval</button>
                             </td>
@@ -94,8 +98,7 @@
                             <td>{{item.addressProof}}</td>
                             <td>{{item.addressProofNo}}</td>
                             <td [hidden]="valuebranchkycdocimage!=='Entity View BranchKYC-DocumentImage'">
-                                <span (click)="addressProofFrontPath(item.branchProofId)"><i
-                                        class='fa-regular fa-image'
+                                <span (click)="addressProofFrontPath(item.branchProofId)"><i class='fa-regular fa-image'
                                         style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
                                 <span (click)="addressProofBackPath(item.branchProofId)"><i
                                         class='fa-regular fa-image mx-1'
@@ -106,10 +109,12 @@
                             </td>
                             <td [hidden]="valuebranchkycverification!=='Entity View BranchKYC-Verification'">
                                 <span>
-                                    <i style="overflow:hidden;color:#141E46;font-size:20px;"
-                                        [matMenuTriggerFor]="menu2" class="fa-solid fa-circle-info">
+                                    <i style="overflow:hidden;color:#141E46;font-size:20px;" [matMenuTriggerFor]="menu2"
+                                        class="fa-solid fa-circle-info">
                                         <mat-menu #menu2="matMenu">
-                                            <button style="font-size: 10px;" mat-menu-item
+                                            <button
+                                                [disabled]="item.addressFacheckStatus==0  || item.addressFacheckStatus==2"
+                                                style="font-size: 10px;" mat-menu-item
                                                 (click)="KycInfo(item.addressKycId,item.addressProof)">Info</button>
                                             <button style="font-size: 10px;" mat-menu-item
                                                 [disabled]="item.addressFacheckStatus==1"
@@ -144,8 +149,7 @@
                             </td>
                             <td>{{item.addressAdminApprovedDate | date : "dd/MM/yyyy hh:mm a"}}</td>
                             <td [hidden]="valuebranchkycComments!=='Entity View BranchKYC-Comments'">
-                                <span (click)="KYCComments(item.addressAdminComments)"><i
-                                        class="fas fa-comments"
+                                <span (click)="KYCComments(item.addressAdminComments)"><i class="fas fa-comments"
                                         style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
                             </td>
                         </tr>
@@ -169,10 +173,12 @@
                             </td>
                             <td [hidden]="valuebranchkycverification!=='Entity View BranchKYC-Verification'">
                                 <span>
-                                    <i style="overflow:hidden;color:#141E46;font-size:20px;"
-                                        [matMenuTriggerFor]="menu3" class="fa-solid fa-circle-info">
+                                    <i style="overflow:hidden;color:#141E46;font-size:20px;" [matMenuTriggerFor]="menu3"
+                                        class="fa-solid fa-circle-info">
                                         <mat-menu #menu3="matMenu">
-                                            <button style="font-size: 10px;" mat-menu-item
+                                            <button
+                                                [disabled]="item.signatureFacheckStatus==0 || item.signatureFacheckStatus==2"
+                                                style="font-size: 10px;" mat-menu-item
                                                 (click)="KycInfo(item.signatureKycId,item.signatureProof)">Info</button>
                                             <button style="font-size: 10px;" mat-menu-item
                                                 [disabled]="item.signatureFacheckStatus==1"
@@ -185,13 +191,11 @@
                                 </span>
                             </td>
                             <td class="text-center">
-                                <span *ngIf="item.signatureFacheckStatus == 0"
-                                    style="font-size:14px;color:red;">
+                                <span *ngIf="item.signatureFacheckStatus == 0" style="font-size:14px;color:red;">
                                     Pending</span>
                                 <span *ngIf="item.signatureFacheckStatus == 1"
                                     style="font-size:14px;color:green;">Verified</span>
-                                <span *ngIf="item.signatureFacheckStatus == 2"
-                                    style="font-size:14px;color:red;">
+                                <span *ngIf="item.signatureFacheckStatus == 2" style="font-size:14px;color:red;">
                                     Failed</span>
                             </td>
                             <td [hidden]="valuebranchkycApproval!=='Entity View BranchKYC-Approval'">
@@ -209,8 +213,7 @@
                             </td>
                             <td>{{item.signatureAdminApprovedDate | date : "dd/MM/yyyy hh:mm a"}}</td>
                             <td [hidden]="valuebranchkycComments!=='Entity View BranchKYC-Comments'">
-                                <span (click)="KYCComments(item.signatureAdminComments)"><i
-                                        class="fas fa-comments"
+                                <span (click)="KYCComments(item.signatureAdminComments)"><i class="fas fa-comments"
                                         style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
                             </td>
                         </tr>
@@ -220,7 +223,7 @@
                 </table>
             </div>
         </div>
-        
-       
+
+
     </div>
-</div> 
+</div>

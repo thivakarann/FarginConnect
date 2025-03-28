@@ -372,7 +372,7 @@
             </div>
             <div class="row mb-3">
                 <div class="col-sm-4 form-group">
-                    <label for="period">Period Name</label>
+                    <label for="period">LCO Billing Model</label>
                     <select formControlName="periodName" type="text" class="form-select" id="period">
                         <option value="Prepaid">Prepaid</option>
                         <option value="PostPaid">PostPaid</option>
@@ -393,11 +393,11 @@
                     <!-- <span class="error">*Only JPG/PNG/JPEG Files Allowed And Maximum Size Upto 20MB Allowed </span> -->
                 </div>
                 <div class="col-sm-4 form-group">
-                    <label for="billing">Billing Mode</label>
+                    <label for="billing">LCO Customer Billing Cycle</label>
                     <select formControlName="billingMode" type="text" class="form-select" id="billing">
-                        <option value="Prorated">Prorated</option>
+                        <!-- <option value="Prorated">Prorated</option> -->
                         <option value="Month">Month</option>
-                        <option value="Full">Full</option>
+                        <!-- <option value="Full">Full</option> -->
                     </select>
                     <div style="
                         color: red;
@@ -412,7 +412,7 @@
             </div>
             <div class="row mb-3">
                 <div class="col-sm-4 form-group">
-                    <label for="billing">Auto Debit</label>
+                    <label for="billing">LCO Cloud Fee Auto Debit</label>
                     <select formControlName="autoDebitStatus" type="text" class="form-select" id="billing">
                         <option value="1">Yes</option>
                         <option value="0">No</option>
@@ -549,7 +549,7 @@
                 <!-- </div> -->
 
                 <div class="col-sm-4 form-group">
-                    <label for="billing">Customer Due Alert Notification</label>
+                    <label for="billing">LCO Customer Due Alert Notification</label>
                     <select (change)="duealert($event)" formControlName="customerDuesEnable"  type="text" class="form-select"
                         id="billing">
                         <option value="1">Yes</option>
@@ -568,7 +568,7 @@
                 </div>
 
                 <div class="col-sm-4 form-group" [hidden]="customerDuesEnable?.value!='1'">
-                    <label for="billing">Customer SmsTag</label>
+                    <label for="billing">LCO Customer SmsTag</label>
                     <select  [required]="customerDuesEnable?.value=='1'" formControlName="customerSmsTag" type="text" class="form-select"
                         id="billing">
                         <option value="Single">Single</option>
@@ -588,7 +588,7 @@
                 </div>
 
                 <div class="col-sm-4 form-group" [hidden]="customerDuesEnable?.value!='1'" >
-                    <label for="billing">Customer Alert Notification frequency</label>
+                    <label for="billing">LCO Customer Notification Frequency</label>
                     <select  [required]="customerDuesEnable?.value=='1'" formControlName="customerDuesDate" type="text" class="form-select" id="billing">
                         <option value="1">Daily</option>
                         <option value="2">Two Days Once</option>
@@ -609,7 +609,7 @@
 
             <div class="row mb-3">
                 <div class="col-sm-4 form-group" [hidden]="customerDuesEnable?.value!='1'" >
-                    <label for="billing">Customer Notification Start due date</label>
+                    <label for="billing">LCO Customer Notification Start Date</label>
 
                     <select  [required]="customerDuesEnable?.value=='1'" id="dayPicker" formControlName="dueDate" class="form-select">
                         <option *ngFor="let day of days" [value]="day">{{ day }}</option>
@@ -686,7 +686,7 @@
                 </div>
 
                 <div class="col-sm-4 form-group">
-                    <label for="state">Ledger ID</label>
+                    <label for="state">PG Ledger ID</label>
                     <input type="text" formControlName="ledgerId" id="state" class="form-control">
 
                     <div style="
@@ -1110,7 +1110,7 @@
                 </div>
 
                 <div class="form__linput">
-                    <label class="form__label"><b>Document Number</b></label>
+                    <label class="form__label"><b>Document ID</b></label>
                     <input class="form-control" id="mccCode" type="text" formControlName="docNumber" required />
                     <!-- <div *ngIf="docNumber && docNumber.invalid && (docNumber.touched || docNumber.dirty)">
                         <small *ngIf="docNumber.errors?.['required']" style="color: red; font-size: 12px;">This field is

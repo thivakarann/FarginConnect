@@ -55,7 +55,7 @@
       </td>
     </ng-container>
     <ng-container matColumnDef="frequency">
-        <th mat-header-cell *matHeaderCellDef>Frequency</th>
+        <th mat-header-cell *matHeaderCellDef>Cloud Fee Frequency</th>
         <td mat-cell *matCellDef="let data">
           {{ data?.merchantPlanModel?.frequency }}
         </td>
@@ -68,35 +68,35 @@
     </ng-container>
 
     <ng-container matColumnDef="technicalAmount">
-        <th mat-header-cell *matHeaderCellDef>SetUp Cost</th>
+        <th mat-header-cell *matHeaderCellDef>One-Time Setup Fee</th>
         <td mat-cell *matCellDef="let data">
           {{ data?.merchantPlanModel?.technicalAmount }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="renewalAmount">
-        <th mat-header-cell *matHeaderCellDef>Renewal Cost</th>
+        <th mat-header-cell *matHeaderCellDef>Yearly Renewal Fee</th>
         <td mat-cell *matCellDef="let data">
           {{ data?.merchantPlanModel?.renewalAmount }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="maintenanceAmount">
-        <th mat-header-cell *matHeaderCellDef>Maintenance Cost</th>
+        <th mat-header-cell *matHeaderCellDef>Cloud Fee</th>
         <td mat-cell *matCellDef="let data">
           {{ data?.merchantPlanModel?.maintenanceAmount }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="voiceBoxAdvRent">
-        <th mat-header-cell *matHeaderCellDef>Voice Box Advance Rent</th>
+        <th mat-header-cell *matHeaderCellDef>Voice Box Rent</th>
         <td mat-cell *matCellDef="let data">
           {{ data?.merchantPlanModel?.voiceBoxAdvRent }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="voiceBoxSetupFee">
-        <th mat-header-cell *matHeaderCellDef>Voice Box Setup Cost</th>
+        <th mat-header-cell *matHeaderCellDef>Voice Box Setup Fee</th>
         <td mat-cell *matCellDef="let data">
           {{ data?.merchantPlanModel?.voiceBoxSetupFee }}
         </td>

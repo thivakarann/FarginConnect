@@ -120,7 +120,9 @@ export class EditPersonalInfoComponent implements OnInit {
 
       customerDuesDate: new FormControl(''),
 
-      dueDate: new FormControl('',),
+      dueDate: new FormControl(''),
+      customerSmsTag: new FormControl(''),
+
 
       offlineQrEnable: new FormControl('', [Validators.required]),
 
@@ -145,7 +147,6 @@ export class EditPersonalInfoComponent implements OnInit {
 
       ]),
 
-      customerSmsTag: new FormControl(''),
 
 
     });
@@ -158,6 +159,13 @@ export class EditPersonalInfoComponent implements OnInit {
       this.smsduedate = this.detaislone?.customerDuesDate;
       this.smsdate =  this.detaislone?.dueDate
 
+      if(this.detaislone?.customerDuesEnable == '1'){
+        this.myForm.get('customerDuesDate')?.setValue(this.detaislone?.customerDuesDate);
+        this.myForm.get('dueDate')?.setValue(this.detaislone?.dueDate);
+        this.myForm.get('customerSmsTag')?.setValue(this.detaislone?.customerSmsTag);
+      }
+    
+      
       if (this.detaislone.customerDuesEnable == 1) {
         this.show = true;
       }
@@ -180,24 +188,7 @@ export class EditPersonalInfoComponent implements OnInit {
     })
 
   }
-  duealert(event: any) {
-    console.log("Event" + event.target.value);
-
-    if (event.target.value == '') {
-      this.smstag = this.detaislone?.customerSmsTag;
-      this.smsduedate = this.detaislone?.customerDuesDate;
-      this.smsdate =  this.detaislone?.dueDate
-    }
-
-    else {
-      this.smstag = '';
-      this.smsduedate = '';
-      this.smsdate =  ''
-    }
-
-
-  }
-  // First Form
+    // First Form
 
   get entityName() {
     return this.myForm.get('entityName')
@@ -380,7 +371,6 @@ export class EditPersonalInfoComponent implements OnInit {
     // formData.append('withdrawalLimit', this.withdrawalLimit?.value || "");
     // formData.append('withdrawalDailylimit', this.withdrawalDailylimit?.value || 0);
     formData.append('platformfee', "0");
-    formData.append('customerSmsTag', this.customerSmsTag?.value);
 
     formData.append('merchantId', this.id);
     // formData.append('withdrawalMonthlyCount', this.withdrawalMonthlyCount?.value || 0);
@@ -390,9 +380,12 @@ export class EditPersonalInfoComponent implements OnInit {
     if (this.customerDuesEnabled === '0') {
       formData.append('customerDuesDate', '0');
       formData.append('dueDate', '0');
+      formData.append('customerSmsTag', '');
     } else {
-      formData.append('customerDuesDate', this.customerDuesDate?.value || 0);
-      formData.append('dueDate', this.dueDate?.value || 0);
+      formData.append('customerDuesDate', this.customerDuesDate?.value);
+      formData.append('dueDate', this.dueDate?.value);
+    formData.append('customerSmsTag', this.customerSmsTag?.value || '');
+
     }
 
     this.service.UpdatePersonalEntity(this.id, formData).subscribe((res: any) => {
@@ -428,14 +421,6 @@ export class EditPersonalInfoComponent implements OnInit {
   close() {
     this.Location.back();
   }
-  typeevent(event: any) {
-    this.typesign = event.target.value;
-    if (event.target.value == '0') {
-      this.show = false;
-
-    } else {
-      this.show = true;
-    }
-  }
+  
 
 }

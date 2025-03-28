@@ -29,6 +29,7 @@ export class EntityViewallComponent {
     // 'entityName',
     'merchantLegalName',
     'businessCategoryModel',
+    'contactMobile',
     'contactEmail',
     'finalapproval',
     'pgonboard',

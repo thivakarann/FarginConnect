@@ -393,7 +393,7 @@
             </div>
             <div class="row mb-3">
                 <div class="col-sm-4 form-group">
-                    <label for="period">Period Name</label>
+                    <label for="period">LCO Billing Model</label>
                     <select formControlName="periodName" type="text" class="form-select" id="period"
                         ngModel="{{detaislone?.periodName}}">
                         <option value="Prepaid">Prepaid</option>
@@ -411,12 +411,12 @@
                 </div>
 
                 <div class="col-sm-4 form-group">
-                    <label for="billing">Billing Mode</label>
+                    <label for="billing">LCO Customer Billing Cycle</label>
                     <select formControlName="billingMode" type="text" class="form-select" id="billing"
                         ngModel="{{detaislone?.billingMode}}">
-                        <option value="Prorated">Prorated</option>
+                        <!-- <option value="Prorated">Prorated</option> -->
                         <option value="Month">Month</option>
-                        <option value="Full">Full</option>
+                        <!-- <option value="Full">Full</option> -->
                     </select>
                     <div style="
                         color: red;
@@ -429,7 +429,7 @@
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
-                    <label for="billing">Auto Debit</label>
+                    <label for="billing">LCO Cloud Fee Auto Debit</label>
                     <select ngModel="{{detaislone?.autoDebitStatus}}" formControlName="autoDebitStatus" type="text"
                         class="form-select" id="billing">
                         <option value="1">Yes</option>
@@ -528,7 +528,7 @@
             </div>    
                 <div class="row mb-3">  
                     <div class="col-sm-4 form-group">
-                        <label for="billing">Customer DueGeneration Mode</label>
+                        <label for="billing">LCO Customer DueGeneration Mode</label>
                         <select formControlName="customerPaymentMode" ngModel="{{detaislone?.customerPaymentMode}}"  type="text" class="form-select"
                             id="billing">
                             <!-- <option value="Manual">Manual</option> -->
@@ -574,9 +574,9 @@
                  
                 </div>
                 <div class="col-sm-4 form-group">
-                    <label for="billing">Customer Due Alert Notification</label>
-                    <select formControlName="customerDuesEnable"  (change)="duealert($event)"   ngModel="{{detaislone?.customerDuesEnable}}"  type="text" class="form-select"
-                        id="billing">
+                    <label for="customerDuesEnable">LCO Customer Due Alert Notification</label>
+                    <select formControlName="customerDuesEnable"   ngModel="{{detaislone?.customerDuesEnable}}"  type="text" class="form-select"
+                        id="customerDuesEnable">
                         <option value="1">Yes</option>
                         <option value="0">No</option>
 
@@ -671,13 +671,13 @@
 
 
 
-            <div class="row mb-3">
+            <div class="row mb-3" [hidden]="customerDuesEnable?.value!='1'">
     
                    
 
-                    <div class="col-sm-4 form-group" [hidden]="customerDuesEnable?.value!='1'" >
+                    <div class="col-sm-4 form-group" >
                         <label for="billing">Customer SmsTag</label>
-                        <select  [required]="customerDuesEnable?.value=='1'" [(ngModel)]="smstag" formControlName="customerSmsTag"  type="text" class="form-select"
+                        <select  [required]="customerDuesEnable?.value=='1'" formControlName="customerSmsTag"  type="text" class="form-select"
                             id="billing">
                             <option value="Single">Single</option>
                             <option value="Multiple">Multiple</option>
@@ -695,9 +695,9 @@
                         </div>
                     </div>
     
-                    <div class="col-sm-4 form-group" [hidden]="customerDuesEnable?.value!='1'" >
-                        <label for="billing">Customer Alert Notification frequency</label>
-                        <select [required]="customerDuesEnable?.value=='1'" formControlName="customerDuesDate"  [(ngModel)]="smsduedate"   type="text" class="form-select" id="billing">
+                    <div class="col-sm-4 form-group" >
+                        <label for="customerDuesDate">LCO Customer Notification Frequency</label>
+                        <select [required]="customerDuesEnable?.value=='1'" formControlName="customerDuesDate"  type="text" class="form-select" id="customerDuesDate">
                             <option value="1">Daily</option>
                             <option value="2">Two Days Once</option>
                             <option value="3">Three Days Once</option>
@@ -716,11 +716,11 @@
     
                     </div>
     
-                    <div class="col-sm-4 form-group" [hidden]="customerDuesEnable?.value!='1'">
+                    <div class="col-sm-4 form-group">
 
-                        <label for="billing">Customer Notification Start due date</label>
+                        <label for="dueDate">LCO Customer Notification Start Date</label>
     
-                        <select [required]="customerDuesEnable?.value=='1'" id="dayPicker"  [(ngModel)]="smsdate" formControlName="dueDate" 
+                        <select [required]="customerDuesEnable?.value=='1'" id="dueDate"  formControlName="dueDate" 
                             class="form-select">
                             <option *ngFor="let day of days" [value]="day">{{ day }}</option>
                         </select>
