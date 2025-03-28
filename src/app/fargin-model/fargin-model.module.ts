@@ -1368,7 +1368,7 @@ export interface subsmanualpay {
 }
 
 export interface stickeradd {
-  readonly stickerPerAmount: any;
+  readonly stickerPerAmount:any;
   readonly deliveryDays: any;
   readonly createdBy: any;
 }

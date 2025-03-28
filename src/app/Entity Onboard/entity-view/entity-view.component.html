@@ -159,7 +159,7 @@
                         </div>
                     </div>
                 </div>
-                <article class=" car-details label-info mt-3">
+                <article class="car-details label-info mt-3">
                     <div class="d-flex flex-md-row align-items-md-start align-items-center flex-column">
                         <div class="w-100">
                             <div class="container-fluid">
@@ -196,6 +196,15 @@
                                                 <div class="w-50">{{detaislone?.contactMobile}}</div>
                                             </div>
                                             <div class="d-flex mt-3">
+                                                <div class="w-50 font-weight-bold">Secondary Mobile Number</div>
+                                                <div class="w-50">
+                                                    <span *ngIf="this.detaislone?.secondaryMobile!=''">
+                                                        {{detaislone?.secondaryMobile}}
+                                                    </span>
+                                                    <span *ngIf="this.detaislone?.secondaryMobile==''">- -</span>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex mt-3">
                                                 <div class="w-50 font-weight-bold">MCC Code</div>
                                                 <div class="w-50">{{detaislone?.mccCode}}</div>
                                             </div>
@@ -217,6 +226,10 @@
                                                 <div class="w-50">{{detaislone?.country}}</div>
                                             </div>
                                             <div class="d-flex mt-3">
+                                                <div class="w-50 font-weight-bold">Pincode</div>
+                                                <div class="w-50">{{detaislone?.zipcode}}</div>
+                                            </div>
+                                            <div class="d-flex mt-3">
                                                 <div class="w-50 font-weight-bold">Gst</div>
                                                 <div class="w-50">
                                                     <span *ngIf="this.detaislone?.gstIn!=null">
@@ -224,21 +237,7 @@
                                                     <span *ngIf="this.detaislone?.gstIn==null">- -</span>
                                                 </div>
                                             </div>
-                                            <div class="d-flex mt-3">
-                                                <div class="w-50 font-weight-bold">LCO Customer Billing Cycle</div>
-                                                <div class="w-50">
-                                                    <span *ngIf="this.detaislone?.billingMode!=null">
-                                                        {{detaislone?.billingMode}}</span>
-                                                    <span *ngIf="this.detaislone?.billingMode==null">- -</span>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex mt-3">
-                                                <div class="w-50 font-weight-bold">LCO Cloud Fee Auto Debit</div>
-                                                <div class="w-50">
-
-                                                    <span>{{ detaislone?.autoDebitStatus === 1 ? 'Yes' : 'No' }}</span>
-                                                </div>
-                                            </div>
+                                      
                                             <div class="d-flex mt-3">
                                                 <div class="w-50 font-weight-bold">Customer Due Status</div>
                                                 <div class="w-50">
@@ -291,40 +290,56 @@
                                                         }}</span>
                                                 </div>
                                             </div> -->
-                                            <div class="d-flex mt-3">
-                                                <div class="w-50 font-weight-bold">Created By</div>
-                                                <div class="w-50">
-
-                                                    <span>{{ detaislone?.createdBy
-                                                        }}</span>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex mt-3">
-                                                <div class="w-50 font-weight-bold">Created Date/time</div>
-                                                <div class="w-50">
-
-                                                    <span>{{ detaislone?.createdDatetime | date:"dd/MM/yyyy hh:MM: a"
-                                                        }}</span>
-                                                </div>
-                                            </div>
+                                        
                                             <div class="d-flex mt-3">
                                                 <div class="w-50 font-weight-bold">LCO Customer Notification Start Date</div>
                                                 <div class="w-50">
+                                                    <span>&nbsp;&nbsp;{{ detaislone?.dueDate}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex mt-3">
+                                                <div class="w-50 font-weight-bold">LCO Customer Billing Cycle</div>
+                                                <div class="w-50">
+                                                    <span *ngIf="this.detaislone?.billingMode!=null">
+                                                        {{detaislone?.billingMode}}</span>
+                                                    <span *ngIf="this.detaislone?.billingMode==null">- -</span>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex mt-3">
+                                                <div class="w-50 font-weight-bold">LCO Cloud Fee Auto Debit</div>
+                                                <div class="w-50">
 
-                                                    <span>{{ detaislone?.dueDate
-                                                        }}</span>
+                                                    <span>{{ detaislone?.autoDebitStatus === 1 ? 'Yes' : 'No' }}</span>
                                                 </div>
                                             </div>
 
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-12">
-                                        <div class="d-flex mt-2">
-                                            <div class="w-50 font-weight-bold">
-                                                Reference Number</div>
-                                            <div class="w-50">{{detaislone?.referenceNo}}</div>
-                                        </div>
+                               
                                         <div class="d-flex flex-column">
+                                            <div class="d-flex mt-3">
+                                                <div class="w-50 font-weight-bold">LCO Customer Notification Frequency</div>
+                                                <div class="w-50">
+                                                    <ng-container
+                                                        *ngIf="detaislone?.customerDuesDate === 1">Daily</ng-container>
+                                                    <ng-container *ngIf="detaislone?.customerDuesDate === 2">Every Two
+                                                        Days</ng-container>
+                                                    <ng-container *ngIf="detaislone?.customerDuesDate === 3">Every Three
+                                                        Days</ng-container>
+                                                    <ng-container
+                                                        *ngIf="detaislone?.customerDuesDate === 4">Once</ng-container>
+                                                    <ng-container *ngIf="detaislone?.customerDuesDate == 0">No Due
+                                                        Date</ng-container>
+    
+                                                </div>
+                                            </div>
+    
+                                            <div class="d-flex mt-2">
+                                                <div class="w-50 font-weight-bold">
+                                                    Reference Number</div>
+                                                <div class="w-50">{{detaislone?.referenceNo}}</div>
+                                            </div>
                                             <div class="d-flex mt-3">
                                                 <div class="w-50 font-weight-bold">Contact Name</div>
                                                 <div class="w-50">{{detaislone?.contactName}}</div>
@@ -338,15 +353,7 @@
                                                 <div class="w-50">
                                                     {{detaislone?.businessCategoryModel?.categoryName}}</div>
                                             </div>
-                                            <div class="d-flex mt-3">
-                                                <div class="w-50 font-weight-bold">Secondary Mobile Number</div>
-                                                <div class="w-50">
-                                                    <span *ngIf="this.detaislone?.secondaryMobile!=''">
-                                                        {{detaislone?.secondaryMobile}}
-                                                    </span>
-                                                    <span *ngIf="this.detaislone?.secondaryMobile==''">- -</span>
-                                                </div>
-                                            </div>
+                                       
                                             <div class="d-flex mt-3">
                                                 <div class="w-50 font-weight-bold">Billing Address</div>
                                                 <div class="w-50">{{detaislone?.billingAddress}}</div>
@@ -356,10 +363,7 @@
                                                 <div class="w-50">{{detaislone?.merchantPlanModel?.countLimit}}</div>
                                             </div>
 
-                                            <div class="d-flex mt-3">
-                                                <div class="w-50 font-weight-bold">Pincode</div>
-                                                <div class="w-50">{{detaislone?.zipcode}}</div>
-                                            </div>
+                                      
                                             <div class="d-flex mt-3">
                                                 <div class="w-50 font-weight-bold">Plan Amount</div>
                                                 <div class="w-50">{{detaislone?.technicalAmount}}</div>
@@ -391,34 +395,8 @@
                                                 </div>
                                             </div>
 
-                                            <div class="d-flex mt-3">
-                                                <div class="w-50 font-weight-bold">LCO Billing Model</div>
-                                                <div class="w-50">{{detaislone?.periodName}}</div>
-                                            </div>
-
-                                            <div class="d-flex mt-3">
-                                                <div class="w-50 font-weight-bold">LCO Cloud Fee Auto Debit Date</div>
-                                                <div class="w-50">{{detaislone?.businessCategoryModel?.autoDebitDate}}
-                                                </div>
-                                            </div>
-                                            <div class="d-flex mt-3">
-                                                <div class="w-50 font-weight-bold">LCO Customer Notification Frequency</div>
-                                                <div class="w-50">
-                                                    <ng-container
-                                                        *ngIf="detaislone?.customerDuesDate === 1">Daily</ng-container>
-                                                    <ng-container *ngIf="detaislone?.customerDuesDate === 2">Every Two
-                                                        Days</ng-container>
-                                                    <ng-container *ngIf="detaislone?.customerDuesDate === 3">Every Three
-                                                        Days</ng-container>
-                                                    <ng-container
-                                                        *ngIf="detaislone?.customerDuesDate === 4">Once</ng-container>
-                                                    <ng-container *ngIf="detaislone?.customerDuesDate == 0">No Due
-                                                        Date</ng-container>
-
-                                                </div>
-                                            </div>
-
-
+                                            
+                               
                                             <div class="d-flex mt-3">
                                                 <div class="w-50 font-weight-bold">Payout</div>
                                                 <div class="w-50">
@@ -433,6 +411,22 @@
                                                 <div class="w-50">
 
                                                     <span>{{ detaislone?.customerSmsTag}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex mt-3">
+                                                <div class="w-50 font-weight-bold">Created By</div>
+                                                <div class="w-50">
+
+                                                    <span>{{ detaislone?.createdBy
+                                                        }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex mt-3">
+                                                <div class="w-50 font-weight-bold">Created Date/time</div>
+                                                <div class="w-50">
+
+                                                    <span>{{ detaislone?.createdDatetime | date:"dd/MM/yyyy hh:MM: a"
+                                                        }}</span>
                                                 </div>
                                             </div>
                                             <div class="d-flex mt-3">
@@ -1034,7 +1028,7 @@
                             <tr>
                                 <th>S No </th>
                                 <th>Document Name</th>
-                                <th>Document Number</th>
+                                <th>Document ID</th>
                                 <th>Document Expiry Date</th>
                                 <th [hidden]="valuebussinessImage!=='Entity View Bussiness Document-Image'">Image</th>
                                 <th [hidden]="valuebussinessapproval!=='Entity View Bussiness Document-Approval'">
