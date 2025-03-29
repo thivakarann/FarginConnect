@@ -29,9 +29,9 @@ export class AddagreementplanComponent {
       netBankingAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
       netBankingPercentage: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
       netBankingFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
-      rupaydebitcardmaxAmount: new FormControl('', [Validators.required,Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
+      rupaydebitcardmaxAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
       rupaydebitcardmaxFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
-      rupaydebitcardmaxPercentage:new FormControl('', [Validators.required,Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
+      rupaydebitcardmaxPercentage: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
       rupaydebitcardminAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
       rupaydebitcardminPercentage: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
       rupaydebitcardminFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
@@ -95,11 +95,11 @@ export class AddagreementplanComponent {
       creditCardAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
       creditCardPercentage: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
       creditCardFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
-      mmcAmount:new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
-      securityDepositAmount:new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
-      nbOtherBankAmount:new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
-      nbOtherBankPercentage:new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
-      nbOtherBankFixedFee:new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
+      mmcAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
+      securityDepositAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
+      nbOtherBankAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
+      nbOtherBankPercentage: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
+      nbOtherBankFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
 
 
     });
@@ -367,7 +367,7 @@ export class AddagreementplanComponent {
   get nbOtherBankFixedFee() {
     return this.myForm.get('nbOtherBankFixedFee')
   }
-  
+
 
 
   submit() {
@@ -446,17 +446,15 @@ export class AddagreementplanComponent {
       creditCardFixedFee: this.creditCardFixedFee?.value.trim(),
       mmcAmount: this.mmcAmount?.value.trim(),
       securityDepositAmount: this.securityDepositAmount?.value.trim(),
-      nbOtherBankAmount:this.nbOtherBankAmount?.value.trim(),
-      nbOtherBankPercentage:this.nbOtherBankPercentage?.value.trim(),
-      nbOtherBankFixedFee:this.nbOtherBankFixedFee?.value.trim()
+      nbOtherBankAmount: this.nbOtherBankAmount?.value.trim(),
+      nbOtherBankPercentage: this.nbOtherBankPercentage?.value.trim(),
+      nbOtherBankFixedFee: this.nbOtherBankFixedFee?.value.trim()
     };
     this.service.createagreementplan(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.createagreementplan = res.response;
         this.toaster.success(res.responseMessage);
         this.router.navigateByUrl('dashboard/agreementplan')
-      
-
       }
       else {
         this.toaster.error(res.responseMessage)

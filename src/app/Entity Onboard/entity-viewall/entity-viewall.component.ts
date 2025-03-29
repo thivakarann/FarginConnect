@@ -93,6 +93,7 @@ export class EntityViewallComponent {
   entitysms:any;
   entityAgrrement:any;
   entitybranch:any;
+  valuecloud: any;
   constructor(
     public EntityViewall: FarginServiceService,
     private router: Router,
@@ -131,6 +132,7 @@ export class EntityViewallComponent {
             this.entitysms = 'Entity View-SMS Settings';
             this.entityAgrrement = 'Entity View Agreement';
             this.entitybranch = 'Entity View Branch';
+            this.valuecloud = 'Entity View Cloud Fee AutoDebit'
 
 
 
@@ -205,6 +207,9 @@ export class EntityViewallComponent {
               }
               if (this.actions == 'Entity View Branch') {
                 this.entitybranch = 'Entity View Branch'
+              }
+              if (this.actions == 'Entity View Cloud Fee AutoDebit') {
+                this.valuecloud = 'Entity View Cloud Fee AutoDebit'
               }
             }
           }

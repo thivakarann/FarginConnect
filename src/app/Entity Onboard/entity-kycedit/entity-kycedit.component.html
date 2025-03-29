@@ -25,8 +25,8 @@
                
 
                 <div class="form__linput">
-                    <label class="form__label" for="fname">Document ID</label>
-                    <input class="form__input" id="fname" type="text" formControlName="identityProofNo" name="gstNumber"
+                    <label class="form__label" for="fname">Identity Proof No</label>
+                    <input class="form__input form-control" id="fname" type="text" formControlName="identityProofNo" name="gstNumber"
                       required ngModel="{{identityProofNos}}" />
                         <div
                         *ngIf="identityProofNo && identityProofNo.invalid && (identityProofNo.touched || identityProofNo.dirty)">
@@ -109,8 +109,8 @@
                
              
                 <div class="form__linput">
-                    <label class="form__label" for="fname">Document ID</label>
-                    <input class="form__input" id="fname" type="text" formControlName="addressProofNo"
+                    <label class="form__label " for="fname">Address Proof No</label>
+                    <input class="form__input form-control" id="fname" type="text" formControlName="addressProofNo"
            required ngModel="{{addressProofNovalue}}" />
                         <div
                         *ngIf="addressProofNo && addressProofNo.invalid && (addressProofNo.touched || addressProofNo.dirty)">
@@ -148,7 +148,7 @@
                 </div>
                 <div class="mb-3">
                     <button type="submit" class="btn mx-1 "
-                        style="background-color:#7db855be" [disabled]="KycIdentityForm.invalid" (click)="submit1()">Submit</button>
+                        style="background-color:#7db855be" [disabled]="KycAddressForm.invalid" (click)="submit1()">Submit</button>
                     <button type="submit" class="btn" style="background-color:#141E46;color:white"
                         matDialogClose>Cancel</button>
                 </div>
@@ -190,8 +190,8 @@
                
              
                 <div class="form__linput">
-                    <label class="form__label" for="fname">Document ID</label>
-                    <input class="form__input" id="fname" type="text" formControlName="signatureProofNo"
+                    <label class="form__label" for="fname">Signature Proof No</label>
+                    <input class="form__input form-control " id="fname" type="text" formControlName="signatureProofNo"
                      required ngModel="{{signatureProofNovalue}}" />
                     <div style="color: red; font-size: 12px;margin-top: 2px;"
                         *ngIf="signatureProofNo?.invalid && signatureProofNo?.touched && signatureProofNo?.errors?.['required']">
@@ -228,7 +228,7 @@
                 </div>
                 <div class="mb-3">
                     <button type="submit" class="btn mx-1 "
-                        style="background-color:#7db855be" (click)="submit2()">Submit</button>
+                        style="background-color:#7db855be" [disabled]="KycsignatureForm.invalid" (click)="submit2()">Submit</button>
                     <button type="submit" class="btn" style="background-color:#141E46;color:white"
                         matDialogClose>Cancel</button>
                 </div>

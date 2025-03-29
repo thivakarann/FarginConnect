@@ -148,7 +148,7 @@
                 </div>
                 <div class="mb-3">
                     <button type="submit" class="btn mx-1 "
-                        style="background-color:#7db855be" [disabled]="KycIdentityForm.invalid" (click)="submit1()">Submit</button>
+                        style="background-color:#7db855be" [disabled]="KycAddressForm.invalid" (click)="submit1()">Submit</button>
                     <button type="submit" class="btn" style="background-color:#141E46;color:white"
                         matDialogClose>Cancel</button>
                 </div>
@@ -228,7 +228,7 @@
                 </div>
                 <div class="mb-3">
                     <button type="submit" class="btn mx-1 "
-                        style="background-color:#7db855be" (click)="submit2()">Submit</button>
+                        style="background-color:#7db855be" [disabled]="KycsignatureForm.invalid" (click)="submit2()">Submit</button>
                     <button type="submit" class="btn" style="background-color:#141E46;color:white"
                         matDialogClose>Cancel</button>
                 </div>

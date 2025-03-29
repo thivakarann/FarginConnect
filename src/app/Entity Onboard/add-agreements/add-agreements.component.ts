@@ -41,7 +41,7 @@ export class AddAgreementsComponent {
       authorizedName: new FormControl('', [Validators.required]),
     })
 
-    this.service.viewagreementplan().subscribe((res: any) => {
+    this.service.viewactiveagreementplan().subscribe((res: any) => {
       if (res.flag == 1) {
         this.plans = res.response.reverse();
       }

@@ -1517,4 +1517,9 @@ export interface entityterminaltransaction{
     }
 
 
+    export interface Busineessstatus
+    {
+      readonly status:any;
+      readonly commercialId:any;
+    }
     

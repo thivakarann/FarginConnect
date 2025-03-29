@@ -321,6 +321,7 @@ export class EntityViewComponent implements OnInit {
             this.valuefee = 'Generate Cloud Fee'
             this.valuedues = 'Generate Customer Dues'
             this.valueterminal = 'Entity Terminal View'
+            this.valueentityautodebit = 'Entity View Cloud Fee AutoDebit'
 
 
 
@@ -515,6 +516,9 @@ export class EntityViewComponent implements OnInit {
               }
               if (this.roles == 'Entity Terminal View') {
                 this.valueterminal = 'Entity Terminal View'
+              }
+              if (this.roles == 'Entity View Cloud Fee AutoDebit') {
+                this.valueentityautodebit = 'Entity View Cloud Fee AutoDebit'
               }
             }
           }

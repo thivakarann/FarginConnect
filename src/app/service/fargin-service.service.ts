@@ -593,8 +593,10 @@ export class FarginServiceService {
   //Agreementplan
 
   private readonly viewagreementplans = 'commercialSetup/ViewAll';
+  private readonly viewactiveagreementplans = 'commercialSetup/viewOnlyActive';
   private readonly createagreementplans = 'commercialSetup/create';
   private readonly editagreementplans = 'commercialSetup/update/';
+  private readonly viewstatusagreementplans='commercialSetup/changeStatus'
   private readonly viewbyidagreementplans = 'commercialSetup/viewById/';
   private readonly createplan = 'agreement/create';
   private readonly viewbyidplan = 'agreement/viewByMerchant/';
@@ -2461,11 +2463,17 @@ private readonly customeradditionaltransactionsearchs='customerotherpayment/view
   viewagreementplan() {
     return this.http.get(`${this.basePath}${this.viewagreementplans}`, this.options)
   }
+  viewactiveagreementplan() {
+    return this.http.get(`${this.basePath}${this.viewactiveagreementplans}`, this.options)
+  }
   createagreementplan(model: any) {
     return this.http.post(`${this.basePath}${this.createagreementplans}`, model, this.options)
   }
   editagreementplan(id: any, model: any) {
     return this.http.put(`${this.basePath}${this.editagreementplans}${id}`, model, this.options)
+  }
+  viewstatusagreementplan(model: any) {
+    return this.http.put(`${this.basePath}${this.viewstatusagreementplans}`, model, this.options)
   }
   viewbyidagreementplan(id: any) {
     return this.http.get(`${this.basePath}${this.viewbyidagreementplans}${id}`, this.options)

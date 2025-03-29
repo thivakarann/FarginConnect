@@ -9,6 +9,8 @@ import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Router } from '@angular/router';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { Busineessstatus } from '../../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-viewagreementplan',
@@ -20,7 +22,7 @@ export class ViewagreementplanComponent {
 
   dataSource: any;
   displayedColumns: string[] = ["businessCategoryId", "planname", "servicefee", "mmcamount", "securitydepositamount",
-    "Edit", "view", "createdBy", "createdDateTime", "modifiedBy", "modifiedDateTime"]
+    "status", "Edit", "view", "createdBy", "createdDateTime", "modifiedBy", "modifiedDateTime"]
   businesscategory: any;
   showcategoryData: boolean = false;
   errorMsg: any;
@@ -144,6 +146,38 @@ export class ViewagreementplanComponent {
     });
 
   }
+
+
+   onSubmit(event: MatSlideToggleChange, id: string) {
+      this.isChecked = event.checked;
+      let submitModel: Busineessstatus = {
+        
+        status: this.isChecked ? 1 : 0,
+        commercialId: id,
+      };
+      this.service.viewstatusagreementplan(submitModel).subscribe((res: any) => {
+        this.toastr.success(res.responseMessage);
+        setTimeout(() => {
+        
+    this.service.viewagreementplan().subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.agreementplan = res.response;
+        this.agreementplan.reverse();
+        this.dataSource = new MatTableDataSource(this.agreementplan);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.showcategoryData = false;
+
+      }
+      else {
+        this.errorMsg = res.responseMessage;
+        this.showcategoryData = true;
+      }
+    });
+      
+        }, 500);
+      });
+    }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
