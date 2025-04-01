@@ -63,7 +63,7 @@
                         <span *ngIf="isFullPolicyVisible">
                             {{ data.termAndCondition }}
                         </span>
-                        <i style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more"
+                        <i [hidden]="valuetermViews!=='Fargin Policy-View'" style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more"
                             (click)="Terms(data)">
                             <br>
                             {{ isFullPolicyVisible ? 'Read Less' : '...Read More' }}
@@ -83,7 +83,7 @@
                         <span *ngIf="isFullPolicyVisible">
                             {{ data.disclaimer }}
                         </span>
-                        <i style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more"
+                        <i [hidden]="valuetermViews!=='Fargin Policy-View'" style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more"
                             (click)="Disclaimer(data)">
                             <br>
                             {{ isFullPolicyVisible ? 'Read Less' : '...Read More' }}
@@ -104,7 +104,7 @@
                         <span *ngIf="isFullPolicyVisible">
                             {{ data.privacyPolicy }}
                         </span>
-                        <i style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more"
+                        <i [hidden]="valuetermViews!=='Fargin Policy-View'" style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more"
                             (click)="privacypolicy(data)">
                             <br>
                             {{ isFullPolicyVisible ? 'Read Less' : '...Read More' }}
@@ -125,7 +125,7 @@
                         <span *ngIf="isFullPolicyVisible">
                             {{ data.refundPolicy }}
                         </span>
-                        <i style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more"
+                        <i [hidden]="valuetermViews!=='Fargin Policy-View'" style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more"
                             (click)="refundpolicy(data)">
                             <br>
                             {{ isFullPolicyVisible ? 'Read Less' : '...Read More' }}

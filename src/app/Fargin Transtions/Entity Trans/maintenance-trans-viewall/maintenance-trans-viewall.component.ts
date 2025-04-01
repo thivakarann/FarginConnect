@@ -141,6 +141,7 @@ export class MaintenanceTransViewallComponent {
   totalpage3: any;
   filter3: boolean = true;
   maxDate:any;
+  valuemanval:any;
 
   constructor(private router:Router,private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog,private fb:FormBuilder) { }
 
@@ -163,6 +164,7 @@ export class MaintenanceTransViewallComponent {
             this.valuemaintainview = 'Cloud Fee Payments-View'
             this.valuemaintainInvoice = 'Cloud Fee Payments-Invoice'
             this.valuemaintaincheck = 'Cloud Fee Payments-Check Status'
+            this.valuemanval = 'Cloud Fee Payments-Manual Payment'
           }
           else {
             for (let datas of this.getdashboard) {
@@ -178,6 +180,9 @@ export class MaintenanceTransViewallComponent {
               }
               if (this.actions == 'Cloud Fee Payments-Check Status') {
                 this.valuemaintaincheck = 'Cloud Fee Payments-Check Status'
+              }
+              if (this.actions == 'Cloud Fee Payments-Manual Payment') {
+                this.valuemanval = 'Cloud Fee Payments-Manual Payment'
               }
 
             }

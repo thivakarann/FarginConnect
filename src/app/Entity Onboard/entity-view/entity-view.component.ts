@@ -219,6 +219,7 @@ export class EntityViewComponent implements OnInit {
   valueplandetails: any;
   valuefee: any;
   valuedues: any;
+  valueonetime:any;
   valueterminal: any;
 
   selectTab(tab: string): void {
@@ -330,6 +331,7 @@ export class EntityViewComponent implements OnInit {
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
+              console.log("this.actions"+ this.actions)
               if (this.actions == 'Entity View KYC Document-add') {
                 this.valuekycadd = 'Entity View KYC Document-add'
               }
@@ -498,26 +500,26 @@ export class EntityViewComponent implements OnInit {
                 this.valuebranchKYCview = 'Entity View Branch-KYC View'
               }
 
-              if (this.roles == 'Entity View Branch-KYC') {
+              if (this.actions == 'Entity View Branch-KYC') {
                 this.valuebranchkyc = 'Entity View Branch-KYC'
               }
 
-              if (this.roles == 'Entity View Branch-Terminal') {
+              if (this.actions == 'Entity View Branch-Terminal') {
                 this.valuebranchTerminal = 'Entity View Branch-Terminal'
               }
-              if (this.roles == 'Entity Plan Details') {
+              if (this.actions == 'Entity Plan Details') {
                 this.valueplandetails = 'Entity Plan Details'
               }
-              if (this.roles == 'Generate Cloud Fee') {
+              if (this.actions == 'Generate Cloud Fee') {
                 this.valuefee = 'Generate Cloud Fee'
               }
-              if (this.roles == 'Generate Customer Dues') {
+              if (this.actions == 'Generate Customer Dues') {
                 this.valuedues = 'Generate Customer Dues'
               }
-              if (this.roles == 'Entity Terminal View') {
+              if (this.actions == 'Entity Terminal View') {
                 this.valueterminal = 'Entity Terminal View'
               }
-              if (this.roles == 'Entity View Cloud Fee AutoDebit') {
+              if (this.actions == 'Entity View Cloud Fee AutoDebit') {
                 this.valueentityautodebit = 'Entity View Cloud Fee AutoDebit'
               }
             }
@@ -605,7 +607,7 @@ export class EntityViewComponent implements OnInit {
 
     });
     this.MerchantView.viewbyidplans(this.id).subscribe((res: any) => {
-      this.agreementdetails = res.response.reverse();
+      this.agreementdetails = res?.response?.reverse();
 
     });
   }
@@ -683,7 +685,7 @@ export class EntityViewComponent implements OnInit {
 
     if (this.roleId == 1) {
       this.valueentitytransaction = 'Entity View Transaction';
-      this.valueentityautodebit = 'Entity View Cloud Fee AutoDebit'
+      this.valueentityautodebit = 'Entity View Cloud Fee AutoDebit';
       this.valuentitysettlement = 'Entity View Settlement';
       this.valueentityRefund = 'Entity View Refund';
       this.valueEntityqrs = 'Entity View QR';
@@ -693,16 +695,19 @@ export class EntityViewComponent implements OnInit {
       this.valuebankinfo = 'Entity View Bank Information';
       this.valuekycdocument = 'Entity View KYC Document';
       this.valuefinalapproval = 'Entity View Final Approval';
-      this.valuebussinessdocument = 'Entity View Bussiness Document'
-      this.valuemanualpayment = 'Entity View One Time Setup Payment'
-      this.valueCustomized = 'Entity View Customized Payment'
+      this.valuebussinessdocument = 'Entity View Bussiness Document';
+      this.valuemanualpayment = 'Entity View One Time Setup Payment';
+      this.valueCustomized = 'Entity View Customized Payment';
       this.valuesmssetting = 'Entity View-SMS Settings'
       this.valueagreement = 'Entity View Agreement'
       this.valuentityOffline = 'Entity View Offline'
       this.valuebranch = 'Entity View Branch'
       this.valuebranchkyc = 'Entity View Branch-KYC'
       this.valuebranchTerminal = 'Entity View Branch-Terminal'
-      this.valueplandetails = 'Entity Plan Details'
+      // this.valueplandetails = 'Entity Plan Details';
+      // this.valuedues = 'Generate Customer Dues';
+      this.valueonetime = 'Entity View One Time Setup Payment'
+      
 
     }
     else {
@@ -716,6 +721,9 @@ export class EntityViewComponent implements OnInit {
         }
         if (this.roles == 'Entity View Refund') {
           this.valueentityRefund = 'Entity View Refund'
+        }
+        if (this.roles == 'Entity View One Time Setup Payment-Create') {
+          this.valuemanualpay = 'Entity View One Time Setup Payment-Create'
         }
         if (this.roles == 'Entity View QR') {
           this.valueEntityqrs = 'Entity View QR'
@@ -769,8 +777,14 @@ export class EntityViewComponent implements OnInit {
         if (this.roles == 'Entity View Branch-Terminal') {
           this.valuebranchTerminal = 'Entity View Branch-Terminal'
         }
-        if (this.roles == 'Entity Plan Details') {
-          this.valueplandetails = 'Entity Plan Details'
+        // if (this.roles == 'Entity Plan Details') {
+        //   this.valueplandetails = 'Entity Plan Details'
+        // }
+        // if (this.roles == 'Generate Customer Dues') {
+        //   this.valuedues = 'Generate Customer Dues'
+        // }
+        if (this.roles == 'Entity View One Time Setup Payment') {
+          this.valueonetime = 'Entity View One Time Setup Payment'
         }
       }
     }

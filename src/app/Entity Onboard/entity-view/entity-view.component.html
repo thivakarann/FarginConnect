@@ -1179,9 +1179,9 @@
                     </form>
                 </div>
             </div>
-            <div class="col-md-2 mt-1">
+            <div class="col-md-2 mt-1" [hidden]="valuemanualpay!=='Entity View One Time Setup Payment-Create'">
                 <button (click)="createmanualPayement()"
-                    [hidden]="valuemanualpay!=='Entity View One Time Setup Payment-Create' ||  paymentStatus=='Success' || onBoardStatus=='false'"
+                    [hidden]="paymentStatus=='Success' || onBoardStatus=='false'"
                     style="color:white;background-color: #141E46;border-radius: 10px; width:120%"
                     mat-raised-button>Manual Payment
                 </button>
@@ -1753,13 +1753,15 @@
                             <td>{{item.ifscCode}}</td>
                             <td>{{item.apiKey}}</td>
                             <td>{{item.secretKey}}</td>
-                            <td [hidden]="valuebranchCustomerview!=='Entity View Branch-Customer View'"><i
+                            <td [hidden]="valuebranchCustomerview!=='Entity View Branch-Customer View'">
+                                <i
                                     style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
-                                    (click)="Viewcustomerbranch(item.branchId)"></i> </td>
+                                    (click)="Viewcustomerbranch(item.branchId)"></i>
+                             </td>
 
-                            <td><i style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
+                            <td [hidden]="valuebranchkyc!=='Entity View Branch-KYC'"><i style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
                                     (click)="Viewkycbranch(item.branchId, item.entityModel?.merchantId)"></i> </td>
-                            <td><i style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
+                            <td [hidden]="valuebranchTerminal!=='Entity View Branch-Terminal'"><i style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
                                     (click)="ViewTerminal(item.branchId, item.entityModel?.merchantId)"></i> </td>
 
                             <td [hidden]="valuebranchStatus!=='Entity View Branch-Status'">

@@ -47,6 +47,7 @@ export class ViewagreementplanComponent {
   valuebussinessexport: any;
   valuebussinessedit: any;
   valuebussinessview: any;
+  valuebussinessstatus:any;
 
 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private router: Router) { }
@@ -65,6 +66,7 @@ export class ViewagreementplanComponent {
             this.valuebussinessexport = 'Business Plan-Export'
             this.valuebussinessedit = 'Business Plan-Edit'
             this.valuebussinessview = 'Business Plan-View'
+            this.valuebussinessstatus = 'Business Plan-Status'
 
           }
           else {
@@ -81,6 +83,9 @@ export class ViewagreementplanComponent {
               }
               if (this.actions == 'Business Plan-View') {
                 this.valuebussinessview = 'Business Plan-View'
+              }
+              if (this.actions == 'Business Plan-Status') {
+                this.valuebussinessstatus = 'Business Plan-Status'
               }
 
             }

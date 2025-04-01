@@ -308,6 +308,9 @@ export class DashboardComponent implements OnInit {
         if (this.roles == 'Refund Period') {
           this.valuerefundper = 'Refund Period'
         }
+        if (this.roles == 'Bank Details') {
+          this.valuebankdetails = 'Bank Details'
+        }
       }
     }
   }

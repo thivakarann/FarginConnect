@@ -57,6 +57,7 @@ export class EntityViewallComponent {
   getdashboard: any[] = [];
   roleId: any = sessionStorage.getItem('roleId')
   actions: any;
+  actions1:any;
   errorMessage: any;
   unblockvalue: any;
   valueEntityUnblock: any;
@@ -140,6 +141,9 @@ export class EntityViewallComponent {
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
+              this.actions1 = datas.permission.permission
+              console.log("actions" + this.actions);
+              console.log("actions1" + this.actions1);
 
 
               if (this.actions == 'Entity Onboard-Add') {
@@ -157,60 +161,61 @@ export class EntityViewallComponent {
               if (this.actions == 'Entity Onboard-Unblock') {
                 this.valueEntityUnblock = 'Entity Onboard-Unblock'
               }
-              if (this.actions == 'Entity View Transaction') {
-                this.entitytrans = 'Entity View Transaction'
-              }
-              if (this.actions == 'Entity View Offline') {
-                this.entityoffline = 'Entity View Offline'
-              }
-              if (this.actions == 'Entity View Settlement') {
-                this.entitysettle = 'Entity View Settlement'
-              }
-              if (this.actions == 'Entity View Refund') {
-                this.entityrefund = 'Entity View Refund'
-              }
-              if (this.actions == 'Entity View QR') {
-                this.entityQR = 'Entity View QR'
-              }
-              if (this.actions == 'Entity View Customer') {
-                this.entitycustomer = 'Entity View Customer'
-              }
-              if (this.actions == 'Entity View Payment Link') {
-                this.entitypaylink = 'Entity View Payment Link'
-              }
-              if (this.actions == 'Entity View General Information') {
-                this.entitygeneral = 'Entity View General Information'
-              }
-              if (this.actions == 'Entity View Bank Information') {
-                this.entitybank = 'Entity View Bank Information'
-              }
-              if (this.actions == 'Entity View KYC Document') {
-                this.entityKYC = 'Entity View KYC Document'
-              }
-              if (this.actions == 'Entity View Bussiness Document') {
-                this.entitybussi = 'Entity View Bussiness Document'
-              }
-              if (this.actions == 'Entity View Final Approval') {
-                this.entityfinal = 'Entity View Final Approval'
-              }
-              if (this.actions == 'One Time Setup Payment') {
-                this.entityonetime = 'One Time Setup Payment'
-              }
-              if (this.actions == 'Entity View Customized Payment') {
-                this.entitycusti = 'Entity View Customized Payment'
-              }
-              if (this.actions == 'Entity View-SMS Settings') {
-                this.entitysms = 'Entity View-SMS Settings'
-              }
-              if (this.actions == 'Entity View Agreement') {
-                this.entityAgrrement = 'Entity View Agreement'
-              }
-              if (this.actions == 'Entity View Branch') {
-                this.entitybranch = 'Entity View Branch'
-              }
               if (this.actions == 'Entity View Cloud Fee AutoDebit') {
                 this.valuecloud = 'Entity View Cloud Fee AutoDebit'
               }
+              if (this.actions1 == 'Entity View Transaction') {
+                this.entitytrans = 'Entity View Transaction'
+              }
+              if (this.actions1 == 'Entity View Offline') {
+                this.entityoffline = 'Entity View Offline'
+              }
+              if (this.actions1 == 'Entity View Settlement') {
+                this.entitysettle = 'Entity View Settlement'
+              }
+              if (this.actions1 == 'Entity View Refund') {
+                this.entityrefund = 'Entity View Refund'
+              }
+              if (this.actions1 == 'Entity View QR') {
+                this.entityQR = 'Entity View QR'
+              }
+              if (this.actions1 == 'Entity View Customer') {
+                this.entitycustomer = 'Entity View Customer'
+              }
+              if (this.actions1 == 'Entity View Payment Link') {
+                this.entitypaylink = 'Entity View Payment Link'
+              }
+              if (this.actions1 == 'Entity View General Information') {
+                this.entitygeneral = 'Entity View General Information'
+              }
+              if (this.actions1 == 'Entity View Bank Information') {
+                this.entitybank = 'Entity View Bank Information'
+              }
+              if (this.actions1 == 'Entity View KYC Document') {
+                this.entityKYC = 'Entity View KYC Document'
+              }
+              if (this.actions1 == 'Entity View Bussiness Document') {
+                this.entitybussi = 'Entity View Bussiness Document'
+              }
+              if (this.actions1 == 'Entity View Final Approval') {
+                this.entityfinal = 'Entity View Final Approval'
+              }
+              if (this.actions1 == 'One Time Setup Payment') {
+                this.entityonetime = 'One Time Setup Payment'
+              }
+              if (this.actions1 == 'Entity View Customized Payment') {
+                this.entitycusti = 'Entity View Customized Payment'
+              }
+              if (this.actions1 == 'Entity View-SMS Settings') {
+                this.entitysms = 'Entity View-SMS Settings'
+              }
+              if (this.actions1 == 'Entity View Agreement') {
+                this.entityAgrrement = 'Entity View Agreement'
+              }
+              if (this.actions1 == 'Entity View Branch') {
+                this.entitybranch = 'Entity View Branch'
+              }
+            
             }
           }
         }
