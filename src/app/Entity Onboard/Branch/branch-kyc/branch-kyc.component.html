@@ -1,7 +1,11 @@
 <mat-card-header>
-    <button [hidden]="valuebranchkycadd!=='Entity View BranchKYC-Add'"
-        (click)="addKycdocuments(this.id, this.merchantId)" [disabled]="kycbranchdetails!='NO DATA FOUND'"
-        style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Add KYC</button>
+ 
+
+        <div class="form-header d-flex justify-content-between align-items-center">
+            <button [hidden]="valuebranchkycadd!=='Entity View BranchKYC-Add'"  (click)="addKycdocuments(this.id, this.merchantId)"  [disabled]="kycbranchdetails!='NO DATA FOUND'" style="color:white;background-color: #141E46;border-radius: 10px;" 
+            mat-raised-button>Add KYC</button>
+            <button style="color:white;background-color: #141E46; border-radius: .5rem;font-size: .875rem;padding:5px 5px;" (click)="close()">Back</button>
+        </div>
 
 </mat-card-header>
 <div class="row mt-4">
@@ -23,12 +27,18 @@
                         <th [hidden]="valuebranchkycApproval!=='Entity View BranchKYC-Approval'">Approval</th>
                         <th>Approval Status</th>
                         <th>Updated By</th>
-                        <th>Updatedl Date&Time</th>
-                        <th [hidden]="valuebranchkycComments!=='Entity View BranchKYC-Comments'">Comments</th>
+                        <th>Updated Date&Time</th>
+
+                        <th  [hidden]="valuebranchkycComments!=='Entity View BranchKYC-Comments'">Comments</th>
+                        <th>Created By</th>
+                        <th>Created Date&Time</th>
+                        <th>Modified By</th>
+                        <th>Modified Date&Time</th>
 
 
                     </tr>
-                    <tbody *ngFor="let item of kycbranchdetails, let i=index">
+                    <tbody
+                        *ngFor="let item of kycbranchdetails, let i=index">
                         <tr>
                             <td>1</td>
                             <td>Identity proof</td>
@@ -89,6 +99,12 @@
                                     (click)="KYCComments(item.identityAdminComments)"><i class="fas fa-comments"
                                         style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
                             </td>
+                            <td>{{item.createdBy}}</td>
+                            <td>{{item.createdAt | date : "dd/MM/yyyy hh:mm a"}}</td>
+                            <td>{{item.modifiedBy}}</td>
+                            <td>{{item.modifedAt | date : "dd/MM/yyyy hh:mm a"}}</td>
+
+
                         </tr>
 
 
@@ -152,6 +168,10 @@
                                 <span (click)="KYCComments(item.addressAdminComments)"><i class="fas fa-comments"
                                         style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
                             </td>
+                            <td>{{item.createdBy}}</td>
+                            <td>{{item.createdAt | date : "dd/MM/yyyy hh:mm a"}}</td>
+                            <td>{{item.addressModifiedBy}}</td>
+                            <td>{{item.addressModifiedAt | date : "dd/MM/yyyy hh:mm a"}}</td>
                         </tr>
 
 
@@ -216,6 +236,10 @@
                                 <span (click)="KYCComments(item.signatureAdminComments)"><i class="fas fa-comments"
                                         style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
                             </td>
+                            <td>{{item.createdBy}}</td>
+                            <td>{{item.createdAt | date : "dd/MM/yyyy hh:mm a"}}</td>
+                            <td>{{item.signatureModifiedBy}}</td>
+                            <td>{{item.signatureModifiedAt | date : "dd/MM/yyyy hh:mm a"}}</td>
                         </tr>
 
 

@@ -83,10 +83,16 @@ export class RefundGetallComponent {
   filter1: boolean = false;
   filters: boolean = false;
   transaction: any;
+  maxDate: any;
 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit(): void {
+
+    
+    const today = new Date();
+    this.maxDate = moment(today).format('yyyy-MM-DD').toString()
+
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
@@ -145,6 +151,10 @@ export class RefundGetallComponent {
 
   }
 
+  checkDate(){
+    this.ToDateRange = ''
+    // this.FromDateRange =''
+  }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();

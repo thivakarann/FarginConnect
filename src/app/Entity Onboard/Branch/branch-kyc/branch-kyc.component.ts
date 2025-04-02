@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Location } from '@angular/common';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { KycbranchImageComponent } from '../kycbranch-image/kycbranch-image.component';
 import { BranchkycEditComponent } from '../branchkyc-edit/branchkyc-edit.component';
@@ -41,7 +42,8 @@ export class BranchKycComponent {
     private router: Router,
     private toastr: ToastrService,
     private dialog: MatDialog,
-    private ActivateRoute: ActivatedRoute
+    private ActivateRoute: ActivatedRoute,
+    private location:Location
   ) {}
 
   ngOnInit(): void {
@@ -650,5 +652,9 @@ export class BranchKycComponent {
         }
       });
     }
+  }
+  close()
+  {
+    this.location.back();
   }
 }

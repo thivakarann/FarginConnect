@@ -4,6 +4,7 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AddEntityBank } from '../../fargin-model/fargin-model.module';
+import moment from 'moment';
 
 @Component({
   selector: 'app-entity-add',
@@ -84,6 +85,7 @@ export class EntityAddComponent implements OnInit {
   uploaddocfront: any;
   uploaddocback: any;
   today: string;
+  maxDate: any;
 
   constructor(
     public AddEntity: FarginServiceService,
@@ -94,6 +96,10 @@ export class EntityAddComponent implements OnInit {
     this.today = todayDate.toISOString().split('T')[0];
   }
   ngOnInit(): void {
+
+    const today = new Date()
+ 
+    this.maxDate = moment(today).format('yyyy-MM-DD').toString()
 
     this.AddEntity.Bussinesscategoryactivelist().subscribe((res: any) => {
       this.categorydetails = res.response;
@@ -727,57 +733,111 @@ export class EntityAddComponent implements OnInit {
 
 
 
-
   onIdentityProofChange(event: any) {
     this.selectElement = event.target.value;
     const identityProofNoControl = this.firstFormGroup.get('identityProofNo');
+    const identityProofNoControl1 = this.firstFormGroup.get('passportDob');
+    const identityProofNoControl2 = this.firstFormGroup.get('drivingLicenceDob');
 
 
     identityProofNoControl?.clearValidators();
-
-
+  
     if (this.selectElement == 'Aadhar Card') {
       identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[0-9]{12}$")]); // 12 digits for Aadhar
-    } else if (this.selectElement == 'Pancard') {
+      identityProofNoControl2?.setValidators([]) // Driving license format
+      identityProofNoControl1?.setValidators([]) // Driving license format
+
+    } 
+     if (this.selectElement == 'Pancard') {
       identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{5}[0-9]{4}[A-Z]$")]); // PAN format
-    } else if (this.selectElement == 'Voter Id Proof') {
+      identityProofNoControl2?.setValidators([]) // Driving license format
+      identityProofNoControl1?.setValidators([]) // Driving license format
+
+
+    } 
+     if (this.selectElement == 'Voter Id Proof') {
       identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]); // Voter ID format
-    } else if (this.selectElement == 'Passport') {
+      identityProofNoControl2?.setValidators([]) // Driving license format
+      identityProofNoControl1?.setValidators([]) // Driving license format
+
+
+    } 
+     if (this.selectElement == 'Passport') {
       identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Passport format
-    } else if (this.selectElement == 'Driving License') {
-      identityProofNoControl?.setValidators([Validators.required]);
-      // identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Driving license format
+        identityProofNoControl1?.setValidators([Validators.required]) // Driving license format
+        
+        identityProofNoControl2?.setValidators([]) // Driving license format
+
+    } 
+    if (this.selectElement == 'Driving License') {
+      identityProofNoControl?.setValidators([Validators.required]); 
+        identityProofNoControl2?.setValidators([Validators.required]) // Driving license format
+        identityProofNoControl1?.setValidators([]) // Driving license format
+        
+
     }
-
-
-    identityProofNoControl?.updateValueAndValidity();
+  
+  
+    
+  
+    // Reset the values of the related fields
+    this.firstFormGroup.get('identityProofNo')?.reset();
+    this.firstFormGroup.get('identityFrontPath')?.reset();
+    this.firstFormGroup.get('identityBackPath')?.reset();
+    this.firstFormGroup.get('drivingLicenceDob')?.reset();
+    this.firstFormGroup.get('passportDob')?.reset();
+  
+    // Recheck the form's validity
+    this.firstFormGroup.updateValueAndValidity(); // This is critical to revalidate the whole form group
   }
 
 
   onAddressProofChange(event: any) {
     this.selectElements = event.target.value;
     const addressProofNoControl = this.secondFormGroup.get('addressProofNo');
+    const addressProofNoControl1 = this.secondFormGroup.get('passportDobs');
+    const addressProofNoControl2 = this.secondFormGroup.get('drivingLicenceDobs');
 
     addressProofNoControl?.clearValidators();
 
 
     if (this.selectElements == 'Aadhar Card') {
       addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[0-9]{12}$")]); // 12 digits for Aadhar
-    } else if (this.selectElements == 'Voter Id Proof') {
-      addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]); // Voter ID format
-    } else if (this.selectElements == 'Passport') {
+      addressProofNoControl2?.setValidators([]) 
+      addressProofNoControl1?.setValidators([]) 
+    }  
+    if (this.selectElements == 'Voter Id Proof') {
+      addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]);
+      addressProofNoControl2?.setValidators([]) 
+      addressProofNoControl1?.setValidators([]) 
+    } 
+     if (this.selectElements == 'Passport') {
       addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Passport format
-    } else if (this.selectElements == 'Driving License') {
-      addressProofNoControl?.setValidators([Validators.required]); // Driving license format
+      addressProofNoControl1?.setValidators([Validators.required]) // Driving license format
+        
+      addressProofNoControl2?.setValidators([])
+    } 
+     if (this.selectElements == 'Driving License') {
+      addressProofNoControl?.setValidators([Validators.required]); 
+      addressProofNoControl2?.setValidators([Validators.required]) // Driving license format
+      addressProofNoControl1?.setValidators([]) 
     }
 
 
-    addressProofNoControl?.updateValueAndValidity();
+    this.secondFormGroup.get('addressProofNo')?.reset();
+    this.secondFormGroup.get('addressFrontPath')?.reset();
+    this.secondFormGroup.get('addressBackPath')?.reset();
+    this.secondFormGroup.get('drivingLicenceDobs')?.reset();
+    this.secondFormGroup.get('passportDobs')?.reset();
+
+    this.secondFormGroup?.updateValueAndValidity();
   }
 
   onasignproof(event: any) {
     this.select = event.target.value;
     const signatureProofNoControl = this.thirdFormGroup.get('signatureProofNo');
+    const signatureProofNoControl1 = this.thirdFormGroup.get('passportDobss');
+    const signatureProofNoControl2 = this.thirdFormGroup.get('drivingLicenceDobss');
 
 
     signatureProofNoControl?.clearValidators();
@@ -785,13 +845,30 @@ export class EntityAddComponent implements OnInit {
 
     if (this.select == 'Pancard') {
       signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{5}[0-9]{4}[A-Z]$")]);
-    } else if (this.select == 'Passport') {
+      signatureProofNoControl2?.setValidators([]) 
+      signatureProofNoControl1?.setValidators([]) 
+
+    } 
+     if (this.select == 'Passport') {
       signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Passport format
-    } else if (this.select == 'Driving License') {
-      signatureProofNoControl?.setValidators([Validators.required]); // Driving license format
+      signatureProofNoControl1?.setValidators([Validators.required]) // Driving license format
+        
+      signatureProofNoControl2?.setValidators([])
+
+    } 
+     if (this.select == 'Driving License') {
+      signatureProofNoControl?.setValidators([Validators.required]);
+      signatureProofNoControl2?.setValidators([Validators.required]) // Driving license format
+      signatureProofNoControl1?.setValidators([]) 
     }
 
-    signatureProofNoControl?.updateValueAndValidity();
+    this.thirdFormGroup.get('signatureProofNo')?.reset();
+    this.thirdFormGroup.get('signatureFrontPath')?.reset();
+    this.thirdFormGroup.get('signatureBackPath')?.reset();
+    this.thirdFormGroup.get('drivingLicenceDobss')?.reset();
+    this.thirdFormGroup.get('passportDobss')?.reset();
+
+    this.thirdFormGroup?.updateValueAndValidity();
   }
   getlogo(event: any) {
     this.uploadImage = event.target.files[0];

@@ -36,6 +36,7 @@ export class BranchkycEditComponent {
   DrivingDob: any;
   PassportDob: any;
   today: string;
+  getadminname :any = JSON.parse(sessionStorage.getItem('adminname') || '');
  
   constructor(
     public service: FarginServiceService,
@@ -237,6 +238,8 @@ onasignproof(event: any) {
     formData.append('identityProofNo', this.identityProofNo.value);
     formData.append('drivingLicenceDob', this.drivingLicenceDob.value || this.DrivingDob);
     formData.append('passportDob', this.passportDob.value || this.PassportDob);
+    formData.append('modifiedBy',this.getadminname);
+
     
  
     this.service.editbranchIdentity(formData).subscribe((res: any) => {
@@ -262,6 +265,7 @@ onasignproof(event: any) {
     formData.append('addressProofNo', this.addressProofNo.value);
     formData.append('drivingLicenceDob', this.drivingLicenceDobs.value || this.DrivingDob);
     formData.append('passportDob', this.passportDobs.value || this.PassportDob);
+    formData.append('addressModifiedBy',this.getadminname);
     this.service.editbranchAddress(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.identityvalue = res.response;
@@ -285,6 +289,7 @@ onasignproof(event: any) {
     formData.append('signatureProofNo', this.signatureProofNo.value);
     formData.append('drivingLicenceDob', this.drivingLicenceDobss.value || this.DrivingDob);
     formData.append('passportDob', this.passportDobss.value || this.PassportDob);
+    formData.append('signatureModifiedBy',this.getadminname);
     
  
     this.service.editbranchSign(formData).subscribe((res: any) => {

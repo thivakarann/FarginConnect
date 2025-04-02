@@ -38,12 +38,12 @@
 
         <div class="col-2">
             <label><b>From Date:</b></label>
-            <input class="form-control" type="date" name="FromDate" [(ngModel)]="FromDateRange"
+            <input class="form-control" type="date" name="FromDate" [(ngModel)]="FromDateRange" (change)="checkDate()" [max]="maxDate"
                 style="height:35px;width:150px;border-radius: 5px;">
         </div>
         <div class="col-2">
             <label><b>To Date:</b></label>
-            <input class="form-control" type="date" name="ToDate" [(ngModel)]="ToDateRange"
+            <input class="form-control" type="date" name="ToDate" [(ngModel)]="ToDateRange"  [min]="FromDateRange" [max]="maxDate"
                 style="height:35px;width:150px;border-radius: 5px;">
         </div>
 

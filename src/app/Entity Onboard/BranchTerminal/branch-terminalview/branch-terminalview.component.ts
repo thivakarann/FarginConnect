@@ -135,7 +135,20 @@ export class BranchTerminalviewComponent implements OnInit {
   }
 
   reload() {
-    window.location.reload()
+    this.service.Branchterminalbyids(this.id).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.terminal = res.response;
+        this.dataSource = new MatTableDataSource(this.terminal.reverse());
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+      else if (res.flag == 2) {
+        this.dataSource = new MatTableDataSource([]);
+        this.dataSource = new MatTableDataSource(this.terminal.reverse());
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+    });
   }
 
   CreateTerminal(id: any, id1: any) {

@@ -29,8 +29,9 @@ export class BranchCustomerViewComponent implements OnInit {
     'customerReferenceId',
     'customerName',
     'mobileNumber',
-    'cityName',
     'stateName',
+    'cityName',
+
     'pincodeName',
 
   ];
@@ -105,7 +106,33 @@ export class BranchCustomerViewComponent implements OnInit {
 
 
   reload() {
-    window.location.reload()
+    this.service.BranchCustomer(this.id, this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.branchcustview = res.response.customerList;
+        this.branchoverallresponse = res.response;
+
+        this.branchcustview.reverse();
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+        this.dataSource = new MatTableDataSource(this.branchcustview);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.filter = false
+      }
+      else if (res.flag === 2) {
+        this.branchcustview = [];
+        this.dataSource = new MatTableDataSource(this.branchcustview);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.filter = false;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+
+      }
+
+    });
   }
 
 
@@ -219,8 +246,9 @@ export class BranchCustomerViewComponent implements OnInit {
           this.response.push(element?.customerReferenceId);
           this.response.push(element?.customerName);
           this.response.push(element?.mobileNumber);
-          this.response.push(element?.cityName);
           this.response.push(element?.stateName);
+          this.response.push(element?.cityName);
+      
           this.response.push(element?.pincodeName);
 
 
@@ -237,17 +265,18 @@ export class BranchCustomerViewComponent implements OnInit {
     const header = [
       'SNo',
       'CustomerReferenceId',
-      'CustomerName',
-      'MobileNumber',
-      'CityName',
-      'StateName',
+      'Customer Name',
+      'Mobile Number',
+      'State Name',
+      'City Name',
+     
       'Pincode',
     ]
 
 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
-    let worksheet = workbook.addWorksheet('Branch-Customer-View');
+    let worksheet = workbook.addWorksheet('Branch Customer View');
 
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
@@ -294,7 +323,7 @@ export class BranchCustomerViewComponent implements OnInit {
 
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      FileSaver.saveAs(blob, 'Branch-Customer-View.xlsx');
+      FileSaver.saveAs(blob, 'Branch Customer View.xlsx');
     });
   }
 

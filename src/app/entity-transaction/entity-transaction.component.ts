@@ -175,7 +175,7 @@ currentfilval: any;
         this.transaction.forEach((element: any) => {
           this.response = [];
           this.response.push(sno);
-          this.response.push(element?.pgPaymentId || '-');
+          this.response.push(element?.pgPaymentId );
           this.response.push(element?.customerName);
           this.response.push(element?.mobileNumber);
           this.response.push(element?.setUpBoxNumber)
@@ -191,6 +191,13 @@ currentfilval: any;
                     else {
                       this.response.push('');
                     }
+                    if (element.paymentDateTime) {
+                      this.response.push(moment(element?.paymentDateTime).format('DD/MM/yyyy hh:mm a').toString());
+                    }
+                    else {
+                      this.response.push('');
+                    }
+
 
           sno++;
           this.responseDataListnew.push(this.response);
@@ -212,8 +219,8 @@ currentfilval: any;
       'Amount',
       'Payment Method',
       'Payment Status',
-      'Bank Reference',
-      'CreatedAt',
+      'Due Generated At',
+      'Paid At',
     ];
     const data = this.responseDataListnew;
     let workbook = new Workbook();
@@ -341,7 +348,24 @@ currentfilval: any;
   }
 
   reload() {
-    window.location.reload();
+    this.service.EntityTraansaction(this.id, this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if (res.flag === 1) {
+        this.details = res.response;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.details);
+     
+      } else if (res.flag === 2) {
+        this.dataSource = new MatTableDataSource([]);
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage
+     
+
+      }
+
+    });
   }
 
   customerpay(filterValue: string) {

@@ -46,6 +46,7 @@ import { AgreementsLinkExtentComponent } from '../agreements-link-extent/agreeme
 import { BranchAddComponent } from '../Branch/branch-add/branch-add.component';
 import { BranchEditComponent } from '../Branch/branch-edit/branch-edit.component';
 import { manuvalduecreation, Manuvelduesforcloudfee } from '../../Fargin Model/fargin-model/fargin-model.module';
+import { SmsDescriptionComponent } from '../sms-description/sms-description.component';
 
 @Component({
   selector: 'app-entity-view',
@@ -87,7 +88,12 @@ export class EntityViewComponent implements OnInit {
 
   alltransactions: any;
   searchText: any;
-
+  searchTextbusnniess:any;
+  searchTextOneTime:any;
+  searchTextcustomixed:any;
+  searchTextsms:any;
+  searchTextargeement:any;
+  searchTextbranch:any;
 
   valuesmssetting: any
   navbarEventEmitter: any;
@@ -3569,5 +3575,13 @@ export class EntityViewComponent implements OnInit {
     this.router.navigate([`dashboard/Terminalview/${id}/${id1}`], {
       queryParams: { Alldata: id, All: id1 },
     });
+  }
+
+  Smsdescription(id:any){
+    this.dialog.open(SmsDescriptionComponent, {
+      enterAnimationDuration: "500ms",
+      exitAnimationDuration: "1000ms",
+      data: { value: id }
+    })
   }
 }

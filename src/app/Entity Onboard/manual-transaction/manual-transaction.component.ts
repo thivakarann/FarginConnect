@@ -98,20 +98,21 @@ export class ManualTransactionComponent {
       this.responseDataListnew = [];
       this.details.forEach((element: any) => {
         let createdate = element.paymentDateTime;
-        this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
+        this.date1 = moment(createdate).format('DD/MM/yyyy hh:mm').toString();
  
         // let moddate = element.modifiedDateTime;
         // this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
         this.response = [];
         this.response.push(sno);
-        this.response.push(element?.paymentId);
+        this.response.push(element?.pgPaymentId);
         this.response.push(element?.paymentMethod);
-        this.response.push(element?.cardNumber);
-        this.response.push(element?.cardExpiry);
+        this.response.push(element?.cardNumber === null || element?.cardNumber === 'null' ? '-' : element?.cardNumber);
+        this.response.push(element?.cardExpiry === null || element?.cardExpiry === 'null' ? '-' : element?.cardExpiry);
+        
         this.response.push(element?.paidAmount);
         this.response.push(element?.totalPayableAmount);
         this.response.push(element?.gstAmount);
-        this.response.push(element?.bankReference);
+        this.response.push(element?.bankReference===null?'-': element?.bankReference );
         this.response.push(element?.paymentStatus);
         this.response.push(this.date1);
  
@@ -126,17 +127,17 @@ export class ManualTransactionComponent {
     excelexportCustomer() {
       // const title='Business Category';
       const header = [
-        'Id',
-        'PaymentId',
+        'S No',
+        'Payment Id',
         'Payment Method',
         'Card Number',
         'Card Expiry',
-        'Paidamount',
-        'totalpay',
-        'gstnumber',
-        'Bankreference',
-        'status',
-        'paymentAt',
+        'Paid Amount',
+        'Total Payable Amount',
+        'Gst Amount',
+        'Bank Reference',
+        'Status',
+        'Payment At',
       ]
  
  

@@ -85,7 +85,14 @@ export class PaymentlinkViewComponent implements OnInit {
   }
 
   reload() {
-    window.location.reload()
+    this.service.paymentLinkview(this.id).subscribe((res: any) => {
+      this.paymentValue = res.response;
+      this.dataSource = new MatTableDataSource(this.paymentValue?.reverse())
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    
+
+  })
   }
 
 

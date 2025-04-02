@@ -1,10 +1,11 @@
 
   <div class="form-header d-flex justify-content-between align-items-center">
-    <h4 class="mb-0 text-center" style="color:black;">Branch Terminal</h4>
-    <button (click)="close()"  type="button" class="btn btn-secondary" mat-dialog-close>Back</button>
+
+    <h5 style="text-align:left;color:#141E46;">Branch Terminal</h5>
+    <button style="color:white;background-color: #141E46; border-radius: .5rem;font-size: .875rem;padding:5px 5px;" (click)="close()">Back</button>
 </div>
     <mat-card-header>
-      <div class="row mt-4" >
+      <div class="row mt-3" >
 
         <div class="col">
 
@@ -33,7 +34,7 @@
             </div>&nbsp;&nbsp;&nbsp;
             <!-- <button  style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Go</button> -->
             &nbsp;
-            <button [hidden]="valuebranchTerminalAdd!=='Entity View Terminal branch-Add'" (click)="CreateTerminal(this.id, this.merchantId)" style="color:white;background-color: #141E46;border-radius: 10px;" class="custom-btn btn-10 me-3"
+            <button [hidden]="valuebranchTerminalAdd!=='Entity View Terminal branch-Add'" (click)="CreateTerminal(this.id, this.merchantId)" style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" class="custom-btn btn-10 me-3"
                 data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button >Create</button>
             <!-- <button style="color:white;background-color: #141E46;border-radius: 10px;" 
                 mat-raised-button>Export</button> -->
@@ -42,7 +43,7 @@
     </mat-card-header>
 
 <mat-card-content>
-    <div class="table-responsive text-nowrap mt-4" style="overflow-x: scroll; scrollbar-width: thin">
+    <div class="table-responsive text-nowrap mt-3" style="overflow-x: scroll; scrollbar-width: thin">
         <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
             <ng-container matColumnDef="sno">
                 <th mat-header-cell *matHeaderCellDef>S.No</th>

@@ -271,19 +271,29 @@
                     </div>
                     <div class="form__row">
                         <div class="form__linput"
-                            [hidden]="identityProof?.value !='Driving License' && identityProof?.value != 'Passport'">
-                            <label class="form__label"><b>Date of Birth</b></label>
-                            <input *ngIf="identityProof?.value =='Driving License'"
-                                [required]="identityProof?.value == 'Driving License' || identityProof?.value == 'Passport'"
-                                class="form-control" id="dob" type="date" formControlName="drivingLicenceDob"
+                           >
+                            <label  *ngIf="selectElement == 'Driving License'" class="form__label"><b>Date of Birth</b></label>
+                            <label *ngIf="selectElement == 'Passport'" class="form__label"><b>Date of Birth </b></label>
+
+                            <input
+                            *ngIf="selectElement =='Driving License'"
+                                
+                                class="form-control"  type="date"
+                                formControlName="drivingLicenceDob"
+                               
                                 [max]="today" />
 
-                            <input *ngIf="identityProof?.value =='Passport'"
-                                [required]="identityProof?.value == 'Driving License' || identityProof?.value == 'Passport'"
-                                class="form-control" id="dob" type="date" formControlName="passportDob" [max]="today" />
-                            <div *ngIf="(identityProof?.value == 'Driving License' ? drivingLicenceDob : passportDob)?.invalid &&
-                                         (identityProof?.value == 'Driving License' ? drivingLicenceDob : passportDob)?.touched &&
-                                         (identityProof?.value == 'Driving License' ? drivingLicenceDob : passportDob)?.errors?.['required']"
+                                <input
+                                *ngIf="selectElement =='Passport'"
+                                
+                                class="form-control"  type="date"
+                                formControlName="passportDob"
+                                [max]="today" />
+
+
+                            <div *ngIf="(selectElement == 'Driving License' ? drivingLicenceDob : passportDob)?.invalid &&
+                                         (selectElement == 'Driving License' ? drivingLicenceDob : passportDob)?.touched &&
+                                         (selectElement == 'Driving License' ? drivingLicenceDob : passportDob)?.errors?.['required']"
                                 style="color: red; font-size: 12px;">
                                 Field is required
                             </div>
@@ -361,26 +371,34 @@
                         </div>
                     </div>
 
-                    <div class="form__row">
-                        <div class="form__linput"
-                            [hidden]="addressProof?.value !=='Driving License' && addressProof?.value !== 'Passport'">
-                            <label class="form__label"><b>Date of Birth</b></label>
-                            <input *ngIf="addressProof?.value =='Driving License'"
-                                [required]="addressProof?.value == 'Driving License' || addressProof?.value == 'Passport'"
-                                class="form-control" id="dob" type="date" formControlName="drivingLicenceDobs"
-                                [max]="today" />
-                            <input *ngIf="addressProof?.value =='Passport'"
-                                [required]="addressProof?.value == 'Driving License' || addressProof?.value == 'Passport'"
-                                class="form-control" id="dob" type="date" formControlName="passportDobs"
-                                [max]="today" />
-                            <div *ngIf="(selectElements === 'Driving License' ? drivingLicenceDobs : passportDobs)?.invalid &&
-                                         (selectElements === 'Driving License' ? drivingLicenceDobs : passportDobs)?.touched &&
-                                         (selectElements  === 'Driving License' ? drivingLicenceDobs : passportDobs)?.errors?.['required']"
-                                style="color: red; font-size: 12px;">
-                                Field is required
-                            </div>
-                        </div>
-                        <div class="form__linput">
+                   
+   <div class="form__row">
+    <div class="form__linput">
+            <label  *ngIf="selectElements == 'Driving License'" class="form__label"><b>Date of Birth</b></label>
+            <label *ngIf="selectElements == 'Passport'" class="form__label"><b>Date of Birth </b></label>
+
+            <input
+            *ngIf="selectElements =='Driving License'"
+                
+                class="form-control"  type="date"
+                formControlName="drivingLicenceDobs"
+               
+                [max]="today" />
+
+                <input
+                *ngIf="selectElements =='Passport'"
+                
+                class="form-control"  type="date"
+                formControlName="passportDobs"
+                [max]="today" />
+        <div *ngIf="(selectElements === 'Driving License' ? drivingLicenceDobs : passportDobs)?.invalid &&
+                     (selectElements === 'Driving License' ? drivingLicenceDobs : passportDobs)?.touched &&
+                     (selectElements  === 'Driving License' ? drivingLicenceDobs : passportDobs)?.errors?.['required']"
+            style="color: red; font-size: 12px;">
+            Field is required
+        </div>
+    </div>
+    <div class="form__linput">
 
                         </div>
                     </div>
@@ -450,18 +468,25 @@
                         </div>
                     </div>
                     <div class="form__row">
-                        <div class="form__linput"
-                            [hidden]="signatureProof?.value !='Driving License' && signatureProof?.value != 'Passport'">
-                            <label class="form__label"><b>Date of Birth</b></label>
-                            <input *ngIf="signatureProof?.value =='Driving License'"
-                                [required]="signatureProof?.value == 'Driving License' || signatureProof?.value == 'Passport'"
-                                class="form-control" id="dob" type="date" formControlName="drivingLicenceDobss"
-                                [max]="today" />
+                        <div class="form__linput">
 
-                            <input *ngIf="signatureProof?.value =='Passport'"
-                                [required]="signatureProof?.value == 'Driving License' || signatureProof?.value == 'Passport'"
-                                class="form-control" id="dob" type="date" formControlName="passportDobss"
-                                [max]="today" />
+                                <label  *ngIf="select == 'Driving License'" class="form__label"><b>Date of Birth</b></label>
+                                <label *ngIf="select == 'Passport'" class="form__label"><b>Date of Birth </b></label>
+    
+                                <input
+                                *ngIf="select =='Driving License'"
+                                    
+                                    class="form-control"  type="date"
+                                    formControlName="drivingLicenceDobss"
+                                   
+                                    [max]="today" />
+    
+                                    <input
+                                    *ngIf="select =='Passport'"
+                                    
+                                    class="form-control"  type="date"
+                                    formControlName="passportDobss"
+                                    [max]="today" />
                             <div *ngIf="(select === 'Driving License' ? drivingLicenceDobss : passportDobss)?.invalid &&
                                          (select === 'Driving License' ? drivingLicenceDobss : passportDobss)?.touched &&
                                          (select  === 'Driving License' ? drivingLicenceDobss : passportDobss)?.errors?.['required']"

@@ -88,12 +88,18 @@ export class SMSHistoryComponent {
   filter1: boolean = false;
   filters: boolean = false;
   currentfilVal:any="";
+  maxDate: any;
 
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private router: Router) { }
 
 
 
   ngOnInit(): void {
+
+    
+    const today = new Date();
+    this.maxDate = moment(today).format('yyyy-MM-DD').toString()
+
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
@@ -203,6 +209,11 @@ export class SMSHistoryComponent {
 });
   }
  
+
+  checkDate(){
+    this.ToDateRange = ''
+    // this.FromDateRange =''
+  }
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
@@ -330,7 +341,35 @@ export class SMSHistoryComponent {
     })
   }
   reset() {
-    window.location.reload();
+    this.service.SmsHistoryGetAll(this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.smsResponse = res.response;
+        this.smsResponse.reverse();
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+        this.dataSource = new MatTableDataSource(this.smsResponse);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.filter = true;
+        this.filter1 = false;    
+        this.filters = false;
+      }
+      else if (res.flag == 2) {
+        this.message = res.responseMessage;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+        this.filter = true;
+        this.filter1 = false;    
+        this.filters = false;
+        this.smsResponse = [];
+        this.dataSource = new MatTableDataSource(this.smsResponse);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator; 
+      }
+
+    })
   }
   renderPage(event: PageEvent) {
     // Capture the new page index and page size from the event

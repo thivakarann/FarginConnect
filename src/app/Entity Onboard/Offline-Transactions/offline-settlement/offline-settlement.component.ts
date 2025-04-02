@@ -1,4 +1,4 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe,Location } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -65,12 +65,16 @@ export class OfflineSettlementComponent {
   accountId:any
   valuestaticsettlementExport:any;
   valuestaticsettlementView:any;
+  maxDate: any;
 
-  constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog,private ActivateRoute:ActivatedRoute,private router:Router) { }
+  constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog,private ActivateRoute:ActivatedRoute,private router:Router,private location: Location) { }
 
 
 
   ngOnInit(): void {
+
+     const today = new Date();
+        this.maxDate = moment(today).format('yyyy-MM-DD').toString()
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
@@ -138,7 +142,41 @@ export class OfflineSettlementComponent {
 
   }
 
+  checkDate(){
+    this.ToDateRange = ''
+    // this.FromDateRange =''
+  }
 
+reload()
+{
+  
+  let submitModel: OfflineSettlement = {
+    accountId: this.accountId,
+    pageNo: this.currentPage,
+    size: '20',
+    query: '',
+    dateRange: '',
+  }
+  this.service.OfflineSettlement(submitModel).subscribe((res: any) => {
+    if (res.flag == 1) {
+      
+      this.Viewall = JSON.parse(res.response);
+      this.content = this.Viewall?.content;
+      console.log(this.content)
+      this.filteredData = this.content;
+      
+      // this.getallData = this.Viewall.data.totalElements;
+      
+      // this.toastr.success(res.responseMessage);
+      this.dataSource = new MatTableDataSource(this.filteredData);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    }
+
+  })
+
+
+}
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -189,7 +227,37 @@ export class OfflineSettlementComponent {
     })
   }
   reset() {
-    window.location.reload();
+    let submitModel: OfflineSettlement = {
+      accountId: this.accountId,
+      pageNo: this.currentPage,
+      size: '20',
+      query: '',
+      dateRange: '',
+    }
+    this.service.OfflineSettlement(submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        
+        this.Viewall = JSON.parse(res.response);
+        this.content = this.Viewall?.content;
+        console.log(this.content)
+        this.filteredData = this.content;
+        
+        // this.getallData = this.Viewall.data.totalElements;
+        
+        // this.toastr.success(res.responseMessage);
+        this.dataSource = new MatTableDataSource(this.filteredData);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.FromDateRange='';
+        this.ToDateRange='';
+      }
+      else
+      {
+        this.FromDateRange='';
+        this.ToDateRange='';
+      }
+  
+    })
   }
 
 
@@ -198,30 +266,29 @@ export class OfflineSettlementComponent {
     let sno = 1;
     this.responseDataListnew = [];
     this.filteredData.forEach((element: any) => {
-      let createdate = element.createdAt;
-      this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-
-      let moddate = element.modifiedDatetime;
-      this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
+     
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.accountId);
-      this.response.push(element?.id);
-      this.response.push(element?.request?.customerName);
-      this.response.push(element?.etc?.customer);
-      this.response.push(element?.etc.paymentMethod);
+      this.response.push(element?.paymentId);
+      this.response.push(element?.terminalId);
+      this.response.push(element?.bankReference);
+      this.response.push(element?.merchantOrderNo);
       this.response.push(element?.amount);
-      this.response.push(this.date1);
-
-      if (element?.completed == 'ATTEMPTED') {
-        this.response.push(element?.completed);
+   
+      if (element?.transaction?.success == 'true') {
+        this.response.push(element?.Success);
       }
-      else if (element?.completed == 'SUCCESS') {
-        this.response.push(element?.completed);
+      else if (element?.transaction?.success!='true') {
+        this.response.push(element?.Failure);
+      }
+      if (element?.paidAt) {
+        this.response.push(moment(element?.paidAt).format('DD/MM/yyyy hh:mm a'));
       }
       else {
-        this.response.push(element?.completed);
+        this.response.push('');
       }
+      this.response.push(element?.status);
 
       sno++;
       this.responseDataListnew.push(this.response);
@@ -232,15 +299,16 @@ export class OfflineSettlementComponent {
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
-      'sno',
-      'accountId',
-      'paymentId',
-      'entityname',
-      'customername',
-      'paymentmethod',
-      'amount',
-      'paidAt',
-      'status',
+      'S No',
+      'Account Id',
+      'Payment Id',
+      'Terminal ID',
+      'Bank Reference',
+      'Merchant Order Number',
+      'Amount',
+      'Payment Status',
+      'Paid At',
+      'Status'
 
     ]
 
@@ -283,7 +351,7 @@ export class OfflineSettlementComponent {
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
 
-
+      let qty9 = row.getCell(10);
 
 
 
@@ -296,7 +364,7 @@ export class OfflineSettlementComponent {
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
+      qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
 
     }
     );
@@ -305,12 +373,14 @@ export class OfflineSettlementComponent {
     // worksheet.getColumn(3).protection = { locked: true, hidden: true }
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      FileSaver.saveAs(blob, 'Entity Transaction.xlsx');
+      FileSaver.saveAs(blob, 'Offline Settlement.xlsx');
     });
   }
 
 
-
+  close() {
+    this.location.back()
+  }
 
 
 }

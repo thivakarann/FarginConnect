@@ -73,6 +73,7 @@ export class OfflineTransactionsComponent {
   valuestaticexport:any;
   valuestaticsettlement:any;
   valuestaticview:any;
+  maxDate: any;
 
 
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private ActivateRoute: ActivatedRoute, private router: Router, private location: Location) { }
@@ -80,6 +81,10 @@ export class OfflineTransactionsComponent {
 
 
   ngOnInit(): void {
+
+    const today = new Date();
+    this.maxDate = moment(today).format('yyyy-MM-DD').toString()
+
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
@@ -167,7 +172,31 @@ export class OfflineTransactionsComponent {
   }
 
   reload(){
-    window.location.reload()
+    let submitModel: OffilneTransaction = {
+      merchantId: this.id,
+      pageNo: this.currentPage,
+      size: '20',
+      query: '',
+      dateRange: '',
+      status: "",
+      terminalId: ""
+    }
+    this.service.OfflineTransactions(submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+
+        this.Viewall = JSON.parse(res.response);
+        this.content = this.Viewall?.content || [];
+        console.log(this.content)
+        this.filteredData = this.content;
+          this.dataSource = new MatTableDataSource(this.filteredData);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        if (this.content.length === 0) {
+          this.dataSource = new MatTableDataSource();
+         }
+      }
+
+    })
   }
 
   renderPage(event: any) {
@@ -221,7 +250,7 @@ export class OfflineTransactionsComponent {
       pageNo: this.currentPage,
       size: '20',
       query: '',
-      dateRange: this.Daterange,
+      dateRange: '',
       status: "",
       terminalId: ""
     }
@@ -242,21 +271,25 @@ export class OfflineTransactionsComponent {
          this.ToDateRange='';
       }
 
+      else
+        {
+          this.FromDateRange='';
+          this.ToDateRange='';
+        }
     })
 
   }
-
+  checkDate(){
+    this.ToDateRange = ''
+    // this.FromDateRange =''
+  }
 
   exportexcel() {
  
     let sno = 1;
     this.responseDataListnew = [];
     this.filteredData.forEach((element: any) => {
-      let createdate = element.createdAt;
-      this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
- 
-      let moddate = element.modifiedDatetime;
-      this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
+    
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.accountId);
@@ -277,7 +310,13 @@ export class OfflineTransactionsComponent {
       else {
         this.response.push(element?.completed);
       }
- 
+
+  if (element.createdAt) {
+                       this.response.push(moment(element?.createdAt).format('DD/MM/yyyy hh:mm a').toString());
+                     }
+                     else {
+                       this.response.push('');
+                     }
       sno++;
       this.responseDataListnew.push(this.response);
     });
@@ -287,15 +326,16 @@ export class OfflineTransactionsComponent {
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
-      'sno',
-      'AccountId',
-      'PaymentId',
+      'S No',
+      'Account Id',
+      'Payment Id',
       'Terminal Id',
-      'Customername',
+      'Customer Name',
       'VPA',
       'Merchant Order Number',
       'Amount',
-      'PaymentStatus',
+      'Payment Status',
+      'Paid At',
      
  
     ]
@@ -338,6 +378,7 @@ export class OfflineTransactionsComponent {
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
+      let qty9 = row.getCell(10);
  
  
  
@@ -352,7 +393,7 @@ export class OfflineTransactionsComponent {
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
+      qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
  
     }
     );

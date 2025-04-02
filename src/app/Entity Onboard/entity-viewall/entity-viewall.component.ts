@@ -424,13 +424,13 @@ export class EntityViewallComponent {
       'Account Id',
       'Reference No',
       'Entity Name',
-      'Business Category Model',
+      'Business Category',
       'Entity Email',
       'Final approval',
       'PG Onboard',
       'Status',
       "Created Date/Time",
-      "Login Count"
+      "Login Account Status"
     ]
 
 

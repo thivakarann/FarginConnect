@@ -10,6 +10,7 @@ import { Location } from '@angular/common';
 import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
 import { DatePipe } from '@angular/common';
+import moment from 'moment';
 
 @Component({
   selector: 'app-entity-settlement',
@@ -61,6 +62,7 @@ export class EntitySettlementComponent {
   Daterange!: string;
   content: any;
   filteredData: any;
+  maxDate: any;
 
   constructor(
     public MerchantView: FarginServiceService,
@@ -70,6 +72,11 @@ export class EntitySettlementComponent {
     private Location: Location
   ) { }
   ngOnInit(): void {
+
+
+    const today = new Date();
+    this.maxDate = moment(today).format('yyyy-MM-DD').toString()
+
 
     this.MerchantView.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
@@ -120,8 +127,20 @@ export class EntitySettlementComponent {
 
   }
 
+  checkDate(){
+    this.ToDateRange = ''
+    // this.FromDateRange =''
+  }
   reload() {
-    window.location.reload()
+    this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+      this.details = res.response;
+      this.detaislone = res.response.merchantpersonal;
+      this.accountid = res.response.merchantpersonal.accountId;
+
+      this.postrenewal();
+      // 
+
+    })
   }
 
 
@@ -196,11 +215,20 @@ export class EntitySettlementComponent {
     this.viewdata.forEach((element: any) => {
       this.response = [];
       this.response.push(sno);
+      this.response.push(element?.accountId);
       this.response.push(element?.payoutId);
+      this.response.push(element?.beneficiaryId);
       this.response.push(element?.amount);
       this.response.push(element?.reference);
       this.response.push(element?.txnItem);
-      this.response.push(element?.createdAt);
+   
+      if (element?.createdAt) {
+        this.response.push(moment(element?.createdAt).format('DD/MM/yyyy hh:mm a'));
+      }
+      else {
+        this.response.push('');
+      }
+ 
       sno++;
       this.responseDataListnew.push(this.response);
     });
@@ -211,7 +239,9 @@ export class EntitySettlementComponent {
 
     const header = [
       'S.No',
+      'Account ID',
       'Payout ID',
+      'Beneficiary ID',
       'Amount',
       'Reference',
       'Txn Item',
@@ -251,7 +281,8 @@ export class EntitySettlementComponent {
       let qty3 = row.getCell(4);
       let qty4 = row.getCell(5);
       let qty5 = row.getCell(6);
-
+      let qty6 = row.getCell(7);
+      let qty7 = row.getCell(8);
 
       qty.border = {
         top: { style: 'thin' },
@@ -289,6 +320,18 @@ export class EntitySettlementComponent {
         bottom: { style: 'thin' },
         right: { style: 'thin' },
       };
+      qty6.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty7.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
 
     });
 
@@ -314,7 +357,11 @@ export class EntitySettlementComponent {
     }
   }
   reset(){
-  
+    this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+      this.details = res.response;
+      this.detaislone = res.response.merchantpersonal;
+      this.accountid = res.response.merchantpersonal.accountId;
+
       let submitModel: settlement = {
         merchantId: this.id,
         pageNo: "",
@@ -324,17 +371,28 @@ export class EntitySettlementComponent {
         status: "",
       }
       this.MerchantView.Entitysettlement(submitModel).subscribe((res: any) => {
-        this.Viewall = JSON.parse(res?.response);
-        this.viewdata = this.Viewall?.data?.content;
-        this.dataSource = new MatTableDataSource(this.viewdata?.reverse())
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        if (this.content.length === 0) {
-          this.dataSource = new MatTableDataSource();
-         }    
-         this.FromDateRange='';
-         this.ToDateRange='';
+        if(res.flag==1)
+        {
+          this.Viewall = JSON.parse(res?.response);
+          this.viewdata = this.Viewall?.data?.content;
+          this.dataSource = new MatTableDataSource(this.viewdata?.reverse())
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          if (this.content.length === 0) {
+            this.dataSource = new MatTableDataSource();
+           }  
+           this.FromDateRange='';
+           this.ToDateRange='';  
+        }
+        else
+        {
+          this.FromDateRange='';
+          this.ToDateRange=''; 
+        }
+      
       })
-    }
+
+    })
+  }
 
 }

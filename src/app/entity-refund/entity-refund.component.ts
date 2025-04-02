@@ -90,12 +90,23 @@ export class EntityRefundComponent {
       this.dataSource = new MatTableDataSource(this.transaction)
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+      this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+
     })
   }
 
 
   reload() {
-    window.location.reload()
+   
+    this.service.Entityrefund(this.id).subscribe((res: any) => {
+
+      this.transaction = res.response;
+      this.dataSource = new MatTableDataSource(this.transaction)
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+
+    })
   }
 
   view(id: any) {
@@ -157,7 +168,7 @@ export class EntityRefundComponent {
 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
-    let worksheet = workbook.addWorksheet('Refunds');
+    let worksheet = workbook.addWorksheet('Entity Refund');
 
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
@@ -214,7 +225,7 @@ export class EntityRefundComponent {
 
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      FileSaver.saveAs(blob, 'Refunds.xlsx');
+      FileSaver.saveAs(blob, 'Entity Refund.xlsx');
     });
   }
 

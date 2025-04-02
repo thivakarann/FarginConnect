@@ -281,6 +281,7 @@ import { UpdateBulkcampaignComponent } from './Campaign/update-bulkcampaign/upda
 import { NgSelectModule } from '@ng-select/ng-select';
 import { UpdateStickerTicketComponent } from './Tickets/update-sticker-ticket/update-sticker-ticket.component';
 import { OfflineDetailsComponent } from './Overall-Customer/offline-details/offline-details.component';
+import { SmsDescriptionComponent } from './Entity Onboard/sms-description/sms-description.component';
 
 
 @NgModule({
@@ -539,7 +540,8 @@ import { OfflineDetailsComponent } from './Overall-Customer/offline-details/offl
     MaintenanceotherpayViewComponent,
     UpdateBulkcampaignComponent,
     UpdateStickerTicketComponent,
-    OfflineDetailsComponent
+    OfflineDetailsComponent,
+    SmsDescriptionComponent
 
   ],
 

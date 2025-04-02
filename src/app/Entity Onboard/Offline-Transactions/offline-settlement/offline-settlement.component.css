@@ -195,3 +195,11 @@
     -ms-touch-action: manipulation;
     touch-action: manipulation;
   }
+.disabled-icon {
+  color: #a9a9a9;       /* Light grey icon color */
+}
+ 
+/* When the button is enabled */
+.enabled-icon {
+  color: black;       /* White icon color when active */
+}

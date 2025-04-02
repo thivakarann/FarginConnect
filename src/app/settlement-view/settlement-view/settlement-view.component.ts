@@ -6,7 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { settlements } from '../../fargin-model/fargin-model.module';
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-settlement-view',
   templateUrl: './settlement-view.component.html',
@@ -28,7 +28,8 @@ term: any;
     private router: Router,
     private toastr: ToastrService,
     private dialog: MatDialog,
-    private ActivateRoute: ActivatedRoute) { }
+    private ActivateRoute: ActivatedRoute,
+  private location:Location) { }
 
   ngOnInit(): void {
     this.ActivateRoute.params.subscribe((param: any) => {
@@ -64,5 +65,13 @@ term: any;
     const filterValue = (event.target as HTMLInputElement).value;
     this.viewdata.filter = filterValue.trim().toLowerCase().toUpperCase();
     
+  }
+  reload()
+  {
+    this.postrenewal()
+  }
+  close()
+  {
+    this.location.back();
   }
 }

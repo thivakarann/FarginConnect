@@ -627,7 +627,7 @@
                                 <th>Updated By</th>
 
                                 <!-- approved datetime -->
-                                <th>Updated Date&Time</th>
+                                <th>Updated Date/Time</th>
 
                                 <!-- approved datetime -->
                                 <th [hidden]="valuebankcomment!=='Bank-comment'">Comments</th>
@@ -640,7 +640,7 @@
                                 <th>Modified Date/Time</th>
                             </tr>
                             <tbody
-                                *ngFor="let item of bankdetails  | search: searchText | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }; let i=index">
+                                *ngFor="let item of bankdetails  | search: searchText | paginate: { id:'pagination',itemsPerPage: itemsPerPage, currentPage: currentPage }; let i=index">
                                 <td>{{i+1}}</td>
                                 <td>{{item.accountHolderName}}</td>
                                 <td>{{item.accountNumber}}</td>
@@ -725,7 +725,7 @@
                         </table>
                     </div>
                     <div class="text-end mt-3">
-                        <pagination-controls (pageChange)="currentPage= $event"></pagination-controls>
+                        <pagination-controls id='pagination' (pageChange)="currentPage= $event"></pagination-controls>
                     </div>
                 </div>
             </div>
@@ -733,7 +733,7 @@
     </div>
     <div *ngIf="activeTab === 'videos'">
         <mat-card-header>
-            <button [hidden]="valuekycadd!=='Entity View KYC Document-add'" [disabled]="KYCDetails.length > 0"
+            <button   [hidden]="valuekycadd!=='Entity View KYC Document-add'" [hidden]="KYCDetails.length > 0"
                 (click)="addKycdocuments(this.id)" style="color:white;background-color: #141E46;border-radius: 10px;"
                 mat-raised-button>Add
                 KYC</button>
@@ -757,16 +757,16 @@
                                 <th [hidden]="valuekycapproval!=='Entity View KYC Document-Approval'">Approval</th>
                                 <th>Approval Status</th>
                                 <th>Updated By</th>
-                                <th>Updated Date&Time</th>
+                                <th>Updated Date/Time</th>
                                 <th [hidden]="valuekyccomment!=='Entity View KYC Document-comments'">Comments</th>
                                 <th>Created By</th>
-                                <th>Created Date&Time</th>
+                                <th>Created Date/Time</th>
                                 <th>Modified By</th>
-                                <th>Modified Date&Time</th>
+                                <th>Modified Date/Time</th>
 
                             </tr>
                             <tbody
-                                *ngFor="let item of KYCDetails| paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage } | search: searchText;let i=index">
+                                *ngFor="let item of KYCDetails">
                                 <tr>
                                     <td>1</td>
                                     <td>Identity proof</td>
@@ -894,8 +894,8 @@
                                     </td>
                                     <td>{{item.createdBy}}</td>
                                     <td>{{item.createdDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
-                                    <td>{{item.modifiedBy}}</td>
-                                    <td>{{item.modifiedDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
+                                    <td>{{item.addressModifiedBy}}</td>
+                                    <td>{{item.addressModifiedAt | date : "dd/MM/yyyy hh:mm a"}}</td>
                                 </tr>
 
 
@@ -963,8 +963,8 @@
                                     </td>
                                     <td>{{item.createdBy}}</td>
                                     <td>{{item.createdDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
-                                    <td>{{item.modifiedBy}}</td>
-                                    <td>{{item.modifiedDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
+                                    <td>{{item.signatureModifiedBy}}</td>
+                                    <td>{{item.signatureModifiedAt | date : "dd/MM/yyyy hh:mm a"}}</td>
                                 </tr>
 
 
@@ -986,7 +986,7 @@
                             <label for="search">
                                 <input (ngModelChange)="onSearchTextBusiness()" #input name="search" required
                                     autocomplete="off" placeholder="Search" id="search" type="text"
-                                    [(ngModel)]="searchText">
+                                    [(ngModel)]="searchTextbusnniess">
 
                                 <div class="icon">
                                     <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
@@ -1035,18 +1035,18 @@
                                     Approval</th>
                                 <th>Approval Status</th>
                                 <th>Updated By</th>
-                                <th>Updated Date&Time</th>
+                                <th>Updated Date/Time</th>
                                 <th [hidden]="valuebussinesscomment!=='Entity View Bussiness Document-Comments'">
                                     Comments</th>
                                 <th [hidden]="valuebussinessedit!=='Entity View Bussiness Document-Edit'">Action</th>
                                 <th>Created By</th>
-                                <th>Created Date&Time</th>
+                                <th>Created Date/Time</th>
                                 <th>Modified By</th>
-                                <th>Modified Date&Time</th>
+                                <th>Modified Date/Time</th>
 
                             </tr>
                             <tbody
-                                *ngFor="let item of bussinessdoc  | search: searchText | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPagebusniess };let i=index">
+                                *ngFor="let item of bussinessdoc  | search: searchTextbusnniess | paginate: { id:'pagination2', itemsPerPage: itemsPerPage, currentPage: currentPagebusniess };let i=index">
                                 <td>{{i+1}}</td>
                                 <td>{{item?.entityKycCategory?.kycCategoryName}}</td>
                                 <td>{{item.docNumber}}</td>
@@ -1085,7 +1085,7 @@
                         </table>
                     </div>
                     <div class="text-end mt-3">
-                        <pagination-controls (pageChange)="currentPagebusniess= $event"></pagination-controls>
+                        <pagination-controls id='pagination2' (pageChange)="currentPagebusniess= $event"></pagination-controls>
                     </div>
                 </div>
             </div>
@@ -1153,7 +1153,7 @@
                         <label for="search">
                             <input (ngModelChange)="onSearchTextonetime()" #input name="search" required
                                 autocomplete="off" placeholder="Search" id="search" type="text"
-                                [(ngModel)]="searchText">
+                                [(ngModel)]="searchTextOneTime">
 
                             <div class="icon">
                                 <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
@@ -1213,7 +1213,7 @@
                             <th>Paid Date&Time</th>
                         </tr>
                         <tbody
-                            *ngFor="let item of manualDetails | search: searchText | paginate: { itemsPerPage: itemsPerPage, currentPage: currentonetime };let i=index">
+                            *ngFor="let item of manualDetails | search: searchTextOneTime | paginate: {id:'pagination3', itemsPerPage: itemsPerPage, currentPage: currentonetime };let i=index">
                             <td>{{i+1}}</td>
                             <td>{{item.pgPaymentId}}</td>
                             <td>{{item.totalPayableAmount}}</td>
@@ -1252,7 +1252,7 @@
                     </table>
                 </div>
                 <div class="text-end mt-2">
-                    <pagination-controls (pageChange)="currentonetime= $event"></pagination-controls>
+                    <pagination-controls id='pagination3' (pageChange)="currentonetime= $event"></pagination-controls>
                 </div>
             </div>
         </div>
@@ -1268,7 +1268,7 @@
                         <label for="search">
                             <input (ngModelChange)="onSearchTextcustomized()" #input name="search" required
                                 autocomplete="off" placeholder="Search" id="search" type="text"
-                                [(ngModel)]="searchText">
+                                [(ngModel)]="searchTextcustomixed">
 
                             <div class="icon">
                                 <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
@@ -1321,7 +1321,7 @@
                             <th>Paid Date&Time</th>
                         </tr>
                         <tbody
-                            *ngFor="let item of otherDetails  | search: searchText | paginate: { itemsPerPage: itemsPerPage, currentPage: currentcustomized };let i=index">
+                            *ngFor="let item of otherDetails  | search: searchTextcustomixed | paginate: { id:'pagination4', itemsPerPage: itemsPerPage, currentPage: currentcustomized };let i=index">
                             <td>{{i+1}}</td>
                             <td>{{item.pgPaymentId}}</td>
                             <td>{{item.serviceName}}</td>
@@ -1354,7 +1354,7 @@
                     </table>
                 </div>
                 <div class="text-end mt-3">
-                    <pagination-controls (pageChange)="currentcustomized = $event"></pagination-controls>
+                    <pagination-controls id='pagination4' (pageChange)="currentcustomized = $event"></pagination-controls>
                 </div>
             </div>
         </div>
@@ -1369,7 +1369,7 @@
                     <form class="form">
                         <label for="search">
                             <input (ngModelChange)="onSearchTextsms()" #input name="search" required autocomplete="off"
-                                placeholder="Search" id="search" type="text" [(ngModel)]="searchText">
+                                placeholder="Search" id="search" type="text" [(ngModel)]="searchTextsms">
 
                             <div class="icon">
                                 <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
@@ -1438,10 +1438,14 @@
                             <th>Modified Date&Time</th>
                         </tr>
                         <tbody
-                            *ngFor="let item of smsDetails  | search: searchText | paginate: { itemsPerPage: itemsPerPage, currentPage: currentsms };let i=index">
+                            *ngFor="let item of smsDetails  | search: searchTextsms | paginate: { id:'pagination5', itemsPerPage: itemsPerPage, currentPage: currentsms };let i=index">
                             <td>{{i+1}}</td>
                             <td>{{item?.type?.smsTitle}}</td>
-                            <td>{{item?.type?.smsTempDescription}}</td>
+                         
+
+                            <td> <i style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
+                (click)="Smsdescription(item.type?.smsTempDescription)"></i>
+                             </td>
                             <td>{{item?.smsCount}}</td>
                             <td>{{item?.smsCharge }}</td>
                             <td class="text-center" [hidden]="valuesmsapproval!=='Sms Setting-Approval'">
@@ -1476,7 +1480,7 @@
                     </table>
                 </div>
                 <div class="text-end mt-3">
-                    <pagination-controls (pageChange)="currentsms = $event"></pagination-controls>
+                    <pagination-controls id='pagination5' (pageChange)="currentsms = $event"></pagination-controls>
                 </div>
             </div>
         </div>
@@ -1496,7 +1500,7 @@
                         <label for="search">
                             <input (ngModelChange)="onSearchTextagreement()" #input name="search" required
                                 autocomplete="off" placeholder="Search" id="search" type="text"
-                                [(ngModel)]="searchText">
+                                [(ngModel)]="searchTextargeement">
 
                             <div class="icon">
                                 <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
@@ -1563,7 +1567,7 @@
                             <th>Created Date&Time</th>
                         </tr>
                         <tbody
-                            *ngFor="let item of agreementdetails  | search: searchText | paginate: { itemsPerPage: itemsPerPage, currentPage: currentagreement };let i=index">
+                            *ngFor="let item of agreementdetails  | search: searchTextargeement | paginate: { id:'pagination6', itemsPerPage: itemsPerPage, currentPage: currentagreement };let i=index">
                             <td>{{i+1}}</td>
                             <td>{{item.commercialId?.planName}}</td>
                             <td>{{item.commercialId?.serviceFee}}</td>
@@ -1657,7 +1661,7 @@
                     </table>
                 </div>
                 <div class="text-end mt-3">
-                    <pagination-controls (pageChange)="currentagreement = $event"></pagination-controls>
+                    <pagination-controls id='pagination6' (pageChange)="currentagreement = $event"></pagination-controls>
                 </div>
             </div>
         </div>
@@ -1676,7 +1680,7 @@
                         <label for="search">
                             <input (ngModelChange)="onSearchTextbranch()" #input name="search" required
                                 autocomplete="off" placeholder="Search" id="search" type="text"
-                                [(ngModel)]="searchText">
+                                [(ngModel)]="searchTextbranch">
 
                             <div class="icon">
                                 <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
@@ -1741,7 +1745,7 @@
                             <th>Modified Date&Time</th>
                         </tr>
                         <tbody
-                            *ngFor="let item of branchget | search: searchText | paginate: { itemsPerPage: itemsPerPage, currentPage: currentbranch }; let i=index">
+                            *ngFor="let item of branchget | search: searchTextbranch | paginate: { id:'pagination7', itemsPerPage: itemsPerPage, currentPage: currentbranch }; let i=index">
                             <td>{{i+1}}</td>
 
                             <td>{{item.accountHolderName}}</td>
@@ -1785,7 +1789,7 @@
                     </table>
                 </div>
                 <div class="text-end mt-3">
-                    <pagination-controls (pageChange)="currentbranch = $event"></pagination-controls>
+                    <pagination-controls id='pagination7' (pageChange)="currentbranch = $event"></pagination-controls>
                 </div>
             </div>
         </div>

@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-merchant-logo',
@@ -21,7 +22,7 @@ export class MerchantLogoComponent {
   logoLink: any;
   logoLink1: any;
 
-  constructor(private service:FarginServiceService ,@Inject(MAT_DIALOG_DATA) public data:any,private dialog:MatDialog)  {}
+  constructor(private service:FarginServiceService ,@Inject(MAT_DIALOG_DATA) public data:any,private dialog:MatDialog, private toastr:ToastrService)  {}
 
   ngOnInit(): void {
 
@@ -92,6 +93,7 @@ converttohhttps(Url: string): string {
     this.service.EntitylogoUpdate(formData).subscribe((res:any)=>{
       if(res.flag==1){
         this.updatedata=res.response;
+        this.toastr.success(res.responseMessage);
       this.dialog.closeAll();
 
       }

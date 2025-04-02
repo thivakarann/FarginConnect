@@ -64,10 +64,15 @@ export class ViewAnnouncementComponent implements OnInit {
  
   filter: boolean = true;
   pageIndex1: number = 0;
+  maxDate: any;
 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
+
+    const today = new Date();
+    this.maxDate = moment(today).format('yyyy-MM-DD').toString()
+
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
@@ -119,7 +124,10 @@ export class ViewAnnouncementComponent implements OnInit {
 
   }
 
-
+  checkDate(){
+    this.toDate = ''
+    // this.FromDateRange =''
+  }
   renderPage(event: PageEvent) {
     // Capture the new page index and page size from the event
     this.pageIndex = event.pageIndex;  // Update current page index

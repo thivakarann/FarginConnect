@@ -77,7 +77,7 @@ mat-card-content tr:nth-child(odd) {
 }
 
 .mat-mdc-table .mdc-data-table__row {
-  height: 0px;
+  height: 45px;
 }
 
 .form {
@@ -202,7 +202,7 @@ mat-card-content tr:nth-child(odd) {
 
 
 .example-container {
-  max-height: 260px;
+  max-height: 300px;
 
   height: 100%;
   overflow: auto;

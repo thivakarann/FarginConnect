@@ -74,12 +74,18 @@ export class BranchTransactionsComponent {
   roleName = sessionStorage.getItem('roleName')
   valuestaticexport:any;
   branchterminalId: any;
+  maxDate: any;
 
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private ActivateRoute: ActivatedRoute, private router: Router, private location: Location) { }
 
 
 
   ngOnInit(): void {
+
+    const today = new Date();
+    this.maxDate = moment(today).format('yyyy-MM-DD').toString()
+
+    
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.merchantId=param.Alldata1;
       this.branchterminalId=param.Alldata;
@@ -126,6 +132,11 @@ export class BranchTransactionsComponent {
   }
 
 
+
+  checkDate(){
+    this.ToDateRange = ''
+    // this.FromDateRange =''
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

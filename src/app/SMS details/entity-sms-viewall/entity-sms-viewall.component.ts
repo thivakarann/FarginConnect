@@ -160,12 +160,37 @@ filters: boolean = false;
   }
 
   reload() {
-    window.location.reload()
+    this.service.SmsGetAll(this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.smsResponse = res.response;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+        this.dataSource = new MatTableDataSource(this.smsResponse);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+       this.filter=true;
+        this.filter1=false;
+      }
+      else if (res.flag == 2) {
+        this.filter=true;
+        this.filter1=false;
+        this.smsResponse = [];
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+       
+      }
+    })
   }
  
   exportexcel() {
     this.service.SmsGetAllExport().subscribe((res: any) => {
-      this.smsResponseexport = res.response.reverse();
+      this.smsResponseexport = res.response;
       if (res.flag == 1) {
         let sno = 1;
         this.responseDataListnew = [];

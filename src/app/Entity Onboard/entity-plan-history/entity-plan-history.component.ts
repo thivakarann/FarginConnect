@@ -56,6 +56,8 @@ export class EntityPlanHistoryComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.searchPerformed = filterValue.length > 0;
+
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
@@ -63,7 +65,20 @@ export class EntityPlanHistoryComponent implements OnInit {
 
 
   reload() {
-    window.location.reload()
+    this.service.MerchatPlandetails(this.Merchatid).subscribe((res:any)=>{
+      if(res.flag==1){
+      this.details = res.response;
+      this.dataSource = new MatTableDataSource(this.details)
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      }
+      else if (res.flag == 2) {
+        this.dataSource = new MatTableDataSource([]);
+        this.dataSource = new MatTableDataSource(this.details);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+    })
   }
 
   close(){
@@ -109,19 +124,19 @@ export class EntityPlanHistoryComponent implements OnInit {
    excelexportCustomer() {
       // const title='Business Category';
       const header = [
-        "SNo",
+        "S No",
         "Plan Name",
-        "Frequency",
+        "Cloud Fee Frequency",
         "Customer Onboard Limit",
-        "Setup Cost",
-        "Renewal Cost",
-        "Renewal Cost",
-        "VoiceBox AdvRent",
-        "VoiceBoxSetUp Cost",
+        "One Time Setup Cost",
+        "Yearly Renewal Fee",
+        "Cloud Fee",
+        "Voice Box Rent",
+        "Voice Box Setup Fee",
         "Created By",
         "Created Date/Time",
         "Modified By",
-        "Modified At"
+        "Modified Date/Time"
       ]
    
    

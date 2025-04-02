@@ -6,7 +6,7 @@
         <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="BankForm">
             <div class="row mb-3">
                 <div class="col-sm-4 form-group">
-                    <label for="Entity Name" class="form__label">AccountHolderName*</label>
+                    <label for="Entity Name" class="form__label">Account Holder Name</label>
                     <input type="text" id="Entity Name" formControlName="accountHolderName" class="form-control"
                         ngModel="{{this.bankData?.accountHolderName}}">
                     <div style="
@@ -25,11 +25,11 @@
                     position: relative;
                     ;
                   " *ngIf="accountHolderName?.invalid && accountHolderName?.touched && accountHolderName?.errors?.['pattern']">
-                        *Enter a valid Name
+                        Enter a valid Name
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
-                    <label for="state" class="form__label">Account Number*</label>
+                    <label for="state" class="form__label">Account Number </label>
                     <input type="text" formControlName="accountNumber" id="state" class="form-control"
                         ngModel="{{this.bankData?.accountNumber}}">
                     <div style="
@@ -48,7 +48,7 @@
                     position: relative;
                     ;
                   " *ngIf="accountNumber?.invalid && accountNumber?.touched && accountNumber?.errors?.['pattern']">
-                        *Enter a valid AccountNumber 
+                        Enter a valid AccountNumber 
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
@@ -108,7 +108,7 @@
                     position: relative;
                     ;
                   " *ngIf="branchName?.invalid && branchName?.touched && branchName?.errors?.['pattern']">
-                        *Enter a valid branch Name
+                        Enter a valid branch Name
                     </div>
                 </div>
 
@@ -143,7 +143,7 @@
             </div>
             <div class="row mb-3">
                 <div class="col-sm-4 form-group">
-                    <label for="Entity Name" class="form__label">IFSC Code*</label>
+                    <label for="Entity Name" class="form__label">IFSC Code</label>
                     <input type="text" id="Entity Name" formControlName="ifscCode" class="form-control"
                         ngModel="{{this.bankData?.ifscCode}}">
                     <div style="
@@ -162,7 +162,7 @@
                     position: relative;
                     ;
                   " *ngIf="ifscCode?.invalid && ifscCode?.touched && ifscCode?.errors?.['pattern']">
-                        *Enter a valid IFSC Code
+                        Enter a valid IFSC Code
                     </div>
                 </div>
                

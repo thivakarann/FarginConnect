@@ -46,8 +46,7 @@
 
         <span *ngIf="showcategoryData" style="text-align:center;color:red;">NO DATA FOUND</span>
         <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="!
-        showcategoryData
-        ">
+        showcategoryData">
             <ng-container matColumnDef="sno">
                 <th mat-header-cell *matHeaderCellDef> S.No</th>
                 <td mat-cell *matCellDef="let viewall; let i = index"> {{i+1}} </td>
@@ -60,12 +59,11 @@
             </ng-container>
             <ng-container matColumnDef="entityname">
                 <th mat-header-cell *matHeaderCellDef>Entity Name</th>
-                <td mat-cell *matCellDef="let transaction"> {{ transaction?.entityName }}
-                </td>
+                <td mat-cell *matCellDef="let transaction"> {{ transaction?.entityName ||transaction?.customerId?.merchantId?.entityName }}</td>
             </ng-container>
             <ng-container matColumnDef="customername">
                 <th mat-header-cell *matHeaderCellDef>Customer Name</th>
-                <td mat-cell *matCellDef="let transaction"> {{transaction?.customerName }}</td>
+                <td mat-cell *matCellDef="let transaction"> {{transaction?.customerName || transaction?.customerId?.customerName}}</td>
             </ng-container>
             <ng-container matColumnDef="customemobile">
                 <th mat-header-cell *matHeaderCellDef>Customer MobileNumber</th>
@@ -74,18 +72,18 @@
             <ng-container matColumnDef="service">
                 <th mat-header-cell *matHeaderCellDef>Service ProviderName</th>
                 <td mat-cell *matCellDef="let transaction">
-                    {{transaction?.serviceProviderName }}</td>
+                    {{transaction?.serviceProviderName || transaction?.customerStbId?.stbId?.service?.serviceProviderName }}</td>
             </ng-container>
 
             <ng-container matColumnDef="createdDateTime">
                 <th mat-header-cell *matHeaderCellDef>Due Generated At</th>
-                <td mat-cell *matCellDef="let transaction"> {{ transaction.createdDateTime | date : "dd-MM-yyyy hh:mm a"
-                    }}
+                <td mat-cell *matCellDef="let transaction"> {{ transaction.createdDateTime | date : "dd-MM-yyyy hh:mm a"}}
                 </td>
             </ng-container>
+
             <ng-container matColumnDef="setupbox">
                 <th mat-header-cell *matHeaderCellDef>Setupbox Number</th>
-                <td mat-cell *matCellDef="let transaction"> {{transaction?.setupBoxNumber }}</td>
+                <td mat-cell *matCellDef="let transaction"> {{transaction?.setupBoxNumber || transaction?.customerStbId?.stbId?.setupBoxNumber }}</td>
             </ng-container>
             <ng-container matColumnDef="paymentmethod">
                 <th mat-header-cell *matHeaderCellDef>Payment Method</th>
@@ -98,9 +96,7 @@
 
             <ng-container matColumnDef="paidAt">
                 <th mat-header-cell *matHeaderCellDef>Paid At</th>
-                <td mat-cell *matCellDef="let transaction"> {{ transaction.paymentDateTime | date : "dd-MM-yyyy hh:mm a"
-                    }}
-                </td>
+                <td mat-cell *matCellDef="let transaction"> {{ transaction.paymentDateTime | date : "dd-MM-yyyy hh:mm a"}}</td>
             </ng-container>
             <ng-container matColumnDef="status">
                 <th mat-header-cell *matHeaderCellDef>Status</th>
@@ -122,8 +118,7 @@
             </ng-container>
 
             <ng-container matColumnDef="Receipt">
-                <th mat-header-cell *matHeaderCellDef [hidden]="valuepaymentReceipt!=='Customer Payment-Receipt'">
-                    Receipt</th>
+                <th mat-header-cell *matHeaderCellDef [hidden]="valuepaymentReceipt!=='Customer Payment-Receipt'">Receipt</th>
                 <td mat-cell *matCellDef="let viewall" [hidden]="valuepaymentReceipt!=='Customer Payment-Receipt'">
                     <!-- <button class="btn btn-success btn-sm"  [disabled]="viewall?.paymentStatus!='Success'" >   <i  class="fas fa-receipt" (click)="Receipt(viewall.customerPayId)"></i></button> -->
                     <button class="btn btn-success btn-sm" [disabled]="viewall?.paymentStatus!='Success'"
@@ -135,8 +130,7 @@
             <ng-container matColumnDef="CheckStatus">
                 <th mat-header-cell *matHeaderCellDef
                     [hidden]="valuepaymentCheckStatus!=='Customer Payment-Check Status'">Check Status</th>
-                <td mat-cell *matCellDef="let transaction"
-                    [hidden]="valuepaymentCheckStatus!=='Customer Payment-Check Status'">
+                <td mat-cell *matCellDef="let transaction" [hidden]="valuepaymentCheckStatus!=='Customer Payment-Check Status'">
                     <button class="btn btn-primary btn-sm" [disabled]="transaction?.paymentStatus  != 'Initiated'"
                         (click)="track(transaction)" style="border-radius: 10px;background-color: #141E46;"> <i
                             style="font-size:15px;color:white;cursor: pointer;" class="fa">&#xf00c;</i></button>

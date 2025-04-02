@@ -174,6 +174,11 @@ if (this.signatureProofvalue) {
         identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Driving license format
     }
 
+
+    this.KycIdentityForm.get('identityProofNo')?.reset();
+  
+    this.KycIdentityForm.get('drivingLicenceDob')?.reset();
+    this.KycIdentityForm.get('passportDob')?.reset();
     // Revalidate based on the current input
     identityProofNoControl?.updateValueAndValidity();
 }
@@ -199,6 +204,14 @@ if (this.signatureProofvalue) {
         addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Driving license format
     }
 
+
+    
+
+    this.KycAddressForm.get('addressProofNo')?.reset();
+  
+    this.KycAddressForm.get('drivingLicenceDobs')?.reset();
+    this.KycAddressForm.get('passportDobs')?.reset();
+
     // Check if the input already has a value
     if (addressProofNoControl?.value) {
         addressProofNoControl?.updateValueAndValidity();
@@ -222,6 +235,12 @@ onasignproof(event: any) {
   } else if (this.select === 'Driving License') {
       signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Driving license format
   }
+
+  this.KycsignatureForm.get('signatureProofNo')?.reset();
+
+  this.KycsignatureForm.get('drivingLicenceDobss')?.reset();
+  this.KycsignatureForm.get('passportDobss')?.reset();
+
 
   // Check if the input already has a value
   if (signatureProofNoControl?.value) {
@@ -262,7 +281,7 @@ onasignproof(event: any) {
     const formData = new FormData;
     formData.append('addressProof', this.addressProof.value);
     formData.append('proofId', this.proofId);
-    formData.append('modifiedBy',this.getadminname);
+    formData.append('addressModifiedBy',this.getadminname);
     formData.append('addressProofNo', this.addressProofNo.value);
     formData.append('drivingLicenceDob', this.drivingLicenceDobs.value || this.DrivingDob);
     formData.append('passportDob', this.passportDobs.value || this.PassportDob);
@@ -286,7 +305,7 @@ onasignproof(event: any) {
     const formData = new FormData;
     formData.append('signatureProof', this.signatureProof.value);
     formData.append('proofId', this.proofId);
-    formData.append('modifiedBy',this.getadminname);
+    formData.append('signatureModifiedBy',this.getadminname);
     formData.append('signatureProofNo', this.signatureProofNo.value);
     formData.append('drivingLicenceDob', this.drivingLicenceDobss.value || this.DrivingDob);
     formData.append('passportDob', this.passportDobss.value || this.PassportDob);

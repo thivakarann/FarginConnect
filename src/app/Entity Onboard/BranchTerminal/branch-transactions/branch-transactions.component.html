@@ -1,9 +1,10 @@
 <div class="form-header d-flex justify-content-between align-items-center">
-    <h4 class="mb-0 text-center" style="color:black;">Branch Transactions</h4>
-    <button (click)="close()"  type="button" class="btn btn-secondary" mat-dialog-close>Back</button>
+   
+    <h5 style="text-align:left;color:#141E46;">Branch Transactions</h5>
+    <button style="color:white;background-color: #141E46; border-radius: .5rem;font-size: .875rem;padding:5px 5px;" (click)="close()">Back</button>
 </div>
 <div class="row mt-1">
-    <div class="col-2" style="margin-top:28px;">
+    <div class="col-2" style="margin-top:25px;">
         <div class="search ">
             <form class="form">
                 <label for="search">
@@ -40,29 +41,30 @@
    
     <div class="col-2">
         <label><b>{{"From Date"}}:</b></label>
-        <input class="form-control" type="date" name="FromDate" [(ngModel)]="FromDateRange"
+        <input class="form-control" type="date" name="FromDate" [(ngModel)]="FromDateRange" (change)="checkDate()" [max]="maxDate"
             style="height:35px;width:150px;border-radius: 5px;">
     </div>
     <div class="col-2">
         <label><b>{{"To Date" }}:</b></label>
-        <input class="form-control" type="date" name="ToDate" [(ngModel)]="ToDateRange"
+        <input class="form-control" type="date" name="ToDate" [(ngModel)]="ToDateRange" 
+        [min]="FromDateRange" [max]="maxDate"
             style="height:35px;width:150px;border-radius: 5px;">
     </div>
 
     <div class="col-1 mt-4">
-        <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
+        <button style="color:white;background-color: #141E46;border-radius: 10px; font-size: 12px;" mat-raised-button
             (click)="filterdate()">{{"Search"}}</button>
     </div>
 
     <div class="col-2 mt-4">
-        <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
+        <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button
             (click)="reset()">{{"Reset" }}</button>
     </div>
 
 </div>
 <!-- <mat-card> -->
 <mat-card-content>
-    <div class="example-container text-nowrap mt-2">
+    <div class="example-container text-nowrap mt-3">
         <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
       
             <ng-container matColumnDef="sno">
