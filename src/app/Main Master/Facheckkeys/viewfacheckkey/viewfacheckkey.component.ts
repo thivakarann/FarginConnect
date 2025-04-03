@@ -19,6 +19,7 @@ import { Statusfacheckkey } from '../../../fargin-model/fargin-model.module';
   styleUrl: './viewfacheckkey.component.css'
 })
 export class ViewfacheckkeyComponent {
+[x: string]: any;
   dataSource: any;
   displayedColumns: string[] = ["sno", "apikey", "secretKey", "mode", "Edit", "status", "createdBy", "createdDateTime", "modifiedBy", "modifiedDateTime"]
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -39,6 +40,9 @@ export class ViewfacheckkeyComponent {
   roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
+  copySuccess: boolean = false;
+  copiedIndex: number = -1;
+  copiedIndex2:number = -1;
 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
 
@@ -130,6 +134,30 @@ export class ViewfacheckkeyComponent {
       }
     });
   }
+
+  
+  copyText(text: string, index: number) {
+    const el = document.createElement('textarea');
+    el.value = text;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    this.copiedIndex = index;
+    setTimeout(() => this.copiedIndex = -1, 2000);
+  }
+  copyText1(text: string, index: number) {
+    const el = document.createElement('textarea');
+    el.value = text;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    this.copiedIndex2 = index;
+    setTimeout(() => this.copiedIndex2 = -1, 2000);
+  }
+
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -138,6 +166,8 @@ export class ViewfacheckkeyComponent {
       this.dataSource.paginator.firstPage();
     }
   }
+
+
   onSubmit(event: MatSlideToggleChange, id: any) {
     this.isChecked = event.checked;
 
@@ -145,6 +175,9 @@ export class ViewfacheckkeyComponent {
       activeStatus: this.isChecked ? 1 : 0,
 
     };
+
+
+    
 
     this.service.statusfacheck(id, submitModel).subscribe((res: any) => {
       
@@ -170,6 +203,8 @@ export class ViewfacheckkeyComponent {
       }, 500);
     });
   }
+  
+  
   add() {
 
     this.dialog.open(AddfacheckkeyComponent, {
@@ -198,6 +233,8 @@ export class ViewfacheckkeyComponent {
   
     })
   }
+  
+  
   Edit(id: string) {
     this.dialog.open(EditfacheckkeyComponent, {
       enterAnimationDuration: '500ms',

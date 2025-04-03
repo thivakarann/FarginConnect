@@ -354,6 +354,8 @@ export class SMSHistoryComponent {
         this.filter = true;
         this.filter1 = false;    
         this.filters = false;
+        this.FromDateRange='';
+        this.ToDateRange='';
       }
       else if (res.flag == 2) {
         this.message = res.responseMessage;
@@ -367,6 +369,8 @@ export class SMSHistoryComponent {
         this.dataSource = new MatTableDataSource(this.smsResponse);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator; 
+        this.FromDateRange='';
+        this.ToDateRange='';
       }
 
     })

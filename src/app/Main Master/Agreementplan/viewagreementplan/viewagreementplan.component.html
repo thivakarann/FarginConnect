@@ -64,7 +64,7 @@
 
       <ng-container matColumnDef="servicefee">
         <th mat-header-cell *matHeaderCellDef>Service Fee</th>
-        <td mat-cell *matCellDef="let data">{{data.serviceFee}}</td>
+        <td mat-cell *matCellDef="let data">{{data.serviceFee?.toFixed(2)}}</td>
       </ng-container>
       
       <ng-container matColumnDef="mmcamount">

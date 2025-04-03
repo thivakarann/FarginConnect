@@ -121,12 +121,15 @@ currentfilval: any;
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.details);
+        this.currentfilvalShow=false;
+
      
       } else if (res.flag === 2) {
         this.dataSource = new MatTableDataSource([]);
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage
+        this.currentfilvalShow=false;
      
 
       }
@@ -355,12 +358,14 @@ currentfilval: any;
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.details);
+        this.currentfilvalShow=false;
      
       } else if (res.flag === 2) {
         this.dataSource = new MatTableDataSource([]);
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage
+        this.currentfilvalShow=false;
      
 
       }
@@ -387,6 +392,7 @@ currentfilval: any;
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage
+            this.currentfilvalShow=true;
          
     
           }

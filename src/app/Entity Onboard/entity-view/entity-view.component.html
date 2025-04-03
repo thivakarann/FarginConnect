@@ -1584,10 +1584,14 @@
                                     (click)="copyText2(item.adminAgreementLink, i)"></i> <span
                                     *ngIf="copiedIndex2 === i" style="color: green;">Copied!</span> </td>
                             <td [hidden]="valueagreementlink!=='Entity View Agreement-Entity Agreement Link'"
-                                style="margin-top: 5px;"> {{item.agreementLink | slice: 0: 25}} <i
+                                style="margin-top: 5px;">
+                                 {{item.agreementLink | slice: 0: 25}}
+                                  <i
                                     class="fa-regular fa-copy" style="color: green; font-size: 18px;"
-                                    (click)="copyText1(item.agreementLink, i)"></i> <span *ngIf="copiedIndex === i"
-                                    style="color: green;">Copied!</span> </td>
+                                    (click)="copyText1(item.agreementLink, i)"></i>
+                                     <span *ngIf="copiedIndex === i"
+                                    style="color: green;">Copied!</span>
+                                     </td>
                             <td>{{item.expiryLink |date: "dd/MM/yyyy hh:mm a"}}</td>
                             <td [ngClass]="item.adminOtpStatus == 0 ? 'not-signed' : 'signed'">
                                 {{ item.adminOtpStatus == 0 ? 'Not Signed' : 'Signed' }}

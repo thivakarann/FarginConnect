@@ -68,12 +68,10 @@ export class AlacarteViewallComponent implements OnInit {
   viewallexport: any;
   pageIndex1: number = 0;
   pageSize1 = 5;
- 
-  totalpage1: any;
-  totalPages1: any;
-  currentpage1: any;
   filter: boolean = true;
   currentfilval: any;
+  currentfilvalShow!:boolean
+  viewalls: any;
 
   constructor(
     public AllcartViewall: FarginServiceService,
@@ -135,9 +133,11 @@ export class AlacarteViewallComponent implements OnInit {
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.viewall);
+          this.currentfilvalShow = false
         } else if (res.flag == 2) {
           this.viewall = [];
           this.dataSource = new MatTableDataSource(this.viewall);
+          this.currentfilvalShow = false
         }
       }
     );
@@ -156,11 +156,11 @@ export class AlacarteViewallComponent implements OnInit {
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.viewall);
+          this.currentfilvalShow = false
         } else if (res.flag == 2) {
           this.viewall = [];
           this.dataSource = new MatTableDataSource(this.viewall);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
+          this.currentfilvalShow = false
         }
       }
     );
@@ -211,11 +211,12 @@ export class AlacarteViewallComponent implements OnInit {
               this.totalpage = res.pagination.pageSize;
               this.currentpage = res.pagination.currentPage;
               this.dataSource = new MatTableDataSource(this.viewall);
-           
+              this.currentfilvalShow = false
           
             } else if (res.flag == 2) {
               this.viewall = [];
               this.dataSource = new MatTableDataSource(this.viewall);
+              this.currentfilvalShow = false
             
             }
            
@@ -406,20 +407,22 @@ export class AlacarteViewallComponent implements OnInit {
       ).subscribe({
         next: (res: any) => {
           if (res.response) {
-            this.viewall = res.response;
+            this.viewalls = res.response;
          
-            this.dataSource = new MatTableDataSource(this.viewall);
+            this.dataSource = new MatTableDataSource(this.viewalls);
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
+            this.currentfilvalShow = true
           
           } else if (res.flag === 2) {
-            this.viewall = [];
-            this.dataSource = new MatTableDataSource(this.viewall);
+            this.viewalls = [];
+            this.dataSource = new MatTableDataSource(this.viewalls);
 
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
+            this.currentfilvalShow = true
          
           }
         },
@@ -435,7 +438,7 @@ export class AlacarteViewallComponent implements OnInit {
 
 
   getData(event: any) {
-    if (this.currentfilval) {
+    if (this.currentfilvalShow) {
       this.AllcartViewall.AlcotSearch(
         this.currentfilval,
         event.pageSize,
@@ -443,22 +446,23 @@ export class AlacarteViewallComponent implements OnInit {
       ).subscribe({
         next: (res: any) => {
           if (res.response) {
-            this.viewall = res.response;
-            this.viewall.reverse();
-            this.dataSource = new MatTableDataSource(this.viewall);
+            this.viewalls = res.response;
+            this.dataSource = new MatTableDataSource(this.viewalls);
 
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
-            this.filter = true;
+          
+        
           } else if (res.flag === 2) {
-            this.viewall = [];
-            this.dataSource = new MatTableDataSource(this.viewall);
+            this.viewalls = [];
+            this.dataSource = new MatTableDataSource(this.viewalls);
 
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
-            this.filter = true;
+           
+         
           }
         },
         error: (err: any) => {
@@ -477,13 +481,12 @@ export class AlacarteViewallComponent implements OnInit {
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.viewall);
 
-          this.filter = false;
       } else {
           this.viewall = [];
           this.dataSource = new MatTableDataSource(this.viewall);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
-          this.filter = false;
+          
         }
       });
     }

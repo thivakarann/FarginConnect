@@ -249,19 +249,25 @@ currentfilVal: any;
               this.totalPages = res.pagination.totalElements;
               this.totalpage = res.pagination.totalPages;
               this.currentpage = res.pagination.currentPage + 1;
-              this.transaction.reverse();
               this.dataSource = new MatTableDataSource(this.transaction);
               this.dataSource.sort = this.sort;
               this.dataSource.paginator = this.paginator;
-              this.filter = false;
+             
               this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+              this.filter = true;
+              this.filter1 = false;
+              this.filter2 = false; 
+              this.filter3=false;     
             }
             else if (res.flag == 2) {
               this.transaction = [];
               this.dataSource = new MatTableDataSource(this.transaction);
               this.dataSource.sort = this.sort;
               this.dataSource.paginator = this.paginator;  
-              this.filter = false;
+              this.filter = true;
+              this.filter1 = false;
+              this.filter2 = false;
+              this.filter3=false;    
               this.message = res.responseMessage;
             }
       
@@ -283,19 +289,25 @@ currentfilVal: any;
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.totalPages;
         this.currentpage = res.pagination.currentPage + 1;
-        this.transaction.reverse();
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.filter = false;
+       
         this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+        this.filter = true;
+        this.filter1 = false;
+        this.filter2 = false; 
+        this.filter3=false;     
       }
       else if (res.flag == 2) {
         this.transaction = [];
         this.dataSource = new MatTableDataSource(this.transaction);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;  
-        this.filter = false;
+        this.filter = true;
+        this.filter1 = false;
+        this.filter2 = false;
+        this.filter3=false;    
         this.message = res.responseMessage;
       }
 

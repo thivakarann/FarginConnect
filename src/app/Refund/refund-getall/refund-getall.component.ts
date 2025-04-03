@@ -452,7 +452,41 @@ export class RefundGetallComponent {
     })
   }
   reset() {
-    window.location.reload();
+    this.service.RefundGetAll(this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.refund = res.response;
+
+        this.dataSource = new MatTableDataSource(this.refund);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+        this.filter = true;
+        this.filter1 = false;
+        this.filters = false;
+        this.FromDateRange='';
+        this.ToDateRange='';
+
+      }
+
+      else if (res.flag == 2) {
+        this.dataSource = new MatTableDataSource([]);
+        this.dataSource = new MatTableDataSource(this.refund);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+        this.filter = true;
+        this.filter1 = false;
+        this.filters = false;
+        this.FromDateRange='';
+        this.ToDateRange='';
+
+      }
+    });
   }
   renderPage2(event: PageEvent) {
     // Capture the new page index and page size from the event

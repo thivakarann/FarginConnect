@@ -24,8 +24,8 @@ export class AddStickerComponent  {
   ngOnInit(): void {
 
     this.myForm = new FormGroup({
-      stickerPerAmount: new FormControl('', [Validators.required]),
-      deliveryDays: new FormControl('', [Validators.required]),
+      stickerPerAmount: new FormControl('', [Validators.required,Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
+      deliveryDays: new FormControl('', [Validators.required,Validators.pattern('^(0|[1-9][0-9]*)$')]),
       createdBy: new FormControl('')
     });
   }

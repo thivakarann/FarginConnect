@@ -42,6 +42,8 @@ export class PgsetupViewComponent implements OnInit {
   roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
+  copiedIndex:number = -1;
+  copiedIndex1:number = -1;
 
 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
@@ -128,6 +130,28 @@ export class PgsetupViewComponent implements OnInit {
     });
   }
 
+
+  copyText(text: string, index: number) {
+    const el = document.createElement('textarea');
+    el.value = text;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    this.copiedIndex = index;
+    setTimeout(() => this.copiedIndex = -1, 2000);
+  }
+
+  copyText1(text: string, index: number) {
+    const el = document.createElement('textarea');
+    el.value = text;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    this.copiedIndex1 = index;
+    setTimeout(() => this.copiedIndex = -1, 2000);
+  }
 
 
 

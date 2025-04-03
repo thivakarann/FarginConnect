@@ -25,7 +25,7 @@ export class AddagreementplanComponent {
       planName: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9 ]*$')]),
-      servicefee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
+      servicefee: new FormControl('', [Validators.required, Validators.pattern('((0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$)|^[a-zA-Z]+$')]),
       netBankingAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
       netBankingPercentage: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),
       netBankingFixedFee: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$')]),

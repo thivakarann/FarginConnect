@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FarginServiceService } from '../../../service/fargin-service.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-image-bussinessdocument',
@@ -18,8 +19,7 @@ export class ImageBussinessdocumentComponent {
   file1: any;
   file2: any;
   updatedata: any;
-   
-  constructor(private service: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog) {}
+  constructor(private service: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog,private toastr:ToastrService) {}
    
   ngOnInit(): void {
     this.id = this.data.value;
@@ -123,6 +123,7 @@ export class ImageBussinessdocumentComponent {
       this.service.documentFrontedit(formData).subscribe((res: any) => {
         if (res.flag === 1) {
           this.updatedata = res.response;
+          this.toastr.success(res.responseMessage)
           this.dialog.closeAll();
        
         }
@@ -134,6 +135,7 @@ export class ImageBussinessdocumentComponent {
       this.service.documentBackedit(formData).subscribe((res: any) => {
         if (res.flag === 1) {
           this.updatedata = res.response;
+          this.toastr.success(res.responseMessage)
           this.dialog.closeAll();
         
         }

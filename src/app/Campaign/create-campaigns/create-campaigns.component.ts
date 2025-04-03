@@ -154,19 +154,30 @@ uploadBulkFile(event: Event): void {
   const inputElement = event.target as HTMLInputElement;
   const file = inputElement.files?.[0] ?? null;
   this.file = file;
- 
+
   if (!this.file) {
       this.toastr.error('No file selected');
       console.error('No file selected');
+      inputElement.value = ''; // Reset input field
       return;
   }
- 
+
   const fileExtension = this.file.name.split('.').pop()?.toLowerCase();
   const mimeType = this.file.type;
- 
-  if (fileExtension === 'pdf' || mimeType === 'application/pdf') {
-      this.toastr.error('PDF files are not accepted');
-      console.error('PDF files are not accepted');
+
+  // Reject specific file types: PDF, JPEG, PNG, GIF
+  const rejectedExtensions = ['pdf', 'jpeg', 'jpg', 'png', 'gif'];
+  const rejectedMimeTypes = [
+      'application/pdf',
+      'image/jpeg',
+      'image/png',
+      'image/gif',
+  ];
+
+  if (rejectedExtensions.includes(fileExtension) || rejectedMimeTypes.includes(mimeType)) {
+      this.toastr.error('File type not acceptable Only it has Accept the Excel');
+      console.error('File type not acceptable');
+      inputElement.value = ''; // Reset input field
       return;
   }
  

@@ -1651,6 +1651,7 @@ export class EntityViewComponent implements OnInit {
     this.copySuccess = true;
     setTimeout(() => this.copySuccess = false, 2000);
   }
+  
   copyApikey(text: string, index: number) {
     const el = document.createElement('textarea');
     el.value = text;

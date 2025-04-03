@@ -34,7 +34,7 @@
             </div>&nbsp;&nbsp;&nbsp;
             <!-- <button  style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Go</button> -->
             &nbsp;
-            <button [hidden]="valueTerminalAdd!=='Entity Terminal View-Add'" (click)="CreateEntityTerminal(this.merchantId)" style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" class="custom-btn btn-10 me-3"
+            <button [hidden]="valueTerminalAdd!=='Terminal Entity-Add'" (click)="CreateEntityTerminal(this.merchantId)" style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" class="custom-btn btn-10 me-3"
                 data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button >Create</button>
             <!-- <button style="color:white;background-color: #141E46;border-radius: 10px;" 
                 mat-raised-button>Export</button> -->
@@ -66,9 +66,9 @@
             </ng-container>
 
             <ng-container matColumnDef="status">
-                <th  [hidden]="valueTerminalStatus!=='Entity Terminal View-Status'" mat-header-cell *matHeaderCellDef mat-sort-header>
+                <th  [hidden]="valueTerminalStatus!=='Terminal Entity-Status'" mat-header-cell *matHeaderCellDef mat-sort-header>
                     Status</th>
-                <td  [hidden]="valueTerminalStatus!=='Entity Terminal View-Status'" mat-cell *matCellDef="let data">
+                <td  [hidden]="valueTerminalStatus!=='Terminal Entity-Status'" mat-cell *matCellDef="let data">
                     <mat-slide-toggle
                     class="example-margin"
                     color="primary"
@@ -79,18 +79,18 @@
             </ng-container>
             
             <ng-container matColumnDef="View">
-                <th [hidden]="valueTerminalview!=='Entity Terminal View Transaction-View'" mat-header-cell *matHeaderCellDef mat-sort-header
+                <th [hidden]="valueTerminalview!=='Terminal Entity Transaction-View'" mat-header-cell *matHeaderCellDef mat-sort-header
                   >View</th>
-                <td [hidden]="valueTerminalview!=='Entity Terminal View Transaction-View'" style="cursor: pointer;" mat-cell *matCellDef="let viewall" 
+                <td [hidden]="valueTerminalview!=='Terminal Entity Transaction-View'" style="cursor: pointer;" mat-cell *matCellDef="let viewall" 
                   (click)="transactions(viewall?.entityTerminalId,viewall?.entityModel?.merchantId)" >
                     <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="edit">
-                <th [hidden]="valueTerminalEdit!=='Entity Terminal View-Edit'" mat-header-cell *matHeaderCellDef mat-sort-header >Action
+                <th [hidden]="valueTerminalEdit!=='Terminal Entity-Edit'" mat-header-cell *matHeaderCellDef mat-sort-header >Action
                 </th>
-                <td [hidden]="valueTerminalEdit!=='TEntity Terminal View-Edit'" style="text-wrap: wrap" mat-cell *matCellDef="let data">
+                <td [hidden]="valueTerminalEdit!=='Terminal Entity-Edit'" style="text-wrap: wrap" mat-cell *matCellDef="let data">
                     <i (click)="EditTerminal(data)" class="fa fa-edit"></i>
                 </td>
             </ng-container>

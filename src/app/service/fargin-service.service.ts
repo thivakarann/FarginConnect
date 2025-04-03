@@ -174,6 +174,7 @@ export class FarginServiceService {
 
   //customers
   private readonly Entitycustomerview = 'customer/viewbymerchant/';
+  private readonly EntityCustomerviewsearchs='customer/customersSearch/'
   private readonly customerview = 'customer/viewById/';
   private readonly customertransaction = 'customerpay/viewcustomers/';
 
@@ -526,6 +527,7 @@ export class FarginServiceService {
   private readonly Autodebitgetall = 'merchantdue/getall/';
   private readonly autodebitgetallexport = 'merchantdue/getall';
   private readonly Autodebitbymerchat = 'merchantdue/viewbymerchant/';
+  private readonly autodebitbymerchatsearchs='merchantdue/search/'
 
 
   //anouncement
@@ -676,7 +678,7 @@ export class FarginServiceService {
   //survey  search
   private readonly surveysearch = 'surveyQuestion/advanceSearch/';
 
-  private readonly refundgetall = 'refund/getall/';
+  private readonly refundgetall = 'refund/getOnlineRefunds/';
   private readonly refundsearch = 'refund/getall/';
   private readonly refundforcustomer = 'refund/getcustomer/';
   private readonly refundexport = 'refund/getall';
@@ -1362,6 +1364,9 @@ private readonly customeradditionaltransactionsearchs='customerotherpayment/view
 
   EntityCustomerview(id: any, id1: any, id2: any) {
     return this.http.get(`${this.basePath}${this.Entitycustomerview}${id}/${id1}/${id2}`, this.options)
+  }
+  EntityCustomerviewsearch(id: any, id1: any, id2: any,id3:any) {
+    return this.http.get(`${this.basePath}${this.EntityCustomerviewsearchs}${id}/${id1}/${id2}/${id3}`, this.options)
   }
 
   ViewCustomerDetails(id: any) {
@@ -2261,6 +2266,9 @@ private readonly customeradditionaltransactionsearchs='customerotherpayment/view
   }
   autodebitbymerchat(id: any, id1: any, id2: any) {
     return this.http.get(`${this.basePath}${this.Autodebitbymerchat}${id}/${id1}/${id2}`, this.options)
+  }
+  autodebitbymerchatsearch(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.autodebitbymerchatsearchs}${id}/${id1}/${id2}`, this.options)
   }
 
   //announcement
