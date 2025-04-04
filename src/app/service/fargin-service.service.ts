@@ -527,7 +527,7 @@ export class FarginServiceService {
   private readonly Autodebitgetall = 'merchantdue/getall/';
   private readonly autodebitgetallexport = 'merchantdue/getall';
   private readonly Autodebitbymerchat = 'merchantdue/viewbymerchant/';
-  private readonly autodebitbymerchatsearchs='merchantdue/search/'
+  private readonly autodebitbymerchatsearchs='merchantdue/entitySearch/'
 
 
   //anouncement
@@ -2267,8 +2267,9 @@ private readonly customeradditionaltransactionsearchs='customerotherpayment/view
   autodebitbymerchat(id: any, id1: any, id2: any) {
     return this.http.get(`${this.basePath}${this.Autodebitbymerchat}${id}/${id1}/${id2}`, this.options)
   }
-  autodebitbymerchatsearch(id: any, id1: any, id2: any) {
-    return this.http.get(`${this.basePath}${this.autodebitbymerchatsearchs}${id}/${id1}/${id2}`, this.options)
+
+  autodebitbymerchatsearch(id: any, id1: any, id2: any, id3:any) {
+    return this.http.get(`${this.basePath}${this.autodebitbymerchatsearchs}${id}/${id1}/${id2}/${id3}`, this.options)
   }
 
   //announcement

@@ -7,7 +7,7 @@
 }
 
 .container{
-  width:400px;
+  width:700px;
 }
  
 button {
@@ -105,3 +105,26 @@ button {
 .form__label{
   font-weight: 500;
 }
+
+/* Flexbox for alignment */
+.option-content {
+  display: flex;
+  gap: 10px;
+  align-items: center; /* Vertically center the content */
+  justify-content: space-between; /* Space out title and icon */
+}
+
+
+i {
+  background-color: deepskyblue;
+  color: white;
+  line-height: 5px;
+  border: 1px solid;
+  border-radius: 24px;
+  padding: 9px;
+  padding-bottom: 11px;
+  cursor: pointer;
+}
+
+
+

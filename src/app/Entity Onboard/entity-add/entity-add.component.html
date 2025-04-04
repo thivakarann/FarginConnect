@@ -965,7 +965,36 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="form__row">
+                        <div class="form__linput">
+                                <label  *ngIf="selectElements == 'Driving License'" class="form__label"><b>Date of Birth</b></label>
+                                <label *ngIf="selectElements == 'Passport'" class="form__label"><b>Date of Birth </b></label>
+        
+                                <input
+                                *ngIf="selectElements =='Driving License'"
+                                    
+                                    class="form-control"  type="date"
+                                    formControlName="drivingLicenceDobs"
+                                   
+                                    [max]="today" />
+        
+                                    <input
+                                    *ngIf="selectElements =='Passport'"
+                                    
+                                    class="form-control"  type="date"
+                                    formControlName="passportDobs"
+                                    [max]="today" />
+                            <div *ngIf="(selectElements === 'Driving License' ? drivingLicenceDobs : passportDobs)?.invalid &&
+                                         (selectElements === 'Driving License' ? drivingLicenceDobs : passportDobs)?.touched &&
+                                         (selectElements  === 'Driving License' ? drivingLicenceDobs : passportDobs)?.errors?.['required']"
+                                style="color: red; font-size: 12px;">
+                                Field is required
+                            </div>
+                        </div>
+                        <div class="form__linput">
+        
+                        </div>
+                    </div>
                
                     <div>
                         <button mat-raised-button matStepperPrevious>Back</button>

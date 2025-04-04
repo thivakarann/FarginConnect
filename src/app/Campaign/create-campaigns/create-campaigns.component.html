@@ -63,11 +63,14 @@
                  *ngIf="uploadFile?.invalid && uploadFile?.touched && uploadFile?.errors?.['required']">
                 Field is required
             </div>
+         
             <div class="note">
-              <p>
-                  <i class="icon-info"></i>
-                 Note : Only Excel-compatible files are accepted. PNG, JPEG, GIF, and other file types are not supported.
-              </p>
+            
+            
+              <ul >
+                <li>Only Excel-compatible files are accepted. PNG, JPEG, GIF, and other file types are not supported.</li>
+                <li style="color:red">Maximum 500 Records Only Allowed to Upload For Single Time</li>
+              </ul>
           </div>
         </div>
         

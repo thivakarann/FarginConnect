@@ -41,6 +41,15 @@ export class EntityAutoDebitByIdComponent implements OnInit {
   pageIndex: number = 0;
   pageSize = 5;
 searchPerformed: boolean =false;
+
+filter:boolean=false;
+pageSize1= 5;
+pageIndex1: number = 0;
+currentfilval: any;
+  overallcustomer: any;
+  totalPages1: any;
+  totalpage1: any;
+  currentpage1: any;
   constructor(
     public autodebitdetailsbyid: FarginServiceService,
     private router: Router,
@@ -61,11 +70,12 @@ searchPerformed: boolean =false;
         this.totalPages = res.pagination?.totalElements;
         this.totalpage = res.pagination.totalPages;
         this.currentpage = res.pagination.currentPage + 1;
-        this.viewall.reverse();
+    
         this.dataSource = new MatTableDataSource(this.viewall);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
         this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+        this.filter=false;
       }
       else if (res.flag === 2) {
         this.viewall = [];
@@ -75,7 +85,7 @@ searchPerformed: boolean =false;
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.totalPages;
         this.currentpage = res.pagination.currentPage + 1;
- 
+        this.filter=false;
       }
    
     
@@ -84,7 +94,34 @@ searchPerformed: boolean =false;
   }
 
   reload() {
-    window.location.reload()
+    this.autodebitdetailsbyid.autodebitbymerchat(this.id, this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if(res.flag==1)
+      {
+        this.viewall = res.response;
+        this.totalPages = res.pagination?.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+    
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+        this.filter=false;
+      }
+      else if (res.flag === 2) {
+        this.viewall = [];
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
+        this.filter=false;
+      }
+   
+    
+
+    });
   }
 
 
@@ -123,5 +160,68 @@ searchPerformed: boolean =false;
       pageSize: this.pageSize,
       // length: this.totalItems
     } as PageEvent);
+  }
+
+
+  renderPage1(event: PageEvent) {
+    // Capture the new page index and page size from the event
+    this.pageIndex1 = event.pageIndex;  // Update current page index
+    this.pageSize1 = event.pageSize;           // Update page size (if changed)
+ 
+    // Log the new page index and page size to the console (for debugging)
+    console.log('New Page Index:', this.pageIndex1);
+    console.log('New Page Size:', this.pageSize1);
+ 
+    // You can now fetch or display the data for the new page index
+    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
+    this.customer(this.currentfilval);
+  }
+ 
+  changePageIndex1(newPageIndex1: number) {
+    this.pageIndex1 = newPageIndex1;
+    this.renderPage1({
+      pageIndex: newPageIndex1,
+      pageSize: this.pageSize1,
+      // length: this.totalItems
+    } as PageEvent);
+  }
+
+   customer(filterValue: string) {
+  
+    if (filterValue) {
+
+    this.autodebitdetailsbyid.autodebitbymerchatsearch(this.id, filterValue,this.pageSize1,this.pageIndex1).subscribe({
+      next: (res: any) => {
+        if (res.response) {
+          this.overallcustomer = res.response;
+          this.dataSource = new MatTableDataSource(this.overallcustomer);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.totalPages1 = res.pagination.totalElements;
+          this.totalpage1 = res.pagination.totalPages;
+          this.currentpage1 = res.pagination.currentPage + 1;
+          this.filter=true;
+
+        }
+        else if (res.flag === 2) {
+          this.overallcustomer = [];
+          this.dataSource = new MatTableDataSource(this.overallcustomer);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.totalPages1 = res.pagination.totalElements;
+          this.totalpage1 = res.pagination.totalPages;
+          this.currentpage1 = res.pagination.currentPage + 1;
+          this.filter=true;
+        }
+      },
+      error: (err: any) => {
+        this.toastr.error('No Data Found');
+      }
+    });
+  }
+  else if (!filterValue) {
+    this.toastr.error('Please enter a value to search');
+    return;
+  }
   }
 }

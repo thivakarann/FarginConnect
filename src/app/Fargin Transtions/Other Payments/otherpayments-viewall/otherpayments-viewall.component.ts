@@ -575,7 +575,7 @@ currentfilVal: any;
       this.totalPages = res.pagination.totalElements;
       this.totalpage = res.pagination.totalPages;
       this.currentpage = res.pagination.currentPage + 1;
-      this.transaction.reverse();
+      // this.transaction.reverse();
       this.dataSource = new MatTableDataSource(this.transaction);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
@@ -782,11 +782,16 @@ console.log(filterValue)
     }
     }
     
-    onDropdownChange(event: any): void {
-      this.selectedOption = event.value.entityName;
-      this.merchantId = event.value?.merchantId;
-      this.closeDropdown();
+    onDropdownChange(selectedItem: any): void {
+      console.log(selectedItem)
+      if (selectedItem) {
+          this.selectedOption = selectedItem.merchantId;
+          this.search1 = selectedItem.entityName;
+          this.merchantId = this.selectedOption;
+          console.log(this.merchantId);
+      }
     }
+     
     closeDropdown(): void {
   
     }
@@ -799,12 +804,7 @@ console.log(filterValue)
             merchantId: item.merchantId
           }));
           
-          if (this.options.length > 0) {
-            this.selectedOption = this.options[0];
-            this.onDropdownChange({ value: this.selectedOption });
-          }
-
-        } else {
+            } else {
           this.toastr.error(res.responseMessage);
         }
       },

@@ -621,7 +621,7 @@ export class ViewCampaignsComponent {
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
-      // let qty2 = row.getCell(3);
+      let qty2 = row.getCell(3);
       // let qty3 = row.getCell(4);
 
 
@@ -637,12 +637,12 @@ export class ViewCampaignsComponent {
         bottom: { style: 'thin' },
         right: { style: 'thin' },
       };
-      //  qty2.border = {
-      //   top: { style: 'thin' },
-      //   left: { style: 'thin' },
-      //   bottom: { style: 'thin' },
-      //   right: { style: 'thin' },
-      // };
+       qty2.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
       // qty3.border = {
       //   top: { style: 'thin' },
       //   left: { style: 'thin' },

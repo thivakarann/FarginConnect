@@ -57,6 +57,7 @@ export class BranchCustomerViewComponent implements OnInit {
   filter: boolean = false;
   currentfilval: any;
   searchPerformed: boolean = false;
+  branchcustviews: any;
 
   constructor(
     private service: FarginServiceService,
@@ -79,8 +80,6 @@ export class BranchCustomerViewComponent implements OnInit {
       if (res.flag == 1) {
         this.branchcustview = res.response.customerList;
         this.branchoverallresponse = res.response;
-
-        this.branchcustview.reverse();
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.totalPages;
         this.currentpage = res.pagination.currentPage + 1;
@@ -110,8 +109,6 @@ export class BranchCustomerViewComponent implements OnInit {
       if (res.flag == 1) {
         this.branchcustview = res.response.customerList;
         this.branchoverallresponse = res.response;
-
-        this.branchcustview.reverse();
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.totalPages;
         this.currentpage = res.pagination.currentPage + 1;
@@ -179,9 +176,9 @@ export class BranchCustomerViewComponent implements OnInit {
       this.service.BranchCustomerSearch(this.id, filterValue, this.pageSize1, this.pageIndex1).subscribe({
         next: (res: any) => {
           if (res.response) {
-            this.branchcustview = res.response.content;
-            this.branchcustview.reverse();
-            this.dataSource = new MatTableDataSource(this.branchcustview);
+            this.branchcustviews = res.response.customerList;
+         
+            this.dataSource = new MatTableDataSource(this.branchcustviews);
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
             this.totalPages1 = res.pagination.totalElements;
@@ -191,8 +188,8 @@ export class BranchCustomerViewComponent implements OnInit {
 
           }
           else if (res.flag === 2) {
-            this.branchcustview = [];
-            this.dataSource = new MatTableDataSource(this.branchcustview);
+            this.branchcustviews = [];
+            this.dataSource = new MatTableDataSource(this.branchcustviews);
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
             this.totalPages1 = res.pagination.totalElements;

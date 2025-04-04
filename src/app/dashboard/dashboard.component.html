@@ -225,13 +225,13 @@
               </a>
               <div class="sidebar-submenu">
                 <ul>
-                  <li>
-                  <li [hidden]="valueRegion!=='Region'">
-                    <a routerLink="Region">Region</a>
-                  </li>
                   <li [hidden]="ValueMSO!=='MSO'">
                     <a routerLink="service-provider">MSO</a>
                   </li>
+                  <li [hidden]="valueRegion!=='Region'">
+                    <a routerLink="Region">Region</a>
+                  </li>
+                 
                 </ul>
               </div>
 
@@ -254,10 +254,6 @@
 
               <div class="sidebar-submenu">
                 <ul>
-                  <li [hidden]="valuechannelConfiguration!=='Channel Creation'">
-                    <a routerLink="alacarte-viewall">Channel Creation
-                    </a>
-                  </li>
                   <li [hidden]="valueBroadcasterConfiguration!=='Broadcaster Creation'">
                     <a routerLink="bouquatename-viewall">Broadcaster Creation</a>
                   </li>
@@ -271,6 +267,16 @@
                   <li [hidden]="valueBroadcasterBouqutes!=='Broadcaster Bouqutes'">
                     <a routerLink="bouquets-viewall">Broadcaster Bouquets</a>
                   </li>
+
+                  <li [hidden]="valuechannelConfiguration!=='Channel Creation'">
+                    <a routerLink="alacarte-viewall">Channel Creation
+                    </a>
+                  </li>
+                
+
+             
+
+             
                   <!-- 
                <li>
                  <a routerLink="dpoviewall">DPO Bouqutes</a>
@@ -316,20 +322,9 @@
                     <a routerLink="merchant-plan-viewall">Entity Plan</a>
                   </li>
 
-                  <li [hidden]="valuebankdetails!=='Bank Details'">
-                    <a routerLink="bank-viewall">Bank Details </a>
+                  <li [hidden]="valueBusinessPlan!=='Business Plan'">
+                    <a routerLink="agreementplan">Business Plan</a>
                   </li>
-                  <li [hidden]="valuerefundper!=='Refund Period'">
-                    <a routerLink="refund-period-viewall">Refund Period</a>
-                  </li>
-                  <li [hidden]="valueFacheck!=='FaCheck Key'">
-                    <a routerLink="viewfacheckkey">Facheck Key</a>
-                  </li>
-
-                  <li [hidden]="valuepgsetupkey!=='PG SetupKey'">
-                    <a routerLink="pgsetup-view">PG Setupkey</a>
-                  </li>
-
                   <li [hidden]="valuesmscost!=='SMS Cost'">
                     <a routerLink="sms-cost-viewall">SMS Cost</a>
                   </li>
@@ -338,15 +333,33 @@
                     <a routerLink="sticker-view">Sticket Cost</a>
                   </li>
 
+                  <li [hidden]="valuebankdetails!=='Bank Details'">
+                    <a routerLink="bank-viewall">Bank Details </a>
+                  </li>
                   <li [hidden]="valuefarginbank!=='Fargin bank'">
                     <a routerLink="fargin-viewall">Fargin bank details </a>
                   </li>
-                  <li [hidden]="valueBusinessPlan!=='Business Plan'">
-                    <a routerLink="agreementplan">Business Plan</a>
-                  </li>
+
                   <li [hidden]="valueSignerDetails!=='Signer Details'">
                     <a routerLink="signer-getall">Signer Details</a>
                   </li>
+                 
+                  <li [hidden]="valueFacheck!=='FaCheck Key'">
+                    <a routerLink="viewfacheckkey">Facheck Key</a>
+                  </li>
+
+                  <li [hidden]="valuepgsetupkey!=='PG SetupKey'">
+                    <a routerLink="pgsetup-view">PG Setupkey</a>
+                  </li>
+                  <li [hidden]="valuerefundper!=='Refund Period'">
+                    <a routerLink="refund-period-viewall">Refund Period</a>
+                  </li>
+
+                 
+
+                 
+              
+            
 
 
                   <!-- <li [hidden]="valueWithdrawalfee!=='Withdrawal Fee'">

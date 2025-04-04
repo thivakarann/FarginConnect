@@ -755,11 +755,16 @@ export class ServicePaymentsViewallComponent {
     }
     }
   
-    onDropdownChange(event: any): void {
-      this.selectedOption = event.value.entityName;
-      this.merchantId = event.value?.merchantId;
-      this.closeDropdown();
+    onDropdownChange(selectedItem: any): void {
+      console.log(selectedItem)
+      if (selectedItem) {
+          this.selectedOption = selectedItem.merchantId;
+          this.search1 = selectedItem.entityName;
+          this.merchantId = this.selectedOption;
+          console.log(this.merchantId);
+      }
     }
+     
     closeDropdown(): void {
   
     }
@@ -771,10 +776,7 @@ export class ServicePaymentsViewallComponent {
             entityName: item.entityName,
             merchantId: item.merchantId
           }));
-          if (this.options.length > 0) {
-            this.selectedOption = this.options[0];
-            this.onDropdownChange({ value: this.selectedOption });
-          }
+         
         } else {
           this.toastr.error(res.responseMessage);
         }

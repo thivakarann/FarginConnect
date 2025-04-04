@@ -105,7 +105,7 @@
       </ng-container>
 
       <ng-container matColumnDef="accountHolderName">
-        <th mat-header-cell *matHeaderCellDef>Account HolderName</th>
+        <th mat-header-cell *matHeaderCellDef>Account Holder Name</th>
         <td mat-cell *matCellDef="let data">
           {{data.accountHolderName}}
         </td>
@@ -146,7 +146,7 @@
           {{ data.modifiedAt}}
         </td>
       </ng-container> -->
-      <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true
+      <tr mat-header-row *matHeaderRowDef="displayedColumns;
       "></tr>
       <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
       <tr *matNoDataRow>

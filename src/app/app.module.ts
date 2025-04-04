@@ -282,6 +282,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { UpdateStickerTicketComponent } from './Tickets/update-sticker-ticket/update-sticker-ticket.component';
 import { OfflineDetailsComponent } from './Overall-Customer/offline-details/offline-details.component';
 import { SmsDescriptionComponent } from './Entity Onboard/sms-description/sms-description.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -547,6 +548,7 @@ import { SmsDescriptionComponent } from './Entity Onboard/sms-description/sms-de
 
   imports: [
     BrowserModule,
+    MatTooltipModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,

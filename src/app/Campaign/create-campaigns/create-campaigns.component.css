@@ -173,7 +173,7 @@ mat-select {
   gap: 8px;
 }
 
-.note p {
+.note ul li {
   margin: 0;
   line-height: 1.4;
 }

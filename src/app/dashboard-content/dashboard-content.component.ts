@@ -538,14 +538,40 @@ export class DashboardContentComponent {
     const chartData = {
       labels: ['Total', 'Success', 'Failed', 'Pending'],
       datasets: [
+      
         {
-          label: 'Transaction Overview',
-          data: [totalCount, successCount, failedCount, pendingCount],
-          backgroundColor: ['#4CAF50', '#2196F3', '#f44336', '#FFC107'],
+          label: 'Total',
+          data: [totalCount, 0, 0, 0],
+          backgroundColor: '#4CAF50',
           borderWidth: 1,
           borderColor: '#000',
           barThickness: 80,
         },
+        {
+          label: 'Success',
+          data: [0, successCount, 0, 0],
+          backgroundColor: '#2196F3',
+          borderWidth: 1,
+          borderColor: '#000',
+          barThickness: 80,
+        },
+        {
+          label: 'Failed',
+          data: [0, 0, failedCount, 0],
+          backgroundColor: '#f44336',
+          borderWidth: 1,
+          borderColor: '#000',
+          barThickness: 80,
+        },
+        {
+          label: 'Pending',
+          data: [0, 0, 0, pendingCount],
+          backgroundColor: '#FFC107',
+          borderWidth: 1,
+          borderColor: '#000',
+          barThickness: 80,
+        },
+
       ],
     };
     if (this.barChart) {

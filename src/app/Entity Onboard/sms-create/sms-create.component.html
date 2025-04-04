@@ -31,12 +31,18 @@
                     <label for="Entity Name">SMS Templates </label>
                     <mat-select #selects style="font-size: 12px;" class="form-select" multiple formControlName="smsFor">
                         <div class="select-all">
-                            <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
+                            <mat-checkbox [(ngModel)]="allSelected"  [ngModelOptions]="{standalone: true}"
                                 (change)="toggleAllSelection()">Select All</mat-checkbox>
                         </div>
                         <mat-option [value]="items.smsTempId" *ngFor="let items of freepaid">
      
-                            {{items?.smsTitle}}</mat-option>
+                            <div class="option-content">
+                                <span>{{items?.smsTitle}}</span>
+                                <i  class="fa-solid fa-info"
+                                 matTooltip="{{items?.smsTempDescription}}"
+                                 ></i>
+                              </div>
+                        </mat-option> 
                     </mat-select>
                     <div style="
             color: red;
