@@ -1,3 +1,22 @@
-<div *ngIf="this.loader.getLoading()" class="cssload-container">
-    <div class="cssload-speeding-wheel"></div>
+<!-- <div *ngIf="this.loader.getLoading()" class="cssload-container">
+    <div class="cssload-speeding-wheel">
+        
+    </div>
+</div> -->
+
+<!-- From Uiverse.io by Chriskoziol --> 
+<div class="cssload-container" *ngIf="this.loader.getLoading()">
+    <div class="spinner"></div>
+    <div class="loader">
+        <p style="font-family: Roboto;
+      color:  #5cb85c;
+      font-weight: 600;">Fargin</p>
+        <div class="words">
+            <span class="word">Connect</span>
+            <span class="word">Secure </span>
+            <span class="word">Reliable</span>
+            <span class="word">Scalable </span>
+            <span class="word">Flexible</span>
+        </div>
+    </div>
 </div>

@@ -25,7 +25,12 @@ export class CreateOtherpaymentComponent {
 
     this.myForm = new FormGroup({
       paidAmount: new FormControl('', [Validators.required, Validators.pattern('^(0|[1-9][0-9]*)(\\.[0-9]{1,2})?$')]),
-      serviceName: new FormControl('', [Validators.required,]),
+
+      serviceName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[A-Za-z]+$'), 
+        Validators.maxLength(30) 
+      ]),
       utrnumber: new FormControl(''),
       validitydate: new FormControl(''),
 

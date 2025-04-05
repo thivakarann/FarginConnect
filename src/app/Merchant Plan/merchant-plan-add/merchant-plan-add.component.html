@@ -9,7 +9,7 @@
             <div class="row mb-3">
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">Plan Name</label>
-                    <input type="text" id="Entity Name" formControlName="planName" class="form-control">
+                    <input   type="text" id="Entity Name" formControlName="planName" class="form-control">
                     <div style="
                     color: red;
                     font-size: 12px;
@@ -18,6 +18,24 @@
                     ;
                   " *ngIf="planName?.invalid && planName?.touched && planName?.errors?.['required']">
                         Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="planName?.invalid && planName?.touched && planName?.errors?.['pattern']">
+                        Invalid format. Only characters are allowed
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="planName?.invalid && planName?.touched && planName?.errors?.['maxlength']">
+                        Only 30 characters are allowed
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">

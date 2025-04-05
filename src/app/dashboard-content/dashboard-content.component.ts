@@ -10,6 +10,7 @@ import {
   ChartData,
 } from 'chart.js';
 import { DashboardData } from '../fargin-model/fargin-model.module';
+import { FormControl, FormGroup } from '@angular/forms';
 Chart.register(ArcElement, Tooltip, Legend, DoughnutController);
 
 
@@ -70,6 +71,7 @@ export class DashboardContentComponent {
   businessCategoryId: any;
   categorydetails: any;
   valuetoppaymentmethod:any;
+  transactionform: any = FormGroup;
 
   constructor(private service: FarginServiceService) { }
 
@@ -130,6 +132,12 @@ export class DashboardContentComponent {
       }
     })
 
+    this.transactionform = new FormGroup({
+      selectperiods: new FormControl('', []),
+      selecttransaction: new FormControl('', []),
+
+
+    });
 
     this.createEmptyCharts();
 
@@ -182,7 +190,13 @@ export class DashboardContentComponent {
       this.categorydetails = res.response;
     });
   }
+  get selectperiods() {
+    return this.transactionform.get('selectperiods');
+  }
 
+  get selecttransaction() {
+    return this.transactionform.get('selecttransaction');
+  }
   categorybusiness(event: any) {
     this.catgry = [];
     this.selectedmerchant = [];
@@ -545,7 +559,8 @@ export class DashboardContentComponent {
           backgroundColor: '#4CAF50',
           borderWidth: 1,
           borderColor: '#000',
-          barThickness: 80,
+          barThickness: 50,
+          
         },
         {
           label: 'Success',
@@ -553,7 +568,7 @@ export class DashboardContentComponent {
           backgroundColor: '#2196F3',
           borderWidth: 1,
           borderColor: '#000',
-          barThickness: 80,
+          barThickness: 50,
         },
         {
           label: 'Failed',
@@ -561,7 +576,7 @@ export class DashboardContentComponent {
           backgroundColor: '#f44336',
           borderWidth: 1,
           borderColor: '#000',
-          barThickness: 80,
+          barThickness: 50,
         },
         {
           label: 'Pending',
@@ -569,7 +584,8 @@ export class DashboardContentComponent {
           backgroundColor: '#FFC107',
           borderWidth: 1,
           borderColor: '#000',
-          barThickness: 80,
+          barThickness: 50,
+          
         },
 
       ],
@@ -633,7 +649,7 @@ export class DashboardContentComponent {
       labels: ['Total', 'Success', 'Pending', 'Failed'],
       datasets: [
         {
-          label: 'Maintenance Amount Overview',
+          label: 'Cloud fee Payments Overview',
           data: maintenanceAmountData,
           backgroundColor: colors,
           borderWidth: 1,
@@ -679,7 +695,7 @@ export class DashboardContentComponent {
       labels: ['Total', 'Success', 'Pending', 'Failed'],
       datasets: [
         {
-          label: 'Other Payments Amount Overview',
+          label: 'Customized Payments Overview',
           data: otherPaymentAmountData,
           backgroundColor: colors,
           borderWidth: 1,
@@ -798,5 +814,18 @@ export class DashboardContentComponent {
         },
       },
     });
+  }
+  resetTransactionForm(): void {
+    this.transactionform.reset({ selectperiods: '', selecttransaction: '' });
+    this.service.dashboardcustomeroveralls().subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.createMixedChart(res.response);
+      }
+      if (res.flag == 2) {
+        this.createMixedChart(res.response);
+      }
+    });
+ 
+
   }
 }

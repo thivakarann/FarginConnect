@@ -178,7 +178,7 @@
         <div class="text-center">
           <h5>Merchant Transaction Details</h5>
         </div>
-
+        <form [formGroup]="transactionform">
         <div class="row mt-2">
           <div class="col-md-4">
             <label
@@ -192,6 +192,7 @@
               style="font-size: 12px"
               id="period"
               class="form-select"
+              formControlName="selectperiods"
             >
               <option value="" disabled selected>Select Period</option>
               <option value="Last7Days">Last 7 Days</option>
@@ -214,12 +215,14 @@
                 type="date"
                 class="form-control"
                 [(ngModel)]="fromDate"
+                formControlName="selecttransaction"
               />
               <input
                 type="date"
                 style="font-size: 12px; height: 35px"
                 class="form-control"
                 [(ngModel)]="toDate"
+                formControlName="selecttransaction"
               />
               <button
                 (click)="customranges()"
@@ -239,12 +242,13 @@
             </div>
           </div>
 
-          <!--          
-            <div class="col-md-4 mt-4"> <button style="color: white; background-color: rgb(179, 3, 3); border-radius: 10px;" (click)="resetTransactionForm()" mat-raised-button>Reset</button> </div> -->
+                   
+            <div class="col-md-1 mt-4"> <button style="color: white; background-color: rgb(179, 3, 3); border-radius: 10px;" (click)="resetTransactionForm()" mat-raised-button>Reset</button> </div>
         </div>
+        </form>
 
         &nbsp;
-        <canvas id="barChartCanvas" height="100"></canvas>
+        <canvas id="barChartCanvas" height="100"  ></canvas>
 
         &nbsp;&nbsp;
       </div>
@@ -266,6 +270,7 @@
         <label for="period" style="font-size: 14px; font-weight: 600"
           >Select Business Category</label
         ><br />
+       
         <select
           (change)="categorybusiness($event)"
           id="Bussiness category"

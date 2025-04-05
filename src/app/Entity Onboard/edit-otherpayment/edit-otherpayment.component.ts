@@ -30,7 +30,11 @@ export class EditOtherpaymentComponent {
 
     this.myForm = new FormGroup({
       paidAmount: new FormControl('', [Validators.required,]),
-      serviceName: new FormControl('', [Validators.required,]),
+      serviceName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[A-Za-z]+$'), 
+        Validators.maxLength(30) 
+      ]),
       utrnumber: new FormControl(''),
       validitydate: new FormControl(''),
 
