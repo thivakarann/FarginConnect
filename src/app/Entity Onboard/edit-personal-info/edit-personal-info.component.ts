@@ -77,10 +77,11 @@ export class EditPersonalInfoComponent implements OnInit {
         // Validators.maxLength(10),
         // Validators.pattern('^[0-9]{10}$')
       ]),
-      contactEmail: new FormControl('', [
-        Validators.required,
-        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$')
-      ]),
+      // contactEmail: new FormControl('', [
+      //   Validators.required,
+      //   Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$')
+      // ]),
+      contactEmail: new FormControl(''),
       website: new FormControl('', [Validators.pattern("((http|https)://)(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,6})+(/[-a-zA-Z0-9@:%._\\+~#?&//=]*)?")]),
       gstIn: new FormControl(''),
       billingAddress: new FormControl("", [
