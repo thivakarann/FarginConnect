@@ -20,7 +20,6 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { AdminComponent } from './Admin-Creation/admin/admin.component';
 import { AdminAddComponent } from './Admin-Creation/admin-add/admin-add.component';
 import { AdminEditComponent } from './Admin-Creation/admin-edit/admin-edit.component';
-
 import { AdminViewComponent } from './Admin-policy/admin-view/admin-view.component';
 import { AdminCreateComponent } from './Admin-policy/admin-create/admin-create.component';
 import { ViewRoleComponent } from './Roles-Permission/view-role/view-role.component';

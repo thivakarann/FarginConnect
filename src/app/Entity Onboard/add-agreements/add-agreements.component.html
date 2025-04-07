@@ -27,7 +27,7 @@
                 </div>
                 <div class="col-12 form-group ">
                     <label for="Entity Name">Link Expiry Date</label>
-                    <input class="form-control" id="Entity Name" type="datetime-local" [min]="todayDate"
+                    <input  onkeydown="return false;" class="form-control" id="Entity Name" type="datetime-local" [min]="todayDate"
                         formControlName="linkdate" required>
                     <div style="
             color: red;

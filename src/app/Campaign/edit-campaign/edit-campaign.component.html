@@ -30,7 +30,7 @@
 
             <div class="form__linput">
                 <label class="form__label">Date</label>
-                <input class="form-control" type="date" formControlName="EmailDate" [min]="minDate" required
+                <input  onkeydown="return false;" class="form-control" type="date" formControlName="EmailDate" [min]="minDate" required
                     ngModel="{{view.emailDate}}" />
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="EmailDate?.invalid && EmailDate?.touched && EmailDate?.errors?.['required']">

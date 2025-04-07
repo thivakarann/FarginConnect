@@ -35,7 +35,7 @@
  
             <div class="form__linput">
                 <label class="form__label"><b>Expiry Date</b></label>
-                <input ngModel="{{expiryDates}}" class="form-control"  type="date" formControlName="expiryDate">
+                <input  onkeydown="return false;" ngModel="{{expiryDates}}" class="form-control"  type="date" formControlName="expiryDate">
                 <!-- <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="expiryDate?.invalid && expiryDate?.touched && expiryDate?.errors?.['required']">
                     Field is required

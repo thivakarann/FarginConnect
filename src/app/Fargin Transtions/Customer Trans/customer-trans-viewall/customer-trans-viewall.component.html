@@ -257,13 +257,13 @@
                     
                     <div style="margin-left:20px" class="form__linput ">
                         <label class="form__label custom-label" for="startDate">Start Date (Optional)</label>
-                        <input (change)="future(endDate)" [max]="maxDate"  formControlName="startDate" style="border: 1px solid #ccc;width:260px" class="form-control wider-input" id="startDate" type="date" name="startDate">
+                        <input  onkeydown="return false;" (change)="future(endDate)" [max]="maxDate"  formControlName="startDate" style="border: 1px solid #ccc;width:260px" class="form-control wider-input" id="startDate" type="date" name="startDate">
                         
                     </div>
 
                     <div style="margin-left:20px" class="form__linput">
                         <label class="form__label custom-label" for="endDate">End Date (Optional)</label>
-                        <input [min]="startDate?.value" [max]="maxDate"  formControlName="endDate" style="border: 1px solid #ccc;width:260px" class="form-control wider-input" id="endDate" type="date" name="endDate">
+                        <input  onkeydown="return false;" [min]="startDate?.value" [max]="maxDate"  formControlName="endDate" style="border: 1px solid #ccc;width:260px" class="form-control wider-input" id="endDate" type="date" name="endDate">
                     </div>
 
 
@@ -300,12 +300,12 @@
 
                 <div class="form__linput">
                     <label class="form__label custom-label" for="FromDateRange">From Date:</label>
-                    <input  (change)="future(this.Datefiltercustomer.get('ToDateRange')?.value)" [max]="maxDate" class="form-control"  formControlName="FromDateRange" style="border: 1px solid #ccc;width:322px" class="form-control wider-input" id="FromDateRange" type="date">
+                    <input  onkeydown="return false;" (change)="future(this.Datefiltercustomer.get('ToDateRange')?.value)" [max]="maxDate" class="form-control"  formControlName="FromDateRange" style="border: 1px solid #ccc;width:322px" class="form-control wider-input" id="FromDateRange" type="date">
                 </div>
 
                 <div  class="form__linput ">
                     <label class="form__label custom-label" for="ToDateRange">To Date:</label>
-                    <input [min]="this.Datefiltercustomer.get('FromDateRange')?.value" [max]="maxDate"  class="form-control"  formControlName="ToDateRange" style="border: 1px solid #ccc;width:322px" class="form-control wider-input" id="ToDateRange" type="date">
+                    <input  onkeydown="return false;" [min]="this.Datefiltercustomer.get('FromDateRange')?.value" [max]="maxDate"  class="form-control"  formControlName="ToDateRange" style="border: 1px solid #ccc;width:322px" class="form-control wider-input" id="ToDateRange" type="date">
                 </div>
 
                 <div style="margin-left:20px" class="mt-3">

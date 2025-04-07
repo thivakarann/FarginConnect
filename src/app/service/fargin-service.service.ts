@@ -56,7 +56,7 @@ export class FarginServiceService {
   //Ticket
   private readonly viewallTicket = 'tickets/getall';
   private readonly updateTicket = 'tickets/updateapproval/';
-  private readonly updatestickerticket='tickets/updateticket'
+  private readonly updatestickerticket = 'tickets/updateticket'
   private readonly viewTicketImage = 'tickets/viewimage/';
 
   //Roles & Permission
@@ -174,7 +174,7 @@ export class FarginServiceService {
 
   //customers
   private readonly Entitycustomerview = 'customer/viewbymerchant/';
-  private readonly EntityCustomerviewsearchs='customer/customersSearch/'
+  private readonly EntityCustomerviewsearchs = 'customer/customersSearch/'
   private readonly customerview = 'customer/viewById/';
   private readonly customertransaction = 'customerpay/viewcustomers/';
 
@@ -192,8 +192,8 @@ export class FarginServiceService {
 
   //Entity Transaction
   private readonly entitytransaction = 'paymentHistory/viewByMerchantPage/';
-  private readonly entitytraansactionSearchs='paymentHistory/viewByMerchantSearch/';
-  private readonly EntityTransactionexports='paymentHistory/viewByMerchant/'
+  private readonly entitytraansactionSearchs = 'paymentHistory/viewByMerchantSearch/';
+  private readonly EntityTransactionexports = 'paymentHistory/viewByMerchant/'
 
   //merchant transaction
   private readonly transactionformerchant = 'transactions/getadminPaymentList';
@@ -395,7 +395,7 @@ export class FarginServiceService {
   private readonly customermanuvalduegenerate = 'customerpay/merchant/generate-dues';
   private readonly Otherpaymentview = 'maintanancePay/maintenaceOtherPaymentView/';
 
-  
+
 
 
   //onetime
@@ -527,7 +527,7 @@ export class FarginServiceService {
   private readonly Autodebitgetall = 'merchantdue/getall/';
   private readonly autodebitgetallexport = 'merchantdue/getall';
   private readonly Autodebitbymerchat = 'merchantdue/viewbymerchant/';
-  private readonly autodebitbymerchatsearchs='merchantdue/entitySearch/'
+  private readonly autodebitbymerchatsearchs = 'merchantdue/entitySearch/'
 
 
   //anouncement
@@ -598,13 +598,13 @@ export class FarginServiceService {
   private readonly viewactiveagreementplans = 'commercialSetup/viewOnlyActive';
   private readonly createagreementplans = 'commercialSetup/create';
   private readonly editagreementplans = 'commercialSetup/update/';
-  private readonly viewstatusagreementplans='commercialSetup/changeStatus'
+  private readonly viewstatusagreementplans = 'commercialSetup/changeStatus'
   private readonly viewbyidagreementplans = 'commercialSetup/viewById/';
   private readonly createplan = 'agreement/create';
   private readonly viewbyidplan = 'agreement/viewByMerchant/';
   private readonly viewagreementdoucment = 'agreement/viewdoc/';
   // private readonly ViewAggrementbyRefference = 'agreement/viewByReferenceCode/';
-    private readonly ViewAggrementbyRefference = 'agreement/viewByAdminReferenceCode/';
+  private readonly ViewAggrementbyRefference = 'agreement/viewByAdminReferenceCode/';
   private readonly agreementgetall = 'agreement/getall';
   private readonly Agreementsendotp = 'agreement/merchantsendotp/';
   private readonly AgreementVerifyOTP = 'agreement/merchantverifyotp/';
@@ -621,8 +621,8 @@ export class FarginServiceService {
   private readonly offlinepayoutsettelemnt = 'transactions/getOfflinePayoutTransactions';
 
   //branch entity view
-  private readonly branchget = 'bankBranch/view/'
-  // private readonly branchget='bankBranch/viewData/';
+  // private readonly branchget = 'bankBranch/view/'
+  private readonly branchget='bankBranch/viewData/';
   private readonly branchcreate = 'bankBranch/createBranch';
   private readonly branchedit = 'bankBranch/update/';
   private readonly branchstatus = 'bankBranch/updateStatus/';
@@ -631,8 +631,8 @@ export class FarginServiceService {
   private readonly branchcustomersearch = 'customer/customersByBranchs/';
 
 
-  private readonly entityterminaltrans='transactions/getMerchantOfflinePaymentListForAdmin';
-  private readonly branchtrans='transactions/getMerchantOfflinePaymentListForBranch'
+  private readonly entityterminaltrans = 'transactions/getMerchantOfflinePaymentListForAdmin';
+  private readonly branchtrans = 'transactions/getMerchantOfflinePaymentListForBranch'
 
 
 
@@ -705,99 +705,99 @@ export class FarginServiceService {
 
 
   //Branchkyc
-  private readonly addkycbranchs='bankBranchProof/addProof';
-  private readonly branchkycviews='bankBranchProof/viewByBrandId/';
-  private readonly branchidentityFronts='bankBranchProof/identityFront';
-  private readonly branchidentitybacks='bankBranchProof/identityBack';
+  private readonly addkycbranchs = 'bankBranchProof/addProof';
+  private readonly branchkycviews = 'bankBranchProof/viewByBrandId/';
+  private readonly branchidentityFronts = 'bankBranchProof/identityFront';
+  private readonly branchidentitybacks = 'bankBranchProof/identityBack';
 
-  private readonly branchaddressFronts='bankBranchProof/addressFront';
-  private readonly branchaddressbacks='bankBranchProof/addressBack';
+  private readonly branchaddressFronts = 'bankBranchProof/addressFront';
+  private readonly branchaddressbacks = 'bankBranchProof/addressBack';
 
-  private readonly branchsignFronts='bankBranchProof/signatureFront';
-  private readonly branchsignbacks='bankBranchProof/signatureBack';
-  
-  private readonly getbranchkycImages='bankBranchProof/viewDocuments/';
-  private readonly editbranchIdentitys='bankBranchProof/updateIdentity';
+  private readonly branchsignFronts = 'bankBranchProof/signatureFront';
+  private readonly branchsignbacks = 'bankBranchProof/signatureBack';
 
-  private readonly editbranchAddres='bankBranchProof/updateAddress';
-  private readonly editbranchSigns='bankBranchProof/updateSignature';
-  private readonly branchkycinfos='branchFacheckVerify/getById/';
-  private readonly identitybranchApprovals='bankBranchProof/approvalForidentity';
-  private readonly addressbranchApprovals='bankBranchProof/approvalForAddress'
- private readonly signbranchApprovals='bankBranchProof/approvalForSignature';
+  private readonly getbranchkycImages = 'bankBranchProof/viewDocuments/';
+  private readonly editbranchIdentitys = 'bankBranchProof/updateIdentity';
 
- private readonly adharbranchVerifyIdentitys='branchFacheckVerify/identityAadharVerify';
-private readonly adharbranchVerifyAddres='branchFacheckVerify/addressAadharVerify';
-private readonly adharbranchVerifySign='branchFacheckVerify/signatureAadharVerify';
+  private readonly editbranchAddres = 'bankBranchProof/updateAddress';
+  private readonly editbranchSigns = 'bankBranchProof/updateSignature';
+  private readonly branchkycinfos = 'branchFacheckVerify/getById/';
+  private readonly identitybranchApprovals = 'bankBranchProof/approvalForidentity';
+  private readonly addressbranchApprovals = 'bankBranchProof/approvalForAddress'
+  private readonly signbranchApprovals = 'bankBranchProof/approvalForSignature';
 
-private readonly panbranchVerifyIdentitys='branchFacheckVerify/identityPanVerify';
-private readonly panbranchVerifyAddres='branchFacheckVerify/addressPanVerify';
-private readonly panbranchVerifySign='branchFacheckVerify/signaturePanVerify';
+  private readonly adharbranchVerifyIdentitys = 'branchFacheckVerify/identityAadharVerify';
+  private readonly adharbranchVerifyAddres = 'branchFacheckVerify/addressAadharVerify';
+  private readonly adharbranchVerifySign = 'branchFacheckVerify/signatureAadharVerify';
 
-
-private readonly passportbranchVerifyIdentitys='branchFacheckVerify/identityPassportVerify';
-private readonly passportbranchVerifyAddres='branchFacheckVerify/addressPassportVerify';
-private readonly passportbranchVerifySign='branchFacheckVerify/signaturePassportVerify';
-
-private readonly drivingbranchVerifyIdentitys='branchFacheckVerify/identityDrivingVerify';
-private readonly drivingbranchVerifyAddres='branchFacheckVerify/addressDrivingVerify';
-private readonly drivingbranchVerifySign='branchFacheckVerify/signatureDrivingVerify';
+  private readonly panbranchVerifyIdentitys = 'branchFacheckVerify/identityPanVerify';
+  private readonly panbranchVerifyAddres = 'branchFacheckVerify/addressPanVerify';
+  private readonly panbranchVerifySign = 'branchFacheckVerify/signaturePanVerify';
 
 
-private readonly voterbranchVerifyIdentitys='branchFacheckVerify/identityVoterVerify';
-private readonly voterbranchVerifyAddres='branchFacheckVerify/addressVoterVerify';
-private readonly voterbranchVerifySign='branchFacheckVerify/signatureVoterVerify';
+  private readonly passportbranchVerifyIdentitys = 'branchFacheckVerify/identityPassportVerify';
+  private readonly passportbranchVerifyAddres = 'branchFacheckVerify/addressPassportVerify';
+  private readonly passportbranchVerifySign = 'branchFacheckVerify/signaturePassportVerify';
 
-//branch terminal view
-private readonly branchterminalview='branchTerminal/getAll';
-private readonly branchtermialviewbyid = 'branchTerminal/getByBranch/'
-private readonly branchterminalstatus='branchTerminal/updateStatus/';
-private readonly branchterminalcreate='branchTerminal/add';
-private readonly branchterminaledit='branchTerminal/update/';
-
-//entity terminal view
-private readonly entityterminalview='entityTerminal/getall';
-private readonly entityterminalviewmerchant='entityTerminal/viewByMerchant/';
-private readonly entityterminalstatus='entityTerminal/updateStatus/';
-private readonly entityterminalcreate ='entityTerminal/create';
-private readonly entityterminalupdate ='entityTerminal/update/';
-
-//customer payments
-private readonly customerpayget = 'customerpay/viewEntitySearch/';
-private readonly customerpayfilter = 'customerpay/viewPaymentStatusFilter/';
-private readonly Additionalpaysearch = 'customerotherpayment/viewEntitySearch/';
-private readonly Additionalpayfilter = 'customerotherpayment/viewPaymentStatusFilter/';
-private readonly Cloudfeesearch = 'maintanancePay/viewEntitySearch/';
-private readonly Cloudfeefilter = 'maintanancePay/viewPaymentStatusFilter/';
-private readonly Onetimepaysearch = 'merchantpay/viewEntitySearch/';
-private readonly Onetimepaydatefilter = 'merchantpay/viewPaymentStatusFilter/';
-private readonly Otherpaymentsearch = 'otherpayment/viewEntitySearch/';
-private readonly Otherpaydatefilter = 'otherpayment/viewPaymentStatusFilter/';
+  private readonly drivingbranchVerifyIdentitys = 'branchFacheckVerify/identityDrivingVerify';
+  private readonly drivingbranchVerifyAddres = 'branchFacheckVerify/addressDrivingVerify';
+  private readonly drivingbranchVerifySign = 'branchFacheckVerify/signatureDrivingVerify';
 
 
-// Refund Period
+  private readonly voterbranchVerifyIdentitys = 'branchFacheckVerify/identityVoterVerify';
+  private readonly voterbranchVerifyAddres = 'branchFacheckVerify/addressVoterVerify';
+  private readonly voterbranchVerifySign = 'branchFacheckVerify/signatureVoterVerify';
 
-private readonly refundperiodviewall = 'refundDayLimit/getAll';
-private readonly refundperiodadd = 'refundDayLimit/createRefundDays';
-private readonly refundperiodupdate = 'refundDayLimit/updateRefundDays/';
-private readonly refundperiodbyid = 'refundDayLimit/getDays/';
+  //branch terminal view
+  private readonly branchterminalview = 'branchTerminal/getAll';
+  private readonly branchtermialviewbyid = 'branchTerminal/getByBranch/'
+  private readonly branchterminalstatus = 'branchTerminal/updateStatus/';
+  private readonly branchterminalcreate = 'branchTerminal/add';
+  private readonly branchterminaledit = 'branchTerminal/update/';
+
+  //entity terminal view
+  private readonly entityterminalview = 'entityTerminal/getall';
+  private readonly entityterminalviewmerchant = 'entityTerminal/viewByMerchant/';
+  private readonly entityterminalstatus = 'entityTerminal/updateStatus/';
+  private readonly entityterminalcreate = 'entityTerminal/create';
+  private readonly entityterminalupdate = 'entityTerminal/update/';
+
+  //customer payments
+  private readonly customerpayget = 'customerpay/viewEntitySearch/';
+  private readonly customerpayfilter = 'customerpay/viewPaymentStatusFilter/';
+  private readonly Additionalpaysearch = 'customerotherpayment/viewEntitySearch/';
+  private readonly Additionalpayfilter = 'customerotherpayment/viewPaymentStatusFilter/';
+  private readonly Cloudfeesearch = 'maintanancePay/viewEntitySearch/';
+  private readonly Cloudfeefilter = 'maintanancePay/viewPaymentStatusFilter/';
+  private readonly Onetimepaysearch = 'merchantpay/viewEntitySearch/';
+  private readonly Onetimepaydatefilter = 'merchantpay/viewPaymentStatusFilter/';
+  private readonly Otherpaymentsearch = 'otherpayment/viewEntitySearch/';
+  private readonly Otherpaydatefilter = 'otherpayment/viewPaymentStatusFilter/';
 
 
-//campaign
-private readonly viewcampaigns='emailbroadcaster/viewevent/';
-private readonly campaignimageUpdates='emailbroadcaster/updateimage';
-private readonly campaignimageviews='emailbroadcaster/viewimage/';
-private readonly campaignstatu='emailbroadcaster/activestatusupdate/'
-private readonly viewrecordcampaign='emailbroadcaster/viewemailsentresponse/'
-private readonly viewresponsecampaign='emailbroadcaster/viewemailaddressonly/'
-private readonly editcampaigns='emailbroadcaster/updatedata/'
-private readonly updatebulks='emailbroadcaster/uploadbulkemail/'
-private readonly viewemailsendresponsecampaign='emailbroadcaster/getemailaddress/'
- 
- 
-//peronsalview
-private readonly customertransactionsearchs='customerpay/viewByCustomerSearch/';
-private readonly customeradditionaltransactionsearchs='customerotherpayment/viewByCustomerSearch/';
+  // Refund Period
+
+  private readonly refundperiodviewall = 'refundDayLimit/getAll';
+  private readonly refundperiodadd = 'refundDayLimit/createRefundDays';
+  private readonly refundperiodupdate = 'refundDayLimit/updateRefundDays/';
+  private readonly refundperiodbyid = 'refundDayLimit/getDays/';
+
+
+  //campaign
+  private readonly viewcampaigns = 'emailbroadcaster/viewevent/';
+  private readonly campaignimageUpdates = 'emailbroadcaster/updateimage';
+  private readonly campaignimageviews = 'emailbroadcaster/viewimage/';
+  private readonly campaignstatu = 'emailbroadcaster/activestatusupdate/'
+  private readonly viewrecordcampaign = 'emailbroadcaster/viewemailsentresponse/'
+  private readonly viewresponsecampaign = 'emailbroadcaster/viewemailaddressonly/'
+  private readonly editcampaigns = 'emailbroadcaster/updatedata/'
+  private readonly updatebulks = 'emailbroadcaster/uploadbulkemail/'
+  private readonly viewemailsendresponsecampaign = 'emailbroadcaster/getemailaddress/'
+
+
+  //peronsalview
+  private readonly customertransactionsearchs = 'customerpay/viewByCustomerSearch/';
+  private readonly customeradditionaltransactionsearchs = 'customerotherpayment/viewByCustomerSearch/';
 
 
   loginError = new Subject();
@@ -957,10 +957,10 @@ private readonly customeradditionaltransactionsearchs='customerotherpayment/view
     return this.http.put(`${this.basePath}${this.updateTicket}${id}`, model, this.options)
   }
 
- UpdateStickerTickets(model: any) {
+  UpdateStickerTickets(model: any) {
     return this.http.put(`${this.basePath}${this.updatestickerticket}`, model, this.options)
   }
- 
+
 
   viewticketImage(id: string) {
     return this.http.get(`${this.basePath}${this.viewTicketImage}${id}`, {
@@ -1185,8 +1185,8 @@ private readonly customeradditionaltransactionsearchs='customerotherpayment/view
     })
   }
 
-  MerchatPlandetails(id:any){
-    return this.http.get(`${this.basePath}${this.EntityPlanDetails}${id}`,this.options)
+  MerchatPlandetails(id: any) {
+    return this.http.get(`${this.basePath}${this.EntityPlanDetails}${id}`, this.options)
   }
 
   // EntityAddKyc(formdata: FormData) {
@@ -1365,7 +1365,7 @@ private readonly customeradditionaltransactionsearchs='customerotherpayment/view
   EntityCustomerview(id: any, id1: any, id2: any) {
     return this.http.get(`${this.basePath}${this.Entitycustomerview}${id}/${id1}/${id2}`, this.options)
   }
-  EntityCustomerviewsearch(id: any, id1: any, id2: any,id3:any) {
+  EntityCustomerviewsearch(id: any, id1: any, id2: any, id3: any) {
     return this.http.get(`${this.basePath}${this.EntityCustomerviewsearchs}${id}/${id1}/${id2}/${id3}`, this.options)
   }
 
@@ -1379,7 +1379,7 @@ private readonly customeradditionaltransactionsearchs='customerotherpayment/view
       this.options
     );
   }
-  CustomerTransaction(id: any, id1:any, id2:any) {
+  CustomerTransaction(id: any, id1: any, id2: any) {
     return this.http.get(
       `${this.basePath}${this.customertransaction}${id}/${id1}/${id2}`,
       this.options
@@ -1387,10 +1387,10 @@ private readonly customeradditionaltransactionsearchs='customerotherpayment/view
   }
   //entity transaction
 
-  EntityTraansaction(id: any, id1:any, id2:any) {
+  EntityTraansaction(id: any, id1: any, id2: any) {
     return this.http.get(`${this.basePath}${this.entitytransaction}${id}/${id1}/${id2}`, this.options)
   }
-  EntityTraansactionSearch(id: any,id1:any, id2:any,id3:any) {
+  EntityTraansactionSearch(id: any, id1: any, id2: any, id3: any) {
     return this.http.get(`${this.basePath}${this.entitytraansactionSearchs}${id}/${id1}/${id2}/${id3}`, this.options)
   }
   EntityTransactionexport(id: any) {
@@ -1883,16 +1883,16 @@ private readonly customeradditionaltransactionsearchs='customerotherpayment/view
     return this.http.get(`${this.basePath}${this.maintenancetransaction}${id}/${id1}`, this.options)
   }
 
-  OtherPaymentsView(id:any){
-    return this.http.get(`${this.basePath}${this.Otherpaymentview}${id}`,this.options)
+  OtherPaymentsView(id: any) {
+    return this.http.get(`${this.basePath}${this.Otherpaymentview}${id}`, this.options)
   }
 
-  MaintenancedueManuvelgenerate(model:any){
-    return this.http.post(`${this.basePath}${this.Manuveldueformaintenance}`,model,this.options)
+  MaintenancedueManuvelgenerate(model: any) {
+    return this.http.post(`${this.basePath}${this.Manuveldueformaintenance}`, model, this.options)
   }
 
-  CustomerManuvalDusegenrate(model:any){
-    return this.http.post(`${this.basePath}${this.customermanuvalduegenerate}`,model,this.options)
+  CustomerManuvalDusegenrate(model: any) {
+    return this.http.post(`${this.basePath}${this.customermanuvalduegenerate}`, model, this.options)
   }
   MaintenanceAllTransactionsExport() {
     return this.http.get(`${this.basePath}${this.maintenancetransactionexport}`, this.options)
@@ -2268,7 +2268,7 @@ private readonly customeradditionaltransactionsearchs='customerotherpayment/view
     return this.http.get(`${this.basePath}${this.Autodebitbymerchat}${id}/${id1}/${id2}`, this.options)
   }
 
-  autodebitbymerchatsearch(id: any, id1: any, id2: any, id3:any) {
+  autodebitbymerchatsearch(id: any, id1: any, id2: any, id3: any) {
     return this.http.get(`${this.basePath}${this.autodebitbymerchatsearchs}${id}/${id1}/${id2}/${id3}`, this.options)
   }
 
@@ -2618,7 +2618,7 @@ private readonly customeradditionaltransactionsearchs='customerotherpayment/view
   BranchCustomer(id: any, id1: any, id2: any) {
     return this.http.get(`${this.basePath}${this.branchcustomerget}${id}/${id1}/${id2}`, this.options)
   }
-  AdditionalPaymentsCustomerTransaction(id: any, id1:any, id2:any) {
+  AdditionalPaymentsCustomerTransaction(id: any, id1: any, id2: any) {
     return this.http.get(`${this.basePath}${this.additionaltransviewbyid}${id}/${id1}/${id2}`, this.options)
 
   }
@@ -2719,31 +2719,31 @@ private readonly customeradditionaltransactionsearchs='customerotherpayment/view
       this.optionsMultipart
     );
   }
- 
-  branchkycview(id:any){
-    return this.http.get(`${this.basePath}${this.branchkycviews}${id}`,this.options)
+
+  branchkycview(id: any) {
+    return this.http.get(`${this.basePath}${this.branchkycviews}${id}`, this.options)
   }
- 
- 
+
+
   getbranchkycImage(id: any, id1: any) {
     return this.http.get(`${this.basePath}${this.getbranchkycImages}${id}/${id1}`, {
       ...this.options,
       ...{ responseType: 'blob' }
     })
   }
- 
+
   branchidentityFront(data: FormData) {
     return this.http.put(`${this.basePath}${this.branchidentityFronts}`, data, this.optionsMultipart);
   }
- 
+
   branchidentityback(data: FormData) {
     return this.http.put(`${this.basePath}${this.branchidentitybacks}`, data, this.optionsMultipart);
   }
- 
+
   branchaddressFront(data: FormData) {
     return this.http.put(`${this.basePath}${this.branchaddressFronts}`, data, this.optionsMultipart);
   }
-   
+
   branchaddressback(data: FormData) {
     return this.http.put(`${this.basePath}${this.branchaddressbacks}`, data, this.optionsMultipart);
   }
@@ -2753,113 +2753,113 @@ private readonly customeradditionaltransactionsearchs='customerotherpayment/view
   branchsignback(data: FormData) {
     return this.http.put(`${this.basePath}${this.branchsignbacks}`, data, this.optionsMultipart);
   }
- 
+
   editbranchIdentity(data: FormData) {
     return this.http.put(`${this.basePath}${this.editbranchIdentitys}`, data, this.optionsMultipart);
   }
- 
+
   editbranchAddress(data: FormData) {
     return this.http.put(`${this.basePath}${this.editbranchAddres}`, data, this.optionsMultipart);
   }
- 
+
   editbranchSign(data: FormData) {
     return this.http.put(`${this.basePath}${this.editbranchSigns}`, data, this.optionsMultipart);
   }
- 
-  branchkycinfo(id:any){
-    return this.http.get(`${this.basePath}${this.branchkycinfos}${id}`,this.options)
+
+  branchkycinfo(id: any) {
+    return this.http.get(`${this.basePath}${this.branchkycinfos}${id}`, this.options)
   }
- 
+
   identitybranchApproval(data: any) {
     return this.http.put(`${this.basePath}${this.identitybranchApprovals}`, data, this.options);
   }
- 
+
   addressbranchApproval(data: any) {
     return this.http.put(`${this.basePath}${this.addressbranchApprovals}`, data, this.options);
   }
- 
+
   signbranchApproval(data: any) {
     return this.http.put(`${this.basePath}${this.signbranchApprovals}`, data, this.options);
   }
- 
+
   adharbranchVerifyIdentity(data: any) {
     return this.http.post(`${this.basePath}${this.adharbranchVerifyIdentitys}`, data, this.options);
   }
   adharbranchVerifyAddress(data: any) {
     return this.http.post(`${this.basePath}${this.adharbranchVerifyAddres}`, data, this.options);
   }
- 
+
   adharbranchVerifySigns(data: any) {
     return this.http.post(`${this.basePath}${this.adharbranchVerifySign}`, data, this.options);
   }
- 
- 
+
+
   panbranchVerifyIdentity(data: any) {
     return this.http.post(`${this.basePath}${this.panbranchVerifyIdentitys}`, data, this.options);
   }
   panbranchVerifyAddress(data: any) {
     return this.http.post(`${this.basePath}${this.panbranchVerifyAddres}`, data, this.options);
   }
- 
+
   panbranchVerifySigns(data: any) {
     return this.http.post(`${this.basePath}${this.panbranchVerifySign}`, data, this.options);
   }
- 
- 
- 
+
+
+
   passportbranchVerifyIdentity(data: any) {
     return this.http.post(`${this.basePath}${this.passportbranchVerifyIdentitys}`, data, this.options);
   }
   passportbranchVerifyAddress(data: any) {
     return this.http.post(`${this.basePath}${this.passportbranchVerifyAddres}`, data, this.options);
   }
- 
+
   passportbranchVerifySigns(data: any) {
     return this.http.post(`${this.basePath}${this.passportbranchVerifySign}`, data, this.options);
   }
- 
- 
+
+
   drivingbranchVerifyIdentity(data: any) {
     return this.http.post(`${this.basePath}${this.drivingbranchVerifyIdentitys}`, data, this.options);
   }
   drivingbranchVerifyAddress(data: any) {
     return this.http.post(`${this.basePath}${this.drivingbranchVerifyAddres}`, data, this.options);
   }
- 
+
   drivingbranchVerifySigns(data: any) {
     return this.http.post(`${this.basePath}${this.drivingbranchVerifySign}`, data, this.options);
   }
- 
- 
- 
+
+
+
   voterbranchVerifyIdentity(data: any) {
     return this.http.post(`${this.basePath}${this.voterbranchVerifyIdentitys}`, data, this.options);
   }
   voterbranchVerifyAddress(data: any) {
     return this.http.post(`${this.basePath}${this.voterbranchVerifyAddres}`, data, this.options);
   }
- 
+
   voterbranchVerifySigns(data: any) {
     return this.http.post(`${this.basePath}${this.voterbranchVerifySign}`, data, this.options);
   }
-// 
-  BranchTerminal(id:any) {
+  // 
+  BranchTerminal(id: any) {
     return this.http.get(`${this.basePath}${this.branchterminalview}${id}`, this.options);
   }
 
-  Branchterminalbyids(id:any){
-    return this.http.get(`${this.basePath}${this.branchtermialviewbyid}${id}`,this.options)
+  Branchterminalbyids(id: any) {
+    return this.http.get(`${this.basePath}${this.branchtermialviewbyid}${id}`, this.options)
   }
 
-  BranchTerminalStatus(id:any,model:any) {
-    return this.http.put(`${this.basePath}${this.branchterminalstatus}${id}`,model, this.options);
+  BranchTerminalStatus(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.branchterminalstatus}${id}`, model, this.options);
   }
 
   BranchTerminalCreate(data: any) {
     return this.http.post(`${this.basePath}${this.branchterminalcreate}`, data, this.options);
   }
 
-  BranchTerminalEdit(id:any,data: any) {
+  BranchTerminalEdit(id: any, data: any) {
     return this.http.put(`${this.basePath}${this.branchterminaledit}${id}`, data, this.options);
   }
 
@@ -2867,94 +2867,94 @@ private readonly customeradditionaltransactionsearchs='customerotherpayment/view
     return this.http.get(`${this.basePath}${this.entityterminalview}`, this.options);
   }
 
-  EntityTerminalviewMerchant(id:any) {
+  EntityTerminalviewMerchant(id: any) {
     return this.http.get(`${this.basePath}${this.entityterminalviewmerchant}${id}`, this.options);
   }
 
-  EntityTerminalStatus(id:any,model:any) {
-    return this.http.put(`${this.basePath}${this.entityterminalstatus}${id}`,model, this.options);
+  EntityTerminalStatus(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.entityterminalstatus}${id}`, model, this.options);
   }
 
   EntityTerminalCreate(data: any) {
     return this.http.post(`${this.basePath}${this.entityterminalcreate}`, data, this.options);
   }
 
-  EntityTerminalUpdate(id:any,data:any){
-    return this.http.put(`${this.basePath}${this.entityterminalupdate}${id}`,data,this.options);
+  EntityTerminalUpdate(id: any, data: any) {
+    return this.http.put(`${this.basePath}${this.entityterminalupdate}${id}`, data, this.options);
   }
-  EntityTerminalTransactions(data:any){
-    return this.http.post(`${this.basePath}${this.entityterminaltrans}`,data,this.options);
+  EntityTerminalTransactions(data: any) {
+    return this.http.post(`${this.basePath}${this.entityterminaltrans}`, data, this.options);
   }
-  BranchTransactions(data:any){
-    return this.http.post(`${this.basePath}${this.branchtrans}`,data,this.options);
+  BranchTransactions(data: any) {
+    return this.http.post(`${this.basePath}${this.branchtrans}`, data, this.options);
   }
 
-// customer trans
-    CustomerpayFilter(id:any,id1:any,model:any){
-    return this.http.post(`${this.basePath}${this.customerpayfilter}${id}/${id1}`,model,this.options);
-    }
+  // customer trans
+  CustomerpayFilter(id: any, id1: any, model: any) {
+    return this.http.post(`${this.basePath}${this.customerpayfilter}${id}/${id1}`, model, this.options);
+  }
 
-  Customerpaysearchfilter(id:any) {
+  Customerpaysearchfilter(id: any) {
     return this.http.get(`${this.basePath}${this.customerpayget}${id}`, this.options);
   }
 
   //additional trans
-  AdditionalPaySearch(id:any) {
+  AdditionalPaySearch(id: any) {
     return this.http.get(`${this.basePath}${this.Additionalpaysearch}${id}`, this.options);
   }
 
-  AdditionalPayDateFilter(id:any,id1:any,model:any){
-    return this.http.post(`${this.basePath}${this.Additionalpayfilter}${id}/${id1}`,model,this.options);
+  AdditionalPayDateFilter(id: any, id1: any, model: any) {
+    return this.http.post(`${this.basePath}${this.Additionalpayfilter}${id}/${id1}`, model, this.options);
   }
 
   // cloud fee
-  CloudFeeSearch(id:any) {
+  CloudFeeSearch(id: any) {
     return this.http.get(`${this.basePath}${this.Cloudfeesearch}${id}`, this.options);
   }
 
-  CloudFeeDateFilter(id:any,id1:any,model:any){
-    return this.http.post(`${this.basePath}${this.Cloudfeefilter}${id}/${id1}`,model,this.options);
+  CloudFeeDateFilter(id: any, id1: any, model: any) {
+    return this.http.post(`${this.basePath}${this.Cloudfeefilter}${id}/${id1}`, model, this.options);
   }
 
   //onetimepay
-  OneTimepaySearch(id:any) {
+  OneTimepaySearch(id: any) {
     return this.http.get(`${this.basePath}${this.Onetimepaysearch}${id}`, this.options);
   }
 
-  OneTimepayFilter(id:any,id1:any,model:any){
-    return this.http.post(`${this.basePath}${this.Onetimepaydatefilter}${id}/${id1}`,model,this.options);
+  OneTimepayFilter(id: any, id1: any, model: any) {
+    return this.http.post(`${this.basePath}${this.Onetimepaydatefilter}${id}/${id1}`, model, this.options);
   }
 
   //customize pay
-  OtherPaymentSearch(id:any) {
+  OtherPaymentSearch(id: any) {
     return this.http.get(`${this.basePath}${this.Otherpaymentsearch}${id}`, this.options);
   }
 
-  OtherPaymentFilter(id:any,id1:any,model:any){
-    return this.http.post(`${this.basePath}${this.Otherpaydatefilter}${id}/${id1}`,model,this.options);
+  OtherPaymentFilter(id: any, id1: any, model: any) {
+    return this.http.post(`${this.basePath}${this.Otherpaydatefilter}${id}/${id1}`, model, this.options);
   }
 
 
   // Refund period
 
-  RefundperiodGetall(){
-    return this.http.get(`${this.basePath}${this.refundperiodviewall}`,this.options)
+  RefundperiodGetall() {
+    return this.http.get(`${this.basePath}${this.refundperiodviewall}`, this.options)
   }
 
-  Refundperiodadd(model:any){
-    return this.http.post(`${this.basePath}${this.refundperiodadd}`,model,this.options)
+  Refundperiodadd(model: any) {
+    return this.http.post(`${this.basePath}${this.refundperiodadd}`, model, this.options)
   }
 
-  RefundPeriodUpdate(id:any,model:any){
-    return this.http.put(`${this.basePath}${this.refundperiodupdate}${id}`,model,this.options)
+  RefundPeriodUpdate(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.refundperiodupdate}${id}`, model, this.options)
   }
 
-  RefundPeriodbyid(id:any){
-    return this.http.get(`${this.basePath}${this.refundperiodbyid}${id}`,this.options)
+  RefundPeriodbyid(id: any) {
+    return this.http.get(`${this.basePath}${this.refundperiodbyid}${id}`, this.options)
   }
 
-   //Campaign
-   viewcampaign(id: any) {
+  //Campaign
+  viewcampaign(id: any) {
     return this.http.get(
       `${this.basePath}${this.viewcampaigns}${id}`,
       this.options
@@ -2969,10 +2969,10 @@ private readonly customeradditionaltransactionsearchs='customerotherpayment/view
       ...{ responseType: 'blob' },
     });
   }
- 
+
   campaignstatus(id: any, id1: any) {
-    return this.http.put(`${this.basePath}${this.campaignstatu}${id}/${id1}`,'', this.options)
- 
+    return this.http.put(`${this.basePath}${this.campaignstatu}${id}/${id1}`, '', this.options)
+
   }
   viewrecordcampaigns(id: any) {
     return this.http.get(
@@ -2986,8 +2986,8 @@ private readonly customeradditionaltransactionsearchs='customerotherpayment/view
       this.options
     );
   }
- 
-  editcampaign(id:any,model: any ) {
+
+  editcampaign(id: any, model: any) {
     return this.http.put(`${this.basePath}${this.editcampaigns}${id}`, model, this.options)
   }
   updatebulk(id: any, id1: any, payload: { emailId: any[] }): Promise<any> {

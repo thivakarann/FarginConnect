@@ -127,23 +127,27 @@ export class EntityAddComponent implements OnInit {
 
       entityName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
+        Validators.pattern('^[a-zA-Z]*$'),
+        Validators.maxLength(30)
       ]),
       merchantLegalName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
+        Validators.pattern('^[a-zA-Z]*$'),
+        Validators.maxLength(30)
       ]),
       accountDisplayName: new FormControl('',
         [
           Validators.required,
-          Validators.pattern('^[a-zA-Z0-9 ]*$')
+          Validators.pattern('^[a-zA-Z]*$'),
+          Validators.maxLength(30)
         ]
       ),
       businessCategoryIds: new FormControl('', [Validators.required]),
       MccCode: new FormControl(''),
       contactName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
+        Validators.pattern('^[a-zA-Z]*$'),
+        Validators.maxLength(30)
       ]),
       contactMobile: new FormControl('', [
         Validators.required,
@@ -156,8 +160,9 @@ export class EntityAddComponent implements OnInit {
       ]),
       contactEmail: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$')
-      ]),
+        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$'),
+         Validators.maxLength(40), // Maximum length for the email
+          ]),
       website: new FormControl('', [Validators.pattern("((http|https)://)(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,6})+(/[-a-zA-Z0-9@:%._\\+~#?&//=]*)?")]),
       gstIn: new FormControl("", [Validators.pattern("^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[A-Z]{1}[0-9A-Z]{1}$")]),
       billingAddress: new FormControl("", [
@@ -174,15 +179,18 @@ export class EntityAddComponent implements OnInit {
       ]),
       stateName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
+        Validators.pattern('^[a-zA-Z]*$'),
+        Validators.maxLength(30)
       ]),
       city: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
+        Validators.pattern('^[a-zA-Z]*$'),
+        Validators.maxLength(30)
       ]),
       country: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
+        Validators.pattern('^[a-zA-Z]*$'),
+        Validators.maxLength(30)
       ]),
       merchantPlanId: new FormControl('', [Validators.required]),
       periodName: new FormControl('', [Validators.required]),

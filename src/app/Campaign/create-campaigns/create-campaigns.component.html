@@ -18,7 +18,7 @@
           
           <div class="form__linput ">
             <label class="form__label">Date</label>
-            <input class="form-control" type="date" formControlName="startDate" required [min]="minDate">
+            <input  onkeydown="return false;" class="form-control" type="date" formControlName="startDate" required [min]="minDate">
             <div style="color: red; font-size: 12px;margin-top: 2px;"
                  *ngIf="startDate?.invalid && startDate?.touched && startDate?.errors?.['required']">
               Field is required

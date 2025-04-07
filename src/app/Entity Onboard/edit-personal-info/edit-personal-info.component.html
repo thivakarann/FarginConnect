@@ -29,7 +29,16 @@
                     position: relative;
                     ;
                   " *ngIf="entityName?.errors?.['pattern']">
-                        Invalid format. Only alphanumeric characters are allowed
+                        Invalid format. Only Characters are allowed
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="entityName?.errors?.['maxlength']">
+                        maximum length should be 30
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
@@ -52,7 +61,16 @@
                     position: relative;
                     ;
                   " *ngIf="merchantLegalName?.errors?.['pattern']">
-                        Invalid format. Only alphanumeric characters are allowed
+                        Invalid format. Only Characters are allowed
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="merchantLegalName?.errors?.['maxlength']">
+                        maximum length should be 30
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
@@ -75,7 +93,16 @@
                     position: relative;
                     ;
                   " *ngIf="accountDisplayName?.errors?.['pattern']">
-                        Invalid format. Only alphanumeric characters are allowed
+                        Invalid format. Only Characters are allowed
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="accountDisplayName?.errors?.['maxlength']">
+                        maximum length should be 30
                     </div>
                 </div>
             </div>
@@ -182,7 +209,16 @@
                     position: relative;
                     ;
                   " *ngIf="country?.errors?.['pattern']">
-                        Invalid format. Only alphanumeric characters are allowed
+                        Invalid format. Only Characters are allowed
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="country?.errors?.['maxlength']">
+                        maximum length should be 30
                     </div>
                 </div>
             </div>
@@ -208,7 +244,16 @@
                     position: relative;
                     ;
                   " *ngIf="stateName?.errors?.['pattern']">
-                        Invalid format. Only alphanumeric characters are allowed
+                        Invalid format. Only Characters are allowed
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="stateName?.errors?.['maxlength']">
+                        maximum length should be 30
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
@@ -231,7 +276,16 @@
                     position: relative;
                     ;
                   " *ngIf="city?.errors?.['pattern']">
-                        Invalid format. Only alphanumeric characters are allowed
+                        Invalid format. Only Characters are allowed
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="city?.errors?.['maxlength']">
+                        maximum length should be 30
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
@@ -325,7 +379,16 @@
                     position: relative;
                     ;
                   " *ngIf="contactName?.errors?.['pattern']">
-                        Field is required
+                        Invalid format. Only Characters are allowed
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="contactName?.errors?.['maxlength']">
+                        maximum length should be 30
                     </div>
                 </div>
             </div>
@@ -333,7 +396,7 @@
                 <div class="col-sm-4 form-group">
                     <label for="emails">Owner/Contact Email</label>
                     <input  type="email" formControlName="contactEmail" id="emails" class="form-control"
-                        ngModel="{{detaislone?.contactEmail}}" readonly>
+                        ngModel="{{detaislone?.contactEmail}}" >
                     <div style="
                     color: red;
                     font-size: 12px;
@@ -350,7 +413,17 @@
                     position: relative;
                     ;
                   " *ngIf="contactEmail?.errors?.['pattern']">
-                        please Enter A valid Email
+                        Please Enter A valid Email
+                    </div>
+                 
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="contactEmail?.errors?.['maxlength']">
+                       Maxlength of email should be 40
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">

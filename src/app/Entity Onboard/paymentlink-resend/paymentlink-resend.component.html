@@ -23,7 +23,7 @@
             </div>
             <div class="form__linput">
                 <label class="form__label" for="fname">Link Expiry Date</label>
-                <input class="form__input form-contol" id="fname" type="date" formControlName="expiryDate" name="expiryDate"
+                <input  onkeydown="return false;" class="form__input form-contol" id="fname" type="date" formControlName="expiryDate" name="expiryDate"
                    required [max]="maxDate" [min]="minDate"
                    />
                 <div style="color: red; font-size: 12px;margin-top: 2px;"

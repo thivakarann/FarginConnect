@@ -48,13 +48,13 @@
 
       <div class="col-2">
         <label><b>From Date:</b></label>
-        <input class="form-control" [(ngModel)]="fromDate" (change)="checkDate()"  [max]="maxDate" type="date" style="border-radius: 8px;  
+        <input  onkeydown="return false;" class="form-control" [(ngModel)]="fromDate" (change)="checkDate()"  [max]="maxDate" type="date" style="border-radius: 8px;  
             ">
       </div>
 
       <div class="col-2">
         <label><b>To Date:</b></label>
-        <input class="form-control" [(ngModel)]="toDate" type="date" [min]="fromDate" [max]="maxDate" style="border-radius: 8px; 
+        <input  onkeydown="return false;" class="form-control" [(ngModel)]="toDate" type="date" [min]="fromDate" [max]="maxDate" style="border-radius: 8px; 
              ">
       </div>
 
