@@ -221,12 +221,11 @@ export class BouquatenameViewallComponent implements OnInit {
     this.viewall.forEach((element: any) => {
  
       let createdate = element.createdAt;
-      this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
+      this.date1 = moment(createdate).format('DD/MM/yyyy hh:mm a').toString();
  
-      let moddate = element.modifiedDateAndTime;
-      this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
- 
- 
+      // let moddate = element.modifiedAt;
+      // this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
+
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.broadCasterName);
@@ -239,11 +238,14 @@ export class BouquatenameViewallComponent implements OnInit {
       this.response.push(element?.createdBy);
       this.response.push(this.date1);
       this.response.push(element?.modifiedBy);
-      this.response.push(this.date2);
- 
-     
-     
- 
+      // this.response.push(this.date2);
+      if (element?.modifiedAt) {
+      this.response.push(moment(element?.modifiedAt).format('DD/MM/yyyy hh:mm').toString());
+      }
+      else {
+        this.response.push();
+      }
+
       sno++;
       this.responseDataListnew.push(this.response);
     });

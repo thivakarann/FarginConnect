@@ -800,6 +800,19 @@ export class FarginServiceService {
   private readonly customeradditionaltransactionsearchs = 'customerotherpayment/viewByCustomerSearch/';
 
 
+  //dashboard
+  private readonly dashbordcustomercount = 'dashBoard/customerCount/';
+  private readonly dashboardviewpending = 'customerpay/viewbyPendingCustomers/';
+  private readonly dashboardemployeecount = 'merchantadminlogin/activeInactiveCount/';
+  private readonly dashbaordcustomerdayTransactions = 'entitydashboard/dayTransactions/';
+  private readonly dashboardlastmonthcustomertransaction = 'entitydashboard/lastMonthCustomerTransactions/';
+  private readonly dashboardthismonthcustomertransaction = 'entitydashboard/thisMonthCustomerTransactions/';
+  private readonly dashboarddatecustomertransaction = 'entitydashboard/customerRangeTransaction/';
+  private readonly dashboardthismonthadditionaltransaction = 'entitydashboard/thisMonthAdditionalTransactionsAmount/';
+  private readonly dashboardlastmonthadditionaltransaction = 'entitydashboard/lastMonthAdditionalTransactions/';
+
+  private readonly actvemerchants='merchant/activeMerchants'
+
   loginError = new Subject();
 
   token = sessionStorage.getItem('token') || null;
@@ -3004,5 +3017,39 @@ export class FarginServiceService {
   }
   customeradditionaltransactionsearch(id: any, id1: any, id2: any, id3: any) {
     return this.http.get(`${this.basePath}${this.customeradditionaltransactionsearchs}${id}/${id1}/${id2}/${id3}`, this.options)
+  }
+
+
+  //Merchantdahboard
+  dashboardcount(id: any) {
+    return this.http.get(`${this.basePath}${this.dashbordcustomercount}${id}`, this.options)
+  }
+  dashboardviewpendings(id: any) {
+    return this.http.get(`${this.basePath}${this.dashboardviewpending}${id}`, this.options)
+  }
+  dashboardemployeecounts(id: any) {
+    return this.http.get(`${this.basePath}${this.dashboardemployeecount}${id}`, this.options)
+  }
+  dashbaordcustomerday(id: any) {
+    return this.http.get(`${this.basePath}${this.dashbaordcustomerdayTransactions}${id}`, this.options)
+  }
+  dashboardlastmonthcustomertransactions(id: any) {
+    return this.http.get(`${this.basePath}${this.dashboardlastmonthcustomertransaction}${id}`, this.options)
+  }
+  dashboardthismonthcustomertransactions(id: any) {
+    return this.http.get(`${this.basePath}${this.dashboardthismonthcustomertransaction}${id}`, this.options)
+  }
+  dashboarddatecustomertransactions(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.dashboarddatecustomertransaction}${id}/${id1}/${id2}`, this.options)
+  }
+  dashboardlastmonthadditionaltransactions(id: any) {
+    return this.http.get(`${this.basePath}${this.dashboardlastmonthadditionaltransaction}${id}`, this.options)
+  }
+  dashboardthismonthadditionaltransactions(id: any) {
+    return this.http.get(`${this.basePath}${this.dashboardthismonthadditionaltransaction}${id}`, this.options)
+  }
+  actvemerchant()
+  {
+    return this.http.get(`${this.basePath}${this.actvemerchants}`, this.options)
   }
 }

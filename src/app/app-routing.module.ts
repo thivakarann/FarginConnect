@@ -114,6 +114,7 @@ import { RefundPeriodViewallComponent } from './Main Master/Refund Period/refund
 import { ViewRecordcampaignsComponent } from './Campaign/view-recordcampaigns/view-recordcampaigns.component';
 import { ViewCampaignsComponent } from './Campaign/view-campaigns/view-campaigns.component';
 import { MaintenanceotherpayViewComponent } from './Fargin Transtions/Entity Trans/maintenanceotherpay-view/maintenanceotherpay-view.component';
+import { DashboardMerchantcontentComponent } from './dashboard-merchantcontent/dashboard-merchantcontent.component';
 
 const routes: Routes = [
 
@@ -243,7 +244,7 @@ const routes: Routes = [
       {path:'view-campaign',component:ViewCampaignsComponent,canActivate: [authGuard]},
       {path:'view-record/:id',component:ViewRecordcampaignsComponent,canActivate: [authGuard]},
       {path:'maintenanceotherpay-view/:id',component:MaintenanceotherpayViewComponent,canActivate: [authGuard]},
-
+      {path:'dashboardmerchant',component:DashboardMerchantcontentComponent,canActivate: [authGuard]},
       
 
       // {path:'merchant-additional/:id',component:MercahntbasedadditionalComponent,canActivate: [authGuard]},

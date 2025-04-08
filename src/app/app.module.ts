@@ -283,6 +283,7 @@ import { UpdateStickerTicketComponent } from './Tickets/update-sticker-ticket/up
 import { OfflineDetailsComponent } from './Overall-Customer/offline-details/offline-details.component';
 import { SmsDescriptionComponent } from './Entity Onboard/sms-description/sms-description.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { DashboardMerchantcontentComponent } from './dashboard-merchantcontent/dashboard-merchantcontent.component';
 
 
 @NgModule({
@@ -542,7 +543,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     UpdateBulkcampaignComponent,
     UpdateStickerTicketComponent,
     OfflineDetailsComponent,
-    SmsDescriptionComponent
+    SmsDescriptionComponent,
+    DashboardMerchantcontentComponent
 
   ],
 

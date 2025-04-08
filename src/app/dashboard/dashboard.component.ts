@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ChangePasswordComponent } from '../change-password/change-password.component';
 import { LogoutComponent } from '../logout/logout.component';
 import { FarginServiceService } from '../service/fargin-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -66,14 +67,17 @@ export class DashboardComponent implements OnInit {
   valuebranch: any;
   valueonlienrefund: any;
   valuestickercost: any;
-  valuecampign:any;
-  valuerefundper:any;
+  valuecampign: any;
+  valuerefundper: any;
   valuecampaign: any;
+  values: any = ''
+  Redirect: any;
 
 
   constructor(private elRef: ElementRef,
     private renderer: Renderer2,
     private dialog: MatDialog,
+    private router:Router,
     private service: FarginServiceService,) { }
   ngOnInit(): void {
 
@@ -134,7 +138,7 @@ export class DashboardComponent implements OnInit {
       this.valuecustomermanualpayment = 'one Time Payments'
       this.valuekyccategory = 'Kyc Category'
       this.valueannouncement = 'Announcement'
-         this.valuecampaign = 'Campaign'
+      this.valuecampaign = 'Campaign'
       this.valuesmscost = 'SMS Cost'
       this.valuebankdetails = 'Bank Details'
       this.valuefarginbank = 'Fargin bank'
@@ -165,7 +169,7 @@ export class DashboardComponent implements OnInit {
         }
         if (this.roles == 'Entity Onboard') {
           this.valueEntity = 'Entity Onboard';
-         }
+        }
 
         if (this.roles == 'Entity Agreement') {
           this.valueentityagreement = 'Entity Agreement'
@@ -301,7 +305,7 @@ export class DashboardComponent implements OnInit {
         if (this.roles == 'Sticker Cost') {
           this.valuestickercost = 'Sticker Cost'
         }
-    
+
         if (this.roles == 'Campaign') {
           this.valuecampign = 'Campaign'
         }
@@ -434,4 +438,13 @@ export class DashboardComponent implements OnInit {
       exitAnimationDuration: "500ms",
     })
   }
+
+  // go(event: any) {
+  //   this.Redirect = event.target.value;
+  //   if (this.Redirect === '1') {
+  //     // Replace current history entry before redirecting
+  //     window.history.replaceState({}, '', window.location.href);
+  //     location.href = 'http://localhost:57302/dashboard/dashboard-content';
+  //   }
+  // }
 }

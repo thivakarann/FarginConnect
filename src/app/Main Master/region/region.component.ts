@@ -215,7 +215,7 @@ export class RegionComponent implements OnInit {
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
-        this.excelexportCustomer();
+        
   }
  
   excelexportCustomer() {

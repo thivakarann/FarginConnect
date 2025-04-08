@@ -619,5 +619,29 @@ background-color: #141E46;
   opacity: 1;
   visibility: visible;
 }
+.Go-dropdown {
+  position: fixed;
+  top: 10px;
+  right: 100px;
+  z-index: 1000; /* Keeps it above other content */
 
+
+}
+
+select {
+  width: 250px; /* Dropdown width */
+  height: 40px; /* Dropdown height */
+  border-radius: 5px; /* Rounded edges for options */
+  
+  padding: 5px; /* Inner padding */
+  font-size: 16px; /* Comfortable font size */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+
+
+option {
+  padding: 5px; /* Padding for options */
+  font-size: 16px; /* Font size for better readability */
+}
 

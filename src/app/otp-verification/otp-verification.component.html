@@ -21,7 +21,7 @@
               <input type="text" style="width: 60px;height:50px;" name="otpCode6" [(ngModel)]="otpCode6"
                 (keyup)="move($event,fifth,six, '')" #six class="form-control me-1 d-inline" maxlength="1" />
             </div>
-            <button type="submit" (click)="verifyotp()"> Verify</button>
+            <button type="submit" [disabled]="!isOtpComplete()" (click)="verifyotp()"> Verify</button>
             <p *ngIf="displayTimer"> OTP Will be Expired Within:<span style="color:red;">{{display}}</span></p>
  
             <p class="resend text-muted mb-0" *ngIf="resendOtp">

@@ -34,6 +34,15 @@
       <div class="center">
         <h2 style="font-size: 20px; margin-left:45px;">FARGIN CONNECT</h2>
       </div>
+      <!-- <div class="Go-dropdown">
+        <select  [(ngModel)]="values" (change)="go($event)" >
+           
+            <option value="" selected >Local Cable Operator</option>
+            <option value="1">Paying Guest</option>
+            
+        </select>
+    </div> -->
+    
       <div class="dropdown" id="profile-dropdown">
         <button class="btn dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-user"></i>
@@ -68,11 +77,38 @@
               <span></span>
             </li>
 
-            <li [hidden]="valueDashboard!=='Dashboard'">
+            <!-- <li [hidden]="valueDashboard!=='Dashboard'">
               <a routerLink="dashboard-content">
                 <i class="fa fa-dashboard"></i>
                 <span>Dashboard</span>
               </a>
+            </li> -->
+
+
+            <li class="sidebar-dropdown" style="cursor: pointer;"
+            [hidden]="valueDashboard!=='Dashboard'">
+            <a>
+              <i class="fa fa-dashboard"></i>
+              <span>Dashboard</span>
+            </a>
+
+              <div class="sidebar-submenu">
+                <ul>
+                  <li  [hidden]="valueDashboard!=='Dashboard'">
+                    <a routerLink="dashboard-content">
+                      Super Admin  Dashboard
+                    </a>
+                  </li>
+
+                  <li >
+                    <a routerLink="dashboardmerchant">
+                      Merchant Dashboard
+                    </a>
+                  </li>
+                </ul>
+
+              </div>
+
             </li>
 
             <li [hidden]="valueEntity!=='Entity Onboard'">
@@ -330,7 +366,7 @@
                   </li>
 
                   <li [hidden]="valuestickercost!=='Sticker Cost'">
-                    <a routerLink="sticker-view">Sticket Cost</a>
+                    <a routerLink="sticker-view">Sticker Cost</a>
                   </li>
 
                   <li [hidden]="valuebankdetails!=='Bank Details'">

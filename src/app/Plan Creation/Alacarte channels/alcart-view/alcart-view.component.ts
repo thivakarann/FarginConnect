@@ -50,6 +50,12 @@ export class AlcartViewComponent implements OnInit {
       data: { value: id }
 
     })
+      this.dialog.afterAllClosed.subscribe(() => {
+          
+        this.AlcartView.Alcardviewbyid(this.id).subscribe((res: any) => {
+          this.alcardsdetails = res.response;
+        });
+        })
   }
 
 
