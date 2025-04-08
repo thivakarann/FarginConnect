@@ -119,12 +119,12 @@ export class EntityCustomersViewComponent {
 
           if (this.roleId == 1) {
             this.valuecustomerinfo = 'Customer Info'
-            this.valuecustomerSetupBox = 'Setup Box'
+            this.valuecustomerSetupBox = 'Set-Topbox'
             this.valuecustomerTransactions = 'Transactions'
             this.valuecustomeradditional = 'Additional Payments'
             this.valuecustomerRefunds = 'Refunds'
-            this.valuesetupsts = 'Setup Box-Status'
-            this.valuesetupview = 'Setup Box-View'
+            this.valuesetupsts = 'Set-Topbox-Status'
+            this.valuesetupview = 'Set-Topbox-View'
             this.valuetransreceipt = 'Transactions-Receipt'
             this.valueadditionalinvoice = 'Additional Payments-Receipt'
             this.vaaluedetails = 'Refunds-View'
@@ -136,8 +136,8 @@ export class EntityCustomersViewComponent {
               if (this.actions == 'Customer Info') {
                 this.valuecustomerinfo = 'Customer Info'
               }
-              if (this.actions == 'Setup Box') {
-                this.valuecustomerSetupBox = 'Setup Box'
+              if (this.actions == 'Set-Topbox') {
+                this.valuecustomerSetupBox = 'Set-Topbox'
               }
               if (this.actions == 'Transactions') {
                 this.valuecustomerTransactions = 'Transactions'
@@ -148,11 +148,11 @@ export class EntityCustomersViewComponent {
               if (this.actions == 'Refunds') {
                 this.valuecustomerRefunds = 'Refunds'
               }
-              if (this.actions == 'Setup Box-Status') {
-                this.valuesetupsts = 'Setup Box-Status'
+              if (this.actions == 'Set-Topbox-Status') {
+                this.valuesetupsts = 'Set-Topbox-Status'
               }
-              if (this.actions == 'Setup Box-View') {
-                this.valuesetupview = 'Setup Box-View'
+              if (this.actions == 'Set-Topbox-View') {
+                this.valuesetupview = 'Set-Topbox-View'
               }
               if (this.actions == 'Transactions-Receipt') {
                 this.valuetransreceipt = 'Transactions-Receipt'

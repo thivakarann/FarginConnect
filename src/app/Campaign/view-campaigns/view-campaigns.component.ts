@@ -187,6 +187,7 @@ export class ViewCampaignsComponent {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       width: '610px',
+      maxHeight:'570px'
       
     });
     this.dialog.afterAllClosed.subscribe(() => {
@@ -417,6 +418,7 @@ export class ViewCampaignsComponent {
       exitAnimationDuration: '1000ms',
       width: '90vw',
       maxWidth: '500px',
+      maxHeight:'600px',
     })
     this.dialog.afterAllClosed.subscribe(() => {
       this.service.viewcampaign(1).subscribe((res: any) => {

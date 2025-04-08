@@ -33,6 +33,10 @@
           <div class="form__linput ">
             <label class="form__label">{{"Content"}}</label>
             <textarea class="form-control" type="text" formControlName="contents" required></textarea>
+            <small style="color: red;; font-size: 12px; display: block;">
+              Note: Maximum content limit is 500 characters
+            </small>
+         
             <div style="color: red; font-size: 12px;margin-top: 2px;"
                  *ngIf="contents?.invalid && contents?.touched && contents?.errors?.['required']">
               Field is required

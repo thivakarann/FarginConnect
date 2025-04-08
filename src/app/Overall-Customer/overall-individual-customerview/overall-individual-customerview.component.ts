@@ -115,11 +115,11 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
  
           if (this.roleId == 1) {
             this.valuecustomerinfo = 'Customers-Customer Info';
-            this.valueSetupBox = 'Customers-Setup Box';
+            this.valueSetupBox = 'Customers-Set-Topbox';
             this.valueTransactions = 'Customers-Transaction';
             this.valueAdditionalPayments = 'Customers-Additional Payments';
             this.valuesetsts = 'Customers-Setup Box Status'
-            this.valuesetview = 'Customers-Setup Box View'
+            this.valuesetview = 'Customers-Set-Topbox View'
             this.valuetransreceipt = 'Customers-Transaction Receipt'
             this.valueaddinvoice = 'Customers-Additional Payments Receipt'
             this.valuecustomerRefunds='Customers-Refunds'
@@ -139,15 +139,15 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
               if (this.actions == 'Customers-Setup Box Status') {
                 this.valuesetsts = 'Customers-Setup Box Status'
               }
-              if (this.actions == 'Customers-Setup Box View') {
-                this.valuesetview = 'Customers-Setup Box View'
+              if (this.actions == 'Customers-Set-Topbox View') {
+                this.valuesetview = 'Customers-Set-Topbox View'
               }
               if (this.actions == 'Customers-Customer Info') {
                 this.valuecustomerinfo = 'Customers-Customer Info';
         
               }
-              if (this.actions == 'Customers-Setup Box') {
-                this.valueSetupBox = 'Customers-Setup Box'
+              if (this.actions == 'Customers-Set-Topbox') {
+                this.valueSetupBox = 'Customers-Set-Topbox'
               }
               if (this.actions == 'Customers-Transaction') {
                 this.valueTransactions = 'Customers-Transaction'

@@ -21,10 +21,10 @@
     </a>
   </li>
   &nbsp; &nbsp;
-  <li class="nav-item" [hidden]="valueSetupBox!=='Customers-Setup Box'">
+  <li class="nav-item" [hidden]="valueSetupBox!=='Customers-Set-Topbox'">
     <a style="cursor: pointer;font-weight: 600;" class="nav-link" [class.active]="selectedTab === 'Setup-Box'"
       (click)="selectTab('Setup-Box')">
-      Setup Box
+      Set-Topbox
     </a>
   </li>
   &nbsp; &nbsp;
@@ -223,7 +223,7 @@
  
 <div id="Setup-box" *ngIf="selectedTab === 'Setup-Box'" class="mb-4">
  
-  <div [hidden]="valueSetupBox!=='Customers-Setup Box'">
+  <div [hidden]="valueSetupBox!=='Customers-Set-Topbox'">
     <div class="row mt-2 mx-1">
       <div class="col-md-3">
         <div class="search ">
@@ -275,7 +275,7 @@
                 <th>Service Provider Name</th>
                 <th>Region</th>
                 <th>Due Status</th>
-                <th [hidden]="valuesetview!=='Customers-Setup Box View'">View</th>
+                <th [hidden]="valuesetview!=='Customers-Set-Topbox View'">View</th>
                 <th>Created By</th>
                 <th>Created Date/Time</th>
               </tr>
@@ -295,7 +295,7 @@
                       (change)="ActiveStatus($event,row.customerStbId)">
                     </mat-slide-toggle>
                   </td> -->
-                  <td [hidden]="valuesetview!=='Customers-Setup Box View'" style="cursor: pointer;" (click)="view(row.customerStbId)">
+                  <td [hidden]="valuesetview!=='Customers-Set-Topbox View'" style="cursor: pointer;" (click)="view(row.customerStbId)">
                     <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
                   </td>
                   <td>{{ row ?.createdBy }}</td>

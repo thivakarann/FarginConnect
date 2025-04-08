@@ -130,9 +130,9 @@
             <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
 
             <tr *matNoDataRow>
-                <td class="mat-cell" colspan="100">No Data {{input.value}}</td>
-                <!-- <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">No Data</td> -->
-            </tr>
+                <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data For {{input.value}}</td>
+                <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">No Data</td>
+              </tr>
         </table>
 
     </div>

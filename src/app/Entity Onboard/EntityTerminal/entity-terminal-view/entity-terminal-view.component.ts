@@ -97,6 +97,20 @@ export class EntityTerminalViewComponent implements OnInit{
         this.dataSource = new MatTableDataSource(this.terminal.reverse());
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+        this.dataSource.filterPredicate = (data: any, filter: string) => {
+          const transformedFilter = filter.trim().toLowerCase();
+          const dataStr = Object.keys(data)
+          .reduce((currentTerm: string, key: string) => {
+            return (
+              currentTerm +
+              (typeof data[key] === 'object'
+                ? JSON.stringify(data[key])
+                : data[key])
+            );
+          }, '')
+          .toLowerCase();
+          return dataStr.indexOf(transformedFilter) !== -1;
+        };
       }
       else if(res.flag==2){
         this.dataSource = new MatTableDataSource([]);
@@ -124,6 +138,20 @@ export class EntityTerminalViewComponent implements OnInit{
               this.dataSource = new MatTableDataSource(this.terminal.reverse());
               this.dataSource.sort = this.sort;
               this.dataSource.paginator = this.paginator;
+              this.dataSource.filterPredicate = (data: any, filter: string) => {
+                const transformedFilter = filter.trim().toLowerCase();
+                const dataStr = Object.keys(data)
+                .reduce((currentTerm: string, key: string) => {
+                  return (
+                    currentTerm +
+                    (typeof data[key] === 'object'
+                      ? JSON.stringify(data[key])
+                      : data[key])
+                  );
+                }, '')
+                .toLowerCase();
+                return dataStr.indexOf(transformedFilter) !== -1;
+              };
             }
             else if(res.flag==2){
               this.dataSource = new MatTableDataSource([]);
@@ -137,7 +165,35 @@ export class EntityTerminalViewComponent implements OnInit{
     }
     
     reload() {
-      window.location.reload()
+      this.service.EntityTerminalviewMerchant(this.merchantId).subscribe((res: any) => {
+        if(res.flag==1)
+        {
+          this.terminal = res.response;
+          this.dataSource = new MatTableDataSource(this.terminal.reverse());
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.filterPredicate = (data: any, filter: string) => {
+            const transformedFilter = filter.trim().toLowerCase();
+            const dataStr = Object.keys(data)
+            .reduce((currentTerm: string, key: string) => {
+              return (
+                currentTerm +
+                (typeof data[key] === 'object'
+                  ? JSON.stringify(data[key])
+                  : data[key])
+              );
+            }, '')
+            .toLowerCase();
+            return dataStr.indexOf(transformedFilter) !== -1;
+          };
+        }
+        else if(res.flag==2){
+          this.dataSource = new MatTableDataSource([]);
+          this.dataSource = new MatTableDataSource(this.terminal.reverse());
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        }
+     });
     }
 
     CreateEntityTerminal(id:any){
@@ -155,6 +211,20 @@ export class EntityTerminalViewComponent implements OnInit{
             this.dataSource = new MatTableDataSource(this.terminal.reverse());
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
+            this.dataSource.filterPredicate = (data: any, filter: string) => {
+              const transformedFilter = filter.trim().toLowerCase();
+              const dataStr = Object.keys(data)
+              .reduce((currentTerm: string, key: string) => {
+                return (
+                  currentTerm +
+                  (typeof data[key] === 'object'
+                    ? JSON.stringify(data[key])
+                    : data[key])
+                );
+              }, '')
+              .toLowerCase();
+              return dataStr.indexOf(transformedFilter) !== -1;
+            };
           }
           else if(res.flag==2){
             this.dataSource = new MatTableDataSource([]);
@@ -181,6 +251,20 @@ export class EntityTerminalViewComponent implements OnInit{
             this.dataSource = new MatTableDataSource(this.terminal.reverse());
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
+            this.dataSource.filterPredicate = (data: any, filter: string) => {
+              const transformedFilter = filter.trim().toLowerCase();
+              const dataStr = Object.keys(data)
+              .reduce((currentTerm: string, key: string) => {
+                return (
+                  currentTerm +
+                  (typeof data[key] === 'object'
+                    ? JSON.stringify(data[key])
+                    : data[key])
+                );
+              }, '')
+              .toLowerCase();
+              return dataStr.indexOf(transformedFilter) !== -1;
+            };
           }
           else if(res.flag==2){
             this.dataSource = new MatTableDataSource([]);
@@ -195,6 +279,7 @@ export class EntityTerminalViewComponent implements OnInit{
     applyFilter(event: Event) {
       const filterValue = (event.target as HTMLInputElement).value;
       this.dataSource.filter = filterValue.trim().toLowerCase();
+      this.searchPerformed = filterValue.length > 0;
       if (this.dataSource.paginator) {
         this.dataSource.paginator.firstPage();
       }
