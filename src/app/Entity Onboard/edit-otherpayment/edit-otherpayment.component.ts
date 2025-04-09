@@ -32,7 +32,7 @@ export class EditOtherpaymentComponent {
       paidAmount: new FormControl('', [Validators.required,]),
       serviceName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[A-Za-z]+$'), 
+        Validators.pattern('^[a-zA-Z ]*$'),
         Validators.maxLength(30) 
       ]),
       utrnumber: new FormControl(''),

@@ -12,6 +12,9 @@ import { ToastrService } from 'ngx-toastr';
   providedIn: 'root'
 })
 export class FarginServiceService {
+  Email: any;
+  AdminId: any;
+  Tokens: any;
 
 
   constructor(private http: HttpClient,
@@ -622,7 +625,7 @@ export class FarginServiceService {
 
   //branch entity view
   // private readonly branchget = 'bankBranch/view/'
-  private readonly branchget='bankBranch/viewData/';
+  private readonly branchget = 'bankBranch/viewData/';
   private readonly branchcreate = 'bankBranch/createBranch';
   private readonly branchedit = 'bankBranch/update/';
   private readonly branchstatus = 'bankBranch/updateStatus/';
@@ -811,7 +814,7 @@ export class FarginServiceService {
   private readonly dashboardthismonthadditionaltransaction = 'entitydashboard/thisMonthAdditionalTransactionsAmount/';
   private readonly dashboardlastmonthadditionaltransaction = 'entitydashboard/lastMonthAdditionalTransactions/';
 
-  private readonly actvemerchants='merchant/activeMerchants'
+  private readonly actvemerchants = 'merchant/activeMerchants'
 
   loginError = new Subject();
 
@@ -829,6 +832,8 @@ export class FarginServiceService {
     X_ACCESS_TOKEN: `Bearer ${this.token ? JSON.parse(sessionStorage.getItem('token') || '') : null
       }`,
   });
+
+
   options = { headers: this.headers };
   optionsMultipart = { headers: this.headersMultipart };
 
@@ -854,6 +859,17 @@ export class FarginServiceService {
         sessionStorage.setItem('fullname', JSON.stringify(res.response.login_history?.adminUser?.createdBy));
         sessionStorage.setItem('roleId', JSON.stringify(res.response.login_history?.adminUser?.roleModel?.roleId));
 
+        const token = res.response.login_history.adminUser.jwtResponse.X_ACCESS_TOKEN;
+        const email = encodeURIComponent(res.response.login_history.adminUser.emailAddress);
+        const adminId = res.response.login_history.adminUser.adminUserId;
+
+        // Encode the values to avoid issues with special characters
+        // const encodedEmail = encodeURIComponent(Email);
+        // const encodedAdminId = encodeURIComponent(AdminId);
+        // const encodedToken = encodeURIComponent(Tokens);
+
+
+
         this.router.navigateByUrl('/dashboard/dashboard-content', {
           replaceUrl: true,
         });
@@ -862,8 +878,9 @@ export class FarginServiceService {
           window.location.reload();
         }, 200);
 
+      //  location.href = (`http://localhost:58455/data-component/${token}/${email}/${adminId}`);
+
         this.toastr.success(res.responseMessage);
-        // location.href = '/dashboard/dashboard-content';   need to add After login
 
       }
       else if (res.flag == 2) {
@@ -3048,8 +3065,7 @@ export class FarginServiceService {
   dashboardthismonthadditionaltransactions(id: any) {
     return this.http.get(`${this.basePath}${this.dashboardthismonthadditionaltransaction}${id}`, this.options)
   }
-  actvemerchant()
-  {
+  actvemerchant() {
     return this.http.get(`${this.basePath}${this.actvemerchants}`, this.options)
   }
 }
