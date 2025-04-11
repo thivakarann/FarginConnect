@@ -65,6 +65,19 @@ export class ViewAnnouncementComponent implements OnInit {
   filter: boolean = true;
   pageIndex1: number = 0;
   maxDate: any;
+  annoucemnetserach: any;
+  pageSize2: number = 5;
+ 
+
+  pageIndex2: number = 0;
+  currentfilval:any;
+  totalPages2: any;
+  totalpage2: any;
+  currentpage2: any;
+  
+  filter1: boolean = false;
+  filter2: boolean = false;
+  filter3: boolean = false;
 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
 
@@ -117,7 +130,9 @@ export class ViewAnnouncementComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.data);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-      this.filter = false;
+      this.filter1 = true;
+      this.filter2=false;
+      this.filter3=false;
       this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
     })
 
@@ -160,7 +175,9 @@ export class ViewAnnouncementComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.data);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-      this.filter = false;
+      this.filter1 = true;
+      this.filter2=false;
+      this.filter3=false;
       this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
     })
 
@@ -178,11 +195,9 @@ export class ViewAnnouncementComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.data);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        // this.dateSuccess = res.responseMessage;
- 
-        // this.fromDate = '';
-        // this.toDate = '';
-        this.filter = true;
+        this.filter1 = false;
+        this.filter2=true;
+        this.filter3=false;
       }
  
       else if (res.flag == 2) {
@@ -223,7 +238,9 @@ export class ViewAnnouncementComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.data);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.filter = false;
+        this.filter1 = true;
+        this.filter2=false;
+        this.filter3=false;
         this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
       })
   
@@ -240,7 +257,9 @@ export class ViewAnnouncementComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.data);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-      this.filter = false;
+      this.filter1 = true;
+      this.filter2=false;
+      this.filter3=false;
       this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
       this.fromDate='';
       this.toDate='';
@@ -266,7 +285,9 @@ export class ViewAnnouncementComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.data);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.filter = false;
+        this.filter1 = true;
+        this.filter2=false;
+        this.filter3=false;
         this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
       })
   
@@ -306,7 +327,9 @@ export class ViewAnnouncementComponent implements OnInit {
           this.dataSource = new MatTableDataSource(this.data);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
-          this.filter = false;
+          this.filter1 = true;
+          this.filter2=false;
+          this.filter3=false;
           this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
         })
       }, 500);
@@ -457,5 +480,57 @@ export class ViewAnnouncementComponent implements OnInit {
       // length: this.totalItems
     } as PageEvent);
   }
-  
+
+
+  annoucementsearch(filterValue: string) {
+    if (!filterValue) {
+      this.toastr.error('Please enter a value to search');
+      return;
+    }
+ 
+    this.service.announcementsearch(filterValue,this.pageSize2,this.pageIndex2).subscribe({
+      next: (res: any) => {
+        if (res.response) {
+          this.annoucemnetserach = res.response;
+       
+          this.totalPages2 = res.pagination.totalElements;
+          this.totalpage2 = res.pagination.totalPages;
+          this.currentpage2 = res.pagination.currentPage + 1;
+          this.dataSource = new MatTableDataSource(this.annoucemnetserach);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.filter1 = false;
+          this.filter2=false;
+          this.filter3=true;
+        }
+        else if (res.flag === 2) {
+          this.annoucemnetserach = [];
+          this.dataSource = new MatTableDataSource(this.annoucemnetserach);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.filter1 = false;
+          this.filter2=false;
+          this.filter3=true;
+        }
+      },
+      error: (err: any) => {
+        this.toastr.error('No Data Found');
+      }
+    });
+  }
+  renderPage2(event: PageEvent) {
+
+    this.pageIndex2 = event.pageIndex;  
+    this.pageSize2 = event.pageSize;           
+    this.annoucementsearch(this.currentfilval);
+  }
+
+  changePageIndex2(newPageIndex1: number) {
+    this.pageIndex2 = newPageIndex1;
+    this.renderPage2({
+      pageIndex: newPageIndex1,
+      pageSize: this.pageSize2,
+    
+    } as PageEvent);
+  }
 }

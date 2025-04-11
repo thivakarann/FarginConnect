@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpBackend, HttpClient, HttpHeaders } from '@angular/common/http';
 import { lastValueFrom, Subject } from 'rxjs';
 import { BankPrimaryStatus } from '../fargin-model/fargin-model.module';
 import { SessionServiceService } from '../Session service/session-service.service';
@@ -16,9 +16,11 @@ export class FarginServiceService {
   AdminId: any;
   Tokens: any;
 
-
+  Client:HttpClient
   constructor(private http: HttpClient,
-    private router: Router, private timerService: SessionServiceService, private toastr: ToastrService) { }
+    private router: Router, private timerService: SessionServiceService, private toastr: ToastrService, private back:HttpBackend) {
+      this.Client = new HttpClient(back)
+     }
 
   // private readonly basePath = 'https://staging-api.farginconnect.com/';    //Staging server
 
@@ -540,6 +542,7 @@ export class FarginServiceService {
   private readonly announcementedit = 'announcement/update'
   private readonly announcementstatus = 'announcement/updateStatus'
   private readonly announcementdate = 'announcement/dateFilter/';
+  private readonly announcementsearchs = 'announcement/getallSearch/';
 
   //customer payment
   private readonly customerpayment = 'customerpay/trackApi';
@@ -568,6 +571,7 @@ export class FarginServiceService {
   private readonly alcothistory = 'alcotchannel/viewAllHistory/';
   private readonly alcothistoryexport = 'alcotchannel/viewAllHistory';
   private readonly alcotchannelactiveregion = 'alcotchannel/viewregionactive';
+  private readonly Alcotsearchs='alcotchannel/viewAllHistorySerach/'
 
 
   //search
@@ -814,7 +818,8 @@ export class FarginServiceService {
   private readonly dashboardthismonthadditionaltransaction = 'entitydashboard/thisMonthAdditionalTransactionsAmount/';
   private readonly dashboardlastmonthadditionaltransaction = 'entitydashboard/lastMonthAdditionalTransactions/';
 
-  private readonly actvemerchants = 'merchant/activeMerchants'
+  private readonly actvemerchants='merchant/limitActiveMerchants'
+  private readonly actvemerchantsearchs='merchant/limitActiveMerchantsearch/'
 
   loginError = new Subject();
 
@@ -2326,6 +2331,10 @@ export class FarginServiceService {
     return this.http.get(`${this.basePath}${this.announcementdate}${id}/${id1}/${id2}/${id3}`, this.options)
   }
 
+  
+  announcementsearch(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.announcementsearchs}${id}/${id1}/${id2}`, this.options)
+  }
   SmsDropdownGetAll(id: any) {
     return this.http.get(`${this.basePath}${this.smsdropdown}${id}`, this.options)
   }
@@ -2398,6 +2407,9 @@ export class FarginServiceService {
   //alcot history
   AlcotHistoryViewAll(id: any, id1: any) {
     return this.http.get(`${this.basePath}${this.alcothistory}${id}/${id1}`, this.options)
+  }
+  Alcotsearch(id: any, id1: any, id2:any) {
+    return this.http.get(`${this.basePath}${this.Alcotsearchs}${id}/${id1}/${id2}`, this.options)
   }
   AlcotHistoryViewAllExport() {
     return this.http.get(`${this.basePath}${this.alcothistoryexport}`, this.options)
@@ -3065,7 +3077,12 @@ export class FarginServiceService {
   dashboardthismonthadditionaltransactions(id: any) {
     return this.http.get(`${this.basePath}${this.dashboardthismonthadditionaltransaction}${id}`, this.options)
   }
-  actvemerchant() {
-    return this.http.get(`${this.basePath}${this.actvemerchants}`, this.options)
+  actvemerchant()
+  {
+    return this.Client.get(`${this.basePath}${this.actvemerchants}`, this.options)
+  }
+  actvemerchantsearch(id:any)
+  {
+    return this.Client.get(`${this.basePath}${this.actvemerchantsearchs}${id}`, this.options)
   }
 }

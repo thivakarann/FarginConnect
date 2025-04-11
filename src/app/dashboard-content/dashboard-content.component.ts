@@ -11,6 +11,7 @@ import {
 } from 'chart.js';
 import { DashboardData } from '../fargin-model/fargin-model.module';
 import { FormControl, FormGroup } from '@angular/forms';
+import moment from 'moment';
 Chart.register(ArcElement, Tooltip, Legend, DoughnutController);
 
 
@@ -72,6 +73,8 @@ export class DashboardContentComponent {
   categorydetails: any;
   valuetoppaymentmethod:any;
   transactionform: any = FormGroup;
+  one: any[]=[]
+  setCount: any[]=[]
 
   constructor(private service: FarginServiceService) { }
 
@@ -252,8 +255,16 @@ export class DashboardContentComponent {
     });
     this.service.dashboardsevendaysamounts().subscribe((res: any) => {
       if (res.flag == 1) {
-        this.createseven(res.response);
+        for (let index = 0; index < 7; index++) {
+          const element = res.response[index];
+          
+            this.one.push(moment(element.date).format('MMM D') )
+            this.setCount.push(element.totalCount)    
+          
+        
       }
+      this.createseven(res.response);
+    }
       if (res.flag == 2) {
         this.createseven(res.response);
       }
@@ -755,19 +766,20 @@ export class DashboardContentComponent {
     // Filter out any non-date entries
     const validData = data.filter(item => item.date);
 
-    const labels = validData.map((item: DashboardData) => {
+    const labels = data.map((item: DashboardData) => {
       const date = new Date(item.date);
+      return  moment(date).add(2,'days').subtract(1,'days').format('yyyy-MM-DD').toString()
       return `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()}`;
     });
-
-    const totalCount = validData.map((item: DashboardData) => item.totalCount);
+    
+    const totalCount = data.map((item: DashboardData) => item.totalCount);
 
     const chartData: ChartData<'bar', number[], string> = {
-      labels: labels,
+      labels: this.one,
       datasets: [
         {
           label: 'Total Count',
-          data: totalCount,
+          data: this.setCount,
           backgroundColor: '#2196F3',
           borderWidth: 1,
           type: 'bar' as const,
@@ -806,8 +818,9 @@ export class DashboardContentComponent {
           },
           tooltip: {
             callbacks: {
-              label: function (tooltipItem) {
-                return `${tooltipItem.dataset.label}: ${tooltipItem.raw}`;
+              label: function (context) {
+                const index = context.dataIndex;
+                return `Total Count: ${totalCount[index]}`;
               },
             },
           },

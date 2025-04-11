@@ -10,7 +10,7 @@ import moment from 'moment';
   styleUrl: './dashboard-merchantcontent.component.css'
 })
 export class DashboardMerchantcontentComponent {
-  customercount: any;
+ customercount: any;
  
   duepending: any;
   dashboardemployecount: any;
@@ -23,23 +23,31 @@ export class DashboardMerchantcontentComponent {
   selectedadditionalPeriods: any;
   additionalmonth: any;
   activemerchant:any;
-  id:any
+  merchantId:any
+  myForm: any;
+  viewcustomersearch: any;
+  customerInput: string = '';
+  isNoDataFound: boolean=false;
+
 
 
   constructor(public loaderService: LoaderService, private router: Router,   private service: FarginServiceService, private cdRef: ChangeDetectorRef) { }
   ngOnInit():void{
  
 
-      this.service.actvemerchant().subscribe((res: any) => {
-        this.activemerchant = res.response;
+      // this.service.actvemerchant().subscribe((res: any) => {
+      //   this.activemerchant = res.response;
         
   
-      });
+      // });
   
 
     
       const today = new Date();
       this.maxDate = moment(today).format('yyyy-MM-DD').toString()
+
+
+      this.loadInitialSetupBoxes();
   }
  
 
@@ -47,21 +55,21 @@ export class DashboardMerchantcontentComponent {
   getmonthtransaction(event: any) {
     this.selectedPeriods = event;
     if (event == 'LastMonths') {
-      this.service.dashboardlastmonthcustomertransactions(this.id).subscribe((res: any) => {
+      this.service.dashboardlastmonthcustomertransactions(this.merchantId).subscribe((res: any) => {
         this.lastmonth = res.response;
       });
 
     }
 
     if (event == 'thisMonths') {
-      this.service.dashboardthismonthcustomertransactions(this.id).subscribe((res: any) => {
+      this.service.dashboardthismonthcustomertransactions(this.merchantId).subscribe((res: any) => {
         this.lastmonth = res.response;
       })
 
     }
   }
   custom() {
-    this.service.dashboarddatecustomertransactions(this.id, this.fromDates, this.toDates).subscribe((res: any) => {
+    this.service.dashboarddatecustomertransactions(this.merchantId, this.fromDates, this.toDates).subscribe((res: any) => {
       this.lastmonth = res.response
     })
 
@@ -70,14 +78,14 @@ export class DashboardMerchantcontentComponent {
   getadditionalmonthtransaction(event: any) {
     this.selectedadditionalPeriods = event;
     if (event == 'LastaditionalMonths') {
-      this.service.dashboardlastmonthadditionaltransactions(this.id).subscribe((res: any) => {
+      this.service.dashboardlastmonthadditionaltransactions(this.merchantId).subscribe((res: any) => {
         this.additionalmonth = res.response;
       });
 
     }
 
     if (event == 'thisadditionalMonths') {
-      this.service.dashboardthismonthadditionaltransactions(this.id).subscribe((res: any) => {
+      this.service.dashboardthismonthadditionaltransactions(this.merchantId).subscribe((res: any) => {
         this.additionalmonth = res.response;
       })
 
@@ -96,35 +104,98 @@ export class DashboardMerchantcontentComponent {
 
   merchant(event:any)
   {
-    this.id=event.target.value;
+    this.merchantId=event.target.value;
     
    
-    this.service.dashboardcount(this.id).subscribe((res: any) => {
-      this.customercount = res.response;
-    });
-    this.service
-    .dashboardviewpendings(this.id)
-    .subscribe((res: any) => {
-      this.duepending = res.response;
-    });
-    this.service
-      .dashboardemployeecounts(this.id)
-      .subscribe((res: any) => {
-        this.dashboardemployecount = res.response;
-      });
-
-
-      this.service.dashbaordcustomerday(this.id).subscribe((res: any) => {
-        this.customertotal = res.response;
-      });
     
-      this.additionalmonth='';
-      this.lastmonth=''
-      this.fromDates='';
-      this.toDates='';
-      this.selectedPeriods=''
-      this.selectedadditionalPeriods=''
 
+  }
+
+
+  loadInitialSetupBoxes() {
+    this.service.actvemerchant().subscribe((res: any) => {
+      this.activemerchant = res.response;
+    });
+
+    this.customercount=''
+    this.dashboardemployecount=''
+    this.duepending=''
+    this.additionalmonth='';
+    this.lastmonth=''
+    this.fromDates='';
+    this.toDates='';
+    this.selectedPeriods=''
+    this.selectedadditionalPeriods=''
+    this.customertotal=''
+
+  }
+
+  onInputChange() {
+    const input = this.customerInput
+      if (!input) {
+        this.loadInitialSetupBoxes(); 
+        return;
+      } 
+
+      for (let index = 0; index < this.activemerchant.length; index++) {
+        const element = this.activemerchant[index];
+        if (element.entityName == this.customerInput) {
+          this.merchantId = element.merchantId
+          console.log(this.merchantId);
+          
+        }
+      }
+
+      this.service.dashboardcount(this.merchantId).subscribe((res: any) => {
+        this.customercount = res.response;
+      });
+      this.service
+      .dashboardviewpendings(this.merchantId)
+      .subscribe((res: any) => {
+        this.duepending = res.response;
+      });
+      this.service
+        .dashboardemployeecounts(this.merchantId)
+        .subscribe((res: any) => {
+          this.dashboardemployecount = res.response;
+        });
+  
+  
+        this.service.dashbaordcustomerday(this.merchantId).subscribe((res: any) => {
+          this.customertotal = res.response;
+        });
+      
+         this.customercount=''
+    this.dashboardemployecount=''
+    this.duepending=''
+    this.additionalmonth='';
+    this.lastmonth=''
+    this.fromDates='';
+    this.toDates='';
+    this.selectedPeriods=''
+    this.selectedadditionalPeriods=''
+    this.customertotal=''
+  }
+
+  fetchSetupBoxData() {
+    if (!this.customerInput) {
+      this.loadInitialSetupBoxes();
+      this.isNoDataFound = false; // Reset the flag
+      return;
+    }
+  
+    this.service.actvemerchantsearch(this.customerInput).subscribe((res: any) => {
+      if (res.response && res.response.length > 0) {
+        this.activemerchant = res.response;
+        this.isNoDataFound = false; // Reset the flag as data exists
+      } else {
+        this.activemerchant = []; // Clear the merchant list
+        this.isNoDataFound = true; // Set flag to true to display "No data found"
+      }
+    }, (error) => {
+      console.error('Error fetching merchant data:', error);
+      this.isNoDataFound = true; // Handle error scenario
+    });
   }
   
 }

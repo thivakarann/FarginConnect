@@ -7,8 +7,8 @@
         <div class="search ">
           <form class="form">
             <label for="search">
-              <input #input (keyup)="applyFilter($event)" required="" autocomplete="off" placeholder="Search"
-                id="search" type="text">
+              <input #input  required="" autocomplete="off" placeholder="Search" id="search" name="search"
+              type="text" [(ngModel)]="currentfilval">
               <div class="icon">
                 <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                   xmlns="http://www.w3.org/2000/svg" class="swap-on">
@@ -35,7 +35,11 @@
         </div>
 
 
-      </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <div class="col-1 mt-4">
+        <button (click)="annoucementsearch(currentfilval)" style="color:white;background-color: #141E46;border-radius: 10px;"
+          mat-raised-button >Search</button>
+      </div>
       <div class="col-1 mt-4">
         <button (click)="create()" style="color:white;background-color: #141E46;border-radius: 10px;"
           mat-raised-button [hidden]="valueannouncementAdd!=='Announcement-Add'">Create</button>
@@ -43,7 +47,7 @@
       <div class="col-1 mt-4">
         <button style="color:white;background-color: #141E46;border-radius: 10px;" (click)="exportexcel()"
           mat-raised-button [hidden]="valueannouncementexport!=='Announcement-Export'">Export</button>
-      </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      </div>&nbsp;&nbsp;&nbsp;&nbsp;
 
 
       <div class="col-2">
@@ -178,7 +182,7 @@
       <!-- <mat-paginator [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtons
         aria-labels="select page of users"></mat-paginator> -->
  
-        <div class="row d-flex justify-content-end mt-3 mx-2" *ngIf="!filter">
+        <div class="row d-flex justify-content-end mt-3 mx-2" *ngIf="filter1">
           <div class="col-md-6"></div>
           <div class="col-md-6" id="but">
               <button style="color:white;background-color: #141E46;" >Total Entries:{{this.totalPages}}</button>
@@ -188,7 +192,7 @@
                   </div>
        </div>
  
-       <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="filter">
+       <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="filter2">
         <div class="col-md-6"></div>
         <div class="col-md-6">
             <button style="color:white;background-color: #141E46;font-size:15px;">Total Entries:{{this.totalPages1}}</button>
@@ -200,6 +204,18 @@
                 [hidden]="pageIndex1 >= totalpage1 - 1">Next</button>
         </div>
        </div>
+       <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="filter3">
+        <div class="col-md-6"></div>
+        <div class="col-md-6">
+            <button style="color:white;background-color: #141E46;font-size:15px;">Total Entries:{{this.totalPages2}}</button>
+            <button style="color:white;background-color: #141E46;font-size:15px;" (click)="changePageIndex2(pageIndex2 - 1)"
+                [hidden]="pageIndex2 === 0">Previous</button>
+            <button style="color:white;background-color: #141E46;font-size:15px;">{{this.currentpage2}} of {{this.totalpage2}}
+                Pages</button>
+            <button style="color:white;background-color: #141E46;font-size:15px;" (click)="changePageIndex2(pageIndex2 + 1)"
+                [hidden]="pageIndex2 >= totalpage2 - 1">Next</button>
+        </div>
+    </div>
  
     </mat-card-footer>
     <!-- </mat-card> -->

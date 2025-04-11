@@ -1,6 +1,6 @@
 <div class="row">
-    <div class="col-md-4">
-        <h5>Merchant Dashboard</h5>
+    <div class="col-md-4" >
+        <h5 style="text-align: centre;">Merchant Dashboard</h5>
     </div>
     <div class="col-md-4">
        
@@ -9,13 +9,24 @@
     <div class="col-md-4">
         <div class=" form-group " >
             <label for="Business category" style="font-size: 16px; font-weight: 700;">Select Merchant</label>
-            <select (change)="merchant($event)"
-                    id="Business category" class="form-select">
-                <option value="" disabled selected>Select</option>
-                <option *ngFor="let item of activemerchant" [value]="item.merchantId">
-                    {{item.entityName}}
-                </option>
-            </select>
+            <div class="input-group">
+              <input type="text" class="form-control"
+                placeholder="Search the Merchant Name here" list="customerList" [(ngModel)]="customerInput" (keyup)="fetchSetupBoxData()"  >
+              <datalist id="customerList">
+                <option *ngFor="let item of activemerchant" [value]="item.entityName">
+                  {{item.entityName}} </option>
+              </datalist>
+         
+  
+              <div class="input-group-append">
+                <button style="background-color:rgb(34, 34, 163)" class="btn btn-outline-secondary" type="button"
+                  (click)="onInputChange()">
+                  <i style="color:white" class="fas fa-search"></i>
+                </button>
+              </div>
+            </div>
+         
+    <p *ngIf="isNoDataFound" style="color: red; margin-top: 5px;">Merchant name not found
         </div>
     </div>
 
