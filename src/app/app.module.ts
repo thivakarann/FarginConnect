@@ -284,6 +284,9 @@ import { OfflineDetailsComponent } from './Overall-Customer/offline-details/offl
 import { SmsDescriptionComponent } from './Entity Onboard/sms-description/sms-description.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DashboardMerchantcontentComponent } from './dashboard-merchantcontent/dashboard-merchantcontent.component';
+import { BranchOnlinetransactionsComponent } from './Entity Onboard/branch-onlinetransactions/branch-onlinetransactions.component';
+import { BranchOnlineviewComponent } from './Entity Onboard/branch-onlinetransactions/branch-onlineview/branch-onlineview.component';
+import { BranchWiseenitytransactionComponent } from './Entity Onboard/branch-onlinetransactions/branch-wiseenitytransaction/branch-wiseenitytransaction.component';
 
 
 @NgModule({
@@ -544,7 +547,10 @@ import { DashboardMerchantcontentComponent } from './dashboard-merchantcontent/d
     UpdateStickerTicketComponent,
     OfflineDetailsComponent,
     SmsDescriptionComponent,
-    DashboardMerchantcontentComponent
+    DashboardMerchantcontentComponent,
+    BranchOnlinetransactionsComponent,
+    BranchOnlineviewComponent,
+    BranchWiseenitytransactionComponent
 
   ],
 

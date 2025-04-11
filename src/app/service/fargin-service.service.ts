@@ -636,6 +636,10 @@ export class FarginServiceService {
   private readonly branchindividualview = 'bankBranch/viewAll/';
   private readonly branchcustomerget = 'customer/customersByBranch/';
   private readonly branchcustomersearch = 'customer/customersByBranchs/';
+    private readonly onlinebranch='customerpay/viewByBranch/';
+  private readonly onlinesearchbranch='customerpay/branchSearch/'
+  private readonly entityonlinesearchbranch='customerpay/viewByMerchantSearch/';
+  private readonly entitywishonlinebranch='customerpay/viewByBranchMerchant/'
 
 
   private readonly entityterminaltrans = 'transactions/getMerchantOfflinePaymentListForAdmin';
@@ -2600,6 +2604,19 @@ export class FarginServiceService {
   }
 
 
+  onlinebranchs(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.onlinebranch}${id}/${id1}/${id2}`, this.options)
+  }
+  onlinesearchbranchs(id: any, id1: any, id2: any, id3:any) {
+    return this.http.get(`${this.basePath}${this.onlinesearchbranch}${id}/${id1}/${id2}/${id3}`, this.options)
+  }
+
+  entitywishonlinebranchs(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.entitywishonlinebranch}${id}/${id1}/${id2}`, this.options)
+  }
+  entityonlinesearchbranchs(id: any, id1: any, id2: any, id3:any) {
+    return this.http.get(`${this.basePath}${this.entityonlinesearchbranch}${id}/${id1}/${id2}/${id3}`, this.options)
+  }
   BranchAdd(model: any) {
     return this.http.post(`${this.basePath}${this.branchcreate}`, model, this.options)
   }

@@ -28,6 +28,16 @@ export class DashboardMerchantcontentComponent {
   viewcustomersearch: any;
   customerInput: string = '';
   isNoDataFound: boolean=false;
+  roleId: any = sessionStorage.getItem('roleId');
+  getdashboard: any[] = [];
+  actions: any;
+  errorMessage: any;
+  valueCustomerView:any;
+  valueTicketsView:any;
+  valueEmployeeView:any;
+  valuetodaytrans:any;
+  Monthtrans:any;
+  AdditionTrans:any;
 
 
 
@@ -40,6 +50,61 @@ export class DashboardMerchantcontentComponent {
         
   
       // });
+
+      this.service.rolegetById(this.roleId).subscribe({
+        next: (res: any) => {
+  
+  
+          if (res.flag == 1) {
+            this.getdashboard = res.response?.subPermission;
+  
+            if (this.roleId == 1) {
+              this.valueCustomerView = 'Customer Overview';
+              this.valueTicketsView = 'Ticket Overview';
+              this.valueEmployeeView = 'Employee Overview';
+              this.valuetodaytrans = 'Today Transactions';
+              this.Monthtrans = 'Monthly Collection Analytics';
+              this.AdditionTrans = 'Additional Collection Analytics'
+              
+          
+            }
+            else {
+              for (let datas of this.getdashboard) {
+                this.actions = datas.subPermissions;
+  
+  
+                if (this.actions == 'Customer Overview') {
+                  this.valueCustomerView = 'Customer Overview';
+                }
+
+                if (this.actions == 'Ticket Overview') {
+                  this.valueTicketsView = 'Ticket Overview';
+                }
+
+                if (this.actions == 'Employee Overview') {
+                  this.valueEmployeeView = 'Employee Overview';
+                }
+
+                if (this.actions == 'Today Transactions') {
+                  this.valuetodaytrans = 'Today Transactions';
+                }
+
+                if (this.actions == 'Monthly Collection Analytics') {
+                  this.Monthtrans = 'Monthly Collection Analytics';
+                }
+
+                if (this.actions == 'Additional Collection Analytics') {
+                  this.AdditionTrans = 'Additional Collection Analytics';
+                }
+            
+              }
+            }
+          }
+          else {
+            this.errorMessage = res.responseMessage;
+          }
+        }
+      })
   
 
     

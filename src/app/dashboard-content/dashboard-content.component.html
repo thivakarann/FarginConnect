@@ -1,4 +1,4 @@
-<div [hidden]="valueDashboard!=='Dashboard-View'">
+<div [hidden]="valueDashboard!=='Overall-View'">
   <div class="dashboard">
     <div class="card border-success">
       <div class="icon">👥</div>
@@ -57,7 +57,7 @@
 </div>
 &nbsp;
 <div class="section">
-  <div class="card" [hidden]="valueDashboardTransactionOverview !== 'Dashboard-Today Transaction Overview'">
+  <div class="card" [hidden]="valueDashboardTransactionOverview !== 'Today Transaction Overview'">
     <h5>Today's Transaction Overview</h5>
     <div class="transaction-details">
       <div class="transaction-item">
@@ -84,7 +84,7 @@
 <div >
   <div class="row">
     <div class="col-6">
-      <div class="card" style="height:560px" [hidden]="valuetotalmerchants !== 'Dashboard-Total Merchants'">
+      <div class="card" style="height:560px" [hidden]="valuetotalmerchants !== 'Total Merchants'">
         <div class="container mt-2">
           <div class="text-center">
             <h6>Merchant Count Details</h6>
@@ -116,7 +116,7 @@
       </div>
     </div>
     <div class="col-6" >
-      <div class="card" style="height:560px" [hidden]="valueTotalcount !== 'Dashboard-Total Count'">
+      <div class="card" style="height:560px" [hidden]="valueTotalcount !== 'Total Count'">
         <div class="container mt-2">
           <div class="text-center">
             <h6>Last Seven Days Transaction Details</h6>
@@ -173,7 +173,7 @@
   &nbsp;
 
   <div >
-    <div class="card" [hidden]="valuetransactionoverview !== 'Dashboard-Transaction Overview'">
+    <div class="card" [hidden]="valuetransactionoverview !== 'Transaction Overview'">
       <div class="container mt-2">
         <div class="text-center">
           <h5>Merchant Transaction Details</h5>
@@ -260,7 +260,7 @@
 
   <div
     class="card"
-    [hidden]="valueTransactionDetails !== 'Dashboard-Transaction Details'"
+    [hidden]="valueTransactionDetails !== 'Transaction Details'"
   >
     <div class="text-center">
       <h5>Transaction Details</h5>
@@ -332,7 +332,7 @@
   <div class="row">
     <div
       class="col-6">
-      <div class="card" [hidden]="valuetoppaymentmethod !== 'Dashboard-Seven Days Payment Method'">
+      <div class="card" [hidden]="valuetoppaymentmethod !== 'Seven Days Payment Method'">
         <h5>Top Payment Methods (For Past 7 Days)</h5>
         <div class="table-responsive">
           <table class="table table-striped">

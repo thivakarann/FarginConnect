@@ -86,7 +86,7 @@
 
 
             <li class="sidebar-dropdown" style="cursor: pointer;"
-            [hidden]="valueDashboard!=='Dashboard'">
+            [hidden]="valueDashboard!=='Admin Dashboard' && valueEntityDashboard !=='Entity Dashboard'"  >
             <a>
               <i class="fa fa-dashboard"></i>
               <span>Dashboard</span>
@@ -94,15 +94,15 @@
 
               <div class="sidebar-submenu">
                 <ul>
-                  <li  [hidden]="valueDashboard!=='Dashboard'">
+                  <li  [hidden]="valueDashboard!=='Admin Dashboard'">
                     <a routerLink="dashboard-content">
-                      Super Admin  Dashboard
+                      Admin Dashboard
                     </a>
                   </li>
 
-                  <li >
+                  <li [hidden]="valueEntityDashboard !=='Entity Dashboard'">
                     <a routerLink="dashboardmerchant">
-                      Merchant Dashboard
+                      Entity Dashboard
                     </a>
                   </li>
                 </ul>

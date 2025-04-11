@@ -127,18 +127,18 @@ export class EntityAddComponent implements OnInit {
 
       entityName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z]*$'),
+        Validators.pattern('^[a-zA-Z ]*$'),
         Validators.maxLength(30)
       ]),
       merchantLegalName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z]*$'),
+        Validators.pattern('^[a-zA-Z ]*$'),
         Validators.maxLength(30)
       ]),
       accountDisplayName: new FormControl('',
         [
           Validators.required,
-          Validators.pattern('^[a-zA-Z]*$'),
+          Validators.pattern('^[a-zA-Z ]*$'),
           Validators.maxLength(30)
         ]
       ),
@@ -146,7 +146,7 @@ export class EntityAddComponent implements OnInit {
       MccCode: new FormControl(''),
       contactName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z]*$'),
+        Validators.pattern('^[a-zA-Z ]*$'),
         Validators.maxLength(30)
       ]),
       contactMobile: new FormControl('', [
@@ -179,17 +179,17 @@ export class EntityAddComponent implements OnInit {
       ]),
       stateName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z]*$'),
+        Validators.pattern('^[a-zA-Z ]*$'),
         Validators.maxLength(30)
       ]),
       city: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z]*$'),
+        Validators.pattern('^[a-zA-Z ]*$'),
         Validators.maxLength(30)
       ]),
       country: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z]*$'),
+        Validators.pattern('^[a-zA-Z ]*$'),
         Validators.maxLength(30)
       ]),
       merchantPlanId: new FormControl('', [Validators.required]),

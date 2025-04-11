@@ -175,7 +175,7 @@ export class RefundPeriodViewallComponent implements OnInit {
       this.response.push(this.date1);
       this.response.push(element?.modifiedBy);
 
-      if (element?.modifiedAt != null) {
+      if (element?.modifiedDateTime != null) {
         let moddate = element.modifiedDateTime;
         this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
         this.response.push(this.date2);

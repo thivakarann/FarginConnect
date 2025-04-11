@@ -44,8 +44,8 @@ export class ViewAnnouncementComponent implements OnInit {
   limit: number = 30;
   isChecked: any;
   id: any;
-  fromDate: any;
-  toDate: any
+  fromDate: string ='';
+  toDate: string='';
   announcementId: any;
   datefilter: any;
   dateSuccess: any;

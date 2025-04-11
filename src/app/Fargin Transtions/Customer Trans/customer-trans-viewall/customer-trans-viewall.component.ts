@@ -33,6 +33,7 @@ export class CustomerTransViewallComponent {
     'customemobile',
     'setupbox',
     'service',
+    'branchName',
     'paymentmethod',
     'createdDateTime',
     'amount',

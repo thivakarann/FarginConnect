@@ -1,14 +1,13 @@
-<div class="row">
-    <div class="col-md-4" >
-        <h5 style="text-align: centre;">Merchant Dashboard</h5>
-    </div>
-    <div class="col-md-4">
-       
-    </div>
+<div class="row" >
+  <div class="col-md-8">
+    <h4 style="padding-left: 153px;"  class="ms-3 text-center ">Entity Dashboard</h4>
+
+  </div>
+  
    
     <div class="col-md-4">
-        <div class=" form-group " >
-            <label for="Business category" style="font-size: 16px; font-weight: 700;">Select Merchant</label>
+        <div class=" form-group" >
+            <label for="Business category" style="font-size: 16px; font-weight: 700;">Select Entity</label>
             <div class="input-group">
               <input type="text" class="form-control"
                 placeholder="Search the Merchant Name here" list="customerList" [(ngModel)]="customerInput" (keyup)="fetchSetupBoxData()"  >
@@ -26,7 +25,7 @@
               </div>
             </div>
          
-    <p *ngIf="isNoDataFound" style="color: red; margin-top: 5px;">Merchant name not found
+    <p *ngIf="isNoDataFound" style="color: red; margin-top: 5px;">Entity name not found
         </div>
     </div>
 
@@ -40,7 +39,7 @@
         class="card"
   
       >
-        <div class="card-header">
+        <div class="card-header" [hidden]="valueCustomerView!=='Customer Overview'">
           <div class="icon">👥</div>
           <div class="title">Customer Overview</div>
         </div>
@@ -52,7 +51,7 @@
             
             </div>
           </div>
-          <div class="stat">
+          <div class="stat" >
             <div class="stat-title">Active Customer</div>
             <div class="stat-value">
               <span class="value">{{
@@ -86,7 +85,7 @@
       class="card"
      
     >
-      <div class="card-header">
+      <div class="card-header" [hidden]="valueTicketsView!=='Ticket Overview'">
         <div class="icon">🎟️</div>
         <div class="title">Ticket Overview</div>
       </div>
@@ -126,7 +125,7 @@
       </div>
     </div>
      
-      <div
+      <div  [hidden]="valueEmployeeView!=='Employee Overview'"
         class="card"
       
       >
@@ -168,7 +167,7 @@
 
   &nbsp;
 
-<div class="section">
+<div class="section"  [hidden]="valuetodaytrans!=='Today Transactions'">
   <div class="card">
     <h5>Today's Transaction</h5>
     <div class="transaction-details">
@@ -192,7 +191,7 @@
   </div>
 </div>
 &nbsp;
-<div class="section" >
+<div class="section" [hidden]="valuetodaytrans!=='Monthly Collection Analytics'" >
     <div class="card">
       <h5>Monthly Collection Analytics
       </h5>
@@ -323,7 +322,7 @@
   &nbsp;
 
 
-<div class="section">
+<div class="section" [hidden]="AdditionTrans!=='Additional Collection Analytics'">
   <div class="card" >
     <h5>Additional Collection Analytics</h5>
  

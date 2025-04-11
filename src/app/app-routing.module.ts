@@ -115,6 +115,8 @@ import { ViewRecordcampaignsComponent } from './Campaign/view-recordcampaigns/vi
 import { ViewCampaignsComponent } from './Campaign/view-campaigns/view-campaigns.component';
 import { MaintenanceotherpayViewComponent } from './Fargin Transtions/Entity Trans/maintenanceotherpay-view/maintenanceotherpay-view.component';
 import { DashboardMerchantcontentComponent } from './dashboard-merchantcontent/dashboard-merchantcontent.component';
+import { BranchOnlinetransactionsComponent } from './Entity Onboard/branch-onlinetransactions/branch-onlinetransactions.component';
+import { BranchWiseenitytransactionComponent } from './Entity Onboard/branch-onlinetransactions/branch-wiseenitytransaction/branch-wiseenitytransaction.component';
 
 const routes: Routes = [
 
@@ -246,7 +248,9 @@ const routes: Routes = [
       {path:'maintenanceotherpay-view/:id',component:MaintenanceotherpayViewComponent,canActivate: [authGuard]},
       {path:'dashboardmerchant',component:DashboardMerchantcontentComponent,canActivate: [authGuard]},
       
-
+      {path:'branch-onlinetransactions/:id',component:BranchOnlinetransactionsComponent,canActivate: [authGuard]},
+            
+      {path:'branch-wiseenitytransaction/:id',component:BranchWiseenitytransactionComponent,canActivate: [authGuard]},
       // {path:'merchant-additional/:id',component:MercahntbasedadditionalComponent,canActivate: [authGuard]},
     ],
 

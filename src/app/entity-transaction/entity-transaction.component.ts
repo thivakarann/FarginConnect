@@ -87,20 +87,20 @@ currentfilval: any;
           this.getdashboard = res.response?.subPermission;
 
           if (this.roleId == 1) {
-            this.valuetransactionExport = 'Entity View Transaction-Export';
-            this.valuetransactionview = 'Entity View Transaction-View';
-            this.valueinvoice = 'Entity View Transaction-Receipt';
+            this.valuetransactionExport = 'Entity View Online-Export';
+            this.valuetransactionview = 'Entity View Online-View';
+            this.valueinvoice = 'Entity View Online-Receipt';
           } else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
-              if (this.actions == 'Entity View Transaction-Export') {
-                this.valuetransactionExport = 'Entity View Transaction-Export';
+              if (this.actions == 'Entity View Online-Export') {
+                this.valuetransactionExport = 'Entity View Online-Export';
               }
-              if (this.actions == 'Entity View Transaction-View') {
-                this.valuetransactionview = 'Entity View Transaction-View';
+              if (this.actions == 'Entity View Online-View') {
+                this.valuetransactionview = 'Entity View Online-View';
               }
-              if (this.actions == 'Entity View Transaction-Receipt') {
-                this.valueinvoice = 'Entity View Transaction-Receipt';
+              if (this.actions == 'Entity View Online-Receipt') {
+                this.valueinvoice = 'Entity View Online-Receipt';
               }
             }
           }

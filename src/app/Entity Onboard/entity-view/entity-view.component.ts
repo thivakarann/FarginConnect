@@ -690,7 +690,7 @@ export class EntityViewComponent implements OnInit {
   getpermissionValue() {
 
     if (this.roleId == 1) {
-      this.valueentitytransaction = 'Entity View Transaction';
+      this.valueentitytransaction = 'Entity View Online';
       this.valueentityautodebit = 'Entity View Cloud Fee AutoDebit';
       this.valuentitysettlement = 'Entity View Settlement';
       this.valueentityRefund = 'Entity View Refund';
@@ -719,8 +719,8 @@ export class EntityViewComponent implements OnInit {
     else {
       for (let data of this.entitypermission) {
         this.roles = data.permission;
-        if (this.roles == 'Entity View Transaction') {
-          this.valueentitytransaction = 'Entity View Transaction';
+        if (this.roles == 'Entity View Online') {
+          this.valueentitytransaction = 'Entity View Online';
         }
         if (this.roles == 'Entity View Settlement') {
           this.valuentitysettlement = 'Entity View Settlement'
@@ -1482,7 +1482,12 @@ export class EntityViewComponent implements OnInit {
     });
 
   }
+  viewbranch (id: any) {
+    this.router.navigate([`dashboard/branch-wiseenitytransaction/${id}`], {
+      queryParams: { Alldata: id },
+    });
 
+  }
   viewsettlement
     (id: any) {
     this.router.navigate([`dashboard/entity-settlement/${id}`], {
@@ -1709,6 +1714,11 @@ export class EntityViewComponent implements OnInit {
 
   Viewcustomerbranch(id: any) {
     this.router.navigate([`dashboard/branch-customer-view/${id}`], {
+      queryParams: { Alldata: id },
+    });
+  }
+  Viewonlinecustomerbranch(id: any) {
+    this.router.navigate([`dashboard/branch-onlinetransactions/${id}`], {
       queryParams: { Alldata: id },
     });
   }

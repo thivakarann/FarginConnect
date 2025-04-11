@@ -87,43 +87,43 @@ export class DashboardContentComponent {
           this.getdashboard = res.response?.subPermission;
 
           if (this.roleId == 1) {
-            this.valueDashboard = 'Dashboard-View';
-            this.valueDashboardTransactionOverview = 'Dashboard-Today Transaction Overview'
-            this.valuetotalmerchants = 'Dashboard-Total Merchants'
-            this.valuetransactionoverview = 'Dashboard-Transaction Overview'
-            this.valueTransactionDetails = 'Dashboard-Transaction Details'
-            this.valuetoppay = 'Dashboard-Top Payment Methods'
-            this.valueTotalcount = 'Dashboard-Total Count'
-             this.valuetoppaymentmethod='Dashboard-Seven Days Payment Method'
+            this.valueDashboard = 'Overall-View';
+            this.valueDashboardTransactionOverview = 'Today Transaction Overview'
+            this.valuetotalmerchants = 'Total Merchants'
+            this.valuetransactionoverview = 'Transaction Overview'
+            this.valueTransactionDetails = 'Transaction Details'
+            this.valuetoppay = 'Top Payment Methods'
+            this.valueTotalcount = 'Total Count'
+             this.valuetoppaymentmethod='Seven Days Payment Method'
           }
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
 
 
-              if (this.actions == 'Dashboard-View') {
-                this.valueDashboard = 'Dashboard-View';
+              if (this.actions == 'Overall-View') {
+                this.valueDashboard = 'Overall-View';
               }
-              if (this.actions == 'Dashboard-Today Transaction Overview') {
-                this.valueDashboardTransactionOverview = 'Dashboard-Today Transaction Overview'
+              if (this.actions == 'Today Transaction Overview') {
+                this.valueDashboardTransactionOverview = 'Today Transaction Overview'
               }
-              if (this.actions == 'Dashboard-Total Merchants') {
-                this.valuetotalmerchants = 'Dashboard-Total Merchants'
+              if (this.actions == 'Total Merchants') {
+                this.valuetotalmerchants = 'Total Merchants'
               }
-              if (this.actions == 'Dashboard-Transaction Overview') {
-                this.valuetransactionoverview = 'Dashboard-Transaction Overview'
+              if (this.actions == 'Transaction Overview') {
+                this.valuetransactionoverview = 'Transaction Overview'
               }
-              if (this.actions == 'Dashboard-Transaction Details') {
-                this.valueTransactionDetails = 'Dashboard-Transaction Details'
+              if (this.actions == 'Transaction Details') {
+                this.valueTransactionDetails = 'Transaction Details'
               }
-              if (this.actions == 'Dashboard-Top Payment Methods') {
-                this.valuetoppay = 'Dashboard-Top Payment Methods'
+              if (this.actions == 'Top Payment Methods') {
+                this.valuetoppay = 'Top Payment Methods'
               }
-              if (this.actions == 'Dashboard-Total Count') {
-                this.valueTotalcount = 'Dashboard-Total Count'
+              if (this.actions == 'Total Count') {
+                this.valueTotalcount = 'Total Count'
               }
-              if (this.actions == 'Dashboard-Seven Days Payment Method') {
-                this.valuetoppaymentmethod = 'Dashboard-Seven Days Payment Method'
+              if (this.actions == 'Seven Days Payment Method') {
+                this.valuetoppaymentmethod = 'Seven Days Payment Method'
            
               }
             }

@@ -240,21 +240,26 @@ export class FarginBankviewComponent {
       this.response.push(element?.accountHolderName);
       this.response.push(element?.accountNumber);
       this.response.push(element?.bankName);
-      this.response.push(element?.ifscCode);
-      this.response.push(element?.branchName);
-      this.response.push(element?.ledgerId);
       if (element?.activeStatus == '1') {
         this.response.push('Active')
       }
       else {
         this.response.push('Inactive')
       }
-      this.response.push(element?.createdBy);
-      this.response.push(this.date1);
+      this.response.push(element?.ifscCode);
+      this.response.push(element?.branchName);
+      this.response.push(element?.ledgerId);
+   
       this.response.push(element.modifiedBy);
-      this.response.push(this.date1);
-
-
+    
+      if (element?.modifiedDateTime) {
+        let issuedatas = element?.modifiedDateTime;
+        this.date2 = moment(issuedatas).format('DD/MM/yyyy hh:mm a').toString();
+        this.response.push(this.date2);
+      }
+      else {
+        this.response.push('');
+      }
       sno++;
       this.responseDataListnew.push(this.response);
     });
@@ -268,14 +273,14 @@ export class FarginBankviewComponent {
       'AccountHolderName',
       'AccountNumber',
       'BankName',
+      'Status',
       'IFSCCode',
       'BranchName',
       'LedgerId',
-      'Status',
-      'Created By',
-      'Created Date/Time',
-      'Modified By',
-      "Modified At"
+      // 'Created By',
+      // 'Created Date/Time',
+      'Updated By',
+      "Updated At"
     ]
  
  
@@ -317,9 +322,9 @@ export class FarginBankviewComponent {
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
-      let qty10 = row.getCell(11);
-      let qty11 = row.getCell(12);
-      let qty12 = row.getCell(13);
+      // let qty10 = row.getCell(11);
+      // let qty11 = row.getCell(12);
+      // let qty12 = row.getCell(13);
 
 
 
@@ -334,9 +339,9 @@ export class FarginBankviewComponent {
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty12.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      // qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      // qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      // qty12.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
 
     }
     );

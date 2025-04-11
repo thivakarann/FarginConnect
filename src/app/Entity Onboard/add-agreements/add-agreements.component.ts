@@ -37,8 +37,8 @@ export class AddAgreementsComponent {
     this.myForm4 = new FormGroup({
       commercialId: new FormControl('', [Validators.required]),
       linkdate: new FormControl('', [Validators.required]),
-      merchantPosition: new FormControl('', [Validators.required,Validators.pattern('^[A-Za-z]*$'),Validators.maxLength(30)]),
-      authorizedName: new FormControl('', [Validators.required,Validators.pattern('^[A-Za-z]*$'),Validators.maxLength(30)]),
+      merchantPosition: new FormControl('', [Validators.required,Validators.pattern('^[A-Za-z ]*$'),Validators.maxLength(30)]),
+      authorizedName: new FormControl('', [Validators.required,Validators.pattern('^[A-Za-z ]*$'),Validators.maxLength(30)]),
     })
 
     this.service.viewactiveagreementplan().subscribe((res: any) => {

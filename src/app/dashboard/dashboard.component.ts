@@ -72,6 +72,7 @@ export class DashboardComponent implements OnInit {
   valuecampaign: any;
   values: any = ''
   Redirect: any;
+  valueEntityDashboard:any;
 
 
   constructor(private elRef: ElementRef,
@@ -108,7 +109,8 @@ export class DashboardComponent implements OnInit {
 
   getpermissionValue() {
     if (this.roleId == '1') {
-      this.valueDashboard = 'Dashboard';
+      this.valueDashboard = 'Admin Dashboard';
+      this.valueEntityDashboard = 'Entity Dashboard';
       this.valueEntity = 'Entity Onboard';
       this.valueCustomer = 'Customers';
       this.valueTransaction = 'Transactions';
@@ -164,8 +166,12 @@ export class DashboardComponent implements OnInit {
         this.roles = data.permission;
 
 
-        if (this.roles == 'Dashboard') {
-          this.valueDashboard = 'Dashboard';
+        if (this.roles == 'Admin Dashboard') {
+          this.valueDashboard = 'Admin Dashboard';
+        }
+
+        if (this.roles == 'Entity Dashboard') {
+          this.valueEntityDashboard = 'Entity Dashboard';
         }
         if (this.roles == 'Entity Onboard') {
           this.valueEntity = 'Entity Onboard';
@@ -438,13 +444,4 @@ export class DashboardComponent implements OnInit {
       exitAnimationDuration: "500ms",
     })
   }
-
-  // go(event: any) {
-  //   this.Redirect = event.target.value;
-  //   if (this.Redirect === '1') {
-  //     // Replace current history entry before redirecting
-  //     window.history.replaceState({}, '', window.location.href);
-  //     location.href = 'http://localhost:57302/dashboard/dashboard-content';
-  //   }
-  // }
 }

@@ -28,7 +28,7 @@ export class CreateOtherpaymentComponent {
 
       serviceName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[A-Za-z\\s]+$'), // This allows alphabetic characters and spaces
+        Validators.pattern('^[A-Za-z\\s ]+$'), // This allows alphabetic characters and spaces
         Validators.maxLength(30)
       ]),
       utrnumber: new FormControl(''),

@@ -20,22 +20,30 @@
     </div>
 </div>
 <div class="navtabs">
-    <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
+    <button style="background-color: #fff;border:none; font-size: 12px;" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
         data-target="home" (click)="entityTransaction(this.id)">
-        <div [hidden]="valueentitytransaction!=='Entity View Transaction'">
-            <i class="fa-solid fa-building-columns"></i>&nbsp;&nbsp;Transaction
+        <div [hidden]="valueentitytransaction!=='Entity View Online'">
+            <i class="fa-solid fa-building-columns"></i>&nbsp;&nbsp;Online
         </div>
 
     </button>
 
-    <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
+    <button style="background-color: #fff;border:none;font-size: 12px;" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
         data-target="home" (click)="Viewoffline(this.id,this.detaislone?.accountId)">
         <div [hidden]="valuentityOffline!=='Entity View Offline'">
             <i class="fa-solid fa-building-columns"></i>&nbsp;&nbsp; Offline
         </div>
 
     </button>
-    <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
+	    <button style="background-color: #fff;border:none;font-size: 12px;" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
+    data-target="home" (click)="viewbranch(this.id)">
+    <div >
+        <i class="fa-solid fa-building-columns"></i>&nbsp;&nbsp; Branch
+    </div>
+
+</button>
+	
+    <button style="background-color: #fff;border:none;font-size: 12px;" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
         data-target="about" (click)="viewsettlement(this.id)">
         <div [hidden]="valuentitysettlement!=='Entity View Settlement'">
             <i class='fas fa-handshake'></i>&nbsp;&nbsp;Settlement
@@ -43,33 +51,33 @@
     </button>
 
 
-    <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
+    <button style="background-color: #fff;border:none;font-size: 12px;" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
         data-target="contact" (click)="ViewRefund(this.id)">
         <div [hidden]="valueentityRefund!=='Entity View Refund'">
             <i class='fas fa-hand-holding-usd'></i>&nbsp;&nbsp;Refund
         </div>
     </button>
 
-    <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
+    <button style="background-color: #fff;border:none;font-size: 12px;" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
         data-target="contact" (click)="Viewautodebit(this.id)">
         <div [hidden]="valueentityautodebit!=='Entity View Cloud Fee AutoDebit'"> <i
                 class="fa-solid fa-money-bill-transfer"></i>&nbsp;&nbsp;Cloud Fee AutoDebit
         </div>
     </button>
 
-    <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
+    <button style="background-color: #fff;border:none;font-size: 12px;" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
         data-target="page4" (click)="Viewqr(this.id)">
         <div [hidden]="valueEntityqrs!=='Entity View QR'"><i class="fa-solid fa-qrcode"></i>&nbsp;&nbsp;QR
             Generation</div>
     </button>
-    <button style="background-color: #fff;border:none" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
+    <button style="background-color: #fff;border:none;font-size: 12px;" [disabled]="detaislone?.onBoardStatus !='true'" class="navtab"
         data-target="page5" (click)="Viewcustomer(this.id)">
         <div [hidden]="valueentityCustomers!=='Entity View Customer'"><i
                 class="fa-solid fa-user"></i>&nbsp;&nbsp;Customers
         </div>
     </button>
     <!-- [disabled]="detaislone?.onBoardStatus !='true'" -->
-    <button style="background-color: #fff;border:none" class="navtab" data-target="page5"
+    <button style="background-color: #fff;border:none;font-size: 12px;" class="navtab" data-target="page5"
         (click)="viewpaymentLink(this.id)">
         <div [hidden]="valueentitypaylink!=='Entity View Payment Link'"><i class="fa fa-link"></i>&nbsp;&nbsp;Payment
             Link</div>
@@ -78,30 +86,30 @@
 
 <div class="tab-container">
     <div class="tabs">
-        <button class="tab" [class.active]="activeTab === 'events'" (click)="selectTab('events')"
+        <button class="tab" [class.active]="activeTab === 'events'" style="font-size: 12px;" (click)="selectTab('events')"
             [hidden]="valueGeneral!=='Entity View General Information'">General
             Information</button>
-        <button class="tab" [class.active]="activeTab === 'materials'" (click)="selectTab('materials')"
+        <button class="tab" [class.active]="activeTab === 'materials'" style="font-size: 12px;" (click)="selectTab('materials')"
             [hidden]="valuebankinfo!=='Entity View Bank Information'">Bank
             Information</button>
-        <button class="tab" [class.active]="activeTab === 'videos'" (click)="selectTab('videos')"
+        <button class="tab" [class.active]="activeTab === 'videos'" style="font-size: 12px;" (click)="selectTab('videos')"
             [hidden]="valuekycdocument!=='Entity View KYC Document'">KYC Documents</button>
-        <button class="tab" [class.active]="activeTab === 'bussiness'" (click)="selectTab('bussiness')"
+        <button class="tab" [class.active]="activeTab === 'bussiness'" style="font-size: 12px;" (click)="selectTab('bussiness')"
             [hidden]="valuebussinessdocument!=='Entity View Bussiness Document'">Business
             Document
         </button>
-        <button class="tab" [class.active]="activeTab === 'doot1'" (click)="selectTab('doot1')"
+        <button class="tab" [class.active]="activeTab === 'doot1'" style="font-size: 12px;" (click)="selectTab('doot1')"
             [hidden]="valuefinalapproval!=='Entity View Final Approval'">Final Approval</button>
-        <button class="tab" [class.active]="activeTab === 'doot2'" (click)="selectTab('doot2')"
+        <button class="tab" [class.active]="activeTab === 'doot2'" style="font-size: 12px;" (click)="selectTab('doot2')"
             [hidden]="valuemanualpayment!=='Entity View One Time Setup Payment'">
             One Time Setup Payment</button>
-        <button class="tab" [class.active]="activeTab === 'doot3'" (click)="selectTab('doot3')"
+        <button class="tab" [class.active]="activeTab === 'doot3'" style="font-size: 12px;" (click)="selectTab('doot3')"
             [hidden]="valueCustomized!=='Entity View Customized Payment'">Customized Payment</button>
-        <button class="tab" [class.active]="activeTab === 'doot4'" (click)="selectTab('doot4')"
+        <button class="tab" [class.active]="activeTab === 'doot4'" style="font-size: 12px;" (click)="selectTab('doot4')"
             [hidden]="valuesmssetting!=='Entity View-SMS Settings'">SMS Settings</button>
-        <button class="tab" [class.active]="activeTab === 'doot5'" (click)="selectTab('doot5')"
+        <button class="tab" [class.active]="activeTab === 'doot5'" style="font-size: 12px;" (click)="selectTab('doot5')"
             [hidden]="valueagreement!=='Entity View Agreement'">Agreement</button>
-        <button class="tab" [class.active]="activeTab === 'doot6'" [hidden]="valuebranch!=='Entity View Branch'"
+        <button class="tab" [class.active]="activeTab === 'doot6'" style="font-size: 12px;" style="font-size: 12px;" [hidden]="valuebranch!=='Entity View Branch'"
             (click)="selectTab('doot6')">Branch</button>
     </div>
     <div class="tab-content" *ngIf="activeTab === 'events'" [hidden]="valueGeneral!=='Entity View General Information'">
@@ -1737,6 +1745,8 @@
                             <th>Secret key </th>
                             <th [hidden]="valuebranchCustomerview!=='Entity View Branch-Customer View'">Customer View
                             </th>
+                            <th >Online Transaction
+                            </th>
                             <th [hidden]="valuebranchkyc!=='Entity View Branch-KYC'">KYC View</th>
                             <th [hidden]="valuebranchTerminal!=='Entity View Branch-Terminal'">Terminal View</th>
                             <th [hidden]="valuebranchStatus!=='Entity View Branch-Status'">Status</th>
@@ -1765,6 +1775,11 @@
                                 <i
                                     style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
                                     (click)="Viewcustomerbranch(item.branchId)"></i>
+                             </td>
+                             <td >
+                                <i
+                                    style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
+                                    (click)="Viewonlinecustomerbranch(item.branchId)"></i>
                              </td>
 
                             <td [hidden]="valuebranchkyc!=='Entity View Branch-KYC'"><i style="cursor: pointer;font-size: 17px;" class="fa fa-eye"

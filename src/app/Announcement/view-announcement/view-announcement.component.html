@@ -63,7 +63,7 @@
       </div>
 
       <div class="col-1 mt-4">
-        <button style="color:white;background-color: #141E46;border-radius: 10px;" (click)="search()"
+        <button class="buttonDownload" [disabled]="fromDate == '' || toDate ==''" (click)="search()"
           mat-raised-button>Filter
         </button>
       </div>
