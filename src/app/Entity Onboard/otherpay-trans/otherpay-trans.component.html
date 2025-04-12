@@ -59,11 +59,19 @@
             </ng-container>
             <ng-container matColumnDef="paymentId">
                 <th mat-header-cell *matHeaderCellDef>Payment Id</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall.pgPaymentId}}</td>
+                <td mat-cell *matCellDef="let viewall">{{viewall.pgPaymentId || '-'}}</td>
             </ng-container>
             <ng-container matColumnDef="method">
                 <th mat-header-cell *matHeaderCellDef>Payment Method</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall.paymentMethod}}</td>
+                <td mat-cell *matCellDef="let viewall">{{viewall.paymentMethod || '-'}}</td>
+            </ng-container>
+            <ng-container matColumnDef="cardNumber">
+                <th mat-header-cell *matHeaderCellDef>Card Number</th>
+                <td mat-cell *matCellDef="let viewall">{{viewall.cardNumber || '-'}}</td>
+            </ng-container>
+            <ng-container matColumnDef="cardExpiry">
+                <th mat-header-cell *matHeaderCellDef>Card Expiry</th>
+                <td mat-cell *matCellDef="let viewall">{{viewall.cardExpiry || '-'}}</td>
             </ng-container>
             <ng-container matColumnDef="paidamount">
                 <th mat-header-cell *matHeaderCellDef>Due Amount</th>
@@ -72,8 +80,16 @@
        
          
             <ng-container matColumnDef="reference">
-                <th mat-header-cell *matHeaderCellDef>Order Reference</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall?.orderReference}}</td>
+                <th mat-header-cell *matHeaderCellDef>Bank Reference</th>
+                <td mat-cell *matCellDef="let viewall">{{viewall?.bankReference || '-'}}</td>
+            </ng-container>
+            <ng-container matColumnDef="utrNumber">
+                <th mat-header-cell *matHeaderCellDef>Reference Number</th>
+                <td mat-cell *matCellDef="let viewall">{{viewall?.utrNumber || '-'}}</td>
+            </ng-container>
+            <ng-container matColumnDef="updatedBy">
+                <th mat-header-cell *matHeaderCellDef>manual Payment By</th>
+                <td mat-cell *matCellDef="let viewall">{{viewall?.updatedBy || '-'}}</td>
             </ng-container>
             <ng-container matColumnDef="status">
                 <th mat-header-cell *matHeaderCellDef>Payment Status</th>

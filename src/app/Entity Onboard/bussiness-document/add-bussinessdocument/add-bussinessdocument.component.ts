@@ -60,7 +60,7 @@ export class AddBussinessdocumentComponent implements OnInit {
 
     this.fourthFormGroup = this._formBuilder.group({
       kycCategoryId: ['', Validators.required],
-      docNumber: [''],
+      docNumber: ['',Validators.maxLength(35)],
       docFrontPath: ['', Validators.required],
       docBackPath: ['', Validators.required],
       expiryDate: ['']

@@ -13,6 +13,7 @@ import { customizepay, Otherpayment } from '../../../fargin-model/fargin-model.m
 import { PageEvent } from '@angular/material/paginator';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { OtherpayManualpaymentComponent } from '../otherpay-manualpayment/otherpay-manualpayment.component';
 
 interface Option {
   entityName: string;
@@ -39,6 +40,7 @@ export class OtherpaymentsViewallComponent {
     'totalamount',
     'createdDateTime',
     'paidAt',
+    'Manualpay',
     'receipt',
     'CheckStatus',
     'status',
@@ -125,6 +127,7 @@ currentfilVal: any;
   filters: boolean = false;
   filterValue: any;
   maxDate:any;
+  valueCustomizationpay:any;
   
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog,private fb:FormBuilder) { }
 
@@ -146,6 +149,7 @@ currentfilVal: any;
             this.valueCustomizationView = 'Customized Payment-View'
             this.valueCustomizationReceipt = 'Customized Payment-Invoice'
             this.valueCustomizationcheck = 'Customized Payment-Check Status'
+            this.valueCustomizationpay = 'Customized Payment-Manual Payment'
             
           }
           else {
@@ -163,6 +167,10 @@ currentfilVal: any;
 
               if (this.actions == 'Customized Payment-Check Status') {
                 this.valueCustomizationcheck = 'Customized Payment-Check Status'
+              }
+
+              if (this.actions == 'Customized Payment-Manual Payment') {
+                this.valueCustomizationpay = 'Customized Payment-Manual Payment'
               }
 
             }
@@ -889,4 +897,45 @@ console.log(filterValue)
       value.reset()
     }
   
+   
+    Manuvalpayments(id: any) {
+        this.dialog.open(OtherpayManualpaymentComponent, {
+          data: { value: id },
+          enterAnimationDuration: '500ms',
+          exitAnimationDuration: '800ms',
+        })
+        this.dialog.afterAllClosed.subscribe(() => {
+          this.service.OtherPay(this.pageSize, this.pageIndex).subscribe((res: any) => {
+            if (res.flag == 1) {
+              this.transaction = res.response;
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.totalPages;
+              this.currentpage = res.pagination.currentPage + 1;
+              this.dataSource = new MatTableDataSource(this.transaction);
+              this.dataSource.sort = this.sort;
+              this.dataSource.paginator = this.paginator;
+             
+              this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+              this.filter = true;
+              this.filter1 = false;
+              this.filter2 = false; 
+              this.filter3=false;     
+            }
+            else if (res.flag == 2) {
+              this.transaction = [];
+              this.dataSource = new MatTableDataSource(this.transaction);
+              this.dataSource.sort = this.sort;
+              this.dataSource.paginator = this.paginator;  
+              this.filter = true;
+              this.filter1 = false;
+              this.filter2 = false;
+              this.filter3=false;    
+              this.message = res.responseMessage;
+            }
+      
+          });
+      
+        })
+    
+    }
 }

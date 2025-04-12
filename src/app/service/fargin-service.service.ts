@@ -424,6 +424,7 @@ export class FarginServiceService {
   private readonly otherpaytrans = 'otherpayment/viewByPayId/';
   private readonly otherpaymentdate = 'otherpayment/dateFilter/';
   private readonly otherpaymentviewall = 'merchantdue/getall';
+  private readonly Otherpaymanualpayment = 'otherpayment/updateManualCash/';
 
 
   // KYC category
@@ -886,8 +887,8 @@ export class FarginServiceService {
         setTimeout(() => {
           window.location.reload();
         }, 200);
-
-      //  location.href = (`http://localhost:58455/data-component/${token}/${email}/${adminId}`);
+      //   sessionStorage.setItem('validNavigation', 'true');
+      //  location.href = (`http://localhost:50981/data-component/${token}/${email}/${adminId}`);
 
         this.toastr.success(res.responseMessage);
 
@@ -2006,8 +2007,10 @@ export class FarginServiceService {
   OtherPayViewAll() {
     return this.http.get(`${this.basePath}${this.otherpaymentviewall}`, this.options)
   }
-
-
+  
+  OtherpaymentManualpay(id:any,model:any) {
+    return this.http.put(`${this.basePath}${this.Otherpaymanualpayment}${id}`, model ,this.options)
+  }
 
   identityFront(data: FormData) {
     return this.http.put(`${this.basePath}${this.identityfront}`, data, this.optionsMultipart);

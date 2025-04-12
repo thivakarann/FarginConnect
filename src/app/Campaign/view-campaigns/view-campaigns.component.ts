@@ -541,7 +541,18 @@ export class ViewCampaignsComponent {
     this.isChecked = event.checked;
     this.status = this.isChecked ? 1 : 0
     this.service.campaignstatus(id, this.status).subscribe((res: any) => {
-      this.toastr.success(res.responseMessage);
+      if(res.flag==1){
+        this.toastr.success(res.responseMessage)
+      }
+      else if(res.flag==2){
+        this.toastr.warning(res.responseMessage);
+      }
+
+      else{
+        this.toastr.error(res.responseMessage);
+ 
+      }
+  
       setTimeout(() => {
         this.dialog.afterAllClosed.subscribe(() => {
           this.service.viewcampaign(1).subscribe((res: any) => {

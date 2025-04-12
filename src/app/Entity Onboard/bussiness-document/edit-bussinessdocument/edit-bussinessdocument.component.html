@@ -31,6 +31,10 @@
                             {{selectElement4}} number.</small>
                     </div> -->
                 </div>
+                <div *ngIf="docNumber?.invalid && docNumber?.touched && docNumber?.errors?.['maxlength']"
+                style="color: red; font-size: 12px;">
+                Maximum length should be 15
+                </div>
             </div>
  
             <div class="form__linput">

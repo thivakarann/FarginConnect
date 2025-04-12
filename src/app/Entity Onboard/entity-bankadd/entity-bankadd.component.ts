@@ -66,8 +66,7 @@ export class EntityBankaddComponent implements OnInit {
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9 ]*$')
       ]),
-
-      ledgerId: new FormControl("", [Validators.required]),
+      ledgerId: new FormControl("", [Validators.required,Validators.maxLength(15)]),
 
     })
   }

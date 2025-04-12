@@ -47,6 +47,7 @@ import { BranchAddComponent } from '../Branch/branch-add/branch-add.component';
 import { BranchEditComponent } from '../Branch/branch-edit/branch-edit.component';
 import { manuvalduecreation, Manuvelduesforcloudfee } from '../../Fargin Model/fargin-model/fargin-model.module';
 import { SmsDescriptionComponent } from '../sms-description/sms-description.component';
+import { OtherpayManualpaymentComponent } from '../../Fargin Transtions/Other Payments/otherpay-manualpayment/otherpay-manualpayment.component';
 
 @Component({
   selector: 'app-entity-view',
@@ -88,12 +89,12 @@ export class EntityViewComponent implements OnInit {
 
   alltransactions: any;
   searchText: any;
-  searchTextbusnniess:any;
-  searchTextOneTime:any;
-  searchTextcustomixed:any;
-  searchTextsms:any;
-  searchTextargeement:any;
-  searchTextbranch:any;
+  searchTextbusnniess: any;
+  searchTextOneTime: any;
+  searchTextcustomixed: any;
+  searchTextsms: any;
+  searchTextargeement: any;
+  searchTextbranch: any;
 
   valuesmssetting: any
   navbarEventEmitter: any;
@@ -220,13 +221,15 @@ export class EntityViewComponent implements OnInit {
   valueentityterminal: any;
   valuebranchterminal: any;
   valuebranchKYCview: any;
+  valuebranchonlineview:any;
   valuebranchkyc: any;
   valuebranchTerminal: any;
   valueplandetails: any;
   valuefee: any;
   valuedues: any;
-  valueonetime:any;
+  valueonetime: any;
   valueterminal: any;
+  valueCustomizedmanual: any;
 
   selectTab(tab: string): void {
     this.activeTab = tab;
@@ -285,7 +288,7 @@ export class EntityViewComponent implements OnInit {
             this.valuemanualedit = 'Entity View One Time Setup Payment-Edit'
             this.valuemanualview = 'Entity View One Time Setup Payment-View'
             this.valuefinalcomment = 'Final-Comment'
-        
+
 
             this.valuebussinessAdd = 'Entity View Bussiness Document-Add'
             this.valuebussinessapproval = 'Entity View Bussiness Document-Approval'
@@ -297,6 +300,7 @@ export class EntityViewComponent implements OnInit {
             this.valueCustomizedadd = 'Entity View Customized Payment-Add'
             this.valueCustomizededit = 'Entity View Customized Payment-Edit'
             this.valueCustomizedview = 'Entity View Customized Payment-View'
+            this.valueCustomizedmanual = 'Entity View Customized Manual Payment'
 
             this.valuesmsadd = 'Sms Setting-Add'
             this.valuesmsapproval = 'Sms Setting-Approval'
@@ -320,6 +324,8 @@ export class EntityViewComponent implements OnInit {
             this.valueentityterminal = 'Entity View Entity-Terminal'
             this.valuebranchterminal = 'Entity View Branch-Terminal'
             this.valuebranchKYCview = 'Entity View Branch-KYC View'
+            this.valuebranchonlineview = 'Entity View Branch-online View'
+
 
             this.valuebranchkyc = 'Entity View Branch-KYC'
             this.valuebranchTerminal = 'Entity View Branch-Terminal'
@@ -337,7 +343,7 @@ export class EntityViewComponent implements OnInit {
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
-              console.log("this.actions"+ this.actions)
+              console.log("this.actions" + this.actions)
               if (this.actions == 'Entity View KYC Document-add') {
                 this.valuekycadd = 'Entity View KYC Document-add'
               }
@@ -463,6 +469,9 @@ export class EntityViewComponent implements OnInit {
               if (this.actions == 'Entity View Customized Payment-View') {
                 this.valueCustomizedview = 'Entity View Customized Payment-View'
               }
+              if (this.actions == 'Entity View Customized Manual Payment') {
+                this.valueCustomizedmanual = 'Entity View Customized Manual Payment'
+              }
               if (this.actions == 'Entity View Agreement-Entity Agreement Link') {
                 this.valueagreementlink = 'Entity View Agreement-Entity Agreement Link'
               }
@@ -504,6 +513,10 @@ export class EntityViewComponent implements OnInit {
               }
               if (this.actions == 'Entity View Branch-KYC View') {
                 this.valuebranchKYCview = 'Entity View Branch-KYC View'
+              }
+
+              if (this.actions == 'Entity View Branch-online View') {
+                this.valuebranchonlineview = 'Entity View Branch-online View'
               }
 
               if (this.actions == 'Entity View Branch-KYC') {
@@ -713,7 +726,7 @@ export class EntityViewComponent implements OnInit {
       // this.valueplandetails = 'Entity Plan Details';
       // this.valuedues = 'Generate Customer Dues';
       this.valueonetime = 'Entity View One Time Setup Payment'
-      
+
 
     }
     else {
@@ -1441,7 +1454,7 @@ export class EntityViewComponent implements OnInit {
           })
 
         }, 500);
-        
+
       }
       else {
         this.toastr.error(res.response.message)
@@ -1482,7 +1495,7 @@ export class EntityViewComponent implements OnInit {
     });
 
   }
-  viewbranch (id: any) {
+  viewbranch(id: any) {
     this.router.navigate([`dashboard/branch-wiseenitytransaction/${id}`], {
       queryParams: { Alldata: id },
     });
@@ -1656,7 +1669,7 @@ export class EntityViewComponent implements OnInit {
     this.copySuccess = true;
     setTimeout(() => this.copySuccess = false, 2000);
   }
-  
+
   copyApikey(text: string, index: number) {
     const el = document.createElement('textarea');
     el.value = text;
@@ -3410,7 +3423,7 @@ export class EntityViewComponent implements OnInit {
 
             }
           })
-        },500);
+        }, 500);
         // this.dialog.closeAll();
 
       }
@@ -3423,7 +3436,7 @@ export class EntityViewComponent implements OnInit {
 
             }
           })
-        },500);
+        }, 500);
       }
     })
   }
@@ -3588,11 +3601,29 @@ export class EntityViewComponent implements OnInit {
     });
   }
 
-  Smsdescription(id:any){
+  Smsdescription(id: any) {
     this.dialog.open(SmsDescriptionComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       data: { value: id }
     })
   }
+
+  Manuvalpayments(id: any) {
+    this.dialog.open(OtherpayManualpaymentComponent, {
+      data: { value: id },
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '800ms',
+    })
+    this.dialog.afterAllClosed.subscribe(() => {
+
+      this.MerchantView.OtherPayByMerchantId(this.id).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.otherDetails = res.response;
+          this.otherDetails.reverse();
+        }
+      });
+    })
+  }
+
 }

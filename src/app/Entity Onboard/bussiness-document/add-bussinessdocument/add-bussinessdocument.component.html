@@ -28,13 +28,17 @@
                 <div class="col">
                 <div class="form__linput">
                     <label class="form__label"><b>Document ID</b></label>
-                    <input class="form-control" id="mccCode" type="text" formControlName="docNumber"  required />
+                    <input class="form-control" id="docNumber" type="text" formControlName="docNumber"  required />
                     <!-- <div *ngIf="docNumber && docNumber.invalid && (docNumber.touched || docNumber.dirty)">
                         <small *ngIf="docNumber.errors?.['required']" style="color: red; font-size: 12px;">This field is
                             required.</small>
                         <small *ngIf="docNumber.errors?.['pattern']" style="color: red; font-size: 12px;">Enter a valid
                             {{selectElement4}} number.</small>
                     </div> -->
+                    <div *ngIf="docNumber?.invalid && docNumber?.touched && docNumber?.errors?.['maxlength']"
+                    style="color: red; font-size: 12px;">
+                    Maximum length should be 15
+                    </div>
                 </div>
                 </div>
  

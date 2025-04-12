@@ -248,13 +248,13 @@
                         </div>
                     
                     <div style="margin-left:20px" class="form__linput ">
-                        <label class="form__label custom-label" for="startDate">Start Date (Optional)</label>
+                        <label class="form__label custom-label" for="startDate">From Date (Optional)</label>
                         <input  onkeydown="return false;" (change)="future(endDate)" [max]="maxDate" formControlName="startDate" style="border: 1px solid #ccc;width:260px" class="form-control wider-input" id="startDate" type="date" name="startDate">
                         
                     </div>
 
                     <div style="margin-left:20px" class="form__linput">
-                        <label class="form__label custom-label" for="endDate">End Date (Optional)</label>
+                        <label class="form__label custom-label" for="endDate">To Date (Optional)</label>
                         <input  onkeydown="return false;" [min]="startDate?.value" [max]="maxDate" formControlName="endDate" style="border: 1px solid #ccc;width:260px" class="form-control wider-input" id="endDate" type="date" name="endDate">
                     </div>
 

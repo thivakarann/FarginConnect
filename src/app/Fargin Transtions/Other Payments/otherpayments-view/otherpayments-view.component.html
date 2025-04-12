@@ -49,6 +49,16 @@
             
 
             <tr>
+                <td class="datas">Reference Number</td>
+                <td id="data">{{ transaction?.utrNumber}}</td>
+            </tr>
+            <tr>
+                <td class="datas">Manual Updated By</td>
+                <td id="data">{{ transaction?.updatedBy}}</td>
+            </tr>
+            
+
+            <tr>
                 <td class="datas">Paid At</td>
                 <td id="data">{{ transaction?.paymentDateTime | date:'dd/MM/yyyy hh:mm a'}}
                 </td>

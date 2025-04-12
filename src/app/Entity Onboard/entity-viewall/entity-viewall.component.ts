@@ -57,7 +57,7 @@ export class EntityViewallComponent {
   getdashboard: any[] = [];
   roleId: any = sessionStorage.getItem('roleId')
   actions: any;
-  actions1:any;
+  actions1: any;
   errorMessage: any;
   unblockvalue: any;
   valueEntityUnblock: any;
@@ -91,10 +91,11 @@ export class EntityViewallComponent {
   entityfinal: any;
   entityonetime: any;
   entitycusti: any;
-  entitysms:any;
-  entityAgrrement:any;
-  entitybranch:any;
+  entitysms: any;
+  entityAgrrement: any;
+  entitybranch: any;
   valuecloud: any;
+  entitybranchtrans: any;
   constructor(
     public EntityViewall: FarginServiceService,
     private router: Router,
@@ -116,7 +117,8 @@ export class EntityViewallComponent {
             this.valueEntityStatus = 'Entity Onboard-Status';
             // this.valueEntityView = 'Entity Onboard-View';
             this.valueEntityUnblock = 'Entity Onboard-Unblock';
-            this.entitytrans = 'Entity View Transaction';
+            this.entitytrans = 'Entity View Online';
+            this.entitybranchtrans = 'Entity View-Branch-Transactions';
             this.entityoffline = 'Entity View Offline';
             this.entitysettle = 'Entity View Settlement';
             this.entityrefund = 'Entity View Refund';
@@ -133,7 +135,7 @@ export class EntityViewallComponent {
             this.entitysms = 'Entity View-SMS Settings';
             this.entityAgrrement = 'Entity View Agreement';
             this.entitybranch = 'Entity View Branch';
-            this.valuecloud = 'Entity View Cloud Fee AutoDebit'
+            this.valuecloud = 'Entity View Cloud Fee AutoDebit';
 
 
 
@@ -164,8 +166,11 @@ export class EntityViewallComponent {
               if (this.actions == 'Entity View Cloud Fee AutoDebit') {
                 this.valuecloud = 'Entity View Cloud Fee AutoDebit'
               }
-              if (this.actions1 == 'Entity View Transaction') {
-                this.entitytrans = 'Entity View Transaction'
+              if (this.actions1 == 'Entity View Online') {
+                this.entitytrans = 'Entity View Online'
+              }
+              if (this.actions1 == 'Entity View-Branch-Transactions') {
+                this.entitybranchtrans = 'Entity View-Branch-Transactions'
               }
               if (this.actions1 == 'Entity View Offline') {
                 this.entityoffline = 'Entity View Offline'
@@ -215,7 +220,7 @@ export class EntityViewallComponent {
               if (this.actions1 == 'Entity View Branch') {
                 this.entitybranch = 'Entity View Branch'
               }
-            
+
             }
           }
         }

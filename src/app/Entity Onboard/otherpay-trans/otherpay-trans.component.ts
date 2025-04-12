@@ -24,9 +24,13 @@ export class OtherpayTransComponent {
     'Id',
     'paymentId',
     'method',
-    'paidamount',
-    'reference',
     'status',
+    'paidamount',
+    'cardNumber',
+    'cardExpiry',
+    'reference',
+    'utrNumber',
+    'updatedBy',
     'receipt',
     'paymentAt',
   ];
@@ -97,10 +101,14 @@ export class OtherpayTransComponent {
       this.response.push(sno);
       this.response.push(element?.pgPaymentId);
       this.response.push(element?.paymentMethod);
-      this.response.push(element?.paidAmount);
-   
-      this.response.push(element?.orderReference);
       this.response.push(element?.paymentStatus);
+      this.response.push(element?.paidAmount);
+      this.response.push(element?.cardNumber);
+      this.response.push(element?.cardExpiry);
+      this.response.push(element?.bankReference);
+      this.response.push(element?.utrNumber);
+      this.response.push(element?.updatedBy);
+     
    
 
       if (element?.paymentDateTime) {
@@ -121,12 +129,16 @@ export class OtherpayTransComponent {
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
-      'S No',
-      'Payment Id',
+      'S.NO',
+      'Payment ID',
       'Payment Method',
-      'Due Amount',
-      'Order Reference',
       'Payment Status',
+      'Due Amount',
+      'Card Number',
+      'Card Expiry',
+      'Bank Reference',
+      'Refference Number',
+      'Manual Payment By ',
       'Payment At',
     ]
 
@@ -166,6 +178,10 @@ export class OtherpayTransComponent {
       let qty4 = row.getCell(5);
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
+      let qty7 = row.getCell(8);
+      let qty8 = row.getCell(9);
+      let qty9 = row.getCell(10);
+      let qty10 = row.getCell(11);
 
 
 
@@ -176,7 +192,11 @@ export class OtherpayTransComponent {
       qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-   
+      qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+
 
     }
     );

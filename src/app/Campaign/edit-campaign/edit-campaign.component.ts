@@ -44,7 +44,7 @@ export class EditCampaignComponent {
 
     this.setupformGroup = this.fb.group({
       subject: ['', Validators.required],
-      emailContent: ['', Validators.required],
+      emailContent: ['', [Validators.required,Validators.maxLength(1000)]],
       EmailDate: ['', Validators.required],
     });
   }

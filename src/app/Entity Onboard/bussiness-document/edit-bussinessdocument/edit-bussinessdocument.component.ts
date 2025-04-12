@@ -53,7 +53,7 @@ export class EditBussinessdocumentComponent {
 
     this.fourthFormGroup = this._formBuilder.group({
       kycCategoryId: ['', Validators.required],
-      docNumber: [''],
+      docNumber: ['',Validators.maxLength(35)],
       expiryDate: [''],
     })
 

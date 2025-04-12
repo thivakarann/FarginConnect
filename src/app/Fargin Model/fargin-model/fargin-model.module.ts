@@ -206,9 +206,12 @@ export interface manuvalduecreation {
   readonly merchantId: any,
 }
 
-
-
-
+export interface Othermanualpay {
+  readonly paymentMethod: any,
+  readonly paymentStatus: any,
+  readonly updatedBy: any,
+  readonly utrNumber: any,
+}
 
 
 

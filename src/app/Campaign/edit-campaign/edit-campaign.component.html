@@ -27,6 +27,10 @@
                     *ngIf="emailContent?.invalid && emailContent?.touched && emailContent?.errors?.['required']">
                     Field is required
                 </div>
+                <div style="color: red; font-size: 12px;margin-top: 2px;"
+                *ngIf="emailContent?.invalid  && emailContent?.errors?.['maxlength']">
+                Only 1000 characters are allowed
+               </div>
             </div>
 
             <div class="form__linput">

@@ -46,7 +46,7 @@ export class CreateCampaignsComponent {
     this.announcementform = new FormGroup({
      subject: new FormControl('',Validators.required),
      startDate: new FormControl('',Validators.required),
-     contents: new FormControl('',Validators.required),
+     contents: new FormControl('',[Validators.required,Validators.maxLength(1000)]),
      document: new FormControl('',Validators.required),
      uploadFile: new FormControl('',Validators.required),
 })

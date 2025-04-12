@@ -412,14 +412,16 @@
               </a>
               <div class="sidebar-submenu">
                 <ul>
+
+                  <li routerLink="view-role" [hidden]="valueRole!=='Role'">
+                    <a>Role</a>
+                  </li>
                   <li [hidden]="valueUser!=='User'">
                     <a routerLink="/dashboard/admindetails">User
                     </a>
                   </li>
 
-                  <li routerLink="view-role" [hidden]="valueRole!=='Role'">
-                    <a>Role</a>
-                  </li>
+               
 
                 </ul>
               </div>
