@@ -611,7 +611,7 @@ export class DashboardContentComponent {
         responsive: true, // Make the chart responsive
         scales: {
           y: {
-            beginAtZero: true,
+            type: 'logarithmic',
             title: {
               display: true,
               text: 'Count', // Optional: add a title to the y-axis
@@ -730,7 +730,7 @@ export class DashboardContentComponent {
         responsive: true,
         scales: {
           y: {
-            beginAtZero: true,
+            type: 'logarithmic',
             title: {
               display: true,
               text: 'Amount',
@@ -798,7 +798,7 @@ export class DashboardContentComponent {
         responsive: true,
         scales: {
           y: {
-            beginAtZero: true,
+            type: 'logarithmic',
             title: {
               display: true,
               text: 'Count',

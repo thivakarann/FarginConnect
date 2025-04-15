@@ -84,7 +84,7 @@ export class EditPersonalInfoComponent implements OnInit {
       contactEmail: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$'),
-        Validators.maxLength(40), 
+        Validators.maxLength(40),
       ]),
       website: new FormControl('', [Validators.pattern("((http|https)://)(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,6})+(/[-a-zA-Z0-9@:%._\\+~#?&//=]*)?")]),
       gstIn: new FormControl(''),
@@ -165,15 +165,15 @@ export class EditPersonalInfoComponent implements OnInit {
       this.detaislone = res.response.merchantpersonal;
       this.smstag = this.detaislone?.customerSmsTag;
       this.smsduedate = this.detaislone?.customerDuesDate;
-      this.smsdate =  this.detaislone?.dueDate
+      this.smsdate = this.detaislone?.dueDate
 
-      if(this.detaislone?.customerDuesEnable == '1'){
+      if (this.detaislone?.customerDuesEnable == '1') {
         this.myForm.get('customerDuesDate')?.setValue(this.detaislone?.customerDuesDate);
         this.myForm.get('dueDate')?.setValue(this.detaislone?.dueDate);
         this.myForm.get('customerSmsTag')?.setValue(this.detaislone?.customerSmsTag);
       }
-    
-      
+
+
       if (this.detaislone.customerDuesEnable == 1) {
         this.show = true;
       }
@@ -196,7 +196,7 @@ export class EditPersonalInfoComponent implements OnInit {
     })
 
   }
-    // First Form
+  // First Form
 
   get entityName() {
     return this.myForm.get('entityName')
@@ -388,11 +388,11 @@ export class EditPersonalInfoComponent implements OnInit {
     if (this.customerDuesEnabled === '0') {
       formData.append('customerDuesDate', '0');
       formData.append('dueDate', '0');
-      formData.append('customerSmsTag', '');
+      formData.append('customerSmsTag', 'NA');
     } else {
       formData.append('customerDuesDate', this.customerDuesDate?.value);
       formData.append('dueDate', this.dueDate?.value);
-    formData.append('customerSmsTag', this.customerSmsTag?.value || '');
+      formData.append('customerSmsTag', this.customerSmsTag?.value || '');
 
     }
 
@@ -429,6 +429,6 @@ export class EditPersonalInfoComponent implements OnInit {
   close() {
     this.Location.back();
   }
-  
+
 
 }

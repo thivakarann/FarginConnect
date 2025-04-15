@@ -25,7 +25,7 @@ export class EntityTerminalEditComponent implements OnInit {
     this.TerminalNumber = this.data.value.terminalNumber
 
     this.Entityedit = new FormGroup({
-      terminalNo: new FormControl('', [Validators.required]),
+      terminalNo: new FormControl('', [Validators.required,Validators.pattern('^[0-9 ]*$'),Validators.maxLength(10)]),
     });
  
   }

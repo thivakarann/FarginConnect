@@ -23,7 +23,7 @@ export class EntityTerminalAddComponent  implements OnInit {
     this.merchantId=this.data.value
 
     this.Terminaladd = new FormGroup({
-      terminalNumber: new FormControl('', [Validators.required]),
+      terminalNumber: new FormControl('', [Validators.required,Validators.maxLength(10)]),
  
     });
  

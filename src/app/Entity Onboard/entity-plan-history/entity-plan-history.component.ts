@@ -17,7 +17,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class EntityPlanHistoryComponent implements OnInit {
   dataSource: any;
-  displayedColumns: string[] = ["planHistoryId", "planName", "frequency", "countLimit", "technicalAmount", "renewalAmount", "maintenanceAmount", "voiceBoxAdvRent", "voiceBoxSetupFee", "createdBy","createdDateTime","modifiedBy", "modifiedDateTime"]
+  displayedColumns: string[] = ["planHistoryId", "planName", "frequency", "countLimit", "technicalAmount", "renewalAmount", "maintenanceAmount", "voiceBoxAdvRent", "voiceBoxSetupFee", "modifiedBy", "modifiedDateTime"]
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   roleId: any = sessionStorage.getItem('roleId');
@@ -42,6 +42,8 @@ export class EntityPlanHistoryComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.details)
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+      
       }
       else if (res.flag == 2) {
         this.dataSource = new MatTableDataSource([]);
@@ -71,6 +73,7 @@ export class EntityPlanHistoryComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.details)
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
       }
       else if (res.flag == 2) {
         this.dataSource = new MatTableDataSource([]);
@@ -102,12 +105,12 @@ export class EntityPlanHistoryComponent implements OnInit {
       this.response.push(element?.merchantPlanModel?.voiceBoxAdvRent);
       this.response.push(element?.merchantPlanModel?.voiceBoxSetupFee);
       this.response.push(element?.createdBy);
-      if (element.createdDateTime) {
-        this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
-      }
-      else {
-        this.response.push('');
-      }
+      // if (element.createdDateTime) {
+      //   this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
+      // }
+      // else {
+      //   this.response.push('');
+      // }
       this.response.push(element?.modifiedBy);
       if (element.modifiedDateTime) {
         this.response.push(moment(element?.modifiedDateTime).format('DD/MM/yyyy hh:mm a').toString());
@@ -133,10 +136,8 @@ export class EntityPlanHistoryComponent implements OnInit {
         "Cloud Fee",
         "Voice Box Rent",
         "Voice Box Setup Fee",
-        "Created By",
-        "Created Date/Time",
-        "Modified By",
-        "Modified Date/Time"
+        "Updated By",
+        "Updated Date/Time"
       ]
    
    
@@ -174,8 +175,8 @@ export class EntityPlanHistoryComponent implements OnInit {
         let qty8 = row.getCell(9);
         let qty9 = row.getCell(10);
         let qty10 = row.getCell(11);
-        let qty11 = row.getCell(12);
-        let qty12 = row.getCell(13);
+        // let qty11 = row.getCell(12);
+        // let qty12 = row.getCell(13);
    
    
    
@@ -190,8 +191,8 @@ export class EntityPlanHistoryComponent implements OnInit {
         qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
         qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
         qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-        qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-        qty12.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+        // qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+        // qty12.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
    
    
       }

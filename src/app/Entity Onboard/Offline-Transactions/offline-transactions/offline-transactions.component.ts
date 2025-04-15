@@ -74,7 +74,9 @@ export class OfflineTransactionsComponent {
   valuestaticsettlement:any;
   valuestaticview:any;
   maxDate: any;
-
+  length: any;
+  pageIndex: any;
+  pageSize: any;
 
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private ActivateRoute: ActivatedRoute, private router: Router, private location: Location) { }
 
@@ -131,8 +133,8 @@ export class OfflineTransactionsComponent {
 
     let submitModel: OffilneTransaction = {
       merchantId: this.id,
-      pageNo: this.currentPage,
-      size: '20',
+      pageNo: '0',
+      size: '5',
       query: '',
       dateRange: this.Daterange,
       status: "",
@@ -145,9 +147,11 @@ export class OfflineTransactionsComponent {
         this.content = this.Viewall?.content || [];
         console.log(this.content)
         this.filteredData = this.content;
-          this.dataSource = new MatTableDataSource(this.filteredData);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        this.length = this.Viewall.totalElements;
+        this.pageIndex = this.Viewall.number;
+        this.pageSize = this.Viewall.size;
+        this.dataSource = new MatTableDataSource(this.filteredData);
+      
         if (this.content.length === 0) {
           this.dataSource = new MatTableDataSource();
          }
@@ -174,10 +178,10 @@ export class OfflineTransactionsComponent {
   reload(){
     let submitModel: OffilneTransaction = {
       merchantId: this.id,
-      pageNo: this.currentPage,
-      size: '20',
+      pageNo: '0',
+      size: '5',
       query: '',
-      dateRange: '',
+      dateRange: this.Daterange,
       status: "",
       terminalId: ""
     }
@@ -188,9 +192,11 @@ export class OfflineTransactionsComponent {
         this.content = this.Viewall?.content || [];
         console.log(this.content)
         this.filteredData = this.content;
-          this.dataSource = new MatTableDataSource(this.filteredData);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        this.length = this.Viewall.totalElements;
+        this.pageIndex = this.Viewall.number;
+        this.pageSize = this.Viewall.size;
+        this.dataSource = new MatTableDataSource(this.filteredData);
+      
         if (this.content.length === 0) {
           this.dataSource = new MatTableDataSource();
          }
@@ -216,12 +222,12 @@ export class OfflineTransactionsComponent {
     let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY 00:00");
     let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/YYYY 23:59");
     this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
-    this.currentPage = 1;
+    this.currentPage = 0;
 
     let submitModel: OffilneTransaction = {
       merchantId: this.id,
       pageNo: this.currentPage,
-      size: '20',
+      size: '5',
       query: '',
       dateRange: this.Daterange,
       status: "",
@@ -233,11 +239,12 @@ export class OfflineTransactionsComponent {
         this.Viewall = JSON.parse(res.response);
         this.content = this.Viewall?.content || [];
         this.filteredData = this.content;
-
+        this.length = this.Viewall.totalElements;
+        this.pageIndex = this.Viewall.number;
+        this.pageSize = this.Viewall.size;
 
         this.dataSource = new MatTableDataSource(this.filteredData);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+       
         if (this.content.length === 0) {
           this.dataSource = new MatTableDataSource();
          }     
@@ -247,8 +254,8 @@ export class OfflineTransactionsComponent {
   reset() {
     let submitModel: OffilneTransaction = {
       merchantId: this.id,
-      pageNo: this.currentPage,
-      size: '20',
+      pageNo: '0',
+      size: '5',
       query: '',
       dateRange: '',
       status: "",
@@ -261,9 +268,12 @@ export class OfflineTransactionsComponent {
         this.content = this.Viewall?.content || [];
         console.log(this.content)
         this.filteredData = this.content;
+        this.length = this.Viewall.totalElements;
+        this.pageIndex = this.Viewall.number;
+        this.pageSize = this.Viewall.size;
+
           this.dataSource = new MatTableDataSource(this.filteredData);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+      
         if (this.content.length === 0) {
           this.dataSource = new MatTableDataSource();
          }
@@ -446,4 +456,71 @@ export class OfflineTransactionsComponent {
       },
     });
   }
+
+  getData(event:any)
+  {
+
+    if(this.FromDateRange && this.ToDateRange)
+    {
+      const datepipe: DatePipe = new DatePipe("en-US");
+      let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY 00:00");
+      let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/YYYY 23:59");
+      this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
+      this.currentPage = 1;
+  
+      let submitModel: OffilneTransaction = {
+        merchantId: this.id,
+        pageNo: event.pageIndex+1,
+        size: event.pageSize,
+        query: '',
+        dateRange: this.Daterange,
+        status: "",
+        terminalId: ""
+      }
+      this.service.OfflineTransactions(submitModel).subscribe((res: any) => {
+        if (res.flag == 1) {
+  
+          this.Viewall = JSON.parse(res.response);
+          this.content = this.Viewall?.content || [];
+          this.filteredData = this.content;
+          this.length = this.Viewall.totalElements;
+    
+          this.dataSource = new MatTableDataSource(this.filteredData);
+         
+          if (this.content.length === 0) {
+            this.dataSource = new MatTableDataSource();
+           }     
+         }
+      })
+    }
+    else
+    {
+      let submitModel: OffilneTransaction = {
+        merchantId: this.id,
+        pageNo: event.pageIndex+1,
+        size: event.pageSize,
+        query: '',
+        dateRange: this.Daterange,
+        status: "",
+        terminalId: ""
+      }
+      this.service.OfflineTransactions(submitModel).subscribe((res: any) => {
+        if (res.flag == 1) {
+  
+          this.Viewall = JSON.parse(res.response);
+          this.content = this.Viewall?.content || [];
+          console.log(this.content)
+          this.filteredData = this.content;
+          this.length = this.Viewall.totalElements;
+        
+          this.dataSource = new MatTableDataSource(this.filteredData);
+        
+          if (this.content.length === 0) {
+            this.dataSource = new MatTableDataSource();
+           }
+        }
+  
+      })
+    }
+    }
 }

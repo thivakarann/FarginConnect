@@ -64,7 +64,7 @@
     color: white;
   }
   .mat-mdc-table .mdc-data-table__row {
-    height: 0px;
+    height: 45px;
   }
    
   .form {
@@ -203,3 +203,11 @@
   .enabled-icon {
     color: black;       /* White icon color when active */
   }
+  
+  .example-container {
+    max-height: 280px;
+    height: 100%;
+    overflow: auto;
+    scrollbar-width: auto;
+  }
+   

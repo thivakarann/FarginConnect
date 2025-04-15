@@ -25,7 +25,7 @@ export class BranchTerminalEditComponent implements OnInit {
     this.TerminalNumber = this.data.value.terminalNumber
 
     this.EditTerminal = new FormGroup({
-      terminalNo: new FormControl('', [Validators.required]),
+      terminalNo: new FormControl('', [Validators.required,Validators.maxLength(10),Validators.pattern('^[0-9 ]*$')]),
     });
  
   }

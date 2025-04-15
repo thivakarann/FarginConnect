@@ -821,6 +821,18 @@ button.buttonDownload:disabled {
   border: 1px solid #999999; /* Modifies the border styling */
 }
 
+.manual{
+  font-size: 25px; 
+  color: green
+}
+button.manual:disabled {
+  cursor: not-allowed; /* Indicates the button is not clickable */
+  background-color: #cccccc; /* Changes the background color */
+  color: #666666; /* Changes the text color */
+  opacity: 0.6; /* Makes the button appear faded */
+  border: 1px solid #999999; /* Modifies the border styling */
+}
+
 /* .kychidden{
   color:white;
   background-color: #141E46;

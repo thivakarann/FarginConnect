@@ -2162,7 +2162,7 @@
                   >Edit
                 </span>
               </th>
-           
+
               <th>Payment Status</th>
               <th>Payment Method</th>
               <th
@@ -2221,7 +2221,7 @@
                   </span>
                 </button>
               </td>
-           
+
               <td>
                 <span
                   *ngIf="item?.paymentStatus == 'Success'"
@@ -2367,9 +2367,14 @@
               <th>Sgst</th>
               <th>Igst</th>
               <th>Total Amount</th>
-              <th [hidden]="
-                  valueCustomizedmanual !== 'Entity View Customized Manual Payment'
-                ">Manual Payment</th>
+              <th
+                [hidden]="
+                  valueCustomizedmanual !==
+                  'Entity View Customized Manual Payment'
+                "
+              >
+                Manual Payment
+              </th>
               <th
                 [hidden]="
                   valueCustomizededit !== 'Entity View Customized Payment-Edit'
@@ -2414,13 +2419,14 @@
                     item.paymentStatus == 'Due Cancelled'
                   "
                   [hidden]="
-                  valueCustomizedmanual !== 'Entity View Customized Manual Payment'
-                "
-                  style="border: none;padding-top: 0px;"
+                    valueCustomizedmanual !==
+                    'Entity View Customized Manual Payment'
+                  "
+                  style="border: none; padding-top: 0px"
+                  class="manual"
                   (click)="Manuvalpayments(item.payId)"
                 >
                   <i
-                    style="font-size: 25px; color: green"
                     class="fa-solid fa-address-card"
                   ></i>
                 </button>
@@ -3122,7 +3128,13 @@
               >
                 Customer View
               </th>
-              <th [hidden]="valuebranchonlineview !=='Entity View Branch-online View'">Online Transaction</th>
+              <th
+                [hidden]="
+                  valuebranchonlineview !== 'Entity View Branch-online View'
+                "
+              >
+                Online Transaction
+              </th>
               <th [hidden]="valuebranchkyc !== 'Entity View Branch-KYC'">
                 KYC View
               </th>
@@ -3178,7 +3190,11 @@
                   (click)="Viewcustomerbranch(item.branchId)"
                 ></i>
               </td>
-              <td [hidden]="valuebranchonlineview !=='Entity View Branch-online View'">
+              <td
+                [hidden]="
+                  valuebranchonlineview !== 'Entity View Branch-online View'
+                "
+              >
                 <i
                   style="cursor: pointer; font-size: 17px"
                   class="fa fa-eye"

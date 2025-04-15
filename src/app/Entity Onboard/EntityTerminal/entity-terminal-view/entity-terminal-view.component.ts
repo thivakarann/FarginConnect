@@ -19,34 +19,34 @@ import { EntityTerminalEditComponent } from '../entity-terminal-edit/entity-term
   templateUrl: './entity-terminal-view.component.html',
   styleUrl: './entity-terminal-view.component.css'
 })
-export class EntityTerminalViewComponent implements OnInit{
-  terminal:any;
-  isChecked:any;
+export class EntityTerminalViewComponent implements OnInit {
+  terminal: any;
+  isChecked: any;
   dataSource: any;
-  displayedColumns: string[] = ["sno", "accountId", "terminalNumber", "status","View", "edit", "createdBy","createdAt","modifiedBy","modifiedAt"]
+  displayedColumns: string[] = ["sno", "accountId", "terminalNumber", "status", "View", "edit", "createdBy", "createdAt", "modifiedBy", "modifiedAt"]
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   roleId: any = sessionStorage.getItem('roleId')
-  errorMessage:any;
+  errorMessage: any;
   actions: any;
-  searchPerformed: boolean=false;
+  searchPerformed: boolean = false;
   id: any;
   merchantId: any;
   getdashboard: any[] = [];
-  valueTerminalAdd:any;
-  valueTerminalStatus:any;
-  valueTerminalEdit:any;
-  valueTerminalview:any;
-  
-   constructor(
-      public service: FarginServiceService,
-      private router: Router,
-      private toastr: ToastrService,
-      private dialog: MatDialog,
-      private ActivateRoute: ActivatedRoute,
-      private location:Location
-    ) {}
-  
+  valueTerminalAdd: any;
+  valueTerminalStatus: any;
+  valueTerminalEdit: any;
+  valueTerminalview: any;
+
+  constructor(
+    public service: FarginServiceService,
+    private router: Router,
+    private toastr: ToastrService,
+    private dialog: MatDialog,
+    private ActivateRoute: ActivatedRoute,
+    private location: Location
+  ) { }
+
 
   ngOnInit() {
 
@@ -59,7 +59,7 @@ export class EntityTerminalViewComponent implements OnInit{
             this.valueTerminalAdd = 'Terminal Entity-Add';
             this.valueTerminalStatus = 'Terminal Entity-Status';
             this.valueTerminalEdit = 'Terminal Entity-Edit';
-            this.valueTerminalview = 'Terminal Entity Transactions-View';
+            this.valueTerminalview = 'Terminal Entity Transaction-View';
           }
           else {
             for (let datas of this.getdashboard) {
@@ -84,15 +84,14 @@ export class EntityTerminalViewComponent implements OnInit{
           this.errorMessage = res.responseMessage;
         }
       }
-    })  
+    })
 
     this.ActivateRoute.queryParams.subscribe((param: any) => {
-      this.merchantId=param.Alldata;
+      this.merchantId = param.Alldata;
     });
 
     this.service.EntityTerminalviewMerchant(this.merchantId).subscribe((res: any) => {
-      if(res.flag==1)
-      {
+      if (res.flag == 1) {
         this.terminal = res.response;
         this.dataSource = new MatTableDataSource(this.terminal.reverse());
         this.dataSource.sort = this.sort;
@@ -100,81 +99,6 @@ export class EntityTerminalViewComponent implements OnInit{
         this.dataSource.filterPredicate = (data: any, filter: string) => {
           const transformedFilter = filter.trim().toLowerCase();
           const dataStr = Object.keys(data)
-          .reduce((currentTerm: string, key: string) => {
-            return (
-              currentTerm +
-              (typeof data[key] === 'object'
-                ? JSON.stringify(data[key])
-                : data[key])
-            );
-          }, '')
-          .toLowerCase();
-          return dataStr.indexOf(transformedFilter) !== -1;
-        };
-      }
-      else if(res.flag==2){
-        this.dataSource = new MatTableDataSource([]);
-        this.dataSource = new MatTableDataSource(this.terminal.reverse());
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      }
-   });
-    
-  }
-
-    onSubmit(event: MatSlideToggleChange, id: any) {
-      this.isChecked = event.checked;
-      let submitModel: Entitystatus = {
-        activeStatus: this.isChecked ? 1 : 0,
-      };
-      this.service.EntityTerminalStatus(id, submitModel).subscribe((res: any) => {
-  
-        this.toastr.success(res.responseMessage);
-        setTimeout(() => {
-          this.service.EntityTerminalviewMerchant(this.merchantId).subscribe((res: any) => {
-            if(res.flag==1)
-            {
-              this.terminal = res.response;
-              this.dataSource = new MatTableDataSource(this.terminal.reverse());
-              this.dataSource.sort = this.sort;
-              this.dataSource.paginator = this.paginator;
-              this.dataSource.filterPredicate = (data: any, filter: string) => {
-                const transformedFilter = filter.trim().toLowerCase();
-                const dataStr = Object.keys(data)
-                .reduce((currentTerm: string, key: string) => {
-                  return (
-                    currentTerm +
-                    (typeof data[key] === 'object'
-                      ? JSON.stringify(data[key])
-                      : data[key])
-                  );
-                }, '')
-                .toLowerCase();
-                return dataStr.indexOf(transformedFilter) !== -1;
-              };
-            }
-            else if(res.flag==2){
-              this.dataSource = new MatTableDataSource([]);
-              this.dataSource = new MatTableDataSource(this.terminal.reverse());
-              this.dataSource.sort = this.sort;
-              this.dataSource.paginator = this.paginator;
-            }
-         });
-        }, 1000);
-      });
-    }
-    
-    reload() {
-      this.service.EntityTerminalviewMerchant(this.merchantId).subscribe((res: any) => {
-        if(res.flag==1)
-        {
-          this.terminal = res.response;
-          this.dataSource = new MatTableDataSource(this.terminal.reverse());
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.filterPredicate = (data: any, filter: string) => {
-            const transformedFilter = filter.trim().toLowerCase();
-            const dataStr = Object.keys(data)
             .reduce((currentTerm: string, key: string) => {
               return (
                 currentTerm +
@@ -184,17 +108,90 @@ export class EntityTerminalViewComponent implements OnInit{
               );
             }, '')
             .toLowerCase();
-            return dataStr.indexOf(transformedFilter) !== -1;
-          };
-        }
-        else if(res.flag==2){
-          this.dataSource = new MatTableDataSource([]);
-          this.dataSource = new MatTableDataSource(this.terminal.reverse());
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        }
-     });
-    }
+          return dataStr.indexOf(transformedFilter) !== -1;
+        };
+      }
+      else if (res.flag == 2) {
+        this.dataSource = new MatTableDataSource([]);
+        this.dataSource = new MatTableDataSource(this.terminal.reverse());
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+    });
+
+  }
+
+  onSubmit(event: MatSlideToggleChange, id: any) {
+    this.isChecked = event.checked;
+    let submitModel: Entitystatus = {
+      activeStatus: this.isChecked ? 1 : 0,
+    };
+    this.service.EntityTerminalStatus(id, submitModel).subscribe((res: any) => {
+
+      this.toastr.success(res.responseMessage);
+      setTimeout(() => {
+        this.service.EntityTerminalviewMerchant(this.merchantId).subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.terminal = res.response;
+            this.dataSource = new MatTableDataSource(this.terminal.reverse());
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.filterPredicate = (data: any, filter: string) => {
+              const transformedFilter = filter.trim().toLowerCase();
+              const dataStr = Object.keys(data)
+                .reduce((currentTerm: string, key: string) => {
+                  return (
+                    currentTerm +
+                    (typeof data[key] === 'object'
+                      ? JSON.stringify(data[key])
+                      : data[key])
+                  );
+                }, '')
+                .toLowerCase();
+              return dataStr.indexOf(transformedFilter) !== -1;
+            };
+          }
+          else if (res.flag == 2) {
+            this.dataSource = new MatTableDataSource([]);
+            this.dataSource = new MatTableDataSource(this.terminal.reverse());
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+          }
+        });
+      }, 1000);
+    });
+  }
+
+  reload() {
+    this.service.EntityTerminalviewMerchant(this.merchantId).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.terminal = res.response;
+        this.dataSource = new MatTableDataSource(this.terminal.reverse());
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.filterPredicate = (data: any, filter: string) => {
+          const transformedFilter = filter.trim().toLowerCase();
+          const dataStr = Object.keys(data)
+            .reduce((currentTerm: string, key: string) => {
+              return (
+                currentTerm +
+                (typeof data[key] === 'object'
+                  ? JSON.stringify(data[key])
+                  : data[key])
+              );
+            }, '')
+            .toLowerCase();
+          return dataStr.indexOf(transformedFilter) !== -1;
+        };
+      }
+      else if (res.flag == 2) {
+        this.dataSource = new MatTableDataSource([]);
+        this.dataSource = new MatTableDataSource(this.terminal.reverse());
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+    });
+  }
 
     CreateEntityTerminal(id:any){
       this.dialog.open(EntityTerminalAddComponent,{
@@ -223,18 +220,18 @@ export class EntityTerminalViewComponent implements OnInit{
                 );
               }, '')
               .toLowerCase();
-              return dataStr.indexOf(transformedFilter) !== -1;
-            };
-          }
-          else if(res.flag==2){
-            this.dataSource = new MatTableDataSource([]);
-            this.dataSource = new MatTableDataSource(this.terminal.reverse());
-            this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator;
-          }
-       });
-      })
-    }
+            return dataStr.indexOf(transformedFilter) !== -1;
+          };
+        }
+        else if (res.flag == 2) {
+          this.dataSource = new MatTableDataSource([]);
+          this.dataSource = new MatTableDataSource(this.terminal.reverse());
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        }
+      });
+    })
+  }
 
     EditTerminal(id:any){
       this.dialog.open(EntityTerminalEditComponent,{
@@ -263,29 +260,29 @@ export class EntityTerminalViewComponent implements OnInit{
                 );
               }, '')
               .toLowerCase();
-              return dataStr.indexOf(transformedFilter) !== -1;
-            };
-          }
-          else if(res.flag==2){
-            this.dataSource = new MatTableDataSource([]);
-            this.dataSource = new MatTableDataSource(this.terminal.reverse());
-            this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator;
-          }
-       });
-      })
-    }
+            return dataStr.indexOf(transformedFilter) !== -1;
+          };
+        }
+        else if (res.flag == 2) {
+          this.dataSource = new MatTableDataSource([]);
+          this.dataSource = new MatTableDataSource(this.terminal.reverse());
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        }
+      });
+    })
+  }
 
-    applyFilter(event: Event) {
-      const filterValue = (event.target as HTMLInputElement).value;
-      this.dataSource.filter = filterValue.trim().toLowerCase();
-      this.searchPerformed = filterValue.length > 0;
-      if (this.dataSource.paginator) {
-        this.dataSource.paginator.firstPage();
-      }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.searchPerformed = filterValue.length > 0;
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
     }
-    
-  close(){
+  }
+
+  close() {
     this.location.back()
   }
   transactions(id:any,id1:any){

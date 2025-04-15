@@ -13,6 +13,14 @@
                     *ngIf="terminalNo?.invalid && terminalNo?.touched && terminalNo?.errors?.['required']">
                     Field is required
                 </div>
+                <div style="color: red; font-size: 12px;margin-top: 2px;"
+                *ngIf="terminalNo?.invalid  && terminalNo?.errors?.['maxlength']">
+                Maximum length is 10
+            </div>
+            <div style="color: red; font-size: 12px;margin-top: 2px;"
+            *ngIf="terminalNo?.invalid && terminalNo?.errors?.['pattern']">
+             Should accept only numbers
+        </div>
             </div>
  
      

@@ -24,7 +24,7 @@ export class BranchWiseenitytransactionComponent {
     [
 
       "alcotId",
-      'branchname',
+      // 'branchname',
       "pgPaymentId",
       "customerName",
       "mobileNumber",

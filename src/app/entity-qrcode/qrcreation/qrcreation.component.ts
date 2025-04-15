@@ -24,6 +24,7 @@ export class QRcreationComponent implements OnInit {
   merchantid: any;
   getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
   QRdetaisl: any;
+  isCreated: boolean=false;
 
   constructor(
     public QRcreation: FarginServiceService,
@@ -68,6 +69,8 @@ export class QRcreationComponent implements OnInit {
         this.Entityurlname = res.response.referenceNo;
         this.EntityURLLink = res.response.link;
         this.ViewURL = true;
+ 
+      this.isCreated = true;
       }
       else if (res.flag == 2) {
         this.toastr.error(res.responseMessage);

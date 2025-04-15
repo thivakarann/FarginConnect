@@ -73,7 +73,7 @@
 </div>
 <!-- <mat-card> -->
 <mat-card-content>
-    <div class="table-responsive text-nowrap mt-3" style="overflow-x: scroll; scrollbar-width: thin;">
+    <div class="example-container text-nowrap mt-3" style="overflow-x: scroll; scrollbar-width: thin;">
         <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
             <ng-container matColumnDef="sno">
                 <th mat-header-cell *matHeaderCellDef> S.No</th>
@@ -171,7 +171,7 @@
                 </td>
             </ng-container> -->
     
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
             <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
             <tr *matNoDataRow> 
                 <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data For {{input.value}}</td>
@@ -180,6 +180,14 @@
     </div>
 </mat-card-content>
 <mat-card-footer>
-    <mat-paginator (pageChange)="renderPage($event)" [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtons
-        aria-labels="select page of users"></mat-paginator>
+
+    <mat-paginator
+    (page)="getData($event)"
+  
+    [pageIndex]="pageIndex"
+    [pageSize]="pageSize"
+    [length]="length"
+    [pageSizeOptions]="[5, 10, 50, 100, 200]"
+    aria-label="Select page of users"
+  ></mat-paginator>
 </mat-card-footer>

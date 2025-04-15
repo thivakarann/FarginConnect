@@ -21,6 +21,7 @@ export class MerchantLogoComponent {
   file1: any;
   logoLink: any;
   logoLink1: any;
+  upload: any;
 
   constructor(private service:FarginServiceService ,@Inject(MAT_DIALOG_DATA) public data:any,private dialog:MatDialog, private toastr:ToastrService)  {}
 
@@ -60,34 +61,37 @@ converttohhttps(Url: string): string {
   return Url.replace('https:/', 'https://')
   }
 
+  getlogoId(event: any) {
+    this.upload = event.target.files[0];
 
-  getlogoId(event:any){
-    const files = event.target.files[0];
-    if (files) {
-      const fileName: string = files.name;
-      if (!files.type.startsWith('image/')) {
+    // Ensure this.uploadImage is not null
+    if (this.upload) {
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
 
-        this.errorMessage = 'Only Images are allowed';
-        return;
+      if (acceptableTypes.includes(this.upload.type)) {
+        if (this.upload.size <= 20 * 1024 * 1024) {
+          this.toastr.success("Image uploaded successfully");
+        }
+        else {
+          this.toastr.error("Max Image size exceeded");
+          this.merchantlogo?.reset(); // Optional chaining to prevent error if this.logo is null
+        }
+      } else {
 
+        this.toastr.error("File type not acceptable");
+        this.merchantlogo?.reset(); // Optional chaining to prevent error if this.logo is null
       }
-
-
-      this.errorMessage = ''
-      this.file1 = files;
-      
-
-      
-
+    } else {
+      this.toastr.error("No file selected");
     }
 
-    
+
   }
   Update(){
     const formData = new FormData;
     formData.append('merchantId ', this.id);
     formData.append('modifiedBy', this.modifiedBy);
-    formData.append('merchantLogo ', this.file1);
+    formData.append('merchantLogo ', this.upload);
 
     
     this.service.EntitylogoUpdate(formData).subscribe((res:any)=>{
