@@ -117,6 +117,7 @@ import { MaintenanceotherpayViewComponent } from './Fargin Transtions/Entity Tra
 import { DashboardMerchantcontentComponent } from './dashboard-merchantcontent/dashboard-merchantcontent.component';
 import { BranchOnlinetransactionsComponent } from './Entity Onboard/branch-onlinetransactions/branch-onlinetransactions.component';
 import { BranchWiseenitytransactionComponent } from './Entity Onboard/branch-onlinetransactions/branch-wiseenitytransaction/branch-wiseenitytransaction.component';
+import { RedirectPageComponent } from './redirect-page/redirect-page.component';
 
 const routes: Routes = [
 
@@ -255,6 +256,9 @@ const routes: Routes = [
     ],
 
   },
+
+    // Add a wildcard route for 404
+    { path: '**', component: RedirectPageComponent }
 ]
 
 

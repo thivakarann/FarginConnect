@@ -115,7 +115,7 @@ currentfilval: any;
       this.id = param.Alldata;
     });
 
-    this.service.EntityTraansaction(this.id, this.pageSize, this.pageIndex).subscribe((res: any) => {
+    this.service.entitywishonlinebranchs(this.id, this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag === 1) {
         this.details = res.response;
         this.totalPages = res.pagination.totalElements;
@@ -361,7 +361,7 @@ currentfilval: any;
   }
 
   reload() {
-    this.service.EntityTraansaction(this.id, this.pageSize, this.pageIndex).subscribe((res: any) => {
+    this.service.entitywishonlinebranchs(this.id, this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag === 1) {
         this.details = res.response;
         this.totalPages = res.pagination.totalElements;
@@ -387,7 +387,7 @@ currentfilval: any;
 
     if (filterValue) {
 
-      this.service.EntityTraansactionSearch(this.id, filterValue, this.pageSize, this.pageIndex).subscribe({
+      this.service.entityonlinesearchbranchs(this.id, filterValue, this.pageSize, this.pageIndex).subscribe({
         next: (res: any) => {
           if (res.flag === 1) {
             this.transdetails = res.response;
@@ -420,7 +420,7 @@ currentfilval: any;
 
   getData(event: any) {
     if (this.currentfilvalShow) {
-      this.service.EntityTraansactionSearch(this.id, this.currentfilval, event.pageSize, event.pageIndex).subscribe({
+      this.service.entityonlinesearchbranchs(this.id, this.currentfilval, event.pageSize, event.pageIndex).subscribe({
         next: (res: any) => {
           if (res.flag === 1) {
             this.transdetails = res.response;
@@ -445,7 +445,7 @@ currentfilval: any;
     }
 
     else  {
-      this.service.EntityTraansaction(this.id, event.pageSize, event.pageIndex).subscribe((res: any) => {
+      this.service.entitywishonlinebranchs(this.id, event.pageSize, event.pageIndex).subscribe((res: any) => {
         if (res.flag === 1) {
           this.details = res.response;
           this.totalPages = res.pagination.totalElements;

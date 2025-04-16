@@ -38,9 +38,9 @@ export class SMSHistoryComponent {
   @ViewChild('tableContainer') tableContainer!: ElementRef;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  FromDateRange!: string;
+  FromDateRange: string='';
   currentPage!: number;
-  ToDateRange!: string;
+  ToDateRange: string='';
   Daterange!: string;
   Viewall: any;
   content: any;

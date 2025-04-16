@@ -24,7 +24,7 @@ export class BranchWiseenitytransactionComponent {
     [
 
       "alcotId",
-      // 'branchname',
+      'branchname',
       "pgPaymentId",
       "customerName",
       "mobileNumber",
@@ -127,7 +127,7 @@ export class BranchWiseenitytransactionComponent {
 
 
     this.service
-      .entitywishonlinebranchs(this.id, this.pageSize, this.pageIndex)
+      .entityonlinebranchs(this.id, this.pageSize, this.pageIndex)
       .subscribe((res: any) => {
         if (res.flag === 1) {
           this.transactionValue = res.response;
@@ -211,7 +211,7 @@ export class BranchWiseenitytransactionComponent {
 
   reload() {
     this.service
-      .entitywishonlinebranchs(this.id, this.pageSize, this.pageIndex)
+      .entityonlinebranchs(this.id, this.pageSize, this.pageIndex)
       .subscribe((res: any) => {
         if (res.flag === 1) {
           this.transactionValue = res.response;
@@ -263,7 +263,7 @@ export class BranchWiseenitytransactionComponent {
     }
     else {
       this.service
-        .entitywishonlinebranchs(this.id, event.pageSize, event.pageIndex)
+        .entityonlinebranchs(this.id, event.pageSize, event.pageIndex)
         .subscribe((res: any) => {
           if (res.flag === 1) {
             this.transactionValue = res.response;

@@ -1523,3 +1523,16 @@ export interface entityterminaltransaction{
       readonly commercialId:any;
     }
     
+
+    export interface mainkeysbranch{
+      readonly accountStatus:any;
+      readonly  flag:any;
+
+    }
+
+    export interface branchkeys{
+      readonly accountStatus:any;
+      readonly  flag:any;
+      readonly branchId:any;
+
+    }

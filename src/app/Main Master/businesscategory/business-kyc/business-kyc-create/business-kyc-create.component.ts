@@ -57,8 +57,7 @@ export class BusinessKycCreateComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.categoryName);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.showcategoryData = false;
-        // 
+        this.showcategoryData = false; 
       }
       else {
         this.errorMsg = res.responseMessage;
@@ -91,11 +90,7 @@ export class BusinessKycCreateComponent implements OnInit {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
         this.dialog.closeAll()
-        setTimeout(() => {
-          window.location.reload()
-        },500);
- 
-      }
+        }
       else {
         this.toastr.error(res.responseMessage);
  

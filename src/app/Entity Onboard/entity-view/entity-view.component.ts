@@ -48,6 +48,7 @@ import { BranchEditComponent } from '../Branch/branch-edit/branch-edit.component
 import { manuvalduecreation, Manuvelduesforcloudfee } from '../../Fargin Model/fargin-model/fargin-model.module';
 import { SmsDescriptionComponent } from '../sms-description/sms-description.component';
 import { OtherpayManualpaymentComponent } from '../../Fargin Transtions/Other Payments/otherpay-manualpayment/otherpay-manualpayment.component';
+import { BranchInactivenbranchComponent } from '../Branch/branch-inactivenbranch/branch-inactivenbranch.component';
 
 @Component({
   selector: 'app-entity-view',
@@ -3532,26 +3533,56 @@ export class EntityViewComponent implements OnInit {
 
   }
 
-  status(event: MatSlideToggleChange, id: any) {
+  status(event: MatSlideToggleChange, branchid: any) {
     this.isChecked = event.checked;
+    console.log(this.isChecked)
+    if(this.isChecked==false)
+    {
+      this.dialog.open(BranchInactivenbranchComponent, {
+        disableClose: true,
+        enterAnimationDuration: "500ms",
+        exitAnimationDuration: "1000ms",
+        width: '600px',
+      
+        height: 'auto', 
+        data: { value: branchid, value1: this.id }
+    });
+    this.dialog.afterAllClosed.subscribe(() => {
 
-    let submitModel: Branchstatus = {
-
-      accountStatus: this.isChecked ? 1 : 0,
+      this.MerchantView.BranchGet(this.id).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.branchget = res.response.reverse();
+        }
+      })
+    })
+    }
+    else
+    {
+      let submitModel: Branchstatus = {
+        accountStatus: this.isChecked ? 1 : 0,
     };
 
-    this.MerchantView.BranchStatus(id, submitModel).subscribe((res: any) => {
-
-      this.toastr.success(res.responseMessage);
-      setTimeout(() => {
-        this.MerchantView.BranchGet(this.id).subscribe((res: any) => {
-          if (res.flag == 1) {
-            this.branchget = res.response.reverse();
-          }
-        })
-      }, 500);
+    this.MerchantView.BranchStatus(branchid, submitModel).subscribe((res: any) => {
+        if (res.flag == 1) {
+            this.toastr.success(res.responseMessage); 
+            setTimeout(() => {
+              this.MerchantView.BranchGet(this.id).subscribe((res: any) => {
+                if (res.flag == 1) {
+                  this.branchget = res.response.reverse();
+                }
+              })
+            }, 500);  
+        }
+       
     });
-  }
+    }
+  
+}
+
+
+  
+
+
   transform(value: any[], searchText: string): any[] {
     if (!value || !searchText) {
       return value;

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FarginServiceService } from '../service/fargin-service.service';
+import { LocationStrategy } from '@angular/common';
 
 @Component({
   selector: 'app-login-page',
@@ -14,9 +15,17 @@ export class LoginPageComponent implements OnInit {
   showPassword: boolean = false;
   error: unknown;
 
-  constructor(private router: Router, private service: FarginServiceService) { }
+  constructor(private router: Router, private service: FarginServiceService,private location: LocationStrategy) {
+    history.pushState(null, '', window.location.href);
+    this.location.onPopState(() => {
+      history.pushState(null, '', window.location.href);
+    });
+   }
 
   ngOnInit(): void {
+
+  
+    
     sessionStorage.clear();
 
     this.loginForm = new FormGroup({

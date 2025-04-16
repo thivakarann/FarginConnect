@@ -48,7 +48,7 @@
         </div>
 
         <div class="col-1 mt-4">
-            <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
+            <button class="buttonDownload"  [disabled]="FromDateRange == '' || ToDateRange ==''"  mat-raised-button
                 (click)="filterdate()">Filter</button>
         </div>
 

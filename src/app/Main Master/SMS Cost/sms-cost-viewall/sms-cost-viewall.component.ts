@@ -20,7 +20,7 @@ export class SmsCostViewallComponent {
   displayedColumns: string[] = [
     'smsId',
     'amount',
-    'smsStatus',
+    // 'smsStatus',
     // 'Edit',
     'createdBy',
     'createdDateTime',

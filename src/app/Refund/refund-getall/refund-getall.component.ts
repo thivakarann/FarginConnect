@@ -70,8 +70,8 @@ export class RefundGetallComponent {
   refundexport: any;
   valuerefundexport: any;
   errorMessage: any;
-  FromDateRange: any;
-  ToDateRange: any;
+  FromDateRange: string='';
+  ToDateRange: string='';
 
   pageIndex2: number = 0;
   pageSize2 = 5;

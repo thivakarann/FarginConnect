@@ -295,8 +295,18 @@ export class BusinessKycComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  reload() {
-    window.location.reload()
+  reload() {  
+    this.service.BusinesscategoryKyc().subscribe((res: any) => {
+
+      this.businesscategorykyc = res.response;
+
+      this.businesscategorykyc.reverse();
+      this.dataSource = new MatTableDataSource(this.businesscategorykyc);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+ 
+    });
 
   }
 }

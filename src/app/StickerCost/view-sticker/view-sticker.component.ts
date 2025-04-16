@@ -20,7 +20,7 @@ export class ViewStickerComponent {
   displayedColumns: string[] = [
     'stickerId',
     'stickerPerAmount',
-    'activeStatus',
+    // 'activeStatus',
     'deliveryDays',
     'createdBy',
     'createdDateTime',

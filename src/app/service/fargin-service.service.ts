@@ -16,11 +16,11 @@ export class FarginServiceService {
   AdminId: any;
   Tokens: any;
 
-  Client:HttpClient
+  Client: HttpClient
   constructor(private http: HttpClient,
-    private router: Router, private timerService: SessionServiceService, private toastr: ToastrService, private back:HttpBackend) {
-      this.Client = new HttpClient(back)
-     }
+    private router: Router, private timerService: SessionServiceService, private toastr: ToastrService, private back: HttpBackend) {
+    this.Client = new HttpClient(back)
+  }
 
   // private readonly basePath = 'https://staging-api.farginconnect.com/';    //Staging server
 
@@ -572,7 +572,7 @@ export class FarginServiceService {
   private readonly alcothistory = 'alcotchannel/viewAllHistory/';
   private readonly alcothistoryexport = 'alcotchannel/viewAllHistory';
   private readonly alcotchannelactiveregion = 'alcotchannel/viewregionactive';
-  private readonly Alcotsearchs='alcotchannel/viewAllHistorySerach/'
+  private readonly Alcotsearchs = 'alcotchannel/viewAllHistorySerach/'
 
 
   //search
@@ -637,10 +637,10 @@ export class FarginServiceService {
   private readonly branchindividualview = 'bankBranch/viewAll/';
   private readonly branchcustomerget = 'customer/customersByBranch/';
   private readonly branchcustomersearch = 'customer/customersByBranchs/';
-    private readonly onlinebranch='customerpay/viewByBranch/';
-  private readonly onlinesearchbranch='customerpay/branchSearch/'
-  private readonly entityonlinesearchbranch='customerpay/viewByMerchantSearch/';
-  private readonly entitywishonlinebranch='customerpay/viewByBranchMerchant/'
+  private readonly onlinebranch = 'customerpay/viewByBranch/';
+  private readonly onlinesearchbranch = 'customerpay/branchSearch/'
+  private readonly entityonlinesearchbranch = 'customerpay/viewByMerchantSearch/';
+  private readonly entitywishonlinebranch = 'customerpay/viewByBranchMerchant/'
 
 
   private readonly entityterminaltrans = 'transactions/getMerchantOfflinePaymentListForAdmin';
@@ -826,6 +826,12 @@ export class FarginServiceService {
   private readonly actvemerchants='merchant/limitActiveMerchants'
   private readonly actvemerchantsearchs='merchant/limitActiveMerchantsearch/'
 
+
+  private readonly inactivebranchs='bankBranch/updateStatus/';
+  private readonly branchonlyactives='bankBranch/viewbranchwithoutselect/'
+
+  private readonly entityonlinebranch='customerpay/branchwiseTransaction/'
+
   loginError = new Subject();
 
   token = sessionStorage.getItem('token') || null;
@@ -887,8 +893,11 @@ export class FarginServiceService {
         setTimeout(() => {
           window.location.reload();
         }, 200);
-      //   sessionStorage.setItem('validNavigation', 'true');
-      //  location.href = (`http://localhost:50981/data-component/${token}/${email}/${adminId}`);
+
+
+        // Replace history before redirect
+        // window.location.href = (`http://localhost:51296/data-component/${token}/${email}/${adminId}`);
+
 
         this.toastr.success(res.responseMessage);
 
@@ -2007,9 +2016,9 @@ export class FarginServiceService {
   OtherPayViewAll() {
     return this.http.get(`${this.basePath}${this.otherpaymentviewall}`, this.options)
   }
-  
-  OtherpaymentManualpay(id:any,model:any) {
-    return this.http.put(`${this.basePath}${this.Otherpaymanualpayment}${id}`, model ,this.options)
+
+  OtherpaymentManualpay(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.Otherpaymanualpayment}${id}`, model, this.options)
   }
 
   identityFront(data: FormData) {
@@ -2338,7 +2347,7 @@ export class FarginServiceService {
     return this.http.get(`${this.basePath}${this.announcementdate}${id}/${id1}/${id2}/${id3}`, this.options)
   }
 
-  
+
   announcementsearch(id: any, id1: any, id2: any) {
     return this.http.get(`${this.basePath}${this.announcementsearchs}${id}/${id1}/${id2}`, this.options)
   }
@@ -2415,7 +2424,7 @@ export class FarginServiceService {
   AlcotHistoryViewAll(id: any, id1: any) {
     return this.http.get(`${this.basePath}${this.alcothistory}${id}/${id1}`, this.options)
   }
-  Alcotsearch(id: any, id1: any, id2:any) {
+  Alcotsearch(id: any, id1: any, id2: any) {
     return this.http.get(`${this.basePath}${this.Alcotsearchs}${id}/${id1}/${id2}`, this.options)
   }
   AlcotHistoryViewAllExport() {
@@ -3105,4 +3114,23 @@ export class FarginServiceService {
   {
     return this.Client.get(`${this.basePath}${this.actvemerchantsearchs}${id}`, this.options)
   }
+
+  //branch
+  inactivebranch(id:any,model: any) {
+    return this.http.put(`${this.basePath}${this.inactivebranchs}${id}`, model, this.options)
+  }
+
+  branchonlyactive(id:any, id1:any)
+  {
+    return this.http.get(`${this.basePath}${this.branchonlyactives}${id}/${id1}`, this.options)
+  }
+
+
+  
+  entityonlinebranchs(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.entityonlinebranch}${id}/${id1}/${id2}`, this.options)
+  }
+  // entitysearchbranchs(id: any, id1: any, id2: any, id3:any) {
+  //   return this.http.get(`${this.basePath}${this.entitysearchbranch}${id}/${id1}/${id2}/${id3}`, this.options)
+  // }
 }
