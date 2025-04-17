@@ -831,6 +831,9 @@ export class FarginServiceService {
   private readonly branchonlyactives = 'bankBranch/viewbranchwithoutselect/'
 
   private readonly entityonlinebranch = 'customerpay/branchwiseTransaction/'
+  private readonly entitysearchbranch='customerpay/branchwiseSearch/';
+  private readonly entitywithbranchexports='customerpay/branchwiseTransactionExport/';
+  private readonly entitywithputbranchexports='customerpay/viewByBranchMerchantExport/'
 
   loginError = new Subject();
 
@@ -902,7 +905,7 @@ export class FarginServiceService {
         // else if (flag == '2') {
         //   window.location.href = (`http://localhost:54316/data-component/${token}/${email}/${adminId}`);
         // }
-        
+
 
 
 
@@ -3139,7 +3142,13 @@ export class FarginServiceService {
   entityonlinebranchs(id: any, id1: any, id2: any) {
     return this.http.get(`${this.basePath}${this.entityonlinebranch}${id}/${id1}/${id2}`, this.options)
   }
-  // entitysearchbranchs(id: any, id1: any, id2: any, id3:any) {
-  //   return this.http.get(`${this.basePath}${this.entitysearchbranch}${id}/${id1}/${id2}/${id3}`, this.options)
-  // }
+  entitysearchbranchs(id: any, id1: any, id2: any, id3:any) {
+    return this.http.get(`${this.basePath}${this.entitysearchbranch}${id}/${id1}/${id2}/${id3}`, this.options)
+  }
+  entitywithbranchexport(id: any) {
+    return this.http.get(`${this.basePath}${this.entitywithbranchexports}${id}`, this.options)
+  }
+  entitywithputbranchexport(id: any) {
+    return this.http.get(`${this.basePath}${this.entitywithputbranchexports}${id}`, this.options)
+  }
 }

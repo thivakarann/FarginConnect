@@ -166,44 +166,63 @@ uploadBulkFile(event: Event): void {
   const fileExtension = this.file.name.split('.').pop()?.toLowerCase();
   const mimeType = this.file.type;
 
-  // Reject specific file types: PDF, JPEG, PNG, GIF
-  const rejectedExtensions = ['pdf', 'jpeg', 'jpg', 'png', 'gif'];
+  // Reject non-CSV file types
+  const rejectedExtensions = ['pdf', 'jpeg', 'jpg', 'png', 'gif', 'xls', 'xlsx'];
   const rejectedMimeTypes = [
       'application/pdf',
       'image/jpeg',
       'image/png',
       'image/gif',
+      'application/vnd.ms-excel',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
   ];
 
   if (rejectedExtensions.includes(fileExtension) || rejectedMimeTypes.includes(mimeType)) {
-      this.toastr.error('File type not acceptable Only it has Accept the Excel');
+      this.toastr.error('File type not acceptable. Only CSV files are allowed!');
       console.error('File type not acceptable');
       inputElement.value = ''; // Reset input field
       return;
   }
- 
+
   const fileReader = new FileReader();
   fileReader.readAsBinaryString(this.file);
- 
-  fileReader.onload = (e) => {
-      const rABS = !!fileReader.readAsArrayBuffer;
-      const workbook = XLSX.read(fileReader.result, {
-          type: rABS ? 'binary' : 'string',
-      });
+
+  fileReader.onload = () => {
+      const workbook = XLSX.read(fileReader.result, { type: 'binary' });
       const sheetName = workbook.SheetNames[0];
+      const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { header: 1 }) as unknown[];
+
+      if (!sheetData.length) {
+          this.toastr.error('Failed to extract headers from the file!');
+          console.error('Failed to extract headers from the file!');
+          return;
+      }
+
+      // **Extract and Normalize Headers**
+      const fileHeaders = (sheetData[0] as string[]).map(header => header.trim().toLowerCase());
+      console.log('Extracted Headers:', fileHeaders);
+
+      // **Expected Headers**
+      const expectedHeaders = ['emailAddress'].map(header => header.trim().toLowerCase());
+
+      // **Header Validation**
+      const headersMatch = expectedHeaders.every(header => fileHeaders.includes(header));
+
+      if (!headersMatch) {
+          this.toastr.error('File Mismatch, Kindly Upload the relevant file');
+          console.error('File headers do not match:', fileHeaders);
+          inputElement.value = ''; // Reset input field
+          return;
+      }
+
+      console.log('Headers match ✅');
       this.arrayExcel = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
-      this.arrayExcel = this.arrayExcel.map((row:any) => {
-       
- 
-          return {
-            emailAddress: row.emailAddress || '',
-           
-          };
-      });
+      console.log('Formatted Data:', this.arrayExcel);
   };
- 
+
   fileReader.onerror = (error) => {
       console.error('Error reading file:', error);
+      this.toastr.error('Error reading file');
   };
 }
  

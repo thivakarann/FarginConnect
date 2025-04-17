@@ -2423,24 +2423,20 @@
                     valueCustomizedmanual !==
                     'Entity View Customized Manual Payment'
                   "
-                  style="border: none; padding-top: 0px"
+                  style="border: none; padding-top: 0px;background:none"
                   class="manual"
                   (click)="Manuvalpayments(item.payId)"
                 >
                   <i class="fa-solid fa-address-card"></i>
                 </button>
               </td>
-              <td
-                [hidden]="
-                  valueCustomizededit !== 'Entity View Customized Payment-Edit'
-                "
-              >
-                <span (click)="editotherPayment(item)">
-                  <i
-                    class="fas fa-edit"
-                    style="font-size: 16px; color: rgb(39, 39, 95)"
-                  ></i>
+              <td >
+              <button class="editcustom" style="background:none;border:none"  (click)="editotherPayment(item)" [hidden]="valueCustomizededit !== 'Entity View Customized Payment-Edit'" [disabled]="item?.paymentStatus == 'Success'" >
+                <span>
+                  <i class="fas fa-edit" ></i>
+                  
                 </span>
+                </button>
               </td>
               <td
                 [hidden]="

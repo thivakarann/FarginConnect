@@ -52,11 +52,11 @@ merchantId: any = sessionStorage.getItem('merchantId');
     const fileExtension = this.file.name.split('.').pop()?.toLowerCase();
     const mimeType = this.file.type;
 
-    if (fileExtension === 'pdf' || mimeType === 'application/pdf') {
-        this.toastr.error('PDF files are not accepted');
-        console.error('PDF files are not accepted');
-        return;
-    }
+    if (fileExtension !== 'csv') {
+      this.toastr.error('Only CSV files are allowed!');
+      this.uploadFile.reset();
+      return;
+  }
 
     const fileReader = new FileReader();
     fileReader.readAsBinaryString(this.file);

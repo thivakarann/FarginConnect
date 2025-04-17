@@ -22,31 +22,42 @@ export class MerchantLogoComponent {
   logoLink: any;
   logoLink1: any;
   upload: any;
+  DocView: boolean = false;
 
   constructor(private service:FarginServiceService ,@Inject(MAT_DIALOG_DATA) public data:any,private dialog:MatDialog, private toastr:ToastrService)  {}
 
   ngOnInit(): void {
 
-    this.id = this.data.value
+    // this.id = this.data.value
     
-    this.logoLink=this.data.value1
-    console.log("logo"+ this.logoLink )
+    // this.logoLink=this.data.value1
+    // console.log("logo"+ this.logoLink )
     
     
-      this.logoLink1 = this.converttohhttps(this.logoLink);
+    //   this.logoLink1 = this.converttohhttps(this.logoLink);
 
-      console.log("ConvertImage" + this.logoLink1)
-      
+    //   console.log("ConvertImage" + this.logoLink1)
+        
 
-
-
-  
-
-    this.logoUpdate = new FormGroup({
-      merchantlogo: new FormControl('', [Validators.required]),
-    })
+    // this.logoUpdate = new FormGroup({
+    //   merchantlogo: new FormControl('', [Validators.required]),
+    // })
     
    
+    this.id = this.data.value;
+    this.logoLink = this.data.value1;
+  
+    console.log('Logo Link:', this.logoLink);
+  
+    // Set DocView to false if logoLink or logoLink1 is "NA" or invalid
+    this.logoLink1 =   this.logoLink !== "NA" ? this.converttohhttps(this.logoLink) : null;
+    this.DocView = !!this.logoLink1; // DocView is true if logoLink1 is valid
+  
+    console.log('Converted Image URL:', this.logoLink1);
+  
+    this.logoUpdate = new FormGroup({
+      merchantlogo: new FormControl('', [Validators.required]),
+    });
   }
 
 

@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { BranchOnlineviewComponent } from './branch-onlineview/branch-onlineview.component';
 import { Location } from '@angular/common';
+import moment from 'moment';
 @Component({
   selector: 'app-branch-onlinetransactions',
   templateUrl: './branch-onlinetransactions.component.html',
@@ -26,7 +27,7 @@ export class BranchOnlinetransactionsComponent {
     [
 
       "alcotId",
-      'branchname',
+      
       "pgPaymentId",
       "customerName",
       "mobileNumber",
@@ -71,6 +72,7 @@ export class BranchOnlinetransactionsComponent {
   searchPerformed: boolean = false;
   errorMessage: any;
   valueexport: any;
+  viewallexport: any;
 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private router: Router, private ActivateRoute: ActivatedRoute, private location: Location) { }
 
@@ -295,4 +297,130 @@ export class BranchOnlinetransactionsComponent {
   close() {
     this.location.back()
   }
+
+  exportexcel() {
+        this.service.entitywithputbranchexport(this.id).subscribe((res: any) => {
+          this.viewallexport = res.response;
+          if (res.flag == 1) {
+            let sno = 1;
+            this.responseDataListnew = [];
+            this.viewallexport.forEach((element: any) => {
+    
+              this.response = [];
+              this.response.push(sno);
+              this.response.push(element?.pgPaymentId);
+        
+              this.response.push(element?.customerName);
+              this.response.push(element?.mobileNumber);
+              this.response.push(element?.setupBoxNumber);
+    
+              this.response.push(element?.paidAmount);
+              this.response.push(element?.paymentMethod);
+              this.response.push(element?.paymentStatus);
+    
+           
+              if (element.paymentDateTime) {
+                this.response.push(moment(element?.paymentDateTime).format('DD/MM/yyyy hh:mm a').toString());
+              }
+              else {
+                this.response.push('');
+              }
+     
+              if (element.createdDateTime) {
+                this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
+              }
+              else {
+                this.response.push('');
+              }
+    
+             
+             
+    
+    
+              sno++;
+              this.responseDataListnew.push(this.response);
+            });
+            this.excelexportCustomer();
+          }
+        });
+      }
+    
+      excelexportCustomer() {
+        // const title='Entity Details';
+        const header = [
+          "S.No",
+          'Payment ID',
+        
+          'Customer Name',
+          'Mobile Number',
+          'SetTopbox Number',
+          'Paid Amount',
+          'Payment Method',
+          'Payment Status',
+          'Paid At',
+          'Due Generated At',
+        
+        ]
+    
+    
+        const data = this.responseDataListnew;
+        let workbook = new Workbook();
+        let worksheet = workbook.addWorksheet('Branch Transaction');
+    
+        // let titleRow = worksheet.addRow([title]);
+        // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
+    
+    
+        worksheet.addRow([]);
+        let headerRow = worksheet.addRow(header);
+        headerRow.font = { bold: true };
+        // Cell Style : Fill and Border
+        headerRow.eachCell((cell, number) => {
+          cell.fill = {
+            type: 'pattern',
+            pattern: 'solid',
+            fgColor: { argb: 'FFFFFFFF' },
+            bgColor: { argb: 'FF0000FF' },
+    
+          }
+    
+          cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+        });
+    
+        data.forEach((d: any) => {
+          //
+    
+          let row = worksheet.addRow(d);
+          let qty = row.getCell(1);
+          let qty1 = row.getCell(2);
+          let qty2 = row.getCell(3);
+          let qty3 = row.getCell(4);
+          let qty4 = row.getCell(5);
+          let qty5 = row.getCell(6);
+          let qty6 = row.getCell(7);
+          let qty7 = row.getCell(8);
+          let qty8 = row.getCell(9);
+          let qty9 = row.getCell(10);
+          let qty10 = row.getCell(11);
+    
+          qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+          qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+          qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+          qty3.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+          qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+          qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+          qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+          qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+          qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+          qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+          qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+    
+        }
+        );
+    
+        workbook.xlsx.writeBuffer().then((data: any) => {
+          let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+          FileSaver.saveAs(blob, 'Branch Transaction.xlsx');
+        });
+      }
 }

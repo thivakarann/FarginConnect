@@ -63,32 +63,36 @@ export class ViewImagecampaignsComponent {
 
 
 
+ 
+
+
   onFileSelected(event: any) {
     this.uploadidentityfront = event.target.files[0];
- 
+
     // Ensure this.uploadImage is not null
     if (this.uploadidentityfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
- 
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
+
       if (acceptableTypes.includes(this.uploadidentityfront.type)) {
         if (this.uploadidentityfront.size <= 20 * 1024 * 1024) {
- 
+          this.toastr.success("Image uploaded successfully");
         } else {
-          window.alert("Max Image size exceeded");
+          this.toastr.error("Max Image size exceeded");
           this.fileImage?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        
-        window.alert("File type not acceptable");
+
+        this.toastr.error("File type not acceptable");
         this.fileImage?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
-      window.alert("No file selected");
+      this.toastr.error("No file selected");
     }
  
  
   }
 
+  
   Update(){
     const formData = new FormData;
     formData.append('broadcasterId ', this.raiseTicketId);

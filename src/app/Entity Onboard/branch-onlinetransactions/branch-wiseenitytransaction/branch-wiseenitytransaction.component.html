@@ -41,7 +41,7 @@
                 style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;"
                 mat-raised-button>Go</button>
 
-            <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" 
+            <button (click)="exportexcel()" style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" 
                 mat-raised-button [hidden]="valueexport!=='Entity View Branch-online View-Export'">Export</button>
         </div>
     </div>

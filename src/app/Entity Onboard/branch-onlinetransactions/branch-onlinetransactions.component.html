@@ -41,7 +41,7 @@
             </div>&nbsp;&nbsp;&nbsp;
             <button (click)="channelsearch(currentfilval)" style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button>Go</button>
 
-            <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;"
+            <button (click)="exportexcel()" style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;"
                 mat-raised-button [hidden]="valueexport!=='Entity View Branch-online View-Export'">Export</button>
         </div>
         </div>
@@ -161,10 +161,14 @@
     
                 <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
                 <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
-                <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data For {{input.value}}</td>
-                <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource?.data?.length === 0">No Data
+                <tr *matNoDataRow>
+                    <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data For{{input.value}}</td>
+                    <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">No Data
+            
+                    </td>
+                  </tr>
     
-                </td>
+                
             </table>
         </div>
     </mat-card-content>

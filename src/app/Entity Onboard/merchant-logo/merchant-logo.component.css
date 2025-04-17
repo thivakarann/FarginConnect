@@ -30,3 +30,11 @@
     opacity: 0.6; /* Makes the button appear faded */
     border: 1px solid #999999; /* Modifies the border styling */
   }
+
+  .no-data-container {
+    color: gray;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
