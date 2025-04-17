@@ -231,6 +231,7 @@ export class EntityViewComponent implements OnInit {
   valueonetime: any;
   valueterminal: any;
   valueCustomizedmanual: any;
+  branchtrans:any;
 
   selectTab(tab: string): void {
     this.activeTab = tab;
@@ -330,6 +331,8 @@ export class EntityViewComponent implements OnInit {
 
             this.valuebranchkyc = 'Entity View Branch-KYC'
             this.valuebranchTerminal = 'Entity View Branch-Terminal'
+            this.valuebranch = 'Entity View Branch',
+            this.branchtrans = 'Entity View-Branch-Transactions'
 
             this.valueplandetails = 'Entity Plan Details'
             this.valuefee = 'Generate Cloud Fee'
@@ -496,6 +499,10 @@ export class EntityViewComponent implements OnInit {
               }
               if (this.actions == 'Entity View Branch-Add') {
                 this.valuebranchcreate = 'Entity View Branch-Add'
+              }
+
+              if (this.actions == 'Entity View Branch') {
+                this.valuebranch = 'Entity View Branch'
               }
               if (this.actions == 'Entity View Branch-Customer View') {
                 this.valuebranchCustomerview = 'Entity View Branch-Customer View'
@@ -796,6 +803,10 @@ export class EntityViewComponent implements OnInit {
 
         if (this.roles == 'Entity View Branch-Terminal') {
           this.valuebranchTerminal = 'Entity View Branch-Terminal'
+        }
+
+        if (this.roles == 'Entity View-Branch-Transactions') {
+          this.branchtrans = 'Entity View-Branch-Transactions'
         }
         // if (this.roles == 'Entity Plan Details') {
         //   this.valueplandetails = 'Entity Plan Details'

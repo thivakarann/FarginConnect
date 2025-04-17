@@ -86,6 +86,18 @@ input {
     border: 2px solid white;
     box-sizing: border-box; /* Ensures padding and border are included in the height */
 }
+
+select{
+    width: 254px;
+    height: 43px;
+    padding: 9px;
+    border-radius: 15px;
+    font-size: 14px;
+    margin: 10px 0;
+    outline: none;
+    border: 2px solid white;
+    box-sizing: border-box; /* Ensures padding and border are included in the height */
+}
  
 /* Remove or override focus styles that might alter the height */
 input:focus {

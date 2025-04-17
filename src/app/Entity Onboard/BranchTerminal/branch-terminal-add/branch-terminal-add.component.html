@@ -15,7 +15,11 @@
                 </div>
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                 *ngIf="terminalNumber?.invalid   && terminalNumber?.errors?.['maxlength']">
-                Maximum length is 10
+                Maximum length is 100
+            </div>
+            <div style="color: red; font-size: 12px;margin-top: 2px;"
+                *ngIf="terminalNumber?.invalid   && terminalNumber?.errors?.['pattern']">
+                Only Numbers are allowed
             </div>
             </div>
  

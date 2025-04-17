@@ -49,6 +49,7 @@
   <button
     style="background-color: #fff; border: none; font-size: 12px"
     [disabled]="detaislone?.onBoardStatus != 'true'"
+    [hidden]="branchtrans !== 'Entity View-Branch-Transactions'"
     class="navtab"
     data-target="home"
     (click)="viewbranch(this.id)"
@@ -2426,9 +2427,7 @@
                   class="manual"
                   (click)="Manuvalpayments(item.payId)"
                 >
-                  <i
-                    class="fa-solid fa-address-card"
-                  ></i>
+                  <i class="fa-solid fa-address-card"></i>
                 </button>
               </td>
               <td

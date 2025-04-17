@@ -24,7 +24,7 @@ export class BranchTerminalAddComponent implements OnInit {
     this.merchantId=this.data.value2
 
     this.AddTerminal = new FormGroup({
-      terminalNumber: new FormControl('', [Validators.required,Validators.maxLength(10)]),
+      terminalNumber: new FormControl('', [Validators.required,Validators.maxLength(100),Validators.pattern('^[0-9 ,]+$')]),
  
     });
  

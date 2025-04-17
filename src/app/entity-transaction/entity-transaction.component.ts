@@ -30,7 +30,7 @@ export class EntityTransactionComponent {
     'mobileNumber',
     "STB",
     "ServiceProvider",
-    'branchName',
+    // 'branchName',
     'amount',
     'reference',
     'status',
@@ -184,7 +184,7 @@ currentfilval: any;
           this.response.push(element?.mobileNumber);
           this.response.push(element?.setUpBoxNumber)
           this.response.push(element?.serviceProviderName)
-          this.response.push(element?.branchName)
+          // this.response.push(element?.branchName)
           this.response.push(element?.paidAmount);
           this.response.push(element?.paymentMethod);
           this.response.push(element?.paymentStatus);
@@ -221,7 +221,7 @@ currentfilval: any;
       'Customer Mobile Number',
       'STB Number',
       'Service Provider',
-      'Branch',
+      // 'Branch',
       'Amount',
       'Payment Method',
       'Payment Status',
@@ -266,7 +266,7 @@ currentfilval: any;
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
-      let qty10 = row.getCell(11);
+      // let qty10 = row.getCell(11);
       qty.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
@@ -333,12 +333,12 @@ currentfilval: any;
         bottom: { style: 'thin' },
         right: { style: 'thin' },
       };
-      qty10.border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' },
-      };
+      // qty10.border = {
+      //   top: { style: 'thin' },
+      //   left: { style: 'thin' },
+      //   bottom: { style: 'thin' },
+      //   right: { style: 'thin' },
+      // };
 
 
 

@@ -19,6 +19,25 @@
                       Enter
                       The Valid EmailAddress*</span>
                   </div>
+
+                  <div class="form-group mt-1">
+                    <select formControlName="categoryFlag"
+                        id="Bussiness category" class="form-select">
+                        <option value="" disabled selected>Business category</option>
+                        <option value="1">Cable Services</option>
+                        <!-- <option value="2">PG Services</option> -->
+
+                    </select>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="categoryFlag?.invalid && categoryFlag?.touched && categoryFlag?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
                
               <div class="form-group mt-1">
                 <div class="input-container" style="position: relative;">

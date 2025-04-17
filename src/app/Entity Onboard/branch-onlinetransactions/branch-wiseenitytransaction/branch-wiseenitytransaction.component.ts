@@ -91,7 +91,7 @@ export class BranchWiseenitytransactionComponent {
           this.getdashboard = res.response?.subPermission;
 
           if (this.roleId == 1) {
-            this.valueexport = 'Entity View-Branch-Transactions-Export';
+            this.valueexport = 'Entity View Branch-online View-Export';
             this.valueView = 'Entity View-Branch-Transactions-View';
             this.valueReceipt = 'Entity View-Branch-Transactions-Receipt';
 

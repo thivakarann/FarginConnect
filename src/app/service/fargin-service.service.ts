@@ -823,14 +823,14 @@ export class FarginServiceService {
   private readonly dashboardthismonthadditionaltransaction = 'entitydashboard/thisMonthAdditionalTransactionsAmount/';
   private readonly dashboardlastmonthadditionaltransaction = 'entitydashboard/lastMonthAdditionalTransactions/';
 
-  private readonly actvemerchants='merchant/limitActiveMerchants'
-  private readonly actvemerchantsearchs='merchant/limitActiveMerchantsearch/'
+  private readonly actvemerchants = 'merchant/limitActiveMerchants'
+  private readonly actvemerchantsearchs = 'merchant/limitActiveMerchantsearch/'
 
 
-  private readonly inactivebranchs='bankBranch/updateStatus/';
-  private readonly branchonlyactives='bankBranch/viewbranchwithoutselect/'
+  private readonly inactivebranchs = 'bankBranch/updateStatus/';
+  private readonly branchonlyactives = 'bankBranch/viewbranchwithoutselect/'
 
-  private readonly entityonlinebranch='customerpay/branchwiseTransaction/'
+  private readonly entityonlinebranch = 'customerpay/branchwiseTransaction/'
 
   loginError = new Subject();
 
@@ -857,10 +857,12 @@ export class FarginServiceService {
     return !!sessionStorage.getItem('token');
   }
 
-  getLogin(email: string, password: string) {
+  getLogin(email: string, password: string, categoryFlag: string) {
     const credentialBody = {
       emailAddress: email,
       userPassword: password,
+      categoryFlag: categoryFlag
+
     };
 
     return this.http.post(`${this.basePath}${this.adminlogin}`, credentialBody).subscribe((res: any) => {
@@ -874,25 +876,35 @@ export class FarginServiceService {
         sessionStorage.setItem('lastlogin', JSON.stringify(res.response.login_history?.adminUser?.lastLogin));
         sessionStorage.setItem('fullname', JSON.stringify(res.response.login_history?.adminUser?.createdBy));
         sessionStorage.setItem('roleId', JSON.stringify(res.response.login_history?.adminUser?.roleModel?.roleId));
+        sessionStorage.setItem('flag', JSON.stringify(res.response.login_history?.adminUser?.categoryFlag));
 
         const token = res.response.login_history.adminUser.jwtResponse.X_ACCESS_TOKEN;
         const email = encodeURIComponent(res.response.login_history.adminUser.emailAddress);
         const adminId = res.response.login_history.adminUser.adminUserId;
+        const flag = JSON.stringify(res.response.login_history?.adminUser?.categoryFlag)
+
 
         // Encode the values to avoid issues with special characters
         // const encodedEmail = encodeURIComponent(Email);
         // const encodedAdminId = encodeURIComponent(AdminId);
         // const encodedToken = encodeURIComponent(Tokens);
 
+        if (flag == '1') {
+          this.router.navigateByUrl('/dashboard/dashboard-content', {
+            replaceUrl: true,
+          });
+          this.timerService.restartTimer();
+          setTimeout(() => {
+            window.location.reload();
+          }, 200);
+        }
+
+        // else if (flag == '2') {
+        //   window.location.href = (`http://localhost:54316/data-component/${token}/${email}/${adminId}`);
+        // }
+        
 
 
-        this.router.navigateByUrl('/dashboard/dashboard-content', {
-          replaceUrl: true,
-        });
-        this.timerService.restartTimer();
-        setTimeout(() => {
-          window.location.reload();
-        }, 200);
 
 
         // Replace history before redirect
@@ -2619,14 +2631,14 @@ export class FarginServiceService {
   onlinebranchs(id: any, id1: any, id2: any) {
     return this.http.get(`${this.basePath}${this.onlinebranch}${id}/${id1}/${id2}`, this.options)
   }
-  onlinesearchbranchs(id: any, id1: any, id2: any, id3:any) {
+  onlinesearchbranchs(id: any, id1: any, id2: any, id3: any) {
     return this.http.get(`${this.basePath}${this.onlinesearchbranch}${id}/${id1}/${id2}/${id3}`, this.options)
   }
 
   entitywishonlinebranchs(id: any, id1: any, id2: any) {
     return this.http.get(`${this.basePath}${this.entitywishonlinebranch}${id}/${id1}/${id2}`, this.options)
   }
-  entityonlinesearchbranchs(id: any, id1: any, id2: any, id3:any) {
+  entityonlinesearchbranchs(id: any, id1: any, id2: any, id3: any) {
     return this.http.get(`${this.basePath}${this.entityonlinesearchbranch}${id}/${id1}/${id2}/${id3}`, this.options)
   }
   BranchAdd(model: any) {
@@ -3106,27 +3118,24 @@ export class FarginServiceService {
   dashboardthismonthadditionaltransactions(id: any) {
     return this.http.get(`${this.basePath}${this.dashboardthismonthadditionaltransaction}${id}`, this.options)
   }
-  actvemerchant()
-  {
+  actvemerchant() {
     return this.Client.get(`${this.basePath}${this.actvemerchants}`, this.options)
   }
-  actvemerchantsearch(id:any)
-  {
+  actvemerchantsearch(id: any) {
     return this.Client.get(`${this.basePath}${this.actvemerchantsearchs}${id}`, this.options)
   }
 
   //branch
-  inactivebranch(id:any,model: any) {
+  inactivebranch(id: any, model: any) {
     return this.http.put(`${this.basePath}${this.inactivebranchs}${id}`, model, this.options)
   }
 
-  branchonlyactive(id:any, id1:any)
-  {
+  branchonlyactive(id: any, id1: any) {
     return this.http.get(`${this.basePath}${this.branchonlyactives}${id}/${id1}`, this.options)
   }
 
 
-  
+
   entityonlinebranchs(id: any, id1: any, id2: any) {
     return this.http.get(`${this.basePath}${this.entityonlinebranch}${id}/${id1}/${id2}`, this.options)
   }

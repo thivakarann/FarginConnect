@@ -37,9 +37,9 @@
     <div class="card-container">
       <div
         class="card"
-  
+        [hidden]="valueCustomerView!=='Customer Overview'"
       >
-        <div class="card-header" [hidden]="valueCustomerView!=='Customer Overview'">
+        <div class="card-header" >
           <div class="icon">👥</div>
           <div class="title">Customer Overview</div>
         </div>
@@ -83,9 +83,9 @@
    
       <div
       class="card"
-     
+      [hidden]="valueTicketsView!=='Ticket Overview'"
     >
-      <div class="card-header" [hidden]="valueTicketsView!=='Ticket Overview'">
+      <div class="card-header" >
         <div class="icon">🎟️</div>
         <div class="title">Ticket Overview</div>
       </div>
