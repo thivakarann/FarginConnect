@@ -2178,6 +2178,7 @@
 
               <th>Manual CreatedBy</th>
               <th>Manual UpdatedBy</th>
+              <th>Manual Updated Date & time</th>
               <th>Paid Date&Time</th>
             </tr>
             <tbody
@@ -2195,13 +2196,9 @@
             >
               <td>{{ i + 1 }}</td>
               <td>{{ item.pgPaymentId }}</td>
-              <td>{{ item.totalPayableAmount }}</td>
-
+              <td>{{ item.totalPayableAmount }}</td> 
               <td
-                [hidden]="
-                  valuemanualedit !== 'Entity View One Time Setup Payment-Edit'
-                "
-              >
+                [hidden]="valuemanualedit !== 'Entity View One Time Setup Payment-Edit'">
                 <button
                   style="border: none"
                   *ngIf="
@@ -2224,24 +2221,15 @@
               </td>
 
               <td>
-                <span
-                  *ngIf="item?.paymentStatus == 'Success'"
-                  class="text-success"
-                >
-                  {{ item?.paymentStatus }}</span
-                >
-                <span
-                  *ngIf="item?.paymentStatus == 'Pending'"
-                  class="text-warning"
-                >
-                  {{ item?.paymentStatus }}</span
-                >
-                <span
-                  *ngIf="item?.paymentStatus == 'Initiated'"
-                  class="text-primary"
-                >
-                  {{ item?.paymentStatus }}</span
-                >
+                <span *ngIf="item?.paymentStatus == 'Success'"
+                  class="text-success">
+                  {{ item?.paymentStatus }}</span>
+                <span *ngIf="item?.paymentStatus == 'Pending'"
+                  class="text-warning">
+                  {{ item?.paymentStatus }}</span>
+                <span *ngIf="item?.paymentStatus == 'Initiated'"
+                  class="text-primary">
+                  {{ item?.paymentStatus }}</span>
                 <span
                   *ngIf="item?.paymentStatus == 'Failure'"
                   class="text-danger"
@@ -2271,6 +2259,7 @@
                 
               <td>{{ item?.manualApprovalBy || "-" }}</td>
               <td>{{ item?.updatedBy || "-" }}</td>
+              <td>{{ item?.updateAt | date : "dd/MM/yyyy hh:mm a" }}</td>
               <td>{{ item.paymentDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
             </tbody>
           </table>
@@ -2416,10 +2405,7 @@
               <td>{{ item.totalPayableAmount }}</td>
               <td>
                 <button
-                  [disabled]="
-                    item.paymentStatus == 'Success' ||
-                    item.paymentStatus == 'Due Cancelled'
-                  "
+                  [disabled]="item.paymentStatus == 'Success' || item.paymentStatus == 'Due Cancelled'"
                   [hidden]="
                     valueCustomizedmanual !==
                     'Entity View Customized Manual Payment'

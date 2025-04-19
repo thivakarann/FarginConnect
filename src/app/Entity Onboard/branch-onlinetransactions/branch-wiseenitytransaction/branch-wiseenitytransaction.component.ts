@@ -180,7 +180,7 @@ export class BranchWiseenitytransactionComponent {
 
     if (filterValue) {
 
-      this.service.entitysearchbranchs(this.id, filterValue, this.pageSize1, this.pageIndex1).subscribe({
+      this.service.entitysearchbranchs(this.id, filterValue, this.pageSize, this.pageIndex).subscribe({
         next: (res: any) => {
           if (res.response) {
             this.Viewall = res.response;
@@ -239,7 +239,7 @@ export class BranchWiseenitytransactionComponent {
 
   getData(event: any) {
     if (this.currentfilvalShow) {
-      this.service.entitysearchbranchs(this.id, this.currentfilval, event.pageSize1, event.pageIndex1).subscribe({
+      this.service.entitysearchbranchs(this.id, this.currentfilval, event.pageSize, event.pageIndex).subscribe({
         next: (res: any) => {
           if (res.response) {
             this.Viewall = res.response;
@@ -248,7 +248,7 @@ export class BranchWiseenitytransactionComponent {
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
-            this.currentfilvalShow = true;
+           
 
           }
           else if (res.flag === 2) {
@@ -257,7 +257,7 @@ export class BranchWiseenitytransactionComponent {
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
-            this.currentfilvalShow = true;
+            
           }
         },
         error: (err: any) => {
@@ -275,14 +275,14 @@ export class BranchWiseenitytransactionComponent {
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
             this.dataSource = new MatTableDataSource(this.transactionValue);
-            this.currentfilvalShow = false;
+           
 
           } else if (res.flag === 2) {
             this.dataSource = new MatTableDataSource([]);
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage
-            this.currentfilvalShow = false;
+        
 
           }
         });
