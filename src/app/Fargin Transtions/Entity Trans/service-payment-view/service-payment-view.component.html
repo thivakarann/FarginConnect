@@ -19,6 +19,13 @@
                     </td>
                 </tr>
                 <tr>
+                    <td class="datas">Reference Number</td>
+                    <td id="data"><span *ngIf="view?.utrNumber == null || view?.utrNumber == 'null' ">-</span>
+                        <span *ngIf="view?.utrNumber != null && view?.utrNumber != 'null'">
+                            {{view?.utrNumber}}</span>
+                    </td>
+                </tr>
+                <tr>
                     <td class="datas">Amount(Excluding GST)</td>
                     <td id="data">{{view?.paidAmount}}</td>
                 </tr>

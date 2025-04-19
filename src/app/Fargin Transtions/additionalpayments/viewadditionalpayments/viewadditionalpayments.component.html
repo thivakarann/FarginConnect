@@ -16,7 +16,13 @@
                     <span  *ngIf="view?.bankReference == null || view?.bankReference == 'null' ">-</span>
                     <span *ngIf="view?.bankReference != null && view?.bankReference != 'null'">  {{view?.bankReference}}</span></td>
                 </tr>
-               
+                <tr>
+                    <td class="datas">Reference Number</td>
+                    <td id="data"><span *ngIf="view?.utrNumber == null || view?.utrNumber == 'null' ">-</span>
+                        <span *ngIf="view?.utrNumber != null && view?.utrNumber != 'null'">
+                            {{view?.utrNumber}}</span>
+                    </td>
+                </tr>
                 <tr>
                     <td class="datas">Customer Name</td>
                     <td id="data">{{view?.customerId?.customerName}}</td>

@@ -38,6 +38,7 @@ this.merchantId=this.data.value.merchantId.merchantId;
 this.paymentMethod=this.data.value.paymentMethod;
 this.Utrnumber=this.data.value.utrNumber;
 this.dates=this.data.value.date
+// console.log(this.dates)
 
     
  
@@ -97,7 +98,7 @@ console.log(this.chequedate)
       date:this.chequedate,
       merchantId: this.merchantId,
       paidAmount: this.payamount,
-      updatedby :this.getadminname
+      updatedBy :this.getadminname
     }
  
     this.Approval.UpdateManualPayment(this.merchantpayid,submitModel).subscribe((res: any) => {

@@ -1610,6 +1610,7 @@ export class EntityViewComponent implements OnInit {
 
         if (res.flag == 1) {
           this.manualDetails = res.response;
+          
 
 
 

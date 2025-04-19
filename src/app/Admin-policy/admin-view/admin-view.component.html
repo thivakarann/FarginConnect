@@ -2,22 +2,17 @@
 <mat-card-header>
   <div class="row mt-4">
     <div class="col">
-      <div class="search ">
+      <div class="search">
         <form class="form">
           <label for="search">
-            <input #input (keyup)="applyFilter($event)" required="" autocomplete="off" placeholder="Search" id="search"
-              type="text">
+            <input #input required autocomplete="off" placeholder="Search" id="search" type="text" name="search"
+              [(ngModel)]="currentfilval" />
             <div class="icon">
               <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                 xmlns="http://www.w3.org/2000/svg" class="swap-on">
                 <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
                 </path>
               </svg>
-              <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg" class="swap-off">
-                        <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round" stroke-linecap="round">
-                        </path>
-                    </svg> -->
             </div>
             <button (click)="reload()" type="reset" class="close-btn">
               <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
@@ -28,9 +23,12 @@
             </button>
           </label>
         </form>
-
       </div>
-      &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;
+      <button (click)="customerpay(currentfilval)"
+        style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;"
+        mat-raised-button>Search</button>
+
       <button (click)="create()" style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
         [hidden]="valuetermCreate!=='Merchant Policy-Add'"> Create</button>
       <button style="color:white;background-color: #141E46;border-radius: 10px;" (click)="exportexcel()"
@@ -40,7 +38,7 @@
 </mat-card-header>
 <!-- <mat-card> -->
 <mat-card-content>
-  <div class="example-container  mt-4">
+  <div class="example-container text-nowrap mt-2" style="overflow-x: scroll; scrollbar-width: thin;">
     <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
       <ng-container matColumnDef="adminId">
         <th mat-header-cell *matHeaderCellDef> S.No</th>
@@ -48,7 +46,7 @@
       </ng-container>
       <ng-container matColumnDef="merchantname">
         <th mat-header-cell *matHeaderCellDef>Entity Name</th>
-        <td mat-cell *matCellDef="let businesscategory">{{businesscategory.entityModel.merchantLegalName}}</td>
+        <td mat-cell *matCellDef="let businesscategory">{{businesscategory?.entityModel?.entityName}}</td>
       </ng-container>
       <ng-container matColumnDef="termAndCondition">
         <th mat-header-cell *matHeaderCellDef [hidden]="valuetermView!=='Merchant Policy-View'">Terms and Condition</th>
@@ -56,13 +54,13 @@
           <div class="privacy-policy-container">
             <!-- Display the sliced text based on whether the full text is visible -->
             <span *ngIf="!isFullPolicyVisible">
-              {{ businesscategory.termAndCondition | slice:0:limit }}
+              {{ businesscategory?.termAndCondition | slice:0:limit }}
             </span>
             <span *ngIf="isFullPolicyVisible">
-              {{ businesscategory.termAndCondition }}
+              {{ businesscategory?.termAndCondition }}
             </span>
             <i [hidden]="valuetermView!=='Merchant Policy-View'" style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more"
-              (click)="Terms(businesscategory.policyId)">
+              (click)="Terms(businesscategory?.policyId)">
               <br>
               {{ isFullPolicyVisible ? 'Read Less' : '...Read More' }}
             </i>
@@ -75,13 +73,13 @@
           <div class="privacy-policy-container">
             <!-- Display the sliced text based on whether the full text is visible -->
             <span *ngIf="!isFullPolicyVisible">
-              {{ businesscategory.disclaimer | slice:0:limit }}
+              {{ businesscategory?.disclaimer | slice:0:limit }}
             </span>
             <span *ngIf="isFullPolicyVisible">
-              {{ businesscategory.disclaimer }}
+              {{ businesscategory?.disclaimer }}
             </span>
             <i [hidden]="valuetermView!=='Merchant Policy-View'" style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more"
-              (click)="Disclaimer(businesscategory.policyId)">
+              (click)="Disclaimer(businesscategory?.policyId)">
               <br>
               {{ isFullPolicyVisible ? 'Read Less' : '...Read More' }}
             </i>
@@ -94,13 +92,13 @@
           <div class="privacy-policy-container">
             <!-- Display the sliced text based on whether the full text is visible -->
             <span *ngIf="!isFullPolicyVisible">
-              {{ businesscategory.privacyPolicy | slice:0:limit }}
+              {{ businesscategory?.privacyPolicy | slice:0:limit }}
             </span>
             <span *ngIf="isFullPolicyVisible">
-              {{ businesscategory.privacyPolicy }}
+              {{ businesscategory?.privacyPolicy }}
             </span>
             <i [hidden]="valuetermView!=='Merchant Policy-View'" style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more"
-              (click)="privacypolicy(businesscategory.policyId)">
+              (click)="privacypolicy(businesscategory?.policyId)">
               <br>
               {{ isFullPolicyVisible ? 'Read Less' : '...Read More' }}
             </i>
@@ -113,13 +111,13 @@
           <div class="privacy-policy-container">
             <!-- Display the sliced text based on whether the full text is visible -->
             <span *ngIf="!isFullPolicyVisible">
-              {{ businesscategory.refundPolicy | slice:0:limit }}
+              {{ businesscategory?.refundPolicy | slice:0:limit }}
             </span>
             <span *ngIf="isFullPolicyVisible">
-              {{ businesscategory.refundPolicy }}
+              {{ businesscategory?.refundPolicy }}
             </span>
             <i [hidden]="valuetermView!=='Merchant Policy-View'" style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more"
-              (click)="refundpolicy(businesscategory.policyId)">
+              (click)="refundpolicy(businesscategory?.policyId)">
               <br>
               {{ isFullPolicyVisible ? 'Read Less' : '...Read More' }}
             </i>
@@ -130,7 +128,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="valuetermAction!=='Merchant Policy-Edit'">
           Action</th>
         <td mat-cell *matCellDef="let businesscategory" [hidden]="valuetermAction!=='Merchant Policy-Edit'">
-          <i style="cursor: pointer;font-size:15px; color:#545497;" (click)="Edit(businesscategory.policyId )"
+          <i style="cursor: pointer;font-size:15px; color:#545497;" (click)="Edit(businesscategory?.policyId )"
             class="fas fa-edit"></i>
         </td>
       </ng-container>
@@ -142,58 +140,50 @@
       </ng-container>
       <ng-container matColumnDef="approvalstatus">
         <th mat-header-cell *matHeaderCellDef>Approval Status</th>
-        <td mat-cell *matCellDef="let businesscategory" [ngClass]="{'approved': businesscategory.approvedStatus == 'approved',       
-        'pending': businesscategory.approvedStatus =='Pending',       
-        'rejected': businesscategory.approvedStatus == 'Rejected'}">
-          {{ businesscategory.approvedStatus }}
+        <td mat-cell *matCellDef="let businesscategory" [ngClass]="{'approved': businesscategory?.approvedStatus == 'approved',       
+        'pending': businesscategory?.approvedStatus =='Pending',       
+        'rejected': businesscategory?.approvedStatus == 'Rejected'}">
+          {{ businesscategory?.approvedStatus }}
       </ng-container>
       <ng-container matColumnDef="approvedBy">
         <th mat-header-cell *matHeaderCellDef>Approved By</th>
-        <td mat-cell *matCellDef="let businesscategory">{{businesscategory.approvedBy}}</td>
+        <td mat-cell *matCellDef="let businesscategory">{{businesscategory?.approvedBy}}</td>
       </ng-container>
       <ng-container matColumnDef="approvedAt">
         <th mat-header-cell *matHeaderCellDef>Approved At</th>
-        <td mat-cell *matCellDef="let businesscategory">{{businesscategory.approvedDateTime |date:"dd/MM/yyyy"}}</td>
+        <td mat-cell *matCellDef="let businesscategory">{{businesscategory?.approvedDateTime |date:"dd/MM/yyyy"}}</td>
       </ng-container>
       <ng-container matColumnDef="createdBy">
         <th mat-header-cell *matHeaderCellDef>Created By</th>
-        <td mat-cell *matCellDef="let businesscategory">{{businesscategory.createdBy}}</td>
+        <td mat-cell *matCellDef="let businesscategory">{{businesscategory?.createdBy}}</td>
       </ng-container>
       <ng-container matColumnDef="createdDateTime">
         <th mat-header-cell *matHeaderCellDef>Created Date/Time</th>
-        <td mat-cell *matCellDef="let businesscategory">{{businesscategory.createdDateTime|date:"dd/MM/yyyy hh:mm a"}}
+        <td mat-cell *matCellDef="let businesscategory">{{businesscategory?.createdDateTime|date:"dd/MM/yyyy hh:mm a"}}
         </td>
       </ng-container>
       <ng-container matColumnDef="modifiedBy">
         <th mat-header-cell *matHeaderCellDef>Modified By</th>
-        <td mat-cell *matCellDef="let businesscategory">{{businesscategory.modifiedBy}}</td>
+        <td mat-cell *matCellDef="let businesscategory">{{businesscategory?.modifiedBy}}</td>
       </ng-container>
       <ng-container matColumnDef="modifiedDateTime">
         <th mat-header-cell *matHeaderCellDef>Modified Date/Time</th>
-        <td mat-cell *matCellDef="let businesscategory">{{businesscategory.modifiedDateTime|date:"dd/MM/yyyy hh:mm a"}}
+        <td mat-cell *matCellDef="let businesscategory">{{businesscategory?.modifiedDateTime|date:"dd/MM/yyyy hh:mm a"}}
         </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
       <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
       <tr *matNoDataRow>
-        <td class="mat-cell" colspan="4">No Data For {{input.value}}
+        <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data For {{input.value}}</td>
+        <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">No Data
+       
         </td>
       </tr>
     </table>
   </div>
 </mat-card-content>
 <mat-card-footer>
-  <!-- <mat-paginator [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtons
-    aria-labels="select page of users"></mat-paginator> -->
-  <div class=" row d-flex justify-content-end mt-3 mx-2">
-    <div class="col-md-6"></div>
-    <div class="col-md-6" id="but">
-      <button style="color:white;background-color: #141E46;">Total Entries:{{this.totalPages}}</button>
-      <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex - 1)"
-        [hidden]="pageIndex === 0">Previous</button>
-      <button style="color:white;background-color: #141E46;">{{ this.currentpage}} of {{this.totalpage}} Pages</button>
-      <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex + 1)"
-        [hidden]="pageIndex >= totalpage - 1">Next</button>
-    </div>
-  </div>
+  <mat-paginator (page)="getData($event)" [length]="totalPages" [pageIndex]="currentpage" [pageSize]="totalpage"
+  [pageSizeOptions]="[5, 10, 50, 100, 200,300,500]" aria-label="Select page">
+</mat-paginator>
 </mat-card-footer>

@@ -29,49 +29,53 @@
                 <div class="form__linput">
                     <label class="form__label" for="fname">Terms and Condition</label>
      
-                    <textarea  ngModel="{{policyview?.termAndCondition}}" class="form-control" id="fname" type="text"
+                    <textarea  ngModel="{{policyview?.termAndCondition}}" class="form-control" id="fname" minlength="50" type="text"
                         formControlName="termAndCondition" name="termAndCondition"
                         placeholder="Enter Terms and condition..." name="" id="" cols="25" rows="4"></textarea>
      
                     <!-- <input required/> -->
-                    <div style="color: red; font-size: 12px;margin-top: 2px;"
-                        *ngIf="termAndCondition?.invalid && termAndCondition?.touched && termAndCondition?.errors?.['required']">
-                        Field is required
+                    <div style="color: red; font-size: 12px; margin-top: 2px;"
+                        *ngIf="termAndCondition?.invalid && termAndCondition?.touched">
+                        <span *ngIf="termAndCondition?.errors?.['required']">Field is required</span>
+                        <span *ngIf="termAndCondition?.errors?.['minlength']">Must be at least 50 characters</span>
                     </div>
                 </div>
      
                 <div class="form__linput">
                     <label class="form__label" for="fname">Disclaimer</label>
-                    <textarea ngModel="{{policyview.disclaimer}}" class="form-control" id="fname" type="text"
+                    <textarea ngModel="{{policyview.disclaimer}}" class="form-control" id="fname" type="text" minlength="50"
                         formControlName="disclaimer" name="disclaimer" placeholder="Enter Disclaimer..." name="" id=""
                         cols="25" rows="3"></textarea>
-                    <div style="color: red; font-size: 12px;margin-top: 2px;"
-                        *ngIf="disclaimer?.invalid && disclaimer?.touched && disclaimer?.errors?.['required']">
-                        Field is required
+                        <div style="color: red; font-size: 12px; margin-top: 2px;"
+                        *ngIf="disclaimer?.invalid && disclaimer?.touched">
+                        <span *ngIf="disclaimer?.errors?.['required']">Field is required</span>
+                        <span *ngIf="disclaimer?.errors?.['minlength']">Must be at least 50 characters</span>
                     </div>
                 </div>
      
                 <div class="form__linput">
                     <label class="form__label" for="fname">Privacy Policy</label>
-                    <textarea ngModel="{{policyview.privacyPolicy}}" class="form-control" id="fname" type="text"
+                    <textarea ngModel="{{policyview.privacyPolicy}}" class="form-control" id="fname" type="text" minlength="50"
                         formControlName="privacyPolicy" name="privacyPolicy" placeholder="Enter Privacy Policy..." name=""
                         id="" cols="25" rows="3"></textarea>
      
-                    <div style="color: red; font-size: 12px;margin-top: 2px;"
-                        *ngIf="privacyPolicy?.invalid && privacyPolicy?.touched && privacyPolicy?.errors?.['required']">
-                        Field is required
-                    </div>
+                        <div style="color: red;font-size: 12px;margin-top: 2px;"
+                        *ngIf="privacyPolicy?.invalid && privacyPolicy?.touched">
+                        <span *ngIf="privacyPolicy?.errors?.['required']">Field is required</span>
+                        <span *ngIf="privacyPolicy?.errors?.['minlength']">Must be at least 50 characters</span>
+                        </div>
                 </div>
      
                 <div class="form__linput">
                     <label class="form__label" for="fname">Refund Policy</label>
-                    <textarea ngModel="{{policyview.refundPolicy}}" class="form-control" id="fname" type="text"
+                    <textarea ngModel="{{policyview.refundPolicy}}" class="form-control" id="fname" type="text" minlength="50"
                         formControlName="refundPolicy" name="refundPolicy" placeholder="Enter Refund Policy..." name=""
                         id="" cols="25" rows="3"></textarea>
-                    <div style="color: red; font-size: 12px;margin-top: 2px;"
-                        *ngIf="refundPolicy?.invalid && refundPolicy?.touched && refundPolicy?.errors?.['required']">
-                        Field is required
-                    </div>
+                        <div style="color: red; font-size: 12px; margin-top: 2px;"
+                        *ngIf="refundPolicy?.invalid && refundPolicy?.touched">
+                        <span *ngIf="refundPolicy?.errors?.['required']">Field is required</span>
+                        <span *ngIf="refundPolicy?.errors?.['minlength']">Must be at least 50 characters</span>
+                        </div> 
                 </div>
      
                 <div class="mt-3">

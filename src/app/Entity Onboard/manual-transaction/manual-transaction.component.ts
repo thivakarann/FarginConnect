@@ -25,6 +25,7 @@ export class ManualTransactionComponent {
         'Id',
         'paymentId',
         'method',
+        'utrnumber',
         'cardNumber',
         'cardexpiry',
         'paidamount',

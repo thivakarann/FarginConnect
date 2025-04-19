@@ -23,6 +23,13 @@
                     <span *ngIf="transaction?.bankReference != null && transaction?.bankReference != 'null'"> {{transaction?.bankReference}}</span>  
                 </td>
             </tr>
+            <tr>
+                <td class="datas">Reference Number</td>
+                <td id="data"><span *ngIf="transaction?.utrNumber == null || transaction?.utrNumber == 'null' ">-</span>
+                    <span *ngIf="transaction?.utrNumber != null && transaction?.utrNumber != 'null'">
+                        {{transaction?.utrNumber}}</span>
+                </td>
+            </tr>
 
             <tr>
                 <td class="datas">Card Expiry</td>

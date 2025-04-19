@@ -835,6 +835,8 @@ export class FarginServiceService {
   private readonly entitywithbranchexports='customerpay/branchwiseTransactionExport/';
   private readonly entitywithputbranchexports='customerpay/viewByBranchMerchantExport/'
 
+  private readonly termspolicysearchs='policy/viewMerchantSearch/'
+
   loginError = new Subject();
 
   token = sessionStorage.getItem('token') || null;
@@ -3150,5 +3152,11 @@ export class FarginServiceService {
   }
   entitywithputbranchexport(id: any) {
     return this.http.get(`${this.basePath}${this.entitywithputbranchexports}${id}`, this.options)
+  }
+
+
+  //Terms search
+  termspolicysearch(id: any, id1: any, id2: any, id3:any) {
+    return this.http.get(`${this.basePath}${this.termspolicysearchs}${id}/${id1}/${id2}/${id3}`, this.options)
   }
 }

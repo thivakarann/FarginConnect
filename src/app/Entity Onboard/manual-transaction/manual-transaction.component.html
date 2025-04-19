@@ -67,6 +67,10 @@
                 <th mat-header-cell *matHeaderCellDef>Payment Method</th>
                 <td mat-cell *matCellDef="let viewall">{{viewall.paymentMethod}}</td>
             </ng-container>
+            <ng-container matColumnDef="utrnumber">
+                <th mat-header-cell *matHeaderCellDef>Reference Number</th>
+                <td mat-cell *matCellDef="let viewall">{{viewall.utrNumber || '-'}}</td>
+            </ng-container>
             <ng-container matColumnDef="cardNumber">
                 <th mat-header-cell *matHeaderCellDef>Card Number</th>
                 <td mat-cell *matCellDef="let viewall">

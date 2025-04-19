@@ -2263,11 +2263,12 @@
                 </span>
               </td>
               <td>{{ item.utrNumber || "-" }}</td>
-              <span [hidden]="item.date != null"> - </span>
-              <span [hidden]="item.date == null">
-                <td>{{ item.date | date : "dd/MM/yyyy" }}</td>
-              </span>
-
+              <td>
+                <span [hidden]='item.date==null'>
+                  {{ item.date | date : "dd/MM/yyyy" }}</span>
+                  <span [hidden]="item.date != null"> - </span>
+                </td>
+                
               <td>{{ item?.manualApprovalBy || "-" }}</td>
               <td>{{ item?.updatedBy || "-" }}</td>
               <td>{{ item.paymentDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>

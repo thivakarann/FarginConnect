@@ -729,7 +729,7 @@ export interface manualPayment {
   readonly merchantId: any;
   readonly paidAmount: any;
   readonly date:any;
-  readonly updatedby:any;
+  readonly updatedBy:any;
 }
 
 export interface createManualPayment {

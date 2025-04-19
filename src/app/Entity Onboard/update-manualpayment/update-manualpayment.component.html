@@ -59,8 +59,8 @@
             <div class="row " *ngIf="this.paymentmode?.value=='Cheque'">
                 <div class="col-12 form-group">
                     <label for="address">Date</label>
-                    <input id="fname" type="date" class="form__input" class="form-control"
-                        formControlName="date" ngModel="{{dates}}">
+                    <input ngModel="{{dates}}" id="fname" type="date" class="form__input" class="form-control"
+                        formControlName="date" >
                 </div>
             </div>
             <div class="mb-3">

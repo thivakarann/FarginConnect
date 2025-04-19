@@ -20,10 +20,11 @@ import { PolicyApprovalComponent } from '../policy-approval/policy-approval.comp
 @Component({
   selector: 'app-admin-view',
   templateUrl: './admin-view.component.html',
-  styleUrl: './admin-view.component.css'
+  styleUrl: './admin-view.component.css',
 })
 export class AdminViewComponent implements OnInit {
   dataSource: any;
+  searchPerformed: boolean = false;
   displayedColumns: string[] = [
     "adminId",
     "merchantname",
@@ -65,15 +66,23 @@ export class AdminViewComponent implements OnInit {
   valuetermCreate: any;
   valuetermExport: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId');
   actions: any;
   errorMessage: any;
   date3: any;
-  valuetermApproval:any;
+  valuetermApproval: any;
+  pageIndex1: number = 0;
+  pageSize1 = 5;
+  transactionValue: any;
+  currentfilvalShow: boolean = false;
+  currentfilval: any;
 
-
-  constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private router: Router) { }
-
+  constructor(
+    private dialog: MatDialog,
+    private service: FarginServiceService,
+    private toastr: ToastrService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
 
@@ -120,28 +129,22 @@ export class AdminViewComponent implements OnInit {
       }
     })
 
-
-
-    this.service.adminPolicyget(this.pageSize, this.pageIndex).subscribe((res: any) => {
+    this.service
+    .adminPolicyget(this.pageSize, this.pageIndex)
+    .subscribe((res: any) => {
       if (res.flag == 1) {
         this.businesscategory = res.response;
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-        // this.businesscategory.reverse();
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.businesscategory);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-
-        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-
-
-        this.showcategoryData = false;
-        //
-      }
-      else {
-        this.errorMsg = res.responseMessage;
-        this.showcategoryData = true;
+        this.currentfilvalShow = false;
+      } else if (res.flag === 2) {
+        this.dataSource = new MatTableDataSource([]);
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.currentfilvalShow = false;
       }
     });
 
@@ -150,28 +153,23 @@ export class AdminViewComponent implements OnInit {
 
   }
 
-
   reload() {
-    this.service.adminPolicyget(this.pageSize, this.pageIndex).subscribe((res: any) => {
+    this.service
+    .adminPolicyget(this.pageSize, this.pageIndex)
+    .subscribe((res: any) => {
       if (res.flag == 1) {
         this.businesscategory = res.response;
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-        // this.businesscategory.reverse();
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.businesscategory);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-
-        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-
-
-        this.showcategoryData = false;
-        //
-      }
-      else {
-        this.errorMsg = res.responseMessage;
-        this.showcategoryData = true;
+        this.currentfilvalShow = false;
+      } else if (res.flag === 2) {
+        this.dataSource = new MatTableDataSource([]);
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.currentfilvalShow = false;
       }
     });
   }
@@ -183,28 +181,6 @@ export class AdminViewComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
-  }
-
-  renderPage(event: PageEvent) {
-    // Capture the new page index and page size from the event
-    this.pageIndex = event.pageIndex;  // Update current page index
-    this.pageSize = event.pageSize;           // Update page size (if changed)
-
-    // Log the new page index and page size to the console (for debugging)
-    console.log('New Page Index:', this.pageIndex);
-    console.log('New Page Size:', this.pageSize);
-
-    // You can now fetch or display the data for the new page index
-    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
-    this.ngOnInit()
-  }
-  changePageIndex(newPageIndex: number) {
-    this.pageIndex = newPageIndex;
-    this.renderPage({
-      pageIndex: newPageIndex,
-      pageSize: this.pageSize,
-      // length: this.totalItems
-    } as PageEvent);
   }
 
   create() {
@@ -223,10 +199,9 @@ export class AdminViewComponent implements OnInit {
         let sno = 1;
         this.responseDataListnew = [];
         this.merchantpolicyexport.forEach((element: any) => {
- 
           this.response = [];
           this.response.push(sno);
-          this.response.push(element?.entityModel?.merchantLegalName);
+          this.response.push(element?.entityModel?.entityName);
           this.response.push(element?.termAndCondition);
           this.response.push(element?.disclaimer);
           this.response.push(element?.privacyPolicy);
@@ -280,22 +255,21 @@ export class AdminViewComponent implements OnInit {
   excelexportCustomer() {
     // const title = 'Privacy Policy';
     const header = [
-      "S.No",
-      "Entity Name",
-      "Terms and Condition",
-      "Disclaimer",
-      "Privacy Policy",
-      "Refund Policy",
-      "Approval Status",
-      "Approval By",
-      "Approval At",
-      "Created By",
-      "Created Date/Time",
-      "Modified By",
-      "Modified Date/Time"
-    ]
- 
- 
+      'S.No',
+      'Entity Name',
+      'Terms and Condition',
+      'Disclaimer',
+      'Privacy Policy',
+      'Refund Policy',
+      'Approval Status',
+      'Approval By',
+      'Approval At',
+      'Created By',
+      'Created Date/Time',
+      'Modified By',
+      'Modified Date/Time',
+    ];
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Terms and Policy');
@@ -314,10 +288,14 @@ export class AdminViewComponent implements OnInit {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
-      }
- 
-      cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      };
+
+      cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
     });
  
     data.forEach((d: any) => {
@@ -336,35 +314,86 @@ export class AdminViewComponent implements OnInit {
       let qty9 = row.getCell(10);
       let qty10 = row.getCell(11);
       let qty11 = row.getCell(12);
- 
- 
- 
-      qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty3.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
- 
-    }
-    );
- 
-    // worksheet.getColumn(1).protection = { locked: true, hidden: true }
-    // worksheet.getColumn(2).protection = { locked: true, hidden: true }
-    // worksheet.getColumn(3).protection = { locked: true, hidden: true }
- 
- 
+
+      qty.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty1.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty2.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty3.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty4.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty5.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty6.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty7.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty8.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty9.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty10.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty11.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+    });
+
     workbook.xlsx.writeBuffer().then((data: any) => {
- 
-      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
- 
+      let blob = new Blob([data], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      });
+
       FileSaver.saveAs(blob, 'Terms and Policy.xlsx');
  
     });
@@ -380,32 +409,26 @@ export class AdminViewComponent implements OnInit {
       width: '80vw',// Use percentage to make it responsive
       maxWidth: '500px',
     });
-    this.dialog.afterAllClosed.subscribe(()=>{
-     
-      this.service.adminPolicyget(this.pageSize, this.pageIndex).subscribe((res: any) => {
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.service
+      .adminPolicyget(this.pageSize, this.pageIndex)
+      .subscribe((res: any) => {
         if (res.flag == 1) {
           this.businesscategory = res.response;
           this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.totalPages;
-          this.currentpage = res.pagination.currentPage + 1;
-          // this.businesscategory.reverse();
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.businesscategory);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-  
-          this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-  
-  
-          this.showcategoryData = false;
-          //
-        }
-        else {
-          this.errorMsg = res.responseMessage;
-          this.showcategoryData = true;
+          this.currentfilvalShow = false;
+        } else if (res.flag === 2) {
+          this.dataSource = new MatTableDataSource([]);
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.currentfilvalShow = false;
         }
       });
-  
-    })
+    });
   }
 
 
@@ -455,8 +478,87 @@ export class AdminViewComponent implements OnInit {
     this.router.navigate([`dashboard/policy-edit/${id}`], {
       queryParams: { Alldata: id },
     });
-
   }
 
+  customerpay(filterValue: string) {
+    if (filterValue) {
+      this.service
+      .termspolicysearch('2', filterValue, this.pageSize, this.pageIndex)
+      .subscribe({
+        next: (res: any) => {
+          if (res.flag==1) {
+            this.transactionValue = res.response;
+            this.dataSource = new MatTableDataSource(this.transactionValue);
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.currentfilvalShow = true;
+          } else if (res.flag === 2) {
+            this.transactionValue = [];
+            this.dataSource = new MatTableDataSource(this.transactionValue);
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.currentfilvalShow = true;
+          }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
+        },
+      });
+    } else if (!filterValue) {
+      this.toastr.error('Please enter a value to search');
+      return;
+    }
+  }
 
+  getData(event: any) {
+ if (this.currentfilvalShow) {
+  this.service
+  .termspolicysearch('2', this.currentfilval, event.pageSize, event.pageIndex)
+  .subscribe({
+    next: (res: any) => {
+      if (res.flag==1) {
+        this.transactionValue = res.response;
+        this.dataSource = new MatTableDataSource(this.transactionValue);
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.currentfilvalShow = true;
+      } else if (res.flag == 2) {
+        this.transactionValue = [];
+        this.dataSource = new MatTableDataSource(this.transactionValue);
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.currentfilvalShow = true;
+      }
+    },
+    error: (err: any) => {
+      this.toastr.error('No Data Found');
+    },
+  });
+    }
+
+    else {
+      this.service
+      .adminPolicyget(event.pageSize, event.pageIndex)
+      .subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.businesscategory = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.businesscategory);
+      
+        } else if (res.flag === 2) {
+          this.dataSource = new MatTableDataSource([]);
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+
+        }
+      });
+    }
+  }
 }

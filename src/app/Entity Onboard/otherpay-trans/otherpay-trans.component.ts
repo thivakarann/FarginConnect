@@ -24,6 +24,7 @@ export class OtherpayTransComponent {
     'Id',
     'paymentId',
     'method',
+    'utrnumber',
     'status',
     'paidamount',
     'cardNumber',
