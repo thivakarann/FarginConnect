@@ -167,7 +167,7 @@ export class BranchOnlinetransactionsComponent {
 
     if (filterValue) {
 
-      this.service.onlinesearchbranchs(this.id, filterValue, this.pageSize1, this.pageIndex1).subscribe({
+      this.service.onlinesearchbranchs(this.id, filterValue, this.pageSize, this.pageIndex).subscribe({
         next: (res: any) => {
           if (res.response) {
             this.Viewall = res.response;
@@ -226,7 +226,7 @@ export class BranchOnlinetransactionsComponent {
 
   getData(event: any) {
     if (this.currentfilvalShow) {
-      this.service.onlinesearchbranchs(this.id, this.currentfilval, event.pageSize1, event.pageIndex1).subscribe({
+      this.service.onlinesearchbranchs(this.id, this.currentfilval, event.pageSize, event.pageIndex).subscribe({
         next: (res: any) => {
           if (res.response) {
             this.Viewall = res.response;
@@ -235,7 +235,7 @@ export class BranchOnlinetransactionsComponent {
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
-            this.currentfilvalShow = true;
+          
 
           }
           else if (res.flag === 2) {
@@ -244,7 +244,7 @@ export class BranchOnlinetransactionsComponent {
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
-            this.currentfilvalShow = true;
+            
           }
         },
         error: (err: any) => {

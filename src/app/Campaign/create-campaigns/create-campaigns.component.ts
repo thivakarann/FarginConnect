@@ -218,6 +218,16 @@ uploadBulkFile(event: Event): void {
       console.log('Headers match ✅');
       this.arrayExcel = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
       console.log('Formatted Data:', this.arrayExcel);
+
+       // **Validate Email Addresses**
+       const emailIds = this.arrayExcel.map((row: any) => row.emailAddress).filter((email: any) => !!email); // Ensure 'emailAddress' exists
+
+       if (emailIds.length == 0) {
+           this.toastr.error('Uploaded file contains no valid email addresses');
+           console.error('No valid email addresses found in the file');
+           inputElement.value = ''; // Reset input field
+           return;
+       }
   };
 
   fileReader.onerror = (error) => {
@@ -230,25 +240,26 @@ uploadBulkFile(event: Event): void {
    
  
 
-    save() {
-     const formData = new FormData();
-     formData.append('image', this.uploadidentityfront);
-     formData.append('emailContent', this.contents?.value);
-     formData.append('subject', this.subject?.value);
-     formData.append('emailDate', this.startDate?.value);
-     formData.append('createdBy', this.createdBy);
-     formData.append('merchantId', '0');
- 
-     formData.append('flag', '1');
- 
-     const emailAddresses = this.arrayExcel.flatMap((item: any) => item.emailAddress);
-     formData.append('emailAddress', emailAddresses.join(','));
-   
-   
-     this.service.addcampagin(formData).subscribe((res: any) => {
-         this.campagin = res.response;
-         
-         if (res.flag == 1) {
+save() {
+  const formData = new FormData();
+  formData.append('image', this.uploadidentityfront);
+  formData.append('emailContent', this.contents?.value);
+  formData.append('subject', this.subject?.value);
+  formData.append('emailDate', this.startDate?.value);
+  formData.append('createdBy', this.createdBy);
+  formData.append('merchantId', '0');
+  formData.append('flag', '1');
+
+  // Ensure emailAddresses is an array
+  const emailAddresses = this.arrayExcel?.flatMap((item: any) => item.emailAddress) ?? [];
+
+  // Append email addresses, making sure it's an empty array if there's no data
+  formData.append('emailAddress', emailAddresses.join(','));
+
+  this.service.addcampagin(formData).subscribe((res: any) => {
+      this.campagin = res.response;
+
+      if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           this.dialog.closeAll();
         } else {

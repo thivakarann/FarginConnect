@@ -3078,9 +3078,10 @@ export class FarginServiceService {
   editcampaign(id: any, model: any) {
     return this.http.put(`${this.basePath}${this.editcampaigns}${id}`, model, this.options)
   }
-  updatebulk(id: any, id1: any, payload: { emailId: any[] }): Promise<any> {
+  updatebulk(id: any, id1: any, payload: { emailAddress: any[] }): Promise<any> {
     return lastValueFrom(this.http.put(`${this.basePath}${this.updatebulks}${id}/${id1}`, payload, this.options))
   }
+
   viewemailsendresponsecampaigns(id: any) {
     return this.http.get(
       `${this.basePath}${this.viewemailsendresponsecampaign}${id}`,
