@@ -124,8 +124,8 @@ export class BranchEditComponent {
     let submitModel: BranchEdit = {
       branchName: this.branchName?.value,
       accountId: this.accountId?.value,
-      apiKey: this.apiKey?.value,
-      secretKey: this.secretKey?.value,
+      apiKey: this.apiKey?.value.trim(),
+      secretKey: this.secretKey?.value.trim(),
       bankName: this.bankName?.value,
       accountHolderName: this.accountHolderName?.value,
       accountNumber: this.accountNumber?.value,

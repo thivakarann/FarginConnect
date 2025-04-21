@@ -35,6 +35,7 @@ export class ManualTransactionComponent {
         'status',
         'receipt',
         'paymentAt',
+        'UpdatedAt'
       ];
       viewall: any;
       @ViewChild('tableContainer') tableContainer!: ElementRef;

@@ -119,7 +119,11 @@
             </ng-container>
             <ng-container matColumnDef="paymentAt">
                 <th mat-header-cell *matHeaderCellDef>Payment At</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall?.paymentDateTime | date:'dd/MM/yyyy hh:mm'}}</td>
+                <td mat-cell *matCellDef="let viewall">{{viewall?.paymentDateTime | date:'dd/MM/yyyy hh:mm a'}}</td>
+            </ng-container>
+            <ng-container matColumnDef="UpdatedAt">
+                <th mat-header-cell *matHeaderCellDef>Updated At</th>
+                <td mat-cell *matCellDef="let viewall">{{viewall?.updatedAt | date:'dd/MM/yyyy hh:mm a'}}</td>
             </ng-container>
            
          
