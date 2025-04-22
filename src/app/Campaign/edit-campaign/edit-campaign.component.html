@@ -42,6 +42,21 @@
                     Field is required
                 </div>
             </div>
+            <div class="form__linput ">
+                <label class="form__label">{{"Upload File"}}</label>
+                
+                <input type="file" accept=".csv" class="form-control" formControlName="uploadFile"  (change)="uploadBulkFile($event)" />
+              
+             
+                <div class="note">
+                
+                
+                  <ul >
+                    <li>Only Excel-compatible files are accepted. PNG, JPEG, GIF, and other file types are not supported.</li>
+                    <li style="color:red">Maximum 500 Records Only Allowed to Upload For Single Time</li>
+                  </ul>
+              </div>
+            </div>
             <div class="mt-3">
                 <button type="submit" class="btn mx-1 " style="background-color:#7db855be" (click)="submit()"
                     [disabled]="setupformGroup.invalid">Submit</button>

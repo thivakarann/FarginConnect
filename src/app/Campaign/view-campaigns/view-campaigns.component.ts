@@ -33,7 +33,7 @@ export class ViewCampaignsComponent {
 
     'status',
     'edit',
-    'editbulk',
+    // 'editbulk',
     'emailrecord',
 
     'Record',
