@@ -27,7 +27,7 @@ export class UpdateManualpaymentComponent {
   Utrnumber: any;
   dates: any;
   chequedate: any;
-
+  utrnumbervalue:any;
 
  
   constructor(private router: Router, private Approval: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog) { }
@@ -81,6 +81,16 @@ this.dates=this.data.value.date
  
  
   submit() {
+    if(this.paymentmode?.value =='Cash'){
+      this.utrnumbervalue = '';
+console.log(this.utrnumbervalue)
+  }
+ 
+  else {
+    this.utrnumbervalue = this.utrnumber?.value
+console.log(this.utrnumbervalue)
+  }
+
     if(this.paymentmode?.value !='Cheque'){
       this.chequedate = '-';
 console.log(this.chequedate)
@@ -94,7 +104,7 @@ console.log(this.chequedate)
     let submitModel: manualPayment = {
       paymentStatus: this.paidStatus?.value,
       paymentMethod: this.paymentmode?.value,
-      utrNumber: this.utrnumber?.value,
+      utrNumber: this.utrnumbervalue,
       date:this.chequedate,
       merchantId: this.merchantId,
       paidAmount: this.payamount,
