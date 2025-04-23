@@ -78,6 +78,8 @@ export class ViewAnnouncementComponent implements OnInit {
   filter1: boolean = false;
   filter2: boolean = false;
   filter3: boolean = false;
+  currentfilvalShow:boolean=false;
+  searchPerformed: boolean=false;
 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
 
@@ -122,20 +124,22 @@ export class ViewAnnouncementComponent implements OnInit {
     });
 
     this.service.announcementViewall(this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if (res.flag == 1) {
       this.data = res.response.content;
       this.totalPages = res.pagination.totalElements;
-      this.totalpage = res.pagination.totalPages;
-      this.currentpage = res.pagination.currentPage + 1;
-      // this.announcementValue.reverse();
+      this.totalpage = res.pagination.pageSize;
+      this.currentpage = res.pagination.currentPage;
       this.dataSource = new MatTableDataSource(this.data);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-      this.filter1 = true;
-      this.filter2=false;
-      this.filter3=false;
-      this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-    })
-
+      this.currentfilvalShow = false;
+    } else if (res.flag == 2) {
+      this.data = [];
+      this.totalPages = res.pagination.totalElements;
+      this.totalpage = res.pagination.pageSize;
+      this.currentpage = res.pagination.currentPage;
+      this.dataSource = new MatTableDataSource(this.data);
+      this.currentfilvalShow = false;
+    }
+  });
 
   }
 
@@ -143,70 +147,45 @@ export class ViewAnnouncementComponent implements OnInit {
     this.toDate = ''
     // this.FromDateRange =''
   }
-  renderPage(event: PageEvent) {
-    // Capture the new page index and page size from the event
-    this.pageIndex = event.pageIndex;  // Update current page index
-    this.pageSize = event.pageSize;           // Update page size (if changed)
-
-    // Log the new page index and page size to the console (for debugging)
-    console.log('New Page Index:', this.pageIndex);
-    console.log('New Page Size:', this.pageSize);
-
-    // You can now fetch or display the data for the new page index
-    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
-    this.ngOnInit()
-  }
-  changePageIndex(newPageIndex: number) {
-    this.pageIndex = newPageIndex;
-    this.renderPage({
-      pageIndex: newPageIndex,
-      pageSize: this.pageSize,
-      // length: this.totalItems
-    } as PageEvent);
-  }
+ 
 
   reload() {
     this.service.announcementViewall(this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if (res.flag == 1) {
       this.data = res.response.content;
       this.totalPages = res.pagination.totalElements;
-      this.totalpage = res.pagination.totalPages;
-      this.currentpage = res.pagination.currentPage + 1;
-      // this.announcementValue.reverse();
+      this.totalpage = res.pagination.pageSize;
+      this.currentpage = res.pagination.currentPage;
       this.dataSource = new MatTableDataSource(this.data);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-      this.filter1 = true;
-      this.filter2=false;
-      this.filter3=false;
-      this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-    })
+      this.currentfilvalShow = false;
+    } else if (res.flag == 2) {
+      this.data = [];
+      this.totalPages = res.pagination.totalElements;
+      this.totalpage = res.pagination.pageSize;
+      this.currentpage = res.pagination.currentPage;
+      this.dataSource = new MatTableDataSource(this.data);
+      this.currentfilvalShow = false;
+    }
+  });
 
   }
   search() {
-    this.service.announcementDate(this.fromDate, this.toDate,this.pageSize1, this.pageIndex1).subscribe({
+    this.service.announcementDate(this.fromDate, this.toDate,this.pageSize, this.pageIndex).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
           this.data = res.response.content;
-         
-        this.totalPages1 = res.pagination.totalElements;
-        this.totalpage1 = res.pagination.totalPages;
-        this.currentpage1 = res.pagination.currentPage + 1;
- 
-        this.dataSource = new MatTableDataSource(this.data);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.filter1 = false;
-        this.filter2=true;
-        this.filter3=false;
-      }
- 
-      else if (res.flag == 2) {
-        this.filter = true;
-        this.data = [];
-        this.dataSource = new MatTableDataSource(this.data);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-       }
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.data);
+           
+        } else if (res.flag == 2) {
+          this.data = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.data);
+        }
       }
     })
   }
@@ -230,40 +209,51 @@ export class ViewAnnouncementComponent implements OnInit {
     this.dialog.afterAllClosed.subscribe(()=>{
      
       this.service.announcementViewall(this.pageSize, this.pageIndex).subscribe((res: any) => {
+        if (res.flag == 1) {
         this.data = res.response.content;
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-        // this.announcementValue.reverse();
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.data);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.filter1 = true;
-        this.filter2=false;
-        this.filter3=false;
-        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-      })
+        this.currentfilvalShow = false;
+      } else if (res.flag == 2) {
+        this.data = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.data);
+        this.currentfilvalShow = false;
+      }
+    });
   
     })
   }
 
   reset() {
-  this.service.announcementViewall(this.pageSize, this.pageIndex).subscribe((res: any) => {
+    this.service.announcementViewall(this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if (res.flag == 1) {
       this.data = res.response.content;
       this.totalPages = res.pagination.totalElements;
-      this.totalpage = res.pagination.totalPages;
-      this.currentpage = res.pagination.currentPage + 1;
-      // this.announcementValue.reverse();
+      this.totalpage = res.pagination.pageSize;
+      this.currentpage = res.pagination.currentPage;
       this.dataSource = new MatTableDataSource(this.data);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-      this.filter1 = true;
-      this.filter2=false;
-      this.filter3=false;
-      this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+      this.currentfilvalShow = false;
       this.fromDate='';
       this.toDate='';
-    })
+ 
+    
+    } else if (res.flag == 2) {
+      this.data = [];
+      this.totalPages = res.pagination.totalElements;
+      this.totalpage = res.pagination.pageSize;
+      this.currentpage = res.pagination.currentPage;
+      this.dataSource = new MatTableDataSource(this.data);
+      this.currentfilvalShow = false;
+      this.fromDate='';
+      this.toDate='';
+ 
+    }
+  });
   }
 
   create() {
@@ -275,22 +265,23 @@ export class ViewAnnouncementComponent implements OnInit {
       maxWidth: '500px',
     });
     this.dialog.afterAllClosed.subscribe(()=>{
-     
       this.service.announcementViewall(this.pageSize, this.pageIndex).subscribe((res: any) => {
+        if (res.flag == 1) {
         this.data = res.response.content;
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-        // this.announcementValue.reverse();
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.data);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.filter1 = true;
-        this.filter2=false;
-        this.filter3=false;
-        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-      })
-  
+        this.currentfilvalShow = false;
+      } else if (res.flag == 2) {
+        this.data = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.data);
+        this.currentfilvalShow = false;
+      }
+    });
     })
   }
 
@@ -319,19 +310,22 @@ export class ViewAnnouncementComponent implements OnInit {
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
         this.service.announcementViewall(this.pageSize, this.pageIndex).subscribe((res: any) => {
+          if (res.flag == 1) {
           this.data = res.response.content;
           this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.totalPages;
-          this.currentpage = res.pagination.currentPage + 1;
-          // this.announcementValue.reverse();
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.data);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-          this.filter1 = true;
-          this.filter2=false;
-          this.filter3=false;
-          this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-        })
+          this.currentfilvalShow = false;
+        } else if (res.flag == 2) {
+          this.data = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.data);
+          this.currentfilvalShow = false;
+        }
+      });
       }, 500);
     });
   }
@@ -458,28 +452,7 @@ export class ViewAnnouncementComponent implements OnInit {
       disableClose: true
     });
   }
-  renderPage1(event: PageEvent) {
-    // Capture the new page index and page size from the event
-    this.pageIndex1 = event.pageIndex;  // Update current page index
-    this.pageSize1 = event.pageSize;           // Update page size (if changed)
  
-    // Log the new page index and page size to the console (for debugging)
-    console.log('New Page Index:', this.pageIndex1);
-    console.log('New Page Size:', this.pageSize1);
- 
-    // You can now fetch or display the data for the new page index
-    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
-    this.search();
-  }
- 
-  changePageIndex1(newPageIndex1: number) {
-    this.pageIndex1 = newPageIndex1;
-    this.renderPage1({
-      pageIndex: newPageIndex1,
-      pageSize: this.pageSize1,
-      // length: this.totalItems
-    } as PageEvent);
-  }
 
 
   annoucementsearch(filterValue: string) {
@@ -488,29 +461,22 @@ export class ViewAnnouncementComponent implements OnInit {
       return;
     }
  
-    this.service.announcementsearch(filterValue,this.pageSize2,this.pageIndex2).subscribe({
+    this.service.announcementsearch(filterValue,this.pageSize,this.pageIndex).subscribe({
       next: (res: any) => {
         if (res.response) {
           this.annoucemnetserach = res.response;
-       
-          this.totalPages2 = res.pagination.totalElements;
-          this.totalpage2 = res.pagination.totalPages;
-          this.currentpage2 = res.pagination.currentPage + 1;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.annoucemnetserach);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-          this.filter1 = false;
-          this.filter2=false;
-          this.filter3=true;
-        }
-        else if (res.flag === 2) {
+          this.currentfilvalShow = true;
+        } else if (res.flag == 2) {
           this.annoucemnetserach = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.annoucemnetserach);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-          this.filter1 = false;
-          this.filter2=false;
-          this.filter3=true;
+          this.currentfilvalShow = true;
         }
       },
       error: (err: any) => {
@@ -518,19 +484,70 @@ export class ViewAnnouncementComponent implements OnInit {
       }
     });
   }
-  renderPage2(event: PageEvent) {
+   
 
-    this.pageIndex2 = event.pageIndex;  
-    this.pageSize2 = event.pageSize;           
-    this.annoucementsearch(this.currentfilval);
-  }
 
-  changePageIndex2(newPageIndex1: number) {
-    this.pageIndex2 = newPageIndex1;
-    this.renderPage2({
-      pageIndex: newPageIndex1,
-      pageSize: this.pageSize2,
-    
-    } as PageEvent);
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      this.service.announcementsearch(this.currentfilval,event.pageSize,event.pageIndex).subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.annoucemnetserach = res.response;
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.annoucemnetserach);
+            this.currentfilvalShow = true;
+          } else if (res.flag == 2) {
+            this.annoucemnetserach = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.annoucemnetserach);
+            this.currentfilvalShow = true;
+          }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
+        }
+      });
+    }
+    else if(this.fromDate && this.toDate){
+      this.service.announcementDate(this.fromDate, this.toDate,event.pageSize, event.pageIndex).subscribe({
+        next: (res: any) => {
+          if (res.flag == 1) {
+            this.data = res.response.content;
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.data);
+             
+          } else if (res.flag == 2) {
+            this.data = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.data);
+          }
+        }
+      })
+    }
+   else {
+    this.service.announcementViewall(event.pageSize, event.pageIndex).subscribe((res: any) => {
+      if (res.flag == 1) {
+      this.data = res.response.content;
+      this.totalPages = res.pagination.totalElements;
+      this.totalpage = res.pagination.pageSize;
+      this.currentpage = res.pagination.currentPage;
+      this.dataSource = new MatTableDataSource(this.data); 
+    } else if (res.flag == 2) {
+      this.data = [];
+      this.totalPages = res.pagination.totalElements;
+      this.totalpage = res.pagination.pageSize;
+      this.currentpage = res.pagination.currentPage;
+      this.dataSource = new MatTableDataSource(this.data); 
+    }
+  });
   }
+}
 }

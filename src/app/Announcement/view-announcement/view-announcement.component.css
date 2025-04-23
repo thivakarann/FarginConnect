@@ -82,7 +82,7 @@ mat-card-content tr:nth-child(odd) {
 }
 
 .mat-mdc-table .mdc-data-table__row {
-  height: 0px;
+  height: 45px;
 }
 
 .form {
@@ -214,7 +214,7 @@ label {
 }
 
 .example-container {
-  max-height: 260px;
+  max-height: 290px;
   height: 100%;
   overflow: auto;
   scrollbar-width: auto;
@@ -231,6 +231,7 @@ button.buttonDownload:disabled {
   color: #666666; /* Changes the text color */
   opacity: 0.6; /* Makes the button appear faded */
   border: 1px solid #999999; /* Modifies the border styling */
+  font-size: 12px
 }
 
 button.buttonDownload{

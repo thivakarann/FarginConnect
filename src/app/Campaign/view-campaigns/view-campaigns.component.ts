@@ -391,6 +391,7 @@ export class ViewCampaignsComponent {
       disableClose: true,
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
+      width:'500px',
     });
     this.dialog.afterAllClosed.subscribe(() => {
       this.service.viewcampaign(1).subscribe((res: any) => {

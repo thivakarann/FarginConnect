@@ -70,6 +70,9 @@ export class SurveyviewallComponent {
   currentpage1: any;
 
   currentfilval:any;
+  currentfilvalShow:boolean=false;
+  searchPerformed: boolean=false;
+
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit() {
@@ -110,23 +113,20 @@ export class SurveyviewallComponent {
     this.service.SurveyViewAll(this.pageSize,this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.survey = res.response;
-        this.totalPages=res.pagination.totalElements;
-        this.totalpage=res.pagination.totalPages;
-        this.currentpage=res.pagination.currentPage+1;
-        this.survey.reverse();
-        this.dataSource = new MatTableDataSource(this.survey);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.filter=false;
-      }
-      else {
-        this.filter=false;
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-      }
-    })
-
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.survey);
+        this.currentfilvalShow = false;
+      } else if (res.flag == 2) {
+        this.survey = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.survey);
+        this.currentfilvalShow = false;
+        }
+      });
   }
 
   reload() {
@@ -169,7 +169,6 @@ export class SurveyviewallComponent {
   }
  
   excelexportCustomer() {
-    // const title='Business Category';
     const header = [
       "S.No",
       "Entity Name",
@@ -181,11 +180,7 @@ export class SurveyviewallComponent {
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Survey');
-    // Blank Row
-    // let titleRow = worksheet.addRow([title]);
-    // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
- 
- 
+  
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -325,57 +320,28 @@ export class SurveyviewallComponent {
     })
   }
 
-  renderPage(event: PageEvent) {
-    // Capture the new page index and page size from the event
-    this.pageIndex = event.pageIndex;  // Update current page index
-    this.pageSize = event.pageSize;           // Update page size (if changed)
  
-    // Log the new page index and page size to the console (for debugging)
-    console.log('New Page Index:', this.pageIndex);
-    console.log('New Page Size:', this.pageSize);
- 
-    // You can now fetch or display the data for the new page index
-    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
-    this.ngOnInit()
-  }
-  changePageIndex(newPageIndex: number) {
-    this.pageIndex = newPageIndex;
-    this.renderPage({
-      pageIndex: newPageIndex,
-      pageSize: this.pageSize,
-      // length: this.totalItems
-    } as PageEvent);
-  }
   search(filterval:any){
   
- 
   if (filterval) {
 
-  this.service.SurveySearch(filterval,this.pageSize1,this.pageIndex1).subscribe({
+  this.service.SurveySearch(filterval,this.pageSize,this.pageIndex).subscribe({
     next: (res: any) => {
       if (res.response) {
         this.survey = res.response.content;  
-        // this.viewall.reverse();
-        this.dataSource = new MatTableDataSource(this.survey);  
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.totalPages1 = res.pagination.totalElements;
-        this.totalpage1 = res.pagination.totalPages;
-        this.currentpage1 = res.pagination.currentPage + 1;
-        this.filter=true;
-       
-      }
-      else if (res.flag === 2) {
-        this.survey = [];  
-        this.dataSource = new MatTableDataSource(this.survey);  
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.filter=true;
-        this.totalPages1 = res.pagination.totalElements;
-        this.totalpage1 = res.pagination.totalPages;
-        this.currentpage1 = res.pagination.currentPage + 1;
-
-    }
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.survey);
+        this.currentfilvalShow = true;
+      } else if (res.flag == 2) {
+        this.survey = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.survey);
+        this.currentfilvalShow = true;
+        }
     },
     error: (err: any) => {
       this.toastr.error('No Data Found');
@@ -386,27 +352,48 @@ else if (!filterval) {
   this.toastr.error('Please enter a value to search');
   return;
 }
-}
-renderPage1(event: PageEvent) {
-  // Capture the new page index and page size from the event
-  this.pageIndex1 = event.pageIndex;  // Update current page index
-  this.pageSize1 = event.pageSize;           // Update page size (if changed)
+} 
 
-  // Log the new page index and page size to the console (for debugging)
-  console.log('New Page Index:', this.pageIndex1);
-  console.log('New Page Size:', this.pageSize1);
-
-  // You can now fetch or display the data for the new page index
-  // Example: this.fetchData(this.currentPageIndex, this.pageSize);
-  this.search(this.currentfilval);
+getData(event: any) {
+  if (this.currentfilvalShow) {
+    this.service.SurveySearch(this.currentfilval,event.pageSize,event.pageIndex).subscribe({
+      next: (res: any) => {
+        if (res.response) {
+          this.survey = res.response.content;  
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.survey); 
+        } else if (res.flag == 2) {
+          this.survey = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.survey); 
+          }
+      },
+      error: (err: any) => {
+        this.toastr.error('No Data Found');
+      }
+    });
+  }
+ else {
+  this.service.SurveyViewAll(event.pageSize,event.pageIndex).subscribe((res: any) => {
+    if (res.flag == 1) {
+      this.survey = res.response;
+      this.totalPages = res.pagination.totalElements;
+      this.totalpage = res.pagination.pageSize;
+      this.currentpage = res.pagination.currentPage;
+      this.dataSource = new MatTableDataSource(this.survey); 
+    } else if (res.flag == 2) {
+      this.survey = [];
+      this.totalPages = res.pagination.totalElements;
+      this.totalpage = res.pagination.pageSize;
+      this.currentpage = res.pagination.currentPage;
+      this.dataSource = new MatTableDataSource(this.survey); 
+      }
+    });
+    }
 }
 
-changePageIndex1(newPageIndex1: number) {
-  this.pageIndex1 = newPageIndex1;
-  this.renderPage1({
-    pageIndex: newPageIndex1,
-    pageSize: this.pageSize1,
-    // length: this.totalItems
-  } as PageEvent);
-}
 }

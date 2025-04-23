@@ -176,7 +176,7 @@
   }
   
   .example-container {
-    max-height: 300px;
+    max-height: 310px;
     height: 100%;
     overflow: auto;
     scrollbar-width: auto;

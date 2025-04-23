@@ -40,11 +40,11 @@
         <div class="col-md-6">
            
            
-            <button [hidden]="valueAdd!=='Campaign-Add'" style="color:white;background-color: #141E46;border-radius: 10px;" (click)="addCampaign()"
+            <button [hidden]="valueAdd!=='Campaign-Add'" style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" (click)="addCampaign()"
                 mat-raised-button >Create</button>
-                <button [hidden]="valuedownload!=='Campaign-Download-Template'" style="color:white;background-color: #141E46;border-radius: 10px;" (click)="openExcel()"
+                <button [hidden]="valuedownload!=='Campaign-Download-Template'" style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" (click)="openExcel()"
                 mat-raised-button >Download Template</button>
-            <button [hidden]="valueExport!=='Campaign-Export'" style="color:white;background-color: #141E46;border-radius: 10px;" (click)="exportexcel()"
+            <button [hidden]="valueExport!=='Campaign-Export'" style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" (click)="exportexcel()"
                 mat-raised-button >Export</button>
         </div>
         <div class="col-md-4">
@@ -110,7 +110,9 @@
                     <th [hidden]="valueedit!=='Campaign-Edit'" mat-header-cell *matHeaderCellDef mat-sort-header > Action
                       </th>
                     <td [hidden]="valueedit!=='Campaign-Edit'" style="text-wrap: wrap" mat-cell *matCellDef="let data">
-                      <i style="font-size: 15px;" (click)="edit(data)" class="fas fa-edit"></i>
+                        <button class="btn btn btn-sm"  [disabled]="data?.activeStatus == 0"
+                        style="border:none;background: none;" (click)="edit(data)"> <i style="cursor: pointer;font-size:15px; color:#545497;border:none;background: none;" class="fas fa-edit"></i>
+                      </button>
                     </td>
                   </ng-container>
  

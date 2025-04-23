@@ -118,6 +118,8 @@ export class AdditionalpaymentsComponent {
   totalpage3: any;
   filter3: boolean = true;
   maxDate:any;
+  currentfilvalShow:boolean=false;
+  searchPerformed:boolean=false
   
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private fb: FormBuilder) { }
 
@@ -171,31 +173,19 @@ export class AdditionalpaymentsComponent {
       if (res.flag == 1) {
         this.transaction = res.response;
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.transaction);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.filter = true;
-        this.filter1=false;
-        this.filters=false;
-        this.filter3=false;  
+        this.currentfilvalShow = false;
+     
+      } else if (res.flag == 2) {
+        this.transaction = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.currentfilvalShow = false;     
       }
-        else{
-          this.transaction = [];
-          this.dataSource = new MatTableDataSource(this.transaction);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;  
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.totalPages;
-          this.currentpage = res.pagination.currentPage + 1;
-          this.filter = true;
-          this.filter1=false;
-          this.filters=false;
-          this.filter3=false;  
-        }
-      
-
     });
 
     this.additionalpay = this.fb.group({
@@ -241,32 +231,21 @@ export class AdditionalpaymentsComponent {
       if (res.flag == 1) {
         this.transaction = res.response;
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.transaction);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.filter = true;
-        this.filter1=false;
-        this.filter3=false;  
-        this.filters=false;
+        this.currentfilvalShow = false;
+     
+      } else if (res.flag == 2) {
+        this.transaction = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.currentfilvalShow = false;     
       }
-        else{
-          this.transaction = [];
-          this.dataSource = new MatTableDataSource(this.transaction);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;  
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.totalPages;
-          this.currentpage = res.pagination.currentPage + 1;
-          this.filter = true;
-          this.filter1=false;
-          this.filters=false;
-          this.filter3=false;  
-        }
-      
-
     });
+
   }
 
 
@@ -274,40 +253,25 @@ export class AdditionalpaymentsComponent {
     const fromDate = this.Datefilteradditionalpay.get('FromDateRange')?.value;
     const toDate = this.Datefilteradditionalpay.get('ToDateRange')?.value;
 
-    this.service.additionalpaymentsfilter(fromDate, toDate, this.pageSize2, this.pageIndex2).subscribe((res: any) => {
+    this.service.additionalpaymentsfilter(fromDate, toDate, this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
-
         this.transaction = res.response;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.transaction);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.totalPages2 = res.pagination.totalElements;
-        this.totalpage2 = res.pagination.totalPages;
-        this.currentpage2 = res.pagination.currentPage + 1;
-
-        this.filter1 = false;
-        this.filter = false;
-        this.filter3=false;  
-        this.filters = true;
         this.dialog.closeAll()
-      }
-      else if (res.flag == 2) {
-        this.toastr.error(res.responseMessage)
+        } 
+        else if (res.flag == 2) {
+        this.toastr.error(res.responseMessage);
         this.dialog.closeAll()
-
         this.transaction = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.transaction);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.totalPages2 = res.pagination.totalElements;
-        this.totalpage2 = res.pagination.totalPages;
-        this.currentpage2 = res.pagination.currentPage + 1;
-        this.filter3=false;  
-        this.filter = false;
-        this.filter1 = false;
-        this.filters = true;
-        
-      }
+  
+        }
     })
   }
   reset() {
@@ -315,37 +279,22 @@ export class AdditionalpaymentsComponent {
       if (res.flag == 1) {
         this.transaction = res.response;
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.transaction);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.filter = true;
-        this.filter1=false;
-        this.filters=false;
-        this.filter3=false;  
         this.FromDateRange='';
         this.ToDateRange='';
+      } else if (res.flag == 2) {
+        this.transaction = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.transaction); 
+        this.FromDateRange='';
+        this.ToDateRange='';    
       }
-        else{
-          this.transaction = [];
-          this.dataSource = new MatTableDataSource(this.transaction);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;  
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.totalPages;
-          this.currentpage = res.pagination.currentPage + 1;
-          this.filter = true;
-          this.filter1=false;
-          this.filters=false;
-          this.filter3=false;  
-          this.FromDateRange='';
-          this.ToDateRange='';
-        }
-      
-
     });
-
+ 
     this.backs = '';
     this.filterValue = '';
     this.userInput = '';
@@ -518,33 +467,20 @@ export class AdditionalpaymentsComponent {
             if (res.flag == 1) {
               this.transaction = res.response;
               this.totalPages = res.pagination.totalElements;
-              this.totalpage = res.pagination.totalPages;
-              this.currentpage = res.pagination.currentPage + 1;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
               this.dataSource = new MatTableDataSource(this.transaction);
-              this.dataSource.sort = this.sort;
-              this.dataSource.paginator = this.paginator;
-              this.filter = true;
-              this.filter1=false;
-              this.filters=false;
-              this.filter3=false;  
+              this.currentfilvalShow = false;
+           
+            } else if (res.flag == 2) {
+              this.transaction = [];
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.dataSource = new MatTableDataSource(this.transaction);
+              this.currentfilvalShow = false;     
             }
-              else{
-                this.transaction = [];
-                this.dataSource = new MatTableDataSource(this.transaction);
-                this.dataSource.sort = this.sort;
-                this.dataSource.paginator = this.paginator;  
-                this.totalPages = res.pagination.totalElements;
-                this.totalpage = res.pagination.totalPages;
-                this.currentpage = res.pagination.currentPage + 1;
-                this.filter = true;
-                this.filter1=false;
-                this.filters=false;
-                this.filter3=false;  
-              }
-            
-      
           });
-      
         }, 500);
       }
       else {
@@ -553,57 +489,30 @@ export class AdditionalpaymentsComponent {
     })
   }
   
-  renderPage(event: PageEvent) {
-    this.pageIndex = event.pageIndex;
-    this.pageSize = event.pageSize;
-
-    console.log('New Page Index:', this.pageIndex);
-    console.log('New Page Size:', this.pageSize);
-
-    this.ngOnInit()
-  }
-  changePageIndex(newPageIndex: number) {
-    this.pageIndex = newPageIndex;
-    this.renderPage({
-      pageIndex: newPageIndex,
-      pageSize: this.pageSize,
-      // length: this.totalItems
-    } as PageEvent);
-  }
+  
 
   CustomerAdmin(filterValue: string) {
 
     if (filterValue) {
 
-    this.service.additionalsearchfilter(filterValue,this.pageSize3, this.pageIndex3).subscribe({
+    this.service.additionalsearchfilter(filterValue,this.pageSize, this.pageIndex).subscribe({
       next: (res: any) => {
         if (res.response) {
           this.transaction = res.response;
           this.transaction.reverse();
-          this.totalPages3 = res.pagination.totalElements;
-          this.totalpage3 = res.pagination.totalPages;
-          this.currentpage3 = res.pagination.currentPage + 1;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.transaction);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-          this.filters=false;
-          this.filter1=false;
-          this.filter=false;
-          this.filter3=true;  
-        }
-        else if (res.flag === 2) {
+          this.currentfilvalShow = true;     
+       
+        } else if (res.flag == 2) {
           this.transaction = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.transaction);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-          this.filters=false;
-          this.filter1=false;
-          this.filter=false;
-          this.filter3=true;  
-          this.totalPages3 = res.pagination.totalElements;
-          this.totalpage3 = res.pagination.totalPages;
-          this.currentpage3 = res.pagination.currentPage + 1;
-
+          this.currentfilvalShow = true;   
         }
       },
       error: (err: any) => {
@@ -617,60 +526,7 @@ export class AdditionalpaymentsComponent {
   }
   }
 
-  renderPage1(event: PageEvent) {
-    this.pageIndex1 = event.pageIndex;
-    this.pageSize1 = event.pageSize;
-
-    console.log('New Page Index:', this.pageIndex1);
-    console.log('New Page Size:', this.pageSize1);
-   
-    this.Additionalpay()
-  }
-
-  changePageIndex1(newPageIndex1: number) {
-    this.pageIndex1 = newPageIndex1;
-    this.renderPage1({
-      pageIndex: newPageIndex1,
-      pageSize: this.pageSize1,
-      // length: this.totalItems
-    } as PageEvent);
-  }
-  renderPage2(event: PageEvent) {
-    this.pageIndex2 = event.pageIndex;
-    this.pageSize2 = event.pageSize;
-    console.log('New Page Index:', this.pageIndex2);
-    console.log('New Page Size:', this.pageSize2);
-
-    this.filterdate()
-
-  }
-
-  changePageIndex2(newPageIndex2: number) {
-    this.pageIndex2 = newPageIndex2;
-    this.renderPage2({
-      pageIndex: newPageIndex2,
-      pageSize: this.pageSize2,
-    } as PageEvent);
-  }
-
-  renderPage3(event: PageEvent) {
-    this.pageIndex3 = event.pageIndex;  
-    this.pageSize3 = event.pageSize;           
  
-    console.log('New Page Index:', this.pageIndex3);
-    console.log('New Page Size:', this.pageSize3);
-    this.CustomerAdmin(this.currentfilVal);
-
-  }
- 
-  changePageIndex3(newPageIndex3: number) {
-    this.pageIndex3 = newPageIndex3;
-    this.renderPage3({
-      pageIndex: newPageIndex3,
-      pageSize: this.pageSize3,
-      // length: this.totalItems
-    } as PageEvent);
-  }
 
 
   Filter(event: any) {
@@ -769,34 +625,23 @@ export class AdditionalpaymentsComponent {
       startDate: this.startDate?.value,
       endDate: this.endDate?.value
     };
-    this.service.AdditionalPayDateFilter(this.pageSize1, this.pageIndex1, submitModel).subscribe((res: any) => {
+    this.service.AdditionalPayDateFilter(this.pageSize, this.pageIndex, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.addpay = res.response;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.addpay);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.totalPages1 = res.pagination.totalElements;
-        this.totalpage1 = res.pagination.totalPages;
-        this.currentpage1 = res.pagination.currentPage + 1;
-        this.filter1 = true;
-        this.filter = false;
-        this.filter3=false;  
-        this.filters = false;
-        this.dialog.closeAll();
-      } else {
+        this.dialog.closeAll()     
+      } 
+      else if (res.flag == 2) {
         this.toastr.error(res.responseMessage);
         this.dialog.closeAll()
         this.addpay = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.addpay);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.totalPages1 = res.pagination.totalElements;
-        this.totalpage1 = res.pagination.totalPages;
-        this.currentpage1 = res.pagination.currentPage + 1;
-        this.filter = false;
-        this.filter1 = true;
-        this.filters = false;
-        this.filter3=false;  
       }
     });
 
@@ -824,4 +669,116 @@ export class AdditionalpaymentsComponent {
   future(value: any) {
     value.reset()
   }
+
+getData(event: any) {
+        if (this.currentfilvalShow) {
+          this.service.additionalsearchfilter(this.currentfilVal,event.pageSize, event.pageIndex).subscribe({
+            next: (res: any) => {
+              if (res.response) {
+                this.transaction = res.response;
+                this.transaction.reverse();
+                this.totalPages = res.pagination.totalElements;
+                this.totalpage = res.pagination.pageSize;
+                this.currentpage = res.pagination.currentPage;
+                this.dataSource = new MatTableDataSource(this.transaction);
+                
+             
+              } else if (res.flag == 2) {
+                this.transaction = [];
+                this.totalPages = res.pagination.totalElements;
+                this.totalpage = res.pagination.pageSize;
+                this.currentpage = res.pagination.currentPage;
+                this.dataSource = new MatTableDataSource(this.transaction);
+                 
+              }
+            },
+            error: (err: any) => {
+              this.toastr.error('Error fetching filtered regions');
+            }
+          });
+        }
+    
+        else if (this.filterValue === 'Filterbyadditionalpayment') {
+         
+    if (!this.startDate?.value && !this.endDate?.value) {
+      this.flags = 1;
+      console.log('Flag set to 1:', this.flags);
+    } else {
+      this.flags = 2;
+      console.log('Flag set to 2:', this.flags);
+    }
+    let submitModel: additionapayfilter = {
+      paymentStatus: this.pay?.value,
+      merchantId: this.merchantId,
+      flag: this.flags,
+      startDate: this.startDate?.value,
+      endDate: this.endDate?.value
+    };
+    this.service.AdditionalPayDateFilter(event.pageSize, event.pageIndex, submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.addpay = res.response;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.addpay);
+        this.dialog.closeAll()     
+      } 
+      else if (res.flag == 2) {
+        this.toastr.error(res.responseMessage);
+        this.dialog.closeAll()
+        this.addpay = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.addpay);
+      }
+    });
+        }
+    
+        else if (this.filterValue === 'AdditionalpayDatefilter') {
+
+          const fromDate = this.Datefilteradditionalpay.get('FromDateRange')?.value;
+    const toDate = this.Datefilteradditionalpay.get('ToDateRange')?.value;
+
+    this.service.additionalpaymentsfilter(fromDate, toDate, event.pageSize, event.pageIndex).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.transaction = res.response;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.dialog.closeAll()
+        } 
+        else if (res.flag == 2) {
+        this.toastr.error(res.responseMessage);
+        this.dialog.closeAll()
+        this.transaction = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.transaction);
+  
+        }
+    })
+        }
+    
+        else {
+          this.service.additionalpayments(event.pageSize, event.pageIndex).subscribe((res: any) => {
+            if (res.flag == 1) {
+              this.transaction = res.response;
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.dataSource = new MatTableDataSource(this.transaction);
+                   
+            } else if (res.flag == 2) {
+              this.transaction = [];
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.dataSource = new MatTableDataSource(this.transaction); 
+            }
+          });
+        }
+      }  
 }

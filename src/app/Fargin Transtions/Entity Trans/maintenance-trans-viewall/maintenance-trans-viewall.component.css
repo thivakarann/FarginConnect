@@ -208,7 +208,7 @@ mat-card-content tr:nth-child(odd) {
 
 
 .example-container {
-  max-height: 260px;
+  max-height: 290px;
   height: 100%;
   overflow: auto;
   scrollbar-width: auto;
@@ -263,13 +263,6 @@ table {
  
 .dialog-body .btn {
   margin-top: 10px;
-}
-
-.example-container {
-  max-height: 346px;
-  height: 100%;
-  overflow: auto;
-  scrollbar-width: auto;
 }
  
 input {

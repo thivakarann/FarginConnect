@@ -100,11 +100,11 @@ export class MaintenanceTransViewallComponent {
   totalpage1: any;
   totalPages1: any;
   currentpage1: any;
- 
- 
+
+
   pageIndex2: number = 0;
   pageSize2 = 5;
- 
+
   totalpage2: any;
   totalPages2: any;
   currentpage2: any;
@@ -140,10 +140,13 @@ export class MaintenanceTransViewallComponent {
   currentpage3: any;
   totalpage3: any;
   filter3: boolean = true;
-  maxDate:any;
-  valuemanval:any;
+  maxDate: any;
+  valuemanval: any;
+  currentfilvalShow: boolean = false;
+  currentfilval: any;
+  searchPerformed:boolean=false;
 
-  constructor(private router:Router,private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog,private fb:FormBuilder) { }
+  constructor(private router: Router, private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private fb: FormBuilder) { }
 
 
 
@@ -198,60 +201,45 @@ export class MaintenanceTransViewallComponent {
       if (res.flag == 1) {
         this.transaction = res.response;
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-        // this.transaction.reverse();
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.transaction);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.filter = true;
-        this.filter1=false;
-        this.filters=false;
-        this.filter3=false;  
-      }
-      else{
+        this.currentfilvalShow = false;
+      } else if (res.flag == 2) {
         this.transaction = [];
-        this.dataSource = new MatTableDataSource(this.transaction);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator; 
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-        this.filter = true;
-        this.filter1=false;
-        this.filters=false; 
-        this.filter3=false;  
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.currentfilvalShow = false;
       }
-
     });
 
     this.cloudfeesearch = this.fb.group({
-          pay: ['', [Validators.required]],
-          startDate: ['',],
-          endDate: ['',],
-          // search: ['', [Validators.required]],
-          // search1:['']
-          selectedOption: ['', [Validators.required]],
-          search1:['']
+      pay: ['', [Validators.required]],
+      startDate: ['',],
+      endDate: ['',],
+      // search: ['', [Validators.required]],
+      // search1:['']
+      selectedOption: ['', [Validators.required]],
+      search1: ['']
 
-        });
-    
-        this.Datefiltercloudfee = this.fb.group({
-          FromDateRange: ['', Validators.required],
-          ToDateRange: ['', Validators.required]
-        });
+    });
 
-        this.Duegenerate = this.fb.group({
-          searches: ['', Validators.required],
-          search2:['']
-        });
+    this.Datefiltercloudfee = this.fb.group({
+      FromDateRange: ['', Validators.required],
+      ToDateRange: ['', Validators.required]
+    });
 
-        
+    this.Duegenerate = this.fb.group({
+      searches: ['', Validators.required],
+      search2: ['']
+    });
 
+ 
   }
 
-  
-
+ 
   get pay() {
     return this.cloudfeesearch.get('pay');
   }
@@ -263,14 +251,12 @@ export class MaintenanceTransViewallComponent {
     return this.cloudfeesearch.get('endDate');
   }
 
-
-
-  OtherpaymentsView(id:any){
-    this.router.navigate([`dashboard/maintenanceotherpay-view/${id}`],{
-      queryParams:{alldata:id}
-    })  
-    }
-  
+ 
+  OtherpaymentsView(id: any) {
+    this.router.navigate([`dashboard/maintenanceotherpay-view/${id}`], {
+      queryParams: { alldata: id }
+    })
+  }
 
 
 
@@ -280,29 +266,17 @@ export class MaintenanceTransViewallComponent {
       if (res.flag == 1) {
         this.transaction = res.response;
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-        // this.transaction.reverse();
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.transaction);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.filter = true;
-        this.filter1=false;
-        this.filters=false;
-        this.filter3=false;  
-      }
-      else{
+        this.currentfilvalShow = false;
+      } else if (res.flag == 2) {
         this.transaction = [];
-        this.dataSource = new MatTableDataSource(this.transaction);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator; 
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-        this.filter = true;
-        this.filter1=false;
-        this.filters=false;
-        this.filter3=false;   
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.currentfilvalShow = false;
       }
 
     });
@@ -327,45 +301,22 @@ export class MaintenanceTransViewallComponent {
     const fromDate = this.Datefiltercloudfee.get('FromDateRange')?.value;
     const toDate = this.Datefiltercloudfee.get('ToDateRange')?.value;
 
-
-    this.service.MaintenanceTransactionFilter(fromDate, toDate, this.pageSize2, this.pageIndex2).subscribe((res: any) => {
+    this.service.MaintenanceTransactionFilter(fromDate, toDate, this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
-
         this.transaction = res.response;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.transaction);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.totalPages2 = res.pagination.totalElements;
-        this.totalpage2 = res.pagination.totalPages;
-        this.currentpage2 = res.pagination.currentPage + 1;
-
-        this.filter1 = false;
-        this.filter = false;
-        this.filter3=false;  
-        this.filters = true;
         this.dialog.closeAll()
-            }
-      else if (res.flag == 2) {
-        this.toastr.error(res.responseMessage)
+      } else if (res.flag == 2) {
+        this.toastr.error(res.responseMessage);
         this.dialog.closeAll()
-
         this.transaction = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.transaction);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.totalPages2 = res.pagination.totalElements;
-        this.totalpage2 = res.pagination.totalPages;
-        this.currentpage2 = res.pagination.currentPage + 1;
-        this.filter3=false;  
-        this.filter = false;
-        this.filter1 = false;
-        this.filters = true;
-        // this.filter1 = true; 
-        // this.filter=false;
-        // this.filters=false;         this.transaction = [];
-        // this.dataSource = new MatTableDataSource(this.transaction);
-        // this.dataSource.sort = this.sort;
-        // this.dataSource.paginator = this.paginator;  
       }
     })
   }
@@ -374,35 +325,22 @@ export class MaintenanceTransViewallComponent {
       if (res.flag == 1) {
         this.transaction = res.response;
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-        // this.transaction.reverse();
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.transaction);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.filter = true;
-        this.filter1=false;
-        this.filters=false;
-        this.filter3=false;  
+        this.currentfilvalShow = false;
         this.FromDateRange='';
         this.ToDateRange='';
-      }
-      else{
+      } else if (res.flag == 2) {
         this.transaction = [];
-        this.dataSource = new MatTableDataSource(this.transaction);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator; 
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-        this.filter = true;
-        this.filter1=false;
-        this.filters=false; 
-        this.filter3=false;  
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.currentfilvalShow = false;
         this.FromDateRange='';
         this.ToDateRange='';
       }
-
     });
 
     
@@ -446,31 +384,18 @@ export class MaintenanceTransViewallComponent {
             if (res.flag == 1) {
               this.transaction = res.response;
               this.totalPages = res.pagination.totalElements;
-              this.totalpage = res.pagination.totalPages;
-              this.currentpage = res.pagination.currentPage + 1;
-              // this.transaction.reverse();
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
               this.dataSource = new MatTableDataSource(this.transaction);
-              this.dataSource.sort = this.sort;
-              this.dataSource.paginator = this.paginator;
-              this.filter = true;
-              this.filter1=false;
-              this.filters=false;
-              this.filter3=false;  
-            }
-            else{
+              this.currentfilvalShow = false;
+            } else if (res.flag == 2) {
               this.transaction = [];
-              this.dataSource = new MatTableDataSource(this.transaction);
-              this.dataSource.sort = this.sort;
-              this.dataSource.paginator = this.paginator; 
               this.totalPages = res.pagination.totalElements;
-              this.totalpage = res.pagination.totalPages;
-              this.currentpage = res.pagination.currentPage + 1;
-              this.filter = true;
-              this.filter1=false;
-              this.filters=false; 
-              this.filter3=false;  
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.dataSource = new MatTableDataSource(this.transaction);
+              this.currentfilvalShow = false;
             }
-      
           });
         }, 500);
       }
@@ -488,8 +413,8 @@ export class MaintenanceTransViewallComponent {
         let sno = 1;
         this.responseDataListnew = [];
         this.transactionexport.forEach((element: any) => {
- 
- 
+
+
           this.response = [];
           this.response.push(sno);
           this.response.push(element?.pgPaymentId);
@@ -646,138 +571,42 @@ export class MaintenanceTransViewallComponent {
       }
     })
   }
-  renderPage(event: PageEvent) {
-    // Capture the new page index and page size from the event
-    this.pageIndex = event.pageIndex;  // Update current page index
-    this.pageSize = event.pageSize;           // Update page size (if changed)
-
-    // Log the new page index and page size to the console (for debugging)
-    console.log('New Page Index:', this.pageIndex);
-    console.log('New Page Size:', this.pageSize);
-
-    // You can now fetch or display the data for the new page index
-    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
-    this.ngOnInit()
-  }
-  changePageIndex(newPageIndex: number) {
-    this.pageIndex = newPageIndex;
-    this.renderPage({
-      pageIndex: newPageIndex,
-      pageSize: this.pageSize,
-      // length: this.totalItems
-    } as PageEvent);
-  }
-
-  renderPage3(event: PageEvent) {
-    this.pageIndex3 = event.pageIndex;  
-    this.pageSize3 = event.pageSize;       
- 
-    this.subscription(this.currentfilVal);
-  }
- 
-  changePageIndex3(newPageIndex3: number) {
-    this.pageIndex3 = newPageIndex3;
-    this.renderPage3({
-      pageIndex: newPageIndex3,
-      pageSize: this.pageSize3,
-      // length: this.totalItems
-    } as PageEvent);
-  }
 
   subscription(filterValue: string) {
-  
     if (filterValue) {
-    this.service.Subscriptionsearch(filterValue,this.pageSize3,this.pageIndex3).subscribe({
-      next: (res: any) => {
-        if (res.response) {
-          this.transaction = res.response;
-          this.transaction.reverse();
-          this.dataSource = new MatTableDataSource(this.transaction);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-          this.totalPages3 = res.pagination.totalElements;
-          this.totalpage3 = res.pagination.totalPages;
-          this.currentpage3 = res.pagination.currentPage + 1;
-          this.filters=false;
-          this.filter1=false;
-          this.filter=false;
-          this.filter3=true;  
+      this.service.Subscriptionsearch(filterValue, this.pageSize, this.pageIndex).subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.transaction = res.response;
+            this.transaction.reverse();
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.transaction);
+            this.currentfilvalShow = true;
+          } else if (res.flag == 2) {
+            this.transaction = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.transaction);
+            this.currentfilvalShow = true;
+          }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
         }
-        else if (res.flag === 2) {
-          this.transaction = [];
-          this.dataSource = new MatTableDataSource(this.transaction);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-          this.totalPages3 = res.pagination.totalElements;
-          this.totalpage3 = res.pagination.totalPages;
-          this.currentpage3 = res.pagination.currentPage + 1;
-          this.filters=false;
-          this.filter1=false;
-          this.filter=false;
-          this.filter3=true;  
-        }
-      },
-      error: (err: any) => {
-        this.toastr.error('No Data Found');
-      }
-    });
-  }
-  else if (!filterValue) {
-    // this.toastr.error('Please enter a value to search');
-    return;
-  }
+      });
+    }
+    else if (!filterValue) {
+      // this.toastr.error('Please enter a value to search');
+      return;
+    }
   }
 
-  renderPage1(event: PageEvent) {
-    // Capture the new page index and page size from the event
-    this.pageIndex1 = event.pageIndex;  // Update current page index
-    this.pageSize1 = event.pageSize;           // Update page size (if changed)
- 
-    // Log the new page index and page size to the console (for debugging)
-    console.log('New Page Index:', this.pageIndex1);
-    console.log('New Page Size:', this.pageSize1);
- 
-    // You can now fetch or display the data for the new page index
-    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
-    this.CloudFee()
-
-  }
- 
-  changePageIndex1(newPageIndex1: number) {
-    this.pageIndex1 = newPageIndex1;
-    this.renderPage1({
-      pageIndex: newPageIndex1,
-      pageSize: this.pageSize1,
-      // length: this.totalItems
-    } as PageEvent);
-  }
-  renderPage2(event: PageEvent) {
-    // Capture the new page index and page size from the event
-    this.pageIndex2 = event.pageIndex;  // Update current page index
-    this.pageSize2 = event.pageSize;           // Update page size (if changed)
- 
-    // Log the new page index and page size to the console (for debugging)
-    console.log('New Page Index:', this.pageIndex2);
-    console.log('New Page Size:', this.pageSize2);
- 
-    // You can now fetch or display the data for the new page index
-    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
-    this.subscription(this.currentfilVal);
-    this.filterdate()
-
-  }
- 
-  changePageIndex2(newPageIndex1: number) {
-    this.pageIndex2 = newPageIndex1;
-    this.renderPage2({
-      pageIndex: newPageIndex1,
-      pageSize: this.pageSize2,
-      // length: this.totalItems
-    } as PageEvent);
-  }
 
   manuvalpayments(id: any) {
- 
+
     this.dialog.open(TransManualPayComponent, {
       data: { value: id },
       enterAnimationDuration: '500ms',
@@ -788,29 +617,17 @@ export class MaintenanceTransViewallComponent {
         if (res.flag == 1) {
           this.transaction = res.response;
           this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.totalPages;
-          this.currentpage = res.pagination.currentPage + 1;
-          // this.transaction.reverse();
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.transaction);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-          this.filter = true;
-          this.filter1=false;
-          this.filters=false;
-          this.filter3=false;  
-        }
-        else{
+          this.currentfilvalShow = false;
+        } else if (res.flag == 2) {
           this.transaction = [];
-          this.dataSource = new MatTableDataSource(this.transaction);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
           this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.totalPages;
-          this.currentpage = res.pagination.currentPage + 1;
-          this.filter = true;
-          this.filter1=false;
-          this.filters=false;
-          this.filter3=false;  
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.transaction);
+          this.currentfilvalShow = false;
         }
  
       });
@@ -929,34 +746,22 @@ filterbymso() {
       startDate: this.startDate?.value,
       endDate: this.endDate?.value
     };
-    this.service.CloudFeeDateFilter(this.pageSize1, this.pageIndex1, submitModel).subscribe((res: any) => {
+    this.service.CloudFeeDateFilter(this.pageSize, this.pageIndex, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.cloudfee = res.response;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.cloudfee);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.totalPages1 = res.pagination.totalElements;
-        this.totalpage1 = res.pagination.totalPages;
-        this.currentpage1 = res.pagination.currentPage + 1;
-        this.filter1 = true;
-        this.filter = false;
-        this.filter3=false;  
-        this.filters = false;
-        this.dialog.closeAll();
-      } else {
+        this.dialog.closeAll()
+      } else if (res.flag == 2) {
         this.toastr.error(res.responseMessage);
         this.dialog.closeAll()
         this.cloudfee = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.cloudfee);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.totalPages1 = res.pagination.totalElements;
-        this.totalpage1 = res.pagination.totalPages;
-        this.currentpage1 = res.pagination.currentPage + 1;
-        this.filter = false;
-        this.filter1 = true;
-        this.filters = false;
-        this.filter3=false;  
       }
     });
 
@@ -1011,5 +816,108 @@ filterbymso() {
   future(value: any) {
     value.reset()
   }
- 
+
+
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      this.service.Subscriptionsearch(this.currentfilVal, event.pageSize, event.pageIndex).subscribe({next: (res: any) => {
+          if (res.response) {
+            this.transaction = res.response;
+            this.transaction.reverse();
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.transaction);
+          } else if (res.flag == 2) {
+            this.transaction = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.transaction);
+          }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
+        }
+      });
+    }
+
+    else if (this.filterValue === 'Filterbycloudffeesearch') {
+      if (!this.startDate?.value && !this.endDate?.value) {
+        this.flags = 1;
+        console.log('Flag set to 1:', this.flags);
+      } else {
+        this.flags = 2;
+        console.log('Flag set to 2:', this.flags);
+      }
+      let submitModel: Cloudfee = {
+        paymentStatus: this.pay?.value,
+        merchantId: this.merchantId,
+        flag: this.flags,
+        startDate: this.startDate?.value,
+        endDate: this.endDate?.value
+      };
+      this.service.CloudFeeDateFilter(event.pageSize, event.pageIndex, submitModel).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.cloudfee = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.cloudfee);
+          this.dialog.closeAll()
+        } else if (res.flag == 2) {
+          this.toastr.error(res.responseMessage);
+          this.dialog.closeAll()
+          this.cloudfee = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.cloudfee);
+        }
+      });
+    }
+
+    else if (this.filterValue === 'Datefiltercloudfee') {
+      const fromDate = this.Datefiltercloudfee.get('FromDateRange')?.value;
+      const toDate = this.Datefiltercloudfee.get('ToDateRange')?.value;
+
+      this.service.MaintenanceTransactionFilter(fromDate, toDate, event.pageSize, event.pageIndex).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.transaction = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.transaction);
+          this.dialog.closeAll()
+        } else if (res.flag == 2) {
+          this.toastr.error(res.responseMessage);
+          this.dialog.closeAll()
+          this.transaction = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.transaction);
+        }
+      })
+    }
+
+    else {
+      this.service.MaintenanceAllTransactions(event.pageSize, event.pageIndex).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.transaction = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.transaction);
+        } else if (res.flag == 2) {
+          this.transaction = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.transaction);
+        }
+      });
+    }
+  }
+
 }
