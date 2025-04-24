@@ -40,12 +40,12 @@
     </div>
    
     <div class="col-2">
-        <label><b>{{"From Date"}}:</b></label>
+        <label><b>From Date</b></label>
         <input class="form-control" type="date" name="FromDate" [(ngModel)]="FromDateRange" (change)="checkDate()" [max]="maxDate"
             style="height:35px;width:150px;border-radius: 5px;">
     </div>
     <div class="col-2">
-        <label><b>{{"To Date" }}:</b></label>
+        <label><b>To Date</b></label>
         <input class="form-control" type="date" name="ToDate" [(ngModel)]="ToDateRange" 
         [min]="FromDateRange" [max]="maxDate"
             style="height:35px;width:150px;border-radius: 5px;">
@@ -53,12 +53,12 @@
 
     <div class="col-1 mt-4">
         <button style="color:white;background-color: #141E46;border-radius: 10px; font-size: 12px;" mat-raised-button
-            (click)="filterdate()">{{"Search"}}</button>
+            (click)="filterdate()">Filter</button>
     </div>
 
     <div class="col-2 mt-4">
         <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button
-            (click)="reset()">{{"Reset" }}</button>
+            (click)="reset()">Reset</button>
     </div>
 
 </div>

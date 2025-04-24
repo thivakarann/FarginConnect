@@ -28,7 +28,7 @@ export class MaintenanceotherpayViewComponent {
   date1: any;
   details: any;
   payid: any;
-
+ 
   constructor(private location: Location, private service: FarginServiceService, private toastr: ToastrService, private router: Router, private activaterouter: ActivatedRoute,) { }
 
   ngOnInit(): void {
@@ -55,6 +55,7 @@ export class MaintenanceotherpayViewComponent {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.searchPerformed = filterValue.length > 0;
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
@@ -62,7 +63,20 @@ export class MaintenanceotherpayViewComponent {
 
 
   reload() {
-    window.location.reload()
+    this.service.OtherPaymentsView(this.payid).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.details = res.response;
+        this.dataSource = new MatTableDataSource(this.details)
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+      else if (res.flag == 2) {
+        this.dataSource = new MatTableDataSource([]);
+        this.dataSource = new MatTableDataSource(this.details);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+    })
   }
 
   close(){

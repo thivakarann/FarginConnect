@@ -132,9 +132,9 @@ mat-card-content tr:nth-child(odd) {
   color: white;
 }
 
-/* .mat-mdc-table .mdc-data-table__row {
-  height: 0px;
-} */
+.mat-mdc-table .mdc-data-table__row {
+  height:45px;
+}
 
 
 
@@ -256,4 +256,10 @@ mat-card-content tr:nth-child(odd) {
   visibility: visible;
   transform: scale(1);
   transition: 0s;
+}
+.example-container {
+  max-height: 300px;
+  height: 100%;
+  overflow: auto;
+  scrollbar-width: auto;
 }

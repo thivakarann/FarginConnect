@@ -501,10 +501,15 @@ export class ServicePaymentsViewallComponent {
     this.dialog.open(ServicePaymentViewComponent, {
       enterAnimationDuration: "1000ms",
       exitAnimationDuration: "1000ms",
+   
       disableClose: true,
+      
+     
       data: {
         value: id,
-      }
+      },
+      maxHeight: '600px',
+
     })
   } 
 

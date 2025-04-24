@@ -35,9 +35,9 @@
             </div>
             &nbsp;&nbsp;&nbsp;
 
-            <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
+            <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button
                 (click)="AddBankDetails()" [hidden]="valuefarginadd!=='Fargin bank-Add'">Create</button>
-            <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
+            <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button
                 [hidden]="valuefarginexport!=='Fargin bank-Export'" (click)="exportexcel()">Export</button>
         </div>
 
@@ -141,7 +141,7 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
             <tr *matNoDataRow>
-                <td class="mat-cell" colspan="4">No Data For {{input.value}}</td>
+                <td class="mat-cell" colspan="4">No Data</td>
 
             </tr>
         </table>

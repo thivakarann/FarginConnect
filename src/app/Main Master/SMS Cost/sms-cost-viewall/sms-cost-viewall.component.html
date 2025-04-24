@@ -30,7 +30,7 @@
  
             </div>&nbsp;&nbsp;&nbsp;
  
-            <button  style="color:white;background-color: #141E46;border-radius: 10px;" class="custom-btn btn-10 me-3"
+            <button  style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" class="custom-btn btn-10 me-3"
                 data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button (click)="Addsms()"
                 [hidden]="valuesmsadd!=='SMS Cost-Add'">Create</button>
 
@@ -111,8 +111,8 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
                 <tr *matNoDataRow>
-                    <td class="mat-cell" colspan="4">No Data For
-                        {{input.value}}
+                    <td class="mat-cell" colspan="4">No Data
+                        
                     </td>
      
                 </tr>

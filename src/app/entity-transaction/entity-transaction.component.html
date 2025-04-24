@@ -227,7 +227,7 @@
             class="btn btn-success btn-sm"
             [disabled]="viewall?.paymentStatus != 'Success'"
             style="border: none"
-            (click)="Receipt(viewall.customerTransactionId)"
+            (click)="Receipt(viewall.customerPayId)"
           >
             <i class="fa-solid fa-download" style="color: #fff"></i>
           </button>
@@ -248,7 +248,7 @@
           [hidden]="valuetransactionview !== 'Entity View Online-View'"
         >
           <i
-            (click)="transactionview(data?.customerTransactionId)"
+            (click)="transactionview(data?.customerPayId)"
             class="fas fa-eye"
             style="font-size: 16px; color: rgb(39, 39, 95)"
           ></i>
