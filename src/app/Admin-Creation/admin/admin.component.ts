@@ -57,6 +57,7 @@ export class AdminComponent implements OnInit {
   accountStatus: any;
   adminUserId: any;
   unblockvalue: any;
+  searchPerformed: boolean=false;
 
 
   constructor(private service: FarginServiceService, private toastr: ToastrService, private router: Router) { }
@@ -73,8 +74,11 @@ export class AdminComponent implements OnInit {
 
       }
       else {
-        this.errorMsg = res.responseMessage;
-        this.showcategoryData = true;
+        this.data = [];
+
+        this.dataSource = new MatTableDataSource(this.data.reverse());
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       }
     });
   }
@@ -106,8 +110,11 @@ export class AdminComponent implements OnInit {
 
       }
       else {
-        this.errorMsg = res.responseMessage;
-        this.showcategoryData = true;
+        this.data = [];
+
+        this.dataSource = new MatTableDataSource(this.data.reverse());
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       }
     });
   }
@@ -161,8 +168,11 @@ export class AdminComponent implements OnInit {
       
             }
             else {
-              this.errorMsg = res.responseMessage;
-              this.showcategoryData = true;
+              this.data = [];
+      
+              this.dataSource = new MatTableDataSource(this.data.reverse());
+              this.dataSource.sort = this.sort;
+              this.dataSource.paginator = this.paginator;
             }
           });
         }, 500);
@@ -332,7 +342,7 @@ export class AdminComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
+    this.searchPerformed = filterValue.length > 0;
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }

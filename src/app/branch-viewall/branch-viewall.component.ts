@@ -66,7 +66,16 @@ export class BranchViewallComponent {
   totalPages: any;
   totalpage: any;
   currentpage: any;
-  constructor(private service: FarginServiceService, private dialog: MatDialog, private ActivateRoute: ActivatedRoute, private router: Router,private toastr:ToastrService) { }
+  currentfilvalShow: boolean = false;
+  transactionValue: any;
+  setupboxhistory: any;
+  constructor(
+    private service: FarginServiceService,
+    private dialog: MatDialog,
+    private ActivateRoute: ActivatedRoute,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
 
@@ -103,29 +112,23 @@ export class BranchViewallComponent {
       }
     });
 
-
-    this.service.BranchIndividualView(this.pageSize,this.pageIndex).subscribe((res: any) => {
+    this.service
+    .BranchIndividualView(this.pageSize, this.pageIndex)
+    .subscribe((res: any) => {
       if (res.flag == 1) {
         this.branchview = res.response;
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.branchview);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.filter=false;
-      }
-      else if (res.flag === 2) {
+        this.currentfilvalShow = false;
+      } else if (res.flag == 2) {
         this.branchview = [];
-        this.dataSource = new MatTableDataSource(this.branchview);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.filter=false;
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-        this.filter=false;
- 
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.branchview);
+        this.currentfilvalShow = false;
       }
     });
 
@@ -135,30 +138,24 @@ export class BranchViewallComponent {
   }
 
   reload() {
-  
-    this.service.BranchIndividualView(this.pageSize,this.pageIndex).subscribe((res: any) => {
+    this.service
+    .BranchIndividualView(this.pageSize, this.pageIndex)
+    .subscribe((res: any) => {
       if (res.flag == 1) {
         this.branchview = res.response;
-        // this.branchview.reverse();
+
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.branchview);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.filter=false;
-      }
-      else if (res.flag === 2) {
+        this.currentfilvalShow = false;
+      } else if (res.flag == 2) {
         this.branchview = [];
-        this.dataSource = new MatTableDataSource(this.branchview);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.filter=false;
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-        this.filter=false;
- 
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.branchview);
+        this.currentfilvalShow = false;
       }
     });
 
@@ -176,10 +173,10 @@ export class BranchViewallComponent {
 
   viewbranch(id: any) {
     this.dialog.open(BranchIndividualviewComponent, {
-      enterAnimationDuration: "500ms",
-      exitAnimationDuration: "1000ms",
-      data: { value: id }
-    })
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '1000ms',
+      data: { value: id },
+    });
   }
 
   Viewcustomer(id: any) {
@@ -333,62 +330,77 @@ export class BranchViewallComponent {
  
 
     if (filterValue) {
-    this.service.BranchViewallSearch(filterValue,this.pageSize1,this.pageIndex1).subscribe({
-      next: (res: any) => {
-        if (res.response) {
+      this.service
+      .BranchViewallSearch(filterValue, this.pageSize, this.pageIndex)
+      .subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.branchview = res.response;
+            this.branchview.reverse();
+
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.branchview);
+            this.currentfilvalShow = true;
+          } else if (res.flag == 2) {
+            this.branchview = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.branchview);
+            this.currentfilvalShow = true;
+          }
+        },
+      });
+    } else if (!filterValue) {
+      this.toastr.error('Please enter a value to search');
+      return;
+    }
+  }
+
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      this.service
+      .BranchViewallSearch(this.currentfilval, event.pageSize, event.pageIndex)
+      .subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.branchview = res.response;
+            this.branchview.reverse();
+
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.branchview);
+          } else if (res.flag == 2) {
+            this.branchview = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.branchview);
+          }
+        },
+      });
+    } else {
+      this.service
+      .BranchIndividualView(event.pageSize, event.pageIndex)
+      .subscribe((res: any) => {
+        if (res.flag == 1) {
           this.branchview = res.response;
-          this.branchview.reverse();
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.branchview);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-          this.totalPages1 = res.pagination.totalElements;
-          this.totalpage1 = res.pagination.totalPages;
-          this.currentpage1 = res.pagination.currentPage + 1;
-          this.filter=true
-
-        }
-        else if (res.flag === 2) {
+        } else if (res.flag == 2) {
           this.branchview = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.branchview);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-          this.totalPages1 = res.pagination.totalElements;
-          this.totalpage1 = res.pagination.totalPages;
-          this.currentpage1 = res.pagination.currentPage + 1;
-          this.filter=true
         }
-      },
-   
-    });
+      });
+    }
   }
-  else if(!filterValue) {
-    this.toastr.error('Please enter a value to search');
-    return;
-  }
-  }
-  renderPage1(event: PageEvent) {
-    // Capture the new page index and page size from the event
-    this.pageIndex1 = event.pageIndex;  // Update current page index
-    this.pageSize1 = event.pageSize;           // Update page size (if changed)
- 
-    // Log the new page index and page size to the console (for debugging)
-    console.log('New Page Index:', this.pageIndex1);
-    console.log('New Page Size:', this.pageSize1);
- 
-    // You can now fetch or display the data for the new page index
-    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
-    this.branchviewall(this.currentfilval);
-  }
- 
-  changePageIndex1(newPageIndex1: number) {
-    this.pageIndex1 = newPageIndex1;
-    this.renderPage1({
-      pageIndex: newPageIndex1,
-      pageSize: this.pageSize1,
-      // length: this.totalItems
-    } as PageEvent);
-  }
-
-
 }
 

@@ -133,7 +133,7 @@ mat-card {
   }
   
   .mat-mdc-table .mdc-data-table__row {
-    height: 0px;
+    height: 45px;
   }
   
   

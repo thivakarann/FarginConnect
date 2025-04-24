@@ -52,6 +52,7 @@ export class ViewPolicyComponent implements OnInit {
   roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   valuetermViews: any;
+searchPerformed: boolean=false;
 
   constructor(private service: FarginServiceService, private router: Router, private dialog: MatDialog) { }
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -110,14 +111,23 @@ export class ViewPolicyComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
+    this.searchPerformed = filterValue.length > 0;
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
 
   reload(){
-    window.location.reload()
+    this.service.viewfarginPolicy().subscribe((res: any) => {
+      if(res.flag==1){
+        this.policyvalue = res.response;
+        this.dataSource = new MatTableDataSource(this.policyvalue.reverse());
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.hidecreate = true;
+      }
+
+    })
   }
 
 

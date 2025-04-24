@@ -84,6 +84,8 @@ export class RefundGetallComponent {
   filters: boolean = false;
   transaction: any;
   maxDate: any;
+  currentfilvalShow: boolean=false;
+  transactionValue: any;
 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private router: Router) { }
 
@@ -119,32 +121,20 @@ export class RefundGetallComponent {
     this.service.RefundGetAll(this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.refund = res.response;
-
-        this.dataSource = new MatTableDataSource(this.refund);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-        this.filter = true;
-        this.filter1 = false;
-        this.filters = false;
-
-      }
-
-      else if (res.flag == 2) {
-        this.dataSource = new MatTableDataSource([]);
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.refund);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        this.currentfilvalShow=false;
+     
+      } else if (res.flag == 2) {
+        this.refund = [];
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-        this.filter = true;
-        this.filter1 = false;
-        this.filters = false;
-
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.refund);
+        this.currentfilvalShow=false;
+     
       }
     });
 
@@ -168,87 +158,48 @@ export class RefundGetallComponent {
     this.service.RefundGetAll(this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.refund = res.response;
-
-        this.dataSource = new MatTableDataSource(this.refund);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-        this.filter = true;
-        this.filter1 = false;
-        this.filters = false;
-
-      }
-
-      else if (res.flag == 2) {
-        this.dataSource = new MatTableDataSource([]);
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.refund);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        this.currentfilvalShow=false;
+     
+      } else if (res.flag == 2) {
+        this.refund = [];
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-        this.filter = true;
-        this.filter1 = false;
-        this.filters = false;
-
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.refund);
+        this.currentfilvalShow=false;
+     
       }
     });
   }
 
-
-
-
-
-  view(id: any) {
-
-  }
-
-  // invoice(id: any) {
-  //   this.service.renewalinvoices(id).subscribe({
-  //     next: (res: any) => {
-  //       var downloadURL = URL.createObjectURL(res);
-  //       window.open(downloadURL);
-  //     },
-
-  //   });
-  // }
   refundsearch(filterValue: string) {
     if (!filterValue) {
       this.toastr.error('Please enter a value to search');
       return;
     }
 
-    this.service.RefundGetAllSearch(filterValue, this.pageSize1, this.pageIndex1).subscribe({
+    this.service.RefundGetAllSearch(filterValue, this.pageSize, this.pageIndex).subscribe({
       next: (res: any) => {
         if (res.response) {
           this.refund = res.response;
-          // this.transaction.reverse();
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.refund);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-          this.totalPages1 = res.pagination.totalElements;
-          this.totalpage1 = res.pagination.totalPages;
-          this.currentpage1 = res.pagination.currentPage + 1;
-          this.filter = false;
-          this.filter1 = true;
-          this.filters = false;
-
-
-        }
-        else if (res.flag === 2) {
+          this.currentfilvalShow=true;
+       
+        } else if (res.flag == 2) {
           this.refund = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.refund);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-          this.totalPages1 = res.pagination.totalElements;
-          this.totalpage1 = res.pagination.totalPages;
-          this.currentpage1 = res.pagination.currentPage + 1;
-          this.filter = false;
-          this.filter1 = true;
-          this.filters = false;
+          this.currentfilvalShow=true;
+       
         }
       },
       error: (err: any) => {
@@ -257,49 +208,6 @@ export class RefundGetallComponent {
     });
   }
 
-  renderPage1(event: PageEvent) {
-    // Capture the new page index and page size from the event
-    this.pageIndex1 = event.pageIndex;  // Update current page index
-    this.pageSize1 = event.pageSize;           // Update page size (if changed)
-
-    // Log the new page index and page size to the console (for debugging)
-    console.log('New Page Index:', this.pageIndex1);
-    console.log('New Page Size:', this.pageSize1);
-
-    // You can now fetch or display the data for the new page index
-    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
-    this.refundsearch(this.currentfilval);
-  }
-
-  changePageIndex1(newPageIndex1: number) {
-    this.pageIndex1 = newPageIndex1;
-    this.renderPage1({
-      pageIndex: newPageIndex1,
-      pageSize: this.pageSize1,
-      // length: this.totalItems
-    } as PageEvent);
-  }
-  renderPage(event: PageEvent) {
-    // Capture the new page index and page size from the event
-    this.pageIndex = event.pageIndex;  // Update current page index
-    this.pageSize = event.pageSize;           // Update page size (if changed)
-
-    // Log the new page index and page size to the console (for debugging)
-    console.log('New Page Index:', this.pageIndex);
-    console.log('New Page Size:', this.pageSize);
-
-    // You can now fetch or display the data for the new page index
-    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
-    this.ngOnInit()
-  }
-  changePageIndex(newPageIndex: number) {
-    this.pageIndex = newPageIndex;
-    this.renderPage({
-      pageIndex: newPageIndex,
-      pageSize: this.pageSize,
-      // length: this.totalItems
-    } as PageEvent);
-  }
   exportexcel() {
     this.service.RefundExport().subscribe((res: any) => {
       this.refundexport = res.response;
@@ -410,44 +318,24 @@ export class RefundGetallComponent {
   }
 
   filterdate() {
-    // const datepipe: DatePipe = new DatePipe("en-US");
-    // let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY HH:mm");
-    // let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/YYYY HH:mm");
-    // this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
-    // this.currentPage = 1;
-
-    this.service.RefundGetAllDateFilter(this.FromDateRange, this.ToDateRange, this.pageSize2, this.pageIndex2).subscribe((res: any) => {
+    this.service.RefundGetAllDateFilter(this.FromDateRange, this.ToDateRange, this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
 
         this.transaction = res.response;
-
-
-        this.totalPages2 = res.pagination.totalElements;
-        this.totalpage2 = res.pagination.totalPages;
-        this.currentpage2 = res.pagination.currentPage + 1;
-
-
-
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.transaction);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.filter = false;
-        this.filter1 = false;
-        this.filters = true;
-      }
-      else if (res.flag == 2) {
+       
+     
+      } else if (res.flag == 2) {
         this.transaction = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.transaction);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.totalPages2 = res.pagination.totalElements;
-        this.totalpage2 = res.pagination.totalPages;
-        this.currentpage2 = res.pagination.currentPage + 1;
-
-
-        this.filter = false;
-        this.filter1 = false;
-        this.filters = true;
+     
+     
       }
     })
   }
@@ -455,59 +343,99 @@ export class RefundGetallComponent {
     this.service.RefundGetAll(this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.refund = res.response;
-
-        this.dataSource = new MatTableDataSource(this.refund);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-        this.filter = true;
-        this.filter1 = false;
-        this.filters = false;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.refund);
+        this.currentfilvalShow=false;
         this.FromDateRange='';
         this.ToDateRange='';
-
-      }
-
-      else if (res.flag == 2) {
-        this.dataSource = new MatTableDataSource([]);
-        this.dataSource = new MatTableDataSource(this.refund);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+     
+      } else if (res.flag == 2) {
+        this.refund = [];
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-        this.filter = true;
-        this.filter1 = false;
-        this.filters = false;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.refund);
+        this.currentfilvalShow=false;
         this.FromDateRange='';
         this.ToDateRange='';
-
+     
       }
+    
     });
   }
-  renderPage2(event: PageEvent) {
-    // Capture the new page index and page size from the event
-    this.pageIndex2 = event.pageIndex;  // Update current page index
-    this.pageSize2 = event.pageSize;           // Update page size (if changed)
+  
 
-    // Log the new page index and page size to the console (for debugging)
-    console.log('New Page Index:', this.pageIndex1);
-    console.log('New Page Size:', this.pageSize1);
-
-    // You can now fetch or display the data for the new page index
-    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
-    this.filterdate();
-  }
-
-  changePageIndex2(newPageIndex1: number) {
-    this.pageIndex2 = newPageIndex1;
-    this.renderPage2({
-      pageIndex: newPageIndex1,
-      pageSize: this.pageSize2,
-      // length: this.totalItems
-    } as PageEvent);
+  getData(event: any) {
+    if (this.FromDateRange && this.ToDateRange) {
+      this.service.RefundGetAllDateFilter(this.FromDateRange, this.ToDateRange, event.pageSize, event.pageIndex).subscribe((res: any) => {
+        if (res.flag == 1) {
+  
+          this.transaction = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.transaction);
+         
+       
+        } else if (res.flag == 2) {
+          this.transaction = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.transaction);
+       
+       
+        }
+  
+      })
+    } else if (this.currentfilvalShow) {
+      this.service.RefundGetAllSearch(this.currentfilval, event.pageSize, event.pageIndex).subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.refund = res.response;
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.refund);
+        
+         
+          } else if (res.flag == 2) {
+            this.refund = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.refund);
+        
+         
+          }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
+        }
+      });
+    } else {
+      this.service.RefundGetAll(event.pageSize, event.pageIndex).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.refund = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.refund);
+         
+       
+        } else if (res.flag == 2) {
+          this.refund = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.refund);
+         
+       
+        }
+      
+      });
+    }
   }
 }

@@ -195,3 +195,14 @@ mat-card-content tr:nth-child(odd) {
   -ms-touch-action: manipulation;
   touch-action: manipulation;
 }
+.example-container {
+  max-height: 290px;
+
+  height: 100%;
+  overflow: auto;
+  scrollbar-width: auto;
+}
+
+table {
+  width: 100%;
+}

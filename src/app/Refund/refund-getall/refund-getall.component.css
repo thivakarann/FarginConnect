@@ -133,9 +133,21 @@ mat-card {
   }
   
   .mat-mdc-table .mdc-data-table__row {
-    height: 0px;
+    height: 45px;
   }
   
+
+  .example-container {
+    max-height: 278px;
+    height: 100%;
+    overflow: auto;
+    scrollbar-width: auto;
+  }
+   
+  table {
+    width: 100%;
+  }
+   
   
   
   .form {
@@ -285,16 +297,6 @@ mat-card {
     /* White icon color when active */
   }
   
-  .example-container {
-    max-height: 290px;
-    height: 100%;
-    overflow: auto;
-    scrollbar-width: auto;
-  }
-  
-  table {
-    width: 100%;
-  }
 
   
 button.buttonDownload:disabled {

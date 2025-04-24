@@ -2,7 +2,7 @@
 
 <mat-card-header>
     <div class="row ">
-        <div class="col-2" style="margin-top:28px;">
+        <div class="col-2" style="margin-top:22px;">
             <div class="search ">
                 <form class="form">
                     <label for="search">
@@ -28,11 +28,11 @@
 
         </div>&nbsp;&nbsp;&nbsp;&nbsp;
 
-        <div class="col ml-5" style="margin-top:25px;">
+        <div class="col ml-5" style="margin-top:22px; font-size: 12px;">
             <button (click)="smshistory(currentfilVal)" style="color:white;background-color: #141E46;border-radius: 10px;"
                 mat-raised-button>Go</button>
           
-            <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
+            <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button
                 (click)=" exportexcel()" [hidden]="valuesmshistoryexport!=='SMS History-Export'">Export</button>
         </div>
 
@@ -48,12 +48,12 @@
         </div>
 
         <div class="col-1 mt-4">
-            <button class="buttonDownload"  [disabled]="FromDateRange == '' || ToDateRange ==''"  mat-raised-button
+            <button class="buttonDownload" style="font-size: 12px;" [disabled]="FromDateRange == '' || ToDateRange ==''"  mat-raised-button
                 (click)="filterdate()">Filter</button>
         </div>
 
         <div class="col-2 mt-4">
-            <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
+            <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button
                 (click)="reset()">Reset</button>
         </div>
 
@@ -61,8 +61,7 @@
 </mat-card-header>
 <!-- <mat-card> -->
 <mat-card-content>
-    <div class="example-container
-    mt-4">
+    <div class="example-container text-nowrap mt-2" style="overflow-x: scroll; scrollbar-width: thin;">
 
         <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8"
             *ngIf="!showcategoryData">
@@ -146,50 +145,17 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
             <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
             <tr *matNoDataRow>
-                <td class="mat-cell" colspan="4">No Data Found
-                    {{input.value}}
+                <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data For{{input.value}}</td>
+                <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">No Data
                 </td>
             </tr>
         </table>
     </div>
 </mat-card-content>
 <mat-card-footer>
-    <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="filter">
-        <div class="col-md-6"></div>
-        <div class="col-md-6">
-            <button style="color:white;background-color: #141E46;">Total Entries:{{this.totalPages}}</button>
-            <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex - 1)"
-                [hidden]="pageIndex === 0">Previous</button>
-            <button style="color:white;background-color: #141E46;">{{ this.currentpage}} of {{this.totalpage}}
-                Pages</button>
-            <button style="color:white;background-color: #141E46;" (click)="changePageIndex(pageIndex + 1)"
-                [hidden]="pageIndex >= totalpage - 1">Next</button>
-        </div>
  
-    </div>
- 
-    <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="filter1">
-        <div class="col-md-6"></div>
-        <div class="col-md-6">
-            <button style="color:white;background-color: #141E46;">Total Entries:{{this.totalPages1}}</button>
-            <button style="color:white;background-color: #141E46;" (click)="changePageIndex1(pageIndex1 - 1)"
-                [hidden]="pageIndex1 === 0">Previous</button>
-            <button style="color:white;background-color: #141E46;">{{this.currentpage1}} of {{this.totalpage1}}
-                Pages</button>
-            <button style="color:white;background-color: #141E46;" (click)="changePageIndex1(pageIndex1 + 1)"
-                [hidden]="pageIndex1 >= totalpage1 - 1">Next</button>
-        </div>
-    </div>
-    <div class=" row d-flex justify-content-end mt-3 mx-2" *ngIf="filters">
-        <div class="col-md-6"></div>
-        <div class="col-md-6">
-            <button style="color:white;background-color: #141E46;">Total Entries:{{this.totalPages2}}</button>
-            <button style="color:white;background-color: #141E46;" (click)="changePageIndex2(pageIndex2 - 1)"
-                [hidden]="pageIndex2 === 0">Previous</button>
-            <button style="color:white;background-color: #141E46;">{{this.currentpage2}} of {{this.totalpage2}}
-                Pages</button>
-            <button style="color:white;background-color: #141E46;" (click)="changePageIndex2(pageIndex2 + 1)"
-                [hidden]="pageIndex2 >= totalpage2 - 1">Next</button>
-        </div>
-    </div>
-</mat-card-footer>
+    <mat-paginator (page)="getData($event)" [length]="totalPages" [pageIndex]="currentpage" [pageSize]="totalpage"
+    [pageSizeOptions]="[5, 10, 50, 100, 200,300,500]" aria-label="Select page">
+  </mat-paginator>
+   
+  </mat-card-footer>

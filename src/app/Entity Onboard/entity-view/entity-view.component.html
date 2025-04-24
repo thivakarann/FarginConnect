@@ -900,7 +900,7 @@
         <div class="col-md-1 mt-1">
           <button
             (click)="Entitybanksearch(id, input.value)"
-            style="color: white; background-color: #141e46; border-radius: 10px"
+            style="color: white; background-color: #141e46; border-radius: 10px;font-size:12px"
             mat-raised-button
           >
             Go
@@ -910,7 +910,7 @@
           <button
             (click)="addbank(this.id)"
             [hidden]="valuebankadd !== 'Bank-Add'"
-            style="color: white; background-color: #141e46; border-radius: 10px"
+            style="color: white; background-color: #141e46; border-radius: 10px;font-size:12px"
             mat-raised-button
           >
             Add Bank
@@ -918,7 +918,7 @@
         </div>
       </div>
     </mat-card-header>
-    <div class="row mt-4">
+    <div class="row mt-3">
       <div class="col-12 mb-3 mb-lg-5">
         <div class="card table-nowrap table-card">
           <div class="table-responsive text-nowrap text-center">
@@ -1152,13 +1152,13 @@
         [hidden]="valuekycadd !== 'Entity View KYC Document-add'"
         [hidden]="KYCDetails.length > 0"
         (click)="addKycdocuments(this.id)"
-        style="color: white; background-color: #141e46; border-radius: 10px"
+        style="color: white; background-color: #141e46; border-radius: 10px;font-size:12px"
         mat-raised-button
       >
         Add KYC
       </button>
     </mat-card-header>
-    <div class="row mt-4">
+    <div class="row mt-3">
       <div class="col-12 mb-3 mb-lg-5">
         <div class="card table-nowrap table-card">
           <div class="table-responsive text-nowrap text-center">
@@ -1807,7 +1807,7 @@
             [hidden]="
               valuebussinessAdd !== 'Entity View Bussiness Document-Add'
             "
-            style="color: white; background-color: #141e46; border-radius: 10px"
+            style="color: white; background-color: #141e46; border-radius: 10px;font-size:12px"
             mat-raised-button
           >
             Add Document
@@ -1815,7 +1815,7 @@
         </div>
       </div>
     </mat-card-header>
-    <div class="row mt-4">
+    <div class="row mt-3">
       <div class="col-12 mb-3 mb-lg-5">
         <div class="card table-nowrap table-card">
           <div class="table-responsive text-nowrap text-center">
@@ -2126,6 +2126,7 @@
             color: white;
             background-color: #141e46;
             border-radius: 10px;
+            font-size:12px;
             width: 120%;
           "
           mat-raised-button
@@ -2135,7 +2136,7 @@
       </div>
     </div>
   </mat-card-header>
-  <div class="row mt-4">
+  <div class="row mt-3">
     <div class="col-12 mb-3 mb-lg-5">
       <div class="card table-nowrap table-card">
         <div class="table-responsive text-nowrap text-center">
@@ -2336,7 +2337,7 @@
       <div class="col-md-2 mt-1" [hidden]="detaislone?.onBoardStatus != 'true'">
         <button
           (click)="otherPayement()"
-          style="color: white; background-color: #141e46; border-radius: 10px"
+          style="color: white; background-color: #141e46; border-radius: 10px;font-size:12px"
           mat-raised-button
           [hidden]="valueCustomizedadd !== 'Entity View Customized Payment-Add'"
         >
@@ -2345,7 +2346,7 @@
       </div>
     </div>
   </mat-card-header>
-  <div class="row mt-4">
+  <div class="row mt-3">
     <div class="col-12 mb-3 mb-lg-5">
       <div class="card table-nowrap table-card">
         <div class="table-responsive text-nowrap text-center">
@@ -2539,7 +2540,7 @@
       <div class="col-md-2 mt-1" [hidden]="detaislone?.onBoardStatus != 'true'">
         <button
           (click)="smscreate()"
-          style="color: white; background-color: #141e46; border-radius: 10px"
+          style="color: white; background-color: #141e46; border-radius: 10px;font-size:12px"
           mat-raised-button
           [hidden]="valuesmsadd !== 'Sms Setting-Add'"
         >
@@ -2563,7 +2564,7 @@
       </div>
     </div>
   </mat-card-header>
-  <div class="row mt-4">
+  <div class="row mt-3">
     <div class="col-12 mb-3 mb-lg-5">
       <div class="card table-nowrap table-card">
         <div class="table-responsive text-nowrap text-center">
@@ -2744,7 +2745,7 @@
         <button
           [disabled]="this.paymentStatus?.toLowerCase() !== 'success'"
           (click)="agreementcreate()"
-          style="color: white; background-color: #141e46; border-radius: 10px"
+          style="color: white; background-color: #141e46; border-radius: 10px;font-size:12px"
           mat-raised-button
           [hidden]="valueagreementcreate !== 'Entity View Agreement-Add'"
         >
@@ -2753,7 +2754,7 @@
       </div>
     </div>
   </mat-card-header>
-  <div class="row mt-4">
+  <div class="row mt-3">
     <div class="col-12 mb-3 mb-lg-5">
       <div class="card table-nowrap table-card">
         <div class="table-responsive text-nowrap text-center">
@@ -3078,7 +3079,7 @@
         <button
           (click)="branchcreate(id)"
           [hidden]="valuebranchcreate !== 'Entity View Branch-Add'"
-          style="color: white; background-color: #141e46; border-radius: 10px"
+          style="color: white; background-color: #141e46; border-radius: 10px;font-size:12px"
           mat-raised-button
         >
           Create
@@ -3086,7 +3087,7 @@
       </div>
     </div>
   </mat-card-header>
-  <div class="row mt-4">
+  <div class="row mt-3">
     <div class="col-12 mb-3 mb-lg-5">
       <div class="card table-nowrap table-card">
         <div class="table-responsive text-nowrap text-center">

@@ -372,6 +372,7 @@ export class FarginServiceService {
   //Tickets
   private readonly ticketsgetexport = 'customerTickets/getall';
   private readonly ticketsget = 'customerTickets/getall/';
+  private readonly ticketssearchcustomers='customerTickets/adminSearch/'
   private readonly customerticketraise = 'customerTickets/updateTicketStatus/'
 
 
@@ -1890,6 +1891,9 @@ export class FarginServiceService {
 
   Ticketscustomer(id: any, id1: any) {
     return this.http.get(`${this.basePath}${this.ticketsget}${id}/${id1}`, this.options)
+  }
+  Ticketssearchcustomer(id: any, id1: any, id2:any) {
+    return this.http.get(`${this.basePath}${this.ticketssearchcustomers}${id}/${id1}/${id2}`, this.options)
   }
   TicketscustomerExport() {
     return this.http.get(`${this.basePath}${this.ticketsgetexport}`, this.options)

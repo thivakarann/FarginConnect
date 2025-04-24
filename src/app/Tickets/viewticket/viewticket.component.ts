@@ -41,6 +41,7 @@ export class ViewticketComponent implements OnInit {
   actions: any;
   errorMessage: any;
   valuestickeredit:any;
+searchPerformed: any;
 
 
   constructor(private router: Router, private service: FarginServiceService, private dialog: MatDialog) { }
@@ -108,6 +109,7 @@ export class ViewticketComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.searchPerformed = filterValue.length > 0;
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }

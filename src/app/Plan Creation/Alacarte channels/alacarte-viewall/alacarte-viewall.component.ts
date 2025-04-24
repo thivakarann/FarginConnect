@@ -72,6 +72,7 @@ export class AlacarteViewallComponent implements OnInit {
   currentfilval: any;
   currentfilvalShow!:boolean
   viewalls: any;
+searchPerformed: boolean=false;
 
   constructor(
     public AllcartViewall: FarginServiceService,

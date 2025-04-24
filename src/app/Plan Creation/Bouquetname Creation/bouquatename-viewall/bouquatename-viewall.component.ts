@@ -50,6 +50,7 @@ export class BouquatenameViewallComponent implements OnInit {
   roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
+searchPerformed: boolean=false;
 
 
   constructor(
@@ -102,26 +103,45 @@ export class BouquatenameViewallComponent implements OnInit {
 
 
     this.boardcasternameviewall.BouquetnameViewall().subscribe((res: any) => {
-      this.viewall = res.response;
-      this.viewall.reverse();
-      this.dataSource = new MatTableDataSource(this.viewall);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
+      if(res.flag==1)
+      {
+        this.viewall = res.response;
+        this.viewall.reverse();
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+      else if(res.flag==2)
+      {
+        this.viewall = [];
+        this.dataSource = new MatTableDataSource(this.viewall.reverse());
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+     
       
     });
-
-   
-
 
   }
 
   reload(){
     this.boardcasternameviewall.BouquetnameViewall().subscribe((res: any) => {
-      this.viewall = res.response;
-      this.viewall.reverse();
-      this.dataSource = new MatTableDataSource(this.viewall);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
+      if(res.flag==1)
+      {
+        this.viewall = res.response;
+        this.viewall.reverse();
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+      else if(res.flag==2)
+      {
+        this.viewall = [];
+        this.dataSource = new MatTableDataSource(this.viewall.reverse());
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+     
       
     });
 
@@ -135,11 +155,22 @@ export class BouquatenameViewallComponent implements OnInit {
     })
     this.dialog.afterAllClosed.subscribe(() => {
       this.boardcasternameviewall.BouquetnameViewall().subscribe((res: any) => {
-        this.viewall = res.response;
-        this.viewall.reverse();
-        this.dataSource = new MatTableDataSource(this.viewall);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        if(res.flag==1)
+        {
+          this.viewall = res.response;
+          this.viewall.reverse();
+          this.dataSource = new MatTableDataSource(this.viewall);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        }
+        else if(res.flag==2)
+        {
+          this.viewall = [];
+          this.dataSource = new MatTableDataSource(this.viewall.reverse());
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        }
+       
         
       });
   
@@ -158,11 +189,22 @@ export class BouquatenameViewallComponent implements OnInit {
     })
     this.dialog.afterAllClosed.subscribe(() => {
       this.boardcasternameviewall.BouquetnameViewall().subscribe((res: any) => {
-        this.viewall = res.response;
-        this.viewall.reverse();
-        this.dataSource = new MatTableDataSource(this.viewall);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        if(res.flag==1)
+        {
+          this.viewall = res.response;
+          this.viewall.reverse();
+          this.dataSource = new MatTableDataSource(this.viewall);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        }
+        else if(res.flag==2)
+        {
+          this.viewall = [];
+          this.dataSource = new MatTableDataSource(this.viewall.reverse());
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        }
+       
         
       });
   
@@ -174,7 +216,7 @@ export class BouquatenameViewallComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
+   this.searchPerformed = filterValue.length > 0;
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
@@ -195,11 +237,22 @@ export class BouquatenameViewallComponent implements OnInit {
         this.toastr.success(res.responseMessage);
         setTimeout(() => {
           this.boardcasternameviewall.BouquetnameViewall().subscribe((res: any) => {
-            this.viewall = res.response;
-            this.viewall.reverse();
-            this.dataSource = new MatTableDataSource(this.viewall);
-            this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator;
+            if(res.flag==1)
+            {
+              this.viewall = res.response;
+              this.viewall.reverse();
+              this.dataSource = new MatTableDataSource(this.viewall);
+              this.dataSource.sort = this.sort;
+              this.dataSource.paginator = this.paginator;
+            }
+            else if(res.flag==2)
+            {
+              this.viewall = [];
+              this.dataSource = new MatTableDataSource(this.viewall.reverse());
+              this.dataSource.sort = this.sort;
+              this.dataSource.paginator = this.paginator;
+            }
+           
             
           });
       

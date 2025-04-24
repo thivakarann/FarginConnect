@@ -44,11 +44,22 @@ export class PaymentlinkViewComponent implements OnInit {
     });
 
     this.service.paymentLinkview(this.id).subscribe((res: any) => {
-        this.paymentValue = res.response;
+      if(res.flag==1)
+      {
+       this.paymentValue = res.response;
         this.dataSource = new MatTableDataSource(this.paymentValue?.reverse())
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       
+      }
+      else if(res.flag==2)
+      {
+        this.paymentValue = [];
+        this.dataSource = new MatTableDataSource(this.paymentValue?.reverse())
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+       
 
     })
 
@@ -86,13 +97,24 @@ export class PaymentlinkViewComponent implements OnInit {
 
   reload() {
     this.service.paymentLinkview(this.id).subscribe((res: any) => {
-      this.paymentValue = res.response;
-      this.dataSource = new MatTableDataSource(this.paymentValue?.reverse())
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-    
+      if(res.flag==1)
+      {
+       this.paymentValue = res.response;
+        this.dataSource = new MatTableDataSource(this.paymentValue?.reverse())
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      
+      }
+      else if(res.flag==2)
+      {
+        this.paymentValue = [];
+        this.dataSource = new MatTableDataSource(this.paymentValue?.reverse())
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+       
 
-  })
+    })
   }
 
 
@@ -117,13 +139,24 @@ export class PaymentlinkViewComponent implements OnInit {
     this.dialog.afterAllClosed.subscribe(()=>{
      
       this.service.paymentLinkview(this.id).subscribe((res: any) => {
-        this.paymentValue = res.response;
-        this.dataSource = new MatTableDataSource(this.paymentValue?.reverse())
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      
-
-    })
+        if(res.flag==1)
+        {
+         this.paymentValue = res.response;
+          this.dataSource = new MatTableDataSource(this.paymentValue?.reverse())
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        
+        }
+        else if(res.flag==2)
+        {
+          this.paymentValue = [];
+          this.dataSource = new MatTableDataSource(this.paymentValue?.reverse())
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        }
+         
+  
+      })
   
     })
 

@@ -13,6 +13,7 @@ import { CustomerTicketapprovalComponent } from '../customer-ticketapproval/cust
 import { CustDescriptionCommentComponent } from '../cust-description-comment/cust-description-comment.component';
 import { CustomerticketImageComponent } from '../customerticket-image/customerticket-image.component';
 import moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-customer-viewall',
@@ -64,9 +65,17 @@ export class CustomerViewallComponent implements OnInit {
   totalPages: any;
   totalpage: any;
   currentpage: any;
-
-
-  constructor(private service: FarginServiceService, private dialog: MatDialog, private ActivateRoute: ActivatedRoute, private router: Router) { }
+  transactionValue: any;
+  currentfilvalShow: boolean = false;
+  currentfilval: any;
+  searchPerformed:boolean=false
+  constructor(
+    private service: FarginServiceService,
+    private dialog: MatDialog,
+    private ActivateRoute: ActivatedRoute,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
 
@@ -78,16 +87,23 @@ export class CustomerViewallComponent implements OnInit {
 
     });
 
-    this.service.Ticketscustomer(this.pageSize, this.pageIndex).subscribe((res: any) => {
+    this.service
+    .Ticketscustomer(this.pageSize, this.pageIndex)
+    .subscribe((res: any) => {
       if (res.flag == 1) {
         this.ticket = res.response;
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.ticket.reverse());
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+        this.currentfilvalShow = false;
+      } else if (res.flag == 2) {
+        this.ticket = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.ticket.reverse());
+        this.currentfilvalShow = false;
       }
     });
 
@@ -129,41 +145,25 @@ export class CustomerViewallComponent implements OnInit {
   }
 
   reload() {
-    this.service.Ticketscustomer(this.pageSize, this.pageIndex).subscribe((res: any) => {
+    this.service
+    .Ticketscustomer(this.pageSize, this.pageIndex)
+    .subscribe((res: any) => {
       if (res.flag == 1) {
         this.ticket = res.response;
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.ticket.reverse());
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+        this.currentfilvalShow = false;
+      } else if (res.flag == 2) {
+        this.ticket = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.ticket.reverse());
+        this.currentfilvalShow = false;
       }
     });
-  }
-
-
-  renderPage(event: PageEvent) {
-    // Capture the new page index and page size from the event
-    this.pageIndex = event.pageIndex;  // Update current page index
-    this.pageSize = event.pageSize;           // Update page size (if changed)
-
-    // Log the new page index and page size to the console (for debugging)
-    console.log('New Page Index:', this.pageIndex);
-    console.log('New Page Size:', this.pageSize);
-
-    // You can now fetch or display the data for the new page index
-    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
-    this.ngOnInit()
-  }
-  changePageIndex(newPageIndex: number) {
-    this.pageIndex = newPageIndex;
-    this.renderPage({
-      pageIndex: newPageIndex,
-      pageSize: this.pageSize,
-      // length: this.totalItems
-    } as PageEvent);
   }
 
   Back(id: any) {
@@ -186,25 +186,30 @@ export class CustomerViewallComponent implements OnInit {
     this.dialog.open(CustomerTicketapprovalComponent, {
       data: { value: id },
       disableClose: true,
-      width: "50%"
-    })
+      width: '50%',
+    });
 
     this.dialog.afterAllClosed.subscribe(() => {
-      this.service.Ticketscustomer(this.pageSize, this.pageIndex).subscribe((res: any) => {
+      this.service
+      .Ticketscustomer(this.pageSize, this.pageIndex)
+      .subscribe((res: any) => {
         if (res.flag == 1) {
           this.ticket = res.response;
           this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.totalPages;
-          this.currentpage = res.pagination.currentPage + 1;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.ticket.reverse());
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+          this.currentfilvalShow = false;
+        } else if (res.flag == 2) {
+          this.ticket = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.ticket.reverse());
+          this.currentfilvalShow = false;
         }
       });
-    }
-      )
-
+    });
   }
 
   viewlogo(id: any) {
@@ -216,9 +221,8 @@ export class CustomerViewallComponent implements OnInit {
       data: {
         value: id,
         // value1: Link
-
-      }
-    })
+      },
+    });
   }
 
   exportexcel() {
@@ -355,7 +359,86 @@ export class CustomerViewallComponent implements OnInit {
     });
   }
 
-
-
+  customerpay(filterValue: string) {
+    if (filterValue) {
+      console.log(filterValue);
+      this.service
+      .Ticketssearchcustomer(filterValue, this.pageSize, this.pageIndex)
+      .subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.transactionValue = res.response;
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.transactionValue);
+            this.currentfilvalShow = true;
+          } else if (res.flag == 2) {
+            this.transactionValue = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.transactionValue);
+            this.currentfilvalShow = true;
+          }
+        },
+        // error: (err: any) => {
+        //   this.toastr.error('No Data Found');
+        // }
+      });
+    } else if (!filterValue) {
+      this.toastr.error('Please enter a value to search');
+      return;
+    }
+  }
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      this.service
+      .Ticketssearchcustomer(
+        this.currentfilval,
+        event.pageSize,
+        event.pageIndex
+      )
+      .subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.transactionValue = res.response;
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.transactionValue);
+            this.currentfilvalShow = true;
+          } else if (res.flag == 2) {
+            this.transactionValue = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.transactionValue);
+            this.currentfilvalShow = true;
+          }
+        },
+        // error: (err: any) => {
+        //   this.toastr.error('No Data Found');
+        // }
+      });
+    } else {
+      this.service
+      .Ticketscustomer(event.pageSize, event.pageIndex)
+      .subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.ticket = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.ticket.reverse());
+        } else if (res.flag == 2) {
+          this.ticket = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.ticket.reverse());
+        }
+      });
+    }
+  }
 }
-

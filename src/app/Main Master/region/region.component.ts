@@ -54,6 +54,7 @@ export class RegionComponent implements OnInit {
   roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
+  searchPerformed: boolean = false;
 
 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
@@ -102,15 +103,24 @@ export class RegionComponent implements OnInit {
       }
     });
 
-
-
     this.service.RegionGet().subscribe((res: any) => {
-      this.region = res.response;
-      this.region.reverse();
-      this.dataSource = new MatTableDataSource(this.region);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-      
+      if (res.flag == 1) {
+        this.region = res.response;
+        this.region.reverse();
+        this.dataSource = new MatTableDataSource(this.region.reverse());
+
+        this.dataSource.sort = this.sort;
+
+        this.dataSource.paginator = this.paginator;
+      } else if (res.flag == 2) {
+        this.region = [];
+
+        this.dataSource = new MatTableDataSource(this.region.reverse());
+
+        this.dataSource.sort = this.sort;
+
+        this.dataSource.paginator = this.paginator;
+      }
     });
  
 
@@ -123,16 +133,26 @@ export class RegionComponent implements OnInit {
       status: this.isChecked ? 1 : 0,
     };
     this.service.RegionStatus(submitModel).subscribe((res: any) => {
-      
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
         this.service.RegionGet().subscribe((res: any) => {
-          this.region = res.response;
-          this.region.reverse();
-          this.dataSource = new MatTableDataSource(this.region);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-          
+          if (res.flag == 1) {
+            this.region = res.response;
+            this.region.reverse();
+            this.dataSource = new MatTableDataSource(this.region.reverse());
+    
+            this.dataSource.sort = this.sort;
+    
+            this.dataSource.paginator = this.paginator;
+          } else if (res.flag == 2) {
+            this.region = [];
+    
+            this.dataSource = new MatTableDataSource(this.region.reverse());
+    
+            this.dataSource.sort = this.sort;
+    
+            this.dataSource.paginator = this.paginator;
+          }
         });
      
       }, 500);
@@ -148,15 +168,25 @@ export class RegionComponent implements OnInit {
     });
     this.dialog.afterAllClosed.subscribe(() => {
       this.service.RegionGet().subscribe((res: any) => {
-        this.region = res.response;
-        this.region.reverse();
-        this.dataSource = new MatTableDataSource(this.region);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        
+        if (res.flag == 1) {
+          this.region = res.response;
+          this.region.reverse();
+          this.dataSource = new MatTableDataSource(this.region.reverse());
+  
+          this.dataSource.sort = this.sort;
+  
+          this.dataSource.paginator = this.paginator;
+        } else if (res.flag == 2) {
+          this.region = [];
+  
+          this.dataSource = new MatTableDataSource(this.region.reverse());
+  
+          this.dataSource.sort = this.sort;
+  
+          this.dataSource.paginator = this.paginator;
+        }
       });
-   
-    })
+    });
   }
 
 
@@ -169,16 +199,25 @@ export class RegionComponent implements OnInit {
     });
     this.dialog.afterAllClosed.subscribe(() => {
       this.service.RegionGet().subscribe((res: any) => {
-        this.region = res.response;
-        this.region.reverse();
-        this.dataSource = new MatTableDataSource(this.region);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        
+        if (res.flag == 1) {
+          this.region = res.response;
+          this.region.reverse();
+          this.dataSource = new MatTableDataSource(this.region.reverse());
+  
+          this.dataSource.sort = this.sort;
+  
+          this.dataSource.paginator = this.paginator;
+        } else if (res.flag == 2) {
+          this.region = [];
+  
+          this.dataSource = new MatTableDataSource(this.region.reverse());
+  
+          this.dataSource.sort = this.sort;
+  
+          this.dataSource.paginator = this.paginator;
+        }
       });
-   
-    })
-
+    });
   }
 
 
@@ -283,18 +322,12 @@ export class RegionComponent implements OnInit {
     });
   }
 
- 
-
- 
-
-  cancel() {
-
-  }
+  cancel() {}
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
+    this.searchPerformed = filterValue.length > 0;
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
@@ -303,42 +336,50 @@ export class RegionComponent implements OnInit {
 
   reload() {
     this.service.RegionGet().subscribe((res: any) => {
-      this.region = res.response;
-      this.region.reverse();
-      this.dataSource = new MatTableDataSource(this.region);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-      
+      if (res.flag == 1) {
+        this.region = res.response;
+        this.region.reverse();
+        this.dataSource = new MatTableDataSource(this.region.reverse());
+
+        this.dataSource.sort = this.sort;
+
+        this.dataSource.paginator = this.paginator;
+      } else if (res.flag == 2) {
+        this.region = [];
+
+        this.dataSource = new MatTableDataSource(this.region.reverse());
+
+        this.dataSource.sort = this.sort;
+
+        this.dataSource.paginator = this.paginator;
+      }
     });
   }
 
   Region(filterValue: string) {
     if (!filterValue) {
-        this.toastr.error('Please enter a value to search');
-        return;
+      this.toastr.error('Please enter a value to search');
+      return;
     }
- 
- 
+
     this.service.Regionsearch(filterValue).subscribe({
       next: (res: any) => {
         if (res.response) {
-          this.region = res.response;  
+          this.region = res.response;
           this.region.reverse();
-          this.dataSource = new MatTableDataSource(this.region);  
+          this.dataSource = new MatTableDataSource(this.region);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
-         
+        } else if (res.flag === 2) {
+          this.region = [];
+          this.dataSource = new MatTableDataSource(this.region);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
         }
-        else if (res.flag === 2) {
-          this.region = [];  
-          this.dataSource = new MatTableDataSource(this.region);  
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-      }
       },
       error: (err: any) => {
         this.toastr.error('No Data Found');
-      }
+      },
     });
 }
 

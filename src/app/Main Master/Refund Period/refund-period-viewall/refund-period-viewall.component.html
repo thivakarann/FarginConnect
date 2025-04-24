@@ -35,9 +35,9 @@
             </div>
             &nbsp;&nbsp;&nbsp;
 
-            <button [hidden]="valueadd!=='Refund Period-Add'" style="color:white;background-color: #141E46;border-radius: 10px;" class="custom-btn btn-10 "
+            <button [hidden]="valueadd!=='Refund Period-Add'" style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" class="custom-btn btn-10 "
                 data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button (click)="Addrefund()">Create</button>
-            <button [hidden]="valueexport!=='Refund Period-Export'" style="color:white;background-color: #141E46;border-radius: 10px;" (click)="exportexcel()"
+            <button [hidden]="valueexport!=='Refund Period-Export'" style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" (click)="exportexcel()"
                 mat-raised-button >Export</button>
  
  
@@ -48,7 +48,7 @@
 <!-- <mat-card> -->
 <mat-card-content>
 
-    <div class="table-responsive text-nowrap mt-4" style="overflow-x: scroll; scrollbar-width: thin;">
+    <div class="example-container text-nowrap mt-3" style="overflow-x: scroll; scrollbar-width: thin;">
 
         <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
@@ -100,14 +100,13 @@
                 </td>
             </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
             <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
             <tr *matNoDataRow>
-                <td class="mat-cell" colspan="4">No Data For
-                    {{input.value}}
+                <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data</td>
+                <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">No Data
                 </td>
-
-            </tr>
+              </tr>
         </table>
 
     </div>

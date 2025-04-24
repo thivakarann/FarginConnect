@@ -64,7 +64,7 @@ mat-card-content tr:nth-child(odd) {
   color: white;
 }
 .mat-mdc-table .mdc-data-table__row {
-  height: 0px;
+  height: 45px;
 }
  
 .form {
@@ -174,3 +174,13 @@ mat-card-content tr:nth-child(odd) {
   transform: scale(1);
   transition: 0s;
 } 
+.example-container {
+  max-height: 277px;
+  height: 100%;
+  overflow: auto;
+  scrollbar-width: auto;
+}
+
+table {
+  width: 100%;
+}

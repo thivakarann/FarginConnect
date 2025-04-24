@@ -43,6 +43,7 @@ export class ViewcategoryComponent implements OnInit {
   roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
+searchPerformed: boolean=false;
 
 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
@@ -98,12 +99,15 @@ export class ViewcategoryComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.businesscategory);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.showcategoryData = false;
+      
 
       }
       else {
-        this.errorMsg = res.responseMessage;
-        this.showcategoryData = true;
+        this.businesscategory = []
+        this.dataSource = new MatTableDataSource(this.businesscategory);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      
       }
     });
 
@@ -119,12 +123,15 @@ export class ViewcategoryComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.businesscategory);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.showcategoryData = false;
+      
 
       }
       else {
-        this.errorMsg = res.responseMessage;
-        this.showcategoryData = true;
+        this.businesscategory = []
+        this.dataSource = new MatTableDataSource(this.businesscategory);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      
       }
     });
   }
@@ -153,12 +160,15 @@ export class ViewcategoryComponent implements OnInit {
             this.dataSource = new MatTableDataSource(this.businesscategory);
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
-            this.showcategoryData = false;
+          
     
           }
           else {
-            this.errorMsg = res.responseMessage;
-            this.showcategoryData = true;
+            this.businesscategory = []
+            this.dataSource = new MatTableDataSource(this.businesscategory);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+          
           }
         });
       }, 500);
@@ -180,12 +190,15 @@ export class ViewcategoryComponent implements OnInit {
           this.dataSource = new MatTableDataSource(this.businesscategory);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
-          this.showcategoryData = false;
+        
   
         }
         else {
-          this.errorMsg = res.responseMessage;
-          this.showcategoryData = true;
+          this.businesscategory = []
+          this.dataSource = new MatTableDataSource(this.businesscategory);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        
         }
       });
   
@@ -208,21 +221,22 @@ export class ViewcategoryComponent implements OnInit {
           this.dataSource = new MatTableDataSource(this.businesscategory);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
-          this.showcategoryData = false;
+        
   
         }
         else {
-          this.errorMsg = res.responseMessage;
-          this.showcategoryData = true;
+          this.businesscategory = []
+          this.dataSource = new MatTableDataSource(this.businesscategory);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        
         }
       });
   
     })
   }
 
-  admin() {
-
-  }
+  
 
    
  exportexcel() {
@@ -345,17 +359,10 @@ excelexportCustomer() {
   });
 }
 
-
-
-
-  cancel() {
-
-  }
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
+    this.searchPerformed = filterValue.length > 0;
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }

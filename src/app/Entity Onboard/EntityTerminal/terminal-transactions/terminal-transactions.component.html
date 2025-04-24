@@ -1,6 +1,7 @@
 <div class="form-header d-flex justify-content-between align-items-center">
     <h4 class="mb-0 text-center" style="color:black;">Transactions</h4>
-    <button (click)="close()"  type="button" class="btn btn-secondary" mat-dialog-close>Back</button>
+
+    <button style="color:white;background-color: #141E46; border-radius: .5rem;font-size: .875rem;padding:5px 5px;" (click)="close()">Back</button>
 </div>
 <div class="row mt-1">
     <div class="col-2" style="margin-top:28px;">
@@ -32,10 +33,10 @@
                 </label>
             </form>
         </div>
-    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <div class="col ml-5" style="margin-top:25px;">
-        <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
-            (click)=" exportexcel()" [hidden]="valuestaticexport!=='Static QR Transactions-Export'"  >Export</button>
+        <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button
+            (click)=" exportexcel()"   >Export</button>
     </div>
    
     <div class="col-2">
@@ -50,19 +51,19 @@
     </div>
 
     <div class="col-1 mt-4">
-        <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
-            (click)="filterdate()">{{"Search"}}</button>
+        <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button
+            (click)="filterdate()">Filter</button>
     </div>
 
     <div class="col-2 mt-4">
-        <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
-            (click)="reset()">{{"Reset" }}</button>
+        <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button
+            (click)="reset()">Reset</button>
     </div>
 
 </div>
 <!-- <mat-card> -->
 <mat-card-content>
-    <div class="example-container text-nowrap mt-2">
+    <div class="example-container text-nowrap mt-3" style="overflow-x: scroll; scrollbar-width: thin;">
         <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
       
             <ng-container matColumnDef="sno">
@@ -165,10 +166,10 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
             <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
             <tr *matNoDataRow>
-                <td class="mat-cell" colspan="0" *ngIf="searchPerformed">{{"No Data For"}} {{input.value}}</td>
-                <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">{{"No Data"}}
-            </td>
-            </tr>
+                <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data</td>
+                <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">No Data
+                </td>
+              </tr>
         </table>
     </div>
 </mat-card-content>

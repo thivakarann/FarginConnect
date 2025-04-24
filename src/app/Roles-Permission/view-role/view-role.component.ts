@@ -40,23 +40,35 @@ export class ViewRoleComponent implements OnInit {
   permissionview: any;
   subpermission: any;
   perValueObject: any;
+  searchPerformed: boolean=false;
 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
   ngOnInit(): void {
 
 
     this.service.viewRoles().subscribe((res: any) => {
-      this.roledata = res.response;
-      this.dataSource = new MatTableDataSource(this.roledata?.reverse())
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      if(res.flag==1)
+      {
+        this.roledata = res.response;
+        this.dataSource = new MatTableDataSource(this.roledata?.reverse())
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+else if(res.flag==2)
+{
+  this.roledata = [];
+  this.dataSource = new MatTableDataSource(this.roledata?.reverse())
+  this.dataSource.paginator = this.paginator;
+  this.dataSource.sort = this.sort;
+}
     });
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
+    this.searchPerformed = filterValue.length > 0;
+ 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
@@ -77,10 +89,20 @@ export class ViewRoleComponent implements OnInit {
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
         this.service.viewRoles().subscribe((res: any) => {
-          this.roledata = res.response;
-          this.dataSource = new MatTableDataSource(this.roledata?.reverse())
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
+          if(res.flag==1)
+          {
+            this.roledata = res.response;
+            this.dataSource = new MatTableDataSource(this.roledata?.reverse())
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+          }
+    else if(res.flag==2)
+    {
+      this.roledata = [];
+      this.dataSource = new MatTableDataSource(this.roledata?.reverse())
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    }
         });
       }, 500);
     });
@@ -128,10 +150,20 @@ export class ViewRoleComponent implements OnInit {
           });
           this.dialog.afterAllClosed.subscribe(() => {
             this.service.viewRoles().subscribe((res: any) => {
-              this.roledata = res.response;
-              this.dataSource = new MatTableDataSource(this.roledata?.reverse())
-              this.dataSource.paginator = this.paginator;
-              this.dataSource.sort = this.sort;
+              if(res.flag==1)
+              {
+                this.roledata = res.response;
+                this.dataSource = new MatTableDataSource(this.roledata?.reverse())
+                this.dataSource.paginator = this.paginator;
+                this.dataSource.sort = this.sort;
+              }
+        else if(res.flag==2)
+        {
+          this.roledata = [];
+          this.dataSource = new MatTableDataSource(this.roledata?.reverse())
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        }
             });
           })
         } else if (res.flag == 2) {
@@ -154,10 +186,20 @@ export class ViewRoleComponent implements OnInit {
     });
     this.dialog.afterAllClosed.subscribe(() => {
       this.service.viewRoles().subscribe((res: any) => {
-        this.roledata = res.response;
-        this.dataSource = new MatTableDataSource(this.roledata?.reverse())
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        if(res.flag==1)
+        {
+          this.roledata = res.response;
+          this.dataSource = new MatTableDataSource(this.roledata?.reverse())
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        }
+  else if(res.flag==2)
+  {
+    this.roledata = [];
+    this.dataSource = new MatTableDataSource(this.roledata?.reverse())
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
       });
     })
 
@@ -166,10 +208,20 @@ export class ViewRoleComponent implements OnInit {
 
   reload() {
     this.service.viewRoles().subscribe((res: any) => {
-      this.roledata = res.response;
-      this.dataSource = new MatTableDataSource(this.roledata?.reverse())
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      if(res.flag==1)
+      {
+        this.roledata = res.response;
+        this.dataSource = new MatTableDataSource(this.roledata?.reverse())
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+else if(res.flag==2)
+{
+  this.roledata = [];
+  this.dataSource = new MatTableDataSource(this.roledata?.reverse())
+  this.dataSource.paginator = this.paginator;
+  this.dataSource.sort = this.sort;
+}
     });
   }
 

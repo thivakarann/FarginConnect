@@ -36,19 +36,20 @@
             </div>
             &nbsp;&nbsp;&nbsp;
 
-            <button style="color:white;background-color: #141E46;border-radius: 10px;" class="custom-btn btn-10 "
+            <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" class="custom-btn btn-10 "
                 data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button (click)="add()"
                 [hidden]="valuePlanAdd!=='Plan Creation-Add'">Create</button>
-            <button style="color:white;background-color: #141E46;border-radius: 10px;" (click)=" exportexcel()"
+            <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" (click)=" exportexcel()"
                 mat-raised-button [hidden]="valuePlanExport!=='Plan Creation-Export'">Export</button>
 
 
         </div>
 
-
+</div>
+</mat-card-header>
         <mat-card-content>
 
-            <div class="table-responsive text-nowrap mt-4" style="overflow-x: scroll; scrollbar-width: thin;">
+            <div class="example-container text-nowrap mt-3" style="overflow-x: scroll; scrollbar-width: thin;">
                 <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
                     <ng-container matColumnDef="boqCreationId">
@@ -115,23 +116,23 @@
                         </td>
                     </ng-container>
 
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
                     <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
                     <tr *matNoDataRow>
-                        <td class="mat-cell" colspan="4">No Data For
-                            {{input.value}}
+                        <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data</td>
+                        <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">No Data
                         </td>
-
-                    </tr>
+                      </tr>
                 </table>
 
             </div>
         </mat-card-content>
-        <mat-card-footer>
+       
+ 
 
-            <mat-paginator [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtons
-                aria-labels="select page of users"></mat-paginator>
+<mat-card-footer>
 
-        </mat-card-footer>
-    </div>
-</mat-card-header>
+    <mat-paginator [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtons
+        aria-labels="select page of users"></mat-paginator>
+
+</mat-card-footer>

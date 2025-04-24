@@ -77,7 +77,7 @@
  }
 
  .mat-mdc-table .mdc-data-table__row {
-   height: 0px;
+   height: 45px;
  }
 
  .form {
@@ -201,7 +201,7 @@
  }
 
  .example-container {
-   max-height: 260px;
+   max-height: 278px;
    height: 100%;
    overflow: auto;
    scrollbar-width: auto;

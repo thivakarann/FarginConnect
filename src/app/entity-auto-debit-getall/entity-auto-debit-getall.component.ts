@@ -62,6 +62,8 @@ export class EntityAutoDebitGetallComponent {
  
   filter: boolean = true;
   currentFilterValue: string = '';
+searchPerformed:boolean=false;
+currentfilvalShow: boolean=false;
 
   constructor(
     public autodebitdetails: FarginServiceService,
@@ -102,17 +104,26 @@ export class EntityAutoDebitGetallComponent {
 
 
     this.autodebitdetails.autodebitgetall(this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if(res.flag==1)
+    {
       this.viewall = res.response;
-      this.totalPages = res.pagination.totalElements;
-      this.totalpage = res.pagination.totalPages;
-      this.currentpage = res.pagination.currentPage + 1;
       this.viewall.reverse();
+      this.totalPages = res.pagination.totalElements;
+      this.totalpage = res.pagination.pageSize;
+      this.currentpage = res.pagination.currentPage;
       this.dataSource = new MatTableDataSource(this.viewall);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-      this.filter=false;
-
-    });
+      this.currentfilvalShow=false;
+    }
+   else if (res.flag == 2) {
+      this.viewall = [];
+      this.totalPages = res.pagination.totalElements;
+      this.totalpage = res.pagination.pageSize;
+      this.currentpage = res.pagination.currentPage;
+      this.dataSource = new MatTableDataSource(this.viewall);
+      this.currentfilvalShow=false;
+   
+    }
+  })
   }
 
   onSliderChange(event: any) {
@@ -134,17 +145,26 @@ export class EntityAutoDebitGetallComponent {
 
   reload() {
     this.autodebitdetails.autodebitgetall(this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if(res.flag==1)
+    {
       this.viewall = res.response;
-      this.totalPages = res.pagination.totalElements;
-      this.totalpage = res.pagination.totalPages;
-      this.currentpage = res.pagination.currentPage + 1;
       this.viewall.reverse();
+      this.totalPages = res.pagination.totalElements;
+      this.totalpage = res.pagination.pageSize;
+      this.currentpage = res.pagination.currentPage;
       this.dataSource = new MatTableDataSource(this.viewall);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-      this.filter=false;
-
-    });
+      this.currentfilvalShow=false;
+    }
+   else if (res.flag == 2) {
+      this.viewall = [];
+      this.totalPages = res.pagination.totalElements;
+      this.totalpage = res.pagination.pageSize;
+      this.currentpage = res.pagination.currentPage;
+      this.dataSource = new MatTableDataSource(this.viewall);
+      this.currentfilvalShow=false;
+   
+    }
+  })
   }
 
   exportexcel() {
@@ -263,53 +283,32 @@ export class EntityAutoDebitGetallComponent {
     });
   }
 
-  renderPage(event: PageEvent) {
-    // Capture the new page index and page size from the event
-    this.pageIndex = event.pageIndex;  // Update current page index
-    this.pageSize = event.pageSize;           // Update page size (if changed)
-
-    // Log the new page index and page size to the console (for debugging)
-    console.log('New Page Index:', this.pageIndex);
-    console.log('New Page Size:', this.pageSize);
-
-    // You can now fetch or display the data for the new page index
-    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
-    this.ngOnInit()
-  }
-  changePageIndex(newPageIndex: number) {
-    this.pageIndex = newPageIndex;
-    this.renderPage({
-      pageIndex: newPageIndex,
-      pageSize: this.pageSize,
-      // length: this.totalItems
-    } as PageEvent);
-  }
   autodebit(filterValue: string) {
     if (!filterValue) {
       this.toastr.error('Please enter a value to search');
       return;
     }
  
-    this.autodebitdetails.Mmcautodebit(filterValue,this.pageSize1,this.pageIndex1).subscribe({
+    this.autodebitdetails.Mmcautodebit(filterValue,this.pageSize,this.pageIndex).subscribe({
       next: (res: any) => {
         if (res.response) {
           this.viewall = res.response;
           // this.viewall.reverse();
-          this.totalPages1 = res.pagination.totalElements;
-          this.totalpage1 = res.pagination.totalPages;
-          this.currentpage1 = res.pagination.currentPage + 1;
-          this.dataSource = new MatTableDataSource(this.viewall);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-          this.filter = true;
-        }
-        else if (res.flag === 2) {
-          this.viewall = [];
-          this.dataSource = new MatTableDataSource(this.viewall);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-          this.filter = false;
-        }
+          this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.currentfilvalShow=true;
+     
+      } else if (res.flag == 2) {
+        this.viewall = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.currentfilvalShow=true;
+     
+      }
       },
       error: (err: any) => {
         this.toastr.error('No Data Found');
@@ -317,28 +316,58 @@ export class EntityAutoDebitGetallComponent {
     });
   }
  
-  renderPage1(event: PageEvent) {
-    // Capture the new page index and page size from the event
-    this.pageIndex1 = event.pageIndex;  // Update current page index
-    this.pageSize1 = event.pageSize;           // Update page size (if changed)
- 
-    // Log the new page index and page size to the console (for debugging)
-    console.log('New Page Index:', this.pageIndex1);
-    console.log('New Page Size:', this.pageSize1);
- 
-    // You can now fetch or display the data for the new page index
-    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
-    this.autodebit(this.currentFilterValue);
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      this.autodebitdetails.Mmcautodebit(this.currentFilterValue,event.pageSize,event.pageIndex).subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.viewall = res.response;
+            // this.viewall.reverse();
+            this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.viewall);
+     
+       
+        } else if (res.flag == 2) {
+          this.viewall = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.viewall);
+       
+       
+        }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
+        }
+      });
+  } else {
+    this.autodebitdetails.autodebitgetall(event.pageSize, event.pageIndex).subscribe((res: any) => {
+      if(res.flag==1)
+    {
+      this.viewall = res.response;
+      this.viewall.reverse();
+      this.totalPages = res.pagination.totalElements;
+      this.totalpage = res.pagination.pageSize;
+      this.currentpage = res.pagination.currentPage;
+      this.dataSource = new MatTableDataSource(this.viewall);
+      this.currentfilvalShow=false;
+    }
+   else if (res.flag == 2) {
+      this.viewall = [];
+      this.totalPages = res.pagination.totalElements;
+      this.totalpage = res.pagination.pageSize;
+      this.currentpage = res.pagination.currentPage;
+      this.dataSource = new MatTableDataSource(this.viewall);
+      this.currentfilvalShow=false;
+   
+    }
+  })
+
+
   }
- 
-  changePageIndex1(newPageIndex1: number) {
-    this.pageIndex1 = newPageIndex1;
-    this.renderPage1({
-      pageIndex: newPageIndex1,
-      pageSize: this.pageSize1,
-      // length: this.totalItems
-    } as PageEvent);
-  }
- 
+}
 
 }

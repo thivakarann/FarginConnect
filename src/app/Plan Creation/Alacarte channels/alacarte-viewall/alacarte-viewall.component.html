@@ -30,15 +30,15 @@
 
             </div>
             &nbsp;
-            <button (click)="Alacarte(currentfilval)" style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button>Go</button>
+            <button (click)="Alacarte(currentfilval)" style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button>Go</button>
           
 
-            <button style="color:white;background-color: #141E46;border-radius: 10px;" class="custom-btn btn-10 "
+            <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" class="custom-btn btn-10 "
                 data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button (click)="add()"
                 [hidden]="valuealcartAdd!=='Channel Creation-Add'">Create</button>
-                <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
+                <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button
                 [hidden]="valuealcartHistory!=='Channel Creation-History'"   (click)="alacartehistory()">History</button>
-            <button style="color:white;background-color: #141E46;border-radius: 10px;" (click)=" exportexcel()"
+            <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" (click)=" exportexcel()"
                 mat-raised-button [hidden]="valuealcartExport!=='Channel Creation-Export'">Export</button>
 
 
@@ -159,11 +159,10 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
             <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
             <tr *matNoDataRow>
-                <td class="mat-cell" colspan="4">No data For
-                    {{input.value}}
+                <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data For{{input.value}}</td>
+                <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">No Data
                 </td>
-
-            </tr>
+              </tr>
         </table>
 
     </div>

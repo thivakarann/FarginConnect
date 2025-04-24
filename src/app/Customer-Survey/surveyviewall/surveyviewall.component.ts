@@ -130,7 +130,23 @@ export class SurveyviewallComponent {
   }
 
   reload() {
-    window.location.reload()
+    this.service.SurveyViewAll(this.pageSize,this.pageIndex).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.survey = res.response;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.survey);
+        this.currentfilvalShow = false;
+      } else if (res.flag == 2) {
+        this.survey = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.survey);
+        this.currentfilvalShow = false;
+        }
+      });
   }
 
   applyFilter(event: Event) {

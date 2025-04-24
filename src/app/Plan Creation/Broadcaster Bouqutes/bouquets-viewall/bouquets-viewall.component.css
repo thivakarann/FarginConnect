@@ -64,7 +64,7 @@
     color: white;
   }
   .mat-mdc-table .mdc-data-table__row {
-    height: 0px;
+    height: 45px;
   }
    
   .form {
@@ -178,4 +178,14 @@
   mat-select{
     width: 320px;
     font-size: 13px;
+  }
+  .example-container {
+    max-height: 278px;
+    height: 100%;
+    overflow: auto;
+    scrollbar-width: auto;
+  }
+  
+  table {
+    width: 100%;
   }

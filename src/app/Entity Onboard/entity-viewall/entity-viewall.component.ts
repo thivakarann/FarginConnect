@@ -96,6 +96,11 @@ export class EntityViewallComponent {
   entitybranch: any;
   valuecloud: any;
   entitybranchtrans: any;
+  currentfilvalShow: boolean = false;
+  service: any;
+  transactionValue: any;
+  setupboxhistory: any;
+searchPerformed: boolean=false;
   constructor(
     public EntityViewall: FarginServiceService,
     private router: Router,
@@ -230,67 +235,50 @@ export class EntityViewallComponent {
       }
     });
 
+    this.EntityViewall.EntityViewall(this.pageSize, this.pageIndex).subscribe(
+      (res: any) => {
+        if (res.flag === 1) {
+          this.viewall = res.response;
 
-    this.EntityViewall.EntityViewall(this.pageSize, this.pageIndex).subscribe((res: any) => {
-      if (res.flag === 1) {
-
-        this.viewall = res.response;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-        // this.viewall.reverse();
-        this.dataSource = new MatTableDataSource(this.viewall);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.filter = false;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.viewall);
+          this.currentfilvalShow = false;
+        } else if (res.flag == 2) {
+          this.viewall = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.viewall);
+          this.currentfilvalShow = false;
+        }
       }
-      else if (res.flag === 2) {
-        this.viewall = [];
-        this.dataSource = new MatTableDataSource(this.viewall);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.filter = false;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-
-      }
-
-    });
-
-
+    );
   }
-
 
   reload() {
-    this.EntityViewall.EntityViewall(this.pageSize, this.pageIndex).subscribe((res: any) => {
-      if (res.flag === 1) {
+    this.EntityViewall.EntityViewall(this.pageSize, this.pageIndex).subscribe(
+      (res: any) => {
+        if (res.flag === 1) {
+          this.viewall = res.response;
 
-        this.viewall = res.response;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-        // this.viewall.reverse();
-        this.dataSource = new MatTableDataSource(this.viewall);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.filter = false;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.viewall);
+          this.currentfilvalShow = false;
+        } else if (res.flag == 2) {
+          this.viewall = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.viewall);
+          this.currentfilvalShow = false;
+        }
       }
-      else if (res.flag === 2) {
-        this.viewall = [];
-        this.dataSource = new MatTableDataSource(this.viewall);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.filter = false;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-
-      }
-
-    });
+    );
   }
-
 
   unblock(id: any) {
     this.EntityViewall.unblockentityAccount(id).subscribe((res: any) => {
@@ -299,55 +287,42 @@ export class EntityViewallComponent {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         setTimeout(() => {
-
-          this.EntityViewall.EntityViewall(this.pageSize, this.pageIndex).subscribe((res: any) => {
+          this.EntityViewall.EntityViewall(
+            this.pageSize,
+            this.pageIndex
+          ).subscribe((res: any) => {
             if (res.flag === 1) {
-
               this.viewall = res.response;
+
               this.totalPages = res.pagination.totalElements;
-              this.totalpage = res.pagination.totalPages;
-              this.currentpage = res.pagination.currentPage + 1;
-              // this.viewall.reverse();
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
               this.dataSource = new MatTableDataSource(this.viewall);
-              this.dataSource.sort = this.sort;
-              this.dataSource.paginator = this.paginator;
-              this.filter = false;
-            }
-            else if (res.flag === 2) {
+              this.currentfilvalShow = false;
+            } else if (res.flag == 2) {
               this.viewall = [];
-              this.dataSource = new MatTableDataSource(this.viewall);
-              this.dataSource.sort = this.sort;
-              this.dataSource.paginator = this.paginator;
-              this.filter = false;
               this.totalPages = res.pagination.totalElements;
-              this.totalpage = res.pagination.totalPages;
-              this.currentpage = res.pagination.currentPage + 1;
-
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.dataSource = new MatTableDataSource(this.viewall);
+              this.currentfilvalShow = false;
             }
-
           });
-
         }, 500);
-      }
-      else {
+      } else {
         this.toastr.error(res.responseMessage);
       }
-    })
-
+    });
   }
-
 
   add() {
     this.router.navigateByUrl('dashboard/entity-add');
   }
 
-
-
   Viewdata(id: any) {
     this.router.navigate([`dashboard/entity-view/${id}`], {
       queryParams: { Alldata: id },
     });
-
   }
 
   applyFilter(event: Event) {
@@ -511,30 +486,26 @@ export class EntityViewallComponent {
 
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
-
-        this.EntityViewall.EntityViewall(this.pageSize, this.pageIndex).subscribe((res: any) => {
+        this.EntityViewall.EntityViewall(
+          this.pageSize,
+          this.pageIndex
+        ).subscribe((res: any) => {
           if (res.flag === 1) {
 
             this.viewall = res.response;
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.totalPages;
-            this.currentpage = res.pagination.currentPage + 1;
-            // this.viewall.reverse();
-            this.dataSource = new MatTableDataSource(this.viewall);
-            this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator;
-            this.filter = false;
-          }
-          else if (res.flag === 2) {
-            this.viewall = [];
-            this.dataSource = new MatTableDataSource(this.viewall);
-            this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator;
-            this.filter = false;
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.totalPages;
-            this.currentpage = res.pagination.currentPage + 1;
 
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.viewall);
+            this.currentfilvalShow = false;
+          } else if (res.flag == 2) {
+            this.viewall = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.viewall);
+            this.currentfilvalShow = false;
           }
 
         });
@@ -542,95 +513,90 @@ export class EntityViewallComponent {
       }, 1000);
     });
   }
-  renderPage(event: PageEvent) {
-    // Capture the new page index and page size from the event
-    this.pageIndex = event.pageIndex;  // Update current page index
-    this.pageSize = event.pageSize;           // Update page size (if changed)
-
-    // Log the new page index and page size to the console (for debugging)
-    console.log('New Page Index:', this.pageIndex);
-    console.log('New Page Size:', this.pageSize);
-
-    // You can now fetch or display the data for the new page index
-    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
-    this.ngOnInit()
-  }
-  changePageIndex(newPageIndex: number) {
-    this.pageIndex = newPageIndex;
-    this.renderPage({
-      pageIndex: newPageIndex,
-      pageSize: this.pageSize,
-      // length: this.totalItems
-    } as PageEvent);
-  }
 
   Entity(filterValue: string) {
     if (filterValue) {
-      this.EntityViewall.EntitySearch(filterValue, this.pageSize1, this.pageIndex1).subscribe({
+      this.EntityViewall.EntitySearch(
+        filterValue,
+        this.pageSize,
+        this.pageIndex
+      ).subscribe({
         next: (res: any) => {
           if (res.response) {
             this.viewall = res.response.content;
             this.viewall.reverse();
-            this.dataSource = new MatTableDataSource(this.viewall);
-            this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator;
-            this.totalPages1 = res.pagination.totalElements;
-            this.totalpage1 = res.pagination.totalPages;
-            this.currentpage1 = res.pagination.currentPage + 1;
-            this.filter = true
 
-          }
-          else if (res.flag === 2) {
-            this.viewall = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
             this.dataSource = new MatTableDataSource(this.viewall);
-            this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator;
-            this.totalPages1 = res.pagination.totalElements;
-            this.totalpage1 = res.pagination.totalPages;
-            this.currentpage1 = res.pagination.currentPage + 1;
-            this.filter = true
+            this.currentfilvalShow = true;
+          } else if (res.flag == 2) {
+            this.viewall = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.viewall);
+            this.currentfilvalShow = true;
           }
         },
         error: (err: any) => {
           this.toastr.error('No Data Found');
-        }
+        },
       });
-    }
-    else if (!filterValue) {
+    } else if (!filterValue) {
       this.toastr.error('Please enter a value to search');
       return;
     }
-
-  }
-  renderPage1(event: PageEvent) {
-    // Capture the new page index and page size from the event
-    this.pageIndex1 = event.pageIndex;  // Update current page index
-    this.pageSize1 = event.pageSize;           // Update page size (if changed)
-
-    // Log the new page index and page size to the console (for debugging)
-    console.log('New Page Index:', this.pageIndex1);
-    console.log('New Page Size:', this.pageSize1);
-
-    // You can now fetch or display the data for the new page index
-    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
-    this.Entity(this.currentfilval);
   }
 
-  changePageIndex1(newPageIndex1: number) {
-    this.pageIndex1 = newPageIndex1;
-    this.renderPage1({
-      pageIndex: newPageIndex1,
-      pageSize: this.pageSize1,
-      // length: this.totalItems
-    } as PageEvent);
-  }
-  addcampagin() {
-    this.dialog.open(CreateCampaginComponent, {
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      this.EntityViewall.EntitySearch(
+        this.currentfilval,
+        event.pageSize,
+        event.pageIndex
+      ).subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.viewall = res.response.content;
+            this.viewall.reverse();
 
-      disableClose: true,
-      enterAnimationDuration: '500ms',
-      exitAnimationDuration: '1000ms',
-    })
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.viewall);
+          } else if (res.flag == 2) {
+            this.viewall = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.viewall);
+          }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
+        },
+      });
+    } else {
+      this.EntityViewall.EntityViewall(event.pageSize, event.pageIndex).subscribe(
+        (res: any) => {
+          if (res.flag === 1) {
+            this.viewall = res.response;
 
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.viewall);
+          } else if (res.flag == 2) {
+            this.viewall = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.viewall);
+          }
+        }
+      );
+    }
   }
 }

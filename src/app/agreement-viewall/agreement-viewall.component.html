@@ -36,7 +36,7 @@
       <!-- <button style="color:white;background-color: #141E46;border-radius: 10px;" class="custom-btn btn-10 me-3"
                 data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button (click)="addTicket()">Create</button> -->
       <button [hidden]="valueagreeExport!=='Entity Agreement-Export'"
-        style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
+        style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button
         (click)="exportexcel()">Export</button>
 
 
@@ -46,7 +46,7 @@
 </mat-card-header>
 <mat-card-content>
   <!-- <span style="color: red;"  class="tableError">NO DATA FOUND</span> -->
-  <div class="example-container mt-4" >
+  <div class="example-container text-nowrap mt-2" style="overflow-x: scroll; scrollbar-width: thin;">
     <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
       <ng-container matColumnDef="sno">
         <th mat-header-cell *matHeaderCellDef>S.No</th>

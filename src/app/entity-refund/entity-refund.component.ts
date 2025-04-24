@@ -85,12 +85,23 @@ export class EntityRefundComponent {
     });
 
     this.service.Entityrefund(this.id).subscribe((res: any) => {
-
+     if(res.flag==1)
+     {
       this.transaction = res.response;
       this.dataSource = new MatTableDataSource(this.transaction)
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
       this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+     }
+     else if(res.flag==2)
+     {
+      this.transaction = [];
+      this.dataSource = new MatTableDataSource(this.transaction)
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      
+     }
+     
 
     })
   }
@@ -99,14 +110,25 @@ export class EntityRefundComponent {
   reload() {
    
     this.service.Entityrefund(this.id).subscribe((res: any) => {
-
-      this.transaction = res.response;
-      this.dataSource = new MatTableDataSource(this.transaction)
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-
-    })
+      if(res.flag==1)
+      {
+       this.transaction = res.response;
+       this.dataSource = new MatTableDataSource(this.transaction)
+       this.dataSource.sort = this.sort;
+       this.dataSource.paginator = this.paginator;
+       this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+      }
+      else if(res.flag==2)
+      {
+       this.transaction = [];
+       this.dataSource = new MatTableDataSource(this.transaction)
+       this.dataSource.sort = this.sort;
+       this.dataSource.paginator = this.paginator;
+       
+      }
+      
+ 
+     })
   }
 
   view(id: any) {

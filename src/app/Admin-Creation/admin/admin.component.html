@@ -39,9 +39,9 @@
             <input style="font-size: 12px;" type="text" class="form-control" #input (keyup)="applyFilter($event)"
                   placeholder="Search..">
           </div>&nbsp;&nbsp;&nbsp; -->
-        <button style="color:white;background-color: #141E46;border-radius: 10px;" mat-raised-button
+        <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button
             (click)="admincreate()">Create</button>
-        <button style="color:white;background-color: #141E46;border-radius: 10px;" (click)="exportexcel()"
+        <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" (click)="exportexcel()"
             mat-raised-button>Export</button>
     </div>
 
@@ -49,7 +49,7 @@
 <!-- <mat-card> -->
 
 <mat-card-content>
-    <div class="table-responsive text-nowrap mt-4" style="overflow-x: scroll; scrollbar-width: thin;">
+    <div class="example-container text-nowrap mt-3" style="overflow-x: scroll; scrollbar-width: thin;">
 
         <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
 
@@ -192,13 +192,13 @@
                 </td>
             </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
             <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
             <tr *matNoDataRow>
-                <td class="mat-cell" colspan="4">No Data For
-                    {{input.value}}</td>
-
-            </tr>
+                <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data</td>
+                <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">No Data
+                </td>
+              </tr>
         </table>
 
     </div>

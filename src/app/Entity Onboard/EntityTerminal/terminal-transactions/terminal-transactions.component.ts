@@ -290,11 +290,11 @@ export class TerminalTransactionsComponent {
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
-      'sno',
-      'AccountId',
+      'S No',
+      'Account Id',
       'PaymentId',
       'Terminal Id',
-      'Customername',
+      'Customer Name',
       'VPA',
       'Merchant Order Number',
       'Amount',

@@ -48,6 +48,7 @@ export class ViewagreementplanComponent {
   valuebussinessedit: any;
   valuebussinessview: any;
   valuebussinessstatus:any;
+  searchPerformed: boolean=false;
 
 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private router: Router) { }
@@ -105,12 +106,15 @@ export class ViewagreementplanComponent {
         this.dataSource = new MatTableDataSource(this.agreementplan);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.showcategoryData = false;
+       
 
       }
       else {
-        this.errorMsg = res.responseMessage;
-        this.showcategoryData = true;
+        this.agreementplan = [];
+        this.agreementplan.reverse();
+        this.dataSource = new MatTableDataSource(this.agreementplan);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       }
     });
 
@@ -141,12 +145,15 @@ export class ViewagreementplanComponent {
         this.dataSource = new MatTableDataSource(this.agreementplan);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.showcategoryData = false;
+       
 
       }
       else {
-        this.errorMsg = res.responseMessage;
-        this.showcategoryData = true;
+        this.agreementplan = [];
+        this.agreementplan.reverse();
+        this.dataSource = new MatTableDataSource(this.agreementplan);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       }
     });
 
@@ -164,21 +171,24 @@ export class ViewagreementplanComponent {
         this.toastr.success(res.responseMessage);
         setTimeout(() => {
         
-    this.service.viewagreementplan().subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.agreementplan = res.response;
-        this.agreementplan.reverse();
-        this.dataSource = new MatTableDataSource(this.agreementplan);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.showcategoryData = false;
-
-      }
-      else {
-        this.errorMsg = res.responseMessage;
-        this.showcategoryData = true;
-      }
-    });
+          this.service.viewagreementplan().subscribe((res: any) => {
+            if (res.flag == 1) {
+              this.agreementplan = res.response;
+              this.agreementplan.reverse();
+              this.dataSource = new MatTableDataSource(this.agreementplan);
+              this.dataSource.sort = this.sort;
+              this.dataSource.paginator = this.paginator;
+             
+      
+            }
+            else {
+              this.agreementplan = [];
+              this.agreementplan.reverse();
+              this.dataSource = new MatTableDataSource(this.agreementplan);
+              this.dataSource.sort = this.sort;
+              this.dataSource.paginator = this.paginator;
+            }
+          });
       
         }, 500);
       });
@@ -187,7 +197,8 @@ export class ViewagreementplanComponent {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
+    this.searchPerformed = filterValue.length > 0;
+ 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }

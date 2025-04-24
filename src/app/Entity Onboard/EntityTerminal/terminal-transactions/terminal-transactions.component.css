@@ -36,7 +36,7 @@ mat-card {
   }
   
   th {
-    background-color: #7db855be !important;
+    background-color: #bcdf72 !important;
     color: #141E46;
     font-weight: 700;
     white-space: nowrap;
@@ -132,9 +132,9 @@ mat-card {
     color: white;
   }
   
-  /* .mat-mdc-table .mdc-data-table__row {
-    height: 0px;
-  } */
+   .mat-mdc-table .mdc-data-table__row {
+    height: 45px;
+  } 
   
   
   
@@ -256,4 +256,9 @@ mat-card {
     visibility: visible;
     transform: scale(1);
     transition: 0s;
+  }.example-container {
+    max-height: 278px;
+    height: 100%;
+    overflow: auto;
+    scrollbar-width: auto;
   }

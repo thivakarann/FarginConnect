@@ -259,7 +259,7 @@ mat-card-content tr:nth-child(odd) {
   transition: 0s;
 }
 .example-container {
-  max-height: 290px;
+  max-height: 278px;
   height: 100%;
   overflow: auto;
   scrollbar-width: auto;

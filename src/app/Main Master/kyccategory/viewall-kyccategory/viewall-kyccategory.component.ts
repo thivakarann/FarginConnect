@@ -37,6 +37,7 @@ export class ViewallKyccategoryComponent implements OnInit {
   roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
+  searchPerformed: boolean=false;
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
   ngOnInit(): void {
 
@@ -81,11 +82,23 @@ export class ViewallKyccategoryComponent implements OnInit {
 
 
     this.service.viewallkycCategory().subscribe((res: any) => {
-      this.categoryview = res.response;
+     
+      if (res.flag == 1) {
+        this.categoryview = res.response;
+        this.categoryview.reverse();
+        this.dataSource = new MatTableDataSource(this.categoryview);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      
 
-      this.dataSource = new MatTableDataSource(this.categoryview.reverse());
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
+      }
+      else {
+        this.categoryview = []
+        this.dataSource = new MatTableDataSource(this.categoryview);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      
+      }
     })
 
 
@@ -101,11 +114,23 @@ export class ViewallKyccategoryComponent implements OnInit {
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
         this.service.viewallkycCategory().subscribe((res: any) => {
-          this.categoryview = res.response;
+     
+          if (res.flag == 1) {
+            this.categoryview = res.response;
+            this.categoryview.reverse();
+            this.dataSource = new MatTableDataSource(this.categoryview);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+          
     
-          this.dataSource = new MatTableDataSource(this.categoryview.reverse());
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
+          }
+          else {
+            this.categoryview = []
+            this.dataSource = new MatTableDataSource(this.categoryview);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+          
+          }
         })
     
       }, 500);
@@ -120,11 +145,23 @@ export class ViewallKyccategoryComponent implements OnInit {
     });
     this.dialog.afterAllClosed.subscribe(() => {
       this.service.viewallkycCategory().subscribe((res: any) => {
-        this.categoryview = res.response;
+     
+        if (res.flag == 1) {
+          this.categoryview = res.response;
+          this.categoryview.reverse();
+          this.dataSource = new MatTableDataSource(this.categoryview);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        
   
-        this.dataSource = new MatTableDataSource(this.categoryview.reverse());
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        }
+        else {
+          this.categoryview = []
+          this.dataSource = new MatTableDataSource(this.categoryview);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        
+        }
       })
   
     })
@@ -139,12 +176,25 @@ export class ViewallKyccategoryComponent implements OnInit {
     });
     this.dialog.afterAllClosed.subscribe(() => {
       this.service.viewallkycCategory().subscribe((res: any) => {
-        this.categoryview = res.response;
+     
+        if (res.flag == 1) {
+          this.categoryview = res.response;
+          this.categoryview.reverse();
+          this.dataSource = new MatTableDataSource(this.categoryview);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        
   
-        this.dataSource = new MatTableDataSource(this.categoryview.reverse());
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        }
+        else {
+          this.categoryview = []
+          this.dataSource = new MatTableDataSource(this.categoryview);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        
+        }
       })
+  
   
     })
   }
@@ -152,11 +202,23 @@ export class ViewallKyccategoryComponent implements OnInit {
 
   reload() {
     this.service.viewallkycCategory().subscribe((res: any) => {
-      this.categoryview = res.response;
+     
+      if (res.flag == 1) {
+        this.categoryview = res.response;
+        this.categoryview.reverse();
+        this.dataSource = new MatTableDataSource(this.categoryview);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      
 
-      this.dataSource = new MatTableDataSource(this.categoryview.reverse());
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
+      }
+      else {
+        this.categoryview = []
+        this.dataSource = new MatTableDataSource(this.categoryview);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      
+      }
     })
   }
   exportexcel() {
@@ -255,7 +317,7 @@ export class ViewallKyccategoryComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
+    this.searchPerformed = filterValue.length > 0;
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }

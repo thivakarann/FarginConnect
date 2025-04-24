@@ -64,7 +64,7 @@
     color: white;
   }
   .mat-mdc-table .mdc-data-table__row {
-    height: 0px;
+  height: 45px;
   }
    
   .form {
@@ -173,4 +173,14 @@
     visibility: visible;
     transform: scale(1);
     transition: 0s;
-  }
+}
+.example-container {
+  max-height: 278px;
+  height: 100%;
+  overflow: auto;
+  scrollbar-width: auto;
+}
+
+table {
+  width: 100%;
+}

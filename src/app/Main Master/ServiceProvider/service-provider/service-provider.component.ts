@@ -55,6 +55,7 @@ export class ServiceProviderComponent implements OnInit {
   getdashboard: any[] = [];
   roleId: any = sessionStorage.getItem('roleId')
   actions: any;
+  searchPerformed:boolean=false;
 
 
   constructor(private service: FarginServiceService, private toastr: ToastrService, private router: Router, private dialog: MatDialog) { }
@@ -114,11 +115,13 @@ export class ServiceProviderComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.data.reverse());
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.showcategoryData = false;
-      }
-      else {
-        this.errorMsg = res.responseMessage;
-        this.showcategoryData = true;
+     
+      } else if (res.flag == 2) {
+        this.data = []
+        this.dataSource = new MatTableDataSource(this.data.reverse());
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+    
       }
     });
 
@@ -134,15 +137,16 @@ export class ServiceProviderComponent implements OnInit {
       this.service.ServiceProviderView().subscribe((res: any) => {
         if (res.flag == 1) {
           this.data = res.response;
-  
           this.dataSource = new MatTableDataSource(this.data.reverse());
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
-          this.showcategoryData = false;
-        }
-        else {
-          this.errorMsg = res.responseMessage;
-          this.showcategoryData = true;
+       
+        } else if (res.flag == 2) {
+          this.data = []
+          this.dataSource = new MatTableDataSource(this.data.reverse());
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+      
         }
       });
   
@@ -155,15 +159,16 @@ export class ServiceProviderComponent implements OnInit {
     this.service.ServiceProviderView().subscribe((res: any) => {
       if (res.flag == 1) {
         this.data = res.response;
-
         this.dataSource = new MatTableDataSource(this.data.reverse());
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.showcategoryData = false;
-      }
-      else {
-        this.errorMsg = res.responseMessage;
-        this.showcategoryData = true;
+     
+      } else if (res.flag == 2) {
+        this.data = []
+        this.dataSource = new MatTableDataSource(this.data.reverse());
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+    
       }
     });
   }
@@ -194,15 +199,16 @@ export class ServiceProviderComponent implements OnInit {
           this.service.ServiceProviderView().subscribe((res: any) => {
             if (res.flag == 1) {
               this.data = res.response;
-      
               this.dataSource = new MatTableDataSource(this.data.reverse());
               this.dataSource.sort = this.sort;
               this.dataSource.paginator = this.paginator;
-              this.showcategoryData = false;
-            }
-            else {
-              this.errorMsg = res.responseMessage;
-              this.showcategoryData = true;
+           
+            } else if (res.flag == 2) {
+              this.data = []
+              this.dataSource = new MatTableDataSource(this.data.reverse());
+              this.dataSource.sort = this.sort;
+              this.dataSource.paginator = this.paginator;
+          
             }
           });
        
@@ -351,7 +357,7 @@ export class ServiceProviderComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
+    this.searchPerformed = filterValue.length > 0;
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
@@ -367,15 +373,16 @@ export class ServiceProviderComponent implements OnInit {
       this.service.ServiceProviderView().subscribe((res: any) => {
         if (res.flag == 1) {
           this.data = res.response;
-  
           this.dataSource = new MatTableDataSource(this.data.reverse());
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
-          this.showcategoryData = false;
-        }
-        else {
-          this.errorMsg = res.responseMessage;
-          this.showcategoryData = true;
+       
+        } else if (res.flag == 2) {
+          this.data = []
+          this.dataSource = new MatTableDataSource(this.data.reverse());
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+      
         }
       });
   

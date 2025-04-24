@@ -89,6 +89,9 @@ export class SMSHistoryComponent {
   filters: boolean = false;
   currentfilVal:any="";
   maxDate: any;
+  currentfilvalShow: boolean=false;
+  transactionValue: any;
+searchPerformed:boolean=false;
 
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private router: Router) { }
 
@@ -132,29 +135,21 @@ export class SMSHistoryComponent {
     this.service.SmsHistoryGetAll(this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.smsResponse = res.response;
-        this.smsResponse.reverse();
+      
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.smsResponse);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.filter = true;
-        this.filter1 = false;    
-        this.filters = false;
-      }
-      else if (res.flag == 2) {
-        this.message = res.responseMessage;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-        this.filter = true;
-        this.filter1 = false;    
-        this.filters = false;
+        this.currentfilvalShow=false;
+     
+      } else if (res.flag == 2) {
         this.smsResponse = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.smsResponse);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator; 
+        this.currentfilvalShow=false;
+     
       }
 
     })
@@ -304,131 +299,75 @@ export class SMSHistoryComponent {
 
   }
   filterdate() {
-    // const datepipe: DatePipe = new DatePipe("en-US");
-    // let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY HH:mm");
-    // let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/YYYY HH:mm");
-    // this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
-    // this.currentPage = 1;
-
-    this.service.SMSHistoryFilter(this.FromDateRange, this.ToDateRange, this.pageSize1, this.pageIndex1).subscribe((res: any) => {
+    this.service.SMSHistoryFilter(this.FromDateRange, this.ToDateRange, this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
-
-        this.transaction = res.response;
-
-        this.totalPages1 = res.pagination.totalElements;
-        this.totalpage1 = res.pagination.totalPages;
-        this.currentpage1 = res.pagination.currentPage + 1;
-
-        this.dataSource = new MatTableDataSource(this.transaction);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-
-        this.filter = false;
-        this.filter1 = true;    
-        this.filters = false;     
-      }
-      else if (res.flag == 2) {
+       this.transaction = res.response;
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-        this.filter = false;
-        this.filter1 = true;    
-        this.filters = false;
-        this.smsResponse = [];
-        this.dataSource = new MatTableDataSource(this.smsResponse);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;        }
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.transaction);
+       
+     
+      } else if (res.flag == 2) {
+        this.transaction = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.transaction);
+      
+     
+      }
     })
   }
   reset() {
-    this.service.SmsHistoryGetAll(this.pageSize, this.pageIndex).subscribe((res: any) => {
+     this.service.SmsHistoryGetAll(this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.smsResponse = res.response;
-        this.smsResponse.reverse();
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.smsResponse);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.filter = true;
-        this.filter1 = false;    
-        this.filters = false;
+        this.currentfilvalShow=false;
         this.FromDateRange='';
         this.ToDateRange='';
-      }
-      else if (res.flag == 2) {
-        this.message = res.responseMessage;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-        this.filter = true;
-        this.filter1 = false;    
-        this.filters = false;
+     
+      } else if (res.flag == 2) {
         this.smsResponse = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.smsResponse);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator; 
+        this.currentfilvalShow=false;
         this.FromDateRange='';
         this.ToDateRange='';
+     
       }
-
     })
   }
-  renderPage(event: PageEvent) {
-    // Capture the new page index and page size from the event
-    this.pageIndex = event.pageIndex;  // Update current page index
-    this.pageSize = event.pageSize;           // Update page size (if changed)
-
-    // Log the new page index and page size to the console (for debugging)
-    console.log('New Page Index:', this.pageIndex);
-    console.log('New Page Size:', this.pageSize);
-
-    // You can now fetch or display the data for the new page index
-    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
-    this.ngOnInit()
-  }
-  changePageIndex(newPageIndex: number) {
-    this.pageIndex = newPageIndex;
-    this.renderPage({
-      pageIndex: newPageIndex,
-      pageSize: this.pageSize,
-      // length: this.totalItems
-    } as PageEvent);
-  }
+  
 
   smshistory(filterValue: string) {
    
     if (filterValue) {
-
-    this.service.Smshistorysearch(filterValue,this.pageSize2,this.pageIndex2).subscribe({
+    this.service.Smshistorysearch(filterValue,this.pageSize,this.pageIndex).subscribe({
       next: (res: any) => {
         if (res.response) {
           this.smsResponse = res.response;  
-          this.smsResponse.reverse();
-          this.dataSource = new MatTableDataSource(this.smsResponse);  
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-          this.totalPages2 = res.pagination.totalElements;
-          this.totalpage2 = res.pagination.totalPages;
-          this.currentpage2 = res.pagination.currentPage + 1;
-          this.filter = false;
-          this.filter1 = false;    
-          this.filters = true;
-         
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.smsResponse);
+          this.currentfilvalShow=true;
+       
+        } else if (res.flag == 2) {
+          this.smsResponse = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.smsResponse);
+          this.currentfilvalShow=true;
+       
         }
-        else if (res.flag === 2) {
-          this.smsResponse = [];  
-          this.dataSource = new MatTableDataSource(this.smsResponse);  
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-          this.totalPages2 = res.pagination.totalElements;
-          this.totalpage2 = res.pagination.totalPages;
-          this.currentpage2 = res.pagination.currentPage + 1;
-          this.filter = false;
-          this.filter1 = false;    
-          this.filters = true;
-      }
       },
       error: (err: any) => {
         this.toastr.error('No Data Found');
@@ -445,77 +384,94 @@ export class SMSHistoryComponent {
     this.service.SmsHistoryGetAll(this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.smsResponse = res.response;
-        this.smsResponse.reverse();
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.smsResponse);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.filter = true;
-        this.filter1 = false;    
-        this.filters = false;
-      }
-      else if (res.flag == 2) {
-        this.message = res.responseMessage;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-        this.filter = true;
-        this.filter1 = false;    
-        this.filters = false;
+        this.currentfilvalShow=false;
+     
+      } else if (res.flag == 2) {
         this.smsResponse = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.smsResponse);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator; 
+        this.currentfilvalShow=false;
+     
       }
 
     })
   }
-  renderPage1(event: PageEvent) {
-    // Capture the new page index and page size from the event
-    this.pageIndex1 = event.pageIndex;  // Update current page index
-    this.pageSize1 = event.pageSize;           // Update page size (if changed)
- 
-    // Log the new page index and page size to the console (for debugging)
-    console.log('New Page Index:', this.pageIndex1);
-    console.log('New Page Size:', this.pageSize1);
- 
-    // You can now fetch or display the data for the new page index
-    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
-    this.filterdate();
-  }
- 
-  changePageIndex1(newPageIndex1: number) {
-    this.pageIndex1 = newPageIndex1;
-    this.renderPage1({
-      pageIndex: newPageIndex1,
-      pageSize: this.pageSize1,
-      // length: this.totalItems
-    } as PageEvent);
-  }
-  renderPage2(event: PageEvent) {
-    // Capture the new page index and page size from the event
-    this.pageIndex2 = event.pageIndex;  // Update current page index
-    this.pageSize2 = event.pageSize;           // Update page size (if changed)
- 
-    // Log the new page index and page size to the console (for debugging)
-    console.log('New Page Index:', this.pageIndex2);
-    console.log('New Page Size:', this.pageSize2);
- 
-    // You can now fetch or display the data for the new page index
-    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
-    this.smshistory(this.currentfilVal);
-  }
- 
-  changePageIndex2(newPageIndex1: number) {
-    this.pageIndex2 = newPageIndex1;
-    this.renderPage2({
-      pageIndex: newPageIndex1,
-      pageSize: this.pageSize2,
-      // length: this.totalItems
-    } as PageEvent);
-  }
 
+
+
+  getData(event: any) {
+    if (this.FromDateRange && this.ToDateRange) {
+      this.service.SMSHistoryFilter(this.FromDateRange, this.ToDateRange, event.pageSize, event.pageIndex).subscribe((res: any) => {
+        if (res.flag == 1) {
+         this.transaction = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.transaction);
+         
+       
+        } else if (res.flag == 2) {
+          this.transaction = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.transaction);
+        
+       
+        }
+      })
+    } else if (this.currentfilvalShow) {
+      this.service.Smshistorysearch(this.currentfilVal,event.pageSize,event.pageIndex).subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.smsResponse = res.response;  
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.smsResponse);
+         
+         
+          } else if (res.flag == 2) {
+            this.smsResponse = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.smsResponse);
+          
+         
+          }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
+        }
+      });
+    } else {
+      this.service.SmsHistoryGetAll(event.pageSize, event.pageIndex).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.smsResponse = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.smsResponse);
+      
+       
+        } else if (res.flag == 2) {
+          this.smsResponse = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.smsResponse);
+         
+       
+        }
+      })
+    }
+  }
 
 }

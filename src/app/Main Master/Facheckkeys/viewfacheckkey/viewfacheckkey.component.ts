@@ -43,6 +43,7 @@ export class ViewfacheckkeyComponent {
   copySuccess: boolean = false;
   copiedIndex: number = -1;
   copiedIndex2:number = -1;
+  searchPerformed:boolean=false;
 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
 
@@ -102,12 +103,15 @@ export class ViewfacheckkeyComponent {
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
 
-        this.showcategoryData = false;
+     
         // 
       }
       else {
-        this.errorMsg = res.responseMessage;
-        this.showcategoryData = true;
+        this.facheck = [];
+      
+        this.dataSource = new MatTableDataSource(this.facheck);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       }
     });
 
@@ -125,12 +129,15 @@ export class ViewfacheckkeyComponent {
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
 
-        this.showcategoryData = false;
+     
         // 
       }
       else {
-        this.errorMsg = res.responseMessage;
-        this.showcategoryData = true;
+        this.facheck = [];
+      
+        this.dataSource = new MatTableDataSource(this.facheck);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       }
     });
   }
@@ -191,12 +198,15 @@ export class ViewfacheckkeyComponent {
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
     
-            this.showcategoryData = false;
+         
             // 
           }
           else {
-            this.errorMsg = res.responseMessage;
-            this.showcategoryData = true;
+            this.facheck = [];
+          
+            this.dataSource = new MatTableDataSource(this.facheck);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
           }
         });
     
@@ -221,12 +231,15 @@ export class ViewfacheckkeyComponent {
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
   
-          this.showcategoryData = false;
+       
           // 
         }
         else {
-          this.errorMsg = res.responseMessage;
-          this.showcategoryData = true;
+          this.facheck = [];
+        
+          this.dataSource = new MatTableDataSource(this.facheck);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
         }
       });
   
@@ -251,12 +264,15 @@ export class ViewfacheckkeyComponent {
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
   
-          this.showcategoryData = false;
+       
           // 
         }
         else {
-          this.errorMsg = res.responseMessage;
-          this.showcategoryData = true;
+          this.facheck = [];
+        
+          this.dataSource = new MatTableDataSource(this.facheck);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
         }
       });
   

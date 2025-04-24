@@ -46,6 +46,7 @@ export class RefundPeriodViewallComponent implements OnInit {
   actions: any;
   valueadd: any;
   valueedit: any;
+  searchPerformed: boolean=false;
 
   constructor(
     public refunddetails: FarginServiceService,
@@ -92,19 +93,31 @@ export class RefundPeriodViewallComponent implements OnInit {
 
 
     this.refunddetails.RefundperiodGetall().subscribe((res: any) => {
-      this.viewall = res.response;
-      this.viewall.reverse();
-      this.dataSource = new MatTableDataSource(this.viewall);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-
+      if(res.flag==1)
+      {
+        this.viewall = res.response;
+        this.viewall.reverse();
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+  
+      }
+      else if(res.flag==2)
+      {
+        this.viewall = [];
+       
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+     
     });
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
+    this.searchPerformed = filterValue.length > 0;
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
@@ -117,12 +130,24 @@ export class RefundPeriodViewallComponent implements OnInit {
     })
     this.dialog.afterAllClosed.subscribe(() => {
       this.refunddetails.RefundperiodGetall().subscribe((res: any) => {
-        this.viewall = res.response;
-        this.viewall.reverse();
-        this.dataSource = new MatTableDataSource(this.viewall);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-
+        if(res.flag==1)
+        {
+          this.viewall = res.response;
+          this.viewall.reverse();
+          this.dataSource = new MatTableDataSource(this.viewall);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+    
+        }
+        else if(res.flag==2)
+        {
+          this.viewall = [];
+         
+          this.dataSource = new MatTableDataSource(this.viewall);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        }
+       
       });
 
     })
@@ -130,12 +155,24 @@ export class RefundPeriodViewallComponent implements OnInit {
 
   reload() {
     this.refunddetails.RefundperiodGetall().subscribe((res: any) => {
-      this.viewall = res.response;
-      this.viewall.reverse();
-      this.dataSource = new MatTableDataSource(this.viewall);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-
+      if(res.flag==1)
+      {
+        this.viewall = res.response;
+        this.viewall.reverse();
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+  
+      }
+      else if(res.flag==2)
+      {
+        this.viewall = [];
+       
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+     
     });
 
   }
@@ -149,12 +186,24 @@ export class RefundPeriodViewallComponent implements OnInit {
     })
     this.dialog.afterAllClosed.subscribe(() => {
       this.refunddetails.RefundperiodGetall().subscribe((res: any) => {
-        this.viewall = res.response;
-        this.viewall.reverse();
-        this.dataSource = new MatTableDataSource(this.viewall);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-
+        if(res.flag==1)
+        {
+          this.viewall = res.response;
+          this.viewall.reverse();
+          this.dataSource = new MatTableDataSource(this.viewall);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+    
+        }
+        else if(res.flag==2)
+        {
+          this.viewall = [];
+         
+          this.dataSource = new MatTableDataSource(this.viewall);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        }
+       
       });
 
     })

@@ -66,7 +66,17 @@
   .mat-mdc-table .mdc-data-table__row {
     height: 45px;
   }
-   
+  .example-container {
+    max-height: 278px;
+    height: 100%;
+    overflow: auto;
+    scrollbar-width: auto;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
   .form {
     --input-bg: #FFf;
     /*  background of input */

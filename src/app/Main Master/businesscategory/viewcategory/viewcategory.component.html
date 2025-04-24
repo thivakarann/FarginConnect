@@ -43,7 +43,7 @@
 
 <mat-card-content>
 
-  <div class="table-responsive text-nowrap mt-4" style="overflow-x: scroll; scrollbar-width: thin;">
+  <div class="example-container text-nowrap mt-3" style="overflow-x: scroll; scrollbar-width: thin;">
 
     <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
 
@@ -107,10 +107,11 @@
           }}</td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
       <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
       <tr *matNoDataRow>
-        <td class="mat-cell" colspan="4">No Data For {{input.value}}
+        <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data</td>
+        <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">No Data
         </td>
       </tr>
     </table>
