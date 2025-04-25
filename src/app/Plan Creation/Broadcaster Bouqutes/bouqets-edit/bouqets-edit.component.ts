@@ -66,14 +66,7 @@ ActiveregionID: any;
     })
 
 
-    this.myForm = new FormGroup({
-      bundleChannelId: new FormControl('', Validators.required),
-      // alcotId: new FormControl('', Validators.required),
-      amount: new FormControl('', [Validators.required, Validators.pattern('^[1-9][0-9]*(\.[0-9]{1,2})?$')]),
-      boqCreationId: new FormControl('', Validators.required),
-      serviceId: new FormControl('', Validators.required),
-      // regId: new FormControl('', Validators.required),
-    });
+    
 
 
     this.activeRouter.params.subscribe((param: any) => {
@@ -131,6 +124,15 @@ ActiveregionID: any;
       this.ActiveRegions = res.response;
       this.ActiveRegions.sort((a: any, b: any) => a.stateName.localeCompare(b.stateName));
     })
+
+    this.myForm = new FormGroup({
+      bundleChannelId: new FormControl(this.getRoleId, Validators.required),
+      // alcotId: new FormControl('', Validators.required),
+      amount: new FormControl(this.getamount, [Validators.required, Validators.pattern('^[1-9][0-9]*(\.[0-9]{1,2})?$')]),
+      boqCreationId: new FormControl(this.getcreation, Validators.required),
+      serviceId: new FormControl(this.getservices, Validators.required),
+      // regId: new FormControl('', Validators.required),
+    });
     
   }
 
@@ -170,6 +172,7 @@ ActiveregionID: any;
       this.Plandetails = res.response;
       this.Plandetails.sort((a: any, b: any) => a.bouquetName.localeCompare(b.bouquetName));
     })
+    this.boqCreationId?.reset()
   }
 
   getregions(id: any) {

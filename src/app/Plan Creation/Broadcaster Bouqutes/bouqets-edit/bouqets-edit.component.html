@@ -1,5 +1,5 @@
 <div class="card-header d-flex justify-content-between align-items-center">
-    <h5 class="mb-0">Update Broadcaster Bouqutes </h5>
+    <h5 class="mb-0"style="color:black">Update Broadcaster Bouqutes </h5>
     <button type="button" class="btn btn-secondary" matDialogClose>Back</button>
 </div>
 <body style="width: 700px;" class="page">
@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-6 form-group">
                     <label for="Bussiness category">Select Broadcaster </label>
-                    <select  (change)="name($event)" ngModel="{{getRoleId}}" formControlName="bundleChannelId"
+                    <select  (change)="name($event)"  formControlName="bundleChannelId"
                         id="Bussiness category" class="form-control form-select">
                         <option value="" disabled selected>Select</option>
                         <option *ngFor="let item of details" [value]="item.bundleChannelId">{{item.broadCasterName}}
@@ -28,7 +28,7 @@
 
                 <div class="col-6 form-group">
                     <label for="Bussiness category">Broadcaster Plans</label>
-                    <select ngModel="{{getcreation}}" formControlName="boqCreationId" id="Bussiness category" class="form-control form-select">
+                    <select  formControlName="boqCreationId" id="Bussiness category" class="form-control form-select">
                         <option value="" hidden selected>Select</option>
                         <option *ngFor="let item of Plandetails" [value]="item.boqCreationId">{{item.bouquetName}}
                         </option>
@@ -49,7 +49,7 @@
             <div class="row">
                 <div class="col-6 form-group">
                     <label for="Bussiness category">Service Provider (MSO)</label>
-                    <select ngModel="{{getservices}}" (change)="getregions($event)"
+                    <select (change)="getregions($event)"
                         formControlName="serviceId" id="Bussiness category" class="form-control form-select">
                         <option value="" disabled selected>Select</option>
                         <option *ngFor="let item of ActiveMSO" [value]="item.serviceId">{{item.serviceProviderName}}
@@ -90,7 +90,7 @@
 
                 <div class="col-6 form-group ">
                     <label for="Entity Name">Bouquet Price</label>
-                    <input type="text" id="Entity Name" ngModel="{{getamount}}" formControlName="amount" class="form-control">
+                    <input type="text" id="Entity Name"  formControlName="amount" class="form-control">
                     <div style="
                     color: red;
                     font-size: 12px;
