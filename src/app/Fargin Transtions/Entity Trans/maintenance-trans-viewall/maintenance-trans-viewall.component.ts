@@ -770,6 +770,8 @@ filterbymso() {
 
   close() {
     this.dialog.closeAll();
+    this.backs = '';
+    this.filterValue=null;
   }
 
   resetsearch(): void {

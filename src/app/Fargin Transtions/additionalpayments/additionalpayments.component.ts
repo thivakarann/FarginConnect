@@ -650,6 +650,9 @@ export class AdditionalpaymentsComponent {
 
   close() {
     this.dialog.closeAll();
+    this.backs = '';
+    this.filterValue=null;
+ 
   }
 
   resetcustomer(): void {

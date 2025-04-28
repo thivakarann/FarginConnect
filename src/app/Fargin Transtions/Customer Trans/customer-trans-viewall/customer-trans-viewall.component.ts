@@ -698,7 +698,8 @@ customerpay(){
 
   close(){
     this.dialog.closeAll()
-   
+    this.backs = '';
+    this.filterValue=null;
   }
 
   future(value: any) {
