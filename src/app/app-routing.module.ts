@@ -118,6 +118,7 @@ import { DashboardMerchantcontentComponent } from './dashboard-merchantcontent/d
 import { BranchOnlinetransactionsComponent } from './Entity Onboard/branch-onlinetransactions/branch-onlinetransactions.component';
 import { BranchWiseenitytransactionComponent } from './Entity Onboard/branch-onlinetransactions/branch-wiseenitytransaction/branch-wiseenitytransaction.component';
 import { RedirectPageComponent } from './redirect-page/redirect-page.component';
+import { ExportReportViewallComponent } from './Export-Report/export-report-viewall/export-report-viewall.component';
 
 const routes: Routes = [
 
@@ -253,6 +254,7 @@ const routes: Routes = [
             
       {path:'branch-wiseenitytransaction/:id',component:BranchWiseenitytransactionComponent,canActivate: [authGuard]},
       // {path:'merchant-additional/:id',component:MercahntbasedadditionalComponent,canActivate: [authGuard]},
+      { path: 'Export-Report', component: ExportReportViewallComponent, canActivate: [authGuard] },
     ],
 
   },

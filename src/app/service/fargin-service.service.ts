@@ -838,6 +838,11 @@ export class FarginServiceService {
 
   private readonly termspolicysearchs='policy/viewMerchantSearch/'
 
+  //export report
+  private readonly exportreportadd = 'exportData/add';
+  private readonly exportreportview = 'exportData/getallSuperAdmin';
+  private readonly exportreportdownload = 'exportData/viewExportedData/';
+
   loginError = new Subject();
 
   token = sessionStorage.getItem('token') || null;
@@ -906,7 +911,7 @@ export class FarginServiceService {
         }
 
         // else if (flag == '2') {
-        //   window.location.href = (`http://localhost:59760/data-component/${token}/${email}/${adminId}`);
+        //   window.location.href = (`http://localhost:62424/data-component/${token}/${email}/${adminId}`);
         // }
 
 
@@ -3164,4 +3169,22 @@ export class FarginServiceService {
   termspolicysearch(id: any, id1: any, id2: any, id3:any) {
     return this.http.get(`${this.basePath}${this.termspolicysearchs}${id}/${id1}/${id2}/${id3}`, this.options)
   }
+
+  //export report 
+  ExportReportAdd(model: any) {
+    return this.http.post(`${this.basePath}${this.exportreportadd}`, model, this.options)
+  }
+
+  ExportReportGet() {
+    return this.http.get(`${this.basePath}${this.exportreportview}`, this.options)
+  } 
+  
+  ExportReportDownload(id: any) {
+    return this.http.get(`${this.basePath}${this.exportreportdownload}${id}`, {
+      ...this.options,
+      ...{ responseType: 'blob' },
+    });
+  }
+
+
 }

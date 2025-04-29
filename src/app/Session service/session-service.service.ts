@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Location } from '@angular/common'; // Import Location service
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class SessionServiceService {
   private lastAction: number = Date.now();
   private isLoggedInFlag: boolean = true; // Track user authentication status
 
-  constructor(private router: Router, private location: Location) {
+  constructor(private router: Router, private location: Location,private dialog:MatDialog) {
     this.initTimer();
     this.initListener();
     this.initRouterListener();
@@ -55,11 +56,17 @@ export class SessionServiceService {
   private logout(): void {
     clearInterval(this.timer);
     this.clearHistoryAndNavigateToLogin();
-    this.isLoggedInFlag = false; // Set authentication flag to false
+    this.isLoggedInFlag = false; // Set authentication flag to false;
+    // setTimeout(() => {
+    //   window.location.reload();
+    // },10);
+
+
   }
 
 
   private clearHistoryAndNavigateToLogin(): void {
+    this.dialog.closeAll();
     sessionStorage.clear();
     sessionStorage.removeItem('token');
     this.router.navigateByUrl('/redirect-page', { replaceUrl: true });

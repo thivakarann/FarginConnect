@@ -31,34 +31,57 @@ export class CustomerticketImageComponent {
     this.raiseTicketId = this.data.value
         
   }
-  ngOnInit(): void {
+  // ngOnInit(): void {
     
-    this.raiseTicket = this.data.value
+  //   this.raiseTicket = this.data.value
     
  
  
  
-    this.service.Entitylogoview(this.raiseTicketId).subscribe({
-      next: (res: any) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(res);
-        reader.onloadend = () => {
-          this.imageUrl = reader.result as string;
+  //   this.service.Entitylogoview(this.raiseTicketId).subscribe({
+  //     next: (res: any) => {
+  //       const reader = new FileReader();
+  //       reader.readAsDataURL(res);
+  //       reader.onloadend = () => {
+  //         this.imageUrl = reader.result as string;
           
-          this.DocView = true;
+  //         this.DocView = true;
+  //       }
+  //     },
+ 
+  //   });
+ 
+ 
+  //   this.logoUpdate = new FormGroup({
+  //     raiseTicketId : new FormControl(''),
+  //     fileImage  : new FormControl('', [Validators.required]),
+ 
+  //   })
+  // }
+ 
+
+  ngOnInit(): void {
+    this.raiseTicket = this.data.value
+  
+    this.service.Entitylogoview(this.raiseTicketId).subscribe({
+      next: (res: Blob) => {
+        if (res.size > 0) { // Check if the response contains data
+          const reader = new FileReader();
+          reader.readAsDataURL(res);
+          reader.onloadend = () => {
+            this.imageUrl = reader.result as string;
+            this.DocView = true; // Valid image data found
+          };
+        } else {
+          this.DocView = false; // No image data found
         }
       },
- 
+      error: () => {
+        this.DocView = false; // Handle error case
+      },
     });
- 
- 
-    this.logoUpdate = new FormGroup({
-      raiseTicketId : new FormControl(''),
-      fileImage  : new FormControl('', [Validators.required]),
- 
-    })
   }
- 
+  
   get fileImage() {
     return this.logoUpdate.get('fileImage');
   }

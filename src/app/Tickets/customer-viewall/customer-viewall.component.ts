@@ -95,14 +95,14 @@ export class CustomerViewallComponent implements OnInit {
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.ticket.reverse());
+        this.dataSource = new MatTableDataSource(this.ticket);
         this.currentfilvalShow = false;
       } else if (res.flag == 2) {
         this.ticket = [];
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.ticket.reverse());
+        this.dataSource = new MatTableDataSource(this.ticket);
         this.currentfilvalShow = false;
       }
     });
@@ -153,14 +153,14 @@ export class CustomerViewallComponent implements OnInit {
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.ticket.reverse());
+        this.dataSource = new MatTableDataSource(this.ticket);
         this.currentfilvalShow = false;
       } else if (res.flag == 2) {
         this.ticket = [];
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.ticket.reverse());
+        this.dataSource = new MatTableDataSource(this.ticket);
         this.currentfilvalShow = false;
       }
     });
@@ -198,14 +198,14 @@ export class CustomerViewallComponent implements OnInit {
           this.totalPages = res.pagination.totalElements;
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.ticket.reverse());
+          this.dataSource = new MatTableDataSource(this.ticket);
           this.currentfilvalShow = false;
         } else if (res.flag == 2) {
           this.ticket = [];
           this.totalPages = res.pagination.totalElements;
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.ticket.reverse());
+          this.dataSource = new MatTableDataSource(this.ticket);
           this.currentfilvalShow = false;
         }
       });
@@ -430,13 +430,13 @@ export class CustomerViewallComponent implements OnInit {
           this.totalPages = res.pagination.totalElements;
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.ticket.reverse());
+          this.dataSource = new MatTableDataSource(this.ticket);
         } else if (res.flag == 2) {
           this.ticket = [];
           this.totalPages = res.pagination.totalElements;
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.ticket.reverse());
+          this.dataSource = new MatTableDataSource(this.ticket);
         }
       });
     }

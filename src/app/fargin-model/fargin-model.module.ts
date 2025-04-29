@@ -1536,3 +1536,15 @@ export interface entityterminaltransaction{
       readonly branchId:any;
 
     }
+
+    export interface ExportReportCreate {
+      readonly createdBy: any;
+      readonly exportDataName: any;
+      readonly exportStartDate: any;
+      readonly exportEndDate: any;
+      readonly exportType:any;
+      readonly merchantId: any;
+      readonly paymentStatus: any;
+      readonly type: any;
+    }
+    

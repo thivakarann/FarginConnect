@@ -1,19 +1,20 @@
 <div class="modal-content">
-    <div class="modal-header">
-      <h5>Ticket Image
-      </h5>
+  <div class="modal-header">
+    <h5>Ticket Image</h5>
+  </div>
+  <div class="modal-body">
+    <!-- Only show the image if DocView is true and imageUrl is valid -->
+    <div *ngIf="DocView && imageUrl">
+      <img [src]="imageUrl" style="width: 500px; height: 250px; justify-content: center;" class="center" />
     </div>
-    <div class="modal-body">
-      <div *ngIf="DocView">
-        <img [src]="imageUrl" style="width: 500px;height: 250px;justify-content: center;" class="center" />
+    <!-- Show 'No Data Found' message if DocView is false or imageUrl is not valid -->
+    <div *ngIf="!DocView || !imageUrl">
+      <div class="text-center mt-4" style="width: 500px; height: 250px; justify-content: center;">
+        <h5>Data Not Uploaded</h5>
       </div>
-      <div *ngIf="!DocView">
-        <div class="text-center mt-4" style="width: 500px;height: 250px;justify-content: center;">
-          <h5>No Data Found</h5>
-        </div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-danger" (click)="close()">Close</button>
     </div>
   </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="close()">Close</button>
+  </div>
+</div>

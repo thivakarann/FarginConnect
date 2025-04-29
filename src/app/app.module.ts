@@ -289,6 +289,8 @@ import { BranchOnlineviewComponent } from './Entity Onboard/branch-onlinetransac
 import { BranchWiseenitytransactionComponent } from './Entity Onboard/branch-onlinetransactions/branch-wiseenitytransaction/branch-wiseenitytransaction.component';
 import { OtherpayManualpaymentComponent } from './Fargin Transtions/Other Payments/otherpay-manualpayment/otherpay-manualpayment.component';
 import { BranchInactivenbranchComponent } from './Entity Onboard/Branch/branch-inactivenbranch/branch-inactivenbranch.component';
+import { ExportReportViewallComponent } from './Export-Report/export-report-viewall/export-report-viewall.component';
+import { ExportReportAddComponent } from './Export-Report/export-report-add/export-report-add.component';
 
 
 @NgModule({
@@ -555,6 +557,8 @@ import { BranchInactivenbranchComponent } from './Entity Onboard/Branch/branch-i
     BranchWiseenitytransactionComponent,
     OtherpayManualpaymentComponent,
     BranchInactivenbranchComponent,
+    ExportReportViewallComponent,
+    ExportReportAddComponent,
 
   ],
 
