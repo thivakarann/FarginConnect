@@ -89,8 +89,7 @@ export class ViewallKyccategoryComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.categoryview);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-      
-
+    
       }
       else {
         this.categoryview = []
@@ -122,7 +121,6 @@ export class ViewallKyccategoryComponent implements OnInit {
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
           
-    
           }
           else {
             this.categoryview = []
@@ -138,65 +136,48 @@ export class ViewallKyccategoryComponent implements OnInit {
   }
 
   create() {
-    this.dialog.open(AddKyccategoryComponent, {
+    const dialogRef = this.dialog.open(AddKyccategoryComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       disableClose: true,
     });
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.service.viewallkycCategory().subscribe((res: any) => {
+ 
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.KYCCategory();
+    });
+  }
+
+  KYCCategory(){
+    this.service.viewallkycCategory().subscribe((res: any) => {
      
-        if (res.flag == 1) {
-          this.categoryview = res.response;
-          this.categoryview.reverse();
-          this.dataSource = new MatTableDataSource(this.categoryview);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        
-  
-        }
-        else {
-          this.categoryview = []
-          this.dataSource = new MatTableDataSource(this.categoryview);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        
-        }
-      })
-  
+      if (res.flag == 1) {
+        this.categoryview = res.response;
+        this.categoryview.reverse();
+        this.dataSource = new MatTableDataSource(this.categoryview);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+    
+      }
+      else {
+        this.categoryview = []
+        this.dataSource = new MatTableDataSource(this.categoryview);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      
+      }
     })
   }
 
   Edit(id: string) {
-    this.dialog.open(EditKyccategoryComponent, {
+    const dialogRef =  this.dialog.open(EditKyccategoryComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       data: { value: id },
       disableClose: true
     });
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.service.viewallkycCategory().subscribe((res: any) => {
-     
-        if (res.flag == 1) {
-          this.categoryview = res.response;
-          this.categoryview.reverse();
-          this.dataSource = new MatTableDataSource(this.categoryview);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        
-  
-        }
-        else {
-          this.categoryview = []
-          this.dataSource = new MatTableDataSource(this.categoryview);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        
-        }
-      })
-  
-  
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.KYCCategory();
+    });
   }
 
 
@@ -209,8 +190,7 @@ export class ViewallKyccategoryComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.categoryview);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-      
-
+    
       }
       else {
         this.categoryview = []

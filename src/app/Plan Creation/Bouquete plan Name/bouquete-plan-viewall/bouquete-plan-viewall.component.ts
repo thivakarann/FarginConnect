@@ -269,6 +269,29 @@ searchPerformed: boolean=false;
       }
       else {
         this.toastr.error(res.responseMessage);
+        setTimeout(() => {
+          this.Bouqutenameviewall.Bouqetenameviewall().subscribe((res: any) => {
+            if(res.flag==1)
+             {
+               this.viewall = res.response;
+               this.viewall.reverse();
+               this.dataSource = new MatTableDataSource(this.viewall);
+               this.dataSource.sort = this.sort;
+               this.dataSource.paginator = this.paginator;
+               this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+             }
+             else if(res.flag==2)
+             {
+               this.viewall = [];
+               this.dataSource = new MatTableDataSource(this.viewall.reverse());
+               this.dataSource.sort = this.sort;
+               this.dataSource.paginator = this.paginator;
+             }
+     
+         });
+     
+       
+        }, 500);
       }
 
     });

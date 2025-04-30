@@ -122,36 +122,68 @@ searchPerformed: boolean=false;
 
   }
 
+  // AddBankDetails() {
+  //   this.dialog.open(AddbankDetailsComponent, {
+  //     enterAnimationDuration: "500ms",
+  //     exitAnimationDuration: "800ms",
+  //     disableClose: true
+  //   })
+  //   this.dialog.afterAllClosed.subscribe(() => {
+  //     this.bankdetails.bankdetailsViewall().subscribe((res: any) => {
+  //       if(res.flag==1)
+  //       {   
+  //         this.viewall = res.response;
+  //         this.viewall.reverse();
+  //         this.dataSource = new MatTableDataSource(this.viewall);
+  //         this.dataSource.sort = this.sort;
+  //         this.dataSource.paginator = this.paginator;
+  
+  //       }
+  //       else if(res.flag==2)
+  //       {
+  //         this.viewall = [];
+  //         this.dataSource = new MatTableDataSource(this.viewall);
+  //         this.dataSource.sort = this.sort;
+  //         this.dataSource.paginator = this.paginator;
+  
+  //       }
+     
+  
+  //     });
+
+  //   })
+  // }
+
   AddBankDetails() {
-    this.dialog.open(AddbankDetailsComponent, {
+    const dialogRef = this.dialog.open(AddbankDetailsComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "800ms",
       disableClose: true
-    })
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.bankdetails.bankdetailsViewall().subscribe((res: any) => {
-        if(res.flag==1)
-        {   
-          this.viewall = res.response;
-          this.viewall.reverse();
-          this.dataSource = new MatTableDataSource(this.viewall);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
+    });
   
-        }
-        else if(res.flag==2)
-        {
-          this.viewall = [];
-          this.dataSource = new MatTableDataSource(this.viewall);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-  
-        }
-     
-  
-      });
+    // Listen for updates when dialog emits event
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchBankDetails();
+    });
+  }
 
-    })
+
+  fetchBankDetails() {
+    this.bankdetails.bankdetailsViewall().subscribe((res: any) => {
+      if (res.flag == 1) {   
+        this.viewall = res.response;
+        this.viewall.reverse();
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+      else if (res.flag == 2) {
+        this.viewall = [];
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+    });
   }
 
 

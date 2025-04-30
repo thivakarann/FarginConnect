@@ -1,4 +1,4 @@
-import { Component, Inject, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Inject, inject, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FarginServiceService } from '../../../../service/fargin-service.service';
@@ -36,7 +36,7 @@ export class BusinessKycEditComponent implements OnInit {
   businessCategoryIds: any;
   kycValue: any;
   kycCategoryIds: any;
- 
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
  
   constructor(private fb: FormBuilder, private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, @Inject(MAT_DIALOG_DATA) public data: any) {
  
@@ -106,6 +106,7 @@ export class BusinessKycEditComponent implements OnInit {
     this.service.Businesskycupdate(this.businessCreationId, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll()
       
       } else {

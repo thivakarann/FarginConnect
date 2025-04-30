@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
@@ -19,7 +19,7 @@ export class EditKyccategoryComponent {
   mccCodes: any;
   kycCategoryId: any;
   kycCategoryNames: any;
-
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, @Inject(MAT_DIALOG_DATA) public data: any) {
   }
@@ -53,6 +53,7 @@ export class EditKyccategoryComponent {
     this.service.editkycCategory(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll()
      
       } else {

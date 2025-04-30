@@ -65,6 +65,7 @@ export class AgreementViewallComponent {
   valueagreeAgreement: any;
   valueagreeSignedCopy: any;
   valueagreementlink: any;
+  search: boolean=false;
 
   constructor(private service: FarginServiceService, private dialog: MatDialog, private ActivateRoute: ActivatedRoute, private router: Router) { }
 
@@ -128,6 +129,12 @@ export class AgreementViewallComponent {
         this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
 
       }
+      else{
+        this.agreementdata=[];
+        this.dataSource = new MatTableDataSource(this.agreementdata);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
     });
 
 
@@ -149,6 +156,12 @@ export class AgreementViewallComponent {
         this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
 
       }
+      else{
+        this.agreementdata=[];
+        this.dataSource = new MatTableDataSource(this.agreementdata);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
     });
   }
 
@@ -156,28 +169,7 @@ export class AgreementViewallComponent {
   copyText1(text: string, index: number) { const el = document.createElement('textarea'); el.value = text; document.body.appendChild(el); el.select(); document.execCommand('copy'); document.body.removeChild(el); this.copiedIndex = index; setTimeout(() => this.copiedIndex = -1, 2000); }
 
 
-  renderPage(event: PageEvent) {
-    // Capture the new page index and page size from the event
-    this.pageIndex = event.pageIndex;  // Update current page index
-    this.pageSize = event.pageSize;           // Update page size (if changed)
-
-    // Log the new page index and page size to the console (for debugging)
-    console.log('New Page Index:', this.pageIndex);
-    console.log('New Page Size:', this.pageSize);
-
-    // You can now fetch or display the data for the new page index
-    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
-    this.ngOnInit()
-  }
-  changePageIndex(newPageIndex: number) {
-    this.pageIndex = newPageIndex;
-    this.renderPage({
-      pageIndex: newPageIndex,
-      pageSize: this.pageSize,
-      // length: this.totalItems
-    } as PageEvent);
-  }
-
+  
   Back(id: any) {
     this.router.navigate([`customer-verify-view/${id}`], {
       queryParams: { Alldata: id },
@@ -188,7 +180,8 @@ export class AgreementViewallComponent {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
+   this.search=filterValue.length>0;
+   
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }

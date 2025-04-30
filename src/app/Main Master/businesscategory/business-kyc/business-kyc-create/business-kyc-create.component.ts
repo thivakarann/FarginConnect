@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FarginServiceService } from '../../../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
@@ -30,7 +30,7 @@ export class BusinessKycCreateComponent implements OnInit {
   kycValue: any
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
- 
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
  
   constructor(private fb: FormBuilder, private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
  
@@ -89,6 +89,7 @@ export class BusinessKycCreateComponent implements OnInit {
     this.service.BusinesskycCreate(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll()
         }
       else {

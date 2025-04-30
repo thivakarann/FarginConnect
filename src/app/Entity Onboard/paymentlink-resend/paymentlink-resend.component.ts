@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
@@ -16,6 +16,8 @@ export class PaymentlinkResendComponent {
   merchantid: any;
   minDate: any = Date;
   maxDate: any = Date;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
+
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, @Inject(MAT_DIALOG_DATA) public data: any,) { }
   ngOnInit(): void {
     this.merchantid = this.data.value
@@ -57,6 +59,7 @@ export class PaymentlinkResendComponent {
     this.service.EmailTrigger(submitModel).subscribe((res: any) => {
       if (res.response.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll()
        
       }

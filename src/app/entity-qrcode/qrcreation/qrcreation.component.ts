@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { Router } from '@angular/router';
@@ -25,7 +25,8 @@ export class QRcreationComponent implements OnInit {
   getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
   QRdetaisl: any;
   isCreated: boolean=false;
-
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
+  
   constructor(
     public QRcreation: FarginServiceService,
     private router: Router,
@@ -95,6 +96,7 @@ export class QRcreationComponent implements OnInit {
     this.QRcreation.QRURLcreation(submitmodel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
         this.QRdetaisl = res.response;
       }

@@ -24,7 +24,7 @@ export class ViewticketComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   dataSource: any;
-  displayedColumns: string[] = ["Sno","raiseTicketId", "merchantName", "subject","stickerCount", "Criticallity", "description", "image","action","stickeraction", "Status", 'Comments', "createdDateTime"]
+  displayedColumns: string[] = ["Sno","raiseTicketId", "merchantName", "subject","stickerCount", "Criticallity", "description", "image","action","stickeraction", "Status", 'Comments', "createdDateTime","UpdatedBy","UpdatedAt"]
   tickets: any;
   // response: any = [];
   businesscategory: any;

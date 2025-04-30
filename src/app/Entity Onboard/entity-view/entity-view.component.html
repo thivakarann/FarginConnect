@@ -2841,8 +2841,8 @@
               "
             >
               <td>{{ i + 1 }}</td>
-              <td>{{ item.commercialId?.planName }}</td>
-              <td>{{ item.commercialId?.serviceFee }}</td>
+              <td>{{ item.planName }}</td>
+              <td>{{ item.serviceFee }}</td>
               <td>{{ item.merchantName }}</td>
               <td>{{ item.merchantDesignation }}</td>
 
@@ -2854,7 +2854,7 @@
                 <i
                   style="cursor: pointer; font-size: 17px"
                   class="fa fa-eye"
-                  (click)="view(item.commercialId?.commercialId)"
+                  (click)="view(item.commercialId)"
                 ></i>
               </td>
               <td

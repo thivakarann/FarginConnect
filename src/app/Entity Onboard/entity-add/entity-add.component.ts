@@ -237,7 +237,7 @@ export class EntityAddComponent implements OnInit {
     this.myForm2 = new FormGroup({
       accountHolderName: new FormControl(null, [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
+        Validators.pattern('^[a-zA-Z ]*$')
       ]),
       accountNumber: new FormControl(null, [
         Validators.required,
@@ -249,7 +249,8 @@ export class EntityAddComponent implements OnInit {
       ]),
       ifscCode: new FormControl("", [
         Validators.required,
-        Validators.pattern("^[A-Z]{4}0[A-Z0-9]{6}$")
+        Validators.pattern('^[A-Z]{4}0[A-Z0-9]{6}$')
+             
       ]),
       branchName: new FormControl('', [
         Validators.required,

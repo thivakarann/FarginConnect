@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
@@ -13,6 +13,8 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 export class AddKyccategoryComponent {
   addkyccategory: any = FormGroup;
   createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
+
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
 
@@ -42,6 +44,7 @@ export class AddKyccategoryComponent {
     this.service.addkycCategory(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
+         this.bankDetailsUpdated.emit();
         this.dialog.closeAll()
       }
       else {

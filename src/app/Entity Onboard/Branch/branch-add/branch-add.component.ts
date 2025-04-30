@@ -62,7 +62,7 @@ export class BranchAddComponent {
       apiKey: new FormControl('', [Validators.required]),
       secretKey: new FormControl('', [Validators.required]),
       bankName: new FormControl('', [Validators.required]),
-      accountHolderName: new FormControl('', [Validators.required]),
+      accountHolderName: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z ]*$')]),
       accountNumber: new FormControl('', [Validators.required,Validators.pattern("^[0-9]{9,18}$")]),
       ifscCode: new FormControl('', [Validators.required,Validators.pattern("^[A-Z]{4}0[A-Z0-9]{6}$")]),
       createdBy: new FormControl(''),

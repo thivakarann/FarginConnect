@@ -110,18 +110,22 @@ valueqredit: any;
   }
 
   QRlink(id:any){
-    this.dialog.open(QRcreationComponent,{
+    const dialogRef = this.dialog.open(QRcreationComponent,{
       enterAnimationDuration:"500ms",
       exitAnimationDuration:"800ms",
       disableClose: true,
       data: { value: id }
     })
-    this.dialog.afterAllClosed.subscribe(()=>{
-      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
-        this.details = res.response;
-        this.detaislone = res.response.merchantpersonal;
-      });
-  
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchBankDetails();
+    });
+  }
+
+
+  fetchBankDetails(){
+    this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+      this.details = res.response;
+      this.detaislone = res.response.merchantpersonal;
+    });
   }
 }

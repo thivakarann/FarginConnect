@@ -177,88 +177,57 @@ export class BusinessKycComponent implements OnInit {
 
 
   create() {
-    this.dialog.open(BusinessKycCreateComponent, {
+    const dialogRef = this.dialog.open(BusinessKycCreateComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       disableClose: true
     });
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.service.BusinesscategoryKyc().subscribe((res: any) => {
-        if(res.flag==1)
-        {
-         this.businesscategorykyc = res.response;
-   
-         this.businesscategorykyc.reverse();
-         this.dataSource = new MatTableDataSource(this.businesscategorykyc);
-         this.dataSource.sort = this.sort;
-         this.dataSource.paginator = this.paginator;
-         this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-   
-      
-        }
-        else if(res.flag==2)
-        {
-         this.businesscategorykyc=[];
-         
-         this.businesscategorykyc.reverse();
-         this.dataSource = new MatTableDataSource(this.businesscategorykyc);
-         this.dataSource.sort = this.sort;
-         this.dataSource.paginator = this.paginator;
-        }
-        
   
-  
-  
-  
-  
-      });
-  
-  
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.Businesskyccategoryview();
+    });
   }
 
+  Businesskyccategoryview(){
+    this.service.BusinesscategoryKyc().subscribe((res: any) => {
+      if(res.flag==1)
+      {
+       this.businesscategorykyc = res.response;
+ 
+       this.businesscategorykyc.reverse();
+       this.dataSource = new MatTableDataSource(this.businesscategorykyc);
+       this.dataSource.sort = this.sort;
+       this.dataSource.paginator = this.paginator;
+       this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+ 
+    
+      }
+      else if(res.flag==2)
+      {
+       this.businesscategorykyc=[];
+       
+       this.businesscategorykyc.reverse();
+       this.dataSource = new MatTableDataSource(this.businesscategorykyc);
+       this.dataSource.sort = this.sort;
+       this.dataSource.paginator = this.paginator;
+      }
+ 
+
+    });
+  } 
 
   Edit(id: any) {
-    this.dialog.open(BusinessKycEditComponent, {
+    const dialogRef = this.dialog.open(BusinessKycEditComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       data: { value: id },
       disableClose: true
 
     });
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.service.BusinesscategoryKyc().subscribe((res: any) => {
-        if(res.flag==1)
-        {
-         this.businesscategorykyc = res.response;
-   
-         this.businesscategorykyc.reverse();
-         this.dataSource = new MatTableDataSource(this.businesscategorykyc);
-         this.dataSource.sort = this.sort;
-         this.dataSource.paginator = this.paginator;
-         this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-   
-      
-        }
-        else if(res.flag==2)
-        {
-         this.businesscategorykyc=[];
-         
-         this.businesscategorykyc.reverse();
-         this.dataSource = new MatTableDataSource(this.businesscategorykyc);
-         this.dataSource.sort = this.sort;
-         this.dataSource.paginator = this.paginator;
-        }
-        
-  
-  
-  
-  
-  
-      });
-  
-  
-    })
+    
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.Businesskyccategoryview();
+    });
   }
 
 

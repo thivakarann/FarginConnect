@@ -238,6 +238,7 @@ exportpay(event:any) {
       SmsHistory = 15,
       EntityRequest = 16,
       CustomerRequest = 17,
+      OnlineRefund = 20,
     }
 
     const dataNameMapping: Record<ExportDataName, string> = {
@@ -251,6 +252,7 @@ exportpay(event:any) {
       [ExportDataName.SmsHistory]: 'Sms_History',
       [ExportDataName.EntityRequest]: 'Entity_Request',
       [ExportDataName.CustomerRequest]: 'Customer_Request',
+      [ExportDataName.OnlineRefund]: 'Online_Refund',
     };
  
     const fileName = dataNameMapping[exportDataName as ExportDataName] || 'Exported_Report';

@@ -23,7 +23,7 @@
                          <option value="16">Entity Request</option>
                          <option value="17">Customer Request</option>
                         <option value="18">Channel Creation</option> 
-                     
+                        <option value="20">Online Refund</option> 
                     </select>
                     <div style="
                     color: red;
@@ -47,7 +47,7 @@
                     </div>
                   </div> -->
 
-                  <div  [hidden]="exportDataName?.value != '4' && exportDataName?.value != '7' && exportDataName?.value != '13' && exportDataName?.value != '14'&& exportDataName?.value != '19' && exportDataName?.value != '15' && exportDataName?.value != '16' && exportDataName?.value != '17'" class="form-group">
+                  <div  [hidden]="exportDataName?.value != '4' && exportDataName?.value != '7' && exportDataName?.value != '13' && exportDataName?.value != '14'&& exportDataName?.value != '19' && exportDataName?.value != '15' && exportDataName?.value != '16' && exportDataName?.value != '17'  && exportDataName?.value != '20'" class="form-group">
                     <label for="website">Search Entity</label>
                     <div class="input-group">
                       <input type="text" class="form-control custom-input" formControlName="selectedOption"

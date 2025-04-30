@@ -100,7 +100,7 @@ export class PaymentlinkViewComponent implements OnInit {
       if(res.flag==1)
       {
        this.paymentValue = res.response;
-        this.dataSource = new MatTableDataSource(this.paymentValue?.reverse())
+        this.dataSource = new MatTableDataSource(this.paymentValue)
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       
@@ -108,7 +108,7 @@ export class PaymentlinkViewComponent implements OnInit {
       else if(res.flag==2)
       {
         this.paymentValue = [];
-        this.dataSource = new MatTableDataSource(this.paymentValue?.reverse())
+        this.dataSource = new MatTableDataSource(this.paymentValue)
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
@@ -128,7 +128,7 @@ export class PaymentlinkViewComponent implements OnInit {
   }
 
   resendLink(id: any) {
-    this.dialog.open(PaymentlinkResendComponent, {
+    const dialogRef = this.dialog.open(PaymentlinkResendComponent, {
       enterAnimationDuration: "1000ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
@@ -136,28 +136,31 @@ export class PaymentlinkViewComponent implements OnInit {
         value: this.id,
       }
     })
-    this.dialog.afterAllClosed.subscribe(()=>{
-     
-      this.service.paymentLinkview(this.id).subscribe((res: any) => {
-        if(res.flag==1)
-        {
-         this.paymentValue = res.response;
-          this.dataSource = new MatTableDataSource(this.paymentValue?.reverse())
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        
-        }
-        else if(res.flag==2)
-        {
-          this.paymentValue = [];
-          this.dataSource = new MatTableDataSource(this.paymentValue?.reverse())
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        }
-         
-  
-      })
-  
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.Paymentlink();
+    });
+
+  }
+
+  Paymentlink(){
+    this.service.paymentLinkview(this.id).subscribe((res: any) => {
+      if(res.flag==1)
+      {
+       this.paymentValue = res.response;
+        this.dataSource = new MatTableDataSource(this.paymentValue)
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      
+      }
+      else if(res.flag==2)
+      {
+        this.paymentValue = [];
+        this.dataSource = new MatTableDataSource(this.paymentValue)
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+       
+
     })
 
   }
