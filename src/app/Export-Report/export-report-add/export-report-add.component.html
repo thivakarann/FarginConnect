@@ -53,7 +53,7 @@
                   </div> -->
 
                   <div  [hidden]="exportDataName?.value != '4' && exportDataName?.value != '7' && exportDataName?.value != '13' && exportDataName?.value != '14'&& exportDataName?.value != '19' && exportDataName?.value != '15' && exportDataName?.value != '16' && exportDataName?.value != '17'  && exportDataName?.value != '20' && exportDataName?.value != '21' && exportDataName?.value != '22'" class="form-group">
-                    <label for="website">Search Entity</label>
+                    <label for="website">Search Entity (Optional)</label>
                     <div class="input-group">
                       <input type="text" class="form-control custom-input" formControlName="selectedOption"
                              [(ngModel)]="customerInput" placeholder="Search Entity Name" 
@@ -75,7 +75,7 @@
                   </div>
 
                 <div [hidden]="exportDataName?.value != '4' && exportDataName?.value != '7' && exportDataName?.value != '13' && exportDataName?.value != '14'&& exportDataName?.value != '19' " class="form__linput">
-                    <label for="paymentStatus">Payment Status</label>
+                    <label for="paymentStatus">Payment Status (Optional)</label>
                     <select formControlName="paymentStatus" type="text" id="fname" class="form-select">
                         <option value="Success">Success</option>
                         <option value="Failure">Failure</option>

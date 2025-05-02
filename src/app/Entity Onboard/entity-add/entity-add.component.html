@@ -734,6 +734,15 @@
                   " *ngIf="accountHolderName?.invalid && accountHolderName?.errors?.['pattern']">
                         Enter a Valid Name
                     </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="accountHolderName?.errors?.['maxlength']">
+                        maximum length should be 30
+                    </div>
                 </div>
                 <div class="col-sm-4 form-group">
                     <label for="state">Account Number</label>
@@ -839,6 +848,15 @@
                     ;
                   " *ngIf="branchName?.invalid && branchName?.touched && branchName?.errors?.['pattern']">
                         Enter a Valid Input
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="branchName?.errors?.['maxlength']">
+                        maximum length should be 50
                     </div>
                 </div>
 
@@ -1186,12 +1204,12 @@
             <div class="form__row">
                 <div class="form__linput">
                     <label class="form__label"><b>Document Name</b></label>
-                    <select class="form-select" formControlName="kycCategoryId">
+                    <select class="form-select" formControlName="kycCategoryIds">
                         <option *ngFor="let item of KYCDocNames" [value]="item.entityKycCategory?.kycCategoryId">
                             {{item.entityKycCategory.kycCategoryName}}
                         </option>
                     </select>
-                    <div *ngIf="kycCategoryId?.invalid && kycCategoryId?.touched && kycCategoryId?.errors?.['required']"
+                    <div *ngIf="kycCategoryIds?.invalid && kycCategoryIds?.touched && kycCategoryIds?.errors?.['required']"
                         style="color: red; font-size: 12px;">
                         Field is required
                     </div>
@@ -1199,7 +1217,16 @@
 
                 <div class="form__linput">
                     <label class="form__label"><b>Document ID</b></label>
-                    <input class="form-control" id="mccCode" type="text" formControlName="docNumber" required />
+                    <input class="form-control" id="mccCode" type="text" formControlName="docNumber"  />
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="docNumber?.errors?.['maxlength']">
+                        maximum length should be 60
+                    </div>
                     <!-- <div *ngIf="docNumber && docNumber.invalid && (docNumber.touched || docNumber.dirty)">
                         <small *ngIf="docNumber.errors?.['required']" style="color: red; font-size: 12px;">This field is
                             required.</small>
@@ -1212,7 +1239,7 @@
             <div class="form__row">
                 <div class="form__linput">
                     <label class="form__label"><b>Expiry Date</b></label>
-                    <input class="form-control"  type="date" formControlName="expiryDate">
+                    <input  onkeydown="return false;" class="form-control"  type="date" formControlName="expiryDate">
                     <!-- <div style="color: red; font-size: 12px;margin-top: 2px;"
                         *ngIf="expiryDate?.invalid && expiryDate?.touched && expiryDate?.errors?.['required']">
                         Field is required

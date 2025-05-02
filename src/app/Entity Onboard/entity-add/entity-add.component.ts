@@ -98,7 +98,7 @@ export class EntityAddComponent implements OnInit {
   ngOnInit(): void {
 
     const today = new Date()
- 
+
     this.maxDate = moment(today).format('yyyy-MM-DD').toString()
 
     this.AddEntity.Bussinesscategoryactivelist().subscribe((res: any) => {
@@ -161,8 +161,8 @@ export class EntityAddComponent implements OnInit {
       contactEmail: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$'),
-         Validators.maxLength(40), // Maximum length for the email
-          ]),
+        Validators.maxLength(40), // Maximum length for the email
+      ]),
       website: new FormControl('', [Validators.pattern("((http|https)://)(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,6})+(/[-a-zA-Z0-9@:%._\\+~#?&//=]*)?")]),
       gstIn: new FormControl("", [Validators.pattern("^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[A-Z]{1}[0-9A-Z]{1}$")]),
       billingAddress: new FormControl("", [
@@ -205,13 +205,13 @@ export class EntityAddComponent implements OnInit {
 
       dueDate: new FormControl('',),
 
-      offlineQrEnable: new FormControl ("",[Validators.required]),
+      offlineQrEnable: new FormControl("", [Validators.required]),
 
-      payoutEnable: new FormControl ("",[Validators.required]),
+      payoutEnable: new FormControl("", [Validators.required]),
 
-      customerManualStatus: new FormControl ("",[Validators.required]),
+      customerManualStatus: new FormControl("", [Validators.required]),
 
-      customerPaymentMode: new FormControl ("",[Validators.required]),
+      customerPaymentMode: new FormControl("", [Validators.required]),
 
       smsMerchantName: new FormControl('', [
         Validators.required,
@@ -219,7 +219,7 @@ export class EntityAddComponent implements OnInit {
         Validators.maxLength(25)
       ]),
 
-      customerSmsTag: new FormControl (""),
+      customerSmsTag: new FormControl(""),
 
 
 
@@ -235,10 +235,15 @@ export class EntityAddComponent implements OnInit {
 
 
     this.myForm2 = new FormGroup({
-      accountHolderName: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z ]*$')]),
+      accountHolderName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z ]*$'),
+        Validators.maxLength(30)
+      ]),
       accountNumber: new FormControl(null, [
         Validators.required,
-        Validators.pattern("^[0-9]{9,18}$")
+        Validators.pattern("^[0-9]{9,18}$"),
+
       ]),
       bankName: new FormControl("", [
         Validators.required,
@@ -247,18 +252,19 @@ export class EntityAddComponent implements OnInit {
       ifscCode: new FormControl("", [
         Validators.required,
         Validators.pattern('^[A-Z]{4}0[A-Z0-9]{6}$')
-             
+
       ]),
       branchName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
+        Validators.pattern('^[a-zA-Z0-9 ]*$'),
+        Validators.maxLength(50)
       ]),
       accountType: new FormControl("", [
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9 ]*$')
       ]),
 
-      ledgerId: new FormControl('',[Validators.required]),
+      ledgerId: new FormControl('', [Validators.required]),
     })
 
     this.firstFormGroup = this._formBuilder.group({
@@ -290,11 +296,12 @@ export class EntityAddComponent implements OnInit {
 
 
     this.fourthFormGroup = this._formBuilder.group({
-      kycCategoryId: ['', Validators.required],
-      docNumber: [''],
+      kycCategoryIds: ['', [Validators.required]],
+      docNumber: ['',
+        [Validators.maxLength(60)]],
       expiryDate: [''],
       docFrontPath: ['', Validators.required],
-      docBackPath: ['',Validators.required]
+      docBackPath: ['', Validators.required]
     })
 
 
@@ -306,7 +313,7 @@ export class EntityAddComponent implements OnInit {
   // get(event: any) {
   //   this.selectperiod = event.target.value;
   // }
-  duealert(event:any){
+  duealert(event: any) {
     this.myForm.get('customerDuesDate')?.setValue('');
     this.myForm.get('dueDate')?.setValue('');
     this.myForm.get('customerSmsTag')?.setValue('');
@@ -568,8 +575,8 @@ export class EntityAddComponent implements OnInit {
 
   // Bussiness form
 
-  get kycCategoryId() {
-    return this.fourthFormGroup.get('kycCategoryId')
+  get kycCategoryIds() {
+    return this.fourthFormGroup.get('kycCategoryIds')
   }
 
   get docNumber() {
@@ -747,52 +754,52 @@ export class EntityAddComponent implements OnInit {
 
 
     identityProofNoControl?.clearValidators();
-  
+
     if (this.selectElement == 'Aadhar Card') {
       identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[0-9]{12}$")]); // 12 digits for Aadhar
       identityProofNoControl2?.setValidators([]) // Driving license format
       identityProofNoControl1?.setValidators([]) // Driving license format
 
-    } 
-     if (this.selectElement == 'Pancard') {
+    }
+    if (this.selectElement == 'Pancard') {
       identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{5}[0-9]{4}[A-Z]$")]); // PAN format
       identityProofNoControl2?.setValidators([]) // Driving license format
       identityProofNoControl1?.setValidators([]) // Driving license format
 
 
-    } 
-     if (this.selectElement == 'Voter Id Proof') {
+    }
+    if (this.selectElement == 'Voter Id Proof') {
       identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]); // Voter ID format
       identityProofNoControl2?.setValidators([]) // Driving license format
       identityProofNoControl1?.setValidators([]) // Driving license format
 
 
-    } 
-     if (this.selectElement == 'Passport') {
+    }
+    if (this.selectElement == 'Passport') {
       identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Passport format
-        identityProofNoControl1?.setValidators([Validators.required]) // Driving license format
-        
-        identityProofNoControl2?.setValidators([]) // Driving license format
+      identityProofNoControl1?.setValidators([Validators.required]) // Driving license format
 
-    } 
-    if (this.selectElement == 'Driving License') {
-      identityProofNoControl?.setValidators([Validators.required]); 
-        identityProofNoControl2?.setValidators([Validators.required]) // Driving license format
-        identityProofNoControl1?.setValidators([]) // Driving license format
-        
+      identityProofNoControl2?.setValidators([]) // Driving license format
 
     }
-  
-  
-    
-  
+    if (this.selectElement == 'Driving License') {
+      identityProofNoControl?.setValidators([Validators.required]);
+      identityProofNoControl2?.setValidators([Validators.required]) // Driving license format
+      identityProofNoControl1?.setValidators([]) // Driving license format
+
+
+    }
+
+
+
+
     // Reset the values of the related fields
     this.firstFormGroup.get('identityProofNo')?.reset();
     this.firstFormGroup.get('identityFrontPath')?.reset();
     this.firstFormGroup.get('identityBackPath')?.reset();
     this.firstFormGroup.get('drivingLicenceDob')?.reset();
     this.firstFormGroup.get('passportDob')?.reset();
-  
+
     // Recheck the form's validity
     this.firstFormGroup.updateValueAndValidity(); // This is critical to revalidate the whole form group
   }
@@ -809,24 +816,24 @@ export class EntityAddComponent implements OnInit {
 
     if (this.selectElements == 'Aadhar Card') {
       addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[0-9]{12}$")]); // 12 digits for Aadhar
-      addressProofNoControl2?.setValidators([]) 
-      addressProofNoControl1?.setValidators([]) 
-    }  
+      addressProofNoControl2?.setValidators([])
+      addressProofNoControl1?.setValidators([])
+    }
     if (this.selectElements == 'Voter Id Proof') {
       addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]);
-      addressProofNoControl2?.setValidators([]) 
-      addressProofNoControl1?.setValidators([]) 
-    } 
-     if (this.selectElements == 'Passport') {
+      addressProofNoControl2?.setValidators([])
+      addressProofNoControl1?.setValidators([])
+    }
+    if (this.selectElements == 'Passport') {
       addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Passport format
       addressProofNoControl1?.setValidators([Validators.required]) // Driving license format
-        
+
       addressProofNoControl2?.setValidators([])
-    } 
-     if (this.selectElements == 'Driving License') {
-      addressProofNoControl?.setValidators([Validators.required]); 
+    }
+    if (this.selectElements == 'Driving License') {
+      addressProofNoControl?.setValidators([Validators.required]);
       addressProofNoControl2?.setValidators([Validators.required]) // Driving license format
-      addressProofNoControl1?.setValidators([]) 
+      addressProofNoControl1?.setValidators([])
     }
 
 
@@ -851,21 +858,21 @@ export class EntityAddComponent implements OnInit {
 
     if (this.select == 'Pancard') {
       signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{5}[0-9]{4}[A-Z]$")]);
-      signatureProofNoControl2?.setValidators([]) 
-      signatureProofNoControl1?.setValidators([]) 
+      signatureProofNoControl2?.setValidators([])
+      signatureProofNoControl1?.setValidators([])
 
-    } 
-     if (this.select == 'Passport') {
+    }
+    if (this.select == 'Passport') {
       signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Passport format
       signatureProofNoControl1?.setValidators([Validators.required]) // Driving license format
-        
+
       signatureProofNoControl2?.setValidators([])
 
-    } 
-     if (this.select == 'Driving License') {
+    }
+    if (this.select == 'Driving License') {
       signatureProofNoControl?.setValidators([Validators.required]);
       signatureProofNoControl2?.setValidators([Validators.required]) // Driving license format
-      signatureProofNoControl1?.setValidators([]) 
+      signatureProofNoControl1?.setValidators([])
     }
 
     this.thirdFormGroup.get('signatureProofNo')?.reset();
@@ -1024,7 +1031,7 @@ export class EntityAddComponent implements OnInit {
       accountType: this.accountType?.value,
       merchantId: this.merchantid,
       ledgerId: this.ledgerId?.value.trim(),
-      createdBy:this.getadminname
+      createdBy: this.getadminname
     }
     this.AddEntity.EntitybankAdd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
@@ -1059,7 +1066,7 @@ export class EntityAddComponent implements OnInit {
     formData.append('addressProofNo', this.addressProofNo?.value.trim());
     formData.append('signatureFrontPath', this.uploadsignfront);
     formData.append('signatureBackPath', this.uploadsignback);
-    formData.append('createdBy',this.getadminname)
+    formData.append('createdBy', this.getadminname)
     formData.append('signatureProof', this.signatureProof?.value);
     formData.append('signatureProofNo', this.signatureProofNo?.value.trim());
     formData.append('drivingLicenceDob', this.drivingLicenceDob?.value || this.drivingLicenceDobs?.value || this.drivingLicenceDobss?.value);
@@ -1084,7 +1091,7 @@ export class EntityAddComponent implements OnInit {
     formData.append('merchantId', this.merchantid);
     formData.append('docFrontPath', this.uploaddocfront);
     formData.append('docBackPath', this.uploaddocback || this.emptyBlob);
-    formData.append('kycCategoryId', this.kycCategoryId?.value);
+    formData.append('kycCategoryId', this.kycCategoryIds?.value);
     formData.append('docNumber', this.docNumber?.value.trim());
     formData.append('expiryDate', this.expiryDate?.value);
     formData.append('createdBy', this.getadminname);
