@@ -59,6 +59,10 @@ export class AlcotHistoryComponent implements OnInit {
   filter: boolean=false;
   currentfilval: any;
   historys: any;
+  currentfilvalShow: boolean=false;
+  transactionValue: any;
+  setupboxhistory: any;
+searchPerformed: boolean=false;
 
 
   constructor(private location: Location, private service: FarginServiceService, private toastr:ToastrService) {
@@ -70,12 +74,17 @@ export class AlcotHistoryComponent implements OnInit {
       if (res.flag == 1) {
         this.historys = res.response;
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.historys);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.filter = false;
+        this.currentfilvalShow = false;
+      } else if (res.flag == 2) {
+        this.historys = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.historys);
+        this.currentfilvalShow = false;
       }
     })
 
@@ -86,12 +95,17 @@ export class AlcotHistoryComponent implements OnInit {
       if (res.flag == 1) {
         this.historys = res.response;
         this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.historys);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.filter = false;
+        this.currentfilvalShow = false;
+      } else if (res.flag == 2) {
+        this.historys = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.historys);
+        this.currentfilvalShow = false;
       }
     })
   }
@@ -239,54 +253,30 @@ export class AlcotHistoryComponent implements OnInit {
   close() {
     this.location.back()
   }
-  renderPage(event: PageEvent) {
-    // Capture the new page index and page size from the event
-    this.pageIndex = event.pageIndex;  // Update current page index
-    this.pageSize = event.pageSize;           // Update page size (if changed)
 
-    // Log the new page index and page size to the console (for debugging)
-    console.log('New Page Index:', this.pageIndex);
-    console.log('New Page Size:', this.pageSize);
-
-    // You can now fetch or display the data for the new page index
-    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
-    this.ngOnInit()
-  }
-  changePageIndex(newPageIndex: number) {
-    this.pageIndex = newPageIndex;
-    this.renderPage({
-      pageIndex: newPageIndex,
-      pageSize: this.pageSize,
-      // length: this.totalItems
-    } as PageEvent);
-  }
 
   history(filterValue: string) {
     if (filterValue) {
-      this.service.Alcotsearch(filterValue, this.pageSize1, this.pageIndex1).subscribe({
+      this.service.Alcotsearch(filterValue, this.pageSize, this.pageIndex).subscribe({
         next: (res: any) => {
           if (res.response) {
             this.viewhistory = res.response;
            
-            this.dataSource = new MatTableDataSource(this.viewhistory);
-            this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator;
-            this.totalPages1 = res.pagination.totalElements;
-            this.totalpage1 = res.pagination.totalPages;
-            this.currentpage1 = res.pagination.currentPage + 1;
-            this.filter = true
-
-          }
-          else if (res.flag === 2) {
-            this.viewhistory = [];
-            this.dataSource = new MatTableDataSource(this.viewhistory);
-            this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator;
-            this.totalPages1 = res.pagination.totalElements;
-            this.totalpage1 = res.pagination.totalPages;
-            this.currentpage1 = res.pagination.currentPage + 1;
-            this.filter = true
-          }
+            this.totalPages = res.pagination.totalElements;
+                this.totalpage = res.pagination.pageSize;
+                this.currentpage = res.pagination.currentPage;
+                this.dataSource = new MatTableDataSource(this.viewhistory);
+                this.currentfilvalShow=true
+             
+              } else if (res.flag == 2) {
+                this.viewhistory = [];
+                this.totalPages = res.pagination.totalElements;
+                this.totalpage = res.pagination.pageSize;
+                this.currentpage = res.pagination.currentPage;
+                this.dataSource = new MatTableDataSource(this.viewhistory);
+                this.currentfilvalShow=true
+             
+              }
         },
         error: (err: any) => {
           this.toastr.error('No Data Found');
@@ -299,27 +289,54 @@ export class AlcotHistoryComponent implements OnInit {
     }
 
   }
-  renderPage1(event: PageEvent) {
-    // Capture the new page index and page size from the event
-    this.pageIndex1 = event.pageIndex;  // Update current page index
-    this.pageSize1 = event.pageSize;           // Update page size (if changed)
 
-    // Log the new page index and page size to the console (for debugging)
-    console.log('New Page Index:', this.pageIndex1);
-    console.log('New Page Size:', this.pageSize1);
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      this.service.Alcotsearch(this.currentfilval, event.pageSize, event.pageIndex).subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.viewhistory = res.response;
+           
+            this.totalPages = res.pagination.totalElements;
+                this.totalpage = res.pagination.pageSize;
+                this.currentpage = res.pagination.currentPage;
+                this.dataSource = new MatTableDataSource(this.viewhistory);
+              
+             
+              } else if (res.flag == 2) {
+                this.viewhistory = [];
+                this.totalPages = res.pagination.totalElements;
+                this.totalpage = res.pagination.pageSize;
+                this.currentpage = res.pagination.currentPage;
+                this.dataSource = new MatTableDataSource(this.viewhistory);
+            
+             
+              }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
+        }
+      });
+  } else {
+    this.service.AlcotHistoryViewAll(event.pageSize, event.pageIndex).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.historys = res.response;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.historys);
+     
+      } else if (res.flag == 2) {
+        this.historys = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.historys);
+      
+      }
+    })
 
-    // You can now fetch or display the data for the new page index
-    // Example: this.fetchData(this.currentPageIndex, this.pageSize);
-    this.history(this.currentfilval);
+
   }
-
-
-  changePageIndex1(newPageIndex1: number) {
-    this.pageIndex1 = newPageIndex1;
-    this.renderPage1({
-      pageIndex: newPageIndex1,
-      pageSize: this.pageSize1,
-      // length: this.totalItems
-    } as PageEvent);
   }
 }

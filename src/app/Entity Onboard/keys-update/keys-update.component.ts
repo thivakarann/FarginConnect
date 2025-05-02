@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
@@ -17,6 +17,8 @@ export class KeysUpdateComponent {
   approval: any;
   detaislone: any;
 selectedOption: any;
+@Output() bankDetailsUpdated = new EventEmitter<void>();
+ 
 
   constructor(private service: FarginServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -62,6 +64,7 @@ selectedOption: any;
       if (res.flag == 1) {
         this.approval = res.response;
         this.toaster.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
         
       }

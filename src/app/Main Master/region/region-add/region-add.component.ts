@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -44,6 +44,7 @@ export class RegionAddComponent implements OnInit {
     'Tamil Nadu', 'Telangana', 'Tripura', 'Uttarakhand',
     'Uttar Pradesh', 'West Bengal'
   ];
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
  
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private fb: FormBuilder, private router: Router) { }
  
@@ -91,6 +92,7 @@ export class RegionAddComponent implements OnInit {
       if (res.flag == 1) {
  
         this.toastr.success(res.responseMessage)
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll()
  
       }

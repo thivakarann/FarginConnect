@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Router } from '@angular/router';
@@ -29,7 +29,7 @@ export class BouqutesAddComponent implements OnInit {
   serviceproviderid: any;
   regionId: any;
   ActiveregionID: any;
-
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
   constructor(
     public BroadcasterBouquetAdd: FarginServiceService,
     private router: Router,
@@ -206,6 +206,7 @@ export class BouqutesAddComponent implements OnInit {
     this.BroadcasterBouquetAdd.BroadcasterBoucateadd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll()
         // this.router.navigateByUrl('/dashboard/bouquets-viewall')
         // setTimeout(() => {

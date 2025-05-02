@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -17,6 +17,8 @@ export class PgsetupCreateComponent implements OnInit{
   pgsetupform: any = FormGroup;
   createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
   facheckkey: any;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
+
   constructor(
     private service: FarginServiceService,
     private router: Router,
@@ -59,8 +61,8 @@ export class PgsetupCreateComponent implements OnInit{
 
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll()
-     
       }
       else {
         this.toastr.error(res.responseMessage)

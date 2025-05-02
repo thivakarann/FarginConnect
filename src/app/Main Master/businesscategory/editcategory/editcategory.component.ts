@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FarginServiceService } from '../../../service/fargin-service.service';
@@ -21,7 +21,7 @@ export class EditcategoryComponent implements OnInit {
 
   days: number[] = Array.from({ length: 31 }, (_, i) => i + 1); // Generates days 1 to 31
   autoDebitDates: any;
-
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
 
   constructor(private fb: FormBuilder, private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -83,6 +83,7 @@ export class EditcategoryComponent implements OnInit {
     this.service.BusinessEdit(this.businessCategoryId, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll()
     
       } else {

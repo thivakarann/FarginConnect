@@ -153,48 +153,17 @@ export class BouqutesRegionComponent {
             this.perValueArray.push(value)
           }
           
-          this.dialog.open(BouqutesRegioneditComponent, {
+          const dialogRef = this.dialog.open(BouqutesRegioneditComponent, {
             data: {services: this.services,broadCasterRegionsss: this.broadCasterRegionsss,  valueid: this.details, broadCasterRegionIds:this.broadCasterRegionIds,value2:this.value2},
             disableClose: true,
             enterAnimationDuration: '1000ms',
             exitAnimationDuration: '1000ms',
           });
-          this.dialog.afterAllClosed.subscribe(()=>{
-            this.viewdetails.BroadcasterBoucatebyidregion(this.id).subscribe((res: any) => {
-  
-              if (res.response && res.response.length > 0) {
-                  // Loop through the response and log each broadCasterRegionId
-                  res.response.forEach((item: any) => {
-                    console.log(item.broadCasterRegionId);  // This will log all region IDs (Assam, Tamil Nadu, etc.)
-                  });
-                  
-                  // Optionally, if you need to store these IDs in a variable
-                  this.broadCasterRegionIds = res.response.map((item: any) => item.broadCasterRegionId);
-                  console.log(this.broadCasterRegionIds); // Array of all regionIds
-                }
-            
-                if (res.response && res.response.length > 0) {
-                  this.details = res.response[0].broadCasterBouquet.bouquetId;
-                  console.log(this.details);
-              } 
-              
-                  this.channelslist = res.response.broadCasterAlcot;
-                  this.ServiceProvideregions = res.response;
-                  if (res.response && res.response.length > 0) {
-                    this.serviceid = res.response[0].broadCasterRegion.service.serviceId;
-                    console.log(this.serviceid);
-                } 
-            
-                if (res.response && res.response.length > 0) {
-                  this.serviceid = res.response[0].broadCasterRegion.service.serviceId;
-                  console.log(this.serviceid);
-              } 
-                 
-                  console.log(this.serviceid)
-                  
-               
-                });
-          })
+          dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+
+            this.fetch();
+      
+          });
         } else if (res.flag == 2) {
 
           this.errorMessage = res.responseMessage;
@@ -207,48 +176,54 @@ export class BouqutesRegionComponent {
   }
   
   addExtraChannels(id:any,id1:any){
-    this.dialog.open(AddExtraRegionComponent, {
+    const dialogRef =  this.dialog.open(AddExtraRegionComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "500ms",
       data: { value: id, value2:id1}
  
     })
-    this.dialog.afterAllClosed.subscribe(()=>{
-      this.viewdetails.BroadcasterBoucatebyidregion(this.id).subscribe((res: any) => {
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+
+      this.fetch();
+
+    });
+  }
+  fetch()
+  {
+    this.viewdetails.BroadcasterBoucatebyidregion(this.id).subscribe((res: any) => {
   
+      if (res.response && res.response.length > 0) {
+          // Loop through the response and log each broadCasterRegionId
+          res.response.forEach((item: any) => {
+            console.log(item.broadCasterRegionId);  // This will log all region IDs (Assam, Tamil Nadu, etc.)
+          });
+          
+          // Optionally, if you need to store these IDs in a variable
+          this.broadCasterRegionIds = res.response.map((item: any) => item.broadCasterRegionId);
+          console.log(this.broadCasterRegionIds); // Array of all regionIds
+        }
+    
         if (res.response && res.response.length > 0) {
-            // Loop through the response and log each broadCasterRegionId
-            res.response.forEach((item: any) => {
-              console.log(item.broadCasterRegionId);  // This will log all region IDs (Assam, Tamil Nadu, etc.)
-            });
-            
-            // Optionally, if you need to store these IDs in a variable
-            this.broadCasterRegionIds = res.response.map((item: any) => item.broadCasterRegionId);
-            console.log(this.broadCasterRegionIds); // Array of all regionIds
-          }
+          this.details = res.response[0].broadCasterBouquet.bouquetId;
+          console.log(this.details);
+      } 
       
-          if (res.response && res.response.length > 0) {
-            this.details = res.response[0].broadCasterBouquet.bouquetId;
-            console.log(this.details);
-        } 
-        
-            this.channelslist = res.response.broadCasterAlcot;
-            this.ServiceProvideregions = res.response;
-            if (res.response && res.response.length > 0) {
-              this.serviceid = res.response[0].broadCasterRegion.service.serviceId;
-              console.log(this.serviceid);
-          } 
-      
+          this.channelslist = res.response.broadCasterAlcot;
+          this.ServiceProvideregions = res.response;
           if (res.response && res.response.length > 0) {
             this.serviceid = res.response[0].broadCasterRegion.service.serviceId;
             console.log(this.serviceid);
         } 
-           
-            console.log(this.serviceid)
-            
+    
+        if (res.response && res.response.length > 0) {
+          this.serviceid = res.response[0].broadCasterRegion.service.serviceId;
+          console.log(this.serviceid);
+      } 
          
-          });
-    })
+          console.log(this.serviceid)
+          
+       
+        });
   }
   transform(value: any[], searchText: string): any[] {
     if (!value || !searchText) {

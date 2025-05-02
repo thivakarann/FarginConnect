@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -15,6 +15,7 @@ export class ServiceproviderAddComponent implements OnInit {
   AdminForm!: FormGroup;
   showPassword: boolean = false;
   getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(private dialog:MatDialog,private service: FarginServiceService, private toaster: ToastrService, private router: Router) { }
 
@@ -53,6 +54,7 @@ export class ServiceproviderAddComponent implements OnInit {
     this.service.ServiceProviderCreate(submitmodel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toaster.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll()
       
       }

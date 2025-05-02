@@ -148,69 +148,52 @@ searchPerformed: boolean=false;
   }
 
   add() {
-    this.dialog.open(BouquateNameAddComponent, {
+    const dialogRef = this.dialog.open(BouquateNameAddComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       disableClose: true
     })
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.boardcasternameviewall.BouquetnameViewall().subscribe((res: any) => {
-        if(res.flag==1)
-        {
-          this.viewall = res.response;
-          this.viewall.reverse();
-          this.dataSource = new MatTableDataSource(this.viewall);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        }
-        else if(res.flag==2)
-        {
-          this.viewall = [];
-          this.dataSource = new MatTableDataSource(this.viewall.reverse());
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        }
-       
-        
-      });
-  
-  
-   
-    })
-  }
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
 
+      this.fetch();
+
+    });
+  }
+fetch()
+{
+  this.boardcasternameviewall.BouquetnameViewall().subscribe((res: any) => {
+    if(res.flag==1)
+    {
+      this.viewall = res.response;
+      this.viewall.reverse();
+      this.dataSource = new MatTableDataSource(this.viewall);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    }
+    else if(res.flag==2)
+    {
+      this.viewall = [];
+      this.dataSource = new MatTableDataSource(this.viewall.reverse());
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    }
+   
+    
+  });
+}
   Edit(id: any) {
     
-    this.dialog.open(BouquatenameEditComponent, {
+    const dialogRef = this.dialog.open(BouquatenameEditComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       disableClose: true,
       data: { value: id }
     })
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.boardcasternameviewall.BouquetnameViewall().subscribe((res: any) => {
-        if(res.flag==1)
-        {
-          this.viewall = res.response;
-          this.viewall.reverse();
-          this.dataSource = new MatTableDataSource(this.viewall);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        }
-        else if(res.flag==2)
-        {
-          this.viewall = [];
-          this.dataSource = new MatTableDataSource(this.viewall.reverse());
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        }
-       
-        
-      });
-  
-  
-   
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+
+      this.fetch();
+
+    });
   }
 
   applyFilter(event: Event) {

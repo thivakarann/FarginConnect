@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FarginServiceService } from '../../service/fargin-service.service';
@@ -28,7 +28,7 @@ export class UpdateManualpaymentComponent {
   dates: any;
   chequedate: any;
   utrnumbervalue:any;
-
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
  
   constructor(private router: Router, private Approval: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog) { }
   ngOnInit(): void {
@@ -114,6 +114,7 @@ console.log(this.chequedate)
     this.Approval.UpdateManualPayment(this.merchantpayid,submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
        
       }

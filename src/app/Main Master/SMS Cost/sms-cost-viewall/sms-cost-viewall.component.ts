@@ -104,30 +104,26 @@ export class SmsCostViewallComponent {
   }
 
   Addsms() {
-    this.dialog.open(SMScostAddComponent, {
+    const dialogRef = this.dialog.open(SMScostAddComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "800ms",
       disableClose: true
     })
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.smsdetails.smscostViewall().subscribe((res: any) => {
-        this.viewall = res.response;
-        this.viewall.reverse();
-        this.dataSource = new MatTableDataSource(this.viewall);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
   
-      });
-  
-  
-  
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchsmscostviewall();
+    });
   }
 
-  EditSMS(id: any) {
-
+  fetchsmscostviewall(){
+    this.smsdetails.smscostViewall().subscribe((res: any) => {
+      this.viewall = res.response;
+      this.viewall.reverse();
+      this.dataSource = new MatTableDataSource(this.viewall);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    });
   }
-
 
   reload() {
     this.smsdetails.smscostViewall().subscribe((res: any) => {

@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
@@ -16,6 +16,7 @@ export class PolicyApprovalComponent {
   myForm!:FormGroup;
    id: any;
    approval: any;
+   @Output() bankDetailsUpdated = new EventEmitter<void>();
  
  constructor(private service:FarginServiceService,
    @Inject(MAT_DIALOG_DATA) public data:any,
@@ -51,6 +52,7 @@ export class PolicyApprovalComponent {
      this.service.ApprovalForPolicy(this.id,submitModel).subscribe((res: any) => {
        if (res.flag === 1) {
          this.toaster.success(res.responseMessage);
+         this.bankDetailsUpdated.emit();
          this.dialog.closeAll();  // Close the dialog
        
        } else {

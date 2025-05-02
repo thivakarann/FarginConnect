@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FarginServiceService } from '../../service/fargin-service.service';
@@ -17,7 +17,8 @@ export class CreateManualpaymentComponent implements OnInit {
   id: any;
   myForm!: FormGroup;
   chequedate: any;
- 
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
+
   constructor(private router: Router, private Approval: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog) { }
   ngOnInit(): void {
     this.id = this.data.value
@@ -78,6 +79,7 @@ console.log(this.chequedate)
     this.Approval.CreateManualPayment(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
         
        }

@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { updateOtherPayment } from '../../fargin-model/fargin-model.module';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
@@ -19,6 +19,7 @@ export class EditOtherpaymentComponent {
   payId: any;
   servicename: any;
   paidamount: any;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(private router: Router, private Approval: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog) { }
   ngOnInit(): void {
@@ -61,6 +62,7 @@ export class EditOtherpaymentComponent {
     this.Approval.OtherPaymentUpdate(this.payId, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       
       }

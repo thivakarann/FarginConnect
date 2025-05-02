@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import moment from 'moment';
@@ -41,6 +41,7 @@ export class ExportReportAddComponent implements OnInit {
   showSuggestions: boolean = false;
   errorShow!:boolean
   activemerchant:any;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(
     public service: FarginServiceService,
@@ -156,6 +157,7 @@ exportpay(event: any) {
     this.service.ExportReportAdd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       }
       else {

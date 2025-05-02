@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output, ViewChild } from '@angular/core';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -20,7 +20,7 @@ export class AddExtraChannelsComponent implements OnInit {
   @ViewChild('select') select: any = MatSelect;
   allSelected = false;
   broadCasterRegionId:any;
-
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
   constructor(
     public AddExtra: FarginServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -68,6 +68,7 @@ export class AddExtraChannelsComponent implements OnInit {
     this.AddExtra.AddExtraChannelsforBouquete(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       
       }

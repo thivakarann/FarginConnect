@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -16,7 +16,7 @@ export class FarginBankAddComponent {
   showPassword: boolean = false;
   createdBy: any = JSON.parse(sessionStorage.getItem('adminname') || '');
   activeRole: any;
-
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toaster: ToastrService, private router: Router) { }
   ngOnInit(): void {
@@ -89,8 +89,8 @@ export class FarginBankAddComponent {
     this.service.FarginCreate(submitmodel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toaster.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
-    
       }
       else {
         this.toaster.error(res.responseMessage);

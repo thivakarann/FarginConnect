@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -24,6 +24,7 @@ export class EditBussinessdocumentComponent {
   categoryvalue: any;
   bussinessid: any;
   expiryDates:any;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(
     public service: FarginServiceService,
@@ -102,6 +103,7 @@ export class EditBussinessdocumentComponent {
     this.service.documentEdit(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
      
       } else {

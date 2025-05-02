@@ -55,7 +55,7 @@ export class AddKycdocumentComponent implements OnInit {
   uploadsignfront: any;
   uploadsignback: any;
   today: string;
-
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(private service: FarginServiceService, private dialog: MatDialog, private toastr: ToastrService,
     private _formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -471,6 +471,7 @@ export class AddKycdocumentComponent implements OnInit {
     this.service.entitykycs(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
        
 

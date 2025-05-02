@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -28,6 +28,7 @@ export class ViewImagecampaignsComponent {
   logoLink1: any;
   raiseTicket:any;
   uploadidentityfront: any;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(private router: Router, private service: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog, private toastr: ToastrService) { 
     this.raiseTicketId = this.data.value.broadcasterId
@@ -71,7 +72,7 @@ export class ViewImagecampaignsComponent {
 
     // Ensure this.uploadImage is not null
     if (this.uploadidentityfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
+      const acceptableTypes = ['image/png', 'image/jpeg']; // Only PNG & JPEG
 
       if (acceptableTypes.includes(this.uploadidentityfront.type)) {
         if (this.uploadidentityfront.size <= 20 * 1024 * 1024) {
@@ -92,7 +93,6 @@ export class ViewImagecampaignsComponent {
  
   }
 
-  
   Update(){
     const formData = new FormData;
     formData.append('broadcasterId ', this.raiseTicketId);
@@ -102,6 +102,7 @@ export class ViewImagecampaignsComponent {
       this.updatedata=res.response;
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       } else {
         this.toastr.error(res.responseMessage);

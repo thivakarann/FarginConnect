@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Router } from '@angular/router';
@@ -16,7 +16,7 @@ export class BouquateNameAddComponent implements OnInit {
   getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
   Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
   myForm!: FormGroup;
-
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
 
   constructor(
@@ -47,6 +47,7 @@ export class BouquateNameAddComponent implements OnInit {
     this.Broadcasternameadd.BouquetAdd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll()
       
       }

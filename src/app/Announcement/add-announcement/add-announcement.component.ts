@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
@@ -16,7 +16,7 @@ export class AddAnnouncementComponent {
   createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
   categoryvalue: any;
   minDate: any = Date;
-
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(private _formBuilder: FormBuilder, private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
 
@@ -94,6 +94,7 @@ export class AddAnnouncementComponent {
     this.service.announcementAdd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       }
       else {

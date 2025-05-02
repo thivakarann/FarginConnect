@@ -107,7 +107,7 @@ currentfilvalShow: boolean=false;
       if(res.flag==1)
     {
       this.viewall = res.response;
-      this.viewall.reverse();
+  
       this.totalPages = res.pagination.totalElements;
       this.totalpage = res.pagination.pageSize;
       this.currentpage = res.pagination.currentPage;
@@ -148,7 +148,7 @@ currentfilvalShow: boolean=false;
       if(res.flag==1)
     {
       this.viewall = res.response;
-      this.viewall.reverse();
+    
       this.totalPages = res.pagination.totalElements;
       this.totalpage = res.pagination.pageSize;
       this.currentpage = res.pagination.currentPage;
@@ -348,7 +348,7 @@ currentfilvalShow: boolean=false;
       if(res.flag==1)
     {
       this.viewall = res.response;
-      this.viewall.reverse();
+     
       this.totalPages = res.pagination.totalElements;
       this.totalpage = res.pagination.pageSize;
       this.currentpage = res.pagination.currentPage;

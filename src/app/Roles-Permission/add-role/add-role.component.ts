@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatOption, MatSelect } from '@angular/material/select';
@@ -28,6 +28,8 @@ export class AddRoleComponent implements OnInit {
   roleformGroup: any = FormGroup;
   getpermission: any;
 
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
+  
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private fb: FormBuilder,) { }
 
   ngOnInit(): void {
@@ -101,6 +103,7 @@ export class AddRoleComponent implements OnInit {
 
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll()
 
       }

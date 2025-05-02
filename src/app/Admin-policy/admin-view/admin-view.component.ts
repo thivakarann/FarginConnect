@@ -401,7 +401,7 @@ export class AdminViewComponent implements OnInit {
 
 
   policyApproval(id: any) {
-    this.dialog.open(PolicyApprovalComponent, {
+    const dialogRef =  this.dialog.open(PolicyApprovalComponent, {
       data: { value: id },
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
@@ -409,29 +409,32 @@ export class AdminViewComponent implements OnInit {
       width: '80vw',// Use percentage to make it responsive
       maxWidth: '500px',
     });
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.service
-      .adminPolicyget(this.pageSize, this.pageIndex)
-      .subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.businesscategory = res.response;
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.businesscategory);
-          this.currentfilvalShow = false;
-        } else if (res.flag === 2) {
-          this.dataSource = new MatTableDataSource([]);
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.currentfilvalShow = false;
-        }
-      });
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetch();
     });
   }
 
-
+fetch()
+{
+  this.service
+  .adminPolicyget(this.pageSize, this.pageIndex)
+  .subscribe((res: any) => {
+    if (res.flag == 1) {
+      this.businesscategory = res.response;
+      this.totalPages = res.pagination.totalElements;
+      this.totalpage = res.pagination.pageSize;
+      this.currentpage = res.pagination.currentPage;
+      this.dataSource = new MatTableDataSource(this.businesscategory);
+      this.currentfilvalShow = false;
+    } else if (res.flag === 2) {
+      this.dataSource = new MatTableDataSource([]);
+      this.totalPages = res.pagination.totalElements;
+      this.totalpage = res.pagination.pageSize;
+      this.currentpage = res.pagination.currentPage;
+      this.currentfilvalShow = false;
+    }
+  });
+}
 
   Terms(id: any) {
     this.dialog.open(AdminTermsConditionComponent, {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Router } from '@angular/router';
@@ -16,6 +16,7 @@ export class SignerAddComponent {
   showPassword: boolean = false;
   createdBy: any = JSON.parse(sessionStorage.getItem('adminname') || '');
   activeRole: any;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(private service: FarginServiceService, private toaster: ToastrService, private router: Router,private dialog:MatDialog) { }
 
@@ -66,6 +67,7 @@ export class SignerAddComponent {
     this.service.signeradd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toaster.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
      
       }

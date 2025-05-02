@@ -127,40 +127,39 @@ export class FarginBankviewComponent {
   }
 
   AddBankDetails() {
-    this.dialog.open(FarginBankAddComponent, {
+    const dialogRef = this.dialog.open(FarginBankAddComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "800ms",
       disableClose: true
     })
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.service.Farginview().subscribe((res: any) => {
-        this.viewall = res.response;
-        this.viewall.reverse();
-        this.dataSource = new MatTableDataSource(this.viewall);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-  
-      });
-    })
+ 
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchfarginbankview();
+    });
+    
+  }
+
+  fetchfarginbankview(){
+    this.service.Farginview().subscribe((res: any) => {
+      this.viewall = res.response;
+      this.viewall.reverse();
+      this.dataSource = new MatTableDataSource(this.viewall);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+
+    });
   }
 
   Edit(id: any) {
-    this.dialog.open(FarginBankEditComponent, {
+    const dialogRef = this.dialog.open(FarginBankEditComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "800ms",
       disableClose: true,
       data: { value: id },
     })
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.service.Farginview().subscribe((res: any) => {
-        this.viewall = res.response;
-        this.viewall.reverse();
-        this.dataSource = new MatTableDataSource(this.viewall);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-  
-      });
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchfarginbankview();
+    });
   }
 
   ActiveStatus(event: MatSlideToggleChange, id: string) {

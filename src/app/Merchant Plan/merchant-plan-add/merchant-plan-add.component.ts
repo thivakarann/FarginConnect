@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -20,7 +20,9 @@ export class MerchantPlanAddComponent implements OnInit {
   numberValues: number | any = null
 
   numberValue2: number | any = null;
-  numberValues2: number | any = null
+  numberValues2: number | any = null;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
+
   constructor(
     public Merchantplanadd: FarginServiceService,
     private router: Router,
@@ -96,8 +98,8 @@ export class MerchantPlanAddComponent implements OnInit {
     this.Merchantplanadd.merchantplanadd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
-
 
       }
       else {

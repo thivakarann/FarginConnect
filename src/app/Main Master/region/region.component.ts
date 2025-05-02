@@ -106,7 +106,6 @@ export class RegionComponent implements OnInit {
     this.service.RegionGet().subscribe((res: any) => {
       if (res.flag == 1) {
         this.region = res.response;
-        this.region.reverse();
         this.dataSource = new MatTableDataSource(this.region.reverse());
 
         this.dataSource.sort = this.sort;
@@ -138,7 +137,7 @@ export class RegionComponent implements OnInit {
         this.service.RegionGet().subscribe((res: any) => {
           if (res.flag == 1) {
             this.region = res.response;
-            this.region.reverse();
+        
             this.dataSource = new MatTableDataSource(this.region.reverse());
     
             this.dataSource.sort = this.sort;
@@ -161,62 +160,51 @@ export class RegionComponent implements OnInit {
 
 
   create() {
-    this.dialog.open(RegionAddComponent, {
+    const dialogRef = this.dialog.open(RegionAddComponent, {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
       disableClose: true,
     });
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.service.RegionGet().subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.region = res.response;
-          this.region.reverse();
-          this.dataSource = new MatTableDataSource(this.region.reverse());
-  
-          this.dataSource.sort = this.sort;
-  
-          this.dataSource.paginator = this.paginator;
-        } else if (res.flag == 2) {
-          this.region = [];
-  
-          this.dataSource = new MatTableDataSource(this.region.reverse());
-  
-          this.dataSource.sort = this.sort;
-  
-          this.dataSource.paginator = this.paginator;
-        }
-      });
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+
+      this.fetch();
+
     });
   }
+fetch()
+{
+  this.service.RegionGet().subscribe((res: any) => {
+    if (res.flag == 1) {
+      this.region = res.response;
 
+      this.dataSource = new MatTableDataSource(this.region.reverse());
+
+      this.dataSource.sort = this.sort;
+
+      this.dataSource.paginator = this.paginator;
+    } else if (res.flag == 2) {
+      this.region = [];
+
+      this.dataSource = new MatTableDataSource(this.region.reverse());
+
+      this.dataSource.sort = this.sort;
+
+      this.dataSource.paginator = this.paginator;
+    }
+  });
+}
 
   Edit(id: string) {
-    this.dialog.open(RegionEditComponent, {
+    const dialogRef =  this.dialog.open(RegionEditComponent, {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
       data: { value: id },
       disableClose: true,
     });
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.service.RegionGet().subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.region = res.response;
-          this.region.reverse();
-          this.dataSource = new MatTableDataSource(this.region.reverse());
-  
-          this.dataSource.sort = this.sort;
-  
-          this.dataSource.paginator = this.paginator;
-        } else if (res.flag == 2) {
-          this.region = [];
-  
-          this.dataSource = new MatTableDataSource(this.region.reverse());
-  
-          this.dataSource.sort = this.sort;
-  
-          this.dataSource.paginator = this.paginator;
-        }
-      });
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+
+      this.fetch();
+
     });
   }
 
@@ -338,7 +326,7 @@ export class RegionComponent implements OnInit {
     this.service.RegionGet().subscribe((res: any) => {
       if (res.flag == 1) {
         this.region = res.response;
-        this.region.reverse();
+      
         this.dataSource = new MatTableDataSource(this.region.reverse());
 
         this.dataSource.sort = this.sort;

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
@@ -37,7 +37,8 @@ export class EntityKyceditComponent implements OnInit {
   PassportDob: any;
   today: string;
   getadminname :any = JSON.parse(sessionStorage.getItem('adminname') || '');
- 
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
+
   constructor(
     public service: FarginServiceService,
     private toastr: ToastrService,
@@ -265,6 +266,7 @@ onasignproof(event: any) {
       if (res.flag == 1) {
         this.identityvalue = res.response;
         this.toastr.success(res.responseMessage)
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       
       }
@@ -289,6 +291,7 @@ onasignproof(event: any) {
       if (res.flag == 1) {
         this.identityvalue = res.response;
         this.toastr.success(res.responseMessage)
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
        
       }
@@ -315,6 +318,7 @@ onasignproof(event: any) {
       if (res.flag == 1) {
         this.identityvalue = res.response;
         this.toastr.success(res.responseMessage)
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       
       }

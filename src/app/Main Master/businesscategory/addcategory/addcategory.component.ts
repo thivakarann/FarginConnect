@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { FarginServiceService } from '../../../service/fargin-service.service';
@@ -15,7 +15,8 @@ export class AddcategoryComponent implements OnInit {
  
   addcategory: any = FormGroup;
   createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
- 
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
+
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
  
  
@@ -67,8 +68,8 @@ export class AddcategoryComponent implements OnInit {
     this.service.BusinessCreate(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
-        this.dialog.closeAll()
-       
+         this.bankDetailsUpdated.emit();
+         this.dialog.closeAll()
       }
       else {
         this.toastr.error(res.responseMessage);

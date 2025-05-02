@@ -123,21 +123,27 @@ export class SignerGetallComponent implements OnInit {
   }
 
   AddsignerDetails() {
-    this.dialog.open(SignerAddComponent, {
+    const dialogRef = this.dialog.open(SignerAddComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "800ms",
       disableClose: true
     })
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.service.signergetall().subscribe((res: any) => {
-        this.data = res.response;
-        this.data.reverse();
-        this.dataSource = new MatTableDataSource(this.data);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-  
-      });
-    })
+ 
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchsignerget();
+    });
+  }
+
+
+  fetchsignerget(){
+    this.service.signergetall().subscribe((res: any) => {
+      this.data = res.response;
+      this.data.reverse();
+      this.dataSource = new MatTableDataSource(this.data);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+
+    });
   }
 
   Edit(id: any) {

@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
@@ -20,6 +20,8 @@ merchantId: any = sessionStorage.getItem('merchantId');
   arrayExcel: any[] = [];
   broadcasterid: any;
   formattedEmails: any;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
+  
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
@@ -178,6 +180,7 @@ submit(): void {
               this.uploadFiles = res.responseMessage;
               if (res.flag === 1) {
                   this.toastr.success(res.responseMessage);
+                  this.bankDetailsUpdated.emit();
                   this.dialog.closeAll();
               } else if (res.flag === 2) {
                   this.toastr.error(res.responseMessage);

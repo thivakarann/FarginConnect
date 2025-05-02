@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -16,6 +16,7 @@ export class OtherpayManualpaymentComponent implements OnInit {
   manualpay!: FormGroup;
   payId:any;
   createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(
     private dialog: MatDialog,
@@ -70,6 +71,7 @@ export class OtherpayManualpaymentComponent implements OnInit {
     this.service.OtherpaymentManualpay(this.payId, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll()
     
       } else {

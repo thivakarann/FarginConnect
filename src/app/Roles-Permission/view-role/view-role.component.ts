@@ -141,31 +141,16 @@ else if(res.flag==2)
             this.subId.push(data1.subPermissionId)
           }
 
-          this.dialog.open(EditRoleComponent, {
+          const dialogRef =   this.dialog.open(EditRoleComponent, {
             data: { per: this.perValueArray, roleName: this.roleName, role: id, sub: this.subId, moduleNames: this.moduleName },
             disableClose: true,
 
             enterAnimationDuration: '1000ms',
             exitAnimationDuration: '1000ms',
           });
-          this.dialog.afterAllClosed.subscribe(() => {
-            this.service.viewRoles().subscribe((res: any) => {
-              if(res.flag==1)
-              {
-                this.roledata = res.response;
-                this.dataSource = new MatTableDataSource(this.roledata?.reverse())
-                this.dataSource.paginator = this.paginator;
-                this.dataSource.sort = this.sort;
-              }
-        else if(res.flag==2)
-        {
-          this.roledata = [];
-          this.dataSource = new MatTableDataSource(this.roledata?.reverse())
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-        }
-            });
-          })
+          dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+            this.fetchrole();
+          });
         } else if (res.flag == 2) {
 
           this.errorMessage = res.responseMessage;
@@ -177,31 +162,36 @@ else if(res.flag==2)
 
   }
 
+
+  fetchrole(){
+    this.service.viewRoles().subscribe((res: any) => {
+      if(res.flag==1)
+      {
+        this.roledata = res.response;
+        this.dataSource = new MatTableDataSource(this.roledata?.reverse())
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+else if(res.flag==2)
+{
+  this.roledata = [];
+  this.dataSource = new MatTableDataSource(this.roledata?.reverse())
+  this.dataSource.paginator = this.paginator;
+  this.dataSource.sort = this.sort;
+}
+    });
+  }
+
   create() {
-    this.dialog.open(AddRoleComponent, {
+    const dialogRef =    this.dialog.open(AddRoleComponent, {
       disableClose: true,
       // Ensure it doesn't get too wide on large screens
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
     });
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.service.viewRoles().subscribe((res: any) => {
-        if(res.flag==1)
-        {
-          this.roledata = res.response;
-          this.dataSource = new MatTableDataSource(this.roledata?.reverse())
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-        }
-  else if(res.flag==2)
-  {
-    this.roledata = [];
-    this.dataSource = new MatTableDataSource(this.roledata?.reverse())
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
-      });
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchrole();
+    });
 
   }
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
@@ -14,6 +14,7 @@ export class SMScostAddComponent {
   getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
   Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
   myForm!: FormGroup;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(
     public addsms: FarginServiceService,
@@ -46,9 +47,9 @@ export class SMScostAddComponent {
     this.addsms.smscostadd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
      
-
       }
       else {
         this.toastr.error(res.responseMessage);

@@ -48,7 +48,7 @@
         <div class="form__row">
           <div class="form__linput ">
             <label class="form__label">{{"Image"}}</label>
-            <input type="file" id="email" accept="image/*" (change)="onFileSelected($event)" class="form-control" formControlName="document" required />
+            <input type="file" id="email" accept="image/png, image/jpeg" (change)="onFileSelected($event)" class="form-control" formControlName="document" required />
             <div style="color: red; font-size: 12px;margin-top: 2px;"
                  *ngIf="document?.invalid && document?.touched && document?.errors?.['required']">
               Field is required

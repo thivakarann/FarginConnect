@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FarginServiceService } from '../../../service/fargin-service.service';
@@ -19,6 +19,7 @@ export class ImageBussinessdocumentComponent {
   file1: any;
   file2: any;
   updatedata: any;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
   constructor(private service: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog,private toastr:ToastrService) {}
    
   ngOnInit(): void {
@@ -136,6 +137,7 @@ export class ImageBussinessdocumentComponent {
         if (res.flag === 1) {
           this.updatedata = res.response;
           this.toastr.success(res.responseMessage)
+          this.bankDetailsUpdated.emit();
           this.dialog.closeAll();
         
         }

@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
@@ -16,6 +16,7 @@ export class LevelTwoApprovalComponent {
   myForm!: FormGroup;
   merchantId: any;
   approval: any;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(private service: FarginServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -53,9 +54,10 @@ export class LevelTwoApprovalComponent {
     this.service.MerchantLevel2ApprovalTwo(this.merchantId, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.approval = res.response;
-        this.dialog.closeAll();
         this.toaster.success(res.responseMessage)
-        
+        this.bankDetailsUpdated.emit();
+        this.dialog.closeAll();
+              
       }
       else {
         this.toaster.error(res.responseMessage)

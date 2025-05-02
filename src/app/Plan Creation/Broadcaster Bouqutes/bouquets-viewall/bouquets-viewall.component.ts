@@ -184,33 +184,38 @@ export class BouquetsViewallComponent implements OnInit {
   }
 
   add() {
-    this.dialog.open(BouqutesAddComponent, {
+    const dialogRef = this.dialog.open(BouqutesAddComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       disableClose: true
     })
-    this.dialog.afterAllClosed.subscribe(()=>{
-      this.Bouquetviewall.BroadcasterBoucateviewall().subscribe((res: any) => {
-        if(res.flag==1)
-          {
-            this.viewall = res.response;
-            this.viewall.reverse();
-            this.dataSource = new MatTableDataSource(this.viewall);
-            this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-          }
-          else if(res.flag==2)
-          {
-            this.viewall = [];
-            this.dataSource = new MatTableDataSource(this.viewall.reverse());
-            this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator;
-          }
-  
-      });
-  
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+
+      this.fetch();
+
+    });
+  }
+  fetch()
+  {
+    this.Bouquetviewall.BroadcasterBoucateviewall().subscribe((res: any) => {
+      if(res.flag==1)
+        {
+          this.viewall = res.response;
+          this.viewall.reverse();
+          this.dataSource = new MatTableDataSource(this.viewall);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+        }
+        else if(res.flag==2)
+        {
+          this.viewall = [];
+          this.dataSource = new MatTableDataSource(this.viewall.reverse());
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        }
+
+    });
   }
 
   Edit(id: any) {
@@ -252,33 +257,17 @@ export class BouquetsViewallComponent implements OnInit {
             this.perValueArray.push(value)
           }
 
-          this.dialog.open(BouqetsEditComponent, {
+          const dialogRef =   this.dialog.open(BouqetsEditComponent, {
             data: { per: this.perValueArray, bouquet: this.bouquet, creation: this.creation, services: this.services, broadCasterRegionsss: this.broadCasterRegionsss, broadCasterAlcotsss: this.broadCasterAlcotsss, amount: this.amount, valueid: this.valueid },
             disableClose: true,
             enterAnimationDuration: '1000ms',
             exitAnimationDuration: '1000ms',
           });
-          this.dialog.afterAllClosed.subscribe(()=>{
-            this.Bouquetviewall.BroadcasterBoucateviewall().subscribe((res: any) => {
-              if(res.flag==1)
-                {
-                  this.viewall = res.response;
-                  this.viewall.reverse();
-                  this.dataSource = new MatTableDataSource(this.viewall);
-                  this.dataSource.sort = this.sort;
-                  this.dataSource.paginator = this.paginator;
-                  this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-                }
-                else if(res.flag==2)
-                {
-                  this.viewall = [];
-                  this.dataSource = new MatTableDataSource(this.viewall.reverse());
-                  this.dataSource.sort = this.sort;
-                  this.dataSource.paginator = this.paginator;
-                }
-        
-            });
-          })
+          dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+
+            this.fetch();
+      
+          });
         } else if (res.flag == 2) {
 
           this.errorMessage = res.responseMessage;

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatOption } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -29,7 +29,7 @@ export class CreateCampaignsComponent {
   parsedJson: any;
   arrayExcel: any;
   excelData: any[]=[];
-
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(private dialog: MatDialog, private formBuilder: FormBuilder, private service: FarginServiceService, private toastr: ToastrService, private router: Router) { }
   
@@ -82,7 +82,7 @@ export class CreateCampaignsComponent {
 
     // Ensure this.uploadImage is not null
     if (this.uploadidentityfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+      const acceptableTypes = ['image/png', 'image/jpeg']; // Only PNG & JPEG
 
       if (acceptableTypes.includes(this.uploadidentityfront.type)) {
         if (this.uploadidentityfront.size <= 20 * 1024 * 1024) {
@@ -249,11 +249,9 @@ save() {
   formData.append('createdBy', this.createdBy);
   formData.append('merchantId', '0');
   formData.append('flag', '1');
-
-  // Ensure emailAddresses is an array
+ 
   const emailAddresses = this.arrayExcel?.flatMap((item: any) => item.emailAddress) ?? [];
-
-  // Append email addresses, making sure it's an empty array if there's no data
+ 
   formData.append('emailAddress', emailAddresses.join(','));
 
   this.service.addcampagin(formData).subscribe((res: any) => {
@@ -261,6 +259,7 @@ save() {
 
       if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
+          this.bankDetailsUpdated.emit();
           this.dialog.closeAll();
         } else {
           this.toastr.error(res.responseMessage);

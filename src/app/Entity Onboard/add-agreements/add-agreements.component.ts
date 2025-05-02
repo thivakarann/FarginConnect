@@ -1,4 +1,4 @@
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Inject, Output, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatOption } from '@angular/material/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -22,6 +22,9 @@ export class AddAgreementsComponent {
   plans: any;
   todayDate: string = '';
   Expirydate: any;
+  
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
+ 
   constructor(
     public service: FarginServiceService,
     private router: Router,
@@ -97,6 +100,7 @@ export class AddAgreementsComponent {
     this.service.createplans(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
         
       }

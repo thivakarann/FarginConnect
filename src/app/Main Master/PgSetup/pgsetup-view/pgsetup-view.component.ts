@@ -198,65 +198,48 @@ export class PgsetupViewComponent implements OnInit {
 
 
   create() {
-    this.dialog.open(PgsetupCreateComponent, {
+    const dialogRef =  this.dialog.open(PgsetupCreateComponent, {
      enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       disableClose:true
     });
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.service.PGsetupget().subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.pgsetup = res.response;
-          this.pgsetup.reverse();
-          this.dataSource = new MatTableDataSource(this.pgsetup);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-     
-  
-        }
-        else {
-          this.pgsetup = [];
-          this.dataSource = new MatTableDataSource(this.pgsetup);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-     
-        }
-      });
-  
-  
-    })
+    
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchpgsetupview();
+    });
   }
 
+  fetchpgsetupview(){
+    this.service.PGsetupget().subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.pgsetup = res.response;
+        this.pgsetup.reverse();
+        this.dataSource = new MatTableDataSource(this.pgsetup);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+   
+
+      }
+      else {
+        this.pgsetup = [];
+        this.dataSource = new MatTableDataSource(this.pgsetup);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+   
+      }
+    });
+  }
 
   Edit(id: string) {
-    this.dialog.open(PgsetupEditComponent, {
+    const dialogRef =   this.dialog.open(PgsetupEditComponent, {
       disableClose: true,
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       data: { value: id }
     });
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.service.PGsetupget().subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.pgsetup = res.response;
-          this.pgsetup.reverse();
-          this.dataSource = new MatTableDataSource(this.pgsetup);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-     
-  
-        }
-        else {
-          this.pgsetup = [];
-          this.dataSource = new MatTableDataSource(this.pgsetup);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-     
-        }
-      });
-  
-  
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchpgsetupview();
+    });
   }
 
  

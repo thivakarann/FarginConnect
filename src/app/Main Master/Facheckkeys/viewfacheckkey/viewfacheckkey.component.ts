@@ -216,68 +216,50 @@ export class ViewfacheckkeyComponent {
   
   
   add() {
-
-    this.dialog.open(AddfacheckkeyComponent, {
+    const dialogRef = this.dialog.open(AddfacheckkeyComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       disableClose:true
     });
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.service.viewfacheck().subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.facheck = res.response;
-          this.facheck.reverse();
-          this.dataSource = new MatTableDataSource(this.facheck);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-  
-       
-          // 
-        }
-        else {
-          this.facheck = [];
-        
-          this.dataSource = new MatTableDataSource(this.facheck);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        }
-      });
-  
-  
-    })
+   
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchviewfacheck();
+    });
+  }
+
+  fetchviewfacheck(){
+    this.service.viewfacheck().subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.facheck = res.response;
+        this.facheck.reverse();
+        this.dataSource = new MatTableDataSource(this.facheck);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+
+     
+        // 
+      }
+      else {
+        this.facheck = [];
+      
+        this.dataSource = new MatTableDataSource(this.facheck);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+    });
   }
   
   
   Edit(id: string) {
-    this.dialog.open(EditfacheckkeyComponent, {
+    const dialogRef = this.dialog.open(EditfacheckkeyComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       disableClose:true,
       data: { value: id }
     });
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.service.viewfacheck().subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.facheck = res.response;
-          this.facheck.reverse();
-          this.dataSource = new MatTableDataSource(this.facheck);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-  
-       
-          // 
-        }
-        else {
-          this.facheck = [];
-        
-          this.dataSource = new MatTableDataSource(this.facheck);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        }
-      });
-  
-  
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchviewfacheck();
+    });
   }
 
   exportexcel() {

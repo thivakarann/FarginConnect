@@ -235,10 +235,7 @@ export class EntityAddComponent implements OnInit {
 
 
     this.myForm2 = new FormGroup({
-      accountHolderName: new FormControl(null, [
-        Validators.required,
-        Validators.pattern('^[a-zA-Z ]*$')
-      ]),
+      accountHolderName: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z ]*$')]),
       accountNumber: new FormControl(null, [
         Validators.required,
         Validators.pattern("^[0-9]{9,18}$")

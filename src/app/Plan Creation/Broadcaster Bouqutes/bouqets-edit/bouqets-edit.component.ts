@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -37,6 +37,7 @@ export class BouqetsEditComponent implements OnInit {
   getamount: any;
   getId: any;
 ActiveregionID: any;
+@Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(
     public BroadcasterBouquetAdd: FarginServiceService,
@@ -235,6 +236,7 @@ ActiveregionID: any;
     this.BroadcasterBouquetAdd.BroadcasterBoucatesEdit(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
 
 

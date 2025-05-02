@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -27,6 +27,7 @@ export class UpdateStickerTicketComponent implements OnInit {
   stickerreq: any;
   merchantId: any;
   details: any;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
   constructor(private service: FarginServiceService, private router: Router, private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any,
     private toastr: ToastrService) { }
 
@@ -91,6 +92,7 @@ export class UpdateStickerTicketComponent implements OnInit {
       this.ticketValue = res.response;
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll()
 
       }

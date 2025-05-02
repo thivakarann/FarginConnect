@@ -177,63 +177,49 @@ searchPerformed: boolean=false;
 
 
   create() {
-    this.dialog.open(AddcategoryComponent, {
+    const dialogRef = this.dialog.open(AddcategoryComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       disableClose:true
     });
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.service.Businesscategory().subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.businesscategory = res.response;
-          this.businesscategory.reverse();
-          this.dataSource = new MatTableDataSource(this.businesscategory);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        
   
-        }
-        else {
-          this.businesscategory = []
-          this.dataSource = new MatTableDataSource(this.businesscategory);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        
-        }
-      });
-  
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchviewcategory();
+    });
+  }
+
+  fetchviewcategory(){
+    this.service.Businesscategory().subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.businesscategory = res.response;
+        this.businesscategory.reverse();
+        this.dataSource = new MatTableDataSource(this.businesscategory);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      
+
+      }
+      else {
+        this.businesscategory = []
+        this.dataSource = new MatTableDataSource(this.businesscategory);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      
+      }
+    });
   }
 
 
   Edit(id: string) {
-    this.dialog.open(EditcategoryComponent, {
+    const dialogRef = this.dialog.open(EditcategoryComponent, {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
       disableClose:true,
       data: { value: id }
     });
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.service.Businesscategory().subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.businesscategory = res.response;
-          this.businesscategory.reverse();
-          this.dataSource = new MatTableDataSource(this.businesscategory);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        
-  
-        }
-        else {
-          this.businesscategory = []
-          this.dataSource = new MatTableDataSource(this.businesscategory);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        
-        }
-      });
-  
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchviewcategory();
+    });
   }
 
   

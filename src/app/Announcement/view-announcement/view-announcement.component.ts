@@ -198,7 +198,7 @@ export class ViewAnnouncementComponent implements OnInit {
 
 
   Edit(id: any) {
-    this.dialog.open(EditAnnouncementComponent, {
+    const dialogRef = this.dialog.open(EditAnnouncementComponent, {
       data: { value: id },
       width: '80vw',// Use percentage to make it responsive
       maxWidth: '500px',
@@ -206,27 +206,31 @@ export class ViewAnnouncementComponent implements OnInit {
       exitAnimationDuration: '1000ms',
       disableClose: true
     });
-    this.dialog.afterAllClosed.subscribe(()=>{
-     
-      this.service.announcementViewall(this.pageSize, this.pageIndex).subscribe((res: any) => {
-        if (res.flag == 1) {
-        this.data = res.response.content;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.data);
-        this.currentfilvalShow = false;
-      } else if (res.flag == 2) {
-        this.data = [];
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.data);
-        this.currentfilvalShow = false;
-      }
+    
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchannouncement();
     });
-  
-    })
+  }
+
+
+  fetchannouncement(){
+    this.service.announcementViewall(this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if (res.flag == 1) {
+      this.data = res.response.content;
+      this.totalPages = res.pagination.totalElements;
+      this.totalpage = res.pagination.pageSize;
+      this.currentpage = res.pagination.currentPage;
+      this.dataSource = new MatTableDataSource(this.data);
+      this.currentfilvalShow = false;
+    } else if (res.flag == 2) {
+      this.data = [];
+      this.totalPages = res.pagination.totalElements;
+      this.totalpage = res.pagination.pageSize;
+      this.currentpage = res.pagination.currentPage;
+      this.dataSource = new MatTableDataSource(this.data);
+      this.currentfilvalShow = false;
+    }
+  });
   }
 
   reset() {
@@ -257,32 +261,16 @@ export class ViewAnnouncementComponent implements OnInit {
   }
 
   create() {
-    this.dialog.open(AddAnnouncementComponent, {
+    const dialogRef = this.dialog.open(AddAnnouncementComponent, {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
       disableClose: true,
       width: '80vw',// Use percentage to make it responsive
       maxWidth: '500px',
     });
-    this.dialog.afterAllClosed.subscribe(()=>{
-      this.service.announcementViewall(this.pageSize, this.pageIndex).subscribe((res: any) => {
-        if (res.flag == 1) {
-        this.data = res.response.content;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.data);
-        this.currentfilvalShow = false;
-      } else if (res.flag == 2) {
-        this.data = [];
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.data);
-        this.currentfilvalShow = false;
-      }
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchannouncement();
     });
-    })
   }
 
   // applyFilter(event: Event) {

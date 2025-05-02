@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
@@ -14,6 +14,7 @@ export class AddStickerComponent  {
   getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
   Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
   myForm!: FormGroup;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(
     public service: FarginServiceService,
@@ -48,9 +49,8 @@ export class AddStickerComponent  {
     this.service.StickerCreate(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
-       
-
       }
       else {
         this.toastr.error(res.responseMessage);

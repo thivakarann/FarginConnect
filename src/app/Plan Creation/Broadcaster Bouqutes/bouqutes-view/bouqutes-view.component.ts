@@ -101,48 +101,54 @@ export class BouqutesViewComponent implements OnInit {
   }
 
   addChaneels(id: any,id1:any) {
-    this.dialog.open(AddExtraChannelsComponent, {
+    const dialogRef =   this.dialog.open(AddExtraChannelsComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "500ms",
       data: { value: id ,value1:id1 }
     })
-    this.dialog.afterAllClosed.subscribe(()=>{
-      this.viewdetails.BroadcasterBoucatebyidchannel(this.id).subscribe((res: any) => {
-        if(res.flag==1){
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+
+      this.fetch();
+
+    });
+  }
+  fetch()
+  {
+    this.viewdetails.BroadcasterBoucatebyidchannel(this.id).subscribe((res: any) => {
+      if(res.flag==1){
+ 
    
+        this.details = res.response;
      
-          this.details = res.response;
-       
-          if (res.response && res.response.length > 0) {
-            this.details = res.response[0].broadCasterBouquet;
-            console.log(this.details);
-        }
-     
-        if(res.response && res.response.length > 0){
-          this.back=res.response.broadCasterRegion
-        }
-     
-          this.channelslist = res.response;
-     
-          this.broadCasterRegion = res.response[0].broadCasterRegion;
-     
-          this.broadCasterBouquet = res.response[0].broadCasterBouquet;
-     
-          this.ServiceProvideregions = res.response;
-          if (res.response && res.response.length > 0) {
-            this.channel = res.response[0].broadCasterRegion.broadCasterRegion;
-            console.log(this.details);
-        }
+        if (res.response && res.response.length > 0) {
+          this.details = res.response[0].broadCasterBouquet;
+          console.log(this.details);
       }
-     
-      else if(res.flag == 2){
-        this.flag=res.flag;
-        this.message=res.responseMessage;
-        console.log( this.flag);
-        console.log( this.message)
+   
+      if(res.response && res.response.length > 0){
+        this.back=res.response.broadCasterRegion
       }
-      });
-    })
+   
+        this.channelslist = res.response;
+   
+        this.broadCasterRegion = res.response[0].broadCasterRegion;
+   
+        this.broadCasterBouquet = res.response[0].broadCasterBouquet;
+   
+        this.ServiceProvideregions = res.response;
+        if (res.response && res.response.length > 0) {
+          this.channel = res.response[0].broadCasterRegion.broadCasterRegion;
+          console.log(this.details);
+      }
+    }
+   
+    else if(res.flag == 2){
+      this.flag=res.flag;
+      this.message=res.responseMessage;
+      console.log( this.flag);
+      console.log( this.message)
+    }
+    });
   }
 
   close() {
@@ -225,49 +231,17 @@ this.location.back()
     // this.valueid = id
 
 
-    this.dialog.open(ChanneleditComponent, {
+    const dialogRef =  this.dialog.open(ChanneleditComponent, {
       data: {value:id,value1:id1},
       disableClose: true,
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
     });
-    this.dialog.afterAllClosed.subscribe(()=>{
-      this.viewdetails.BroadcasterBoucatebyidchannel(this.id).subscribe((res: any) => {
-        if(res.flag==1){
-   
-     
-          this.details = res.response;
-       
-          if (res.response && res.response.length > 0) {
-            this.details = res.response[0].broadCasterBouquet;
-            console.log(this.details);
-        }
-     
-        if(res.response && res.response.length > 0){
-          this.back=res.response.broadCasterRegion
-        }
-     
-          this.channelslist = res.response;
-     
-          this.broadCasterRegion = res.response[0].broadCasterRegion;
-     
-          this.broadCasterBouquet = res.response[0].broadCasterBouquet;
-     
-          this.ServiceProvideregions = res.response;
-          if (res.response && res.response.length > 0) {
-            this.channel = res.response[0].broadCasterRegion.broadCasterRegion;
-            console.log(this.details);
-        }
-      }
-     
-      else if(res.flag == 2){
-        this.flag=res.flag;
-        this.message=res.responseMessage;
-        console.log( this.flag);
-        console.log( this.message)
-      }
-      });
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+
+      this.fetch();
+
+    });
 
     // this.viewdetails.BroadcasterBoucatebyid(this.valueid).subscribe({
     //   next: (res: any) => {

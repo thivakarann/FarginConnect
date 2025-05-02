@@ -12,18 +12,23 @@
                 <div class="form-group">
                     <label for="critical">Report Title</label>
                     <select (change)="exportpay($event)" class="form-select" formControlName="exportDataName" required>
+                        
                         <option value="" selected hidden>Select an Option</option>
                         <option value="12">Entity Onboard</option>
+                        <option value="22">Customer</option> 
                         <option value="15">SMS History</option> 
                          <option value="4">Customer Payments</option>
                         <option value="13">Cloud Fee Payments</option> 
                         <option value="14">One Time Payments</option>
                         <option value="19">Customized Payments</option>
                          <option value="7">Additional Transactions</option>
+                         <option value="20">Online Refund</option> 
+                        <option value="21">Cloud Fee AutoDebit</option> 
                          <option value="16">Entity Request</option>
                          <option value="17">Customer Request</option>
                         <option value="18">Channel Creation</option> 
-                        <option value="20">Online Refund</option> 
+                        
+                      
                     </select>
                     <div style="
                     color: red;
@@ -47,7 +52,7 @@
                     </div>
                   </div> -->
 
-                  <div  [hidden]="exportDataName?.value != '4' && exportDataName?.value != '7' && exportDataName?.value != '13' && exportDataName?.value != '14'&& exportDataName?.value != '19' && exportDataName?.value != '15' && exportDataName?.value != '16' && exportDataName?.value != '17'  && exportDataName?.value != '20'" class="form-group">
+                  <div  [hidden]="exportDataName?.value != '4' && exportDataName?.value != '7' && exportDataName?.value != '13' && exportDataName?.value != '14'&& exportDataName?.value != '19' && exportDataName?.value != '15' && exportDataName?.value != '16' && exportDataName?.value != '17'  && exportDataName?.value != '20' && exportDataName?.value != '21' && exportDataName?.value != '22'" class="form-group">
                     <label for="website">Search Entity</label>
                     <div class="input-group">
                       <input type="text" class="form-control custom-input" formControlName="selectedOption"

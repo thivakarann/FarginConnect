@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output, ViewChild } from '@angular/core';
 import { MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
 import { CreateSMS } from '../../fargin-model/fargin-model.module';
@@ -29,6 +29,8 @@ export class SmsCreateComponent implements OnInit {
 
   merchantId: any;
   freepaid: any;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
+ 
 
   constructor(
     public service: FarginServiceService,
@@ -103,6 +105,7 @@ export class SmsCreateComponent implements OnInit {
     this.service.CreateSMS(submitModel).subscribe((res: any) => {
       if (res.flag === 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
 
       } else {

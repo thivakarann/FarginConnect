@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatOption } from '@angular/material/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -38,6 +38,7 @@ allselected: any;
   channellists:any;
   channel:any
   
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 selectedChannel: any;
   constructor(
     public BroadcasterBouquetAdd: FarginServiceService,
@@ -188,6 +189,7 @@ console.log(this.regionid)
     this.BroadcasterBouquetAdd.BroadcasterBoucateschannelEdit(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
 
       }

@@ -23,7 +23,7 @@ export class EntityBankaddComponent implements OnInit {
   merchantid: any;
   BankNames: any;
   getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(
     public service: FarginServiceService,
@@ -42,10 +42,7 @@ export class EntityBankaddComponent implements OnInit {
     });
 
     this.BankForm = new FormGroup({
-      accountHolderName: new FormControl(null, [
-        Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
-      ]),
+     accountHolderName: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z ]*$')]),
       accountNumber: new FormControl(null, [
         Validators.required,
         Validators.pattern("^[0-9]{9,18}$")
@@ -113,6 +110,7 @@ export class EntityBankaddComponent implements OnInit {
     this.service.EntitybankAdd(submitModel).subscribe((res: any) => {
       if (res.flag === 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();  // Close the dialog
        
       } else {

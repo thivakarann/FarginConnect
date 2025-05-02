@@ -183,32 +183,38 @@ export class CustomerViewallComponent implements OnInit {
   }
 
   update(id: any) {
-    this.dialog.open(CustomerTicketapprovalComponent, {
+    const dialogRef =this.dialog.open(CustomerTicketapprovalComponent, {
       data: { value: id },
       disableClose: true,
       width: '50%',
     });
 
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.service
-      .Ticketscustomer(this.pageSize, this.pageIndex)
-      .subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.ticket = res.response;
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.ticket);
-          this.currentfilvalShow = false;
-        } else if (res.flag == 2) {
-          this.ticket = [];
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.ticket);
-          this.currentfilvalShow = false;
-        }
-      });
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+
+      this.fetch();
+
+    });
+  }
+  fetch()
+  {
+    this.service
+    .Ticketscustomer(this.pageSize, this.pageIndex)
+    .subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.ticket = res.response;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.ticket);
+        this.currentfilvalShow = false;
+      } else if (res.flag == 2) {
+        this.ticket = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.ticket);
+        this.currentfilvalShow = false;
+      }
     });
   }
 

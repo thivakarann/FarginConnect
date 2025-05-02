@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatOption } from '@angular/material/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -33,6 +33,8 @@ export class EditRoleComponent implements OnInit {
   errorMessage: any;
   values: any[] = [];
   getRoleId: any;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
+
   constructor(private service: FarginServiceService, private toastr: ToastrService, public activeRouter: ActivatedRoute,
     private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, private formbuilder: FormBuilder
   ) { }
@@ -150,6 +152,7 @@ export class EditRoleComponent implements OnInit {
       
       if (res.flag == 1) {
         this.toastr.success("Role has been Updated Successfully");
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
      
       }

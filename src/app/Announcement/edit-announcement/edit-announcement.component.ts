@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
@@ -20,6 +20,7 @@ export class EditAnnouncementComponent {
   endDates: any;
   announcementid: any;
   minDate: any = Date;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(private dialog: MatDialog,
     private service: FarginServiceService,
@@ -129,6 +130,7 @@ export class EditAnnouncementComponent {
     this.service.announcementEdit(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       
       }

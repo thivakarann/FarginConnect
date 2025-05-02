@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
@@ -32,7 +32,7 @@ export class RegionEditComponent implements OnInit {
   Regionid: any;
   statename: any;
   Serviceid: any;
-
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor( private service: FarginServiceService, private toastr: ToastrService, @Inject(MAT_DIALOG_DATA) public data: any ,private dialog: MatDialog) {}
 
@@ -75,6 +75,7 @@ export class RegionEditComponent implements OnInit {
     this.service.RegionEdit(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll()
       } else {
         this.toastr.error(res.responseMessage)

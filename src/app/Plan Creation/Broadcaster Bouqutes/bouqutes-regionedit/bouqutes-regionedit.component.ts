@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -33,6 +33,7 @@ allselected: any;
   Regions: any;
   get: any;
   regionedit:any
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
   constructor(
     public BroadcasterBouquetAdd: FarginServiceService,
     private router: Router,
@@ -156,6 +157,7 @@ allselected: any;
     this.BroadcasterBouquetAdd.BroadcasterBoucatesRegionEdit(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
        
       }

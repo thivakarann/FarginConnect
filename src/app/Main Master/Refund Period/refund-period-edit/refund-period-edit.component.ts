@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
@@ -17,6 +17,8 @@ export class RefundPeriodEditComponent implements OnInit {
   id: any;
   details: any;
 
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
+  
   constructor(
     public refundupdate: FarginServiceService,
     private toastr: ToastrService,
@@ -54,9 +56,9 @@ export class RefundPeriodEditComponent implements OnInit {
     this.refundupdate.RefundPeriodUpdate(this.details?.refundDayId,submitModel).subscribe((res:any)=>{
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
-      
-
+    
       }
       else {
         this.toastr.error(res.responseMessage);

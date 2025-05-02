@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -27,6 +27,7 @@ export class AddBussinessdocumentComponent implements OnInit {
   uploaddocfront: any;
   uploaddocback: any;
   bussinessid: any;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(
     public service: FarginServiceService,
@@ -172,6 +173,7 @@ export class AddBussinessdocumentComponent implements OnInit {
     this.service.documentAdd(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       
       } else {

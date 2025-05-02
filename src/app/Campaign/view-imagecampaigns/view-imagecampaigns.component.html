@@ -17,7 +17,7 @@
     <div class="p-2">
       <form [formGroup]="logoUpdate">
           <label class="form__label">File</label>
-          <input class="form-control sm" type="file" name="logo" formControlName="fileImage" accept="image/*" (change)="onFileSelected($event)">
+          <input class="form-control sm" type="file" name="logo" formControlName="fileImage" accept="image/png, image/jpeg" (change)="onFileSelected($event)">
       
           <div class="button-container mt-3">
             <button [disabled]="logoUpdate.invalid" class="buttonDownload" (click)="Update()">Update</button>

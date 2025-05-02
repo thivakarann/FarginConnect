@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatOption } from '@angular/material/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
@@ -30,6 +30,7 @@ serviceId:any;
 regnId: any;
 RegionIds:any
   id1: any;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(
     public AddExtra: FarginServiceService,
@@ -134,6 +135,7 @@ RegionIds:any
     this.AddExtra.BouquetsRegion(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll()
       }
       else {

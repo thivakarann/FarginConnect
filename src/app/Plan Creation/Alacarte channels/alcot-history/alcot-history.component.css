@@ -134,7 +134,7 @@ mat-card {
   }
   
   .mat-mdc-table .mdc-data-table__row {
-    height: 0px;
+    height: 45px;
   }
   
   
@@ -277,4 +277,14 @@ mat-card {
     -webkit-user-select: none;
     -ms-touch-action: manipulation;
     touch-action: manipulation;
+  }
+  .example-container {
+    max-height: 278px;
+    height: 100%;
+    overflow: auto;
+    scrollbar-width: auto;
+  }
+  
+  table {
+    width: 100%;
   }

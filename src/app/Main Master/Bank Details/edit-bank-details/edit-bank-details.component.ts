@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
@@ -17,6 +17,7 @@ export class EditBankDetailsComponent implements OnInit {
   id: any;
   details: any;
   banks: any;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(
     public Bankdetailsupdate: FarginServiceService,
@@ -52,9 +53,9 @@ export class EditBankDetailsComponent implements OnInit {
     this.Bankdetailsupdate.bankdetailsUpdate(submitModel).subscribe((res:any)=>{
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
-      
-
+    
       }
       else {
         this.toastr.error(res.responseMessage);

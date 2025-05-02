@@ -153,43 +153,44 @@ searchPerformed: any;
 
 
   update(id: any) {
-    this.dialog.open(AddticketComponent, {
+    const dialogRef =  this.dialog.open(AddticketComponent, {
       data: { value: id },
       disableClose: true,
       width: "50%",
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
     })
-    this.dialog.afterAllClosed.subscribe(()=>{
-      this.service.viewTicket().subscribe((res: any) => {
-        this.tickets = res.response;
-        
-        this.dataSource = new MatTableDataSource(this.tickets?.reverse())
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      })
-  
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+
+      this.fetch();
+
+    });
+  }
+
+  fetch()
+  {
+    this.service.viewTicket().subscribe((res: any) => {
+      this.tickets = res.response;
+      
+      this.dataSource = new MatTableDataSource(this.tickets?.reverse())
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     })
   }
 
   stickerupdate(id: any) {
-    this.dialog.open(UpdateStickerTicketComponent, {
+    const dialogRef = this.dialog.open(UpdateStickerTicketComponent, {
       data: { value: id },
       disableClose: true,
       width: "35%",
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
     })
-    this.dialog.afterAllClosed.subscribe(()=>{
-      this.service.viewTicket().subscribe((res: any) => {
-        this.tickets = res.response;
-       
-        this.dataSource = new MatTableDataSource(this.tickets?.reverse())
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      })
- 
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+
+      this.fetch();
+
+    });
   }
 
   exportexcel() {

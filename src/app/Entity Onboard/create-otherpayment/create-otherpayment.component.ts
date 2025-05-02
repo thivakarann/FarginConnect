@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
@@ -17,6 +17,7 @@ export class CreateOtherpaymentComponent {
   getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
   id: any;
   myForm!: FormGroup;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(private router: Router, private Approval: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog) { }
   ngOnInit(): void {
@@ -58,6 +59,7 @@ export class CreateOtherpaymentComponent {
     this.Approval.CreateOtherPayment(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
         
       }

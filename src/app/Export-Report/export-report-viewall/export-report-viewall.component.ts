@@ -117,27 +117,33 @@ export class ExportReportViewallComponent implements OnInit{
   
 
   AddReport() {
-    this.dialog.open(ExportReportAddComponent, {
+    const dialogRef = this.dialog.open(ExportReportAddComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "800ms",
       disableClose: true
     })
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.service.ExportReportGet().subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.viewall = res.response; 
-          this.dataSource = new MatTableDataSource(this.viewall);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        }
-        else if (res.flag == 2) {
-          this.dataSource = new MatTableDataSource([]);
-          this.dataSource = new MatTableDataSource(this.viewall.reverse());
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        }
-      });
-    })
+
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchexportreportview();
+    });
+  }
+
+
+  fetchexportreportview(){
+    this.service.ExportReportGet().subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.viewall = res.response; 
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+      else if (res.flag == 2) {
+        this.dataSource = new MatTableDataSource([]);
+        this.dataSource = new MatTableDataSource(this.viewall.reverse());
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+    });
   }
 
 
@@ -239,6 +245,8 @@ exportpay(event:any) {
       EntityRequest = 16,
       CustomerRequest = 17,
       OnlineRefund = 20,
+      CloudFeeAutodebit = 21,
+      Customer = 22,
     }
 
     const dataNameMapping: Record<ExportDataName, string> = {
@@ -253,6 +261,8 @@ exportpay(event:any) {
       [ExportDataName.EntityRequest]: 'Entity_Request',
       [ExportDataName.CustomerRequest]: 'Customer_Request',
       [ExportDataName.OnlineRefund]: 'Online_Refund',
+      [ExportDataName.CloudFeeAutodebit]: 'CloudFee_Autodebit',
+      [ExportDataName.Customer]: 'Customer',
     };
  
     const fileName = dataNameMapping[exportDataName as ExportDataName] || 'Exported_Report';

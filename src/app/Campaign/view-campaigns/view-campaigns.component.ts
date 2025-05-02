@@ -182,7 +182,7 @@ export class ViewCampaignsComponent {
   }
 
   addCampaign() {
-    this.dialog.open(CreateCampaignsComponent, {
+    const dialogRef = this.dialog.open(CreateCampaignsComponent, {
       disableClose: true,
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
@@ -190,23 +190,29 @@ export class ViewCampaignsComponent {
       maxHeight:'570px'
       
     });
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.service.viewcampaign(1).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.tickets = res.response;
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchcreatecampaign();
+    });
 
-          this.dataSource = new MatTableDataSource(this.tickets);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-        } else if (res.flag == 2) {
-          this.dataSource = new MatTableDataSource([]);
-          this.dataSource = new MatTableDataSource(this.tickets);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        }
-      });
+  }
+
+  fetchcreatecampaign(){
+    this.service.viewcampaign(1).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.tickets = res.response;
+        this.dataSource = new MatTableDataSource(this.tickets);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      } else if (res.flag == 2) {
+        this.dataSource = new MatTableDataSource([]);
+        this.dataSource = new MatTableDataSource(this.tickets);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
     });
   }
+
+
   isDate(value: string): boolean {
     const regex = /^\d{2}\/\d{2}\/\d{4}$/;
     return regex.test(value);
@@ -386,33 +392,20 @@ export class ViewCampaignsComponent {
   }
 
   image(id: any) {
-    this.dialog.open(ViewImagecampaignsComponent, {
+    const dialogRef = this.dialog.open(ViewImagecampaignsComponent, {
       data: { value: id },
       disableClose: true,
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       width:'500px',
     });
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.service.viewcampaign(1).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.tickets = res.response;
-
-          this.dataSource = new MatTableDataSource(this.tickets);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-        } else if (res.flag == 2) {
-          this.dataSource = new MatTableDataSource([]);
-          this.dataSource = new MatTableDataSource(this.tickets);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        }
-      });
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchcreatecampaign();
     });
   }
 
   edit(id: any) {
-    this.dialog.open(EditCampaignComponent, {
+    const dialogRef = this.dialog.open(EditCampaignComponent, {
       data: { value: id },
       disableClose: true,
       enterAnimationDuration: '500ms',
@@ -421,21 +414,8 @@ export class ViewCampaignsComponent {
       maxWidth: '500px',
       maxHeight:'600px',
     })
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.service.viewcampaign(1).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.tickets = res.response;
-
-          this.dataSource = new MatTableDataSource(this.tickets);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-        } else if (res.flag == 2) {
-          this.dataSource = new MatTableDataSource([]);
-          this.dataSource = new MatTableDataSource(this.tickets);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        }
-      });
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchcreatecampaign();
     });
   }
 
@@ -676,7 +656,7 @@ export class ViewCampaignsComponent {
   }
 
   editbulk(id: any) {
-    this.dialog.open(UpdateBulkcampaignComponent, {
+    const dialogRef = this.dialog.open(UpdateBulkcampaignComponent, {
       data: { value: id },
       disableClose: true,
 
@@ -686,22 +666,8 @@ export class ViewCampaignsComponent {
 
       width: '35%'
     });
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.service.viewcampaign(1).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.tickets = res.response;
-
-          this.dataSource = new MatTableDataSource(this.tickets);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-        } else if (res.flag == 2) {
-          this.dataSource = new MatTableDataSource([]);
-          this.dataSource = new MatTableDataSource(this.tickets);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        }
-      });
-
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchcreatecampaign();
     });
   }
 

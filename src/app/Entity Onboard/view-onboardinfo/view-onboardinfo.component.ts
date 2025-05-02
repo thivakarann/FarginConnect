@@ -59,7 +59,7 @@ export class ViewOnboardinfoComponent implements OnInit {
     })
   }
   editKeys(id: any) {
-    this.dialog.open(KeysUpdateComponent, {
+    const dialogRef =this.dialog.open(KeysUpdateComponent, {
       enterAnimationDuration: "1000ms",
       exitAnimationDuration: "1000ms",
 
@@ -69,15 +69,20 @@ export class ViewOnboardinfoComponent implements OnInit {
       }
     })
 
-    this.dialog.afterAllClosed.subscribe(()=>{
-      this.service.EntityViewbyid(this.merchantId).subscribe((res: any) => {
-        this.detaislone = res.response.merchantpersonal;
-      })
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+
+      this.fetch();
+
+    });
 
 
   }
-
+fetch()
+{
+  this.service.EntityViewbyid(this.merchantId).subscribe((res: any) => {
+    this.detaislone = res.response.merchantpersonal;
+  })
+}
   copyText(text: string) {
     const el = document.createElement('textarea');
     el.value = text;

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -16,7 +16,9 @@ export class SmsApprovalComponent implements OnInit{
   getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
   id: any;
   myForm!: FormGroup;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
  
+  
   constructor(private router: Router, private Approval: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog) { }
   ngOnInit(): void {
     this.id = this.data.value
@@ -44,6 +46,7 @@ export class SmsApprovalComponent implements OnInit{
     this.Approval.SmsApproval(this.id,submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll(); 
        
            }

@@ -214,36 +214,17 @@ searchPerformed: boolean=false;
 
 
   Editbankdetails(id: any) {
-    this.dialog.open(EditBankDetailsComponent, {
+    const dialogRef = this.dialog.open(EditBankDetailsComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: "1000ms",
       data: { value: id },
       disableClose: true
     })
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.bankdetails.bankdetailsViewall().subscribe((res: any) => {
-        if(res.flag==1)
-        {   
-          this.viewall = res.response;
-          this.viewall.reverse();
-          this.dataSource = new MatTableDataSource(this.viewall);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-  
-        }
-        else if(res.flag==2)
-        {
-          this.viewall = [];
-          this.dataSource = new MatTableDataSource(this.viewall);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-  
-        }
-     
-  
-      });
+ 
 
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchBankDetails();
+    });
   }
 
   ActiveStatus(event: MatSlideToggleChange, id: any) {

@@ -128,30 +128,36 @@ export class ServiceProviderComponent implements OnInit {
   }
 
   create() {
-    this.dialog.open(ServiceproviderAddComponent, {
+    const dialogRef = this.dialog.open(ServiceproviderAddComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       disableClose: true
     });
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.service.ServiceProviderView().subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.data = res.response;
-          this.dataSource = new MatTableDataSource(this.data.reverse());
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-       
-        } else if (res.flag == 2) {
-          this.data = []
-          this.dataSource = new MatTableDataSource(this.data.reverse());
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-      
-        }
-      });
-  
-   
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+
+      this.fetch();
+
+    });
+  }
+
+  fetch()
+  {
+    this.service.ServiceProviderView().subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.data = res.response;
+        this.dataSource = new MatTableDataSource(this.data.reverse());
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+     
+      } else if (res.flag == 2) {
+        this.data = []
+        this.dataSource = new MatTableDataSource(this.data.reverse());
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+    
+      }
+    });
+
   }
 
 
@@ -364,30 +370,16 @@ export class ServiceProviderComponent implements OnInit {
   }
 
   edit(id: any) {
-    this.dialog.open(ServiceproviderEditComponent, {
+    const dialogRef = this.dialog.open(ServiceproviderEditComponent, {
       data: { value: id },
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
     });
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.service.ServiceProviderView().subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.data = res.response;
-          this.dataSource = new MatTableDataSource(this.data.reverse());
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-       
-        } else if (res.flag == 2) {
-          this.data = []
-          this.dataSource = new MatTableDataSource(this.data.reverse());
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-      
-        }
-      });
-  
-   
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+
+      this.fetch();
+
+    });
   }
 }
 

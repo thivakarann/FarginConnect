@@ -123,34 +123,39 @@ export class RefundPeriodViewallComponent implements OnInit {
     }
   }
   Addrefund() {
-    this.dialog.open(RefundPeriodAddComponent, {
+    const dialogRef = this.dialog.open(RefundPeriodAddComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "800ms",
       disableClose: true
     })
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.refunddetails.RefundperiodGetall().subscribe((res: any) => {
-        if(res.flag==1)
-        {
-          this.viewall = res.response;
-          this.viewall.reverse();
-          this.dataSource = new MatTableDataSource(this.viewall);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-    
-        }
-        else if(res.flag==2)
-        {
-          this.viewall = [];
-         
-          this.dataSource = new MatTableDataSource(this.viewall);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        }
-       
-      });
+  
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchrefund();
+    });
+  }
 
-    })
+
+  fetchrefund(){
+    this.refunddetails.RefundperiodGetall().subscribe((res: any) => {
+      if(res.flag==1)
+      {
+        this.viewall = res.response;
+        this.viewall.reverse();
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+  
+      }
+      else if(res.flag==2)
+      {
+        this.viewall = [];
+       
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+     
+    });
   }
 
   reload() {
@@ -178,35 +183,15 @@ export class RefundPeriodViewallComponent implements OnInit {
   }
 
   Editrefunds(id: any) {
-    this.dialog.open(RefundPeriodEditComponent, {
+    const dialogRef =   this.dialog.open(RefundPeriodEditComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: "1000ms",
       data: { value: id },
       disableClose: true
     })
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.refunddetails.RefundperiodGetall().subscribe((res: any) => {
-        if(res.flag==1)
-        {
-          this.viewall = res.response;
-          this.viewall.reverse();
-          this.dataSource = new MatTableDataSource(this.viewall);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-    
-        }
-        else if(res.flag==2)
-        {
-          this.viewall = [];
-         
-          this.dataSource = new MatTableDataSource(this.viewall);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        }
-       
-      });
-
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchrefund();
+    });
   }
 
   exportexcel() {

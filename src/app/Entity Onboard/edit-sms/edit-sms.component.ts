@@ -1,4 +1,4 @@
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Inject, Output, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -32,6 +32,8 @@ export class EditSmsComponent {
   merchantid: any;
   smstitle: any;
   smsTempId: any;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
+ 
  
   constructor(private router: Router, private Approval: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog) { }
   ngOnInit(): void {
@@ -93,6 +95,7 @@ export class EditSmsComponent {
     this.Approval.smsUpdate(this.merchantsmsId,submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
      
            }

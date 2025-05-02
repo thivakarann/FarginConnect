@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -21,6 +21,7 @@ export class PgsetupEditComponent implements OnInit {
   secretKeys: any;
   applicationIds: any;
   pgModes: any;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(
     private service: FarginServiceService,
@@ -86,6 +87,7 @@ export class PgsetupEditComponent implements OnInit {
     this.service.PgsetupUpdate(this.pgModeId, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll()
       
       } else {

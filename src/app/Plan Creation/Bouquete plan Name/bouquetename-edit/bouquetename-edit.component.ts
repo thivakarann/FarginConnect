@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Router } from '@angular/router';
@@ -21,7 +21,7 @@ export class BouquetenameEditComponent implements OnInit {
   Broadcastername: any;
   PlanName: any;
 
-
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
   constructor(
     public Editdetails: FarginServiceService,
     private router: Router,
@@ -71,6 +71,7 @@ export class BouquetenameEditComponent implements OnInit {
     this.Editdetails.Bouquetenameupdatae(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
      
 

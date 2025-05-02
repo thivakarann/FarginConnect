@@ -97,20 +97,25 @@ export class ViewStickerComponent {
   }
 
   AddSticker() {
-    this.dialog.open(AddStickerComponent, {
+    const dialogRef = this.dialog.open(AddStickerComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "800ms",
       disableClose: true
     })
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.service.Sticker().subscribe((res: any) => {
-        this.viewall = res.response;
-        this.viewall.reverse();
-        this.dataSource = new MatTableDataSource(this.viewall);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      });
-    })
+
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchstickeradd();
+    });
+  }
+
+  fetchstickeradd(){
+    this.service.Sticker().subscribe((res: any) => {
+      this.viewall = res.response;
+      this.viewall.reverse();
+      this.dataSource = new MatTableDataSource(this.viewall);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    });
   }
 
 

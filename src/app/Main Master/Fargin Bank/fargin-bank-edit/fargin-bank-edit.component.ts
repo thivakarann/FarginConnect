@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { farginedit } from '../../../fargin-model/fargin-model.module';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -18,6 +18,7 @@ export class FarginBankEditComponent {
   activeRole: any;
   farginbank: any;
   adminBankId:any;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(private dialog:MatDialog,  private service: FarginServiceService, private toaster: ToastrService, private router: Router,@Inject(MAT_DIALOG_DATA) public data: any) { 
 
@@ -92,6 +93,7 @@ export class FarginBankEditComponent {
     this.service.FarginCreate(submitmodel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toaster.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       
       }

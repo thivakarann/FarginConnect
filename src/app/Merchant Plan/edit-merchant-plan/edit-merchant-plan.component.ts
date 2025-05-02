@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
@@ -26,6 +26,7 @@ export class EditMerchantPlanComponent implements OnInit {
   countlimit: any;
   VoiceBoxAdv: any;
   VoiceBoxSet: any;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(
     public merchantplanedit: FarginServiceService,
@@ -120,8 +121,8 @@ export class EditMerchantPlanComponent implements OnInit {
     this.merchantplanedit.merchantplanUpdate(this.id, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
-    
 
       }
       else {

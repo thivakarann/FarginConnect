@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
@@ -16,6 +16,7 @@ export class EntityTerminalAddComponent  implements OnInit {
   createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
   branchId:any;
   merchantId:any
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService,@Inject(MAT_DIALOG_DATA) public data: any) { }
  
  
@@ -49,6 +50,7 @@ export class EntityTerminalAddComponent  implements OnInit {
     this.service.EntityTerminalCreate(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll()
       }
       else {

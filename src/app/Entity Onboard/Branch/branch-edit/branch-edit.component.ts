@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -30,6 +30,8 @@ export class BranchEditComponent {
   number:any;
   accountid:any;
   smsmerchantNames: any;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
+ 
  
   constructor(
     public service: FarginServiceService,
@@ -137,6 +139,7 @@ export class BranchEditComponent {
     this.service.BranchUpdate(this.branchid,submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
       this.dialog.closeAll();
       }
       else {
