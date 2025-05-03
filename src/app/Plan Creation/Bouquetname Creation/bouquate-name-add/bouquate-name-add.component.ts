@@ -27,7 +27,7 @@ export class BouquateNameAddComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     this.myForm = new FormGroup({
-      broardCaste: new FormControl('', Validators.required),
+      broardCaste: new FormControl('',[Validators.required,Validators.pattern(/^[a-zA-Z0-9 ]{1,50}$/)]),
     });
   }
 

@@ -20,7 +20,8 @@ export class ExportReportViewallComponent implements OnInit{
   dataSource: any;
   displayedColumns: string[] = [
     'exportId',
-    'exportDataName', 
+    'exportDataName',
+    'entityname', 
     'exportStartDate',
     'exportEndDate',
     'paymentStatus',
@@ -120,9 +121,7 @@ export class ExportReportViewallComponent implements OnInit{
     const dialogRef = this.dialog.open(ExportReportAddComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "800ms",
-      position: { top: '30px'},
-      disableClose: true,
-   
+      disableClose: true
     })
 
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {

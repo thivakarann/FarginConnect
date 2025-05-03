@@ -84,6 +84,15 @@
                   " *ngIf="channelName?.invalid && channelName?.touched && channelName?.errors?.['required']">
                         Field is required
                     </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="channelName?.invalid && channelName?.touched && channelName?.errors?.['pattern']">
+                       Enter a Valid Input (Upto 50 characters are allowed)
+                    </div>
                 </div>
  
  
@@ -101,6 +110,15 @@
                   " *ngIf="channelNo?.invalid && channelNo?.touched && channelNo?.errors?.['required']">
                         Field is required
                     </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="channelNo?.invalid && channelNo?.touched && channelNo?.errors?.['pattern']">
+                        Only Numbers are allowed (Upto 10 Digits)
+                    </div>
                 </div>
  
                 <div class="col-sm-4 form-group">
@@ -116,6 +134,15 @@
               " *ngIf="generic?.invalid && generic?.touched && generic?.errors?.['required']">
                         Field is required
                     </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="generic?.invalid && generic?.touched && generic?.errors?.['pattern']">
+                          Please enter only letters,(max 50 characters)
+                        </div>
                 </div>
  
              
@@ -138,6 +165,15 @@
               " *ngIf="language?.invalid && language?.touched && language?.errors?.['required']">
                         Field is required
                     </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="language?.invalid && language?.touched && language?.errors?.['pattern']">
+                           Please enter only letters,(max 50 characters)
+                        </div>
                 </div>
  
                 <div class="col-sm-4 form-group">

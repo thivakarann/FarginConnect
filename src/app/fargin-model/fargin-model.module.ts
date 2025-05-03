@@ -1027,7 +1027,6 @@ export interface customerplanStatus{
 
 export interface customerpay{
   readonly payId:any;
-  readonly trackId:any;
   readonly paidAmount:any;
 }
  

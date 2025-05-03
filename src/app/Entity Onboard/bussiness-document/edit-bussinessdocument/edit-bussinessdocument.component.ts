@@ -23,7 +23,7 @@ export class EditBussinessdocumentComponent {
   docNumbers: any;
   categoryvalue: any;
   bussinessid: any;
-  expiryDates:any;
+  expiryDates: any;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(
@@ -45,16 +45,16 @@ export class EditBussinessdocumentComponent {
     this.categoryvalue = this.data.value.entityKycCategory.kycCategoryId
 
     this.docNumbers = this.data.value.docNumber
-  this.expiryDates =this.data.value.expiryDate
+    this.expiryDates = this.data.value.expiryDate
 
     this.service.EntityGetKYCbybussinessid(this.bussinessid).subscribe((res: any) => {
-      this.kycValue = res.response;
+      this.kycValue = res.response.reverse();
     })
 
 
     this.fourthFormGroup = this._formBuilder.group({
       kycCategoryId: ['', Validators.required],
-      docNumber: ['',Validators.maxLength(35)],
+      docNumber: ['', Validators.maxLength(35)],
       expiryDate: [''],
     })
 
@@ -105,7 +105,7 @@ export class EditBussinessdocumentComponent {
         this.toastr.success(res.responseMessage);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
-     
+
       } else {
         this.toastr.error(res.responseMessage);
       }

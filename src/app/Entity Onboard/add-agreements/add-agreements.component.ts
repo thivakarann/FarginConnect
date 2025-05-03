@@ -22,9 +22,9 @@ export class AddAgreementsComponent {
   plans: any;
   todayDate: string = '';
   Expirydate: any;
-  
+
   @Output() bankDetailsUpdated = new EventEmitter<void>();
- 
+
   constructor(
     public service: FarginServiceService,
     private router: Router,
@@ -40,8 +40,8 @@ export class AddAgreementsComponent {
     this.myForm4 = new FormGroup({
       commercialId: new FormControl('', [Validators.required]),
       linkdate: new FormControl('', [Validators.required]),
-      merchantPosition: new FormControl('', [Validators.required,Validators.pattern('^[A-Za-z ]*$'),Validators.maxLength(30)]),
-      authorizedName: new FormControl('', [Validators.required,Validators.pattern('^[A-Za-z ]*$'),Validators.maxLength(30)]),
+      merchantPosition: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z ]*$'), Validators.maxLength(30)]),
+      authorizedName: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z ]*$'), Validators.maxLength(30)]),
     })
 
     this.service.viewactiveagreementplan().subscribe((res: any) => {
@@ -91,7 +91,7 @@ export class AddAgreementsComponent {
       merchantId: this.merchantid,
       commercialId: this.commercialId?.value,
       createdBy: this.getadminname,
-      authorizedName:this.authorizedName?.value.trim(),
+      authorizedName: this.authorizedName?.value.trim(),
       merchantPosition: this.merchantPosition?.value.trim(),
       expiryLink: startdate
 
@@ -102,7 +102,7 @@ export class AddAgreementsComponent {
         this.toastr.success(res.responseMessage);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
-        
+
       }
       else {
         this.toastr.error(res.responseMessage);

@@ -578,7 +578,6 @@ export class MaintenanceTransViewallComponent {
         next: (res: any) => {
           if (res.response) {
             this.transaction = res.response;
-            this.transaction.reverse();
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
@@ -825,7 +824,6 @@ filterbymso() {
       this.service.Subscriptionsearch(this.currentfilVal, event.pageSize, event.pageIndex).subscribe({next: (res: any) => {
           if (res.response) {
             this.transaction = res.response;
-            this.transaction.reverse();
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;

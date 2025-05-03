@@ -521,7 +521,6 @@ export class ServicePaymentsViewallComponent {
       next: (res: any) => {
         if (res.response) {
           this.transaction = res.response;  
-          this.transaction.reverse();
            this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage;
@@ -693,7 +692,6 @@ export class ServicePaymentsViewallComponent {
         next: (res: any) => {
           if (res.response) {
             this.transaction = res.response;  
-            this.transaction.reverse();
              this.totalPages = res.pagination.totalElements;
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;

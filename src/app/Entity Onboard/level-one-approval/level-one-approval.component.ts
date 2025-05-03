@@ -33,7 +33,7 @@ constructor(private service:FarginServiceService,
     
     this.myForm = new FormGroup({
       approvalStatus:new FormControl('', [Validators.required]),
-      remarks:new FormControl('', [Validators.required]),
+      remarks:new FormControl('', [Validators.required,Validators.maxLength(200)]),
     })
   }
 

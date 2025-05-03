@@ -27,6 +27,15 @@
                   " *ngIf="accountHolderName?.invalid && accountHolderName?.touched && accountHolderName?.errors?.['pattern']">
                         Enter a valid Name
                     </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="accountHolderName?.errors?.['maxlength']">
+                        maximum length should be 50
+                    </div>
                 </div>
                 <div class="col-sm-4 form-group">
                     <label for="state" class="form__label">Account Number </label>
@@ -112,6 +121,15 @@
                     ;
                   " *ngIf="branchName?.invalid && branchName?.touched && branchName?.errors?.['pattern']">
                         Enter a valid branch Name
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="branchName?.errors?.['maxlength']">
+                        maximum length should be 50
                     </div>
                 </div>
 

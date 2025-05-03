@@ -21,10 +21,10 @@ export class PaymentlinkResendComponent {
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, @Inject(MAT_DIALOG_DATA) public data: any,) { }
   ngOnInit(): void {
     this.merchantid = this.data.value
-    
+
     this.addcategory = new FormGroup({
       expiryDate: new FormControl('', [Validators.required]),
-      description: new FormControl('', [Validators.required]),
+      description: new FormControl('', [Validators.required,Validators.maxLength(200)]),
       Url: new FormControl('', [
         Validators.required,
         Validators.pattern("((http|https)://)(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,6})+(/[-a-zA-Z0-9@:%._\\+~#?&//=]*)?")
@@ -61,7 +61,7 @@ export class PaymentlinkResendComponent {
         this.toastr.success(res.responseMessage);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll()
-       
+
       }
       else {
         this.toastr.error(res.responseMessage);

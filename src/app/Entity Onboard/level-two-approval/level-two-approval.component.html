@@ -11,7 +11,7 @@
                     <label   class="form__label" for="Bussiness category">Select Approval</label>
                     <select formControlName="approvalStatus" id="Bussiness category" class="form-control form-select">
                         <option value="" disabled selected>Select</option>
-                        <option value="approved">approved</option>
+                        <option value="approved">Approved</option>
                         <option value="Rejected">Rejected</option>
                     </select>
                     <div style="
@@ -38,6 +38,15 @@
                     ;
                   " *ngIf="remarks?.invalid && remarks?.touched && remarks?.errors?.['required']">
                         Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="remarks?.errors?.['maxlength']">
+                        maximum length should be 200
                     </div>
                 </div>
             </div>

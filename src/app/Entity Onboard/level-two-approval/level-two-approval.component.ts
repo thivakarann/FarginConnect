@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { LevelTwoApproval } from '../../fargin-model/fargin-model.module';
+import { kMaxLength } from 'buffer';
 
 @Component({
   selector: 'app-level-two-approval',
@@ -33,7 +34,7 @@ export class LevelTwoApprovalComponent {
 
     this.myForm = new FormGroup({
       approvalStatus: new FormControl('', [Validators.required]),
-      remarks: new FormControl('', [Validators.required]),
+      remarks: new FormControl('', [Validators.required,Validators.maxLength(200)]),
     })
   }
 
@@ -57,7 +58,7 @@ export class LevelTwoApprovalComponent {
         this.toaster.success(res.responseMessage)
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
-              
+
       }
       else {
         this.toaster.error(res.responseMessage)

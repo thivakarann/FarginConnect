@@ -38,11 +38,11 @@ export class EntityBankaddComponent implements OnInit {
     
 
     this.service.activebankdetails().subscribe((res: any) => {
-      this.BankNames = res.response;
+      this.BankNames = res.response.reverse();
     });
 
     this.BankForm = new FormGroup({
-     accountHolderName: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z ]*$')]),
+     accountHolderName: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z ]*$'),Validators.maxLength(50)]),
       accountNumber: new FormControl(null, [
         Validators.required,
         Validators.pattern("^[0-9]{9,18}$")
@@ -57,7 +57,8 @@ export class EntityBankaddComponent implements OnInit {
       ]),
       branchName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
+        Validators.pattern('^[a-zA-Z0-9 ]*$'),
+        Validators.maxLength(50)
       ]),
       accountType: new FormControl("", [
         Validators.required,

@@ -113,8 +113,7 @@ export class EntityAddComponent implements OnInit {
     });
 
     this.AddEntity.activebankdetails().subscribe((res: any) => {
-      this.BankNames = res.response;
-      this.BankNames.reverse();
+      this.BankNames = res.response.reverse();
     });
 
     this.AddEntity.activeViewall().subscribe((res: any) => {

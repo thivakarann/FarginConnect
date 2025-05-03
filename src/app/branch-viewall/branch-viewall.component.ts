@@ -335,9 +335,7 @@ export class BranchViewallComponent {
       .subscribe({
         next: (res: any) => {
           if (res.response) {
-            this.branchview = res.response;
-            this.branchview.reverse();
-
+           this.branchview = res.response;
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
@@ -367,8 +365,6 @@ export class BranchViewallComponent {
         next: (res: any) => {
           if (res.response) {
             this.branchview = res.response;
-            this.branchview.reverse();
-
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;

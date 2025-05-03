@@ -243,7 +243,7 @@ export class CustomerViewallComponent implements OnInit {
           this.response = [];
           this.response.push(sno);
           this.response.push(element?.ticketId);
-          this.response.push(element?.entity.merchantLegalName);
+          this.response.push(element?.entity.entityName);
           this.response.push(element?.customer.customerName);
           this.response.push(element?.mobileNumber);
           this.response.push(element?.categoryName);

@@ -57,16 +57,14 @@ export class BranchEditComponent {
  
  
     this.branchedit = new FormGroup({
-      branchName: new FormControl('', [Validators.required]),
+      branchName: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z ]*$'),Validators.maxLength(50)]),
       apiKey: new FormControl('', [Validators.required]),
       secretKey: new FormControl('', [Validators.required]),
-      bankName: new FormControl('', [Validators.required]),
-      accountHolderName: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z ]*$')]),
+      bankName: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z ]*$'),Validators.maxLength(50)]),
+      accountHolderName: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z ]*$'),Validators.maxLength(50)]),
       accountNumber: new FormControl('', [Validators.required,Validators.pattern("^[0-9]{9,18}$")]),
       ifscCode: new FormControl('', [Validators.required,Validators.pattern("^[A-Z]{4}0[A-Z0-9]{6}$")]),
-      createdBy: new FormControl(''),
-      merchantId: new FormControl(''),
-      accountId: new FormControl(''),
+      accountId: new FormControl('',[Validators.required,Validators.pattern(/^\d{1,10}$/)]),
       smsmerchantname: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9 ]*$'),

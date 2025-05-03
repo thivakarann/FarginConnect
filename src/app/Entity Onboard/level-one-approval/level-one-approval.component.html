@@ -39,6 +39,15 @@
                   " *ngIf="remarks?.invalid && remarks?.touched && remarks?.errors?.['required']">
                         Field is required
                     </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="remarks?.errors?.['maxlength']">
+                        maximum length should be 200
+                    </div>
                 </div>
             </div>
             <div class="mb-3">

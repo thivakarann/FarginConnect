@@ -38,13 +38,13 @@ export class BouquetenameEditComponent implements OnInit {
     this.PlanName = this.data.value.bouquetName;
 
     this.Editdetails.BoucatenamesActive().subscribe((res: any) => {
-      this.details = res.response;
+      this.details = res.response.reverse();
     });
 
 
     this.myForm = new FormGroup({
       bundleChannelId: new FormControl('', Validators.required),
-      bouquetName: new FormControl('', Validators.required),
+      bouquetName: new FormControl('',[Validators.required,Validators.pattern(/^[a-zA-Z0-9 ]{1,50}$/)]),
     });
 
   }

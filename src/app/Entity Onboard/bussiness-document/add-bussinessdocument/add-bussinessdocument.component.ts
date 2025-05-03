@@ -55,7 +55,7 @@ export class AddBussinessdocumentComponent implements OnInit {
     // })
 
     this.service.EntityGetKYCbybussinessid(this.bussinessid).subscribe((res: any) => {
-      this.kycValue = res.response;
+      this.kycValue = res.response.reverse();
     })
 
 

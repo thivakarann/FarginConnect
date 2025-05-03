@@ -1,114 +1,160 @@
 <div class="card-header d-flex justify-content-between align-items-center">
-    <h5 class="mb-0">Agreement</h5>
+  <h5 class="mb-0">Agreement</h5>
 </div>
 <div class="container">
-    <div class="well" style="margin-top: 2%;">
+  <div class="well" style="margin-top: 2%">
+    <form [formGroup]="myForm4" style="margin-top: 2%">
+      <div class="row mb-3">
+        <div class="col-12 form-group">
+          <label for="Entity Name">Business Plan</label>
+          <select class="form-select" formControlName="commercialId" required>
+            <option selected disabled>Select</option>
+            <option *ngFor="let item of plans" [value]="item.commercialId">
+              {{ item.planName }}
+            </option>
+          </select>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="commercialId?.invalid && commercialId?.touched && commercialId?.errors?.['required']"
+          >
+            Field is required
+          </div>
+        </div>
+        <div class="col-12 form-group">
+          <label for="Entity Name">Link Expiry Date</label>
+          <input
+            onkeydown="return false;"
+            class="form-control"
+            id="Entity Name"
+            type="datetime-local"
+            [min]="todayDate"
+            formControlName="linkdate"
+            required
+          />
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="linkdate?.invalid && linkdate?.touched && linkdate?.errors?.['required']"
+          >
+            Field is required
+          </div>
+        </div>
+        <div class="col-12 form-group">
+          <label for="merchantPosition">Authorized Signatory Name</label>
+          <input
+            class="form-control"
+            id="authorizedName"
+            type="text"
+            formControlName="authorizedName"
+            required
+          />
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="authorizedName?.invalid && authorizedName?.touched && authorizedName?.errors?.['required']"
+          >
+            Field is required
+          </div>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="authorizedName?.invalid && authorizedName?.touched && authorizedName?.errors?.['pattern']"
+          >
+            Invalid format. Only characters are allowed
+          </div>
 
-        <form [formGroup]="myForm4" style="margin-top: 2%;">
-            <div class="row mb-3">
-                <div class="col-12 form-group ">
-                    <label for="Entity Name">Business Plan</label>
-                    <select class="form-select" formControlName="commercialId" required>
-                        <option selected disabled>Select
-                        </option>
-                        <option *ngFor="let item of plans;" [value]="item.commercialId">
-                            {{item.planName}}
-                        </option>
-                    </select>
-                    <div style="
-            color: red;
-            font-size: 12px;
-            margin-top: 2px;
-            position: relative;
-            ;
-          " *ngIf="commercialId?.invalid && commercialId?.touched && commercialId?.errors?.['required']">
-                        Field is required
-                    </div>
-                </div>
-                <div class="col-12 form-group ">
-                    <label for="Entity Name">Link Expiry Date</label>
-                    <input  onkeydown="return false;" class="form-control" id="Entity Name" type="datetime-local" [min]="todayDate"
-                        formControlName="linkdate" required>
-                    <div style="
-            color: red;
-            font-size: 12px;
-            margin-top: 2px;
-            position: relative;
-            ;
-          " *ngIf="linkdate?.invalid && linkdate?.touched && linkdate?.errors?.['required']">
-                        Field is required
-                    </div>
-                </div>
-                <div class="col-12 form-group ">
-                    <label for="merchantPosition">Authorized Signatory Name</label>
-                    <input class="form-control" id="authorizedName" type="text" formControlName="authorizedName"
-                        required />
-                    <div style="
-            color: red;
-            font-size: 12px;
-            margin-top: 2px;
-            position: relative;
-            ;
-          " *ngIf="authorizedName?.invalid && authorizedName?.touched && authorizedName?.errors?.['required']">
-                        Field is required
-                    </div>
-                    <div style="
-                    color: red;
-                    font-size: 12px;
-                    margin-top: 2px;
-                    position: relative;
-                    ;
-                  " *ngIf="authorizedName?.invalid && authorizedName?.touched && authorizedName?.errors?.['pattern']">
-                        Invalid format. Only characters are allowed
-                    </div>
-                    <div style="
-                    color: red;
-                    font-size: 12px;
-                    margin-top: 2px;
-                    position: relative;
-                    ;
-                  " *ngIf="authorizedName?.invalid && authorizedName?.touched && authorizedName?.errors?.['maxlength']">
-                        Only 30 characters are allowed
-                    </div>
-                </div>
-                <div class="col-12 form-group ">
-                    <label for="merchantPosition">Authorized Signatory Designation</label>
-                    <input class="form-control" id="merchantPosition" type="text" formControlName="merchantPosition"
-                        required />
-                    <div style="
-                        color: red;
-                        font-size: 12px;
-                        margin-top: 2px;
-                        position: relative;" 
-                    *ngIf="merchantPosition?.invalid && merchantPosition?.touched && merchantPosition?.errors?.['required']">
-                        Field is required
-                    </div>
-                    <div style="
-                    color: red;
-                    font-size: 12px;
-                    margin-top: 2px;
-                    position: relative;
-                    ;
-                  " *ngIf="merchantPosition?.invalid && merchantPosition?.touched && merchantPosition?.errors?.['pattern']">
-                        Invalid format. Only characters are allowed
-                    </div>
-                    <div style="
-                    color: red;
-                    font-size: 12px;
-                    margin-top: 2px;
-                    position: relative;
-                    ;
-                  " *ngIf="merchantPosition?.invalid && merchantPosition?.touched && merchantPosition?.errors?.['maxlength']">
-                        Only 30 characters are allowed
-                    </div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <button [disabled]="myForm4.invalid" (click)="Submit()" type="submit" class="btn mx-1 "
-                    style="background-color:#7db855be">Submit</button>
-                <button type="submit" class="btn" style="background-color:#141E46;color:white"
-                    mat-dialog-close>Cancel</button>
-            </div>
-        </form>
-    </div>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="authorizedName?.errors?.['maxlength']"
+          >
+            maximum length should be 30
+          </div>
+        </div>
+        <div class="col-12 form-group">
+          <label for="merchantPosition">Authorized Signatory Designation</label>
+          <input
+            class="form-control"
+            id="merchantPosition"
+            type="text"
+            formControlName="merchantPosition"
+            required
+          />
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="merchantPosition?.invalid && merchantPosition?.touched && merchantPosition?.errors?.['required']"
+          >
+            Field is required
+          </div>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="merchantPosition?.invalid && merchantPosition?.touched && merchantPosition?.errors?.['pattern']"
+          >
+            Invalid format. Only characters are allowed
+          </div>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="merchantPosition?.errors?.['maxlength']"
+          >
+            maximum length should be 30
+          </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <button
+          [disabled]="myForm4.invalid"
+          (click)="Submit()"
+          type="submit"
+          class="btn mx-1"
+          style="background-color: #7db855be"
+        >
+          Submit
+        </button>
+        <button
+          type="submit"
+          class="btn"
+          style="background-color: #141e46; color: white"
+          mat-dialog-close
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
