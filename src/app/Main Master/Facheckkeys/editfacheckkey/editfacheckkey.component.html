@@ -38,6 +38,13 @@
                         *ngIf="applicationId?.invalid && applicationId?.touched && applicationId?.errors?.['required']">
                         Field is required
                     </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                  " *ngIf="applicationId?.invalid && applicationId?.touched && applicationId?.errors?.['pattern']">
+                      Please enter only letters,numbers,(max 50 characters)
+                    </div>
                 </div>
 
 

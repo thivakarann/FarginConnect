@@ -34,7 +34,7 @@ export class EditBankDetailsComponent implements OnInit {
     
 
     this.myForm = new FormGroup({
-      bankName: new FormControl('', Validators.required),
+      bankName: new FormControl('',[Validators.required,Validators.pattern(/^[A-Za-z ]{1,50}$/)]),
     });
   }
 

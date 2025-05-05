@@ -35,12 +35,12 @@ constructor(private service:FarginServiceService,private toaster:ToastrService,p
 
 
     this.AdminForm = new FormGroup({
-      adminName: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]),
+      adminName: new FormControl('', [Validators.required, Validators.pattern(/^[A-Za-z ]{1,50}$/)]),
       gender:new FormControl('', [Validators.required]),
       address:new FormControl('', [Validators.required]),
-      country:new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z0-9 ]*$')]),
-      state:new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z0-9 ]*$')]),
-      city:new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z0-9 ]*$')]),
+      country:new FormControl('', [Validators.required,Validators.pattern(/^[A-Za-z ]{1,50}$/)]),
+      state:new FormControl('', [Validators.required,Validators.pattern(/^[A-Za-z ]{1,50}$/)]),
+      city:new FormControl('', [Validators.required,Validators.pattern(/^[A-Za-z ]{1,50}$/)]),
       pincode:new FormControl('', [Validators.required,Validators.pattern("^[1-9]{1}[0-9]{2}\\s{0,1}[0-9]{3}$")]),
       roleId:new FormControl('',[Validators.required])
     })

@@ -97,14 +97,30 @@ export class EntityPlanHistoryComponent implements OnInit {
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.merchantPlanModel?.planName);
-      this.response.push(element?.merchantPlanModel?.frequency);
+      if (element?.merchantPlanModel?.frequency == 'Day') {
+        this.response.push("Daily");
+      }
+      else if (element?.merchantPlanModel?.frequency == 'Week') {
+        this.response.push("Weekly");
+      }
+      else if (element?.merchantPlanModel?.frequency == 'Month') {
+        this.response.push("Monthly");
+      }
+      else if (element?.merchantPlanModel?.frequency == 'Quarterly') {
+        this.response.push("Quarterly");
+      }
+      else if (element?.merchantPlanModel?.frequency == 'Half Yearly') {
+        this.response.push("Half-Yearly");
+      }
+      else if (element?.merchantPlanModel?.frequency == 'Year') {
+        this.response.push("Yearly");
+      }
       this.response.push(element?.merchantPlanModel?.countLimit);
       this.response.push(element?.merchantPlanModel?.technicalAmount);
       this.response.push(element?.merchantPlanModel?.renewalAmount);
       this.response.push(element?.merchantPlanModel?.maintenanceAmount);
       this.response.push(element?.merchantPlanModel?.voiceBoxAdvRent);
       this.response.push(element?.merchantPlanModel?.voiceBoxSetupFee);
-      this.response.push(element?.createdBy);
       // if (element.createdDateTime) {
       //   this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
       // }
@@ -137,7 +153,7 @@ export class EntityPlanHistoryComponent implements OnInit {
         "Voice Box Rent",
         "Voice Box Setup Fee",
         "Updated By",
-        "Updated Date/Time"
+        "Updated At"
       ]
    
    

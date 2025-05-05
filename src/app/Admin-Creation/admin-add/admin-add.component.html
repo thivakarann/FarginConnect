@@ -14,8 +14,8 @@
                         formControlName="adminName">
                     <span class="error" *ngIf="adminName?.touched && adminName?.errors?.['required']">Field is
                         Required</span>
-                    <span class="error" *ngIf="adminName?.touched && adminName?.errors?.['pattern']">Please Enter
-                        Alphabets Only*</span>
+                    <span class="error" *ngIf="adminName?.touched && adminName?.errors?.['pattern']"> Please enter only letters(max 50 characters)
+                    </span>
                 </div>
  
                 <div class="col-sm-4 form-group">
@@ -86,7 +86,7 @@
                         Field is Required
                     </span>
                     <span class="error" *ngIf="country?.invalid && country?.touched && country?.errors?.['pattern']">
-                        Enter the valid country name    
+                        Please enter only letters(max 50 characters)  
                     </span>
                 </div>
                
@@ -98,7 +98,7 @@
                         Field is Required
                     </span>
                     <span class="error" *ngIf="state?.invalid && state?.touched && state?.errors?.['pattern']">
-                      Enter the valid state name
+                        Please enter only letters(max 50 characters)
                     </span>
                 </div>
                
@@ -110,7 +110,7 @@
                         Field is Required
                     </span>
                     <span class="error" *ngIf="city?.invalid && city?.touched && city?.errors?.['pattern']">
-                       Enter the valid city name
+                        Please enter only letters(max 50 characters)
                     </span>
                 </div>
                

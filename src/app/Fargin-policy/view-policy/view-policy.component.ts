@@ -237,7 +237,7 @@ searchPerformed: boolean=false;
       "Privacy Policy",
       "Refund Policy",
       "Created By",
-      "Created Date/Time",
+      "Created At",
       "Modified By",
       "Modified At"
     ]

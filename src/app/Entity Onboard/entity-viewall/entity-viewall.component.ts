@@ -409,7 +409,7 @@ searchPerformed: boolean=false;
       'Final approval',
       'PG Onboard',
       'Status',
-      "Created Date/Time",
+      "Created At",
       "Login Account Status"
     ]
 

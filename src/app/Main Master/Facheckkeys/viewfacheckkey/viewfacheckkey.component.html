@@ -96,6 +96,11 @@
 
       </ng-container>
 
+      <ng-container matColumnDef="ApplicationId">
+        <th mat-header-cell *matHeaderCellDef>Application ID</th>
+        <td mat-cell *matCellDef="let businesscategory">{{businesscategory.applicationId}}</td>
+      </ng-container>
+
       <ng-container matColumnDef="mode">
         <th mat-header-cell *matHeaderCellDef>Mode</th>
         <td mat-cell *matCellDef="let businesscategory">{{businesscategory.mode}}</td>
@@ -128,7 +133,7 @@
       </ng-container>
 
       <ng-container matColumnDef="createdDateTime">
-        <th mat-header-cell *matHeaderCellDef>Created Date/Time</th>
+        <th mat-header-cell *matHeaderCellDef>Created At</th>
         <td mat-cell *matCellDef="let businesscategory">{{businesscategory.createdAt | date:'dd/MM/yyyy hh:mm a'}}</td>
       </ng-container>
 

@@ -21,7 +21,7 @@ import { Statusfacheckkey } from '../../../fargin-model/fargin-model.module';
 export class ViewfacheckkeyComponent {
 [x: string]: any;
   dataSource: any;
-  displayedColumns: string[] = ["sno", "apikey", "secretKey", "mode", "Edit", "status", "createdBy", "createdDateTime", "modifiedBy", "modifiedDateTime"]
+  displayedColumns: string[] = ["sno", "apikey", "secretKey", "ApplicationId", "mode", "Edit", "status", "createdBy", "createdDateTime", "modifiedBy", "modifiedDateTime"]
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   facheck: any;
@@ -310,7 +310,7 @@ export class ViewfacheckkeyComponent {
       "Mode",
       "Status",
       "Created By",
-      "Created Date/Time",
+      "Created At",
       "Modified By",
       "Modified At"
  

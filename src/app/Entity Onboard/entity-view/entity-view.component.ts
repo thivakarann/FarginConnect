@@ -59,6 +59,7 @@ export class EntityViewComponent implements OnInit {
 
   getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
   Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
   id: any;
   details: any;
   detaislone: any;
@@ -632,14 +633,18 @@ export class EntityViewComponent implements OnInit {
       this.chargepersms = res.response[0]?.amount;
 
     });
-    this.MerchantView.viewbyidplans(this.id).subscribe((res: any) => {
-      this.agreementdetails = res?.response?.reverse();
-
-    });
+   this.agrrmentview();
   }
   view(id: any) {
     this.router.navigate([`/allagreementplan/${id}`], {
       queryParams: { Alldata: id },
+    });
+  }
+
+  agrrmentview (){
+    this.MerchantView.viewbyidplans(this.id).subscribe((res: any) => {
+      this.agreementdetails = res?.response?.reverse();
+
     });
   }
 
@@ -666,21 +671,19 @@ export class EntityViewComponent implements OnInit {
   }
 
   ExtendLinkDate(id: any, id1: any) {
-    this.dialog.open(AgreementsLinkExtentComponent, {
+  const dialogRef = this.dialog.open(AgreementsLinkExtentComponent, {
+      
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "800ms",
       disableClose: true,
       data: { value: id, value2: id1 }
     })
-    this.dialog.afterAllClosed.subscribe(() => {
+     // Listen for updates when dialog emits event
+     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.agrrmentview();
+    });
 
-      this.MerchantView.viewbyidplans(this.id).subscribe((res: any) => {
-        this.agreementdetails = res.response.reverse();
-
-      });
-    })
-
-  }
+  };
 
   LinkExpirystatus(event: MatSlideToggleChange, id: any) {
 

@@ -248,7 +248,7 @@ searchPerformed: any;
       "Description",
       "Approval Status",
       "remarks",
-      "Created Date/Time"
+      "Created At"
     ]
  
  

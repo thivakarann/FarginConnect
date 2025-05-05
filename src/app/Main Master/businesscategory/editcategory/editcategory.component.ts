@@ -37,7 +37,7 @@ export class EditcategoryComponent implements OnInit {
     this.editcategory = this.fb.group({
       categoryName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[A-Za-z ]+$') // Validation for alphabetic characters only
+        Validators.pattern(/^[a-zA-Z0-9 ]{1,50}$/) 
       ]),
       // mccCode: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{4}$'),]),
       mccCode: new FormControl('', [Validators.required,Validators.pattern('^(?![A-Za-z]{4}$)(?!^[A-Za-z])[A-Za-z0-9]{4}$')]),

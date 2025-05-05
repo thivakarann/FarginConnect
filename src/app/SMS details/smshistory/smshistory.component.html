@@ -136,7 +136,7 @@
                 <td mat-cell *matCellDef="let transaction">{{transaction?.createdBy}}</td>
             </ng-container> -->
             <ng-container matColumnDef="date">
-                <th mat-header-cell *matHeaderCellDef>Created Date/Time</th>
+                <th mat-header-cell *matHeaderCellDef>Created At</th>
                 <td mat-cell *matCellDef="let transaction"> {{ transaction?.createdDateTime
                     |date:'dd/MM/yyyy hh:mm a' }}
                 </td>

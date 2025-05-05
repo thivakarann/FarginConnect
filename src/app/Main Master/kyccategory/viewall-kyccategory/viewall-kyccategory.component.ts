@@ -249,7 +249,7 @@ export class ViewallKyccategoryComponent implements OnInit {
       "Document Type",
       "Status",
       "Created By",
-      "Created Date/Time",
+      "Created At",
       "Modified By",
       "Modified At",
     ]

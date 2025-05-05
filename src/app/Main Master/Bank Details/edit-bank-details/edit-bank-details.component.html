@@ -18,6 +18,16 @@
                   " *ngIf="bankName?.invalid && bankName?.touched && bankName?.errors?.['required']">
                         Field is required
                     </div>
+
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="bankName?.invalid && bankName?.touched && bankName?.errors?.['pattern']">
+                  Please enter only letters,numbers,(max 50 characters)
+                    </div>
                 </div>
               
             </div>

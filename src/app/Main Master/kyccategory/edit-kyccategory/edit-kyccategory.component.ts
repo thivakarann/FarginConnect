@@ -25,14 +25,15 @@ export class EditKyccategoryComponent {
   }
 
   ngOnInit(): void {
-    
+
 
     this.editcategory = new FormGroup({
-      kycCategoryName: new FormControl('', [Validators.required,  Validators.pattern('^[A-Za-z ]+$')]),
+      kycCategoryName: new FormControl('', [Validators.required, Validators.pattern(/^[A-Za-z ]{1,50}$/
+      )]),
     });
 
     this.kycCategoryId = this.data.value.kycCategoryId
-    
+
 
     this.kycCategoryNames = this.data.value.kycCategoryName
     this.editcategory.controls['kycCategoryName'].value = this.kycCategoryNames
@@ -55,7 +56,7 @@ export class EditKyccategoryComponent {
         this.toastr.success(res.responseMessage)
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll()
-     
+
       } else {
         this.toastr.error(res.responseMessage)
       }

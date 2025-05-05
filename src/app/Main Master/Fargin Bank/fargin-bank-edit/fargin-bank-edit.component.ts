@@ -27,12 +27,19 @@ export class FarginBankEditComponent {
   ngOnInit(): void {
 
     this.BankFormedit = new FormGroup({
-      accountHolderName : new FormControl('', [Validators.required]),
+      accountHolderName : new FormControl('', [Validators.required,
+        Validators.pattern(/^[A-Za-z ]{1,50}$/)
+      ]),
       accountNumber: new FormControl('', [Validators.required]),
-      bankName: new FormControl('', [Validators.required]),
+      bankName: new FormControl('', [Validators.required,
+        Validators.pattern(/^[A-Za-z ]{1,50}$/)
+      ]),
       ifscCode: new FormControl('', [Validators.required]),
-      branchName: new FormControl('', [Validators.required]),
-      ledgerId: new FormControl('', [Validators.required]),
+      branchName: new FormControl('', [Validators.required,
+        Validators.pattern(/^[A-Za-z ]{1,50}$/)
+      ]),
+      ledgerId: new FormControl('', [Validators.required, Validators.pattern(/^\d{1,10}$/)]),
+
       createdBy: new FormControl(''),
      
     })

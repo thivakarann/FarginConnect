@@ -17284,7 +17284,7 @@ var globalDefault = {
       }]
     }
   },
-  // If xAxis and yAxis declared, grid is created by default.
+  // If xAxis and yAxis declared, grid is Created By default.
   // grid: {},
   textStyle: {
     // color: '#000',
@@ -28338,7 +28338,7 @@ function registerLoading(name, loadingFx) {
 }
 /**
  * ZRender need a canvas context to do measureText.
- * But in node environment canvas may be created by node-canvas.
+ * But in node environment canvas may be Created By node-canvas.
  * So we need to specify how to create a canvas instead of using document.createElement('canvas')
  *
  *
@@ -77175,7 +77175,7 @@ var MarkerModel = /** @class */function (_super) {
     var _this = _super !== null && _super.apply(this, arguments) || this;
     _this.type = MarkerModel.type;
     /**
-     * If marker model is created by self from series
+     * If marker model is Created By self from series
      */
     _this.createdBySelf = false;
     return _this;

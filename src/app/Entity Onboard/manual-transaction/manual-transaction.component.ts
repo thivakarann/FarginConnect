@@ -11,6 +11,7 @@ import { DuesViewComponent } from '../../dues/dues-view/dues-view.component';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { Location } from '@angular/common';
 import moment from 'moment';
+import { manualpay } from '../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-manual-transaction',
@@ -24,18 +25,27 @@ export class ManualTransactionComponent {
       displayedColumns: string[] = [
         'Id',
         'paymentId',
-        'method',
+        'bankReference',
         'utrnumber',
+        'method',
+        'status',
         'cardNumber',
         'cardexpiry',
         'paidamount',
         'gstnumber',
         'totalpay',
-        'bankReference',
-        'status',
+        'CheckStatus',
         'receipt',
         'paymentAt',
-        'UpdatedAt'
+      
+      
+      
+        
+        
+      
+     
+       
+     
       ];
       viewall: any;
       @ViewChild('tableContainer') tableContainer!: ElementRef;
@@ -91,6 +101,37 @@ export class ManualTransactionComponent {
       if (this.dataSource.paginator) {
         this.dataSource.paginator.firstPage();
       }
+    }
+
+    track(id: any) {
+      let submitModel: manualpay = {
+        payId: id?.merchantPayId,
+      }
+      this.service.Manualpay(submitModel).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.toastr.success(res.responseMessage)
+          setTimeout(() => {
+            this.service.GetManualTransaction(this.id).subscribe((res: any) => {
+              if (res.flag == 1) {
+                this.details = res.response;
+                this.details = res.response.reverse();
+                this.dataSource = new MatTableDataSource(this.details);
+                this.dataSource.sort = this.sort;
+                this.dataSource.paginator = this.paginator;
+              } else if (res.flag == 2) {
+                this.details = res.response;
+                this.details = res.response.reverse();
+                this.dataSource = new MatTableDataSource(this.details);
+                this.dataSource.sort = this.sort;
+                this.dataSource.paginator = this.paginator;
+              }
+            });
+          }, 500);
+        }
+        else {
+          this.toastr.error(res.responseMessage);
+        }
+      })
     }
   
 

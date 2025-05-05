@@ -44,7 +44,7 @@ export class BusinessKycComponent implements OnInit {
   valueKycexport: any;
   valueKycstatus: any;
   valueKycedit: any;
-  searchPerformed: boolean=false;
+  searchPerformed: boolean = false;
 
 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) {
@@ -54,28 +54,26 @@ export class BusinessKycComponent implements OnInit {
   ngOnInit() {
 
     this.service.BusinesscategoryKyc().subscribe((res: any) => {
-     if(res.flag==1)
-     {
-      this.businesscategorykyc = res.response;
+      if (res.flag == 1) {
+        this.businesscategorykyc = res.response;
 
-      this.businesscategorykyc.reverse();
-      this.dataSource = new MatTableDataSource(this.businesscategorykyc);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+        this.businesscategorykyc.reverse();
+        this.dataSource = new MatTableDataSource(this.businesscategorykyc);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
 
-   
-     }
-     else if(res.flag==2)
-     {
-      this.businesscategorykyc=[];
-      
-      this.businesscategorykyc.reverse();
-      this.dataSource = new MatTableDataSource(this.businesscategorykyc);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-     }
-     
+
+      }
+      else if (res.flag == 2) {
+        this.businesscategorykyc = [];
+
+        this.businesscategorykyc.reverse();
+        this.dataSource = new MatTableDataSource(this.businesscategorykyc);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+
 
 
 
@@ -141,35 +139,33 @@ export class BusinessKycComponent implements OnInit {
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
         this.service.BusinesscategoryKyc().subscribe((res: any) => {
-          if(res.flag==1)
-          {
-           this.businesscategorykyc = res.response;
-     
-           this.businesscategorykyc.reverse();
-           this.dataSource = new MatTableDataSource(this.businesscategorykyc);
-           this.dataSource.sort = this.sort;
-           this.dataSource.paginator = this.paginator;
-           this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-     
-        
+          if (res.flag == 1) {
+            this.businesscategorykyc = res.response;
+
+            this.businesscategorykyc.reverse();
+            this.dataSource = new MatTableDataSource(this.businesscategorykyc);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+
+
           }
-          else if(res.flag==2)
-          {
-           this.businesscategorykyc=[];
-           
-           this.businesscategorykyc.reverse();
-           this.dataSource = new MatTableDataSource(this.businesscategorykyc);
-           this.dataSource.sort = this.sort;
-           this.dataSource.paginator = this.paginator;
+          else if (res.flag == 2) {
+            this.businesscategorykyc = [];
+
+            this.businesscategorykyc.reverse();
+            this.dataSource = new MatTableDataSource(this.businesscategorykyc);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
           }
-          
-    
-    
-    
-    
-    
+
+
+
+
+
+
         });
-    
+
       }, 500);
     });
   }
@@ -182,39 +178,37 @@ export class BusinessKycComponent implements OnInit {
       exitAnimationDuration: '1000ms',
       disableClose: true
     });
-  
+
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
       this.Businesskyccategoryview();
     });
   }
 
-  Businesskyccategoryview(){
+  Businesskyccategoryview() {
     this.service.BusinesscategoryKyc().subscribe((res: any) => {
-      if(res.flag==1)
-      {
-       this.businesscategorykyc = res.response;
- 
-       this.businesscategorykyc.reverse();
-       this.dataSource = new MatTableDataSource(this.businesscategorykyc);
-       this.dataSource.sort = this.sort;
-       this.dataSource.paginator = this.paginator;
-       this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
- 
-    
+      if (res.flag == 1) {
+        this.businesscategorykyc = res.response;
+
+        this.businesscategorykyc.reverse();
+        this.dataSource = new MatTableDataSource(this.businesscategorykyc);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+
+
       }
-      else if(res.flag==2)
-      {
-       this.businesscategorykyc=[];
-       
-       this.businesscategorykyc.reverse();
-       this.dataSource = new MatTableDataSource(this.businesscategorykyc);
-       this.dataSource.sort = this.sort;
-       this.dataSource.paginator = this.paginator;
+      else if (res.flag == 2) {
+        this.businesscategorykyc = [];
+
+        this.businesscategorykyc.reverse();
+        this.dataSource = new MatTableDataSource(this.businesscategorykyc);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       }
- 
+
 
     });
-  } 
+  }
 
   Edit(id: any) {
     const dialogRef = this.dialog.open(BusinessKycEditComponent, {
@@ -224,7 +218,7 @@ export class BusinessKycComponent implements OnInit {
       disableClose: true
 
     });
-    
+
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
       this.Businesskyccategoryview();
     });
@@ -245,6 +239,12 @@ export class BusinessKycComponent implements OnInit {
       this.response.push(sno);
       this.response.push(element?.businessCategoryId?.categoryName);
       this.response.push(element?.entityKycCategory?.kycCategoryName);
+      if (element?.activeStatus == 1) {
+        this.response.push("Active");
+      }
+      else {
+        this.response.push("InActive");
+      }
       this.response.push(element?.createdBy);
       this.response.push(this.date1);
       this.response.push(element?.modifiedBy);
@@ -266,10 +266,11 @@ export class BusinessKycComponent implements OnInit {
   excelexportCustomer() {
     const header = [
       "S.No",
-    "Business Category",
+      "Business Category",
       "Document Type",
+      "Status",
       "Created By",
-      "Created Date/Time",
+      "Created At",
       "Modified By",
       "Modified At",
     ]
@@ -297,6 +298,7 @@ export class BusinessKycComponent implements OnInit {
       let qty4 = row.getCell(5);
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
+      let qty7 = row.getCell(8);
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -304,6 +306,8 @@ export class BusinessKycComponent implements OnInit {
       qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+
     }
     );
     workbook.xlsx.writeBuffer().then((data: any) => {
@@ -321,35 +325,33 @@ export class BusinessKycComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.searchPerformed = filterValue.length > 0;
- 
+
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
-  reload() {  
+  reload() {
     this.service.BusinesscategoryKyc().subscribe((res: any) => {
-      if(res.flag==1)
-      {
-       this.businesscategorykyc = res.response;
- 
-       this.businesscategorykyc.reverse();
-       this.dataSource = new MatTableDataSource(this.businesscategorykyc);
-       this.dataSource.sort = this.sort;
-       this.dataSource.paginator = this.paginator;
-       this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
- 
-    
+      if (res.flag == 1) {
+        this.businesscategorykyc = res.response;
+
+        this.businesscategorykyc.reverse();
+        this.dataSource = new MatTableDataSource(this.businesscategorykyc);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+
+
       }
-      else if(res.flag==2)
-      {
-       this.businesscategorykyc=[];
-       
-       this.businesscategorykyc.reverse();
-       this.dataSource = new MatTableDataSource(this.businesscategorykyc);
-       this.dataSource.sort = this.sort;
-       this.dataSource.paginator = this.paginator;
+      else if (res.flag == 2) {
+        this.businesscategorykyc = [];
+
+        this.businesscategorykyc.reverse();
+        this.dataSource = new MatTableDataSource(this.businesscategorykyc);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       }
-      
+
 
 
 

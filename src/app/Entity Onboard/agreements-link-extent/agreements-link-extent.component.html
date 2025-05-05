@@ -8,7 +8,7 @@
             <div class=" mb-3">
                 <div class="form-group">
                     <label for="Entity Name">Expiry Date</label>
-                    <input type="datetime-local" [(ngModel)]="dates" id="Entity Name" [min]="todayDate" formControlName="expiryLink" class="form-control">
+                    <input onkeydown="return false;" type="datetime-local" [(ngModel)]="dates" id="Entity Name" [min]="todayDate" formControlName="expiryLink" class="form-control">
                     <div style="
                     color: red;
                     font-size: 12px;

@@ -190,7 +190,7 @@
              
               
                 <div class="d-flex mb-2">
-                  <div class="w-50 font-weight-bold">Created Date/Time</div>
+                  <div class="w-50 font-weight-bold">Created At</div>
                   <div class="w-50">
                     <div class="w-50"> {{ viewcustomer?.createdDateTime|date:"dd/MM/yyyy" }}</div>
                   </div>
@@ -206,7 +206,7 @@
                 </div>
  
                 <div class="d-flex mb-2">
-                  <div class="w-50 font-weight-bold">Modified Date/Time</div>
+                  <div class="w-50 font-weight-bold">Modified At</div>
                   <div class="w-50">
                     <div class="w-50"> {{ viewcustomer?.modifiedDateTime | date:"dd/MM/yyyy" }}</div>
                   </div>
@@ -277,7 +277,7 @@
                 <th>Due Status</th>
                 <th [hidden]="valuesetview!=='Customers-Set-Topbox View'">View</th>
                 <th>Created By</th>
-                <th>Created Date/Time</th>
+                <th>Created At</th>
               </tr>
               <span *ngIf="showDatas" class="text-center" style="color:red;font-size:12px;">NO DATA FOUND</span>
  

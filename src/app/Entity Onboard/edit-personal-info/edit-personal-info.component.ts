@@ -117,7 +117,7 @@ export class EditPersonalInfoComponent implements OnInit {
         Validators.maxLength(30)
       ]),
       merchantPlanId: new FormControl('', [Validators.required]),
-      periodName: new FormControl('', [Validators.required]),
+      // periodName: new FormControl('', [Validators.required]),
       logo: new FormControl(''),
       billingMode: new FormControl("", [
         Validators.required
@@ -134,7 +134,7 @@ export class EditPersonalInfoComponent implements OnInit {
 
       offlineQrEnable: new FormControl('', [Validators.required]),
 
-      payoutEnable: new FormControl('', [Validators.required]),
+      // payoutEnable: new FormControl('', [Validators.required]),
 
 
       // platformfee: new FormControl('', [Validators.pattern('(0|[1-9][0-9]*)(\.[0-9]+)?$')]),
@@ -268,9 +268,9 @@ export class EditPersonalInfoComponent implements OnInit {
   get merchantPlanId() {
     return this.myForm.get('merchantPlanId')
   }
-  get periodName() {
-    return this.myForm.get('periodName')
-  }
+  // get periodName() {
+  //   return this.myForm.get('periodName')
+  // }
   get logo() {
     return this.myForm.get('logo')
   }
@@ -292,9 +292,9 @@ export class EditPersonalInfoComponent implements OnInit {
     return this.myForm.get('offlineQrEnable')
   }
 
-  get payoutEnable() {
-    return this.myForm.get('payoutEnable')
-  }
+  // get payoutEnable() {
+  //   return this.myForm.get('payoutEnable')
+  // }
 
   get customerSmsTag() {
     return this.myForm.get('customerSmsTag')
@@ -365,12 +365,12 @@ export class EditPersonalInfoComponent implements OnInit {
     formData.append('businessCategoryId', this.businessCategoryIds?.value);
     formData.append('merchantPlanId', this.merchantPlanId?.value);
     formData.append('mccCode', this.MccCode?.value.trim());
-    formData.append('periodName', this.periodName?.value);
+    formData.append('periodName', 'NA');
     formData.append('website', this.website?.value || this.websites.trim());
     formData.append('merchantLogo', this.file3 || this.emptyBlob);
     formData.append('billingMode', this.billingMode?.value);
     formData.append('offlineQrEnable', this.offlineQrEnable?.value);
-    formData.append('payoutEnable', this.payoutEnable?.value);
+    formData.append('payoutEnable', '0');
     formData.append('autoDebitStatus', this.autoDebitStatus?.value);
     formData.append('customerPaymentMode', this.customerPaymentMode?.value);
     formData.append('customerDuesEnable', this.customerDuesEnable?.value);

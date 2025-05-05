@@ -28,6 +28,14 @@
             " *ngIf="planName?.invalid && planName?.touched && planName?.errors?.['pattern']">
             Invalid format.Only alphanumeric characters are allowed
           </div>
+          <div style="
+          color: red;
+          font-size: 12px;
+          margin-top: 2px;
+          position: relative; ;
+        " *ngIf="planName?.errors?.['maxLength']">
+            maximum length should be 50
+      </div>
         </div>
         <div class="col-sm-6 form-group">
           <label for="lastName">Service Fee</label>

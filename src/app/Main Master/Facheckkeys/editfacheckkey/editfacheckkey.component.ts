@@ -37,9 +37,8 @@ export class EditfacheckkeyComponent {
     this.facheckkeyFormGroup = new FormGroup({
       apiKey: new FormControl('', [Validators.required]),
       secretKey: new FormControl('', [Validators.required]),
-      applicationId: new FormControl('', [Validators.required]),
+      applicationId: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-Z0-9 ]{1,50}$/)]),
       mode: new FormControl('', [Validators.required]),
-      createdBy: new FormControl(''),
     });
     // this.apikeys=this.data.value.apiKey
     // this.facheckkeyFormGroup.controls['apikey'].value = this.apikeys

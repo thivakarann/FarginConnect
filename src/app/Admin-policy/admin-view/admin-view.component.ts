@@ -265,9 +265,9 @@ export class AdminViewComponent implements OnInit {
       'Approval By',
       'Approval At',
       'Created By',
-      'Created Date/Time',
+      'Created At',
       'Modified By',
-      'Modified Date/Time',
+      'Modified At',
     ];
 
     const data = this.responseDataListnew;

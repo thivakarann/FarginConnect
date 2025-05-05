@@ -192,7 +192,7 @@ export class EntityAddComponent implements OnInit {
         Validators.maxLength(30)
       ]),
       merchantPlanId: new FormControl('', [Validators.required]),
-      periodName: new FormControl('', [Validators.required]),
+      // periodName: new FormControl('', [Validators.required]),
       autoDebitStatus: new FormControl('', [Validators.required]),
       logo: new FormControl(''),
       billingMode: new FormControl("", [
@@ -206,7 +206,7 @@ export class EntityAddComponent implements OnInit {
 
       offlineQrEnable: new FormControl("", [Validators.required]),
 
-      payoutEnable: new FormControl("", [Validators.required]),
+      // payoutEnable: new FormControl("", [Validators.required]),
 
       customerManualStatus: new FormControl("", [Validators.required]),
 
@@ -413,9 +413,9 @@ export class EntityAddComponent implements OnInit {
   get merchantPlanId() {
     return this.myForm.get('merchantPlanId')
   }
-  get periodName() {
-    return this.myForm.get('periodName')
-  }
+  // get periodName() {
+  //   return this.myForm.get('periodName')
+  // }
   get logo() {
     return this.myForm.get('logo')
   }
@@ -432,9 +432,9 @@ export class EntityAddComponent implements OnInit {
     return this.myForm.get('offlineQrEnable')
   }
 
-  get payoutEnable() {
-    return this.myForm.get('payoutEnable')
-  }
+  // get payoutEnable() {
+  //   return this.myForm.get('payoutEnable')
+  // }
 
   get customerManualStatus() {
     return this.myForm.get('customerManualStatus')
@@ -984,7 +984,7 @@ export class EntityAddComponent implements OnInit {
     formData.append('businessCategoryId', this.businessId);
     formData.append('merchantPlanId', this.merchantPlanId?.value);
     formData.append('mccCode', this.mcccode.trim());
-    formData.append('periodName', this.periodName?.value);
+    formData.append('periodName', 'NA');
     formData.append('website', this.website?.value.trim() || '');
     formData.append('merchantLogo', this.uploadImage || this.emptyBlob);
     formData.append('billingMode', this.billingMode?.value);
@@ -993,7 +993,7 @@ export class EntityAddComponent implements OnInit {
     formData.append('customerDuesDate', this.customerDuesDate?.value || 0);
     formData.append('dueDate', this.dueDate?.value || 0);
     formData.append('offlineQrEnable', this.offlineQrEnable?.value);
-    formData.append('payoutEnable', this.payoutEnable?.value);
+    formData.append('payoutEnable', '0');
     formData.append('customerPaymentMode', this.customerPaymentMode?.value);
     formData.append('customerManualStatus', this.customerManualStatus?.value);
     formData.append('smsMerchantName', this.smsMerchantName?.value);

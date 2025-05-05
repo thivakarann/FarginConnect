@@ -444,7 +444,7 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <div class="col-sm-4 form-group">
+                <!-- <div class="col-sm-4 form-group">
                     <label for="period">LCO Billing Model</label>
                     <select formControlName="periodName" type="text" class="form-select" id="period">
                         <option value="Prepaid">Prepaid</option>
@@ -459,7 +459,7 @@
                       " *ngIf="periodName?.invalid && periodName?.touched && periodName?.errors?.['required']">
                         Field is required*
                     </div>
-                </div>
+                </div> -->
                 <div class="col-sm-4 form-group">
                     <label for="Logomerchant">Merchant Logo(optional)</label>
                     <input formControlName="logo" type="file" class="form-control" (change)="getlogo($event)">
@@ -469,7 +469,7 @@
                     <label for="billing">LCO Customer Billing Cycle</label>
                     <select formControlName="billingMode" type="text" class="form-select" id="billing">
                         <!-- <option value="Prorated">Prorated</option> -->
-                        <option value="Month">Month</option>
+                        <option value="Month">Monthly</option>
                         <!-- <option value="Full">Full</option> -->
                     </select>
                     <div style="
@@ -482,8 +482,6 @@
                         Field is required*
                     </div>
                 </div>
-            </div>
-            <div class="row mb-3">
                 <div class="col-sm-4 form-group">
                     <label for="billing">LCO Cloud Fee Auto Debit</label>
                     <select formControlName="autoDebitStatus" type="text" class="form-select" id="billing">
@@ -503,8 +501,11 @@
                     </div>
                 </div>
 
+            </div>
+            <div class="row mb-3">
+            
                 <div class="col-sm-4 form-group">
-                    <label for="billing">offlineQr</label>
+                    <label for="billing">Offline Qr</label>
                     <select formControlName="offlineQrEnable" type="text" class="form-select" id="billing">
                         <option value="1">Yes</option>
                         <option value="0">No</option>
@@ -521,7 +522,7 @@
                         Field is required*
                     </div>
                 </div>
-
+<!-- 
                 <div class="col-sm-4 form-group">
                     <label for="billing">PayOut</label>
                     <select formControlName="payoutEnable" type="text" class="form-select" id="billing">
@@ -538,13 +539,7 @@
                       " *ngIf="payoutEnable?.invalid && payoutEnable?.touched && payoutEnable?.errors?.['required']">
                         Field is required*
                     </div>
-                </div>
-
-
-            </div>
-
-            <div class="row mb-3">
-
+                </div> -->
                 <div class="col-sm-4 form-group">
                     <label for="billing">Manual Trans OTP Status</label>
                     <select formControlName="customerManualStatus" type="text" class="form-select" id="billing">
@@ -563,7 +558,7 @@
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
-                    <label for="billing">Customer DueGeneration Mode</label>
+                    <label for="billing">Customer Due Generation Mode</label>
                     <select formControlName="customerPaymentMode"  type="text" class="form-select"
                         id="billing">
                         <!-- <option value="Manual">Manual</option> -->
@@ -581,6 +576,12 @@
                         Field is required*
                     </div>
                 </div>
+
+            </div>
+
+            <div class="row mb-3">
+
+               
 
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">SMS MerchantName</label>
@@ -610,16 +611,6 @@
                     </div>
                 </div>
 
-
-
-
-
-
-            </div>
-
-            <div class="row mb-3">
-
-                <!-- </div> -->
 
                 <div class="col-sm-4 form-group">
                     <label for="billing">LCO Customer Due Alert Notification</label>
@@ -660,6 +651,16 @@
                     </div>
                 </div>
 
+
+
+            </div>
+
+            <div class="row mb-3">
+
+                <!-- </div> -->
+
+               
+
                 <div class="col-sm-4 form-group" [hidden]="customerDuesEnable?.value!='1'" >
                     <label for="billing">LCO Customer Notification Frequency</label>
                     <select  [required]="customerDuesEnable?.value=='1'" formControlName="customerDuesDate" type="text" class="form-select" id="billing">
@@ -678,9 +679,6 @@
                     Field is required*
                     </div>
                 </div>
-            </div>
-
-            <div class="row mb-3">
                 <div class="col-sm-4 form-group" [hidden]="customerDuesEnable?.value!='1'" >
                     <label for="billing">LCO Customer Notification Start Date</label>
 
@@ -698,9 +696,6 @@
                     </div>
                 </div>
             </div>
-
-
-
             <div>
                 <button (click)="Submit()" type="submit" class="btn mx-1 " style="background-color:#7db855be"
                     [disabled]="this.myForm.invalid">Submit</button>

@@ -271,7 +271,7 @@ excelexportCustomer() {
     "Auto Debit Date",
     "Status",
     "Created By",
-    "Created Date/Time",
+    "Created At",
     "Modified By",
     "Modified At",
   ]

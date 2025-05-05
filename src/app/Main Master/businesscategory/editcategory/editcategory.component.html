@@ -11,7 +11,7 @@
                     required />
                     <div style="color: red; font-size: 12px; margin-top: 2px;"
                     *ngIf="categoryName?.invalid && categoryName?.touched && categoryName?.errors?.['pattern']">
-                    Only alphabetic characters are allowed
+                    Please enter only letters,numbers,(max 50 characters)
                 </div>
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="categoryName?.invalid && categoryName?.touched && categoryName?.errors?.['required']">

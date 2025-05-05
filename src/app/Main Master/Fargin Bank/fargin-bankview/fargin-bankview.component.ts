@@ -277,7 +277,7 @@ export class FarginBankviewComponent {
       'BranchName',
       'LedgerId',
       // 'Created By',
-      // 'Created Date/Time',
+      // 'Created At',
       'Updated By',
       "Updated At"
     ]

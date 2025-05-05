@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
@@ -15,11 +15,12 @@ import moment from 'moment';
 export class AgreementsLinkExtentComponent {
   Id: any;
   myForm!: FormGroup;
-  dates:any;
+  dates: any;
   todayDate: string = '';
   Expirydate: any;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog,private service:FarginServiceService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog, private service: FarginServiceService) { }
   ngOnInit(): void {
     this.Id = this.data.value;
     this.dates = this.data.value2;
@@ -27,9 +28,9 @@ export class AgreementsLinkExtentComponent {
     console.log(this.dates)
     const today = new Date();
     this.todayDate = today.toISOString().slice(0, 16);
-   
+
     this.myForm = new FormGroup({
-       expiryLink: new FormControl('', [Validators.required,])
+      expiryLink: new FormControl('', [Validators.required,])
     });
 
   }
@@ -39,20 +40,25 @@ export class AgreementsLinkExtentComponent {
 
   }
 
-  
 
-  submit(){
+
+  submit() {
 
     this.Expirydate = this.expiryLink?.value
     let startdate = moment(this.Expirydate).format('yyyy-MM-DD HH:mm:ss').toString();
-   let submitModel:Agreementextentdate = {
-      expiryLink:startdate
+    let submitModel: Agreementextentdate = {
+      expiryLink: startdate
     }
-    this.service.agreementextendlink(this.Id,submitModel).subscribe((res: any) => {
+    this.service.agreementextendlink(this.Id, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
-        this.dialog.closeAll();
-       
+  
+           // Emit the event to notify parent component
+           this.bankDetailsUpdated.emit();
+
+
+           this.dialog.closeAll();
+
       }
       else {
         this.toastr.error(res.responseMessage);

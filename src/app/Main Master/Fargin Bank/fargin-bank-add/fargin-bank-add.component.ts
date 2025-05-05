@@ -23,7 +23,7 @@ export class FarginBankAddComponent {
     this.BankForm = new FormGroup({
       accountHolderName: new FormControl(null, [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
+        Validators.pattern(/^[A-Za-z ]{1,50}$/)
       ]),
       accountNumber: new FormControl(null, [
         Validators.required,
@@ -31,7 +31,7 @@ export class FarginBankAddComponent {
       ]),
       bankName: new FormControl("", [
         Validators.required,
-        // Validators.pattern('^[a-zA-Z0-9 ]*$')
+        Validators.pattern(/^[A-Za-z ]{1,50}$/)
       ]),
       ifscCode: new FormControl("", [
         Validators.required,
@@ -39,10 +39,11 @@ export class FarginBankAddComponent {
       ]),
       branchName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
+        Validators.pattern(/^[A-Za-z ]{1,50}$/)
       ]),
 
-      ledgerId: new FormControl('', [Validators.required,]),
+      ledgerId: new FormControl('', [Validators.required, Validators.pattern(/^\d{1,10}$/
+      )]),
       createdBy: new FormControl(''),
 
     })

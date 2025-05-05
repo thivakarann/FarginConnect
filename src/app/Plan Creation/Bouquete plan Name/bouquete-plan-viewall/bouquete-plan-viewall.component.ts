@@ -332,9 +332,9 @@ searchPerformed: boolean=false;
       "BroadCaster Plan",
       "Plan Status",
       "Created By",
-      "Created Date/Time",
+      "Created At",
       "Modified By",
-      "Modified Date/Time",
+      "Modified At",
     ]
 
 

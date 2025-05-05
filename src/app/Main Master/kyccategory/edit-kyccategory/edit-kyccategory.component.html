@@ -10,7 +10,7 @@
                 <input class="form-control" id="fname" type="text" formControlName="kycCategoryName" required [value]="kycCategoryNames"/>
                 <div style="color: red; font-size: 12px; margin-top: 2px;"
                 *ngIf="kycCategoryName?.invalid && kycCategoryName?.touched && kycCategoryName?.errors?.['pattern']">
-                Only alphabetic characters are allowed
+                Please enter only letters,(max 50 characters)
             </div>
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="kycCategoryName?.invalid && kycCategoryName?.touched && kycCategoryName?.errors?.['required']">

@@ -36,7 +36,7 @@
                         position: relative;
                         ;
                       " *ngIf="planName?.invalid && planName?.touched && planName?.errors?.['maxlength']">
-                            Only 30 characters are allowed
+                            Only 50 characters are allowed
                         </div>
                 </div>
                 <div class="col-sm-4 form-group">
@@ -144,12 +144,12 @@
                     <select [(ngModel)]="Frequency" formControlName="frequency" id="Bussiness category"
                         class="form-control form-select">
                         <option value="" disabled selected>Select</option>
-                        <option value="Day">Day</option>
-                        <option value="Week">Week</option>
-                        <option value="Month">Month</option>
+                        <option value="Day">Daily</option>
+                        <option value="Week">Weekly</option>
+                        <option value="Month">Monthly</option>
                         <option value="Quarterly">Quarterly</option>
-                        <option value="Half Yearly">Half Yearly</option>
-                        <option value="Year">Year</option>
+                        <option value="Half Yearly">Half-Yearly</option>
+                        <option value="Year">Yearly</option>
 
 
                     </select>

@@ -126,9 +126,9 @@ export class ViewbeneficiaryComponent {
 
       "Status",
       "Created By",
-      "Created Date/Time",
+      "Created At",
       "Modified By",
-      "Modified Date/Time"
+      "Modified At"
     ]
     const data = this.responseDataListnew;
     let workbook = new Workbook();

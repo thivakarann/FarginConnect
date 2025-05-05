@@ -2662,7 +2662,7 @@ Initial list of features and changes is available at https://www.tiny.cloud/docs
 - Added a new api for providing meta data for plugins. It will show up in the help dialog if it's provided.
 
 ### Fixed
-- Fixed so that the notifications created by the notification manager are more screen reader accessible.
+- Fixed so that the notifications Created By the notification manager are more screen reader accessible.
 - Fixed bug where changing the list format on multiple selected lists didn't change all of the lists.
 - Fixed bug where the nonbreaking plugin would insert multiple undo levels when pressing the tab key.
 - Fixed bug where delete/backspace wouldn't render a caret when all editor contents where deleted.
@@ -2861,7 +2861,7 @@ Initial list of features and changes is available at https://www.tiny.cloud/docs
 - Fixed bug where the offscreen toc selection would be treated as the real toc element.
 - Fixed bug where the aria level attribute for element path would have an incorrect start index.
 - Fixed bug where the offscreen selection of cE=false that where very wide would be shown onscreen. Patch contributed by Steven Bufton.
-- Fixed so the default_link_target gets applied to links created by the autolink plugin.
+- Fixed so the default_link_target gets applied to links Created By the autolink plugin.
 - Fixed so that the name attribute gets removed by the anchor plugin if editing anchors.
 
 ## 4.5.0 - 2016-11-23
@@ -3403,7 +3403,7 @@ Npm version bump due to package not being fully updated.
 - Fixed bug where selection needed to be properly normalized on modern IE versions.
 - Fixed bug where Command+Backspace didn't properly delete the whole line of text but the previous word.
 - Fixed bug where UI active states wheren't properly updated on IE if you placed caret within the current range.
-- Fixed bug where delete/backspace on WebKit/Blink would remove span elements created by the user.
+- Fixed bug where delete/backspace on WebKit/Blink would remove span elements Created By the user.
 - Fixed bug where delete/backspace would produce incorrect results when deleting between two text blocks with br elements.
 - Fixed bug where captions where removed when pasting from MS Office.
 - Fixed bug where lists plugin wouldn't properly remove fully selected nested lists.

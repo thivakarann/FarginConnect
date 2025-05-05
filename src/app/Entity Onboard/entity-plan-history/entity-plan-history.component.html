@@ -58,7 +58,12 @@
     <ng-container matColumnDef="frequency">
         <th mat-header-cell *matHeaderCellDef>Cloud Fee Frequency</th>
         <td mat-cell *matCellDef="let data">
-          {{ data?.merchantPlanModel?.frequency }}
+          <span *ngIf="data?.merchantPlanModel?.frequency == 'Day'">Daily</span>
+          <span *ngIf="data?.merchantPlanModel?.frequency == 'Week'">Weekly</span>
+          <span *ngIf="data?.merchantPlanModel?.frequency == 'Month'">Monthly</span>
+          <span *ngIf="data?.merchantPlanModel?.frequency == 'Quarterly'">Quarterly</span>
+          <span *ngIf="data?.merchantPlanModel?.frequency == 'Half Yearly'">Half-Yearly</span>
+          <span *ngIf="data?.merchantPlanModel?.frequency == 'Year'">Yearly</span>
         </td>
       </ng-container>
     <ng-container matColumnDef="countLimit">
@@ -110,7 +115,7 @@
         </td>
       </ng-container>
       <ng-container matColumnDef="createdDateTime">
-        <th mat-header-cell *matHeaderCellDef>Created Date/Time</th>
+        <th mat-header-cell *matHeaderCellDef>Created At</th>
         <td mat-cell *matCellDef="let data">
           {{ data?.createdDateTime| date : "dd/MM/yyyy hh:mm a" }}
         </td>

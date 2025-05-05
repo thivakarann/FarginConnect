@@ -187,7 +187,7 @@ export class ViewbeneficiaryComponent {
 
       "Status",
       "Created By",
-      "Created Date/Time",
+      "Created At",
       "Modified By",
       "Modified At"
     ]

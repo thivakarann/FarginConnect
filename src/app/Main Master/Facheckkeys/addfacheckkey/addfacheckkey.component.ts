@@ -29,9 +29,8 @@ export class AddfacheckkeyComponent {
     this.facheckkeyFormGroup = new FormGroup({
       apiKey: new FormControl('', [Validators.required]),
       secretKey: new FormControl('', [Validators.required]),
-      applicationId:new FormControl('',[Validators.required]),
+      applicationId:new FormControl('',[Validators.required,Validators.pattern(/^[a-zA-Z0-9 ]{1,50}$/)]),
       mode: new FormControl('', [Validators.required]),
-      createdBy:new FormControl(''),
     });
   }
 

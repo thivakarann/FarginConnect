@@ -379,7 +379,7 @@ export class ViewAnnouncementComponent implements OnInit {
       "End date",
       "Created By",
       "Status",
-      "Created Date/Time",
+      "Created At",
       "Modified By",
       "Modified At",
     ]

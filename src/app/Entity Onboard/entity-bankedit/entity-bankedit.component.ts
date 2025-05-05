@@ -70,7 +70,7 @@ export class EntityBankeditComponent implements OnInit {
         Validators.pattern('^[a-zA-Z0-9 ]*$')
       ]),
 
-      ledgerId: new FormControl("", [Validators.required,Validators.maxLength(15)]),
+       ledgerId: new FormControl("", [Validators.required,Validators.pattern(/^\d{1,15}$/)]),
     })
 
   }

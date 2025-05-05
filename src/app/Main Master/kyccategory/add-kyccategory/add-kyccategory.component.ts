@@ -23,7 +23,8 @@ export class AddKyccategoryComponent {
 
 
     this.addkyccategory = new FormGroup({
-      kycCategoryName: new FormControl('', [Validators.required,  Validators.pattern('^[A-Za-z ]+$')]),
+      kycCategoryName: new FormControl('', [Validators.required, Validators.pattern(/^[A-Za-z ]{1,50}$/
+      )]),
     });
 
   }

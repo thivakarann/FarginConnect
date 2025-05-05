@@ -55,7 +55,7 @@ export class MerchantPlanViewallComponent {
   roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
-  searchPerformed: boolean=false;
+  searchPerformed: boolean = false;
 
   constructor(
     public Merchantplanviewall: FarginServiceService,
@@ -108,25 +108,23 @@ export class MerchantPlanViewallComponent {
 
 
     this.Merchantplanviewall.merchantplanviewall().subscribe((res: any) => {
-      if(res.flag==1)
-      {
+      if (res.flag == 1) {
         this.viewall = res.response;
         this.viewall.reverse();
         this.dataSource = new MatTableDataSource(this.viewall);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
         this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-  
+
       }
-      else if(res.flag==2)
-      {
+      else if (res.flag == 2) {
         this.viewall = [];
         this.viewall.reverse();
         this.dataSource = new MatTableDataSource(this.viewall);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
-   
+
 
     });
 
@@ -138,58 +136,54 @@ export class MerchantPlanViewallComponent {
       exitAnimationDuration: "1000ms",
       disableClose: true
     })
-    
+
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
       this.fetchmerchantplan();
     });
   }
 
-  fetchmerchantplan(){
+  fetchmerchantplan() {
     this.Merchantplanviewall.merchantplanviewall().subscribe((res: any) => {
-      if(res.flag==1)
-      {
+      if (res.flag == 1) {
         this.viewall = res.response;
         this.viewall.reverse();
         this.dataSource = new MatTableDataSource(this.viewall);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
         this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-  
+
       }
-      else if(res.flag==2)
-      {
+      else if (res.flag == 2) {
         this.viewall = [];
         this.viewall.reverse();
         this.dataSource = new MatTableDataSource(this.viewall);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
-   
+
 
     });
   }
 
   reload() {
     this.Merchantplanviewall.merchantplanviewall().subscribe((res: any) => {
-      if(res.flag==1)
-      {
+      if (res.flag == 1) {
         this.viewall = res.response;
         this.viewall.reverse();
         this.dataSource = new MatTableDataSource(this.viewall);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
         this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-  
+
       }
-      else if(res.flag==2)
-      {
+      else if (res.flag == 2) {
         this.viewall = [];
         this.viewall.reverse();
         this.dataSource = new MatTableDataSource(this.viewall);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
-   
+
 
     });
   }
@@ -220,28 +214,26 @@ export class MerchantPlanViewallComponent {
         this.toastr.success(res.responseMessage);
         setTimeout(() => {
           this.Merchantplanviewall.merchantplanviewall().subscribe((res: any) => {
-            if(res.flag==1)
-            {
+            if (res.flag == 1) {
               this.viewall = res.response;
               this.viewall.reverse();
               this.dataSource = new MatTableDataSource(this.viewall);
               this.dataSource.sort = this.sort;
               this.dataSource.paginator = this.paginator;
               this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-        
+
             }
-            else if(res.flag==2)
-            {
+            else if (res.flag == 2) {
               this.viewall = [];
               this.viewall.reverse();
               this.dataSource = new MatTableDataSource(this.viewall);
               this.dataSource.sort = this.sort;
               this.dataSource.paginator = this.paginator;
             }
-         
-      
+
+
           });
-      
+
         }, 500);
       }
       else {
@@ -257,91 +249,119 @@ export class MerchantPlanViewallComponent {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.searchPerformed = filterValue.length > 0;
- 
+
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
 
   exportexcel() {
- 
+
     let sno = 1;
     this.responseDataListnew = [];
     this.viewall.forEach((element: any) => {
       let createdate = element.createdDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
- 
+
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.planName);
-      this.response.push(element?.technicalAmount);
-      this.response.push(element?.renewalAmount);
-      this.response.push(element?.maintenanceAmount);
-      this.response.push(element?.voiceBoxSetupFee);
-      this.response.push(element?.voiceBoxSetupFee);
       this.response.push(element?.countLimit);
- 
-      
-      this.response.push(element?.frequency);
- 
       if (element?.activeStatus == 1) {
         this.response.push("Active");
       }
       else {
         this.response.push("InActive");
       }
+      this.response.push(element?.technicalAmount);
+      this.response.push(element?.renewalAmount);
+      this.response.push(element?.maintenanceAmount);
+      this.response.push(element?.voiceBoxSetupFee);
+      this.response.push(element?.voiceBoxAdvRent);
+
+      if (element?.frequency == 'Day') {
+        this.response.push("Daily");
+      }
+      else if (element?.frequency == 'Week') {
+        this.response.push("Weekly");
+      }
+      else if (element?.frequency == 'Month') {
+        this.response.push("Monthly");
+      }
+      else if (element?.frequency == 'Quarterly') {
+        this.response.push("Quarterly");
+      }
+      else if (element?.frequency == 'Half Yearly') {
+        this.response.push("Half-Yearly");
+      }
+      else if (element?.frequency == 'Year') {
+        this.response.push("Yearly");
+      }
+
+
+
       this.response.push(element?.createdBy);
- 
-  if(element?.createdDateTime){
-    this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy-hh:mm a').toString());
-  }
-  else{
-  this.response.push('');
-  }
+
+      if (element?.createdDateTime) {
+        this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy-hh:mm a').toString());
+      }
+      else {
+        this.response.push('');
+      }
       this.response.push(element?.modifiedBy);
- 
-        if(element?.modifiedDateTime){
-          this.response.push(moment(element?.modifiedDateTime).format('DD/MM/yyyy-hh:mm a').toString());
-        }
-        else{
-          this.response.push('');
-        }
-   
+
+      if (element?.modifiedDateTime) {
+        this.response.push(moment(element?.modifiedDateTime).format('DD/MM/yyyy-hh:mm a').toString());
+      }
+      else {
+        this.response.push('');
+      }
+
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
- 
- 
+
+
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
       "S.No",
       "PlanName",
-      "Setup Cost",
-      "Renewal Amount",
-      "Maintenance Amount",
-      "voiceBoxSetupFee",
-      "voiceBoxAdvRent",
-      "Customer Limit",
-      "Frequency",
-      "Status",
+      "Customer Onboard Limit",
+      "Plan Status",
+      "One-Time Setup Fee",
+      "Yearly Renewal Fee",
+      "Cloud Fee",
+      "Voice Box Setup Fee",
+      "Voice Box Rent",
+      "Cloud Fee Frequency",
       "Created By",
-      "Created Date/Time",
+      "Created At",
       "Modified By",
-      "Modified Date/Time"
+      "Modified At"
+
+
+
+
+
+
+
+
+
+
     ]
- 
- 
+
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Merchant Plan Details');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
- 
- 
+
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -352,15 +372,15 @@ export class MerchantPlanViewallComponent {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
+
       }
- 
+
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
- 
+
     data.forEach((d: any) => {
       //
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -376,13 +396,13 @@ export class MerchantPlanViewallComponent {
       let qty11 = row.getCell(12);
       let qty12 = row.getCell(13);
       let qty13 = row.getCell(14);
-      let qty14 = row.getCell(15);
 
 
- 
- 
- 
- 
+
+
+
+
+
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -397,9 +417,8 @@ export class MerchantPlanViewallComponent {
       qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty12.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty13.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty14.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
 
- 
+
     }
     );
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }

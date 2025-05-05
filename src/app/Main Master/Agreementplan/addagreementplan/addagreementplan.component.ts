@@ -24,7 +24,8 @@ export class AddagreementplanComponent {
     this.myForm = new FormGroup({
       planName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')]),
+        Validators.pattern('^[A-Za-z]*$'),
+        Validators.maxLength(50)]),
       servicefee: new FormControl('', [Validators.required, Validators.pattern('((0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$)|^[a-zA-Z]+$')]),
       netBankingAmount: new FormControl('', [Validators.required, Validators.pattern('((0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$)|^[a-zA-Z]+$')]),
       netBankingPercentage: new FormControl('', [Validators.required, Validators.pattern('((0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$)|^[a-zA-Z]+$')]),

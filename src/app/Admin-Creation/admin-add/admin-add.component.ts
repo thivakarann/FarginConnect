@@ -20,15 +20,15 @@ export class AdminAddComponent implements OnInit {
   constructor(private service: FarginServiceService, private toaster: ToastrService, private router: Router) { }
   ngOnInit(): void {
     this.AdminForm = new FormGroup({
-      adminName: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]),
+      adminName: new FormControl('', [Validators.required, Validators.pattern(/^[A-Za-z ]{1,50}$/)]),
       gender: new FormControl('', [Validators.required]),
       emailAddress: new FormControl('', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
       // password: new FormControl('', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}')]),
       mobileNumber: new FormControl('', [Validators.required, Validators.pattern("^[0-9]{10}$")]),
       address: new FormControl('', [Validators.required]),
-      country: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z0-9 ]*$')]),
-      state: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z0-9 ]*$')]),
-      city: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z0-9 ]*$')]),
+      country: new FormControl('', [Validators.required,Validators.pattern(/^[A-Za-z ]{1,50}$/)]),
+      state: new FormControl('', [Validators.required,Validators.pattern(/^[A-Za-z ]{1,50}$/)]),
+      city: new FormControl('', [Validators.required,Validators.pattern(/^[A-Za-z ]{1,50}$/)]),
       pincode: new FormControl('', [Validators.required,Validators.pattern("^[1-9]{1}[0-9]{2}\\s{0,1}[0-9]{3}$")]),
       roleId:new FormControl('',[Validators.required])
     })

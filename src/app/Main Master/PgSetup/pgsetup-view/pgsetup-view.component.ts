@@ -298,7 +298,7 @@ export class PgsetupViewComponent implements OnInit {
       "Secret Key",
       "Status",
       "Created By",
-      "Created Date/Time",
+      "Created At",
       "Modified By",
       "Modified At",
  

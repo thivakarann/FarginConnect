@@ -13,8 +13,7 @@
                         formControlName="adminName" ngModel="{{this.viewData.adminName}}">
                     <span class="error" *ngIf="adminName?.touched && adminName?.errors?.['required']">Field Is
                         Required</span>
-                    <span class="error" *ngIf="adminName?.touched && adminName?.errors?.['pattern']">Please Enter
-                        Alphabets Only*</span>
+                    <span class="error" *ngIf="adminName?.touched && adminName?.errors?.['pattern']">Please enter only letters(max 50 characters)</span>
                 </div>
                 <div class="col-sm-4 form-group">
                     <label for="role">Role</label>
@@ -56,6 +55,7 @@
                         formControlName="country"  ngModel="{{this.viewData.country}}">
                     <span class="error" *ngIf=" country?.invalid && country?.touched && country?.errors?.['required']">
                         Field is Required*</span>
+                        <span class="error" *ngIf="country?.touched && country?.errors?.['pattern']">Please enter only letters(max 50 characters)</span>
                 </div>
                 <div class="col-sm-4 form-group">
                     <label for="state">State</label>
@@ -63,6 +63,7 @@
                         formControlName="state"  ngModel="{{this.viewData.state}}">
                     <span class="error" *ngIf=" state?.invalid && state?.touched && state?.errors?.['required']">
                         Field is Required*</span>
+                        <span class="error" *ngIf="state?.touched && state?.errors?.['pattern']">Please enter only letters(max 50 characters)</span>
                 </div>
 
                 <div class="col-sm-4 form-group">
@@ -71,6 +72,7 @@
                         formControlName="city" ngModel="{{this.viewData.city}}">
                     <span class="error" *ngIf=" city?.invalid && city?.touched && city?.errors?.['required']">
                         Field is Required*</span>
+                        <span class="error" *ngIf="city?.touched && city?.errors?.['pattern']">Please enter only letters(max 50 characters)</span>
                 </div>
                 <div class="col-sm-4 form-group">
                     <label for="Mcc Code">Pincode</label>

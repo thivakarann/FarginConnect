@@ -49,7 +49,7 @@ export class BankViewallComponent implements OnInit {
   roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   valuetermViews: any;
-searchPerformed: boolean=false;
+  searchPerformed: boolean = false;
 
   constructor(
     public bankdetails: FarginServiceService,
@@ -98,8 +98,7 @@ searchPerformed: boolean=false;
 
 
     this.bankdetails.bankdetailsViewall().subscribe((res: any) => {
-      if(res.flag==1)
-      {   
+      if (res.flag == 1) {
         this.viewall = res.response;
         this.viewall.reverse();
         this.dataSource = new MatTableDataSource(this.viewall);
@@ -107,15 +106,14 @@ searchPerformed: boolean=false;
         this.dataSource.paginator = this.paginator;
 
       }
-      else if(res.flag==2)
-      {
+      else if (res.flag == 2) {
         this.viewall = [];
         this.dataSource = new MatTableDataSource(this.viewall);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
 
       }
-   
+
 
     });
 
@@ -137,7 +135,7 @@ searchPerformed: boolean=false;
   //         this.dataSource = new MatTableDataSource(this.viewall);
   //         this.dataSource.sort = this.sort;
   //         this.dataSource.paginator = this.paginator;
-  
+
   //       }
   //       else if(res.flag==2)
   //       {
@@ -145,10 +143,10 @@ searchPerformed: boolean=false;
   //         this.dataSource = new MatTableDataSource(this.viewall);
   //         this.dataSource.sort = this.sort;
   //         this.dataSource.paginator = this.paginator;
-  
+
   //       }
-     
-  
+
+
   //     });
 
   //   })
@@ -160,7 +158,7 @@ searchPerformed: boolean=false;
       exitAnimationDuration: "800ms",
       disableClose: true
     });
-  
+
     // Listen for updates when dialog emits event
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
       this.fetchBankDetails();
@@ -170,7 +168,7 @@ searchPerformed: boolean=false;
 
   fetchBankDetails() {
     this.bankdetails.bankdetailsViewall().subscribe((res: any) => {
-      if (res.flag == 1) {   
+      if (res.flag == 1) {
         this.viewall = res.response;
         this.viewall.reverse();
         this.dataSource = new MatTableDataSource(this.viewall);
@@ -189,8 +187,7 @@ searchPerformed: boolean=false;
 
   reload() {
     this.bankdetails.bankdetailsViewall().subscribe((res: any) => {
-      if(res.flag==1)
-      {   
+      if (res.flag == 1) {
         this.viewall = res.response;
         this.viewall.reverse();
         this.dataSource = new MatTableDataSource(this.viewall);
@@ -198,15 +195,14 @@ searchPerformed: boolean=false;
         this.dataSource.paginator = this.paginator;
 
       }
-      else if(res.flag==2)
-      {
+      else if (res.flag == 2) {
         this.viewall = [];
         this.dataSource = new MatTableDataSource(this.viewall);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
 
       }
-   
+
 
     });
 
@@ -220,7 +216,7 @@ searchPerformed: boolean=false;
       data: { value: id },
       disableClose: true
     })
- 
+
 
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
       this.fetchBankDetails();
@@ -241,25 +237,23 @@ searchPerformed: boolean=false;
         this.toastr.success(res.responseMessage);
         setTimeout(() => {
           this.bankdetails.bankdetailsViewall().subscribe((res: any) => {
-            if(res.flag==1)
-            {   
+            if (res.flag == 1) {
               this.viewall = res.response;
               this.viewall.reverse();
               this.dataSource = new MatTableDataSource(this.viewall);
               this.dataSource.sort = this.sort;
               this.dataSource.paginator = this.paginator;
-      
+
             }
-            else if(res.flag==2)
-            {
+            else if (res.flag == 2) {
               this.viewall = [];
               this.dataSource = new MatTableDataSource(this.viewall);
               this.dataSource.sort = this.sort;
               this.dataSource.paginator = this.paginator;
-      
+
             }
-         
-      
+
+
           });
         }, 500);
 
@@ -328,7 +322,7 @@ searchPerformed: boolean=false;
       "Bank Name",
       "Status",
       "Created By",
-      "Created Date/Time",
+      "Created At",
       "Modified By",
       "Modified At"
     ]
