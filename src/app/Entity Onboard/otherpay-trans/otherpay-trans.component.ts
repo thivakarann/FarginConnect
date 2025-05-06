@@ -23,14 +23,13 @@ export class OtherpayTransComponent {
   displayedColumns: string[] = [
     'Id',
     'paymentId',
-    'method',
-    'utrnumber',
-    'status',
     'paidamount',
+    'method',
+    'status',
+    'reference',
+    'utrnumber',
     'cardNumber',
     'cardExpiry',
-    'reference',
-    'utrNumber',
     'updatedBy',
     'receipt',
     'paymentAt',
@@ -67,7 +66,7 @@ export class OtherpayTransComponent {
 
     this.service.OtherPayTransaction(this.id).subscribe((res: any) => {
       this.details = res.response;
-      
+
       this.dataSource = new MatTableDataSource(this.details);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
@@ -93,25 +92,22 @@ export class OtherpayTransComponent {
 
 
   exportexcel() {
-    
+
     let sno = 1;
     this.responseDataListnew = [];
     this.details.forEach((element: any) => {
- 
+
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.pgPaymentId);
+      this.response.push(element?.paidAmount.toFixed(2));
       this.response.push(element?.paymentMethod);
       this.response.push(element?.paymentStatus);
-      this.response.push(element?.paidAmount);
-      this.response.push(element?.cardNumber);
-      this.response.push(element?.cardExpiry);
       this.response.push(element?.bankReference);
       this.response.push(element?.utrNumber);
+      this.response.push(element?.cardNumber);
+      this.response.push(element?.cardExpiry);
       this.response.push(element?.updatedBy);
-     
-   
-
       if (element?.paymentDateTime) {
         this.response.push(moment(element?.paymentDateTime).format('DD/MM/yyyy hh:mm a'));
       }
@@ -132,13 +128,13 @@ export class OtherpayTransComponent {
     const header = [
       'S.NO',
       'Payment ID',
+      'Due Amount',
       'Payment Method',
       'Payment Status',
-      'Due Amount',
-      'Card Number',
-      'Card Expiry',
       'Bank Reference',
       'Refference Number',
+      'Card Number',
+      'Card Expiry',
       'Manual Payment By ',
       'Payment At',
     ]

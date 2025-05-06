@@ -75,12 +75,12 @@
             </ng-container>
             <ng-container matColumnDef="cardExpiry">
                 <th mat-header-cell *matHeaderCellDef>Card Expiry</th>
-                <td mat-cell *matCellDef="let viewall">{{ (viewall.cardExpiry === null || viewall.cardExpiry === 'null') ? '-' : viewall.cardExpiry }}</td>
+                <td mat-cell *matCellDef="let viewall">{{ (viewall.cardExpiry === null || viewall.cardExpiry === 'null' || viewall.cardExpiry === '') ? '-' : viewall.cardExpiry }}</td>
 
             </ng-container>
             <ng-container matColumnDef="paidamount">
                 <th mat-header-cell *matHeaderCellDef>Due Amount</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall.paidAmount}}</td>
+                <td mat-cell *matCellDef="let viewall">{{viewall.paidAmount.toFixed(2)}}</td>
             </ng-container>
        
          
@@ -88,10 +88,7 @@
                 <th mat-header-cell *matHeaderCellDef>Bank Reference</th>
                 <td mat-cell *matCellDef="let viewall">{{viewall?.bankReference || '-'}}</td>
             </ng-container>
-            <ng-container matColumnDef="utrNumber">
-                <th mat-header-cell *matHeaderCellDef>Reference Number</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall?.utrNumber || '-'}}</td>
-            </ng-container>
+       
             <ng-container matColumnDef="updatedBy">
                 <th mat-header-cell *matHeaderCellDef>Manual Payment By</th>
                 <td mat-cell *matCellDef="let viewall">{{viewall?.updatedBy || '-'}}</td>
@@ -108,10 +105,12 @@
                         {{ viewall?.paymentStatus}}</span>
                         <span *ngIf="viewall?.paymentStatus  == 'Failure'" class="text-danger">
                             {{ viewall?.paymentStatus}}</span>
+                            <span *ngIf="viewall?.paymentStatus  == 'Payment Incomplete'" class="text-danger">
+                                {{ viewall?.paymentStatus}}</span>
                    </td>
             </ng-container>
             <ng-container matColumnDef="paymentAt">
-                <th mat-header-cell *matHeaderCellDef>Payment At</th>
+                <th mat-header-cell *matHeaderCellDef>Paid At</th>
                 <td mat-cell *matCellDef="let viewall">{{viewall?.paymentDateTime | date:'dd/MM/yyyy hh:mm a'}}</td>
             </ng-container>
            

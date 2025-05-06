@@ -56,7 +56,12 @@ export class AddKycdocumentComponent implements OnInit {
   uploadsignback: any;
   today: string;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
-
+  isStepCompleted: boolean[] = [false];
+  isLinear = false;
+  completeStep(index: number): void {
+    this.isStepCompleted[index] = true;
+  }
+  
   constructor(private service: FarginServiceService, private dialog: MatDialog, private toastr: ToastrService,
     private _formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any) {
     const todayDate = new Date();

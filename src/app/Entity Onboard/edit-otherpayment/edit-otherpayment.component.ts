@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
-import { updateOtherPayment } from '../../fargin-model/fargin-model.module';
+import { customizepay, updateOtherPayment } from '../../fargin-model/fargin-model.module';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -20,6 +20,10 @@ export class EditOtherpaymentComponent {
   servicename: any;
   paidamount: any;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
+  Status: any;
+  paymentStatus: any;
+  value: boolean = false;
+  value2: boolean = false;
 
   constructor(private router: Router, private Approval: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog) { }
   ngOnInit(): void {
@@ -27,6 +31,9 @@ export class EditOtherpaymentComponent {
     this.payId = this.data.value.payId;
     this.servicename = this.data.value.serviceName;
     this.paidamount = this.data.value.paidAmount;
+    this.paymentStatus = this.data.value.paymentStatus;
+
+    this. Check();
 
 
     this.myForm = new FormGroup({
@@ -51,7 +58,42 @@ export class EditOtherpaymentComponent {
     return this.myForm.get('serviceName')
 
   }
+  
+  Check(){
+    if (this.paymentStatus == 'Initiated'){
+     this.value = true;
+     this.value2 = false;
+    }
+    else{
+      this.value = false;
+    }
+  }
 
+  Trackapi() {
+    let submitModel: customizepay = {
+         payId: this.payId,
+       }
+
+    this.Approval.Customizepay(submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.toastr.success("Payment has been Completed");
+        this.value = true;
+        this.value2 = true;
+        this.bankDetailsUpdated.emit();
+        console.log("this.value" + this.value)
+        console.log("this.value" + this.value2)
+      
+      }
+      else if (res.flag == 2){
+        this.toastr.error(res.responseMessage);
+        this.value = false;
+        this.value2 = false;
+        this.bankDetailsUpdated.emit();
+        console.log("this.value" + this.value)
+        console.log("this.value" + this.value2)
+      }
+    })
+  }
   submit() {
     let submitModel: updateOtherPayment = {
       serviceName: this.serviceName?.value.trim(),
@@ -71,4 +113,8 @@ export class EditOtherpaymentComponent {
       }
     })
   }
+  close(){
+    this.dialog.closeAll();
+  }
+
 }

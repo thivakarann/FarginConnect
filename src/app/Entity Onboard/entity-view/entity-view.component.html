@@ -281,8 +281,7 @@
                   <button
                     [disabled]="
                       this.detaislone?.approvalStatusL1 !== 'approved' ||
-                      this.detaislone?.approvalStatusL2 !== 'approved' ||
-                      this.detaislone?.onBoardStatus !== 'true'
+                      this.detaislone?.approvalStatusL2 !== 'approved'
                     "
                     style="font-size: 10px"
                     mat-menu-item
@@ -309,7 +308,8 @@
                     (click)="pgOnboard()"
                     [disabled]="
                       this.detaislone?.approvalStatusL2 == 'Pending' ||
-                      this.detaislone?.approvalStatusL2 == 'Rejected'
+                      this.detaislone?.approvalStatusL2 == 'Rejected' || 
+                      this.detaislone?.onBoardStatus == 'true'
                     "
                     [hidden]="valueentityonboard !== 'Entity View-Onboard'"
                   >
@@ -317,8 +317,8 @@
                   </button>
 
                   <!--  -->
-                  <button  [disabled]="this.detaislone?.onBoardStatus !== 'true'
-                "
+                  <button
+                    [disabled]="this.detaislone?.onBoardStatus !== 'true'"
                     [hidden]="valuefee !== 'Generate Cloud Fee'"
                     style="font-size: 10px"
                     mat-menu-item
@@ -326,7 +326,8 @@
                   >
                     Generate Cloud Fee
                   </button>
-                  <button [disabled]="this.detaislone?.onBoardStatus !== 'true'"
+                  <button
+                    [disabled]="this.detaislone?.onBoardStatus !== 'true'"
                     [hidden]="valuedues !== 'Generate Customer Dues'"
                     style="font-size: 10px"
                     mat-menu-item
@@ -513,10 +514,13 @@
                           LCO Customer Billing Cycle
                         </div>
                         <div class="w-50">
-                          <span *ngIf="detaislone?.billingMode === 'Month'">Monthly</span>
-                          <span *ngIf="detaislone?.billingMode !== 'Month'">-</span>
+                          <span *ngIf="detaislone?.billingMode === 'Month'"
+                            >Monthly</span
+                          >
+                          <span *ngIf="detaislone?.billingMode !== 'Month'"
+                            >-</span
+                          >
                         </div>
-                        
                       </div>
                       <div class="d-flex mt-3">
                         <div class="w-50 font-weight-bold">
@@ -992,6 +996,7 @@
                       color="primary"
                       [checked]="item.activeStatus == 1"
                       (change)="bankStatus($event, item.merchantBankId)"
+                      style="transform: scale(0.9);padding:0"
                     >
                     </mat-slide-toggle
                   ></span>
@@ -1003,6 +1008,7 @@
                       color="primary"
                       [checked]="item.primaryAccountStatus == 1"
                       (change)="onSubmit($event, item.merchantBankId)"
+                      style="transform: scale(0.9);padding:0"
                     >
                     </mat-slide-toggle>
                   </span>
@@ -1012,6 +1018,7 @@
                     [disabled]="item?.approvalStatus === 'approved'"
                     class="buttonDownload"
                     (click)="BankApproval(item.merchantBankId)"
+                    style="font-size:14px;padding:2px"
                   >
                     Approval
                   </button>
@@ -1074,7 +1081,7 @@
                 <td [hidden]="valuebankverify !== 'Bank-Verification'">
                   <span>
                     <i
-                      style="overflow: hidden; color: #141e46; font-size: 20px"
+                      style="overflow: hidden; color: #141e46; font-size: 17px"
                       [matMenuTriggerFor]="menu"
                       class="fa-solid fa-circle-info"
                     >
@@ -1140,7 +1147,7 @@
               </tbody>
             </table>
           </div>
-          <div class="text-end mt-3">
+          <div class="text-end mt-2">
             <pagination-controls
               id="pagination"
               (pageChange)="currentPage = $event"
@@ -1342,8 +1349,8 @@
                       class="buttonDownload"
                       (click)="KycApproval(item)"
                       [disabled]="
-                        item.identityAdminApprovalStatus == 'approved'
-                      "
+                        item.identityAdminApprovalStatus == 'approved'"
+                        style="font-size:14px;padding:2px"
                     >
                       Approval
                     </button>
@@ -1517,6 +1524,7 @@
                       class="buttonDownload"
                       (click)="KycApproval1(item)"
                       [disabled]="item.addressAdminApprovalStatus == 'approved'"
+                      style="font-size:14px;padding:2px"
                     >
                       Approval
                     </button>
@@ -1692,6 +1700,7 @@
                       [disabled]="
                         item.signatureAdminApprovalStatus == 'approved'
                       "
+                      style="font-size:14px;padding:2px"
                     >
                       Approval
                     </button>
@@ -1924,6 +1933,7 @@
                     class="buttonDownload"
                     (click)="docApproval(item)"
                     [disabled]="item.approvalStatus == 'approved'"
+                    style="font-size:14px;padding:2px"
                   >
                     Approval
                   </button>
@@ -1964,7 +1974,7 @@
                     valuebussinessedit !== 'Entity View Bussiness Document-Edit'
                   "
                 >
-                  <i class="fas fa-edit" (click)="docedit(item)"> </i>
+                  <i class="fas fa-edit" style="padding:0" (click)="docedit(item)"> </i>
                 </td>
                 <td>{{ item.createdBy }}</td>
                 <td>
@@ -1977,7 +1987,7 @@
               </tbody>
             </table>
           </div>
-          <div class="text-end mt-3">
+          <div class="text-end mt-2">
             <pagination-controls
               id="pagination2"
               (pageChange)="currentPagebusniess = $event"
@@ -2218,7 +2228,7 @@
                 "
               >
                 <button
-                  style="border: none"
+                  style="border: none;font-size: 15px;padding:0"
                   *ngIf="
                     paymentMethod == 'Cash' ||
                     paymentMethod == 'UPI' ||
@@ -2228,11 +2238,12 @@
                     paymentMethod == 'Cheque'
                   "
                   (click)="manualPayement(item)"
+                  
                 >
                   <span>
                     <i
                       class="fas fa-edit"
-                      style="font-size: 16px; color: rgb(39, 39, 95)"
+                      style="font-size: 15px; color: rgb(39, 39, 95)"
                     ></i>
                   </span>
                 </button>
@@ -2293,7 +2304,12 @@
 
               <td>{{ item?.manualApprovalBy || "-" }}</td>
               <td>{{ item?.updatedBy || "-" }}</td>
-              <td>{{ item?.updateAt | date : "dd/MM/yyyy hh:mm a" }}</td>
+              <td>
+                <span [hidden]="item.date == null">
+                  {{ item.updateAt | date : "dd/MM/yyyy" }}</span
+                >
+                <span [hidden]="item.updateAt != null"> - </span>
+              </td>
               <td>{{ item.paymentDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
             </tbody>
           </table>
@@ -2437,11 +2453,11 @@
             >
               <td>{{ i + 1 }}</td>
               <td>{{ item.serviceName }}</td>
-              <td>{{ item.paidAmount }}</td>
+              <td>{{ item.paidAmount.toFixed(2) }}</td>
               <td>{{ item.cgstPercentage }}</td>
               <td>{{ item.sgstPercentage }}</td>
               <td>{{ item.igstPercentage }}</td>
-              <td>{{ item.totalPayableAmount }}</td>
+              <td>{{ item.totalPayableAmount.toFixed(2) }}</td>
               <td>
                 <button
                   [disabled]="
@@ -2452,17 +2468,17 @@
                     valueCustomizedmanual !==
                     'Entity View Customized Manual Payment'
                   "
-                  style="border: none; padding-top: 0px; background: none"
+                  style="border: none; background: none;font-size:15px;padding:0"
                   class="manual"
                   (click)="Manuvalpayments(item.payId)"
                 >
-                  <i class="fa-solid fa-address-card"></i>
+                  <i style="font-size:15px" class="fa-solid fa-address-card"></i>
                 </button>
               </td>
               <td>
                 <button
                   class="editcustom"
-                  style="background: none; border: none"
+                  style="background: none; border: none;font-size:15px;padding:0"
                   (click)="editotherPayment(item)"
                   [hidden]="
                     valueCustomizededit !==
@@ -2471,21 +2487,21 @@
                   [disabled]="item?.paymentStatus == 'Success'"
                 >
                   <span>
-                    <i class="fas fa-edit"></i>
+                    <i style="font-size:15px" class="fas fa-edit"></i>
                   </span>
                 </button>
               </td>
-              <td
-                [hidden]="
-                  valueCustomizedview !== 'Entity View Customized Payment-View'
-                "
-              >
-                <span (click)="viewOthertransaction(item.payId)">
-                  <i
+              <td>
+              <button   [hidden]="
+              valueCustomizedview !== 'Entity View Customized Payment-View'"
+                (click)="viewOthertransaction(item.payId)"
+                     style="background: none; border: none;font-size:15px;padding:0">
+                     <i (click)="viewOthertransaction(item.payId)"
                     class="fas fa-eye"
-                    style="font-size: 16px; color: rgb(39, 39, 95)"
+                    style="font-size: 15px; color: rgb(39, 39, 95)"
                   ></i>
-                </span>
+                </button>
+
               </td>
               <td>
                 <span
@@ -2517,7 +2533,7 @@
             </tbody>
           </table>
         </div>
-        <div class="text-end mt-3">
+        <div class="text-end mt-2">
           <pagination-controls
             id="pagination4"
             (pageChange)="currentcustomized = $event"
@@ -2605,12 +2621,12 @@
       <div class="col-md-4 mt-1">
         <div>
           <article
-            class="card car-details label-info"
+           
             style="padding: 1%; padding-left: 25px"
           >
             <div class="w-100">
               <div class="d-flex flex-md-row flex-column">
-                <h5 class="mr-3">Charge Per Sms ₹{{ chargepersms }}</h5>
+                <h5 class="mr-3">Charge Per Sms : ₹{{ chargepersms }}</h5>
               </div>
             </div>
           </article>
@@ -2659,7 +2675,7 @@
 
               <td>
                 <i
-                  style="cursor: pointer; font-size: 17px"
+                  style="cursor: pointer; font-size: 15px;padding:0"
                   class="fa fa-eye"
                   (click)="Smsdescription(item.type?.smsTempDescription)"
                 ></i>
@@ -2675,6 +2691,7 @@
                     class="buttonDownload"
                     [disabled]="item.smsApprovalStatus !== 'Rejected'"
                     (click)="SmsApproval(item.merchantSmsId)"
+                      style="font-size:14px;padding:2px"
                   >
                     Approval
                   </button></span
@@ -2696,6 +2713,7 @@
                     color="primary"
                     [checked]="item.smsStatus == 1"
                     (change)="smsStatus($event, item.merchantSmsId)"
+                      style="transform: scale(0.9);padding:0"
                   >
                   </mat-slide-toggle
                 ></span>
@@ -2709,7 +2727,7 @@
                 <span (click)="editsms(item)">
                   <i
                     class="fas fa-edit"
-                    style="font-size: 16px; color: rgb(39, 39, 95)"
+                    style="font-size: 15px; color: rgb(39, 39, 95)"
                   ></i>
                 </span>
               </td>
@@ -2720,7 +2738,7 @@
             </tbody>
           </table>
         </div>
-        <div class="text-end mt-3">
+        <div class="text-end mt-2">
           <pagination-controls
             id="pagination5"
             (pageChange)="currentsms = $event"
@@ -2911,7 +2929,7 @@
                 "
               >
                 <i
-                  style="cursor: pointer; font-size: 17px"
+                  style="cursor: pointer; font-size: 15px;padding:0"
                   class="fa fa-eye"
                   (click)="view(item.commercialId)"
                 ></i>
@@ -2926,7 +2944,7 @@
                 {{ item.adminAgreementLink | slice : 0 : 25 }}
                 <i
                   class="fa-regular fa-copy"
-                  style="color: green; font-size: 18px"
+                  style="color: green; font-size: 15px;padding:0"
                   (click)="copyText2(item.adminAgreementLink, i)"
                 ></i>
                 <span *ngIf="copiedIndex2 === i" style="color: green"
@@ -2943,7 +2961,7 @@
                 {{ item.agreementLink | slice : 0 : 25 }}
                 <i
                   class="fa-regular fa-copy"
-                  style="color: green; font-size: 18px"
+                  style="color: green; font-size: 15px;padding:0"
                   (click)="copyText1(item.agreementLink, i)"
                 ></i>
                 <span *ngIf="copiedIndex === i" style="color: green"
@@ -2986,7 +3004,7 @@
                 "
               >
                 <i
-                  style="cursor: pointer; font-size: 17px"
+                  style="cursor: pointer; font-size: 15px;padding:0"
                   class="fa-solid fa-calendar-days"
                   (click)="ExtendLinkDate(item.agreementId, item.expiryLink)"
                 ></i>
@@ -3002,6 +3020,7 @@
                   color="primary"
                   [checked]="item.expiryLinkStatus == 1"
                   (change)="LinkExpirystatus($event, item.agreementId)"
+                  style="transform: scale(0.9);padding:0"
                 >
                 </mat-slide-toggle>
               </td>
@@ -3012,11 +3031,11 @@
                 "
               >
                 <button
-                  style="border: 1px solid white; border-radius: 4px"
+                  style="border: 1px solid white; border-radius: 4px;font-size: 15px;padding:0"
                   (click)="viewagreementdoc(item.agreementId)"
                 >
                   <i
-                    style="cursor: pointer; font-size: 17px"
+                    style="cursor: pointer; font-size: 15px;padding:0"
                     class="fa-solid fa-file-contract"
                   ></i>
                 </button>
@@ -3032,7 +3051,7 @@
                   style="
                     color: white;
                     border: 1px solid white;
-                    border-radius: 4px;
+                    border-radius: 4px;font-size: 17px;padding:0
                   "
                   (click)="viewsignedagreementdoc(item.agreementId)"
                   [disabled]="
@@ -3046,7 +3065,7 @@
                   }"
                 >
                   <i
-                    style="cursor: pointer; font-size: 17px"
+                    style="cursor: pointer; font-size: 17px;padding:0"
                     class="fa-solid fa-file-contract"
                     [ngClass]="{
                       'disabled-icon':
@@ -3064,7 +3083,7 @@
             </tbody>
           </table>
         </div>
-        <div class="text-end mt-3">
+        <div class="text-end mt-2">
           <pagination-controls
             id="pagination6"
             (pageChange)="currentagreement = $event"
@@ -3232,7 +3251,7 @@
                 "
               >
                 <i
-                  style="cursor: pointer; font-size: 17px"
+                  style="cursor: pointer; font-size: 15px;padding:0"
                   class="fa fa-eye"
                   (click)="Viewcustomerbranch(item.branchId)"
                 ></i>
@@ -3243,7 +3262,7 @@
                 "
               >
                 <i
-                  style="cursor: pointer; font-size: 17px"
+                  style="cursor: pointer; font-size: 15px;padding:0"
                   class="fa fa-eye"
                   (click)="Viewonlinecustomerbranch(item.branchId)"
                 ></i>
@@ -3251,7 +3270,7 @@
 
               <td [hidden]="valuebranchkyc !== 'Entity View Branch-KYC'">
                 <i
-                  style="cursor: pointer; font-size: 17px"
+                  style="cursor: pointer; font-size: 15px;padding:0"
                   class="fa fa-eye"
                   (click)="
                     Viewkycbranch(item.branchId, item.entityModel?.merchantId)
@@ -3262,7 +3281,7 @@
                 [hidden]="valuebranchTerminal !== 'Entity View Branch-Terminal'"
               >
                 <i
-                  style="cursor: pointer; font-size: 17px"
+                  style="cursor: pointer; font-size: 15px;padding:0"
                   class="fa fa-eye"
                   (click)="
                     ViewTerminal(item.branchId, item.entityModel?.merchantId)
@@ -3276,6 +3295,7 @@
                   color="primary"
                   [checked]="item.accountStatus == 1"
                   (change)="status($event, item.branchId)"
+                    style="transform: scale(0.9);padding:0"
                 >
                 </mat-slide-toggle>
               </td>
@@ -3286,6 +3306,7 @@
                       text-align: center;
                       cursor: pointer;
                       font-size: 15px;
+                      padding:0;
                       color: #545497;
                     "
                     (click)="branchedit(item)"
@@ -3302,7 +3323,7 @@
             </tbody>
           </table>
         </div>
-        <div class="text-end mt-3">
+        <div class="text-end mt-2 ">
           <pagination-controls
             id="pagination7"
             (pageChange)="currentbranch = $event"

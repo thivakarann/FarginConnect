@@ -67,8 +67,8 @@ export class EditRoleComponent implements OnInit {
  
  
     this.editRole = this.formbuilder.group({
-      roleName: ['', Validators.required],
-      permission: ['', Validators.required],
+      roleName: ['', [Validators.required,Validators.pattern(/^[A-Za-z ]{1,50}$/)]], 
+           permission: ['', Validators.required],
       subPermission: ['', Validators.required]
     })
  

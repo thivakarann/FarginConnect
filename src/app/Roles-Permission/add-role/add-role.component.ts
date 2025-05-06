@@ -42,7 +42,7 @@ export class AddRoleComponent implements OnInit {
     })
 
     this.roleformGroup = this.fb.group({
-      roleName: ['', [Validators.required]],
+      roleName: ['', [Validators.required,Validators.pattern(/^[A-Za-z ]{1,50}$/)]],
       permission: ['', [Validators.required]],
       subPermission: ['', [Validators.required]]
 

@@ -133,6 +133,12 @@ article.card.customer-details ul li i {
 *,
 html {
   scroll-behavior: smooth;
+
+
+}
+*
+{
+  scrollbar-width: thin;
 }
  
 *,
@@ -518,7 +524,7 @@ body {
   color: white;
   font-family: sans-serif;
   text-decoration: none;
-  font-size: 1em;
+ 
   text-align: center;
   border: none;
   border-radius: 5px;
@@ -822,7 +828,6 @@ button.buttonDownload:disabled {
 }
 
 .manual{
-  font-size: 25px; 
   color: green
 }
 button.manual:disabled {
@@ -833,9 +838,6 @@ button.manual:disabled {
   border: 1px solid #999999; /* Modifies the border styling */
 }
 
-.editcustom{
-  font-size: 16px; color: rgb(39, 39, 95);border:none
-}
 
 button.editcustom:disabled {
   cursor: not-allowed; /* Indicates the button is not clickable */

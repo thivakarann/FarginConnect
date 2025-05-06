@@ -894,7 +894,7 @@
     <div class="well" style="margin-top: 2%;" *ngIf="KYCdetails==true">
         <h4 class="card-header" style="font-weight: 500">3.KYC Details</h4>
         <mat-horizontal-stepper linear>
-            <mat-step [stepControl]="firstFormGroup" label="Step 1">
+            <mat-step [stepControl]="firstFormGroup" [completed]="false">
                 <form [formGroup]="firstFormGroup">
                     <ng-template matStepLabel>Identity</ng-template>
 
@@ -990,7 +990,7 @@
                     </div>
                 </form>
             </mat-step>
-            <mat-step [stepControl]="secondFormGroup" label="Step 2">
+            <mat-step [stepControl]="secondFormGroup" [completed]="false">
                 <form [formGroup]="secondFormGroup">
                     <ng-template matStepLabel>Address</ng-template>
 
@@ -1089,7 +1089,7 @@
                 </form>
             </mat-step>
 
-            <mat-step [stepControl]="thirdFormGroup" label="Step 3">
+            <mat-step [stepControl]="thirdFormGroup" [completed]="false" >
                 <form [formGroup]="thirdFormGroup">
                     <ng-template matStepLabel>Signature</ng-template>
                     <div class="form__row">

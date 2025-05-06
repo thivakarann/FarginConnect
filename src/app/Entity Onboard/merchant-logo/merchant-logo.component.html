@@ -1,4 +1,4 @@
-<i class="fa-solid fa-xmark" matDialogClose style="    margin-left: 95%;
+<i  style="    margin-left: 95%;
 font-size: 27px;
 margin-bottom: 1px;
 margin-top: 4px;
@@ -30,7 +30,8 @@ color: red;
 <div class="p-2">
     <form [formGroup]="logoUpdate">
         <label  class="form__label">Logo</label>
-        <input class="form-control sm"  type="file" name="logo" formControlName="merchantlogo" (change)="getlogoId($event)">
+        <input class="form-control sm" style="margin-bottom: 7px;"  type="file" name="logo" formControlName="merchantlogo" (change)="getlogoId($event)">
         <button [disabled]="logoUpdate.invalid"  class="buttonDownload mt-2" (click)="Update()">Update</button>
+        <button class="buttonDownloads mt-2" matDialogClose>Cancel</button>
     </form>
 </div>

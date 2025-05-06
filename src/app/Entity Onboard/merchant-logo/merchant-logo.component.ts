@@ -78,7 +78,7 @@ converttohhttps(Url: string): string {
 
     // Ensure this.uploadImage is not null
     if (this.upload) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
+      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg'];
 
       if (acceptableTypes.includes(this.upload.type)) {
         if (this.upload.size <= 20 * 1024 * 1024) {

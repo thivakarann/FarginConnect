@@ -74,12 +74,16 @@ export class TerminalTransactionsComponent {
   roleName = sessionStorage.getItem('roleName')
   valuestaticexport:any;
   terminalId: any;
-
+  maxDate:any;
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private ActivateRoute: ActivatedRoute, private router: Router, private location: Location) { }
 
 
 
   ngOnInit(): void {
+
+    const today = new Date();
+    this.maxDate = moment(today).format('yyyy-MM-DD').toString()
+
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.merchantId=param.Alldata1;
       this.terminalId=param.Alldata;
@@ -380,5 +384,9 @@ export class TerminalTransactionsComponent {
 
   close() {
     this.location.back()
+  }
+  checkDate(){
+    this.ToDateRange = ''
+    // this.FromDateRange =''
   }
 }

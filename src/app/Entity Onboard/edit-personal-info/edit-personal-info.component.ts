@@ -150,7 +150,7 @@ export class EditPersonalInfoComponent implements OnInit {
 
       smsMerchantName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$'),
+        Validators.pattern('^[A-Za-z ]*$'),
         Validators.maxLength(25)
 
       ]),

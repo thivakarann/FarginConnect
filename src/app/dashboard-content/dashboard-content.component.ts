@@ -272,7 +272,7 @@ export class DashboardContentComponent {
   }
   onMerchantChange(event: any) {
     this.selectedmerchant = +event.target.value;
-    this.fetchMerchantData(this.selectedmerchant);
+    // this.fetchMerchantData(this.selectedmerchant);
     this.service
       .dashboardoverallmerchantids(this.selectedmerchant)
       .subscribe((res: any) => {
