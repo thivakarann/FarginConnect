@@ -23,6 +23,7 @@ export class KycbranchImageComponent {
   file5: any;
   file6: any;
 pdfSrc: any;
+kycbranchimage!:FormGroup;
  
   constructor(private service: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog,private toastr:ToastrService) { }
  

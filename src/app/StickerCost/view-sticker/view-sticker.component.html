@@ -31,9 +31,9 @@
             </div> -->
        
  
-            <button [hidden]="valuestickeradd!=='View Sticker-Add'" style="color:white;background-color: #141E46;border-radius: 10px;" class="custom-btn btn-10 me-3"
-                data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button (click)="AddSticker()">Create</button>
-              <!-- [hidden]="valuesmsadd!=='SMS Cost-Add'" -->
+            <button [hidden]="valuestickeradd!=='Sticker-Update'" style="color:white;background-color: #141E46;border-radius: 10px;" class="custom-btn btn-10 me-3"
+                data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button (click)="AddSticker()">Update</button>
+           
 
 
         </div>
@@ -90,30 +90,38 @@
                 </ng-container>
 
                 <ng-container matColumnDef="createdBy">
-                    <th mat-header-cell *matHeaderCellDef>Created By</th>
+                    <th mat-header-cell *matHeaderCellDef>Updated By</th>
                     <td mat-cell *matCellDef="let viewall">{{viewall.createdBy
                         }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="View">
+                    <th [hidden]="valuestickerstatus!=='Sticker-History'" mat-header-cell *matHeaderCellDef mat-sort-header >History</th>
+                    <td [hidden]="valuestickerstatus!=='Sticker-History'" style="text-wrap: wrap;" mat-cell *matCellDef="let data">
+                        <i style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
+                            (click)="view(data.stickerId)"></i>
+                    </td>
                 </ng-container>
      
      
                 <ng-container matColumnDef="createdDateTime">
-                    <th mat-header-cell *matHeaderCellDef> Created At</th>
+                    <th mat-header-cell *matHeaderCellDef> Updated At</th>
                     <td mat-cell *matCellDef="let viewall">{{viewall.createdDateTime | date:'dd/MM/yyyy hh:mm a' }}
                     </td>
                 </ng-container>
      
-                <ng-container matColumnDef="modifiedBy">
+                <!-- <ng-container matColumnDef="modifiedBy">
                     <th mat-header-cell *matHeaderCellDef>Modified By</th>
                     <td mat-cell *matCellDef="let viewall">{{viewall.modifiedBy
                         }}</td>
-                </ng-container>
+                </ng-container> -->
      
      
-                <ng-container matColumnDef="modifiedDateTime">
+                <!-- <ng-container matColumnDef="modifiedDateTime">
                     <th mat-header-cell *matHeaderCellDef>Modified At</th>
                     <td mat-cell *matCellDef="let viewall">{{viewall.modifiedDateTime|date:'dd/MM/yyyy hh:mm a' }}
                     </td>
-                </ng-container>
+                </ng-container> -->
      
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>

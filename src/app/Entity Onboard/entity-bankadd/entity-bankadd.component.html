@@ -91,7 +91,7 @@
           </div>
         </div>
         <div class="col-sm-4 form-group">
-          <label for="state" class="form__label">PG Ledger ID</label>
+          <label for="state" class="form__label">PG Ledger ID (Optional)</label>
           <input
             type="text"
             formControlName="ledgerId"
@@ -103,12 +103,12 @@
                     *ngIf="ledgerId?.invalid && ledgerId?.touched && ledgerId?.errors?.['pattern']">
                     Must be exactly 4 digits and only numbers are allowed.
                 </div> -->
-          <div
+          <!-- <div
             style="color: red; font-size: 12px; margin-top: 2px"
             *ngIf="ledgerId?.invalid && ledgerId?.touched && ledgerId?.errors?.['required']"
           >
             Field is required
-          </div>
+          </div> -->
 
           <div
             style="color: red; font-size: 12px; margin-top: 2px"

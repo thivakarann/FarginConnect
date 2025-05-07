@@ -8,10 +8,10 @@
  
  
 <div class="p-2">
-  <form>
+  <form [formGroup]="documentupload"> 
     <label class="form__label">Image/PDF</label>
     <input class="form-control sm" type="file" name="document" formControlName="Image" (change)="getimageId($event)">
-    <button class="buttonDownload mt-2" (click)="Update()">Update</button>
+    <button  [disabled]="documentupload.invalid" class="buttonDownload mt-2"  (click)="Update()">Update</button>
   </form>
 </div>
  

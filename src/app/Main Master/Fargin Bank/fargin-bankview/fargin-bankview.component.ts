@@ -31,6 +31,7 @@ export class FarginBankviewComponent {
     'ifscCode',
     'branchName',
     'ledgerId',
+    'View',
     // 'createdBy',
     // 'createdDateTime',
     'modifiedBy',
@@ -114,8 +115,7 @@ export class FarginBankviewComponent {
 
 
     this.service.Farginview().subscribe((res: any) => {
-      this.viewall = res.response;
-      this.viewall.reverse();
+      this.viewall = res.response.reverse();
       this.dataSource = new MatTableDataSource(this.viewall);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
@@ -137,7 +137,14 @@ export class FarginBankviewComponent {
       this.fetchfarginbankview();
     });
     
-  }
+  };
+
+
+  view(id: any) {
+    this.router.navigate([`dashboard/fargin-bank-history/${id}`], {
+      queryParams: { Alldata: id },
+    });
+  };
 
   fetchfarginbankview(){
     this.service.Farginview().subscribe((res: any) => {
@@ -249,10 +256,10 @@ export class FarginBankviewComponent {
       this.response.push(element?.branchName);
       this.response.push(element?.ledgerId);
    
-      this.response.push(element.modifiedBy);
+      this.response.push(element.createdBy);
     
-      if (element?.modifiedDateTime) {
-        let issuedatas = element?.modifiedDateTime;
+      if (element?.createdDateTime) {
+        let issuedatas = element?.createdDateTime;
         this.date2 = moment(issuedatas).format('DD/MM/yyyy hh:mm a').toString();
         this.response.push(this.date2);
       }
@@ -276,8 +283,6 @@ export class FarginBankviewComponent {
       'IFSCCode',
       'BranchName',
       'LedgerId',
-      // 'Created By',
-      // 'Created At',
       'Updated By',
       "Updated At"
     ]
@@ -321,9 +326,7 @@ export class FarginBankviewComponent {
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
-      // let qty10 = row.getCell(11);
-      // let qty11 = row.getCell(12);
-      // let qty12 = row.getCell(13);
+  
 
 
 
@@ -338,15 +341,9 @@ export class FarginBankviewComponent {
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      // qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      // qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      // qty12.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
 
     }
     );
-    // worksheet.getColumn(1).protection = { locked: true, hidden: true }
-    // worksheet.getColumn(2).protection = { locked: true, hidden: true }
-    // worksheet.getColumn(3).protection = { locked: true, hidden: true }
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       FileSaver.saveAs(blob, 'Fargin bank details.xlsx');

@@ -4,15 +4,14 @@
 </div>
 
 <body class="page">
-    <main class="main page__main">
+    <main style="height:400px;max-height:500px;overflow-y:scroll" class="main page__main">
         <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="myForm">
 
             <div class=" mb-3">
             
                 <div class="form-group">
                     <label for="critical">Report Title</label>
-                    <select (change)="exportpay($event)" class="form-select" formControlName="exportDataName" required>
-                        
+                    <select (change)="exportpay($event)" class="form-select" formControlName="exportDataName" required> 
                         <option value="" selected hidden>Select an Option</option>
                         <option value="12">Entity Onboard</option>
                         <option value="22">Customer</option> 
@@ -27,8 +26,8 @@
                          <option value="16">Entity Request</option>
                          <option value="17">Customer Request</option>
                         <option value="18">Channel Creation</option> 
-                        
-                      
+                        <option value="6">Static QR Transactions</option>
+                        <option value="23">Branch</option>
                     </select>
                     <div style="
                     color: red;
@@ -74,7 +73,51 @@
                     </div> -->
                   </div>
 
-                <div [hidden]="exportDataName?.value != '4' && exportDataName?.value != '7' && exportDataName?.value != '13' && exportDataName?.value != '14'&& exportDataName?.value != '19' " class="form__linput">
+                  <!-- for static QR -->
+                   
+                  <div [hidden]="exportDataName?.value != '6' && exportDataName?.value != '23'" class="form-group">
+                    <label for="website">Search Entity</label>
+                    <div class="input-group">
+                        <input  [required]="exportDataName?.value == '6' && exportDataName?.value == '23'"  type="text" class="form-control custom-input" formControlName="staticoption"
+                               [(ngModel)]="customerInput" placeholder="Search Entity Name"
+                               (input)="onInputChange()" (focus)="showSuggestions = true" (blur)="hideSuggestions()" />
+                        <ul class="suggestion-box" *ngIf="showSuggestions && options.length > 0">
+                            <li *ngFor="let item of options" (mousedown)="onSearchClick(item.entityName,$event)">
+                                {{ item.entityName }}
+                            </li>
+                        </ul>
+                    </div>
+                    <div *ngIf="isNoDataFound" style="color: red; font-size: 12px; margin-top: 2px;">Entity name Not Found</div>
+                    <div *ngIf="errorShow" style="color: red; font-size: 12px; margin-top: 2px;">Data not available</div>
+                    <div *ngIf="staticoption?.invalid && staticoption?.touched" style="color: red; font-size: 12px; margin-top: 2px;">
+                        Field is required
+                    </div>
+                </div>
+
+                  <!-- Branch  -->
+                  <div [hidden]="exportDataName?.value != '23'" class="form-group">
+                    <label for="website">Branch Name</label>
+                    <!-- <input type="text" id="website" class="form-control" formControlName="branchId"> -->
+                    <select   [required]="exportDataName?.value == '23'" (change)="onBranchChange($event)" formControlName="branchId" id="branchId" class="form-select">
+                        <option value="" disabled selected>Select</option>
+                        <option *ngFor="let item of branchviews" [value]="item.branchId">
+                            {{item.branchName}}</option>
+
+                    </select>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative; 
+                  " *ngIf="branchId?.invalid && branchId?.touched && branchId?.errors?.['required']">
+              Field is required*
+            </div>
+                </div>
+                <!-- Branch  -->
+                
+                   <!-- Static qr -->
+
+                <div [hidden]="exportDataName?.value != '4' && exportDataName?.value != '7' && exportDataName?.value != '13' && exportDataName?.value != '14'&& exportDataName?.value != '19' && exportDataName?.value != '23'" class="form__linput">
                     <label for="paymentStatus">Payment Status (Optional)</label>
                     <select formControlName="paymentStatus" type="text" id="fname" class="form-select">
                         <option value="Success">Success</option>

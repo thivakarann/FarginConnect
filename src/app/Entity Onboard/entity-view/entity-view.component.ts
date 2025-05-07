@@ -892,6 +892,24 @@ export class EntityViewComponent implements OnInit {
       }
       else {
         this.toastr.error(res.responseMessage)
+        setTimeout(() => {
+          this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+            this.details = res.response;
+
+
+            this.detaislone = res.response.merchantpersonal;
+            this.bankdetails = res.response.merchantbank.reverse();
+            this.KYCDetails = res.response.merchantkycdocument;
+            this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
+
+            this.identityProof = res.response.merchantkycdocument[0].identityProof;
+            this.addressProof = res.response.merchantkycdocument[0].addressProof;
+            this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
+            this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
+
+
+          })
+        }, 500);
       }
     })
   }

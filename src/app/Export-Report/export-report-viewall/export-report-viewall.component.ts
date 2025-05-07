@@ -16,15 +16,16 @@ import { ExportReportAddComponent } from '../export-report-add/export-report-add
   templateUrl: './export-report-viewall.component.html',
   styleUrl: './export-report-viewall.component.css'
 })
-export class ExportReportViewallComponent implements OnInit{
+export class ExportReportViewallComponent implements OnInit {
   dataSource: any;
   displayedColumns: string[] = [
     'exportId',
     'exportDataName',
-    'entityname', 
+    'entityname',
     'exportStartDate',
     'exportEndDate',
     'paymentStatus',
+    // 'Branchname',
     'resultStatus',
     'exportAt',
     'Download',
@@ -58,16 +59,46 @@ export class ExportReportViewallComponent implements OnInit{
   @ViewChild('ExportSearch') exportSearchTemplate!: TemplateRef<any>;
   exportreport: any = FormGroup;
   search: any;
+  value: any;
 
   constructor(
     public service: FarginServiceService,
     private router: Router,
-    private dialog: MatDialog, 
+    private dialog: MatDialog,
     public loaderService: LoaderService,
     public fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
+
+
+
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+
+
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+
+          if (this.roleId == 1) {
+            this.value = 'Export Report-Download'
+
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+              if (this.actions == 'BExport Report-Download') {
+                this.value = 'Export Report-Download'
+              }
+
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    });
 
     this.exportreport = this.fb.group({
       exportDataName: ['', [Validators.required]],
@@ -75,10 +106,10 @@ export class ExportReportViewallComponent implements OnInit{
       merchantId: ['']
     });
 
- 
+
     this.service.ExportReportGet().subscribe((res: any) => {
       if (res.flag == 1) {
-        this.viewall = res.response; 
+        this.viewall = res.response;
         this.dataSource = new MatTableDataSource(this.viewall);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -111,11 +142,11 @@ export class ExportReportViewallComponent implements OnInit{
   // }
 
 
-    // if (this.subscription) {
-    //   this.subscription.unsubscribe();
-    // }
-  
-  
+  // if (this.subscription) {
+  //   this.subscription.unsubscribe();
+  // }
+
+
 
   AddReport() {
     const dialogRef = this.dialog.open(ExportReportAddComponent, {
@@ -130,10 +161,10 @@ export class ExportReportViewallComponent implements OnInit{
   }
 
 
-  fetchexportreportview(){
+  fetchexportreportview() {
     this.service.ExportReportGet().subscribe((res: any) => {
       if (res.flag == 1) {
-        this.viewall = res.response; 
+        this.viewall = res.response;
         this.dataSource = new MatTableDataSource(this.viewall);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -152,14 +183,14 @@ export class ExportReportViewallComponent implements OnInit{
 
   reload() {
     this.service.ExportReportGet().subscribe((res: any) => {
-      this.viewall = res.response; 
+      this.viewall = res.response;
       this.dataSource = new MatTableDataSource(this.viewall);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     });
   }
 
- 
+
 
 
   applyFilter(event: Event) {
@@ -171,11 +202,10 @@ export class ExportReportViewallComponent implements OnInit{
     }
   }
 
-  pagerefresh()
-  {
+  pagerefresh() {
     this.service.ExportReportGet().subscribe((res: any) => {
       if (res.flag == 1) {
-        this.viewall = res.response; 
+        this.viewall = res.response;
         this.dataSource = new MatTableDataSource(this.viewall);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -188,36 +218,36 @@ export class ExportReportViewallComponent implements OnInit{
     });
   }
 
-   submit() {
-      // let submitModel:ExportReportSearch= {
-      //   exportDataName:this.exportDataName?.value,
-      //   merchantId:this.merchantId,
-      //   paymentStatus:this.paymentStatus?.value||''
-      // }
- 
-      // this.service.ExportReportSearch(submitModel).subscribe((res:any) => {
-      //   if (res.flag==1) {
-      //     this.dialog.closeAll();
-      //     this.close()
-      //     this.toastr.success(res.responseMessage);
-      //     this.search=res.response;
-      //     this.dataSource=new MatTableDataSource(this.search);
-      //     this.dataSource.sort=this.sort;
-      //     this.dataSource.paginator=this.paginator;
-        
-               
-      //   }
-      //   else {
-      //     this.toastr.error(res.responseMessage);
-      //   }
-      // })
-    }
- 
-  
-     
-exportpay(event:any) {
-  this.exportreport.get('paymentStatus')?.setValue('');
-}
+  submit() {
+    // let submitModel:ExportReportSearch= {
+    //   exportDataName:this.exportDataName?.value,
+    //   merchantId:this.merchantId,
+    //   paymentStatus:this.paymentStatus?.value||''
+    // }
+
+    // this.service.ExportReportSearch(submitModel).subscribe((res:any) => {
+    //   if (res.flag==1) {
+    //     this.dialog.closeAll();
+    //     this.close()
+    //     this.toastr.success(res.responseMessage);
+    //     this.search=res.response;
+    //     this.dataSource=new MatTableDataSource(this.search);
+    //     this.dataSource.sort=this.sort;
+    //     this.dataSource.paginator=this.paginator;
+
+
+    //   }
+    //   else {
+    //     this.toastr.error(res.responseMessage);
+    //   }
+    // })
+  }
+
+
+
+  exportpay(event: any) {
+    this.exportreport.get('paymentStatus')?.setValue('');
+  }
 
   Exportsearch() {
     this.dialog.open(this.exportSearchTemplate, {
@@ -233,11 +263,11 @@ exportpay(event:any) {
     this.dialog.closeAll();
   }
 
-  ExportDownload(id: any, exportDataName: number) { 
+  ExportDownload(id: any, exportDataName: number) {
     enum ExportDataName {
       CustomerPayment = 4,
       AdditionalTransactions = 7,
-      EntityOnboard =12,
+      EntityOnboard = 12,
       CloudFeePayment = 13,
       OneTimePayment = 14,
       ChannelCreation = 18,
@@ -248,6 +278,8 @@ exportpay(event:any) {
       OnlineRefund = 20,
       CloudFeeAutodebit = 21,
       Customer = 22,
+      StaticQRTransaction = 6,
+      Branch = 23,
     }
 
     const dataNameMapping: Record<ExportDataName, string> = {
@@ -264,10 +296,12 @@ exportpay(event:any) {
       [ExportDataName.OnlineRefund]: 'Online_Refund',
       [ExportDataName.CloudFeeAutodebit]: 'CloudFee_Autodebit',
       [ExportDataName.Customer]: 'Customer',
+      [ExportDataName.StaticQRTransaction]: 'StaticQRTransaction',
+      [ExportDataName.Branch]: 'Branch',
     };
- 
+
     const fileName = dataNameMapping[exportDataName as ExportDataName] || 'Exported_Report';
- 
+
     this.service.ExportReportDownload(id).subscribe((res: any) => {
 
       const blob = new Blob([res], { type: 'text/csv;charset=utf-8;' });

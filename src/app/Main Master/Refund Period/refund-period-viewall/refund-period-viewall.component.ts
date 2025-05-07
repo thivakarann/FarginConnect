@@ -25,6 +25,7 @@ export class RefundPeriodViewallComponent implements OnInit {
     'paymentMethod',
     'day',
     'Edit',
+    'View',
     'createdBy',
     'createdDateTime',
     'modifiedBy',
@@ -39,14 +40,15 @@ export class RefundPeriodViewallComponent implements OnInit {
   date2: any;
   responseDataListnew: any = [];
   response: any = [];
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId');
   getdashboard: any[] = [];
   valueexport: any;
   errorMessage: any;
   actions: any;
   valueadd: any;
   valueedit: any;
-  searchPerformed: boolean=false;
+  searchPerformed: boolean = false;
+  History:any;
 
   constructor(
     public refunddetails: FarginServiceService,
@@ -67,6 +69,7 @@ export class RefundPeriodViewallComponent implements OnInit {
             this.valueexport = 'Refund Period-Export'
             this.valueadd = 'Refund Period-Add'
             this.valueedit = 'Refund Period-Edit'
+            this.History = 'Refund Period-History'
 
           }
           else {
@@ -82,6 +85,10 @@ export class RefundPeriodViewallComponent implements OnInit {
                 this.valueedit = 'Refund Period-Edit'
               }
 
+              if (this.actions == 'Refund Period-History') {
+                this.History = 'Refund Period-History'
+              }
+
             }
           }
         }
@@ -93,24 +100,22 @@ export class RefundPeriodViewallComponent implements OnInit {
 
 
     this.refunddetails.RefundperiodGetall().subscribe((res: any) => {
-      if(res.flag==1)
-      {
+      if (res.flag == 1) {
         this.viewall = res.response;
         this.viewall.reverse();
         this.dataSource = new MatTableDataSource(this.viewall);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-  
+
       }
-      else if(res.flag==2)
-      {
+      else if (res.flag == 2) {
         this.viewall = [];
-       
+
         this.dataSource = new MatTableDataSource(this.viewall);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
-     
+
     });
   }
 
@@ -128,62 +133,63 @@ export class RefundPeriodViewallComponent implements OnInit {
       exitAnimationDuration: "800ms",
       disableClose: true
     })
-  
+
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
       this.fetchrefund();
     });
   }
 
+  view(id: any) {
+    this.router.navigate([`dashboard/refund-period-history/${id}`], {
+      queryParams: { Alldata: id },
+    });
+  };
 
-  fetchrefund(){
+  fetchrefund() {
     this.refunddetails.RefundperiodGetall().subscribe((res: any) => {
-      if(res.flag==1)
-      {
+      if (res.flag == 1) {
         this.viewall = res.response;
         this.viewall.reverse();
         this.dataSource = new MatTableDataSource(this.viewall);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-  
+
       }
-      else if(res.flag==2)
-      {
+      else if (res.flag == 2) {
         this.viewall = [];
-       
+
         this.dataSource = new MatTableDataSource(this.viewall);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
-     
+
     });
   }
 
   reload() {
     this.refunddetails.RefundperiodGetall().subscribe((res: any) => {
-      if(res.flag==1)
-      {
+      if (res.flag == 1) {
         this.viewall = res.response;
         this.viewall.reverse();
         this.dataSource = new MatTableDataSource(this.viewall);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-  
+
       }
-      else if(res.flag==2)
-      {
+      else if (res.flag == 2) {
         this.viewall = [];
-       
+
         this.dataSource = new MatTableDataSource(this.viewall);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
-     
+
     });
 
   }
 
   Editrefunds(id: any) {
-    const dialogRef =   this.dialog.open(RefundPeriodEditComponent, {
+    const dialogRef = this.dialog.open(RefundPeriodEditComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: "1000ms",
       data: { value: id },

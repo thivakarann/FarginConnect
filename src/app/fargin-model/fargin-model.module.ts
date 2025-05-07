@@ -1545,5 +1545,36 @@ export interface entityterminaltransaction{
       readonly merchantId: any;
       readonly paymentStatus: any;
       readonly type: any;
+      readonly branchId:any;
     }
     
+    export interface ExportReportstatic{
+      readonly createdBy: any,
+      readonly exportDataName: any,
+      readonly exportType:any;
+      readonly dateRange: any,
+      readonly merchantId: any,
+      readonly pageNo: any,
+      readonly query: any,
+      readonly size: any,
+      readonly status: any,
+      readonly terminalId: any,
+      readonly exportStartDate:any,
+      readonly exportEndDate:any,
+      readonly type:any,
+      readonly branchId:any;
+    }
+
+    export interface ExportReportBranch{
+      readonly createdBy:any;
+      readonly exportDataName:any;
+      readonly exportStartDate:any;
+      readonly exportEndDate:any;
+      readonly merchantId:any;
+      readonly branchId:any;
+      readonly exportType:any;
+      readonly paymentStatus:any;
+      readonly type:any;
+    }
+   
+ 

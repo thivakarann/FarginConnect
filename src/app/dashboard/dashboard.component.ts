@@ -73,6 +73,7 @@ export class DashboardComponent implements OnInit {
   values: any = ''
   Redirect: any;
   valueEntityDashboard:any;
+  valueReport:any;
 
 
   constructor(private elRef: ElementRef,
@@ -159,6 +160,7 @@ export class DashboardComponent implements OnInit {
       this.valuestickercost = 'Sticker Cost'
       this.valuecampign = 'Campaign'
       this.valuerefundper = 'Refund Period'
+      this.valueReport = 'Export Report'
 
     }
     else {
@@ -320,6 +322,9 @@ export class DashboardComponent implements OnInit {
         }
         if (this.roles == 'Bank Details') {
           this.valuebankdetails = 'Bank Details'
+        }
+        if (this.roles == 'Export Report') {
+          this.valueReport = 'Export Report'
         }
       }
     }

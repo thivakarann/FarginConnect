@@ -34,15 +34,15 @@
                 </div>
                
               <div class="form-group ">
-                <div class="input-container" style="position: relative;">
+                <!-- <div class="input-container" style="position: relative;"> -->
                   <input class="pass1" type="password" placeholder="Password" formControlName="password" #passwordInput>
                   <i class="fa-solid fa-eye-slash" id="eye"
                       [ngClass]="{
                         'fa-eye-slash': !showPassword,
                         'fa-eye': showPassword
                       }" (click)="togglePasswordVisibility(passwordInput)"
-                      style="position: absolute; right: 10px; top: 40%; transform: translateY(-50%);"></i>
-                </div>
+                      ></i>
+                <!-- </div> -->
                
                 <div class="error"  *ngIf="password?.invalid && password?.touched && password?.errors?.['required']">
                     Field is required

@@ -119,6 +119,11 @@ import { BranchOnlinetransactionsComponent } from './Entity Onboard/branch-onlin
 import { BranchWiseenitytransactionComponent } from './Entity Onboard/branch-onlinetransactions/branch-wiseenitytransaction/branch-wiseenitytransaction.component';
 import { RedirectPageComponent } from './redirect-page/redirect-page.component';
 import { ExportReportViewallComponent } from './Export-Report/export-report-viewall/export-report-viewall.component';
+import { StickerHistoryComponent } from './StickerCost/sticker-history/sticker-history.component';
+import { SignerHistoryComponent } from './Main Master/Fargin Signer Details/signer-history/signer-history.component';
+import { SmsHistoryComponent } from './Main Master/SMS Cost/sms-history/sms-history.component';
+import { FarginBankHistoryComponent } from './Main Master/Fargin Bank/fargin-bank-history/fargin-bank-history.component';
+import { RefundPeriodHistoryComponent } from './Main Master/Refund Period/refund-period-history/refund-period-history.component';
 
 const routes: Routes = [
 
@@ -249,8 +254,12 @@ const routes: Routes = [
       {path:'view-record/:id',component:ViewRecordcampaignsComponent,canActivate: [authGuard]},
       {path:'maintenanceotherpay-view/:id',component:MaintenanceotherpayViewComponent,canActivate: [authGuard]},
       {path:'dashboardmerchant',component:DashboardMerchantcontentComponent,canActivate: [authGuard]},
-      
+      {path:'sticker-history/:id',component:StickerHistoryComponent,canActivate:[authGuard]},
+      {path:'signer-history/:id',component:SignerHistoryComponent,canActivate:[authGuard]},
+      {path:'sms-history/:id',component:SmsHistoryComponent,canActivate:[authGuard]},
+      {path:'fargin-bank-history/:id',component:FarginBankHistoryComponent,canActivate:[authGuard]},
       {path:'branch-onlinetransactions/:id',component:BranchOnlinetransactionsComponent,canActivate: [authGuard]},
+      {path:'refund-period-history/:id',component:RefundPeriodHistoryComponent,canActivate:[authGuard]},
             
       {path:'branch-wiseenitytransaction/:id',component:BranchWiseenitytransactionComponent,canActivate: [authGuard]},
       // {path:'merchant-additional/:id',component:MercahntbasedadditionalComponent,canActivate: [authGuard]},

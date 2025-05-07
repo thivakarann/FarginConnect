@@ -24,8 +24,9 @@ export class ViewStickerComponent {
     'deliveryDays',
     'createdBy',
     'createdDateTime',
-    'modifiedBy',
-    'modifiedDateTime',
+    // 'modifiedBy',
+    // 'modifiedDateTime',
+    "View"
   ];
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
@@ -43,10 +44,10 @@ export class ViewStickerComponent {
   roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
-  valuestickeradd:any;
-  valuestickerstatus:any;
+  valuestickeradd: any;
+  valuestickerstatus: any;
 
-  
+
   constructor(
     public service: FarginServiceService,
     private router: Router,
@@ -62,20 +63,20 @@ export class ViewStickerComponent {
           this.getdashboard = res.response?.subPermission;
 
           if (this.roleId == 1) {
-            this.valuestickeradd = 'View Sticker-Add';
-            this.valuestickerstatus = 'View Sticker-Status';
+            this.valuestickeradd = 'Sticker-Update';
+            this.valuestickerstatus = 'Sticker-History';
           }
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
-              
-              if (this.actions == 'View Sticker-Add') {
-                this.valuestickeradd = 'View Sticker-Add';
+
+              if (this.actions == 'Sticker-Update') {
+                this.valuestickeradd = 'Sticker-Update';
               }
-              if (this.actions == 'View Sticker-Status') {
-                this.valuestickerstatus = 'View Sticker-Status';
+              if (this.actions == 'Sticker-History') {
+                this.valuestickerstatus = 'Sticker-History';
               }
-            
+
             }
           }
         }
@@ -106,9 +107,9 @@ export class ViewStickerComponent {
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
       this.fetchstickeradd();
     });
-  }
+  };
 
-  fetchstickeradd(){
+  fetchstickeradd() {
     this.service.Sticker().subscribe((res: any) => {
       this.viewall = res.response;
       this.viewall.reverse();
@@ -119,9 +120,11 @@ export class ViewStickerComponent {
   }
 
 
-  EditSMS(id: any) {
-
-  }
+  view(id: any) {
+    this.router.navigate([`dashboard/sticker-history/${id}`], {
+      queryParams: { Alldata: id },
+    });
+  };
 
 
   reload() {
@@ -150,12 +153,12 @@ export class ViewStickerComponent {
         setTimeout(() => {
           this.service.Sticker().subscribe((res: any) => {
             this.viewall = res.response;
-            
+
             this.viewall.reverse();
             this.dataSource = new MatTableDataSource(this.viewall);
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
-          });      
+          });
 
         }, 500);
 

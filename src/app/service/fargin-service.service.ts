@@ -372,7 +372,7 @@ export class FarginServiceService {
   //Tickets
   private readonly ticketsgetexport = 'customerTickets/getall';
   private readonly ticketsget = 'customerTickets/getall/';
-  private readonly ticketssearchcustomers='customerTickets/adminSearch/'
+  private readonly ticketssearchcustomers = 'customerTickets/adminSearch/'
   private readonly customerticketraise = 'customerTickets/updateTicketStatus/'
 
 
@@ -487,6 +487,7 @@ export class FarginServiceService {
   private readonly fargincreate = 'adminBankDetails/createbankdetails';
   private readonly farginstatus = 'adminBankDetails/updateStatus/';
   private readonly farginEdit = 'adminBankDetails/createbankdetails';
+  private readonly Farginbankhistory = 'adminBankDetails/getHistory/'
 
 
   //sms settings
@@ -520,14 +521,15 @@ export class FarginServiceService {
   private readonly documentedit = 'merchantdocument/updateData';
   private readonly documentapproval = 'merchantdocument/updateapproval/';
   private readonly documentImage = 'merchantdocument/viewimage/';
-  private readonly documentfrontedit = 'merchantdocument/updateFrontPath'
-  private readonly documentbackedit = 'merchantdocument/updateBacPath'
+  private readonly documentfrontedit = 'merchantdocument/updateFrontPath';
+  private readonly documentbackedit = 'merchantdocument/updateBacPath';
 
   // SMS Cost Setup
 
-  private readonly SMSCostviewall = 'smsConfig/getAmountDetails'
-  private readonly SMSCostadd = 'smsConfig/addAndUpdateAmount'
-  private readonly SMSCostStatus = 'smsConfig/updateStatus/'
+  private readonly SMSCostviewall = 'smsConfig/getAmountDetails';
+  private readonly SMSCostadd = 'smsConfig/addAndUpdateAmount';
+  private readonly SMSCostStatus = 'smsConfig/updateStatus/';
+  private readonly SMSHistory = 'smsConfig/getSmsConfigHistoryDetails/';
 
   // Auto Debit
 
@@ -599,6 +601,7 @@ export class FarginServiceService {
   private readonly SignerdetailsbyId = 'signingAdmin/viewById/';
   private readonly SignerdetaisStatus = 'signingAdmin/updateStatus';
   private readonly SignerdetailsActiveGetall = 'signingAdmin/viewOnlyActive';
+  private readonly SignerHistory = 'signingAdmin/getSigningHistory/';
 
 
   //Agreementplan
@@ -711,6 +714,7 @@ export class FarginServiceService {
   private readonly stickerget = 'stickerconfig/getall';
   private readonly stickerAdd = 'stickerconfig/create';
   private readonly stickerstatus = 'stickerconfig/updatestatus/';
+  private readonly StickerHistory = 'stickerconfig/getStickerHistory/'
   //Campagin
   private addcampagins = 'emailbroadcaster/sendemail'
 
@@ -794,6 +798,7 @@ export class FarginServiceService {
   private readonly refundperiodadd = 'refundDayLimit/createRefundDays';
   private readonly refundperiodupdate = 'refundDayLimit/updateRefundDays/';
   private readonly refundperiodbyid = 'refundDayLimit/getDays/';
+  private readonly refundperiodhistory = 'refundDayLimit/viewHistory/';
 
 
   //campaign
@@ -832,17 +837,21 @@ export class FarginServiceService {
   private readonly branchonlyactives = 'bankBranch/viewbranchwithoutselect/'
 
   private readonly entityonlinebranch = 'customerpay/branchwiseTransaction/'
-  private readonly entitysearchbranch='customerpay/branchwiseSearch/';
-  private readonly entitywithbranchexports='customerpay/branchwiseTransactionExport/';
-  private readonly entitywithputbranchexports='customerpay/viewByBranchMerchantExport/'
+  private readonly entitysearchbranch = 'customerpay/branchwiseSearch/';
+  private readonly entitywithbranchexports = 'customerpay/branchwiseTransactionExport/';
+  private readonly entitywithputbranchexports = 'customerpay/viewByBranchMerchantExport/'
 
-  private readonly termspolicysearchs='policy/viewMerchantSearch/'
+  private readonly termspolicysearchs = 'policy/viewMerchantSearch/'
 
   //export report
   private readonly exportreportadd = 'exportData/add';
   private readonly exportreportview = 'exportData/getallSuperAdmin';
   private readonly exportreportdownload = 'exportData/viewExportedData/';
-
+  
+  //branch
+  private readonly branchview = 'bankBranch/viewmerchantactive/';
+  
+  
   loginError = new Subject();
 
   token = sessionStorage.getItem('token') || null;
@@ -1897,7 +1906,7 @@ export class FarginServiceService {
   Ticketscustomer(id: any, id1: any) {
     return this.http.get(`${this.basePath}${this.ticketsget}${id}/${id1}`, this.options)
   }
-  Ticketssearchcustomer(id: any, id1: any, id2:any) {
+  Ticketssearchcustomer(id: any, id1: any, id2: any) {
     return this.http.get(`${this.basePath}${this.ticketssearchcustomers}${id}/${id1}/${id2}`, this.options)
   }
   TicketscustomerExport() {
@@ -2209,6 +2218,7 @@ export class FarginServiceService {
 
 
   //Fargin banks
+
   Farginview() {
     return this.http.get(`${this.basePath}${this.farginview}`, this.options);
   }
@@ -2224,6 +2234,10 @@ export class FarginServiceService {
 
   Farginedit(model: any) {
     return this.http.put(`${this.basePath}${this.farginEdit}`, model, this.options)
+  }
+
+  FarginBankhistory(id: any) {
+    return this.http.get(`${this.basePath}${this.Farginbankhistory}${id}`, this.options)
   }
 
 
@@ -2330,6 +2344,10 @@ export class FarginServiceService {
   }
   smscoststatus(id: any, model: any) {
     return this.http.put(`${this.basePath}${this.SMSCostStatus}${id}`, model, this.options)
+  }
+
+  SMShistory(id: any) {
+    return this.http.get(`${this.basePath}${this.SMSHistory}${id}`, this.options)
   }
 
   // AUTO Debit
@@ -2550,6 +2568,10 @@ export class FarginServiceService {
 
   signeractivestatus() {
     return this.http.get(`${this.basePath}${this.SignerdetailsActiveGetall}`, this.options)
+  }
+
+  Signerhistory(id: any) {
+    return this.http.get(`${this.basePath}${this.SignerHistory}${id}`, this.options)
   }
 
   //Agreement
@@ -2794,6 +2816,10 @@ export class FarginServiceService {
 
   StickerStatus(id: any, model: any) {
     return this.http.put(`${this.basePath}${this.stickerstatus}${id}`, model, this.options)
+  }
+
+  Stickerhistory(id: any) {
+    return this.http.get(`${this.basePath}${this.StickerHistory}${id}`, this.options)
   }
   //Campagin
   addcampagin(FormData: FormData) {
@@ -3050,6 +3076,10 @@ export class FarginServiceService {
     return this.http.get(`${this.basePath}${this.refundperiodbyid}${id}`, this.options)
   }
 
+  RefundPeriodHistory(id: any) {
+    return this.http.get(`${this.basePath}${this.refundperiodhistory}${id}`, this.options)
+  }
+
   //Campaign
   viewcampaign(id: any) {
     return this.http.get(
@@ -3154,7 +3184,7 @@ export class FarginServiceService {
   entityonlinebranchs(id: any, id1: any, id2: any) {
     return this.http.get(`${this.basePath}${this.entityonlinebranch}${id}/${id1}/${id2}`, this.options)
   }
-  entitysearchbranchs(id: any, id1: any, id2: any, id3:any) {
+  entitysearchbranchs(id: any, id1: any, id2: any, id3: any) {
     return this.http.get(`${this.basePath}${this.entitysearchbranch}${id}/${id1}/${id2}/${id3}`, this.options)
   }
   entitywithbranchexport(id: any) {
@@ -3166,7 +3196,7 @@ export class FarginServiceService {
 
 
   //Terms search
-  termspolicysearch(id: any, id1: any, id2: any, id3:any) {
+  termspolicysearch(id: any, id1: any, id2: any, id3: any) {
     return this.http.get(`${this.basePath}${this.termspolicysearchs}${id}/${id1}/${id2}/${id3}`, this.options)
   }
 
@@ -3177,8 +3207,8 @@ export class FarginServiceService {
 
   ExportReportGet() {
     return this.http.get(`${this.basePath}${this.exportreportview}`, this.options)
-  } 
-  
+  }
+
   ExportReportDownload(id: any) {
     return this.http.get(`${this.basePath}${this.exportreportdownload}${id}`, {
       ...this.options,
@@ -3186,5 +3216,8 @@ export class FarginServiceService {
     });
   }
 
+    BranchView(id: any) {
+    return this.http.get(`${this.basePath}${this.branchview}${id}`, this.options)
+  }
 
 }

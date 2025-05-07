@@ -291,6 +291,11 @@ import { OtherpayManualpaymentComponent } from './Fargin Transtions/Other Paymen
 import { BranchInactivenbranchComponent } from './Entity Onboard/Branch/branch-inactivenbranch/branch-inactivenbranch.component';
 import { ExportReportViewallComponent } from './Export-Report/export-report-viewall/export-report-viewall.component';
 import { ExportReportAddComponent } from './Export-Report/export-report-add/export-report-add.component';
+import { StickerHistoryComponent } from './StickerCost/sticker-history/sticker-history.component';
+import { SignerHistoryComponent } from './Main Master/Fargin Signer Details/signer-history/signer-history.component';
+import { SmsHistoryComponent } from './Main Master/SMS Cost/sms-history/sms-history.component';
+import { FarginBankHistoryComponent } from './Main Master/Fargin Bank/fargin-bank-history/fargin-bank-history.component';
+import { RefundPeriodHistoryComponent } from './Main Master/Refund Period/refund-period-history/refund-period-history.component';
 
 
 @NgModule({
@@ -559,6 +564,11 @@ import { ExportReportAddComponent } from './Export-Report/export-report-add/expo
     BranchInactivenbranchComponent,
     ExportReportViewallComponent,
     ExportReportAddComponent,
+    StickerHistoryComponent,
+    SignerHistoryComponent,
+    SmsHistoryComponent,
+    FarginBankHistoryComponent,
+    RefundPeriodHistoryComponent,
 
   ],
 

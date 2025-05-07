@@ -36,18 +36,18 @@ export class EntityBankeditComponent implements OnInit {
   ngOnInit(): void {
 
     this.bankData = this.data.value;
-    
-    
+
+
 
     this.merchantBankId = this.data.value.merchantBankId;
 
-    this.service.activebankdetails().subscribe((res:any)=>{
+    this.service.activebankdetails().subscribe((res: any) => {
       this.BankNames = res.response.reverse();
     });
 
 
     this.BankForm = new FormGroup({
-      accountHolderName: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z ]*$'),Validators.maxLength(50)]),
+      accountHolderName: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z ]*$'), Validators.maxLength(50)]),
       accountNumber: new FormControl(null, [
         Validators.required,
         Validators.pattern("^[0-9]{9,18}$")
@@ -70,7 +70,7 @@ export class EntityBankeditComponent implements OnInit {
         Validators.pattern('^[a-zA-Z0-9 ]*$')
       ]),
 
-       ledgerId: new FormControl("", [Validators.required,Validators.pattern(/^\d{1,15}$/)]),
+      ledgerId: new FormControl("", [Validators.pattern(/^\d{1,15}$/)]),
     })
 
   }
@@ -118,7 +118,7 @@ export class EntityBankeditComponent implements OnInit {
         this.toastr.success(res.responseMessage)
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();  // Close the dialog
-      
+
       } else {
         this.toastr.error(res.responseMessage)
       }

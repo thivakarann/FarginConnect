@@ -20,12 +20,10 @@ export class SmsCostViewallComponent {
   displayedColumns: string[] = [
     'smsId',
     'amount',
-    // 'smsStatus',
-    // 'Edit',
     'createdBy',
     'createdDateTime',
-    'modifedBy',
-    'modifedDateTime',
+    "View"
+ 
   ];
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
@@ -60,9 +58,9 @@ export class SmsCostViewallComponent {
           this.getdashboard = res.response?.subPermission;
 
           if (this.roleId == 1) {
-            this.valuesmsadd = 'SMS Cost-Add';
+            this.valuesmsadd = 'SMS Cost-Update';
             // this.valuesmsedit = 'SMS Cost-Edit';
-            this.valuesmsstatus = 'SMS Cost-Status'
+            this.valuesmsstatus = 'SMS Cost-History'
 
           }
           else {
@@ -70,14 +68,14 @@ export class SmsCostViewallComponent {
               this.actions = datas.subPermissions;
 
 
-              if (this.actions == 'SMS Cost-Add') {
-                this.valuesmsadd = 'SMS Cost-Add';
+              if (this.actions == 'SMS Cost-Update') {
+                this.valuesmsadd = 'SMS Cost-Update';
               }
               // if (this.actions == 'SMS Cost-Edit') {
               //   this.valuesmsedit = 'SMS Cost-Edit'
               // }
-              if (this.actions == 'SMS Cost-Status') {
-                this.valuesmsstatus = 'SMS Cost-Status'
+              if (this.actions == 'SMS Cost-History') {
+                this.valuesmsstatus = 'SMS Cost-History'
               }
 
             }
@@ -109,13 +107,13 @@ export class SmsCostViewallComponent {
       exitAnimationDuration: "800ms",
       disableClose: true
     })
-  
+
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
       this.fetchsmscostviewall();
     });
   }
 
-  fetchsmscostviewall(){
+  fetchsmscostviewall() {
     this.smsdetails.smscostViewall().subscribe((res: any) => {
       this.viewall = res.response;
       this.viewall.reverse();
@@ -134,7 +132,14 @@ export class SmsCostViewallComponent {
       this.dataSource.paginator = this.paginator;
 
     });
-  }
+  };
+
+
+  view(id: any) {
+    this.router.navigate([`dashboard/sms-history/${id}`], {
+      queryParams: { Alldata: id },
+    });
+  };
 
   ActiveStatus(event: MatSlideToggleChange, id: any) {
 
@@ -155,9 +160,9 @@ export class SmsCostViewallComponent {
             this.dataSource = new MatTableDataSource(this.viewall);
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
-      
+
           });
-      
+
         }, 500);
 
       }

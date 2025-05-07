@@ -32,6 +32,7 @@ export class SignerGetallComponent implements OnInit {
     'createdAt',
     // 'modifiedBy',
     // 'modifiedAt'
+    "View"
 
   ];
   viewall: any;
@@ -50,6 +51,7 @@ export class SignerGetallComponent implements OnInit {
   valueSignerDetailsStatus: any;
   valueSignerDetailscreate: any;
   getdashboard: any;
+  valueSignerDetailsHistory:any;
 
   constructor(
     public service: FarginServiceService,
@@ -67,18 +69,23 @@ export class SignerGetallComponent implements OnInit {
           this.getdashboard = res.response?.subPermission;
 
           if (this.roleId == 1) {
-            this.valueSignerDetailscreate = 'Signer Details-Add'
-            this.valueSignerDetailsStatus = 'Signer Details-Status'
+            this.valueSignerDetailscreate = 'Signer Details-Update';
+            this.valueSignerDetailsStatus = 'Signer Details-Status';
+            this.valueSignerDetailsHistory = 'Signer Details-History';
 
           }
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
-              if (this.actions == 'Signer Details-Add') {
-                this.valueSignerDetailscreate = 'Signer Details-Add'
+              if (this.actions == 'Signer Details-Update') {
+                this.valueSignerDetailscreate = 'Signer Details-Update'
               }
               if (this.actions == 'Signer Details-Status') {
                 this.valueSignerDetailsStatus = 'Signer Details-Status'
+              }
+
+              if (this.actions == 'Signer Details-History') {
+                this.valueSignerDetailsHistory = 'Signer Details-History'
               }
 
             }
@@ -109,7 +116,13 @@ export class SignerGetallComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
-  }
+  };
+
+  view(id: any) {
+    this.router.navigate([`dashboard/signer-history/${id}`], {
+      queryParams: { Alldata: id },
+    });
+  };
 
   reload() {
     this.service.signergetall().subscribe((res: any) => {
@@ -128,14 +141,14 @@ export class SignerGetallComponent implements OnInit {
       exitAnimationDuration: "800ms",
       disableClose: true
     })
- 
+
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
       this.fetchsignerget();
     });
   }
 
 
-  fetchsignerget(){
+  fetchsignerget() {
     this.service.signergetall().subscribe((res: any) => {
       this.data = res.response;
       this.data.reverse();
@@ -173,7 +186,7 @@ export class SignerGetallComponent implements OnInit {
             this.dataSource = new MatTableDataSource(this.data);
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
-      
+
           });
         }, 500);
       }
