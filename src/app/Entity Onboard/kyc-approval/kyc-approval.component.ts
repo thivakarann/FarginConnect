@@ -19,6 +19,7 @@ export class KycApprovalComponent implements OnInit{
   approval: any;
   @Output() dataApproval = new EventEmitter<KycApproval>();
   value: any;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
  
   constructor(private service: FarginServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -62,6 +63,7 @@ export class KycApprovalComponent implements OnInit{
     this.service.identityApproval(submitModel).subscribe((res: any) => {
       if (res.flag === 1) {
         this.toaster.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();  // Close the dialog
        
       } else {
@@ -83,6 +85,7 @@ export class KycApprovalComponent implements OnInit{
     this.service.addressApproval(submitModel).subscribe((res: any) => {
       if (res.flag === 1) {
         this.toaster.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();  // Close the dialog
       
       } else {
@@ -103,6 +106,7 @@ export class KycApprovalComponent implements OnInit{
     this.service.signatureApproval(submitModel).subscribe((res: any) => {
       if (res.flag === 1) {
         this.toaster.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();  // Close the dialog
        
       } else if(res.flag==2) {

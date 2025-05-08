@@ -16,7 +16,7 @@ export class ApprovalForBankComponent implements OnInit {
   getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
   id: any;
   myForm!: FormGroup;
-  @Output() datas = new EventEmitter<ApprovalBank>();
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(private router: Router, private Approval: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog) { }
   ngOnInit(): void {
@@ -51,6 +51,7 @@ export class ApprovalForBankComponent implements OnInit {
     this.Approval.EntityBankApprovals(this.id, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
         
       }

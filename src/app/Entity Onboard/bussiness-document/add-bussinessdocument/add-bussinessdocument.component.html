@@ -9,7 +9,7 @@
  
                 <div class="col">
                 <div class="form__linput">
-                    <label class="form__label" ><b>Document Name</b></label>
+                    <label class="form__label" >Document Name</label>
                     <select class="form-select" formControlName="kycCategoryId"
                         (change)="docProofChange($event)">
                         <option *ngFor="let item of kycValue" [value]="item.entityKycCategory?.kycCategoryId">
@@ -27,7 +27,7 @@
  
                 <div class="col">
                 <div class="form__linput">
-                    <label class="form__label"><b>Document ID</b></label>
+                    <label class="form__label">Document ID</label>
                     <input class="form-control" id="docNumber" type="text" formControlName="docNumber"  required />
                     <!-- <div *ngIf="docNumber && docNumber.invalid && (docNumber.touched || docNumber.dirty)">
                         <small *ngIf="docNumber.errors?.['required']" style="color: red; font-size: 12px;">This field is
@@ -47,7 +47,7 @@
             <div class="row">
                 <div class="col">
                     <div class="form__linput">
-                        <label class="form__label"><b>Expiry Date</b></label>
+                        <label class="form__label">Expiry Date</label>
                         <input  onkeydown="return false;" class="form-control"  type="date" formControlName="expiryDate">
                         <!-- <div style="color: red; font-size: 12px;margin-top: 2px;"
                             *ngIf="expiryDate?.invalid && expiryDate?.touched && expiryDate?.errors?.['required']">
@@ -57,7 +57,7 @@
                 </div>
                 <div class="col">
                     <div class="form__linput">
-                        <label class="form__label"><b>Upload Front Copy</b></label>
+                        <label class="form__label">Upload Front Copy</label>
                         <input class="form-control" formControlName="docFrontPath" (change)="docfront($event)" type="file"/>
                         <div *ngIf="docFrontPath?.invalid && docFrontPath?.touched && docFrontPath?.errors?.['required']"
                             style="color: red; font-size: 12px;">
@@ -71,7 +71,7 @@
             <div class="row">  
                 <div class="col">    
                 <div class="form__linput">
-                    <label class="form__label"><b>Upload Back Copy</b></label>
+                    <label class="form__label">Upload Back Copy</label>
                     <input class="form-control" formControlName="docBackPath" (change)="docback($event)" type="file"/>
                     <div *ngIf="docBackPath?.invalid && docBackPath?.touched && docBackPath?.errors?.['required']"
                         style="color: red; font-size: 12px;">

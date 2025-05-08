@@ -74,7 +74,7 @@
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
-                    <label for="accountdisplayname">Account DisplayName*</label>
+                    <label for="accountdisplayname">Account Display Name</label>
                     <input type="text" formControlName="accountDisplayName" id="accountdisplayname" class="form-control"
                         ngModel="{{detaislone?.accountDisplayName}}">
                     <div style="
@@ -108,7 +108,7 @@
             </div>
             <div class="row mb-3">
                 <div class="col-sm-4 form-group">
-                    <label for="Bussiness category">Business category</label>
+                    <label for="Bussiness category">Business Category</label>
                     <select formControlName="businessCategoryIds" (change)="onCategoryChange($event)"
                         id="Bussiness category" class="form-select"
                         ngModel="{{detaislone?.businessCategoryModel?.businessCategoryId}}">
@@ -599,7 +599,7 @@
 
                 </div>-->
                 <div class="col-sm-4 form-group">
-                    <label for="billing">LCO Customer DueGeneration Mode</label>
+                    <label for="billing">LCO Customer Due Generation Mode</label>
                     <select formControlName="customerPaymentMode" ngModel="{{detaislone?.customerPaymentMode}}"  type="text" class="form-select"
                         id="billing">
                         <!-- <option value="Manual">Manual</option> -->
@@ -618,7 +618,7 @@
                 </div>
 
                 <div class="col-sm-4 form-group">
-                    <label for="Entity Name">SMS MerchantName</label>
+                    <label for="Entity Name">SMS Merchant Name</label>
                     <input placeholder="maximum 25 characters are allowed"  type="text" id="Entity Name" formControlName="smsMerchantName" ngModel="{{detaislone?.smsMerchantName}}" class="form-control">
                     <div style="
                     color: red;
@@ -685,7 +685,7 @@
                 </div> -->
 
                 <div class="col-sm-4 form-group" [hidden]="customerDuesEnable?.value!='1'" >
-                    <label for="billing">Customer SmsTag</label>
+                    <label for="billing">Customer Sms Tag</label>
                     <select  [required]="customerDuesEnable?.value=='1'" formControlName="customerSmsTag"  type="text" class="form-select"
                         id="billing">
                         <option value="Single">Single</option>

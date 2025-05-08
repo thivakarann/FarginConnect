@@ -89,7 +89,7 @@
                 <ng-container matColumnDef="image">
                     <th [hidden]="valueImage!=='Campaign-Image'" mat-header-cell *matHeaderCellDef>Image</th>
                     <td [hidden]="valueImage!=='Campaign-Image'" mat-cell *matCellDef="let data" >
-                        <i class="fa fa-image" (click)="image(data)"></i>
+                        <i   class="fa fa-image" (click)="image(data)"></i>
                     </td>
                 </ng-container>
  
@@ -97,7 +97,7 @@
                 <ng-container matColumnDef="status">
                     <th [hidden]="valuestatus!=='Campaign-Status'" mat-header-cell *matHeaderCellDef >Email Status</th>
                     <td [hidden]="valuestatus!=='Campaign-Status'" mat-cell *matCellDef="let data" >
-                        <mat-slide-toggle class="example-margin" color="primary"
+                        <mat-slide-toggle class="example-margin" color="primary"  style="transform: scale(0.9)"
                         [checked]="data.activeStatus === 1"  (change)="onSubmit($event,data.broadcasterId)" >
                     </mat-slide-toggle>
                     </td>
@@ -127,7 +127,7 @@
                 <ng-container matColumnDef="emailrecord">
                     <th [hidden]="valueUplodedstatus!=='Campaign-Uploaded-EmailDetails'"  mat-header-cell *matHeaderCellDef >Uploaded Email Details</th>
                     <td [hidden]="valueUplodedstatus!=='Campaign-Uploaded-EmailDetails'"  mat-cell *matCellDef="let data">
-                        <i style="font-size:18px;" class="fa fa-download" (click)="responseDownload(data?.broadcasterId)"></i>
+                        <i style="font-size:15px;" class="fa fa-download" (click)="responseDownload(data?.broadcasterId)"></i>
                     </td>
                 </ng-container>
              

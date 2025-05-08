@@ -93,7 +93,7 @@
 <!-- <mat-card> -->
 <mat-card-content>
   <div
-    class="example-container text-nowrap mt-4"
+    class="example-container text-nowrap mt-3"
     style="overflow-x: scroll; scrollbar-width: thin"
   >
     <table
@@ -136,7 +136,7 @@
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="activeStatus">
+      <!-- <ng-container matColumnDef="activeStatus">
         <th mat-header-cell *matHeaderCellDef>
             Status
         </th>
@@ -144,7 +144,7 @@
             <span *ngIf=" data?.signingAdminModel?.activeStatus == 1" style="color: blue;">Active</span>
             <span *ngIf=" data?.signingAdminModel?.activeStatus == 0" style="color: red;">InActive</span>
         </td>
-      </ng-container>
+      </ng-container> -->
 
    
 
@@ -169,7 +169,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       <tr *matNoDataRow>
         <td class="mat-cell" colspan="0" *ngIf="searchPerformed">
-          No Data For {{ input.value }}
+          No Data
         </td>
         <td
           class="mat-cell"

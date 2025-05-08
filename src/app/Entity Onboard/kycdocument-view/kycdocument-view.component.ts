@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -23,7 +23,8 @@ export class KycdocumentViewComponent implements OnInit{
   file5: any;
   file6: any;
 pdfSrc: any;
- 
+@Output() bankDetailsUpdated = new EventEmitter<void>();
+
   constructor(private service: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog, private toastr:ToastrService) { }
  
   ngOnInit(): void {
@@ -128,6 +129,7 @@ pdfSrc: any;
         if (res.flag == 1) {
           this.updatedata = res.response;
           this.toastr.success(res.responseMessage)
+          this.bankDetailsUpdated.emit();
           this.dialog.closeAll();
          
         }
@@ -141,6 +143,7 @@ pdfSrc: any;
         if (res.flag == 1) {
           this.updatedata = res.response;
           this.toastr.success(res.responseMessage)
+          this.bankDetailsUpdated.emit();
           this.dialog.closeAll();
           
         }
@@ -154,6 +157,7 @@ pdfSrc: any;
         if (res.flag == 1) {
           this.updatedata = res.response;
           this.toastr.success(res.responseMessage)
+          this.bankDetailsUpdated.emit();
           this.dialog.closeAll();
          
         }
@@ -169,6 +173,7 @@ pdfSrc: any;
         if (res.flag == 1) {
           this.updatedata = res.response;
           this.toastr.success(res.responseMessage)
+          this.bankDetailsUpdated.emit();
           this.dialog.closeAll();
         
         }
@@ -183,6 +188,7 @@ pdfSrc: any;
         if (res.flag == 1) {
           this.updatedata = res.response;
           this.toastr.success(res.responseMessage)
+          this.bankDetailsUpdated.emit();
           this.dialog.closeAll();
          
         }
@@ -198,6 +204,7 @@ pdfSrc: any;
         if (res.flag == 1) {
           this.updatedata = res.response;
           this.toastr.success(res.responseMessage)
+          this.bankDetailsUpdated.emit();
           this.dialog.closeAll();
          
         }

@@ -4,7 +4,7 @@
 </div>
 
 <body class="page">
-    <main style="height:400px;max-height:500px;overflow-y:scroll" class="main page__main">
+    <main  class="main page__main">
         <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="myForm">
 
             <div class=" mb-3">
@@ -101,8 +101,8 @@
                     <select   [required]="exportDataName?.value == '23'" (change)="onBranchChange($event)" formControlName="branchId" id="branchId" class="form-select">
                         <option value="" disabled selected>Select</option>
                         <option *ngFor="let item of branchviews" [value]="item.branchId">
-                            {{item.branchName}}</option>
-
+                            {{item.branchName}}</option> 
+                       <option  *ngIf="branchviews.length === 0" disabled>No item found</option>
                     </select>
                     <div style="
                     color: red;

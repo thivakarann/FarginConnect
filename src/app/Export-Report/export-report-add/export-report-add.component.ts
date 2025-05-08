@@ -44,7 +44,8 @@ export class ExportReportAddComponent implements OnInit {
   activemerchant:any;
   staticmerchant:any;
   branchmerchant:any;
-  branchviews:any;
+  branchviews: any[] = [];
+
   branchid:any;
   branchees:any;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
@@ -277,7 +278,7 @@ loadInitialSetupBoxes() {
 
 
 onInputChange() {
-  if (!this.customerInput) {
+  if (!this.customerInput  || this.customerInput.trim() === "") {
     console.log(this.customerInput)
     this.loadInitialSetupBoxes();
     this.isNoDataFound = false; // Reset the flag
@@ -390,14 +391,14 @@ branchnameview(){
     }
   
     this.service.BranchView(this.staticmerchant).subscribe((res: any) => {
-      if(res.flag==1){
-        this.branchviews = res.response; 
-        console.log(this.branchviews) 
-      } 
-      else if(res.flag==2) {
-        this.toastr.error(res.responseMessage)
+      if (res.flag == 1) {
+        this.branchviews = res.response;
+        console.log(this.branchviews);
+      } else if (res.flag == 2) {
+        this.branchviews = []; // Ensure dropdown has no items
       }
-    })
+    });
+    
 }
 
 onBranchChange(event: any) {
@@ -427,7 +428,7 @@ Branchsubmit() {
     exportType: this.exportTypes,
     paymentStatus:this.paymentStatus?.value,
     type:2,
-    branchId:123
+    branchId:this.newBranchId
     
   }
 

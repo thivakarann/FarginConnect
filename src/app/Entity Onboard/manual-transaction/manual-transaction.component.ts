@@ -263,4 +263,14 @@ export class ManualTransactionComponent {
       }
     })
   }
+  reload()
+  {
+    this.service.GetManualTransaction(this.id).subscribe((res: any) => {
+      this.details = res.response;
+      this.details = res.response.reverse();
+      this.dataSource = new MatTableDataSource(this.details);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    })
+  }
 }

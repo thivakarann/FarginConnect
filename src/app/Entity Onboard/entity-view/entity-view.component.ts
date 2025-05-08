@@ -914,7 +914,7 @@ export class EntityViewComponent implements OnInit {
     })
   }
   BankApproval(id: any) {
-    this.dialog.open(ApprovalForBankComponent, {
+    const dialogRef = this.dialog.open(ApprovalForBankComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
@@ -923,32 +923,9 @@ export class EntityViewComponent implements OnInit {
     // dialogRef.componentInstance.datas.subscribe((newBankData: ApprovalBank) => {
     //   this.bankdetails.push(newBankData);
     // });
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
-        this.details = res.response;
-
-
-        this.detaislone = res.response.merchantpersonal;
-        this.bankdetails = res.response.merchantbank.reverse();
-        this.KYCDetails = res.response.merchantkycdocument;
-        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-
-        this.identityProof = res.response.merchantkycdocument[0].identityProof;
-        this.addressProof = res.response.merchantkycdocument[0].addressProof;
-        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-
-
-
-
-        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-
-
-
-
-
-
-      })
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchEntityview();
+    });
   }
   BankComments(id: any) {
     this.dialog.open(CommentsForApprovalComponent, {
@@ -978,7 +955,7 @@ export class EntityViewComponent implements OnInit {
 
 
   viewlogo(id: any, Link: any) {
-    this.dialog.open(MerchantLogoComponent, {
+    const dialogRef =this.dialog.open(MerchantLogoComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       // disableClose: true,
@@ -988,32 +965,10 @@ export class EntityViewComponent implements OnInit {
 
       }
     })
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
-        this.details = res.response;
-
-
-        this.detaislone = res.response.merchantpersonal;
-        this.bankdetails = res.response.merchantbank.reverse();
-        this.KYCDetails = res.response.merchantkycdocument;
-        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-
-        this.identityProof = res.response.merchantkycdocument[0].identityProof;
-        this.addressProof = res.response.merchantkycdocument[0].addressProof;
-        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-
-
-
-
-        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-
-
-
-
-
-
-      })
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchEntityview();
+    });
+   
   }
   // KycApproval(id: any) {
   //   this.dialog.open(KycApprovalComponent, {
@@ -1105,7 +1060,7 @@ export class EntityViewComponent implements OnInit {
     })
   }
   levelOneApproval(id: any) {
-    this.dialog.open(LevelOneApprovalComponent, {
+    const dialogRef = this.dialog.open(LevelOneApprovalComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
@@ -1114,33 +1069,9 @@ export class EntityViewComponent implements OnInit {
       }
 
     })
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
-        this.details = res.response;
-
-
-        this.detaislone = res.response.merchantpersonal;
-        this.bankdetails = res.response.merchantbank.reverse();
-        this.KYCDetails = res.response.merchantkycdocument;
-        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-
-        this.identityProof = res.response.merchantkycdocument[0].identityProof;
-        this.addressProof = res.response.merchantkycdocument[0].addressProof;
-        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-
-
-
-
-        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-
-
-
-
-
-
-      })
-    })
-
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchEntityview();
+    });
   }
   levelTwoApproval(id: any) {
     const dialogRef = this.dialog.open(LevelTwoApprovalComponent, {
@@ -1156,7 +1087,7 @@ export class EntityViewComponent implements OnInit {
     });
   }
   leveloneComments(comment: any) {
-    this.dialog.open(CommentsforApprovaloneComponent, {
+    const dialogRef = this.dialog.open(CommentsforApprovaloneComponent, {
       enterAnimationDuration: "1000ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
@@ -1164,6 +1095,7 @@ export class EntityViewComponent implements OnInit {
         value: comment,
       }
     })
+    
   }
   levelTwoComments(commentL2: any) {
     this.dialog.open(CommentsforApprovaltwoComponent, {
@@ -1725,211 +1657,73 @@ export class EntityViewComponent implements OnInit {
 
 
   getFrontPath(id: any) {
-    this.dialog.open(KycdocumentViewComponent, {
+    const dialogRef = this.dialog.open(KycdocumentViewComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       // disableClose: true,
       data: { value: id, value1: 1 }
     })
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
-        this.details = res.response;
-
-
-        this.detaislone = res.response.merchantpersonal;
-        this.bankdetails = res.response.merchantbank.reverse();
-        this.KYCDetails = res.response.merchantkycdocument;
-        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-
-        this.identityProof = res.response.merchantkycdocument[0].identityProof;
-        this.addressProof = res.response.merchantkycdocument[0].addressProof;
-        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-
-
-
-
-        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-
-
-
-
-
-
-      })
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchEntityview();
+    });
   }
   getBackPath(id: any) {
-    this.dialog.open(KycdocumentViewComponent, {
+    const dialogRef = this.dialog.open(KycdocumentViewComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       // disableClose: true,
       data: { value: id, value1: 2 }
     })
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
-        this.details = res.response;
-
-
-        this.detaislone = res.response.merchantpersonal;
-        this.bankdetails = res.response.merchantbank.reverse();
-        this.KYCDetails = res.response.merchantkycdocument;
-        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-
-        this.identityProof = res.response.merchantkycdocument[0].identityProof;
-        this.addressProof = res.response.merchantkycdocument[0].addressProof;
-        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-
-
-
-
-        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-
-
-
-
-
-
-      })
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchEntityview();
+    });
   }
 
   addressProofFrontPath(id: any) {
-    this.dialog.open(KycdocumentViewComponent, {
+    const dialogRef =this.dialog.open(KycdocumentViewComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       // disableClose: true,
       data: { value: id, value1: 3 }
     })
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
-        this.details = res.response;
-
-
-        this.detaislone = res.response.merchantpersonal;
-        this.bankdetails = res.response.merchantbank.reverse();
-        this.KYCDetails = res.response.merchantkycdocument;
-        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-
-        this.identityProof = res.response.merchantkycdocument[0].identityProof;
-        this.addressProof = res.response.merchantkycdocument[0].addressProof;
-        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-
-
-
-
-        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-
-
-
-
-
-
-      })
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchEntityview();
+    });
   }
 
   addressProofBackPath(id: any) {
-    this.dialog.open(KycdocumentViewComponent, {
+    const dialogRef = this.dialog.open(KycdocumentViewComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       // disableClose: true,
       data: { value: id, value1: 4 }
     })
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
-        this.details = res.response;
-
-
-        this.detaislone = res.response.merchantpersonal;
-        this.bankdetails = res.response.merchantbank.reverse();
-        this.KYCDetails = res.response.merchantkycdocument;
-        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-
-        this.identityProof = res.response.merchantkycdocument[0].identityProof;
-        this.addressProof = res.response.merchantkycdocument[0].addressProof;
-        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-
-
-
-
-        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-
-
-
-
-
-
-      })
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchEntityview();
+    });
   }
   signatureProofFrontPath(id: any) {
-    this.dialog.open(KycdocumentViewComponent, {
+    const dialogRef = this.dialog.open(KycdocumentViewComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       // disableClose: true,
       data: { value: id, value1: 5 }
     })
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
-        this.details = res.response;
-
-
-        this.detaislone = res.response.merchantpersonal;
-        this.bankdetails = res.response.merchantbank.reverse();
-        this.KYCDetails = res.response.merchantkycdocument;
-        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-
-        this.identityProof = res.response.merchantkycdocument[0].identityProof;
-        this.addressProof = res.response.merchantkycdocument[0].addressProof;
-        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-
-
-
-
-        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-
-
-
-
-
-
-      })
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchEntityview();
+    });
   }
 
   signatureProofBackPath(id: any) {
-    this.dialog.open(KycdocumentViewComponent, {
+    const dialogRef = this.dialog.open(KycdocumentViewComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       // disableClose: true,
       data: { value: id, value1: 6 }
     })
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
-        this.details = res.response;
-
-
-        this.detaislone = res.response.merchantpersonal;
-        this.bankdetails = res.response.merchantbank.reverse();
-        this.KYCDetails = res.response.merchantkycdocument;
-        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-
-        this.identityProof = res.response.merchantkycdocument[0].identityProof;
-        this.addressProof = res.response.merchantkycdocument[0].addressProof;
-        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-
-
-
-
-        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-
-
-
-
-
-
-      })
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchEntityview();
+    });
   }
 
 
@@ -2925,109 +2719,40 @@ export class EntityViewComponent implements OnInit {
 
 
   KycApproval(id: any) {
-    this.dialog.open(KycApprovalComponent, {
+    const dialogRef =this.dialog.open(KycApprovalComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: { value: id, value1: 1 }
     });
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
-        this.details = res.response;
-
-
-        this.detaislone = res.response.merchantpersonal;
-        this.bankdetails = res.response.merchantbank.reverse();
-        this.KYCDetails = res.response.merchantkycdocument;
-        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-
-        this.identityProof = res.response.merchantkycdocument[0].identityProof;
-        this.addressProof = res.response.merchantkycdocument[0].addressProof;
-        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-
-
-
-
-        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-
-
-
-
-
-
-      })
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchEntityview();
+    });
   }
 
   KycApproval1(id: any) {
-    this.dialog.open(KycApprovalComponent, {
+    const dialogRef =this.dialog.open(KycApprovalComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: { value: id, value1: 2 }
     });
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
-        this.details = res.response;
-
-
-        this.detaislone = res.response.merchantpersonal;
-        this.bankdetails = res.response.merchantbank.reverse();
-        this.KYCDetails = res.response.merchantkycdocument;
-        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-
-        this.identityProof = res.response.merchantkycdocument[0].identityProof;
-        this.addressProof = res.response.merchantkycdocument[0].addressProof;
-        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-
-
-
-
-        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-
-
-
-
-
-
-      })
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchEntityview();
+    });
   }
 
 
   KycApproval2(id: any) {
-    this.dialog.open(KycApprovalComponent, {
+    const dialogRef = this.dialog.open(KycApprovalComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: { value: id, value1: 3 }
     });
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
-        this.details = res.response;
-
-
-        this.detaislone = res.response.merchantpersonal;
-        this.bankdetails = res.response.merchantbank.reverse();
-        this.KYCDetails = res.response.merchantkycdocument;
-        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-
-        this.identityProof = res.response.merchantkycdocument[0].identityProof;
-        this.addressProof = res.response.merchantkycdocument[0].addressProof;
-        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-
-
-
-
-        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-
-
-
-
-
-
-      })
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchEntityview();
+    });
   }
 
 
@@ -3077,38 +2802,15 @@ export class EntityViewComponent implements OnInit {
   }
 
   docApproval(id: any) {
-    this.dialog.open(ApprovalBussinessdocumentComponent, {
+    const dialogRef =  this.dialog.open(ApprovalBussinessdocumentComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
       // disableClose: true,
       data: { value: id }
     })
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
-        this.details = res.response;
-
-
-        this.detaislone = res.response.merchantpersonal;
-        this.bankdetails = res.response.merchantbank.reverse();
-        this.KYCDetails = res.response.merchantkycdocument;
-        this.bussinessdoc = res.response.merchantbusinessdocument.reverse();
-
-        this.identityProof = res.response.merchantkycdocument[0].identityProof;
-        this.addressProof = res.response.merchantkycdocument[0].addressProof;
-        this.signatureProof = res.response.merchantkycdocument[0].signatureProof;
-
-
-
-
-        this.businessCategoryId = res.response.merchantpersonal.businessCategoryModel.businessCategoryId;
-
-
-
-
-
-
-      })
-    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchEntityview();
+    });
   }
 
   adddoc(id: any, id2: any) {
@@ -3137,13 +2839,12 @@ export class EntityViewComponent implements OnInit {
   }
 
  fetchSMSViewById(){
-  this.dialog.afterAllClosed.subscribe(() => {
+ 
     this.MerchantView.SMSViewById(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
         this.smsDetails = res.response;
       }
     })
-  })
  }
 
 

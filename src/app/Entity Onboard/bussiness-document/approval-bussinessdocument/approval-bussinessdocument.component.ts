@@ -14,11 +14,12 @@ export class ApprovalBussinessdocumentComponent {
   myForm!: FormGroup;
   id: any;
   approval: any;
-  @Output() dataApproval = new EventEmitter<KycApproval>();
+ 
   value: any;
   createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
   merchantDocumentId: any;
-
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
+  
   constructor(private service: FarginServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private toaster: ToastrService,
@@ -66,6 +67,7 @@ export class ApprovalBussinessdocumentComponent {
     this.service.documentApproval(this.merchantDocumentId,submitModel).subscribe((res: any) => {
       if (res.flag === 1) {
         this.toaster.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
         this.dialog.closeAll();  // Close the dialog
       
       } else {

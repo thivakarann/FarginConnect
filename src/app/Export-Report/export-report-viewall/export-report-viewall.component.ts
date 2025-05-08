@@ -152,7 +152,9 @@ export class ExportReportViewallComponent implements OnInit {
     const dialogRef = this.dialog.open(ExportReportAddComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "800ms",
-      disableClose: true
+      disableClose: true,
+      maxWidth: '610px',
+      maxHeight:'570px'
     })
 
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {

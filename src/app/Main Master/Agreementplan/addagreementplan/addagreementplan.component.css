@@ -50,3 +50,19 @@
     color: white;
     font-family: "Roboto";
   }
+
+  .error {
+    color:blue;
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 2px;
+    position: relative; ;
+  }
+
+  .error1 {
+    color: red;
+    font-size: 12px;
+    margin-top: 2px;
+    font-weight: 500;
+    position: relative; 
+  }

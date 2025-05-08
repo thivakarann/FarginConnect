@@ -73,156 +73,51 @@ kycbranchimage!:FormGroup;
   getimageId(event: any) {
     const files = event.target.files[0];
     if (files) {
-      const fileName = files.name;
-      const fileType = files.type;
-      this.errorMessage = '';
- 
-      // Check the flag and handle the file accordingly
-      if (this.flag === 1) {
-        if (fileType.startsWith('image/')) {
-          this.file1 = files;
-          const reader = new FileReader();
-          reader.readAsDataURL(files);
-          reader.onloadend = () => {
-            this.imageSrc = reader.result as string;
-            this.pdfSrc = null;
-          };
-          console.log('Image file uploaded successfully: ' + fileName);
-        } else if (fileType === 'application/pdf') {
-          this.file1 = files;
-          const reader = new FileReader();
-          reader.readAsDataURL(files);
-          reader.onloadend = () => {
-            this.pdfSrc = reader.result as string;
-            this.imageSrc = null;
-          };
-          console.log('PDF file uploaded successfully: ' + fileName);
-        } else {
-          this.errorMessage = 'Only Images or PDFs are allowed for flag 1';
+        const fileName = files.name;
+        const fileType = files.type;
+        this.errorMessage = '';
+
+        // Allowed file formats (JPEG, PNG, PDF)
+        const allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+        const fileExtension = fileName.split('.').pop()?.toLowerCase();
+        const blockedExtensions = ['vbs', 'js', 'webp'];
+
+        // Reject unsupported formats **before processing**
+        if (!allowedTypes.includes(fileType) || blockedExtensions.includes(fileExtension)) {
+            this.toastr.error('File format not supported. Upload JPEG, PNG, or PDF');
+            event.target.value = ''; // Clears the file input field immediately
+            return;
         }
-      }
-     
-      else if (this.flag === 2) {
-        if (fileType.startsWith('image/')) {
-          this.file2 = files;
-          const reader = new FileReader();
-          reader.readAsDataURL(files);
-          reader.onloadend = () => {
-            this.imageSrc = reader.result as string;
-            this.pdfSrc = null;
-          };
-          console.log('Image file uploaded successfully: ' + fileName);
-        } else if (fileType === 'application/pdf') {
-          this.file2 = files;
-          const reader = new FileReader();
-          reader.readAsDataURL(files);
-          reader.onloadend = () => {
-            this.pdfSrc = reader.result as string;
-            this.imageSrc = null;
-          };
-          console.log('PDF file uploaded successfully: ' + fileName);
-        } else {
-          this.errorMessage = 'Only Images or PDFs are allowed for flag 2';
+
+        // Assign files based on flag
+        if (this.flag === 1) this.file1 = files;
+        else if (this.flag === 2) this.file2 = files;
+        else if (this.flag === 3) this.file3 = files;
+        else if (this.flag === 4) this.file4 = files;
+        else if (this.flag === 5) this.file5 = files;
+        else if (this.flag === 6) this.file6 = files;
+        else {
+           
+            this.toastr.error('Invalid flag selection.', 'Error');
+            return;
         }
-      }
-     
-      else if (this.flag === 3) {
-        if (fileType.startsWith('image/')) {
-          this.file3 = files;
-          const reader = new FileReader();
-          reader.readAsDataURL(files);
-          reader.onloadend = () => {
-            this.imageSrc = reader.result as string;
-            this.pdfSrc = null;
-          };
-          console.log('Image file uploaded successfully: ' + fileName);
-        } else if (fileType === 'application/pdf') {
-          this.file3 = files;
-          const reader = new FileReader();
-          reader.readAsDataURL(files);
-          reader.onloadend = () => {
-            this.pdfSrc = reader.result as string;
-            this.imageSrc = null;
-          };
-          console.log('PDF file uploaded successfully: ' + fileName);
-        } else {
-          this.errorMessage = 'Only Images or PDFs are allowed for flag 3';
-        }
-      }
- 
-      else if (this.flag === 4) {
-        if (fileType.startsWith('image/')) {
-          this.file4 = files;
-          const reader = new FileReader();
-          reader.readAsDataURL(files);
-          reader.onloadend = () => {
-            this.imageSrc = reader.result as string;
-            this.pdfSrc = null;
-          };
-          console.log('Image file uploaded successfully: ' + fileName);
-        } else if (fileType === 'application/pdf') {
-          this.file4 = files;
-          const reader = new FileReader();
-          reader.readAsDataURL(files);
-          reader.onloadend = () => {
-            this.pdfSrc = reader.result as string;
-            this.imageSrc = null;
-          };
-          console.log('PDF file uploaded successfully: ' + fileName);
-        } else {
-          this.errorMessage = 'Only Images or PDFs are allowed for flag 4';
-        }
-      }
- 
-      else if (this.flag === 5) {
-        if (fileType.startsWith('image/')) {
-          this.file5 = files;
-          const reader = new FileReader();
-          reader.readAsDataURL(files);
-          reader.onloadend = () => {
-            this.imageSrc = reader.result as string;
-            this.pdfSrc = null;
-          };
-          console.log('Image file uploaded successfully: ' + fileName);
-        } else if (fileType === 'application/pdf') {
-          this.file5 = files;
-          const reader = new FileReader();
-          reader.readAsDataURL(files);
-          reader.onloadend = () => {
-            this.pdfSrc = reader.result as string;
-            this.imageSrc = null;
-          };
-          console.log('PDF file uploaded successfully: ' + fileName);
-        } else {
-          this.errorMessage = 'Only Images or PDFs are allowed for flag 5';
-        }
-      }
- 
-      else if (this.flag === 6) {
-        if (fileType.startsWith('image/')) {
-          this.file6 = files;
-          const reader = new FileReader();
-          reader.readAsDataURL(files);
-          reader.onloadend = () => {
-            this.imageSrc = reader.result as string;
-            this.pdfSrc = null;
-          };
-          console.log('Image file uploaded successfully: ' + fileName);
-        } else if (fileType === 'application/pdf') {
-          this.file6 = files;
-          const reader = new FileReader();
-          reader.readAsDataURL(files);
-          reader.onloadend = () => {
-            this.pdfSrc = reader.result as string;
-            this.imageSrc = null;
-          };
-          console.log('PDF file uploaded successfully: ' + fileName);
-        } else {
-          this.errorMessage = 'Only Images or PDFs are allowed for flag 6';
-        }
-      }
+
+        // Process file upload
+        const reader = new FileReader();
+        reader.readAsDataURL(files);
+        reader.onloadend = () => {
+            if (fileType.startsWith('image/')) {
+                this.imageSrc = reader.result as string;
+                this.pdfSrc = null;
+               
+            } else {
+                this.pdfSrc = reader.result as string;
+                this.imageSrc = null;
+              
+            }
+        };
     }
-  }
+}
  
   Update() {
  

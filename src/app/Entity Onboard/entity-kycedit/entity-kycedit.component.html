@@ -38,7 +38,7 @@
                 </div>
  
                 <div class="form__linput" *ngIf="KycIdentityForm.get('identityProof').value === 'Driving License' || KycIdentityForm.get('identityProof').value === 'Passport'">
-                    <label class="form__label"><b>Date of Birth</b></label>
+                    <label class="form__label">Date of Birth</label>
                     <input   *ngIf="KycIdentityForm.get('identityProof').value === 'Passport'"
                         class="form-control"
                         id="dob"
@@ -122,7 +122,7 @@
                     </div>
                 </div>
                 <div class="form__linput" *ngIf="KycAddressForm.get('addressProof').value === 'Driving License' || KycAddressForm.get('addressProof').value === 'Passport'">
-                    <label class="form__label"><b>Date of Birth</b></label>
+                    <label class="form__label">Date of Birth</label>
                     <input  *ngIf="KycAddressForm.get('addressProof').value === 'Passport'"
                         class="form-control"
                         id="dob"
@@ -202,7 +202,7 @@
                     number.</small>
                 </div>
                 <div class="form__linput" *ngIf="KycsignatureForm.get('signatureProof').value === 'Driving License' || KycsignatureForm.get('signatureProof').value === 'Passport'">
-                    <label class="form__label"><b>Date of Birth</b></label>
+                    <label class="form__label">Date of Birth</label>
                     <input *ngIf="KycsignatureForm.get('signatureProof').value === 'Passport'"
                         class="form-control"
                         id="dob"

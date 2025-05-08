@@ -21,7 +21,7 @@ export class SignerHistoryComponent {
     'signAdminName',
     'signAdminEmail',
     'signAdminMobile',
-    'activeStatus',
+    // 'activeStatus',
     'createdBy',
     'createdAt',
   ];
@@ -99,13 +99,13 @@ export class SignerHistoryComponent {
       this.response.push(element?.signAdminName);
       this.response.push(element?.signAdminEmail);
       this.response.push(element?.signAdminMobile);
-      if (element?.signingAdminModel?.activeStatus == 0) {
-        this.response.push("Inactive");
-      }
-      else if (element?.signingAdminModel?.activeStatus == 1) {
-        this.response.push("Active");
+      // if (element?.signingAdminModel?.activeStatus == 0) {
+      //   this.response.push("Inactive");
+      // }
+      // else if (element?.signingAdminModel?.activeStatus == 1) {
+      //   this.response.push("Active");
 
-      }
+      // }
       this.response.push(element?.createdBy);
       if (element.createdAt) {
         this.response.push(moment(element?.createdAt).format('DD/MM/yyyy hh:mm a').toString());
@@ -125,7 +125,7 @@ export class SignerHistoryComponent {
       'Signer Name',
       'Signer Email',
       'Signer Mobile',
-      'Status',
+      // 'Status',
       'Updated By',
       'Updated At'
     ];
@@ -163,7 +163,7 @@ export class SignerHistoryComponent {
       let qty3 = row.getCell(4);
       let qty4 = row.getCell(5);
       let qty5 = row.getCell(6);
-      let qty6 = row.getCell(7);
+      // let qty6 = row.getCell(7);
 
       qty.border = {
         top: { style: 'thin' },
@@ -201,12 +201,12 @@ export class SignerHistoryComponent {
         bottom: { style: 'thin' },
         right: { style: 'thin' },
       };
-      qty6.border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' },
-      };
+      // qty6.border = {
+      //   top: { style: 'thin' },
+      //   left: { style: 'thin' },
+      //   bottom: { style: 'thin' },
+      //   right: { style: 'thin' },
+      // };
 
     });
     worksheet.getColumn(1).protection = { locked: true, hidden: true };

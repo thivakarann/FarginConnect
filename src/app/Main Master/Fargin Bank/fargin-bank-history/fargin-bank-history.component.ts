@@ -24,7 +24,7 @@ export class FarginBankHistoryComponent {
     'branchName',
     'ifscCode',
     'ledgerId',
-    'activeStatus',
+    // 'activeStatus',
     'createdBy',
     'createdAt',
   ];
@@ -105,13 +105,13 @@ export class FarginBankHistoryComponent {
       this.response.push(element?.branchName);
       this.response.push(element?.ifscCode);
       this.response.push(element?.ledgerId);
-      if (element?.adminBankDetailEntity?.activeStatus == 0) {
-        this.response.push("Inactive");
-      }
-      else if (element?.adminBankDetailEntity?.activeStatus == 1) {
-        this.response.push("Active");
+      // if (element?.adminBankDetailEntity?.activeStatus == 0) {
+      //   this.response.push("Inactive");
+      // }
+      // else if (element?.adminBankDetailEntity?.activeStatus == 1) {
+      //   this.response.push("Active");
 
-      }
+      // }
       this.response.push(element?.createdBy);
       if (element.createdDateTime) {
         this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
@@ -134,7 +134,7 @@ export class FarginBankHistoryComponent {
       'Branch Name	',
       'IFSC Code',
       'PG Ledger ID	',
-      'Status',
+      // 'Status',
       'Updated By',
       'Updated At'
     ];
@@ -175,7 +175,7 @@ export class FarginBankHistoryComponent {
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
-      let qty9 = row.getCell(10);
+      // let qty9 = row.getCell(10);
 
       qty.border = {
         top: { style: 'thin' },
@@ -231,12 +231,12 @@ export class FarginBankHistoryComponent {
         bottom: { style: 'thin' },
         right: { style: 'thin' },
       };
-      qty9.border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' },
-      };
+      // qty9.border = {
+      //   top: { style: 'thin' },
+      //   left: { style: 'thin' },
+      //   bottom: { style: 'thin' },
+      //   right: { style: 'thin' },
+      // };
 
     });
     worksheet.getColumn(1).protection = { locked: true, hidden: true };

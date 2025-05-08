@@ -244,76 +244,76 @@ export class ViewagreementplanComponent {
       this.response.push(element?.mmcAmount);
       this.response.push(element?.serviceFee);
       this.response.push(element?.securityDepositAmount);
-      this.response.push(element?.netBankingAmount);
+      // this.response.push(element?.netBankingAmount);
       this.response.push(element?.netBankingPercentage);
       this.response.push(element?.netBankingFixedFee);
-      this.response.push(element?.nbOtherBankAmount);
+      // this.response.push(element?.nbOtherBankAmount);
       this.response.push(element?.nbOtherBankPercentage);
       this.response.push(element?.nbOtherBankFixedFee);
-      this.response.push(element?.eCollectAmount);
+      // this.response.push(element?.eCollectAmount);
       this.response.push(element?.eCollectPercentage);
       this.response.push(element?.eCollectFixedFee);
-      this.response.push(element?.disbursementApiAmount);
+      // this.response.push(element?.disbursementApiAmount);
       this.response.push(element?.disbursementApiPercentage);
       this.response.push(element?.disbursementApiFixedFee);
-      this.response.push(element?.internationalApiAmount);
+      // this.response.push(element?.internationalApiAmount);
       this.response.push(element?.internationApiPercentage);
       this.response.push(element?.internationApiFixedFee);
-      this.response.push(element?.upiAmount);
+      // this.response.push(element?.upiAmount);
       this.response.push(element?.upiPercentage);
       this.response.push(element?.upiFixedFee);
-      this.response.push(element?.dynamicQrAmount);
+      // this.response.push(element?.dynamicQrAmount);
       this.response.push(element?.dynamicQrPercentage);
       this.response.push(element?.dynamicQrFixedFee);
-      this.response.push(element?.rupayDebitCardMaxAmount);
+      // this.response.push(element?.rupayDebitCardMaxAmount);
       this.response.push(element?.rupayDebitCardMaxPercentage);
       this.response.push(element?.rupayDebitCardMaxFixedFee);
-      this.response.push(element?.rupayDebitCardMinAmount);
+      // this.response.push(element?.rupayDebitCardMinAmount);
       this.response.push(element?.rupayDebitCardMinPercentage);
       this.response.push(element?.rupayDebitCardMinFixedFee);
-      this.response.push(element?.otherDebitCardMaxAmount);
+      // this.response.push(element?.otherDebitCardMaxAmount);
       this.response.push(element?.otherDebitCardMaxPercentage);
       this.response.push(element?.otherDebitCardMaxFixedFee);
-      this.response.push(element?.otherDebitCardMinAmount);
+      // this.response.push(element?.otherDebitCardMinAmount);
       this.response.push(element?.otherDebitCardMinPercentage);
       this.response.push(element?.otherDebitCardMinFixedFee);
-      this.response.push(element?.amexCardAmount);
+      // this.response.push(element?.amexCardAmount);
       this.response.push(element?.amexCardPercentage);
       this.response.push(element?.amexCardFixedFee);
-      this.response.push(element?.dinnersCardAmount);
+      // this.response.push(element?.dinnersCardAmount);
       this.response.push(element?.dinnersCardPercentage);
       this.response.push(element?.dinnersCardFixedFee);
-      this.response.push(element?.corporateOrCommercialCardAmount);
+      // this.response.push(element?.corporateOrCommercialCardAmount);
       this.response.push(element?.corporateOrCommercialCardPercentage);
       this.response.push(element?.corporateOrCommercialCardFixedFee);
-      this.response.push(element?.prepaidCardAmount);
+      // this.response.push(element?.prepaidCardAmount);
       this.response.push(element?.prepaidCardPercentage);
       this.response.push(element?.prepaidCardFixedFee);
-      this.response.push(element?.creditCardAmount);
+      // this.response.push(element?.creditCardAmount);
       this.response.push(element?.creditCardPercentage);
       this.response.push(element?.creditCardFixedFee);
-      this.response.push(element?.walletPhonepeAmount);
+      // this.response.push(element?.walletPhonepeAmount);
       this.response.push(element?.walletPhonepePercentage);
       this.response.push(element?.walletPhonepeFixedFee);
-      this.response.push(element?.walletFreeChargeAmount);
+      // this.response.push(element?.walletFreeChargeAmount);
       this.response.push(element?.walletFreeChargePercentage);
       this.response.push(element?.walletFreeChargeFixedFee);
-      this.response.push(element?.walletPayzappAmount);
+      // this.response.push(element?.walletPayzappAmount);
       this.response.push(element?.walletPayzappPercentage);
       this.response.push(element?.walletPayzappFixedFee);
-      this.response.push(element?.walletPaytmAmount);
+      // this.response.push(element?.walletPaytmAmount);
       this.response.push(element?.walletPaytmPercentage);
       this.response.push(element?.walletPaytmFixedFee);
-      this.response.push(element?.walletOlaMoneyAmount);
+      // this.response.push(element?.walletOlaMoneyAmount);
       this.response.push(element?.walletOlaMoneyPercentage);
       this.response.push(element?.walletOlaMoneyFixedFee);
-      this.response.push(element?.walletMobikwikkAmount);
+      // this.response.push(element?.walletMobikwikkAmount);
       this.response.push(element?.walletMobikwikkPercentage);
       this.response.push(element?.walletMobikwikkFixedFee);
-      this.response.push(element?.walletRelianceJioMoneyAmount);
+      // this.response.push(element?.walletRelianceJioMoneyAmount);
       this.response.push(element?.walletRelianceJioMoneyPercentage);
       this.response.push(element?.walletRelianceJioMoneyFixedFee);
-      this.response.push(element?.walletAirtelMoneyAmount);
+      // this.response.push(element?.walletAirtelMoneyAmount);
       this.response.push(element?.walletAirtelMoneyPercentage);
       this.response.push(element?.walletAirtelMoneyFixedFee);
 
@@ -344,79 +344,55 @@ export class ViewagreementplanComponent {
     const header = [
       "SNo",
       "Plan Name",
-      "Cloud Fee Amount",
+      "AMC/MMC",
       "Service Fee",
-      "Security DepositAmount",
-      "Net Banking Amount",
-      "Net Banking Percentage",
-      "Net Banking Fixed Fee",
-      "Net Banking Other Bank Amount",
+      "Security Deposit Amount",
+      "Net Banking Percentage  (HDFC/SBI/Kotak/ICICI/Axis)",
+      "Net Banking Fixed Fee  (HDFC/SBI/Kotak/ICICI/Axis)",
       "Net Banking Other Bank Percentage",
       "Net Banking Other Bank Fixed Fee",
-      "e-Collect Amount",
       "e-Collect Percentage",
       "e-Collect Fixed Fee",
-      "Disbursement API Amount",
       "Disbursement API Percentage",
       "Disbursement API Fixed Fee",
-      "International API Amount",
       "International API Percentage",
       "International API Fixed Fee",
-      "UPI Amount",
       "UPI Percentage",
       "UPI Fixed Fee",
-      "Dynamic QR Amount",
       "Dynamic QR Percentage",
       "Dynamic QR Fixed Fee",
-      "Rupay Debit Card Amount  (> 2000 )",
       "Rupay Debit Card Percentage  (> 2000 )",
       "Rupay Debit Card Fixed Fee  (> 2000 )",
-      "Rupay Debit Card Amount  (< 2000 )",
       "Rupay Debit Card Percentage  (< 2000 )",
       "Rupay Debit Card Fixed Fee  (< 2000 )",
-      "Other Debit Card Amount (> 2000 )",
       "Other Debit Card Percentage (> 2000 )",
       "Other Debit Card Fixed Fee (> 2000 )",
-      "Other Debit Card Amount (< 2000 )",
       "Other Debit Card Percentage (< 2000 )",
       "Other Debit Card Fixed Fee (< 2000 )",
-      "Amex Card Amount",
       "Amex Card Percentage",
       "Amex Card Fixed Fee",
-      "Dinners Card Amount",
       "Dinners Card Percentage",
       "Dinners Card Fixed Fee",
-      "Corporate/Commercial Card Amount",
       "Corporate/Commercial Card Percentage",
       "Corporate/Commercial Card Fixed Fee",
-      "Prepaid Card Amount",
       "Prepaid Card Percentage",
       "Prepaid Card Fixed Fee",
-      "Credit Card Amount",
       "Credit Card Percentage",
       "Credit Card Fixed Fee",
-      "Phonepe Amount",
       "Phonepe Percentage",
       "Phonepe Fixed Fee",
-      "FreeCharge Amount",
       "FreeCharge Percentage",
       "FreeCharge Fixed Fee",
-      "Payzapp Amount",
       "Payzapp Percentage",
       "Payzapp Fixed Fee",
-      "Paytm Amount",
       "Paytm Percentage",
       "Paytm Fixed Fee",
-      "Ola Money Amount",
       "Ola Money Percentage",
       "Ola Money Fixed Fee",
-      "Mobikwik Amount",
       "Mobikwik Percentage",
       "Mobikwik Fixed Fee",
-      "Reliance Jio Money Amount",
       "Reliance Jio Money Percentage",
       "Reliance Jio Money Fixed Fee",
-      "Airtel Money Amount",
       "Airtel Money Percentage",
       "Airtel Money Fixed Fee",
       "CreatedBy",
@@ -511,30 +487,7 @@ export class ViewagreementplanComponent {
       let qty54 = row.getCell(55);
       let qty55 = row.getCell(56);
       let qty56 = row.getCell(57);
-      let qty57 = row.getCell(58);
-      let qty58 = row.getCell(59);
-      let qty59 = row.getCell(60);
-      let qty60 = row.getCell(61);
-      let qty61 = row.getCell(62);
-      let qty62 = row.getCell(63);
-      let qty63 = row.getCell(64);
-      let qty64 = row.getCell(65);
-      let qty65 = row.getCell(66);
-      let qty66 = row.getCell(67);
-      let qty67 = row.getCell(68);
-      let qty68 = row.getCell(69);
-      let qty69 = row.getCell(70);
-      let qty70 = row.getCell(71);
-      let qty71 = row.getCell(72);
-      let qty72 = row.getCell(73);
-      let qty73 = row.getCell(74);
-      let qty74 = row.getCell(75);
-      let qty75 = row.getCell(76);
-      let qty76 = row.getCell(77);
-      let qty77 = row.getCell(78);
-      let qty78 = row.getCell(79);
-      let qty79 = row.getCell(80);
-      let qty80 = row.getCell(81);
+     
 
 
 
@@ -597,31 +550,7 @@ export class ViewagreementplanComponent {
       qty54.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty55.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty56.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty57.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty58.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty59.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty60.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty61.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty62.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty63.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty64.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty65.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty66.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty67.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty68.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty69.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty70.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty71.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty72.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty73.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty74.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty75.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty76.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty77.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty78.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty79.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty80.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
+      
     }
     );
 
