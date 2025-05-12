@@ -10,7 +10,7 @@ import moment from 'moment';
 @Component({
   selector: 'app-agreements-link-extent',
   templateUrl: './agreements-link-extent.component.html',
-  styleUrl: './agreements-link-extent.component.css'
+  styleUrl: './agreements-link-extent.component.css',
 })
 export class AgreementsLinkExtentComponent {
   Id: any;
@@ -20,49 +20,42 @@ export class AgreementsLinkExtentComponent {
   Expirydate: any;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog, private service: FarginServiceService) { }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private toastr: ToastrService,
+    private dialog: MatDialog,
+    private service: FarginServiceService
+  ) { }
   ngOnInit(): void {
+
     this.Id = this.data.value;
     this.dates = this.data.value2;
-    console.log(this.Id)
-    console.log(this.dates)
     const today = new Date();
     this.todayDate = today.toISOString().slice(0, 16);
 
     this.myForm = new FormGroup({
-      expiryLink: new FormControl('', [Validators.required,])
+      expiryLink: new FormControl('', [Validators.required]),
     });
-
   }
 
   get expiryLink() {
-    return this.myForm.get('expiryLink')
-
+    return this.myForm.get('expiryLink');
   }
 
-
-
   submit() {
-
-    this.Expirydate = this.expiryLink?.value
+    this.Expirydate = this.expiryLink?.value;
     let startdate = moment(this.Expirydate).format('yyyy-MM-DD HH:mm:ss').toString();
     let submitModel: Agreementextentdate = {
-      expiryLink: startdate
-    }
+      expiryLink: startdate,
+    };
     this.service.agreementextendlink(this.Id, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
-  
-           // Emit the event to notify parent component
-           this.bankDetailsUpdated.emit();
-
-
-           this.dialog.closeAll();
-
-      }
-      else {
+        this.bankDetailsUpdated.emit();
+        this.dialog.closeAll();
+      } else {
         this.toastr.error(res.responseMessage);
       }
-    })
+    });
   }
 }

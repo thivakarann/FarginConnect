@@ -14,7 +14,7 @@ import moment from 'moment';
 @Component({
   selector: 'app-branch-wiseenitytransaction',
   templateUrl: './branch-wiseenitytransaction.component.html',
-  styleUrl: './branch-wiseenitytransaction.component.css'
+  styleUrl: './branch-wiseenitytransaction.component.css',
 })
 export class BranchWiseenitytransactionComponent {
   channel: any;
@@ -23,26 +23,21 @@ export class BranchWiseenitytransactionComponent {
   dataSource: any;
   responseDataListnew: any[] = [];
   response: any[] = [];
-  displayedColumns: any[] =
-    [
-
-      "alcotId",
-      'branchname',
-      "pgPaymentId",
-      "customerName",
-      "mobileNumber",
-      'setupBoxNumber',
-      'paidAmount',
-      'paymentMethod',
-      'createdDateTime',
-      'status',
-      'view',
-      'Receipt',
-      'paidAt',
-
-
-
-    ];
+  displayedColumns: any[] = [
+    'alcotId',
+    'branchname',
+    'pgPaymentId',
+    'customerName',
+    'mobileNumber',
+    'setupBoxNumber',
+    'paidAmount',
+    'paymentMethod',
+    'createdDateTime',
+    'status',
+    'view',
+    'Receipt',
+    'paidAt',
+  ];
   valuechannelAdd: any;
   getdashboard: any[] = [];
   pageIndex: number = 0;
@@ -51,15 +46,14 @@ export class BranchWiseenitytransactionComponent {
   totalpage: any;
   currentpage: any;
   actions: any;
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId');
   valuechannelexport: any;
   valuechannelView: any;
-  roleName = sessionStorage.getItem('roleName')
+  roleName = sessionStorage.getItem('roleName');
   channelexport: any;
   currentfilval: any;
   pageIndex1: number = 0;
   pageSize1 = 5;
-
   totalpage1: any;
   totalPages1: any;
   currentpage1: any;
@@ -73,15 +67,19 @@ export class BranchWiseenitytransactionComponent {
   valueexport: any;
   errorMessage: any;
   valueView: any;
-  valueReceipt:any;
+  valueReceipt: any;
   viewallexport: any;
 
-  constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private router: Router, private ActivateRoute: ActivatedRoute, private location: Location) { }
+  constructor(
+    private dialog: MatDialog,
+    private service: FarginServiceService,
+    private toastr: ToastrService,
+    private router: Router,
+    private ActivateRoute: ActivatedRoute,
+    private location: Location
+  ) { }
 
   ngOnInit(): void {
-
-
-
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.id = param.Alldata;
       this.merchantId = param.All;
@@ -89,8 +87,6 @@ export class BranchWiseenitytransactionComponent {
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-
-
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
 
@@ -98,14 +94,9 @@ export class BranchWiseenitytransactionComponent {
             this.valueexport = 'Entity View Branch-online View-Export';
             this.valueView = 'Entity View-Branch-Transactions-View';
             this.valueReceipt = 'Entity View-Branch-Transactions-Receipt';
-
-
-
-          }
-          else {
+          } else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
-
 
               if (this.actions == 'Entity View Branch-online View-Export') {
                 this.valueexport = 'Entity View Branch-online View-Export';
@@ -118,18 +109,18 @@ export class BranchWiseenitytransactionComponent {
               if (this.actions == 'Entity View-Branch-Transactions-Receipt') {
                 this.valueReceipt = 'Entity View-Branch-Transactions-Receipt';
               }
-
-
             }
           }
-        }
-        else {
+        } else {
           this.errorMessage = res.responseMessage;
         }
-      }
+      },
     });
 
+    this.Getall();
+  }
 
+  Getall() {
     this.service
       .entityonlinebranchs(this.id, this.pageSize, this.pageIndex)
       .subscribe((res: any) => {
@@ -140,82 +131,91 @@ export class BranchWiseenitytransactionComponent {
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.transactionValue);
           this.currentfilvalShow = false;
-
         } else if (res.flag === 2) {
           this.dataSource = new MatTableDataSource([]);
           this.totalPages = res.pagination.totalElements;
           this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage
+          this.currentpage = res.pagination.currentPage;
           this.currentfilvalShow = false;
-
         }
       });
-
-  }
-
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    this.searchPerformed = filterValue.length > 0;
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
   }
 
   view(id: any) {
     this.router.navigate([`dashboard/channelconfiguration-singleview/${id}`], {
       queryParams: { Alldata: id },
     });
-
   }
 
-
-
-
-
-
   channelsearch(filterValue: string) {
-
     if (filterValue) {
-
-      this.service.entitysearchbranchs(this.id, filterValue, this.pageSize, this.pageIndex).subscribe({
-        next: (res: any) => {
-          if (res.response) {
-            this.Viewall = res.response;
-            // this.Viewall.reverse();
-            this.dataSource = new MatTableDataSource(this.Viewall);
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.currentfilvalShow = true;
-
-          }
-          else if (res.flag === 2) {
-            this.Viewall = [];
-            this.dataSource = new MatTableDataSource(this.Viewall);
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.currentfilvalShow = true;
-          }
-        },
-        error: (err: any) => {
-          this.toastr.error('No Data Found');
-        }
-      });
-    }
-    else if (!filterValue) {
+      this.service
+        .entitysearchbranchs(
+          this.id,
+          filterValue,
+          this.pageSize,
+          this.pageIndex
+        )
+        .subscribe({
+          next: (res: any) => {
+            if (res.response) {
+              this.Viewall = res.response;
+              this.dataSource = new MatTableDataSource(this.Viewall);
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.currentfilvalShow = true;
+            } else if (res.flag === 2) {
+              this.Viewall = [];
+              this.dataSource = new MatTableDataSource(this.Viewall);
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.currentfilvalShow = true;
+            }
+          },
+          error: (err: any) => {
+            this.toastr.error('No Data Found');
+          },
+        });
+    } else if (!filterValue) {
       this.toastr.error('Please enter a value to search');
       return;
     }
   }
 
-
-  reload() {
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      this.service
+        .entitysearchbranchs(
+          this.id,
+          this.currentfilval,
+          event.pageSize,
+          event.pageIndex
+        )
+        .subscribe({
+          next: (res: any) => {
+            if (res.response) {
+              this.Viewall = res.response;
+              this.dataSource = new MatTableDataSource(this.Viewall);
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+            } else if (res.flag === 2) {
+              this.Viewall = [];
+              this.dataSource = new MatTableDataSource(this.Viewall);
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+            }
+          },
+          error: (err: any) => {
+            this.toastr.error('No Data Found');
+          },
+        });
+    } else {
     this.service
-      .entityonlinebranchs(this.id, this.pageSize, this.pageIndex)
+      .entityonlinebranchs(this.id,event.pageSize,event.pageIndex)
       .subscribe((res: any) => {
         if (res.flag === 1) {
           this.transactionValue = res.response;
@@ -223,69 +223,13 @@ export class BranchWiseenitytransactionComponent {
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.transactionValue);
-          this.currentfilvalShow = false;
-
         } else if (res.flag === 2) {
           this.dataSource = new MatTableDataSource([]);
           this.totalPages = res.pagination.totalElements;
           this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage
-          this.currentfilvalShow = false;
-
+          this.currentpage = res.pagination.currentPage;
         }
       });
-  }
-
-
-  getData(event: any) {
-    if (this.currentfilvalShow) {
-      this.service.entitysearchbranchs(this.id, this.currentfilval, event.pageSize, event.pageIndex).subscribe({
-        next: (res: any) => {
-          if (res.response) {
-            this.Viewall = res.response;
-            // this.Viewall.reverse();
-            this.dataSource = new MatTableDataSource(this.Viewall);
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-           
-
-          }
-          else if (res.flag === 2) {
-            this.Viewall = [];
-            this.dataSource = new MatTableDataSource(this.Viewall);
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            
-          }
-        },
-        error: (err: any) => {
-          this.toastr.error('No Data Found');
-        }
-      });
-    }
-    else {
-      this.service
-        .entityonlinebranchs(this.id, event.pageSize, event.pageIndex)
-        .subscribe((res: any) => {
-          if (res.flag === 1) {
-            this.transactionValue = res.response;
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSource = new MatTableDataSource(this.transactionValue);
-           
-
-          } else if (res.flag === 2) {
-            this.dataSource = new MatTableDataSource([]);
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage
-        
-
-          }
-        });
     }
   }
 
@@ -295,146 +239,198 @@ export class BranchWiseenitytransactionComponent {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '800ms',
       disableClose: true,
-    })
-
+    });
   }
+
   Receipt(id: any) {
     this.service.CustomerReceipt(id).subscribe({
       next: (res: any) => {
         var downloadURL = URL.createObjectURL(res);
         window.open(downloadURL);
       },
-
     });
   }
+
   close() {
-    this.location.back()
+    this.location.back();
   }
 
+  exportexcel() {
+    this.service.entitywithbranchexport(this.id).subscribe((res: any) => {
+      this.viewallexport = res.response;
+      if (res.flag == 1) {
+        let sno = 1;
+        this.responseDataListnew = [];
+        this.viewallexport.forEach((element: any) => {
+          this.response = [];
+          this.response.push(sno);
+          this.response.push(element?.pgPaymentId);
+          this.response.push(element?.branchName);
+          this.response.push(element?.customerName);
+          this.response.push(element?.mobileNumber);
+          this.response.push(element?.setupBoxNumber);
+          this.response.push(element?.paidAmount);
+          this.response.push(element?.paymentMethod);
+          this.response.push(element?.paymentStatus);
+          if (element.paymentDateTime) {
+            this.response.push(
+              moment(element?.paymentDateTime)
+                .format('DD/MM/yyyy hh:mm a')
+                .toString()
+            );
+          } else {
+            this.response.push('');
+          }
 
-   exportexcel() {
-      this.service.entitywithbranchexport(this.id).subscribe((res: any) => {
-        this.viewallexport = res.response;
-        if (res.flag == 1) {
-          let sno = 1;
-          this.responseDataListnew = [];
-          this.viewallexport.forEach((element: any) => {
-  
-            this.response = [];
-            this.response.push(sno);
-            this.response.push(element?.pgPaymentId);
-            this.response.push(element?.branchName);
-            this.response.push(element?.customerName);
-            this.response.push(element?.mobileNumber);
-            this.response.push(element?.setupBoxNumber);
-  
-            this.response.push(element?.paidAmount);
-            this.response.push(element?.paymentMethod);
-            this.response.push(element?.paymentStatus);
-  
-         
-            if (element.paymentDateTime) {
-              this.response.push(moment(element?.paymentDateTime).format('DD/MM/yyyy hh:mm a').toString());
-            }
-            else {
-              this.response.push('');
-            }
-   
-            if (element.createdDateTime) {
-              this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
-            }
-            else {
-              this.response.push('');
-            }
-  
-           
-           
-  
-  
-            sno++;
-            this.responseDataListnew.push(this.response);
-          });
-          this.excelexportCustomer();
-        }
-      });
-    }
-  
-    excelexportCustomer() {
-      // const title='Entity Details';
-      const header = [
-        "S.No",
-        'Payment ID',
-        'Branch Name',
-        'Customer Name',
-        'Mobile Number',
-        'SetTopbox Number',
-        'Paid Amount',
-        'Payment Method',
-        'Payment Status',
-        'Paid At',
-        'Due Generated At',
-      
-      ]
-  
-  
-      const data = this.responseDataListnew;
-      let workbook = new Workbook();
-      let worksheet = workbook.addWorksheet('Branch Transaction');
-  
-      // let titleRow = worksheet.addRow([title]);
-      // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-  
-  
-      worksheet.addRow([]);
-      let headerRow = worksheet.addRow(header);
-      headerRow.font = { bold: true };
-      // Cell Style : Fill and Border
-      headerRow.eachCell((cell, number) => {
-        cell.fill = {
-          type: 'pattern',
-          pattern: 'solid',
-          fgColor: { argb: 'FFFFFFFF' },
-          bgColor: { argb: 'FF0000FF' },
-  
-        }
-  
-        cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      });
-  
-      data.forEach((d: any) => {
-        //
-  
-        let row = worksheet.addRow(d);
-        let qty = row.getCell(1);
-        let qty1 = row.getCell(2);
-        let qty2 = row.getCell(3);
-        let qty3 = row.getCell(4);
-        let qty4 = row.getCell(5);
-        let qty5 = row.getCell(6);
-        let qty6 = row.getCell(7);
-        let qty7 = row.getCell(8);
-        let qty8 = row.getCell(9);
-        let qty9 = row.getCell(10);
-        let qty10 = row.getCell(11);
-  
-        qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-        qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-        qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-        qty3.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-        qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-        qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-        qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-        qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-        qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-        qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-        qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-  
+          if (element.createdDateTime) {
+            this.response.push(
+              moment(element?.createdDateTime)
+                .format('DD/MM/yyyy hh:mm a')
+                .toString()
+            );
+          } else {
+            this.response.push('');
+          }
+
+          sno++;
+          this.responseDataListnew.push(this.response);
+        });
+        this.excelexportCustomer();
       }
-      );
-  
-      workbook.xlsx.writeBuffer().then((data: any) => {
-        let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-        FileSaver.saveAs(blob, 'Branch Transaction.xlsx');
+    });
+  }
+
+  excelexportCustomer() {
+    const header = [
+      'S.No',
+      'Payment ID',
+      'Branch Name',
+      'Customer Name',
+      'Mobile Number',
+      'SetTopbox Number',
+      'Paid Amount',
+      'Payment Method',
+      'Payment Status',
+      'Paid At',
+      'Due Generated At',
+    ];
+
+    const data = this.responseDataListnew;
+    let workbook = new Workbook();
+    let worksheet = workbook.addWorksheet('Branch Transaction');
+
+    // let titleRow = worksheet.addRow([title]);
+    // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
+
+    worksheet.addRow([]);
+    let headerRow = worksheet.addRow(header);
+    headerRow.font = { bold: true };
+    // Cell Style : Fill and Border
+    headerRow.eachCell((cell, number) => {
+      cell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'FFFFFFFF' },
+        bgColor: { argb: 'FF0000FF' },
+      };
+
+      cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+    });
+
+    data.forEach((d: any) => {
+      //
+
+      let row = worksheet.addRow(d);
+      let qty = row.getCell(1);
+      let qty1 = row.getCell(2);
+      let qty2 = row.getCell(3);
+      let qty3 = row.getCell(4);
+      let qty4 = row.getCell(5);
+      let qty5 = row.getCell(6);
+      let qty6 = row.getCell(7);
+      let qty7 = row.getCell(8);
+      let qty8 = row.getCell(9);
+      let qty9 = row.getCell(10);
+      let qty10 = row.getCell(11);
+
+      qty.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty1.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty2.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty3.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty4.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty5.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty6.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty7.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty8.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty9.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty10.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+    });
+
+    workbook.xlsx.writeBuffer().then((data: any) => {
+      let blob = new Blob([data], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       });
-    }
+      FileSaver.saveAs(blob, 'Branch Transaction.xlsx');
+    });
+  }
 }

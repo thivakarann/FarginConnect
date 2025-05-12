@@ -1055,6 +1055,7 @@ export interface Addsigner {
   readonly signAdminMobile:any,
   readonly signAdminName:any,
   readonly createdBy:any
+  readonly adminPosition:any
 }
 
 export interface Updatesigner {

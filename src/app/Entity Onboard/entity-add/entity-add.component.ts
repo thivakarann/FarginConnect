@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -9,14 +14,13 @@ import moment from 'moment';
 @Component({
   selector: 'app-entity-add',
   templateUrl: './entity-add.component.html',
-  styleUrl: './entity-add.component.css'
+  styleUrl: './entity-add.component.css',
 })
 export class EntityAddComponent implements OnInit {
   getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
   Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
   myForm!: FormGroup;
   myForm2!: FormGroup;
-
   myForm3!: FormGroup;
   file1!: File;
   file2!: File;
@@ -44,7 +48,7 @@ export class EntityAddComponent implements OnInit {
   kycDocname4: any;
   kycDocname5: any;
   kycDocname6: any;
-  emptyBlob = new Blob([], { type: 'application/pdf' })
+  emptyBlob = new Blob([], { type: 'application/pdf' });
   fileType: any;
   error!: boolean;
   file3!: File;
@@ -91,25 +95,21 @@ export class EntityAddComponent implements OnInit {
     public AddEntity: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
-    private _formBuilder: FormBuilder) {
+    private _formBuilder: FormBuilder
+  ) {
     const todayDate = new Date();
     this.today = todayDate.toISOString().split('T')[0];
   }
   ngOnInit(): void {
-
-    const today = new Date()
-
-    this.maxDate = moment(today).format('yyyy-MM-DD').toString()
+    const today = new Date();
+    this.maxDate = moment(today).format('yyyy-MM-DD').toString();
 
     this.AddEntity.Bussinesscategoryactivelist().subscribe((res: any) => {
-      this.categorydetails = res.response;
-      this.categorydetails.reverse();
-
+      this.categorydetails = res.response.reverse();
     });
 
     this.AddEntity.merchantplanactive().subscribe((res: any) => {
-      this.entittyplanviewall = res.response;
-      this.entittyplanviewall.reverse();
+      this.entittyplanviewall = res.response.reverse();
     });
 
     this.AddEntity.activebankdetails().subscribe((res: any) => {
@@ -117,153 +117,136 @@ export class EntityAddComponent implements OnInit {
     });
 
     this.AddEntity.activeViewall().subscribe((res: any) => {
-      this.kycValue = res.response;
-      this.kycValue.reverse();
-
-    })
+      this.kycValue = res.response.reverse();
+    });
 
     this.myForm = new FormGroup({
-
       entityName: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-zA-Z ]*$'),
-        Validators.maxLength(30)
+        Validators.maxLength(30),
       ]),
       merchantLegalName: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-zA-Z ]*$'),
-        Validators.maxLength(30)
+        Validators.maxLength(30),
       ]),
-      accountDisplayName: new FormControl('',
-        [
-          Validators.required,
-          Validators.pattern('^[a-zA-Z ]*$'),
-          Validators.maxLength(30)
-        ]
-      ),
+      accountDisplayName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z ]*$'),
+        Validators.maxLength(30),
+      ]),
       businessCategoryIds: new FormControl('', [Validators.required]),
       MccCode: new FormControl(''),
       contactName: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-zA-Z ]*$'),
-        Validators.maxLength(30)
+        Validators.maxLength(30),
       ]),
       contactMobile: new FormControl('', [
         Validators.required,
         Validators.maxLength(10),
-        Validators.pattern('^[0-9]{10}$')
+        Validators.pattern('^[0-9]{10}$'),
       ]),
       secondaryMobile: new FormControl('', [
         Validators.maxLength(10),
-        Validators.pattern('^[0-9]{10}$')
+        Validators.pattern('^[0-9]{10}$'),
       ]),
       contactEmail: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$'),
-        Validators.maxLength(40), // Maximum length for the email
+        Validators.maxLength(40),
       ]),
-      website: new FormControl('', [Validators.pattern("((http|https)://)(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,6})+(/[-a-zA-Z0-9@:%._\\+~#?&//=]*)?")]),
-      gstIn: new FormControl("", [Validators.pattern("^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[A-Z]{1}[0-9A-Z]{1}$")]),
-      billingAddress: new FormControl("", [
-        Validators.required
+      website: new FormControl('', [
+        Validators.pattern(
+          '((http|https)://)(www.)?[a-zA-Z0-9-]+(.[a-zA-Z]{2,6})+(/[-a-zA-Z0-9@:%._\\+~#?&//=]*)?'
+        ),
       ]),
+      gstIn: new FormControl('', [
+        Validators.pattern(
+          '^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[A-Z]{1}[0-9A-Z]{1}$'
+        ),
+      ]),
+      billingAddress: new FormControl('', [Validators.required]),
       area: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
+        Validators.pattern('^[a-zA-Z0-9 ]*$'),
       ]),
       zipcode: new FormControl('', [
         Validators.required,
-        Validators.pattern("^[1-9]{1}[0-9]{2}\\s{0,1}[0-9]{3}$")
-
+        Validators.pattern('^[1-9]{1}[0-9]{2}\\s{0,1}[0-9]{3}$'),
       ]),
       stateName: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-zA-Z ]*$'),
-        Validators.maxLength(30)
+        Validators.maxLength(30),
       ]),
       city: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-zA-Z ]*$'),
-        Validators.maxLength(30)
+        Validators.maxLength(30),
       ]),
       country: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-zA-Z ]*$'),
-        Validators.maxLength(30)
+        Validators.maxLength(30),
       ]),
       merchantPlanId: new FormControl('', [Validators.required]),
       // periodName: new FormControl('', [Validators.required]),
       autoDebitStatus: new FormControl('', [Validators.required]),
       logo: new FormControl(''),
-      billingMode: new FormControl("", [
-        Validators.required
-      ]),
+      billingMode: new FormControl('', [Validators.required]),
       customerDuesEnable: new FormControl('', [Validators.required]),
 
-      customerDuesDate: new FormControl('',),
+      customerDuesDate: new FormControl(''),
 
-      dueDate: new FormControl('',),
+      dueDate: new FormControl(''),
 
-      offlineQrEnable: new FormControl("", [Validators.required]),
+      offlineQrEnable: new FormControl('', [Validators.required]),
 
       // payoutEnable: new FormControl("", [Validators.required]),
 
-      customerManualStatus: new FormControl("", [Validators.required]),
+      customerManualStatus: new FormControl('', [Validators.required]),
 
-      customerPaymentMode: new FormControl("", [Validators.required]),
+      customerPaymentMode: new FormControl('', [Validators.required]),
 
       smsMerchantName: new FormControl('', [
         Validators.required,
         Validators.pattern('^[A-Za-z]*$'),
-        Validators.maxLength(25)
+        Validators.maxLength(25),
       ]),
-
-      customerSmsTag: new FormControl(""),
-
-
-
-
-
-
-
-
-
+      customerSmsTag: new FormControl(''),
     });
-
-
-
 
     this.myForm2 = new FormGroup({
       accountHolderName: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-zA-Z ]*$'),
-        Validators.maxLength(30)
+        Validators.maxLength(30),
       ]),
       accountNumber: new FormControl(null, [
         Validators.required,
-        Validators.pattern("^[0-9]{9,18}$"),
-
+        Validators.pattern('^[0-9]{9,18}$'),
       ]),
-      bankName: new FormControl("", [
+      bankName: new FormControl('', [
         Validators.required,
         // Validators.pattern('^[a-zA-Z0-9 ]*$')
       ]),
-      ifscCode: new FormControl("", [
+      ifscCode: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[A-Z]{4}0[A-Z0-9]{6}$')
-
+        Validators.pattern('^[A-Z]{4}0[A-Z0-9]{6}$'),
       ]),
       branchName: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9 ]*$'),
-        Validators.maxLength(50)
+        Validators.maxLength(50),
       ]),
-      accountType: new FormControl("", [
+      accountType: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
+        Validators.pattern('^[a-zA-Z0-9 ]*$'),
       ]),
-
-  ledgerId: new FormControl("", [Validators.pattern(/^\d{1,15}$/)]),    })
+      ledgerId: new FormControl('', [Validators.pattern(/^\d{1,15}$/)]),
+    });
 
     this.firstFormGroup = this._formBuilder.group({
       identityProof: ['', Validators.required],
@@ -272,8 +255,8 @@ export class EntityAddComponent implements OnInit {
       identityBackPath: [null, Validators.required],
       drivingLicenceDob: [''],
       passportDob: [''],
-
     });
+
     this.secondFormGroup = this._formBuilder.group({
       addressProof: ['', Validators.required],
       addressProofNo: ['', Validators.required],
@@ -292,143 +275,128 @@ export class EntityAddComponent implements OnInit {
       passportDobss: [''],
     });
 
-
     this.fourthFormGroup = this._formBuilder.group({
       kycCategoryIds: ['', [Validators.required]],
-      docNumber: ['',
-        [Validators.maxLength(60)]],
+      docNumber: ['', [Validators.maxLength(60)]],
       expiryDate: [''],
       docFrontPath: ['', Validators.required],
-      docBackPath: ['', Validators.required]
-    })
-
-
-
-
+      docBackPath: ['', Validators.required],
+    });
   }
-
 
   // get(event: any) {
   //   this.selectperiod = event.target.value;
   // }
+
   duealert(event: any) {
     this.myForm.get('customerDuesDate')?.setValue('');
     this.myForm.get('dueDate')?.setValue('');
     this.myForm.get('customerSmsTag')?.setValue('');
   }
 
+  onCategoryChange(event: any) {
+    this.businessId = event.target.value;
+    this.AddEntity.EntityBusinessCategoryId(this.businessId).subscribe(
+      (res: any) => {
+        if (res.flag == 1) {
+          this.mcccode = res.response.mccCode;
+        }
+      }
+    );
+  }
+
   // First Form
 
   get entityName() {
-    return this.myForm.get('entityName')
-
+    return this.myForm.get('entityName');
   }
   get autoDebitStatus() {
-    return this.myForm.get('autoDebitStatus')
-
+    return this.myForm.get('autoDebitStatus');
   }
 
   get merchantLegalName() {
-    return this.myForm.get('merchantLegalName')
-
+    return this.myForm.get('merchantLegalName');
   }
 
   get accountDisplayName() {
-    return this.myForm.get('accountDisplayName')
-
+    return this.myForm.get('accountDisplayName');
   }
 
   get billingMode() {
-    return this.myForm.get('billingMode')
+    return this.myForm.get('billingMode');
   }
-
 
   get contactName() {
-    return this.myForm.get('contactName')
-
+    return this.myForm.get('contactName');
   }
   get dueDate() {
-    return this.myForm.get('dueDate')
-
+    return this.myForm.get('dueDate');
   }
   get secondaryMobile() {
-    return this.myForm.get('secondaryMobile')
-
+    return this.myForm.get('secondaryMobile');
   }
   get contactEmail() {
-    return this.myForm.get('contactEmail')
-
+    return this.myForm.get('contactEmail');
   }
   get website() {
-    return this.myForm.get('website')
-
+    return this.myForm.get('website');
   }
   get gstIn() {
-    return this.myForm.get('gstIn')
-
+    return this.myForm.get('gstIn');
   }
   get billingAddress() {
-    return this.myForm.get('billingAddress')
-
+    return this.myForm.get('billingAddress');
   }
   get area() {
-    return this.myForm.get('area')
-
+    return this.myForm.get('area');
   }
   get zipcode() {
-    return this.myForm.get('zipcode')
-
-  } get stateName() {
-    return this.myForm.get('stateName')
-
+    return this.myForm.get('zipcode');
+  }
+  get stateName() {
+    return this.myForm.get('stateName');
   }
   get city() {
-    return this.myForm.get('city')
-
+    return this.myForm.get('city');
   }
   get contactPerson() {
-    return this.myForm.get('contactPerson')
-
+    return this.myForm.get('contactPerson');
   }
   get country() {
-    return this.myForm.get('country')
-
+    return this.myForm.get('country');
   }
 
   get businessCategoryIds() {
-    return this.myForm.get('businessCategoryIds')
-
+    return this.myForm.get('businessCategoryIds');
   }
   get mccCode() {
-    return this.myForm.get('mccCode')
-
+    return this.myForm.get('mccCode');
   }
 
   get contactMobile() {
-    return this.myForm.get('contactMobile')
-
+    return this.myForm.get('contactMobile');
   }
 
   get merchantPlanId() {
-    return this.myForm.get('merchantPlanId')
+    return this.myForm.get('merchantPlanId');
   }
   // get periodName() {
   //   return this.myForm.get('periodName')
   // }
   get logo() {
-    return this.myForm.get('logo')
+    return this.myForm.get('logo');
   }
 
   get customerDuesEnable() {
-    return this.myForm.get('customerDuesEnable')
+    return this.myForm.get('customerDuesEnable');
   }
 
   get customerDuesDate() {
-    return this.myForm.get('customerDuesDate')
+    return this.myForm.get('customerDuesDate');
   }
 
   get offlineQrEnable() {
-    return this.myForm.get('offlineQrEnable')
+    return this.myForm.get('offlineQrEnable');
   }
 
   // get payoutEnable() {
@@ -436,360 +404,339 @@ export class EntityAddComponent implements OnInit {
   // }
 
   get customerManualStatus() {
-    return this.myForm.get('customerManualStatus')
+    return this.myForm.get('customerManualStatus');
   }
 
-
   get customerPaymentMode() {
-    return this.myForm.get('customerPaymentMode')
+    return this.myForm.get('customerPaymentMode');
   }
 
   get smsMerchantName() {
-    return this.myForm.get('smsMerchantName')
+    return this.myForm.get('smsMerchantName');
   }
 
   get customerSmsTag() {
-    return this.myForm.get('customerSmsTag')
+    return this.myForm.get('customerSmsTag');
   }
-
-  // onCategoryChange(event: any): void {
-  //  
-  //   this.selectedCategoryId = event.target.value;
-  //  
-  //   const selectedCategory = this.categorydetails.find((category: { businessCategoryId: any; }) => category.businessCategoryId === +this.selectedCategoryId);
-
-  //   if (selectedCategory) {
-  //     this.myForm.patchValue({
-  //       mccCode: selectedCategory.mccCode
-
-
-  //     });
-  //    
-  //   }
-  // }
-
-  onCategoryChange(event: any) {
-    this.businessId = event.target.value;
-    this.AddEntity.EntityBusinessCategoryId(this.businessId).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.mcccode = res.response.mccCode
-      }
-    })
-  }
-
 
   // second Form
 
   get accountHolderName() {
-    return this.myForm2.get('accountHolderName')
+    return this.myForm2.get('accountHolderName');
   }
 
   get accountNumber() {
-    return this.myForm2.get('accountNumber')
+    return this.myForm2.get('accountNumber');
   }
   get bankName() {
-    return this.myForm2.get('bankName')
+    return this.myForm2.get('bankName');
   }
 
   get ifscCode() {
-    return this.myForm2.get('ifscCode')
+    return this.myForm2.get('ifscCode');
   }
 
   get branchName() {
-    return this.myForm2.get('branchName')
+    return this.myForm2.get('branchName');
   }
 
   get accountType() {
-    return this.myForm2.get('accountType')
+    return this.myForm2.get('accountType');
   }
 
   get ledgerId() {
-    return this.myForm2.get('ledgerId')
+    return this.myForm2.get('ledgerId');
   }
 
   // third Form
 
   get identityProof() {
-    return this.firstFormGroup.get('identityProof')
+    return this.firstFormGroup.get('identityProof');
   }
   get identityProofNo() {
-    return this.firstFormGroup.get('identityProofNo')
+    return this.firstFormGroup.get('identityProofNo');
   }
   get identityFrontPath() {
-    return this.firstFormGroup.get('identityFrontPath')
+    return this.firstFormGroup.get('identityFrontPath');
   }
 
   get identityBackPath() {
-    return this.firstFormGroup.get('identityBackPath')
+    return this.firstFormGroup.get('identityBackPath');
   }
 
   get drivingLicenceDob() {
-    return this.firstFormGroup.get('drivingLicenceDob')
+    return this.firstFormGroup.get('drivingLicenceDob');
   }
   get passportDob() {
-    return this.firstFormGroup.get('passportDob')
+    return this.firstFormGroup.get('passportDob');
   }
 
   get addressProof() {
-    return this.secondFormGroup.get('addressProof')
+    return this.secondFormGroup.get('addressProof');
   }
 
   get addressProofNo() {
-    return this.secondFormGroup.get('addressProofNo')
+    return this.secondFormGroup.get('addressProofNo');
   }
 
   get addressFrontPath() {
-    return this.secondFormGroup.get('addressFrontPath')
+    return this.secondFormGroup.get('addressFrontPath');
   }
 
   get addressBackPath() {
-    return this.secondFormGroup.get('addressBackPath')
+    return this.secondFormGroup.get('addressBackPath');
   }
   get drivingLicenceDobs() {
-    return this.secondFormGroup.get('drivingLicenceDobs')
+    return this.secondFormGroup.get('drivingLicenceDobs');
   }
   get passportDobs() {
-    return this.secondFormGroup.get('passportDobs')
+    return this.secondFormGroup.get('passportDobs');
   }
 
   get signatureProof() {
-    return this.thirdFormGroup.get('signatureProof')
+    return this.thirdFormGroup.get('signatureProof');
   }
   get signatureProofNo() {
-    return this.thirdFormGroup.get('signatureProofNo')
+    return this.thirdFormGroup.get('signatureProofNo');
   }
   get signatureFrontPath() {
-    return this.thirdFormGroup.get('signatureFrontPath')
+    return this.thirdFormGroup.get('signatureFrontPath');
   }
   get signatureBackPath() {
-    return this.thirdFormGroup.get('signatureBackPath')
+    return this.thirdFormGroup.get('signatureBackPath');
   }
   get drivingLicenceDobss() {
-    return this.thirdFormGroup.get('drivingLicenceDobss')
+    return this.thirdFormGroup.get('drivingLicenceDobss');
   }
   get passportDobss() {
-    return this.thirdFormGroup.get('passportDobss')
+    return this.thirdFormGroup.get('passportDobss');
   }
 
   // Bussiness form
 
   get kycCategoryIds() {
-    return this.fourthFormGroup.get('kycCategoryIds')
+    return this.fourthFormGroup.get('kycCategoryIds');
   }
 
   get docNumber() {
-    return this.fourthFormGroup.get('docNumber')
+    return this.fourthFormGroup.get('docNumber');
   }
 
   get expiryDate() {
-    return this.fourthFormGroup.get('expiryDate')
+    return this.fourthFormGroup.get('expiryDate');
   }
 
   get docFrontPath() {
-    return this.fourthFormGroup.get('docFrontPath')
+    return this.fourthFormGroup.get('docFrontPath');
   }
 
   get docBackPath() {
-    return this.fourthFormGroup.get('docBackPath')
+    return this.fourthFormGroup.get('docBackPath');
   }
   onFileSelected(event: any) {
     this.uploadidentityfront = event.target.files[0];
-
     // Ensure this.uploadImage is not null
     if (this.uploadidentityfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'application/pdf'];
+      const acceptableTypes = [
+        'image/png',
+        'image/jpeg',
+        'image/jpg',
+        'application/pdf',
+      ];
 
       if (acceptableTypes.includes(this.uploadidentityfront.type)) {
         if (this.uploadidentityfront.size <= 20 * 1024 * 1024) {
-          this.toastr.success("Image uploaded successfully");
+          this.toastr.success('Image uploaded successfully');
         } else {
-          this.toastr.error("Max Image size exceeded");
-          this.identityFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
+          this.toastr.error('Max Image size exceeded');
+          this.identityFrontPath?.reset();
         }
       } else {
-
-        this.toastr.error("File type not acceptable");
-        this.identityFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
+        this.toastr.error('File type not acceptable');
+        this.identityFrontPath?.reset();
       }
     } else {
-      this.toastr.error("No file selected");
+      this.toastr.error('No file selected');
     }
-
-
   }
 
   onFileSelected2(event: any) {
     this.uploadidentityback = event.target.files[0];
-
     // Ensure this.uploadImage is not null
     if (this.uploadidentityback) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'application/pdf'];
+      const acceptableTypes = [
+        'image/png',
+        'image/jpeg',
+        'image/jpg',
+        'application/pdf',
+      ];
 
       if (acceptableTypes.includes(this.uploadidentityback.type)) {
         if (this.uploadidentityback.size <= 20 * 1024 * 1024) {
-          this.toastr.success("Image uploaded successfully");
+          this.toastr.success('Image uploaded successfully');
         } else {
-          this.toastr.error("Max Image size exceeded");
-          this.identityBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
+          this.toastr.error('Max Image size exceeded');
+          this.identityBackPath?.reset();
         }
       } else {
-
-        this.toastr.error("File type not acceptable");
-        this.identityBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
+        this.toastr.error('File type not acceptable');
+        this.identityBackPath?.reset();
       }
     } else {
-      this.toastr.error("No file selected");
+      this.toastr.error('No file selected');
     }
-
-
   }
   onaddressfront(event: any) {
-
     this.uploadaddressfront = event.target.files[0];
-
     // Ensure this.uploadImage is not null
     if (this.uploadaddressfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'application/pdf'];
+      const acceptableTypes = [
+        'image/png',
+        'image/jpeg',
+        'image/jpg',
+        'application/pdf',
+      ];
 
       if (acceptableTypes.includes(this.uploadaddressfront.type)) {
         if (this.uploadaddressfront.size <= 20 * 1024 * 1024) {
-          this.toastr.success("Image uploaded successfully");
+          this.toastr.success('Image uploaded successfully');
         } else {
-          this.toastr.error("Max Image size exceeded");
-          this.addressFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
+          this.toastr.error('Max Image size exceeded');
+          this.addressFrontPath?.reset();
         }
       } else {
-        this.toastr.error("File type not acceptable");
-        this.addressFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
+        this.toastr.error('File type not acceptable');
+        this.addressFrontPath?.reset();
       }
     } else {
-      this.toastr.error("No file selected");
+      this.toastr.error('No file selected');
     }
-
   }
   onaddressback(event: any) {
     this.uploadaddressback = event.target.files[0];
-
     // Ensure this.uploadImage is not null
     if (this.uploadaddressback) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'application/pdf'];
-
+      const acceptableTypes = [
+        'image/png',
+        'image/jpeg',
+        'image/jpg',
+        'application/pdf',
+      ];
       if (acceptableTypes.includes(this.uploadaddressback.type)) {
         if (this.uploadaddressback.size <= 20 * 1024 * 1024) {
-          this.toastr.success("Image uploaded successfully");
+          this.toastr.success('Image uploaded successfully');
         } else {
-          this.toastr.error("Max Image size exceeded");
-          this.addressBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
+          this.toastr.error('Max Image size exceeded');
+          this.addressBackPath?.reset();
         }
       } else {
-
-        this.toastr.error("File type not acceptable");
-        this.addressBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
+        this.toastr.error('File type not acceptable');
+        this.addressBackPath?.reset();
       }
     } else {
-      this.toastr.error("No file selected");
+      this.toastr.error('No file selected');
     }
   }
   onasignfront(event: any) {
     this.uploadsignfront = event.target.files[0];
-
     // Ensure this.uploadImage is not null
     if (this.uploadsignfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'application/pdf'];
+      const acceptableTypes = [
+        'image/png',
+        'image/jpeg',
+        'image/jpg',
+        'application/pdf',
+      ];
 
       if (acceptableTypes.includes(this.uploadsignfront.type)) {
         if (this.uploadsignfront.size <= 20 * 1024 * 1024) {
-          this.toastr.success("Image uploaded successfully");
+          this.toastr.success('Image uploaded successfully');
         } else {
-          this.toastr.error("Max Image size exceeded");
-          this.signatureFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
+          this.toastr.error('Max Image size exceeded');
+          this.signatureFrontPath?.reset();
         }
       } else {
-
-        this.toastr.error("File type not acceptable");
-        this.signatureFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
+        this.toastr.error('File type not acceptable');
+        this.signatureFrontPath?.reset();
       }
     } else {
-      this.toastr.error("No file selected");
+      this.toastr.error('No file selected');
     }
-
   }
   onasignback(event: any) {
     this.uploadsignback = event.target.files[0];
-
     // Ensure this.uploadImage is not null
     if (this.uploadsignback) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'application/pdf'];
+      const acceptableTypes = [
+        'image/png',
+        'image/jpeg',
+        'image/jpg',
+        'application/pdf',
+      ];
 
       if (acceptableTypes.includes(this.uploadsignback.type)) {
         if (this.uploadsignback.size <= 20 * 1024 * 1024) {
-          this.toastr.success("Image uploaded successfully");
+          this.toastr.success('Image uploaded successfully');
         } else {
-          this.toastr.error("Max Image size exceeded");
-          this.signatureBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
+          this.toastr.error('Max Image size exceeded');
+          this.signatureBackPath?.reset();
         }
       } else {
-
-        this.toastr.error("File type not acceptable");
-        this.signatureBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
+        this.toastr.error('File type not acceptable');
+        this.signatureBackPath?.reset();
       }
     } else {
-      this.toastr.error("No file selected");
+      this.toastr.error('No file selected');
     }
-
-
   }
-
-
-
-
 
   onIdentityProofChange(event: any) {
     this.selectElement = event.target.value;
     const identityProofNoControl = this.firstFormGroup.get('identityProofNo');
     const identityProofNoControl1 = this.firstFormGroup.get('passportDob');
-    const identityProofNoControl2 = this.firstFormGroup.get('drivingLicenceDob');
-
+    const identityProofNoControl2 =
+      this.firstFormGroup.get('drivingLicenceDob');
 
     identityProofNoControl?.clearValidators();
 
     if (this.selectElement == 'Aadhar Card') {
-      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[0-9]{12}$")]); // 12 digits for Aadhar
-      identityProofNoControl2?.setValidators([]) // Driving license format
-      identityProofNoControl1?.setValidators([]) // Driving license format
-
+      identityProofNoControl?.setValidators([
+        Validators.required,
+        Validators.pattern('^[0-9]{12}$'),
+      ]); // 12 digits for Aadhar
+      identityProofNoControl2?.setValidators([]); // Driving license format
+      identityProofNoControl1?.setValidators([]); // Driving license format
     }
     if (this.selectElement == 'Pancard') {
-      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{5}[0-9]{4}[A-Z]$")]); // PAN format
-      identityProofNoControl2?.setValidators([]) // Driving license format
-      identityProofNoControl1?.setValidators([]) // Driving license format
-
-
+      identityProofNoControl?.setValidators([
+        Validators.required,
+        Validators.pattern('^[A-Z]{5}[0-9]{4}[A-Z]$'),
+      ]); // PAN format
+      identityProofNoControl2?.setValidators([]); // Driving license format
+      identityProofNoControl1?.setValidators([]); // Driving license format
     }
     if (this.selectElement == 'Voter Id Proof') {
-      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]); // Voter ID format
-      identityProofNoControl2?.setValidators([]) // Driving license format
-      identityProofNoControl1?.setValidators([]) // Driving license format
-
-
+      identityProofNoControl?.setValidators([
+        Validators.required,
+        Validators.pattern('^[A-Z]{3}[0-9]{7}$'),
+      ]); // Voter ID format
+      identityProofNoControl2?.setValidators([]); // Driving license format
+      identityProofNoControl1?.setValidators([]); // Driving license format
     }
     if (this.selectElement == 'Passport') {
-      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Passport format
-      identityProofNoControl1?.setValidators([Validators.required]) // Driving license format
+      identityProofNoControl?.setValidators([
+        Validators.required,
+        Validators.pattern('^[A-Z]{2}[0-9]{2}[0-9]{11}$'),
+      ]); // Passport format
+      identityProofNoControl1?.setValidators([Validators.required]); // Driving license format
 
-      identityProofNoControl2?.setValidators([]) // Driving license format
-
+      identityProofNoControl2?.setValidators([]); // Driving license format
     }
     if (this.selectElement == 'Driving License') {
       identityProofNoControl?.setValidators([Validators.required]);
-      identityProofNoControl2?.setValidators([Validators.required]) // Driving license format
-      identityProofNoControl1?.setValidators([]) // Driving license format
-
-
+      identityProofNoControl2?.setValidators([Validators.required]); // Driving license format
+      identityProofNoControl1?.setValidators([]); // Driving license format
     }
-
-
-
 
     // Reset the values of the related fields
     this.firstFormGroup.get('identityProofNo')?.reset();
@@ -802,38 +749,45 @@ export class EntityAddComponent implements OnInit {
     this.firstFormGroup.updateValueAndValidity(); // This is critical to revalidate the whole form group
   }
 
-
   onAddressProofChange(event: any) {
     this.selectElements = event.target.value;
     const addressProofNoControl = this.secondFormGroup.get('addressProofNo');
     const addressProofNoControl1 = this.secondFormGroup.get('passportDobs');
-    const addressProofNoControl2 = this.secondFormGroup.get('drivingLicenceDobs');
+    const addressProofNoControl2 =
+      this.secondFormGroup.get('drivingLicenceDobs');
 
     addressProofNoControl?.clearValidators();
 
-
     if (this.selectElements == 'Aadhar Card') {
-      addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[0-9]{12}$")]); // 12 digits for Aadhar
-      addressProofNoControl2?.setValidators([])
-      addressProofNoControl1?.setValidators([])
+      addressProofNoControl?.setValidators([
+        Validators.required,
+        Validators.pattern('^[0-9]{12}$'),
+      ]); // 12 digits for Aadhar
+      addressProofNoControl2?.setValidators([]);
+      addressProofNoControl1?.setValidators([]);
     }
     if (this.selectElements == 'Voter Id Proof') {
-      addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]);
-      addressProofNoControl2?.setValidators([])
-      addressProofNoControl1?.setValidators([])
+      addressProofNoControl?.setValidators([
+        Validators.required,
+        Validators.pattern('^[A-Z]{3}[0-9]{7}$'),
+      ]);
+      addressProofNoControl2?.setValidators([]);
+      addressProofNoControl1?.setValidators([]);
     }
     if (this.selectElements == 'Passport') {
-      addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Passport format
-      addressProofNoControl1?.setValidators([Validators.required]) // Driving license format
+      addressProofNoControl?.setValidators([
+        Validators.required,
+        Validators.pattern('^[A-Z]{2}[0-9]{2}[0-9]{11}$'),
+      ]); // Passport format
+      addressProofNoControl1?.setValidators([Validators.required]); // Driving license format
 
-      addressProofNoControl2?.setValidators([])
+      addressProofNoControl2?.setValidators([]);
     }
     if (this.selectElements == 'Driving License') {
       addressProofNoControl?.setValidators([Validators.required]);
-      addressProofNoControl2?.setValidators([Validators.required]) // Driving license format
-      addressProofNoControl1?.setValidators([])
+      addressProofNoControl2?.setValidators([Validators.required]); // Driving license format
+      addressProofNoControl1?.setValidators([]);
     }
-
 
     this.secondFormGroup.get('addressProofNo')?.reset();
     this.secondFormGroup.get('addressFrontPath')?.reset();
@@ -848,29 +802,33 @@ export class EntityAddComponent implements OnInit {
     this.select = event.target.value;
     const signatureProofNoControl = this.thirdFormGroup.get('signatureProofNo');
     const signatureProofNoControl1 = this.thirdFormGroup.get('passportDobss');
-    const signatureProofNoControl2 = this.thirdFormGroup.get('drivingLicenceDobss');
-
+    const signatureProofNoControl2 = this.thirdFormGroup.get(
+      'drivingLicenceDobss'
+    );
 
     signatureProofNoControl?.clearValidators();
 
-
     if (this.select == 'Pancard') {
-      signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{5}[0-9]{4}[A-Z]$")]);
-      signatureProofNoControl2?.setValidators([])
-      signatureProofNoControl1?.setValidators([])
-
+      signatureProofNoControl?.setValidators([
+        Validators.required,
+        Validators.pattern('^[A-Z]{5}[0-9]{4}[A-Z]$'),
+      ]);
+      signatureProofNoControl2?.setValidators([]);
+      signatureProofNoControl1?.setValidators([]);
     }
     if (this.select == 'Passport') {
-      signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Passport format
-      signatureProofNoControl1?.setValidators([Validators.required]) // Driving license format
+      signatureProofNoControl?.setValidators([
+        Validators.required,
+        Validators.pattern('^[A-Z]{2}[0-9]{2}[0-9]{11}$'),
+      ]); // Passport format
+      signatureProofNoControl1?.setValidators([Validators.required]); // Driving license format
 
-      signatureProofNoControl2?.setValidators([])
-
+      signatureProofNoControl2?.setValidators([]);
     }
     if (this.select == 'Driving License') {
       signatureProofNoControl?.setValidators([Validators.required]);
-      signatureProofNoControl2?.setValidators([Validators.required]) // Driving license format
-      signatureProofNoControl1?.setValidators([])
+      signatureProofNoControl2?.setValidators([Validators.required]); // Driving license format
+      signatureProofNoControl1?.setValidators([]);
     }
 
     this.thirdFormGroup.get('signatureProofNo')?.reset();
@@ -883,103 +841,97 @@ export class EntityAddComponent implements OnInit {
   }
   getlogo(event: any) {
     this.uploadImage = event.target.files[0];
-
     // Ensure this.uploadImage is not null
     if (this.uploadImage) {
       const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg'];
 
       if (acceptableTypes.includes(this.uploadImage.type)) {
         if (this.uploadImage.size <= 20 * 1024 * 1024) {
-          this.toastr.success("Image uploaded successfully");
+          this.toastr.success('Image uploaded successfully');
         } else {
-          this.toastr.error("Max Image size exceeded");
-          this.logo?.reset(); // Optional chaining to prevent error if this.logo is null
+          this.toastr.error('Max Image size exceeded');
+          this.logo?.reset();
         }
-      }
-      else {
-
-        this.toastr.error("File type not acceptable");
-        this.logo?.reset(); // Optional chaining to prevent error if this.logo is null
+      } else {
+        this.toastr.error('File type not acceptable');
+        this.logo?.reset();
       }
     } else {
-      this.toastr.error("No file selected");
+      this.toastr.error('No file selected');
     }
   }
-
-
-
 
   docfront(event: any) {
     this.uploaddocfront = event.target.files[0];
-
     // Ensure this.uploadImage is not null
     if (this.uploaddocfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'application/pdf'];
+      const acceptableTypes = [
+        'image/png',
+        'image/jpeg',
+        'image/jpg',
+        'application/pdf',
+      ];
 
       if (acceptableTypes.includes(this.uploaddocfront.type)) {
         if (this.uploaddocfront.size <= 20 * 1024 * 1024) {
-          this.toastr.success("Image uploaded successfully");
+          this.toastr.success('Image uploaded successfully');
         } else {
-          this.toastr.error("Max Image size exceeded");
-          this.docFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
+          this.toastr.error('Max Image size exceeded');
+          this.docFrontPath?.reset();
         }
       } else {
-
-        this.toastr.error("File type not acceptable");
-        this.docFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
+        this.toastr.error('File type not acceptable');
+        this.docFrontPath?.reset();
       }
     } else {
-      this.toastr.error("No file selected");
+      this.toastr.error('No file selected');
     }
-
-
   }
-
 
   docback(event: any) {
     this.uploaddocback = event.target.files[0];
-
     // Ensure this.uploadImage is not null
     if (this.uploaddocback) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'application/pdf'];
+      const acceptableTypes = [
+        'image/png',
+        'image/jpeg',
+        'image/jpg',
+        'application/pdf',
+      ];
 
       if (acceptableTypes.includes(this.uploaddocback.type)) {
         if (this.uploaddocback.size <= 20 * 1024 * 1024) {
-          this.toastr.success("Image uploaded successfully");
+          this.toastr.success('Image uploaded successfully');
         } else {
-          this.toastr.error("Max Image size exceeded");
-          this.docBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
+          this.toastr.error('Max Image size exceeded');
+          this.docBackPath?.reset();
         }
       } else {
-
-        this.toastr.error("File type not acceptable");
-        this.docBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
+        this.toastr.error('File type not acceptable');
+        this.docBackPath?.reset();
       }
     } else {
-      this.toastr.error("No file selected");
+      this.toastr.error('No file selected');
     }
-
-
   }
 
-
   Submit() {
-    const formData = new FormData;
+    const formData = new FormData();
     formData.append('contactEmail', this.contactEmail?.value.trim());
     formData.append('contactMobile', this.contactMobile?.value.trim());
     formData.append('entityName', this.entityName?.value.trim());
     formData.append('planModifyBy', this.getadminname);
-    formData.append('merchantLegalName', this.merchantLegalName?.value.trim())
+    formData.append('merchantLegalName', this.merchantLegalName?.value.trim());
     formData.append('accountDisplayName', this.accountDisplayName?.value.trim());
     formData.append('gstIn', this.gstIn?.value.trim() || '-');
     formData.append('contactName', this.contactName?.value.trim());
     formData.append('secondaryMobile', this.secondaryMobile?.value.trim());
     formData.append('billingAddress', this.billingAddress?.value.trim());
-    formData.append('area', this.area?.value.trim())
+    formData.append('area', this.area?.value.trim());
     formData.append('stateName', this.stateName?.value.trim());
     formData.append('country', this.country?.value.trim());
     formData.append('zipcode', this.zipcode?.value.trim());
-    formData.append('city', this.city?.value.trim())
+    formData.append('city', this.city?.value.trim());
     formData.append('businessCategoryId', this.businessId);
     formData.append('merchantPlanId', this.merchantPlanId?.value);
     formData.append('mccCode', this.mcccode.trim());
@@ -1000,24 +952,19 @@ export class EntityAddComponent implements OnInit {
     this.AddEntity.EntityAdd(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.merchantid = res.response.merchantId;
-
-
         this.bussinessid = res.response.businessCategoryModel.businessCategoryId;
         this.AddEntity.EntityGetKYCbybussinessid(this.bussinessid).subscribe((res: any) => {
           this.KYCDocNames = res.response;
-        })
+        }
+        );
         this.toastr.success(res.responseMessage);
         this.Bankdetails = true;
         this.personeldetails = false;
-
       } else {
         this.toastr.error(res.responseMessage);
       }
-
-
-    })
+    });
   }
-  // bjhb?
 
   BankSubmit() {
     let submitModel: AddEntityBank = {
@@ -1029,27 +976,19 @@ export class EntityAddComponent implements OnInit {
       accountType: this.accountType?.value,
       merchantId: this.merchantid,
       ledgerId: this.ledgerId?.value.trim(),
-      createdBy: this.getadminname
-    }
+      createdBy: this.getadminname,
+    };
     this.AddEntity.EntitybankAdd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.Bankdetails = false;
         this.personeldetails = false;
         this.KYCdetails = true;
-
-
-
       } else {
         this.toastr.error(res.responseMessage);
       }
-
-
-    })
+    });
   }
-
-
-
 
   kycsubmit() {
     const formData = new FormData();
@@ -1064,25 +1003,31 @@ export class EntityAddComponent implements OnInit {
     formData.append('addressProofNo', this.addressProofNo?.value.trim());
     formData.append('signatureFrontPath', this.uploadsignfront);
     formData.append('signatureBackPath', this.uploadsignback);
-    formData.append('createdBy', this.getadminname)
+    formData.append('createdBy', this.getadminname);
     formData.append('signatureProof', this.signatureProof?.value);
     formData.append('signatureProofNo', this.signatureProofNo?.value.trim());
-    formData.append('drivingLicenceDob', this.drivingLicenceDob?.value || this.drivingLicenceDobs?.value || this.drivingLicenceDobss?.value);
-    formData.append('passportDob', this.passportDob?.value || this.passportDobs?.value || this.passportDobss?.value);
+    formData.append(
+      'drivingLicenceDob',
+      this.drivingLicenceDob?.value ||
+      this.drivingLicenceDobs?.value ||
+      this.drivingLicenceDobss?.value
+    );
+    formData.append(
+      'passportDob',
+      this.passportDob?.value ||
+      this.passportDobs?.value ||
+      this.passportDobss?.value
+    );
     this.AddEntity.entitykycs(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.KYCdetails = false;
         this.BussinessDocument = true;
-
       } else {
         this.toastr.error(res.responseMessage);
       }
     });
   }
-
-
-
 
   docSubmit() {
     const formData = new FormData();
@@ -1102,7 +1047,6 @@ export class EntityAddComponent implements OnInit {
       }
     });
   }
-
 
   close() {
     this.router.navigateByUrl('dashboard/entity-viewall');

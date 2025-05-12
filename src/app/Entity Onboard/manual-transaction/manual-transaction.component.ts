@@ -1,13 +1,11 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
 import { ToastrService } from 'ngx-toastr';
-import { DuesViewComponent } from '../../dues/dues-view/dues-view.component';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { Location } from '@angular/common';
 import moment from 'moment';
@@ -56,11 +54,9 @@ export class ManualTransactionComponent {
 
   constructor(
     public service: FarginServiceService,
-    private router: Router,
     private toastr: ToastrService,
     private ActivateRoute: ActivatedRoute,
     private location: Location,
-    private dialog: MatDialog
   ) { }
 
 
@@ -69,6 +65,12 @@ export class ManualTransactionComponent {
       this.id = param.Alldata;
     });
 
+    this.Getall();
+
+
+  }
+
+  Getall() {
     this.service.GetManualTransaction(this.id).subscribe((res: any) => {
       this.details = res.response;
       this.details = res.response.reverse();
@@ -103,21 +105,7 @@ export class ManualTransactionComponent {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
         setTimeout(() => {
-          this.service.GetManualTransaction(this.id).subscribe((res: any) => {
-            if (res.flag == 1) {
-              this.details = res.response;
-              this.details = res.response.reverse();
-              this.dataSource = new MatTableDataSource(this.details);
-              this.dataSource.sort = this.sort;
-              this.dataSource.paginator = this.paginator;
-            } else if (res.flag == 2) {
-              this.details = res.response;
-              this.details = res.response.reverse();
-              this.dataSource = new MatTableDataSource(this.details);
-              this.dataSource.sort = this.sort;
-              this.dataSource.paginator = this.paginator;
-            }
-          });
+          this.Getall()
         }, 500);
       }
       else {
@@ -168,12 +156,12 @@ export class ManualTransactionComponent {
       'Card Number',
       'Card Expiry',
       'Paid At',
-   
-     
-   
-    
-    
-     
+
+
+
+
+
+
     ]
 
 
@@ -263,8 +251,7 @@ export class ManualTransactionComponent {
       }
     })
   }
-  reload()
-  {
+  reload() {
     this.service.GetManualTransaction(this.id).subscribe((res: any) => {
       this.details = res.response;
       this.details = res.response.reverse();

@@ -81,7 +81,7 @@
         <th [hidden]="valuebussinessstatus!=='Business Plan-Status'" mat-header-cell *matHeaderCellDef mat-sort-header >Status</th>
         <td [hidden]="valuebussinessstatus!=='Business Plan-Status'" mat-cell *matCellDef="let data">
             <mat-slide-toggle class="example-margin" color="primary" [checked]="data.status==1"
-                (change)="onSubmit($event,data.commercialId)">
+                (change)="onSubmit($event,data.commercialId)" style="transform: scale(0.9)">
             </mat-slide-toggle>
         </td>
     </ng-container>

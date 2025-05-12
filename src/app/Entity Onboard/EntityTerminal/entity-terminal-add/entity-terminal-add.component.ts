@@ -8,58 +8,56 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 @Component({
   selector: 'app-entity-terminal-add',
   templateUrl: './entity-terminal-add.component.html',
-  styleUrl: './entity-terminal-add.component.css'
+  styleUrl: './entity-terminal-add.component.css',
 })
-export class EntityTerminalAddComponent  implements OnInit {
-
+export class EntityTerminalAddComponent implements OnInit {
   Terminaladd: any = FormGroup;
   createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
-  branchId:any;
-  merchantId:any
+  branchId: any;
+  merchantId: any;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
-  constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService,@Inject(MAT_DIALOG_DATA) public data: any) { }
- 
- 
+
+  constructor(
+    private dialog: MatDialog,
+    private service: FarginServiceService,
+    private toastr: ToastrService,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) { }
+
   ngOnInit(): void {
-    this.merchantId=this.data.value
+
+    this.merchantId = this.data.value;
 
     this.Terminaladd = new FormGroup({
-      terminalNumber: new FormControl('', [Validators.required,Validators.maxLength(100),Validators.pattern('^[0-9 ,]+$')]),
- 
+      terminalNumber: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(100),
+        Validators.pattern('^[0-9 ,]+$'),
+      ]),
     });
- 
   }
- 
- 
+
   get terminalNumber() {
     return this.Terminaladd.get('terminalNumber');
   }
 
   submit() {
+    let terminalArray = this.terminalNumber.value.split(',').map((item: any) => item.trim());
 
-    // Check if there are multiple terminal numbers (i.e., if the input contains commas)
-    let terminalArray = this.terminalNumber.value.split(',').map((item: any) => item.trim());  // Split by commas and trim spaces
-  
- 
     let submitModel: entityterminaladd = {
       terminalNumber: terminalArray,
       merchantId: this.merchantId,
-      createdBy: this.createdBy
+      createdBy: this.createdBy,
     };
- 
+
     this.service.EntityTerminalCreate(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage)
+        this.toastr.success(res.responseMessage);
         this.bankDetailsUpdated.emit();
-        this.dialog.closeAll()
-      }
-      else {
+        this.dialog.closeAll();
+      } else {
         this.toastr.error(res.responseMessage);
       }
- 
     });
- 
   }
-
-
 }

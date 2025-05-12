@@ -122,7 +122,6 @@ import { EntityQrcodeComponent } from './entity-qrcode/entity-qrcode/entity-qrco
 import { EntityRefundComponent } from './entity-refund/entity-refund.component';
 import { EntitySettlementComponent } from './entity-settlement/entity-settlement.component';
 import { SettlementViewComponent } from './settlement-view/settlement-view/settlement-view.component';
-import { EntityPgonboardComponent } from './Entity Onboard/entity-pgonboard/entity-pgonboard/entity-pgonboard.component';
 import { EntityCustomersViewAllComponent } from './Entity-Customers/entity-customers-view-all/entity-customers-view-all.component';
 import { EntityCustomersViewComponent } from './Entity-Customers/entity-customers-view/entity-customers-view/entity-customers-view.component';
 import { OverallTransactionsViewallComponent } from './Overall-Transactions/overall-transactions-viewall/overall-transactions-viewall.component';
@@ -226,7 +225,6 @@ import { ViewagreementplanComponent } from './Main Master/Agreementplan/viewagre
 import { EditagreementplanComponent } from './Main Master/Agreementplan/editagreementplan/editagreementplan.component';
 import { AllagreementplansComponent } from './Main Master/Agreementplan/allagreementplans/allagreementplans.component';
 import { AddAgreementsComponent } from './Entity Onboard/add-agreements/add-agreements.component';
-import { AgreementlinkComponent } from './Entity Onboard/agreementlink/agreementlink.component';
 import { AgreementViewallComponent } from './agreement-viewall/agreement-viewall.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { AggrementSignerOtpComponent } from './aggrement-signer-otp/aggrement-signer-otp.component';
@@ -407,7 +405,6 @@ import { RefundPeriodHistoryComponent } from './Main Master/Refund Period/refund
     EntityRefundComponent,
     EntityQrcodeComponent,
     SettlementViewComponent,
-    EntityPgonboardComponent,
     EntityCustomersViewAllComponent,
     EntityCustomersViewComponent,
     OverallTransactionsViewallComponent,
@@ -502,7 +499,6 @@ import { RefundPeriodHistoryComponent } from './Main Master/Refund Period/refund
     EditagreementplanComponent,
     AllagreementplansComponent,
     AddAgreementsComponent,
-    AgreementlinkComponent,
     AgreementViewallComponent,
     AggrementSignerOtpComponent,
     AggrementLocationTrackerComponent,

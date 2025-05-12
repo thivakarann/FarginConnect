@@ -58,13 +58,13 @@
                     </ng-container>
 
                     <ng-container matColumnDef="broadCasterName">
-                        <th mat-header-cell *matHeaderCellDef>BroadCaster Name</th>
+                        <th mat-header-cell *matHeaderCellDef>Broadcaster Name</th>
                         <td mat-cell *matCellDef="let viewall">{{viewall.bundleChannel.broadCasterName}}</td>
                     </ng-container>
 
 
                     <ng-container matColumnDef="bouquetName">
-                        <th mat-header-cell *matHeaderCellDef>BroadCaster Plan</th>
+                        <th mat-header-cell *matHeaderCellDef>Broadcaster Plan</th>
                         <td mat-cell *matCellDef="let viewall">{{viewall.bouquetName}}</td>
                     </ng-container>
 
@@ -75,7 +75,8 @@
                             [hidden]="valuePlanStatus!=='Plan Creation-Status'">Plan Status</th>
                         <td mat-cell *matCellDef="let viewall" [hidden]="valuePlanStatus!=='Plan Creation-Status'">
                             <mat-slide-toggle class="example-margin" color="primary" [checked]="viewall.status==1"
-                                (change)="ActiveStatus($event,viewall.boqCreationId)">
+                                (change)="ActiveStatus($event,viewall.boqCreationId)" style="transform: scale(0.9)"
+>
                             </mat-slide-toggle>
                         </td>
                     </ng-container>

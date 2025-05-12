@@ -71,7 +71,7 @@
                 <th [hidden]="valueSignerDetailsStatus!=='Signer Details-Status'" mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
                 <td [hidden]="valueSignerDetailsStatus!=='Signer Details-Status'" mat-cell *matCellDef="let data">
                     <mat-slide-toggle class="example-margin" color="primary" [checked]="data.activeStatus==1"
-                        (change)="ActiveStatus($event,data.signId)">
+                        (change)="ActiveStatus($event,data.signId)" style="transform: scale(0.9)" >
                     </mat-slide-toggle>
                 </td>
             </ng-container>

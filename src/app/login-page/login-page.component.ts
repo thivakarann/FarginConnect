@@ -14,10 +14,14 @@ export class LoginPageComponent implements OnInit {
   loginForm!: FormGroup;
   showPassword: boolean = false;
   error: unknown;
-  randomCaptcha!: string;  
+  randomCaptcha!: string;
   captchaValue: any;
   message: any;
-  constructor(private router: Router, private service: FarginServiceService, private location: LocationStrategy) {
+  constructor(
+    private router: Router,
+    private service: FarginServiceService,
+    private location: LocationStrategy
+  ) {
     history.pushState(null, '', window.location.href);
     this.location.onPopState(() => {
       history.pushState(null, '', window.location.href);
@@ -26,7 +30,6 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.random();
-
 
     sessionStorage.clear();
 
@@ -37,7 +40,6 @@ export class LoginPageComponent implements OnInit {
       categoryFlag: new FormControl('', [Validators.required]),
       captcha: new FormControl('', Validators.required)
     });
-
   }
   get emailAddress() {
     return this.loginForm.get('emailAddress');
@@ -68,29 +70,59 @@ export class LoginPageComponent implements OnInit {
   //     this.error = error;
   //   })
   // }
-    submit() {
-      if (this.captcha?.value === this.randomCaptcha) {
-        if (this.loginForm.valid) {
-          this.service.getLogin(
-            this.loginForm.value.emailAddress,
-            this.loginForm.value.password,
-            this.loginForm.value.categoryFlag
-          );
-        } else {
-          this.message = "Please fill in all required fields.";
-        }
-      } else {
-      this.message = "Captcha Mismatch";
 
-        this.random();
-        this.captchaValue='';
+  submit() {
+    if (this.captcha?.value === this.randomCaptcha) {
+      if (this.loginForm.valid) { 
+        this.service.getLogin(
+          this.loginForm.value.emailAddress,
+          this.loginForm.value.password,
+          this.loginForm.value.categoryFlag
+        ); 
+        setTimeout(() => {
+          this.resetForm();  
+        }, 300);
+      } else {
+        this.message = 'Please fill in all required fields.';
       }
+    } else if (this.message === 'Invalid UserName or Password') {
+      this.resetForm();
+    } else if (this.message === "Password doesn't match") {
+      this.resetForm();
+    } else {
+      this.message = 'Captcha Mismatch';
+      this.random();
+      this.captchaValue = '';
     }
-  random() {
-    this.randomCaptcha  = this.generateRandomCaptcha();
+  }
+ 
+  resetCaptcha() {
+    this.random();  
+    this.captchaValue = '';  
   }
 
-  // Generate a random alphanumeric captcha string
+  resetForm() {
+    this.loginForm.patchValue({
+      password: '',
+      emailAddress: '',
+      categoryFlag: '',
+    });
+
+    this.random(); 
+    this.captchaValue = ''; 
+  }
+
+  resetemailCaptcha() {
+    this.loginForm.get('emailAddress')?.setValue('');  
+    this.loginForm.get('password')?.setValue(''); 
+    this.loginForm.get('categoryFlag')?.setValue('');
+    this.random(); 
+    this.captchaValue = ''; 
+  }
+
+  random() {
+    this.randomCaptcha = this.generateRandomCaptcha();
+  } 
   generateRandomCaptcha(length: number = 6): string {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let captcha = '';

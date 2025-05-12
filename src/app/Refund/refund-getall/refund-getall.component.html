@@ -32,16 +32,16 @@
 
       </div> &nbsp;
       <button  (click)="refundsearch(currentfilval)" style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button>Go</button>
-      <button  style="color:white;background-color: #141E46;border-radius: 10px; font-size: 12px;" (click)="exportexcel()"
-        mat-raised-button [hidden]="valuerefundexport!=='Online Refunds-Export'">Export</button>
+      <!-- <button  style="color:white;background-color: #141E46;border-radius: 10px; font-size: 12px;" (click)="exportexcel()"
+        mat-raised-button [hidden]="valuerefundexport!=='Online Refunds-Export'">Export</button> -->
     </div>
     <div class="col-2 mr-3">
-      <label><b>From Date:</b></label>
+      <label><b>From Date</b></label>
       <input  onkeydown="return false;" class="form-control" type="date" name="FromDate" [(ngModel)]="FromDateRange" (change)="checkDate()"  [max]="maxDate"
           style="height:35px;width:150px;border-radius: 5px;">
   </div>
   <div class="col-2 mr-2">
-      <label><b>To Date:</b></label>
+      <label><b>To Date</b></label>
       <input  onkeydown="return false;" class="form-control" type="date" name="ToDate" [(ngModel)]="ToDateRange"  [min]="FromDateRange" [max]="maxDate"
           style="height:35px;width:150px;border-radius: 5px;">
   </div>
@@ -99,7 +99,7 @@
       </ng-container>
    
       <ng-container matColumnDef="custmobile">
-        <th mat-header-cell *matHeaderCellDef>Customer MobileNumber</th>
+        <th mat-header-cell *matHeaderCellDef>Customer Mobile Number</th>
         <td mat-cell *matCellDef="let data">
           {{ data?.mobileNumber }}
         </td>

@@ -11,7 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'app-paymentlink-view',
   templateUrl: './paymentlink-view.component.html',
-  styleUrl: './paymentlink-view.component.css'
+  styleUrl: './paymentlink-view.component.css',
 })
 export class PaymentlinkViewComponent implements OnInit {
   dataSource: any;
@@ -21,7 +21,6 @@ export class PaymentlinkViewComponent implements OnInit {
     'reference',
     'expiry',
     'generatedat',
-
   ];
   id: any;
   paymentValue: any;
@@ -31,140 +30,96 @@ export class PaymentlinkViewComponent implements OnInit {
   valuepaymentlink: any;
   errorMessage: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId');
   searchPerformed: boolean = false;
   actions: any;
+
   constructor(
-    public location: Location, public service: FarginServiceService, private ActivateRoute: ActivatedRoute, private dialog: MatDialog
+    public location: Location,
+    public service: FarginServiceService,
+    private ActivateRoute: ActivatedRoute,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
-    this.ActivateRoute.queryParams.subscribe((param: any) => {
-      this.id = param.Alldata;
-    });
-
-    this.service.paymentLinkview(this.id).subscribe((res: any) => {
-      if(res.flag==1)
-      {
-       this.paymentValue = res.response;
-        this.dataSource = new MatTableDataSource(this.paymentValue?.reverse())
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      
-      }
-      else if(res.flag==2)
-      {
-        this.paymentValue = [];
-        this.dataSource = new MatTableDataSource(this.paymentValue?.reverse())
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      }
-       
-
-    })
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-
-
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
           if (this.roleId == 1) {
             this.valueresendlink = 'Entity View Payment Link-Add';
             this.valuepaymentlink = 'Entity View Payment Link-Link';
-          }
-          else {
+          } else {
             for (let datas of this.getdashboard) {
-
               this.actions = datas.subPermissions;
               if (this.actions == 'Entity View Payment Link-Add') {
-                this.valueresendlink = 'Entity View Payment Link-Add'
+                this.valueresendlink = 'Entity View Payment Link-Add';
               }
               if (this.actions == 'Entity View Payment Link-Link') {
-                this.valuepaymentlink = 'Entity View Payment Link-Link'
+                this.valuepaymentlink = 'Entity View Payment Link-Link';
               }
-
             }
           }
-
-        }
-        else {
+        } else {
           this.errorMessage = res.responseMessage;
         }
-      }
-    })
+      },
+    });
+
+    this.ActivateRoute.queryParams.subscribe((param: any) => {
+      this.id = param.Alldata;
+    });
+
+    this.Getall();
+
+
+
+
   }
 
-  reload() {
+  Getall() {
     this.service.paymentLinkview(this.id).subscribe((res: any) => {
-      if(res.flag==1)
-      {
-       this.paymentValue = res.response;
-        this.dataSource = new MatTableDataSource(this.paymentValue)
+      if (res.flag == 1) {
+        this.paymentValue = res.response;
+        this.dataSource = new MatTableDataSource(this.paymentValue?.reverse());
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-      
-      }
-      else if(res.flag==2)
-      {
+      } else if (res.flag == 2) {
         this.paymentValue = [];
-        this.dataSource = new MatTableDataSource(this.paymentValue)
+        this.dataSource = new MatTableDataSource(this.paymentValue?.reverse());
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
-       
-
-    })
+    });
   }
+
 
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-     this.searchPerformed = filterValue.length > 0;
-     if (this.dataSource.paginator) {
+    this.searchPerformed = filterValue.length > 0;
+    if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
 
   resendLink(id: any) {
     const dialogRef = this.dialog.open(PaymentlinkResendComponent, {
-      enterAnimationDuration: "1000ms",
-      exitAnimationDuration: "1000ms",
+      enterAnimationDuration: '1000ms',
+      exitAnimationDuration: '1000ms',
       disableClose: true,
       data: {
         value: this.id,
-      }
-    })
-    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
-      this.Paymentlink();
+      },
     });
-
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.Getall();
+    });
   }
 
-  Paymentlink(){
-    this.service.paymentLinkview(this.id).subscribe((res: any) => {
-      if(res.flag==1)
-      {
-       this.paymentValue = res.response;
-        this.dataSource = new MatTableDataSource(this.paymentValue)
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      
-      }
-      else if(res.flag==2)
-      {
-        this.paymentValue = [];
-        this.dataSource = new MatTableDataSource(this.paymentValue)
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      }
-       
-
-    })
-
-  }
   close() {
-    this.location.back()
+    this.location.back();
   }
 }

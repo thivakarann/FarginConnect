@@ -1,7 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { KeysUpdateComponent } from '../keys-update/keys-update.component';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FarginServiceService } from '../../service/fargin-service.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { KeysUpdate } from '../../fargin-model/fargin-model.module';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-view-onboardinfo',
@@ -18,7 +21,21 @@ export class ViewOnboardinfoComponent implements OnInit {
   roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
-  constructor(private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, private service: FarginServiceService) {
+  details: any;
+  bankdetails: any;
+  KYCDetails: any;
+  bussinessdoc: any;
+  identityProof: any;
+  addressProof: any;
+  signatureProof: any;
+  businessCategoryId: any;
+    approval: any;
+isEditing: boolean = false;
+selectedOption: any;
+  myForm!: FormGroup;
+ @Output() bankDetailsUpdated = new EventEmitter<void>();
+  constructor(private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, private service: FarginServiceService,    private toaster: ToastrService,
+     ) {
 
   }
   ngOnInit(): void {
@@ -31,6 +48,17 @@ export class ViewOnboardinfoComponent implements OnInit {
       this.detaislone = res.response.merchantpersonal;
     })
 
+     this.merchantId = this.data.value
+        
+        this.myForm = new FormGroup({
+          accountId: new FormControl('', [Validators.required]),
+          apikey: new FormControl('', [Validators.required]),
+          secretkey: new FormControl('', [Validators.required]),
+        })
+    
+        this.service.EntityViewbyid(this.merchantId).subscribe((res: any) => {
+          this.detaislone = res.response.merchantpersonal;
+        })
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
         
@@ -58,31 +86,42 @@ export class ViewOnboardinfoComponent implements OnInit {
       }
     })
   }
-  editKeys(id: any) {
-    const dialogRef =this.dialog.open(KeysUpdateComponent, {
-      enterAnimationDuration: "1000ms",
-      exitAnimationDuration: "1000ms",
-
-      disableClose: true,
-      data: {
-        value: id,
+  
+    get accountId() {
+      return this.myForm.get('accountId');
+    }
+    get apikey() {
+      return this.myForm.get('apikey');
+    }
+    get secretkey() {
+      return this.myForm.get('secretkey');
+    }
+  
+  
+    submit() {
+      let submitModel: KeysUpdate = {
+        accountId: this.accountId?.value,
+        merchantId: this.merchantId,
+        apikey: this.apikey?.value,
+        secretkey: this.secretkey?.value
       }
-    })
-
-    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
-
-      this.fetch();
-
-    });
-
-
+      this.service.KeysUpdate(submitModel).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.approval = res.response;
+          this.toaster.success(res.responseMessage);
+          this.bankDetailsUpdated.emit();
+          this.dialog.closeAll();
+          
+        }
+        else if (res.flag == 2) {
+          this.toaster.error(res.responseMessage)
+        }
+      })
+    }
+  editKeys() {
+    this.isEditing = true; 
   }
-fetch()
-{
-  this.service.EntityViewbyid(this.merchantId).subscribe((res: any) => {
-    this.detaislone = res.response.merchantpersonal;
-  })
-}
+
   copyText(text: string) {
     const el = document.createElement('textarea');
     el.value = text;

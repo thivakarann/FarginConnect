@@ -5,15 +5,16 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 @Component({
   selector: 'app-commentsfor-approvalone',
   templateUrl: './commentsfor-approvalone.component.html',
-  styleUrl: './commentsfor-approvalone.component.css'
+  styleUrl: './commentsfor-approvalone.component.css',
 })
 export class CommentsforApprovaloneComponent {
   comment: any;
-  constructor(private service:FarginServiceService,@Inject(MAT_DIALOG_DATA) public data:any){
-  }
-  ngOnInit(): void {
-    this.comment = this.data.value
-    
-  }
 
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) { }
+
+  ngOnInit(): void {
+    this.comment = this.data.value;
+  }
 }

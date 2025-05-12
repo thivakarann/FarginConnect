@@ -1,19 +1,16 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FarginServiceService } from '../../service/fargin-service.service';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { bankData, bankedit } from '../../fargin-model/fargin-model.module';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { bankData } from '../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-entity-bankadd',
   templateUrl: './entity-bankadd.component.html',
-  styleUrl: './entity-bankadd.component.css'
+  styleUrl: './entity-bankadd.component.css',
 })
-
 export class EntityBankaddComponent implements OnInit {
-
   BankForm: any = FormGroup;
   categorydetails: any;
   documentname: any;
@@ -27,7 +24,6 @@ export class EntityBankaddComponent implements OnInit {
 
   constructor(
     public service: FarginServiceService,
-    private router: Router,
     private toastr: ToastrService,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -35,64 +31,66 @@ export class EntityBankaddComponent implements OnInit {
   ngOnInit(): void {
 
     this.merchantid = this.data.value;
-    
 
     this.service.activebankdetails().subscribe((res: any) => {
       this.BankNames = res.response.reverse();
     });
 
     this.BankForm = new FormGroup({
-     accountHolderName: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z ]*$'),Validators.maxLength(50)]),
+      accountHolderName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z ]*$'),
+        Validators.maxLength(50),
+      ]),
       accountNumber: new FormControl(null, [
         Validators.required,
-        Validators.pattern("^[0-9]{9,18}$")
+        Validators.pattern('^[0-9]{9,18}$'),
       ]),
-      bankName: new FormControl("", [
+      bankName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
+        Validators.pattern('^[a-zA-Z0-9 ]*$'),
       ]),
-      ifscCode: new FormControl("", [
+      ifscCode: new FormControl('', [
         Validators.required,
-        Validators.pattern("^[A-Z]{4}0[A-Z0-9]{6}$")
+        Validators.pattern('^[A-Z]{4}0[A-Z0-9]{6}$'),
       ]),
       branchName: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9 ]*$'),
-        Validators.maxLength(50)
+        Validators.maxLength(50),
       ]),
-      accountType: new FormControl("", [
+      accountType: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
+        Validators.pattern('^[a-zA-Z0-9 ]*$'),
       ]),
-      ledgerId: new FormControl("", [Validators.pattern(/^\d{1,15}$/)]),
-
-    })
+      ledgerId: new FormControl('', [Validators.pattern(/^\d{1,15}$/)]),
+    });
   }
   get accountHolderName() {
-    return this.BankForm.get('accountHolderName')
+    return this.BankForm.get('accountHolderName');
   }
 
   get accountNumber() {
-    return this.BankForm.get('accountNumber')
+    return this.BankForm.get('accountNumber');
   }
   get bankName() {
-    return this.BankForm.get('bankName')
+    return this.BankForm.get('bankName');
   }
 
   get ifscCode() {
-    return this.BankForm.get('ifscCode')
+    return this.BankForm.get('ifscCode');
   }
 
   get branchName() {
-    return this.BankForm.get('branchName')
+    return this.BankForm.get('branchName');
   }
 
   get accountType() {
-    return this.BankForm.get('accountType')
+    return this.BankForm.get('accountType');
   }
 
   get ledgerId() {
-    return this.BankForm.get('ledgerId')
+    return this.BankForm.get('ledgerId');
   }
 
   submit() {
@@ -105,19 +103,17 @@ export class EntityBankaddComponent implements OnInit {
       accountType: this.accountType?.value,
       merchantId: this.merchantid,
       ledgerId: this.ledgerId?.value.trim(),
-      createdBy:this.getadminname
+      createdBy: this.getadminname,
     };
 
     this.service.EntitybankAdd(submitModel).subscribe((res: any) => {
       if (res.flag === 1) {
         this.toastr.success(res.responseMessage);
         this.bankDetailsUpdated.emit();
-        this.dialog.closeAll();  // Close the dialog
-       
+        this.dialog.closeAll(); 
       } else {
         this.toastr.error(res.responseMessage);
       }
     });
   }
-
 }

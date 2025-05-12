@@ -44,7 +44,7 @@ export class DashboardMerchantcontentComponent {
     private router: Router,
     private service: FarginServiceService,
     private cdRef: ChangeDetectorRef
-  ) {}
+  ) { }
   ngOnInit(): void {
 
     this.service.rolegetById(this.roleId).subscribe({
@@ -94,7 +94,7 @@ export class DashboardMerchantcontentComponent {
       },
     });
 
-   
+
 
     const today = new Date();
     this.maxDate = moment(today).format('yyyy-MM-DD').toString();
@@ -106,48 +106,48 @@ export class DashboardMerchantcontentComponent {
     this.selectedPeriods = event;
     if (event == 'LastMonths') {
       this.service
-      .dashboardlastmonthcustomertransactions(this.merchantId)
-      .subscribe((res: any) => {
-        this.lastmonth = res.response;
-      });
+        .dashboardlastmonthcustomertransactions(this.merchantId)
+        .subscribe((res: any) => {
+          this.lastmonth = res.response;
+        });
     }
 
     if (event == 'thisMonths') {
       this.service
-      .dashboardthismonthcustomertransactions(this.merchantId)
-      .subscribe((res: any) => {
-        this.lastmonth = res.response;
-      });
+        .dashboardthismonthcustomertransactions(this.merchantId)
+        .subscribe((res: any) => {
+          this.lastmonth = res.response;
+        });
     }
   }
   custom() {
     this.service
-    .dashboarddatecustomertransactions(
-      this.merchantId,
-      this.fromDates,
-      this.toDates
-    )
-    .subscribe((res: any) => {
-      this.lastmonth = res.response;
-    });
+      .dashboarddatecustomertransactions(
+        this.merchantId,
+        this.fromDates,
+        this.toDates
+      )
+      .subscribe((res: any) => {
+        this.lastmonth = res.response;
+      });
   }
 
   getadditionalmonthtransaction(event: any) {
     this.selectedadditionalPeriods = event;
     if (event == 'LastaditionalMonths') {
       this.service
-      .dashboardlastmonthadditionaltransactions(this.merchantId)
-      .subscribe((res: any) => {
-        this.additionalmonth = res.response;
-      });
+        .dashboardlastmonthadditionaltransactions(this.merchantId)
+        .subscribe((res: any) => {
+          this.additionalmonth = res.response;
+        });
     }
 
     if (event == 'thisadditionalMonths') {
       this.service
-      .dashboardthismonthadditionaltransactions(this.merchantId)
-      .subscribe((res: any) => {
-        this.additionalmonth = res.response;
-      });
+        .dashboardthismonthadditionaltransactions(this.merchantId)
+        .subscribe((res: any) => {
+          this.additionalmonth = res.response;
+        });
     }
   }
   resetmonth() {
@@ -195,33 +195,33 @@ export class DashboardMerchantcontentComponent {
       this.customercount = res.response;
     });
     this.service
-    .dashboardviewpendings(this.merchantId)
-    .subscribe((res: any) => {
-      this.duepending = res.response;
-    });
+      .dashboardviewpendings(this.merchantId)
+      .subscribe((res: any) => {
+        this.duepending = res.response;
+      });
     this.service
-    .dashboardemployeecounts(this.merchantId)
-    .subscribe((res: any) => {
-      this.dashboardemployecount = res.response;
-    });
+      .dashboardemployeecounts(this.merchantId)
+      .subscribe((res: any) => {
+        this.dashboardemployecount = res.response;
+      });
 
     this.service.dashbaordcustomerday(this.merchantId).subscribe((res: any) => {
       this.customertotal = res.response;
     });
 
     this.service
-    .dashboardthismonthcustomertransactions(this.merchantId)
-    .subscribe((res: any) => {
-      this.selectedPeriods = 'thisMonths';
-      this.lastmonth = res.response;
-    });
+      .dashboardthismonthcustomertransactions(this.merchantId)
+      .subscribe((res: any) => {
+        this.selectedPeriods = 'thisMonths';
+        this.lastmonth = res.response;
+      });
 
     this.service
-    .dashboardthismonthadditionaltransactions(this.merchantId)
-    .subscribe((res: any) => {
-      this.selectedadditionalPeriods = 'thisadditionalMonths';
-      this.additionalmonth = res.response;
-    });
+      .dashboardthismonthadditionaltransactions(this.merchantId)
+      .subscribe((res: any) => {
+        this.selectedadditionalPeriods = 'thisadditionalMonths';
+        this.additionalmonth = res.response;
+      });
 
     this.customercount = '';
     this.dashboardemployecount = '';

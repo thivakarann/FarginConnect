@@ -14,7 +14,7 @@
                 <option value="hold">Hold</option>
             </select>
             <span class="errormge" *ngIf="ticketStatus?.touched && ticketStatus?.errors?.['required']">Field
-                is required*</span>
+                is required</span>
         </div>
 
     
@@ -22,7 +22,7 @@
             <label for="description">Remarks</label>
             <textarea id="description" rows="3" class="form-control" formControlName="ticketComment"></textarea>
             <span class="errormge" *ngIf="ticketComment?.touched && ticketComment?.errors?.['required']">Field
-                is required*</span>
+                is required</span>
         </div>
 
         <button type="submit" class="btn mx-1" style="background-color:#7db855be" (click)="save()" [disabled]="ticketFormGroup.invalid">Submit</button>

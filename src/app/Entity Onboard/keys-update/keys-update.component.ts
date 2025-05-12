@@ -16,9 +16,9 @@ export class KeysUpdateComponent {
   merchantId: any;
   approval: any;
   detaislone: any;
-selectedOption: any;
-@Output() bankDetailsUpdated = new EventEmitter<void>();
- 
+  selectedOption: any;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
+
 
   constructor(private service: FarginServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -27,7 +27,7 @@ selectedOption: any;
   ) { }
   ngOnInit(): void {
     this.merchantId = this.data.value
-    
+
     this.myForm = new FormGroup({
       accountId: new FormControl('', [Validators.required]),
       apikey: new FormControl('', [Validators.required]),
@@ -66,7 +66,7 @@ selectedOption: any;
         this.toaster.success(res.responseMessage);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
-        
+
       }
       else if (res.flag == 2) {
         this.toaster.error(res.responseMessage)

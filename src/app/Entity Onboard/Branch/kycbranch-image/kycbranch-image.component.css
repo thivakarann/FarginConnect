@@ -1,17 +1,16 @@
 .card-header {
- 
-  background-color:#7db855be;
-  color: #141E46;
+  background-color: #7db855be;
+  color: #141e46;
   font-family: "Roboto";
 }
- 
+
 .buttonDownload {
-  width:90px;
+  width: 90px;
   display: inline-block;
   position: relative;
-  padding:10px;
+  padding: 10px;
   background-color: #7db855be;
-  color:black;
+  color: black;
   font-family: sans-serif;
   text-decoration: none;
   font-size: 1em;
@@ -19,13 +18,13 @@
   border: none;
   border-radius: 5px;
   margin-top: 8px;
- }
- .buttonDownloads {
-  width:90px;
+}
+.buttonDownloads {
+  width: 90px;
   display: inline-block;
   position: relative;
-  padding:10px;
-background-color: #141e46;
+  padding: 10px;
+  background-color: #141e46;
   color: white;
   font-family: sans-serif;
   text-decoration: none;
@@ -35,8 +34,8 @@ background-color: #141e46;
   border-radius: 5px;
   margin-top: 8px;
   margin-left: 4px;
- }
- .form__label{
+}
+.form__label {
   font-weight: 500;
 }
 .buttonDownload:disabled {

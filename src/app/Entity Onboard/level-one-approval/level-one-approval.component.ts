@@ -8,35 +8,32 @@ import { LeveloneApproval } from '../../fargin-model/fargin-model.module';
 @Component({
   selector: 'app-level-one-approval',
   templateUrl: './level-one-approval.component.html',
-  styleUrl: './level-one-approval.component.css'
+  styleUrl: './level-one-approval.component.css',
 })
-export class LevelOneApprovalComponent implements OnInit{
+export class LevelOneApprovalComponent implements OnInit {
   createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
-
- myForm!:FormGroup;
- merchantId: any;
+  myForm!: FormGroup;
+  merchantId: any;
   approval: any;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
 
-constructor(private service:FarginServiceService,
-  @Inject(MAT_DIALOG_DATA) public data:any,
-  private toaster:ToastrService,
-  private dialog:MatDialog
-){
-
-}
+  constructor(
+    private service: FarginServiceService,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private toaster: ToastrService,
+    private dialog: MatDialog
+  ) { }
   ngOnInit(): void {
-    
-    this.merchantId = this.data.value
-    
+    this.merchantId = this.data.value;
 
-    
     this.myForm = new FormGroup({
-      approvalStatus:new FormControl('', [Validators.required]),
-      remarks:new FormControl('', [Validators.required,Validators.maxLength(200)]),
-    })
+      approvalStatus: new FormControl('', [Validators.required]),
+      remarks: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(200),
+      ]),
+    });
   }
-
 
   get approvalStatus() {
     return this.myForm.get('approvalStatus');
@@ -44,26 +41,23 @@ constructor(private service:FarginServiceService,
   get remarks() {
     return this.myForm.get('remarks');
   }
- 
 
-  submit(){
-    let submitModel:LeveloneApproval={
+  submit() {
+    let submitModel: LeveloneApproval = {
       merchantId: this.merchantId,
       approvalStatusL1: this.approvalStatus?.value,
       approvedByL1: this.createdBy,
-      comment: this.remarks?.value.trim()
-    }
-    this.service.MerchantLevelApprovalOne(submitModel).subscribe((res:any)=>{
-      if(res.flag==1){
-        this.approval=res.response; 
+      comment: this.remarks?.value.trim(),
+    };
+    this.service.MerchantLevelApprovalOne(submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.approval = res.response;
         this.toaster.success(res.responseMessage);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
-       
+      } else if (res.flag == 2) {
+        this.toaster.error(res.responseMessage);
       }
-      else if(res.flag == 2){
-        this.toaster.error(res.responseMessage)
-       }
-   })
+    });
   }
 }

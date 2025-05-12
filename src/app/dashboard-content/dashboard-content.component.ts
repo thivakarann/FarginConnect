@@ -71,10 +71,10 @@ export class DashboardContentComponent {
   catgry: any;
   businessCategoryId: any;
   categorydetails: any;
-  valuetoppaymentmethod:any;
+  valuetoppaymentmethod: any;
   transactionform: any = FormGroup;
-  one: any[]=[]
-  setCount: any[]=[]
+  one: any[] = []
+  setCount: any[] = []
 
   constructor(private service: FarginServiceService) { }
 
@@ -94,7 +94,7 @@ export class DashboardContentComponent {
             this.valueTransactionDetails = 'Transaction Details'
             this.valuetoppay = 'Top Payment Methods'
             this.valueTotalcount = 'Total Count'
-             this.valuetoppaymentmethod='Seven Days Payment Method'
+            this.valuetoppaymentmethod = 'Seven Days Payment Method'
           }
           else {
             for (let datas of this.getdashboard) {
@@ -124,7 +124,7 @@ export class DashboardContentComponent {
               }
               if (this.actions == 'Seven Days Payment Method') {
                 this.valuetoppaymentmethod = 'Seven Days Payment Method'
-           
+
               }
             }
           }
@@ -257,14 +257,14 @@ export class DashboardContentComponent {
       if (res.flag == 1) {
         for (let index = 0; index < 7; index++) {
           const element = res.response[index];
-          
-            this.one.push(moment(element.date).format('MMM D') )
-            this.setCount.push(element.totalCount)    
-          
-        
+
+          this.one.push(moment(element.date).format('MMM D'))
+          this.setCount.push(element.totalCount)
+
+
+        }
+        this.createseven(res.response);
       }
-      this.createseven(res.response);
-    }
       if (res.flag == 2) {
         this.createseven(res.response);
       }
@@ -563,7 +563,7 @@ export class DashboardContentComponent {
     const chartData = {
       labels: ['Total', 'Success', 'Failed', 'Pending'],
       datasets: [
-      
+
         {
           label: 'Total',
           data: [totalCount, 0, 0, 0],
@@ -571,7 +571,7 @@ export class DashboardContentComponent {
           borderWidth: 1,
           borderColor: '#000',
           barThickness: 50,
-          
+
         },
         {
           label: 'Success',
@@ -596,7 +596,7 @@ export class DashboardContentComponent {
           borderWidth: 1,
           borderColor: '#000',
           barThickness: 50,
-          
+
         },
 
       ],
@@ -768,10 +768,10 @@ export class DashboardContentComponent {
 
     const labels = data.map((item: DashboardData) => {
       const date = new Date(item.date);
-      return  moment(date).add(2,'days').subtract(1,'days').format('yyyy-MM-DD').toString()
+      return moment(date).add(2, 'days').subtract(1, 'days').format('yyyy-MM-DD').toString()
       return `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()}`;
     });
-    
+
     const totalCount = data.map((item: DashboardData) => item.totalCount);
 
     const chartData: ChartData<'bar', number[], string> = {
@@ -838,7 +838,7 @@ export class DashboardContentComponent {
         this.createMixedChart(res.response);
       }
     });
- 
+
 
   }
 }

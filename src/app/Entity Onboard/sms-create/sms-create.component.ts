@@ -1,19 +1,24 @@
-import { Component, EventEmitter, Inject, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
 import { CreateSMS } from '../../fargin-model/fargin-model.module';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-
-
 @Component({
   selector: 'app-sms-create',
   templateUrl: './sms-create.component.html',
-  styleUrl: './sms-create.component.css'
+  styleUrl: './sms-create.component.css',
 })
 export class SmsCreateComponent implements OnInit {
   merchantid: any;
@@ -26,15 +31,12 @@ export class SmsCreateComponent implements OnInit {
   @ViewChild('selectspaid') selectspaid: any = MatSelect;
   @ViewChild('selects') selects: any = MatSelect;
   allSelected = false;
-
   merchantId: any;
   freepaid: any;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
- 
 
   constructor(
     public service: FarginServiceService,
-    private router: Router,
     private toastr: ToastrService,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -49,19 +51,8 @@ export class SmsCreateComponent implements OnInit {
     this.service.SmsDropdownGetAll(this.merchantid).subscribe((res: any) => {
       if (res.flag == 1) {
         this.freepaid = res.response.reverse();
-
       }
     });
-    // this.service.smsfreepaiddropdowns(0).subscribe((res: any) => {
-    //   if (res.flag == 1) {
-    //     this.free = res.response;
-    //   }
-    // });
-    // this.service.smsfreepaiddropdowns(1).subscribe((res: any) => {
-    //   if (res.flag == 1) {
-    //     this.paid = res.response;
-    //   }
-    // });
   }
 
   get smsFor() {
@@ -73,11 +64,9 @@ export class SmsCreateComponent implements OnInit {
   }
   toggleAllSelection() {
     if (this.allSelected) {
-      console.log(this.allSelected)
+      console.log(this.allSelected);
       this.selects.options.forEach((item: MatOption) => item.select());
-    }
-     else
-      {
+    } else {
       this.selects.options.forEach((item: MatOption) => item.deselect());
     }
   }
@@ -89,25 +78,18 @@ export class SmsCreateComponent implements OnInit {
     }
   }
 
-
-
-  
   smsSubmit() {
-    // const smsFor = this.smsFor?.value || [];
-    // const smsForpaid = this.smsForpaid?.value || [];
-    // const combinedSmsFor = [...smsFor, ...smsForpaid];
     let submitModel: CreateSMS = {
       merchantId: this.merchantid,
       type: this.smsFor?.value,
       createdBy: this.getadminname,
-      smsCharge: this.smsForpaid?.value
+      smsCharge: this.smsForpaid?.value,
     };
     this.service.CreateSMS(submitModel).subscribe((res: any) => {
       if (res.flag === 1) {
         this.toastr.success(res.responseMessage);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
-
       } else {
         this.toastr.error(res.responseMessage);
       }

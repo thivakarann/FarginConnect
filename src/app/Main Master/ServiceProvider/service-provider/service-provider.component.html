@@ -55,7 +55,7 @@
             </ng-container>
 
             <ng-container matColumnDef="providername">
-                <th mat-header-cell *matHeaderCellDef> Service ProviderName</th>
+                <th mat-header-cell *matHeaderCellDef> Service Provider Name</th>
                 <td mat-cell *matCellDef="let data">{{data.serviceProviderName}}</td>
             </ng-container>
 
@@ -72,7 +72,8 @@
                 </th>
                 <td mat-cell *matCellDef="let data" [hidden]="valueMSOstatus!=='MSO-Status'">
                     <mat-slide-toggle class="example-margin" color="primary" [checked]="data.status==1"
-                        (change)="ActiveStatus($event,data.serviceId)">
+                        (change)="ActiveStatus($event,data.serviceId)" 
+style="transform: scale(0.9)">
                     </mat-slide-toggle>
                 </td>
             </ng-container>

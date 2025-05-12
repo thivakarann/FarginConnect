@@ -4,7 +4,6 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
-import { documentupdate } from '../../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-edit-bussinessdocument',
@@ -28,7 +27,6 @@ export class EditBussinessdocumentComponent {
 
   constructor(
     public service: FarginServiceService,
-    private router: Router,
     private toastr: ToastrService,
     private dialog: MatDialog,
     private _formBuilder: FormBuilder,
@@ -38,10 +36,8 @@ export class EditBussinessdocumentComponent {
 
     this.documentdata = this.data.value;
     this.bussinessid = this.data.value.merchantId?.businessCategoryModel?.businessCategoryId;
-    console.log(this.bussinessid)
 
     this.merchantDocumentId = this.data.value.merchantDocumentId
-    console.log(this.merchantDocumentId)
     this.categoryvalue = this.data.value.entityKycCategory.kycCategoryId
 
     this.docNumbers = this.data.value.docNumber
@@ -49,14 +45,13 @@ export class EditBussinessdocumentComponent {
 
     this.service.EntityGetKYCbybussinessid(this.bussinessid).subscribe((res: any) => {
       this.kycValue = res.response.reverse();
-    })
-
+    });
 
     this.fourthFormGroup = this._formBuilder.group({
       kycCategoryId: ['', Validators.required],
       docNumber: ['', Validators.maxLength(35)],
       expiryDate: [''],
-    })
+    });
 
   }
 

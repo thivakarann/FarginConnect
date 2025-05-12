@@ -6,13 +6,16 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 @Component({
   selector: 'app-entity-offlineview',
   templateUrl: './entity-offlineview.component.html',
-  styleUrl: './entity-offlineview.component.css'
+  styleUrl: './entity-offlineview.component.css',
 })
 export class EntityOfflineviewComponent {
   details: any;
 
-  constructor(private service: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog) { }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+  ) { }
+  
   ngOnInit(): void {
-    this.details = this.data.value
+    this.details = this.data.value;
   }
 }

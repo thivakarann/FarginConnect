@@ -120,7 +120,7 @@
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
                 <td mat-cell *matCellDef="let data">
                     <mat-slide-toggle class="example-margin" color="primary" [checked]="data.accountStatus==1"
-                        (change)="ActiveStatus($event,data.adminUserId)">
+                        (change)="ActiveStatus($event,data.adminUserId)" style="transform: scale(0.9)">
                     </mat-slide-toggle>
                 </td>
             </ng-container>

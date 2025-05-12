@@ -6,10 +6,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { branchstatus, Entitystatus } from '../../../fargin-model/fargin-model.module';
+import { Entitystatus } from '../../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../../service/fargin-service.service';
-import { BranchTerminalAddComponent } from '../../BranchTerminal/branch-terminal-add/branch-terminal-add.component';
-import { BranchTerminalEditComponent } from '../../BranchTerminal/branch-terminal-edit/branch-terminal-edit.component';
 import { Location } from '@angular/common';
 import { EntityTerminalAddComponent } from '../entity-terminal-add/entity-terminal-add.component';
 import { EntityTerminalEditComponent } from '../entity-terminal-edit/entity-terminal-edit.component';
@@ -17,16 +15,27 @@ import { EntityTerminalEditComponent } from '../entity-terminal-edit/entity-term
 @Component({
   selector: 'app-entity-terminal-view',
   templateUrl: './entity-terminal-view.component.html',
-  styleUrl: './entity-terminal-view.component.css'
+  styleUrl: './entity-terminal-view.component.css',
 })
 export class EntityTerminalViewComponent implements OnInit {
   terminal: any;
   isChecked: any;
   dataSource: any;
-  displayedColumns: string[] = ["sno", "accountId", "terminalNumber", "status", "View", "edit", "createdBy", "createdAt", "modifiedBy", "modifiedAt"]
+  displayedColumns: string[] = [
+    'sno',
+    'accountId',
+    'terminalNumber',
+    'status',
+    'View',
+    'edit',
+    'createdBy',
+    'createdAt',
+    'modifiedBy',
+    'modifiedAt',
+  ];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId');
   errorMessage: any;
   actions: any;
   searchPerformed: boolean = false;
@@ -47,21 +56,17 @@ export class EntityTerminalViewComponent implements OnInit {
     private location: Location
   ) { }
 
-
   ngOnInit() {
-
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
-
           if (this.roleId == 1) {
             this.valueTerminalAdd = 'Terminal Entity-Add';
             this.valueTerminalStatus = 'Terminal Entity-Status';
             this.valueTerminalEdit = 'Terminal Entity-Edit';
             this.valueTerminalview = 'Terminal Entity Transaction-View';
-          }
-          else {
+          } else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
 
@@ -79,145 +84,37 @@ export class EntityTerminalViewComponent implements OnInit {
               }
             }
           }
-        }
-        else {
+        } else {
           this.errorMessage = res.responseMessage;
         }
-      }
-    })
+      },
+    });
 
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.merchantId = param.Alldata;
     });
 
-    this.service.EntityTerminalviewMerchant(this.merchantId).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.terminal = res.response;
-        this.dataSource = new MatTableDataSource(this.terminal.reverse());
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.filterPredicate = (data: any, filter: string) => {
-          const transformedFilter = filter.trim().toLowerCase();
-          const dataStr = Object.keys(data)
-            .reduce((currentTerm: string, key: string) => {
-              return (
-                currentTerm +
-                (typeof data[key] === 'object'
-                  ? JSON.stringify(data[key])
-                  : data[key])
-              );
-            }, '')
-            .toLowerCase();
-          return dataStr.indexOf(transformedFilter) !== -1;
-        };
-      }
-      else if (res.flag == 2) {
-        this.dataSource = new MatTableDataSource([]);
-        this.dataSource = new MatTableDataSource(this.terminal.reverse());
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      }
-    });
+   this.Getall();
 
-  }
-
-  onSubmit(event: MatSlideToggleChange, id: any) {
-    this.isChecked = event.checked;
-    let submitModel: Entitystatus = {
-      activeStatus: this.isChecked ? 1 : 0,
-    };
-    this.service.EntityTerminalStatus(id, submitModel).subscribe((res: any) => {
-
-      this.toastr.success(res.responseMessage);
-      setTimeout(() => {
-        this.service.EntityTerminalviewMerchant(this.merchantId).subscribe((res: any) => {
-          if (res.flag == 1) {
-            this.terminal = res.response;
-            this.dataSource = new MatTableDataSource(this.terminal.reverse());
-            this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.filterPredicate = (data: any, filter: string) => {
-              const transformedFilter = filter.trim().toLowerCase();
-              const dataStr = Object.keys(data)
-                .reduce((currentTerm: string, key: string) => {
-                  return (
-                    currentTerm +
-                    (typeof data[key] === 'object'
-                      ? JSON.stringify(data[key])
-                      : data[key])
-                  );
-                }, '')
-                .toLowerCase();
-              return dataStr.indexOf(transformedFilter) !== -1;
-            };
-          }
-          else if (res.flag == 2) {
-            this.dataSource = new MatTableDataSource([]);
-            this.dataSource = new MatTableDataSource(this.terminal.reverse());
-            this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator;
-          }
-        });
-      }, 1000);
-    });
-  }
-
-  reload() {
-    this.service.EntityTerminalviewMerchant(this.merchantId).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.terminal = res.response;
-        this.dataSource = new MatTableDataSource(this.terminal.reverse());
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.filterPredicate = (data: any, filter: string) => {
-          const transformedFilter = filter.trim().toLowerCase();
-          const dataStr = Object.keys(data)
-            .reduce((currentTerm: string, key: string) => {
-              return (
-                currentTerm +
-                (typeof data[key] === 'object'
-                  ? JSON.stringify(data[key])
-                  : data[key])
-              );
-            }, '')
-            .toLowerCase();
-          return dataStr.indexOf(transformedFilter) !== -1;
-        };
-      }
-      else if (res.flag == 2) {
-        this.dataSource = new MatTableDataSource([]);
-        this.dataSource = new MatTableDataSource(this.terminal.reverse());
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      }
-    });
-  }
-
-    CreateEntityTerminal(id:any){
-      const dialogRef = this.dialog.open(EntityTerminalAddComponent,{
-        enterAnimationDuration: '500ms',
-        exitAnimationDuration: '800ms',
-        disableClose: true,
-        data: {value:id}
-      })
-      dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
-
-        this.fetch();
   
-      });
-  }
-  fetch()
-  {
-    this.service.EntityTerminalviewMerchant(this.merchantId).subscribe((res: any) => {
-      if(res.flag==1)
-      {
-        this.terminal = res.response;
-        this.dataSource = new MatTableDataSource(this.terminal.reverse());
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.filterPredicate = (data: any, filter: string) => {
-          const transformedFilter = filter.trim().toLowerCase();
-          const dataStr = Object.keys(data)
+ }
+
+ transactions(id: any, id1: any) {
+  this.router.navigate([`dashboard/terminal-transactions/${id}`], {
+    queryParams: { Alldata: id, Alldata1: id1 },
+  });
+}
+
+ Getall(){
+  this.service.EntityTerminalviewMerchant(this.merchantId).subscribe((res: any) => {
+    if (res.flag == 1) {
+      this.terminal = res.response;
+      this.dataSource = new MatTableDataSource(this.terminal.reverse());
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.filterPredicate = (data: any, filter: string) => {
+        const transformedFilter = filter.trim().toLowerCase();
+        const dataStr = Object.keys(data)
           .reduce((currentTerm: string, key: string) => {
             return (
               currentTerm +
@@ -229,27 +126,52 @@ export class EntityTerminalViewComponent implements OnInit {
           .toLowerCase();
         return dataStr.indexOf(transformedFilter) !== -1;
       };
-    }
-    else if (res.flag == 2) {
+    } else if (res.flag == 2) {
       this.dataSource = new MatTableDataSource([]);
       this.dataSource = new MatTableDataSource(this.terminal.reverse());
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     }
   });
-  }
-    EditTerminal(id:any){
-      const dialogRef =  this.dialog.open(EntityTerminalEditComponent,{
-        enterAnimationDuration: '500ms',
-        exitAnimationDuration: '800ms',
-        disableClose: true,   
-        data: {value: id}
-      })
-      dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+ }
 
-        this.fetch();
-  
-      });
+  onSubmit(event: MatSlideToggleChange, id: any) {
+    this.isChecked = event.checked;
+    let submitModel: Entitystatus = {
+      activeStatus: this.isChecked ? 1 : 0,
+    };
+    this.service.EntityTerminalStatus(id, submitModel).subscribe((res: any) => {
+      this.toastr.success(res.responseMessage);
+      setTimeout(() => {
+        this.Getall();
+      }, 1000);
+    });
+  }
+
+
+
+  CreateEntityTerminal(id: any) {
+    const dialogRef = this.dialog.open(EntityTerminalAddComponent, {
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '800ms',
+      disableClose: true,
+      data: { value: id },
+    });
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.Getall();
+    });
+  }
+
+  EditTerminal(id: any) {
+    const dialogRef = this.dialog.open(EntityTerminalEditComponent, {
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '800ms',
+      disableClose: true,
+      data: { value: id },
+    });
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.Getall();
+    });
   }
 
   applyFilter(event: Event) {
@@ -262,14 +184,7 @@ export class EntityTerminalViewComponent implements OnInit {
   }
 
   close() {
-    this.location.back()
+    this.location.back();
   }
-  transactions(id:any,id1:any){
-    this.router.navigate([`dashboard/terminal-transactions/${id}`], {
-      queryParams: { Alldata: id ,
-        Alldata1:id1
 
-      },
-    });
-  }
 }

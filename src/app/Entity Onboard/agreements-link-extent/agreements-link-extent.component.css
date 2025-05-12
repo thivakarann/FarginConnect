@@ -6,7 +6,6 @@
   box-sizing: border-box;
 }
 
-
 button {
   font: inherit;
 }
@@ -23,7 +22,6 @@ button {
 
 .page__main {
   grid-area: main;
-
 }
 
 .main {
@@ -34,9 +32,7 @@ button {
 
 .form .main__form {
   width: 500px;
-
 }
-
 
 .main__form {
   width: 100%;
@@ -160,6 +156,6 @@ button {
   display: flex;
   justify-content: space-between;
   background-color: #bcdf72;
-  color: #141E46;
+  color: #141e46;
   font-family: "Roboto";
 }

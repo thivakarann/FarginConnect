@@ -1,37 +1,64 @@
-<i  style="    margin-left: 95%;
-font-size: 27px;
-margin-bottom: 1px;
-margin-top: 4px;
-color: red;
-"></i>
+<i
+  style="
+    margin-left: 95%;
+    font-size: 27px;
+    margin-bottom: 1px;
+    margin-top: 4px;
+    color: red;
+  "
+></i>
 
-<!-- <img [src]="logoLink1" style="width:500px;height: 300px;  background-repeat: no-repeat;
- background-size: cover; " (click)=converttohhttps(logoLink)> -->
-
- <div class="modal-body">
-    <!-- If an image is available -->
-    <div *ngIf="DocView; else noData">
-      <img 
-        [src]="logoLink1" 
-        style="width:500px;height:300px;background-repeat:no-repeat;background-size:cover;" 
-        (click)="converttohhttps(logoLink)"
-      >
-    </div>
-    
-    <!-- Fallback if no image is found -->
-    <ng-template #noData>
-      <div class="text-center mt-4 no-data-container">
-        <h2 style="width:400px;height:200px;background-repeat:no-repeat;background-size:cover;overflow: hidden;" >Data Not Uploaded</h2>
-      </div>
-    </ng-template>
+<div class="modal-body">
+  <!-- If an image is available -->
+  <div *ngIf="DocView; else noData">
+    <img
+      [src]="logoLink1"
+      style="
+        width: 500px;
+        height: 300px;
+        background-repeat: no-repeat;
+        background-size: cover;
+      "
+      (click)="converttohhttps(logoLink)"
+    />
   </div>
-  
+
+  <!-- Fallback if no image is found -->
+  <ng-template #noData>
+    <div class="text-center mt-4 no-data-container">
+      <h2
+        style="
+          width: 400px;
+          height: 200px;
+          background-repeat: no-repeat;
+          background-size: cover;
+          overflow: hidden;
+        "
+      >
+        Data Not Uploaded
+      </h2>
+    </div>
+  </ng-template>
+</div>
 
 <div class="p-2">
-    <form [formGroup]="logoUpdate">
-        <label  class="form__label">Logo</label>
-        <input class="form-control sm" style="margin-bottom: 7px;"  type="file" name="logo" formControlName="merchantlogo" (change)="getlogoId($event)">
-        <button [disabled]="logoUpdate.invalid"  class="buttonDownload mt-2" (click)="Update()">Update</button>
-        <button class="buttonDownloads mt-2" matDialogClose>Cancel</button>
-    </form>
+  <form [formGroup]="logoUpdate">
+    <label class="form__label">Logo</label>
+    <input
+      class="form-control sm"
+      style="margin-bottom: 7px"
+      type="file"
+      name="logo"
+      formControlName="merchantlogo"
+      (change)="getlogoId($event)"
+    />
+    <button
+      [disabled]="logoUpdate.invalid"
+      class="buttonDownload mt-2"
+      (click)="Update()"
+    >
+      Update
+    </button>
+    <button class="buttonDownloads mt-2" matDialogClose>Cancel</button>
+  </form>
 </div>

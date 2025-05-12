@@ -40,6 +40,10 @@ export class SignerAddComponent {
         Validators.pattern('^[0-9]{10}$')
       ]),
 
+      adminPosition:new FormControl('',[
+        Validators.required, 
+        Validators.pattern(/^[A-Za-z ]{1,50}$/)
+      ])
 
     })
   }
@@ -56,12 +60,16 @@ export class SignerAddComponent {
     return this.MyForm.get('signAdminMobile');
   }
 
+    get adminPosition() {
+    return this.MyForm.get('adminPosition');
+  }
 
   submit() {
     let submitModel: Addsigner = {
       signAdminEmail: this.signAdminEmail?.value.trim(),
       signAdminMobile: this.signAdminMobile?.value,
       signAdminName: this.signAdminName?.value.trim(),
+      adminPosition: this.adminPosition?.value.trim(),
       createdBy: this.createdBy
     }
 

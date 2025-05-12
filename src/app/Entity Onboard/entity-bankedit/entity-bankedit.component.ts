@@ -1,16 +1,14 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { bankedit } from '../../fargin-model/fargin-model.module';
 
-
 @Component({
   selector: 'app-entity-bankedit',
   templateUrl: './entity-bankedit.component.html',
-  styleUrl: './entity-bankedit.component.css'
+  styleUrl: './entity-bankedit.component.css',
 })
 export class EntityBankeditComponent implements OnInit {
   BankForm: any = FormGroup;
@@ -28,7 +26,6 @@ export class EntityBankeditComponent implements OnInit {
 
   constructor(
     public service: FarginServiceService,
-    private router: Router,
     private toastr: ToastrService,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -36,70 +33,69 @@ export class EntityBankeditComponent implements OnInit {
   ngOnInit(): void {
 
     this.bankData = this.data.value;
-
-
-
     this.merchantBankId = this.data.value.merchantBankId;
 
     this.service.activebankdetails().subscribe((res: any) => {
       this.BankNames = res.response.reverse();
     });
 
-
     this.BankForm = new FormGroup({
-      accountHolderName: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z ]*$'), Validators.maxLength(50)]),
+      accountHolderName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z ]*$'),
+        Validators.maxLength(50),
+      ]),
       accountNumber: new FormControl(null, [
         Validators.required,
-        Validators.pattern("^[0-9]{9,18}$")
+        Validators.pattern('^[0-9]{9,18}$'),
       ]),
-      bankName: new FormControl("", [
+      bankName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
+        Validators.pattern('^[a-zA-Z0-9 ]*$'),
       ]),
-      ifscCode: new FormControl("", [
+      ifscCode: new FormControl('', [
         Validators.required,
-        Validators.pattern("^[A-Z]{4}0[A-Z0-9]{6}$")
+        Validators.pattern('^[A-Z]{4}0[A-Z0-9]{6}$'),
       ]),
       branchName: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9 ]*$'),
-        Validators.maxLength(50)
+        Validators.maxLength(50),
       ]),
-      accountType: new FormControl("", [
+      accountType: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$')
+        Validators.pattern('^[a-zA-Z0-9 ]*$'),
       ]),
 
-      ledgerId: new FormControl("", [Validators.pattern(/^\d{1,15}$/)]),
-    })
-
+      ledgerId: new FormControl('', [Validators.pattern(/^\d{1,15}$/)]),
+    });
   }
 
   get accountHolderName() {
-    return this.BankForm.get('accountHolderName')
+    return this.BankForm.get('accountHolderName');
   }
 
   get accountNumber() {
-    return this.BankForm.get('accountNumber')
+    return this.BankForm.get('accountNumber');
   }
   get bankName() {
-    return this.BankForm.get('bankName')
+    return this.BankForm.get('bankName');
   }
 
   get ifscCode() {
-    return this.BankForm.get('ifscCode')
+    return this.BankForm.get('ifscCode');
   }
 
   get branchName() {
-    return this.BankForm.get('branchName')
+    return this.BankForm.get('branchName');
   }
 
   get accountType() {
-    return this.BankForm.get('accountType')
+    return this.BankForm.get('accountType');
   }
 
   get ledgerId() {
-    return this.BankForm.get('ledgerId')
+    return this.BankForm.get('ledgerId');
   }
 
   submit() {
@@ -111,17 +107,16 @@ export class EntityBankeditComponent implements OnInit {
       branchName: this.branchName.value.trim(),
       accountType: this.accountType.value,
       ledgerId: this.ledgerId?.value.trim(),
-      modifiedBy: this.getadminname
-    }
+      modifiedBy: this.getadminname,
+    };
     this.service.EntitybankEdit(this.merchantBankId, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage)
+        this.toastr.success(res.responseMessage);
         this.bankDetailsUpdated.emit();
-        this.dialog.closeAll();  // Close the dialog
-
+        this.dialog.closeAll();
       } else {
-        this.toastr.error(res.responseMessage)
+        this.toastr.error(res.responseMessage);
       }
-    })
+    });
   }
 }

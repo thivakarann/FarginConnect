@@ -51,14 +51,16 @@
           >
             Enter a Valid Input
           </div>
-          <div style="
-          color: red;
-          font-size: 12px;
-          margin-top: 2px;
-          position: relative;
-          ;
-        " *ngIf="accountHolderName?.errors?.['maxlength']">
-              maximum length should be 50
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="accountHolderName?.errors?.['maxlength']"
+          >
+            maximum length should be 50
           </div>
         </div>
         <div class="col-md-4 form-group">
@@ -116,24 +118,26 @@
             Field is required
           </div>
           <div
-          style="
-            color: red;
-            font-size: 12px;
-            margin-top: 2px;
-            position: relative;
-          "
-          *ngIf="bankName?.invalid && bankName?.touched && bankName?.errors?.['pattern']"
-        >
-          Enter a valid Input
-        </div>
-          <div style="
-          color: red;
-          font-size: 12px;
-          margin-top: 2px;
-          position: relative;
-          ;
-        " *ngIf="bankName?.errors?.['maxlength']">
-              maximum length should be 50
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="bankName?.invalid && bankName?.touched && bankName?.errors?.['pattern']"
+          >
+            Enter a valid Input
+          </div>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="bankName?.errors?.['maxlength']"
+          >
+            maximum length should be 50
           </div>
         </div>
       </div>
@@ -148,7 +152,7 @@
             formControlName="branchName"
             required
           />
-          
+
           <div
             style="
               color: red;
@@ -158,16 +162,18 @@
             "
             *ngIf="branchName?.invalid && branchName?.touched && branchName?.errors?.['pattern']"
           >
-            Enter a Valid Input 
+            Enter a Valid Input
           </div>
-          <div style="
-          color: red;
-          font-size: 12px;
-          margin-top: 2px;
-          position: relative;
-          ;
-        " *ngIf="branchName?.errors?.['maxlength']">
-              maximum length should be 50
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="branchName?.errors?.['maxlength']"
+          >
+            maximum length should be 50
           </div>
         </div>
         <div class="col-md-4 form-group">
@@ -226,17 +232,16 @@
             Field is required
           </div>
           <div
-          style="
-            color: red;
-            font-size: 12px;
-            margin-top: 2px;
-            position: relative;
-          "
-          *ngIf="accountId?.invalid && accountId?.touched && accountId?.errors?.['pattern']"
-        >
-        Please enter only numbers (up to 10 digits).
-        </div>
-          
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="accountId?.invalid && accountId?.touched && accountId?.errors?.['pattern']"
+          >
+            Please enter only numbers (up to 10 digits).
+          </div>
         </div>
       </div>
 

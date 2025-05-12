@@ -7,11 +7,11 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-image-bussinessdocument',
   templateUrl: './image-bussinessdocument.component.html',
-  styleUrl: './image-bussinessdocument.component.css'
+  styleUrl: './image-bussinessdocument.component.css',
 })
 export class ImageBussinessdocumentComponent {
   imageSrc: any;
-  pdfSrc: any; // New variable for PDF source
+  pdfSrc: any;
   id: any;
   flag: any;
   documentupload!: FormGroup;
@@ -20,29 +20,32 @@ export class ImageBussinessdocumentComponent {
   file2: any;
   updatedata: any;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
-  constructor(private service: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog,private toastr:ToastrService) {}
-   
+
+  constructor(
+    private service: FarginServiceService,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private dialog: MatDialog,
+    private toastr: ToastrService
+  ) { }
+
   ngOnInit(): void {
     this.id = this.data.value;
-    console.log(this.id);
-   
     this.flag = this.data.value1;
-    console.log(this.flag);
-   
+
     this.documentupload = new FormGroup({
       Image: new FormControl('', [Validators.required]),
     });
-   
+
     this.service.getdocumentImage(this.id, this.flag).subscribe({
       next: (res: Blob) => {
-        const contentType = res.type; // Get the content type of the response
-   
+        const contentType = res.type;
+
         if (contentType.startsWith('image/')) {
           const reader = new FileReader();
           reader.readAsDataURL(res);
           reader.onloadend = () => {
-            this.imageSrc = reader.result as string; // For displaying the image
-            this.pdfSrc = null; // Reset PDF source
+            this.imageSrc = reader.result as string;
+            this.pdfSrc = null;
           };
         } else if (contentType === 'application/pdf') {
           var downloadURL = URL.createObjectURL(res);
@@ -53,11 +56,10 @@ export class ImageBussinessdocumentComponent {
       },
       error: (err) => {
         console.error('Error fetching document image:', err);
-      }
+      },
     });
-   
   }
-   
+
   getimageId(event: any) {
     console.log(event);
     const files = event.target.files[0];
@@ -113,35 +115,33 @@ export class ImageBussinessdocumentComponent {
       }
     }
   }
-   
+
   Update() {
     const formData = new FormData();
     formData.append('merchantDocumentId', this.id);
     formData.append('modifiedBy', this.id);
-   
+
     if (this.flag === 1 && this.file1) {
       formData.append('docFrontPath', this.file1);
       this.service.documentFrontedit(formData).subscribe((res: any) => {
         if (res.flag === 1) {
           this.updatedata = res.response;
-          this.toastr.success(res.responseMessage)
+          this.toastr.success(res.responseMessage);
           this.dialog.closeAll();
-       
         }
       });
     }
-   
+
     if (this.flag === 2 && this.file2) {
       formData.append('docBackPath', this.file2);
       this.service.documentBackedit(formData).subscribe((res: any) => {
         if (res.flag === 1) {
           this.updatedata = res.response;
-          this.toastr.success(res.responseMessage)
+          this.toastr.success(res.responseMessage);
           this.bankDetailsUpdated.emit();
           this.dialog.closeAll();
-        
         }
       });
     }
   }
-  }
+}

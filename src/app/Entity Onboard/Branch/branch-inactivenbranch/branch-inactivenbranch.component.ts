@@ -24,21 +24,19 @@ export class BranchInactivenbranchComponent {
   merchantId: any;
   selectedBranchId: any;
   selectedOption: number = 0;
+
   constructor(
     private service: FarginServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialog: MatDialog,
     private toastr: ToastrService
-  ) {}
+  ) { }
+
   ngOnInit(): void {
     this.branchId = this.data.value;
-    console.log(this.branchId);
     this.merchantId = this.data.value1;
-    console.log(this.merchantId);
 
-    this.service
-    .branchonlyactive(this.merchantId, this.branchId)
-    .subscribe((res: any) => {
+    this.service.branchonlyactive(this.merchantId, this.branchId).subscribe((res: any) => {
       this.branchonlyactives = res.response;
     });
   }
@@ -51,9 +49,7 @@ export class BranchInactivenbranchComponent {
       accountStatus: '0',
       flag: '1',
     };
-    this.service
-    .inactivebranch(this.branchId, submitmodel)
-    .subscribe((res: any) => {
+    this.service.inactivebranch(this.branchId, submitmodel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.dialog.closeAll();
@@ -68,9 +64,7 @@ export class BranchInactivenbranchComponent {
       flag: '2',
       branchId: this.selectedBranchId,
     };
-    this.service
-    .inactivebranch(this.branchId, submitmodel)
-    .subscribe((res: any) => {
+    this.service.inactivebranch(this.branchId, submitmodel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.dialog.closeAll();

@@ -54,7 +54,7 @@
             mat-raised-button>Add</button>
     </div>
 </div>
-<div class="row">
+<div class="row mt-2">
     <div class="col-12 mb-3 mb-lg-5">
         <div class="card table-nowrap table-card">
             <div class="table-responsive text-nowrap text-center">
@@ -63,7 +63,7 @@
                         <th>S No </th>
                         <th>Channel Name</th>
                         <th>Channel Number</th>
-                        <th>Channel BroadCaster</th>
+                        <th>Channel Broadcaster</th>
                         <th>Mso</th>
                         <th>Region</th>
                         <th>Generic</th>
@@ -73,7 +73,7 @@
                         <th>Edit</th>
 
                     </tr>
-                    <span *ngIf="this.flag==2" style="color:red;">{{this.message}}</span>
+                    <span *ngIf="this.flag==2" style="color:red;">No Data</span>
  
                     <tbody
                         *ngFor="let item of channelslist | search: searchText | paginate: { itemsPerPage: 3, currentPage: currentPage }; let i = index">
@@ -92,7 +92,8 @@
                         <td class="text-center">
                              <mat-slide-toggle class="example-margin" color="primary"
                                 [checked]="item?.channelStatus==1"
-                                (change)="ActiveStatus($event,item?.broadCasterAloctId)">
+                                (change)="ActiveStatus($event,item?.broadCasterAloctId)" 
+style="transform: scale(0.9);padding:0">
                             </mat-slide-toggle>
                         </td>
 
@@ -102,7 +103,7 @@
                         </td>
                     -->
                     <td class="text-center">
-                        <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-edit"
+                        <i style="cursor: pointer;font-size:15px; color:#545497;;padding:0" class="fas fa-edit"
                         (click)="Edit(item.broadCasterAlcot?.region?.regionId,item.broadCasterAloctId)"></i>
                     </td>
                

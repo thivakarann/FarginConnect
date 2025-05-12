@@ -1,13 +1,13 @@
-<h4 style="text-align:left;color:#141E46;">Cloud Fee AutoDebit</h4>
- 
- 
+<h4 style="text-align: left; color: #141e46">Cloud Fee AutoDebit</h4>
+
 <mat-card-header>
     <div class="row mt-4">
         <div class="col-md-6">
-            <div class="search ">
+            <div class="search">
                 <form class="form">
                     <label for="search">
-                        <input #input  required autocomplete="off" placeholder="Search" id="search" type="text" name="search" [(ngModel)]="currentFilterValue">
+                        <input #input required autocomplete="off" placeholder="Search" id="search" type="text"
+                            name="search" [(ngModel)]="currentFilterValue" />
                         <div class="icon">
                             <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg" class="swap-on">
@@ -15,7 +15,7 @@
                                     stroke-linecap="round"></path>
                             </svg>
                         </div>
-                        <button (click)="reload()" type="reset" class="close-btn">
+                        <button (click)="Getall()" type="reset" class="close-btn">
                             <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
                                 <path clip-rule="evenodd"
                                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -24,103 +24,113 @@
                         </button>
                     </label>
                 </form>
- 
             </div>
             &nbsp;&nbsp;&nbsp;
-            <button (click)="autodebit(currentFilterValue)" style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;"
-                mat-raised-button>Go</button>
-          
-            <button [hidden]="valueautodebitexport!=='Cloud Fee AutoDebit-Export'"
-                style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" (click)="exportexcel()"
-                mat-raised-button>Export</button>
-        </div>    &nbsp;&nbsp;&nbsp;
-        <!-- <div class="col-md-2"  style="
-             margin-top: 13px;">
-            <input type="range" min="0" [max]="maxScroll" [(ngModel)]="scrollValue" (input)="onSliderChange($event)" />
- 
+            <button (click)="autodebit(currentFilterValue)" style="
+          color: white;
+          background-color: #141e46;
+          border-radius: 10px;
+          font-size: 12px;
+        " mat-raised-button>
+                Go
+            </button>
+<!-- 
+            <button [hidden]="valueautodebitexport !== 'Cloud Fee AutoDebit-Export'" style="
+          color: white;
+          background-color: #141e46;
+          border-radius: 10px;
+          font-size: 12px;
+        " (click)="exportexcel()" mat-raised-button>
+                Export
+            </button> -->
         </div>
-        <div class="col-md-4">
-        </div> -->
+        &nbsp;&nbsp;&nbsp;
     </div>
 </mat-card-header>
 
 <mat-card-content>
- 
-    <div class="example-container text-nowrap mt-2" style="overflow-x: scroll; scrollbar-width: thin;">
+    <div class="example-container text-nowrap mt-2" style="overflow-x: scroll; scrollbar-width: thin">
         <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
- 
             <ng-container matColumnDef="merchantLogId">
-                <th mat-header-cell *matHeaderCellDef> S.No</th>
-                <td mat-cell *matCellDef="let viewall; let i = index"> {{i+1}} </td>
+                <th mat-header-cell *matHeaderCellDef>S.No</th>
+                <td mat-cell *matCellDef="let viewall; let i = index">{{ i + 1 }}</td>
             </ng-container>
- 
+
             <ng-container matColumnDef="accountId">
                 <th mat-header-cell *matHeaderCellDef>Account Id</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall.accountId}}</td>
+                <td mat-cell *matCellDef="let viewall">{{ viewall.accountId }}</td>
             </ng-container>
- 
+
             <ng-container matColumnDef="merchantLegalName">
                 <th mat-header-cell *matHeaderCellDef>Entity Name</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall.userModel.entityName}}</td>
+                <td mat-cell *matCellDef="let viewall">
+                    {{ viewall.userModel.entityName }}
+                </td>
             </ng-container>
- 
+
             <ng-container matColumnDef="categoryName">
                 <th mat-header-cell *matHeaderCellDef>Business Category</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall.userModel.businessCategoryModel.categoryName}}</td>
+                <td mat-cell *matCellDef="let viewall">
+                    {{ viewall.userModel.businessCategoryModel.categoryName }}
+                </td>
             </ng-container>
- 
+
             <ng-container matColumnDef="planName">
                 <th mat-header-cell *matHeaderCellDef>Plan Name</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall.planName}}</td>
+                <td mat-cell *matCellDef="let viewall">{{ viewall.planName }}</td>
             </ng-container>
- 
+
             <ng-container matColumnDef="rentalAmount">
                 <th mat-header-cell *matHeaderCellDef>Cloud Fee Amount</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall.rentalAmount}}</td>
+                <td mat-cell *matCellDef="let viewall">{{ viewall.rentalAmount }}</td>
             </ng-container>
- 
+
             <ng-container matColumnDef="reason">
                 <th mat-header-cell *matHeaderCellDef>Reason</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall.reason}}</td>
+                <td mat-cell *matCellDef="let viewall">{{ viewall.reason }}</td>
             </ng-container>
- 
+
             <ng-container matColumnDef="rentalPeriod">
                 <th mat-header-cell *matHeaderCellDef>Cloud Fee Period</th>
                 <td mat-cell *matCellDef="let viewall">
                     {{ viewall.rentalPeriod }}
                 </td>
             </ng-container>
- 
+
             <ng-container matColumnDef="fromLedger">
                 <th mat-header-cell *matHeaderCellDef>From Ledger Id</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall.fromLedger || "-"}}</td>
+                <td mat-cell *matCellDef="let viewall">
+                    {{ viewall.fromLedger || "-" }}
+                </td>
             </ng-container>
             <ng-container matColumnDef="toLedger">
                 <th mat-header-cell *matHeaderCellDef>To Ledger Id</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall.toLedger || "-"}}</td>
+                <td mat-cell *matCellDef="let viewall">
+                    {{ viewall.toLedger || "-" }}
+                </td>
             </ng-container>
- 
+
             <ng-container matColumnDef="createAt">
                 <th mat-header-cell *matHeaderCellDef>Created At</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall.createAt | date : "dd/MM/yyyy hh:mm a" }}
+                <td mat-cell *matCellDef="let viewall">
+                    {{ viewall.createAt | date : "dd/MM/yyyy hh:mm a" }}
                 </td>
             </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
-            <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
             <tr *matNoDataRow>
-                <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data For{{input.value}}</td>
-                <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">No Data
+                <td class="mat-cell" colspan="0" *ngIf="searchPerformed">
+                    No Data For{{ input.value }}
                 </td>
- 
+                <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">
+                    No Data
+                </td>
             </tr>
         </table>
- 
     </div>
 </mat-card-content>
 <mat-card-footer>
- 
     <mat-paginator (page)="getData($event)" [length]="totalPages" [pageIndex]="currentpage" [pageSize]="totalpage"
-    [pageSizeOptions]="[5, 50, 100,500,1000,2000]" aria-label="Select page">
-  </mat-paginator>
-   
-  </mat-card-footer>
+        [pageSizeOptions]="[5, 50, 100, 500, 1000, 2000]" aria-label="Select page">
+    </mat-paginator>
+</mat-card-footer>

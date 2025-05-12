@@ -920,7 +920,7 @@ export class FarginServiceService {
         }
 
         // else if (flag == '2') {
-        //   window.location.href = (`http://localhost:51798/data-component/${token}/${email}/${adminId}`);
+        //   window.location.href = (`http://localhost:54793/data-component/${token}/${email}/${adminId}`);
         // }
 
 

@@ -99,7 +99,8 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="valuepgsetupStatus!=='PG SetupKey-Status'">Status</th>
         <td mat-cell *matCellDef="let pgsetup" [hidden]="valuepgsetupStatus!=='PG SetupKey-Status'">
           <mat-slide-toggle class="example-margin" color="primary" [checked]="pgsetup.pgOnoffStatus === 1" 
-          (change)="onSubmit($event,pgsetup.pgModeId)">
+          (change)="onSubmit($event,pgsetup.pgModeId)" 
+style="transform: scale(0.9)">
             <!--  -->
           </mat-slide-toggle>
         </td>

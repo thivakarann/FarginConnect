@@ -43,6 +43,7 @@ body{
     margin-top: 62px; /* Adjust as needed */
     display: block;
     text-align: center;
+    cursor: pointer;
 }
 
 a{

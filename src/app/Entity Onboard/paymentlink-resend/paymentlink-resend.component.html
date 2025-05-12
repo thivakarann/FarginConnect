@@ -1,61 +1,113 @@
-
 <div class="card-header">
-    <h3 class="mb-0" style="font-weight: 500;text-align:center;font-size: 21px; color:black">Resend Payment Link</h3>
+  <h3
+    class="mb-0"
+    style="font-weight: 500; text-align: center; font-size: 21px; color: black"
+  >
+    Resend Payment Link
+  </h3>
 </div>
 <body class="page">
-    <main class="main page__main">
-        <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="addcategory">
-
-            <div class="form__linput">
-                <label class="form__label" for="fname">Redirect URL </label>
-                <input class="form__input form-contol" id="fname" type="text" formControlName="Url" name="Url"
-                placeholder="Enter Url..." required />
-         <div style="color: red; font-size: 12px; margin-top: 2px;"
-              *ngIf="Url?.invalid && Url?.touched && Url?.errors?.['required']">
-           Field is required
-         </div>
-         <div style="color: red; font-size: 12px; margin-top: 2px;"
-              *ngIf="Url?.invalid && Url?.touched && Url?.errors?.['pattern']">
-           Invalid URL format
-         </div>
-         
-         
-            </div>
-            <div class="form__linput">
-                <label class="form__label" for="fname">Link Expiry Date</label>
-                <input  onkeydown="return false;" class="form__input form-contol" id="fname" type="date" formControlName="expiryDate" name="expiryDate"
-                   required [max]="maxDate" [min]="minDate"
-                   />
-                <div style="color: red; font-size: 12px;margin-top: 2px;"
-                    *ngIf="expiryDate?.invalid && expiryDate?.touched && expiryDate?.errors?.['required']">
-                    Field is required
-                </div>
-            </div>
-            <div class="form__linput">
-                <label class="form__label" for="fname">Description</label>
-                <textarea class="form__input form-contol" id="fname" type="text" formControlName="description" name="description"
-                    placeholder="Enter description here..." required ></textarea>
-                <div style="color: red; font-size: 12px;margin-top: 2px;"
-                    *ngIf="description?.invalid && description?.touched && description?.errors?.['required']">
-                    Field is required
-                </div>
-                <div style="
-                    color: red;
-                    font-size: 12px;
-                    margin-top: 2px;
-                    position: relative;
-                    ;
-                  " *ngIf="description?.errors?.['maxlength']">
-                        maximum length should be 200
-                    </div>
-            </div>
-            <div>
-                <button type="submit" class="btn mx-1 " style="background-color:#7db855be"
-                    [disabled]="this.addcategory.invalid" (click)="submit()">Submit</button>
-                <button  matDialogClose type="submit" class="btn" style="background-color:#141E46;color:white" matDialogClose>Cancel</button>
-            </div>
-           
-            
-        </form>
-    </main>
+  <main class="main page__main">
+    <form
+      class="form main__form"
+      autocomplete="off"
+      class="form"
+      role="form"
+      [formGroup]="addcategory"
+    >
+      <div class="form__linput">
+        <label class="form__label" for="fname">Redirect URL </label>
+        <input
+          class="form__input form-contol"
+          id="fname"
+          type="text"
+          formControlName="Url"
+          name="Url"
+          placeholder="Enter Url..."
+          required
+        />
+        <div
+          style="color: red; font-size: 12px; margin-top: 2px"
+          *ngIf="Url?.invalid && Url?.touched && Url?.errors?.['required']"
+        >
+          Field is required
+        </div>
+        <div
+          style="color: red; font-size: 12px; margin-top: 2px"
+          *ngIf="Url?.invalid && Url?.touched && Url?.errors?.['pattern']"
+        >
+          Invalid URL format
+        </div>
+      </div>
+      <div class="form__linput">
+        <label class="form__label" for="fname">Link Expiry Date</label>
+        <input
+          onkeydown="return false;"
+          class="form__input form-contol"
+          id="fname"
+          type="date"
+          formControlName="expiryDate"
+          name="expiryDate"
+          required
+          [max]="maxDate"
+          [min]="minDate"
+        />
+        <div
+          style="color: red; font-size: 12px; margin-top: 2px"
+          *ngIf="expiryDate?.invalid && expiryDate?.touched && expiryDate?.errors?.['required']"
+        >
+          Field is required
+        </div>
+      </div>
+      <div class="form__linput">
+        <label class="form__label" for="fname">Description</label>
+        <textarea
+          class="form__input form-contol"
+          id="fname"
+          type="text"
+          formControlName="description"
+          name="description"
+          placeholder="Enter description here..."
+          required
+        ></textarea>
+        <div
+          style="color: red; font-size: 12px; margin-top: 2px"
+          *ngIf="description?.invalid && description?.touched && description?.errors?.['required']"
+        >
+          Field is required
+        </div>
+        <div
+          style="
+            color: red;
+            font-size: 12px;
+            margin-top: 2px;
+            position: relative;
+          "
+          *ngIf="description?.errors?.['maxlength']"
+        >
+          maximum length should be 200
+        </div>
+      </div>
+      <div>
+        <button
+          type="submit"
+          class="btn mx-1"
+          style="background-color: #7db855be"
+          [disabled]="this.addcategory.invalid"
+          (click)="submit()"
+        >
+          Submit
+        </button>
+        <button
+          matDialogClose
+          type="submit"
+          class="btn"
+          style="background-color: #141e46; color: white"
+          matDialogClose
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </main>
 </body>

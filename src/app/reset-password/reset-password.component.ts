@@ -15,10 +15,11 @@ export class ResetPasswordComponent {
   showPassword: boolean = false;
   showPassword1: boolean = false;
   confirmPasswordClass = 'form-control';
-  isConfirmPasswordDirty = false;
-  passwordsMatching: boolean = false;
+  isConfirmPasswordDirty = false;  
   error: any;
   emailAddress: any;
+   passwordsMatching: boolean | null = null;
+
   constructor(private service: FarginServiceService, private router: Router, private activeRouter: ActivatedRoute, private toaster: ToastrService) {
   }
   ngOnInit(): void {
@@ -50,23 +51,51 @@ export class ResetPasswordComponent {
     passwordInput1.type = this.showPassword1 ? 'text' : 'password';
   }
 
+  // checkConform(passwordInput: string, passwordInput1: string) {
+  //   this.isConfirmPasswordDirty = true;
+  //   if (passwordInput == passwordInput1) {
+  //     this.passwordsMatching = true;
+  //     this.resetForm.valid;
+  //     this.confirmPasswordClass = 'form-control is-valid';
+  //     this.error = "Password Matched!"
+  //   } else {
+  //     this.resetForm.invalid;
+  //     this.passwordsMatching = false;
+  //     this.confirmPasswordClass = 'form-control is-invalid';
+  //     this.error = "Password Mismatch"
+
+  //   }
+  // }
+
   checkConform(passwordInput: string, passwordInput1: string) {
     this.isConfirmPasswordDirty = true;
-    if (passwordInput == passwordInput1) {
-      this.passwordsMatching = true;
-      this.resetForm.valid;
-      this.confirmPasswordClass = 'form-control is-valid';
-      this.error = "Password Matched!"
-    } else {
-      this.resetForm.invalid;
-      this.passwordsMatching = false;
-      this.confirmPasswordClass = 'form-control is-invalid';
-      this.error = "Password Mismatch"
-
+     if (!passwordInput && !passwordInput1) {
+        this.passwordsMatching = null; // Don't show a message if one of the fields is empty
+        this.error = "Kindly Fill All Required Fields";
+    } 
+   else if(passwordInput == passwordInput1)
+    {
+      this.passwordsMatching = true; // Don't show a message if one of the fields is empty
+        this.error = "Password Match";
     }
-  }
+   
+    else  {
+        this.passwordsMatching = false;
+        this.error = "New Password and Confirm Password Mismatch";
+    } 
+  
+}
   resetpassword() {
-    let submitmodel: ResetPassword = {
+    if (this.resetForm.get('newPassword')?.value=='' || this.resetForm.get('confirmpassword')?.value=='') {
+        this.toaster.error("Kindly Fill All Required Fields");   
+       
+    }
+    else{
+      if (!this.passwordsMatching) {
+        this.toaster.error(this.error);
+      }
+      else{
+  let submitmodel: ResetPassword = {
       emailAddress: this.emailAddress,
       newPassword: this.newPassword?.value
     }
@@ -85,5 +114,8 @@ export class ResetPasswordComponent {
       }
     })
 
+      }
+    }
+  
   }
 }

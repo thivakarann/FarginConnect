@@ -13,23 +13,22 @@ import { OfflineDetailsComponent } from '../../../Overall-Customer/offline-detai
 @Component({
   selector: 'app-entity-customers-view',
   templateUrl: './entity-customers-view.component.html',
-  styleUrl: './entity-customers-view.component.css'
+  styleUrl: './entity-customers-view.component.css',
 })
 export class EntityCustomersViewComponent {
   id: any;
   customerview: any;
-  customerviewalcot: any
+  customerviewalcot: any;
   customer: any;
-  selectedTab: string = 'customer-info'; // Default to 'customer-info'
-  items: any[] = []; // The array of items to paginate
-  currentPage: any = 1; // The current page number
-  itemsPerPage = 3; //
+  selectedTab: string = 'customer-info';
+  items: any[] = [];
+  currentPage: any = 1;
+  itemsPerPage = 3;
   page: number = 1;
   page4: number = 1;
   page5: number = 1;
   term: any;
   selected: any;
-
   dataSource: any;
   searchText: any;
   data: any;
@@ -50,8 +49,6 @@ export class EntityCustomersViewComponent {
   totalamount: any;
   additionlpay: any;
   refundval: any;
-
-
   valuecustomerinfo: any;
   valuecustomerSetupBox: any;
   valuecustomerTransactions: any;
@@ -63,7 +60,7 @@ export class EntityCustomersViewComponent {
   valueadditionalinvoice: any;
 
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId');
   actions: any;
   errorMessage: any;
   totalPages: any;
@@ -75,11 +72,9 @@ export class EntityCustomersViewComponent {
   currentfilval: any;
   vaaluedetails: any;
 
-
   selectTab(tab: string) {
     this.selectedTab = tab;
   }
-
 
   pageIndex: number = 0;
   pageSize: number = 3;
@@ -106,155 +101,137 @@ export class EntityCustomersViewComponent {
     private router: Router,
     private toastr: ToastrService,
     private dialog: MatDialog,
-    private ActivateRoute: ActivatedRoute, private location: Location
-  ) { }
+    private ActivateRoute: ActivatedRoute,
+    private location: Location
+  ) {}
 
   ngOnInit(): void {
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-
-
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
 
           if (this.roleId == 1) {
-            this.valuecustomerinfo = 'Customer Info'
-            this.valuecustomerSetupBox = 'Set-Topbox'
-            this.valuecustomerTransactions = 'Transactions'
-            this.valuecustomeradditional = 'Additional Payments'
-            this.valuecustomerRefunds = 'Refunds'
-            this.valuesetupsts = 'Set-Topbox-Status'
-            this.valuesetupview = 'Set-Topbox-View'
-            this.valuetransreceipt = 'Transactions-Receipt'
-            this.valueadditionalinvoice = 'Additional Payments-Receipt'
-            this.vaaluedetails = 'Refunds-View'
-          }
-          else {
+            this.valuecustomerinfo = 'Customer Info';
+            this.valuecustomerSetupBox = 'Set-Topbox';
+            this.valuecustomerTransactions = 'Transactions';
+            this.valuecustomeradditional = 'Additional Payments';
+            this.valuecustomerRefunds = 'Refunds';
+            this.valuesetupsts = 'Set-Topbox-Status';
+            this.valuesetupview = 'Set-Topbox-View';
+            this.valuetransreceipt = 'Transactions-Receipt';
+            this.valueadditionalinvoice = 'Additional Payments-Receipt';
+            this.vaaluedetails = 'Refunds-View';
+          } else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
 
               if (this.actions == 'Customer Info') {
-                this.valuecustomerinfo = 'Customer Info'
+                this.valuecustomerinfo = 'Customer Info';
               }
               if (this.actions == 'Set-Topbox') {
-                this.valuecustomerSetupBox = 'Set-Topbox'
+                this.valuecustomerSetupBox = 'Set-Topbox';
               }
               if (this.actions == 'Transactions') {
-                this.valuecustomerTransactions = 'Transactions'
+                this.valuecustomerTransactions = 'Transactions';
               }
               if (this.actions == 'Additional Payments') {
-                this.valuecustomeradditional = 'Additional Payments'
+                this.valuecustomeradditional = 'Additional Payments';
               }
               if (this.actions == 'Refunds') {
-                this.valuecustomerRefunds = 'Refunds'
+                this.valuecustomerRefunds = 'Refunds';
               }
               if (this.actions == 'Set-Topbox-Status') {
-                this.valuesetupsts = 'Set-Topbox-Status'
+                this.valuesetupsts = 'Set-Topbox-Status';
               }
               if (this.actions == 'Set-Topbox-View') {
-                this.valuesetupview = 'Set-Topbox-View'
+                this.valuesetupview = 'Set-Topbox-View';
               }
               if (this.actions == 'Transactions-Receipt') {
-                this.valuetransreceipt = 'Transactions-Receipt'
+                this.valuetransreceipt = 'Transactions-Receipt';
               }
               if (this.actions == 'Additional Payments-Receipt') {
-                this.valueadditionalinvoice = 'Additional Payments-Receipt'
+                this.valueadditionalinvoice = 'Additional Payments-Receipt';
               }
               if (this.actions == 'Refunds-View') {
-                this.vaaluedetails = 'Refunds-View'
+                this.vaaluedetails = 'Refunds-View';
               }
             }
           }
-        }
-        else {
+        } else {
           this.errorMessage = res.responseMessage;
         }
-      }
+      },
     });
-
 
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.id = param.value;
     });
 
-
     this.service.CustomerTotalPlanAmount(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
         this.totalamount = res.response.totalAmount;
       }
-    })
+    });
 
     this.service.ViewCustomerBasicInfo(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
         this.viewcustomer = res.response;
-
-      }
-
-
-
-      else {
+      } else {
         this.viewData = false;
-
       }
+    });
+    this.service
+      .CustomerTransaction(this.id, this.pageSize, this.pageIndex)
+      .subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.transaction = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.totalPages;
+          this.currentpage = res.pagination.currentPage + 1;
 
+          this.filter = true;
+          this.filter1 = false;
+          console.log(this.filter1);
+        } else if (res.flag == 2) {
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.totalPages;
+          this.currentpage = res.pagination.currentPage + 1;
 
+          this.filter = true;
+          this.filter1 = false;
+        }
+      });
 
-    })
-    this.service.CustomerTransaction(this.id, this.pageSize, this.pageIndex).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.transaction = res.response;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
+    this.service
+      .AdditionalPaymentsCustomerTransaction(
+        this.id,
+        this.pageSizeadd,
+        this.pageIndexadd
+      )
+      .subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.additionlpay = res.response;
+          this.total = res.pagination.totalElements;
+          this.totalpages = res.pagination.totalPages;
+          this.currentpages = res.pagination.currentPage + 1;
 
-        this.filter = true;
-        this.filter1 = false;
-        console.log(this.filter1)
-
-
-      }
-
-      else if (res.flag == 2) {
-
-
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-
-        this.filter = true;
-        this.filter1 = false;
-
-      }
-    })
-
-    this.service.AdditionalPaymentsCustomerTransaction(this.id, this.pageSizeadd, this.pageIndexadd).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.additionlpay = res.response;
-        this.total = res.pagination.totalElements;
-        this.totalpages = res.pagination.totalPages;
-        this.currentpages = res.pagination.currentPage + 1;
-
-        this.filter2 = true;
-        this.filter3 = false;
-
-      }
-      else if (res.flag == 2) {
-
-
-        this.total = res.pagination.totalElements;
-        this.totalpages = res.pagination.totalPages;
-        this.currentpages = res.pagination.currentPage + 1;
-        this.filter2 = true;
-        this.filter3 = false;
-
-      }
-    })
+          this.filter2 = true;
+          this.filter3 = false;
+        } else if (res.flag == 2) {
+          this.total = res.pagination.totalElements;
+          this.totalpages = res.pagination.totalPages;
+          this.currentpages = res.pagination.currentPage + 1;
+          this.filter2 = true;
+          this.filter3 = false;
+        }
+      });
 
     this.service.ViewCustomersSetupBox(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
         this.setupboxview = res.response;
       }
-    })
+    });
 
     this.service.ViewSetupBoxPlanDetails(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
@@ -264,7 +241,6 @@ export class EntityCustomersViewComponent {
 
         let totalAmount = 0;
         const alcotList = res.response.alcotList;
-
 
         for (let i = 0; i < alcotList.length; i++) {
           if (alcotList[i].activeStatus === 1) {
@@ -276,7 +252,6 @@ export class EntityCustomersViewComponent {
 
         let totalbouqet = 0;
         const bouquetList = res.response.bouquetList;
-
 
         for (let i = 0; i < bouquetList.length; i++) {
           if (bouquetList[i].activeStatus === 1) {
@@ -298,7 +273,8 @@ export class EntityCustomersViewComponent {
         this.totallcop = totallcop;
 
         // Calculate overall amount
-        this.overallAmount = this.totalAmount + this.totalbouqet + this.totallcop;
+        this.overallAmount =
+          this.totalAmount + this.totalbouqet + this.totallcop;
 
         this.viewData = true; // Assuming viewData should be set true only if there are valid amounts
       } else {
@@ -306,69 +282,52 @@ export class EntityCustomersViewComponent {
       }
     });
 
-
-
     this.service.RefundForCustomerView(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
         this.refundval = res.response.reverse();
-
-      }
-      else if (res.flag === 2) {
+      } else if (res.flag === 2) {
         this.refundval = [];
-
-
       }
-    })
-
-
+    });
   }
 
   close() {
-    this.location.back()
+    this.location.back();
   }
 
-    offline(id: any) {
-      
-      this.dialog.open(OfflineDetailsComponent, {
-        enterAnimationDuration: "500ms",
-        exitAnimationDuration: "500ms",
-        data: { value: id }
-      })
-    }
+  offline(id: any) {
+    this.dialog.open(OfflineDetailsComponent, {
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '500ms',
+      data: { value: id },
+    });
+  }
 
   viewChannel(id: any) {
-
     this.dialog.open(ChannelViewComponent, {
-      enterAnimationDuration: "500ms",
-      exitAnimationDuration: "1000ms",
-      data: { value: id }
-    })
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '1000ms',
+      data: { value: id },
+    });
   }
 
   ActiveStatus(event: MatSlideToggleChange, id: any) {
     this.isChecked = event.checked;
     let submitmodel: settopStatus = {
       activeStatus: this.isChecked ? 1 : 0,
-    }
+    };
     this.service.ActiveStatusSetupbox(id, submitmodel).subscribe((res: any) => {
-
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
         window.location.reload();
       }, 1000);
     });
-
-
-
-
-
   }
 
   view(id: any) {
     this.router.navigate([`dashboard/plan-details-customer/${id}`], {
       queryParams: { Alldata: id },
     });
-
   }
   Receipt(id: any) {
     this.service.CustomerReceipt(id).subscribe({
@@ -376,7 +335,6 @@ export class EntityCustomersViewComponent {
         var downloadURL = URL.createObjectURL(res);
         window.open(downloadURL);
       },
-
     });
   }
   reload() {
@@ -394,13 +352,13 @@ export class EntityCustomersViewComponent {
       reader.onloadend = () => {
         var downloadURL = URL.createObjectURL(res);
         window.open(downloadURL);
-      }
-    })
+      };
+    });
   }
   renderPage(event: PageEvent) {
     // Capture the new page index and page size from the event
-    this.pageIndex = event.pageIndex;  // Update current page index
-    this.pageSize = event.pageSize;           // Update page size (if changed)
+    this.pageIndex = event.pageIndex; // Update current page index
+    this.pageSize = event.pageSize; // Update page size (if changed)
 
     // Log the new page index and page size to the console (for debugging)
     console.log('New Page Index:', this.pageIndex);
@@ -408,7 +366,7 @@ export class EntityCustomersViewComponent {
 
     // You can now fetch or display the data for the new page index
     // Example: this.fetchData(this.currentPageIndex, this.pageSize);
-    this.ngOnInit()
+    this.ngOnInit();
   }
   changePageIndex(newPageIndex: number) {
     this.pageIndex = newPageIndex;
@@ -420,8 +378,8 @@ export class EntityCustomersViewComponent {
   }
   renderPageadd(event: PageEvent) {
     // Capture the new page index and page size from the event
-    this.pageIndexadd = event.pageIndex;  // Update current page index
-    this.pageSizeadd = event.pageSize;           // Update page size (if changed)
+    this.pageIndexadd = event.pageIndex; // Update current page index
+    this.pageSizeadd = event.pageSize; // Update page size (if changed)
 
     // Log the new page index and page size to the console (for debugging)
     console.log('New Page Index:', this.pageIndex);
@@ -429,7 +387,7 @@ export class EntityCustomersViewComponent {
 
     // You can now fetch or display the data for the new page index
     // Example: this.fetchData(this.currentPageIndex, this.pageSize);
-    this.ngOnInit()
+    this.ngOnInit();
   }
   changePageIndexadd(newPageIndexs: number) {
     this.pageIndexadd = newPageIndexs;
@@ -453,7 +411,7 @@ export class EntityCustomersViewComponent {
     this.pageIndex1 = newPageIndex1;
     this.renderPage1({
       pageIndex: newPageIndex1,
-      pageSize: this.pageSize1
+      pageSize: this.pageSize1,
     } as PageEvent);
   }
 
@@ -461,26 +419,32 @@ export class EntityCustomersViewComponent {
   customerpay(filterValue: string) {
     if (filterValue) {
       console.log(filterValue);
-      this.service.customertransactionsearch(this.id, filterValue, this.pageSize1, this.pageIndex1).subscribe({
-        next: (res: any) => {
-          if (res.response) {
-            this.transaction = res.response;
-            this.totalsearch = res.pagination.totalElements;
-            this.totalpagesearch = res.pagination.totalPages;
-            this.currentpagesearch = res.pagination.currentPage + 1;
-            this.filter = false;
-            this.filter1 = true;
-          }
-        },
-        error: (err: any) => {
-          this.toastr.error('No Data Found');
-        }
-      });
+      this.service
+        .customertransactionsearch(
+          this.id,
+          filterValue,
+          this.pageSize1,
+          this.pageIndex1
+        )
+        .subscribe({
+          next: (res: any) => {
+            if (res.response) {
+              this.transaction = res.response;
+              this.totalsearch = res.pagination.totalElements;
+              this.totalpagesearch = res.pagination.totalPages;
+              this.currentpagesearch = res.pagination.currentPage + 1;
+              this.filter = false;
+              this.filter1 = true;
+            }
+          },
+          error: (err: any) => {
+            this.toastr.error('No Data Found');
+          },
+        });
     } else {
       this.toastr.error('Please enter a value to search');
     }
   }
-
 
   // Handle pagination for filtered search results
   renderadd(event: PageEvent) {
@@ -495,7 +459,7 @@ export class EntityCustomersViewComponent {
     this.pageadd = newPageadd;
     this.renderadd({
       pageIndex: newPageadd,
-      pageSize: this.pagesizeadd
+      pageSize: this.pagesizeadd,
     } as PageEvent);
   }
 
@@ -503,77 +467,80 @@ export class EntityCustomersViewComponent {
   customerpayadd(filterValue: string) {
     if (filterValue) {
       console.log(filterValue);
-      this.service.customeradditionaltransactionsearch(this.id, filterValue, this.pagesizeadd, this.pageadd).subscribe({
-        next: (res: any) => {
-          if (res.response) {
-            this.additionlpay = res.response;
-            this.totalsearchadd = res.pagination.totalElements;
-            this.totalpagesearchadd = res.pagination.totalPages;
-            this.currentpagesearchadd = res.pagination.currentPage + 1;
-            this.filter2 = false;
-            this.filter3 = true;
-          }
-        },
-        error: (err: any) => {
-          this.toastr.error('No Data Found');
-        }
-      });
+      this.service
+        .customeradditionaltransactionsearch(
+          this.id,
+          filterValue,
+          this.pagesizeadd,
+          this.pageadd
+        )
+        .subscribe({
+          next: (res: any) => {
+            if (res.response) {
+              this.additionlpay = res.response;
+              this.totalsearchadd = res.pagination.totalElements;
+              this.totalpagesearchadd = res.pagination.totalPages;
+              this.currentpagesearchadd = res.pagination.currentPage + 1;
+              this.filter2 = false;
+              this.filter3 = true;
+            }
+          },
+          error: (err: any) => {
+            this.toastr.error('No Data Found');
+          },
+        });
     } else {
       this.toastr.error('Please enter a value to search');
     }
   }
   reloadadd() {
-    this.service.AdditionalPaymentsCustomerTransaction(this.id, this.pageSizeadd, this.pageIndexadd).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.additionlpay = res.response;
-        this.total = res.pagination.totalElements;
-        this.totalpages = res.pagination.totalPages;
-        this.currentpages = res.pagination.currentPage + 1;
+    this.service
+      .AdditionalPaymentsCustomerTransaction(
+        this.id,
+        this.pageSizeadd,
+        this.pageIndexadd
+      )
+      .subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.additionlpay = res.response;
+          this.total = res.pagination.totalElements;
+          this.totalpages = res.pagination.totalPages;
+          this.currentpages = res.pagination.currentPage + 1;
 
-        this.filter2 = true;
-        this.filter3 = false;
-
-      }
-      else if (res.flag == 2) {
-
-
-        this.total = res.pagination.totalElements;
-        this.totalpages = res.pagination.totalPages;
-        this.currentpages = res.pagination.currentPage + 1;
-        this.filter2 = true;
-        this.filter3 = false;
-
-      }
-    })
+          this.filter2 = true;
+          this.filter3 = false;
+        } else if (res.flag == 2) {
+          this.total = res.pagination.totalElements;
+          this.totalpages = res.pagination.totalPages;
+          this.currentpages = res.pagination.currentPage + 1;
+          this.filter2 = true;
+          this.filter3 = false;
+        }
+      });
   }
 
   reloads() {
-    this.service.CustomerTransaction(this.id, this.pageSize, this.pageIndex).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.transaction = res.response;
-        this.totalPages = res.pagination.totalElements;
+    this.service
+      .CustomerTransaction(this.id, this.pageSize, this.pageIndex)
+      .subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.transaction = res.response;
+          this.totalPages = res.pagination.totalElements;
 
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
+          this.totalpage = res.pagination.totalPages;
+          this.currentpage = res.pagination.currentPage + 1;
 
-        this.filter = true;
-        this.filter1 = false;
-        console.log(this.filter1)
+          this.filter = true;
+          this.filter1 = false;
+          console.log(this.filter1);
+        } else if (res.flag == 2) {
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.totalPages;
+          this.currentpage = res.pagination.currentPage + 1;
 
-
-      }
-
-      else if (res.flag == 2) {
-
-
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-
-        this.filter = true;
-        this.filter1 = false;
-
-      }
-    })
+          this.filter = true;
+          this.filter1 = false;
+        }
+      });
   }
 }

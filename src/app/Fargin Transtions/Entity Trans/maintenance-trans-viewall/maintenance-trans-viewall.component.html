@@ -23,7 +23,7 @@
             </div> &nbsp;&nbsp;&nbsp;
 
             <button class="mt-1" (click)="subscription(currentfilVal)" style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button>Go</button>
-            <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px" mat-raised-button (click)="exportexcel()" [hidden]="valuemaintainexport!=='Cloud Fee Payments-Export'">Export</button>
+            <!-- <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px" mat-raised-button (click)="exportexcel()" [hidden]="valuemaintainexport!=='Cloud Fee Payments-Export'">Export</button> -->
         </div> 
 
         <div class="col-md-4 d-flex align-items-center mt-3" style="gap: 10px;">
@@ -112,17 +112,17 @@
                 <td mat-cell *matCellDef="let transaction">{{transaction?.smsCount}}</td>
             </ng-container>
             <ng-container matColumnDef="percount">
-                <th mat-header-cell *matHeaderCellDef>SmsCost PerCount</th>
+                <th mat-header-cell *matHeaderCellDef>Smscost Percount</th>
                 <td mat-cell *matCellDef="let transaction">{{transaction?.smsPerAmount}}</td>
             </ng-container>
             <ng-container matColumnDef="totalcost">
-                <th mat-header-cell *matHeaderCellDef>Total SmsCost</th>
+                <th mat-header-cell *matHeaderCellDef>Total Smscost</th>
                 <td mat-cell *matCellDef="let transaction">{{transaction?.smsTotalAmount}}</td>
             </ng-container>
 
 
             <ng-container matColumnDef="otherpaymentview">
-                <th mat-header-cell *matHeaderCellDef >Otherpayview</th>
+                <th mat-header-cell *matHeaderCellDef >Otherpay View</th>
                 <td mat-cell *matCellDef="let data">
                   <i class="fa fa-eye" (click)="OtherpaymentsView(data.maintenancePayId)"></i>
                 </td>

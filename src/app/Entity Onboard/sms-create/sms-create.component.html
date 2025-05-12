@@ -1,67 +1,93 @@
 <div class="card-header d-flex justify-content-between align-items-center">
-    <h5 class="mb-0">SMS Settings</h5>
+  <h5 class="mb-0">SMS Settings</h5>
 </div>
 <div class="container">
-    <div class="well" style="margin-top: 2%;" >
-   
-        <form [formGroup]="myForm4" style="margin-top: 2%;">
-            <div class="row mb-3">
-                <div class="col-12 form-group ">
-                    <label for="Entity Name">SMS Type</label>
-                 
-                    <select class="form-select" id="period" formControlName="smsForpaid"
-                   >
-                    <option hidden>Select--</option>
-               
-                    <option value="Free">Free</option>
-                    <option value="Paid">Paid</option>
-                   
-                  </select>
-                    <div style="
-            color: red;
-            font-size: 12px;
-            margin-top: 2px;
-            position: relative;
-            ;
-          " *ngIf="smsForpaid?.invalid && smsForpaid?.touched && smsForpaid?.errors?.['required']">
-                        Field is required
-                    </div>
-                </div>
-                <div class="col-12 form-group ">
-                    <label for="Entity Name">SMS Templates </label>
-                    <mat-select #selects style="font-size: 12px;" class="form-select" multiple formControlName="smsFor">
-                        <div class="select-all">
-                            <mat-checkbox [(ngModel)]="allSelected"  [ngModelOptions]="{standalone: true}"
-                                (change)="toggleAllSelection()">Select All</mat-checkbox>
-                        </div>
-                        <mat-option [value]="items.smsTempId" *ngFor="let items of freepaid">
-     
-                            <div class="option-content">
-                                <span>{{items?.smsTitle}}</span>
-                                <i  class="fa-solid fa-info"
-                                 matTooltip="{{items?.smsTempDescription}}"
-                                 ></i>
-                              </div>
-                        </mat-option> 
-                    </mat-select>
-                    <div style="
-            color: red;
-            font-size: 12px;
-            margin-top: 2px;
-            position: relative;
-            ;
-          " *ngIf="smsFor?.invalid && smsFor?.touched && smsFor?.errors?.['required']">
-                        Field is required
-                    </div>
-                </div>
-             
-                </div>
-            <div class="mb-3">
-                <button [disabled]="myForm4.invalid" (click)="smsSubmit()"  type="submit" class="btn mx-1 "
-                    style="background-color:#7db855be">Submit</button>
-                <button type="submit" class="btn" style="background-color:#141E46;color:white"
-                   mat-dialog-close>Cancel</button>
+  <div class="well" style="margin-top: 2%">
+    <form [formGroup]="myForm4" style="margin-top: 2%">
+      <div class="row mb-3">
+        <div class="col-12 form-group">
+          <label for="Entity Name">SMS Type</label>
+
+          <select class="form-select" id="period" formControlName="smsForpaid">
+            <option hidden>Select--</option>
+
+            <option value="Free">Free</option>
+            <option value="Paid">Paid</option>
+          </select>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="smsForpaid?.invalid && smsForpaid?.touched && smsForpaid?.errors?.['required']"
+          >
+            Field is required
+          </div>
+        </div>
+        <div class="col-12 form-group">
+          <label for="Entity Name">SMS Templates </label>
+          <mat-select
+            #selects
+            style="font-size: 12px"
+            class="form-select"
+            multiple
+            formControlName="smsFor"
+          >
+            <div class="select-all">
+              <mat-checkbox
+                [(ngModel)]="allSelected"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="toggleAllSelection()"
+                >Select All</mat-checkbox
+              >
             </div>
-        </form>
-    </div>
-    </div>
+            <mat-option
+              [value]="items.smsTempId"
+              *ngFor="let items of freepaid"
+            >
+              <div class="option-content">
+                <span>{{ items?.smsTitle }}</span>
+                <i
+                  class="fa-solid fa-info"
+                  matTooltip="{{ items?.smsTempDescription }}"
+                ></i>
+              </div>
+            </mat-option>
+          </mat-select>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="smsFor?.invalid && smsFor?.touched && smsFor?.errors?.['required']"
+          >
+            Field is required
+          </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <button
+          [disabled]="myForm4.invalid"
+          (click)="smsSubmit()"
+          type="submit"
+          class="btn mx-1"
+          style="background-color: #7db855be"
+        >
+          Submit
+        </button>
+        <button
+          type="submit"
+          class="btn"
+          style="background-color: #141e46; color: white"
+          mat-dialog-close
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

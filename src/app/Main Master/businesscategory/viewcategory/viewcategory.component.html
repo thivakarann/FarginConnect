@@ -1,5 +1,5 @@
 <!--   -->
-<h5 style="text-align:left;color:#141E46;">Business Category</h5>
+<h4 style="text-align:left;color:#141E46;">Business Category</h4>
 <mat-card-header>
   <div class="row mt-4">
     <div class="col">
@@ -72,7 +72,7 @@
           [hidden]="valueCategorystatus!=='Bussiness Category-Status'">Status</th>
         <td mat-cell *matCellDef="let businesscategory" [hidden]="valueCategorystatus!=='Bussiness Category-Status'">
           <mat-slide-toggle class="example-margin" color="primary" [checked]="businesscategory.activeStatus === 1"
-            (change)="onSubmit($event,businesscategory.businessCategoryId)">
+            (change)="onSubmit($event,businesscategory.businessCategoryId)" style="transform: scale(0.9)">
           </mat-slide-toggle>
         </td>
       </ng-container>

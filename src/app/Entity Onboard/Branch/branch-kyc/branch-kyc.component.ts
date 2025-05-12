@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
 import { FarginServiceService } from '../../../service/fargin-service.service';
@@ -24,46 +24,28 @@ import { BranchkycExtraComponent } from '../branchkyc-extra/branchkyc-extra.comp
 export class BranchKycComponent {
   id: any;
   kycbranchdetails: any;
-  merchantId:any
+  merchantId: any;
   getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId');
   actions: any;
   errorMessage: any;
   getdashboard: any[] = [];
-  valuebranchkycadd:any;
-  valuebranchkycdocimage:any;
-  valuebranchkycedit:any;
-  valuebranchkycverification:any;
-  valuebranchkycApproval:any;
-  valuebranchkycComments:any;
-  
+  valuebranchkycadd: any;
+  valuebranchkycdocimage: any;
+  valuebranchkycedit: any;
+  valuebranchkycverification: any;
+  valuebranchkycApproval: any;
+  valuebranchkycComments: any;
+
   constructor(
     public service: FarginServiceService,
-    private router: Router,
     private toastr: ToastrService,
     private dialog: MatDialog,
     private ActivateRoute: ActivatedRoute,
-    private location:Location
+    private location: Location
   ) {}
 
   ngOnInit(): void {
-    this.ActivateRoute.queryParams.subscribe((param: any) => {
-      this.id = param.Alldata;
-      this.merchantId=param.All;
-    });
-
-    this.service.branchkycview(this.id).subscribe((res: any) => {
-      if(res.flag==1)
-      {
-        this.kycbranchdetails = res.response;
-      }
-     
-      else{
-        this.kycbranchdetails = res.responseMessage;
-      }
-
-    });
-
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
@@ -72,66 +54,80 @@ export class BranchKycComponent {
             this.valuebranchkycadd = 'Entity View BranchKYC-Add';
             this.valuebranchkycdocimage = 'Entity View BranchKYC-DocumentImage';
             this.valuebranchkycedit = 'Entity View BranchKYC-Edit';
-            this.valuebranchkycverification = 'Entity View BranchKYC-Verification';
+            this.valuebranchkycverification =
+              'Entity View BranchKYC-Verification';
             this.valuebranchkycApproval = 'Entity View BranchKYC-Approval';
             this.valuebranchkycComments = 'Entity View BranchKYC-Comments';
-          }
-          else {
+          } else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
-             
+
               if (this.actions == 'Entity View BranchKYC-Add') {
                 this.valuebranchkycadd = 'Entity View BranchKYC-Add';
               }
               if (this.actions == 'Entity View BranchKYC-DocumentImage') {
-                this.valuebranchkycdocimage = 'Entity View BranchKYC-DocumentImage';
+                this.valuebranchkycdocimage =
+                  'Entity View BranchKYC-DocumentImage';
               }
               if (this.actions == 'Entity View BranchKYC-Edit') {
                 this.valuebranchkycedit = 'Entity View BranchKYC-Edit';
-              }    
+              }
               if (this.actions == 'Entity View BranchKYC-Verification') {
-                this.valuebranchkycverification = 'Entity View BranchKYC-Verification';
-              }    
+                this.valuebranchkycverification =
+                  'Entity View BranchKYC-Verification';
+              }
               if (this.actions == 'Entity View BranchKYC-Approval') {
                 this.valuebranchkycApproval = 'Entity View BranchKYC-Approval';
-              }    
+              }
               if (this.actions == 'Entity View BranchKYC-Comments') {
                 this.valuebranchkycComments = 'Entity View BranchKYC-Comments';
               }
             }
           }
-        }
-        else {
+        } else {
           this.errorMessage = res.responseMessage;
         }
+      },
+    });
+
+    this.ActivateRoute.queryParams.subscribe((param: any) => {
+      this.id = param.Alldata;
+      this.merchantId = param.All;
+    });
+
+    this.Getall();
+  }
+
+  Getall() {
+    this.service.branchkycview(this.id).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.kycbranchdetails = res.response;
+      } else {
+        this.kycbranchdetails = res.responseMessage;
       }
-    })
+    });
   }
 
   getFrontPath(id: any) {
     this.dialog.open(KycbranchImageComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
-      // disableClose: true,
+      disableClose: true,
       data: { value: id, value1: 1 },
     });
     this.dialog.afterAllClosed.subscribe(() => {
-      this.service.branchkycview(this.id).subscribe((res: any) => {
-        this.kycbranchdetails = res.response;
-      });
+      this.Getall();
     });
   }
   getBackPath(id: any) {
     this.dialog.open(KycbranchImageComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
-      // disableClose: true,
+      disableClose: true,
       data: { value: id, value1: 2 },
     });
     this.dialog.afterAllClosed.subscribe(() => {
-      this.service.branchkycview(this.id).subscribe((res: any) => {
-        this.kycbranchdetails = res.response;
-      });
+      this.Getall();
     });
   }
 
@@ -139,13 +135,11 @@ export class BranchKycComponent {
     this.dialog.open(KycbranchImageComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
-      // disableClose: true,
+      disableClose: true,
       data: { value: id, value1: 3 },
     });
     this.dialog.afterAllClosed.subscribe(() => {
-      this.service.branchkycview(this.id).subscribe((res: any) => {
-        this.kycbranchdetails = res.response;
-      });
+      this.Getall();
     });
   }
 
@@ -153,26 +147,22 @@ export class BranchKycComponent {
     this.dialog.open(KycbranchImageComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
-      // disableClose: true,
+      disableClose: true,
       data: { value: id, value1: 4 },
     });
     this.dialog.afterAllClosed.subscribe(() => {
-      this.service.branchkycview(this.id).subscribe((res: any) => {
-        this.kycbranchdetails = res.response;
-      });
+      this.Getall();
     });
   }
   signatureProofFrontPath(id: any) {
     this.dialog.open(KycbranchImageComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
-      // disableClose: true,
+      disableClose: true,
       data: { value: id, value1: 5 },
     });
     this.dialog.afterAllClosed.subscribe(() => {
-      this.service.branchkycview(this.id).subscribe((res: any) => {
-        this.kycbranchdetails = res.response;
-      });
+      this.Getall();
     });
   }
 
@@ -180,13 +170,11 @@ export class BranchKycComponent {
     this.dialog.open(KycbranchImageComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
-      // disableClose: true,
+      disableClose: true,
       data: { value: id, value1: 6 },
     });
     this.dialog.afterAllClosed.subscribe(() => {
-      this.service.branchkycview(this.id).subscribe((res: any) => {
-        this.kycbranchdetails = res.response;
-      });
+      this.Getall();
     });
   }
 
@@ -194,16 +182,14 @@ export class BranchKycComponent {
     this.dialog.open(BranchkycEditComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
-      // disableClose: true,
+      disableClose: true,
       data: {
         value: 1,
         value1: id,
       },
     });
     this.dialog.afterAllClosed.subscribe(() => {
-      this.service.branchkycview(this.id).subscribe((res: any) => {
-        this.kycbranchdetails = res.response;
-      });
+      this.Getall();
     });
   }
 
@@ -211,13 +197,11 @@ export class BranchKycComponent {
     this.dialog.open(BranchkycEditComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
-      // disableClose: true,
+      disableClose: true,
       data: { value: 2, value1: id },
     });
     this.dialog.afterAllClosed.subscribe(() => {
-      this.service.branchkycview(this.id).subscribe((res: any) => {
-        this.kycbranchdetails = res.response;
-      });
+      this.Getall();
     });
   }
 
@@ -225,13 +209,11 @@ export class BranchKycComponent {
     this.dialog.open(BranchkycEditComponent, {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
-      // disableClose: true,
+      disableClose: true,
       data: { value: 3, value1: id },
     });
     this.dialog.afterAllClosed.subscribe(() => {
-      this.service.branchkycview(this.id).subscribe((res: any) => {
-        this.kycbranchdetails = res.response;
-      });
+      this.Getall();
     });
   }
 
@@ -255,32 +237,25 @@ export class BranchKycComponent {
       data: { value: id, value1: 1 },
     });
     this.dialog.afterAllClosed.subscribe(() => {
-      this.service.branchkycview(this.id).subscribe((res: any) => {
-        this.kycbranchdetails = res.response;
-      });
+      this.Getall();
     });
   }
 
-    addKycdocuments(id: any, id1:any) {
-      this.dialog.open(BranchkycExtraComponent, {
-        width: '50vw',
-        enterAnimationDuration: "500ms",
-        exitAnimationDuration: "1000ms",
-        disableClose: true,
-        data: {
-          value: id,
-          value2:id1
-        }
-  
-      })
-      this.dialog.afterAllClosed.subscribe(()=>{
-        this.service.branchkycview(this.id).subscribe((res: any) => {
-          this.kycbranchdetails = res.response;
-        });
-      })
-  
-    }
-  
+  addKycdocuments(id: any, id1: any) {
+    this.dialog.open(BranchkycExtraComponent, {
+      width: '50vw',
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '1000ms',
+      disableClose: true,
+      data: {
+        value: id,
+        value2: id1,
+      },
+    });
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.Getall();
+    });
+  }
 
   KycApproval1(id: any) {
     this.dialog.open(BranchkycApprovalComponent, {
@@ -290,9 +265,7 @@ export class BranchKycComponent {
       data: { value: id, value1: 2 },
     });
     this.dialog.afterAllClosed.subscribe(() => {
-      this.service.branchkycview(this.id).subscribe((res: any) => {
-        this.kycbranchdetails = res.response;
-      });
+      this.Getall();
     });
   }
 
@@ -304,9 +277,7 @@ export class BranchKycComponent {
       data: { value: id, value1: 3 },
     });
     this.dialog.afterAllClosed.subscribe(() => {
-      this.service.branchkycview(this.id).subscribe((res: any) => {
-        this.kycbranchdetails = res.response;
-      });
+      this.Getall();
     });
   }
 
@@ -320,6 +291,7 @@ export class BranchKycComponent {
   }
 
   //fa check verification
+
   kycVerificationsIdentity(id: any, id1: any, id2: any, id3: any, id4: any) {
     if (id2 == 'Pancard') {
       let submitModel: branchverify = {
@@ -329,19 +301,17 @@ export class BranchKycComponent {
       };
 
       this.service
-      .panbranchVerifyIdentity(submitModel)
-      .subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.toastr.success(res.responseMessage);
-          setTimeout(() => {
-            this.service.branchkycview(this.id).subscribe((res: any) => {
-              this.kycbranchdetails = res.response;
-            });
-          }, 500);
-        } else {
-          this.toastr.error(res.responseMessage);
-        }
-      });
+        .panbranchVerifyIdentity(submitModel)
+        .subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              this.Getall();
+            }, 500);
+          } else {
+            this.toastr.error(res.responseMessage);
+          }
+        });
     }
     if (id2 == 'Aadhar Card') {
       let submitModel: branchverify = {
@@ -350,19 +320,17 @@ export class BranchKycComponent {
         approvalBy: this.getadminname,
       };
       this.service
-      .adharbranchVerifyIdentity(submitModel)
-      .subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.toastr.success(res.responseMessage);
-          setTimeout(() => {
-            this.service.branchkycview(this.id).subscribe((res: any) => {
-              this.kycbranchdetails = res.response;
-            });
-          }, 500);
-        } else {
-          this.toastr.error(res.responseMessage);
-        }
-      });
+        .adharbranchVerifyIdentity(submitModel)
+        .subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              this.Getall();
+            }, 500);
+          } else {
+            this.toastr.error(res.responseMessage);
+          }
+        });
     }
 
     if (id2 == 'Driving License') {
@@ -373,19 +341,17 @@ export class BranchKycComponent {
         approvalBy: this.getadminname,
       };
       this.service
-      .drivingbranchVerifyIdentity(submitModel)
-      .subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.toastr.success(res.responseMessage);
-          setTimeout(() => {
-            this.service.branchkycview(this.id).subscribe((res: any) => {
-              this.kycbranchdetails = res.response;
-            });
-          }, 500);
-        } else {
-          this.toastr.error(res.responseMessage);
-        }
-      });
+        .drivingbranchVerifyIdentity(submitModel)
+        .subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              this.Getall();
+            }, 500);
+          } else {
+            this.toastr.error(res.responseMessage);
+          }
+        });
     }
 
     if (id2 == 'Passport') {
@@ -396,19 +362,17 @@ export class BranchKycComponent {
         dateOfBirth: id4,
       };
       this.service
-      .passportbranchVerifyIdentity(submitModel)
-      .subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.toastr.success(res.responseMessage);
-          setTimeout(() => {
-            this.service.branchkycview(this.id).subscribe((res: any) => {
-              this.kycbranchdetails = res.response;
-            });
-          }, 500);
-        } else {
-          this.toastr.error(res.responseMessage);
-        }
-      });
+        .passportbranchVerifyIdentity(submitModel)
+        .subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              this.Getall();
+            }, 500);
+          } else {
+            this.toastr.error(res.responseMessage);
+          }
+        });
     }
 
     if (id2 == 'Voter Id Proof') {
@@ -418,19 +382,17 @@ export class BranchKycComponent {
         approvalBy: this.getadminname,
       };
       this.service
-      .voterbranchVerifyIdentity(submitModel)
-      .subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.toastr.success(res.responseMessage);
-          setTimeout(() => {
-            this.service.branchkycview(this.id).subscribe((res: any) => {
-              this.kycbranchdetails = res.response;
-            });
-          }, 500);
-        } else {
-          this.toastr.error(res.responseMessage);
-        }
-      });
+        .voterbranchVerifyIdentity(submitModel)
+        .subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              this.Getall();
+            }, 500);
+          } else {
+            this.toastr.error(res.responseMessage);
+          }
+        });
     }
   }
 
@@ -446,9 +408,7 @@ export class BranchKycComponent {
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           setTimeout(() => {
-            this.service.branchkycview(this.id).subscribe((res: any) => {
-              this.kycbranchdetails = res.response;
-            });
+            this.Getall();
           }, 500);
         } else {
           this.toastr.error(res.responseMessage);
@@ -462,19 +422,17 @@ export class BranchKycComponent {
         approvalBy: this.getadminname,
       };
       this.service
-      .adharbranchVerifyAddress(submitModel)
-      .subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.toastr.success(res.responseMessage);
-          setTimeout(() => {
-            this.service.branchkycview(this.id).subscribe((res: any) => {
-              this.kycbranchdetails = res.response;
-            });
-          }, 500);
-        } else {
-          this.toastr.error(res.responseMessage);
-        }
-      });
+        .adharbranchVerifyAddress(submitModel)
+        .subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              this.Getall();
+            }, 500);
+          } else {
+            this.toastr.error(res.responseMessage);
+          }
+        });
     }
 
     if (id2 == 'Driving License') {
@@ -485,19 +443,17 @@ export class BranchKycComponent {
         approvalBy: this.getadminname,
       };
       this.service
-      .drivingbranchVerifyAddress(submitModel)
-      .subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.toastr.success(res.responseMessage);
-          setTimeout(() => {
-            this.service.branchkycview(this.id).subscribe((res: any) => {
-              this.kycbranchdetails = res.response;
-            });
-          }, 500);
-        } else {
-          this.toastr.error(res.responseMessage);
-        }
-      });
+        .drivingbranchVerifyAddress(submitModel)
+        .subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              this.Getall();
+            }, 500);
+          } else {
+            this.toastr.error(res.responseMessage);
+          }
+        });
     }
 
     if (id2 == 'Passport') {
@@ -508,19 +464,17 @@ export class BranchKycComponent {
         dateOfBirth: id4,
       };
       this.service
-      .passportbranchVerifyAddress(submitModel)
-      .subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.toastr.success(res.responseMessage);
-          setTimeout(() => {
-            this.service.branchkycview(this.id).subscribe((res: any) => {
-              this.kycbranchdetails = res.response;
-            });
-          }, 500);
-        } else {
-          this.toastr.error(res.responseMessage);
-        }
-      });
+        .passportbranchVerifyAddress(submitModel)
+        .subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              this.Getall();
+            }, 500);
+          } else {
+            this.toastr.error(res.responseMessage);
+          }
+        });
     }
 
     if (id2 == 'Voter Id Proof') {
@@ -530,19 +484,17 @@ export class BranchKycComponent {
         approvalBy: this.getadminname,
       };
       this.service
-      .voterbranchVerifyAddress(submitModel)
-      .subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.toastr.success(res.responseMessage);
-          setTimeout(() => {
-            this.service.branchkycview(this.id).subscribe((res: any) => {
-              this.kycbranchdetails = res.response;
-            });
-          }, 500);
-        } else {
-          this.toastr.error(res.responseMessage);
-        }
-      });
+        .voterbranchVerifyAddress(submitModel)
+        .subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              this.Getall();
+            }, 500);
+          } else {
+            this.toastr.error(res.responseMessage);
+          }
+        });
     }
   }
 
@@ -558,9 +510,7 @@ export class BranchKycComponent {
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           setTimeout(() => {
-            this.service.branchkycview(this.id).subscribe((res: any) => {
-              this.kycbranchdetails = res.response;
-            });
+            this.Getall();
           }, 500);
         } else {
           this.toastr.error(res.responseMessage);
@@ -577,9 +527,7 @@ export class BranchKycComponent {
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           setTimeout(() => {
-            this.service.branchkycview(this.id).subscribe((res: any) => {
-              this.kycbranchdetails = res.response;
-            });
+            this.Getall();
           }, 500);
         } else {
           this.toastr.error(res.responseMessage);
@@ -595,19 +543,17 @@ export class BranchKycComponent {
         approvalBy: this.getadminname,
       };
       this.service
-      .drivingbranchVerifySigns(submitModel)
-      .subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.toastr.success(res.responseMessage);
-          setTimeout(() => {
-            this.service.branchkycview(this.id).subscribe((res: any) => {
-              this.kycbranchdetails = res.response;
-            });
-          }, 500);
-        } else {
-          this.toastr.error(res.responseMessage);
-        }
-      });
+        .drivingbranchVerifySigns(submitModel)
+        .subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              this.Getall();
+            }, 500);
+          } else {
+            this.toastr.error(res.responseMessage);
+          }
+        });
     }
 
     if (id2 == 'Passport') {
@@ -618,19 +564,17 @@ export class BranchKycComponent {
         dateOfBirth: id4,
       };
       this.service
-      .passportbranchVerifySigns(submitModel)
-      .subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.toastr.success(res.responseMessage);
-          setTimeout(() => {
-            this.service.branchkycview(this.id).subscribe((res: any) => {
-              this.kycbranchdetails = res.response;
-            });
-          }, 500);
-        } else {
-          this.toastr.error(res.responseMessage);
-        }
-      });
+        .passportbranchVerifySigns(submitModel)
+        .subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toastr.success(res.responseMessage);
+            setTimeout(() => {
+              this.Getall();
+            }, 500);
+          } else {
+            this.toastr.error(res.responseMessage);
+          }
+        });
     }
 
     if (id2 == 'Voter Id Proof') {
@@ -643,9 +587,7 @@ export class BranchKycComponent {
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
           setTimeout(() => {
-            this.service.branchkycview(this.id).subscribe((res: any) => {
-              this.kycbranchdetails = res.response;
-            });
+            this.Getall();
           }, 500);
         } else {
           this.toastr.error(res.responseMessage);
@@ -653,8 +595,8 @@ export class BranchKycComponent {
       });
     }
   }
-  close()
-  {
+  
+  close() {
     this.location.back();
   }
 }

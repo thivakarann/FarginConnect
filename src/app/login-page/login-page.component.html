@@ -15,12 +15,10 @@
                       *ngIf=" emailAddress?.invalid && emailAddress?.touched && emailAddress?.errors?.['required']">
                       Field is Required</span>
                     <span class="error"  *ngIf="emailAddress?.invalid && emailAddress?.touched && emailAddress?.errors?.['pattern']">
-                      Enter
-                      The Valid Email Address</span>
-                      
+                      Enter The Valid Email Address</span>
                   </div>
 
-                  <div class="form-group ">
+                  <div class="form-group">
                     <select formControlName="categoryFlag"
                         id="Bussiness category" class="form-select">
                         <option value="" disabled selected>Business category</option>

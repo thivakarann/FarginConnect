@@ -9,7 +9,7 @@ import { manualPayment } from '../../fargin-model/fargin-model.module';
 @Component({
   selector: 'app-update-manualpayment',
   templateUrl: './update-manualpayment.component.html',
-  styleUrl: './update-manualpayment.component.css'
+  styleUrl: './update-manualpayment.component.css',
 })
 export class UpdateManualpaymentComponent {
   Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
@@ -27,101 +27,95 @@ export class UpdateManualpaymentComponent {
   Utrnumber: any;
   dates: any;
   chequedate: any;
-  utrnumbervalue:any;
+  utrnumbervalue: any;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
- 
-  constructor(private router: Router, private Approval: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog) { }
-  ngOnInit(): void {
-this.merchantpayid=this.data.value.merchantPayId;
-this.payamount=this.data.value.paidAmount;
-this.merchantId=this.data.value.merchantId.merchantId;
-this.paymentMethod=this.data.value.paymentMethod;
-this.Utrnumber=this.data.value.utrNumber;
-this.dates=this.data.value.date
-// console.log(this.dates)
 
-    
- 
+  constructor(
+    private router: Router,
+    private Approval: FarginServiceService,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private toastr: ToastrService,
+    private dialog: MatDialog
+  ) {}
+  ngOnInit(): void {
+
+    this.merchantpayid = this.data.value.merchantPayId;
+    this.payamount = this.data.value.paidAmount;
+    this.merchantId = this.data.value.merchantId.merchantId;
+    this.paymentMethod = this.data.value.paymentMethod;
+    this.Utrnumber = this.data.value.utrNumber;
+    this.dates = this.data.value.date;
+
     this.myForm = new FormGroup({
-      paidStatus: new FormControl('', [Validators.required,]),
-      paymentmode: new FormControl('', [Validators.required,]),
+      paidStatus: new FormControl('', [Validators.required]),
+      paymentmode: new FormControl('', [Validators.required]),
       utrnumber: new FormControl(''),
       date: new FormControl(''),
- 
     });
     if (this.data && this.data.value) {
       this.myForm.patchValue({
         paidStatus: this.data.value.paymentStatus,
         paymentmode: this.data.value.paymentMethod,
         utrnumber: this.data.value.utrNumber,
-        date:this.data.value.date,
+        date: this.data.value.date,
       });
-    } else {
-      console.error('Data is not defined');
-    }
-  }
- 
-  get paidStatus() {
-    return this.myForm.get('paidStatus')
- 
-  }
- 
-  get paymentmode() {
-    return this.myForm.get('paymentmode')
- 
-  }
-  get utrnumber() {
-    return this.myForm.get('utrnumber')
- 
-  }
-  get date() {
-    return this.myForm.get('date')
- 
-  }
- 
- 
-  submit() {
-    if(this.paymentmode?.value =='Cash'){
-      this.utrnumbervalue = '';
-console.log(this.utrnumbervalue)
-  }
- 
-  else {
-    this.utrnumbervalue = this.utrnumber?.value
-console.log(this.utrnumbervalue)
+    } else {  
+      
+      }
   }
 
-    if(this.paymentmode?.value !='Cheque'){
+  get paidStatus() {
+    return this.myForm.get('paidStatus');
+  }
+
+  get paymentmode() {
+    return this.myForm.get('paymentmode');
+  }
+  get utrnumber() {
+    return this.myForm.get('utrnumber');
+  }
+  get date() {
+    return this.myForm.get('date');
+  }
+
+  submit() {
+    if (this.paymentmode?.value == 'Cash') {
+      this.utrnumbervalue = '';
+      console.log(this.utrnumbervalue);
+    } else {
+      this.utrnumbervalue = this.utrnumber?.value;
+      console.log(this.utrnumbervalue);
+    }
+
+    if (this.paymentmode?.value != 'Cheque') {
       this.chequedate = '-';
-console.log(this.chequedate)
-  }
- 
-  else {
-    this.chequedate = this.date?.value
-console.log(this.chequedate)
-  }
+      console.log(this.chequedate);
+    } else {
+      this.chequedate = this.date?.value;
+      console.log(this.chequedate);
+    }
 
     let submitModel: manualPayment = {
       paymentStatus: this.paidStatus?.value,
       paymentMethod: this.paymentmode?.value,
       utrNumber: this.utrnumbervalue,
-      date:this.chequedate,
+      date: this.chequedate,
       merchantId: this.merchantId,
       paidAmount: this.payamount,
-      updatedBy :this.getadminname
-    }
- 
-    this.Approval.UpdateManualPayment(this.merchantpayid,submitModel).subscribe((res: any) => {
+      updatedBy: this.getadminname,
+    };
+
+    this.Approval.UpdateManualPayment(
+      this.merchantpayid,
+      submitModel
+    ).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
-       
+      } else {
+        this.toastr.error(res.responseMessage);
       }
-      else {
-        this.toastr.error(res.responseMessage)
-      }
-    })
+    });
   }
 }
-

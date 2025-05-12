@@ -85,7 +85,7 @@
 
 <mat-card-content>
   <div
-    class="table-responsive text-nowrap mt-4"
+    class="table-responsive text-nowrap mt-3"
     style="overflow-x: scroll; scrollbar-width: thin"
   >
     <table
@@ -140,6 +140,7 @@
             color="primary"
             [checked]="data.activeStatus == 1"
             (change)="ActiveStatus($event, data.adminBankId)"
+          style="transform: scale(0.9)"
           >
           </mat-slide-toggle>
         </td>

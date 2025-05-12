@@ -49,22 +49,9 @@
                   stroke-linecap="round"
                 ></path>
               </svg>
-              <!-- <svg
-                stroke-width="2"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                class="swap-off"
-              >
-                <path
-                  d="M10 19l-7-7m0 0l7-7m-7 7h18"
-                  stroke-linejoin="round"
-                  stroke-linecap="round"
-                ></path>
-              </svg> -->
+       
             </div>
-            <button  (click)="reload()" type="reset" class="close-btn">
+            <button (click)="reload()" type="reset" class="close-btn">
               <svg
                 viewBox="0 0 20 20"
                 class="h-5 w-5"
@@ -93,8 +80,6 @@
       >
         Export
       </button>
-      <!-- <button style="color:white;background-color: #141E46;border-radius: 10px;" (click)="generate()"
-            mat-raised-button>Generate Dues</button> -->
     </div>
   </div>
 </mat-card-header>
@@ -135,11 +120,19 @@
         <th mat-header-cell *matHeaderCellDef>Card Number</th>
         <td mat-cell *matCellDef="let viewall">
           <span
-            *ngIf="viewall?.cardNumber == null || viewall?.cardNumber == 'null' || viewall?.cardNumber == ''"
+            *ngIf="
+              viewall?.cardNumber == null ||
+              viewall?.cardNumber == 'null' ||
+              viewall?.cardNumber == ''
+            "
             >-</span
           >
           <span
-            *ngIf="viewall?.cardNumber != null && viewall?.cardNumber != 'null' && viewall?.cardNumber != ''"
+            *ngIf="
+              viewall?.cardNumber != null &&
+              viewall?.cardNumber != 'null' &&
+              viewall?.cardNumber != ''
+            "
           >
             {{ viewall?.cardNumber }}</span
           >
@@ -149,11 +142,19 @@
         <th mat-header-cell *matHeaderCellDef>Card Expiry</th>
         <td mat-cell *matCellDef="let viewall">
           <span
-            *ngIf="viewall?.cardExpiry == null || viewall?.cardExpiry == 'null' || viewall?.cardExpiry == ''"
+            *ngIf="
+              viewall?.cardExpiry == null ||
+              viewall?.cardExpiry == 'null' ||
+              viewall?.cardExpiry == ''
+            "
             >-</span
           >
           <span
-            *ngIf="viewall?.cardExpiry != null && viewall?.cardExpiry != 'null' && viewall?.cardExpiry != ''"
+            *ngIf="
+              viewall?.cardExpiry != null &&
+              viewall?.cardExpiry != 'null' &&
+              viewall?.cardExpiry != ''
+            "
           >
             {{ viewall?.cardExpiry }}</span
           >
@@ -161,7 +162,9 @@
       </ng-container>
       <ng-container matColumnDef="paidamount">
         <th mat-header-cell *matHeaderCellDef>Paid Amount</th>
-        <td mat-cell *matCellDef="let viewall">{{ viewall.paidAmount.toFixed(2) }}</td>
+        <td mat-cell *matCellDef="let viewall">
+          {{ viewall.paidAmount.toFixed(2) }}
+        </td>
       </ng-container>
       <ng-container matColumnDef="totalpay">
         <th mat-header-cell *matHeaderCellDef>Total Payable Amount</th>
@@ -171,7 +174,9 @@
       </ng-container>
       <ng-container matColumnDef="gstnumber">
         <th mat-header-cell *matHeaderCellDef>Gst Amount</th>
-        <td mat-cell *matCellDef="let viewall">{{ viewall.gstAmount.toFixed(2) }}</td>
+        <td mat-cell *matCellDef="let viewall">
+          {{ viewall.gstAmount.toFixed(2) }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="bankReference">
@@ -196,11 +201,11 @@
             {{ viewall?.paymentStatus }}</span
           >
           <span
-          *ngIf="viewall?.paymentStatus == 'Payment Incomplete'"
-          class="text-warning"
-        >
-          {{ viewall?.paymentStatus }}</span
-        >
+            *ngIf="viewall?.paymentStatus == 'Payment Incomplete'"
+            class="text-warning"
+          >
+            {{ viewall?.paymentStatus }}</span
+          >
           <span
             *ngIf="viewall?.paymentStatus == 'Initiated'"
             class="text-primary"
@@ -218,10 +223,7 @@
           {{ viewall?.paymentDateTime | date : "dd/MM/yyyy hh:mm a" }}
         </td>
       </ng-container>
-      <!-- <ng-container matColumnDef="UpdatedAt">
-                <th mat-header-cell *matHeaderCellDef>Updated At</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall?.updatedAt | date:'dd/MM/yyyy hh:mm a'}}</td>
-            </ng-container> -->
+
 
       <ng-container matColumnDef="CheckStatus">
         <th mat-header-cell *matHeaderCellDef>Check Status</th>

@@ -11,9 +11,6 @@ import moment from 'moment';
 import { Workbook } from 'exceljs';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { EntityStatus } from '../../fargin-model/fargin-model.module';
-import { PageEvent } from '@angular/material/paginator';
-import { CreateCampaginComponent } from '../../Announcement/create-campagin/create-campagin.component';
-import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-entity-viewall',
@@ -26,7 +23,6 @@ export class EntityViewallComponent {
     'merchantId',
     'accountId',
     'referenceNo',
-    // 'entityName',
     'merchantLegalName',
     'businessCategoryModel',
     'contactMobile',
@@ -36,7 +32,6 @@ export class EntityViewallComponent {
     'status',
     'View',
     'createdDatetime',
-    // 'accountStatus',
     'failedLoginCount',
     'unblock'
 
@@ -67,14 +62,11 @@ export class EntityViewallComponent {
   totalpage: any;
   currentpage: any;
   viewallexport: any;
-
   pageIndex1: number = 0;
   pageSize1 = 5;
-
   totalpage1: any;
   totalPages1: any;
   currentpage1: any;
-
   filter: boolean = false;
   currentfilval: any;
   entitytrans: any;
@@ -100,22 +92,20 @@ export class EntityViewallComponent {
   service: any;
   transactionValue: any;
   setupboxhistory: any;
-searchPerformed: boolean=false;
+  searchPerformed: boolean = false;
+
   constructor(
     public EntityViewall: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
-    private dialog: MatDialog
   ) { }
+
   ngOnInit(): void {
 
     this.EntityViewall.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-
-
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
-
           if (this.roleId == 1) {
             this.valueEntityAdd = 'Entity Onboard-Add';
             this.valueEntityExport = 'Entity Onboard-Export';
@@ -141,9 +131,6 @@ searchPerformed: boolean=false;
             this.entityAgrrement = 'Entity View Agreement';
             this.entitybranch = 'Entity View Branch';
             this.valuecloud = 'Entity View Cloud Fee AutoDebit';
-
-
-
           }
           else {
             for (let datas of this.getdashboard) {
@@ -151,7 +138,6 @@ searchPerformed: boolean=false;
               this.actions1 = datas.permission.permission
               console.log("actions" + this.actions);
               console.log("actions1" + this.actions1);
-
 
               if (this.actions == 'Entity Onboard-Add') {
                 this.valueEntityAdd = 'Entity Onboard-Add';
@@ -234,7 +220,10 @@ searchPerformed: boolean=false;
         }
       }
     });
+    this.Getall();
+  }
 
+  Getall() {
     this.EntityViewall.EntityViewall(this.pageSize, this.pageIndex).subscribe(
       (res: any) => {
         if (res.flag === 1) {
@@ -255,10 +244,64 @@ searchPerformed: boolean=false;
         }
       }
     );
+  };
+
+  Entity(filterValue: string) {
+    if (filterValue) {
+      this.EntityViewall.EntitySearch(filterValue, this.pageSize, this.pageIndex).subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.viewall = res.response.content;
+            this.viewall.reverse();
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.viewall);
+            this.currentfilvalShow = true;
+          } else if (res.flag == 2) {
+            this.viewall = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.viewall);
+            this.currentfilvalShow = true;
+          }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
+        },
+      });
+    } else if (!filterValue) {
+      this.toastr.error('Please enter a value to search');
+      return;
+    }
   }
 
-  reload() {
-    this.EntityViewall.EntityViewall(this.pageSize, this.pageIndex).subscribe(
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      this.EntityViewall.EntitySearch(this.currentfilval, event.pageSize, event.pageIndex).subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.viewall = res.response.content;
+            this.viewall.reverse();
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.viewall);
+          } else if (res.flag == 2) {
+            this.viewall = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.viewall);
+          }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
+        },
+      });
+    } else {
+      this.EntityViewall.EntityViewall(event.pageSize, event.pageIndex).subscribe(
       (res: any) => {
         if (res.flag === 1) {
           this.viewall = res.response;
@@ -267,52 +310,17 @@ searchPerformed: boolean=false;
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.viewall);
-          this.currentfilvalShow = false;
-        } else if (res.flag == 2) {
+              } else if (res.flag == 2) {
           this.viewall = [];
           this.totalPages = res.pagination.totalElements;
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.viewall);
-          this.currentfilvalShow = false;
+    
         }
       }
     );
-  }
-
-  unblock(id: any) {
-    this.EntityViewall.unblockentityAccount(id).subscribe((res: any) => {
-      this.unblockvalue = res.response;
-
-      if (res.flag == 1) {
-        this.toastr.success(res.responseMessage);
-        setTimeout(() => {
-          this.EntityViewall.EntityViewall(
-            this.pageSize,
-            this.pageIndex
-          ).subscribe((res: any) => {
-            if (res.flag === 1) {
-              this.viewall = res.response;
-
-              this.totalPages = res.pagination.totalElements;
-              this.totalpage = res.pagination.pageSize;
-              this.currentpage = res.pagination.currentPage;
-              this.dataSource = new MatTableDataSource(this.viewall);
-              this.currentfilvalShow = false;
-            } else if (res.flag == 2) {
-              this.viewall = [];
-              this.totalPages = res.pagination.totalElements;
-              this.totalpage = res.pagination.pageSize;
-              this.currentpage = res.pagination.currentPage;
-              this.dataSource = new MatTableDataSource(this.viewall);
-              this.currentfilvalShow = false;
-            }
-          });
-        }, 500);
-      } else {
-        this.toastr.error(res.responseMessage);
-      }
-    });
+    }
   }
 
   add() {
@@ -325,10 +333,38 @@ searchPerformed: boolean=false;
     });
   }
 
+  onSubmit(event: MatSlideToggleChange, id: any) {
+    this.isChecked = event.checked;
+    let submitModel: EntityStatus = {
+      merchantId: id,
+      accountStatus: this.isChecked ? 1 : 0,
+    };
+
+    this.EntityViewall.EntityActiveStatus(submitModel).subscribe((res: any) => {
+      this.toastr.success(res.responseMessage);
+      setTimeout(() => {
+        this.Getall();
+      }, 500);
+    });
+  }
+
+  unblock(id: any) {
+    this.EntityViewall.unblockentityAccount(id).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.unblockvalue = res.response;
+        this.toastr.success(res.responseMessage);
+        setTimeout(() => {
+          this.Getall()
+        }, 500);
+      } else {
+        this.toastr.error(res.responseMessage);
+      }
+    });
+  }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
@@ -341,16 +377,13 @@ searchPerformed: boolean=false;
         let sno = 1;
         this.responseDataListnew = [];
         this.viewallexport.forEach((element: any) => {
-
           this.response = [];
           this.response.push(sno);
           this.response.push(element?.accountId);
           this.response.push(element?.referenceNo);
           this.response.push(element?.entityName);
           this.response.push(element?.businessCategoryModel?.categoryName);
-
           this.response.push(element?.contactEmail);
-
           if (element?.approvalStatusL2 == 'approved') {
             this.response.push('Approved');
           }
@@ -360,14 +393,12 @@ searchPerformed: boolean=false;
           else {
             this.response.push('Rejected');
           }
-          //
           if (element?.onBoardStatus == 'true') {
             this.response.push('Approved');
           }
           else {
             this.response.push('Pending');
           }
-          //
           if (element?.accountStatus == 1) {
             this.response.push('Active');
           }
@@ -398,7 +429,9 @@ searchPerformed: boolean=false;
   }
 
   excelexportCustomer() {
+
     // const title='Entity Details';
+
     const header = [
       "S.No",
       'Account Id',
@@ -412,16 +445,9 @@ searchPerformed: boolean=false;
       "Created At",
       "Login Account Status"
     ]
-
-
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Entity Details');
-
-    // let titleRow = worksheet.addRow([title]);
-    // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
-
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -434,13 +460,9 @@ searchPerformed: boolean=false;
         bgColor: { argb: 'FF0000FF' },
 
       }
-
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
-
     data.forEach((d: any) => {
-      //
-
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -475,128 +497,4 @@ searchPerformed: boolean=false;
     });
   }
 
-  onSubmit(event: MatSlideToggleChange, id: any) {
-    this.isChecked = event.checked;
-    let submitModel: EntityStatus = {
-      merchantId: id,
-      accountStatus: this.isChecked ? 1 : 0,
-    };
-
-    this.EntityViewall.EntityActiveStatus(submitModel).subscribe((res: any) => {
-
-      this.toastr.success(res.responseMessage);
-      setTimeout(() => {
-        this.EntityViewall.EntityViewall(
-          this.pageSize,
-          this.pageIndex
-        ).subscribe((res: any) => {
-          if (res.flag === 1) {
-
-            this.viewall = res.response;
-
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSource = new MatTableDataSource(this.viewall);
-            this.currentfilvalShow = false;
-          } else if (res.flag == 2) {
-            this.viewall = [];
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSource = new MatTableDataSource(this.viewall);
-            this.currentfilvalShow = false;
-          }
-
-        });
-
-      }, 1000);
-    });
-  }
-
-  Entity(filterValue: string) {
-    if (filterValue) {
-      this.EntityViewall.EntitySearch(
-        filterValue,
-        this.pageSize,
-        this.pageIndex
-      ).subscribe({
-        next: (res: any) => {
-          if (res.response) {
-            this.viewall = res.response.content;
-            this.viewall.reverse();
-
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSource = new MatTableDataSource(this.viewall);
-            this.currentfilvalShow = true;
-          } else if (res.flag == 2) {
-            this.viewall = [];
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSource = new MatTableDataSource(this.viewall);
-            this.currentfilvalShow = true;
-          }
-        },
-        error: (err: any) => {
-          this.toastr.error('No Data Found');
-        },
-      });
-    } else if (!filterValue) {
-      this.toastr.error('Please enter a value to search');
-      return;
-    }
-  }
-
-  getData(event: any) {
-    if (this.currentfilvalShow) {
-      this.EntityViewall.EntitySearch(
-        this.currentfilval,
-        event.pageSize,
-        event.pageIndex
-      ).subscribe({
-        next: (res: any) => {
-          if (res.response) {
-            this.viewall = res.response.content;
-            this.viewall.reverse();
-
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSource = new MatTableDataSource(this.viewall);
-          } else if (res.flag == 2) {
-            this.viewall = [];
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSource = new MatTableDataSource(this.viewall);
-          }
-        },
-        error: (err: any) => {
-          this.toastr.error('No Data Found');
-        },
-      });
-    } else {
-      this.EntityViewall.EntityViewall(event.pageSize, event.pageIndex).subscribe(
-        (res: any) => {
-          if (res.flag === 1) {
-            this.viewall = res.response;
-
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSource = new MatTableDataSource(this.viewall);
-          } else if (res.flag == 2) {
-            this.viewall = [];
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSource = new MatTableDataSource(this.viewall);
-          }
-        }
-      );
-    }
-  }
 }

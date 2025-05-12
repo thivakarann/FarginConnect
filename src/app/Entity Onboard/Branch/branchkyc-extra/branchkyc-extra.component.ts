@@ -7,10 +7,10 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 @Component({
   selector: 'app-branchkyc-extra',
   templateUrl: './branchkyc-extra.component.html',
-  styleUrl: './branchkyc-extra.component.css'
+  styleUrl: './branchkyc-extra.component.css',
 })
 export class BranchkycExtraComponent {
- KycForm!: FormGroup;
+  KycForm!: FormGroup;
   imageFile!: File;
   imageFile1!: File;
   errorShow!: boolean;
@@ -58,17 +58,21 @@ export class BranchkycExtraComponent {
   today: string;
   branchId: any;
   router: any;
+  merchant: any;
 
-  merchant:any
-  constructor(private service: FarginServiceService, private dialog: MatDialog, private toastr: ToastrService,
-    private _formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(
+    private service: FarginServiceService,
+    private dialog: MatDialog,
+    private toastr: ToastrService,
+    private _formBuilder: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
     const todayDate = new Date();
     this.today = todayDate.toISOString().split('T')[0];
   }
   ngOnInit(): void {
-
     this.branchId = this.data.value;
-    this.merchant=this.data.value2
+    this.merchant = this.data.value2;
 
     this.firstFormGroup = this._formBuilder.group({
       identityProof: ['', Validators.required],
@@ -77,7 +81,6 @@ export class BranchkycExtraComponent {
       identityBackPath: [null, Validators.required],
       drivingLicenceDob: [''],
       passportDob: [''],
-
     });
     this.secondFormGroup = this._formBuilder.group({
       addressProof: ['', Validators.required],
@@ -100,95 +103,100 @@ export class BranchkycExtraComponent {
     this.service.KycDocName(this.businessCategoryId).subscribe((res: any) => {
       if (res.flag == 1) {
         this.categorydetails = res.response;
-
       }
-    })
+    });
   }
+
   get identityProof() {
-    return this.firstFormGroup.get('identityProof')
+    return this.firstFormGroup.get('identityProof');
   }
   get identityProofNo() {
-    return this.firstFormGroup.get('identityProofNo')
+    return this.firstFormGroup.get('identityProofNo');
   }
   get identityFrontPath() {
-    return this.firstFormGroup.get('identityFrontPath')
+    return this.firstFormGroup.get('identityFrontPath');
   }
 
   get identityBackPath() {
-    return this.firstFormGroup.get('identityBackPath')
+    return this.firstFormGroup.get('identityBackPath');
   }
 
   get drivingLicenceDob() {
-    return this.firstFormGroup.get('drivingLicenceDob')
+    return this.firstFormGroup.get('drivingLicenceDob');
   }
   get passportDob() {
-    return this.firstFormGroup.get('passportDob')
+    return this.firstFormGroup.get('passportDob');
   }
 
   get addressProof() {
-    return this.secondFormGroup.get('addressProof')
+    return this.secondFormGroup.get('addressProof');
   }
 
   get addressProofNo() {
-    return this.secondFormGroup.get('addressProofNo')
+    return this.secondFormGroup.get('addressProofNo');
   }
 
   get addressFrontPath() {
-    return this.secondFormGroup.get('addressFrontPath')
+    return this.secondFormGroup.get('addressFrontPath');
   }
 
   get addressBackPath() {
-    return this.secondFormGroup.get('addressBackPath')
+    return this.secondFormGroup.get('addressBackPath');
   }
   get drivingLicenceDobs() {
-    return this.secondFormGroup.get('drivingLicenceDobs')
+    return this.secondFormGroup.get('drivingLicenceDobs');
   }
   get passportDobs() {
-    return this.secondFormGroup.get('passportDobs')
+    return this.secondFormGroup.get('passportDobs');
   }
 
   get signatureProof() {
-    return this.thirdFormGroup.get('signatureProof')
+    return this.thirdFormGroup.get('signatureProof');
   }
   get signatureProofNo() {
-    return this.thirdFormGroup.get('signatureProofNo')
+    return this.thirdFormGroup.get('signatureProofNo');
   }
   get signatureFrontPath() {
-    return this.thirdFormGroup.get('signatureFrontPath')
+    return this.thirdFormGroup.get('signatureFrontPath');
   }
   get signatureBackPath() {
-    return this.thirdFormGroup.get('signatureBackPath')
+    return this.thirdFormGroup.get('signatureBackPath');
   }
   get drivingLicenceDobss() {
-    return this.thirdFormGroup.get('drivingLicenceDobss')
+    return this.thirdFormGroup.get('drivingLicenceDobss');
   }
   get passportDobss() {
-    return this.thirdFormGroup.get('passportDobss')
+    return this.thirdFormGroup.get('passportDobss');
   }
+
+
   onFileSelected(event: any) {
     this.uploadidentityfront = event.target.files[0];
 
     // Ensure this.uploadImage is not null
     if (this.uploadidentityfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
+      const acceptableTypes = [
+        'image/png',
+        'image/jpeg',
+        'image/jpg',
+        'image/gif',
+        'application/pdf',
+      ];
 
       if (acceptableTypes.includes(this.uploadidentityfront.type)) {
         if (this.uploadidentityfront.size <= 20 * 1024 * 1024) {
-          this.toastr.success("Image uploaded successfully");
+          this.toastr.success('Image uploaded successfully');
         } else {
-          this.toastr.error("Max Image size exceeded");
+          this.toastr.error('Max Image size exceeded');
           this.identityFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-
-        this.toastr.error("File type not acceptable");
+        this.toastr.error('File type not acceptable');
         this.identityFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
-      this.toastr.error("No file selected");
+      this.toastr.error('No file selected');
     }
-
-
   }
 
   onFileSelected2(event: any) {
@@ -196,73 +204,83 @@ export class BranchkycExtraComponent {
 
     // Ensure this.uploadImage is not null
     if (this.uploadidentityback) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
+      const acceptableTypes = [
+        'image/png',
+        'image/jpeg',
+        'image/jpg',
+        'image/gif',
+        'application/pdf',
+      ];
 
       if (acceptableTypes.includes(this.uploadidentityback.type)) {
         if (this.uploadidentityback.size <= 20 * 1024 * 1024) {
-          this.toastr.success("Image uploaded successfully");
-        }
-        else {
-          this.toastr.error("Max Image size exceeded");
+          this.toastr.success('Image uploaded successfully');
+        } else {
+          this.toastr.error('Max Image size exceeded');
           this.identityBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-
-        this.toastr.error("File type not acceptable");
+        this.toastr.error('File type not acceptable');
         this.identityBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
-      this.toastr.error("No file selected");
+      this.toastr.error('No file selected');
     }
-
-
   }
   onaddressfront(event: any) {
-
     this.uploadaddressfront = event.target.files[0];
 
     // Ensure this.uploadImage is not null
     if (this.uploadaddressfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
+      const acceptableTypes = [
+        'image/png',
+        'image/jpeg',
+        'image/jpg',
+        'image/gif',
+        'application/pdf',
+      ];
 
       if (acceptableTypes.includes(this.uploadaddressfront.type)) {
         if (this.uploadaddressfront.size <= 20 * 1024 * 1024) {
-          this.toastr.success("Image uploaded successfully");
+          this.toastr.success('Image uploaded successfully');
         } else {
-          this.toastr.error("Max Image size exceeded");
+          this.toastr.error('Max Image size exceeded');
           this.addressFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-
-        this.toastr.error("File type not acceptable");
+        this.toastr.error('File type not acceptable');
         this.addressFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
-      this.toastr.error("No file selected");
+      this.toastr.error('No file selected');
     }
-
   }
   onaddressback(event: any) {
     this.uploadaddressback = event.target.files[0];
 
     // Ensure this.uploadImage is not null
     if (this.uploadaddressback) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
+      const acceptableTypes = [
+        'image/png',
+        'image/jpeg',
+        'image/jpg',
+        'image/gif',
+        'application/pdf',
+      ];
 
       if (acceptableTypes.includes(this.uploadaddressback.type)) {
         if (this.uploadaddressback.size <= 20 * 1024 * 1024) {
-          this.toastr.success("Image uploaded successfully");
+          this.toastr.success('Image uploaded successfully');
         } else {
-          this.toastr.error("Max Image size exceeded");
+          this.toastr.error('Max Image size exceeded');
           this.addressBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-
-        this.toastr.error("File type not acceptable");
+        this.toastr.error('File type not acceptable');
         this.addressBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
-      this.toastr.error("No file selected");
+      this.toastr.error('No file selected');
     }
   }
   onasignfront(event: any) {
@@ -270,144 +288,156 @@ export class BranchkycExtraComponent {
 
     // Ensure this.uploadImage is not null
     if (this.uploadsignfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
+      const acceptableTypes = [
+        'image/png',
+        'image/jpeg',
+        'image/jpg',
+        'image/gif',
+        'application/pdf',
+      ];
 
       if (acceptableTypes.includes(this.uploadsignfront.type)) {
         if (this.uploadsignfront.size <= 20 * 1024 * 1024) {
-          this.toastr.success("Image uploaded successfully");
+          this.toastr.success('Image uploaded successfully');
         } else {
-          this.toastr.error("Max Image size exceeded");
+          this.toastr.error('Max Image size exceeded');
           this.signatureFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-
-        this.toastr.error("File type not acceptable");
+        this.toastr.error('File type not acceptable');
         this.signatureFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
-      this.toastr.error("No file selected");
+      this.toastr.error('No file selected');
     }
-
   }
   onasignback(event: any) {
     this.uploadsignback = event.target.files[0];
 
     // Ensure this.uploadImage is not null
     if (this.uploadsignback) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'application/pdf'];
+      const acceptableTypes = [
+        'image/png',
+        'image/jpeg',
+        'image/jpg',
+        'image/gif',
+        'application/pdf',
+      ];
 
       if (acceptableTypes.includes(this.uploadsignback.type)) {
         if (this.uploadsignback.size <= 20 * 1024 * 1024) {
-          this.toastr.success("Image uploaded successfully");
+          this.toastr.success('Image uploaded successfully');
         } else {
-          this.toastr.error("Max Image size exceeded");
+          this.toastr.error('Max Image size exceeded');
           this.signatureBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        this.toastr.error("File type not acceptable");
+        this.toastr.error('File type not acceptable');
         this.signatureBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
-      this.toastr.error("No file selected");
+      this.toastr.error('No file selected');
     }
-
-
   }
-
-
 
   onIdentityProofChange(event: any) {
     this.selectElement = event.target.value;
     const identityProofNoControl = this.firstFormGroup.get('identityProofNo');
     const identityProofNoControl1 = this.firstFormGroup.get('passportDob');
-    const identityProofNoControl2 = this.firstFormGroup.get('drivingLicenceDob');
+    const identityProofNoControl2 =
+      this.firstFormGroup.get('drivingLicenceDob');
 
-
-  
     identityProofNoControl?.clearValidators();
-  
+
     if (this.selectElement == 'Aadhar Card') {
-      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[0-9]{12}$")]); // 12 digits for Aadhar
-      identityProofNoControl2?.setValidators([]) // Driving license format
-      identityProofNoControl1?.setValidators([]) // Driving license format
-
-    } 
-     if (this.selectElement == 'Pancard') {
-      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{5}[0-9]{4}[A-Z]$")]); // PAN format
-      identityProofNoControl2?.setValidators([]) // Driving license format
-      identityProofNoControl1?.setValidators([]) // Driving license format
-
-
-    } 
-     if (this.selectElement == 'Voter Id Proof') {
-      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]); // Voter ID format
-      identityProofNoControl2?.setValidators([]) // Driving license format
-      identityProofNoControl1?.setValidators([]) // Driving license format
-
-
-    } 
-     if (this.selectElement == 'Passport') {
-      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Passport format
-        identityProofNoControl1?.setValidators([Validators.required]) // Driving license format
-        
-        identityProofNoControl2?.setValidators([]) // Driving license format
-
-    } 
-    if (this.selectElement == 'Driving License') {
-      identityProofNoControl?.setValidators([Validators.required]); 
-        identityProofNoControl2?.setValidators([Validators.required]) // Driving license format
-        identityProofNoControl1?.setValidators([]) // Driving license format
-        
-
+      identityProofNoControl?.setValidators([
+        Validators.required,
+        Validators.pattern('^[0-9]{12}$'),
+      ]); // 12 digits for Aadhar
+      identityProofNoControl2?.setValidators([]); // Driving license format
+      identityProofNoControl1?.setValidators([]); // Driving license format
     }
-  
-  
-    
-  
+    if (this.selectElement == 'Pancard') {
+      identityProofNoControl?.setValidators([
+        Validators.required,
+        Validators.pattern('^[A-Z]{5}[0-9]{4}[A-Z]$'),
+      ]); // PAN format
+      identityProofNoControl2?.setValidators([]); // Driving license format
+      identityProofNoControl1?.setValidators([]); // Driving license format
+    }
+    if (this.selectElement == 'Voter Id Proof') {
+      identityProofNoControl?.setValidators([
+        Validators.required,
+        Validators.pattern('^[A-Z]{3}[0-9]{7}$'),
+      ]); // Voter ID format
+      identityProofNoControl2?.setValidators([]); // Driving license format
+      identityProofNoControl1?.setValidators([]); // Driving license format
+    }
+    if (this.selectElement == 'Passport') {
+      identityProofNoControl?.setValidators([
+        Validators.required,
+        Validators.pattern('^[A-Z]{2}[0-9]{2}[0-9]{11}$'),
+      ]); // Passport format
+      identityProofNoControl1?.setValidators([Validators.required]); // Driving license format
+
+      identityProofNoControl2?.setValidators([]); // Driving license format
+    }
+    if (this.selectElement == 'Driving License') {
+      identityProofNoControl?.setValidators([Validators.required]);
+      identityProofNoControl2?.setValidators([Validators.required]); // Driving license format
+      identityProofNoControl1?.setValidators([]); // Driving license format
+    }
+
     // Reset the values of the related fields
     this.firstFormGroup.get('identityProofNo')?.reset();
     this.firstFormGroup.get('identityFrontPath')?.reset();
     this.firstFormGroup.get('identityBackPath')?.reset();
     this.firstFormGroup.get('drivingLicenceDob')?.reset();
     this.firstFormGroup.get('passportDob')?.reset();
-  
+
     // Recheck the form's validity
     this.firstFormGroup.updateValueAndValidity(); // This is critical to revalidate the whole form group
   }
-  
-
 
   onAddressProofChange(event: any) {
     this.selectElements = event.target.value;
     const addressProofNoControl = this.secondFormGroup.get('addressProofNo');
     const addressProofNoControl1 = this.secondFormGroup.get('passportDobs');
-    const addressProofNoControl2 = this.secondFormGroup.get('drivingLicenceDobs');
+    const addressProofNoControl2 =
+      this.secondFormGroup.get('drivingLicenceDobs');
 
     addressProofNoControl?.clearValidators();
 
-
     if (this.selectElements == 'Aadhar Card') {
-      addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[0-9]{12}$")]); // 12 digits for Aadhar
-      addressProofNoControl2?.setValidators([]) 
-      addressProofNoControl1?.setValidators([]) 
-    }  
-    if (this.selectElements == 'Voter Id Proof') {
-      addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]);
-      addressProofNoControl2?.setValidators([]) 
-      addressProofNoControl1?.setValidators([]) 
-    } 
-     if (this.selectElements == 'Passport') {
-      addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Passport format
-      addressProofNoControl1?.setValidators([Validators.required]) // Driving license format
-        
-      addressProofNoControl2?.setValidators([])
-    } 
-     if (this.selectElements == 'Driving License') {
-      addressProofNoControl?.setValidators([Validators.required]); 
-      addressProofNoControl2?.setValidators([Validators.required]) // Driving license format
-      addressProofNoControl1?.setValidators([]) 
+      addressProofNoControl?.setValidators([
+        Validators.required,
+        Validators.pattern('^[0-9]{12}$'),
+      ]); // 12 digits for Aadhar
+      addressProofNoControl2?.setValidators([]);
+      addressProofNoControl1?.setValidators([]);
     }
+    if (this.selectElements == 'Voter Id Proof') {
+      addressProofNoControl?.setValidators([
+        Validators.required,
+        Validators.pattern('^[A-Z]{3}[0-9]{7}$'),
+      ]);
+      addressProofNoControl2?.setValidators([]);
+      addressProofNoControl1?.setValidators([]);
+    }
+    if (this.selectElements == 'Passport') {
+      addressProofNoControl?.setValidators([
+        Validators.required,
+        Validators.pattern('^[A-Z]{2}[0-9]{2}[0-9]{11}$'),
+      ]); // Passport format
+      addressProofNoControl1?.setValidators([Validators.required]); // Driving license format
 
+      addressProofNoControl2?.setValidators([]);
+    }
+    if (this.selectElements == 'Driving License') {
+      addressProofNoControl?.setValidators([Validators.required]);
+      addressProofNoControl2?.setValidators([Validators.required]); // Driving license format
+      addressProofNoControl1?.setValidators([]);
+    }
 
     this.secondFormGroup.get('addressProofNo')?.reset();
     this.secondFormGroup.get('addressFrontPath')?.reset();
@@ -422,29 +452,33 @@ export class BranchkycExtraComponent {
     this.select = event.target.value;
     const signatureProofNoControl = this.thirdFormGroup.get('signatureProofNo');
     const signatureProofNoControl1 = this.thirdFormGroup.get('passportDobss');
-    const signatureProofNoControl2 = this.thirdFormGroup.get('drivingLicenceDobss');
-
+    const signatureProofNoControl2 = this.thirdFormGroup.get(
+      'drivingLicenceDobss'
+    );
 
     signatureProofNoControl?.clearValidators();
 
-
     if (this.select == 'Pancard') {
-      signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{5}[0-9]{4}[A-Z]$")]);
-      signatureProofNoControl2?.setValidators([]) 
-      signatureProofNoControl1?.setValidators([]) 
+      signatureProofNoControl?.setValidators([
+        Validators.required,
+        Validators.pattern('^[A-Z]{5}[0-9]{4}[A-Z]$'),
+      ]);
+      signatureProofNoControl2?.setValidators([]);
+      signatureProofNoControl1?.setValidators([]);
+    }
+    if (this.select == 'Passport') {
+      signatureProofNoControl?.setValidators([
+        Validators.required,
+        Validators.pattern('^[A-Z]{2}[0-9]{2}[0-9]{11}$'),
+      ]); // Passport format
+      signatureProofNoControl1?.setValidators([Validators.required]); // Driving license format
 
-    } 
-     if (this.select == 'Passport') {
-      signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Passport format
-      signatureProofNoControl1?.setValidators([Validators.required]) // Driving license format
-        
-      signatureProofNoControl2?.setValidators([])
-
-    } 
-     if (this.select == 'Driving License') {
+      signatureProofNoControl2?.setValidators([]);
+    }
+    if (this.select == 'Driving License') {
       signatureProofNoControl?.setValidators([Validators.required]);
-      signatureProofNoControl2?.setValidators([Validators.required]) // Driving license format
-      signatureProofNoControl1?.setValidators([]) 
+      signatureProofNoControl2?.setValidators([Validators.required]); // Driving license format
+      signatureProofNoControl1?.setValidators([]);
     }
 
     this.thirdFormGroup.get('signatureProofNo')?.reset();
@@ -472,15 +506,22 @@ export class BranchkycExtraComponent {
     formData.append('signatureBackPath', this.uploadsignback);
     formData.append('signatureProof', this.signatureProof?.value);
     formData.append('signatureProofNo', this.signatureProofNo?.value.trim());
-    formData.append('drivingLicenceDob', this.drivingLicenceDob?.value || this.drivingLicenceDobs?.value || this.drivingLicenceDobss?.value);
-    formData.append('passportDob', this.passportDob?.value || this.passportDobs?.value || this.passportDobss?.value);
+    formData.append(
+      'drivingLicenceDob',
+      this.drivingLicenceDob?.value ||
+      this.drivingLicenceDobs?.value ||
+      this.drivingLicenceDobss?.value
+    );
+    formData.append(
+      'passportDob',
+      this.passportDob?.value ||
+      this.passportDobs?.value ||
+      this.passportDobss?.value
+    );
     this.service.addkycbranch(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
-      this.dialog.closeAll()
-      
-      
-
+        this.dialog.closeAll();
       } else {
         this.toastr.error(res.responseMessage);
       }

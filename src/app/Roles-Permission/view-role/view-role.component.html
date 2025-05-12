@@ -89,7 +89,7 @@
         <th mat-header-cell *matHeaderCellDef>Status</th>
         <td mat-cell *matCellDef="let data">
           <mat-slide-toggle class="example-margin" color="primary" [checked]="data.status === 1"
-            (change)="onSubmit($event,data.roleId)">
+            (change)="onSubmit($event,data.roleId)" style="transform: scale(0.9)">
           </mat-slide-toggle>
         </td>
       </ng-container>

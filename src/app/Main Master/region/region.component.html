@@ -62,7 +62,8 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="regionStatus!=='Region-Status'">Status</th>
         <td mat-cell *matCellDef="let region" [hidden]="regionStatus!=='Region-Status'">
             <mat-slide-toggle class="example-margin" color="primary" [checked]="region.status==1"
-                (change)="onSubmit($event,region.regionId)">
+                (change)="onSubmit($event,region.regionId)" 
+style="transform: scale(0.9)">
             </mat-slide-toggle>
         </td>
     </ng-container>

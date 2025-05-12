@@ -3,13 +3,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { FarginServiceService } from '../service/fargin-service.service';
-import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
 import moment from 'moment';
-import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-entity-auto-debit-getall',
@@ -55,20 +52,18 @@ export class EntityAutoDebitGetallComponent {
   scrollValue = 0;
   pageIndex1: number = 0;
   pageSize1 = 5;
- 
+
   totalpage1: any;
   totalPages1: any;
   currentpage1: any;
- 
+
   filter: boolean = true;
   currentFilterValue: string = '';
-searchPerformed:boolean=false;
-currentfilvalShow: boolean=false;
+  searchPerformed: boolean = false;
+  currentfilvalShow: boolean = false;
 
   constructor(
     public autodebitdetails: FarginServiceService,
-    private router: Router,
-    private dialog: MatDialog,
     private toastr: ToastrService
   ) { }
 
@@ -102,28 +97,10 @@ currentfilvalShow: boolean=false;
       }
     });
 
+    this.Getall()
 
-    this.autodebitdetails.autodebitgetall(this.pageSize, this.pageIndex).subscribe((res: any) => {
-      if(res.flag==1)
-    {
-      this.viewall = res.response;
+
   
-      this.totalPages = res.pagination.totalElements;
-      this.totalpage = res.pagination.pageSize;
-      this.currentpage = res.pagination.currentPage;
-      this.dataSource = new MatTableDataSource(this.viewall);
-      this.currentfilvalShow=false;
-    }
-   else if (res.flag == 2) {
-      this.viewall = [];
-      this.totalPages = res.pagination.totalElements;
-      this.totalpage = res.pagination.pageSize;
-      this.currentpage = res.pagination.currentPage;
-      this.dataSource = new MatTableDataSource(this.viewall);
-      this.currentfilvalShow=false;
-   
-    }
-  })
   }
 
   onSliderChange(event: any) {
@@ -143,41 +120,40 @@ currentfilvalShow: boolean=false;
     }
   }
 
-  reload() {
+  Getall() {
     this.autodebitdetails.autodebitgetall(this.pageSize, this.pageIndex).subscribe((res: any) => {
-      if(res.flag==1)
-    {
-      this.viewall = res.response;
-    
-      this.totalPages = res.pagination.totalElements;
-      this.totalpage = res.pagination.pageSize;
-      this.currentpage = res.pagination.currentPage;
-      this.dataSource = new MatTableDataSource(this.viewall);
-      this.currentfilvalShow=false;
-    }
-   else if (res.flag == 2) {
-      this.viewall = [];
-      this.totalPages = res.pagination.totalElements;
-      this.totalpage = res.pagination.pageSize;
-      this.currentpage = res.pagination.currentPage;
-      this.dataSource = new MatTableDataSource(this.viewall);
-      this.currentfilvalShow=false;
-   
-    }
-  })
+      if (res.flag == 1) {
+        this.viewall = res.response;
+
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.currentfilvalShow = false;
+      }
+      else if (res.flag == 2) {
+        this.viewall = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.currentfilvalShow = false;
+
+      }
+    })
   }
 
   exportexcel() {
     this.autodebitdetails.autodebitgetallExport().subscribe((res: any) => {
       this.viewallexport = res.response;
       if (res.flag == 1) {
- 
+
         let sno = 1;
         this.responseDataListnew = [];
         this.viewallexport.forEach((element: any) => {
           let createdate = element.createdDateTime;
           this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
- 
+
           this.response = [];
           this.response.push(sno);
           this.response.push(element?.accountId);
@@ -190,8 +166,8 @@ currentfilvalShow: boolean=false;
           this.response.push(element?.toLedger);
           this.response.push(element?.reason);
           this.response.push(element?.createAt);
- 
- 
+
+
           sno++;
           this.responseDataListnew.push(this.response);
         });
@@ -199,7 +175,7 @@ currentfilvalShow: boolean=false;
       }
     });
   }
- 
+
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
@@ -215,16 +191,16 @@ currentfilvalShow: boolean=false;
       "Reason",
       "Created At"
     ]
- 
- 
+
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Cloud Fee Auto Debit');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
- 
- 
+
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -235,15 +211,15 @@ currentfilvalShow: boolean=false;
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
+
       }
- 
+
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
- 
+
     data.forEach((d: any) => {
       //
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -255,8 +231,8 @@ currentfilvalShow: boolean=false;
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
- 
- 
+
+
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -267,19 +243,19 @@ currentfilvalShow: boolean=false;
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
+
     }
     );
- 
- 
- 
+
+
+
     workbook.xlsx.writeBuffer().then((data: any) => {
- 
+
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
- 
- 
+
+
       FileSaver.saveAs(blob, 'MMC Auto Debits.xlsx');
- 
+
     });
   }
 
@@ -288,86 +264,83 @@ currentfilvalShow: boolean=false;
       this.toastr.error('Please enter a value to search');
       return;
     }
- 
-    this.autodebitdetails.Mmcautodebit(filterValue,this.pageSize,this.pageIndex).subscribe({
+
+    this.autodebitdetails.Mmcautodebit(filterValue, this.pageSize, this.pageIndex).subscribe({
       next: (res: any) => {
         if (res.response) {
           this.viewall = res.response;
           // this.viewall.reverse();
           this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.viewall);
-        this.currentfilvalShow=true;
-     
-      } else if (res.flag == 2) {
-        this.viewall = [];
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.viewall);
-        this.currentfilvalShow=true;
-     
-      }
-      },
-      error: (err: any) => {
-        this.toastr.error('No Data Found');
-      }
-    });
-  }
- 
-  getData(event: any) {
-    if (this.currentfilvalShow) {
-      this.autodebitdetails.Mmcautodebit(this.currentFilterValue,event.pageSize,event.pageIndex).subscribe({
-        next: (res: any) => {
-          if (res.response) {
-            this.viewall = res.response;
-            // this.viewall.reverse();
-            this.totalPages = res.pagination.totalElements;
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.viewall);
-     
-       
+          this.currentfilvalShow = true;
+
         } else if (res.flag == 2) {
           this.viewall = [];
           this.totalPages = res.pagination.totalElements;
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.viewall);
-       
-       
+          this.currentfilvalShow = true;
+
         }
+      },
+      error: (err: any) => {
+        this.toastr.error('No Data Found');
+      }
+    });
+  }
+
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      this.autodebitdetails.Mmcautodebit(this.currentFilterValue, event.pageSize, event.pageIndex).subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.viewall = res.response;
+            // this.viewall.reverse();
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.viewall);
+
+
+          } else if (res.flag == 2) {
+            this.viewall = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.viewall);
+
+
+          }
         },
         error: (err: any) => {
           this.toastr.error('No Data Found');
         }
       });
-  } else {
-    this.autodebitdetails.autodebitgetall(event.pageSize, event.pageIndex).subscribe((res: any) => {
-      if(res.flag==1)
-    {
-      this.viewall = res.response;
-     
-      this.totalPages = res.pagination.totalElements;
-      this.totalpage = res.pagination.pageSize;
-      this.currentpage = res.pagination.currentPage;
-      this.dataSource = new MatTableDataSource(this.viewall);
-      this.currentfilvalShow=false;
-    }
-   else if (res.flag == 2) {
-      this.viewall = [];
-      this.totalPages = res.pagination.totalElements;
-      this.totalpage = res.pagination.pageSize;
-      this.currentpage = res.pagination.currentPage;
-      this.dataSource = new MatTableDataSource(this.viewall);
-      this.currentfilvalShow=false;
-   
-    }
-  })
+    } else {
+     this.autodebitdetails.autodebitgetall(event.pageSize, event.pageIndex).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.viewall = res.response;
+
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.viewall);
+      }
+      else if (res.flag == 2) {
+        this.viewall = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.viewall);
+
+      }
+    })
 
 
+    }
   }
-}
 
 }

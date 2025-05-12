@@ -38,8 +38,8 @@
                 [hidden]="valuealcartAdd!=='Channel Creation-Add'">Create</button>
                 <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button
                 [hidden]="valuealcartHistory!=='Channel Creation-History'"   (click)="alacartehistory()">History</button>
-            <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" (click)=" exportexcel()"
-                mat-raised-button [hidden]="valuealcartExport!=='Channel Creation-Export'">Export</button>
+            <!-- <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" (click)=" exportexcel()"
+                mat-raised-button [hidden]="valuealcartExport!=='Channel Creation-Export'">Export</button> -->
 
 
         </div>
@@ -108,7 +108,8 @@
                     [hidden]="valuealcartStatus!=='Channel Creation-Status'">Channel Status</th>
                 <td mat-cell *matCellDef="let viewall" [hidden]="valuealcartStatus!=='Channel Creation-Status'">
                     <mat-slide-toggle class="example-margin" color="primary" [checked]="viewall.alcotStatus==1"
-                        (change)="ActiveStatus($event,viewall.alcotId)">
+                        (change)="ActiveStatus($event,viewall.alcotId)" 
+style="transform: scale(0.9)">
                     </mat-slide-toggle>
                 </td>
             </ng-container>

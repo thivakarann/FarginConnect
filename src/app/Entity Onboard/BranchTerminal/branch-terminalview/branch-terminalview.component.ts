@@ -15,16 +15,27 @@ import { BranchTerminalEditComponent } from '../branch-terminal-edit/branch-term
 @Component({
   selector: 'app-branch-terminalview',
   templateUrl: './branch-terminalview.component.html',
-  styleUrl: './branch-terminalview.component.css'
+  styleUrl: './branch-terminalview.component.css',
 })
 export class BranchTerminalviewComponent implements OnInit {
   terminal: any;
   isChecked: any;
   dataSource: any;
-  displayedColumns: string[] = ["sno", "accountId", "terminalNumber", "status", "edit", "View", "createdBy", "createdAt", "modifiedBy", "modifiedAt"]
+  displayedColumns: string[] = [
+    'sno',
+    'accountId',
+    'terminalNumber',
+    'status',
+    'edit',
+    'View',
+    'createdBy',
+    'createdAt',
+    'modifiedBy',
+    'modifiedAt',
+  ];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId');
   errorMessage: any;
   searchPerformed: boolean = false;
   id: any;
@@ -34,7 +45,7 @@ export class BranchTerminalviewComponent implements OnInit {
   valuebranchTerminalAdd: any;
   valuebranchTerminalStatus: any;
   valuebranchTerminalEdit: any;
-  valuebranchTerminalView: any
+  valuebranchTerminalView: any;
 
   constructor(
     public service: FarginServiceService,
@@ -45,9 +56,7 @@ export class BranchTerminalviewComponent implements OnInit {
     private location: Location
   ) { }
 
-
   ngOnInit() {
-
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
@@ -55,11 +64,12 @@ export class BranchTerminalviewComponent implements OnInit {
 
           if (this.roleId == 1) {
             this.valuebranchTerminalAdd = 'Entity View Terminal branch-Add';
-            this.valuebranchTerminalStatus = 'Entity View Terminal branch-Status';
+            this.valuebranchTerminalStatus =
+              'Entity View Terminal branch-Status';
             this.valuebranchTerminalEdit = 'Entity View Terminal branch-Edit';
-            this.valuebranchTerminalView = 'Entity View Terminal branch Transaction-View';
-          }
-          else {
+            this.valuebranchTerminalView =
+              'Entity View Terminal branch Transaction-View';
+          } else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
 
@@ -67,139 +77,51 @@ export class BranchTerminalviewComponent implements OnInit {
                 this.valuebranchTerminalAdd = 'Entity View Terminal branch-Add';
               }
               if (this.actions == 'Entity View Terminal branch-Status') {
-                this.valuebranchTerminalStatus = 'Entity View Terminal branch-Status';
+                this.valuebranchTerminalStatus =
+                  'Entity View Terminal branch-Status';
               }
               if (this.actions == 'Entity View Terminal branch-Edit') {
-                this.valuebranchTerminalEdit = 'Entity View Terminal branch-Edit';
+                this.valuebranchTerminalEdit =
+                  'Entity View Terminal branch-Edit';
               }
-              if (this.actions == 'Entity View Terminal branch Transaction-View') {
-                this.valuebranchTerminalView = 'Entity View Terminal branch Transaction-View';
+              if (
+                this.actions == 'Entity View Terminal branch Transaction-View'
+              ) {
+                this.valuebranchTerminalView =
+                  'Entity View Terminal branch Transaction-View';
               }
             }
           }
-        }
-        else {
+        } else {
           this.errorMessage = res.responseMessage;
         }
-      }
-    })
-
+      },
+    });
 
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.id = param.Alldata;
       this.merchantId = param.All;
     });
 
+    this.Getall();
+
+
+  }
+
+  Getall() {
     this.service.Branchterminalbyids(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
         this.terminal = res.response;
         this.dataSource = new MatTableDataSource(this.terminal.reverse());
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-      }
-      else if (res.flag == 2) {
+      } else if (res.flag == 2) {
         this.dataSource = new MatTableDataSource([]);
         this.dataSource = new MatTableDataSource(this.terminal.reverse());
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
     });
-
-  }
-
-  onSubmit(event: MatSlideToggleChange, id: any) {
-    this.isChecked = event.checked;
-    let submitModel: branchstatus = {
-      activeStatus: this.isChecked ? 1 : 0,
-    };
-    this.service.BranchTerminalStatus(id, submitModel).subscribe((res: any) => {
-
-      this.toastr.success(res.responseMessage);
-      setTimeout(() => {
-        this.service.Branchterminalbyids(this.id).subscribe((res: any) => {
-          if (res.flag == 1) {
-            this.terminal = res.response;
-            this.dataSource = new MatTableDataSource(this.terminal.reverse());
-            this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator;
-          }
-          else if (res.flag == 2) {
-            this.dataSource = new MatTableDataSource([]);
-            this.dataSource = new MatTableDataSource(this.terminal.reverse());
-            this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator;
-          }
-        });
-      }, 1000);
-    });
-  }
-
-  reload() {
-    this.service.Branchterminalbyids(this.id).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.terminal = res.response;
-        this.dataSource = new MatTableDataSource(this.terminal.reverse());
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      }
-      else if (res.flag == 2) {
-        this.dataSource = new MatTableDataSource([]);
-        this.dataSource = new MatTableDataSource(this.terminal.reverse());
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      }
-    });
-  }
-
-  CreateTerminal(id: any, id1: any) {
-    this.dialog.open(BranchTerminalAddComponent, {
-      enterAnimationDuration: '500ms',
-      exitAnimationDuration: '800ms',
-      disableClose: true,
-      data: { value: id, value2: id1 }
-    })
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.service.Branchterminalbyids(this.id).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.terminal = res.response;
-          this.dataSource = new MatTableDataSource(this.terminal.reverse());
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        }
-        else if (res.flag == 2) {
-          this.dataSource = new MatTableDataSource([]);
-          this.dataSource = new MatTableDataSource(this.terminal.reverse());
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        }
-      });
-    })
-  }
-
-  EditTerminal(id: any) {
-    this.dialog.open(BranchTerminalEditComponent, {
-      enterAnimationDuration: '500ms',
-      exitAnimationDuration: '800ms',
-      disableClose: true,
-      data: { value: id }
-    })
-
-    this.dialog.afterAllClosed.subscribe(() => {
-      this.service.Branchterminalbyids(this.id).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.terminal = res.response;
-          this.dataSource = new MatTableDataSource(this.terminal.reverse());
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        }
-        else if (res.flag == 2) {
-          this.dataSource = new MatTableDataSource([]);
-          this.dataSource = new MatTableDataSource(this.terminal.reverse());
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        }
-      });
-    })
   }
 
   applyFilter(event: Event) {
@@ -212,17 +134,59 @@ export class BranchTerminalviewComponent implements OnInit {
     }
   }
 
-  close() {
-    this.location.back()
+  CreateTerminal(id: any, id1: any) {
+    this.dialog.open(BranchTerminalAddComponent, {
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '800ms',
+      disableClose: true,
+      data: { value: id, value2: id1 },
+    });
+    this.dialog.afterAllClosed.subscribe(() => {
+    this.Getall();
+    });
   }
+
+  EditTerminal(id: any) {
+    this.dialog.open(BranchTerminalEditComponent, {
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '800ms',
+      disableClose: true,
+      data: { value: id },
+    });
+
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.Getall();
+    });
+  }
+
+
+
 
   transactions(id: any, id1: any) {
     this.router.navigate([`dashboard/branch-transactions/${id}`], {
       queryParams: {
         Alldata: id,
-        Alldata1: id1
-
+        Alldata1: id1,
       },
     });
   }
+
+  onSubmit(event: MatSlideToggleChange, id: any) {
+    this.isChecked = event.checked;
+    let submitModel: branchstatus = {
+      activeStatus: this.isChecked ? 1 : 0,
+    };
+    this.service.BranchTerminalStatus(id, submitModel).subscribe((res: any) => {
+      this.toastr.success(res.responseMessage);
+      setTimeout(() => {
+     this.Getall();
+      }, 500);
+    });
+  }
+  
+  close() {
+    this.location.back();
+  }
+
+
 }

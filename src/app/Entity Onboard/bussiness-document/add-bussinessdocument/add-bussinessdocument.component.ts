@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
@@ -8,7 +7,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-add-bussinessdocument',
   templateUrl: './add-bussinessdocument.component.html',
-  styleUrl: './add-bussinessdocument.component.css'
+  styleUrl: './add-bussinessdocument.component.css',
 })
 export class AddBussinessdocumentComponent implements OnInit {
   fourthFormGroup!: FormGroup;
@@ -20,7 +19,7 @@ export class AddBussinessdocumentComponent implements OnInit {
   close: any;
   merchantid: any;
   getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
-  emptyBlob = new Blob([], { type: 'application/pdf' })
+  emptyBlob = new Blob([], { type: 'application/pdf' });
   uploadImage: any;
   uploadImage8: any;
   uploadImage9: any;
@@ -31,133 +30,141 @@ export class AddBussinessdocumentComponent implements OnInit {
 
   constructor(
     public service: FarginServiceService,
-    private router: Router,
     private toastr: ToastrService,
     private dialog: MatDialog,
     private _formBuilder: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) { }
 
   ngOnInit(): void {
 
     this.merchantid = this.data.value;
-
     this.bussinessid = this.data.value2;
 
-    console.log("this.bussinessid" + this.bussinessid)
-    console.log("this.merchantid" + this.merchantid)
-
-
-    
-
-    // this.service.activeViewall().subscribe((res: any) => {
-    //   this.kycValue = res.response;
-      
-    // })
-
-    this.service.EntityGetKYCbybussinessid(this.bussinessid).subscribe((res: any) => {
-      this.kycValue = res.response.reverse();
-    })
-
+    this.service
+      .EntityGetKYCbybussinessid(this.bussinessid)
+      .subscribe((res: any) => {
+        this.kycValue = res.response.reverse();
+      });
 
     this.fourthFormGroup = this._formBuilder.group({
       kycCategoryId: ['', Validators.required],
-      docNumber: ['',Validators.maxLength(35)],
+      docNumber: ['', Validators.maxLength(35)],
       docFrontPath: ['', Validators.required],
       docBackPath: ['', Validators.required],
-      expiryDate: ['']
-    })
-
+      expiryDate: [''],
+    });
   }
 
   get kycCategoryId() {
-    return this.fourthFormGroup.get('kycCategoryId')
+    return this.fourthFormGroup.get('kycCategoryId');
   }
 
   get docNumber() {
-    return this.fourthFormGroup.get('docNumber')
+    return this.fourthFormGroup.get('docNumber');
   }
 
   get docFrontPath() {
-    return this.fourthFormGroup.get('docFrontPath')
+    return this.fourthFormGroup.get('docFrontPath');
   }
 
   get docBackPath() {
-    return this.fourthFormGroup.get('docBackPath')
+    return this.fourthFormGroup.get('docBackPath');
   }
   get expiryDate() {
-    return this.fourthFormGroup.get('expiryDate')
+    return this.fourthFormGroup.get('expiryDate');
   }
 
   docProofChange(event: any) {
     this.selectElement4 = event.target.value;
-    
+
     const docNumbers = this.fourthFormGroup.get('docNumber');
     docNumbers?.clearValidators();
     if (this.selectElement4 === 'Aadhar Card') {
-      docNumbers?.setValidators([Validators.required, Validators.pattern("^[0-9]{12}$")]); // 12 digits for Aadhar
+      docNumbers?.setValidators([
+        Validators.required,
+        Validators.pattern('^[0-9]{12}$'),
+      ]); // 12 digits for Aadhar
     } else if (this.selectElement4 === 'Pancard') {
-      docNumbers?.setValidators([Validators.required, Validators.pattern("^[A-Za-z]{5}[0-9]{4}[A-Za-z]$")]); // PAN format
+      docNumbers?.setValidators([
+        Validators.required,
+        Validators.pattern('^[A-Za-z]{5}[0-9]{4}[A-Za-z]$'),
+      ]); // PAN format
     } else if (this.selectElement4 === 'Voter Id Proof') {
-      docNumbers?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]); // Voter ID format
+      docNumbers?.setValidators([
+        Validators.required,
+        Validators.pattern('^[A-Z]{3}[0-9]{7}$'),
+      ]); // Voter ID format
     } else if (this.selectElement4 === 'Passport') {
-      docNumbers?.setValidators([Validators.required, Validators.pattern("^[A-Za-z0-9]{8,15}$")]); // Passport format
+      docNumbers?.setValidators([
+        Validators.required,
+        Validators.pattern('^[A-Za-z0-9]{8,15}$'),
+      ]); // Passport format
     } else if (this.selectElement4 === 'Driving License') {
-      docNumbers?.setValidators([Validators.required, Validators.pattern("^(([A-Z]{2}[0-9]{2})( )|([A-Z]{2}-[0-9]{2}))((19|20)[0-9][0-9])[0-9]{7}$")]); // Driving license format
+      docNumbers?.setValidators([
+        Validators.required,
+        Validators.pattern(
+          '^(([A-Z]{2}[0-9]{2})( )|([A-Z]{2}-[0-9]{2}))((19|20)[0-9][0-9])[0-9]{7}$'
+        ),
+      ]); // Driving license format
     }
     docNumbers?.updateValueAndValidity();
   }
 
   docfront(event: any) {
     this.uploaddocfront = event.target.files[0];
- 
+
     // Ensure this.uploadImage is not null
     if (this.uploaddocfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg','application/pdf'];
- 
+      const acceptableTypes = [
+        'image/png',
+        'image/jpeg',
+        'image/jpg',
+        'application/pdf',
+      ];
+
       if (acceptableTypes.includes(this.uploaddocfront.type)) {
         if (this.uploaddocfront.size <= 20 * 1024 * 1024) {
-          this.toastr.success("Image uploaded successfully");
+          this.toastr.success('Image uploaded successfully');
         } else {
-          this.toastr.error("Max Image size exceeded");
+          this.toastr.error('Max Image size exceeded');
           this.docFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        
-        this.toastr.error("File type not acceptable");
+        this.toastr.error('File type not acceptable');
         this.docFrontPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
-      this.toastr.error("No file selected");
+      this.toastr.error('No file selected');
     }
- 
- 
   }
- 
- 
+
   docback(event: any) {
     this.uploaddocback = event.target.files[0];
- 
+
     // Ensure this.uploadImage is not null
     if (this.uploaddocback) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg','application/pdf'];
- 
+      const acceptableTypes = [
+        'image/png',
+        'image/jpeg',
+        'image/jpg',
+        'application/pdf',
+      ];
+
       if (acceptableTypes.includes(this.uploaddocback.type)) {
         if (this.uploaddocback.size <= 20 * 1024 * 1024) {
-          this.toastr.success("Image uploaded successfully");
+          this.toastr.success('Image uploaded successfully');
         } else {
-          this.toastr.error("Max Image size exceeded");
+          this.toastr.error('Max Image size exceeded');
           this.docBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
         }
       } else {
-        
-        this.toastr.error("File type not acceptable");
+        this.toastr.error('File type not acceptable');
         this.docBackPath?.reset(); // Optional chaining to prevent error if this.logo is null
       }
     } else {
-      this.toastr.error("No file selected");
+      this.toastr.error('No file selected');
     }
- 
- 
   }
 
   docSubmit() {
@@ -169,17 +176,15 @@ export class AddBussinessdocumentComponent implements OnInit {
     formData.append('docNumber', this.docNumber?.value);
     formData.append('createdBy', this.getadminname);
     formData.append('expiryDate', this.expiryDate?.value);
-    
+
     this.service.documentAdd(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
-      
       } else {
         this.toastr.error(res.responseMessage);
       }
     });
   }
-
 }

@@ -1,76 +1,120 @@
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+<link
+  href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css"
+/>
 <div class="card-header d-flex justify-content-between align-items-center">
-    <h5 class="mb-0">Update Manual Payment</h5>
+  <h5 class="mb-0">Update Manual Payment</h5>
 </div>
 <div class="container">
-    <div class="well">
-        <form [formGroup]="myForm">
-            <div class="row mt-3">
-                <div class="col-12 form-group">
-                    <label for="Bussiness category">Payment Status</label>
-                    <select formControlName="paidStatus" id="Bussiness category" class=" form-select">
-                        <option value="Success"  selected>Paid</option>
-                        <!-- <option value="Unpaid">Unpaid</option> -->
-                       
-                    </select>
-                    <div style="
-                color: red;
-                font-size: 12px;
-                margin-top: 2px;
-                position: relative;
-                ;
-              " *ngIf="paidStatus?.invalid && paidStatus?.touched && paidStatus?.errors?.['required']">
-                        Field is required
-                    </div>
-                </div>
-            </div>
-            <div class="row ">
-                <div class="col-12 form-group">
-                    <label for="Bussiness category">Payment Method</label>
-                    <select formControlName="paymentmode" id="Bussiness category" class="form-select" ngModel="{{this.paymentMethod}}">
-                        <option value="" disabled selected>Select</option>
-                        <option value="UPI">UPI (Unified Payments Interface)</option>
-                        <option value="NEFT">NEFT (National Electronic Funds Transfer) </option>
-                        <option value="RTGS">RTGS(Real Time Gross Settlement) </option>
-                        <option  value="IMPS">IMPS (Immediate Payment Service)</option>
-                        <option  value="Cash">Cash</option>
-                        <option value="Cheque">Cheque</option>
-                    </select>
-                    <div style="
-                color: red;
-                font-size: 12px;
-                margin-top: 2px;
-                position: relative;
-                ;
-              " *ngIf="paymentmode?.invalid && paymentmode?.touched && paymentmode?.errors?.['required']">
-                        Field is required
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-3" >
-                <div class="col-12 form-group" [hidden]="this.paymentmode?.value=='Cash'">
-                    <label for="address">Reference Number</label>
-                    <input id="fname" type="text" class="form__input" placeholder="Enter Utr number.." cols="10"
-                        rows="2" class="form-control" formControlName="utrnumber" ngModel="{{Utrnumber}}">
-                    
-                </div>
-            </div>
+  <div class="well">
+    <form [formGroup]="myForm">
+      <div class="row mt-3">
+        <div class="col-12 form-group">
+          <label for="Bussiness category">Payment Status</label>
+          <select
+            formControlName="paidStatus"
+            id="Bussiness category"
+            class="form-select"
+          >
+            <option value="Success" selected>Paid</option>
+          </select>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="paidStatus?.invalid && paidStatus?.touched && paidStatus?.errors?.['required']"
+          >
+            Field is required
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 form-group">
+          <label for="Bussiness category">Payment Method</label>
+          <select
+            formControlName="paymentmode"
+            id="Bussiness category"
+            class="form-select"
+            ngModel="{{ this.paymentMethod }}"
+          >
+            <option value="" disabled selected>Select</option>
+            <option value="UPI">UPI (Unified Payments Interface)</option>
+            <option value="NEFT">
+              NEFT (National Electronic Funds Transfer)
+            </option>
+            <option value="RTGS">RTGS(Real Time Gross Settlement)</option>
+            <option value="IMPS">IMPS (Immediate Payment Service)</option>
+            <option value="Cash">Cash</option>
+            <option value="Cheque">Cheque</option>
+          </select>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="paymentmode?.invalid && paymentmode?.touched && paymentmode?.errors?.['required']"
+          >
+            Field is required
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div
+          class="col-12 form-group"
+          [hidden]="this.paymentmode?.value == 'Cash'"
+        >
+          <label for="address">Reference Number</label>
+          <input
+            id="fname"
+            type="text"
+            class="form__input"
+            placeholder="Enter Utr number.."
+            cols="10"
+            rows="2"
+            class="form-control"
+            formControlName="utrnumber"
+            ngModel="{{ Utrnumber }}"
+          />
+        </div>
+      </div>
 
-            <div class="row " *ngIf="this.paymentmode?.value=='Cheque'">
-                <div class="col-12 form-group">
-                    <label for="address">Date</label>
-                    <input ngModel="{{dates}}" id="fname" type="date" class="form__input" class="form-control"
-                        formControlName="date" >
-                </div>
-            </div>
-            <div class="mb-3">
-                <button (click)="submit()" type="submit" class="btn mx-1 "
-                    style="background-color:#7db855be">Submit</button>
-                <button type="submit" class="btn" style="background-color:#141E46;color:white"
-                    matDialogClose>Cancel</button>
-            </div>
-        </form>
-    </div>
+      <div class="row" *ngIf="this.paymentmode?.value == 'Cheque'">
+        <div class="col-12 form-group">
+          <label for="address">Date</label>
+          <input
+            ngModel="{{ dates }}"
+            id="fname"
+            type="date"
+            class="form__input"
+            class="form-control"
+            formControlName="date"
+          />
+        </div>
+      </div>
+      <div class="mb-3">
+        <button
+          (click)="submit()"
+          type="submit"
+          class="btn mx-1"
+          style="background-color: #7db855be"
+        >
+          Submit
+        </button>
+        <button
+          type="submit"
+          class="btn"
+          style="background-color: #141e46; color: white"
+          matDialogClose
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>

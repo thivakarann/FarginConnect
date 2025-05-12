@@ -1,45 +1,35 @@
 import { DatePipe, Location } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
 import moment from 'moment';
-import { ToastrService } from 'ngx-toastr';
-import { Branchtransaction, entityterminaltransaction } from '../../../fargin-model/fargin-model.module';
+import { Branchtransaction } from '../../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 
 @Component({
   selector: 'app-branch-transactions',
   templateUrl: './branch-transactions.component.html',
-  styleUrl: './branch-transactions.component.css'
+  styleUrl: './branch-transactions.component.css',
 })
 export class BranchTransactionsComponent {
   dataSource!: MatTableDataSource<any>;
-  merchantId: any = sessionStorage.getItem('merchantId')
+  merchantId: any = sessionStorage.getItem('merchantId');
 
   displayedColumns: string[] = [
     'sno',
     'accountId',
     'paymentId',
     'entityname',
-    // 'reference',
     'customername',
     'vpa',
-    //  'customermobile',
-    // 'paymentmethod',
     'ordrnum',
-    // 'ordramount',
     'amount',
     'paystatus',
-   
-    //  'viewfailure',
     'paidAt',
-    // 'status',
-
   ];
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
@@ -61,44 +51,35 @@ export class BranchTransactionsComponent {
   valueTransactionExport: any;
   valueTransactionView: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId');
   accountId: any = sessionStorage.getItem('accountId');
   searchPerformed: boolean = false;
-
   actions: any;
-
   errorMessage: any;
   id: any;
   Button: boolean = false;
-  valuestaticview:any;
-  roleName = sessionStorage.getItem('roleName')
-  valuestaticexport:any;
+  valuestaticview: any;
+  roleName = sessionStorage.getItem('roleName');
+  valuestaticexport: any;
   branchterminalId: any;
   maxDate: any;
 
-  constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private ActivateRoute: ActivatedRoute, private router: Router, private location: Location) { }
-
-
+  constructor(
+    private service: FarginServiceService,
+    private ActivateRoute: ActivatedRoute,
+    private location: Location
+  ) { }
 
   ngOnInit(): void {
-
     const today = new Date();
-    this.maxDate = moment(today).format('yyyy-MM-DD').toString()
+    this.maxDate = moment(today).format('yyyy-MM-DD').toString();
 
-    
     this.ActivateRoute.queryParams.subscribe((param: any) => {
-      this.merchantId=param.Alldata1;
-      this.branchterminalId=param.Alldata;
+      this.merchantId = param.Alldata1;
+      this.branchterminalId = param.Alldata;
     });
 
 
-
-    // this.ActivateRoute.queryParams.subscribe((param: any) => {
-    //   this.id = param.Alldata;
-    //   this.accountId=param.Alldata1
-    // });
-
- 
     let submitModel: Branchtransaction = {
       pageNo: '1',
       query: '',
@@ -106,36 +87,27 @@ export class BranchTransactionsComponent {
       dateRange: '',
       status: '',
       merchantId: this.merchantId,
-      branchTerminalId: this.branchterminalId
-    }
+      branchTerminalId: this.branchterminalId,
+    };
     this.service.BranchTransactions(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
- 
         this.Viewall = JSON.parse(res.response);
         this.content = this.Viewall?.content || [];
-        console.log(this.content)
+        console.log(this.content);
         this.filteredData = this.content;
         this.dataSource = new MatTableDataSource(this.filteredData);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
- 
+
         if (this.content.length === 0) {
           this.dataSource = new MatTableDataSource();
         }
       }
-     
- 
- 
-    })
-
-
+    });
   }
 
-
-
-  checkDate(){
-    this.ToDateRange = ''
-    // this.FromDateRange =''
+  checkDate() {
+    this.ToDateRange = '';
   }
 
   applyFilter(event: Event) {
@@ -146,8 +118,9 @@ export class BranchTransactionsComponent {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  
   reload() {
-   
     let submitModel: Branchtransaction = {
       pageNo: '1',
       query: '',
@@ -155,50 +128,50 @@ export class BranchTransactionsComponent {
       dateRange: '',
       status: '',
       merchantId: this.merchantId,
-      branchTerminalId: this.branchterminalId
-    }
+      branchTerminalId: this.branchterminalId,
+    };
     this.service.BranchTransactions(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
- 
         this.Viewall = JSON.parse(res.response);
         this.content = this.Viewall?.content || [];
-        console.log(this.content)
+        console.log(this.content);
         this.filteredData = this.content;
         this.dataSource = new MatTableDataSource(this.filteredData);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
- 
+
         if (this.content.length === 0) {
           this.dataSource = new MatTableDataSource();
         }
       }
-     
- 
- 
-    })
+    });
   }
-
-
 
   renderPage(event: any) {
     this.currentPage = event;
     this.ngOnInit();
   }
   reloaddata() {
-    this.FromDateRange = "";
-    this.ToDateRange = "";
-    this.Daterange = "";
+    this.FromDateRange = '';
+    this.ToDateRange = '';
+    this.Daterange = '';
     this.currentPage = 1;
     this.ngOnInit();
   }
 
   filterdate() {
-    const datepipe: DatePipe = new DatePipe("en-US");
-    let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY 00:00");
-    let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/YYYY 23:59");
-    this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
+    const datepipe: DatePipe = new DatePipe('en-US');
+    let formattedstartDate = datepipe.transform(
+      this.FromDateRange,
+      'dd/MM/YYYY 00:00'
+    );
+    let formattedendDate = datepipe.transform(
+      this.ToDateRange,
+      'dd/MM/YYYY 23:59'
+    );
+    this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
     this.currentPage = 1;
- 
+
     let submitModel: Branchtransaction = {
       pageNo: '1',
       query: '',
@@ -206,11 +179,10 @@ export class BranchTransactionsComponent {
       dateRange: '',
       status: '',
       merchantId: this.merchantId,
-      branchTerminalId: this.branchterminalId
-    }
+      branchTerminalId: this.branchterminalId,
+    };
     this.service.BranchTransactions(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
- 
         this.Viewall = JSON.parse(res.response);
         this.content = this.Viewall?.content;
         this.filteredData = this.content;
@@ -218,58 +190,49 @@ export class BranchTransactionsComponent {
         this.dataSource = new MatTableDataSource(this.filteredData);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
- 
-        if (this.content.length === 0) {
-          this.dataSource = new MatTableDataSource();
-         }
- 
-      }
-     
-    })
-  }
-  reset() {
-  this.Daterange = '';
-  let submitModel: Branchtransaction = {
-    pageNo:'1',
-    query: '',
-    size: '20',
-    dateRange: '',
-    status: '',
-    merchantId: this.merchantId,
-    branchTerminalId: this.branchterminalId
-  }
-    this.service.BranchTransactions(submitModel).subscribe((res: any) => {
-      if (res.flag == 1) {
- 
-        this.Viewall = JSON.parse(res.response);
-        this.content = this.Viewall?.content || [];
-        console.log(this.content)
-        this.filteredData = this.content;
-        this.dataSource = new MatTableDataSource(this.filteredData);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.FromDateRange='';
-        this.ToDateRange='';
+
         if (this.content.length === 0) {
           this.dataSource = new MatTableDataSource();
         }
       }
-     
- 
- 
-    })
-
+    });
+  }
+  reset() {
+    this.Daterange = '';
+    let submitModel: Branchtransaction = {
+      pageNo: '1',
+      query: '',
+      size: '20',
+      dateRange: '',
+      status: '',
+      merchantId: this.merchantId,
+      branchTerminalId: this.branchterminalId,
+    };
+    this.service.BranchTransactions(submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.Viewall = JSON.parse(res.response);
+        this.content = this.Viewall?.content || [];
+        console.log(this.content);
+        this.filteredData = this.content;
+        this.dataSource = new MatTableDataSource(this.filteredData);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.FromDateRange = '';
+        this.ToDateRange = '';
+        if (this.content.length === 0) {
+          this.dataSource = new MatTableDataSource();
+        }
+      }
+    });
   }
 
-
   exportexcel() {
- 
     let sno = 1;
     this.responseDataListnew = [];
     this.filteredData.forEach((element: any) => {
       let createdate = element.createdAt;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
- 
+
       let moddate = element.modifiedDatetime;
       this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
@@ -277,28 +240,26 @@ export class BranchTransactionsComponent {
       this.response.push(element?.accountId);
       this.response.push(element?.id);
       this.response.push(element?.terminalId);
- 
+
       this.response.push(element?.customer);
       this.response.push(element?.vpa);
       this.response.push(element?.merchantOrderNo);
       this.response.push(element?.amount);
- 
+
       if (element?.completed == 'ATTEMPTED') {
         this.response.push(element?.completed);
-      }
-      else if (element?.completed == 'SUCCESS') {
+      } else if (element?.completed == 'SUCCESS') {
+        this.response.push(element?.completed);
+      } else {
         this.response.push(element?.completed);
       }
-      else {
-        this.response.push(element?.completed);
-      }
- 
+
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
- 
+
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
@@ -311,19 +272,15 @@ export class BranchTransactionsComponent {
       'Merchant Order Number',
       'Amount',
       'PaymentStatus',
-     
- 
-    ]
- 
- 
+    ];
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Static Qr Transactions');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
- 
- 
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -334,15 +291,19 @@ export class BranchTransactionsComponent {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
-      }
- 
-      cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      };
+
+      cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
     });
- 
+
     data.forEach((d: any) => {
       //
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -353,37 +314,74 @@ export class BranchTransactionsComponent {
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
- 
- 
- 
- 
- 
-      qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty3.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
- 
-    }
-    );
+
+      qty.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty1.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty2.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty3.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty4.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty5.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty6.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty7.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty8.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+    });
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
     // worksheet.getColumn(2).protection = { locked: true, hidden: true }
     // worksheet.getColumn(3).protection = { locked: true, hidden: true }
     workbook.xlsx.writeBuffer().then((data: any) => {
-      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      let blob = new Blob([data], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      });
       FileSaver.saveAs(blob, 'Static QR Transaction.xlsx');
     });
   }
- 
-
-
 
   close() {
-    this.location.back()
+    this.location.back();
   }
 }

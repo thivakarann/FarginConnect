@@ -22,6 +22,7 @@ export class SignerHistoryComponent {
     'signAdminEmail',
     'signAdminMobile',
     // 'activeStatus',
+    'adminPosition',
     'createdBy',
     'createdAt',
   ];

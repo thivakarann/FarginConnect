@@ -67,7 +67,7 @@
                 <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="valuekycstatus!=='Business Document Type-Status'">Status</th>
                 <td mat-cell *matCellDef="let data" [hidden]="valuekycstatus!=='Business Document Type-Status'">
                     <mat-slide-toggle class="example-margin" color="primary" [checked]="data.activeStatus==1"
-                        (change)="onSubmit($event,data.kycCategoryId)">
+                        (change)="onSubmit($event,data.kycCategoryId)" style="transform: scale(0.9)">
                     </mat-slide-toggle>
                 </td>
             </ng-container>

@@ -26,7 +26,7 @@
             </div> &nbsp;&nbsp;&nbsp;
 
             <button class="mt-1" (click)="CustomerAdmin(currentfilval)" style="color:white;background-color: #141E46;border-radius: 10px;font-size:12px" mat-raised-button>Go</button>
-            <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button (click)="exportexcel()" [hidden]="valuepaymentexport!=='Customer Payment-Export'">Export</button>
+            <!-- <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button (click)="exportexcel()" [hidden]="valuepaymentexport!=='Customer Payment-Export'">Export</button> -->
         </div> 
 
         <div class="col-md-4 d-flex align-items-center mt-3" style="gap: 10px;">
@@ -66,11 +66,11 @@
                 <td mat-cell *matCellDef="let transaction"> {{transaction?.customerName || transaction?.customerId?.customerName}}</td>
             </ng-container>
             <ng-container matColumnDef="customemobile">
-                <th mat-header-cell *matHeaderCellDef>Customer MobileNumber</th>
+                <th mat-header-cell *matHeaderCellDef>Customer Mobile Number</th>
                 <td mat-cell *matCellDef="let transaction"> {{transaction?.mobileNumber }}</td>
             </ng-container>
             <ng-container matColumnDef="service">
-                <th mat-header-cell *matHeaderCellDef>Service ProviderName</th>
+                <th mat-header-cell *matHeaderCellDef>Service Provider Name</th>
                 <td mat-cell *matCellDef="let transaction">
                     {{transaction?.serviceProviderName || transaction?.customerStbId?.stbId?.service?.serviceProviderName }}</td>
             </ng-container>
@@ -87,7 +87,7 @@
             </ng-container>
 
             <ng-container matColumnDef="setupbox">
-                <th mat-header-cell *matHeaderCellDef>Setupbox Number</th>
+                <th mat-header-cell *matHeaderCellDef>Set-Topbox Number</th>
                 <td mat-cell *matCellDef="let transaction"> {{transaction?.setupBoxNumber || transaction?.customerStbId?.stbId?.setupBoxNumber }}</td>
             </ng-container>
             <ng-container matColumnDef="paymentmethod">

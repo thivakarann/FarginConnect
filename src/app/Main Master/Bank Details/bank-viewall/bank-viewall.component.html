@@ -72,7 +72,7 @@
                 <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="valuebankstatus!=='Bank Details-Status'">Bank Status</th>
                 <td mat-cell *matCellDef="let viewall" [hidden]="valuebankstatus!=='Bank Details-Status'">
                     <mat-slide-toggle class="example-margin" color="primary" [checked]="viewall.activeStatus===1"
-                        (change)="ActiveStatus($event,viewall.bankId)">
+                        (change)="ActiveStatus($event,viewall.bankId)" style="transform: scale(0.9)">
                     </mat-slide-toggle>
                 </td>
             </ng-container>

@@ -1,19 +1,16 @@
-
- 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
- 
- 
+
 .container {
-    width:535px; /* Increase container width */
-  }
+  width: 535px; /* Increase container width */
+}
 button {
   font: inherit;
 }
- 
+
 .page {
   color: var(--gray-9);
   background-color: var(--gray-0);
@@ -22,23 +19,20 @@ button {
   grid-template-areas: "main";
   height: auto;
   font-family: var(--font-sans);
-  width:fit-content;
+  width: fit-content;
 }
- 
+
 .page__main {
   grid-area: main;
 }
- 
+
 .main {
   display: grid;
   justify-items: center;
   align-items: center;
 }
- 
- 
- 
-.form {
 
+.form {
   display: grid;
   min-width: 500px;
   width: 100%;
@@ -48,16 +42,16 @@ button {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: #fff;
 }
- 
+
 .form__linput {
   display: grid;
   margin-bottom: 10px;
 }
- 
+
 .form__label {
   margin-bottom: 10px;
 }
- 
+
 .form__input,
 .form__select,
 .form__textarea {
@@ -65,47 +59,41 @@ button {
 
   width: 100%;
 }
- 
+
 .form__select {
   background: inherit;
 }
- 
+
 .form__textarea {
   padding: 1em 0.7rem;
   resize: vertical;
   font: inherit;
 }
- 
+
 .form__btn {
   margin-right: auto;
 }
- 
- 
- 
- 
- 
- 
+
 @media (max-width: 600px) {
   .main__form {
-    padding:10px;
-    width:400px;
+    padding: 10px;
+    width: 400px;
   }
- 
+
   .form {
-    padding:10px;
-    width:400px;
+    padding: 10px;
+    width: 400px;
   }
 }
- 
- 
+
 .card-header {
   background-color: #bcdf72;
   color: #fff;
   font-family: "Roboto";
 }
-.form__label{
+.form__label {
   font-weight: 500;
-}/* From Uiverse.io by SupportHotline */
+} /* From Uiverse.io by SupportHotline */
 .input {
   -webkit-appearance: none;
   /* remove default */
@@ -123,7 +111,7 @@ button {
     -webkit-transform 0.25s cubic-bezier(0.8, 0, 1, 1);
   outline: none;
 }
- 
+
 .input.green {
   background-image: -webkit-radial-gradient(
     hsla(118, 100%, 90%, 1) 0%,
@@ -132,7 +120,7 @@ button {
     hsla(118, 100%, 30%, 0) 70%
   );
 }
- 
+
 .input.yellow {
   background-image: -webkit-radial-gradient(
     hsla(50, 100%, 90%, 1) 0%,
@@ -141,7 +129,7 @@ button {
     hsla(50, 100%, 30%, 0) 70%
   );
 }
- 
+
 .input.red {
   background-image: -webkit-radial-gradient(
     hsla(0, 100%, 90%, 1) 0%,
@@ -150,28 +138,28 @@ button {
     hsla(0, 100%, 30%, 0) 70%
   );
 }
- 
+
 .input:checked {
   -webkit-transition: background-position 0.2s 0.15s cubic-bezier(0, 0, 0.2, 1),
     -webkit-transform 0.25s cubic-bezier(0, 0, 0.2, 1);
 }
- 
+
 .input:active {
   -webkit-transform: scale(1.5);
   -webkit-transition: -webkit-transform 0.1s cubic-bezier(0, 0, 0.2, 1);
 }
- 
+
 /* The up/down direction logic */
- 
+
 .input,
 .input:active {
   background-position: 24px 0;
 }
- 
+
 .input:checked {
   background-position: 0 0;
 }
- 
+
 .input:checked ~ .input,
 .input:checked ~ .input:active {
   background-position: -24px 0;
@@ -183,7 +171,7 @@ button {
 
 .form-label {
   font-weight: 600;
-  color: #141E46;
+  color: #141e46;
 }
 
 .form-control {
@@ -211,8 +199,7 @@ button {
   margin-left: 9px;
 }
 
-.btn-secondary
-{
+.btn-secondary {
   padding: 8px 12px;
   font-size: 14px;
   border-radius: 6px;
@@ -223,17 +210,17 @@ button {
 }
 .btn {
   background: #7db855be;
-  color:black;
+  color: black;
   border: none;
 }
 
 .btn {
   background: #7db855be;
-  color:black;
+  color: black;
 }
 
 .btn-secondary {
-  background: #141E46;
+  background: #141e46;
   color: white;
   border: none;
 }
@@ -241,8 +228,6 @@ button {
 .btn-secondary:hover {
   background: #545b62;
 }
-
-
 
 .no-bullets {
   list-style-type: none;
@@ -255,20 +240,19 @@ button {
 }
 
 .button1 {
-  background-color: #141E46;
-  border: 1px solid #141E46;
+  background-color: #141e46;
+  border: 1px solid #141e46;
   border-radius: 0.5rem;
   color: #f9fafb;
   font-size: 13px;
   line-height: 1.25rem;
-  padding: 0.25rem 0.50rem;
+  padding: 0.25rem 0.5rem;
   width: 72px;
   text-align: center;
   cursor: pointer;
-
 }
 
 .button1:hover {
-  background-color:#141E46 ; /* Change to your desired hover color */
+  background-color: #141e46; /* Change to your desired hover color */
   color: #fff; /* Change text color on hover */
 }
