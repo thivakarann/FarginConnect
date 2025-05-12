@@ -3,7 +3,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FarginServiceService } from '../service/fargin-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { MatTableDataSource } from '@angular/material/table';
 import { settlement } from '../fargin-model/fargin-model.module';
 import { Location } from '@angular/common';
@@ -34,7 +33,7 @@ export class EntitySettlementComponent {
     'View',
     'txnItem',
     'createdAt',
-   
+
 
   ];
   viewall: any;
@@ -67,12 +66,12 @@ export class EntitySettlementComponent {
   constructor(
     public MerchantView: FarginServiceService,
     private router: Router,
-    private toastr: ToastrService,
     private ActivateRoute: ActivatedRoute,
     private Location: Location
   ) { }
-  ngOnInit(): void {
 
+
+  ngOnInit(): void {
 
     const today = new Date();
     this.maxDate = moment(today).format('yyyy-MM-DD').toString()
@@ -80,8 +79,6 @@ export class EntitySettlementComponent {
 
     this.MerchantView.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-
-
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
           if (this.roleId == 1) {
@@ -118,32 +115,36 @@ export class EntitySettlementComponent {
       this.details = res.response;
       this.detaislone = res.response.merchantpersonal;
       this.accountid = res.response.merchantpersonal.accountId;
-
       this.postrenewal();
-      // 
-
     })
-
 
   }
 
-  checkDate(){
+  viewpayout(id: any) {
+    this.router.navigate([`/dashboard/settlement-view/${id}`], {
+      queryParams: { value: id },
+    });
+
+  }
+
+  close() {
+    this.Location.back()
+  }
+
+  checkDate() {
     this.ToDateRange = ''
     // this.FromDateRange =''
   }
+
+
   reload() {
     this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
       this.details = res.response;
       this.detaislone = res.response.merchantpersonal;
       this.accountid = res.response.merchantpersonal.accountId;
-
       this.postrenewal();
-      // 
-
     })
   }
-
-
 
   postrenewal() {
     let submitModel: settlement = {
@@ -162,53 +163,45 @@ export class EntitySettlementComponent {
       this.dataSource.paginator = this.paginator;
       if (this.content.length === 0) {
         this.dataSource = new MatTableDataSource();
-       }    
+      }
     })
   }
 
-    filterdate() {
-      const datepipe: DatePipe = new DatePipe("en-US");
-      let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY 00:00");
-      let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/YYYY 23:59");
-      this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
-  
-      let submitModel: settlement = {
-        merchantId: this.id,
-        pageNo: "",
-        size: "",
-        query: "",
-        dateRange:this.Daterange,
-        status: "",
+  filterdate() {
+    const datepipe: DatePipe = new DatePipe("en-US");
+    let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY 00:00");
+    let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/YYYY 23:59");
+    this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
 
-      }
-      this.MerchantView.Entitysettlement(submitModel).subscribe((res: any) => {        if (res.flag == 1) {
-  
-          this.Viewall = JSON.parse(res.response);
-          this.content = this.Viewall?.data?.content;
-          this.filteredData = this.content;
-          console.log(  this.filteredData)
-  
-  
-          this.dataSource = new MatTableDataSource(this.filteredData);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
+    let submitModel: settlement = {
+      merchantId: this.id,
+      pageNo: "",
+      size: "",
+      query: "",
+      dateRange: this.Daterange,
+      status: "",
 
-          if (this.content.length === 0) {
-            this.dataSource = new MatTableDataSource();
-           }     
-         }
-      })
     }
-  viewpayout(id: any) {
-    this.router.navigate([`/dashboard/settlement-view/${id}`], {
-      queryParams: { value: id },
-    });
+    this.MerchantView.Entitysettlement(submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
 
+        this.Viewall = JSON.parse(res.response);
+        this.content = this.Viewall?.data?.content;
+        this.filteredData = this.content;
+        console.log(this.filteredData)
+
+
+        this.dataSource = new MatTableDataSource(this.filteredData);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+
+        if (this.content.length === 0) {
+          this.dataSource = new MatTableDataSource();
+        }
+      }
+    })
   }
 
-  close() {
-    this.Location.back()
-  }
   exportexcel() {
     let sno = 1;
     this.responseDataListnew = [];
@@ -221,14 +214,14 @@ export class EntitySettlementComponent {
       this.response.push(element?.amount);
       this.response.push(element?.reference);
       this.response.push(element?.txnItem);
-   
+
       if (element?.createdAt) {
         this.response.push(moment(element?.createdAt).format('DD/MM/yyyy hh:mm a'));
       }
       else {
         this.response.push('');
       }
- 
+
       sno++;
       this.responseDataListnew.push(this.response);
     });
@@ -356,7 +349,7 @@ export class EntitySettlementComponent {
       this.dataSource.paginator.firstPage();
     }
   }
-  reset(){
+  reset() {
     this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
       this.details = res.response;
       this.detaislone = res.response.merchantpersonal;
@@ -371,8 +364,7 @@ export class EntitySettlementComponent {
         status: "",
       }
       this.MerchantView.Entitysettlement(submitModel).subscribe((res: any) => {
-        if(res.flag==1)
-        {
+        if (res.flag == 1) {
           this.Viewall = JSON.parse(res?.response);
           this.viewdata = this.Viewall?.data?.content;
           this.dataSource = new MatTableDataSource(this.viewdata?.reverse())
@@ -380,16 +372,15 @@ export class EntitySettlementComponent {
           this.dataSource.paginator = this.paginator;
           if (this.content.length === 0) {
             this.dataSource = new MatTableDataSource();
-           }  
-           this.FromDateRange='';
-           this.ToDateRange='';  
+          }
+          this.FromDateRange = '';
+          this.ToDateRange = '';
         }
-        else
-        {
-          this.FromDateRange='';
-          this.ToDateRange=''; 
+        else {
+          this.FromDateRange = '';
+          this.ToDateRange = '';
         }
-      
+
       })
 
     })

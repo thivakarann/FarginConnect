@@ -15,11 +15,24 @@ import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-entity-refund',
   templateUrl: './entity-refund.component.html',
-  styleUrl: './entity-refund.component.css'
+  styleUrl: './entity-refund.component.css',
 })
 export class EntityRefundComponent {
   dataSource!: MatTableDataSource<any>;
-  displayedColumns: string[] = ["sno", "setupbox", "custname", "custmobile",  "type",  "reqid", "pgPaymentId", "paidAmount", "refund", "status", "View", "createdAt",]
+  displayedColumns: string[] = [
+    'sno',
+    'setupbox',
+    'custname',
+    'custmobile',
+    'type',
+    'reqid',
+    'pgPaymentId',
+    'paidAmount',
+    'refund',
+    'status',
+    'View',
+    'createdAt',
+  ];
 
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
@@ -33,138 +46,130 @@ export class EntityRefundComponent {
   date1: any;
   response: any = [];
   searchPerformed: boolean = false;
-  errorMessage:any;
+  errorMessage: any;
   roleId: any = sessionStorage.getItem('roleId');
   getdashboard: any[] = [];
-  valueview:any;
-  actions:any;
-  valueexport:any;
+  valueview: any;
+  actions: any;
+  valueexport: any;
 
   constructor(
     public service: FarginServiceService,
-    private router: Router,
-    private toastr: ToastrService,
     private ActivateRoute: ActivatedRoute,
     private Location: Location,
-    private dialog:MatDialog
+    private dialog: MatDialog
   ) { }
   ngOnInit(): void {
-    this.ActivateRoute.queryParams.subscribe((param: any) => {
-      this.id = param.Alldata;
-    });
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-
-
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
 
           if (this.roleId == 1) {
-            this.valueview = 'Entity View Refund-View'
-            this.valueexport = 'Entity View Refund-Export'
-
-          }
-          else {
+            this.valueview = 'Entity View Refund-View';
+            this.valueexport = 'Entity View Refund-Export';
+          } else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
               if (this.actions == 'Entity View Refund-View') {
-                this.valueview = 'Entity View Refund-View'
+                this.valueview = 'Entity View Refund-View';
               }
               if (this.actions == 'Entity View Refund-Export') {
-                this.valueexport = 'Entity View Refund-Export'
+                this.valueexport = 'Entity View Refund-Export';
               }
-
             }
           }
-        }
-        else {
+        } else {
           this.errorMessage = res.responseMessage;
         }
-      }
+      },
+    });
+    
+    this.ActivateRoute.queryParams.subscribe((param: any) => {
+      this.id = param.Alldata;
     });
 
-    this.service.Entityrefund(this.id).subscribe((res: any) => {
-     if(res.flag==1)
-     {
-      this.transaction = res.response;
-      this.dataSource = new MatTableDataSource(this.transaction)
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-     }
-     else if(res.flag==2)
-     {
-      this.transaction = [];
-      this.dataSource = new MatTableDataSource(this.transaction)
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-      
-     }
-     
-
-    })
+    this.Getall();
+  
   }
 
-
-  reload() {
-   
+  Getall() {
     this.service.Entityrefund(this.id).subscribe((res: any) => {
-      if(res.flag==1)
-      {
-       this.transaction = res.response;
-       this.dataSource = new MatTableDataSource(this.transaction)
-       this.dataSource.sort = this.sort;
-       this.dataSource.paginator = this.paginator;
-       this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+      if (res.flag == 1) {
+        this.transaction = res.response;
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.filterPredicate = (data: any, filter: string) => {
+          const transformedFilter = filter.trim().toLowerCase();
+          const dataStr = Object.keys(data)
+            .reduce((currentTerm: string, key: string) => {
+              return (
+                currentTerm +
+                (typeof data[key] === 'object'
+                  ? JSON.stringify(data[key])
+                  : data[key])
+              );
+            }, '')
+            .toLowerCase();
+          return dataStr.indexOf(transformedFilter) !== -1;
+        };
+      } else if (res.flag == 2) {
+        this.transaction = [];
+        this.dataSource = new MatTableDataSource(this.transaction);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       }
-      else if(res.flag==2)
-      {
-       this.transaction = [];
-       this.dataSource = new MatTableDataSource(this.transaction)
-       this.dataSource.sort = this.sort;
-       this.dataSource.paginator = this.paginator;
-       
-      }
-      
- 
-     })
+    });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.searchPerformed = filterValue.length > 0;
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   view(id: any) {
-    this.dialog.open(EntityOfflineviewComponent,{
-     enterAnimationDuration:"500ms",
-     exitAnimationDuration:"500ms",
-     data:{value:id},
-     disableClose:true
-    })
-   }
-
+    this.dialog.open(EntityOfflineviewComponent, {
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '500ms',
+      data: { value: id },
+      disableClose: true,
+    });
+  }
 
   close() {
-    this.Location.back()
+    this.Location.back();
   }
   exportexcel() {
     let sno = 1;
     this.responseDataListnew = [];
     this.transaction.forEach((element: any) => {
       this.response = [];
-          this.response.push(sno);
-          this.response.push(element?.paymentModel?.customerStbId?.stbId?.setupBoxNumber);
-          this.response.push(element?.customerId?.customerName);
-          this.response.push(element?.customerId?.mobileNumber);
-          this.response.push(element?.typeMode);
-          this.response.push(element?.requestId);
-          this.response.push(element?.paymentId);
-          this.response.push(element?.paymentModel?.paidAmount);
-          this.response.push(element?.refundAmount);
-          this.response.push(element?.refundStatus);
-          if (element.createdAt) {
-            this.response.push(moment(element?.createdAt).format('DD/MM/yyyy hh:mm a').toString());
-          }
-          else {
-            this.response.push('');
-          }
+      this.response.push(sno);
+      this.response.push(
+        element?.paymentModel?.customerStbId?.stbId?.setupBoxNumber
+      );
+      this.response.push(element?.customerId?.customerName);
+      this.response.push(element?.customerId?.mobileNumber);
+      this.response.push(element?.typeMode);
+      this.response.push(element?.requestId);
+      this.response.push(element?.paymentId);
+      this.response.push(element?.paymentModel?.paidAmount);
+      this.response.push(element?.refundAmount);
+      this.response.push(element?.refundStatus);
+      if (element.createdAt) {
+        this.response.push(
+          moment(element?.createdAt).format('DD/MM/yyyy hh:mm a').toString()
+        );
+      } else {
+        this.response.push('');
+      }
       sno++;
       this.responseDataListnew.push(this.response);
     });
@@ -174,19 +179,18 @@ export class EntityRefundComponent {
   excelexportCustomer() {
     // const title='Entity Details';
     const header = [
-      "SNo",
-      "Setupbox",
-      "CustomerName",
-      "CustomerMobile",
-      "Type",
-      "Request ID",
-      "Payment ID",
-      "PaidAmount",
-      "RefundAmount",
-      "Status",
-      "Requested Date"
-    ]
-
+      'SNo',
+      'Setupbox',
+      'CustomerName',
+      'CustomerMobile',
+      'Type',
+      'Request ID',
+      'Payment ID',
+      'PaidAmount',
+      'RefundAmount',
+      'Status',
+      'Requested Date',
+    ];
 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
@@ -194,7 +198,6 @@ export class EntityRefundComponent {
 
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
 
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
@@ -206,10 +209,14 @@ export class EntityRefundComponent {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
+      };
 
-      }
-
-      cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
     });
 
     data.forEach((d: any) => {
@@ -227,39 +234,82 @@ export class EntityRefundComponent {
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
       let qty10 = row.getCell(11);
-    
 
-
-      qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty3.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
-    }
-    );
+      qty.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty1.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty2.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty3.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty4.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty5.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty6.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty7.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty8.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty9.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty10.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+    });
 
     workbook.xlsx.writeBuffer().then((data: any) => {
-      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      let blob = new Blob([data], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      });
       FileSaver.saveAs(blob, 'Entity Refund.xlsx');
     });
   }
 
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    this.searchPerformed = filterValue.length > 0
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
 
 }

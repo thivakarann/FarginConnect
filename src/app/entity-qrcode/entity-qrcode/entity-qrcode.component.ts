@@ -1,9 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { MatTableDataSource } from '@angular/material/table';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
@@ -26,36 +23,25 @@ export class EntityQrcodeComponent implements OnInit {
   roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   errorMessage: any;
-valueqredit: any;
+  valueqredit: any;
+
   constructor(
     public MerchantView: FarginServiceService,
-    private router: Router,
-    private toastr: ToastrService,
     private ActivateRoute: ActivatedRoute,
     private location: Location,
-    private dialog:MatDialog
+    private dialog: MatDialog
 
   ) { }
   ngOnInit(): void {
-    this.ActivateRoute.queryParams.subscribe((param: any) => {
-      this.id = param.Alldata;
-    });
-    this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
-      this.details = res.response;
-      this.detaislone = res.response.merchantpersonal;
-    });
-
 
     this.MerchantView.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        
-
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
           if (this.roleId == 1) {
             this.valueqrgenerator = 'Entity View QR-Generate';
             this.valueqrview = 'Entity View QR-View';
-            this.valueqredit='Entity View QR-Edit'
+            this.valueqredit = 'Entity View QR-Edit'
           }
           else {
             for (let datas of this.getdashboard) {
@@ -68,8 +54,8 @@ valueqredit: any;
               if (this.actions == 'Entity View QR-View') {
                 this.valueqrview = 'Entity View QR-View'
               }
-              if(this.actions=='Entity View QR-Edit'){
-                this.valueqredit='Entity View QR-Edit'
+              if (this.actions == 'Entity View QR-Edit') {
+                this.valueqredit = 'Entity View QR-Edit'
               }
             }
           }
@@ -80,52 +66,64 @@ valueqredit: any;
         }
       }
     })
+
+    this.ActivateRoute.queryParams.subscribe((param: any) => {
+      this.id = param.Alldata;
+    });
+
+    this.Getall();
+
+  };
+
+
+  Getall() {
+    this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
+      this.details = res.response;
+      this.detaislone = res.response.merchantpersonal;
+    });
   }
+
+  viewQr(id: any) {
+    this.MerchantView.QRImageView(id).subscribe((res: any) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(res);
+      reader.onloadend = () => {
+        var downloadURL = URL.createObjectURL(res);
+        window.open(downloadURL);
+      }
+    })
+  }
+
+  QRlink(id: any) {
+    const dialogRef = this.dialog.open(QRcreationComponent, {
+      enterAnimationDuration: "500ms",
+      exitAnimationDuration: "800ms",
+      disableClose: true,
+      data: { value: id }
+    })
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.Getall();
+    });
+  };
+
+  close() {
+    this.location.back();
+  }
+
+
+
   // qrLink(id: any) {
   //   this.MerchantView.EntityQrGenerate(this.id).subscribe((res: any) => {
   //     if (res.flag == 1) {
   //       this.qrCode = res.responseMessage;
   //       
   //       this.toastr.success(res.responseMessage)
-     
+
   //     }
   //     else {
   //       this.toastr.error(res.responseMessage)
   //     }
   //   })
   // }
-  close() {
-    this.location.back();
-  }
 
-  viewQr(id:any){
-    this.MerchantView.QRImageView(id).subscribe((res:any)=>{
-      const reader = new FileReader();
-      reader.readAsDataURL(res);
-      reader.onloadend = () => {
-      var downloadURL = URL.createObjectURL(res);
-      window.open(downloadURL);
-      }
-    })
-  }
-
-  QRlink(id:any){
-    const dialogRef = this.dialog.open(QRcreationComponent,{
-      enterAnimationDuration:"500ms",
-      exitAnimationDuration:"800ms",
-      disableClose: true,
-      data: { value: id }
-    })
-    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
-      this.fetchBankDetails();
-    });
-  }
-
-
-  fetchBankDetails(){
-    this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
-      this.details = res.response;
-      this.detaislone = res.response.merchantpersonal;
-    });
-  }
 }

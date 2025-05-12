@@ -6,12 +6,8 @@ import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { ExportReportBranch, ExportReportCreate, ExportReportstatic } from '../../fargin-model/fargin-model.module';
-import { NgSelectComponent } from '@ng-select/ng-select';
+interface Option { entityName: string; merchantId: number; }
 
-interface Option {
-  entityName: string;
-  merchantId: number;}
-  
 @Component({
   selector: 'app-export-report-add',
   templateUrl: './export-report-add.component.html',
@@ -29,25 +25,22 @@ export class ExportReportAddComponent implements OnInit {
   roleId: any = sessionStorage.getItem('roleId')
   getdashboard: any[] = [];
   actions: any;
-  valueDownload:any;
-  maxDate:any;
+  valueDownload: any;
+  maxDate: any;
   selectedOption: any;
-  
-  options: Option[]=[];
+  options: Option[] = [];
   userInput: string = '';
-  search1:any;
-
+  search1: any;
   customerInput: any;
-  isNoDataFound: boolean=false;
+  isNoDataFound: boolean = false;
   showSuggestions: boolean = false;
-  errorShow!:boolean
-  activemerchant:any;
-  staticmerchant:any;
-  branchmerchant:any;
+  errorShow!: boolean
+  activemerchant: any;
+  staticmerchant: any;
+  branchmerchant: any;
   branchviews: any[] = [];
-
-  branchid:any;
-  branchees:any;
+  branchid: any;
+  branchees: any;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
   newBranchId: any;
 
@@ -58,10 +51,9 @@ export class ExportReportAddComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-     
+
     const today = new Date();
     this.maxDate = moment(today).format('yyyy-MM-DD').toString()
-
 
     this.myForm = new FormGroup({
       exportDataName: new FormControl('', [Validators.required]),
@@ -76,7 +68,7 @@ export class ExportReportAddComponent implements OnInit {
       // staticoption:new FormControl('',[Validators.required])
       staticoption: new FormControl(''),
       branchId: new FormControl('')
-      });
+    });
 
     this.service.actvemerchant().subscribe((res: any) => {
       this.options = res.response.map((merchant: any) => ({
@@ -94,12 +86,10 @@ export class ExportReportAddComponent implements OnInit {
       }
       staticOptionControl?.updateValueAndValidity();
     });
-    
-
 
   }
 
- 
+
   get exportDataName() {
     return this.myForm.get('exportDataName')
   }
@@ -136,56 +126,52 @@ export class ExportReportAddComponent implements OnInit {
     const staticoption = this.myForm.get('staticoption')?.value;
     const branchId = this.myForm.get('branchId')?.value;
 
-
-
-    if (selectedValue == '23' && startDate && endDate && !paymentStatus ) {
-      this.exportTypes = 1; 
+    if (selectedValue == '23' && startDate && endDate && !paymentStatus) {
+      this.exportTypes = 1;
       this.Branchsubmit();
-    }  
-    else if (selectedValue == '23'  && startDate && endDate && paymentStatus) {
-      this.exportTypes = 0; 
+    }
+    else if (selectedValue == '23' && startDate && endDate && paymentStatus) {
+      this.exportTypes = 0;
       this.Branchsubmit();
-    }  
+    }
     else if (selectedValue == '6' && startDate && endDate && staticoption) {
       this.Staticqr();
-    } 
+    }
     else if ((selectedValue == '7' || selectedValue == '13' || selectedValue == '14' || selectedValue == '19') && startDate && endDate && !paymentStatus) {
-        this.exportTypes = 1; // Export type without payment status
-        this.submit();
-        
+      this.exportTypes = 1; // Export type without payment status
+      this.submit();
+
     }
     else if ((selectedValue == '7' || selectedValue == '13' || selectedValue == '14' || selectedValue == '19') && startDate && endDate && paymentStatus) {
       this.exportTypes = 0; // Export type without payment status
       this.submit();
     }
-    else if ((selectedValue == '7' || selectedValue == '13'  || selectedValue == '14' || selectedValue == '19') && startDate && endDate) {
-        this.exportTypes = 1; // Export type without payment status (assuming it should be 1 if exportDataName is 4)
-        this.submit();
+    else if ((selectedValue == '7' || selectedValue == '13' || selectedValue == '14' || selectedValue == '19') && startDate && endDate) {
+      this.exportTypes = 1; // Export type without payment status (assuming it should be 1 if exportDataName is 4)
+      this.submit();
     }
     else if (startDate && endDate) {
-        this.exportTypes = 0; // Export type with payment status
-        this.submit();
+      this.exportTypes = 0; // Export type with payment status
+      this.submit();
     }
     else {
-        this.exportTypes = 0;
-        this.submit();
+      this.exportTypes = 0;
+      this.submit();
     }
-}
+  }
 
-exportpay(event: any) {
-  this.myForm.get('paymentStatus')?.setValue('');
-  this.myForm.get('selectedOption')?.setValue('');
-  this.myForm.get('staticoption')?.setValue('');
-}
- 
+  exportpay(event: any) {
+    this.myForm.get('paymentStatus')?.setValue('');
+    this.myForm.get('selectedOption')?.setValue('');
+    this.myForm.get('staticoption')?.setValue('');
+  }
+
   submit() {
     let merchant = 0; // Default to 0 if no match is found
-
     const inputValue = this.customerInput;
-
     if (inputValue) {
-        const matchedBox = this.options.find(box => box.entityName === inputValue);
-        merchant = matchedBox?.merchantId || 0; // Use matched merchantId or 0
+      const matchedBox = this.options.find(box => box.entityName === inputValue);
+      merchant = matchedBox?.merchantId || 0; // Use matched merchantId or 0
     }
 
     let submitModel: ExportReportCreate = {
@@ -195,11 +181,103 @@ exportpay(event: any) {
       exportEndDate: this.exportEndDate?.value,
       merchantId: merchant,
       exportType: this.exportTypes,
-      paymentStatus:this.paymentStatus?.value,
-      type:2,
+      paymentStatus: this.paymentStatus?.value,
+      type: 2,
       branchId: 0
     }
+    this.service.ExportReportAdd(submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
+        this.dialog.closeAll();
+      }
+      else {
+        this.toastr.error(res.responseMessage);
+      }
+    })
+  };
 
+  future(value: any) {
+    value.reset()
+  };
+
+  loadInitialSetupBoxes() {
+    this.service.actvemerchant().subscribe((res: any) => {
+      this.activemerchant = res.response;
+    });
+  }
+
+
+  onInputChange() {
+    if (!this.customerInput || this.customerInput.trim() === "") {
+      console.log(this.customerInput)
+      this.loadInitialSetupBoxes();
+      this.isNoDataFound = false; // Reset the flag
+      return;
+    }
+    this.service.actvemerchantsearch(this.customerInput).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.options = res.response;
+        this.isNoDataFound = false;
+      }
+      else {
+        this.options = [];
+        this.isNoDataFound = true;
+      }
+    },
+      (error) => {
+        this.isNoDataFound = true;
+      }
+    );
+  }
+
+  onSearchClick(entityName: string, event: MouseEvent): void {
+    event.stopPropagation();
+    this.customerInput = entityName;
+    this.showSuggestions = false;
+    const selectedValue = this.myForm.get('exportDataName')?.value;
+    if (selectedValue == '23') {
+      this.branchnameview();
+    }
+  }
+
+  hideSuggestions(): void {
+    document.addEventListener('click', (event: Event) => {
+      const target = event.target as HTMLElement;
+      if (target && !target.closest('.input-group')) {
+        this.showSuggestions = false; // Only hide suggestions when clicking outside
+      }
+    });
+  }
+
+  Staticqr() {
+
+    const inputValue = this.customerInput;
+    if (inputValue) {
+      const matchedBox = this.options.find(box => box.entityName === inputValue);
+      this.staticmerchant = matchedBox?.merchantId || ''; // Use matched merchantId or 0
+    }
+    const datepipe: DatePipe = new DatePipe("en-US");
+    let formattedstartDate = datepipe.transform(this.exportStartDate?.value, "dd/MM/YYYY 00:00");
+    let formattedendDate = datepipe.transform(this.exportEndDate?.value, "dd/MM/YYYY 23:59");
+    this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
+
+    let submitModel: ExportReportstatic = {
+      createdBy: this.getadminname,
+      exportDataName: this.exportDataName?.value,
+      exportType: 0,
+      dateRange: this.Daterange,
+      merchantId: this.staticmerchant,
+      pageNo: "",
+      query: "",
+      size: "",
+      status: "",
+      terminalId: "",
+      exportStartDate: this.exportStartDate?.value,
+      exportEndDate: this.exportEndDate?.value,
+      type: 2,
+      branchId: 0
+    }
     this.service.ExportReportAdd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
@@ -213,183 +291,12 @@ exportpay(event: any) {
   }
 
 
-  future(value: any) {
-    value.reset()
-  }
-
-
-  
-//   onSearchClick(searchSelect: NgSelectComponent): void {
-//     this.searchAPI(this.userInput);
-    
-//     if (!searchSelect.isOpen) {
-//       searchSelect.open();
-//     }
-//   }
-  
-//   onRemoveClick() {
-//     this.selectedOption = null;
-//     this.options = [];
-//     console.log('No data found');
-//   }
-  
-//   searchAPI(query: string): void {
-//       this.service.Customerpaysearchfilter(query).subscribe((res: any) => {
-//           if (res.flag === 1) {
-//               this.options = res.response.map((item: any) => ({
-//                   entityName: item.entityName,
-//                   merchantId: item.merchantId
-//               })); 
-//         } else {
-//           this.toastr.error(res.responseMessage);
-//         }
-//     }, (error) => {
-//       console.error('Error fetching data from API', error);
-//     });
-//   }
-  
-//   onClear(): void {
-//     this.options = []; // Clear dropdown options
-//     this.selectedOption = null; // Reset the selected option
-//     this.userInput = ''; // Clear the input variable, if any
-//     console.log('Clear action triggered!');
-//   }
-  
-//   onDropdownChange(selectedItem: any): void {
-//     console.log(selectedItem)
-//     if (selectedItem) {
-//         this.selectedOption = selectedItem.merchantId;
-//         this.search1 = selectedItem.entityName;
-//         this.merchantId = this.selectedOption;
-//         console.log(this.merchantId);
-//     }
-//   }
-
-//   onInputChange(event: Event): void {
-//     const inputElement = event.target as HTMLInputElement;
-//     this.userInput = inputElement.value;
-// }
-   
-loadInitialSetupBoxes() {
-  this.service.actvemerchant().subscribe((res: any) => {
-    this.activemerchant = res.response;
-  });
-}
-
-
-onInputChange() {
-  if (!this.customerInput  || this.customerInput.trim() === "") {
-    console.log(this.customerInput)
-    this.loadInitialSetupBoxes();
-    this.isNoDataFound = false; // Reset the flag
-    return;
- 
-  }
-  this.service.actvemerchantsearch(this.customerInput).subscribe((res: any) => {
-      if (res.flag==1) {
-        this.options = res.response;
-
-        this.isNoDataFound = false;  
-       
-      } else {
-        this.options = [];  
-        this.isNoDataFound = true;    
-      }
-    },
-    (error) => {
-      console.error('Error fetching merchant data:', error);
-      this.isNoDataFound = true;  
-    }
-  );
-}
-
-// onSearchClick(value: string) {
-//   this.customerInput = value;
-//   this.showSuggestions = false;
-// }
-
-// hideSuggestions() {
-//   setTimeout(() => {
-//     this.showSuggestions = false;
-//   }, 200); // Slight delay to allow click to register
-// }
-
-onSearchClick(entityName: string, event: MouseEvent): void {
-  event.stopPropagation();
-  this.customerInput = entityName;
-  
-  this.showSuggestions = false;
- 
-  const selectedValue = this.myForm.get('exportDataName')?.value; // Retrieve selected value
-
-  if (selectedValue == '23') {
-    this.branchnameview();
-  }
-}
- 
-hideSuggestions(): void {
-  document.addEventListener('click', (event: Event) => {
-      const target = event.target as HTMLElement;
-      if (target && !target.closest('.input-group')) {
-          this.showSuggestions = false; // Only hide suggestions when clicking outside
-      }
-  });
-}
-
-
-Staticqr() {
-   // Default to 0 if no match is found
-  const inputValue = this.customerInput;
-
-  if (inputValue) {
+  branchnameview() {
+    const inputValue = this.customerInput;
+    if (inputValue) {
       const matchedBox = this.options.find(box => box.entityName === inputValue);
       this.staticmerchant = matchedBox?.merchantId || ''; // Use matched merchantId or 0
-  }
-
-  const datepipe: DatePipe = new DatePipe("en-US");
-  let formattedstartDate = datepipe.transform(this.exportStartDate?.value, "dd/MM/YYYY 00:00");
-  let formattedendDate = datepipe.transform(this.exportEndDate?.value, "dd/MM/YYYY 23:59");
-  this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
-
-  let submitModel: ExportReportstatic = {
-    createdBy: this.getadminname,
-    exportDataName: this.exportDataName?.value  ,
-    exportType: 0,
-    dateRange: this.Daterange,
-    merchantId: this.staticmerchant,
-    pageNo: "",
-    query: "",
-    size: "",
-    status: "",
-    terminalId: "",
-    exportStartDate: this.exportStartDate?.value,
-    exportEndDate: this.exportEndDate?.value,
-    type:2,
-    branchId: 0
-  }
-
-  this.service.ExportReportAdd(submitModel).subscribe((res: any) => {
-    if (res.flag == 1) {
-      this.toastr.success(res.responseMessage);
-      this.bankDetailsUpdated.emit();
-      this.dialog.closeAll();
     }
-    else {
-      this.toastr.error(res.responseMessage);
-    }
-  })
-}
-
-
-branchnameview(){
-  const inputValue = this.customerInput;
-
-  // branch
-    if (inputValue) {
-        const matchedBox = this.options.find(box => box.entityName === inputValue);
-        this.staticmerchant = matchedBox?.merchantId || ''; // Use matched merchantId or 0
-    }
-  
     this.service.BranchView(this.staticmerchant).subscribe((res: any) => {
       if (res.flag == 1) {
         this.branchviews = res.response;
@@ -398,50 +305,106 @@ branchnameview(){
         this.branchviews = []; // Ensure dropdown has no items
       }
     });
-    
-}
 
-onBranchChange(event: any) {
-  this.newBranchId = event.target.value
-  this.branchId?.setValue(event.target.value);
-  console.log("Selected Branch ID:", this.branchId?.value); // Ensure this logs correctly
-}
-
-
- 
-Branchsubmit() {
-  const inputValue = this.customerInput;
-  if (inputValue) {
-      const matchedBox = this.options.find(box => box.entityName === inputValue);
-      this.branchmerchant = matchedBox?.merchantId; // Use matched merchantId or 0
-  } 
- 
-
-  console.log("Branch ID at submit time:", this.branchId?.value);
-  
-  let submitModel: ExportReportBranch = {
-    createdBy: this.getadminname,
-    exportDataName: this.exportDataName?.value,
-    exportStartDate: this.exportStartDate?.value,
-    exportEndDate: this.exportEndDate?.value,
-    merchantId: this.branchmerchant,
-    exportType: this.exportTypes,
-    paymentStatus:this.paymentStatus?.value,
-    type:2,
-    branchId:this.newBranchId
-    
   }
 
-  this.service.ExportReportAdd(submitModel).subscribe((res: any) => {
-    if (res.flag == 1) {
-      this.toastr.success(res.responseMessage);
-      this.bankDetailsUpdated.emit();
-      this.dialog.closeAll();
+  onBranchChange(event: any) {
+    this.newBranchId = event.target.value
+    this.branchId?.setValue(event.target.value);
+  }
+
+  Branchsubmit() {
+    const inputValue = this.customerInput;
+    if (inputValue) {
+      const matchedBox = this.options.find(box => box.entityName === inputValue);
+      this.branchmerchant = matchedBox?.merchantId; // Use matched merchantId or 0
     }
-    else {
-      this.toastr.error(res.responseMessage);
+    let submitModel: ExportReportBranch = {
+      createdBy: this.getadminname,
+      exportDataName: this.exportDataName?.value,
+      exportStartDate: this.exportStartDate?.value,
+      exportEndDate: this.exportEndDate?.value,
+      merchantId: this.branchmerchant,
+      exportType: this.exportTypes,
+      paymentStatus: this.paymentStatus?.value,
+      type: 2,
+      branchId: this.newBranchId
+
     }
-  })
-}
+    this.service.ExportReportAdd(submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
+        this.dialog.closeAll();
+      }
+      else {
+        this.toastr.error(res.responseMessage);
+      }
+    })
+  }
+
+
+  // onSearchClick(value: string) {
+  //   this.customerInput = value;
+  //   this.showSuggestions = false;
+  // }
+
+  // hideSuggestions() {
+  //   setTimeout(() => {
+  //     this.showSuggestions = false;
+  //   }, 200); // Slight delay to allow click to register
+  // }
+
+
+  //   onSearchClick(searchSelect: NgSelectComponent): void {
+  //     this.searchAPI(this.userInput);
+
+  //     if (!searchSelect.isOpen) {
+  //       searchSelect.open();
+  //     }
+  //   }
+
+  //   onRemoveClick() {
+  //     this.selectedOption = null;
+  //     this.options = [];
+  //     console.log('No data found');
+  //   }
+
+  //   searchAPI(query: string): void {
+  //       this.service.Customerpaysearchfilter(query).subscribe((res: any) => {
+  //           if (res.flag === 1) {
+  //               this.options = res.response.map((item: any) => ({
+  //                   entityName: item.entityName,
+  //                   merchantId: item.merchantId
+  //               })); 
+  //         } else {
+  //           this.toastr.error(res.responseMessage);
+  //         }
+  //     }, (error) => {
+  //       console.error('Error fetching data from API', error);
+  //     });
+  //   }
+
+  //   onClear(): void {
+  //     this.options = []; // Clear dropdown options
+  //     this.selectedOption = null; // Reset the selected option
+  //     this.userInput = ''; // Clear the input variable, if any
+  //     console.log('Clear action triggered!');
+  //   }
+
+  //   onDropdownChange(selectedItem: any): void {
+  //     console.log(selectedItem)
+  //     if (selectedItem) {
+  //         this.selectedOption = selectedItem.merchantId;
+  //         this.search1 = selectedItem.entityName;
+  //         this.merchantId = this.selectedOption;
+  //         console.log(this.merchantId);
+  //     }
+  //   }
+
+  //   onInputChange(event: Event): void {
+  //     const inputElement = event.target as HTMLInputElement;
+  //     this.userInput = inputElement.value;
+  // }
 
 }

@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FarginServiceService } from '../../service/fargin-service.service';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { QrCodecreation } from '../../fargin-model/fargin-model.module';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
@@ -24,12 +23,11 @@ export class QRcreationComponent implements OnInit {
   merchantid: any;
   getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
   QRdetaisl: any;
-  isCreated: boolean=false;
+  isCreated: boolean = false;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
-  
+
   constructor(
     public QRcreation: FarginServiceService,
-    private router: Router,
     private toastr: ToastrService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialog: MatDialog
@@ -44,16 +42,10 @@ export class QRcreationComponent implements OnInit {
       ]),
     });
   };
-
-
-
-  // showToggle() {
-  //   this.viewForm = !this.viewForm;
-  // }
-
+  
   selectss(id: any) {
     this.ADD = id
-    
+
   }
 
   // First Form
@@ -70,8 +62,8 @@ export class QRcreationComponent implements OnInit {
         this.Entityurlname = res.response.referenceNo;
         this.EntityURLLink = res.response.link;
         this.ViewURL = true;
- 
-      this.isCreated = true;
+
+        this.isCreated = true;
       }
       else if (res.flag == 2) {
         this.toastr.error(res.responseMessage);

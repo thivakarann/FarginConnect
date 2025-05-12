@@ -58,7 +58,6 @@ export class EntityCustomersViewComponent {
   valuesetupview: any;
   valuetransreceipt: any;
   valueadditionalinvoice: any;
-
   getdashboard: any[] = [];
   roleId: any = sessionStorage.getItem('roleId');
   actions: any;
@@ -96,6 +95,8 @@ export class EntityCustomersViewComponent {
   pageSize1 = 3;
   pageadd: number = 0;
   pagesizeadd = 3;
+
+
   constructor(
     public service: FarginServiceService,
     private router: Router,
@@ -103,7 +104,7 @@ export class EntityCustomersViewComponent {
     private dialog: MatDialog,
     private ActivateRoute: ActivatedRoute,
     private location: Location
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.service.rolegetById(this.roleId).subscribe({
@@ -181,30 +182,27 @@ export class EntityCustomersViewComponent {
         this.viewData = false;
       }
     });
-    this.service
-      .CustomerTransaction(this.id, this.pageSize, this.pageIndex)
-      .subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.transaction = res.response;
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.totalPages;
-          this.currentpage = res.pagination.currentPage + 1;
+    this.service.CustomerTransaction(this.id, this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.transaction = res.response;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
 
-          this.filter = true;
-          this.filter1 = false;
-          console.log(this.filter1);
-        } else if (res.flag == 2) {
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.totalPages;
-          this.currentpage = res.pagination.currentPage + 1;
+        this.filter = true;
+        this.filter1 = false;
+        console.log(this.filter1);
+      } else if (res.flag == 2) {
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.totalPages;
+        this.currentpage = res.pagination.currentPage + 1;
 
-          this.filter = true;
-          this.filter1 = false;
-        }
-      });
+        this.filter = true;
+        this.filter1 = false;
+      }
+    });
 
-    this.service
-      .AdditionalPaymentsCustomerTransaction(
+    this.service.AdditionalPaymentsCustomerTransaction(
         this.id,
         this.pageSizeadd,
         this.pageIndexadd
@@ -356,8 +354,7 @@ export class EntityCustomersViewComponent {
     });
   }
   renderPage(event: PageEvent) {
-    // Capture the new page index and page size from the event
-    this.pageIndex = event.pageIndex; // Update current page index
+    this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize; // Update page size (if changed)
 
     // Log the new page index and page size to the console (for debugging)
