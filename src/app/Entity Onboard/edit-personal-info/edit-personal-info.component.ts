@@ -53,24 +53,24 @@ export class EditPersonalInfoComponent implements OnInit {
     this.myForm = new FormGroup({
       entityName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z ]*$'),
+    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(30),
       ]),
       merchantLegalName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z ]*$'),
+    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(30),
       ]),
       accountDisplayName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z ]*$'),
+    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(30),
       ]),
       businessCategoryIds: new FormControl('', [Validators.required]),
       MccCode: new FormControl(''),
       contactName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z ]*$'),
+    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(30),
       ]),
       contactMobile: new FormControl('', [
@@ -99,7 +99,7 @@ export class EditPersonalInfoComponent implements OnInit {
       ]),
       area: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$'),
+         Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
       ]),
       zipcode: new FormControl('', [
         Validators.required,
@@ -107,17 +107,17 @@ export class EditPersonalInfoComponent implements OnInit {
       ]),
       stateName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z ]*$'),
+    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(30),
       ]),
       city: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z ]*$'),
+    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(30),
       ]),
       country: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z ]*$'),
+    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(30),
       ]),
       merchantPlanId: new FormControl('', [Validators.required]),
@@ -150,7 +150,7 @@ export class EditPersonalInfoComponent implements OnInit {
 
       smsMerchantName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[A-Za-z ]*$'),
+    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(25),
       ]),
     });

@@ -114,15 +114,17 @@
           >
             Field is required
           </div>
-          <div style="
-          color: red;
-          font-size: 12px;
-          margin-top: 2px;
-          position: relative;
-          ;
-        " *ngIf="channelName?.invalid && channelName?.touched && channelName?.errors?.['pattern']">
-             Enter a Valid Input (Upto 50 characters are allowed)
-          </div>
+     <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                  " *ngIf="channelName?.invalid && channelName?.touched && channelName?.errors?.['pattern']">
+Invalid format
+                    </div>
+                            <div style="color: red; font-size: 12px; margin-top: 2px; position: relative;"
+       *ngIf="channelName?.invalid && channelName?.touched && channelName?.errors?.['maxlength']">
+            Maximum length should be 50
+  </div>
         </div>
 
         <div class="col-sm-4 form-group">

@@ -33,7 +33,7 @@ export class BouquetenameAddComponent implements OnInit {
 
     this.myForm = new FormGroup({
       bundleChannelId: new FormControl('', Validators.required),
-      bouquetName: new FormControl('', [Validators.required ,Validators.pattern(/^[A-Za-z ]{1,50}$/)]),
+      bouquetName: new FormControl('', [Validators.required ,Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),Validators.maxLength(50)]),
     });
   }
 

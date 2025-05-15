@@ -34,8 +34,8 @@ export class BranchkycEditComponent {
   pass: any;
   DrivingDob: any;
   PassportDob: any;
-  today: string;
   getadminname: any = JSON.parse(sessionStorage.getItem('adminname') || '');
+  eighteenYearsAgo: Date;
 
   constructor(
     public service: FarginServiceService,
@@ -44,8 +44,8 @@ export class BranchkycEditComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder
   ) {
-    const todayDate = new Date();
-    this.today = todayDate.toISOString().split('T')[0];
+    const today = new Date();
+    this.eighteenYearsAgo = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
   }
 
   ngOnInit(): void {
@@ -58,8 +58,7 @@ export class BranchkycEditComponent {
     this.addressProofNovalue = this.data.value1.addressProofNo;
     this.DrivingDob = this.data.value1.drivingLicenceDob;
     this.PassportDob = this.data.value1.passportDob;
-    this.driving = this.DrivingDob
-      ? moment(this.DrivingDob).format('DD-MM-YYYY')
+    this.driving = this.DrivingDob ? moment(this.DrivingDob).format('DD-MM-YYYY')
       : '';
     this.pass = this.PassportDob
       ? moment(this.PassportDob).format('DD-MM-YYYY')
@@ -116,6 +115,10 @@ export class BranchkycEditComponent {
     }
   }
 
+  dateFilter = (d: Date | null): boolean => {
+    return d ? d <= this.eighteenYearsAgo : false;
+  }
+
   get identityProof() {
     return this.KycIdentityForm.get('identityProof');
   }
@@ -158,8 +161,6 @@ export class BranchkycEditComponent {
   onIdentityProofChange(event: any) {
     this.selectElement = event.target.value;
     const identityProofNoControl = this.KycIdentityForm.get('identityProofNo');
-
-    // Handle validation based on selected identity proof
     if (this.selectElement === 'Aadhar Card') {
       identityProofNoControl?.setValidators([
         Validators.required,
@@ -181,7 +182,7 @@ export class BranchkycEditComponent {
         Validators.pattern('^[A-Za-z0-9]{8,15}$'),
       ]); // Passport format
     } else if (this.selectElement === 'Driving License') {
-      identityProofNoControl?.setValidators([Validators.required]); // Driving license format
+      identityProofNoControl?.setValidators([Validators.required]);
     }
 
     // Revalidate based on the current input

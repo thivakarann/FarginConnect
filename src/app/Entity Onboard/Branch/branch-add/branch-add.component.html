@@ -29,7 +29,7 @@
                     position: relative;
                     ;
                   " *ngIf="accountHolderName?.invalid   && accountHolderName?.errors?.['pattern']">
-                        Enter a Valid Name
+                        Invalid Format
                     </div>
                     <div style="
                     color: red;
@@ -38,7 +38,7 @@
                     position: relative;
                     ;
                   " *ngIf="accountHolderName?.errors?.['maxlength']">
-                        maximum length should be 50
+                        Maximum length should be 50
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
@@ -115,7 +115,7 @@
                     position: relative;
                     ;
                   " *ngIf="branchName?.invalid && branchName?.touched && branchName?.errors?.['pattern']">
-                        Enter a Valid Input
+                      Invalid format
                     </div>
                     <div style="
                     color: red;
@@ -124,7 +124,7 @@
                     position: relative;
                     ;
                   " *ngIf="branchName?.errors?.['maxlength']">
-                        maximum length should be 50
+                        Maximum length should be 50
                     </div>
                 </div>
 
@@ -147,7 +147,7 @@
                     position: relative;
                     ;
                   " *ngIf="bankName?.invalid && bankName?.touched && bankName?.errors?.['pattern']">
-                        Enter a Valid Input
+                      Invalid format
                     </div>
                     <div style="
                     color: red;
@@ -156,7 +156,7 @@
                     position: relative;
                     ;
                   " *ngIf="bankName?.errors?.['maxlength']">
-                        maximum length should be 50
+                        Maximum length should be 50
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
@@ -227,7 +227,7 @@
                     position: relative;
                     ;
                     " *ngIf="smsmerchantname?.invalid && smsmerchantname?.touched && smsmerchantname?.errors?.['required']">
-                                            Field is required
+                    Field is required
                     </div>
 
                     <div style="
@@ -237,11 +237,11 @@
                     position: relative;
                     ;
                   " *ngIf="smsmerchantname?.errors?.['pattern']">
-                        Invalid format. Only alphanumeric characters are allowed
+                        Invalid format
                     </div>
                     <div style="color: red; font-size: 12px; margin-top: 2px; position: relative;"
                         *ngIf="smsmerchantname?.errors?.['maxlength']">
-                        Only 25 characters are allowed
+                   Maximum length should be 25
                     </div>
 
                 </div>
@@ -255,10 +255,10 @@
             </div>
         </form>
     </div>
-    <div class="well" style="margin-top: 2%;" *ngIf="KYCdetails==true">
+    <div class="well" style="margin-top: 2%;" *ngIf="KYCdetails==false">
         <h4 class="card-header" style="font-weight: 500">2.KYC Details</h4>
         <mat-horizontal-stepper linear>
-            <mat-step [stepControl]="firstFormGroup" [completed]="false">
+            <mat-step [stepControl]="firstFormGroup" [completed]="true">
                 <form [formGroup]="firstFormGroup">
                     <ng-template matStepLabel>Identity</ng-template>
 
@@ -326,14 +326,14 @@
                                 class="form-control"  type="date"
                                 formControlName="drivingLicenceDob"
                                
-                                [max]="today" />
+                               [attr.max]="eighteenYearsAgo | date:'yyyy-MM-dd'" />
 
                                 <input
                                 *ngIf="selectElement =='Passport'"
                                 
                                 class="form-control"  type="date"
                                 formControlName="passportDob"
-                                [max]="today" />
+                               [attr.max]="eighteenYearsAgo | date:'yyyy-MM-dd'" />
 
 
                             <div *ngIf="(selectElement == 'Driving License' ? drivingLicenceDob : passportDob)?.invalid &&
@@ -428,14 +428,14 @@
                 class="form-control"  type="date"
                 formControlName="drivingLicenceDobs"
                
-                [max]="today" />
+               [attr.max]="eighteenYearsAgo | date:'yyyy-MM-dd'" />
 
                 <input
                 *ngIf="selectElements =='Passport'"
                 
                 class="form-control"  type="date"
                 formControlName="passportDobs"
-                [max]="today" />
+               [attr.max]="eighteenYearsAgo | date:'yyyy-MM-dd'" />
         <div *ngIf="(selectElements === 'Driving License' ? drivingLicenceDobs : passportDobs)?.invalid &&
                      (selectElements === 'Driving License' ? drivingLicenceDobs : passportDobs)?.touched &&
                      (selectElements  === 'Driving License' ? drivingLicenceDobs : passportDobs)?.errors?.['required']"
@@ -524,14 +524,14 @@
                                     class="form-control"  type="date"
                                     formControlName="drivingLicenceDobss"
                                    
-                                    [max]="today" />
+                                   [attr.max]="eighteenYearsAgo | date:'yyyy-MM-dd'" />
     
                                     <input
                                     *ngIf="select =='Passport'"
                                     
                                     class="form-control"  type="date"
                                     formControlName="passportDobss"
-                                    [max]="today" />
+                                   [attr.max]="eighteenYearsAgo | date:'yyyy-MM-dd'" />
                             <div *ngIf="(select === 'Driving License' ? drivingLicenceDobss : passportDobss)?.invalid &&
                                          (select === 'Driving License' ? drivingLicenceDobss : passportDobss)?.touched &&
                                          (select  === 'Driving License' ? drivingLicenceDobss : passportDobss)?.errors?.['required']"

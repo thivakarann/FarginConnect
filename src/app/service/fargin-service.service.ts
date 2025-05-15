@@ -847,11 +847,11 @@ export class FarginServiceService {
   private readonly exportreportadd = 'exportData/add';
   private readonly exportreportview = 'exportData/getallSuperAdmin';
   private readonly exportreportdownload = 'exportData/viewExportedData/';
-  
+
   //branch
   private readonly branchview = 'bankBranch/viewmerchantactive/';
-  
-  
+
+
   loginError = new Subject();
 
   token = sessionStorage.getItem('token') || null;
@@ -920,7 +920,7 @@ export class FarginServiceService {
         }
 
         // else if (flag == '2') {
-        //   window.location.href = (`http://localhost:54793/data-component/${token}/${email}/${adminId}`);
+        //   window.location.href = (`https://dev-adminpg.farginconnect.com/data-component/${token}/${email}/${adminId}`);
         // }
 
 
@@ -931,7 +931,7 @@ export class FarginServiceService {
         // window.location.href = (`http://localhost:51296/data-component/${token}/${email}/${adminId}`);
 
 
-        this.toastr.success(res.responseMessage);
+        // this.toastr.success(res.responseMessage);
 
       }
       else if (res.flag == 2) {
@@ -3216,7 +3216,7 @@ export class FarginServiceService {
     });
   }
 
-    BranchView(id: any) {
+  BranchView(id: any) {
     return this.http.get(`${this.basePath}${this.branchview}${id}`, this.options)
   }
 

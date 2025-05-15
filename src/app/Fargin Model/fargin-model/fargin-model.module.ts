@@ -1,10 +1,8 @@
-
 export interface Businessadd {
   readonly categoryName: any;
   readonly mccCode: any;
   readonly createdBy: any;
 }
-
 
 export interface Businessedit {
   readonly categoryName: any;
@@ -112,7 +110,6 @@ export interface addentity {
 
 
 }
-
 export interface AddEntityBank {
   readonly accountHolderName: any;
   readonly accountNumber: any;
@@ -182,24 +179,23 @@ export interface Manuvelduesforcloudfee {
 }
 
 export interface Refundperiodadd {
-  readonly paymentMethod:any;
-  readonly day:any;
-  readonly createdBy:any;
+  readonly paymentMethod: any;
+  readonly day: any;
+  readonly createdBy: any;
 }
 
 
 export interface RefundPeriodUpdate {
-  readonly paymentMethod:any;
-  readonly day:any;
-  readonly modifiedBy:any;
+  readonly paymentMethod: any;
+  readonly day: any;
+  readonly modifiedBy: any;
 }
 
-export interface updatecamapaign
-{
-  readonly subject:any,
-  readonly emailContent:any,
-  readonly emailDate:any,
-  readonly modifiedBy:any,
+export interface updatecamapaign {
+  readonly subject: any,
+  readonly emailContent: any,
+  readonly emailDate: any,
+  readonly modifiedBy: any,
 }
 
 export interface manuvalduecreation {

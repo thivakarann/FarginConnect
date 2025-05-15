@@ -1,240 +1,211 @@
 <div *ngIf="this.value1==1">
-    <div class="card-header">
-        <h3 class="mb-0" style="font-weight: 700;text-align:center;font-size: 21px;">Update Identity Document</h3>
-    </div>
-   
-    <body class="page">
-        <main class="main page__main">
-            <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="KycIdentityForm">
-                <div class="form__linput">
-                    <label class="form__label" for="fname">Document Name</label>
-                    <select formControlName="identityProof" class="form-select"
-                         (change)="onIdentityProofChange($event)" ngModel="{{identityProofs}}">
-                                <option hidden>Select..</option>
-                                <option value="Aadhar Card">Aadhar Card</option>
-                                <option value="Pancard">Pancard</option>
-                                <option value="Voter Id Proof">Voter Id Proof</option>
-                                <option value="Passport">Passport</option>
-                                <option value="Driving License">Driving License</option>
-                            </select>
-                    <div style="color: red; font-size: 12px;margin-top: 2px;"
-                        *ngIf="identityProof?.invalid && identityProof?.touched && identityProof?.errors?.['required']">
-                        Field is required
-                    </div>
-                </div>
-               
+  <div class="card-header">
+    <h3 class="mb-0" style="font-weight: 700;text-align:center;font-size: 21px;">Update Identity Document</h3>
+  </div>
 
-                <div class="form__linput">
-                    <label class="form__label" for="fname">Identity Proof No</label>
-                    <input class="form__input form-control" id="fname" type="text" formControlName="identityProofNo" name="gstNumber"
-                      required ngModel="{{identityProofNos}}" />
-                        <div
-                        *ngIf="identityProofNo && identityProofNo.invalid && (identityProofNo.touched || identityProofNo.dirty)">
-                        <small *ngIf="identityProofNo.errors?.['required']"
-                            style="color: red; font-size: 12px;">This field is required.</small>
-                        <small *ngIf="identityProofNo.errors?.['pattern']"
-                            style="color: red; font-size: 12px;">Enter a valid {{selectElement}} number.</small>
-                    </div>
-                </div>
- 
-                <div class="form__linput" *ngIf="KycIdentityForm.get('identityProof').value === 'Driving License' || KycIdentityForm.get('identityProof').value === 'Passport'">
-                    <label class="form__label">Date of Birth</label>
-                    <input   *ngIf="KycIdentityForm.get('identityProof').value === 'Passport'"
-                        class="form-control"
-                        id="dob"
-                        type="date"
-                         ngModel="{{PassportDob}}"
-                        [formControlName]="identityProof.value === 'Driving License' ? 'drivingLicenceDob' : 'passportDob'"
-                        [max]="today"
-                       
-                    />
-                    <input   *ngIf="KycIdentityForm.get('identityProof').value === 'Driving License'"
-                    class="form-control"
-                    id="dob"
-                    type="date"
-                     ngModel="{{DrivingDob}}"
-                    [formControlName]="identityProof.value === 'Driving License' ? 'drivingLicenceDob' : 'passportDob'"
-                    [max]="today"
-                   
-                />
-                    <!-- <div *ngIf="(selectkyc === 'Driving License' ? drivingLicenceDob : passportDob)?.invalid &&
-                                 (selectkyc === 'Driving License' ? drivingLicenceDob : passportDob)?.touched &&
-                                 (selectkyc === 'Driving License' ? drivingLicenceDob : passportDob)?.errors?.['required']"
-                         style="color: red; font-size: 12px;">
-                        Field is required
-                    </div> -->
-                </div>
-               
-                <div class="mb-3">
-                    <button type="submit" class="btn mx-1 "
-                        style="background-color:#7db855be" [disabled]="KycIdentityForm.invalid" (click)="submit()">Submit</button>
-                    <button type="submit" class="btn" style="background-color:#141E46;color:white"
-                        matDialogClose>Cancel</button>
-                </div>
-   
-   
-            </form>
-        </main>
-    </body>
+  <body class="page">
+    <main class="main page__main">
+      <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="KycIdentityForm">
+        <div class="form__linput">
+          <label class="form__label" for="fname">Document Name</label>
+          <select formControlName="identityProof" class="form-select" (change)="onIdentityProofChange($event)"
+            ngModel="{{identityProofs}}">
+            <option hidden>Select..</option>
+            <option value="Aadhar Card">Aadhar Card</option>
+            <option value="Pancard">Pancard</option>
+            <option value="Voter Id Proof">Voter Id Proof</option>
+            <option value="Passport">Passport</option>
+            <option value="Driving License">Driving License</option>
+          </select>
+          <div style="color: red; font-size: 12px;margin-top: 2px;"
+            *ngIf="identityProof?.invalid && identityProof?.touched && identityProof?.errors?.['required']">
+            Field is required
+          </div>
+        </div>
+
+
+        <div class="form__linput">
+          <label class="form__label" for="fname">Identity Proof No</label>
+          <input class="form__input form-control" id="fname" type="text" formControlName="identityProofNo"
+            name="gstNumber" required ngModel="{{identityProofNos}}" />
+          <div *ngIf="identityProofNo && identityProofNo.invalid && (identityProofNo.touched || identityProofNo.dirty)">
+            <small *ngIf="identityProofNo.errors?.['required']" style="color: red; font-size: 12px;">This field is
+              required.</small>
+            <small *ngIf="identityProofNo.errors?.['pattern']" style="color: red; font-size: 12px;">Enter a valid
+              {{selectElement}} number.</small>
+          </div>
+        </div>
+
+        <div class="form__linput"
+          *ngIf="KycIdentityForm.get('identityProof').value === 'Driving License' || KycIdentityForm.get('identityProof').value === 'Passport'">
+          <label class="form__label">Date of Birth</label>
+          <input *ngIf="KycIdentityForm.get('identityProof').value === 'Passport'" class="form-control" id="dob"
+            type="date" ngModel="{{PassportDob}}"
+            [formControlName]="identityProof.value === 'Driving License' ? 'drivingLicenceDob' : 'passportDob'"
+           [attr.max]="eighteenYearsAgo | date:'yyyy-MM-dd'" />
+          <input *ngIf="KycIdentityForm.get('identityProof').value === 'Driving License'" class="form-control" id="dob"
+            type="date" ngModel="{{DrivingDob}}"
+            [formControlName]="identityProof.value === 'Driving License' ? 'drivingLicenceDob' : 'passportDob'"
+           [attr.max]="eighteenYearsAgo | date:'yyyy-MM-dd'" />
+          <div
+            *ngIf="(selectElement === 'Driving License' ? drivingLicenceDob : passportDob)?.invalid &&
+                                 (selectElement === 'Driving License' ? drivingLicenceDob : passportDob)?.touched &&
+                                 (selectElement === 'Driving License' ? drivingLicenceDob : passportDob)?.errors?.['required']"
+            style="color: red; font-size: 12px;">
+            Field is required
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <button type="submit" class="btn mx-1 " style="background-color:#7db855be"
+            [disabled]="KycIdentityForm.invalid" (click)="submit()">Submit</button>
+          <button type="submit" class="btn" style="background-color:#141E46;color:white" matDialogClose>Cancel</button>
+        </div>
+
+
+      </form>
+    </main>
+  </body>
 </div>
- 
+
 <div *ngIf="this.value1==2">
-    <div class="card-header">
-        <h3 class="mb-0" style="font-weight: 700;text-align:center;font-size: 21px;">Update Address Document</h3>
-    </div>
-   
-    <body class="page">
-        <main class="main page__main">
-            <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="KycAddressForm">
-                <div class="form__linput">
-                    <label class="form__label" for="fname">Document Name</label>
-                   
-                    <select formControlName="addressProof" class="form-select"
-                                (change)="onAddressProofChange($event)" ngModel="{{addressProofvalue}}">
-                                <option hidden>Select..</option>
-                                <option  value="Aadhar Card">Aadhar Card
-                                </option>
-                                <option  value="Voter Id Proof">Voter Id
-                                    Proof</option>
-                                <option  value="Passport">Passport</option>
-                                <option  value="Driving License">Driving
-                                    License</option>
-                            </select>
-                    <div style="color: red; font-size: 12px;margin-top: 2px;"
-                        *ngIf="addressProof?.invalid && addressProof?.touched && addressProof?.errors?.['required']">
-                        Field is required
-                    </div>
-                </div>
-               
-               
-             
-                <div class="form__linput">
-                    <label class="form__label " for="fname">Address Proof No</label>
-                    <input class="form__input form-control" id="fname" type="text" formControlName="addressProofNo"
-           required ngModel="{{addressProofNovalue}}" />
-                        <div
-                        *ngIf="addressProofNo && addressProofNo.invalid && (addressProofNo.touched || addressProofNo.dirty)">
-                        <small *ngIf="addressProofNo.errors?.['required']"
-                            style="color: red; font-size: 12px;">This field is required.</small>
-                        <small *ngIf="addressProofNo.errors?.['pattern']"
-                            style="color: red; font-size: 12px;">Enter a valid {{selectElements}}
-                            number.</small>
-                    </div>
-                </div>
-                <div class="form__linput" *ngIf="KycAddressForm.get('addressProof').value === 'Driving License' || KycAddressForm.get('addressProof').value === 'Passport'">
-                    <label class="form__label">Date of Birth</label>
-                    <input  *ngIf="KycAddressForm.get('addressProof').value === 'Passport'"
-                        class="form-control"
-                        id="dob"
-                        type="date"
-                        ngModel="{{PassportDob}}"
-                        [formControlName]="addressProof.value === 'Driving License' ? 'drivingLicenceDobs' : 'passportDobs'"
-                        [max]="today"
-                    />
-                    <input   *ngIf="KycAddressForm.get('addressProof').value === 'Driving License'"
-                    class="form-control"
-                    id="dob"
-                    type="date"
-                    ngModel="{{DrivingDob}}"
-                    [formControlName]="addressProof.value === 'Driving License' ? 'drivingLicenceDobs' : 'passportDobs'"
-                    [max]="today"
-                />
-                    <!-- <div *ngIf="(addressProof.value  === 'Driving License' ? drivingLicenceDobs : passportDobs)?.invalid &&
+  <div class="card-header">
+    <h3 class="mb-0" style="font-weight: 700;text-align:center;font-size: 21px;">Update Address Document</h3>
+  </div>
+
+  <body class="page">
+    <main class="main page__main">
+      <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="KycAddressForm">
+        <div class="form__linput">
+          <label class="form__label" for="fname">Document Name</label>
+
+          <select formControlName="addressProof" class="form-select" (change)="onAddressProofChange($event)"
+            ngModel="{{addressProofvalue}}">
+            <option hidden>Select..</option>
+            <option value="Aadhar Card">Aadhar Card
+            </option>
+            <option value="Voter Id Proof">Voter Id
+              Proof</option>
+            <option value="Passport">Passport</option>
+            <option value="Driving License">Driving
+              License</option>
+          </select>
+          <div style="color: red; font-size: 12px;margin-top: 2px;"
+            *ngIf="addressProof?.invalid && addressProof?.touched && addressProof?.errors?.['required']">
+            Field is required
+          </div>
+        </div>
+
+
+
+        <div class="form__linput">
+          <label class="form__label " for="fname">Address Proof No</label>
+          <input class="form__input form-control" id="fname" type="text" formControlName="addressProofNo" required
+            ngModel="{{addressProofNovalue}}" />
+          <div *ngIf="addressProofNo && addressProofNo.invalid && (addressProofNo.touched || addressProofNo.dirty)">
+            <small *ngIf="addressProofNo.errors?.['required']" style="color: red; font-size: 12px;">This field is
+              required.</small>
+            <small *ngIf="addressProofNo.errors?.['pattern']" style="color: red; font-size: 12px;">Enter a valid
+              {{selectElements}}
+              number.</small>
+          </div>
+        </div>
+        <div class="form__linput"
+          *ngIf="KycAddressForm.get('addressProof').value === 'Driving License' || KycAddressForm.get('addressProof').value === 'Passport'">
+          <label class="form__label">Date of Birth</label>
+          <input *ngIf="KycAddressForm.get('addressProof').value === 'Passport'" class="form-control" id="dob"
+            type="date" ngModel="{{PassportDob}}"
+            [formControlName]="addressProof.value === 'Driving License' ? 'drivingLicenceDobs' : 'passportDobs'"
+           [attr.max]="eighteenYearsAgo | date:'yyyy-MM-dd'" />
+          <input *ngIf="KycAddressForm.get('addressProof').value === 'Driving License'" class="form-control" id="dob"
+            type="date" ngModel="{{DrivingDob}}"
+            [formControlName]="addressProof.value === 'Driving License' ? 'drivingLicenceDobs' : 'passportDobs'"
+           [attr.max]="eighteenYearsAgo | date:'yyyy-MM-dd'" />
+          <div
+            *ngIf="(addressProof.value  === 'Driving License' ? drivingLicenceDobs : passportDobs)?.invalid &&
                                  (addressProof.value  === 'Driving License' ? drivingLicenceDobs : passportDobs)?.touched &&
                                  (addressProof.value  === 'Driving License' ? drivingLicenceDobs : passportDobs)?.errors?.['required']"
-                         style="color: red; font-size: 12px;">
-                        Field is required
-                    </div> -->
-                </div>
-                <div class="mb-3">
-                    <button type="submit" class="btn mx-1 "
-                        style="background-color:#7db855be" [disabled]="KycAddressForm.invalid" (click)="submit1()">Submit</button>
-                    <button type="submit" class="btn" style="background-color:#141E46;color:white"
-                        matDialogClose>Cancel</button>
-                </div>
-   
-   
-            </form>
-        </main>
-    </body>
+            style="color: red; font-size: 12px;">
+            Field is required
+          </div>
+        </div>
+        <div class="mb-3">
+          <button type="submit" class="btn mx-1 " style="background-color:#7db855be" [disabled]="KycAddressForm.invalid"
+            (click)="submit1()">Submit</button>
+          <button type="submit" class="btn" style="background-color:#141E46;color:white" matDialogClose>Cancel</button>
+        </div>
+
+
+      </form>
+    </main>
+  </body>
 </div>
- 
+
 <div *ngIf="this.value1==3">
-    <div class="card-header">
-        <h3 class="mb-0" style="font-weight: 700;text-align:center;font-size: 21px;">Update Signature Document</h3>
-    </div>
-   
-    <body class="page">
-        <main class="main page__main">
-            <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="KycsignatureForm">
-                <div class="form__linput">
-                    <label class="form__label" for="fname">Document Name</label>
-                   
-                    <select formControlName="signatureProof" class="form-select"
-                                (change)="onasignproof($event)" ngModel="{{signatureProofvalue}}">
-                                <option hidden>Select..</option>
-                                <option
-                                    value="Pancard">Pancard</option>
-                                <option
-                                    value="Passport">Passport</option>
-                                <option
-                                 
-                                    value="Driving License">Driving License</option>
-                            </select>
-                    <div style="color: red; font-size: 12px;margin-top: 2px;"
-                        *ngIf="signatureProof?.invalid && signatureProof?.touched && signatureProof?.errors?.['required']">
-                        Field is required
-                    </div>
-                </div>
-               
-               
-             
-                <div class="form__linput">
-                    <label class="form__label" for="fname">Signature Proof No</label>
-                    <input class="form__input form-control " id="fname" type="text" formControlName="signatureProofNo"
-                     required ngModel="{{signatureProofNovalue}}" />
-                    <div style="color: red; font-size: 12px;margin-top: 2px;"
-                        *ngIf="signatureProofNo?.invalid && signatureProofNo?.touched && signatureProofNo?.errors?.['required']">
-                        Field is required
-                    </div>
-                    <small *ngIf="signatureProofNo.errors?.['pattern']"
-                    style="color: red; font-size: 12px;">Enter a valid {{select}}
-                    number.</small>
-                </div>
-                <div class="form__linput" *ngIf="KycsignatureForm.get('signatureProof').value === 'Driving License' || KycsignatureForm.get('signatureProof').value === 'Passport'">
-                    <label class="form__label">Date of Birth</label>
-                    <input *ngIf="KycsignatureForm.get('signatureProof').value === 'Passport'"
-                        class="form-control"
-                        id="dob"
-                        type="date"
-                             ngModel="{{PassportDob}}"
-                        [formControlName]="signatureProof.value === 'Driving License' ? 'drivingLicenceDobss' : 'passportDobss'"
-                        [max]="today"
-                    />
-                    <input *ngIf="KycsignatureForm.get('signatureProof').value === 'Driving License'"
-                    class="form-control"
-                    id="dob"
-                    type="date"
-                         ngModel="{{DrivingDob}}"
-                    [formControlName]="signatureProof.value === 'Driving License' ? 'drivingLicenceDobss' : 'passportDobss'"
-                    [max]="today"
-                />
-                    <!-- <div *ngIf="(signatureProofNo.value === 'Driving License' ? drivingLicenceDobss : passportDobss)?.invalid &&
+  <div class="card-header">
+    <h3 class="mb-0" style="font-weight: 700;text-align:center;font-size: 21px;">Update Signature Document</h3>
+  </div>
+
+  <body class="page">
+    <main class="main page__main">
+      <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="KycsignatureForm">
+        <div class="form__linput">
+          <label class="form__label" for="fname">Document Name</label>
+
+          <select formControlName="signatureProof" class="form-select" (change)="onasignproof($event)"
+            ngModel="{{signatureProofvalue}}">
+            <option hidden>Select..</option>
+            <option value="Pancard">Pancard</option>
+            <option value="Passport">Passport</option>
+            <option value="Driving License">Driving License</option>
+          </select>
+          <div style="color: red; font-size: 12px;margin-top: 2px;"
+            *ngIf="signatureProof?.invalid && signatureProof?.touched && signatureProof?.errors?.['required']">
+            Field is required
+          </div>
+        </div>
+
+
+
+        <div class="form__linput">
+          <label class="form__label" for="fname">Signature Proof No</label>
+          <input class="form__input form-control " id="fname" type="text" formControlName="signatureProofNo" required
+            ngModel="{{signatureProofNovalue}}" />
+          <div style="color: red; font-size: 12px;margin-top: 2px;"
+            *ngIf="signatureProofNo?.invalid && signatureProofNo?.touched && signatureProofNo?.errors?.['required']">
+            Field is required
+          </div>
+          <small *ngIf="signatureProofNo.errors?.['pattern']" style="color: red; font-size: 12px;">Enter a valid
+            {{select}}
+            number.</small>
+        </div>
+        <div class="form__linput"
+          *ngIf="KycsignatureForm.get('signatureProof').value === 'Driving License' || KycsignatureForm.get('signatureProof').value === 'Passport'">
+          <label class="form__label">Date of Birth</label>
+          <input *ngIf="KycsignatureForm.get('signatureProof').value === 'Passport'" class="form-control" id="dob"
+            type="date" ngModel="{{PassportDob}}"
+            [formControlName]="signatureProof.value === 'Driving License' ? 'drivingLicenceDobss' : 'passportDobss'"
+           [attr.max]="eighteenYearsAgo | date:'yyyy-MM-dd'" />
+          <input *ngIf="KycsignatureForm.get('signatureProof').value === 'Driving License'" class="form-control"
+            id="dob" type="date" ngModel="{{DrivingDob}}"
+            [formControlName]="signatureProof.value === 'Driving License' ? 'drivingLicenceDobss' : 'passportDobss'"
+           [attr.max]="eighteenYearsAgo | date:'yyyy-MM-dd'" />
+          <div
+            *ngIf="(signatureProofNo.value === 'Driving License' ? drivingLicenceDobss : passportDobss)?.invalid &&
                                  (signatureProofNo.value === 'Driving License' ? drivingLicenceDobss : passportDobss)?.touched &&
                                  (signatureProofNo.value === 'Driving License' ? drivingLicenceDobss : passportDobss)?.errors?.['required']"
-                         style="color: red; font-size: 12px;">
-                        Field is required
-                    </div> -->
-                </div>
-                <div class="mb-3">
-                    <button type="submit" class="btn mx-1 "
-                        style="background-color:#7db855be" [disabled]="KycsignatureForm.invalid" (click)="submit2()">Submit</button>
-                    <button type="submit" class="btn" style="background-color:#141E46;color:white"
-                        matDialogClose>Cancel</button>
-                </div>
-   
-   
-            </form>
-        </main>
-    </body>
+            style="color: red; font-size: 12px;">
+            Field is required
+          </div>
+        </div>
+        <div class="mb-3">
+          <button type="submit" class="btn mx-1 " style="background-color:#7db855be"
+            [disabled]="KycsignatureForm.invalid" (click)="submit2()">Submit</button>
+          <button type="submit" class="btn" style="background-color:#141E46;color:white" matDialogClose>Cancel</button>
+        </div>
+
+
+      </form>
+    </main>
+  </body>
 </div>

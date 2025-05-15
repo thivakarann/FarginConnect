@@ -90,7 +90,7 @@
                 ? 'drivingLicenceDob'
                 : 'passportDob'
             "
-            [max]="today"
+            [attr.max]="eighteenYearsAgo | date:'yyyy-MM-dd'"
           />
           <input
             *ngIf="
@@ -105,14 +105,14 @@
                 ? 'drivingLicenceDob'
                 : 'passportDob'
             "
-            [max]="today"
+          [attr.max]="eighteenYearsAgo | date:'yyyy-MM-dd'"
           />
-          <!-- <div *ngIf="(selectkyc === 'Driving License' ? drivingLicenceDob : passportDob)?.invalid &&
+          <div *ngIf="(selectkyc === 'Driving License' ? drivingLicenceDob : passportDob)?.invalid &&
                                  (selectkyc === 'Driving License' ? drivingLicenceDob : passportDob)?.touched &&
                                  (selectkyc === 'Driving License' ? drivingLicenceDob : passportDob)?.errors?.['required']"
                          style="color: red; font-size: 12px;">
                         Field is required
-                    </div> -->
+                    </div>
         </div>
 
         <div class="mb-3">
@@ -217,7 +217,7 @@
             KycAddressForm.get('addressProof').value === 'Passport'
           "
         >
-          <label class="form__label">Date of Birth</label>
+          <label class="form__label">Date of Birth *Age Must be 18</label>
           <input
             *ngIf="KycAddressForm.get('addressProof').value === 'Passport'"
             class="form-control"
@@ -229,7 +229,7 @@
                 ? 'drivingLicenceDobs'
                 : 'passportDobs'
             "
-            [max]="today"
+           [attr.max]="eighteenYearsAgo | date:'yyyy-MM-dd'"
           />
           <input
             *ngIf="
@@ -244,14 +244,14 @@
                 ? 'drivingLicenceDobs'
                 : 'passportDobs'
             "
-            [max]="today"
+            [attr.max]="eighteenYearsAgo | date:'yyyy-MM-dd'"
           />
-          <!-- <div *ngIf="(addressProof.value  === 'Driving License' ? drivingLicenceDobs : passportDobs)?.invalid &&
+          <div *ngIf="(addressProof.value  === 'Driving License' ? drivingLicenceDobs : passportDobs)?.invalid &&
                                  (addressProof.value  === 'Driving License' ? drivingLicenceDobs : passportDobs)?.touched &&
                                  (addressProof.value  === 'Driving License' ? drivingLicenceDobs : passportDobs)?.errors?.['required']"
                          style="color: red; font-size: 12px;">
                         Field is required
-                    </div> -->
+                    </div>
         </div>
         <div class="mb-3">
           <button
@@ -360,7 +360,7 @@
                 ? 'drivingLicenceDobss'
                 : 'passportDobss'
             "
-            [max]="today"
+          [attr.max]="eighteenYearsAgo | date:'yyyy-MM-dd'"
           />
           <input
             *ngIf="
@@ -375,14 +375,14 @@
                 ? 'drivingLicenceDobss'
                 : 'passportDobss'
             "
-            [max]="today"
+            [attr.max]="eighteenYearsAgo | date:'yyyy-MM-dd'"
           />
-          <!-- <div *ngIf="(signatureProofNo.value === 'Driving License' ? drivingLicenceDobss : passportDobss)?.invalid &&
+          <div *ngIf="(signatureProofNo.value === 'Driving License' ? drivingLicenceDobss : passportDobss)?.invalid &&
                                  (signatureProofNo.value === 'Driving License' ? drivingLicenceDobss : passportDobss)?.touched &&
                                  (signatureProofNo.value === 'Driving License' ? drivingLicenceDobss : passportDobss)?.errors?.['required']"
                          style="color: red; font-size: 12px;">
                         Field is required
-                    </div> -->
+                    </div>
         </div>
         <div class="mb-3">
           <button

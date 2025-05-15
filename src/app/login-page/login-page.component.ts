@@ -102,11 +102,11 @@ export class LoginPageComponent implements OnInit {
   }
 
   resetForm() {
-    this.loginForm.patchValue({
-      password: '',
-      emailAddress: '',
-      categoryFlag: '',
-    });
+    // this.loginForm.patchValue({
+    //   password: '',
+    //   emailAddress: '',
+    //   categoryFlag: '',
+    // });
 
     this.random(); 
     this.captchaValue = ''; 

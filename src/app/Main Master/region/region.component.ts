@@ -64,7 +64,7 @@ export class RegionComponent implements OnInit {
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        
+
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -121,7 +121,7 @@ export class RegionComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
       }
     });
- 
+
 
   }
 
@@ -137,23 +137,23 @@ export class RegionComponent implements OnInit {
         this.service.RegionGet().subscribe((res: any) => {
           if (res.flag == 1) {
             this.region = res.response;
-        
+
             this.dataSource = new MatTableDataSource(this.region.reverse());
-    
+
             this.dataSource.sort = this.sort;
-    
+
             this.dataSource.paginator = this.paginator;
           } else if (res.flag == 2) {
             this.region = [];
-    
+
             this.dataSource = new MatTableDataSource(this.region.reverse());
-    
+
             this.dataSource.sort = this.sort;
-    
+
             this.dataSource.paginator = this.paginator;
           }
         });
-     
+
       }, 500);
     });
   }
@@ -171,31 +171,30 @@ export class RegionComponent implements OnInit {
 
     });
   }
-fetch()
-{
-  this.service.RegionGet().subscribe((res: any) => {
-    if (res.flag == 1) {
-      this.region = res.response;
+  fetch() {
+    this.service.RegionGet().subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.region = res.response;
 
-      this.dataSource = new MatTableDataSource(this.region.reverse());
+        this.dataSource = new MatTableDataSource(this.region.reverse());
 
-      this.dataSource.sort = this.sort;
+        this.dataSource.sort = this.sort;
 
-      this.dataSource.paginator = this.paginator;
-    } else if (res.flag == 2) {
-      this.region = [];
+        this.dataSource.paginator = this.paginator;
+      } else if (res.flag == 2) {
+        this.region = [];
 
-      this.dataSource = new MatTableDataSource(this.region.reverse());
+        this.dataSource = new MatTableDataSource(this.region.reverse());
 
-      this.dataSource.sort = this.sort;
+        this.dataSource.sort = this.sort;
 
-      this.dataSource.paginator = this.paginator;
-    }
-  });
-}
+        this.dataSource.paginator = this.paginator;
+      }
+    });
+  }
 
   Edit(id: string) {
-    const dialogRef =  this.dialog.open(RegionEditComponent, {
+    const dialogRef = this.dialog.open(RegionEditComponent, {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
       data: { value: id },
@@ -209,42 +208,49 @@ fetch()
   }
 
 
- 
+
   exportexcel() {
-    
+
     let sno = 1;
     this.responseDataListnew = [];
     this.region.forEach((element: any) => {
-   
+
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.stateName);
       this.response.push(element?.service.serviceProviderName);
-     
-      if(element?.status ==1){
+
+      if (element?.status == 1) {
         this.response.push("Active")
       }
-      else{
+      else {
         this.response.push("Inactive")
       }
       this.response.push(element?.createdBy);
-      this.response.push(element?.createdAt);
-      this.response.push(element?.modifiedBy);
-     
-      if(element?.modifedAt){
-        this.response.push(moment(element?.modifedAt).format('DD/MM/yyyy-hh:mm a').toString());
+
+      if (element?.createdAt) {
+        this.response.push(moment(element?.createdAt).format('DD/MM/yyyy-hh:mm a').toString());
       }
-      else{
+      else {
         this.response.push('');
       }
-     
+      this.response.push(element?.modifiedBy);
+
+
+      if (element?.modifedAt) {
+        this.response.push(moment(element?.modifedAt).format('DD/MM/yyyy-hh:mm a').toString());
+      }
+      else {
+        this.response.push('');
+      }
+
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
-        
+
   }
- 
+
   excelexportCustomer() {
     const header = [
       "S.No",
@@ -256,29 +262,29 @@ fetch()
       "Modified By",
       "Modified At"
     ]
- 
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Region');
- 
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
- 
+
     headerRow.eachCell((cell, number) => {
       cell.fill = {
         type: 'pattern',
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
+
       }
- 
+
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
- 
+
     data.forEach((d: any) => {
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -288,7 +294,7 @@ fetch()
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
- 
+
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -299,18 +305,18 @@ fetch()
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     }
     );
- 
+
     workbook.xlsx.writeBuffer().then((data: any) => {
- 
+
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
- 
- 
+
+
       FileSaver.saveAs(blob, 'Region.xlsx');
- 
+
     });
   }
 
-  cancel() {}
+  cancel() { }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -326,7 +332,7 @@ fetch()
     this.service.RegionGet().subscribe((res: any) => {
       if (res.flag == 1) {
         this.region = res.response;
-      
+
         this.dataSource = new MatTableDataSource(this.region.reverse());
 
         this.dataSource.sort = this.sort;
@@ -369,7 +375,7 @@ fetch()
         this.toastr.error('No Data Found');
       },
     });
-}
+  }
 
 }
 

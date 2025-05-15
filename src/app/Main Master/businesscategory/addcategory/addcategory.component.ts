@@ -28,7 +28,7 @@ export class AddcategoryComponent implements OnInit {
     this.addcategory = new FormGroup({
       categoryName: new FormControl('', [
         Validators.required,
-        Validators.pattern(/^[A-Za-z ]{1,50}$/) 
+      Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),Validators.maxLength(50)
       ]),
  
       mccCode: new FormControl('', [Validators.required,Validators.pattern('^(?![A-Za-z]{4}$)(?!^[A-Za-z])[A-Za-z0-9]{4}$')]),

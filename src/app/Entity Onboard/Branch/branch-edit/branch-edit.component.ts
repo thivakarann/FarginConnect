@@ -53,19 +53,19 @@ export class BranchEditComponent {
     this.branchedit = new FormGroup({
       branchName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z ]*$'),
+       Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(50),
       ]),
       apiKey: new FormControl('', [Validators.required]),
       secretKey: new FormControl('', [Validators.required]),
       bankName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z ]*$'),
+      Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(50),
       ]),
       accountHolderName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z ]*$'),
+      Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(50),
       ]),
       accountNumber: new FormControl('', [
@@ -82,7 +82,8 @@ export class BranchEditComponent {
       ]),
       smsmerchantname: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$'),
+       Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
+
         Validators.maxLength(25),
       ]),
     });

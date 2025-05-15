@@ -20,7 +20,7 @@ export class AdminAddComponent implements OnInit {
   constructor(private service: FarginServiceService, private toaster: ToastrService, private router: Router) { }
   ngOnInit(): void {
     this.AdminForm = new FormGroup({
-      adminName: new FormControl('', [Validators.required, Validators.pattern(/^[A-Za-z ]{1,50}$/)]),
+      adminName: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),Validators.maxLength(50)]),
       gender: new FormControl('', [Validators.required]),
       emailAddress: new FormControl('', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
       // password: new FormControl('', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}')]),

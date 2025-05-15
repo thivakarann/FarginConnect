@@ -17,9 +17,13 @@
                     *ngIf="roleName?.invalid && roleName?.touched && roleName?.errors?.['required']">
                     Field is required
                 </div>
-                <div style="color: red; font-size: 12px;margin-top: 2px;"
+              <div style="color: red; font-size: 12px;margin-top: 2px;"
                 *ngIf="roleName?.invalid && roleName?.touched && roleName?.errors?.['pattern']">
-                Please enter only letters(max 50 characters)
+                Invalid format
+            </div>
+             <div style="color: red; font-size: 12px;margin-top: 2px;"
+                *ngIf="roleName?.invalid && roleName?.touched && roleName?.errors?.['maxlength']">
+                Maximum length should be 50
             </div>
             </div>
  

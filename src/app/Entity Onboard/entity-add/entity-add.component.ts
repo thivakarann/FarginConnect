@@ -88,8 +88,9 @@ export class EntityAddComponent implements OnInit {
   uploadsignback: any;
   uploaddocfront: any;
   uploaddocback: any;
-  today: string;
   maxDate: any;
+  eighteenYearsAgo: Date;
+  
 
   constructor(
     public AddEntity: FarginServiceService,
@@ -97,8 +98,8 @@ export class EntityAddComponent implements OnInit {
     private toastr: ToastrService,
     private _formBuilder: FormBuilder
   ) {
-    const todayDate = new Date();
-    this.today = todayDate.toISOString().split('T')[0];
+    const today = new Date();
+    this.eighteenYearsAgo = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
   }
   ngOnInit(): void {
     const today = new Date();
@@ -123,24 +124,24 @@ export class EntityAddComponent implements OnInit {
     this.myForm = new FormGroup({
       entityName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z ]*$'),
+    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(30),
       ]),
       merchantLegalName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z ]*$'),
+    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(30),
       ]),
       accountDisplayName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z ]*$'),
+    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(30),
       ]),
       businessCategoryIds: new FormControl('', [Validators.required]),
       MccCode: new FormControl(''),
       contactName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z ]*$'),
+    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(30),
       ]),
       contactMobile: new FormControl('', [
@@ -170,7 +171,7 @@ export class EntityAddComponent implements OnInit {
       billingAddress: new FormControl('', [Validators.required]),
       area: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$'),
+    Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$')
       ]),
       zipcode: new FormControl('', [
         Validators.required,
@@ -178,17 +179,17 @@ export class EntityAddComponent implements OnInit {
       ]),
       stateName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z ]*$'),
+    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(30),
       ]),
       city: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z ]*$'),
+    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(30),
       ]),
       country: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z ]*$'),
+    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(30),
       ]),
       merchantPlanId: new FormControl('', [Validators.required]),
@@ -212,7 +213,7 @@ export class EntityAddComponent implements OnInit {
 
       smsMerchantName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[A-Za-z]*$'),
+   Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(25),
       ]),
       customerSmsTag: new FormControl(''),
@@ -221,7 +222,7 @@ export class EntityAddComponent implements OnInit {
     this.myForm2 = new FormGroup({
       accountHolderName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z ]*$'),
+    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(30),
       ]),
       accountNumber: new FormControl(null, [
@@ -238,12 +239,12 @@ export class EntityAddComponent implements OnInit {
       ]),
       branchName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$'),
+    Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(50),
       ]),
       accountType: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$'),
+    Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$')
       ]),
       ledgerId: new FormControl('', [Validators.pattern(/^\d{1,15}$/)]),
     });
@@ -282,6 +283,10 @@ export class EntityAddComponent implements OnInit {
       docFrontPath: ['', Validators.required],
       docBackPath: ['', Validators.required],
     });
+  }
+
+   dateFilter = (d: Date | null): boolean => {
+    return d ? d <= this.eighteenYearsAgo : false;
   }
 
   // get(event: any) {

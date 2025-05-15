@@ -25,6 +25,9 @@
             <textarea id="description" rows="3" class="form-control" formControlName="remarks"></textarea>
             <span class="errormge" *ngIf="remarks?.touched && remarks?.errors?.['required']">Field
                 is required</span>
+                    <span class="errormge" *ngIf="remarks?.errors?.['maxlength']">
+            Maximum length should be 250</span>
+
         </div>
 
         <button type="submit" class="btn mx-1" style="background-color:#7db855be" (click)="save()" [disabled]="ticketFormGroup.invalid">Submit</button>

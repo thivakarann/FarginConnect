@@ -19,14 +19,23 @@
                         Field is required
                     </div>
 
-                    <div style="
+                 <div style="
                     color: red;
                     font-size: 12px;
                     margin-top: 2px;
                     position: relative;
                     ;
                   " *ngIf="bankName?.invalid && bankName?.touched && bankName?.errors?.['pattern']">
-                  Please enter only letters,numbers,(max 50 characters)
+               Invalid format
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="bankName?.invalid && bankName?.touched && bankName?.errors?.['maxlength']">
+                  Maximum length should be 50
                     </div>
                 </div>
               

@@ -3,7 +3,7 @@
 />
 <div class="container">
   <div class="form-header d-flex justify-content-between align-items-center">
-    <h5 class="mb-0">Create Plan</h5>
+    <h5 class="mb-0">Create Plan  <span style="font-size:15px;">Note: Required to Enter Numbers, N/A or Hyphen(-)</span></h5>
     <button type="button" class="btn btn-secondary" (click)="close()">
       Back
     </button>
@@ -39,7 +39,7 @@
             "
             *ngIf="planName?.invalid && planName?.touched && planName?.errors?.['pattern']"
           >
-            Invalid format.Only alphanumeric characters are allowed (max 50 characters)
+            Invalid format.(max 50 characters)
 
           </div>
     
@@ -57,13 +57,13 @@
             class="error"
             *ngIf="servicefee?.invalid && servicefee?.touched && servicefee?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             class="error1"
             *ngIf="servicefee?.invalid && servicefee?.touched && servicefee?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
       </div>
@@ -81,13 +81,13 @@
             class="error"
             *ngIf="mmcAmount?.invalid && mmcAmount?.touched && mmcAmount?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             class="error1"
             *ngIf="mmcAmount?.invalid && mmcAmount?.touched && mmcAmount?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <div class="col-sm-6 form-group">
@@ -103,13 +103,13 @@
             class="error"
             *ngIf="securityDepositAmount?.invalid && securityDepositAmount?.touched && securityDepositAmount?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             class="error1"
             *ngIf="securityDepositAmount?.invalid && securityDepositAmount?.touched && securityDepositAmount?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
       </div>
@@ -135,7 +135,7 @@
             "
             *ngIf="netBankingAmount?.invalid && netBankingAmount?.touched && netBankingAmount?.errors?.['required']"
           >
-             *Required Enter a number 0 , N/A , - (Hyphen)
+             field is Requied
           </div>
           <div
             style="
@@ -146,7 +146,7 @@
             "
             *ngIf="netBankingAmount?.invalid && netBankingAmount?.touched && netBankingAmount?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
 
           </div>
         </div> -->
@@ -165,13 +165,13 @@
             class="error"
             *ngIf="netBankingPercentage?.invalid && netBankingPercentage?.touched && netBankingPercentage?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             class="error1"
             *ngIf="netBankingPercentage?.invalid && netBankingPercentage?.touched && netBankingPercentage?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <div class="col-sm-3 form-group">
@@ -189,13 +189,13 @@
             class="error"
             *ngIf="netBankingFixedFee?.invalid && netBankingFixedFee?.touched && netBankingFixedFee?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             class="error1"
             *ngIf="netBankingFixedFee?.invalid && netBankingFixedFee?.touched && netBankingFixedFee?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <!-- <div class="col-sm-2 form-group" style="padding-top: 11px">
@@ -218,7 +218,7 @@
             "
             *ngIf="nbOtherBankAmount?.invalid && nbOtherBankAmount?.touched && nbOtherBankAmount?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             style="
@@ -229,7 +229,7 @@
             "
             *ngIf="nbOtherBankAmount?.invalid && nbOtherBankAmount?.touched && nbOtherBankAmount?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div> -->
         <div class="col-sm-3 form-group">
@@ -247,13 +247,13 @@
           class="error"
             *ngIf="nbOtherBankPercentage?.invalid && nbOtherBankPercentage?.touched && nbOtherBankPercentage?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
           class="error1"
             *ngIf="nbOtherBankPercentage?.invalid && nbOtherBankPercentage?.touched && nbOtherBankPercentage?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <div class="col-sm-3 form-group">
@@ -271,13 +271,13 @@
           class="error"
             *ngIf="nbOtherBankFixedFee?.invalid && nbOtherBankFixedFee?.touched && nbOtherBankFixedFee?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
           class="error1"
             *ngIf="nbOtherBankFixedFee?.invalid && nbOtherBankFixedFee?.touched && nbOtherBankFixedFee?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
       </div>
@@ -301,7 +301,7 @@
             "
             *ngIf="ecollectAmount?.invalid && ecollectAmount?.touched && ecollectAmount?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             style="
@@ -312,7 +312,7 @@
             "
             *ngIf="ecollectAmount?.invalid && ecollectAmount?.touched && ecollectAmount?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div> -->
         <div class="col-sm-3 form-group">
@@ -330,13 +330,13 @@
             class="error"
             *ngIf="ecollectPercentage?.invalid && ecollectPercentage?.touched && ecollectPercentage?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             class="error1"
             *ngIf="ecollectPercentage?.invalid && ecollectPercentage?.touched && ecollectPercentage?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <div class="col-sm-3 form-group">
@@ -354,13 +354,13 @@
             class="error"
             *ngIf="ecollectFixedFee?.invalid && ecollectFixedFee?.touched && ecollectFixedFee?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             class="error1"
             *ngIf="ecollectFixedFee?.invalid && ecollectFixedFee?.touched && ecollectFixedFee?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <!-- <div class="col-sm-2 form-group">
@@ -383,7 +383,7 @@
             "
             *ngIf="disbursementAmount?.invalid && disbursementAmount?.touched && disbursementAmount?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
 
           <div
@@ -395,7 +395,7 @@
             "
             *ngIf="disbursementAmount?.invalid && disbursementAmount?.touched && disbursementAmount?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div> -->
         <div class="col-sm-3 form-group">
@@ -413,13 +413,13 @@
             class="error"
             *ngIf="disbursementPercentage?.invalid && disbursementPercentage?.touched && disbursementPercentage?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             class="error1"
             *ngIf="disbursementPercentage?.invalid && disbursementPercentage?.touched && disbursementPercentage?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <div class="col-sm-3 form-group">
@@ -437,13 +437,13 @@
             class="error"
             *ngIf="disbursementFixedFee?.invalid && disbursementFixedFee?.touched && disbursementFixedFee?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             class="error1"
             *ngIf="disbursementFixedFee?.invalid && disbursementFixedFee?.touched && disbursementFixedFee?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <!-- <div class="col-sm-2 form-group">
@@ -466,7 +466,7 @@
             "
             *ngIf="internationalAmount?.invalid && internationalAmount?.touched && internationalAmount?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             style="
@@ -477,7 +477,7 @@
             "
             *ngIf="internationalAmount?.invalid && internationalAmount?.touched && internationalAmount?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div> -->
         <div class="col-sm-3 form-group">
@@ -495,13 +495,13 @@
             class="error"
             *ngIf="internationalPercentage?.invalid && internationalPercentage?.touched && internationalPercentage?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             class="error1"
             *ngIf="internationalPercentage?.invalid && internationalPercentage?.touched && internationalPercentage?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <div class="col-sm-3 form-group">
@@ -519,13 +519,13 @@
             class="error"
             *ngIf="internationalFixedFee?.invalid && internationalFixedFee?.touched && internationalFixedFee?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             class="error1"
             *ngIf="internationalFixedFee?.invalid && internationalFixedFee?.touched && internationalFixedFee?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <!-- <div class="col-sm-2 form-group">
@@ -546,7 +546,7 @@
             "
             *ngIf="upiAmount?.invalid && upiAmount?.touched && upiAmount?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             style="
@@ -557,7 +557,7 @@
             "
             *ngIf="upiAmount?.invalid && upiAmount?.touched && upiAmount?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div> -->
         <div class="col-sm-3 form-group">
@@ -573,13 +573,13 @@
             class="error"
             *ngIf="upiPercentage?.invalid && upiPercentage?.touched && upiPercentage?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             class="error1"
             *ngIf="upiPercentage?.invalid && upiPercentage?.touched && upiPercentage?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <div class="col-sm-3 form-group">
@@ -595,13 +595,13 @@
             class="error"
             *ngIf="upiFixedFee?.invalid && upiFixedFee?.touched && upiFixedFee?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             class="error1"
             *ngIf="upiFixedFee?.invalid && upiFixedFee?.touched && upiFixedFee?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
       </div>
@@ -627,7 +627,7 @@
             "
             *ngIf="dynamicqrAmount?.invalid && dynamicqrAmount?.touched && dynamicqrAmount?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             style="
@@ -638,7 +638,7 @@
             "
             *ngIf="dynamicqrAmount?.invalid && dynamicqrAmount?.touched && dynamicqrAmount?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div> -->
         <div class="col-sm-3 form-group">
@@ -656,13 +656,13 @@
             class="error"
             *ngIf="dynamicqrPercentage?.invalid && dynamicqrPercentage?.touched && dynamicqrPercentage?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             class="error1"
             *ngIf="dynamicqrPercentage?.invalid && dynamicqrPercentage?.touched && dynamicqrPercentage?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <div class="col-sm-3 form-group">
@@ -680,13 +680,13 @@
             class="error"
             *ngIf="dynamicqrFixedFee?.invalid && dynamicqrFixedFee?.touched && dynamicqrFixedFee?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             class="error1"
             *ngIf="dynamicqrFixedFee?.invalid && dynamicqrFixedFee?.touched && dynamicqrFixedFee?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
       </div>
@@ -713,7 +713,7 @@
             "
             *ngIf="rupaydebitcardmaxAmount?.invalid && rupaydebitcardmaxAmount?.touched && rupaydebitcardmaxAmount?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             style="
@@ -724,7 +724,7 @@
             "
             *ngIf="rupaydebitcardmaxAmount?.invalid && rupaydebitcardmaxAmount?.touched && rupaydebitcardmaxAmount?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div> -->
         <div class="col-sm-3 form-group">
@@ -742,13 +742,13 @@
             class="error"
             *ngIf="rupaydebitcardmaxPercentage?.invalid && rupaydebitcardmaxPercentage?.touched && rupaydebitcardmaxPercentage?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             class="error1"
             *ngIf="rupaydebitcardmaxPercentage?.invalid && rupaydebitcardmaxPercentage?.touched && rupaydebitcardmaxPercentage?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <div class="col-sm-3 form-group">
@@ -766,13 +766,13 @@
             class="error"
             *ngIf="rupaydebitcardmaxFixedFee?.invalid && rupaydebitcardmaxFixedFee?.touched && rupaydebitcardmaxFixedFee?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             class="error1"
             *ngIf="rupaydebitcardmaxFixedFee?.invalid && rupaydebitcardmaxFixedFee?.touched && rupaydebitcardmaxFixedFee?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <!-- <div class="col-sm-2 form-group">
@@ -795,7 +795,7 @@
             "
             *ngIf="rupaydebitcardminAmount?.invalid && rupaydebitcardminAmount?.touched && rupaydebitcardminAmount?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             style="
@@ -806,7 +806,7 @@
             "
             *ngIf="rupaydebitcardminAmount?.invalid && rupaydebitcardminAmount?.touched && rupaydebitcardminAmount?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div> -->
         <div class="col-sm-3 form-group">
@@ -824,13 +824,13 @@
             class="error"
             *ngIf="rupaydebitcardminPercentage?.invalid && rupaydebitcardminPercentage?.touched && rupaydebitcardminPercentage?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             class="error1"
             *ngIf="rupaydebitcardminPercentage?.invalid && rupaydebitcardminPercentage?.touched && rupaydebitcardminPercentage?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <div class="col-sm-3 form-group">
@@ -848,13 +848,13 @@
             class="error"
             *ngIf="rupaydebitcardminFixedFee?.invalid && rupaydebitcardminFixedFee?.touched && rupaydebitcardminFixedFee?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             class="error1"
             *ngIf="rupaydebitcardminFixedFee?.invalid && rupaydebitcardminFixedFee?.touched && rupaydebitcardminFixedFee?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
       </div>
@@ -880,7 +880,7 @@
             "
             *ngIf="otherdebitcardmaxAmount?.invalid && otherdebitcardmaxAmount?.touched && otherdebitcardmaxAmount?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             style="
@@ -891,7 +891,7 @@
             "
             *ngIf="otherdebitcardmaxAmount?.invalid && otherdebitcardmaxAmount?.touched && otherdebitcardmaxAmount?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div> -->
         <div class="col-sm-3 form-group">
@@ -909,13 +909,13 @@
             class="error"
             *ngIf="otherdebitcardmaxPercentage?.invalid && otherdebitcardmaxPercentage?.touched && otherdebitcardmaxPercentage?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             class="error1"
             *ngIf="otherdebitcardmaxPercentage?.invalid && otherdebitcardmaxPercentage?.touched && otherdebitcardmaxPercentage?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <div class="col-sm-3 form-group">
@@ -933,13 +933,13 @@
             class="error"
             *ngIf="otherdebitcardmaxFixedFee?.invalid && otherdebitcardmaxFixedFee?.touched && otherdebitcardmaxFixedFee?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             class="error1"
             *ngIf="otherdebitcardmaxFixedFee?.invalid && otherdebitcardmaxFixedFee?.touched && otherdebitcardmaxFixedFee?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
 
@@ -963,7 +963,7 @@
             "
             *ngIf="otherdebitcardminAmount?.invalid && otherdebitcardminAmount?.touched && otherdebitcardminAmount?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             style="
@@ -974,7 +974,7 @@
             "
             *ngIf="otherdebitcardminAmount?.invalid && otherdebitcardminAmount?.touched && otherdebitcardminAmount?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div> -->
         <div class="col-sm-3 form-group">
@@ -992,13 +992,13 @@
             class="error"
             *ngIf="otherdebitcardminPercentage?.invalid && otherdebitcardminPercentage?.touched && otherdebitcardminPercentage?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             class="error1"
             *ngIf="otherdebitcardminPercentage?.invalid && otherdebitcardminPercentage?.touched && otherdebitcardminPercentage?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <div class="col-sm-3 form-group">
@@ -1016,13 +1016,13 @@
             class="error"
             *ngIf="otherdebitcardminFixedFee?.invalid && otherdebitcardminFixedFee?.touched && otherdebitcardminFixedFee?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             class="error1"
             *ngIf="otherdebitcardminFixedFee?.invalid && otherdebitcardminFixedFee?.touched && otherdebitcardminFixedFee?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
       </div>
@@ -1045,7 +1045,7 @@
             "
             *ngIf="amexAmount?.invalid && amexAmount?.touched && amexAmount?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             style="
@@ -1056,7 +1056,7 @@
             "
             *ngIf="amexAmount?.invalid && amexAmount?.touched && amexAmount?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div> -->
         <div class="col-sm-3 form-group">
@@ -1072,13 +1072,13 @@
             class="error"
             *ngIf="amexPercentage?.invalid && amexPercentage?.touched && amexPercentage?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             class="error1"
             *ngIf="amexPercentage?.invalid && amexPercentage?.touched && amexPercentage?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <div class="col-sm-3 form-group">
@@ -1094,13 +1094,13 @@
             class="error"
             *ngIf="amexFixedFee?.invalid && amexFixedFee?.touched && amexFixedFee?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             class="error1"
             *ngIf="amexFixedFee?.invalid && amexFixedFee?.touched && amexFixedFee?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <!-- <div class="col-sm-2 form-group">
@@ -1123,7 +1123,7 @@
             "
             *ngIf="dinnerscardAmount?.invalid && dinnerscardAmount?.touched && dinnerscardAmount?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             style="
@@ -1134,7 +1134,7 @@
             "
             *ngIf="dinnerscardAmount?.invalid && dinnerscardAmount?.touched && dinnerscardAmount?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div> -->
         <div class="col-sm-3 form-group">
@@ -1152,13 +1152,13 @@
             class="error"
             *ngIf="dinnerscardPercentage?.invalid && dinnerscardPercentage?.touched && dinnerscardPercentage?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             class="error1"
             *ngIf="dinnerscardPercentage?.invalid && dinnerscardPercentage?.touched && dinnerscardPercentage?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <div class="col-sm-3 form-group">
@@ -1176,13 +1176,13 @@
             class="error"
             *ngIf="dinnerscardFixedFee?.invalid && dinnerscardFixedFee?.touched && dinnerscardFixedFee?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             class="error1"
             *ngIf="dinnerscardFixedFee?.invalid && dinnerscardFixedFee?.touched && dinnerscardFixedFee?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
       </div>
@@ -1207,7 +1207,7 @@
             "
             *ngIf="corporateAmount?.invalid && corporateAmount?.touched && corporateAmount?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             style="
@@ -1218,7 +1218,7 @@
             "
             *ngIf="corporateAmount?.invalid && corporateAmount?.touched && corporateAmount?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div> -->
         <div class="col-sm-3 form-group">
@@ -1236,13 +1236,13 @@
             class="error"
             *ngIf="corporatePercentage?.invalid && corporatePercentage?.touched && corporatePercentage?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             class="error1"
             *ngIf="corporatePercentage?.invalid && corporatePercentage?.touched && corporatePercentage?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <div class="col-sm-3 form-group">
@@ -1261,13 +1261,13 @@
 
             *ngIf="corporateFixedFee?.invalid && corporateFixedFee?.touched && corporateFixedFee?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
           class="error1"
             *ngIf="corporateFixedFee?.invalid && corporateFixedFee?.touched && corporateFixedFee?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <!-- <div class="col-sm-2 form-group">
@@ -1290,7 +1290,7 @@
             "
             *ngIf="prepaidcardAmount?.invalid && prepaidcardAmount?.touched && prepaidcardAmount?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             style="
@@ -1301,7 +1301,7 @@
             "
             *ngIf="prepaidcardAmount?.invalid && prepaidcardAmount?.touched && prepaidcardAmount?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div> -->
         <div class="col-sm-3 form-group">
@@ -1320,13 +1320,13 @@
 
             *ngIf="prepaidcardPercentage?.invalid && prepaidcardPercentage?.touched && prepaidcardPercentage?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
           class="error1"
             *ngIf="prepaidcardPercentage?.invalid && prepaidcardPercentage?.touched && prepaidcardPercentage?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <div class="col-sm-3 form-group">
@@ -1344,13 +1344,13 @@
           class="error"
             *ngIf="prepaidcardFixedFee?.invalid && prepaidcardFixedFee?.touched && prepaidcardFixedFee?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
           class="error1"
             *ngIf="prepaidcardFixedFee?.invalid && prepaidcardFixedFee?.touched && prepaidcardFixedFee?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
       </div>
@@ -1375,7 +1375,7 @@
             "
             *ngIf="creditCardAmount?.invalid && creditCardAmount?.touched && creditCardAmount?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             style="
@@ -1386,7 +1386,7 @@
             "
             *ngIf="creditCardAmount?.invalid && creditCardAmount?.touched && creditCardAmount?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div> -->
         <div class="col-sm-3 form-group">
@@ -1405,13 +1405,13 @@
 
             *ngIf="creditCardPercentage?.invalid && creditCardPercentage?.touched && creditCardPercentage?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
           class="error1"
             *ngIf="creditCardPercentage?.invalid && creditCardPercentage?.touched && creditCardPercentage?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <div class="col-sm-3 form-group">
@@ -1430,13 +1430,13 @@
 
             *ngIf="creditCardFixedFee?.invalid && creditCardFixedFee?.touched && creditCardFixedFee?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
           class="error1"
             *ngIf="creditCardFixedFee?.invalid && creditCardFixedFee?.touched && creditCardFixedFee?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
       </div>
@@ -1461,7 +1461,7 @@
             "
             *ngIf="phonepeAmount?.invalid && phonepeAmount?.touched && phonepeAmount?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             style="
@@ -1472,7 +1472,7 @@
             "
             *ngIf="phonepeAmount?.invalid && phonepeAmount?.touched && phonepeAmount?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div> -->
         <div class="col-sm-3 form-group">
@@ -1489,13 +1489,13 @@
 
             *ngIf="phonepePercentage?.invalid && phonepePercentage?.touched && phonepePercentage?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
           class="error1"
             *ngIf="phonepePercentage?.invalid && phonepePercentage?.touched && phonepePercentage?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <div class="col-sm-3 form-group">
@@ -1511,13 +1511,13 @@
           class="error"
             *ngIf="phonepeFixedFee?.invalid && phonepeFixedFee?.touched && phonepeFixedFee?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
           class="error1"
             *ngIf="phonepeFixedFee?.invalid && phonepeFixedFee?.touched && phonepeFixedFee?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <!-- <div class="col-sm-2 form-group">
@@ -1540,7 +1540,7 @@
             "
             *ngIf="freechargeAmount?.invalid && freechargeAmount?.touched && freechargeAmount?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             style="
@@ -1551,7 +1551,7 @@
             "
             *ngIf="freechargeAmount?.invalid && freechargeAmount?.touched && freechargeAmount?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div> -->
         <div class="col-sm-3 form-group">
@@ -1569,13 +1569,13 @@
           class="error"
             *ngIf="freechargePercentage?.invalid && freechargePercentage?.touched && freechargePercentage?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
           class="error1"
             *ngIf="freechargePercentage?.invalid && freechargePercentage?.touched && freechargePercentage?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <div class="col-sm-3 form-group">
@@ -1593,13 +1593,13 @@
           class="error"
             *ngIf="freechargeFixedFee?.invalid && freechargeFixedFee?.touched && freechargeFixedFee?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
           class="error1"
             *ngIf="freechargeFixedFee?.invalid && freechargeFixedFee?.touched && freechargeFixedFee?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
       </div>
@@ -1623,7 +1623,7 @@
             "
             *ngIf="payzappAmount?.invalid && payzappAmount?.touched && payzappAmount?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             style="
@@ -1634,7 +1634,7 @@
             "
             *ngIf="payzappAmount?.invalid && payzappAmount?.touched && payzappAmount?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div> -->
         <div class="col-sm-3 form-group">
@@ -1652,13 +1652,13 @@
           class="error"
             *ngIf="payzappPercentage?.invalid && payzappPercentage?.touched && payzappPercentage?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
           class="error1"
             *ngIf="payzappPercentage?.invalid && payzappPercentage?.touched && payzappPercentage?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <div class="col-sm-3 form-group">
@@ -1674,13 +1674,13 @@
           class="error"
             *ngIf="payzappFixedFee?.invalid && payzappFixedFee?.touched && payzappFixedFee?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
           class="error1"
             *ngIf="payzappFixedFee?.invalid && payzappFixedFee?.touched && payzappFixedFee?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <!-- <div class="col-sm-2 form-group">
@@ -1701,7 +1701,7 @@
             "
             *ngIf="paytmAmount?.invalid && paytmAmount?.touched && paytmAmount?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             style="
@@ -1712,7 +1712,7 @@
             "
             *ngIf="paytmAmount?.invalid && paytmAmount?.touched && paytmAmount?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div> -->
         <div class="col-sm-3 form-group">
@@ -1728,13 +1728,13 @@
           class="error"
             *ngIf="paytmPercentage?.invalid && paytmPercentage?.touched && paytmPercentage?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
           class="error1"
             *ngIf="paytmPercentage?.invalid && paytmPercentage?.touched && paytmPercentage?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <div class="col-sm-3 form-group">
@@ -1750,13 +1750,13 @@
           class="error"
             *ngIf="paytmFixedFee?.invalid && paytmFixedFee?.touched && paytmFixedFee?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
           class="error1"
             *ngIf="paytmFixedFee?.invalid && paytmFixedFee?.touched && paytmFixedFee?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
       </div>
@@ -1780,7 +1780,7 @@
             "
             *ngIf="OlamoneyAmount?.invalid && OlamoneyAmount?.touched && OlamoneyAmount?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             style="
@@ -1791,7 +1791,7 @@
             "
             *ngIf="OlamoneyAmount?.invalid && OlamoneyAmount?.touched && OlamoneyAmount?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div> -->
         <div class="col-sm-3 form-group">
@@ -1809,13 +1809,13 @@
           class="error"
             *ngIf="OlamoneyPercentage?.invalid && OlamoneyPercentage?.touched && OlamoneyPercentage?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
           class="error1"
             *ngIf="OlamoneyPercentage?.invalid && OlamoneyPercentage?.touched && OlamoneyPercentage?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <div class="col-sm-3 form-group">
@@ -1833,13 +1833,13 @@
           class="error"
             *ngIf="OlamoneyFixedFee?.invalid && OlamoneyFixedFee?.touched && OlamoneyFixedFee?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
           class="error1"
             *ngIf="OlamoneyFixedFee?.invalid && OlamoneyFixedFee?.touched && OlamoneyFixedFee?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <!-- <div class="col-sm-2 form-group">
@@ -1860,7 +1860,7 @@
             "
             *ngIf="mobikwikAmount?.invalid && mobikwikAmount?.touched && mobikwikAmount?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             style="
@@ -1871,7 +1871,7 @@
             "
             *ngIf="mobikwikAmount?.invalid && mobikwikAmount?.touched && mobikwikAmount?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div> -->
         <div class="col-sm-3 form-group">
@@ -1889,13 +1889,13 @@
           class="error"
             *ngIf="mobikwikPercentage?.invalid && mobikwikPercentage?.touched && mobikwikPercentage?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
           class="error1"
             *ngIf="mobikwikPercentage?.invalid && mobikwikPercentage?.touched && mobikwikPercentage?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <div class="col-sm-3 form-group">
@@ -1911,13 +1911,13 @@
           class="error"
             *ngIf="mobikwikFixedFee?.invalid && mobikwikFixedFee?.touched && mobikwikFixedFee?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
           class="error1"
             *ngIf="mobikwikFixedFee?.invalid && mobikwikFixedFee?.touched && mobikwikFixedFee?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
       </div>
@@ -1942,7 +1942,7 @@
             "
             *ngIf="reliancejiomoneyAmount?.invalid && reliancejiomoneyAmount?.touched && reliancejiomoneyAmount?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             style="
@@ -1953,7 +1953,7 @@
             "
             *ngIf="reliancejiomoneyAmount?.invalid && reliancejiomoneyAmount?.touched && reliancejiomoneyAmount?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div> -->
         <div class="col-sm-3 form-group">
@@ -1971,13 +1971,13 @@
           class="error"
             *ngIf="reliancejiomoneyPercentage?.invalid && reliancejiomoneyPercentage?.touched && reliancejiomoneyPercentage?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
           class="error1"
             *ngIf="reliancejiomoneyPercentage?.invalid && reliancejiomoneyPercentage?.touched && reliancejiomoneyPercentage?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <div class="col-sm-3 form-group">
@@ -1995,13 +1995,13 @@
           class="error"
             *ngIf="reliancejiomoneyFixedFee?.invalid && reliancejiomoneyFixedFee?.touched && reliancejiomoneyFixedFee?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
           class="error1"
             *ngIf="reliancejiomoneyFixedFee?.invalid && reliancejiomoneyFixedFee?.touched && reliancejiomoneyFixedFee?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <!-- <div class="col-sm-2 form-group">
@@ -2024,7 +2024,7 @@
             "
             *ngIf="airtelmoneyAmount?.invalid && airtelmoneyAmount?.touched && airtelmoneyAmount?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
             style="
@@ -2035,7 +2035,7 @@
             "
             *ngIf="airtelmoneyAmount?.invalid && airtelmoneyAmount?.touched && airtelmoneyAmount?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div> -->
         <div class="col-sm-3 form-group">
@@ -2053,13 +2053,13 @@
           class="error"
             *ngIf="airtelmoneyPercentage?.invalid && airtelmoneyPercentage?.touched && airtelmoneyPercentage?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
           class="error"
             *ngIf="airtelmoneyPercentage?.invalid && airtelmoneyPercentage?.touched && airtelmoneyPercentage?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
         <div class="col-sm-3 form-group">
@@ -2076,13 +2076,13 @@
           <div
           class="error"            *ngIf="airtelmoneyFixedFee?.invalid && airtelmoneyFixedFee?.touched && airtelmoneyFixedFee?.errors?.['required']"
           >
-            *Required Enter a number 0 , N/A , - (Hyphen)
+            field is Requied
           </div>
           <div
           class="error1"
             *ngIf="airtelmoneyFixedFee?.invalid && airtelmoneyFixedFee?.touched && airtelmoneyFixedFee?.errors?.['pattern']"
           >
-            Enter a valid number , N/A , - (Hyphen)
+            Invalid data
           </div>
         </div>
       </div>

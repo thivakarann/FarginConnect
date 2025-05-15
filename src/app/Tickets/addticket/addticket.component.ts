@@ -33,8 +33,9 @@ export class AddticketComponent {
     this.raiseTicketId = this.data.value.raiseTicketId
  
     this.ticketFormGroup = new FormGroup({
-      remarks: new FormControl('', [Validators.required]),
+      remarks: new FormControl('', [Validators.required,Validators.maxLength(250)]),
       approvalStatus: new FormControl('', [Validators.required])
+      
 
     })
   }

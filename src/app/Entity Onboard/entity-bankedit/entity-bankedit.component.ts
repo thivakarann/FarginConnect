@@ -42,7 +42,7 @@ export class EntityBankeditComponent implements OnInit {
     this.BankForm = new FormGroup({
       accountHolderName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z ]*$'),
+     Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(50),
       ]),
       accountNumber: new FormControl(null, [
@@ -51,7 +51,7 @@ export class EntityBankeditComponent implements OnInit {
       ]),
       bankName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$'),
+    
       ]),
       ifscCode: new FormControl('', [
         Validators.required,
@@ -59,12 +59,12 @@ export class EntityBankeditComponent implements OnInit {
       ]),
       branchName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$'),
+       Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(50),
       ]),
       accountType: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$'),
+  
       ]),
 
       ledgerId: new FormControl('', [Validators.pattern(/^\d{1,15}$/)]),

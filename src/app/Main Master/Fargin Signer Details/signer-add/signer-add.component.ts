@@ -26,7 +26,7 @@ export class SignerAddComponent {
 
       signAdminName: new FormControl(null, [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$'),
+Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(50)
       ]),
 

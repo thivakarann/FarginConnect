@@ -29,7 +29,13 @@
             class="error"
             *ngIf="adminName?.touched && adminName?.errors?.['pattern']"
           >
-            Please enter only letters(max 50 characters)
+           Invalid format
+          </span>
+          <span
+            class="error"
+            *ngIf="adminName?.touched && adminName?.errors?.['maxlength']"
+          >
+       Maximum length should be 50
           </span>
         </div>
 

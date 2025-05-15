@@ -44,12 +44,12 @@ export class AddAgreementsComponent {
       linkdate: new FormControl('', [Validators.required]),
       merchantPosition: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[A-Za-z ]*$'),
+      Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(30),
       ]),
       authorizedName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[A-Za-z ]*$'),
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(30),
       ]),
     });

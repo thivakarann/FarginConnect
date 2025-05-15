@@ -157,6 +157,7 @@ searchPerformed: any;
       data: { value: id },
       disableClose: true,
       width: "50%",
+      maxHeight:'500px',
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
     })

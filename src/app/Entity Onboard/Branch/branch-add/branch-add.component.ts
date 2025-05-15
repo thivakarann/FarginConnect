@@ -39,8 +39,8 @@ export class BranchAddComponent {
   uploadaddressback: any;
   uploadsignfront: any;
   KYCdetails: boolean = false;
-  today: string;
   branchId: any;
+  eighteenYearsAgo: Date;
 
   constructor(
     public service: FarginServiceService,
@@ -49,8 +49,10 @@ export class BranchAddComponent {
     private _formBuilder: FormBuilder,
     private location: Location
   ) {
-    const todayDate = new Date();
-    this.today = todayDate.toISOString().split('T')[0];
+   const today = new Date();
+  this.eighteenYearsAgo = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+
+
   }
 
   ngOnInit(): void {
@@ -61,19 +63,21 @@ export class BranchAddComponent {
     this.branch = new FormGroup({
       branchName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$'),
+    Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
+
         Validators.maxLength(50),
       ]),
       apiKey: new FormControl('', [Validators.required]),
       secretKey: new FormControl('', [Validators.required]),
       bankName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$'),
+    Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
+
         Validators.maxLength(50),
       ]),
       accountHolderName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z ]*$'),
+      Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(50),
       ]),
       accountNumber: new FormControl('', [
@@ -90,7 +94,8 @@ export class BranchAddComponent {
       ]),
       smsmerchantname: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$'),
+    Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
+
         Validators.maxLength(25),
       ]),
     });
@@ -121,6 +126,14 @@ export class BranchAddComponent {
       passportDobss: [''],
     });
   }
+
+
+  dateFilter = (d: Date | null): boolean => {
+    return d ? d <= this.eighteenYearsAgo : false;
+  }
+
+
+
 
   get branchName() {
     return this.branch.get('branchName');

@@ -1,83 +1,85 @@
 <html lang="en">
+
 <head>
-   
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
+
 <body>
-    <div class="container" >
-        <div class="sign_in form_container" >
-            <form [formGroup]="loginForm" >
-                <h1 style="color:black;margin-bottom:7px;margin-top:17px;">Login</h1>
-                <div class="form-group ">
-                    <input class="email1" type="text" placeholder="Email" formControlName="emailAddress">
-                    <br>
-                    <span class="error"
-                      *ngIf=" emailAddress?.invalid && emailAddress?.touched && emailAddress?.errors?.['required']">
-                      Field is Required</span>
-                    <span class="error"  *ngIf="emailAddress?.invalid && emailAddress?.touched && emailAddress?.errors?.['pattern']">
-                      Enter The Valid Email Address</span>
-                  </div>
+  <div class="container">
+    <div class="sign_in form_container">
+      <form [formGroup]="loginForm">
+        <h1 style="color:black;margin-bottom:7px;margin-top:17px;">Login</h1>
+        <div class="form-group ">
+          <input class="email1" type="text" placeholder="Email" formControlName="emailAddress">
+          <br>
+          <span class="error"
+            *ngIf=" emailAddress?.invalid && emailAddress?.touched && emailAddress?.errors?.['required']">
+            Field is Required</span>
+          <span class="error"
+            *ngIf="emailAddress?.invalid && emailAddress?.touched && emailAddress?.errors?.['pattern']">
+            Enter The Valid Email Address</span>
+        </div>
 
-                  <div class="form-group">
-                    <select formControlName="categoryFlag"
-                        id="Bussiness category" class="form-select">
-                        <option value="" disabled selected>Business category</option>
-                        <option value="1">Cable Services</option>
-                        <!-- <option value="2">PG Services</option> -->
+        <div class="form-group">
+          <select formControlName="categoryFlag" id="Bussiness category" class="form-select">
+            <option value="" disabled selected>Business category</option>
+            <option value="1">Cable Services</option>
+            <!-- <option value="2">PG Services</option> -->
 
-                    </select>
-                    <div class="error" *ngIf="categoryFlag?.invalid && categoryFlag?.touched && categoryFlag?.errors?.['required']">
-                        Field is required
-                    </div>
-                </div>
-               
-              <div class="form-group ">
-                <!-- <div class="input-container" style="position: relative;"> -->
-                  <input class="pass1" type="password" placeholder="Password" formControlName="password" #passwordInput>
-                  <i class="fa-solid fa-eye-slash" id="eye"
-                      [ngClass]="{
+          </select>
+          <div class="error"
+            *ngIf="categoryFlag?.invalid && categoryFlag?.touched && categoryFlag?.errors?.['required']">
+            Field is required
+          </div>
+        </div>
+
+        <div class="form-group ">
+          <!-- <div class="input-container" style="position: relative;"> -->
+          <input class="pass1" type="password" placeholder="Password" formControlName="password" #passwordInput>
+          <i class="fa-solid fa-eye-slash" id="eye" [ngClass]="{
                         'fa-eye-slash': !showPassword,
                         'fa-eye': showPassword
-                      }" (click)="togglePasswordVisibility(passwordInput)"
-                      ></i>
-                <!-- </div> -->
-               
-                <div class="error"  *ngIf="password?.invalid && password?.touched && password?.errors?.['required']">
-                    Field is required
-                </div>
+                      }" (click)="togglePasswordVisibility(passwordInput)"></i>
+          <!-- </div> -->
 
-              </div>
-              <div class="form-group">
-                <div class="captcha-container">
-                  <input class="input" disabled
-                    style="font-style: italic; background-color: #141E46; color: white; font-weight: 600; text-align: center;"
-                    type="text" [value]="randomCaptcha.toString().split('').join(' ')" ondragstart="return false;" >
-                  <i style="font-size: 14px; margin-left: 12px; cursor: pointer; color: white" id="refresh" (click)="random()"
-                    class="fa">&#xf021;</i>
-       
-                  <input (paste)="(false)" maxlength="6" placeholder="Enter the Captcha" class="captcha-input" formControlName="captcha"
-                    [(ngModel)]="captchaValue" required ondrop="return false;">
-                  <span class="error" style="margin-left:50px;margin-top:2px">{{message}}</span>
-                </div>
-              </div>
-       
-                   
-                   
-                <p class="forgetpass" routerLink="/forgot"><b>Forgot Password?</b></p>
-                <button type="submit" (click)="submit()">Login</button>
-            </form>
+          <div class="error" *ngIf="password?.invalid && password?.touched && password?.errors?.['required']">
+            Field is required
+          </div>
+
         </div>
-        <div class="toggle_container">
-            <div class="toggle">
-             
-              <div class="toggle_panel toggle_right">
-                <img class="mb-3" src="/assets/farginblue.png" style="width:100%;">
- 
-                <h1 style="color:#141E46;">Welcome To Fargin Connect</h1>
-              </div>
-            </div>
-            </div>
+        <div class="form-group">
+          <div class="captcha-container">
+            <input class="input" disabled
+              style="font-style: italic; background-color: #141E46; color: white; font-weight: 600; text-align: center;"
+              type="text" [value]="randomCaptcha.toString().split('').join(' ')" ondragstart="return false;">
+            <i style="font-size: 14px; margin-left: 12px; cursor: pointer; color: white" id="refresh" (click)="random()"
+              class="fa">&#xf021;</i>
+
+            <input (paste)="(false)" maxlength="6" placeholder="Enter the Captcha" class="captcha-input"
+              formControlName="captcha" [(ngModel)]="captchaValue" required ondrop="return false;">
+            <span class="error" style="margin-left:50px;margin-top:2px">{{message}}</span>
+          </div>
+        </div>
+
+
+
+        <p class="forgetpass" routerLink="/forgot"><b>Forgot Password?</b></p>
+        <button type="submit" (click)="submit()">Login</button>
+      </form>
     </div>
- 
+    <div class="toggle_container">
+      <div class="toggle">
+
+        <div class="toggle_panel toggle_right">
+          <img class="mb-3" src="/assets/farginblue.png" style="width:100%;">
+
+          <h1 style="color:#141E46;">Welcome To Fargin Connect</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </body>
+
 </html>

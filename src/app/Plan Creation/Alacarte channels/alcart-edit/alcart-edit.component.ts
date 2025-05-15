@@ -110,7 +110,7 @@ msoservice:any
     })
     this.myForm = new FormGroup({
       regionId: new FormControl('', Validators.required),
-      channelName: new FormControl('',[Validators.required,Validators.pattern(/^[A-Za-z ]{1,50}$/)]),
+      channelName: new FormControl('',[Validators.required,Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),Validators.maxLength(50)]),
       price: new FormControl('', Validators.pattern('^[1-9][0-9]*(\.[0-9]{1,2})?$')),
       type: new FormControl('', Validators.required),
       bundleChannelId: new FormControl('', Validators.required),

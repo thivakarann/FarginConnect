@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
@@ -54,13 +54,14 @@ export class AddKycdocumentComponent implements OnInit {
   uploadaddressback: any;
   uploadsignfront: any;
   uploadsignback: any;
-  today: string;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
   isStepCompleted: boolean[] = [false];
   isLinear = false;
+  eighteenYearsAgo: Date;
   completeStep(index: number): void {
     this.isStepCompleted[index] = true;
   }
+
 
   constructor(
     private service: FarginServiceService,
@@ -69,8 +70,8 @@ export class AddKycdocumentComponent implements OnInit {
     private _formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    const todayDate = new Date();
-    this.today = todayDate.toISOString().split('T')[0];
+    const today = new Date();
+    this.eighteenYearsAgo = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
   }
   ngOnInit(): void {
     this.merchantid = this.data.value;
@@ -106,6 +107,10 @@ export class AddKycdocumentComponent implements OnInit {
         this.categorydetails = res.response;
       }
     });
+  }
+
+  dateFilter = (d: Date | null): boolean => {
+    return d ? d <= this.eighteenYearsAgo : false;
   }
   get identityProof() {
     return this.firstFormGroup.get('identityProof');
@@ -169,52 +174,55 @@ export class AddKycdocumentComponent implements OnInit {
     return this.thirdFormGroup.get('passportDobss');
   }
 
+
+
+
   onIdentityProofChange(event: any) {
     this.selectElement = event.target.value;
     const identityProofNoControl = this.firstFormGroup.get('identityProofNo');
     const identityProofNoControl1 = this.firstFormGroup.get('passportDob');
-    const identityProofNoControl2 =
-      this.firstFormGroup.get('drivingLicenceDob');
+    const identityProofNoControl2 = this.firstFormGroup.get('drivingLicenceDob');
 
     identityProofNoControl?.clearValidators();
+    identityProofNoControl1?.clearValidators();
+    identityProofNoControl2?.clearValidators();
 
     if (this.selectElement == 'Aadhar Card') {
       identityProofNoControl?.setValidators([
         Validators.required,
         Validators.pattern('^[0-9]{12}$'),
       ]); // 12 digits for Aadhar
-      identityProofNoControl2?.setValidators([]); // Driving license format
-      identityProofNoControl1?.setValidators([]); // Driving license format
+      identityProofNoControl1?.setValidators([]);
+      identityProofNoControl2?.setValidators([]);
     }
     if (this.selectElement == 'Pancard') {
       identityProofNoControl?.setValidators([
         Validators.required,
         Validators.pattern('^[A-Z]{5}[0-9]{4}[A-Z]$'),
       ]); // PAN format
-      identityProofNoControl2?.setValidators([]); // Driving license format
-      identityProofNoControl1?.setValidators([]); // Driving license format
+      identityProofNoControl1?.setValidators([]);
+      identityProofNoControl2?.setValidators([]);
     }
     if (this.selectElement == 'Voter Id Proof') {
       identityProofNoControl?.setValidators([
         Validators.required,
         Validators.pattern('^[A-Z]{3}[0-9]{7}$'),
       ]); // Voter ID format
-      identityProofNoControl2?.setValidators([]); // Driving license format
-      identityProofNoControl1?.setValidators([]); // Driving license format
+      identityProofNoControl1?.setValidators([]);
+      identityProofNoControl2?.setValidators([]);
     }
     if (this.selectElement == 'Passport') {
       identityProofNoControl?.setValidators([
         Validators.required,
         Validators.pattern('^[A-Z]{2}[0-9]{2}[0-9]{11}$'),
-      ]); // Passport format
-      identityProofNoControl1?.setValidators([Validators.required]); // Driving license format
-
-      identityProofNoControl2?.setValidators([]); // Driving license format
+      ]);
+      identityProofNoControl1?.setValidators([Validators.required]);
+      identityProofNoControl2?.setValidators([]);
     }
     if (this.selectElement == 'Driving License') {
       identityProofNoControl?.setValidators([Validators.required]);
-      identityProofNoControl2?.setValidators([Validators.required]); // Driving license format
-      identityProofNoControl1?.setValidators([]); // Driving license format
+      identityProofNoControl2?.setValidators([Validators.required]);
+      identityProofNoControl1?.setValidators([]);
     }
 
     // Reset the values of the related fields
@@ -232,39 +240,39 @@ export class AddKycdocumentComponent implements OnInit {
     this.selectElements = event.target.value;
     const addressProofNoControl = this.secondFormGroup.get('addressProofNo');
     const addressProofNoControl1 = this.secondFormGroup.get('passportDobs');
-    const addressProofNoControl2 =
-      this.secondFormGroup.get('drivingLicenceDobs');
+    const addressProofNoControl2 = this.secondFormGroup.get('drivingLicenceDobs');
 
     addressProofNoControl?.clearValidators();
+    addressProofNoControl1?.clearValidators();
+    addressProofNoControl2?.clearValidators();
 
     if (this.selectElements == 'Aadhar Card') {
       addressProofNoControl?.setValidators([
         Validators.required,
         Validators.pattern('^[0-9]{12}$'),
       ]); // 12 digits for Aadhar
-      addressProofNoControl2?.setValidators([]);
-      addressProofNoControl1?.setValidators([]);
+      addressProofNoControl1?.clearValidators();
+      addressProofNoControl2?.clearValidators();
     }
     if (this.selectElements == 'Voter Id Proof') {
       addressProofNoControl?.setValidators([
         Validators.required,
         Validators.pattern('^[A-Z]{3}[0-9]{7}$'),
       ]);
-      addressProofNoControl2?.setValidators([]);
-      addressProofNoControl1?.setValidators([]);
+      addressProofNoControl1?.clearValidators();
+      addressProofNoControl2?.clearValidators();
     }
     if (this.selectElements == 'Passport') {
       addressProofNoControl?.setValidators([
         Validators.required,
         Validators.pattern('^[A-Z]{2}[0-9]{2}[0-9]{11}$'),
       ]); // Passport format
-      addressProofNoControl1?.setValidators([Validators.required]); // Driving license format
-
+      addressProofNoControl1?.setValidators([Validators.required]);
       addressProofNoControl2?.setValidators([]);
     }
     if (this.selectElements == 'Driving License') {
       addressProofNoControl?.setValidators([Validators.required]);
-      addressProofNoControl2?.setValidators([Validators.required]); // Driving license format
+      addressProofNoControl2?.setValidators([Validators.required]);
       addressProofNoControl1?.setValidators([]);
     }
 
@@ -281,11 +289,12 @@ export class AddKycdocumentComponent implements OnInit {
     this.select = event.target.value;
     const signatureProofNoControl = this.thirdFormGroup.get('signatureProofNo');
     const signatureProofNoControl1 = this.thirdFormGroup.get('passportDobss');
-    const signatureProofNoControl2 = this.thirdFormGroup.get(
-      'drivingLicenceDobss'
+    const signatureProofNoControl2 = this.thirdFormGroup.get('drivingLicenceDobss'
     );
 
     signatureProofNoControl?.clearValidators();
+    signatureProofNoControl1?.clearValidators();
+    signatureProofNoControl2?.clearValidators();
 
     if (this.select == 'Pancard') {
       signatureProofNoControl?.setValidators([
@@ -308,6 +317,7 @@ export class AddKycdocumentComponent implements OnInit {
       signatureProofNoControl?.setValidators([Validators.required]);
       signatureProofNoControl2?.setValidators([Validators.required]); // Driving license format
       signatureProofNoControl1?.setValidators([]);
+      signatureProofNoControl2?.updateValueAndValidity();
     }
 
     this.thirdFormGroup.get('signatureProofNo')?.reset();
@@ -318,6 +328,8 @@ export class AddKycdocumentComponent implements OnInit {
 
     this.thirdFormGroup?.updateValueAndValidity();
   }
+
+
 
   onFileSelected(event: any) {
     this.uploadidentityfront = event.target.files[0];
@@ -501,17 +513,13 @@ export class AddKycdocumentComponent implements OnInit {
     formData.append('signatureBackPath', this.uploadsignback);
     formData.append('signatureProof', this.signatureProof?.value);
     formData.append('signatureProofNo', this.signatureProofNo?.value.trim());
-    formData.append(
-      'drivingLicenceDob',
-      this.drivingLicenceDob?.value ||
-        this.drivingLicenceDobs?.value ||
-        this.drivingLicenceDobss?.value
+    formData.append('drivingLicenceDob', this.drivingLicenceDob?.value || this.drivingLicenceDobs?.value || this.drivingLicenceDobss?.value
     );
     formData.append(
       'passportDob',
       this.passportDob?.value ||
-        this.passportDobs?.value ||
-        this.passportDobss?.value
+      this.passportDobs?.value ||
+      this.passportDobss?.value
     );
     this.service.entitykycs(formData).subscribe((res: any) => {
       if (res.flag == 1) {

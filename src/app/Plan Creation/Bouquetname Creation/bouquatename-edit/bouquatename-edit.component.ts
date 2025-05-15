@@ -36,7 +36,7 @@ export class BouquatenameEditComponent implements OnInit {
     })
 
     this.myForm = new FormGroup({
-      broardCaste: new FormControl('',[Validators.required,Validators.pattern(/^[A-Za-z ]{1,50}$/)]),
+       broardCaste: new FormControl('',[Validators.required,Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),Validators.maxLength(50)]),
     });
   }
 

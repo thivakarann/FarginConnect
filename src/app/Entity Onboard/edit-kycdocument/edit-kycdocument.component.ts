@@ -32,9 +32,9 @@ export class EditKycdocumentComponent implements OnInit {
     private dialog: MatDialog,
     private toaster: ToastrService,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+  ) { }
   ngOnInit(): void {
-    
+
     this.merchantDocumentId = this.data.value2.merchantDocumentId;
 
     this.businessCategoryId = this.data.value1;

@@ -35,7 +35,7 @@ constructor(private service:FarginServiceService,private toaster:ToastrService,p
 
 
     this.AdminForm = new FormGroup({
-      adminName: new FormControl('', [Validators.required, Validators.pattern(/^[A-Za-z ]{1,50}$/)]),
+      adminName: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),Validators.maxLength(50)]),
       gender:new FormControl('', [Validators.required]),
       address:new FormControl('', [Validators.required]),
       country:new FormControl('', [Validators.required,Validators.pattern(/^[A-Za-z ]{1,50}$/)]),

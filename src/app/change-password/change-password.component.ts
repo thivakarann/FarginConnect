@@ -45,16 +45,23 @@ export class ChangePasswordComponent implements OnInit {
   get confirmpassword() {
     return this.changeForm.get('confirmpassword');
   }
-  checkConform(passwordInput1: string, passwordInput2: string) {
-    this.isConformPassword = true;
-    if (passwordInput1 == passwordInput2) {
-      this.isPasswordMatch = true;
-      this.error = "Going good!!";
-    } else {
-      this.isPasswordMatch = false;
-      this.error = "Password Mismatch";
-    }
+  // checkConform(passwordInput1: string, passwordInput2: string) {
+  //   this.isConformPassword = true;
+  //   if (passwordInput1 == passwordInput2) {
+  //     this.isPasswordMatch = true;
+  //     this.error = "Going good!!";
+  //   } else {
+  //     this.isPasswordMatch = false;
+  //     this.error = "Password Mismatch";
+  //   }
+  // }
+    checkConform(passwordInput1: string, passwordInput2: string) {
+  if (passwordInput1 && passwordInput2) {
+    this.error = passwordInput1 === passwordInput2 ? "Going good!!" : "Password Mismatch";
+  } else {
+    this.error = "";
   }
+}
   togglePasswordVisibility(passwordInput: { type: string; }) {
     this.showPassword = !this.showPassword;
     passwordInput.type = this.showPassword ? 'text' : 'password';

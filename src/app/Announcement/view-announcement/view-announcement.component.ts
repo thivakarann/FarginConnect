@@ -202,6 +202,8 @@ export class ViewAnnouncementComponent implements OnInit {
       data: { value: id },
       width: '80vw',// Use percentage to make it responsive
       maxWidth: '500px',
+      
+      maxHeight:'500px',
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
       disableClose: true
@@ -267,6 +269,7 @@ export class ViewAnnouncementComponent implements OnInit {
       disableClose: true,
       width: '80vw',// Use percentage to make it responsive
       maxWidth: '500px',
+      maxHeight:'500px'
     });
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
       this.fetchannouncement();

@@ -49,7 +49,7 @@
             "
             *ngIf="accountHolderName?.invalid  && accountHolderName?.errors?.['pattern']"
           >
-            Enter a Valid Input
+            Invalid Format
           </div>
           <div
             style="
@@ -60,7 +60,7 @@
             "
             *ngIf="accountHolderName?.errors?.['maxlength']"
           >
-            maximum length should be 50
+            Maximum length should be 50
           </div>
         </div>
         <div class="col-md-4 form-group">
@@ -126,7 +126,7 @@
             "
             *ngIf="bankName?.invalid && bankName?.touched && bankName?.errors?.['pattern']"
           >
-            Enter a valid Input
+          Invalid Format
           </div>
           <div
             style="
@@ -137,7 +137,7 @@
             "
             *ngIf="bankName?.errors?.['maxlength']"
           >
-            maximum length should be 50
+            Maximum length should be 50
           </div>
         </div>
       </div>
@@ -162,7 +162,7 @@
             "
             *ngIf="branchName?.invalid && branchName?.touched && branchName?.errors?.['pattern']"
           >
-            Enter a Valid Input
+             Invalid Format
           </div>
           <div
             style="
@@ -173,7 +173,7 @@
             "
             *ngIf="branchName?.errors?.['maxlength']"
           >
-            maximum length should be 50
+            Maximum length should be 50
           </div>
         </div>
         <div class="col-md-4 form-group">
@@ -323,7 +323,7 @@
             "
             *ngIf="smsmerchantname?.errors?.['pattern']"
           >
-            Invalid format. Only alphanumeric characters are allowed
+            Invalid format
           </div>
           <div
             style="
@@ -334,7 +334,7 @@
             "
             *ngIf="smsmerchantname?.errors?.['maxlength']"
           >
-            Only 25 characters are allowed
+           Maximum length should be 25
           </div>
         </div>
       </div>

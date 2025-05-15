@@ -273,11 +273,11 @@ export class MerchantPlanViewallComponent {
       else {
         this.response.push("InActive");
       }
-      this.response.push(element?.technicalAmount);
-      this.response.push(element?.renewalAmount);
-      this.response.push(element?.maintenanceAmount);
-      this.response.push(element?.voiceBoxSetupFee);
-      this.response.push(element?.voiceBoxAdvRent);
+      this.response.push(element?.technicalAmount.toFixed(2));
+      this.response.push(element?.renewalAmount.toFixed(2));
+      this.response.push(element?.maintenanceAmount.toFixed(2));
+      this.response.push(element?.voiceBoxSetupFee.toFixed(2));
+      this.response.push(element?.voiceBoxAdvRent.toFixed(2));
 
       if (element?.frequency == 'Day') {
         this.response.push("Daily");

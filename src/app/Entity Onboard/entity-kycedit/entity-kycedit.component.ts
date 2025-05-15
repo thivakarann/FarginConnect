@@ -34,7 +34,7 @@ export class EntityKyceditComponent implements OnInit {
   pass: any;
   DrivingDob: any;
   PassportDob: any;
-  today: string;
+  eighteenYearsAgo: Date;
   getadminname: any = JSON.parse(sessionStorage.getItem('adminname') || '');
   @Output() bankDetailsUpdated = new EventEmitter<void>();
 
@@ -45,30 +45,30 @@ export class EntityKyceditComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder
   ) {
-    const todayDate = new Date();
-    this.today = todayDate.toISOString().split('T')[0];
+    const today = new Date();
+    this.eighteenYearsAgo = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
 
   }
 
   ngOnInit(): void {
 
     this.value1 = this.data.value
-
-
     this.identitydata = this.data.value1
-    console.log(this.identitydata)
     this.proofId = this.data.value1.proofId
     this.identityProofs = this.data.value1.identityProof
     this.identityProofNos = this.data.value1.identityProofNo
     this.addressProofvalue = this.data.value1.addressProof
     this.addressProofNovalue = this.data.value1.addressProofNo
     this.DrivingDob = this.data.value1.drivingLicenceDob;
-    console.log(this.DrivingDob)
     this.PassportDob = this.data.value1.passportDob;
     this.driving = this.DrivingDob ? moment(this.DrivingDob).format('DD-MM-YYYY') : '';
     this.pass = this.PassportDob ? moment(this.PassportDob).format('DD-MM-YYYY') : '';
     this.signatureProofvalue = this.data.value1.signatureProof
-    this.signatureProofNovalue = this.data.value1.signatureProofNo
+    this.signatureProofNovalue = this.data.value1.signatureProofNo;
+
+
+    
+
 
     this.KycIdentityForm = this.fb.group({
       identityProof: ['', [
@@ -93,26 +93,12 @@ export class EntityKyceditComponent implements OnInit {
       signatureProofNo: ['', [Validators.required]],
       drivingLicenceDobss: [''],
       passportDobss: [''],
-    })
-    if (this.identityProofs) {
-      this.KycIdentityForm.get('identityProof').setValue(this.identityProofs);
-      this.onIdentityProofChange({ target: { value: this.identityProofs } });
-      this.KycIdentityForm.get('identityProofNo').setValue(this.identityProofNos);
-    }
-    if (this.addressProofvalue) {
-      this.KycAddressForm.get('addressProof').setValue(this.addressProofvalue);
-      this.onAddressProofChange({ target: { value: this.addressProofvalue } });
+    });
 
-      // Manually set the addressProofNo based on the existing data
-      this.KycAddressForm.get('addressProofNo').setValue(this.addressProofNovalue);
-    }
-    if (this.signatureProofvalue) {
-      this.KycsignatureForm.get('signatureProof').setValue(this.signatureProofvalue);
-      this.onasignproof({ target: { value: this.signatureProofvalue } });
+  }
 
-      // Manually set the signatureProofNo based on the existing data
-      this.KycsignatureForm.get('signatureProofNo').setValue(this.signatureProofNovalue);
-    }
+  dateFilter = (d: Date | null): boolean => {
+    return d ? d <= this.eighteenYearsAgo : false;
   }
 
 
@@ -157,31 +143,61 @@ export class EntityKyceditComponent implements OnInit {
   }
   onIdentityProofChange(event: any) {
     this.selectElement = event.target.value;
+
+    console.log("jenfwejkfn" + this.selectElement)
     const identityProofNoControl = this.KycIdentityForm.get('identityProofNo');
+    const identityProofDOBControl1 = this.KycIdentityForm.get('passportDob');
+    const identityProofDOBControl2 = this.KycIdentityForm.get('drivingLicenceDob');
 
+    if (this.selectElement == 'Passport' || this.selectElement == 'Driving License') {
+      this.PassportDob = ''
+      this.DrivingDob = ''
+      console.log("PassportDob" + this.PassportDob)
+      console.log("DrivingDob" + this.DrivingDob)
+    }
+    else {
+      this.passportDob
+      this.DrivingDob
+      console.log("PassportDob" + this.PassportDob)
+      console.log("DrivingDob" + this.DrivingDob)
 
-
-    // Handle validation based on selected identity proof
-    if (this.selectElement === 'Aadhar Card') {
-      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[0-9]{12}$")]); // 12 digits for Aadhar
-    } else if (this.selectElement === 'Pancard') {
-      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{5}[0-9]{4}[A-Z]$")]); // PAN format
-    } else if (this.selectElement === 'Voter Id Proof') {
-      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]); // Voter ID format
-    } else if (this.selectElement === 'Passport') {
-      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z0-9]{8,15}$")]); // Passport format
-    } else if (this.selectElement === 'Driving License') {
-      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]); // Driving license format
     }
 
+    identityProofNoControl?.clearValidators();
+    identityProofDOBControl1?.clearValidators();
+    identityProofDOBControl2?.clearValidators();
 
-    this.KycIdentityForm.get('identityProofNo')?.reset();
 
-    this.KycIdentityForm.get('drivingLicenceDob')?.reset();
-    this.KycIdentityForm.get('passportDob')?.reset();
-    // Revalidate based on the current input
+    if (this.selectElement === 'Aadhar Card') {
+      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[0-9]{12}$")]);
+    }
+    else if (this.selectElement === 'Pancard') {
+      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{5}[0-9]{4}[A-Z]$")]);
+    }
+    else if (this.selectElement === 'Voter Id Proof') {
+      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]);
+    }
+    else if (this.selectElement === 'Passport') {
+      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Za-z0-9]{8,15}$")]);
+      identityProofDOBControl1?.setValidators([Validators.required]);
+      identityProofDOBControl2?.clearValidators();
+    }
+    else if (this.selectElement === 'Driving License') {
+      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]);
+      identityProofDOBControl2?.setValidators([Validators.required]);
+      identityProofDOBControl1?.clearValidators();
+    }
+
+    identityProofNoControl?.reset();
+    identityProofDOBControl1?.reset();
+    identityProofDOBControl2?.reset();
+
     identityProofNoControl?.updateValueAndValidity();
+    identityProofDOBControl1?.updateValueAndValidity();
+    identityProofDOBControl2?.updateValueAndValidity();
   }
+
+
   change(event: any) {
     this.selectkyc = event.target.value;
   }

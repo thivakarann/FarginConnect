@@ -41,7 +41,7 @@
             "
             *ngIf="entityName?.errors?.['pattern']"
           >
-            Invalid format. Only Characters are allowed
+            Invalid format
           </div>
           <div
             style="
@@ -52,7 +52,7 @@
             "
             *ngIf="entityName?.errors?.['maxlength']"
           >
-            maximum length should be 30
+            Maximum length should be 30
           </div>
         </div>
         <div class="col-sm-4 form-group">
@@ -83,7 +83,7 @@
             "
             *ngIf="merchantLegalName?.errors?.['pattern']"
           >
-            Invalid format. Only Characters are allowed
+            Invalid format
           </div>
           <div
             style="
@@ -94,7 +94,7 @@
             "
             *ngIf="merchantLegalName?.errors?.['maxlength']"
           >
-            maximum length should be 30
+            Maximum length should be 30
           </div>
         </div>
         <div class="col-sm-4 form-group">
@@ -125,7 +125,7 @@
             "
             *ngIf="accountDisplayName?.errors?.['pattern']"
           >
-            Invalid format. Only Characters are allowed
+            Invalid format
           </div>
           <div
             style="
@@ -136,7 +136,7 @@
             "
             *ngIf="accountDisplayName?.errors?.['maxlength']"
           >
-            maximum length should be 30
+            Maximum length should be 30
           </div>
         </div>
       </div>
@@ -287,7 +287,7 @@
             "
             *ngIf="country?.errors?.['pattern']"
           >
-            Invalid format. Only Characters are allowed
+            Invalid format
           </div>
           <div
             style="
@@ -298,7 +298,7 @@
             "
             *ngIf="country?.errors?.['maxlength']"
           >
-            maximum length should be 30
+            Maximum length should be 30
           </div>
         </div>
       </div>
@@ -332,7 +332,7 @@
             "
             *ngIf="stateName?.errors?.['pattern']"
           >
-            Invalid format. Only Characters are allowed
+            Invalid format
           </div>
           <div
             style="
@@ -343,7 +343,7 @@
             "
             *ngIf="stateName?.errors?.['maxlength']"
           >
-            maximum length should be 30
+            Maximum length should be 30
           </div>
         </div>
         <div class="col-sm-4 form-group">
@@ -374,7 +374,7 @@
             "
             *ngIf="city?.errors?.['pattern']"
           >
-            Invalid format. Only Characters are allowed
+            Invalid format
           </div>
           <div
             style="
@@ -385,7 +385,7 @@
             "
             *ngIf="city?.errors?.['maxlength']"
           >
-            maximum length should be 30
+            Maximum length should be 30
           </div>
         </div>
         <div class="col-sm-4 form-group">
@@ -451,7 +451,7 @@
             "
             *ngIf="area?.errors?.['pattern']"
           >
-            Invalid format. Only Characters are allowed
+            Invalid format
           </div>
         </div>
         <div class="col-sm-4 form-group">
@@ -503,7 +503,7 @@
             "
             *ngIf="contactName?.errors?.['pattern']"
           >
-            Invalid format. Only Characters are allowed
+            Invalid format
           </div>
           <div
             style="
@@ -811,7 +811,7 @@
             "
             *ngIf="smsMerchantName?.errors?.['pattern']"
           >
-            Invalid format. Only alphanumeric characters are allowed
+            Invalid format
           </div>
           <div
             style="
@@ -822,7 +822,7 @@
             "
             *ngIf="smsMerchantName?.errors?.['maxlength']"
           >
-            Only 25 characters are allowed
+             Maximum length should be 25
           </div>
         </div>
 
@@ -1140,7 +1140,7 @@
             "
             *ngIf="branchName?.invalid && branchName?.touched && branchName?.errors?.['pattern']"
           >
-            Enter a Valid Input
+          Invalid format
           </div>
           <div
             style="
@@ -1151,7 +1151,7 @@
             "
             *ngIf="branchName?.errors?.['maxlength']"
           >
-            maximum length should be 50
+            Maximum length should be 50
           </div>
         </div>
       </div>
@@ -1321,7 +1321,7 @@
                 class="form-control"
                 type="date"
                 formControlName="drivingLicenceDob"
-                [max]="today"
+               [attr.max]="eighteenYearsAgo | date:'yyyy-MM-dd'"
               />
 
               <input
@@ -1329,7 +1329,7 @@
                 class="form-control"
                 type="date"
                 formControlName="passportDob"
-                [max]="today"
+                [attr.max]="eighteenYearsAgo | date:'yyyy-MM-dd'"
               />
 
               <div
@@ -1483,7 +1483,7 @@
                 class="form-control"
                 type="date"
                 formControlName="drivingLicenceDobs"
-                [max]="today"
+               [attr.max]="eighteenYearsAgo | date:'yyyy-MM-dd'"
               />
 
               <input
@@ -1491,7 +1491,7 @@
                 class="form-control"
                 type="date"
                 formControlName="passportDobs"
-                [max]="today"
+                [attr.max]="eighteenYearsAgo | date:'yyyy-MM-dd'"
               />
               <div
                 *ngIf="(selectElements === 'Driving License' ? drivingLicenceDobs : passportDobs)?.invalid &&
@@ -1646,7 +1646,7 @@
                 class="form-control"
                 type="date"
                 formControlName="drivingLicenceDobss"
-                [max]="today"
+               [attr.max]="eighteenYearsAgo | date:'yyyy-MM-dd'"
               />
 
               <input
@@ -1654,7 +1654,7 @@
                 class="form-control"
                 type="date"
                 formControlName="passportDobss"
-                [max]="today"
+                [attr.max]="eighteenYearsAgo | date:'yyyy-MM-dd'"
               />
               <div
                 *ngIf="(select === 'Driving License' ? drivingLicenceDobss : passportDobss)?.invalid &&

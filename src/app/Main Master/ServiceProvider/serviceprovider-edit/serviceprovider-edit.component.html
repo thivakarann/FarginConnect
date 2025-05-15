@@ -15,9 +15,11 @@
                         <span style="color: red; font-size: 12px;margin-top: 2px;" class="error"
                         *ngIf="providerName?.touched && providerName?.errors?.['required']">Field Is
                         Required</span>
-                    <span style="color: red; font-size: 12px;margin-top: 2px;" class="error"
-                        *ngIf="providerName?.touched && providerName?.errors?.['pattern']">Please Enter
-                        Please enter only letters(max 50 characters)</span>
+            <span style="color: red; font-size: 12px;margin-top: 2px;" class="error"
+                    *ngIf="providerName?.touched && providerName?.errors?.['pattern']">Invalid format</span>
+
+     <span style="color: red; font-size: 12px;margin-top: 2px;" class="error"
+                    *ngIf="providerName?.touched && providerName?.errors?.['maxlength']">Maximum length should be 50</span>
                 </div>
 
                 <div class=" form-group">

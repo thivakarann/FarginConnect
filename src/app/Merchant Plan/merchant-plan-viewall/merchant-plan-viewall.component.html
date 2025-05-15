@@ -1,9 +1,9 @@
 <h4 style="text-align:left;color:#141E46;">Entity Plan</h4>
 <mat-card-header>
     <div class="row mt-4">
- 
+
         <div class="col">
- 
+
             <div class="search ">
                 <form class="form">
                     <label for="search">
@@ -22,7 +22,7 @@
                                 </path>
                             </svg> -->
                         </div>
-                        <button  (click)="reload()" type="reset" class="close-btn">
+                        <button (click)="reload()" type="reset" class="close-btn">
                             <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
                                 <path clip-rule="evenodd"
                                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -31,50 +31,53 @@
                         </button>
                     </label>
                 </form>
- 
-            </div>  &nbsp;&nbsp;&nbsp;
- 
-            <button [hidden]="valueMerchantAdd!=='Entity Plan-Add'" style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" class="custom-btn btn-10"
-                data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button (click)="Add()">Create</button>
-            <button [hidden]="valueMerchantExport!=='Entity Plan-Export'" style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" (click)=" exportexcel()"
-                mat-raised-button>Export</button>
- 
- 
+
+            </div> &nbsp;&nbsp;&nbsp;
+
+            <button [hidden]="valueMerchantAdd!=='Entity Plan-Add'"
+                style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;"
+                class="custom-btn btn-10" data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button
+                (click)="Add()">Create</button>
+            <button [hidden]="valueMerchantExport!=='Entity Plan-Export'"
+                style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;"
+                (click)=" exportexcel()" mat-raised-button>Export</button>
+
+
         </div>
     </div>
 </mat-card-header>
- 
+
 <!-- <mat-card> -->
 <mat-card-content>
- 
+
     <div class="example-container text-nowrap mt-3" style="overflow-x: scroll; scrollbar-width: thin;">
- 
+
         <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
- 
+
             <ng-container matColumnDef="merchantPlanId">
                 <th mat-header-cell *matHeaderCellDef> S.No</th>
                 <td mat-cell *matCellDef="let viewall; let i = index"> {{i+1}} </td>
             </ng-container>
- 
+
             <ng-container matColumnDef="planName">
                 <th mat-header-cell *matHeaderCellDef>Plan Name</th>
                 <td mat-cell *matCellDef="let viewall">{{viewall.planName}}</td>
             </ng-container>
- 
- 
+
+
             <ng-container matColumnDef="maintenanceAmount">
                 <th mat-header-cell *matHeaderCellDef>Cloud Fee</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall.maintenanceAmount}}</td>
+                <td mat-cell *matCellDef="let viewall">{{viewall.maintenanceAmount.toFixed(2)}}</td>
             </ng-container>
- 
+
 
             <ng-container matColumnDef="voiceBoxSetupFee">
                 <th mat-header-cell *matHeaderCellDef>Voice Box Setup Fee</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall.voiceBoxSetupFee}}</td>
+                <td mat-cell *matCellDef="let viewall">{{viewall.voiceBoxSetupFee.toFixed(2)}}</td>
             </ng-container>
             <ng-container matColumnDef="voiceBoxAdvRent">
                 <th mat-header-cell *matHeaderCellDef>Voice Box Rent</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall.voiceBoxAdvRent}}</td>
+                <td mat-cell *matCellDef="let viewall">{{viewall.voiceBoxAdvRent.toFixed(2)}}</td>
             </ng-container>
             <ng-container matColumnDef="frequency">
                 <th mat-header-cell *matHeaderCellDef>Cloud Fee Frequency</th>
@@ -85,84 +88,87 @@
                     <span *ngIf="viewall?.frequency == 'Quarterly'">Quarterly</span>
                     <span *ngIf="viewall?.frequency == 'Half Yearly'">Half-Yearly</span>
                     <span *ngIf="viewall?.frequency == 'Year'">Yearly</span>
-                
+
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="renewalAmount">
                 <th mat-header-cell *matHeaderCellDef>Yearly Renewal Fee</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall.renewalAmount}}</td>
+                <td mat-cell *matCellDef="let viewall">{{viewall.renewalAmount.toFixed(2)}}</td>
             </ng-container>
- 
+
             <ng-container matColumnDef="countLimit">
                 <th mat-header-cell *matHeaderCellDef>Customer Onboard Limit</th>
                 <td mat-cell *matCellDef="let viewall">{{viewall.countLimit}}</td>
             </ng-container>
- 
+
             <ng-container matColumnDef="activeStatus">
-                <th [hidden]="valueMerchantStatus!=='Entity Plan-Status'" mat-header-cell *matHeaderCellDef mat-sort-header>Plan Status</th>
+                <th [hidden]="valueMerchantStatus!=='Entity Plan-Status'" mat-header-cell *matHeaderCellDef
+                    mat-sort-header>Plan Status</th>
                 <td [hidden]="valueMerchantStatus!=='Entity Plan-Status'" mat-cell *matCellDef="let viewall">
                     <mat-slide-toggle class="example-margin" color="primary" [checked]="viewall.activeStatus===1"
                         (change)="ActiveStatus($event,viewall.merchantPlanId)" style="transform: scale(0.9)">
                     </mat-slide-toggle>
                 </td>
             </ng-container>
- 
+
             <ng-container matColumnDef="serviceAmount">
                 <th mat-header-cell *matHeaderCellDef>One-Time Setup Fee</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall.technicalAmount}}</td>
+                <td mat-cell *matCellDef="let viewall">{{viewall.technicalAmount.toFixed(2)}}</td>
             </ng-container>
- 
- 
- 
+
+
+
             <ng-container matColumnDef="Edit">
-                <th  [hidden]="valueMerchantEdit!=='Entity Plan-Edit'" mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
-                <td  [hidden]="valueMerchantEdit!=='Entity Plan-Edit'" mat-cell *matCellDef="let viewall" (click)="Edit(viewall)">
+                <th [hidden]="valueMerchantEdit!=='Entity Plan-Edit'" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Action</th>
+                <td [hidden]="valueMerchantEdit!=='Entity Plan-Edit'" mat-cell *matCellDef="let viewall"
+                    (click)="Edit(viewall)">
                     <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-edit"></i>
                 </td>
             </ng-container>
- 
+
             <ng-container matColumnDef="createdBy">
                 <th mat-header-cell *matHeaderCellDef> Created By</th>
                 <td mat-cell *matCellDef="let viewall">{{viewall.createdBy
                     }}</td>
             </ng-container>
- 
- 
+
+
             <ng-container matColumnDef="createdDateTime">
                 <th mat-header-cell *matHeaderCellDef> Created At</th>
                 <td mat-cell *matCellDef="let viewall">{{viewall.createdDateTime | date:'dd/MM/yyyy hh:mm a' }}
                 </td>
             </ng-container>
- 
+
             <ng-container matColumnDef="modifiedBy">
                 <th mat-header-cell *matHeaderCellDef>Modified By</th>
                 <td mat-cell *matCellDef="let viewall">{{viewall.modifiedBy
                     }}</td>
             </ng-container>
- 
- 
+
+
             <ng-container matColumnDef="modifiedDateTime">
                 <th mat-header-cell *matHeaderCellDef>Modified At</th>
                 <td mat-cell *matCellDef="let viewall">{{viewall.modifiedDateTime|date:'dd/MM/yyyy hh:mm a' }}
                 </td>
             </ng-container>
- 
+
             <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
             <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
             <tr *matNoDataRow>
                 <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data</td>
                 <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">No Data
                 </td>
-              </tr>
+            </tr>
         </table>
- 
+
     </div>
 </mat-card-content>
 <mat-card-footer>
- 
+
     <mat-paginator [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtons
         aria-labels="select page of users"></mat-paginator>
- 
+
 </mat-card-footer>
 <!-- </mat-card> -->

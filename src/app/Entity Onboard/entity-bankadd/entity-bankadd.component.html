@@ -45,7 +45,7 @@
             "
             *ngIf="accountHolderName?.invalid && accountHolderName?.touched && accountHolderName?.errors?.['pattern']"
           >
-            Enter a valid Name
+ Invalid format
           </div>
           <div
             style="
@@ -56,7 +56,7 @@
             "
             *ngIf="accountHolderName?.errors?.['maxlength']"
           >
-            maximum length should be 50
+            Maximum length should be 50
           </div>
         </div>
         <div class="col-sm-4 form-group">
@@ -168,7 +168,7 @@
           >
             Field is required
           </div>
-          <div
+          <!-- <div
             style="
               color: red;
               font-size: 12px;
@@ -178,7 +178,7 @@
             *ngIf="accountType?.invalid && accountType?.touched && accountType?.errors?.['pattern']"
           >
             Enter a valid AccountType
-          </div>
+          </div> -->
         </div>
         <div class="col-sm-4 form-group">
           <label for="Entity Name" class="form__label">Branch Name</label>
@@ -208,7 +208,7 @@
             "
             *ngIf="branchName?.invalid && branchName?.touched && branchName?.errors?.['pattern']"
           >
-            Enter a valid branch Name
+           Invalid format
           </div>
           <div
             style="
@@ -219,7 +219,7 @@
             "
             *ngIf="branchName?.errors?.['maxlength']"
           >
-            maximum length should be 50
+            Maximum length should be 50
           </div>
         </div>
       </div>

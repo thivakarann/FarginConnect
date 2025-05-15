@@ -31,6 +31,7 @@ export class ApprovalForBankComponent implements OnInit {
       reMarks: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9 ]*$'),
+        
       ]),
     });
   }

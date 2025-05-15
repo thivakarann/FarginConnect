@@ -10,14 +10,14 @@ import FileSaver from 'file-saver';
 import moment from 'moment';
 import { CustomerTransViewComponent } from '../customer-trans-view/customer-trans-view.component';
 import { customerpay, customerpayfilter } from '../../../fargin-model/fargin-model.module';
-import { PageEvent } from '@angular/material/paginator';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgSelectComponent } from '@ng-select/ng-select';
 
 interface Option {
   entityName: string;
-  merchantId: number;}
-  
+  merchantId: number;
+}
+
 @Component({
   selector: 'app-customer-trans-viewall',
   templateUrl: './customer-trans-viewall.component.html',
@@ -80,18 +80,18 @@ export class CustomerTransViewallComponent {
 
   pageIndex1: number = 0;
   pageSize1 = 5;
- 
+
   totalpage1: any;
   totalPages1: any;
   currentpage1: any;
 
   pageIndex2: number = 0;
   pageSize2 = 5;
- 
+
   totalpage2: any;
   totalPages2: any;
   currentpage2: any;
- 
+
   filter: boolean = false;
   filter1: boolean = false;
   filters: boolean = false;
@@ -102,35 +102,35 @@ export class CustomerTransViewallComponent {
   @ViewChild('CustomerPayment') CustomerPayment!: TemplateRef<any>;
   @ViewChild('DateFilter') DateFilter!: TemplateRef<any>;
 
- 
+
   userInput: string = '';
-  
-  options: Option[]=[];
+
+  options: Option[] = [];
   // currentfil: any = { entityName: '' };
   // filterResults: any[] = [];
-  currentfil:any
+  currentfil: any
   search: any;
-  search1:any;
+  search1: any;
   selectedDate: any;
   selectedDate1: any;
   selectedOption: any;
   customerPay: any = FormGroup;
-  Datefiltercustomer:any=FormGroup;
+  Datefiltercustomer: any = FormGroup;
   custpay: any;
   merchantId: any;
-  flags:any;
-  backs:any ='';
-// 
+  flags: any;
+  backs: any = '';
+  // 
   pageIndex3: number = 0;
   pageSize3 = 5;
   totalPages3: any;
   currentpage3: any;
   totalpage3: any;
   filter3: boolean = true;
-  maxDate:any;
-  currentfilvalShow:boolean=true;
-  searchPerformed:boolean=false;
-  
+  maxDate: any;
+  currentfilvalShow: boolean = true;
+  searchPerformed: boolean = false;
+
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private fb: FormBuilder) { }
 
 
@@ -197,15 +197,15 @@ export class CustomerTransViewallComponent {
 
     });
 
-    
+
     this.customerPay = this.fb.group({
       pay: ['', [Validators.required]],
-      startDate: ['', ],
+      startDate: ['',],
       endDate: ['',],
       // search: ['', [Validators.required]],
       selectedOption: ['', [Validators.required]],
 
-      search1:['']
+      search1: ['']
 
     });
 
@@ -228,7 +228,7 @@ export class CustomerTransViewallComponent {
     return this.customerPay.get('endDate');
   }
 
- 
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -273,16 +273,16 @@ export class CustomerTransViewallComponent {
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.transaction);
-        this.dialog.closeAll(); 
+        this.dialog.closeAll();
       } else if (res.flag == 2) {
         this.toastr.error(res.responseMessage)
-        this.dialog.closeAll(); 
+        this.dialog.closeAll();
         this.transaction = [];
-        
+
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.transaction); 
+        this.dataSource = new MatTableDataSource(this.transaction);
       }
     })
   }
@@ -306,19 +306,19 @@ export class CustomerTransViewallComponent {
 
     });
 
-    
-    this.backs ='';
-    this.filterValue='';
+
+    this.backs = '';
+    this.filterValue = '';
     this.Datefiltercustomer.reset();
     this.customerPay.reset()
     this.userInput = '';
     this.options = [];
-    this.selectedOption=''
-      this.search1=''
+    this.selectedOption = ''
+    this.search1 = ''
   }
 
 
-  resetfilter(){
+  resetfilter() {
     this.Datefiltercustomer.reset();
   }
 
@@ -351,17 +351,17 @@ export class CustomerTransViewallComponent {
           this.response.push(element?.setupBoxNumber);
           this.response.push(element?.paymentMethod);
           this.response.push(element?.paidAmount);
- 
-          if(element.paymentDateTime){
+
+          if (element.paymentDateTime) {
             this.response.push(moment(element?.paymentDateTime).format('DD/MM/yyyy hh:mm a').toString());
           }
-          else{
+          else {
             this.response.push('');
           }
-          if(element.createdDateTime){
+          if (element.createdDateTime) {
             this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
           }
-          else{
+          else {
             this.response.push('');
           }
           if (element?.paymentStatus == 'Success') {
@@ -382,7 +382,7 @@ export class CustomerTransViewallComponent {
           else {
             this.response.push('Initiated');
           }
- 
+
           sno++;
           this.responseDataListnew.push(this.response);
         });
@@ -406,18 +406,18 @@ export class CustomerTransViewallComponent {
       'Due Generated At ',
       'Paid At',
       'Status',
- 
+
     ]
- 
- 
+
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Customer Transactions');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
- 
- 
+
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -428,15 +428,15 @@ export class CustomerTransViewallComponent {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
+
       }
- 
+
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
- 
+
     data.forEach((d: any) => {
       //
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -450,7 +450,7 @@ export class CustomerTransViewallComponent {
       let qty9 = row.getCell(10);
       let qty10 = row.getCell(11);
       let qty11 = row.getCell(12);
- 
+
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -464,7 +464,7 @@ export class CustomerTransViewallComponent {
       qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
 
- 
+
     }
     );
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
@@ -506,9 +506,9 @@ export class CustomerTransViewallComponent {
               this.currentpage = res.pagination.currentPage;
               this.dataSource = new MatTableDataSource(this.transaction);
               this.currentfilvalShow = false;
-            } else   {
+            } else {
               this.toastr.error(res.responseMessage);
-              this.dialog.closeAll() 
+              this.dialog.closeAll()
               this.transaction = [];
               this.totalPages = res.pagination.totalElements;
               this.totalpage = res.pagination.pageSize;
@@ -516,9 +516,9 @@ export class CustomerTransViewallComponent {
               this.dataSource = new MatTableDataSource(this.transaction);
               this.currentfilvalShow = false;
             }
-      
+
           });
-      
+
         }, 500);
       }
       else {
@@ -527,7 +527,7 @@ export class CustomerTransViewallComponent {
     })
   }
 
-  
+
   CustomerAdmin(filterValue: string) {
     if (!filterValue) {
       // this.toastr.error('Please enter a value to search');
@@ -535,40 +535,39 @@ export class CustomerTransViewallComponent {
     }
     if (filterValue) {
 
-    this.service.CustomeradminSearch(filterValue,this.pageSize,this.pageIndex).subscribe({
-      next: (res: any) => {
-        if (res.response) {
-          this.transaction = res.response;
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.transaction);
-          this.currentfilvalShow = true;
-        } else if (res.flag == 2) {
-          this.transaction = [];
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.transaction);
-          this.currentfilvalShow = true;
+      this.service.CustomeradminSearch(filterValue, this.pageSize, this.pageIndex).subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.transaction = res.response;
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.transaction);
+            this.currentfilvalShow = true;
+          } else if (res.flag == 2) {
+            this.transaction = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.transaction);
+            this.currentfilvalShow = true;
+          }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
         }
-      },
-      error: (err: any) => {
-        this.toastr.error('No Data Found');
-      }
-    });
-  }
+      });
+    }
   }
 
-   
- 
-  resets()
-  {
+
+
+  resets() {
     window.location.reload()
   }
-  
-  
- 
+
+
+
   Filter(event: any) {
     console.log(event.target.value);
     this.filterValue = event.target.value;
@@ -585,7 +584,7 @@ export class CustomerTransViewallComponent {
         // width: '30%'
       });
     }
-     else if (this.filterValue == 'Datefilter') {
+    else if (this.filterValue == 'Datefilter') {
       this.dialogRef = this.dialog.open(this.DateFilter, {
         enterAnimationDuration: '500ms',
         exitAnimationDuration: '1000ms',
@@ -599,81 +598,81 @@ export class CustomerTransViewallComponent {
 
 
   onInputChange(event: Event): void {
-      const inputElement = event.target as HTMLInputElement;
-      this.userInput = inputElement.value;
+    const inputElement = event.target as HTMLInputElement;
+    this.userInput = inputElement.value;
   }
-  
-onSearchClick(searchSelect: NgSelectComponent): void {
-      this.searchAPI(this.userInput);
-  // Keep the dropdown open after the search
-  if (!searchSelect.isOpen) {
-    searchSelect.open();
-  }
-}
 
-onRemoveClick() {
-  this.selectedOption = null;
-  this.options = [];
-  console.log('No data found');
-}
-
-searchAPI(query: string): void {
-    this.service.Customerpaysearchfilter(query).subscribe((res: any) => {
-        if (res.flag === 1) {
-            this.options = res.response.map((item: any) => ({
-                entityName: item.entityName,
-                merchantId: item.merchantId
-            }));
-
-    } else {
-      this.toastr.error(res.responseMessage);
+  onSearchClick(searchSelect: NgSelectComponent): void {
+    this.searchAPI(this.userInput);
+    // Keep the dropdown open after the search
+    if (!searchSelect.isOpen) {
+      searchSelect.open();
     }
-  }, (error) => {
-    console.error('Error fetching data from API', error);
-  });
-}
+  }
 
-onClear(): void {
-  this.options = []; // Clear dropdown options
-  this.selectedOption = null; // Reset the selected option
-  this.userInput = ''; // Clear the input variable, if any
-  console.log('Clear action triggered!');
-}
+  onRemoveClick() {
+    this.selectedOption = null;
+    this.options = [];
+    console.log('No data found');
+  }
 
-onDropdownChange(selectedItem: any): void {
-  console.log(selectedItem)
-  if (selectedItem) {
+  searchAPI(query: string): void {
+    this.service.Customerpaysearchfilter(query).subscribe((res: any) => {
+      if (res.flag === 1) {
+        this.options = res.response.map((item: any) => ({
+          entityName: item.entityName,
+          merchantId: item.merchantId
+        }));
+
+      } else {
+        this.toastr.error(res.responseMessage);
+      }
+    }, (error) => {
+      console.error('Error fetching data from API', error);
+    });
+  }
+
+  onClear(): void {
+    this.options = []; // Clear dropdown options
+    this.selectedOption = null; // Reset the selected option
+    this.userInput = ''; // Clear the input variable, if any
+    console.log('Clear action triggered!');
+  }
+
+  onDropdownChange(selectedItem: any): void {
+    console.log(selectedItem)
+    if (selectedItem) {
       this.selectedOption = selectedItem.merchantId;
       this.search1 = selectedItem.entityName;
       this.merchantId = this.selectedOption;
       console.log(this.merchantId);
+    }
   }
-}
- 
 
-customerpay(){
+
+  customerpay() {
     if (!this.startDate?.value && !this.endDate?.value) {
-      this.flags = 1;  
+      this.flags = 1;
       console.log('Flag set to 1:', this.flags);
     } else {
-      this.flags = 2; 
+      this.flags = 2;
       console.log('Flag set to 2:', this.flags);
     }
     let submitModel: customerpayfilter = {
       paymentStatus: this.pay?.value,
       merchantId: this.merchantId,
-      flag: this.flags ,
+      flag: this.flags,
       startDate: this.startDate?.value,
       endDate: this.endDate?.value
     };
-    this.service.CustomerpayFilter(this.pageSize,this.pageIndex,submitModel).subscribe((res: any) => {
+    this.service.CustomerpayFilter(this.pageSize, this.pageIndex, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.custpay = res.response;
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.custpay);
-         this.dialog.closeAll()
+        this.dialog.closeAll()
       } else if (res.flag == 2) {
         this.custpay = [];
         this.totalPages = res.pagination.totalElements;
@@ -683,80 +682,79 @@ customerpay(){
         this.dialog.closeAll()
       }
     });
-      
+
   }
 
   resetcustomer(): void {
     this.customerPay.reset()
     this.userInput = '';
     this.options = [];
-    this.selectedOption=''
-    this.search1=''
+    this.selectedOption = ''
+    this.search1 = ''
   }
 
-  close(){
+  close() {
     this.dialog.closeAll()
     this.backs = '';
-    this.filterValue=null;
+    this.filterValue = null;
   }
 
   future(value: any) {
     value.reset()
   }
 
-getData(event: any) {
+  getData(event: any) {
 
-    
-   if (this.currentfilvalShow) {
-    this.service.CustomeradminSearch(this.currentfilval,event.pageSize,event.pageIndex).subscribe({
-      next: (res: any) => {
-        if (res.response) {
-          this.transaction = res.response;
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.transaction);
-          
-        } else if (res.flag == 2) {
-          this.transaction = [];
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.transaction);
-     
+
+    if (this.currentfilvalShow) {
+      this.service.CustomeradminSearch(this.currentfilval, event.pageSize, event.pageIndex).subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.transaction = res.response;
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.transaction);
+
+          } else if (res.flag == 2) {
+            this.transaction = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.transaction);
+
+          }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
         }
-      },
-      error: (err: any) => {
-        this.toastr.error('No Data Found');
-      }
-    });
-  } 
+      });
+    }
 
 
-  else if (this.filterValue === 'Filterbycustomerpay')  
-    {
+    else if (this.filterValue === 'Filterbycustomerpay') {
       if (!this.startDate?.value && !this.endDate?.value) {
-        this.flags = 1;  
+        this.flags = 1;
         console.log('Flag set to 1:', this.flags);
       } else {
-        this.flags = 2; 
+        this.flags = 2;
         console.log('Flag set to 2:', this.flags);
       }
       let submitModel: customerpayfilter = {
         paymentStatus: this.pay?.value,
         merchantId: this.merchantId,
-        flag: this.flags ,
+        flag: this.flags,
         startDate: this.startDate?.value,
         endDate: this.endDate?.value
       };
-      this.service.CustomerpayFilter(event.pageSize,event.pageIndex,submitModel).subscribe((res: any) => {
+      this.service.CustomerpayFilter(event.pageSize, event.pageIndex, submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
           this.custpay = res.response;
           this.totalPages = res.pagination.totalElements;
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.custpay);
-           this.dialog.closeAll()
+          this.dialog.closeAll()
         } else if (res.flag == 2) {
           this.custpay = [];
           this.totalPages = res.pagination.totalElements;
@@ -768,32 +766,31 @@ getData(event: any) {
       });
     }
 
-    else if (this.filterValue === 'Datefilter') 
-     {
+    else if (this.filterValue === 'Datefilter') {
       const fromDate = this.Datefiltercustomer.get('FromDateRange')?.value;
       const toDate = this.Datefiltercustomer.get('ToDateRange')?.value;
-  
+
       this.service.CustomerTransactionsFilter(fromDate, toDate, event.pageSize, event.pageIndex).subscribe((res: any) => {
         if (res.flag == 1) {
           this.transaction = res.response;
           this.totalPages = res.pagination.totalElements;
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.transaction); 
-          this.dialog.closeAll(); 
+          this.dataSource = new MatTableDataSource(this.transaction);
+          this.dialog.closeAll();
         } else if (res.flag == 2) {
           this.toastr.error(res.responseMessage)
-          this.dialog.closeAll(); 
+          this.dialog.closeAll();
           this.transaction = [];
           this.totalPages = res.pagination.totalElements;
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.transaction); 
+          this.dataSource = new MatTableDataSource(this.transaction);
         }
       })
     }
 
-    else  {
+    else {
       this.service.CustomerAllTransactions(event.pageSize, event.pageIndex).subscribe((res: any) => {
         if (res.flag == 1) {
           this.transaction = res.response;
@@ -801,20 +798,20 @@ getData(event: any) {
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.transaction);
-       
+
         } else if (res.flag == 2) {
           this.transaction = [];
           this.totalPages = res.pagination.totalElements;
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.transaction);
-         
+
         }
-  
+
       });
     }
-}
- 
+  }
+
 
 }
 

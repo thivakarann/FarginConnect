@@ -9,15 +9,21 @@
                 <label class="form__label" for="fname">Document Type</label>
                 <input class="form-control" id="fname" type="text" formControlName="kycCategoryName"
                      required />
-                     <div style="color: red; font-size: 12px; margin-top: 2px;"
-                     *ngIf="kycCategoryName?.invalid && kycCategoryName?.touched && kycCategoryName?.errors?.['pattern']">
-                     Please enter only letters,(max 50 characters)
-
-                 </div>
+            
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="kycCategoryName?.invalid && kycCategoryName?.touched && kycCategoryName?.errors?.['required']">
                     Field is required
                 </div>
+                         <div style="color: red; font-size: 12px; margin-top: 2px;"
+                     *ngIf="kycCategoryName?.invalid && kycCategoryName?.touched && kycCategoryName?.errors?.['pattern']">
+          Invalid format
+
+                 </div>
+                          <div style="color: red; font-size: 12px; margin-top: 2px;"
+                     *ngIf="kycCategoryName?.invalid && kycCategoryName?.touched && kycCategoryName?.errors?.['maxlength']">
+            Maximum length should be 50
+
+                 </div>
             </div>
 
            

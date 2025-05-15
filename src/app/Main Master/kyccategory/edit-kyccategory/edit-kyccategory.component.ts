@@ -28,8 +28,7 @@ export class EditKyccategoryComponent {
 
 
     this.editcategory = new FormGroup({
-      kycCategoryName: new FormControl('', [Validators.required, Validators.pattern(/^[A-Za-z ]{1,50}$/
-      )]),
+      kycCategoryName: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),Validators.maxLength(50)]),
     });
 
     this.kycCategoryId = this.data.value.kycCategoryId
