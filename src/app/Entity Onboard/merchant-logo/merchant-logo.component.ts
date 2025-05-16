@@ -64,7 +64,7 @@ export class MerchantLogoComponent {
 
       if (acceptableTypes.includes(this.upload.type)) {
         if (this.upload.size <= 20 * 1024 * 1024) {
-          this.toastr.success('Image uploaded successfully');
+          // this.toastr.success('Image uploaded successfully');
         } else {
           this.toastr.error('Max Image size exceeded');
           this.merchantlogo?.reset();

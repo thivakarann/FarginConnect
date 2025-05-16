@@ -23,6 +23,7 @@ export class SettlementViewComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 term: any;
+payout:any;
   constructor(
     public service: FarginServiceService,
     private router: Router,
@@ -34,6 +35,8 @@ term: any;
   ngOnInit(): void {
     this.ActivateRoute.params.subscribe((param: any) => {
       this.accountId=param.id
+      this.payout=param.id1
+
       
     })
     this.postrenewal()
@@ -48,7 +51,7 @@ term: any;
       dateRange: "",
       status: "",
       accountId:this.accountId,
-      payoutId:'217'
+      payoutId:this.payout
 
     }
 

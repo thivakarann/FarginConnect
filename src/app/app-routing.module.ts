@@ -189,7 +189,7 @@ const routes: Routes = [
       { path: 'entity-qrcode/:id', component: EntityQrcodeComponent, canActivate: [authGuard] },
       { path: 'entity-refund/:id', component: EntityRefundComponent, canActivate: [authGuard] },
       { path: 'entity-settlement/:id', component: EntitySettlementComponent, canActivate: [authGuard] },
-      { path: 'settlement-view/:id', component: SettlementViewComponent, canActivate: [authGuard] },
+      { path: 'settlement-view/:id/:id1', component: SettlementViewComponent, canActivate: [authGuard] },
       { path: "overall-transactions-viewall", component: OverallTransactionsViewallComponent, canActivate: [authGuard] },
       { path: 'viewwithdrawal', component: ViewwithdrawalComponent, canActivate: [authGuard] },
       { path: 'view-beneficiary', component: ViewbeneficiaryComponent, canActivate: [authGuard] },

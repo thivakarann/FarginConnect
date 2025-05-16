@@ -30,8 +30,8 @@ export class ApprovalForBankComponent implements OnInit {
       approvalStatus: new FormControl('', [Validators.required]),
       reMarks: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 ]*$'),
-        
+ Validators.maxLength(250),
+
       ]),
     });
   }

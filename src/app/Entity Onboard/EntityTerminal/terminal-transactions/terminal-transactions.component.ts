@@ -232,11 +232,6 @@ export class TerminalTransactionsComponent {
     let sno = 1;
     this.responseDataListnew = [];
     this.filteredData.forEach((element: any) => {
-      let createdate = element.createdAt;
-      this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-
-      let moddate = element.modifiedDatetime;
-      this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.accountId);
@@ -255,6 +250,13 @@ export class TerminalTransactionsComponent {
       } else {
         this.response.push(element?.completed);
       }
+        if (element?.createdAt) {
+        this.response.push(moment(element?.createdAt).format('DD/MM/yyyy hh:mm a'));
+      }
+      else {
+        this.response.push('');
+      }
+ 
 
       sno++;
       this.responseDataListnew.push(this.response);
@@ -273,7 +275,8 @@ export class TerminalTransactionsComponent {
       'VPA',
       'Merchant Order Number',
       'Amount',
-      'PaymentStatus',
+      'Payment Status',
+      'Paid At'
     ];
 
     const data = this.responseDataListnew;
@@ -316,6 +319,7 @@ export class TerminalTransactionsComponent {
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
+        let qty9 = row.getCell(10);
 
       qty.border = {
         top: { style: 'thin' },
@@ -366,6 +370,12 @@ export class TerminalTransactionsComponent {
         right: { style: 'thin' },
       };
       qty8.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+         qty9.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
         bottom: { style: 'thin' },

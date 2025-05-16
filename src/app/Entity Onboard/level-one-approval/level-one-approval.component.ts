@@ -30,7 +30,7 @@ export class LevelOneApprovalComponent implements OnInit {
       approvalStatus: new FormControl('', [Validators.required]),
       remarks: new FormControl('', [
         Validators.required,
-        Validators.maxLength(200),
+        Validators.maxLength(250),
       ]),
     });
   }

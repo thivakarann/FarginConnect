@@ -525,11 +525,13 @@
               <tr>
  
                 <th>S No</th>
-                <th>Service Name</th>
+                <th>Stock Category</th>
+                 <th>Stock Quantity</th>
+                  <th>Service Amount</th>
                 <th>Payment Id</th>
                 <th>Payment Method</th>
                 <th>Payment Status</th>
-                <th>Service Amount</th>
+             
              
                 <th [hidden]="valueaddinvoice!=='Customers-Additional Payments Receipt'">Receipt</th>
                 <th>Paid At</th>
@@ -542,7 +544,9 @@
                   *ngFor="let item of additionlpay ; let i = index">
  
                   <td>{{ i + 1 }}</td>
-                  <td>{{ item.serviceName}}</td>
+                   <td>{{ item.stockCategory}}</td>
+                  <td>{{ item.quantity}}</td>
+                   <td>{{ item.paidAmount}}</td>
                   <td>{{ item.pgPaymentId ||'--'}}</td>
                   <td>{{ item.paymentMethod ||'--'}}</td>
                   <td>
@@ -556,7 +560,7 @@
                       item?.paymentStatus}}</span>
  
                   </td>
-                  <td>{{ item.paidAmount}}</td>
+                
                  
                   <td [hidden]="valueaddinvoice!=='Customers-Additional Payments Receipt'"> 
                     <button class="btn btn-success btn-sm" [disabled]="transaction?.paymentStatus != 'Success'"

@@ -106,7 +106,7 @@
             <div>
                 <button type="submit" class="btn mx-1 " style="background-color:#7db855be"
                     [disabled]="this.AdminForm.invalid" (click)="submit()">Submit</button>
-                <button matDialogClose type="submit" class="btn" style="background-color:#141E46;color:white">Cancel</button>
+                <button  type="submit" (click)="close()" class="btn" style="background-color:#141E46;color:white">Cancel</button>
             </div>
         </form>
     </div>

@@ -889,6 +889,7 @@ export class EntityViewComponent implements OnInit {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '500ms',
       disableClose: true,
+      maxHeight:'500px',
       data: {
         value: id,
       },
@@ -903,6 +904,7 @@ export class EntityViewComponent implements OnInit {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '500ms',
       disableClose: true,
+       maxHeight:'500px',
       data: {
         value: id,
       },
@@ -1316,6 +1318,7 @@ export class EntityViewComponent implements OnInit {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       disableClose: true,
+      maxHeight:'500px',
       data: { value: id },
     });
 
@@ -1405,6 +1408,7 @@ export class EntityViewComponent implements OnInit {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       disableClose: true,
+       maxHeight:'500px',
       data: { value: id, value1: 1 },
     });
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
@@ -1417,6 +1421,7 @@ export class EntityViewComponent implements OnInit {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       disableClose: true,
+       maxHeight:'500px',
       data: { value: id, value1: 2 },
     });
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
@@ -1429,6 +1434,7 @@ export class EntityViewComponent implements OnInit {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       disableClose: true,
+       maxHeight:'500px',
       data: { value: id, value1: 3 },
     });
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
@@ -2009,6 +2015,7 @@ export class EntityViewComponent implements OnInit {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       disableClose: true,
+       maxHeight:'500px',
       data: { value: id },
     });
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
@@ -2119,6 +2126,7 @@ export class EntityViewComponent implements OnInit {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       disableClose: true,
+       maxHeight:'500px',
       data: { value: id },
     });
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {

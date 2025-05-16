@@ -32,7 +32,7 @@ export class ApprovalBussinessdocumentComponent {
 
     this.myForm = new FormGroup({
       approvalStatus: new FormControl('', [Validators.required]),
-      reMarks: new FormControl('', [Validators.required]),
+      reMarks: new FormControl('', [Validators.required,Validators.maxLength(250)]),
     });
   }
 

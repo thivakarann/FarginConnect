@@ -120,9 +120,9 @@ export class EntitySettlementComponent {
 
   }
 
-  viewpayout(id: any) {
-    this.router.navigate([`/dashboard/settlement-view/${id}`], {
-      queryParams: { value: id },
+  viewpayout(id: any,id1:any) {
+    this.router.navigate([`/dashboard/settlement-view/${id}/${id1}`], {
+      queryParams: { value: id, value1:id1},
     });
 
   }
