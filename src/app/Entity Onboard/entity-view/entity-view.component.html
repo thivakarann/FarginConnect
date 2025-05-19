@@ -30,8 +30,8 @@
     data-target="home"
     (click)="entityTransaction(this.id)"
   >
-    <div [hidden]="valueentitytransaction !== 'Entity View Online'">
-      <i class="fa-solid fa-building-columns"></i>&nbsp;&nbsp;Online
+    <div [hidden]="valueentitytransaction !== 'Entity View Due'">
+      <i class="fa-solid fa-building-columns"></i>&nbsp;&nbsp;Due
     </div>
   </button>
 
@@ -2978,7 +2978,7 @@
               <td>
                 <span [hidden]="item.adminVerifiedDate != null">-</span>
                 <span [hidden]="item.adminVerifiedDate == null">
-                  {{ item.adminVerifiedDate | date : "dd/MM/yyyy" }}
+                  {{ item.adminVerifiedDate }}
                 </span>
               </td>
 
@@ -2993,7 +2993,7 @@
               <td>
                 <span [hidden]="item.merchantVerifiedDate != null">-</span>
                 <span [hidden]="item.merchantVerifiedDate == null">
-                  {{ item.merchantVerifiedDate | date : "dd/MM/yyyy" }}
+                  {{ item.merchantVerifiedDate  }}
                 </span>
               </td>
 
@@ -3196,10 +3196,10 @@
               </th>
               <th
                 [hidden]="
-                  valuebranchonlineview !== 'Entity View Branch-online View'
+                  valuebranchonlineview !== 'Entity View Branch-Due View'
                 "
               >
-                Online Transaction
+                Due Transaction
               </th>
               <th [hidden]="valuebranchkyc !== 'Entity View Branch-KYC'">
                 KYC View
@@ -3243,8 +3243,27 @@
               <td>{{ item.smsMerchantName }}</td>
               <td>{{ item.bankName }}</td>
               <td>{{ item.ifscCode }}</td>
-              <td>{{ item.apiKey }}</td>
-              <td>{{ item.secretKey }}</td>
+              <td> {{ item.apiKey | slice : 0 : 10 }}
+                <i
+                  class="fa-regular fa-copy"
+                  style="color: green; font-size: 15px;padding:0"
+                  (click)="copyTextbranch(item.apiKey, i)"
+                ></i>
+                <span *ngIf="copy1 === i" style="color: green"
+                  >Copied!</span
+                >
+                </td>
+
+              <td> 
+                {{ item.secretKey | slice : 0 : 10 }}
+                <i
+                  class="fa-regular fa-copy"
+                  style="color: green; font-size: 15px;padding:0"
+                  (click)="copyText1Branch(item.secretKey, i)"
+                ></i>
+                <span *ngIf="copy2 === i" style="color: green"
+                  >Copied!</span
+                ></td>
               <td
                 [hidden]="
                   valuebranchCustomerview !== 'Entity View Branch-Customer View'
@@ -3258,7 +3277,7 @@
               </td>
               <td
                 [hidden]="
-                  valuebranchonlineview !== 'Entity View Branch-online View'
+                  valuebranchonlineview !== 'Entity View Branch-Due View'
                 "
               >
                 <i

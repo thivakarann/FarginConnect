@@ -1,37 +1,93 @@
+<mat-dialog-content class="mat-typography">
+  <div class="search">
+    <form class="form" style="background: #9e9e9e">
+      <label for="search">
+        <input
+          #input
+          (keyup)="applyFilter($event)"
+          autocomplete="off"
+          placeholder="Search"
+          id="search"
+          type="search"
+        />
+        <div class="icon">
+          <svg
+            stroke-width="2"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            class="swap-on"
+          >
+            <path
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              stroke-linejoin="round"
+              stroke-linecap="round"
+            ></path>
+          </svg>
+        </div>
+        <button (click)="reload()" type="reset" class="close-btn">
+          <svg
+            viewBox="0 0 20 20"
+            class="h-5 w-5"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              fill-rule="evenodd"
+            ></path>
+          </svg>
+        </button>
+      </label>
+    </form>
+  </div>
 
+  <div
+    class="example-container text-nowrap mt-1"
+    style="overflow-x: scroll; scrollbar-width: thin"
+  >
+    <!-- <span  class="errormge">NO DATA FOUND</span> -->
 
+    <table
+      id="season-tble"
+      matSort
+      mat-table
+      [dataSource]="dataSource"
+      class="mat-elevation-z1"
+    >
+      <ng-container matColumnDef="sno">
+        <th mat-header-cell *matHeaderCellDef>S.No</th>
+        <td mat-cell *matCellDef="let data; let i = index">{{ i + 1 }}</td>
+      </ng-container>
 
-<div class="form-header d-flex justify-content-between align-items-center">
-  <h5 class="p-2 m-0 ml-3">Sub Permission View</h5>
-  <button type="button" class="btn btn-secondary btn-sm mr-3" (click)="back()">Back</button>
-</div>
+      <ng-container matColumnDef="permission">
+        <th mat-header-cell *matHeaderCellDef>Enabled Permission</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data?.permission?.permission }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="sub">
+        <th mat-header-cell *matHeaderCellDef>Enabled Actions</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data?.subPermissions }}
+        </td>
+      </ng-container>
 
-<div class="well">
-  <div class="col-md-5 mb-2" style="margin-left: -10px;">
-    <div class="search">
-       <input type="text" [(ngModel)]="searchText"  (ngModelChange)="onSearchTextChange()" class="form-control" placeholder="Search...">
-    </div>
-</div>
-    <div class="table-responsive text-nowrap">
-        <table class="table table-hover" >
-          <tr>
-            <th style="background-color: white; color: black">S.No</th>
-            <th style="background-color: white; color: black">
-              Enabled Permissions
-            </th>
-            <th style="background-color: white; color: black">
-              Enabled Actions
-            </th>
-          </tr>
-          <tr *ngFor="let data of subpermissionValue | paginate: { itemsPerPage: 5, currentPage: currentPage } | search: searchText;let i=index">
-            <td class="text-center">{{ i + 1 }}</td>
-            <td class="text-center">{{ data?.permission?.permission }}</td>
-            <td class="text-center">{{ data?.subPermissions }}</td>
-          </tr>
-        </table>
-        <div class="text-end mt-3">
-          <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
-      </div>
-      </div>
-      
-</div>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No Data</td>
+      </tr>
+    </table>
+  </div>
+
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 50, 100, 500]"
+    showFirstLastButtons
+    aria-labels="select page of users"
+  ></mat-paginator>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Close</button>
+</mat-dialog-actions>

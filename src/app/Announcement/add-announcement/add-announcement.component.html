@@ -33,7 +33,7 @@
             <div class="form__linput">
                 <label class="form__label" >Start Date</label>
                 <input class="form-control"  type="date" formControlName="startDate"
-                   required [min]="minDate">
+                   required [min]="minDate" (change)="checkDate()">
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="startDate?.invalid && startDate?.touched && startDate?.errors?.['required']">
                     Field is required
@@ -43,14 +43,12 @@
             <div class="form__linput">
                 <label class="form__label" >End Date</label>
                 <input class="form-control"  type="date" formControlName="endDate"
-                   required >
+                   required   [min]="startDate.value" >
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="endDate?.invalid && endDate?.touched && endDate?.errors?.['required']">
                     Field is required
                 </div>
-                <div *ngIf="announcementform.errors?.dateRangeInvalid" style="color: red;">
-                    End Date must be greater than Start Date.
-                  </div>
+                
             </div>
 
             <!-- <div class="form__linput">

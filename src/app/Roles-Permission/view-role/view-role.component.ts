@@ -15,12 +15,23 @@ import { ViewSubpermissionComponent } from '../view-subpermission/view-subpermis
 @Component({
   selector: 'app-view-role',
   templateUrl: './view-role.component.html',
-  styleUrl: './view-role.component.css'
+  styleUrl: './view-role.component.css',
 })
 export class ViewRoleComponent implements OnInit {
   showcategoryData: any;
   dataSource: any;
-  displayedColumns: any[] = ["roleid", "rolename", "permissionName", "actionName", "status", "action", "CreatedBy", "CreatedAt", "modifiedBy", "modifiedAt"];
+  displayedColumns: any[] = [
+    'roleid',
+    'rolename',
+    // 'permissionName',
+    'actionName',
+    'status',
+    'action',
+    'CreatedBy',
+    'CreatedAt',
+    'modifiedBy',
+    'modifiedAt',
+  ];
   isChecked: any;
   roledata: any;
   dataValue: any;
@@ -42,20 +53,21 @@ export class ViewRoleComponent implements OnInit {
   perValueObject: any;
   searchPerformed: boolean = false;
 
-  constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
+  constructor(
+    private dialog: MatDialog,
+    private service: FarginServiceService,
+    private toastr: ToastrService
+  ) {}
   ngOnInit(): void {
-
-
     this.service.viewRoles().subscribe((res: any) => {
       if (res.flag == 1) {
         this.roledata = res.response;
-        this.dataSource = new MatTableDataSource(this.roledata?.reverse())
+        this.dataSource = new MatTableDataSource(this.roledata?.reverse());
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-      }
-      else if (res.flag == 2) {
+      } else if (res.flag == 2) {
         this.roledata = [];
-        this.dataSource = new MatTableDataSource(this.roledata?.reverse())
+        this.dataSource = new MatTableDataSource(this.roledata?.reverse());
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }
@@ -73,8 +85,6 @@ export class ViewRoleComponent implements OnInit {
   }
 
   onSubmit(event: MatSlideToggleChange, id: any) {
-
-
     this.isChecked = event.checked;
 
     let submitModel: roleactiveInactive = {
@@ -83,19 +93,17 @@ export class ViewRoleComponent implements OnInit {
     };
 
     this.service.rolesStatus(submitModel).subscribe((res: any) => {
-
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
         this.service.viewRoles().subscribe((res: any) => {
           if (res.flag == 1) {
             this.roledata = res.response;
-            this.dataSource = new MatTableDataSource(this.roledata?.reverse())
+            this.dataSource = new MatTableDataSource(this.roledata?.reverse());
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
-          }
-          else if (res.flag == 2) {
+          } else if (res.flag == 2) {
             this.roledata = [];
-            this.dataSource = new MatTableDataSource(this.roledata?.reverse())
+            this.dataSource = new MatTableDataSource(this.roledata?.reverse());
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
           }
@@ -104,9 +112,7 @@ export class ViewRoleComponent implements OnInit {
     });
   }
 
-
   edit(id: string) {
-
     this.values = [];
     this.subId = [];
     this.perValueArray = [];
@@ -114,31 +120,36 @@ export class ViewRoleComponent implements OnInit {
 
     this.service.rolegetById(id).subscribe({
       next: (res: any) => {
-
         if (res.flag == 1) {
           this.getAction = res.response;
           this.roleName = this.getAction.roleName;
-          this.permissionview = this.getAction.permission
-          this.subpermission = this.getAction.subPermission
+          this.permissionview = this.getAction.permission;
+          this.subpermission = this.getAction.subPermission;
 
           for (let data of this.permissionview) {
-            this.values.push(data.permissionId)
+            this.values.push(data.permissionId);
           }
 
           //Duplicate Removal start
-          this.perValueObject = new Set(this.values)
+          this.perValueObject = new Set(this.values);
           for (let value of this.perValueObject) {
-            this.perValueArray.push(value)
+            this.perValueArray.push(value);
           }
 
           //Duplicate Removal end
 
           for (let data1 of this.subpermission) {
-            this.subId.push(data1.subPermissionId)
+            this.subId.push(data1.subPermissionId);
           }
 
           const dialogRef = this.dialog.open(EditRoleComponent, {
-            data: { per: this.perValueArray, roleName: this.roleName, role: id, sub: this.subId, moduleNames: this.moduleName },
+            data: {
+              per: this.perValueArray,
+              roleName: this.roleName,
+              role: id,
+              sub: this.subId,
+              moduleNames: this.moduleName,
+            },
             disableClose: true,
 
             enterAnimationDuration: '1000ms',
@@ -148,28 +159,24 @@ export class ViewRoleComponent implements OnInit {
             this.fetchrole();
           });
         } else if (res.flag == 2) {
-
           this.errorMessage = res.responseMessage;
         } else {
           this.errorMessage = res.responseMessage;
         }
       },
     });
-
   }
-
 
   fetchrole() {
     this.service.viewRoles().subscribe((res: any) => {
       if (res.flag == 1) {
         this.roledata = res.response;
-        this.dataSource = new MatTableDataSource(this.roledata?.reverse())
+        this.dataSource = new MatTableDataSource(this.roledata?.reverse());
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-      }
-      else if (res.flag == 2) {
+      } else if (res.flag == 2) {
         this.roledata = [];
-        this.dataSource = new MatTableDataSource(this.roledata?.reverse())
+        this.dataSource = new MatTableDataSource(this.roledata?.reverse());
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }
@@ -186,27 +193,23 @@ export class ViewRoleComponent implements OnInit {
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
       this.fetchrole();
     });
-
   }
-
 
   reload() {
     this.service.viewRoles().subscribe((res: any) => {
       if (res.flag == 1) {
         this.roledata = res.response;
-        this.dataSource = new MatTableDataSource(this.roledata?.reverse())
+        this.dataSource = new MatTableDataSource(this.roledata?.reverse());
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-      }
-      else if (res.flag == 2) {
+      } else if (res.flag == 2) {
         this.roledata = [];
-        this.dataSource = new MatTableDataSource(this.roledata?.reverse())
+        this.dataSource = new MatTableDataSource(this.roledata?.reverse());
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }
     });
   }
-
 
   permissionView(id: any) {
     this.dialog.open(ViewPermissionComponent, {

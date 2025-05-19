@@ -6,75 +6,370 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { settlements } from '../../fargin-model/fargin-model.module';
-import { Location } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
+import { MatTableDataSource } from '@angular/material/table';
+import { Workbook } from 'exceljs';
+import FileSaver from 'file-saver';
+import moment from 'moment';
 @Component({
   selector: 'app-settlement-view',
   templateUrl: './settlement-view.component.html',
-  styleUrl: './settlement-view.component.css'
+  styleUrl: './settlement-view.component.css',
 })
 export class SettlementViewComponent implements OnInit {
+  datas: any;
+  responseDataListnew: any[] = [];
+  filteredData: any;
+  response: any[] = [];
+
   Viewall: any;
   viewdata: any;
-  accountId:any;
+  accountId: any;
   currentPage: any = 1; // The current page number
   itemsPerPage = 5; //
- 
+
   page: number = 1;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-term: any;
-payout:any;
+  term: any;
+  payout: any;
+  merchantid: any;
+  dataSource!: MatTableDataSource<any>;
+  displayedColumns: string[] = [
+    'settlementId',
+    'accoundid',
+    'payoutId',
+    'amount',
+    'reference',
+    'txnItem',
+    'createdAt',
+  ];
+  viewall: any;
+  length: any;
+  pageIndex: any;
+  pageSize: any;
+  searchPerformed: any;
+  Daterange: any;
+  FromDateRange: any;
+  ToDateRange: any;
+  maxDate: any;
   constructor(
     public service: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
     private dialog: MatDialog,
     private ActivateRoute: ActivatedRoute,
-  private location:Location) { }
+    private location: Location
+  ) { }
 
   ngOnInit(): void {
+    const today = new Date();
+    this.maxDate = moment(today).format('yyyy-MM-DD').toString();
+
     this.ActivateRoute.params.subscribe((param: any) => {
-      this.accountId=param.id
-      this.payout=param.id1
-
-      
-    })
-    this.postrenewal()
-
+      this.accountId = param.id;
+      this.payout = param.id1;
+      this.merchantid = param.id2;
+    });
+    this.postrenewal();
   }
 
   postrenewal() {
     let submitModel: settlements = {
-      pageNo: "",
-      size: "",
-      query: "",
-      dateRange: "",
-      status: "",
-      accountId:this.accountId,
-      payoutId:this.payout
-
-    }
+      pageNo: '0',
+      size: '5',
+      query: '',
+      dateRange: '',
+      status: '',
+      accountId: this.accountId,
+      payoutId: this.payout,
+      merchantId: this.merchantid,
+    };
 
     this.service.entitySettleTransaction(submitModel).subscribe((res: any) => {
-      
       this.Viewall = JSON.parse(res?.response);
       this.viewdata = this.Viewall?.data?.content;
-      
-      
-    })
+      this.datas = this.Viewall.data;
+      this.length = this.datas.totalElements;
+      this.pageIndex = this.datas.number;
+      this.pageSize = this.datas.size;
+      this.dataSource = new MatTableDataSource(this.viewdata);
+
+      if (this.viewdata.length === 0) {
+        this.dataSource = new MatTableDataSource();
+      }
+    });
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.viewdata.filter = filterValue.trim().toLowerCase().toUpperCase();
-    
   }
-  reload()
-  {
-    this.postrenewal()
+  reload() {
+    this.postrenewal();
   }
-  close()
-  {
+  close() {
     this.location.back();
   }
+  filterdate() {
+    const datepipe: DatePipe = new DatePipe('en-US');
+    let formattedstartDate = datepipe.transform(
+      this.FromDateRange,
+      'dd/MM/YYYY 00:00'
+    );
+    let formattedendDate = datepipe.transform(
+      this.ToDateRange,
+      'dd/MM/YYYY 23:59'
+    );
+    this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
+    this.currentPage = 0;
+    let submitModel: settlements = {
+      pageNo: '0',
+      size: '5',
+      query: '',
+      dateRange: this.Daterange,
+      status: '',
+      accountId: this.accountId,
+      payoutId: this.payout,
+      merchantId: this.merchantid,
+    };
+
+    this.service.entitySettleTransaction(submitModel).subscribe((res: any) => {
+      this.Viewall = JSON.parse(res?.response);
+      this.viewdata = this.Viewall?.data?.content;
+      this.datas = this.Viewall.data;
+      this.length = this.datas.totalElements;
+      this.pageIndex = this.datas.number;
+      this.pageSize = this.datas.size;
+      this.dataSource = new MatTableDataSource(this.viewdata);
+
+      if (this.viewdata.length === 0) {
+        this.dataSource = new MatTableDataSource();
+      }
+    });
+  }
+  reset() {
+    this.Daterange = '';
+    let submitModel: settlements = {
+      pageNo: '0',
+      size: '5',
+      query: '',
+      dateRange: this.Daterange,
+      status: '',
+      accountId: this.accountId,
+      payoutId: this.payout,
+      merchantId: this.merchantid,
+    };
+
+    this.service.entitySettleTransaction(submitModel).subscribe((res: any) => {
+      this.Viewall = JSON.parse(res?.response);
+      this.viewdata = this.Viewall?.data?.content;
+      this.datas = this.Viewall.data;
+      this.length = this.datas.totalElements;
+      this.pageIndex = this.datas.number;
+      this.pageSize = this.datas.size;
+      this.FromDateRange = '';
+      this.ToDateRange = '';
+      this.dataSource = new MatTableDataSource(this.viewdata);
+
+      if (this.viewdata.length === 0) {
+        this.dataSource = new MatTableDataSource();
+      }
+    });
+  }
+
+
+  getData(event: any) {
+    if (this.FromDateRange && this.ToDateRange) {
+      const datepipe: DatePipe = new DatePipe('en-US');
+      let formattedstartDate = datepipe.transform(
+        this.FromDateRange,
+        'dd/MM/YYYY 00:00'
+      );
+      let formattedendDate = datepipe.transform(
+        this.ToDateRange,
+        'dd/MM/YYYY 23:59'
+      );
+      this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
+      this.currentPage = 0;
+      let submitModel: settlements = {
+        pageNo: event.pageIndex + 1,
+        size: event.pageSize,
+        query: '',
+        dateRange: this.Daterange,
+        status: '',
+        accountId: this.accountId,
+        payoutId: this.payout,
+        merchantId: this.merchantid,
+      };
+
+      this.service.entitySettleTransaction(submitModel).subscribe((res: any) => {
+        this.Viewall = JSON.parse(res?.response);
+        this.viewdata = this.Viewall?.data?.content;
+        this.datas = this.Viewall.data;
+        this.length = this.datas.totalElements;
+
+        this.dataSource = new MatTableDataSource(this.viewdata);
+
+        if (this.viewdata.length === 0) {
+          this.dataSource = new MatTableDataSource();
+        }
+      });
+    }
+    else {
+      let submitModel: settlements = {
+        pageNo: event.pageIndex + 1,
+        size: event.pageSize,
+        query: '',
+        dateRange: this.Daterange,
+        status: '',
+        accountId: this.accountId,
+        payoutId: this.payout,
+        merchantId: this.merchantid,
+      };
+
+      this.service.entitySettleTransaction(submitModel).subscribe((res: any) => {
+        this.Viewall = JSON.parse(res?.response);
+        this.viewdata = this.Viewall?.data?.content;
+        this.datas = this.Viewall.data;
+        this.length = this.datas.totalElements;
+
+        this.dataSource = new MatTableDataSource(this.viewdata);
+
+        if (this.viewdata.length === 0) {
+          this.dataSource = new MatTableDataSource();
+        }
+      });
+    }
+
+  }
+  exportexcel() {
+    let sno = 1;
+    this.responseDataListnew = [];
+    this.viewdata.forEach((element: any) => {
+      this.response = [];
+      this.response.push(sno);
+      this.response.push(element?.payoutId);
+      this.response.push(element?.transactionId);
+      this.response.push(element?.amount);
+      this.response.push(element?.reference);
+      this.response.push(element?.txnItem);
+
+      if (element?.createdAt) {
+        this.response.push(
+          moment(element?.createdAt).format('DD/MM/yyyy hh:mm a')
+        );
+      } else {
+        this.response.push('');
+      }
+
+      sno++;
+      this.responseDataListnew.push(this.response);
+    });
+    this.excelexportCustomer();
+  }
+
+  excelexportCustomer() {
+    const header = [
+      'S.No',
+      'Payout ID',
+      'Transaction ID',
+      'Amount',
+      'Reference',
+      'Txn Item',
+      'Txn Time',
+    ];
+    const data = this.responseDataListnew;
+    let workbook = new Workbook();
+    let worksheet = workbook.addWorksheet('View All Payouts');
+
+    worksheet.addRow([]);
+    let headerRow = worksheet.addRow(header);
+    headerRow.font = { bold: true };
+    // Cell Style : Fill and Border
+    headerRow.eachCell((cell, number) => {
+      cell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'FFFFFFFF' },
+        bgColor: { argb: 'FF0000FF' },
+      };
+
+      cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+    });
+
+    data.forEach((d: any) => {
+      //
+
+      let row = worksheet.addRow(d);
+      let qty = row.getCell(1);
+      let qty1 = row.getCell(2);
+      let qty2 = row.getCell(3);
+      let qty3 = row.getCell(4);
+      let qty4 = row.getCell(5);
+      let qty5 = row.getCell(6);
+      let qty6 = row.getCell(7);
+
+      qty.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty1.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty2.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty3.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty4.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty5.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty6.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+    });
+
+    workbook.xlsx.writeBuffer().then((data: any) => {
+      let blob = new Blob([data], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      });
+
+      FileSaver.saveAs(blob, 'View All Payouts.xlsx');
+    });
+  }
+  checkDate() {
+    this.ToDateRange = '';
+    // this.FromDateRange =''
+  }
+
 }

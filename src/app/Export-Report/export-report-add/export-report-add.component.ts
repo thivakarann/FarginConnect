@@ -138,12 +138,12 @@ export class ExportReportAddComponent implements OnInit {
       this.Staticqr();
     }
     else if ((selectedValue == '7' || selectedValue == '13' || selectedValue == '14' || selectedValue == '19') && startDate && endDate && !paymentStatus) {
-      this.exportTypes = 1; // Export type without payment status
+      this.exportTypes = 1;
       this.submit();
 
     }
     else if ((selectedValue == '7' || selectedValue == '13' || selectedValue == '14' || selectedValue == '19') && startDate && endDate && paymentStatus) {
-      this.exportTypes = 0; // Export type without payment status
+      this.exportTypes = 0;
       this.submit();
     }
     else if ((selectedValue == '7' || selectedValue == '13' || selectedValue == '14' || selectedValue == '19') && startDate && endDate) {

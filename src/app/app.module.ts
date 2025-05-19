@@ -294,6 +294,8 @@ import { SignerHistoryComponent } from './Main Master/Fargin Signer Details/sign
 import { SmsHistoryComponent } from './Main Master/SMS Cost/sms-history/sms-history.component';
 import { FarginBankHistoryComponent } from './Main Master/Fargin Bank/fargin-bank-history/fargin-bank-history.component';
 import { RefundPeriodHistoryComponent } from './Main Master/Refund Period/refund-period-history/refund-period-history.component';
+import { SmscontentViewComponent } from './SMS details/smscontent-view/smscontent-view.component';
+
 
 
 @NgModule({
@@ -565,6 +567,9 @@ import { RefundPeriodHistoryComponent } from './Main Master/Refund Period/refund
     SmsHistoryComponent,
     FarginBankHistoryComponent,
     RefundPeriodHistoryComponent,
+    SmsCostViewallComponent,
+    SmscontentViewComponent
+  
 
   ],
 

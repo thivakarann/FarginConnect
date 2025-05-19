@@ -397,7 +397,7 @@
  
                   <td>{{ i + 1 }}</td>
                   <td>{{ row.pgPaymentId || "-" }}</td>
-                  <td>{{ row.paidAmount }}</td>
+                  <td>{{ row.paidAmount.toFixed(2) }}</td>
                   <td>{{ row.paymentMethod }}</td>
                   <td>{{ row.bankReference }}</td>
                   <td>{{row.createdDateTime | date : "dd/MM/yyyy hh:mm a"}}</td>
@@ -546,7 +546,7 @@
                   <td>{{ i + 1 }}</td>
                    <td>{{ item.stockCategory}}</td>
                   <td>{{ item.quantity}}</td>
-                   <td>{{ item.paidAmount}}</td>
+                   <td>{{ item.paidAmount.toFixed(2)}}</td>
                   <td>{{ item.pgPaymentId ||'--'}}</td>
                   <td>{{ item.paymentMethod ||'--'}}</td>
                   <td>
@@ -563,7 +563,7 @@
                 
                  
                   <td [hidden]="valueaddinvoice!=='Customers-Additional Payments Receipt'"> 
-                    <button class="btn btn-success btn-sm" [disabled]="transaction?.paymentStatus != 'Success'"
+                    <button class="btn btn-success btn-sm" [disabled]="item?.paymentStatus != 'Success'"
                       style="border:none;" (click)="viewreciept(item?.customerpaymentId)"> 
                       <i class="fa-solid fa-download" style="color:#fff;"></i></button>
                   </td>

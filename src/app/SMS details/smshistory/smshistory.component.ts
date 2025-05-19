@@ -10,6 +10,7 @@ import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { PageEvent } from '@angular/material/paginator';
+import { SmscontentViewComponent } from '../smscontent-view/smscontent-view.component';
 
 @Component({
   selector: 'app-smshistory',
@@ -26,7 +27,8 @@ export class SMSHistoryComponent {
     // 'entityemail',
     'mobile',
     'smsType',
-    'responseCode',
+    'smsTempDescription',
+    // 'responseCode',
     'responseStatus',
      'smscharge',
     'perSmsAmount',
@@ -63,11 +65,11 @@ export class SMSHistoryComponent {
   totalPages: any;
   totalpage: any;
   currentpage: any;
-
+ limit: number = 30;
   pageIndex: number = 0;
   pageSize = 5;
   smsResponseexport: any;
-
+  Visible: boolean = false;
 
   pageIndex1: number = 0;
   pageSize1 = 5;
@@ -473,5 +475,12 @@ searchPerformed:boolean=false;
       })
     }
   }
-
+  description(id: any) {
+    this.dialog.open(SmscontentViewComponent, {
+      data: { value: id },
+      enterAnimationDuration: '1000ms',
+      exitAnimationDuration: '1000ms',
+      disableClose: true
+    })
+  }
 }

@@ -67,7 +67,7 @@
             </ng-container>
 
             <ng-container matColumnDef="successCount">
-                <th mat-header-cell *matHeaderCellDef>Sended Email Count</th>
+                <th mat-header-cell *matHeaderCellDef>Sent Email Count</th>
                 <td mat-cell *matCellDef="let data" class="text-success">
                     {{data?.successCount}}
                 </td>
@@ -82,7 +82,7 @@
 
  
             <ng-container matColumnDef="UploadedAt">
-                <th mat-header-cell *matHeaderCellDef>Email Send At</th>
+                <th mat-header-cell *matHeaderCellDef>Email Sent at</th>
                 <td mat-cell *matCellDef="let data">
                     {{data?.createdAt |date:'dd/MM/yyyy'}}
                 </td>

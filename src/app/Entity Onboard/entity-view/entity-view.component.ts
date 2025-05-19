@@ -87,6 +87,8 @@ export class EntityViewComponent implements OnInit {
   startdate!: string;
   enddate!: string;
   copySuccess: boolean = false;
+  copy1: number = -1;
+  copy2: number = -1;;
   CopieedSucess: boolean = false;
   items: any[] = [];
   currentPage: any = 1;
@@ -326,7 +328,7 @@ export class EntityViewComponent implements OnInit {
             this.valueentityterminal = 'Entity View Entity-Terminal';
             this.valuebranchterminal = 'Entity View Branch-Terminal';
             this.valuebranchKYCview = 'Entity View Branch-KYC View';
-            this.valuebranchonlineview = 'Entity View Branch-online View';
+            this.valuebranchonlineview = 'Entity View Branch-Due View';
             this.valuebranchkyc = 'Entity View Branch-KYC';
             this.valuebranchTerminal = 'Entity View Branch-Terminal';
             this.valuebranch = 'Entity View Branch';
@@ -534,8 +536,8 @@ export class EntityViewComponent implements OnInit {
                 this.valuebranchKYCview = 'Entity View Branch-KYC View';
               }
 
-              if (this.actions == 'Entity View Branch-online View') {
-                this.valuebranchonlineview = 'Entity View Branch-online View';
+              if (this.actions == 'Entity View Branch-Due View') {
+                this.valuebranchonlineview = 'Entity View Branch-Due View';
               }
 
               if (this.actions == 'Entity View Branch-KYC') {
@@ -612,7 +614,7 @@ export class EntityViewComponent implements OnInit {
 
   getpermissionValue() {
     if (this.roleId == 1) {
-      this.valueentitytransaction = 'Entity View Online';
+      this.valueentitytransaction = 'Entity View Due';
       this.valueentityautodebit = 'Entity View Cloud Fee AutoDebit';
       this.valuentitysettlement = 'Entity View Settlement';
       this.valueentityRefund = 'Entity View Refund';
@@ -640,8 +642,8 @@ export class EntityViewComponent implements OnInit {
       for (let data of this.entitypermission) {
         this.roles = data.permission;
 
-        if (this.roles == 'Entity View Online') {
-          this.valueentitytransaction = 'Entity View Online';
+        if (this.roles == 'Entity View Due') {
+          this.valueentitytransaction = 'Entity View Due';
         }
         if (this.roles == 'Entity View Settlement') {
           this.valuentitysettlement = 'Entity View Settlement';
@@ -2416,4 +2418,26 @@ export class EntityViewComponent implements OnInit {
   //     })
   //   }
   // }
+
+
+  copyTextbranch(text: string, index: number) {
+    const el = document.createElement('textarea');
+    el.value = text;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    this.copy1 = index;
+    setTimeout(() => (this.copy1 = -1), 2000);
+  }
+  copyText1Branch(text: string, index: number) {
+    const el = document.createElement('textarea');
+    el.value = text;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    this.copy2 = index;
+    setTimeout(() => (this.copy2 = -1), 2000);
+  }
 }

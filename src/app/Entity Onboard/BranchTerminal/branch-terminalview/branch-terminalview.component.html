@@ -52,7 +52,7 @@
                 </td>
             </ng-container>
             <ng-container matColumnDef="terminalNumber">
-                <th mat-header-cell *matHeaderCellDef>Terminal Number</th>
+                <th mat-header-cell *matHeaderCellDef>Terminal Id</th>
                 <td mat-cell *matCellDef="let data">
                     {{ data?.terminalNumber }}
                 </td>
@@ -73,7 +73,7 @@
                     class="example-margin"
                     color="primary"
                     [checked]="data.activeStatus === 1"
-                    (change)="onSubmit($event, data.branchTerminalId)">
+                    (change)="onSubmit($event, data.branchTerminalId)" style="transform:scale(0.9)">
                   </mat-slide-toggle>
                 </td>
             </ng-container>

@@ -378,7 +378,7 @@ export interface AdminPolicyEdit {
 
 
 export interface ticket {
-  readonly updatedBy: any;
+  readonly approvalStatusUpdatedBy: any;
   readonly remarks: any;
   readonly approvalStatus: any;
 }
@@ -389,6 +389,7 @@ export interface updatestickerticket{
   readonly subject: any;
   readonly merchantId:any;
   readonly ticketStatus:any;
+  readonly stickerUpdatedBy:any;
  
 }
 
@@ -686,6 +687,7 @@ export interface settlements {
   readonly dateRange: any;
   readonly status: any;
   readonly payoutId: any;
+  readonly merchantId:any;
 }
 
 

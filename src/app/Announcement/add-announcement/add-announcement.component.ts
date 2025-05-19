@@ -44,26 +44,23 @@ export class AddAnnouncementComponent {
         startDate: ['', Validators.required],  // Empty start date
         endDate: ['', Validators.required]     // Empty end date
       },
-      {
-        validators: [this.dateRangeValidator] // Apply custom date range validator
-      }
     );
   }
 
   // Custom validator to ensure endDate > startDate
-  dateRangeValidator(formGroup: FormGroup) {
-    const startDate = formGroup.get('startDate')?.value;
-    const endDate = formGroup.get('endDate')?.value;
+  // dateRangeValidator(formGroup: FormGroup) {
+  //   const startDate = formGroup.get('startDate')?.value;
+  //   const endDate = formGroup.get('endDate')?.value;
 
-    // Validate that the endDate is greater than startDate
-    if (startDate && endDate) {
-      if (new Date(endDate) <= new Date(startDate)) {
-        return { dateRangeInvalid: true }; // Error object when dates are invalid
-      }
-    }
+  //   Validate that the endDate is greater than startDate
+  //   if (startDate && endDate) {
+  //     if (new Date(endDate) <= new Date(startDate)) {
+  //       return { dateRangeInvalid: true };  Error object when dates are invalid
+  //     }
+  //   }
 
-    return null; // Return null if validation is successful
-  }
+  //   return null;  Return null if validation is successful
+  // }
   
   get businessCategoryId() {
     return this.announcementform.get('businessCategoryId');
@@ -105,4 +102,8 @@ export class AddAnnouncementComponent {
     });
 
   }
+    checkDate(){
+    this.endDate.reset();
+  }
+ 
 }

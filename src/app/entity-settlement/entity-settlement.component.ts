@@ -14,7 +14,7 @@ import moment from 'moment';
 @Component({
   selector: 'app-entity-settlement',
   templateUrl: './entity-settlement.component.html',
-  styleUrl: './entity-settlement.component.css'
+  styleUrl: './entity-settlement.component.css',
 })
 export class EntitySettlementComponent {
   valuesettlement: any;
@@ -33,8 +33,6 @@ export class EntitySettlementComponent {
     'View',
     'txnItem',
     'createdAt',
-
-
   ];
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
@@ -50,7 +48,7 @@ export class EntitySettlementComponent {
   accountid: any;
   Viewall: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId');
   actions: any;
   responseDataListnew: any = [];
   response: any = [];
@@ -62,20 +60,22 @@ export class EntitySettlementComponent {
   content: any;
   filteredData: any;
   maxDate: any;
+  merchantid: any;
+  length: any;
+  pageIndex: any;
+  pageSize: any;
+  datas: any;
 
   constructor(
     public MerchantView: FarginServiceService,
     private router: Router,
     private ActivateRoute: ActivatedRoute,
     private Location: Location
-  ) { }
-
+  ) {}
 
   ngOnInit(): void {
-
-    const today = new Date();
-    this.maxDate = moment(today).format('yyyy-MM-DD').toString()
-
+      const today = new Date();
+    this.maxDate = moment(today).format('yyyy-MM-DD').toString();
 
     this.MerchantView.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
@@ -83,28 +83,22 @@ export class EntitySettlementComponent {
           this.getdashboard = res.response?.subPermission;
           if (this.roleId == 1) {
             this.valuesettlementexport = 'Entity View Settlement-Export';
-            this.valuesettlementview = 'Entity View Settlement-View'
-
-          }
-          else {
+            this.valuesettlementview = 'Entity View Settlement-View';
+          } else {
             for (let datas of this.getdashboard) {
-
               this.actions = datas.subPermissions;
               if (this.actions == 'Entity View Settlement-Export') {
-                this.valuesettlementexport = 'Entity View Settlement-Export'
+                this.valuesettlementexport = 'Entity View Settlement-Export';
               }
               if (this.actions == 'Entity View Settlement-View') {
-                this.valuesettlementview = 'Entity View Settlement-View'
+                this.valuesettlementview = 'Entity View Settlement-View';
               }
-
             }
           }
-
-        }
-        else {
+        } else {
           this.errorMessage = res.responseMessage;
         }
-      }
+      },
     });
 
     this.ActivateRoute.queryParams.subscribe((param: any) => {
@@ -115,27 +109,28 @@ export class EntitySettlementComponent {
       this.details = res.response;
       this.detaislone = res.response.merchantpersonal;
       this.accountid = res.response.merchantpersonal.accountId;
+      this.merchantid = res.response.merchantpersonal.merchantId;
       this.postrenewal();
-    })
-
+    });
   }
 
-  viewpayout(id: any,id1:any) {
-    this.router.navigate([`/dashboard/settlement-view/${id}/${id1}`], {
-      queryParams: { value: id, value1:id1},
-    });
-
+  viewpayout(id2: any, id1: any) {
+    this.router.navigate(
+      [`/dashboard/settlement-view/${id2}/${id1}/${this.id}`],
+      {
+        queryParams: { value: id2, value1: id1, value2: this.id },
+      }
+    );
   }
 
   close() {
-    this.Location.back()
+    this.Location.back();
   }
 
   checkDate() {
-    this.ToDateRange = ''
+    this.ToDateRange = '';
     // this.FromDateRange =''
   }
-
 
   reload() {
     this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
@@ -143,69 +138,80 @@ export class EntitySettlementComponent {
       this.detaislone = res.response.merchantpersonal;
       this.accountid = res.response.merchantpersonal.accountId;
       this.postrenewal();
-    })
+    });
   }
 
   postrenewal() {
     let submitModel: settlement = {
       merchantId: this.id,
-      pageNo: "",
-      size: "",
-      query: "",
-      dateRange: "",
-      status: "",
-    }
+      pageNo: '0',
+      size: '5',
+      query: '',
+      dateRange: this.Daterange,
+      status: '',
+    };
     this.MerchantView.Entitysettlement(submitModel).subscribe((res: any) => {
-      this.Viewall = JSON.parse(res?.response);
-      this.viewdata = this.Viewall?.data?.content;
-      this.dataSource = new MatTableDataSource(this.viewdata?.reverse())
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
+      this.Viewall = JSON.parse(res.response);
+      console.log(this.Viewall);
+
+      this.content = this.Viewall?.data?.content || [];
+      console.log(this.content);
+      this.filteredData = this.content;
+      this.datas = this.Viewall.data;
+      this.length = this.datas.totalElements;
+      this.pageIndex = this.datas.number;
+      this.pageSize = this.datas.size;
+      this.dataSource = new MatTableDataSource(this.filteredData);
+
       if (this.content.length === 0) {
         this.dataSource = new MatTableDataSource();
       }
-    })
+    });
   }
 
   filterdate() {
-    const datepipe: DatePipe = new DatePipe("en-US");
-    let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY 00:00");
-    let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/YYYY 23:59");
-    this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
-
+    const datepipe: DatePipe = new DatePipe('en-US');
+    let formattedstartDate = datepipe.transform(
+      this.FromDateRange,
+      'dd/MM/YYYY 00:00'
+    );
+    let formattedendDate = datepipe.transform(
+      this.ToDateRange,
+      'dd/MM/YYYY 23:59'
+    );
+    this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
+    this.currentPage = 0;
     let submitModel: settlement = {
       merchantId: this.id,
-      pageNo: "",
-      size: "",
-      query: "",
+      pageNo: this.currentPage,
+      size: '5',
+      query: '',
       dateRange: this.Daterange,
-      status: "",
-
-    }
+      status: '',
+    };
     this.MerchantView.Entitysettlement(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
-
         this.Viewall = JSON.parse(res.response);
         this.content = this.Viewall?.data?.content;
         this.filteredData = this.content;
-        console.log(this.filteredData)
-
+        this.datas = this.Viewall.data;
+        this.length = this.datas.totalElements;
+        this.pageIndex = this.datas.number;
+        this.pageSize = this.datas.size;
 
         this.dataSource = new MatTableDataSource(this.filteredData);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
 
         if (this.content.length === 0) {
           this.dataSource = new MatTableDataSource();
         }
       }
-    })
+    });
   }
 
   exportexcel() {
     let sno = 1;
     this.responseDataListnew = [];
-    this.viewdata.forEach((element: any) => {
+    this.filteredData.forEach((element: any) => {
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.accountId);
@@ -216,9 +222,10 @@ export class EntitySettlementComponent {
       this.response.push(element?.txnItem);
 
       if (element?.createdAt) {
-        this.response.push(moment(element?.createdAt).format('DD/MM/yyyy hh:mm a'));
-      }
-      else {
+        this.response.push(
+          moment(element?.createdAt).format('DD/MM/yyyy hh:mm a')
+        );
+      } else {
         this.response.push('');
       }
 
@@ -229,7 +236,6 @@ export class EntitySettlementComponent {
   }
 
   excelexportCustomer() {
-
     const header = [
       'S.No',
       'Account ID',
@@ -325,10 +331,7 @@ export class EntitySettlementComponent {
         bottom: { style: 'thin' },
         right: { style: 'thin' },
       };
-
     });
-
-
 
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], {
@@ -344,46 +347,102 @@ export class EntitySettlementComponent {
 
     this.searchPerformed = filterValue.length > 0;
 
-
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
   reset() {
-    this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
-      this.details = res.response;
-      this.detaislone = res.response.merchantpersonal;
-      this.accountid = res.response.merchantpersonal.accountId;
+    this.Daterange = '';
+    let submitModel: settlement = {
+      merchantId: this.id,
+      pageNo: '0',
+      size: '5',
+      query: '',
+      dateRange: this.Daterange,
+      status: '',
+    };
 
+    this.MerchantView.Entitysettlement(submitModel).subscribe((res: any) => {
+      this.Viewall = JSON.parse(res.response);
+      console.log(this.Viewall);
+
+      this.content = this.Viewall?.data?.content || [];
+      console.log(this.content);
+      this.filteredData = this.content;
+      this.datas = this.Viewall.data;
+      this.length = this.datas.totalElements;
+      this.pageIndex = this.datas.number;
+      this.pageSize = this.datas.size;
+      this.dataSource = new MatTableDataSource(this.filteredData);
+      this.FromDateRange = '';
+      this.ToDateRange = '';
+
+      if (this.content.length === 0) {
+        this.dataSource = new MatTableDataSource();
+      }
+    });
+  }
+
+  getData(event: any) {
+    if (this.FromDateRange && this.ToDateRange) {
+      const datepipe: DatePipe = new DatePipe('en-US');
+      let formattedstartDate = datepipe.transform(
+        this.FromDateRange,
+        'dd/MM/YYYY 00:00'
+      );
+      let formattedendDate = datepipe.transform(
+        this.ToDateRange,
+        'dd/MM/YYYY 23:59'
+      );
+      this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
+      this.currentPage = 0;
       let submitModel: settlement = {
         merchantId: this.id,
-        pageNo: "",
-        size: "",
-        query: "",
-        dateRange: "",
-        status: "",
-      }
+        pageNo: event.pageIndex + 1,
+        size: event.pageSize,
+        query: '',
+        dateRange: this.Daterange,
+        status: '',
+      };
       this.MerchantView.Entitysettlement(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
-          this.Viewall = JSON.parse(res?.response);
-          this.viewdata = this.Viewall?.data?.content;
-          this.dataSource = new MatTableDataSource(this.viewdata?.reverse())
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
+          this.Viewall = JSON.parse(res.response);
+          this.content = this.Viewall?.data?.content;
+          this.datas = this.Viewall.data;
+          this.length = this.datas.totalElements;
+
+          this.dataSource = new MatTableDataSource(this.filteredData);
+
           if (this.content.length === 0) {
             this.dataSource = new MatTableDataSource();
           }
-          this.FromDateRange = '';
-          this.ToDateRange = '';
         }
-        else {
-          this.FromDateRange = '';
-          this.ToDateRange = '';
+      });
+    } else {
+      let submitModel: settlement = {
+        merchantId: this.id,
+        pageNo: event.pageIndex + 1,
+        size: event.pageSize,
+        query: '',
+        dateRange: this.Daterange,
+        status: '',
+      };
+      this.MerchantView.Entitysettlement(submitModel).subscribe((res: any) => {
+        this.Viewall = JSON.parse(res.response);
+        console.log(this.Viewall);
+
+        this.content = this.Viewall?.data?.content || [];
+        console.log(this.content);
+        this.filteredData = this.content;
+        this.datas = this.Viewall.data;
+        this.length = this.datas.totalElements;
+
+        this.dataSource = new MatTableDataSource(this.filteredData);
+
+        if (this.content.length === 0) {
+          this.dataSource = new MatTableDataSource();
         }
-
-      })
-
-    })
+      });
+    }
   }
-
 }

@@ -15,6 +15,7 @@ export class UpdateStickerTicketComponent implements OnInit {
   updatestickerticket: any = FormGroup;
   description: any;
   adminname: any = JSON.parse(sessionStorage.getItem('adminname') || '');
+    getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
   raiseTicketId: any;
   ticketValue: any;
   tickets: any;
@@ -86,7 +87,8 @@ export class UpdateStickerTicketComponent implements OnInit {
       stickerCount: this.stickerCount.value,
       subject: this.stickerreq,
       merchantId: this.merchantId,
-      ticketStatus: this.details
+      ticketStatus: this.details,
+      stickerUpdatedBy:this.getadminname 
     }
     this.service.UpdateStickerTickets(submitModel).subscribe((res: any) => {
       this.ticketValue = res.response;

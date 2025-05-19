@@ -50,7 +50,7 @@ export class AddticketComponent {
   
   save() {
     let submitModel: ticket = {
-      updatedBy: this.adminname,
+      approvalStatusUpdatedBy: this.adminname,
       remarks: this.remarks?.value,
       approvalStatus: this.approvalStatus?.value
     }

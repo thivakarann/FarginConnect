@@ -42,9 +42,9 @@ export class EditAnnouncementComponent {
         startDate: ['', Validators.required],  // Empty start date
         endDate: ['', Validators.required]     // Empty end date
       },
-      {
-        validators: [this.dateRangeValidator] // Apply custom date range validator
-      }
+      // {
+      //   validators: [this.dateRangeValidator] // Apply custom date range validator
+      // }
     );
 
 
@@ -77,30 +77,8 @@ export class EditAnnouncementComponent {
     // this.startDates = this.data.value.startDate
     // this.endDates = this.data.value.endDate
 
-
-
-
   }
-
-  // Custom validator to ensure endDate > startDate
-  dateRangeValidator(formGroup: FormGroup) {
-    const startDate = formGroup.get('startDate')?.value;
-    const endDate = formGroup.get('endDate')?.value;
-
-    // Validate that the endDate is greater than startDate
-    if (startDate && endDate) {
-      if (new Date(endDate) <= new Date(startDate)) {
-        return { dateRangeInvalid: true }; // Error object when dates are invalid
-      }
-    }
-
-    return null; // Return null if validation is successful
-  }
-
-
-
-
-  get businessCategoryId() {
+get businessCategoryId() {
     return this.announcementform.get('businessCategoryId');
   }
 

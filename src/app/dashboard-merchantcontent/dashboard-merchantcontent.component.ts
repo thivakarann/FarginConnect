@@ -185,7 +185,7 @@ export class DashboardMerchantcontentComponent {
 
     for (let index = 0; index < this.activemerchant.length; index++) {
       const element = this.activemerchant[index];
-      if (element.entityName == this.customerInput) {
+      if (element.merchantLegalName == this.customerInput ) {
         this.merchantId = element.merchantId;
         console.log(this.merchantId);
       }

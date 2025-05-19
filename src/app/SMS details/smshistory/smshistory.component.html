@@ -95,6 +95,25 @@
                     {{transaction?.smsTitle ==null? transaction?.merchantSmsId?.type?.smsTitle:transaction?.smsTitle}}
                 </td>
             </ng-container>
+             <ng-container matColumnDef="smsTempDescription">
+                <th mat-header-cell *matHeaderCellDef>Sms Description</th>
+                <td mat-cell *matCellDef="let transaction">
+                    <div class="privacy-policy-container">
+                        <!-- Display the sliced text based on whether the full text is visible -->
+                        <span *ngIf="!Visible">
+                            {{ transaction.smsMessage| slice:0:limit }}
+                        </span>
+                        <span *ngIf="Visible">
+                            {{ transaction.smsMessage }}
+                        </span>
+                        <i style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more"
+                            (click)="description(transaction.smsMessage )">
+                            
+                            {{ Visible ? 'Read Less' : '...Read More' }}
+                        </i>
+                    </div>
+                </td>
+            </ng-container>
             <ng-container matColumnDef="smscharge">
                 <th mat-header-cell *matHeaderCellDef>SMS Charge Type</th>
                 <td mat-cell *matCellDef="let transaction">

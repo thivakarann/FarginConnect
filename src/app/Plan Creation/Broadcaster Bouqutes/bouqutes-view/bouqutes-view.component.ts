@@ -50,6 +50,7 @@ export class BouqutesViewComponent implements OnInit {
   broadCasterBouquet:any;
   flag: any;
   message: any;
+  regionid:any;
 
   constructor(
     public viewdetails: FarginServiceService,
@@ -61,6 +62,7 @@ export class BouqutesViewComponent implements OnInit {
   ngOnInit(): void {
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.id = param.Alldata;
+      this.regionid=param.value
     });
 
     this.viewdetails.BroadcasterBoucatebyidchannel(this.id).subscribe((res: any) => {
@@ -100,11 +102,11 @@ export class BouqutesViewComponent implements OnInit {
     });
   }
 
-  addChaneels(id: any,id1:any) {
+  addChaneels(id: any,id1:any, id2:any) {
     const dialogRef =   this.dialog.open(AddExtraChannelsComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "500ms",
-      data: { value: id ,value1:id1 }
+      data: { value: id ,value1:id1, value2:id2}
     })
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
 

@@ -105,10 +105,10 @@
                         <td class="text-center">{{i+1}}</td>
                     <td class="text-center">{{item.broadCasterBouquet.serviceProvider.serviceProviderName}}</td>
                     <td class="text-center">{{item.broadCasterRegion.stateName}}</td>
-                    <td class="text-center"><i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-edit"
+                    <td class="text-center"><i style="cursor: pointer;font-size:15px; color:#545497;padding: 0px;" class="fas fa-edit"
                         (click)="Edit(details?.bouquetId,item.broadCasterRegionId)"></i></td>
-                    <td class="text-center"><i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-eye"
-                        (click)="Viewdata(item?.broadCasterRegionId)"></i>
+                    <td class="text-center"><i style="cursor: pointer;font-size:15px; color:#545497;padding: 0px;" class="fas fa-eye"
+                        (click)="Viewdata(item?.broadCasterRegionId, item?.broadCasterRegion?.regionId)"></i>
                     </td>
                     </tbody>
                 </table>

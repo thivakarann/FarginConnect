@@ -45,9 +45,10 @@ export class MaintenanceTransViewallComponent {
     'otherPayAmount',
     'otherpaymentview',
     'amount',
+        'sgst',
     'cgst',
     'igst',
-    'sgst',
+
     'totalamount',
     'createdDateTime',
     'status',

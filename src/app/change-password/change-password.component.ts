@@ -57,11 +57,13 @@ export class ChangePasswordComponent implements OnInit {
   // }
     checkConform(passwordInput1: string, passwordInput2: string) {
   if (passwordInput1 && passwordInput2) {
-    this.error = passwordInput1 === passwordInput2 ? "Going good!!" : "Password Mismatch";
+    this.isPasswordMatch = passwordInput1 === passwordInput2;
+    this.error = this.isPasswordMatch ? "Going good!!" : "Password Mismatch";
   } else {
     this.error = "";
   }
 }
+
   togglePasswordVisibility(passwordInput: { type: string; }) {
     this.showPassword = !this.showPassword;
     passwordInput.type = this.showPassword ? 'text' : 'password';

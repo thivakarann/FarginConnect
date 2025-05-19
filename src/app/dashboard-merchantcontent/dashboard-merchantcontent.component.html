@@ -10,10 +10,10 @@
             <label for="Business category" style="font-size: 16px; font-weight: 700;">Select Entity</label>
             <div class="input-group">
               <input type="text" class="form-control"
-                placeholder="Search the Merchant Name here" list="customerList" [(ngModel)]="customerInput" (keyup)="fetchSetupBoxData()"  >
+                placeholder="Search the Entity Legal Name here" list="customerList" [(ngModel)]="customerInput" (keyup)="fetchSetupBoxData()"  >
               <datalist id="customerList">
-                <option *ngFor="let item of activemerchant" [value]="item.entityName">
-                  {{item.entityName}} </option>
+                <option *ngFor="let item of activemerchant" [value]="item.merchantLegalName">
+                  {{item.merchantLegalName}} </option>
               </datalist>
          
   

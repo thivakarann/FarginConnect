@@ -110,9 +110,9 @@ export class BouqutesRegionComponent {
   }
 
 
-  Viewdata(id: any) {
-    this.router.navigate([`dashboard/bouqutes-view/${id}`], {
-      queryParams: { Alldata: id },
+  Viewdata(id: any,id1:any) {
+    this.router.navigate([`dashboard/bouqutes-view/${id}/${id1}`], {
+      queryParams: { Alldata: id, value:id1 },
     });
     
 
