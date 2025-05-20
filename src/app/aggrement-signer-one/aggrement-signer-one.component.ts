@@ -64,9 +64,9 @@ export class AggrementSignerOneComponent implements OnInit {
         this.LocationStatus = res.response.adminGetLocation;
         this.AdminSignedDate = res.response.adminVerifiedDate;
         this.EntitySignedDate = res.response.merchantVerifiedDate;
-        console.log(this.LocationStatus);
-        console.log(this.AdminSignedDate);
-        console.log(this.EntitySignedDate);
+        // console.log(this.LocationStatus);
+        // console.log(this.AdminSignedDate);
+        // console.log(this.EntitySignedDate);
 
         // this.Locationaccess():
 

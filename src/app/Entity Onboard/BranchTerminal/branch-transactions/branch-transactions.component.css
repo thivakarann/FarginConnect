@@ -257,3 +257,9 @@ mat-card {
     transform: scale(1);
     transition: 0s;
   }
+  .example-container {
+  max-height: 310px;
+  height: 100%;
+  overflow: auto;
+  scrollbar-width: auto;
+}

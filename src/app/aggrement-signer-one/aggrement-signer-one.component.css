@@ -75,12 +75,12 @@
     line-height: 1.4;
     text-align: center; /* Center the text */
     flex: 1; /* Allow it to take up remaining space */
-    margin-left: 20px;
+    margin-left:-87px;
   }
    
   /* Agreement Title */
   .agreement-title {
-    font-size: 24px;
+    font-size:19px;
     font-weight: 700;
     color: #141e46;
     text-align: center;

@@ -115,7 +115,7 @@ export class EntityTransactionComponent {
   }
 
   Getall() {
-    this.service.entitywishonlinebranchs(this.id, this.pageSize, this.pageIndex).subscribe((res: any) => {
+    this.service.Newentitywisetrans(this.id, this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag === 1) {
         this.details = res.response;
         this.totalPages = res.pagination.totalElements;
@@ -172,7 +172,7 @@ export class EntityTransactionComponent {
   customerpay(filterValue: string) {
     if (filterValue) {
 
-      this.service.entityonlinesearchbranchs(this.id, filterValue, this.pageSize, this.pageIndex).subscribe({
+      this.service.entityNewSearch(this.id, filterValue, this.pageSize, this.pageIndex).subscribe({
         next: (res: any) => {
           if (res.flag === 1) {
             this.transdetails = res.response;
@@ -205,7 +205,7 @@ export class EntityTransactionComponent {
 
   getData(event: any) {
     if (this.currentfilvalShow) {
-      this.service.entityonlinesearchbranchs(this.id, this.currentfilval, event.pageSize, event.pageIndex).subscribe({
+      this.service.entityNewSearch(this.id, this.currentfilval, event.pageSize, event.pageIndex).subscribe({
         next: (res: any) => {
           if (res.flag === 1) {
             this.transdetails = res.response;
@@ -230,7 +230,7 @@ export class EntityTransactionComponent {
     }
 
     else {
-      this.service.entitywishonlinebranchs(this.id, event.pageSize, event.pageIndex).subscribe((res: any) => {
+      this.service.Newentitywisetrans(this.id, event.pageSize, event.pageIndex).subscribe((res: any) => {
         if (res.flag === 1) {
           this.details = res.response;
           this.totalPages = res.pagination.totalElements;
@@ -306,7 +306,7 @@ export class EntityTransactionComponent {
     ]
     const data = this.responseDataListnew;
     let workbook = new Workbook();
-    let worksheet = workbook.addWorksheet('Due Transaction');
+    let worksheet = workbook.addWorksheet('Online Transaction');
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -334,7 +334,7 @@ export class EntityTransactionComponent {
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
       let qty10 = row.getCell(11);
-      // let qty11 = row.getCell(12);
+      let qty11 = row.getCell(12);
 
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -347,13 +347,13 @@ export class EntityTransactionComponent {
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      // qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     }
     );
 
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      FileSaver.saveAs(blob, 'Due Transaction.xlsx');
+      FileSaver.saveAs(blob, 'Online Transaction.xlsx');
     });
   }
 

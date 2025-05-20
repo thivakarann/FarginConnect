@@ -203,8 +203,8 @@ export class BranchCustomerViewComponent implements OnInit {
       'CustomerReferenceId',
       'Customer Name',
       'Mobile Number',
-      'State Name',
-      'City Name',
+      'State',
+      'City',
      
       'Pincode',
     ]

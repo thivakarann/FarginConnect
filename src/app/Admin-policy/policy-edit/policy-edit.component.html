@@ -43,7 +43,7 @@
      
                 <div class="form__linput">
                     <label class="form__label" for="fname">Disclaimer</label>
-                    <textarea ngModel="{{policyview.disclaimer}}" class="form-control" id="fname" type="text" minlength="50"
+                    <textarea ngModel="{{policyview?.disclaimer}}" class="form-control" id="fname" type="text" minlength="50"
                         formControlName="disclaimer" name="disclaimer" placeholder="Enter Disclaimer..." name="" id=""
                         cols="25" rows="3"></textarea>
                         <div style="color: red; font-size: 12px; margin-top: 2px;"
@@ -55,7 +55,7 @@
      
                 <div class="form__linput">
                     <label class="form__label" for="fname">Privacy Policy</label>
-                    <textarea ngModel="{{policyview.privacyPolicy}}" class="form-control" id="fname" type="text" minlength="50"
+                    <textarea ngModel="{{policyview?.privacyPolicy}}" class="form-control" id="fname" type="text" minlength="50"
                         formControlName="privacyPolicy" name="privacyPolicy" placeholder="Enter Privacy Policy..." name=""
                         id="" cols="25" rows="3"></textarea>
      
@@ -68,7 +68,7 @@
      
                 <div class="form__linput">
                     <label class="form__label" for="fname">Refund Policy</label>
-                    <textarea ngModel="{{policyview.refundPolicy}}" class="form-control" id="fname" type="text" minlength="50"
+                    <textarea ngModel="{{policyview?.refundPolicy}}" class="form-control" id="fname" type="text" minlength="50"
                         formControlName="refundPolicy" name="refundPolicy" placeholder="Enter Refund Policy..." name=""
                         id="" cols="25" rows="3"></textarea>
                         <div style="color: red; font-size: 12px; margin-top: 2px;"

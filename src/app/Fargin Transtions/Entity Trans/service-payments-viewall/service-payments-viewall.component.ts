@@ -32,6 +32,7 @@ export class ServicePaymentsViewallComponent {
     'paymentId',
     'entityname',
     'paymentmethod',
+    'paymenttype',
     'amount',
     'createdDateTime',
     'paidAt',

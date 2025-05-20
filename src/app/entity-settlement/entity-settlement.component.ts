@@ -221,9 +221,9 @@ export class EntitySettlementComponent {
       this.response.push(element?.reference);
       this.response.push(element?.txnItem);
 
-      if (element?.createdAt) {
+      if (element?.txnTime) {
         this.response.push(
-          moment(element?.createdAt).format('DD/MM/yyyy hh:mm a')
+          moment(element?.txnTime).format('DD/MM/yyyy hh:mm a')
         );
       } else {
         this.response.push('');

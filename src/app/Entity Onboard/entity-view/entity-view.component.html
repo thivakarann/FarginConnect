@@ -2168,6 +2168,7 @@
             <tr>
               <th>S No</th>
               <th>Payment ID</th>
+              <th>Payment For</th>
               <th>Due Amount</th>
 
               <th
@@ -2221,6 +2222,11 @@
             >
               <td>{{ i + 1 }}</td>
               <td>{{ item.pgPaymentId }}</td>
+              <td>
+                <span *ngIf="item?.status=='1'">One Time Paymnent</span>
+                <span *ngIf="item?.status=='2'">Renewal Payment</span>
+                </td>
+
               <td>{{ item.totalPayableAmount.toFixed(2) }}</td>
               <td
                 [hidden]="

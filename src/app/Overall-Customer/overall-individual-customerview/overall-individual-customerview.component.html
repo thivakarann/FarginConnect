@@ -552,12 +552,15 @@
                   <td>
                     <span *ngIf="item?.paymentStatus == 'Success'" class="text-success"> {{
                       item?.paymentStatus}}</span>
-                    <span *ngIf="item?.paymentStatus   == 'Due Pending'" class="text-warning"> {{
-                      item?.paymentStatus}}</span>
+                    <span *ngIf="item?.paymentStatus   == 'Due Pending'" class="text-warning">Payment Pending</span>
                     <span *ngIf="item?.paymentStatus  == 'Initiated'" class="text-primary"> {{
                       item?.paymentStatus}}</span>
                     <span *ngIf="item?.paymentStatus  == 'Failure'" class="text-danger"> {{
                       item?.paymentStatus}}</span>
+                        <span *ngIf="item.paymentStatus=='Due Cancelled'" style="color:red;"
+                      class="font-weight-bold text-gray">{{item.paymentStatus}}</span>
+                    <span *ngIf="item.paymentStatus=='Payment Incomplete'" style="color:red;"
+                      class="font-weight-bold text-gray">{{item.paymentStatus}}</span>
  
                   </td>
                 

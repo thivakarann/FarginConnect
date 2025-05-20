@@ -8,7 +8,7 @@
 
 <div class="container" [hidden]="this.Expirystatus==true">
     <!-- PDF Viewer Section -->
-    <div  class="pdf-container">
+    <div class="pdf-container">
         <pdf-viewer [src]="pdfurl1" [render-text]="true" [original-size]="true" [fit-to-page]="true"
             style="width:100%; height:93vh;"></pdf-viewer>
     </div>
@@ -30,7 +30,9 @@
 
         <!-- Agreement Title -->
         <h2 class="agreement-title">
-            <u>Fargin Network LLP Software Service Agreement</u>
+            <!-- <u>Fargin Network LLP Software Service Agreement</u> -->
+            <span>Fargin Network LLP Software Service & </span>
+            <span>Tyche Payment Solutions Payment Gateway Agreement</span>
         </h2>
 
         <!-- Profile Card -->
@@ -51,20 +53,24 @@
             <div class="profile-field">
                 <label><i style="color: black;font-size: 17px;" class="fa fa-user"></i>&nbsp;Fargin Signer
                     Status:</label>
-                <p [ngClass]="AdminSignedStatus == 0 ? 'not-signed' : 'signed'" >{{AdminSignedStatus == 0 ? 'Not Signed' : 'Signed' }}</p>
+                <p [ngClass]="AdminSignedStatus == 0 ? 'not-signed' : 'signed'">{{AdminSignedStatus == 0 ? 'Not Signed'
+                    : 'Signed' }}</p>
             </div>
             <div class="profile-field" [hidden]="AdminSignedStatus==0">
-                <label><i style="color: black;font-size: 17px;" class="fa fa-user"></i>&nbsp;Fargin Signer Signed Date:</label>
+                <label><i style="color: black;font-size: 17px;" class="fa fa-user"></i>&nbsp;Fargin Signer Signed
+                    Date:</label>
                 <p>{{AdminSignedDate|date:"dd/MM/yyyy"}}</p>
             </div>
             <div class="profile-field">
                 <label><i style="color: black;font-size: 17px;" class="fa fa-check-circle"></i>&nbsp;Entity Signer
                     Status:</label>
-                    <p [ngClass]="EntotySignedStatus == 0 ? 'not-signed' : 'signed'" >{{EntotySignedStatus == 0 ? 'Not Signed' : 'Signed' }}</p>
+                <p [ngClass]="EntotySignedStatus == 0 ? 'not-signed' : 'signed'">{{EntotySignedStatus == 0 ? 'Not
+                    Signed' : 'Signed' }}</p>
             </div>
 
             <div class="profile-field" [hidden]="EntotySignedStatus==0">
-                <label><i style="color: black;font-size: 17px;" class="fa fa-user"></i>&nbsp;Entity Signer Signed Date:</label>
+                <label><i style="color: black;font-size: 17px;" class="fa fa-user"></i>&nbsp;Entity Signer Signed
+                    Date:</label>
                 <p>{{EntitySignedDate}}</p>
             </div>
         </div>
@@ -74,60 +80,51 @@
     </div>
 </div>
 
-<body    [hidden]="this.Expirystatus==false">
-    
+<body [hidden]="this.Expirystatus==false">
+
     <div id='oopss'>
-      <div id='error-text'>
-          <img src="/assets/link-slash-solid.svg" alt="404">
-          <span>Link Expired</span>
-          <p class="p-a">
-             .The page you were looking for is Expired</p>
-             <p class="p-b">
-              For Support Please Contact</p>
-              <a class="p-b" href="mailto: support@fargin.in">
-                  support{{strings}}fargin.in
-              </a>
-          <!-- <p class="p-b">
+        <div id='error-text'>
+            <img src="/assets/link-slash-solid.svg" alt="404">
+            <span>Link Expired</span>
+            <p class="p-a">
+                .The page you were looking for is Expired</p>
+            <p class="p-b">
+                For Support Please Contact</p>
+            <a class="p-b" href="mailto: support@fargin.in">
+                support{{strings}}fargin.in
+            </a>
+            <!-- <p class="p-b">
               ... Back to previous page
           </p>
           <a href='#' class="back">... Back to previous page</a> -->
-      </div>
-  </div>
-    
-    
-  
-  </body>
+        </div>
+    </div>
 
 
-<body [hidden]="Signed==false"  >
-    
+
+</body>
+
+
+<body [hidden]="Signed==false">
+
     <div id='oopss'>
-      <div id='error-text'>
-          <img src="/assets/Active.png" alt="404">
-          <span style="color: white;">Thank you</span>
-          <p class="p-a">
-             .The agreement has been signed digitally</p>
-             <p class="p-b">
-              For Support Please Contact</p>    
-              <a class="p-b" href="mailto: support@fargin.in">
-                  support{{strings}}fargin.in
-              </a>
-          <!-- <p class="p-b">
+        <div id='error-text'>
+            <img src="/assets/Active.png" alt="404">
+            <span style="color: white;">Thank you</span>
+            <p class="p-a">
+                .The agreement has been signed digitally</p>
+            <p class="p-b">
+                For Support Please Contact</p>
+            <a class="p-b" href="mailto: support@fargin.in">
+                support{{strings}}fargin.in
+            </a>
+            <!-- <p class="p-b">
               ... Back to previous page
           </p>
           <a href='#' class="back">... Back to previous page</a> -->
-      </div>
-  </div>
-    
-    
-  
-  </body>
+        </div>
+    </div>
 
 
 
-
-
-
-
-  
-
+</body>
