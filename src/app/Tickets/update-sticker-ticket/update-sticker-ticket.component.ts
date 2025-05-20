@@ -32,19 +32,20 @@ export class UpdateStickerTicketComponent implements OnInit {
   constructor(private service: FarginServiceService, private router: Router, private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any,
     private toastr: ToastrService) { }
 
-  ngOnInit(): void {
-
+ngOnInit(): void {
     this.service.Sticker().subscribe((res: any) => {
-      this.viewall = res.response;
-      this.stickerPerAmount = res.response[0].stickerPerAmount;
-      this.deliveryDays = res.response[0].deliveryDays;
-      console.log(this.deliveryDays)
-      console.log(this.stickerPerAmount)
-      console.log(this.viewall)
-      this.totalAmount = Number(this.stickerCountraise) * Number(this.stickerPerAmount);
+        this.viewall = res.response;
+        this.stickerPerAmount = res.response[0].stickerPerAmount;
+        this.deliveryDays = res.response[0].deliveryDays;
 
+        console.log(this.deliveryDays);
+        console.log(this.stickerPerAmount);
+        console.log(this.viewall);
+
+        this.totalAmount = Number((Number(this.stickerCountraise) * Number(this.stickerPerAmount)).toFixed(2));
     });
-    
+
+
 
     this.details = this.data.value.ticketStatus;
 
@@ -68,18 +69,18 @@ export class UpdateStickerTicketComponent implements OnInit {
   get stickerCount() {
     return this.updatestickerticket.get('stickerCount')
   }
-
-  calculateTotal() {
+calculateTotal() {
     const stickerCount = this.updatestickerticket.get('stickerCount').value;
+    
     if (stickerCount) {
-      this.totalAmount = stickerCount * this.stickerPerAmount;
-      this.updatestickerticket.patchValue({ totalAmount: this.totalAmount });
+        this.totalAmount = Number((stickerCount * this.stickerPerAmount).toFixed(2));
+    } else {
+        this.totalAmount = Number((this.stickerCountraise * this.stickerPerAmount).toFixed(2));
     }
-    else {
-      this.totalAmount = this.stickerCountraise * this.stickerPerAmount;
-      this.updatestickerticket.patchValue({ totalAmount: this.totalAmount });
-    }
-  }
+
+    this.updatestickerticket.patchValue({ totalAmount: this.totalAmount });
+}
+
 
   save() {
     let submitModel: updatestickerticket = {

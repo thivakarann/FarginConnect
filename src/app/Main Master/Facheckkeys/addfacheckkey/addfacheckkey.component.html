@@ -13,8 +13,7 @@
                 <div class="form__grid">
                     <div class="form__linput">
                         <label class="form__label" for="apiKey">Api Key</label>
-                        <input class="form-control" id="apiKey" type="text" formControlName="apiKey"
-                            required />
+                        <input class="form-control" id="apiKey" type="text" formControlName="apiKey" required />
                         <div style="color: red; font-size: 12px;margin-top: 2px;" class="form__error"
                             *ngIf="apiKey?.invalid && apiKey?.touched && apiKey?.errors?.['required']">
                             Field is required
@@ -23,8 +22,7 @@
 
                     <div class="form__linput">
                         <label class="form__label" for="secretKey">Secret Key</label>
-                        <input class="form-control" id="secretKey" type="text" formControlName="secretKey"
-                             required />
+                        <input class="form-control" id="secretKey" type="text" formControlName="secretKey" required />
                         <div style="color: red; font-size: 12px;margin-top: 2px;" class="form__error"
                             *ngIf="secretKey?.invalid && secretKey?.touched && secretKey?.errors?.['required']">
                             Field is required
@@ -34,18 +32,21 @@
                     <div class="form__linput">
                         <label class="form__label" for="applicationId">Application Id</label>
                         <input class="form-control" id="applicationId" type="text" formControlName="applicationId"
-                           required />
+                            required />
                         <div style="color: red; font-size: 12px;margin-top: 2px;" class="form__error"
                             *ngIf="applicationId?.invalid && applicationId?.touched && applicationId?.errors?.['required']">
                             Field is required
                         </div>
                         <div style="
-                        color: red;
-                        font-size: 12px;
-                        margin-top: 2px;
-                      " *ngIf="applicationId?.invalid && applicationId?.touched && applicationId?.errors?.['pattern']">
-                          Please enter only letters,numbers,(max 50 characters)
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="applicationId?.invalid && applicationId?.touched && applicationId?.errors?.['pattern']">
+                            Invalid format
                         </div>
+                     
                     </div>
 
                     <!-- <div class="form__linput">
@@ -73,8 +74,8 @@
                 </div>
 
                 <div class="form__buttons">
-                    <button [disabled]="facheckkeyFormGroup.invalid" type="submit" class="btn mx-1 " style="background-color:#7db855be"
-                        (click)="submit()">Submit</button>
+                    <button [disabled]="facheckkeyFormGroup.invalid" type="submit" class="btn mx-1 "
+                        style="background-color:#7db855be" (click)="submit()">Submit</button>
                     <button type="submit" class="cancel" matDialogClose class="btn"
                         style="background-color:#141E46;color:white">Cancel</button>
                 </div>

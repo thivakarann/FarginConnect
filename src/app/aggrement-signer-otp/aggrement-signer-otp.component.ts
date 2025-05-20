@@ -41,14 +41,14 @@ export class AggrementSignerOtpComponent implements OnInit {
     this.mobilenumber = this.maskMobileNumber(this.data.value2);
   }
 
-  
+
   maskMobileNumber(mobilenumber: string): string {
-    if (mobilenumber.length <= 3) {
+    if (mobilenumber.length < 10) {
       return mobilenumber; // If the number is too short, return the original number
     }
     const lastThree = mobilenumber.slice(-3);
-    const maskedPart = 'xxx'.repeat((mobilenumber.length - 3) / 3);
-     return `${maskedPart}${lastThree}`;
+    const maskedPart = 'x'.repeat((mobilenumber.length - 3));
+    return `${maskedPart}${lastThree}`;
   }
 
 
@@ -119,7 +119,7 @@ export class AggrementSignerOtpComponent implements OnInit {
       otpCode: this.otpCode1 + this.otpCode2 + this.otpCode3 + this.otpCode4 + this.otpCode5 + this.otpCode6
     }
 
-    this.SignerOTP.AgreemntVerifyOtp(this.RefferenceCode,2,submitModel).subscribe((res: any) => {
+    this.SignerOTP.AgreemntVerifyOtp(this.RefferenceCode, 2, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         setTimeout(() => {

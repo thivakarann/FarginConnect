@@ -2685,7 +2685,7 @@ export class FarginServiceService {
     return this.http.get(`${this.basePath}${this.entitywishonlinebranch}${id}/${id1}/${id2}`, this.options)
   }
   Newentitywisetrans(id: any, id1: any, id2: any) {
-    return this.http.get(`${this.basePath}${this.NewOnlinebranch}${id}/${id1}/${id2}`, this.options)
+    return this.http.get(`${this.basePath}${this.Entitywisetrans}${id}/${id1}/${id2}`, this.options)
   }
   entityonlinesearchbranchs(id: any, id1: any, id2: any, id3: any) {
     return this.http.get(`${this.basePath}${this.entityonlinesearchbranch}${id}/${id1}/${id2}/${id3}`, this.options)

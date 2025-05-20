@@ -95,13 +95,16 @@
             </ng-container>
 
             <ng-container matColumnDef="paymentStatus">
-                <th mat-header-cell *matHeaderCellDef>Payment Status</th>
+                <th mat-header-cell *matHeaderCellDef>Payment Summary</th>
                 <td mat-cell *matCellDef="let viewall">
                     <span *ngIf="viewall?.paymentStatus == 'Success'" style="color:green;">
                         Success </span>
 
                     <span *ngIf="viewall?.paymentStatus == ''" style="font-size: 15px;">
                         -</span>
+
+                          <span *ngIf="viewall?.paymentStatus == 'All'" style="color:green;">
+                        All </span>
 
                     <span *ngIf="viewall?.paymentStatus == null" style="font-size: 15px;">
                         -</span>

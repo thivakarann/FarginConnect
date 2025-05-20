@@ -1,6 +1,8 @@
 <mat-dialog-content class="mat-typography" style="width: 804px;">
-  <div class="search">
-    <form class="form" style="background: #9e9e9e">
+  <div class="row">
+    <div class="col">
+       <div class="search">
+    <form class="form">
       <label for="search">
         <input
           #input
@@ -42,9 +44,16 @@
       </label>
     </form>
   </div>
+    </div>
+    <div class="col text-end">
+        <button matDialogClose style="color:white;background-color: #141E46;font-size: 14px;">Close</button>
+    </div>
+ 
+  </div>
+
 
   <div
-    class="example-container text-nowrap mt-1"
+    class="example-container text-nowrap mt-3"
     style="overflow-x: scroll; scrollbar-width: thin"
   >
     <!-- <span  class="errormge">NO DATA FOUND</span> -->
@@ -88,6 +97,3 @@
     aria-labels="select page of users"
   ></mat-paginator>
 </mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Close</button>
-</mat-dialog-actions>
