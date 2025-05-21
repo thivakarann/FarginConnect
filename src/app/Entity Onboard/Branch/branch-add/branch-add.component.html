@@ -65,7 +65,7 @@
                 </div>
 
                 <div class="col-sm-4 form-group">
-                    <label for="state"> Account Id</label>
+                    <label for="state">Account ID</label>
                     <input type="text" formControlName="accountId" id="state" class="form-control">
 
                     <div style="
@@ -255,7 +255,7 @@
             </div>
         </form>
     </div>
-    <div class="well" style="margin-top: 2%;" *ngIf="KYCdetails==false">
+    <div class="well" style="margin-top: 2%;" *ngIf="KYCdetails==true">
         <h4 class="card-header" style="font-weight: 500">2.KYC Details</h4>
         <mat-horizontal-stepper linear>
             <mat-step [stepControl]="firstFormGroup" [completed]="false">

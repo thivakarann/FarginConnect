@@ -83,13 +83,13 @@ export class BranchOnlinetransactionsComponent {
           this.getdashboard = res.response?.subPermission;
 
           if (this.roleId == 1) {
-            this.valueexport = 'Entity View Branch-online View-Export';
+            this.valueexport = 'Entity View Branch-Due View-Export';
           } else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
 
-              if (this.actions == 'Entity View Branch-online View-Export') {
-                this.valueexport = 'Entity View Branch-online View-Export';
+              if (this.actions == 'Entity View Branch-Due View-Export') {
+                this.valueexport = 'Entity View Branch-Due View-Export';
               }
             }
           }

@@ -112,7 +112,7 @@ export class EntityViewallComponent {
             this.valueEntityStatus = 'Entity Onboard-Status';
             // this.valueEntityView = 'Entity Onboard-View';
             this.valueEntityUnblock = 'Entity Onboard-Unblock';
-            this.entitytrans = 'Entity View Online';
+            this.entitytrans = 'Entity View Due Transactions';
             this.entitybranchtrans = 'Entity View-Branch-Transactions';
             this.entityoffline = 'Entity View Offline';
             this.entitysettle = 'Entity View Settlement';
@@ -157,8 +157,8 @@ export class EntityViewallComponent {
               if (this.actions == 'Entity View Cloud Fee AutoDebit') {
                 this.valuecloud = 'Entity View Cloud Fee AutoDebit'
               }
-              if (this.actions1 == 'Entity View Online') {
-                this.entitytrans = 'Entity View Online'
+              if (this.actions1 == 'Entity View Due Transactions') {
+                this.entitytrans = 'Entity View Due Transactions'
               }
               if (this.actions1 == 'Entity View-Branch-Transactions') {
                 this.entitybranchtrans = 'Entity View-Branch-Transactions'

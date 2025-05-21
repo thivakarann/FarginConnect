@@ -30,8 +30,8 @@
     data-target="home"
     (click)="entityTransaction(this.id)"
   >
-    <div [hidden]="valueentitytransaction !== 'Entity View Due'">
-      <i class="fa-solid fa-building-columns"></i>&nbsp;&nbsp;Due
+    <div [hidden]="valueentitytransaction !== 'Entity View Due Transactions'">
+      <i class="fa-solid fa-building-columns"></i><br>Due Transactions 
     </div>
   </button>
 
@@ -54,7 +54,7 @@
     data-target="home"
     (click)="viewbranch(this.id)"
   >
-    <div><i class="fa-solid fa-building-columns"></i>&nbsp;&nbsp; Branch</div>
+    <div><i class="fa-solid fa-building-columns"></i><br>Branch Transactions</div>
   </button>
 
   <button
@@ -89,7 +89,7 @@
     (click)="Viewautodebit(this.id)"
   >
     <div [hidden]="valueentityautodebit !== 'Entity View Cloud Fee AutoDebit'">
-      <i class="fa-solid fa-money-bill-transfer"></i>&nbsp;&nbsp;Cloud Fee
+      <i class="fa-solid fa-money-bill-transfer"></i><br>Cloud Fee
       AutoDebit
     </div>
   </button>
@@ -102,7 +102,7 @@
     (click)="Viewqr(this.id)"
   >
     <div [hidden]="valueEntityqrs !== 'Entity View QR'">
-      <i class="fa-solid fa-qrcode"></i>&nbsp;&nbsp;QR Generation
+      <i class="fa-solid fa-qrcode"></i><br>QR Generation
     </div>
   </button>
   <button
@@ -124,7 +124,7 @@
     (click)="viewpaymentLink(this.id)"
   >
     <div [hidden]="valueentitypaylink !== 'Entity View Payment Link'">
-      <i class="fa fa-link"></i>&nbsp;&nbsp;Payment Link
+      <i class="fa fa-link"></i><br>Payment Link
     </div>
   </button>
 </div>
@@ -3186,7 +3186,7 @@
 
               <th>Account Holder Name</th>
               <th>Account Number</th>
-              <th>Account Id</th>
+              <th>Account ID</th>
               <th>Branch Name</th>
               <th>SMS Merchant Name</th>
               <th>Bank Name</th>
@@ -3202,19 +3202,20 @@
               </th>
               <th
                 [hidden]="
-                  valuebranchonlineview !== 'Entity View Branch-Due View'
+                  valuebranchonlineview !== 'Entity View Branch-Due Transactions View'
                 "
               >
-                Due Transaction
+                Due Transactions
               </th>
-              <th [hidden]="valuebranchkyc !== 'Entity View Branch-KYC'">
-                KYC View
-              </th>
-              <th
+                <th
                 [hidden]="valuebranchTerminal !== 'Entity View Branch-Terminal'"
               >
                 Terminal View
               </th>
+              <th [hidden]="valuebranchkyc !== 'Entity View Branch-KYC'">
+                KYC View
+              </th>
+            
               <th [hidden]="valuebranchStatus !== 'Entity View Branch-Status'">
                 Status
               </th>
@@ -3283,7 +3284,7 @@
               </td>
               <td
                 [hidden]="
-                  valuebranchonlineview !== 'Entity View Branch-Due View'
+                  valuebranchonlineview !== 'Entity View Branch-Due Transactions View'
                 "
               >
                 <i
@@ -3293,15 +3294,7 @@
                 ></i>
               </td>
 
-              <td [hidden]="valuebranchkyc !== 'Entity View Branch-KYC'">
-                <i
-                  style="cursor: pointer; font-size: 15px;padding:0"
-                  class="fa fa-eye"
-                  (click)="
-                    Viewkycbranch(item.branchId, item.entityModel?.merchantId)
-                  "
-                ></i>
-              </td>
+             
               <td
                 [hidden]="valuebranchTerminal !== 'Entity View Branch-Terminal'"
               >
@@ -3310,6 +3303,15 @@
                   class="fa fa-eye"
                   (click)="
                     ViewTerminal(item.branchId, item.entityModel?.merchantId)
+                  "
+                ></i>
+              </td>
+               <td [hidden]="valuebranchkyc !== 'Entity View Branch-KYC'">
+                <i
+                  style="cursor: pointer; font-size: 15px;padding:0"
+                  class="fa fa-eye"
+                  (click)="
+                    Viewkycbranch(item.branchId, item.entityModel?.merchantId)
                   "
                 ></i>
               </td>

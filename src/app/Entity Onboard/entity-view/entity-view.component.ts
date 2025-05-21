@@ -328,7 +328,7 @@ export class EntityViewComponent implements OnInit {
             this.valueentityterminal = 'Entity View Entity-Terminal';
             this.valuebranchterminal = 'Entity View Branch-Terminal';
             this.valuebranchKYCview = 'Entity View Branch-KYC View';
-            this.valuebranchonlineview = 'Entity View Branch-Due View';
+            this.valuebranchonlineview = 'Entity View Branch-Due Transactions View';
             this.valuebranchkyc = 'Entity View Branch-KYC';
             this.valuebranchTerminal = 'Entity View Branch-Terminal';
             this.valuebranch = 'Entity View Branch';
@@ -536,8 +536,8 @@ export class EntityViewComponent implements OnInit {
                 this.valuebranchKYCview = 'Entity View Branch-KYC View';
               }
 
-              if (this.actions == 'Entity View Branch-Due View') {
-                this.valuebranchonlineview = 'Entity View Branch-Due View';
+              if (this.actions == 'Entity View Branch-Due Transactions View') {
+                this.valuebranchonlineview = 'Entity View Branch-Due Transactions View';
               }
 
               if (this.actions == 'Entity View Branch-KYC') {
@@ -614,7 +614,7 @@ export class EntityViewComponent implements OnInit {
 
   getpermissionValue() {
     if (this.roleId == 1) {
-      this.valueentitytransaction = 'Entity View Due';
+      this.valueentitytransaction = 'Entity View Due Transactions';
       this.valueentityautodebit = 'Entity View Cloud Fee AutoDebit';
       this.valuentitysettlement = 'Entity View Settlement';
       this.valueentityRefund = 'Entity View Refund';
@@ -642,8 +642,8 @@ export class EntityViewComponent implements OnInit {
       for (let data of this.entitypermission) {
         this.roles = data.permission;
 
-        if (this.roles == 'Entity View Due') {
-          this.valueentitytransaction = 'Entity View Due';
+        if (this.roles == 'Entity View Due Transactions') {
+          this.valueentitytransaction = 'Entity View Due Transactions';
         }
         if (this.roles == 'Entity View Settlement') {
           this.valuentitysettlement = 'Entity View Settlement';
