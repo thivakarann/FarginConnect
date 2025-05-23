@@ -49,7 +49,7 @@ export class AggrementLocationTrackerComponent {
     private toastr: ToastrService,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.RefferenceCode = this.data.value;
@@ -60,6 +60,7 @@ export class AggrementLocationTrackerComponent {
     //   console.log("IPAdress" +this.ipAddressfinder )
     //   this.getlocationbyid();
     // });
+
     // this.Service.paidipaddres().subscribe((res: any) => {
     //   this.ips = res.ip;
     //   this.countryname=res.country_name;
@@ -85,8 +86,6 @@ export class AggrementLocationTrackerComponent {
       this.longitudes = res.longitude;
       this.countrycode2 = res.country_code;
       this.regioncode = res.region_iso_code;
-
-      // console.log(this.ips)
     });
   }
 
@@ -95,7 +94,7 @@ export class AggrementLocationTrackerComponent {
     this.Consent = true;
     this.Location = true;
     this.LocationAccess();
-    this.FinalLocationAccess();
+
   }
 
   // No() {
@@ -107,10 +106,6 @@ export class AggrementLocationTrackerComponent {
   // }
 
   getlocationbyid() {
-    // let submitModel:getiplocation = {
-    //   ip: this. ipAddress
-    // }
-
     this.Service.getIpLocation(this.ipAddressfinder).subscribe((res: any) => {
       this.geoDetails = res;
       this.ipAddress = res.ip;
@@ -125,20 +120,6 @@ export class AggrementLocationTrackerComponent {
       this.locationforlatlong = res['loc'].split(',');
       this.Locationlatitude = this.locationforlatlong[0];
       this.Locationlongitude = this.locationforlatlong[1];
-
-      // this.Locationlatitude = res.Latitude;
-      // this.Locationlongitude = res.Longitude;
-      // console.log('this.geoDetails' + this.geoDetails);
-      // console.log('this.LocationCountry' + this.LocationCountry);
-      // console.log('this.LocationCountrycode' + this.LocationCountrycode);
-      // console.log('this.LocationCountryphone' + this.LocationCountryphone);
-      // console.log('this.Locationtimezone' + this.Locationtimezone);
-      // console.log('this.LocationRegion' + this.LocationRegion);
-      // console.log('this.LocationRegionCode' + this.LocationRegionCode);
-      // console.log('this.LocationCity' + this.LocationCity);
-      // console.log('this.Locationlatitude' + this.Locationlatitude);
-      // console.log('this.Locationlongitude' + this.Locationlongitude);
-      // console.log('this.ipAddress' + this.ipAddress);
     });
   }
 
@@ -148,10 +129,10 @@ export class AggrementLocationTrackerComponent {
       flag: this.Flag,
       consent: this.Consent,
     };
-
     this.Service.agreementConcent(submitmodel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.details = res.response;
+        this.FinalLocationAccess();
         this.dialog.closeAll();
       } else {
         window.alert(res.responseMessage);
@@ -161,47 +142,9 @@ export class AggrementLocationTrackerComponent {
 
   ResendOTP() {
     this.Service.AgreementSendOtp(this.RefferenceCode, 2).subscribe(
-      (res: any) => {}
+      (res: any) => { }
     );
   }
-
-  // FinalLocationAccess() {
-  //   let submitModel: AgreementlocationTracker = {
-  //     referenceCode: this.RefferenceCode,
-  //     flag: this.Flag,
-  //     consent: this.Consent,
-  //     getLocation: this.Location,
-  //     ipAddress: this.ipAddress,
-  //     locationStatus: true,
-  //     publicIp: '',
-  //     country: this.LocationCountry,
-  //     city: this.LocationCity,
-  //     zip: '',
-  //     serviceProvider: '',
-  //     timezone: this.Locationtimezone,
-  //     region: this.LocationRegion,
-  //     longitude: this.Locationlongitude,
-  //     latitude: this.Locationlatitude,
-  //     countryCode: this.LocationCountrycode,
-  //     regionCode: '',
-  //     autonomousSystemNumber: ''
-  //   }
-
-  //   this.Service.agreemntconcentlocation(submitModel).subscribe((res: any) => {
-  //     if (res.flag == 1) {
-  //       this.details = res.response;
-  //       this.dialog.closeAll();
-  //       this.ResendOTP();
-  //       this.dialog.open(AggrementSignerOtpComponent, {
-  //         enterAnimationDuration: '500ms',
-  //         exitAnimationDuration: '1000ms',
-  //         disableClose: true,
-  //         data: { value: this.RefferenceCode, value2: this.mobilenumber }
-  //       });
-  //     }
-
-  //   });
-  // }
 
   FinalLocationAccess() {
     let submitModel: AgreementlocationTracker = {
@@ -224,7 +167,6 @@ export class AggrementLocationTrackerComponent {
       regionCode: this.regioncode,
       autonomousSystemNumber: '',
     };
-
     this.Service.agreemntconcentlocation(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.details = res.response;
@@ -232,16 +174,11 @@ export class AggrementLocationTrackerComponent {
         setTimeout(() => {
           this.ResendOTP();
           this.dialog.open(AggrementSignerOtpComponent, {
-            // enterAnimationDuration: '500ms',
-            // exitAnimationDuration: '1000ms',
             disableClose: true,
             data: { value: this.RefferenceCode, value2: this.mobilenumber },
           });
         }, 1000);
       }
-      //  else {
-      //   window.alert(res.responseMessage);
-      // }
     });
   }
 }

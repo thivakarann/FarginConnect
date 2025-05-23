@@ -124,6 +124,7 @@ import { SignerHistoryComponent } from './Main Master/Fargin Signer Details/sign
 import { SmsHistoryComponent } from './Main Master/SMS Cost/sms-history/sms-history.component';
 import { FarginBankHistoryComponent } from './Main Master/Fargin Bank/fargin-bank-history/fargin-bank-history.component';
 import { RefundPeriodHistoryComponent } from './Main Master/Refund Period/refund-period-history/refund-period-history.component';
+import { OffileSettlementPayoutComponent } from './Entity Onboard/Offline-Transactions/offile-settlement-payout/offile-settlement-payout.component';
 
 const routes: Routes = [
 
@@ -144,7 +145,7 @@ const routes: Routes = [
     component: DashboardComponent,
     canActivate: [authGuard],
     children: [
-      { path: '', redirectTo: '/dashboard', pathMatch: 'full',},
+      // { path: '', redirectTo: '/dashboard', pathMatch: 'full',},
       { path: 'dashboard-content', component: DashboardContentComponent, canActivate: [authGuard] },
       { path: 'view-category', component: ViewcategoryComponent, canActivate: [authGuard] },
       { path: 'Business-kyc', component: BusinessKycComponent, canActivate: [authGuard] },
@@ -235,7 +236,8 @@ const routes: Routes = [
       {path:'success-offtransactions',component:SuccessOfftransactionsComponent,canActivate: [authGuard]},
       {path:'failure-offtransactions',component:FailureOfftransactionsComponent,canActivate: [authGuard]},
       {path:'offline-settlement',component:OfflineSettlementComponent,canActivate: [authGuard]},
-      {path:'Branch-viewall', component: BranchViewallComponent, canActivate: [authGuard] },
+      {path:'offile-settlement-payout/:id/:id1',component:OffileSettlementPayoutComponent,canActivate:[authGuard]},
+      {path:'Branch-viewall',component: BranchViewallComponent, canActivate: [authGuard] },
       {path:'branch-customer-view/:id',component:BranchCustomerViewComponent,canActivate:[authGuard]},
       {path:'additional-payments',component:AdditionalpaymentsComponent,canActivate: [authGuard]},
       {path:'refund-getall',component:RefundGetallComponent,canActivate: [authGuard]},

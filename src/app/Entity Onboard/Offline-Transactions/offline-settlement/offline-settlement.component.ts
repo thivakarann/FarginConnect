@@ -21,9 +21,13 @@ export class OfflineSettlementComponent {
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = [
     'sno',
+    'Account Id',
     'paymentId',
+    'ledgerid',
     'amount',
+    'Reffer',
     'type',
+    'View',
     'item',
     'paidAt',
  
@@ -65,7 +69,8 @@ export class OfflineSettlementComponent {
     private service: FarginServiceService,
     private toastr: ToastrService,
     private ActivateRoute: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private router:Router
   ) { }
  
   ngOnInit(): void {
@@ -232,6 +237,15 @@ export class OfflineSettlementComponent {
         this.ToDateRange = '';
       }
     });
+  }
+
+
+    viewpayout(id1: any) {
+    this.router.navigate([`/dashboard/offile-settlement-payout/${id1}/${this.accountId}`],
+    {
+        queryParams: { value:id1, value1: this.accountId},
+      }
+    );
   }
  
   exportexcel() {

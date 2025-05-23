@@ -1303,7 +1303,7 @@ export interface OfflineSettlement{
   readonly dateRange:any;
 }
 export interface PayoutOfflineSettlement{
-  readonly accountId:any;
+  readonly merchantId:any;
   readonly pageNo:any;
   readonly  query:any;
   readonly size:any;
