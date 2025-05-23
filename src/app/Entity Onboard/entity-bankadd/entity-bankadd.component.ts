@@ -39,7 +39,7 @@ export class EntityBankaddComponent implements OnInit {
     this.BankForm = new FormGroup({
       accountHolderName: new FormControl('', [
         Validators.required,
-    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(50),
       ]),
       accountNumber: new FormControl(null, [
@@ -48,7 +48,7 @@ export class EntityBankaddComponent implements OnInit {
       ]),
       bankName: new FormControl('', [
         Validators.required,
-        
+
       ]),
       ifscCode: new FormControl('', [
         Validators.required,
@@ -56,12 +56,12 @@ export class EntityBankaddComponent implements OnInit {
       ]),
       branchName: new FormControl('', [
         Validators.required,
-         Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
+        Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(50),
       ]),
       accountType: new FormControl('', [
         Validators.required,
-    
+
       ]),
       ledgerId: new FormControl('', [Validators.pattern(/^\d{1,15}$/)]),
     });
@@ -110,7 +110,7 @@ export class EntityBankaddComponent implements OnInit {
       if (res.flag === 1) {
         this.toastr.success(res.responseMessage);
         this.bankDetailsUpdated.emit();
-        this.dialog.closeAll(); 
+        this.dialog.closeAll();
       } else {
         this.toastr.error(res.responseMessage);
       }

@@ -1296,7 +1296,7 @@ export interface OffilneTransaction{
   readonly terminalId:any;
 }
 export interface OfflineSettlement{
-  readonly accountId:any;
+  readonly merchantId:any;
   readonly pageNo:any;
   readonly  query:any;
   readonly size:any;

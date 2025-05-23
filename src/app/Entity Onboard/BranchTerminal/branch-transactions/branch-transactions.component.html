@@ -19,15 +19,15 @@
         </button>
     </div>
 
-    <div class="col-2">
+    <div class="col-3">
         <label><b>From Date</b></label>
-        <input class="form-control" type="date" name="FromDate" [(ngModel)]="FromDateRange" (change)="checkDate()"
-            [max]="maxDate" style="height: 35px; width: 150px; border-radius: 5px" />
+        <input class="form-control" type="datetime-local" name="FromDate" [(ngModel)]="FromDateRange" (change)="checkDate()"
+            [max]="maxDate" style="height: 35px;border-radius: 5px" />
     </div>
-    <div class="col-2">
+    <div class="col-3">
         <label><b>To Date</b></label>
-        <input class="form-control" type="date" name="ToDate" [(ngModel)]="ToDateRange" [min]="FromDateRange"
-            [max]="maxDate" style="height: 35px; width: 150px; border-radius: 5px" />
+        <input class="form-control" type="datetime-local" name="ToDate" [(ngModel)]="ToDateRange" [min]="FromDateRange"
+            [max]="maxDate" style="height: 35px;border-radius: 5px" />
     </div>
 
     <div class="col-1 mt-4">
@@ -35,7 +35,7 @@
         color: white;
         background-color: #141e46;
         border-radius: 10px;
-        font-size: 12px;"  [disabled]="!FromDateRange || !ToDateRange" mat-raised-button (click)="filterdate()">
+        font-size: 12px;"  class="buttonDownload"  [disabled]="!FromDateRange || !ToDateRange" mat-raised-button (click)="filterdate()">
             Filter
         </button>
     </div>

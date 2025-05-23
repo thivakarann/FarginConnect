@@ -164,11 +164,11 @@ export class BranchTransactionsComponent {
     const datepipe: DatePipe = new DatePipe('en-US');
     let formattedstartDate = datepipe.transform(
       this.FromDateRange,
-      'dd/MM/YYYY 00:00'
+        'dd/MM/YYYY HH:mm'
     );
     let formattedendDate = datepipe.transform(
       this.ToDateRange,
-      'dd/MM/YYYY 23:59'
+         'dd/MM/yyyy HH:mm'
     );
     this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
     this.currentPage = 0;
@@ -404,11 +404,11 @@ let qty9   = row.getCell(10);
       const datepipe: DatePipe = new DatePipe('en-US');
       let formattedstartDate = datepipe.transform(
         this.FromDateRange,
-        'dd/MM/YYYY 00:00'
+         'dd/MM/YYYY HH:mm'
       );
       let formattedendDate = datepipe.transform(
         this.ToDateRange,
-        'dd/MM/YYYY 23:59'
+          'dd/MM/yyyy HH:mm'
       );
       this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
       this.currentPage = 0;

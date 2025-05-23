@@ -1,6 +1,6 @@
 <div class="form-header d-flex justify-content-between align-items-center">
   <h4 class="mb-0 text-center" style="color: black">Transactions</h4>
-
+ 
   <button
     style="
       color: white;
@@ -15,59 +15,9 @@
   </button>
 </div>
 <div class="row mt-1">
-  <div class="col-2" style="margin-top: 28px">
-    <div class="search">
-      <form class="form">
-        <label for="search">
-          <input
-            #input
-            (keyup)="applyFilter($event)"
-            required=""
-            autocomplete="off"
-            placeholder="Search"
-            id="search"
-            type="text"
-          />
-          <div class="icon">
-            <svg
-              stroke-width="2"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              class="swap-on"
-            >
-              <path
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                stroke-linejoin="round"
-                stroke-linecap="round"
-              ></path>
-            </svg>
-            <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg" class="swap-off">
-                            <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round" stroke-linecap="round">
-                            </path>
-                        </svg> -->
-          </div>
-          <button (click)="reload()" type="reset" class="close-btn">
-            <svg
-              viewBox="0 0 20 20"
-              class="h-5 w-5"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                clip-rule="evenodd"
-                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                fill-rule="evenodd"
-              ></path>
-            </svg>
-          </button>
-        </label>
-      </form>
-    </div>
-  </div>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <div class="col ml-5" style="margin-top: 25px">
+ 
+ 
+  <div class="col" style="margin-top: 25px">
     <button
       style="
         color: white;
@@ -81,36 +31,36 @@
       Export
     </button>
   </div>
-
-  <div class="col-2">
+ 
+  <div class="col-3">
     <label
-      ><b>{{ "From Date" }}:</b></label
+      ><b>From Date</b></label
     >
     <input
       class="form-control"
-      type="date"
+      type="datetime-local"
       name="FromDate"
       [(ngModel)]="FromDateRange"
       (change)="checkDate()"
       [max]="maxDate"
-      style="height: 35px; width: 150px; border-radius: 5px"
+      style="height: 35px;  border-radius: 5px"
     />
   </div>
-  <div class="col-2">
+  <div class="col-3">
     <label
-      ><b>{{ "To Date" }}:</b></label
+      ><b>To Date</b></label
     >
     <input
       class="form-control"
-      type="date"
+      type="datetime-local"
       name="ToDate"
       [(ngModel)]="ToDateRange"
       [min]="FromDateRange"
       [max]="maxDate"
-      style="height: 35px; width: 150px; border-radius: 5px"
+      style="height: 35px;  border-radius: 5px"
     />
   </div>
-
+ 
   <div class="col-1 mt-4">
     <button
       style="
@@ -126,7 +76,7 @@
       Filter
     </button>
   </div>
-
+ 
   <div class="col-2 mt-4">
     <button
       style="
@@ -165,7 +115,7 @@
           {{ transaction.accountId }}
         </td>
       </ng-container>
-
+ 
       <ng-container matColumnDef="paymentId">
         <th mat-header-cell *matHeaderCellDef>Payment ID</th>
         <td mat-cell *matCellDef="let transaction">{{ transaction.id }}</td>
@@ -184,7 +134,7 @@
                 <th mat-header-cell *matHeaderCellDef>Customer Name</th>
                 <td mat-cell *matCellDef="let transaction"> {{transaction?.customerName}}</td>
             </ng-container>
-
+ 
             <ng-container matColumnDef="customermobile">
                 <th mat-header-cell *matHeaderCellDef>Customer Mobile</th>
                 <td mat-cell *matCellDef="let transaction"> {{transaction?.customerMobile}}</td>
@@ -193,14 +143,14 @@
                 <th mat-header-cell *matHeaderCellDef>Processor ID</th>
                 <td mat-cell *matCellDef="let transaction"> {{transaction.processorId }}</td>
             </ng-container> -->
-
+ 
       <ng-container matColumnDef="customername">
         <th mat-header-cell *matHeaderCellDef>Customer Name</th>
         <td mat-cell *matCellDef="let transaction">
           {{ transaction?.customer }}
         </td>
       </ng-container>
-
+ 
       <ng-container matColumnDef="vpa">
         <th mat-header-cell *matHeaderCellDef>VPA</th>
         <td mat-cell *matCellDef="let transaction">{{ transaction?.vpa }}</td>
@@ -281,10 +231,10 @@
       </ng-container>
       <!-- <ng-container matColumnDef="viewfailure">
                 <th mat-header-cell *matHeaderCellDef>Failure Transactions</th>
-                <td mat-cell *matCellDef="let transaction" > 
+                <td mat-cell *matCellDef="let transaction" >
                    </td>
             </ng-container> -->
-
+ 
       <ng-container matColumnDef="paidAt">
         <th mat-header-cell *matHeaderCellDef>Paid At</th>
         <td mat-cell *matCellDef="let transaction">
@@ -297,7 +247,7 @@
                     {{transaction.status ||'--'}}
                 </td>
             </ng-container> -->
-
+ 
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       <tr *matNoDataRow>
@@ -314,10 +264,13 @@
   </div>
 </mat-card-content>
 <mat-card-footer>
-  <mat-paginator
-    (pageChange)="renderPage($event)"
-    [pageSizeOptions]="[5, 10, 20, 50, 100]"
-    showFirstLastButtons
-    aria-labels="select page of users"
-  ></mat-paginator>
+ 
+        <mat-paginator
+        (page)="getData($event)"
+        [pageIndex]="pageIndex"
+        [pageSize]="pageSize"
+        [length]="length"
+        [pageSizeOptions]="[5, 50, 100, 500, 1000]"
+        aria-label="Select page of users"
+      ></mat-paginator>
 </mat-card-footer>

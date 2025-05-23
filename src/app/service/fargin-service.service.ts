@@ -2632,11 +2632,11 @@ export class FarginServiceService {
 
   }
   agreemntconcentlocation(model: any) {
-    return this.http.post(`${this.basePath}${this.AgreemntConcentLocation}`, model, this.options)
+    return this.http.post(`${this.basePath}${this.AgreemntConcentLocation}`,model, this.options)
   }
 
   agreementextendlink(id: any, model: any) {
-    return this.http.put(`${this.basePath}${this.AgreementLinkExtent}${id}`, model, this.options)
+    return this.http.put(`${this.basePath}${this.AgreementLinkExtent}${id}`,model,this.options)
   }
 
   agreementlinkexpiry(id: any, model: any) {

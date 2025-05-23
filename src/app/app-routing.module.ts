@@ -144,7 +144,7 @@ const routes: Routes = [
     component: DashboardComponent,
     canActivate: [authGuard],
     children: [
-      { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+      { path: '', redirectTo: '/dashboard', pathMatch: 'full',},
       { path: 'dashboard-content', component: DashboardContentComponent, canActivate: [authGuard] },
       { path: 'view-category', component: ViewcategoryComponent, canActivate: [authGuard] },
       { path: 'Business-kyc', component: BusinessKycComponent, canActivate: [authGuard] },
@@ -234,7 +234,7 @@ const routes: Routes = [
       {path:'offline-transactions/:id',component:OfflineTransactionsComponent,canActivate: [authGuard]},
       {path:'success-offtransactions',component:SuccessOfftransactionsComponent,canActivate: [authGuard]},
       {path:'failure-offtransactions',component:FailureOfftransactionsComponent,canActivate: [authGuard]},
-      {path:'offline-settlement/:id',component:OfflineSettlementComponent,canActivate: [authGuard]},
+      {path:'offline-settlement',component:OfflineSettlementComponent,canActivate: [authGuard]},
       {path:'Branch-viewall', component: BranchViewallComponent, canActivate: [authGuard] },
       {path:'branch-customer-view/:id',component:BranchCustomerViewComponent,canActivate:[authGuard]},
       {path:'additional-payments',component:AdditionalpaymentsComponent,canActivate: [authGuard]},

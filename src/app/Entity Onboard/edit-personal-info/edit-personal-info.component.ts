@@ -53,25 +53,25 @@ export class EditPersonalInfoComponent implements OnInit {
     this.myForm = new FormGroup({
       entityName: new FormControl('', [
         Validators.required,
-    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
-        Validators.maxLength(30),
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(100),
       ]),
       merchantLegalName: new FormControl('', [
         Validators.required,
-    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
-        Validators.maxLength(30),
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(100),
       ]),
       accountDisplayName: new FormControl('', [
         Validators.required,
-    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
-        Validators.maxLength(30),
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(100),
       ]),
       businessCategoryIds: new FormControl('', [Validators.required]),
       MccCode: new FormControl(''),
       contactName: new FormControl('', [
         Validators.required,
-    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
-        Validators.maxLength(30),
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(100),
       ]),
       contactMobile: new FormControl('', [
         Validators.required,
@@ -85,7 +85,6 @@ export class EditPersonalInfoComponent implements OnInit {
       contactEmail: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$'),
-        Validators.maxLength(40),
       ]),
       website: new FormControl('', [
         Validators.pattern(
@@ -99,7 +98,7 @@ export class EditPersonalInfoComponent implements OnInit {
       ]),
       area: new FormControl('', [
         Validators.required,
-         Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
+        Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
       ]),
       zipcode: new FormControl('', [
         Validators.required,
@@ -107,18 +106,18 @@ export class EditPersonalInfoComponent implements OnInit {
       ]),
       stateName: new FormControl('', [
         Validators.required,
-    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
-        Validators.maxLength(30),
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(100),
       ]),
       city: new FormControl('', [
         Validators.required,
-    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
-        Validators.maxLength(30),
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(100),
       ]),
       country: new FormControl('', [
         Validators.required,
-    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
-        Validators.maxLength(30),
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(100),
       ]),
       merchantPlanId: new FormControl('', [Validators.required]),
       // periodName: new FormControl('', [Validators.required]),
@@ -150,7 +149,7 @@ export class EditPersonalInfoComponent implements OnInit {
 
       smsMerchantName: new FormControl('', [
         Validators.required,
-    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(25),
       ]),
     });

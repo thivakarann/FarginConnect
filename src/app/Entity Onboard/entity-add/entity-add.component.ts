@@ -90,7 +90,7 @@ export class EntityAddComponent implements OnInit {
   uploaddocback: any;
   maxDate: any;
   eighteenYearsAgo: Date;
-  
+
 
   constructor(
     public AddEntity: FarginServiceService,
@@ -124,25 +124,25 @@ export class EntityAddComponent implements OnInit {
     this.myForm = new FormGroup({
       entityName: new FormControl('', [
         Validators.required,
-    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
-        Validators.maxLength(30),
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(100),
       ]),
       merchantLegalName: new FormControl('', [
         Validators.required,
-    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
-        Validators.maxLength(30),
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(100),
       ]),
       accountDisplayName: new FormControl('', [
         Validators.required,
-    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
-        Validators.maxLength(30),
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(100),
       ]),
       businessCategoryIds: new FormControl('', [Validators.required]),
       MccCode: new FormControl(''),
       contactName: new FormControl('', [
         Validators.required,
-    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
-        Validators.maxLength(30),
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(100),
       ]),
       contactMobile: new FormControl('', [
         Validators.required,
@@ -156,7 +156,6 @@ export class EntityAddComponent implements OnInit {
       contactEmail: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$'),
-        Validators.maxLength(40),
       ]),
       website: new FormControl('', [
         Validators.pattern(
@@ -171,7 +170,7 @@ export class EntityAddComponent implements OnInit {
       billingAddress: new FormControl('', [Validators.required]),
       area: new FormControl('', [
         Validators.required,
-    Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$')
+        Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$')
       ]),
       zipcode: new FormControl('', [
         Validators.required,
@@ -179,18 +178,18 @@ export class EntityAddComponent implements OnInit {
       ]),
       stateName: new FormControl('', [
         Validators.required,
-    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
-        Validators.maxLength(30),
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(100),
       ]),
       city: new FormControl('', [
         Validators.required,
-    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
-        Validators.maxLength(30),
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(100),
       ]),
       country: new FormControl('', [
         Validators.required,
-    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
-        Validators.maxLength(30),
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(100),
       ]),
       merchantPlanId: new FormControl('', [Validators.required]),
       // periodName: new FormControl('', [Validators.required]),
@@ -213,7 +212,7 @@ export class EntityAddComponent implements OnInit {
 
       smsMerchantName: new FormControl('', [
         Validators.required,
-   Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(25),
       ]),
       customerSmsTag: new FormControl(''),
@@ -222,8 +221,8 @@ export class EntityAddComponent implements OnInit {
     this.myForm2 = new FormGroup({
       accountHolderName: new FormControl('', [
         Validators.required,
-    Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
-        Validators.maxLength(30),
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(100),
       ]),
       accountNumber: new FormControl(null, [
         Validators.required,
@@ -239,12 +238,12 @@ export class EntityAddComponent implements OnInit {
       ]),
       branchName: new FormControl('', [
         Validators.required,
-    Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
-        Validators.maxLength(50),
+        Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(100),
       ]),
       accountType: new FormControl('', [
         Validators.required,
-    Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$')
+        Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$')
       ]),
       ledgerId: new FormControl('', [Validators.pattern(/^\d{1,15}$/)]),
     });
@@ -278,14 +277,14 @@ export class EntityAddComponent implements OnInit {
 
     this.fourthFormGroup = this._formBuilder.group({
       kycCategoryIds: ['', [Validators.required]],
-      docNumber: ['', [Validators.maxLength(60)]],
+      docNumber: ['', [Validators.maxLength(100)]],
       expiryDate: [''],
       docFrontPath: ['', Validators.required],
       docBackPath: ['', Validators.required],
     });
   }
 
-   dateFilter = (d: Date | null): boolean => {
+  dateFilter = (d: Date | null): boolean => {
     return d ? d <= this.eighteenYearsAgo : false;
   }
 
