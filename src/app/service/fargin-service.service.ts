@@ -663,7 +663,7 @@ export class FarginServiceService {
 
   private geoApiUrl = 'https://ipinfo.io/json';
 
-  private abstarctipaddress = 'https://ipgeolocation.abstractapi.com/v1/?api_key=dc919b65a0184a6fb10a07b13733027b'
+  private abstarctipaddress = 'https://ipgeolocation.abstractapi.com/v1/?api_key=26ab1ae7d8a54b859bba4c93ce54ab54'
 
   // private geoApiUrl = 'https://ipwhois.app/json/';
 

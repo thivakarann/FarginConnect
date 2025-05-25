@@ -102,17 +102,21 @@ export class OffileSettlementPayoutComponent {
         this.pageSize = this.Viewall.size;
         this.dataSource = new MatTableDataSource(this.filteredData);
       }
+        if (this.filteredData.length === 0) {
+        this.dataSource = new MatTableDataSource();
+      }
     });
   }
 
 
   reset() {
+     this.Daterange = '';
     let submitModel: PayoutOfflineSettlement = {
       merchantId: this.merchantId,
       pageNo: '0',
       size: '5',
       query: '',
-      dateRange: '',
+      dateRange:this.Daterange,
       payoutId: this.pauoutid,
     };
     this.service.PayoutOfflineSettlement(submitModel).subscribe((res: any) => {
@@ -126,8 +130,11 @@ export class OffileSettlementPayoutComponent {
         this.dataSource = new MatTableDataSource(this.filteredData);
         this.FromDateRange = '';
         this.ToDateRange = '';
-      }
 
+      }
+  if (this.filteredData.length === 0) {
+        this.dataSource = new MatTableDataSource();
+      }
     });
   }
 
@@ -142,10 +149,10 @@ export class OffileSettlementPayoutComponent {
       'dd/MM/yyyy HH:mm'
     );
     this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
-
+    this.currentPage = 0;
     let submitModel: PayoutOfflineSettlement = {
       merchantId: this.merchantId,
-      pageNo: '0',
+      pageNo: this.currentPage,
       size: '5',
       query: '',
       dateRange: this.Daterange,
@@ -185,7 +192,7 @@ export class OffileSettlementPayoutComponent {
       let submitModel: PayoutOfflineSettlement = {
         merchantId: this.merchantId,
         pageNo: event.pageIndex + 1,
-        size: '5',
+        size: event.pageSize,
         query: '',
         dateRange: this.Daterange,
         payoutId: this.pauoutid,
@@ -197,8 +204,6 @@ export class OffileSettlementPayoutComponent {
           this.content = this.Viewall?.content;
           this.filteredData = this.content;
           this.length = this.Viewall.totalElements;
-          this.pageIndex = this.Viewall.number;
-          this.pageSize = this.Viewall.size;
           this.dataSource = new MatTableDataSource(this.filteredData);
         }
       });
@@ -221,8 +226,6 @@ export class OffileSettlementPayoutComponent {
           console.log(this.content);
           this.filteredData = this.content;
           this.length = this.Viewall.totalElements;
-          this.pageIndex = this.Viewall.number;
-          this.pageSize = this.Viewall.size;
           this.dataSource = new MatTableDataSource(this.filteredData);
         }
         if (this.filteredData.length === 0) {
