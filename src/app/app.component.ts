@@ -11,18 +11,19 @@ export class AppComponent {
   title = 'FarginConnect';
   timeout: number;
 
-  constructor(private sessionTimerService: SessionServiceService,private bnIdle: BnNgIdleService) {
+  constructor(private sessionTimerService: SessionServiceService, private bnIdle: BnNgIdleService) {
     this.timeout = this.sessionTimerService.getTimeoutInMinutes();
   }
   ngOnInit(): void {
-    this.bnIdle.startWatching(900).subscribe((isTimedOut: boolean) => {
-      if (isTimedOut) {
-        sessionStorage.clear();
-        location.href = '/login';
-    
 
-      }
-    });
+    // this.bnIdle.startWatching(900).subscribe((isTimedOut: boolean) => {
+    //   if (isTimedOut) {
+    //     sessionStorage.clear();
+    //     location.href = '/login';
+
+
+    //   }
+    // });
   }
 
   updateTimeout(): void {
