@@ -33,6 +33,7 @@ export class EntityCustomersViewAllComponent {
     'customername',
     'mobilenumber',
     'routeassigned',
+    'QRImage',
     'view',
   ];
   viewall: any;
@@ -66,7 +67,7 @@ export class EntityCustomersViewAllComponent {
     private toastr: ToastrService,
     private ActivateRoute: ActivatedRoute,
     private location: Location
-  ) { }
+  ) {}
   ngOnInit(): void {
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
@@ -93,31 +94,29 @@ export class EntityCustomersViewAllComponent {
     });
 
     this.Getall();
-
-
   }
 
   Getall() {
-    this.service.EntityCustomerview(this.id, this.pageSize, this.pageIndex).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.details = res.response;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.details);
-        this.currentfilvalShow = false;
-      } else if (res.flag == 2) {
-        this.details = [];
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.details);
-        this.currentfilvalShow = false;
-      }
-    });
+    this.service
+      .EntityCustomerview(this.id, this.pageSize, this.pageIndex)
+      .subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.details = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.details);
+          this.currentfilvalShow = false;
+        } else if (res.flag == 2) {
+          this.details = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.details);
+          this.currentfilvalShow = false;
+        }
+      });
   }
-
-
 
   close() {
     this.location.back();
@@ -136,32 +135,70 @@ export class EntityCustomersViewAllComponent {
     this.router.navigate([`/dashboard/entitycustomers/${id}`], {
       queryParams: { value: id },
     });
+  };
+
+   viewQr(id: any, id2: any) {
+    this.service.CustomerQRImageView(id).subscribe((res: Blob) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const dataUrl = reader.result as string;
+
+        // Create HTML content with the image and download link
+        const htmlContent = `
+        <html>
+          <body style="margin: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;">
+            <img src="${dataUrl}" style="max-width: 100%; max-height: 80vh; object-fit: contain;" />
+            <a 
+              href="${dataUrl}" 
+              download="${id2}.QR.Image.jpg" 
+              style="margin-top: 20px; padding: 10px 20px; background: #2196F3; color: white; text-decoration: none; border-radius: 5px;"
+            >
+              Download QR Code
+            </a>
+          </body>
+        </html>
+      `;
+
+        // Create a Blob and open it as a URL
+        const blob = new Blob([htmlContent], { type: 'text/html' });
+        const blobUrl = URL.createObjectURL(blob);
+        window.open(blobUrl); // Image persists even on refresh
+      };
+      reader.readAsDataURL(res);
+    });
   }
 
   customer(filterValue: string) {
     if (filterValue) {
-      this.service.EntityCustomerviewsearch(this.id, filterValue, this.pageSize, this.pageIndex).subscribe({
-        next: (res: any) => {
-          if (res.response) {
-            this.overallcustomer = res.response;
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSource = new MatTableDataSource(this.overallcustomer);
-            this.currentfilvalShow = true;
-          } else if (res.flag == 2) {
-            this.overallcustomer = [];
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSource = new MatTableDataSource(this.overallcustomer);
-            this.currentfilvalShow = true;
-          }
-        },
-        error: (err: any) => {
-          this.toastr.error('No Data Found');
-        },
-      });
+      this.service
+        .EntityCustomerviewsearch(
+          this.id,
+          filterValue,
+          this.pageSize,
+          this.pageIndex
+        )
+        .subscribe({
+          next: (res: any) => {
+            if (res.response) {
+              this.overallcustomer = res.response;
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.dataSource = new MatTableDataSource(this.overallcustomer);
+              this.currentfilvalShow = true;
+            } else if (res.flag == 2) {
+              this.overallcustomer = [];
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.dataSource = new MatTableDataSource(this.overallcustomer);
+              this.currentfilvalShow = true;
+            }
+          },
+          error: (err: any) => {
+            this.toastr.error('No Data Found');
+          },
+        });
     } else if (!filterValue) {
       this.toastr.error('Please enter a value to search');
       return;

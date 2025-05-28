@@ -187,6 +187,10 @@ export class FarginServiceService {
   private readonly EntityQrgenerate = 'merchant/qrgenerate/';
   private readonly qrimageview = 'merchant/qrViewImage/';
 
+
+  //Customer QRCode
+  private readonly CustomerQR = 'customer/viewCustomerQrImage/';
+
   //refund
   private readonly EntityRefund = 'refund/getmerchant/'
 
@@ -1494,6 +1498,13 @@ export class FarginServiceService {
 
   QRImageView(id: any) {
     return this.http.get(`${this.basePath}${this.qrimageview}${id}`, {
+      ...this.options,
+      ...{ responseType: 'blob' },
+    })
+  }
+
+  CustomerQRImageView(id: any) {
+    return this.http.get(`${this.basePath}${this.CustomerQR}${id}`, {
       ...this.options,
       ...{ responseType: 'blob' },
     })

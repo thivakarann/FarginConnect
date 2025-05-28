@@ -34,11 +34,12 @@ export class OverallCustomerViewComponent implements OnInit {
     // 'emailAddress',
     'mobileNumber',
     'routeassigned',
+    'QRImage',
     'Viewcustomer',
-     'createdDatetime',
+    'createdDatetime',
     // 'flatNumber',
     // 'blockNumber',
- 
+
   ];
 
   viewall: any;
@@ -62,19 +63,19 @@ export class OverallCustomerViewComponent implements OnInit {
   currentpage: any;
   overallcustomerexport: any;
 
-    
+
   pageIndex1: number = 0;
   pageSize1 = 5;
- 
+
   totalpage1: any;
   totalPages1: any;
   currentpage1: any;
 
-  currentfilval:any;
-  filter:boolean=false;
-  currentfilvalShow:boolean=false;
-  searchPerformed:boolean=false;
-  
+  currentfilval: any;
+  filter: boolean = false;
+  currentfilvalShow: boolean = false;
+  searchPerformed: boolean = false;
+
   constructor(
     public EntityViewall: FarginServiceService,
     private router: Router,
@@ -161,7 +162,7 @@ export class OverallCustomerViewComponent implements OnInit {
 
     });
 
-    
+
   }
 
   Viewparticularcustomer(id: any) {
@@ -169,6 +170,37 @@ export class OverallCustomerViewComponent implements OnInit {
       queryParams: { Alldata: id },
     });
 
+  }
+
+  viewQr(id: any, id2: any) {
+    this.EntityViewall.CustomerQRImageView(id).subscribe((res: Blob) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const dataUrl = reader.result as string;
+
+        // Create HTML content with the image and download link
+        const htmlContent = `
+        <html>
+          <body style="margin: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;">
+            <img src="${dataUrl}" style="max-width: 100%; max-height: 80vh; object-fit: contain;" />
+            <a 
+              href="${dataUrl}" 
+              download="${id2}.QR.Image.jpg" 
+              style="margin-top: 20px; padding: 10px 20px; background: #2196F3; color: white; text-decoration: none; border-radius: 5px;"
+            >
+              Download QR Code
+            </a>
+          </body>
+        </html>
+      `;
+
+        // Create a Blob and open it as a URL
+        const blob = new Blob([htmlContent], { type: 'text/html' });
+        const blobUrl = URL.createObjectURL(blob);
+        window.open(blobUrl); // Image persists even on refresh
+      };
+      reader.readAsDataURL(res);
+    });
   }
 
 
@@ -183,19 +215,19 @@ export class OverallCustomerViewComponent implements OnInit {
 
 
   exportexcel() {
- 
+
     this.EntityViewall.OverallCustomerExport().subscribe((res: any) => {
- 
+
       this.overallcustomerexport = res.response;
- 
- 
+
+
       if (res.flag == 1) {
- 
- 
+
+
         let sno = 1;
         this.responseDataListnew = [];
         this.overallcustomerexport.forEach((element: any) => {
- 
+
           this.response = [];
           this.response.push(sno);
           this.response.push(element?.customerReferenceId)
@@ -205,11 +237,11 @@ export class OverallCustomerViewComponent implements OnInit {
           this.response.push(element?.merchantId?.businessCategoryModel?.categoryName);
           this.response.push(element?.emailAddress);
           this.response.push(element?.mobileNumber);
-   
-          if(element?.routeAssignedStatus==0){
+
+          if (element?.routeAssignedStatus == 0) {
             this.response.push("Not Assigned");
           }
-          else{
+          else {
             this.response.push("Signed")
           }
           sno++;
@@ -219,7 +251,7 @@ export class OverallCustomerViewComponent implements OnInit {
       }
     });
   }
-  
+
   excelexportCustomer() {
     const header = [
       "S.No",
@@ -232,13 +264,13 @@ export class OverallCustomerViewComponent implements OnInit {
       'Mobile Number',
       'Router Assigned Status'
     ]
- 
- 
+
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Overall customer view');
- 
- 
+
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -248,15 +280,15 @@ export class OverallCustomerViewComponent implements OnInit {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
+
       }
- 
+
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
- 
+
     data.forEach((d: any) => {
       //
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -267,7 +299,7 @@ export class OverallCustomerViewComponent implements OnInit {
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
- 
+
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -277,100 +309,100 @@ export class OverallCustomerViewComponent implements OnInit {
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
+
     }
     );
- 
+
     workbook.xlsx.writeBuffer().then((data: any) => {
- 
+
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
- 
- 
+
+
       FileSaver.saveAs(blob, 'Overall CustomerView.xlsx');
- 
+
     });
   }
 
- 
+
 
   customer(filterValue: string) {
-  
+
     if (filterValue) {
 
-    this.EntityViewall.CustomerSearch(filterValue,this.pageSize,this.pageIndex).subscribe({
-      next: (res: any) => {
-        if (res.response) {
-          this.overallcustomer = res.response.content;
-       
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.overallcustomer);
-          this.currentfilvalShow = true;
-        } else if (res.flag == 2) {
-          this.overallcustomer = [];
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.overallcustomer);
-          this.currentfilvalShow = true;
-        }
-      },
-      error: (err: any) => {
-        this.toastr.error('No Data Found');
-      }
-    });
-  }
-  else if (!filterValue) {
-    this.toastr.error('Please enter a value to search');
-    return;
-  }
-  }
- 
-  getData(event: any) {
-    if (this.currentfilvalShow) {
-      this.EntityViewall.CustomerSearch(this.currentfilval,event.pageSize,event.pageIndex).subscribe({
+      this.EntityViewall.CustomerSearch(filterValue, this.pageSize, this.pageIndex).subscribe({
         next: (res: any) => {
           if (res.response) {
             this.overallcustomer = res.response.content;
-      
+
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
             this.dataSource = new MatTableDataSource(this.overallcustomer);
-             
+            this.currentfilvalShow = true;
           } else if (res.flag == 2) {
             this.overallcustomer = [];
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
             this.dataSource = new MatTableDataSource(this.overallcustomer);
-             
+            this.currentfilvalShow = true;
           }
         },
         error: (err: any) => {
           this.toastr.error('No Data Found');
         }
       });
-  } else {
-    this.EntityViewall.OverallCustomer(event.pageSize, event.pageIndex).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.overallcustomer = res.response;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.overallcustomer);
- 
-      } else if (res.flag == 2) {
-        this.overallcustomer = [];
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.overallcustomer);
- 
-      }
-
-    });
+    }
+    else if (!filterValue) {
+      this.toastr.error('Please enter a value to search');
+      return;
+    }
   }
-}
+
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      this.EntityViewall.CustomerSearch(this.currentfilval, event.pageSize, event.pageIndex).subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.overallcustomer = res.response.content;
+
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.overallcustomer);
+
+          } else if (res.flag == 2) {
+            this.overallcustomer = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.overallcustomer);
+
+          }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
+        }
+      });
+    } else {
+      this.EntityViewall.OverallCustomer(event.pageSize, event.pageIndex).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.overallcustomer = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.overallcustomer);
+
+        } else if (res.flag == 2) {
+          this.overallcustomer = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.overallcustomer);
+
+        }
+
+      });
+    }
+  }
 }

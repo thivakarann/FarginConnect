@@ -83,16 +83,47 @@ export class EntityQrcodeComponent implements OnInit {
     });
   }
 
-  viewQr(id: any) {
-    this.MerchantView.QRImageView(id).subscribe((res: any) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(res);
-      reader.onloadend = () => {
-        var downloadURL = URL.createObjectURL(res);
-        window.open(downloadURL);
-      }
-    })
-  }
+  // viewQr(id: any) {
+  //   this.MerchantView.QRImageView(id).subscribe((res: any) => {
+  //     const reader = new FileReader();
+  //     reader.readAsDataURL(res);
+  //     reader.onloadend = () => {
+  //       var downloadURL = URL.createObjectURL(res);
+  //       window.open(downloadURL);
+  //     }
+  //   })
+  // }
+
+ viewQr(id: any, id2: any) {
+  this.MerchantView.QRImageView(id).subscribe((res: Blob) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const dataUrl = reader.result as string;
+
+      // Create HTML content with the image and download link
+      const htmlContent = `
+        <html>
+          <body style="margin: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;">
+            <img src="${dataUrl}" style="max-width: 100%; max-height: 80vh; object-fit: contain;" />
+            <a 
+              href="${dataUrl}" 
+              download="${id2}.QR.Image.jpg" 
+              style="margin-top: 20px; padding: 10px 20px; background: #2196F3; color: white; text-decoration: none; border-radius: 5px;"
+            >
+              Download QR Code
+            </a>
+          </body>
+        </html>
+      `;
+
+      // Create a Blob and open it as a URL
+      const blob = new Blob([htmlContent], { type: 'text/html' });
+      const blobUrl = URL.createObjectURL(blob);
+      window.open(blobUrl); // Image persists even on refresh
+    };
+    reader.readAsDataURL(res);
+  });
+}
 
   QRlink(id: any) {
     const dialogRef = this.dialog.open(QRcreationComponent, {
