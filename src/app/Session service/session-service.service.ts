@@ -69,7 +69,7 @@ export class SessionServiceService {
     this.dialog.closeAll();
     sessionStorage.clear();
     sessionStorage.removeItem('token');
-    this.router.navigateByUrl('/redirect-page', { replaceUrl: true });
+    this.router.navigateByUrl('/login-page', { replaceUrl: true });
   }
 
 
@@ -84,7 +84,7 @@ export class SessionServiceService {
     this.router.events
       .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
-        if (!this.isLoggedInFlag && event.url !== '/redirect-page') {
+        if (!this.isLoggedInFlag && event.url !== '/login-page') {
           this.clearHistoryAndNavigateToLogin();
         }
       });

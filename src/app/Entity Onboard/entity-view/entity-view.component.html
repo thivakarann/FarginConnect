@@ -335,6 +335,14 @@
                   >
                     Generate Customer Dues
                   </button>
+                    <button
+                    [disabled]="this.detaislone?.onBoardStatus !== 'true'"
+                    style="font-size: 10px"
+                    mat-menu-item
+                    (click)="CustomerQRcreation()"
+                  >
+                    Generate Customer QR
+                  </button>
 
                   <!-- <button style="font-size: 10px;" mat-menu-item (click)="emailtrigger()"
                                         [disabled]="detaislone?.onBoardStatus=='false'">

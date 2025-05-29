@@ -42,7 +42,7 @@ export class QRcreationComponent implements OnInit {
       ]),
     });
   };
-  
+
   selectss(id: any) {
     this.ADD = id
 
@@ -62,7 +62,6 @@ export class QRcreationComponent implements OnInit {
         this.Entityurlname = res.response.referenceNo;
         this.EntityURLLink = res.response.link;
         this.ViewURL = true;
-
         this.isCreated = true;
       }
       else if (res.flag == 2) {
@@ -71,11 +70,6 @@ export class QRcreationComponent implements OnInit {
 
       }
     })
-
-
-
-
-
   }
 
   GenerateQr() {

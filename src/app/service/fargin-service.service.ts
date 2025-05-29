@@ -190,6 +190,7 @@ export class FarginServiceService {
 
   //Customer QRCode
   private readonly CustomerQR = 'customer/viewCustomerQrImage/';
+  private readonly CustomerQRGenerate = 'customer/updatekeysForexistingcustomer/'
 
   //refund
   private readonly EntityRefund = 'refund/getmerchant/'
@@ -1508,6 +1509,10 @@ export class FarginServiceService {
       ...this.options,
       ...{ responseType: 'blob' },
     })
+  }
+
+  CustomerQRCreation(id:any){
+    return this.http.get(`${this.basePath}${this.CustomerQRGenerate}${id}`,this.options)
   }
   //refund
   Entityrefund(id: any) {

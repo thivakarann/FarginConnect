@@ -857,7 +857,7 @@ export class EntityViewComponent implements OnInit {
   }
 
   viewOnboardInfo(id: any) {
-   const dialogRef =  this.dialog.open(ViewOnboardinfoComponent, {
+    const dialogRef = this.dialog.open(ViewOnboardinfoComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       disableClose: true,
@@ -865,7 +865,7 @@ export class EntityViewComponent implements OnInit {
         value: id,
       },
     });
-     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
       this.Getall();
     });
   }
@@ -891,7 +891,7 @@ export class EntityViewComponent implements OnInit {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '500ms',
       disableClose: true,
-      maxHeight:'500px',
+      maxHeight: '500px',
       data: {
         value: id,
       },
@@ -906,7 +906,7 @@ export class EntityViewComponent implements OnInit {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '500ms',
       disableClose: true,
-       maxHeight:'500px',
+      maxHeight: '500px',
       data: {
         value: id,
       },
@@ -1038,6 +1038,18 @@ export class EntityViewComponent implements OnInit {
         }
       }
     );
+  }
+
+  CustomerQRcreation() {
+    this.MerchantView.CustomerQRCreation(this.id).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.toastr.success(res.responseMessage);
+      }
+      else {
+        this.toastr.error(res.responseMessage);
+
+      }
+    })
   }
 
   createmanualPayement() {
@@ -1320,7 +1332,7 @@ export class EntityViewComponent implements OnInit {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       disableClose: true,
-      maxHeight:'500px',
+      maxHeight: '500px',
       data: { value: id },
     });
 
@@ -1410,7 +1422,7 @@ export class EntityViewComponent implements OnInit {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       disableClose: true,
-       maxHeight:'500px',
+      maxHeight: '500px',
       data: { value: id, value1: 1 },
     });
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
@@ -1423,7 +1435,7 @@ export class EntityViewComponent implements OnInit {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       disableClose: true,
-       maxHeight:'500px',
+      maxHeight: '500px',
       data: { value: id, value1: 2 },
     });
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
@@ -1436,7 +1448,7 @@ export class EntityViewComponent implements OnInit {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       disableClose: true,
-       maxHeight:'500px',
+      maxHeight: '500px',
       data: { value: id, value1: 3 },
     });
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
@@ -2017,7 +2029,7 @@ export class EntityViewComponent implements OnInit {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       disableClose: true,
-       maxHeight:'500px',
+      maxHeight: '500px',
       data: { value: id },
     });
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
@@ -2128,7 +2140,7 @@ export class EntityViewComponent implements OnInit {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '1000ms',
       disableClose: true,
-       maxHeight:'500px',
+      maxHeight: '500px',
       data: { value: id },
     });
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
