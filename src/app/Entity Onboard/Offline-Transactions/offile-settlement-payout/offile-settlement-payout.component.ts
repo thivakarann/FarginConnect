@@ -59,7 +59,7 @@ export class OffileSettlementPayoutComponent {
   length: any;
   pageIndex: any;
   pageSize: any;
-  filterShow: any = 0;
+ filterAction:any = 0;
 
   constructor(
     private service: FarginServiceService,
@@ -167,6 +167,7 @@ export class OffileSettlementPayoutComponent {
         this.pageIndex = this.Viewall.number;
         this.pageSize = this.Viewall.size;
         this.dataSource = new MatTableDataSource(this.filteredData);
+        this.filterAction = 1
       }
       if (this.filteredData.length === 0) {
         this.dataSource = new MatTableDataSource();
@@ -177,7 +178,7 @@ export class OffileSettlementPayoutComponent {
 
   getData(event: any) {
 
-    if (this.FromDateRange && this.ToDateRange) {
+    if (this.filterAction == 1) {
       const datepipe: DatePipe = new DatePipe('en-US');
       let formattedstartDate = datepipe.transform(
         this.FromDateRange,

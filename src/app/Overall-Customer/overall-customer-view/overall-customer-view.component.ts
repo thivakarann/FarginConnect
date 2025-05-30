@@ -75,6 +75,7 @@ export class OverallCustomerViewComponent implements OnInit {
   filter: boolean = false;
   currentfilvalShow: boolean = false;
   searchPerformed: boolean = false;
+  QRimage: any;
 
   constructor(
     public EntityViewall: FarginServiceService,
@@ -94,7 +95,8 @@ export class OverallCustomerViewComponent implements OnInit {
 
           if (this.roleId == 1) {
             this.valueCustomerView = 'Customers-View';
-            this.valueCustomerExport = 'Customers-Export'
+            this.valueCustomerExport = 'Customers-Export';
+            this.QRimage = 'Customer-QR'
           }
           else {
             for (let datas of this.getdashboard) {
@@ -105,6 +107,9 @@ export class OverallCustomerViewComponent implements OnInit {
               }
               if (this.actions == 'Customers-Export') {
                 this.valueCustomerExport = 'Customers-Export'
+              }
+              if (this.actions == 'Customer-QR') {
+                this.QRimage = 'Customer-QR'
               }
             }
           }

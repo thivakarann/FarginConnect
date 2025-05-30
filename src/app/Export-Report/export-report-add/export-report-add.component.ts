@@ -5,15 +5,8 @@ import { MatDialog } from '@angular/material/dialog';
 import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
-import {
-  ExportReportBranch,
-  ExportReportCreate,
-  ExportReportstatic,
-} from '../../fargin-model/fargin-model.module';
-interface Option {
-  entityName: string;
-  merchantId: number;
-}
+import { ExportReportBranch, ExportReportCreate, ExportReportstatic, } from '../../fargin-model/fargin-model.module';
+interface Option { entityName: string; merchantId: number; }
 
 @Component({
   selector: 'app-export-report-add',
@@ -26,7 +19,7 @@ export class ExportReportAddComponent implements OnInit {
   merchantId: any = sessionStorage.getItem('merchantId');
   Daterange!: string;
   exportTypes: any;
-  paymentstatus:any
+  paymentstatus: any
   roleName = sessionStorage.getItem('roleName');
   roleId: any = sessionStorage.getItem('roleId');
   getdashboard: any[] = [];
@@ -49,6 +42,7 @@ export class ExportReportAddComponent implements OnInit {
   branchees: any;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
   newBranchId: any;
+  paymentStatusStacticQR: any;
 
   constructor(
     public service: FarginServiceService,
@@ -70,7 +64,7 @@ export class ExportReportAddComponent implements OnInit {
       merchantId: new FormControl(''),
       selectedOption: new FormControl(''),
       search1: new FormControl(''),
-      // staticoption:new FormControl('',[Validators.required])
+      paymentStatusStactic: new FormControl('',),
       staticoption: new FormControl(''),
       branchId: new FormControl(''),
     });
@@ -120,6 +114,10 @@ export class ExportReportAddComponent implements OnInit {
     return this.myForm.get('branchId');
   }
 
+  get paymentStatusStactic() {
+    return this.myForm.get('paymentStatusStactic');
+  }
+
   submitForm() {
     const selectedValue = this.myForm.get('exportDataName')?.value;
     const startDate = this.myForm.get('exportStartDate')?.value;
@@ -127,6 +125,7 @@ export class ExportReportAddComponent implements OnInit {
     const paymentStatus = this.myForm.get('paymentStatus')?.value;
     const staticoption = this.myForm.get('staticoption')?.value;
     const branchId = this.myForm.get('branchId')?.value;
+    const paymentStatusStactic = this.myForm.get('paymentStatusStactic')?.value;
 
     if (selectedValue == '23' && startDate && endDate && !paymentStatus) {
       this.exportTypes = 1;
@@ -134,10 +133,22 @@ export class ExportReportAddComponent implements OnInit {
     } else if (selectedValue == '23' && startDate && endDate && paymentStatus) {
       this.exportTypes = 0;
       this.Branchsubmit();
-    } else if (selectedValue == '6' && startDate && endDate && staticoption) {
+    }
+    else if (selectedValue == '6' && startDate && endDate && staticoption && !paymentStatusStactic) {
+      this.exportTypes = 1;
       this.Staticqr();
-    } else if (
-      (selectedValue == '7' ||
+
+    }
+    else if (selectedValue == '6' && startDate && endDate && staticoption && paymentStatusStactic) {
+      this.exportTypes = 0;
+      this.Staticqr();
+
+    }
+
+   
+    else if (
+      (
+        selectedValue == '7' ||
         selectedValue == '4' ||
         selectedValue == '13' ||
         selectedValue == '14' ||
@@ -150,7 +161,9 @@ export class ExportReportAddComponent implements OnInit {
       this.paymentstatus = "All"
 
       this.submit();
-    } else if (
+    }
+
+    else if (
       (selectedValue == '7' ||
         selectedValue == '4' ||
         selectedValue == '13' ||
@@ -293,18 +306,19 @@ export class ExportReportAddComponent implements OnInit {
     let submitModel: ExportReportstatic = {
       createdBy: this.getadminname,
       exportDataName: this.exportDataName?.value,
-      exportType: 0,
+      exportType: this.exportTypes,
       dateRange: this.Daterange,
       merchantId: this.staticmerchant,
       pageNo: '',
       query: '',
       size: '',
-      status: '',
+      status: this.paymentStatusStactic?.value || "",
       terminalId: '',
       exportStartDate: this.exportStartDate?.value,
       exportEndDate: this.exportEndDate?.value,
       type: 2,
       branchId: 0,
+      paymentStatus: this.paymentStatusStactic?.value || "All"
     };
     this.service.ExportReportAdd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {

@@ -2030,8 +2030,8 @@ export class FarginServiceService {
 
 
 
-  QRCreateurl(id: any) {
-    return this.http.get(`${this.basePath}${this.QrcreateName}${id}`, this.options)
+  QRCreateurl(id: any,id1:any) {
+    return this.http.get(`${this.basePath}${this.QrcreateName}${id}/${id1}`, this.options)
   }
 
   QRURLcreation(model: any) {

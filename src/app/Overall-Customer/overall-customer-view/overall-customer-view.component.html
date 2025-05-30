@@ -119,8 +119,8 @@
                 </td>
             </ng-container>
             <ng-container matColumnDef="QRImage">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>QR Image</th>
-                <td *matCellDef="let viewall">
+                <th [hidden]="QRimage!=='Customer-QR'" mat-header-cell *matHeaderCellDef mat-sort-header>QR Image</th>
+                <td [hidden]="QRimage!=='Customer-QR'" *matCellDef="let viewall">
                     <span [hidden]="viewall?.cusQrStatus ==0">
                         <button
                             style="font-size: 19px;color: rgb(39, 39, 95);border: none;cursor: pointer;background: none;"

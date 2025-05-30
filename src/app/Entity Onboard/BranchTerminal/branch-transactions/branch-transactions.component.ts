@@ -66,7 +66,7 @@ export class BranchTransactionsComponent {
   length: any;
   pageIndex: any;
   pageSize: any;
-
+   filterAction:any = 0;
   constructor(
     private service: FarginServiceService,
     private ActivateRoute: ActivatedRoute,
@@ -192,6 +192,7 @@ export class BranchTransactionsComponent {
         this.pageIndex = this.Viewall.number;
         this.pageSize = this.Viewall.size;
         this.dataSource = new MatTableDataSource(this.filteredData);
+        this.filterAction = 1
 
         if (this.content.length === 0) {
           this.dataSource = new MatTableDataSource();
@@ -397,10 +398,7 @@ let qty9   = row.getCell(10);
     this.location.back();
   }
   getData(event: any) {
-    console.log(event.pageSize);
-    console.log(event.pageIndex);
-
-    if (this.FromDateRange && this.ToDateRange) {
+    if (this.filterAction == 1) {
       const datepipe: DatePipe = new DatePipe('en-US');
       let formattedstartDate = datepipe.transform(
         this.FromDateRange,

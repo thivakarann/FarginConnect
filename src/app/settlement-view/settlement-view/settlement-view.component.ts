@@ -53,6 +53,7 @@ export class SettlementViewComponent implements OnInit {
   FromDateRange: any;
   ToDateRange: any;
   maxDate: any;
+   filterAction:any = 0;
   constructor(
     public service: FarginServiceService,
     private router: Router,
@@ -142,6 +143,7 @@ export class SettlementViewComponent implements OnInit {
       this.pageIndex = this.datas.number;
       this.pageSize = this.datas.size;
       this.dataSource = new MatTableDataSource(this.viewdata);
+      this.filterAction = 1
 
       if (this.viewdata.length === 0) {
         this.dataSource = new MatTableDataSource();
@@ -180,7 +182,7 @@ export class SettlementViewComponent implements OnInit {
 
 
   getData(event: any) {
-    if (this.FromDateRange && this.ToDateRange) {
+    if (this.filterAction == 1) {
       const datepipe: DatePipe = new DatePipe('en-US');
       let formattedstartDate = datepipe.transform(
         this.FromDateRange,

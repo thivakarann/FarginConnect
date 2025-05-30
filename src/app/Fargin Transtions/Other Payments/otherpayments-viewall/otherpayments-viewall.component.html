@@ -2,7 +2,7 @@
 
 <mat-card-header>
   <div class="row d-flex flex-wrap align-items-center" style="gap: 10px; flex-wrap: nowrap">
-    <div class="col-md-6 d-flex flex-wrap align-items-center mt-4">
+    <div class="col-md-7 d-flex flex-wrap align-items-center mt-4">
       <div class="search">
         <form class="form">
           <label for="search">
@@ -37,8 +37,8 @@
       </button> -->
     </div>
 
-    <div class="col-md-4 d-flex align-items-center mt-3" style="gap: 10px">
-      <select [(ngModel)]="backs" class="form-select" style="height: 40px; font-size: 15px; margin: 1px; width: 200px"
+    <div class="col-md-3  align-items-center mt-3" style="gap: 10px">
+      <select [(ngModel)]="backs" class="form-select" style="height: 40px; font-size: 15px; margin: 1px; width: 300px"
         (change)="Filter($event)">
         <option value="" disabled selected>Filter</option>
         <option value="FilterbyCustomizedpay">
@@ -48,15 +48,24 @@
           Date Filter for success
         </option>
       </select>
-      <button class="mt-2.5" style="color: white; background-color: #141e46; border-radius: 10px;font-size: 12px;" mat-raised-button
-        (click)="reset()">
+
+    </div>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <div class="col mt-3">
+      <button class="mt-2.5" style="
+          color: white;
+          background-color: #141e46;
+          border-radius: 10px;
+          font-size: 12px;
+        " mat-raised-button (click)="reset()">
         Reset
       </button>
     </div>
   </div>
 </mat-card-header>
 <mat-card-content>
-  <div  class="example-container text-nowrap mt-3" style="overflow-x: scroll; scrollbar-width: thin;">
+  <div class="example-container text-nowrap mt-3" style="overflow-x: scroll; scrollbar-width: thin;">
     <!-- <span *ngIf="showcategoryData" style="text-align:center;color:red;">NO DATA FOUND</span> -->
     <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <ng-container matColumnDef="sno">
@@ -212,21 +221,21 @@
   </div>
 </mat-card-content>
 <mat-card-footer>
- 
+
   <mat-paginator (page)="getData($event)" [length]="totalPages" [pageIndex]="currentpage" [pageSize]="totalpage"
-  [pageSizeOptions]="[5, 10, 50, 100, 200,300,500]" aria-label="Select page">
-</mat-paginator>
- 
+    [pageSizeOptions]="[5, 10, 50, 100, 200,300,500]" aria-label="Select page">
+  </mat-paginator>
+
 </mat-card-footer>
 <!-- customized pay -->
 
 <ng-template #Customizedpay>
-  <div style="width: 386px" class="dialog-card-header">
-    <h3 class="mb-0" style="text-align: center; font-size: 20px">
+  <div style="width: 335px" class="dialog-card-header">
+    <h3 class="mb-0" style="text-align: center; font-size: 17px;color:black;padding:12px">
       Filter Customization Payment
     </h3>
     <div class="col-md-2 d-flex justify-content-end mb-1">
-      <button class="button1" (click)="close()">Back</button>
+      <button style="font-size: 14px;" class="button1" (click)="close()">Back</button>
     </div>
   </div>
   <!-- <div class="dialog-body page"> -->
@@ -246,7 +255,20 @@
                                 </div>
                             </ng-template> -->
             </ng-select>
-            <button type="button" (click)="onSearchClick(searchSelect)" class="search-button">
+            <button type="button" style="
+                font-size: 12px;
+                margin-top: 9px;
+                width: auto;
+                height: 34px;
+                padding: 0 10px;
+                text-align: center;
+                line-height: 34px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                    margin-left: -5px;
+                        border-radius: 9px
+              " (click)="onSearchClick(searchSelect)" class="search-button">
               Go
             </button>
           </div>
@@ -298,11 +320,11 @@
 <!-- Date filter customer -->
 <ng-template #CustomizedFilter>
   <div style="width: 386px" class="dialog-card-header">
-    <h3 class="mb-0" style="text-align: center; font-size: 20px">
+    <h3 class="mb-0" style="text-align: center; font-size: 17px;color:black;padding:12px">
       Filter Customization Payment
     </h3>
     <div class="col-md-2 d-flex justify-content-end mb-1">
-      <button class="button1" (click)="close()">Back</button>
+      <button class="button1" style="font-size: 14px;" (click)="close()">Back</button>
     </div>
   </div>
 

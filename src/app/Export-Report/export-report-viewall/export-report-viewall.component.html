@@ -97,7 +97,12 @@
             <ng-container matColumnDef="paymentStatus">
                 <th mat-header-cell *matHeaderCellDef>Payment Summary</th>
                 <td mat-cell *matCellDef="let viewall">
-                    <span *ngIf="viewall?.paymentStatus == 'Success'" style="color:green;">
+                    <span *ngIf="viewall?.paymentStatus == 'SUCCESS'" style="color:green;">
+                        Success </span>
+                            <span *ngIf="viewall?.paymentStatus   ==  'FAILURE'" style="color:red;">
+                        Failure</span>
+
+                         <span *ngIf="viewall?.paymentStatus == 'Success'" style="color:green;">
                         Success </span>
 
                     <span *ngIf="viewall?.paymentStatus == ''" style="font-size: 15px;">

@@ -80,7 +80,7 @@ export class ViewAnnouncementComponent implements OnInit {
   filter3: boolean = false;
   currentfilvalShow:boolean=false;
   searchPerformed: boolean=false;
-
+ filterAction:any = 0;
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -178,6 +178,7 @@ export class ViewAnnouncementComponent implements OnInit {
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.data);
+          this.filterAction = 1
            
         } else if (res.flag == 2) {
           this.data = [];
@@ -503,7 +504,7 @@ export class ViewAnnouncementComponent implements OnInit {
         }
       });
     }
-    else if(this.fromDate && this.toDate){
+    else if(this.filterAction == 1){
       this.service.announcementDate(this.fromDate, this.toDate,event.pageSize, event.pageIndex).subscribe({
         next: (res: any) => {
           if (res.flag == 1) {

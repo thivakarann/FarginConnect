@@ -86,6 +86,7 @@ export class RefundGetallComponent {
   maxDate: any;
   currentfilvalShow: boolean=false;
   transactionValue: any;
+   filterAction:any = 0;
 
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private router: Router) { }
 
@@ -326,7 +327,7 @@ export class RefundGetallComponent {
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.transaction);
-       
+       this.filterAction = 1
      
       } else if (res.flag == 2) {
         this.transaction = [];
@@ -368,7 +369,7 @@ export class RefundGetallComponent {
   
 
   getData(event: any) {
-    if (this.FromDateRange && this.ToDateRange) {
+    if (this.filterAction== 1) {
       this.service.RefundGetAllDateFilter(this.FromDateRange, this.ToDateRange, event.pageSize, event.pageIndex).subscribe((res: any) => {
         if (res.flag == 1) {
   

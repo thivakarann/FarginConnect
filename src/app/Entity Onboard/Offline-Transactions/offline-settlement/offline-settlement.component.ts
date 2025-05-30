@@ -63,8 +63,8 @@ export class OfflineSettlementComponent {
   length: any;
   pageIndex: any;
   pageSize: any;
- 
-  filterShow: any = 0;
+
+  filterAction: any = 0;
   constructor(
     private service: FarginServiceService,
     private toastr: ToastrService,
@@ -207,6 +207,7 @@ export class OfflineSettlementComponent {
         this.pageIndex = this.Viewall.number;
         this.pageSize = this.Viewall.size;
         this.dataSource = new MatTableDataSource(this.filteredData);
+        this.filterAction == 1;
       }
     });
   }
@@ -231,7 +232,6 @@ export class OfflineSettlementComponent {
  
         this.FromDateRange='';
         this.ToDateRange='';
-        this.filterShow=0;
       } else {
         this.FromDateRange = '';
         this.ToDateRange = '';
@@ -380,8 +380,7 @@ export class OfflineSettlementComponent {
    getData(event:any)
   {
  
-    if(this.filterShow==1)
-    {
+    if (this.filterAction == 1) {
      const datepipe: DatePipe = new DatePipe("en-US");
       let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY HH:mm");
       let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/yyyy HH:mm");

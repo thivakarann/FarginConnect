@@ -1566,6 +1566,7 @@ export interface entityterminaltransaction{
       readonly exportEndDate:any,
       readonly type:any,
       readonly branchId:any;
+      readonly paymentStatus:any;
     }
 
     export interface ExportReportBranch{

@@ -69,14 +69,14 @@ export class OfflineTransactionsComponent {
   length: any;
   pageIndex: any;
   pageSize: any;
-
+  filterAction: any = 0;
   constructor(
     private service: FarginServiceService,
     private dialog: MatDialog,
     private ActivateRoute: ActivatedRoute,
     private router: Router,
     private location: Location
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     const today = new Date();
@@ -196,7 +196,7 @@ export class OfflineTransactionsComponent {
     const datepipe: DatePipe = new DatePipe('en-US');
     let formattedstartDate = datepipe.transform(
       this.FromDateRange,
-     'dd/MM/YYYY HH:mm'
+      'dd/MM/YYYY HH:mm'
     );
     let formattedendDate = datepipe.transform(
       this.ToDateRange,
@@ -222,8 +222,8 @@ export class OfflineTransactionsComponent {
         this.length = this.Viewall.totalElements;
         this.pageIndex = this.Viewall.number;
         this.pageSize = this.Viewall.size;
-
         this.dataSource = new MatTableDataSource(this.filteredData);
+        this.filterAction = 1;
 
         if (this.content.length === 0) {
           this.dataSource = new MatTableDataSource();
@@ -252,12 +252,13 @@ export class OfflineTransactionsComponent {
         this.pageSize = this.Viewall.size;
 
         this.dataSource = new MatTableDataSource(this.filteredData);
-
+        this.FromDateRange = '';
+        this.ToDateRange = '';
+      
         if (this.content.length === 0) {
           this.dataSource = new MatTableDataSource();
         }
-        this.FromDateRange = '';
-        this.ToDateRange = '';
+     
       } else {
         this.FromDateRange = '';
         this.ToDateRange = '';
@@ -465,7 +466,7 @@ export class OfflineTransactionsComponent {
   close() {
     this.location.back();
   }
-   settlement() {
+  settlement() {
     this.router.navigate([`dashboard/offline-settlement`], {
       queryParams: {
         Alldata: this.id,
@@ -474,7 +475,7 @@ export class OfflineTransactionsComponent {
   }
 
   getData(event: any) {
-    if (this.FromDateRange && this.ToDateRange) {
+    if (this.filterAction == 1) {
       const datepipe: DatePipe = new DatePipe('en-US');
       let formattedstartDate = datepipe.transform(
         this.FromDateRange,

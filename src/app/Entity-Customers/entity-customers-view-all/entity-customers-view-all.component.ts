@@ -22,6 +22,7 @@ export class EntityCustomersViewAllComponent {
   totalPages1: any;
   totalpage1: any;
   currentpage1: any;
+  QRImage: any;
 
   exportexcel() {
     throw new Error('Method not implemented.');
@@ -67,7 +68,7 @@ export class EntityCustomersViewAllComponent {
     private toastr: ToastrService,
     private ActivateRoute: ActivatedRoute,
     private location: Location
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
@@ -75,11 +76,15 @@ export class EntityCustomersViewAllComponent {
           this.getdashboard = res.response?.subPermission;
           if (this.roleId == 1) {
             this.valuecustomerview = 'Entity View Customer-View';
+            this.QRImage = "Customer-QR"
           } else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
               if (this.actions == 'Entity View Customer-View') {
                 this.valuecustomerview = 'Entity View Customer-View';
+              }
+              if (this.actions == 'Customer-QR') {
+                this.QRImage = 'Customer-QR';
               }
             }
           }
@@ -137,7 +142,7 @@ export class EntityCustomersViewAllComponent {
     });
   };
 
-   viewQr(id: any, id2: any) {
+  viewQr(id: any, id2: any) {
     this.service.CustomerQRImageView(id).subscribe((res: Blob) => {
       const reader = new FileReader();
       reader.onloadend = () => {

@@ -94,7 +94,7 @@ export class SMSHistoryComponent {
   currentfilvalShow: boolean=false;
   transactionValue: any;
 searchPerformed:boolean=false;
-
+ filterAction:any = 0;
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private router: Router) { }
 
 
@@ -308,7 +308,7 @@ searchPerformed:boolean=false;
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.transaction);
-       
+       this.filterAction = 1
      
       } else if (res.flag == 2) {
         this.transaction = [];
@@ -408,7 +408,7 @@ searchPerformed:boolean=false;
 
 
   getData(event: any) {
-    if (this.FromDateRange && this.ToDateRange) {
+    if (this.filterAction == 1) {
       this.service.SMSHistoryFilter(this.FromDateRange, this.ToDateRange, event.pageSize, event.pageIndex).subscribe((res: any) => {
         if (res.flag == 1) {
          this.transaction = res.response;

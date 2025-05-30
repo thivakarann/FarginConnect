@@ -65,7 +65,7 @@ export class EntitySettlementComponent {
   pageIndex: any;
   pageSize: any;
   datas: any;
-
+ filterAction:any = 0;
   constructor(
     public MerchantView: FarginServiceService,
     private router: Router,
@@ -200,6 +200,7 @@ export class EntitySettlementComponent {
         this.pageSize = this.datas.size;
 
         this.dataSource = new MatTableDataSource(this.filteredData);
+        this.filterAction = 1
 
         if (this.content.length === 0) {
           this.dataSource = new MatTableDataSource();
@@ -384,7 +385,7 @@ export class EntitySettlementComponent {
   }
 
   getData(event: any) {
-    if (this.FromDateRange && this.ToDateRange) {
+    if (this.filterAction == 1) {
       const datepipe: DatePipe = new DatePipe('en-US');
       let formattedstartDate = datepipe.transform(
         this.FromDateRange,

@@ -68,7 +68,7 @@ export class TerminalTransactionsComponent {
   pageIndex: any;
   pageSize: any;
   length: any;
- 
+    filterAction:any = 0;
   constructor(
     private service: FarginServiceService,
     private ActivateRoute: ActivatedRoute,
@@ -197,7 +197,7 @@ export class TerminalTransactionsComponent {
         this.pageIndex = this.Viewall.number;
         this.pageSize = this.Viewall.size;
         this.dataSource = new MatTableDataSource(this.filteredData);
-        this.filterShow = 1;
+       this.filterAction = 1
  
         if (this.content.length === 0) {
           this.dataSource = new MatTableDataSource();
@@ -231,7 +231,7 @@ export class TerminalTransactionsComponent {
  
         this.FromDateRange = '';
         this.ToDateRange = '';
-        this.filterShow = 0;
+     
         if (this.content.length === 0) {
           this.dataSource = new MatTableDataSource();
         }
@@ -417,7 +417,7 @@ export class TerminalTransactionsComponent {
   }
  
   getData(event: any) {
-    if (this.filterShow == 1) {
+    if (this.filterAction==1) {
       const datepipe: DatePipe = new DatePipe('en-US');
       let formattedstartDate = datepipe.transform(
         this.FromDateRange,

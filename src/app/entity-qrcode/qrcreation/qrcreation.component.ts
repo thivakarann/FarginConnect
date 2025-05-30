@@ -56,7 +56,7 @@ export class QRcreationComponent implements OnInit {
 
   Submit() {
     this.URLName = this.QRName?.value;
-    this.QRcreation.QRCreateurl(this.URLName).subscribe((res: any) => {
+    this.QRcreation.QRCreateurl(this.merchantid,this.URLName).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.Entityurlname = res.response.referenceNo;
