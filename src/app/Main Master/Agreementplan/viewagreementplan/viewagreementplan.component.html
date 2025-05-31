@@ -76,6 +76,10 @@
         <th mat-header-cell *matHeaderCellDef>Security DepositAmount</th>
         <td mat-cell *matCellDef="let data">{{data.securityDepositAmount}}</td>
       </ng-container>
+         <ng-container matColumnDef="settlementCycle">
+        <th mat-header-cell *matHeaderCellDef>Settlement Cycle</th>
+        <td mat-cell *matCellDef="let data">{{data.settlementCycle}}</td>
+      </ng-container>
 
       <ng-container matColumnDef="status">
         <th [hidden]="valuebussinessstatus!=='Business Plan-Status'" mat-header-cell *matHeaderCellDef mat-sort-header >Status</th>

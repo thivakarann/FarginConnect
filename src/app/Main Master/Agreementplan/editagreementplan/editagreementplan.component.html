@@ -12,7 +12,7 @@
   <div class="well">
     <form [formGroup]="myForm">
       <div class="row">
-        <div class="col-sm-6 form-group">
+        <div class="col-sm-3 form-group">
           <label for="firstName">Plan Name</label>
           <input
             ngModel="{{ viewbyagreement?.planName }}"
@@ -45,7 +45,7 @@
             characters)
           </div>
         </div>
-        <div class="col-sm-6 form-group">
+        <div class="col-sm-3 form-group">
           <label for="lastName">Service Fee</label>
           <input
             placeholder="Amount"
@@ -68,9 +68,7 @@
             Only numbers are allowed.
           </div>
         </div>
-      </div>
-      <div class="row mt-2">
-        <div class="col-sm-6 form-group">
+         <div class="col-sm-3 form-group">
           <label for="firstName">AMC/MMC</label>
           <input
             placeholder="Amount"
@@ -98,7 +96,7 @@
             Invalid format.Only alphanumeric characters are allowed
           </div> -->
         </div>
-        <div class="col-sm-6 form-group">
+        <div class="col-sm-3 form-group">
           <label for="lastName">Security DepositAmount</label>
           <input
             placeholder="Amount"
@@ -122,31 +120,29 @@
           </div>
         </div>
       </div>
-
-      <div class="row mt-3">
-        <!-- <div class="col-sm-2 form-group">
-          <label for="netBankingAmount" style="font-size: 12px">Net Banking (HDFC/SBI/Kotak/ICICI/Axis)</label>
-          <input  ngModel="{{ viewbyagreement?.netBankingAmount }}"
-          type="text" id="netBankingAmount" class="form-control" placeholder="Amount"
-            formControlName="netBankingAmount" />
-          <div style="
-              color: red;
-              font-size: 12px;
-              margin-top: 2px;
-              position: relative; ;
-            " *ngIf="netBankingAmount?.invalid && netBankingAmount?.touched && netBankingAmount?.errors?.['required']">
-            field is Required
-          </div>
-          <div style="
-              color: red;
-              font-size: 12px;
-              margin-top: 2px;
-              position: relative; ;
-            " *ngIf="netBankingAmount?.invalid && netBankingAmount?.touched && netBankingAmount?.errors?.['pattern']">
-           Invalid data
-          </div>
-        </div> -->
+      <div class="row mt-2">
         <div class="col-sm-3 form-group">
+          <label for="lastName">Settlement Cycle</label>
+          <select ngModel="{{viewbyagreement?.settlementCycle}}" formControlName="settlementCycle" id="settlementCycle" class="form-control form-select mt-1">
+            <option value="" disabled selected>Select</option>
+            <option value="T+1">T+1</option>
+            <option value="T+2">T+2</option>
+            <option value="T+3">T+3</option>
+            <option value="T+4">T+4</option>
+            <option value="T+5">T+5</option>
+            <option value="T+6">T+6</option>
+            <option value="T+7">T+7</option>
+            <option value="T+8">T+8</option>
+            <option value="T+9">T+9</option>
+            <option value="T+10">T+10</option>
+            <option value="N/A">N/A</option>
+          </select>
+            <div class="error"
+            *ngIf="settlementCycle?.invalid && settlementCycle?.touched && settlementCycle?.errors?.['required']">
+            field is Requied
+          </div>
+        </div>
+         <div class="col-sm-3 form-group">
           <label for="netBankingPercentage" style="font-size: 12px"
             >Net Banking (HDFC/SBI/Kotak/ICICI/Axis)</label
           >
@@ -196,6 +192,57 @@
            Invalid data
           </div>
         </div>
+         <div class="col-sm-3 form-group">
+          <label for="ecollectPercentage" style="font-size: 12px"
+            >Net Banking Other Bank</label
+          >
+          <input
+            ngModel="{{ viewbyagreement?.nbOtherBankPercentage }}"
+            type="text"
+            id="ecollectPercentage"
+            class="form-control"
+            placeholder="Percentage"
+            formControlName="nbOtherBankPercentage"
+          />
+          <div
+            class="error"
+            *ngIf="nbOtherBankPercentage?.invalid && nbOtherBankPercentage?.touched && nbOtherBankPercentage?.errors?.['required']"
+          >
+            field is Required
+          </div>
+          <div
+            class="error1"
+            *ngIf="nbOtherBankPercentage?.invalid && nbOtherBankPercentage?.touched && nbOtherBankPercentage?.errors?.['pattern']"
+          >
+           Invalid data
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <!-- <div class="col-sm-2 form-group">
+          <label for="netBankingAmount" style="font-size: 12px">Net Banking (HDFC/SBI/Kotak/ICICI/Axis)</label>
+          <input  ngModel="{{ viewbyagreement?.netBankingAmount }}"
+          type="text" id="netBankingAmount" class="form-control" placeholder="Amount"
+            formControlName="netBankingAmount" />
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative; ;
+            " *ngIf="netBankingAmount?.invalid && netBankingAmount?.touched && netBankingAmount?.errors?.['required']">
+            field is Required
+          </div>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative; ;
+            " *ngIf="netBankingAmount?.invalid && netBankingAmount?.touched && netBankingAmount?.errors?.['pattern']">
+           Invalid data
+          </div>
+        </div> -->
+       
         <!-- <div class="col-sm-2 form-group" >
           <label for="ecollectAmount" style="font-size: 12px"
             >Net Banking Other Bank</label
@@ -231,31 +278,7 @@
            Invalid data
           </div>
         </div> -->
-        <div class="col-sm-3 form-group">
-          <label for="ecollectPercentage" style="font-size: 12px"
-            >Net Banking Other Bank</label
-          >
-          <input
-            ngModel="{{ viewbyagreement?.nbOtherBankPercentage }}"
-            type="text"
-            id="ecollectPercentage"
-            class="form-control"
-            placeholder="Percentage"
-            formControlName="nbOtherBankPercentage"
-          />
-          <div
-            class="error"
-            *ngIf="nbOtherBankPercentage?.invalid && nbOtherBankPercentage?.touched && nbOtherBankPercentage?.errors?.['required']"
-          >
-            field is Required
-          </div>
-          <div
-            class="error1"
-            *ngIf="nbOtherBankPercentage?.invalid && nbOtherBankPercentage?.touched && nbOtherBankPercentage?.errors?.['pattern']"
-          >
-           Invalid data
-          </div>
-        </div>
+       
         <div class="col-sm-3 form-group">
           <label for="ecollectFixedFee" style="font-size: 12px"
             >Net Banking Other Bank</label
@@ -281,43 +304,7 @@
            Invalid data
           </div>
         </div>
-      </div>
-
-      <div class="row mt-3">
-        <!-- <div class="col-sm-2 form-group">
-          <label for="ecollectAmount" style="font-size: 12px">e-Collect</label>
-          <input
-            ngModel="{{ viewbyagreement?.eCollectAmount }}"
-            type="text"
-            id="ecollectAmount"
-            class="form-control"
-            placeholder="Amount"
-            formControlName="ecollectAmount"
-          />
-          <div
-            style="
-              color: red;
-              font-size: 12px;
-              margin-top: 2px;
-              position: relative;
-            "
-            *ngIf="ecollectAmount?.invalid && ecollectAmount?.touched && ecollectAmount?.errors?.['required']"
-          >
-            field is Required
-          </div>
-          <div
-            style="
-              color: red;
-              font-size: 12px;
-              margin-top: 2px;
-              position: relative;
-            "
-            *ngIf="ecollectAmount?.invalid && ecollectAmount?.touched && ecollectAmount?.errors?.['pattern']"
-          >
-           Invalid data
-          </div>
-        </div> -->
-        <div class="col-sm-3 form-group">
+          <div class="col-sm-3 form-group">
           <label for="ecollectPercentage" style="font-size: 12px"
             >e-Collect</label
           >
@@ -367,6 +354,68 @@
            Invalid data
           </div>
         </div>
+          <div class="col-sm-3 form-group">
+          <label for="disbursementPercentage" style="font-size: 12px"
+            >Disbursement API</label
+          >
+          <input
+            ngModel="{{ viewbyagreement?.disbursementApiPercentage }}"
+            type="text"
+            id="disbursementPercentage"
+            class="form-control"
+            placeholder="Percentage"
+            formControlName="disbursementPercentage"
+          />
+          <div
+            class="error"
+            *ngIf="disbursementPercentage?.invalid && disbursementPercentage?.touched && disbursementPercentage?.errors?.['required']"
+          >
+            field is Required
+          </div>
+          <div
+            class="error1"
+            *ngIf="disbursementPercentage?.invalid && disbursementPercentage?.touched && disbursementPercentage?.errors?.['pattern']"
+          >
+           Invalid data
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <!-- <div class="col-sm-2 form-group">
+          <label for="ecollectAmount" style="font-size: 12px">e-Collect</label>
+          <input
+            ngModel="{{ viewbyagreement?.eCollectAmount }}"
+            type="text"
+            id="ecollectAmount"
+            class="form-control"
+            placeholder="Amount"
+            formControlName="ecollectAmount"
+          />
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="ecollectAmount?.invalid && ecollectAmount?.touched && ecollectAmount?.errors?.['required']"
+          >
+            field is Required
+          </div>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="ecollectAmount?.invalid && ecollectAmount?.touched && ecollectAmount?.errors?.['pattern']"
+          >
+           Invalid data
+          </div>
+        </div> -->
+      
         <!-- <div class="col-sm-2 form-group">
           <label for="disbursementAmount" style="font-size: 12px"
             >Disbursement API</label
@@ -403,31 +452,7 @@
            Invalid data
           </div>
         </div> -->
-        <div class="col-sm-3 form-group">
-          <label for="disbursementPercentage" style="font-size: 12px"
-            >Disbursement API</label
-          >
-          <input
-            ngModel="{{ viewbyagreement?.disbursementApiPercentage }}"
-            type="text"
-            id="disbursementPercentage"
-            class="form-control"
-            placeholder="Percentage"
-            formControlName="disbursementPercentage"
-          />
-          <div
-            class="error"
-            *ngIf="disbursementPercentage?.invalid && disbursementPercentage?.touched && disbursementPercentage?.errors?.['required']"
-          >
-            field is Required
-          </div>
-          <div
-            class="error1"
-            *ngIf="disbursementPercentage?.invalid && disbursementPercentage?.touched && disbursementPercentage?.errors?.['pattern']"
-          >
-           Invalid data
-          </div>
-        </div>
+      
         <div class="col-sm-3 form-group">
           <label for="disbursementFixedFee" style="font-size: 12px"
             >Disbursement API</label
@@ -594,29 +619,7 @@
            Invalid data
           </div>
         </div>
-        <div class="col-sm-3 form-group">
-          <label for="upiFixedFee" style="font-size: 12px">UPI</label>
-          <input
-            ngModel="{{ viewbyagreement?.upiFixedFee }}"
-            type="text"
-            id="upiFixedFee"
-            class="form-control"
-            placeholder="Fixed Fee"
-            formControlName="upiFixedFee"
-          />
-          <div
-            class="error"
-            *ngIf="upiFixedFee?.invalid && upiFixedFee?.touched && upiFixedFee?.errors?.['required']"
-          >
-            field is Required
-          </div>
-          <div
-            class="error1"
-            *ngIf="upiFixedFee?.invalid && upiFixedFee?.touched && upiFixedFee?.errors?.['pattern']"
-          >
-           Invalid data
-          </div>
-        </div>
+    
       </div>
 
       <div class="row mt-3">
@@ -655,6 +658,30 @@
            Invalid data
           </div>
         </div> -->
+        
+            <div class="col-sm-3 form-group">
+          <label for="upiFixedFee" style="font-size: 12px">UPI</label>
+          <input
+            ngModel="{{ viewbyagreement?.upiFixedFee }}"
+            type="text"
+            id="upiFixedFee"
+            class="form-control"
+            placeholder="Fixed Fee"
+            formControlName="upiFixedFee"
+          />
+          <div
+            class="error"
+            *ngIf="upiFixedFee?.invalid && upiFixedFee?.touched && upiFixedFee?.errors?.['required']"
+          >
+            field is Required
+          </div>
+          <div
+            class="error1"
+            *ngIf="upiFixedFee?.invalid && upiFixedFee?.touched && upiFixedFee?.errors?.['pattern']"
+          >
+           Invalid data
+          </div>
+        </div>
         <div class="col-sm-3 form-group">
           <label for="dynamicqrPercentage" style="font-size: 12px"
             >Dynamic QR</label

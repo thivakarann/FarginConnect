@@ -1077,6 +1077,7 @@ export interface AgreementCommerical
 {
   readonly planName:any;
   readonly serviceFee:any;
+  readonly settlementCycle:any;
   readonly createdBy:any;
   readonly netBankingAmount:any;
   readonly netBankingPercentage:any;
@@ -1159,6 +1160,7 @@ export interface UpdateAgreementCommerical
 {
   readonly planName:any;
   readonly serviceFee:any;
+  readonly settlementCycle:any;
   readonly modifiedBy:any;
   readonly netBankingAmount:any;
   readonly netBankingPercentage:any;

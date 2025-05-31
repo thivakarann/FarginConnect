@@ -15,14 +15,25 @@ import { Busineessstatus } from '../../../fargin-model/fargin-model.module';
 @Component({
   selector: 'app-viewagreementplan',
   templateUrl: './viewagreementplan.component.html',
-  styleUrl: './viewagreementplan.component.css'
+  styleUrl: './viewagreementplan.component.css',
 })
 export class ViewagreementplanComponent {
-
-
   dataSource: any;
-  displayedColumns: string[] = ["businessCategoryId", "planname", "servicefee", "mmcamount", "securitydepositamount",
-    "status", "Edit", "view", "createdBy", "createdDateTime", "modifiedBy", "modifiedDateTime"]
+  displayedColumns: string[] = [
+    'businessCategoryId',
+    'planname',
+    'servicefee',
+    'mmcamount',
+    'securitydepositamount',
+    'settlementCycle',
+    'status',
+    'Edit',
+    'view',
+    'createdBy',
+    'createdDateTime',
+    'modifiedBy',
+    'modifiedDateTime',
+  ];
   businesscategory: any;
   showcategoryData: boolean = false;
   errorMsg: any;
@@ -39,7 +50,7 @@ export class ViewagreementplanComponent {
   valueCategorystatus: any;
   valueCategoryEdit: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId');
   actions: any;
   errorMessage: any;
   agreementplan: any;
@@ -50,54 +61,50 @@ export class ViewagreementplanComponent {
   valuebussinessstatus: any;
   searchPerformed: boolean = false;
 
-
-  constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private router: Router) { }
+  constructor(
+    private dialog: MatDialog,
+    private service: FarginServiceService,
+    private toastr: ToastrService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
-
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-
-
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
 
           if (this.roleId == 1) {
-            this.valuebussinesscreate = 'Business Plan-Add'
-            this.valuebussinessexport = 'Business Plan-Export'
-            this.valuebussinessedit = 'Business Plan-Edit'
-            this.valuebussinessview = 'Business Plan-View'
-            this.valuebussinessstatus = 'Business Plan-Status'
-
-          }
-          else {
+            this.valuebussinesscreate = 'Business Plan-Add';
+            this.valuebussinessexport = 'Business Plan-Export';
+            this.valuebussinessedit = 'Business Plan-Edit';
+            this.valuebussinessview = 'Business Plan-View';
+            this.valuebussinessstatus = 'Business Plan-Status';
+          } else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
               if (this.actions == 'Business Plan-Add') {
-                this.valuebussinesscreate = 'Business Plan-Add'
+                this.valuebussinesscreate = 'Business Plan-Add';
               }
               if (this.actions == 'Business Plan-Export') {
-                this.valuebussinessexport = 'Business Plan-Export'
+                this.valuebussinessexport = 'Business Plan-Export';
               }
               if (this.actions == 'Business Plan-Edit') {
-                this.valuebussinessedit = 'Business Plan-Edit'
+                this.valuebussinessedit = 'Business Plan-Edit';
               }
               if (this.actions == 'Business Plan-View') {
-                this.valuebussinessview = 'Business Plan-View'
+                this.valuebussinessview = 'Business Plan-View';
               }
               if (this.actions == 'Business Plan-Status') {
-                this.valuebussinessstatus = 'Business Plan-Status'
+                this.valuebussinessstatus = 'Business Plan-Status';
               }
-
             }
           }
-        }
-        else {
+        } else {
           this.errorMessage = res.responseMessage;
         }
-      }
+      },
     });
-
 
     this.service.viewagreementplan().subscribe((res: any) => {
       if (res.flag == 1) {
@@ -106,10 +113,7 @@ export class ViewagreementplanComponent {
         this.dataSource = new MatTableDataSource(this.agreementplan);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-
-
-      }
-      else {
+      } else {
         this.agreementplan = [];
         this.agreementplan.reverse();
         this.dataSource = new MatTableDataSource(this.agreementplan);
@@ -117,9 +121,6 @@ export class ViewagreementplanComponent {
         this.dataSource.paginator = this.paginator;
       }
     });
-
-
-
   }
 
   add() {
@@ -129,7 +130,6 @@ export class ViewagreementplanComponent {
     this.router.navigate([`/editagreementplan/${id}`], {
       queryParams: { Alldata: id },
     });
-
   }
   view(id: any) {
     this.router.navigate([`/allagreementplan/${id}`], {
@@ -145,10 +145,7 @@ export class ViewagreementplanComponent {
         this.dataSource = new MatTableDataSource(this.agreementplan);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-
-
-      }
-      else {
+      } else {
         this.agreementplan = [];
         this.agreementplan.reverse();
         this.dataSource = new MatTableDataSource(this.agreementplan);
@@ -156,21 +153,17 @@ export class ViewagreementplanComponent {
         this.dataSource.paginator = this.paginator;
       }
     });
-
   }
-
 
   onSubmit(event: MatSlideToggleChange, id: string) {
     this.isChecked = event.checked;
     let submitModel: Busineessstatus = {
-
       status: this.isChecked ? 1 : 0,
       commercialId: id,
     };
     this.service.viewstatusagreementplan(submitModel).subscribe((res: any) => {
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
-
         this.service.viewagreementplan().subscribe((res: any) => {
           if (res.flag == 1) {
             this.agreementplan = res.response;
@@ -178,10 +171,7 @@ export class ViewagreementplanComponent {
             this.dataSource = new MatTableDataSource(this.agreementplan);
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
-
-
-          }
-          else {
+          } else {
             this.agreementplan = [];
             this.agreementplan.reverse();
             this.dataSource = new MatTableDataSource(this.agreementplan);
@@ -189,7 +179,6 @@ export class ViewagreementplanComponent {
             this.dataSource.paginator = this.paginator;
           }
         });
-
       }, 500);
     });
   }
@@ -203,9 +192,6 @@ export class ViewagreementplanComponent {
       this.dataSource.paginator.firstPage();
     }
   }
-
-
-
 
   // onSubmit(event: MatSlideToggleChange, id: any) {
   //   this.isChecked = event.checked;
@@ -225,18 +211,12 @@ export class ViewagreementplanComponent {
   //   });
   // }
 
-
-
-
   exportexcel() {
-
     let sno = 1;
     this.responseDataListnew = [];
     this.agreementplan.forEach((element: any) => {
       // let createdate = element.createdAt;
       // this.date1 =  moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-
-
 
       this.response = [];
       this.response.push(sno);
@@ -244,6 +224,7 @@ export class ViewagreementplanComponent {
       this.response.push(element?.mmcAmount);
       this.response.push(element?.serviceFee);
       this.response.push(element?.securityDepositAmount);
+      this.response.push(element?.settlementCycle);
       // this.response.push(element?.netBankingAmount);
       this.response.push(element?.netBankingPercentage);
       this.response.push(element?.netBankingFixedFee);
@@ -317,21 +298,21 @@ export class ViewagreementplanComponent {
       this.response.push(element?.walletAirtelMoneyPercentage);
       this.response.push(element?.walletAirtelMoneyFixedFee);
 
-
-
       this.response.push(element?.createdBy);
       if (element.createdAt) {
-        this.response.push(moment(element?.createdAt).format('DD/MM/yyyy-hh:mm a').toString());
-      }
-      else {
+        this.response.push(
+          moment(element?.createdAt).format('DD/MM/yyyy-hh:mm a').toString()
+        );
+      } else {
         this.response.push('-');
       }
       this.response.push(element?.modifiedBy);
 
       if (element.modifiedAt) {
-        this.response.push(moment(element?.modifiedAt).format('DD/MM/yyyy-hh:mm a').toString());
-      }
-      else {
+        this.response.push(
+          moment(element?.modifiedAt).format('DD/MM/yyyy-hh:mm a').toString()
+        );
+      } else {
         this.response.push('-');
       }
       sno++;
@@ -342,65 +323,65 @@ export class ViewagreementplanComponent {
 
   excelexportCustomer() {
     const header = [
-      "SNo",
-      "Plan Name",
-      "AMC/MMC",
-      "Service Fee",
-      "Security Deposit Amount",
-      "Net Banking Percentage  (HDFC/SBI/Kotak/ICICI/Axis)",
-      "Net Banking Fixed Fee  (HDFC/SBI/Kotak/ICICI/Axis)",
-      "Net Banking Other Bank Percentage",
-      "Net Banking Other Bank Fixed Fee",
-      "e-Collect Percentage",
-      "e-Collect Fixed Fee",
-      "Disbursement API Percentage",
-      "Disbursement API Fixed Fee",
-      "International API Percentage",
-      "International API Fixed Fee",
-      "UPI Percentage",
-      "UPI Fixed Fee",
-      "Dynamic QR Percentage",
-      "Dynamic QR Fixed Fee",
-      "Rupay Debit Card Percentage  (> 2000 )",
-      "Rupay Debit Card Fixed Fee  (> 2000 )",
-      "Rupay Debit Card Percentage  (< 2000 )",
-      "Rupay Debit Card Fixed Fee  (< 2000 )",
-      "Other Debit Card Percentage (> 2000 )",
-      "Other Debit Card Fixed Fee (> 2000 )",
-      "Other Debit Card Percentage (< 2000 )",
-      "Other Debit Card Fixed Fee (< 2000 )",
-      "Amex Card Percentage",
-      "Amex Card Fixed Fee",
-      "Dinners Card Percentage",
-      "Dinners Card Fixed Fee",
-      "Corporate/Commercial Card Percentage",
-      "Corporate/Commercial Card Fixed Fee",
-      "Prepaid Card Percentage",
-      "Prepaid Card Fixed Fee",
-      "Credit Card Percentage",
-      "Credit Card Fixed Fee",
-      "Phonepe Percentage",
-      "Phonepe Fixed Fee",
-      "FreeCharge Percentage",
-      "FreeCharge Fixed Fee",
-      "Payzapp Percentage",
-      "Payzapp Fixed Fee",
-      "Paytm Percentage",
-      "Paytm Fixed Fee",
-      "Ola Money Percentage",
-      "Ola Money Fixed Fee",
-      "Mobikwik Percentage",
-      "Mobikwik Fixed Fee",
-      "Reliance Jio Money Percentage",
-      "Reliance Jio Money Fixed Fee",
-      "Airtel Money Percentage",
-      "Airtel Money Fixed Fee",
-      "CreatedBy",
-      "Created At",
-      "ModifiedBy",
-      "Modified At"
-    ]
-
+      'SNo',
+      'Plan Name',
+      'AMC/MMC',
+      'Service Fee',
+      'Security Deposit Amount',
+      'Settlement Cycle',
+      'Net Banking Percentage  (HDFC/SBI/Kotak/ICICI/Axis)',
+      'Net Banking Fixed Fee  (HDFC/SBI/Kotak/ICICI/Axis)',
+      'Net Banking Other Bank Percentage',
+      'Net Banking Other Bank Fixed Fee',
+      'e-Collect Percentage',
+      'e-Collect Fixed Fee',
+      'Disbursement API Percentage',
+      'Disbursement API Fixed Fee',
+      'International API Percentage',
+      'International API Fixed Fee',
+      'UPI Percentage',
+      'UPI Fixed Fee',
+      'Dynamic QR Percentage',
+      'Dynamic QR Fixed Fee',
+      'Rupay Debit Card Percentage  (> 2000 )',
+      'Rupay Debit Card Fixed Fee  (> 2000 )',
+      'Rupay Debit Card Percentage  (< 2000 )',
+      'Rupay Debit Card Fixed Fee  (< 2000 )',
+      'Other Debit Card Percentage (> 2000 )',
+      'Other Debit Card Fixed Fee (> 2000 )',
+      'Other Debit Card Percentage (< 2000 )',
+      'Other Debit Card Fixed Fee (< 2000 )',
+      'Amex Card Percentage',
+      'Amex Card Fixed Fee',
+      'Dinners Card Percentage',
+      'Dinners Card Fixed Fee',
+      'Corporate/Commercial Card Percentage',
+      'Corporate/Commercial Card Fixed Fee',
+      'Prepaid Card Percentage',
+      'Prepaid Card Fixed Fee',
+      'Credit Card Percentage',
+      'Credit Card Fixed Fee',
+      'Phonepe Percentage',
+      'Phonepe Fixed Fee',
+      'FreeCharge Percentage',
+      'FreeCharge Fixed Fee',
+      'Payzapp Percentage',
+      'Payzapp Fixed Fee',
+      'Paytm Percentage',
+      'Paytm Fixed Fee',
+      'Ola Money Percentage',
+      'Ola Money Fixed Fee',
+      'Mobikwik Percentage',
+      'Mobikwik Fixed Fee',
+      'Reliance Jio Money Percentage',
+      'Reliance Jio Money Fixed Fee',
+      'Airtel Money Percentage',
+      'Airtel Money Fixed Fee',
+      'CreatedBy',
+      'Created At',
+      'ModifiedBy',
+      'Modified At',
+    ];
 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
@@ -408,7 +389,6 @@ export class ViewagreementplanComponent {
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
 
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
@@ -420,10 +400,14 @@ export class ViewagreementplanComponent {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
+      };
 
-      }
-
-      cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
     });
 
     data.forEach((d: any) => {
@@ -487,88 +471,368 @@ export class ViewagreementplanComponent {
       let qty54 = row.getCell(55);
       let qty55 = row.getCell(56);
       let qty56 = row.getCell(57);
-     
+      let qty57 = row.getCell(58);
 
-
-
-
-
-      qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty3.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty12.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty13.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty14.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty15.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty16.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty17.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty18.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty19.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty20.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty21.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty22.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty23.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty24.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty25.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty26.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty27.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty28.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty29.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty30.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty31.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty32.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty33.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty34.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty35.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty36.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty37.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty38.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty39.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty40.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty41.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty42.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty43.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty44.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty45.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty46.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty47.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty48.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty49.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty50.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty51.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty52.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty53.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty54.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty55.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty56.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      
-    }
-    );
+      qty.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty1.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty2.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty3.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty4.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty5.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty6.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty7.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty8.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty9.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty10.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty11.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty12.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty13.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty14.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty15.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty16.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty17.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty18.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty19.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty20.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty21.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty22.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty23.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty24.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty25.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty26.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty27.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty28.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty29.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty30.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty31.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty32.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty33.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty34.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty35.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty36.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty37.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty38.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty39.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty40.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty41.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty42.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty43.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty44.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty45.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty46.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty47.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty48.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty49.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty50.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty51.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty52.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty53.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty54.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty55.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty56.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty57.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+    });
 
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
     // worksheet.getColumn(2).protection = { locked: true, hidden: true }
     // worksheet.getColumn(3).protection = { locked: true, hidden: true }
 
-
     workbook.xlsx.writeBuffer().then((data: any) => {
-
-      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-
+      let blob = new Blob([data], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      });
 
       FileSaver.saveAs(blob, 'Business Plan.xlsx');
-
     });
   }
-
-
-
 }
