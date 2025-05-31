@@ -139,6 +139,7 @@ const routes: Routes = [
   { path: 'editagreementplan/:id', component: EditagreementplanComponent, canActivate: [authGuard] },
   { path: 'allagreementplan/:id', component: AllagreementplansComponent, canActivate: [authGuard] },
   { path: 'Agreement-signer-one', component: AggrementSignerOneComponent },
+  { path: 'testpage', component: TestpageComponent},
 
   {
     path: 'dashboard',
@@ -149,7 +150,6 @@ const routes: Routes = [
       { path: 'dashboard-content', component: DashboardContentComponent, canActivate: [authGuard] },
       { path: 'view-category', component: ViewcategoryComponent, canActivate: [authGuard] },
       { path: 'Business-kyc', component: BusinessKycComponent, canActivate: [authGuard] },
-      { path: 'test', component: TestpageComponent, canActivate: [authGuard] },
       { path: 'roles', component: RolesComponent, canActivate: [authGuard] },
       { path: 'permission', component: PermissionComponent, canActivate: [authGuard] },
       { path: 'sub-permission', component: SubPermissionComponent, canActivate: [authGuard] },

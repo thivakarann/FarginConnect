@@ -9,24 +9,30 @@
             <div class=" mb-3">
                 <div class="form-group">
                     <label for="Entity Name">URL Name*</label>
-                    <input type="text" id="Entity Name" formControlName="QRName" class="form-control">
+                    <input type="text" id="Entity Name" formControlName="QRName" placeholder="Enter domain name"
+                        class="form-control">
                     <div style="
-                    color: red;
-                    font-size: 12px;
-                    margin-top: 2px;
-                    position: relative;
+                  color: red;
+    font-size: 12px;
+    margin-top: 2px;
+    position: relative;
+    font-weight: 700;
+    font-family: sans-serif;
                     ;
                   " *ngIf="QRName?.invalid && QRName?.touched && QRName?.errors?.['required']">
                         Field is required
                     </div>
-                    <!-- <div style="
-                    color: red;
-                    font-size: 12px;
-                    margin-top: 2px;
-                    position: relative;
+                    <div style="
+                  color: red;
+    font-size: 13px;
+    margin-top: 7px;
+    position: relative;
+    font-weight: 600;
+    font-family: sans-serif;
                   " *ngIf="QRName?.invalid && QRName?.touched && QRName?.errors?.['pattern']">
-                  Enter a Valid Url Name
-                </div> -->
+                        Must be 1-63 characters. Requires letters (numbers alone are invalid). Hyphens allowed inside,
+                        but not at start/end or consecutively (--).
+                    </div>
                 </div>
 
             </div>
@@ -37,17 +43,18 @@
         </form>
         <div class="form-check" style="margin-top: 1%;" *ngIf="ViewURL ==true">
             <label class="form-check-label" for="exampleCheck1">The URL has to be like this :
-              <span style="color: rgb(16, 16, 92);">{{this.EntityURLLink}}</span>  </label>
+                <span style="color: rgb(16, 16, 92);">{{this.EntityURLLink}}</span> </label>
         </div>
 
         <div class="form-check" style="margin-top: 3%;margin-left: -66%;" *ngIf="ViewURL ==true">
-            <input style="border: 2px solid #3F51B5;;" type="checkbox" class="form-check-input" id="exampleCheck1" [(ngModel)]="Check"
-                (ngModelChange)="selectss(Check)">
+            <input style="border: 2px solid #3F51B5;;" type="checkbox" class="form-check-input" id="exampleCheck1"
+                [(ngModel)]="Check" (ngModelChange)="selectss(Check)">
             <label class="form-check-label" for="exampleCheck1">Select & Generate
             </label>
         </div>&nbsp;&nbsp;&nbsp;
         <button style="  margin-left: -165%;   background: #1a2873;
-    border: 1px solid;" (click)="GenerateQr()" [hidden]="ADD == false" type="submit" class="my-3 btn btn-danger">Generate
+    border: 1px solid;" (click)="GenerateQr()" [hidden]="ADD == false" type="submit"
+            class="my-3 btn btn-danger">Generate
             QR</button>
 
 

@@ -8,7 +8,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-qrcreation',
   templateUrl: './qrcreation.component.html',
-  styleUrl: './qrcreation.component.css'
+  styleUrl: './qrcreation.component.css',
 })
 export class QRcreationComponent implements OnInit {
   myForm!: FormGroup;
@@ -33,43 +33,44 @@ export class QRcreationComponent implements OnInit {
     private dialog: MatDialog
   ) { }
   ngOnInit(): void {
-
-    this.merchantid = this.data.value
+    this.merchantid = this.data.value;
 
     this.myForm = new FormGroup({
       QRName: new FormControl('', [
         Validators.required,
-      ]),
+        // Validators.pattern(/^(?!-)(?!.*--)[a-zA-Z0-9-]{1,63}(?<!-)$/),
+        Validators.pattern(/^(?!-)(?!.*--)(?=.*[a-zA-Z])[a-zA-Z0-9-]{1,63}(?<!-)$/)
+
+      ])
     });
-  };
+  }
 
   selectss(id: any) {
-    this.ADD = id
-
+    this.ADD = id;
   }
 
   // First Form
 
   get QRName() {
-    return this.myForm.get('QRName')
+    return this.myForm.get('QRName');
   }
 
   Submit() {
     this.URLName = this.QRName?.value;
-    this.QRcreation.QRCreateurl(this.merchantid,this.URLName).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.toastr.success(res.responseMessage);
-        this.Entityurlname = res.response.referenceNo;
-        this.EntityURLLink = res.response.link;
-        this.ViewURL = true;
-        this.isCreated = true;
+    this.QRcreation.QRCreateurl(this.merchantid, this.URLName).subscribe(
+      (res: any) => {
+        if (res.flag == 1) {
+          this.toastr.success(res.responseMessage);
+          this.Entityurlname = res.response.referenceNo;
+          this.EntityURLLink = res.response.link;
+          this.ViewURL = true;
+          this.isCreated = true;
+        } else if (res.flag == 2) {
+          this.toastr.error(res.responseMessage);
+          this.ViewURL = false;
+        }
       }
-      else if (res.flag == 2) {
-        this.toastr.error(res.responseMessage);
-        this.ViewURL = false;
-
-      }
-    })
+    );
   }
 
   GenerateQr() {
@@ -77,19 +78,17 @@ export class QRcreationComponent implements OnInit {
       merchantId: this.merchantid,
       qrReference: this.Entityurlname,
       qrGenerateLink: this.EntityURLLink,
-      qrCreatedBy: this.getadminname
-    }
+      qrCreatedBy: this.getadminname,
+    };
     this.QRcreation.QRURLcreation(submitmodel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
         this.QRdetaisl = res.response;
-      }
-      else {
+      } else {
         this.toastr.error(res.responseMessage);
       }
-
-    })
+    });
   }
 }

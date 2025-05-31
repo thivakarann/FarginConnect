@@ -109,7 +109,7 @@ export class BranchOnlinetransactionsComponent {
 
   Getall(){
     this.service
-    .NewOnlineBranch(this.id, this.pageSize, this.pageIndex)
+    .onlinebranchs(this.id, this.pageSize, this.pageIndex)
     .subscribe((res: any) => {
       if (res.flag === 1) {
         this.transactionValue = res.response;
@@ -139,7 +139,7 @@ export class BranchOnlinetransactionsComponent {
   channelsearch(filterValue: string) {
     if (filterValue) {
       this.service
-        .NewOnlineBranchsearch(
+        .onlinesearchbranchs(
           this.id,
           filterValue,
           this.pageSize,
@@ -177,7 +177,7 @@ export class BranchOnlinetransactionsComponent {
   getData(event: any) {
     if (this.currentfilvalShow) {
       this.service
-        .NewOnlineBranchsearch(
+        .onlinesearchbranchs(
           this.id,
           this.currentfilval,
           event.pageSize,
@@ -206,7 +206,7 @@ export class BranchOnlinetransactionsComponent {
         });
     } else {
        this.service
-    .NewOnlineBranch(this.id, event.pageSize, event.pageIndex)
+    .onlinebranchs(this.id, event.pageSize, event.pageIndex)
     .subscribe((res: any) => {
       if (res.flag === 1) {
         this.transactionValue = res.response;

@@ -115,7 +115,7 @@ export class EntityTransactionComponent {
   }
 
   Getall() {
-    this.service.Newentitywisetrans(this.id, this.pageSize, this.pageIndex).subscribe((res: any) => {
+    this.service.entitywishonlinebranchs(this.id, this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag === 1) {
         this.details = res.response;
         this.totalPages = res.pagination.totalElements;
@@ -172,7 +172,7 @@ export class EntityTransactionComponent {
   customerpay(filterValue: string) {
     if (filterValue) {
 
-      this.service.entityNewSearch(this.id, filterValue, this.pageSize, this.pageIndex).subscribe({
+      this.service.entityonlinesearchbranchs(this.id, filterValue, this.pageSize, this.pageIndex).subscribe({
         next: (res: any) => {
           if (res.flag === 1) {
             this.transdetails = res.response;
@@ -205,7 +205,7 @@ export class EntityTransactionComponent {
 
   getData(event: any) {
     if (this.currentfilvalShow) {
-      this.service.entityNewSearch(this.id, this.currentfilval, event.pageSize, event.pageIndex).subscribe({
+      this.service.entityonlinesearchbranchs(this.id, this.currentfilval, event.pageSize, event.pageIndex).subscribe({
         next: (res: any) => {
           if (res.flag === 1) {
             this.transdetails = res.response;
@@ -230,7 +230,7 @@ export class EntityTransactionComponent {
     }
 
     else {
-      this.service.Newentitywisetrans(this.id, event.pageSize, event.pageIndex).subscribe((res: any) => {
+      this.service.entitywishonlinebranchs(this.id, event.pageSize, event.pageIndex).subscribe((res: any) => {
         if (res.flag === 1) {
           this.details = res.response;
           this.totalPages = res.pagination.totalElements;
