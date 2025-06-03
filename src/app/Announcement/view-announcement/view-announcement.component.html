@@ -1,93 +1,178 @@
 <!--   -->
-<h5 style="text-align:left;color:#141E46;">Announcement<h5>
-
-  <mat-card-header>
-    <div class="row ">
-      <div class="col-2 mt-4">
-        <div class="search ">
-          <form class="form">
-            <label for="search">
-              <input #input  required="" autocomplete="off" placeholder="Search" id="search" name="search"
-              type="text" [(ngModel)]="currentfilval">
-              <div class="icon">
-                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                  xmlns="http://www.w3.org/2000/svg" class="swap-on">
-                  <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
-                    stroke-linecap="round">
-                  </path>
-                </svg>
-                <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+<h5 style="text-align: left; color: #141e46">
+  Announcement
+  <h5>
+    <mat-card-header>
+      <div class="row">
+        <div class="col-2 mt-4">
+          <div class="search">
+            <form class="form">
+              <label for="search">
+                <input
+                  #input
+                  required=""
+                  autocomplete="off"
+                  placeholder="Search"
+                  id="search"
+                  name="search"
+                  type="text"
+                  [(ngModel)]="currentfilval"
+                />
+                <div class="icon">
+                  <svg
+                    stroke-width="2"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="swap-on"
+                  >
+                    <path
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                      stroke-linejoin="round"
+                      stroke-linecap="round"
+                    ></path>
+                  </svg>
+                  <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                       xmlns="http://www.w3.org/2000/svg" class="swap-off">
                       <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round" stroke-linecap="round">
                       </path>
                   </svg> -->
-              </div>
-              <button (click)="reload()" type="reset" class="close-btn">
-                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
-                  <path clip-rule="evenodd"
-                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    fill-rule="evenodd"></path>
-                </svg>
-              </button>
-            </label>
-          </form>
-
+                </div>
+                <button (click)="reload()" type="reset" class="close-btn">
+                  <svg
+                    viewBox="0 0 20 20"
+                    class="h-5 w-5"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      fill-rule="evenodd"
+                    ></path>
+                  </svg>
+                </button>
+              </label>
+            </form>
+          </div>
         </div>
-      </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <div class="col-1 mt-4">
-        <button (click)="annoucementsearch(currentfilval)" style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;"
-          mat-raised-button >Go</button>
-      </div>
-      <div class="col-1 mt-4">
-        <button (click)="create()" style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px"
-          mat-raised-button [hidden]="valueannouncementAdd!=='Announcement-Add'">Create</button>
-      </div>
-      <div class="col-1 mt-4">
-        <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px" (click)="exportexcel()"
-          mat-raised-button [hidden]="valueannouncementexport!=='Announcement-Export'">Export</button>
-      </div>&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div class="col-3 mt-4">
+          <button
+            (click)="annoucementsearch(currentfilval)"
+            style="
+              color: white;
+              background-color: #141e46;
+              border-radius: 10px;
+              font-size: 12px;
+            "
+            mat-raised-button
+          >
+            Go
+          </button>
+          <button
+            (click)="create()"
+            style="
+              color: white;
+              background-color: #141e46;
+              border-radius: 10px;
+              font-size: 12px;
+            "
+            mat-raised-button
+            [hidden]="valueannouncementAdd !== 'Announcement-Add'"
+          >
+            Create
+          </button>
+          <button
+            style="
+              color: white;
+              background-color: #141e46;
+              border-radius: 10px;
+              font-size: 12px;
+            "
+            (click)="exportexcel()"
+            mat-raised-button
+            [hidden]="valueannouncementexport !== 'Announcement-Export'"
+          >
+            Export
+          </button>
+        </div>
 
+        <div class="col-2">
+          <label><b>From Date</b></label>
+          <input
+            onkeydown="return false;"
+            class="form-control"
+            [(ngModel)]="fromDate"
+            (change)="checkDate()"
+            [max]="maxDate"
+            type="date"
+            style="border-radius: 8px"
+          />
+        </div>
 
-      <div class="col-2">
-        <label><b>From Date</b></label>
-        <input  onkeydown="return false;" class="form-control" [(ngModel)]="fromDate" (change)="checkDate()"  [max]="maxDate" type="date" style="border-radius: 8px;  
-            ">
-      </div>
+        <div class="col-2">
+          <label><b>To Date</b></label>
+          <input
+            onkeydown="return false;"
+            class="form-control"
+            [(ngModel)]="toDate"
+            type="date"
+            [min]="fromDate"
+            [max]="maxDate"
+            style="border-radius: 8px"
+          />
+        </div>
 
-      <div class="col-2">
-        <label><b>To Date</b></label>
-        <input  onkeydown="return false;" class="form-control" [(ngModel)]="toDate" type="date" [min]="fromDate" [max]="maxDate" style="border-radius: 8px; 
-             ">
+        <div class="col-1 mt-4">
+          <button
+            class="buttonDownload"
+            style="font-size: 12px"
+            [disabled]="fromDate == '' || toDate == ''"
+            (click)="search()"
+            mat-raised-button
+          >
+            Filter
+          </button>
+        </div>
+        <div class="col-1 mt-4">
+          <button
+            style="
+              color: white;
+              background-color: #141e46;
+              border-radius: 10px;
+              font-size: 12px;
+            "
+            mat-raised-button
+            (click)="reset()"
+          >
+            Reset
+          </button>
+        </div>
       </div>
-
-      <div class="col-1 mt-4">
-        <button class="buttonDownload" style="font-size:12px" [disabled]="fromDate == '' || toDate ==''" (click)="search()"
-          mat-raised-button>Filter
-        </button>
-      </div>
-      <div class="col-1 mt-4">
-        <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px" mat-raised-button
-          (click)="reset()">Reset</button>
-      </div>
-
-    </div>
-  </mat-card-header>
+    </mat-card-header>
 
     <mat-card-content>
-
-      <div class="example-container text-nowrap mt-3" style="overflow-x: scroll; scrollbar-width: thin;">
-
-        <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
-
+      <div
+        class="example-container text-nowrap mt-3"
+        style="overflow-x: scroll; scrollbar-width: thin"
+      >
+        <table
+          id="season-tble"
+          matSort
+          mat-table
+          [dataSource]="dataSource"
+          class="mat-elevation-z1"
+        >
           <ng-container matColumnDef="announcementId">
-            <th mat-header-cell *matHeaderCellDef> S.No</th>
-            <td mat-cell *matCellDef="let data; let i = index"> {{i+1}} </td>
+            <th mat-header-cell *matHeaderCellDef>S.No</th>
+            <td mat-cell *matCellDef="let data; let i = index">{{ i + 1 }}</td>
           </ng-container>
 
           <ng-container matColumnDef="Business">
             <th mat-header-cell *matHeaderCellDef>Business Category</th>
             <td mat-cell *matCellDef="let data">
-              {{data.businessCategory?.categoryName}}
+              {{ data.businessCategory?.categoryName }}
             </td>
           </ng-container>
 
@@ -97,15 +182,17 @@
               <div class="privacy-policy-container">
                 <!-- Display the sliced text based on whether the full text is visible -->
                 <span *ngIf="!isFullPolicyVisible">
-                  {{ data.announcementContentEnglish | slice:0:limit }}
+                  {{ data.announcementContentEnglish | slice : 0 : limit }}
                 </span>
                 <span *ngIf="isFullPolicyVisible">
                   {{ data.announcementContentEnglish }}
                 </span>
-                <i style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more"
-                  (click)="announcement(data)">
-            
-                  {{ isFullPolicyVisible ? 'Read Less' : '...Read More' }}
+                <i
+                  style="color: #141e46; font-weight: 600; cursor: pointer"
+                  class="read-more"
+                  (click)="announcement(data)"
+                >
+                  {{ isFullPolicyVisible ? "Read Less" : "...Read More" }}
                 </i>
               </div>
             </td>
@@ -114,72 +201,117 @@
           <ng-container matColumnDef="startDate">
             <th mat-header-cell *matHeaderCellDef>Start Date</th>
             <td mat-cell *matCellDef="let data">
-              {{data?.startDate|date:'dd-MM-yyyy'}}
+              {{ data?.startDate | date : "dd-MM-yyyy" }}
             </td>
           </ng-container>
 
           <ng-container matColumnDef="endDate">
             <th mat-header-cell *matHeaderCellDef>End Date</th>
             <td mat-cell *matCellDef="let data">
-              {{data?.endDate|date:'dd-MM-yyyy'}}
+              {{ data?.endDate | date : "dd-MM-yyyy" }}
             </td>
           </ng-container>
 
           <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header
-              [hidden]="valueannouncementstatus!=='Announcement-Status'">Status</th>
-            <td mat-cell *matCellDef="let data" [hidden]="valueannouncementstatus!=='Announcement-Status'">
-              <mat-slide-toggle class="example-margin" color="primary" [checked]="data.activeStatus === 1"
-                (change)="onSubmit($event,data.announcementId)" style="transform: scale(0.9)">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              [hidden]="valueannouncementstatus !== 'Announcement-Status'"
+            >
+              Status
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let data"
+              [hidden]="valueannouncementstatus !== 'Announcement-Status'"
+            >
+              <mat-slide-toggle
+                class="example-margin"
+                color="primary"
+                [checked]="data.activeStatus === 1"
+                (change)="onSubmit($event, data.announcementId)"
+                style="transform: scale(0.9)"
+              >
               </mat-slide-toggle>
             </td>
           </ng-container>
 
           <ng-container matColumnDef="Edit">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header
-              [hidden]="valueannouncementEdit!=='Announcement-Edit'"> Action </th>
-            <td mat-cell *matCellDef="let data" [hidden]="valueannouncementEdit!=='Announcement-Edit'">
-              <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-edit" (click)="Edit(data)"></i>
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              [hidden]="valueannouncementEdit !== 'Announcement-Edit'"
+            >
+              Action
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let data"
+              [hidden]="valueannouncementEdit !== 'Announcement-Edit'"
+            >
+              <i
+                style="cursor: pointer; font-size: 15px; color: #545497"
+                class="fas fa-edit"
+                (click)="Edit(data)"
+              ></i>
             </td>
           </ng-container>
 
           <ng-container matColumnDef="createdBy">
             <th mat-header-cell *matHeaderCellDef>Created By</th>
-            <td mat-cell *matCellDef="let data">{{data.createdBy}}</td>
+            <td mat-cell *matCellDef="let data">{{ data.createdBy }}</td>
           </ng-container>
 
           <ng-container matColumnDef="createdDateTime">
             <th mat-header-cell *matHeaderCellDef>Created At</th>
-            <td mat-cell *matCellDef="let data">{{data.createdDateTime |date:'dd/MM/yyyy hh:mm a'}}
+            <td mat-cell *matCellDef="let data">
+              {{ data.createdDateTime | date : "dd/MM/yyyy hh:mm a" }}
             </td>
           </ng-container>
           <ng-container matColumnDef="modifiedBy">
             <th mat-header-cell *matHeaderCellDef>Modified By</th>
-            <td mat-cell *matCellDef="let data">{{data.updatedBy}}</td>
+            <td mat-cell *matCellDef="let data">{{ data.updatedBy }}</td>
           </ng-container>
 
           <ng-container matColumnDef="modifiedDateTime">
-            <th mat-header-cell *matHeaderCellDef> Modified At</th>
-            <td mat-cell *matCellDef="let data">{{data.updateDateTime |date:'dd/MM/yyyy hh:mm a'
-              }}</td>
+            <th mat-header-cell *matHeaderCellDef>Modified At</th>
+            <td mat-cell *matCellDef="let data">
+              {{ data.updateDateTime | date : "dd/MM/yyyy hh:mm a" }}
+            </td>
           </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
-          <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
+          <tr
+            mat-header-row
+            *matHeaderRowDef="displayedColumns; sticky: true"
+          ></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
           <tr *matNoDataRow>
-            <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data For{{input.value}}</td>
-            <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">No Data
+            <td class="mat-cell" colspan="0" *ngIf="searchPerformed">
+              No Data For{{ input.value }}
+            </td>
+            <td
+              class="mat-cell"
+              colspan="0"
+              *ngIf="!searchPerformed && dataSource.data.length === 0"
+            >
+              No Data
             </td>
           </tr>
         </table>
-
       </div>
     </mat-card-content>
     <mat-card-footer>
- 
-      <mat-paginator (page)="getData($event)" [length]="totalPages" [pageIndex]="currentpage" [pageSize]="totalpage"
-      [pageSizeOptions]="[5, 10, 50, 100, 200,300,500]" aria-label="Select page">
-    </mat-paginator>
-     
+      <mat-paginator
+        (page)="getData($event)"
+        [length]="totalPages"
+        [pageIndex]="currentpage"
+        [pageSize]="totalpage"
+        [pageSizeOptions]="[5, 10, 50, 100, 200, 300, 500]"
+        aria-label="Select page"
+      >
+      </mat-paginator>
     </mat-card-footer>
-  
+  </h5>
+</h5>

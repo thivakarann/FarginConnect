@@ -84,7 +84,7 @@
 <div >
   <div class="row">
     <div class="col-6">
-      <div class="card" style="height:560px" [hidden]="valuetotalmerchants !== 'Total Merchants'">
+      <div class="card"  id="merchantCOUNT"  [hidden]="valuetotalmerchants !== 'Total Merchants'">
         <div class="container mt-2">
           <div class="text-center">
             <h6>Merchant Count Details</h6>
@@ -116,7 +116,7 @@
       </div>
     </div>
     <div class="col-6" >
-      <div class="card" style="height:560px" [hidden]="valueTotalcount !== 'Total Count'">
+      <div class="card" id="LastSeven"  [hidden]="valueTotalcount !== 'Total Count'">
         <div class="container mt-2">
           <div class="text-center">
             <h6>Last Seven Days Transaction Details</h6>
@@ -141,6 +141,7 @@
               border-width: 0;
               color: gray;
               background-color: gray;
+              margin-top: 54px;
             "
           />
           <!-- Second Row -->
@@ -167,7 +168,9 @@
           </div>
         </div>
       </div>
+      <!-- <br><br> -->
     </div>
+    
   </div>
 
   &nbsp;

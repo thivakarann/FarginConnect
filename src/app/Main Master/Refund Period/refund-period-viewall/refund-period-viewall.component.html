@@ -35,12 +35,15 @@
             </div>
             &nbsp;&nbsp;&nbsp;
 
-            <button [hidden]="valueadd!=='Refund Period-Add'" style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" class="custom-btn btn-10 "
-                data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button (click)="Addrefund()">Create</button>
-            <button [hidden]="valueexport!=='Refund Period-Export'" style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" (click)="exportexcel()"
-                mat-raised-button >Export</button>
- 
- 
+            <button [hidden]="valueadd!=='Refund Period-Add'"
+                style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;"
+                class="custom-btn btn-10 " data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button
+                (click)="Addrefund()">Create</button>
+            <button [hidden]="valueexport!=='Refund Period-Export'"
+                style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;"
+                (click)="exportexcel()" mat-raised-button>Export</button>
+
+
         </div>
     </div>
 </mat-card-header>
@@ -59,7 +62,14 @@
 
             <ng-container matColumnDef="paymentMethod">
                 <th mat-header-cell *matHeaderCellDef>Payment Method</th>
-                <td mat-cell *matCellDef="let viewall">{{viewall.paymentMethod}}</td>
+                <td mat-cell *matCellDef="let viewall">
+                    <span *ngIf="viewall?.paymentMethod=='UPI'">UPI/QR</span>
+                    <span *ngIf="viewall?.paymentMethod=='Credit Card'">Credit Card</span>
+                    <span *ngIf="viewall?.paymentMethod=='Net Banking'">Net Banking</span>
+
+
+
+                </td>
             </ng-container>
 
             <ng-container matColumnDef="day">
@@ -67,18 +77,21 @@
                 <td mat-cell *matCellDef="let viewall">{{viewall.day}}</td>
             </ng-container>
 
-                <ng-container matColumnDef="Edit">
-                <th [hidden]="valueedit!=='Refund Period-Edit'" mat-header-cell *matHeaderCellDef mat-sort-header>Edit</th>
-                <td [hidden]="valueedit!=='Refund Period-Edit'" mat-cell *matCellDef="let viewall" (click)="Editrefunds(viewall)">
+            <ng-container matColumnDef="Edit">
+                <th [hidden]="valueedit!=='Refund Period-Edit'" mat-header-cell *matHeaderCellDef mat-sort-header>Edit
+                </th>
+                <td [hidden]="valueedit!=='Refund Period-Edit'" mat-cell *matCellDef="let viewall"
+                    (click)="Editrefunds(viewall)">
                     <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-edit"></i>
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="View">
-                <th [hidden]="History!=='Refund Period-History'" mat-header-cell *matHeaderCellDef mat-sort-header >History</th>
-                <td [hidden]="History!=='Refund Period-History'" style="text-wrap: wrap;" mat-cell *matCellDef="let data">
-                    <i style="cursor: pointer;font-size: 17px;" class="fa fa-eye"
-                        (click)="view(data.refundDayId)"></i>
+                <th [hidden]="History!=='Refund Period-History'" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    History</th>
+                <td [hidden]="History!=='Refund Period-History'" style="text-wrap: wrap;" mat-cell
+                    *matCellDef="let data">
+                    <i style="cursor: pointer;font-size: 17px;" class="fa fa-eye" (click)="view(data.refundDayId)"></i>
                 </td>
             </ng-container>
 
@@ -114,7 +127,7 @@
                 <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data</td>
                 <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">No Data
                 </td>
-              </tr>
+            </tr>
         </table>
 
     </div>

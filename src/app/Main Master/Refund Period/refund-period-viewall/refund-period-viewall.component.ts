@@ -48,7 +48,7 @@ export class RefundPeriodViewallComponent implements OnInit {
   valueadd: any;
   valueedit: any;
   searchPerformed: boolean = false;
-  History:any;
+  History: any;
 
   constructor(
     public refunddetails: FarginServiceService,
@@ -209,7 +209,13 @@ export class RefundPeriodViewallComponent implements OnInit {
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
       this.response.push(sno);
-      this.response.push(element?.paymentMethod);
+      if (element?.paymentMethod == 'UPI') {
+         this.response.push("UPI/QR");
+      }
+      else {
+        this.response.push(element?.paymentMethod);
+      }
+
       this.response.push(element?.day);
       this.response.push(element?.createdBy);
       this.response.push(this.date1);
