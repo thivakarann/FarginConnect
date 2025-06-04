@@ -125,6 +125,9 @@ import { SmsHistoryComponent } from './Main Master/SMS Cost/sms-history/sms-hist
 import { FarginBankHistoryComponent } from './Main Master/Fargin Bank/fargin-bank-history/fargin-bank-history.component';
 import { RefundPeriodHistoryComponent } from './Main Master/Refund Period/refund-period-history/refund-period-history.component';
 import { OffileSettlementPayoutComponent } from './Entity Onboard/Offline-Transactions/offile-settlement-payout/offile-settlement-payout.component';
+import { AlacarteBulkresponseComponent } from './Plan Creation/Alacarte channels/alacarte-bulkresponse/alacarte-bulkresponse.component';
+import { EntityRenewalautodebitComponent } from './Entity Onboard/entity-renewalautodebit/entity-renewalautodebit.component';
+import { RenewalAutodebitComponent } from './Renewal Autodebit/renewal-autodebit/renewal-autodebit.component';
 
 const routes: Routes = [
 
@@ -266,6 +269,21 @@ const routes: Routes = [
       {path:'branch-wiseenitytransaction/:id',component:BranchWiseenitytransactionComponent,canActivate: [authGuard]},
       // {path:'merchant-additional/:id',component:MercahntbasedadditionalComponent,canActivate: [authGuard]},
       { path: 'Export-Report', component: ExportReportViewallComponent, canActivate: [authGuard] },
+      {
+        path: 'alacarte-bulkresponse',
+        component: AlacarteBulkresponseComponent,
+        canActivate: [authGuard],
+      },
+        {
+        path: 'entity-renewalautodebit/:id',
+        component: EntityRenewalautodebitComponent,
+        canActivate: [authGuard],
+      },
+        {
+        path: 'renewal-autodebit',
+        component: RenewalAutodebitComponent,
+        canActivate: [authGuard],
+      },
     ],
 
   },

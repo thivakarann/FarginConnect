@@ -72,14 +72,15 @@ export class DashboardComponent implements OnInit {
   valuecampaign: any;
   values: any = ''
   Redirect: any;
-  valueEntityDashboard:any;
-  valueReport:any;
+  valueEntityDashboard: any;
+  valueReport: any;
+  valueRenewel:any;
 
 
   constructor(private elRef: ElementRef,
     private renderer: Renderer2,
     private dialog: MatDialog,
-    private router:Router,
+    private router: Router,
     private service: FarginServiceService,) { }
   ngOnInit(): void {
 
@@ -148,6 +149,7 @@ export class DashboardComponent implements OnInit {
       this.valueentitysms = 'Entity Sms'
       this.valuesmshistory = 'SMS History'
       this.valueautodebit = 'Cloud Fee AutoDebit'
+      this.valueRenewel = 'Renewal Fee Auto Debit'
       this.valueCustomizationPayments = 'Customized Payment'
       this.valuesurvey = 'Survey'
       this.valueBuisneesDoCument = 'Business Document Type'
@@ -281,6 +283,9 @@ export class DashboardComponent implements OnInit {
         }
         if (this.roles == 'Cloud Fee AutoDebit') {
           this.valueautodebit = 'Cloud Fee AutoDebit'
+        }
+         if (this.roles == 'Renewal Fee Auto Debit') {
+          this.valueRenewel = 'Renewal Fee Auto Debit'
         }
         if (this.roles == 'Customized Payment') {
           this.valueCustomizationPayments = 'Customized Payment'

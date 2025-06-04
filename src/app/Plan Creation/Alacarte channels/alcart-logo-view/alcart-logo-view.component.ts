@@ -8,7 +8,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-alcart-logo-view',
   templateUrl: './alcart-logo-view.component.html',
-  styleUrl: './alcart-logo-view.component.css'
+  styleUrl: './alcart-logo-view.component.css',
 })
 export class AlcartLogoViewComponent implements OnInit {
   getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
@@ -20,27 +20,36 @@ export class AlcartLogoViewComponent implements OnInit {
   errorMessage: any;
   uploadidentityfront: any;
   identityFrontPath: any;
-
+  pdfSrc: any;
+  imageSrc: any;
   constructor(
     public Viewlogoimage: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialog: MatDialog
-  ) { }
+  ) {}
   ngOnInit(): void {
     this.id = this.data.value;
-    
 
     this.Viewlogoimage.AlcartImageview(this.id).subscribe({
-      next: (data: any) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(data);
-        reader.onloadend = () => {
-          this.images = reader.result as string;
-        };
+      next: (res: any) => {
+        const contentType = res.type;
+
+        if (contentType.startsWith('image/')) {
+          const reader = new FileReader();
+          reader.readAsDataURL(res);
+          reader.onloadend = () => {
+            this.imageSrc = reader.result as string;
+     
+          };
+        } else {
+          console.error('Unsupported file type:', contentType);
+        }
       },
-      error: (error: any) => { },
+      error: (err) => {
+        console.error('Error fetching document image:', err);
+      },
     });
 
     this.myForm = new FormGroup({
@@ -49,39 +58,35 @@ export class AlcartLogoViewComponent implements OnInit {
   }
 
   get logo() {
-    return this.myForm.get('logo')
-
+    return this.myForm.get('logo');
   }
-
- 
-
 
   onFileSelected(event: any) {
     this.uploadidentityfront = event.target.files[0];
- 
     // Ensure this.uploadImage is not null
     if (this.uploadidentityfront) {
-      const acceptableTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
- 
+      const acceptableTypes = [
+        'image/png',
+        'image/jpeg',
+        'image/jpg',
+        'image/gif',
+      ];
+
       if (acceptableTypes.includes(this.uploadidentityfront.type)) {
         if (this.uploadidentityfront.size <= 20 * 1024 * 1024) {
-          this.toastr.success("Image uploaded successfully");
+          this.toastr.success('Image uploaded successfully');
         } else {
-          this.toastr.error("Max Image size exceeded");
-          this.logo?.reset(); // Optional chaining to prevent error if this.logo is null
+          this.toastr.error('Max Image size exceeded');
+          this.identityFrontPath?.reset();
         }
       } else {
- 
-        this.toastr.error("File type not acceptable");
-        this.logo?.reset(); // Optional chaining to prevent error if this.logo is null
+        this.toastr.error('File type not acceptable');
+        this.identityFrontPath?.reset();
       }
     } else {
-      this.toastr.error("No file selected");
+      this.toastr.error('No file selected');
     }
- 
- 
   }
-
 
   submit(event: Event) {
     const formData = new FormData();
@@ -93,13 +98,9 @@ export class AlcartLogoViewComponent implements OnInit {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.dialog.closeAll();
-      
-      }
-      else {
+      } else {
         this.toastr.error(res.responseMessage);
       }
-    })
-
-
+    });
   }
 }

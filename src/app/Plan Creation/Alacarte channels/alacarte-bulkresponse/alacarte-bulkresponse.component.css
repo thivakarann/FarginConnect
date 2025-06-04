@@ -1,69 +1,29 @@
-mat-card {
-  margin: 1%;
-  border-bottom: 3px solid transparent;
-  border-top: 3px solid transparent;
+* {
+  font-family: "Roboto", "Helvetica Neue", sans-serif;
 
-}
-
-.container {
-  /* width: 80%; */
-  text-align: center;
-
-  /* margin: 50px auto;
-    background-color: #fff; */
-  /* padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1); */
-}
-
-.container h3 {
-  /* color: #333; */
-  /* border-bottom: 2px solid #333; */
-  font-size: large;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  font-weight: 600;
-
-  padding-bottom: 10px;
-  margin-bottom: 20px;
 }
 
 button {
   margin: 3px;
 }
 
-ng-container {
-  text-align: center;
-}
-
 th {
   background-color: #bcdf72 !important;
   color: #141E46;
-  font-weight: 700;
+  font-weight: 600;
+  font-size: 14px;
   white-space: nowrap;
   text-shadow: #ffffff;
-
-  font-family: Roboto, "Helvetica Neue", sans-serif;
   text-align: center;
 }
 
 td {
   font-size: 14px;
-
   white-space: nowrap;
-  padding: 8px;
-  /* border: 3px solid whitesmoke; */
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-
-}
-
-.mat-mdc-form-field {
-  font-size: 20px;
-  width: 50%;
 }
 
 mat-card-content th,
 mat-card-content td {
-
   padding: 8px;
   text-align: center;
 }
@@ -75,11 +35,6 @@ mat-card-content tr:nth-child(even) {
 
 mat-card-content tr:nth-child(odd) {
   background-color: #ffffff;
-}
-
-.demo-table {
-  width: 100%;
-  height: 50%;
 }
 
 .search {
@@ -114,17 +69,6 @@ mat-card-content tr:nth-child(odd) {
   right: 10px;
 }
 
-
-.demo-row-is-clicked {
-  font-weight: bold;
-}
-
-.left {
-  margin-left: 30px;
-  margin-bottom: 20px;
-
-}
-
 .mat-mdc-table .mdc-data-table__header-row {
   height: 0px;
   background-color: antiquewhite;
@@ -133,10 +77,8 @@ mat-card-content tr:nth-child(odd) {
 }
 
 .mat-mdc-table .mdc-data-table__row {
-  height: 0px;
+  height: 45px;
 }
-
-
 
 .form {
   --input-bg: #FFf;
@@ -150,7 +92,7 @@ mat-card-content tr:nth-child(odd) {
   /*  when rotating changed icon color */
   --height: 40px;
   /*  height */
-  width: 250px;
+  width: 230px;
   padding-inline-end: 1em;
   /*  change this for padding in the end of input */
   background: var(--input-bg);
@@ -258,35 +200,8 @@ mat-card-content tr:nth-child(odd) {
   transition: 0s;
 }
 
-
-.not-signed {
-  color: red;
-}
-
-.signed {
-  color: green;
-}
-
-/* When the button is disabled */
-.disabled-btn {
-  /* Light grey background */
-  color: black;
-  /* Light grey text */
-}
-
-.disabled-icon {
-  color: #a9a9a9;
-  /* Light grey icon color */
-}
-
-/* When the button is enabled */
-.enabled-icon {
-  color: black;
-  /* White icon color when active */
-}
-
 .example-container {
-  max-height: 310px;
+  max-height: 320px;
   height: 100%;
   overflow: auto;
   scrollbar-width: auto;
@@ -295,23 +210,15 @@ mat-card-content tr:nth-child(odd) {
 table {
   width: 100%;
 }
-.button1 {
-  background-color: #141E46;
-  border: 1px solid #141E46;
-  border-radius: .5rem;
-  color: #f9fafb;
-  font-size: .875rem;
-  line-height: 1.00rem;
-  padding: 0.25rem 0.25rem;
-  width: 80px;
-  text-align: center;
-  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+
+.refresh-btn {
+  background: none;
+  color: black;
+  font-size: 26px;
+  border: none;
+  border-radius: 5px;
+  padding-bottom: 20px;
+  height: 20px;
+  width: 28px;
   cursor: pointer;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-user-select: none;
-  -ms-touch-action: manipulation;
-  touch-action: manipulation;
 }

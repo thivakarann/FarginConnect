@@ -8,10 +8,7 @@
       {{ detaislone?.entityName }}
     </div>
   </div>
-  <div
-    class="col-md-6"
-    style="color: #2346cf; font-weight: 600; font-size: 14px"
-  >
+  <div class="col-md-6" style="color: #2346cf; font-weight: 600; font-size: 14px">
     <p style="text-wrap: nowrap">
       <strong>Note:</strong> ("The functionalities of the tabs listed below can
       only be accessed once the Onboarding process is completed,except Payment
@@ -23,106 +20,68 @@
   </div>
 </div>
 <div class="navtabs">
-  <button
-    style="background-color: #fff; border: none; font-size: 12px"
-    [disabled]="detaislone?.onBoardStatus != 'true'"
-    class="navtab"
-    data-target="home"
-    (click)="entityTransaction(this.id)"
-  >
+  <button style="background-color: #fff; border: none; font-size: 12px" [disabled]="detaislone?.onBoardStatus != 'true'"
+    class="navtab" data-target="home" (click)="entityTransaction(this.id)">
     <div [hidden]="valueentitytransaction !== 'Entity View Due Transactions'">
-      <i class="fa-solid fa-building-columns"></i><br>Due Transactions 
+      <i class="fa-solid fa-building-columns"></i><br>Due Transactions
     </div>
   </button>
 
-  <button
-    style="background-color: #fff; border: none; font-size: 12px"
-    [disabled]="detaislone?.onBoardStatus != 'true'"
-    class="navtab"
-    data-target="home"
-    (click)="Viewoffline(this.id, this.detaislone?.accountId)"
-  >
+  <button style="background-color: #fff; border: none; font-size: 12px" [disabled]="detaislone?.onBoardStatus != 'true'"
+    class="navtab" data-target="home" (click)="Viewoffline(this.id, this.detaislone?.accountId)">
     <div [hidden]="valuentityOffline !== 'Entity View Offline'">
       <i class="fa-solid fa-building-columns"></i>&nbsp;&nbsp; Offline
     </div>
   </button>
-  <button
-    style="background-color: #fff; border: none; font-size: 12px"
-    [disabled]="detaislone?.onBoardStatus != 'true'"
-    [hidden]="branchtrans !== 'Entity View-Branch-Transactions'"
-    class="navtab"
-    data-target="home"
-    (click)="viewbranch(this.id)"
-  >
+  <button style="background-color: #fff; border: none; font-size: 12px" [disabled]="detaislone?.onBoardStatus != 'true'"
+    [hidden]="branchtrans !== 'Entity View-Branch-Transactions'" class="navtab" data-target="home"
+    (click)="viewbranch(this.id)">
     <div><i class="fa-solid fa-building-columns"></i><br>Branch Transactions</div>
   </button>
 
-  <button
-    style="background-color: #fff; border: none; font-size: 12px"
-    [disabled]="detaislone?.onBoardStatus != 'true'"
-    class="navtab"
-    data-target="about"
-    (click)="viewsettlement(this.id)"
-  >
+  <button style="background-color: #fff; border: none; font-size: 12px" [disabled]="detaislone?.onBoardStatus != 'true'"
+    class="navtab" data-target="about" (click)="viewsettlement(this.id)">
     <div [hidden]="valuentitysettlement !== 'Entity View Settlement'">
       <i class="fas fa-handshake"></i>&nbsp;&nbsp;Settlement
     </div>
   </button>
 
-  <button
-    style="background-color: #fff; border: none; font-size: 12px"
-    [disabled]="detaislone?.onBoardStatus != 'true'"
-    class="navtab"
-    data-target="contact"
-    (click)="ViewRefund(this.id)"
-  >
+  <button style="background-color: #fff; border: none; font-size: 12px" [disabled]="detaislone?.onBoardStatus != 'true'"
+    class="navtab" data-target="contact" (click)="ViewRefund(this.id)">
     <div [hidden]="valueentityRefund !== 'Entity View Refund'">
       <i class="fas fa-hand-holding-usd"></i>&nbsp;&nbsp;Refund
     </div>
   </button>
 
-  <button
-    style="background-color: #fff; border: none; font-size: 12px"
-    [disabled]="detaislone?.onBoardStatus != 'true'"
-    class="navtab"
-    data-target="contact"
-    (click)="Viewautodebit(this.id)"
-  >
+  <button style="background-color: #fff; border: none; font-size: 12px" [disabled]="detaislone?.onBoardStatus != 'true'"
+    class="navtab" data-target="contact" (click)="Viewautodebit(this.id)">
     <div [hidden]="valueentityautodebit !== 'Entity View Cloud Fee AutoDebit'">
-      <i class="fa-solid fa-money-bill-transfer"></i><br>Cloud Fee
-      AutoDebit
+      <i class="fa-solid fa-money-bill-transfer"></i><br />Cloud Fee Auto Debit
     </div>
   </button>
 
-  <button
-    style="background-color: #fff; border: none; font-size: 12px"
-    [disabled]="detaislone?.onBoardStatus != 'true'"
-    class="navtab"
-    data-target="page4"
-    (click)="Viewqr(this.id)"
-  >
+  <button style="background-color: #fff; border: none; font-size: 12px" [disabled]="detaislone?.onBoardStatus != 'true'"
+    class="navtab" data-target="contact" (click)="Viewrenewalautodebit(this.id)">
+    <div [hidden]="RenewelFee !== 'Entity View Renewal Fee AutoDebit'">
+      <i class="fa-solid fa-money-bill-transfer"></i><br />Renewal Fee Auto Debit
+    </div>
+  </button>
+
+  <button style="background-color: #fff; border: none; font-size: 12px" [disabled]="detaislone?.onBoardStatus != 'true'"
+    class="navtab" data-target="page4" (click)="Viewqr(this.id)">
     <div [hidden]="valueEntityqrs !== 'Entity View QR'">
       <i class="fa-solid fa-qrcode"></i><br>QR Generation
     </div>
   </button>
-  <button
-    style="background-color: #fff; border: none; font-size: 12px"
-    [disabled]="detaislone?.onBoardStatus != 'true'"
-    class="navtab"
-    data-target="page5"
-    (click)="Viewcustomer(this.id)"
-  >
+  <button style="background-color: #fff; border: none; font-size: 12px" [disabled]="detaislone?.onBoardStatus != 'true'"
+    class="navtab" data-target="page5" (click)="Viewcustomer(this.id)">
     <div [hidden]="valueentityCustomers !== 'Entity View Customer'">
       <i class="fa-solid fa-user"></i>&nbsp;&nbsp;Customers
     </div>
   </button>
   <!-- [disabled]="detaislone?.onBoardStatus !='true'" -->
-  <button
-    style="background-color: #fff; border: none; font-size: 12px"
-    class="navtab"
-    data-target="page5"
-    (click)="viewpaymentLink(this.id)"
-  >
+  <button style="background-color: #fff; border: none; font-size: 12px" class="navtab" data-target="page5"
+    (click)="viewpaymentLink(this.id)">
     <div [hidden]="valueentitypaylink !== 'Entity View Payment Link'">
       <i class="fa fa-link"></i><br>Payment Link
     </div>
@@ -131,103 +90,48 @@
 
 <div class="tab-container">
   <div class="tabs">
-    <button
-      class="tab"
-      [class.active]="activeTab === 'events'"
-      style="font-size: 12px"
-      (click)="selectTab('events')"
-      [hidden]="valueGeneral !== 'Entity View General Information'"
-    >
+    <button class="tab" [class.active]="activeTab === 'events'" style="font-size: 12px" (click)="selectTab('events')"
+      [hidden]="valueGeneral !== 'Entity View General Information'">
       General Information
     </button>
-    <button
-      class="tab"
-      [class.active]="activeTab === 'materials'"
-      style="font-size: 12px"
-      (click)="selectTab('materials')"
-      [hidden]="valuebankinfo !== 'Entity View Bank Information'"
-    >
+    <button class="tab" [class.active]="activeTab === 'materials'" style="font-size: 12px"
+      (click)="selectTab('materials')" [hidden]="valuebankinfo !== 'Entity View Bank Information'">
       Bank Information
     </button>
-    <button
-      class="tab"
-      [class.active]="activeTab === 'videos'"
-      style="font-size: 12px"
-      (click)="selectTab('videos')"
-      [hidden]="valuekycdocument !== 'Entity View KYC Document'"
-    >
+    <button class="tab" [class.active]="activeTab === 'videos'" style="font-size: 12px" (click)="selectTab('videos')"
+      [hidden]="valuekycdocument !== 'Entity View KYC Document'">
       KYC Documents
     </button>
-    <button
-      class="tab"
-      [class.active]="activeTab === 'bussiness'"
-      style="font-size: 12px"
-      (click)="selectTab('bussiness')"
-      [hidden]="valuebussinessdocument !== 'Entity View Bussiness Document'"
-    >
+    <button class="tab" [class.active]="activeTab === 'bussiness'" style="font-size: 12px"
+      (click)="selectTab('bussiness')" [hidden]="valuebussinessdocument !== 'Entity View Bussiness Document'">
       Business Document
     </button>
-    <button
-      class="tab"
-      [class.active]="activeTab === 'doot1'"
-      style="font-size: 12px"
-      (click)="selectTab('doot1')"
-      [hidden]="valuefinalapproval !== 'Entity View Final Approval'"
-    >
+    <button class="tab" [class.active]="activeTab === 'doot1'" style="font-size: 12px" (click)="selectTab('doot1')"
+      [hidden]="valuefinalapproval !== 'Entity View Final Approval'">
       Final Approval
     </button>
-    <button
-      class="tab"
-      [class.active]="activeTab === 'doot2'"
-      style="font-size: 12px"
-      (click)="selectTab('doot2')"
-      [hidden]="valuemanualpayment !== 'Entity View One Time Setup Payment'"
-    >
+    <button class="tab" [class.active]="activeTab === 'doot2'" style="font-size: 12px" (click)="selectTab('doot2')"
+      [hidden]="valuemanualpayment !== 'Entity View One Time Setup Payment'">
       One Time Setup Payment
     </button>
-    <button
-      class="tab"
-      [class.active]="activeTab === 'doot3'"
-      style="font-size: 12px"
-      (click)="selectTab('doot3')"
-      [hidden]="valueCustomized !== 'Entity View Customized Payment'"
-    >
+    <button class="tab" [class.active]="activeTab === 'doot3'" style="font-size: 12px" (click)="selectTab('doot3')"
+      [hidden]="valueCustomized !== 'Entity View Customized Payment'">
       Customized Payment
     </button>
-    <button
-      class="tab"
-      [class.active]="activeTab === 'doot4'"
-      style="font-size: 12px"
-      (click)="selectTab('doot4')"
-      [hidden]="valuesmssetting !== 'Entity View-SMS Settings'"
-    >
+    <button class="tab" [class.active]="activeTab === 'doot4'" style="font-size: 12px" (click)="selectTab('doot4')"
+      [hidden]="valuesmssetting !== 'Entity View-SMS Settings'">
       SMS Settings
     </button>
-    <button
-      class="tab"
-      [class.active]="activeTab === 'doot5'"
-      style="font-size: 12px"
-      (click)="selectTab('doot5')"
-      [hidden]="valueagreement !== 'Entity View Agreement'"
-    >
+    <button class="tab" [class.active]="activeTab === 'doot5'" style="font-size: 12px" (click)="selectTab('doot5')"
+      [hidden]="valueagreement !== 'Entity View Agreement'">
       Agreement
     </button>
-    <button
-      class="tab"
-      [class.active]="activeTab === 'doot6'"
-      style="font-size: 12px"
-      style="font-size: 12px"
-      [hidden]="valuebranch !== 'Entity View Branch'"
-      (click)="selectTab('doot6')"
-    >
+    <button class="tab" [class.active]="activeTab === 'doot6'" style="font-size: 12px" style="font-size: 12px"
+      [hidden]="valuebranch !== 'Entity View Branch'" (click)="selectTab('doot6')">
       Branch
     </button>
   </div>
-  <div
-    class="tab-content"
-    *ngIf="activeTab === 'events'"
-    [hidden]="valueGeneral !== 'Entity View General Information'"
-  >
+  <div class="tab-content" *ngIf="activeTab === 'events'" [hidden]="valueGeneral !== 'Entity View General Information'">
     <div class="filters">
       <div class="col-12">
         <div class="row" style="background-color: #bcdf72; color: #141e46">
@@ -244,10 +148,7 @@
 
             <!-- [disabled]="detaislone?.onBoardStatus=='false'" //View onboardinfo -->
             &nbsp;&nbsp;&nbsp;
-            <div
-              class="buttonDownload1"
-              [matMenuTriggerFor]="menu"
-              [hidden]="
+            <div class="buttonDownload1" [matMenuTriggerFor]="menu" [hidden]="
                 valueeditentity !== 'Entity View-Edit' &&
                 valueplandetails !== 'Entity Plan Details' &&
                 valueviewonboard !== 'Entity View-Onboard Information' &&
@@ -255,87 +156,51 @@
                 valueentityonboard !== 'Entity View-Onboard' &&
                 valuefee !== 'Generate Cloud Fee' &&
                 valuedues !== 'Generate Customer Dues'
-              "
-            >
-              <i
-                style="overflow: hidden; color: #fff; font-size: 22px"
-                class="fa-solid fa-ellipsis-vertical"
-              >
+              ">
+              <i style="overflow: hidden; color: #fff; font-size: 22px" class="fa-solid fa-ellipsis-vertical">
                 <mat-menu #menu="matMenu">
-                  <button
-                    style="font-size: 10px"
-                    mat-menu-item
-                    (click)="editpersonalInfo(this.id)"
-                    [hidden]="valueeditentity !== 'Entity View-Edit'"
-                  >
+                  <button style="font-size: 10px" mat-menu-item (click)="editpersonalInfo(this.id)"
+                    [hidden]="valueeditentity !== 'Entity View-Edit'">
                     Edit Entity Details
                   </button>
-                  <button
-                    [hidden]="valueplandetails !== 'Entity Plan Details'"
-                    style="font-size: 10px"
-                    mat-menu-item
-                    (click)="Entityplan()"
-                  >
+                  <button [hidden]="valueplandetails !== 'Entity Plan Details'" style="font-size: 10px" mat-menu-item
+                    (click)="Entityplan()">
                     Entity Plan Details
                   </button>
-                  <button
-                    [disabled]="
+                  <button [disabled]="
                       this.detaislone?.approvalStatusL1 !== 'approved' ||
                       this.detaislone?.approvalStatusL2 !== 'approved'
-                    "
-                    style="font-size: 10px"
-                    mat-menu-item
-                    (click)="viewOnboardInfo(this.id)"
-                    [hidden]="
+                    " style="font-size: 10px" mat-menu-item (click)="viewOnboardInfo(this.id)" [hidden]="
                       valueviewonboard !== 'Entity View-Onboard Information'
-                    "
-                  >
+                    ">
                     View Onboard Info
                   </button>
 
-                  <button
-                    style="font-size: 10px"
-                    mat-menu-item
-                    (click)="EntityTerminal(this.id)"
-                    [hidden]="valueterminal !== 'Entity Terminal View'"
-                  >
+                  <button style="font-size: 10px" mat-menu-item (click)="EntityTerminal(this.id)"
+                    [hidden]="valueterminal !== 'Entity Terminal View'">
                     Entity Terminal View
                   </button>
 
-                  <button
-                    style="font-size: 10px"
-                    mat-menu-item
-                    (click)="pgOnboard()"
-                    [disabled]="
+                  <button style="font-size: 10px" mat-menu-item (click)="pgOnboard()" [disabled]="
                       this.detaislone?.approvalStatusL2 == 'Pending' ||
                       this.detaislone?.approvalStatusL2 == 'Rejected' || 
                       this.detaislone?.onBoardStatus == 'true'
-                    "
-                    [hidden]="valueentityonboard !== 'Entity View-Onboard'"
-                  >
+                    " [hidden]="valueentityonboard !== 'Entity View-Onboard'">
                     Onboard Entity
                   </button>
 
                   <!--  -->
-                  <button
-                    [disabled]="this.detaislone?.onBoardStatus !== 'true'"
-                    [hidden]="valuefee !== 'Generate Cloud Fee'"
-                    style="font-size: 10px"
-                    mat-menu-item
-                    (click)="Manuvelduesforcloudfee()"
-                  >
+                  <button [disabled]="this.detaislone?.onBoardStatus !== 'true'"
+                    [hidden]="valuefee !== 'Generate Cloud Fee'" style="font-size: 10px" mat-menu-item
+                    (click)="Manuvelduesforcloudfee()">
                     Generate Cloud Fee
                   </button>
-                  <button
-                    [disabled]="this.detaislone?.onBoardStatus !== 'true'"
-                    [hidden]="valuedues !== 'Generate Customer Dues'"
-                    style="font-size: 10px"
-                    mat-menu-item
-                    (click)="Manuvalduesforcustomer()"
-                  >
+                  <button [disabled]="this.detaislone?.onBoardStatus !== 'true'"
+                    [hidden]="valuedues !== 'Generate Customer Dues'" style="font-size: 10px" mat-menu-item
+                    (click)="Manuvalduesforcustomer()">
                     Generate Customer Dues
                   </button>
-                    <!-- <button
+                  <!-- <button
                     [disabled]="this.detaislone?.onBoardStatus !== 'true'"
                     style="font-size: 10px"
                     mat-menu-item
@@ -353,9 +218,7 @@
           </div>
         </div>
         <article class="car-details label-info mt-3">
-          <div
-            class="d-flex flex-md-row align-items-md-start align-items-center flex-column"
-          >
+          <div class="d-flex flex-md-row align-items-md-start align-items-center flex-column">
             <div class="w-100">
               <div class="container-fluid">
                 <div class="row">
@@ -366,7 +229,7 @@
                         <div class="w-50" style="color: green">
                           <span *ngIf="detaislone?.accountId != null">{{
                             detaislone?.accountId
-                          }}</span>
+                            }}</span>
                           <span *ngIf="detaislone?.accountId == null">-</span>
                         </div>
                       </div>
@@ -405,9 +268,7 @@
                           <span *ngIf="this.detaislone?.secondaryMobile != ''">
                             {{ detaislone?.secondaryMobile }}
                           </span>
-                          <span *ngIf="this.detaislone?.secondaryMobile == ''"
-                            >- -</span
-                          >
+                          <span *ngIf="this.detaislone?.secondaryMobile == ''">- -</span>
                         </div>
                       </div>
                       <div class="d-flex mt-3">
@@ -441,11 +302,8 @@
                         <div class="w-50 font-weight-bold">Gst</div>
                         <div class="w-50">
                           <span *ngIf="this.detaislone?.gstIn != null">
-                            {{ detaislone?.gstIn }}</span
-                          >
-                          <span *ngIf="this.detaislone?.gstIn == null"
-                            >- -</span
-                          >
+                            {{ detaislone?.gstIn }}</span>
+                          <span *ngIf="this.detaislone?.gstIn == null">- -</span>
                         </div>
                       </div>
 
@@ -456,7 +314,7 @@
                         <div class="w-50">
                           <span>{{
                             detaislone?.customerDuesEnable === 1 ? "Yes" : "No"
-                          }}</span>
+                            }}</span>
                         </div>
                       </div>
                       <div class="d-flex mt-3">
@@ -464,9 +322,9 @@
                         <div class="w-50">
                           <span>{{
                             detaislone?.offlineQrEnableStatus === 1
-                              ? "Yes"
-                              : "No"
-                          }}</span>
+                            ? "Yes"
+                            : "No"
+                            }}</span>
                         </div>
                       </div>
 
@@ -495,9 +353,9 @@
                         <div class="w-50">
                           <span>{{
                             detaislone?.customerManualStatus === 1
-                              ? "Enabled"
-                              : "Disabled"
-                          }}</span>
+                            ? "Enabled"
+                            : "Disabled"
+                            }}</span>
                         </div>
                       </div>
                       <!-- <div class="d-flex mt-3">
@@ -522,12 +380,8 @@
                           LCO Customer Billing Cycle
                         </div>
                         <div class="w-50">
-                          <span *ngIf="detaislone?.billingMode === 'Month'"
-                            >Monthly</span
-                          >
-                          <span *ngIf="detaislone?.billingMode !== 'Month'"
-                            >-</span
-                          >
+                          <span *ngIf="detaislone?.billingMode === 'Month'">Monthly</span>
+                          <span *ngIf="detaislone?.billingMode !== 'Month'">-</span>
                         </div>
                       </div>
                       <div class="d-flex mt-3">
@@ -537,7 +391,7 @@
                         <div class="w-50">
                           <span>{{
                             detaislone?.autoDebitStatus === 1 ? "Yes" : "No"
-                          }}</span>
+                            }}</span>
                         </div>
                       </div>
                     </div>
@@ -549,26 +403,11 @@
                           LCO Customer Notification Frequency
                         </div>
                         <div class="w-50">
-                          <ng-container
-                            *ngIf="detaislone?.customerDuesDate === 1"
-                            >Daily</ng-container
-                          >
-                          <ng-container
-                            *ngIf="detaislone?.customerDuesDate === 2"
-                            >Every Two Days</ng-container
-                          >
-                          <ng-container
-                            *ngIf="detaislone?.customerDuesDate === 3"
-                            >Every Three Days</ng-container
-                          >
-                          <ng-container
-                            *ngIf="detaislone?.customerDuesDate === 4"
-                            >Once</ng-container
-                          >
-                          <ng-container
-                            *ngIf="detaislone?.customerDuesDate == 0"
-                            >No Due Date</ng-container
-                          >
+                          <ng-container *ngIf="detaislone?.customerDuesDate === 1">Daily</ng-container>
+                          <ng-container *ngIf="detaislone?.customerDuesDate === 2">Every Two Days</ng-container>
+                          <ng-container *ngIf="detaislone?.customerDuesDate === 3">Every Three Days</ng-container>
+                          <ng-container *ngIf="detaislone?.customerDuesDate === 4">Once</ng-container>
+                          <ng-container *ngIf="detaislone?.customerDuesDate == 0">No Due Date</ng-container>
                         </div>
                       </div>
 
@@ -622,37 +461,23 @@
                         <div class="w-50 font-weight-bold">Website</div>
                         <div class="w-50">
                           <div *ngIf="this.detaislone?.website != ''">
-                            {{ detaislone?.website | slice : 0 : 25 }} &nbsp;<i
-                              class="fa-regular fa-copy"
-                              style="color: green; font-size: 18px"
-                              (click)="copyText(detaislone?.website)"
-                            ></i>
-                            <span *ngIf="copySuccess" style="color: green"
-                              >Copied!</span
-                            >
+                            {{ detaislone?.website | slice : 0 : 25 }} &nbsp;<i class="fa-regular fa-copy"
+                              style="color: green; font-size: 18px" (click)="copyText(detaislone?.website)"></i>
+                            <span *ngIf="copySuccess" style="color: green">Copied!</span>
                           </div>
                           <div *ngIf="this.detaislone?.website == ''">- -</div>
                         </div>
                       </div>
 
                       <div class="d-flex mt-3">
-                        <div
-                          class="w-50 font-weight-bold"
-                          [hidden]="valuelogo !== 'Entity View-LOGO'"
-                        >
+                        <div class="w-50 font-weight-bold" [hidden]="valuelogo !== 'Entity View-LOGO'">
                           Logo
                         </div>
-                        <div
-                          class="w-50"
-                          [hidden]="valuelogo !== 'Entity View-LOGO'"
-                        >
-                          <span
-                            (click)="
+                        <div class="w-50" [hidden]="valuelogo !== 'Entity View-LOGO'">
+                          <span (click)="
                               viewlogo(this.id, this.detaislone?.logoLink)
-                            "
-                            ><i class="fas fa-image" style="font-size: 20px">
-                            </i
-                          ></span>
+                            "><i class="fas fa-image" style="font-size: 20px">
+                            </i></span>
                         </div>
                       </div>
 
@@ -682,8 +507,8 @@
                         <div class="w-50">
                           <span>{{
                             detaislone?.createdDatetime
-                              | date : "dd/MM/yyyy hh:MM a"
-                          }}</span>
+                            | date : "dd/MM/yyyy hh:MM a"
+                            }}</span>
                         </div>
                       </div>
                       <div class="d-flex mt-3">
@@ -697,10 +522,10 @@
                         <div class="w-50">
                           <span>{{
                             detaislone?.modifiedDatetime
-                              | date
-                                : "dd/MM/yyyy hh:mm
-                                                        a"
-                          }}</span>
+                            | date
+                            : "dd/MM/yyyy hh:mm
+                            a"
+                            }}</span>
                         </div>
                       </div>
 
@@ -723,42 +548,31 @@
       <button class="btn clear"></button>
     </div>
 
-    <h5
-      class="p-2 mx-3 mt-5"
-      style="
+    <h5 class="p-2 mx-3 mt-5" style="
         background-color: #bcdf72;
         color: #141e46;
         font-weight: 500;
         font-size: 20px;
-      "
-    >
+      ">
       Level 1 Approval
     </h5>
 
     <div class="filters">
       <div class="col-12">
         <article class="car-details label-info mt-2">
-          <div
-            class="d-flex flex-md-row align-items-md-start align-items-center flex-column"
-          >
+          <div class="d-flex flex-md-row align-items-md-start align-items-center flex-column">
             <div class="w-100">
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-md-6 col-12">
                     <div class="d-flex flex-column">
                       <div class="d-flex mt-3">
-                        <div
-                          class="w-50 font-weight-bold"
-                          [hidden]="valueapproval !== 'Entity View-Approval'"
-                        >
+                        <div class="w-50 font-weight-bold" [hidden]="valueapproval !== 'Entity View-Approval'">
                           Approval
                         </div>
                         <div class="w-50">
-                          <button
-                            class="buttonDownload"
-                            [hidden]="valueapproval !== 'Entity View-Approval'"
-                            (click)="levelOneApproval(this.id)"
-                          >
+                          <button class="buttonDownload" [hidden]="valueapproval !== 'Entity View-Approval'"
+                            (click)="levelOneApproval(this.id)">
                             Approval
                           </button>
                         </div>
@@ -767,33 +581,21 @@
                         <div class="w-50 font-weight-bold">Reviewed By</div>
                         <div class="w-50">
                           <span *ngIf="this.detaislone?.approvedByL1 != null">
-                            {{ this.detaislone?.approvedByL1 }}</span
-                          >
-                          <span *ngIf="this.detaislone?.approvedByL1 == null"
-                            >-</span
-                          >
+                            {{ this.detaislone?.approvedByL1 }}</span>
+                          <span *ngIf="this.detaislone?.approvedByL1 == null">-</span>
                         </div>
                       </div>
                       <div class="d-flex mt-3">
-                        <div
-                          class="w-50 font-weight-bold"
-                          [hidden]="valuelevelcomment !== 'Entity View-Comment'"
-                        >
+                        <div class="w-50 font-weight-bold" [hidden]="valuelevelcomment !== 'Entity View-Comment'">
                           Comments
                         </div>
-                        <div
-                          class="w-50 mx-2"
-                          [hidden]="valuelevelcomment !== 'Entity View-Comment'"
-                          style="
+                        <div class="w-50 mx-2" [hidden]="valuelevelcomment !== 'Entity View-Comment'" style="
                             font-size: 18px;
                             cursor: pointer;
                             color: #141e46;
-                          "
-                        >
-                          <span
-                            (click)="leveloneComments(this.detaislone?.comment)"
-                            ><i class="fas fa-comments"></i
-                          ></span>
+                          ">
+                          <span (click)="leveloneComments(this.detaislone?.comment)"><i
+                              class="fas fa-comments"></i></span>
                         </div>
                       </div>
                     </div>
@@ -802,22 +604,13 @@
                     <div class="d-flex mt-2">
                       <div class="w-50 font-weight-bold">Approval Status</div>
                       <div class="w-50">
-                        <span
-                          style="color: green"
-                          *ngIf="detaislone?.approvalStatusL1 == 'approved'"
-                        >
+                        <span style="color: green" *ngIf="detaislone?.approvalStatusL1 == 'approved'">
                           {{ detaislone?.approvalStatusL1 }}
                         </span>
-                        <span
-                          style="color: red"
-                          *ngIf="detaislone?.approvalStatusL1 == 'Rejected'"
-                        >
+                        <span style="color: red" *ngIf="detaislone?.approvalStatusL1 == 'Rejected'">
                           {{ detaislone?.approvalStatusL1 }}
                         </span>
-                        <span
-                          style="color: orange"
-                          *ngIf="detaislone?.approvalStatusL1 == 'Pending'"
-                        >
+                        <span style="color: orange" *ngIf="detaislone?.approvalStatusL1 == 'Pending'">
                           {{ detaislone?.approvalStatusL1 }}
                         </span>
                       </div>
@@ -827,10 +620,10 @@
                       <div class="w-50">
                         <span>
                           {{
-                            this.detaislone?.approvedDateTimeL1 != null
-                              ? (this.detaislone?.approvedDateTimeL1
-                                | date : "dd/MM/yyyy hh:mm a")
-                              : "--"
+                          this.detaislone?.approvedDateTimeL1 != null
+                          ? (this.detaislone?.approvedDateTimeL1
+                          | date : "dd/MM/yyyy hh:mm a")
+                          : "--"
                           }}
                         </span>
                       </div>
@@ -852,32 +645,14 @@
           <div class="search">
             <form class="form">
               <label for="search">
-                <input
-                  (ngModelChange)="onSearchTextChange()"
-                  #input
-                  name="search"
-                  required
-                  autocomplete="off"
-                  placeholder="Search"
-                  id="search"
-                  type="text"
-                  [(ngModel)]="searchText"
-                />
+                <input (ngModelChange)="onSearchTextChange()" #input name="search" required autocomplete="off"
+                  placeholder="Search" id="search" type="text" [(ngModel)]="searchText" />
 
                 <div class="icon">
-                  <svg
-                    stroke-width="2"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="swap-on"
-                  >
-                    <path
-                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                      stroke-linejoin="round"
-                      stroke-linecap="round"
-                    ></path>
+                  <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                      stroke-linecap="round"></path>
                   </svg>
                   <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                           xmlns="http://www.w3.org/2000/svg" class="swap-off">
@@ -887,16 +662,10 @@
                       </svg> -->
                 </div>
                 <button type="reset" class="close-btn">
-                  <svg
-                    viewBox="0 0 20 20"
-                    class="h-5 w-5"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clip-rule="evenodd"
+                  <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                    <path clip-rule="evenodd"
                       d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                      fill-rule="evenodd"
-                    ></path>
+                      fill-rule="evenodd"></path>
                   </svg>
                 </button>
               </label>
@@ -904,31 +673,22 @@
           </div>
         </div>
         <div class="col-md-1 mt-1">
-          <button
-            (click)="Entitybanksearch(id, input.value)"
-            style="
+          <button (click)="Entitybanksearch(id, input.value)" style="
               color: white;
               background-color: #141e46;
               border-radius: 10px;
               font-size: 12px;
-            "
-            mat-raised-button
-          >
+            " mat-raised-button>
             Go
           </button>
         </div>
         <div class="col-md-2 mt-1">
-          <button
-            (click)="addbank(this.id)"
-            [hidden]="valuebankadd !== 'Bank-Add'"
-            style="
+          <button (click)="addbank(this.id)" [hidden]="valuebankadd !== 'Bank-Add'" style="
               color: white;
               background-color: #141e46;
               border-radius: 10px;
               font-size: 12px;
-            "
-            mat-raised-button
-          >
+            " mat-raised-button>
             Add Bank
           </button>
         </div>
@@ -975,8 +735,7 @@
                 <th>Modified By</th>
                 <th>Modified At</th>
               </tr>
-              <tbody
-                *ngFor="
+              <tbody *ngFor="
                   let item of bankdetails
                     | search : searchText
                     | paginate
@@ -986,8 +745,7 @@
                           currentPage: currentPage
                         };
                   let i = index
-                "
-              >
+                ">
                 <td>{{ i + 1 }}</td>
                 <td>{{ item.accountHolderName }}</td>
                 <td>{{ item.accountNumber }}</td>
@@ -999,47 +757,29 @@
 
                 <td [hidden]="valuebanksts !== 'Bank-Status'">
                   <span>
-                    <mat-slide-toggle
-                      class="example-margin"
-                      color="primary"
-                      [checked]="item.activeStatus == 1"
-                      (change)="bankStatus($event, item.merchantBankId)"
-                      style="transform: scale(0.9);padding:0"
-                    >
-                    </mat-slide-toggle
-                  ></span>
+                    <mat-slide-toggle class="example-margin" color="primary" [checked]="item.activeStatus == 1"
+                      (change)="bankStatus($event, item.merchantBankId)" style="transform: scale(0.9);padding:0">
+                    </mat-slide-toggle></span>
                 </td>
                 <td [hidden]="valueprimarysts !== 'Bank Primary-Status'">
                   <span>
-                    <mat-slide-toggle
-                      class="example-margin"
-                      color="primary"
-                      [checked]="item.primaryAccountStatus == 1"
-                      (change)="onSubmit($event, item.merchantBankId)"
-                      style="transform: scale(0.9);padding:0"
-                    >
+                    <mat-slide-toggle class="example-margin" color="primary" [checked]="item.primaryAccountStatus == 1"
+                      (change)="onSubmit($event, item.merchantBankId)" style="transform: scale(0.9);padding:0">
                     </mat-slide-toggle>
                   </span>
                 </td>
                 <td [hidden]="valuebankapproval !== 'Bank-Approval'">
-                  <button
-                    [disabled]="item?.approvalStatus === 'approved'"
-                    class="buttonDownload"
-                    (click)="BankApproval(item.merchantBankId)"
-                    style="font-size:14px;padding:2px"
-                  >
+                  <button [disabled]="item?.approvalStatus === 'approved'" class="buttonDownload"
+                    (click)="BankApproval(item.merchantBankId)" style="font-size:14px;padding:2px">
                     Approval
                   </button>
                 </td>
-                <td
-                  [hidden]="valuebankapprovalsts !== 'Bank-Approval Status'"
-                  [ngClass]="{
+                <td [hidden]="valuebankapprovalsts !== 'Bank-Approval Status'" [ngClass]="{
                     yellow: item?.approvalStatus === 'Pending',
                     green: item?.approvalStatus === 'approved',
 
                     Red: item?.approvalStatus == 'Rejected'
-                  }"
-                >
+                  }">
                   {{ item.approvalStatus }}
                 </td>
 
@@ -1048,88 +788,55 @@
 
                 <td>
                   {{
-                    item.approvalDateTime != "NA"
-                      ? (item.approvalDateTime
-                        | date
-                          : "dd/MM/yyyy hh:mm
-                                    a")
-                      : "--"
+                  item.approvalDateTime != "NA"
+                  ? (item.approvalDateTime
+                  | date
+                  : "dd/MM/yyyy hh:mm
+                  a")
+                  : "--"
                   }}
                 </td>
 
                 <!-- approved datetime -->
                 <td [hidden]="valuebankcomment !== 'Bank-comment'">
-                  <span (click)="BankComments(item.reMarks)"
-                    ><i
-                      class="fas fa-comments"
-                      style="
+                  <span (click)="BankComments(item.reMarks)"><i class="fas fa-comments" style="
                         text-align: center;
                         cursor: pointer;
                         font-size: 15px;
                         color: #545497;
-                      "
-                    ></i
-                  ></span>
+                      "></i></span>
                 </td>
 
                 <td [hidden]="valuebankedit !== 'Bank-Edit'">
-                  <span
-                    ><i
-                      style="
+                  <span><i style="
                         text-align: center;
                         cursor: pointer;
                         font-size: 15px;
                         color: #545497;
-                      "
-                      (click)="editbank(item)"
-                      class="fas fa-edit"
-                    ></i
-                  ></span>
+                      " (click)="editbank(item)" class="fas fa-edit"></i></span>
                 </td>
                 <td [hidden]="valuebankverify !== 'Bank-Verification'">
                   <span>
-                    <i
-                      style="overflow: hidden; color: #141e46; font-size: 17px"
-                      [matMenuTriggerFor]="menu"
-                      class="fa-solid fa-circle-info"
-                    >
+                    <i style="overflow: hidden; color: #141e46; font-size: 17px" [matMenuTriggerFor]="menu"
+                      class="fa-solid fa-circle-info">
                       <mat-menu #menu="matMenu">
-                        <button
-                          [disabled]="
+                        <button [disabled]="
                             item.facheckStatus == 0 || item.facheckStatus == 2
-                          "
-                          style="font-size: 10px"
-                          mat-menu-item
-                          (click)="bankInfo(item.bavId)"
-                        >
+                          " style="font-size: 10px" mat-menu-item (click)="bankInfo(item.bavId)">
                           Info
                         </button>
-                        <button
-                          style="font-size: 10px"
-                          mat-menu-item
-                          [disabled]="item.facheckStatus == 1"
-                          (click)="bankVerification(item.merchantBankId)"
-                        >
+                        <button style="font-size: 10px" mat-menu-item [disabled]="item.facheckStatus == 1"
+                          (click)="bankVerification(item.merchantBankId)">
                           Verify
                         </button>
-                        <button
-                          style="font-size: 10px"
-                          mat-menu-item
-                          [disabled]="
+                        <button style="font-size: 10px" mat-menu-item [disabled]="
                             item.facheckStatus == 0 || item.facheckStatus == 2
-                          "
-                          (click)="bankVerification(item.merchantBankId)"
-                        >
+                          " (click)="bankVerification(item.merchantBankId)">
                           Re-Verify
                         </button>
-                        <button
-                          style="font-size: 10px"
-                          mat-menu-item
-                          [disabled]="
+                        <button style="font-size: 10px" mat-menu-item [disabled]="
                             item.facheckStatus == 0 || item.facheckStatus == 2
-                          "
-                          (click)="BankVerificationMatch(item)"
-                        >
+                          " (click)="BankVerificationMatch(item)">
                           Verification Matching
                         </button>
                       </mat-menu>
@@ -1137,12 +844,8 @@
                   </span>
                 </td>
                 <td>
-                  <span *ngIf="item.facheckStatus == 0" class="text-danger"
-                    >Not-Verified</span
-                  >
-                  <span *ngIf="item.facheckStatus == 1" class="text-success"
-                    >Verified</span
-                  >
+                  <span *ngIf="item.facheckStatus == 0" class="text-danger">Not-Verified</span>
+                  <span *ngIf="item.facheckStatus == 1" class="text-success">Verified</span>
                 </td>
                 <td>{{ item.createdBy }}</td>
                 <td>
@@ -1156,10 +859,7 @@
             </table>
           </div>
           <div class="text-end mt-2">
-            <pagination-controls
-              id="pagination"
-              (pageChange)="currentPage = $event"
-            ></pagination-controls>
+            <pagination-controls id="pagination" (pageChange)="currentPage = $event"></pagination-controls>
           </div>
         </div>
       </div>
@@ -1167,18 +867,13 @@
   </div>
   <div *ngIf="activeTab === 'videos'">
     <mat-card-header>
-      <button
-        [hidden]="valuekycadd !== 'Entity View KYC Document-add'"
-        [hidden]="KYCDetails.length > 0"
-        (click)="addKycdocuments(this.id)"
-        style="
+      <button [hidden]="valuekycadd !== 'Entity View KYC Document-add'" [hidden]="KYCDetails.length > 0"
+        (click)="addKycdocuments(this.id)" style="
           color: white;
           background-color: #141e46;
           border-radius: 10px;
           font-size: 12px;
-        "
-        mat-raised-button
-      >
+        " mat-raised-button>
         Add KYC
       </button>
     </mat-card-header>
@@ -1192,38 +887,30 @@
                 <th>Document Type</th>
                 <th>Document Name</th>
                 <th>Document ID</th>
-                <th
-                  [hidden]="valuekycimage !== 'Entity View KYC Document-Image'"
-                >
+                <th [hidden]="valuekycimage !== 'Entity View KYC Document-Image'">
                   Document Image
                 </th>
                 <th [hidden]="valuekycedit !== 'Entity View KYC Document-Edit'">
                   Action
                 </th>
-                <th
-                  [hidden]="
+                <th [hidden]="
                     valuekycverification !==
                     'Entity View KYC Document-Verification'
-                  "
-                >
+                  ">
                   Verification
                 </th>
                 <th>Verification Status</th>
-                <th
-                  [hidden]="
+                <th [hidden]="
                     valuekycapproval !== 'Entity View KYC Document-Approval'
-                  "
-                >
+                  ">
                   Approval
                 </th>
                 <th>Approval Status</th>
                 <th>Reviewed By</th>
                 <th>Reviewed At</th>
-                <th
-                  [hidden]="
+                <th [hidden]="
                     valuekyccomment !== 'Entity View KYC Document-comments'
-                  "
-                >
+                  ">
                   Comments
                 </th>
                 <th>Created By</th>
@@ -1237,63 +924,37 @@
                   <td>Identity proof</td>
                   <td>{{ item.identityProof }}</td>
                   <td>{{ item.identityProofNo }}</td>
-                  <td
-                    [hidden]="
+                  <td [hidden]="
                       valuekycimage !== 'Entity View KYC Document-Image'
-                    "
-                  >
-                    <span (click)="getFrontPath(item.proofId)"
-                      ><i
-                        class="fa-regular fa-image"
-                        style="font-size: 15px; cursor: pointer; color: #545497"
-                      ></i
-                    ></span>
-                    <span (click)="getBackPath(item.proofId)"
-                      ><i
-                        class="fa-regular fa-image mx-1"
-                        style="font-size: 15px; cursor: pointer; color: #545497"
-                      ></i
-                    ></span>
+                    ">
+                    <span (click)="getFrontPath(item.proofId)"><i class="fa-regular fa-image"
+                        style="font-size: 15px; cursor: pointer; color: #545497"></i></span>
+                    <span (click)="getBackPath(item.proofId)"><i class="fa-regular fa-image mx-1"
+                        style="font-size: 15px; cursor: pointer; color: #545497"></i></span>
                   </td>
-                  <td
-                    [hidden]="valuekycedit !== 'Entity View KYC Document-Edit'"
-                  >
+                  <td [hidden]="valuekycedit !== 'Entity View KYC Document-Edit'">
                     <i class="fas fa-edit" (click)="identityedit(item)"> </i>
                   </td>
-                  <td
-                    [hidden]="
+                  <td [hidden]="
                       valuekycverification !==
                       'Entity View KYC Document-Verification'
-                    "
-                  >
+                    ">
                     <span>
-                      <i
-                        style="
+                      <i style="
                           overflow: hidden;
                           color: #141e46;
                           font-size: 20px;
-                        "
-                        [matMenuTriggerFor]="menu1"
-                        class="fa-solid fa-circle-info"
-                      >
+                        " [matMenuTriggerFor]="menu1" class="fa-solid fa-circle-info">
                         <mat-menu #menu1="matMenu">
-                          <button
-                            [disabled]="
+                          <button [disabled]="
                               item.identityFacheckStatus == 0 ||
                               item.identityFacheckStatus == 2
-                            "
-                            style="font-size: 10px"
-                            mat-menu-item
-                            (click)="
+                            " style="font-size: 10px" mat-menu-item (click)="
                               KycInfo(item.identityKycId, item.identityProof)
-                            "
-                          >
+                            ">
                             Info
                           </button>
-                          <button
-                            style="font-size: 10px"
-                            mat-menu-item
-                            [disabled]="item.identityFacheckStatus == 1"
+                          <button style="font-size: 10px" mat-menu-item [disabled]="item.identityFacheckStatus == 1"
                             (click)="
                               kycVerificationsIdentity(
                                 item.identityProofNo,
@@ -1302,18 +963,13 @@
                                 item.drivingLicenceDob,
                                 item.passportDob
                               )
-                            "
-                          >
+                            ">
                             Verify
                           </button>
-                          <button
-                            style="font-size: 10px"
-                            mat-menu-item
-                            [disabled]="
+                          <button style="font-size: 10px" mat-menu-item [disabled]="
                               item.identityFacheckStatus == 0 ||
                               item.identityFacheckStatus == 2
-                            "
-                            (click)="
+                            " (click)="
                               kycVerificationsIdentity(
                                 item.identityProofNo,
                                 item.proofId,
@@ -1321,8 +977,7 @@
                                 item.drivingLicenceDob,
                                 item.passportDob
                               )
-                            "
-                          >
+                            ">
                             Re-Verify
                           </button>
                         </mat-menu>
@@ -1330,72 +985,44 @@
                     </span>
                   </td>
                   <td class="text-center">
-                    <span
-                      *ngIf="item.identityFacheckStatus == 0"
-                      style="font-size: 14px; color: red"
-                    >
-                      Pending</span
-                    >
-                    <span
-                      *ngIf="item.identityFacheckStatus == 1"
-                      style="font-size: 14px; color: green"
-                      >Verified</span
-                    >
-                    <span
-                      *ngIf="item.identityFacheckStatus == 2"
-                      style="font-size: 14px; color: red"
-                    >
-                      Failed</span
-                    >
+                    <span *ngIf="item.identityFacheckStatus == 0" style="font-size: 14px; color: red">
+                      Pending</span>
+                    <span *ngIf="item.identityFacheckStatus == 1" style="font-size: 14px; color: green">Verified</span>
+                    <span *ngIf="item.identityFacheckStatus == 2" style="font-size: 14px; color: red">
+                      Failed</span>
                   </td>
-                  <td
-                    [hidden]="
+                  <td [hidden]="
                       valuekycapproval !== 'Entity View KYC Document-Approval'
-                    "
-                  >
-                    <button
-                      class="buttonDownload"
-                      (click)="KycApproval(item)"
-                      [disabled]="
-                        item.identityAdminApprovalStatus == 'approved'"
-                        style="font-size:14px;padding:2px"
-                    >
+                    ">
+                    <button class="buttonDownload" (click)="KycApproval(item)" [disabled]="
+                        item.identityAdminApprovalStatus == 'approved'" style="font-size:14px;padding:2px">
                       Approval
                     </button>
                   </td>
-                  <td
-                    [ngClass]="{
+                  <td [ngClass]="{
                       yellow: item?.identityAdminApprovalStatus === 'Pending',
                       green: item?.identityAdminApprovalStatus === 'approved',
                       Red: item?.identityAdminApprovalStatus == 'Rejected'
-                    }"
-                  >
+                    }">
                     {{ item.identityAdminApprovalStatus }}
                   </td>
 
                   <td>{{ item.identityAdminApprovedBy }}</td>
                   <td>
                     {{
-                      item.identityAdminApprovedDate
-                        | date : "dd/MM/yyyy hh:mm a"
+                    item.identityAdminApprovedDate
+                    | date : "dd/MM/yyyy hh:mm a"
                     }}
                   </td>
-                  <td
-                    [hidden]="
+                  <td [hidden]="
                       valuekyccomment !== 'Entity View KYC Document-comments'
-                    "
-                  >
-                    <span (click)="KYCComments(item.identityAdminComments)"
-                      ><i
-                        class="fas fa-comments"
-                        style="
+                    ">
+                    <span (click)="KYCComments(item.identityAdminComments)"><i class="fas fa-comments" style="
                           text-align: center;
                           cursor: pointer;
                           font-size: 15px;
                           color: #545497;
-                        "
-                      ></i
-                    ></span>
+                        "></i></span>
                   </td>
                   <td>{{ item.createdBy }}</td>
                   <td>
@@ -1412,63 +1039,37 @@
                   <td>Address proof</td>
                   <td>{{ item.addressProof }}</td>
                   <td>{{ item.addressProofNo }}</td>
-                  <td
-                    [hidden]="
+                  <td [hidden]="
                       valuekycimage !== 'Entity View KYC Document-Image'
-                    "
-                  >
-                    <span (click)="addressProofFrontPath(item.proofId)"
-                      ><i
-                        class="fa-regular fa-image"
-                        style="font-size: 15px; cursor: pointer; color: #545497"
-                      ></i
-                    ></span>
-                    <span (click)="addressProofBackPath(item.proofId)"
-                      ><i
-                        class="fa-regular fa-image mx-1"
-                        style="font-size: 15px; cursor: pointer; color: #545497"
-                      ></i
-                    ></span>
+                    ">
+                    <span (click)="addressProofFrontPath(item.proofId)"><i class="fa-regular fa-image"
+                        style="font-size: 15px; cursor: pointer; color: #545497"></i></span>
+                    <span (click)="addressProofBackPath(item.proofId)"><i class="fa-regular fa-image mx-1"
+                        style="font-size: 15px; cursor: pointer; color: #545497"></i></span>
                   </td>
-                  <td
-                    [hidden]="valuekycedit !== 'Entity View KYC Document-Edit'"
-                  >
+                  <td [hidden]="valuekycedit !== 'Entity View KYC Document-Edit'">
                     <i class="fas fa-edit" (click)="addressedits(item)"></i>
                   </td>
-                  <td
-                    [hidden]="
+                  <td [hidden]="
                       valuekycverification !==
                       'Entity View KYC Document-Verification'
-                    "
-                  >
+                    ">
                     <span>
-                      <i
-                        style="
+                      <i style="
                           overflow: hidden;
                           color: #141e46;
                           font-size: 20px;
-                        "
-                        [matMenuTriggerFor]="menu2"
-                        class="fa-solid fa-circle-info"
-                      >
+                        " [matMenuTriggerFor]="menu2" class="fa-solid fa-circle-info">
                         <mat-menu #menu2="matMenu">
-                          <button
-                            [disabled]="
+                          <button [disabled]="
                               item.addressFacheckStatus == 0 ||
                               item.addressFacheckStatus == 2
-                            "
-                            style="font-size: 10px"
-                            mat-menu-item
-                            (click)="
+                            " style="font-size: 10px" mat-menu-item (click)="
                               KycInfo(item.addressKycId, item.addressProof)
-                            "
-                          >
+                            ">
                             Info
                           </button>
-                          <button
-                            style="font-size: 10px"
-                            mat-menu-item
-                            [disabled]="item.addressFacheckStatus == 1"
+                          <button style="font-size: 10px" mat-menu-item [disabled]="item.addressFacheckStatus == 1"
                             (click)="
                               kycVerificationsAddress(
                                 item.addressProofNo,
@@ -1477,18 +1078,13 @@
                                 item.drivingLicenceDob,
                                 item.passportDob
                               )
-                            "
-                          >
+                            ">
                             Verify
                           </button>
-                          <button
-                            style="font-size: 10px"
-                            mat-menu-item
-                            [disabled]="
+                          <button style="font-size: 10px" mat-menu-item [disabled]="
                               item.addressFacheckStatus == 0 ||
                               item.addressFacheckStatus == 2
-                            "
-                            (click)="
+                            " (click)="
                               kycVerificationsAddress(
                                 item.addressProofNo,
                                 item.proofId,
@@ -1496,8 +1092,7 @@
                                 item.drivingLicenceDob,
                                 item.passportDob
                               )
-                            "
-                          >
+                            ">
                             Re-Verify
                           </button>
                         </mat-menu>
@@ -1505,71 +1100,44 @@
                     </span>
                   </td>
                   <td class="text-center">
-                    <span
-                      *ngIf="item.addressFacheckStatus == 0"
-                      style="font-size: 14px; color: red"
-                    >
-                      Pending</span
-                    >
-                    <span
-                      *ngIf="item.addressFacheckStatus == 1"
-                      style="font-size: 14px; color: green"
-                      >Verified</span
-                    >
-                    <span
-                      *ngIf="item.addressFacheckStatus == 2"
-                      style="font-size: 14px; color: red"
-                    >
-                      Failed</span
-                    >
+                    <span *ngIf="item.addressFacheckStatus == 0" style="font-size: 14px; color: red">
+                      Pending</span>
+                    <span *ngIf="item.addressFacheckStatus == 1" style="font-size: 14px; color: green">Verified</span>
+                    <span *ngIf="item.addressFacheckStatus == 2" style="font-size: 14px; color: red">
+                      Failed</span>
                   </td>
-                  <td
-                    [hidden]="
+                  <td [hidden]="
                       valuekycapproval !== 'Entity View KYC Document-Approval'
-                    "
-                  >
-                    <button
-                      class="buttonDownload"
-                      (click)="KycApproval1(item)"
-                      [disabled]="item.addressAdminApprovalStatus == 'approved'"
-                      style="font-size:14px;padding:2px"
-                    >
+                    ">
+                    <button class="buttonDownload" (click)="KycApproval1(item)"
+                      [disabled]="item.addressAdminApprovalStatus == 'approved'" style="font-size:14px;padding:2px">
                       Approval
                     </button>
                   </td>
-                  <td
-                    [ngClass]="{
+                  <td [ngClass]="{
                       yellow: item?.addressAdminApprovalStatus === 'Pending',
                       green: item?.addressAdminApprovalStatus === 'approved',
                       Red: item?.addressAdminApprovalStatus == 'Rejected'
-                    }"
-                  >
+                    }">
                     {{ item.addressAdminApprovalStatus }}
                   </td>
 
                   <td>{{ item.addressAdminApprovedBy }}</td>
                   <td>
                     {{
-                      item.addressAdminApprovedDate
-                        | date : "dd/MM/yyyy hh:mm a"
+                    item.addressAdminApprovedDate
+                    | date : "dd/MM/yyyy hh:mm a"
                     }}
                   </td>
-                  <td
-                    [hidden]="
+                  <td [hidden]="
                       valuekyccomment !== 'Entity View KYC Document-comments'
-                    "
-                  >
-                    <span (click)="KYCComments(item.addressAdminComments)"
-                      ><i
-                        class="fas fa-comments"
-                        style="
+                    ">
+                    <span (click)="KYCComments(item.addressAdminComments)"><i class="fas fa-comments" style="
                           text-align: center;
                           cursor: pointer;
                           font-size: 15px;
                           color: #545497;
-                        "
-                      ></i
-                    ></span>
+                        "></i></span>
                   </td>
                   <td>{{ item.createdBy }}</td>
                   <td>
@@ -1586,63 +1154,37 @@
                   <td>Signature proof</td>
                   <td>{{ item.signatureProof }}</td>
                   <td>{{ item.signatureProofNo }}</td>
-                  <td
-                    [hidden]="
+                  <td [hidden]="
                       valuekycimage !== 'Entity View KYC Document-Image'
-                    "
-                  >
-                    <span (click)="signatureProofFrontPath(item.proofId)"
-                      ><i
-                        class="fa-regular fa-image"
-                        style="font-size: 15px; cursor: pointer; color: #545497"
-                      ></i
-                    ></span>
-                    <span (click)="signatureProofBackPath(item.proofId)"
-                      ><i
-                        class="fa-regular fa-image mx-1"
-                        style="font-size: 15px; cursor: pointer; color: #545497"
-                      ></i
-                    ></span>
+                    ">
+                    <span (click)="signatureProofFrontPath(item.proofId)"><i class="fa-regular fa-image"
+                        style="font-size: 15px; cursor: pointer; color: #545497"></i></span>
+                    <span (click)="signatureProofBackPath(item.proofId)"><i class="fa-regular fa-image mx-1"
+                        style="font-size: 15px; cursor: pointer; color: #545497"></i></span>
                   </td>
-                  <td
-                    [hidden]="valuekycedit !== 'Entity View KYC Document-Edit'"
-                  >
+                  <td [hidden]="valuekycedit !== 'Entity View KYC Document-Edit'">
                     <i class="fas fa-edit" (click)="signatureedits(item)"></i>
                   </td>
-                  <td
-                    [hidden]="
+                  <td [hidden]="
                       valuekycverification !==
                       'Entity View KYC Document-Verification'
-                    "
-                  >
+                    ">
                     <span>
-                      <i
-                        style="
+                      <i style="
                           overflow: hidden;
                           color: #141e46;
                           font-size: 20px;
-                        "
-                        [matMenuTriggerFor]="menu3"
-                        class="fa-solid fa-circle-info"
-                      >
+                        " [matMenuTriggerFor]="menu3" class="fa-solid fa-circle-info">
                         <mat-menu #menu3="matMenu">
-                          <button
-                            [disabled]="
+                          <button [disabled]="
                               item.signatureFacheckStatus == 0 ||
                               item.signatureFacheckStatus == 2
-                            "
-                            style="font-size: 10px"
-                            mat-menu-item
-                            (click)="
+                            " style="font-size: 10px" mat-menu-item (click)="
                               KycInfo(item.signatureKycId, item.signatureProof)
-                            "
-                          >
+                            ">
                             Info
                           </button>
-                          <button
-                            style="font-size: 10px"
-                            mat-menu-item
-                            [disabled]="item.signatureFacheckStatus == 1"
+                          <button style="font-size: 10px" mat-menu-item [disabled]="item.signatureFacheckStatus == 1"
                             (click)="
                               kycVerificationsSignature(
                                 item.signatureProofNo,
@@ -1651,18 +1193,13 @@
                                 item.drivingLicenceDob,
                                 item.passportDob
                               )
-                            "
-                          >
+                            ">
                             Verify
                           </button>
-                          <button
-                            style="font-size: 10px"
-                            mat-menu-item
-                            [disabled]="
+                          <button style="font-size: 10px" mat-menu-item [disabled]="
                               item.signatureFacheckStatus == 0 ||
                               item.signatureFacheckStatus == 2
-                            "
-                            (click)="
+                            " (click)="
                               kycVerificationsSignature(
                                 item.signatureProofNo,
                                 item.proofId,
@@ -1670,8 +1207,7 @@
                                 item.drivingLicenceDob,
                                 item.passportDob
                               )
-                            "
-                          >
+                            ">
                             Re-Verify
                           </button>
                         </mat-menu>
@@ -1679,74 +1215,46 @@
                     </span>
                   </td>
                   <td class="text-center">
-                    <span
-                      *ngIf="item.signatureFacheckStatus == 0"
-                      style="font-size: 14px; color: red"
-                    >
-                      Pending</span
-                    >
-                    <span
-                      *ngIf="item.signatureFacheckStatus == 1"
-                      style="font-size: 14px; color: green"
-                      >Verified</span
-                    >
-                    <span
-                      *ngIf="item.signatureFacheckStatus == 2"
-                      style="font-size: 14px; color: red"
-                    >
-                      Failed</span
-                    >
+                    <span *ngIf="item.signatureFacheckStatus == 0" style="font-size: 14px; color: red">
+                      Pending</span>
+                    <span *ngIf="item.signatureFacheckStatus == 1" style="font-size: 14px; color: green">Verified</span>
+                    <span *ngIf="item.signatureFacheckStatus == 2" style="font-size: 14px; color: red">
+                      Failed</span>
                   </td>
-                  <td
-                    [hidden]="
+                  <td [hidden]="
                       valuekycapproval !== 'Entity View KYC Document-Approval'
-                    "
-                  >
-                    <button
-                      class="buttonDownload"
-                      (click)="KycApproval2(item)"
-                      [disabled]="
+                    ">
+                    <button class="buttonDownload" (click)="KycApproval2(item)" [disabled]="
                         item.signatureAdminApprovalStatus == 'approved'
-                      "
-                      style="font-size:14px;padding:2px"
-                    >
+                      " style="font-size:14px;padding:2px">
                       Approval
                     </button>
                   </td>
 
-                  <td
-                    [ngClass]="{
+                  <td [ngClass]="{
                       yellow: item?.signatureAdminApprovalStatus === 'Pending',
                       green: item?.signatureAdminApprovalStatus === 'approved',
                       Red: item?.signatureAdminApprovalStatus == 'Rejected'
-                    }"
-                  >
+                    }">
                     {{ item.signatureAdminApprovalStatus }}
                   </td>
 
                   <td>{{ item.signatureAdminApprovedBy }}</td>
                   <td>
                     {{
-                      item.signatureAdminApprovedDate
-                        | date : "dd/MM/yyyy hh:mm a"
+                    item.signatureAdminApprovedDate
+                    | date : "dd/MM/yyyy hh:mm a"
                     }}
                   </td>
-                  <td
-                    [hidden]="
+                  <td [hidden]="
                       valuekyccomment !== 'Entity View KYC Document-comments'
-                    "
-                  >
-                    <span (click)="KYCComments(item.signatureAdminComments)"
-                      ><i
-                        class="fas fa-comments"
-                        style="
+                    ">
+                    <span (click)="KYCComments(item.signatureAdminComments)"><i class="fas fa-comments" style="
                           text-align: center;
                           cursor: pointer;
                           font-size: 15px;
                           color: #545497;
-                        "
-                      ></i
-                    ></span>
+                        "></i></span>
                   </td>
                   <td>{{ item.createdBy }}</td>
                   <td>
@@ -1771,32 +1279,14 @@
           <div class="search">
             <form class="form">
               <label for="search">
-                <input
-                  (ngModelChange)="onSearchTextBusiness()"
-                  #input
-                  name="search"
-                  required
-                  autocomplete="off"
-                  placeholder="Search"
-                  id="search"
-                  type="text"
-                  [(ngModel)]="searchTextbusnniess"
-                />
+                <input (ngModelChange)="onSearchTextBusiness()" #input name="search" required autocomplete="off"
+                  placeholder="Search" id="search" type="text" [(ngModel)]="searchTextbusnniess" />
 
                 <div class="icon">
-                  <svg
-                    stroke-width="2"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="swap-on"
-                  >
-                    <path
-                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                      stroke-linejoin="round"
-                      stroke-linecap="round"
-                    ></path>
+                  <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                      stroke-linecap="round"></path>
                   </svg>
                   <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                           xmlns="http://www.w3.org/2000/svg" class="swap-off">
@@ -1806,16 +1296,10 @@
                       </svg> -->
                 </div>
                 <button type="reset" class="close-btn">
-                  <svg
-                    viewBox="0 0 20 20"
-                    class="h-5 w-5"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clip-rule="evenodd"
+                  <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                    <path clip-rule="evenodd"
                       d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                      fill-rule="evenodd"
-                    ></path>
+                      fill-rule="evenodd"></path>
                   </svg>
                 </button>
               </label>
@@ -1823,24 +1307,19 @@
           </div>
         </div>
         <div class="col-md-2 mt-1">
-          <button
-            (click)="
+          <button (click)="
               adddoc(
                 this.id,
                 this.detaislone?.businessCategoryModel?.businessCategoryId
               )
-            "
-            [hidden]="
+            " [hidden]="
               valuebussinessAdd !== 'Entity View Bussiness Document-Add'
-            "
-            style="
+            " style="
               color: white;
               background-color: #141e46;
               border-radius: 10px;
               font-size: 12px;
-            "
-            mat-raised-button
-          >
+            " mat-raised-button>
             Add Document
           </button>
         </div>
@@ -1856,38 +1335,30 @@
                 <th>Document Name</th>
                 <th>Document ID</th>
                 <th>Document Expiry Date</th>
-                <th
-                  [hidden]="
+                <th [hidden]="
                     valuebussinessImage !==
                     'Entity View Bussiness Document-Image'
-                  "
-                >
+                  ">
                   Image
                 </th>
-                <th
-                  [hidden]="
+                <th [hidden]="
                     valuebussinessapproval !==
                     'Entity View Bussiness Document-Approval'
-                  "
-                >
+                  ">
                   Approval
                 </th>
                 <th>Approval Status</th>
                 <th>Reviewed By</th>
                 <th>Reviewed At</th>
-                <th
-                  [hidden]="
+                <th [hidden]="
                     valuebussinesscomment !==
                     'Entity View Bussiness Document-Comments'
-                  "
-                >
+                  ">
                   Comments
                 </th>
-                <th
-                  [hidden]="
+                <th [hidden]="
                     valuebussinessedit !== 'Entity View Bussiness Document-Edit'
-                  "
-                >
+                  ">
                   Action
                 </th>
                 <th>Created By</th>
@@ -1895,8 +1366,7 @@
                 <th>Modified By</th>
                 <th>Modified At</th>
               </tr>
-              <tbody
-                *ngFor="
+              <tbody *ngFor="
                   let item of bussinessdoc
                     | search : searchTextbusnniess
                     | paginate
@@ -1906,82 +1376,54 @@
                           currentPage: currentPagebusniess
                         };
                   let i = index
-                "
-              >
+                ">
                 <td>{{ i + 1 }}</td>
                 <td>{{ item?.entityKycCategory?.kycCategoryName }}</td>
                 <td>{{ item.docNumber }}</td>
                 <td>{{ item.expiryDate | date : "dd/MM/yyyy" }}</td>
-                <td
-                  [hidden]="
+                <td [hidden]="
                     valuebussinessImage !==
                     'Entity View Bussiness Document-Image'
-                  "
-                >
-                  <span (click)="getdocFrontPath(item.merchantDocumentId)"
-                    ><i
-                      class="fa-regular fa-image"
-                      style="font-size: 15px; cursor: pointer; color: #545497"
-                    ></i
-                  ></span>
-                  <span (click)="getdocbackPath(item.merchantDocumentId)"
-                    ><i
-                      class="fa-regular fa-image mx-1"
-                      style="font-size: 15px; cursor: pointer; color: #545497"
-                    ></i
-                  ></span>
+                  ">
+                  <span (click)="getdocFrontPath(item.merchantDocumentId)"><i class="fa-regular fa-image"
+                      style="font-size: 15px; cursor: pointer; color: #545497"></i></span>
+                  <span (click)="getdocbackPath(item.merchantDocumentId)"><i class="fa-regular fa-image mx-1"
+                      style="font-size: 15px; cursor: pointer; color: #545497"></i></span>
                 </td>
-                <td
-                  [hidden]="
+                <td [hidden]="
                     valuebussinessapproval !==
                     'Entity View Bussiness Document-Approval'
-                  "
-                >
-                  <button
-                    class="buttonDownload"
-                    (click)="docApproval(item)"
-                    [disabled]="item.approvalStatus == 'approved'"
-                    style="font-size:14px;padding:2px"
-                  >
+                  ">
+                  <button class="buttonDownload" (click)="docApproval(item)"
+                    [disabled]="item.approvalStatus == 'approved'" style="font-size:14px;padding:2px">
                     Approval
                   </button>
                 </td>
-                <td
-                  [ngClass]="{
+                <td [ngClass]="{
                     yellow: item?.approvalStatus === 'Pending',
                     green: item?.approvalStatus === 'approved',
                     Red: item?.approvalStatus == 'Rejected'
-                  }"
-                >
+                  }">
                   {{ item.approvalStatus }}
                 </td>
                 <td>{{ item.approvalBy }}</td>
                 <td>
                   {{ item.approvalDateTime | date : "dd/MM/yyyy hh:mm a" }}
                 </td>
-                <td
-                  [hidden]="
+                <td [hidden]="
                     valuebussinesscomment !==
                     'Entity View Bussiness Document-Comments'
-                  "
-                >
-                  <span (click)="DocComments(item.reMarks)"
-                    ><i
-                      class="fas fa-comments"
-                      style="
+                  ">
+                  <span (click)="DocComments(item.reMarks)"><i class="fas fa-comments" style="
                         text-align: center;
                         cursor: pointer;
                         font-size: 15px;
                         color: #545497;
-                      "
-                    ></i
-                  ></span>
+                      "></i></span>
                 </td>
-                <td
-                  [hidden]="
+                <td [hidden]="
                     valuebussinessedit !== 'Entity View Bussiness Document-Edit'
-                  "
-                >
+                  ">
                   <i class="fas fa-edit" style="padding:0" (click)="docedit(item)"> </i>
                 </td>
                 <td>{{ item.createdBy }}</td>
@@ -1996,10 +1438,7 @@
             </table>
           </div>
           <div class="text-end mt-2">
-            <pagination-controls
-              id="pagination2"
-              (pageChange)="currentPagebusniess = $event"
-            ></pagination-controls>
+            <pagination-controls id="pagination2" (pageChange)="currentPagebusniess = $event"></pagination-controls>
           </div>
         </div>
       </div>
@@ -2023,60 +1462,37 @@
               </tr>
               <tbody>
                 <td class="text-center">1</td>
-                <td
-                  class="text-center"
-                  [hidden]="valuefinalapprovals !== 'Final-Approval'"
-                >
-                  <span
-                    ><button
-                      class="buttonDownload"
-                      (click)="levelTwoApproval(this.id)"
-                      [hidden]="
+                <td class="text-center" [hidden]="valuefinalapprovals !== 'Final-Approval'">
+                  <span><button class="buttonDownload" (click)="levelTwoApproval(this.id)" [hidden]="
                         this.detaislone?.approvalStatusL1 == 'Pending' ||
                         this.detaislone?.approvalStatusL1 == 'Rejected'
-                      "
-                    >
+                      ">
                       Approval
-                    </button></span
-                  >
+                    </button></span>
                 </td>
                 <td class="text-center">
-                  <span
-                    style="color: green"
-                    *ngIf="detaislone?.approvalStatusL2 == 'approved'"
-                    >{{ this.detaislone?.approvalStatusL2 }}</span
-                  >
-                  <span
-                    style="color: orange"
-                    *ngIf="detaislone?.approvalStatusL2 == 'Pending'"
-                    >{{ this.detaislone?.approvalStatusL2 }}</span
-                  >
-                  <span
-                    style="color: red"
-                    *ngIf="detaislone?.approvalStatusL2 == 'Rejected'"
-                    >{{ this.detaislone?.approvalStatusL2 }}</span
-                  >
+                  <span style="color: green" *ngIf="detaislone?.approvalStatusL2 == 'approved'">{{
+                    this.detaislone?.approvalStatusL2 }}</span>
+                  <span style="color: orange" *ngIf="detaislone?.approvalStatusL2 == 'Pending'">{{
+                    this.detaislone?.approvalStatusL2 }}</span>
+                  <span style="color: red" *ngIf="detaislone?.approvalStatusL2 == 'Rejected'">{{
+                    this.detaislone?.approvalStatusL2 }}</span>
                 </td>
-                <td
-                  [hidden]="valuefinalcomment !== 'Final-Comment'"
-                  style="
+                <td [hidden]="valuefinalcomment !== 'Final-Comment'" style="
                     text-align: center;
                     font-size: 15px;
                     cursor: pointer;
                     color: #545497;
-                  "
-                >
-                  <span (click)="levelTwoComments(this.detaislone?.commentL2)"
-                    ><i class="fas fa-comments"></i
-                  ></span>
+                  ">
+                  <span (click)="levelTwoComments(this.detaislone?.commentL2)"><i class="fas fa-comments"></i></span>
                 </td>
                 <td class="text-center">{{ this.detaislone?.approvedByL2 }}</td>
                 <td class="text-center">
                   {{
-                    this.detaislone?.approvedDateTimeL2
-                      | date
-                        : "dd/MM/yyyy hh:mm
-                                    a"
+                  this.detaislone?.approvedDateTimeL2
+                  | date
+                  : "dd/MM/yyyy hh:mm
+                  a"
                   }}
                 </td>
               </tbody>
@@ -2094,32 +1510,14 @@
         <div class="search">
           <form class="form">
             <label for="search">
-              <input
-                (ngModelChange)="onSearchTextonetime()"
-                #input
-                name="search"
-                required
-                autocomplete="off"
-                placeholder="Search"
-                id="search"
-                type="text"
-                [(ngModel)]="searchTextOneTime"
-              />
+              <input (ngModelChange)="onSearchTextonetime()" #input name="search" required autocomplete="off"
+                placeholder="Search" id="search" type="text" [(ngModel)]="searchTextOneTime" />
 
               <div class="icon">
-                <svg
-                  stroke-width="2"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="swap-on"
-                >
-                  <path
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                    stroke-linejoin="round"
-                    stroke-linecap="round"
-                  ></path>
+                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                  <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
+                  </path>
                 </svg>
                 <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                           xmlns="http://www.w3.org/2000/svg" class="swap-off">
@@ -2129,40 +1527,27 @@
                       </svg> -->
               </div>
               <button type="reset" class="close-btn">
-                <svg
-                  viewBox="0 0 20 20"
-                  class="h-5 w-5"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
+                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                  <path clip-rule="evenodd"
                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    fill-rule="evenodd"
-                  ></path>
+                    fill-rule="evenodd"></path>
                 </svg>
               </button>
             </label>
           </form>
         </div>
       </div>
-      <div
-        class="col-md-2 mt-1"
-        [hidden]="
+      <div class="col-md-2 mt-1" [hidden]="
           valuemanualpay !== 'Entity View One Time Setup Payment-Create'
-        "
-      >
-        <button
-          (click)="createmanualPayement()"
-          [hidden]="paymentStatus == 'Success' || onBoardStatus == 'false'"
+        ">
+        <button (click)="createmanualPayement()" [hidden]="paymentStatus == 'Success' || onBoardStatus == 'false'"
           style="
             color: white;
             background-color: #141e46;
             border-radius: 10px;
             font-size: 12px;
             width: 120%;
-          "
-          mat-raised-button
-        >
+          " mat-raised-button>
           Manual Payment
         </button>
       </div>
@@ -2179,32 +1564,25 @@
               <th>Payment For</th>
               <th>Due Amount</th>
 
-              <th
-                [hidden]="
+              <th [hidden]="
                   valuemanualedit !== 'Entity View One Time Setup Payment-Edit'
-                "
-              >
-                <span
-                  style="background-color: #bcdf72"
-                  *ngIf="
+                ">
+                <span style="background-color: #bcdf72" *ngIf="
                     paymentMethod == 'Cash' ||
                     paymentMethod == 'UPI' ||
                     paymentMethod == 'NEFT' ||
                     paymentMethod == 'RTGS' ||
                     paymentMethod == 'IMPS' ||
                     paymentMethod == 'Cheque'
-                  "
-                  >Edit
+                  ">Edit
                 </span>
               </th>
 
               <th>Payment Status</th>
               <th>Payment Method</th>
-              <th
-                [hidden]="
+              <th [hidden]="
                   valuemanualview !== 'Entity View One Time Setup Payment-View'
-                "
-              >
+                ">
                 View
               </th>
               <th>Reference Number</th>
@@ -2215,8 +1593,7 @@
               <th>Manual Updated At</th>
               <th>Paid At</th>
             </tr>
-            <tbody
-              *ngFor="
+            <tbody *ngFor="
                 let item of manualDetails
                   | search : searchTextOneTime
                   | paginate
@@ -2226,93 +1603,57 @@
                         currentPage: currentonetime
                       };
                 let i = index
-              "
-            >
+              ">
               <td>{{ i + 1 }}</td>
               <td>{{ item.pgPaymentId }}</td>
               <td>
                 <span *ngIf="item?.status=='1'">One Time Paymnent</span>
                 <span *ngIf="item?.status=='2'">Renewal Payment</span>
-                </td>
+              </td>
 
               <td>{{ item.totalPayableAmount.toFixed(2) }}</td>
-              <td
-                [hidden]="
+              <td [hidden]="
                   valuemanualedit !== 'Entity View One Time Setup Payment-Edit'
-                "
-              >
-                <button
-                  style="border: none;font-size: 15px;padding:0"
-                  *ngIf="
+                ">
+                <button style="border: none;font-size: 15px;padding:0" *ngIf="
                     paymentMethod == 'Cash' ||
                     paymentMethod == 'UPI' ||
                     paymentMethod == 'NEFT' ||
                     paymentMethod == 'RTGS' ||
                     paymentMethod == 'IMPS' ||
                     paymentMethod == 'Cheque'
-                  "
-                  (click)="manualPayement(item)"
-                  
-                >
+                  " (click)="manualPayement(item)">
                   <span>
-                    <i
-                      class="fas fa-edit"
-                      style="font-size: 15px; color: rgb(39, 39, 95)"
-                    ></i>
+                    <i class="fas fa-edit" style="font-size: 15px; color: rgb(39, 39, 95)"></i>
                   </span>
                 </button>
               </td>
 
               <td>
-                <span
-                  *ngIf="item?.paymentStatus == 'Success'"
-                  class="text-success"
-                >
+                <span *ngIf="item?.paymentStatus == 'Success'" class="text-success">
                   {{ item?.paymentStatus }}
                 </span>
-                <span
-                  *ngIf="item?.paymentStatus == 'Due Pending'"
-                  class="text-warning"
-                >
-                  {{ item?.paymentStatus }}</span
-                >
-                <span
-                  *ngIf="item?.paymentStatus == 'Initiated'"
-                  class="text-primary"
-                >
-                  {{ item?.paymentStatus }}</span
-                >
-                <span
-                  *ngIf="item?.paymentStatus == 'Failure'"
-                  class="text-danger"
-                >
-                  {{ item?.paymentStatus }}</span
-                >
-                <span
-                  *ngIf="item?.paymentStatus == 'Payment Incomplete'"
-                  class="text-warning"
-                >
-                  {{ item?.paymentStatus }}</span
-                >
+                <span *ngIf="item?.paymentStatus == 'Due Pending'" class="text-warning">
+                  {{ item?.paymentStatus }}</span>
+                <span *ngIf="item?.paymentStatus == 'Initiated'" class="text-primary">
+                  {{ item?.paymentStatus }}</span>
+                <span *ngIf="item?.paymentStatus == 'Failure'" class="text-danger">
+                  {{ item?.paymentStatus }}</span>
+                <span *ngIf="item?.paymentStatus == 'Payment Incomplete'" class="text-warning">
+                  {{ item?.paymentStatus }}</span>
               </td>
               <td>{{ item.paymentMethod }}</td>
-              <td
-                [hidden]="
+              <td [hidden]="
                   valuemanualview !== 'Entity View One Time Setup Payment-View'
-                "
-              >
+                ">
                 <span (click)="viewmanualtransaction(item.merchantPayId)">
-                  <i
-                    class="fas fa-eye"
-                    style="font-size: 16px; color: rgb(39, 39, 95)"
-                  ></i>
+                  <i class="fas fa-eye" style="font-size: 16px; color: rgb(39, 39, 95)"></i>
                 </span>
               </td>
               <td>{{ item.utrNumber || "-" }}</td>
               <td>
                 <span [hidden]="item.date == null">
-                  {{ item.date | date : "dd/MM/yyyy" }}</span
-                >
+                  {{ item.date | date : "dd/MM/yyyy" }}</span>
                 <span [hidden]="item.date != null"> - </span>
               </td>
 
@@ -2320,8 +1661,7 @@
               <td>{{ item?.updatedBy || "-" }}</td>
               <td>
                 <span [hidden]="item.date == null">
-                  {{ item.updateAt | date : "dd/MM/yyyy" }}</span
-                >
+                  {{ item.updateAt | date : "dd/MM/yyyy" }}</span>
                 <span [hidden]="item.updateAt != null"> - </span>
               </td>
               <td>{{ item.paymentDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
@@ -2329,10 +1669,7 @@
           </table>
         </div>
         <div class="text-end mt-2">
-          <pagination-controls
-            id="pagination3"
-            (pageChange)="currentonetime = $event"
-          ></pagination-controls>
+          <pagination-controls id="pagination3" (pageChange)="currentonetime = $event"></pagination-controls>
         </div>
       </div>
     </div>
@@ -2346,32 +1683,14 @@
         <div class="search">
           <form class="form">
             <label for="search">
-              <input
-                (ngModelChange)="onSearchTextcustomized()"
-                #input
-                name="search"
-                required
-                autocomplete="off"
-                placeholder="Search"
-                id="search"
-                type="text"
-                [(ngModel)]="searchTextcustomixed"
-              />
+              <input (ngModelChange)="onSearchTextcustomized()" #input name="search" required autocomplete="off"
+                placeholder="Search" id="search" type="text" [(ngModel)]="searchTextcustomixed" />
 
               <div class="icon">
-                <svg
-                  stroke-width="2"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="swap-on"
-                >
-                  <path
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                    stroke-linejoin="round"
-                    stroke-linecap="round"
-                  ></path>
+                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                  <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
+                  </path>
                 </svg>
                 <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                           xmlns="http://www.w3.org/2000/svg" class="swap-off">
@@ -2381,16 +1700,10 @@
                       </svg> -->
               </div>
               <button type="reset" class="close-btn">
-                <svg
-                  viewBox="0 0 20 20"
-                  class="h-5 w-5"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
+                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                  <path clip-rule="evenodd"
                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    fill-rule="evenodd"
-                  ></path>
+                    fill-rule="evenodd"></path>
                 </svg>
               </button>
             </label>
@@ -2398,17 +1711,12 @@
         </div>
       </div>
       <div class="col-md-2 mt-1" [hidden]="detaislone?.onBoardStatus != 'true'">
-        <button
-          (click)="otherPayement()"
-          style="
+        <button (click)="otherPayement()" style="
             color: white;
             background-color: #141e46;
             border-radius: 10px;
             font-size: 12px;
-          "
-          mat-raised-button
-          [hidden]="valueCustomizedadd !== 'Entity View Customized Payment-Add'"
-        >
+          " mat-raised-button [hidden]="valueCustomizedadd !== 'Entity View Customized Payment-Add'">
           Create
         </button>
       </div>
@@ -2427,33 +1735,26 @@
               <th>Sgst</th>
               <th>Igst</th>
               <th>Total Amount</th>
-              <th
-                [hidden]="
+              <th [hidden]="
                   valueCustomizedmanual !==
                   'Entity View Customized Manual Payment'
-                "
-              >
+                ">
                 Manual Payment
               </th>
-              <th
-                [hidden]="
+              <th [hidden]="
                   valueCustomizededit !== 'Entity View Customized Payment-Edit'
-                "
-              >
+                ">
                 Action
               </th>
-              <th
-                [hidden]="
+              <th [hidden]="
                   valueCustomizedview !== 'Entity View Customized Payment-View'
-                "
-              >
+                ">
                 View
               </th>
               <th>Payment Status</th>
               <th>Paid At</th>
             </tr>
-            <tbody
-              *ngFor="
+            <tbody *ngFor="
                 let item of otherDetails
                   | search : searchTextcustomixed
                   | paginate
@@ -2463,8 +1764,7 @@
                         currentPage: currentcustomized
                       };
                 let i = index
-              "
-            >
+              ">
               <td>{{ i + 1 }}</td>
               <td>{{ item.serviceName }}</td>
               <td>{{ item.paidAmount.toFixed(2) }}</td>
@@ -2473,85 +1773,53 @@
               <td>{{ item.igstPercentage }}</td>
               <td>{{ item.totalPayableAmount.toFixed(2) }}</td>
               <td>
-                <button
-                  [disabled]="
+                <button [disabled]="
                     item.paymentStatus == 'Success' ||
                     item.paymentStatus == 'Due Cancelled'
-                  "
-                  [hidden]="
+                  " [hidden]="
                     valueCustomizedmanual !==
                     'Entity View Customized Manual Payment'
-                  "
-                  style="border: none; background: none;font-size:15px;padding:0"
-                  class="manual"
-                  (click)="Manuvalpayments(item.payId)"
-                >
+                  " style="border: none; background: none;font-size:15px;padding:0" class="manual"
+                  (click)="Manuvalpayments(item.payId)">
                   <i style="font-size:15px" class="fa-solid fa-address-card"></i>
                 </button>
               </td>
               <td>
-                <button
-                  class="editcustom"
-                  style="background: none; border: none;font-size:15px;padding:0"
-                  (click)="editotherPayment(item)"
-                  [hidden]="
+                <button class="editcustom" style="background: none; border: none;font-size:15px;padding:0"
+                  (click)="editotherPayment(item)" [hidden]="
                     valueCustomizededit !==
                     'Entity View Customized Payment-Edit'
-                  "
-                  [disabled]="item?.paymentStatus == 'Success'"
-                >
+                  " [disabled]="item?.paymentStatus == 'Success'">
                   <span>
                     <i style="font-size:15px" class="fas fa-edit"></i>
                   </span>
                 </button>
               </td>
               <td>
-              <button   [hidden]="
-              valueCustomizedview !== 'Entity View Customized Payment-View'"
-                (click)="viewOthertransaction(item.payId)"
-                     style="background: none; border: none;font-size:15px;padding:0">
-                     <i (click)="viewOthertransaction(item.payId)"
-                    class="fas fa-eye"
-                    style="font-size: 15px; color: rgb(39, 39, 95)"
-                  ></i>
+                <button [hidden]="
+              valueCustomizedview !== 'Entity View Customized Payment-View'" (click)="viewOthertransaction(item.payId)"
+                  style="background: none; border: none;font-size:15px;padding:0">
+                  <i (click)="viewOthertransaction(item.payId)" class="fas fa-eye"
+                    style="font-size: 15px; color: rgb(39, 39, 95)"></i>
                 </button>
 
               </td>
               <td>
-                <span
-                  *ngIf="item?.paymentStatus == 'Success'"
-                  class="text-success"
-                >
-                  {{ item?.paymentStatus }}</span
-                >
-                <span
-                  *ngIf="item?.paymentStatus == 'Due Pending'"
-                  class="text-warning"
-                >
-                  {{ item?.paymentStatus }}</span
-                >
-                <span
-                  *ngIf="item?.paymentStatus == 'Initiated'"
-                  class="text-primary"
-                >
-                  {{ item?.paymentStatus }}</span
-                >
-                <span
-                  *ngIf="item?.paymentStatus == 'Failure'"
-                  class="text-danger"
-                >
-                  {{ item?.paymentStatus }}</span
-                >
+                <span *ngIf="item?.paymentStatus == 'Success'" class="text-success">
+                  {{ item?.paymentStatus }}</span>
+                <span *ngIf="item?.paymentStatus == 'Due Pending'" class="text-warning">
+                  {{ item?.paymentStatus }}</span>
+                <span *ngIf="item?.paymentStatus == 'Initiated'" class="text-primary">
+                  {{ item?.paymentStatus }}</span>
+                <span *ngIf="item?.paymentStatus == 'Failure'" class="text-danger">
+                  {{ item?.paymentStatus }}</span>
               </td>
               <td>{{ item.paymentDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
             </tbody>
           </table>
         </div>
         <div class="text-end mt-2">
-          <pagination-controls
-            id="pagination4"
-            (pageChange)="currentcustomized = $event"
-          ></pagination-controls>
+          <pagination-controls id="pagination4" (pageChange)="currentcustomized = $event"></pagination-controls>
         </div>
       </div>
     </div>
@@ -2565,32 +1833,14 @@
         <div class="search">
           <form class="form">
             <label for="search">
-              <input
-                (ngModelChange)="onSearchTextsms()"
-                #input
-                name="search"
-                required
-                autocomplete="off"
-                placeholder="Search"
-                id="search"
-                type="text"
-                [(ngModel)]="searchTextsms"
-              />
+              <input (ngModelChange)="onSearchTextsms()" #input name="search" required autocomplete="off"
+                placeholder="Search" id="search" type="text" [(ngModel)]="searchTextsms" />
 
               <div class="icon">
-                <svg
-                  stroke-width="2"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="swap-on"
-                >
-                  <path
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                    stroke-linejoin="round"
-                    stroke-linecap="round"
-                  ></path>
+                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                  <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
+                  </path>
                 </svg>
                 <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                           xmlns="http://www.w3.org/2000/svg" class="swap-off">
@@ -2600,16 +1850,10 @@
                       </svg> -->
               </div>
               <button type="reset" class="close-btn">
-                <svg
-                  viewBox="0 0 20 20"
-                  class="h-5 w-5"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
+                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                  <path clip-rule="evenodd"
                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    fill-rule="evenodd"
-                  ></path>
+                    fill-rule="evenodd"></path>
                 </svg>
               </button>
             </label>
@@ -2617,27 +1861,19 @@
         </div>
       </div>
       <div class="col-md-2 mt-1" [hidden]="detaislone?.onBoardStatus != 'true'">
-        <button
-          (click)="smscreate()"
-          style="
+        <button (click)="smscreate()" style="
             color: white;
             background-color: #141e46;
             border-radius: 10px;
             font-size: 12px;
-          "
-          mat-raised-button
-          [hidden]="valuesmsadd !== 'Sms Setting-Add'"
-        >
+          " mat-raised-button [hidden]="valuesmsadd !== 'Sms Setting-Add'">
           Create
         </button>
       </div>
       <div class="col-md-3"></div>
       <div class="col-md-4 mt-1">
         <div>
-          <article
-           
-            style="padding: 1%; padding-left: 25px"
-          >
+          <article style="padding: 1%; padding-left: 25px">
             <div class="w-100">
               <div class="d-flex flex-md-row flex-column">
                 <h5 class="mr-3">Charge Per Sms : ₹{{ chargepersms }}</h5>
@@ -2671,8 +1907,7 @@
               <th>Modified By</th>
               <th>Modified At</th>
             </tr>
-            <tbody
-              *ngFor="
+            <tbody *ngFor="
                 let item of smsDetails
                   | search : searchTextsms
                   | paginate
@@ -2682,55 +1917,34 @@
                         currentPage: currentsms
                       };
                 let i = index
-              "
-            >
+              ">
               <td>{{ i + 1 }}</td>
               <td>{{ item?.type?.smsTitle }}</td>
 
               <td>
-                <i
-                  style="cursor: pointer; font-size: 15px;padding:0"
-                  class="fa fa-eye"
-                  (click)="Smsdescription(item.type?.smsTempDescription)"
-                ></i>
+                <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye"
+                  (click)="Smsdescription(item.type?.smsTempDescription)"></i>
               </td>
               <td>{{ item?.smsCount }}</td>
               <td>{{ item?.smsCharge }}</td>
-              <td
-                class="text-center"
-                [hidden]="valuesmsapproval !== 'Sms Setting-Approval'"
-              >
-                <span
-                  ><button
-                    class="buttonDownload"
-                    [disabled]="item.smsApprovalStatus !== 'Rejected'"
-                    (click)="SmsApproval(item.merchantSmsId)"
-                      style="font-size:14px;padding:2px"
-                  >
+              <td class="text-center" [hidden]="valuesmsapproval !== 'Sms Setting-Approval'">
+                <span><button class="buttonDownload" [disabled]="item.smsApprovalStatus !== 'Rejected'"
+                    (click)="SmsApproval(item.merchantSmsId)" style="font-size:14px;padding:2px">
                     Approval
-                  </button></span
-                >
+                  </button></span>
               </td>
-              <td
-                [ngClass]="{
+              <td [ngClass]="{
                   approved: item?.smsApprovalStatus == 'approved',
                   rejected: item?.smsApprovalStatus == 'rejected',
                   pending: item?.smsApprovalStatus == 'pending'
-                }"
-              >
+                }">
                 {{ item.smsApprovalStatus }}
               </td>
               <td [hidden]="valuesmsstatus !== 'Sms Setting-Status'">
                 <span>
-                  <mat-slide-toggle
-                    class="example-margin"
-                    color="primary"
-                    [checked]="item.smsStatus == 1"
-                    (change)="smsStatus($event, item.merchantSmsId)"
-                      style="transform: scale(0.9);padding:0"
-                  >
-                  </mat-slide-toggle
-                ></span>
+                  <mat-slide-toggle class="example-margin" color="primary" [checked]="item.smsStatus == 1"
+                    (change)="smsStatus($event, item.merchantSmsId)" style="transform: scale(0.9);padding:0">
+                  </mat-slide-toggle></span>
               </td>
               <!--<td [hidden]="valuesmsview!=='Sms Setting-View'">
                                 <span (click)="ViewMerchantSms(item.merchantSmsId)">
@@ -2739,10 +1953,7 @@
                             </td>-->
               <td [hidden]="valuesmsedit !== 'Sms Setting-Edit'">
                 <span (click)="editsms(item)">
-                  <i
-                    class="fas fa-edit"
-                    style="font-size: 15px; color: rgb(39, 39, 95)"
-                  ></i>
+                  <i class="fas fa-edit" style="font-size: 15px; color: rgb(39, 39, 95)"></i>
                 </span>
               </td>
               <td>{{ item?.createdBy }}</td>
@@ -2753,10 +1964,7 @@
           </table>
         </div>
         <div class="text-end mt-2">
-          <pagination-controls
-            id="pagination5"
-            (pageChange)="currentsms = $event"
-          ></pagination-controls>
+          <pagination-controls id="pagination5" (pageChange)="currentsms = $event"></pagination-controls>
         </div>
       </div>
     </div>
@@ -2776,32 +1984,14 @@
         <div class="search">
           <form class="form">
             <label for="search">
-              <input
-                (ngModelChange)="onSearchTextagreement()"
-                #input
-                name="search"
-                required
-                autocomplete="off"
-                placeholder="Search"
-                id="search"
-                type="text"
-                [(ngModel)]="searchTextargeement"
-              />
+              <input (ngModelChange)="onSearchTextagreement()" #input name="search" required autocomplete="off"
+                placeholder="Search" id="search" type="text" [(ngModel)]="searchTextargeement" />
 
               <div class="icon">
-                <svg
-                  stroke-width="2"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="swap-on"
-                >
-                  <path
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                    stroke-linejoin="round"
-                    stroke-linecap="round"
-                  ></path>
+                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                  <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
+                  </path>
                 </svg>
                 <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                           xmlns="http://www.w3.org/2000/svg" class="swap-off">
@@ -2811,16 +2001,10 @@
                       </svg> -->
               </div>
               <button type="reset" class="close-btn">
-                <svg
-                  viewBox="0 0 20 20"
-                  class="h-5 w-5"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
+                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                  <path clip-rule="evenodd"
                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    fill-rule="evenodd"
-                  ></path>
+                    fill-rule="evenodd"></path>
                 </svg>
               </button>
             </label>
@@ -2828,18 +2012,12 @@
         </div>
       </div>
       <div class="col-md-2 mt-1">
-        <button
-          [disabled]="this.paymentStatus?.toLowerCase() !== 'success'"
-          (click)="agreementcreate()"
-          style="
+        <button [disabled]="this.paymentStatus?.toLowerCase() !== 'success'" (click)="agreementcreate()" style="
             color: white;
             background-color: #141e46;
             border-radius: 10px;
             font-size: 12px;
-          "
-          mat-raised-button
-          [hidden]="valueagreementcreate !== 'Entity View Agreement-Add'"
-        >
+          " mat-raised-button [hidden]="valueagreementcreate !== 'Entity View Agreement-Add'">
           Create
         </button>
       </div>
@@ -2856,27 +2034,21 @@
               <th>Service Fee</th>
               <th>Authorized Signatory Name</th>
               <th>Authorized Signatory Designation</th>
-              <th
-                [hidden]="
+              <th [hidden]="
                   valueagreementView !== 'Entity View Agreement-Plan Overview'
-                "
-              >
+                ">
                 Plan Overview
               </th>
-              <th
-                [hidden]="
+              <th [hidden]="
                   valueagreementlink !==
                   'Entity View Agreement-Entity Agreement Link'
-                "
-              >
+                ">
                 Admin Agreement Link
               </th>
-              <th
-                [hidden]="
+              <th [hidden]="
                   valueagreementlink !==
                   'Entity View Agreement-Entity Agreement Link'
-                "
-              >
+                ">
                 Entity Agreement Link
               </th>
               <th>Link Expiry Date</th>
@@ -2884,42 +2056,33 @@
               <th>Fargin Signer Signed Date</th>
               <th>Entity Signer Status</th>
               <th>Entity Signer Signed Date</th>
-              <th
-                [hidden]="
+              <th [hidden]="
                   valueagreementlinkdate !==
                   'Entity View Agreement-Link Expiry Date'
-                "
-              >
+                ">
                 Link Expiry Date
               </th>
-              <th
-                [hidden]="
+              <th [hidden]="
                   valueagreementlinkstatus !==
                   'Entity View Agreement-Link Expiry Status'
-                "
-              >
+                ">
                 Link Expiry Status
               </th>
-              <th
-                [hidden]="
+              <th [hidden]="
                   valueagreementAgreement !== 'Entity View Agreement-Agreement'
-                "
-              >
+                ">
                 Agreement
               </th>
-              <th
-                [hidden]="
+              <th [hidden]="
                   valueagreementAgreementSigned !==
                   'Entity View Agreement-Agreement Signed Copy'
-                "
-              >
+                ">
                 Agreement Signed Copy
               </th>
               <th>Created By</th>
               <th>Created At</th>
             </tr>
-            <tbody
-              *ngFor="
+            <tbody *ngFor="
                 let item of agreementdetails
                   | search : searchTextargeement
                   | paginate
@@ -2929,63 +2092,39 @@
                         currentPage: currentagreement
                       };
                 let i = index
-              "
-            >
+              ">
               <td>{{ i + 1 }}</td>
               <td>{{ item.planName }}</td>
               <td>{{ item.serviceFee }}</td>
               <td>{{ item.merchantName }}</td>
               <td>{{ item.merchantDesignation }}</td>
 
-              <td
-                [hidden]="
+              <td [hidden]="
                   valueagreementView !== 'Entity View Agreement-Plan Overview'
-                "
-              >
-                <i
-                  style="cursor: pointer; font-size: 15px;padding:0"
-                  class="fa fa-eye"
-                  (click)="view(item.commercialId)"
-                ></i>
+                ">
+                <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye"
+                  (click)="view(item.commercialId)"></i>
               </td>
-              <td
-                [hidden]="
+              <td [hidden]="
                   valueagreementlink !==
                   'Entity View Agreement-Entity Agreement Link'
-                "
-                style="margin-top: 5px"
-              >
+                " style="margin-top: 5px">
                 {{ item.adminAgreementLink | slice : 0 : 25 }}
-                <i
-                  class="fa-regular fa-copy"
-                  style="color: green; font-size: 15px;padding:0"
-                  (click)="copyText2(item.adminAgreementLink, i)"
-                ></i>
-                <span *ngIf="copiedIndex2 === i" style="color: green"
-                  >Copied!</span
-                >
+                <i class="fa-regular fa-copy" style="color: green; font-size: 15px;padding:0"
+                  (click)="copyText2(item.adminAgreementLink, i)"></i>
+                <span *ngIf="copiedIndex2 === i" style="color: green">Copied!</span>
               </td>
-              <td
-                [hidden]="
+              <td [hidden]="
                   valueagreementlink !==
                   'Entity View Agreement-Entity Agreement Link'
-                "
-                style="margin-top: 5px"
-              >
+                " style="margin-top: 5px">
                 {{ item.agreementLink | slice : 0 : 25 }}
-                <i
-                  class="fa-regular fa-copy"
-                  style="color: green; font-size: 15px;padding:0"
-                  (click)="copyText1(item.agreementLink, i)"
-                ></i>
-                <span *ngIf="copiedIndex === i" style="color: green"
-                  >Copied!</span
-                >
+                <i class="fa-regular fa-copy" style="color: green; font-size: 15px;padding:0"
+                  (click)="copyText1(item.agreementLink, i)"></i>
+                <span *ngIf="copiedIndex === i" style="color: green">Copied!</span>
               </td>
               <td>{{ item.expiryLink | date : "dd/MM/yyyy hh:mm a" }}</td>
-              <td
-                [ngClass]="item.adminOtpStatus == 0 ? 'not-signed' : 'signed'"
-              >
+              <td [ngClass]="item.adminOtpStatus == 0 ? 'not-signed' : 'signed'">
                 {{ item.adminOtpStatus == 0 ? "Not Signed" : "Signed" }}
               </td>
 
@@ -2996,98 +2135,66 @@
                 </span>
               </td>
 
-              <td
-                [ngClass]="
+              <td [ngClass]="
                   item.merchanOtptStatus == 0 ? 'not-signed' : 'signed'
-                "
-              >
+                ">
                 {{ item.merchanOtptStatus == 0 ? "Not Signed" : "Signed" }}
               </td>
 
               <td>
                 <span [hidden]="item.merchantVerifiedDate != null">-</span>
                 <span [hidden]="item.merchantVerifiedDate == null">
-                  {{ item.merchantVerifiedDate  }}
+                  {{ item.merchantVerifiedDate }}
                 </span>
               </td>
 
-              <td
-                [hidden]="
+              <td [hidden]="
                   valueagreementlinkdate !==
                   'Entity View Agreement-Link Expiry Date'
-                "
-              >
-                <i
-                  style="cursor: pointer; font-size: 15px;padding:0"
-                  class="fa-solid fa-calendar-days"
-                  (click)="ExtendLinkDate(item.agreementId, item.expiryLink)"
-                ></i>
+                ">
+                <i style="cursor: pointer; font-size: 15px;padding:0" class="fa-solid fa-calendar-days"
+                  (click)="ExtendLinkDate(item.agreementId, item.expiryLink)"></i>
               </td>
-              <td
-                [hidden]="
+              <td [hidden]="
                   valueagreementlinkstatus !==
                   'Entity View Agreement-Link Expiry Status'
-                "
-              >
-                <mat-slide-toggle
-                  class="example-margin"
-                  color="primary"
-                  [checked]="item.expiryLinkStatus == 1"
-                  (change)="LinkExpirystatus($event, item.agreementId)"
-                  style="transform: scale(0.9);padding:0"
-                >
+                ">
+                <mat-slide-toggle class="example-margin" color="primary" [checked]="item.expiryLinkStatus == 1"
+                  (change)="LinkExpirystatus($event, item.agreementId)" style="transform: scale(0.9);padding:0">
                 </mat-slide-toggle>
               </td>
 
-              <td
-                [hidden]="
+              <td [hidden]="
                   valueagreementAgreement !== 'Entity View Agreement-Agreement'
-                "
-              >
-                <button
-                  style="border: 1px solid white; border-radius: 4px;font-size: 15px;padding:0"
-                  (click)="viewagreementdoc(item.agreementId)"
-                >
-                  <i
-                    style="cursor: pointer; font-size: 15px;padding:0"
-                    class="fa-solid fa-file-contract"
-                  ></i>
+                ">
+                <button style="border: 1px solid white; border-radius: 4px;font-size: 15px;padding:0"
+                  (click)="viewagreementdoc(item.agreementId)">
+                  <i style="cursor: pointer; font-size: 15px;padding:0" class="fa-solid fa-file-contract"></i>
                 </button>
               </td>
 
-              <td
-                [hidden]="
+              <td [hidden]="
                   valueagreementAgreementSigned !==
                   'Entity View Agreement-Agreement Signed Copy'
-                "
-              >
-                <button
-                  style="
+                ">
+                <button style="
                     color: white;
                     border: 1px solid white;
                     border-radius: 4px;font-size: 17px;padding:0
-                  "
-                  (click)="viewsignedagreementdoc(item.agreementId)"
-                  [disabled]="
+                  " (click)="viewsignedagreementdoc(item.agreementId)" [disabled]="
                     item.adminOtpStatus == 0 || item.merchanOtptStatus == 0
-                  "
-                  [ngClass]="{
+                  " [ngClass]="{
                     'disabled-btn':
                       item.adminOtpStatus == 0 || item.merchanOtptStatus == 0,
                     'enabled-btn':
                       item.adminOtpStatus == 1 && item.merchanOtptStatus == 1
-                  }"
-                >
-                  <i
-                    style="cursor: pointer; font-size: 17px;padding:0"
-                    class="fa-solid fa-file-contract"
-                    [ngClass]="{
+                  }">
+                  <i style="cursor: pointer; font-size: 17px;padding:0" class="fa-solid fa-file-contract" [ngClass]="{
                       'disabled-icon':
                         item.adminOtpStatus == 0 || item.merchanOtptStatus == 0,
                       'enabled-icon':
                         item.adminOtpStatus == 1 && item.merchanOtptStatus == 1
-                    }"
-                  >
+                    }">
                   </i>
                 </button>
               </td>
@@ -3098,10 +2205,7 @@
           </table>
         </div>
         <div class="text-end mt-2">
-          <pagination-controls
-            id="pagination6"
-            (pageChange)="currentagreement = $event"
-          ></pagination-controls>
+          <pagination-controls id="pagination6" (pageChange)="currentagreement = $event"></pagination-controls>
         </div>
       </div>
     </div>
@@ -3116,32 +2220,14 @@
         <div class="search">
           <form class="form">
             <label for="search">
-              <input
-                (ngModelChange)="onSearchTextbranch()"
-                #input
-                name="search"
-                required
-                autocomplete="off"
-                placeholder="Search"
-                id="search"
-                type="text"
-                [(ngModel)]="searchTextbranch"
-              />
+              <input (ngModelChange)="onSearchTextbranch()" #input name="search" required autocomplete="off"
+                placeholder="Search" id="search" type="text" [(ngModel)]="searchTextbranch" />
 
               <div class="icon">
-                <svg
-                  stroke-width="2"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="swap-on"
-                >
-                  <path
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                    stroke-linejoin="round"
-                    stroke-linecap="round"
-                  ></path>
+                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                  <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
+                  </path>
                 </svg>
                 <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                           xmlns="http://www.w3.org/2000/svg" class="swap-off">
@@ -3151,16 +2237,10 @@
                       </svg> -->
               </div>
               <button type="reset" class="close-btn">
-                <svg
-                  viewBox="0 0 20 20"
-                  class="h-5 w-5"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
+                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                  <path clip-rule="evenodd"
                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    fill-rule="evenodd"
-                  ></path>
+                    fill-rule="evenodd"></path>
                 </svg>
               </button>
             </label>
@@ -3168,17 +2248,12 @@
         </div>
       </div>
       <div class="col-md-2 mt-1">
-        <button
-          (click)="branchcreate(id)"
-          [hidden]="valuebranchcreate !== 'Entity View Branch-Add'"
-          style="
+        <button (click)="branchcreate(id)" [hidden]="valuebranchcreate !== 'Entity View Branch-Add'" style="
             color: white;
             background-color: #141e46;
             border-radius: 10px;
             font-size: 12px;
-          "
-          mat-raised-button
-        >
+          " mat-raised-button>
           Create
         </button>
       </div>
@@ -3201,29 +2276,23 @@
               <th>IFSC Code</th>
               <th>Api key</th>
               <th>Secret key</th>
-              <th
-                [hidden]="
+              <th [hidden]="
                   valuebranchCustomerview !== 'Entity View Branch-Customer View'
-                "
-              >
+                ">
                 Customer View
               </th>
-              <th
-                [hidden]="
+              <th [hidden]="
                   valuebranchonlineview !== 'Entity View Branch-Due Transactions View'
-                "
-              >
+                ">
                 Due Transactions
               </th>
-                <th
-                [hidden]="valuebranchTerminal !== 'Entity View Branch-Terminal'"
-              >
+              <th [hidden]="valuebranchTerminal !== 'Entity View Branch-Terminal'">
                 Terminal View
               </th>
               <th [hidden]="valuebranchkyc !== 'Entity View Branch-KYC'">
                 KYC View
               </th>
-            
+
               <th [hidden]="valuebranchStatus !== 'Entity View Branch-Status'">
                 Status
               </th>
@@ -3236,8 +2305,7 @@
               <th>Modified By</th>
               <th>Modified At</th>
             </tr>
-            <tbody
-              *ngFor="
+            <tbody *ngFor="
                 let item of branchget
                   | search : searchTextbranch
                   | paginate
@@ -3247,8 +2315,7 @@
                         currentPage: currentbranch
                       };
                 let i = index
-              "
-            >
+              ">
               <td>{{ i + 1 }}</td>
 
               <td>{{ item.accountHolderName }}</td>
@@ -3259,96 +2326,56 @@
               <td>{{ item.bankName }}</td>
               <td>{{ item.ifscCode }}</td>
               <td> {{ item.apiKey | slice : 0 : 10 }}
-                <i
-                  class="fa-regular fa-copy"
-                  style="color: green; font-size: 15px;padding:0"
-                  (click)="copyTextbranch(item.apiKey, i)"
-                ></i>
-                <span *ngIf="copy1 === i" style="color: green"
-                  >Copied!</span
-                >
-                </td>
+                <i class="fa-regular fa-copy" style="color: green; font-size: 15px;padding:0"
+                  (click)="copyTextbranch(item.apiKey, i)"></i>
+                <span *ngIf="copy1 === i" style="color: green">Copied!</span>
+              </td>
 
-              <td> 
+              <td>
                 {{ item.secretKey | slice : 0 : 10 }}
-                <i
-                  class="fa-regular fa-copy"
-                  style="color: green; font-size: 15px;padding:0"
-                  (click)="copyText1Branch(item.secretKey, i)"
-                ></i>
-                <span *ngIf="copy2 === i" style="color: green"
-                  >Copied!</span
-                ></td>
-              <td
-                [hidden]="
-                  valuebranchCustomerview !== 'Entity View Branch-Customer View'
-                "
-              >
-                <i
-                  style="cursor: pointer; font-size: 15px;padding:0"
-                  class="fa fa-eye"
-                  (click)="Viewcustomerbranch(item.branchId)"
-                ></i>
+                <i class="fa-regular fa-copy" style="color: green; font-size: 15px;padding:0"
+                  (click)="copyText1Branch(item.secretKey, i)"></i>
+                <span *ngIf="copy2 === i" style="color: green">Copied!</span>
               </td>
-              <td
-                [hidden]="
+              <td [hidden]="
+                  valuebranchCustomerview !== 'Entity View Branch-Customer View'
+                ">
+                <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye"
+                  (click)="Viewcustomerbranch(item.branchId)"></i>
+              </td>
+              <td [hidden]="
                   valuebranchonlineview !== 'Entity View Branch-Due Transactions View'
-                "
-              >
-                <i
-                  style="cursor: pointer; font-size: 15px;padding:0"
-                  class="fa fa-eye"
-                  (click)="Viewonlinecustomerbranch(item.branchId)"
-                ></i>
+                ">
+                <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye"
+                  (click)="Viewonlinecustomerbranch(item.branchId)"></i>
               </td>
 
-             
-              <td
-                [hidden]="valuebranchTerminal !== 'Entity View Branch-Terminal'"
-              >
-                <i
-                  style="cursor: pointer; font-size: 15px;padding:0"
-                  class="fa fa-eye"
-                  (click)="
+
+              <td [hidden]="valuebranchTerminal !== 'Entity View Branch-Terminal'">
+                <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye" (click)="
                     ViewTerminal(item.branchId, item.entityModel?.merchantId)
-                  "
-                ></i>
+                  "></i>
               </td>
-               <td [hidden]="valuebranchkyc !== 'Entity View Branch-KYC'">
-                <i
-                  style="cursor: pointer; font-size: 15px;padding:0"
-                  class="fa fa-eye"
-                  (click)="
+              <td [hidden]="valuebranchkyc !== 'Entity View Branch-KYC'">
+                <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye" (click)="
                     Viewkycbranch(item.branchId, item.entityModel?.merchantId)
-                  "
-                ></i>
+                  "></i>
               </td>
 
               <td [hidden]="valuebranchStatus !== 'Entity View Branch-Status'">
-                <mat-slide-toggle
-                  class="example-margin"
-                  color="primary"
-                  [checked]="item.accountStatus == 1"
-                  (change)="status($event, item.branchId)"
-                    style="transform: scale(0.9);padding:0"
-                >
+                <mat-slide-toggle class="example-margin" color="primary" [checked]="item.accountStatus == 1"
+                  (change)="status($event, item.branchId)" style="transform: scale(0.9);padding:0">
                 </mat-slide-toggle>
               </td>
               <td [hidden]="valuebranchAction !== 'Entity View Branch-Action'">
-                <span
-                  ><i
-                    style="
+                <span><i style="
                       text-align: center;
                       cursor: pointer;
                       font-size: 15px;
                       padding:0;
                       color: #545497;
-                    "
-                    (click)="branchedit(item)"
-                    class="fas fa-edit"
-                  >
-                  </i
-                ></span>
+                    " (click)="branchedit(item)" class="fas fa-edit">
+                  </i></span>
               </td>
 
               <td>{{ item.createdBy }}</td>
@@ -3359,10 +2386,7 @@
           </table>
         </div>
         <div class="text-end mt-2 ">
-          <pagination-controls
-            id="pagination7"
-            (pageChange)="currentbranch = $event"
-          ></pagination-controls>
+          <pagination-controls id="pagination7" (pageChange)="currentbranch = $event"></pagination-controls>
         </div>
       </div>
     </div>

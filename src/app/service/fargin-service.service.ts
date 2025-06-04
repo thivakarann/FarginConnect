@@ -247,6 +247,9 @@ export class FarginServiceService {
   private readonly Alcartchannellogo = 'alcotchannel/viewLogo/';
   private readonly AlcartChannellogoUpdate = 'alcotchannel/updateLogo'
   private readonly AlcartChannelregion = 'alcotchannel/viewregionactive/'
+  private readonly AlcartUploadbulks = 'alcotchannel/alcotBulkUpload/';
+  private readonly Alcartbulkresponses = 'alcotchannel/getUploadResponse';
+  private readonly Alcartuploadids = 'alcotchannel/getResponse/';
 
   // Broadcaster Name Creation
 
@@ -649,8 +652,8 @@ export class FarginServiceService {
   private readonly onlinebranch = 'customerpay/viewByBranch/';
   private readonly NewOnlinebranch = 'customerpay/viewOnlineTransaction/';
   private readonly onlinesearchbranch = 'customerpay/branchSearch/';
-  private readonly NewOnlineSearch = 'customerpay/branchSearchOnline/';
-  private readonly OnlineNewSearch = 'customerpay/viewByMerchantSearchOnline/';
+  private readonly NewOnlineSearch = 'customerpay/branchSearch/';
+  private readonly OnlineNewSearch = 'customerpay/viewByMerchantSearch/';
   private readonly entityonlinesearchbranch = 'customerpay/viewByMerchantSearch/';
   private readonly entitywishonlinebranch = 'customerpay/viewByBranchMerchant/';
   private readonly Entitywisetrans = 'customerpay/viewBranchMerchantOnline/';
@@ -860,7 +863,19 @@ export class FarginServiceService {
   //branch
   private readonly branchview = 'bankBranch/viewmerchantactive/';
 
+  //Renewal Autodebit
+  private readonly renewalautodebitbyids = 'merchantdue/getmerchantRenewal/';
+  private readonly renewalautodebitsearchbyids =
+    'merchantdue/renewalMerchantSearch/';
+  private readonly renewalautodebits = 'merchantdue/getallrenewal/';
+  private readonly renewalautodebitsearchs = 'merchantdue/renewalSearch/';
 
+  //Additional Transaction
+  private readonly additionalduesTransactions =
+    'customerotherpayment/viewBranchMerchantOnline/';
+  private readonly additionalBranchTransactions =
+    'customerotherpayment/viewAllBranchTransaction/';
+private readonly additionalBranchwiseTransactions='customerotherpayment/viewBranchTransaction/'
   loginError = new Subject();
 
   token = sessionStorage.getItem('token') || null;
@@ -2508,7 +2523,27 @@ export class FarginServiceService {
   AlcartChannelregions(id: any) {
     return this.http.get(`${this.basePath}${this.AlcartChannelregion}${id}`, this.options)
   }
-
+AlcartUploadbulk(id: any, formData: any[]): Promise<any> {
+    return lastValueFrom(
+      this.http.post(
+        `${this.basePath}${this.AlcartUploadbulks}${id}`,
+        formData,
+        this.options
+      )
+    );
+  }
+  Alcartbulkresponse() {
+    return this.http.get(
+      `${this.basePath}${this.Alcartbulkresponses}`,
+      this.options
+    );
+  }
+  Alcartuploadid(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.Alcartuploadids}${id}`,
+      this.options
+    );
+  }
 
   Regionsearch(id: any) {
     return this.http.get(`${this.basePath}${this.regionsearch}${id}`, this.options)
@@ -2693,8 +2728,8 @@ export class FarginServiceService {
   onlinesearchbranchs(id: any, id1: any, id2: any, id3: any) {
     return this.http.get(`${this.basePath}${this.onlinesearchbranch}${id}/${id1}/${id2}/${id3}`,this.options)
   }
-  NewOnlineBranchsearch(id: any, id1: any, id2: any, id3: any){
-    return this.http.get(`${this.basePath}${this.NewOnlineSearch}${id}/${id1}/${id2}/${id3}`,this.options)
+  NewOnlineBranchsearch(id: any, id1: any, id2: any, id3: any, id4:any){
+    return this.http.get(`${this.basePath}${this.NewOnlineSearch}${id}/${id1}/${id2}/${id3}/${id4}`,this.options)
   }
 
   entitywishonlinebranchs(id: any, id1: any, id2: any) {
@@ -2706,8 +2741,8 @@ export class FarginServiceService {
   entityonlinesearchbranchs(id: any, id1: any, id2: any, id3: any) {
     return this.http.get(`${this.basePath}${this.entityonlinesearchbranch}${id}/${id1}/${id2}/${id3}`, this.options)
   }
-  entityNewSearch(id: any, id1: any, id2: any, id3: any){
-    return this.http.get(`${this.basePath}${this.OnlineNewSearch}${id}/${id1}/${id2}/${id3}`,this.options)
+  entityNewSearch(id: any, id1: any, id2: any, id3: any, id4:any){
+    return this.http.get(`${this.basePath}${this.OnlineNewSearch}${id}/${id1}/${id2}/${id3}/${id4}`,this.options)
   }
   BranchAdd(model: any) {
     return this.http.post(`${this.basePath}${this.branchcreate}`, model, this.options)
@@ -3216,8 +3251,8 @@ export class FarginServiceService {
   entityonlinebranchs(id: any, id1: any, id2: any) {
     return this.http.get(`${this.basePath}${this.entityonlinebranch}${id}/${id1}/${id2}`, this.options)
   }
-  entitysearchbranchs(id: any, id1: any, id2: any, id3: any) {
-    return this.http.get(`${this.basePath}${this.entitysearchbranch}${id}/${id1}/${id2}/${id3}`, this.options)
+  entitysearchbranchs(id: any, id1: any, id2: any, id3: any,id4:any) {
+    return this.http.get(`${this.basePath}${this.entitysearchbranch}${id}/${id1}/${id2}/${id3}/${id4}`, this.options)
   }
   entitywithbranchexport(id: any) {
     return this.http.get(`${this.basePath}${this.entitywithbranchexports}${id}`, this.options)
@@ -3252,4 +3287,51 @@ export class FarginServiceService {
     return this.http.get(`${this.basePath}${this.branchview}${id}`, this.options)
   }
 
+  //Renewal autodebit
+  renewalautodebitbyid(id: any, id1: any, id2: any) {
+    return this.http.get(
+      `${this.basePath}${this.renewalautodebitbyids}${id}/${id1}/${id2}`,
+      this.options
+    );
+  }
+  renewalautodebitsearchbyid(id: any, id1: any, id2: any, id3: any) {
+    return this.http.get(
+      `${this.basePath}${this.renewalautodebitsearchbyids}${id}/${id1}/${id2}/${id3}`,
+      this.options
+    );
+  }
+
+  renewalautodebit(id: any, id1: any) {
+    return this.http.get(
+      `${this.basePath}${this.renewalautodebits}${id}/${id1}`,
+      this.options
+    );
+  }
+
+  renewalautodebitsearch(id: any, id1: any, id2: any) {
+    return this.http.get(
+      `${this.basePath}${this.renewalautodebitsearchs}${id}/${id1}/${id2}`,
+      this.options
+    );
+  }
+
+  //Additional Transaction
+  additionalduesTransaction(id: any, id1: any, id2: any) {
+    return this.http.get(
+      `${this.basePath}${this.additionalduesTransactions}${id}/${id1}/${id2}`,
+      this.options
+    );
+  }
+  additionalBranchTransaction(id: any, id1: any, id2: any) {
+    return this.http.get(
+      `${this.basePath}${this.additionalBranchTransactions}${id}/${id1}/${id2}`,
+      this.options
+    );
+  }
+   additionalBranchwiseTransaction(id: any, id1: any, id2: any) {
+    return this.http.get(
+      `${this.basePath}${this.additionalBranchwiseTransactions}${id}/${id1}/${id2}`,
+      this.options
+    );
+  }
 }

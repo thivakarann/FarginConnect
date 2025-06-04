@@ -11,6 +11,7 @@ import { Location } from '@angular/common';
 import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
 import moment from 'moment';
+import { ViewadditionalpaymentsComponent } from '../../../Fargin Transtions/additionalpayments/viewadditionalpayments/viewadditionalpayments.component';
 @Component({
   selector: 'app-branch-wiseenitytransaction',
   templateUrl: './branch-wiseenitytransaction.component.html',
@@ -30,6 +31,23 @@ export class BranchWiseenitytransactionComponent {
     'customerName',
     'mobileNumber',
     'setupBoxNumber',
+    'paidAmount',
+    'paymentMethod',
+    'createdDateTime',
+    'status',
+    'view',
+    'Receipt',
+    'paidAt',
+  ];
+  dataSources: any;
+  displayedadditionalColumns: any[] = [
+    'alcotId',
+    'branchname',
+    'pgPaymentId',
+    'customerName',
+    'mobileNumber',
+    'setupBoxNumber',
+    'quantity',
     'paidAmount',
     'paymentMethod',
     'createdDateTime',
@@ -69,7 +87,10 @@ export class BranchWiseenitytransactionComponent {
   valueView: any;
   valueReceipt: any;
   viewallexport: any;
-
+  selectedTransactionType: string = 'Due Transaction';
+  additionalValue: any;
+  Viewsearchall: any;
+  currentfilvals: any;
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
@@ -77,7 +98,7 @@ export class BranchWiseenitytransactionComponent {
     private router: Router,
     private ActivateRoute: ActivatedRoute,
     private location: Location
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.ActivateRoute.queryParams.subscribe((param: any) => {
@@ -122,23 +143,43 @@ export class BranchWiseenitytransactionComponent {
 
   Getall() {
     this.service
-      .entityonlinebranchs(this.id, this.pageSize, this.pageIndex)
-      .subscribe((res: any) => {
-        if (res.flag === 1) {
-          this.transactionValue = res.response;
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.transactionValue);
-          this.currentfilvalShow = false;
-        } else if (res.flag === 2) {
-          this.dataSource = new MatTableDataSource([]);
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.currentfilvalShow = false;
-        }
-      });
+    .entityonlinebranchs(this.id, this.pageSize, this.pageIndex)
+    .subscribe((res: any) => {
+      if (res.flag === 1) {
+        this.transactionValue = res.response;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.transactionValue);
+        this.currentfilvalShow = false;
+      } else if (res.flag === 2) {
+        this.dataSource = new MatTableDataSource([]);
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.currentfilvalShow = false;
+      }
+    });
+  }
+  getAdditionalAll() {
+    this.service
+    .additionalBranchTransaction(this.id, this.pageSize, this.pageIndex)
+    .subscribe((res: any) => {
+      if (res.flag === 1) {
+        this.additionalValue = res.response;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSources = new MatTableDataSource(this.additionalValue);
+        this.currentfilvalShow = false;
+      } else if (res.flag === 2) {
+        this.dataSources = new MatTableDataSource([]);
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.currentfilvalShow = false;
+      }
+    });
   }
 
   view(id: any) {
@@ -150,35 +191,73 @@ export class BranchWiseenitytransactionComponent {
   channelsearch(filterValue: string) {
     if (filterValue) {
       this.service
-        .entitysearchbranchs(
-          this.id,
-          filterValue,
-          this.pageSize,
-          this.pageIndex
-        )
-        .subscribe({
-          next: (res: any) => {
-            if (res.response) {
-              this.Viewall = res.response;
-              this.dataSource = new MatTableDataSource(this.Viewall);
-              this.totalPages = res.pagination.totalElements;
-              this.totalpage = res.pagination.pageSize;
-              this.currentpage = res.pagination.currentPage;
-              this.currentfilvalShow = true;
-            } else if (res.flag === 2) {
-              this.Viewall = [];
-              this.dataSource = new MatTableDataSource(this.Viewall);
-              this.totalPages = res.pagination.totalElements;
-              this.totalpage = res.pagination.pageSize;
-              this.currentpage = res.pagination.currentPage;
-              this.currentfilvalShow = true;
-            }
-          },
-          error: (err: any) => {
-            this.toastr.error('No Data Found');
-          },
-        });
+      .entitysearchbranchs(
+        this.id,
+        filterValue,
+        this.pageSize,
+        this.pageIndex,
+        1
+      )
+      .subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.Viewall = res.response;
+            this.dataSource = new MatTableDataSource(this.Viewall);
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.currentfilvalShow = true;
+          } else if (res.flag === 2) {
+            this.Viewall = [];
+            this.dataSource = new MatTableDataSource(this.Viewall);
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.currentfilvalShow = true;
+          }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
+        },
+      });
     } else if (!filterValue) {
+      this.toastr.error('Please enter a value to search');
+      return;
+    }
+  }
+  additionalcsearch(filterValues: string) {
+    if (filterValues) {
+      this.service
+      .entitysearchbranchs(
+        this.id,
+        filterValues,
+        this.pageSize,
+        this.pageIndex,
+        2
+      )
+      .subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.Viewsearchall = res.response;
+            this.dataSources = new MatTableDataSource(this.Viewsearchall);
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.currentfilvalShow = true;
+          } else if (res.flag === 2) {
+            this.Viewsearchall = [];
+            this.dataSources = new MatTableDataSource(this.Viewsearchall);
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.currentfilvalShow = true;
+          }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
+        },
+      });
+    } else if (!filterValues) {
       this.toastr.error('Please enter a value to search');
       return;
     }
@@ -187,35 +266,37 @@ export class BranchWiseenitytransactionComponent {
   getData(event: any) {
     if (this.currentfilvalShow) {
       this.service
-        .entitysearchbranchs(
-          this.id,
-          this.currentfilval,
-          event.pageSize,
-          event.pageIndex
-        )
-        .subscribe({
-          next: (res: any) => {
-            if (res.response) {
-              this.Viewall = res.response;
-              this.dataSource = new MatTableDataSource(this.Viewall);
-              this.totalPages = res.pagination.totalElements;
-              this.totalpage = res.pagination.pageSize;
-              this.currentpage = res.pagination.currentPage;
-            } else if (res.flag === 2) {
-              this.Viewall = [];
-              this.dataSource = new MatTableDataSource(this.Viewall);
-              this.totalPages = res.pagination.totalElements;
-              this.totalpage = res.pagination.pageSize;
-              this.currentpage = res.pagination.currentPage;
-            }
-          },
-          error: (err: any) => {
-            this.toastr.error('No Data Found');
-          },
-        });
+      .entitysearchbranchs(
+        this.id,
+        this.currentfilval,
+        event.pageSize,
+        event.pageIndex,
+        1
+      )
+      .subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.Viewall = res.response;
+
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.Viewall);
+          } else if (res.flag === 2) {
+            this.Viewall = [];
+            this.dataSource = new MatTableDataSource(this.Viewall);
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+          }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
+        },
+      });
     } else {
-    this.service
-      .entityonlinebranchs(this.id,event.pageSize,event.pageIndex)
+      this.service
+      .entityonlinebranchs(this.id, event.pageSize, event.pageIndex)
       .subscribe((res: any) => {
         if (res.flag === 1) {
           this.transactionValue = res.response;
@@ -233,12 +314,72 @@ export class BranchWiseenitytransactionComponent {
     }
   }
 
+  getAdditionalData(event: any) {
+    if (this.currentfilvalShow) {
+      this.service
+      .entitysearchbranchs(
+        this.id,
+        this.currentfilvals,
+        event.pageSize,
+        event.pageIndex,
+        2
+      )
+      .subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.Viewsearchall = res.response;
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSources = new MatTableDataSource(this.Viewsearchall);
+          } else if (res.flag === 2) {
+            this.Viewsearchall = [];
+            this.dataSources = new MatTableDataSource(this.Viewsearchall);
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+          }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
+        },
+      });
+    } else {
+      this.service
+      .additionalBranchTransaction(this.id, event.pageSize, event.pageIndex)
+      .subscribe((res: any) => {
+        if (res.flag === 1) {
+          this.additionalValue = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSources = new MatTableDataSource(this.additionalValue);
+        } else if (res.flag === 2) {
+          this.dataSources = new MatTableDataSource([]);
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+        }
+      });
+    }
+  }
   View(id: any) {
     this.dialog.open(BranchOnlineviewComponent, {
       data: { value: id },
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '800ms',
       disableClose: true,
+    });
+  }
+
+  additionalView(id: any) {
+    this.dialog.open(ViewadditionalpaymentsComponent, {
+      enterAnimationDuration: '1000ms',
+      exitAnimationDuration: '1000ms',
+      disableClose: true,
+      data: {
+        value: id,
+      },
     });
   }
 
@@ -251,186 +392,29 @@ export class BranchWiseenitytransactionComponent {
     });
   }
 
+  additionalReceipt(id: any) {
+    this.service.additionalpaymentsreceipts(id).subscribe({
+      next: (res: any) => {
+        var downloadURL = URL.createObjectURL(res);
+        window.open(downloadURL);
+      },
+    });
+  }
   close() {
     this.location.back();
   }
 
-  exportexcel() {
-    this.service.entitywithbranchexport(this.id).subscribe((res: any) => {
-      this.viewallexport = res.response;
-      if (res.flag == 1) {
-        let sno = 1;
-        this.responseDataListnew = [];
-        this.viewallexport.forEach((element: any) => {
-          this.response = [];
-          this.response.push(sno);
-          this.response.push(element?.pgPaymentId);
-          this.response.push(element?.branchName);
-          this.response.push(element?.customerName);
-          this.response.push(element?.mobileNumber);
-          this.response.push(element?.setupBoxNumber);
-          this.response.push(element?.paidAmount);
-          this.response.push(element?.paymentMethod);
-          this.response.push(element?.paymentStatus);
-          if (element.paymentDateTime) {
-            this.response.push(
-              moment(element?.paymentDateTime)
-                .format('DD/MM/yyyy hh:mm a')
-                .toString()
-            );
-          } else {
-            this.response.push('');
-          }
-
-          if (element.createdDateTime) {
-            this.response.push(
-              moment(element?.createdDateTime)
-                .format('DD/MM/yyyy hh:mm a')
-                .toString()
-            );
-          } else {
-            this.response.push('');
-          }
-
-          sno++;
-          this.responseDataListnew.push(this.response);
-        });
-        this.excelexportCustomer();
-      }
-    });
+  transactionsDropdown(event: any) {
+    this.selectedTransactionType = event.target.value;
+    this.updateTableData();
+    this.currentfilvals = '';
+    this.currentfilval = '';
   }
-
-  excelexportCustomer() {
-    const header = [
-      'S.No',
-      'Payment ID',
-      'Branch Name',
-      'Customer Name',
-      'Mobile Number',
-      'SetTopbox Number',
-      'Paid Amount',
-      'Payment Method',
-      'Payment Status',
-      'Paid At',
-      'Due Generated At',
-    ];
-
-    const data = this.responseDataListnew;
-    let workbook = new Workbook();
-    let worksheet = workbook.addWorksheet('Branch Transaction');
-
-    // let titleRow = worksheet.addRow([title]);
-    // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
-    worksheet.addRow([]);
-    let headerRow = worksheet.addRow(header);
-    headerRow.font = { bold: true };
-    // Cell Style : Fill and Border
-    headerRow.eachCell((cell, number) => {
-      cell.fill = {
-        type: 'pattern',
-        pattern: 'solid',
-        fgColor: { argb: 'FFFFFFFF' },
-        bgColor: { argb: 'FF0000FF' },
-      };
-
-      cell.border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' },
-      };
-    });
-
-    data.forEach((d: any) => {
-      //
-
-      let row = worksheet.addRow(d);
-      let qty = row.getCell(1);
-      let qty1 = row.getCell(2);
-      let qty2 = row.getCell(3);
-      let qty3 = row.getCell(4);
-      let qty4 = row.getCell(5);
-      let qty5 = row.getCell(6);
-      let qty6 = row.getCell(7);
-      let qty7 = row.getCell(8);
-      let qty8 = row.getCell(9);
-      let qty9 = row.getCell(10);
-      let qty10 = row.getCell(11);
-
-      qty.border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' },
-      };
-      qty1.border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' },
-      };
-      qty2.border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' },
-      };
-      qty3.border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' },
-      };
-      qty4.border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' },
-      };
-      qty5.border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' },
-      };
-      qty6.border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' },
-      };
-      qty7.border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' },
-      };
-      qty8.border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' },
-      };
-      qty9.border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' },
-      };
-      qty10.border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' },
-      };
-    });
-
-    workbook.xlsx.writeBuffer().then((data: any) => {
-      let blob = new Blob([data], {
-        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      });
-      FileSaver.saveAs(blob, 'Branch Transaction.xlsx');
-    });
+  updateTableData() {
+    if (this.selectedTransactionType === 'Due Transaction') {
+      this.Getall();
+    } else if (this.selectedTransactionType === 'Additional Transaction') {
+      this.getAdditionalAll();
+    }
   }
 }

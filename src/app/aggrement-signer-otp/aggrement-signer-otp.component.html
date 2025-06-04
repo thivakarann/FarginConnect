@@ -31,8 +31,8 @@
         </div>
         <button (click)="VerifyOtp()" style="color:white;background-color: #141E46;" mat-raised-button
           type="submit">Verify</button>
-        <p class="mt-1" *ngIf="displayTimer"> OTP Will be Expired Within:<span style="color:red;">{{display}}</span></p>
-        <p class="resend text-muted mb-0" *ngIf="resendOtp">
+        <p class="mt-1" *ngIf="timeLeft"> OTP Will be Expired Within :<span style="color:red;">{{timeLeft}} </span> Seconds</p>
+        <p class="resend text-muted mb-0" *ngIf="timeLeft == 0">
           Didn't receive code? &nbsp;&nbsp;&nbsp;&nbsp; <a style="cursor: pointer;font-size: 15px;color:#9184ed ;"
             (click)="ResendOTP()">Request again</a>
         </p>

@@ -93,6 +93,7 @@ export class EntityViewallComponent {
   transactionValue: any;
   setupboxhistory: any;
   searchPerformed: boolean = false;
+  RenewelFee: any;
 
   constructor(
     public EntityViewall: FarginServiceService,
@@ -131,6 +132,7 @@ export class EntityViewallComponent {
             this.entityAgrrement = 'Entity View Agreement';
             this.entitybranch = 'Entity View Branch';
             this.valuecloud = 'Entity View Cloud Fee AutoDebit';
+            this.RenewelFee = 'Entity View Renewal Fee AutoDebit';
           }
           else {
             for (let datas of this.getdashboard) {
@@ -210,6 +212,9 @@ export class EntityViewallComponent {
               }
               if (this.actions1 == 'Entity View Branch') {
                 this.entitybranch = 'Entity View Branch'
+              }
+              if (this.actions == 'Entity View Renewal Fee AutoDebit') {
+                this.RenewelFee = 'Entity View Renewal Fee AutoDebit'
               }
 
             }
@@ -302,24 +307,24 @@ export class EntityViewallComponent {
       });
     } else {
       this.EntityViewall.EntityViewall(event.pageSize, event.pageIndex).subscribe(
-      (res: any) => {
-        if (res.flag === 1) {
-          this.viewall = res.response;
+        (res: any) => {
+          if (res.flag === 1) {
+            this.viewall = res.response;
 
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.viewall);
-              } else if (res.flag == 2) {
-          this.viewall = [];
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.viewall);
-    
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.viewall);
+          } else if (res.flag == 2) {
+            this.viewall = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.viewall);
+
+          }
         }
-      }
-    );
+      );
     }
   }
 

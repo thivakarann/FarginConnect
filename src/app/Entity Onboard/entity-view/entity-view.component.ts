@@ -88,7 +88,8 @@ export class EntityViewComponent implements OnInit {
   enddate!: string;
   copySuccess: boolean = false;
   copy1: number = -1;
-  copy2: number = -1;;
+  copy2: number = -1;
+  RenewelFee:any;;
   CopieedSucess: boolean = false;
   items: any[] = [];
   currentPage: any = 1;
@@ -338,6 +339,7 @@ export class EntityViewComponent implements OnInit {
             this.valuedues = 'Generate Customer Dues';
             this.valueterminal = 'Entity Terminal View';
             this.valueentityautodebit = 'Entity View Cloud Fee AutoDebit';
+            this.RenewelFee = 'Entity View Renewal Fee AutoDebit';
           } else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
@@ -562,6 +564,9 @@ export class EntityViewComponent implements OnInit {
               if (this.actions == 'Entity View Cloud Fee AutoDebit') {
                 this.valueentityautodebit = 'Entity View Cloud Fee AutoDebit';
               }
+               if (this.actions == 'Entity View Renewal Fee AutoDebit') {
+                this.RenewelFee = 'Entity View Renewal Fee AutoDebit';
+              }
             }
           }
         } else {
@@ -780,6 +785,12 @@ export class EntityViewComponent implements OnInit {
       queryParams: { Alldata: id },
     });
   }
+  Viewrenewalautodebit(id: any) {
+    this.router.navigate([`dashboard/entity-renewalautodebit/${id}`], {
+      queryParams: { Alldata: id },
+    });
+  }
+
   viewbranch(id: any) {
     this.router.navigate([`dashboard/branch-wiseenitytransaction/${id}`], {
       queryParams: { Alldata: id },

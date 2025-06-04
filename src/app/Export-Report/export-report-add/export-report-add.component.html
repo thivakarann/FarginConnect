@@ -21,6 +21,7 @@
             <option value="19">Customized Payments</option>
             <option value="7">Additional Transactions</option>
             <option value="21">Cloud Fee AutoDebit</option>
+            <option value="24">Renewal Fee AutoDebit</option>
             <option value="6">Static QR Transactions</option>
             <option value="23">Branch</option>
             <option value="20">Online Refund</option>
@@ -63,6 +64,7 @@
             exportDataName?.value != '17' &&
             exportDataName?.value != '20' &&
             exportDataName?.value != '21' &&
+               exportDataName?.value != '24' &&
             exportDataName?.value != '22'
           " class="form-group">
           <label for="website">Search Entity (Optional)</label>
@@ -144,7 +146,7 @@
         </div>
         <!-- Branch  -->
         <!-- static qr -->
-            <div [hidden]="
+        <div [hidden]="
             exportDataName?.value != '6'
           " class="form__linput">
           <label for="paymentStatusStactic">Payment Status (Optional)</label>

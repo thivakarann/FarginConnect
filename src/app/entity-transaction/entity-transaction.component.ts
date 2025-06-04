@@ -11,6 +11,7 @@ import { Workbook } from 'exceljs';
 import moment from 'moment';
 import { CustomerTransViewComponent } from '../Fargin Transtions/Customer Trans/customer-trans-view/customer-trans-view.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ViewadditionalpaymentsComponent } from '../Fargin Transtions/additionalpayments/viewadditionalpayments/viewadditionalpayments.component';
 
 @Component({
   selector: 'app-entity-transaction',
@@ -27,15 +28,31 @@ export class EntityTransactionComponent {
     'payoutId',
     'customername',
     'mobileNumber',
-    "STB",
-    "ServiceProvider",
+    'STB',
+    'ServiceProvider',
     'amount',
     'reference',
     'status',
     'Receipt',
     'View',
     'createdAt',
-    'paidAt'
+    'paidAt',
+  ];
+  dataSources: any;
+  displayedAdditionalColumns: string[] = [
+    'settlementId',
+    'payoutId',
+    'customername',
+    'mobileNumber',
+    'STB',
+    'ServiceProvider',
+    'amount',
+    'reference',
+    'status',
+    'Receipt',
+    'View',
+    'createdAt',
+    'paidAt',
   ];
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
@@ -70,14 +87,18 @@ export class EntityTransactionComponent {
   transdetails: any;
   transaction: any;
   viewallexport: any;
-
+  selectedTransactionType: string = 'Due Transaction';
+  additionaldetails: any;
+  additionalTransactionData: unknown[] | undefined;
+  additionalsearchdetails: any;
+  currentfilvals: any;
   constructor(
     public service: FarginServiceService,
     private toastr: ToastrService,
     private ActivateRoute: ActivatedRoute,
     private location: Location,
     private dialog: MatDialog
-  ) { }
+  ) {}
   ngOnInit(): void {
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
@@ -92,7 +113,8 @@ export class EntityTransactionComponent {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
               if (this.actions == 'Entity View Due Transactions-Export') {
-                this.valuetransactionExport = 'Entity View Due Transactions-Export';
+                this.valuetransactionExport =
+                  'Entity View Due Transactions-Export';
               }
               if (this.actions == 'Entity View Due Transactions-View') {
                 this.valuetransactionview = 'Entity View Due Transactions-View';
@@ -115,7 +137,9 @@ export class EntityTransactionComponent {
   }
 
   Getall() {
-    this.service.entitywishonlinebranchs(this.id, this.pageSize, this.pageIndex).subscribe((res: any) => {
+    this.service
+    .Newentitywisetrans(this.id, this.pageSize, this.pageIndex)
+    .subscribe((res: any) => {
       if (res.flag === 1) {
         this.details = res.response;
         this.totalPages = res.pagination.totalElements;
@@ -123,20 +147,36 @@ export class EntityTransactionComponent {
         this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.details);
         this.currentfilvalShow = false;
-
       } else if (res.flag === 2) {
         this.dataSource = new MatTableDataSource([]);
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage
+        this.currentpage = res.pagination.currentPage;
         this.currentfilvalShow = false;
-
-
       }
-
     });
   }
 
+  getAdditional() {
+    this.service
+    .additionalduesTransaction(this.id, this.pageSize, this.pageIndex)
+    .subscribe((res: any) => {
+      if (res.flag === 1) {
+        this.additionaldetails = res.response;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSources = new MatTableDataSource(this.additionaldetails);
+        this.currentfilvalShow = false;
+      } else if (res.flag === 2) {
+        this.dataSources = new MatTableDataSource([]);
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.currentfilvalShow = false;
+      }
+    });
+  }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -147,13 +187,14 @@ export class EntityTransactionComponent {
     }
   }
 
+
   transactionview(id: any) {
     this.dialog.open(CustomerTransViewComponent, {
-      enterAnimationDuration: "1000ms",
-      exitAnimationDuration: "1000ms",
+      enterAnimationDuration: '1000ms',
+      exitAnimationDuration: '1000ms',
       disableClose: true,
-      data: { value: id, }
-    })
+      data: { value: id },
+    });
   }
 
   Receipt(id: any) {
@@ -162,7 +203,25 @@ export class EntityTransactionComponent {
         var downloadURL = URL.createObjectURL(res);
         window.open(downloadURL);
       },
+    });
+  }
 
+  additionalReceipt(id: any) {
+    this.service.additionalpaymentsreceipts(id).subscribe({
+      next: (res: any) => {
+        var downloadURL = URL.createObjectURL(res);
+        window.open(downloadURL);
+      },
+    });
+  }
+  additionaltransactionview(id: any) {
+    this.dialog.open(ViewadditionalpaymentsComponent, {
+      enterAnimationDuration: '1000ms',
+      exitAnimationDuration: '1000ms',
+      disableClose: true,
+      data: {
+        value: id,
+      },
     });
   }
 
@@ -171,8 +230,9 @@ export class EntityTransactionComponent {
   }
   customerpay(filterValue: string) {
     if (filterValue) {
-
-      this.service.entityonlinesearchbranchs(this.id, filterValue, this.pageSize, this.pageIndex).subscribe({
+      this.service
+      .entityNewSearch(this.id, filterValue, this.pageSize, this.pageIndex, 1)
+      .subscribe({
         next: (res: any) => {
           if (res.flag === 1) {
             this.transdetails = res.response;
@@ -181,31 +241,66 @@ export class EntityTransactionComponent {
             this.currentpage = res.pagination.currentPage;
             this.dataSource = new MatTableDataSource(this.transdetails);
             this.currentfilvalShow = true;
-
           } else if (res.flag === 2) {
             this.dataSource = new MatTableDataSource([]);
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage
+            this.currentpage = res.pagination.currentPage;
             this.currentfilvalShow = true;
-
-
           }
         },
         error: (err: any) => {
           this.toastr.error('No Data Found');
-        }
+        },
       });
-    }
-    else if (!filterValue) {
+    } else if (!filterValue) {
       this.toastr.error('Please enter a value to search');
       return;
     }
   }
-
+  customeradditionalpay(filterValues: string) {
+    if (filterValues) {
+      this.service
+      .entityNewSearch(this.id, filterValues, this.pageSize, this.pageIndex, 2)
+      .subscribe({
+        next: (res: any) => {
+          if (res.flag === 1) {
+            this.additionalsearchdetails = res.response;
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSources = new MatTableDataSource(
+              this.additionalsearchdetails
+            );
+            this.currentfilvalShow = true;
+          } else if (res.flag === 2) {
+            this.dataSources = new MatTableDataSource([]);
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.currentfilvalShow = true;
+          }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
+        },
+      });
+    } else if (!filterValues) {
+      this.toastr.error('Please enter a value to search');
+      return;
+    }
+  }
   getData(event: any) {
     if (this.currentfilvalShow) {
-      this.service.entityonlinesearchbranchs(this.id, this.currentfilval, event.pageSize, event.pageIndex).subscribe({
+      this.service
+      .entityNewSearch(
+        this.id,
+        this.currentfilval,
+        event.pageSize,
+        event.pageIndex,
+        1
+      )
+      .subscribe({
         next: (res: any) => {
           if (res.flag === 1) {
             this.transdetails = res.response;
@@ -213,44 +308,87 @@ export class EntityTransactionComponent {
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
             this.dataSource = new MatTableDataSource(this.transdetails);
-
           } else if (res.flag === 2) {
             this.dataSource = new MatTableDataSource([]);
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage
-
-
+            this.currentpage = res.pagination.currentPage;
           }
         },
         error: (err: any) => {
           this.toastr.error('No Data Found');
-        }
+        },
       });
-    }
-
-    else {
-      this.service.entitywishonlinebranchs(this.id, event.pageSize, event.pageIndex).subscribe((res: any) => {
+    } else {
+      this.service
+      .Newentitywisetrans(this.id, event.pageSize, event.pageIndex)
+      .subscribe((res: any) => {
         if (res.flag === 1) {
           this.details = res.response;
           this.totalPages = res.pagination.totalElements;
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.details);
-
         } else if (res.flag === 2) {
           this.dataSource = new MatTableDataSource([]);
           this.totalPages = res.pagination.totalElements;
           this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage
-
-
+          this.currentpage = res.pagination.currentPage;
         }
-
       });
     }
   }
-  
+
+  getDataForAdditional(event: any) {
+    if (this.currentfilvalShow) {
+      this.service
+      .entityNewSearch(
+        this.id,
+        this.currentfilvals,
+        event.pageSize,
+        event.pageIndex,
+        2
+      )
+      .subscribe({
+        next: (res: any) => {
+          if (res.flag === 1) {
+            this.additionalsearchdetails = res.response;
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSources = new MatTableDataSource(
+              this.additionalsearchdetails
+            );
+          } else if (res.flag === 2) {
+            this.dataSources = new MatTableDataSource([]);
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+          }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
+        },
+      });
+    } else {
+      this.service
+      .additionalduesTransaction(this.id, event.pageSize, event.pageIndex)
+      .subscribe((res: any) => {
+        if (res.flag === 1) {
+          this.additionaldetails = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSources = new MatTableDataSource(this.additionaldetails);
+        } else if (res.flag === 2) {
+          this.dataSources = new MatTableDataSource([]);
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+        }
+      });
+    }
+  }
   exportexcel() {
     this.service.entitywithputbranchexport(this.id).subscribe((res: any) => {
       this.viewallexport = res.response;
@@ -269,16 +407,22 @@ export class EntityTransactionComponent {
           this.response.push(element?.paymentMethod);
           this.response.push(element?.paymentStatus);
           if (element.paymentDateTime) {
-            this.response.push(moment(element?.paymentDateTime).format('DD/MM/yyyy hh:mm a').toString());
-          }
-          else {
+            this.response.push(
+              moment(element?.paymentDateTime)
+              .format('DD/MM/yyyy hh:mm a')
+              .toString()
+            );
+          } else {
             this.response.push('');
           }
 
           if (element.createdDateTime) {
-            this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
-          }
-          else {
+            this.response.push(
+              moment(element?.createdDateTime)
+              .format('DD/MM/yyyy hh:mm a')
+              .toString()
+            );
+          } else {
             this.response.push('');
           }
           sno++;
@@ -291,7 +435,7 @@ export class EntityTransactionComponent {
 
   excelexportCustomer() {
     const header = [
-      "S.No",
+      'S.No',
       'Payment ID',
       'Customer Name',
       'Mobile Number',
@@ -302,8 +446,7 @@ export class EntityTransactionComponent {
       'Payment Status',
       'Paid At',
       'Due Generated At',
-
-    ]
+    ];
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Online Transaction');
@@ -316,9 +459,13 @@ export class EntityTransactionComponent {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
-
-      }
-      cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      };
+      cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
     });
 
     data.forEach((d: any) => {
@@ -336,25 +483,99 @@ export class EntityTransactionComponent {
       let qty10 = row.getCell(11);
       let qty11 = row.getCell(12);
 
-      qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty3.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-    }
-    );
+      qty.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty1.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty2.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty3.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty4.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty5.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty6.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty7.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty8.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty9.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty10.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty11.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+    });
 
     workbook.xlsx.writeBuffer().then((data: any) => {
-      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      let blob = new Blob([data], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      });
       FileSaver.saveAs(blob, 'Online Transaction.xlsx');
     });
+  }
+  transactionsDropdown(event: any) {
+    this.selectedTransactionType = event.target.value;
+    this.updateTableData();
+    this.currentfilval='';
+    this.currentfilvals='';
+  }
+  updateTableData() {
+    if (this.selectedTransactionType === 'Due Transaction') {
+      this.Getall();
+    } else if (this.selectedTransactionType === 'Additional Transaction') {
+      this.getAdditional();
+    }
   }
 
 }

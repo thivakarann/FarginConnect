@@ -8,10 +8,9 @@ import { AdminsignerOtp } from '../fargin-model/fargin-model.module';
 @Component({
   selector: 'app-aggrement-signer-otp',
   templateUrl: './aggrement-signer-otp.component.html',
-  styleUrl: './aggrement-signer-otp.component.css'
+  styleUrl: './aggrement-signer-otp.component.css',
 })
 export class AggrementSignerOtpComponent implements OnInit {
-
   myForm!: FormGroup;
   otpCode1: any;
   otpCode2: any;
@@ -24,61 +23,43 @@ export class AggrementSignerOtpComponent implements OnInit {
   display!: string;
   RefferenceCode: any;
   mobilenumber: any;
-
+  timeLeft: number = 180; // Initial time in seconds
+  timerInterval: any;
+  startTime!: number;
 
   constructor(
     public SignerOTP: FarginServiceService,
     private toastr: ToastrService,
     private dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-  ) { this.timer(1); }
-
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    this.timer();
+  }
 
   ngOnInit(): void {
-
     this.RefferenceCode = this.data.value;
 
     this.mobilenumber = this.maskMobileNumber(this.data.value2);
   }
-
 
   maskMobileNumber(mobilenumber: string): string {
     if (mobilenumber.length < 10) {
       return mobilenumber; // If the number is too short, return the original number
     }
     const lastThree = mobilenumber.slice(-3);
-    const maskedPart = 'x'.repeat((mobilenumber.length - 3));
+    const maskedPart = 'x'.repeat(mobilenumber.length - 3);
     return `${maskedPart}${lastThree}`;
   }
 
+  timer() {
+    this.startTime = Date.now(); // Save the start timestamp
 
+    this.timerInterval = setInterval(() => {
+      const elapsedSeconds = Math.floor((Date.now() - this.startTime) / 1000);
+      this.timeLeft = Math.max(180 - elapsedSeconds, 0); // Ensure it doesn’t go negative
 
-  timer(minute: any) {
-    // let minute = 1;
-    let seconds: number = 3 * 60;
-    let textSec: any = '0';
-    let statSec: number = 60;
-    const prefix = minute < 10 ? '0' : '';
-    const timer = setInterval(() => {
-      seconds--;
-      if (statSec != 0) statSec--;
-      else statSec = 59;
-
-      if (statSec < 10) {
-        textSec = '0' + statSec;
-      } else textSec = statSec;
-      this.display = `${prefix}${Math.floor(seconds / 60)}:${textSec}`;
-      if (seconds == 0) {
-        //('finished');
-        clearInterval(timer);
-        this.resendOtp = true;
-        this.displayTimer = false;
-        this.otpCode1 +
-          this.otpCode2 +
-          this.otpCode4 +
-          this.otpCode5 +
-          this.otpCode6
-        // this.message = 'Your OTP IS Expired Click Resend OTP'
+      if (this.timeLeft === 0) {
+        clearInterval(this.timerInterval);
       }
     }, 1000);
   }
@@ -98,40 +79,44 @@ export class AggrementSignerOtpComponent implements OnInit {
   }
 
   ResendOTP() {
-    this.SignerOTP.AgreementSendOtp(this.RefferenceCode, 2).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.toastr.success(res.responseMessage);
-        this.resendOtp = false;
-        this.displayTimer = true;
-        this.timer(1);
-
+    this.SignerOTP.AgreementSendOtp(this.RefferenceCode, 2).subscribe(
+      (res: any) => {
+        if (res.flag == 1) {
+          this.toastr.success(res.responseMessage);
+          this.resendOtp = false;
+          this.displayTimer = true;
+          this.timer();
+        } else {
+          this.toastr.error(res.responseMessage);
+        }
       }
-      else {
-        this.toastr.error(res.responseMessage);
-      }
-    })
+    );
   }
-
-
 
   VerifyOtp() {
     let submitModel: AdminsignerOtp = {
-      otpCode: this.otpCode1 + this.otpCode2 + this.otpCode3 + this.otpCode4 + this.otpCode5 + this.otpCode6
-    }
+      otpCode:
+        this.otpCode1 +
+        this.otpCode2 +
+        this.otpCode3 +
+        this.otpCode4 +
+        this.otpCode5 +
+        this.otpCode6,
+    };
 
-    this.SignerOTP.AgreemntVerifyOtp(this.RefferenceCode, 2, submitModel).subscribe((res: any) => {
+    this.SignerOTP.AgreemntVerifyOtp(
+      this.RefferenceCode,
+      2,
+      submitModel
+    ).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         setTimeout(() => {
-          window.location.reload()
+          window.location.reload();
         }, 500);
-      }
-      else {
+      } else {
         this.toastr.error(res.responseMessage);
       }
-    })
-
-
+    });
   }
-
 }

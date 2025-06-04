@@ -11,7 +11,8 @@ import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
 import moment from 'moment';
 import { PageEvent } from '@angular/material/paginator';
-
+import { MatDialog } from '@angular/material/dialog';
+import { AlacarteUploadbulkComponent } from '../alacarte-uploadbulk/alacarte-uploadbulk.component';
 
 @Component({
   selector: 'app-alacarte-viewall',
@@ -20,7 +21,7 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class AlacarteViewallComponent implements OnInit {
   dataSource!: MatTableDataSource<any>;
- displayedColumns: string[] = [
+  displayedColumns: string[] = [
     'alcotId',
     'channelName',
     'channelNo',
@@ -59,9 +60,9 @@ export class AlacarteViewallComponent implements OnInit {
   response: any = [];
   date1: any;
   date2: any;
-  valuealcartHistory:any;
+  valuealcartHistory: any;
   pageIndex: number = 0;
-  pageSize=5;
+  pageSize = 5;
   totalPages: any;
   totalpage: any;
   currentpage: any;
@@ -70,19 +71,23 @@ export class AlacarteViewallComponent implements OnInit {
   pageSize1 = 5;
   filter: boolean = true;
   currentfilval: any;
-  currentfilvalShow!:boolean
+  currentfilvalShow!: boolean
   viewalls: any;
-searchPerformed: boolean=false;
+  searchPerformed: boolean = false;
+  valueDownload: any;
+  valueUpload: any;
+  Uploadstatus: any;
 
   constructor(
     public AllcartViewall: FarginServiceService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private dialog: MatDialog
   ) { }
   ngOnInit(): void {
     this.AllcartViewall.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        
+
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -90,10 +95,13 @@ searchPerformed: boolean=false;
           if (this.roleId == 1) {
             this.valuealcartAdd = 'Channel Creation-Add';
             this.valuealcartEdit = 'Channel Creation-Edit';
-            this.valuealcartExport = 'Channel Creation-Export'
-            this.valuealcartStatus = 'Channel Creation-Status'
-            this.valuealcartView = 'Channel Creation-View'
-            this.valuealcartHistory = 'Channel Creation-History'
+            this.valuealcartExport = 'Channel Creation-Export';
+            this.valuealcartStatus = 'Channel Creation-Status';
+            this.valuealcartView = 'Channel Creation-View';
+            this.valuealcartHistory = 'Channel Creation-History';
+            this.valueDownload = 'Download A-LA-CARTE Template';
+            this.valueUpload = 'Upload A-LA-CARTE File';
+            this.Uploadstatus = 'Bulk Upload Status';
           }
           else {
             for (let datas of this.getdashboard) {
@@ -117,6 +125,15 @@ searchPerformed: boolean=false;
               }
               if (this.actions == 'Channel Creation-History') {
                 this.valuealcartHistory = 'Channel Creation-History';
+              }
+              if (this.actions == 'Download A-LA-CARTE Template') {
+                this.valueDownload = 'Download A-LA-CARTE Template';
+              }
+              if (this.actions == 'Upload A-LA-CARTE File') {
+                this.valueUpload = 'Upload A-LA-CARTE File';
+              }
+              if (this.actions == 'Bulk Upload Status') {
+                this.Uploadstatus = 'Bulk Upload Status';
               }
             }
           }
@@ -179,18 +196,18 @@ searchPerformed: boolean=false;
     this.router.navigate([`dashboard/alcart-view/${id}`], {
       queryParams: { Alldata: id },
     });
-    
+
   }
 
   Edit(id: any) {
     this.router.navigate([`dashboard/alcart-edit/${id}`], {
       queryParams: { Alldata: id },
     });
-    
+
   }
 
   ActiveStatus(event: MatSlideToggleChange, id: any) {
-    
+
     this.isChecked = event.checked;
 
     let submitModel: Alcartstatus = {
@@ -198,7 +215,7 @@ searchPerformed: boolean=false;
       alcotStatus: this.isChecked ? 1 : 0,
     };
     this.AllcartViewall.AlcardStatus(submitModel).subscribe((res: any) => {
-      
+
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         setTimeout(() => {
@@ -213,16 +230,16 @@ searchPerformed: boolean=false;
               this.currentpage = res.pagination.currentPage;
               this.dataSource = new MatTableDataSource(this.viewall);
               this.currentfilvalShow = false
-          
+
             } else if (res.flag == 2) {
               this.viewall = [];
               this.dataSource = new MatTableDataSource(this.viewall);
               this.currentfilvalShow = false
-            
+
             }
-           
+
           });
-       
+
         }, 500);
       } else {
         this.toastr.error(res.responseMessage);
@@ -234,63 +251,63 @@ searchPerformed: boolean=false;
 
 
 
- exportexcel() {
+  exportexcel() {
     this.AllcartViewall.AlcartviewallExport().subscribe((res: any) => {
       this.viewallexport = res.response;
-    if (res?.flag == 1) {
-    let sno = 1;
-    this.responseDataListnew = [];
-    this.viewallexport.forEach((element: any) => {
- 
-      let createdate = element.createdAt;
-      this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
- 
-      this.response = [];
-      this.response.push(sno);
-      this.response.push(element?.channelName);
-      this.response.push(element?.channelNo);
-      this.response.push(element?.bundleChannelId?.broadCasterName);
-      this.response.push(element?.region?.service?.serviceProviderName);
-      this.response.push(element?.region?.stateName);
-      this.response.push(element?.generic);
-      this.response.push(element?.language);
+      if (res?.flag == 1) {
+        let sno = 1;
+        this.responseDataListnew = [];
+        this.viewallexport.forEach((element: any) => {
 
-      if (element.type == 1) {
-        this.response.push('Paid')
+          let createdate = element.createdAt;
+          this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
+
+          this.response = [];
+          this.response.push(sno);
+          this.response.push(element?.channelName);
+          this.response.push(element?.channelNo);
+          this.response.push(element?.bundleChannelId?.broadCasterName);
+          this.response.push(element?.region?.service?.serviceProviderName);
+          this.response.push(element?.region?.stateName);
+          this.response.push(element?.generic);
+          this.response.push(element?.language);
+
+          if (element.type == 1) {
+            this.response.push('Paid')
+          }
+          else {
+            this.response.push('Free')
+          }
+          this.response.push(element?.price)
+
+          if (element.alcotStatus == 1) {
+            this.response.push('Active')
+          }
+          else {
+            this.response.push('Inactive')
+          }
+          this.response.push(element?.createdBy);
+          this.response.push(this.date1);
+          this.response.push(element?.modifiedBy);
+
+          if (element?.modifiedAt) {
+            this.response.push(moment(element?.modifiedAt).format('DD/MM/yyyy-hh:mm a').toString());
+          }
+          else {
+            this.response.push('');
+          }
+
+
+
+          sno++;
+          this.responseDataListnew.push(this.response);
+        });
+        this.excelexportCustomer();
       }
-      else {
-        this.response.push('Free')
-      }
-      this.response.push(element?.price)
- 
-      if (element.alcotStatus == 1) {
-        this.response.push('Active')
-      }
-      else {
-        this.response.push('Inactive')
-      }
-      this.response.push(element?.createdBy);
-      this.response.push(this.date1);
-      this.response.push(element?.modifiedBy);
-   
-      if(element?.modifiedAt){
-        this.response.push(moment(element?.modifiedAt).format('DD/MM/yyyy-hh:mm a').toString());
-      }
-      else{
-        this.response.push('');
-      }
-     
-     
- 
-      sno++;
-      this.responseDataListnew.push(this.response);
     });
-    this.excelexportCustomer();
+
   }
-});
- 
-  }
- 
+
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
@@ -310,16 +327,16 @@ searchPerformed: boolean=false;
       "Modified By",
       "Modified At",
     ]
- 
- 
+
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('A-LA-CARTE Details');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
- 
- 
+
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -330,15 +347,15 @@ searchPerformed: boolean=false;
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
+
       }
- 
+
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
- 
+
     data.forEach((d: any) => {
       // 
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -357,7 +374,7 @@ searchPerformed: boolean=false;
       let qty14 = row.getCell(15);
       // let qty15 = row.getCell(16);
       // let qty16 = row.getCell(16);
- 
+
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -375,29 +392,29 @@ searchPerformed: boolean=false;
       qty14.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       // qty15.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       // qty16.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-     
+
     }
     );
- 
+
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
     // worksheet.getColumn(2).protection = { locked: true, hidden: true }
     // worksheet.getColumn(3).protection = { locked: true, hidden: true }
- 
- 
+
+
     workbook.xlsx.writeBuffer().then((data: any) => {
- 
+
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
- 
- 
+
+
       FileSaver.saveAs(blob, 'A-LA-CARTE Details.xlsx');
- 
+
     });
   }
-  alacartehistory(){
+  alacartehistory() {
     this.router.navigateByUrl('dashboard/alcot-history')
   }
- 
- 
+
+
 
   Alacarte(filterValue: string) {
     if (filterValue) {
@@ -409,13 +426,13 @@ searchPerformed: boolean=false;
         next: (res: any) => {
           if (res.response) {
             this.viewalls = res.response;
-         
+
             this.dataSource = new MatTableDataSource(this.viewalls);
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
             this.currentfilvalShow = true
-          
+
           } else if (res.flag === 2) {
             this.viewalls = [];
             this.dataSource = new MatTableDataSource(this.viewalls);
@@ -424,7 +441,7 @@ searchPerformed: boolean=false;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
             this.currentfilvalShow = true
-         
+
           }
         },
         error: (err: any) => {
@@ -453,8 +470,8 @@ searchPerformed: boolean=false;
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
-          
-        
+
+
           } else if (res.flag === 2) {
             this.viewalls = [];
             this.dataSource = new MatTableDataSource(this.viewalls);
@@ -462,8 +479,8 @@ searchPerformed: boolean=false;
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
-           
-         
+
+
           }
         },
         error: (err: any) => {
@@ -482,14 +499,97 @@ searchPerformed: boolean=false;
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.viewall);
 
-      } else {
+        } else {
           this.viewall = [];
           this.dataSource = new MatTableDataSource(this.viewall);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
-          
+
         }
       });
     }
   }
+
+  excel() {
+    const header = [
+      'broadCasterName',
+      'serviceProviderName',
+      'regionName',
+      'channelName',
+      'channelNo',
+      'generic',
+      'language',
+      'channelType',
+      'price',
+    ];
+
+    const data = this.responseDataListnew;
+
+    // Prepare CSV content
+    const csvContent = [];
+
+    // Add header to CSV
+    csvContent.push(header.map((item) => `"${item}"`).join(','));
+
+    data.forEach((d: any) => {
+      const rowData = [
+        `"${d.broadCasterName}"` || '',
+        `"${d.serviceProviderName}"` || '',
+        `"${d.regionName}"` || '',
+        `"${d.channelName}"` || '',
+        `"${d.channelNo}"` || '',
+        `"${d.generic}"` || '',
+        `"${d.language}"` || '',
+        `"${d.channelType}"` || '',
+        d.price || '',
+
+        // Add any other fields as needed
+      ].map((item) => `"${item.replace(/"/g, '""')}"`); // Escape double quotes
+
+      csvContent.push(rowData.join(','));
+    });
+
+    // Create a Blob and save as CSV
+    const blob = new Blob([csvContent.join('\n')], {
+      type: 'text/csv;charset=utf-8;',
+    });
+    FileSaver.saveAs(blob, 'A-LA-CARTE.csv');
+  }
+
+  createalacrateupload() {
+    const dialogRef = this.dialog.open(AlacarteUploadbulkComponent, {
+      disableClose: true,
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '1000ms',
+      position: { right: '0px' },
+
+      width: '35%',
+    });
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetch();
+    });
+  }
+  fetch() {
+    this.AllcartViewall.Alcartviewall(this.pageSize, this.pageIndex).subscribe(
+      (res: any) => {
+        if (res.flag == 1) {
+          this.viewall = res.response.content;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.viewall);
+          this.currentfilvalShow = false;
+        } else if (res.flag == 2) {
+          this.viewall = [];
+          this.dataSource = new MatTableDataSource(this.viewall);
+          this.currentfilvalShow = false;
+        }
+      }
+    );
+  }
+  status() {
+    this.router.navigateByUrl('dashboard/alacarte-bulkresponse');
+  }
+
+
 }

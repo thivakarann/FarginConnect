@@ -201,6 +201,12 @@
                   <span>Cloud Fee Auto Debit</span>
                 </a>
               </li>
+              <li [hidden]="valueRenewel!=='Renewal Fee Auto Debit'">
+                <a routerLink="renewal-autodebit">
+                  <i class="fa-solid fa-money-bill-transfer"></i>
+                  <span>Renewal Fee Auto Debit</span>
+                </a>
+              </li>
 
             <li [hidden]="valuebranch!=='Branch'">
               <a routerLink="Branch-viewall">

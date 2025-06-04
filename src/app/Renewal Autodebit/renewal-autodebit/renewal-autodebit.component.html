@@ -1,24 +1,13 @@
-<div class="row mt-2">
-    <div class="col-md-3">
-        <h5 style="text-align:left;color:#141E46;">Cloud Fee Auto Debit</h5>
-    </div>
-    <div class="col-md-8">
-    </div>
-    <div class="col-md-1">
-        <button style="color:white;background-color: #141E46; border-radius: .5rem;font-size: .875rem;padding:5px 5px;" (click)="close()">Back</button>
-
-    </div>
-</div>
+<h4 style="text-align: left; color: #141e46">Renewal Fee Auto Debit</h4>
 
 <mat-card-header>
     <div class="row mt-4">
-
-        <div class="col">
-
-            <div class="search ">
+        <div class="col-md-6">
+            <div class="search">
                 <form class="form">
                     <label for="search">
-                        <input #input required autocomplete="off" placeholder="Search" id="search" type="text" name="search" [(ngModel)]="currentfilval">
+                        <input #input required autocomplete="off" placeholder="Search" id="search" type="text"
+                            name="search" [(ngModel)]="currentFilterValue" />
                         <div class="icon">
                             <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg" class="swap-on">
@@ -35,18 +24,21 @@
                         </button>
                     </label>
                 </form>
-
-            </div>&nbsp;&nbsp;&nbsp;
-            <button (click)="customer(currentfilval)" style="color:white;background-color: #141E46;border-radius: 10px; font-size: 12px;"
-                mat-raised-button>Go</button>
-  
-          
-
+            </div>
+            &nbsp;&nbsp;&nbsp;
+            <button (click)="autodebit(currentFilterValue)" style="
+          color: white;
+          background-color: #141e46;
+          border-radius: 10px;
+          font-size: 12px;
+        " mat-raised-button>
+                Go
+            </button>
         </div>
+        &nbsp;&nbsp;&nbsp;
     </div>
 </mat-card-header>
 
-<!-- <mat-card> -->
 <mat-card-content>
     <div class="example-container text-nowrap mt-2" style="overflow-x: scroll; scrollbar-width: thin">
         <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
@@ -129,9 +121,7 @@
     </div>
 </mat-card-content>
 <mat-card-footer>
-
     <mat-paginator (page)="getData($event)" [length]="totalPages" [pageIndex]="currentpage" [pageSize]="totalpage"
-      [pageSizeOptions]="[5, 10, 50, 100, 200,300,500]" aria-label="Select page">
+        [pageSizeOptions]="[5, 50, 100, 500, 1000, 2000]" aria-label="Select page">
     </mat-paginator>
-
-  </mat-card-footer>
+</mat-card-footer>
