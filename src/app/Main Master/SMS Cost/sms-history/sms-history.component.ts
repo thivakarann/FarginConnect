@@ -19,6 +19,7 @@ export class SmsHistoryComponent {
   displayedColumns: string[] = [
     'S.No',
     'amount',
+    'date',
     'createdBy',
     'createdDateTime',
   ];
@@ -94,6 +95,12 @@ export class SmsHistoryComponent {
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.amount.toFixed(2));
+      if (element.effectiveDate) {
+        this.response.push(moment(element?.effectiveDate).format('DD/MM/yyyy hh:mm a').toString());
+      }
+      else {
+        this.response.push('');
+      }
       this.response.push(element?.createdBy);
       if (element.createdDateTime) {
         this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
@@ -111,6 +118,7 @@ export class SmsHistoryComponent {
     const header = [
       'S.No',
       'Cost Per SMS',
+      'Effective Date',
       'Updated By',
       'Updated At'
     ];
@@ -146,6 +154,7 @@ export class SmsHistoryComponent {
       let qty1 = row.getCell(2);
       let qty2 = row.getCell(3);
       let qty3 = row.getCell(4);
+      let qty4 = row.getCell(5);
 
       qty.border = {
         top: { style: 'thin' },
@@ -171,7 +180,13 @@ export class SmsHistoryComponent {
         bottom: { style: 'thin' },
         right: { style: 'thin' },
       };
-   
+      qty4.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+
 
     });
     worksheet.getColumn(1).protection = { locked: true, hidden: true };

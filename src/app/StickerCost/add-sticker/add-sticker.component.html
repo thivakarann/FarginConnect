@@ -54,6 +54,22 @@
                     </div>
           
                 </div>
+
+                  <div class="form-group">
+                    <label class="form__label"  for="effectiveDate">Effective Date</label>
+                    <input type="date"  [min]="minDate" id="effectiveDate" formControlName="effectiveDate" class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="effectiveDate?.invalid && effectiveDate?.touched && effectiveDate?.errors?.['required']">
+                        Field is required
+                    </div>
+                
+          
+                </div>
               
             </div>
          

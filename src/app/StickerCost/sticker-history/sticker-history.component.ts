@@ -20,6 +20,7 @@ export class StickerHistoryComponent implements OnInit {
     'S.No',
     'stickerPerAmount',
     'deliveryDays',
+    'date',
     'createdBy',
     'createdDateTime',
   ];
@@ -58,7 +59,7 @@ export class StickerHistoryComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.viewall);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        
+
       }
 
       else if (res.flag == 2) {
@@ -96,6 +97,12 @@ export class StickerHistoryComponent implements OnInit {
       this.response.push(sno);
       this.response.push(element?.stickerPerAmount);
       this.response.push(element?.deliveryDays);
+      if (element.effectiveDate) {
+        this.response.push(moment(element?.effectiveDate).format('DD/MM/yyyy hh:mm a').toString());
+      }
+      else {
+        this.response.push('');
+      }
       this.response.push(element?.createdBy);
       if (element.createdDateTime) {
         this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
@@ -114,6 +121,7 @@ export class StickerHistoryComponent implements OnInit {
       'S.No',
       'Sticker Per Amount',
       'Delivery Days',
+      'Effective Date',
       'Updated By',
       'Updated At'
     ];
@@ -150,6 +158,7 @@ export class StickerHistoryComponent implements OnInit {
       let qty2 = row.getCell(3);
       let qty3 = row.getCell(4);
       let qty4 = row.getCell(5);
+      let qty5 = row.getCell(6);
 
       qty.border = {
         top: { style: 'thin' },
@@ -176,6 +185,12 @@ export class StickerHistoryComponent implements OnInit {
         right: { style: 'thin' },
       };
       qty4.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty5.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
         bottom: { style: 'thin' },

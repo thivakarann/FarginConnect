@@ -15,12 +15,17 @@ export class SMScostAddComponent {
   Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
   myForm!: FormGroup;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
+  minDate: string;
 
   constructor(
     public addsms: FarginServiceService,
     private toastr: ToastrService,
     private dialog: MatDialog
-  ) { }
+  ) {
+    const today = new Date();
+    today.setDate(today.getDate() + 1); // Moves to tomorrow
+    this.minDate = today.toISOString().split("T")[0];
+  }
 
   ngOnInit(): void {
 
@@ -29,19 +34,24 @@ export class SMScostAddComponent {
       amount: new FormControl('', [
         Validators.required,
         Validators.pattern('^(0\\.([0-9]{2}|[0-9]{1}))?$')
-      ])
+      ]),
+      effectiveDate: new FormControl('', [Validators.required])
     });
   }
 
   get amount() {
     return this.myForm.get('amount')
+  }
 
+  get effectiveDate() {
+    return this.myForm.get('effectiveDate')
   }
 
   submit() {
     let submitModel: SMSCostAdd = {
       amount: this.amount?.value.trim(),
-      createdBy: this.getadminname
+      createdBy: this.getadminname,
+      effectiveDate: this.effectiveDate?.value
     }
 
     this.addsms.smscostadd(submitModel).subscribe((res: any) => {
@@ -49,7 +59,7 @@ export class SMScostAddComponent {
         this.toastr.success(res.responseMessage);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
-     
+
       }
       else {
         this.toastr.error(res.responseMessage);

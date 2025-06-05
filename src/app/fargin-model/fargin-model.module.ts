@@ -986,6 +986,7 @@ export interface documentapproval{
 export interface SMSCostAdd {
   readonly amount:any;
   readonly createdBy:any;
+  readonly effectiveDate:any;
 }
 
 export interface smscoststatus {
@@ -1375,6 +1376,7 @@ export interface stickeradd {
   readonly stickerPerAmount:any;
   readonly deliveryDays: any;
   readonly createdBy: any;
+  readonly effectiveDate:any;
 }
  
 export interface stickerstatus {

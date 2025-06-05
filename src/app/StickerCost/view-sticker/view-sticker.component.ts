@@ -20,12 +20,10 @@ export class ViewStickerComponent {
   displayedColumns: string[] = [
     'stickerId',
     'stickerPerAmount',
-    // 'activeStatus',
     'deliveryDays',
+    // 'date',
     'createdBy',
     'createdDateTime',
-    // 'modifiedBy',
-    // 'modifiedDateTime',
     "View"
   ];
   viewall: any;
