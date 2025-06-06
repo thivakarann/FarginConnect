@@ -83,8 +83,8 @@
 
 <div >
   <div class="row">
-    <div class="col-md-6">
-      <div class="card"   id="merchantCOUNT"  [hidden]="valuetotalmerchants !== 'Total Merchants'">
+   <div class="col-6">
+      <div class="card" style="height:560px" [hidden]="valuetotalmerchants !== 'Total Merchants'">
         <div class="container mt-2">
           <div class="text-center">
             <h6>Merchant Count Details</h6>
@@ -92,7 +92,7 @@
           <label
             for="period"
             style="font-size: 12px; font-family: Arial, Helvetica, sans-serif"
-            >Select Business Category</label
+            >Select Period</label
           >
           <select
             (change)="onCategoryChange($event)"
@@ -110,48 +110,40 @@
               {{ val.categoryName }}
             </option>
           </select>
-        <div    class="text-center"   >
-          <div  >
-          <canvas  id="myCanvas"></canvas>
-
-          </div>
-
-        </div>  
+        <div style="width: 90%; height: 400px; display: flex; justify-content: center;">
+    <canvas id="myCanvas"></canvas>
+</div>
+ 
+ 
         </div>
       </div>
     </div>
-    <div class="col-md-6" >
-      <div class="card"  id="LastSeven"  [hidden]="valueTotalcount !== 'Total Count'">
+    <div class="col-6" >
+      <div class="card" style="height:560px" [hidden]="valueTotalcount !== 'Total Count'">
         <div class="container mt-2">
           <div class="text-center">
             <h6>Last Seven Days Transaction Details</h6>
           </div>
         &nbsp;
-<div  class="text-center"  >
-  <div  >
-        <canvas  id="sevenChartCanvas"></canvas>
-
-  </div>
-
-</div>
-        <div class="card-body " style="margin-top: 36px;" >
+ 
+        <canvas id="sevenChartCanvas"></canvas>
+        <div class="card-body" style="margin-top: 22px;">
           <!-- First Row -->
           <div class="row"></div>
-
-          <div class="d-flex justify-content-center" style="font-size: xx-large;" >
+ 
+          <div class="d-flex justify-content-center">
             {{ sevenper?.totalCount || 0 }}
           </div>
           <div class="d-flex justify-content-center">
-            <strong>Total Transaction Count</strong>
+            <strong>Total Count</strong>
           </div>
-
+ 
           <hr
             style="
               height: 2px;
               border-width: 0;
               color: gray;
               background-color: gray;
-           
             "
           />
           <!-- Second Row -->
@@ -165,7 +157,7 @@
                 <b>{{ sevenper?.successCountPercentage || 0 }}</b>
               </div>
             </div>
-            
+           
             <div class="col">
               <div><strong>Failed Amount</strong></div>
               <div>₹{{ sevenper?.failedAmount || 0 }}</div>
@@ -178,10 +170,10 @@
           </div>
         </div>
       </div>
-      <!-- <br><br> -->
     </div>
-    
   </div>
+ 
+ 
 
   &nbsp;
 
