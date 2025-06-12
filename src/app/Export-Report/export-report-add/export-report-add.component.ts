@@ -5,8 +5,16 @@ import { MatDialog } from '@angular/material/dialog';
 import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
-import { ExportReportBranch, ExportReportCreate, ExportReportstatic, } from '../../fargin-model/fargin-model.module';
-interface Option { entityName: string; merchantId: number; }
+import {
+  ExportReportBranch,
+  ExportReportCreate,
+  ExportReportstatic,
+} from '../../fargin-model/fargin-model.module';
+interface Option {
+  entityName: string;
+  merchantLegalName:string;
+  merchantId: number;
+}
 
 @Component({
   selector: 'app-export-report-add',
@@ -19,7 +27,7 @@ export class ExportReportAddComponent implements OnInit {
   merchantId: any = sessionStorage.getItem('merchantId');
   Daterange!: string;
   exportTypes: any;
-  paymentstatus: any
+  paymentstatus: any;
   roleName = sessionStorage.getItem('roleName');
   roleId: any = sessionStorage.getItem('roleId');
   getdashboard: any[] = [];
@@ -48,7 +56,7 @@ export class ExportReportAddComponent implements OnInit {
     public service: FarginServiceService,
     private toastr: ToastrService,
     private dialog: MatDialog
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     const today = new Date();
@@ -60,11 +68,12 @@ export class ExportReportAddComponent implements OnInit {
       exportStartDate: new FormControl('', [Validators.required]),
       exportEndDate: new FormControl('', [Validators.required]),
       paymentStatus: new FormControl(''),
+      paymentrefundmethod: new FormControl(''),
       createdBy: new FormControl(''),
       merchantId: new FormControl(''),
       selectedOption: new FormControl(''),
       search1: new FormControl(''),
-      paymentStatusStactic: new FormControl('',),
+      paymentStatusStactic: new FormControl(''),
       staticoption: new FormControl(''),
       branchId: new FormControl(''),
     });
@@ -72,6 +81,7 @@ export class ExportReportAddComponent implements OnInit {
     this.service.actvemerchant().subscribe((res: any) => {
       this.options = res.response.map((merchant: any) => ({
         entityName: merchant.entityName,
+        merchantLegalName: merchant.merchantLegalName,
         merchantId: merchant.merchantId,
       }));
     });
@@ -117,6 +127,9 @@ export class ExportReportAddComponent implements OnInit {
   get paymentStatusStactic() {
     return this.myForm.get('paymentStatusStactic');
   }
+  get paymentrefundmethod() {
+    return this.myForm.get('paymentrefundmethod');
+  }
 
   submitForm() {
     const selectedValue = this.myForm.get('exportDataName')?.value;
@@ -126,29 +139,44 @@ export class ExportReportAddComponent implements OnInit {
     const staticoption = this.myForm.get('staticoption')?.value;
     const branchId = this.myForm.get('branchId')?.value;
     const paymentStatusStactic = this.myForm.get('paymentStatusStactic')?.value;
+    const paymentrefundmethod = this.myForm.get('paymentrefundmethod')?.value;
+
 
     if (selectedValue == '23' && startDate && endDate && !paymentStatus) {
       this.exportTypes = 1;
       this.Branchsubmit();
-    } else if (selectedValue == '23' && startDate && endDate && paymentStatus) {
+    } 
+     else if (selectedValue == '20' && startDate && endDate && paymentrefundmethod =='1') {
+      this.exportTypes = 1;
+      this.submit();
+    }
+      else if (selectedValue == '20' && startDate && endDate && paymentrefundmethod =='2') {
+      this.exportTypes = 2;
+      this.submit();
+    }
+    else if (selectedValue == '23' && startDate && endDate && paymentStatus) {
       this.exportTypes = 0;
       this.Branchsubmit();
-    }
-    else if (selectedValue == '6' && startDate && endDate && staticoption && !paymentStatusStactic) {
+    } else if (
+      selectedValue == '6' &&
+      startDate &&
+      endDate &&
+      staticoption &&
+      !paymentStatusStactic
+    ) {
       this.exportTypes = 1;
       this.Staticqr();
-
-    }
-    else if (selectedValue == '6' && startDate && endDate && staticoption && paymentStatusStactic) {
+    } else if (
+      selectedValue == '6' &&
+      startDate &&
+      endDate &&
+      staticoption &&
+      paymentStatusStactic
+    ) {
       this.exportTypes = 0;
       this.Staticqr();
-
-    }
-
-
-    else if (
-      (
-        selectedValue == '7' ||
+    } else if (
+      (selectedValue == '7' ||
         selectedValue == '4' ||
         selectedValue == '13' ||
         selectedValue == '14' ||
@@ -158,12 +186,10 @@ export class ExportReportAddComponent implements OnInit {
       !paymentStatus
     ) {
       this.exportTypes = 1;
-      this.paymentstatus = "All"
+      this.paymentstatus = 'All';
 
       this.submit();
-    }
-
-    else if (
+    } else if (
       (selectedValue == '7' ||
         selectedValue == '4' ||
         selectedValue == '13' ||
@@ -205,7 +231,7 @@ export class ExportReportAddComponent implements OnInit {
     const inputValue = this.customerInput;
     if (inputValue) {
       const matchedBox = this.options.find(
-        (box) => box.entityName === inputValue
+        (box) => box.merchantLegalName === inputValue
       );
       merchant = matchedBox?.merchantId || 0; // Use matched merchantId or 0
     }
@@ -265,9 +291,9 @@ export class ExportReportAddComponent implements OnInit {
     );
   }
 
-  onSearchClick(entityName: string, event: MouseEvent): void {
+  onSearchClick(merchantLegalName: string, event: MouseEvent): void {
     event.stopPropagation();
-    this.customerInput = entityName;
+    this.customerInput = merchantLegalName;
     this.showSuggestions = false;
     const selectedValue = this.myForm.get('exportDataName')?.value;
     if (selectedValue == '23') {
@@ -288,7 +314,7 @@ export class ExportReportAddComponent implements OnInit {
     const inputValue = this.customerInput;
     if (inputValue) {
       const matchedBox = this.options.find(
-        (box) => box.entityName === inputValue
+        (box) => box.merchantLegalName === inputValue
       );
       this.staticmerchant = matchedBox?.merchantId || ''; // Use matched merchantId or 0
     }
@@ -312,13 +338,13 @@ export class ExportReportAddComponent implements OnInit {
       pageNo: '',
       query: '',
       size: '',
-      status: this.paymentStatusStactic?.value || "",
+      status: this.paymentStatusStactic?.value || '',
       terminalId: '',
       exportStartDate: this.exportStartDate?.value,
       exportEndDate: this.exportEndDate?.value,
       type: 2,
       branchId: 0,
-      paymentStatus: this.paymentStatusStactic?.value || "All"
+      paymentStatus: this.paymentStatusStactic?.value || 'All',
     };
     this.service.ExportReportAdd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
@@ -335,7 +361,7 @@ export class ExportReportAddComponent implements OnInit {
     const inputValue = this.customerInput;
     if (inputValue) {
       const matchedBox = this.options.find(
-        (box) => box.entityName === inputValue
+        (box) => box.merchantLegalName === inputValue
       );
       this.staticmerchant = matchedBox?.merchantId || ''; // Use matched merchantId or 0
     }
@@ -358,7 +384,7 @@ export class ExportReportAddComponent implements OnInit {
     const inputValue = this.customerInput;
     if (inputValue) {
       const matchedBox = this.options.find(
-        (box) => box.entityName === inputValue
+        (box) => box.merchantLegalName === inputValue
       );
       this.branchmerchant = matchedBox?.merchantId; // Use matched merchantId or 0
     }

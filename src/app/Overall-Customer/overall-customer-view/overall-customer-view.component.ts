@@ -37,6 +37,7 @@ export class OverallCustomerViewComponent implements OnInit {
     'QRImage',
     'Viewcustomer',
     'createdDatetime',
+    'qrcreated',
     // 'flatNumber',
     // 'blockNumber',
 

@@ -142,6 +142,11 @@
                 <td mat-cell *matCellDef="let viewunion">{{viewunion.createdDateTime| date:'dd/MM/yyyy h:mm a' }}
                 </td>
             </ng-container>
+            <ng-container matColumnDef="qrcreated">
+                <th mat-header-cell *matHeaderCellDef>QR Generated At</th>
+                <td mat-cell *matCellDef="let viewunion">{{viewunion.customerQrDateTime | date:'dd/MM/yyyy h:mm a'}}
+                </td>
+            </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
             <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>

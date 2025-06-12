@@ -162,7 +162,7 @@ mat-card {
     /*  when rotating changed icon color */
     --height: 40px;
     /*  height */
-    width: 250px;
+    width: 206px;
     padding-inline-end: 1em;
     /*  change this for padding in the end of input */
     background: var(--input-bg);

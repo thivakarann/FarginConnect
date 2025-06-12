@@ -410,6 +410,12 @@
                           <ng-container *ngIf="detaislone?.customerDuesDate == 0">No Due Date</ng-container>
                         </div>
                       </div>
+                       <div class="d-flex mt-2">
+                        <div class="w-50 font-weight-bold">
+                        Cloud Fee Applicable
+                        </div>
+                        <div class="w-50">{{ detaislone?.cloudFeeEnable }}</div>
+                      </div>
 
                       <div class="d-flex mt-2">
                         <div class="w-50 font-weight-bold">
@@ -1860,7 +1866,7 @@
           </form>
         </div>
       </div>
-      <div class="col-md-2 mt-1" [hidden]="detaislone?.onBoardStatus != 'true'">
+      <div class="col-md-2 mt-1" [hidden]="detaislone?.onBoardStatus != 'true' || detaislone?.customerSmsTag=='NA'">
         <button (click)="smscreate()" style="
             color: white;
             background-color: #141e46;

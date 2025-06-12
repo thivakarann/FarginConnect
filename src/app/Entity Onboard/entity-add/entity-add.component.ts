@@ -216,6 +216,7 @@ export class EntityAddComponent implements OnInit {
         Validators.maxLength(25),
       ]),
       customerSmsTag: new FormControl(''),
+      cloudFeeEnable: new FormControl('', [Validators.required]),
     });
 
     this.myForm2 = new FormGroup({
@@ -295,7 +296,7 @@ export class EntityAddComponent implements OnInit {
   duealert(event: any) {
     this.myForm.get('customerDuesDate')?.setValue('');
     this.myForm.get('dueDate')?.setValue('');
-    this.myForm.get('customerSmsTag')?.setValue('');
+  
   }
 
   onCategoryChange(event: any) {
@@ -421,6 +422,9 @@ export class EntityAddComponent implements OnInit {
 
   get customerSmsTag() {
     return this.myForm.get('customerSmsTag');
+  }
+   get cloudFeeEnable() {
+    return this.myForm.get('cloudFeeEnable');
   }
 
   // second Form
@@ -953,6 +957,7 @@ export class EntityAddComponent implements OnInit {
     formData.append('customerManualStatus', this.customerManualStatus?.value);
     formData.append('smsMerchantName', this.smsMerchantName?.value);
     formData.append('customerSmsTag', this.customerSmsTag?.value || 'NA');
+    formData.append('cloudFeeEnable', this.cloudFeeEnable?.value);
     this.AddEntity.EntityAdd(formData).subscribe((res: any) => {
       if (res.flag == 1) {
         this.merchantid = res.response.merchantId;

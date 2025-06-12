@@ -1,16 +1,30 @@
 <div class="card-header">
-  <h3 class="mb-0" style="font-weight: 700; text-align: center; font-size: 21px">
+  <h3
+    class="mb-0"
+    style="font-weight: 700; text-align: center; font-size: 21px"
+  >
     Create New Export Data
   </h3>
 </div>
 
 <body class="page">
   <main class="main page__main">
-    <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="myForm">
+    <form
+      class="form main__form"
+      autocomplete="off"
+      class="form"
+      role="form"
+      [formGroup]="myForm"
+    >
       <div class="mb-3">
         <div class="form-group">
           <label for="critical">Report Title</label>
-          <select (change)="exportpay($event)" class="form-select" formControlName="exportDataName" required>
+          <select
+            (change)="exportpay($event)"
+            class="form-select"
+            formControlName="exportDataName"
+            required
+          >
             <option value="" selected hidden>Select an Option</option>
             <option value="12">Entity Onboard</option>
             <option value="22">Customer</option>
@@ -28,32 +42,22 @@
             <option value="16">Entity Request</option>
             <option value="17">Customer Request</option>
             <option value="18">Channel Creation</option>
-
-
           </select>
-          <div style="
+          <div
+            style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            " *ngIf="exportDataName?.invalid && exportDataName?.touched && exportDataName?.errors?.['required']">
+            "
+            *ngIf="exportDataName?.invalid && exportDataName?.touched && exportDataName?.errors?.['required']"
+          >
             Field is required
           </div>
         </div>
-        <!-- [hidden]="exportDataName?.value == '12'  || exportDataName?.value == '18'" -->
-        <!-- <div  [hidden]="exportDataName?.value != '4' && exportDataName?.value != '7' && exportDataName?.value != '13' && exportDataName?.value != '14'&& exportDataName?.value != '19'"  class="form-group">
-                    <label class="form__label custom-label" for="fnames">Search entity</label>
-                    <div class="search-input-container">
-                      <ng-select #searchSelect formControlName="selectedOption" [notFoundText]="options.length === 0 ? '' : 'No item found'" 
-                                 [items]="options" bindLabel="entityName" placeholder="Select an Entity" 
-                                 [searchable]="true" (input)="onInputChange($event)" 
-                                 (clear)="onClear()" (change)="onDropdownChange($event)">
-                      </ng-select>
-                      <button type="button" (click)="onSearchClick(searchSelect)" class="search-button">Go</button>
-                    </div>
-                  </div> -->
 
-        <div [hidden]="
+        <div
+          [hidden]="
             exportDataName?.value != '4' &&
             exportDataName?.value != '7' &&
             exportDataName?.value != '13' &&
@@ -64,59 +68,99 @@
             exportDataName?.value != '17' &&
             exportDataName?.value != '20' &&
             exportDataName?.value != '21' &&
-               exportDataName?.value != '24' &&
+            exportDataName?.value != '24' &&
             exportDataName?.value != '22'
-          " class="form-group">
-          <label for="website">Search Entity (Optional)</label>
+          "
+          class="form-group"
+        >
+          <label for="website">Search Entity Legal Name here (Optional)</label>
           <div class="input-group">
-            <input type="text" class="form-control custom-input" formControlName="selectedOption"
-              [(ngModel)]="customerInput" placeholder="Search Entity Name" (input)="onInputChange()"
-              (focus)="showSuggestions = true" (blur)="hideSuggestions()" />
+            <input
+              type="text"
+              class="form-control custom-input"
+              formControlName="selectedOption"
+              [(ngModel)]="customerInput"
+              placeholder="Search Entity Name"
+              (input)="onInputChange()"
+              (focus)="showSuggestions = true"
+              (blur)="hideSuggestions()"
+            />
             <!-- Dropdown List -->
-            <ul class="suggestion-box" *ngIf="showSuggestions && options.length > 0">
-              <li *ngFor="let item of options" (mousedown)="onSearchClick(item.entityName, $event)">
-                {{ item.entityName }}
+            <ul
+              class="suggestion-box"
+              *ngIf="showSuggestions && options.length > 0"
+            >
+              <li
+                *ngFor="let item of options"
+                (mousedown)="onSearchClick(item.merchantLegalName, $event)"
+              >
+                {{ item.merchantLegalName }}
               </li>
             </ul>
           </div>
-          <div *ngIf="isNoDataFound" style="color: red; font-size: 12px; margin-top: 2px">
-            Entity name Not Found
+          <div
+            *ngIf="isNoDataFound"
+            style="color: red; font-size: 12px; margin-top: 2px"
+          >
+            Entity Name not Found
           </div>
-          <div *ngIf="errorShow" style="color: red; font-size: 12px; margin-top: 2px">
+          <div
+            *ngIf="errorShow"
+            style="color: red; font-size: 12px; margin-top: 2px"
+          >
             Data not available
           </div>
-          <!-- <div *ngIf="selectedOption?.invalid && selectedOption?.touched && selectedOption?.errors?.['required']"
-                         style="color: red; font-size: 12px; margin-top: 2px;">
-                      Field is required
-                    </div> -->
         </div>
 
-        <!-- for static QR -->
-
-        <div [hidden]="
+        <div
+          [hidden]="
             exportDataName?.value != '6' && exportDataName?.value != '23'
-          " class="form-group">
+          "
+          class="form-group"
+        >
           <label for="website">Search Entity</label>
           <div class="input-group">
-            <input [required]="
+            <input
+              [required]="
                 exportDataName?.value == '6' && exportDataName?.value == '23'
-              " type="text" class="form-control custom-input" formControlName="staticoption"
-              [(ngModel)]="customerInput" placeholder="Search Entity Name" (input)="onInputChange()"
-              (focus)="showSuggestions = true" (blur)="hideSuggestions()" />
-            <ul class="suggestion-box" *ngIf="showSuggestions && options.length > 0">
-              <li *ngFor="let item of options" (mousedown)="onSearchClick(item.entityName, $event)">
-                {{ item.entityName }}
+              "
+              type="text"
+              class="form-control custom-input"
+              formControlName="staticoption"
+              [(ngModel)]="customerInput"
+              placeholder="Search Entity Name"
+              (input)="onInputChange()"
+              (focus)="showSuggestions = true"
+              (blur)="hideSuggestions()"
+            />
+            <ul
+              class="suggestion-box"
+              *ngIf="showSuggestions && options.length > 0"
+            >
+              <li
+                *ngFor="let item of options"
+                (mousedown)="onSearchClick(item.merchantLegalName, $event)"
+              >
+                {{ item.merchantLegalName }}
               </li>
             </ul>
           </div>
-          <div *ngIf="isNoDataFound" style="color: red; font-size: 12px; margin-top: 2px">
-            Entity name Not Found
+          <div
+            *ngIf="isNoDataFound"
+            style="color: red; font-size: 12px; margin-top: 2px"
+          >
+            Entity Name not Found
           </div>
-          <div *ngIf="errorShow" style="color: red; font-size: 12px; margin-top: 2px">
+          <div
+            *ngIf="errorShow"
+            style="color: red; font-size: 12px; margin-top: 2px"
+          >
             Data not available
           </div>
-          <div *ngIf="staticoption?.invalid && staticoption?.touched"
-            style="color: red; font-size: 12px; margin-top: 2px">
+          <div
+            *ngIf="staticoption?.invalid && staticoption?.touched"
+            style="color: red; font-size: 12px; margin-top: 2px"
+          >
             Field is required
           </div>
         </div>
@@ -125,8 +169,13 @@
         <div [hidden]="exportDataName?.value != '23'" class="form-group">
           <label for="website">Branch Name</label>
           <!-- <input type="text" id="website" class="form-control" formControlName="branchId"> -->
-          <select [required]="exportDataName?.value == '23'" (change)="onBranchChange($event)"
-            formControlName="branchId" id="branchId" class="form-select">
+          <select
+            [required]="exportDataName?.value == '23'"
+            (change)="onBranchChange($event)"
+            formControlName="branchId"
+            id="branchId"
+            class="form-select"
+          >
             <option value="" disabled selected>Select</option>
             <option *ngFor="let item of branchviews" [value]="item.branchId">
               {{ item.branchName }}
@@ -135,48 +184,50 @@
               No item found
             </option>
           </select>
-          <div style="
+          <div
+            style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            " *ngIf="branchId?.invalid && branchId?.touched && branchId?.errors?.['required']">
-            Field is required*
+            "
+            *ngIf="branchId?.invalid && branchId?.touched && branchId?.errors?.['required']"
+          >
+            Field is required
           </div>
         </div>
-        <!-- Branch  -->
-        <!-- static qr -->
-        <div [hidden]="
-            exportDataName?.value != '6'
-          " class="form__linput">
+
+        <div [hidden]="exportDataName?.value != '6'" class="form__linput">
           <label for="paymentStatusStactic">Payment Status (Optional)</label>
-          <select formControlName="paymentStatusStactic" type="text" id="fname" class="form-select">
+          <select
+            formControlName="paymentStatusStactic"
+            type="text"
+            id="fname"
+            class="form-select"
+          >
             <option value="SUCCESS">Success</option>
             <option value="FAILURE">Failure</option>
-
           </select>
-          <!-- <div style="
-                        color: red;
-                        font-size: 12px;
-                        margin-top: 2px;
-                        position: relative;
-                        ;
-                      " *ngIf="paymentStatus?.invalid && paymentStatus?.touched && paymentStatus?.errors?.['required']">
-                        Field is required
-                    </div> -->
         </div>
-        <!-- Static qr -->
 
-        <div [hidden]="
+        <div
+          [hidden]="
             exportDataName?.value != '4' &&
             exportDataName?.value != '7' &&
             exportDataName?.value != '13' &&
             exportDataName?.value != '14' &&
             exportDataName?.value != '19' &&
             exportDataName?.value != '23'
-          " class="form__linput">
+          "
+          class="form__linput"
+        >
           <label for="paymentStatus">Payment Status (Optional)</label>
-          <select formControlName="paymentStatus" type="text" id="fname" class="form-select">
+          <select
+            formControlName="paymentStatus"
+            type="text"
+            id="fname"
+            class="form-select"
+          >
             <option value="Success">Success</option>
             <option value="Failure">Failure</option>
             <option value="Initiated">Initiated</option>
@@ -184,52 +235,99 @@
             <option value="Due Cancelled">Due Cancelled</option>
             <option value="Payment Incomplete">Payment Incomplete</option>
           </select>
-          <!-- <div style="
-                        color: red;
-                        font-size: 12px;
-                        margin-top: 2px;
-                        position: relative;
-                        ;
-                      " *ngIf="paymentStatus?.invalid && paymentStatus?.touched && paymentStatus?.errors?.['required']">
-                        Field is required
-                    </div> -->
+        </div>
+
+           <div [hidden]="exportDataName?.value != '20'" class="form__linput">
+          <label for="paymentrefundmethod">
+            Refund Payment Type
+          </label>
+          <select [required]="exportDataName?.value == '20'" 
+            formControlName="paymentrefundmethod"
+            type="text"
+            id="paymentrefundmethod"
+            class="form-select"
+          >
+            <option value="1">Due Payment</option>
+            <option value="2">Additional Payment</option>
+          </select>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative; ;
+            "
+            *ngIf="paymentrefundmethod?.invalid && paymentrefundmethod?.touched && paymentrefundmethod?.errors?.['required']"
+          >
+            Field is required
+          </div>
         </div>
 
         <div class="form-group">
           <label for="exportStartDate">Export From Date</label>
-          <input onkeydown="return false;" (change)="future(this.myForm.get('exportEndDate')?.value)" [max]="maxDate"
-            type="date" id="exportStartDate" formControlName="exportStartDate" class="form-control" />
-          <div style="
+          <input
+            onkeydown="return false;"
+            (change)="future(this.myForm.get('exportEndDate')?.value)"
+            [max]="maxDate"
+            type="date"
+            id="exportStartDate"
+            formControlName="exportStartDate"
+            class="form-control"
+          />
+          <div
+            style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            " *ngIf="exportStartDate?.invalid && exportStartDate?.touched && exportStartDate?.errors?.['required']">
+            "
+            *ngIf="exportStartDate?.invalid && exportStartDate?.touched && exportStartDate?.errors?.['required']"
+          >
             Field is required
           </div>
         </div>
 
         <div class="form-group">
           <label for="exportEndDate">Export To Date</label>
-          <input onkeydown="return false;" [min]="this.myForm.get('exportStartDate')?.value" [max]="maxDate" type="date"
-            id="exportEndDate" formControlName="exportEndDate" class="form-control" />
-          <div style="
+          <input
+            onkeydown="return false;"
+            [min]="this.myForm.get('exportStartDate')?.value"
+            [max]="maxDate"
+            type="date"
+            id="exportEndDate"
+            formControlName="exportEndDate"
+            class="form-control"
+          />
+          <div
+            style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            " *ngIf="exportEndDate?.invalid && exportEndDate?.touched && exportEndDate?.errors?.['required']">
+            "
+            *ngIf="exportEndDate?.invalid && exportEndDate?.touched && exportEndDate?.errors?.['required']"
+          >
             Field is required
           </div>
         </div>
       </div>
 
       <div>
-        <button (click)="submitForm()" [disabled]="myForm.invalid" type="submit" class="btn mx-1"
-          style="background-color: #7db855be">
+        <button
+          (click)="submitForm()"
+          [disabled]="myForm.invalid"
+          type="submit"
+          class="btn mx-1"
+          style="background-color: #7db855be"
+        >
           Submit
         </button>
-        <button type="submit" class="btn" style="background-color: #141e46; color: white" matDialogClose>
+        <button
+          type="submit"
+          class="btn"
+          style="background-color: #141e46; color: white"
+          matDialogClose
+        >
           Cancel
         </button>
       </div>

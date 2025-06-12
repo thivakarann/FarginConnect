@@ -547,7 +547,7 @@
             "
             *ngIf="contactEmail?.errors?.['pattern']"
           >
-            Please Enter A valid Email
+            Please Enter a valid Email
           </div>
 
           <div
@@ -591,7 +591,7 @@
             "
             *ngIf="contactMobile?.errors?.['pattern']"
           >
-            please Enter A valid Mobile Number
+            Please Enter a valid Mobile Number
           </div>
         </div>
         <div class="col-sm-4 form-group">
@@ -612,7 +612,7 @@
             "
             *ngIf="secondaryMobile?.errors?.['pattern']"
           >
-            please Enter A valid Mobile Number
+            Please Enter a valid Mobile Number
           </div>
         </div>
       </div>
@@ -643,6 +643,29 @@
           />
           <!-- <span class="error">*Only JPG/PNG/JPEG Files Allowed And Maximum Size Upto 20MB Allowed </span> -->
         </div>
+          <div class="col-sm-4 form-group">
+          <label for="billing">Cloud Fee Applicable</label>
+          <select
+            formControlName="cloudFeeEnable"
+            type="text"
+            class="form-select"
+            id="billing"
+          >
+            <option value="Yes">Yes</option>
+             <option value="No">No</option>
+          </select>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="cloudFeeEnable?.invalid && cloudFeeEnable?.touched && cloudFeeEnable?.errors?.['required']"
+          >
+            Field is required
+          </div>
+        </div>
         <div class="col-sm-4 form-group">
           <label for="billing">LCO Customer Billing Cycle</label>
           <select
@@ -664,10 +687,13 @@
             "
             *ngIf="billingMode?.invalid && billingMode?.touched && billingMode?.errors?.['required']"
           >
-            Field is required*
+            Field is required
           </div>
         </div>
-        <div class="col-sm-4 form-group">
+      
+      </div>
+      <div class="row mb-3">
+          <div class="col-sm-4 form-group">
           <label for="billing">LCO Cloud Fee Auto Debit</label>
           <select
             formControlName="autoDebitStatus"
@@ -687,11 +713,9 @@
             "
             *ngIf="autoDebitStatus?.invalid && autoDebitStatus?.touched && autoDebitStatus?.errors?.['required']"
           >
-            Field is required*
+            Field is required
           </div>
         </div>
-      </div>
-      <div class="row mb-3">
         <div class="col-sm-4 form-group">
           <label for="billing">Offline Qr</label>
           <select
@@ -712,7 +736,7 @@
             "
             *ngIf="offlineQrEnable?.invalid && offlineQrEnable?.touched && offlineQrEnable?.errors?.['required']"
           >
-            Field is required*
+            Field is required
           </div>
         </div>
         <!-- 
@@ -753,10 +777,15 @@
             "
             *ngIf="customerManualStatus?.invalid && customerManualStatus?.touched && customerManualStatus?.errors?.['required']"
           >
-            Field is required*
+            Field is required
           </div>
         </div>
-        <div class="col-sm-4 form-group">
+     
+        
+      </div>
+
+      <div class="row mb-3">
+           <div class="col-sm-4 form-group">
           <label for="billing">Customer Due Generation Mode</label>
           <select
             formControlName="customerPaymentMode"
@@ -776,12 +805,9 @@
             "
             *ngIf="customerPaymentMode?.invalid && customerPaymentMode?.touched && customerPaymentMode?.errors?.['required']"
           >
-            Field is required*
+            Field is required
           </div>
         </div>
-      </div>
-
-      <div class="row mb-3">
         <div class="col-sm-4 form-group">
           <label for="Entity Name">SMS Merchant Name</label>
           <input
@@ -825,9 +851,35 @@
              Maximum length should be 25
           </div>
         </div>
-
+ <div
+          class="col-sm-4 form-group"
+         
+        >
+          <label for="billing">LCO Customer SmsTag(Optional)</label>
+          <select
+            
+            formControlName="customerSmsTag"
+            type="text"
+            class="form-select"
+            id="billing"
+          >
+            <option value="Single">Single</option>
+            <option value="Multiple">Multiple</option>
+          </select>
+          <!-- <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="customerSmsTag?.invalid && customerSmsTag?.touched && customerSmsTag?.errors?.['required']"
+          >
+            Field is required
+          </div> -->
+        </div>
         <div class="col-sm-4 form-group">
-          <label for="billing">LCO Customer Due Alert Notification</label>
+          <label for="billing">LCO Customer Reminder Notification</label>
           <select
             (change)="duealert($event)"
             formControlName="customerDuesEnable"
@@ -847,43 +899,10 @@
             "
             *ngIf="customerDuesEnable?.invalid && customerDuesEnable?.touched && customerDuesEnable?.errors?.['required']"
           >
-            Field is required*
+            Field is required
           </div>
         </div>
-
-        <div
-          class="col-sm-4 form-group"
-          [hidden]="customerDuesEnable?.value != '1'"
-        >
-          <label for="billing">LCO Customer SmsTag</label>
-          <select
-            [required]="customerDuesEnable?.value == '1'"
-            formControlName="customerSmsTag"
-            type="text"
-            class="form-select"
-            id="billing"
-          >
-            <option value="Single">Single</option>
-            <option value="Multiple">Multiple</option>
-          </select>
-          <div
-            style="
-              color: red;
-              font-size: 12px;
-              margin-top: 2px;
-              position: relative;
-            "
-            *ngIf="customerSmsTag?.invalid && customerSmsTag?.touched && customerSmsTag?.errors?.['required']"
-          >
-            Field is required*
-          </div>
-        </div>
-      </div>
-
-      <div class="row mb-3">
-        <!-- </div> -->
-
-        <div
+ <div
           class="col-sm-4 form-group"
           [hidden]="customerDuesEnable?.value != '1'"
         >
@@ -909,7 +928,7 @@
             "
             *ngIf="customerDuesDate?.invalid && customerDuesDate?.touched && customerDuesDate?.errors?.['required']"
           >
-            Field is required*
+            Field is required
           </div>
         </div>
         <div
@@ -935,10 +954,13 @@
             "
             *ngIf="dueDate?.invalid && dueDate?.touched && dueDate?.errors?.['required']"
           >
-            Field is required*
+            Field is required
           </div>
         </div>
+       
       </div>
+
+      
       <div>
         <button
           (click)="Submit()"

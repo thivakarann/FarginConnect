@@ -92,7 +92,7 @@ mat-card-content tr:nth-child(odd) {
   /*  when rotating changed icon color */
   --height: 40px;
   /*  height */
-  width: 230px;
+  width: 209px;
   padding-inline-end: 1em;
   /*  change this for padding in the end of input */
   background: var(--input-bg);
@@ -233,4 +233,19 @@ table {
   -webkit-user-select: none;
   -ms-touch-action: manipulation;
   touch-action: manipulation;
+}
+  
+button.buttonDownload:disabled {
+  cursor: not-allowed; /* Indicates the button is not clickable */
+  background-color: #cccccc; /* Changes the background color */
+  color: #666666; /* Changes the text color */
+  opacity: 0.6; /* Makes the button appear faded */
+  border: 1px solid #999999; /* Modifies the border styling */
+}
+
+button.buttonDownload{
+  color:white;
+  background-color: #141E46;
+  border-radius: 10px;
+  font-size: 12px;
 }

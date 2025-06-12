@@ -206,7 +206,8 @@ msoservice:any
       language: this.language?.value.trim(),
       price: prices,
       modifiedBy: this.getadminname,
-      channelNo: this.channelNo?.value
+      channelNo: this.channelNo?.value,
+      
     }
  
     this.EditAlcart.AlcardUpdate(submitModel).subscribe((res: any) => {

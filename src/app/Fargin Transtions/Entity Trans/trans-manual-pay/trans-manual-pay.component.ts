@@ -10,10 +10,9 @@ import { subsmanualpay } from '../../../fargin-model/fargin-model.module';
 @Component({
   selector: 'app-trans-manual-pay',
   templateUrl: './trans-manual-pay.component.html',
-  styleUrl: './trans-manual-pay.component.css'
+  styleUrl: './trans-manual-pay.component.css',
 })
 export class TransManualPayComponent implements OnInit {
-
   manualpay!: FormGroup;
   lcopid: any;
   lcop: any;
@@ -42,23 +41,28 @@ export class TransManualPayComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.maintenancePayId = this.data.value;
-  console.log(this.maintenancePayId)
- 
+    console.log(this.maintenancePayId);
   }
 
   ngOnInit(): void {
-
-
     this.manualpay = new FormGroup({
       paymentMode: new FormControl('', [Validators.required]),
-      utrNumber: new FormControl('', [Validators.required]),
-
-      technicalPayStatus: new FormControl('', [Validators.required]),
-      updatedBy: new FormControl('')
+      utrNumber: new FormControl(''),
+      paidStatus: new FormControl('', [Validators.required]),
+      updatedBy: new FormControl(''),
     });
 
-    this.manualpay.get('paymentMode')?.valueChanges.subscribe((value) => { const utrNumberControl = this.manualpay.get('utrNumber'); if (value === 'Cash') { utrNumberControl?.clearValidators(); utrNumberControl?.disable(); } else { utrNumberControl?.setValidators([Validators.required]); utrNumberControl?.enable(); } utrNumberControl?.updateValueAndValidity(); });
-
+    // this.manualpay.get('paymentMode')?.valueChanges.subscribe((value) => {
+    //   const utrNumberControl = this.manualpay.get('utrNumber');
+    //   if (value === 'Cash') {
+    //     utrNumberControl?.clearValidators();
+    //     utrNumberControl?.disable();
+    //   } else {
+    //     utrNumberControl?.setValidators([Validators.required]);
+    //     utrNumberControl?.enable();
+    //   }
+    //   utrNumberControl?.updateValueAndValidity();
+    // });
   }
 
   get paymentMode() {
@@ -71,26 +75,25 @@ export class TransManualPayComponent implements OnInit {
   get technicalPayStatus() {
     return this.manualpay.get('technicalPayStatus');
   }
-
-
+  get paidStatus() {
+    return this.manualpay.get('paidStatus');
+  }
 
   Transactionpay(id: any) {
     let submitModel: subsmanualpay = {
       paymentMode: this.paymentMode?.value,
-      technicalPayStatus: this.technicalPayStatus?.value,
-      utrNumber: this.utrNumber?.value || "-",
-      updatedBy: this.createdBy
-    }
+      technicalPayStatus:'Success',
+      utrNumber: this.utrNumber?.value.trim() || '-',
+      updatedBy: this.createdBy,
+    };
 
     this.service.ManualPay(id, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage)
-        this.dialog.closeAll()
-    
+        this.toastr.success(res.responseMessage);
+        this.dialog.closeAll();
       } else {
-        this.toastr.warning(res.responseMessage)
+        this.toastr.warning(res.responseMessage);
       }
-    })
+    });
   }
-
-}     
+}

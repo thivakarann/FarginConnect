@@ -194,6 +194,7 @@ export class AlcartAddComponent implements OnInit {
     event.preventDefault();
     const formData = new FormData();
     formData.append('regionId', this.regionId?.value);
+    formData.append('serviceId', this.serviceId?.value);
     formData.append('channelName', this.channelName?.value.trim());
     formData.append('price', this.price?.value || "0");
     formData.append('bundleChannelId', this.bundleChannelId?.value);

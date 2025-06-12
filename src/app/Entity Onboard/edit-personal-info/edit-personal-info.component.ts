@@ -152,6 +152,7 @@ export class EditPersonalInfoComponent implements OnInit {
         Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(25),
       ]),
+            cloudFeeEnable: new FormControl('', [Validators.required]),
     });
 
     this.service.EntityViewbyid(this.id).subscribe((res: any) => {
@@ -164,7 +165,7 @@ export class EditPersonalInfoComponent implements OnInit {
       if (this.detaislone?.customerDuesEnable == '1') {
         this.myForm.get('customerDuesDate')?.setValue(this.detaislone?.customerDuesDate);
         this.myForm.get('dueDate')?.setValue(this.detaislone?.dueDate);
-        this.myForm.get('customerSmsTag')?.setValue(this.detaislone?.customerSmsTag);
+      
       }
 
       if (this.detaislone.customerDuesEnable == 1) {
@@ -287,6 +288,9 @@ export class EditPersonalInfoComponent implements OnInit {
   get customerSmsTag() {
     return this.myForm.get('customerSmsTag');
   }
+ get cloudFeeEnable() {
+    return this.myForm.get('cloudFeeEnable');
+  }
 
   // get withdrawalLimit() {
   //   return this.myForm.get('withdrawalLimit')
@@ -360,6 +364,8 @@ export class EditPersonalInfoComponent implements OnInit {
     formData.append('customerDuesEnable', this.customerDuesEnable?.value);
     formData.append('customerManualStatus', this.customerManualStatus?.value);
     formData.append('smsMerchantName', this.smsMerchantName?.value);
+    formData.append('customerSmsTag', this.customerSmsTag?.value || 'NA');
+    formData.append('cloudFeeEnable', this.cloudFeeEnable?.value);
     // formData.append('withdrawalLimit', this.withdrawalLimit?.value || "");
     // formData.append('withdrawalDailylimit', this.withdrawalDailylimit?.value || 0);
     formData.append('platformfee', '0');
@@ -372,11 +378,11 @@ export class EditPersonalInfoComponent implements OnInit {
     if (this.customerDuesEnabled === '0') {
       formData.append('customerDuesDate', '0');
       formData.append('dueDate', '0');
-      formData.append('customerSmsTag', 'NA');
+      // formData.append('customerSmsTag', 'NA');
     } else {
       formData.append('customerDuesDate', this.customerDuesDate?.value);
       formData.append('dueDate', this.dueDate?.value);
-      formData.append('customerSmsTag', this.customerSmsTag?.value || '');
+      // formData.append('customerSmsTag', this.customerSmsTag?.value || '');
     }
 
     this.service.UpdatePersonalEntity(this.id, formData).subscribe((res: any) => {
