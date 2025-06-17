@@ -37,11 +37,13 @@ export class CustomerTransViewallComponent {
     'paymentmethod',
     'createdDateTime',
     'amount',
+    'status',
     'paidAt',
+    'view',
     'Receipt',
     'CheckStatus',
-    'status',
-    'view',
+
+
 
   ];
   viewall: any;

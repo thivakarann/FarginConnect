@@ -35,11 +35,14 @@ export class AdditionalpaymentsComponent {
     'paymentmethod',
     'amount',
     'createdDateTime',
-    'paidAt',
-    'Receipt',
-    'CheckStatus',
     'status',
+    'paidAt',
     'view',
+    'CheckStatus',
+    'Receipt',
+
+
+
   ];
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
@@ -582,22 +585,22 @@ export class AdditionalpaymentsComponent {
         });
     } else {
       this.service.additionalpayments(event.pageSize, event.pageIndex).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.transaction = res.response;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.transaction);
-       
-      } else if (res.flag == 2) {
-        this.transaction = [];
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.transaction);
-       
-      }
-    });
+        if (res.flag == 1) {
+          this.transaction = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.transaction);
+
+        } else if (res.flag == 2) {
+          this.transaction = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.transaction);
+
+        }
+      });
     }
   }
 

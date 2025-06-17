@@ -35,28 +35,25 @@ export class MaintenanceTransViewallComponent {
     'sno',
     'paymentId',
     'entityname',
+    'amount',
+    'sgst',
+    'cgst',
+    'igst',
     'paymentmethod',
     'count',
     'percount',
-    // 'smscgst',
-    // 'smssgst',
-    // 'smsigst',
     'totalcost',
     'otherPayAmount',
     'otherpaymentview',
-    'amount',
-        'sgst',
-    'cgst',
-    'igst',
-
-    'totalamount',
+     'totalamount',
     'createdDateTime',
     'status',
-    'Manualpay',
     'paidAt',
+    'Manualpay',
+    'view',
     'CheckStatus',
     'receipt',
-    'view',
+
 
   ];
   viewall: any;
@@ -97,7 +94,7 @@ export class MaintenanceTransViewallComponent {
 
   pageIndex1: number = 0;
   pageSize1 = 5;
- 
+
   totalpage1: any;
   totalPages1: any;
   currentpage1: any;
@@ -109,27 +106,27 @@ export class MaintenanceTransViewallComponent {
   totalpage2: any;
   totalPages2: any;
   currentpage2: any;
- search1:any;
+  search1: any;
   filter: boolean = false;
   filter1: boolean = false;
   filters: boolean = false;
-  currentfilVal:any="";
-  search2:any;
-  searches:any;
+  currentfilVal: any = "";
+  search2: any;
+  searches: any;
   backs: any = '';
   userInput: string = '';
   options: Option[] = [];
   search: any;
   filterValue: any;
-  
+
   @ViewChild('dialogTemplate') dialogTemplate!: TemplateRef<any>;
   dialogRef: any;
   @ViewChild('CloudFeeDateFilter') CloudFeeDateFilter!: TemplateRef<any>;
   @ViewChild('CloudFeeSearch') CloudFeeSearch!: TemplateRef<any>;
   @ViewChild('DueGenerated') DueGenerated!: TemplateRef<any>;
   cloudfeesearch: any = FormGroup;
-  Datefiltercloudfee:any= FormGroup;
-  Duegenerate:any=FormGroup
+  Datefiltercloudfee: any = FormGroup;
+  Duegenerate: any = FormGroup
   merchantId: any;
   flags: any;
   cloudfee: any;
@@ -145,7 +142,7 @@ export class MaintenanceTransViewallComponent {
   valuemanval: any;
   currentfilvalShow: boolean = false;
   currentfilval: any;
-  searchPerformed:boolean=false;
+  searchPerformed: boolean = false;
 
   constructor(private router: Router, private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private fb: FormBuilder) { }
 
@@ -237,10 +234,10 @@ export class MaintenanceTransViewallComponent {
       search2: ['']
     });
 
- 
+
   }
 
- 
+
   get pay() {
     return this.cloudfeesearch.get('pay');
   }
@@ -252,7 +249,7 @@ export class MaintenanceTransViewallComponent {
     return this.cloudfeesearch.get('endDate');
   }
 
- 
+
   OtherpaymentsView(id: any) {
     this.router.navigate([`dashboard/maintenanceotherpay-view/${id}`], {
       queryParams: { alldata: id }
@@ -284,7 +281,7 @@ export class MaintenanceTransViewallComponent {
   }
 
 
-  
+
 
 
 
@@ -330,8 +327,8 @@ export class MaintenanceTransViewallComponent {
         this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.transaction);
         this.currentfilvalShow = false;
-        this.FromDateRange='';
-        this.ToDateRange='';
+        this.FromDateRange = '';
+        this.ToDateRange = '';
       } else if (res.flag == 2) {
         this.transaction = [];
         this.totalPages = res.pagination.totalElements;
@@ -339,12 +336,12 @@ export class MaintenanceTransViewallComponent {
         this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.transaction);
         this.currentfilvalShow = false;
-        this.FromDateRange='';
-        this.ToDateRange='';
+        this.FromDateRange = '';
+        this.ToDateRange = '';
       }
     });
 
-    
+
     this.backs = '';
     this.filterValue = '';
     this.userInput = '';
@@ -352,8 +349,8 @@ export class MaintenanceTransViewallComponent {
     this.cloudfeesearch.reset()
     this.options = [];
     this.selectedOption = '';
-     this.search1 = ''
-     this.search2 = ''
+    this.search1 = ''
+    this.search2 = ''
 
   }
 
@@ -431,20 +428,20 @@ export class MaintenanceTransViewallComponent {
           this.response.push(element?.igstPercentage);
           this.response.push(element?.sgstPercentage);
           this.response.push(element?.totalPayableAmount);
-          if(element.createdDateTime){
+          if (element.createdDateTime) {
             this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
           }
           else {
             this.response.push('');
           }
-       
-          if(element.paymentDateTime){
+
+          if (element.paymentDateTime) {
             this.response.push(moment(element?.paymentDateTime).format('DD/MM/yyyy hh:mm a').toString());
           }
           else {
             this.response.push('');
           }
- 
+
           if (element?.paymentStatus == 'Success') {
             this.response.push('Success');
           }
@@ -470,7 +467,7 @@ export class MaintenanceTransViewallComponent {
       }
     });
   }
- 
+
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
@@ -492,8 +489,8 @@ export class MaintenanceTransViewallComponent {
       'Paid At',
       'Status',
     ]
- 
- 
+
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Entity Transactions');
@@ -506,15 +503,15 @@ export class MaintenanceTransViewallComponent {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
+
       }
- 
+
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
- 
+
     data.forEach((d: any) => {
       //
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -532,10 +529,10 @@ export class MaintenanceTransViewallComponent {
       let qty13 = row.getCell(14);
       let qty14 = row.getCell(15);
       let qty15 = row.getCell(16);
- 
- 
- 
- 
+
+
+
+
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -552,7 +549,7 @@ export class MaintenanceTransViewallComponent {
       qty13.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty14.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty15.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
+
     }
     );
     workbook.xlsx.writeBuffer().then((data: any) => {
@@ -629,49 +626,49 @@ export class MaintenanceTransViewallComponent {
           this.dataSource = new MatTableDataSource(this.transaction);
           this.currentfilvalShow = false;
         }
- 
+
       });
     })
 
-}
-
-
-
-Filter(event: any) {
-  console.log(event.target.value);
-  this.filterValue = event.target.value;
-  this.filterbymso();
-}
-
-filterbymso() {
-  if (this.filterValue == 'Filterbycloudffeesearch') {
-    this.dialogRef = this.dialog.open(this.CloudFeeSearch, {
-      enterAnimationDuration: '500ms',
-      exitAnimationDuration: '1000ms',
-      disableClose: true,
-      position: { right: '0px' },
-      // width: '30%'
-    });
   }
-  else if (this.filterValue == 'Datefiltercloudfee') {
-    this.dialogRef = this.dialog.open(this.CloudFeeDateFilter, {
-      enterAnimationDuration: '500ms',
-      exitAnimationDuration: '1000ms',
-      disableClose: true,
-      position: { right: '0px' },
-      // width: '30%'
-    });
+
+
+
+  Filter(event: any) {
+    console.log(event.target.value);
+    this.filterValue = event.target.value;
+    this.filterbymso();
   }
-  else if (this.filterValue == 'DuegenerateCloudFee') {
-    this.dialogRef = this.dialog.open(this.DueGenerated, {
-      enterAnimationDuration: '500ms',
-      exitAnimationDuration: '1000ms',
-      disableClose: true,
-      position: { right: '0px' },
-      // width: '30%'
-    });
+
+  filterbymso() {
+    if (this.filterValue == 'Filterbycloudffeesearch') {
+      this.dialogRef = this.dialog.open(this.CloudFeeSearch, {
+        enterAnimationDuration: '500ms',
+        exitAnimationDuration: '1000ms',
+        disableClose: true,
+        position: { right: '0px' },
+        // width: '30%'
+      });
+    }
+    else if (this.filterValue == 'Datefiltercloudfee') {
+      this.dialogRef = this.dialog.open(this.CloudFeeDateFilter, {
+        enterAnimationDuration: '500ms',
+        exitAnimationDuration: '1000ms',
+        disableClose: true,
+        position: { right: '0px' },
+        // width: '30%'
+      });
+    }
+    else if (this.filterValue == 'DuegenerateCloudFee') {
+      this.dialogRef = this.dialog.open(this.DueGenerated, {
+        enterAnimationDuration: '500ms',
+        exitAnimationDuration: '1000ms',
+        disableClose: true,
+        position: { right: '0px' },
+        // width: '30%'
+      });
+    }
   }
-}
 
 
   onInputChange(event: Event): void {
@@ -682,23 +679,23 @@ filterbymso() {
   onSearchClick(searchSelect: NgSelectComponent): void {
     this.searchAPI(this.userInput);
 
-  // Keep the dropdown open after the search
-  if (!searchSelect.isOpen) {
-    searchSelect.open();
-  }
+    // Keep the dropdown open after the search
+    if (!searchSelect.isOpen) {
+      searchSelect.open();
+    }
   }
 
   onDropdownChange(selectedItem: any): void {
     console.log(selectedItem)
     if (selectedItem) {
-        this.selectedOption = selectedItem.merchantId;
-        this.search1 = selectedItem.entityName;
-        this.merchantId = this.selectedOption;
-        console.log(this.merchantId);
+      this.selectedOption = selectedItem.merchantId;
+      this.search1 = selectedItem.entityName;
+      this.merchantId = this.selectedOption;
+      console.log(this.merchantId);
     }
     // this.closeDropdown()
   }
-   
+
   closeDropdown(): void {
 
   }
@@ -729,7 +726,7 @@ filterbymso() {
     this.userInput = ''; // Clear the input variable, if any
     console.log('Clear action triggered!');
   }
-  
+
   CloudFee() {
 
     if (!this.startDate?.value && !this.endDate?.value) {
@@ -771,7 +768,7 @@ filterbymso() {
   close() {
     this.dialog.closeAll();
     this.backs = '';
-    this.filterValue=null;
+    this.filterValue = null;
   }
 
   resetsearch(): void {
@@ -779,20 +776,20 @@ filterbymso() {
     this.userInput = '';
     this.options = [];
     this.selectedOption = ''
-     this.search1 = ''
+    this.search1 = ''
   }
 
-  resetfilter(){
+  resetfilter() {
     this.Datefiltercloudfee.reset();
   }
 
-  resetdue(){
+  resetdue() {
     this.Duegenerate.reset();
     this.search2 = ''
-  this.searches = ''
+    this.searches = ''
   }
 
-  Duegeneration(){
+  Duegeneration() {
     if (!this.startDate?.value && !this.endDate?.value) {
       this.flags = 1;
       console.log('Flag set to 1:', this.flags);
@@ -800,7 +797,7 @@ filterbymso() {
       this.flags = 2;
       console.log('Flag set to 2:', this.flags);
     }
-    let submitModel:Manuvelduesforcloudfee = {
+    let submitModel: Manuvelduesforcloudfee = {
       merchantId: this.merchantId
     }
     this.service.MaintenancedueManuvelgenerate(submitModel).subscribe((res: any) => {
@@ -822,7 +819,8 @@ filterbymso() {
 
   getData(event: any) {
     if (this.currentfilvalShow) {
-      this.service.Subscriptionsearch(this.currentfilVal, event.pageSize, event.pageIndex).subscribe({next: (res: any) => {
+      this.service.Subscriptionsearch(this.currentfilVal, event.pageSize, event.pageIndex).subscribe({
+        next: (res: any) => {
           if (res.response) {
             this.transaction = res.response;
             this.totalPages = res.pagination.totalElements;

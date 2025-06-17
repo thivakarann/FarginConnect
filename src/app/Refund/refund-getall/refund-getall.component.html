@@ -208,6 +208,12 @@
               style="color: rgb(0, 4, 255)"
               >{{ data?.refundStatus }}</span
             >
+
+                 <span
+              *ngIf="data?.refundStatus == 'SUBMITTED'"
+              style="color:green"
+              >Success</span
+            >
             <span
               *ngIf="data?.refundStatus == 'Success'"
               style="color: green"

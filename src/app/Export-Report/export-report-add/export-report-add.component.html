@@ -210,7 +210,38 @@
           </select>
         </div>
 
-        <div
+    
+
+           <div [hidden]="exportDataName?.value != '20' && exportDataName?.value != '23' " class="form__linput">
+          <label [hidden]="exportDataName?.value != '20'" for="paymentrefundmethod">
+            Refund Payment Type
+          </label>
+              <label [hidden]="exportDataName?.value != '23'" for="paymentrefundmethod">
+            Branch Payment Type
+          </label>
+          <select [required]="exportDataName?.value == '20'" 
+            formControlName="paymentrefundmethod"
+            type="text"
+            id="paymentrefundmethod"
+            class="form-select"
+          >
+            <option value="1">Due Payment</option>
+            <option value="2">Additional Payment</option>
+          </select>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative; ;
+            "
+            *ngIf="paymentrefundmethod?.invalid && paymentrefundmethod?.touched && paymentrefundmethod?.errors?.['required']"
+          >
+            Field is required
+          </div>
+        </div>
+
+            <div
           [hidden]="
             exportDataName?.value != '4' &&
             exportDataName?.value != '7' &&
@@ -235,32 +266,6 @@
             <option value="Due Cancelled">Due Cancelled</option>
             <option value="Payment Incomplete">Payment Incomplete</option>
           </select>
-        </div>
-
-           <div [hidden]="exportDataName?.value != '20'" class="form__linput">
-          <label for="paymentrefundmethod">
-            Refund Payment Type
-          </label>
-          <select [required]="exportDataName?.value == '20'" 
-            formControlName="paymentrefundmethod"
-            type="text"
-            id="paymentrefundmethod"
-            class="form-select"
-          >
-            <option value="1">Due Payment</option>
-            <option value="2">Additional Payment</option>
-          </select>
-          <div
-            style="
-              color: red;
-              font-size: 12px;
-              margin-top: 2px;
-              position: relative; ;
-            "
-            *ngIf="paymentrefundmethod?.invalid && paymentrefundmethod?.touched && paymentrefundmethod?.errors?.['required']"
-          >
-            Field is required
-          </div>
         </div>
 
         <div class="form-group">

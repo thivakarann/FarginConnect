@@ -88,11 +88,11 @@
                 </td>
             </ng-container>
 
-            <ng-container matColumnDef="entityname">
+            <!-- <ng-container matColumnDef="entityname">
                 <th style="text-align: left;padding-left: 15px;" mat-header-cell *matHeaderCellDef> Entity Name</th>
                 <td style="text-align: left;padding-left: 15px;" mat-cell *matCellDef="let viewall">{{viewall.entityName
                     || '-'}}</td>
-            </ng-container>
+            </ng-container> -->
                  <ng-container matColumnDef="merchantname">
                 <th style="text-align: left;padding-left: 15px;" mat-header-cell *matHeaderCellDef> Entity Legal Name</th>
                 <td style="text-align: left;padding-left: 15px;" mat-cell *matCellDef="let viewall">{{viewall.entityLegalName
@@ -185,7 +185,7 @@
                 </td>
             </ng-container>
                  <ng-container matColumnDef="paymentrefund">
-                <th mat-header-cell *matHeaderCellDef>Refund Payment Type</th>
+                <th mat-header-cell *matHeaderCellDef>Payment Type</th>
                 <td mat-cell *matCellDef="let viewall">
                         <span *ngIf="viewall?.exportType == '1' && viewall?.exportDataName   ==  20" >
                             Due Payment</span>
@@ -195,6 +195,14 @@
 
                     <span *ngIf="viewall?.exportType == '0'">
                             -</span>
+
+                             <span *ngIf="viewall?.branchType == '1' && viewall?.exportDataName   ==  23" >
+                            Due Payment</span>
+
+                        <span *ngIf="viewall?.branchType   ==  '2' &&  viewall?.exportDataName   ==  23">
+                            Additional Payment</span>
+
+             
 
                 </td>
             </ng-container>

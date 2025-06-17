@@ -703,6 +703,7 @@ export class FarginServiceService {
   private readonly refundforcustomer = 'refund/getcustomer/';
   private readonly refundexport = 'refund/getall';
   private readonly refunddatefilter = 'refund/getAll/';
+  private readonly refundcheck = 'refund/response';
 
   //alcarte mso
   private readonly msoactive = 'serviceProvider/viewActive';
@@ -913,16 +914,14 @@ export class FarginServiceService {
   headers = new HttpHeaders({
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
-    X_ACCESS_TOKEN: `Bearer ${
-      this.token ? JSON.parse(sessionStorage.getItem('token') || '') : null
-    }`,
+    X_ACCESS_TOKEN: `Bearer ${this.token ? JSON.parse(sessionStorage.getItem('token') || '') : null
+      }`,
   });
 
   headersMultipart = new HttpHeaders({
     'Access-Control-Allow-Origin': '*',
-    X_ACCESS_TOKEN: `Bearer ${
-      this.token ? JSON.parse(sessionStorage.getItem('token') || '') : null
-    }`,
+    X_ACCESS_TOKEN: `Bearer ${this.token ? JSON.parse(sessionStorage.getItem('token') || '') : null
+      }`,
   });
 
   options = { headers: this.headers };
@@ -940,93 +939,93 @@ export class FarginServiceService {
     };
 
     return this.http
-    .post(`${this.basePath}${this.adminlogin}`, credentialBody)
-    .subscribe((res: any) => {
-      if (res.flag == 1) {
-        sessionStorage.setItem(
-          'token',
-          JSON.stringify(
-            res.response.login_history.adminUser.jwtResponse.X_ACCESS_TOKEN
-          )
-        );
-        sessionStorage.setItem(
-          'adminid',
-          JSON.stringify(res.response.login_history?.adminUser?.adminUserId)
-        );
-        sessionStorage.setItem(
-          'adminname',
-          JSON.stringify(res.response.login_history?.adminUser?.adminName)
-        );
-        sessionStorage.setItem(
-          'emailaddress',
-          JSON.stringify(res.response.login_history?.adminUser?.emailAddress)
-        );
-        sessionStorage.setItem(
-          'address',
-          JSON.stringify(res.response.login_history?.adminUser?.address)
-        );
-        sessionStorage.setItem(
-          'mobilenumber',
-          JSON.stringify(res.response.login_history?.adminUser?.mobileNumber)
-        );
-        sessionStorage.setItem(
-          'lastlogin',
-          JSON.stringify(res.response.login_history?.adminUser?.lastLogin)
-        );
-        sessionStorage.setItem(
-          'fullname',
-          JSON.stringify(res.response.login_history?.adminUser?.createdBy)
-        );
-        sessionStorage.setItem(
-          'roleId',
-          JSON.stringify(
-            res.response.login_history?.adminUser?.roleModel?.roleId
-          )
-        );
-        sessionStorage.setItem(
-          'flag',
-          JSON.stringify(res.response.login_history?.adminUser?.categoryFlag)
-        );
+      .post(`${this.basePath}${this.adminlogin}`, credentialBody)
+      .subscribe((res: any) => {
+        if (res.flag == 1) {
+          sessionStorage.setItem(
+            'token',
+            JSON.stringify(
+              res.response.login_history.adminUser.jwtResponse.X_ACCESS_TOKEN
+            )
+          );
+          sessionStorage.setItem(
+            'adminid',
+            JSON.stringify(res.response.login_history?.adminUser?.adminUserId)
+          );
+          sessionStorage.setItem(
+            'adminname',
+            JSON.stringify(res.response.login_history?.adminUser?.adminName)
+          );
+          sessionStorage.setItem(
+            'emailaddress',
+            JSON.stringify(res.response.login_history?.adminUser?.emailAddress)
+          );
+          sessionStorage.setItem(
+            'address',
+            JSON.stringify(res.response.login_history?.adminUser?.address)
+          );
+          sessionStorage.setItem(
+            'mobilenumber',
+            JSON.stringify(res.response.login_history?.adminUser?.mobileNumber)
+          );
+          sessionStorage.setItem(
+            'lastlogin',
+            JSON.stringify(res.response.login_history?.adminUser?.lastLogin)
+          );
+          sessionStorage.setItem(
+            'fullname',
+            JSON.stringify(res.response.login_history?.adminUser?.createdBy)
+          );
+          sessionStorage.setItem(
+            'roleId',
+            JSON.stringify(
+              res.response.login_history?.adminUser?.roleModel?.roleId
+            )
+          );
+          sessionStorage.setItem(
+            'flag',
+            JSON.stringify(res.response.login_history?.adminUser?.categoryFlag)
+          );
 
-        const token =
-          res.response.login_history.adminUser.jwtResponse.X_ACCESS_TOKEN;
-        const email = encodeURIComponent(
-          res.response.login_history.adminUser.emailAddress
-        );
-        const adminId = res.response.login_history.adminUser.adminUserId;
-        const flag = JSON.stringify(
-          res.response.login_history?.adminUser?.categoryFlag
-        );
+          const token =
+            res.response.login_history.adminUser.jwtResponse.X_ACCESS_TOKEN;
+          const email = encodeURIComponent(
+            res.response.login_history.adminUser.emailAddress
+          );
+          const adminId = res.response.login_history.adminUser.adminUserId;
+          const flag = JSON.stringify(
+            res.response.login_history?.adminUser?.categoryFlag
+          );
 
-        // Encode the values to avoid issues with special characters
-        // const encodedEmail = encodeURIComponent(Email);
-        // const encodedAdminId = encodeURIComponent(AdminId);
-        // const encodedToken = encodeURIComponent(Tokens);
+          // Encode the values to avoid issues with special characters
+          // const encodedEmail = encodeURIComponent(Email);
+          // const encodedAdminId = encodeURIComponent(AdminId);
+          // const encodedToken = encodeURIComponent(Tokens);
 
-        if (flag == '1') {
-          this.router.navigateByUrl('/dashboard/dashboard-content', {
-            replaceUrl: true,
-          });
-          this.timerService.restartTimer();
-          setTimeout(() => {
-            window.location.reload();
-          }, 200);
+          if (flag == '1') {
+            this.router.navigateByUrl('/dashboard/dashboard-content', {
+              replaceUrl: true,
+            });
+            this.timerService.restartTimer();
+            setTimeout(() => {
+              window.location.reload();
+            }, 200);
+          }
+
+          // else if (flag == '2') {
+          //   window.location.href = (`https://dev-adminpg.farginconnect.com/data-component/${token}/${email}/${adminId}`);
+          // }
+
+          // Replace history before redirect
+          // window.location.href = (`http://localhost:51296/data-component/${token}/${email}/${adminId}`);
+
+          // this.toastr.success(res.responseMessage);
+        } else if (res.flag == 2) {
+          this.toastr.error(res.responseMessage);
+        } else {
+          this.toastr.error(res.responseMessage);
         }
-
-        // else if (flag == '2') {
-        //   window.location.href = (`https://dev-adminpg.farginconnect.com/data-component/${token}/${email}/${adminId}`);
-        // }
-
-        // Replace history before redirect
-        // window.location.href = (`http://localhost:51296/data-component/${token}/${email}/${adminId}`);
-
-        // this.toastr.success(res.responseMessage);
-      } else if (res.flag == 2) {
-        this.toastr.error(res.responseMessage);
-      } else {
-        this.toastr.error(res.responseMessage);
-      }
-    });
+      });
   }
 
   getIpAddress() {
@@ -4153,6 +4152,10 @@ export class FarginServiceService {
       `${this.basePath}${this.refundgetall}${id}/${id1}`,
       this.options
     );
+  }
+
+  RefundCheck(model: any) {
+    return this.http.post(`${this.basePath}${this.refundcheck}`, model, this.options)
   }
   RefundGetAllSearch(id: any, id1: any, id2: any, id3: any) {
     return this.http.get(

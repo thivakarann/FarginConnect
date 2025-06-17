@@ -60,7 +60,7 @@ export interface Businessadd {
   readonly categoryName: any;
   readonly mccCode: any;
   readonly createdBy: any;
-  readonly autoDebitDate:any;
+  readonly autoDebitDate: any;
 }
 
 
@@ -68,7 +68,7 @@ export interface Businessedit {
   readonly categoryName: any;
   readonly mccCode: any;
   readonly modifiedBy: any;
-  readonly autoDebitDate:any;
+  readonly autoDebitDate: any;
 }
 
 export interface Businessstatus {
@@ -84,7 +84,7 @@ export interface Businesskycstatus {
 export interface Businesskycadd {
   readonly businessCategoryId: any;
   readonly createdBy: any;
-  readonly kycCategoryId:any;
+  readonly kycCategoryId: any;
 }
 
 
@@ -168,7 +168,7 @@ export interface AddEntityBank {
   readonly accountType: any;
   readonly merchantId: any;
   readonly ledgerId: any;
-  readonly createdBy:any;
+  readonly createdBy: any;
 }
 
 
@@ -259,7 +259,7 @@ export interface bankData {
   readonly accountType: any;
   readonly merchantId: any;
   readonly ledgerId: any;
-  readonly createdBy:any;
+  readonly createdBy: any;
 }
 
 export interface bankedit {
@@ -270,7 +270,7 @@ export interface bankedit {
   readonly branchName: any;
   readonly accountType: any;
   readonly ledgerId: any;
-  readonly modifiedBy:any;
+  readonly modifiedBy: any;
 }
 
 
@@ -383,14 +383,14 @@ export interface ticket {
   readonly approvalStatus: any;
 }
 
-export interface updatestickerticket{
+export interface updatestickerticket {
   readonly raiseTicketId: any;
   readonly stickerCount: any;
   readonly subject: any;
-  readonly merchantId:any;
-  readonly ticketStatus:any;
-  readonly stickerUpdatedBy:any;
- 
+  readonly merchantId: any;
+  readonly ticketStatus: any;
+  readonly stickerUpdatedBy: any;
+
 }
 
 export interface subpermission {
@@ -451,13 +451,13 @@ export interface Providerstatus {
 
 export interface Providercreate {
   readonly serviceProviderName: any;
-  readonly serviceProviderLink:any;
+  readonly serviceProviderLink: any;
   readonly createdBy: any;
 }
 
 export interface Providerupdate {
   readonly serviceProviderName: any;
-  readonly serviceProviderLink:any;
+  readonly serviceProviderLink: any;
   readonly modifiedBy: any;
   readonly serviceId: any;
 }
@@ -547,7 +547,7 @@ export interface BroadcasterBouquetadd {
 export interface AddExtraChannels {
   readonly alcotChannel: any;
   readonly boqId: any;
-  readonly broadCasterRegionId:any;
+  readonly broadCasterRegionId: any;
 }
 
 export interface BroadcasterBouquetStatus {
@@ -567,12 +567,12 @@ export interface Broadcastersinglechanelstatus {
   readonly channelStatus: any;
 }
 export interface BroadcasterBoucateschannelEdits {
-  readonly broadCasterAlcotId:any;
- readonly alcotIds: any;
+  readonly broadCasterAlcotId: any;
+  readonly alcotIds: any;
 }
 export interface BroadcasterBouquetregionupdate {
-  readonly broadCasterRegionId:any;
- readonly regionIds: any;
+  readonly broadCasterRegionId: any;
+  readonly regionIds: any;
 }
 
 
@@ -628,9 +628,9 @@ export interface MerchantplanCreate {
   readonly frequency: any;
   readonly createdBy: any;
   readonly renewalAmount: any;
-  readonly countLimit:any;
-  readonly voiceBoxAdvRent:any;
-  readonly voiceBoxSetupFee:any;
+  readonly countLimit: any;
+  readonly voiceBoxAdvRent: any;
+  readonly voiceBoxSetupFee: any;
 }
 
 export interface MerchantplanUpdate {
@@ -640,9 +640,9 @@ export interface MerchantplanUpdate {
   readonly frequency: any;
   readonly modifiedBy: any;
   readonly renewalAmount: any;
-  readonly voiceBoxAdvRent:any;
-  readonly voiceBoxSetupFee:any;
-  readonly countLimit:any;
+  readonly voiceBoxAdvRent: any;
+  readonly voiceBoxSetupFee: any;
+  readonly countLimit: any;
 }
 
 export interface MerchantPlanStatus {
@@ -687,7 +687,7 @@ export interface settlements {
   readonly dateRange: any;
   readonly status: any;
   readonly payoutId: any;
-  readonly merchantId:any;
+  readonly merchantId: any;
 }
 
 
@@ -718,10 +718,10 @@ export interface BroadcasterBouquetupdate {
 
 }
 
-export interface ExtraRegion{
-  readonly boqId:any
-  readonly regionId:any
-  readonly alcotChannel:any
+export interface ExtraRegion {
+  readonly boqId: any
+  readonly regionId: any
+  readonly alcotChannel: any
 }
 
 export interface manualPayment {
@@ -730,8 +730,8 @@ export interface manualPayment {
   readonly utrNumber: any;
   readonly merchantId: any;
   readonly paidAmount: any;
-  readonly date:any;
-  readonly updatedBy:any;
+  readonly date: any;
+  readonly updatedBy: any;
 }
 
 export interface createManualPayment {
@@ -863,14 +863,14 @@ export interface verification {
 export interface Drivingverification {
   readonly facheckDocNumber: any;
   readonly kycId: any;
-  readonly dateOfBirth:any;
+  readonly dateOfBirth: any;
 }
 
 export interface Pasportverify {
   readonly kycId: any;
   readonly facheckDocNumber: any;
   readonly approvalBy: any;
-  readonly dateOfBirth:any;
+  readonly dateOfBirth: any;
 }
 
 export interface verify {
@@ -918,449 +918,447 @@ export interface kycedit {
 }
 
 
-export interface farginadd{
-  readonly accountHolderName:any;
-  readonly accountNumber:any;
-  readonly bankName:any;
-  readonly ifscCode:any;
-  readonly branchName:any;
-  readonly ledgerId:any;
-  readonly createdBy:any;
- 
-}
- 
-export interface farginstatus{
-  readonly activeStatus:any;
+export interface farginadd {
+  readonly accountHolderName: any;
+  readonly accountNumber: any;
+  readonly bankName: any;
+  readonly ifscCode: any;
+  readonly branchName: any;
+  readonly ledgerId: any;
+  readonly createdBy: any;
+
 }
 
-
-export interface farginedit{
-  readonly accountHolderName:any;
-  readonly accountNumber:any;
-  readonly bankName:any;
-  readonly ifscCode:any;
-  readonly branchName:any;
-  readonly ledgerId:any;
-  readonly createdBy:any;
+export interface farginstatus {
+  readonly activeStatus: any;
 }
 
-export interface CreateSMS{
-  readonly merchantId:any;
-  readonly type:any;
-  readonly createdBy:any;
-  readonly smsCharge:any
+
+export interface farginedit {
+  readonly accountHolderName: any;
+  readonly accountNumber: any;
+  readonly bankName: any;
+  readonly ifscCode: any;
+  readonly branchName: any;
+  readonly ledgerId: any;
+  readonly createdBy: any;
+}
+
+export interface CreateSMS {
+  readonly merchantId: any;
+  readonly type: any;
+  readonly createdBy: any;
+  readonly smsCharge: any
 }
 
 export interface Logout {
-readonly adminUserId: any;
-readonly logout: any;
+  readonly adminUserId: any;
+  readonly logout: any;
 }
 
 export interface SmsStatus {
   readonly smsStatus: boolean | number;
   readonly modifedBy: any;
- 
+
 }
 export interface SmsUpdate {
-  readonly smsType:any;
+  readonly smsType: any;
   readonly modifedBy: any;
-  readonly smsCharge:any
- 
+  readonly smsCharge: any
+
 }
 
 
 
-export interface documentupdate{
-  readonly merchantDocumentId:any;
-  readonly kycCategoryId:any;
-  readonly docNumber :any
-  readonly modifiedBy:any
+export interface documentupdate {
+  readonly merchantDocumentId: any;
+  readonly kycCategoryId: any;
+  readonly docNumber: any
+  readonly modifiedBy: any
 }
- 
-export interface documentapproval{
-  readonly approvalBy:any
-  readonly approvalStatus:any
-  readonly reMarks:any
+
+export interface documentapproval {
+  readonly approvalBy: any
+  readonly approvalStatus: any
+  readonly reMarks: any
 }
 
 export interface SMSCostAdd {
-  readonly amount:any;
-  readonly createdBy:any;
-  readonly effectiveDate:any;
+  readonly amount: any;
+  readonly createdBy: any;
+  readonly effectiveDate: any;
 }
 
 export interface smscoststatus {
-  readonly smsStatus:any;
+  readonly smsStatus: any;
 }
 
 
-export interface announceAdd{
-  readonly businessCategoryId:any;
-  readonly announcementContentEnglish:any;
-  readonly startDate:any;
-  readonly endDate:any;
-  readonly createdBy:any
+export interface announceAdd {
+  readonly businessCategoryId: any;
+  readonly announcementContentEnglish: any;
+  readonly startDate: any;
+  readonly endDate: any;
+  readonly createdBy: any
 }
- 
-export interface announceEdit{
-  readonly announcementId:any;
-  readonly businessCategoryId:any;
-  readonly announcementContentEnglish:any;
-  readonly startDate:any;
-  readonly endDate:any;
-  readonly updatedBy:any
+
+export interface announceEdit {
+  readonly announcementId: any;
+  readonly businessCategoryId: any;
+  readonly announcementContentEnglish: any;
+  readonly startDate: any;
+  readonly endDate: any;
+  readonly updatedBy: any
 }
- 
-export interface announcestatus{
-  readonly announcementId:any;
-  readonly activeStatus:any
+
+export interface announcestatus {
+  readonly announcementId: any;
+  readonly activeStatus: any
 }
 
 
 
-export interface SMSApproval{
-readonly smsApprovalStatus:any;
-readonly smsApprovedBy:any;
+export interface SMSApproval {
+  readonly smsApprovalStatus: any;
+  readonly smsApprovedBy: any;
 }
 
-export interface customerplanStatus{
-  readonly activeStatus:any;
-}
-
-
-export interface customerpay{
-  readonly payId:any;
-  readonly paidAmount:any;
-}
- 
-export interface subscriptionpay{
-  readonly payId:any;
-  readonly trackId:any;
-  readonly paidAmount:any;
-}
- 
-export interface customizepay{
-  readonly payId:any;
-}
- 
-export interface manualpay{
-  readonly payId:any;
+export interface customerplanStatus {
+  readonly activeStatus: any;
 }
 
 
-export interface Region{
-  readonly regionsId:any
+export interface customerpay {
+  readonly payId: any;
+  readonly paidAmount: any;
+}
+
+export interface subscriptionpay {
+  readonly payId: any;
+  readonly trackId: any;
+  readonly paidAmount: any;
+}
+
+export interface customizepay {
+  readonly payId: any;
+}
+
+export interface manualpay {
+  readonly payId: any;
+}
+
+
+export interface Region {
+  readonly regionsId: any
 }
 
 
 export interface Addsigner {
-  readonly signAdminEmail :any,
-  readonly signAdminMobile:any,
-  readonly signAdminName:any,
-  readonly createdBy:any
-  readonly adminPosition:any
+  readonly signAdminEmail: any,
+  readonly signAdminMobile: any,
+  readonly signAdminName: any,
+  readonly createdBy: any
+  readonly adminPosition: any
 }
 
 export interface Updatesigner {
-  readonly signAdminEmail :any,
-  readonly signAdminMobile:any,
-  readonly signAdminName:any,
-  readonly modifiedBy:any,
-  readonly signId:any
+  readonly signAdminEmail: any,
+  readonly signAdminMobile: any,
+  readonly signAdminName: any,
+  readonly modifiedBy: any,
+  readonly signId: any
 }
 
 export interface UpdatesignerStatus {
-  readonly signId:any,
-  readonly activeStatus:any
+  readonly signId: any,
+  readonly activeStatus: any
 }
 
-export interface AgreementCommerical
-{
-  readonly planName:any;
-  readonly serviceFee:any;
-  readonly settlementCycle:any;
-  readonly createdBy:any;
-  readonly netBankingAmount:any;
-  readonly netBankingPercentage:any;
-  readonly netBankingFixedFee:any;
-  readonly rupayDebitCardMaxAmount:any;
-  readonly rupayDebitCardMaxPercentage:any;
-  readonly rupayDebitCardMaxFixedFee:any;
-  readonly rupayDebitCardMinAmount:any;
-  readonly rupayDebitCardMinPercentage:any;
-  readonly rupayDebitCardMinFixedFee:any;
-  readonly otherDebitCardMaxAmount:any;
-  readonly otherDebitCardMaxPercentage:any;
-  readonly otherDebitCardMaxFixedFee:any;
-  readonly otherDebitCardMinAmount:any;
-  readonly otherDebitCardMinPercentage:any;
-  readonly otherDebitCardMinFixedFee:any;
-  readonly eCollectAmount:any;
-  readonly eCollectPercentage:any;
-  readonly eCollectFixedFee:any;
-  readonly disbursementApiAmount:any;
-  readonly disbursementApiPercentage:any;
-  readonly disbursementApiFixedFee:any;
-  readonly internationalApiAmount:any;
-  readonly internationApiPercentage:any;
-  readonly internationApiFixedFee:any;
-  readonly amexCardAmount:any;
-  readonly amexCardPercentage:any;
-  readonly amexCardFixedFee:any;
-  readonly dinnersCardAmount:any;
-  readonly dinnersCardPercentage:any;
-  readonly dinnersCardFixedFee:any;
-  readonly corporateOrCommercialCardAmount:any;
-  readonly corporateOrCommercialCardPercentage:any;
-  readonly corporateOrCommercialCardFixedFee:any;
-  readonly prepaidCardAmount:any;
-  readonly prepaidCardPercentage:any;
-  readonly prepaidCardFixedFee:any;
-  readonly walletPhonepeAmount:any;
-  readonly walletPhonepePercentage:any;
-  readonly walletPhonepeFixedFee:any;
-  readonly walletFreeChargeAmount:any;
-  readonly walletFreeChargePercentage:any;
-  readonly walletFreeChargeFixedFee:any;
-  readonly walletPayzappAmount:any;
-  readonly walletPayzappPercentage:any;
-  readonly walletPayzappFixedFee:any;
-  readonly walletPaytmAmount:any;
-  readonly walletPaytmPercentage:any;
-  readonly walletPaytmFixedFee:any;
-  readonly walletOlaMoneyAmount:any;
-  readonly walletOlaMoneyPercentage:any;
-  readonly walletOlaMoneyFixedFee:any;
-  readonly walletMobikwikkAmount:any;
-  readonly walletMobikwikkPercentage:any;
-  readonly walletMobikwikkFixedFee:any;
-  readonly walletRelianceJioMoneyAmount:any;
-  readonly walletRelianceJioMoneyPercentage:any;
-  readonly walletRelianceJioMoneyFixedFee:any;
-  readonly walletAirtelMoneyAmount:any;
-  readonly walletAirtelMoneyPercentage:any;
-  readonly walletAirtelMoneyFixedFee:any;
-  readonly upiAmount:any;
-  readonly upiPercentage:any;
-  readonly upiFixedFee:any;
-  readonly dynamicQrAmount:any;
-  readonly dynamicQrPercentage:any;
-  readonly dynamicQrFixedFee:any;
-  readonly creditCardAmount:any;
-  readonly creditCardPercentage:any;
-  readonly creditCardFixedFee:any;
-  readonly mmcAmount:any;
-  readonly securityDepositAmount:any;
-  readonly nbOtherBankAmount:any;
-  readonly nbOtherBankPercentage:any;
-  readonly nbOtherBankFixedFee:any;
- 
- 
+export interface AgreementCommerical {
+  readonly planName: any;
+  readonly serviceFee: any;
+  readonly settlementCycle: any;
+  readonly createdBy: any;
+  readonly netBankingAmount: any;
+  readonly netBankingPercentage: any;
+  readonly netBankingFixedFee: any;
+  readonly rupayDebitCardMaxAmount: any;
+  readonly rupayDebitCardMaxPercentage: any;
+  readonly rupayDebitCardMaxFixedFee: any;
+  readonly rupayDebitCardMinAmount: any;
+  readonly rupayDebitCardMinPercentage: any;
+  readonly rupayDebitCardMinFixedFee: any;
+  readonly otherDebitCardMaxAmount: any;
+  readonly otherDebitCardMaxPercentage: any;
+  readonly otherDebitCardMaxFixedFee: any;
+  readonly otherDebitCardMinAmount: any;
+  readonly otherDebitCardMinPercentage: any;
+  readonly otherDebitCardMinFixedFee: any;
+  readonly eCollectAmount: any;
+  readonly eCollectPercentage: any;
+  readonly eCollectFixedFee: any;
+  readonly disbursementApiAmount: any;
+  readonly disbursementApiPercentage: any;
+  readonly disbursementApiFixedFee: any;
+  readonly internationalApiAmount: any;
+  readonly internationApiPercentage: any;
+  readonly internationApiFixedFee: any;
+  readonly amexCardAmount: any;
+  readonly amexCardPercentage: any;
+  readonly amexCardFixedFee: any;
+  readonly dinnersCardAmount: any;
+  readonly dinnersCardPercentage: any;
+  readonly dinnersCardFixedFee: any;
+  readonly corporateOrCommercialCardAmount: any;
+  readonly corporateOrCommercialCardPercentage: any;
+  readonly corporateOrCommercialCardFixedFee: any;
+  readonly prepaidCardAmount: any;
+  readonly prepaidCardPercentage: any;
+  readonly prepaidCardFixedFee: any;
+  readonly walletPhonepeAmount: any;
+  readonly walletPhonepePercentage: any;
+  readonly walletPhonepeFixedFee: any;
+  readonly walletFreeChargeAmount: any;
+  readonly walletFreeChargePercentage: any;
+  readonly walletFreeChargeFixedFee: any;
+  readonly walletPayzappAmount: any;
+  readonly walletPayzappPercentage: any;
+  readonly walletPayzappFixedFee: any;
+  readonly walletPaytmAmount: any;
+  readonly walletPaytmPercentage: any;
+  readonly walletPaytmFixedFee: any;
+  readonly walletOlaMoneyAmount: any;
+  readonly walletOlaMoneyPercentage: any;
+  readonly walletOlaMoneyFixedFee: any;
+  readonly walletMobikwikkAmount: any;
+  readonly walletMobikwikkPercentage: any;
+  readonly walletMobikwikkFixedFee: any;
+  readonly walletRelianceJioMoneyAmount: any;
+  readonly walletRelianceJioMoneyPercentage: any;
+  readonly walletRelianceJioMoneyFixedFee: any;
+  readonly walletAirtelMoneyAmount: any;
+  readonly walletAirtelMoneyPercentage: any;
+  readonly walletAirtelMoneyFixedFee: any;
+  readonly upiAmount: any;
+  readonly upiPercentage: any;
+  readonly upiFixedFee: any;
+  readonly dynamicQrAmount: any;
+  readonly dynamicQrPercentage: any;
+  readonly dynamicQrFixedFee: any;
+  readonly creditCardAmount: any;
+  readonly creditCardPercentage: any;
+  readonly creditCardFixedFee: any;
+  readonly mmcAmount: any;
+  readonly securityDepositAmount: any;
+  readonly nbOtherBankAmount: any;
+  readonly nbOtherBankPercentage: any;
+  readonly nbOtherBankFixedFee: any;
+
+
 }
-export interface UpdateAgreementCommerical
-{
-  readonly planName:any;
-  readonly serviceFee:any;
-  readonly settlementCycle:any;
-  readonly modifiedBy:any;
-  readonly netBankingAmount:any;
-  readonly netBankingPercentage:any;
-  readonly netBankingFixedFee:any;
-  readonly rupayDebitCardMaxAmount:any;
-  readonly rupayDebitCardMaxPercentage:any;
-  readonly rupayDebitCardMaxFixedFee:any;
-  readonly rupayDebitCardMinAmount:any;
-  readonly rupayDebitCardMinPercentage:any;
-  readonly rupayDebitCardMinFixedFee:any;
-  readonly otherDebitCardMaxAmount:any;
-  readonly otherDebitCardMaxPercentage:any;
-  readonly otherDebitCardMaxFixedFee:any;
-  readonly otherDebitCardMinAmount:any;
-  readonly otherDebitCardMinPercentage:any;
-  readonly otherDebitCardMinFixedFee:any;
-  readonly eCollectAmount:any;
-  readonly eCollectPercentage:any;
-  readonly eCollectFixedFee:any;
-  readonly disbursementApiAmount:any;
-  readonly disbursementApiPercentage:any;
-  readonly disbursementApiFixedFee:any;
-  readonly internationalApiAmount:any;
-  readonly internationApiPercentage:any;
-  readonly internationApiFixedFee:any;
-  readonly amexCardAmount:any;
-  readonly amexCardPercentage:any;
-  readonly amexCardFixedFee:any;
-  readonly dinnersCardAmount:any;
-  readonly dinnersCardPercentage:any;
-  readonly dinnersCardFixedFee:any;
-  readonly corporateOrCommercialCardAmount:any;
-  readonly corporateOrCommercialCardPercentage:any;
-  readonly corporateOrCommercialCardFixedFee:any;
-  readonly prepaidCardAmount:any;
-  readonly prepaidCardPercentage:any;
-  readonly prepaidCardFixedFee:any;
-  readonly walletPhonepeAmount:any;
-  readonly walletPhonepePercentage:any;
-  readonly walletPhonepeFixedFee:any;
-  readonly walletFreeChargeAmount:any;
-  readonly walletFreeChargePercentage:any;
-  readonly walletFreeChargeFixedFee:any;
-  readonly walletPayzappAmount:any;
-  readonly walletPayzappPercentage:any;
-  readonly walletPayzappFixedFee:any;
-  readonly walletPaytmAmount:any;
-  readonly walletPaytmPercentage:any;
-  readonly walletPaytmFixedFee:any;
-  readonly walletOlaMoneyAmount:any;
-  readonly walletOlaMoneyPercentage:any;
-  readonly walletOlaMoneyFixedFee:any;
-  readonly walletMobikwikkAmount:any;
-  readonly walletMobikwikkPercentage:any;
-  readonly walletMobikwikkFixedFee:any;
-  readonly walletRelianceJioMoneyAmount:any;
-  readonly walletRelianceJioMoneyPercentage:any;
-  readonly walletRelianceJioMoneyFixedFee:any;
-  readonly walletAirtelMoneyAmount:any;
-  readonly walletAirtelMoneyPercentage:any;
-  readonly walletAirtelMoneyFixedFee:any;
-  readonly upiAmount:any;
-  readonly upiPercentage:any;
-  readonly upiFixedFee:any;
-  readonly dynamicQrAmount:any;
-  readonly dynamicQrPercentage:any;
-  readonly dynamicQrFixedFee:any;
-  readonly creditCardAmount:any;
-  readonly creditCardPercentage:any;
-  readonly creditCardFixedFee:any;
-  readonly mmcAmount:any;
-  readonly securityDepositAmount:any;
-  readonly nbOtherBankAmount:any;
-  readonly nbOtherBankPercentage:any;
-  readonly nbOtherBankFixedFee:any;
- 
- 
- 
+export interface UpdateAgreementCommerical {
+  readonly planName: any;
+  readonly serviceFee: any;
+  readonly settlementCycle: any;
+  readonly modifiedBy: any;
+  readonly netBankingAmount: any;
+  readonly netBankingPercentage: any;
+  readonly netBankingFixedFee: any;
+  readonly rupayDebitCardMaxAmount: any;
+  readonly rupayDebitCardMaxPercentage: any;
+  readonly rupayDebitCardMaxFixedFee: any;
+  readonly rupayDebitCardMinAmount: any;
+  readonly rupayDebitCardMinPercentage: any;
+  readonly rupayDebitCardMinFixedFee: any;
+  readonly otherDebitCardMaxAmount: any;
+  readonly otherDebitCardMaxPercentage: any;
+  readonly otherDebitCardMaxFixedFee: any;
+  readonly otherDebitCardMinAmount: any;
+  readonly otherDebitCardMinPercentage: any;
+  readonly otherDebitCardMinFixedFee: any;
+  readonly eCollectAmount: any;
+  readonly eCollectPercentage: any;
+  readonly eCollectFixedFee: any;
+  readonly disbursementApiAmount: any;
+  readonly disbursementApiPercentage: any;
+  readonly disbursementApiFixedFee: any;
+  readonly internationalApiAmount: any;
+  readonly internationApiPercentage: any;
+  readonly internationApiFixedFee: any;
+  readonly amexCardAmount: any;
+  readonly amexCardPercentage: any;
+  readonly amexCardFixedFee: any;
+  readonly dinnersCardAmount: any;
+  readonly dinnersCardPercentage: any;
+  readonly dinnersCardFixedFee: any;
+  readonly corporateOrCommercialCardAmount: any;
+  readonly corporateOrCommercialCardPercentage: any;
+  readonly corporateOrCommercialCardFixedFee: any;
+  readonly prepaidCardAmount: any;
+  readonly prepaidCardPercentage: any;
+  readonly prepaidCardFixedFee: any;
+  readonly walletPhonepeAmount: any;
+  readonly walletPhonepePercentage: any;
+  readonly walletPhonepeFixedFee: any;
+  readonly walletFreeChargeAmount: any;
+  readonly walletFreeChargePercentage: any;
+  readonly walletFreeChargeFixedFee: any;
+  readonly walletPayzappAmount: any;
+  readonly walletPayzappPercentage: any;
+  readonly walletPayzappFixedFee: any;
+  readonly walletPaytmAmount: any;
+  readonly walletPaytmPercentage: any;
+  readonly walletPaytmFixedFee: any;
+  readonly walletOlaMoneyAmount: any;
+  readonly walletOlaMoneyPercentage: any;
+  readonly walletOlaMoneyFixedFee: any;
+  readonly walletMobikwikkAmount: any;
+  readonly walletMobikwikkPercentage: any;
+  readonly walletMobikwikkFixedFee: any;
+  readonly walletRelianceJioMoneyAmount: any;
+  readonly walletRelianceJioMoneyPercentage: any;
+  readonly walletRelianceJioMoneyFixedFee: any;
+  readonly walletAirtelMoneyAmount: any;
+  readonly walletAirtelMoneyPercentage: any;
+  readonly walletAirtelMoneyFixedFee: any;
+  readonly upiAmount: any;
+  readonly upiPercentage: any;
+  readonly upiFixedFee: any;
+  readonly dynamicQrAmount: any;
+  readonly dynamicQrPercentage: any;
+  readonly dynamicQrFixedFee: any;
+  readonly creditCardAmount: any;
+  readonly creditCardPercentage: any;
+  readonly creditCardFixedFee: any;
+  readonly mmcAmount: any;
+  readonly securityDepositAmount: any;
+  readonly nbOtherBankAmount: any;
+  readonly nbOtherBankPercentage: any;
+  readonly nbOtherBankFixedFee: any;
+
+
+
 }
-export interface CreatePlan{
-  readonly merchantId:any;
-  readonly commercialId:any;
-  readonly createdBy:any;
-  readonly merchantPosition:any;
-  readonly expiryLink:any;
-  readonly authorizedName:any
+export interface CreatePlan {
+  readonly merchantId: any;
+  readonly commercialId: any;
+  readonly createdBy: any;
+  readonly merchantPosition: any;
+  readonly expiryLink: any;
+  readonly authorizedName: any
 }
 
 export interface AdminsignerOtp {
-  readonly otpCode:any
+  readonly otpCode: any
 }
 
 
-export interface AgreementConsent  {
-  readonly referenceCode:any,
-  readonly flag:any,
-  readonly consent:any
+export interface AgreementConsent {
+  readonly referenceCode: any,
+  readonly flag: any,
+  readonly consent: any
 }
 
 export interface AgreementlocationTracker {
-  readonly  referenceCode:any,
-  readonly flag:any,
-  readonly consent:any,
-  readonly getLocation:any
-  readonly ipAddress:any,
-  readonly locationStatus:any,
-  readonly publicIp:any,
-  readonly country:any,
-  readonly city:any,
-  readonly zip:any,
-  readonly serviceProvider:any,
-  readonly timezone:any,
-  readonly region:any,
-  readonly longitude:any,
-  readonly latitude:any,
-  readonly countryCode:any,
-  readonly regionCode:any,
-  readonly autonomousSystemNumber:any
+  readonly referenceCode: any,
+  readonly flag: any,
+  readonly consent: any,
+  readonly getLocation: any
+  readonly ipAddress: any,
+  readonly locationStatus: any,
+  readonly publicIp: any,
+  readonly country: any,
+  readonly city: any,
+  readonly zip: any,
+  readonly serviceProvider: any,
+  readonly timezone: any,
+  readonly region: any,
+  readonly longitude: any,
+  readonly latitude: any,
+  readonly countryCode: any,
+  readonly regionCode: any,
+  readonly autonomousSystemNumber: any
 }
 
 export interface Agreementextentdate {
-  readonly expiryLink:any
+  readonly expiryLink: any
 }
 
 export interface AgreementLinkExpiry {
-  readonly expiryLinkStatus:any;
+  readonly expiryLinkStatus: any;
 }
-export interface OffilneTransaction{
-  readonly merchantId:any;
-  readonly pageNo:any;
-  readonly  query:any;
-  readonly size:any;
-  readonly dateRange:any;
-  readonly status:any;
-  readonly terminalId:any;
+export interface OffilneTransaction {
+  readonly merchantId: any;
+  readonly pageNo: any;
+  readonly query: any;
+  readonly size: any;
+  readonly dateRange: any;
+  readonly status: any;
+  readonly terminalId: any;
 }
-export interface OfflineSettlement{
-  readonly merchantId:any;
-  readonly pageNo:any;
-  readonly  query:any;
-  readonly size:any;
-  readonly dateRange:any;
+export interface OfflineSettlement {
+  readonly merchantId: any;
+  readonly pageNo: any;
+  readonly query: any;
+  readonly size: any;
+  readonly dateRange: any;
 }
-export interface PayoutOfflineSettlement{
-  readonly merchantId:any;
-  readonly pageNo:any;
-  readonly  query:any;
-  readonly size:any;
-  readonly dateRange:any;
-  readonly payoutId:any
+export interface PayoutOfflineSettlement {
+  readonly merchantId: any;
+  readonly pageNo: any;
+  readonly query: any;
+  readonly size: any;
+  readonly dateRange: any;
+  readonly payoutId: any
 }
 
-export interface Branchadd{
-  readonly branchName:any;
-  readonly apiKey:any;
-  readonly secretKey:any;
-  readonly bankName:any;
-  readonly accountHolderName:any;
-  readonly accountNumber:any
-  readonly ifscCode:any;
-  readonly createdBy:any;
-  readonly merchantId:any;
-  readonly accountId:any;
-  readonly smsMerchantName:any;
+export interface Branchadd {
+  readonly branchName: any;
+  readonly apiKey: any;
+  readonly secretKey: any;
+  readonly bankName: any;
+  readonly accountHolderName: any;
+  readonly accountNumber: any
+  readonly ifscCode: any;
+  readonly createdBy: any;
+  readonly merchantId: any;
+  readonly accountId: any;
+  readonly smsMerchantName: any;
 }
- 
-export interface Branchadds{
-  readonly branchName:any;
-  readonly apiKey:any;
-  readonly secretKey:any;
-  readonly bankName:any;
-  readonly accountHolderName:any;
-  readonly accountNumber:any
-  readonly ifscCode:any;
-  readonly createdBy:any;
-  readonly merchantId:any;
-  readonly accountId:any;
-  readonly smsMerchantName:any;
+
+export interface Branchadds {
+  readonly branchName: any;
+  readonly apiKey: any;
+  readonly secretKey: any;
+  readonly bankName: any;
+  readonly accountHolderName: any;
+  readonly accountNumber: any
+  readonly ifscCode: any;
+  readonly createdBy: any;
+  readonly merchantId: any;
+  readonly accountId: any;
+  readonly smsMerchantName: any;
 }
-export interface BranchEdit{
-  readonly branchName:any;
-  readonly apiKey:any;
-  readonly secretKey:any;
-  readonly bankName:any;
-  readonly accountHolderName:any;
-  readonly accountNumber:any
-  readonly ifscCode:any;
-  readonly modifiedBy:any;
-  readonly accountId:any;
-  readonly smsMerchantName:any;
-  
+export interface BranchEdit {
+  readonly branchName: any;
+  readonly apiKey: any;
+  readonly secretKey: any;
+  readonly bankName: any;
+  readonly accountHolderName: any;
+  readonly accountNumber: any
+  readonly ifscCode: any;
+  readonly modifiedBy: any;
+  readonly accountId: any;
+  readonly smsMerchantName: any;
+
 }
- 
+
 export interface Branchstatus {
   readonly accountStatus: any;
 }
- 
-export interface additionalcustomerpay{
-  readonly payId:any;
+
+export interface additionalcustomerpay {
+  readonly payId: any;
   // readonly trackId:any;
   // readonly paidAmount:any;
 }
@@ -1373,24 +1371,24 @@ export interface subsmanualpay {
 }
 
 export interface stickeradd {
-  readonly stickerPerAmount:any;
+  readonly stickerPerAmount: any;
   readonly deliveryDays: any;
   readonly createdBy: any;
-  readonly effectiveDate:any;
-}
- 
-export interface stickerstatus {
-  readonly activeStatus:any;
+  readonly effectiveDate: any;
 }
 
- 
+export interface stickerstatus {
+  readonly activeStatus: any;
+}
+
+
 export interface identitybranchapprove {
   readonly branchProofId: any;
   readonly identityAdminComments: any;
   readonly identityAdminApprovalStatus: any
   readonly identityAdminApprovedBy: any
 }
- 
+
 export interface addressbranchapprove {
   readonly branchProofId: any;
   readonly addressAdminApprovalStatus: any
@@ -1403,50 +1401,50 @@ export interface signaturebranchapprove {
   readonly signatureAdminComments: any
   readonly signatureAdminApprovedBy: any
 }
- 
+
 export interface branchverification {
   readonly facheckDocNumber: any;
   readonly branchProofId: any;
 }
- 
+
 export interface branchDrivingverification {
   readonly facheckDocNumber: any;
   readonly branchProofId: any;
-  readonly dateOfBirth:any;
+  readonly dateOfBirth: any;
   readonly approvalBy: any;
 }
- 
+
 export interface branchPasportverify {
   readonly branchProofId: any;
   readonly facheckDocNumber: any;
   readonly approvalBy: any;
-  readonly dateOfBirth:any;
+  readonly dateOfBirth: any;
 }
- 
+
 export interface branchverify {
   readonly branchProofId: any;
   readonly facheckDocNumber: any;
   readonly approvalBy: any;
 }
 
-export interface branchstatus{
-  readonly activeStatus:any;
+export interface branchstatus {
+  readonly activeStatus: any;
 }
 
 export interface branchterminaladd {
   readonly terminalNumber: any;
   readonly merchantId: any;
   readonly branchId: any;
-  readonly createdBy:any;
+  readonly createdBy: any;
 }
 
 export interface branchterminaledit {
   readonly terminalNo: any;
   readonly modifiedBy: any;
 }
- 
-export interface Entitystatus{
-  readonly activeStatus:any;
+
+export interface Entitystatus {
+  readonly activeStatus: any;
 }
 
 export interface entityterminaladd {
@@ -1460,129 +1458,132 @@ export interface entityterminaledit {
   readonly modifiedBy: any;
 }
 
-export interface entityterminaltransaction{
-  readonly pageNo:any,
-  readonly query:any,
-  readonly  size:any,
-  readonly  dateRange:any,
-  readonly status:any,
-  readonly  merchantId:any,
-  readonly  entityTerminalId:any
+export interface entityterminaltransaction {
+  readonly pageNo: any,
+  readonly query: any,
+  readonly size: any,
+  readonly dateRange: any,
+  readonly status: any,
+  readonly merchantId: any,
+  readonly entityTerminalId: any
 }
 
 
-    export interface Branchtransaction{
-      readonly pageNo:any,
-      readonly query:any,
-      readonly  size:any,
-      readonly  dateRange:any,
-      readonly status:any,
-      readonly  merchantId:any,
-      readonly  branchTerminalId:any
-    }
+export interface Branchtransaction {
+  readonly pageNo: any,
+  readonly query: any,
+  readonly size: any,
+  readonly dateRange: any,
+  readonly status: any,
+  readonly merchantId: any,
+  readonly branchTerminalId: any
+}
 
-    export interface customerpayfilter{
-      readonly paymentStatus:any;
-      readonly flag:any;
-      readonly startDate:any;
-      readonly endDate:any;
-      readonly merchantId:any;
-    }
+export interface customerpayfilter {
+  readonly paymentStatus: any;
+  readonly flag: any;
+  readonly startDate: any;
+  readonly endDate: any;
+  readonly merchantId: any;
+}
 
-    export interface additionapayfilter{
-      readonly paymentStatus:any;
-      readonly flag:any;
-      readonly startDate:any;
-      readonly endDate:any;
-      readonly merchantId:any;
-    }
+export interface additionapayfilter {
+  readonly paymentStatus: any;
+  readonly flag: any;
+  readonly startDate: any;
+  readonly endDate: any;
+  readonly merchantId: any;
+}
 
-    export interface Cloudfee{
-      readonly paymentStatus:any;
-      readonly flag:any;
-      readonly startDate:any;
-      readonly endDate:any;
-      readonly merchantId:any;
-    }
+export interface Cloudfee {
+  readonly paymentStatus: any;
+  readonly flag: any;
+  readonly startDate: any;
+  readonly endDate: any;
+  readonly merchantId: any;
+}
 
-    export interface Onetimepay{
-      readonly paymentStatus:any;
-      readonly flag:any;
-      readonly startDate:any;
-      readonly endDate:any;
-      readonly merchantId:any;
-    }
-
-    
-    export interface Otherpayment{
-      readonly paymentStatus:any;
-      readonly flag:any;
-      readonly startDate:any;
-      readonly endDate:any;
-      readonly merchantId:any;
-    }
+export interface Onetimepay {
+  readonly paymentStatus: any;
+  readonly flag: any;
+  readonly startDate: any;
+  readonly endDate: any;
+  readonly merchantId: any;
+}
 
 
-    export interface Busineessstatus
-    {
-      readonly status:any;
-      readonly commercialId:any;
-    }
-    
+export interface Otherpayment {
+  readonly paymentStatus: any;
+  readonly flag: any;
+  readonly startDate: any;
+  readonly endDate: any;
+  readonly merchantId: any;
+}
 
-    export interface mainkeysbranch{
-      readonly accountStatus:any;
-      readonly  flag:any;
 
-    }
+export interface Busineessstatus {
+  readonly status: any;
+  readonly commercialId: any;
+}
 
-    export interface branchkeys{
-      readonly accountStatus:any;
-      readonly  flag:any;
-      readonly branchId:any;
 
-    }
+export interface mainkeysbranch {
+  readonly accountStatus: any;
+  readonly flag: any;
 
-    export interface ExportReportCreate {
-      readonly createdBy: any;
-      readonly exportDataName: any;
-      readonly exportStartDate: any;
-      readonly exportEndDate: any;
-      readonly exportType:any;
-      readonly merchantId: any;
-      readonly paymentStatus: any;
-      readonly type: any;
-      readonly branchId:any;
-    }
-    
-    export interface ExportReportstatic{
-      readonly createdBy: any,
-      readonly exportDataName: any,
-      readonly exportType:any;
-      readonly dateRange: any,
-      readonly merchantId: any,
-      readonly pageNo: any,
-      readonly query: any,
-      readonly size: any,
-      readonly status: any,
-      readonly terminalId: any,
-      readonly exportStartDate:any,
-      readonly exportEndDate:any,
-      readonly type:any,
-      readonly branchId:any;
-      readonly paymentStatus:any;
-    }
+}
 
-    export interface ExportReportBranch{
-      readonly createdBy:any;
-      readonly exportDataName:any;
-      readonly exportStartDate:any;
-      readonly exportEndDate:any;
-      readonly merchantId:any;
-      readonly branchId:any;
-      readonly exportType:any;
-      readonly paymentStatus:any;
-      readonly type:any;
-    }
-   
- 
+export interface branchkeys {
+  readonly accountStatus: any;
+  readonly flag: any;
+  readonly branchId: any;
+
+}
+
+export interface ExportReportCreate {
+  readonly createdBy: any;
+  readonly exportDataName: any;
+  readonly exportStartDate: any;
+  readonly exportEndDate: any;
+  readonly exportType: any;
+  readonly merchantId: any;
+  readonly paymentStatus: any;
+  readonly type: any;
+  readonly branchId: any;
+}
+
+export interface ExportReportstatic {
+  readonly createdBy: any,
+  readonly exportDataName: any,
+  readonly exportType: any;
+  readonly dateRange: any,
+  readonly merchantId: any,
+  readonly pageNo: any,
+  readonly query: any,
+  readonly size: any,
+  readonly status: any,
+  readonly terminalId: any,
+  readonly exportStartDate: any,
+  readonly exportEndDate: any,
+  readonly type: any,
+  readonly branchId: any;
+  readonly paymentStatus: any;
+}
+
+export interface ExportReportBranch {
+  readonly createdBy: any;
+  readonly exportDataName: any;
+  readonly exportStartDate: any;
+  readonly exportEndDate: any;
+  readonly merchantId: any;
+  readonly branchId: any;
+  readonly exportType: any;
+  readonly paymentStatus: any;
+  readonly type: any;
+  readonly branchType: any;
+}
+
+export interface RefundCheck {
+  readonly customerRefundId: any;
+}
+

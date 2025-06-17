@@ -612,12 +612,14 @@ export class DashboardContentComponent {
         scales: {
           y: {
             type: 'logarithmic',
+              stacked: true,
             title: {
               display: true,
               text: 'Count', // Optional: add a title to the y-axis
             },
           },
           x: {
+            stacked: true,
             title: {
               display: true,
               text: 'Transaction Status', // Optional: add a title to the x-axis

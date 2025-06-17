@@ -82,7 +82,7 @@ export class TransManualPayComponent implements OnInit {
   Transactionpay(id: any) {
     let submitModel: subsmanualpay = {
       paymentMode: this.paymentMode?.value,
-      technicalPayStatus:'Success',
+      technicalPayStatus: 'Success',
       utrNumber: this.utrNumber?.value.trim() || '-',
       updatedBy: this.createdBy,
     };

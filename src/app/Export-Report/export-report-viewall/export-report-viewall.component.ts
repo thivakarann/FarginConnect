@@ -20,17 +20,16 @@ export class ExportReportViewallComponent implements OnInit {
   displayedColumns: string[] = [
     'exportId',
     'exportDataName',
-    'entityname',
-    'merchantname',
-    'branchname',
-        'paymentrefund',
     'exportStartDate',
     'exportEndDate',
-    'paymentStatus',
     'resultStatus',
-
     'exportAt',
     'Download',
+    // 'entityname',
+    'merchantname',
+    'paymentStatus',
+    'paymentrefund',
+    'branchname',
     'createdBy',
     'createdAt'
   ];
@@ -161,7 +160,7 @@ export class ExportReportViewallComponent implements OnInit {
     });
   }
 
-    ExportDownload(id: any, exportDataName: number) {
+  ExportDownload(id: any, exportDataName: number) {
     enum ExportDataName {
       CustomerPayment = 4,
       AdditionalTransactions = 7,

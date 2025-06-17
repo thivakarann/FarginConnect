@@ -176,8 +176,8 @@
                     View Onboard Info
                   </button>
 
-                  <button style="font-size: 10px" mat-menu-item (click)="EntityTerminal(this.id)"
-                    [hidden]="valueterminal !== 'Entity Terminal View'">
+                  <button [disabled]="this.detaislone?.onBoardStatus !== 'true'" style="font-size: 10px" mat-menu-item
+                    (click)="EntityTerminal(this.id)" [hidden]="valueterminal !== 'Entity Terminal View'">
                     Entity Terminal View
                   </button>
 
@@ -410,9 +410,9 @@
                           <ng-container *ngIf="detaislone?.customerDuesDate == 0">No Due Date</ng-container>
                         </div>
                       </div>
-                       <div class="d-flex mt-2">
+                      <div class="d-flex mt-2">
                         <div class="w-50 font-weight-bold">
-                        Cloud Fee Applicable
+                          Cloud Fee Applicable
                         </div>
                         <div class="w-50">{{ detaislone?.cloudFeeEnable }}</div>
                       </div>

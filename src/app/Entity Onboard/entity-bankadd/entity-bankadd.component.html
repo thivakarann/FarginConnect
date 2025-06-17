@@ -59,6 +59,31 @@
             Maximum length should be 50
           </div>
         </div>
+            <div class="col-sm-4 form-group">
+          <label for="Bussiness category" class="form__label"
+            >Select Bank</label
+          >
+          <select
+            formControlName="bankName"
+            id="Bussiness category"
+            class="form-control form-select"
+          >
+            <option *ngFor="let item of BankNames" [value]="item.bankId">
+              {{ item.bankName }}
+            </option>
+          </select>
+          <div
+            style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            "
+            *ngIf="bankName?.invalid && bankName?.touched && bankName?.errors?.['required']"
+          >
+            Field is required
+          </div>
+        </div>
         <div class="col-sm-4 form-group">
           <label for="state" class="form__label">Account Number</label>
           <input
@@ -90,60 +115,10 @@
             Enter a valid AccountNumber
           </div>
         </div>
-        <div class="col-sm-4 form-group">
-          <label for="state" class="form__label">PG Ledger ID (Optional)</label>
-          <input
-            type="text"
-            formControlName="ledgerId"
-            id="state"
-            class="form-control"
-          />
-
-          <!-- <div style="color: red; font-size: 12px; margin-top: 2px;"
-                    *ngIf="ledgerId?.invalid && ledgerId?.touched && ledgerId?.errors?.['pattern']">
-                    Must be exactly 4 digits and only numbers are allowed.
-                </div> -->
-          <!-- <div
-            style="color: red; font-size: 12px; margin-top: 2px"
-            *ngIf="ledgerId?.invalid && ledgerId?.touched && ledgerId?.errors?.['required']"
-          >
-            Field is required
-          </div> -->
-
-          <div
-            style="color: red; font-size: 12px; margin-top: 2px"
-            *ngIf="ledgerId?.invalid && ledgerId?.errors?.['pattern']"
-          >
-            Only Numbers are Allowed (Upto 15 Digits)
-          </div>
-        </div>
+       
       </div>
-      <div class="row mb-3">
-        <div class="col-sm-4 form-group">
-          <label for="Bussiness category" class="form__label"
-            >Select Bank</label
-          >
-          <select
-            formControlName="bankName"
-            id="Bussiness category"
-            class="form-control form-select"
-          >
-            <option *ngFor="let item of BankNames" [value]="item.bankId">
-              {{ item.bankName }}
-            </option>
-          </select>
-          <div
-            style="
-              color: red;
-              font-size: 12px;
-              margin-top: 2px;
-              position: relative;
-            "
-            *ngIf="bankName?.invalid && bankName?.touched && bankName?.errors?.['required']"
-          >
-            Field is required
-          </div>
-        </div>
+      <div class="row mb-2">
+    
         <div class="col-sm-4 form-group">
           <label for="Bussiness category" class="form__label"
             >Account Type</label
@@ -180,6 +155,7 @@
             Enter a valid AccountType
           </div> -->
         </div>
+    
         <div class="col-sm-4 form-group">
           <label for="Entity Name" class="form__label">Branch Name</label>
           <input
@@ -222,9 +198,36 @@
             Maximum length should be 50
           </div>
         </div>
+             <div class="col-sm-4 form-group">
+          <label for="state" class="form__label">PG Ledger ID (Optional)</label>
+          <input
+            type="text"
+            formControlName="ledgerId"
+            id="state"
+            class="form-control"
+          />
+
+          <!-- <div style="color: red; font-size: 12px; margin-top: 2px;"
+                    *ngIf="ledgerId?.invalid && ledgerId?.touched && ledgerId?.errors?.['pattern']">
+                    Must be exactly 4 digits and only numbers are allowed.
+                </div> -->
+          <!-- <div
+            style="color: red; font-size: 12px; margin-top: 2px"
+            *ngIf="ledgerId?.invalid && ledgerId?.touched && ledgerId?.errors?.['required']"
+          >
+            Field is required
+          </div> -->
+
+          <div
+            style="color: red; font-size: 12px; margin-top: 2px"
+            *ngIf="ledgerId?.invalid && ledgerId?.errors?.['pattern']"
+          >
+            Only Numbers are Allowed (Upto 15 Digits)
+          </div>
+        </div>
       </div>
 
-      <div class="row mb-3">
+      <div class="row mb-2">
         <div class="col-sm-4 form-group">
           <label for="Entity Name" class="form__label">IFSC Code</label>
           <input

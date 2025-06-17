@@ -142,10 +142,23 @@ export class ExportReportAddComponent implements OnInit {
     const paymentrefundmethod = this.myForm.get('paymentrefundmethod')?.value;
 
 
-    if (selectedValue == '23' && startDate && endDate && !paymentStatus) {
+    if (selectedValue == '23' && startDate && endDate && !paymentStatus && paymentrefundmethod =='1') {
       this.exportTypes = 1;
       this.Branchsubmit();
     } 
+    else   if (selectedValue == '23' && startDate && endDate && !paymentStatus && paymentrefundmethod =='2') {
+      this.exportTypes = 1;
+      this.Branchsubmit();
+    } 
+       else if (selectedValue == '23' && startDate && endDate && paymentStatus && paymentrefundmethod =='1') {
+      this.exportTypes = 0;
+      this.Branchsubmit();
+    }
+     else if (selectedValue == '23' && startDate && endDate && paymentStatus && paymentrefundmethod =='2') {
+      this.exportTypes = 0;
+      this.Branchsubmit();
+    }
+  
      else if (selectedValue == '20' && startDate && endDate && paymentrefundmethod =='1') {
       this.exportTypes = 1;
       this.submit();
@@ -154,10 +167,7 @@ export class ExportReportAddComponent implements OnInit {
       this.exportTypes = 2;
       this.submit();
     }
-    else if (selectedValue == '23' && startDate && endDate && paymentStatus) {
-      this.exportTypes = 0;
-      this.Branchsubmit();
-    } else if (
+    else if (
       selectedValue == '6' &&
       startDate &&
       endDate &&
@@ -398,6 +408,7 @@ export class ExportReportAddComponent implements OnInit {
       paymentStatus: this.paymentStatus?.value,
       type: 2,
       branchId: this.newBranchId,
+      branchType:this.paymentrefundmethod?.value
     };
     this.service.ExportReportAdd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
