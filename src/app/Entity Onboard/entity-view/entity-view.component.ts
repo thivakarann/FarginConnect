@@ -89,7 +89,7 @@ export class EntityViewComponent implements OnInit {
   copySuccess: boolean = false;
   copy1: number = -1;
   copy2: number = -1;
-  RenewelFee:any;;
+  RenewelFee: any;;
   CopieedSucess: boolean = false;
   items: any[] = [];
   currentPage: any = 1;
@@ -564,7 +564,7 @@ export class EntityViewComponent implements OnInit {
               if (this.actions == 'Entity View Cloud Fee AutoDebit') {
                 this.valueentityautodebit = 'Entity View Cloud Fee AutoDebit';
               }
-               if (this.actions == 'Entity View Renewal Fee AutoDebit') {
+              if (this.actions == 'Entity View Renewal Fee AutoDebit') {
                 this.RenewelFee = 'Entity View Renewal Fee AutoDebit';
               }
             }
@@ -2178,6 +2178,12 @@ export class EntityViewComponent implements OnInit {
       exitAnimationDuration: '500ms',
       data: { value: id },
     });
+  }
+
+  monthlysmsdetails() {
+    this.router.navigate([`dashboard/merchat-smstrigger/${this.id}`], {
+      queryParams: { Alldata: this.id }
+    })
   }
 
 

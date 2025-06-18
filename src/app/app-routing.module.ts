@@ -128,6 +128,8 @@ import { OffileSettlementPayoutComponent } from './Entity Onboard/Offline-Transa
 import { AlacarteBulkresponseComponent } from './Plan Creation/Alacarte channels/alacarte-bulkresponse/alacarte-bulkresponse.component';
 import { EntityRenewalautodebitComponent } from './Entity Onboard/entity-renewalautodebit/entity-renewalautodebit.component';
 import { RenewalAutodebitComponent } from './Renewal Autodebit/renewal-autodebit/renewal-autodebit.component';
+import { MerchatSMSTriggerComponent } from './SMS Trigger/merchat-smstrigger/merchat-smstrigger.component';
+import { SMSTriggerLogsComponent } from './SMS Trigger/smstrigger-logs/smstrigger-logs.component';
 
 const routes: Routes = [
 
@@ -142,7 +144,7 @@ const routes: Routes = [
   { path: 'editagreementplan/:id', component: EditagreementplanComponent, canActivate: [authGuard] },
   { path: 'allagreementplan/:id', component: AllagreementplansComponent, canActivate: [authGuard] },
   { path: 'Agreement-signer-one', component: AggrementSignerOneComponent },
-  { path: 'testpage', component: TestpageComponent},
+  { path: 'testpage', component: TestpageComponent },
 
   {
     path: 'dashboard',
@@ -234,62 +236,51 @@ const routes: Routes = [
       { path: 'bouqutes-region/:id', component: BouqutesRegionComponent, canActivate: [authGuard] },
       { path: "signer-getall", component: SignerGetallComponent, canActivate: [authGuard] },
       { path: 'agreementplan', component: ViewagreementplanComponent, canActivate: [authGuard] },
-      {path:'agreement-viewall',component:AgreementViewallComponent,canActivate: [authGuard]},
-      {path:'offline-transactions/:id',component:OfflineTransactionsComponent,canActivate: [authGuard]},
-      {path:'success-offtransactions',component:SuccessOfftransactionsComponent,canActivate: [authGuard]},
-      {path:'failure-offtransactions',component:FailureOfftransactionsComponent,canActivate: [authGuard]},
-      {path:'offline-settlement',component:OfflineSettlementComponent,canActivate: [authGuard]},
-      {path:'offile-settlement-payout/:id/:id1',component:OffileSettlementPayoutComponent,canActivate:[authGuard]},
-      {path:'Branch-viewall',component: BranchViewallComponent, canActivate: [authGuard] },
-      {path:'branch-customer-view/:id',component:BranchCustomerViewComponent,canActivate:[authGuard]},
-      {path:'additional-payments',component:AdditionalpaymentsComponent,canActivate: [authGuard]},
-      {path:'refund-getall',component:RefundGetallComponent,canActivate: [authGuard]},
-      {path:'sticker-view',component:ViewStickerComponent,canActivate: [authGuard]},
-      {path:'branch-add/:id',component:BranchAddComponent,canActivate: [authGuard]},
-      {path:'branch-kyc/:id/:id1',component:BranchKycComponent,canActivate: [authGuard]},
-      {path:'Terminalview/:id/:id1',component:BranchTerminalviewComponent,canActivate: [authGuard]},
-      {path:'EntityTerminal/:id',component:EntityTerminalViewComponent,canActivate: [authGuard]},
-      {path:'terminal-transactions/:id',component:TerminalTransactionsComponent,canActivate: [authGuard]},
-      {path:'branch-transactions/:id',component:BranchTransactionsComponent,canActivate: [authGuard]},
-      {path:'entity-plan-history/:id',component:EntityPlanHistoryComponent,canActivate:[authGuard]},
-      {path:"refund-period-viewall",component:RefundPeriodViewallComponent,canActivate:[authGuard]},
-      {path:'view-campaign',component:ViewCampaignsComponent,canActivate: [authGuard]},
-      {path:'view-record/:id',component:ViewRecordcampaignsComponent,canActivate: [authGuard]},
-      {path:'view-campaign',component:ViewCampaignsComponent,canActivate: [authGuard]},
-      {path:'view-record/:id',component:ViewRecordcampaignsComponent,canActivate: [authGuard]},
-      {path:'maintenanceotherpay-view/:id',component:MaintenanceotherpayViewComponent,canActivate: [authGuard]},
-      {path:'dashboardmerchant',component:DashboardMerchantcontentComponent,canActivate: [authGuard]},
-      {path:'sticker-history/:id',component:StickerHistoryComponent,canActivate:[authGuard]},
-      {path:'signer-history/:id',component:SignerHistoryComponent,canActivate:[authGuard]},
-      {path:'sms-history/:id',component:SmsHistoryComponent,canActivate:[authGuard]},
-      {path:'fargin-bank-history/:id',component:FarginBankHistoryComponent,canActivate:[authGuard]},
-      {path:'branch-onlinetransactions/:id',component:BranchOnlinetransactionsComponent,canActivate: [authGuard]},
-      {path:'refund-period-history/:id',component:RefundPeriodHistoryComponent,canActivate:[authGuard]},
-            
-      {path:'branch-wiseenitytransaction/:id',component:BranchWiseenitytransactionComponent,canActivate: [authGuard]},
+      { path: 'agreement-viewall', component: AgreementViewallComponent, canActivate: [authGuard] },
+      { path: 'offline-transactions/:id', component: OfflineTransactionsComponent, canActivate: [authGuard] },
+      { path: 'success-offtransactions', component: SuccessOfftransactionsComponent, canActivate: [authGuard] },
+      { path: 'failure-offtransactions', component: FailureOfftransactionsComponent, canActivate: [authGuard] },
+      { path: 'offline-settlement', component: OfflineSettlementComponent, canActivate: [authGuard] },
+      { path: 'offile-settlement-payout/:id/:id1', component: OffileSettlementPayoutComponent, canActivate: [authGuard] },
+      { path: 'Branch-viewall', component: BranchViewallComponent, canActivate: [authGuard] },
+      { path: 'branch-customer-view/:id', component: BranchCustomerViewComponent, canActivate: [authGuard] },
+      { path: 'additional-payments', component: AdditionalpaymentsComponent, canActivate: [authGuard] },
+      { path: 'refund-getall', component: RefundGetallComponent, canActivate: [authGuard] },
+      { path: 'sticker-view', component: ViewStickerComponent, canActivate: [authGuard] },
+      { path: 'branch-add/:id', component: BranchAddComponent, canActivate: [authGuard] },
+      { path: 'branch-kyc/:id/:id1', component: BranchKycComponent, canActivate: [authGuard] },
+      { path: 'Terminalview/:id/:id1', component: BranchTerminalviewComponent, canActivate: [authGuard] },
+      { path: 'EntityTerminal/:id', component: EntityTerminalViewComponent, canActivate: [authGuard] },
+      { path: 'terminal-transactions/:id', component: TerminalTransactionsComponent, canActivate: [authGuard] },
+      { path: 'branch-transactions/:id', component: BranchTransactionsComponent, canActivate: [authGuard] },
+      { path: 'entity-plan-history/:id', component: EntityPlanHistoryComponent, canActivate: [authGuard] },
+      { path: "refund-period-viewall", component: RefundPeriodViewallComponent, canActivate: [authGuard] },
+      { path: 'view-campaign', component: ViewCampaignsComponent, canActivate: [authGuard] },
+      { path: 'view-record/:id', component: ViewRecordcampaignsComponent, canActivate: [authGuard] },
+      { path: 'view-campaign', component: ViewCampaignsComponent, canActivate: [authGuard] },
+      { path: 'view-record/:id', component: ViewRecordcampaignsComponent, canActivate: [authGuard] },
+      { path: 'maintenanceotherpay-view/:id', component: MaintenanceotherpayViewComponent, canActivate: [authGuard] },
+      { path: 'dashboardmerchant', component: DashboardMerchantcontentComponent, canActivate: [authGuard] },
+      { path: 'sticker-history/:id', component: StickerHistoryComponent, canActivate: [authGuard] },
+      { path: 'signer-history/:id', component: SignerHistoryComponent, canActivate: [authGuard] },
+      { path: 'sms-history/:id', component: SmsHistoryComponent, canActivate: [authGuard] },
+      { path: 'fargin-bank-history/:id', component: FarginBankHistoryComponent, canActivate: [authGuard] },
+      { path: 'branch-onlinetransactions/:id', component: BranchOnlinetransactionsComponent, canActivate: [authGuard] },
+      { path: 'refund-period-history/:id', component: RefundPeriodHistoryComponent, canActivate: [authGuard] },
+      { path: 'branch-wiseenitytransaction/:id', component: BranchWiseenitytransactionComponent, canActivate: [authGuard] },
       // {path:'merchant-additional/:id',component:MercahntbasedadditionalComponent,canActivate: [authGuard]},
       { path: 'Export-Report', component: ExportReportViewallComponent, canActivate: [authGuard] },
-      {
-        path: 'alacarte-bulkresponse',
-        component: AlacarteBulkresponseComponent,
-        canActivate: [authGuard],
-      },
-        {
-        path: 'entity-renewalautodebit/:id',
-        component: EntityRenewalautodebitComponent,
-        canActivate: [authGuard],
-      },
-        {
-        path: 'renewal-autodebit',
-        component: RenewalAutodebitComponent,
-        canActivate: [authGuard],
-      },
+      { path: 'alacarte-bulkresponse', component: AlacarteBulkresponseComponent, canActivate: [authGuard], },
+      { path: 'entity-renewalautodebit/:id', component: EntityRenewalautodebitComponent, canActivate: [authGuard], },
+      { path: 'renewal-autodebit', component: RenewalAutodebitComponent, canActivate: [authGuard], },
+      { path: 'merchat-smstrigger/:id', component: MerchatSMSTriggerComponent, canActivate: [authGuard] },
+      { path: 'smstrigger-logs/:id', component: SMSTriggerLogsComponent, canActivate: [authGuard] },
     ],
 
   },
 
-    // Add a wildcard route for 404
-    { path: '**', component: RedirectPageComponent }
+  // Add a wildcard route for 404
+  { path: '**', component: RedirectPageComponent }
 ]
 
 

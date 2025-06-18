@@ -58,36 +58,27 @@ export class EntitySmsViewallComponent {
   actions: any;
   errorMessage: any;
   pageIndex: number = 0;
-  pageSize =5;
+  pageSize = 5;
   totalPages: any;
   totalpage: any;
   currentpage: any;
-
-
-
-
   pageIndex1: number = 0;
-pageSize1 = 5;
- 
-totalpage1: any;
-totalPages1: any;
-currentpage1: any;
- 
-pageIndex2: number = 0;
-pageSize2 = 5;
- 
-totalpage2: any;
-totalPages2: any;
-currentpage2: any;
- 
-filter: boolean = false;
-filter1: boolean = false;
-filters: boolean = false;
-
+  pageSize1 = 5;
+  totalpage1: any;
+  totalPages1: any;
+  currentpage1: any;
+  pageIndex2: number = 0;
+  pageSize2 = 5;
+  totalpage2: any;
+  totalPages2: any;
+  currentpage2: any;
+  filter: boolean = false;
+  filter1: boolean = false;
+  filters: boolean = false;
   smsResponseexport: any;
   currentfilval: any;
-  currentfilvalShow:boolean=false;
-  searchPerformed:boolean=false;
+  currentfilvalShow: boolean = false;
+  searchPerformed: boolean = false;
 
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
   ngOnInit(): void {
@@ -169,7 +160,7 @@ filters: boolean = false;
       }
     })
   }
- 
+
   exportexcel() {
     this.service.SmsGetAllExport().subscribe((res: any) => {
       this.smsResponseexport = res.response;
@@ -179,29 +170,29 @@ filters: boolean = false;
         this.smsResponseexport.forEach((element: any) => {
           let createdate = element.createdDateTime;
           this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
- 
+
           // let moddate = element.modifedDateTime;
           // this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
           this.response = [];
           this.response.push(sno);
           this.response.push(element?.merchantId?.accountId);
- 
+
           this.response.push(element?.merchantId?.entityName);
           this.response.push(element?.merchantId?.contactEmail);
           this.response.push(element?.type?.smsTitle)
           this.response.push(element?.smsCount)
           //  this.response.push(element?.type?.smsCharge)
           this.response.push(element?.createdBy);
- 
-          if(element.createdDateTime){
+
+          if (element.createdDateTime) {
             this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
           }
-          else{
+          else {
             this.response.push('');
           }
- 
- 
- 
+
+
+
           sno++;
           this.responseDataListnew.push(this.response);
         });
@@ -209,7 +200,7 @@ filters: boolean = false;
       }
     });
   }
- 
+
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
@@ -222,18 +213,18 @@ filters: boolean = false;
       // 'SMS Charge',
       'Created By',
       'Created At',
- 
+
     ]
- 
- 
+
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Sms Settings');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
- 
- 
+
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -244,15 +235,15 @@ filters: boolean = false;
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
+
       }
- 
+
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
- 
+
     data.forEach((d: any) => {
       //
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -263,11 +254,11 @@ filters: boolean = false;
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
       // let qty8 = row.getCell(9);
- 
- 
- 
- 
- 
+
+
+
+
+
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -277,7 +268,7 @@ filters: boolean = false;
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       // qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
+
     }
     );
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
@@ -288,83 +279,83 @@ filters: boolean = false;
       FileSaver.saveAs(blob, 'Entity-Sms.xlsx');
     });
   }
- 
-  smsSearch(filterValue: string) {
- 
-    if (filterValue) {
- 
-    this.service.SmsviewallSearch(filterValue,this.pageSize,this.pageIndex).subscribe({
-      next: (res: any) => {
-        if (res.response) {
-          this.transaction = res.response;
-  
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.transaction);
-          this.currentfilvalShow = true;
-        } else if (res.flag == 2) {
-          this.transaction = [];
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.transaction);
-          this.currentfilvalShow = true;
-        }
-      },
-   
-    });
-  }
- 
-  if (!filterValue) {
-    this.toastr.error('Please enter a value to search');
-    return;
-  }
-  }
- 
- 
 
-  getData(event: any) {
-    if (this.currentfilvalShow) {
-      this.service.SmsviewallSearch(this.currentfilval,event.pageSize,event.pageIndex).subscribe({
+  smsSearch(filterValue: string) {
+
+    if (filterValue) {
+
+      this.service.SmsviewallSearch(filterValue, this.pageSize, this.pageIndex).subscribe({
         next: (res: any) => {
           if (res.response) {
             this.transaction = res.response;
-        
+
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
             this.dataSource = new MatTableDataSource(this.transaction);
-      
+            this.currentfilvalShow = true;
           } else if (res.flag == 2) {
             this.transaction = [];
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
             this.dataSource = new MatTableDataSource(this.transaction);
-           
+            this.currentfilvalShow = true;
           }
         },
-     
+
       });
-  } else {
-    this.service.SmsGetAll(event.pageSize, event.pageIndex).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.smsResponse = res.response;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.smsResponse);
-     
-      } else if (res.flag == 2) {
-        this.smsResponse = [];
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.smsResponse);
-        
-      }
-    })
+    }
+
+    if (!filterValue) {
+      this.toastr.error('Please enter a value to search');
+      return;
+    }
   }
-}
+
+
+
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      this.service.SmsviewallSearch(this.currentfilval, event.pageSize, event.pageIndex).subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.transaction = res.response;
+
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.transaction);
+
+          } else if (res.flag == 2) {
+            this.transaction = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.transaction);
+
+          }
+        },
+
+      });
+    } else {
+      this.service.SmsGetAll(event.pageSize, event.pageIndex).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.smsResponse = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.smsResponse);
+
+        } else if (res.flag == 2) {
+          this.smsResponse = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.smsResponse);
+
+        }
+      })
+    }
+  }
 }

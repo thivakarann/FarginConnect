@@ -300,6 +300,9 @@ import { AlacarteBulkuploadinfoComponent } from './Plan Creation/Alacarte channe
 import { AlacarteBulkresponseComponent } from './Plan Creation/Alacarte channels/alacarte-bulkresponse/alacarte-bulkresponse.component';
 import { EntityRenewalautodebitComponent } from './Entity Onboard/entity-renewalautodebit/entity-renewalautodebit.component';
 import { RenewalAutodebitComponent } from './Renewal Autodebit/renewal-autodebit/renewal-autodebit.component';
+import { MerchatSMSTriggerComponent } from './SMS Trigger/merchat-smstrigger/merchat-smstrigger.component';
+import { SMSTriggerLogsComponent } from './SMS Trigger/smstrigger-logs/smstrigger-logs.component';
+import { SMSContentComponent } from './SMS Trigger/smscontent/smscontent.component';
 
 
 
@@ -578,7 +581,10 @@ import { RenewalAutodebitComponent } from './Renewal Autodebit/renewal-autodebit
     AlacarteBulkuploadinfoComponent,
     AlacarteBulkresponseComponent,
     EntityRenewalautodebitComponent,
-    RenewalAutodebitComponent
+    RenewalAutodebitComponent,
+    MerchatSMSTriggerComponent,
+    SMSTriggerLogsComponent,
+    SMSContentComponent,
   
 
   ],

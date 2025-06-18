@@ -1587,3 +1587,7 @@ export interface RefundCheck {
   readonly customerRefundId: any;
 }
 
+
+export interface smstrigger {
+  readonly monthlySmsLogId:any;
+}

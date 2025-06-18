@@ -907,6 +907,18 @@ export class FarginServiceService {
   private readonly onlinerefunddatefilter = 'refund/getmerchant/';
   private readonly RefundForMerchantsearchs = 'refund/getmerchant/';
 
+
+  // SMS details for merchants and Trigger
+
+  private readonly Merchantsmsdetails = 'monthlySmsLog/getByMonthlymerchant/';
+  private readonly Merchantsmslogs = 'monthlySmsLog/viewByMonthlySmsLogId/';
+  private readonly merchantsmstigger = 'monthlySmsLog/smsTrigger';
+
+
+
+
+
+
   loginError = new Subject();
 
   token = sessionStorage.getItem('token') || null;
@@ -5015,17 +5027,20 @@ export class FarginServiceService {
       this.options
     );
   }
-  OnlineRfundsDateFilter(
-    id: any,
-    id1: any,
-    id2: any,
-    id3: any,
-    id4: any,
-    id5: any
-  ) {
-    return this.http.get(
-      `${this.basePath}${this.onlinerefunddatefilter}${id}/${id1}/${id2}/${id3}/${id4}/${id5}`,
-      this.options
+  OnlineRfundsDateFilter(id: any, id1: any, id2: any, id3: any, id4: any, id5: any) {
+    return this.http.get(`${this.basePath}${this.onlinerefunddatefilter}${id}/${id1}/${id2}/${id3}/${id4}/${id5}`, this.options
     );
+  }
+
+  monthlyMerchantsms(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.Merchantsmsdetails}${id}/${id1}/${id2}`, this.options)
+  }
+
+  monthlyMerchantsmslogs(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.Merchantsmslogs}${id}/${id1}/${id2}`, this.options)
+  }
+
+  monthlysmstriggermerchant(model:any){
+    return this.http.post(`${this.basePath}${this.merchantsmstigger}`,model,this.options)
   }
 }

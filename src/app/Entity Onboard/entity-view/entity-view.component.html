@@ -200,6 +200,11 @@
                     (click)="Manuvalduesforcustomer()">
                     Generate Customer Dues
                   </button>
+
+                    <button style="font-size: 10px" mat-menu-item (click)="monthlysmsdetails()"
+                    [hidden]="valueeditentity !== 'Entity View-Edit'">
+                    Monthly SMS Details
+                  </button>
                   <!-- <button
                     [disabled]="this.detaislone?.onBoardStatus !== 'true'"
                     style="font-size: 10px"
