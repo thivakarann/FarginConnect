@@ -4,15 +4,8 @@
   <mat-card-header>
     <div class="row">
       <div class="col-3 mt-4" style="margin-right: -46px">
-        <select
-          style="width: 206px"
-          (change)="transactionsDropdown($event)"
-          class="form-select"
-        >
-          <option
-            [selected]="selectedTransactionType == 'Due Transaction'"
-            value="Due Transaction"
-          >
+        <select style="width: 206px" (change)="transactionsDropdown($event)" class="form-select">
+          <option [selected]="selectedTransactionType == 'Due Transaction'" value="Due Transaction">
             Due Transaction
           </option>
           <option value="Additional Transaction">Additional Transaction</option>
@@ -22,43 +15,20 @@
         <div class="search">
           <form class="form">
             <label for="search">
-              <input
-                #input
-                required=""
-                autocomplete="off"
-                placeholder="Search"
-                id="search"
-                name="search"
-                type="text"
-                [(ngModel)]="currentfilval"
-              />
+              <input #input required="" autocomplete="off" placeholder="Search" id="search" name="search" type="text"
+                [(ngModel)]="currentfilval" />
               <div class="icon">
-                <svg
-                  stroke-width="2"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="swap-on"
-                >
-                  <path
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                    stroke-linejoin="round"
-                    stroke-linecap="round"
-                  ></path>
+                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                  <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
+                  </path>
                 </svg>
               </div>
               <button type="reset" (click)="reload()" class="close-btn">
-                <svg
-                  viewBox="0 0 20 20"
-                  class="h-5 w-5"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
+                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                  <path clip-rule="evenodd"
                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    fill-rule="evenodd"
-                  ></path>
+                    fill-rule="evenodd"></path>
                 </svg>
               </button>
             </label>
@@ -66,69 +36,40 @@
         </div>
       </div>
       <div class="col-1 mt-4">
-        <button
-          (click)="refundsearch(currentfilval)"
-          style="
+        <button (click)="refundsearch(currentfilval)" style="
             color: white;
             background-color: #141e46;
             border-radius: 10px;
             font-size: 12px;
-          "
-          mat-raised-button
-        >
+          " mat-raised-button>
           Go
         </button>
       </div>
       <div class="col-2">
         <label><b>From Date</b></label>
-        <input
-          onkeydown="return false;"
-          class="form-control"
-          type="date"
-          name="FromDate"
-          [(ngModel)]="FromDateRange"
-          (change)="checkDate()"
-          [max]="maxDate"
-          style="height: 35px; width: 150px; border-radius: 5px"
-        />
+        <input onkeydown="return false;" class="form-control" type="date" name="FromDate" [(ngModel)]="FromDateRange"
+          (change)="checkDate()" [max]="maxDate" style="height: 35px; width: 150px; border-radius: 5px" />
       </div>
       <div class="col-2">
         <label><b>To Date</b></label>
-        <input
-          onkeydown="return false;"
-          class="form-control"
-          type="date"
-          name="ToDate"
-          [(ngModel)]="ToDateRange"
-          [min]="FromDateRange"
-          [max]="maxDate"
-          style="height: 35px; width: 150px; border-radius: 5px"
-        />
+        <input onkeydown="return false;" class="form-control" type="date" name="ToDate" [(ngModel)]="ToDateRange"
+          [min]="FromDateRange" [max]="maxDate" style="height: 35px; width: 150px; border-radius: 5px" />
       </div>
 
       <div class="col-1 mt-4">
-        <button
-          class="buttonDownload"
-          style="font-size: 12px"
-          [disabled]="FromDateRange == '' || ToDateRange == ''"
-          mat-raised-button
-          (click)="filterdate()"
-        >
+        <button class="buttonDownload" style="font-size: 12px" [disabled]="FromDateRange == '' || ToDateRange == ''"
+          mat-raised-button (click)="filterdate()">
           Filter
         </button>
       </div>
 
       <div class="col-1 mt-4">
-        <button
-          style="
+        <button style="
             color: white;
             background-color: #141e46;
             border-radius: 10px;
             font-size: 12px;
-          "
-          mat-raised-button
-          (click)="reset()"
-        >
+          " mat-raised-button (click)="reset()">
           Reset
         </button>
       </div>
@@ -136,19 +77,10 @@
   </mat-card-header>
 
   <mat-card-content>
-    <div
-      class="example-container text-nowrap mt-2"
-      style="overflow-x: scroll; scrollbar-width: thin"
-    >
+    <div class="example-container text-nowrap mt-2" style="overflow-x: scroll; scrollbar-width: thin">
       <!-- <span *ngIf="showcategoryData" class="errormge">NO DATA FOUND</span> -->
 
-      <table
-        id="season-tble"
-        matSort
-        mat-table
-        [dataSource]="dataSource"
-        class="mat-elevation-z1"
-      >
+      <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
         <ng-container matColumnDef="sno">
           <th mat-header-cell *matHeaderCellDef>S.No</th>
           <td mat-cell *matCellDef="let data; let i = index">
@@ -203,22 +135,11 @@
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef>Refund Status</th>
           <td mat-cell *matCellDef="let data">
-            <span
-              *ngIf="data?.refundStatus == 'INITIATED'"
-              style="color: rgb(0, 4, 255)"
-              >{{ data?.refundStatus }}</span
-            >
+            <span *ngIf="data?.refundStatus == 'INITIATED'" style="color: rgb(0, 4, 255)">{{ data?.refundStatus
+              }}</span>
 
-                 <span
-              *ngIf="data?.refundStatus == 'SUBMITTED'"
-              style="color:green"
-              >Success</span
-            >
-            <span
-              *ngIf="data?.refundStatus == 'Success'"
-              style="color: green"
-              >{{ data?.refundStatus }}</span
-            >
+            <span *ngIf="data?.refundStatus == 'SUBMITTED'" style="color:green"> COMPLETED</span>
+            <span *ngIf="data?.refundStatus == 'Success'" style="color: green">{{ data?.refundStatus }}</span>
           </td>
         </ng-container>
 
@@ -255,20 +176,13 @@
           </td>
         </ng-container>
 
-        <tr
-          mat-header-row
-          *matHeaderRowDef="displayedColumns; sticky: true"
-        ></tr>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         <tr *matNoDataRow>
           <td class="mat-cell" colspan="0" *ngIf="searchPerformed">
             No Data For {{ input.value }}
           </td>
-          <td
-            class="mat-cell"
-            colspan="0"
-            *ngIf="!searchPerformed && dataSource.data.length === 0"
-          >
+          <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">
             No Data
           </td>
         </tr>
@@ -276,14 +190,8 @@
     </div>
   </mat-card-content>
   <mat-card-footer>
-    <mat-paginator
-      (page)="getData($event)"
-      [length]="totalPages"
-      [pageIndex]="currentpage"
-      [pageSize]="totalpage"
-      [pageSizeOptions]="[5, 10, 50, 100, 200, 300, 500]"
-      aria-label="Select page"
-    >
+    <mat-paginator (page)="getData($event)" [length]="totalPages" [pageIndex]="currentpage" [pageSize]="totalpage"
+      [pageSizeOptions]="[5, 10, 50, 100, 200, 300, 500]" aria-label="Select page">
     </mat-paginator>
   </mat-card-footer>
 </div>
@@ -294,16 +202,9 @@
   <mat-card-header>
     <div class="row">
       <div class="col-3 mt-4" style="margin-right: -46px">
-        <select
-          style="width: 206px"
-          (change)="transactionsDropdown($event)"
-          class="form-select"
-        >
+        <select style="width: 206px" (change)="transactionsDropdown($event)" class="form-select">
           <option value="Due Transaction">Due Transaction</option>
-          <option
-            [selected]="selectedTransactionType == 'Additional Transaction'"
-            value="Additional Transaction"
-          >
+          <option [selected]="selectedTransactionType == 'Additional Transaction'" value="Additional Transaction">
             Additional Transaction
           </option>
         </select>
@@ -312,47 +213,20 @@
         <div class="search">
           <form class="form">
             <label for="search">
-              <input
-                #input
-                required=""
-                autocomplete="off"
-                placeholder="Search"
-                id="search"
-                name="search"
-                type="text"
-                [(ngModel)]="currentfilvals"
-              />
+              <input #input required="" autocomplete="off" placeholder="Search" id="search" name="search" type="text"
+                [(ngModel)]="currentfilvals" />
               <div class="icon">
-                <svg
-                  stroke-width="2"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="swap-on"
-                >
-                  <path
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                    stroke-linejoin="round"
-                    stroke-linecap="round"
-                  ></path>
+                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                  <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
+                  </path>
                 </svg>
               </div>
-              <button
-                type="reset"
-                (click)="reloadadditional()"
-                class="close-btn"
-              >
-                <svg
-                  viewBox="0 0 20 20"
-                  class="h-5 w-5"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
+              <button type="reset" (click)="reloadadditional()" class="close-btn">
+                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                  <path clip-rule="evenodd"
                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    fill-rule="evenodd"
-                  ></path>
+                    fill-rule="evenodd"></path>
                 </svg>
               </button>
             </label>
@@ -360,69 +234,40 @@
         </div>
       </div>
       <div class="col-1 mt-4">
-        <button
-          (click)="refundsearchadditional(currentfilvals)"
-          style="
+        <button (click)="refundsearchadditional(currentfilvals)" style="
             color: white;
             background-color: #141e46;
             border-radius: 10px;
             font-size: 12px;
-          "
-          mat-raised-button
-        >
+          " mat-raised-button>
           Go
         </button>
       </div>
       <div class="col-2">
         <label><b>From Date</b></label>
-        <input
-          onkeydown="return false;"
-          class="form-control"
-          type="date"
-          name="FromDates"
-          [(ngModel)]="FromDateRanges"
-          (change)="checkDateadditional()"
-          [max]="maxDate"
-          style="height: 35px; width: 150px; border-radius: 5px"
-        />
+        <input onkeydown="return false;" class="form-control" type="date" name="FromDates" [(ngModel)]="FromDateRanges"
+          (change)="checkDateadditional()" [max]="maxDate" style="height: 35px; width: 150px; border-radius: 5px" />
       </div>
       <div class="col-2">
         <label><b>To Date</b></label>
-        <input
-          onkeydown="return false;"
-          class="form-control"
-          type="date"
-          name="ToDates"
-          [(ngModel)]="ToDateRanges"
-          [min]="FromDateRanges"
-          [max]="maxDate"
-          style="height: 35px; width: 150px; border-radius: 5px"
-        />
+        <input onkeydown="return false;" class="form-control" type="date" name="ToDates" [(ngModel)]="ToDateRanges"
+          [min]="FromDateRanges" [max]="maxDate" style="height: 35px; width: 150px; border-radius: 5px" />
       </div>
 
       <div class="col-1 mt-4">
-        <button
-          class="buttonDownload"
-          style="font-size: 12px"
-          [disabled]="FromDateRanges == '' || ToDateRanges == ''"
-          mat-raised-button
-          (click)="filterdateadditional()"
-        >
+        <button class="buttonDownload" style="font-size: 12px" [disabled]="FromDateRanges == '' || ToDateRanges == ''"
+          mat-raised-button (click)="filterdateadditional()">
           Filter
         </button>
       </div>
 
       <div class="col-1 mt-4">
-        <button
-          style="
+        <button style="
             color: white;
             background-color: #141e46;
             border-radius: 10px;
             font-size: 12px;
-          "
-          mat-raised-button
-          (click)="resetadditional()"
-        >
+          " mat-raised-button (click)="resetadditional()">
           Reset
         </button>
       </div>
@@ -430,19 +275,10 @@
   </mat-card-header>
   <!-- <mat-card> -->
   <mat-card-content>
-    <div
-      class="example-container text-nowrap mt-2"
-      style="overflow-x: scroll; scrollbar-width: thin"
-    >
+    <div class="example-container text-nowrap mt-2" style="overflow-x: scroll; scrollbar-width: thin">
       <!-- <span *ngIf="showcategoryData" class="errormge">NO DATA FOUND</span> -->
 
-      <table
-        id="season-tble"
-        matSort
-        mat-table
-        [dataSource]="dataSource"
-        class="mat-elevation-z1"
-      >
+      <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
         <ng-container matColumnDef="sno">
           <th mat-header-cell *matHeaderCellDef>S.No</th>
           <td mat-cell *matCellDef="let data; let i = index">
@@ -497,16 +333,11 @@
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef>Refund Status</th>
           <td mat-cell *matCellDef="let data">
-            <span
-              *ngIf="data?.refundStatus == 'INITIATED'"
-              style="color: rgb(0, 4, 255)"
-              >{{ data?.refundStatus }}</span
-            >
-            <span
-              *ngIf="data?.refundStatus == 'Success'"
-              style="color: green"
-              >{{ data?.refundStatus }}</span
-            >
+            <span *ngIf="data?.refundStatus == 'INITIATED'" style="color: rgb(0, 4, 255)">{{ data?.refundStatus
+              }}</span>
+            <span *ngIf="data?.refundStatus == 'Success'" style="color: green">COMPLETED</span>
+
+            <span *ngIf="data?.refundStatus == 'SUBMITTED'" style="color:green"> COMPLETED</span>
           </td>
         </ng-container>
 
@@ -543,20 +374,13 @@
           </td>
         </ng-container>
 
-        <tr
-          mat-header-row
-          *matHeaderRowDef="displayedColumns; sticky: true"
-        ></tr>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         <tr *matNoDataRow>
           <td class="mat-cell" colspan="0" *ngIf="searchPerformed">
             No Data For {{ input.value }}
           </td>
-          <td
-            class="mat-cell"
-            colspan="0"
-            *ngIf="!searchPerformed && dataSource.data.length === 0"
-          >
+          <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">
             No Data
           </td>
         </tr>
@@ -564,14 +388,8 @@
     </div>
   </mat-card-content>
   <mat-card-footer>
-    <mat-paginator
-      (page)="getDataAdditional($event)"
-      [length]="totalPages"
-      [pageIndex]="currentpage"
-      [pageSize]="totalpage"
-      [pageSizeOptions]="[5, 10, 50, 100, 200, 300, 500]"
-      aria-label="Select page"
-    >
+    <mat-paginator (page)="getDataAdditional($event)" [length]="totalPages" [pageIndex]="currentpage"
+      [pageSize]="totalpage" [pageSizeOptions]="[5, 10, 50, 100, 200, 300, 500]" aria-label="Select page">
     </mat-paginator>
   </mat-card-footer>
 </div>

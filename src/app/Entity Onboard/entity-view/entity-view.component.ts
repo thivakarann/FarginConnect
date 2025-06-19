@@ -242,6 +242,7 @@ export class EntityViewComponent implements OnInit {
   valuedues: any;
   valueonetime: any;
   valueterminal: any;
+  valuesms: any;
   valueCustomizedmanual: any;
   branchtrans: any;
   selectTab(tab: string): void {
@@ -271,6 +272,7 @@ export class EntityViewComponent implements OnInit {
             this.valueplatform = 'Entity View Platform Payment';
             this.valuelogo = 'Entity View-LOGO';
             this.valueeditentity = 'Entity View-Edit';
+            this.valuesms = 'Monthly SMS Details';
             this.valueviewonboard = 'Entity View-Onboard Information';
             this.valueentityonboard = 'Entity View-Onboard';
             this.valuelevelcomment = 'Entity View-Comment';
@@ -567,6 +569,10 @@ export class EntityViewComponent implements OnInit {
               if (this.actions == 'Entity View Renewal Fee AutoDebit') {
                 this.RenewelFee = 'Entity View Renewal Fee AutoDebit';
               }
+
+              if (this.actions == 'Monthly SMS Details') {
+                this.valuesms = 'Monthly SMS Details';
+              }
             }
           }
         } else {
@@ -639,6 +645,7 @@ export class EntityViewComponent implements OnInit {
       this.valuebranch = 'Entity View Branch';
       this.valuebranchkyc = 'Entity View Branch-KYC';
       this.valuebranchTerminal = 'Entity View Branch-Terminal';
+      this.valuesms = 'Monthly SMS Details';
       // this.valueplandetails = 'Entity Plan Details';
       // this.valuedues = 'Generate Customer Dues';
       this.valueonetime = 'Entity View One Time Setup Payment';
@@ -723,6 +730,9 @@ export class EntityViewComponent implements OnInit {
         // }
         if (this.roles == 'Entity View One Time Setup Payment') {
           this.valueonetime = 'Entity View One Time Setup Payment';
+        }
+        if (this.roles == 'Monthly SMS Details') {
+          this.valuesms = 'Monthly SMS Details';
         }
       }
     }

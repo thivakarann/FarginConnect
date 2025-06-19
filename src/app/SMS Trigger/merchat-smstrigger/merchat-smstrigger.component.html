@@ -49,7 +49,7 @@
                 <td mat-cell *matCellDef="let viewall; let i = index"> {{i+1}} </td>
             </ng-container>
             <ng-container matColumnDef="smsCharge">
-                <th mat-header-cell *matHeaderCellDef>SMS Charge Type</th>
+                <th mat-header-cell *matHeaderCellDef>Charge Type</th>
                 <td mat-cell *matCellDef="let viewall">
                     <span style="color: green;" *ngIf="viewall?.merchantSmsId?.smsCharge =='Paid'">
                         Paid
@@ -60,28 +60,29 @@
                 </td>
             </ng-container>
             <ng-container matColumnDef="smstitle">
-                <th mat-header-cell *matHeaderCellDef>SMS Title</th>
+                <th mat-header-cell *matHeaderCellDef>Title</th>
                 <td mat-cell *matCellDef="let viewall">{{ viewall?.merchantSmsId?.type?.smsTitle}}</td>
             </ng-container>
             <ng-container matColumnDef="totalCount">
-                <th mat-header-cell *matHeaderCellDef>Total Count</th>
+                <th mat-header-cell *matHeaderCellDef>Total</th>
                 <td mat-cell *matCellDef="let viewall" style="color: blue;"> {{ viewall?.totalCount}}</td>
             </ng-container>
 
             <ng-container matColumnDef="successCount">
-                <th mat-header-cell *matHeaderCellDef>Success Count</th>
+                <th mat-header-cell *matHeaderCellDef>Success</th>
                 <td mat-cell *matCellDef="let viewall" style="color: green;">
                     {{ viewall?.successCount}}</td>
             </ng-container>
 
             <ng-container matColumnDef="failureCount">
-                <th mat-header-cell *matHeaderCellDef>Failure Count</th>
+                <th mat-header-cell *matHeaderCellDef>Failure</th>
                 <td mat-cell *matCellDef="let viewall" style="color: red;"> {{ viewall?.failureCount}}</td>
             </ng-container>
 
             <ng-container matColumnDef="SMSTrigger">
-                <th mat-header-cell *matHeaderCellDef>Manual SMS Trigger</th>
-                <td mat-cell *matCellDef="let viewall">
+                <th [hidden]="valuessms!=='SMS Manual Trigger'" mat-header-cell *matHeaderCellDef>Manual Trigger
+                </th>
+                <td [hidden]="valuessms!=='SMS Manual Trigger'" mat-cell *matCellDef="let viewall">
                     <button class="btn btn-success btn-sm" style="border: none; font-size: 11px"
                         [disabled]="viewall?.totalCount == viewall?.successCount"
                         (click)="manuvaltrigger(viewall.monthlySmsLogId)">
@@ -91,14 +92,15 @@
                 </td>
             </ng-container>
             <ng-container matColumnDef="view">
-                <th mat-header-cell *matHeaderCellDef>Manual SMS Trigger Logs</th>
-                <td style="cursor: pointer;" mat-cell *matCellDef="let viewall">
+                <th [hidden]="valuelogs!=='Manual SMS Logs'" mat-header-cell *matHeaderCellDef>Manual Logs</th>
+                <td [hidden]="valuelogs!=='Manual SMS Logs'" style="cursor: pointer;" mat-cell
+                    *matCellDef="let viewall">
                     <i class="fa fa-eye" (click)="manuvaltriggerlogs(viewall.monthlySmsLogId)"></i>
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="createdDateTime">
-                <th mat-header-cell *matHeaderCellDef>SMS Sended At</th>
+                <th mat-header-cell *matHeaderCellDef>Sended On</th>
                 <td mat-cell *matCellDef="let viewall"> {{ viewall?.createdDateTime | date:'dd/MM/yyyy hh:mm a'}}
                 </td>
             </ng-container>

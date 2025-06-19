@@ -39,12 +39,44 @@ export class MerchatSMSTriggerComponent implements OnInit {
   currentfilvalShow: boolean = false;
   searchPerformed: boolean = false;
   roleId: any = sessionStorage.getItem('roleId');
-
-
+  errorMessage: any;
+  getdashboard: any[] = [];
+  actions: any;
+  valuessms:any;
+  valuelogs:any;
 
   constructor(private service: FarginServiceService, private router: Router, private toastr: ToastrService, private ActivateRoute: ActivatedRoute, private location: Location) { }
 
   ngOnInit(): void {
+
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+
+          if (this.roleId == 1) {
+            this.valuessms = 'SMS Manual Trigger';
+            this.valuelogs = 'Manual SMS Logs';
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+
+              if (this.actions == 'SMS Manual Trigger') {
+                this.valuessms = 'SMS Manual Trigger';
+              }
+              if (this.actions == 'Manual SMS Logs') {
+                this.valuelogs = 'Manual SMS Logs';
+              }
+
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    })
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.merchantid = param.Alldata;
     });

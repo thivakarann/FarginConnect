@@ -58,7 +58,7 @@
                 <td mat-cell *matCellDef="let viewall">{{ viewall?.responseCode}}</td>
             </ng-container>
             <ng-container matColumnDef="responseStatus">
-                <th mat-header-cell *matHeaderCellDef>SMS Status</th>
+                <th mat-header-cell *matHeaderCellDef>Status</th>
                 <td mat-cell *matCellDef="let viewall">
                     <span style="color: green;" *ngIf="viewall?.responseStatus =='Paid'">
                         Paid
@@ -70,7 +70,7 @@
             </ng-container>
 
             <ng-container matColumnDef="smsMessage">
-                <th mat-header-cell *matHeaderCellDef>Sms Description</th>
+                <th mat-header-cell *matHeaderCellDef>Description</th>
                 <td mat-cell *matCellDef="let viewall">
                         <div class="privacy-policy-container">
                         <!-- Display the sliced text based on whether the full text is visible -->
@@ -91,7 +91,7 @@
 
 
             <ng-container matColumnDef="createdDateTime">
-                <th mat-header-cell *matHeaderCellDef>SMS Triggered At</th>
+                <th mat-header-cell *matHeaderCellDef>Sended On</th>
                 <td mat-cell *matCellDef="let viewall"> {{ viewall?.createdDateTime | date:'dd/MM/yyyy hh:mm a'}}
                 </td>
             </ng-container>

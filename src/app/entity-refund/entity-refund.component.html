@@ -257,6 +257,10 @@
             <span *ngIf="data.refundStatus == 'COMPLETED'" style="color: green"
               ><b>{{ data?.refundStatus }}</b></span
             >
+
+               <span *ngIf="data.refundStatus == 'SUBMITTED'" style="color: green"
+              ><b>COMPLETED</b></span
+            >
             <span *ngIf="data.refundStatus == 'INITIATED'" style="color: orange"
               ><b>{{ data?.refundStatus }}</b></span
             >
@@ -578,6 +582,10 @@
           <td mat-cell *matCellDef="let data">
             <span *ngIf="data.refundStatus == 'COMPLETED'" style="color: green"
               ><b>{{ data?.refundStatus }}</b></span
+            >
+
+                <span *ngIf="data.refundStatus == 'SUBMITTED'" style="color: green"
+              ><b>COMPLETED</b></span
             >
             <span *ngIf="data.refundStatus == 'INITIATED'" style="color: orange"
               ><b>{{ data?.refundStatus }}</b></span

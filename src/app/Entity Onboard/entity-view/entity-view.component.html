@@ -155,7 +155,8 @@
                 valueterminal !== 'Entity Terminal View' &&
                 valueentityonboard !== 'Entity View-Onboard' &&
                 valuefee !== 'Generate Cloud Fee' &&
-                valuedues !== 'Generate Customer Dues'
+                valuedues !== 'Generate Customer Dues' && 
+                valuesms !== 'Monthly SMS Details'
               ">
               <i style="overflow: hidden; color: #fff; font-size: 22px" class="fa-solid fa-ellipsis-vertical">
                 <mat-menu #menu="matMenu">
@@ -201,8 +202,8 @@
                     Generate Customer Dues
                   </button>
 
-                    <button style="font-size: 10px" mat-menu-item (click)="monthlysmsdetails()"
-                    [hidden]="valueeditentity !== 'Entity View-Edit'">
+                  <button [disabled]="this.detaislone?.onBoardStatus !== 'true'" style="font-size: 10px" mat-menu-item
+                    (click)="monthlysmsdetails()" [hidden]="valuesms !== 'Monthly SMS Details'">
                     Monthly SMS Details
                   </button>
                   <!-- <button
