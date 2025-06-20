@@ -591,7 +591,7 @@
                     </div>
                 </div> -->
 
-             
+
 
                 <div class="col-sm-4 form-group">
                     <label for="fee">Cloud Fee Applicable</label>
@@ -629,7 +629,29 @@
                         Field is required
                     </div>
                 </div>
-                   <div class="col-sm-4 form-group">
+                <div class="col-sm-4 form-group">
+                    <label for="billing">LCO Renewal Fee Auto Debit</label>
+                    <select ngModel="{{detaislone?.renewalAutoDebit}}" formControlName="renewalAutoDebit" type="text"
+                        class="form-select" id="billing">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                    <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="renewalAutoDebit?.invalid && renewalAutoDebit?.touched && renewalAutoDebit?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-sm-4 form-group">
                     <label for="billing">LCO Customer Due Generation Mode</label>
                     <select formControlName="customerPaymentMode" ngModel="{{detaislone?.customerPaymentMode}}"
                         type="text" class="form-select" id="billing">
@@ -647,11 +669,6 @@
                         Field is required
                     </div>
                 </div>
-
-
-            </div>
-
-            <div class="row mb-3">
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">SMS Merchant Name</label>
                     <input placeholder="maximum 25 characters are allowed" type="text" id="Entity Name"
@@ -681,7 +698,7 @@
                     </div>
 
                 </div>
-                <div class="col-sm-4 form-group">
+                <!-- <div class="col-sm-4 form-group">
                     <label for="billing">LCO Customer SmsTag(Optional)</label>
                     <select formControlName="customerSmsTag" ngModel="{{detaislone?.customerSmsTag}}" type="text"
                         class="form-select" id="billing">
@@ -689,17 +706,8 @@
                         <option value="Multiple">Multiple</option>
 
                     </select>
-                    <!-- <div style="
-                        color: red;
-                        font-size: 12px;
-                        margin-top: 2px;
-                        position: relative;
-                        ;
-                      "
-                        *ngIf="customerSmsTag?.invalid && customerSmsTag?.touched && customerSmsTag?.errors?.['required']">
-                        Field is required
-                    </div> -->
-                </div>
+                  
+                </div> -->
                 <div class="col-sm-4 form-group">
                     <label for="customerDuesEnable">LCO Customer Due Alert Notification</label>
                     <select formControlName="customerDuesEnable" ngModel="{{detaislone?.customerDuesEnable}}"

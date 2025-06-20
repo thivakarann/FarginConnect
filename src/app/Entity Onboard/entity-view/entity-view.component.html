@@ -2,89 +2,87 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<div class="row">
-  <div class="mb-1 ml-1">
-    <div style="font-size: x-large; font-weight: 600" class="w-50">
-      {{ detaislone?.entityName }}
-    </div>
-  </div>
-  <div class="col-md-6" style="color: #2346cf; font-weight: 600; font-size: 14px">
-    <p style="text-wrap: nowrap">
-      <strong>Note:</strong> ("The functionalities of the tabs listed below can
-      only be accessed once the Onboarding process is completed,except Payment
-      Link.")
-    </p>
+<div class="row" style="margin-left: -7px;">
+
+  <div style="font-size: x-large; font-weight: 600;margin-top: -17px;" class="w-50">
+    {{ detaislone?.entityName }}
   </div>
   <div class="col-md-6 text-end" style="margin-bottom: 16px; margin-top: -4px">
     <button class="button1" (click)="close()">Back</button>
   </div>
+  <div class="mb-1 ">
+    <div class="col-md-6" style="color: #2346cf; font-weight: 600; font-size: 14px;margin-left: -17px;
+    margin-top: -16px;">
+      <p style="text-wrap: nowrap">
+        <strong>Note:</strong> ("The functionalities of the tabs listed below can
+        only be accessed once the Onboarding process is completed,except Payment
+        Link.")
+      </p>
+
+    </div>
+  </div>
 </div>
-<div class="navtabs">
-  <button style="background-color: #fff; border: none; font-size: 12px" [disabled]="detaislone?.onBoardStatus != 'true'"
+<div class="navtabs"
+  [hidden]="valueentitytransaction !== 'Entity View Due Transactions' && valuentityOffline !== 'Entity View Offline' && branchtrans !== 'Entity View-Branch-Transactions' && valuentitysettlement !== 'Entity View Settlement' && valueentityRefund !== 'Entity View Refund' && valueentityautodebit !== 'Entity View Cloud Fee AutoDebit' && RenewelFee !== 'Entity View Renewal Fee AutoDebit' && valueEntityqrs !== 'Entity View QR' && valueentityCustomers !== 'Entity View Customer' && valueentitypaylink !== 'Entity View Payment Link'">
+
+  <button [hidden]="valueentitytransaction !== 'Entity View Due Transactions'"
+    style="background-color: #fff; border: none; font-size: 12px" [disabled]="detaislone?.onBoardStatus != 'true'"
     class="navtab" data-target="home" (click)="entityTransaction(this.id)">
-    <div [hidden]="valueentitytransaction !== 'Entity View Due Transactions'">
-      <i class="fa-solid fa-building-columns"></i><br>Due Transactions
-    </div>
+    <i class="fa-solid fa-building-columns"></i><br>Due Transactions
   </button>
 
-  <button style="background-color: #fff; border: none; font-size: 12px" [disabled]="detaislone?.onBoardStatus != 'true'"
+  <button [hidden]="valuentityOffline !== 'Entity View Offline'"
+    style="background-color: #fff; border: none; font-size: 12px" [disabled]="detaislone?.onBoardStatus != 'true'"
     class="navtab" data-target="home" (click)="Viewoffline(this.id, this.detaislone?.accountId)">
-    <div [hidden]="valuentityOffline !== 'Entity View Offline'">
-      <i class="fa-solid fa-building-columns"></i>&nbsp;&nbsp; Offline
-    </div>
-  </button>
-  <button style="background-color: #fff; border: none; font-size: 12px" [disabled]="detaislone?.onBoardStatus != 'true'"
-    [hidden]="branchtrans !== 'Entity View-Branch-Transactions'" class="navtab" data-target="home"
-    (click)="viewbranch(this.id)">
-    <div><i class="fa-solid fa-building-columns"></i><br>Branch Transactions</div>
+    <i class="fa-solid fa-building-columns"></i>&nbsp;&nbsp; Offline
   </button>
 
-  <button style="background-color: #fff; border: none; font-size: 12px" [disabled]="detaislone?.onBoardStatus != 'true'"
+  <button [hidden]="branchtrans !== 'Entity View-Branch-Transactions'"
+    style="background-color: #fff; border: none; font-size: 12px" [disabled]="detaislone?.onBoardStatus != 'true'"
+    class="navtab" data-target="home" (click)="viewbranch(this.id)">
+    <i class="fa-solid fa-building-columns"></i><br>Branch Transactions
+  </button>
+
+  <button [hidden]="valuentitysettlement !== 'Entity View Settlement'"
+    style="background-color: #fff; border: none; font-size: 12px" [disabled]="detaislone?.onBoardStatus != 'true'"
     class="navtab" data-target="about" (click)="viewsettlement(this.id)">
-    <div [hidden]="valuentitysettlement !== 'Entity View Settlement'">
-      <i class="fas fa-handshake"></i>&nbsp;&nbsp;Settlement
-    </div>
+    <i class="fas fa-handshake"></i>&nbsp;&nbsp;Settlement
   </button>
 
-  <button style="background-color: #fff; border: none; font-size: 12px" [disabled]="detaislone?.onBoardStatus != 'true'"
+  <button [hidden]="valueentityRefund !== 'Entity View Refund'"
+    style="background-color: #fff; border: none; font-size: 12px" [disabled]="detaislone?.onBoardStatus != 'true'"
     class="navtab" data-target="contact" (click)="ViewRefund(this.id)">
-    <div [hidden]="valueentityRefund !== 'Entity View Refund'">
-      <i class="fas fa-hand-holding-usd"></i>&nbsp;&nbsp;Refund
-    </div>
+    <i class="fas fa-hand-holding-usd"></i>&nbsp;&nbsp;Refund
   </button>
 
-  <button style="background-color: #fff; border: none; font-size: 12px" [disabled]="detaislone?.onBoardStatus != 'true'"
+  <button [hidden]="valueentityautodebit !== 'Entity View Cloud Fee AutoDebit'"
+    style="background-color: #fff; border: none; font-size: 12px" [disabled]="detaislone?.onBoardStatus != 'true'"
     class="navtab" data-target="contact" (click)="Viewautodebit(this.id)">
-    <div [hidden]="valueentityautodebit !== 'Entity View Cloud Fee AutoDebit'">
-      <i class="fa-solid fa-money-bill-transfer"></i><br />Cloud Fee Auto Debit
-    </div>
+    <i class="fa-solid fa-money-bill-transfer"></i><br />Cloud Fee Auto Debit
   </button>
 
-  <button style="background-color: #fff; border: none; font-size: 12px" [disabled]="detaislone?.onBoardStatus != 'true'"
+  <button [hidden]="RenewelFee !== 'Entity View Renewal Fee AutoDebit'"
+    style="background-color: #fff; border: none; font-size: 12px" [disabled]="detaislone?.onBoardStatus != 'true'"
     class="navtab" data-target="contact" (click)="Viewrenewalautodebit(this.id)">
-    <div [hidden]="RenewelFee !== 'Entity View Renewal Fee AutoDebit'">
-      <i class="fa-solid fa-money-bill-transfer"></i><br />Renewal Fee Auto Debit
-    </div>
+    <i class="fa-solid fa-money-bill-transfer"></i><br />Renewal Fee Auto Debit
   </button>
 
-  <button style="background-color: #fff; border: none; font-size: 12px" [disabled]="detaislone?.onBoardStatus != 'true'"
-    class="navtab" data-target="page4" (click)="Viewqr(this.id)">
-    <div [hidden]="valueEntityqrs !== 'Entity View QR'">
-      <i class="fa-solid fa-qrcode"></i><br>QR Generation
-    </div>
+  <button [hidden]="valueEntityqrs !== 'Entity View QR'" style="background-color: #fff; border: none; font-size: 12px"
+    [disabled]="detaislone?.onBoardStatus != 'true'" class="navtab" data-target="page4" (click)="Viewqr(this.id)">
+    <i class="fa-solid fa-qrcode"></i><br>QR Generation
   </button>
-  <button style="background-color: #fff; border: none; font-size: 12px" [disabled]="detaislone?.onBoardStatus != 'true'"
+
+  <button [hidden]="valueentityCustomers !== 'Entity View Customer'"
+    style="background-color: #fff; border: none; font-size: 12px" [disabled]="detaislone?.onBoardStatus != 'true'"
     class="navtab" data-target="page5" (click)="Viewcustomer(this.id)">
-    <div [hidden]="valueentityCustomers !== 'Entity View Customer'">
-      <i class="fa-solid fa-user"></i>&nbsp;&nbsp;Customers
-    </div>
+    <i class="fa-solid fa-user"></i>&nbsp;&nbsp;Customers
   </button>
+
   <!-- [disabled]="detaislone?.onBoardStatus !='true'" -->
-  <button style="background-color: #fff; border: none; font-size: 12px" class="navtab" data-target="page5"
+  <button [hidden]="valueentitypaylink !== 'Entity View Payment Link'"
+    style="background-color: #fff; border: none; font-size: 12px" class="navtab" data-target="page5"
     (click)="viewpaymentLink(this.id)">
-    <div [hidden]="valueentitypaylink !== 'Entity View Payment Link'">
-      <i class="fa fa-link"></i><br>Payment Link
-    </div>
+    <i class="fa fa-link"></i><br>Payment Link
   </button>
 </div>
 
@@ -230,9 +228,9 @@
                 <div class="row">
                   <div class="col-md-6 col-12">
                     <div class="d-flex flex-column">
-                      <div class="d-flex mt-2">
+                      <div class="d-flex mt-2" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">Account ID</div>
-                        <div class="w-50" style="color: green">
+                        <div class="w-50" style="color: green;">
                           <span *ngIf="detaislone?.accountId != null">{{
                             detaislone?.accountId
                             }}</span>
@@ -240,11 +238,11 @@
                         </div>
                       </div>
 
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">Entity Name</div>
                         <div class="w-50">{{ detaislone?.entityName }}</div>
                       </div>
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">
                           Merchant Legal Name
                         </div>
@@ -252,7 +250,7 @@
                           {{ detaislone?.merchantLegalName }}
                         </div>
                       </div>
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">
                           Entity DisplayName
                         </div>
@@ -260,13 +258,13 @@
                           {{ detaislone?.accountDisplayName }}
                         </div>
                       </div>
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">
                           Primary Mobile Number
                         </div>
                         <div class="w-50">{{ detaislone?.contactMobile }}</div>
                       </div>
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">
                           Secondary Mobile Number
                         </div>
@@ -277,34 +275,34 @@
                           <span *ngIf="this.detaislone?.secondaryMobile == ''">- -</span>
                         </div>
                       </div>
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">MCC Code</div>
                         <div class="w-50">{{ detaislone?.mccCode }}</div>
                       </div>
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">Entity Plan</div>
                         <div class="w-50">
                           {{ detaislone?.merchantPlanModel?.planName }}
                         </div>
                       </div>
 
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">Area</div>
                         <div class="w-50">{{ detaislone?.area }}</div>
                       </div>
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">City</div>
                         <div class="w-50">{{ detaislone?.city }}</div>
                       </div>
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">Country</div>
                         <div class="w-50">{{ detaislone?.country }}</div>
                       </div>
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">Pincode</div>
                         <div class="w-50">{{ detaislone?.zipcode }}</div>
                       </div>
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">Gst</div>
                         <div class="w-50">
                           <span *ngIf="this.detaislone?.gstIn != null">
@@ -313,7 +311,7 @@
                         </div>
                       </div>
 
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">
                           Customer Due Status
                         </div>
@@ -323,7 +321,7 @@
                             }}</span>
                         </div>
                       </div>
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">Offline Qr</div>
                         <div class="w-50">
                           <span>{{
@@ -352,7 +350,7 @@
                                                 </div>
                                             </div> -->
 
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">
                           Manual Trans OTP Status
                         </div>
@@ -373,7 +371,7 @@
                                                 </div>
                                             </div> -->
 
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">
                           LCO Customer Notification Start Date
                         </div>
@@ -381,7 +379,7 @@
                           <span>&nbsp;&nbsp;{{ detaislone?.dueDate }}</span>
                         </div>
                       </div>
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">
                           LCO Customer Billing Cycle
                         </div>
@@ -390,7 +388,7 @@
                           <span *ngIf="detaislone?.billingMode !== 'Month'">-</span>
                         </div>
                       </div>
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">
                           LCO Cloud Fee Auto Debit
                         </div>
@@ -400,11 +398,21 @@
                             }}</span>
                         </div>
                       </div>
+                      <div class="d-flex mt-3" style="gap: 30px;">
+                        <div class="w-50 font-weight-bold">
+                          LCO Renewal Fee Auto Debit
+                        </div>
+                        <div class="w-50">
+                          <span>{{
+                            detaislone?.renewalAutoDebit
+                            }}</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div class="col-md-6 col-12">
                     <div class="d-flex flex-column">
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">
                           LCO Customer Notification Frequency
                         </div>
@@ -416,28 +424,28 @@
                           <ng-container *ngIf="detaislone?.customerDuesDate == 0">No Due Date</ng-container>
                         </div>
                       </div>
-                      <div class="d-flex mt-2">
+                      <div class="d-flex mt-2" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">
                           Cloud Fee Applicable
                         </div>
-                        <div class="w-50">{{ detaislone?.cloudFeeEnable }}</div>
+                        <div class="w-50">{{ detaislone?.cloudFeeEnable === 1 ? "Yes" : "No" }}</div>
                       </div>
 
-                      <div class="d-flex mt-2">
+                      <div class="d-flex mt-2" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">
                           Reference Number
                         </div>
                         <div class="w-50">{{ detaislone?.referenceNo }}</div>
                       </div>
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">Contact Name</div>
                         <div class="w-50">{{ detaislone?.contactName }}</div>
                       </div>
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">Contact Email</div>
                         <div class="w-50">{{ detaislone?.contactEmail }}</div>
                       </div>
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">
                           Business category
                         </div>
@@ -446,11 +454,11 @@
                         </div>
                       </div>
 
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">Billing Address</div>
                         <div class="w-50">{{ detaislone?.billingAddress }}</div>
                       </div>
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">
                           Customer Onboard Limit
                         </div>
@@ -459,17 +467,17 @@
                         </div>
                       </div>
 
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">Plan Amount</div>
                         <div class="w-50">
                           {{ detaislone?.technicalAmount }}
                         </div>
                       </div>
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">State</div>
                         <div class="w-50">{{ detaislone?.stateName }}</div>
                       </div>
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">Website</div>
                         <div class="w-50">
                           <div *ngIf="this.detaislone?.website != ''">
@@ -481,7 +489,7 @@
                         </div>
                       </div>
 
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold" [hidden]="valuelogo !== 'Entity View-LOGO'">
                           Logo
                         </div>
@@ -502,19 +510,19 @@
                         </div>
                       </div> -->
 
-                      <div class="d-flex mt-3">
+                      <!-- <div class="d-flex mt-3">
                         <div class="w-50 font-weight-bold">Customer SmsTag</div>
                         <div class="w-50">
                           <span>{{ detaislone?.customerSmsTag }}</span>
                         </div>
-                      </div>
-                      <div class="d-flex mt-3">
+                      </div> -->
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">Created By</div>
                         <div class="w-50">
                           <span>{{ detaislone?.createdBy }}</span>
                         </div>
                       </div>
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">Created At</div>
                         <div class="w-50">
                           <span>{{
@@ -523,13 +531,13 @@
                             }}</span>
                         </div>
                       </div>
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">Modified By</div>
                         <div class="w-50">
                           <span>{{ detaislone?.modifiedBy }}</span>
                         </div>
                       </div>
-                      <div class="d-flex mt-3">
+                      <div class="d-flex mt-3" style="gap: 30px;">
                         <div class="w-50 font-weight-bold">Modified At</div>
                         <div class="w-50">
                           <span>{{
@@ -541,7 +549,7 @@
                         </div>
                       </div>
 
-                      <!-- <div class="d-flex mt-3">
+                      <!-- <div class="d-flex mt-3" style="gap: 30px;">
                                                 <div class="w-50 font-weight-bold">Monthly withdrawal Count</div>
                                                 <div class="w-50">
 

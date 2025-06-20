@@ -76,11 +76,11 @@ export class EditPersonalInfoComponent implements OnInit {
       contactMobile: new FormControl('', [
         Validators.required,
         Validators.maxLength(10),
-        Validators.pattern('^[0-9]{10}$'),
+        Validators.pattern('^[6-9]\\d{9}$')
       ]),
       secondaryMobile: new FormControl('', [
         // Validators.maxLength(10),
-        Validators.pattern('^[0-9]{10}$'),
+        Validators.pattern('^[6-9]\\d{9}$')
       ]),
       contactEmail: new FormControl('', [
         Validators.required,
@@ -134,6 +134,8 @@ export class EditPersonalInfoComponent implements OnInit {
 
       offlineQrEnable: new FormControl('', [Validators.required]),
 
+      renewalAutoDebit: new FormControl('', [Validators.required]),
+
       // payoutEnable: new FormControl('', [Validators.required]),
 
       // platformfee: new FormControl('', [Validators.pattern('(0|[1-9][0-9]*)(\.[0-9]+)?$')]),
@@ -152,7 +154,7 @@ export class EditPersonalInfoComponent implements OnInit {
         Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(25),
       ]),
-            cloudFeeEnable: new FormControl('', [Validators.required]),
+      cloudFeeEnable: new FormControl('', [Validators.required]),
     });
 
     this.service.EntityViewbyid(this.id).subscribe((res: any) => {
@@ -165,7 +167,7 @@ export class EditPersonalInfoComponent implements OnInit {
       if (this.detaislone?.customerDuesEnable == '1') {
         this.myForm.get('customerDuesDate')?.setValue(this.detaislone?.customerDuesDate);
         this.myForm.get('dueDate')?.setValue(this.detaislone?.dueDate);
-      
+
       }
 
       if (this.detaislone.customerDuesEnable == 1) {
@@ -288,8 +290,12 @@ export class EditPersonalInfoComponent implements OnInit {
   get customerSmsTag() {
     return this.myForm.get('customerSmsTag');
   }
- get cloudFeeEnable() {
+  get cloudFeeEnable() {
     return this.myForm.get('cloudFeeEnable');
+  }
+
+  get renewalAutoDebit() {
+    return this.myForm.get('renewalAutoDebit');
   }
 
   // get withdrawalLimit() {
@@ -366,6 +372,7 @@ export class EditPersonalInfoComponent implements OnInit {
     formData.append('smsMerchantName', this.smsMerchantName?.value);
     formData.append('customerSmsTag', this.customerSmsTag?.value || 'NA');
     formData.append('cloudFeeEnable', this.cloudFeeEnable?.value);
+    formData.append('renewalAutoDebit', this.renewalAutoDebit?.value);
     // formData.append('withdrawalLimit', this.withdrawalLimit?.value || "");
     // formData.append('withdrawalDailylimit', this.withdrawalDailylimit?.value || 0);
     formData.append('platformfee', '0');

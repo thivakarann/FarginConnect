@@ -359,10 +359,10 @@
             Maximum length should be 100
           </div>
         </div>
-      
+
       </div>
       <div class="row mb-3">
-          <div class="col-sm-4 form-group">
+        <div class="col-sm-4 form-group">
           <label for="areas">Area</label>
           <input type="text" formControlName="area" id="areas" class="form-control" />
           <div style="
@@ -456,7 +456,7 @@
             Field is required
           </div>
         </div>
-         <div class="col-sm-4 form-group">
+        <div class="col-sm-4 form-group">
           <label for="billing">Offline Qr</label>
           <select formControlName="offlineQrEnable" type="text" class="form-select" id="billing">
             <option value="1">Yes</option>
@@ -471,13 +471,13 @@
             Field is required
           </div>
         </div>
-      
-       
+
+
 
       </div>
       <div class="row mb-3">
 
-         <div class="col-sm-4 form-group">
+        <div class="col-sm-4 form-group">
           <label for="billing">LCO Customer Billing Cycle</label>
           <select formControlName="billingMode" type="text" class="form-select" id="billing">
             <!-- <option value="Prorated">Prorated</option> -->
@@ -493,7 +493,7 @@
             Field is required
           </div>
         </div>
-          <div class="col-sm-4 form-group">
+        <div class="col-sm-4 form-group">
           <label for="billing">Cloud Fee Applicable</label>
           <select formControlName="cloudFeeEnable" type="text" class="form-select" id="billing">
             <option value="Yes">Yes</option>
@@ -508,11 +508,11 @@
             Field is required
           </div>
         </div>
-         <div class="col-sm-4 form-group">
+        <div class="col-sm-4 form-group">
           <label for="billing">LCO Cloud Fee Auto Debit</label>
           <select formControlName="autoDebitStatus" type="text" class="form-select" id="billing">
-            <option value="1">Yes</option>
-            <option value="0">No</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
           </select>
           <div style="
               color: red;
@@ -523,8 +523,8 @@
             Field is required
           </div>
         </div>
-       
-       
+
+
         <!-- 
                 <div class="col-sm-4 form-group">
                     <label for="billing">PayOut</label>
@@ -543,12 +543,28 @@
                         Field is required*
                     </div>
                 </div> -->
-        
+
 
 
       </div>
 
       <div class="row mb-3">
+
+        <div class="col-sm-4 form-group">
+          <label for="billing">LCO Renewal Fee Auto Debit</label>
+          <select formControlName="renewalAutoDebit" type="text" class="form-select" id="billing">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+          </select>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="renewalAutoDebit?.invalid && renewalAutoDebit?.touched && renewalAutoDebit?.errors?.['required']">
+            Field is required
+          </div>
+        </div>
         <div class="col-sm-4 form-group">
           <label for="billing">Customer Due Generation Mode</label>
           <select formControlName="customerPaymentMode" type="text" class="form-select" id="billing">
@@ -594,24 +610,14 @@
             Maximum length should be 25
           </div>
         </div>
-        <div class="col-sm-4 form-group">
+        <!-- <div class="col-sm-4 form-group">
           <label for="billing">LCO Customer SmsTag(Optional)</label>
           <select formControlName="customerSmsTag" type="text" class="form-select" id="billing">
             <option value="Single">Single</option>
             <option value="Multiple">Multiple</option>
           </select>
-          <!-- <div
-            style="
-              color: red;
-              font-size: 12px;
-              margin-top: 2px;
-              position: relative;
-            "
-            *ngIf="customerSmsTag?.invalid && customerSmsTag?.touched && customerSmsTag?.errors?.['required']"
-          >
-            Field is required
-          </div> -->
-        </div>
+       
+        </div> -->
         <div class="col-sm-4 form-group">
           <label for="billing">LCO Customer Reminder Notification</label>
           <select (change)="duealert($event)" formControlName="customerDuesEnable" type="text" class="form-select"

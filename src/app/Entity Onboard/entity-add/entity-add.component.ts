@@ -147,11 +147,11 @@ export class EntityAddComponent implements OnInit {
       contactMobile: new FormControl('', [
         Validators.required,
         Validators.maxLength(10),
-        Validators.pattern('^[0-9]{10}$'),
+        Validators.pattern('^[6-9]\\d{9}$')
       ]),
       secondaryMobile: new FormControl('', [
         Validators.maxLength(10),
-        Validators.pattern('^[0-9]{10}$'),
+        Validators.pattern('^[6-9]\\d{9}$')
       ]),
       contactEmail: new FormControl('', [
         Validators.required,
@@ -197,6 +197,9 @@ export class EntityAddComponent implements OnInit {
       logo: new FormControl(''),
       billingMode: new FormControl('', [Validators.required]),
       customerDuesEnable: new FormControl('', [Validators.required]),
+
+
+      renewalAutoDebit: new FormControl('', [Validators.required]),
 
       customerDuesDate: new FormControl(''),
 
@@ -296,7 +299,7 @@ export class EntityAddComponent implements OnInit {
   duealert(event: any) {
     this.myForm.get('customerDuesDate')?.setValue('');
     this.myForm.get('dueDate')?.setValue('');
-  
+
   }
 
   onCategoryChange(event: any) {
@@ -404,6 +407,10 @@ export class EntityAddComponent implements OnInit {
     return this.myForm.get('offlineQrEnable');
   }
 
+  get renewalAutoDebit() {
+    return this.myForm.get('renewalAutoDebit');
+  }
+
   // get payoutEnable() {
   //   return this.myForm.get('payoutEnable')
   // }
@@ -423,7 +430,7 @@ export class EntityAddComponent implements OnInit {
   get customerSmsTag() {
     return this.myForm.get('customerSmsTag');
   }
-   get cloudFeeEnable() {
+  get cloudFeeEnable() {
     return this.myForm.get('cloudFeeEnable');
   }
 
@@ -954,6 +961,7 @@ export class EntityAddComponent implements OnInit {
     formData.append('offlineQrEnable', this.offlineQrEnable?.value);
     formData.append('payoutEnable', '0');
     formData.append('customerPaymentMode', this.customerPaymentMode?.value);
+    formData.append('renewalAutoDebit', this.renewalAutoDebit?.value);
     formData.append('customerManualStatus', this.customerManualStatus?.value);
     formData.append('smsMerchantName', this.smsMerchantName?.value);
     formData.append('customerSmsTag', this.customerSmsTag?.value || 'NA');
