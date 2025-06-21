@@ -914,7 +914,9 @@ export class FarginServiceService {
   private readonly Merchantsmslogs = 'monthlySmsLog/viewByMonthlySmsLogId/';
   private readonly merchantsmstigger = 'monthlySmsLog/smsTrigger';
 
-
+// refund cumlative
+private readonly duesCumulativeRefunds='refund/cumulativeRefund';
+private readonly additionalCumulativeRefunds='addtionalPayRefund/cumulativeRefund';
 
 
 
@@ -5042,5 +5044,20 @@ export class FarginServiceService {
 
   monthlysmstriggermerchant(model:any){
     return this.http.post(`${this.basePath}${this.merchantsmstigger}`,model,this.options)
+  }
+  //Refund cumlative
+   duesCumulativeRefund(model: any) {
+    return this.http.post(
+      `${this.basePath}${this.duesCumulativeRefunds}`,
+      model,
+      this.options
+    );
+  }
+    additionalCumulativeRefund(model: any) {
+    return this.http.post(
+      `${this.basePath}${this.additionalCumulativeRefunds}`,
+      model,
+      this.options
+    );
   }
 }

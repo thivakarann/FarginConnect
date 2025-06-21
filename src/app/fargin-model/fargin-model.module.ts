@@ -1591,3 +1591,11 @@ export interface RefundCheck {
 export interface smstrigger {
   readonly monthlySmsLogId:any;
 }
+export interface dueCumulativeRefunds
+{
+ readonly refundId:any;
+}
+export interface additionalCumulativeRefunds
+{
+ readonly refundId:any;
+}

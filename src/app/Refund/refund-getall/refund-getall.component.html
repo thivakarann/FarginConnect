@@ -3,17 +3,17 @@
 
   <mat-card-header>
     <div class="row">
-      <div class="col-3 mt-4" style="margin-right: -46px">
-        <select style="width: 206px" (change)="transactionsDropdown($event)" class="form-select">
+      <div class="col-3 mt-4" style="margin-right: -14px">
+        <select (change)="transactionsDropdown($event)" class="form-select">
           <option [selected]="selectedTransactionType == 'Due Transaction'" value="Due Transaction">
             Due Transaction
           </option>
           <option value="Additional Transaction">Additional Transaction</option>
         </select>
       </div>
-      <div class="col-2 mt-4" style="margin-right: 38px">
+      <div class="col-2 mt-4" style="margin-right: 87px">
         <div class="search">
-          <form class="form">
+          <form class="form1">
             <label for="search">
               <input #input required="" autocomplete="off" placeholder="Search" id="search" name="search" type="text"
                 [(ngModel)]="currentfilval" />
@@ -35,7 +35,7 @@
           </form>
         </div>
       </div>
-      <div class="col-1 mt-4">
+      <div class="col-2 mt-4" style="margin-right: -100px">
         <button (click)="refundsearch(currentfilval)" style="
             color: white;
             background-color: #141e46;
@@ -45,20 +45,24 @@
           Go
         </button>
       </div>
-      <div class="col-2">
-        <label><b>From Date</b></label>
-        <input onkeydown="return false;" class="form-control" type="date" name="FromDate" [(ngModel)]="FromDateRange"
-          (change)="checkDate()" [max]="maxDate" style="height: 35px; width: 150px; border-radius: 5px" />
-      </div>
-      <div class="col-2">
-        <label><b>To Date</b></label>
-        <input onkeydown="return false;" class="form-control" type="date" name="ToDate" [(ngModel)]="ToDateRange"
-          [min]="FromDateRange" [max]="maxDate" style="height: 35px; width: 150px; border-radius: 5px" />
+      <div [hidden]="valuerefundexport!=='Online Refunds-Check Status'" class="col-1 mt-4" style="margin-right: 32px">
+        <button class="btn" (click)="submitRefundfordue()" style="
+              color: white;
+              background-color: #141e46;
+              border-radius: 10px;
+              font-size: 12px;
+            " mat-raised-button [disabled]="selectedPayIds.length==0">
+          Check Status
+        </button>
       </div>
 
-      <div class="col-1 mt-4">
-        <button class="buttonDownload" style="font-size: 12px" [disabled]="FromDateRange == '' || ToDateRange == ''"
-          mat-raised-button (click)="filterdate()">
+      <div class="col-1 mt-4" style="margin-right: -13px">
+        <button class="btn" (click)="filterdialogfordue()" style="
+              color: white;
+              background-color: #141e46;
+              border-radius: 10px;
+              font-size: 12px;
+            " mat-raised-button>
           Filter
         </button>
       </div>
@@ -76,6 +80,10 @@
     </div>
   </mat-card-header>
 
+
+
+
+
   <mat-card-content>
     <div class="example-container text-nowrap mt-2" style="overflow-x: scroll; scrollbar-width: thin">
       <!-- <span *ngIf="showcategoryData" class="errormge">NO DATA FOUND</span> -->
@@ -85,6 +93,20 @@
           <th mat-header-cell *matHeaderCellDef>S.No</th>
           <td mat-cell *matCellDef="let data; let i = index">
             {{ i + 1 }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="checkboxs">
+
+          <th [hidden]="valuerefundexport!=='Online Refunds-Check Status'" mat-header-cell *matHeaderCellDef
+            style="text-align: left; padding-left: 32px">
+            <input type="checkbox" [(ngModel)]="selectAll" [disabled]="isAllPaid()" (change)="toggleAll()"
+              title="Select All" />&nbsp;Check Status
+
+          </th>
+          <td [hidden]="valuerefundexport!=='Online Refunds-Check Status'" mat-cell *matCellDef="let data"
+            style="text-align: center; padding-left: 32px">
+            <input type="checkbox" [(ngModel)]="data.checked" (change)="updateSelection(data)"
+              [disabled]="data.refundStatus!='INITIATED'" />
           </td>
         </ng-container>
         <ng-container matColumnDef="type">
@@ -118,6 +140,20 @@
             {{ transaction?.activityId || "-" }}
           </td>
         </ng-container>
+        <ng-container matColumnDef="bankReference">
+          <th mat-header-cell *matHeaderCellDef>
+            Bank Reference
+          <td mat-cell *matCellDef="let transaction">
+            {{
+            transaction?.bankReference &&
+            transaction?.bankReference !== "null" &&
+            transaction?.bankReference !== "-"
+            ? transaction?.bankReference
+            : "-"
+            }}
+          </td>
+        </ng-container>
+
         <ng-container matColumnDef="custname">
           <th mat-header-cell *matHeaderCellDef>Customer Name</th>
           <td mat-cell *matCellDef="let data">
@@ -139,6 +175,7 @@
               }}</span>
 
             <span *ngIf="data?.refundStatus == 'SUBMITTED'" style="color:green"> COMPLETED</span>
+            <span *ngIf="data?.refundStatus == 'NOT REFUNDED'" class="text-warning"> {{ data?.refundStatus }}</span>
             <span *ngIf="data?.refundStatus == 'Success'" style="color: green">{{ data?.refundStatus }}</span>
           </td>
         </ng-container>
@@ -201,17 +238,17 @@
 
   <mat-card-header>
     <div class="row">
-      <div class="col-3 mt-4" style="margin-right: -46px">
-        <select style="width: 206px" (change)="transactionsDropdown($event)" class="form-select">
+      <div class="col-3 mt-4" style="margin-right: -14px">
+        <select (change)="transactionsDropdown($event)" class="form-select">
           <option value="Due Transaction">Due Transaction</option>
           <option [selected]="selectedTransactionType == 'Additional Transaction'" value="Additional Transaction">
             Additional Transaction
           </option>
         </select>
       </div>
-      <div class="col-2 mt-4" style="margin-right: 38px">
+      <div class="col-2 mt-4" style="margin-right: 87px">
         <div class="search">
-          <form class="form">
+          <form class="form1">
             <label for="search">
               <input #input required="" autocomplete="off" placeholder="Search" id="search" name="search" type="text"
                 [(ngModel)]="currentfilvals" />
@@ -233,7 +270,7 @@
           </form>
         </div>
       </div>
-      <div class="col-1 mt-4">
+      <div class="col-2 mt-4" style="margin-right: -100px">
         <button (click)="refundsearchadditional(currentfilvals)" style="
             color: white;
             background-color: #141e46;
@@ -243,20 +280,23 @@
           Go
         </button>
       </div>
-      <div class="col-2">
-        <label><b>From Date</b></label>
-        <input onkeydown="return false;" class="form-control" type="date" name="FromDates" [(ngModel)]="FromDateRanges"
-          (change)="checkDateadditional()" [max]="maxDate" style="height: 35px; width: 150px; border-radius: 5px" />
+      <div [hidden]="valuerefundexport!=='Online Refunds-Check Status'" class="col-1 mt-4" style="margin-right: 32px">
+        <button class="btn" (click)="submitRefundforAdditional()" style="
+              color: white;
+              background-color: #141e46;
+              border-radius: 10px;
+              font-size: 12px;
+            " mat-raised-button [disabled]="selectedPayIdsAdditional.length==0">
+          Check Status
+        </button>
       </div>
-      <div class="col-2">
-        <label><b>To Date</b></label>
-        <input onkeydown="return false;" class="form-control" type="date" name="ToDates" [(ngModel)]="ToDateRanges"
-          [min]="FromDateRanges" [max]="maxDate" style="height: 35px; width: 150px; border-radius: 5px" />
-      </div>
-
-      <div class="col-1 mt-4">
-        <button class="buttonDownload" style="font-size: 12px" [disabled]="FromDateRanges == '' || ToDateRanges == ''"
-          mat-raised-button (click)="filterdateadditional()">
+      <div class="col-1 mt-4" style="margin-right: -13px">
+        <button class="btn" (click)="filterdialogforadditional()" style="
+            color: white;
+            background-color: #141e46;
+            border-radius: 10px;
+            font-size: 12px;
+          " mat-raised-button>
           Filter
         </button>
       </div>
@@ -278,17 +318,47 @@
     <div class="example-container text-nowrap mt-2" style="overflow-x: scroll; scrollbar-width: thin">
       <!-- <span *ngIf="showcategoryData" class="errormge">NO DATA FOUND</span> -->
 
-      <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+      <table id="season-tble" matSort mat-table [dataSource]="dataSources" class="mat-elevation-z1">
         <ng-container matColumnDef="sno">
           <th mat-header-cell *matHeaderCellDef>S.No</th>
           <td mat-cell *matCellDef="let data; let i = index">
             {{ i + 1 }}
           </td>
         </ng-container>
+        <ng-container matColumnDef="checkboxsadditional">
+
+          <th [hidden]="valuerefundexport!=='Online Refunds-Check Status'" mat-header-cell *matHeaderCellDef
+            style="text-align: left; padding-left: 32px">
+            <input type="checkbox" [(ngModel)]="selectAllAdditional" (change)="toggleAllAdditional()"
+              [disabled]="isAllPaidAdd()" title="Select All" />&nbsp; Check Status
+
+          </th>
+          <td [hidden]="valuerefundexport!=='Online Refunds-Check Status'" mat-cell *matCellDef="let data"
+            style="text-align: center; padding-left: 32px">
+            <input type="checkbox" [(ngModel)]="data.checked" (change)="updateSelectionAdditional(data)"
+              [disabled]="data.refundStatus!='INITIATED'" />
+          </td>
+        </ng-container>
         <ng-container matColumnDef="type">
           <th mat-header-cell *matHeaderCellDef>Type</th>
           <td mat-cell *matCellDef="let transaction">
             {{ transaction?.typeMode || "-" }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="category">
+          <th mat-header-cell *matHeaderCellDef>
+            Stock Category
+          </th>
+          <td mat-cell *matCellDef="let transaction">
+            {{ transaction.inventoryName }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef>
+            Stock Quantity
+          </th>
+          <td mat-cell *matCellDef="let transaction">
+            {{ transaction.quantity }}
           </td>
         </ng-container>
         <ng-container matColumnDef="refund">
@@ -316,6 +386,19 @@
             {{ transaction?.activityId || "-" }}
           </td>
         </ng-container>
+        <ng-container matColumnDef="bankReference">
+          <th mat-header-cell *matHeaderCellDef>
+            Bank Reference
+          <td mat-cell *matCellDef="let transaction">
+            {{
+            transaction?.bankReference &&
+            transaction?.bankReference !== "null" &&
+            transaction?.bankReference !== "-"
+            ? transaction?.bankReference
+            : "-"
+            }}
+          </td>
+        </ng-container>
         <ng-container matColumnDef="custname">
           <th mat-header-cell *matHeaderCellDef>Customer Name</th>
           <td mat-cell *matCellDef="let data">
@@ -336,7 +419,7 @@
             <span *ngIf="data?.refundStatus == 'INITIATED'" style="color: rgb(0, 4, 255)">{{ data?.refundStatus
               }}</span>
             <span *ngIf="data?.refundStatus == 'Success'" style="color: green">COMPLETED</span>
-
+            <span *ngIf="data?.refundStatus == 'NOT REFUNDED'" class="text-warning"> {{ data?.refundStatus }}</span>
             <span *ngIf="data?.refundStatus == 'SUBMITTED'" style="color:green"> COMPLETED</span>
           </td>
         </ng-container>
@@ -374,13 +457,13 @@
           </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsadd; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsadd"></tr>
         <tr *matNoDataRow>
           <td class="mat-cell" colspan="0" *ngIf="searchPerformed">
             No Data For {{ input.value }}
           </td>
-          <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">
+          <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSources.data.length === 0">
             No Data
           </td>
         </tr>
@@ -393,3 +476,98 @@
     </mat-paginator>
   </mat-card-footer>
 </div>
+
+
+
+
+
+
+
+
+<ng-template #filterfordue>
+  <div class="dialog-card-header">
+    <h5 class="mb-0" style="font-weight: 500; padding: 7px; font-size: large">
+      Date Filter
+    </h5>
+    <div class="col-md-2 d-flex justify-content-end mb-1">
+      <button class="button1" (click)="close()">
+        Back
+      </button>
+    </div>
+  </div>
+  <div class="dialog-body page">
+    <main class="main page__main">
+      <form class="form main__form" autocomplete="off" [formGroup]="dueform" role="form">
+        <div class="form__linput">
+          <label class="form__label" for="fname">{{
+            "From Date"
+            }}</label>
+          <input onkeydown="return false;" class="form-control" id="fname" type="date" formControlName="fromdatedue"
+            (change)="future(todatedue)" [max]="maxDate" name="fromdatedue" required />
+        </div>
+        <div class="form__linput">
+          <label class="form__label" for="fname">{{
+            "To Date"
+            }}</label>
+          <input onkeydown="return false;" class="form-control" id="fname" type="date" formControlName="todatedue"
+            [min]="fromdatedue?.value" [max]="maxDate" name="todatedue" required />
+        </div>
+
+        <div class="mt-3">
+          <button [disabled]="!dueform.valid" type="submit" class="btn mx-1" style="background-color: #7db855be"
+            (click)="filterdate()">
+            Filter
+          </button>
+          <button type="button" class="btn" style="background-color: #141e46; color: white" (click)="duereset()">
+            Reset
+          </button>
+        </div>
+      </form>
+    </main>
+  </div>
+</ng-template>
+
+<ng-template #filterforadditional>
+  <div class="dialog-card-header">
+    <h5 class="mb-0" style="font-weight: 500; padding: 7px; font-size: large">
+      Date Filter
+    </h5>
+    <div class="col-md-2 d-flex justify-content-end mb-1">
+      <button class="button1" (click)="close()">
+        Back
+      </button>
+    </div>
+  </div>
+  <div class="dialog-body page">
+    <main class="main page__main">
+      <form class="form main__form" autocomplete="off" [formGroup]="additionalform" role="form">
+        <div class="form__linput">
+          <label class="form__label" for="fname">{{
+            "From Date"
+            }}</label>
+          <input onkeydown="return false;" class="form-control" id="fname" type="date"
+            formControlName="fromdateadditional" (change)="futuredate(todateadditional)" [max]="maxDate"
+            name="fromdateadditional" required />
+        </div>
+        <div class="form__linput">
+          <label class="form__label" for="fname">{{
+            "To Date"
+            }}</label>
+          <input onkeydown="return false;" class="form-control" id="fname" type="date"
+            formControlName="todateadditional" [min]="fromdateadditional?.value" [max]="maxDate" name="todateadditional"
+            required />
+        </div>
+
+        <div class="mt-3">
+          <button [disabled]="!additionalform.valid" type="submit" class="btn mx-1" style="background-color: #7db855be"
+            (click)="filterdateadditional()">
+            Filter
+          </button>
+          <button type="button" class="btn" style="background-color: #141e46; color: white" (click)="additionalreset()">
+            Reset
+          </button>
+        </div>
+      </form>
+    </main>
+  </div>
+</ng-template>
