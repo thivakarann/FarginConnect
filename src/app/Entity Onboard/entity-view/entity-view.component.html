@@ -25,89 +25,90 @@
 <div class="navtabs tab-strip"
   [hidden]="valueentitytransaction !== 'Entity View Due Transactions' && valuentityOffline !== 'Entity View Offline' && branchtrans !== 'Entity View-Branch-Transactions' && valuentitysettlement !== 'Entity View Settlement' && valueentityRefund !== 'Entity View Refund' && valueentityautodebit !== 'Entity View Cloud Fee AutoDebit' && RenewelFee !== 'Entity View Renewal Fee AutoDebit' && valueEntityqrs !== 'Entity View QR' && valueentityCustomers !== 'Entity View Customer' && valueentitypaylink !== 'Entity View Payment Link'">
 
-  <button *ngIf="valueentitytransaction === 'Entity View Due Transactions'" class="tab-button"
+  <button [hidden]="valueentitytransaction !== 'Entity View Due Transactions'" class="tab-button"
     [disabled]="detaislone?.onBoardStatus != 'true'" (click)="entityTransaction(this.id)">
     <i class="fa-solid fa-building-columns"></i><br>Due Transactions
   </button>
 
-  <button *ngIf="valuentityOffline === 'Entity View Offline'" class="tab-button"
+  <button [hidden]="valuentityOffline !== 'Entity View Offline'" class="tab-button"
     [disabled]="detaislone?.onBoardStatus != 'true'" (click)="Viewoffline(this.id, this.detaislone?.accountId)">
     <i class="fa-solid fa-building-columns"></i><br>Offline
   </button>
 
-  <button *ngIf="branchtrans === 'Entity View-Branch-Transactions'" class="tab-button"
+  <button [hidden]="branchtrans !== 'Entity View-Branch-Transactions'" class="tab-button"
     [disabled]="detaislone?.onBoardStatus != 'true'" (click)="viewbranch(this.id)">
     <i class="fa-solid fa-building-columns"></i><br>Branch Transactions
   </button>
 
-  <button *ngIf="valuentitysettlement === 'Entity View Settlement'" class="tab-button"
+  <button [hidden]="valuentitysettlement !== 'Entity View Settlement'" class="tab-button"
     [disabled]="detaislone?.onBoardStatus != 'true'" (click)="viewsettlement(this.id)">
     <i class="fas fa-handshake"></i><br>Settlement
   </button>
 
-  <button *ngIf="valueentityRefund === 'Entity View Refund'" class="tab-button"
+  <button [hidden]="valueentityRefund !== 'Entity View Refund'" class="tab-button"
     [disabled]="detaislone?.onBoardStatus != 'true'" (click)="ViewRefund(this.id)">
     <i class="fas fa-hand-holding-usd"></i><br>Refund
   </button>
 
-  <button *ngIf="valueentityautodebit === 'Entity View Cloud Fee AutoDebit'" class="tab-button"
+  <button [hidden]="valueentityautodebit !== 'Entity View Cloud Fee AutoDebit'" class="tab-button"
     [disabled]="detaislone?.onBoardStatus != 'true'" (click)="Viewautodebit(this.id)">
     <i class="fa-solid fa-money-bill-transfer"></i><br>Cloud Fee Auto Debit
   </button>
 
-  <button *ngIf="RenewelFee === 'Entity View Renewal Fee AutoDebit'" class="tab-button"
+  <button [hidden]="RenewelFee !== 'Entity View Renewal Fee AutoDebit'" class="tab-button"
     [disabled]="detaislone?.onBoardStatus != 'true'" (click)="Viewrenewalautodebit(this.id)">
     <i class="fa-solid fa-money-bill-transfer"></i><br>Renewal Fee Auto Debit
   </button>
 
-  <button *ngIf="valueEntityqrs === 'Entity View QR'" class="tab-button"
+  <button [hidden]="valueEntityqrs !== 'Entity View QR'" class="tab-button"
     [disabled]="detaislone?.onBoardStatus != 'true'" (click)="Viewqr(this.id)">
     <i class="fa-solid fa-qrcode"></i><br>QR Generation
   </button>
 
-  <button *ngIf="valueentityCustomers === 'Entity View Customer'" class="tab-button"
+  <button [hidden]="valueentityCustomers !== 'Entity View Customer'" class="tab-button"
     [disabled]="detaislone?.onBoardStatus != 'true'" (click)="Viewcustomer(this.id)">
     <i class="fa-solid fa-user"></i><br>Customers
   </button>
 
-  <button *ngIf="valueentitypaylink === 'Entity View Payment Link'" class="tab-button"
+  <button [hidden]="valueentitypaylink !== 'Entity View Payment Link'" class="tab-button"
     (click)="viewpaymentLink(this.id)">
     <i class="fa fa-link"></i><br>Payment Link
   </button>
 </div>
 
 
-<div class="tab-container">
+<div class="tab-container"
+  [hidden]="valueGeneral !== 'Entity View General Information' && valuebankinfo !== 'Entity View Bank Information' && valuekycdocument !== 'Entity View KYC Document' && valuebussinessdocument !== 'Entity View Bussiness Document'&& valuefinalapproval !== 'Entity View Final Approval'&& valuemanualpayment !== 'Entity View One Time Setup Payment'&& valueCustomized !== 'Entity View Customized Payment'&&valuesmssetting !== 'Entity View-SMS Settings'&&valueagreement !== 'Entity View Agreement'&& valuebranch !== 'Entity View Branch'">
   <div class="tab-strip">
     <button class="tab-btn" [class.active]="activeTab === 'events'" (click)="selectTab('events')"
-      *ngIf="valueGeneral === 'Entity View General Information'">General Info</button>
+      [hidden]="valueGeneral !== 'Entity View General Information'">General Info</button>
 
     <button class="tab-btn" [class.active]="activeTab === 'materials'" (click)="selectTab('materials')"
-      *ngIf="valuebankinfo === 'Entity View Bank Information'">Bank Info</button>
+      [hidden]="valuebankinfo !== 'Entity View Bank Information'">Bank Info</button>
 
     <button class="tab-btn" [class.active]="activeTab === 'videos'" (click)="selectTab('videos')"
-      *ngIf="valuekycdocument === 'Entity View KYC Document'">KYC Docs</button>
+      [hidden]="valuekycdocument !== 'Entity View KYC Document'">KYC Docs</button>
 
     <button class="tab-btn" [class.active]="activeTab === 'bussiness'" (click)="selectTab('bussiness')"
-      *ngIf="valuebussinessdocument === 'Entity View Bussiness Document'">Business Doc</button>
+      [hidden]="valuebussinessdocument !== 'Entity View Bussiness Document'">Business Doc</button>
 
     <button class="tab-btn" [class.active]="activeTab === 'doot1'" (click)="selectTab('doot1')"
-      *ngIf="valuefinalapproval === 'Entity View Final Approval'">Final Approval</button>
+      [hidden]="valuefinalapproval !== 'Entity View Final Approval'">Final Approval</button>
 
     <button class="tab-btn" [class.active]="activeTab === 'doot2'" (click)="selectTab('doot2')"
-      *ngIf="valuemanualpayment === 'Entity View One Time Setup Payment'">One-Time Setup</button>
+      [hidden]="valuemanualpayment !== 'Entity View One Time Setup Payment'">One-Time Setup</button>
 
     <button class="tab-btn" [class.active]="activeTab === 'doot3'" (click)="selectTab('doot3')"
-      *ngIf="valueCustomized === 'Entity View Customized Payment'">Customized Pay</button>
+      [hidden]="valueCustomized !== 'Entity View Customized Payment'">Customized Pay</button>
 
     <button class="tab-btn" [class.active]="activeTab === 'doot4'" (click)="selectTab('doot4')"
-      *ngIf="valuesmssetting === 'Entity View-SMS Settings'">SMS Settings</button>
+      [hidden]="valuesmssetting !== 'Entity View-SMS Settings'">SMS Settings</button>
 
     <button class="tab-btn" [class.active]="activeTab === 'doot5'" (click)="selectTab('doot5')"
-      *ngIf="valueagreement === 'Entity View Agreement'">Agreement</button>
+      [hidden]="valueagreement !== 'Entity View Agreement'">Agreement</button>
 
     <button class="tab-btn" [class.active]="activeTab === 'doot6'" (click)="selectTab('doot6')"
-      *ngIf="valuebranch === 'Entity View Branch'">Branch</button>
+      [hidden]="valuebranch !== 'Entity View Branch'">Branch</button>
   </div>
 
 
