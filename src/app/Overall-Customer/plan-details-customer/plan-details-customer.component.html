@@ -255,7 +255,7 @@
                     <th>S No</th>
                     <th>Plan Name</th>
                     <th>Price</th>
-                    <th>Status</th>
+                    <!-- <th>Status</th> -->
                     <th>Total Amount</th>
                     <th>OverAll Amount</th>
                   </tr>
@@ -264,9 +264,9 @@
                     <td>{{ i + 1 }}</td>
                     <td>{{row.planName }}</td>
                     <td>{{row.price }}</td>
-                    <td> <mat-slide-toggle class="example-margin" color="primary" [checked]="row.activeStatus === 1"
+                    <!-- <td> <mat-slide-toggle class="example-margin" color="primary" [checked]="row.activeStatus === 1"
                         (change)="ActiveStatus($event,row.customerPlanId)">
-                      </mat-slide-toggle></td>
+                      </mat-slide-toggle></td> -->
                     <td>{{row.totalAmount }}</td>
                     <td>{{row.overallAmount }}</td>
                   </tbody>

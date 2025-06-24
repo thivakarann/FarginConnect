@@ -24,7 +24,7 @@
                     </div>
                   
             </div>
-            <div class="row mt-3">
+            <div class="row">
                 <div class="col-12 form-group">
                     <label for="address">Payable Amount</label>
                     <input id="fname" type="text" class="form__input" class="form-control" formControlName="paidAmount">
@@ -46,10 +46,10 @@
                     </div>
                 </div>
             </div>
-            <div class="mb-3">
-                <button (click)="submit()" [disabled]="myForm.invalid" type="submit" class="btn mx-1 "
+            <div class="mb-3 mt-1">
+                <button (click)="submit()" [disabled]="myForm.invalid" type="submit" class="btn "
                     style="background-color:#7db855be">Submit</button>
-                <button type="submit" class="btn" style="background-color:#141E46;color:white"
+                <button type="submit" class="btn mx-1" style="background-color:#141E46;color:white"
                     matDialogClose>Cancel</button>
             </div>
         </form>

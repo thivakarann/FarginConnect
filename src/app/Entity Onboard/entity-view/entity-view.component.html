@@ -222,230 +222,46 @@
           </div>
         </div>
         <article class="car-details label-info mt-3">
-          <div class="d-flex flex-md-row align-items-md-start align-items-center flex-column">
+          <div
+            class="d-flex flex-md-row align-items-md-start align-items-center flex-column"
+          >
             <div class="w-100">
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-md-6 col-12">
                     <div class="d-flex flex-column">
-                      <div class="d-flex mt-2" style="gap: 30px;">
+                      <div class="d-flex mt-2" style="gap: 30px">
                         <div class="w-50 font-weight-bold">Account ID</div>
-                        <div class="w-50" style="color: green;">
+                        <div class="w-50" style="color: green">
                           <span *ngIf="detaislone?.accountId != null">{{
                             detaislone?.accountId
-                            }}</span>
+                          }}</span>
                           <span *ngIf="detaislone?.accountId == null">-</span>
                         </div>
                       </div>
 
-                      <div class="d-flex mt-3" style="gap: 30px;">
+                      <div class="d-flex mt-3" style="gap: 30px">
                         <div class="w-50 font-weight-bold">Entity Name</div>
                         <div class="w-50">{{ detaislone?.entityName }}</div>
                       </div>
-                      <div class="d-flex mt-3" style="gap: 30px;">
+                      <div class="d-flex mt-3" style="gap: 30px">
                         <div class="w-50 font-weight-bold">
-                          Merchant Legal Name
+                          Entity Legal Name
                         </div>
                         <div class="w-50">
                           {{ detaislone?.merchantLegalName }}
                         </div>
                       </div>
-                      <div class="d-flex mt-3" style="gap: 30px;">
+                      <div class="d-flex mt-3" style="gap: 30px">
                         <div class="w-50 font-weight-bold">
-                          Entity DisplayName
+                          Account Display Name
                         </div>
                         <div class="w-50">
                           {{ detaislone?.accountDisplayName }}
                         </div>
                       </div>
-                      <div class="d-flex mt-3" style="gap: 30px;">
-                        <div class="w-50 font-weight-bold">
-                          Primary Mobile Number
-                        </div>
-                        <div class="w-50">{{ detaislone?.contactMobile }}</div>
-                      </div>
-                      <div class="d-flex mt-3" style="gap: 30px;">
-                        <div class="w-50 font-weight-bold">
-                          Secondary Mobile Number
-                        </div>
-                        <div class="w-50">
-                          <span *ngIf="this.detaislone?.secondaryMobile != ''">
-                            {{ detaislone?.secondaryMobile }}
-                          </span>
-                          <span *ngIf="this.detaislone?.secondaryMobile == ''">- -</span>
-                        </div>
-                      </div>
-                      <div class="d-flex mt-3" style="gap: 30px;">
-                        <div class="w-50 font-weight-bold">MCC Code</div>
-                        <div class="w-50">{{ detaislone?.mccCode }}</div>
-                      </div>
-                      <div class="d-flex mt-3" style="gap: 30px;">
-                        <div class="w-50 font-weight-bold">Entity Plan</div>
-                        <div class="w-50">
-                          {{ detaislone?.merchantPlanModel?.planName }}
-                        </div>
-                      </div>
 
-                      <div class="d-flex mt-3" style="gap: 30px;">
-                        <div class="w-50 font-weight-bold">Area</div>
-                        <div class="w-50">{{ detaislone?.area }}</div>
-                      </div>
-                      <div class="d-flex mt-3" style="gap: 30px;">
-                        <div class="w-50 font-weight-bold">City</div>
-                        <div class="w-50">{{ detaislone?.city }}</div>
-                      </div>
-                      <div class="d-flex mt-3" style="gap: 30px;">
-                        <div class="w-50 font-weight-bold">Country</div>
-                        <div class="w-50">{{ detaislone?.country }}</div>
-                      </div>
-                      <div class="d-flex mt-3" style="gap: 30px;">
-                        <div class="w-50 font-weight-bold">Pincode</div>
-                        <div class="w-50">{{ detaislone?.zipcode }}</div>
-                      </div>
-                      <div class="d-flex mt-3" style="gap: 30px;">
-                        <div class="w-50 font-weight-bold">Gst</div>
-                        <div class="w-50">
-                          <span *ngIf="this.detaislone?.gstIn != null">
-                            {{ detaislone?.gstIn }}</span>
-                          <span *ngIf="this.detaislone?.gstIn == null">- -</span>
-                        </div>
-                      </div>
-
-                      <div class="d-flex mt-3" style="gap: 30px;">
-                        <div class="w-50 font-weight-bold">
-                          Customer Due Status
-                        </div>
-                        <div class="w-50">
-                          <span>{{
-                            detaislone?.customerDuesEnable === 1 ? "Yes" : "No"
-                            }}</span>
-                        </div>
-                      </div>
-                      <div class="d-flex mt-3" style="gap: 30px;">
-                        <div class="w-50 font-weight-bold">Offline Qr</div>
-                        <div class="w-50">
-                          <span>{{
-                            detaislone?.offlineQrEnableStatus === 1
-                            ? "Yes"
-                            : "No"
-                            }}</span>
-                        </div>
-                      </div>
-
-                      <!-- <div class="d-flex mt-3">
-                                                <div class="w-50 font-weight-bold">Monthly withdrawal Limit</div>
-                                                <div class="w-50">
-
-                                                    <span>{{ detaislone?.withdrawalLimit
-                                                        }}</span>
-                                                </div>
-                                            </div> -->
-
-                      <!-- <div class="d-flex mt-3">
-                                                <div class="w-50 font-weight-bold">Per day withdrawal Limit</div>
-                                                <div class="w-50">
-
-                                                    <span>{{ detaislone?.withdrawalDailylimit
-                                                        }}</span>
-                                                </div>
-                                            </div> -->
-
-                      <div class="d-flex mt-3" style="gap: 30px;">
-                        <div class="w-50 font-weight-bold">
-                          Manual Trans OTP Status
-                        </div>
-                        <div class="w-50">
-                          <span>{{
-                            detaislone?.customerManualStatus === 1
-                            ? "Enabled"
-                            : "Disabled"
-                            }}</span>
-                        </div>
-                      </div>
-                      <!-- <div class="d-flex mt-3">
-                                                <div class="w-50 font-weight-bold">Payout Platform Fee</div>
-                                                <div class="w-50">
-
-                                                    <span>{{ detaislone?.platformFee
-                                                        }}</span>
-                                                </div>
-                                            </div> -->
-
-                      <div class="d-flex mt-3" style="gap: 30px;">
-                        <div class="w-50 font-weight-bold">
-                          LCO Customer Notification Start Date
-                        </div>
-                        <div class="w-50">
-                          <span>&nbsp;&nbsp;{{ detaislone?.dueDate }}</span>
-                        </div>
-                      </div>
-                      <div class="d-flex mt-3" style="gap: 30px;">
-                        <div class="w-50 font-weight-bold">
-                          LCO Customer Billing Cycle
-                        </div>
-                        <div class="w-50">
-                          <span *ngIf="detaislone?.billingMode === 'Month'">Monthly</span>
-                          <span *ngIf="detaislone?.billingMode !== 'Month'">-</span>
-                        </div>
-                      </div>
-                      <div class="d-flex mt-3" style="gap: 30px;">
-                        <div class="w-50 font-weight-bold">
-                          LCO Cloud Fee Auto Debit
-                        </div>
-                        <div class="w-50">
-                          <span>{{
-                            detaislone?.autoDebitStatus === 1 ? "Yes" : "No"
-                            }}</span>
-                        </div>
-                      </div>
-                      <div class="d-flex mt-3" style="gap: 30px;">
-                        <div class="w-50 font-weight-bold">
-                          LCO Renewal Fee Auto Debit
-                        </div>
-                        <div class="w-50">
-                          <span>{{
-                            detaislone?.renewalAutoDebit
-                            }}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6 col-12">
-                    <div class="d-flex flex-column">
-                      <div class="d-flex mt-3" style="gap: 30px;">
-                        <div class="w-50 font-weight-bold">
-                          LCO Customer Notification Frequency
-                        </div>
-                        <div class="w-50">
-                          <ng-container *ngIf="detaislone?.customerDuesDate === 1">Daily</ng-container>
-                          <ng-container *ngIf="detaislone?.customerDuesDate === 2">Every Two Days</ng-container>
-                          <ng-container *ngIf="detaislone?.customerDuesDate === 3">Every Three Days</ng-container>
-                          <ng-container *ngIf="detaislone?.customerDuesDate === 4">Once</ng-container>
-                          <ng-container *ngIf="detaislone?.customerDuesDate == 0">No Due Date</ng-container>
-                        </div>
-                      </div>
-                      <div class="d-flex mt-2" style="gap: 30px;">
-                        <div class="w-50 font-weight-bold">
-                          Cloud Fee Applicable
-                        </div>
-                        <div class="w-50">{{ detaislone?.cloudFeeEnable === 1 ? "Yes" : "No" }}</div>
-                      </div>
-
-                      <div class="d-flex mt-2" style="gap: 30px;">
-                        <div class="w-50 font-weight-bold">
-                          Reference Number
-                        </div>
-                        <div class="w-50">{{ detaislone?.referenceNo }}</div>
-                      </div>
-                      <div class="d-flex mt-3" style="gap: 30px;">
-                        <div class="w-50 font-weight-bold">Contact Name</div>
-                        <div class="w-50">{{ detaislone?.contactName }}</div>
-                      </div>
-                      <div class="d-flex mt-3" style="gap: 30px;">
-                        <div class="w-50 font-weight-bold">Contact Email</div>
-                        <div class="w-50">{{ detaislone?.contactEmail }}</div>
-                      </div>
-                      <div class="d-flex mt-3" style="gap: 30px;">
+                      <div class="d-flex mt-3" style="gap: 30px">
                         <div class="w-50 font-weight-bold">
                           Business category
                         </div>
@@ -453,12 +269,260 @@
                           {{ detaislone?.businessCategoryModel?.categoryName }}
                         </div>
                       </div>
+                      <div class="d-flex mt-3" style="gap: 30px">
+                        <div class="w-50 font-weight-bold">MCC Code</div>
+                        <div class="w-50">{{ detaislone?.mccCode }}</div>
+                      </div>
+                      <div class="d-flex mt-3" style="gap: 30px">
+                        <div class="w-50 font-weight-bold">Entity Plan</div>
+                        <div class="w-50">
+                          {{ detaislone?.merchantPlanModel?.planName }}
+                        </div>
+                      </div>
+                      <div class="d-flex mt-3" style="gap: 30px">
+                        <div class="w-50 font-weight-bold">
+                          Owner/Contact Name
+                        </div>
+                        <div class="w-50">{{ detaislone?.contactName }}</div>
+                      </div>
+                      <div class="d-flex mt-3" style="gap: 30px">
+                        <div class="w-50 font-weight-bold">
+                          Owner/Contact Email
+                        </div>
+                        <div class="w-50">{{ detaislone?.contactEmail }}</div>
+                      </div>
 
-                      <div class="d-flex mt-3" style="gap: 30px;">
+                      <div class="d-flex mt-3" style="gap: 30px">
+                        <div class="w-50 font-weight-bold">
+                          Primary Mobile Number
+                        </div>
+                        <div class="w-50">{{ detaislone?.contactMobile }}</div>
+                      </div>
+                      <div class="d-flex mt-3" style="gap: 30px">
+                        <div class="w-50 font-weight-bold">
+                          Secondary Mobile Number
+                        </div>
+                        <div class="w-50">
+                          <span *ngIf="this.detaislone?.secondaryMobile != ''">
+                            {{ detaislone?.secondaryMobile }}
+                          </span>
+                          <span *ngIf="this.detaislone?.secondaryMobile == ''"
+                            >-</span
+                          >
+                        </div>
+                      </div>
+                      <div class="d-flex mt-3" style="gap: 30px">
+                        <div class="w-50 font-weight-bold">GSTIN</div>
+                        <div class="w-50">
+                          <span *ngIf="this.detaislone?.gstIn != null">
+                            {{ detaislone?.gstIn }}</span
+                          >
+                          <span *ngIf="this.detaislone?.gstIn == null"
+                            >- -</span
+                          >
+                        </div>
+                      </div>
+                      <div class="d-flex mt-3" style="gap: 30px">
+                        <div class="w-50 font-weight-bold">Website</div>
+                        <div class="w-50">
+                          <div *ngIf="this.detaislone?.website != ''">
+                            {{ detaislone?.website | slice : 0 : 25 }} &nbsp;<i
+                              class="fa-regular fa-copy"
+                              style="color: green; font-size: 18px"
+                              (click)="copyText(detaislone?.website)"
+                            ></i>
+                            <span *ngIf="copySuccess" style="color: green"
+                              >Copied!</span
+                            >
+                          </div>
+                          <div *ngIf="this.detaislone?.website == ''">-</div>
+                        </div>
+                      </div>
+
+                      <div class="d-flex mt-3" style="gap: 30px">
+                        <div class="w-50 font-weight-bold">Country</div>
+                        <div class="w-50">{{ detaislone?.country }}</div>
+                      </div>
+                      <div class="d-flex mt-3" style="gap: 30px">
+                        <div class="w-50 font-weight-bold">State</div>
+                        <div class="w-50">{{ detaislone?.stateName }}</div>
+                      </div>
+                      <div class="d-flex mt-3" style="gap: 30px">
+                        <div class="w-50 font-weight-bold">City</div>
+                        <div class="w-50">{{ detaislone?.city }}</div>
+                      </div>
+
+                      <div class="d-flex mt-3" style="gap: 30px">
+                        <div class="w-50 font-weight-bold">Pincode</div>
+                        <div class="w-50">{{ detaislone?.zipcode }}</div>
+                      </div>
+
+                      <div class="d-flex mt-3" style="gap: 30px">
+                        <div class="w-50 font-weight-bold">Area</div>
+                        <div class="w-50">{{ detaislone?.area }}</div>
+                      </div>
+                       <div class="d-flex mt-3" style="gap: 30px">
                         <div class="w-50 font-weight-bold">Billing Address</div>
                         <div class="w-50">{{ detaislone?.billingAddress }}</div>
                       </div>
-                      <div class="d-flex mt-3" style="gap: 30px;">
+                          <div class="d-flex mt-3" style="gap: 30px">
+                        <div
+                          class="w-50 font-weight-bold"
+                          [hidden]="valuelogo !== 'Entity View-LOGO'"
+                        >
+                          Logo
+                        </div>
+                        <div
+                          class="w-50"
+                          [hidden]="valuelogo !== 'Entity View-LOGO'"
+                        >
+                          <span
+                            (click)="
+                              viewlogo(this.id, this.detaislone?.logoLink)
+                            "
+                            ><i class="fas fa-image" style="font-size: 20px">
+                            </i
+                          ></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-12">
+                    <div class="d-flex mt-2" style="gap: 30px">
+                      <div class="w-50 font-weight-bold">Reference Number</div>
+                      <div class="w-50">{{ detaislone?.referenceNo }}</div>
+                    </div>
+
+                    <div class="d-flex flex-column">
+                     
+                  
+                      <div class="d-flex mt-3" style="gap: 30px">
+                        <div class="w-50 font-weight-bold">
+                          Manual Trans OTP Status
+                        </div>
+                        <div class="w-50">
+                          <span>{{
+                            detaislone?.customerManualStatus === 1
+                              ? "Enabled"
+                              : "Disabled"
+                          }}</span>
+                        </div>
+                      </div>
+                      <div class="d-flex mt-3" style="gap: 30px">
+                        <div class="w-50 font-weight-bold">Offline Qr</div>
+                        <div class="w-50">
+                          <span>{{
+                            detaislone?.offlineQrEnableStatus === 1
+                              ? "Yes"
+                              : "No"
+                          }}</span>
+                        </div>
+                      </div>
+                      <div class="d-flex mt-3" style="gap: 30px">
+                        <div class="w-50 font-weight-bold">
+                          LCO Customer Billing Cycle
+                        </div>
+                        <div class="w-50">
+                          <span *ngIf="detaislone?.billingMode === 'Month'"
+                            >Monthly</span
+                          >
+                          <span *ngIf="detaislone?.billingMode !== 'Month'"
+                            >-</span
+                          >
+                        </div>
+                      </div>
+                      <div class="d-flex mt-2" style="gap: 30px">
+                        <div class="w-50 font-weight-bold">
+                          Cloud Fee Applicable
+                        </div>
+                        <div class="w-50">
+                          {{ detaislone?.cloudFeeEnable === 1 ? "Yes" : "No" }}
+                        </div>
+                      </div>
+                      <div class="d-flex mt-3" style="gap: 30px">
+                        <div class="w-50 font-weight-bold">
+                          LCO Cloud Fee Auto Debit
+                        </div>
+                        <div class="w-50">
+                          <span>{{
+                            detaislone?.autoDebitStatus === 1 ? "Yes" : "No"
+                          }}</span>
+                        </div>
+                      </div>
+                      <div class="d-flex mt-3" style="gap: 30px">
+                        <div class="w-50 font-weight-bold">
+                          LCO Renewal Fee Auto Debit
+                        </div>
+                        <div class="w-50">
+                          <span>{{ detaislone?.renewalAutoDebit }}</span>
+                        </div>
+                      </div>
+
+                      <div class="d-flex mt-3" style="gap: 30px">
+                        <div class="w-50 font-weight-bold">
+                          Customer Due Generation Mode
+                        </div>
+                        <div class="w-50">
+                          <span>{{ detaislone?.customerPaymentMode }}</span>
+                        </div>
+                      </div>
+                      <div class="d-flex mt-3" style="gap: 30px">
+                        <div class="w-50 font-weight-bold">
+                          SMS Merchant Name
+                        </div>
+                        <div class="w-50">
+                          <span>{{ detaislone?.smsMerchantName }}</span>
+                        </div>
+                      </div>
+                      <div class="d-flex mt-3" style="gap: 30px">
+                        <div class="w-50 font-weight-bold">
+                          LCO Customer Reminder Notification
+                        </div>
+                        <div class="w-50">
+                          <span>{{
+                            detaislone?.customerDuesEnable === 1 ? "Yes" : "No"
+                          }}</span>
+                        </div>
+                      </div>
+
+                      <div class="d-flex mt-3" style="gap: 30px">
+                        <div class="w-50 font-weight-bold">
+                          LCO Customer Notification Frequency
+                        </div>
+                        <div class="w-50">
+                          <ng-container
+                            *ngIf="detaislone?.customerDuesDate === 1"
+                            >Daily</ng-container
+                          >
+                          <ng-container
+                            *ngIf="detaislone?.customerDuesDate === 2"
+                            >Every Two Days</ng-container
+                          >
+                          <ng-container
+                            *ngIf="detaislone?.customerDuesDate === 3"
+                            >Every Three Days</ng-container
+                          >
+                          <ng-container
+                            *ngIf="detaislone?.customerDuesDate === 4"
+                            >Once</ng-container
+                          >
+                          <ng-container
+                            *ngIf="detaislone?.customerDuesDate == 0"
+                            >No Due Date</ng-container
+                          >
+                        </div>
+                      </div>
+
+                      <div class="d-flex mt-3" style="gap: 30px">
+                        <div class="w-50 font-weight-bold">
+                          LCO Customer Notification Start Date
+                        </div>
+                        <div class="w-50">
+                          <span>&nbsp;&nbsp;{{ detaislone?.dueDate }}</span>
+                        </div>
+                      </div>
+
+                      <div class="d-flex mt-3" style="gap: 30px">
                         <div class="w-50 font-weight-bold">
                           Customer Onboard Limit
                         </div>
@@ -467,37 +531,10 @@
                         </div>
                       </div>
 
-                      <div class="d-flex mt-3" style="gap: 30px;">
+                      <div class="d-flex mt-3" style="gap: 30px">
                         <div class="w-50 font-weight-bold">Plan Amount</div>
                         <div class="w-50">
                           {{ detaislone?.technicalAmount }}
-                        </div>
-                      </div>
-                      <div class="d-flex mt-3" style="gap: 30px;">
-                        <div class="w-50 font-weight-bold">State</div>
-                        <div class="w-50">{{ detaislone?.stateName }}</div>
-                      </div>
-                      <div class="d-flex mt-3" style="gap: 30px;">
-                        <div class="w-50 font-weight-bold">Website</div>
-                        <div class="w-50">
-                          <div *ngIf="this.detaislone?.website != ''">
-                            {{ detaislone?.website | slice : 0 : 25 }} &nbsp;<i class="fa-regular fa-copy"
-                              style="color: green; font-size: 18px" (click)="copyText(detaislone?.website)"></i>
-                            <span *ngIf="copySuccess" style="color: green">Copied!</span>
-                          </div>
-                          <div *ngIf="this.detaislone?.website == ''">- -</div>
-                        </div>
-                      </div>
-
-                      <div class="d-flex mt-3" style="gap: 30px;">
-                        <div class="w-50 font-weight-bold" [hidden]="valuelogo !== 'Entity View-LOGO'">
-                          Logo
-                        </div>
-                        <div class="w-50" [hidden]="valuelogo !== 'Entity View-LOGO'">
-                          <span (click)="
-                              viewlogo(this.id, this.detaislone?.logoLink)
-                            "><i class="fas fa-image" style="font-size: 20px">
-                            </i></span>
                         </div>
                       </div>
 
@@ -516,36 +553,36 @@
                           <span>{{ detaislone?.customerSmsTag }}</span>
                         </div>
                       </div> -->
-                      <div class="d-flex mt-3" style="gap: 30px;">
+                      <div class="d-flex mt-3" style="gap: 30px">
                         <div class="w-50 font-weight-bold">Created By</div>
                         <div class="w-50">
                           <span>{{ detaislone?.createdBy }}</span>
                         </div>
                       </div>
-                      <div class="d-flex mt-3" style="gap: 30px;">
+                      <div class="d-flex mt-3" style="gap: 30px">
                         <div class="w-50 font-weight-bold">Created At</div>
                         <div class="w-50">
                           <span>{{
                             detaislone?.createdDatetime
-                            | date : "dd/MM/yyyy hh:MM a"
-                            }}</span>
+                              | date : "dd/MM/yyyy hh:MM a"
+                          }}</span>
                         </div>
                       </div>
-                      <div class="d-flex mt-3" style="gap: 30px;">
+                      <div class="d-flex mt-3" style="gap: 30px">
                         <div class="w-50 font-weight-bold">Modified By</div>
                         <div class="w-50">
                           <span>{{ detaislone?.modifiedBy }}</span>
                         </div>
                       </div>
-                      <div class="d-flex mt-3" style="gap: 30px;">
+                      <div class="d-flex mt-3" style="gap: 30px">
                         <div class="w-50 font-weight-bold">Modified At</div>
                         <div class="w-50">
                           <span>{{
                             detaislone?.modifiedDatetime
-                            | date
-                            : "dd/MM/yyyy hh:mm
+                              | date
+                                : "dd/MM/yyyy hh:mm
                             a"
-                            }}</span>
+                          }}</span>
                         </div>
                       </div>
 
@@ -1880,13 +1917,22 @@
           </form>
         </div>
       </div>
-      <div class="col-md-2 mt-1" [hidden]="detaislone?.onBoardStatus != 'true' || detaislone?.customerSmsTag=='NA'">
-        <button (click)="smscreate()" style="
+      <div
+        class="col-md-2 mt-1"
+        [hidden]="
+          detaislone?.onBoardStatus != 'true'"
+      >
+        <button
+          (click)="smscreate()"
+          style="
             color: white;
             background-color: #141e46;
             border-radius: 10px;
             font-size: 12px;
-          " mat-raised-button [hidden]="valuesmsadd !== 'Sms Setting-Add'">
+          "
+          mat-raised-button
+          [hidden]="valuesmsadd !== 'Sms Setting-Add'"
+        >
           Create
         </button>
       </div>
