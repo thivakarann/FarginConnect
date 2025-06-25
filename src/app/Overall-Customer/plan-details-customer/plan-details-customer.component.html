@@ -78,7 +78,7 @@
                       <th>Channel Name</th>
                       <th>Channel No</th>
                      
-                      <th>Status</th>
+                      <!-- <th>Status</th> -->
                       <th>Price</th>
                       <th>Language</th>
                       <th>Generic</th>
@@ -90,9 +90,9 @@
                       <td>{{ row.channelName }}</td>
                       <td>{{ row.channelNo }}</td>
                      
-                      <td> <mat-slide-toggle class="example-margin" color="primary" [checked]="row.activeStatus === 1"
+                      <!-- <td> <mat-slide-toggle class="example-margin" color="primary" [checked]="row.activeStatus === 1"
                           (change)="ActiveStatus($event,row.customerPlanId)">
-                        </mat-slide-toggle></td>
+                        </mat-slide-toggle></td> -->
                       <td>{{ row.price }}</td>
                       <td>{{ row.language}}</td>
                       <td>{{ row.generic }}</td>
@@ -165,24 +165,26 @@
                 <div class="table-responsive text-nowrap text-center">
                   <table class="table table-hover" id="customers" *ngIf="viewData">
                     <th>S No</th>
+                    <th>Service Provider (MSO)</th>
                     <th>BroadCaster Name</th>
                     <th>BroadCaster PlanName</th>
                     <th>BroadCaster PlanAmount</th>
-                    <th>MSO</th>
-                    <th>Status</th>
+                    
+                    <!-- <th>Status</th> -->
                     <th>Channels</th>
                     <tbody
                       *ngFor="let row of bouquetPlan | search: searchText | paginate: { id:'pagination1',itemsPerPage: 3, currentPage: currentPagebouquet }; let i = index">
                       <span *ngIf="!viewData" style="color:red;font-size:12px;text-align: center;">NO DATA FOUND</span>
    
                       <td>{{ i + 1 }}</td>
+                       <td>{{ row.broadCasterId?.serviceProvider?.serviceProviderName }}</td>
                       <td>{{ row.broadCasterId?.bundleChannel?.broadCasterName}}</td>
                       <td>{{ row.broadCasterId?.bouquetCreation?.bouquetName }}</td>
                       <td>{{ row.broadCasterId?.amount }}</td>
-                      <td>{{ row.broadCasterId?.serviceProvider?.serviceProviderName }}</td>
-                      <td> <mat-slide-toggle class="example-margin" color="primary" [checked]="row.activeStatus === 1"
+                     
+                      <!-- <td> <mat-slide-toggle class="example-margin" color="primary" [checked]="row.activeStatus === 1"
                           (change)="ActiveStatus($event,row.customerPlanId)">
-                        </mat-slide-toggle></td>
+                        </mat-slide-toggle></td> -->
                       <td><i class="fas fa-eye" (click)="Viewchannels(row.broadCasterId?.bouquetId)"> </i></td>
                     </tbody>
                   </table>

@@ -563,7 +563,7 @@ body {
 .button1 {
   background-color: #141E46;
   border: 1px solid #141E46;
-  border-radius:6px;
+  border-radius: 6px;
   color: #f9fafb;
   font-size: .875rem;
   line-height: 1.25rem;
@@ -920,9 +920,8 @@ button.kychidden:disabled {
 }
 
 .section-header {
-  color: #2c3e50;
-  border-bottom: 2px solid darkblue;
-  ;
+  color: #141e46;
+  /* border-bottom: 2px solid darkblue; */
   padding-bottom: 0.5rem;
   margin-bottom: 1rem;
   font-size: 1.1rem;
@@ -991,104 +990,132 @@ button.kychidden:disabled {
 }
 
 
-.navtabs.tab-strip {
+/* Tab One Css */
+
+.nav-wrapper {
   display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  white-space: nowrap;
+  align-items: center;
+  overflow: hidden;
   gap: 10px;
-  padding: 10px;
-  background: #f9f9f9;
+  padding: 3px;
+  background: white;
   border-radius: 6px;
-  border: 1px solid #ddd;
-  scrollbar-width: thin;
-  scrollbar-color: #9E9E9E #e0e0e0 #e0e0e0;
+  border: 1px solid white;
+  padding-bottom: 9px;
+  padding-top: 6px;
 }
 
-.navtabs.tab-strip::-webkit-scrollbar {
-  height: 6px;
+.nav-arrow {
+  font-size: 16px;
+  background-color: #fff;
+  border:none;
+  /* color: #007bff;
+  border-radius: 6px;
+  padding: 6px 10px; */
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
-.navtabs.tab-strip::-webkit-scrollbar-thumb {
-  background-color: #007bff;
-  border-radius: 4px;
+.nav-arrow:hover {
+  background-color: #eaf4ff;
+}
+
+.tab-strip {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  gap: 10px;
+  flex: 1;
+  scrollbar-width: none;
+}
+
+.tab-strip::-webkit-scrollbar {
+  display: none;
 }
 
 .tab-button {
   flex: 0 0 auto;
+  width: calc((100% - 60px) / 7);
+  /* 6 gaps of 10px between 7 cards = 60px */
+  scroll-snap-align: start;
   background: #fff;
   border: 1px solid #ccc;
   border-radius: 8px;
-  padding: 10px 14px;
+  /* padding: 10px 14px; */
   font-size: 12px;
   color: #333;
   text-align: center;
-  min-width: 120px;
-  transition: all 0.3s ease;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.tab-button i {
-  font-size: 16px;
-  margin-bottom: 4px;
-}
-
-.tab-button:hover {
-  background-color: #eaf4ff;
-  border-color: #007bff;
-  color: #007bff;
-}
-
-.tab-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+  transition: all 0.3s ease;
 }
 
 
-.tab-strip {
+/* tab two css */
+
+.info-tab-wrapper {
   display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  white-space: nowrap;
+  align-items: center;
+  overflow: hidden;
   gap: 8px;
-  padding: 8px 12px;
-  background: #fff;
-  border-bottom: 2px solid #ddd;
-  scrollbar-width: thin;
-  scrollbar-color: #9E9E9E #e0e0e0 #e0e0e0;
-  margin-top: -2px;
-  margin-bottom: 5px;
+  margin-top: 5px;
+  background: white;
+  margin-bottom: 10px;
 }
 
-.tab-strip::-webkit-scrollbar {
-  height: 6px;
+.info-tab-arrow {
+  font-size: 16px;
+  background-color: #fff;
+  border:none;
+  /* color: #007bff;
+  border-radius: 6px;
+  padding: 6px 10px; */
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-left: 4px;
+  margin-right: 4px;
 }
 
-.tab-strip::-webkit-scrollbar-thumb {
-  background-color: #007bff;
-  border-radius: 4px;
+.info-tab-arrow:hover {
+  background-color: #eaf4ff;
 }
 
-.tab-btn {
+.info-tab-strip {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  /* gap: 21px; */
+  flex: 1;
+  scrollbar-width: none;
+
+}
+
+.info-tab-strip::-webkit-scrollbar {
+  display: none;
+}
+
+.info-tab-button {
   flex: 0 0 auto;
-  padding: 10px 16px;
-  font-size: 14px;
-  background: none;
+  padding: 10px 15px;
+  font-size: 13px;
   border: none;
-  border-bottom: 2px solid transparent;
+  background: none;
   color: #555;
   cursor: pointer;
+  border-bottom: 2px solid transparent;
   transition: all 0.3s ease;
-}
-
-.tab-btn:hover {
-  color: #007bff;
-  background-color: #f5faff;
-}
-
-.tab-btn.active {
-  color: #007bff;
   font-weight: 600;
-  border-bottom: 2px solid #007bff;
+}
+
+.info-tab-button:hover {
+  background-color: #f5faff;
+  color: #141e46;
+}
+
+.active-info {
+  color: #141e46;
+  font-weight: 600;
+  border-bottom: 2px solid #141e46;
   background-color: #eaf4ff;
 }

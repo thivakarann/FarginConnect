@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -252,6 +252,8 @@ export class EntityViewComponent implements OnInit {
     // Implement filter clearing logic here
   }
   activeTab: string = 'events';
+  @ViewChild('tabStrip', { static: true }) tabStrip!: ElementRef;
+  @ViewChild('infoTabStrip', { static: true }) infoTabStrip!: ElementRef;
 
   constructor(
     public MerchantView: FarginServiceService,
@@ -737,6 +739,21 @@ export class EntityViewComponent implements OnInit {
       }
     }
   };
+
+  scrollTabs(direction: 'prev' | 'next') {
+    const el = this.tabStrip.nativeElement as HTMLElement;
+    const scrollAmount = el.offsetWidth; // scroll the full visible width
+    const newPosition = direction === 'next' ? el.scrollLeft + scrollAmount : el.scrollLeft - scrollAmount;
+    el.scrollTo({ left: newPosition, behavior: 'smooth' });
+
+  }
+
+  scrollInfoTabs(direction: 'next' | 'prev') {
+  const el = this.infoTabStrip.nativeElement as HTMLElement;
+  const scrollAmount = el.offsetWidth;
+  const newPosition = direction === 'next' ? el.scrollLeft + scrollAmount : el.scrollLeft - scrollAmount;
+  el.scrollTo({ left: newPosition, behavior: 'smooth' });
+}
 
   Getall() {
     this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {

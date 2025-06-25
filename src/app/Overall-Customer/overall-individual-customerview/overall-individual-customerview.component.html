@@ -1,7 +1,7 @@
 <mat-card-header>
   <div class="row d-flex justify-content-start mx-auto">
     <div class="col-md-6">
-      <h5>Customer Name: {{ viewcustomer?.customerName }}</h5>
+      <h5>{{ viewcustomer?.customerName }}</h5>
     </div>
     <!-- <div class="col-md-4  mt-1">
       <h6> Overall Plan Amount:  <span style="color:green;">₹{{ this.totalamount }}</span></h6>
@@ -53,171 +53,166 @@
 </ul>
 <div *ngIf="selectedTab === 'customer-info'" id="customer-info" class="mb-4">
   <div class="container" [hidden]="valuecustomerinfo!=='Customers-Customer Info'">
-    <article class="card">
-      <div class="card-body">
-        <!-- <h3 class="card-title mb-4">General Information</h3>
-              <hr> -->
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-6 col-12">
-              <div class="d-flex flex-column">
-                <div class="d-flex mb-2">
-                  <div class="w-50 font-weight-bold">
-                    Customer Id</div>
-                  <div class="w-50">{{ viewcustomer?.customerReferenceId }}</div>
-                </div>
-                
-                <div class="d-flex mb-2">
-                  <div class="w-50 font-weight-bold">MSO-Customer ID</div>
-                  <div class="w-50">
-                    <div class="w-50">{{ viewcustomer?.customerMsoId }}</div>
-                  </div>
-                </div>
-                <div class="d-flex mb-2">
-                  <div class="w-50 font-weight-bold">
-                    Customer Name</div>
-                  <div class="w-50">{{ viewcustomer?.customerName }}</div>
-                </div>
-                <div class="d-flex mb-2">
-                  <div class="w-50 font-weight-bold">
-                    Email Address</div>
-                  <div class="w-50">{{ viewcustomer?.emailAddress }}</div>
-                </div>
-                <div class="d-flex mb-2">
-                  <div class="w-50 font-weight-bold">Mobile Number 
-                  </div>
-                  <div class="w-50">{{ viewcustomer?.mobileNumber }}</div>
-                </div>
-                <div class="d-flex mb-2">
-                  <div class="w-50 font-weight-bold">Alter Mobile Number</div>
-                  <div class="w-50"> {{ viewcustomer?.alterMobileNumber }}</div>
-                </div>
-                <div class="d-flex mb-2">
-                  <div class="w-50 font-weight-bold">Age</div>
-                  <div class="w-50">{{ viewcustomer?.age }}</div>
-                </div>
-                <div class="d-flex mb-2">
-                  <div class="w-50 font-weight-bold">Area</div>
-                  <div class="w-50"> {{ viewcustomer?.area }}</div>
-                </div>
-                <div class="d-flex mb-2">
-                  <div class="w-50 font-weight-bold">Street Name</div>
-                  <div class="w-50">{{ viewcustomer?.streetName }}</div>
-                </div>
-                <div class="d-flex mb-2">
-                  <div class="w-50 font-weight-bold">Door Number</div>
-                  <div class="w-50"> {{ viewcustomer?.doorNumber }}</div>
-                </div>
-              
-                <div class="d-flex mb-2">
-                  <div class="w-50 font-weight-bold">Block Number</div>
-                  <div class="w-50">{{ viewcustomer?.blockNumber }}</div>
-                </div>
-                <div class="d-flex mb-2">
-                  <div class="w-50 font-weight-bold">Flat Number</div>
-                  <div class="w-50">{{ viewcustomer?.flatNumber }}</div>
-                </div>
-                <div class="d-flex mb-2">
-                  <div class="w-50 font-weight-bold">House Name</div>
-                  <div class="w-50"> {{ viewcustomer?.houseName }}</div>
-                </div>
-                <div class="d-flex mb-2">
-                  <div class="w-50 font-weight-bold">Apartment Name</div>
-                  <div class="w-50"> {{ viewcustomer?.apartmentName }}</div>
-                </div>
-              </div>
-            </div>
- 
- 
-            <div class="col-md-6 col-12">
-              <div class="d-flex flex-column">
- 
-   
-                <div class="d-flex mb-2">
-                  <div class="w-50 font-weight-bold">Land Mark</div>
-                  <div class="w-50">{{ viewcustomer?.landmark }}</div>
-                </div>
-              
-              
-                <div class="d-flex mb-2">
-                  <div class="w-50 font-weight-bold">Country
-                  </div>
-                  <div class="w-50">{{ viewcustomer?.countryName }}</div>
-                </div>
-               
-                <div class="d-flex mb-2">
-                  <div class="w-50 font-weight-bold">State Name</div>
-                  <div class="w-50"> {{ viewcustomer?.stateName }}</div>
-                </div>
-                <div class="d-flex mb-2">
-                  <div class="w-50 font-weight-bold">City Name</div>
-                  <div class="w-50">{{ viewcustomer?.cityName }}</div>
-                </div>
-                <div class="d-flex mb-2">
-                  <div class="w-50 font-weight-bold">Pincode</div>
-                  <div class="w-50">{{ viewcustomer?.pincodeName }}</div>
-                </div>
+     <article class="card">
+    <div class="card-body">
+      <div class="container-fluid">
+        <h5 class="mb-3">Customer Identity</h5><hr>
+        <div class="row mb-2">
+          <div class="col-md-6 col-12 d-flex">
+            <div class="fw-semibold w-50">Customer Id</div>
+            <div class="w-50">{{ viewcustomer?.customerReferenceId || '-' }}</div>
+          </div>
+          <div class="col-md-6 col-12 d-flex">
+            <div class="fw-semibold w-50">MSO-Customer ID</div>
+            <div class="w-50">{{ viewcustomer?.customerMsoId || '-' }}</div>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-6 col-12 d-flex">
+            <div class="fw-semibold w-50">Customer Name</div>
+            <div class="w-50">{{ viewcustomer?.customerName || '-' }}</div>
+          </div>
+          <div class="col-md-6 col-12 d-flex">
+            <div class="fw-semibold w-50">Email Address</div>
+            <div class="w-50">{{ viewcustomer?.emailAddress || '-' }}</div>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-6 col-12 d-flex">
+            <div class="fw-semibold w-50">Mobile Number</div>
+            <div class="w-50">{{ viewcustomer?.mobileNumber || '-' }}</div>
+          </div>
+          <div class="col-md-6 col-12 d-flex">
+            <div class="fw-semibold w-50">Alternative Mobile Number</div>
+            <div class="w-50">{{ viewcustomer?.alterMobileNumber || '-' }}</div>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-6 col-12 d-flex">
+            <div class="fw-semibold w-50">Age</div>
+            <div class="w-50">{{ viewcustomer?.age || '-' }}</div>
+          </div>
+        </div>
+          <h5 class="mt-4 mb-3">Connection & Payments</h5><hr>
+        <div class="row mb-2">
+          <div class="col-md-6 d-flex">
+            <div class="fw-semibold w-50">Connection Type</div>
+            <div class="w-50">{{ viewcustomer?.freeLine || '-' }}</div>
+          </div>
+          <div class="col-md-6 d-flex">
+            <div class="fw-semibold w-50">Advance Paid</div>
+            <div class="w-50">{{ viewcustomer?.advanceStatus || '-' }}</div>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-6 d-flex">
+            <div class="fw-semibold w-50">Advance Amount</div>
+            <div class="w-50">{{ viewcustomer?.advanceAmount || 0.0 }}</div>
+          </div>
+          <div class="col-md-6 d-flex">
+            <div class="fw-semibold w-50">Branch Name</div>
+            <div class="w-50">{{ viewcustomer?.branchId?.branchName || '-' }}</div>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-6 d-flex">
+            <div class="fw-semibold w-50">Branch Status</div>
+            <div class="w-50">{{ viewcustomer?.branchStatus || '-' }}</div>
+          </div>
+        </div>
 
-                <div class="d-flex mb-2">
-                  <div class="w-50 font-weight-bold">Connection Type</div>
-                  <div class="w-50">
-                    <div class="w-50"> {{ viewcustomer?.freeLine }}</div>
-                  </div>
-                </div>
-                <div class="d-flex mb-2">
-                  <div class="w-50 font-weight-bold">Advance Paid</div>
-                  <div class="w-50">
-                    <div class="w-50">{{ viewcustomer?.advanceStatus }}</div>
-                  </div>
-                </div>
- 
-                <div class="d-flex mb-2">
-                  <div class="w-50 font-weight-bold">Advance Amount</div>
-                  <div class="w-50">
-                    {{viewcustomer?.advanceAmount}}
-                  </div>
-                </div>
-               
-                <div class="d-flex mb-2">
-                  <div class="w-50 font-weight-bold">Branch Status</div>
-                  <div class="w-50"> {{ viewcustomer?.branchStatus }}</div>
-                </div>
-                 
-                <div class="d-flex mb-2">
-                  <div class="w-50 font-weight-bold">Branch Name</div>
-                  <div class="w-50"> {{viewcustomer?.branchId?.branchName }}</div>
-                </div>
-             
-              
-                <div class="d-flex mb-2">
-                  <div class="w-50 font-weight-bold">Created At</div>
-                  <div class="w-50">
-                    <div class="w-50"> {{ viewcustomer?.createdDateTime|date:"dd/MM/yyyy" }}</div>
-                  </div>
-                </div>
-                <div class="d-flex mb-2">
-                  <div class="w-50 font-weight-bold">Created By</div>
-                  <div class="w-50">{{ viewcustomer?.createdBy }}</div>
-                </div>
- 
-                <div class="d-flex mb-2">
-                  <div class="w-50 font-weight-bold">Modified By</div>
-                  <div class="w-50">{{ viewcustomer?.modifiedBy }}</div>
-                </div>
- 
-                <div class="d-flex mb-2">
-                  <div class="w-50 font-weight-bold">Modified At</div>
-                  <div class="w-50">
-                    <div class="w-50"> {{ viewcustomer?.modifiedDateTime | date:"dd/MM/yyyy" }}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
- 
+        <h5 class="mt-4 mb-3">Residential Details</h5><hr>
+        <div class="row mb-2">
+          <div class="col-md-6 d-flex">
+            <div class="fw-semibold w-50">Area</div>
+            <div class="w-50">{{ viewcustomer?.area || '-' }}</div>
+          </div>
+          <div class="col-md-6 d-flex">
+            <div class="fw-semibold w-50">Street Name</div>
+            <div class="w-50">{{ viewcustomer?.streetName || '-' }}</div>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-6 d-flex">
+            <div class="fw-semibold w-50">Door Number</div>
+            <div class="w-50">{{ viewcustomer?.doorNumber || '-' }}</div>
+          </div>
+          <div class="col-md-6 d-flex">
+            <div class="fw-semibold w-50">Block Number</div>
+            <div class="w-50">{{ viewcustomer?.blockNumber || '-' }}</div>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-6 d-flex">
+            <div class="fw-semibold w-50">Flat Number</div>
+            <div class="w-50">{{ viewcustomer?.flatNumber || '-' }}</div>
+          </div>
+          <div class="col-md-6 d-flex">
+            <div class="fw-semibold w-50">House Name</div>
+            <div class="w-50">{{ viewcustomer?.houseName || '-' }}</div>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-6 d-flex">
+            <div class="fw-semibold w-50">Apartment Name</div>
+            <div class="w-50">{{ viewcustomer?.apartmentName || '-' }}</div>
+          </div>
+        </div>
+
+        <h5 class="mt-4 mb-3">Location</h5><hr>
+        <div class="row mb-2">
+          <div class="col-md-6 d-flex">
+            <div class="fw-semibold w-50">Land Mark</div>
+            <div class="w-50">{{ viewcustomer?.landmark || '-' }}</div>
+          </div>
+          <div class="col-md-6 d-flex">
+            <div class="fw-semibold w-50">Country</div>
+            <div class="w-50">{{ viewcustomer?.countryName || '-' }}</div>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-6 d-flex">
+            <div class="fw-semibold w-50">State</div>
+            <div class="w-50">{{ viewcustomer?.stateName || '-' }}</div>
+          </div>
+          <div class="col-md-6 d-flex">
+            <div class="fw-semibold w-50">City</div>
+            <div class="w-50">{{ viewcustomer?.cityName || '-' }}</div>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-6 d-flex">
+            <div class="fw-semibold w-50">Pincode</div>
+            <div class="w-50">{{ viewcustomer?.pincodeName || '-' }}</div>
+          </div>
+        </div>
+
+      
+
+        <h5 class="mt-4 mb-3">Audit Trail</h5><hr>
+        <div class="row mb-2">
+          <div class="col-md-6 d-flex">
+            <div class="fw-semibold w-50">Created At</div>
+            <div class="w-50 text-nowrap">{{ viewcustomer?.createdDateTime | date:"dd/MM/yyyy hh:mm a" }}</div>
+          </div>
+          <div class="col-md-6 d-flex">
+            <div class="fw-semibold w-50">Created By</div>
+            <div class="w-50">{{ viewcustomer?.createdBy || '-' }}</div>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-6 d-flex">
+            <div class="fw-semibold w-50">Modified By</div>
+            <div class="w-50">{{ viewcustomer?.modifiedBy || '-' }}</div>
+          </div>
+          <div class="col-md-6 d-flex">
+            <div class="fw-semibold w-50">Modified At</div>
+            <div class="w-50 text-nowrap">{{ viewcustomer?.modifiedDateTime | date:"dd/MM/yyyy hh:mm a" }}</div>
           </div>
         </div>
       </div>
-    </article>
+    </div>
+  </article>
   </div>
 </div>
  
