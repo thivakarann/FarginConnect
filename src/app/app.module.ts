@@ -303,6 +303,7 @@ import { RenewalAutodebitComponent } from './Renewal Autodebit/renewal-autodebit
 import { MerchatSMSTriggerComponent } from './SMS Trigger/merchat-smstrigger/merchat-smstrigger.component';
 import { SMSTriggerLogsComponent } from './SMS Trigger/smstrigger-logs/smstrigger-logs.component';
 import { SMSContentComponent } from './SMS Trigger/smscontent/smscontent.component';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -495,7 +496,7 @@ import { SMSContentComponent } from './SMS Trigger/smscontent/smscontent.compone
     SurveyviewallComponent,
     CustomerticketImageComponent,
     ReadquestionsComponent,
-    AlcotHistoryComponent ,
+    AlcotHistoryComponent,
     AddExtraRegionComponent,
     ChanneleditComponent,
     BouqutesRegioneditComponent,
@@ -585,7 +586,7 @@ import { SMSContentComponent } from './SMS Trigger/smscontent/smscontent.compone
     MerchatSMSTriggerComponent,
     SMSTriggerLogsComponent,
     SMSContentComponent,
-  
+
 
   ],
 
@@ -596,6 +597,7 @@ import { SMSContentComponent } from './SMS Trigger/smscontent/smscontent.compone
     HttpClientModule,
     BrowserAnimationsModule,
     MatMenuModule,
+    MatIconModule,
     MatBadgeModule,
     MatTableModule,
     MatCardModule,
@@ -618,14 +620,13 @@ import { SMSContentComponent } from './SMS Trigger/smscontent/smscontent.compone
     MatGridListModule,
     MatSlideToggleModule,
     MatSelectModule,
-    DropdownModule, 
+    DropdownModule,
     NgSelectModule,
     ToastrModule.forRoot()
 
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true
-  }],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
