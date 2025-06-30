@@ -250,6 +250,10 @@ export class EntityAddComponent implements OnInit {
         Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$')
       ]),
       ledgerId: new FormControl('', [Validators.pattern(/^\d{1,15}$/)]),
+      typemode: new FormControl('', [
+        Validators.required,
+    
+      ]),
     });
 
     this.firstFormGroup = this._formBuilder.group({
@@ -462,7 +466,9 @@ export class EntityAddComponent implements OnInit {
   get ledgerId() {
     return this.myForm2.get('ledgerId');
   }
-
+  get typemode() {
+    return this.myForm2.get('typemode');
+  }
   // third Form
 
   get identityProof() {
@@ -993,6 +999,7 @@ export class EntityAddComponent implements OnInit {
       accountType: this.accountType?.value,
       merchantId: this.merchantid,
       ledgerId: this.ledgerId?.value.trim(),
+      typeMode: this.typemode?.value,
       createdBy: this.getadminname,
     };
     this.AddEntity.EntitybankAdd(submitModel).subscribe((res: any) => {

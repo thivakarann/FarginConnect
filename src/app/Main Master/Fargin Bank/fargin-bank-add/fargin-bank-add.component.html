@@ -7,7 +7,8 @@
 
     <div class="well">
         <form [formGroup]="BankForm">
-            <div class="row mb-3">
+            <div class="row">
+               
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">Account Holder Name</label>
                     <input type="text" id="Entity Name" formControlName="accountHolderName" class="form-control">
@@ -61,6 +62,25 @@
                         Enter a Valid Account Number
                     </div>
                 </div>
+                  <div class="col-sm-4 form-group">
+                    <label for="types">Type Mode</label>
+
+                    <select class="form-control form-select"  id="types" formControlName="typemode">
+                        <option value="" disabled hidden>Select</option>
+                         <option value="Online">Online</option>
+                          <option value="Offline">Offline</option>
+                    </select>           
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="typemode?.invalid && typemode?.touched && typemode?.errors?.['required']">
+                        Field is required
+                    </div>
+                   
+                </div>
 
                 <div class="col-sm-4 form-group">
                     <label for="state">Ledger ID</label>
@@ -82,15 +102,8 @@
 
                 </div>
 
-
-
-
-            </div>
-            <div class="row mb-3">
-
-
-                <div class="col-sm-4 form-group">
-                    <label for="Bussiness category">Enter Bank Name</label>
+    <div class="col-sm-4 form-group">
+                    <label for="Bussiness category">Bank Name</label>
                     <input type="text" id="Entity Name" formControlName="bankName" class="form-control">
                     <div style="
                     color: red;
@@ -136,6 +149,9 @@
                     </div>
                 </div>
 
+
+            </div>
+            <div class="row">
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">IFSC Code</label>
                     <input type="text" id="Entity Name" formControlName="ifscCode" class="form-control">

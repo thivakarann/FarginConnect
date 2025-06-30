@@ -64,6 +64,10 @@ export class EntityBankaddComponent implements OnInit {
 
       ]),
       ledgerId: new FormControl('', [Validators.pattern(/^\d{1,15}$/)]),
+        typemode: new FormControl('', [
+        Validators.required,
+    
+      ]),
     });
   }
   get accountHolderName() {
@@ -92,7 +96,9 @@ export class EntityBankaddComponent implements OnInit {
   get ledgerId() {
     return this.BankForm.get('ledgerId');
   }
-
+get typemode() {
+    return this.BankForm.get('typemode');
+  }
   submit() {
     let submitModel: bankData = {
       accountHolderName: this.accountHolderName?.value.trim(),
@@ -101,6 +107,7 @@ export class EntityBankaddComponent implements OnInit {
       ifscCode: this.ifscCode?.value.trim(),
       branchName: this.branchName?.value.trim(),
       accountType: this.accountType?.value,
+      typeMode: this.typemode?.value,
       merchantId: this.merchantid,
       ledgerId: this.ledgerId?.value.trim(),
       createdBy: this.getadminname,

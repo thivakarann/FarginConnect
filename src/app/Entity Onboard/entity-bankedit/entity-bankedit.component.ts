@@ -68,6 +68,10 @@ export class EntityBankeditComponent implements OnInit {
       ]),
 
       ledgerId: new FormControl('', [Validators.pattern(/^\d{1,15}$/)]),
+      typemode: new FormControl('', [
+        Validators.required,
+    
+      ]),
     });
   }
 
@@ -97,7 +101,9 @@ export class EntityBankeditComponent implements OnInit {
   get ledgerId() {
     return this.BankForm.get('ledgerId');
   }
-
+ get typemode() {
+    return this.BankForm.get('typemode');
+  }
   submit() {
     let submitModel: bankedit = {
       accountHolderName: this.accountHolderName.value.trim(),
@@ -106,6 +112,7 @@ export class EntityBankeditComponent implements OnInit {
       ifscCode: this.ifscCode.value.trim(),
       branchName: this.branchName.value.trim(),
       accountType: this.accountType.value,
+        typeMode: this.typemode.value,
       ledgerId: this.ledgerId?.value.trim(),
       modifiedBy: this.getadminname,
     };

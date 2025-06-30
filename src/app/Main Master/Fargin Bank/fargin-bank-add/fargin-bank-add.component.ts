@@ -41,7 +41,10 @@ Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'), Validators.maxLength(50)
         Validators.required,
         Validators.pattern(/^[A-Za-z ]{1,50}$/)
       ]),
-
+  typemode: new FormControl('', [
+        Validators.required,
+    
+      ]),
       ledgerId: new FormControl('', [Validators.required, Validators.pattern(/^\d{1,10}$/
       )]),
       createdBy: new FormControl(''),
@@ -75,7 +78,9 @@ Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'), Validators.maxLength(50)
     return this.BankForm.get('ledgerId');
   }
 
-
+ get typemode() {
+    return this.BankForm.get('typemode');
+  }
   submit() {
     let submitmodel: farginadd = {
       accountHolderName: this.accountHolderName?.value.trim(),
@@ -84,6 +89,7 @@ Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'), Validators.maxLength(50)
       ifscCode: this.ifscCode?.value.trim(),
       branchName: this.branchName?.value.trim(),
       ledgerId: this.ledgerId?.value.trim(),
+        typeMode: this.typemode?.value,
       createdBy: this.createdBy
     }
 

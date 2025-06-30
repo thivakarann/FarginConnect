@@ -39,7 +39,7 @@
     background-color: #ffffff;
     /* Card background color */
     border: 1px solid #dee2e6;
-    border-radius: 0.5rem;
+    /* border-radius: 0.5rem; */
     padding: 1.5rem;
     /* margin-top: 5px; */
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);

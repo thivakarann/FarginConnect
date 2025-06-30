@@ -1,4 +1,4 @@
-@import "https://unpkg.com/open-props";
+
  
 *,
 *::before,
@@ -11,8 +11,7 @@ button {
 }
  
 .page {
-  color: var(--gray-9);
-  background-color: var(--gray-0);
+ 
   display: grid;
   grid-template-areas: "main";
   height: auto;
@@ -31,19 +30,17 @@ button {
  
 .main__form {
   width: 100%;
-  max-width: 30em;
+  max-width: 35em;
   /* Max width for the form */
 }
  
 .form {
-  color: var(--gray-9);
-  background-color: var(--gray-3);
+
   display: grid;
   width: 100%;
   max-width: 100%;
-  border: 1px solid var(--gray-4);
-  border-radius: var(--radius-2);
-  padding: 30px;
+
+  padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: #fff;
 }
@@ -54,15 +51,14 @@ button {
 }
  
 .form__label {
-  margin-bottom: var(--size-2);
+  margin-bottom: 10px;
 }
  
 .form__input,
 .form__select,
 .form__textarea {
   padding: 0.5em 0.7rem;
-  border: 1px solid var(--gray-4);
-  border-radius: var(--radius-2);
+
   width: 100%;
 }
  
@@ -83,13 +79,18 @@ button {
 
 @media (max-width: 600px) {
   .main__form {
-    padding: var(--size-2);
+    padding: 10px;
   }
  
   .form {
-    padding: var(--size-2);
+    padding: 10px;
   }
  
+  .submit,
+  .cancel {
+    padding: 0.5em 1em;
+    font-size: 0.875rem;
+  }
 }
  
  
@@ -100,4 +101,24 @@ button {
 }
 .form__label{
   font-weight: 500;
+}
+
+select.form-control.form-select {
+  width: 100%;
+  min-width: 200px; /* Adjust as needed */
+  padding-right: 36px; /* Leaves space for arrow */
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  appearance: none; /* Hides native arrow */
+
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+}
+
+select.form-control.form-select:focus {
+  outline: none;
+
+  box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
 }

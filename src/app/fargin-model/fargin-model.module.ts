@@ -169,6 +169,7 @@ export interface AddEntityBank {
   readonly merchantId: any;
   readonly ledgerId: any;
   readonly createdBy: any;
+  readonly typeMode:any;
 }
 
 
@@ -260,6 +261,7 @@ export interface bankData {
   readonly merchantId: any;
   readonly ledgerId: any;
   readonly createdBy: any;
+  readonly typeMode:any;
 }
 
 export interface bankedit {
@@ -271,6 +273,7 @@ export interface bankedit {
   readonly accountType: any;
   readonly ledgerId: any;
   readonly modifiedBy: any;
+  readonly typeMode:any;
 }
 
 
@@ -926,7 +929,7 @@ export interface farginadd {
   readonly branchName: any;
   readonly ledgerId: any;
   readonly createdBy: any;
-
+ readonly typeMode: any;
 }
 
 export interface farginstatus {

@@ -103,3 +103,22 @@ button {
   font-weight: 500;
 }
 
+select.form-control.form-select {
+  width: 100%;
+  min-width: 200px; /* Adjust as needed */
+  padding-right: 36px; /* Leaves space for arrow */
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  appearance: none; /* Hides native arrow */
+
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+}
+
+select.form-control.form-select:focus {
+  outline: none;
+
+  box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+}
