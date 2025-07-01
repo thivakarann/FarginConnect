@@ -157,7 +157,7 @@
         <td mat-cell *matCellDef="let transaction">
           <span *ngIf="transaction?.paymentStatus == 'Success'" class="text-success">
             {{ transaction?.paymentStatus }}</span>
-          <span *ngIf="transaction?.paymentStatus == 'Pending'" class="text-warning">
+          <span *ngIf="transaction?.paymentStatus == 'Due Pending'" class="text-warning">
             {{ transaction?.paymentStatus }}</span>
           <span *ngIf="transaction?.paymentStatus == 'Initiated'" class="text-primary">
             {{ transaction?.paymentStatus }}</span>

@@ -177,6 +177,7 @@ export class ExportReportViewallComponent implements OnInit {
       Customer = 22,
       StaticQRTransaction = 6,
       Branch = 23,
+      RenewalFeeAutodebit = 24,
     }
 
     const dataNameMapping: Record<ExportDataName, string> = {
@@ -187,11 +188,12 @@ export class ExportReportViewallComponent implements OnInit {
       [ExportDataName.OneTimePayment]: 'OneTime_Payment',
       [ExportDataName.ChannelCreation]: 'Channel_Creation',
       [ExportDataName.CustomizedPayment]: 'Customized_Payment',
-      [ExportDataName.SmsHistory]: 'Sms_History',
+      [ExportDataName.SmsHistory]: 'SMS_History',
       [ExportDataName.EntityRequest]: 'Entity_Request',
       [ExportDataName.CustomerRequest]: 'Customer_Request',
       [ExportDataName.OnlineRefund]: 'Online_Refund',
       [ExportDataName.CloudFeeAutodebit]: 'CloudFee_Autodebit',
+      [ExportDataName.RenewalFeeAutodebit]: 'Renewal_Fee AutoDebit',
       [ExportDataName.Customer]: 'Customer',
       [ExportDataName.StaticQRTransaction]: 'StaticQRTransaction',
       [ExportDataName.Branch]: 'Branch',
