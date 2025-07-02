@@ -701,6 +701,8 @@ export class FarginServiceService {
   private readonly refundgetall = 'refund/getOnlineRefunds/';
   private readonly refundsearch = 'refund/getall/';
   private readonly refundforcustomer = 'refund/getcustomer/';
+  private readonly RefundForCustomerAdditionals = 'addtionalPayRefund/viewCustomer/';
+
   private readonly refundexport = 'refund/getall';
   private readonly refunddatefilter = 'refund/getAll/';
   private readonly refundcheck = 'refund/response';
@@ -914,9 +916,9 @@ export class FarginServiceService {
   private readonly Merchantsmslogs = 'monthlySmsLog/viewByMonthlySmsLogId/';
   private readonly merchantsmstigger = 'monthlySmsLog/smsTrigger';
 
-// refund cumlative
-private readonly duesCumulativeRefunds='refund/cumulativeRefund';
-private readonly additionalCumulativeRefunds='addtionalPayRefund/cumulativeRefund';
+  // refund cumlative
+  private readonly duesCumulativeRefunds = 'refund/cumulativeRefund';
+  private readonly additionalCumulativeRefunds = 'addtionalPayRefund/cumulativeRefund';
 
 
 
@@ -4186,6 +4188,13 @@ private readonly additionalCumulativeRefunds='addtionalPayRefund/cumulativeRefun
       this.options
     );
   }
+
+  RefundForCustomerAdditionalView(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.RefundForCustomerAdditionals}${id}`,
+      this.options
+    );
+  }
   RefundGetAllDateFilter(id: any, id1: any, id2: any, id3: any, id4: any) {
     return this.http.get(
       `${this.basePath}${this.refunddatefilter}${id}/${id1}/${id2}/${id3}/${id4}`,
@@ -5042,18 +5051,18 @@ private readonly additionalCumulativeRefunds='addtionalPayRefund/cumulativeRefun
     return this.http.get(`${this.basePath}${this.Merchantsmslogs}${id}/${id1}/${id2}`, this.options)
   }
 
-  monthlysmstriggermerchant(model:any){
-    return this.http.post(`${this.basePath}${this.merchantsmstigger}`,model,this.options)
+  monthlysmstriggermerchant(model: any) {
+    return this.http.post(`${this.basePath}${this.merchantsmstigger}`, model, this.options)
   }
   //Refund cumlative
-   duesCumulativeRefund(model: any) {
+  duesCumulativeRefund(model: any) {
     return this.http.post(
       `${this.basePath}${this.duesCumulativeRefunds}`,
       model,
       this.options
     );
   }
-    additionalCumulativeRefund(model: any) {
+  additionalCumulativeRefund(model: any) {
     return this.http.post(
       `${this.basePath}${this.additionalCumulativeRefunds}`,
       model,

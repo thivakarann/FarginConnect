@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -7,8 +7,10 @@ import { Location } from '@angular/common';
 import { ChannelViewComponent } from '../channel-view/channel-view.component';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { settopStatus } from '../../fargin-model/fargin-model.module';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { OfflineDetailsComponent } from '../offline-details/offline-details.component';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-overall-individual-customerview',
@@ -26,11 +28,9 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
   itemsPerPage = 3; //
   page: number = 1;
   page4: number = 1;
-  page5:number=1;
+  page5: number = 1;
   term: any;
   selected: any;
-
-  dataSource: any;
   searchText: any;
   data: any;
   status: any;
@@ -38,7 +38,6 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
   alcotchannel: any;
   bouquetPlan: any;
   lcopChannel: any;
-  transaction: any;
   showData: boolean = false;
   showDatas: boolean = false;
   showData1: boolean = false;
@@ -47,10 +46,8 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
   totalbouqet: number = 0;
   totallcop: number = 0;
   overallAmount: number = 0;
-  setupboxview: any;
   isChecked!: boolean;
   totalamount: any;
-  additionlpay: any;
   valuecustomerinfo: any;
   valueSetupBox: any;
   valueTransactions: any;
@@ -63,7 +60,6 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
   getdashboard: any[] = [];
   roleId: any = sessionStorage.getItem('roleId')
   actions: any;
-  refundval: any;
   totalPages: any;
   totalpage: any;
   currentpage: any;
@@ -73,28 +69,108 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
   totalsearch: any;
   totalpagesearch: any;
   currentpagesearch: any;
-  currentfilval: any;
-  vaaluedetails:any;
-  selectTab(tab: string) {
-    this.selectedTab = tab;
-  }
-  valuecustomerRefunds:any;
+  vaaluedetails: any;
+  valuecustomerRefunds: any;
   pageIndex: number = 0;
   pageSize: number = 3;
-  pageSizeadd: number=3;
-  pageIndexadd:number=0;
+  pageSizeadd: number = 3;
+  pageIndexadd: number = 0;
   filter: boolean = false;
   filter1: boolean = false;
   filter2: boolean = false;
   pageIndex1: number = 0;
   pageSize1 = 3;
-  currentfilvaladd: any;
-  filter3: boolean=false;
+  filter3: boolean = false;
   totalsearchadd: any;
   totalpagesearchadd: any;
   currentpagesearchadd: any;
   pageadd: number = 0;
   pagesizeadd = 3;
+
+  //settopbox table
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  dataSource: any;
+  displayedColumns: string[] = [
+    'Sno',
+    'stb',
+    'mso',
+    'region',
+    'duestatus',
+    'viewplan',
+    'createdby',
+    'createdat',
+  ];
+  searchPerformed: any;
+  setupboxview: any;
+  stbId: any;
+
+  // Transaction
+  dataSourceTransaction: any;
+  displayedColumnsTransaction: string[] = [
+    'sno',
+    'id',
+    'amounts',
+    'paymenstats',
+    'method',
+    'generatedat',
+    'paidat',
+    'receipts',
+  ];
+  currentfilvalShow!: boolean;
+  currentfilval: any;
+  transaction: any;
+
+  //Additional
+  dataSourceAdditional: any;
+  displayedColumnsAdditional: string[] = [
+    'snoadd',
+    'Category',
+    'Quantity',
+    'Amount',
+    'Id',
+    'Reference',
+    'Method',
+    'Reciepts',
+    'Paid',
+  ];
+  currentfilvalShowAdd!: boolean;
+  currentfilvaladd: any;
+  additionlpay: any;
+
+  //Refunds
+  dataSourceRefund: any;
+  displayedColumnsRefund: string[] = [
+    'Snos',
+    'stbs',
+    'Types',
+    'Requestid',
+    'Paymentid',
+    'Paidamount',
+    'Refundsamount',
+    'Refundstatus',
+    'Offline',
+    'RequestedsAt',
+  ];
+
+  dataSourceRefundAdditional: any;
+  displayedColumnsRefundAdditional: string[] = [
+    'Snos',
+    'category',
+    'quantity',
+    'Types',
+    'Requestid',
+    'Paymentid',
+    'Paidamount',
+    'Refundsamount',
+    'Refundstatus',
+    'Offline',
+    'RequestedsAt',
+  ];
+  refundval: any;
+  selectedTransactionType: string = 'Due Transaction';
+  currentfilvals: any;
+  refundadditional: any;
   constructor(
     public service: FarginServiceService,
     private router: Router,
@@ -107,12 +183,13 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
 
 
 
- this.service.rolegetById(this.roleId).subscribe({next: (res: any) => {
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
 
-         if (res.flag == 1) {
+        if (res.flag == 1) {
 
           this.getdashboard = res.response?.subPermission;
- 
+
           if (this.roleId == 1) {
             this.valuecustomerinfo = 'Customers-Customer Info';
             this.valueSetupBox = 'Customers-Set-Topbox';
@@ -122,13 +199,13 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
             this.valuesetview = 'Customers-Set-Topbox View'
             this.valuetransreceipt = 'Customers-Transaction Receipt'
             this.valueaddinvoice = 'Customers-Additional Payments Receipt'
-            this.valuecustomerRefunds='Customers-Refunds'
+            this.valuecustomerRefunds = 'Customers-Refunds'
             this.vaaluedetails = 'Customers-Refunds-View';
-        
+
           }
-          else { 
+          else {
             for (let datas of this.getdashboard) {
-              this.actions = datas.subPermissions; 
+              this.actions = datas.subPermissions;
 
               if (this.actions == 'Customers-Additional Payments Receipt') {
                 this.valueaddinvoice = 'Customers-Additional Payments Receipt'
@@ -144,7 +221,7 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
               }
               if (this.actions == 'Customers-Customer Info') {
                 this.valuecustomerinfo = 'Customers-Customer Info';
-        
+
               }
               if (this.actions == 'Customers-Set-Topbox') {
                 this.valueSetupBox = 'Customers-Set-Topbox'
@@ -155,11 +232,11 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
               if (this.actions == 'Customers-Additional Payments') {
                 this.valueAdditionalPayments = 'Customers-Additional Payments'
               }
-              if(this.actions =='Customers-Refunds'){
-                this.valuecustomerRefunds='Customers-Refunds'
+              if (this.actions == 'Customers-Refunds') {
+                this.valuecustomerRefunds = 'Customers-Refunds'
               }
-              if(this.actions =='Customers-Refunds-View'){
-                this.vaaluedetails='Customers-Refunds-View'
+              if (this.actions == 'Customers-Refunds-View') {
+                this.vaaluedetails = 'Customers-Refunds-View'
               }
             }
           }
@@ -174,179 +251,327 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
       this.id = param.Alldata;
     });
 
+    this.service.CustomerTotalPlanAmount(this.id).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.totalamount = res.response.totalAmount;
+      }
+    });
+
     this.service.ViewCustomerBasicInfo(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
         this.viewcustomer = res.response;
-        // this.alcotchannel = res.response.alcotList;
-        // this.bouquetPlan = res.response.bouquetList;
-        // this.lcopChannel = res.response.lcopList;
-        // this.customerId = res.response.customerdetail.customerId;
-        // let totalAmount = 0;
-        // const alcotList = res.response.alcotList;
-
-
-        // for (let i = 0; i < alcotList.length; i++) {
-        //   totalAmount += alcotList[i].price;
-        // }
-
-        // this.totalAmount = totalAmount;
-        // this.viewData = true;
-
-
-        // let totalbouqet = 0;
-        // const bouquetList = res.response.bouquetList;
-
-        // for (let i = 0; i < bouquetList.length; i++) {
-        //   totalbouqet += bouquetList[i].broadCasterId.amount;
-        // }
-
-        // this.totalbouqet = totalbouqet;
-        // this.viewData = true;
-
-
-        // let totallcop = 0;
-        // const lcopList = res.response.lcopList;
-
-        // for (let i = 0; i < lcopList.length; i++) {
-        //   totallcop += lcopList[i].overallAmount;
-        // }
-
-        // this.totallcop = totallcop;
-
-        // this.viewData = true;
-        // this.overallAmount = this.totalAmount + this.totalbouqet + this.totallcop;
-      }
-
-
-
-      else {
+      } else {
         this.viewData = false;
-
       }
-
-
-
     });
 
-    this.service.CustomerTotalPlanAmount(this.id).subscribe((res:any)=>{
-      if(res.flag==1){
-        this.totalamount=res.response.totalAmount;
-      }
-    })
-    this.service.CustomerTransaction(this.id, this.pageSize, this.pageIndex).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.transaction = res.response;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-    
-        this.filter = true;
-        this.filter1 = false;
-        console.log( this.filter1)
-     
- 
-      }
 
-      else if (res.flag == 2) {
-       
+  }
 
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.totalPages;
-        this.currentpage = res.pagination.currentPage + 1;
-        
-        this.filter = true;
-        this.filter1 = false;
-       
-      }
-    })
-    this.service.RefundForCustomerView(this.id).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.refundval = res.response.reverse();
-     
-      }
-      else if (res.flag === 2) {
-        this.refundval = [];
-     
- 
-      }
-    })
+  //Active tabe method
+  selectTab(tab: string) {
+    this.selectedTab = tab;
+    if (this.selectedTab == 'Setup-boxs') {
+      this.service.ViewCustomersSetupBox(this.id).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.setupboxview = res.response;
+          this.dataSource = new MatTableDataSource(this.setupboxview.reverse());
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.filterPredicate = (data: any, filter: string) => {
+            const transformedFilter = filter.trim().toLowerCase();
+            const dataStr = Object.keys(data)
+              .reduce((currentTerm: string, key: string) => {
+                return (
+                  currentTerm +
+                  (typeof data[key] === 'object'
+                    ? JSON.stringify(data[key])
+                    : data[key])
+                );
+              }, '')
+              .toLowerCase();
+            return dataStr.indexOf(transformedFilter) !== -1;
+          };
+        } else if (res.flag == 2) {
+          this.dataSource = new MatTableDataSource([]);
 
-    // this.service.ViewCustomerDetails(this.id).subscribe((res: any) => {
-    //   if (res.flag == 1) {
-    //     this.viewcustomer = res.response.customerdetail;
-    //     this.alcotchannel = res.response.alcotList;
-    //     
-    //     this.bouquetPlan = res.response.bouquetList;
-    //     this.lcopChannel = res.response.lcopList;
-    //     let totalAmount = 0;
-    //     const alcotList = res.response.alcotList;
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        }
+      });
+    } else if (this.selectedTab == 'Transaction') {
+      this.service
+        .CustomerTransaction(this.id, this.pageSize, this.pageIndex)
+        .subscribe((res: any) => {
+          if (res.flag === 1) {
+            this.transaction = res.response;
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSourceTransaction = new MatTableDataSource(this.transaction);
+            this.currentfilvalShow = false;
+          } else if (res.flag === 2) {
+            this.dataSourceTransaction = new MatTableDataSource([]);
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.currentfilvalShow = false;
+          }
+        });
+    } else if (this.selectedTab === 'Additional-Payments') {
+      this.service
+        .AdditionalPaymentsCustomerTransaction(
+          this.id,
+          this.pageSize,
+          this.pageIndex
+        )
+        .subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.additionlpay = res.response;
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSourceAdditional = new MatTableDataSource(this.additionlpay);
+            this.currentfilvalShowAdd = false;
+          } else if (res.flag == 2) {
+            this.dataSourceAdditional = new MatTableDataSource([]);
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.currentfilvalShowAdd = false;
+          }
+        });
+    } else if (this.selectedTab === 'Refund') {
+      this.service.RefundForCustomerView(this.id).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.refundval = res.response;
+          this.dataSourceRefund = new MatTableDataSource(
+            this.refundval.reverse()
+          );
+          this.dataSourceRefund.sort = this.sort;
+          this.dataSourceRefund.paginator = this.paginator;
+          this.dataSourceRefund.filterPredicate = (
+            data: any,
+            filter: string
+          ) => {
+            const transformedFilter = filter.trim().toLowerCase();
+            const dataStr = Object.keys(data)
+              .reduce((currentTerm: string, key: string) => {
+                return (
+                  currentTerm +
+                  (typeof data[key] === 'object'
+                    ? JSON.stringify(data[key])
+                    : data[key])
+                );
+              }, '')
+              .toLowerCase();
+            return dataStr.indexOf(transformedFilter) !== -1;
+          };
+        } else if (res.flag == 2) {
+          this.dataSourceRefund = new MatTableDataSource([]);
 
+          this.dataSourceRefund.sort = this.sort;
+          this.dataSourceRefund.paginator = this.paginator;
+        }
+      });
+    }
+  }
 
-    //     for (let i = 0; i < alcotList.length; i++) {
-    //       totalAmount += alcotList[i].price;
-    //     }
-
-    //     this.totalAmount = totalAmount;
-    //    this.viewData=true;
-
-
-    //    let totalbouqet=0;
-    //    const bouquetList=res.response.bouquetList;
-
-    //    for (let i = 0; i < bouquetList.length; i++) {
-    //      totalbouqet += bouquetList[i].broadCasterId.amount;
-    //    }
-
-    //    this.totalbouqet = totalbouqet;
-    //   this.viewData=true;
-
-
-    //   let totallcop=0;
-    //   const lcopList=res.response.lcopList;
-
-    //   for (let i = 0; i < lcopList.length; i++) {
-    //     totallcop += lcopList[i].overallAmount;
-    //   }
-
-    //   this.totallcop = totallcop;
-
-    //  this.viewData=true;
-    //  this.overallAmount = this.totalAmount + this.totalbouqet + this.totallcop;
-    //  }
-    //   else {
-    //     this.viewData = false;
-
-    //   }
-
-    // })
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.searchPerformed = filterValue.length > 0;
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+  reloadsettopbox() {
     this.service.ViewCustomersSetupBox(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.setupboxview = res.response.reverse();
+        this.setupboxview = res.response;
+        this.dataSource = new MatTableDataSource(this.setupboxview);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.filterPredicate = (data: any, filter: string) => {
+          const transformedFilter = filter.trim().toLowerCase();
+          const dataStr = Object.keys(data)
+            .reduce((currentTerm: string, key: string) => {
+              return (
+                currentTerm +
+                (typeof data[key] === 'object'
+                  ? JSON.stringify(data[key])
+                  : data[key])
+              );
+            }, '')
+            .toLowerCase();
+          return dataStr.indexOf(transformedFilter) !== -1;
+        };
+      } else if (res.flag == 2) {
+        this.dataSource = new MatTableDataSource([]);
+
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       }
-    })
-    this.service.AdditionalPaymentsCustomerTransaction(this.id, this.pageSizeadd, this.pageIndexadd).subscribe((res: any) => {
+    });
+  }
+
+  applyFilterRefund(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceRefund.filter = filterValue.trim().toLowerCase();
+    this.searchPerformed = filterValue.length > 0;
+    if (this.dataSourceRefund.paginator) {
+      this.dataSourceRefund.paginator.firstPage();
+    }
+  }
+  applyFilterRefundAdd(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceRefundAdditional.filter = filterValue.trim().toLowerCase();
+    this.searchPerformed = filterValue.length > 0;
+    if (this.dataSourceRefundAdditional.paginator) {
+      this.dataSourceRefundAdditional.paginator.firstPage();
+    }
+  }
+  reloadrefunds() {
+    this.service.RefundForCustomerView(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.additionlpay = res.response;
-        this.total = res.pagination.totalElements;
-        this.totalpages = res.pagination.totalPages;
-        this.currentpages = res.pagination.currentPage + 1;
-        
-        this.filter2 = true;
-        this.filter3 = false;
-    
-      }
-      else if (res.flag == 2) {
-       
+        this.refundval = res.response;
+        this.dataSourceRefund = new MatTableDataSource(
+          this.refundval.reverse()
+        );
+        this.dataSourceRefund.sort = this.sort;
+        this.dataSourceRefund.paginator = this.paginator;
+        this.dataSourceRefund.filterPredicate = (data: any, filter: string) => {
+          const transformedFilter = filter.trim().toLowerCase();
+          const dataStr = Object.keys(data)
+            .reduce((currentTerm: string, key: string) => {
+              return (
+                currentTerm +
+                (typeof data[key] === 'object'
+                  ? JSON.stringify(data[key])
+                  : data[key])
+              );
+            }, '')
+            .toLowerCase();
+          return dataStr.indexOf(transformedFilter) !== -1;
+        };
+      } else if (res.flag == 2) {
+        this.dataSourceRefund = new MatTableDataSource([]);
 
-        this.total = res.pagination.totalElements;
-        this.totalpages = res.pagination.totalPages;
-        this.currentpages = res.pagination.currentPage + 1;
-        this.filter2 = true;
-        this.filter3 = false;
-      
+        this.dataSourceRefund.sort = this.sort;
+        this.dataSourceRefund.paginator = this.paginator;
       }
-    })
+    });
+  }
+  reloadrefundadd() {
+    this.service.RefundForCustomerAdditionalView(this.id).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.refundadditional = res.response;
+        this.dataSourceRefundAdditional = new MatTableDataSource(
+          this.refundadditional.reverse()
+        );
+        this.dataSourceRefundAdditional.sort = this.sort;
+        this.dataSourceRefundAdditional.paginator = this.paginator;
+        this.dataSourceRefundAdditional.filterPredicate = (
+          data: any,
+          filter: string
+        ) => {
+          const transformedFilter = filter.trim().toLowerCase();
+          const dataStr = Object.keys(data)
+            .reduce((currentTerm: string, key: string) => {
+              return (
+                currentTerm +
+                (typeof data[key] === 'object'
+                  ? JSON.stringify(data[key])
+                  : data[key])
+              );
+            }, '')
+            .toLowerCase();
+          return dataStr.indexOf(transformedFilter) !== -1;
+        };
+      } else if (res.flag == 2) {
+        this.dataSourceRefundAdditional = new MatTableDataSource([]);
 
+        this.dataSourceRefundAdditional.sort = this.sort;
+        this.dataSourceRefundAdditional.paginator = this.paginator;
+      }
+    });
+  }
+
+  transactionsDropdown(event: any) {
+    this.selectedTransactionType = event.target.value;
+    this.updateTableData();
+    this.currentfilval = '';
+    this.currentfilvals = '';
+  }
+
+  updateTableData() {
+    if (this.selectedTransactionType === 'Due Transaction') {
+      this.service.RefundForCustomerView(this.id).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.refundval = res.response;
+          this.dataSourceRefund = new MatTableDataSource(
+            this.refundval.reverse()
+          );
+          this.dataSourceRefund.sort = this.sort;
+          this.dataSourceRefund.paginator = this.paginator;
+          this.dataSourceRefund.filterPredicate = (
+            data: any,
+            filter: string
+          ) => {
+            const transformedFilter = filter.trim().toLowerCase();
+            const dataStr = Object.keys(data)
+              .reduce((currentTerm: string, key: string) => {
+                return (
+                  currentTerm +
+                  (typeof data[key] === 'object'
+                    ? JSON.stringify(data[key])
+                    : data[key])
+                );
+              }, '')
+              .toLowerCase();
+            return dataStr.indexOf(transformedFilter) !== -1;
+          };
+        } else if (res.flag == 2) {
+          this.dataSourceRefund = new MatTableDataSource([]);
+
+          this.dataSourceRefund.sort = this.sort;
+          this.dataSourceRefund.paginator = this.paginator;
+        }
+      });
+    } else if (this.selectedTransactionType === 'Additional Transaction') {
+      this.service.RefundForCustomerAdditionalView(this.id).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.refundadditional = res.response;
+          this.dataSourceRefundAdditional = new MatTableDataSource(
+            this.refundadditional.reverse()
+          );
+          this.dataSourceRefundAdditional.sort = this.sort;
+          this.dataSourceRefundAdditional.paginator = this.paginator;
+          this.dataSourceRefundAdditional.filterPredicate = (
+            data: any,
+            filter: string
+          ) => {
+            const transformedFilter = filter.trim().toLowerCase();
+            const dataStr = Object.keys(data)
+              .reduce((currentTerm: string, key: string) => {
+                return (
+                  currentTerm +
+                  (typeof data[key] === 'object'
+                    ? JSON.stringify(data[key])
+                    : data[key])
+                );
+              }, '')
+              .toLowerCase();
+            return dataStr.indexOf(transformedFilter) !== -1;
+          };
+        } else if (res.flag == 2) {
+          this.dataSourceRefundAdditional = new MatTableDataSource([]);
+
+          this.dataSourceRefundAdditional.sort = this.sort;
+          this.dataSourceRefundAdditional.paginator = this.paginator;
+        }
+      });
+    }
   }
 
   Receipt(id: any) {
@@ -355,7 +580,7 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
         var downloadURL = URL.createObjectURL(res);
         window.open(downloadURL);
       },
- 
+
     });
   }
 
@@ -364,7 +589,7 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
   }
 
   viewChannel(id: any) {
-    
+
     this.dialog.open(ChannelViewComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "1000ms",
@@ -372,7 +597,7 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
     })
   }
   offline(id: any) {
-    
+
     this.dialog.open(OfflineDetailsComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "500ms",
@@ -386,7 +611,7 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
       activeStatus: this.isChecked ? 1 : 0,
     }
     this.service.ActiveStatusSetupbox(id, submitmodel).subscribe((res: any) => {
-      
+
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
         window.location.reload();
@@ -403,57 +628,28 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
     this.router.navigate([`dashboard/plan-details-customer/${id}`], {
       queryParams: { Alldata: id },
     });
-    
+
   }
 
-  reload()
-{
-  this.service.CustomerTransaction(this.id, this.pageSize, this.pageIndex).subscribe((res: any) => {
-    if (res.flag == 1) {
-      this.transaction = res.response;
-      this.totalPages = res.pagination.totalElements;
-      
-      this.totalpage = res.pagination.totalPages;
-      this.currentpage = res.pagination.currentPage + 1;
-  
-      this.filter = true;
-      this.filter1 = false;
-      console.log( this.filter1)
-   
 
-    }
 
-    else if (res.flag == 2) {
-     
-
-      this.totalPages = res.pagination.totalElements;
-      this.totalpage = res.pagination.totalPages;
-      this.currentpage = res.pagination.currentPage + 1;
-      
-      this.filter = true;
-      this.filter1 = false;
-     
-    }
-  })
-}
-
-  Customercustid(id:any,filterValue: string) {
+  Customercustid(id: any, filterValue: string) {
     if (!filterValue) {
-        this.toastr.error('Please enter a value to search');
-        return;
+      this.toastr.error('Please enter a value to search');
+      return;
     }
-   
-    this.service.Customercustomeridsearch(id,filterValue).subscribe({
+
+    this.service.Customercustomeridsearch(id, filterValue).subscribe({
       next: (res: any) => {
         if (res.response) {
-          this.transaction = res.response;  
-          this.showData=true;
-         
+          this.transaction = res.response;
+          this.showData = true;
+
         }
         else if (res.flag === 2) {
-          this.transaction = [];  
-         this.showData=false;
-      }
+          this.transaction = [];
+          this.showData = false;
+        }
       },
       error: (err: any) => {
         this.toastr.error('No Data Found');
@@ -528,112 +724,271 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
     } as PageEvent);
   }
 
-// Handle pagination for filtered search results
-renderPage1(event: PageEvent) {
-  this.pageIndex1 = event.pageIndex;
-  this.pageSize1 = event.pageSize;
-  console.log('New Page Index:', this.pageIndex1);
-  console.log('New Page Size:', this.pageSize1);
-  this.customerpay(this.currentfilval);
-}
-
-// Change page index for filtered search results
-changePageIndex1(newPageIndex1: number) {
-  this.pageIndex1 = newPageIndex1;
-  this.renderPage1({
-    pageIndex: newPageIndex1,
-    pageSize: this.pageSize1
-  } as PageEvent);
-}
-
-// Perform the search and update the filtered results
-customerpay(filterValue: string) {
-  if (filterValue) {
-    console.log(filterValue);
-    this.service.customertransactionsearch(this.id, filterValue, this.pageSize1, this.pageIndex1).subscribe({
-      next: (res: any) => {
-        if (res.response) {
-          this.transaction = res.response;
-          this.totalsearch = res.pagination.totalElements;
-          this.totalpagesearch = res.pagination.totalPages;
-          this.currentpagesearch = res.pagination.currentPage + 1;
-          this.filter = false;
-          this.filter1 = true;
-        }
-      },
-      error: (err: any) => {
-        this.toastr.error('No Data Found');
-      }
-    });
-  } else {
-    this.toastr.error('Please enter a value to search');
+  // Handle pagination for filtered search results
+  renderPage1(event: PageEvent) {
+    this.pageIndex1 = event.pageIndex;
+    this.pageSize1 = event.pageSize;
+    console.log('New Page Index:', this.pageIndex1);
+    console.log('New Page Size:', this.pageSize1);
+    this.customerpay(this.currentfilval);
   }
-}
 
-// Handle pagination for filtered search results
-renderadd(event: PageEvent) {
-  this.pageadd = event.pageIndex;
-  this.pagesizeadd = event.pageSize;
- 
-  this.customerpayadd(this.currentfilvaladd);
-}
+  // Change page index for filtered search results
+  changePageIndex1(newPageIndex1: number) {
+    this.pageIndex1 = newPageIndex1;
+    this.renderPage1({
+      pageIndex: newPageIndex1,
+      pageSize: this.pageSize1
+    } as PageEvent);
+  }
 
-// Change page index for filtered search results
-changePageadd(newPageadd: number) {
-  this.pageadd = newPageadd;
-  this.renderadd({
-    pageIndex: newPageadd,
-    pageSize: this.pagesizeadd
-  } as PageEvent);
-}
 
-// Perform the search and update the filtered results
-customerpayadd(filterValue: string) {
-  if (filterValue) {
-    console.log(filterValue);
-    this.service.customeradditionaltransactionsearch(this.id, filterValue, this.pagesizeadd, this.pageadd).subscribe({
-      next: (res: any) => {
-        if (res.response) {
+
+  // Handle pagination for filtered search results
+  renderadd(event: PageEvent) {
+    this.pageadd = event.pageIndex;
+    this.pagesizeadd = event.pageSize;
+
+    this.customerpayadd(this.currentfilvaladd);
+  }
+
+  // Change page index for filtered search results
+  changePageadd(newPageadd: number) {
+    this.pageadd = newPageadd;
+    this.renderadd({
+      pageIndex: newPageadd,
+      pageSize: this.pagesizeadd
+    } as PageEvent);
+  }
+
+  // Perform the search and update the filtered results
+  customerpayadd(filterValue: string) {
+    if (filterValue) {
+      console.log(filterValue);
+      this.service
+        .customeradditionaltransactionsearch(
+          this.id,
+          filterValue,
+          this.pageSize,
+          this.pageIndex
+        )
+        .subscribe({
+          next: (res: any) => {
+            if (res.response) {
+              this.additionlpay = res.response;
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.dataSourceAdditional = new MatTableDataSource(
+                this.additionlpay
+              );
+              this.currentfilvalShowAdd = true;
+            } else if (res.flag == 2) {
+              this.additionlpay = [];
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.dataSourceAdditional = new MatTableDataSource(
+                this.additionlpay
+              );
+              this.currentfilvalShowAdd = true;
+            }
+          },
+        });
+    } else {
+      this.toastr.error('Please enter a value to search');
+    }
+  }
+  reloadadd() {
+    this.service
+      .AdditionalPaymentsCustomerTransaction(
+        this.id,
+        this.pageSize,
+        this.pageIndex
+      )
+      .subscribe((res: any) => {
+        if (res.flag == 1) {
           this.additionlpay = res.response;
-          this.totalsearchadd = res.pagination.totalElements;
-          this.totalpagesearchadd = res.pagination.totalPages;
-          this.currentpagesearchadd= res.pagination.currentPage + 1;
-          this.filter2 = false;
-          this.filter3 = true;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSourceAdditional = new MatTableDataSource(this.additionlpay);
+          this.currentfilvalShowAdd = false;
+        } else if (res.flag == 2) {
+          this.dataSourceAdditional = new MatTableDataSource([]);
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.currentfilvalShowAdd = false;
         }
-      },
-      error: (err: any) => {
-        this.toastr.error('No Data Found');
-      }
-    });
-  } else {
-    this.toastr.error('Please enter a value to search');
+      });
   }
-}
-reloadadd() {
-  this.service.AdditionalPaymentsCustomerTransaction(this.id, this.pageSizeadd, this.pageIndexadd).subscribe((res: any) => {
-    if (res.flag == 1) {
-      this.additionlpay = res.response;
-      this.total = res.pagination.totalElements;
-      this.totalpages = res.pagination.totalPages;
-      this.currentpages = res.pagination.currentPage + 1;
-      
-      this.filter2 = true;
-      this.filter3 = false;
-  
-    }
-    else if (res.flag == 2) {
-     
 
-      this.total = res.pagination.totalElements;
-      this.totalpages = res.pagination.totalPages;
-      this.currentpages = res.pagination.currentPage + 1;
-      this.filter2 = true;
-      this.filter3 = false;
-    
+  getDataAdditional(event: any) {
+    if (this.currentfilvalShowAdd) {
+      this.service
+        .customeradditionaltransactionsearch(
+          this.id,
+          this.currentfilvaladd,
+          event.pageSize,
+          event.pageIndex
+        )
+        .subscribe({
+          next: (res: any) => {
+            if (res.response) {
+              this.additionlpay = res.response;
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.dataSourceAdditional = new MatTableDataSource(
+                this.additionlpay
+              );
+            } else if (res.flag == 2) {
+              this.additionlpay = [];
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.dataSourceAdditional = new MatTableDataSource(
+                this.additionlpay
+              );
+            }
+          },
+        });
+    } else {
+      this.service
+        .AdditionalPaymentsCustomerTransaction(
+          this.id,
+          event.pageSize,
+          event.pageIndex
+        )
+        .subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.additionlpay = res.response;
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSourceAdditional = new MatTableDataSource(this.additionlpay);
+          } else if (res.flag == 2) {
+            this.dataSourceAdditional = new MatTableDataSource([]);
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+          }
+        });
     }
-  })
-}
+  }
+
+  // Perform the search and update the filtered results
+  customerpay(filterValue: string) {
+    if (filterValue) {
+      console.log(filterValue);
+      this.service
+        .customertransactionsearch(
+          this.id,
+          filterValue,
+          this.pageSize,
+          this.pageIndex
+        )
+        .subscribe({
+          next: (res: any) => {
+            if (res.response) {
+              this.transaction = res.response;
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.dataSourceTransaction = new MatTableDataSource(
+                this.transaction
+              );
+              this.currentfilvalShow = true;
+            } else if (res.flag == 2) {
+              this.transaction = [];
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.dataSourceTransaction = new MatTableDataSource(
+                this.transaction
+              );
+              this.currentfilvalShow = true;
+            }
+          },
+        });
+    } else {
+      this.toastr.error('Please enter a value to search');
+    }
+  }
+
+  reload() {
+    this.service
+      .CustomerTransaction(this.id, this.pageSize, this.pageIndex)
+      .subscribe((res: any) => {
+        if (res.flag === 1) {
+          this.transaction = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSourceTransaction = new MatTableDataSource(this.transaction);
+          this.currentfilvalShow = false;
+        } else if (res.flag === 2) {
+          this.dataSourceTransaction = new MatTableDataSource([]);
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.currentfilvalShow = false;
+        }
+      });
+  }
+
+
+
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      this.service
+        .customertransactionsearch(
+          this.id,
+          this.currentfilval,
+          event.pageSize,
+          event.pageIndex
+        )
+        .subscribe({
+          next: (res: any) => {
+            if (res.response) {
+              this.transaction = res.response;
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.dataSourceTransaction = new MatTableDataSource(
+                this.transaction
+              );
+            } else if (res.flag == 2) {
+              this.transaction = [];
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.dataSourceTransaction = new MatTableDataSource(
+                this.transaction
+              );
+            }
+          },
+        });
+    } else {
+      this.service
+        .CustomerTransaction(this.id, event.pageSize, event.pageIndex)
+        .subscribe((res: any) => {
+          if (res.flag === 1) {
+            this.transaction = res.response;
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSourceTransaction = new MatTableDataSource(this.transaction);
+          } else if (res.flag === 2) {
+            this.dataSourceTransaction = new MatTableDataSource([]);
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+          }
+        });
+    }
+  }
 
 }
 
