@@ -920,9 +920,6 @@ export class FarginServiceService {
   private readonly duesCumulativeRefunds = 'refund/cumulativeRefund';
   private readonly additionalCumulativeRefunds = 'addtionalPayRefund/cumulativeRefund';
 
-
-
-
   loginError = new Subject();
 
   token = sessionStorage.getItem('token') || null;
@@ -953,95 +950,43 @@ export class FarginServiceService {
       userPassword: password,
       categoryFlag: categoryFlag,
     };
+    return this.http.post(`${this.basePath}${this.adminlogin}`, credentialBody).subscribe((res: any) => {
+      if (res.flag == 1) {
+        sessionStorage.setItem('token', JSON.stringify(res.response.login_history.adminUser.jwtResponse.X_ACCESS_TOKEN));
+        sessionStorage.setItem('adminid', JSON.stringify(res.response.login_history?.adminUser?.adminUserId));
+        sessionStorage.setItem('adminname', JSON.stringify(res.response.login_history?.adminUser?.adminName));
+        sessionStorage.setItem('emailaddress', JSON.stringify(res.response.login_history?.adminUser?.emailAddress));
+        sessionStorage.setItem('address', JSON.stringify(res.response.login_history?.adminUser?.address));
+        sessionStorage.setItem('mobilenumber', JSON.stringify(res.response.login_history?.adminUser?.mobileNumber));
+        sessionStorage.setItem('lastlogin', JSON.stringify(res.response.login_history?.adminUser?.lastLogin));
+        sessionStorage.setItem('fullname', JSON.stringify(res.response.login_history?.adminUser?.createdBy));
+        sessionStorage.setItem('roleId', JSON.stringify(res.response.login_history?.adminUser?.roleModel?.roleId));
+        sessionStorage.setItem('flag', JSON.stringify(res.response.login_history?.adminUser?.categoryFlag));
 
-    return this.http
-      .post(`${this.basePath}${this.adminlogin}`, credentialBody)
-      .subscribe((res: any) => {
-        if (res.flag == 1) {
-          sessionStorage.setItem(
-            'token',
-            JSON.stringify(
-              res.response.login_history.adminUser.jwtResponse.X_ACCESS_TOKEN
-            )
-          );
-          sessionStorage.setItem(
-            'adminid',
-            JSON.stringify(res.response.login_history?.adminUser?.adminUserId)
-          );
-          sessionStorage.setItem(
-            'adminname',
-            JSON.stringify(res.response.login_history?.adminUser?.adminName)
-          );
-          sessionStorage.setItem(
-            'emailaddress',
-            JSON.stringify(res.response.login_history?.adminUser?.emailAddress)
-          );
-          sessionStorage.setItem(
-            'address',
-            JSON.stringify(res.response.login_history?.adminUser?.address)
-          );
-          sessionStorage.setItem(
-            'mobilenumber',
-            JSON.stringify(res.response.login_history?.adminUser?.mobileNumber)
-          );
-          sessionStorage.setItem(
-            'lastlogin',
-            JSON.stringify(res.response.login_history?.adminUser?.lastLogin)
-          );
-          sessionStorage.setItem(
-            'fullname',
-            JSON.stringify(res.response.login_history?.adminUser?.createdBy)
-          );
-          sessionStorage.setItem(
-            'roleId',
-            JSON.stringify(
-              res.response.login_history?.adminUser?.roleModel?.roleId
-            )
-          );
-          sessionStorage.setItem(
-            'flag',
-            JSON.stringify(res.response.login_history?.adminUser?.categoryFlag)
-          );
+        const token = res.response.login_history.adminUser.jwtResponse.X_ACCESS_TOKEN;
+        const email = encodeURIComponent(res.response.login_history.adminUser.emailAddress);
+        const adminId = res.response.login_history.adminUser.adminUserId;
+        const flag = JSON.stringify(res.response.login_history?.adminUser?.categoryFlag);
 
-          const token =
-            res.response.login_history.adminUser.jwtResponse.X_ACCESS_TOKEN;
-          const email = encodeURIComponent(
-            res.response.login_history.adminUser.emailAddress
-          );
-          const adminId = res.response.login_history.adminUser.adminUserId;
-          const flag = JSON.stringify(
-            res.response.login_history?.adminUser?.categoryFlag
-          );
-
-          // Encode the values to avoid issues with special characters
-          // const encodedEmail = encodeURIComponent(Email);
-          // const encodedAdminId = encodeURIComponent(AdminId);
-          // const encodedToken = encodeURIComponent(Tokens);
-
-          if (flag == '1') {
-            this.router.navigateByUrl('/dashboard/dashboard-content', {
-              replaceUrl: true,
-            });
-            this.timerService.restartTimer();
-            setTimeout(() => {
-              window.location.reload();
-            }, 200);
-          }
-
-          // else if (flag == '2') {
-          //   window.location.href = (`https://dev-adminpg.farginconnect.com/data-component/${token}/${email}/${adminId}`);
-          // }
-
-          // Replace history before redirect
-          // window.location.href = (`http://localhost:51296/data-component/${token}/${email}/${adminId}`);
-
-          // this.toastr.success(res.responseMessage);
-        } else if (res.flag == 2) {
-          this.toastr.error(res.responseMessage);
-        } else {
-          this.toastr.error(res.responseMessage);
+        if (flag == '1') {
+          this.router.navigateByUrl('/dashboard/dashboard-content', { replaceUrl: true, });
+          this.timerService.restartTimer();
+          setTimeout(() => { window.location.reload(); }, 200);
         }
-      });
+
+        // else if (flag == '2') {
+        //   window.location.href = (`https://dev-adminpg.farginconnect.com/data-component/${token}/${email}/${adminId}`);
+        // }
+
+        // Replace history before redirect
+        // window.location.href = (`http://localhost:51296/data-component/${token}/${email}/${adminId}`);
+      }
+      else if (res.flag == 2) {
+        this.toastr.error(res.responseMessage);
+      } else {
+        this.toastr.error(res.responseMessage);
+      }
+    });
   }
 
   getIpAddress() {

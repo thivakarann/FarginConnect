@@ -163,7 +163,6 @@ export class EntityCustomersViewComponent {
     'Paidamount',
     'Refundsamount',
     'Refundstatus',
-    'Offline',
     'RequestedsAt',
   ];
   refundval: any;
