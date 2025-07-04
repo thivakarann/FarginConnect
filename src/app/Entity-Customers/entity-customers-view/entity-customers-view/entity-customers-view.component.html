@@ -815,9 +815,11 @@
                 Refund Status
               </th>
               <td mat-cell *matCellDef="let data">
-                <span *ngIf="data.refundStatus == 'SUBMITTED'" style="color: green"><b>Completed</b></span>
-                <span *ngIf="data.refundStatus == 'COMPLETED'" style="color: green"><b>Completed</b></span>
-                <span *ngIf="data.refundStatus == 'INITIATED'" style="color: orange"><b>Initiated</b></span>
+                <span *ngIf="data?.refundStatus == 'INITIATED'" style="color:#FFC107 ;">INITIATED</span>
+                <span *ngIf="data?.refndstatus == 'PENDING'" style="color:#FF9800;">PENDING</span>
+                <span *ngIf="data?.refundStatus == 'SUBMITTED'" style="color:blue">SUBMITTED</span>
+                <span *ngIf="data?.refundStatus == 'COMPLETED'" style="color:#4CAF50">COMPLETED</span>
+                <span *ngIf="data?.refundStatus == 'FAILED'" style="color:#F44336 ">FAILED</span>
               </td>
             </ng-container>
 
@@ -974,9 +976,11 @@
                 Refund Status
               </th>
               <td mat-cell *matCellDef="let data">
-                <span *ngIf="data.refundStatus == 'COMPLETED'" style="color: green"><b>COMPLETED</b></span>
-                <span *ngIf="data.refundStatus == 'INITIATED'" style="color: orange"><b>INITIATED</b></span>
-                <span *ngIf="data.refundStatus == 'SUBMITTED'" style="color: green"><b>SUBMITTED</b></span>
+                <span *ngIf="data?.refundStatus == 'INITIATED'" style="color:#FFC107 ;">INITIATED</span>
+                <span *ngIf="data?.refndstatus  == 'PENDING'" style="color:#FF9800;">PENDING</span>
+                <span *ngIf="data?.refundStatus == 'SUBMITTED'" style="color:blue">SUBMITTED</span>
+                <span *ngIf="data?.refundStatus == 'COMPLETED'" style="color:#4CAF50">COMPLETED</span>
+                <span *ngIf="data?.refundStatus == 'FAILED'" style="color:#F44336 ">FAILED</span>
               </td>
             </ng-container>
 
