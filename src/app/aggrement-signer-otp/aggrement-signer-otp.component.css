@@ -1,158 +1,133 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Montserrat", sans-serif;
-}
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.mat-dialog-content {
-    padding: 20px;
+.otp-dialog {
+    max-width: 600px;
+    width: 100%;
+    margin: auto;
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
-.otp-container {
-    text-align: center;
-    width: 430px;
+.close-button {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    font-size: 1.4rem;
+    color: #555;
+    cursor: pointer;
 }
 
 .otp-title {
+    font-size: 1.75rem;
+    font-weight: 700;
     color: #141E46;
-    margin-bottom: 20px;
-    /* Ensure title stays centered in header */
+    margin-bottom: 0.5rem;
 }
 
-
-
-.back-button {
-    width: auto;  /* Remove fixed width */
-    height: 30px; /* Smaller height */
-    padding: 5px 10px; /* Padding for smaller button */
-    font-size: 12px; /* Smaller font size */
-    background: transparent;
-    color: #141E46;
-    border: 1px solid #141E46;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s ease;
-    margin-bottom: 2px; /* Add space below the back button */
-    margin-left: auto; /* Push the button to the right */
-    margin-top: 5px;
+.otp-subtitle {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 0.25rem;
 }
 
-.back-button:hover {
-    background-color: #141E46;
-    color: white;
+.otp-number {
+    font-weight: 600;
+    color: #3f51b5;
+    margin-bottom: 2rem;
 }
 
-.otp-field {
+.otp-input-group {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin: 20px 0;
+    gap: 16px;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
 }
 
-.otp-input {
+.otp-input-group input {
+    width: 60px;
     height: 50px;
-    width: 50px;
-    border-radius: 6px;
-    border: 1px solid #ddd;
-    font-size: 1.125rem;
+    font-size: 1.5rem;
     text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    transition: border-color 0.3s ease;
+}
+
+.otp-input-group input:focus {
+    border-color: #3f51b5;
     outline: none;
+    box-shadow: 0 0 0 2px rgba(63, 81, 181, 0.2);
 }
 
-.otp-input:focus {
-    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
-}
-
-/* Add spacing for the verify button and timer message */
-button {
-    width: 80%;
-    height: 46px;
-    border-radius: 5px;
-    border: none;
-    background: #141E46;
-    color: #fff;
-    font-size: 18px;
-    font-weight: 500;
-    text-transform: uppercase;
-    cursor: pointer;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    transition: 0.3s ease;
-}
-
-.otp-timer {
-    margin: 20px 0;
-}
-
-.resend {
-    font-size: 12px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-}
-
-.otp-timer {
-    margin-top: 10px;
-}
-
-.resend {
-    font-size: 12px;
-    margin-top: 10px;
-}
-
-.resend-link {
-    color: #9184ed;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-@media (max-width: 868px) {
-    .otp-field {
-        gap: 5px;
-    }
-
-    .otp-input {
-        height: 40px;
-        width: 40px;
-        font-size: 1rem;
-    }
-}
-
-.otp-input {
-    width: 40px;
-    text-align: center;
-    font-size: 1.2rem;
-    margin-right: 5px;
-    border-radius: 5px;
-    border: 1px solid #ced4da;
-}
-
-/* Styles for email OTP */
-.email-otp .otp-input {
-    background-color: #f0f8ff;
-    border-color: #b0e0e6;
-}
-
-/* Styles for mobile OTP */
-.mobile-otp .otp-input {
-    background-color: #fff0f5;
-    border-color: #ffb6c1;
-}
-
-/* Button styling */
-button {
-    background-color: #007bff;
+.verify-button {
+    width: 100%;
+    padding: 14px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    background-color: #141E46;
     color: white;
     border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
+    border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-button:hover {
-    background-color: #0056b3;
+.verify-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.verify-button:hover:not(:disabled) {
+    background-color: #0f1533;
+}
+
+.otp-timer {
+    font-size: 1rem;
+    margin-top: 1.5rem;
+    color: #555;
+}
+
+.otp-timer span {
+    color: red;
+    font-weight: 600;
+}
+
+.resend {
+    font-size: 0.95rem;
+    margin-top: 0.75rem;
+    color: #666;
+}
+
+.resend a {
+    color: #9184ed;
+    cursor: pointer;
+    font-weight: 500;
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .otp-dialog {
+        padding: 1.5rem;
+    }
+
+    .otp-input-group {
+        gap: 10px;
+    }
+
+    .otp-input-group input {
+        width: 48px;
+        height: 56px;
+        font-size: 1.25rem;
+    }
+
+    .verify-button {
+        font-size: 1rem;
+    }
 }

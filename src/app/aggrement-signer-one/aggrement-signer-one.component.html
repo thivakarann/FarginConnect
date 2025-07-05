@@ -10,7 +10,7 @@
     <!-- PDF Viewer Section -->
     <div class="pdf-container">
         <pdf-viewer [src]="pdfurl1" [render-text]="true" [original-size]="true" [fit-to-page]="true"
-            style="width:100%; height:93vh;"></pdf-viewer>
+            style="width:100%; height:94vh;"></pdf-viewer>
     </div>
 
     <!-- Right Side Content -->
@@ -24,7 +24,7 @@
         <!-- Profile Image directly above Agreement Title -->
         <div class="image-profile-container">
             <div class="image-format">
-                <img src="/assets/profile.jpg" alt="Profile Image">
+                <img src="/assets/Signed.png" alt="Profile Image">
             </div>
         </div>
 
@@ -71,7 +71,7 @@
             <div class="profile-field" [hidden]="EntotySignedStatus==0">
                 <label><i style="color: black;font-size: 17px;" class="fa fa-user"></i>&nbsp;Entity Signer Signed
                     Date:</label>
-                <p>{{EntitySignedDate}}</p>
+                <p>{{EntitySignedDate |date:"dd/MM/yyyy"}}</p>
             </div>
         </div>
 

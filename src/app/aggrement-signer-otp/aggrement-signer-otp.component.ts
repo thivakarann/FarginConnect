@@ -119,4 +119,9 @@ export class AggrementSignerOtpComponent implements OnInit {
       }
     });
   }
+
+    isOtpComplete(): boolean {
+    return this.otpCode1 && this.otpCode2 && this.otpCode3 &&
+      this.otpCode4 && this.otpCode5 && this.otpCode6;
+  }
 }
