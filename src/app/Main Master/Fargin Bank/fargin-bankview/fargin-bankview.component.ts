@@ -25,18 +25,18 @@ export class FarginBankviewComponent {
     'sno',
     'accountHolderName',
     'accountNumber',
+    'type',
     'bankName',
-    'status',
-    // 'Edit',
     'ifscCode',
     'branchName',
     'ledgerId',
-    'type',
+    'status',
+    'Edit',
     'View',
-    // 'createdBy',
-    // 'createdDateTime',
-    'modifiedBy',
-    'modifiedDateTime'
+    'createdBy',
+    'createdDateTime',
+    // 'modifiedBy',
+    // 'modifiedDateTime'
 
   ];
   viewall: any;
@@ -73,46 +73,46 @@ export class FarginBankviewComponent {
   ) { }
   ngOnInit(): void {
 
-    this.service.rolegetById(this.roleId).subscribe({
-      next: (res: any) => {
+    // this.service.rolegetById(this.roleId).subscribe({
+    //   next: (res: any) => {
 
 
-        if (res.flag == 1) {
-          this.getdashboard = res.response?.subPermission;
+    //     if (res.flag == 1) {
+    //       this.getdashboard = res.response?.subPermission;
 
-          if (this.roleId == 1) {
-            this.valuefarginadd = 'Fargin bank-Add';
-            this.valuefarginedit = 'Fargin bank-Edit';
-            this.valuefarginexport = 'Fargin bank-Export';
-            this.valuefarginstatus = 'Fargin bank-Status';
+    //       if (this.roleId == 1) {
+    //         this.valuefarginadd = 'Fargin bank-Create';
+    //         this.valuefarginedit = 'Fargin bank-Edit';
+    //         this.valuefarginexport = 'Fargin bank-Export';
+    //         this.valuefarginstatus = 'Fargin bank-Status';
 
-          }
-          // else {
-          //   for (let datas of this.getdashboard) {
+    //       }
+    //       else {
+    //         for (let datas of this.getdashboard) {
 
-          //     this.actions = datas.subPermissions;
-          //     if (this.actions == 'Fargin bank-Add') {
-          //       this.valuefarginadd = 'Fargin bank-Add';
-          //     }
-          //     if (this.actions == 'Fargin bank-Edit') {
-          //       this.valuefarginedit = 'Fargin bank-Edit'
-          //     }
-          //     if (this.actions == 'Fargin bank-Status') {
-          //       this.valuefarginstatus = 'Fargin bank-Status'
-          //     }
-          //     if (this.actions == 'Fargin bank-Export') {
-          //       this.valuefarginexport = 'Fargin bank-Export'
-          //     }
+    //           this.actions = datas.subPermissions;
+    //           if (this.actions == 'Fargin bank-Create') {
+    //             this.valuefarginadd = 'Fargin bank-Create';
+    //           }
+    //           if (this.actions == 'Fargin bank-Edit') {
+    //             this.valuefarginedit = 'Fargin bank-Edit'
+    //           }
+    //           if (this.actions == 'Fargin bank-Status') {
+    //             this.valuefarginstatus = 'Fargin bank-Status'
+    //           }
+    //           if (this.actions == 'Fargin bank-Export') {
+    //             this.valuefarginexport = 'Fargin bank-Export'
+    //           }
 
-          //   }
-          // }
+    //         }
+    //       }
 
-        }
-        else {
-          this.errorMessage = res.responseMessage;
-        }
-      }
-    });
+    //     }
+    //     else {
+    //       this.errorMessage = res.responseMessage;
+    //     }
+    //   }
+    // });
 
 
     this.service.Farginview().subscribe((res: any) => {
@@ -133,11 +133,11 @@ export class FarginBankviewComponent {
       exitAnimationDuration: "800ms",
       disableClose: true
     })
- 
+
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
       this.fetchfarginbankview();
     });
-    
+
   };
 
 
@@ -147,7 +147,7 @@ export class FarginBankviewComponent {
     });
   };
 
-  fetchfarginbankview(){
+  fetchfarginbankview() {
     this.service.Farginview().subscribe((res: any) => {
       this.viewall = res.response;
       this.viewall.reverse();
@@ -184,16 +184,16 @@ export class FarginBankviewComponent {
         this.data = res.response;
 
         this.toastr.success(res.responseMessage);
-     setTimeout(() => {
-      this.service.Farginview().subscribe((res: any) => {
-        this.viewall = res.response;
-        this.viewall.reverse();
-        this.dataSource = new MatTableDataSource(this.viewall);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-  
-      });
-     }, 500);
+        setTimeout(() => {
+          this.service.Farginview().subscribe((res: any) => {
+            this.viewall = res.response;
+            this.viewall.reverse();
+            this.dataSource = new MatTableDataSource(this.viewall);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+
+          });
+        }, 500);
       }
       else {
         this.toastr.error(res.responseMessage);
@@ -204,7 +204,7 @@ export class FarginBankviewComponent {
   }
 
   reloads() {
-   
+
     this.service.Farginview().subscribe((res: any) => {
       this.viewall = res.response;
       this.viewall.reverse();
@@ -233,7 +233,7 @@ export class FarginBankviewComponent {
   }
 
   exportexcel() {
- 
+
     let sno = 1;
     this.responseDataListnew = [];
     this.viewall.forEach((element: any) => {
@@ -256,9 +256,9 @@ export class FarginBankviewComponent {
       this.response.push(element?.ifscCode);
       this.response.push(element?.branchName);
       this.response.push(element?.ledgerId);
-   
+
       this.response.push(element.createdBy);
-    
+
       if (element?.createdDateTime) {
         let issuedatas = element?.createdDateTime;
         this.date2 = moment(issuedatas).format('DD/MM/yyyy hh:mm a').toString();
@@ -272,7 +272,7 @@ export class FarginBankviewComponent {
     });
     this.excelexportCustomer();
   }
- 
+
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
@@ -287,16 +287,16 @@ export class FarginBankviewComponent {
       'Updated By',
       "Updated At"
     ]
- 
- 
+
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Fargin bank details');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
- 
- 
+
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -307,15 +307,15 @@ export class FarginBankviewComponent {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
+
       }
- 
+
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
- 
+
     data.forEach((d: any) => {
       //
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -327,7 +327,7 @@ export class FarginBankviewComponent {
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
-  
+
 
 
 

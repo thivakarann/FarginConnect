@@ -169,7 +169,7 @@ export interface AddEntityBank {
   readonly merchantId: any;
   readonly ledgerId: any;
   readonly createdBy: any;
-  readonly typeMode:any;
+  readonly typeMode: any;
 }
 
 
@@ -261,7 +261,7 @@ export interface bankData {
   readonly merchantId: any;
   readonly ledgerId: any;
   readonly createdBy: any;
-  readonly typeMode:any;
+  readonly typeMode: any;
 }
 
 export interface bankedit {
@@ -273,7 +273,7 @@ export interface bankedit {
   readonly accountType: any;
   readonly ledgerId: any;
   readonly modifiedBy: any;
-  readonly typeMode:any;
+  readonly typeMode: any;
 }
 
 
@@ -929,7 +929,19 @@ export interface farginadd {
   readonly branchName: any;
   readonly ledgerId: any;
   readonly createdBy: any;
- readonly typeMode: any;
+  readonly typeMode: any;
+}
+
+export interface farginUpdate {
+  readonly accountHolderName: any;
+  readonly accountNumber: any;
+  readonly adminBankId:any;
+  readonly bankName: any;
+  readonly ifscCode: any;
+  readonly branchName: any;
+  readonly ledgerId: any;
+  readonly modifiedBy: any;
+  readonly typeMode: any;
 }
 
 export interface farginstatus {
@@ -937,15 +949,6 @@ export interface farginstatus {
 }
 
 
-export interface farginedit {
-  readonly accountHolderName: any;
-  readonly accountNumber: any;
-  readonly bankName: any;
-  readonly ifscCode: any;
-  readonly branchName: any;
-  readonly ledgerId: any;
-  readonly createdBy: any;
-}
 
 export interface CreateSMS {
   readonly merchantId: any;
@@ -1592,13 +1595,11 @@ export interface RefundCheck {
 
 
 export interface smstrigger {
-  readonly monthlySmsLogId:any;
+  readonly monthlySmsLogId: any;
 }
-export interface dueCumulativeRefunds
-{
- readonly refundId:any;
+export interface dueCumulativeRefunds {
+  readonly refundId: any;
 }
-export interface additionalCumulativeRefunds
-{
- readonly refundId:any;
+export interface additionalCumulativeRefunds {
+  readonly refundId: any;
 }

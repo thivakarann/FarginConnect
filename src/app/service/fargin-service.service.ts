@@ -483,6 +483,7 @@ export class FarginServiceService {
   //farginbank
   private readonly farginview = 'adminBankDetails/getBankDetails';
   private readonly fargincreate = 'adminBankDetails/createbankdetails';
+  private readonly farginupdate = 'adminBankDetails/updatebank';
   private readonly farginstatus = 'adminBankDetails/updateStatus/';
   private readonly farginEdit = 'adminBankDetails/createbankdetails';
   private readonly Farginbankhistory = 'adminBankDetails/getHistory/';
@@ -3154,6 +3155,9 @@ export class FarginServiceService {
       model,
       this.options
     );
+  }
+  FarginUpdate(model:any){
+    return this,this.http.put(`${this.basePath}${this.farginupdate}`,model,this.options)
   }
 
   Farginstatus(id: any, model: any) {

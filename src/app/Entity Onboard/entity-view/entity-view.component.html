@@ -23,7 +23,8 @@
 
 </div>
 <div class="nav-wrapper">
-  <button class="nav-arrow" (click)="scrollTabs('prev')"><i style="color:#141e46" class="fa-solid fa-backward"></i></button>
+  <button class="nav-arrow" (click)="scrollTabs('prev')"><i style="color:#141e46"
+      class="fa-solid fa-backward"></i></button>
 
   <div class="navtabs tab-strip" #tabStrip>
     <button *ngIf="valueentitytransaction === 'Entity View Due Transactions'" class="tab-button"
@@ -77,52 +78,55 @@
     </button>
   </div>
 
-  <button class="nav-arrow" (click)="scrollTabs('next')"><i style="color:#141e46" class="fa-solid fa-forward"></i></button>
+  <button class="nav-arrow" (click)="scrollTabs('next')"><i style="color:#141e46"
+      class="fa-solid fa-forward"></i></button>
 </div>
 
 
 
 <div class="tab-container"
   [hidden]="valueGeneral !== 'Entity View General Information' && valuebankinfo !== 'Entity View Bank Information' && valuekycdocument !== 'Entity View KYC Document' && valuebussinessdocument !== 'Entity View Bussiness Document'&& valuefinalapproval !== 'Entity View Final Approval'&& valuemanualpayment !== 'Entity View One Time Setup Payment'&& valueCustomized !== 'Entity View Customized Payment'&&valuesmssetting !== 'Entity View-SMS Settings'&&valueagreement !== 'Entity View Agreement'&& valuebranch !== 'Entity View Branch'">
- <div class="info-tab-wrapper">
-  <button class="info-tab-arrow" (click)="scrollInfoTabs('prev')"><i style="color:#141e46" class="fa-solid fa-backward"></i></button>
+  <div class="info-tab-wrapper">
+    <button class="info-tab-arrow" (click)="scrollInfoTabs('prev')"><i style="color:#141e46"
+        class="fa-solid fa-backward"></i></button>
 
-  <div class="info-tab-strip" #infoTabStrip>
-    <button class="info-tab-button" [class.active-info]="activeTab === 'events'" (click)="selectTab('events')"
-      [hidden]="valueGeneral !== 'Entity View General Information'">General Information</button>
+    <div class="info-tab-strip" #infoTabStrip>
+      <button class="info-tab-button" [class.active-info]="activeTab === 'events'" (click)="selectTab('events')"
+        [hidden]="valueGeneral !== 'Entity View General Information'">General Information</button>
 
-    <button class="info-tab-button" [class.active-info]="activeTab === 'materials'" (click)="selectTab('materials')"
-      [hidden]="valuebankinfo !== 'Entity View Bank Information'">Bank Information</button>
+      <button class="info-tab-button" [class.active-info]="activeTab === 'materials'" (click)="selectTab('materials')"
+        [hidden]="valuebankinfo !== 'Entity View Bank Information'">Bank Information</button>
 
-    <button class="info-tab-button" [class.active-info]="activeTab === 'videos'" (click)="selectTab('videos')"
-      [hidden]="valuekycdocument !== 'Entity View KYC Document'">KYC Documents</button>
+      <button class="info-tab-button" [class.active-info]="activeTab === 'videos'" (click)="selectTab('videos')"
+        [hidden]="valuekycdocument !== 'Entity View KYC Document'">KYC Documents</button>
 
-    <button class="info-tab-button" [class.active-info]="activeTab === 'bussiness'" (click)="selectTab('bussiness')"
-      [hidden]="valuebussinessdocument !== 'Entity View Bussiness Document'">Business Documents</button>
+      <button class="info-tab-button" [class.active-info]="activeTab === 'bussiness'" (click)="selectTab('bussiness')"
+        [hidden]="valuebussinessdocument !== 'Entity View Bussiness Document'">Business Documents</button>
 
-    <button class="info-tab-button" [class.active-info]="activeTab === 'doot1'" (click)="selectTab('doot1')"
-      [hidden]="valuefinalapproval !== 'Entity View Final Approval'">Final Approval</button>
+      <button class="info-tab-button" [class.active-info]="activeTab === 'doot1'" (click)="selectTab('doot1')"
+        [hidden]="valuefinalapproval !== 'Entity View Final Approval'">Final Approval</button>
 
-    <button class="info-tab-button" [class.active-info]="activeTab === 'doot2'" (click)="selectTab('doot2')"
-      [hidden]="valuemanualpayment !== 'Entity View One Time Setup Payment'">One-Time Setup</button>
+      <button class="info-tab-button" [class.active-info]="activeTab === 'doot2'" (click)="selectTab('doot2')"
+        [hidden]="valuemanualpayment !== 'Entity View One Time Setup Payment'">One-Time Setup</button>
 
-    <button class="info-tab-button" [class.active-info]="activeTab === 'doot3'" (click)="selectTab('doot3')"
-      [hidden]="valueCustomized !== 'Entity View Customized Payment'">Customized Pay</button>
+      <button class="info-tab-button" [class.active-info]="activeTab === 'doot3'" (click)="selectTab('doot3')"
+        [hidden]="valueCustomized !== 'Entity View Customized Payment'">Customized Pay</button>
 
-    <button class="info-tab-button" [class.active-info]="activeTab === 'doot4'" (click)="selectTab('doot4')"
-      [hidden]="valuesmssetting !== 'Entity View-SMS Settings'">SMS Settings</button>
+      <button class="info-tab-button" [class.active-info]="activeTab === 'doot4'" (click)="selectTab('doot4')"
+        [hidden]="valuesmssetting !== 'Entity View-SMS Settings'">SMS Settings</button>
 
-    <button class="info-tab-button" [class.active-info]="activeTab === 'doot5'" (click)="selectTab('doot5')"
-      [hidden]="valueagreement !== 'Entity View Agreement'">Agreement</button>
+      <button class="info-tab-button" [class.active-info]="activeTab === 'doot5'" (click)="selectTab('doot5')"
+        [hidden]="valueagreement !== 'Entity View Agreement'">Agreement</button>
 
-    <button class="info-tab-button" [class.active-info]="activeTab === 'doot6'" (click)="selectTab('doot6')"
-      [hidden]="valuebranch !== 'Entity View Branch'">Branch</button>
+      <button class="info-tab-button" [class.active-info]="activeTab === 'doot6'" (click)="selectTab('doot6')"
+        [hidden]="valuebranch !== 'Entity View Branch'">Branch</button>
+    </div>
+
+    <button class="info-tab-arrow" (click)="scrollInfoTabs('next')"><i style="color:#141e46"
+        class="fa-solid fa-forward"></i></button>
   </div>
 
-  <button class="info-tab-arrow" (click)="scrollInfoTabs('next')"><i style="color:#141e46" class="fa-solid fa-forward"></i></button>
-</div>
-
-<div class="tab-content" *ngIf="activeTab === 'events'" [hidden]="valueGeneral !== 'Entity View General Information'">
+  <div class="tab-content" *ngIf="activeTab === 'events'" [hidden]="valueGeneral !== 'Entity View General Information'">
     <div class="filters">
       <div class="col-12">
         <div class="row" style="background-color: #bcdf72; color: #141e46">
@@ -617,6 +621,7 @@
                 <th>Beneficiary Name</th>
                 <th>Account Number</th>
                 <th>Account Type</th>
+                <th>Type Mode</th>
                 <th>IFSC Code</th>
                 <th>PG Ledger Id</th>
                 <th>Bank Name</th>
@@ -663,6 +668,7 @@
                 <td>{{ item.accountHolderName }}</td>
                 <td>{{ item.accountNumber }}</td>
                 <td>{{ item.accountType }}</td>
+                <td>{{ item.typeMode }}</td>
                 <td>{{ item.ifscCode }}</td>
                 <td>{{ item.ledgerId }}</td>
                 <td>{{ item.bankId.bankName }}</td>

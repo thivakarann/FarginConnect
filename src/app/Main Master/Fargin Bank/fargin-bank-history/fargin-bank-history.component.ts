@@ -20,6 +20,7 @@ export class FarginBankHistoryComponent {
     'S.No',
     'accountHolderName',
     'accountNumber',
+    'type',
     'bankName',
     'branchName',
     'ifscCode',

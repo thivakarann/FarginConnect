@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
-import { farginedit } from '../../../fargin-model/fargin-model.module';
+import { farginUpdate } from '../../../fargin-model/fargin-model.module';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -14,40 +14,43 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 export class FarginBankEditComponent {
   BankFormedit!: FormGroup;
   showPassword: boolean = false;
-  createdBy :any = JSON.parse(sessionStorage.getItem('adminname') || '');
+  createdBy: any = JSON.parse(sessionStorage.getItem('adminname') || '');
   activeRole: any;
   farginbank: any;
-  adminBankId:any;
+  adminBankId: any;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
 
-  constructor(private dialog:MatDialog,  private service: FarginServiceService, private toaster: ToastrService, private router: Router,@Inject(MAT_DIALOG_DATA) public data: any) { 
+  constructor(private dialog: MatDialog, private service: FarginServiceService, private toaster: ToastrService, @Inject(MAT_DIALOG_DATA) public data: any) {
 
-    this.adminBankId=this.data.value.adminBankId
+    this.adminBankId = this.data.value.adminBankId
   }
   ngOnInit(): void {
 
     this.BankFormedit = new FormGroup({
-    accountHolderName: new FormControl(null, [
+      accountHolderName: new FormControl(null, [
         Validators.required,
-Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'), Validators.maxLength(50)
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'), Validators.maxLength(50)
       ]),
       accountNumber: new FormControl('', [Validators.required]),
       bankName: new FormControl('', [Validators.required,
-        Validators.pattern(/^[A-Za-z ]{1,50}$/)
+      Validators.pattern(/^[A-Za-z ]{1,50}$/)
+      ]),
+      typemode: new FormControl('', [
+        Validators.required,
+
       ]),
       ifscCode: new FormControl('', [Validators.required]),
       branchName: new FormControl('', [Validators.required,
-        Validators.pattern(/^[A-Za-z ]{1,50}$/)
+      Validators.pattern(/^[A-Za-z ]{1,50}$/)
       ]),
       ledgerId: new FormControl('', [Validators.required, Validators.pattern(/^\d{1,10}$/)]),
 
-      createdBy: new FormControl(''),
-     
+
     })
 
-    this.service.roleactiveViewall().subscribe((res:any)=>{
-      this.activeRole=res.response;
-      
+    this.service.roleactiveViewall().subscribe((res: any) => {
+      this.activeRole = res.response;
+
     })
 
     if (this.data && this.data.value) {
@@ -58,13 +61,16 @@ Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'), Validators.maxLength(50)
         ifscCode: this.data.value.ifscCode,
         branchName: this.data.value.branchName,
         ledgerId: this.data.value.ledgerId,
+        typemode: this.data.value.typeMode
+
+
 
       });
     } else {
       console.error('Data is not defined');
     }
 
-   
+
   }
   get accountHolderName() {
     return this.BankFormedit.get('accountHolderName');
@@ -75,8 +81,8 @@ Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'), Validators.maxLength(50)
   get bankName() {
     return this.BankFormedit.get('bankName');
   }
- 
-  get ifscCode(){
+
+  get ifscCode() {
     return this.BankFormedit.get('ifscCode')
   }
   get branchName() {
@@ -86,24 +92,30 @@ Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'), Validators.maxLength(50)
     return this.BankFormedit.get('ledgerId');
   }
 
+  get typemode() {
+    return this.BankFormedit.get('typemode');
+  }
+
 
   submit() {
-    let submitmodel: farginedit = {
+    let submitmodel: farginUpdate = {
       accountHolderName: this.accountHolderName?.value.trim(),
       accountNumber: this.accountNumber?.value.trim(),
       bankName: this.bankName?.value.trim(),
       ifscCode: this.ifscCode?.value.trim(),
       branchName: this.branchName?.value.trim(),
       ledgerId: this.ledgerId?.value.trim(),
-      createdBy: this.createdBy
+      modifiedBy: this.createdBy,
+      typeMode: this.typemode?.value,
+      adminBankId: this.adminBankId
     }
 
-    this.service.FarginCreate(submitmodel).subscribe((res: any) => {
+    this.service.FarginUpdate(submitmodel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toaster.success(res.responseMessage);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
-      
+
       }
       else {
         this.toaster.error(res.responseMessage);
@@ -113,5 +125,5 @@ Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'), Validators.maxLength(50)
 
   }
 
-  
+
 }

@@ -23,7 +23,7 @@ export class FarginBankAddComponent {
     this.BankForm = new FormGroup({
       accountHolderName: new FormControl(null, [
         Validators.required,
-Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'), Validators.maxLength(50)
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'), Validators.maxLength(50)
       ]),
       accountNumber: new FormControl(null, [
         Validators.required,
@@ -41,9 +41,9 @@ Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'), Validators.maxLength(50)
         Validators.required,
         Validators.pattern(/^[A-Za-z ]{1,50}$/)
       ]),
-  typemode: new FormControl('', [
+      typemode: new FormControl('', [
         Validators.required,
-    
+
       ]),
       ledgerId: new FormControl('', [Validators.required, Validators.pattern(/^\d{1,10}$/
       )]),
@@ -78,7 +78,7 @@ Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'), Validators.maxLength(50)
     return this.BankForm.get('ledgerId');
   }
 
- get typemode() {
+  get typemode() {
     return this.BankForm.get('typemode');
   }
   submit() {
@@ -89,7 +89,7 @@ Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'), Validators.maxLength(50)
       ifscCode: this.ifscCode?.value.trim(),
       branchName: this.branchName?.value.trim(),
       ledgerId: this.ledgerId?.value.trim(),
-        typeMode: this.typemode?.value,
+      typeMode: this.typemode?.value,
       createdBy: this.createdBy
     }
 
