@@ -28,20 +28,19 @@ export class AlcartLogoViewComponent implements OnInit {
     private toastr: ToastrService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialog: MatDialog
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.id = this.data.value;
 
     this.Viewlogoimage.AlcartImageview(this.id).subscribe({
       next: (res: any) => {
         const contentType = res.type;
-
         if (contentType.startsWith('image/')) {
           const reader = new FileReader();
           reader.readAsDataURL(res);
           reader.onloadend = () => {
             this.imageSrc = reader.result as string;
-     
+
           };
         } else {
           console.error('Unsupported file type:', contentType);
@@ -77,11 +76,11 @@ export class AlcartLogoViewComponent implements OnInit {
           this.toastr.success('Image uploaded successfully');
         } else {
           this.toastr.error('Max Image size exceeded');
-          this.identityFrontPath?.reset();
+          this.logo?.reset();
         }
       } else {
         this.toastr.error('File type not acceptable');
-        this.identityFrontPath?.reset();
+        this.logo?.reset();
       }
     } else {
       this.toastr.error('No file selected');

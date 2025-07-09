@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { SessionServiceService } from './Session service/session-service.service';
+import { ConsoleServiceService } from './Console Service/console-service.service';
 
 @Component({
   selector: 'app-root',
@@ -11,8 +12,9 @@ export class AppComponent {
   title = 'FarginConnect';
   timeout: number;
 
-  constructor(private sessionTimerService: SessionServiceService, private bnIdle: BnNgIdleService) {
+  constructor(private sessionTimerService: SessionServiceService, private bnIdle: BnNgIdleService, private consoleToggle: ConsoleServiceService) {
     this.timeout = this.sessionTimerService.getTimeoutInMinutes();
+    this.consoleToggle.disable();
   }
   ngOnInit(): void {
 

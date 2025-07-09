@@ -10,7 +10,6 @@ import { Alcartstatus } from '../../../fargin-model/fargin-model.module';
 import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
 import moment from 'moment';
-import { PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { AlacarteUploadbulkComponent } from '../alacarte-uploadbulk/alacarte-uploadbulk.component';
 
@@ -51,7 +50,6 @@ export class AlacarteViewallComponent implements OnInit {
   valuealcartStatus: any;
   valuealcartView: any;
   valuealcartEdit: any;
-
   getdashboard: any[] = [];
   roleId: any = sessionStorage.getItem('roleId')
   actions: any;
@@ -87,11 +85,8 @@ export class AlacarteViewallComponent implements OnInit {
   ngOnInit(): void {
     this.AllcartViewall.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-
-
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
-
           if (this.roleId == 1) {
             this.valuealcartAdd = 'Channel Creation-Add';
             this.valuealcartEdit = 'Channel Creation-Edit';
