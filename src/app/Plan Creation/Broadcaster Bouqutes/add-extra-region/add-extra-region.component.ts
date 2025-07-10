@@ -14,7 +14,6 @@ import { ExtraRegion } from '../../../fargin-model/fargin-model.module';
   styleUrl: './add-extra-region.component.css'
 })
 export class AddExtraRegionComponent implements OnInit {
-  
   id: any;
   channelslist: any;
   getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
@@ -23,12 +22,12 @@ export class AddExtraRegionComponent implements OnInit {
   @ViewChild('select') select: any = MatSelect;
   allSelected = false;
   regId: any;
-  region:any;
+  region: any;
   ActiveRegions: any;
-ActiveregionID: any;
-serviceId:any;
-regnId: any;
-RegionIds:any
+  ActiveregionID: any;
+  serviceId: any;
+  regnId: any;
+  RegionIds: any
   id1: any;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
 
@@ -43,41 +42,17 @@ RegionIds:any
 
 
   ngOnInit(): void {
-    // this.id = this.data.value;
-    // console.log(this.id)
 
-
-    // this.ActivateRoute.queryParams.subscribe((param: any) => {
-    //   this.id = param.Alldata;
-
-    // });
-    this.id=this.data.value;
-    console.log(this.id)
-    this.id1=this.data.value2;
-
-    // this.AddExtra.ActiveAlcards().subscribe((res: any) => {
-    //   this.channelslist = res.response;
-    //   console.log(this.channelslist)
-     
-    // });
-
+    this.id = this.data.value;
+    this.id1 = this.data.value2;
     this.AddExtra.ActiveRegionsbyserviceprovider(this.id1).subscribe((res: any) => {
       this.ActiveRegions = res.response;
-      console.log( 'region' +this.ActiveRegions)
-      console.log(this.ActiveRegions[0].regionId)
-   
-    })
-
-   
-
-   
+    });
 
     this.myForm = new FormGroup({
       regionId: new FormControl('', Validators.required),
       alcotChannel: new FormControl('', Validators.required),
     });
-
-
   }
 
   get regionId() {
@@ -96,35 +71,20 @@ RegionIds:any
     }
   }
 
-    
+  activeregionids(id: any) {
+    this.RegionIds = id;
+    this.AddExtra.AlcartChannelregions(this.RegionIds).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.channelslist = res.response;
+      }
+      else {
+        this.allSelected = false
+        this.alcotChannel?.reset()
+        this.channelslist = null
+      }
+    })
+  }
 
-  
-
-
-  activeregionids(id:any) {
-    this.RegionIds=id;
-    console.log(this.RegionIds)
-   
-       this.AddExtra.AlcartChannelregions(this.RegionIds).subscribe((res:any)=>{
-        if(res.flag==1)
-        {
-          // if (Array.isArray(res.response)) {
-            this.channelslist = res.response;
-            // console.log('Channels list:', this.channelslist);
-            // console.error('Unexpected response format:', res.responseMessage);
-        }
-        else
-        {
-          this.allSelected = false
-    this.alcotChannel?.reset()
-    this.channelslist = null
-    
-          // console.error('Unexpected response format:', res.responseMessage);
-        //  this.toastr.error(res.responseMessage)
-        }
-        })
-}
-    
 
   submit() {
     let submitModel: ExtraRegion = {

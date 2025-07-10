@@ -27,12 +27,12 @@ export class BouqutesRegioneditComponent {
   getamount: any;
   Plandetails: any;
   ActiveRegions: any;
-allselected: any;
+  allselected: any;
   selects: any;
   RegionIds: any;
   Regions: any;
   get: any;
-  regionedit:any
+  regionedit: any
   @Output() bankDetailsUpdated = new EventEmitter<void>();
   constructor(
     public BroadcasterBouquetAdd: FarginServiceService,
@@ -46,8 +46,8 @@ allselected: any;
 
   ngOnInit(): void {
 
-    
-    this.regionedit=this.data.value2;
+
+    this.regionedit = this.data.value2;
 
     // this.BroadcasterBouquetAdd.BoucatenamesActive().subscribe((res: any) => {
     //   this.details = res.response;
@@ -63,7 +63,7 @@ allselected: any;
     // })
     // this.BroadcasterBouquetAdd.BouqueteNameByBroadcasterid(this.getRoleId).subscribe((res: any) => {
     //   this.Plandetails = res.response;
-      
+
     // })
     this.myForm = new FormGroup({
       regId: new FormControl('', Validators.required),
@@ -73,58 +73,58 @@ allselected: any;
     this.activeRouter.params.subscribe((param: any) => {
       this.getId = param.valueid;
       this.getId = this.data.valueid;
-      
+
     });
 
     this.activeRouter.params.subscribe((param: any) => {
       this.get = param.value2;
       this.get = this.data.value2;
-      
+
     });
 
     this.activeRouter.params.subscribe((param: any) => {
       this.getRoleId = param.bouquet;
       this.getRoleId = this.data.bouquet;
-      
+
     });
 
     this.activeRouter.params.subscribe((param: any) => {
       this.getcreation = param.creation;
       this.getcreation = this.data.creation;
-      
+
     });
 
     this.activeRouter.params.subscribe((param: any) => {
       this.getservices = param.services;
       this.getservices = this.data.services;
-      
+
     });
 
     this.activeRouter.params.subscribe((param: any) => {
       this.getvalues = param.broadCasterRegionsss;
       this.getvalues11 = this.data.broadCasterRegionsss;
-      
-      
+
+
     });
 
     this.activeRouter.params.subscribe((param: any) => {
       this.getalcot = param.broadCasterAlcotsss;
       this.getalcot = this.data.broadCasterAlcotsss;
-      
+
     });
 
 
     this.activeRouter.params.subscribe((param: any) => {
       this.getamount = param.amount;
       this.getamount = this.data.amount;
-      
+
     });
 
-    
+
     this.activeRouter.params.subscribe((param: any) => {
       this.RegionIds = param.broadCasterRegionIds;
       this.RegionIds = this.data.broadCasterRegionIds;
-      
+
     });
 
     this.BroadcasterBouquetAdd.ActiveRegionsbyserviceprovider(this.getservices).subscribe((res: any) => {
@@ -136,7 +136,7 @@ allselected: any;
 
       console.log(this.Regions)
     })
-    
+
   }
   get regId() {
     return this.myForm.get('regId')
@@ -151,7 +151,7 @@ allselected: any;
   }
   submit() {
     let submitModel: BroadcasterBouquetregionupdate = {
-      broadCasterRegionId:this.get,
+      broadCasterRegionId: this.get,
       regionIds: this.regId?.value,
     }
     this.BroadcasterBouquetAdd.BroadcasterBoucatesRegionEdit(submitModel).subscribe((res: any) => {
@@ -159,7 +159,7 @@ allselected: any;
         this.toastr.success(res.responseMessage);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
-       
+
       }
       else {
         this.toastr.error(res.responseMessage);

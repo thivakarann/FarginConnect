@@ -34,7 +34,7 @@ export class BouqutesViewComponent implements OnInit {
   valueid: any;
   value2: any;
   broadCasterRegionsss: any[] = [];
-  broadCasterRegionIds:any[]=[];
+  broadCasterRegionIds: any[] = [];
   broadCasterAlcotsss: any[] = [];
 
   perValueObject: any;
@@ -45,124 +45,109 @@ export class BouqutesViewComponent implements OnInit {
   perValueArray: any;
   errorMessage: any;
   channel: any;
-  back:any;
+  back: any;
   broadCasterRegion: any;
-  broadCasterBouquet:any;
+  broadCasterBouquet: any;
   flag: any;
   message: any;
-  regionid:any;
+  regionid: any;
+  broadCasterRegionId: any;
 
   constructor(
     public viewdetails: FarginServiceService,
     private router: Router,
     private toastr: ToastrService,
     private ActivateRoute: ActivatedRoute,
-    private dialog: MatDialog,private location:Location
+    private dialog: MatDialog, private location: Location
   ) { }
   ngOnInit(): void {
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.id = param.Alldata;
-      this.regionid=param.value
+      this.regionid = param.value;
+      this.broadCasterRegionId = param.value2
     });
 
     this.viewdetails.BroadcasterBoucatebyidchannel(this.id).subscribe((res: any) => {
-      if(res.flag==1){
- 
-   
+      if (res.flag == 1) {
         this.details = res.response;
-     
         if (res.response && res.response.length > 0) {
           this.details = res.response[0].broadCasterBouquet;
-          console.log(this.details);
-      }
-   
-      if(res.response && res.response.length > 0){
-        this.back=res.response.broadCasterRegion
-      }
-   
+        }
+        if (res.response && res.response.length > 0) {
+          this.back = res.response.broadCasterRegion
+        }
         this.channelslist = res.response;
-   
         this.broadCasterRegion = res.response[0].broadCasterRegion;
-   
         this.broadCasterBouquet = res.response[0].broadCasterBouquet;
-   
         this.ServiceProvideregions = res.response;
         if (res.response && res.response.length > 0) {
           this.channel = res.response[0].broadCasterRegion.broadCasterRegion;
-          console.log(this.details);
+        }
       }
-    }
-   
-    else if(res.flag == 2){
-      this.flag=res.flag;
-      this.message=res.responseMessage;
-      console.log( this.flag);
-      console.log( this.message)
-    }
+      else if (res.flag == 2) {
+        this.flag = res.flag;
+        this.message = res.responseMessage;
+      }
     });
   }
 
-  addChaneels(id: any,id1:any, id2:any) {
-    const dialogRef =   this.dialog.open(AddExtraChannelsComponent, {
+  addChaneels(id: any, id1: any, id2: any) {
+    const dialogRef = this.dialog.open(AddExtraChannelsComponent, {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "500ms",
-      data: { value: id ,value1:id1, value2:id2}
+      data: { value: id, value1: id1, value2: id2 }
     })
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
-
       this.fetch();
 
     });
   }
-  fetch()
-  {
+  fetch() {
     this.viewdetails.BroadcasterBoucatebyidchannel(this.id).subscribe((res: any) => {
-      if(res.flag==1){
- 
-   
-        this.details = res.response;
-     
+      if (res.flag == 1) {
+     this.details = res.response;
+
         if (res.response && res.response.length > 0) {
           this.details = res.response[0].broadCasterBouquet;
           console.log(this.details);
-      }
-   
-      if(res.response && res.response.length > 0){
-        this.back=res.response.broadCasterRegion
-      }
-   
+        }
+
+        if (res.response && res.response.length > 0) {
+          this.back = res.response.broadCasterRegion
+        }
+
         this.channelslist = res.response;
-   
+
         this.broadCasterRegion = res.response[0].broadCasterRegion;
-   
+
         this.broadCasterBouquet = res.response[0].broadCasterBouquet;
-   
+
         this.ServiceProvideregions = res.response;
         if (res.response && res.response.length > 0) {
           this.channel = res.response[0].broadCasterRegion.broadCasterRegion;
           console.log(this.details);
+        }
       }
-    }
-   
-    else if(res.flag == 2){
-      this.flag=res.flag;
-      this.message=res.responseMessage;
-      console.log( this.flag);
-      console.log( this.message)
-    }
+
+      else if (res.flag == 2) {
+        this.flag = res.flag;
+        this.message = res.responseMessage;
+        console.log(this.flag);
+        console.log(this.message)
+      }
     });
   }
 
   close() {
-// this.router.navigate([`dashboard/bouqutes-region/${id}`], {
-//     queryParams: { Alldata: id }
-//   });
-this.location.back()
+    // this.router.navigate([`dashboard/bouqutes-region/${id}`], {
+    //     queryParams: { Alldata: id }
+    //   });
+    this.location.back()
   }
 
 
   ActiveStatus(event: MatSlideToggleChange, id: any) {
-    
+
     this.isChecked = event.checked;
 
     let submitModel: Broadcastersinglechanelstatus = {
@@ -170,44 +155,44 @@ this.location.back()
       channelStatus: this.isChecked ? 1 : 0,
     };
     this.viewdetails.BroadcasterSingleStatus(submitModel).subscribe((res: any) => {
-      
+
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         setTimeout(() => {
           this.viewdetails.BroadcasterBoucatebyidchannel(this.id).subscribe((res: any) => {
-            if(res.flag==1){
-       
-         
+            if (res.flag == 1) {
+
+
               this.details = res.response;
-           
+
               if (res.response && res.response.length > 0) {
                 this.details = res.response[0].broadCasterBouquet;
                 console.log(this.details);
-            }
-         
-            if(res.response && res.response.length > 0){
-              this.back=res.response.broadCasterRegion
-            }
-         
+              }
+
+              if (res.response && res.response.length > 0) {
+                this.back = res.response.broadCasterRegion
+              }
+
               this.channelslist = res.response;
-         
+
               this.broadCasterRegion = res.response[0].broadCasterRegion;
-         
+
               this.broadCasterBouquet = res.response[0].broadCasterBouquet;
-         
+
               this.ServiceProvideregions = res.response;
               if (res.response && res.response.length > 0) {
                 this.channel = res.response[0].broadCasterRegion.broadCasterRegion;
                 console.log(this.details);
+              }
             }
-          }
-         
-          else if(res.flag == 2){
-            this.flag=res.flag;
-            this.message=res.responseMessage;
-            console.log( this.flag);
-            console.log( this.message)
-          }
+
+            else if (res.flag == 2) {
+              this.flag = res.flag;
+              this.message = res.responseMessage;
+              console.log(this.flag);
+              console.log(this.message)
+            }
           });
         }, 1000);
       }
@@ -220,7 +205,7 @@ this.location.back()
   }
 
   Viewregions(id: any) {
-    
+
     this.dialog.open(BouquetsRegionsviewComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: "100ms",
@@ -228,13 +213,13 @@ this.location.back()
     })
   }
 
-  Edit(id: any,id1:any) {
+  Edit(id: any, id1: any) {
 
     // this.valueid = id
 
 
-    const dialogRef =  this.dialog.open(ChanneleditComponent, {
-      data: {value:id,value1:id1},
+    const dialogRef = this.dialog.open(ChanneleditComponent, {
+      data: { value: id, value1: id1 },
       disableClose: true,
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
@@ -247,31 +232,31 @@ this.location.back()
 
     // this.viewdetails.BroadcasterBoucatebyid(this.valueid).subscribe({
     //   next: (res: any) => {
-        
+
     //     if (res.flag == 1) {
     //       this.getAction = res.response;
 
-   
+
     //       this.services = res.response.serviceProvider.serviceId
-       
+
 
     //       this.broadCasterRegions = this.getAction.broadCasterRegion
-       
+
     //       // for (let data of this.broadCasterRegions) {
     //       //   this.broadCasterRegionsss.push(data.broadCasterRegion.regionId)
     //       // }
 
     //       // for (let data of this.broadCasterRegions) {
     //       //   this.broadCasterRegionIds.push(data.broadCasterRegion.broadCasterRegionId)
-            
+
     //       // }
 
     //       this.perValueObject = new Set(this.values)
     //       for (let value of this.perValueObject) {
     //         this.perValueArray.push(value)
     //       }
-          
-        
+
+
     //     } else if (res.flag == 2) {
 
     //       this.errorMessage = res.responseMessage;
@@ -290,7 +275,7 @@ this.location.back()
       item.subpermissionValue.toLowerCase().includes(searchText.toLowerCase())
     );
   }
- 
+
   onSearchTextChange(): void {
     // Reset to the first page whenever the search text changes
     this.currentPage = 1;

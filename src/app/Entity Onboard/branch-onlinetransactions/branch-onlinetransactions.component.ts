@@ -281,7 +281,8 @@ export class BranchOnlinetransactionsComponent {
           this.toastr.error('No Data Found');
         },
       });
-    } else {
+    } 
+    else {
       this.service
       .NewOnlineBranch(this.id, event.pageSize, event.pageIndex)
       .subscribe((res: any) => {
@@ -374,7 +375,9 @@ export class BranchOnlinetransactionsComponent {
         window.open(downloadURL);
       },
     });
-  } additionalView(id: any) {
+  } 
+  
+  additionalView(id: any) {
       this.dialog.open(ViewadditionalpaymentsComponent, {
         enterAnimationDuration: '1000ms',
         exitAnimationDuration: '1000ms',

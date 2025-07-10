@@ -673,6 +673,7 @@ export class RefundGetallComponent {
     }
     this.selectAll = this.dataSource.data.every((item: any) => item.checked);
   }
+ 
   isAllPaid(): boolean {
     return this.dataSource?.data.every(
       (data: any) => data?.refundStatus != 'INITIATED'
@@ -724,6 +725,12 @@ export class RefundGetallComponent {
   }
   isAllPaidAdd(): boolean {
     return this.dataSource?.data.every(
+      (data: any) => data?.refundStatus != 'INITIATED'
+    );
+  }
+
+    isAllPaidAdd2(): boolean {
+    return this.dataSources?.data.every(
       (data: any) => data?.refundStatus != 'INITIATED'
     );
   }

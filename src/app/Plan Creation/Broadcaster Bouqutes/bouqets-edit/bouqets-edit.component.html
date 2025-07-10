@@ -1,16 +1,36 @@
 <div class="card-header d-flex justify-content-between align-items-center">
-    <h5 class="mb-0"style="color:black">Update Broadcaster Bouqutes </h5>
+    <h5 class="mb-0" style="color:black">Update Broadcaster Bouqutes </h5>
     <button type="button" class="btn btn-secondary" matDialogClose>Back</button>
 </div>
+
 <body style="width: 700px;" class="page">
     <main class="main page__main">
         <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="myForm">
-            <p style="color: rgb(66, 66, 201);font-weight: 600;font-size: small;">Note: "(If you need to update the broadcaster's bouquet, please re-enter all the fields)"</p>
+            <p style="color: rgb(66, 66, 201);font-weight: 600;font-size: small;">Note: "(If you need to update the
+                broadcaster's bouquet, please re-enter all the fields)"</p>
             <div class="row">
                 <div class="col-6 form-group">
+                    <label for="Bussiness category">Service Provider (MSO)</label>
+                    <select (change)="getregions($event)" formControlName="serviceId" id="Bussiness category"
+                        class="form-control form-select">
+                        <option value="" disabled selected>Select</option>
+                        <option *ngFor="let item of ActiveMSO" [value]="item.serviceId">{{item.serviceProviderName}}
+                        </option>
+                    </select>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="serviceId?.invalid && serviceId?.touched && serviceId?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+                <div class="col-6 form-group">
                     <label for="Bussiness category">Select Broadcaster </label>
-                    <select  (change)="name($event)"  formControlName="bundleChannelId"
-                        id="Bussiness category" class="form-control form-select">
+                    <select (change)="name($event)" formControlName="bundleChannelId" id="Bussiness category"
+                        class="form-control form-select">
                         <option value="" disabled selected>Select</option>
                         <option *ngFor="let item of details" [value]="item.bundleChannelId">{{item.broadCasterName}}
                         </option>
@@ -26,9 +46,12 @@
                     </div>
                 </div>
 
+
+            </div>
+            <div class="row">
                 <div class="col-6 form-group">
                     <label for="Bussiness category">Broadcaster Plans</label>
-                    <select  formControlName="boqCreationId" id="Bussiness category" class="form-control form-select">
+                    <select formControlName="boqCreationId" id="Bussiness category" class="form-control form-select">
                         <option value="" hidden selected>Select</option>
                         <option *ngFor="let item of Plandetails" [value]="item.boqCreationId">{{item.bouquetName}}
                         </option>
@@ -42,26 +65,6 @@
                     position: relative;
                     ;
                   " *ngIf="boqCreationId?.invalid && boqCreationId?.touched && boqCreationId?.errors?.['required']">
-                        Field is required
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6 form-group">
-                    <label for="Bussiness category">Service Provider (MSO)</label>
-                    <select (change)="getregions($event)"
-                        formControlName="serviceId" id="Bussiness category" class="form-control form-select">
-                        <option value="" disabled selected>Select</option>
-                        <option *ngFor="let item of ActiveMSO" [value]="item.serviceId">{{item.serviceProviderName}}
-                        </option>
-                    </select>
-                    <div style="
-                    color: red;
-                    font-size: 12px;
-                    margin-top: 2px;
-                    position: relative;
-                    ;
-                  " *ngIf="serviceId?.invalid && serviceId?.touched && serviceId?.errors?.['required']">
                         Field is required
                     </div>
                 </div>
@@ -90,7 +93,7 @@
 
                 <div class="col-6 form-group ">
                     <label for="Entity Name">Bouquet Price</label>
-                    <input type="text" id="Entity Name"  formControlName="amount" class="form-control">
+                    <input type="text" id="Entity Name" formControlName="amount" class="form-control">
                     <div style="
                     color: red;
                     font-size: 12px;
@@ -108,12 +111,12 @@
                     position: relative;
                     ;
                   " *ngIf="amount?.invalid && amount?.touched && amount?.errors?.['pattern']">
-                                         Only positive numbers are allowed
-                                     </div>
+                        Only positive numbers are allowed
+                    </div>
 
-                    
 
-                    
+
+
                 </div>
             </div>
 
@@ -142,7 +145,7 @@
                     </div>
                 </div> -->
 
-              
+
             </div>
 
             <div style="margin-top: 2%;">

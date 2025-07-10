@@ -94,14 +94,14 @@ export class EntityQrcodeComponent implements OnInit {
   //   })
   // }
 
- viewQr(id: any, id2: any) {
-  this.MerchantView.QRImageView(id).subscribe((res: Blob) => {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const dataUrl = reader.result as string;
+  viewQr(id: any, id2: any) {
+    this.MerchantView.QRImageView(id).subscribe((res: Blob) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const dataUrl = reader.result as string;
 
-      // Create HTML content with the image and download link
-      const htmlContent = `
+        // Create HTML content with the image and download link
+        const htmlContent = `
         <html>
           <body style="margin: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;">
             <img src="${dataUrl}" style="max-width: 100%; max-height: 80vh; object-fit: contain;" />
@@ -116,14 +116,14 @@ export class EntityQrcodeComponent implements OnInit {
         </html>
       `;
 
-      // Create a Blob and open it as a URL
-      const blob = new Blob([htmlContent], { type: 'text/html' });
-      const blobUrl = URL.createObjectURL(blob);
-      window.open(blobUrl); // Image persists even on refresh
-    };
-    reader.readAsDataURL(res);
-  });
-}
+        // Create a Blob and open it as a URL
+        const blob = new Blob([htmlContent], { type: 'text/html' });
+        const blobUrl = URL.createObjectURL(blob);
+        window.open(blobUrl); // Image persists even on refresh
+      };
+      reader.readAsDataURL(res);
+    });
+  }
 
   QRlink(id: any) {
     const dialogRef = this.dialog.open(QRcreationComponent, {

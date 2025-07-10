@@ -23,6 +23,7 @@ export class BouquetsViewallComponent implements OnInit {
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = [
     'bouquetId',
+    "MSO",
     'broadCasterName',
     'bouquetName',
     'amount',
@@ -78,7 +79,7 @@ export class BouquetsViewallComponent implements OnInit {
   valuebouquetesStatus: any;
   valuebouquetesView: any;
   valuebouquetesEdit: any;
-  searchPerformed: boolean=false;
+  searchPerformed: boolean = false;
 
   constructor(
     public Bouquetviewall: FarginServiceService,
@@ -133,22 +134,20 @@ export class BouquetsViewallComponent implements OnInit {
 
 
     this.Bouquetviewall.BroadcasterBoucateviewall().subscribe((res: any) => {
-      if(res.flag==1)
-        {
-          this.viewall = res.response;
-          this.viewall.reverse();
-          this.dataSource = new MatTableDataSource(this.viewall);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-        }
-        else if(res.flag==2)
-        {
-          this.viewall = [];
-          this.dataSource = new MatTableDataSource(this.viewall.reverse());
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        }
+      if (res.flag == 1) {
+        this.viewall = res.response;
+        this.viewall.reverse();
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+      }
+      else if (res.flag == 2) {
+        this.viewall = [];
+        this.dataSource = new MatTableDataSource(this.viewall.reverse());
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
 
     });
 
@@ -163,22 +162,20 @@ export class BouquetsViewallComponent implements OnInit {
 
   reload() {
     this.Bouquetviewall.BroadcasterBoucateviewall().subscribe((res: any) => {
-      if(res.flag==1)
-        {
-          this.viewall = res.response;
-          this.viewall.reverse();
-          this.dataSource = new MatTableDataSource(this.viewall);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-        }
-        else if(res.flag==2)
-        {
-          this.viewall = [];
-          this.dataSource = new MatTableDataSource(this.viewall.reverse());
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        }
+      if (res.flag == 1) {
+        this.viewall = res.response;
+        this.viewall.reverse();
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+      }
+      else if (res.flag == 2) {
+        this.viewall = [];
+        this.dataSource = new MatTableDataSource(this.viewall.reverse());
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
 
     });
   }
@@ -195,25 +192,22 @@ export class BouquetsViewallComponent implements OnInit {
 
     });
   }
-  fetch()
-  {
+  fetch() {
     this.Bouquetviewall.BroadcasterBoucateviewall().subscribe((res: any) => {
-      if(res.flag==1)
-        {
-          this.viewall = res.response;
-          this.viewall.reverse();
-          this.dataSource = new MatTableDataSource(this.viewall);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-        }
-        else if(res.flag==2)
-        {
-          this.viewall = [];
-          this.dataSource = new MatTableDataSource(this.viewall.reverse());
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        }
+      if (res.flag == 1) {
+        this.viewall = res.response;
+        this.viewall.reverse();
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+      }
+      else if (res.flag == 2) {
+        this.viewall = [];
+        this.dataSource = new MatTableDataSource(this.viewall.reverse());
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
 
     });
   }
@@ -257,7 +251,7 @@ export class BouquetsViewallComponent implements OnInit {
             this.perValueArray.push(value)
           }
 
-          const dialogRef =   this.dialog.open(BouqetsEditComponent, {
+          const dialogRef = this.dialog.open(BouqetsEditComponent, {
             data: { per: this.perValueArray, bouquet: this.bouquet, creation: this.creation, services: this.services, broadCasterRegionsss: this.broadCasterRegionsss, broadCasterAlcotsss: this.broadCasterAlcotsss, amount: this.amount, valueid: this.valueid },
             disableClose: true,
             enterAnimationDuration: '1000ms',
@@ -266,7 +260,7 @@ export class BouquetsViewallComponent implements OnInit {
           dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
 
             this.fetch();
-      
+
           });
         } else if (res.flag == 2) {
 
@@ -306,36 +300,31 @@ export class BouquetsViewallComponent implements OnInit {
 
 
   ActiveStatus(event: MatSlideToggleChange, id: any) {
-
     this.isChecked = event.checked;
-
     let submitModel: BroadcasterBouquetStatus = {
       status: this.isChecked ? 1 : 0,
       bouquteId: id
     };
     this.Bouquetviewall.BroadcasterBoucateStatus(submitModel).subscribe((res: any) => {
-
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         setTimeout(() => {
           this.Bouquetviewall.BroadcasterBoucateviewall().subscribe((res: any) => {
-            if(res.flag==1)
-              {
-                this.viewall = res.response;
-                this.viewall.reverse();
-                this.dataSource = new MatTableDataSource(this.viewall);
-                this.dataSource.sort = this.sort;
-                this.dataSource.paginator = this.paginator;
-                this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-              }
-              else if(res.flag==2)
-              {
-                this.viewall = [];
-                this.dataSource = new MatTableDataSource(this.viewall.reverse());
-                this.dataSource.sort = this.sort;
-                this.dataSource.paginator = this.paginator;
-              }
-      
+            if (res.flag == 1) {
+              this.viewall = res.response;
+              this.viewall.reverse();
+              this.dataSource = new MatTableDataSource(this.viewall);
+              this.dataSource.sort = this.sort;
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+            }
+            else if (res.flag == 2) {
+              this.viewall = [];
+              this.dataSource = new MatTableDataSource(this.viewall.reverse());
+              this.dataSource.sort = this.sort;
+              this.dataSource.paginator = this.paginator;
+            }
+
           });
         }, 500);
       }
@@ -343,23 +332,21 @@ export class BouquetsViewallComponent implements OnInit {
         this.toastr.error(res.responseMessage);
         setTimeout(() => {
           this.Bouquetviewall.BroadcasterBoucateviewall().subscribe((res: any) => {
-            if(res.flag==1)
-              {
-                this.viewall = res.response;
-                this.viewall.reverse();
-                this.dataSource = new MatTableDataSource(this.viewall);
-                this.dataSource.sort = this.sort;
-                this.dataSource.paginator = this.paginator;
-                this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-              }
-              else if(res.flag==2)
-              {
-                this.viewall = [];
-                this.dataSource = new MatTableDataSource(this.viewall.reverse());
-                this.dataSource.sort = this.sort;
-                this.dataSource.paginator = this.paginator;
-              }
-      
+            if (res.flag == 1) {
+              this.viewall = res.response;
+              this.viewall.reverse();
+              this.dataSource = new MatTableDataSource(this.viewall);
+              this.dataSource.sort = this.sort;
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
+            }
+            else if (res.flag == 2) {
+              this.viewall = [];
+              this.dataSource = new MatTableDataSource(this.viewall.reverse());
+              this.dataSource.sort = this.sort;
+              this.dataSource.paginator = this.paginator;
+            }
+
           });
         }, 500);
       }
@@ -379,6 +366,7 @@ export class BouquetsViewallComponent implements OnInit {
       // this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
       this.response = [];
       this.response.push(sno);
+      this.response.push(element?.serviceProvider.serviceProviderName);
       this.response.push(element?.bundleChannel.broadCasterName);
       this.response.push(element?.bouquetCreation.bouquetName);
       this.response.push(element?.amount);
@@ -401,6 +389,7 @@ export class BouquetsViewallComponent implements OnInit {
     // const title='Business Category';
     const header = [
       "S.No",
+      "MSO",
       "Broadcaster Name",
       "Broadcaster Plan Name",
       "Plan Amount",
@@ -443,6 +432,7 @@ export class BouquetsViewallComponent implements OnInit {
       let qty2 = row.getCell(3);
       let qty3 = row.getCell(4);
       let qty4 = row.getCell(5);
+      let qty5 = row.getCell(6);
 
 
 
@@ -451,6 +441,7 @@ export class BouquetsViewallComponent implements OnInit {
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty3.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
 
     }
     );

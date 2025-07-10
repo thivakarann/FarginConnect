@@ -19,8 +19,8 @@ export class AddExtraChannelsComponent implements OnInit {
   myForm!: FormGroup;
   @ViewChild('select') select: any = MatSelect;
   allSelected = false;
-  broadCasterRegionId:any;
-  regionid:any;
+  broadCasterRegionId: any;
+  regionid: any;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
   constructor(
     public AddExtra: FarginServiceService,
@@ -34,32 +34,17 @@ export class AddExtraChannelsComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.data.value;
     this.broadCasterRegionId = this.data.value1;
-    this.regionid=this.data.value2
-
-    console.log(this.broadCasterRegionId)
-    
-
-    // this.AddExtra.ActiveAlcards().subscribe((res: any) => {
-    //   this.channelslist = res.response;
-    //      });
-
-
-          this.AddExtra.AlcartChannelregions(this.regionid).subscribe((res:any)=>{
-        if(res.flag==1)
-        {
-      
-            this.channelslist = res.response;
-           
-        }
-        else
-        {
-          this.allSelected = false
-    this.alcotChannel?.reset()
-    this.channelslist = null
-    
-     
-        }
-        })
+    this.regionid = this.data.value2;
+    this.AddExtra.AlcartChannelregions(this.regionid).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.channelslist = res.response;
+      }
+      else {
+        this.allSelected = false
+        this.alcotChannel?.reset()
+        this.channelslist = null
+      }
+    })
 
     this.myForm = new FormGroup({
       alcotChannel: new FormControl('', Validators.required),
@@ -85,15 +70,12 @@ export class AddExtraChannelsComponent implements OnInit {
       boqId: this.id,
       broadCasterRegionId: this.broadCasterRegionId
     }
-    
     this.AddExtra.AddExtraChannelsforBouquete(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
-      
       }
-
       else {
         this.toastr.error(res.responseMessage)
       }

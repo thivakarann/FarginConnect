@@ -329,7 +329,7 @@
           <th [hidden]="valuerefundexport!=='Online Refunds-Check Status'" mat-header-cell *matHeaderCellDef
             style="text-align: left; padding-left: 32px">
             <input type="checkbox" [(ngModel)]="selectAllAdditional" (change)="toggleAllAdditional()"
-              [disabled]="isAllPaidAdd()" title="Select All" />&nbsp; Check Status
+              [disabled]="isAllPaidAdd2()" title="Select All" />&nbsp; Check Status
 
           </th>
           <td [hidden]="valuerefundexport!=='Online Refunds-Check Status'" mat-cell *matCellDef="let data"

@@ -1603,3 +1603,8 @@ export interface dueCumulativeRefunds {
 export interface additionalCumulativeRefunds {
   readonly refundId: any;
 }
+
+export interface msoregionstatus {
+  readonly status:any;
+  readonly broadCasterRegionId:any;
+}

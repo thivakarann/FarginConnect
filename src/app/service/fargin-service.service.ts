@@ -266,18 +266,17 @@ export class FarginServiceService {
   private readonly Bouquetadd = 'broadCaster/add';
   private readonly Bouquetsviewbyid = 'broadCaster/getById/';
   private readonly Bouquetsviewbyidregion = 'broadCaster/getByregions/'; //NEW for region view
-  private readonly Bouquetsviewbyidchannel =
-    'broadCaster/viewChannelsByRegions/'; //for channel view
+  private readonly Bouquetsviewbyidchannel ='broadCaster/viewChannelsByRegions/'; //for channel view
   private readonly Bouquetstatus = 'broadCaster/updateStatus';
   private readonly ActiveBouqutes = 'broadCaster/viewOnlyActive';
   private readonly bouquetEdit = 'broadCaster/updateBroadCaster';
   private readonly BroadcasterBoucatesRegionEdits = 'broadCaster/updateRegion';
-  private readonly BroadcasterBoucateschannelEdits =
-    'broadCaster/updateAlcotChannel';
+  private readonly BroadcasterBoucateschannelEdits ='broadCaster/updateAlcotChannel';
   private readonly bouquetesinglestatus = 'broadCaster/updateChannelStatus';
   private readonly AddChannelsbyBouquete = 'broadCaster/addextraChannel';
   private readonly bouquetsextraregions = 'broadCaster/addExtraRegion';
   private readonly bouquetchanneledit = 'broadCaster/getByAlcotId/';
+  private readonly Bouquetmsoregionstatus = 'broadCaster/updateRegionStatus'
 
   // DPO Bouquete Creation
 
@@ -2177,6 +2176,9 @@ export class FarginServiceService {
       `${this.basePath}${this.Bouquetsviewbyidregion}${id}`,
       this.options
     );
+  }
+  Broadcastermsoregion(model:any){
+    return this.http.put(`${this.basePath}${this.Bouquetmsoregionstatus}`,model,this.options)
   }
 
   BroadcasterBoucatebyidchannel(id: any) {

@@ -17,7 +17,7 @@
 </div>
 
 <div class="row d-flex justify-content-start mt-1" [hidden]="valueqrgenerator !== 'Entity View QR-Generate'">
-  <div class="col-2" [hidden]="detaislone?.qrGenerateLink != null">
+  <div class="col-1" [hidden]="detaislone?.qrGenerateLink != null">
     <button style="
         color: white;
         background-color: #141e46;
@@ -26,10 +26,17 @@
       " mat-raised-button (click)="QRlink(this.id)">
       Generate
     </button>
+
+  </div>&nbsp;&nbsp;&nbsp;&nbsp;
+  <div class="col-1">
+    <button (click)="Getall()" class="refresh-btn">
+      <i class="fa fa-refresh"></i>
+    </button>
   </div>
+
 </div>
 
-<div class="row mt-4">
+<div class="row mt-2">
   <div class="col-12 mb-3 mb-lg-5">
     <div class="card table-nowrap table-card">
       <div class="table-responsive text-nowrap text-center" style="scrollbar-width: thin;">
@@ -52,9 +59,10 @@
             <td>{{ detaislone?.entityName || "--" }}</td>
             <td>{{ detaislone?.qrReference || "--" }}</td>
             <td>
-              <a [hidden]="detaislone?.qrGenerateLink ==null || detaislone?.qrGenerateLink =='null'" style="color: blue" target="_blank" href="{{detaislone?.qrGenerateLink}}">{{
+              <a [hidden]="detaislone?.qrGenerateLink ==null || detaislone?.qrGenerateLink =='null'" style="color: blue"
+                target="_blank" href="{{detaislone?.qrGenerateLink}}">{{
                 detaislone?.qrGenerateLink}}</a>
-                <span  [hidden]="detaislone?.qrGenerateLink !=null || detaislone?.qrGenerateLink !='null'">-</span>
+              <span [hidden]="detaislone?.qrGenerateLink !=null || detaislone?.qrGenerateLink !='null'">-</span>
             </td>
             <td>{{ detaislone?.qrCreatedBy || "--" }}</td>
             <td>
@@ -64,7 +72,7 @@
               <i class="fa-solid fa-qrcode" style="font-size: 19px; color: rgb(39, 39, 95);padding:0px"
                 (click)="viewQr(this.id,detaislone?.qrReference)" [hidden]="detaislone?.qrGenerateLink == null"></i>
             </td>
-            <td [hidden]="valueqredit !== 'Entity View QR-Edit'">
+            <td [hidden]="valueqredit !== 'Entity View QR-Edit' || detaislone?.qrGenerateLink == null " >
               <i style="padding:0px" class="fas fa-edit" (click)="QRlink(this.id)"></i>
             </td>
           </tbody>
