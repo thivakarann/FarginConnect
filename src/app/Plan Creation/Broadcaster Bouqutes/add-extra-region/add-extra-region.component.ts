@@ -90,7 +90,7 @@ export class AddExtraRegionComponent implements OnInit {
     let submitModel: ExtraRegion = {
       boqId: this.id,
       regionId: this.regionId?.value,
-      alcotChannel: [this.alcotChannel?.value]
+      alcotChannel: this.alcotChannel?.value
     }
     this.AddExtra.BouquetsRegion(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {

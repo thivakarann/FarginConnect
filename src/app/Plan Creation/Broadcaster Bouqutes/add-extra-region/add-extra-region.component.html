@@ -47,14 +47,16 @@
         
                     </mat-option>
                 </mat-select> -->
-                    <select style="width: 467px;" formControlName="alcotChannel" id="Entity Name"
-                        class="form-control form-select">
+                    <mat-select #select style="font-size: 12px;" class="form-select" multiple
+                        formControlName="alcotChannel">
+                        <div class="select-all">
+                            <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
+                                (change)="toggleAllSelection()">Select All</mat-checkbox>
+                        </div>
+                        <mat-option [value]="items.alcotId" *ngFor="let items of channelslist">
+                            {{items?.region?.stateName }} - {{ items?.channelName }}</mat-option>
+                    </mat-select>
 
-                        <option *ngFor="let item of channelslist" [value]="item.alcotId">
-                            {{item?.region?.stateName }} - {{ item?.channelName }}
-                        </option>
-
-                    </select>
                     <div style="
                 color: red;
                 font-size: 12px;

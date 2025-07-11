@@ -737,29 +737,29 @@
             Enter a Valid Account Number
           </div>
         </div>
- <div class="col-sm-4 form-group">
+        <div class="col-sm-4 form-group">
           <label for="state">Type Mode</label>
-          <select class="form-control form-select"  id="types" formControlName="typemode">
-                        <option value="" disabled hidden>Select All</option>
-                         <option value="Online">Online</option>
-                          <option value="Offline">Offline</option>
-                    </select>
-                    <div style="
+          <select class="form-control form-select" id="types" formControlName="typemode">
+            <option value="" disabled hidden>Select All</option>
+            <option value="Online">Online</option>
+            <option value="Offline">Offline</option>
+          </select>
+          <div style="
                     color: red;
                     font-size: 12px;
                     margin-top: 2px;
                     position: relative;
                     ;
                   " *ngIf="typemode?.invalid && typemode?.touched && typemode?.errors?.['required']">
-                        Field is required
-                    </div>
-          
+            Field is required
+          </div>
+
         </div>
 
 
       </div>
       <div class="row mb-3">
-        
+
         <div class="col-sm-4 form-group">
           <label for="Bussiness category">Account Type</label>
           <select formControlName="accountType" id="Bussiness category" class="form-control form-select">
@@ -821,7 +821,7 @@
             Maximum length should be 100
           </div>
         </div>
-         <div class="col-sm-4 form-group">
+        <div class="col-sm-4 form-group">
           <label for="Entity Name">IFSC Code</label>
           <input type="text" id="Entity Name" formControlName="ifscCode" class="form-control" />
           <div style="
@@ -841,9 +841,36 @@
             Enter a Valid IFSC Code
           </div>
         </div>
+          <div class="col-sm-4 form-group">
+          <label for="state" class="form__label">PG Ledger ID (Optional)</label>
+          <input
+            type="text"
+            formControlName="ledgerId"
+            id="state"
+            class="form-control"
+          />
+
+          <!-- <div style="color: red; font-size: 12px; margin-top: 2px;"
+                    *ngIf="ledgerId?.invalid && ledgerId?.touched && ledgerId?.errors?.['pattern']">
+                    Must be exactly 4 digits and only numbers are allowed.
+                </div> -->
+          <!-- <div
+            style="color: red; font-size: 12px; margin-top: 2px"
+            *ngIf="ledgerId?.invalid && ledgerId?.touched && ledgerId?.errors?.['required']"
+          >
+            Field is required
+          </div> -->
+
+          <div
+            style="color: red; font-size: 12px; margin-top: 2px"
+            *ngIf="ledgerId?.invalid && ledgerId?.errors?.['pattern']"
+          >
+            Only Numbers are Allowed (Upto 15 Digits)
+          </div>
+        </div>
       </div>
       <div class="row">
-       
+
       </div>
       <div>
         <button (click)="BankSubmit()" [disabled]="myForm2.invalid" type="submit" class="btn mx-1"

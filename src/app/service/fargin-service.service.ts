@@ -266,6 +266,7 @@ export class FarginServiceService {
   private readonly Bouquetadd = 'broadCaster/add';
   private readonly Bouquetsviewbyid = 'broadCaster/getById/';
   private readonly Bouquetsviewbyidregion = 'broadCaster/getByregions/'; //NEW for region view
+  private readonly Bouquetsviewbyidregionall = 'broadCaster/getAllByregions/'
   private readonly Bouquetsviewbyidchannel ='broadCaster/viewChannelsByRegions/'; //for channel view
   private readonly Bouquetstatus = 'broadCaster/updateStatus';
   private readonly ActiveBouqutes = 'broadCaster/viewOnlyActive';
@@ -2177,6 +2178,12 @@ export class FarginServiceService {
       this.options
     );
   }
+
+  BroadcasterBoucatebyidregionall(id:any){
+    return this.http.get(`${this.basePath}${this.Bouquetsviewbyidregionall}${id}`,this.options)
+  }
+
+
   Broadcastermsoregion(model:any){
     return this.http.put(`${this.basePath}${this.Bouquetmsoregionstatus}`,model,this.options)
   }

@@ -69,7 +69,7 @@ export class BouqutesRegionComponent {
       this.id = param.Alldata;
 
     });
-    this.viewdetails.BroadcasterBoucatebyidregion(this.id).subscribe((res: any) => {
+    this.viewdetails.BroadcasterBoucatebyidregionall(this.id).subscribe((res: any) => {
       if (res.response && res.response.length > 0) {
         res.response.forEach((item: any) => {
         });
