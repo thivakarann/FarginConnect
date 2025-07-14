@@ -173,7 +173,7 @@ export class BouqutesRegionComponent {
   }
 
   fetch() {
-    this.viewdetails.BroadcasterBoucatebyidregion(this.id).subscribe((res: any) => {
+    this.viewdetails.BroadcasterBoucatebyidregionall(this.id).subscribe((res: any) => {
 
       if (res.response && res.response.length > 0) {
         // Loop through the response and log each broadCasterRegionId
