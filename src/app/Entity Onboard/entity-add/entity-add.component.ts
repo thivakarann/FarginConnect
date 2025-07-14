@@ -252,7 +252,7 @@ export class EntityAddComponent implements OnInit {
       ledgerId: new FormControl('', [Validators.pattern(/^\d{1,15}$/)]),
       typemode: new FormControl('', [
         Validators.required,
-    
+
       ]),
     });
 
@@ -316,6 +316,22 @@ export class EntityAddComponent implements OnInit {
       }
     );
   }
+
+  cloudFeeEnableChange(event: Event) {
+    const value = (event.target as HTMLSelectElement)?.value;
+    const autoDebitControl = this.myForm.get('autoDebitStatus');
+    if (value === 'No') {
+      this.myForm.get('autoDebitStatus')?.setValue('0');
+      autoDebitControl?.disable();
+    }
+    else if (value === 'Yes') {
+      this.myForm.get('autoDebitStatus')?.setValue(null);
+      autoDebitControl?.reset();
+      autoDebitControl?.enable();
+    }
+  }
+
+
 
   // First Form
 

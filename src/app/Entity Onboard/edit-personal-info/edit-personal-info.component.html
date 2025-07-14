@@ -595,7 +595,7 @@
 
                 <div class="col-sm-4 form-group">
                     <label for="fee">Cloud Fee Applicable</label>
-                    <select ngModel="{{detaislone?.cloudFeeEnable}}" formControlName="cloudFeeEnable" type="text"
+                    <select ngModel="{{detaislone?.cloudFeeEnable}}" formControlName="cloudFeeEnable" (change)="cloudFeeEnableChange($event)" type="text"
                         class="form-select" id="fee">
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>

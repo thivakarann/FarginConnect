@@ -495,7 +495,8 @@
         </div>
         <div class="col-sm-4 form-group">
           <label for="billing">Cloud Fee Applicable</label>
-          <select formControlName="cloudFeeEnable" type="text" class="form-select" id="billing">
+          <select formControlName="cloudFeeEnable" (change)="cloudFeeEnableChange($event)" type="text" class="form-select"
+            id="billing">
             <option value="Yes">Yes</option>
             <option value="No">No</option>
           </select>
@@ -841,14 +842,9 @@
             Enter a Valid IFSC Code
           </div>
         </div>
-          <div class="col-sm-4 form-group">
+        <div class="col-sm-4 form-group">
           <label for="state" class="form__label">PG Ledger ID (Optional)</label>
-          <input
-            type="text"
-            formControlName="ledgerId"
-            id="state"
-            class="form-control"
-          />
+          <input type="text" formControlName="ledgerId" id="state" class="form-control" />
 
           <!-- <div style="color: red; font-size: 12px; margin-top: 2px;"
                     *ngIf="ledgerId?.invalid && ledgerId?.touched && ledgerId?.errors?.['pattern']">
@@ -861,10 +857,8 @@
             Field is required
           </div> -->
 
-          <div
-            style="color: red; font-size: 12px; margin-top: 2px"
-            *ngIf="ledgerId?.invalid && ledgerId?.errors?.['pattern']"
-          >
+          <div style="color: red; font-size: 12px; margin-top: 2px"
+            *ngIf="ledgerId?.invalid && ledgerId?.errors?.['pattern']">
             Only Numbers are Allowed (Upto 15 Digits)
           </div>
         </div>

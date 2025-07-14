@@ -192,6 +192,20 @@ export class EditPersonalInfoComponent implements OnInit {
     });
   }
 
+  cloudFeeEnableChange(event: Event) {
+    const value = (event.target as HTMLSelectElement)?.value;
+    const autoDebitControl = this.myForm.get('autoDebitStatus');
+    if (value === 'No') {
+      this.myForm.get('autoDebitStatus')?.setValue('0');
+      autoDebitControl?.disable();
+    }
+    else if (value === 'Yes') {
+      this.myForm.get('autoDebitStatus')?.setValue(this.detaislone?.autoDebitStatus);
+      // autoDebitControl?.reset();
+      autoDebitControl?.enable();
+    }
+  }
+
   // First Form
 
   get entityName() {
