@@ -13,7 +13,7 @@ export class SessionServiceService {
   private lastAction: number = Date.now();
   private isLoggedInFlag: boolean = true; // Track user authentication status
 
-  constructor(private router: Router, private location: Location,private dialog:MatDialog) {
+  constructor(private router: Router, private location: Location, private dialog: MatDialog) {
     this.initTimer();
     this.initListener();
     this.initRouterListener();
@@ -24,9 +24,8 @@ export class SessionServiceService {
       const now = Date.now();
       const timeLeft = this.lastAction + this.timeoutInMinutes * 60 * 1000 - now;
       // console.log("timeLeft"+timeLeft)
-      // 
       if (timeLeft < 0) {
-        this.logout(); // Timeout reached, log out the user
+        this.logout();
       }
     }, 1000);
   }
@@ -57,9 +56,9 @@ export class SessionServiceService {
     clearInterval(this.timer);
     this.clearHistoryAndNavigateToLogin();
     this.isLoggedInFlag = false; // Set authentication flag to false;
-    // setTimeout(() => {
-    //   window.location.reload();
-    // },10);
+    setTimeout(() => {
+      window.location.reload();
+    },10);
 
 
   }
