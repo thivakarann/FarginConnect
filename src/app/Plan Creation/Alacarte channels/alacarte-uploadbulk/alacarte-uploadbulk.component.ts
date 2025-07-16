@@ -24,7 +24,7 @@ export class AlacarteUploadbulkComponent {
     private service: FarginServiceService,
     private toastr: ToastrService,
     private fb: FormBuilder
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.formGroup = this.fb.group({
       uploadFile: ['', Validators.required],
@@ -116,7 +116,7 @@ export class AlacarteUploadbulkComponent {
           channelNo: String(row.channelNo || '').trim(),
           generic: String(row.generic || '').trim(),
           language: String(row.language || '').trim(),
-          channelType: row.channelType=='Paid'?1:row.channelType=='Free'?0:'',
+          channelType: row.channelType == 'Paid' ? 1 : row.channelType == 'Free' ? 0 : '',
           price: row.price || '',
         };
       });
@@ -133,35 +133,35 @@ export class AlacarteUploadbulkComponent {
   submit() {
     if (this.arrayExcel.length) {
       this.service
-      .AlcartUploadbulk(this.getadminname, this.arrayExcel)
-      .then((res: any) => {
-        this.uploadFiles = res.responseMessage;
-        if (res.flag == 1) {
-          // this.toastr.success(res.responseMessage);
-          this.bankDetailsUpdated.emit();
+        .AlcartUploadbulk(this.getadminname, this.arrayExcel)
+        .then((res: any) => {
+          this.uploadFiles = res.responseMessage;
+          if (res.flag == 1) {
+            // this.toastr.success(res.responseMessage);
+            this.bankDetailsUpdated.emit();
+            this.dialog.closeAll();
+            this.BulkUploadResponse();
+          } else {
+            this.toastr.error(res.responseMessage);
+            this.dialog.closeAll();
+          }
+        })
+        .catch(() => {
+          this.toastr.error('Something went wrong.');
           this.dialog.closeAll();
-          this.BulkUploadResponse();
-        } else {
-          this.toastr.error(res.responseMessage);
-          this.dialog.closeAll();
-        }
-      })
-      .catch(() => {
-        this.toastr.error('Something went wrong.');
-        this.dialog.closeAll();
-      });
+        });
     }
   }
 
   close() {
     this.dialog.closeAll();
   }
-   BulkUploadResponse(){
-    this.dialog.open(AlacarteBulkuploadinfoComponent,{
-      enterAnimationDuration:'500ms',
-      exitAnimationDuration:"5ooms",
-      disableClose:true,
-      
+  BulkUploadResponse() {
+    this.dialog.open(AlacarteBulkuploadinfoComponent, {
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: "5ooms",
+      disableClose: true,
+
     })
   }
 

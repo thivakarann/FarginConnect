@@ -24,8 +24,8 @@ export class BouquetsViewallComponent implements OnInit {
   displayedColumns: string[] = [
     'bouquetId',
     "MSO",
-    'broadCasterName',
     'bouquetName',
+    'broadCasterName',
     'amount',
     'status',
     'Edit',
