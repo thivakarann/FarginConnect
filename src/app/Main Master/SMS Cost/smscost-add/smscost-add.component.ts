@@ -23,8 +23,11 @@ export class SMScostAddComponent {
     private dialog: MatDialog
   ) {
     const today = new Date();
-    today.setDate(today.getDate() + 1); // Moves to tomorrow
-    this.minDate = today.toISOString().split("T")[0];
+    // today.setDate(today.getDate() + 1);
+    // this.minDate = today.toISOString().split("T")[0];
+
+    const now = new Date();
+    this.minDate = now.toISOString().split('T')[0];
   }
 
   ngOnInit(): void {

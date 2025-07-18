@@ -37,18 +37,18 @@ export class EntityKyceditComponent implements OnInit {
   eighteenYearsAgo: Date;
   getadminname: any = JSON.parse(sessionStorage.getItem('adminname') || '');
   @Output() bankDetailsUpdated = new EventEmitter<void>();
-  Hidden: boolean=false;
-  Hidden2: boolean=false;
-  Hidden3: boolean=false;
-  Hidden4: boolean=false;
-  Hidden5: boolean=false;
-  Hidden6: boolean=false;
-   Hidden7: boolean=false;
-  Hidden8: boolean=false;
-  Hidden9: boolean=false;
-    Hidden10: boolean=false;
-  Hidden11: boolean=false;
-  Hidden12: boolean=false;
+  Hidden: boolean = false;
+  Hidden2: boolean = false;
+  Hidden3: boolean = false;
+  Hidden4: boolean = false;
+  Hidden5: boolean = false;
+  Hidden6: boolean = false;
+  Hidden7: boolean = false;
+  Hidden8: boolean = false;
+  Hidden9: boolean = false;
+  Hidden10: boolean = false;
+  Hidden11: boolean = false;
+  Hidden12: boolean = false;
   constructor(
     public service: FarginServiceService,
     private toastr: ToastrService,
@@ -78,7 +78,7 @@ export class EntityKyceditComponent implements OnInit {
     this.signatureProofNovalue = this.data.value1.signatureProofNo;
 
 
-    
+
 
 
     this.KycIdentityForm = this.fb.group({
@@ -106,155 +106,140 @@ export class EntityKyceditComponent implements OnInit {
       drivingLicenceDobss: [this.data.value1.drivingLicenceDob],
       passportDobss: [this.data.value1.passportDob],
     });
-this.updateSelectOptions();
-this.updateSelectOptionsfordriving();
-this.updateSelectOptionsforaadhar();
-this.updateSelectOptionsforpan();
-this.updateSelectOptionsvoterid();
+    this.updateSelectOptions();
+    this.updateSelectOptionsfordriving();
+    this.updateSelectOptionsforaadhar();
+    this.updateSelectOptionsforpan();
+    this.updateSelectOptionsvoterid();
 
- if(this.value1==1)
-  {
-    if(this.data.value1.identityProof=='Aadhar Card')
-    {
-       const identityProofNoControl = this.KycIdentityForm.get('identityProofNo');
-    identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[0-9]{12}$")]);
-    }
-    else if(this.data.value1.identityProof=='Pancard')
-    {
+    if (this.value1 == 1) {
+      if (this.data.value1.identityProof == 'Aadhar Card') {
         const identityProofNoControl = this.KycIdentityForm.get('identityProofNo');
-           identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{5}[0-9]{4}[A-Z]$")]);
-    }
-    else if(this.data.value1.identityProof=='Voter Id Proof')
-    {
-              const identityProofNoControl = this.KycIdentityForm.get('identityProofNo');
-      identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]);
-    }
-    else if(this.data.value1.identityProof=='Passport')
-    {
-       const identityProofNoControl = this.KycIdentityForm.get('identityProofNo');
+        identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[0-9]{12}$")]);
+      }
+      else if (this.data.value1.identityProof == 'Pancard') {
+        const identityProofNoControl = this.KycIdentityForm.get('identityProofNo');
+        identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{5}[0-9]{4}[A-Z]$")]);
+      }
+      else if (this.data.value1.identityProof == 'Voter Id Proof') {
+        const identityProofNoControl = this.KycIdentityForm.get('identityProofNo');
+        identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]);
+      }
+      else if (this.data.value1.identityProof == 'Passport') {
+        const identityProofNoControl = this.KycIdentityForm.get('identityProofNo');
         identityProofNoControl?.setValidators([
-        Validators.required,
-        Validators.pattern('^[A-Z]{2}[0-9]{2}[0-9]{11}$'),
-      ]);
-    }
-    else if(this.data.value1.identityProof=='Driving License')
-    {
-      const identityProofNoControl = this.KycIdentityForm.get('identityProofNo');
-            identityProofNoControl?.setValidators([Validators.required]);
-    }
-  }
-
-   if(this.value1==2)
-  {
-    if(this.data.value1.addressProof=='Aadhar Card')
-    {
-          const addressProofNoControl = this.KycAddressForm.get('addressProofNo');
-      addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[0-9]{12}$")]);
+          Validators.required,
+          Validators.pattern('^[A-Z]{2}[0-9]{2}[0-9]{11}$'),
+        ]);
+      }
+      else if (this.data.value1.identityProof == 'Driving License') {
+        const identityProofNoControl = this.KycIdentityForm.get('identityProofNo');
+        identityProofNoControl?.setValidators([Validators.required]);
+      }
     }
 
-    else if(this.data.value1.addressProof=='Voter Id Proof')
-    {
-          const addressProofNoControl = this.KycAddressForm.get('addressProofNo');
-      addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]);
-    }
-    else if(this.data.value1.addressProof=='Passport')
-    {
-     const addressProofNoControl = this.KycAddressForm.get('addressProofNo');
-            addressProofNoControl?.setValidators([Validators.required,  Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]);
-    }
-    else if(this.data.value1.addressProof=='Driving License')
-    {
-     const addressProofNoControl = this.KycAddressForm.get('addressProofNo');
-                 addressProofNoControl?.setValidators([Validators.required]); 
-    }
-  }
-  if(this.value1==3)
-  {
-    if(this.data.value1.signatureProof=='Pancard')
-    {
-            const signatureProofNoControl = this.KycsignatureForm.get('signatureProofNo');
-           signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{5}[0-9]{4}[A-Z]$")]);
-    }
+    if (this.value1 == 2) {
+      if (this.data.value1.addressProof == 'Aadhar Card') {
+        const addressProofNoControl = this.KycAddressForm.get('addressProofNo');
+        addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[0-9]{12}$")]);
+      }
 
-    else if(this.data.value1.signatureProof=='Passport')
-    {
-      const signatureProofNoControl = this.KycsignatureForm.get('signatureProofNo');
-          signatureProofNoControl?.setValidators([Validators.required,  Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]);
+      else if (this.data.value1.addressProof == 'Voter Id Proof') {
+        const addressProofNoControl = this.KycAddressForm.get('addressProofNo');
+        addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]);
+      }
+      else if (this.data.value1.addressProof == 'Passport') {
+        const addressProofNoControl = this.KycAddressForm.get('addressProofNo');
+        addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]);
+      }
+      else if (this.data.value1.addressProof == 'Driving License') {
+        const addressProofNoControl = this.KycAddressForm.get('addressProofNo');
+        addressProofNoControl?.setValidators([Validators.required]);
+      }
     }
-    else if(this.data.value1.signatureProof=='Driving License')
-    {
-       const signatureProofNoControl = this.KycsignatureForm.get('signatureProofNo');
-                     signatureProofNoControl?.setValidators([Validators.required]);  
+    if (this.value1 == 3) {
+      if (this.data.value1.signatureProof == 'Pancard') {
+        const signatureProofNoControl = this.KycsignatureForm.get('signatureProofNo');
+        signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{5}[0-9]{4}[A-Z]$")]);
+      }
+
+      else if (this.data.value1.signatureProof == 'Passport') {
+        const signatureProofNoControl = this.KycsignatureForm.get('signatureProofNo');
+        signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]);
+      }
+      else if (this.data.value1.signatureProof == 'Driving License') {
+        const signatureProofNoControl = this.KycsignatureForm.get('signatureProofNo');
+        signatureProofNoControl?.setValidators([Validators.required]);
+      }
     }
-  }
   }
 
   dateFilter = (d: Date | null): boolean => {
     return d ? d <= this.eighteenYearsAgo : false;
   }
 
- 
 
-updateSelectOptions() {
-  const selectedPassport = this.data.value1?.identityProof === 'Passport' ||
-                           this.data.value1?.addressProof === 'Passport' ||
-                           this.data.value1?.signatureProof === 'Passport';
- 
-  this.Hidden = this.data.value1?.identityProof !== 'Passport' && selectedPassport;
-  this.Hidden2 = this.data.value1?.addressProof !== 'Passport' && selectedPassport;
-  this.Hidden3 = this.data.value1?.signatureProof !== 'Passport' && selectedPassport;
- 
-  console.log("Hidden:", this.Hidden);
-  console.log("Hidden2:", this.Hidden2);
-  console.log("Hidden3:", this.Hidden3);
-}
 
-updateSelectOptionsfordriving() {
-  const selecteddriving = this.data.value1?.identityProof === 'Driving License' ||
-                           this.data.value1?.addressProof === 'Driving License' ||
-                           this.data.value1?.signatureProof === 'Driving License';
- 
-  this.Hidden4 = this.data.value1?.identityProof !== 'Driving License' && selecteddriving;
-  this.Hidden5 = this.data.value1?.addressProof !== 'Driving License' && selecteddriving;
-  this.Hidden6 = this.data.value1?.signatureProof !== 'Driving License' && selecteddriving;
- 
-  console.log("Hidden:", this.Hidden);
-  console.log("Hidden2:", this.Hidden2);
-  console.log("Hidden3:", this.Hidden3);
-}
-updateSelectOptionsforaadhar() {
-  const selectedaadhar = this.data.value1?.identityProof === 'Aadhar Card' ||
-                           this.data.value1?.addressProof === 'Aadhar Card'
- 
-  this.Hidden7 = this.data.value1?.identityProof !== 'Aadhar Card' && selectedaadhar;
-  this.Hidden8 = this.data.value1?.addressProof !== 'Aadhar Card' && selectedaadhar;
- 
-  console.log("Hidden:", this.Hidden);
-  console.log("Hidden2:", this.Hidden2);
-  console.log("Hidden3:", this.Hidden3);
-}
-updateSelectOptionsforpan() {
-  const selectedpan = this.data.value1?.identityProof === 'Pancard' ||
-                           this.data.value1?.signatureProof === 'Pancard'
- 
-  this.Hidden9 = this.data.value1?.identityProof !== 'Pancard' && selectedpan;
-  this.Hidden10 = this.data.value1?.signatureProof !== 'Pancard' && selectedpan;
- 
-  console.log("Hidden:", this.Hidden);
-  console.log("Hidden2:", this.Hidden2);
-  console.log("Hidden3:", this.Hidden3);
-}
-updateSelectOptionsvoterid() {
-  const selectedvoter = this.data.value1?.identityProof === 'Voter Id Proof' ||
-                           this.data.value1?.addressProof === 'Voter Id Proof'
- 
-  this.Hidden11 = this.data.value1?.identityProof !== 'Voter Id Proof' && selectedvoter;
-  this.Hidden12 = this.data.value1?.addressProof !== 'Voter Id Proof' && selectedvoter;
- 
-  console.log("Hidden:", this.Hidden);
-  console.log("Hidden2:", this.Hidden2);
-  console.log("Hidden3:", this.Hidden3);
-}
+  updateSelectOptions() {
+    const selectedPassport = this.data.value1?.identityProof === 'Passport' ||
+      this.data.value1?.addressProof === 'Passport' ||
+      this.data.value1?.signatureProof === 'Passport';
+
+    this.Hidden = this.data.value1?.identityProof !== 'Passport' && selectedPassport;
+    this.Hidden2 = this.data.value1?.addressProof !== 'Passport' && selectedPassport;
+    this.Hidden3 = this.data.value1?.signatureProof !== 'Passport' && selectedPassport;
+
+    console.log("Hidden:", this.Hidden);
+    console.log("Hidden2:", this.Hidden2);
+    console.log("Hidden3:", this.Hidden3);
+  }
+
+  updateSelectOptionsfordriving() {
+    const selecteddriving = this.data.value1?.identityProof === 'Driving License' ||
+      this.data.value1?.addressProof === 'Driving License' ||
+      this.data.value1?.signatureProof === 'Driving License';
+
+    this.Hidden4 = this.data.value1?.identityProof !== 'Driving License' && selecteddriving;
+    this.Hidden5 = this.data.value1?.addressProof !== 'Driving License' && selecteddriving;
+    this.Hidden6 = this.data.value1?.signatureProof !== 'Driving License' && selecteddriving;
+
+    console.log("Hidden:", this.Hidden);
+    console.log("Hidden2:", this.Hidden2);
+    console.log("Hidden3:", this.Hidden3);
+  }
+  updateSelectOptionsforaadhar() {
+    const selectedaadhar = this.data.value1?.identityProof === 'Aadhar Card' ||
+      this.data.value1?.addressProof === 'Aadhar Card'
+
+    this.Hidden7 = this.data.value1?.identityProof !== 'Aadhar Card' && selectedaadhar;
+    this.Hidden8 = this.data.value1?.addressProof !== 'Aadhar Card' && selectedaadhar;
+
+    console.log("Hidden:", this.Hidden);
+    console.log("Hidden2:", this.Hidden2);
+    console.log("Hidden3:", this.Hidden3);
+  }
+  updateSelectOptionsforpan() {
+    const selectedpan = this.data.value1?.identityProof === 'Pancard' ||
+      this.data.value1?.signatureProof === 'Pancard'
+
+    this.Hidden9 = this.data.value1?.identityProof !== 'Pancard' && selectedpan;
+    this.Hidden10 = this.data.value1?.signatureProof !== 'Pancard' && selectedpan;
+
+    console.log("Hidden:", this.Hidden);
+    console.log("Hidden2:", this.Hidden2);
+    console.log("Hidden3:", this.Hidden3);
+  }
+  updateSelectOptionsvoterid() {
+    const selectedvoter = this.data.value1?.identityProof === 'Voter Id Proof' ||
+      this.data.value1?.addressProof === 'Voter Id Proof'
+
+    this.Hidden11 = this.data.value1?.identityProof !== 'Voter Id Proof' && selectedvoter;
+    this.Hidden12 = this.data.value1?.addressProof !== 'Voter Id Proof' && selectedvoter;
+
+    console.log("Hidden:", this.Hidden);
+    console.log("Hidden2:", this.Hidden2);
+    console.log("Hidden3:", this.Hidden3);
+  }
 
   get identityProof() {
     return this.KycIdentityForm.get('identityProof')
@@ -331,7 +316,7 @@ updateSelectOptionsvoterid() {
       identityProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]);
     }
     else if (this.selectElement === 'Passport') {
-   identityProofNoControl?.setValidators([
+      identityProofNoControl?.setValidators([
         Validators.required,
         Validators.pattern('^[A-Z]{2}[0-9]{2}[0-9]{11}$'),
       ]);
@@ -361,7 +346,7 @@ updateSelectOptionsvoterid() {
     const addressProofNoControl2 = this.KycAddressForm.get('drivingLicenceDobs');
 
 
-     if (this.selectElements == 'Passport' || this.selectElements == 'Driving License') {
+    if (this.selectElements == 'Passport' || this.selectElements == 'Driving License') {
       this.PassportDob = ''
       this.DrivingDob = ''
       console.log("PassportDob" + this.PassportDob)
@@ -377,8 +362,8 @@ updateSelectOptionsvoterid() {
 
     // Clear existing validators
     addressProofNoControl?.clearValidators();
-  addressProofNoControl1?.clearValidators();
-  addressProofNoControl2?.clearValidators();
+    addressProofNoControl1?.clearValidators();
+    addressProofNoControl2?.clearValidators();
 
     // Set validators based on the selected address proof
     if (this.selectElements === 'Aadhar Card') {
@@ -386,31 +371,31 @@ updateSelectOptionsvoterid() {
     } else if (this.selectElements === 'Voter Id Proof') {
       addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{3}[0-9]{7}$")]); // Voter ID format
     } else if (this.selectElements === 'Passport') {
-      addressProofNoControl?.setValidators([Validators.required,  Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]);
-     addressProofNoControl1?.setValidators([Validators.required]);
+      addressProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]);
+      addressProofNoControl1?.setValidators([Validators.required]);
       addressProofNoControl2?.clearValidators(); // Passport format
     } else if (this.selectElements === 'Driving License') {
-      addressProofNoControl?.setValidators([Validators.required]); 
+      addressProofNoControl?.setValidators([Validators.required]);
       addressProofNoControl2?.setValidators([Validators.required]);
       addressProofNoControl1?.clearValidators();// Driving license format
     }
 
-     addressProofNoControl?.reset();
-addressProofNoControl1?.reset();
+    addressProofNoControl?.reset();
+    addressProofNoControl1?.reset();
     addressProofNoControl2?.reset();
 
-   addressProofNoControl?.updateValueAndValidity();
-   addressProofNoControl1?.updateValueAndValidity();
-   addressProofNoControl2?.updateValueAndValidity();
+    addressProofNoControl?.updateValueAndValidity();
+    addressProofNoControl1?.updateValueAndValidity();
+    addressProofNoControl2?.updateValueAndValidity();
   }
 
   onasignproof(event: any) {
     this.select = event.target.value;
     const signatureProofNoControl = this.KycsignatureForm.get('signatureProofNo');
-     const signatureProofNoControl1 = this.KycsignatureForm.get('passportDobss');
+    const signatureProofNoControl1 = this.KycsignatureForm.get('passportDobss');
     const signatureProofNoControl2 = this.KycsignatureForm.get('drivingLicenceDobss');
 
-       if (this.select == 'Passport' || this.select == 'Driving License') {
+    if (this.select == 'Passport' || this.select == 'Driving License') {
       this.PassportDob = ''
       this.DrivingDob = ''
       console.log("PassportDob" + this.PassportDob)
@@ -433,22 +418,22 @@ addressProofNoControl1?.reset();
     if (this.select === 'Pancard') {
       signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{5}[0-9]{4}[A-Z]$")]);
     } else if (this.select === 'Passport') {
-      signatureProofNoControl?.setValidators([Validators.required,  Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]);
-       signatureProofNoControl1?.setValidators([Validators.required]);
-    signatureProofNoControl2?.clearValidators(); // Passport format
+      signatureProofNoControl?.setValidators([Validators.required, Validators.pattern("^[A-Z]{2}[0-9]{2}[0-9]{11}$")]);
+      signatureProofNoControl1?.setValidators([Validators.required]);
+      signatureProofNoControl2?.clearValidators(); // Passport format
     } else if (this.select === 'Driving License') {
-      signatureProofNoControl?.setValidators([Validators.required]); 
+      signatureProofNoControl?.setValidators([Validators.required]);
       signatureProofNoControl2?.setValidators([Validators.required]);
       signatureProofNoControl1?.clearValidators();// Driving license format
     }
 
-   signatureProofNoControl?.reset();
-   signatureProofNoControl1?.reset();
+    signatureProofNoControl?.reset();
+    signatureProofNoControl1?.reset();
     signatureProofNoControl2?.reset();
 
     signatureProofNoControl?.updateValueAndValidity();
     signatureProofNoControl1?.updateValueAndValidity();
-   signatureProofNoControl2?.updateValueAndValidity();
+    signatureProofNoControl2?.updateValueAndValidity();
   }
 
 
@@ -527,28 +512,28 @@ addressProofNoControl1?.reset();
     })
 
   }
-handleDateChange() {
-  const control = this.KycIdentityForm.get(
-    this.KycIdentityForm.get('identityProof')?.value === 'Driving License' ? 'drivingLicenceDob' : 'passportDob'
-  );
+  handleDateChange() {
+    const control = this.KycIdentityForm.get(
+      this.KycIdentityForm.get('identityProof')?.value === 'Driving License' ? 'drivingLicenceDob' : 'passportDob'
+    );
 
-  if (!control?.value || control?.value === '') { // If the date is cleared
-    control?.setValue('');  // Set empty string, not null
-    control?.markAsTouched();
-    control?.markAsDirty();
-    control?.setErrors({ required: true });
-  } else {
-    control?.setErrors(null);
+    if (!control?.value || control?.value === '') { // If the date is cleared
+      control?.setValue('');  // Set empty string, not null
+      control?.markAsTouched();
+      control?.markAsDirty();
+      control?.setErrors({ required: true });
+    } else {
+      control?.setErrors(null);
+    }
+
+    control?.updateValueAndValidity();
   }
 
-  control?.updateValueAndValidity();
-}
+  clearData() {
+    console.log(this.drivingLicenceDob.value);
+    console.log(this.DrivingDob);
 
-clearData(){
-  console.log(this.drivingLicenceDob.value);
-  console.log(this.DrivingDob);
-  
-  
-}
+
+  }
 
 }

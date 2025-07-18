@@ -30,10 +30,10 @@ export class KycdocumentViewComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialog: MatDialog,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    
+
     this.id = this.data.value;
     this.flag = this.data.value1;
 
@@ -43,14 +43,14 @@ export class KycdocumentViewComponent implements OnInit {
 
     this.service.getImageview(this.id, this.flag).subscribe({
       next: (res: any) => {
-        const contentType = res.type; 
+        const contentType = res.type;
 
         if (contentType.startsWith('image/')) {
           const reader = new FileReader();
           reader.readAsDataURL(res);
           reader.onloadend = () => {
-            this.imageSrc = reader.result as string; 
-            this.pdfSrc = null; 
+            this.imageSrc = reader.result as string;
+            this.pdfSrc = null;
           };
         } else if (contentType === 'application/pdf') {
           var downloadURL = URL.createObjectURL(res);

@@ -357,6 +357,7 @@ export class AddKycdocumentComponent implements OnInit {
     } else {
       this.toastr.error('No file selected');
     }
+
   }
   onFileSelected2(event: any) {
     this.uploadidentityback = event.target.files[0];
