@@ -82,19 +82,13 @@
 
  .form {
    --input-bg: #FFf;
-   /*  background of input */
    --padding: 1.5em;
    --rotate: 80deg;
-   /*  rotation degree of input*/
    --gap: 2em;
-   /*  gap of items in input */
    --icon-change-color: #15A986;
-   /*  when rotating changed icon color */
    --height: 40px;
-   /*  height */
    width: 230px;
    padding-inline-end: 1em;
-   /*  change this for padding in the end of input */
    background: var(--input-bg);
    position: relative;
    border-radius: 15px;
@@ -143,7 +137,6 @@
 
  /* close button */
  .close-btn {
-   /* removing default bg of button */
    background: none;
    border: none;
    right: calc(var(--padding) - var(--gap));

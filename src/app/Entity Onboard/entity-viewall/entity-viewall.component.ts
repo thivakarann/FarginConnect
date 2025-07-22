@@ -34,7 +34,6 @@ export class EntityViewallComponent {
     'createdDatetime',
     'failedLoginCount',
     'unblock'
-
   ];
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
@@ -138,9 +137,6 @@ export class EntityViewallComponent {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
               this.actions1 = datas.permission.permission
-              console.log("actions" + this.actions);
-              console.log("actions1" + this.actions1);
-
               if (this.actions == 'Entity Onboard-Add') {
                 this.valueEntityAdd = 'Entity Onboard-Add';
               }
@@ -367,14 +363,6 @@ export class EntityViewallComponent {
     });
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-
   exportexcel() {
     this.EntityViewall.EntityViewallExport().subscribe((res: any) => {
       this.viewallexport = res.response;
@@ -434,9 +422,6 @@ export class EntityViewallComponent {
   }
 
   excelexportCustomer() {
-
-    // const title='Entity Details';
-
     const header = [
       "S.No",
       'Account Id',
@@ -456,7 +441,6 @@ export class EntityViewallComponent {
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
-    // Cell Style : Fill and Border
     headerRow.eachCell((cell, number) => {
       cell.fill = {
         type: 'pattern',

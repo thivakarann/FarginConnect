@@ -1,91 +1,78 @@
-<div class="row" >
+<div class="row">
   <div class="col-md-8">
-    <h4 style="padding-left: 153px;"  class="ms-3 text-center ">Entity Dashboard</h4>
-
+    <h4 style="padding-left: 153px;" class="ms-3 text-center ">Entity Dashboard</h4>
   </div>
-  
-   
-    <div class="col-md-4">
-        <div class=" form-group" >
-            <label for="Business category" style="font-size: 16px; font-weight: 700;">Select Entity</label>
-            <div class="input-group">
-              <input type="text" class="form-control"
-                placeholder="Search the Entity Legal Name here" list="customerList" [(ngModel)]="customerInput" (keyup)="fetchSetupBoxData()"  >
-              <datalist id="customerList">
-                <option *ngFor="let item of activemerchant" [value]="item.merchantLegalName">
-                  {{item.merchantLegalName}} </option>
-              </datalist>
-         
-  
-              <div class="input-group-append">
-                <button style="background-color:rgb(34, 34, 163)" class="btn btn-outline-secondary" type="button"
-                  (click)="onInputChange()">
-                  <i style="color:white" class="fas fa-search"></i>
-                </button>
-              </div>
-            </div>
-         
-    <p *ngIf="isNoDataFound" style="color: red; margin-top: 5px;">Entity Legal name not found
-        </div>
-    </div>
 
-    
+  <div class="col-md-4">
+    <div class=" form-group">
+      <label for="Business category" style="font-size: 16px; font-weight: 700;">Select Entity</label>
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search the Entity Legal Name here" list="customerList"
+          [(ngModel)]="customerInput" (keyup)="fetchSetupBoxData()">
+        <datalist id="customerList">
+          <option *ngFor="let item of activemerchant" [value]="item.merchantLegalName">
+            {{item.merchantLegalName}} </option>
+        </datalist>
+        <div class="input-group-append">
+          <button style="background-color:rgb(34, 34, 163)" class="btn btn-outline-secondary" type="button"
+            (click)="onInputChange()">
+            <i style="color:white" class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+      <p *ngIf="isNoDataFound" style="color: red; margin-top: 5px;">Entity Legal name not found
+    </div>
+  </div>
 </div>
 
 
-<div class="dashboard" >
-    <div class="card-container">
-      <div
-        class="card"
-        [hidden]="valueCustomerView!=='Customer Overview'"
-      >
-        <div class="card-header" >
-          <div class="icon">👥</div>
-          <div class="title">Customer Overview</div>
+<div class="dashboard">
+  <div class="card-container">
+    <div class="card" [hidden]="valueCustomerView!=='Customer Overview'">
+      <div class="card-header">
+        <div class="icon">👥</div>
+        <div class="title">Customer Overview</div>
+      </div>
+      <div class="card-content">
+        <div class="stat">
+          <div class="stat-title">Total Customer</div>
+          <div class="stat-value">
+            <span class="value">{{ customercount?.totalCustomerCount || 0 }}</span>
+
+          </div>
         </div>
-        <div class="card-content">
-          <div class="stat">
-            <div class="stat-title">Total Customer</div>
-            <div class="stat-value">
-              <span class="value">{{ customercount?.totalCustomerCount || 0 }}</span>
-            
-            </div>
-          </div>
-          <div class="stat" >
-            <div class="stat-title">Active Customer</div>
-            <div class="stat-value">
-              <span class="value">{{
-                customercount?.totalActiveCustomerCount || 0 
-              }}</span>
-             
-            </div>
-          </div>
-          <div class="stat">
-            <div class="stat-title">Inactive Customer</div>
-            <div class="stat-value">
-              <span class="value">{{
-                customercount?.totalInActiveCustomerCount || 0 
-              }}</span>
-               
-            </div>
-          </div>
-          <div class="stat">
-            <div class="stat-title">Pending Dues</div>
-            <div class="stat-value">
-              <span class="value">{{
-                duepending?.pendingCount || 0
+        <div class="stat">
+          <div class="stat-title">Active Customer</div>
+          <div class="stat-value">
+            <span class="value">{{
+              customercount?.totalActiveCustomerCount || 0
               }}</span>
 
-            </div>
+          </div>
+        </div>
+        <div class="stat">
+          <div class="stat-title">Inactive Customer</div>
+          <div class="stat-value">
+            <span class="value">{{
+              customercount?.totalInActiveCustomerCount || 0
+              }}</span>
+
+          </div>
+        </div>
+        <div class="stat">
+          <div class="stat-title">Pending Dues</div>
+          <div class="stat-value">
+            <span class="value">{{
+              duepending?.pendingCount || 0
+              }}</span>
+
           </div>
         </div>
       </div>
-   
-      <div
-      class="card"
-      [hidden]="valueTicketsView!=='Ticket Overview'"
-    >
-      <div class="card-header" >
+    </div>
+
+    <div class="card" [hidden]="valueTicketsView!=='Ticket Overview'">
+      <div class="card-header">
         <div class="icon">🎟️</div>
         <div class="title">Ticket Overview</div>
       </div>
@@ -94,251 +81,230 @@
           <div class="stat-title">Total Tickets</div>
           <div class="stat-value">
             <span class="value">{{
-              customercount?.totalCustomerTicketCount || 0 
-            }}</span>
-            
+              customercount?.totalCustomerTicketCount || 0
+              }}</span>
+
           </div>
         </div>
         <div class="stat">
           <div class="stat-title">Total Open Tickets</div>
           <div class="stat-value">
-            <span class="value">{{ customercount?.totalOpenTicketCount || 0  }}</span>
-       
+            <span class="value">{{ customercount?.totalOpenTicketCount || 0 }}</span>
+
           </div>
         </div>
         <div class="stat">
           <div class="stat-title">Tickets on Hold</div>
           <div class="stat-value">
-            <span class="value">{{ customercount?.totalHoldTicketCount || 0  }}</span>
-       
+            <span class="value">{{ customercount?.totalHoldTicketCount || 0 }}</span>
+
           </div>
         </div>
         <div class="stat">
           <div class="stat-title"> Closed Tickets</div>
           <div class="stat-value">
             <span class="value">{{
-              customercount?.totalCloseTicketCount || 0 
-            }}</span>
-           
+              customercount?.totalCloseTicketCount || 0
+              }}</span>
+
           </div>
         </div>
       </div>
     </div>
-     
-      <div  [hidden]="valueEmployeeView!=='Employee Overview'"
-        class="card"
-      
-      >
-        <div class="card-header" >
-          <div class="icon">👥</div>
-          <div class="title"> Employee Overview</div>
-        </div>
-        <div class="card-content">
-          <div class="stat">
-            <div class="stat-title"> Total Employee</div>
-            <div class="stat-value">
-              <span class="value">{{
-                dashboardemployecount?.totalCount || 0
+
+    <div [hidden]="valueEmployeeView!=='Employee Overview'" class="card">
+      <div class="card-header">
+        <div class="icon">👥</div>
+        <div class="title"> Employee Overview</div>
+      </div>
+      <div class="card-content">
+        <div class="stat">
+          <div class="stat-title"> Total Employee</div>
+          <div class="stat-value">
+            <span class="value">{{
+              dashboardemployecount?.totalCount || 0
               }}</span>
-              
-            </div>
+
           </div>
-          <div class="stat">
-            <div class="stat-title"> Active Employee</div>
-            <div class="stat-value">
-              <span class="value">{{ dashboardemployecount?.activeCount  || 0 }}</span>
-           
-            </div>
-          </div>
-          <div class="stat">
-            <div class="stat-title"> Inactive Employee</div>
-            <div class="stat-value">
-              <span class="value">{{ dashboardemployecount?.inActiveCount || 0 }}</span>
-              
-            </div>
-          </div>
-   
         </div>
+        <div class="stat">
+          <div class="stat-title"> Active Employee</div>
+          <div class="stat-value">
+            <span class="value">{{ dashboardemployecount?.activeCount || 0 }}</span>
+
+          </div>
+        </div>
+        <div class="stat">
+          <div class="stat-title"> Inactive Employee</div>
+          <div class="stat-value">
+            <span class="value">{{ dashboardemployecount?.inActiveCount || 0 }}</span>
+
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
+</div>
+&nbsp;
 
-
-
-  &nbsp;
-
-<div class="section"  [hidden]="valuetodaytrans!=='Today Transactions'">
+<div class="section" [hidden]="valuetodaytrans!=='Today Transactions'">
   <div class="card">
     <h5>Today's Transaction</h5>
     <div class="transaction-details">
-  
       <div class="transaction-item">
-        <span class="amount">₹  {{ customertotal?.successAmount || 0 }}</span>
-        <span >
+        <span class="amount">₹ {{ customertotal?.successAmount || 0 }}</span>
+        <span>
           ({{ customertotal?.successCount}})
         </span>
         <p class="label success"> Successful Amount</p>
       </div>
       <div class="transaction-item">
-        <span class="amount">₹  {{ customertotal?.failureAmount || 0 }}</span>
-        <span >
+        <span class="amount">₹ {{ customertotal?.failureAmount || 0 }}</span>
+        <span>
           ({{ customertotal?.failureCount}})
         </span>
         <p class="label failed"> Failure Amount</p>
       </div>
-    
     </div>
   </div>
 </div>
 &nbsp;
-<div class="section" [hidden]="Monthtrans!=='Monthly Collection Analytics'" >
-    <div class="card">
-      <h5>Monthly Collection Analytics
-      </h5>
-   
-   
-      <div class="row mt-3 ml-3">
-        <div class="col-md-4">
-          <label for="period" style="font-size: 12px; font-family: Arial, Helvetica, sans-serif">Select Period</label><br />
-          <select [(ngModel)]="selectedPeriods" (ngModelChange)="getmonthtransaction(selectedPeriods)" style="font-size: 12px" id="period"
-            class="form-select">
-            <option hidden>Select</option>
-       
-            <option value="LastMonths">Last Month</option>
-            <option value="thisMonths">This Month</option>
-            <option value="customRanges">Custom Range</option>
-          </select>
-        </div>
-        <div class="col-md-5 text-start" *ngIf="selectedPeriods === 'customRanges'">
-          <label style="font-size: 12px; font-family: Arial, Helvetica, sans-serif"  > From Date &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To Date</label><br />
 
-          <div class="input-group">
-
-            <input onkeydown="return false;" style="font-size: 12px; height: 35px" type="date" class="form-control" [(ngModel)]="fromDates"  (change)="future(toDates)" [max]="maxDate" />
-            <input onkeydown="return false;" type="date" style="font-size: 12px; height: 35px" class="form-control" [(ngModel)]="toDates"   [min]="fromDates" [max]="maxDate" />
-            <button (click)="custom()" class="btn btn" style="
+<div class="section" [hidden]="Monthtrans!=='Monthly Collection Analytics'">
+  <div class="card">
+    <h5>Monthly Collection Analytics
+    </h5>
+    <div class="row mt-3 ml-3">
+      <div class="col-md-4">
+        <label for="period" style="font-size: 12px; font-family: Arial, Helvetica, sans-serif">Select
+          Period</label><br />
+        <select [(ngModel)]="selectedPeriods" (ngModelChange)="getmonthtransaction(selectedPeriods)"
+          style="font-size: 12px" id="period" class="form-select">
+          <option hidden>Select</option>
+          <option value="LastMonths">Last Month</option>
+          <option value="thisMonths">This Month</option>
+          <option value="customRanges">Custom Range</option>
+        </select>
+      </div>
+      <div class="col-md-5 text-start" *ngIf="selectedPeriods === 'customRanges'">
+        <label style="font-size: 12px; font-family: Arial, Helvetica, sans-serif"> From Date &nbsp; &nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To
+          Date</label><br />
+        <div class="input-group">
+          <input onkeydown="return false;" style="font-size: 12px; height: 35px" type="date" class="form-control"
+            [(ngModel)]="fromDates" (change)="future(toDates)" [max]="maxDate" />
+          <input onkeydown="return false;" type="date" style="font-size: 12px; height: 35px" class="form-control"
+            [(ngModel)]="toDates" [min]="fromDates" [max]="maxDate" />
+          <button (click)="custom()" class="btn btn" style="
             border: none;
-            background: linear-gradient(
-              45deg,
+            background: linear-gradient(45deg,
               rgba(16, 211, 78, 0.548) 0%,
-              rgb(43, 132, 52) 100%
-            );
+              rgb(43, 132, 52) 100%);
             color: white;
           ">
-              Search
-            </button>
-            <button
-            class="btn btn"
-            style="
+            Search
+          </button>
+          <button class="btn btn" style="
             border: none;
-            background: linear-gradient(
-              45deg,
+            background: linear-gradient( 45deg,
               rgba(16, 211, 78, 0.548) 0%,
-              rgb(43, 132, 52) 100%
-            );
+              rgb(43, 132, 52) 100%);
             color: white;
-          " (click)="resetmonth()" > Reset</button>
-          </div>
-        </div>
-               
-        
-   
-        </div>
-      <div class="transaction-details">
-        <div class="transaction-item">
-          <span class="amount">
-            ₹ {{lastmonth?.totalAmount || 0}}
-          </span>
-          <span>
-            ({{ lastmonth?.totalCount || 0 }})
-          </span>
-          <p class="label total">Total Dues Generated</p>
-        </div>
-        <div class="transaction-item">
-          <span class="amount">₹ {{ lastmonth?.successAmount || 0 }}</span>
-          <span >
-            ({{ lastmonth?.successCount || 0}})
-          </span>
-          <p class="label success">Total Collected Amount</p>
-        </div>
-        <div class="transaction-item">
-          <span class="amount"> ₹ {{ lastmonth?.onlineCollectedAmount || 0 }}</span>
-          <span>
-            ({{ lastmonth?.onlineCount || 0 }})
-          </span>
-          <p class="label cancelled">Online Collected Amount</p>
-        </div>
-        <div class="transaction-item">
-          <span class="amount"> ₹ {{ lastmonth?.offlineCollectedAmount || 0 }}</span>
-          <span>
-            ({{ lastmonth?.offlineCount || 0 }})
-          </span>
-          <p class="label offline">Offline Collected Amount</p>
-        </div>
-   
-      </div>
-      &nbsp;
-      <div class="transaction-details">
-        <div class="transaction-item">
-          <span class="amount"> ₹ {{ lastmonth?.PendingAmount || 0 }}</span>
-          <span >
-            ({{ lastmonth?.pendingCount || 0}})
-          </span>
-          <p class="label pending">Pending Amount</p>
-        </div>
-     
-        <div class="transaction-item">
-          <span class="amount"> ₹ {{ lastmonth?.dueCancelAmount || 0 }}</span>
-          <span >
-            ({{ lastmonth?.dueCancelCount || 0}})
-          </span>
-          <p class="label failed">Cancelled Amount</p>
-        </div>
-        <div class="transaction-item">
-          <span class="amount"> ₹ {{ lastmonth?.refundAmount || 0 }}</span>
-          <span >
-            ({{ lastmonth?.refundCount || 0}})
-          </span>
-          <p class="label refund">Refund Amount</p>
+          " (click)="resetmonth()"> Reset</button>
         </div>
       </div>
-   
-      <div class="transaction-details percentages">
-        <div class="transaction-item success-percentage">
-          <span class="amount">{{ lastmonth?.successCountPercentage || 0 }}</span>
-          <p class="label success">Success Count Percentage</p>
-        </div>
-        <!-- <div class="transaction-item failed-percentage">
+    </div>
+
+    <div class="transaction-details">
+      <div class="transaction-item">
+        <span class="amount">
+          ₹ {{lastmonth?.totalAmount || 0}}
+        </span>
+        <span>
+          ({{ lastmonth?.totalCount || 0 }})
+        </span>
+        <p class="label total">Total Dues Generated</p>
+      </div>
+      <div class="transaction-item">
+        <span class="amount">₹ {{ lastmonth?.successAmount || 0 }}</span>
+        <span>
+          ({{ lastmonth?.successCount || 0}})
+        </span>
+        <p class="label success">Total Collected Amount</p>
+      </div>
+      <div class="transaction-item">
+        <span class="amount"> ₹ {{ lastmonth?.onlineCollectedAmount || 0 }}</span>
+        <span>
+          ({{ lastmonth?.onlineCount || 0 }})
+        </span>
+        <p class="label cancelled">Online Collected Amount</p>
+      </div>
+      <div class="transaction-item">
+        <span class="amount"> ₹ {{ lastmonth?.offlineCollectedAmount || 0 }}</span>
+        <span>
+          ({{ lastmonth?.offlineCount || 0 }})
+        </span>
+        <p class="label offline">Offline Collected Amount</p>
+      </div>
+    </div>
+    &nbsp;
+
+    <div class="transaction-details">
+      <div class="transaction-item">
+        <span class="amount"> ₹ {{ lastmonth?.PendingAmount || 0 }}</span>
+        <span>
+          ({{ lastmonth?.pendingCount || 0}})
+        </span>
+        <p class="label pending">Pending Amount</p>
+      </div>
+      <div class="transaction-item">
+        <span class="amount"> ₹ {{ lastmonth?.dueCancelAmount || 0 }}</span>
+        <span>
+          ({{ lastmonth?.dueCancelCount || 0}})
+        </span>
+        <p class="label failed">Cancelled Amount</p>
+      </div>
+      <div class="transaction-item">
+        <span class="amount"> ₹ {{ lastmonth?.refundAmount || 0 }}</span>
+        <span>
+          ({{ lastmonth?.refundCount || 0}})
+        </span>
+        <p class="label refund">Refund Amount</p>
+      </div>
+    </div>
+
+    <div class="transaction-details percentages">
+      <div class="transaction-item success-percentage">
+        <span class="amount">{{ lastmonth?.successCountPercentage || 0 }}</span>
+        <p class="label success">Success Count Percentage</p>
+      </div>
+      <!-- <div class="transaction-item failed-percentage">
           <span class="amount">{{ lastmonth?.failedCountPercentage || 0 }}</span>
           <p class="label failed">Failed Count Percentage</p>
         </div> -->
-      </div>
     </div>
-   
   </div>
-
-
-
-  &nbsp;
+</div>
+&nbsp;
 
 
 <div class="section" [hidden]="AdditionTrans!=='Additional Collection Analytics'">
-  <div class="card" >
+  <div class="card">
     <h5>Additional Collection Analytics</h5>
- 
- 
     <div class="row mt-3 ml-3">
       <div class="col-md-4">
-        <label for="period" style="font-size: 12px; font-family: Arial, Helvetica, sans-serif">Select Period</label><br />
-        <select [(ngModel)]="selectedadditionalPeriods" (ngModelChange)="getadditionalmonthtransaction(selectedadditionalPeriods)" style="font-size: 12px" id="period"
+        <label for="period" style="font-size: 12px; font-family: Arial, Helvetica, sans-serif">Select
+          Period</label><br />
+        <select [(ngModel)]="selectedadditionalPeriods"
+          (ngModelChange)="getadditionalmonthtransaction(selectedadditionalPeriods)" style="font-size: 12px" id="period"
           class="form-select">
           <option hidden>Select--</option>
           <option value="LastaditionalMonths">Last Month</option>
           <option value="thisadditionalMonths">This Month</option>
         </select>
       </div>
-   
-      </div>
+    </div>
     <div class="transaction-details">
       <div class="transaction-item">
         <span class="amount">
@@ -351,7 +317,7 @@
       </div>
       <div class="transaction-item">
         <span class="amount">₹ {{ additionalmonth?.successAmount || 0 }}</span>
-        <span >
+        <span>
           ({{ additionalmonth?.successCount || 0}})
         </span>
         <p class="label success">Total Collected Amount</p>
@@ -363,12 +329,10 @@
         </span>
         <p class="label cancelled">Online Collected Amount</p>
       </div>
-   
- 
     </div>
     &nbsp;
+
     <div class="transaction-details">
- 
       <div class="transaction-item">
         <span class="amount"> ₹ {{ additionalmonth?.offlineCollectedAmount || 0 }}</span>
         <span>
@@ -378,15 +342,14 @@
       </div>
       <div class="transaction-item">
         <span class="amount"> ₹ {{ additionalmonth?.PendingAmount || 0 }}</span>
-        <span >
+        <span>
           ({{ additionalmonth?.pendingCount || 0}})
         </span>
         <p class="label pending">Pending Amount</p>
       </div>
-   
       <div class="transaction-item">
         <span class="amount"> ₹ {{ additionalmonth?.dueCancelAmount || 0 }}</span>
-        <span >
+        <span>
           ({{ additionalmonth?.dueCancelCount || 0}})
         </span>
         <p class="label failed">Cancelled Amount</p>
@@ -399,7 +362,7 @@
         <p class="label refund"> Refund Amount</p>
       </div> -->
     </div>
- 
+
     <div class="transaction-details percentages">
       <div class="transaction-item success-percentage">
         <span class="amount">{{ additionalmonth?.successCountPercentage || 0 }}</span>
@@ -411,6 +374,5 @@
       </div> -->
     </div>
   </div>
- 
+
 </div>
-   

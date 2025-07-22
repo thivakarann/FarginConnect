@@ -57,7 +57,8 @@ export class ViewRoleComponent implements OnInit {
     private dialog: MatDialog,
     private service: FarginServiceService,
     private toastr: ToastrService
-  ) {}
+  ) { }
+
   ngOnInit(): void {
     this.service.viewRoles().subscribe((res: any) => {
       if (res.flag == 1) {
@@ -86,12 +87,10 @@ export class ViewRoleComponent implements OnInit {
 
   onSubmit(event: MatSlideToggleChange, id: any) {
     this.isChecked = event.checked;
-
     let submitModel: roleactiveInactive = {
       roleId: id,
       status: this.isChecked ? 1 : 0,
     };
-
     this.service.rolesStatus(submitModel).subscribe((res: any) => {
       this.toastr.success(res.responseMessage);
       setTimeout(() => {
@@ -117,7 +116,6 @@ export class ViewRoleComponent implements OnInit {
     this.subId = [];
     this.perValueArray = [];
     this.moduleName = [];
-
     this.service.rolegetById(id).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
@@ -141,7 +139,6 @@ export class ViewRoleComponent implements OnInit {
           for (let data1 of this.subpermission) {
             this.subId.push(data1.subPermissionId);
           }
-
           const dialogRef = this.dialog.open(EditRoleComponent, {
             data: {
               per: this.perValueArray,
@@ -151,16 +148,17 @@ export class ViewRoleComponent implements OnInit {
               moduleNames: this.moduleName,
             },
             disableClose: true,
-
-            enterAnimationDuration: '1000ms',
-            exitAnimationDuration: '1000ms',
+            enterAnimationDuration: '500ms',
+            exitAnimationDuration: '500ms',
           });
           dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
             this.fetchrole();
           });
-        } else if (res.flag == 2) {
+        }
+        else if (res.flag == 2) {
           this.errorMessage = res.responseMessage;
-        } else {
+        }
+        else {
           this.errorMessage = res.responseMessage;
         }
       },
@@ -186,9 +184,8 @@ export class ViewRoleComponent implements OnInit {
   create() {
     const dialogRef = this.dialog.open(AddRoleComponent, {
       disableClose: true,
-      // Ensure it doesn't get too wide on large screens
-      enterAnimationDuration: '1000ms',
-      exitAnimationDuration: '1000ms',
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '500ms',
     });
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
       this.fetchrole();
@@ -215,16 +212,18 @@ export class ViewRoleComponent implements OnInit {
     this.dialog.open(ViewPermissionComponent, {
       data: { value: id },
       disableClose: true,
-      enterAnimationDuration: '1000ms',
-      exitAnimationDuration: '1000ms',
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '500ms',
     });
-  }
+  };
+
+
   subpermissionView(id: any) {
     this.dialog.open(ViewSubpermissionComponent, {
       data: { value: id },
       disableClose: true,
-      enterAnimationDuration: '1000ms',
-      exitAnimationDuration: '1000ms',
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '500ms',
     });
   }
 }

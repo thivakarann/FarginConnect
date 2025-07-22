@@ -26,7 +26,7 @@ export class AddbankDetailsComponent implements OnInit {
   ngOnInit(): void {
 
     this.myForm = new FormGroup({
-      bankName: new FormControl('',[Validators.required,Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),Validators.maxLength(50)]),
+      bankName: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'), Validators.maxLength(50)]),
     });
   }
 
@@ -44,12 +44,12 @@ export class AddbankDetailsComponent implements OnInit {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
 
-         // Emit the event to notify parent component
+        // Emit the event to notify parent component
         this.bankDetailsUpdated.emit();
 
 
         this.dialog.closeAll();
-       
+
 
       }
       else {

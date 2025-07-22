@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, } from '@angular/forms';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -91,7 +86,6 @@ export class EntityAddComponent implements OnInit {
   maxDate: any;
   eighteenYearsAgo: Date;
 
-
   constructor(
     public AddEntity: FarginServiceService,
     private router: Router,
@@ -101,6 +95,8 @@ export class EntityAddComponent implements OnInit {
     const today = new Date();
     this.eighteenYearsAgo = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
   }
+
+
   ngOnInit(): void {
     const today = new Date();
     this.maxDate = moment(today).format('yyyy-MM-DD').toString();
@@ -120,6 +116,8 @@ export class EntityAddComponent implements OnInit {
     this.AddEntity.activeViewall().subscribe((res: any) => {
       this.kycValue = res.response.reverse();
     });
+
+    // Form One 
 
     this.myForm = new FormGroup({
       entityName: new FormControl('', [
@@ -222,6 +220,8 @@ export class EntityAddComponent implements OnInit {
       cloudFeeEnable: new FormControl('', [Validators.required]),
     });
 
+    // Form Two
+
     this.myForm2 = new FormGroup({
       accountHolderName: new FormControl('', [
         Validators.required,
@@ -234,7 +234,6 @@ export class EntityAddComponent implements OnInit {
       ]),
       bankName: new FormControl('', [
         Validators.required,
-        // Validators.pattern('^[a-zA-Z0-9 ]*$')
       ]),
       ifscCode: new FormControl('', [
         Validators.required,
@@ -255,6 +254,8 @@ export class EntityAddComponent implements OnInit {
 
       ]),
     });
+
+    // Form Three
 
     this.firstFormGroup = this._formBuilder.group({
       identityProof: ['', Validators.required],
@@ -296,10 +297,6 @@ export class EntityAddComponent implements OnInit {
     return d ? d <= this.eighteenYearsAgo : false;
   }
 
-  // get(event: any) {
-  //   this.selectperiod = event.target.value;
-  // }
-
   duealert(event: any) {
     this.myForm.get('customerDuesDate')?.setValue('');
     this.myForm.get('dueDate')?.setValue('');
@@ -308,12 +305,11 @@ export class EntityAddComponent implements OnInit {
 
   onCategoryChange(event: any) {
     this.businessId = event.target.value;
-    this.AddEntity.EntityBusinessCategoryId(this.businessId).subscribe(
-      (res: any) => {
-        if (res.flag == 1) {
-          this.mcccode = res.response.mccCode;
-        }
+    this.AddEntity.EntityBusinessCategoryId(this.businessId).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.mcccode = res.response.mccCode;
       }
+    }
     );
   }
 
@@ -330,8 +326,6 @@ export class EntityAddComponent implements OnInit {
       autoDebitControl?.enable();
     }
   }
-
-
 
   // First Form
 
@@ -408,9 +402,11 @@ export class EntityAddComponent implements OnInit {
   get merchantPlanId() {
     return this.myForm.get('merchantPlanId');
   }
+
   // get periodName() {
   //   return this.myForm.get('periodName')
   // }
+
   get logo() {
     return this.myForm.get('logo');
   }

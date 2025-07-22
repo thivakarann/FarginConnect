@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { ChangePasswordComponent } from '../change-password/change-password.component';
 import { LogoutComponent } from '../logout/logout.component';
 import { FarginServiceService } from '../service/fargin-service.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -74,26 +73,21 @@ export class DashboardComponent implements OnInit {
   Redirect: any;
   valueEntityDashboard: any;
   valueReport: any;
-  valueRenewel:any;
-
+  valueRenewel: any;
 
   constructor(private elRef: ElementRef,
     private renderer: Renderer2,
     private dialog: MatDialog,
-    private router: Router,
     private service: FarginServiceService,) { }
+
   ngOnInit(): void {
-
-
 
     this.getpermissionValue();
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-
         if (res.flag == 1) {
           this.getdashboard = res.response?.permission;
-
           this.getpermissionValue();
         }
         else {
@@ -101,12 +95,9 @@ export class DashboardComponent implements OnInit {
         }
       }
     });
-
     this.service.dashboardCount().subscribe((res: any) => {
       this.counts = res.response.totalTicketMemberOpenCount;
-
     });
-
   }
 
   getpermissionValue() {
@@ -163,24 +154,19 @@ export class DashboardComponent implements OnInit {
       this.valuecampign = 'Campaign'
       this.valuerefundper = 'Refund Period'
       this.valueReport = 'Export Report'
-
     }
     else {
       for (let data of this.getdashboard) {
         this.roles = data.permission;
-
-
         if (this.roles == 'Admin Dashboard') {
           this.valueDashboard = 'Admin Dashboard';
         }
-
         if (this.roles == 'Entity Dashboard') {
           this.valueEntityDashboard = 'Entity Dashboard';
         }
         if (this.roles == 'Entity Onboard') {
           this.valueEntity = 'Entity Onboard';
         }
-
         if (this.roles == 'Entity Agreement') {
           this.valueentityagreement = 'Entity Agreement'
         }
@@ -202,7 +188,6 @@ export class DashboardComponent implements OnInit {
         if (this.roles == 'Business Category DocDocument Type') {
           this.valueBusinessKYC = 'Business Category DocDocument Type';
         }
-
         if (this.roles == 'Business Category Doc') {
           this.valueBusinessKYC = 'Business Category Doc';
         }
@@ -215,12 +200,6 @@ export class DashboardComponent implements OnInit {
         if (this.roles == 'Entity Plan') {
           this.valuemerchantPlan = 'Entity Plan'
         }
-        // if (this.roles == 'FaCheck Key') {
-        //   this.valueFacheck = 'FaCheck Key'
-        // }
-        // if (this.roles == 'PG SetupKey') {
-        //   this.valuepgsetupkey = 'PG SetupKey'
-        // }
         if (this.roles == 'Withdrawal Fee') {
           this.valueWithdrawalfee = 'Withdrawal Fee'
         }
@@ -272,9 +251,6 @@ export class DashboardComponent implements OnInit {
         if (this.roles == 'Bank List') {
           this.valuebankdetails = 'Bank List'
         }
-        // if (this.roles == 'Fargin bank') {
-        //   this.valuefarginbank = 'Fargin bank'
-        // }
         if (this.roles == 'Entity Sms') {
           this.valueentitysms = 'Entity Sms'
         }
@@ -284,24 +260,21 @@ export class DashboardComponent implements OnInit {
         if (this.roles == 'Cloud Fee AutoDebit') {
           this.valueautodebit = 'Cloud Fee AutoDebit'
         }
-         if (this.roles == 'Renewal Fee Auto Debit') {
+        if (this.roles == 'Renewal Fee Auto Debit') {
           this.valueRenewel = 'Renewal Fee Auto Debit'
         }
         if (this.roles == 'Customized Payment') {
           this.valueCustomizationPayments = 'Customized Payment'
         }
-
         if (this.roles == 'Business Document Type') {
           this.valueBuisneesDoCument = 'Business Document Type'
         }
-
         if (this.roles == 'Survey') {
           this.valuesurvey = 'Survey'
         }
         if (this.roles == 'Business Plan') {
           this.valueBusinessPlan = 'Business Plan'
         }
-
         if (this.roles == 'Signer Details') {
           this.valueSignerDetails = 'Signer Details'
         }
@@ -314,11 +287,9 @@ export class DashboardComponent implements OnInit {
         if (this.roles == 'Online Refunds') {
           this.valueonlienrefund = 'Online Refunds'
         }
-
         if (this.roles == 'Sticker Cost') {
           this.valuestickercost = 'Sticker Cost'
         }
-
         if (this.roles == 'Campaign') {
           this.valuecampign = 'Campaign'
         }
@@ -331,6 +302,16 @@ export class DashboardComponent implements OnInit {
         if (this.roles == 'Export Report') {
           this.valueReport = 'Export Report'
         }
+
+        // if (this.roles == 'Fargin bank') {
+        //   this.valuefarginbank = 'Fargin bank'
+        // }
+        // if (this.roles == 'FaCheck Key') {
+        //   this.valueFacheck = 'FaCheck Key'
+        // }
+        // if (this.roles == 'PG SetupKey') {
+        //   this.valuepgsetupkey = 'PG SetupKey'
+        // }
       }
     }
   }
@@ -340,9 +321,10 @@ export class DashboardComponent implements OnInit {
     this.sidebarDropdowns = Array.from(
       this.elRef.nativeElement.querySelectorAll('.sidebar-dropdown')
     );
-    this.pageWrapper = this.elRef.nativeElement.querySelector('.page-wrapper');
 
+    this.pageWrapper = this.elRef.nativeElement.querySelector('.page-wrapper');
     // Attach click event listeners for dropdowns
+    // 
     this.sidebarDropdowns.forEach((dropdown) => {
       const anchor = dropdown.querySelector('a');
       if (anchor) {
@@ -370,13 +352,11 @@ export class DashboardComponent implements OnInit {
         this.toggleSidebar(false)
       );
     }
-
     if (showSidebarButton) {
       this.renderer.listen(showSidebarButton, 'click', () =>
         this.toggleSidebar(true)
       );
     }
-
     // Attach global click listener to handle clicks outside dropdowns
     this.renderer.listen('document', 'click', (event: Event) => {
       if (!this.isClickInsideDropdown(event)) {
@@ -422,12 +402,8 @@ export class DashboardComponent implements OnInit {
 
   isClickInsideDropdown(event: Event): boolean {
     const target = event.target as HTMLElement;
-    return this.sidebarDropdowns.some(
-      (dropdown) =>
-        dropdown.contains(target) ||
-        (dropdown.querySelector('.sidebar-submenu') as HTMLElement)?.contains(
-          target
-        )
+    return this.sidebarDropdowns.some((dropdown) => dropdown.contains(target) ||
+      (dropdown.querySelector('.sidebar-submenu') as HTMLElement)?.contains(target)
     );
   }
 
@@ -435,13 +411,12 @@ export class DashboardComponent implements OnInit {
     if (this.pageWrapper) {
       if (show) {
         this.renderer.addClass(this.pageWrapper, 'toggled');
-      } else {
+      }
+      else {
         this.renderer.removeClass(this.pageWrapper, 'toggled');
       }
     }
   }
-
-
   changepassword() {
     this.dialog.open(ChangePasswordComponent, {
       disableClose: true

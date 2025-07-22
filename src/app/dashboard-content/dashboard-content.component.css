@@ -1,208 +1,245 @@
 * {
   box-sizing: border-box;
 }
- 
+
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
   margin: 0;
   padding: 20px;
 }
- 
+
 .dashboard {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* 5 columns for each row */
-  gap: 15px; /* Increased gap between cards */
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
 }
- 
+
 .card {
   background-color: #ffffff;
-  border-radius: 6px; /* Reduced border radius */
-  padding: 10px; /* Reduced padding */
-  margin: 0; /* Remove margin to reduce space */
+  border-radius: 6px;
+  /* Reduced border radius */
+  padding: 10px;
+  /* Reduced padding */
+  margin: 0;
+  /* Remove margin to reduce space */
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   text-align: center;
   transition: transform 0.2s;
-  border-left: 5px solid transparent; /* Initial left border */
+  border-left: 5px solid transparent;
+  /* Initial left border */
 }
- 
- 
+
+
 .card.border-info {
-  border-left-color: #0dcaf0; /* Left border color for info */
+  border-left-color: #0dcaf0;
+  /* Left border color for info */
 }
- 
+
 .card.border-warning {
-  border-left-color: #ffc107; /* Left border color for warning */
+  border-left-color: #ffc107;
+  /* Left border color for warning */
 }
- 
+
 .card.border-danger {
-  border-left-color: #fd3550; /* Left border color for danger */
+  border-left-color: #fd3550;
+  /* Left border color for danger */
 }
- 
+
 .card.border-success {
-  border-left-color: #15ca20; /* Left border color for success */
+  border-left-color: #15ca20;
+  /* Left border color for success */
 }
- 
- 
-/* .card:hover {
-  transform: scale(1.05);
-}
-  */
+
 .icon {
-  font-size: 24px; /* Reduced icon size */
-  margin-bottom: 6px; /* Reduced margin */
+  font-size: 24px;
+  /* Reduced icon size */
+  margin-bottom: 6px;
+  /* Reduced margin */
 }
- 
+
 .title {
   font-weight: bold;
-  margin: 6px 0; /* Reduced margin */
+  margin: 6px 0;
+  /* Reduced margin */
   color: #333;
 }
- 
+
 .value {
-  font-size: 18px; /* Reduced font size */
+  font-size: 18px;
+  /* Reduced font size */
   color: #007bff;
   font-weight: bold;
 }
- 
+
 /* Specific styles for smaller screens */
 @media (max-width: 800px) {
   .dashboard {
-      grid-template-columns: repeat(2, 1fr); /* Change to 2 columns on smaller screens */
+    grid-template-columns: repeat(2, 1fr);
+    /* Change to 2 columns on smaller screens */
   }
 }
+
 .form-select {
-  width: 50%; /* Adjust the width of the dropdown */
-  margin-bottom: 10px; /* Add margin for spacing */
+  width: 50%;
+  /* Adjust the width of the dropdown */
+  margin-bottom: 10px;
+  /* Add margin for spacing */
 }
+
 .card {
-  margin-bottom: 20px; /* Spacing between cards */
+  margin-bottom: 20px;
+  /* Spacing between cards */
 }
- 
+
 .form-select {
   width: 100%;
-  font-size: 1rem; /* Increase font size */
- 
+  font-size: 1rem;
+  /* Increase font size */
+
 }
- 
+
 #myCanvas {
   width: 100%;
-  height: 400px; /* Adjust height for better visibility */
+  height: 400px;
+  /* Adjust height for better visibility */
 }
- 
+
 .card-header {
-  text-align: center; /* Center the title */
+  text-align: center;
+  /* Center the title */
 }
- 
+
 @media (max-width: 800px) {
   #myCanvas {
-    height: 300px; /* Adjust canvas height for mobile */
+    height: 300px;
+    /* Adjust canvas height for mobile */
   }
-}/* styles.css */
+}
+
+/* styles.css */
 .card {
-  padding: 15px; /* You can adjust this value if you want less or more padding */
-  border: 1px solid #007bff; /* Border color for Transaction Maintenance Card */
+  padding: 15px;
+  /* You can adjust this value if you want less or more padding */
+  border: 1px solid #007bff;
+  /* Border color for Transaction Maintenance Card */
   border-radius: 10px;
-  margin-bottom: 15px; /* Adds spacing between cards */
+  margin-bottom: 15px;
+  /* Adds spacing between cards */
 }
- 
+
 .card:nth-child(2) .card {
-  border-color: #28a745; /* Border color for One-Time Payment Card */
+  border-color: #28a745;
+  /* Border color for One-Time Payment Card */
 }
- 
+
 .card-content {
   font-size: 14px;
 }
- 
+
 .card-title {
   font-size: 1.2em;
   margin-bottom: 10px;
 }
- 
+
 .text-success {
   color: green;
   font-weight: bold;
 }
- 
+
 .text-warning {
   color: orange;
   font-weight: bold;
 }
- 
+
 .text-danger {
   color: red;
   font-weight: bold;
 }
- 
+
 /* Optional: To ensure cards are responsive */
 @media (max-width: 576px) {
   .card-content {
     font-size: 12px;
   }
 }
- 
+
 .card p {
-  margin: 6px 0; /* Consistent margin for paragraphs */
+  margin: 6px 0;
+  /* Consistent margin for paragraphs */
   font-size: 16px;
 }
- 
+
 .amount {
   font-weight: bold;
   color: #333;
 }
+
 .transaction-details {
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
 }
- 
+
 .transaction-item {
   flex: 1;
   text-align: center;
 }
- 
+
 .amount {
-  font-size: 24px; /* Larger font for amounts */
+  font-size: 24px;
+  /* Larger font for amounts */
   font-weight: bold;
-  display: block; /* Block display to stack label below */
+  display: block;
+  /* Block display to stack label below */
 }
- 
+
 .label {
-  margin: 5px 0 0; /* Spacing for the label */
+  margin: 5px 0 0;
+  /* Spacing for the label */
 }
- 
+
 /* Different colors for each label */
 .label.total {
-  color: #007bff; /* Blue for Total Amount */
+  color: #007bff;
+  /* Blue for Total Amount */
 }
- 
+
 .label.success {
-  color: #28a745; /* Green for Successful Transactions */
+  color: #28a745;
+  /* Green for Successful Transactions */
 }
- 
+
 .label.failed {
-  color: #dc3545; /* Red for Failed Transactions */
+  color: #dc3545;
+  /* Red for Failed Transactions */
 }
- 
+
 .label.pending {
-  color: #ffc107; /* Yellow for Pending Transactions */
+  color: #ffc107;
+  /* Yellow for Pending Transactions */
 }
+
 .transaction-methods {
   margin-top: 10px;
 }
- 
+
 .method-item {
-  margin-bottom: 15px; /* Space between each method item */
-  text-align: left; /* Align text to the left */
+  margin-bottom: 15px;
+  /* Space between each method item */
+  text-align: left;
+  /* Align text to the left */
 }
- 
+
 .payment-method {
-  font-weight: bold; /* Highlight payment method */
-  color: #007bff; /* Change color for visibility */
+  font-weight: bold;
+  /* Highlight payment method */
+  color: #007bff;
+  /* Change color for visibility */
 }
- 
+
 .count,
 .amount {
-  font-weight: normal; /* Regular weight for count and amount */
+  font-weight: normal;
+  /* Regular weight for count and amount */
 }
- 

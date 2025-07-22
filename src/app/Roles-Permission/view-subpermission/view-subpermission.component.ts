@@ -12,36 +12,42 @@ import { MatTableDataSource } from '@angular/material/table';
 export class ViewSubpermissionComponent {
   streetValue: any;
   subpermissionValue: any;
-  currentPage: number = 1; 
+  currentPage: number = 1;
   searchText: any;
-
-     dataSource: any;
-       @ViewChild(MatPaginator) paginator!: MatPaginator;
-       @ViewChild(MatSort) sort!: MatSort;
-       displayedColumns: any[] = ["sno", "permission","sub"];
+  dataSource: any;
+  displayedColumns: any[] = ["sno", "permission", "sub"];
   searchPerformed: any;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
   constructor(private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-       this.subpermissionValue = this.data.value
-    this.dataSource = new MatTableDataSource(this.subpermissionValue)
-     }
-
-  ngOnInit(): void {
-  
+    this.subpermissionValue = this.sortPermissions(this.data.value);
+    this.dataSource = new MatTableDataSource(this.subpermissionValue);
   }
-   ngAfterViewInit() {
+
+  ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
- reload(){
-    this.subpermissionValue = this.data.value
-    this.dataSource = new MatTableDataSource(this.subpermissionValue)
-      this.ngAfterViewInit()
+
+  reload() {
+    this.subpermissionValue = this.sortPermissions(this.data.value);
+    this.dataSource = new MatTableDataSource(this.subpermissionValue);
+    this.ngAfterViewInit();
   }
- applyFilter(event: Event) {
+
+  private sortPermissions(data: any[]): any[] {
+    return data.slice().sort((a, b) => {
+      const aPermission = String(a?.permission?.permission || '').toLowerCase();
+      const bPermission = String(b?.permission?.permission || '').toLowerCase();
+      return aPermission.localeCompare(bPermission);
+    });
+  }
+
+  applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
@@ -52,7 +58,6 @@ export class ViewSubpermissionComponent {
   }
 
   onSearchTextChange(): void {
-    // Reset to the first page whenever the search text changes
     this.currentPage = 1;
   }
 

@@ -2,47 +2,17 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-  integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-  crossorigin="anonymous" referrerpolicy="no-referrer" />
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description"
-    content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
-  <title>Sidebar template</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-
-
-</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 
 <body>
+
   <div class="page-wrapper chiller-theme toggled">
+
     <div class="toggle">
-
-      <a id="show-sidebar" class="btn btn-sm btn-dark">
-        <i class="fas fa-bars">
-        </i>
-      </a>
-
+      <a id="show-sidebar" class="btn btn-sm btn-dark"><i class="fas fa-bars"></i></a>
       <div class="center">
         <h2 style="font-size: 20px; margin-left:45px;">FARGIN CONNECT</h2>
       </div>
-      <!-- <div class="Go-dropdown">
-        <select  [(ngModel)]="values" (change)="go($event)" >
-           
-            <option value="" selected >Local Cable Operator</option>
-            <option value="1">Paying Guest</option>
-            
-        </select>
-    </div> -->
-    
       <div class="dropdown" id="profile-dropdown">
         <button class="btn dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-user"></i>
@@ -55,6 +25,7 @@
       </div>
 
     </div>
+
     <nav id="sidebar" class="sidebar-wrapper">
       <div class="sidebar-content">
         <div class="sidebar-brand">
@@ -66,9 +37,7 @@
             <i class="fas fa-bars"></i>
           </div>
         </div>
-        <div class="">
-
-        </div>
+        <div class=""></div>
 
         <!-- sidebar-search  -->
         <div class="sidebar-menu">
@@ -76,41 +45,27 @@
             <li class="header-menu">
               <span></span>
             </li>
-
-            <!-- <li [hidden]="valueDashboard!=='Dashboard'">
-              <a routerLink="dashboard-content">
+            <li class="sidebar-dropdown" style="cursor: pointer;"
+              [hidden]="valueDashboard!=='Admin Dashboard' && valueEntityDashboard !=='Entity Dashboard'">
+              <a>
                 <i class="fa fa-dashboard"></i>
                 <span>Dashboard</span>
               </a>
-            </li> -->
-
-
-            <li class="sidebar-dropdown" style="cursor: pointer;"
-            [hidden]="valueDashboard!=='Admin Dashboard' && valueEntityDashboard !=='Entity Dashboard'"  >
-            <a>
-              <i class="fa fa-dashboard"></i>
-              <span>Dashboard</span>
-            </a>
-
               <div class="sidebar-submenu">
                 <ul>
-                  <li  [hidden]="valueDashboard!=='Admin Dashboard'">
+                  <li [hidden]="valueDashboard!=='Admin Dashboard'">
                     <a routerLink="dashboard-content">
                       Admin Dashboard
                     </a>
                   </li>
-
                   <li [hidden]="valueEntityDashboard !=='Entity Dashboard'">
                     <a routerLink="dashboardmerchant">
                       Entity Dashboard
                     </a>
                   </li>
                 </ul>
-
               </div>
-
             </li>
-
             <li [hidden]="valueEntity!=='Entity Onboard'">
               <a routerLink="entity-viewall">
                 <i class="fa fa-user-plus"></i>
@@ -123,21 +78,18 @@
                 <span>Entity Agreement</span>
               </a>
             </li>
-
             <li [hidden]="valueCustomer!=='Customers'">
               <a routerLink="Overall-Customer-view">
                 <i class="fa fa-user" aria-hidden="true"></i>
                 <span>Customers</span>
-
               </a>
             </li>
             <li class="sidebar-dropdown" style="cursor: pointer;"
-            [hidden]="valueentitysms!=='Entity Sms'  && valuesmshistory!=='SMS History'">
-            <a>
-              <i class="fa-solid fa-comment-sms" style="font-size: 14px;"></i>
-              <span>SMS</span>
-            </a>
-
+              [hidden]="valueentitysms!=='Entity Sms'  && valuesmshistory!=='SMS History'">
+              <a>
+                <i class="fa-solid fa-comment-sms" style="font-size: 14px;"></i>
+                <span>SMS</span>
+              </a>
               <div class="sidebar-submenu">
                 <ul>
                   <li [hidden]="valueentitysms!=='Entity Sms'">
@@ -145,19 +97,15 @@
                       Entity Sms
                     </a>
                   </li>
-
                   <li [hidden]="valuesmshistory!=='SMS History'">
                     <a routerLink="smshistory">
                       SMS History
                     </a>
                   </li>
                 </ul>
-
               </div>
-
             </li>
-            <li class="sidebar-dropdown" style="cursor: pointer;"
-             [hidden]="valuecustomerpayment!=='Customer Payment' &&
+            <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valuecustomerpayment!=='Customer Payment' &&
             valuecustomersubscription!=='Cloud Fee Payments' &&
             valuecustomermanualpayment!=='one Time Payments' &&
             valueCustomizationPayments!=='Customized Payment' && valueAdditionalPayments!=='Additional Payments'">
@@ -172,7 +120,6 @@
                       Customer Payments
                     </a>
                   </li>
-
                   <li routerLink="maintenance-trans-viewall"
                     [hidden]="valuecustomersubscription!=='Cloud Fee Payments'">
                     <a> Cloud Fee Payments</a>
@@ -188,26 +135,25 @@
                   </li>
                 </ul>
               </div>
-              <li [hidden]="valueonlienrefund!=='Online Refunds'">
-                <a routerLink="refund-getall">
-                  <i class="fa-solid fa-sitemap"  aria-hidden="true"></i>
-                  <span>Online Refunds
-                  </span>
-                </a>
-              </li>
-              <li [hidden]="valueautodebit!=='Cloud Fee AutoDebit'">
-                <a routerLink="entity-auto-debit-getall">
-                  <i class="fa-solid fa-money-bill-transfer"></i>
-                  <span>Cloud Fee Auto Debit</span>
-                </a>
-              </li>
-              <li [hidden]="valueRenewel!=='Renewal Fee Auto Debit'">
-                <a routerLink="renewal-autodebit">
-                  <i class="fa-solid fa-money-bill-transfer"></i>
-                  <span>Renewal Fee Auto Debit</span>
-                </a>
-              </li>
-
+            <li [hidden]="valueonlienrefund!=='Online Refunds'">
+              <a routerLink="refund-getall">
+                <i class="fa-solid fa-sitemap" aria-hidden="true"></i>
+                <span>Online Refunds
+                </span>
+              </a>
+            </li>
+            <li [hidden]="valueautodebit!=='Cloud Fee AutoDebit'">
+              <a routerLink="entity-auto-debit-getall">
+                <i class="fa-solid fa-money-bill-transfer"></i>
+                <span>Cloud Fee Auto Debit</span>
+              </a>
+            </li>
+            <li [hidden]="valueRenewel!=='Renewal Fee Auto Debit'">
+              <a routerLink="renewal-autodebit">
+                <i class="fa-solid fa-money-bill-transfer"></i>
+                <span>Renewal Fee Auto Debit</span>
+              </a>
+            </li>
             <li [hidden]="valuebranch!=='Branch'">
               <a routerLink="Branch-viewall">
                 <i class="fa-solid fa-sitemap"></i>
@@ -217,7 +163,7 @@
             <li class="sidebar-dropdown" style="cursor: pointer;"
               [hidden]="valuefarginpolicy!=='Fargin Policy' && valueMerchantpolicy!=='Merchant Policy'">
               <a>
-                <i class="fas fa-hands-holding-child icon"   aria-hidden="true"></i>
+                <i class="fas fa-hands-holding-child icon" aria-hidden="true"></i>
                 <span>Terms and Policy</span>
               </a>
               <div class="sidebar-submenu">
@@ -227,16 +173,12 @@
                       Fargin Policy
                     </a>
                   </li>
-
                   <li routerLink="Terms-policy" [hidden]="valueMerchantpolicy!=='Merchant Policy'">
                     <a>Merchant Policy</a>
                   </li>
-
                 </ul>
               </div>
-
             </li>
-
             <li class="sidebar-dropdown" style="cursor: pointer;"
               [hidden]="valueTickets!=='Entity Request' && valuecustomerticket!=='Customer Request'">
               <a>
@@ -259,7 +201,6 @@
                 </ul>
               </div>
             </li>
-
             <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valueRegion!=='Region'&& ValueMSO!=='MSO'">
               <a>
                 <i class="fa-solid fa-people-line"></i>
@@ -273,12 +214,9 @@
                   <li [hidden]="valueRegion!=='Region'">
                     <a routerLink="Region">Region</a>
                   </li>
-                 
                 </ul>
               </div>
-
             </li>
-
             <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valuechannelConfiguration!=='Channel Creation' && 
           valueBroadcasterConfiguration!=='Broadcaster Creation' && 
           valuePlanConfiguration!=='Plan Creation' && 
@@ -287,54 +225,37 @@
                 <i class="fa-solid fa-tv"></i>
                 <span>Channels & Packages</span>
               </a>
-
-
-
-
-
-
-
               <div class="sidebar-submenu">
                 <ul>
                   <li [hidden]="valueBroadcasterConfiguration!=='Broadcaster Creation'">
                     <a routerLink="bouquatename-viewall">Broadcaster Creation</a>
                   </li>
-
                   <li [hidden]="valuePlanConfiguration!=='Plan Creation'">
                     <a routerLink="bouquete-plan-viewall">
                       Plan Creation
                     </a>
                   </li>
-
                   <li [hidden]="valueBroadcasterBouqutes!=='Broadcaster Bouqutes'">
                     <a routerLink="bouquets-viewall">Broadcaster Bouquets</a>
                   </li>
-
                   <li [hidden]="valuechannelConfiguration!=='Channel Creation'">
                     <a routerLink="alacarte-viewall">Channel Creation
                     </a>
                   </li>
-                
-
-             
-
-             
                   <!-- 
-               <li>
+                   <li>
                  <a routerLink="dpoviewall">DPO Bouqutes</a>
                </li> -->
                 </ul>
               </div>
-
-              <li [hidden]="valueReport!=='Export Report'">
-                <a routerLink="Export-Report">
-                  <i class="fa fa-download" aria-hidden="true"></i>
-                  <span>Export Report</span>
-                </a>
-              </li>
-
-
-           <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valueBusinessCategory!=='Bussiness Category' &&
+            <li [hidden]="valueReport!=='Export Report'">
+              <a routerLink="Export-Report">
+                <i class="fa fa-download" aria-hidden="true"></i>
+                <span>Export Report</span>
+              </a>
+            </li>
+            <li class="sidebar-dropdown" style="cursor: pointer;"
+              [hidden]="valueBusinessCategory!=='Bussiness Category' &&
            valueBusinessKYC!=='Business Category Doc' &&
            valueFacheck!=='FaCheck Key' &&
            valuemerchantPlan!=='Merchant Plan' &&
@@ -354,11 +275,9 @@
                     <a routerLink="view-category">Business Category
                     </a>
                   </li>
-
                   <li [hidden]="valueBuisneesDoCument!=='Business Document Type'">
                     <a routerLink="viewall-kyccategory">Business Document Type </a>
                   </li>
-
                   <li [hidden]="valueBusinessKYC!=='Business Category Doc'">
                     <a routerLink="Business-kyc">Business Category Doc</a>
                   </li>
@@ -393,7 +312,7 @@
                   <li [hidden]="valueSignerDetails!=='Signer Details'">
                     <a routerLink="signer-getall">Signer Details</a>
                   </li>
-                 
+
                   <li [hidden]="valueFacheck!=='FaCheck Key'">
                     <a routerLink="viewfacheckkey">Facheck Key</a>
                   </li>
@@ -404,21 +323,12 @@
                   <li [hidden]="valuerefundper!=='Refund Period'">
                     <a routerLink="refund-period-viewall">Refund Period</a>
                   </li>
-
-                 
-
-                 
-              
-            
-
-
                   <!-- <li [hidden]="valueWithdrawalfee!=='Withdrawal Fee'">
                   <a routerLink="viewwithdrawal">Withdrawal Fee</a>
                 </li> -->
                 </ul>
               </div>
             </li>
-
             <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valueUser!=='User' && valueRole!=='Role'">
               <a>
                 <i class="fa-solid fa-person-circle-check"></i>
@@ -426,7 +336,6 @@
               </a>
               <div class="sidebar-submenu">
                 <ul>
-
                   <li routerLink="view-role" [hidden]="valueRole!=='Role'">
                     <a>Role</a>
                   </li>
@@ -434,49 +343,35 @@
                     <a routerLink="/dashboard/admindetails">User
                     </a>
                   </li>
-
-               
-
                 </ul>
               </div>
-
             </li>
-
-
-
-
-
             <li [hidden]="valueannouncement!=='Announcement'">
               <a routerLink="view-announcement">
                 <i class="fa fa-bullhorn"></i>
                 <span>Announcement</span>
               </a>
             </li>
-
             <li [hidden]="valuecampaign!=='Campaign'">
               <a routerLink="view-campaign">
                 <i class="fa fa-bullhorn"></i>
                 <span>Campaign</span>
               </a>
             </li>
-
             <li [hidden]="valuesurvey!=='Survey'">
               <a routerLink="surveyviewall">
-                <i class="fa-solid fa-square-poll-vertical"  aria-hidden="true"></i>
+                <i class="fa-solid fa-square-poll-vertical" aria-hidden="true"></i>
                 <span>Survey</span>
-
               </a>
             </li>
-
-
 
             <!-- <li [hidden]="valueentitydues!=='Entity Dues'">
               <a routerLink="app-dues">
                 <i class="fa-solid fa-credit-card" aria-hidden="true"></i>
                 <span>Entity Dues</span>
-
               </a>
             </li> -->
+
             <!-- <li [hidden]="valueTransaction!=='Transactions'">
               <a routerLink="overall-transactions-viewall">
                 <i class="fa-solid fa-credit-card" aria-hidden="true"></i>
@@ -491,66 +386,26 @@
               </a>
             </li> -->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
           </ul>
         </div>
         <!-- sidebar-menu  -->
       </div>
 
     </nav>
+
     <!-- sidebar-wrapper  -->
     <main class="page-content" style="background-color:#dde1e9;min-height: 100vh; overflow-y: auto;">
       <div style="margin-top:50px;">
-
-
         <router-outlet></router-outlet>
       </div>
     </main>
     <!-- page-content" -->
   </div>
+
   <!-- page-wrapper -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </body>
-
-</html>

@@ -315,7 +315,7 @@ export class EditagreementplanComponent {
       reliancejiomoneyFixedFee: new FormControl('', [
         Validators.required,
         Validators.pattern(
-          /^((0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$|^N\/A$|^-)$/
+          /^((0|[1-9][0-9]{0,2})(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$|^N\/A$|^-)$/
         ),
       ]),
       // airtelmoneyAmount: new FormControl('', [Validators.required, Validators.pattern(/^((0|[1-9][0-9]*)(\.[0-9]{1,2})?$|^0\.[0-9]{1,2}$|^N\/A$|^-)$/)]),

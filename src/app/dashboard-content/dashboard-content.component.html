@@ -10,7 +10,7 @@
       <div class="title">Onboarded Merchants</div>
       <div class="value">{{counts?.totalPgOnboardMerchantCount}}</div>
     </div>
- 
+
     <div class="card border-success">
       <div class="icon">👤</div>
       <div class="title">Active Merchants</div>
@@ -46,8 +46,8 @@
       <div class="title">Tickets on Hold</div>
       <div class="value">{{counts?.totalTicketMemberHoldCount}}</div>
     </div>
- 
- 
+
+
     <div class="card border-success">
       <div class="icon">✅</div>
       <div class="title">Closed Tickets</div>
@@ -56,6 +56,7 @@
   </div>
 </div>
 &nbsp;
+
 <div class="section">
   <div class="card" [hidden]="valueDashboardTransactionOverview !== 'Today Transaction Overview'">
     <h5>Today's Transaction Overview</h5>
@@ -81,158 +82,117 @@
 </div>
 &nbsp;
 
-<div >
-  <div class="row">
-   <div class="col-6">
+<div class="row">
+
+    <div class="col-6">
       <div class="card" style="height:560px" [hidden]="valuetotalmerchants !== 'Total Merchants'">
         <div class="container mt-2">
           <div class="text-center">
             <h6>Merchant Count Details</h6>
           </div>
-          <label
-            for="period"
-            style="font-size: 12px; font-family: Arial, Helvetica, sans-serif"
-            >Select Period</label
-          >
-          <select
-            (change)="onCategoryChange($event)"
-            name=""
-            id=""
-            style="font-size: 12px"
-            class="form-select"
-            [value]="initialCategoryId"
-          >
+          <label for="period" style="font-size: 12px; font-family: Arial, Helvetica, sans-serif">Select Period</label>
+          <select (change)="onCategoryChange($event)" name="" id="" style="font-size: 12px" class="form-select"
+            [value]="initialCategoryId">
             <option value="" disabled selected>Select Category</option>
-            <option
-              *ngFor="let val of categorydetails"
-              [value]="val.businessCategoryId"
-            >
+            <option *ngFor="let val of categorydetails" [value]="val.businessCategoryId">
               {{ val.categoryName }}
             </option>
           </select>
-        <div style="width: 90%; height: 400px; display: flex; justify-content: center;">
-    <canvas id="myCanvas"></canvas>
-</div>
- 
- 
+          <div style="width: 90%; height: 400px; display: flex; justify-content: center;">
+            <canvas id="myCanvas"></canvas>
+          </div>
+
+
         </div>
       </div>
     </div>
-    <div class="col-6" >
+
+    <div class="col-6">
       <div class="card" style="height:560px" [hidden]="valueTotalcount !== 'Total Count'">
         <div class="container mt-2">
           <div class="text-center">
             <h6>Last Seven Days Transaction Details</h6>
           </div>
-        &nbsp;
- 
-        <canvas id="sevenChartCanvas"></canvas>
-        <div class="card-body" style="margin-top: 22px;">
-          <!-- First Row -->
-          <div class="row"></div>
- 
-          <div class="d-flex justify-content-center">
-            {{ sevenper?.totalCount || 0 }}
-          </div>
-          <div class="d-flex justify-content-center">
-            <strong>Total Count</strong>
-          </div>
- 
-          <hr
-            style="
+          &nbsp;
+
+          <canvas id="sevenChartCanvas"></canvas>
+          <div class="card-body" style="margin-top: 22px;">
+            <!-- First Row -->
+            <div class="row"></div>
+
+            <div class="d-flex justify-content-center">
+              {{ sevenper?.totalCount || 0 }}
+            </div>
+            <div class="d-flex justify-content-center">
+              <strong>Total Count</strong>
+            </div>
+
+            <hr style="
               height: 2px;
               border-width: 0;
               color: gray;
               background-color: gray;
-            "
-          />
-          <!-- Second Row -->
-          <div class="row">
-            <div class="col">
-              <div><strong>Success Amount</strong></div>
-              <div>₹{{ sevenper?.successAmount || 0 }}</div>
-              <br>
-              <div>
-                Success Percentage
-                <b>{{ sevenper?.successCountPercentage || 0 }}</b>
+            " />
+            <!-- Second Row -->
+            <div class="row">
+              <div class="col">
+                <div><strong>Success Amount</strong></div>
+                <div>₹{{ sevenper?.successAmount || 0 }}</div>
+                <br>
+                <div>
+                  Success Percentage
+                  <b>{{ sevenper?.successCountPercentage || 0 }}</b>
+                </div>
               </div>
-            </div>
-           
-            <div class="col">
-              <div><strong>Failed Amount</strong></div>
-              <div>₹{{ sevenper?.failedAmount || 0 }}</div>
-              <br>
-              <div>
-                Failed Percentage
-                <b>{{ sevenper?.failedCountPercentage || 0 }}</b>
+
+              <div class="col">
+                <div><strong>Failed Amount</strong></div>
+                <div>₹{{ sevenper?.failedAmount || 0 }}</div>
+                <br>
+                <div>
+                  Failed Percentage
+                  <b>{{ sevenper?.failedCountPercentage || 0 }}</b>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
- 
- 
+    &nbsp;
 
-  &nbsp;
-
-  <div >
-    <div class="card" [hidden]="valuetransactionoverview !== 'Transaction Overview'">
-      <div class="container mt-2">
-        <div class="text-center">
-          <h5>Merchant Transaction Details</h5>
-        </div>
-        <form [formGroup]="transactionform">
-        <div class="row mt-2">
-          <div class="col-md-4">
-            <label
-              for="period"
-              style="font-size: 12px; font-family: Arial, Helvetica, sans-serif"
-              >Select Period</label
-            ><br />
-            <select
-              [(ngModel)]="selectedPeriod"
-              (ngModelChange)="get(selectedPeriod)"
-              style="font-size: 12px"
-              id="period"
-              class="form-select"
-              formControlName="selectperiods"
-            >
-              <option value="" disabled selected>Select Period</option>
-              <option value="Last7Days">Last 7 Days</option>
-              <option value="Last14Days">Last 14 Days</option>
-              <option value="LastMonth">Last Month</option>
-              <option value="thisMonth">This Month</option>
-              <option value="customRange">Custom Range</option>
-            </select>
+    <div>
+      <div class="card" [hidden]="valuetransactionoverview !== 'Transaction Overview'">
+        <div class="container mt-2">
+          <div class="text-center">
+            <h5>Merchant Transaction Details</h5>
           </div>
+          <form [formGroup]="transactionform">
+            <div class="row mt-2">
+              <div class="col-md-4">
+                <label for="period" style="font-size: 12px; font-family: Arial, Helvetica, sans-serif">Select
+                  Period</label><br />
+                <select [(ngModel)]="selectedPeriod" (ngModelChange)="get(selectedPeriod)" style="font-size: 12px"
+                  id="period" class="form-select" formControlName="selectperiods">
+                  <option value="" disabled selected>Select Period</option>
+                  <option value="Last7Days">Last 7 Days</option>
+                  <option value="Last14Days">Last 14 Days</option>
+                  <option value="LastMonth">Last Month</option>
+                  <option value="thisMonth">This Month</option>
+                  <option value="customRange">Custom Range</option>
+                </select>
+              </div>
 
-          <div class="col-md-4" *ngIf="selectedPeriod === 'customRange'">
-            <label
-              style="font-size: 12px; font-family: Arial, Helvetica, sans-serif"
-              >From Date &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-              &nbsp; &nbsp; To Date</label
-            ><br />
-            <div class="input-group">
-              <input  onkeydown="return false;"
-                style="font-size: 12px; height: 35px"
-                type="date"
-                class="form-control"
-                [(ngModel)]="fromDate"
-                formControlName="selecttransaction"
-              />
-              <input  onkeydown="return false;"
-                type="date"
-                style="font-size: 12px; height: 35px"
-                class="form-control"
-                [(ngModel)]="toDate"
-                formControlName="selecttransaction"
-              />
-              <button
-                (click)="customranges()"
-                class="btn btn"
-                style="
+              <div class="col-md-4" *ngIf="selectedPeriod === 'customRange'">
+                <label style="font-size: 12px; font-family: Arial, Helvetica, sans-serif">From Date &nbsp; &nbsp; &nbsp;
+                  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                  &nbsp; &nbsp; To Date</label><br />
+                <div class="input-group">
+                  <input onkeydown="return false;" style="font-size: 12px; height: 35px" type="date"
+                    class="form-control" [(ngModel)]="fromDate" formControlName="selecttransaction" />
+                  <input onkeydown="return false;" type="date" style="font-size: 12px; height: 35px"
+                    class="form-control" [(ngModel)]="toDate" formControlName="selecttransaction" />
+                  <button (click)="customranges()" class="btn btn" style="
                   border: none;
                   background: linear-gradient(
                     45deg,
@@ -240,139 +200,120 @@
                     rgb(43, 132, 52) 100%
                   );
                   color: white;
-                "
-              >
-                Go
-              </button>
+                ">
+                    Go
+                  </button>
+                </div>
+              </div>
+
+
+              <div class="col-md-1 mt-4"> <button
+                  style="color: white; background-color: rgb(179, 3, 3); border-radius: 10px;"
+                  (click)="resetTransactionForm()" mat-raised-button>Reset</button> </div>
             </div>
-          </div>
+          </form>
 
-                   
-            <div class="col-md-1 mt-4"> <button style="color: white; background-color: rgb(179, 3, 3); border-radius: 10px;" (click)="resetTransactionForm()" mat-raised-button>Reset</button> </div>
+          &nbsp;
+          <canvas id="barChartCanvas" height="100"></canvas>
+
+          &nbsp;&nbsp;
         </div>
-        </form>
-
-        &nbsp;
-        <canvas id="barChartCanvas" height="100"  ></canvas>
-
-        &nbsp;&nbsp;
-      </div>
-      <br />
-    </div>
-  </div>
-
-  &nbsp;
-
-  <div
-    class="card"
-    [hidden]="valueTransactionDetails !== 'Transaction Details'"
-  >
-    <div class="text-center">
-      <h5>Transaction Details</h5>
-    </div>
-    <div class="row mt-4">
-      <div class="col-md-6">
-        <label for="period" style="font-size: 14px; font-weight: 600"
-          >Select Business Category</label
-        ><br />
-       
-        <select
-          (change)="categorybusiness($event)"
-          id="Bussiness category"
-          class="form-select"
-          style="font-size: 12px"
-          id="period"
-        >
-          <option value="" disabled selected>Select</option>
-          <option
-            *ngFor="let item of categorydetails"
-            [value]="item.businessCategoryId"
-          >
-            {{ item.categoryName }}
-          </option>
-        </select>
-      </div>
-
-      <div class="col-md-6">
-        <label for="period" style="font-size: 14px; font-weight: 600"
-          >Select Merchant</label
-        ><br />
-        <select
-          style="font-size: 12px"
-          id="period"
-          class="form-select"
-          [ngModel]="selectedmerchant"
-          (change)="onMerchantChange($event)"
-        >
-          <option selected disabled>Select</option>
-          <option *ngFor="let item of catgry" [value]="item.merchantId">
-            {{ item.merchantLegalName }}
-          </option>
-        </select>
+        <br />
       </div>
     </div>
-   
- 
-    <div class="row">
-      <div class="col-md-6">
- 
-        <canvas id="maintenanceChartCanvas"></canvas>
-      </div>
-      <div class="col-md-6">
-        <canvas id="oneTimeChartCanvas"></canvas>
-      </div>
- 
-    </div>
- 
     &nbsp;
- 
-    <div class="row justify-content-center">
-      <div class="col-md-6 text-center">
-        <canvas id="otherPaymentChartCanvas"></canvas>
-      </div>
-    </div>
-    &nbsp;&nbsp;
-  </div>
 
-  <div class="row">
-    <div
-      class="col-6">
-      <div class="card" [hidden]="valuetoppaymentmethod !== 'Seven Days Payment Method'">
-        <h5>Top Payment Methods (For Past 7 Days)</h5>
-        <div class="table-responsive">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Payment Method</th>
-                <th>Count</th>
-                <th>Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let method of topseven">
-                <td>
-                  {{
-                    method.paymentMethod
-                      ? method.paymentMethod
-                      : "Not Specified"
-                  }}
-                </td>
-                <td>{{ method.count }}</td>
-                <td>₹{{ method.amount }}</td>
-              </tr>
-            </tbody>
-          </table>
+    <div class="card" [hidden]="valueTransactionDetails !== 'Transaction Details'">
+      <div class="text-center">
+        <h5>Transaction Details</h5>
+      </div>
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <label for="period" style="font-size: 14px; font-weight: 600">Select Business Category</label><br />
+
+          <select (change)="categorybusiness($event)" id="Bussiness category" class="form-select"
+            style="font-size: 12px" id="period">
+            <option value="" disabled selected>Select</option>
+            <option *ngFor="let item of categorydetails" [value]="item.businessCategoryId">
+              {{ item.categoryName }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label for="period" style="font-size: 14px; font-weight: 600">Select Merchant</label><br />
+          <select style="font-size: 12px" id="period" class="form-select" [ngModel]="selectedmerchant"
+            (change)="onMerchantChange($event)">
+            <option selected disabled>Select</option>
+            <option *ngFor="let item of catgry" [value]="item.merchantId">
+              {{ item.merchantLegalName }}
+            </option>
+          </select>
         </div>
       </div>
+
+
+      <div class="row">
+        <div class="col-md-6">
+
+          <canvas id="maintenanceChartCanvas"></canvas>
+        </div>
+        <div class="col-md-6">
+          <canvas id="oneTimeChartCanvas"></canvas>
+        </div>
+
+      </div>
+
+      &nbsp;
+
+      <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+          <canvas id="otherPaymentChartCanvas"></canvas>
+        </div>
+      </div>
+      &nbsp;&nbsp;
     </div>
- 
-  </div>
- 
- 
- 
- 
-  <!-- transaction-card.component.html -->
-  <!--
+
+    <div class="row">
+      <div class="col-6">
+        <div class="card" [hidden]="valuetoppaymentmethod !== 'Seven Days Payment Method'">
+          <h5>Top Payment Methods (For Past 7 Days)</h5>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Payment Method</th>
+                  <th>Count</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let method of topseven">
+                  <td>
+                    {{
+                    method.paymentMethod
+                    ? method.paymentMethod
+                    : "Not Specified"
+                    }}
+                  </td>
+                  <td>{{ method.count }}</td>
+                  <td>₹{{ method.amount }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+</div>
+    
+    
+    
+    
+    <!-- transaction-card.component.html -->
+    <!--
 <div class="row">
  
   <div class="col-md-6 mb-4">
