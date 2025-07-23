@@ -67,6 +67,8 @@ export class CreateOtherpaymentComponent {
         this.dialog.closeAll();
       } else {
         this.toastr.error(res.response);
+        this.bankDetailsUpdated.emit();
+        this.dialog.closeAll();
       }
     });
   }

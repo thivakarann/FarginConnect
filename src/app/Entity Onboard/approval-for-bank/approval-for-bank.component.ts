@@ -30,7 +30,7 @@ export class ApprovalForBankComponent implements OnInit {
       approvalStatus: new FormControl('', [Validators.required]),
       reMarks: new FormControl('', [
         Validators.required,
- Validators.maxLength(250),
+        Validators.maxLength(250),
 
       ]),
     });
@@ -58,6 +58,7 @@ export class ApprovalForBankComponent implements OnInit {
           this.bankDetailsUpdated.emit();
           this.dialog.closeAll();
         } else {
+          this.bankDetailsUpdated.emit();
           this.dialog.closeAll();
           this.toastr.error(res.responseMessage);
         }

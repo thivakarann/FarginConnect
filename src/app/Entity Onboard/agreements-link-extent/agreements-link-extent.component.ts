@@ -54,6 +54,8 @@ export class AgreementsLinkExtentComponent {
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       } else {
+        this.bankDetailsUpdated.emit();
+        this.dialog.closeAll();
         this.toastr.error(res.responseMessage);
       }
     });

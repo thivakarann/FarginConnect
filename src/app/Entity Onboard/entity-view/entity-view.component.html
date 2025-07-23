@@ -2,6 +2,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+<!-- TITLE STARTS -->
+
 <div class="row" style="margin-left: -7px;">
 
   <div style="font-size: x-large; font-weight: 600;margin-top: -25px;" class="w-50">
@@ -22,7 +24,14 @@
   </div>
 
 </div>
+
+<!-- TITLE ENDS -->
+
+
+<!-- TAB ONE STARTS -->
+
 <div class="nav-wrapper">
+
   <button class="nav-arrow" (click)="scrollTabs('prev')"><i style="color:#141e46"
       class="fa-solid fa-backward"></i></button>
 
@@ -82,10 +91,15 @@
       class="fa-solid fa-forward"></i></button>
 </div>
 
+<!-- TAB ONE ENDS -->
+
+
+<!-- TAB TWO STARTS -->
 
 
 <div class="tab-container"
   [hidden]="valueGeneral !== 'Entity View General Information' && valuebankinfo !== 'Entity View Bank Information' && valuekycdocument !== 'Entity View KYC Document' && valuebussinessdocument !== 'Entity View Bussiness Document'&& valuefinalapproval !== 'Entity View Final Approval'&& valuemanualpayment !== 'Entity View One Time Setup Payment'&& valueCustomized !== 'Entity View Customized Payment'&&valuesmssetting !== 'Entity View-SMS Settings'&&valueagreement !== 'Entity View Agreement'&& valuebranch !== 'Entity View Branch'">
+
   <div class="info-tab-wrapper">
     <button class="info-tab-arrow" (click)="scrollInfoTabs('prev')"><i style="color:#141e46"
         class="fa-solid fa-backward"></i></button>
@@ -126,9 +140,13 @@
         class="fa-solid fa-forward"></i></button>
   </div>
 
+  <!-- GENERAL INFO STARTS -->
+
   <div class="tab-content" *ngIf="activeTab === 'events'" [hidden]="valueGeneral !== 'Entity View General Information'">
+
     <div class="filters">
       <div class="col-12">
+
         <div class="row" style="background-color: #bcdf72; color: #141e46">
           <div class="col-md-10">
             <h5 class="p-2 mx-3" style="font-weight: 500; font-size: 20px">
@@ -136,6 +154,7 @@
             </h5>
           </div>
           <div class="col-md-2 d-flex justify-content-end">
+
             <!-- <span class="buttonDownload1">
                             <i class="fas fa-edit" style="color: #fff;font-size:18px;"
                                 (click)="editpersonalInfo(this.id)"></i>
@@ -143,6 +162,7 @@
 
             <!-- [disabled]="detaislone?.onBoardStatus=='false'" //View onboardinfo -->
             &nbsp;&nbsp;&nbsp;
+
             <div class="buttonDownload1" [matMenuTriggerFor]="menu" [hidden]="
                 valueeditentity !== 'Entity View-Edit' &&
                 valueplandetails !== 'Entity Plan Details' &&
@@ -218,6 +238,7 @@
             </div>
           </div>
         </div>
+
         <article class="car-details label-info mt-3">
           <div class="container-fluid">
             <div class="row">
@@ -465,6 +486,8 @@
       <button class="btn clear"></button>
     </div>
 
+    <!-- LEVEL ONE APPROVAL STARTS -->
+
     <h5 class="p-2 mx-3 mt-5" style="
         background-color: #bcdf72;
         color: #141e46;
@@ -480,7 +503,9 @@
           <div class="d-flex flex-md-row align-items-md-start align-items-center flex-column">
             <div class="w-100">
               <div class="container-fluid">
+
                 <div class="row">
+
                   <div class="col-md-6 col-12">
                     <div class="d-flex flex-column">
                       <div class="d-flex mt-3">
@@ -517,6 +542,7 @@
                       </div>
                     </div>
                   </div>
+
                   <div class="col-md-6 col-12">
                     <div class="d-flex mt-2">
                       <div class="w-50 font-weight-bold">Approval Status</div>
@@ -546,7 +572,9 @@
                       </div>
                     </div>
                   </div>
+
                 </div>
+
               </div>
             </div>
           </div>
@@ -554,8 +582,19 @@
       </div>
       <button class="btn clear"></button>
     </div>
+
+    <!-- LEVEL ONE APPROVAL ENDS -->
+
+
   </div>
+
+  <!-- GENERAL INFO ENDS -->
+
+
+  <!-- BANK  INFO STARTS -->
+
   <div *ngIf="activeTab === 'materials'">
+
     <mat-card-header>
       <div class="row d-flex justify-content-start">
         <div class="col-md-3">
@@ -564,19 +603,12 @@
               <label for="search">
                 <input (ngModelChange)="onSearchTextChange()" #input name="search" required autocomplete="off"
                   placeholder="Search" id="search" type="text" [(ngModel)]="searchText" />
-
                 <div class="icon">
                   <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                     xmlns="http://www.w3.org/2000/svg" class="swap-on">
                     <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
                       stroke-linecap="round"></path>
                   </svg>
-                  <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                          xmlns="http://www.w3.org/2000/svg" class="swap-off">
-                          <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
-                              stroke-linecap="round">
-                          </path>
-                      </svg> -->
                 </div>
                 <button type="reset" class="close-btn">
                   <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
@@ -589,6 +621,7 @@
             </form>
           </div>
         </div>
+
         <div class="col-md-1 mt-1">
           <button (click)="Entitybanksearch(id, input.value)" style="
               color: white;
@@ -599,6 +632,8 @@
             Go
           </button>
         </div>
+
+
         <div class="col-md-2 mt-1">
           <button (click)="addbank(this.id)" [hidden]="valuebankadd !== 'Bank-Add'" style="
               color: white;
@@ -609,8 +644,11 @@
             Add Bank
           </button>
         </div>
+
+
       </div>
     </mat-card-header>
+
     <div class="row mt-3">
       <div class="col-12 mb-3 mb-lg-5">
         <div class="card table-nowrap table-card">
@@ -627,43 +665,23 @@
                 <th>Bank Name</th>
                 <th>Branch Name</th>
                 <th [hidden]="valuebanksts !== 'Bank-Status'">Bank Status</th>
-                <th [hidden]="valueprimarysts !== 'Bank Primary-Status'">
-                  Primary Status
-                </th>
-                <th [hidden]="valuebankapproval !== 'Bank-Approval'">
-                  Approval
-                </th>
-                <th [hidden]="valuebankapprovalsts !== 'Bank-Approval Status'">
-                  Approval Status
-                </th>
-                <th>Reviewed By</th>
-
-                <!-- approved datetime -->
-                <th>Reviewed At</th>
-
-                <!-- approved datetime -->
+                <th [hidden]="valueprimarysts !== 'Bank Primary-Status'">Primary Status</th>
+                <th [hidden]="valuebankapproval !== 'Bank-Approval'">Approval</th>
+                <th [hidden]="valuebankapprovalsts !== 'Bank-Approval Status'">Approval Status</th>
+                <th>Reviewed By</th><!-- approved BY -->
+                <th>Reviewed At</th> <!-- approved datetime -->
                 <th [hidden]="valuebankcomment !== 'Bank-comment'">Comments</th>
                 <th [hidden]="valuebankedit !== 'Bank-Edit'">Action</th>
-                <th [hidden]="valuebankverify !== 'Bank-Verification'">
-                  Verification
-                </th>
+                <th [hidden]="valuebankverify !== 'Bank-Verification'">Verification</th>
                 <th>Verification Status</th>
                 <th>Created By</th>
                 <th>Created At</th>
                 <th>Modified By</th>
                 <th>Modified At</th>
               </tr>
-              <tbody *ngFor="
-                  let item of bankdetails
-                    | search : searchText
-                    | paginate
-                      : {
-                          id: 'pagination',
-                          itemsPerPage: itemsPerPage,
-                          currentPage: currentPage
-                        };
-                  let i = index
-                ">
+
+              <tbody
+                *ngFor="let item of bankdetails| search : searchText| paginate: {id: 'pagination',itemsPerPage: itemsPerPage,currentPage: currentPage};let i = index">
                 <td>{{ i + 1 }}</td>
                 <td>{{ item.accountHolderName }}</td>
                 <td>{{ item.accountNumber }}</td>
@@ -673,12 +691,12 @@
                 <td>{{ item.ledgerId }}</td>
                 <td>{{ item.bankId.bankName }}</td>
                 <td>{{ item.branchName }}</td>
-
                 <td [hidden]="valuebanksts !== 'Bank-Status'">
                   <span>
                     <mat-slide-toggle class="example-margin" color="primary" [checked]="item.activeStatus == 1"
                       (change)="bankStatus($event, item.merchantBankId)" style="transform: scale(0.9);padding:0">
-                    </mat-slide-toggle></span>
+                    </mat-slide-toggle>
+                  </span>
                 </td>
                 <td [hidden]="valueprimarysts !== 'Bank Primary-Status'">
                   <span>
@@ -693,46 +711,35 @@
                     Approval
                   </button>
                 </td>
-                <td [hidden]="valuebankapprovalsts !== 'Bank-Approval Status'" [ngClass]="{
-                    yellow: item?.approvalStatus === 'Pending',
-                    green: item?.approvalStatus === 'approved',
-
-                    Red: item?.approvalStatus == 'Rejected'
-                  }">
+                <td [hidden]="valuebankapprovalsts !== 'Bank-Approval Status'"
+                  [ngClass]="{yellow: item?.approvalStatus === 'Pending',green: item?.approvalStatus === 'approved',Red: item?.approvalStatus == 'Rejected'}">
                   {{ item.approvalStatus }}
                 </td>
-
-                <td>{{ item.approvalBy }}</td>
-                <!-- approved datetime -->
-
+                <td>{{ item.approvalBy !=null ? (item.approvalBy) : "-"}}</td> <!-- approved BY -->
                 <td>
-                  {{
-                  item.approvalDateTime != "NA"
-                  ? (item.approvalDateTime
-                  | date
-                  : "dd/MM/yyyy hh:mm
-                  a")
-                  : "--"
-                  }}
-                </td>
-
-                <!-- approved datetime -->
+                  {{ item.approvalDateTime != "NA" ? (item.approvalDateTime | date: "dd/MM/yyyy hh:mm a") : "-"}}
+                </td> <!-- approved datetime -->
                 <td [hidden]="valuebankcomment !== 'Bank-comment'">
-                  <span (click)="BankComments(item.reMarks)"><i class="fas fa-comments" style="
+                  <span (click)="BankComments(item.reMarks)">
+                    <i class="fas fa-comments" style="
                         text-align: center;
                         cursor: pointer;
                         font-size: 15px;
                         color: #545497;
-                      "></i></span>
+                      ">
+                    </i>
+                  </span>
                 </td>
-
                 <td [hidden]="valuebankedit !== 'Bank-Edit'">
-                  <span><i style="
+                  <span>
+                    <i style="
                         text-align: center;
                         cursor: pointer;
                         font-size: 15px;
                         color: #545497;
-                      " (click)="editbank(item)" class="fas fa-edit"></i></span>
+                      " (click)="editbank(item)" class="fas fa-edit">
+                    </i>
+                  </span>
                 </td>
                 <td [hidden]="valuebankverify !== 'Bank-Verification'">
                   <span>
@@ -767,13 +774,9 @@
                   <span *ngIf="item.facheckStatus == 1" class="text-success">Verified</span>
                 </td>
                 <td>{{ item.createdBy }}</td>
-                <td>
-                  {{ item.createdDateTime | date : "dd/MM/yyyy hh:mm:a" }}
-                </td>
+                <td>{{ item.createdDateTime | date : "dd/MM/yyyy hh:mm:a" }}</td>
                 <td>{{ item.modifiedBy }}</td>
-                <td>
-                  {{ item.modifiedDateTime | date : "dd/MM/yyyy hh:mm:a" }}
-                </td>
+                <td>{{ item.modifiedDateTime | date : "dd/MM/yyyy hh:mm:a" }}</td>
               </tbody>
             </table>
           </div>
@@ -784,7 +787,14 @@
       </div>
     </div>
   </div>
+
+  <!-- BANK  INFO ENDS -->
+
+
+  <!-- KYC DOC  INFO STARTS -->
+
   <div *ngIf="activeTab === 'videos'">
+
     <mat-card-header>
       <button [hidden]="valuekycadd !== 'Entity View KYC Document-add'" [hidden]="KYCDetails.length > 0"
         (click)="addKycdocuments(this.id)" style="
@@ -796,6 +806,7 @@
         Add KYC
       </button>
     </mat-card-header>
+
     <div class="row mt-3">
       <div class="col-12 mb-3 mb-lg-5">
         <div class="card table-nowrap table-card">
@@ -806,58 +817,43 @@
                 <th>Document Type</th>
                 <th>Document Name</th>
                 <th>Document ID</th>
-                <th [hidden]="valuekycimage !== 'Entity View KYC Document-Image'">
-                  Document Image
-                </th>
-                <th [hidden]="valuekycedit !== 'Entity View KYC Document-Edit'">
-                  Action
-                </th>
-                <th [hidden]="
-                    valuekycverification !==
-                    'Entity View KYC Document-Verification'
-                  ">
-                  Verification
-                </th>
+                <th [hidden]="valuekycimage !== 'Entity View KYC Document-Image'">Document Image</th>
+                <th [hidden]="valuekycedit !== 'Entity View KYC Document-Edit'">Action</th>
+                <th [hidden]="valuekycverification !=='Entity View KYC Document-Verification'">Verification</th>
                 <th>Verification Status</th>
-                <th [hidden]="
-                    valuekycapproval !== 'Entity View KYC Document-Approval'
-                  ">
-                  Approval
-                </th>
+                <th [hidden]="valuekycapproval !== 'Entity View KYC Document-Approval'">Approval</th>
                 <th>Approval Status</th>
                 <th>Reviewed By</th>
                 <th>Reviewed At</th>
-                <th [hidden]="
-                    valuekyccomment !== 'Entity View KYC Document-comments'
-                  ">
-                  Comments
-                </th>
+                <th [hidden]="valuekyccomment !== 'Entity View KYC Document-comments'">Comments</th>
                 <th>Created By</th>
                 <th>Created At</th>
                 <th>Modified By</th>
                 <th>Modified At</th>
               </tr>
+
               <tbody *ngFor="let item of KYCDetails">
-                <tr>
+ 
+              <!-- Identity proof STARTS -->
+               
+              <tr>
                   <td>1</td>
                   <td>Identity proof</td>
                   <td>{{ item.identityProof }}</td>
                   <td>{{ item.identityProofNo }}</td>
-                  <td [hidden]="
-                      valuekycimage !== 'Entity View KYC Document-Image'
-                    ">
-                    <span (click)="getFrontPath(item.proofId)"><i class="fa-regular fa-image"
-                        style="font-size: 15px; cursor: pointer; color: #545497"></i></span>
-                    <span (click)="getBackPath(item.proofId)"><i class="fa-regular fa-image mx-1"
-                        style="font-size: 15px; cursor: pointer; color: #545497"></i></span>
+                  <td [hidden]="valuekycimage !== 'Entity View KYC Document-Image'">
+                    <span (click)="getFrontPath(item.proofId)">
+                      <i class="fa-regular fa-image" style="font-size: 15px; cursor: pointer; color: #545497">
+                      </i>
+                    </span>
+                    <span (click)="getBackPath(item.proofId)">
+                      <i class="fa-regular fa-image mx-1" style="font-size: 15px; cursor: pointer; color: #545497"></i>
+                    </span>
                   </td>
                   <td [hidden]="valuekycedit !== 'Entity View KYC Document-Edit'">
                     <i class="fas fa-edit" (click)="identityedit(item)"> </i>
                   </td>
-                  <td [hidden]="
-                      valuekycverification !==
-                      'Entity View KYC Document-Verification'
-                    ">
+                  <td [hidden]="valuekycverification !=='Entity View KYC Document-Verification'">
                     <span>
                       <i style="
                           overflow: hidden;
@@ -904,15 +900,11 @@
                     </span>
                   </td>
                   <td class="text-center">
-                    <span *ngIf="item.identityFacheckStatus == 0" style="font-size: 14px; color: red">
-                      Pending</span>
+                    <span *ngIf="item.identityFacheckStatus == 0" style="font-size: 14px; color: red">Pending</span>
                     <span *ngIf="item.identityFacheckStatus == 1" style="font-size: 14px; color: green">Verified</span>
-                    <span *ngIf="item.identityFacheckStatus == 2" style="font-size: 14px; color: red">
-                      Failed</span>
+                    <span *ngIf="item.identityFacheckStatus == 2" style="font-size: 14px; color: red"> Failed</span>
                   </td>
-                  <td [hidden]="
-                      valuekycapproval !== 'Entity View KYC Document-Approval'
-                    ">
+                  <td [hidden]="valuekycapproval !== 'Entity View KYC Document-Approval'">
                     <button class="buttonDownload" (click)="KycApproval(item)" [disabled]="
                         item.identityAdminApprovalStatus == 'approved'" style="font-size:14px;padding:2px">
                       Approval
@@ -925,54 +917,52 @@
                     }">
                     {{ item.identityAdminApprovalStatus }}
                   </td>
-
-                  <td>{{ item.identityAdminApprovedBy }}</td>
+                  <td>{{ item.identityAdminApprovedBy !=null ? (item.identityAdminApprovedBy) : "-"}}</td>
                   <td>
-                    {{
-                    item.identityAdminApprovedDate
-                    | date : "dd/MM/yyyy hh:mm a"
-                    }}
-                  </td>
-                  <td [hidden]="
-                      valuekyccomment !== 'Entity View KYC Document-comments'
-                    ">
-                    <span (click)="KYCComments(item.identityAdminComments)"><i class="fas fa-comments" style="
+                  {{item.identityAdminApprovedDate != "NA" ? (item.identityAdminApprovedDate | date: "dd/MM/yyyyhh:mm a") : "-"}}
+                </td>
+                <td [hidden]=" valuekyccomment !== 'Entity View KYC Document-comments'">
+                    <span (click)="KYCComments(item.identityAdminComments)">
+                      <i class="fas fa-comments" style="
                           text-align: center;
                           cursor: pointer;
                           font-size: 15px;
                           color: #545497;
-                        "></i></span>
+                        ">
+                        </i>
+                      </span>
                   </td>
                   <td>{{ item.createdBy }}</td>
-                  <td>
-                    {{ item.createdDateTime | date : "dd/MM/yyyy hh:mm a" }}
-                  </td>
+                  <td>{{ item.createdDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
                   <td>{{ item.modifiedBy }}</td>
-                  <td>
-                    {{ item.modifiedDateTime | date : "dd/MM/yyyy hh:mm a" }}
-                  </td>
-                </tr>
+                  <td>{{ item.modifiedDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
+               </tr>
+               
+               <!-- Identity proof ENDS -->
 
-                <tr>
+              <!-- Address proof STARTS -->
+              
+              <tr>
                   <td>2</td>
                   <td>Address proof</td>
                   <td>{{ item.addressProof }}</td>
                   <td>{{ item.addressProofNo }}</td>
-                  <td [hidden]="
-                      valuekycimage !== 'Entity View KYC Document-Image'
-                    ">
-                    <span (click)="addressProofFrontPath(item.proofId)"><i class="fa-regular fa-image"
-                        style="font-size: 15px; cursor: pointer; color: #545497"></i></span>
-                    <span (click)="addressProofBackPath(item.proofId)"><i class="fa-regular fa-image mx-1"
-                        style="font-size: 15px; cursor: pointer; color: #545497"></i></span>
+                  <td [hidden]="valuekycimage !== 'Entity View KYC Document-Image'">
+                    <span (click)="addressProofFrontPath(item.proofId)">
+                      <i class="fa-regular fa-image"
+                        style="font-size: 15px; cursor: pointer; color: #545497">
+                      </i>
+                    </span>
+                    <span (click)="addressProofBackPath(item.proofId)">
+                      <i class="fa-regular fa-image mx-1"
+                        style="font-size: 15px; cursor: pointer; color: #545497">
+                      </i>
+                    </span>
                   </td>
                   <td [hidden]="valuekycedit !== 'Entity View KYC Document-Edit'">
                     <i class="fas fa-edit" (click)="addressedits(item)"></i>
                   </td>
-                  <td [hidden]="
-                      valuekycverification !==
-                      'Entity View KYC Document-Verification'
-                    ">
+                  <td [hidden]=" valuekycverification !=='Entity View KYC Document-Verification'">
                     <span>
                       <i style="
                           overflow: hidden;
@@ -1019,18 +1009,14 @@
                     </span>
                   </td>
                   <td class="text-center">
-                    <span *ngIf="item.addressFacheckStatus == 0" style="font-size: 14px; color: red">
-                      Pending</span>
+                    <span *ngIf="item.addressFacheckStatus == 0" style="font-size: 14px; color: red"> Pending</span>
                     <span *ngIf="item.addressFacheckStatus == 1" style="font-size: 14px; color: green">Verified</span>
-                    <span *ngIf="item.addressFacheckStatus == 2" style="font-size: 14px; color: red">
-                      Failed</span>
+                    <span *ngIf="item.addressFacheckStatus == 2" style="font-size: 14px; color: red">Failed</span>
                   </td>
-                  <td [hidden]="
-                      valuekycapproval !== 'Entity View KYC Document-Approval'
-                    ">
+                  <td [hidden]="valuekycapproval !== 'Entity View KYC Document-Approval'">
                     <button class="buttonDownload" (click)="KycApproval1(item)"
-                      [disabled]="item.addressAdminApprovalStatus == 'approved'" style="font-size:14px;padding:2px">
-                      Approval
+                    [disabled]="item.addressAdminApprovalStatus == 'approved'" style="font-size:14px;padding:2px">
+                    Approval
                     </button>
                   </td>
                   <td [ngClass]="{
@@ -1041,45 +1027,47 @@
                     {{ item.addressAdminApprovalStatus }}
                   </td>
 
-                  <td>{{ item.addressAdminApprovedBy }}</td>
+                  <td>{{ item.addressAdminApprovedBy !=null ? (item.addressAdminApprovedBy) : "-"}}</td>
                   <td>
-                    {{
-                    item.addressAdminApprovedDate
-                    | date : "dd/MM/yyyy hh:mm a"
-                    }}
+                  {{ item.addressAdminApprovedDate != "NA" ? (item.addressAdminApprovedDate | date: "dd/MM/yyyy hh:mm a") : "-"}}
                   </td>
-                  <td [hidden]="
-                      valuekyccomment !== 'Entity View KYC Document-comments'
-                    ">
-                    <span (click)="KYCComments(item.addressAdminComments)"><i class="fas fa-comments" style="
+                  <td [hidden]="valuekyccomment !== 'Entity View KYC Document-comments'">
+                    <span (click)="KYCComments(item.addressAdminComments)">
+                      <i class="fas fa-comments" style="
                           text-align: center;
                           cursor: pointer;
                           font-size: 15px;
                           color: #545497;
-                        "></i></span>
+                        ">
+                        </i>
+                      </span>
                   </td>
                   <td>{{ item.createdBy }}</td>
-                  <td>
-                    {{ item.createdDateTime | date : "dd/MM/yyyy hh:mm a" }}
-                  </td>
+                  <td>{{ item.createdDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
                   <td>{{ item.addressModifiedBy }}</td>
-                  <td>
-                    {{ item.addressModifiedAt | date : "dd/MM/yyyy hh:mm a" }}
-                  </td>
-                </tr>
+                  <td>{{ item.addressModifiedAt | date : "dd/MM/yyyy hh:mm a" }}</td>
+              </tr>
+
+              <!-- Address proof ENDS -->
+
+              <!-- 	Signature proof STARTS -->
 
                 <tr>
                   <td>3</td>
                   <td>Signature proof</td>
                   <td>{{ item.signatureProof }}</td>
                   <td>{{ item.signatureProofNo }}</td>
-                  <td [hidden]="
-                      valuekycimage !== 'Entity View KYC Document-Image'
-                    ">
-                    <span (click)="signatureProofFrontPath(item.proofId)"><i class="fa-regular fa-image"
-                        style="font-size: 15px; cursor: pointer; color: #545497"></i></span>
-                    <span (click)="signatureProofBackPath(item.proofId)"><i class="fa-regular fa-image mx-1"
-                        style="font-size: 15px; cursor: pointer; color: #545497"></i></span>
+                  <td [hidden]="valuekycimage !== 'Entity View KYC Document-Image'">
+                    <span (click)="signatureProofFrontPath(item.proofId)">
+                      <i class="fa-regular fa-image"
+                        style="font-size: 15px; cursor: pointer; color: #545497">
+                      </i>
+                    </span>
+                    <span (click)="signatureProofBackPath(item.proofId)">
+                      <i class="fa-regular fa-image mx-1"
+                        style="font-size: 15px; cursor: pointer; color: #545497">
+                      </i>
+                    </span>
                   </td>
                   <td [hidden]="valuekycedit !== 'Entity View KYC Document-Edit'">
                     <i class="fas fa-edit" (click)="signatureedits(item)"></i>
@@ -1134,56 +1122,46 @@
                     </span>
                   </td>
                   <td class="text-center">
-                    <span *ngIf="item.signatureFacheckStatus == 0" style="font-size: 14px; color: red">
-                      Pending</span>
+                    <span *ngIf="item.signatureFacheckStatus == 0" style="font-size: 14px; color: red">Pending</span>
                     <span *ngIf="item.signatureFacheckStatus == 1" style="font-size: 14px; color: green">Verified</span>
-                    <span *ngIf="item.signatureFacheckStatus == 2" style="font-size: 14px; color: red">
-                      Failed</span>
+                    <span *ngIf="item.signatureFacheckStatus == 2" style="font-size: 14px; color: red">Failed</span>
                   </td>
-                  <td [hidden]="
-                      valuekycapproval !== 'Entity View KYC Document-Approval'
-                    ">
+                  <td [hidden]="valuekycapproval !== 'Entity View KYC Document-Approval'">
                     <button class="buttonDownload" (click)="KycApproval2(item)" [disabled]="
                         item.signatureAdminApprovalStatus == 'approved'
                       " style="font-size:14px;padding:2px">
                       Approval
                     </button>
                   </td>
-
                   <td [ngClass]="{
                       yellow: item?.signatureAdminApprovalStatus === 'Pending',
                       green: item?.signatureAdminApprovalStatus === 'approved',
                       Red: item?.signatureAdminApprovalStatus == 'Rejected'
-                    }">
-                    {{ item.signatureAdminApprovalStatus }}
+                    }">{{ item.signatureAdminApprovalStatus }}
                   </td>
-
-                  <td>{{ item.signatureAdminApprovedBy }}</td>
+                  <td>{{ item.signatureAdminApprovedBy!=null ? (item.signatureAdminApprovedBy) : "-"}}</td>
                   <td>
-                    {{
-                    item.signatureAdminApprovedDate
-                    | date : "dd/MM/yyyy hh:mm a"
-                    }}
+                 {{ item.signatureAdminApprovedDate != "NA" ? (item.signatureAdminApprovedDate | date: "dd/MM/yyyy hh:mm a") : "-"}}
                   </td>
-                  <td [hidden]="
-                      valuekyccomment !== 'Entity View KYC Document-comments'
-                    ">
-                    <span (click)="KYCComments(item.signatureAdminComments)"><i class="fas fa-comments" style="
+                  <td [hidden]="valuekyccomment !== 'Entity View KYC Document-comments'">
+                  <span (click)="KYCComments(item.signatureAdminComments)">
+                    <i class="fas fa-comments" style="
                           text-align: center;
                           cursor: pointer;
                           font-size: 15px;
                           color: #545497;
-                        "></i></span>
+                        ">
+                        </i>
+                  </span>
                   </td>
                   <td>{{ item.createdBy }}</td>
-                  <td>
-                    {{ item.createdDateTime | date : "dd/MM/yyyy hh:mm a" }}
-                  </td>
+                  <td>{{ item.createdDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
                   <td>{{ item.signatureModifiedBy }}</td>
-                  <td>
-                    {{ item.signatureModifiedAt | date : "dd/MM/yyyy hh:mm a" }}
-                  </td>
+                  <td>{{ item.signatureModifiedAt | date : "dd/MM/yyyy hh:mm a" }}</td>
                 </tr>
+
+              <!-- 	Signature proof ENDS -->
+
               </tbody>
             </table>
           </div>
@@ -1191,7 +1169,14 @@
       </div>
     </div>
   </div>
+
+   <!-- KYC DOC  INFO ENDS -->
+
+ 
+   <!-- Business DOC  INFO STARTS -->
+
   <div *ngIf="activeTab === 'bussiness'">
+  
     <mat-card-header>
       <div class="row d-flex justify-content-start">
         <div class="col-md-3">
@@ -1200,19 +1185,12 @@
               <label for="search">
                 <input (ngModelChange)="onSearchTextBusiness()" #input name="search" required autocomplete="off"
                   placeholder="Search" id="search" type="text" [(ngModel)]="searchTextbusnniess" />
-
-                <div class="icon">
+                  <div class="icon">
                   <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                     xmlns="http://www.w3.org/2000/svg" class="swap-on">
                     <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
                       stroke-linecap="round"></path>
                   </svg>
-                  <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                          xmlns="http://www.w3.org/2000/svg" class="swap-off">
-                          <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
-                              stroke-linecap="round">
-                          </path>
-                      </svg> -->
                 </div>
                 <button type="reset" class="close-btn">
                   <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
@@ -1226,14 +1204,8 @@
           </div>
         </div>
         <div class="col-md-2 mt-1">
-          <button (click)="
-              adddoc(
-                this.id,
-                this.detaislone?.businessCategoryModel?.businessCategoryId
-              )
-            " [hidden]="
-              valuebussinessAdd !== 'Entity View Bussiness Document-Add'
-            " style="
+          <button (click)="adddoc(this.id,this.detaislone?.businessCategoryModel?.businessCategoryId)
+            " [hidden]="valuebussinessAdd !== 'Entity View Bussiness Document-Add' " style="
               color: white;
               background-color: #141e46;
               border-radius: 10px;
@@ -1244,6 +1216,8 @@
         </div>
       </div>
     </mat-card-header>
+
+
     <div class="row mt-3">
       <div class="col-12 mb-3 mb-lg-5">
         <div class="card table-nowrap table-card">
@@ -1254,65 +1228,36 @@
                 <th>Document Name</th>
                 <th>Document ID</th>
                 <th>Document Expiry Date</th>
-                <th [hidden]="
-                    valuebussinessImage !==
-                    'Entity View Bussiness Document-Image'
-                  ">
-                  Image
-                </th>
-                <th [hidden]="
-                    valuebussinessapproval !==
-                    'Entity View Bussiness Document-Approval'
-                  ">
-                  Approval
-                </th>
+                <th [hidden]="valuebussinessImage !=='Entity View Bussiness Document-Image'">Image</th>
+                <th [hidden]="valuebussinessapproval !=='Entity View Bussiness Document-Approval'">Approval</th>
                 <th>Approval Status</th>
                 <th>Reviewed By</th>
                 <th>Reviewed At</th>
-                <th [hidden]="
-                    valuebussinesscomment !==
-                    'Entity View Bussiness Document-Comments'
-                  ">
-                  Comments
-                </th>
-                <th [hidden]="
-                    valuebussinessedit !== 'Entity View Bussiness Document-Edit'
-                  ">
-                  Action
-                </th>
+                <th [hidden]="valuebussinesscomment !=='Entity View Bussiness Document-Comments'">Comments</th>
+                <th [hidden]="valuebussinessedit !== 'Entity View Bussiness Document-Edit'">Action</th>
                 <th>Created By</th>
                 <th>Created At</th>
                 <th>Modified By</th>
                 <th>Modified At</th>
               </tr>
-              <tbody *ngFor="
-                  let item of bussinessdoc
-                    | search : searchTextbusnniess
-                    | paginate
-                      : {
-                          id: 'pagination2',
-                          itemsPerPage: itemsPerPage,
-                          currentPage: currentPagebusniess
-                        };
-                  let i = index
-                ">
+              <tbody *ngFor=" let item of bussinessdoc| search : searchTextbusnniess | paginate : {id: 'pagination2',itemsPerPage: itemsPerPage,currentPage: currentPagebusniess};let i = index">
                 <td>{{ i + 1 }}</td>
                 <td>{{ item?.entityKycCategory?.kycCategoryName }}</td>
                 <td>{{ item.docNumber }}</td>
                 <td>{{ item.expiryDate | date : "dd/MM/yyyy" }}</td>
-                <td [hidden]="
-                    valuebussinessImage !==
-                    'Entity View Bussiness Document-Image'
-                  ">
-                  <span (click)="getdocFrontPath(item.merchantDocumentId)"><i class="fa-regular fa-image"
-                      style="font-size: 15px; cursor: pointer; color: #545497"></i></span>
-                  <span (click)="getdocbackPath(item.merchantDocumentId)"><i class="fa-regular fa-image mx-1"
-                      style="font-size: 15px; cursor: pointer; color: #545497"></i></span>
+                <td [hidden]=" valuebussinessImage !=='Entity View Bussiness Document-Image'">
+                  <span (click)="getdocFrontPath(item.merchantDocumentId)">
+                    <i class="fa-regular fa-image"
+                      style="font-size: 15px; cursor: pointer; color: #545497">
+                    </i>
+                  </span>
+                  <span (click)="getdocbackPath(item.merchantDocumentId)">
+                    <i class="fa-regular fa-image mx-1"
+                      style="font-size: 15px; cursor: pointer; color: #545497">
+                    </i>
+                  </span>
                 </td>
-                <td [hidden]="
-                    valuebussinessapproval !==
-                    'Entity View Bussiness Document-Approval'
-                  ">
+                <td [hidden]="valuebussinessapproval !=='Entity View Bussiness Document-Approval'">
                   <button class="buttonDownload" (click)="docApproval(item)"
                     [disabled]="item.approvalStatus == 'approved'" style="font-size:14px;padding:2px">
                     Approval
@@ -1322,37 +1267,28 @@
                     yellow: item?.approvalStatus === 'Pending',
                     green: item?.approvalStatus === 'approved',
                     Red: item?.approvalStatus == 'Rejected'
-                  }">
-                  {{ item.approvalStatus }}
+                  }">{{ item.approvalStatus }}
                 </td>
                 <td>{{ item.approvalBy }}</td>
-                <td>
-                  {{ item.approvalDateTime | date : "dd/MM/yyyy hh:mm a" }}
-                </td>
-                <td [hidden]="
-                    valuebussinesscomment !==
-                    'Entity View Bussiness Document-Comments'
-                  ">
-                  <span (click)="DocComments(item.reMarks)"><i class="fas fa-comments" style="
+                <td>{{ item.approvalDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
+                <td [hidden]="valuebussinesscomment !=='Entity View Bussiness Document-Comments'">
+                  <span (click)="DocComments(item.reMarks)">
+                    <i class="fas fa-comments" style="
                         text-align: center;
                         cursor: pointer;
                         font-size: 15px;
                         color: #545497;
-                      "></i></span>
+                      ">
+                      </i>
+                    </span>
                 </td>
-                <td [hidden]="
-                    valuebussinessedit !== 'Entity View Bussiness Document-Edit'
-                  ">
+                <td [hidden]="valuebussinessedit !== 'Entity View Bussiness Document-Edit'">
                   <i class="fas fa-edit" style="padding:0" (click)="docedit(item)"> </i>
                 </td>
                 <td>{{ item.createdBy }}</td>
-                <td>
-                  {{ item.createdDateTime | date : "dd/MM/yyyy hh:mm a" }}
-                </td>
-                <td>{{ item.modifiedBy }}</td>
-                <td>
-                  {{ item.modifiedDateTime | date : "dd/MM/yyyy hh:mm a" }}
-                </td>
+                <td>{{ item.createdDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
+                <td>{{ item.modifiedBy}}</td>
+                <td>{{ item.modifiedDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
               </tbody>
             </table>
           </div>
@@ -1363,6 +1299,12 @@
       </div>
     </div>
   </div>
+
+    <!-- Business DOC  INFO ENDS -->
+
+
+  <!-- FINAL APPROVEL  INFO STARTS -->
+
   <div *ngIf="activeTab === 'doot1'">
     <div class="row mt-2">
       <div class="col-12 mb-3 mb-lg-5">
@@ -1373,21 +1315,21 @@
                 <th>S No</th>
                 <th>Approval</th>
                 <th>Approval Status</th>
-                <th [hidden]="valuefinalcomment !== 'Final-Comment'">
-                  Comments
-                </th>
+                <th [hidden]="valuefinalcomment !== 'Final-Comment'">Comments</th>
                 <th>Reviewed By</th>
                 <th>Reviewed At</th>
               </tr>
               <tbody>
                 <td class="text-center">1</td>
                 <td class="text-center" [hidden]="valuefinalapprovals !== 'Final-Approval'">
-                  <span><button class="buttonDownload" (click)="levelTwoApproval(this.id)" [hidden]="
+                  <span>
+                    <button class="buttonDownload" (click)="levelTwoApproval(this.id)" [hidden]="
                         this.detaislone?.approvalStatusL1 == 'Pending' ||
                         this.detaislone?.approvalStatusL1 == 'Rejected'
                       ">
                       Approval
-                    </button></span>
+                    </button>
+                  </span>
                 </td>
                 <td class="text-center">
                   <span style="color: green" *ngIf="detaislone?.approvalStatusL2 == 'approved'">{{
@@ -1405,15 +1347,12 @@
                   ">
                   <span (click)="levelTwoComments(this.detaislone?.commentL2)"><i class="fas fa-comments"></i></span>
                 </td>
-                <td class="text-center">{{ this.detaislone?.approvedByL2 }}</td>
                 <td class="text-center">
-                  {{
-                  this.detaislone?.approvedDateTimeL2
-                  | date
-                  : "dd/MM/yyyy hh:mm
-                  a"
-                  }}
+                 {{ detaislone.approvedByL2 !=null ? (detaislone.approvedByL2) : "-"}}
                 </td>
+                <td class="text-center">
+                {{ detaislone.approvedDateTimeL2 != "NA" ? (detaislone.approvedDateTimeL2 | date: "dd/MM/yyyy hh:mm a") : "-"}}
+              </td>
               </tbody>
             </table>
           </div>
@@ -1421,9 +1360,14 @@
       </div>
     </div>
   </div>
-</div>
-<div *ngIf="activeTab === 'doot2'">
-  <mat-card-header>
+
+  <!-- FINAL APPROVEL  INFO ENDS -->
+
+
+  <!-- ONE-TIME-SETUP-FEE   INFO STARTS -->
+
+  <div *ngIf="activeTab === 'doot2'">
+   <mat-card-header>
     <div class="row d-flex justify-content-start">
       <div class="col-md-3">
         <div class="search">
@@ -1431,19 +1375,12 @@
             <label for="search">
               <input (ngModelChange)="onSearchTextonetime()" #input name="search" required autocomplete="off"
                 placeholder="Search" id="search" type="text" [(ngModel)]="searchTextOneTime" />
-
-              <div class="icon">
+                <div class="icon">
                 <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                   xmlns="http://www.w3.org/2000/svg" class="swap-on">
                   <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
                   </path>
                 </svg>
-                <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                          xmlns="http://www.w3.org/2000/svg" class="swap-off">
-                          <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
-                              stroke-linecap="round">
-                          </path>
-                      </svg> -->
               </div>
               <button type="reset" class="close-btn">
                 <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
@@ -1456,9 +1393,7 @@
           </form>
         </div>
       </div>
-      <div class="col-md-2 mt-1" [hidden]="
-          valuemanualpay !== 'Entity View One Time Setup Payment-Create'
-        ">
+      <div class="col-md-2 mt-1" [hidden]="valuemanualpay !== 'Entity View One Time Setup Payment-Create'">
         <button (click)="createmanualPayement()" [hidden]="paymentStatus == 'Success' || onBoardStatus == 'false'"
           style="
             color: white;
@@ -1472,6 +1407,7 @@
       </div>
     </div>
   </mat-card-header>
+
   <div class="row mt-3">
     <div class="col-12 mb-3 mb-lg-5">
       <div class="card table-nowrap table-card">
@@ -1482,11 +1418,8 @@
               <th>Payment ID</th>
               <th>Payment For</th>
               <th>Due Amount</th>
-
-              <th [hidden]="
-                  valuemanualedit !== 'Entity View One Time Setup Payment-Edit'
-                ">
-                <span style="background-color: #bcdf72" *ngIf="
+              <th [hidden]="valuemanualedit !== 'Entity View One Time Setup Payment-Edit'">
+              <span style="background-color: #bcdf72" *ngIf="
                     paymentMethod == 'Cash' ||
                     paymentMethod == 'UPI' ||
                     paymentMethod == 'NEFT' ||
@@ -1496,44 +1429,25 @@
                   ">Edit
                 </span>
               </th>
-
               <th>Payment Status</th>
               <th>Payment Method</th>
-              <th [hidden]="
-                  valuemanualview !== 'Entity View One Time Setup Payment-View'
-                ">
-                View
-              </th>
+              <th [hidden]="valuemanualview !== 'Entity View One Time Setup Payment-View'">View</th>
               <th>Reference Number</th>
               <th>Cheque Date</th>
-
               <th>Manual CreatedBy</th>
               <th>Manual UpdatedBy</th>
               <th>Manual Updated At</th>
               <th>Paid At</th>
             </tr>
-            <tbody *ngFor="
-                let item of manualDetails
-                  | search : searchTextOneTime
-                  | paginate
-                    : {
-                        id: 'pagination3',
-                        itemsPerPage: itemsPerPage,
-                        currentPage: currentonetime
-                      };
-                let i = index
-              ">
+            <tbody *ngFor="let item of manualDetails| search : searchTextOneTime| paginate: {id: 'pagination3',itemsPerPage: itemsPerPage,currentPage: currentonetime };let i = index">
               <td>{{ i + 1 }}</td>
               <td>{{ item.pgPaymentId }}</td>
               <td>
                 <span *ngIf="item?.status=='1'">One Time Paymnent</span>
                 <span *ngIf="item?.status=='2'">Renewal Payment</span>
               </td>
-
-              <td>{{ item.totalPayableAmount.toFixed(2) }}</td>
-              <td [hidden]="
-                  valuemanualedit !== 'Entity View One Time Setup Payment-Edit'
-                ">
+              <td>{{ item.totalPayableAmount?.toFixed(2)}}</td>
+              <td [hidden]="valuemanualedit !== 'Entity View One Time Setup Payment-Edit'">
                 <button style="border: none;font-size: 15px;padding:0" *ngIf="
                     paymentMethod == 'Cash' ||
                     paymentMethod == 'UPI' ||
@@ -1547,40 +1461,38 @@
                   </span>
                 </button>
               </td>
-
               <td>
                 <span *ngIf="item?.paymentStatus == 'Success'" class="text-success">
-                  {{ item?.paymentStatus }}
+                  Success
                 </span>
                 <span *ngIf="item?.paymentStatus == 'Due Pending'" class="text-warning">
-                  {{ item?.paymentStatus }}</span>
+                 Due Pending
+                </span>
                 <span *ngIf="item?.paymentStatus == 'Initiated'" class="text-primary">
-                  {{ item?.paymentStatus }}</span>
+               Initiated
+                </span>
                 <span *ngIf="item?.paymentStatus == 'Failure'" class="text-danger">
-                  {{ item?.paymentStatus }}</span>
+                  Failure
+                </span>
                 <span *ngIf="item?.paymentStatus == 'Payment Incomplete'" class="text-warning">
-                  {{ item?.paymentStatus }}</span>
+                Payment Incomplete
+                </span>
               </td>
               <td>{{ item.paymentMethod }}</td>
-              <td [hidden]="
-                  valuemanualview !== 'Entity View One Time Setup Payment-View'
-                ">
-                <span (click)="viewmanualtransaction(item.merchantPayId)">
-                  <i class="fas fa-eye" style="font-size: 16px; color: rgb(39, 39, 95)"></i>
-                </span>
+              <td [hidden]="valuemanualview !== 'Entity View One Time Setup Payment-View'">
+              <span (click)="viewmanualtransaction(item.merchantPayId)">
+              <i class="fas fa-eye" style="font-size: 16px; color: rgb(39, 39, 95)"></i>
+              </span>
               </td>
               <td>{{ item.utrNumber || "-" }}</td>
               <td>
-                <span [hidden]="item.date == null">
-                  {{ item.date | date : "dd/MM/yyyy" }}</span>
-                <span [hidden]="item.date != null"> - </span>
+                <span [hidden]="item.date == null">{{ item.date | date : "dd/MM/yyyy" }}</span>
+                <span [hidden]="item.date != null"> -</span>
               </td>
-
               <td>{{ item?.manualApprovalBy || "-" }}</td>
               <td>{{ item?.updatedBy || "-" }}</td>
               <td>
-                <span [hidden]="item.date == null">
-                  {{ item.updateAt | date : "dd/MM/yyyy" }}</span>
+                <span [hidden]="item.date == null">{{ item.updateAt | date : "dd/MM/yyyy" }}</span>
                 <span [hidden]="item.updateAt != null"> - </span>
               </td>
               <td>{{ item.paymentDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
@@ -1593,9 +1505,15 @@
       </div>
     </div>
   </div>
-</div>
 
-<div *ngIf="activeTab === 'doot3'">
+   </div>
+
+  <!-- ONE-TIME-SETUP-FEE   INFO ENDS -->
+
+  <!-- CUSTAMIZED PAYMENTS   INFO STARTS -->
+ 
+  <div *ngIf="activeTab === 'doot3'">
+    
   <mat-card-header>
     <div class="row d-flex justify-content-start">
       <div class="col-md-3">
@@ -1604,19 +1522,12 @@
             <label for="search">
               <input (ngModelChange)="onSearchTextcustomized()" #input name="search" required autocomplete="off"
                 placeholder="Search" id="search" type="text" [(ngModel)]="searchTextcustomixed" />
-
-              <div class="icon">
+                <div class="icon">
                 <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                   xmlns="http://www.w3.org/2000/svg" class="swap-on">
                   <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
                   </path>
                 </svg>
-                <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                          xmlns="http://www.w3.org/2000/svg" class="swap-off">
-                          <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
-                              stroke-linecap="round">
-                          </path>
-                      </svg> -->
               </div>
               <button type="reset" class="close-btn">
                 <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
@@ -1641,6 +1552,7 @@
       </div>
     </div>
   </mat-card-header>
+  
   <div class="row mt-3">
     <div class="col-12 mb-3 mb-lg-5">
       <div class="card table-nowrap table-card">
@@ -1654,36 +1566,14 @@
               <th>Sgst</th>
               <th>Igst</th>
               <th>Total Amount</th>
-              <th [hidden]="
-                  valueCustomizedmanual !==
-                  'Entity View Customized Manual Payment'
-                ">
-                Manual Payment
-              </th>
-              <th [hidden]="
-                  valueCustomizededit !== 'Entity View Customized Payment-Edit'
-                ">
-                Action
-              </th>
-              <th [hidden]="
-                  valueCustomizedview !== 'Entity View Customized Payment-View'
-                ">
-                View
-              </th>
+              <th [hidden]="valueCustomizedmanual !=='Entity View Customized Manual Payment'">Manual Payment</th>
+              <th [hidden]="valueCustomizededit !== 'Entity View Customized Payment-Edit'">Action</th>
+              <th [hidden]="valueCustomizedview !== 'Entity View Customized Payment-View'">View</th>
               <th>Payment Status</th>
               <th>Paid At</th>
             </tr>
-            <tbody *ngFor="
-                let item of otherDetails
-                  | search : searchTextcustomixed
-                  | paginate
-                    : {
-                        id: 'pagination4',
-                        itemsPerPage: itemsPerPage,
-                        currentPage: currentcustomized
-                      };
-                let i = index
-              ">
+            <tbody *ngFor="let item of otherDetails| search : searchTextcustomixed| paginate: {id: 'pagination4',
+            itemsPerPage: itemsPerPage,currentPage: currentcustomized};let i = index">
               <td>{{ i + 1 }}</td>
               <td>{{ item.serviceName }}</td>
               <td>{{ item.paidAmount.toFixed(2) }}</td>
@@ -1695,9 +1585,7 @@
                 <button [disabled]="
                     item.paymentStatus == 'Success' ||
                     item.paymentStatus == 'Due Cancelled'
-                  " [hidden]="
-                    valueCustomizedmanual !==
-                    'Entity View Customized Manual Payment'
+                  " [hidden]="valueCustomizedmanual !=='Entity View Customized Manual Payment'
                   " style="border: none; background: none;font-size:15px;padding:0" class="manual"
                   (click)="Manuvalpayments(item.payId)">
                   <i style="font-size:15px" class="fa-solid fa-address-card"></i>
@@ -1705,33 +1593,29 @@
               </td>
               <td>
                 <button class="editcustom" style="background: none; border: none;font-size:15px;padding:0"
-                  (click)="editotherPayment(item)" [hidden]="
-                    valueCustomizededit !==
-                    'Entity View Customized Payment-Edit'
-                  " [disabled]="item?.paymentStatus == 'Success'">
-                  <span>
-                    <i style="font-size:15px" class="fas fa-edit"></i>
-                  </span>
+                (click)="editotherPayment(item)" [hidden]=" valueCustomizededit !=='Entity View Customized Payment-Edit'" [disabled]="item?.paymentStatus == 'Success'">
+                <span>
+                <i style="font-size:15px" class="fas fa-edit"></i>
+                </span>
                 </button>
               </td>
               <td>
-                <button [hidden]="
-              valueCustomizedview !== 'Entity View Customized Payment-View'" (click)="viewOthertransaction(item.payId)"
-                  style="background: none; border: none;font-size:15px;padding:0">
-                  <i (click)="viewOthertransaction(item.payId)" class="fas fa-eye"
-                    style="font-size: 15px; color: rgb(39, 39, 95)"></i>
-                </button>
-
-              </td>
+              <button [hidden]=" valueCustomizedview !== 'Entity View Customized Payment-View'"
+               (click)="viewOthertransaction(item.payId)"
+              style="background: none; border: none;font-size:15px;padding:0">
+              <i (click)="viewOthertransaction(item.payId)" class="fas fa-eye"
+              style="font-size: 15px; color: rgb(39, 39, 95)"></i>
+             </button>
+            </td>
               <td>
                 <span *ngIf="item?.paymentStatus == 'Success'" class="text-success">
-                  {{ item?.paymentStatus }}</span>
+                 Success</span>
                 <span *ngIf="item?.paymentStatus == 'Due Pending'" class="text-warning">
-                  {{ item?.paymentStatus }}</span>
+                 Due Pending</span>
                 <span *ngIf="item?.paymentStatus == 'Initiated'" class="text-primary">
-                  {{ item?.paymentStatus }}</span>
+                 Initiated</span>
                 <span *ngIf="item?.paymentStatus == 'Failure'" class="text-danger">
-                  {{ item?.paymentStatus }}</span>
+                 Failure</span>
               </td>
               <td>{{ item.paymentDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
             </tbody>
@@ -1743,9 +1627,14 @@
       </div>
     </div>
   </div>
-</div>
 
-<div *ngIf="activeTab === 'doot4'">
+  </div>
+
+  <!-- CUSTAMIZED PAYMENTS   INFO ENDS -->
+
+  <!-- SMS SETTINGS INFO STARTS -->
+   
+  <div *ngIf="activeTab === 'doot4'">
   <mat-card-header>
     <div class="row d-flex justify-content-start">
       <div class="col-md-3">
@@ -1754,19 +1643,12 @@
             <label for="search">
               <input (ngModelChange)="onSearchTextsms()" #input name="search" required autocomplete="off"
                 placeholder="Search" id="search" type="text" [(ngModel)]="searchTextsms" />
-
-              <div class="icon">
+                <div class="icon">
                 <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                   xmlns="http://www.w3.org/2000/svg" class="swap-on">
                   <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
                   </path>
                 </svg>
-                <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                          xmlns="http://www.w3.org/2000/svg" class="swap-off">
-                          <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
-                              stroke-linecap="round">
-                          </path>
-                      </svg> -->
               </div>
               <button type="reset" class="close-btn">
                 <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
@@ -1804,6 +1686,7 @@
       </div>
     </div>
   </mat-card-header>
+
   <div class="row mt-3">
     <div class="col-12 mb-3 mb-lg-5">
       <div class="card table-nowrap table-card">
@@ -1815,9 +1698,7 @@
               <th>SMS Description</th>
               <th>SMS Count</th>
               <th>SMS Charge Type</th>
-              <th [hidden]="valuesmsapproval !== 'Sms Setting-Approval'">
-                Approval
-              </th>
+              <th [hidden]="valuesmsapproval !== 'Sms Setting-Approval'">Approval</th>
               <th>Approval Status</th>
               <th [hidden]="valuesmsstatus !== 'Sms Setting-Status'">Status</th>
               <!--<th [hidden]="valuesmsview!=='Sms Setting-View'">View</th>-->
@@ -1827,31 +1708,24 @@
               <th>Modified By</th>
               <th>Modified At</th>
             </tr>
-            <tbody *ngFor="
-                let item of smsDetails
-                  | search : searchTextsms
-                  | paginate
-                    : {
-                        id: 'pagination5',
-                        itemsPerPage: itemsPerPage,
-                        currentPage: currentsms
-                      };
-                let i = index
-              ">
+            <tbody *ngFor="let item of smsDetails | search : searchTextsms| paginate: { id: 'pagination5',
+            itemsPerPage: itemsPerPage,currentPage: currentsms };let i = index">
               <td>{{ i + 1 }}</td>
               <td>{{ item?.type?.smsTitle }}</td>
-
               <td>
                 <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye"
-                  (click)="Smsdescription(item.type?.smsTempDescription)"></i>
+                  (click)="Smsdescription(item.type?.smsTempDescription)">
+                </i>
               </td>
               <td>{{ item?.smsCount }}</td>
               <td>{{ item?.smsCharge }}</td>
               <td class="text-center" [hidden]="valuesmsapproval !== 'Sms Setting-Approval'">
-                <span><button class="buttonDownload" [disabled]="item.smsApprovalStatus !== 'Rejected'"
+                <span>
+                  <button class="buttonDownload" [disabled]="item.smsApprovalStatus !== 'Rejected'"
                     (click)="SmsApproval(item.merchantSmsId)" style="font-size:14px;padding:2px">
                     Approval
-                  </button></span>
+                  </button>
+                </span>
               </td>
               <td [ngClass]="{
                   approved: item?.smsApprovalStatus == 'approved',
@@ -1864,7 +1738,8 @@
                 <span>
                   <mat-slide-toggle class="example-margin" color="primary" [checked]="item.smsStatus == 1"
                     (change)="smsStatus($event, item.merchantSmsId)" style="transform: scale(0.9);padding:0">
-                  </mat-slide-toggle></span>
+                  </mat-slide-toggle>
+                </span>
               </td>
               <!--<td [hidden]="valuesmsview!=='Sms Setting-View'">
                                 <span (click)="ViewMerchantSms(item.merchantSmsId)">
@@ -1889,14 +1764,17 @@
       </div>
     </div>
   </div>
-</div>
+   </div>
+   
+   <!-- SMS SETTINGS INFO STARTS -->
 
-<div *ngIf="activeTab === 'doot5'">
+  <!-- AGREEMENT  INFO STARTS -->
+ 
+  <div *ngIf="activeTab === 'doot5'">
   <mat-card-header>
     <div class="col-md-3 mr-2" style="color: blue; font-size: 12px">
       <p style="text-wrap: nowrap">
-        <strong>Note:</strong> ("You can only create an agreement once the
-        one-time payment is successful.")
+        <strong>Note:</strong>("You can only create an agreement once theone-time payment is successful.")
       </p>
     </div>
     <div class="row d-flex justify-content-start">
@@ -1906,19 +1784,12 @@
             <label for="search">
               <input (ngModelChange)="onSearchTextagreement()" #input name="search" required autocomplete="off"
                 placeholder="Search" id="search" type="text" [(ngModel)]="searchTextargeement" />
-
               <div class="icon">
                 <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                   xmlns="http://www.w3.org/2000/svg" class="swap-on">
                   <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
                   </path>
                 </svg>
-                <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                          xmlns="http://www.w3.org/2000/svg" class="swap-off">
-                          <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
-                              stroke-linecap="round">
-                          </path>
-                      </svg> -->
               </div>
               <button type="reset" class="close-btn">
                 <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
@@ -1943,6 +1814,7 @@
       </div>
     </div>
   </mat-card-header>
+  
   <div class="row mt-3">
     <div class="col-12 mb-3 mb-lg-5">
       <div class="card table-nowrap table-card">
@@ -1954,162 +1826,87 @@
               <th>Service Fee</th>
               <th>Authorized Signatory Name</th>
               <th>Authorized Signatory Designation</th>
-              <th [hidden]="
-                  valueagreementView !== 'Entity View Agreement-Plan Overview'
-                ">
-                Plan Overview
-              </th>
-              <th [hidden]="
-                  valueagreementlink !==
-                  'Entity View Agreement-Entity Agreement Link'
-                ">
-                Admin Agreement Link
-              </th>
-              <th [hidden]="
-                  valueagreementlink !==
-                  'Entity View Agreement-Entity Agreement Link'
-                ">
-                Entity Agreement Link
-              </th>
+              <th [hidden]="valueagreementView !== 'Entity View Agreement-Plan Overview'">Plan Overview</th>
+              <th [hidden]="valueagreementlink !=='Entity View Agreement-Entity Agreement Link'">Admin Agreement Link</th>
+              <th [hidden]="valueagreementlink !=='Entity View Agreement-Entity Agreement Link'">Entity Agreement Link</th>
               <th>Link Expiry Date</th>
               <th>Fargin Signer Status</th>
               <th>Fargin Signer Signed Date</th>
               <th>Entity Signer Status</th>
               <th>Entity Signer Signed Date</th>
-              <th [hidden]="
-                  valueagreementlinkdate !==
-                  'Entity View Agreement-Link Expiry Date'
-                ">
-                Link Expiry Date
-              </th>
-              <th [hidden]="
-                  valueagreementlinkstatus !==
-                  'Entity View Agreement-Link Expiry Status'
-                ">
-                Link Expiry Status
-              </th>
-              <th [hidden]="
-                  valueagreementAgreement !== 'Entity View Agreement-Agreement'
-                ">
-                Agreement
-              </th>
-              <th [hidden]="
-                  valueagreementAgreementSigned !==
-                  'Entity View Agreement-Agreement Signed Copy'
-                ">
-                Agreement Signed Copy
+              <th [hidden]="valueagreementlinkdate !=='Entity View Agreement-Link Expiry Date'">Link Expiry Date</th>
+              <th [hidden]="valueagreementlinkstatus !=='Entity View Agreement-Link Expiry Status'">Link Expiry Status</th>
+              <th [hidden]="valueagreementAgreement !== 'Entity View Agreement-Agreement'">Agreement</th>
+              <th [hidden]="valueagreementAgreementSigned !=='Entity View Agreement-Agreement Signed Copy'">Agreement Signed Copy
               </th>
               <th>Created By</th>
               <th>Created At</th>
             </tr>
-            <tbody *ngFor="
-                let item of agreementdetails
-                  | search : searchTextargeement
-                  | paginate
-                    : {
-                        id: 'pagination6',
-                        itemsPerPage: itemsPerPage,
-                        currentPage: currentagreement
-                      };
-                let i = index
-              ">
+            <tbody *ngFor="let item of agreementdetails| search : searchTextargeement| paginate: {id: 'pagination6',itemsPerPage: itemsPerPage,currentPage: currentagreement};let i = index">
               <td>{{ i + 1 }}</td>
               <td>{{ item.planName }}</td>
               <td>{{ item.serviceFee }}</td>
               <td>{{ item.merchantName }}</td>
               <td>{{ item.merchantDesignation }}</td>
-
-              <td [hidden]="
-                  valueagreementView !== 'Entity View Agreement-Plan Overview'
-                ">
-                <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye"
-                  (click)="view(item.commercialId)"></i>
+              <td [hidden]="valueagreementView !== 'Entity View Agreement-Plan Overview'">
+              <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye"(click)="view(item.commercialId)"></i>
               </td>
-              <td [hidden]="
-                  valueagreementlink !==
-                  'Entity View Agreement-Entity Agreement Link'
-                " style="margin-top: 5px">
+              <td [hidden]="valueagreementlink !=='Entity View Agreement-Entity Agreement Link'" style="margin-top: 5px">
                 {{ item.adminAgreementLink | slice : 0 : 25 }}
                 <i class="fa-regular fa-copy" style="color: green; font-size: 15px;padding:0"
-                  (click)="copyText2(item.adminAgreementLink, i)"></i>
+                  (click)="copyText2(item.adminAgreementLink, i)">
+                </i>
                 <span *ngIf="copiedIndex2 === i" style="color: green">Copied!</span>
               </td>
-              <td [hidden]="
-                  valueagreementlink !==
-                  'Entity View Agreement-Entity Agreement Link'
-                " style="margin-top: 5px">
+              <td [hidden]="valueagreementlink !=='Entity View Agreement-Entity Agreement Link'" style="margin-top: 5px">
                 {{ item.agreementLink | slice : 0 : 25 }}
                 <i class="fa-regular fa-copy" style="color: green; font-size: 15px;padding:0"
-                  (click)="copyText1(item.agreementLink, i)"></i>
+                  (click)="copyText1(item.agreementLink, i)">
+                </i>
                 <span *ngIf="copiedIndex === i" style="color: green">Copied!</span>
               </td>
               <td>{{ item.expiryLink | date : "dd/MM/yyyy hh:mm a" }}</td>
               <td [ngClass]="item.adminOtpStatus == 0 ? 'not-signed' : 'signed'">
                 {{ item.adminOtpStatus == 0 ? "Not Signed" : "Signed" }}
               </td>
-
               <td>
                 <span [hidden]="item.adminVerifiedDate != null">-</span>
-                <span [hidden]="item.adminVerifiedDate == null">
-                  {{ item.adminVerifiedDate }}
-                </span>
+                <span [hidden]="item.adminVerifiedDate == null">{{ item.adminVerifiedDate }}</span>
               </td>
-
-              <td [ngClass]="
-                  item.merchanOtptStatus == 0 ? 'not-signed' : 'signed'
-                ">
+              <td [ngClass]="item.merchanOtptStatus == 0 ? 'not-signed' : 'signed'">
                 {{ item.merchanOtptStatus == 0 ? "Not Signed" : "Signed" }}
               </td>
-
               <td>
                 <span [hidden]="item.merchantVerifiedDate != null">-</span>
-                <span [hidden]="item.merchantVerifiedDate == null">
-                  {{ item.merchantVerifiedDate }}
-                </span>
+                <span [hidden]="item.merchantVerifiedDate == null">{{ item.merchantVerifiedDate}}</span>
               </td>
-
-              <td [hidden]="
-                  valueagreementlinkdate !==
-                  'Entity View Agreement-Link Expiry Date'
-                ">
+              <td [hidden]="valueagreementlinkdate !=='Entity View Agreement-Link Expiry Date'">
                 <i style="cursor: pointer; font-size: 15px;padding:0" class="fa-solid fa-calendar-days"
-                  (click)="ExtendLinkDate(item.agreementId, item.expiryLink)"></i>
+                  (click)="ExtendLinkDate(item.agreementId, item.expiryLink)">
+                </i>
               </td>
-              <td [hidden]="
-                  valueagreementlinkstatus !==
-                  'Entity View Agreement-Link Expiry Status'
-                ">
+              <td [hidden]="valueagreementlinkstatus !=='Entity View Agreement-Link Expiry Status'">
                 <mat-slide-toggle class="example-margin" color="primary" [checked]="item.expiryLinkStatus == 1"
                   (change)="LinkExpirystatus($event, item.agreementId)" style="transform: scale(0.9);padding:0">
                 </mat-slide-toggle>
               </td>
-
-              <td [hidden]="
-                  valueagreementAgreement !== 'Entity View Agreement-Agreement'
-                ">
+              <td [hidden]="valueagreementAgreement !== 'Entity View Agreement-Agreement'">
                 <button style="border: 1px solid white; border-radius: 4px;font-size: 15px;padding:0"
-                  (click)="viewagreementdoc(item.agreementId)">
+                 (click)="viewagreementdoc(item.agreementId)">
                   <i style="cursor: pointer; font-size: 15px;padding:0" class="fa-solid fa-file-contract"></i>
                 </button>
               </td>
-
-              <td [hidden]="
-                  valueagreementAgreementSigned !==
-                  'Entity View Agreement-Agreement Signed Copy'
-                ">
+              <td [hidden]="valueagreementAgreementSigned !== 'Entity View Agreement-Agreement Signed Copy'">
                 <button style="
                     color: white;
                     border: 1px solid white;
                     border-radius: 4px;font-size: 17px;padding:0
-                  " (click)="viewsignedagreementdoc(item.agreementId)" [disabled]="
-                    item.adminOtpStatus == 0 || item.merchanOtptStatus == 0
-                  " [ngClass]="{
-                    'disabled-btn':
-                      item.adminOtpStatus == 0 || item.merchanOtptStatus == 0,
-                    'enabled-btn':
-                      item.adminOtpStatus == 1 && item.merchanOtptStatus == 1
-                  }">
-                  <i style="cursor: pointer; font-size: 17px;padding:0" class="fa-solid fa-file-contract" [ngClass]="{
+                  " (click)="viewsignedagreementdoc(item.agreementId)"
+                   [disabled]="item.adminOtpStatus == 0 || item.merchanOtptStatus == 0"
+                   [ngClass]="{'disabled-btn':item.adminOtpStatus == 0 || item.merchanOtptStatus == 0,
+                    'enabled-btn':item.adminOtpStatus == 1 && item.merchanOtptStatus == 1}">
+                  <i style="cursor: pointer; font-size: 17px;padding:0" class="fa-solid fa-file-contract"
+                   [ngClass]="{
                       'disabled-icon':
                         item.adminOtpStatus == 0 || item.merchanOtptStatus == 0,
                       'enabled-icon':
@@ -2118,7 +1915,6 @@
                   </i>
                 </button>
               </td>
-
               <td>{{ item.createdBy }}</td>
               <td>{{ item.createdDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
             </tbody>
@@ -2130,7 +1926,12 @@
       </div>
     </div>
   </div>
-</div>
+  </div>
+
+<!-- AGREEMENT  INFO ENDS -->
+
+
+<!-- BRANCH INFO STARTS -->
 
 <div *ngIf="activeTab === 'doot6'">
   <mat-card-header>
@@ -2142,19 +1943,12 @@
             <label for="search">
               <input (ngModelChange)="onSearchTextbranch()" #input name="search" required autocomplete="off"
                 placeholder="Search" id="search" type="text" [(ngModel)]="searchTextbranch" />
-
-              <div class="icon">
+                <div class="icon">
                 <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                   xmlns="http://www.w3.org/2000/svg" class="swap-on">
                   <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
                   </path>
                 </svg>
-                <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                          xmlns="http://www.w3.org/2000/svg" class="swap-off">
-                          <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round"
-                              stroke-linecap="round">
-                          </path>
-                      </svg> -->
               </div>
               <button type="reset" class="close-btn">
                 <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
@@ -2179,6 +1973,7 @@
       </div>
     </div>
   </mat-card-header>
+
   <div class="row mt-3">
     <div class="col-12 mb-3 mb-lg-5">
       <div class="card table-nowrap table-card">
@@ -2186,7 +1981,6 @@
           <table class="table table-hover" id="customers">
             <tr>
               <th>S.No</th>
-
               <th>Account Holder Name</th>
               <th>Account Number</th>
               <th>Account ID</th>
@@ -2196,48 +1990,19 @@
               <th>IFSC Code</th>
               <th>Api key</th>
               <th>Secret key</th>
-              <th [hidden]="
-                  valuebranchCustomerview !== 'Entity View Branch-Customer View'
-                ">
-                Customer View
-              </th>
-              <th [hidden]="
-                  valuebranchonlineview !== 'Entity View Branch-Due Transactions View'
-                ">
-                Due Transactions
-              </th>
-              <th [hidden]="valuebranchTerminal !== 'Entity View Branch-Terminal'">
-                Terminal View
-              </th>
-              <th [hidden]="valuebranchkyc !== 'Entity View Branch-KYC'">
-                KYC View
-              </th>
-
-              <th [hidden]="valuebranchStatus !== 'Entity View Branch-Status'">
-                Status
-              </th>
-              <th [hidden]="valuebranchAction !== 'Entity View Branch-Action'">
-                Action
-              </th>
-
+              <th [hidden]="valuebranchCustomerview !== 'Entity View Branch-Customer View'">Customer View</th>
+              <th [hidden]="valuebranchonlineview !== 'Entity View Branch-Due Transactions View'">Due Transactions</th>
+              <th [hidden]="valuebranchTerminal !== 'Entity View Branch-Terminal'">Terminal View</th>
+              <th [hidden]="valuebranchkyc !== 'Entity View Branch-KYC'">KYC View</th>
+              <th [hidden]="valuebranchStatus !== 'Entity View Branch-Status'">Status</th>
+              <th [hidden]="valuebranchAction !== 'Entity View Branch-Action'">Action</th>
               <th>Created By</th>
               <th>Created At</th>
               <th>Modified By</th>
               <th>Modified At</th>
             </tr>
-            <tbody *ngFor="
-                let item of branchget
-                  | search : searchTextbranch
-                  | paginate
-                    : {
-                        id: 'pagination7',
-                        itemsPerPage: itemsPerPage,
-                        currentPage: currentbranch
-                      };
-                let i = index
-              ">
+            <tbody *ngFor="let item of branchget| search : searchTextbranch| paginate: {id: 'pagination7',itemsPerPage: itemsPerPage,currentPage: currentbranch };let i = index">
               <td>{{ i + 1 }}</td>
-
               <td>{{ item.accountHolderName }}</td>
               <td>{{ item.accountNumber }}</td>
               <td>{{ item.accountId }}</td>
@@ -2247,57 +2012,53 @@
               <td>{{ item.ifscCode }}</td>
               <td> {{ item.apiKey | slice : 0 : 10 }}
                 <i class="fa-regular fa-copy" style="color: green; font-size: 15px;padding:0"
-                  (click)="copyTextbranch(item.apiKey, i)"></i>
-                <span *ngIf="copy1 === i" style="color: green">Copied!</span>
+                  (click)="copyTextbranch(item.apiKey, i)">
+                </i>
+               <span *ngIf="copy1 === i" style="color: green">Copied!</span>
               </td>
-
-              <td>
-                {{ item.secretKey | slice : 0 : 10 }}
-                <i class="fa-regular fa-copy" style="color: green; font-size: 15px;padding:0"
+              <td>{{ item.secretKey | slice : 0 : 10 }}
+              <i class="fa-regular fa-copy" style="color: green; font-size: 15px;padding:0"
                   (click)="copyText1Branch(item.secretKey, i)"></i>
-                <span *ngIf="copy2 === i" style="color: green">Copied!</span>
+              <span *ngIf="copy2 === i" style="color: green">Copied!</span>
               </td>
-              <td [hidden]="
-                  valuebranchCustomerview !== 'Entity View Branch-Customer View'
-                ">
+              <td [hidden]="valuebranchCustomerview !== 'Entity View Branch-Customer View'">
                 <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye"
-                  (click)="Viewcustomerbranch(item.branchId)"></i>
+                  (click)="Viewcustomerbranch(item.branchId)">
+                </i>
               </td>
-              <td [hidden]="
-                  valuebranchonlineview !== 'Entity View Branch-Due Transactions View'
-                ">
+              <td [hidden]=" valuebranchonlineview !== 'Entity View Branch-Due Transactions View'">
                 <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye"
-                  (click)="Viewonlinecustomerbranch(item.branchId)"></i>
+                  (click)="Viewonlinecustomerbranch(item.branchId)">
+                </i>
               </td>
-
-
               <td [hidden]="valuebranchTerminal !== 'Entity View Branch-Terminal'">
                 <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye" (click)="
-                    ViewTerminal(item.branchId, item.entityModel?.merchantId)
-                  "></i>
+                    ViewTerminal(item.branchId, item.entityModel?.merchantId)">
+                  </i>
               </td>
               <td [hidden]="valuebranchkyc !== 'Entity View Branch-KYC'">
                 <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye" (click)="
-                    Viewkycbranch(item.branchId, item.entityModel?.merchantId)
-                  "></i>
+                    Viewkycbranch(item.branchId, item.entityModel?.merchantId) ">
+                  </i>
               </td>
-
               <td [hidden]="valuebranchStatus !== 'Entity View Branch-Status'">
-                <mat-slide-toggle class="example-margin" color="primary" [checked]="item.accountStatus == 1"
+              <mat-slide-toggle class="example-margin" color="primary" [checked]="item.accountStatus == 1"
                   (change)="status($event, item.branchId)" style="transform: scale(0.9);padding:0">
                 </mat-slide-toggle>
               </td>
               <td [hidden]="valuebranchAction !== 'Entity View Branch-Action'">
-                <span><i style="
+              <span>
+                <i
+                 style="
                       text-align: center;
                       cursor: pointer;
                       font-size: 15px;
                       padding:0;
                       color: #545497;
                     " (click)="branchedit(item)" class="fas fa-edit">
-                  </i></span>
+                  </i>
+                </span>
               </td>
-
               <td>{{ item.createdBy }}</td>
               <td>{{ item.createdAt | date : "dd/MM/yyyy hh:mm a" }}</td>
               <td>{{ item.modifiedBy }}</td>
@@ -2312,3 +2073,22 @@
     </div>
   </div>
 </div>
+
+<!-- BRANCH INFO ENDS -->
+
+
+</div>
+
+
+<!-- TAB TWO ENDS -->
+
+
+
+
+
+
+
+
+
+
+

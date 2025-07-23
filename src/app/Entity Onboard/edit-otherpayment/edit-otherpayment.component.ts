@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
-import {customizepay,updateOtherPayment,} from '../../fargin-model/fargin-model.module';
+import { customizepay, updateOtherPayment, } from '../../fargin-model/fargin-model.module';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
@@ -29,8 +29,8 @@ export class EditOtherpaymentComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private toastr: ToastrService,
     private dialog: MatDialog
-  ) {}
-  
+  ) { }
+
   ngOnInit(): void {
     this.id = this.data.value;
     this.payId = this.data.value.payId;
@@ -110,6 +110,8 @@ export class EditOtherpaymentComponent {
           this.dialog.closeAll();
         } else {
           this.toastr.error(res.response);
+          this.bankDetailsUpdated.emit();
+          this.dialog.closeAll();
         }
       }
     );

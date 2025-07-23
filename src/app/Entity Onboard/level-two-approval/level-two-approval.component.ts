@@ -56,6 +56,8 @@ export class LevelTwoApprovalComponent {
         this.dialog.closeAll();
       } else {
         this.toaster.error(res.responseMessage);
+        this.bankDetailsUpdated.emit();
+        this.dialog.closeAll();
       }
     });
   }

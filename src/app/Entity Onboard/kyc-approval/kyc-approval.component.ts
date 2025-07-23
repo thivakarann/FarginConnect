@@ -63,6 +63,7 @@ value: any;
           this.bankDetailsUpdated.emit();
           this.dialog.closeAll();
         } else {
+          this.bankDetailsUpdated.emit();
           this.dialog.closeAll();
           this.toaster.error(res.responseMessage);
         }
@@ -83,6 +84,7 @@ value: any;
           this.bankDetailsUpdated.emit();
           this.dialog.closeAll(); 
         } else {
+           this.bankDetailsUpdated.emit();
           this.dialog.closeAll();
           this.toaster.error(res.responseMessage);
         }
@@ -104,6 +106,7 @@ value: any;
           this.dialog.closeAll(); 
         } else if (res.flag == 2) {
           this.toaster.error(res.responseMessage);
+            this.bankDetailsUpdated.emit();
           this.dialog.closeAll();
         }
       });

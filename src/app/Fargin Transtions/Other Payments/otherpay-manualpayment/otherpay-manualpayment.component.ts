@@ -14,7 +14,7 @@ import { Othermanualpay } from '../../../Fargin Model/fargin-model/fargin-model.
 export class OtherpayManualpaymentComponent implements OnInit {
 
   manualpay!: FormGroup;
-  payId:any;
+  payId: any;
   createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
   @Output() bankDetailsUpdated = new EventEmitter<void>();
 
@@ -26,15 +26,15 @@ export class OtherpayManualpaymentComponent implements OnInit {
     private ActivateRoute: ActivatedRoute,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
- 
+
   }
 
   ngOnInit(): void {
 
     this.payId = this.data.value;
     console.log(this.payId)
- 
-    
+
+
     this.manualpay = new FormGroup({
       paymentMode: new FormControl('', [Validators.required]),
       utrNumber: new FormControl('', [Validators.required]),
@@ -73,9 +73,11 @@ export class OtherpayManualpaymentComponent implements OnInit {
         this.toastr.success(res.responseMessage)
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll()
-    
+
       } else {
-        this.toastr.warning(res.responseMessage)
+        this.toastr.warning(res.responseMessage);
+        this.bankDetailsUpdated.emit();
+        this.dialog.closeAll()
       }
     })
   }

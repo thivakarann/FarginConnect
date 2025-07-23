@@ -29,39 +29,39 @@ export class ViewOnboardinfoComponent implements OnInit {
   addressProof: any;
   signatureProof: any;
   businessCategoryId: any;
-    approval: any;
-isEditing: boolean = false;
-selectedOption: any;
+  approval: any;
+  isEditing: boolean = false;
+  selectedOption: any;
   myForm!: FormGroup;
- @Output() bankDetailsUpdated = new EventEmitter<void>();
-  constructor(private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, private service: FarginServiceService,    private toaster: ToastrService,
-     ) {
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
+  constructor(private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, private service: FarginServiceService, private toaster: ToastrService,
+  ) {
 
   }
   ngOnInit(): void {
 
 
     this.merchantId = this.data.value
-    
+
 
     this.service.EntityViewbyid(this.merchantId).subscribe((res: any) => {
       this.detaislone = res.response.merchantpersonal;
     })
 
-     this.merchantId = this.data.value
-        
-        this.myForm = new FormGroup({
-          accountId: new FormControl('', [Validators.required]),
-          apikey: new FormControl('', [Validators.required]),
-          secretkey: new FormControl('', [Validators.required]),
-        })
-    
-        this.service.EntityViewbyid(this.merchantId).subscribe((res: any) => {
-          this.detaislone = res.response.merchantpersonal;
-        })
+    this.merchantId = this.data.value
+
+    this.myForm = new FormGroup({
+      accountId: new FormControl('', [Validators.required]),
+      apikey: new FormControl('', [Validators.required]),
+      secretkey: new FormControl('', [Validators.required]),
+    })
+
+    this.service.EntityViewbyid(this.merchantId).subscribe((res: any) => {
+      this.detaislone = res.response.merchantpersonal;
+    })
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        
+
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -86,40 +86,42 @@ selectedOption: any;
       }
     })
   }
-  
-    get accountId() {
-      return this.myForm.get('accountId');
+
+  get accountId() {
+    return this.myForm.get('accountId');
+  }
+  get apikey() {
+    return this.myForm.get('apikey');
+  }
+  get secretkey() {
+    return this.myForm.get('secretkey');
+  }
+
+
+  submit() {
+    let submitModel: KeysUpdate = {
+      accountId: this.accountId?.value,
+      merchantId: this.merchantId,
+      apikey: this.apikey?.value,
+      secretkey: this.secretkey?.value
     }
-    get apikey() {
-      return this.myForm.get('apikey');
-    }
-    get secretkey() {
-      return this.myForm.get('secretkey');
-    }
-  
-  
-    submit() {
-      let submitModel: KeysUpdate = {
-        accountId: this.accountId?.value,
-        merchantId: this.merchantId,
-        apikey: this.apikey?.value,
-        secretkey: this.secretkey?.value
+    this.service.KeysUpdate(submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.approval = res.response;
+        this.toaster.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
+        this.dialog.closeAll();
+
       }
-      this.service.KeysUpdate(submitModel).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.approval = res.response;
-          this.toaster.success(res.responseMessage);
-          this.bankDetailsUpdated.emit();
-          this.dialog.closeAll();
-          
-        }
-        else if (res.flag == 2) {
-          this.toaster.error(res.responseMessage)
-        }
-      })
-    }
+      else if (res.flag == 2) {
+        this.toaster.error(res.responseMessage);
+        this.bankDetailsUpdated.emit();
+        this.dialog.closeAll();
+      }
+    })
+  }
   editKeys() {
-    this.isEditing = true; 
+    this.isEditing = true;
   }
 
   copyText(text: string) {

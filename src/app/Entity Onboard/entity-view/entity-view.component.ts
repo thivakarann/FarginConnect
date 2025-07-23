@@ -749,11 +749,11 @@ export class EntityViewComponent implements OnInit {
   }
 
   scrollInfoTabs(direction: 'next' | 'prev') {
-  const el = this.infoTabStrip.nativeElement as HTMLElement;
-  const scrollAmount = el.offsetWidth;
-  const newPosition = direction === 'next' ? el.scrollLeft + scrollAmount : el.scrollLeft - scrollAmount;
-  el.scrollTo({ left: newPosition, behavior: 'smooth' });
-}
+    const el = this.infoTabStrip.nativeElement as HTMLElement;
+    const scrollAmount = el.offsetWidth;
+    const newPosition = direction === 'next' ? el.scrollLeft + scrollAmount : el.scrollLeft - scrollAmount;
+    el.scrollTo({ left: newPosition, behavior: 'smooth' });
+  }
 
   Getall() {
     this.MerchantView.EntityViewbyid(this.id).subscribe((res: any) => {
@@ -1152,7 +1152,7 @@ export class EntityViewComponent implements OnInit {
   otherPayement() {
     const dialogRef = this.dialog.open(CreateOtherpaymentComponent, {
       enterAnimationDuration: '500ms',
-      exitAnimationDuration: '1000ms',
+      exitAnimationDuration: '500ms',
       disableClose: true,
       data: {
         value: this.id,

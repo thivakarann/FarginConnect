@@ -36,7 +36,7 @@ export class UpdateManualpaymentComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private toastr: ToastrService,
     private dialog: MatDialog
-  ) {}
+  ) { }
   ngOnInit(): void {
 
     this.merchantpayid = this.data.value.merchantPayId;
@@ -59,9 +59,9 @@ export class UpdateManualpaymentComponent {
         utrnumber: this.data.value.utrNumber,
         date: this.data.value.date,
       });
-    } else {  
-      
-      }
+    } else {
+
+    }
   }
 
   get paidStatus() {
@@ -115,6 +115,8 @@ export class UpdateManualpaymentComponent {
         this.dialog.closeAll();
       } else {
         this.toastr.error(res.responseMessage);
+        this.bankDetailsUpdated.emit();
+        this.dialog.closeAll();
       }
     });
   }

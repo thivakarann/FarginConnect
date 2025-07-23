@@ -120,8 +120,13 @@ export class ManualTransactionComponent {
     let sno = 1;
     this.responseDataListnew = [];
     this.details.forEach((element: any) => {
-      let createdate = element.paymentDateTime;
-      this.date1 = moment(createdate).format('DD/MM/yyyy hh:mm').toString();
+      if (element?.paymentDateTime) {
+        this.response.push(
+          moment(element?.paymentDateTime).format('DD/MM/yyyy hh:mm a')
+        );
+      } else {
+        this.response.push('');
+      }
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.pgPaymentId);
@@ -134,7 +139,6 @@ export class ManualTransactionComponent {
       this.response.push(element?.utrNumber);
       this.response.push(element?.cardNumber === null || element?.cardNumber === 'null' ? '-' : element?.cardNumber);
       this.response.push(element?.cardExpiry === null || element?.cardExpiry === 'null' ? '-' : element?.cardExpiry);
-      this.response.push(this.date1);
       sno++;
       this.responseDataListnew.push(this.response);
     });

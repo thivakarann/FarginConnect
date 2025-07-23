@@ -64,9 +64,9 @@ export class EntityBankaddComponent implements OnInit {
 
       ]),
       ledgerId: new FormControl('', [Validators.pattern(/^\d{1,15}$/)]),
-        typemode: new FormControl('', [
+      typemode: new FormControl('', [
         Validators.required,
-    
+
       ]),
     });
   }
@@ -96,7 +96,7 @@ export class EntityBankaddComponent implements OnInit {
   get ledgerId() {
     return this.BankForm.get('ledgerId');
   }
-get typemode() {
+  get typemode() {
     return this.BankForm.get('typemode');
   }
   submit() {
@@ -120,6 +120,8 @@ get typemode() {
         this.dialog.closeAll();
       } else {
         this.toastr.error(res.responseMessage);
+        this.bankDetailsUpdated.emit();
+        this.dialog.closeAll();
       }
     });
   }

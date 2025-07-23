@@ -32,7 +32,7 @@ export class AddAgreementsComponent {
     private toastr: ToastrService,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.merchantid = this.data.value;
@@ -44,7 +44,7 @@ export class AddAgreementsComponent {
       linkdate: new FormControl('', [Validators.required]),
       merchantPosition: new FormControl('', [
         Validators.required,
-      Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(50),
       ]),
       authorizedName: new FormControl('', [
@@ -102,6 +102,8 @@ export class AddAgreementsComponent {
         this.dialog.closeAll();
       } else {
         this.toastr.error(res.responseMessage);
+        this.bankDetailsUpdated.emit();
+        this.dialog.closeAll();
       }
     });
   }

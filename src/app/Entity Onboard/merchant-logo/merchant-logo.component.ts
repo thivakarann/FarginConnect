@@ -90,6 +90,12 @@ export class MerchantLogoComponent {
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
       }
+
+      else {
+        this.toastr.error(res.responseMessage);
+        this.bankDetailsUpdated.emit();
+        this.dialog.closeAll();
+      }
     });
   }
 }

@@ -57,6 +57,8 @@ export class LevelOneApprovalComponent implements OnInit {
         this.dialog.closeAll();
       } else if (res.flag == 2) {
         this.toaster.error(res.responseMessage);
+        this.bankDetailsUpdated.emit();
+        this.dialog.closeAll();
       }
     });
   }
