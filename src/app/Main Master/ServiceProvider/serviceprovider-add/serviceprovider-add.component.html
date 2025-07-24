@@ -12,24 +12,25 @@
 
             <div class=" form-group">
                 <label class="form__label">Service Provider Name</label>
-                <input class="form__input" type="text" id="Entity Name" 
-                    class="form-control" formControlName="providerName">
+                <input class="form__input" type="text" id="Entity Name" class="form-control"
+                    formControlName="providerName">
                 <span style="color: red; font-size: 12px;margin-top: 2px;" class="error"
                     *ngIf="providerName?.touched && providerName?.errors?.['required']">Field Is
                     Required</span>
                 <span style="color: red; font-size: 12px;margin-top: 2px;" class="error"
                     *ngIf="providerName?.touched && providerName?.errors?.['pattern']">Invalid format</span>
 
-     <span style="color: red; font-size: 12px;margin-top: 2px;" class="error"
-                    *ngIf="providerName?.touched && providerName?.errors?.['maxlength']">Maximum length should be 50</span>
+                <span style="color: red; font-size: 12px;margin-top: 2px;" class="error"
+                    *ngIf="providerName?.touched && providerName?.errors?.['maxlength']">Maximum length should be
+                    50</span>
 
 
             </div>
 
             <div class=" form-group">
                 <label class="form__label">Service Provider URL</label>
-                <input class="form__input" type="text" id="Entity Name"
-                    class="form-control" formControlName="serviceProviderLink">
+                <input class="form__input" type="text" id="Entity Name" class="form-control"
+                    formControlName="serviceProviderLink">
                 <span style="color: red; font-size: 12px;margin-top: 2px;" class="error"
                     *ngIf="serviceProviderLink?.touched && serviceProviderLink?.errors?.['required']">Field Is
                     Required</span>

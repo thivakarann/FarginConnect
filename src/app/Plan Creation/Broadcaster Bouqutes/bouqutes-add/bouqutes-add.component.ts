@@ -39,7 +39,7 @@ export class BouqutesAddComponent implements OnInit {
 
   ngOnInit(): void {
 
-      this.BroadcasterBouquetAdd.BoucatenamesActive().subscribe((res: any) => {
+    this.BroadcasterBouquetAdd.BoucatenamesActive().subscribe((res: any) => {
       this.details = res.response;
       this.details.sort((a: any, b: any) => a.broadCasterName.localeCompare(b.broadCasterName));
     });
@@ -60,7 +60,10 @@ export class BouqutesAddComponent implements OnInit {
     this.myForm = new FormGroup({
       bundleChannelId: new FormControl('', Validators.required),
       alcotId: new FormControl('', Validators.required),
-      amount: new FormControl('', [Validators.required, Validators.pattern('^[1-9][0-9]*(\.[0-9]{1,2})?$')]),
+      amount: new FormControl('', [Validators.required,
+      Validators.pattern("^(?!0+(\\.0{1,2})?$)\\d+(\\.\\d{1,2})?$")
+
+      ]),
       boqCreationId: new FormControl('', Validators.required),
       serviceId: new FormControl('', Validators.required),
       regId: new FormControl('', Validators.required),

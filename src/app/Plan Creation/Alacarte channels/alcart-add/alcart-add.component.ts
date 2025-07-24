@@ -47,13 +47,16 @@ export class AlcartAddComponent implements OnInit {
     this.myForm = new FormGroup({
       regionId: new FormControl('', Validators.required),
       serviceId: new FormControl('', Validators.required),
-      channelName: new FormControl('',[Validators.required,Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),Validators.maxLength(50)]),
-      price: new FormControl('', [Validators.pattern("^[1-9][0-9]*(\.[0-9]{1,2})?$")]),
-      type: new FormControl('',Validators.required),
+      channelName: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'), Validators.maxLength(50)]),
+      price: new FormControl('', [
+        Validators.pattern("^(?!0+(\\.0{1,2})?$)\\d+(\\.\\d{1,2})?$")
+
+      ]),
+      type: new FormControl('', Validators.required),
       bundleChannelId: new FormControl('', Validators.required),
-      generic: new FormControl('',[Validators.required,Validators.pattern("^[a-zA-Z ]{1,50}$")]),
-      language: new FormControl('',[Validators.required,Validators.pattern("^[a-zA-Z ]{1,50}$")]),
-      channelNo: new FormControl('',[Validators.required,Validators.pattern(/^\d{1,10}$/)]),
+      generic: new FormControl('', [Validators.required, Validators.pattern("^[a-zA-Z ]{1,50}$")]),
+      language: new FormControl('', [Validators.required, Validators.pattern("^[a-zA-Z ]{1,50}$")]),
+      channelNo: new FormControl('', [Validators.required, Validators.pattern(/^\d{1,10}$/)]),
       logo: new FormControl('', Validators.required),
 
     });
