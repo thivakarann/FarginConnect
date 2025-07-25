@@ -13,6 +13,8 @@ import { Workbook } from 'exceljs';
 import moment from 'moment';
 import { AnnouncementviewComponent } from '../announcementview/announcementview.component';
 import { announcestatus } from '../../fargin-model/fargin-model.module';
+import { MatOption } from '@angular/material/core';
+import { MatSelect } from '@angular/material/select';
 
 @Component({
   selector: 'app-view-announcement',
@@ -32,6 +34,7 @@ export class ViewAnnouncementComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   dataSource: any;
+
   displayedColumns: string[] =
     [
       "announcementId",
@@ -186,6 +189,8 @@ export class ViewAnnouncementComponent implements OnInit {
   togglePrivacyPolicy() {
     this.isFullPolicyVisible = !this.isFullPolicyVisible;
   }
+
+
 
   create() {
     const dialogRef = this.dialog.open(AddAnnouncementComponent, {

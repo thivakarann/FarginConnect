@@ -1,6 +1,3 @@
-
-
-
 <div class="form-header d-flex justify-content-between align-items-center">
     <h5 class="mb-0" style="color: black;">Add Response </h5>
 </div>
@@ -17,20 +14,21 @@
                 is required</span>
         </div>
 
-                
-    <!-- <p style="text-indent: 55px;"> "{{"Maximum delivery days is"}}<b> {{deliveryDays}}</b></p> -->
 
-    <div class="form-group mb-3">
+        <!-- <p style="text-indent: 55px;"> "{{"Maximum delivery days is"}}<b> {{deliveryDays}}</b></p> -->
+
+        <div class="form-group mb-3">
             <label for="description">Remarks</label>
             <textarea id="description" rows="3" class="form-control" formControlName="remarks"></textarea>
             <span class="errormge" *ngIf="remarks?.touched && remarks?.errors?.['required']">Field
                 is required</span>
-                    <span class="errormge" *ngIf="remarks?.errors?.['maxlength']">
-            Maximum length should be 250</span>
+            <span class="errormge" *ngIf="remarks?.errors?.['maxlength']">
+                Maximum length should be 250</span>
 
         </div>
 
-        <button type="submit" class="btn mx-1" style="background-color:#7db855be" (click)="save()" [disabled]="ticketFormGroup.invalid">Submit</button>
+        <button type="submit" class="btn mx-1" style="background-color:#7db855be" (click)="save()"
+            [disabled]="ticketFormGroup.invalid">Submit</button>
         <button type="submit" class="btn" style="background-color:#141E46;color:white" mat-dialog-close>Cancel</button>
     </form>
 </div>

@@ -18,7 +18,7 @@ import { MatSelect } from '@angular/material/select';
 export class BusinessKycEditComponent implements OnInit {
 
   editbusinesskyc: any = FormGroup;
- 
+
   getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
   Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
   categorys: any;
@@ -37,38 +37,38 @@ export class BusinessKycEditComponent implements OnInit {
   kycValue: any;
   kycCategoryIds: any;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
- 
+
   constructor(private fb: FormBuilder, private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, @Inject(MAT_DIALOG_DATA) public data: any) {
- 
- 
+
+
   }
- 
- 
- 
+
+
+
   ngOnInit(): void {
- 
+
     this.service.activeViewall().subscribe((res: any) => {
       this.kycValue = res.response;
-      
+
     })
- 
- 
+
+
     this.editbusinesskyc = this.fb.group({
       kycCategoryId: new FormControl('', [Validators.required]),
       modifiedBy: new FormControl(''),
       businessCategoryId: new FormControl('', [Validators.required])
     });
- 
+
     this.businessCreationId = this.data.value.businessCreationId
-   
- 
+
+
     this.businessCategoryIds = this.data.value.businessCategoryId.businessCategoryId
     this.editbusinesskyc.controls['businessCategoryId'].value = this.businessCategoryIds
 
     this.kycCategoryIds = this.data.value.entityKycCategory.kycCategoryId
     this.editbusinesskyc.controls['kycCategoryId'].value = this.kycCategoryIds
- 
- 
+
+
     this.service.BusinesscategoryKycactive().subscribe((res: any) => {
       if (res.flag == 1) {
         this.categoryName = res.response;
@@ -79,36 +79,36 @@ export class BusinessKycEditComponent implements OnInit {
       }
       else {
         this.errorMsg = res.responseMessage;
- 
+
       }
     });
- 
+
   }
- 
+
   get kycCategoryId() {
     return this.editbusinesskyc.get('kycCategoryId');
   }
- 
+
   get businessCategoryId() {
     return this.editbusinesskyc.get('businessCategoryId');
   }
- 
- 
- 
- 
+
+
+
+
   Editsubmit() {
     let submitModel: Businesskycedit = {
       categoryKycId: this.kycCategoryId.value,
       businessCreationId: this.businessCategoryId.value,
       modifiedBy: this.getadminname
     }
- 
+
     this.service.Businesskycupdate(this.businessCreationId, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage)
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll()
-      
+
       } else {
         this.toastr.error(res.responseMessage)
       }
@@ -121,8 +121,8 @@ export class BusinessKycEditComponent implements OnInit {
       this.select.options.forEach((item: MatOption) => item.deselect());
     }
   }
- 
+
   kycId(id: any) {
-    
+
   }
 }

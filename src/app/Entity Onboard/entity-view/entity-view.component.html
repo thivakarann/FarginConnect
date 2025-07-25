@@ -1435,8 +1435,8 @@
               <th>Reference Number</th>
               <th>Cheque Date</th>
               <th>Manual CreatedBy</th>
-              <th>Manual UpdatedBy</th>
-              <th>Manual Updated At</th>
+              <!-- <th>Manual UpdatedBy</th>
+              <th>Manual Updated At</th> -->
               <th>Paid At</th>
             </tr>
             <tbody *ngFor="let item of manualDetails| search : searchTextOneTime| paginate: {id: 'pagination3',itemsPerPage: itemsPerPage,currentPage: currentonetime };let i = index">
@@ -1490,11 +1490,11 @@
                 <span [hidden]="item.date != null"> -</span>
               </td>
               <td>{{ item?.manualApprovalBy || "-" }}</td>
-              <td>{{ item?.updatedBy || "-" }}</td>
+              <!-- <td>{{ item?.updatedBy || "-" }}</td>
               <td>
                 <span [hidden]="item.date == null">{{ item.updateAt | date : "dd/MM/yyyy" }}</span>
                 <span [hidden]="item.updateAt != null"> - </span>
-              </td>
+              </td> -->
               <td>{{ item.paymentDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
             </tbody>
           </table>

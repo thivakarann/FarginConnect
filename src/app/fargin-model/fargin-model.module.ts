@@ -1010,7 +1010,7 @@ export interface announceAdd {
 
 export interface announceEdit {
   readonly announcementId: any;
-  readonly businessCategoryId: any;
+  readonly businessCategoryIds: any;
   readonly announcementContentEnglish: any;
   readonly startDate: any;
   readonly endDate: any;

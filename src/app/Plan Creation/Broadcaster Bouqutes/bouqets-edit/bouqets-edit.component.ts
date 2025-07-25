@@ -38,6 +38,7 @@ export class BouqetsEditComponent implements OnInit {
   getId: any;
 ActiveregionID: any;
 @Output() bankDetailsUpdated = new EventEmitter<void>();
+  getservicesProvider: any;
 
   constructor(
     public BroadcasterBouquetAdd: FarginServiceService,
@@ -91,6 +92,12 @@ ActiveregionID: any;
     this.activeRouter.params.subscribe((param: any) => {
       this.getservices = param.services;
       this.getservices = this.data.services;
+      
+    });
+
+       this.activeRouter.params.subscribe((param: any) => {
+      this.getservicesProvider = param.ServiceProvidename;
+      this.getservicesProvider = this.data.ServiceProvidename;
       
     });
 
@@ -225,11 +232,9 @@ ActiveregionID: any;
     let submitModel: BroadcasterBouquetupdate = {
       boqId: this.getId,
       bundleChannelId: Number(this.bundleChannelId?.value),
-      // alcotId: this.alcotId?.value,
       amount: Number(this.amount?.value),
       boqCreationId: Number(this.boqCreationId?.value),
-      serviceId: Number(this.serviceId?.value),
-      // regId: this.regId?.value,
+      serviceId: Number(this.getservices),
       modifiedBy: this.getadminname
     }
 

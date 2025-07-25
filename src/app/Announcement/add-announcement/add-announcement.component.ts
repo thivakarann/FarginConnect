@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { announceAdd, Businessadd } from '../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../service/fargin-service.service';
+import { MatOption, MatSelect } from '@angular/material/select';
 
 @Component({
   selector: 'app-add-announcement',
@@ -16,6 +17,8 @@ export class AddAnnouncementComponent {
   createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
   categoryvalue: any;
   minDate: any = Date;
+  @ViewChild('select') select: any = MatSelect;
+  allSelected = false;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(private _formBuilder: FormBuilder, private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
@@ -61,7 +64,7 @@ export class AddAnnouncementComponent {
 
   //   return null;  Return null if validation is successful
   // }
-  
+
   get businessCategoryId() {
     return this.announcementform.get('businessCategoryId');
   }
@@ -96,14 +99,22 @@ export class AddAnnouncementComponent {
       }
       else {
         this.toastr.error(res.responseMessage);
-      
+
       }
 
     });
 
   }
-    checkDate(){
+  checkDate() {
     this.endDate.reset();
   }
- 
+
+    toggleAllSelection() {
+    if (this.allSelected) {
+      this.select.options.forEach((item: MatOption) => item.select());
+    } else {
+      this.select.options.forEach((item: MatOption) => item.deselect());
+    }
+  }
+
 }

@@ -21,7 +21,7 @@ export class ViewStickerComponent {
     'stickerId',
     'stickerPerAmount',
     'deliveryDays',
-    // 'date',
+    'date',
     'createdBy',
     'createdDateTime',
     "View"

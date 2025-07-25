@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import {ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
 import { FarginServiceService } from '../../service/fargin-service.service';
@@ -92,17 +92,13 @@ export class OtherpayTransComponent {
       this.response.push(element?.paymentStatus);
       this.response.push(element?.bankReference);
       this.response.push(element?.utrNumber);
-      this.response.push(element?.cardNumber);
-      this.response.push(element?.cardExpiry);
+      if (element?.cardNumber === null || 'null') { this.response.push('-'); }
+      else { this.response.push(element?.cardNumber); }
+      if (element?.cardExpiry === null || 'null') { this.response.push('-'); }
+      else { this.response.push(element?.cardExpiry); }
       this.response.push(element?.updatedBy);
-      if (element?.paymentDateTime) {
-        this.response.push(
-          moment(element?.paymentDateTime).format('DD/MM/yyyy hh:mm a')
-        );
-      } else {
-        this.response.push('');
-      }
-
+      if (element?.paymentDateTime) { this.response.push(moment(element?.paymentDateTime).format('DD/MM/yyyy hh:mm a')); }
+      else { this.response.push(''); }
       sno++;
       this.responseDataListnew.push(this.response);
     });
@@ -245,7 +241,7 @@ export class OtherpayTransComponent {
         type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       });
 
-      FileSaver.saveAs(blob, 'Customized Transaction.xlsx');
+      FileSaver.saveAs(blob, 'Customized Transaction History.xlsx');
     });
   }
 

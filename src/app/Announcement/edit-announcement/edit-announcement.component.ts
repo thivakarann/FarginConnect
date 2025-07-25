@@ -97,7 +97,7 @@ get businessCategoryId() {
   submit() {
     let submitModel: announceEdit = {
       announcementId: this.announcementid,
-      businessCategoryId: this.businessCategoryId.value,
+      businessCategoryIds: this.businessCategoryId.value,
       announcementContentEnglish: this.announcementContentEnglish.value.trim(),
       startDate: this.startDate.value,
       endDate: this.endDate.value,

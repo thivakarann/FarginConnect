@@ -7,14 +7,17 @@
         <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="announcementform">
             <div class="form__linput">
                 <label class="form__label" for="fname">Business Category</label>
-                <select class="form-select" formControlName="businessCategoryId" required>
-                    <option style="text-align: center;" selected disabled>Select
-                    </option>
-                    <option style="text-align: center;" *ngFor="let item of categoryvalue;"
-                        [value]="item.businessCategoryId">
-                        {{item.categoryName}}
-                    </option>
-                </select>
+                <mat-select #select class="form-select" multiple formControlName="businessCategoryId">
+
+                    <div class="select-all">
+                        <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
+                            (change)="toggleAllSelection()">Select All</mat-checkbox>
+                    </div>
+
+                    <mat-option *ngFor="let item of categoryvalue"
+                        [value]="item.businessCategoryId">{{item.categoryName}}</mat-option>
+
+                </mat-select>
                 <span style="color: red; font-size: 12px;margin-top: 2px;" class="error"
                     *ngIf="businessCategoryId?.touched && businessCategoryId?.errors?.['required']">Field is
                     Required</span>
@@ -31,24 +34,23 @@
             </div>
 
             <div class="form__linput">
-                <label class="form__label" >Start Date</label>
-                <input class="form-control"  type="date" formControlName="startDate"
-                   required [min]="minDate" (change)="checkDate()">
+                <label class="form__label">Start Date</label>
+                <input class="form-control" type="date" formControlName="startDate" required [min]="minDate"
+                    (change)="checkDate()">
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="startDate?.invalid && startDate?.touched && startDate?.errors?.['required']">
                     Field is required
                 </div>
             </div>
- 
+
             <div class="form__linput">
-                <label class="form__label" >End Date</label>
-                <input class="form-control"  type="date" formControlName="endDate"
-                   required   [min]="startDate.value" >
+                <label class="form__label">End Date</label>
+                <input class="form-control" type="date" formControlName="endDate" required [min]="startDate.value">
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="endDate?.invalid && endDate?.touched && endDate?.errors?.['required']">
                     Field is required
                 </div>
-                
+
             </div>
 
             <!-- <div class="form__linput">

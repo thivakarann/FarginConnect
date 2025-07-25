@@ -80,6 +80,7 @@ export class BouquetsViewallComponent implements OnInit {
   valuebouquetesView: any;
   valuebouquetesEdit: any;
   searchPerformed: boolean = false;
+  ServiceProvidename: any;
 
   constructor(
     public Bouquetviewall: FarginServiceService,
@@ -213,7 +214,6 @@ export class BouquetsViewallComponent implements OnInit {
   }
 
   Edit(id: any) {
-
     this.valueid = id
     this.values = [];
     this.broadCasterRegionsss = []
@@ -223,49 +223,37 @@ export class BouquetsViewallComponent implements OnInit {
 
     this.Bouquetviewall.BroadcasterBoucatebyid(this.valueid).subscribe({
       next: (res: any) => {
-
         if (res.flag == 1) {
           this.getAction = res.response;
-
           this.bouquet = res.response.bundleChannel.bundleChannelId
           this.creation = res.response.bouquetCreation.boqCreationId
           this.services = res.response.serviceProvider.serviceId
+          this.ServiceProvidename = res.response.serviceProvider.serviceProviderName
+
           this.amount = res.response.amount
-
           this.broadCasterRegions = this.getAction.broadCasterRegion
-
-          // for (let data of this.broadCasterRegions) {
-          //   this.broadCasterRegionsss.push(data.broadCasterRegion.regionId)
-
-          // }
-
-          // this.broadCasterAlcot = this.getAction.broadCasterAlcot
-          // for (let data of this.broadCasterAlcot) {
-          //   this.broadCasterAlcotsss.push(data.broadCasterAlcot.alcotId)
-
-          // }
 
           //Duplicate Removal start
           this.perValueObject = new Set(this.values)
           for (let value of this.perValueObject) {
             this.perValueArray.push(value)
           }
-
           const dialogRef = this.dialog.open(BouqetsEditComponent, {
-            data: { per: this.perValueArray, bouquet: this.bouquet, creation: this.creation, services: this.services, broadCasterRegionsss: this.broadCasterRegionsss, broadCasterAlcotsss: this.broadCasterAlcotsss, amount: this.amount, valueid: this.valueid },
+            data: { per: this.perValueArray, bouquet: this.bouquet, creation: this.creation, services: this.services, ServiceProvidename : this.ServiceProvidename ,broadCasterRegionsss: this.broadCasterRegionsss, broadCasterAlcotsss: this.broadCasterAlcotsss, amount: this.amount, valueid: this.valueid },
             disableClose: true,
-            enterAnimationDuration: '1000ms',
-            exitAnimationDuration: '1000ms',
+            enterAnimationDuration: '500ms',
+            exitAnimationDuration: '500ms',
           });
           dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
-
             this.fetch();
 
           });
-        } else if (res.flag == 2) {
+        }
+        else if (res.flag == 2) {
 
           this.errorMessage = res.responseMessage;
-        } else {
+        }
+        else {
           this.errorMessage = res.responseMessage;
         }
       },

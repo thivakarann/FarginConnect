@@ -11,12 +11,9 @@
             <div class="row">
                 <div class="col-6 form-group">
                     <label for="Bussiness category">Service Provider (MSO)</label>
-                    <select (change)="getregions($event)" formControlName="serviceId" id="Bussiness category"
-                        class="form-control form-select">
-                        <option value="" disabled selected>Select</option>
-                        <option *ngFor="let item of ActiveMSO" [value]="item.serviceId">{{item.serviceProviderName}}
-                        </option>
-                    </select>
+                    <input type="text" readonly ngModel="{{getservicesProvider}}" id="Entity Name"
+                        formControlName="serviceId" class="form-control">
+
                     <div style="
                     color: red;
                     font-size: 12px;
