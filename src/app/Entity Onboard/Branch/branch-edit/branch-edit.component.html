@@ -1,142 +1,90 @@
 <div class="card-header">
-  <h3
-    class="mb-0"
-    style="font-weight: 700; text-align: center; font-size: 21px"
-  >
+  <h3 class="mb-0" style="font-weight: 700; text-align: center; font-size: 21px">
     Update Branch
   </h3>
 </div>
 
 <body class="page">
   <main class="main page__main">
-    <form
-      class="form main__form"
-      autocomplete="off"
-      class="form"
-      role="form"
-      [formGroup]="branchedit"
-    >
+    <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="branchedit">
       <div class="row mb-2">
         <div class="col-md-4 form-group">
-          <label class="form__label" for="accountHolderName"
-            >Account Holder Name</label
-          >
-          <input
-            ngModel="{{ holdername }}"
-            class="form-control"
-            id="accountHolderName"
-            type="text"
-            formControlName="accountHolderName"
-            required
-          />
-          <div
-            style="
+          <label class="form__label" for="accountHolderName">Account Holder Name</label>
+          <input ngModel="{{ holdername }}" class="form-control" id="accountHolderName" type="text"
+            formControlName="accountHolderName" required />
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
             "
-            *ngIf="accountHolderName?.invalid && accountHolderName?.touched && accountHolderName?.errors?.['required']"
-          >
+            *ngIf="accountHolderName?.invalid && accountHolderName?.touched && accountHolderName?.errors?.['required']">
             Field is required
           </div>
-          <div
-            style="
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="accountHolderName?.invalid  && accountHolderName?.errors?.['pattern']"
-          >
+            " *ngIf="accountHolderName?.invalid  && accountHolderName?.errors?.['pattern']">
             Invalid Format
           </div>
-          <div
-            style="
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="accountHolderName?.errors?.['maxlength']"
-          >
+            " *ngIf="accountHolderName?.errors?.['maxlength']">
             Maximum length should be 50
           </div>
         </div>
         <div class="col-md-4 form-group">
           <label class="form__label" for="accountNumber">Account Number</label>
-          <input
-            ngModel="{{ number }}"
-            class="form-control"
-            id="accountNumber"
-            type="text"
-            formControlName="accountNumber"
-            required
-          />
-          <div
-            style="
+          <input ngModel="{{ number }}" class="form-control" id="accountNumber" type="text"
+            formControlName="accountNumber" required />
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="accountNumber?.invalid && accountNumber?.touched && accountNumber?.errors?.['required']"
-          >
+            " *ngIf="accountNumber?.invalid && accountNumber?.touched && accountNumber?.errors?.['required']">
             Field is required
           </div>
-          <div
-            style="
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="accountNumber?.invalid && accountNumber?.touched && accountNumber?.errors?.['pattern']"
-          >
+            " *ngIf="accountNumber?.invalid && accountNumber?.touched && accountNumber?.errors?.['pattern']">
             Field is required
           </div>
         </div>
         <div class="col-md-4 form-group">
           <label class="form__label" for="bankName">Bank Name</label>
-          <input
-            ngModel="{{ bank }}"
-            class="form-control"
-            id="bankName"
-            type="text"
-            formControlName="bankName"
-            required
-          />
-          <div
-            style="
+          <input ngModel="{{ bank }}" class="form-control" id="bankName" type="text" formControlName="bankName"
+            required />
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="bankName?.invalid && bankName?.touched && bankName?.errors?.['required']"
-          >
+            " *ngIf="bankName?.invalid && bankName?.touched && bankName?.errors?.['required']">
             Field is required
           </div>
-          <div
-            style="
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="bankName?.invalid && bankName?.touched && bankName?.errors?.['pattern']"
-          >
-          Invalid Format
+            " *ngIf="bankName?.invalid && bankName?.touched && bankName?.errors?.['pattern']">
+            Invalid Format
           </div>
-          <div
-            style="
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="bankName?.errors?.['maxlength']"
-          >
+            " *ngIf="bankName?.errors?.['maxlength']">
             Maximum length should be 50
           </div>
         </div>
@@ -144,102 +92,66 @@
       <div class="row">
         <div class="col-md-4 form-group">
           <label class="form__label" for="branchName">Branch Name</label>
-          <input
-            ngModel="{{ this.branch }}"
-            class="form-control"
-            id="branchName"
-            type="text"
-            formControlName="branchName"
-            required
-          />
+          <input ngModel="{{ this.branch }}" class="form-control" id="branchName" type="text"
+            formControlName="branchName" required />
 
-          <div
-            style="
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="branchName?.invalid && branchName?.touched && branchName?.errors?.['pattern']"
-          >
-             Invalid Format
+            " *ngIf="branchName?.invalid && branchName?.touched && branchName?.errors?.['pattern']">
+            Invalid Format
           </div>
-          <div
-            style="
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="branchName?.errors?.['maxlength']"
-          >
+            " *ngIf="branchName?.errors?.['maxlength']">
             Maximum length should be 50
           </div>
         </div>
         <div class="col-md-4 form-group">
           <label class="form__label" foM="ifscCode">IFSC code</label>
-          <input
-            ngModel="{{ code }}"
-            class="form-control"
-            id="ifscCode"
-            type="text"
-            formControlName="ifscCode"
-            required
-          />
-          <div
-            style="
+          <input ngModel="{{ code }}" class="form-control" id="ifscCode" type="text" formControlName="ifscCode"
+            required />
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="ifscCode?.invalid && ifscCode?.touched && ifscCode?.errors?.['required']"
-          >
+            " *ngIf="ifscCode?.invalid && ifscCode?.touched && ifscCode?.errors?.['required']">
             Field is required
           </div>
-          <div
-            style="
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="ifscCode?.invalid && ifscCode?.touched && ifscCode?.errors?.['pattern']"
-          >
+            " *ngIf="ifscCode?.invalid && ifscCode?.touched && ifscCode?.errors?.['pattern']">
             Field is required
           </div>
         </div>
 
         <div class="col-md-4 form-group">
           <label class="form__label" for="accountId">Account Id</label>
-          <input
-            ngModel="{{ this.accountid }}"
-            class="form-control"
-            id="accountId"
-            type="text"
-            formControlName="accountId"
-            required
-          />
-          <div
-            style="
+          <input ngModel="{{ this.accountid }}" class="form-control" id="accountId" type="text"
+            formControlName="accountId" required />
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="accountId?.invalid && accountId?.touched && accountId?.errors?.['required']"
-          >
+            " *ngIf="accountId?.invalid && accountId?.touched && accountId?.errors?.['required']">
             Field is required
           </div>
-          <div
-            style="
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="accountId?.invalid && accountId?.touched && accountId?.errors?.['pattern']"
-          >
+            " *ngIf="accountId?.invalid && accountId?.touched && accountId?.errors?.['pattern']">
             Please enter only numbers (up to 10 digits).
           </div>
         </div>
@@ -248,112 +160,68 @@
       <div class="row">
         <div class="col-md-4 form-group">
           <label class="form__label" for="apiKey">Api Key</label>
-          <input
-            ngModel="{{ this.key }}"
-            class="form-control"
-            id="apiKey"
-            type="text"
-            formControlName="apiKey"
-            required
-          />
-          <div
-            style="
+          <input ngModel="{{ this.key }}" class="form-control" id="apiKey" type="text" formControlName="apiKey"
+            required />
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="apiKey?.invalid && apiKey?.touched && apiKey?.errors?.['required']"
-          >
+            " *ngIf="apiKey?.invalid && apiKey?.touched && apiKey?.errors?.['required']">
             Field is required
           </div>
         </div>
         <div class="col-md-4 form-group">
           <label class="form__label" for="secretKey">Secret key</label>
-          <input
-            ngModel="{{ this.secret }}"
-            class="form-control"
-            id="secretKey"
-            type="text"
-            formControlName="secretKey"
-            required
-          />
-          <div
-            style="
+          <input ngModel="{{ this.secret }}" class="form-control" id="secretKey" type="text" formControlName="secretKey"
+            required />
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="secretKey?.invalid && secretKey?.touched && secretKey?.errors?.['required']"
-          >
+            " *ngIf="secretKey?.invalid && secretKey?.touched && secretKey?.errors?.['required']">
             Field is required
           </div>
         </div>
 
         <div class="col-md-4 form-group">
           <label class="form__label" for="ifscCode">SMS Branch Name</label>
-          <input
-            class="form-control"
-            id="ifscCode"
-            type="text"
-            formControlName="smsmerchantname"
-            required
-            placeholder="Maximum 25 Characters Allowed"
-            ngModel="{{ smsmerchantNames }}"
-          />
-          <div
-            style="
+          <input class="form-control" id="ifscCode" type="text" formControlName="smsmerchantname" required
+            placeholder="Maximum 20 Characters Allowed" ngModel="{{ smsmerchantNames }}" />
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="smsmerchantname?.invalid && smsmerchantname?.touched && smsmerchantname?.errors?.['required']"
-          >
+            " *ngIf="smsmerchantname?.invalid && smsmerchantname?.touched && smsmerchantname?.errors?.['required']">
             Field is required
           </div>
 
-          <div
-            style="
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="smsmerchantname?.errors?.['pattern']"
-          >
+            " *ngIf="smsmerchantname?.errors?.['pattern']">
             Invalid format
           </div>
-          <div
-            style="
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="smsmerchantname?.errors?.['maxlength']"
-          >
-           Maximum length should be 25
+            " *ngIf="smsmerchantname?.errors?.['maxlength']">
+            Maximum length should be 20
           </div>
         </div>
       </div>
       <div class="mb-3">
-        <button
-          (click)="Submit()"
-          type="submit"
-          class="btn mx-1"
-          style="background-color: #7db855be"
-          [disabled]="this.branchedit.invalid"
-        >
+        <button (click)="Submit()" type="submit" class="btn mx-1" style="background-color: #7db855be"
+          [disabled]="this.branchedit.invalid">
           Submit
         </button>
-        <button
-          type="submit"
-          class="btn"
-          style="background-color: #141e46; color: white"
-          mat-dialog-close
-        >
+        <button type="submit" class="btn" style="background-color: #141e46; color: white" mat-dialog-close>
           Cancel
         </button>
       </div>

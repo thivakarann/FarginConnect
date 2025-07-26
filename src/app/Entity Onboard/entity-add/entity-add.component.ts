@@ -214,7 +214,7 @@ export class EntityAddComponent implements OnInit {
       smsMerchantName: new FormControl('', [
         Validators.required,
         Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
-        Validators.maxLength(25),
+        Validators.maxLength(20),
       ]),
       customerSmsTag: new FormControl(''),
       cloudFeeEnable: new FormControl('', [Validators.required]),

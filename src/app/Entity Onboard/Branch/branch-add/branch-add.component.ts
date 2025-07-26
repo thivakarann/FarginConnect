@@ -5,7 +5,7 @@ import {
   Validators,
   FormBuilder,
 } from '@angular/forms';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Branchadds } from '../../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../../service/fargin-service.service';
@@ -49,8 +49,8 @@ export class BranchAddComponent {
     private _formBuilder: FormBuilder,
     private location: Location
   ) {
-   const today = new Date();
-  this.eighteenYearsAgo = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+    const today = new Date();
+    this.eighteenYearsAgo = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
 
 
   }
@@ -63,7 +63,7 @@ export class BranchAddComponent {
     this.branch = new FormGroup({
       branchName: new FormControl('', [
         Validators.required,
-    Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
+        Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
 
         Validators.maxLength(50),
       ]),
@@ -71,13 +71,13 @@ export class BranchAddComponent {
       secretKey: new FormControl('', [Validators.required]),
       bankName: new FormControl('', [
         Validators.required,
-    Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
+        Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
 
         Validators.maxLength(50),
       ]),
       accountHolderName: new FormControl('', [
         Validators.required,
-      Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(50),
       ]),
       accountNumber: new FormControl('', [
@@ -94,9 +94,8 @@ export class BranchAddComponent {
       ]),
       smsmerchantname: new FormControl('', [
         Validators.required,
-    Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
-
-        Validators.maxLength(25),
+        Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(20),
       ]),
     });
 
@@ -558,9 +557,9 @@ export class BranchAddComponent {
       ifscCode: this.ifscCode?.value,
       createdBy: this.getadminname,
       merchantId: this.id,
-      smsMerchantName:this.smsmerchantname?.value.trim()
+      smsMerchantName: this.smsmerchantname?.value.trim()
     }
- 
+
     this.service.BranchAdd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.branchId = res.response.branchId;

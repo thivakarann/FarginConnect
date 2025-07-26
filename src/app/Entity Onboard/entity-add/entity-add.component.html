@@ -588,7 +588,7 @@
         </div>
         <div class="col-sm-4 form-group">
           <label for="Entity Name">SMS Merchant Name</label>
-          <input placeholder="Maximum 25 Characters Allowed" type="text" id="Entity Name"
+          <input placeholder="Maximum 20 Characters Allowed" type="text" id="Entity Name"
             formControlName="smsMerchantName" class="form-control" />
           <div style="
               color: red;
@@ -612,7 +612,7 @@
               margin-top: 2px;
               position: relative;
             " *ngIf="smsMerchantName?.errors?.['maxlength']">
-            Maximum length should be 25
+            Maximum length should be 20
           </div>
         </div>
         <!-- <div class="col-sm-4 form-group">

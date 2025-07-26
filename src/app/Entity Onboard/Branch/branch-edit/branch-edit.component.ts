@@ -83,8 +83,7 @@ export class BranchEditComponent {
       smsmerchantname: new FormControl('', [
         Validators.required,
        Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
-
-        Validators.maxLength(25),
+       Validators.maxLength(20),
       ]),
     });
   }
