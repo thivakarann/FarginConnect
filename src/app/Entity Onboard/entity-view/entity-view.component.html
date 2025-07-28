@@ -1437,6 +1437,7 @@
               <th>Manual CreatedBy</th>
               <!-- <th>Manual UpdatedBy</th>
               <th>Manual Updated At</th> -->
+              <th>PG Onboard Date</th>
               <th>Paid At</th>
             </tr>
             <tbody *ngFor="let item of manualDetails| search : searchTextOneTime| paginate: {id: 'pagination3',itemsPerPage: itemsPerPage,currentPage: currentonetime };let i = index">
@@ -1495,6 +1496,7 @@
                 <span [hidden]="item.date == null">{{ item.updateAt | date : "dd/MM/yyyy" }}</span>
                 <span [hidden]="item.updateAt != null"> - </span>
               </td> -->
+                 <td>{{ item.pgOnboardDate | date : "dd/MM/yyyy hh:mm a" }}</td>
               <td>{{ item.paymentDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
             </tbody>
           </table>

@@ -282,14 +282,14 @@ export class ViewAnnouncementComponent implements OnInit {
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
             this.dataSource = new MatTableDataSource(this.annoucemnetserach);
-            this.currentfilvalShow = true;
+
           } else if (res.flag == 2) {
             this.annoucemnetserach = [];
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
             this.dataSource = new MatTableDataSource(this.annoucemnetserach);
-            this.currentfilvalShow = true;
+
           }
         },
         error: (err: any) => {
@@ -337,6 +337,7 @@ export class ViewAnnouncementComponent implements OnInit {
   };
 
   reset() {
+
     this.service.announcementViewall(this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.data = res.response.content;
@@ -344,6 +345,7 @@ export class ViewAnnouncementComponent implements OnInit {
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.data);
+        this.filterAction = 0;
         this.currentfilvalShow = false;
         this.fromDate = '';
         this.toDate = '';
@@ -354,6 +356,7 @@ export class ViewAnnouncementComponent implements OnInit {
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.data);
+        this.filterAction = 0;
         this.currentfilvalShow = false;
         this.fromDate = '';
         this.toDate = '';

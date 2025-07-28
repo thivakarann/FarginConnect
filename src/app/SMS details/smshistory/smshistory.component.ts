@@ -30,7 +30,7 @@ export class SMSHistoryComponent {
     'smsTempDescription',
     // 'responseCode',
     'responseStatus',
-     'smscharge',
+    'smscharge',
     'perSmsAmount',
     // 'createdBy',
     'date',
@@ -40,9 +40,9 @@ export class SMSHistoryComponent {
   @ViewChild('tableContainer') tableContainer!: ElementRef;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  FromDateRange: string='';
+  FromDateRange: string = '';
   currentPage!: number;
-  ToDateRange: string='';
+  ToDateRange: string = '';
   Daterange!: string;
   Viewall: any;
   content: any;
@@ -65,7 +65,7 @@ export class SMSHistoryComponent {
   totalPages: any;
   totalpage: any;
   currentpage: any;
- limit: number = 30;
+  limit: number = 30;
   pageIndex: number = 0;
   pageSize = 5;
   smsResponseexport: any;
@@ -73,35 +73,35 @@ export class SMSHistoryComponent {
 
   pageIndex1: number = 0;
   pageSize1 = 5;
- 
+
   totalpage1: any;
   totalPages1: any;
   currentpage1: any;
- 
+
   transactionexport: any;
   pageIndex2: number = 0;
   pageSize2 = 5;
- 
+
   totalpage2: any;
   totalPages2: any;
   currentpage2: any;
- 
+
   filter: boolean = false;
   filter1: boolean = false;
   filters: boolean = false;
-  currentfilVal:any="";
+  currentfilVal: any = "";
   maxDate: any;
-  currentfilvalShow: boolean=false;
+  currentfilvalShow: boolean = false;
   transactionValue: any;
-searchPerformed:boolean=false;
- filterAction:any = 0;
+  searchPerformed: boolean = false;
+  filterAction: any = 0;
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private router: Router) { }
 
 
 
   ngOnInit(): void {
 
-    
+
     const today = new Date();
     this.maxDate = moment(today).format('yyyy-MM-DD').toString()
 
@@ -137,21 +137,21 @@ searchPerformed:boolean=false;
     this.service.SmsHistoryGetAll(this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.smsResponse = res.response;
-      
+
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.smsResponse);
-        this.currentfilvalShow=false;
-     
+        this.currentfilvalShow = false;
+
       } else if (res.flag == 2) {
         this.smsResponse = [];
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.smsResponse);
-        this.currentfilvalShow=false;
-     
+        this.currentfilvalShow = false;
+
       }
 
     })
@@ -171,43 +171,43 @@ searchPerformed:boolean=false;
 
   exportexcel() {
     this.service.SmsHistoryGetAllExport().subscribe((res: any) => {
-        this.smsResponseexport=res.response;
-        if (res.flag == 1) {
- 
-    let sno = 1;
-    this.responseDataListnew = [];
-    this.smsResponseexport.forEach((element: any) => {
-      // let createdate = element.merchantSmsId?.createdDateTime;
-      // this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
- 
-      this.response = [];
-      this.response.push(sno);
-      this.response.push(element?.merchantId?.accountId);
-      this.response.push(element?.merchantId?.entityName);
-      this.response.push(element?.mobileNumber);
-      this.response.push(element?.merchantSmsId?.type?.smsTitle);
-      this.response.push(element?.responseCode);
-      this.response.push(element?.responseStatus);
-      this.response.push(element?.smsChargeStatus);
-      this.response.push(element?.perSmsAmount);
-      // this.response.push(element?.merchantSmsId?.createdBy);
-      if(element.merchantSmsId?.createdDateTime){
-        this.response.push(moment(element?.merchantSmsId?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
-      }
-      else{
-        this.response.push('');
-      }
-     
-      sno++;
-      this.responseDataListnew.push(this.response);
-    });
-    this.excelexportCustomer();
-  }
-});
-  }
- 
+      this.smsResponseexport = res.response;
+      if (res.flag == 1) {
 
-  checkDate(){
+        let sno = 1;
+        this.responseDataListnew = [];
+        this.smsResponseexport.forEach((element: any) => {
+          // let createdate = element.merchantSmsId?.createdDateTime;
+          // this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
+
+          this.response = [];
+          this.response.push(sno);
+          this.response.push(element?.merchantId?.accountId);
+          this.response.push(element?.merchantId?.entityName);
+          this.response.push(element?.mobileNumber);
+          this.response.push(element?.merchantSmsId?.type?.smsTitle);
+          this.response.push(element?.responseCode);
+          this.response.push(element?.responseStatus);
+          this.response.push(element?.smsChargeStatus);
+          this.response.push(element?.perSmsAmount);
+          // this.response.push(element?.merchantSmsId?.createdBy);
+          if (element.merchantSmsId?.createdDateTime) {
+            this.response.push(moment(element?.merchantSmsId?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
+          }
+          else {
+            this.response.push('');
+          }
+
+          sno++;
+          this.responseDataListnew.push(this.response);
+        });
+        this.excelexportCustomer();
+      }
+    });
+  }
+
+
+  checkDate() {
     this.ToDateRange = ''
     // this.FromDateRange =''
   }
@@ -224,18 +224,18 @@ searchPerformed:boolean=false;
       'SMS Charge type',
       'Charge For SMS',
       'Created At',
- 
+
     ]
- 
- 
+
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Sms Settings');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
- 
- 
+
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -246,15 +246,15 @@ searchPerformed:boolean=false;
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
+
       }
- 
+
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
- 
+
     data.forEach((d: any) => {
       //
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -268,8 +268,8 @@ searchPerformed:boolean=false;
       let qty9 = row.getCell(10);
       let qty10 = row.getCell(11);
       // let qty11 = row.getCell(12);
- 
- 
+
+
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -282,7 +282,7 @@ searchPerformed:boolean=false;
       qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       // qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
+
     }
     );
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
@@ -303,83 +303,85 @@ searchPerformed:boolean=false;
   filterdate() {
     this.service.SMSHistoryFilter(this.FromDateRange, this.ToDateRange, this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
-       this.transaction = res.response;
+        this.transaction = res.response;
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.transaction);
-       this.filterAction = 1
-     
+        this.filterAction = 1
+
       } else if (res.flag == 2) {
         this.transaction = [];
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.transaction);
-      
-     
+
+
       }
     })
   }
   reset() {
-     this.service.SmsHistoryGetAll(this.pageSize, this.pageIndex).subscribe((res: any) => {
+    this.service.SmsHistoryGetAll(this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.smsResponse = res.response;
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.smsResponse);
-        this.currentfilvalShow=false;
-        this.FromDateRange='';
-        this.ToDateRange='';
-     
+        this.filterAction = 0
+        this.currentfilvalShow = false;
+        this.FromDateRange = '';
+        this.ToDateRange = '';
+
       } else if (res.flag == 2) {
         this.smsResponse = [];
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.smsResponse);
-        this.currentfilvalShow=false;
-        this.FromDateRange='';
-        this.ToDateRange='';
-     
+        this.filterAction = 0
+        this.currentfilvalShow = false;
+        this.FromDateRange = '';
+        this.ToDateRange = '';
+
       }
     })
   }
-  
+
 
   smshistory(filterValue: string) {
-   
+
     if (filterValue) {
-    this.service.Smshistorysearch(filterValue,this.pageSize,this.pageIndex).subscribe({
-      next: (res: any) => {
-        if (res.response) {
-          this.smsResponse = res.response;  
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.smsResponse);
-          this.currentfilvalShow=true;
-       
-        } else if (res.flag == 2) {
-          this.smsResponse = [];
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.smsResponse);
-          this.currentfilvalShow=true;
-       
+      this.service.Smshistorysearch(filterValue, this.pageSize, this.pageIndex).subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.smsResponse = res.response;
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.smsResponse);
+            this.currentfilvalShow = true;
+
+          } else if (res.flag == 2) {
+            this.smsResponse = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.smsResponse);
+            this.currentfilvalShow = true;
+
+          }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
         }
-      },
-      error: (err: any) => {
-        this.toastr.error('No Data Found');
-      }
-    });
-  }
-  else if (filterValue) {
-    this.toastr.error('Please enter a value to search');
-    return;
-}
+      });
+    }
+    else if (filterValue) {
+      this.toastr.error('Please enter a value to search');
+      return;
+    }
   }
 
   reload() {
@@ -390,16 +392,16 @@ searchPerformed:boolean=false;
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.smsResponse);
-        this.currentfilvalShow=false;
-     
+        this.currentfilvalShow = false;
+
       } else if (res.flag == 2) {
         this.smsResponse = [];
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.smsResponse);
-        this.currentfilvalShow=false;
-     
+        this.currentfilvalShow = false;
+
       }
 
     })
@@ -411,42 +413,42 @@ searchPerformed:boolean=false;
     if (this.filterAction == 1) {
       this.service.SMSHistoryFilter(this.FromDateRange, this.ToDateRange, event.pageSize, event.pageIndex).subscribe((res: any) => {
         if (res.flag == 1) {
-         this.transaction = res.response;
+          this.transaction = res.response;
           this.totalPages = res.pagination.totalElements;
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.transaction);
-         
-       
+
+
         } else if (res.flag == 2) {
           this.transaction = [];
           this.totalPages = res.pagination.totalElements;
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.transaction);
-        
-       
+
+
         }
       })
     } else if (this.currentfilvalShow) {
-      this.service.Smshistorysearch(this.currentfilVal,event.pageSize,event.pageIndex).subscribe({
+      this.service.Smshistorysearch(this.currentfilVal, event.pageSize, event.pageIndex).subscribe({
         next: (res: any) => {
           if (res.response) {
-            this.smsResponse = res.response;  
+            this.smsResponse = res.response;
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
             this.dataSource = new MatTableDataSource(this.smsResponse);
-         
-         
+
+
           } else if (res.flag == 2) {
             this.smsResponse = [];
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
             this.dataSource = new MatTableDataSource(this.smsResponse);
-          
-         
+
+
           }
         },
         error: (err: any) => {
@@ -461,16 +463,16 @@ searchPerformed:boolean=false;
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.smsResponse);
-      
-       
+
+
         } else if (res.flag == 2) {
           this.smsResponse = [];
           this.totalPages = res.pagination.totalElements;
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.smsResponse);
-         
-       
+
+
         }
       })
     }

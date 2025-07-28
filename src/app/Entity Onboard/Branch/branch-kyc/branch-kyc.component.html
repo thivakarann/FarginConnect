@@ -1,13 +1,14 @@
 <mat-card-header>
- 
-
-        <div class="form-header d-flex justify-content-between align-items-center">
-            <button [hidden]="valuebranchkycadd!=='Entity View BranchKYC-Add'"  (click)="addKycdocuments(this.id, this.merchantId)"  [disabled]="kycbranchdetails!='NO DATA FOUND'" style="color:white;background-color: #141E46;border-radius: 10px;;font-size:12px" 
-            mat-raised-button>Add KYC</button>
-            <button style="color:white;background-color: #141E46; border-radius: .5rem;font-size: .875rem;padding:5px 5px;" (click)="close()">Back</button>
-        </div>
-
+    <div class="form-header d-flex justify-content-between align-items-center">
+        <button [hidden]="valuebranchkycadd!=='Entity View BranchKYC-Add'"
+            (click)="addKycdocuments(this.id, this.merchantId)" [disabled]="kycbranchdetails!='NO DATA FOUND'"
+            style="color:white;background-color: #141E46;border-radius: 10px;;font-size:12px" mat-raised-button>Add
+            KYC</button>
+        <button style="color:white;background-color: #141E46; border-radius: .5rem;font-size: .875rem;padding:5px 5px;"
+            (click)="close()">Back</button>
+    </div>
 </mat-card-header>
+
 <div class="row mt-4">
     <div class="col-12 mb-3 mb-lg-5">
         <div class="card table-nowrap table-card">
@@ -28,17 +29,13 @@
                         <th>Approval Status</th>
                         <th>Reviewed By</th>
                         <th>Reviewed At</th>
-
-                        <th  [hidden]="valuebranchkycComments!=='Entity View BranchKYC-Comments'">Comments</th>
+                        <th [hidden]="valuebranchkycComments!=='Entity View BranchKYC-Comments'">Comments</th>
                         <th>Created By</th>
                         <th>Created At</th>
                         <th>Modified By</th>
                         <th>Modified At</th>
-
-
                     </tr>
-                    <tbody
-                        *ngFor="let item of kycbranchdetails, let i=index">
+                    <tbody *ngFor="let item of kycbranchdetails, let i=index">
                         <tr>
                             <td>1</td>
                             <td>Identity proof</td>
@@ -46,14 +43,15 @@
                             <td>{{item.identityProofNo}}</td>
                             <td [hidden]="valuebranchkycdocimage!=='Entity View BranchKYC-DocumentImage'">
                                 <span (click)="getFrontPath(item.branchProofId)"><i class='fa-regular fa-image'
-                                        style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
+                                        style='font-size:15px;cursor: pointer;color:#545497;'></i>
+                                </span>
                                 <span (click)="getBackPath(item.branchProofId)"><i class='fa-regular fa-image mx-1'
-                                        style='font-size:15px;cursor: pointer;color:#545497;'></i></span>
+                                        style='font-size:15px;cursor: pointer;color:#545497;'></i>
+                                </span>
                             </td>
-                            <td [hidden]="valuebranchkycedit!=='Entity View BranchKYC-Edit'"><i class="fas fa-edit"
-                                    (click)="identityedit(item)">
-
-                                </i></td>
+                            <td [hidden]="valuebranchkycedit!=='Entity View BranchKYC-Edit'">
+                                <i class="fas fa-edit" (click)="identityedit(item)"></i>
+                            </td>
                             <td [hidden]="valuebranchkycverification!=='Entity View BranchKYC-Verification'">
                                 <span>
                                     <i style="overflow:hidden;color:#141E46;font-size:20px;" [matMenuTriggerFor]="menu1"
@@ -92,9 +90,11 @@
                             Red: item?.identityAdminApprovalStatus == 'Rejected'
                           }">{{item.identityAdminApprovalStatus}}</td>
 
-                            <td> {{item.identityAdminApprovedBy}}
+                            <td>{{ item.identityAdminApprovedBy != 'NA' ? (item.identityAdminApprovedBy) : "-"}}
                             </td>
-                            <td>{{item.identityAdminApprovedDate | date : "dd/MM/yyyy hh:mm a"}}</td>
+                            <td>{{item.identityAdminApprovedDate != "NA" ? (item.identityAdminApprovedDate | date:
+                                "dd/MM/yyyyhh:mm a") : "-"}}
+                            </td>
                             <td [hidden]="valuebranchkycComments!=='Entity View BranchKYC-Comments'"><span
                                     (click)="KYCComments(item.identityAdminComments)"><i class="fas fa-comments"
                                         style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
@@ -161,9 +161,11 @@
                                         Red: item?.addressAdminApprovalStatus == 'Rejected'
                                       }">{{item.addressAdminApprovalStatus}}</td>
 
-                            <td> {{item.addressAdminApprovedBy}}
+                            <td> {{ item.addressAdminApprovedBy !='NA' ? (item.addressAdminApprovedBy) : "-"}}
                             </td>
-                            <td>{{item.addressAdminApprovedDate | date : "dd/MM/yyyy hh:mm a"}}</td>
+                            <td>{{ item.addressAdminApprovedDate != "NA" ? (item.addressAdminApprovedDate | date:
+                                "dd/MM/yyyy hh:mm a") : "-"}}
+                            </td>
                             <td [hidden]="valuebranchkycComments!=='Entity View BranchKYC-Comments'">
                                 <span (click)="KYCComments(item.addressAdminComments)"><i class="fas fa-comments"
                                         style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>
@@ -229,9 +231,11 @@
                                             Red: item?.signatureAdminApprovalStatus == 'Rejected'
                                           }">{{item.signatureAdminApprovalStatus}}</td>
 
-                            <td> {{item.signatureAdminApprovedBy}}
+                            <td> {{ item.signatureAdminApprovedBy!='NA' ? (item.signatureAdminApprovedBy) : "-"}}
                             </td>
-                            <td>{{item.signatureAdminApprovedDate | date : "dd/MM/yyyy hh:mm a"}}</td>
+                            <td> {{ item.signatureAdminApprovedDate != "NA" ? (item.signatureAdminApprovedDate | date:
+                                "dd/MM/yyyy hh:mm a") : "-"}}
+                            </td>
                             <td [hidden]="valuebranchkycComments!=='Entity View BranchKYC-Comments'">
                                 <span (click)="KYCComments(item.signatureAdminComments)"><i class="fas fa-comments"
                                         style="text-align: center;cursor: pointer;font-size:15px; color:#545497;"></i></span>

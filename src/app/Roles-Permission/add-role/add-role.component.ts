@@ -29,20 +29,28 @@ export class AddRoleComponent implements OnInit {
   getpermission: any;
 
   @Output() bankDetailsUpdated = new EventEmitter<void>();
-  
+
   constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private fb: FormBuilder,) { }
 
   ngOnInit(): void {
 
 
 
+    // this.service.permissionget().subscribe((res: any) => {
+    //   this.permissionValue = res.response;
+
+    // })
+
     this.service.permissionget().subscribe((res: any) => {
       this.permissionValue = res.response;
 
-    })
+      // Optional: preload subpermissions
+      const allIds = this.permissionValue.map((p: { permissionId: any; }) => p.permissionId);
+      this.sendPermissionId(allIds);
+    });
 
     this.roleformGroup = this.fb.group({
-      roleName: ['', [Validators.required,Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),Validators.maxLength(50)]],
+      roleName: ['', [Validators.required, Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'), Validators.maxLength(50)]],
       permission: ['', [Validators.required]],
       subPermission: ['', [Validators.required]]
 
@@ -60,26 +68,31 @@ export class AddRoleComponent implements OnInit {
   get subPermission() {
     return this.roleformGroup.get('subPermission')
   }
-  sendPermissionId(id: any) {
-
-
+  sendPermissionId(id: any[]) {
     let submitModel: subpermission = {
       permissionsId: id,
-    }
-
-
+    };
     this.service.subPermission(submitModel).subscribe((res: any) => {
       this.subpermissionValue = res.response;
-
-
     })
   }
 
+  // toggleAllSelection() {
+  //   if (this.allSelected) {
+  //     this.select.options.forEach((item: MatOption) => item.select());
+  //   } else {
+  //     this.select.options.forEach((item: MatOption) => item.deselect());
+  //   }
+  // }
+
   toggleAllSelection() {
     if (this.allSelected) {
-      this.select.options.forEach((item: MatOption) => item.select());
+      const allIds = this.permissionValue.map((p: { permissionId: any; }) => p.permissionId);
+      this.roleformGroup.controls['permission'].setValue(allIds);
+      this.sendPermissionId(allIds);
     } else {
-      this.select.options.forEach((item: MatOption) => item.deselect());
+      this.roleformGroup.controls['permission'].setValue([]);
+      this.subpermissionValue = [];
     }
   }
 

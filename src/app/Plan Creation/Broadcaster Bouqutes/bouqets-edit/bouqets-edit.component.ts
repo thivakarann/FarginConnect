@@ -36,8 +36,8 @@ export class BouqetsEditComponent implements OnInit {
   getalcot: any;
   getamount: any;
   getId: any;
-ActiveregionID: any;
-@Output() bankDetailsUpdated = new EventEmitter<void>();
+  ActiveregionID: any;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
   getservicesProvider: any;
 
   constructor(
@@ -68,64 +68,64 @@ ActiveregionID: any;
     })
 
 
-    
+
 
 
     this.activeRouter.params.subscribe((param: any) => {
       this.getId = param.valueid;
       this.getId = this.data.valueid;
-      
+
     });
 
     this.activeRouter.params.subscribe((param: any) => {
       this.getRoleId = param.bouquet;
       this.getRoleId = this.data.bouquet;
-      
+
     });
 
     this.activeRouter.params.subscribe((param: any) => {
       this.getcreation = param.creation;
       this.getcreation = this.data.creation;
-      
+
     });
 
     this.activeRouter.params.subscribe((param: any) => {
       this.getservices = param.services;
       this.getservices = this.data.services;
-      
+
     });
 
-       this.activeRouter.params.subscribe((param: any) => {
+    this.activeRouter.params.subscribe((param: any) => {
       this.getservicesProvider = param.ServiceProvidename;
       this.getservicesProvider = this.data.ServiceProvidename;
-      
+
     });
 
     this.activeRouter.params.subscribe((param: any) => {
       this.getvalues = param.broadCasterRegionsss;
       this.getvalues11 = this.data.broadCasterRegionsss;
-      
-      
+
+
     });
 
     this.activeRouter.params.subscribe((param: any) => {
       this.getalcot = param.broadCasterAlcotsss;
       this.getalcot = this.data.broadCasterAlcotsss;
-      
+
     });
 
 
     this.activeRouter.params.subscribe((param: any) => {
       this.getamount = param.amount;
       this.getamount = this.data.amount;
-      
+
     });
 
 
     this.BroadcasterBouquetAdd.BouqueteNameByBroadcasterid(this.getRoleId).subscribe((res: any) => {
       this.Plandetails = res.response;
       this.Plandetails.sort((a: any, b: any) => a.bouquetName.localeCompare(b.bouquetName));
-      
+
     })
 
     this.BroadcasterBouquetAdd.ActiveRegionsbyserviceprovider(this.getservices).subscribe((res: any) => {
@@ -136,12 +136,15 @@ ActiveregionID: any;
     this.myForm = new FormGroup({
       bundleChannelId: new FormControl(this.getRoleId, Validators.required),
       // alcotId: new FormControl('', Validators.required),
-      amount: new FormControl(this.getamount, [Validators.required, Validators.pattern('^[1-9][0-9]*(\.[0-9]{1,2})?$')]),
+      amount: new FormControl(this.getamount, [
+        Validators.required,
+        Validators.pattern("^(?!0+(\\.0{1,2})?$)\\d+(\\.\\d{1,2})?$")
+      ]),
       boqCreationId: new FormControl(this.getcreation, Validators.required),
       serviceId: new FormControl(this.getservices, Validators.required),
       // regId: new FormControl('', Validators.required),
     });
-    
+
   }
 
 
@@ -188,25 +191,24 @@ ActiveregionID: any;
       this.ActiveRegions = res.response;
     })
   }
-  
+
   activeregionids() {
-    let submitModel:Region={
-       regionsId:this.regId?.value
+    let submitModel: Region = {
+      regionsId: this.regId?.value
     }
-       this.BroadcasterBouquetAdd.createAlcotChannelActiveRegion(submitModel).subscribe((res:any)=>{
-        if(res.flag==1)
-        {
-          if (Array.isArray(res.response)) {
-  
-            this.channelslist = res.response; // Store channels
-            console.log('Channels list:', this.channelslist); // Log channels
-          } else {
-            console.error('Unexpected response format:', res);
-          }
-        
+    this.BroadcasterBouquetAdd.createAlcotChannelActiveRegion(submitModel).subscribe((res: any) => {
+      if (res.flag == 1) {
+        if (Array.isArray(res.response)) {
+
+          this.channelslist = res.response; // Store channels
+          console.log('Channels list:', this.channelslist); // Log channels
+        } else {
+          console.error('Unexpected response format:', res);
         }
-       })
-    }
+
+      }
+    })
+  }
 
   toggleAllSelection() {
     if (this.allSelected) {

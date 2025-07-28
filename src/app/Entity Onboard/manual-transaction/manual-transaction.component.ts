@@ -158,7 +158,7 @@ export class ManualTransactionComponent {
     const header = [
       'S No',
       'Payment Id',
-      'Paid Amount',
+      'Setup Fee',
       'maintenanceAmount',
       'voiceBoxAdvAmount',
       'voiceBoxSetupAmount',

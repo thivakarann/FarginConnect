@@ -239,7 +239,7 @@ export class BouquetsViewallComponent implements OnInit {
             this.perValueArray.push(value)
           }
           const dialogRef = this.dialog.open(BouqetsEditComponent, {
-            data: { per: this.perValueArray, bouquet: this.bouquet, creation: this.creation, services: this.services, ServiceProvidename : this.ServiceProvidename ,broadCasterRegionsss: this.broadCasterRegionsss, broadCasterAlcotsss: this.broadCasterAlcotsss, amount: this.amount, valueid: this.valueid },
+            data: { per: this.perValueArray, bouquet: this.bouquet, creation: this.creation, services: this.services, ServiceProvidename: this.ServiceProvidename, broadCasterRegionsss: this.broadCasterRegionsss, broadCasterAlcotsss: this.broadCasterAlcotsss, amount: this.amount, valueid: this.valueid },
             disableClose: true,
             enterAnimationDuration: '500ms',
             exitAnimationDuration: '500ms',

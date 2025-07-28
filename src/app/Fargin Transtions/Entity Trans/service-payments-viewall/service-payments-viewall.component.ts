@@ -35,6 +35,7 @@ export class ServicePaymentsViewallComponent {
     'paymenttype',
     'amount',
     'createdDateTime',
+    'pgOnboardDate',
     'status',
     'paidAt',
     'view',
