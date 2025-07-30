@@ -1,38 +1,28 @@
 <div *ngIf="selectedTransactionType == 'Due Transaction'">
   <div class="row">
-  <div class="col-md-3">
-    <h5 style="text-align: left; color: #141e46">Entity Refunds</h5>
-  </div>
-  <div class="col-md-8"></div>
-  <div class="col-md-1">
-    <button
-      style="
+    <div class="col-md-3">
+      <h5 style="text-align: left; color: #141e46">Entity Refunds</h5>
+    </div>
+    <div class="col-md-8"></div>
+    <div class="col-md-1">
+      <button style="
         color: white;
         background-color: #141e46;
         border-radius: 0.5rem;
         font-size: 0.875rem;
         padding: 5px 5px;
-      "
-      (click)="close()"
-    >
-      Back
-    </button>
+      " (click)="close()">
+        Back
+      </button>
+    </div>
   </div>
-</div>
 
 
   <mat-card-header>
     <div class="row">
       <div class="col-3 mt-4" style="margin-right: -29px">
-        <select
-          style="width: 206px"
-          (change)="transactionsDropdown($event)"
-          class="form-select"
-        >
-          <option
-            [selected]="selectedTransactionType == 'Due Transaction'"
-            value="Due Transaction"
-          >
+        <select style="width: 206px" (change)="transactionsDropdown($event)" class="form-select">
+          <option [selected]="selectedTransactionType == 'Due Transaction'" value="Due Transaction">
             Due Transaction
           </option>
           <option value="Additional Transaction">Additional Transaction</option>
@@ -41,43 +31,20 @@
       <div class="col-2 mt-4 p-0 text-start" style="margin-right: 23px">
         <form class="form">
           <label for="search">
-            <input
-              #input
-              required=""
-              autocomplete="off"
-              placeholder="Search"
-              id="search"
-              type="text"
-              name="search"
-              [(ngModel)]="currentfilval"
-            />
+            <input #input required="" autocomplete="off" placeholder="Search" id="search" type="text" name="search"
+              [(ngModel)]="currentfilval" />
             <div class="icon">
-              <svg
-                stroke-width="2"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                class="swap-on"
-              >
-                <path
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  stroke-linejoin="round"
-                  stroke-linecap="round"
-                ></path>
+              <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
+                </path>
               </svg>
             </div>
             <button type="reset" (click)="reload()" class="close-btn">
-              <svg
-                viewBox="0 0 20 20"
-                class="h-5 w-5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
+              <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                <path clip-rule="evenodd"
                   d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                  fill-rule="evenodd"
-                ></path>
+                  fill-rule="evenodd"></path>
               </svg>
             </button>
             &nbsp;
@@ -85,68 +52,39 @@
         </form>
       </div>
       <div class="col-1 mt-4" style="margin-right: 3px">
-        <button
-          class="btn"
-          (click)="refundsearch(currentfilval)"
-          style="
+        <button class="btn" (click)="refundsearch(currentfilval)" style="
             color: white;
             background-color: #141e46;
             border-radius: 10px;
             font-size: 12px;
-          "
-          mat-raised-button
-        >
+          " mat-raised-button>
           Go
         </button>
       </div>
 
       <div class="col-2">
         <label><b>From Date</b></label>
-        <input
-          onkeydown="return false;"
-          class="form-control"
-          type="date"
-          name="FromDate"
-          [(ngModel)]="FromDateRange"
-          (change)="checkDate()"
-          [max]="maxDate"
-          style="height: 35px; width: 150px; border-radius: 5px"
-        />
+        <input onkeydown="return false;" class="form-control" type="date" name="FromDate" [(ngModel)]="FromDateRange"
+          (change)="checkDate()" [max]="maxDate" style="height: 35px; width: 150px; border-radius: 5px" />
       </div>
       <div class="col-2">
         <label><b>To Date</b></label>
-        <input
-          onkeydown="return false;"
-          class="form-control"
-          type="date"
-          name="ToDate"
-          [(ngModel)]="ToDateRange"
-          [min]="FromDateRange"
-          [max]="maxDate"
-          style="height: 35px; width: 150px; border-radius: 5px"
-        />
+        <input onkeydown="return false;" class="form-control" type="date" name="ToDate" [(ngModel)]="ToDateRange"
+          [min]="FromDateRange" [max]="maxDate" style="height: 35px; width: 150px; border-radius: 5px" />
       </div>
       <div class="col-1 mt-4">
-        <button
-          class="buttonDownload"
-          [disabled]="!FromDateRange || !ToDateRange"
-          mat-raised-button
-          (click)="filterdate()"
-        >
+        <button class="buttonDownload" [disabled]="!FromDateRange || !ToDateRange" mat-raised-button
+          (click)="filterdate()">
           Filter
         </button>
       </div>
       <div class="col-1 mt-4">
-        <button
-          style="
+        <button style="
             color: white;
             background-color: #141e46;
             border-radius: 10px;
             font-size: 12px;
-          "
-          mat-raised-button
-          (click)="reset()"
-        >
+          " mat-raised-button (click)="reset()">
           Reset
         </button>
       </div>
@@ -155,17 +93,8 @@
 
   <!-- <mat-card> -->
   <mat-card-content>
-    <div
-      class="example-container text-nowrap mt-3"
-      style="overflow-x: scroll; scrollbar-width: thin"
-    >
-      <table
-        id="season-tble"
-        matSort
-        mat-table
-        [dataSource]="dataSource"
-        class="mat-elevation-z1"
-      >
+    <div class="example-container text-nowrap mt-3" style="overflow-x: scroll; scrollbar-width: thin">
+      <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
         <ng-container matColumnDef="sno">
           <th mat-header-cell *matHeaderCellDef>S.No</th>
           <td mat-cell *matCellDef="let data; let i = index">
@@ -176,7 +105,7 @@
           <th mat-header-cell *matHeaderCellDef>Setupbox Number</th>
           <td mat-cell *matCellDef="let transaction">
             {{
-              transaction?.setupBoxNumber}}
+            transaction?.setupBoxNumber}}
           </td>
         </ng-container>
         <ng-container matColumnDef="type">
@@ -206,23 +135,12 @@
         </ng-container>
 
         <ng-container matColumnDef="View">
-          <th
-            [hidden]="valueview !== 'Entity View Refund-View'"
-            mat-header-cell
-            *matHeaderCellDef
-          >
+          <th [hidden]="valueview !== 'Entity View Refund-View'" mat-header-cell *matHeaderCellDef>
             Refund Details
           </th>
-          <td
-            [hidden]="valueview !== 'Entity View Refund-View'"
-            mat-cell
-            *matCellDef="let transaction"
-          >
-            <button
-              style="border: none; background: none"
-              (click)="view(transaction)"
-              [disabled]="transaction?.typeMode != 'Offline'"
-            >
+          <td [hidden]="valueview !== 'Entity View Refund-View'" mat-cell *matCellDef="let transaction">
+            <button style="border: none; background: none" (click)="view(transaction)"
+              [disabled]="transaction?.typeMode != 'Offline'">
               <i style="border: none; background: none" class="fa fa-eye"></i>
             </button>
           </td>
@@ -254,16 +172,11 @@
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef>Refund Status</th>
           <td mat-cell *matCellDef="let data">
-            <span *ngIf="data.refundStatus == 'COMPLETED'" style="color: green"
-              ><b>{{ data?.refundStatus }}</b></span
-            >
-
-               <span *ngIf="data.refundStatus == 'SUBMITTED'" style="color: green"
-              ><b>COMPLETED</b></span
-            >
-            <span *ngIf="data.refundStatus == 'INITIATED'" style="color: orange"
-              ><b>{{ data?.refundStatus }}</b></span
-            >
+            <span *ngIf="data?.refundStatus == 'INITIATED'" style="color:#FFC107 ;">INITIATED</span>
+            <span *ngIf="data?.refndstatus == 'PENDING'" style="color:#FF9800;">PENDING</span>
+            <span *ngIf="data?.refundStatus == 'SUBMITTED'" style="color:blue">SUBMITTED</span>
+            <span *ngIf="data?.refundStatus == 'COMPLETED'" style="color:#4CAF50">COMPLETED</span>
+            <span *ngIf="data?.refundStatus == 'FAILED'" style="color:#F44336 ">FAILED</span>
           </td>
         </ng-container>
 
@@ -294,20 +207,13 @@
         </td>
       </ng-container> -->
 
-        <tr
-          mat-header-row
-          *matHeaderRowDef="displayedColumns; sticky: true"
-        ></tr>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         <tr *matNoDataRow>
           <td class="mat-cell" colspan="0" *ngIf="searchPerformed">
             No Data For {{ input.value }}
           </td>
-          <td
-            class="mat-cell"
-            colspan="0"
-            *ngIf="!searchPerformed && dataSource.data.length === 0"
-          >
+          <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">
             No Data
           </td>
         </tr>
@@ -315,53 +221,37 @@
     </div>
   </mat-card-content>
   <mat-card-footer>
-    <mat-paginator
-      (page)="getData($event)"
-      [length]="totalPages"
-      [pageIndex]="currentpage"
-      [pageSize]="totalpage"
-      [pageSizeOptions]="[5, 50, 100, 500, 1000]"
-      aria-label="Select page"
-    >
+    <mat-paginator (page)="getData($event)" [length]="totalPages" [pageIndex]="currentpage" [pageSize]="totalpage"
+      [pageSizeOptions]="[5, 50, 100, 500, 1000]" aria-label="Select page">
     </mat-paginator>
   </mat-card-footer>
 </div>
 
 <div *ngIf="selectedTransactionType == 'Additional Transaction'">
   <div class="row">
-  <div class="col-md-3">
-    <h5 style="text-align: left; color: #141e46">Entity Refunds</h5>
-  </div>
-  <div class="col-md-8"></div>
-  <div class="col-md-1">
-    <button
-      style="
+    <div class="col-md-3">
+      <h5 style="text-align: left; color: #141e46">Entity Refunds</h5>
+    </div>
+    <div class="col-md-8"></div>
+    <div class="col-md-1">
+      <button style="
         color: white;
         background-color: #141e46;
         border-radius: 0.5rem;
         font-size: 0.875rem;
         padding: 5px 5px;
-      "
-      (click)="close()"
-    >
-      Back
-    </button>
+      " (click)="close()">
+        Back
+      </button>
+    </div>
   </div>
-</div>
 
   <mat-card-header>
     <div class="row">
       <div class="col-3 mt-4" style="margin-right: -29px">
-        <select
-          style="width: 206px"
-          (change)="transactionsDropdown($event)"
-          class="form-select"
-        >
+        <select style="width: 206px" (change)="transactionsDropdown($event)" class="form-select">
           <option value="Due Transaction">Due Transaction</option>
-          <option
-            [selected]="selectedTransactionType == 'Additional Transaction'"
-            value="Additional Transaction"
-          >
+          <option [selected]="selectedTransactionType == 'Additional Transaction'" value="Additional Transaction">
             Additional Transaction
           </option>
         </select>
@@ -369,47 +259,20 @@
       <div class="col-2 mt-4 p-0 text-start" style="margin-right: 23px">
         <form class="form">
           <label for="search">
-            <input
-              #input
-              required=""
-              autocomplete="off"
-              placeholder="Search"
-              id="search"
-              type="text"
-              name="search"
-              [(ngModel)]="currentfilvals"
-            />
+            <input #input required="" autocomplete="off" placeholder="Search" id="search" type="text" name="search"
+              [(ngModel)]="currentfilvals" />
             <div class="icon">
-              <svg
-                stroke-width="2"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                class="swap-on"
-              >
-                <path
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  stroke-linejoin="round"
-                  stroke-linecap="round"
-                ></path>
+              <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
+                </path>
               </svg>
             </div>
-            <button
-              type="reset"
-              (click)="reloadforadditional()"
-              class="close-btn"
-            >
-              <svg
-                viewBox="0 0 20 20"
-                class="h-5 w-5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
+            <button type="reset" (click)="reloadforadditional()" class="close-btn">
+              <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                <path clip-rule="evenodd"
                   d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                  fill-rule="evenodd"
-                ></path>
+                  fill-rule="evenodd"></path>
               </svg>
             </button>
             &nbsp;
@@ -417,68 +280,39 @@
         </form>
       </div>
       <div class="col-1 mt-4" style="margin-right: 3px">
-        <button
-          class="btn"
-          (click)="additionalrefundsearch(currentfilvals)"
-          style="
+        <button class="btn" (click)="additionalrefundsearch(currentfilvals)" style="
             color: white;
             background-color: #141e46;
             border-radius: 10px;
             font-size: 12px;
-          "
-          mat-raised-button
-        >
+          " mat-raised-button>
           Go
         </button>
       </div>
 
       <div class="col-2">
         <label><b>From Date</b></label>
-        <input
-          onkeydown="return false;"
-          class="form-control"
-          type="date"
-          name="FromDates"
-          [(ngModel)]="FromDateRanges"
-          (change)="checkDate()"
-          [max]="maxDate"
-          style="height: 35px; width: 150px; border-radius: 5px"
-        />
+        <input onkeydown="return false;" class="form-control" type="date" name="FromDates" [(ngModel)]="FromDateRanges"
+          (change)="checkDate()" [max]="maxDate" style="height: 35px; width: 150px; border-radius: 5px" />
       </div>
       <div class="col-2">
         <label><b>To Date</b></label>
-        <input
-          onkeydown="return false;"
-          class="form-control"
-          type="date"
-          name="ToDates"
-          [(ngModel)]="ToDateRanges"
-          [min]="FromDateRanges"
-          [max]="maxDate"
-          style="height: 35px; width: 150px; border-radius: 5px"
-        />
+        <input onkeydown="return false;" class="form-control" type="date" name="ToDates" [(ngModel)]="ToDateRanges"
+          [min]="FromDateRanges" [max]="maxDate" style="height: 35px; width: 150px; border-radius: 5px" />
       </div>
       <div class="col-1 mt-4">
-        <button
-          class="buttonDownload"
-          [disabled]="!FromDateRanges || !ToDateRanges"
-          mat-raised-button
-          (click)="filteradditionaldate()"
-        >
+        <button class="buttonDownload" [disabled]="!FromDateRanges || !ToDateRanges" mat-raised-button
+          (click)="filteradditionaldate()">
           Filter
         </button>
       </div>
       <div class="col-1 mt-4">
-        <button
-          style="
+        <button style="
             color: white;
             background-color: #141e46;
             border-radius: 10px;
             font-size: 12px;
-          "
-          mat-raised-button
-          (click)="resetadditional()"
-        >
+          " mat-raised-button (click)="resetadditional()">
           Reset
         </button>
       </div>
@@ -487,17 +321,8 @@
 
   <!-- <mat-card> -->
   <mat-card-content>
-    <div
-      class="example-container text-nowrap mt-3"
-      style="overflow-x: scroll; scrollbar-width: thin"
-    >
-      <table
-        id="season-tble"
-        matSort
-        mat-table
-        [dataSource]="dataSources"
-        class="mat-elevation-z1"
-      >
+    <div class="example-container text-nowrap mt-3" style="overflow-x: scroll; scrollbar-width: thin">
+      <table id="season-tble" matSort mat-table [dataSource]="dataSources" class="mat-elevation-z1">
         <ng-container matColumnDef="sno">
           <th mat-header-cell *matHeaderCellDef>S.No</th>
           <td mat-cell *matCellDef="let data; let i = index">
@@ -541,24 +366,13 @@
             {{ transaction?.requestId || "-" }}
           </td>
         </ng-container>
-  <ng-container matColumnDef="View">
-          <th
-            [hidden]="valueview !== 'Entity View Refund-View'"
-            mat-header-cell
-            *matHeaderCellDef
-          >
+        <ng-container matColumnDef="View">
+          <th [hidden]="valueview !== 'Entity View Refund-View'" mat-header-cell *matHeaderCellDef>
             Refund Details
           </th>
-          <td
-            [hidden]="valueview !== 'Entity View Refund-View'"
-            mat-cell
-            *matCellDef="let transaction"
-          >
-            <button
-              style="border: none; background: none"
-              (click)="view(transaction)"
-              [disabled]="transaction?.typeMode != 'Offline'"
-            >
+          <td [hidden]="valueview !== 'Entity View Refund-View'" mat-cell *matCellDef="let transaction">
+            <button style="border: none; background: none" (click)="view(transaction)"
+              [disabled]="transaction?.typeMode != 'Offline'">
               <i style="border: none; background: none" class="fa fa-eye"></i>
             </button>
           </td>
@@ -580,16 +394,11 @@
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef>Refund Status</th>
           <td mat-cell *matCellDef="let data">
-            <span *ngIf="data.refundStatus == 'COMPLETED'" style="color: green"
-              ><b>{{ data?.refundStatus }}</b></span
-            >
-
-                <span *ngIf="data.refundStatus == 'SUBMITTED'" style="color: green"
-              ><b>COMPLETED</b></span
-            >
-            <span *ngIf="data.refundStatus == 'INITIATED'" style="color: orange"
-              ><b>{{ data?.refundStatus }}</b></span
-            >
+            <span *ngIf="data?.refundStatus == 'INITIATED'" style="color:#FFC107 ;">INITIATED</span>
+            <span *ngIf="data?.refndstatus == 'PENDING'" style="color:#FF9800;">PENDING</span>
+            <span *ngIf="data?.refundStatus == 'SUBMITTED'" style="color:blue">SUBMITTED</span>
+            <span *ngIf="data?.refundStatus == 'COMPLETED'" style="color:#4CAF50">COMPLETED</span>
+            <span *ngIf="data?.refundStatus == 'FAILED'" style="color:#F44336 ">FAILED</span>
           </td>
         </ng-container>
 
@@ -607,21 +416,11 @@
           </td>
         </ng-container>
 
-        <tr
-          mat-header-row
-          *matHeaderRowDef="displayedAdditionalColumns; sticky: true"
-        ></tr>
-        <tr
-          mat-row
-          *matRowDef="let row; columns: displayedAdditionalColumns"
-        ></tr>
+        <tr mat-header-row *matHeaderRowDef="displayedAdditionalColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedAdditionalColumns"></tr>
         <tr *matNoDataRow>
           <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data</td>
-          <td
-            class="mat-cell"
-            colspan="0"
-            *ngIf="!searchPerformed && dataSources.data.length === 0"
-          >
+          <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSources.data.length === 0">
             No Data
           </td>
         </tr>
@@ -629,14 +428,8 @@
     </div>
   </mat-card-content>
   <mat-card-footer>
-    <mat-paginator
-      (page)="getDataAdditional($event)"
-      [length]="totalPages"
-      [pageIndex]="currentpage"
-      [pageSize]="totalpage"
-      [pageSizeOptions]="[5, 50, 100, 500, 1000]"
-      aria-label="Select page"
-    >
+    <mat-paginator (page)="getDataAdditional($event)" [length]="totalPages" [pageIndex]="currentpage"
+      [pageSize]="totalpage" [pageSizeOptions]="[5, 50, 100, 500, 1000]" aria-label="Select page">
     </mat-paginator>
   </mat-card-footer>
 </div>

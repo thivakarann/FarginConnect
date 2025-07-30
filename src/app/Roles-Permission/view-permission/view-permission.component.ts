@@ -23,23 +23,23 @@ export class ViewPermissionComponent {
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-     this.permissionvalue = this.data.value;
+    this.permissionvalue = this.data.value;
     this.dataSource = new MatTableDataSource(this.permissionvalue);
   }
 
   ngOnInit(): void {
-    
+
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-reload() {
+  reload() {
     this.permissionvalue = this.data.value;
     this.dataSource = new MatTableDataSource(this.permissionvalue);
     this.ngAfterViewInit();
   }
-   applyFilter(event: Event) {
+  applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 

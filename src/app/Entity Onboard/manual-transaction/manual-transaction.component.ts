@@ -141,7 +141,7 @@ export class ManualTransactionComponent {
       this.response.push(element?.paymentStatus);
       this.response.push(element?.bankReference);
       this.response.push(element?.utrNumber);
-      this.response.push(element?.cardNumber);
+      this.response.push(element?.cardNoMasked);
       this.response.push(element?.cardExpiry);
       if (element?.paymentDateTime) { this.response.push(moment(element?.paymentDateTime).format('DD/MM/yyyy hh:mm a')); }
       else { this.response.push(''); }
