@@ -225,6 +225,7 @@
     </table>
   </div>
 </mat-card-content>
+
 <mat-card-footer>
   <mat-paginator (page)="getData($event)" [length]="totalPages" [pageIndex]="currentpage" [pageSize]="totalpage"
     [pageSizeOptions]="[5, 50, 100, 500, 1000, 2000]" aria-label="Select page">

@@ -120,8 +120,6 @@ export class EntityBankaddComponent implements OnInit {
         this.dialog.closeAll();
       } else {
         this.toastr.error(res.responseMessage);
-        this.bankDetailsUpdated.emit();
-        this.dialog.closeAll();
       }
     });
   }

@@ -5,9 +5,9 @@
 
   <div class="col-md-4">
     <div class=" form-group">
-      <label for="Business category" style="font-size: 16px; font-weight: 700;">Select Entity</label>
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search the Entity Legal Name here" list="customerList"
+      <label for="Business category" style="font-size: 16px; font-weight: 700;">Select Entity and Search</label>
+      <div class="input-group" style="max-width: 356px; width:100%">
+        <input type="text" class="form-control" placeholder="Search Entity Legal Name & Select" list="customerList"
           [(ngModel)]="customerInput" (keyup)="fetchSetupBoxData()">
         <datalist id="customerList">
           <option *ngFor="let item of activemerchant" [value]="item.merchantLegalName">

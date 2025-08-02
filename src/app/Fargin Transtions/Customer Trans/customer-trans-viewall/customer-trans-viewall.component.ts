@@ -205,8 +205,7 @@ export class CustomerTransViewallComponent {
       startDate: ['',],
       endDate: ['',],
       // search: ['', [Validators.required]],
-      selectedOption: ['', [Validators.required]],
-
+      selectedOption: [null, [Validators.required]],
       search1: ['']
 
     });
@@ -580,10 +579,9 @@ export class CustomerTransViewallComponent {
     if (this.filterValue == 'Filterbycustomerpay') {
       this.dialogRef = this.dialog.open(this.CustomerPayment, {
         enterAnimationDuration: '500ms',
-        exitAnimationDuration: '1000ms',
+        exitAnimationDuration: '500ms',
         disableClose: true,
         position: { right: '0px' },
-        // width: '30%'
       });
     }
     else if (this.filterValue == 'Datefilter') {
@@ -706,8 +704,6 @@ export class CustomerTransViewallComponent {
   }
 
   getData(event: any) {
-
-
     if (this.currentfilvalShow) {
       this.service.CustomeradminSearch(this.currentfilval, event.pageSize, event.pageIndex).subscribe({
         next: (res: any) => {
