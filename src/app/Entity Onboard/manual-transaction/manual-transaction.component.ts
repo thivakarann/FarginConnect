@@ -145,7 +145,7 @@ export class ManualTransactionComponent {
       this.response.push(element?.cardExpiry);
       if (element?.paymentDateTime) { this.response.push(moment(element?.paymentDateTime).format('DD/MM/yyyy hh:mm a')); }
       else { this.response.push(''); }
-      this.response.push(element?.updatedBy === null || element?.cardNumber === 'null' ? '-' : element?.cardNumber);
+      this.response.push(element?.updatedBy === null || element?.updatedBy === 'null' ? '-' : element?.updatedBy);
       if (element?.updatedAt) { this.response.push(moment(element?.updatedAt).format('DD/MM/yyyy hh:mm a')); }
       else { this.response.push(''); }
       sno++;

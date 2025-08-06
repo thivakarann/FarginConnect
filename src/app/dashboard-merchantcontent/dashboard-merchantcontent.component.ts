@@ -40,7 +40,7 @@ export class DashboardMerchantcontentComponent {
   constructor(
     public loaderService: LoaderService,
     private service: FarginServiceService,
-  ) { }
+  ) {}
 
 
   ngOnInit(): void {

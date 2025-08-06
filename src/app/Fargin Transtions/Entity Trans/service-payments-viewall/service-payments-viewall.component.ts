@@ -202,7 +202,7 @@ export class ServicePaymentsViewallComponent {
       endDate: ['',],
       // search: ['', [Validators.required]],
       // search1:['']
-      selectedOption: ['', [Validators.required]],
+      selectedOption: [null, [Validators.required]],
 
       search1: ['']
     });

@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { Router, ActivatedRoute } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute } from '@angular/router';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { ChannelViewComponent } from '../channel-view/channel-view.component';
 import { Location } from '@angular/common';
-import { Businesskycstatus, customerplanStatus } from '../../fargin-model/fargin-model.module';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 
 @Component({
@@ -55,22 +52,19 @@ export class PlanDetailsCustomerComponent {
 
   constructor(
     public service: FarginServiceService,
-    private toastr: ToastrService,
     private dialog: MatDialog,
-    private ActivateRoute: ActivatedRoute, private location: Location
+    private ActivateRoute: ActivatedRoute,
+    private location: Location
 
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
+    
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.id = param.Alldata;
     });
-
-
+    
     this.Getall();
-
-
   }
 
   Getall() {
@@ -124,9 +118,7 @@ export class PlanDetailsCustomerComponent {
       data: { value: id }
     })
   }
-
-
-
+  
   alcartePage() {
     this.currentPage = 1;
 
@@ -135,6 +127,7 @@ export class PlanDetailsCustomerComponent {
     this.currentPage = 1;
 
   }
+
   lcopPage() {
     this.currentPage = 1;
 

@@ -209,7 +209,7 @@ export class OtherpaymentsViewallComponent {
       endDate: ['',],
       // search: ['', [Validators.required]],
       // search1: ['']
-      selectedOption: ['', [Validators.required]],
+      selectedOption: [null, [Validators.required]],
       search1: ['']
     });
 

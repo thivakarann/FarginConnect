@@ -95,6 +95,8 @@ export class DashboardComponent implements OnInit {
         }
       }
     });
+
+
     this.service.dashboardCount().subscribe((res: any) => {
       this.counts = res.response.totalTicketMemberOpenCount;
     });
@@ -324,7 +326,6 @@ export class DashboardComponent implements OnInit {
 
     this.pageWrapper = this.elRef.nativeElement.querySelector('.page-wrapper');
     // Attach click event listeners for dropdowns
-    // 
     this.sidebarDropdowns.forEach((dropdown) => {
       const anchor = dropdown.querySelector('a');
       if (anchor) {
@@ -417,14 +418,19 @@ export class DashboardComponent implements OnInit {
       }
     }
   }
+
+
   changepassword() {
     this.dialog.open(ChangePasswordComponent, {
-      disableClose: true
+      disableClose: true,
+      enterAnimationDuration: "300ms",
+      exitAnimationDuration: "300ms",
     })
   }
 
   logout() {
     this.dialog.open(LogoutComponent, {
+      disableClose: true,
       enterAnimationDuration: "300ms",
       exitAnimationDuration: "500ms",
     })

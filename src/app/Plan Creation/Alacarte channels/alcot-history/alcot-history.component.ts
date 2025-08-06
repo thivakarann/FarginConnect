@@ -122,14 +122,13 @@ searchPerformed: boolean=false;
     this.service.AlcotHistoryViewAllExport().subscribe((res: any) => {
       this.historyexport = res.response;
       if (res.flag == 1) {
-        console.log('check');
         let sno = 1;
         this.responseDataListnew = [];
         this.historyexport.forEach((element: any) => {
           // let createdate = element.createdDateTime;
           // this.date1 =  moment(createdate).format('DD/MM/yyyy hh:mm a').toString();
 
-          let moddate = element?.alcotChannel?.modifiedAt;
+          let moddate = element?.createdAt;
           this.date2 = moment(moddate).format('DD/MM/yyyy hh:mm a').toString();
 
           this.response = [];
@@ -147,7 +146,7 @@ searchPerformed: boolean=false;
           }
           this.response.push(element?.language);
           this.response.push(element?.generic);
-          this.response.push(element?.alcotChannel?.modifiedBy);
+          this.response.push(element?.createdBy);
           // if(element?.alcotChannel?.modifiedAt){
           //   this.response.push(moment(element?.alcotChannel?.modifiedAt).format('DD/MM/yyyy hh:mm a').toString());
           // }

@@ -105,9 +105,9 @@
             <ng-container matColumnDef="Status">
                 <th mat-header-cell *matHeaderCellDef>Approval Status</th>
                 <td mat-cell *matCellDef="let data">
-                    <span *ngIf="data?.approvalStatus=='Open'" style="color: red;">Open</span>
-                    <span *ngIf="data?.approvalStatus=='close'" style="color: green;">Closed</span>
-                    <span *ngIf="data?.approvalStatus=='hold'" style="color: orange;">Hold</span>
+                    <span *ngIf="data?.approvalStatus=='Open' || data?.approvalStatus=='open'" style="color: red;">Open</span>
+                    <span *ngIf="data?.approvalStatus=='Close' || data?.approvalStatus=='close'" style="color: green;">Closed</span>
+                    <span *ngIf="data?.approvalStatus=='hold' || data?.approvalStatus=='Hold'" style="color: orange;">Hold</span>
 
                 </td>
             </ng-container>

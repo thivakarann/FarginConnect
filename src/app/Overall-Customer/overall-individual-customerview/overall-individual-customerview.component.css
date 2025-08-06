@@ -2,7 +2,6 @@ article.card {
   border: 1px solid #f8f9fa;
   box-shadow: 0 0 20px 0px #dee2e6;
   cursor: pointer;
-  /* overflow: hidden; */
   transition: 0.3s all;
 }
 
@@ -101,6 +100,7 @@ article.card.customer-details ul li i {
 }
 
 /* Responsive Design */
+
 @media (max-width: 767px) {
   .d-flex {
     flex-direction: column !important;
@@ -123,27 +123,13 @@ article.card.customer-details ul li i {
 }
 
 /* tables design */
-
-/*********************************
-          IMPORT FONT_AWESOME
-  **********************************/
 @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css";
-
-
-/*********************************
-           IMPORT FONTS
-  **********************************/
 @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
   --default_font: "Mukta", sans-serif;
   --title_font: "Raleway", sans-serif;
 }
-
-
-/*********************************
-          DEFAULT SETTING
-  **********************************/
 
 *,
 *:after,
@@ -153,10 +139,6 @@ article.card.customer-details ul li i {
   box-sizing: border-box;
 }
 
-
-/*********************************
-          DEFAULT COLORS
-  **********************************/
 
 :root {
   --white: #fff;
@@ -181,16 +163,6 @@ article.card.customer-details ul li i {
   --secondary_lite: ;
 }
 
-
-/*********************************
-        CUSTOM SCROLL BAR
-  **********************************/
-/* ::-webkit-scrollbar {
-    height: 6px;
-    width: 2px;
-    background: var(--gray);
-  } */
-
 ::-webkit-scrollbar-thumb {
   background: var(--white);
   -webkit-box-shadow: 0px 1px 2px var(--primary);
@@ -201,9 +173,6 @@ article.card.customer-details ul li i {
 }
 
 
-/*********************************
-         DEFAULT ELEMENTS
-  **********************************/
 body {
   margin: 0;
   font-family: var(--default_font);
@@ -250,9 +219,7 @@ a {
   position: relative;
 }
 
-/*********************************
-           MEDIA QUERY
-  **********************************/
+
 @media (max-width:720px) {
   .flex {
     flex-wrap: wrap;
@@ -271,6 +238,7 @@ a {
 }
 
 /*SMALL SCREEN*/
+
 @media (max-width:300px) {
 
   .padding_1,
@@ -289,56 +257,45 @@ a {
 
 
 /* Basic Styles */
+
 .nav-pills .nav-link {
   border: 2px solid transparent;
-  /* Border for each tab */
   border-radius: 0.25rem;
   color: #333;
-  /* Text color */
   background-color: #f8f9fa;
-  /* Background color */
 }
 
 .nav-pills .nav-link.active {
   border-color: #7db855be;
-  /* Border color for active tab */
   color: #fff;
-  /* Text color for active tab */
   background-color: #7db855be;
-  /* Background color for active tab */
 }
 
 .nav-pills .nav-link.disabled {
   color: #6c757d;
-  /* Text color for disabled tab */
   background-color: #e9ecef;
-  /* Background color for disabled tab */
   border: 2px solid #e9ecef;
-  /* Border color for disabled tab */
 }
 
 /* Dropdown Styles */
+
 .nav-item.dropdown .dropdown-menu {
   border: 1px solid #007bff;
-  /* Border color for dropdown */
   border-radius: 0.25rem;
 }
 
 .nav-item.dropdown .dropdown-item {
   color: #007bff;
-  /* Text color for dropdown items */
 }
 
 .nav-item.dropdown .dropdown-item:hover {
   background-color: #e9ecef;
-  /* Background color for dropdown items on hover */
 }
 
 /* Responsive Styles */
 @media (max-width: 768px) {
   .nav-pills .nav-link {
     font-size: 0.9rem;
-    /* Adjust font size for smaller screens */
   }
 }
 
@@ -348,58 +305,58 @@ a {
   .table-responsive {
     display: block;
     overflow-x: scroll;
-    /* -webkit-overflow-scrolling: touch; Smooth scrolling on touch devices */
   }
 
   .table {
     min-width: 600px;
-    /* Ensure table width is sufficient for horizontal scrolling */
   }
 }
 
 
- th {
+th {
   background-color: #7db855be !important;
   color: #141E46;
   font-weight: 700;
   white-space: nowrap;
   text-shadow: #ffffff;
   font-family: "Roboto";
- 
+
   font-family: Roboto, "Helvetica Neue", sans-serif;
   text-align: center;
 }
- 
+
 td {
   font-size: 14px;
- 
+
   white-space: nowrap;
   padding: 8px;
-  /* border: 3px solid whitesmoke; */
   font-family: Roboto, "Helvetica Neue", sans-serif;
- 
+
 }
-  mat-card-content th,
-  mat-card-content td {
-    padding: 8px;
-    text-align: center;
-  }
-   
-  mat-card-content tr:nth-child(even) {
-    background-color: #f2f2f2;
-   
-  }
-  mat-card-content tr:nth-child(odd) {
-    background-color: #ffffff;
-  }
-  .mat-mdc-form-field {
+
+mat-card-content th,
+mat-card-content td {
+  padding: 8px;
+  text-align: center;
+}
+
+mat-card-content tr:nth-child(even) {
+  background-color: #f2f2f2;
+
+}
+
+mat-card-content tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.mat-mdc-form-field {
   font-size: 20px;
   width: 50%;
 }
- 
+
 mat-card-content th,
 mat-card-content td {
- 
+
   padding: 8px;
   text-align: center;
 }
@@ -460,7 +417,6 @@ mat-card-content td {
 .mat-mdc-table .mdc-data-table__header-row {
   height: 0px;
   background-color: antiquewhite;
-  /* background: linear-gradient(180deg, rgba(17, 197, 77, 0.548) 0%, rgb(82, 143, 89) 100%); */
   color: white;
 }
 
@@ -470,19 +426,13 @@ mat-card-content td {
 
 .form {
   --input-bg: #FFf;
-  /*  background of input */
   --padding: 1.5em;
   --rotate: 80deg;
-  /*  rotation degree of input*/
   --gap: 2em;
-  /*  gap of items in input */
   --icon-change-color: #15A986;
-  /*  when rotating changed icon color */
   --height: 40px;
-  /*  height */
   width: 230px;
   padding-inline-end: 1em;
-  /*  change this for padding in the end of input */
   background: var(--input-bg);
   position: relative;
   border-radius: 15px;
@@ -505,7 +455,6 @@ mat-card-content td {
 
 /* style for both icons -- search,close */
 .form svg {
-  /* display: block; */
   color: #111;
   transition: 0.3s cubic-bezier(.4, 0, .2, 1);
   position: absolute;
@@ -531,7 +480,6 @@ mat-card-content td {
 
 /* close button */
 .close-btn {
-  /* removing default bg of button */
   background: none;
   border: none;
   right: calc(var(--padding) - var(--gap));
@@ -589,20 +537,20 @@ mat-card-content td {
 }
 
 .duebuutton:hover {
-  background-color:antiquewhite;
+  background-color: antiquewhite;
 
 }
- 
+
 .example-container {
   max-height: 280px;
   height: 100%;
   overflow: auto;
   scrollbar-width: auto;
 }
+
 mat-card {
   margin: 1%;
   border-bottom: 3px solid transparent;
   border-top: 3px solid transparent;
- 
+
 }
- 

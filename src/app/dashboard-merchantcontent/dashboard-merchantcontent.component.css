@@ -70,7 +70,6 @@ body {
   content: "";
   width: 100%;
   height: 100%;
-  /* background: linear-gradient(#7db855be, #7db855be); */
   position: absolute;
   left: 0%;
   top: -98%;
@@ -191,32 +190,20 @@ body {
 
 .error-message {
   border: 1px solid #f44336;
-  /* Darker red border */
   background-color: #ffebee;
-  /* Light red background */
   color: #c62828;
-  /* Darker text color */
   padding: 15px;
-  /* More spacing inside the box */
   margin-top: 10px;
-  /* Space between input and error message */
   border-radius: 8px;
-  /* More rounded corners */
   font-size: 14px;
-  /* Larger font size */
   font-family: 'Helvetica Neue', Arial, sans-serif;
-  /* Modern font family */
   display: flex;
-  /* Flexbox for alignment */
   align-items: center;
-  /* Center items vertically */
 }
 
 .error-message i {
   margin-right: 10px;
-  /* Space between icon and text */
   color: #f44336;
-  /* Match the border color */
 }
 
 
@@ -229,20 +216,14 @@ body {
 
 .card {
   flex: 1 1 calc(33.333% - 30px);
-  /* Adjusts to 3 cards per row */
   background: #f9f9f9;
-  /* Light background */
   border-left: 5px solid #327406be;
-  /* Left border color */
   border-radius: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: 10px;
-  /* Reduced padding */
   transition: transform 0.3s, box-shadow 0.3s;
   text-align: left;
-  /* Align text to the left */
   margin: 10px;
-  /* Add margin for spacing */
 }
 
 
@@ -254,9 +235,7 @@ body {
 
 .icon {
   font-size: 1.5rem;
-  /* Smaller icon size */
   margin-right: 8px;
-  /* Space between icon and title */
 }
 
 .title {
@@ -266,41 +245,32 @@ body {
 
 .card-content {
   margin-top: 5px;
-  /* Less margin */
 }
 
 .stat {
   display: flex;
-  /* Flex to align title and value */
   justify-content: space-between;
-  /* Space between title and value */
   margin: 3px 0;
-  /* Smaller margin between stats */
 }
 
 .stat-title {
   font-weight: bold;
-  /* Normal weight for titles */
   color: black;
 }
 
 .stat-value {
   font-size: 1rem;
-  /* Original font size */
 }
 
 .value {
   font-weight: bold;
-  /* Make the number bold */
   color: #e74c3c;
-  /* Change this color to whatever you like */
 }
 
 
 @media (max-width: 768px) {
   .card {
     flex: 1 1 100%;
-    /* Adjusts to 1 card per row on smaller screens */
   }
 }
 

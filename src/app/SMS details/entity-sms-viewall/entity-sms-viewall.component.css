@@ -72,7 +72,6 @@ mat-card-content tr:nth-child(odd) {
 .mat-mdc-table .mdc-data-table__header-row {
   height: 0px;
   background-color: antiquewhite;
-  /* background: linear-gradient(180deg, rgba(17, 197, 77, 0.548) 0%, rgb(82, 143, 89) 100%); */
   color: white;
 }
 
@@ -82,19 +81,13 @@ mat-card-content tr:nth-child(odd) {
 
 .form {
   --input-bg: #FFf;
-  /*  background of input */
   --padding: 1.5em;
   --rotate: 80deg;
-  /*  rotation degree of input*/
   --gap: 2em;
-  /*  gap of items in input */
   --icon-change-color: #15A986;
-  /*  when rotating changed icon color */
   --height: 40px;
-  /*  height */
   width: 230px;
   padding-inline-end: 1em;
-  /*  change this for padding in the end of input */
   background: var(--input-bg);
   position: relative;
   border-radius: 15px;
@@ -117,7 +110,6 @@ mat-card-content tr:nth-child(odd) {
 
 /* style for both icons -- search,close */
 .form svg {
-  /* display: block; */
   color: #111;
   transition: 0.3s cubic-bezier(.4, 0, .2, 1);
   position: absolute;
@@ -143,7 +135,6 @@ mat-card-content tr:nth-child(odd) {
 
 /* close button */
 .close-btn {
-  /* removing default bg of button */
   background: none;
   border: none;
   right: calc(var(--padding) - var(--gap));

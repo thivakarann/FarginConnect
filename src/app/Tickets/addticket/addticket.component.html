@@ -7,8 +7,8 @@
             <label for="subject">Approval Status</label>
             <select type="text" id="subject" class="form-select" formControlName="approvalStatus" required>
                 <option value="Open">Open</option>
-                <option value="close">Close</option>
-                <option value="hold">Hold</option>
+                <option value="Closed">Closed</option>
+                <option value="Hold">Hold</option>
             </select>
             <span class="errormge" *ngIf="approvalStatus?.touched && approvalStatus?.errors?.['required']">Field
                 is required</span>

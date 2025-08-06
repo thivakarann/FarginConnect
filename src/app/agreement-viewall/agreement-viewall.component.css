@@ -6,23 +6,13 @@ mat-card {
 }
 
 .container {
-  /* width: 80%; */
   text-align: center;
-
-  /* margin: 50px auto;
-    background-color: #fff; */
-  /* padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1); */
 }
 
 .container h3 {
-  /* color: #333; */
-  /* border-bottom: 2px solid #333; */
   font-size: large;
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-weight: 600;
-
   padding-bottom: 10px;
   margin-bottom: 20px;
 }
@@ -41,17 +31,14 @@ th {
   font-weight: 700;
   white-space: nowrap;
   text-shadow: #ffffff;
-
   font-family: Roboto, "Helvetica Neue", sans-serif;
   text-align: center;
 }
 
 td {
   font-size: 14px;
-
   white-space: nowrap;
   padding: 8px;
-  /* border: 3px solid whitesmoke; */
   font-family: Roboto, "Helvetica Neue", sans-serif;
 
 }
@@ -63,7 +50,6 @@ td {
 
 mat-card-content th,
 mat-card-content td {
-
   padding: 8px;
   text-align: center;
 }
@@ -128,7 +114,6 @@ mat-card-content tr:nth-child(odd) {
 .mat-mdc-table .mdc-data-table__header-row {
   height: 0px;
   background-color: antiquewhite;
-  /* background: linear-gradient(180deg, rgba(17, 197, 77, 0.548) 0%, rgb(82, 143, 89) 100%); */
   color: white;
 }
 
@@ -140,19 +125,13 @@ mat-card-content tr:nth-child(odd) {
 
 .form {
   --input-bg: #FFf;
-  /*  background of input */
   --padding: 1.5em;
   --rotate: 80deg;
-  /*  rotation degree of input*/
   --gap: 2em;
-  /*  gap of items in input */
   --icon-change-color: #15A986;
-  /*  when rotating changed icon color */
   --height: 40px;
-  /*  height */
   width: 250px;
   padding-inline-end: 1em;
-  /*  change this for padding in the end of input */
   background: var(--input-bg);
   position: relative;
   border-radius: 15px;
@@ -174,8 +153,8 @@ mat-card-content tr:nth-child(odd) {
 }
 
 /* style for both icons -- search,close */
+
 .form svg {
-  /* display: block; */
   color: #111;
   transition: 0.3s cubic-bezier(.4, 0, .2, 1);
   position: absolute;
@@ -183,6 +162,7 @@ mat-card-content tr:nth-child(odd) {
 }
 
 /* search icon */
+
 .icon {
   position: absolute;
   left: var(--padding);
@@ -193,6 +173,7 @@ mat-card-content tr:nth-child(odd) {
 }
 
 /* arrow-icon*/
+
 .swap-off {
   transform: rotate(-80deg);
   opacity: 0;
@@ -200,8 +181,8 @@ mat-card-content tr:nth-child(odd) {
 }
 
 /* close button */
+
 .close-btn {
-  /* removing default bg of button */
   background: none;
   border: none;
   right: calc(var(--padding) - var(--gap));
@@ -268,21 +249,19 @@ mat-card-content tr:nth-child(odd) {
 }
 
 /* When the button is disabled */
+
 .disabled-btn {
-  /* Light grey background */
   color: black;
-  /* Light grey text */
 }
 
 .disabled-icon {
   color: #a9a9a9;
-  /* Light grey icon color */
 }
 
 /* When the button is enabled */
+
 .enabled-icon {
   color: black;
-  /* White icon color when active */
 }
 
 .example-container {

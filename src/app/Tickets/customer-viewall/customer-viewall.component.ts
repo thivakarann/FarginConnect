@@ -41,10 +41,10 @@ export class CustomerViewallComponent implements OnInit {
     'logo',
     'description',
     'ticketStatus',
-    'action',
+    // 'action',
     'createdDateTime',
-    'ticketStatusModifedBy',
-    'ticketModifedDateTime'
+    // 'ticketStatusModifedBy',
+    // 'ticketModifedDateTime'
   ];
   FormSearch!: FormGroup;
   ticket: any;

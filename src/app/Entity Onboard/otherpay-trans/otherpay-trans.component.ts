@@ -92,8 +92,8 @@ export class OtherpayTransComponent {
       this.response.push(element?.paymentStatus);
       this.response.push(element?.bankReference);
       this.response.push(element?.utrNumber);
-      if (element?.cardNumber === null || 'null') { this.response.push('-'); }
-      else { this.response.push(element?.cardNumber); }
+      if (element?.cardNoMasked === null || 'null') { this.response.push('-'); }
+      else { this.response.push(element?.cardNoMasked); }
       if (element?.cardExpiry === null || 'null') { this.response.push('-'); }
       else { this.response.push(element?.cardExpiry); }
       this.response.push(element?.updatedBy);

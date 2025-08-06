@@ -187,7 +187,6 @@ import { SmsCreateComponent } from './Entity Onboard/sms-create/sms-create.compo
 import { SMSHistoryComponent } from './SMS details/smshistory/smshistory.component';
 import { SMSHistoryViewComponent } from './SMS details/smshistory-view/smshistory-view.component';
 import { EntitySmsViewallComponent } from './SMS details/entity-sms-viewall/entity-sms-viewall.component';
-import { EntitySmsViewComponent } from './SMS details/entity-sms-view/entity-sms-view.component';
 import { AddBussinessdocumentComponent } from './Entity Onboard/bussiness-document/add-bussinessdocument/add-bussinessdocument.component';
 import { ApprovalBussinessdocumentComponent } from './Entity Onboard/bussiness-document/approval-bussinessdocument/approval-bussinessdocument.component';
 import { CommentBussinessdocumentComponent } from './Entity Onboard/bussiness-document/comment-bussinessdocument/comment-bussinessdocument.component';
@@ -474,7 +473,6 @@ import { MatIconModule } from '@angular/material/icon';
     SMSHistoryComponent,
     SMSHistoryViewComponent,
     EntitySmsViewallComponent,
-    EntitySmsViewComponent,
     AddBussinessdocumentComponent,
     EditBussinessdocumentComponent,
     ImageBussinessdocumentComponent,

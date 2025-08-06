@@ -169,7 +169,7 @@ export class AdditionalpaymentsComponent {
       pay: ['', [Validators.required]],
       startDate: [''],
       endDate: [''],
-      selectedOption: ['', [Validators.required]],
+      selectedOption: [null, [Validators.required]],
       search1: [''],
     });
 

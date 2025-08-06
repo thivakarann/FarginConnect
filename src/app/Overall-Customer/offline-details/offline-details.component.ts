@@ -6,13 +6,17 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-offline-details',
   templateUrl: './offline-details.component.html',
-  styleUrl: './offline-details.component.css'
+  styleUrl: './offline-details.component.css',
 })
 export class OfflineDetailsComponent {
+
   details: any;
 
-  constructor(private service: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog) { }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+  ) { }
+
   ngOnInit(): void {
-    this.details = this.data.value
+    this.details = this.data.value;
   }
 }

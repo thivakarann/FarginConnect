@@ -95,7 +95,7 @@
             <ng-container matColumnDef="cardNumber">
                 <th mat-header-cell *matHeaderCellDef>Card Number</th>
                 <td mat-cell *matCellDef="let viewall">
-                    {{ viewall.cardNumber || "-" }}
+                    {{ viewall.cardNoMasked || "-" }}
                 </td>
             </ng-container>
             <ng-container matColumnDef="cardExpiry">

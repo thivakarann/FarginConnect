@@ -4,8 +4,6 @@
             <div class="form-header d-flex justify-content-between align-items-center">
                 <h5 class="mb-0" style="color:black">Offline Details</h5>
             </div>
-            <!-- <button type="button" class="btn btn-secondary" mat-dialog-close>Back</button> -->
-
             <div class="card">
                 <table class="table table-bordered"
                     style="background-color: white; text-align: left;border: 1px solid rgb(154, 154, 153);">
@@ -13,6 +11,14 @@
                         <tr>
                             <td class="datas">Refund Type</td>
                             <td id="data">{{details?.typeMode}}</td>
+                        </tr>
+
+                        <tr>
+                            <td class="datas">Payment ID</td>
+                            <td id="data">
+                                {{details?.pgPaymentId || details?.paymentModel?.pgPaymentId ||
+                                details?.customerOtherPayment?.pgPaymentId}}
+                            </td>
                         </tr>
 
                         <tr>
@@ -25,39 +31,45 @@
                         </tr>
                         <tr>
                             <td class="datas">Paid Amount</td>
-                            <td id="data">{{details?.paymentModel?.paidAmount}}</td>
+                            <td id="data">{{details?.customerOtherPayment?.paidAmount?.toFixed(2) ||
+                                details?.paymentModel?.paidAmount?.toFixed(2) || details?.paidAmount?.toFixed(2) }}</td>
                         </tr>
                         <tr>
                             <td class="datas">Refunded Amount</td>
-                            <td id="data">{{details?.refundAmount}}</td>
+                            <td id="data">{{ details?.refundAmount ? (+details.refundAmount).toFixed(2) : '-' }}
+                            </td>
                         </tr>
+                        <tr>
+                            <td class="datas">Paid Date</td>
+                            <td>{{details?.paymentDateTime || details?.paymentModel?.paymentDateTime ||
+                                details?.customerOtherPayment?.paymentDateTime | date:'dd/MM/yyyy hh:mm a' }} </td>
+                        </tr>
+
                         <tr>
                             <td class="datas">Record Created At</td>
                             <td id="data">{{details?.createdAt| date:'dd/MM/yyyy hh:mm a' }}</td>
                         </tr>
 
+
                         <tr>
-                            <td class="datas">Payed Date</td>
-                            <td>{{details?.refundDateTime| date:'dd/MM/yyyy hh:mm a' }} </td>
+                            <td class="datas">Refund Date</td>
+                            <td id="data">{{details?.refundDateTime| date:'dd/MM/yyyy hh:mm a' }}</td>
                         </tr>
-                       
                         <tr>
                             <td class="datas">Status</td>
                             <td id="data" style="font-weight: 500;">
                                 <span *ngIf="details?.refundStatus == 'COMPLETED'" class="text-success">
-                                    {{ details?.refundStatus}}</span>
+                                    {{ details?.refundStatus}}
+                                </span>
 
-                                <span *ngIf="details?.refundStatus   ==  'INITIATED'" class="text-warning"> 
-                                    {{ details?.refundStatus || '--'}}</span>
-
-                            
-
+                                <span *ngIf="details?.refundStatus   ==  'INITIATED'" class="text-warning">
+                                    {{ details?.refundStatus || '--'}}
+                                </span>
                             </td>
                         </tr>
 
                     </tbody>
                 </table>
-
             </div>
             <div class="text-center mt-3 mb-2">
                 <button type="submit" class="btn" style="background-color:#141E46;color:white"
@@ -66,4 +78,3 @@
         </div>
     </span>
 </body>
-

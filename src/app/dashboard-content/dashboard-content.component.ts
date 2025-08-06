@@ -61,7 +61,6 @@ export class DashboardContentComponent {
   transactionform: any = FormGroup;
   one: any[] = [];
   setCount: any[] = [];
-
   private charts: { [key: string]: Chart | null } = {
     maintenanceChartCanvas: null,
     oneTimeChartCanvas: null,
@@ -71,6 +70,7 @@ export class DashboardContentComponent {
   constructor(private service: FarginServiceService) { }
 
   ngOnInit(): void {
+    
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
@@ -123,12 +123,12 @@ export class DashboardContentComponent {
         }
       }
     });
-
+    
     this.transactionform = new FormGroup({
       selectperiods: new FormControl('', []),
       selecttransaction: new FormControl('', []),
     });
-
+    
     this.createEmptyCharts();
 
     this.service.dashboardCount().subscribe((res: any) => {
@@ -203,14 +203,11 @@ export class DashboardContentComponent {
       this.category = res.response;
       this.businessCategoryIds = res.response.businessCategoryId;
     });
-
     this.createWithCategory(this.initialCategoryId);
-
     this.service.EntityViewallExport().subscribe((res: any) => {
       this.viewmerchant = res.response;
       this.merchantIds = res.response.merchantId;
     });
-
     this.service.dashboardcustomeroveralls().subscribe((res: any) => {
       if (res.flag == 1) {
         this.createMixedChart(res.response);
@@ -219,7 +216,6 @@ export class DashboardContentComponent {
         this.createMixedChart(res.response);
       }
     });
-
     this.service.dashboardsevendaysamounts().subscribe((res: any) => {
       if (res.flag == 1) {
         for (let index = 0; index < 7; index++) {
@@ -234,19 +230,16 @@ export class DashboardContentComponent {
       }
     });
   }
-
-
+  
   onMerchantChange(event: any) {
     this.selectedmerchant = +event.target.value;
-    // this.fetchMerchantData(this.selectedmerchant);
     this.service.dashboardoverallmerchantids(this.selectedmerchant).subscribe((res: any) => {
       if (res.flag === 1 || res.flag === 2) {
         this.creatememberchart(res);
       }
     });
   }
-
-
+  
   createEmptyCharts(): void {
     const emptyData = [0, 0, 0, 0]; // Representing empty data (Total, Success, Pending, Failed)
     const emptyChartData = {
@@ -582,9 +575,9 @@ export class DashboardContentComponent {
       },
     });
   }
-
-
+  
   // Create empty charts with zero values
+  
   creatememberchart(data: any): void {
     const response = data.response;
 
@@ -760,8 +753,7 @@ export class DashboardContentComponent {
       },
     });
   }
-
-
+  
   resetTransactionForm(): void {
     this.transactionform.reset({ selectperiods: '', selecttransaction: '' });
     this.service.dashboardcustomeroveralls().subscribe((res: any) => {

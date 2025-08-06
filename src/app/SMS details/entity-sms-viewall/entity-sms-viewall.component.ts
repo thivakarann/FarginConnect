@@ -1,5 +1,4 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,12 +7,11 @@ import FileSaver from 'file-saver';
 import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
-import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-entity-sms-viewall',
   templateUrl: './entity-sms-viewall.component.html',
-  styleUrl: './entity-sms-viewall.component.css'
+  styleUrl: './entity-sms-viewall.component.css',
 })
 export class EntitySmsViewallComponent {
   dataSource!: MatTableDataSource<any>;
@@ -24,11 +22,8 @@ export class EntitySmsViewallComponent {
     'entityemail',
     'smsType',
     'smscount',
-    // 'smscharge',
     'createdBy',
     'date',
-
-
   ];
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
@@ -52,9 +47,8 @@ export class EntitySmsViewallComponent {
   showData: boolean = false;
   smsResponse: any;
   valueentitysmsexport: any;
-
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId');
   actions: any;
   errorMessage: any;
   pageIndex: number = 0;
@@ -80,13 +74,14 @@ export class EntitySmsViewallComponent {
   currentfilvalShow: boolean = false;
   searchPerformed: boolean = false;
 
-  constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog) { }
+  constructor(
+    private service: FarginServiceService,
+    private toastr: ToastrService,
+  ) { }
   ngOnInit(): void {
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-
-
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
 
@@ -97,20 +92,22 @@ export class EntitySmsViewallComponent {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
 
-
               if (this.actions == 'Entity Sms-Export') {
                 this.valueentitysmsexport = 'Entity Sms-Export';
               }
-
             }
           }
-        }
-        else {
+        } else {
           this.errorMessage = res.responseMessage;
         }
-      }
-    })
+      },
+    });
 
+    this.Getall();
+
+  }
+
+  Getall() {
     this.service.SmsGetAll(this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.smsResponse = res.response;
@@ -127,40 +124,77 @@ export class EntitySmsViewallComponent {
         this.dataSource = new MatTableDataSource(this.smsResponse);
         this.currentfilvalShow = false;
       }
-    })
+    });
+  };
 
+  smsSearch(filterValue: string) {
+    if (filterValue) {
+      this.service.SmsviewallSearch(filterValue, this.pageSize, this.pageIndex).subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.transaction = res.response;
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.transaction);
+            this.currentfilvalShow = true;
+          } else if (res.flag == 2) {
+            this.transaction = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.transaction);
+            this.currentfilvalShow = true;
+          }
+        },
+      });
+    }
 
+    if (!filterValue) {
+      this.toastr.error('Please enter a value to search');
+      return;
+    }
+  };
 
-  }
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      this.service.SmsviewallSearch(this.currentfilval, event.pageSize, event.pageIndex).subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.transaction = res.response;
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.transaction);
+          } else if (res.flag == 2) {
+            this.transaction = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.transaction);
+          }
+        },
+      });
+    }
+    else {
+      this.service.SmsGetAll(event.pageSize, event.pageIndex).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.smsResponse = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.smsResponse);
+        } else if (res.flag == 2) {
+          this.smsResponse = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.smsResponse);
+        }
+      });
     }
   }
-
-  reload() {
-    this.service.SmsGetAll(this.pageSize, this.pageIndex).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.smsResponse = res.response;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.smsResponse);
-        this.currentfilvalShow = false;
-      } else if (res.flag == 2) {
-        this.smsResponse = [];
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.smsResponse);
-        this.currentfilvalShow = false;
-      }
-    })
-  }
-
+  
   exportexcel() {
     this.service.SmsGetAllExport().subscribe((res: any) => {
       this.smsResponseexport = res.response;
@@ -170,18 +204,13 @@ export class EntitySmsViewallComponent {
         this.smsResponseexport.forEach((element: any) => {
           let createdate = element.createdDateTime;
           this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-
-          // let moddate = element.modifedDateTime;
-          // this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
           this.response = [];
           this.response.push(sno);
           this.response.push(element?.merchantId?.accountId);
-
           this.response.push(element?.merchantId?.entityName);
           this.response.push(element?.merchantId?.contactEmail);
-          this.response.push(element?.type?.smsTitle)
-          this.response.push(element?.smsCount)
-          //  this.response.push(element?.type?.smsCharge)
+          this.response.push(element?.type?.smsTitle);
+          this.response.push(element?.smsCount);
           this.response.push(element?.createdBy);
 
           if (element.createdDateTime) {
@@ -190,9 +219,6 @@ export class EntitySmsViewallComponent {
           else {
             this.response.push('');
           }
-
-
-
           sno++;
           this.responseDataListnew.push(this.response);
         });
@@ -202,7 +228,6 @@ export class EntitySmsViewallComponent {
   }
 
   excelexportCustomer() {
-    // const title='Business Category';
     const header = [
       'S.No',
       'Account Id',
@@ -210,40 +235,33 @@ export class EntitySmsViewallComponent {
       'Entity Email',
       'SMS Type',
       'SMS Count',
-      // 'SMS Charge',
       'Created By',
       'Created At',
-
-    ]
-
+    ];
 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Sms Settings');
-    // Blank Row
-    // let titleRow = worksheet.addRow([title]);
-    // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
-
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
-    // Cell Style : Fill and Border
     headerRow.eachCell((cell, number) => {
       cell.fill = {
         type: 'pattern',
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
+      };
 
-      }
-
-      cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
     });
 
     data.forEach((d: any) => {
-      //
-
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -253,109 +271,59 @@ export class EntitySmsViewallComponent {
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
-      // let qty8 = row.getCell(9);
 
-
-
-
-
-      qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty3.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      // qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
-    }
-    );
-    // worksheet.getColumn(1).protection = { locked: true, hidden: true }
-    // worksheet.getColumn(2).protection = { locked: true, hidden: true }
-    // worksheet.getColumn(3).protection = { locked: true, hidden: true }
+      qty.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty1.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty2.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty3.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty4.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty5.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty6.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty7.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+    });
     workbook.xlsx.writeBuffer().then((data: any) => {
-      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', });
       FileSaver.saveAs(blob, 'Entity-Sms.xlsx');
     });
-  }
-
-  smsSearch(filterValue: string) {
-
-    if (filterValue) {
-
-      this.service.SmsviewallSearch(filterValue, this.pageSize, this.pageIndex).subscribe({
-        next: (res: any) => {
-          if (res.response) {
-            this.transaction = res.response;
-
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSource = new MatTableDataSource(this.transaction);
-            this.currentfilvalShow = true;
-          } else if (res.flag == 2) {
-            this.transaction = [];
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSource = new MatTableDataSource(this.transaction);
-            this.currentfilvalShow = true;
-          }
-        },
-
-      });
-    }
-
-    if (!filterValue) {
-      this.toastr.error('Please enter a value to search');
-      return;
-    }
-  }
-
-
-
-  getData(event: any) {
-    if (this.currentfilvalShow) {
-      this.service.SmsviewallSearch(this.currentfilval, event.pageSize, event.pageIndex).subscribe({
-        next: (res: any) => {
-          if (res.response) {
-            this.transaction = res.response;
-
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSource = new MatTableDataSource(this.transaction);
-
-          } else if (res.flag == 2) {
-            this.transaction = [];
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSource = new MatTableDataSource(this.transaction);
-
-          }
-        },
-
-      });
-    } else {
-      this.service.SmsGetAll(event.pageSize, event.pageIndex).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.smsResponse = res.response;
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.smsResponse);
-
-        } else if (res.flag == 2) {
-          this.smsResponse = [];
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.smsResponse);
-
-        }
-      })
-    }
   }
 }

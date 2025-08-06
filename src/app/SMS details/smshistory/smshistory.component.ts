@@ -9,7 +9,6 @@ import FileSaver from 'file-saver';
 import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
-import { PageEvent } from '@angular/material/paginator';
 import { SmscontentViewComponent } from '../smscontent-view/smscontent-view.component';
 
 @Component({
@@ -24,17 +23,13 @@ export class SMSHistoryComponent {
     'sno',
     'accountId',
     'entityname',
-    // 'entityemail',
     'mobile',
     'smsType',
     'smsTempDescription',
-    // 'responseCode',
     'responseStatus',
     'smscharge',
     'perSmsAmount',
-    // 'createdBy',
     'date',
-
   ];
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
@@ -95,20 +90,20 @@ export class SMSHistoryComponent {
   transactionValue: any;
   searchPerformed: boolean = false;
   filterAction: any = 0;
-  constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private router: Router) { }
 
-
+  constructor(
+    private service: FarginServiceService,
+    private toastr: ToastrService,
+    private dialog: MatDialog,
+    private router: Router) { }
 
   ngOnInit(): void {
-
 
     const today = new Date();
     this.maxDate = moment(today).format('yyyy-MM-DD').toString()
 
-
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -119,12 +114,9 @@ export class SMSHistoryComponent {
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
-
-
               if (this.actions == 'SMS History-Export') {
                 this.valuesmshistoryexport = 'SMS History-Export';
               }
-
             }
           }
         }
@@ -132,12 +124,15 @@ export class SMSHistoryComponent {
           this.errorMessage = res.responseMessage;
         }
       }
-    })
+    });
 
+    this.Getall();
+  }
+
+  Getall() {
     this.service.SmsHistoryGetAll(this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.smsResponse = res.response;
-
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage;
@@ -151,148 +146,14 @@ export class SMSHistoryComponent {
         this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.smsResponse);
         this.currentfilvalShow = false;
-
       }
-
     })
   }
 
-
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-
-
-  exportexcel() {
-    this.service.SmsHistoryGetAllExport().subscribe((res: any) => {
-      this.smsResponseexport = res.response;
-      if (res.flag == 1) {
-
-        let sno = 1;
-        this.responseDataListnew = [];
-        this.smsResponseexport.forEach((element: any) => {
-          // let createdate = element.merchantSmsId?.createdDateTime;
-          // this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-
-          this.response = [];
-          this.response.push(sno);
-          this.response.push(element?.merchantId?.accountId);
-          this.response.push(element?.merchantId?.entityName);
-          this.response.push(element?.mobileNumber);
-          this.response.push(element?.merchantSmsId?.type?.smsTitle);
-          this.response.push(element?.responseCode);
-          this.response.push(element?.responseStatus);
-          this.response.push(element?.smsChargeStatus);
-          this.response.push(element?.perSmsAmount);
-          // this.response.push(element?.merchantSmsId?.createdBy);
-          if (element.merchantSmsId?.createdDateTime) {
-            this.response.push(moment(element?.merchantSmsId?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
-          }
-          else {
-            this.response.push('');
-          }
-
-          sno++;
-          this.responseDataListnew.push(this.response);
-        });
-        this.excelexportCustomer();
-      }
-    });
-  }
-
-
   checkDate() {
-    this.ToDateRange = ''
-    // this.FromDateRange =''
+    this.ToDateRange = '';
   }
-  excelexportCustomer() {
-    // const title='Business Category';
-    const header = [
-      'SNo',
-      'Account Id',
-      'Entity Name',
-      'Mobile Number',
-      'SMS Type',
-      'SMS Code',
-      'SMS Status',
-      'SMS Charge type',
-      'Charge For SMS',
-      'Created At',
 
-    ]
-
-
-    const data = this.responseDataListnew;
-    let workbook = new Workbook();
-    let worksheet = workbook.addWorksheet('Sms Settings');
-    // Blank Row
-    // let titleRow = worksheet.addRow([title]);
-    // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
-
-    worksheet.addRow([]);
-    let headerRow = worksheet.addRow(header);
-    headerRow.font = { bold: true };
-    // Cell Style : Fill and Border
-    headerRow.eachCell((cell, number) => {
-      cell.fill = {
-        type: 'pattern',
-        pattern: 'solid',
-        fgColor: { argb: 'FFFFFFFF' },
-        bgColor: { argb: 'FF0000FF' },
-
-      }
-
-      cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-    });
-
-    data.forEach((d: any) => {
-      //
-
-      let row = worksheet.addRow(d);
-      let qty = row.getCell(1);
-      let qty1 = row.getCell(2);
-      let qty2 = row.getCell(3);
-      let qty3 = row.getCell(4);
-      let qty4 = row.getCell(5);
-      let qty5 = row.getCell(6);
-      let qty6 = row.getCell(7);
-      let qty7 = row.getCell(8);
-      let qty8 = row.getCell(9);
-      let qty9 = row.getCell(10);
-      let qty10 = row.getCell(11);
-      // let qty11 = row.getCell(12);
-
-
-      qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty3.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      // qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
-    }
-    );
-    // worksheet.getColumn(1).protection = { locked: true, hidden: true }
-    // worksheet.getColumn(2).protection = { locked: true, hidden: true }
-    // worksheet.getColumn(3).protection = { locked: true, hidden: true }
-    workbook.xlsx.writeBuffer().then((data: any) => {
-      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      FileSaver.saveAs(blob, 'Sms-History.xlsx');
-    });
-  }
 
   View(id: any) {
     this.router.navigate([`dashboard/smshistory-view/${id}`], {
@@ -300,6 +161,8 @@ export class SMSHistoryComponent {
     });
 
   }
+
+
   filterdate() {
     this.service.SMSHistoryFilter(this.FromDateRange, this.ToDateRange, this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
@@ -316,42 +179,11 @@ export class SMSHistoryComponent {
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.transaction);
-
-
       }
     })
   }
-  reset() {
-    this.service.SmsHistoryGetAll(this.pageSize, this.pageIndex).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.smsResponse = res.response;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.smsResponse);
-        this.filterAction = 0
-        this.currentfilvalShow = false;
-        this.FromDateRange = '';
-        this.ToDateRange = '';
-
-      } else if (res.flag == 2) {
-        this.smsResponse = [];
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.smsResponse);
-        this.filterAction = 0
-        this.currentfilvalShow = false;
-        this.FromDateRange = '';
-        this.ToDateRange = '';
-
-      }
-    })
-  }
-
 
   smshistory(filterValue: string) {
-
     if (filterValue) {
       this.service.Smshistorysearch(filterValue, this.pageSize, this.pageIndex).subscribe({
         next: (res: any) => {
@@ -384,30 +216,6 @@ export class SMSHistoryComponent {
     }
   }
 
-  reload() {
-    this.service.SmsHistoryGetAll(this.pageSize, this.pageIndex).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.smsResponse = res.response;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.smsResponse);
-        this.currentfilvalShow = false;
-
-      } else if (res.flag == 2) {
-        this.smsResponse = [];
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.smsResponse);
-        this.currentfilvalShow = false;
-
-      }
-
-    })
-  }
-
-
 
   getData(event: any) {
     if (this.filterAction == 1) {
@@ -418,19 +226,16 @@ export class SMSHistoryComponent {
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.transaction);
-
-
         } else if (res.flag == 2) {
           this.transaction = [];
           this.totalPages = res.pagination.totalElements;
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.transaction);
-
-
         }
       })
-    } else if (this.currentfilvalShow) {
+    }
+    else if (this.currentfilvalShow) {
       this.service.Smshistorysearch(this.currentfilVal, event.pageSize, event.pageIndex).subscribe({
         next: (res: any) => {
           if (res.response) {
@@ -455,7 +260,8 @@ export class SMSHistoryComponent {
           this.toastr.error('No Data Found');
         }
       });
-    } else {
+    }
+    else {
       this.service.SmsHistoryGetAll(event.pageSize, event.pageIndex).subscribe((res: any) => {
         if (res.flag == 1) {
           this.smsResponse = res.response;
@@ -477,12 +283,107 @@ export class SMSHistoryComponent {
       })
     }
   }
+
   description(id: any) {
     this.dialog.open(SmscontentViewComponent, {
       data: { value: id },
-      enterAnimationDuration: '1000ms',
-      exitAnimationDuration: '1000ms',
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '500ms',
       disableClose: true
     })
   }
+
+  exportexcel() {
+    this.service.SmsHistoryGetAllExport().subscribe((res: any) => {
+      this.smsResponseexport = res.response;
+      if (res.flag == 1) {
+        let sno = 1;
+        this.responseDataListnew = [];
+        this.smsResponseexport.forEach((element: any) => {
+          this.response = [];
+          this.response.push(sno);
+          this.response.push(element?.merchantId?.accountId);
+          this.response.push(element?.merchantId?.entityName);
+          this.response.push(element?.mobileNumber);
+          this.response.push(element?.merchantSmsId?.type?.smsTitle);
+          this.response.push(element?.responseCode);
+          this.response.push(element?.responseStatus);
+          this.response.push(element?.smsChargeStatus);
+          this.response.push(element?.perSmsAmount);
+          if (element.merchantSmsId?.createdDateTime) {
+            this.response.push(moment(element?.merchantSmsId?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
+          }
+          else {
+            this.response.push('');
+          }
+          sno++;
+          this.responseDataListnew.push(this.response);
+        });
+        this.excelexportCustomer();
+      }
+    });
+  }
+
+  excelexportCustomer() {
+    const header = [
+      'SNo',
+      'Account Id',
+      'Entity Name',
+      'Mobile Number',
+      'SMS Type',
+      'SMS Code',
+      'SMS Status',
+      'SMS Charge type',
+      'Charge For SMS',
+      'Created At',
+    ]
+    const data = this.responseDataListnew;
+    let workbook = new Workbook();
+    let worksheet = workbook.addWorksheet('Sms Settings');
+    worksheet.addRow([]);
+    let headerRow = worksheet.addRow(header);
+    headerRow.font = { bold: true };
+    headerRow.eachCell((cell, number) => {
+      cell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'FFFFFFFF' },
+        bgColor: { argb: 'FF0000FF' },
+
+      }
+      cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+    });
+
+    data.forEach((d: any) => {
+      let row = worksheet.addRow(d);
+      let qty = row.getCell(1);
+      let qty1 = row.getCell(2);
+      let qty2 = row.getCell(3);
+      let qty3 = row.getCell(4);
+      let qty4 = row.getCell(5);
+      let qty5 = row.getCell(6);
+      let qty6 = row.getCell(7);
+      let qty7 = row.getCell(8);
+      let qty8 = row.getCell(9);
+      let qty9 = row.getCell(10);
+      let qty10 = row.getCell(11);
+
+      qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty3.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+
+    });
+    workbook.xlsx.writeBuffer().then((data: any) => {
+      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }); FileSaver.saveAs(blob, 'Sms-History.xlsx');
+    });
+  }
+
 }
