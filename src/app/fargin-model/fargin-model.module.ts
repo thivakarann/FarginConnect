@@ -935,7 +935,7 @@ export interface farginadd {
 export interface farginUpdate {
   readonly accountHolderName: any;
   readonly accountNumber: any;
-  readonly adminBankId:any;
+  readonly adminBankId: any;
   readonly bankName: any;
   readonly ifscCode: any;
   readonly branchName: any;
@@ -1605,6 +1605,38 @@ export interface additionalCumulativeRefunds {
 }
 
 export interface msoregionstatus {
-  readonly status:any;
-  readonly broadCasterRegionId:any;
+  readonly status: any;
+  readonly broadCasterRegionId: any;
+}
+
+export interface CraeteWhatappService {
+  readonly merchantId: any;
+  readonly vendorId: any;
+  readonly smsCharge: any;
+  readonly whatsappTemplateId: any;
+  readonly templateDescription: any;
+  readonly templateLanguage: any;
+  readonly createdBy: any;
+}
+
+export interface UpdateWhatappService {
+  readonly merchantWhatsAppId: any;
+  readonly vendorId: any;
+  readonly smsCharge: any;
+  readonly whatsappTemplateId: any;
+  readonly templateDescription: any;
+  readonly templateLanguage: any;
+  readonly smsEnableStatus: any;
+  readonly modifiedBy:any;
+}
+
+export interface WhatappserviceStatus{
+  readonly merchantWhatsAppId:any;
+  readonly smsEnableStatus:any;
+}
+
+export interface whatappserviceApproval {
+  readonly merchantWhatsAppId:any;
+  readonly smsApprovalStatus:any;
+  readonly smsApprovedBy:any;
 }

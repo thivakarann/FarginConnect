@@ -845,6 +845,18 @@ form {
   color: yellow;
 }
 
+.Approved {
+  color: green;
+}
+
+.Rejected {
+  color: red;
+}
+
+.Pending {
+  color: yellow;
+}
+
 
 button.buttonDownload:disabled {
   cursor: not-allowed;

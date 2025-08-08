@@ -44,10 +44,12 @@ export class SmsCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.merchantid = this.data.value;
+    
     this.myForm4 = new FormGroup({
       smsFor: new FormControl('', [Validators.required]),
       smsForpaid: new FormControl('', [Validators.required]),
     });
+    
     this.service.SmsDropdownGetAll(this.merchantid).subscribe((res: any) => {
       if (res.flag == 1) {
         this.freepaid = res.response.reverse();

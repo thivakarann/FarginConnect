@@ -303,6 +303,10 @@ import { MerchatSMSTriggerComponent } from './SMS Trigger/merchat-smstrigger/mer
 import { SMSTriggerLogsComponent } from './SMS Trigger/smstrigger-logs/smstrigger-logs.component';
 import { SMSContentComponent } from './SMS Trigger/smscontent/smscontent.component';
 import { MatIconModule } from '@angular/material/icon';
+import { AddWhatsappServiceComponent } from './Entity Onboard/Whatapp Service/add-whatsapp-service/add-whatsapp-service.component';
+import { UpdatewhatsappServiceComponent } from './Entity Onboard/Whatapp Service/updatewhatsapp-service/updatewhatsapp-service.component';
+import { WhatsappMessDescriptionComponent } from './Entity Onboard/Whatapp Service/whatsapp-mess-description/whatsapp-mess-description.component';
+import { WhatsappApprovalComponent } from './Entity Onboard/Whatapp Service/whatsapp-approval/whatsapp-approval.component';
 
 
 
@@ -584,6 +588,10 @@ import { MatIconModule } from '@angular/material/icon';
     MerchatSMSTriggerComponent,
     SMSTriggerLogsComponent,
     SMSContentComponent,
+    AddWhatsappServiceComponent,
+    UpdatewhatsappServiceComponent,
+    WhatsappMessDescriptionComponent,
+    WhatsappApprovalComponent,
 
 
   ],

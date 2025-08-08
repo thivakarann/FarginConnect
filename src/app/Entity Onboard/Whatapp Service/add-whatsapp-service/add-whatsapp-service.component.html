@@ -1,0 +1,120 @@
+<div class="card-header d-flex justify-content-between align-items-center">
+    <h5 class="mb-0">Add WhatsAPP Service</h5>
+</div>
+<div class="container">
+    <div class="well" style="margin-top: 2%">
+        <form [formGroup]="myForm" style="margin-top: 2%">
+            <div class="row mb-1">
+                <div class="col-12 form-group">
+                    <label for="Entity Name">Select Vendor</label>
+                    <select class="form-select" id="period" formControlName="vendorId">
+                        <option *ngFor="let item of Vendors" [value]="item.vendorAdminId">
+                            {{ item.vendorName }}
+                        </option>
+                    </select>
+                    <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="vendorId?.invalid && vendorId?.touched && vendorId?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+                <div class="col-12 form-group">
+                    <label for="Entity Name">Charges</label>
+                    <select class="form-select" id="period" formControlName="smsCharge">
+                        <option hidden>Select</option>
+                        <option value="Applicable">Applicable</option>
+                        <option value="Not Applicable">Not Applicable</option>
+                    </select>
+                    <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="smsCharge?.invalid && smsCharge?.touched && smsCharge?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-12 form-group">
+                    <label for="Entity Name">Recipient</label>
+                    <select class="form-select" id="period" formControlName="templateType">
+                        <option hidden>Select</option>
+                        <option value="Merchant">Merchant</option>
+                        <option value="Customer">Customer</option>
+                    </select>
+                    <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="templateType?.invalid && templateType?.touched && templateType?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+                <div class="col-12 form-group">
+                    <label for="Entity Name">Language</label>
+                    <select class="form-select" id="period" formControlName="tempLanguage">
+                        <option hidden>Select</option>
+                        <option value="en">English</option>
+                        <option value="ta">Tamil</option>
+                    </select>
+                    <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="tempLanguage?.invalid && tempLanguage?.touched && tempLanguage?.errors?.['required']">
+                        Field is required
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-1" *ngIf="
+          myForm.get('vendorId')?.valid &&
+          myForm.get('smsCharge')?.valid &&
+          myForm.get('templateType')?.valid &&
+          myForm.get('tempLanguage')?.valid
+        ">
+                <div class="col-12 form-group">
+                    <label>Select Message Templates</label>
+                    <mat-select formControlName="whatsappTemplateId" class="Selectsss">
+                        <mat-option *ngFor="let item of TemplateDetails" [value]="item.whatsappTemplateId">
+                            <div class="option-content">
+                                <span>{{ item?.templateName }}</span>
+                                <i class="fa-solid fa-info" matTooltip="{{ item?.templateDescription }}"></i>
+                            </div>
+                        </mat-option>
+                    </mat-select>
+                    <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="whatsappTemplateId?.invalid && whatsappTemplateId?.touched && whatsappTemplateId?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="TemplateDetails.length == 0 && noDataFound">
+                        🚫 No templates found for the selected criteria.
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <button [disabled]="myForm.invalid" (click)="Submit()" type="submit" class="btn mx-1"
+                    style="background-color: #7db855be">
+                    Submit
+                </button>
+                <button type="submit" class="btn" style="background-color: #141e46; color: white" mat-dialog-close>
+                    Cancel
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

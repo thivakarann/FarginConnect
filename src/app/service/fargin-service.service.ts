@@ -910,7 +910,6 @@ export class FarginServiceService {
   private readonly onlinerefunddatefilter = 'refund/getmerchant/';
   private readonly RefundForMerchantsearchs = 'refund/getmerchant/';
 
-
   // SMS details for merchants and Trigger
 
   private readonly Merchantsmsdetails = 'monthlySmsLog/getByMonthlymerchant/';
@@ -921,8 +920,19 @@ export class FarginServiceService {
   private readonly duesCumulativeRefunds = 'refund/cumulativeRefund';
   private readonly additionalCumulativeRefunds = 'addtionalPayRefund/cumulativeRefund';
 
-  loginError = new Subject();
+  // WhatAPP API,S
+  private readonly WhatappActiveventors = 'vendor/getallactive';
+  private readonly Whatappmerchantdetails = 'merchantWhatsapp/getMerchant/Templates/';
+  private readonly WhatappTemplate = 'merchantWhatsapp/viewMerchantTemplates/';
+  private readonly CreateMerchatWhatapp = 'merchantWhatsapp/create/template';
+  private readonly UpdateMerchantWhatapp = 'merchantWhatsapp/update/template';
+  private readonly merchatWhatappStatus = 'merchantWhatsapp/updateStatus';
+  private readonly merchatWhapappApproval = 'merchantWhatsapp/updateApprovalStatus';
 
+
+
+
+  loginError = new Subject();
   token = sessionStorage.getItem('token') || null;
 
   headers = new HttpHeaders({
@@ -5027,4 +5037,38 @@ export class FarginServiceService {
       this.options
     );
   }
+
+
+  // WhatApp API,S 
+
+
+  WhatAPPVendors() {
+    return this.http.get(`${this.basePath}${this.WhatappActiveventors}`, this.options)
+  }
+
+  Merchatwhatappgetall(id: any) {
+    return this.http.get(`${this.basePath}${this.Whatappmerchantdetails}${id}`, this.options)
+  }
+
+  MerchantwiseWhatappTemplates(id1: any, id2: any, id3: any, id4: any) {
+    return this.http.get(`${this.basePath}${this.WhatappTemplate}${id1}/${id2}/${id3}/${id4}`, this.options)
+  }
+
+  CreateMerchatWhatappService(model: any) {
+    return this.http.post(`${this.basePath}${this.CreateMerchatWhatapp}`, model, this.options)
+  }
+
+  UpdateMerchatWhatappService(model: any) {
+    return this.http.put(`${this.basePath}${this.UpdateMerchantWhatapp}`, model, this.options)
+  }
+
+  MerchatWhatappServiceStatus(model: any) {
+    return this.http.put(`${this.basePath}${this.merchatWhatappStatus}`, model, this.options)
+  }
+
+  MerchatWhatappServiceApproval(model:any){
+    return this.http.put(`${this.basePath}${this.merchatWhapappApproval}`,model,this.options)
+  }
+
+
 }

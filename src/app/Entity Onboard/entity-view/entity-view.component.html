@@ -129,6 +129,9 @@
       <button class="info-tab-button" [class.active-info]="activeTab === 'doot4'" (click)="selectTab('doot4')"
         [hidden]="valuesmssetting !== 'Entity View-SMS Settings'">SMS Settings</button>
 
+      <button class="info-tab-button" [class.active-info]="activeTab === 'doot7'" (click)="selectTab('doot7')"
+        [hidden]="valueWhatsappsetting !== 'Entity View-WhatsApp Settings'">WhatsAPP Settings</button>
+
       <button class="info-tab-button" [class.active-info]="activeTab === 'doot5'" (click)="selectTab('doot5')"
         [hidden]="valueagreement !== 'Entity View Agreement'">Agreement</button>
 
@@ -833,10 +836,10 @@
               </tr>
 
               <tbody *ngFor="let item of KYCDetails">
- 
-              <!-- Identity proof STARTS -->
-               
-              <tr>
+
+                <!-- Identity proof STARTS -->
+
+                <tr>
                   <td>1</td>
                   <td>Identity proof</td>
                   <td>{{ item.identityProof }}</td>
@@ -919,9 +922,9 @@
                   </td>
                   <td>{{ item.identityAdminApprovedBy !=null ? (item.identityAdminApprovedBy) : "-"}}</td>
                   <td>
-                  {{item.identityAdminApprovedDate != "NA" ? (item.identityAdminApprovedDate | date: "dd/MM/yyyyhh:mm a") : "-"}}
-                </td>
-                <td [hidden]=" valuekyccomment !== 'Entity View KYC Document-comments'">
+                    {{item.identityAdminApprovedDate != "NA" ? (item.identityAdminApprovedDate | date: "dd/MM/yyyyhh:mm a") : "-"}}
+                  </td>
+                  <td [hidden]=" valuekyccomment !== 'Entity View KYC Document-comments'">
                     <span (click)="KYCComments(item.identityAdminComments)">
                       <i class="fas fa-comments" style="
                           text-align: center;
@@ -929,33 +932,31 @@
                           font-size: 15px;
                           color: #545497;
                         ">
-                        </i>
-                      </span>
+                      </i>
+                    </span>
                   </td>
                   <td>{{ item.createdBy }}</td>
                   <td>{{ item.createdDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
                   <td>{{ item.modifiedBy }}</td>
                   <td>{{ item.modifiedDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
-               </tr>
-               
-               <!-- Identity proof ENDS -->
+                </tr>
 
-              <!-- Address proof STARTS -->
-              
-              <tr>
+                <!-- Identity proof ENDS -->
+
+                <!-- Address proof STARTS -->
+
+                <tr>
                   <td>2</td>
                   <td>Address proof</td>
                   <td>{{ item.addressProof }}</td>
                   <td>{{ item.addressProofNo }}</td>
                   <td [hidden]="valuekycimage !== 'Entity View KYC Document-Image'">
                     <span (click)="addressProofFrontPath(item.proofId)">
-                      <i class="fa-regular fa-image"
-                        style="font-size: 15px; cursor: pointer; color: #545497">
+                      <i class="fa-regular fa-image" style="font-size: 15px; cursor: pointer; color: #545497">
                       </i>
                     </span>
                     <span (click)="addressProofBackPath(item.proofId)">
-                      <i class="fa-regular fa-image mx-1"
-                        style="font-size: 15px; cursor: pointer; color: #545497">
+                      <i class="fa-regular fa-image mx-1" style="font-size: 15px; cursor: pointer; color: #545497">
                       </i>
                     </span>
                   </td>
@@ -1015,8 +1016,8 @@
                   </td>
                   <td [hidden]="valuekycapproval !== 'Entity View KYC Document-Approval'">
                     <button class="buttonDownload" (click)="KycApproval1(item)"
-                    [disabled]="item.addressAdminApprovalStatus == 'approved'" style="font-size:14px;padding:2px">
-                    Approval
+                      [disabled]="item.addressAdminApprovalStatus == 'approved'" style="font-size:14px;padding:2px">
+                      Approval
                     </button>
                   </td>
                   <td [ngClass]="{
@@ -1029,7 +1030,7 @@
 
                   <td>{{ item.addressAdminApprovedBy !=null ? (item.addressAdminApprovedBy) : "-"}}</td>
                   <td>
-                  {{ item.addressAdminApprovedDate != "NA" ? (item.addressAdminApprovedDate | date: "dd/MM/yyyy hh:mm a") : "-"}}
+                    {{ item.addressAdminApprovedDate != "NA" ? (item.addressAdminApprovedDate | date: "dd/MM/yyyy hh:mm a") : "-"}}
                   </td>
                   <td [hidden]="valuekyccomment !== 'Entity View KYC Document-comments'">
                     <span (click)="KYCComments(item.addressAdminComments)">
@@ -1039,18 +1040,18 @@
                           font-size: 15px;
                           color: #545497;
                         ">
-                        </i>
-                      </span>
+                      </i>
+                    </span>
                   </td>
                   <td>{{ item.createdBy }}</td>
                   <td>{{ item.createdDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
                   <td>{{ item.addressModifiedBy }}</td>
                   <td>{{ item.addressModifiedAt | date : "dd/MM/yyyy hh:mm a" }}</td>
-              </tr>
+                </tr>
 
-              <!-- Address proof ENDS -->
+                <!-- Address proof ENDS -->
 
-              <!-- 	Signature proof STARTS -->
+                <!-- 	Signature proof STARTS -->
 
                 <tr>
                   <td>3</td>
@@ -1059,13 +1060,11 @@
                   <td>{{ item.signatureProofNo }}</td>
                   <td [hidden]="valuekycimage !== 'Entity View KYC Document-Image'">
                     <span (click)="signatureProofFrontPath(item.proofId)">
-                      <i class="fa-regular fa-image"
-                        style="font-size: 15px; cursor: pointer; color: #545497">
+                      <i class="fa-regular fa-image" style="font-size: 15px; cursor: pointer; color: #545497">
                       </i>
                     </span>
                     <span (click)="signatureProofBackPath(item.proofId)">
-                      <i class="fa-regular fa-image mx-1"
-                        style="font-size: 15px; cursor: pointer; color: #545497">
+                      <i class="fa-regular fa-image mx-1" style="font-size: 15px; cursor: pointer; color: #545497">
                       </i>
                     </span>
                   </td>
@@ -1141,18 +1140,18 @@
                   </td>
                   <td>{{ item.signatureAdminApprovedBy!=null ? (item.signatureAdminApprovedBy) : "-"}}</td>
                   <td>
-                 {{ item.signatureAdminApprovedDate != "NA" ? (item.signatureAdminApprovedDate | date: "dd/MM/yyyy hh:mm a") : "-"}}
+                    {{ item.signatureAdminApprovedDate != "NA" ? (item.signatureAdminApprovedDate | date: "dd/MM/yyyy hh:mm a") : "-"}}
                   </td>
                   <td [hidden]="valuekyccomment !== 'Entity View KYC Document-comments'">
-                  <span (click)="KYCComments(item.signatureAdminComments)">
-                    <i class="fas fa-comments" style="
+                    <span (click)="KYCComments(item.signatureAdminComments)">
+                      <i class="fas fa-comments" style="
                           text-align: center;
                           cursor: pointer;
                           font-size: 15px;
                           color: #545497;
                         ">
-                        </i>
-                  </span>
+                      </i>
+                    </span>
                   </td>
                   <td>{{ item.createdBy }}</td>
                   <td>{{ item.createdDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
@@ -1160,7 +1159,7 @@
                   <td>{{ item.signatureModifiedAt | date : "dd/MM/yyyy hh:mm a" }}</td>
                 </tr>
 
-              <!-- 	Signature proof ENDS -->
+                <!-- 	Signature proof ENDS -->
 
               </tbody>
             </table>
@@ -1170,13 +1169,13 @@
     </div>
   </div>
 
-   <!-- KYC DOC  INFO ENDS -->
+  <!-- KYC DOC  INFO ENDS -->
 
- 
-   <!-- Business DOC  INFO STARTS -->
+
+  <!-- Business DOC  INFO STARTS -->
 
   <div *ngIf="activeTab === 'bussiness'">
-  
+
     <mat-card-header>
       <div class="row d-flex justify-content-start">
         <div class="col-md-3">
@@ -1185,7 +1184,7 @@
               <label for="search">
                 <input (ngModelChange)="onSearchTextBusiness()" #input name="search" required autocomplete="off"
                   placeholder="Search" id="search" type="text" [(ngModel)]="searchTextbusnniess" />
-                  <div class="icon">
+                <div class="icon">
                   <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
                     xmlns="http://www.w3.org/2000/svg" class="swap-on">
                     <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
@@ -1240,20 +1239,19 @@
                 <th>Modified By</th>
                 <th>Modified At</th>
               </tr>
-              <tbody *ngFor=" let item of bussinessdoc| search : searchTextbusnniess | paginate : {id: 'pagination2',itemsPerPage: itemsPerPage,currentPage: currentPagebusniess};let i = index">
+              <tbody
+                *ngFor=" let item of bussinessdoc| search : searchTextbusnniess | paginate : {id: 'pagination2',itemsPerPage: itemsPerPage,currentPage: currentPagebusniess};let i = index">
                 <td>{{ i + 1 }}</td>
                 <td>{{ item?.entityKycCategory?.kycCategoryName }}</td>
                 <td>{{ item.docNumber }}</td>
                 <td>{{ item.expiryDate | date : "dd/MM/yyyy" }}</td>
                 <td [hidden]=" valuebussinessImage !=='Entity View Bussiness Document-Image'">
                   <span (click)="getdocFrontPath(item.merchantDocumentId)">
-                    <i class="fa-regular fa-image"
-                      style="font-size: 15px; cursor: pointer; color: #545497">
+                    <i class="fa-regular fa-image" style="font-size: 15px; cursor: pointer; color: #545497">
                     </i>
                   </span>
                   <span (click)="getdocbackPath(item.merchantDocumentId)">
-                    <i class="fa-regular fa-image mx-1"
-                      style="font-size: 15px; cursor: pointer; color: #545497">
+                    <i class="fa-regular fa-image mx-1" style="font-size: 15px; cursor: pointer; color: #545497">
                     </i>
                   </span>
                 </td>
@@ -1279,8 +1277,8 @@
                         font-size: 15px;
                         color: #545497;
                       ">
-                      </i>
-                    </span>
+                    </i>
+                  </span>
                 </td>
                 <td [hidden]="valuebussinessedit !== 'Entity View Bussiness Document-Edit'">
                   <i class="fas fa-edit" style="padding:0" (click)="docedit(item)"> </i>
@@ -1300,7 +1298,7 @@
     </div>
   </div>
 
-    <!-- Business DOC  INFO ENDS -->
+  <!-- Business DOC  INFO ENDS -->
 
 
   <!-- FINAL APPROVEL  INFO STARTS -->
@@ -1348,11 +1346,11 @@
                   <span (click)="levelTwoComments(this.detaislone?.commentL2)"><i class="fas fa-comments"></i></span>
                 </td>
                 <td class="text-center">
-                 {{ detaislone.approvedByL2 !=null ? (detaislone.approvedByL2) : "-"}}
+                  {{ detaislone.approvedByL2 !=null ? (detaislone.approvedByL2) : "-"}}
                 </td>
                 <td class="text-center">
-                {{ detaislone.approvedDateTimeL2 != "NA" ? (detaislone.approvedDateTimeL2 | date: "dd/MM/yyyy hh:mm a") : "-"}}
-              </td>
+                  {{ detaislone.approvedDateTimeL2 != "NA" ? (detaislone.approvedDateTimeL2 | date: "dd/MM/yyyy hh:mma") : "-"}}
+                </td>
               </tbody>
             </table>
           </div>
@@ -1367,59 +1365,60 @@
   <!-- ONE-TIME-SETUP-FEE   INFO STARTS -->
 
   <div *ngIf="activeTab === 'doot2'">
-   <mat-card-header>
-    <div class="row d-flex justify-content-start">
-      <div class="col-md-3">
-        <div class="search">
-          <form class="form">
-            <label for="search">
-              <input (ngModelChange)="onSearchTextonetime()" #input name="search" required autocomplete="off"
-                placeholder="Search" id="search" type="text" [(ngModel)]="searchTextOneTime" />
+    <mat-card-header>
+      <div class="row d-flex justify-content-start">
+        <div class="col-md-3">
+          <div class="search">
+            <form class="form">
+              <label for="search">
+                <input (ngModelChange)="onSearchTextonetime()" #input name="search" required autocomplete="off"
+                  placeholder="Search" id="search" type="text" [(ngModel)]="searchTextOneTime" />
                 <div class="icon">
-                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                  xmlns="http://www.w3.org/2000/svg" class="swap-on">
-                  <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
-                  </path>
-                </svg>
-              </div>
-              <button type="reset" class="close-btn">
-                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
-                  <path clip-rule="evenodd"
-                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    fill-rule="evenodd"></path>
-                </svg>
-              </button>
-            </label>
-          </form>
+                  <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                      stroke-linecap="round">
+                    </path>
+                  </svg>
+                </div>
+                <button type="reset" class="close-btn">
+                  <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                    <path clip-rule="evenodd"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      fill-rule="evenodd"></path>
+                  </svg>
+                </button>
+              </label>
+            </form>
+          </div>
         </div>
-      </div>
-      <div class="col-md-2 mt-1" [hidden]="valuemanualpay !== 'Entity View One Time Setup Payment-Create'">
-        <button (click)="createmanualPayement()" [hidden]="paymentStatus == 'Success' || onBoardStatus == 'false'"
-          style="
+        <div class="col-md-2 mt-1" [hidden]="valuemanualpay !== 'Entity View One Time Setup Payment-Create'">
+          <button (click)="createmanualPayement()" [hidden]="paymentStatus == 'Success' || onBoardStatus == 'false'"
+            style="
             color: white;
             background-color: #141e46;
             border-radius: 10px;
             font-size: 12px;
             width: 120%;
           " mat-raised-button>
-          Manual Payment
-        </button>
+            Manual Payment
+          </button>
+        </div>
       </div>
-    </div>
-  </mat-card-header>
+    </mat-card-header>
 
-  <div class="row mt-3">
-    <div class="col-12 mb-3 mb-lg-5">
-      <div class="card table-nowrap table-card">
-        <div class="table-responsive text-nowrap text-center">
-          <table class="table table-hover" id="customers">
-            <tr>
-              <th>S No</th>
-              <th>Payment ID</th>
-              <th>Payment For</th>
-              <th>Due Amount</th>
-              <th [hidden]="valuemanualedit !== 'Entity View One Time Setup Payment-Edit'">
-              <span style="background-color: #bcdf72" *ngIf="
+    <div class="row mt-3">
+      <div class="col-12 mb-3 mb-lg-5">
+        <div class="card table-nowrap table-card">
+          <div class="table-responsive text-nowrap text-center">
+            <table class="table table-hover" id="customers">
+              <tr>
+                <th>S No</th>
+                <th>Payment ID</th>
+                <th>Payment For</th>
+                <th>Due Amount</th>
+                <th [hidden]="valuemanualedit !== 'Entity View One Time Setup Payment-Edit'">
+                  <span style="background-color: #bcdf72" *ngIf="
                     paymentMethod == 'Cash' ||
                     paymentMethod == 'UPI' ||
                     paymentMethod == 'NEFT' ||
@@ -1427,29 +1426,30 @@
                     paymentMethod == 'IMPS' ||
                     paymentMethod == 'Cheque'
                   ">Edit
-                </span>
-              </th>
-              <th>Payment Status</th>
-              <th>Payment Method</th>
-              <th [hidden]="valuemanualview !== 'Entity View One Time Setup Payment-View'">View</th>
-              <th>Reference Number</th>
-              <th>Cheque Date</th>
-              <th>Manual CreatedBy</th>
-              <!-- <th>Manual UpdatedBy</th>
+                  </span>
+                </th>
+                <th>Payment Status</th>
+                <th>Payment Method</th>
+                <th [hidden]="valuemanualview !== 'Entity View One Time Setup Payment-View'">View</th>
+                <th>Reference Number</th>
+                <th>Cheque Date</th>
+                <th>Manual CreatedBy</th>
+                <!-- <th>Manual UpdatedBy</th>
               <th>Manual Updated At</th> -->
-              <th>PG Onboard Date</th>
-              <th>Paid At</th>
-            </tr>
-            <tbody *ngFor="let item of manualDetails| search : searchTextOneTime| paginate: {id: 'pagination3',itemsPerPage: itemsPerPage,currentPage: currentonetime };let i = index">
-              <td>{{ i + 1 }}</td>
-              <td>{{ item.pgPaymentId }}</td>
-              <td>
-                <span *ngIf="item?.status=='1'">One Time Paymnent</span>
-                <span *ngIf="item?.status=='2'">Renewal Payment</span>
-              </td>
-              <td>{{ item.totalPayableAmount?.toFixed(2)}}</td>
-              <td [hidden]="valuemanualedit !== 'Entity View One Time Setup Payment-Edit'">
-                <button style="border: none;font-size: 15px;padding:0" *ngIf="
+                <th>PG Onboard Date</th>
+                <th>Paid At</th>
+              </tr>
+              <tbody
+                *ngFor="let item of manualDetails| search : searchTextOneTime| paginate: {id: 'pagination3',itemsPerPage: itemsPerPage,currentPage: currentonetime };let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ item.pgPaymentId }}</td>
+                <td>
+                  <span *ngIf="item?.status=='1'">One Time Paymnent</span>
+                  <span *ngIf="item?.status=='2'">Renewal Payment</span>
+                </td>
+                <td>{{ item.totalPayableAmount?.toFixed(2)}}</td>
+                <td [hidden]="valuemanualedit !== 'Entity View One Time Setup Payment-Edit'">
+                  <button style="border: none;font-size: 15px;padding:0" *ngIf="
                     paymentMethod == 'Cash' ||
                     paymentMethod == 'UPI' ||
                     paymentMethod == 'NEFT' ||
@@ -1457,640 +1457,789 @@
                     paymentMethod == 'IMPS' ||
                     paymentMethod == 'Cheque'
                   " (click)="manualPayement(item)">
-                  <span>
-                    <i class="fas fa-edit" style="font-size: 15px; color: rgb(39, 39, 95)"></i>
+                    <span>
+                      <i class="fas fa-edit" style="font-size: 15px; color: rgb(39, 39, 95)"></i>
+                    </span>
+                  </button>
+                </td>
+                <td>
+                  <span *ngIf="item?.paymentStatus == 'Success'" class="text-success">
+                    Success
                   </span>
-                </button>
-              </td>
-              <td>
-                <span *ngIf="item?.paymentStatus == 'Success'" class="text-success">
-                  Success
-                </span>
-                <span *ngIf="item?.paymentStatus == 'Due Pending'" class="text-warning">
-                 Due Pending
-                </span>
-                <span *ngIf="item?.paymentStatus == 'Initiated'" class="text-primary">
-               Initiated
-                </span>
-                <span *ngIf="item?.paymentStatus == 'Failure'" class="text-danger">
-                  Failure
-                </span>
-                <span *ngIf="item?.paymentStatus == 'Payment Incomplete'" class="text-warning">
-                Payment Incomplete
-                </span>
-              </td>
-              <td>{{ item.paymentMethod }}</td>
-              <td [hidden]="valuemanualview !== 'Entity View One Time Setup Payment-View'">
-              <span (click)="viewmanualtransaction(item.merchantPayId)">
-              <i class="fas fa-eye" style="font-size: 16px; color: rgb(39, 39, 95)"></i>
-              </span>
-              </td>
-              <td>{{ item.utrNumber || "-" }}</td>
-              <td>
-                <span [hidden]="item.date == null">{{ item.date | date : "dd/MM/yyyy" }}</span>
-                <span [hidden]="item.date != null"> -</span>
-              </td>
-              <td>{{ item?.manualApprovalBy || "-" }}</td>
-              <!-- <td>{{ item?.updatedBy || "-" }}</td>
+                  <span *ngIf="item?.paymentStatus == 'Due Pending'" class="text-warning">
+                    Due Pending
+                  </span>
+                  <span *ngIf="item?.paymentStatus == 'Initiated'" class="text-primary">
+                    Initiated
+                  </span>
+                  <span *ngIf="item?.paymentStatus == 'Failure'" class="text-danger">
+                    Failure
+                  </span>
+                  <span *ngIf="item?.paymentStatus == 'Payment Incomplete'" class="text-warning">
+                    Payment Incomplete
+                  </span>
+                </td>
+                <td>{{ item.paymentMethod }}</td>
+                <td [hidden]="valuemanualview !== 'Entity View One Time Setup Payment-View'">
+                  <span (click)="viewmanualtransaction(item.merchantPayId)">
+                    <i class="fas fa-eye" style="font-size: 16px; color: rgb(39, 39, 95)"></i>
+                  </span>
+                </td>
+                <td>{{ item.utrNumber || "-" }}</td>
+                <td>
+                  <span [hidden]="item.date == null">{{ item.date | date : "dd/MM/yyyy" }}</span>
+                  <span [hidden]="item.date != null"> -</span>
+                </td>
+                <td>{{ item?.manualApprovalBy || "-" }}</td>
+                <!-- <td>{{ item?.updatedBy || "-" }}</td>
               <td>
                 <span [hidden]="item.date == null">{{ item.updateAt | date : "dd/MM/yyyy" }}</span>
                 <span [hidden]="item.updateAt != null"> - </span>
               </td> -->
-                 <td>{{ item.pgOnboardDate | date : "dd/MM/yyyy hh:mm a" }}</td>
-              <td>{{ item.paymentDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
-            </tbody>
-          </table>
-        </div>
-        <div class="text-end mt-2">
-          <pagination-controls id="pagination3" (pageChange)="currentonetime = $event"></pagination-controls>
+                <td>{{ item.pgOnboardDate | date : "dd/MM/yyyy hh:mm a" }}</td>
+                <td>{{ item.paymentDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
+              </tbody>
+            </table>
+          </div>
+          <div class="text-end mt-2">
+            <pagination-controls id="pagination3" (pageChange)="currentonetime = $event"></pagination-controls>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-   </div>
+  </div>
 
   <!-- ONE-TIME-SETUP-FEE   INFO ENDS -->
 
   <!-- CUSTAMIZED PAYMENTS   INFO STARTS -->
- 
+
   <div *ngIf="activeTab === 'doot3'">
-    
-  <mat-card-header>
-    <div class="row d-flex justify-content-start">
-      <div class="col-md-3">
-        <div class="search">
-          <form class="form">
-            <label for="search">
-              <input (ngModelChange)="onSearchTextcustomized()" #input name="search" required autocomplete="off"
-                placeholder="Search" id="search" type="text" [(ngModel)]="searchTextcustomixed" />
+
+    <mat-card-header>
+      <div class="row d-flex justify-content-start">
+        <div class="col-md-3">
+          <div class="search">
+            <form class="form">
+              <label for="search">
+                <input (ngModelChange)="onSearchTextcustomized()" #input name="search" required autocomplete="off"
+                  placeholder="Search" id="search" type="text" [(ngModel)]="searchTextcustomixed" />
                 <div class="icon">
-                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                  xmlns="http://www.w3.org/2000/svg" class="swap-on">
-                  <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
-                  </path>
-                </svg>
-              </div>
-              <button type="reset" class="close-btn">
-                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
-                  <path clip-rule="evenodd"
-                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    fill-rule="evenodd"></path>
-                </svg>
-              </button>
-            </label>
-          </form>
+                  <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                      stroke-linecap="round">
+                    </path>
+                  </svg>
+                </div>
+                <button type="reset" class="close-btn">
+                  <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                    <path clip-rule="evenodd"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      fill-rule="evenodd"></path>
+                  </svg>
+                </button>
+              </label>
+            </form>
+          </div>
         </div>
-      </div>
-      <div class="col-md-2 mt-1" [hidden]="detaislone?.onBoardStatus != 'true'">
-        <button (click)="otherPayement()" style="
+        <div class="col-md-2 mt-1" [hidden]="detaislone?.onBoardStatus != 'true'">
+          <button (click)="otherPayement()" style="
             color: white;
             background-color: #141e46;
             border-radius: 10px;
             font-size: 12px;
           " mat-raised-button [hidden]="valueCustomizedadd !== 'Entity View Customized Payment-Add'">
-          Create
-        </button>
+            Create
+          </button>
+        </div>
       </div>
-    </div>
-  </mat-card-header>
-  
-  <div class="row mt-3">
-    <div class="col-12 mb-3 mb-lg-5">
-      <div class="card table-nowrap table-card">
-        <div class="table-responsive text-nowrap text-center">
-          <table class="table table-hover" id="customers">
-            <tr>
-              <th>S No</th>
-              <th>Service Name</th>
-              <th>Service Amount</th>
-              <th>Cgst</th>
-              <th>Sgst</th>
-              <th>Igst</th>
-              <th>Total Amount</th>
-              <th [hidden]="valueCustomizedmanual !=='Entity View Customized Manual Payment'">Manual Payment</th>
-              <th [hidden]="valueCustomizededit !== 'Entity View Customized Payment-Edit'">Action</th>
-              <th [hidden]="valueCustomizedview !== 'Entity View Customized Payment-View'">View</th>
-              <th>Payment Status</th>
-              <th>Paid At</th>
-            </tr>
-            <tbody *ngFor="let item of otherDetails| search : searchTextcustomixed| paginate: {id: 'pagination4',
+    </mat-card-header>
+
+    <div class="row mt-3">
+      <div class="col-12 mb-3 mb-lg-5">
+        <div class="card table-nowrap table-card">
+          <div class="table-responsive text-nowrap text-center">
+            <table class="table table-hover" id="customers">
+              <tr>
+                <th>S No</th>
+                <th>Service Name</th>
+                <th>Service Amount</th>
+                <th>Cgst</th>
+                <th>Sgst</th>
+                <th>Igst</th>
+                <th>Total Amount</th>
+                <th [hidden]="valueCustomizedmanual !=='Entity View Customized Manual Payment'">Manual Payment</th>
+                <th [hidden]="valueCustomizededit !== 'Entity View Customized Payment-Edit'">Action</th>
+                <th [hidden]="valueCustomizedview !== 'Entity View Customized Payment-View'">View</th>
+                <th>Payment Status</th>
+                <th>Paid At</th>
+              </tr>
+              <tbody *ngFor="let item of otherDetails| search : searchTextcustomixed| paginate: {id: 'pagination4',
             itemsPerPage: itemsPerPage,currentPage: currentcustomized};let i = index">
-              <td>{{ i + 1 }}</td>
-              <td>{{ item.serviceName }}</td>
-              <td>{{ item.paidAmount.toFixed(2) }}</td>
-              <td>{{ item.cgstPercentage }}</td>
-              <td>{{ item.sgstPercentage }}</td>
-              <td>{{ item.igstPercentage }}</td>
-              <td>{{ item.totalPayableAmount.toFixed(2) }}</td>
-              <td>
-                <button [disabled]="
+                <td>{{ i + 1 }}</td>
+                <td>{{ item.serviceName }}</td>
+                <td>{{ item.paidAmount.toFixed(2) }}</td>
+                <td>{{ item.cgstPercentage }}</td>
+                <td>{{ item.sgstPercentage }}</td>
+                <td>{{ item.igstPercentage }}</td>
+                <td>{{ item.totalPayableAmount.toFixed(2) }}</td>
+                <td>
+                  <button [disabled]="
                     item.paymentStatus == 'Success' ||
                     item.paymentStatus == 'Due Cancelled'
                   " [hidden]="valueCustomizedmanual !=='Entity View Customized Manual Payment'
                   " style="border: none; background: none;font-size:15px;padding:0" class="manual"
-                  (click)="Manuvalpayments(item.payId)">
-                  <i style="font-size:15px" class="fa-solid fa-address-card"></i>
-                </button>
-              </td>
-              <td>
-                <button class="editcustom" style="background: none; border: none;font-size:15px;padding:0"
-                (click)="editotherPayment(item)" [hidden]=" valueCustomizededit !=='Entity View Customized Payment-Edit'" [disabled]="item?.paymentStatus == 'Success'">
-                <span>
-                <i style="font-size:15px" class="fas fa-edit"></i>
-                </span>
-                </button>
-              </td>
-              <td>
-              <button [hidden]=" valueCustomizedview !== 'Entity View Customized Payment-View'"
-               (click)="viewOthertransaction(item.payId)"
-              style="background: none; border: none;font-size:15px;padding:0">
-              <i (click)="viewOthertransaction(item.payId)" class="fas fa-eye"
-              style="font-size: 15px; color: rgb(39, 39, 95)"></i>
-             </button>
-            </td>
-              <td>
-                <span *ngIf="item?.paymentStatus == 'Success'" class="text-success">
-                 Success</span>
-                <span *ngIf="item?.paymentStatus == 'Due Pending'" class="text-warning">
-                 Due Pending</span>
-                <span *ngIf="item?.paymentStatus == 'Initiated'" class="text-primary">
-                 Initiated</span>
-                <span *ngIf="item?.paymentStatus == 'Failure'" class="text-danger">
-                 Failure</span>
-              </td>
-              <td>{{ item.paymentDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
-            </tbody>
-          </table>
-        </div>
-        <div class="text-end mt-2">
-          <pagination-controls id="pagination4" (pageChange)="currentcustomized = $event"></pagination-controls>
+                    (click)="Manuvalpayments(item.payId)">
+                    <i style="font-size:15px" class="fa-solid fa-address-card"></i>
+                  </button>
+                </td>
+                <td>
+                  <button class="editcustom" style="background: none; border: none;font-size:15px;padding:0"
+                    (click)="editotherPayment(item)"
+                    [hidden]=" valueCustomizededit !=='Entity View Customized Payment-Edit'"
+                    [disabled]="item?.paymentStatus == 'Success'">
+                    <span>
+                      <i style="font-size:15px" class="fas fa-edit"></i>
+                    </span>
+                  </button>
+                </td>
+                <td>
+                  <button [hidden]=" valueCustomizedview !== 'Entity View Customized Payment-View'"
+                    (click)="viewOthertransaction(item.payId)"
+                    style="background: none; border: none;font-size:15px;padding:0">
+                    <i (click)="viewOthertransaction(item.payId)" class="fas fa-eye"
+                      style="font-size: 15px; color: rgb(39, 39, 95)"></i>
+                  </button>
+                </td>
+                <td>
+                  <span *ngIf="item?.paymentStatus == 'Success'" class="text-success">
+                    Success</span>
+                  <span *ngIf="item?.paymentStatus == 'Due Pending'" class="text-warning">
+                    Due Pending</span>
+                  <span *ngIf="item?.paymentStatus == 'Initiated'" class="text-primary">
+                    Initiated</span>
+                  <span *ngIf="item?.paymentStatus == 'Failure'" class="text-danger">
+                    Failure</span>
+                </td>
+                <td>{{ item.paymentDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
+              </tbody>
+            </table>
+          </div>
+          <div class="text-end mt-2">
+            <pagination-controls id="pagination4" (pageChange)="currentcustomized = $event"></pagination-controls>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
   </div>
 
   <!-- CUSTAMIZED PAYMENTS   INFO ENDS -->
 
   <!-- SMS SETTINGS INFO STARTS -->
-   
+
   <div *ngIf="activeTab === 'doot4'">
-  <mat-card-header>
-    <div class="row d-flex justify-content-start">
-      <div class="col-md-3">
-        <div class="search">
-          <form class="form">
-            <label for="search">
-              <input (ngModelChange)="onSearchTextsms()" #input name="search" required autocomplete="off"
-                placeholder="Search" id="search" type="text" [(ngModel)]="searchTextsms" />
+    <mat-card-header>
+      <div class="row d-flex justify-content-start">
+        <div class="col-md-3">
+          <div class="search">
+            <form class="form">
+              <label for="search">
+                <input (ngModelChange)="onSearchTextsms()" #input name="search" required autocomplete="off"
+                  placeholder="Search" id="search" type="text" [(ngModel)]="searchTextsms" />
                 <div class="icon">
-                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                  xmlns="http://www.w3.org/2000/svg" class="swap-on">
-                  <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
-                  </path>
-                </svg>
-              </div>
-              <button type="reset" class="close-btn">
-                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
-                  <path clip-rule="evenodd"
-                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    fill-rule="evenodd"></path>
-                </svg>
-              </button>
-            </label>
-          </form>
+                  <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                      stroke-linecap="round">
+                    </path>
+                  </svg>
+                </div>
+                <button type="reset" class="close-btn">
+                  <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                    <path clip-rule="evenodd"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      fill-rule="evenodd"></path>
+                  </svg>
+                </button>
+              </label>
+            </form>
+          </div>
         </div>
-      </div>
-      <div class="col-md-2 mt-1" [hidden]="
+        <div class="col-md-2 mt-1" [hidden]="
           detaislone?.onBoardStatus != 'true'">
-        <button (click)="smscreate()" style="
+          <button (click)="smscreate()" style="
             color: white;
             background-color: #141e46;
             border-radius: 10px;
             font-size: 12px;
           " mat-raised-button [hidden]="valuesmsadd !== 'Sms Setting-Add'">
-          Create
-        </button>
-      </div>
-      <div class="col-md-3"></div>
-      <div class="col-md-4 mt-1">
-        <div>
-          <article style="padding: 1%; padding-left: 25px">
-            <div class="w-100">
-              <div class="d-flex flex-md-row flex-column">
-                <h5 class="mr-3">Charge Per Sms : ₹{{ chargepersms }}</h5>
+            Create
+          </button>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-4 mt-1">
+          <div>
+            <article style="padding: 1%; padding-left: 25px">
+              <div class="w-100">
+                <div class="d-flex flex-md-row flex-column">
+                  <h5 class="mr-3">Charge Per Sms : ₹{{ chargepersms }}</h5>
+                </div>
               </div>
-            </div>
-          </article>
+            </article>
+          </div>
         </div>
       </div>
-    </div>
-  </mat-card-header>
+    </mat-card-header>
 
-  <div class="row mt-3">
-    <div class="col-12 mb-3 mb-lg-5">
-      <div class="card table-nowrap table-card">
-        <div class="table-responsive text-nowrap text-center">
-          <table class="table table-hover" id="customers">
-            <tr>
-              <th>S No</th>
-              <th>SMS Type</th>
-              <th>SMS Description</th>
-              <th>SMS Count</th>
-              <th>SMS Charge Type</th>
-              <th [hidden]="valuesmsapproval !== 'Sms Setting-Approval'">Approval</th>
-              <th>Approval Status</th>
-              <th [hidden]="valuesmsstatus !== 'Sms Setting-Status'">Status</th>
-              <!--<th [hidden]="valuesmsview!=='Sms Setting-View'">View</th>-->
-              <th [hidden]="valuesmsedit !== 'Sms Setting-Edit'">Action</th>
-              <th>Created By</th>
-              <th>Created At</th>
-              <th>Modified By</th>
-              <th>Modified At</th>
-            </tr>
-            <tbody *ngFor="let item of smsDetails | search : searchTextsms| paginate: { id: 'pagination5',
+    <div class="row mt-3">
+      <div class="col-12 mb-3 mb-lg-5">
+        <div class="card table-nowrap table-card">
+          <div class="table-responsive text-nowrap text-center">
+            <table class="table table-hover" id="customers">
+              <tr>
+                <th>S No</th>
+                <th>SMS Type</th>
+                <th>SMS Description</th>
+                <th>SMS Count</th>
+                <th>SMS Charge Type</th>
+                <th [hidden]="valuesmsapproval !== 'Sms Setting-Approval'">Approval</th>
+                <th>Approval Status</th>
+                <th [hidden]="valuesmsstatus !== 'Sms Setting-Status'">Status</th>
+                <!--<th [hidden]="valuesmsview!=='Sms Setting-View'">View</th>-->
+                <th [hidden]="valuesmsedit !== 'Sms Setting-Edit'">Action</th>
+                <th>Created By</th>
+                <th>Created At</th>
+                <th>Modified By</th>
+                <th>Modified At</th>
+              </tr>
+              <tbody *ngFor="let item of smsDetails | search : searchTextsms| paginate: { id: 'pagination5',
             itemsPerPage: itemsPerPage,currentPage: currentsms };let i = index">
-              <td>{{ i + 1 }}</td>
-              <td>{{ item?.type?.smsTitle }}</td>
-              <td>
-                <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye"
-                  (click)="Smsdescription(item.type?.smsTempDescription)">
-                </i>
-              </td>
-              <td>{{ item?.smsCount }}</td>
-              <td>{{ item?.smsCharge }}</td>
-              <td class="text-center" [hidden]="valuesmsapproval !== 'Sms Setting-Approval'">
-                <span>
-                  <button class="buttonDownload" [disabled]="item.smsApprovalStatus !== 'Rejected'"
-                    (click)="SmsApproval(item.merchantSmsId)" style="font-size:14px;padding:2px">
-                    Approval
-                  </button>
-                </span>
-              </td>
-              <td [ngClass]="{
+                <td>{{ i + 1 }}</td>
+                <td>{{ item?.type?.smsTitle }}</td>
+                <td>
+                  <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye"
+                    (click)="Smsdescription(item.type?.smsTempDescription)">
+                  </i>
+                </td>
+                <td>{{ item?.smsCount }}</td>
+                <td>{{ item?.smsCharge }}</td>
+                <td class="text-center" [hidden]="valuesmsapproval !== 'Sms Setting-Approval'">
+                  <span>
+                    <button class="buttonDownload" [disabled]="item.smsApprovalStatus !== 'Rejected'"
+                      (click)="SmsApproval(item.merchantSmsId)" style="font-size:14px;padding:2px">
+                      Approval
+                    </button>
+                  </span>
+                </td>
+                <td [ngClass]="{
                   approved: item?.smsApprovalStatus == 'approved',
                   rejected: item?.smsApprovalStatus == 'rejected',
                   pending: item?.smsApprovalStatus == 'pending'
                 }">
-                {{ item.smsApprovalStatus }}
-              </td>
-              <td [hidden]="valuesmsstatus !== 'Sms Setting-Status'">
-                <span>
-                  <mat-slide-toggle class="example-margin" color="primary" [checked]="item.smsStatus == 1"
-                    (change)="smsStatus($event, item.merchantSmsId)" style="transform: scale(0.9);padding:0">
-                  </mat-slide-toggle>
-                </span>
-              </td>
-              <!--<td [hidden]="valuesmsview!=='Sms Setting-View'">
+                  {{ item.smsApprovalStatus }}
+                </td>
+                <td [hidden]="valuesmsstatus !== 'Sms Setting-Status'">
+                  <span>
+                    <mat-slide-toggle class="example-margin" color="primary" [checked]="item.smsStatus == 1"
+                      (change)="smsStatus($event, item.merchantSmsId)" style="transform: scale(0.9);padding:0">
+                    </mat-slide-toggle>
+                  </span>
+                </td>
+                <!--<td [hidden]="valuesmsview!=='Sms Setting-View'">
                                 <span (click)="ViewMerchantSms(item.merchantSmsId)">
                                     <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
                                 </span>
                             </td>-->
-              <td [hidden]="valuesmsedit !== 'Sms Setting-Edit'">
-                <span (click)="editsms(item)">
-                  <i class="fas fa-edit" style="font-size: 15px; color: rgb(39, 39, 95)"></i>
-                </span>
-              </td>
-              <td>{{ item?.createdBy }}</td>
-              <td>{{ item?.createdDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
-              <td>{{ item?.modifedBy }}</td>
-              <td>{{ item?.modifedDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
-            </tbody>
-          </table>
-        </div>
-        <div class="text-end mt-2">
-          <pagination-controls id="pagination5" (pageChange)="currentsms = $event"></pagination-controls>
+                <td [hidden]="valuesmsedit !== 'Sms Setting-Edit'">
+                  <span (click)="editsms(item)">
+                    <i class="fas fa-edit" style="font-size: 15px; color: rgb(39, 39, 95)"></i>
+                  </span>
+                </td>
+                <td>{{ item?.createdBy }}</td>
+                <td>{{ item?.createdDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
+                <td>{{ item?.modifedBy }}</td>
+                <td>{{ item?.modifedDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
+              </tbody>
+            </table>
+          </div>
+          <div class="text-end mt-2">
+            <pagination-controls id="pagination5" (pageChange)="currentsms = $event"></pagination-controls>
+          </div>
         </div>
       </div>
     </div>
   </div>
-   </div>
-   
-   <!-- SMS SETTINGS INFO STARTS -->
 
-  <!-- AGREEMENT  INFO STARTS -->
- 
-  <div *ngIf="activeTab === 'doot5'">
-  <mat-card-header>
-    <div class="col-md-3 mr-2" style="color: blue; font-size: 12px">
-      <p style="text-wrap: nowrap">
-        <strong>Note:</strong>("You can only create an agreement once theone-time payment is successful.")
-      </p>
-    </div>
-    <div class="row d-flex justify-content-start">
-      <div class="col-md-3">
-        <div class="search">
-          <form class="form">
-            <label for="search">
-              <input (ngModelChange)="onSearchTextagreement()" #input name="search" required autocomplete="off"
-                placeholder="Search" id="search" type="text" [(ngModel)]="searchTextargeement" />
-              <div class="icon">
-                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                  xmlns="http://www.w3.org/2000/svg" class="swap-on">
-                  <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
-                  </path>
-                </svg>
+  <!-- SMS SETTINGS INFO ENDS -->
+
+    <!-- WHATSAPP SETTINGS INFO STARTS -->
+
+  <div *ngIf="activeTab === 'doot7'">
+    <mat-card-header>
+      <div class="row d-flex justify-content-start">
+        <div class="col-md-3">
+          <div class="search">
+            <form class="form">
+              <label for="search">
+                <input (ngModelChange)="onSearchTextWhatsapp()" #input name="search" required autocomplete="off"
+                  placeholder="Search" id="search" type="text" [(ngModel)]="SearchTextWhatsapp" />
+                <div class="icon">
+                  <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                      stroke-linecap="round">
+                    </path>
+                  </svg>
+                </div>
+                <button type="reset" class="close-btn">
+                  <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                    <path clip-rule="evenodd"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      fill-rule="evenodd"></path>
+                  </svg>
+                </button>
+              </label>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-2 mt-1" [hidden]="
+          detaislone?.onBoardStatus != 'true'">
+          <button (click)="whatappcreate()" style="
+            color: white;
+            background-color: #141e46;
+            border-radius: 10px;
+            font-size: 12px;
+          " mat-raised-button [hidden]="valueWhatsappadd !== 'WhatsApp Setting-Add'">
+            Create
+          </button>
+        </div>
+        <div class="col-md-3"></div>
+        <!-- <div class="col-md-4 mt-1">
+          <div>
+            <article style="padding: 1%; padding-left: 25px">
+              <div class="w-100">
+                <div class="d-flex flex-md-row flex-column">
+                  <h5 class="mr-3">Charge Per Sms : ₹{{ chargepersms }}</h5>
+                </div>
               </div>
-              <button type="reset" class="close-btn">
-                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
-                  <path clip-rule="evenodd"
-                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    fill-rule="evenodd"></path>
-                </svg>
-              </button>
-            </label>
-          </form>
+            </article>
+          </div>
+        </div> -->
+      </div>
+    </mat-card-header>
+
+    <div class="row mt-3">
+      <div class="col-12 mb-3 mb-lg-5">
+        <div class="card table-nowrap table-card">
+          <div class="table-responsive text-nowrap text-center">
+            <table class="table table-hover" id="customers">
+              <tr>
+                <th>S No</th>
+                <th>Vendor</th>
+                <th>Language</th>
+                <th>Recipient</th>
+                <th>Charges</th>
+                <th>Count</th>
+                <th>Type of Message</th>
+                <th>Description</th>
+                <th [hidden]="valuewhatsappstatus !== 'WhatsApp Setting-Status'">Status</th>
+                <th [hidden]="valuewhatsappedit !== 'WhatsApp Setting-Edit'">Action</th>
+                <th [hidden]="valuewhatsappapproval !== 'WhatsApp Setting-Approval'">Approval</th>
+                <th>Approval Status</th>
+                <th>Created By</th>
+                <th>Created At</th>
+                <th>Modified By</th>
+                <th>Modified At</th>
+              </tr>
+              <tbody *ngFor="let item of WhatsappDetails | search : SearchTextWhatsapp| paginate: { id: 'pagination8',
+            itemsPerPage: itemsPerPage,currentPage: currentwhatsapp };let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{item?.vendorName}}</td>
+                   <td>
+                  <span *ngIf="item?.templateLanguage=='en'">
+                    English
+                  </span>
+                    <span *ngIf="item?.templateLanguage=='ta'">
+                    Tamil
+                  </span>
+                   </td>
+                  <td>
+                    <span *ngIf="item?.templateType=='Merchant'">Merchant</span>
+                    <span *ngIf="item?.templateType=='Customer'">Customer</span>
+                  </td>
+                <td>{{ item?.smsCharge }}</td>
+                <td>{{ item?.smsCount }}</td>
+                <td>{{ item?.templateName }}</td>
+                <td>
+                  <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye"
+                    (click)="Whatsappdescription(item?.templateDescription)">
+                  </i>
+                </td>
+                <td [hidden]="valuewhatsappstatus !== 'WhatsApp Setting-Status'">
+                  <span>
+                    <mat-slide-toggle class="example-margin" color="primary" [checked]="item.smsEnableStatus == 'ACTIVE'"
+                      (change)="WhatsappStatus($event,item.merchantWhatsAppId)" style="transform: scale(0.9);padding:0">
+                    </mat-slide-toggle>
+                  </span>
+                </td>
+                <td [hidden]="valuesmsedit !== 'Sms Setting-Edit'">
+                  <span (click)="EditWhatsApp(item)">
+                    <i class="fas fa-edit" style="font-size: 15px; color: rgb(39, 39, 95)"></i>
+                  </span>
+                </td>
+                    <td class="text-center" [hidden]="valuewhatsappapproval !== 'WhatsApp Setting-Approval'">
+                  <span>
+                    <button class="buttonDownload" [disabled]="item.smsApprovalStatus !== 'Rejected'"
+                      (click)="WhatssappApproval(item.merchantWhatsAppId)" style="font-size:14px;padding:2px">
+                      Approval
+                    </button>
+                  </span>
+                </td>
+                <td [ngClass]="{
+                  approved: item?.smsApprovalStatus == 'Approved',
+                  rejected: item?.smsApprovalStatus == 'Rejected',
+                  pending: item?.smsApprovalStatus == 'Pending'
+                }">
+                  {{ item.smsApprovalStatus }}
+                </td>
+                <td>{{ item?.createdBy }}</td>
+                <td>{{ item?.createdDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
+                <td>{{ item?.modifedBy }}</td>
+                <td>{{ item?.modifedDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
+              </tbody>
+            </table>
+          </div>
+          <div class="text-end mt-2">
+            <pagination-controls id="pagination8" (pageChange)="currentwhatsapp = $event"></pagination-controls>
+          </div>
         </div>
       </div>
-      <div class="col-md-2 mt-1">
-        <button [disabled]="this.paymentStatus?.toLowerCase() !== 'success'" (click)="agreementcreate()" style="
+    </div>
+  </div>
+
+  <!-- WHATSAPP SETTINGS INFO ENDS -->
+
+  <!-- AGREEMENT  INFO STARTS -->
+
+  <div *ngIf="activeTab === 'doot5'">
+    <mat-card-header>
+      <div class="col-md-3 mr-2" style="color: blue; font-size: 12px">
+        <p style="text-wrap: nowrap">
+          <strong>Note:</strong>("You can only create an agreement once theone-time payment is successful.")
+        </p>
+      </div>
+      <div class="row d-flex justify-content-start">
+        <div class="col-md-3">
+          <div class="search">
+            <form class="form">
+              <label for="search">
+                <input (ngModelChange)="onSearchTextagreement()" #input name="search" required autocomplete="off"
+                  placeholder="Search" id="search" type="text" [(ngModel)]="searchTextargeement" />
+                <div class="icon">
+                  <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                      stroke-linecap="round">
+                    </path>
+                  </svg>
+                </div>
+                <button type="reset" class="close-btn">
+                  <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                    <path clip-rule="evenodd"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      fill-rule="evenodd"></path>
+                  </svg>
+                </button>
+              </label>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-2 mt-1">
+          <button [disabled]="this.paymentStatus?.toLowerCase() !== 'success'" (click)="agreementcreate()" style="
             color: white;
             background-color: #141e46;
             border-radius: 10px;
             font-size: 12px;
           " mat-raised-button [hidden]="valueagreementcreate !== 'Entity View Agreement-Add'">
-          Create
-        </button>
+            Create
+          </button>
+        </div>
       </div>
-    </div>
-  </mat-card-header>
-  
-  <div class="row mt-3">
-    <div class="col-12 mb-3 mb-lg-5">
-      <div class="card table-nowrap table-card">
-        <div class="table-responsive text-nowrap text-center">
-          <table class="table table-hover" id="customers">
-            <tr>
-              <th>S No</th>
-              <th>Plan Name</th>
-              <th>Service Fee</th>
-              <th>Authorized Signatory Name</th>
-              <th>Authorized Signatory Designation</th>
-              <th [hidden]="valueagreementView !== 'Entity View Agreement-Plan Overview'">Plan Overview</th>
-              <th [hidden]="valueagreementlink !=='Entity View Agreement-Entity Agreement Link'">Admin Agreement Link</th>
-              <th [hidden]="valueagreementlink !=='Entity View Agreement-Entity Agreement Link'">Entity Agreement Link</th>
-              <th>Link Expiry Date</th>
-              <th>Fargin Signer Status</th>
-              <th>Fargin Signer Signed Date</th>
-              <th>Entity Signer Status</th>
-              <th>Entity Signer Signed Date</th>
-              <th [hidden]="valueagreementlinkdate !=='Entity View Agreement-Link Expiry Date'">Link Expiry Date</th>
-              <th [hidden]="valueagreementlinkstatus !=='Entity View Agreement-Link Expiry Status'">Link Expiry Status</th>
-              <th [hidden]="valueagreementAgreement !== 'Entity View Agreement-Agreement'">Agreement</th>
-              <th [hidden]="valueagreementAgreementSigned !=='Entity View Agreement-Agreement Signed Copy'">Agreement Signed Copy
-              </th>
-              <th>Created By</th>
-              <th>Created At</th>
-            </tr>
-            <tbody *ngFor="let item of agreementdetails| search : searchTextargeement| paginate: {id: 'pagination6',itemsPerPage: itemsPerPage,currentPage: currentagreement};let i = index">
-              <td>{{ i + 1 }}</td>
-              <td>{{ item.planName }}</td>
-              <td>{{ item.serviceFee }}</td>
-              <td>{{ item.merchantName }}</td>
-              <td>{{ item.merchantDesignation }}</td>
-              <td [hidden]="valueagreementView !== 'Entity View Agreement-Plan Overview'">
-              <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye"(click)="view(item.commercialId)"></i>
-              </td>
-              <td [hidden]="valueagreementlink !=='Entity View Agreement-Entity Agreement Link'" style="margin-top: 5px">
-                {{ item.adminAgreementLink | slice : 0 : 25 }}
-                <i class="fa-regular fa-copy" style="color: green; font-size: 15px;padding:0"
-                  (click)="copyText2(item.adminAgreementLink, i)">
-                </i>
-                <span *ngIf="copiedIndex2 === i" style="color: green">Copied!</span>
-              </td>
-              <td [hidden]="valueagreementlink !=='Entity View Agreement-Entity Agreement Link'" style="margin-top: 5px">
-                {{ item.agreementLink | slice : 0 : 25 }}
-                <i class="fa-regular fa-copy" style="color: green; font-size: 15px;padding:0"
-                  (click)="copyText1(item.agreementLink, i)">
-                </i>
-                <span *ngIf="copiedIndex === i" style="color: green">Copied!</span>
-              </td>
-              <td>{{ item.expiryLink | date : "dd/MM/yyyy hh:mm a" }}</td>
-              <td [ngClass]="item.adminOtpStatus == 0 ? 'not-signed' : 'signed'">
-                {{ item.adminOtpStatus == 0 ? "Not Signed" : "Signed" }}
-              </td>
-              <td>
-                <span [hidden]="item.adminVerifiedDate != null">-</span>
-                <span [hidden]="item.adminVerifiedDate == null">{{ item.adminVerifiedDate }}</span>
-              </td>
-              <td [ngClass]="item.merchanOtptStatus == 0 ? 'not-signed' : 'signed'">
-                {{ item.merchanOtptStatus == 0 ? "Not Signed" : "Signed" }}
-              </td>
-              <td>
-                <span [hidden]="item.merchantVerifiedDate != null">-</span>
-                <span [hidden]="item.merchantVerifiedDate == null">{{ item.merchantVerifiedDate}}</span>
-              </td>
-              <td [hidden]="valueagreementlinkdate !=='Entity View Agreement-Link Expiry Date'">
-                <i style="cursor: pointer; font-size: 15px;padding:0" class="fa-solid fa-calendar-days"
-                  (click)="ExtendLinkDate(item.agreementId, item.expiryLink)">
-                </i>
-              </td>
-              <td [hidden]="valueagreementlinkstatus !=='Entity View Agreement-Link Expiry Status'">
-                <mat-slide-toggle class="example-margin" color="primary" [checked]="item.expiryLinkStatus == 1"
-                  (change)="LinkExpirystatus($event, item.agreementId)" style="transform: scale(0.9);padding:0">
-                </mat-slide-toggle>
-              </td>
-              <td [hidden]="valueagreementAgreement !== 'Entity View Agreement-Agreement'">
-                <button style="border: 1px solid white; border-radius: 4px;font-size: 15px;padding:0"
-                 (click)="viewagreementdoc(item.agreementId)">
-                  <i style="cursor: pointer; font-size: 15px;padding:0" class="fa-solid fa-file-contract"></i>
-                </button>
-              </td>
-              <td [hidden]="valueagreementAgreementSigned !== 'Entity View Agreement-Agreement Signed Copy'">
-                <button style="
+    </mat-card-header>
+
+    <div class="row mt-3">
+      <div class="col-12 mb-3 mb-lg-5">
+        <div class="card table-nowrap table-card">
+          <div class="table-responsive text-nowrap text-center">
+            <table class="table table-hover" id="customers">
+              <tr>
+                <th>S No</th>
+                <th>Plan Name</th>
+                <th>Service Fee</th>
+                <th>Authorized Signatory Name</th>
+                <th>Authorized Signatory Designation</th>
+                <th [hidden]="valueagreementView !== 'Entity View Agreement-Plan Overview'">Plan Overview</th>
+                <th [hidden]="valueagreementlink !=='Entity View Agreement-Entity Agreement Link'">Admin Agreement Link
+                </th>
+                <th [hidden]="valueagreementlink !=='Entity View Agreement-Entity Agreement Link'">Entity Agreement Link
+                </th>
+                <th>Link Expiry Date</th>
+                <th>Fargin Signer Status</th>
+                <th>Fargin Signer Signed Date</th>
+                <th>Entity Signer Status</th>
+                <th>Entity Signer Signed Date</th>
+                <th [hidden]="valueagreementlinkdate !=='Entity View Agreement-Link Expiry Date'">Link Expiry Date</th>
+                <th [hidden]="valueagreementlinkstatus !=='Entity View Agreement-Link Expiry Status'">Link Expiry Status
+                </th>
+                <th [hidden]="valueagreementAgreement !== 'Entity View Agreement-Agreement'">Agreement</th>
+                <th [hidden]="valueagreementAgreementSigned !=='Entity View Agreement-Agreement Signed Copy'">Agreement
+                  Signed Copy
+                </th>
+                <th>Created By</th>
+                <th>Created At</th>
+              </tr>
+              <tbody
+                *ngFor="let item of agreementdetails| search : searchTextargeement| paginate: {id: 'pagination6',itemsPerPage: itemsPerPage,currentPage: currentagreement};let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ item.planName }}</td>
+                <td>{{ item.serviceFee }}</td>
+                <td>{{ item.merchantName }}</td>
+                <td>{{ item.merchantDesignation }}</td>
+                <td [hidden]="valueagreementView !== 'Entity View Agreement-Plan Overview'">
+                  <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye"
+                    (click)="view(item.commercialId)"></i>
+                </td>
+                <td [hidden]="valueagreementlink !=='Entity View Agreement-Entity Agreement Link'"
+                  style="margin-top: 5px">
+                  {{ item.adminAgreementLink | slice : 0 : 25 }}
+                  <i class="fa-regular fa-copy" style="color: green; font-size: 15px;padding:0"
+                    (click)="copyText2(item.adminAgreementLink, i)">
+                  </i>
+                  <span *ngIf="copiedIndex2 === i" style="color: green">Copied!</span>
+                </td>
+                <td [hidden]="valueagreementlink !=='Entity View Agreement-Entity Agreement Link'"
+                  style="margin-top: 5px">
+                  {{ item.agreementLink | slice : 0 : 25 }}
+                  <i class="fa-regular fa-copy" style="color: green; font-size: 15px;padding:0"
+                    (click)="copyText1(item.agreementLink, i)">
+                  </i>
+                  <span *ngIf="copiedIndex === i" style="color: green">Copied!</span>
+                </td>
+                <td>{{ item.expiryLink | date : "dd/MM/yyyy hh:mm a" }}</td>
+                <td [ngClass]="item.adminOtpStatus == 0 ? 'not-signed' : 'signed'">
+                  {{ item.adminOtpStatus == 0 ? "Not Signed" : "Signed" }}
+                </td>
+                <td>
+                  <span [hidden]="item.adminVerifiedDate != null">-</span>
+                  <span [hidden]="item.adminVerifiedDate == null">{{ item.adminVerifiedDate }}</span>
+                </td>
+                <td [ngClass]="item.merchanOtptStatus == 0 ? 'not-signed' : 'signed'">
+                  {{ item.merchanOtptStatus == 0 ? "Not Signed" : "Signed" }}
+                </td>
+                <td>
+                  <span [hidden]="item.merchantVerifiedDate != null">-</span>
+                  <span [hidden]="item.merchantVerifiedDate == null">{{ item.merchantVerifiedDate}}</span>
+                </td>
+                <td [hidden]="valueagreementlinkdate !=='Entity View Agreement-Link Expiry Date'">
+                  <i style="cursor: pointer; font-size: 15px;padding:0" class="fa-solid fa-calendar-days"
+                    (click)="ExtendLinkDate(item.agreementId, item.expiryLink)">
+                  </i>
+                </td>
+                <td [hidden]="valueagreementlinkstatus !=='Entity View Agreement-Link Expiry Status'">
+                  <mat-slide-toggle class="example-margin" color="primary" [checked]="item.expiryLinkStatus == 1"
+                    (change)="LinkExpirystatus($event, item.agreementId)" style="transform: scale(0.9);padding:0">
+                  </mat-slide-toggle>
+                </td>
+                <td [hidden]="valueagreementAgreement !== 'Entity View Agreement-Agreement'">
+                  <button style="border: 1px solid white; border-radius: 4px;font-size: 15px;padding:0"
+                    (click)="viewagreementdoc(item.agreementId)">
+                    <i style="cursor: pointer; font-size: 15px;padding:0" class="fa-solid fa-file-contract"></i>
+                  </button>
+                </td>
+                <td [hidden]="valueagreementAgreementSigned !== 'Entity View Agreement-Agreement Signed Copy'">
+                  <button style="
                     color: white;
                     border: 1px solid white;
                     border-radius: 4px;font-size: 17px;padding:0
                   " (click)="viewsignedagreementdoc(item.agreementId)"
-                   [disabled]="item.adminOtpStatus == 0 || item.merchanOtptStatus == 0"
-                   [ngClass]="{'disabled-btn':item.adminOtpStatus == 0 || item.merchanOtptStatus == 0,
+                    [disabled]="item.adminOtpStatus == 0 || item.merchanOtptStatus == 0" [ngClass]="{'disabled-btn':item.adminOtpStatus == 0 || item.merchanOtptStatus == 0,
                     'enabled-btn':item.adminOtpStatus == 1 && item.merchanOtptStatus == 1}">
-                  <i style="cursor: pointer; font-size: 17px;padding:0" class="fa-solid fa-file-contract"
-                   [ngClass]="{
+                    <i style="cursor: pointer; font-size: 17px;padding:0" class="fa-solid fa-file-contract" [ngClass]="{
                       'disabled-icon':
                         item.adminOtpStatus == 0 || item.merchanOtptStatus == 0,
                       'enabled-icon':
                         item.adminOtpStatus == 1 && item.merchanOtptStatus == 1
                     }">
-                  </i>
-                </button>
-              </td>
-              <td>{{ item.createdBy }}</td>
-              <td>{{ item.createdDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
-            </tbody>
-          </table>
-        </div>
-        <div class="text-end mt-2">
-          <pagination-controls id="pagination6" (pageChange)="currentagreement = $event"></pagination-controls>
+                    </i>
+                  </button>
+                </td>
+                <td>{{ item.createdBy }}</td>
+                <td>{{ item.createdDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
+              </tbody>
+            </table>
+          </div>
+          <div class="text-end mt-2">
+            <pagination-controls id="pagination6" (pageChange)="currentagreement = $event"></pagination-controls>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  </div>
 
-<!-- AGREEMENT  INFO ENDS -->
+  <!-- AGREEMENT  INFO ENDS -->
 
 
-<!-- BRANCH INFO STARTS -->
+  <!-- BRANCH INFO STARTS -->
 
-<div *ngIf="activeTab === 'doot6'">
-  <mat-card-header>
-    <div class="col-md-3 mr-2" style="color: blue; font-size: 12px"></div>
-    <div class="row d-flex justify-content-start">
-      <div class="col-md-3">
-        <div class="search">
-          <form class="form">
-            <label for="search">
-              <input (ngModelChange)="onSearchTextbranch()" #input name="search" required autocomplete="off"
-                placeholder="Search" id="search" type="text" [(ngModel)]="searchTextbranch" />
+  <div *ngIf="activeTab === 'doot6'">
+    <mat-card-header>
+      <div class="col-md-3 mr-2" style="color: blue; font-size: 12px"></div>
+      <div class="row d-flex justify-content-start">
+        <div class="col-md-3">
+          <div class="search">
+            <form class="form">
+              <label for="search">
+                <input (ngModelChange)="onSearchTextbranch()" #input name="search" required autocomplete="off"
+                  placeholder="Search" id="search" type="text" [(ngModel)]="searchTextbranch" />
                 <div class="icon">
-                <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                  xmlns="http://www.w3.org/2000/svg" class="swap-on">
-                  <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round">
-                  </path>
-                </svg>
-              </div>
-              <button type="reset" class="close-btn">
-                <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
-                  <path clip-rule="evenodd"
-                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    fill-rule="evenodd"></path>
-                </svg>
-              </button>
-            </label>
-          </form>
+                  <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                      stroke-linecap="round">
+                    </path>
+                  </svg>
+                </div>
+                <button type="reset" class="close-btn">
+                  <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                    <path clip-rule="evenodd"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      fill-rule="evenodd"></path>
+                  </svg>
+                </button>
+              </label>
+            </form>
+          </div>
         </div>
-      </div>
-      <div class="col-md-2 mt-1">
-        <button (click)="branchcreate(id)" [hidden]="valuebranchcreate !== 'Entity View Branch-Add'" style="
+        <div class="col-md-2 mt-1">
+          <button (click)="branchcreate(id)" [hidden]="valuebranchcreate !== 'Entity View Branch-Add'" style="
             color: white;
             background-color: #141e46;
             border-radius: 10px;
             font-size: 12px;
           " mat-raised-button>
-          Create
-        </button>
+            Create
+          </button>
+        </div>
       </div>
-    </div>
-  </mat-card-header>
+    </mat-card-header>
 
-  <div class="row mt-3">
-    <div class="col-12 mb-3 mb-lg-5">
-      <div class="card table-nowrap table-card">
-        <div class="table-responsive text-nowrap text-center">
-          <table class="table table-hover" id="customers">
-            <tr>
-              <th>S.No</th>
-              <th>Account Holder Name</th>
-              <th>Account Number</th>
-              <th>Account ID</th>
-              <th>Branch Name</th>
-              <th>SMS Merchant Name</th>
-              <th>Bank Name</th>
-              <th>IFSC Code</th>
-              <th>Api key</th>
-              <th>Secret key</th>
-              <th [hidden]="valuebranchCustomerview !== 'Entity View Branch-Customer View'">Customer View</th>
-              <th [hidden]="valuebranchonlineview !== 'Entity View Branch-Due Transactions View'">Due Transactions</th>
-              <th [hidden]="valuebranchTerminal !== 'Entity View Branch-Terminal'">Terminal View</th>
-              <th [hidden]="valuebranchkyc !== 'Entity View Branch-KYC'">KYC View</th>
-              <th [hidden]="valuebranchStatus !== 'Entity View Branch-Status'">Status</th>
-              <th [hidden]="valuebranchAction !== 'Entity View Branch-Action'">Action</th>
-              <th>Created By</th>
-              <th>Created At</th>
-              <th>Modified By</th>
-              <th>Modified At</th>
-            </tr>
-            <tbody *ngFor="let item of branchget| search : searchTextbranch| paginate: {id: 'pagination7',itemsPerPage: itemsPerPage,currentPage: currentbranch };let i = index">
-              <td>{{ i + 1 }}</td>
-              <td>{{ item.accountHolderName }}</td>
-              <td>{{ item.accountNumber }}</td>
-              <td>{{ item.accountId }}</td>
-              <td>{{ item.branchName }}</td>
-              <td>{{ item.smsMerchantName }}</td>
-              <td>{{ item.bankName }}</td>
-              <td>{{ item.ifscCode }}</td>
-              <td> {{ item.apiKey | slice : 0 : 10 }}
-                <i class="fa-regular fa-copy" style="color: green; font-size: 15px;padding:0"
-                  (click)="copyTextbranch(item.apiKey, i)">
-                </i>
-               <span *ngIf="copy1 === i" style="color: green">Copied!</span>
-              </td>
-              <td>{{ item.secretKey | slice : 0 : 10 }}
-              <i class="fa-regular fa-copy" style="color: green; font-size: 15px;padding:0"
-                  (click)="copyText1Branch(item.secretKey, i)"></i>
-              <span *ngIf="copy2 === i" style="color: green">Copied!</span>
-              </td>
-              <td [hidden]="valuebranchCustomerview !== 'Entity View Branch-Customer View'">
-                <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye"
-                  (click)="Viewcustomerbranch(item.branchId)">
-                </i>
-              </td>
-              <td [hidden]=" valuebranchonlineview !== 'Entity View Branch-Due Transactions View'">
-                <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye"
-                  (click)="Viewonlinecustomerbranch(item.branchId)">
-                </i>
-              </td>
-              <td [hidden]="valuebranchTerminal !== 'Entity View Branch-Terminal'">
-                <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye" (click)="
+    <div class="row mt-3">
+      <div class="col-12 mb-3 mb-lg-5">
+        <div class="card table-nowrap table-card">
+          <div class="table-responsive text-nowrap text-center">
+            <table class="table table-hover" id="customers">
+              <tr>
+                <th>S.No</th>
+                <th>Account Holder Name</th>
+                <th>Account Number</th>
+                <th>Account ID</th>
+                <th>Branch Name</th>
+                <th>SMS Merchant Name</th>
+                <th>Bank Name</th>
+                <th>IFSC Code</th>
+                <th>Api key</th>
+                <th>Secret key</th>
+                <th [hidden]="valuebranchCustomerview !== 'Entity View Branch-Customer View'">Customer View</th>
+                <th [hidden]="valuebranchonlineview !== 'Entity View Branch-Due Transactions View'">Due Transactions
+                </th>
+                <th [hidden]="valuebranchTerminal !== 'Entity View Branch-Terminal'">Terminal View</th>
+                <th [hidden]="valuebranchkyc !== 'Entity View Branch-KYC'">KYC View</th>
+                <th [hidden]="valuebranchStatus !== 'Entity View Branch-Status'">Status</th>
+                <th [hidden]="valuebranchAction !== 'Entity View Branch-Action'">Action</th>
+                <th>Created By</th>
+                <th>Created At</th>
+                <th>Modified By</th>
+                <th>Modified At</th>
+              </tr>
+              <tbody
+                *ngFor="let item of branchget| search : searchTextbranch| paginate: {id: 'pagination7',itemsPerPage: itemsPerPage,currentPage: currentbranch };let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ item.accountHolderName }}</td>
+                <td>{{ item.accountNumber }}</td>
+                <td>{{ item.accountId }}</td>
+                <td>{{ item.branchName }}</td>
+                <td>{{ item.smsMerchantName }}</td>
+                <td>{{ item.bankName }}</td>
+                <td>{{ item.ifscCode }}</td>
+                <td> {{ item.apiKey | slice : 0 : 10 }}
+                  <i class="fa-regular fa-copy" style="color: green; font-size: 15px;padding:0"
+                    (click)="copyTextbranch(item.apiKey, i)">
+                  </i>
+                  <span *ngIf="copy1 === i" style="color: green">Copied!</span>
+                </td>
+                <td>{{ item.secretKey | slice : 0 : 10 }}
+                  <i class="fa-regular fa-copy" style="color: green; font-size: 15px;padding:0"
+                    (click)="copyText1Branch(item.secretKey, i)"></i>
+                  <span *ngIf="copy2 === i" style="color: green">Copied!</span>
+                </td>
+                <td [hidden]="valuebranchCustomerview !== 'Entity View Branch-Customer View'">
+                  <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye"
+                    (click)="Viewcustomerbranch(item.branchId)">
+                  </i>
+                </td>
+                <td [hidden]=" valuebranchonlineview !== 'Entity View Branch-Due Transactions View'">
+                  <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye"
+                    (click)="Viewonlinecustomerbranch(item.branchId)">
+                  </i>
+                </td>
+                <td [hidden]="valuebranchTerminal !== 'Entity View Branch-Terminal'">
+                  <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye" (click)="
                     ViewTerminal(item.branchId, item.entityModel?.merchantId)">
                   </i>
-              </td>
-              <td [hidden]="valuebranchkyc !== 'Entity View Branch-KYC'">
-                <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye" (click)="
+                </td>
+                <td [hidden]="valuebranchkyc !== 'Entity View Branch-KYC'">
+                  <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye" (click)="
                     Viewkycbranch(item.branchId, item.entityModel?.merchantId) ">
                   </i>
-              </td>
-              <td [hidden]="valuebranchStatus !== 'Entity View Branch-Status'">
-              <mat-slide-toggle class="example-margin" color="primary" [checked]="item.accountStatus == 1"
-                  (change)="status($event, item.branchId)" style="transform: scale(0.9);padding:0">
-                </mat-slide-toggle>
-              </td>
-              <td [hidden]="valuebranchAction !== 'Entity View Branch-Action'">
-              <span>
-                <i
-                 style="
+                </td>
+                <td [hidden]="valuebranchStatus !== 'Entity View Branch-Status'">
+                  <mat-slide-toggle class="example-margin" color="primary" [checked]="item.accountStatus == 1"
+                    (change)="status($event, item.branchId)" style="transform: scale(0.9);padding:0">
+                  </mat-slide-toggle>
+                </td>
+                <td [hidden]="valuebranchAction !== 'Entity View Branch-Action'">
+                  <span>
+                    <i style="
                       text-align: center;
                       cursor: pointer;
                       font-size: 15px;
                       padding:0;
                       color: #545497;
                     " (click)="branchedit(item)" class="fas fa-edit">
-                  </i>
-                </span>
-              </td>
-              <td>{{ item.createdBy }}</td>
-              <td>{{ item.createdAt | date : "dd/MM/yyyy hh:mm a" }}</td>
-              <td>{{ item.modifiedBy }}</td>
-              <td>{{ item.modifiedAt | date : "dd/MM/yyyy hh:mm a" }}</td>
-            </tbody>
-          </table>
-        </div>
-        <div class="text-end mt-2 ">
-          <pagination-controls id="pagination7" (pageChange)="currentbranch = $event"></pagination-controls>
+                    </i>
+                  </span>
+                </td>
+                <td>{{ item.createdBy }}</td>
+                <td>{{ item.createdAt | date : "dd/MM/yyyy hh:mm a" }}</td>
+                <td>{{ item.modifiedBy }}</td>
+                <td>{{ item.modifiedAt | date : "dd/MM/yyyy hh:mm a" }}</td>
+              </tbody>
+            </table>
+          </div>
+          <div class="text-end mt-2 ">
+            <pagination-controls id="pagination7" (pageChange)="currentbranch = $event"></pagination-controls>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- BRANCH INFO ENDS -->
+  <!-- BRANCH INFO ENDS -->
 
 
 </div>
 
 
 <!-- TAB TWO ENDS -->
-
-
-
-
-
-
-
-
-
-
-

@@ -77,14 +77,18 @@ export class ExportReportViewallComponent implements OnInit {
           this.getdashboard = res.response?.subPermission;
 
           if (this.roleId == 1) {
-            this.value = 'Export Report-Download'
+            this.value = 'Export Report-Download';
+            this.valueadd = 'Export Report-Add'
 
           }
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
-              if (this.actions == 'BExport Report-Download') {
+              if (this.actions == 'Export Report-Download') {
                 this.value = 'Export Report-Download'
+              }
+               if (this.actions == 'Export Report-Add') {
+                this.valueadd = 'Export Report-Add'
               }
 
             }

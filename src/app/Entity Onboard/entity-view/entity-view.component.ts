@@ -17,6 +17,7 @@ import {
   SmsStatus,
   verification,
   verify,
+  WhatappserviceStatus,
 } from '../../fargin-model/fargin-model.module';
 import { ApprovalForBankComponent } from '../approval-for-bank/approval-for-bank.component';
 import { CommentsForApprovalComponent } from '../comments-for-approval/comments-for-approval.component';
@@ -61,6 +62,10 @@ import {
 import { SmsDescriptionComponent } from '../sms-description/sms-description.component';
 import { OtherpayManualpaymentComponent } from '../../Fargin Transtions/Other Payments/otherpay-manualpayment/otherpay-manualpayment.component';
 import { BranchInactivenbranchComponent } from '../Branch/branch-inactivenbranch/branch-inactivenbranch.component';
+import { AddWhatsappServiceComponent } from '../Whatapp Service/add-whatsapp-service/add-whatsapp-service.component';
+import { WhatsappMessDescriptionComponent } from '../Whatapp Service/whatsapp-mess-description/whatsapp-mess-description.component';
+import { WhatsappApprovalComponent } from '../Whatapp Service/whatsapp-approval/whatsapp-approval.component';
+import { UpdatewhatsappServiceComponent } from '../Whatapp Service/updatewhatsapp-service/updatewhatsapp-service.component';
 
 @Component({
   selector: 'app-entity-view',
@@ -100,6 +105,8 @@ export class EntityViewComponent implements OnInit {
   currentonetime: any = 1;
   currentcustomized: any = 1;
   currentsms: any = 1;
+  currentwhatsapp: any = 1;
+  SearchTextWhatsapp:any;
   currentagreement: any = 1;
   currentbranch: any = 1;
   alltransactions: any;
@@ -108,9 +115,11 @@ export class EntityViewComponent implements OnInit {
   searchTextOneTime: any;
   searchTextcustomixed: any;
   searchTextsms: any;
+  searchTextwhatsapp: any;
   searchTextargeement: any;
   searchTextbranch: any;
   valuesmssetting: any;
+  valueWhatsappsetting: any;
   navbarEventEmitter: any;
   isDropdownOpen = false;
   searchTexts: any;
@@ -183,6 +192,7 @@ export class EntityViewComponent implements OnInit {
   signatureProof: any;
   addressedit: any;
   smsDetails: any;
+  WhatsappDetails: any;
   merchantsmsId: any;
   bussinessdoc: any;
   valuekycimage: any;
@@ -201,10 +211,14 @@ export class EntityViewComponent implements OnInit {
   valueCustomizededit: any;
   valueCustomizedview: any;
   valuesmsadd: any;
+  valueWhatsappadd: any;
   valuesmsapproval: any;
+  valuewhatsappapproval: any;
   valuesmsstatus: any;
+  valuewhatsappstatus: any;
   valuesmsview: any;
   valuesmsedit: any;
+  valuewhatsappedit: any;
   valueentityautodebit: any;
   entitypermission: any[] = [];
   roles: any;
@@ -298,34 +312,31 @@ export class EntityViewComponent implements OnInit {
             this.valuemanualview = 'Entity View One Time Setup Payment-View';
             this.valuefinalcomment = 'Final-Comment';
             this.valuebussinessAdd = 'Entity View Bussiness Document-Add';
-            this.valuebussinessapproval =
-              'Entity View Bussiness Document-Approval';
-            this.valuebussinesscomment =
-              'Entity View Bussiness Document-Comments';
+            this.valuebussinessapproval = 'Entity View Bussiness Document-Approval';
+            this.valuebussinesscomment = 'Entity View Bussiness Document-Comments';
             this.valuebussinessImage = 'Entity View Bussiness Document-Image';
             this.valuebussinessedit = 'Entity View Bussiness Document-Edit';
             this.valueCustomizedadd = 'Entity View Customized Payment-Add';
             this.valueCustomizededit = 'Entity View Customized Payment-Edit';
             this.valueCustomizedview = 'Entity View Customized Payment-View';
-            this.valueCustomizedmanual =
-              'Entity View Customized Manual Payment';
+            this.valueCustomizedmanual = 'Entity View Customized Manual Payment';
             this.valuesmsadd = 'Sms Setting-Add';
-            this.valuesmsapproval = 'Sms Setting-Approval';
             this.valuesmsedit = 'Sms Setting-Edit';
+            this.valueWhatsappadd = 'WhatsApp Setting-Add';
+            this.valuewhatsappedit = 'WhatsApp Setting-Edit';
+            this.valuesmsapproval = 'Sms Setting-Approval';
+            this.valuewhatsappapproval = 'WhatsApp Setting-Approval';
             this.valuesmsview = 'Sms Setting-View';
             this.valuesmsstatus = 'Sms Setting-Status';
+            this.valuewhatsappstatus = 'WhatsApp Setting-Status';
             this.valuekycadd = 'Entity View KYC Document-add';
             this.valueagreementcreate = 'Entity View Agreement-Add';
             this.valueagreementView = 'Entity View Agreement-Plan Overview';
             this.valueagreementAgreement = 'Entity View Agreement-Agreement';
-            this.valueagreementAgreementSigned =
-              'Entity View Agreement-Agreement Signed Copy';
-            this.valueagreementlinkdate =
-              'Entity View Agreement-Link Expiry Date';
-            this.valueagreementlinkstatus =
-              'Entity View Agreement-Link Expiry Status';
-            this.valueagreementlink =
-              'Entity View Agreement-Entity Agreement Link';
+            this.valueagreementAgreementSigned = 'Entity View Agreement-Agreement Signed Copy';
+            this.valueagreementlinkdate = 'Entity View Agreement-Link Expiry Date';
+            this.valueagreementlinkstatus = 'Entity View Agreement-Link Expiry Status';
+            this.valueagreementlink = 'Entity View Agreement-Entity Agreement Link';
             this.valuebranchcreate = 'Entity View Branch-Add';
             this.valuebranchCustomerview = 'Entity View Branch-Customer View';
             this.valuebranchStatus = 'Entity View Branch-Status';
@@ -354,17 +365,29 @@ export class EntityViewComponent implements OnInit {
               if (this.actions == 'Sms Setting-Edit') {
                 this.valuesmsedit = 'Sms Setting-Edit';
               }
+              if (this.actions == 'WhatsApp Setting-Edit') {
+                this.valuewhatsappedit = 'WhatsApp Setting-Edit';
+              }
               if (this.actions == 'Sms Setting-Add') {
                 this.valuesmsadd = 'Sms Setting-Add';
               }
+              if (this.actions == 'WhatsApp Setting-Add') {
+                this.valueWhatsappadd = 'WhatsApp Setting-Add';
+              }
               if (this.actions == 'Sms Setting-Approval') {
                 this.valuesmsapproval = 'Sms Setting-Approval';
+              }
+              if (this.actions == 'WhatsApp Setting-Approval') {
+                this.valuewhatsappapproval = 'WhatsApp Setting-Approval';
               }
               if (this.actions == 'Sms Setting-View') {
                 this.valuesmsview = 'Sms Setting-View';
               }
               if (this.actions == 'Sms Setting-Status') {
                 this.valuesmsstatus = 'Sms Setting-Status';
+              }
+              if (this.actions == 'WhatsApp Setting-Status') {
+                this.valuewhatsappstatus = 'WhatsApp Setting-Status';
               }
               if (this.actions == 'Entity View Platform Payment') {
                 this.valueplatform = 'Entity View Platform Payment';
@@ -426,23 +449,19 @@ export class EntityViewComponent implements OnInit {
                 this.valuekycapproval = 'Entity View KYC Document-Approval';
               }
               if (this.actions == 'Entity View KYC Document-Verification') {
-                this.valuekycverification =
-                  'Entity View KYC Document-Verification';
+                this.valuekycverification = 'Entity View KYC Document-Verification';
               }
               if (this.actions == 'Final-Approval') {
                 this.valuefinalapprovals = 'Final-Approval';
               }
               if (this.actions == 'Entity View One Time Setup Payment-Create') {
-                this.valuemanualpay =
-                  'Entity View One Time Setup Payment-Create';
+                this.valuemanualpay = 'Entity View One Time Setup Payment-Create';
               }
               if (this.actions == 'Entity View One Time Setup Payment-Edit') {
-                this.valuemanualedit =
-                  'Entity View One Time Setup Payment-Edit';
+                this.valuemanualedit = 'Entity View One Time Setup Payment-Edit';
               }
               if (this.actions == 'Entity View One Time Setup Payment-View') {
-                this.valuemanualview =
-                  'Entity View One Time Setup Payment-View';
+                this.valuemanualview = 'Entity View One Time Setup Payment-View';
               }
               if (this.actions == 'Final-Comment') {
                 this.valuefinalcomment = 'Final-Comment';
@@ -457,47 +476,38 @@ export class EntityViewComponent implements OnInit {
                 this.valuebussinessedit = 'Entity View Bussiness Document-Edit';
               }
               if (this.actions == 'Entity View Bussiness Document-Image') {
-                this.valuebussinessImage =
-                  'Entity View Bussiness Document-Image';
+                this.valuebussinessImage = 'Entity View Bussiness Document-Image';
               }
               if (this.actions == 'Entity View Bussiness Document-Comments') {
-                this.valuebussinesscomment =
-                  'Entity View Bussiness Document-Comments';
+                this.valuebussinesscomment = 'Entity View Bussiness Document-Comments';
               }
 
               if (this.actions == 'Entity View Bussiness Document-Approval') {
-                this.valuebussinessapproval =
-                  'Entity View Bussiness Document-Approval';
+                this.valuebussinessapproval = 'Entity View Bussiness Document-Approval';
               }
 
               if (this.actions == 'Entity View Customized Payment-Add') {
                 this.valueCustomizedadd = 'Entity View Customized Payment-Add';
               }
               if (this.actions == 'Entity View Customized Payment-Edit') {
-                this.valueCustomizededit =
-                  'Entity View Customized Payment-Edit';
+                this.valueCustomizededit = 'Entity View Customized Payment-Edit';
               }
               if (this.actions == 'Entity View Customized Payment-View') {
-                this.valueCustomizedview =
-                  'Entity View Customized Payment-View';
+                this.valueCustomizedview = 'Entity View Customized Payment-View';
               }
               if (this.actions == 'Entity View Customized Manual Payment') {
-                this.valueCustomizedmanual =
-                  'Entity View Customized Manual Payment';
+                this.valueCustomizedmanual = 'Entity View Customized Manual Payment';
               }
               if (
                 this.actions == 'Entity View Agreement-Entity Agreement Link'
               ) {
-                this.valueagreementlink =
-                  'Entity View Agreement-Entity Agreement Link';
+                this.valueagreementlink = 'Entity View Agreement-Entity Agreement Link';
               }
               if (this.actions == 'Entity View Agreement-Link Expiry Status') {
-                this.valueagreementlinkstatus =
-                  'Entity View Agreement-Link Expiry Status';
+                this.valueagreementlinkstatus = 'Entity View Agreement-Link Expiry Status';
               }
               if (this.actions == 'Entity View Agreement-Link Expiry Date') {
-                this.valueagreementlinkdate =
-                  'Entity View Agreement-Link Expiry Date';
+                this.valueagreementlinkdate = 'Entity View Agreement-Link Expiry Date';
               }
               if (this.actions == 'Entity View Agreement-Add') {
                 this.valueagreementcreate = 'Entity View Agreement-Add';
@@ -506,14 +516,12 @@ export class EntityViewComponent implements OnInit {
                 this.valueagreementView = 'Entity View Agreement-Plan Overview';
               }
               if (this.actions == 'Entity View Agreement-Agreement') {
-                this.valueagreementAgreement =
-                  'Entity View Agreement-Agreement';
+                this.valueagreementAgreement = 'Entity View Agreement-Agreement';
               }
               if (
                 this.actions == 'Entity View Agreement-Agreement Signed Copy'
               ) {
-                this.valueagreementAgreementSigned =
-                  'Entity View Agreement-Agreement Signed Copy';
+                this.valueagreementAgreementSigned = 'Entity View Agreement-Agreement Signed Copy';
               }
               if (this.actions == 'Entity View Branch-Add') {
                 this.valuebranchcreate = 'Entity View Branch-Add';
@@ -523,8 +531,7 @@ export class EntityViewComponent implements OnInit {
                 this.valuebranch = 'Entity View Branch';
               }
               if (this.actions == 'Entity View Branch-Customer View') {
-                this.valuebranchCustomerview =
-                  'Entity View Branch-Customer View';
+                this.valuebranchCustomerview = 'Entity View Branch-Customer View';
               }
               if (this.actions == 'Entity View Branch-Status') {
                 this.valuebranchStatus = 'Entity View Branch-Status';
@@ -619,6 +626,13 @@ export class EntityViewComponent implements OnInit {
         this.smsDetails = res.response;
       }
     });
+
+    this.MerchantView.Merchatwhatappgetall(this.id).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.WhatsappDetails = res.response.reverse();
+      }
+    });
+
     this.MerchantView.smscostViewall().subscribe((res: any) => {
       this.chargepersms = res.response[0]?.amount;
     });
@@ -642,6 +656,7 @@ export class EntityViewComponent implements OnInit {
       this.valuemanualpayment = 'Entity View One Time Setup Payment';
       this.valueCustomized = 'Entity View Customized Payment';
       this.valuesmssetting = 'Entity View-SMS Settings';
+      this.valueWhatsappsetting = 'Entity View-WhatsApp Settings';
       this.valueagreement = 'Entity View Agreement';
       this.valuentityOffline = 'Entity View Offline';
       this.valuebranch = 'Entity View Branch';
@@ -703,6 +718,9 @@ export class EntityViewComponent implements OnInit {
         }
         if (this.roles == 'Entity View-SMS Settings') {
           this.valuesmssetting = 'Entity View-SMS Settings';
+        }
+        if (this.roles == 'Entity View-WhatsApp Settings') {
+          this.valueWhatsappsetting = 'Entity View-WhatsApp Settings';
         }
         if (this.roles == 'Entity View Agreement') {
           this.valueagreement = 'Entity View Agreement';
@@ -2207,6 +2225,80 @@ export class EntityViewComponent implements OnInit {
     });
   }
 
+  fetchWhatappViewById() {
+    this.MerchantView.Merchatwhatappgetall(this.id).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.WhatsappDetails = res.response.reverse();
+      }
+    });
+  }
+
+  whatappcreate() {
+    const dialogRef = this.dialog.open(AddWhatsappServiceComponent, {
+      disableClose: true,
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '500ms',
+      data: { value: this.id },
+    });
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchWhatappViewById();
+    });
+  }
+
+  Whatsappdescription(id: any) {
+    this.dialog.open(WhatsappMessDescriptionComponent, {
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '500ms',
+      data: { value: id },
+    });
+  };
+
+  WhatsappStatus(event: any, id: any) {
+    this.isChecked = event.checked;
+    let submitModel: WhatappserviceStatus = {
+      merchantWhatsAppId: id,
+      smsEnableStatus: this.isChecked ? 'ACTIVE' : 'INACTIVE',
+    };
+    this.MerchantView.MerchatWhatappServiceStatus(submitModel).subscribe(
+      (res: any) => {
+        if (res.flag == 1) {
+          this.toastr.success(res.responseMessage);
+          setTimeout(() => {this.fetchWhatappViewById();},200);
+        } else {
+          this.toastr.error(res.responseMessage);
+          setTimeout(() => {this.fetchWhatappViewById()},200);
+        }
+      }
+    );
+  }
+
+  WhatssappApproval(id: any) {
+    const dialogRef = this.dialog.open(WhatsappApprovalComponent, {
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '500ms',
+      disableClose: true,
+      maxHeight: '500px',
+      data: { value: id },
+    });
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchWhatappViewById();
+    });
+  };
+
+  EditWhatsApp(id: any) {
+    const dialogRef = this.dialog.open(UpdatewhatsappServiceComponent, {
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '500ms',
+      disableClose: true,
+      data: { value: id,value2:this.id },
+    });
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.fetchWhatappViewById();
+    });
+  };
+
+
+
   monthlysmsdetails() {
     this.router.navigate([`dashboard/merchat-smstrigger/${this.id}`], {
       queryParams: { Alldata: this.id }
@@ -2227,7 +2319,7 @@ export class EntityViewComponent implements OnInit {
     const dialogRef = this.dialog.open(BranchEditComponent, {
       disableClose: true,
       enterAnimationDuration: '500ms',
-      exitAnimationDuration: '1000ms',
+      exitAnimationDuration: '500ms',
       data: { value: id },
     });
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
@@ -2327,6 +2419,10 @@ export class EntityViewComponent implements OnInit {
     // Reset to the first page whenever the search text changes
     this.currentsms = 1;
   }
+  onSearchTextWhatsapp(): void {
+    // Reset to the first page whenever the search text changes
+    this.currentwhatsapp = 1;
+  }
   onSearchTextagreement(): void {
     // Reset to the first page whenever the search text changes
     this.currentagreement = 1;
@@ -2334,6 +2430,27 @@ export class EntityViewComponent implements OnInit {
   onSearchTextbranch(): void {
     // Reset to the first page whenever the search text changes
     this.currentbranch = 1;
+  }
+
+  copyTextbranch(text: string, index: number) {
+    const el = document.createElement('textarea');
+    el.value = text;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    this.copy1 = index;
+    setTimeout(() => (this.copy1 = -1), 2000);
+  }
+  copyText1Branch(text: string, index: number) {
+    const el = document.createElement('textarea');
+    el.value = text;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    this.copy2 = index;
+    setTimeout(() => (this.copy2 = -1), 2000);
   }
 
 
@@ -2476,24 +2593,5 @@ export class EntityViewComponent implements OnInit {
   // }
 
 
-  copyTextbranch(text: string, index: number) {
-    const el = document.createElement('textarea');
-    el.value = text;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand('copy');
-    document.body.removeChild(el);
-    this.copy1 = index;
-    setTimeout(() => (this.copy1 = -1), 2000);
-  }
-  copyText1Branch(text: string, index: number) {
-    const el = document.createElement('textarea');
-    el.value = text;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand('copy');
-    document.body.removeChild(el);
-    this.copy2 = index;
-    setTimeout(() => (this.copy2 = -1), 2000);
-  }
+
 }
