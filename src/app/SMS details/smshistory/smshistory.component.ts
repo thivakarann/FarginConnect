@@ -147,7 +147,9 @@ export class SMSHistoryComponent {
         this.dataSource = new MatTableDataSource(this.smsResponse);
         this.currentfilvalShow = false;
       }
-    })
+    });
+    this.FromDateRange ='';
+    this.ToDateRange = '';
   }
 
   checkDate() {

@@ -42,8 +42,8 @@ export class MerchatSMSTriggerComponent implements OnInit {
   errorMessage: any;
   getdashboard: any[] = [];
   actions: any;
-  valuessms:any;
-  valuelogs:any;
+  valuessms: any;
+  valuelogs: any;
 
   constructor(private service: FarginServiceService, private router: Router, private toastr: ToastrService, private ActivateRoute: ActivatedRoute, private location: Location) { }
 
@@ -81,7 +81,18 @@ export class MerchatSMSTriggerComponent implements OnInit {
       this.merchantid = param.Alldata;
     });
     this.Getall();
+  };
+
+  isCurrentMonth(date: string | Date | null): boolean {
+    if (!date) return false;
+    const recordDate = new Date(date);
+    const now = new Date();
+    return (
+      recordDate.getMonth() === now.getMonth() &&
+      recordDate.getFullYear() === now.getFullYear()
+    );
   }
+
 
   Getall() {
     this.service.monthlyMerchantsms(this.merchantid, this.pageSize, this.pageIndex).subscribe((res: any) => {

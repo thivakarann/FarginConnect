@@ -110,6 +110,28 @@
               </div>
             </li>
 
+            <li class="sidebar-dropdown" style="cursor: pointer;"
+              [hidden]="valueentityWhatsapp!=='Entity WhatsApp'  && valuewhatsApphistory!=='WhatsApp History'">
+              <a>
+                <i class="fa-brands fa-whatsapp" style="font-size: 14px;"></i>
+                <span>WhatsApp</span>
+              </a>
+              <div class="sidebar-submenu">
+                <ul>
+                  <li [hidden]="valueentityWhatsapp!=='Entity WhatsApp'">
+                    <a routerLink="entity-whats-app-getall">
+                      Entity WhatsApp
+                    </a>
+                  </li>
+                  <li [hidden]="valuewhatsApphistory!=='WhatsApp History'">
+                    <a routerLink="whats-app-history">
+                      WhatsApp History
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
 
             <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valuecustomerpayment!=='Customer Payment' &&
             valuecustomersubscription!=='Cloud Fee Payments' &&
@@ -422,7 +444,7 @@
     </nav>
 
     <!-- sidebar-wrapper  -->
-   
+
     <main class="page-content" style="background-color:#dde1e9;min-height: 100vh; overflow-y: auto;">
       <div style="margin-top:50px;">
         <router-outlet></router-outlet>
@@ -430,7 +452,7 @@
     </main>
   </div>
 
-  
+
   <!-- page-wrapper -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>

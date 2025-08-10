@@ -30,7 +30,7 @@ export class OfflineSettlementComponent {
     'View',
     'item',
     'paidAt',
- 
+
   ];
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
@@ -70,14 +70,14 @@ export class OfflineSettlementComponent {
     private toastr: ToastrService,
     private ActivateRoute: ActivatedRoute,
     private location: Location,
-    private router:Router
+    private router: Router
   ) { }
- 
+
   ngOnInit(): void {
- 
+
     const today = new Date();
     this.maxDate = moment(today).format('yyyy-MM-DD').toString();
- 
+
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
         if (res.flag == 1) {
@@ -110,12 +110,12 @@ export class OfflineSettlementComponent {
         }
       },
     });
- 
+
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.accountId = param.Alldata;
       console.log(this.accountId)
     });
- 
+
     let submitModel: OfflineSettlement = {
       merchantId: this.accountId,
       pageNo: '0',
@@ -129,19 +129,19 @@ export class OfflineSettlementComponent {
         this.content = this.Viewall?.content;
         this.filteredData = this.content;
         console.log(this.filteredData)
-       this.length = this.Viewall.totalElements;
+        this.length = this.Viewall.totalElements;
         this.pageIndex = this.Viewall.number;
         this.pageSize = this.Viewall.size;
         this.dataSource = new MatTableDataSource(this.filteredData);
       }
     });
   }
- 
+
   checkDate() {
     this.ToDateRange = '';
     // this.FromDateRange =''
   }
- 
+
   reload() {
     let submitModel: OfflineSettlement = {
       merchantId: this.accountId,
@@ -161,16 +161,16 @@ export class OfflineSettlementComponent {
       }
     });
   }
- 
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
- 
+
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
- 
+
   renderPage(event: any) {
     this.currentPage = event;
     this.ngOnInit();
@@ -182,14 +182,14 @@ export class OfflineSettlementComponent {
     this.currentPage = 1;
     this.ngOnInit();
   }
- 
+
   filterdate() {
-   const datepipe: DatePipe = new DatePipe("en-US");
-      let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY HH:mm");
-      let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/yyyy HH:mm");
-      this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
+    const datepipe: DatePipe = new DatePipe("en-US");
+    let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY HH:mm");
+    let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/yyyy HH:mm");
+    this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
     this.currentPage = 0;
- 
+
     let submitModel: OfflineSettlement = {
       merchantId: this.accountId,
       pageNo: this.currentPage,
@@ -225,13 +225,13 @@ export class OfflineSettlementComponent {
         this.Viewall = JSON.parse(res.response);
         this.content = this.Viewall?.content;
         this.filteredData = this.content;
-      this.length = this.Viewall.totalElements;
+        this.length = this.Viewall.totalElements;
         this.pageIndex = this.Viewall.number;
         this.pageSize = this.Viewall.size;
         this.dataSource = new MatTableDataSource(this.filteredData);
- 
-        this.FromDateRange='';
-        this.ToDateRange='';
+
+        this.FromDateRange = '';
+        this.ToDateRange = '';
       } else {
         this.FromDateRange = '';
         this.ToDateRange = '';
@@ -240,14 +240,14 @@ export class OfflineSettlementComponent {
   }
 
 
-    viewpayout(id1: any) {
+  viewpayout(id1: any) {
     this.router.navigate([`/dashboard/offile-settlement-payout/${id1}/${this.accountId}`],
-    {
-        queryParams: { value:id1, value1: this.accountId},
+      {
+        queryParams: { value: id1, value1: this.accountId },
       }
     );
   }
- 
+
   exportexcel() {
     let sno = 1;
     this.responseDataListnew = [];
@@ -265,14 +265,14 @@ export class OfflineSettlementComponent {
       } else {
         this.response.push('');
       }
-   
- 
+
+
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
- 
+
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
@@ -282,16 +282,16 @@ export class OfflineSettlementComponent {
       'Tnx Type',
       'Tnx Type',
       'Tnx At'
-     
+
     ];
- 
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Offline Settlement');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
- 
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -303,7 +303,7 @@ export class OfflineSettlementComponent {
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
       };
- 
+
       cell.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
@@ -311,10 +311,10 @@ export class OfflineSettlementComponent {
         right: { style: 'thin' },
       };
     });
- 
+
     data.forEach((d: any) => {
       //
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -322,9 +322,9 @@ export class OfflineSettlementComponent {
       let qty3 = row.getCell(4);
       let qty4 = row.getCell(5);
       let qty5 = row.getCell(6);
-   
- 
- 
+
+
+
       qty.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
@@ -361,7 +361,7 @@ export class OfflineSettlementComponent {
         bottom: { style: 'thin' },
         right: { style: 'thin' },
       };
-   
+
     });
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
     // worksheet.getColumn(2).protection = { locked: true, hidden: true }
@@ -373,58 +373,56 @@ export class OfflineSettlementComponent {
       FileSaver.saveAs(blob, 'Offline Settlement.xlsx');
     });
   }
- 
+
   close() {
     this.location.back();
   }
-   getData(event:any)
-  {
- 
+  getData(event: any) {
+
     if (this.filterAction == 1) {
-     const datepipe: DatePipe = new DatePipe("en-US");
+      const datepipe: DatePipe = new DatePipe("en-US");
       let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY HH:mm");
       let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/yyyy HH:mm");
       this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
-    this.currentPage = 0;
- 
-    let submitModel: OfflineSettlement = {
-      merchantId: this.accountId,
-      pageNo: event.pageIndex+1,
-      size: event.pageSize,
-      query: '',
-      dateRange: this.Daterange,
-    };
-    this.service.OfflineSettlement(submitModel).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.Viewall = JSON.parse(res.response);
-        this.content = this.Viewall?.content;
-        this.filteredData = this.content;
-        this.length = this.Viewall.totalElements;
-   
-        this.dataSource = new MatTableDataSource(this.filteredData);
-      }
-    });
+      this.currentPage = 0;
+
+      let submitModel: OfflineSettlement = {
+        merchantId: this.accountId,
+        pageNo: event.pageIndex + 1,
+        size: event.pageSize,
+        query: '',
+        dateRange: this.Daterange,
+      };
+      this.service.OfflineSettlement(submitModel).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.Viewall = JSON.parse(res.response);
+          this.content = this.Viewall?.content;
+          this.filteredData = this.content;
+          this.length = this.Viewall.totalElements;
+
+          this.dataSource = new MatTableDataSource(this.filteredData);
+        }
+      });
     }
-    else
-    {
-        let submitModel: OfflineSettlement = {
-      merchantId: this.accountId,
-      pageNo: event.pageIndex+1,
-      size:event.pageSize,
-      query: '',
-      dateRange: this.Daterange,
-    };
-    this.service.OfflineSettlement(submitModel).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.Viewall = JSON.parse(res.response);
-        this.content = this.Viewall?.content;
-        this.filteredData = this.content;
-       this.length = this.Viewall.totalElements;
- 
-        this.dataSource = new MatTableDataSource(this.filteredData);
-      }
-    });
+    else {
+      let submitModel: OfflineSettlement = {
+        merchantId: this.accountId,
+        pageNo: event.pageIndex + 1,
+        size: event.pageSize,
+        query: '',
+        dateRange: this.Daterange,
+      };
+      this.service.OfflineSettlement(submitModel).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.Viewall = JSON.parse(res.response);
+          this.content = this.Viewall?.content;
+          this.filteredData = this.content;
+          this.length = this.Viewall.totalElements;
+
+          this.dataSource = new MatTableDataSource(this.filteredData);
+        }
+      });
     }
-    }
- 
+  }
+
 }

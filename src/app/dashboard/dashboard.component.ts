@@ -74,6 +74,8 @@ export class DashboardComponent implements OnInit {
   valueEntityDashboard: any;
   valueReport: any;
   valueRenewel: any;
+  valueentityWhatsapp: any;
+  valuewhatsApphistory: any;
 
   constructor(private elRef: ElementRef,
     private renderer: Renderer2,
@@ -141,6 +143,8 @@ export class DashboardComponent implements OnInit {
       this.valuefarginbank = 'Fargin bank'
       this.valueentitysms = 'Entity Sms'
       this.valuesmshistory = 'SMS History'
+      this.valueentityWhatsapp = 'Entity WhatsApp'
+      this.valuewhatsApphistory = 'WhatsApp History'
       this.valueautodebit = 'Cloud Fee AutoDebit'
       this.valueRenewel = 'Renewal Fee Auto Debit'
       this.valueCustomizationPayments = 'Customized Payment'
@@ -258,6 +262,12 @@ export class DashboardComponent implements OnInit {
         }
         if (this.roles == 'SMS History') {
           this.valuesmshistory = 'SMS History'
+        }
+        if (this.roles == 'Entity WhatsApp') {
+          this.valueentityWhatsapp = 'Entity WhatsApp'
+        }
+        if (this.roles == 'WhatsApp History') {
+          this.valuewhatsApphistory = 'WhatsApp History'
         }
         if (this.roles == 'Cloud Fee AutoDebit') {
           this.valueautodebit = 'Cloud Fee AutoDebit'

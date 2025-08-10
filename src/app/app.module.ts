@@ -307,6 +307,8 @@ import { AddWhatsappServiceComponent } from './Entity Onboard/Whatapp Service/ad
 import { UpdatewhatsappServiceComponent } from './Entity Onboard/Whatapp Service/updatewhatsapp-service/updatewhatsapp-service.component';
 import { WhatsappMessDescriptionComponent } from './Entity Onboard/Whatapp Service/whatsapp-mess-description/whatsapp-mess-description.component';
 import { WhatsappApprovalComponent } from './Entity Onboard/Whatapp Service/whatsapp-approval/whatsapp-approval.component';
+import { EntityWhatsAppGetallComponent } from './Entity Onboard/Whatapp Service/entity-whats-app-getall/entity-whats-app-getall.component';
+import { WhatsAppHistoryComponent } from './Entity Onboard/Whatapp Service/whats-app-history/whats-app-history.component';
 
 
 
@@ -592,6 +594,8 @@ import { WhatsappApprovalComponent } from './Entity Onboard/Whatapp Service/what
     UpdatewhatsappServiceComponent,
     WhatsappMessDescriptionComponent,
     WhatsappApprovalComponent,
+    EntityWhatsAppGetallComponent,
+    WhatsAppHistoryComponent,
 
 
   ],

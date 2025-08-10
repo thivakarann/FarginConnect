@@ -13,14 +13,15 @@
             </tr>
             <tr>
                 <td class="datas">Total Amount</td>
-                <td id="data"  class="text-success">₹{{transaction?.totalPayableAmount}}</td>
+                <td id="data" class="text-success">₹{{transaction?.totalPayableAmount}}</td>
             </tr>
 
             <tr>
                 <td class="datas">Bank Reference</td>
                 <td id="data">
-                    <span  *ngIf="transaction?.bankReference == null || transaction?.bankReference == 'null' ">-</span>
-                    <span *ngIf="transaction?.bankReference != null && transaction?.bankReference != 'null'"> {{transaction?.bankReference}}</span>  
+                    <span *ngIf="transaction?.bankReference == null || transaction?.bankReference == 'null' ">-</span>
+                    <span *ngIf="transaction?.bankReference != null && transaction?.bankReference != 'null'">
+                        {{transaction?.bankReference}}</span>
                 </td>
             </tr>
             <tr>
@@ -34,36 +35,30 @@
             <tr>
                 <td class="datas">Card Expiry</td>
                 <td id="data">
-                 <span  *ngIf="transaction?.cardExpiry == null || transaction?.cardExpiry == 'null' ">-</span>
-                 <span *ngIf="transaction?.cardExpiry != null && transaction?.cardExpiry != 'null'"> {{transaction?.cardExpiry}}</span>  
-                  </td>
-            </tr>
-            <tr >
-                <td class="datas">Card Masked No</td>
-                <td id="data">
-                    <span  *ngIf="transaction?.cardNoMasked == null || transaction?.cardNoMasked == 'null' ">-</span>
-                    <span *ngIf="transaction?.cardNoMasked != null && transaction?.cardNoMasked != 'null'">  {{transaction?.cardNoMasked}}</span>  
-                    </td>
+                    <span *ngIf="transaction?.cardExpiry == null || transaction?.cardExpiry == 'null' ">-</span>
+                    <span *ngIf="transaction?.cardExpiry != null && transaction?.cardExpiry != 'null'">
+                        {{transaction?.cardExpiry}}</span>
+                </td>
             </tr>
             <tr>
-                <td class="datas">Order Reference</td>
-                <td id="data">{{ transaction?.orderReference}}</td>
+                <td class="datas">Card Masked No</td>
+                <td id="data">
+                    <span *ngIf="transaction?.cardNoMasked == null || transaction?.cardNoMasked == 'null' ">-</span>
+                    <span *ngIf="transaction?.cardNoMasked != null && transaction?.cardNoMasked != 'null'">
+                        {{transaction?.cardNoMasked}}</span>
+                </td>
             </tr>
+
             <tr>
                 <td class="datas">Payment Method</td>
                 <td id="data">{{ transaction?.paymentMethod}}</td>
             </tr>
-            
 
-            <tr>
-                <td class="datas">Reference Number</td>
-                <td id="data">{{ transaction?.utrNumber}}</td>
-            </tr>
             <tr>
                 <td class="datas">Manual Updated By</td>
                 <td id="data">{{ transaction?.updatedBy}}</td>
             </tr>
-            
+
 
             <tr>
                 <td class="datas">Paid At</td>
@@ -79,12 +74,12 @@
                     <span *ngIf="transaction?.paymentStatus == 'Pending'" class="text-warning">
                         {{ transaction?.paymentStatus || '--'}}</span>
 
-                        
+
                     <span *ngIf="transaction?.paymentStatus== 'Initiated'" class="text-primary">
                         {{ transaction?.paymentStatus || '--'}}</span>
 
-                        <span *ngIf="transaction?.paymentStatus  == 'Payment Incomplete'" class="text-danger">
-                            {{ transaction?.paymentStatus||'--'}}</span>
+                    <span *ngIf="transaction?.paymentStatus  == 'Payment Incomplete'" class="text-danger">
+                        {{ transaction?.paymentStatus||'--'}}</span>
 
 
                     <span *ngIf="transaction?.paymentStatus== 'Failure'" class="text-danger">

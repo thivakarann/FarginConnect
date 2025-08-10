@@ -1,29 +1,30 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { FarginServiceService } from '../../../service/fargin-service.service';
+import { ToastrService } from 'ngx-toastr';
 import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
 import moment from 'moment';
-import { ToastrService } from 'ngx-toastr';
-import { FarginServiceService } from '../../service/fargin-service.service';
 
 @Component({
-  selector: 'app-entity-sms-viewall',
-  templateUrl: './entity-sms-viewall.component.html',
-  styleUrl: './entity-sms-viewall.component.css',
+  selector: 'app-entity-whats-app-getall',
+  templateUrl: './entity-whats-app-getall.component.html',
+  styleUrl: './entity-whats-app-getall.component.css'
 })
-export class EntitySmsViewallComponent {
+export class EntityWhatsAppGetallComponent implements OnInit {
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = [
     'sno',
-    'accountId',
-    'entityname',
-    'entityemail',
-    'smsType',
+    'entityName',
+    'Vendor',
+    'templateType',
+    'Title',
     'Status',
-    'Chargrs',
-    'smscount',
+    'Charges',
+    'Lan',
+    'count',
     'createdBy',
     'date',
   ];
@@ -47,7 +48,7 @@ export class EntitySmsViewallComponent {
   transaction: any;
   message: any;
   showData: boolean = false;
-  smsResponse: any;
+  WhatsappResponseexport: any;
   valueentitysmsexport: any;
   getdashboard: any[] = [];
   roleId: any = sessionStorage.getItem('roleId');
@@ -75,11 +76,14 @@ export class EntitySmsViewallComponent {
   currentfilval: any;
   currentfilvalShow: boolean = false;
   searchPerformed: boolean = false;
+  SearchApi = false;
+  Empty = "";
 
   constructor(
     private service: FarginServiceService,
     private toastr: ToastrService,
   ) { }
+
   ngOnInit(): void {
 
     this.service.rolegetById(this.roleId).subscribe({
@@ -88,14 +92,14 @@ export class EntitySmsViewallComponent {
           this.getdashboard = res.response?.subPermission;
 
           if (this.roleId == 1) {
-            this.valueentitysmsexport = 'Entity Sms-Export';
+            this.valueentitysmsexport = 'Entity WhatsApp-Export';
           }
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
 
-              if (this.actions == 'Entity Sms-Export') {
-                this.valueentitysmsexport = 'Entity Sms-Export';
+              if (this.actions == 'Entity WhatsApp-Export') {
+                this.valueentitysmsexport = 'Entity WhatsApp-Export';
               }
             }
           }
@@ -110,48 +114,56 @@ export class EntitySmsViewallComponent {
   }
 
   Getall() {
-    this.service.SmsGetAll(this.pageSize, this.pageIndex).subscribe((res: any) => {
+    const formData = new FormData();
+    formData.append('content', '');
+    formData.append('size', '5');
+    formData.append('pageNumber', '0');
+
+    this.service.MerchatWhatsAPPGetall(formData).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.smsResponse = res.response;
+        this.Viewall = res.response;
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.smsResponse);
+        this.dataSource = new MatTableDataSource(this.Viewall);
         this.currentfilvalShow = false;
       } else if (res.flag == 2) {
-        this.smsResponse = [];
+        this.Viewall = [];
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.smsResponse);
+        this.dataSource = new MatTableDataSource(this.Viewall);
         this.currentfilvalShow = false;
       }
-    });
+    })
   };
 
-  smsSearch(filterValue: string) {
+  Search(filterValue: string) {
     if (filterValue) {
-      this.service.SmsviewallSearch(filterValue, this.pageSize, this.pageIndex).subscribe({
-        next: (res: any) => {
-          if (res.response) {
-            this.transaction = res.response;
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSource = new MatTableDataSource(this.transaction);
-            this.currentfilvalShow = true;
-          } else if (res.flag == 2) {
-            this.transaction = [];
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSource = new MatTableDataSource(this.transaction);
-            this.currentfilvalShow = true;
-          }
-        },
-      });
-    }
+      const formData = new FormData();
+      formData.append('content', filterValue);
+      formData.append('size', '5');
+      formData.append('pageNumber', '0');
 
+      this.service.MerchatWhatsAPPGetall(formData).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.Viewall = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.Viewall);
+          this.currentfilvalShow = true;
+        }
+        else if (res.flag == 2) {
+          this.Viewall = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.Viewall);
+          this.currentfilvalShow = true;
+        }
+      })
+    }
     if (!filterValue) {
       this.toastr.error('Please enter a value to search');
       return;
@@ -160,64 +172,76 @@ export class EntitySmsViewallComponent {
 
   getData(event: any) {
     if (this.currentfilvalShow) {
-      this.service.SmsviewallSearch(this.currentfilval, event.pageSize, event.pageIndex).subscribe({
-        next: (res: any) => {
-          if (res.response) {
-            this.transaction = res.response;
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSource = new MatTableDataSource(this.transaction);
-          } else if (res.flag == 2) {
-            this.transaction = [];
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSource = new MatTableDataSource(this.transaction);
-          }
-        },
-      });
+      const formData = new FormData();
+      formData.append('content', this.currentfilval);
+      formData.append('size', event.pageSize);
+      formData.append('pageNumber', event.pageIndex);
+
+      this.service.MerchatWhatsAPPGetall(formData).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.Viewall = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.Viewall);
+        }
+        else if (res.flag == 2) {
+          this.Viewall = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.Viewall);
+        }
+      })
     }
     else {
-      this.service.SmsGetAll(event.pageSize, event.pageIndex).subscribe((res: any) => {
+      const formData = new FormData();
+      formData.append('content', '');
+      formData.append('size', event.pageSize);
+      formData.append('pageNumber', event.pageIndex);
+      this.service.MerchatWhatsAPPGetall(formData).subscribe((res: any) => {
         if (res.flag == 1) {
-          this.smsResponse = res.response;
+          this.Viewall = res.response;
           this.totalPages = res.pagination.totalElements;
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.smsResponse);
-        } else if (res.flag == 2) {
-          this.smsResponse = [];
+          this.dataSource = new MatTableDataSource(this.Viewall);
+
+        }
+        else if (res.flag == 2) {
+          this.Viewall = [];
           this.totalPages = res.pagination.totalElements;
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.smsResponse);
+          this.dataSource = new MatTableDataSource(this.Viewall);
         }
       });
     }
-  }
-
+  };
+  
   exportexcel() {
-    this.service.SmsGetAllExport().subscribe((res: any) => {
-      this.smsResponseexport = res.response;
+    this.service.MerchatWhatsAppGetallExport().subscribe((res: any) => {
+      this.WhatsappResponseexport = res.response;
       if (res.flag == 1) {
         let sno = 1;
         this.responseDataListnew = [];
-        this.smsResponseexport.forEach((element: any) => {
+        this.WhatsappResponseexport.forEach((element: any) => {
           let createdate = element.createdDateTime;
           this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
           this.response = [];
           this.response.push(sno);
-          this.response.push(element?.merchantId?.accountId);
-          this.response.push(element?.merchantId?.entityName);
-          this.response.push(element?.merchantId?.contactEmail);
-          this.response.push(element?.type?.smsTitle);
-          if (element?.smsStatus == 1) { this.response.push('Active'); }
+          this.response.push(element?.entityName);
+          this.response.push(element?.vendorName);
+          if (element?.templateType == 'Merchant') { this.response.push('Merchant'); }
+          else if (element?.templateType == 'Customer') { this.response.push('Customer'); }
+          this.response.push(element?.templateTitle);
+          if (element?.smsEnableStatus == 'ACTIVE') { this.response.push('Active'); }
           else { this.response.push('InActive'); }
           this.response.push(element?.smsCharge);
+          if (element?.templateLanguage == 'en') { this.response.push('English'); }
+          else if (element?.templateLanguage == 'ta') { this.response.push('Tamil'); }
           this.response.push(element?.smsCount);
           this.response.push(element?.createdBy);
-
           if (element.createdDateTime) {
             this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
           }
@@ -234,16 +258,17 @@ export class EntitySmsViewallComponent {
 
   excelexportCustomer() {
     const header = [
-      'S.No',
-      'Account Id',
-      'Entity Name',
-      'Entity Email',
-      'SMS Type',
+      'S.NO',
+      'EntityName',
+      'Vendor',
+      'Recipient',
+      'Title',
       'Status',
       'Charges',
-      'SMS Count',
-      'Created By',
-      'Created At',
+      'Language',
+      'count',
+      'createdBy',
+      'Craeteed At',
     ];
 
     const data = this.responseDataListnew;
@@ -280,6 +305,9 @@ export class EntitySmsViewallComponent {
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
+      let qty10 = row.getCell(11);
+
+
 
       qty.border = {
         top: { style: 'thin' },
@@ -341,10 +369,16 @@ export class EntitySmsViewallComponent {
         bottom: { style: 'thin' },
         right: { style: 'thin' },
       };
+      qty10.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
     });
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', });
-      FileSaver.saveAs(blob, 'Entity-Sms.xlsx');
+      FileSaver.saveAs(blob, 'Entity WhatsApp Services.xlsx');
     });
   }
 }

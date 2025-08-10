@@ -93,6 +93,7 @@ export class EntityViewallComponent {
   setupboxhistory: any;
   searchPerformed: boolean = false;
   RenewelFee: any;
+  valueWhatsappsetting: any;
 
   constructor(
     public EntityViewall: FarginServiceService,
@@ -132,6 +133,7 @@ export class EntityViewallComponent {
             this.entitybranch = 'Entity View Branch';
             this.valuecloud = 'Entity View Cloud Fee AutoDebit';
             this.RenewelFee = 'Entity View Renewal Fee AutoDebit';
+            this.valueWhatsappsetting = 'Entity View-WhatsApp Settings';
           }
           else {
             for (let datas of this.getdashboard) {
@@ -209,8 +211,11 @@ export class EntityViewallComponent {
               if (this.actions1 == 'Entity View Branch') {
                 this.entitybranch = 'Entity View Branch'
               }
-              if (this.actions == 'Entity View Renewal Fee AutoDebit') {
+              if (this.actions1 == 'Entity View Renewal Fee AutoDebit') {
                 this.RenewelFee = 'Entity View Renewal Fee AutoDebit'
+              }
+              if (this.actions1 == 'Entity View-WhatsApp Settings') {
+                this.valueWhatsappsetting = 'Entity View-WhatsApp Settings'
               }
 
             }

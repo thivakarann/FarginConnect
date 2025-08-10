@@ -115,7 +115,7 @@ export class UpdatewhatsappServiceComponent implements OnInit {
       templateDescription: selectedTemplate?.templateDescription,
       templateLanguage: this.tempLanguage?.value,
       smsEnableStatus: this.data?.value?.smsEnableStatus,
-      modifiedBy: this.getadminname
+      modifedBy: this.getadminname
     }
 
     this.service.UpdateMerchatWhatappService(submitModel).subscribe((res: any) => {

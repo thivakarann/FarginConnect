@@ -928,6 +928,10 @@ export class FarginServiceService {
   private readonly UpdateMerchantWhatapp = 'merchantWhatsapp/update/template';
   private readonly merchatWhatappStatus = 'merchantWhatsapp/updateStatus';
   private readonly merchatWhapappApproval = 'merchantWhatsapp/updateApprovalStatus';
+  private readonly MechantsWhatsappGetall = 'merchantWhatsapp/filter';
+  private readonly MechantsWhatsappGetallexport = 'merchantWhatsapp/viewAll';
+  private readonly WhatsappHistory = 'whatsappHistory/viewallAndSearch';
+  private readonly whatsapphistoryFilter = 'whatsappHistory/viewAllFilter/'
 
 
 
@@ -5069,6 +5073,24 @@ export class FarginServiceService {
   MerchatWhatappServiceApproval(model:any){
     return this.http.put(`${this.basePath}${this.merchatWhapappApproval}`,model,this.options)
   }
+
+  MerchatWhatsAPPGetall(formdata:FormData){
+    return this.http.post(`${this.basePath}${this.MechantsWhatsappGetall}`,formdata,this.optionsMultipart)
+  }
+  MerchatWhatsAppGetallExport(){
+    return this.http.get(`${this.basePath}${this.MechantsWhatsappGetallexport}`,this.options)
+  }
+
+  WhatsAPPHistorys(formdata:FormData){
+    return this.http.post(`${this.basePath}${this.WhatsappHistory}`,formdata,this.optionsMultipart)
+  }
+
+  WhatsAPPHistorysFilters(id1:any,id2:any,id3:any,id4:any){
+    return this.http.get(`${this.basePath}${this.whatsapphistoryFilter}${id1}/${id2}/${id3}/${id4}`,this.options)
+  }
+
+
+
 
 
 }

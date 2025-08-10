@@ -1627,7 +1627,7 @@ export interface UpdateWhatappService {
   readonly templateDescription: any;
   readonly templateLanguage: any;
   readonly smsEnableStatus: any;
-  readonly modifiedBy:any;
+  readonly modifedBy:any;
 }
 
 export interface WhatappserviceStatus{

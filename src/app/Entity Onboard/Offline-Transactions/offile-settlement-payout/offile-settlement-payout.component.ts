@@ -1,6 +1,5 @@
 import { DatePipe, Location } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,7 +7,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
 import moment from 'moment';
-import { ToastrService } from 'ngx-toastr';
 import { PayoutOfflineSettlement } from '../../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 
@@ -26,8 +24,6 @@ export class OffileSettlementPayoutComponent {
     'Amount',
     'txnReference',
     'txnTime'
-
-
   ];
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
@@ -59,11 +55,10 @@ export class OffileSettlementPayoutComponent {
   length: any;
   pageIndex: any;
   pageSize: any;
- filterAction:any = 0;
+  filterAction: any = 0;
 
   constructor(
     private service: FarginServiceService,
-    private toastr: ToastrService,
     private ActivateRoute: ActivatedRoute,
     private location: Location,
 
@@ -102,7 +97,7 @@ export class OffileSettlementPayoutComponent {
         this.pageSize = this.Viewall.size;
         this.dataSource = new MatTableDataSource(this.filteredData);
       }
-        if (this.filteredData.length === 0) {
+      if (this.filteredData.length === 0) {
         this.dataSource = new MatTableDataSource();
       }
     });
@@ -110,13 +105,13 @@ export class OffileSettlementPayoutComponent {
 
 
   reset() {
-     this.Daterange = '';
+    this.Daterange = '';
     let submitModel: PayoutOfflineSettlement = {
       merchantId: this.merchantId,
       pageNo: '0',
       size: '5',
       query: '',
-      dateRange:this.Daterange,
+      dateRange: this.Daterange,
       payoutId: this.pauoutid,
     };
     this.service.PayoutOfflineSettlement(submitModel).subscribe((res: any) => {
@@ -132,7 +127,7 @@ export class OffileSettlementPayoutComponent {
         this.ToDateRange = '';
 
       }
-  if (this.filteredData.length === 0) {
+      if (this.filteredData.length === 0) {
         this.dataSource = new MatTableDataSource();
       }
     });

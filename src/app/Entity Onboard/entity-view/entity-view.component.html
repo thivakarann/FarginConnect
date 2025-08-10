@@ -98,7 +98,7 @@
 
 
 <div class="tab-container"
-  [hidden]="valueGeneral !== 'Entity View General Information' && valuebankinfo !== 'Entity View Bank Information' && valuekycdocument !== 'Entity View KYC Document' && valuebussinessdocument !== 'Entity View Bussiness Document'&& valuefinalapproval !== 'Entity View Final Approval'&& valuemanualpayment !== 'Entity View One Time Setup Payment'&& valueCustomized !== 'Entity View Customized Payment'&&valuesmssetting !== 'Entity View-SMS Settings'&&valueagreement !== 'Entity View Agreement'&& valuebranch !== 'Entity View Branch'">
+  [hidden]="valueGeneral !== 'Entity View General Information' && valuebankinfo !== 'Entity View Bank Information' && valuekycdocument !== 'Entity View KYC Document' && valuebussinessdocument !== 'Entity View Bussiness Document'&& valuefinalapproval !== 'Entity View Final Approval'&& valuemanualpayment !== 'Entity View One Time Setup Payment'&& valueCustomized !== 'Entity View Customized Payment'&&valuesmssetting !== 'Entity View-SMS Settings'&&valueagreement !== 'Entity View Agreement'&& valuebranch !== 'Entity View Branch' && valueWhatsappsetting!=='Entity View-WhatsApp Settings' ">
 
   <div class="info-tab-wrapper">
     <button class="info-tab-arrow" (click)="scrollInfoTabs('prev')"><i style="color:#141e46"
@@ -1815,18 +1815,6 @@
             Create
           </button>
         </div>
-        <div class="col-md-3"></div>
-        <!-- <div class="col-md-4 mt-1">
-          <div>
-            <article style="padding: 1%; padding-left: 25px">
-              <div class="w-100">
-                <div class="d-flex flex-md-row flex-column">
-                  <h5 class="mr-3">Charge Per Sms : ₹{{ chargepersms }}</h5>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div> -->
       </div>
     </mat-card-header>
 
@@ -1869,9 +1857,12 @@
                     <span *ngIf="item?.templateType=='Merchant'">Merchant</span>
                     <span *ngIf="item?.templateType=='Customer'">Customer</span>
                   </td>
-                <td>{{ item?.smsCharge }}</td>
+                <td>
+                 <Span *ngIf="item?.smsCharge == 'Applicable'" style="color: #28a745;">Applicable</Span>
+                <Span *ngIf="item?.smsCharge == 'Not Applicable'" style="color:#dc3545;">Not Applicable</Span>
+                  </td>
                 <td>{{ item?.smsCount }}</td>
-                <td>{{ item?.templateName }}</td>
+                <td>{{ item?.templateTitle }}</td>
                 <td>
                   <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye"
                     (click)="Whatsappdescription(item?.templateDescription)">
