@@ -30,7 +30,8 @@
 
 <!-- TAB ONE STARTS -->
 
-<div class="nav-wrapper">
+<div class="nav-wrapper"
+  [hidden]="valueentitytransaction!= 'Entity View Due Transactions' && valuentityOffline != 'Entity View Offline' && branchtrans!= 'Entity View-Branch-Transactions' && valuentitysettlement!= 'Entity View Settlement' && valueentityRefund!= 'Entity View Refund' && valueentityautodebit!= 'Entity View Cloud Fee AutoDebit' && RenewelFee!= 'Entity View Renewal Fee AutoDebit' && valueEntityqrs!= 'Entity View QR' && valueentityCustomers!= 'Entity View Customer' && valueentitypaylink!= 'Entity View Payment Link'">
 
   <button class="nav-arrow" (click)="scrollTabs('prev')"><i style="color:#141e46"
       class="fa-solid fa-backward"></i></button>
@@ -922,7 +923,8 @@
                   </td>
                   <td>{{ item.identityAdminApprovedBy !=null ? (item.identityAdminApprovedBy) : "-"}}</td>
                   <td>
-                    {{item.identityAdminApprovedDate != "NA" ? (item.identityAdminApprovedDate | date: "dd/MM/yyyyhh:mm a") : "-"}}
+                    {{item.identityAdminApprovedDate != "NA" ? (item.identityAdminApprovedDate | date: "dd/MM/yyyyhh:mm
+                    a") : "-"}}
                   </td>
                   <td [hidden]=" valuekyccomment !== 'Entity View KYC Document-comments'">
                     <span (click)="KYCComments(item.identityAdminComments)">
@@ -1030,7 +1032,8 @@
 
                   <td>{{ item.addressAdminApprovedBy !=null ? (item.addressAdminApprovedBy) : "-"}}</td>
                   <td>
-                    {{ item.addressAdminApprovedDate != "NA" ? (item.addressAdminApprovedDate | date: "dd/MM/yyyy hh:mm a") : "-"}}
+                    {{ item.addressAdminApprovedDate != "NA" ? (item.addressAdminApprovedDate | date: "dd/MM/yyyy hh:mm
+                    a") : "-"}}
                   </td>
                   <td [hidden]="valuekyccomment !== 'Entity View KYC Document-comments'">
                     <span (click)="KYCComments(item.addressAdminComments)">
@@ -1140,7 +1143,8 @@
                   </td>
                   <td>{{ item.signatureAdminApprovedBy!=null ? (item.signatureAdminApprovedBy) : "-"}}</td>
                   <td>
-                    {{ item.signatureAdminApprovedDate != "NA" ? (item.signatureAdminApprovedDate | date: "dd/MM/yyyy hh:mm a") : "-"}}
+                    {{ item.signatureAdminApprovedDate != "NA" ? (item.signatureAdminApprovedDate | date: "dd/MM/yyyy
+                    hh:mm a") : "-"}}
                   </td>
                   <td [hidden]="valuekyccomment !== 'Entity View KYC Document-comments'">
                     <span (click)="KYCComments(item.signatureAdminComments)">
@@ -1349,7 +1353,8 @@
                   {{ detaislone.approvedByL2 !=null ? (detaislone.approvedByL2) : "-"}}
                 </td>
                 <td class="text-center">
-                  {{ detaislone.approvedDateTimeL2 != "NA" ? (detaislone.approvedDateTimeL2 | date: "dd/MM/yyyy hh:mma") : "-"}}
+                  {{ detaislone.approvedDateTimeL2 != "NA" ? (detaislone.approvedDateTimeL2 | date: "dd/MM/yyyy hh:mma")
+                  : "-"}}
                 </td>
               </tbody>
             </table>
@@ -1774,7 +1779,7 @@
 
   <!-- SMS SETTINGS INFO ENDS -->
 
-    <!-- WHATSAPP SETTINGS INFO STARTS -->
+  <!-- WHATSAPP SETTINGS INFO STARTS -->
 
   <div *ngIf="activeTab === 'doot7'">
     <mat-card-header>
@@ -1845,22 +1850,22 @@
             itemsPerPage: itemsPerPage,currentPage: currentwhatsapp };let i = index">
                 <td>{{ i + 1 }}</td>
                 <td>{{item?.vendorName}}</td>
-                   <td>
+                <td>
                   <span *ngIf="item?.templateLanguage=='en'">
                     English
                   </span>
-                    <span *ngIf="item?.templateLanguage=='ta'">
+                  <span *ngIf="item?.templateLanguage=='ta'">
                     Tamil
                   </span>
-                   </td>
-                  <td>
-                    <span *ngIf="item?.templateType=='Merchant'">Merchant</span>
-                    <span *ngIf="item?.templateType=='Customer'">Customer</span>
-                  </td>
+                </td>
                 <td>
-                 <Span *ngIf="item?.smsCharge == 'Applicable'" style="color: #28a745;">Applicable</Span>
-                <Span *ngIf="item?.smsCharge == 'Not Applicable'" style="color:#dc3545;">Not Applicable</Span>
-                  </td>
+                  <span *ngIf="item?.templateType=='Merchant'">Merchant</span>
+                  <span *ngIf="item?.templateType=='Customer'">Customer</span>
+                </td>
+                <td>
+                  <Span *ngIf="item?.smsCharge == 'Applicable'" style="color: #28a745;">Applicable</Span>
+                  <Span *ngIf="item?.smsCharge == 'Not Applicable'" style="color:#dc3545;">Not Applicable</Span>
+                </td>
                 <td>{{ item?.smsCount }}</td>
                 <td>{{ item?.templateTitle }}</td>
                 <td>
@@ -1870,7 +1875,8 @@
                 </td>
                 <td [hidden]="valuewhatsappstatus !== 'WhatsApp Setting-Status'">
                   <span>
-                    <mat-slide-toggle class="example-margin" color="primary" [checked]="item.smsEnableStatus == 'ACTIVE'"
+                    <mat-slide-toggle class="example-margin" color="primary"
+                      [checked]="item.smsEnableStatus == 'ACTIVE'"
                       (change)="WhatsappStatus($event,item.merchantWhatsAppId)" style="transform: scale(0.9);padding:0">
                     </mat-slide-toggle>
                   </span>
@@ -1880,7 +1886,7 @@
                     <i class="fas fa-edit" style="font-size: 15px; color: rgb(39, 39, 95)"></i>
                   </span>
                 </td>
-                    <td class="text-center" [hidden]="valuewhatsappapproval !== 'WhatsApp Setting-Approval'">
+                <td class="text-center" [hidden]="valuewhatsappapproval !== 'WhatsApp Setting-Approval'">
                   <span>
                     <button class="buttonDownload" [disabled]="item.smsApprovalStatus !== 'Rejected'"
                       (click)="WhatssappApproval(item.merchantWhatsAppId)" style="font-size:14px;padding:2px">

@@ -65,16 +65,16 @@ export class EntitySettlementComponent {
   pageIndex: any;
   pageSize: any;
   datas: any;
- filterAction:any = 0;
+  filterAction: any = 0;
   constructor(
     public MerchantView: FarginServiceService,
     private router: Router,
     private ActivateRoute: ActivatedRoute,
     private Location: Location
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-      const today = new Date();
+    const today = new Date();
     this.maxDate = moment(today).format('yyyy-MM-DD').toString();
 
     this.MerchantView.rolegetById(this.roleId).subscribe({
@@ -155,10 +155,11 @@ export class EntitySettlementComponent {
       console.log(this.Viewall);
 
       this.content = this.Viewall?.data?.content || [];
-      console.log(this.content);
+      console.log(this.datas);
       this.filteredData = this.content;
       this.datas = this.Viewall.data;
       this.length = this.datas.totalElements;
+      console.log(this.datas);
       this.pageIndex = this.datas.number;
       this.pageSize = this.datas.size;
       this.dataSource = new MatTableDataSource(this.filteredData);
@@ -173,11 +174,11 @@ export class EntitySettlementComponent {
     const datepipe: DatePipe = new DatePipe('en-US');
     let formattedstartDate = datepipe.transform(
       this.FromDateRange,
-  'dd/MM/YYYY HH:mm'
+      'dd/MM/YYYY HH:mm'
     );
     let formattedendDate = datepipe.transform(
       this.ToDateRange,
-         'dd/MM/yyyy HH:mm'
+      'dd/MM/yyyy HH:mm'
     );
     this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
     this.currentPage = 0;
@@ -198,7 +199,6 @@ export class EntitySettlementComponent {
         this.length = this.datas.totalElements;
         this.pageIndex = this.datas.number;
         this.pageSize = this.datas.size;
-
         this.dataSource = new MatTableDataSource(this.filteredData);
         this.filterAction = 1
 
@@ -354,6 +354,9 @@ export class EntitySettlementComponent {
   }
   reset() {
     this.Daterange = '';
+
+    this.filterAction = 0;
+    
     let submitModel: settlement = {
       merchantId: this.id,
       pageNo: '0',
@@ -389,11 +392,11 @@ export class EntitySettlementComponent {
       const datepipe: DatePipe = new DatePipe('en-US');
       let formattedstartDate = datepipe.transform(
         this.FromDateRange,
-         'dd/MM/YYYY HH:mm'
+        'dd/MM/YYYY HH:mm'
       );
       let formattedendDate = datepipe.transform(
         this.ToDateRange,
-          'dd/MM/yyyy HH:mm'
+        'dd/MM/yyyy HH:mm'
       );
       this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
       this.currentPage = 0;
@@ -411,7 +414,8 @@ export class EntitySettlementComponent {
           this.content = this.Viewall?.data?.content;
           this.datas = this.Viewall.data;
           this.length = this.datas.totalElements;
-
+          this.pageIndex = this.datas.number;
+          this.pageSize = this.datas.size;
           this.dataSource = new MatTableDataSource(this.filteredData);
 
           if (this.content.length === 0) {
@@ -437,7 +441,8 @@ export class EntitySettlementComponent {
         this.filteredData = this.content;
         this.datas = this.Viewall.data;
         this.length = this.datas.totalElements;
-
+        this.pageIndex = this.datas.number;
+        this.pageSize = this.datas.size;
         this.dataSource = new MatTableDataSource(this.filteredData);
 
         if (this.content.length === 0) {

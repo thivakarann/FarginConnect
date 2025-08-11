@@ -12,7 +12,7 @@ import {
 } from '../../fargin-model/fargin-model.module';
 interface Option {
   entityName: string;
-  merchantLegalName:string;
+  merchantLegalName: string;
   merchantId: number;
 }
 
@@ -56,7 +56,7 @@ export class ExportReportAddComponent implements OnInit {
     public service: FarginServiceService,
     private toastr: ToastrService,
     private dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const today = new Date();
@@ -142,28 +142,28 @@ export class ExportReportAddComponent implements OnInit {
     const paymentrefundmethod = this.myForm.get('paymentrefundmethod')?.value;
 
 
-    if (selectedValue == '23' && startDate && endDate && !paymentStatus && paymentrefundmethod =='1') {
+    if (selectedValue == '23' && startDate && endDate && !paymentStatus && paymentrefundmethod == '1') {
       this.exportTypes = 1;
       this.Branchsubmit();
-    } 
-    else   if (selectedValue == '23' && startDate && endDate && !paymentStatus && paymentrefundmethod =='2') {
+    }
+    else if (selectedValue == '23' && startDate && endDate && !paymentStatus && paymentrefundmethod == '2') {
       this.exportTypes = 1;
       this.Branchsubmit();
-    } 
-       else if (selectedValue == '23' && startDate && endDate && paymentStatus && paymentrefundmethod =='1') {
+    }
+    else if (selectedValue == '23' && startDate && endDate && paymentStatus && paymentrefundmethod == '1') {
       this.exportTypes = 0;
       this.Branchsubmit();
     }
-     else if (selectedValue == '23' && startDate && endDate && paymentStatus && paymentrefundmethod =='2') {
+    else if (selectedValue == '23' && startDate && endDate && paymentStatus && paymentrefundmethod == '2') {
       this.exportTypes = 0;
       this.Branchsubmit();
     }
-  
-     else if (selectedValue == '20' && startDate && endDate && paymentrefundmethod =='1') {
+
+    else if (selectedValue == '20' && startDate && endDate && paymentrefundmethod == '1') {
       this.exportTypes = 1;
       this.submit();
     }
-      else if (selectedValue == '20' && startDate && endDate && paymentrefundmethod =='2') {
+    else if (selectedValue == '20' && startDate && endDate && paymentrefundmethod == '2') {
       this.exportTypes = 2;
       this.submit();
     }
@@ -408,7 +408,7 @@ export class ExportReportAddComponent implements OnInit {
       paymentStatus: this.paymentStatus?.value,
       type: 2,
       branchId: this.newBranchId,
-      branchType:this.paymentrefundmethod?.value
+      branchType: this.paymentrefundmethod?.value
     };
     this.service.ExportReportAdd(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {

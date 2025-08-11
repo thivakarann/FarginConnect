@@ -23,9 +23,9 @@ export class WhatsAppHistoryComponent implements OnInit {
     'mobileNumber',
     'Vendor',
     'templateType',
+    'Lan',
     'Title',
     'TempDescription',
-    'Lan',
     'Charges',
     'smsAmount',
     'responseStatus',
@@ -238,7 +238,7 @@ export class WhatsAppHistoryComponent implements OnInit {
       formData.append('content', '');
       formData.append('size', event.pageSize);
       formData.append('pageNumber', event.pageIndex);
-      this.service.MerchatWhatsAPPGetall(formData).subscribe((res: any) => {
+      this.service.WhatsAPPHistorys(formData).subscribe((res: any) => {
         if (res.flag == 1) {
           this.Viewall = res.response;
           this.totalPages = res.pagination.totalElements;

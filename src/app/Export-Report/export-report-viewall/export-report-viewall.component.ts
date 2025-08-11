@@ -87,7 +87,7 @@ export class ExportReportViewallComponent implements OnInit {
               if (this.actions == 'Export Report-Download') {
                 this.value = 'Export Report-Download'
               }
-               if (this.actions == 'Export Report-Add') {
+              if (this.actions == 'Export Report-Add') {
                 this.valueadd = 'Export Report-Add'
               }
 
@@ -174,6 +174,7 @@ export class ExportReportViewallComponent implements OnInit {
       ChannelCreation = 18,
       CustomizedPayment = 19,
       SmsHistory = 15,
+      WhatsappHistory = 26,
       EntityRequest = 16,
       CustomerRequest = 17,
       OnlineRefund = 20,
@@ -193,6 +194,7 @@ export class ExportReportViewallComponent implements OnInit {
       [ExportDataName.ChannelCreation]: 'Channel_Creation',
       [ExportDataName.CustomizedPayment]: 'Customized_Payment',
       [ExportDataName.SmsHistory]: 'SMS_History',
+      [ExportDataName.WhatsappHistory]: 'WhatsApp_History',
       [ExportDataName.EntityRequest]: 'Entity_Request',
       [ExportDataName.CustomerRequest]: 'Customer_Request',
       [ExportDataName.OnlineRefund]: 'Online_Refund',
