@@ -109,7 +109,7 @@ export class AddWhatsappServiceComponent implements OnInit {
       vendorId: this.vendorId?.value,
       smsCharge: this.smsCharge?.value,
       whatsappTemplateId: selectedId,
-      templateDescription: selectedTemplate?.templateDescription,
+      // templateCode: selectedTemplate?.templateCode,
       templateLanguage: this.tempLanguage?.value,
       createdBy: this.getadminname
     };

@@ -89,8 +89,11 @@ export class SettlementViewComponent implements OnInit {
 
     this.service.entitySettleTransaction(submitModel).subscribe((res: any) => {
       this.Viewall = JSON.parse(res?.response);
+
       this.viewdata = this.Viewall?.data?.content;
+            console.log(this.viewdata)
       this.datas = this.Viewall.data;
+      console.log(this.datas)
       this.length = this.datas.totalElements;
       this.pageIndex = this.datas.number;
       this.pageSize = this.datas.size;
@@ -100,6 +103,8 @@ export class SettlementViewComponent implements OnInit {
         this.dataSource = new MatTableDataSource();
       }
     });
+          this.FromDateRange = '';
+        this.ToDateRange = '';
   }
 
   applyFilter(event: Event) {
@@ -123,7 +128,6 @@ export class SettlementViewComponent implements OnInit {
         'dd/MM/yyyy HH:mm'
     );
     this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
-    this.currentPage = 0;
     let submitModel: settlements = {
       pageNo: '0',
       size: '5',
@@ -136,14 +140,18 @@ export class SettlementViewComponent implements OnInit {
     };
 
     this.service.entitySettleTransaction(submitModel).subscribe((res: any) => {
-      this.Viewall = JSON.parse(res?.response);
+     this.Viewall = JSON.parse(res?.response);
+
       this.viewdata = this.Viewall?.data?.content;
+            console.log(this.viewdata)
       this.datas = this.Viewall.data;
+      console.log(this.datas)
       this.length = this.datas.totalElements;
       this.pageIndex = this.datas.number;
       this.pageSize = this.datas.size;
       this.dataSource = new MatTableDataSource(this.viewdata);
-      this.filterAction = 1
+
+      this.filterAction=1;
 
       if (this.viewdata.length === 0) {
         this.dataSource = new MatTableDataSource();
@@ -163,6 +171,7 @@ export class SettlementViewComponent implements OnInit {
       merchantId: this.merchantid,
     };
 
+   
     this.service.entitySettleTransaction(submitModel).subscribe((res: any) => {
       this.Viewall = JSON.parse(res?.response);
       this.viewdata = this.Viewall?.data?.content;
@@ -170,14 +179,13 @@ export class SettlementViewComponent implements OnInit {
       this.length = this.datas.totalElements;
       this.pageIndex = this.datas.number;
       this.pageSize = this.datas.size;
-      this.FromDateRange = '';
-      this.ToDateRange = '';
       this.dataSource = new MatTableDataSource(this.viewdata);
+        
 
       if (this.viewdata.length === 0) {
         this.dataSource = new MatTableDataSource();
       }
-    });
+    })
   }
 
 
@@ -210,7 +218,8 @@ export class SettlementViewComponent implements OnInit {
         this.viewdata = this.Viewall?.data?.content;
         this.datas = this.Viewall.data;
         this.length = this.datas.totalElements;
-
+         this.pageIndex = this.datas.number;
+      this.pageSize = this.datas.size;
         this.dataSource = new MatTableDataSource(this.viewdata);
 
         if (this.viewdata.length === 0) {
@@ -235,7 +244,8 @@ export class SettlementViewComponent implements OnInit {
         this.viewdata = this.Viewall?.data?.content;
         this.datas = this.Viewall.data;
         this.length = this.datas.totalElements;
-
+      this.pageIndex = this.datas.number;
+      this.pageSize = this.datas.size;
         this.dataSource = new MatTableDataSource(this.viewdata);
 
         if (this.viewdata.length === 0) {

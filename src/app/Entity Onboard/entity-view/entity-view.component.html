@@ -923,8 +923,7 @@
                   </td>
                   <td>{{ item.identityAdminApprovedBy !=null ? (item.identityAdminApprovedBy) : "-"}}</td>
                   <td>
-                    {{item.identityAdminApprovedDate != "NA" ? (item.identityAdminApprovedDate | date: "dd/MM/yyyyhh:mm
-                    a") : "-"}}
+                {{item.identityAdminApprovedDate != "NA" ? (item.identityAdminApprovedDate | date: "dd/MM/yyyyhh:mm a") : "-"}}
                   </td>
                   <td [hidden]=" valuekyccomment !== 'Entity View KYC Document-comments'">
                     <span (click)="KYCComments(item.identityAdminComments)">
@@ -1032,8 +1031,7 @@
 
                   <td>{{ item.addressAdminApprovedBy !=null ? (item.addressAdminApprovedBy) : "-"}}</td>
                   <td>
-                    {{ item.addressAdminApprovedDate != "NA" ? (item.addressAdminApprovedDate | date: "dd/MM/yyyy hh:mm
-                    a") : "-"}}
+                    {{ item.addressAdminApprovedDate != "NA" ? (item.addressAdminApprovedDate | date: "dd/MM/yyyy hh:mm a") : "-"}}
                   </td>
                   <td [hidden]="valuekyccomment !== 'Entity View KYC Document-comments'">
                     <span (click)="KYCComments(item.addressAdminComments)">
@@ -1143,8 +1141,7 @@
                   </td>
                   <td>{{ item.signatureAdminApprovedBy!=null ? (item.signatureAdminApprovedBy) : "-"}}</td>
                   <td>
-                    {{ item.signatureAdminApprovedDate != "NA" ? (item.signatureAdminApprovedDate | date: "dd/MM/yyyy
-                    hh:mm a") : "-"}}
+                    {{ item.signatureAdminApprovedDate != "NA" ? (item.signatureAdminApprovedDate | date: "dd/MM/yyyy hh:mm a") : "-"}}
                   </td>
                   <td [hidden]="valuekyccomment !== 'Entity View KYC Document-comments'">
                     <span (click)="KYCComments(item.signatureAdminComments)">

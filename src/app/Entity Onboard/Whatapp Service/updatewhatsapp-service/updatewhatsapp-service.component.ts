@@ -112,7 +112,7 @@ export class UpdatewhatsappServiceComponent implements OnInit {
       vendorId: this.vendorId?.value,
       smsCharge: this.smsCharge?.value,
       whatsappTemplateId: selectedId,
-      templateDescription: selectedTemplate?.templateDescription,
+      templateCode: selectedTemplate?.templateCode,
       templateLanguage: this.tempLanguage?.value,
       smsEnableStatus: this.data?.value?.smsEnableStatus,
       modifedBy: this.getadminname

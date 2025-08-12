@@ -83,7 +83,7 @@
                     <mat-select formControlName="whatsappTemplateId" class="Selectsss">
                         <mat-option *ngFor="let item of TemplateDetails" [value]="item.whatsappTemplateId">
                             <div class="option-content">
-                                <span>{{ item?.templateName }}</span>
+                                <span>{{ item?.templateTitle }}</span>
                                 <i class="fa-solid fa-info" matTooltip="{{ item?.templateDescription }}"></i>
                             </div>
                         </mat-option>

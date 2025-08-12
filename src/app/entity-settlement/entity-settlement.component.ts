@@ -399,7 +399,6 @@ export class EntitySettlementComponent {
         'dd/MM/yyyy HH:mm'
       );
       this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
-      this.currentPage = 0;
       let submitModel: settlement = {
         merchantId: this.id,
         pageNo: event.pageIndex + 1,
@@ -414,9 +413,8 @@ export class EntitySettlementComponent {
           this.content = this.Viewall?.data?.content;
           this.datas = this.Viewall.data;
           this.length = this.datas.totalElements;
-          this.pageIndex = this.datas.number;
-          this.pageSize = this.datas.size;
-          this.dataSource = new MatTableDataSource(this.filteredData);
+
+          this.dataSource = new MatTableDataSource(this.content);
 
           if (this.content.length === 0) {
             this.dataSource = new MatTableDataSource();
@@ -441,8 +439,7 @@ export class EntitySettlementComponent {
         this.filteredData = this.content;
         this.datas = this.Viewall.data;
         this.length = this.datas.totalElements;
-        this.pageIndex = this.datas.number;
-        this.pageSize = this.datas.size;
+    
         this.dataSource = new MatTableDataSource(this.filteredData);
 
         if (this.content.length === 0) {

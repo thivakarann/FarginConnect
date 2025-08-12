@@ -30,6 +30,8 @@ export class FarginServiceService {
 
   private readonly basePath = 'https://dev-api.farginconnect.com/'; //  Dev Server
 
+  // private readonly basePath = 'http://192.168.7.4:8080/'
+
   // private readonly basePath = 'https://api.fargin.in/';       //  Production server
 
   // login

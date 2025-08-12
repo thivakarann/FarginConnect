@@ -1614,7 +1614,7 @@ export interface CraeteWhatappService {
   readonly vendorId: any;
   readonly smsCharge: any;
   readonly whatsappTemplateId: any;
-  readonly templateDescription: any;
+  // readonly templateCode: any;
   readonly templateLanguage: any;
   readonly createdBy: any;
 }
@@ -1624,7 +1624,7 @@ export interface UpdateWhatappService {
   readonly vendorId: any;
   readonly smsCharge: any;
   readonly whatsappTemplateId: any;
-  readonly templateDescription: any;
+  readonly templateCode: any;
   readonly templateLanguage: any;
   readonly smsEnableStatus: any;
   readonly modifedBy:any;
