@@ -118,7 +118,9 @@
       <ng-container matColumnDef="createdDateTime">
         <th mat-header-cell *matHeaderCellDef>Due Generated At</th>
         <td mat-cell *matCellDef="let transaction">
-          {{ transaction.createdDateTime | date : "dd-MM-yyyy hh:mm a" }}
+          <span *ngIf="transaction.status ==1">-</span>
+          <span *ngIf="transaction.status !=1">{{ transaction.createdDateTime | date : "dd-MM-yyyy hh:mm a" }}</span>
+
         </td>
       </ng-container>
 

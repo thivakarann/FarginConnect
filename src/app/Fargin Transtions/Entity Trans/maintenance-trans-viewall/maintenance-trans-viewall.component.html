@@ -94,12 +94,12 @@
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="creditAmount">
+      <!-- <ng-container matColumnDef="creditAmount">
         <th mat-header-cell *matHeaderCellDef>Credit Amount</th>
         <td mat-cell *matCellDef="let transaction">
           {{ transaction?.creditAmount?.toFixed(2)}}
         </td>
-      </ng-container>
+      </ng-container> -->
       <ng-container matColumnDef="cgst">
         <th mat-header-cell *matHeaderCellDef>CGST Percentage</th>
         <td mat-cell *matCellDef="let transaction">
@@ -135,7 +135,7 @@
       <ng-container matColumnDef="totalamount">
         <th mat-header-cell *matHeaderCellDef>Total Payable Amount</th>
         <td mat-cell *matCellDef="let transaction">
-          {{ transaction?.totalPayableAmount }}
+          {{ transaction?.totalPayableAmount.toFixed(2) }}
         </td>
       </ng-container>
 
@@ -162,13 +162,25 @@
       <ng-container matColumnDef="percount">
         <th mat-header-cell *matHeaderCellDef>Smscost Percount</th>
         <td mat-cell *matCellDef="let transaction">
-          {{ transaction?.smsPerAmount }}
+          {{ transaction?.smsPerAmount.toFixed(2) }}
         </td>
       </ng-container>
       <ng-container matColumnDef="totalcost">
         <th mat-header-cell *matHeaderCellDef>Total Smscost</th>
         <td mat-cell *matCellDef="let transaction">
-          {{ transaction?.smsTotalAmount }}
+          {{ transaction?.smsTotalAmount.toFixed(2) }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="whatsappSmsCount">
+        <th mat-header-cell *matHeaderCellDef>WhatsApp Message Count</th>
+        <td mat-cell *matCellDef="let transaction">
+          {{ transaction?.whatsappSmsCount }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="whatsappSmsTotalAmount">
+        <th mat-header-cell *matHeaderCellDef>WhatsApp Message Cost</th>
+        <td mat-cell *matCellDef="let transaction">
+          {{ transaction?.whatsappSmsTotalAmount.toFixed(2) }}
         </td>
       </ng-container>
 
@@ -182,7 +194,7 @@
       <ng-container matColumnDef="otherPayAmount">
         <th mat-header-cell *matHeaderCellDef>Otherpay Amount</th>
         <td mat-cell *matCellDef="let transaction">
-          {{ transaction?.otherPayAmount }}
+          {{ transaction?.otherPayAmount.toFixed(2) }}
         </td>
       </ng-container>
 

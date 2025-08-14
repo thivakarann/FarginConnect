@@ -103,10 +103,10 @@
                 <th mat-header-cell *matHeaderCellDef>Description</th>
                 <td mat-cell *matCellDef="let Viewall">
                     <div class="privacy-policy-container">
-                        <span *ngIf="!Visible">{{ Viewall.templateDescription| slice:0:limit }}</span>
-                        <span *ngIf="Visible">{{ Viewall.templateDescription }}</span>
+                        <span *ngIf="!Visible">{{ Viewall.smsMessage| slice:0:limit }}</span>
+                        <span *ngIf="Visible">{{ Viewall.smsMessage }}</span>
                         <i style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more"
-                            (click)="description(Viewall.templateDescription )">
+                            (click)="description(Viewall.smsMessage )">
                             {{ Visible ? 'Read Less' : '...Read More' }}
                         </i>
                     </div>
@@ -133,7 +133,7 @@
             <ng-container matColumnDef="smsAmount">
                 <th mat-header-cell *matHeaderCellDef>Cost</th>
                 <td mat-cell *matCellDef="let Viewall">
-                    {{Viewall?.perSmsAmount}}
+                    {{Viewall?.perSmsAmount.toFixed(2)}}
                 </td>
             </ng-container>
 

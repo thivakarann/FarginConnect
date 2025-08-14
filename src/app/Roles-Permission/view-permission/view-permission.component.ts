@@ -12,7 +12,7 @@ import { MatTableDataSource } from '@angular/material/table';
 export class ViewPermissionComponent {
   streetValue: any;
   permissionvalue: any;
-  currentPage: number = 1; // The current page number
+  currentPage: number = 1;
   searchText: any;
   dataSource: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;

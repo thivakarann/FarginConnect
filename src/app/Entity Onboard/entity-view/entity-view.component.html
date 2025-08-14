@@ -1735,12 +1735,15 @@
                     </button>
                   </span>
                 </td>
-                <td [ngClass]="{
+                <td>
+                <span *ngIf="item.smsCharge=='Free'">-</span>
+                <span *ngIf="item.smsCharge!='Free'"
+                 [ngClass]="{
                   approved: item?.smsApprovalStatus == 'approved',
                   rejected: item?.smsApprovalStatus == 'rejected',
-                  pending: item?.smsApprovalStatus == 'pending'
-                }">
-                  {{ item.smsApprovalStatus }}
+                  pending: item?.smsApprovalStatus == 'Pending'
+                }">{{ item.smsApprovalStatus }}</span>
+                 
                 </td>
                 <td [hidden]="valuesmsstatus !== 'Sms Setting-Status'">
                   <span>
@@ -1891,13 +1894,17 @@
                     </button>
                   </span>
                 </td>
-                <td [ngClass]="{
+                <td>
+                <span *ngIf="item?.smsCharge == 'Not Applicable'">-</span>
+                <span *ngIf="item?.smsCharge != 'Not Applicable'" 
+                [ngClass]="{
                   approved: item?.smsApprovalStatus == 'Approved',
                   rejected: item?.smsApprovalStatus == 'Rejected',
                   pending: item?.smsApprovalStatus == 'Pending'
                 }">
                   {{ item.smsApprovalStatus }}
-                </td>
+                </span>
+              </td>
                 <td>{{ item?.createdBy }}</td>
                 <td>{{ item?.createdDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
                 <td>{{ item?.modifedBy }}</td>

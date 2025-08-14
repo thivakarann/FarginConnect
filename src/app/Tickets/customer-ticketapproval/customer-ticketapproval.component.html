@@ -10,7 +10,7 @@
             <label for="subject">Approval Status</label>
             <select type="text" id="subject" class="form-control" formControlName="ticketStatus" required>
                 <option value="Open">Open</option>
-                <option value="close">Close</option>
+                <option value="Close">Close</option>
                 <option value="hold">Hold</option>
             </select>
             <span class="errormge" *ngIf="ticketStatus?.touched && ticketStatus?.errors?.['required']">Field

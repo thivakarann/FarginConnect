@@ -25,13 +25,13 @@
 
     <div class="col-md-3">
       <label><b>From Date</b></label>
-      <input onkeydown="return false;" class="form-control" type="datetime-local" name="FromDate" [(ngModel)]="FromDateRange"
-        (change)="checkDate()" [max]="maxDate" style="height:35px;border-radius: 5px;">
+      <input onkeydown="return false;" class="form-control" type="datetime-local" name="FromDate"
+        [(ngModel)]="FromDateRange" (change)="checkDate()" [max]="maxDate" style="height:35px;border-radius: 5px;">
     </div>
     <div class="col-md-3">
       <label><b>To Date</b></label>
-      <input onkeydown="return false;" class="form-control" type="datetime-local" name="ToDate" [(ngModel)]="ToDateRange"
-        [min]="FromDateRange" [max]="maxDate" style="height:35px;border-radius: 5px;">
+      <input onkeydown="return false;" class="form-control" type="datetime-local" name="ToDate"
+        [(ngModel)]="ToDateRange" [min]="FromDateRange" [max]="maxDate" style="height:35px;border-radius: 5px;">
     </div>
 
     <div class="col-md-1 mt-4">
@@ -41,7 +41,7 @@
 
     <div class="col-md-1 mt-4">
       <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button
-        (click)="postrenewal()">Reset</button>
+        (click)="resetFilter()">Reset</button>
     </div>
   </div>
 </mat-card-header>

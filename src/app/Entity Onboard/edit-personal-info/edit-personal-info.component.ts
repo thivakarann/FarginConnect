@@ -124,7 +124,8 @@ export class EditPersonalInfoComponent implements OnInit {
       logo: new FormControl(''),
       billingMode: new FormControl('', [Validators.required]),
 
-      autoDebitStatus: new FormControl('', [Validators.required]),
+      autoDebitStatus: new FormControl('',[Validators.required]),
+
       customerDuesEnable: new FormControl('', [Validators.required]),
 
       customerDuesDate: new FormControl(''),
@@ -200,8 +201,8 @@ export class EditPersonalInfoComponent implements OnInit {
       autoDebitControl?.disable();
     }
     else if (value === 'Yes') {
-      this.myForm.get('autoDebitStatus')?.setValue(this.detaislone?.autoDebitStatus);
-      // autoDebitControl?.reset();
+      this.myForm.get('autoDebitStatus')?.setValue(null);
+      autoDebitControl?.reset();
       autoDebitControl?.enable();
     }
   }

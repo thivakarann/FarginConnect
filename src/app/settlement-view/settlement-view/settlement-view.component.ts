@@ -21,13 +21,11 @@ export class SettlementViewComponent implements OnInit {
   responseDataListnew: any[] = [];
   filteredData: any;
   response: any[] = [];
-
   Viewall: any;
   viewdata: any;
   accountId: any;
-  currentPage: any = 1; // The current page number
-  itemsPerPage = 5; //
-
+  currentPage: any = 1;
+  itemsPerPage = 5;
   page: number = 1;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -53,17 +51,16 @@ export class SettlementViewComponent implements OnInit {
   FromDateRange: any;
   ToDateRange: any;
   maxDate: any;
-   filterAction:any = 0;
+  filterAction: any = 0;
+
   constructor(
     public service: FarginServiceService,
-    private router: Router,
-    private toastr: ToastrService,
-    private dialog: MatDialog,
     private ActivateRoute: ActivatedRoute,
     private location: Location
   ) { }
 
   ngOnInit(): void {
+
     const today = new Date();
     this.maxDate = moment(today).format('yyyy-MM-DD').toString();
 
@@ -72,6 +69,7 @@ export class SettlementViewComponent implements OnInit {
       this.payout = param.id1;
       this.merchantid = param.id2;
     });
+
     this.postrenewal();
   }
 
@@ -89,44 +87,44 @@ export class SettlementViewComponent implements OnInit {
 
     this.service.entitySettleTransaction(submitModel).subscribe((res: any) => {
       this.Viewall = JSON.parse(res?.response);
-
       this.viewdata = this.Viewall?.data?.content;
-            console.log(this.viewdata)
       this.datas = this.Viewall.data;
-      console.log(this.datas)
       this.length = this.datas.totalElements;
       this.pageIndex = this.datas.number;
       this.pageSize = this.datas.size;
       this.dataSource = new MatTableDataSource(this.viewdata);
-
       if (this.viewdata.length === 0) {
         this.dataSource = new MatTableDataSource();
       }
     });
-          this.FromDateRange = '';
-        this.ToDateRange = '';
+
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.viewdata.filter = filterValue.trim().toLowerCase().toUpperCase();
   }
-  reload() {
-    this.postrenewal();
-  }
+
   close() {
     this.location.back();
+  };
+
+  checkDate() {
+    this.ToDateRange = '';
   }
+
+  resetFilter() {
+    this.filterAction = 0;
+    this.FromDateRange = '';
+    this.ToDateRange = '';
+    this.Daterange = '';
+    this.postrenewal();
+  };
+
   filterdate() {
     const datepipe: DatePipe = new DatePipe('en-US');
-    let formattedstartDate = datepipe.transform(
-      this.FromDateRange,
-       'dd/MM/YYYY HH:mm'
-    );
-    let formattedendDate = datepipe.transform(
-      this.ToDateRange,
-        'dd/MM/yyyy HH:mm'
-    );
+    let formattedstartDate = datepipe.transform(this.FromDateRange, 'dd/MM/YYYY HH:mm');
+    let formattedendDate = datepipe.transform(this.ToDateRange, 'dd/MM/yyyy HH:mm');
     this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
     let submitModel: settlements = {
       pageNo: '0',
@@ -138,40 +136,6 @@ export class SettlementViewComponent implements OnInit {
       payoutId: this.payout,
       merchantId: this.merchantid,
     };
-
-    this.service.entitySettleTransaction(submitModel).subscribe((res: any) => {
-     this.Viewall = JSON.parse(res?.response);
-
-      this.viewdata = this.Viewall?.data?.content;
-            console.log(this.viewdata)
-      this.datas = this.Viewall.data;
-      console.log(this.datas)
-      this.length = this.datas.totalElements;
-      this.pageIndex = this.datas.number;
-      this.pageSize = this.datas.size;
-      this.dataSource = new MatTableDataSource(this.viewdata);
-
-      this.filterAction=1;
-
-      if (this.viewdata.length === 0) {
-        this.dataSource = new MatTableDataSource();
-      }
-    });
-  }
-  reset() {
-    this.Daterange = '';
-    let submitModel: settlements = {
-      pageNo: '0',
-      size: '5',
-      query: '',
-      dateRange: this.Daterange,
-      status: '',
-      accountId: this.accountId,
-      payoutId: this.payout,
-      merchantId: this.merchantid,
-    };
-
-   
     this.service.entitySettleTransaction(submitModel).subscribe((res: any) => {
       this.Viewall = JSON.parse(res?.response);
       this.viewdata = this.Viewall?.data?.content;
@@ -180,28 +144,19 @@ export class SettlementViewComponent implements OnInit {
       this.pageIndex = this.datas.number;
       this.pageSize = this.datas.size;
       this.dataSource = new MatTableDataSource(this.viewdata);
-        
-
+      this.filterAction = 1;
       if (this.viewdata.length === 0) {
         this.dataSource = new MatTableDataSource();
       }
-    })
-  }
-
+    });
+  };
 
   getData(event: any) {
     if (this.filterAction == 1) {
       const datepipe: DatePipe = new DatePipe('en-US');
-      let formattedstartDate = datepipe.transform(
-        this.FromDateRange,
-            'dd/MM/YYYY HH:mm'
-      );
-      let formattedendDate = datepipe.transform(
-        this.ToDateRange,
-          'dd/MM/yyyy HH:mm'
-      );
+      let formattedstartDate = datepipe.transform(this.FromDateRange, 'dd/MM/YYYY HH:mm');
+      let formattedendDate = datepipe.transform(this.ToDateRange, 'dd/MM/yyyy HH:mm');
       this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
-      this.currentPage = 0;
       let submitModel: settlements = {
         pageNo: event.pageIndex + 1,
         size: event.pageSize,
@@ -212,16 +167,14 @@ export class SettlementViewComponent implements OnInit {
         payoutId: this.payout,
         merchantId: this.merchantid,
       };
-
       this.service.entitySettleTransaction(submitModel).subscribe((res: any) => {
         this.Viewall = JSON.parse(res?.response);
         this.viewdata = this.Viewall?.data?.content;
         this.datas = this.Viewall.data;
         this.length = this.datas.totalElements;
-         this.pageIndex = this.datas.number;
-      this.pageSize = this.datas.size;
+        this.pageIndex = this.datas.number;
+        this.pageSize = this.datas.size;
         this.dataSource = new MatTableDataSource(this.viewdata);
-
         if (this.viewdata.length === 0) {
           this.dataSource = new MatTableDataSource();
         }
@@ -238,16 +191,14 @@ export class SettlementViewComponent implements OnInit {
         payoutId: this.payout,
         merchantId: this.merchantid,
       };
-
       this.service.entitySettleTransaction(submitModel).subscribe((res: any) => {
         this.Viewall = JSON.parse(res?.response);
         this.viewdata = this.Viewall?.data?.content;
         this.datas = this.Viewall.data;
         this.length = this.datas.totalElements;
-      this.pageIndex = this.datas.number;
-      this.pageSize = this.datas.size;
+        this.pageIndex = this.datas.number;
+        this.pageSize = this.datas.size;
         this.dataSource = new MatTableDataSource(this.viewdata);
-
         if (this.viewdata.length === 0) {
           this.dataSource = new MatTableDataSource();
         }
@@ -266,15 +217,10 @@ export class SettlementViewComponent implements OnInit {
       this.response.push(element?.amount);
       this.response.push(element?.reference);
       this.response.push(element?.txnItem);
-
       if (element?.txnTime) {
-        this.response.push(
-          moment(element?.txnTime).format('DD/MM/yyyy hh:mm a')
-        );
-      } else {
-        this.response.push('');
+        this.response.push(moment(element?.txnTime).format('DD/MM/yyyy hh:mm a'));
       }
-
+      else { this.response.push(''); }
       sno++;
       this.responseDataListnew.push(this.response);
     });
@@ -294,11 +240,9 @@ export class SettlementViewComponent implements OnInit {
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('View All Payouts');
-
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
-    // Cell Style : Fill and Border
     headerRow.eachCell((cell, number) => {
       cell.fill = {
         type: 'pattern',
@@ -314,10 +258,7 @@ export class SettlementViewComponent implements OnInit {
         right: { style: 'thin' },
       };
     });
-
     data.forEach((d: any) => {
-      //
-
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -370,18 +311,14 @@ export class SettlementViewComponent implements OnInit {
         right: { style: 'thin' },
       };
     });
-
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], {
         type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       });
 
-      FileSaver.saveAs(blob, 'View All Payouts.xlsx');
+      FileSaver.saveAs(blob, 'PayOut Details.xlsx');
     });
   }
-  checkDate() {
-    this.ToDateRange = '';
-    // this.FromDateRange =''
-  }
+
 
 }
