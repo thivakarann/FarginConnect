@@ -3,16 +3,13 @@
     <h5 Static style="text-align: left; color: #141e46">Static QR Payments</h5>
   </div>
   <div class="col-md-4 text-end">
-    <button
-      style="
+    <button style="
         color: white;
         background-color: #141e46;
         border-radius: 0.5rem;
         font-size: 0.875rem;
         padding: 5px 5px;
-      "
-      (click)="close()"
-    >
+      " (click)="close()">
       Back
     </button>
   </div>
@@ -21,92 +18,53 @@
 
 
   <div class="col" style="margin-top: 25px">
-    <button
-      [hidden]="valuestaticsettlement !== 'Entity View Offline-Settlement'"
-      style="
+    <button [hidden]="valuestaticsettlement !== 'Entity View Offline-Settlement'" style="
         color: white;
         background-color: #141e46;
         border-radius: 10px;
         font-size: 12px;
-      "
-      (click)="settlement()"
-      mat-raised-button
-    >
+      " (click)="settlement()" mat-raised-button>
       Settlement
     </button>
   </div>
 
   <div class="col-md-3">
     <label><b>From Date</b></label>
-    <input
-      onkeydown="return false;"
-      class="form-control"
-      type="datetime-local"
-      name="FromDate"
-      [(ngModel)]="FromDateRange"
-      (change)="checkDate()"
-      [max]="maxDate"
-      style="height: 35px; border-radius: 5px"
-    />
+    <input onkeydown="return false;" class="form-control" type="datetime-local" name="FromDate"
+      [(ngModel)]="FromDateRange" (change)="checkDate()" [max]="maxDate" style="height: 35px; border-radius: 5px" />
   </div>
   <div class="col-md-3">
     <label><b>To Date</b></label>
-    <input
-      onkeydown="return false;"
-      class="form-control"
-      type="datetime-local"
-      name="ToDate"
-      [(ngModel)]="ToDateRange"
-      [min]="FromDateRange"
-      [max]="maxDate"
-      style="height: 35px; border-radius: 5px"
-    />
+    <input onkeydown="return false;" class="form-control" type="datetime-local" name="ToDate" [(ngModel)]="ToDateRange"
+      [min]="FromDateRange" [max]="maxDate" style="height: 35px; border-radius: 5px" />
   </div>
 
   <div class="col-md-1 mt-4">
-    <button
-      style="
+    <button style="
         color: white;
         background-color: #141e46;
         border-radius: 10px;
         font-size: 12px;
-      "
-      [disabled]="!FromDateRange || !ToDateRange"
-      mat-raised-button
-      (click)="filterdate()"
-    >
+      " [disabled]="!FromDateRange || !ToDateRange" mat-raised-button (click)="filterdate()">
       Filter
     </button>
   </div>
 
   <div class="col-md-1 mt-4">
-    <button
-      style="
+    <button style="
         color: white;
         background-color: #141e46;
         border-radius: 10px;
         font-size: 12px;
-      "
-      mat-raised-button
-      (click)="reset()"
-    >
+      " mat-raised-button (click)="Getall()">
       Reset
     </button>
   </div>
 </div>
 <!-- <mat-card> -->
 <mat-card-content>
-  <div
-    class="example-container text-nowrap mt-3"
-    style="overflow-x: scroll; scrollbar-width: thin"
-  >
-    <table
-      id="season-tble"
-      matSort
-      mat-table
-      [dataSource]="dataSource"
-      class="mat-elevation-z8"
-    >
+  <div class="example-container text-nowrap mt-3" style="overflow-x: scroll; scrollbar-width: thin">
+    <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <ng-container matColumnDef="sno">
         <th mat-header-cell *matHeaderCellDef>S.No</th>
         <td mat-cell *matCellDef="let viewall; let i = index">{{ i + 1 }}</td>
@@ -155,58 +113,28 @@
       <ng-container matColumnDef="paystatus">
         <th mat-header-cell *matHeaderCellDef>Payment Status</th>
         <td mat-cell *matCellDef="let transaction">
-          <span
-            *ngIf="transaction?.completed == 'SUCCESS'"
-            class="text-success"
-            >{{ transaction?.completed }}</span
-          >
-          <span
-            *ngIf="transaction?.completed == 'FAILURE'"
-            class="text-danger"
-            >{{ transaction?.completed }}</span
-          >
+          <span *ngIf="transaction?.completed == 'SUCCESS'" class="text-success">{{ transaction?.completed }}</span>
+          <span *ngIf="transaction?.completed == 'FAILURE'" class="text-danger">{{ transaction?.completed }}</span>
         </td>
       </ng-container>
       <ng-container matColumnDef="viewsuccess">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          [hidden]="valuestaticview !== 'Entity View Offline-View'"
-        >
+        <th mat-header-cell *matHeaderCellDef [hidden]="valuestaticview !== 'Entity View Offline-View'">
           View
         </th>
-        <td
-          mat-cell
-          *matCellDef="let transaction"
-          [hidden]="valuestaticview !== 'Entity View Offline-View'"
-        >
-          <button
-            [hidden]="transaction?.completed == 'FAILURE'"
-            (click)="viewsuccess(transaction.accountId, transaction.id)"
-            style="border: none; background: none"
-          >
-            <i
-              class="fas fa-eye"
-              style="cursor: pointer; font-size: 17px"
-              [ngClass]="{
+        <td mat-cell *matCellDef="let transaction" [hidden]="valuestaticview !== 'Entity View Offline-View'">
+          <button [hidden]="transaction?.completed == 'FAILURE'"
+            (click)="viewsuccess(transaction.accountId, transaction.id)" style="border: none; background: none">
+            <i class="fas fa-eye" style="cursor: pointer; font-size: 17px" [ngClass]="{
                 'disabled-icon': transaction?.completed == 'FAILURE',
                 'enabled-icon': transaction?.completed == 'SUCCESS'
-              }"
-            ></i>
+              }"></i>
           </button>
-          <button
-            [hidden]="transaction?.completed == 'SUCCESS'"
-            (click)="viewFailure(transaction.accountId, transaction.id)"
-            style="border: none; background: none"
-          >
-            <i
-              class="fas fa-eye"
-              style="font-size: 16px; cursor: pointer"
-              [ngClass]="{
+          <button [hidden]="transaction?.completed == 'SUCCESS'"
+            (click)="viewFailure(transaction.accountId, transaction.id)" style="border: none; background: none">
+            <i class="fas fa-eye" style="font-size: 16px; cursor: pointer" [ngClass]="{
                             'disabled-icon': (transaction?.completed =='SUCCESS'),
                             'enabled-icon': (transaction?.completed =='FAILURE'),
-                          }"
-            ></i>
+                          }"></i>
           </button>
         </td>
       </ng-container>
@@ -222,13 +150,9 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       <tr *matNoDataRow>
         <td class="mat-cell" colspan="0" *ngIf="searchPerformed">
-         
+
         </td>
-        <td
-          class="mat-cell"
-          colspan="0"
-          *ngIf="!searchPerformed && dataSource.data.length === 0"
-        >
+        <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">
           No data
         </td>
       </tr>
@@ -236,12 +160,6 @@
   </div>
 </mat-card-content>
 <mat-card-footer>
-  <mat-paginator
-    (page)="getData($event)"
-    [pageIndex]="pageIndex"
-    [pageSize]="pageSize"
-    [length]="length"
-    [pageSizeOptions]="[5, 10, 50, 100, 200]"
-    aria-label="Select page of users"
-  ></mat-paginator>
+  <mat-paginator (page)="getData($event)" [pageIndex]="pageIndex" [pageSize]="pageSize" [length]="length"
+    [pageSizeOptions]="[5, 10, 50, 100, 200]" aria-label="Select page of users"></mat-paginator>
 </mat-card-footer>

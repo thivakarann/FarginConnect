@@ -42,7 +42,7 @@ export class MaintenanceTransViewallComponent {
     'igst',
     'paymentmethod',
     'count',
-    'percount',
+    // 'percount',
     'totalcost',
     'whatsappSmsCount',
     'whatsappSmsTotalAmount',

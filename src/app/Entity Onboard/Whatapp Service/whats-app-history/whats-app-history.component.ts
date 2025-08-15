@@ -122,9 +122,6 @@ export class WhatsAppHistoryComponent implements OnInit {
         this.currentfilvalShow = false;
       }
     });
-    this.FromDateRange = '';
-    this.ToDateRange = '';
-    this.currentfilval = '';
   };
 
   Search(filterValue: string) {
@@ -161,7 +158,16 @@ export class WhatsAppHistoryComponent implements OnInit {
 
   checkDate() {
     this.ToDateRange = '';
-  }
+  };
+
+  resetFilter() {
+    this.filterAction = 0;
+    this.FromDateRange = '';
+    this.ToDateRange = '';
+    this.Daterange = '';
+    this.currentfilval = '';
+    this.Getall();
+  };
 
   filterdate() {
     this.service.WhatsAPPHistorysFilters(this.FromDateRange, this.ToDateRange, this.pageSize, this.pageIndex).subscribe((res: any) => {

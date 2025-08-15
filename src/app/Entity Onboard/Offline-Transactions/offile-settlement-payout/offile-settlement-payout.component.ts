@@ -3,7 +3,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
 import moment from 'moment';
@@ -99,52 +99,19 @@ export class OffileSettlementPayoutComponent {
       }
       if (this.filteredData.length === 0) {
         this.dataSource = new MatTableDataSource();
-      }
-    });
-  }
-
-
-  reset() {
-    this.Daterange = '';
-    let submitModel: PayoutOfflineSettlement = {
-      merchantId: this.merchantId,
-      pageNo: '0',
-      size: '5',
-      query: '',
-      dateRange: this.Daterange,
-      payoutId: this.pauoutid,
-    };
-    this.service.PayoutOfflineSettlement(submitModel).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.Viewall = JSON.parse(res.response);
-        this.content = this.Viewall?.content;
-        this.filteredData = this.content;
-        this.length = this.Viewall.totalElements;
-        this.pageIndex = this.Viewall.number;
-        this.pageSize = this.Viewall.size;
-        this.dataSource = new MatTableDataSource(this.filteredData);
-        this.FromDateRange = '';
-        this.ToDateRange = '';
-
-      }
-      if (this.filteredData.length === 0) {
-        this.dataSource = new MatTableDataSource();
-      }
+      };
+      this.filterAction = 0;
+      this.FromDateRange = '';
+      this.ToDateRange = '';
+      this.Daterange = '';
     });
   }
 
   filterdate() {
     const datepipe: DatePipe = new DatePipe('en-US');
-    let formattedstartDate = datepipe.transform(
-      this.FromDateRange,
-      'dd/MM/YYYY HH:mm'
-    );
-    let formattedendDate = datepipe.transform(
-      this.ToDateRange,
-      'dd/MM/yyyy HH:mm'
-    );
+    let formattedstartDate = datepipe.transform(this.FromDateRange, 'dd/MM/YYYY HH:mm');
+    let formattedendDate = datepipe.transform(this.ToDateRange, 'dd/MM/yyyy HH:mm');
     this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
-    this.currentPage = 0;
     let submitModel: PayoutOfflineSettlement = {
       merchantId: this.merchantId,
       pageNo: this.currentPage,
@@ -172,19 +139,11 @@ export class OffileSettlementPayoutComponent {
 
 
   getData(event: any) {
-
     if (this.filterAction == 1) {
       const datepipe: DatePipe = new DatePipe('en-US');
-      let formattedstartDate = datepipe.transform(
-        this.FromDateRange,
-        'dd/MM/YYYY HH:mm'
-      );
-      let formattedendDate = datepipe.transform(
-        this.ToDateRange,
-        'dd/MM/yyyy HH:mm'
-      );
+      let formattedstartDate = datepipe.transform(this.FromDateRange, 'dd/MM/YYYY HH:mm');
+      let formattedendDate = datepipe.transform(this.ToDateRange, 'dd/MM/yyyy HH:mm');
       this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
-      this.currentPage = 1;
       let submitModel: PayoutOfflineSettlement = {
         merchantId: this.merchantId,
         pageNo: event.pageIndex + 1,
@@ -193,35 +152,14 @@ export class OffileSettlementPayoutComponent {
         dateRange: this.Daterange,
         payoutId: this.pauoutid,
       };
-
       this.service.PayoutOfflineSettlement(submitModel).subscribe((res: any) => {
         if (res.flag == 1) {
           this.Viewall = JSON.parse(res.response);
           this.content = this.Viewall?.content;
           this.filteredData = this.content;
           this.length = this.Viewall.totalElements;
-          this.dataSource = new MatTableDataSource(this.filteredData);
-        }
-      });
-    }
-    else {
-
-      let submitModel: PayoutOfflineSettlement = {
-        pageNo: event.pageIndex + 1,
-        size: event.pageSize,
-        query: '',
-        dateRange: this.Daterange,
-        payoutId: this.pauoutid,
-        merchantId: this.merchantId,
-      };
-
-      this.service.PayoutOfflineSettlement(submitModel).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.Viewall = JSON.parse(res.response);
-          this.content = this.Viewall?.content;
-          console.log(this.content);
-          this.filteredData = this.content;
-          this.length = this.Viewall.totalElements;
+          this.pageIndex = this.Viewall.number;
+          this.pageSize = this.Viewall.size;
           this.dataSource = new MatTableDataSource(this.filteredData);
         }
         if (this.filteredData.length === 0) {
@@ -229,15 +167,37 @@ export class OffileSettlementPayoutComponent {
         }
       });
     }
+    else {
+      let submitModel: PayoutOfflineSettlement = {
+        pageNo: event.pageIndex + 1,
+        size: event.pageSize,
+        query: '',
+        dateRange: this.Daterange,
+        payoutId: this.pauoutid,
+        merchantId: this.merchantId,
+      };
 
-  }
+      this.service.PayoutOfflineSettlement(submitModel).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.Viewall = JSON.parse(res.response);
+          this.content = this.Viewall?.content;
+          this.filteredData = this.content;
+          this.length = this.Viewall.totalElements;
+          this.pageIndex = this.Viewall.number;
+          this.pageSize = this.Viewall.size;
+          this.dataSource = new MatTableDataSource(this.filteredData);
+        }
+        if (this.filteredData.length === 0) {
+          this.dataSource = new MatTableDataSource();
+        };
+      });
+    }
 
+  };
 
   close() {
     this.location.back();
-  }
-
-
+  };
 
   exportexcel() {
     let sno = 1;
@@ -249,20 +209,17 @@ export class OffileSettlementPayoutComponent {
       this.response.push(element?.amount);
       this.response.push(element?.txnReference);
       this.response.push(element?.txnItem);
-
       if (element?.txnTime) {
-        this.response.push(
-          moment(element?.txnTime).format('DD/MM/yyyy hh:mm a')
-        );
-      } else {
-        this.response.push('');
+        this.response.push(moment(element?.txnTime).format('DD/MM/yyyy hh:mm a'));
       }
-
+      else {
+        this.response.push('');
+      };
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
-  }
+  };
 
   excelexportCustomer() {
     const header = [
@@ -298,8 +255,6 @@ export class OffileSettlementPayoutComponent {
     });
 
     data.forEach((d: any) => {
-      //
-
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -347,16 +302,12 @@ export class OffileSettlementPayoutComponent {
     });
 
     workbook.xlsx.writeBuffer().then((data: any) => {
-      let blob = new Blob([data], {
-        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      });
-
+      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', });
       FileSaver.saveAs(blob, 'View All Payouts.xlsx');
     });
   }
 
   checkDate() {
     this.ToDateRange = '';
-    // this.FromDateRange =''
   }
 }

@@ -76,9 +76,10 @@ export class OfflineTransactionsComponent {
     private ActivateRoute: ActivatedRoute,
     private router: Router,
     private location: Location
-  ) {}
+  ) { }
 
   ngOnInit(): void {
+
     const today = new Date();
     this.maxDate = moment(today).format('yyyy-MM-DD').toString();
 
@@ -115,44 +116,20 @@ export class OfflineTransactionsComponent {
       this.accountId = param.Alldata1;
     });
 
-    let submitModel: OffilneTransaction = {
-      merchantId: this.id,
-      pageNo: '0',
-      size: '5',
-      query: '',
-      dateRange: this.Daterange,
-      status: '',
-      terminalId: '',
-    };
-    this.service.OfflineTransactions(submitModel).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.Viewall = JSON.parse(res.response);
-        this.content = this.Viewall?.content || [];
-        console.log(this.content);
-        this.filteredData = this.content;
-        this.length = this.Viewall.totalElements;
-        this.pageIndex = this.Viewall.number;
-        this.pageSize = this.Viewall.size;
-        this.dataSource = new MatTableDataSource(this.filteredData);
-
-        if (this.content.length === 0) {
-          this.dataSource = new MatTableDataSource();
-        }
-      }
-    });
+    this.Getall();
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.searchPerformed = filterValue.length > 0;
-
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
 
-  reload() {
+  Getall() {
+
     let submitModel: OffilneTransaction = {
       merchantId: this.id,
       pageNo: '0',
@@ -172,10 +149,13 @@ export class OfflineTransactionsComponent {
         this.pageIndex = this.Viewall.number;
         this.pageSize = this.Viewall.size;
         this.dataSource = new MatTableDataSource(this.filteredData);
-
         if (this.content.length === 0) {
           this.dataSource = new MatTableDataSource();
-        }
+        };
+        this.filterAction = 0;
+        this.FromDateRange = '';
+        this.ToDateRange = '';
+        this.Daterange = '';
       }
     });
   }
@@ -184,27 +164,12 @@ export class OfflineTransactionsComponent {
     this.currentPage = event;
     this.ngOnInit();
   }
-  reloaddata() {
-    this.FromDateRange = '';
-    this.ToDateRange = '';
-    this.Daterange = '';
-    this.currentPage = 1;
-    this.ngOnInit();
-  }
 
   filterdate() {
     const datepipe: DatePipe = new DatePipe('en-US');
-    let formattedstartDate = datepipe.transform(
-      this.FromDateRange,
-      'dd/MM/YYYY HH:mm'
-    );
-    let formattedendDate = datepipe.transform(
-      this.ToDateRange,
-      'dd/MM/yyyy HH:mm'
-    );
+    let formattedstartDate = datepipe.transform(this.FromDateRange, 'dd/MM/YYYY HH:mm');
+    let formattedendDate = datepipe.transform(this.ToDateRange, 'dd/MM/yyyy HH:mm');
     this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
-    this.currentPage = 0;
-
     let submitModel: OffilneTransaction = {
       merchantId: this.id,
       pageNo: this.currentPage,
@@ -224,50 +189,15 @@ export class OfflineTransactionsComponent {
         this.pageSize = this.Viewall.size;
         this.dataSource = new MatTableDataSource(this.filteredData);
         this.filterAction = 1;
-
         if (this.content.length === 0) {
           this.dataSource = new MatTableDataSource();
         }
       }
     });
   }
-  reset() {
-    let submitModel: OffilneTransaction = {
-      merchantId: this.id,
-      pageNo: '0',
-      size: '5',
-      query: '',
-      dateRange: '',
-      status: '',
-      terminalId: '',
-    };
-    this.service.OfflineTransactions(submitModel).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.Viewall = JSON.parse(res.response);
-        this.content = this.Viewall?.content || [];
-        console.log(this.content);
-        this.filteredData = this.content;
-        this.length = this.Viewall.totalElements;
-        this.pageIndex = this.Viewall.number;
-        this.pageSize = this.Viewall.size;
 
-        this.dataSource = new MatTableDataSource(this.filteredData);
-        this.FromDateRange = '';
-        this.ToDateRange = '';
-      
-        if (this.content.length === 0) {
-          this.dataSource = new MatTableDataSource();
-        }
-     
-      } else {
-        this.FromDateRange = '';
-        this.ToDateRange = '';
-      }
-    });
-  }
   checkDate() {
     this.ToDateRange = '';
-    // this.FromDateRange =''
   }
 
   exportexcel() {
@@ -279,12 +209,10 @@ export class OfflineTransactionsComponent {
       this.response.push(element?.accountId);
       this.response.push(element?.id);
       this.response.push(element?.terminalId);
-
       this.response.push(element?.customer);
       this.response.push(element?.vpa);
       this.response.push(element?.merchantOrderNo);
       this.response.push(element?.amount);
-
       if (element?.completed == 'ATTEMPTED') {
         this.response.push(element?.completed);
       } else if (element?.completed == 'SUCCESS') {
@@ -292,7 +220,6 @@ export class OfflineTransactionsComponent {
       } else {
         this.response.push(element?.completed);
       }
-
       if (element.createdAt) {
         this.response.push(
           moment(element?.createdAt).format('DD/MM/yyyy hh:mm a').toString()
@@ -324,10 +251,6 @@ export class OfflineTransactionsComponent {
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Static Qr Transactions');
-    // Blank Row
-    // let titleRow = worksheet.addRow([title]);
-    // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -349,8 +272,6 @@ export class OfflineTransactionsComponent {
     });
 
     data.forEach((d: any) => {
-      //
-
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -424,13 +345,8 @@ export class OfflineTransactionsComponent {
         right: { style: 'thin' },
       };
     });
-    // worksheet.getColumn(1).protection = { locked: true, hidden: true }
-    // worksheet.getColumn(2).protection = { locked: true, hidden: true }
-    // worksheet.getColumn(3).protection = { locked: true, hidden: true }
     workbook.xlsx.writeBuffer().then((data: any) => {
-      let blob = new Blob([data], {
-        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      });
+      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', });
       FileSaver.saveAs(blob, 'Static QR Transaction.xlsx');
     });
   }
@@ -444,10 +360,7 @@ export class OfflineTransactionsComponent {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
       disableClose: true,
-      data: {
-        value: this.id,
-        value1: id1,
-      },
+      data: { value: this.id, value1: id1, },
     });
   }
 
@@ -477,17 +390,9 @@ export class OfflineTransactionsComponent {
   getData(event: any) {
     if (this.filterAction == 1) {
       const datepipe: DatePipe = new DatePipe('en-US');
-      let formattedstartDate = datepipe.transform(
-        this.FromDateRange,
-        'dd/MM/YYYY HH:mm'
-      );
-      let formattedendDate = datepipe.transform(
-        this.ToDateRange,
-        'dd/MM/yyyy HH:mm'
-      );
+      let formattedstartDate = datepipe.transform(this.FromDateRange, 'dd/MM/YYYY HH:mm');
+      let formattedendDate = datepipe.transform(this.ToDateRange, 'dd/MM/yyyy HH:mm');
       this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
-      this.currentPage = 1;
-
       let submitModel: OffilneTransaction = {
         merchantId: this.id,
         pageNo: event.pageIndex + 1,
@@ -503,9 +408,9 @@ export class OfflineTransactionsComponent {
           this.content = this.Viewall?.content || [];
           this.filteredData = this.content;
           this.length = this.Viewall.totalElements;
-
+          this.pageIndex = this.Viewall.number;
+          this.pageSize = this.Viewall.size;
           this.dataSource = new MatTableDataSource(this.filteredData);
-
           if (this.content.length === 0) {
             this.dataSource = new MatTableDataSource();
           }
@@ -528,9 +433,9 @@ export class OfflineTransactionsComponent {
           console.log(this.content);
           this.filteredData = this.content;
           this.length = this.Viewall.totalElements;
-
+          this.pageIndex = this.Viewall.number;
+          this.pageSize = this.Viewall.size;
           this.dataSource = new MatTableDataSource(this.filteredData);
-
           if (this.content.length === 0) {
             this.dataSource = new MatTableDataSource();
           }

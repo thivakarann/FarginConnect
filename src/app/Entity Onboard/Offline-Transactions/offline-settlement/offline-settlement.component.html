@@ -58,7 +58,7 @@
         background-color: #141e46;
         border-radius: 10px;
         font-size: 12px;
-      " mat-raised-button (click)="reset()">
+      " mat-raised-button (click)="Getall()">
             Reset
         </button>
     </div>
@@ -72,7 +72,7 @@
                 <td mat-cell *matCellDef="let viewall; let i = index">{{ i + 1 }}</td>
             </ng-container>
 
-             <ng-container matColumnDef="Account Id">
+            <ng-container matColumnDef="Account Id">
                 <th mat-header-cell *matHeaderCellDef>Account ID</th>
                 <td mat-cell *matCellDef="let transaction">
                     {{ transaction.accountId }}
@@ -85,7 +85,7 @@
                     {{ transaction.accountPayoutId }}
                 </td>
             </ng-container>
-                <ng-container matColumnDef="ledgerid">
+            <ng-container matColumnDef="ledgerid">
                 <th mat-header-cell *matHeaderCellDef>Ledger ID</th>
                 <td mat-cell *matCellDef="let transaction">
                     {{ transaction.ledgerId }}
@@ -98,7 +98,7 @@
                     {{ transaction?.amount }}
                 </td>
             </ng-container>
-                <ng-container matColumnDef="Reffer">
+            <ng-container matColumnDef="Reffer">
                 <th mat-header-cell *matHeaderCellDef>Refference</th>
                 <td mat-cell *matCellDef="let transaction">
                     {{ transaction?.txnReference}}
@@ -112,13 +112,15 @@
                 </td>
             </ng-container>
 
-                <ng-container matColumnDef="View">
-                    <th mat-header-cell *matHeaderCellDef [hidden]="valuestaticsettlementView!=='Entity View Static QR Payments-Settlement View'">View</th>
-                    <td mat-cell *matCellDef="let transaction" [hidden]="valuestaticsettlementView!=='Entity View Static QR Payments-Settlement View'">
-                        <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"
-                            (click)="viewpayout(transaction?.accountPayoutId)"></i>
-                    </td>
-                </ng-container>
+            <ng-container matColumnDef="View">
+                <th mat-header-cell *matHeaderCellDef
+                    [hidden]="valuestaticsettlementView!=='Entity View Static QR Payments-Settlement View'">View</th>
+                <td mat-cell *matCellDef="let transaction"
+                    [hidden]="valuestaticsettlementView!=='Entity View Static QR Payments-Settlement View'">
+                    <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"
+                        (click)="viewpayout(transaction?.accountPayoutId)"></i>
+                </td>
+            </ng-container>
 
             <ng-container matColumnDef="item">
                 <th mat-header-cell *matHeaderCellDef>Tnx Item</th>

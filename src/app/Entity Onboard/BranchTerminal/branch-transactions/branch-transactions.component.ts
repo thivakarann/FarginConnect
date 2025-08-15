@@ -66,12 +66,12 @@ export class BranchTransactionsComponent {
   length: any;
   pageIndex: any;
   pageSize: any;
-   filterAction:any = 0;
+  filterAction: any = 0;
   constructor(
     private service: FarginServiceService,
     private ActivateRoute: ActivatedRoute,
     private location: Location
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const today = new Date();
@@ -81,7 +81,10 @@ export class BranchTransactionsComponent {
       this.merchantId = param.Alldata1;
       this.branchterminalId = param.Alldata;
     });
+    this.Getall();
+  };
 
+  Getall() {
     let submitModel: Branchtransaction = {
       pageNo: '0',
       query: '',
@@ -100,10 +103,13 @@ export class BranchTransactionsComponent {
         this.pageIndex = this.Viewall.number;
         this.pageSize = this.Viewall.size;
         this.dataSource = new MatTableDataSource(this.filteredData);
-
         if (this.content.length === 0) {
           this.dataSource = new MatTableDataSource();
-        }
+        };
+        this.filterAction = 0;
+        this.FromDateRange = '';
+        this.ToDateRange = '';
+        this.Daterange = '';
       }
     });
   }
@@ -121,58 +127,16 @@ export class BranchTransactionsComponent {
     }
   }
 
-  reload() {
-    let submitModel: Branchtransaction = {
-      pageNo: '0',
-      query: '',
-      size: '5',
-      dateRange: this.Daterange,
-      status: '',
-      merchantId: this.merchantId,
-      branchTerminalId: this.branchterminalId,
-    };
-    this.service.BranchTransactions(submitModel).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.Viewall = JSON.parse(res.response);
-        this.content = this.Viewall?.content || [];
-        this.filteredData = this.content;
-        this.length = this.Viewall.totalElements;
-        this.pageIndex = this.Viewall.number;
-        this.pageSize = this.Viewall.size;
-        this.dataSource = new MatTableDataSource(this.filteredData);
-
-        if (this.content.length === 0) {
-          this.dataSource = new MatTableDataSource();
-        }
-      }
-    });
-  }
-
   renderPage(event: any) {
     this.currentPage = event;
     this.ngOnInit();
-  }
-  reloaddata() {
-    this.FromDateRange = '';
-    this.ToDateRange = '';
-    this.Daterange = '';
-    this.currentPage = 1;
-    this.ngOnInit();
-  }
+  };
 
   filterdate() {
     const datepipe: DatePipe = new DatePipe('en-US');
-    let formattedstartDate = datepipe.transform(
-      this.FromDateRange,
-        'dd/MM/YYYY HH:mm'
-    );
-    let formattedendDate = datepipe.transform(
-      this.ToDateRange,
-         'dd/MM/yyyy HH:mm'
-    );
+    let formattedstartDate = datepipe.transform(this.FromDateRange, 'dd/MM/YYYY HH:mm');
+    let formattedendDate = datepipe.transform(this.ToDateRange, 'dd/MM/yyyy HH:mm');
     this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
-    this.currentPage = 0;
-
     let submitModel: Branchtransaction = {
       pageNo: this.currentPage,
       query: '',
@@ -192,44 +156,74 @@ export class BranchTransactionsComponent {
         this.pageIndex = this.Viewall.number;
         this.pageSize = this.Viewall.size;
         this.dataSource = new MatTableDataSource(this.filteredData);
-        this.filterAction = 1
-
+        this.filterAction = 1;
         if (this.content.length === 0) {
           this.dataSource = new MatTableDataSource();
         }
       }
     });
-  }
-  reset() {
-    this.Daterange = '';
-    let submitModel: Branchtransaction = {
-      pageNo: '0',
-      query: '',
-      size: '5',
-      dateRange: this.Daterange,
-      status: '',
-      merchantId: this.merchantId,
-      branchTerminalId: this.branchterminalId,
-    };
-    this.service.BranchTransactions(submitModel).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.Viewall = JSON.parse(res.response);
-        this.content = this.Viewall?.content || [];
-        this.filteredData = this.content;
-        this.length = this.Viewall.totalElements;
-        this.pageIndex = this.Viewall.number;
-        this.pageSize = this.Viewall.size;
-        
-        this.FromDateRange='';
-        this.ToDateRange='';
-        this.dataSource = new MatTableDataSource(this.filteredData);
+  };
 
-        if (this.content.length === 0) {
-          this.dataSource = new MatTableDataSource();
-        }
-      }
-    });
+  close() {
+    this.location.back();
   }
+  getData(event: any) {
+    if (this.filterAction == 1) {
+      const datepipe: DatePipe = new DatePipe('en-US');
+      let formattedstartDate = datepipe.transform(this.FromDateRange, 'dd/MM/YYYY HH:mm');
+      let formattedendDate = datepipe.transform(this.ToDateRange, 'dd/MM/yyyy HH:mm');
+      this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
+      let submitModel: Branchtransaction = {
+        query: '',
+        pageNo: event.pageIndex + 1,
+        size: event.pageSize,
+        dateRange: this.Daterange,
+        status: '',
+        merchantId: this.merchantId,
+        branchTerminalId: this.branchterminalId,
+      };
+      this.service.BranchTransactions(submitModel).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.Viewall = JSON.parse(res.response);
+          this.content = this.Viewall?.content;
+          this.filteredData = this.content;
+          this.content = this.Viewall?.content || [];
+          this.length = this.Viewall.totalElements;
+          this.pageIndex = this.Viewall.number;
+          this.pageSize = this.Viewall.size;
+          this.dataSource = new MatTableDataSource(this.filteredData);
+          if (this.content.length === 0) {
+            this.dataSource = new MatTableDataSource();
+          }
+        }
+      });
+    } else {
+      let submitModel: Branchtransaction = {
+        query: '',
+        pageNo: event.pageIndex + 1,
+        size: event.pageSize,
+        dateRange: this.Daterange,
+        status: '',
+        merchantId: this.merchantId,
+        branchTerminalId: this.branchterminalId,
+      };
+      this.service.BranchTransactions(submitModel).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.Viewall = JSON.parse(res.response);
+          this.content = this.Viewall?.content || [];
+          this.filteredData = this.content;
+          this.length = this.Viewall.totalElements;
+          this.pageIndex = this.Viewall.number;
+          this.pageSize = this.Viewall.size;
+          this.dataSource = new MatTableDataSource(this.filteredData);
+          if (this.content.length === 0) {
+            this.dataSource = new MatTableDataSource();
+          }
+        }
+      });
+    }
+  }
+
 
   exportexcel() {
     let sno = 1;
@@ -253,13 +247,13 @@ export class BranchTransactionsComponent {
       } else {
         this.response.push(element?.completed);
       }
-  if (element?.createdAt) {
+      if (element?.createdAt) {
         this.response.push(moment(element?.createdAt).format('DD/MM/yyyy hh:mm a'));
       }
       else {
         this.response.push('');
       }
- 
+
       sno++;
       this.responseDataListnew.push(this.response);
     });
@@ -321,7 +315,7 @@ export class BranchTransactionsComponent {
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
-let qty9   = row.getCell(10);
+      let qty9 = row.getCell(10);
       qty.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
@@ -376,7 +370,7 @@ let qty9   = row.getCell(10);
         bottom: { style: 'thin' },
         right: { style: 'thin' },
       };
-         qty9.border = {
+      qty9.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
         bottom: { style: 'thin' },
@@ -394,71 +388,4 @@ let qty9   = row.getCell(10);
     });
   }
 
-  close() {
-    this.location.back();
-  }
-  getData(event: any) {
-    if (this.filterAction == 1) {
-      const datepipe: DatePipe = new DatePipe('en-US');
-      let formattedstartDate = datepipe.transform(
-        this.FromDateRange,
-         'dd/MM/YYYY HH:mm'
-      );
-      let formattedendDate = datepipe.transform(
-        this.ToDateRange,
-          'dd/MM/yyyy HH:mm'
-      );
-      this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
-      this.currentPage = 0;
-
-      let submitModel: Branchtransaction = {
-        query: '',
-        pageNo: event.pageIndex + 1,
-        size: event.pageSize,
-        dateRange: this.Daterange,
-        status: '',
-        merchantId: this.merchantId,
-        branchTerminalId: this.branchterminalId,
-      };
-      this.service.BranchTransactions(submitModel).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.Viewall = JSON.parse(res.response);
-          this.content = this.Viewall?.content;
-          this.filteredData = this.content;
-          this.content = this.Viewall?.content || [];
-          this.length = this.Viewall.totalElements;
-       
-          this.dataSource = new MatTableDataSource(this.filteredData);
-
-          if (this.content.length === 0) {
-            this.dataSource = new MatTableDataSource();
-          }
-        }
-      });
-    } else {
-      let submitModel: Branchtransaction = {
-        query: '',
-        pageNo: event.pageIndex + 1,
-        size: event.pageSize,
-        dateRange: this.Daterange,
-        status: '',
-        merchantId: this.merchantId,
-        branchTerminalId: this.branchterminalId,
-      };
-      this.service.BranchTransactions(submitModel).subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.Viewall = JSON.parse(res.response);
-          this.content = this.Viewall?.content || [];
-          this.filteredData = this.content;
-          this.length = this.Viewall.totalElements;
-      
-          this.dataSource = new MatTableDataSource(this.filteredData);
-
-          if (this.content.length === 0) {
-            this.dataSource = new MatTableDataSource();
-          }
-        }
-      });
-    }
-  }
 }

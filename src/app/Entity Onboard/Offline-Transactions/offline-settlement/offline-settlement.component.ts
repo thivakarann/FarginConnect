@@ -1,6 +1,5 @@
 import { DatePipe, Location } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -30,7 +29,6 @@ export class OfflineSettlementComponent {
     'View',
     'item',
     'paidAt',
-
   ];
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
@@ -63,11 +61,10 @@ export class OfflineSettlementComponent {
   length: any;
   pageIndex: any;
   pageSize: any;
-
   filterAction: any = 0;
+
   constructor(
     private service: FarginServiceService,
-    private toastr: ToastrService,
     private ActivateRoute: ActivatedRoute,
     private location: Location,
     private router: Router
@@ -83,25 +80,17 @@ export class OfflineSettlementComponent {
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
           if (this.roleId == 1) {
-            this.valuestaticsettlementExport =
-              'Entity View Static QR Payments-Settlement Export';
-            this.valuestaticsettlementView =
-              'Entity View Static QR Payments-Settlement View';
-          } else {
+            this.valuestaticsettlementExport = 'Entity View Static QR Payments-Settlement Export';
+            this.valuestaticsettlementView = 'Entity View Static QR Payments-Settlement View';
+          }
+          else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
-              if (
-                this.actions ==
-                'Entity View Static QR Payments-Settlement Export'
-              ) {
-                this.valuestaticsettlementExport =
-                  'Entity View Static QR Payments-Settlement Export';
+              if (this.actions == 'Entity View Static QR Payments-Settlement Export') {
+                this.valuestaticsettlementExport = 'Entity View Static QR Payments-Settlement Export';
               }
-              if (
-                this.actions == 'Entity View Static QR Payments-Settlement View'
-              ) {
-                this.valuestaticsettlementView =
-                  'Entity View Static QR Payments-Settlement View';
+              if (this.actions == 'Entity View Static QR Payments-Settlement View') {
+                this.valuestaticsettlementView = 'Entity View Static QR Payments-Settlement View';
               }
             }
           }
@@ -110,12 +99,18 @@ export class OfflineSettlementComponent {
         }
       },
     });
-
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.accountId = param.Alldata;
-      console.log(this.accountId)
     });
 
+    this.Getall();
+  }
+
+  checkDate() {
+    this.ToDateRange = '';
+  }
+
+  Getall() {
     let submitModel: OfflineSettlement = {
       merchantId: this.accountId,
       pageNo: '0',
@@ -128,44 +123,24 @@ export class OfflineSettlementComponent {
         this.Viewall = JSON.parse(res.response);
         this.content = this.Viewall?.content;
         this.filteredData = this.content;
-        console.log(this.filteredData)
         this.length = this.Viewall.totalElements;
         this.pageIndex = this.Viewall.number;
         this.pageSize = this.Viewall.size;
         this.dataSource = new MatTableDataSource(this.filteredData);
+        if (this.content.length === 0) {
+          this.dataSource = new MatTableDataSource();
+        };
+        this.filterAction = 0;
+        this.FromDateRange = '';
+        this.ToDateRange = '';
+        this.Daterange = '';
       }
     });
-  }
-
-  checkDate() {
-    this.ToDateRange = '';
-    // this.FromDateRange =''
-  }
-
-  reload() {
-    let submitModel: OfflineSettlement = {
-      merchantId: this.accountId,
-      pageNo: this.currentPage,
-      size: '20',
-      query: '',
-      dateRange: '',
-    };
-    this.service.OfflineSettlement(submitModel).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.Viewall = JSON.parse(res.response);
-        this.content = this.Viewall?.content;
-        this.filteredData = this.content;
-        this.dataSource = new MatTableDataSource(this.filteredData);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      }
-    });
-  }
-
+  };
+  
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
@@ -175,21 +150,13 @@ export class OfflineSettlementComponent {
     this.currentPage = event;
     this.ngOnInit();
   }
-  reloaddata() {
-    this.FromDateRange = '';
-    this.ToDateRange = '';
-    this.Daterange = '';
-    this.currentPage = 1;
-    this.ngOnInit();
-  }
+
 
   filterdate() {
     const datepipe: DatePipe = new DatePipe("en-US");
     let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY HH:mm");
     let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/yyyy HH:mm");
     this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
-    this.currentPage = 0;
-
     let submitModel: OfflineSettlement = {
       merchantId: this.accountId,
       pageNo: this.currentPage,
@@ -208,43 +175,17 @@ export class OfflineSettlementComponent {
         this.pageSize = this.Viewall.size;
         this.dataSource = new MatTableDataSource(this.filteredData);
         this.filterAction == 1;
+        if (this.content.length === 0) {
+          this.dataSource = new MatTableDataSource();
+        };
       }
     });
-  }
-  reset() {
-    this.Daterange = '';
-    let submitModel: OfflineSettlement = {
-      merchantId: this.accountId,
-      pageNo: '0',
-      size: '5',
-      query: '',
-      dateRange: '',
-    };
-    this.service.OfflineSettlement(submitModel).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.Viewall = JSON.parse(res.response);
-        this.content = this.Viewall?.content;
-        this.filteredData = this.content;
-        this.length = this.Viewall.totalElements;
-        this.pageIndex = this.Viewall.number;
-        this.pageSize = this.Viewall.size;
-        this.dataSource = new MatTableDataSource(this.filteredData);
-
-        this.FromDateRange = '';
-        this.ToDateRange = '';
-      } else {
-        this.FromDateRange = '';
-        this.ToDateRange = '';
-      }
-    });
-  }
+  };
 
 
   viewpayout(id1: any) {
     this.router.navigate([`/dashboard/offile-settlement-payout/${id1}/${this.accountId}`],
-      {
-        queryParams: { value: id1, value1: this.accountId },
-      }
+      { queryParams: { value: id1, value1: this.accountId }, }
     );
   }
 
@@ -265,8 +206,6 @@ export class OfflineSettlementComponent {
       } else {
         this.response.push('');
       }
-
-
       sno++;
       this.responseDataListnew.push(this.response);
     });
@@ -282,16 +221,11 @@ export class OfflineSettlementComponent {
       'Tnx Type',
       'Tnx Type',
       'Tnx At'
-
     ];
 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Offline Settlement');
-    // Blank Row
-    // let titleRow = worksheet.addRow([title]);
-    // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -313,8 +247,6 @@ export class OfflineSettlementComponent {
     });
 
     data.forEach((d: any) => {
-      //
-
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -323,38 +255,41 @@ export class OfflineSettlementComponent {
       let qty4 = row.getCell(5);
       let qty5 = row.getCell(6);
 
-
-
       qty.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
         bottom: { style: 'thin' },
         right: { style: 'thin' },
       };
+
       qty1.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
         bottom: { style: 'thin' },
         right: { style: 'thin' },
       };
+
       qty2.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
         bottom: { style: 'thin' },
         right: { style: 'thin' },
       };
+
       qty3.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
         bottom: { style: 'thin' },
         right: { style: 'thin' },
       };
+
       qty4.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
         bottom: { style: 'thin' },
         right: { style: 'thin' },
       };
+
       qty5.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
@@ -363,13 +298,8 @@ export class OfflineSettlementComponent {
       };
 
     });
-    // worksheet.getColumn(1).protection = { locked: true, hidden: true }
-    // worksheet.getColumn(2).protection = { locked: true, hidden: true }
-    // worksheet.getColumn(3).protection = { locked: true, hidden: true }
     workbook.xlsx.writeBuffer().then((data: any) => {
-      let blob = new Blob([data], {
-        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      });
+      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', });
       FileSaver.saveAs(blob, 'Offline Settlement.xlsx');
     });
   }
@@ -378,14 +308,11 @@ export class OfflineSettlementComponent {
     this.location.back();
   }
   getData(event: any) {
-
     if (this.filterAction == 1) {
       const datepipe: DatePipe = new DatePipe("en-US");
       let formattedstartDate = datepipe.transform(this.FromDateRange, "dd/MM/YYYY HH:mm");
       let formattedendDate = datepipe.transform(this.ToDateRange, "dd/MM/yyyy HH:mm");
       this.Daterange = formattedstartDate + " " + "-" + " " + formattedendDate;
-      this.currentPage = 0;
-
       let submitModel: OfflineSettlement = {
         merchantId: this.accountId,
         pageNo: event.pageIndex + 1,
@@ -399,8 +326,12 @@ export class OfflineSettlementComponent {
           this.content = this.Viewall?.content;
           this.filteredData = this.content;
           this.length = this.Viewall.totalElements;
-
+          this.pageIndex = this.Viewall.number;
+          this.pageSize = this.Viewall.size;
           this.dataSource = new MatTableDataSource(this.filteredData);
+          if (this.content.length === 0) {
+            this.dataSource = new MatTableDataSource();
+          };
         }
       });
     }
@@ -418,8 +349,12 @@ export class OfflineSettlementComponent {
           this.content = this.Viewall?.content;
           this.filteredData = this.content;
           this.length = this.Viewall.totalElements;
-
+          this.pageIndex = this.Viewall.number;
+          this.pageSize = this.Viewall.size;
           this.dataSource = new MatTableDataSource(this.filteredData);
+          if (this.content.length === 0) {
+            this.dataSource = new MatTableDataSource();
+          };
         }
       });
     }

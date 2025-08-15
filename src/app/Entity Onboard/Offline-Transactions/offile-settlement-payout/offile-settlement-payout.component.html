@@ -46,14 +46,14 @@
         <button style=" color: white;
         background-color: #141e46;
         border-radius: 10px;
-        font-size: 12px;" mat-raised-button (click)="reset()">Reset</button>
+        font-size: 12px;" mat-raised-button (click)="Getall()">Reset</button>
     </div>
 
 </div>
 <!-- <mat-card> -->
 <mat-card-content>
     <div class="example-container text-nowrap mt-3" style="overflow-x: scroll; scrollbar-width: thin">
-    
+
         <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
             <ng-container matColumnDef="sno">
                 <th mat-header-cell *matHeaderCellDef> S.No</th>
