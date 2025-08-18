@@ -1708,6 +1708,7 @@
                 <th>SMS Charge Type</th>
                 <th [hidden]="valuesmsapproval !== 'Sms Setting-Approval'">Approval</th>
                 <th>Approval Status</th>
+                <th>Approval At</th>
                 <th [hidden]="valuesmsstatus !== 'Sms Setting-Status'">Status</th>
                 <!--<th [hidden]="valuesmsview!=='Sms Setting-View'">View</th>-->
                 <th [hidden]="valuesmsedit !== 'Sms Setting-Edit'">Action</th>
@@ -1722,7 +1723,7 @@
                 <td>{{ item?.type?.smsTitle }}</td>
                 <td>
                   <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye"
-                    (click)="Smsdescription(item.type?.smsTempDescription)">
+                    (click)="Smsdescription(item.type?.smsSample)">
                   </i>
                 </td>
                 <td>{{ item?.smsCount }}</td>
@@ -1739,11 +1740,15 @@
                 <span *ngIf="item.smsCharge=='Free'">-</span>
                 <span *ngIf="item.smsCharge!='Free'"
                  [ngClass]="{
-                  approved: item?.smsApprovalStatus == 'approved',
-                  rejected: item?.smsApprovalStatus == 'rejected',
+                  approved: item?.smsApprovalStatus == 'approved' || item?.smsApprovalStatus == 'Approved',
+                  rejected: item?.smsApprovalStatus == 'rejected' || item?.smsApprovalStatus == 'Rejected',
                   pending: item?.smsApprovalStatus == 'Pending'
                 }">{{ item.smsApprovalStatus }}</span>
                  
+                </td>
+                <td>
+                  <span *ngIf="item.smsCharge=='Free'">-</span>
+                  <span *ngIf="item.smsCharge!='Free'">{{ item?.smsApprovedDateTime | date : "dd/MM/yyyy hh:mm a" }}</span>
                 </td>
                 <td [hidden]="valuesmsstatus !== 'Sms Setting-Status'">
                   <span>
@@ -1841,6 +1846,7 @@
                 <th [hidden]="valuewhatsappedit !== 'WhatsApp Setting-Edit'">Action</th>
                 <th [hidden]="valuewhatsappapproval !== 'WhatsApp Setting-Approval'">Approval</th>
                 <th>Approval Status</th>
+                <th>Approved At</th>
                 <th>Created By</th>
                 <th>Created At</th>
                 <th>Modified By</th>
@@ -1870,7 +1876,7 @@
                 <td>{{ item?.templateTitle }}</td>
                 <td>
                   <i style="cursor: pointer; font-size: 15px;padding:0" class="fa fa-eye"
-                    (click)="Whatsappdescription(item?.templateDescription)">
+                    (click)="Whatsappdescription(item?.smsSample)">
                   </i>
                 </td>
                 <td [hidden]="valuewhatsappstatus !== 'WhatsApp Setting-Status'">
@@ -1898,13 +1904,17 @@
                 <span *ngIf="item?.smsCharge == 'Not Applicable'">-</span>
                 <span *ngIf="item?.smsCharge != 'Not Applicable'" 
                 [ngClass]="{
-                  approved: item?.smsApprovalStatus == 'Approved',
-                  rejected: item?.smsApprovalStatus == 'Rejected',
+                  approved: item?.smsApprovalStatus == 'Approved' || item?.smsApprovalStatus == 'approved',
+                  rejected: item?.smsApprovalStatus == 'Rejected' || item?.smsApprovalStatus == 'rejected',
                   pending: item?.smsApprovalStatus == 'Pending'
                 }">
                   {{ item.smsApprovalStatus }}
                 </span>
               </td>
+                <td>
+                  <span *ngIf="item.smsCharge=='Not Applicable'">-</span>
+                  <span *ngIf="item.smsCharge!='Not Applicable'">{{ item?.smsApprovedDateTime | date : "dd/MM/yyyy hh:mm a" }}</span>
+                </td>
                 <td>{{ item?.createdBy }}</td>
                 <td>{{ item?.createdDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
                 <td>{{ item?.modifedBy }}</td>

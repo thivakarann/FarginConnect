@@ -30,8 +30,6 @@ export class FarginServiceService {
 
   private readonly basePath = 'https://dev-api.farginconnect.com/'; //  Dev Server
 
-  // private readonly basePath = 'http://192.168.7.4:8080/'
-
   // private readonly basePath = 'https://api.fargin.in/';       //  Production server
 
   // login
@@ -188,10 +186,13 @@ export class FarginServiceService {
   //refund
   private readonly EntityRefund = 'refund/getmerchant/';
 
-  //settlement
+  //settlement Online
   private readonly EntitySettlement = 'transactions/getPayouts';
-  private readonly EntitySettlementtransaction =
-    'transactions/getPayoutTransactions';
+  private readonly EntitySettlementtransaction = 'transactions/getPayoutTransactions';
+
+  //settlement Offline
+  private readonly EntitySettlementOffline = 'transactions/getOfflinePayouts';
+  private readonly offlinePayouts = 'transactions/getOfflinePayoutTransactions';
 
   //Entity Transaction
   private readonly entitytransaction = 'paymentHistory/viewByMerchantPage/';
@@ -660,8 +661,8 @@ export class FarginServiceService {
 
   private geoApiUrl = 'https://ipinfo.io/json';
 
-  private abstarctipaddress =
-    'https://ipgeolocation.abstractapi.com/v1/?api_key=f620ad1cab2f4577ae761b40b0ff73b7';
+  private abstarctipaddress = 'https://ipgeolocation.abstractapi.com/v1/?api_key=f620ad1cab2f4577ae761b40b0ff73b7';
+
 
   // private geoApiUrl = 'https://ipwhois.app/json/';
 
@@ -1928,20 +1929,23 @@ export class FarginServiceService {
     );
   }
 
-  //settlement
+  //settlement Online
   Entitysettlement(model: any) {
-    return this.http.post(
-      `${this.basePath}${this.EntitySettlement}`,
-      model,
-      this.options
-    );
+    return this.http.post(`${this.basePath}${this.EntitySettlement}`, model, this.options);
   }
+
   entitySettleTransaction(model: any) {
-    return this.http.post(
-      `${this.basePath}${this.EntitySettlementtransaction}`,
-      model,
-      this.options
-    );
+    return this.http.post(`${this.basePath}${this.EntitySettlementtransaction}`, model, this.options);
+  }
+
+  // Settlement Offline
+
+  Entitysettlementoffline(model: any) {
+    return this.http.post(`${this.basePath}${this.EntitySettlementOffline}`, model, this.options);
+  }
+
+  EntityOfflinePayouts(model:any){
+    return this.http.post(`${this.basePath}${this.offlinePayouts}`,model,this.options)
   }
 
   //Withdrawal Method
@@ -5072,23 +5076,23 @@ export class FarginServiceService {
     return this.http.put(`${this.basePath}${this.merchatWhatappStatus}`, model, this.options)
   }
 
-  MerchatWhatappServiceApproval(model:any){
-    return this.http.put(`${this.basePath}${this.merchatWhapappApproval}`,model,this.options)
+  MerchatWhatappServiceApproval(model: any) {
+    return this.http.put(`${this.basePath}${this.merchatWhapappApproval}`, model, this.options)
   }
 
-  MerchatWhatsAPPGetall(formdata:FormData){
-    return this.http.post(`${this.basePath}${this.MechantsWhatsappGetall}`,formdata,this.optionsMultipart)
+  MerchatWhatsAPPGetall(formdata: FormData) {
+    return this.http.post(`${this.basePath}${this.MechantsWhatsappGetall}`, formdata, this.optionsMultipart)
   }
-  MerchatWhatsAppGetallExport(){
-    return this.http.get(`${this.basePath}${this.MechantsWhatsappGetallexport}`,this.options)
-  }
-
-  WhatsAPPHistorys(formdata:FormData){
-    return this.http.post(`${this.basePath}${this.WhatsappHistory}`,formdata,this.optionsMultipart)
+  MerchatWhatsAppGetallExport() {
+    return this.http.get(`${this.basePath}${this.MechantsWhatsappGetallexport}`, this.options)
   }
 
-  WhatsAPPHistorysFilters(id1:any,id2:any,id3:any,id4:any){
-    return this.http.get(`${this.basePath}${this.whatsapphistoryFilter}${id1}/${id2}/${id3}/${id4}`,this.options)
+  WhatsAPPHistorys(formdata: FormData) {
+    return this.http.post(`${this.basePath}${this.WhatsappHistory}`, formdata, this.optionsMultipart)
+  }
+
+  WhatsAPPHistorysFilters(id1: any, id2: any, id3: any, id4: any) {
+    return this.http.get(`${this.basePath}${this.whatsapphistoryFilter}${id1}/${id2}/${id3}/${id4}`, this.options)
   }
 
 

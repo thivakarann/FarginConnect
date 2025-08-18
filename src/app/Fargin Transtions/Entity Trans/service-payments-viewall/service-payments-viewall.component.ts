@@ -30,6 +30,7 @@ export class ServicePaymentsViewallComponent {
   displayedColumns: string[] = [
     'sno',
     'paymentId',
+    'InVoiceNumber',
     'entityname',
     'paymentmethod',
     'paymenttype',

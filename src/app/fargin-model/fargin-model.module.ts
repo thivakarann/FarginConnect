@@ -672,7 +672,7 @@ export interface pgsetupedit {
   readonly modifiedBy: any;
 }
 
-//entity settlement
+//entity settlement Online
 export interface settlement {
   readonly merchantId: any;
   readonly pageNo: any;
@@ -681,6 +681,20 @@ export interface settlement {
   readonly dateRange: any;
   readonly status: any;
 }
+
+//entity settlement Offline
+export interface Offlinesettlement {
+  readonly merchantId: any;
+  readonly pageNo: any;
+  readonly query: any;
+  readonly size: any;
+  readonly dateRange: any;
+
+}
+
+
+
+
 
 export interface settlements {
   readonly accountId: any;
@@ -691,6 +705,17 @@ export interface settlements {
   readonly status: any;
   readonly payoutId: any;
   readonly merchantId: any;
+}
+
+export interface oflinePayouts {
+  
+  readonly pageNo: any;
+  readonly query: any;
+  readonly size: any;
+  readonly dateRange: any;
+  readonly merchantId: any;
+  readonly payoutId: any;
+
 }
 
 
@@ -1627,16 +1652,16 @@ export interface UpdateWhatappService {
   readonly templateCode: any;
   readonly templateLanguage: any;
   readonly smsEnableStatus: any;
-  readonly modifedBy:any;
+  readonly modifedBy: any;
 }
 
-export interface WhatappserviceStatus{
-  readonly merchantWhatsAppId:any;
-  readonly smsEnableStatus:any;
+export interface WhatappserviceStatus {
+  readonly merchantWhatsAppId: any;
+  readonly smsEnableStatus: any;
 }
 
 export interface whatappserviceApproval {
-  readonly merchantWhatsAppId:any;
-  readonly smsApprovalStatus:any;
-  readonly smsApprovedBy:any;
+  readonly merchantWhatsAppId: any;
+  readonly smsApprovalStatus: any;
+  readonly smsApprovedBy: any;
 }

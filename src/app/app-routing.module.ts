@@ -132,6 +132,7 @@ import { MerchatSMSTriggerComponent } from './SMS Trigger/merchat-smstrigger/mer
 import { SMSTriggerLogsComponent } from './SMS Trigger/smstrigger-logs/smstrigger-logs.component';
 import { EntityWhatsAppGetallComponent } from './Entity Onboard/Whatapp Service/entity-whats-app-getall/entity-whats-app-getall.component';
 import { WhatsAppHistoryComponent } from './Entity Onboard/Whatapp Service/whats-app-history/whats-app-history.component';
+import { OfflinesettlementPayoutComponent } from './offlinesettlement-payout/offlinesettlement-payout.component';
 
 const routes: Routes = [
 
@@ -197,6 +198,7 @@ const routes: Routes = [
       { path: 'entity-qrcode/:id', component: EntityQrcodeComponent, canActivate: [authGuard] },
       { path: 'entity-refund/:id', component: EntityRefundComponent, canActivate: [authGuard] },
       { path: 'entity-settlement/:id', component: EntitySettlementComponent, canActivate: [authGuard] },
+      {path:'offlinesettlement-payout/:id/:id1',component:OfflinesettlementPayoutComponent,canActivate:[authGuard]},
       { path: 'settlement-view/:id/:id1/:id2', component: SettlementViewComponent, canActivate: [authGuard] },
       { path: "overall-transactions-viewall", component: OverallTransactionsViewallComponent, canActivate: [authGuard] },
       { path: 'viewwithdrawal', component: ViewwithdrawalComponent, canActivate: [authGuard] },

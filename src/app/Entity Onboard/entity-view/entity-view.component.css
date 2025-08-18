@@ -842,7 +842,7 @@ form {
 }
 
 .pending {
-  color: yellow;
+  color: orange;
 }
 
 .Approved {
@@ -854,7 +854,7 @@ form {
 }
 
 .Pending {
-  color: yellow;
+  color: orange;
 }
 
 

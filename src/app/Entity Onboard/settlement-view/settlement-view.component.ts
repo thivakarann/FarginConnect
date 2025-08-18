@@ -39,6 +39,7 @@ export class SettlementViewComponent implements OnInit {
       status: '',
       accountId: this.accountId,
       payoutId: '217',
+      merchantId: undefined
     };
 
     this.MerchantView.entitySettleTransaction(submitModel).subscribe(

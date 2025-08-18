@@ -34,6 +34,7 @@ export class MaintenanceTransViewallComponent {
   displayedColumns: string[] = [
     'sno',
     'paymentId',
+    'InVoiceNumber',
     'entityname',
     'amount',
     // 'creditAmount',

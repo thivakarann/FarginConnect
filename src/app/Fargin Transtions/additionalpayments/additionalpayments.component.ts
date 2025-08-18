@@ -30,6 +30,7 @@ export class AdditionalpaymentsComponent {
   displayedColumns: string[] = [
     'sno',
     'paymentId',
+    "ReceiptNumber",
     'entityname',
     'customername',
     'paymentmethod',

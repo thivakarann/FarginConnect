@@ -76,6 +76,13 @@
           {{ transaction.pgPaymentId || "--" }}
         </td>
       </ng-container>
+
+      <ng-container matColumnDef="ReceiptNumber">
+        <th mat-header-cell *matHeaderCellDef>Receipt Number</th>
+        <td mat-cell *matCellDef="let transaction">
+          {{ transaction.invoiceNumber || "--" }}
+        </td>
+      </ng-container>
       <ng-container matColumnDef="entityname">
         <th mat-header-cell *matHeaderCellDef>Entity Name</th>
         <td mat-cell *matCellDef="let transaction">

@@ -28,6 +28,7 @@ export class CustomerTransViewallComponent {
   displayedColumns: string[] = [
     'sno',
     'paymentId',
+    "ReceiptNumber",
     'entityname',
     'customername',
     'customemobile',

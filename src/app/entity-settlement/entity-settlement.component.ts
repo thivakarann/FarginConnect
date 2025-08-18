@@ -4,7 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { FarginServiceService } from '../service/fargin-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
-import { settlement } from '../fargin-model/fargin-model.module';
+import { OfflineSettlement, settlement } from '../fargin-model/fargin-model.module';
 import { Location } from '@angular/common';
 import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
@@ -21,7 +21,9 @@ export class EntitySettlementComponent {
   valuesettlementview: any;
   valuesettlementexport: any;
   errorMessage: any;
-  dataSource!: MatTableDataSource<any>;
+  [x: string]: any;
+  dataSource: any;
+  dataSourcesoffline: any;
   displayedColumns: string[] = [
     'settlementId',
     'accoundid',
@@ -46,25 +48,53 @@ export class EntitySettlementComponent {
   bankdetails: any;
   accountid: any;
   Viewall: any;
+  Viewalloffline: any;
   getdashboard: any[] = [];
   roleId: any = sessionStorage.getItem('roleId');
   actions: any;
   responseDataListnew: any = [];
+  responseDataListnewoffline: any = [];
   response: any = [];
+   offlineresponse: any = [];
   searchPerformed: boolean = false;
+  searchPerformedoffline: boolean = false;
   FromDateRange!: string;
+  FromDateRangeoffline!: string;
   currentPage: any;
   ToDateRange!: string;
+  ToDateRangeoffline!: string;
   Daterange!: string;
+  DaterangeOffline!: string;
   content: any;
+  contentoffline: any;
   filteredData: any;
   maxDate: any;
   merchantid: any;
   length: any;
+  lengthoffline: any;
   pageIndex: any;
+  pageIndexoffline: any;
   pageSize: any;
+  pageSizeoffline: any;
   datas: any;
+  datasOffline: any;
   filterAction: any = 0;
+  filterActionoffline: any = 0;
+  selectedLang!: string;
+  selectedTransactionType: string = 'Online Settlement';
+
+
+  displayedOfflineColumns: string[] = [
+    'settlementIds',
+    'accoundids',
+    'payoutIds',
+    'benificiarys',
+    'amounts',
+    'references',
+    'Views',
+    'txnItems',
+    'createdAts',
+  ];
 
   constructor(
     public MerchantView: FarginServiceService,
@@ -121,6 +151,12 @@ export class EntitySettlementComponent {
     );
   }
 
+  viewOfflinepayout(id1: any) {
+    this.router.navigate([`/dashboard/offlinesettlement-payout/${id1}/${this.id}`],
+      { queryParams: { value: id1, value1: this.id } }
+    );
+  }
+
   close() {
     this.Location.back();
   }
@@ -153,14 +189,7 @@ export class EntitySettlementComponent {
     });
   };
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    this.searchPerformed = filterValue.length > 0;
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
+
 
   resetFilter() {
     this.filterAction = 0;
@@ -169,6 +198,8 @@ export class EntitySettlementComponent {
     this.Daterange = '';
     this.postrenewal();
   };
+
+
 
   filterdate() {
     const datepipe: DatePipe = new DatePipe('en-US');
@@ -382,9 +413,263 @@ export class EntitySettlementComponent {
         type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       });
 
-      FileSaver.saveAs(blob,'Entity Settlement.xlsx');
+      FileSaver.saveAs(blob, 'Entity Settlements Online.xlsx');
     });
+  };
+
+  transactionsDropdown(event: any) {
+    this.selectedTransactionType = event.target.value;
+    this.updateTableData();
+  };
+
+  updateTableData() {
+    if (this.selectedTransactionType === 'Online Settlement') {
+      this.postrenewal();
+    } else if (this.selectedTransactionType === 'Offline Settlement') {
+      this.getOfflineSeetlements();
+    }
+  };
+
+  getOfflineSeetlements() {
+    let submitModel: OfflineSettlement = {
+      merchantId: this.id,
+      pageNo: '0',
+      size: '5',
+      query: '',
+      dateRange: this.DaterangeOffline,
+    };
+    this.MerchantView.Entitysettlementoffline(submitModel).subscribe((res: any) => {
+      this.Viewalloffline = JSON.parse(res.response);
+      this.contentoffline = this.Viewalloffline?.content || [];
+      this.datasOffline = this.Viewalloffline;
+      this.lengthoffline = this.datasOffline.totalElements;
+      this.pageIndexoffline = this.datasOffline.number;
+      this.pageSizeoffline = this.datasOffline.size;
+      this.dataSourcesoffline = new MatTableDataSource(this.contentoffline);
+      if (this.contentoffline.length === 0) {
+        this.dataSourcesoffline = new MatTableDataSource();
+      }
+    });
+  };
+
+  checkDateoffline() {
+    this.ToDateRangeoffline = '';
+  };
+
+  resetFilteroffline() {
+    this.filterActionoffline = 0;
+    this.FromDateRangeoffline = '';
+    this.ToDateRangeoffline = '';
+    this.DaterangeOffline = '';
+    this.getOfflineSeetlements();
+  };
+
+
+  filterdateoffline() {
+    const datepipe: DatePipe = new DatePipe('en-US');
+    let formattedstartDate = datepipe.transform(this.FromDateRangeoffline, 'dd/MM/YYYY HH:mm');
+    let formattedendDate = datepipe.transform(this.ToDateRangeoffline, 'dd/MM/yyyy HH:mm');
+    this.DaterangeOffline = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
+    let submitModel: OfflineSettlement = {
+      merchantId: this.id,
+      pageNo: '0',
+      size: '5',
+      query: '',
+      dateRange: this.DaterangeOffline,
+    };
+    this.MerchantView.Entitysettlementoffline(submitModel).subscribe((res: any) => {
+      this.Viewalloffline = JSON.parse(res.response);
+      this.contentoffline = this.Viewalloffline?.content || [];
+      this.datasOffline = this.Viewalloffline;
+      this.lengthoffline = this.datasOffline.totalElements;
+      this.pageIndexoffline = this.datasOffline.number;
+      this.pageSizeoffline = this.datasOffline.size;
+      this.dataSourcesoffline = new MatTableDataSource(this.contentoffline);
+      if (this.contentoffline.length === 0) {
+        this.dataSourcesoffline = new MatTableDataSource();
+      }
+    });
+  };
+
+  getDataoffline(event: any) {
+    if (this.filterActionoffline == 1) {
+      const datepipe: DatePipe = new DatePipe('en-US');
+      let formattedstartDate = datepipe.transform(this.FromDateRangeoffline, 'dd/MM/YYYY HH:mm');
+      let formattedendDate = datepipe.transform(this.ToDateRangeoffline, 'dd/MM/yyyy HH:mm');
+      this.DaterangeOffline = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
+      let submitModel: OfflineSettlement = {
+        merchantId: this.id,
+        pageNo: event.pageIndexoffline + 1,
+        size: event.pageSizeoffline,
+        query: '',
+        dateRange: this.DaterangeOffline,
+      };
+      this.MerchantView.Entitysettlementoffline(submitModel).subscribe((res: any) => {
+        this.Viewalloffline = JSON.parse(res.response);
+        this.contentoffline = this.Viewalloffline?.content || [];
+        this.datasOffline = this.Viewalloffline;
+        this.lengthoffline = this.datasOffline.totalElements;
+        this.pageIndexoffline = this.datasOffline.number;
+        this.pageSizeoffline = this.datasOffline.size;
+        this.dataSourcesoffline = new MatTableDataSource(this.contentoffline);
+        if (this.contentoffline.length === 0) {
+          this.dataSourcesoffline = new MatTableDataSource();
+        }
+      });
+    }
+    else {
+      let submitModel: OfflineSettlement = {
+        merchantId: this.id,
+        pageNo: event.pageIndexoffline + 1,
+        size: event.pageSizeoffline,
+        query: '',
+        dateRange: this.DaterangeOffline,
+      };
+      this.MerchantView.Entitysettlementoffline(submitModel).subscribe((res: any) => {
+        this.Viewalloffline = JSON.parse(res.response);
+        this.contentoffline = this.Viewalloffline?.content || [];
+        this.datasOffline = this.Viewalloffline;
+        this.lengthoffline = this.datasOffline.totalElements;
+        this.pageIndexoffline = this.datasOffline.number;
+        this.pageSizeoffline = this.datasOffline.size;
+        this.dataSourcesoffline = new MatTableDataSource(this.contentoffline);
+        if (this.contentoffline.length === 0) {
+          this.dataSourcesoffline = new MatTableDataSource();
+        }
+      });
+    }
+  };
+
+
+  exportexceloffline() {
+    let sno = 1;
+    this.responseDataListnewoffline = [];
+    this.contentoffline.forEach((element: any) => {
+      this.offlineresponse = [];
+      this.offlineresponse.push(sno);
+      this.offlineresponse.push(element?.accountId);
+      this.offlineresponse.push(element?.accountPayoutId);
+      this.offlineresponse.push(element?.id);
+      this.offlineresponse.push(element?.amount);
+      this.offlineresponse.push(element?.txnReference);
+      this.offlineresponse.push(element?.txnItem);
+      if (element?.txnTime) {
+        this.offlineresponse.push(
+          moment(element?.txnTime).format('DD/MM/yyyy hh:mm a')
+        );
+      }
+      else {
+        this.offlineresponse.push('');
+      }
+      sno++;
+      this.responseDataListnewoffline.push(this.offlineresponse);
+    });
+    this.excelexportCustomeroffline();
   }
+
+  excelexportCustomeroffline() {
+    const header = [
+      'S.No',
+      'Account ID',
+      'Payout ID',
+      'Beneficiary ID',
+      'Amount',
+      'Reference',
+      'Txn Item',
+      'Txn Time',
+    ];
+    const data = this.responseDataListnewoffline;
+    let workbook = new Workbook();
+    let worksheet = workbook.addWorksheet('Entity Settlement');
+    worksheet.addRow([]);
+    let headerRow = worksheet.addRow(header);
+    headerRow.font = { bold: true };
+    // Cell Style : Fill and Border
+    headerRow.eachCell((cell, number) => {
+      cell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'FFFFFFFF' },
+        bgColor: { argb: 'FF0000FF' },
+      };
+
+      cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+    });
+
+    data.forEach((d: any) => {
+      let row = worksheet.addRow(d);
+      let qty = row.getCell(1);
+      let qty1 = row.getCell(2);
+      let qty2 = row.getCell(3);
+      let qty3 = row.getCell(4);
+      let qty4 = row.getCell(5);
+      let qty5 = row.getCell(6);
+      let qty6 = row.getCell(7);
+      let qty7 = row.getCell(8);
+
+      qty.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty1.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty2.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty3.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty4.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty5.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty6.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty7.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+    });
+
+    workbook.xlsx.writeBuffer().then((data: any) => {
+      let blob = new Blob([data], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      });
+
+      FileSaver.saveAs(blob, 'Entity Settlement Offline.xlsx');
+    });
+  };
 
 
 

@@ -309,6 +309,7 @@ import { WhatsappMessDescriptionComponent } from './Entity Onboard/Whatapp Servi
 import { WhatsappApprovalComponent } from './Entity Onboard/Whatapp Service/whatsapp-approval/whatsapp-approval.component';
 import { EntityWhatsAppGetallComponent } from './Entity Onboard/Whatapp Service/entity-whats-app-getall/entity-whats-app-getall.component';
 import { WhatsAppHistoryComponent } from './Entity Onboard/Whatapp Service/whats-app-history/whats-app-history.component';
+import { OfflinesettlementPayoutComponent } from './offlinesettlement-payout/offlinesettlement-payout.component';
 
 
 
@@ -596,6 +597,7 @@ import { WhatsAppHistoryComponent } from './Entity Onboard/Whatapp Service/whats
     WhatsappApprovalComponent,
     EntityWhatsAppGetallComponent,
     WhatsAppHistoryComponent,
+    OfflinesettlementPayoutComponent,
 
 
   ],
