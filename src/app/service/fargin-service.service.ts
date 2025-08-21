@@ -1944,8 +1944,8 @@ export class FarginServiceService {
     return this.http.post(`${this.basePath}${this.EntitySettlementOffline}`, model, this.options);
   }
 
-  EntityOfflinePayouts(model:any){
-    return this.http.post(`${this.basePath}${this.offlinePayouts}`,model,this.options)
+  EntityOfflinePayouts(model: any) {
+    return this.http.post(`${this.basePath}${this.offlinePayouts}`, model, this.options)
   }
 
   //Withdrawal Method

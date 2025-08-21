@@ -87,9 +87,9 @@
       <ng-container matColumnDef="cardNumber">
         <th mat-header-cell *matHeaderCellDef>Card Number</th>
         <td mat-cell *matCellDef="let viewall">
-          <span *ngIf="viewall?.cardNoMasked == null ||viewall?.cardNoMasked == 'null' ||viewall?.cardNoMasked == ''">-</span>
-          <span *ngIf="viewall?.cardNoMasked != null && viewall?.cardNoMasked != 'null' &&viewall?.cardNoMasked != ''">
-            {{ viewall?.cardNoMasked }}</span>
+          <span *ngIf="viewall?.cardNumber == null ||viewall?.cardNumber == 'null' ||viewall?.cardNumber == ''">-</span>
+          <span *ngIf="viewall?.cardNumber != null && viewall?.cardNumber != 'null' &&viewall?.cardNumber != ''">
+            {{ viewall?.cardNumber }}</span>
         </td>
       </ng-container>
 

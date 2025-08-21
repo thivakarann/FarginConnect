@@ -439,12 +439,16 @@
                       <ng-container *ngIf="detaislone?.customerDuesDate === 2">Every Two Days</ng-container>
                       <ng-container *ngIf="detaislone?.customerDuesDate === 3">Every Three Days</ng-container>
                       <ng-container *ngIf="detaislone?.customerDuesDate === 4">Once</ng-container>
-                      <ng-container *ngIf="detaislone?.customerDuesDate == 0">No Due Date</ng-container>
+                      <ng-container *ngIf="detaislone?.customerDuesDate == 0">-</ng-container>
                     </div>
                   </div>
                   <div class="detail-row">
                     <div class="detail-label">Notification Start Date</div>
                     <div class="detail-value">{{ detaislone?.dueDate }}</div>
+                  </div>
+                     <div class="detail-row">
+                    <div class="detail-label">Notification End Date</div>
+                    <div class="detail-value">{{ detaislone?.dueEndDate }}</div>
                   </div>
                   <div class="detail-row">
                     <div class="detail-label">Onboard Limit</div>
@@ -921,7 +925,9 @@
                     }">
                     {{ item.identityAdminApprovalStatus }}
                   </td>
-                  <td>{{ item.identityAdminApprovedBy !=null ? (item.identityAdminApprovedBy) : "-"}}</td>
+                  <td>
+                    {{ item.identityAdminApprovedBy !='NA' ? (item.identityAdminApprovedBy) : "-"}}
+                  </td>
                   <td>
                 {{item.identityAdminApprovedDate != "NA" ? (item.identityAdminApprovedDate | date: "dd/MM/yyyyhh:mm a") : "-"}}
                   </td>
@@ -1029,7 +1035,7 @@
                     {{ item.addressAdminApprovalStatus }}
                   </td>
 
-                  <td>{{ item.addressAdminApprovedBy !=null ? (item.addressAdminApprovedBy) : "-"}}</td>
+                  <td>{{ item.addressAdminApprovedBy !="NA" ? (item.addressAdminApprovedBy) : "-"}}</td>
                   <td>
                     {{ item.addressAdminApprovedDate != "NA" ? (item.addressAdminApprovedDate | date: "dd/MM/yyyy hh:mm a") : "-"}}
                   </td>
@@ -1139,7 +1145,7 @@
                       Red: item?.signatureAdminApprovalStatus == 'Rejected'
                     }">{{ item.signatureAdminApprovalStatus }}
                   </td>
-                  <td>{{ item.signatureAdminApprovedBy!=null ? (item.signatureAdminApprovedBy) : "-"}}</td>
+                  <td>{{ item.signatureAdminApprovedBy!='NA' ? (item.signatureAdminApprovedBy) : "-"}}</td>
                   <td>
                     {{ item.signatureAdminApprovedDate != "NA" ? (item.signatureAdminApprovedDate | date: "dd/MM/yyyy hh:mm a") : "-"}}
                   </td>
@@ -1268,16 +1274,18 @@
                     Red: item?.approvalStatus == 'Rejected'
                   }">{{ item.approvalStatus }}
                 </td>
-                <td>{{ item.approvalBy }}</td>
-                <td>{{ item.approvalDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
+                   <td>{{ item.approvalBy!='NA' ? (item.approvalBy) : "-"}}</td>
+                  <td>
+                    {{ item.approvalDateTime != "NA" ? (item.approvalDateTime | date: "dd/MM/yyyy hh:mm a") : "-"}}
+                  </td>
+
                 <td [hidden]="valuebussinesscomment !=='Entity View Bussiness Document-Comments'">
                   <span (click)="DocComments(item.reMarks)">
                     <i class="fas fa-comments" style="
                         text-align: center;
                         cursor: pointer;
                         font-size: 15px;
-                        color: #545497;
-                      ">
+                        color: #545497;">
                     </i>
                   </span>
                 </td>

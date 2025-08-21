@@ -14,7 +14,7 @@ export class AppComponent {
 
   constructor(private sessionTimerService: SessionServiceService, private bnIdle: BnNgIdleService, private consoleToggle: ConsoleServiceService) {
     this.timeout = this.sessionTimerService.getTimeoutInMinutes();
-    this.consoleToggle.enable();
+    this.consoleToggle.disable();
   }
   ngOnInit(): void {
 

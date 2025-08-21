@@ -42,7 +42,7 @@ export class EntityBankeditComponent implements OnInit {
     this.BankForm = new FormGroup({
       accountHolderName: new FormControl('', [
         Validators.required,
-     Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.pattern('^[A-Za-z. ]+$'),
         Validators.maxLength(50),
       ]),
       accountNumber: new FormControl(null, [
@@ -51,7 +51,7 @@ export class EntityBankeditComponent implements OnInit {
       ]),
       bankName: new FormControl('', [
         Validators.required,
-    
+
       ]),
       ifscCode: new FormControl('', [
         Validators.required,
@@ -59,18 +59,18 @@ export class EntityBankeditComponent implements OnInit {
       ]),
       branchName: new FormControl('', [
         Validators.required,
-       Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
+        Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(50),
       ]),
       accountType: new FormControl('', [
         Validators.required,
-  
+
       ]),
 
       ledgerId: new FormControl('', [Validators.pattern(/^\d{1,15}$/)]),
       typemode: new FormControl('', [
         Validators.required,
-    
+
       ]),
     });
   }
@@ -101,7 +101,7 @@ export class EntityBankeditComponent implements OnInit {
   get ledgerId() {
     return this.BankForm.get('ledgerId');
   }
- get typemode() {
+  get typemode() {
     return this.BankForm.get('typemode');
   }
   submit() {
@@ -112,7 +112,7 @@ export class EntityBankeditComponent implements OnInit {
       ifscCode: this.ifscCode.value.trim(),
       branchName: this.branchName.value.trim(),
       accountType: this.accountType.value,
-        typeMode: this.typemode.value,
+      typeMode: this.typemode.value,
       ledgerId: this.ledgerId?.value.trim(),
       modifiedBy: this.getadminname,
     };

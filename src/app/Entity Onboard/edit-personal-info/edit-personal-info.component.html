@@ -229,7 +229,8 @@
                 </div>
                 <div class="col-sm-4 form-group">
                     <label for="mobile">Primary Mobile Number</label>
-                    <input type="text" maxLength="10" formControlName="contactMobile" id="mobile" class="form-control"
+                    <input type="text" maxLength="10" [class.invalid]="myForm.errors?.['mobileNumbersMatch']"
+                        formControlName="contactMobile" id="mobile" class="form-control"
                         ngModel="{{detaislone?.contactMobile}}">
                     <div style="
                     color: red;
@@ -257,8 +258,9 @@
 
                 <div class="col-sm-4 form-group">
                     <label for="secondary">Secondary Mobile Number(Optional)</label>
-                    <input maxLength="10" formControlName="secondaryMobile" type="text" id="secondary"
-                        class="form-control" ngModel="{{detaislone?.secondaryMobile}}">
+                    <input maxLength="10" [class.invalid]="myForm.errors?.['mobileNumbersMatch']"
+                        formControlName="secondaryMobile" type="text" id="secondary" class="form-control"
+                        ngModel="{{detaislone?.secondaryMobile}}">
                     <div style="
                     color: red;
                     font-size: 12px;
@@ -267,6 +269,12 @@
                     ;
                   " *ngIf="secondaryMobile?.errors?.['pattern']">
                         Please Enter a valid Mobile Number
+                    </div>
+                    <div style="color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;" *ngIf="myForm.errors?.['mobileNumbersMatch'] && secondaryMobile?.touched">
+                        Primary and Secondary numbers should be different.
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
@@ -595,8 +603,8 @@
 
                 <div class="col-sm-4 form-group">
                     <label for="fee">Cloud Fee Applicable</label>
-                    <select ngModel="{{detaislone?.cloudFeeEnable}}" formControlName="cloudFeeEnable" (change)="cloudFeeEnableChange($event)" type="text"
-                        class="form-select" id="fee">
+                    <select ngModel="{{detaislone?.cloudFeeEnable}}" formControlName="cloudFeeEnable"
+                        (change)="cloudFeeEnableChange($event)" type="text" class="form-select" id="fee">
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>
                     </select>
@@ -850,6 +858,23 @@
                         Field is required
                     </div>
 
+                </div>
+
+                <div class="col-sm-4 form-group" [hidden]="customerDuesEnable?.value != '1'">
+                    <label for="billing">LCO Customer Notification End Date</label>
+
+                    <select [required]="customerDuesEnable?.value == '1'" id="dayPicker" formControlName="dueEndDate"
+                        class="form-select">
+                        <option *ngFor="let Day of Days" [value]="Day">{{ Day }}</option>
+                    </select>
+                    <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="dueEndDate?.invalid && dueEndDate?.touched && dueEndDate?.errors?.['required']">
+                        Field is required
+                    </div>
                 </div>
 
 

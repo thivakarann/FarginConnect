@@ -58,7 +58,7 @@ export class SessionServiceService {
     this.isLoggedInFlag = false; // Set authentication flag to false;
     setTimeout(() => {
       window.location.reload();
-    },10);
+    }, 10);
 
 
   }

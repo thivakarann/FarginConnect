@@ -53,19 +53,19 @@ export class BranchEditComponent {
     this.branchedit = new FormGroup({
       branchName: new FormControl('', [
         Validators.required,
-       Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
+        Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(50),
       ]),
       apiKey: new FormControl('', [Validators.required]),
       secretKey: new FormControl('', [Validators.required]),
       bankName: new FormControl('', [
         Validators.required,
-      Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
+        Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(50),
       ]),
       accountHolderName: new FormControl('', [
         Validators.required,
-      Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.pattern('^[A-Za-z. ]+$'),
         Validators.maxLength(50),
       ]),
       accountNumber: new FormControl('', [
@@ -82,8 +82,8 @@ export class BranchEditComponent {
       ]),
       smsmerchantname: new FormControl('', [
         Validators.required,
-       Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
-       Validators.maxLength(20),
+        Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(20),
       ]),
     });
   }
@@ -121,7 +121,7 @@ export class BranchEditComponent {
     return this.branchedit.get('smsmerchantname');
   }
   Submit() {
- 
+
     let submitModel: BranchEdit = {
       branchName: this.branchName?.value.trim(),
       accountId: this.accountId?.value,
@@ -131,11 +131,11 @@ export class BranchEditComponent {
       accountHolderName: this.accountHolderName?.value.trim(),
       accountNumber: this.accountNumber?.value,
       ifscCode: this.ifscCode?.value,
-      smsMerchantName:this.smsmerchantname?.value.trim(),
+      smsMerchantName: this.smsmerchantname?.value.trim(),
       modifiedBy: this.getadminname
     }
- 
-    this.service.BranchUpdate(this.branchid,submitModel).subscribe((res: any) => {
+
+    this.service.BranchUpdate(this.branchid, submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.bankDetailsUpdated.emit();

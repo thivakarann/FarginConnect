@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators, } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators, } from '@angular/forms';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -66,6 +66,7 @@ export class EntityAddComponent implements OnInit {
   id: any;
   selectperiod: any;
   days: number[] = Array.from({ length: 31 }, (_, i) => i + 1); // Generates days 1 to 31
+  Days: number[] = Array.from({ length: 31 }, (_, i) => i + 1); // Generates days 1 to 31
   uploadImage: any;
   uploadImage1: any;
   uploadImage2: any;
@@ -203,6 +204,8 @@ export class EntityAddComponent implements OnInit {
 
       dueDate: new FormControl(''),
 
+      dueEndDate: new FormControl(''),
+
       offlineQrEnable: new FormControl('', [Validators.required]),
 
       // payoutEnable: new FormControl("", [Validators.required]),
@@ -218,14 +221,17 @@ export class EntityAddComponent implements OnInit {
       ]),
       customerSmsTag: new FormControl(''),
       cloudFeeEnable: new FormControl('', [Validators.required]),
-    });
+    },
+      { validators: this.mobileNumbersNotSameValidator });
+
+
 
     // Form Two
 
     this.myForm2 = new FormGroup({
       accountHolderName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.pattern('^[A-Za-z. ]+$'),
         Validators.maxLength(100),
       ]),
       accountNumber: new FormControl(null, [
@@ -293,6 +299,16 @@ export class EntityAddComponent implements OnInit {
     });
   }
 
+  mobileNumbersNotSameValidator(group: AbstractControl): ValidationErrors | null {
+    const primary = group.get('contactMobile')?.value;
+    const secondary = group.get('secondaryMobile')?.value;
+    if (primary && secondary && primary === secondary) {
+      return { mobileNumbersMatch: true };
+    }
+    return null;
+  }
+
+
   dateFilter = (d: Date | null): boolean => {
     return d ? d <= this.eighteenYearsAgo : false;
   }
@@ -300,6 +316,7 @@ export class EntityAddComponent implements OnInit {
   duealert(event: any) {
     this.myForm.get('customerDuesDate')?.setValue('');
     this.myForm.get('dueDate')?.setValue('');
+    this.myForm.get('dueEndDate')?.setValue('');
 
   }
 
@@ -354,6 +371,11 @@ export class EntityAddComponent implements OnInit {
   get dueDate() {
     return this.myForm.get('dueDate');
   }
+
+  get dueEndDate() {
+    return this.myForm.get('dueEndDate');
+  }
+
   get secondaryMobile() {
     return this.myForm.get('secondaryMobile');
   }
@@ -976,6 +998,7 @@ export class EntityAddComponent implements OnInit {
     formData.append('customerDuesEnable', this.customerDuesEnable?.value);
     formData.append('customerDuesDate', this.customerDuesDate?.value || 0);
     formData.append('dueDate', this.dueDate?.value || 0);
+    formData.append('dueEndDate', this.dueEndDate?.value || 0);
     formData.append('offlineQrEnable', this.offlineQrEnable?.value);
     formData.append('payoutEnable', '0');
     formData.append('customerPaymentMode', this.customerPaymentMode?.value);

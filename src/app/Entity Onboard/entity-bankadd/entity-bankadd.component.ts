@@ -39,7 +39,7 @@ export class EntityBankaddComponent implements OnInit {
     this.BankForm = new FormGroup({
       accountHolderName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+         Validators.pattern('^[A-Za-z. ]+$'),
         Validators.maxLength(50),
       ]),
       accountNumber: new FormControl(null, [

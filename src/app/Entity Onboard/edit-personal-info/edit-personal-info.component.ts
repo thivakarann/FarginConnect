@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
@@ -35,6 +35,8 @@ export class EditPersonalInfoComponent implements OnInit {
   websites = '';
   customerDuesEnabled: any;
   days: number[] = Array.from({ length: 31 }, (_, i) => i + 1); // Generates days 1 to 31
+  Days: number[] = Array.from({ length: 31 }, (_, i) => i + 1); // Generates days 1 to 31
+
   smstag: any;
   smsduedate: any;
   smsdate: any;
@@ -124,13 +126,16 @@ export class EditPersonalInfoComponent implements OnInit {
       logo: new FormControl(''),
       billingMode: new FormControl('', [Validators.required]),
 
-      autoDebitStatus: new FormControl('',[Validators.required]),
+      autoDebitStatus: new FormControl('', [Validators.required]),
 
       customerDuesEnable: new FormControl('', [Validators.required]),
 
       customerDuesDate: new FormControl(''),
 
       dueDate: new FormControl(''),
+
+      dueEndDate: new FormControl(''),
+
       customerSmsTag: new FormControl(''),
 
       offlineQrEnable: new FormControl('', [Validators.required]),
@@ -156,7 +161,10 @@ export class EditPersonalInfoComponent implements OnInit {
         Validators.maxLength(25),
       ]),
       cloudFeeEnable: new FormControl('', [Validators.required]),
-    });
+
+
+    },
+      { validators: this.mobileNumbersNotSameValidator });
 
     this.service.EntityViewbyid(this.id).subscribe((res: any) => {
       this.details = res.response;
@@ -168,6 +176,7 @@ export class EditPersonalInfoComponent implements OnInit {
       if (this.detaislone?.customerDuesEnable == '1') {
         this.myForm.get('customerDuesDate')?.setValue(this.detaislone?.customerDuesDate);
         this.myForm.get('dueDate')?.setValue(this.detaislone?.dueDate);
+        this.myForm.get('dueEndDate')?.setValue(this.detaislone?.dueEndDate);
 
       }
 
@@ -191,7 +200,18 @@ export class EditPersonalInfoComponent implements OnInit {
     this.service.merchantplanactive().subscribe((res: any) => {
       this.entittyplanviewall = res.response;
     });
+  };
+
+  mobileNumbersNotSameValidator(group: AbstractControl): ValidationErrors | null {
+    const primary = group.get('contactMobile')?.value;
+    const secondary = group.get('secondaryMobile')?.value;
+    if (primary && secondary && primary === secondary) {
+      return { mobileNumbersMatch: true };
+    }
+    return null;
   }
+
+
 
   cloudFeeEnableChange(event: Event) {
     const value = (event.target as HTMLSelectElement)?.value;
@@ -279,6 +299,10 @@ export class EditPersonalInfoComponent implements OnInit {
   // }
   get logo() {
     return this.myForm.get('logo');
+  }
+
+  get dueEndDate() {
+    return this.myForm.get('dueEndDate');
   }
   get billingMode() {
     return this.myForm.get('billingMode');
@@ -400,10 +424,12 @@ export class EditPersonalInfoComponent implements OnInit {
     if (this.customerDuesEnabled === '0') {
       formData.append('customerDuesDate', '0');
       formData.append('dueDate', '0');
+      formData.append('dueEndDate', '0');
       // formData.append('customerSmsTag', 'NA');
     } else {
       formData.append('customerDuesDate', this.customerDuesDate?.value);
       formData.append('dueDate', this.dueDate?.value);
+      formData.append('dueEndDate', this.dueEndDate?.value);
       // formData.append('customerSmsTag', this.customerSmsTag?.value || '');
     }
 
@@ -414,14 +440,6 @@ export class EditPersonalInfoComponent implements OnInit {
           res.response.businessCategoryModel.businessCategoryId;
         this.toastr.success(res.responseMessage);
         this.close();
-        // setTimeout(() => {
-        //   window.location.reload()
-        // }, 500);
-        // this.AddEntity.EntityGetKYCbybussinessid(this.bussinessid).subscribe((res: any) => {
-        //   this.KYCDocNames = res.response
-        // })
-        // this.Bankdetails = true;
-        // this.personeldetails = false;
       } else {
         this.toastr.error(res.responseMessage);
       }

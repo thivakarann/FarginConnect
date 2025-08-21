@@ -215,7 +215,8 @@
         </div>
         <div class="col-sm-4 form-group">
           <label for="mobile">Primary Mobile Number</label>
-          <input type="tel" maxLength="10" formControlName="contactMobile" id="mobile" class="form-control" />
+          <input type="tel" maxLength="10" [class.invalid]="myForm.errors?.['mobileNumbersMatch']"
+            formControlName="contactMobile" id="mobile" class="form-control" />
           <div style="
               color: red;
               font-size: 12px;
@@ -236,11 +237,10 @@
 
       </div>
       <div class="row mb-3">
-
-
         <div class="col-sm-4 form-group">
           <label for="secondary">Secondary Mobile Number(Optional)</label>
-          <input maxLength="10" formControlName="secondaryMobile" type="tel" id="secondary" class="form-control" />
+          <input maxLength="10" [class.invalid]="myForm.errors?.['mobileNumbersMatch']"
+            formControlName="secondaryMobile" type="tel" id="secondary" class="form-control" />
           <div style="
               color: red;
               font-size: 12px;
@@ -249,6 +249,13 @@
             " *ngIf="secondaryMobile?.errors?.['pattern']">
             Please Enter a valid Mobile Number
           </div>
+          <div style="color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;" *ngIf="myForm.errors?.['mobileNumbersMatch'] && secondaryMobile?.touched">
+            Primary and Secondary numbers should be different.
+          </div>
+
         </div>
         <div class="col-sm-4 form-group">
           <label for="gsts">GSTIN(Optional)</label>
@@ -675,9 +682,22 @@
           </div>
         </div>
 
+        <div class="col-sm-4 form-group" [hidden]="customerDuesEnable?.value != '1'">
+          <label for="billing">LCO Customer Notification End Date</label>
+          <select [required]="customerDuesEnable?.value == '1'" id="dayPicker" formControlName="dueEndDate"
+            class="form-select">
+            <option *ngFor="let Day of Days" [value]="Day">{{ Day }}</option>
+          </select>
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="dueEndDate?.invalid && dueEndDate?.touched && dueEndDate?.errors?.['required']">
+            Field is required
+          </div>
+        </div>
       </div>
-
-
       <div>
         <button (click)="Submit()" type="submit" class="btn mx-1" style="background-color: #7db855be"
           [disabled]="this.myForm.invalid">
@@ -886,8 +906,8 @@
   </div>
 
   <!-- KYC Details -->
-  
-  
+
+
   <div class="well" style="margin-top: 2%" *ngIf="KYCdetails == true">
     <h4 class="card-header" style="font-weight: 500">3.KYC Details</h4>
     <mat-horizontal-stepper linear>

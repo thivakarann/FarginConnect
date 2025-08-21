@@ -25,7 +25,7 @@ export class ViewPolicyComponent implements OnInit {
   dataSource: any;
   valuetermView: any;
   isFullPolicyVisible: boolean = false;
-  hidecreate:boolean = false
+  hidecreate: boolean = false
   limit: number = 30;
   valuetermAction: any;
   displayedColumns: string[] = [
@@ -52,7 +52,7 @@ export class ViewPolicyComponent implements OnInit {
   roleId: any = sessionStorage.getItem('roleId')
   actions: any;
   valuetermViews: any;
-searchPerformed: boolean=false;
+  searchPerformed: boolean = false;
 
   constructor(private service: FarginServiceService, private router: Router, private dialog: MatDialog) { }
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -61,7 +61,7 @@ searchPerformed: boolean=false;
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-        
+
 
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
@@ -96,7 +96,7 @@ searchPerformed: boolean=false;
       }
     })
     this.service.viewfarginPolicy().subscribe((res: any) => {
-      if(res.flag==1){
+      if (res.flag == 1) {
         this.policyvalue = res.response;
         this.dataSource = new MatTableDataSource(this.policyvalue.reverse());
         this.dataSource.sort = this.sort;
@@ -106,7 +106,7 @@ searchPerformed: boolean=false;
 
     })
 
-   
+
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -117,9 +117,9 @@ searchPerformed: boolean=false;
     }
   }
 
-  reload(){
+  reload() {
     this.service.viewfarginPolicy().subscribe((res: any) => {
-      if(res.flag==1){
+      if (res.flag == 1) {
         this.policyvalue = res.response;
         this.dataSource = new MatTableDataSource(this.policyvalue.reverse());
         this.dataSource.sort = this.sort;
@@ -185,11 +185,11 @@ searchPerformed: boolean=false;
   }
 
   exportexcel() {
-   
+
     let sno = 1;
     this.responseDataListnew = [];
     this.policyvalue.forEach((element: any) => {
- 
+
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.termAndCondition);
@@ -197,7 +197,7 @@ searchPerformed: boolean=false;
       this.response.push(element?.privacyPolicy);
       this.response.push(element?.refundPolicy);
       this.response.push(element?.createdBy);
- 
+
       if (element?.createdDateTime != null) {
         let createdate = element?.createdDateTime;
         this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
@@ -206,12 +206,12 @@ searchPerformed: boolean=false;
       else {
         this.response.push();
       }
- 
+
       // this.response.push(this.date1);
       this.response.push(element?.modifiedBy);
- 
+
       // this.response.push(this.date2);
- 
+
       if (element?.modifiedDateTime != null) {
         let moddate = element?.modifiedDateTime;
         this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
@@ -220,14 +220,14 @@ searchPerformed: boolean=false;
       else {
         this.response.push();
       }
- 
- 
+
+
       sno++;
       this.responseDataListnew.push(this.response);
     });
     this.excelexportCustomer();
   }
- 
+
   excelexportCustomer() {
     // const title = 'Terms and Policy';
     const header = [
@@ -241,16 +241,16 @@ searchPerformed: boolean=false;
       "Modified By",
       "Modified At"
     ]
- 
- 
+
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Terms and Policy');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
- 
- 
+
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -261,15 +261,15 @@ searchPerformed: boolean=false;
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
+
       }
- 
+
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
- 
+
     data.forEach((d: any) => {
       //
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -280,10 +280,10 @@ searchPerformed: boolean=false;
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
- 
- 
- 
- 
+
+
+
+
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -293,23 +293,23 @@ searchPerformed: boolean=false;
       qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
- 
+
+
     }
     );
- 
+
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
     // worksheet.getColumn(2).protection = { locked: true, hidden: true }
     // worksheet.getColumn(3).protection = { locked: true, hidden: true }
- 
- 
+
+
     workbook.xlsx.writeBuffer().then((data: any) => {
- 
+
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
- 
- 
+
+
       FileSaver.saveAs(blob, 'Terms and Policy.xlsx');
- 
+
     });
   }
 

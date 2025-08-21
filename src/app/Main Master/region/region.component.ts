@@ -24,8 +24,8 @@ export class RegionComponent implements OnInit {
   displayedColumns: string[] =
     [
       "regionId",
-      "stateName",
       "serviceProviderName",
+      "stateName",
       "status",
       "Edit",
       "createdBy",
