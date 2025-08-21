@@ -37,6 +37,7 @@ export class CustomerViewallComponent implements OnInit {
     "merchantLegalName",
     'Customername',
     'mobileNumber',
+    "STB",
     'categoryName',
     'logo',
     'description',
@@ -68,14 +69,15 @@ export class CustomerViewallComponent implements OnInit {
   transactionValue: any;
   currentfilvalShow: boolean = false;
   currentfilval: any;
-  searchPerformed:boolean=false
+  searchPerformed: boolean = false
+  searchValue: any;
   constructor(
     private service: FarginServiceService,
     private dialog: MatDialog,
     private ActivateRoute: ActivatedRoute,
     private router: Router,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
 
@@ -88,24 +90,24 @@ export class CustomerViewallComponent implements OnInit {
     });
 
     this.service
-    .Ticketscustomer(this.pageSize, this.pageIndex)
-    .subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.ticket = res.response;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.ticket);
-        this.currentfilvalShow = false;
-      } else if (res.flag == 2) {
-        this.ticket = [];
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.ticket);
-        this.currentfilvalShow = false;
-      }
-    });
+      .Ticketscustomer(this.pageSize, this.pageIndex)
+      .subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.ticket = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.ticket);
+          this.currentfilvalShow = false;
+        } else if (res.flag == 2) {
+          this.ticket = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.ticket);
+          this.currentfilvalShow = false;
+        }
+      });
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
@@ -146,24 +148,24 @@ export class CustomerViewallComponent implements OnInit {
 
   reload() {
     this.service
-    .Ticketscustomer(this.pageSize, this.pageIndex)
-    .subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.ticket = res.response;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.ticket);
-        this.currentfilvalShow = false;
-      } else if (res.flag == 2) {
-        this.ticket = [];
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.ticket);
-        this.currentfilvalShow = false;
-      }
-    });
+      .Ticketscustomer(this.pageSize, this.pageIndex)
+      .subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.ticket = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.ticket);
+          this.currentfilvalShow = false;
+        } else if (res.flag == 2) {
+          this.ticket = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.ticket);
+          this.currentfilvalShow = false;
+        }
+      });
   }
 
   Back(id: any) {
@@ -183,7 +185,7 @@ export class CustomerViewallComponent implements OnInit {
   }
 
   update(id: any) {
-    const dialogRef =this.dialog.open(CustomerTicketapprovalComponent, {
+    const dialogRef = this.dialog.open(CustomerTicketapprovalComponent, {
       data: { value: id },
       disableClose: true,
       width: '50%',
@@ -195,27 +197,26 @@ export class CustomerViewallComponent implements OnInit {
 
     });
   }
-  fetch()
-  {
+  fetch() {
     this.service
-    .Ticketscustomer(this.pageSize, this.pageIndex)
-    .subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.ticket = res.response;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.ticket);
-        this.currentfilvalShow = false;
-      } else if (res.flag == 2) {
-        this.ticket = [];
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.ticket);
-        this.currentfilvalShow = false;
-      }
-    });
+      .Ticketscustomer(this.pageSize, this.pageIndex)
+      .subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.ticket = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.ticket);
+          this.currentfilvalShow = false;
+        } else if (res.flag == 2) {
+          this.ticket = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.ticket);
+          this.currentfilvalShow = false;
+        }
+      });
   }
 
   viewlogo(id: any) {
@@ -235,11 +236,11 @@ export class CustomerViewallComponent implements OnInit {
     this.service.TicketscustomerExport().subscribe((res: any) => {
       this.ticketexport = res.response;
       if (res.flag == 1) {
- 
+
         let sno = 1;
         this.responseDataListnew = [];
         this.ticketexport.forEach((element: any) => {
- 
+
           this.response = [];
           this.response.push(sno);
           this.response.push(element?.ticketId);
@@ -251,7 +252,7 @@ export class CustomerViewallComponent implements OnInit {
           this.response.push(element?.createdDateTime);
           this.response.push(element?.ticketStatusModifedBy);
           this.response.push(element?.ticketModifedDateTime);
- 
+
           sno++;
           this.responseDataListnew.push(this.response);
         });
@@ -259,7 +260,7 @@ export class CustomerViewallComponent implements OnInit {
       }
     });
   }
- 
+
   excelexportCustomer() {
     // const title='Business Category';
     const header = [
@@ -274,16 +275,16 @@ export class CustomerViewallComponent implements OnInit {
       "Status Updated By",
       "Status Updated Date/Time",
     ]
- 
- 
+
+
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Customer Tickets');
     // Blank Row
     // let titleRow = worksheet.addRow([title]);
     // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
- 
- 
+
+
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -294,15 +295,15 @@ export class CustomerViewallComponent implements OnInit {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
- 
+
       }
- 
+
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
- 
+
     data.forEach((d: any) => {
       //
- 
+
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -314,8 +315,8 @@ export class CustomerViewallComponent implements OnInit {
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
- 
- 
+
+
       qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
@@ -326,7 +327,7 @@ export class CustomerViewallComponent implements OnInit {
       qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
       qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
- 
+
     }
     );
     // worksheet.getColumn(1).protection = { locked: true, hidden: true }
@@ -346,7 +347,7 @@ export class CustomerViewallComponent implements OnInit {
       disableClose: true,
       data: { value: id, Title: id2 },
       width: '90vw',
-      maxHeight:'500px',
+      maxHeight: '500px',
       maxWidth: '500px',
     });
   }
@@ -359,18 +360,30 @@ export class CustomerViewallComponent implements OnInit {
       exitAnimationDuration: '1000ms',
       disableClose: true,
       width: '90vw',
-      maxHeight:'500px',
+      maxHeight: '500px',
       maxWidth: '500px',
       data: { value: id, Title: id2 }
     });
   }
 
   customerpay(filterValue: string) {
+
+    if (!filterValue) {
+      this.toastr.error('Please enter a value to search');
+      return;
+    }
+
+    // ✅ Normalize and transform values
+    const trimmedValue = filterValue.trim().toLowerCase();
+    switch (trimmedValue) {
+      case 'pending for approval': this.searchValue = 'Submitted'; break;
+      case 'close': this.searchValue = 'Closed'; break;
+      default: this.searchValue = filterValue;
+    }
+
+
     if (filterValue) {
-      console.log(filterValue);
-      this.service
-      .Ticketssearchcustomer(filterValue, this.pageSize, this.pageIndex)
-      .subscribe({
+      this.service.Ticketssearchcustomer(this.searchValue, this.pageSize, this.pageIndex).subscribe({
         next: (res: any) => {
           if (res.response) {
             this.transactionValue = res.response;
@@ -388,63 +401,60 @@ export class CustomerViewallComponent implements OnInit {
             this.currentfilvalShow = true;
           }
         },
-        // error: (err: any) => {
-        //   this.toastr.error('No Data Found');
-        // }
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
+        },
       });
-    } else if (!filterValue) {
-      this.toastr.error('Please enter a value to search');
-      return;
     }
   }
   getData(event: any) {
     if (this.currentfilvalShow) {
       this.service
-      .Ticketssearchcustomer(
-        this.currentfilval,
-        event.pageSize,
-        event.pageIndex
-      )
-      .subscribe({
-        next: (res: any) => {
-          if (res.response) {
-            this.transactionValue = res.response;
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSource = new MatTableDataSource(this.transactionValue);
-            this.currentfilvalShow = true;
-          } else if (res.flag == 2) {
-            this.transactionValue = [];
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSource = new MatTableDataSource(this.transactionValue);
-            this.currentfilvalShow = true;
-          }
-        },
-        // error: (err: any) => {
-        //   this.toastr.error('No Data Found');
-        // }
-      });
+        .Ticketssearchcustomer(
+          this.currentfilval,
+          event.pageSize,
+          event.pageIndex
+        )
+        .subscribe({
+          next: (res: any) => {
+            if (res.response) {
+              this.transactionValue = res.response;
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.dataSource = new MatTableDataSource(this.transactionValue);
+              this.currentfilvalShow = true;
+            } else if (res.flag == 2) {
+              this.transactionValue = [];
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.dataSource = new MatTableDataSource(this.transactionValue);
+              this.currentfilvalShow = true;
+            }
+          },
+          // error: (err: any) => {
+          //   this.toastr.error('No Data Found');
+          // }
+        });
     } else {
       this.service
-      .Ticketscustomer(event.pageSize, event.pageIndex)
-      .subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.ticket = res.response;
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.ticket);
-        } else if (res.flag == 2) {
-          this.ticket = [];
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.ticket);
-        }
-      });
+        .Ticketscustomer(event.pageSize, event.pageIndex)
+        .subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.ticket = res.response;
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.ticket);
+          } else if (res.flag == 2) {
+            this.ticket = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.ticket);
+          }
+        });
     }
   }
 }
