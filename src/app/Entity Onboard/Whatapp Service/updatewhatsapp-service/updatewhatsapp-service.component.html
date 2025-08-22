@@ -7,7 +7,7 @@
             <div class="row mb-1">
                 <div class="col-12 form-group">
                     <label for="Entity Name">Select Vendor</label>
-                    <select ngModel="{{data?.value?.vendorId}}" class="form-select" id="period" formControlName="vendorId">
+                    <select class="form-select" id="period" formControlName="vendorId">
                         <option *ngFor="let item of Vendors" [value]="item.vendorAdminId">
                             {{ item.vendorName }}
                         </option>
@@ -23,7 +23,7 @@
                 </div>
                 <div class="col-12 form-group">
                     <label for="Entity Name">Charge Type</label>
-                    <select ngModel="{{data?.value?.smsCharge}}" class="form-select" id="period" formControlName="smsCharge">
+                    <select class="form-select" id="period" formControlName="smsCharge">
                         <option hidden>Select</option>
                         <option value="Applicable">Applicable</option>
                         <option value="Not Applicable">Not Applicable</option>
@@ -41,11 +41,8 @@
             <div class="row mb-1">
                 <div class="col-12 form-group">
                     <label for="Entity Name">Recipient</label>
-                    <select  ngModel="{{data?.value?.templateType}}" class="form-select" id="period" formControlName="templateType">
-                        <option hidden>Select</option>
-                        <option value="Merchant">Merchant</option>
-                        <option value="Customer">Customer</option>
-                    </select>
+                    <input readonly type="text" id="Entity Name" formControlName="templateType" class="form-control" />
+
                     <div style="
               color: red;
               font-size: 12px;
@@ -57,11 +54,7 @@
                 </div>
                 <div class="col-12 form-group">
                     <label for="Entity Name">Language</label>
-                    <select  ngModel="{{data?.value?.templateLanguage}}" class="form-select" id="period" formControlName="tempLanguage">
-                        <option hidden>Select</option>
-                        <option value="en">English</option>
-                        <option value="ta">Tamil</option>
-                    </select>
+                    <input readonly type="text" id="Entity Name" formControlName="tempLanguage" class="form-control" />
                     <div style="
               color: red;
               font-size: 12px;
@@ -74,13 +67,11 @@
             </div>
             <div class="row mb-1" *ngIf="
           myForm.get('vendorId')?.valid &&
-          myForm.get('smsCharge')?.valid &&
-          myForm.get('templateType')?.valid &&
-          myForm.get('tempLanguage')?.valid
+          myForm.get('smsCharge')?.valid
         ">
                 <div class="col-12 form-group">
                     <label>Select Message Templates</label>
-                    <mat-select   formControlName="whatsappTemplateId" class="Selectsss">
+                    <mat-select formControlName="whatsappTemplateId" class="Selectsss">
                         <mat-option *ngFor="let item of TemplateDetails" [value]="item.whatsappTemplateId">
                             <div class="option-content">
                                 <span>{{ item?.templateTitle }}</span>
