@@ -32,31 +32,31 @@
                         </tr>
                         <tr>
                             <td class="datas">One-Time Setup Fee(Excluding GST)</td>
-                            <td id="data">{{view?.paidAmount}}</td>
+                            <td id="data">{{view?.paidAmount?.toFixed(2)}}</td>
                         </tr>
                         <tr>
 
 
                             <td class="datas">Cloud Fee</td>
-                            <td id="data">{{view?.maintenanceAmount}}</td>
+                            <td id="data">{{view?.maintenanceAmount?.toFixed(2)}}</td>
                         </tr>
                         <tr>
                             <td class="datas">VoiceBoxAdv Amount</td>
-                            <td id="data">{{view?.voiceBoxAdvAmount}}</td>
+                            <td id="data">{{view?.voiceBoxAdvAmount?.toFixed(2)}}</td>
                         </tr>
                         <tr>
                             <td class="datas">VoiceBoxSetup Amount</td>
-                            <td id="data">{{view?.voiceBoxSetupAmount}}</td>
+                            <td id="data">{{view?.voiceBoxSetupAmount?.toFixed(2)}}</td>
                         </tr>
 
                         <tr>
                             <td class="datas">GST Amount</td>
-                            <td id="data">{{view?.gstAmount}}</td>
+                            <td id="data">{{view?.gstAmount?.toFixed(2)}}</td>
                         </tr>
 
                         <tr>
                             <td class="datas">Total Payable Amount</td>
-                            <td id="data" class="text-success">₹{{view?.totalPayableAmount}}</td>
+                            <td id="data" class="text-success">₹{{view?.totalPayableAmount?.toFixed(2)}}</td>
                         </tr>
                         <tr>
                             <td class="datas">Payment Method</td>

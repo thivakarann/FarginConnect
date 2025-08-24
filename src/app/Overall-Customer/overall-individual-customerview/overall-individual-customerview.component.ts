@@ -125,12 +125,14 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
   dataSourceAdditional: any;
   displayedColumnsAdditional: string[] = [
     'snoadd',
+    "Service",
     'Category',
     'Quantity',
     'Amount',
     'Id',
     'Reference',
     'Method',
+    'Status',
     'Reciepts',
     'Paid',
   ];
@@ -156,6 +158,7 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
   dataSourceRefundAdditional: any;
   displayedColumnsRefundAdditional: string[] = [
     'Snos',
+    'Service',
     'category',
     'quantity',
     'Types',
@@ -164,7 +167,6 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
     'Paidamount',
     'Refundsamount',
     'Refundstatus',
-    'Offline',
     'RequestedsAt',
   ];
   refundval: any;
@@ -333,13 +335,18 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
       });
     }
     else if (this.selectedTab === 'Refund') {
-      this.service.RefundForCustomerView(this.id).subscribe((res: any) => {
+        this.service.RefundForCustomerView(this.id).subscribe((res: any) => {
         if (res.flag == 1) {
-          this.refundval = res.response.reverse();
-          this.dataSourceRefund = new MatTableDataSource(this.refundval);
+          this.refundval = res.response;
+          this.dataSourceRefund = new MatTableDataSource(
+            this.refundval.reverse()
+          );
           this.dataSourceRefund.sort = this.sort;
           this.dataSourceRefund.paginator = this.paginator;
-          this.dataSourceRefund.filterPredicate = (data: any, filter: string) => {
+          this.dataSourceRefund.filterPredicate = (
+            data: any,
+            filter: string
+          ) => {
             const transformedFilter = filter.trim().toLowerCase();
             const dataStr = Object.keys(data)
               .reduce((currentTerm: string, key: string) => {
@@ -355,6 +362,7 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
           };
         } else if (res.flag == 2) {
           this.dataSourceRefund = new MatTableDataSource([]);
+
           this.dataSourceRefund.sort = this.sort;
           this.dataSourceRefund.paginator = this.paginator;
         }
@@ -506,7 +514,7 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
       this.service.RefundForCustomerAdditionalView(this.id).subscribe((res: any) => {
         if (res.flag == 1) {
           this.refundadditional = res.response.reverse();
-          this.dataSourceRefundAdditional = new MatTableDataSource();
+          this.dataSourceRefundAdditional = new MatTableDataSource(this.refundadditional);
           this.dataSourceRefundAdditional.sort = this.sort;
           this.dataSourceRefundAdditional.paginator = this.paginator;
           this.dataSourceRefundAdditional.filterPredicate = (data: any, filter: string) => {

@@ -10,6 +10,7 @@ import FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
 import { DatePipe } from '@angular/common';
 import moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-entity-settlement',
@@ -100,7 +101,9 @@ export class EntitySettlementComponent {
     public MerchantView: FarginServiceService,
     private router: Router,
     private ActivateRoute: ActivatedRoute,
-    private Location: Location
+    private Location: Location,
+    private toastr: ToastrService,
+
   ) { }
 
   ngOnInit(): void {
@@ -183,6 +186,8 @@ export class EntitySettlementComponent {
       this.pageIndex = this.datas.number;
       this.pageSize = this.datas.size;
       this.dataSource = new MatTableDataSource(this.filteredData);
+      this.filterAction = 0;
+
       if (this.content.length === 0) {
         this.dataSource = new MatTableDataSource();
       }
@@ -224,7 +229,7 @@ export class EntitySettlementComponent {
         this.pageIndex = this.datas.number;
         this.pageSize = this.datas.size;
         this.dataSource = new MatTableDataSource(this.filteredData);
-        this.filterAction = 1
+        this.filterAction = 1;
         if (this.content.length === 0) {
           this.dataSource = new MatTableDataSource();
         }
@@ -256,6 +261,7 @@ export class EntitySettlementComponent {
           this.pageSize = this.datas.size;
           this.dataSource = new MatTableDataSource(this.content);
 
+          this.filterAction = 1;
           if (this.content.length === 0) {
             this.dataSource = new MatTableDataSource();
           }
@@ -279,6 +285,7 @@ export class EntitySettlementComponent {
         this.length = this.datas.totalElements;
         this.pageIndex = this.datas.number;
         this.pageSize = this.datas.size;
+        this.filterAction = 0;
         this.dataSource = new MatTableDataSource(this.filteredData);
         if (this.content.length === 0) {
           this.dataSource = new MatTableDataSource();
@@ -287,10 +294,10 @@ export class EntitySettlementComponent {
     }
   }
 
-  exportexcel() {
+  exportexcel(data: any[]) {
     let sno = 1;
     this.responseDataListnew = [];
-    this.filteredData.forEach((element: any) => {
+    data.forEach((element: any) => {
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.accountId);
@@ -445,6 +452,7 @@ export class EntitySettlementComponent {
       this.lengthoffline = this.datasOffline.totalElements;
       this.pageIndexoffline = this.datasOffline.number;
       this.pageSizeoffline = this.datasOffline.size;
+      this.filterActionoffline = 0;
       this.dataSourcesoffline = new MatTableDataSource(this.contentoffline);
       if (this.contentoffline.length === 0) {
         this.dataSourcesoffline = new MatTableDataSource();
@@ -484,6 +492,7 @@ export class EntitySettlementComponent {
       this.lengthoffline = this.datasOffline.totalElements;
       this.pageIndexoffline = this.datasOffline.number;
       this.pageSizeoffline = this.datasOffline.size;
+      this.filterActionoffline = 1;
       this.dataSourcesoffline = new MatTableDataSource(this.contentoffline);
       if (this.contentoffline.length === 0) {
         this.dataSourcesoffline = new MatTableDataSource();
@@ -511,6 +520,7 @@ export class EntitySettlementComponent {
         this.lengthoffline = this.datasOffline.totalElements;
         this.pageIndexoffline = this.datasOffline.number;
         this.pageSizeoffline = this.datasOffline.size;
+      this.filterActionoffline = 1;
         this.dataSourcesoffline = new MatTableDataSource(this.contentoffline);
         if (this.contentoffline.length === 0) {
           this.dataSourcesoffline = new MatTableDataSource();
@@ -532,6 +542,7 @@ export class EntitySettlementComponent {
         this.lengthoffline = this.datasOffline.totalElements;
         this.pageIndexoffline = this.datasOffline.number;
         this.pageSizeoffline = this.datasOffline.size;
+      this.filterActionoffline = 0;
         this.dataSourcesoffline = new MatTableDataSource(this.contentoffline);
         if (this.contentoffline.length === 0) {
           this.dataSourcesoffline = new MatTableDataSource();
@@ -541,10 +552,10 @@ export class EntitySettlementComponent {
   };
 
 
-  exportexceloffline() {
+  exportexceloffline(data:any[]) {
     let sno = 1;
     this.responseDataListnewoffline = [];
-    this.contentoffline.forEach((element: any) => {
+    data.forEach((element: any) => {
       this.offlineresponse = [];
       this.offlineresponse.push(sno);
       this.offlineresponse.push(element?.accountId);
@@ -672,6 +683,98 @@ export class EntitySettlementComponent {
   };
 
 
+
+
+
+
+
+  exportData() {
+    if (this.length != 0) {
+      if (this.filterAction == 1) {
+        const datepipe: DatePipe = new DatePipe('en-US');
+        let formattedstartDate = datepipe.transform(this.FromDateRange, 'dd/MM/YYYY HH:mm');
+        let formattedendDate = datepipe.transform(this.ToDateRange, 'dd/MM/yyyy HH:mm');
+        this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
+        let submitModel: settlement = {
+          merchantId: this.id,
+          pageNo: 1,
+          size: this.length,
+          query: '',
+          dateRange: this.Daterange,
+          status: '',
+        };
+        this.MerchantView.Entitysettlement(submitModel).subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.Viewall = JSON.parse(res.response);
+            this.content = this.Viewall?.data?.content || [];
+            this.filteredData = this.content;
+            this.exportexcel(this.filteredData)
+          }
+        });
+      }
+      else {
+        let submitModel: settlement = {
+          merchantId: this.id,
+          pageNo: 1,
+          size: this.length,
+          query: '',
+          dateRange: this.Daterange,
+          status: '',
+        };
+        this.MerchantView.Entitysettlement(submitModel).subscribe((res: any) => {
+          this.Viewall = JSON.parse(res.response);
+          this.content = this.Viewall?.data?.content || [];
+          this.filteredData = this.content;
+          this.exportexcel(this.filteredData)
+        });
+      }
+    }
+    else {
+      this.toastr.error('No record found');
+    }
+  }
+
+
+
+  exportDataOffline() {
+    if (this.lengthoffline != 0) {
+      if (this.filterActionoffline == 1) {
+      const datepipe: DatePipe = new DatePipe('en-US');
+      let formattedstartDate = datepipe.transform(this.FromDateRangeoffline, 'dd/MM/YYYY HH:mm');
+      let formattedendDate = datepipe.transform(this.ToDateRangeoffline, 'dd/MM/yyyy HH:mm');
+      this.DaterangeOffline = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
+      let submitModel: OfflineSettlement = {
+        merchantId: this.id,
+        pageNo: 1,
+        size: this.lengthoffline,
+        query: '',
+        dateRange: this.DaterangeOffline,
+      };
+      this.MerchantView.Entitysettlementoffline(submitModel).subscribe((res: any) => {
+        this.Viewalloffline = JSON.parse(res.response);
+        this.contentoffline = this.Viewalloffline?.content || [];
+        this.exportexceloffline(this.contentoffline);
+      });
+    }
+    else {
+      let submitModel: OfflineSettlement = {
+        merchantId: this.id,
+        pageNo: 1,
+        size: this.lengthoffline,
+        query: '',
+        dateRange: this.DaterangeOffline,
+      };
+      this.MerchantView.Entitysettlementoffline(submitModel).subscribe((res: any) => {
+        this.Viewalloffline = JSON.parse(res.response);
+        this.contentoffline = this.Viewalloffline?.content || [];
+        this.exportexceloffline(this.contentoffline);
+      });
+    }
+    }
+    else {
+      this.toastr.error('No record found');
+    }
+  }
 
 
 }

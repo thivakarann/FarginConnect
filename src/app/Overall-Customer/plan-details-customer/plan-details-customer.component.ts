@@ -68,7 +68,7 @@ export class PlanDetailsCustomerComponent {
   }
 
   Getall() {
-    this.service.ViewSetupBoxPlanDetails(this.id).subscribe((res: any) => {
+    this.service.ViewallSetupBoxPlanDetails(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
         this.alcotchannel = res.response.alcotList.reverse();
         this.bouquetPlan = res.response.bouquetList.reverse();

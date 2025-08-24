@@ -44,6 +44,7 @@ export class EntityTransactionComponent {
     'payoutId',
     'customername',
     'mobileNumber',
+    'Serivice',
     'STB',
     'ServiceProvider',
     'amount',

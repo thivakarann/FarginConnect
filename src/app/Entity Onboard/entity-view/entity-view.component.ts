@@ -623,7 +623,7 @@ export class EntityViewComponent implements OnInit {
 
     this.MerchantView.SMSViewById(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.smsDetails = res.response;
+        this.smsDetails = res.response.reverse();
       }
     });
 

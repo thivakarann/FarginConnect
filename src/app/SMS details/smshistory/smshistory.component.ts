@@ -24,6 +24,8 @@ export class SMSHistoryComponent {
     'accountId',
     'entityname',
     'mobile',
+    'templateType',
+    'Lan',
     'smsType',
     'smsTempDescription',
     'responseStatus',

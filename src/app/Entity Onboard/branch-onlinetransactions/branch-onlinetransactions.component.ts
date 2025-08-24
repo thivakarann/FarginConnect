@@ -75,6 +75,7 @@ export class BranchOnlinetransactionsComponent {
     'pgPaymentId',
     'customerName',
     'mobileNumber',
+    'Serivice',
     'setupBoxNumber',
     'quantity',
     'paidAmount',

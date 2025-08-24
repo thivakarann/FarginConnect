@@ -130,6 +130,11 @@ export class OfflineTransactionsComponent {
 
   Getall() {
 
+    this.filterAction = 0;
+        this.FromDateRange = '';
+        this.ToDateRange = '';
+        this.Daterange = '';
+
     let submitModel: OffilneTransaction = {
       merchantId: this.id,
       pageNo: '0',
@@ -152,10 +157,7 @@ export class OfflineTransactionsComponent {
         if (this.content.length === 0) {
           this.dataSource = new MatTableDataSource();
         };
-        this.filterAction = 0;
-        this.FromDateRange = '';
-        this.ToDateRange = '';
-        this.Daterange = '';
+        
       }
     });
   }
@@ -410,6 +412,8 @@ export class OfflineTransactionsComponent {
           this.length = this.Viewall.totalElements;
           this.pageIndex = this.Viewall.number;
           this.pageSize = this.Viewall.size;
+        this.filterAction = 1;
+
           this.dataSource = new MatTableDataSource(this.filteredData);
           if (this.content.length === 0) {
             this.dataSource = new MatTableDataSource();
@@ -435,6 +439,8 @@ export class OfflineTransactionsComponent {
           this.length = this.Viewall.totalElements;
           this.pageIndex = this.Viewall.number;
           this.pageSize = this.Viewall.size;
+        this.filterAction = 0;
+
           this.dataSource = new MatTableDataSource(this.filteredData);
           if (this.content.length === 0) {
             this.dataSource = new MatTableDataSource();

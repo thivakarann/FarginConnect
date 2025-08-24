@@ -124,6 +124,7 @@ export class EntityCustomersViewComponent {
   dataSourceAdditional: any;
   displayedColumnsAdditional: string[] = [
     'snoadd',
+    'Servicename',
     'Category',
     'Quantity',
     'Amount',
@@ -155,6 +156,7 @@ export class EntityCustomersViewComponent {
   dataSourceRefundAdditional: any;
   displayedColumnsRefundAdditional: string[] = [
     'Snos',
+    'Service',
     'category',
     'quantity',
     'Types',

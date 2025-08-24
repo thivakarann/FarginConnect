@@ -103,6 +103,49 @@
           }}
         </td>
       </ng-container>
+
+      <ng-container matColumnDef="Number">
+        <th mat-header-cell *matHeaderCellDef>Mobile Number</th>
+        <td mat-cell *matCellDef="let transaction">
+          {{
+          transaction?.customerId?.mobileNumber == null
+          ? transaction?.mobileNumber
+          : transaction?.customerId?.mobileNumber
+          }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Service">
+        <th mat-header-cell *matHeaderCellDef>
+          Service Name
+        </th>
+        <td mat-cell *matCellDef="let transaction">
+          <span *ngIf="transaction?.inventoryNameCreate==null">{{transaction.inventorySoftware?.inventoryName}}</span>
+          <span *ngIf="transaction?.inventoryName!=null">-</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Stock">
+        <th mat-header-cell *matHeaderCellDef>
+          Stock Category
+        </th>
+        <td mat-cell *matCellDef="let transaction">
+          <span *ngIf="transaction?.inventorySoftware==null">{{transaction.inventoryName?.inventoryName}}</span>
+          <span *ngIf="transaction?.inventorySoftware!=null">-</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Quantity">
+        <th mat-header-cell *matHeaderCellDef>
+          Quantity
+        </th>
+        <td mat-cell *matCellDef="let transaction">
+
+          <span *ngIf="transaction?.quantity==0">-</span>
+          <span *ngIf="transaction?.quantity!=0">{{transaction.quantity}}</span>
+
+        </td>
+      </ng-container>
       <ng-container matColumnDef="paymentmethod">
         <th mat-header-cell *matHeaderCellDef>Payment Method</th>
         <td mat-cell *matCellDef="let transaction">
@@ -116,7 +159,7 @@
       <ng-container matColumnDef="amount">
         <th mat-header-cell *matHeaderCellDef>Amount</th>
         <td mat-cell *matCellDef="let transaction">
-          {{ transaction?.paidAmount }}
+          {{ transaction?.paidAmount?.toFixed(2) }}
         </td>
       </ng-container>
 
@@ -202,6 +245,7 @@
     </table>
   </div>
 </mat-card-content>
+
 <mat-card-footer>
   <mat-paginator (page)="getData($event)" [length]="totalPages" [pageIndex]="currentpage" [pageSize]="totalpage"
     [pageSizeOptions]="[5, 10, 50, 100, 200, 300, 500]" aria-label="Select page">

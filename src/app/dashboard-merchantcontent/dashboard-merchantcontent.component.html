@@ -29,7 +29,7 @@
 <div class="dashboard">
   <div class="card-container">
     <div class="card" [hidden]="valueCustomerView!=='Customer Overview'">
-      <div class="card-header">
+      <div class="card-header p-1">
         <div class="icon">👥</div>
         <div class="title">Customer Overview</div>
       </div>
@@ -72,7 +72,7 @@
     </div>
 
     <div class="card" [hidden]="valueTicketsView!=='Ticket Overview'">
-      <div class="card-header">
+      <div class="card-header p-1">
         <div class="icon">🎟️</div>
         <div class="title">Ticket Overview</div>
       </div>
@@ -90,14 +90,24 @@
           <div class="stat-title">Total Open Tickets</div>
           <div class="stat-value">
             <span class="value">{{ customercount?.totalOpenTicketCount || 0 }}</span>
-
+          </div>
+        </div>
+        <div class="stat">
+          <div class="stat-title">Reopen Tickets</div>
+          <div class="stat-value">
+            <span class="value">{{ customercount?.totalReOpenTicketCount || 0 }}</span>
           </div>
         </div>
         <div class="stat">
           <div class="stat-title">Tickets on Hold</div>
           <div class="stat-value">
             <span class="value">{{ customercount?.totalHoldTicketCount || 0 }}</span>
-
+          </div>
+        </div>
+        <div class="stat">
+          <div class="stat-title">Approval Pending Tickets</div>
+          <div class="stat-value">
+            <span class="value">{{ customercount?.totalSubmittedTicketCount || 0 }}</span>
           </div>
         </div>
         <div class="stat">
@@ -113,7 +123,7 @@
     </div>
 
     <div [hidden]="valueEmployeeView!=='Employee Overview'" class="card">
-      <div class="card-header">
+      <div class="card-header p-1">
         <div class="icon">👥</div>
         <div class="title"> Employee Overview</div>
       </div>

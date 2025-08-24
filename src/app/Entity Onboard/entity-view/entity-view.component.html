@@ -1712,9 +1712,12 @@
                 <th>S No</th>
                 <th>SMS Type</th>
                 <th>SMS Description</th>
+                 <th>Charges</th>
+                <th>Language</th>
+                <th>Recipient</th>
+                
                 <th>SMS Count</th>
-                <th>SMS Charge Type</th>
-                <th [hidden]="valuesmsapproval !== 'Sms Setting-Approval'">Approval</th>
+               <th [hidden]="valuesmsapproval !== 'Sms Setting-Approval'">Approval</th>
                 <th>Approval Status</th>
                 <th>Approval At</th>
                 <th [hidden]="valuesmsstatus !== 'Sms Setting-Status'">Status</th>
@@ -1734,8 +1737,19 @@
                     (click)="Smsdescription(item.type?.smsSample)">
                   </i>
                 </td>
+                  <td>
+                  <Span *ngIf="item?.smsCharge == 'Applicable'" style="color: #28a745;">Applicable</Span>
+                  <Span *ngIf="item?.smsCharge == 'Not Applicable'" style="color:#dc3545;">Not Applicable</Span>
+                </td>
+                <td>
+                  {{item?.type?.templateLanguage}}
+                </td>
+                 <td>
+                  <span *ngIf="item?.type?.templateType=='Merchant'">Merchant</span>
+                  <span *ngIf="item?.type?.templateType=='Customer'">Customer</span>
+                </td>
+              
                 <td>{{ item?.smsCount }}</td>
-                <td>{{ item?.smsCharge }}</td>
                 <td class="text-center" [hidden]="valuesmsapproval !== 'Sms Setting-Approval'">
                   <span>
                     <button class="buttonDownload" [disabled]="item.smsApprovalStatus !== 'Rejected'"

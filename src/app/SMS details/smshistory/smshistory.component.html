@@ -105,10 +105,29 @@
                     </div>
                 </td>
             </ng-container>
+                <ng-container matColumnDef="templateType">
+                <th mat-header-cell *matHeaderCellDef>Recipient</th>
+                <td mat-cell *matCellDef="let transaction">
+                    <span *ngIf="transaction?.templateType=='Merchant'">Merchant</span>
+                    <span *ngIf="transaction?.templateType=='Customer'">Customer</span>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Lan">
+                <th mat-header-cell *matHeaderCellDef>Langauge</th>
+                <td mat-cell *matCellDef="let transaction">
+                    {{transaction?.templateLanguage}}
+                </td>
+            </ng-container>
 
             <ng-container matColumnDef="smscharge">
-                <th mat-header-cell *matHeaderCellDef>SMS Charge Type</th>
-                <td mat-cell *matCellDef="let transaction">{{transaction?.smsChargeStatus}}</td>
+                <th mat-header-cell *matHeaderCellDef>Charges</th>
+
+                <td mat-cell *matCellDef="let transaction">
+                    <Span *ngIf="transaction?.smsChargeStatus == 'Applicable'" style="color: #28a745;">Applicable</Span>
+                    <Span *ngIf="transaction?.smsChargeStatus == 'Not Applicable'" style="color:#dc3545;">Not
+                        Applicable</Span>
+                </td>
             </ng-container>
 
             <ng-container matColumnDef="responseStatus">
@@ -131,7 +150,7 @@
             </ng-container>
 
             <ng-container matColumnDef="perSmsAmount">
-                <th mat-header-cell *matHeaderCellDef>Charge For SMS</th>
+                <th mat-header-cell *matHeaderCellDef>Cost</th>
                 <td mat-cell *matCellDef="let transaction">
                     {{transaction?.perSmsAmount}}
                 </td>

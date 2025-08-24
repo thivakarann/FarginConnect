@@ -51,7 +51,7 @@
   </div>
 
   <div class="col-md-1 mt-4">
-    <button style="
+    <button [disabled]="!FromDateRange || !ToDateRange" style="
         color: white;
         background-color: #141e46;
         border-radius: 10px;
@@ -107,7 +107,7 @@
       <ng-container matColumnDef="amount">
         <th mat-header-cell *matHeaderCellDef>Amount</th>
         <td mat-cell *matCellDef="let transaction">
-          {{ transaction?.amount }}
+          {{ transaction?.amount?.toFixed(2) }}
         </td>
       </ng-container>
       <ng-container matColumnDef="paystatus">

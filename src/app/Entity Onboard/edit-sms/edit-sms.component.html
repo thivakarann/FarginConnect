@@ -1,6 +1,4 @@
-<link
-  href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css"
-/>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" />
 <div class="card-header d-flex justify-content-between align-items-center">
   <h5 class="mb-0" style="color:black">Update Sms</h5>
 </div>
@@ -9,77 +7,67 @@
     <form [formGroup]="myForm">
       <div class="row mt-3">
         <div class="col-12 form-group">
-          <label class="form__label" for="smsFors">SMS Type</label>
-          <select
-            class="form-select"
-            id="period"
-            formControlName="smsForpaid"
-            ngModel="{{ Smsdetails?.smsCharge }}"
-          >
-            <option hidden>Select--</option>
- 
-            <option value="Free">Free</option>
-            <option value="Paid">Paid</option>
+          <label class="form__label" for="smsFors">Charges</label>
+          <select class="form-select" id="period" formControlName="smsForpaid">
+            <option disabled>Select--</option>
+            <option value="Applicable">Applicable</option>
+            <option value="Not Applicable">Not Applicable</option>
           </select>
- 
-          <div
-            style="
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="smsForpaid?.invalid && smsForpaid?.touched && smsForpaid?.errors?.['required']"
-          >
+            " *ngIf="smsForpaid?.invalid && smsForpaid?.touched && smsForpaid?.errors?.['required']">
             Field is required
           </div>
         </div>
- 
         <div class="col-12 form-group ">
-          <label class="form__label" for="merchantPosition">Selected SMS Template </label>
-          <input class="form-control" id="merchantPosition" type="text" readonly formControlName="smsFor">
-         
-      </div>
-        <!-- <div class="col-12 form-group">
-          <label class="form__label" for="Bussiness category"
-            >SMS Template</label
-          >
-          <select id="smsFors" class="form-select" formControlName="smsFor">
-            <option [value]="items.smsTempId" *ngFor="let items of freepaid">
-              {{ items?.smsTitle }}
-            </option>
-          </select>
- 
-          <div
-            style="
+          <label class="form__label" for="merchantPosition">Recipient</label>
+          <input class="form-control" id="merchantPosition" type="text" readonly formControlName="templateType">
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="smsFor?.invalid && smsFor?.touched && smsFor?.errors?.['required']"
-          >
+            " *ngIf="templateType?.invalid && templateType?.touched && templateType?.errors?.['required']">
             Field is required
           </div>
-        </div> -->
+        </div>
+        <div class="col-12 form-group ">
+          <label class="form__label" for="merchantPosition">Language</label>
+          <input class="form-control" id="merchantPosition" type="text" readonly formControlName="tempLanguage">
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="tempLanguage?.invalid && tempLanguage?.touched && tempLanguage?.errors?.['required']">
+            Field is required
+          </div>
+        </div>
+        <div class="col-12 form-group ">
+          <label class="form__label" for="merchantPosition">Selected SMS Template </label>
+          <input class="form-control" id="merchantPosition" type="text" readonly formControlName="smsFor">
+          <div style="
+              color: red;
+              font-size: 12px;
+              margin-top: 2px;
+              position: relative;
+            " *ngIf="smsFor?.invalid && smsFor?.touched && smsFor?.errors?.['required']">
+            Field is required
+          </div>
+        </div>
+
+
       </div>
- 
+
       <div class="mb-3">
-        <button
-          (click)="submit()"
-          [disabled]="myForm.invalid"
-          type="submit"
-          class="btn mx-1"
-          style="background-color: #7db855be"
-        >
+        <button (click)="submit()" [disabled]="myForm.invalid" type="submit" class="btn mx-1"
+          style="background-color: #7db855be">
           Submit
         </button>
-        <button
-          type="submit"
-          class="btn"
-          style="background-color: #141e46; color: white"
-          matDialogClose
-        >
+        <button type="submit" class="btn" style="background-color: #141e46; color: white" matDialogClose>
           Cancel
         </button>
       </div>

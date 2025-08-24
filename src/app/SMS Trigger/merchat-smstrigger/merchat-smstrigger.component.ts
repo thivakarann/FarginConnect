@@ -18,6 +18,8 @@ export class MerchatSMSTriggerComponent implements OnInit {
   displayedColumns: string[] = [
     'sno',
     'smstitle',
+    'templateType',
+    'Lan',
     'smsCharge',
     'totalCount',
     'successCount',

@@ -18,7 +18,7 @@
 
   <mat-stepper orientation="vertical" (selectionChange)="onStepChange($event)">
 
-    <mat-step  [completed]="false">
+    <mat-step [completed]="false">
       <ng-template matStepLabel><b>Alcarte Channels</b></ng-template>
       <span *ngIf="!viewData" style="color:red;font-size:12px;text-align: center;">NO DATA FOUND</span>
       <ng-template matStepContent>
@@ -77,8 +77,14 @@
                     <th>Price</th>
                     <th>Language</th>
                     <th>Generic</th>
+                    <th>Status Mode</th>
+                    <th>Status</th>
+                    <th>Activation Date</th>
+                    <th>DeActivation Date</th>
                     <th>Created By</th>
                     <th>Created At</th>
+                    <th>Modified By</th>
+                    <th>Modified At</th>
                   </tr>
 
                   <tbody
@@ -89,8 +95,26 @@
                     <td>{{ row.price }}</td>
                     <td>{{ row.language}}</td>
                     <td>{{ row.generic }}</td>
+                    <td>
+                      <span *ngIf="row.type=='manual'">Manual</span>
+                      <span *ngIf="row.type=='auto'">Auto</span>
+                    </td>
+                    <td>
+                      <span *ngIf="row.activeStatus === 1" style="color: green;">Active</span>
+                      <span *ngIf="row.activeStatus === 0" style="color: Red;">InActive</span>
+                    </td>
+                    <td>
+                      <span *ngIf="row.fromDate==null">-</span>
+                      <span *ngIf="row.fromDate!=null">{{ row?.fromDate | date : "dd-MM-yyyy" }}</span>
+                    </td>
+                    <td>
+                      <span *ngIf="row.toDate==null">-</span>
+                      <span *ngIf="row.toDate!=null">{{ row?.toDate | date : "dd-MM-yyyy" }}</span>
+                    </td>
                     <td>{{ row?.createdBy }}</td>
                     <td>{{ row?.createdDateTime | date : "dd-MM-yyyy hh:mm a" }}</td>
+                    <td>{{ row?.modifiedBy }}</td>
+                    <td>{{ row?.modifiedDateTime | date : "dd-MM-yyyy hh:mm a" }}</td>
 
                   </tbody>
                 </table>
@@ -108,7 +132,7 @@
     </mat-step>
 
 
-    <mat-step  [completed]="false">
+    <mat-step [completed]="false">
       <ng-template matStepLabel><b>Bouquet Plans</b></ng-template>
       <ng-template matStepContent>
         <div class="row mt-2 mx-1">
@@ -164,9 +188,15 @@
                   <th>BroadCaster Name</th>
                   <th>BroadCaster PlanName</th>
                   <th>BroadCaster PlanAmount</th>
+                  <th>Status Mode</th>
+                  <th>Status</th>
+                  <th>Activation Date</th>
+                  <th>DeActivation Date</th>
                   <th>Channels</th>
                   <th>Created By</th>
                   <th>Created At</th>
+                  <th>Modified By</th>
+                  <th>Modified At</th>
                   <tbody
                     *ngFor="let row of bouquetPlan | search: searchText | paginate: { id:'pagination1',itemsPerPage: 3, currentPage: currentPagebouquet }; let i = index">
                     <span *ngIf="!viewData" style="color:red;font-size:12px;text-align: center;">NO DATA FOUND</span>
@@ -176,9 +206,27 @@
                     <td>{{ row?.broadCasterName}}</td>
                     <td>{{ row?.bouquetName }}</td>
                     <td>{{ row?.amount }}</td>
+                    <td>
+                      <span *ngIf="row.type=='manual'">Manual</span>
+                      <span *ngIf="row.type=='auto'">Auto</span>
+                    </td>
+                    <td>
+                      <span *ngIf="row.activeStatus === 1" style="color: green;">Active</span>
+                      <span *ngIf="row.activeStatus === 0" style="color: Red;">InActive</span>
+                    </td>
+                    <td>
+                      <span *ngIf="row.fromDate==null">-</span>
+                      <span *ngIf="row.fromDate!=null">{{ row?.fromDate | date : "dd-MM-yyyy" }}</span>
+                    </td>
+                    <td>
+                      <span *ngIf="row.toDate==null">-</span>
+                      <span *ngIf="row.toDate!=null">{{ row?.toDate | date : "dd-MM-yyyy" }}</span>
+                    </td>
                     <td><i class="fas fa-eye" (click)="Viewchannels(row?.bouquetId)"> </i></td>
                     <td>{{ row?.createdBy }}</td>
                     <td>{{ row?.createdDateTime | date : "dd-MM-yyyy hh:mm a" }}</td>
+                    <td>{{ row?.modifiedBy }}</td>
+                    <td>{{ row?.modifiedDateTime | date : "dd-MM-yyyy hh:mm a" }}</td>
                   </tbody>
                 </table>
                 <div class="text-end mt-3">
@@ -195,7 +243,7 @@
     </mat-step>
 
 
-    <mat-step  [completed]="false">
+    <mat-step [completed]="false">
       <ng-template matStepLabel><b>LCOP Plans</b> </ng-template>
       <span *ngIf="!viewData" style="color:red;font-size:12px;text-align: center;">NO DATA FOUND</span>
       <div class="row mt-2 mx-1">

@@ -46,6 +46,7 @@ export class BranchWiseenitytransactionComponent {
     'pgPaymentId',
     'customerName',
     'mobileNumber',
+    'Serivice',
     'setupBoxNumber',
     'quantity',
     'paidAmount',

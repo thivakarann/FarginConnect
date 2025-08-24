@@ -492,10 +492,10 @@
           </ng-container>
 
           <ng-container matColumnDef="receipts">
-            <th [hidden]="valuetransreceipt !== 'Transactions-Receipt'" mat-header-cell *matHeaderCellDef>
+            <th [hidden]="valuetransreceipt !== 'Customers-Transaction Receipt'" mat-header-cell *matHeaderCellDef>
               Reciept
             </th>
-            <td [hidden]="valuetransreceipt !== 'Transactions-Receipt'" mat-cell *matCellDef="let data">
+            <td [hidden]="valuetransreceipt !== 'Customers-Transaction Receipt'" mat-cell *matCellDef="let data">
               <button class="btn btn-success btn-sm" [disabled]="data.paymentStatus != 'Success'"
                 style="border: none; font-size: 12px" (click)="Receipt(data.customerPayId)">
                 <i class="fas fa-receipt" style="color: #fff"></i>
@@ -582,12 +582,24 @@
             <td mat-cell *matCellDef="let data; let i = index">{{ i + 1 }}</td>
           </ng-container>
 
+          <ng-container matColumnDef="Service">
+            <th mat-header-cell *matHeaderCellDef>
+              Service Name
+            </th>
+            <td mat-cell *matCellDef="let data">
+              <span *ngIf="data?.inventoryName==null">-</span>
+              <span *ngIf="data?.inventoryName!=null">{{data.inventoryName}}</span>
+
+
+            </td>
+          </ng-container>
+
           <ng-container matColumnDef="Category">
             <th mat-header-cell *matHeaderCellDef>
               Stock Category
             </th>
             <td mat-cell *matCellDef="let data">
-              {{ data?.stockCategory }}
+              {{ data?.stockCategory || '-' }}
             </td>
           </ng-container>
 
@@ -596,10 +608,11 @@
               Stock Quantity
             </th>
             <td mat-cell *matCellDef="let data">
-              {{ data?.quantity }}
+              <span *ngIf="data?.quantity==0">-</span>
+              <span *ngIf="data?.quantity!=0">{{data.quantity}}</span>
             </td>
           </ng-container>
-
+          
           <ng-container matColumnDef="Amount">
             <th mat-header-cell *matHeaderCellDef>
               Service Amount
@@ -702,7 +715,7 @@
 
 
 <div id="refund" *ngIf="selectedTab === 'Refund'" class="mb-4">
-  
+
   <div *ngIf="selectedTransactionType == 'Due Transaction'">
     <div>
       <div class="row mt-4 mx-1">
@@ -902,12 +915,28 @@
               <td mat-cell *matCellDef="let data; let i = index">{{ i + 1 }}</td>
             </ng-container>
 
+            <ng-container matColumnDef="Service">
+              <th mat-header-cell *matHeaderCellDef>
+                Service Name
+              </th>
+              <td mat-cell *matCellDef="let data">
+                <span *ngIf="data?.inventoryNameCreate==null">-</span>
+                <span *ngIf="data?.inventoryNameCreate!=null">
+                  {{data?.customerOtherPayment?.inventorySoftware?.inventoryName }}
+                </span>
+
+
+              </td>
+            </ng-container>
+
             <ng-container matColumnDef="category">
               <th mat-header-cell *matHeaderCellDef>
                 Stock Category
               </th>
               <td mat-cell *matCellDef="let data">
-                {{ data?.customerOtherPayment?.inventoryNameCreate?.inventoryName }}
+                <span *ngIf="data?.inventorySoftware==null"> {{
+                  data?.customerOtherPayment?.inventoryNameCreate?.inventoryName }}</span>
+                <span *ngIf="data?.inventorySoftware!=null">-</span>
               </td>
             </ng-container>
 
@@ -916,7 +945,8 @@
                 Stock Quantity
               </th>
               <td mat-cell *matCellDef="let data">
-                {{ data?.customerOtherPayment?.quantity }}
+                <span *ngIf=" data?.customerOtherPayment?.quantity==0">-</span>
+                <span *ngIf=" data?.customerOtherPayment?.quantity!=0">{{ data?.customerOtherPayment?.quantity }}</span>
               </td>
             </ng-container>
 
@@ -943,7 +973,7 @@
                 Payment Id
               </th>
               <td mat-cell *matCellDef="let data">
-                {{ data?.paymentModel?.pgPaymentId || "--" }}
+                {{ data?.paymentId || "--" }}
               </td>
             </ng-container>
             <ng-container matColumnDef="Paidamount">
@@ -959,7 +989,7 @@
                 Refund Amount
               </th>
               <td mat-cell *matCellDef="let data">
-                {{ data?.refundAmount ? (+data.refundAmount).toFixed(2) : '-' }}
+                {{ data?.refundAmount || "--" }}
               </td>
             </ng-container>
             <ng-container matColumnDef="Refundstatus">
@@ -968,22 +998,10 @@
               </th>
               <td mat-cell *matCellDef="let data">
                 <span *ngIf="data?.refundStatus == 'INITIATED'" style="color:#FFC107 ;">INITIATED</span>
-                <span *ngIf="data?.refndstatus == 'PENDING'" style="color:#FF9800;">PENDING</span>
+                <span *ngIf="data?.refndstatus  == 'PENDING'" style="color:#FF9800;">PENDING</span>
                 <span *ngIf="data?.refundStatus == 'SUBMITTED'" style="color:blue">SUBMITTED</span>
                 <span *ngIf="data?.refundStatus == 'COMPLETED'" style="color:#4CAF50">COMPLETED</span>
                 <span *ngIf="data?.refundStatus == 'FAILED'" style="color:#F44336 ">FAILED</span>
-              </td>
-            </ng-container>
-
-            <ng-container matColumnDef="Offline">
-              <th [hidden]="vaaluedetails !== 'Customers-Refunds-View'" mat-header-cell *matHeaderCellDef>
-                OfflineDetails
-              </th>
-              <td [hidden]="vaaluedetails !== 'Customers-Refunds-View'" mat-cell *matCellDef="let data">
-                <button (click)="offline(data)" style="border: none; background: none"
-                  [disabled]="data?.typeMode != 'Offline'">
-                  <i class="fa fa-eye" style="border: none; background: none; font-size: 14px"></i>
-                </button>
               </td>
             </ng-container>
 

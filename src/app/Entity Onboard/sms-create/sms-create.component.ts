@@ -14,6 +14,7 @@ import { Router, } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { map, startWith, pairwise, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sms-create',
@@ -33,6 +34,7 @@ export class SmsCreateComponent implements OnInit {
   allSelected = false;
   merchantId: any;
   freepaid: any;
+  noDataFound = false;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(
@@ -44,18 +46,52 @@ export class SmsCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.merchantid = this.data.value;
-    
+
     this.myForm4 = new FormGroup({
       smsFor: new FormControl('', [Validators.required]),
       smsForpaid: new FormControl('', [Validators.required]),
+      templateType: new FormControl('', [Validators.required]),
+      tempLanguage: new FormControl('', [Validators.required]),
     });
-    
-    this.service.SmsDropdownGetAll(this.merchantid).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.freepaid = res.response.reverse();
-      }
+
+    this.myForm4.valueChanges.pipe(
+      map(val => ({
+        templateType: val.templateType,
+        tempLanguage: val.tempLanguage
+      })),
+      startWith({ templateType: null, tempLanguage: null }),
+      pairwise(),
+      filter(([prev, curr]) =>
+      (prev.templateType !== curr.templateType ||
+        prev.tempLanguage !== curr.tempLanguage)
+      ),
+      filter(([_, curr]) =>
+        curr.templateType && curr.tempLanguage
+      )
+    ).subscribe(() => {
+      const { templateType, tempLanguage } = this.myForm4.value;
+      this.GetMessageTemplate(templateType, tempLanguage);
     });
+
+
+  };
+
+  GetMessageTemplate(templateType: string, tempLanguage: string) {
+    this.service.NewSMSDropdown(this.data.value,templateType,tempLanguage)
+      .subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.freepaid = res.response;
+        }
+        else {
+          // Clear previous data and optionally show a message
+          this.freepaid = [];
+          // Optionally set a flag to show "No data found" in the UI
+          this.noDataFound = true;
+        }
+      });
   }
+
+
 
   get smsFor() {
     return this.myForm4.get('smsFor');
@@ -64,6 +100,14 @@ export class SmsCreateComponent implements OnInit {
   get smsForpaid() {
     return this.myForm4.get('smsForpaid');
   }
+
+  get templateType() {
+    return this.myForm4.get('templateType');
+  }
+  get tempLanguage() {
+    return this.myForm4.get('tempLanguage');
+  }
+
   toggleAllSelection() {
     if (this.allSelected) {
       console.log(this.allSelected);

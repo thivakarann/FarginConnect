@@ -14,7 +14,7 @@
 
     <div class="col" style="margin-top: 25px">
         <button style="color: white; background-color: #141e46; border-radius: 10px;font-size: 12px;" mat-raised-button
-            (click)="exportexcel()">
+            (click)="exportData()">
             Export
         </button>
     </div>
@@ -41,12 +41,13 @@
     </div>
 
     <div class="col-2 mt-4">
-        <button style="
+        <button class="buttonDownload" style="
         color: white;
         background-color: #141e46;
         border-radius: 10px;
         font-size: 12px;
-      " mat-raised-button (click)="Getall()">
+        
+      " [disabled]="!FromDateRange || !ToDateRange"  mat-raised-button  (click)="Getall()">
             Reset
         </button>
     </div>

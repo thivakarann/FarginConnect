@@ -48,14 +48,14 @@
 
             <!-- Reset Button -->
             <div class="col-md-1">
-                <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;"
+                <button class="buttonDownload" [disabled]="!FromDateRange || !ToDateRange " style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;"
                     mat-raised-button (click)="resetFilter()">Reset</button>
             </div>
 
             <!-- Export Button -->
             <div class="col-md-1" *ngIf="valuesettlementexport === 'Entity View Settlement-Export'">
                 <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;"
-                    (click)="exportexcel()" mat-raised-button
+                    (click)="exportData()" mat-raised-button
                     [hidden]="valuesettlementexport!=='Entity View Settlement-Export'">Export</button>
             </div>
 
@@ -189,14 +189,14 @@
 
             <!-- Reset Button -->
             <div class="col-md-1">
-                <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;"
+                <button class="buttonDownload" [disabled]="!FromDateRangeoffline || !ToDateRangeoffline " style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;"
                     mat-raised-button (click)="resetFilteroffline()">Reset</button>
             </div>
 
             <!-- Export Button -->
             <div class="col-md-1" *ngIf="valuesettlementexport === 'Entity View Settlement-Export'">
                 <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;"
-                    (click)="exportexceloffline()" mat-raised-button
+                    (click)="exportDataOffline()" mat-raised-button
                     [hidden]="valuesettlementexport!=='Entity View Settlement-Export'">Export</button>
             </div>
 

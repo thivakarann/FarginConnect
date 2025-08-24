@@ -44,14 +44,28 @@
                 <td mat-cell *matCellDef="let viewall; let i = index"> {{i+1}} </td>
             </ng-container>
             <ng-container matColumnDef="smsCharge">
-                <th mat-header-cell *matHeaderCellDef>Charge Type</th>
+                <th mat-header-cell *matHeaderCellDef>Charges</th>
                 <td mat-cell *matCellDef="let viewall">
-                    <span style="color: green;" *ngIf="viewall?.merchantSmsId?.smsCharge =='Paid'">
-                        Paid
+                    <span style="color: green;" *ngIf="viewall?.merchantSmsId?.smsCharge =='Applicable'">
+                        Applicable
                     </span>
-                    <span style="color: blue;" *ngIf="viewall?.merchantSmsId?.smsCharge =='Free'">
-                        Free
+                    <span style="color: red;" *ngIf="viewall?.merchantSmsId?.smsCharge =='Not Applicable'">
+                        Not Applicable
                     </span>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="templateType">
+                <th mat-header-cell *matHeaderCellDef>Recipient</th>
+                <td mat-cell *matCellDef="let viewall">
+                    <span *ngIf="viewall?.merchantSmsId?.type?.templateType=='Merchant'">Merchant</span>
+                    <span *ngIf="viewall?.merchantSmsId?.type?.templateType=='Customer'">Customer</span>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Lan">
+                <th mat-header-cell *matHeaderCellDef>Langauge</th>
+                <td mat-cell *matCellDef="let viewall">
+                    {{viewall?.merchantSmsId?.type?.templateLanguage}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="smstitle">

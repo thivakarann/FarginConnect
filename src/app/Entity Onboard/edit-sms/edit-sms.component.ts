@@ -25,9 +25,7 @@ export class EditSmsComponent {
   payId: any;
   @ViewChild('selects') selects: any = MatSelect;
   allSelected = false;
-  merchantsmsId: any;
   options: any;
-  Smsdetails: any;
   smsCharge: any;
   paid: any;
   free: any;
@@ -45,35 +43,22 @@ export class EditSmsComponent {
   ) { }
 
   ngOnInit(): void {
-    this.merchantid = this.data.value.merchantId?.merchantId;
-    this.Smsdetails = this.data.value;
 
-    this.smsTempId = this.data.value.type?.smsTempId;
-    console.log(this.smsTempId);
-    this.merchantsmsId = this.data.value.merchantSmsId;
-    this.smsCharge = this.data.value.type.smsCharge;
+    this.merchantid = this.data.value.merchantId?.merchantId;
 
     this.myForm = new FormGroup({
-      smsFor: new FormControl(this.Smsdetails?.type?.smsTitle),
+      smsFor: new FormControl('', [Validators.required]),
       smsForpaid: new FormControl('', [Validators.required]),
+      templateType: new FormControl('', [Validators.required]),
+      tempLanguage: new FormControl('', [Validators.required]),
       modifedBy: new FormControl(this.getadminname),
     });
 
-    this.Approval.SmsDropdownGetAll(this.merchantid).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.freepaid = res.response;
-      }
-    });
-
-    this.Approval.smsfreepaiddropdowns(0).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.free = res.response;
-      }
-    });
-    this.Approval.smsfreepaiddropdowns(1).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.paid = res.response;
-      }
+    this.myForm.patchValue({
+      smsFor: this.data?.value?.type?.smsTitle,
+      smsForpaid: this.data?.value?.smsCharge,
+      templateType: this.data?.value?.type?.templateType,
+      tempLanguage: this.data?.value?.type?.templateLanguage
     });
   }
 
@@ -84,13 +69,20 @@ export class EditSmsComponent {
     return this.myForm.get('smsForpaid');
   }
 
+  get templateType() {
+    return this.myForm.get('templateType');
+  }
+  get tempLanguage() {
+    return this.myForm.get('tempLanguage');
+  }
+
   submit() {
     let submitModel: SmsUpdate = {
       smsCharge: this.smsForpaid?.value,
-      smsType: this.smsTempId,
+      smsType: this.data?.value?.type.smsTempId,
       modifedBy: this.getadminname,
     };
-    this.Approval.smsUpdate(this.merchantsmsId, submitModel).subscribe(
+    this.Approval.smsUpdate(this.data?.value?.merchantSmsId,submitModel).subscribe(
       (res: any) => {
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);

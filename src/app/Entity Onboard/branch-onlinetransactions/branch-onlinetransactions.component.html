@@ -286,19 +286,36 @@
                     </td>
                 </ng-container>
 
-                <ng-container matColumnDef="setupBoxNumber">
-                    <th mat-header-cell *matHeaderCellDef>Stock Category</th>
+                <ng-container matColumnDef="Serivice">
+                    <th mat-header-cell *matHeaderCellDef>Service Name</th>
                     <td mat-cell *matCellDef="let data">
-                        {{data?.inventoryName}}
+                        <span *ngIf="data.flag==1">-</span>
+                        <span *ngIf="data.flag==2"> {{ data?.inventoryName}}</span>
                     </td>
                 </ng-container>
 
+                <ng-container matColumnDef="setupBoxNumber">
+                    <th mat-header-cell *matHeaderCellDef>Stock Category</th>
+                    <td mat-cell *matCellDef="let data">
+                        <span *ngIf="data.flag==2">-</span>
+                        <span *ngIf="data.flag==1"> {{ data?.inventoryName}}</span>
+                    </td>
+                </ng-container>
                 <ng-container matColumnDef="quantity">
                     <th mat-header-cell *matHeaderCellDef>Stock Quantity</th>
                     <td mat-cell *matCellDef="let data">
-                        {{data?.quantity}}
+
+                        <span *ngIf="data?.quantity==0">
+                            -
+                        </span>
+                        <span *ngIf="data?.quantity!=0">
+                            {{ data?.quantity }}
+                        </span>
+
                     </td>
                 </ng-container>
+
+
                 <ng-container matColumnDef="paidAmount">
                     <th mat-header-cell *matHeaderCellDef>Paid Amount</th>
                     <td mat-cell *matCellDef="let data">

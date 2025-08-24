@@ -18,12 +18,13 @@ export class EntitySmsViewallComponent {
   displayedColumns: string[] = [
     'sno',
     'accountId',
-    'entityname',
-    'entityemail',
+    'entityName',
     'smsType',
-    'Status',
+    'templateType',
+    'Lan',
     'Chargrs',
     'smscount',
+    'Status',
     'createdBy',
     'date',
   ];
@@ -210,14 +211,15 @@ export class EntitySmsViewallComponent {
           this.response.push(sno);
           this.response.push(element?.merchantId?.accountId);
           this.response.push(element?.merchantId?.entityName);
-          this.response.push(element?.merchantId?.contactEmail);
           this.response.push(element?.type?.smsTitle);
-          if (element?.smsStatus == 1) { this.response.push('Active'); }
-          else { this.response.push('InActive'); }
+          if (element?.type?.templateType == 'Merchant') { this.response.push('Merchant'); }
+          else if (element?.type?.templateType == 'Customer') { this.response.push('Customer'); }
+          this.response.push(element?.type?.templateLanguage);
           this.response.push(element?.smsCharge);
           this.response.push(element?.smsCount);
+          if (element?.smsStatus == 1) { this.response.push('Active'); }
+          else { this.response.push('InActive'); }
           this.response.push(element?.createdBy);
-
           if (element.createdDateTime) {
             this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
           }
@@ -237,11 +239,12 @@ export class EntitySmsViewallComponent {
       'S.No',
       'Account Id',
       'Entity Name',
-      'Entity Email',
       'SMS Type',
-      'Status',
+      "Recipient",
+      'Language',
       'Charges',
       'SMS Count',
+      'Status',
       'Created By',
       'Created At',
     ];
@@ -280,6 +283,7 @@ export class EntitySmsViewallComponent {
       let qty7 = row.getCell(8);
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
+      let qty10 = row.getCell(11);
 
       qty.border = {
         top: { style: 'thin' },
@@ -341,6 +345,13 @@ export class EntitySmsViewallComponent {
         bottom: { style: 'thin' },
         right: { style: 'thin' },
       };
+      qty10.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+    
     });
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', });

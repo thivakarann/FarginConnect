@@ -113,6 +113,7 @@ export class FarginServiceService {
   private readonly viewcustomerbasicdetails = 'customer/viewcustomer/';
   private readonly viewSetupboxDetails = 'customer/viewcustomerstb/';
   private readonly viewsetupboxplan = 'customer/viewcustomerstbplan/';
+  private readonly viewCustomerallsetupboxplan = 'customer/customerAllStbPlans/'
   private readonly activestatussetupbox = 'customer/updateStbStatus/';
   private readonly activecustomerplan = 'customerplan/updatestatus/';
 
@@ -499,6 +500,7 @@ export class FarginServiceService {
   private readonly smsgetAll = 'merchantSms/getAllMerchantSms/';
   private readonly smsgetAllexport = 'merchantSms/getAllMerchantSms';
   private readonly smsdropdown = 'merchantSms/viewMerchantSms/';
+  private readonly smsViewalltem = 'merchantSms/viewMerchantSms/'
   private readonly smscount = 'smshistory/viewbymerchantandtype/';
   private readonly smsapproval = 'merchantSms/updateApproval/';
   private readonly smsfreepaiddropdown = 'merchantSms/viewFreePaidsms/';
@@ -2457,6 +2459,9 @@ export class FarginServiceService {
       this.options
     );
   }
+  ViewallSetupBoxPlanDetails(id: any) {
+    return this.http.get(`${this.basePath}${this.viewCustomerallsetupboxplan}${id}`, this.options)
+  }
 
   ActiveStatusCustomerPlan(id: any, model: any) {
     return this.http.put(
@@ -3473,6 +3478,11 @@ export class FarginServiceService {
       this.options
     );
   }
+
+  NewSMSDropdown(id: any, id1: any, id2: any) {
+    return this.http.get(`${this.basePath}${this.smsViewalltem}${id}/${id1}/${id2}`, this.options)
+  }
+
   SmsCount(id: any, id1: any) {
     return this.http.get(
       `${this.basePath}${this.smscount}${id}/${id1}`,

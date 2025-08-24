@@ -9,6 +9,7 @@ import FileSaver from 'file-saver';
 import moment from 'moment';
 import { PayoutOfflineSettlement } from '../../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../../service/fargin-service.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-offile-settlement-payout',
@@ -61,6 +62,8 @@ export class OffileSettlementPayoutComponent {
     private service: FarginServiceService,
     private ActivateRoute: ActivatedRoute,
     private location: Location,
+    private toastr: ToastrService,
+
 
   ) { }
 
@@ -79,6 +82,13 @@ export class OffileSettlementPayoutComponent {
 
   }
   Getall() {
+
+
+    this.filterAction = 0;
+    this.FromDateRange = '';
+    this.ToDateRange = '';
+    this.Daterange = '';
+
     let submitModel: PayoutOfflineSettlement = {
       merchantId: this.merchantId,
       pageNo: '0',
@@ -100,10 +110,7 @@ export class OffileSettlementPayoutComponent {
       if (this.filteredData.length === 0) {
         this.dataSource = new MatTableDataSource();
       };
-      this.filterAction = 0;
-      this.FromDateRange = '';
-      this.ToDateRange = '';
-      this.Daterange = '';
+
     });
   }
 
@@ -129,7 +136,7 @@ export class OffileSettlementPayoutComponent {
         this.pageIndex = this.Viewall.number;
         this.pageSize = this.Viewall.size;
         this.dataSource = new MatTableDataSource(this.filteredData);
-        this.filterAction = 1
+        this.filterAction = 1;
       }
       if (this.filteredData.length === 0) {
         this.dataSource = new MatTableDataSource();
@@ -160,6 +167,8 @@ export class OffileSettlementPayoutComponent {
           this.length = this.Viewall.totalElements;
           this.pageIndex = this.Viewall.number;
           this.pageSize = this.Viewall.size;
+          this.filterAction = 1;
+
           this.dataSource = new MatTableDataSource(this.filteredData);
         }
         if (this.filteredData.length === 0) {
@@ -185,6 +194,7 @@ export class OffileSettlementPayoutComponent {
           this.length = this.Viewall.totalElements;
           this.pageIndex = this.Viewall.number;
           this.pageSize = this.Viewall.size;
+          this.filterAction = 0;
           this.dataSource = new MatTableDataSource(this.filteredData);
         }
         if (this.filteredData.length === 0) {
@@ -199,10 +209,10 @@ export class OffileSettlementPayoutComponent {
     this.location.back();
   };
 
-  exportexcel() {
+  exportexcel(data:any[]) {
     let sno = 1;
     this.responseDataListnew = [];
-    this.content.forEach((element: any) => {
+    data.forEach((element: any) => {
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.accountPayoutId);
@@ -310,4 +320,57 @@ export class OffileSettlementPayoutComponent {
   checkDate() {
     this.ToDateRange = '';
   }
+
+
+  exportData() {
+    if (this.length != 0) {
+      if (this.filterAction == 1) {
+        const datepipe: DatePipe = new DatePipe('en-US');
+        let formattedstartDate = datepipe.transform(this.FromDateRange, 'dd/MM/YYYY HH:mm');
+        let formattedendDate = datepipe.transform(this.ToDateRange, 'dd/MM/yyyy HH:mm');
+        this.Daterange = formattedstartDate + ' ' + '-' + ' ' + formattedendDate;
+        let submitModel: PayoutOfflineSettlement = {
+          merchantId: this.merchantId,
+          pageNo: 1,
+          size: this.length,
+          query: '',
+          dateRange: this.Daterange,
+          payoutId: this.pauoutid,
+        };
+        this.service.PayoutOfflineSettlement(submitModel).subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.Viewall = JSON.parse(res.response);
+            this.content = this.Viewall?.content;
+            this.filteredData = this.content;
+            this.exportexcel(this.filteredData);
+
+          }
+         
+        });
+      }
+      else {
+        let submitModel: PayoutOfflineSettlement = {
+          pageNo: 1,
+          size: this.length,
+          query: '',
+          dateRange: this.Daterange,
+          payoutId: this.pauoutid,
+          merchantId: this.merchantId,
+        };
+
+        this.service.PayoutOfflineSettlement(submitModel).subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.Viewall = JSON.parse(res.response);
+            this.content = this.Viewall?.content;
+            this.filteredData = this.content;
+            this.exportexcel(this.filteredData);
+          }
+        });
+      }
+    }
+    else {
+      this.toastr.error('No record found');
+    }
+  }
+
 }
