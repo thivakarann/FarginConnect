@@ -106,7 +106,7 @@ export class EntityViewComponent implements OnInit {
   currentcustomized: any = 1;
   currentsms: any = 1;
   currentwhatsapp: any = 1;
-  SearchTextWhatsapp:any;
+  SearchTextWhatsapp: any;
   currentagreement: any = 1;
   currentbranch: any = 1;
   alltransactions: any;
@@ -216,6 +216,7 @@ export class EntityViewComponent implements OnInit {
   valuewhatsappapproval: any;
   valuesmsstatus: any;
   valuewhatsappstatus: any;
+  valuewhatsappeditHistory:any;
   valuesmsview: any;
   valuesmsedit: any;
   valuewhatsappedit: any;
@@ -329,6 +330,7 @@ export class EntityViewComponent implements OnInit {
             this.valuesmsview = 'Sms Setting-View';
             this.valuesmsstatus = 'Sms Setting-Status';
             this.valuewhatsappstatus = 'WhatsApp Setting-Status';
+            this.valuewhatsappeditHistory = 'WhatsApp Setting-Action-History';
             this.valuekycadd = 'Entity View KYC Document-add';
             this.valueagreementcreate = 'Entity View Agreement-Add';
             this.valueagreementView = 'Entity View Agreement-Plan Overview';
@@ -382,6 +384,9 @@ export class EntityViewComponent implements OnInit {
               }
               if (this.actions == 'Sms Setting-View') {
                 this.valuesmsview = 'Sms Setting-View';
+              }
+                if (this.actions == 'WhatsApp Setting-Action-History') {
+                this.valuewhatsappeditHistory = 'WhatsApp Setting-Action-History';
               }
               if (this.actions == 'Sms Setting-Status') {
                 this.valuesmsstatus = 'Sms Setting-Status';
@@ -2142,7 +2147,7 @@ export class EntityViewComponent implements OnInit {
   fetchSMSViewById() {
     this.MerchantView.SMSViewById(this.id).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.smsDetails = res.response;
+        this.smsDetails = res.response.reverse();
       }
     });
   }
@@ -2173,7 +2178,7 @@ export class EntityViewComponent implements OnInit {
           setTimeout(() => {
             this.MerchantView.SMSViewById(this.id).subscribe((res: any) => {
               if (res.flag == 1) {
-                this.smsDetails = res.response;
+                this.smsDetails = res.response.reverse();
               }
             });
           }, 500);
@@ -2182,7 +2187,7 @@ export class EntityViewComponent implements OnInit {
           setTimeout(() => {
             this.MerchantView.SMSViewById(this.id).subscribe((res: any) => {
               if (res.flag == 1) {
-                this.smsDetails = res.response;
+                this.smsDetails = res.response.reverse();
               }
             });
           }, 500);
@@ -2263,10 +2268,10 @@ export class EntityViewComponent implements OnInit {
       (res: any) => {
         if (res.flag == 1) {
           this.toastr.success(res.responseMessage);
-          setTimeout(() => {this.fetchWhatappViewById();},200);
+          setTimeout(() => { this.fetchWhatappViewById(); }, 200);
         } else {
           this.toastr.error(res.responseMessage);
-          setTimeout(() => {this.fetchWhatappViewById()},200);
+          setTimeout(() => { this.fetchWhatappViewById() }, 200);
         }
       }
     );
@@ -2290,12 +2295,21 @@ export class EntityViewComponent implements OnInit {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '500ms',
       disableClose: true,
-      data: { value: id,value2:this.id },
+      data: { value: id, value2: this.id },
     });
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
       this.fetchWhatappViewById();
     });
   };
+
+  WhatseditHistory(id: any) {
+    this.router.navigate([`dashboard/whats-editlog/${id}`], {
+      queryParams: { Alldata: id },
+    });
+  }
+
+
+
 
 
 

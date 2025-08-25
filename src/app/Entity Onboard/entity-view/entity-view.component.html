@@ -1866,6 +1866,7 @@
                 <th>Description</th>
                 <th [hidden]="valuewhatsappstatus !== 'WhatsApp Setting-Status'">Status</th>
                 <th [hidden]="valuewhatsappedit !== 'WhatsApp Setting-Edit'">Action</th>
+                <th [hidden]="valuewhatsappeditHistory !=='WhatsApp Setting-Action-History'">Action History</th>
                 <th [hidden]="valuewhatsappapproval !== 'WhatsApp Setting-Approval'">Approval</th>
                 <th>Approval Status</th>
                 <th>Approved At</th>
@@ -1912,6 +1913,11 @@
                 <td [hidden]="valuesmsedit !== 'Sms Setting-Edit'">
                   <span (click)="EditWhatsApp(item)">
                     <i class="fas fa-edit" style="font-size: 15px; color: rgb(39, 39, 95)"></i>
+                  </span>
+                </td>
+                 <td [hidden]="valuewhatsappeditHistory !=='WhatsApp Setting-Action-History'" >
+                  <span (click)="WhatseditHistory(item?.merchantWhatsAppId)">
+                    <i class="fa fa-eye" style="font-size: 15px;"></i>
                   </span>
                 </td>
                 <td class="text-center" [hidden]="valuewhatsappapproval !== 'WhatsApp Setting-Approval'">

@@ -133,6 +133,7 @@ import { SMSTriggerLogsComponent } from './SMS Trigger/smstrigger-logs/smstrigge
 import { EntityWhatsAppGetallComponent } from './Entity Onboard/Whatapp Service/entity-whats-app-getall/entity-whats-app-getall.component';
 import { WhatsAppHistoryComponent } from './Entity Onboard/Whatapp Service/whats-app-history/whats-app-history.component';
 import { OfflinesettlementPayoutComponent } from './offlinesettlement-payout/offlinesettlement-payout.component';
+import { WhatsEditlogComponent } from './Entity Onboard/Whatapp Service/whats-editlog/whats-editlog.component';
 
 const routes: Routes = [
 
@@ -280,7 +281,8 @@ const routes: Routes = [
       { path: 'merchat-smstrigger/:id', component: MerchatSMSTriggerComponent, canActivate: [authGuard] },
       { path: 'smstrigger-logs/:id', component: SMSTriggerLogsComponent, canActivate: [authGuard] },
       {path:'entity-whats-app-getall',component:EntityWhatsAppGetallComponent,canActivate:[authGuard]},
-      {path:'whats-app-history',component:WhatsAppHistoryComponent,canActivate:[authGuard]}
+      {path:'whats-app-history',component:WhatsAppHistoryComponent,canActivate:[authGuard]},
+      {path:'whats-editlog/:id',component:WhatsEditlogComponent,canActivate:[authGuard]}
     ],
 
   },

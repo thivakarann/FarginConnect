@@ -20,7 +20,8 @@
                             <td id="data">{{ details?.paymentMethod }}</td>
                         </tr>
                         <tr>
-                            <td class="datas">Reference Number</td>
+                            <td class="datas">Refund Reference Number
+                            </td>
                             <td id="data">{{ details?.bankReference || "-" }}</td>
                         </tr>
                         <tr>
@@ -40,17 +41,17 @@
                             <td class="datas">Paid Date</td>
                             <td>{{details?.refundDateTime| date:'dd/MM/yyyy hh:mm a' }} </td>
                         </tr>
-                       
+
                         <tr>
                             <td class="datas">Status</td>
                             <td id="data" style="font-weight: 500;">
                                 <span *ngIf="details?.refundStatus == 'COMPLETED'" class="text-success">
                                     {{ details?.refundStatus}}</span>
 
-                                <span *ngIf="details?.refundStatus   ==  'INITIATED'" class="text-warning"> 
+                                <span *ngIf="details?.refundStatus   ==  'INITIATED'" class="text-warning">
                                     {{ details?.refundStatus || '--'}}</span>
 
-                            
+
 
                             </td>
                         </tr>
@@ -66,4 +67,3 @@
         </div>
     </span>
 </body>
-

@@ -310,6 +310,7 @@ import { WhatsappApprovalComponent } from './Entity Onboard/Whatapp Service/what
 import { EntityWhatsAppGetallComponent } from './Entity Onboard/Whatapp Service/entity-whats-app-getall/entity-whats-app-getall.component';
 import { WhatsAppHistoryComponent } from './Entity Onboard/Whatapp Service/whats-app-history/whats-app-history.component';
 import { OfflinesettlementPayoutComponent } from './offlinesettlement-payout/offlinesettlement-payout.component';
+import { WhatsEditlogComponent } from './Entity Onboard/Whatapp Service/whats-editlog/whats-editlog.component';
 
 
 
@@ -598,6 +599,7 @@ import { OfflinesettlementPayoutComponent } from './offlinesettlement-payout/off
     EntityWhatsAppGetallComponent,
     WhatsAppHistoryComponent,
     OfflinesettlementPayoutComponent,
+    WhatsEditlogComponent,
 
 
   ],

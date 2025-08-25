@@ -105,8 +105,8 @@
             <ng-container matColumnDef="Status">
                 <th mat-header-cell *matHeaderCellDef>Approval Status</th>
                 <td mat-cell *matCellDef="let data">
-                    <span *ngIf="data?.approvalStatus=='Open' || data?.approvalStatus=='open'" style="color: red;">Open</span>
-                    <span *ngIf="data?.approvalStatus=='Close' || data?.approvalStatus=='close'" style="color: green;">Closed</span>
+                    <span *ngIf="data?.approvalStatus=='Open' || data?.approvalStatus=='open'" style="color: red;">Progress</span>
+                    <span *ngIf="data?.approvalStatus=='Close' || data?.approvalStatus=='close' || data?.approvalStatus=='Closed' || data?.approvalStatus=='closed'" style="color: green;">Closed</span>
                     <span *ngIf="data?.approvalStatus=='hold' || data?.approvalStatus=='Hold'" style="color: orange;">Hold</span>
 
                 </td>
@@ -144,12 +144,12 @@
             </ng-container>
 
             <ng-container matColumnDef="UpdatedBy">
-                <th mat-header-cell *matHeaderCellDef>Modified By</th>
+                <th mat-header-cell *matHeaderCellDef>Status Updated By</th>
                 <td mat-cell *matCellDef="let data">{{data.approvalStatusUpdatedBy }}</td>
             </ng-container>
 
             <ng-container matColumnDef="UpdatedAt">
-                <th mat-header-cell *matHeaderCellDef>Modified At</th>
+                <th mat-header-cell *matHeaderCellDef>Status Updated At</th>
                 <td mat-cell *matCellDef="let data">{{data.approvalStatusUpdatedAt |date:'dd/MM/yyyy hh:mm a'}}</td>
             </ng-container>
 
