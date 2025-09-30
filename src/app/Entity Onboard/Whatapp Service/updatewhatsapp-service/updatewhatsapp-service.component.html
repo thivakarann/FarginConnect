@@ -71,7 +71,7 @@
         ">
                 <div class="col-12 form-group">
                     <label>Select Message Templates</label>
-                    <mat-select formControlName="whatsappTemplateId" class="Selectsss">
+                    <mat-select (ngModelChange)="getValue()" formControlName="whatsappTemplateId" class="Selectsss">
                         <mat-option *ngFor="let item of TemplateDetails" [value]="item.whatsappTemplateId">
                             <div class="option-content">
                                 <span>{{ item?.templateTitle }}</span>

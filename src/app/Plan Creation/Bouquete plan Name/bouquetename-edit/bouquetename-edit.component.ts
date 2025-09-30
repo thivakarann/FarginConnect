@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FarginServiceService } from '../../../service/fargin-service.service';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { BouquetenameUpdate } from '../../../fargin-model/fargin-model.module';
@@ -20,16 +19,16 @@ export class BouquetenameEditComponent implements OnInit {
   detailss: any;
   Broadcastername: any;
   PlanName: any;
-
   @Output() bankDetailsUpdated = new EventEmitter<void>();
+
   constructor(
     public Editdetails: FarginServiceService,
-    private router: Router,
     private toastr: ToastrService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialog: MatDialog
-
   ) { }
+
+
   ngOnInit(): void {
 
     this.detailss = this.data.value;
@@ -41,18 +40,18 @@ export class BouquetenameEditComponent implements OnInit {
       this.details = res.response.reverse();
     });
 
-
     this.myForm = new FormGroup({
       bundleChannelId: new FormControl('', Validators.required),
-      bouquetName: new FormControl('',[Validators.required,Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),Validators.maxLength(50)]),
+      bouquetName: new FormControl('', [Validators.required,
+      Validators.pattern('^[A-Za-z0-9&\\-\\(\\)#._/ ]+$'),
+      Validators.maxLength(100)
+      ]),
     });
 
   }
 
-
   get bouquetName() {
     return this.myForm.get('bouquetName')
-
   }
 
   get bundleChannelId() {
@@ -67,20 +66,15 @@ export class BouquetenameEditComponent implements OnInit {
       bouquetName: this.bouquetName?.value.trim(),
       modifiedBy: this.getadminname
     }
-
     this.Editdetails.Bouquetenameupdatae(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
-     
-
       }
       else {
         this.toastr.error(res.responseMessage);
       }
     })
   }
-
-
 }

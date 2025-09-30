@@ -47,7 +47,11 @@ export class ViewSubpermissionComponent {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
+    console.log(filterValue);
+    
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    console.log(this.dataSource);
+    
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }

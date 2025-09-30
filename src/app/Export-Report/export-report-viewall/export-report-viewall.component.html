@@ -195,17 +195,13 @@
                     <span *ngIf="viewall?.exportType   ==  '2' &&  viewall?.exportDataName   ==  20">
                         Additional Payment</span>
 
-                    <span *ngIf="viewall?.exportType == '0'">
-                        -</span>
+                    <span *ngIf="viewall?.exportType == '0' && viewall?.branchType == '0' " >-</span>
 
                     <span *ngIf="viewall?.branchType == '1' && viewall?.exportDataName   ==  23">
                         Due Payment</span>
 
                     <span *ngIf="viewall?.branchType   ==  '2' &&  viewall?.exportDataName   ==  23">
                         Additional Payment</span>
-
-
-
                 </td>
             </ng-container>
 

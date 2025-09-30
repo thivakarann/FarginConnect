@@ -12,36 +12,28 @@
       <div class="row mb-3">
         <div class="col-sm-4 form-group">
           <label for="Bussiness category">Broadcaster</label>
-          <select
-            [(ngModel)]="BroadCaster"
-            formControlName="bundleChannelId"
-            id="Bussiness category"
-            class="form-control form-select"
-          >
+          <select [(ngModel)]="BroadCaster" formControlName="bundleChannelId" id="Bussiness category"
+            class="form-control form-select">
             <option value="" disabled selected>Select</option>
-            <option
-              *ngFor="let item of Broadcasters"
-              [value]="item.bundleChannelId"
-            >
+            <option *ngFor="let item of Broadcasters" [value]="item.bundleChannelId">
               {{ item.broadCasterName }}
             </option>
           </select>
-          <div
-            style="
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="bundleChannelId?.invalid && bundleChannelId?.touched && bundleChannelId?.errors?.['required']"
-          >
+            " *ngIf="bundleChannelId?.invalid && bundleChannelId?.touched && bundleChannelId?.errors?.['required']">
             Field is required
           </div>
         </div>
 
         <div class="col-sm-4 form-group">
           <label for="Bussiness category">MSO</label>
-          <select
+          <input readonly [(ngModel)]="msoservice" type="text" id="Bussiness category"
+            formControlName="msoserviceactive" class="form-control" />
+          <!-- <select
             [(ngModel)]="msoservice"
             formControlName="msoserviceactive"
             (change)="mso($event)"
@@ -52,23 +44,22 @@
             <option *ngFor="let item of msoactive" [value]="item.serviceId">
               {{ item.serviceProviderName }}
             </option>
-          </select>
-          <div
-            style="
+          </select> -->
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="msoserviceactive?.invalid && msoserviceactive?.touched && msoserviceactive?.errors?.['required']"
-          >
+            " *ngIf="msoserviceactive?.invalid && msoserviceactive?.touched && msoserviceactive?.errors?.['required']">
             Field is required
           </div>
         </div>
 
         <div class="col-sm-4 form-group">
           <label for="Bussiness category">Region</label>
-          <select
+          <input readonly [(ngModel)]="regionname" type="text" id="Bussiness category" formControlName="regionId"
+            class="form-control" />
+          <!-- <select
             [(ngModel)]="regionname"
             formControlName="regionId"
             id="Bussiness category"
@@ -78,16 +69,13 @@
             <option *ngFor="let item of msroregion" [value]="item.regionId">
               {{ item.stateName }}
             </option>
-          </select>
-          <div
-            style="
+          </select> -->
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="regionId?.invalid && regionId?.touched && regionId?.errors?.['required']"
-          >
+            " *ngIf="regionId?.invalid && regionId?.touched && regionId?.errors?.['required']">
             Field is required
           </div>
         </div>
@@ -96,99 +84,68 @@
       <div class="row mb-3">
         <div class="col-sm-4 form-group">
           <label for="Entity Name">Channel Name</label>
-          <input
-            [(ngModel)]="ChennelName"
-            type="text"
-            id="Entity Name"
-            formControlName="channelName"
-            class="form-control"
-          />
-          <div
-            style="
+          <input [(ngModel)]="ChennelName" type="text" id="Entity Name" formControlName="channelName"
+            class="form-control" />
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="channelName?.invalid && channelName?.touched && channelName?.errors?.['required']"
-          >
+            " *ngIf="channelName?.invalid && channelName?.touched && channelName?.errors?.['required']">
             Field is required
           </div>
-     <div style="
+          <div style="
                     color: red;
                     font-size: 12px;
                     margin-top: 2px;
                   " *ngIf="channelName?.invalid && channelName?.touched && channelName?.errors?.['pattern']">
-Invalid format
-                    </div>
-                            <div style="color: red; font-size: 12px; margin-top: 2px; position: relative;"
-       *ngIf="channelName?.invalid && channelName?.touched && channelName?.errors?.['maxlength']">
-            Maximum length should be 50
-  </div>
+            Invalid format
+          </div>
+          <div style="color: red; font-size: 12px; margin-top: 2px; position: relative;"
+            *ngIf="channelName?.invalid && channelName?.touched && channelName?.errors?.['maxlength']">
+            Maximum length should be 100
+          </div>
         </div>
 
         <div class="col-sm-4 form-group">
           <label for="Entity Name">Channel Number</label>
-          <input
-            [(ngModel)]="ChannelNumber"
-            type="text"
-            id="Entity Name"
-            formControlName="channelNo"
-            class="form-control"
-          />
-          <div
-            style="
+          <input [(ngModel)]="ChannelNumber" type="text" id="Entity Name" formControlName="channelNo"
+            class="form-control" />
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="channelNo?.invalid && channelNo?.touched && channelNo?.errors?.['required']"
-          >
+            " *ngIf="channelNo?.invalid && channelNo?.touched && channelNo?.errors?.['required']">
             Field is required
           </div>
-          <div
-            style="
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="channelNo?.invalid && channelNo?.touched && channelNo?.errors?.['pattern']"
-          >
+            " *ngIf="channelNo?.invalid && channelNo?.touched && channelNo?.errors?.['pattern']">
             Only Numbers are allowed (Upto 10 Digits)
           </div>
         </div>
 
         <div class="col-sm-4 form-group">
           <label for="Entity Name">Generic</label>
-          <input
-            [(ngModel)]="Generic"
-            type="text"
-            id="Entity Name"
-            formControlName="generic"
-            class="form-control"
-          />
-          <div
-            style="
+          <input [(ngModel)]="Generic" type="text" id="Entity Name" formControlName="generic" class="form-control" />
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="generic?.invalid && generic?.touched && generic?.errors?.['required']"
-          >
+            " *ngIf="generic?.invalid && generic?.touched && generic?.errors?.['required']">
             Field is required
           </div>
-          <div
-            style="
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="generic?.invalid && generic?.touched && generic?.errors?.['pattern']"
-          >
+            " *ngIf="generic?.invalid && generic?.touched && generic?.errors?.['pattern']">
             Please enter only letters,(max 50 characters)
           </div>
         </div>
@@ -197,113 +154,71 @@ Invalid format
       <div class="row mb-3">
         <div class="col-sm-4 form-group">
           <label for="Entity Name">Language</label>
-          <input
-            [(ngModel)]="Language"
-            type="text"
-            id="Entity Name"
-            formControlName="language"
-            class="form-control"
-          />
-          <div
-            style="
+          <input [(ngModel)]="Language" type="text" id="Entity Name" formControlName="language" class="form-control" />
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="language?.invalid && language?.touched && language?.errors?.['required']"
-          >
+            " *ngIf="language?.invalid && language?.touched && language?.errors?.['required']">
             Field is required
           </div>
-          <div
-            style="
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="language?.invalid && language?.touched && language?.errors?.['pattern']"
-          >
+            " *ngIf="language?.invalid && language?.touched && language?.errors?.['pattern']">
             Please enter only letters,(max 50 characters)
           </div>
         </div>
 
         <div class="col-sm-4 form-group">
           <label for="Bussiness category">Type</label>
-          <select
-            [(ngModel)]="Type"
-            formControlName="type"
-            id="Bussiness category"
-            class="form-control form-select"
-          >
+          <select [(ngModel)]="Type" formControlName="type" id="Bussiness category" class="form-control form-select">
             <option value="" disabled selected>Select</option>
             <option value="0">Free</option>
             <option value="1">Paid</option>
           </select>
-          <div
-            style="
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="type?.invalid && type?.touched && type?.errors?.['required']"
-          >
+            " *ngIf="type?.invalid && type?.touched && type?.errors?.['required']">
             Field is required
           </div>
         </div>
 
         <div class="col-sm-4 form-group" [hidden]="type?.value != '1'">
           <label for="Entity Name">Price</label>
-          <input
-            [required]="type?.value == '1'"
-            [(ngModel)]="amount"
-            type="text"
-            id="Entity Name"
-            formControlName="price"
-            class="form-control"
-          />
-          <div
-            style="
+          <input [required]="type?.value == '1'" [(ngModel)]="amount" type="text" id="Entity Name"
+            formControlName="price" class="form-control" />
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="price?.invalid && price?.touched && price?.errors?.['pattern']"
-          >
+            " *ngIf="price?.invalid && price?.touched && price?.errors?.['pattern']">
             Only positive numbers are allowed
           </div>
-          <div
-            style="
+          <div style="
               color: red;
               font-size: 12px;
               margin-top: 2px;
               position: relative;
-            "
-            *ngIf="price?.invalid && price?.touched && price?.errors?.['required']"
-          >
+            " *ngIf="price?.invalid && price?.touched && price?.errors?.['required']">
             Field is required*
           </div>
         </div>
       </div>
 
       <div>
-        <button
-          [disabled]="myForm.invalid"
-          type="submit"
-          class="btn mx-1"
-          style="background-color: #7db855be"
-          (click)="submit()"
-        >
+        <button [disabled]="myForm.invalid" type="submit" class="btn mx-1" style="background-color: #7db855be"
+          (click)="submit()">
           Submit
         </button>
-        <button
-          type="submit"
-          class="btn"
-          style="background-color: #141e46; color: white"
-          (click)="close()"
-        >
+        <button type="submit" class="btn" style="background-color: #141e46; color: white" (click)="close()">
           Cancel
         </button>
       </div>

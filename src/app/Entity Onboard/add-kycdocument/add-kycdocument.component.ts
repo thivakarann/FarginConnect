@@ -342,7 +342,6 @@ export class AddKycdocumentComponent implements OnInit {
         'image/gif',
         'application/pdf',
       ];
-
       if (acceptableTypes.includes(this.uploadidentityfront.type)) {
         if (this.uploadidentityfront.size <= 20 * 1024 * 1024) {
           this.toastr.success('Image uploaded successfully');
@@ -359,6 +358,8 @@ export class AddKycdocumentComponent implements OnInit {
     }
 
   }
+
+
   onFileSelected2(event: any) {
     this.uploadidentityback = event.target.files[0];
     // Ensure this.uploadImage is not null

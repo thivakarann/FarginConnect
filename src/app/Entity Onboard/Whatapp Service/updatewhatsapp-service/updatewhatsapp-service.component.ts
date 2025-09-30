@@ -3,7 +3,7 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { map, startWith, pairwise, filter } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import { UpdateWhatappService } from '../../../fargin-model/fargin-model.module';
 
 @Component({
@@ -108,13 +108,17 @@ export class UpdatewhatsappServiceComponent implements OnInit {
   };
 
   listenToVendorChanges(): void {
+
   this.myForm.get('vendorId')?.valueChanges
     .pipe(filter(vendorId => !!vendorId))
     .subscribe(vendorId => {
+      
       const templateType = this.myForm.get('templateType')?.value;
       const tempLanguage = this.data.value.templateLanguage;
 
       if (templateType && tempLanguage) {
+        this.TemplateDetails = [];
+        this.whatsappTemplateId?.reset();
         this.GetMessageTemplate(vendorId, templateType, tempLanguage);
       }
     });
@@ -123,11 +127,14 @@ export class UpdatewhatsappServiceComponent implements OnInit {
 
 
   GetMessageTemplate(vendorId: any, templateType: any, tempLanguage: any): void {
+    
     this.service.MerchantwiseWhatappTemplates(this.data.value2, vendorId, templateType, tempLanguage)
       .subscribe((res: any) => {
         const currentId = this.myForm.get('whatsappTemplateId')?.value;
 
-        if (res.flag === 1 && res.response?.length > 0) {
+        // res.flag === 1 && res.response?.length > 0
+
+        if (res.flag === 1) {
           let templates = res.response;
 
           const exists = templates.some((t: { whatsappTemplateId: any }) => t.whatsappTemplateId === currentId);
@@ -145,6 +152,10 @@ export class UpdatewhatsappServiceComponent implements OnInit {
           }
 
           this.TemplateDetails = templates;
+          console.log(templates);
+          console.log(this.TemplateDetails);
+
+          
           this.noDataFound = false;
         } else {
           // ✅ No templates returned — show only selected one if exists
@@ -218,4 +229,10 @@ export class UpdatewhatsappServiceComponent implements OnInit {
     })
 
   }
+
+
+  getValue(){
+    console.log(this.whatsappTemplateId?.value);
+  }
+
 }

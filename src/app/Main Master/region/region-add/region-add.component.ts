@@ -1,24 +1,10 @@
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output, ViewChild, } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { RegionAdd } from '../../../fargin-model/fargin-model.module';
 import { MatOption, MatSelect } from '@angular/material/select';
 
 @Component({
@@ -27,17 +13,18 @@ import { MatOption, MatSelect } from '@angular/material/select';
   styleUrl: './region-add.component.css',
 })
 export class RegionAddComponent implements OnInit {
+
   getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
   Adminid = JSON.parse(sessionStorage.getItem('adminid') || '');
   @ViewChild('select') select: any = MatSelect;
   allSelected = false;
-
   regioncreate: any = FormGroup;
   regiongetactive: any;
   responseDataListnew: any = [];
   response: any = [];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  @Output() bankDetailsUpdated = new EventEmitter<void>();
   isChecked: any;
   dataSource: any;
   showcategoryData: boolean = false;
@@ -75,17 +62,15 @@ export class RegionAddComponent implements OnInit {
     'Uttar Pradesh',
     'West Bengal',
   ];
-  @Output() bankDetailsUpdated = new EventEmitter<void>();
 
   constructor(
     private dialog: MatDialog,
     private service: FarginServiceService,
     private toastr: ToastrService,
-    private fb: FormBuilder,
-    private router: Router
   ) { }
 
   ngOnInit(): void {
+
     this.service.activeprovider().subscribe((res: any) => {
       this.activeservice = res.response;
     });
@@ -104,8 +89,12 @@ export class RegionAddComponent implements OnInit {
     return this.regioncreate.get('stateName');
   }
 
-  close() {
-    this.router.navigateByUrl('dashboard/Region');
+  toggleAllSelection() {
+    if (this.allSelected) {
+      this.select.options.forEach((item: MatOption) => item.select());
+    } else {
+      this.select.options.forEach((item: MatOption) => item.deselect());
+    }
   }
 
   RegionCreate() {
@@ -114,7 +103,6 @@ export class RegionAddComponent implements OnInit {
       createdBy: this.getadminname, // Keep createdBy as is
       serviceId: this.serviceId.value, // Adjust if you have different logic for serviceId
     }));
-
     this.service.RegionCreate(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
@@ -124,13 +112,5 @@ export class RegionAddComponent implements OnInit {
         this.toastr.error(res.responseMessage);
       }
     });
-  }
-
-  toggleAllSelection() {
-    if (this.allSelected) {
-      this.select.options.forEach((item: MatOption) => item.select());
-    } else {
-      this.select.options.forEach((item: MatOption) => item.deselect());
-    }
   }
 }

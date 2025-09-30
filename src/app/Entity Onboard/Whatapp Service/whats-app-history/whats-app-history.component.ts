@@ -7,6 +7,8 @@ import { ToastrService } from 'ngx-toastr';
 import { WhatsappMessDescriptionComponent } from '../whatsapp-mess-description/whatsapp-mess-description.component';
 import { MatDialog } from '@angular/material/dialog';
 import moment from 'moment';
+import FileSaver from 'file-saver';
+import { WhatappBulkUploadComponent } from '../whatapp-bulk-upload/whatapp-bulk-upload.component';
 
 @Component({
   selector: 'app-whats-app-history',
@@ -83,6 +85,9 @@ export class WhatsAppHistoryComponent implements OnInit {
   Visible: boolean = false;
   maxDate: any;
   filterAction: any = 0;
+  searchAction: any = 0;;
+  valueDownload: any;
+  valueUpload: any;
 
 
   constructor(
@@ -94,7 +99,36 @@ export class WhatsAppHistoryComponent implements OnInit {
   ngOnInit(): void {
 
     const today = new Date();
-    this.maxDate = moment(today).format('yyyy-MM-DD').toString()
+    this.maxDate = moment(today).format('yyyy-MM-DD').toString();
+
+    this.service.rolegetById(this.roleId).subscribe({
+      next: (res: any) => {
+        if (res.flag == 1) {
+          this.getdashboard = res.response?.subPermission;
+
+          if (this.roleId == 1) {
+            this.valueDownload = 'Download WhatsApp Bulk Upload Template';
+            this.valueUpload = 'Upload WhatsApp File'
+
+          }
+          else {
+            for (let datas of this.getdashboard) {
+              this.actions = datas.subPermissions;
+              if (this.actions == 'Download WhatsApp Bulk Upload Template') {
+                this.valueDownload = 'Download WhatsApp Bulk Upload Template'
+              }
+              if (this.actions == 'Upload WhatsApp File') {
+                this.valueUpload = 'Upload WhatsApp File'
+              }
+
+            }
+          }
+        }
+        else {
+          this.errorMessage = res.responseMessage;
+        }
+      }
+    });
 
     this.Getall();
   };
@@ -113,6 +147,8 @@ export class WhatsAppHistoryComponent implements OnInit {
         this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.Viewall);
         this.currentfilvalShow = false;
+        this.searchAction = 0;
+        this.filterAction = 0;
       } else if (res.flag == 2) {
         this.Viewall = [];
         this.totalPages = res.pagination.totalElements;
@@ -120,11 +156,17 @@ export class WhatsAppHistoryComponent implements OnInit {
         this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.Viewall);
         this.currentfilvalShow = false;
+        this.searchAction = 0;
+        this.filterAction = 0;
       }
     });
   };
 
   Search(filterValue: string) {
+    this.filterAction = 0;
+    this.FromDateRange = '';
+    this.ToDateRange = '';
+    this.Daterange = '';
     if (filterValue) {
       const formData = new FormData();
       formData.append('content', filterValue);
@@ -139,6 +181,8 @@ export class WhatsAppHistoryComponent implements OnInit {
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.Viewall);
           this.currentfilvalShow = true;
+          this.searchAction = 1;
+          this.filterAction = 0;
         }
         else if (res.flag == 2) {
           this.Viewall = [];
@@ -147,6 +191,8 @@ export class WhatsAppHistoryComponent implements OnInit {
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.Viewall);
           this.currentfilvalShow = true;
+          this.searchAction = 1;
+          this.filterAction = 0;
         }
       })
     }
@@ -160,16 +206,24 @@ export class WhatsAppHistoryComponent implements OnInit {
     this.ToDateRange = '';
   };
 
-  resetFilter() {
+
+  resetDateFilter() {
     this.filterAction = 0;
     this.FromDateRange = '';
     this.ToDateRange = '';
     this.Daterange = '';
+    this.Getall();
+  }
+
+  resetSearchFilter() {
+    this.searchAction = 0;
     this.currentfilval = '';
     this.Getall();
   };
 
   filterdate() {
+    this.searchAction = 0;
+    this.currentfilval = '';
     this.service.WhatsAPPHistorysFilters(this.FromDateRange, this.ToDateRange, this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.Viewall = res.response;
@@ -177,14 +231,16 @@ export class WhatsAppHistoryComponent implements OnInit {
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.Viewall);
-        this.filterAction = 1
-
+        this.searchAction = 0;
+        this.filterAction = 1;
       } else if (res.flag == 2) {
         this.Viewall = [];
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.Viewall);
+        this.searchAction = 0;
+        this.filterAction = 1;
       }
     })
   }
@@ -207,16 +263,20 @@ export class WhatsAppHistoryComponent implements OnInit {
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.Viewall);
+          this.searchAction = 0;
+          this.filterAction = 1;
         } else if (res.flag == 2) {
           this.Viewall = [];
           this.totalPages = res.pagination.totalElements;
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.Viewall);
+          this.searchAction = 0;
+          this.filterAction = 1;
         }
       })
     }
-    else if (this.currentfilvalShow) {
+    else if (this.searchAction) {
       const formData = new FormData();
       formData.append('content', this.currentfilval);
       formData.append('size', event.pageSize);
@@ -229,6 +289,8 @@ export class WhatsAppHistoryComponent implements OnInit {
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.Viewall);
+          this.searchAction = 1;
+          this.filterAction = 0;
         }
         else if (res.flag == 2) {
           this.Viewall = [];
@@ -236,6 +298,8 @@ export class WhatsAppHistoryComponent implements OnInit {
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.Viewall);
+          this.searchAction = 1;
+          this.filterAction = 0;
         }
       })
     }
@@ -251,7 +315,9 @@ export class WhatsAppHistoryComponent implements OnInit {
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.Viewall);
-
+          this.searchAction = 0;
+          this.filterAction = 0;
+          this.currentfilvalShow = false;
         }
         else if (res.flag == 2) {
           this.Viewall = [];
@@ -259,8 +325,42 @@ export class WhatsAppHistoryComponent implements OnInit {
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.Viewall);
+          this.searchAction = 0;
+          this.filterAction = 0;
+          this.currentfilvalShow = false;
         }
       });
     }
   };
+
+
+  excelbulk() {
+    const header = ['mobileNumber', 'date', 'reason'];
+    const data = this.responseDataListnew;
+    // Prepare CSV content
+    const csvContent = [];
+    // Add header to CSV
+    csvContent.push(header.map((item) => `"${item}"`).join(','));
+    data.forEach((d: any) => {
+      // Prepare the row data
+      const rowData = [`"${d.mobileNumber}"` || '', d.date || '', `"${d.reason}"` || '',].map((item) => `"${item.replace(/"/g, '""')}"`);
+      csvContent.push(rowData.join(','));
+    });
+    // Create a Blob and save as CSV
+    const blob = new Blob([csvContent.join('\n')], { type: 'text/csv;charset=utf-8;', });
+    FileSaver.saveAs(blob, 'WhatsApp.csv');
+  }
+
+  createWhatsApp() {
+    const dialogRef = this.dialog.open(WhatappBulkUploadComponent, {
+      disableClose: true,
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '500ms',
+      position: { right: '0px' }, width: '35%',
+    });
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.Getall();
+    });
+  }
+
 }

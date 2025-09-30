@@ -1,17 +1,14 @@
 <div class="card">
-    <h4 class="p-2" style="font-weight: 500;color:black">Customized Payment Manual Update<button matDialogClose style="float: right;"
-            class="button1">Back</button></h4>
+    <h4 class="p-2" style="font-weight: 500;color:black">Customized Payment Manual Update<button matDialogClose
+            style="float: right;" class="button1">Back</button></h4>
 </div>
- 
+
 <body class="page">
     <main class="main page__main">
         <form style="width: 600px;" class="form main__form" autocomplete="off" class="form" role="form"
             [formGroup]="manualpay">
-                  
-  
             <div class="form__linput">
                 <label class="form__label" for="fname">Payment Mode</label>
- 
                 <select formControlName="paymentMode" id="paymentMode" class="form-control form-select">
                     <option value="" disabled selected>Select</option>
                     <option value="UPI-Manual">UPI (Unified Payments Interface)</option>
@@ -25,38 +22,33 @@
                     Field is required
                 </div>
             </div>
- 
             <div [hidden]="manualpay.controls['paymentMode'].value == 'Cash'" class="form__linput">
                 <label class="form__label" for="fname">Reference Number</label>
-                <input class="form__input form-control" id="fname" type="text" formControlName="utrNumber" name="utrNumber"
-                    placeholder="Reference Number..." required />
+                <input class="form__input form-control" id="fname" type="text" formControlName="utrNumber"
+                    name="utrNumber" placeholder="Reference Number..." required />
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="utrNumber?.invalid && utrNumber?.touched && utrNumber?.errors?.['required']">
                     Field is required
                 </div>
             </div>
- 
             <div class="form__linput">
                 <label class="form__label" for="fname">Technical Pay status</label>
- 
                 <select formControlName="technicalPayStatus" id="technicalPayStatus" class="form-control form-select">
                     <option value="" disabled selected>Select</option>
                     <option value="Success">Paid</option>
-                    <!-- <option value="Unpaid">Unpaid</option> -->
                 </select>
                 <div style="color: red; font-size: 12px;margin-top: 2px;"
                     *ngIf="technicalPayStatus?.invalid && technicalPayStatus?.touched && technicalPayStatus?.errors?.['required']">
                     Field is required
                 </div>
             </div>
- 
             <div class="mt-3">
                 <button [disabled]="manualpay.invalid" (click)="Transactionpay()" type="submit" class="btn mx-1 "
                     style="background-color:#7db855be">Submit</button>
                 <button type="submit" class="btn" style="background-color:#141E46;color:white"
                     matDialogClose>Cancel</button>
             </div>
-  
+
         </form>
     </main>
 </body>

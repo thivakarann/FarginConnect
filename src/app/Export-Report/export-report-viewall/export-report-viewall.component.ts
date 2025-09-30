@@ -5,7 +5,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { LoaderService } from '../../Loader service/loader.service';
 import { ExportReportAddComponent } from '../export-report-add/export-report-add.component';
@@ -25,7 +24,6 @@ export class ExportReportViewallComponent implements OnInit {
     'resultStatus',
     'Download',
     'exportAt',
-    // 'entityname',
     'merchantname',
     'paymentStatus',
     'paymentrefund',
@@ -52,8 +50,6 @@ export class ExportReportViewallComponent implements OnInit {
   errorMessage: any;
   download: any;
   searchPerformed: boolean = false;
-  private subscription!: Subscription;
-  private intervalId: any;
   roleName = sessionStorage.getItem('roleName')
   valueDownload: any;
   valueadd: any;

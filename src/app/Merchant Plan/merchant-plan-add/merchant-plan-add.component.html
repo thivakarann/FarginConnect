@@ -9,7 +9,7 @@
             <div class="row mb-3">
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">Plan Name</label>
-                    <input   type="text" id="Entity Name" formControlName="planName" class="form-control">
+                    <input type="text" id="Entity Name" formControlName="planName" class="form-control">
                     <div style="
                     color: red;
                     font-size: 12px;
@@ -35,7 +35,7 @@
                     position: relative;
                     ;
                   " *ngIf="planName?.invalid && planName?.touched && planName?.errors?.['maxlength']">
-                           Maximum length should be 50
+                        Maximum length should be 50
                     </div>
                 </div>
                 <div class="col-sm-4 form-group">
@@ -206,7 +206,7 @@
                     position: relative;
                     ;
                   " *ngIf="countLimit?.invalid && countLimit?.touched && countLimit?.errors?.['pattern']">
-                        *Only Positive Number are allowed
+                        Enter a Valid Number
                     </div>
                 </div>
             </div>

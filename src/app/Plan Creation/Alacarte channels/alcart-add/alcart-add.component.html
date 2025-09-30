@@ -1,19 +1,16 @@
 <div class="container">
- 
+
     <div class="form-header d-flex justify-content-between align-items-center">
         <h5 class="mb-0">Add A-LA-CARTE</h5>
         <button type="button" class="btn btn-secondary" (click)="close()">Back</button>
     </div>
- 
     <div class="well">
         <h4 class="card-header" style="font-weight: 500">Channel Details</h4>
         <form [formGroup]="myForm" style="margin-top: 2%;">
             <div class="row mb-3">
- 
- 
                 <div class="col-sm-4 form-group">
                     <label for="Bussiness category">Broadcaster</label>
-                    <select  formControlName="bundleChannelId" id="Bussiness category" class="form-control form-select" >
+                    <select formControlName="bundleChannelId" id="Bussiness category" class="form-control form-select">
                         <option value="" disabled selected>Select</option>
                         <option *ngFor="let item of Broadcasters" [value]="item.bundleChannelId">
                             {{item.broadCasterName}}</option>
@@ -30,7 +27,8 @@
                 </div>
                 <div class="col-sm-4 form-group">
                     <label for="Bussiness category">MSO</label>
-                    <select formControlName="serviceId" (change)="mso($event)" id="Bussiness category" class="form-control form-select" >
+                    <select formControlName="serviceId" (change)="mso($event)" id="Bussiness category"
+                        class="form-control form-select">
                         <option value="" disabled selected>Select</option>
                         <option *ngFor="let item of msoactive" [value]="item.serviceId">
                             {{item.serviceProviderName}}</option>
@@ -60,16 +58,8 @@
                   " *ngIf="regionId?.invalid && regionId?.touched && regionId?.errors?.['required']">
                         Field is required
                     </div>
-                    
                 </div>
- 
-             
- 
- 
- 
- 
             </div>
- 
             <div class="row mb-3">
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">Channel Name</label>
@@ -83,20 +73,18 @@
                   " *ngIf="channelName?.invalid && channelName?.touched && channelName?.errors?.['required']">
                         Field is required
                     </div>
-                   <div style="
+                    <div style="
                     color: red;
                     font-size: 12px;
                     margin-top: 2px;
                   " *ngIf="channelName?.invalid && channelName?.touched && channelName?.errors?.['pattern']">
-Invalid format
+                        Invalid format
                     </div>
-                            <div style="color: red; font-size: 12px; margin-top: 2px; position: relative;"
-       *ngIf="channelName?.invalid && channelName?.touched && channelName?.errors?.['maxlength']">
-            Maximum length should be 50
-  </div>
+                    <div style="color: red; font-size: 12px; margin-top: 2px; position: relative;"
+                        *ngIf="channelName?.invalid && channelName?.touched && channelName?.errors?.['maxlength']">
+                        Maximum length should be 100
+                    </div>
                 </div>
- 
- 
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">Channel Number</label>
                     <input type="text" id="Entity Name" formControlName="channelNo" class="form-control">
@@ -119,11 +107,9 @@ Invalid format
                         Only Numbers are allowed (Upto 10 Digits)
                     </div>
                 </div>
- 
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">Generic</label>
-                    <input type="text" id="Entity Name" formControlName="generic"
-                        class="form-control">
+                    <input type="text" id="Entity Name" formControlName="generic" class="form-control">
                     <div style="
                 color: red;
                 font-size: 12px;
@@ -140,15 +126,11 @@ Invalid format
                     position: relative;
                     ;
                   " *ngIf="generic?.invalid && generic?.touched && generic?.errors?.['pattern']">
-                          Please enter only letters,(max 50 characters)
-                        </div>
+                        Please enter only letters,(max 50 characters)
+                    </div>
                 </div>
- 
-       
- 
             </div>
             <div class="row mb-3">
- 
                 <div class="col-sm-4 form-group">
                     <label for="Entity Name">Language</label>
                     <input type="text" id="Entity Name" formControlName="language" class="form-control">
@@ -168,12 +150,11 @@ Invalid format
                     position: relative;
                     ;
                   " *ngIf="language?.invalid && language?.touched && language?.errors?.['pattern']">
-                           Please enter only letters,(max 50 characters)
-                        </div>
+                        Please enter only letters,(max 50 characters)
+                    </div>
                 </div>
- 
                 <div class="col-sm-4 form-group">
-                    <label for="Entity Name">Logo</label>
+                    <label for="Entity Name">Logo (Optional)</label>
                     <input (change)="onFileSelected($event)" type="file" id="Entity Name" formControlName="logo"
                         class="form-control">
                     <div style="
@@ -188,14 +169,15 @@ Invalid format
                 </div>
                 <div class="col-sm-4 form-group">
                     <label for="Bussiness category">Type</label>
-                    <select (change)="typechange($event)" formControlName="type" id="Bussiness category" class="form-control form-select">
+                    <select (change)="typechange($event)" formControlName="type" id="Bussiness category"
+                        class="form-control form-select">
                         <option value="" disabled selected>Select</option>
                         <option value="0">Free</option>
                         <option value="1">Paid</option>
- 
- 
- 
- 
+
+
+
+
                     </select>
                     <div style="
                     color: red;
@@ -207,10 +189,11 @@ Invalid format
                         Field is required
                     </div>
                 </div>
- 
+
                 <div class="col-sm-4 form-group" [hidden]="type?.value!='1'">
                     <label for="Entity Name">Price</label>
-                    <input [required]="type?.value=='1'" type="text" id="Entity Name" formControlName="price" class="form-control">
+                    <input [required]="type?.value=='1'" type="text" id="Entity Name" formControlName="price"
+                        class="form-control">
                     <div style="
                     color: red;
                     font-size: 12px;
@@ -227,19 +210,19 @@ Invalid format
                     position: relative;
                     ;
                 " *ngIf="price?.invalid && price?.touched && price?.errors?.['required']">
-                    Field is required*
+                        Field is required*
                     </div>
                 </div>
- 
- 
+
+
             </div>
- 
- 
- 
- 
- 
- 
- 
+
+
+
+
+
+
+
             <div>
                 <button (click)="submit($event)" [disabled]="myForm.invalid" type="submit" class="btn mx-1 "
                     style="background-color:#7db855be">Submit</button>
@@ -248,8 +231,8 @@ Invalid format
             </div>
         </form>
     </div>
- 
- 
- 
- 
+
+
+
+
 </div>

@@ -23,7 +23,8 @@ export class FarginBankAddComponent {
     this.BankForm = new FormGroup({
       accountHolderName: new FormControl(null, [
         Validators.required,
-        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'), Validators.maxLength(50)
+        Validators.pattern('^[A-Za-z. ]+$'), 
+        Validators.maxLength(50)
       ]),
       accountNumber: new FormControl(null, [
         Validators.required,

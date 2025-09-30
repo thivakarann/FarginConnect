@@ -1,146 +1,134 @@
-
- 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
- 
+
 button {
   font: inherit;
 }
- 
-.page {
 
+.page {
   background-color: #fff;
   display: grid;
   grid-template-areas: "main";
   height: auto;
-
   font-family: var(--font-sans);
 }
- 
+
 .page__main {
   grid-area: main;
- 
+
 }
- 
+
 .main {
   justify-items: center;
   align-items: center;
   width: 500px;
 }
-.form .main__form{
-  width: 500px;
 
+.form .main__form {
+  width: 500px;
 }
- 
 
 .main__form {
   width: 100%;
   max-width: 30em;
-  /* Max width for the form */
 }
- 
-.form {
 
+.form {
   background-color: #fff;
   display: grid;
   width: 140%;
   max-width: 100%;
-
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
- 
+
 .form__linput {
   display: grid;
   margin-bottom: 10px;
 }
- 
+
 .form__label {
   margin-bottom: 10px;
 }
- 
+
 .form__input,
 .form__select,
 .form__textarea {
   padding: 0.5em 0.7rem;
-  
   width: 100%;
 }
- 
+
 .form__select {
   background: inherit;
 }
- 
+
 .form__textarea {
   padding: 1em 0.7rem;
   resize: vertical;
   font: inherit;
 }
- 
+
 .form__btn {
   margin-right: auto;
 }
- 
 
- 
 .flex {
   display: flex;
   justify-content: space-between;
   gap: 0.5em;
 }
- 
+
 .submit,
 .cancel {
   border: none;
- 
   padding: 0.5em 1em;
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
- 
+
 .submit {
   background-color: #1a202c;
   color: #fff;
 }
- 
+
 .submit:hover {
   background-color: #2d3748;
 }
- 
+
 .cancel {
   background-color: #b44640;
   color: #fff;
 }
- 
+
 .cancel:hover {
   background-color: #c53030;
 }
- 
+
 @media (max-width: 600px) {
   .main__form {
     padding: 10px;
   }
- 
+
   .form {
     padding: 10px;
   }
- 
+
   .submit,
   .cancel {
     padding: 0.5em 1em;
     font-size: 0.875rem;
   }
 }
- 
+
 .form__label {
   font-weight: 500;
 }
- 
+
 .card-header {
   display: flex;
   justify-content: space-between;

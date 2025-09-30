@@ -2,9 +2,7 @@
 
 <mat-card-header>
     <div class="row mt-4">
-
         <div class="col">
-
             <div class="search">
                 <form class="form">
                     <label for="search">
@@ -22,7 +20,7 @@
                                 </path>
                             </svg>
                         </div>
-                        <button type="reset" (click)="reload()" class="close-btn">
+                        <button type="reset" (click)="Getall()" class="close-btn">
                             <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
                                 <path clip-rule="evenodd"
                                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -31,10 +29,7 @@
                         </button>
                     </label>
                 </form>
-
             </div>&nbsp;&nbsp;&nbsp;
-            <!-- <button style="color:white;background-color: #141E46;border-radius: 10px;font-size:12px" (click)="exportexcel()"
-                mat-raised-button [hidden]="valueTicketExport!=='Entity Request-Export'">Export</button> -->
         </div>
     </div>
 </mat-card-header>
@@ -76,14 +71,12 @@
                 </td>
             </ng-container>
 
-
             <ng-container matColumnDef="Criticallity">
-                <th mat-header-cell *matHeaderCellDef>Ticket Status</th>
+                <th mat-header-cell *matHeaderCellDef>Criticality</th>
                 <td mat-cell *matCellDef="let data">
                     <span *ngIf="data?.ticketStatus=='Low'" style="color:green;">Low</span>
                     <span *ngIf="data?.ticketStatus=='Medium'" style="color:orange;">Medium</span>
                     <span *ngIf="data?.ticketStatus=='High'" style="color:red;">High</span>
-
                 </td>
             </ng-container>
 
@@ -103,12 +96,16 @@
             </ng-container>
 
             <ng-container matColumnDef="Status">
-                <th mat-header-cell *matHeaderCellDef>Approval Status</th>
+                <th mat-header-cell *matHeaderCellDef>Ticket Status</th>
                 <td mat-cell *matCellDef="let data">
-                    <span *ngIf="data?.approvalStatus=='Open' || data?.approvalStatus=='open'" style="color: red;">Progress</span>
-                    <span *ngIf="data?.approvalStatus=='Close' || data?.approvalStatus=='close' || data?.approvalStatus=='Closed' || data?.approvalStatus=='closed'" style="color: green;">Closed</span>
-                    <span *ngIf="data?.approvalStatus=='hold' || data?.approvalStatus=='Hold'" style="color: orange;">Hold</span>
-
+                    <span *ngIf="data?.approvalStatus=='Open' || data?.approvalStatus=='open'"
+                        style="color: red;">Open</span>
+                    <span *ngIf="data?.approvalStatus=='ReOpen'" style="color: red;">ReOpen</span>
+                    <span
+                        *ngIf="data?.approvalStatus=='Close' || data?.approvalStatus=='close' || data?.approvalStatus=='Closed' || data?.approvalStatus=='closed'"
+                        style="color: green;">Closed</span>
+                    <span *ngIf="data?.approvalStatus=='hold' || data?.approvalStatus=='Hold'"
+                        style="color: orange;">Hold</span>
                 </td>
             </ng-container>
 
@@ -116,7 +113,6 @@
                 <th mat-header-cell *matHeaderCellDef [hidden]="valueDescriptionView!=='Entity Request-View'">Remarks
                 </th>
                 <td mat-cell *matCellDef="let data" [hidden]="valueDescriptionView!=='Entity Request-View'">
-
                     <i class="fa fa-commenting-o" (click)="comment(data)"></i>
                 </td>
             </ng-container>
@@ -129,17 +125,23 @@
             <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef [hidden]="valueTicketEdit!=='Entity Request-Edit'">Action</th>
                 <td mat-cell *matCellDef="let data" [hidden]="valueTicketEdit!=='Entity Request-Edit' ">
-
-                  <button class="btn btn btn-sm" [disabled]= "data?.approvalStatus=='close'"
-                      style="border:none;"  (click)="update(data)"> <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-edit"></i></button>
+                    <button class="btn btn btn-sm" [disabled]="data?.approvalStatus=='close'" style="border:none;"
+                        (click)="update(data)">
+                        <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-edit">
+                        </i>
+                    </button>
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="stickeraction">
-                <th [hidden]="valuestickeredit!=='Entity Request-EditSticker-Count'"  mat-header-cell *matHeaderCellDef>Edit Sticker</th>
-                <td  [hidden]="valuestickeredit!=='Entity Request-EditSticker-Count'" mat-cell *matCellDef="let data">
-                <button class="btn btn btn-sm" [disabled]="data?.subject != 'Sticker Request' || data?.approvalStatus=='close'"
-                      style="border:none;" (click)="stickerupdate(data)"> <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-edit"></i></button>
+                <th [hidden]="valuestickeredit!=='Entity Request-EditSticker-Count'" mat-header-cell *matHeaderCellDef>
+                    Edit Sticker</th>
+                <td [hidden]="valuestickeredit!=='Entity Request-EditSticker-Count'" mat-cell *matCellDef="let data">
+                    <button class="btn btn btn-sm"
+                        [disabled]="data?.subject != 'Sticker Request' || data?.approvalStatus=='close'"
+                        style="border:none;" (click)="stickerupdate(data)">
+                        <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-edit"></i>
+                    </button>
                 </td>
             </ng-container>
 
@@ -153,7 +155,7 @@
                 <td mat-cell *matCellDef="let data">{{data.approvalStatusUpdatedAt |date:'dd/MM/yyyy hh:mm a'}}</td>
             </ng-container>
 
-                    <ng-container matColumnDef="UpdatedBys">
+            <ng-container matColumnDef="UpdatedBys">
                 <th mat-header-cell *matHeaderCellDef>Sticker Modified By</th>
                 <td mat-cell *matCellDef="let data">{{data.stickerUpdatedBy }}</td>
             </ng-container>
@@ -169,7 +171,7 @@
                 <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data</td>
                 <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">No Data
                 </td>
-              </tr>
+            </tr>
         </table>
 
     </div>
@@ -179,10 +181,5 @@
     <mat-paginator [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtons
         aria-labels="select page of users"></mat-paginator>
 </mat-card-footer>
-
-
-
-
-
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

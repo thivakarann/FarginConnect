@@ -3,28 +3,21 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Workbook } from 'exceljs';
-import FileSaver from 'file-saver';
 import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
-import {
-  additionalcustomerpay,
-  additionapayfilter,
-} from '../../fargin-model/fargin-model.module';
+import { additionalcustomerpay, additionapayfilter, } from '../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { ViewadditionalpaymentsComponent } from './viewadditionalpayments/viewadditionalpayments.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgSelectComponent } from '@ng-select/ng-select';
-interface Option {
-  entityName: string;
-  merchantId: number;
-}
+interface Option { entityName: string; merchantId: number; }
 
 @Component({
   selector: 'app-additionalpayments',
   templateUrl: './additionalpayments.component.html',
   styleUrl: './additionalpayments.component.css',
 })
+
 export class AdditionalpaymentsComponent {
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = [
@@ -45,9 +38,6 @@ export class AdditionalpaymentsComponent {
     'view',
     'CheckStatus',
     'Receipt',
-
-
-
   ];
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
@@ -138,13 +128,13 @@ export class AdditionalpaymentsComponent {
       next: (res: any) => {
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
-
           if (this.roleId == 1) {
             this.valuepaymentexport = 'Additional Payments-Export';
             this.valuepaymentview = 'Additional Payments-View';
             this.valuepaymentReceipt = 'Additional Payments-Receipt';
             this.valuepaymentCheckStatus = 'Additional Payments-Check Status';
-          } else {
+          }
+          else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
               if (this.actions == 'Additional Payments-Export') {
@@ -195,15 +185,6 @@ export class AdditionalpaymentsComponent {
     return this.additionalpay.get('endDate');
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-
   Getall() {
     this.service.additionalpayments(this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
@@ -227,7 +208,6 @@ export class AdditionalpaymentsComponent {
   filterdate() {
     const fromDate = this.Datefilteradditionalpay.get('FromDateRange')?.value;
     const toDate = this.Datefilteradditionalpay.get('ToDateRange')?.value;
-
     this.service.additionalpaymentsfilter(fromDate, toDate, this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.transaction = res.response;
@@ -248,6 +228,7 @@ export class AdditionalpaymentsComponent {
       }
     });
   }
+
   reset() {
     this.Getall();
     this.backs = '';
@@ -265,9 +246,7 @@ export class AdditionalpaymentsComponent {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '1000ms',
       disableClose: true,
-      data: {
-        value: id,
-      },
+      data: { value: id, },
     });
   }
 
@@ -280,9 +259,7 @@ export class AdditionalpaymentsComponent {
     this.service.additionalpaycheck(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
-        setTimeout(() => {
-          this.Getall();
-        }, 500);
+        setTimeout(() => { this.Getall(); }, 500);
       } else {
         this.toastr.error(res.responseMessage);
       }
@@ -300,84 +277,31 @@ export class AdditionalpaymentsComponent {
 
   CustomerAdmin(filterValue: string) {
     if (filterValue) {
-      this.service
-        .additionalsearchfilter(filterValue, this.pageSize, this.pageIndex)
-        .subscribe({
-          next: (res: any) => {
-            if (res.response) {
-              this.transaction = res.response;
-              this.totalPages = res.pagination.totalElements;
-              this.totalpage = res.pagination.pageSize;
-              this.currentpage = res.pagination.currentPage;
-              this.dataSource = new MatTableDataSource(this.transaction);
-              this.currentfilvalShow = true;
-            } else if (res.flag == 2) {
-              this.transaction = [];
-              this.totalPages = res.pagination.totalElements;
-              this.totalpage = res.pagination.pageSize;
-              this.currentpage = res.pagination.currentPage;
-              this.dataSource = new MatTableDataSource(this.transaction);
-              this.currentfilvalShow = true;
-            }
-          },
-          error: (err: any) => {
-            this.toastr.error('Error fetching filtered regions');
-          },
-        });
+      this.service.additionalsearchfilter(filterValue, this.pageSize, this.pageIndex).subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.transaction = res.response;
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.transaction);
+            this.currentfilvalShow = true;
+          } else if (res.flag == 2) {
+            this.transaction = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.transaction);
+            this.currentfilvalShow = true;
+          }
+        },
+        error: (err: any) => {
+          this.toastr.error('Error fetching filtered regions');
+        },
+      });
     } else if (!filterValue) {
       return;
     }
-  }
-
-  exportexcel() {
-    this.service.additionalexport().subscribe((res: any) => {
-      this.transactionexport = res.response;
-      if (res.flag == 1) {
-        let sno = 1;
-        this.responseDataListnew = [];
-        this.transactionexport.forEach((element: any) => {
-          this.response = [];
-          this.response.push(sno);
-          this.response.push(element?.pgPaymentId);
-          this.response.push(
-            element?.customerId?.merchantId?.merchantLegalName
-          );
-          this.response.push(element?.customerId?.customerName);
-          this.response.push(element?.paymentMethod);
-          this.response.push(element?.paidAmount);
-          if (element.createdDateTime) {
-            this.response.push(
-              moment(element?.createdDateTime)
-                .format('DD/MM/yyyy hh:mm a')
-                .toString()
-            );
-          } else {
-            this.response.push('');
-          }
-          if (element.paymentDateTime) {
-            this.response.push(
-              moment(element?.paymentDateTime)
-                .format('DD/MM/yyyy hh:mm a')
-                .toString()
-            );
-          } else {
-            this.response.push('');
-          }
-
-          if (element?.paymentStatus == 'Success') {
-            this.response.push('Success');
-          } else if (element?.paymentStatus == 'Due Pending') {
-            this.response.push('Due Pending');
-          } else {
-            this.response.push('Initiated');
-          }
-
-          sno++;
-          this.responseDataListnew.push(this.response);
-        });
-        this.excelexportCustomer();
-      }
-    });
   }
 
   Filter(event: any) {
@@ -390,18 +314,16 @@ export class AdditionalpaymentsComponent {
     if (this.filterValue == 'Filterbyadditionalpayment') {
       this.dialogRef = this.dialog.open(this.AdditionalPayment, {
         enterAnimationDuration: '500ms',
-        exitAnimationDuration: '1000ms',
+        exitAnimationDuration: '500ms',
         disableClose: true,
         position: { right: '0px' },
-        // width: '30%'
       });
     } else if (this.filterValue == 'AdditionalpayDatefilter') {
       this.dialogRef = this.dialog.open(this.AdditionalPaymentDateFilter, {
         enterAnimationDuration: '500ms',
-        exitAnimationDuration: '1000ms',
+        exitAnimationDuration: '500ms',
         disableClose: true,
         position: { right: '0px' },
-        // width: '30%'
       });
     }
   }
@@ -426,8 +348,6 @@ export class AdditionalpaymentsComponent {
       console.log(this.merchantId);
     }
   }
-
-  closeDropdown(): void { }
 
   searchAPI(query: string): void {
     this.service.AdditionalPaySearch(query).subscribe(
@@ -457,10 +377,8 @@ export class AdditionalpaymentsComponent {
   Additionalpay() {
     if (!this.startDate?.value && !this.endDate?.value) {
       this.flags = 1;
-      console.log('Flag set to 1:', this.flags);
     } else {
       this.flags = 2;
-      console.log('Flag set to 2:', this.flags);
     }
     let submitModel: additionapayfilter = {
       paymentStatus: this.pay?.value,
@@ -608,109 +526,4 @@ export class AdditionalpaymentsComponent {
       });
     }
   }
-
-  excelexportCustomer() {
-    const header = [
-      'sno',
-      'Payment Id',
-      'Entity Name',
-      'Customer Name',
-      'Payment Method',
-      'Amount',
-      'Due Generated At',
-      'Paid At',
-      'Status',
-    ];
-
-    const data = this.responseDataListnew;
-    let workbook = new Workbook();
-    let worksheet = workbook.addWorksheet('Additional Payments');
-    worksheet.addRow([]);
-    let headerRow = worksheet.addRow(header);
-    headerRow.font = { bold: true };
-    headerRow.eachCell((cell, number) => {
-      cell.fill = {
-        type: 'pattern',
-        pattern: 'solid',
-        fgColor: { argb: 'FFFFFFFF' },
-        bgColor: { argb: 'FF0000FF' },
-      };
-
-      cell.border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' },
-      };
-    });
-
-    data.forEach((d: any) => {
-
-      let row = worksheet.addRow(d);
-      let qty = row.getCell(1);
-      let qty1 = row.getCell(2);
-      let qty2 = row.getCell(3);
-      let qty3 = row.getCell(4);
-      let qty4 = row.getCell(5);
-      let qty5 = row.getCell(6);
-      let qty6 = row.getCell(7);
-      let qty7 = row.getCell(8);
-
-      qty.border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' },
-      };
-      qty1.border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' },
-      };
-      qty2.border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' },
-      };
-      qty3.border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' },
-      };
-      qty4.border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' },
-      };
-      qty5.border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' },
-      };
-      qty6.border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' },
-      };
-      qty7.border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' },
-      };
-    });
-    workbook.xlsx.writeBuffer().then((data: any) => {
-      let blob = new Blob([data], {
-        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      });
-      FileSaver.saveAs(blob, 'Additional Payments.xlsx');
-    });
-  }
-
 }

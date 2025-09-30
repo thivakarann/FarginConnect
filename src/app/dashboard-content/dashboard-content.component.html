@@ -1,6 +1,6 @@
 <!-- Dashboard Counts Starts -->
 
-<div [hidden]="valueDashboard!=='Overall-View'">
+<div>
   <div class="dashboard">
     <div class="card border-success">
       <div class="icon">👥</div>
@@ -42,6 +42,11 @@
       <div class="icon">📩</div>
       <div class="title">Total Open Tickets</div>
       <div class="value">{{counts?.totalTicketMemberOpenCount}}</div>
+    </div>
+      <div class="card border-success">
+      <div class="icon">📩</div>
+      <div class="title">Total ReOpen Tickets</div>
+      <div class="value">{{counts?.totalTicketMemberReOpenCount}}</div>
     </div>
     <div class="card border-success">
       <div class="icon">⏳</div>
@@ -335,7 +340,7 @@
                   }}
                 </td>
                 <td>{{ method.count }}</td>
-                <td>₹{{ method.amount }}</td>
+                <td>₹{{ method.amounts?.toFixed(2)}}</td>
               </tr>
             </tbody>
           </table>

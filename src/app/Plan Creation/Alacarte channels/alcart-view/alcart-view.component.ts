@@ -48,14 +48,12 @@ export class AlcartViewComponent implements OnInit {
       exitAnimationDuration: "1000ms",
       disableClose: true,
       data: { value: id }
-
-    })
-      this.dialog.afterAllClosed.subscribe(() => {
-          
-        this.AlcartView.Alcardviewbyid(this.id).subscribe((res: any) => {
-          this.alcardsdetails = res.response;
-        });
-        })
+    });
+    // this.dialog.afterAllClosed.subscribe(() => {
+    //   this.AlcartView.Alcardviewbyid(this.id).subscribe((res: any) => {
+    //     this.alcardsdetails = res.response;
+    //   });
+    // });
   }
 
 

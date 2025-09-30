@@ -11,6 +11,7 @@
           <option value="Additional Transaction">Additional Transaction</option>
         </select>
       </div>
+
       <div class="col-2 mt-4" style="margin-right: 87px">
         <div class="search">
           <form class="form1">
@@ -24,7 +25,7 @@
                   </path>
                 </svg>
               </div>
-              <button type="reset" (click)="reload()" class="close-btn">
+              <button type="reset" (click)="GetAll()" class="close-btn">
                 <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
                   <path clip-rule="evenodd"
                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -80,23 +81,19 @@
     </div>
   </mat-card-header>
 
-
-
-
-
   <mat-card-content>
     <div class="example-container text-nowrap mt-2" style="overflow-x: scroll; scrollbar-width: thin">
-      <!-- <span *ngIf="showcategoryData" class="errormge">NO DATA FOUND</span> -->
-
       <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+
         <ng-container matColumnDef="sno">
           <th mat-header-cell *matHeaderCellDef>S.No</th>
           <td mat-cell *matCellDef="let data; let i = index">
             {{ i + 1 }}
           </td>
         </ng-container>
-        <ng-container matColumnDef="checkboxs">
 
+
+        <ng-container matColumnDef="checkboxs">
           <th [hidden]="valuerefundexport!=='Online Refunds-Check Status'" mat-header-cell *matHeaderCellDef
             style="text-align: left; padding-left: 32px">
             <input type="checkbox" [(ngModel)]="selectAll" [disabled]="isAllPaid()" (change)="toggleAll()"
@@ -109,16 +106,20 @@
               [disabled]="data.refundStatus!='INITIATED'" />
           </td>
         </ng-container>
+
+
         <ng-container matColumnDef="type">
           <th mat-header-cell *matHeaderCellDef>Type</th>
           <td mat-cell *matCellDef="let transaction">
             {{ transaction?.typeMode || "-" }}
           </td>
         </ng-container>
+
+
         <ng-container matColumnDef="refund">
           <th mat-header-cell *matHeaderCellDef>Refund Amount</th>
           <td mat-cell *matCellDef="let transaction">
-            {{ transaction?.refundAmount || "-" }}
+            {{ transaction?.refundAmount|| "-" }}
           </td>
         </ng-container>
 
@@ -128,26 +129,26 @@
             {{ transaction?.paymentId || "-" }}
           </td>
         </ng-container>
+
         <ng-container matColumnDef="reqid">
           <th mat-header-cell *matHeaderCellDef>Request ID</th>
           <td mat-cell *matCellDef="let transaction">
             {{ transaction?.requestId || "-" }}
           </td>
         </ng-container>
+
         <ng-container matColumnDef="activityid">
           <th mat-header-cell *matHeaderCellDef>Activity ID</th>
           <td mat-cell *matCellDef="let transaction">
             {{ transaction?.activityId || "-" }}
           </td>
         </ng-container>
+
         <ng-container matColumnDef="bankReference">
           <th mat-header-cell *matHeaderCellDef>
             Refund Reference Number
           <td mat-cell *matCellDef="let transaction">
-            {{
-            transaction?.bankReference &&
-            transaction?.bankReference !== "null" &&
-            transaction?.bankReference !== "-"
+            {{transaction?.bankReference &&transaction?.bankReference !== "null" &&transaction?.bankReference !== "-"
             ? transaction?.bankReference
             : "-"
             }}
@@ -179,25 +180,12 @@
           </td>
         </ng-container>
 
-        <!-- <ng-container matColumnDef="createdDateTime">
-        <th mat-header-cell *matHeaderCellDef>Due Generated At</th>
-        <td mat-cell *matCellDef="let data">
-          {{ data?.createdDateTime | date : "dd-MM-yyyy" }}
-        </td>
-      </ng-container> -->
-
         <ng-container matColumnDef="paidAmount">
           <th mat-header-cell *matHeaderCellDef>Paid Amount</th>
           <td mat-cell *matCellDef="let data">
             {{ data?.paidAmount.toFixed(2) }}
           </td>
         </ng-container>
-        <!-- <ng-container matColumnDef="createDate">
-        <th mat-header-cell *matHeaderCellDef>Created date</th>
-        <td mat-cell *matCellDef="let data">
-          {{ data?.createdAt | date : "dd-MM-yyyy" }}
-        </td>
-      </ng-container> -->
 
         <ng-container matColumnDef="refundDate">
           <th mat-header-cell *matHeaderCellDef>Requested Date&Time</th>
@@ -205,6 +193,8 @@
             {{ data?.createdAt | date : "dd/MM/yyyy hh:mm a" }}
           </td>
         </ng-container>
+
+
         <ng-container matColumnDef="entityname">
           <th mat-header-cell *matHeaderCellDef>Entity Name</th>
           <td mat-cell *matCellDef="let data">
@@ -225,14 +215,17 @@
       </table>
     </div>
   </mat-card-content>
+
   <mat-card-footer>
     <mat-paginator (page)="getData($event)" [length]="totalPages" [pageIndex]="currentpage" [pageSize]="totalpage"
       [pageSizeOptions]="[5, 10, 50, 100, 200, 300, 500]" aria-label="Select page">
     </mat-paginator>
   </mat-card-footer>
+
 </div>
 
 <div *ngIf="selectedTransactionType == 'Additional Transaction'">
+
   <h4 style="text-align: left; color: #141e46">Additional Online Refunds</h4>
 
   <mat-card-header>
@@ -258,7 +251,7 @@
                   </path>
                 </svg>
               </div>
-              <button type="reset" (click)="reloadadditional()" class="close-btn">
+              <button type="reset" (click)="getAdditional()" class="close-btn">
                 <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
                   <path clip-rule="evenodd"
                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -312,25 +305,24 @@
       </div>
     </div>
   </mat-card-header>
-  <!-- <mat-card> -->
+
+
   <mat-card-content>
     <div class="example-container text-nowrap mt-2" style="overflow-x: scroll; scrollbar-width: thin">
-      <!-- <span *ngIf="showcategoryData" class="errormge">NO DATA FOUND</span> -->
-
       <table id="season-tble" matSort mat-table [dataSource]="dataSources" class="mat-elevation-z1">
+
         <ng-container matColumnDef="sno">
           <th mat-header-cell *matHeaderCellDef>S.No</th>
           <td mat-cell *matCellDef="let data; let i = index">
             {{ i + 1 }}
           </td>
         </ng-container>
-        <ng-container matColumnDef="checkboxsadditional">
 
+        <ng-container matColumnDef="checkboxsadditional">
           <th [hidden]="valuerefundexport!=='Online Refunds-Check Status'" mat-header-cell *matHeaderCellDef
             style="text-align: left; padding-left: 32px">
             <input type="checkbox" [(ngModel)]="selectAllAdditional" (change)="toggleAllAdditional()"
               [disabled]="isAllPaidAdd2()" title="Select All" />&nbsp; Check Status
-
           </th>
           <td [hidden]="valuerefundexport!=='Online Refunds-Check Status'" mat-cell *matCellDef="let data"
             style="text-align: center; padding-left: 32px">
@@ -338,32 +330,18 @@
               [disabled]="data.refundStatus!='INITIATED'" />
           </td>
         </ng-container>
+
         <ng-container matColumnDef="type">
           <th mat-header-cell *matHeaderCellDef>Type</th>
           <td mat-cell *matCellDef="let transaction">
             {{ transaction?.typeMode || "-" }}
           </td>
         </ng-container>
-        <!-- <ng-container matColumnDef="category">
-          <th mat-header-cell *matHeaderCellDef>
-            Stock Category
-          </th>
-          <td mat-cell *matCellDef="let transaction">
-            {{ transaction.inventoryName }}
-          </td>
-        </ng-container> -->
-        <!-- <ng-container matColumnDef="quantity">
-          <th mat-header-cell *matHeaderCellDef>
-            Stock Quantity
-          </th>
-          <td mat-cell *matCellDef="let transaction">
-            {{ transaction.quantity }}
-          </td>
-        </ng-container> -->
+
         <ng-container matColumnDef="refund">
           <th mat-header-cell *matHeaderCellDef>Refund Amount</th>
           <td mat-cell *matCellDef="let transaction">
-            {{ transaction?.refundAmount || "-" }}
+            {{ transaction?.refundAmount|| "-" }}
           </td>
         </ng-container>
 
@@ -373,31 +351,33 @@
             {{ transaction?.paymentId || "-" }}
           </td>
         </ng-container>
+
         <ng-container matColumnDef="reqid">
           <th mat-header-cell *matHeaderCellDef>Request ID</th>
           <td mat-cell *matCellDef="let transaction">
             {{ transaction?.requestId || "-" }}
           </td>
         </ng-container>
+
         <ng-container matColumnDef="activityid">
           <th mat-header-cell *matHeaderCellDef>Activity ID</th>
           <td mat-cell *matCellDef="let transaction">
             {{ transaction?.activityId || "-" }}
           </td>
         </ng-container>
+
         <ng-container matColumnDef="bankReference">
           <th mat-header-cell *matHeaderCellDef>
-          Refund Reference Number
+            Refund Reference Number
           <td mat-cell *matCellDef="let transaction">
-            {{
-            transaction?.bankReference &&
-            transaction?.bankReference !== "null" &&
-            transaction?.bankReference !== "-"
+            {{transaction?.bankReference &&transaction?.bankReference !== "null" &&transaction?.bankReference !== "-"
             ? transaction?.bankReference
             : "-"
             }}
           </td>
         </ng-container>
+
+
         <ng-container matColumnDef="custname">
           <th mat-header-cell *matHeaderCellDef>Customer Name</th>
           <td mat-cell *matCellDef="let data">
@@ -423,25 +403,15 @@
           </td>
         </ng-container>
 
-        <!-- <ng-container matColumnDef="createdDateTime">
-        <th mat-header-cell *matHeaderCellDef>Due Generated At</th>
-        <td mat-cell *matCellDef="let data">
-          {{ data?.createdDateTime | date : "dd-MM-yyyy" }}
-        </td>
-      </ng-container> -->
+
 
         <ng-container matColumnDef="paidAmount">
           <th mat-header-cell *matHeaderCellDef>Paid Amount</th>
           <td mat-cell *matCellDef="let data">
-            {{ data?.paidAmount.toFixed(2) }}
+            {{ data?.paidAmount?.toFixed(2) }}
           </td>
         </ng-container>
-        <!-- <ng-container matColumnDef="createDate">
-        <th mat-header-cell *matHeaderCellDef>Created date</th>
-        <td mat-cell *matCellDef="let data">
-          {{ data?.createdAt | date : "dd-MM-yyyy" }}
-        </td>
-      </ng-container> -->
+
 
         <ng-container matColumnDef="refundDate">
           <th mat-header-cell *matHeaderCellDef>Requested Date&Time</th>
@@ -449,6 +419,7 @@
             {{ data?.createdAt | date : "dd/MM/yyyy hh:mm a" }}
           </td>
         </ng-container>
+
         <ng-container matColumnDef="entityname">
           <th mat-header-cell *matHeaderCellDef>Entity Name</th>
           <td mat-cell *matCellDef="let data">
@@ -469,19 +440,14 @@
       </table>
     </div>
   </mat-card-content>
+
   <mat-card-footer>
     <mat-paginator (page)="getDataAdditional($event)" [length]="totalPages" [pageIndex]="currentpage"
       [pageSize]="totalpage" [pageSizeOptions]="[5, 10, 50, 100, 200, 300, 500]" aria-label="Select page">
     </mat-paginator>
   </mat-card-footer>
+
 </div>
-
-
-
-
-
-
-
 
 <ng-template #filterfordue>
   <div class="dialog-card-header">

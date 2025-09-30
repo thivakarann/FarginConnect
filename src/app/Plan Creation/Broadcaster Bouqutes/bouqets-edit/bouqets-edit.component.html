@@ -6,14 +6,11 @@
 <body style="width: 700px;" class="page">
     <main class="main page__main">
         <form class="form main__form" autocomplete="off" class="form" role="form" [formGroup]="myForm">
-            <!-- <p style="color: rgb(66, 66, 201);font-weight: 600;font-size: small;">Note: "(If you need to update the
-                broadcaster's bouquet, please re-enter all the fields)"</p> -->
             <div class="row">
                 <div class="col-6 form-group">
                     <label for="Bussiness category">Service Provider (MSO)</label>
                     <input type="text" readonly ngModel="{{getservicesProvider}}" id="Entity Name"
                         formControlName="serviceId" class="form-control">
-
                     <div style="
                     color: red;
                     font-size: 12px;
@@ -42,8 +39,6 @@
                         Field is required
                     </div>
                 </div>
-
-
             </div>
             <div class="row">
                 <div class="col-6 form-group">
@@ -75,7 +70,6 @@
                   " *ngIf="amount?.invalid && amount?.touched && amount?.errors?.['required']">
                         Field is required
                     </div>
-
                     <div style="
                     color: red;
                     font-size: 12px;
@@ -85,16 +79,11 @@
                   " *ngIf="amount?.invalid && amount?.touched && amount?.errors?.['pattern']">
                         Only positive numbers are allowed
                     </div>
-
-
-
-
                 </div>
             </div>
             <div style="margin-top: 2%;">
                 <button (click)="submit()" [disabled]="myForm.invalid" type="submit" class="btn mx-1 "
                     style="background-color:#7db855be">Submit</button>
-
             </div>
         </form>
     </main>

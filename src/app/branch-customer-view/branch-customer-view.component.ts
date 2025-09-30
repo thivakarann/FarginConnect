@@ -1,10 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../service/fargin-service.service';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Location } from '@angular/common';
@@ -17,13 +15,9 @@ import FileSaver from 'file-saver';
   styleUrl: './branch-customer-view.component.css'
 })
 export class BranchCustomerViewComponent implements OnInit {
-
-  strings = "@";
   dataSource!: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-
   @ViewChild(MatSort) sort!: MatSort;
-
   displayedColumns: string[] = [
     'sno',
     'customerReferenceId',
@@ -31,11 +25,8 @@ export class BranchCustomerViewComponent implements OnInit {
     'mobileNumber',
     'stateName',
     'cityName',
-
     'pincodeName',
-
   ];
-
   branchview: any;
   responseDataListnew: any = [];
   merchantid: any = sessionStorage.getItem('merchantId')
@@ -58,25 +49,22 @@ export class BranchCustomerViewComponent implements OnInit {
   currentfilval: any;
   searchPerformed: boolean = false;
   branchcustviews: any;
-  currentfilvalShow:boolean=false;
+  currentfilvalShow: boolean = false;
 
   constructor(
     private service: FarginServiceService,
     private toastr: ToastrService,
-    private dialog: MatDialog,
-    private formBuilder: FormBuilder,
     private ActivateRoute: ActivatedRoute,
-    private router: Router,
     private location: Location
   ) { }
-
 
   ngOnInit(): void {
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.id = param.Alldata;
-
     });
-
+    this.Getall();
+  }
+  Getall() {
     this.service.BranchCustomer(this.id, this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.branchcustview = res.response.customerList;
@@ -93,52 +81,11 @@ export class BranchCustomerViewComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.branchcustview);
         this.currentfilvalShow = false;
       }
-
     });
-  }
-
-
-  reload() {
-    this.service.BranchCustomer(this.id, this.pageSize, this.pageIndex).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.branchcustview = res.response.customerList;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.branchcustview);
-        this.currentfilvalShow = false;
-      } else if (res.flag == 2) {
-        this.branchcustview = [];
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.branchcustview);
-        this.currentfilvalShow = false;
-      }
-
-    });
-  }
-
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-
-
-  close() {
-    this.location.back()
-  }
-
+  };
 
   branch(filterValue: string) {
- 
     if (filterValue) {
-
       this.service.BranchCustomerSearch(this.id, filterValue, this.pageSize, this.pageIndex).subscribe({
         next: (res: any) => {
           if (res.response) {
@@ -167,8 +114,55 @@ export class BranchCustomerViewComponent implements OnInit {
       return;
     }
   }
- 
- 
+
+  close() {
+    this.location.back()
+  };
+
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      this.service.BranchCustomerSearch(this.id, this.currentfilval, event.pageSize, event.pageIndex).subscribe({
+        next: (res: any) => {
+          if (res.response) {
+            this.branchcustviews = res.response.customerList;
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.branchcustviews);
+
+          } else if (res.flag == 2) {
+            this.branchcustviews = [];
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.branchcustviews);
+          }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
+        }
+      });
+    }
+    else {
+      this.service.BranchCustomer(this.id, event.pageSize, event.pageIndex).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.branchcustview = res.response.customerList;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.branchcustview);
+
+        } else if (res.flag == 2) {
+          this.branchcustview = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.branchcustview);
+        }
+      });
+    }
+  }
+
   exportexcel() {
     this.service.BranchCustomerExport(this.id).subscribe((res: any) => {
       this.branchcustview = res.response.customerList;
@@ -176,7 +170,6 @@ export class BranchCustomerViewComponent implements OnInit {
         let sno = 1;
         this.responseDataListnew = [];
         this.branchcustview.forEach((element: any) => {
-
           this.response = [];
           this.response.push(sno);
           this.response.push(element?.customerReferenceId);
@@ -184,10 +177,7 @@ export class BranchCustomerViewComponent implements OnInit {
           this.response.push(element?.mobileNumber);
           this.response.push(element?.stateName);
           this.response.push(element?.cityName);
-      
           this.response.push(element?.pincodeName);
-
-
           sno++;
           this.responseDataListnew.push(this.response);
         });
@@ -197,7 +187,6 @@ export class BranchCustomerViewComponent implements OnInit {
   }
 
   excelexportCustomer() {
-    // const title='Entity Details';
     const header = [
       'SNo',
       'CustomerReferenceId',
@@ -205,19 +194,12 @@ export class BranchCustomerViewComponent implements OnInit {
       'Mobile Number',
       'State',
       'City',
-     
       'Pincode',
     ]
-
 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Branch Customer View');
-
-    // let titleRow = worksheet.addRow([title]);
-    // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
-
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -230,13 +212,10 @@ export class BranchCustomerViewComponent implements OnInit {
         bgColor: { argb: 'FF0000FF' },
 
       }
-
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
     });
 
     data.forEach((d: any) => {
-      //
-
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -256,56 +235,9 @@ export class BranchCustomerViewComponent implements OnInit {
 
     }
     );
-
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       FileSaver.saveAs(blob, 'Branch Customer View.xlsx');
     });
   }
-
-
-  getData(event: any) {
-    if (this.currentfilvalShow) {
-      this.service.BranchCustomerSearch(this.id, this.currentfilval, event.pageSize, event.pageIndex).subscribe({
-        next: (res: any) => {
-          if (res.response) {
-            this.branchcustviews = res.response.customerList;
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSource = new MatTableDataSource(this.branchcustviews);
-           
-          } else if (res.flag == 2) {
-            this.branchcustviews = [];
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSource = new MatTableDataSource(this.branchcustviews);
-           }
-        },
-        error: (err: any) => {
-          this.toastr.error('No Data Found');
-        }
-      });
-  } 
-  else {
-    this.service.BranchCustomer(this.id, event.pageSize, event.pageIndex).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.branchcustview = res.response.customerList;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.branchcustview);
-   
-      } else if (res.flag == 2) {
-        this.branchcustview = [];
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.branchcustview);
-      }
-    });
-  }
-}
-
 }

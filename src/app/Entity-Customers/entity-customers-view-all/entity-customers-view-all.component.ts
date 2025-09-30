@@ -33,6 +33,8 @@ export class EntityCustomersViewAllComponent {
     'customerReferenceId',
     'customername',
     'mobilenumber',
+    'communicationType',
+    'communicationLanguage',
     'routeassigned',
     'QRImage',
     'view',

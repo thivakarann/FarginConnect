@@ -6,20 +6,29 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 @Component({
   selector: 'app-ticket-image',
   templateUrl: './ticket-image.component.html',
-  styleUrl: './ticket-image.component.css'
+  styleUrl: './ticket-image.component.css',
 })
 export class TicketImageComponent {
+
   raiseTicketId: any;
   imageUrl: any;
   DocView: boolean = false;
   showcard: boolean = true;
-  constructor(private router: Router, private service: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog) { }
+
+  constructor(
+    private service: FarginServiceService,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private dialog: MatDialog
+  ) { }
+
   ngOnInit(): void {
+
     this.raiseTicketId = this.data.value.raiseTicketId;
-  
+
     this.service.viewticketImage(this.raiseTicketId).subscribe({
       next: (res: Blob) => {
-        if (res.size > 0) { // Check if the response contains data
+        if (res.size > 0) {
+          // Check if the response contains data
           const reader = new FileReader();
           reader.readAsDataURL(res);
           reader.onloadend = () => {
@@ -36,13 +45,4 @@ export class TicketImageComponent {
     });
   }
   
- 
-  
- 
-  
-
-  close() {
-    this.dialog.closeAll()
-  }
-
 }

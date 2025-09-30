@@ -6,24 +6,16 @@
     <div class="page">
         <main class="main page__main">
             <form class="form main__form" autocomplete="off" [formGroup]="policycreate">
-               
                 <div class="form__linput">
-                    <label class="form__label"  for="merchantId">Merchant Name:</label>
-                    <p-dropdown
-                        [options]="filteredMerchantNames"
-                        optionLabel="label"  
-                        optionValue="value"    
-                        [placeholder]="'---Select---'"
-                        formControlName="merchantId"
-                        [showClear]="true"
-                        [filter]="true"
-                        filterPlaceholder="Search..."
-                        (onFilter)="filterMerchantNames($event)"
+                    <label class="form__label" for="merchantId">Merchant Name:</label>
+                    <p-dropdown [options]="filteredMerchantNames" optionLabel="label" optionValue="value"
+                        [placeholder]="'---Select---'" formControlName="merchantId" [showClear]="true" [filter]="true"
+                        filterPlaceholder="Search..." (onFilter)="filterMerchantNames($event)"
                         [style]="{'text-align': 'center', 'width': '950px'}">
-                    </p-dropdown>            
+                    </p-dropdown>
                     <span style="color: red; font-size: 12px; margin-top: 2px;" class="error"
                         *ngIf="merchantId?.touched && merchantId?.errors?.['required']">Field is Required</span>
-                  </div>
+                </div>
                 <div class="form__linput">
                     <label class="form__label" for="fname">Terms & Conditions</label>
                     <textarea minlength="50" class="form-control" formControlName="termAndCondition"
@@ -38,7 +30,7 @@
                     <label class="form__label" for="fname">Disclaimer</label>
                     <textarea minlength="50" class="form-control" formControlName="disclaimer"
                         placeholder="Enter Disclaimer..." cols="25" rows="3"></textarea>
-                        <div style="color: red; font-size: 12px; margin-top: 2px;"
+                    <div style="color: red; font-size: 12px; margin-top: 2px;"
                         *ngIf="disclaimer?.invalid && disclaimer?.touched">
                         <span *ngIf="disclaimer?.errors?.['required']">Field is required</span>
                         <span *ngIf="disclaimer?.errors?.['minlength']">Must be at least 50 characters</span>
@@ -49,9 +41,9 @@
                     <textarea minlength="50" class="form-control" formControlName="privacyPolicy"
                         placeholder="Enter Privacy Policy..." cols="25" rows="3"></textarea>
                     <div style="color: red;font-size: 12px;margin-top: 2px;"
-                    *ngIf="privacyPolicy?.invalid && privacyPolicy?.touched">
-                    <span *ngIf="privacyPolicy?.errors?.['required']">Field is required</span>
-                    <span *ngIf="privacyPolicy?.errors?.['minlength']">Must be at least 50 characters</span>
+                        *ngIf="privacyPolicy?.invalid && privacyPolicy?.touched">
+                        <span *ngIf="privacyPolicy?.errors?.['required']">Field is required</span>
+                        <span *ngIf="privacyPolicy?.errors?.['minlength']">Must be at least 50 characters</span>
                     </div>
                 </div>
                 <div class="form__linput">
@@ -59,10 +51,10 @@
                     <textarea minlength="50" class="form-control" formControlName="refundPolicy"
                         placeholder="Enter Refund Policy..." cols="25" rows="3"></textarea>
                     <div style="color: red; font-size: 12px; margin-top: 2px;"
-                    *ngIf="refundPolicy?.invalid && refundPolicy?.touched">
-                    <span *ngIf="refundPolicy?.errors?.['required']">Field is required</span>
-                    <span *ngIf="refundPolicy?.errors?.['minlength']">Must be at least 50 characters</span>
-                    </div> 
+                        *ngIf="refundPolicy?.invalid && refundPolicy?.touched">
+                        <span *ngIf="refundPolicy?.errors?.['required']">Field is required</span>
+                        <span *ngIf="refundPolicy?.errors?.['minlength']">Must be at least 50 characters</span>
+                    </div>
                 </div>
                 <div class="mt-3">
                     <button [disabled]="policycreate.invalid" (click)="admincreate()" type="submit" class="btn mx-1"

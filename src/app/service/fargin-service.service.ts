@@ -113,7 +113,8 @@ export class FarginServiceService {
   private readonly viewcustomerbasicdetails = 'customer/viewcustomer/';
   private readonly viewSetupboxDetails = 'customer/viewcustomerstb/';
   private readonly viewsetupboxplan = 'customer/viewcustomerstbplan/';
-  private readonly viewCustomerallsetupboxplan = 'customer/customerAllStbPlans/'
+  private readonly viewCustomerallsetupboxplan = 'customer/customerAllStbPlans/';
+  private readonly PlanViewbyidcust = 'lcop/viewActiveChannels/';
   private readonly activestatussetupbox = 'customer/updateStbStatus/';
   private readonly activecustomerplan = 'customerplan/updatestatus/';
 
@@ -649,7 +650,9 @@ export class FarginServiceService {
   private readonly entityonlinesearchbranch =
     'customerpay/viewByMerchantSearch/';
   private readonly entitywishonlinebranch = 'customerpay/viewByBranchMerchant/';
-  private readonly Entitywisetrans = 'customerpay/viewBranchMerchantOnline/';
+  // private readonly Entitywisetrans = 'customerpay/viewBranchMerchantOnline/';
+  private readonly Entitywisetrans = 'customerpay/viewByBranchMerchant/';
+
 
   private readonly entityterminaltrans =
     'transactions/getMerchantOfflinePaymentListForAdmin';
@@ -852,10 +855,9 @@ export class FarginServiceService {
   //dashboard
   private readonly dashbordcustomercount = 'dashBoard/customerCount/';
   private readonly dashboardviewpending = 'customerpay/viewbyPendingCustomers/';
-  private readonly dashboardemployeecount =
-    'merchantadminlogin/activeInactiveCount/';
-  private readonly dashbaordcustomerdayTransactions =
-    'entitydashboard/dayTransactions/';
+  private readonly dashboardemployeecount = 'merchantadminlogin/activeInactiveCount/';
+  private readonly dashbaordcustomerdayTransactions = 'entitydashboard/dayTransactions/';
+  private readonly dashboardCurrentmonthcustomertransaction = 'entitydashboard/monthlyCustomerDues/';
   private readonly dashboardlastmonthcustomertransaction =
     'entitydashboard/lastMonthCustomerTransactions/';
   private readonly dashboardthismonthcustomertransaction =
@@ -937,8 +939,20 @@ export class FarginServiceService {
   private readonly MechantsWhatsappGetallexport = 'merchantWhatsapp/viewAll';
   private readonly WhatsappHistory = 'whatsappHistory/viewallAndSearch';
   private readonly whatsapphistoryFilter = 'whatsappHistory/viewAllFilter/';
-  private readonly WhatsappEditHistory = 'merchantWhatsapp/getDataBywhatsAppId/'
+  private readonly WhatsappEditHistory = 'merchantWhatsapp/getDataBywhatsAppId/';
 
+
+
+  //WhatsApp Bulk Upload
+  private readonly whatsappbulkupload = 'whatsappHistory/whatsappBulkUpload/';
+  private readonly whatsappbulkgetall = 'whatsappHistory/bulk/getall';
+  private readonly whatsappbulkbyid = 'whatsappHistory/bulk/byId/';
+
+  // WhatsappVendors
+  private readonly WhatsAppVendorsViewall = 'vendor/getAll';
+  private readonly WhatsAppVendorsAdd = 'vendor/createVendor';
+  private readonly WhatsAppVendorsUpdate = 'vendor/updateVendor/';
+  private readonly WhatsAppVendorsStatus = 'vendor/updateStatus/';
 
 
 
@@ -2464,6 +2478,13 @@ export class FarginServiceService {
     return this.http.get(`${this.basePath}${this.viewCustomerallsetupboxplan}${id}`, this.options)
   }
 
+  LCOPViewbyidcust(id: any) {
+    return this.http.get(
+      `${this.basePath}${this.PlanViewbyidcust}${id}`,
+      this.options
+    );
+  }
+
   ActiveStatusCustomerPlan(id: any, model: any) {
     return this.http.put(
       `${this.basePath}${this.activecustomerplan}${id}`,
@@ -2575,9 +2596,7 @@ export class FarginServiceService {
   }
 
   dashbaordcustomerdayTransaction() {
-    return this.http.get(
-      `${this.basePath}${this.dashboarddaytransaction}`,
-      this.options
+    return this.http.get(`${this.basePath}${this.dashboarddaytransaction}`,this.options
     );
   }
 
@@ -4825,9 +4844,13 @@ export class FarginServiceService {
       this.options
     );
   }
-  dashbaordcustomerday(id: any) {
+  dashbaordcustomerday(id: any,id1:any) {
+    return this.http.get(`${this.basePath}${this.dashbaordcustomerdayTransactions}${id}/${id1}`,this.options
+    );
+  }
+  dashboardcurrentmonthcustomertransactions(id: any) {
     return this.http.get(
-      `${this.basePath}${this.dashbaordcustomerdayTransactions}${id}`,
+      `${this.basePath}${this.dashboardCurrentmonthcustomertransaction}${id}`,
       this.options
     );
   }
@@ -5106,12 +5129,38 @@ export class FarginServiceService {
     return this.http.get(`${this.basePath}${this.whatsapphistoryFilter}${id1}/${id2}/${id3}/${id4}`, this.options)
   }
 
-  WhatsAppEditHistorys(id:any){
-    return this.http.get(`${this.basePath}${this.WhatsappEditHistory}${id}`,this.options)
+  WhatsAppEditHistorys(id: any) {
+    return this.http.get(`${this.basePath}${this.WhatsappEditHistory}${id}`, this.options)
   }
 
+  //WhatsApp Bulk Upload
+  getwhatsappbulkupload(id: any, data: any) {
+    return this.http.post(`${this.basePath}${this.whatsappbulkupload}${id}`, data, this.options)
+  }
+  getwhatsappbulkgetall() {
+    return this.http.get(`${this.basePath}${this.whatsappbulkgetall}`, this.options)
+  }
+  getwhatsappbulkbyid(id: any) {
+    return this.http.get(`${this.basePath}${this.whatsappbulkbyid}${id}`, this.options)
+  }
 
+  // WhatsAppVendors
 
+  VendorsViewall() {
+    return this.http.get(`${this.basePath}${this.WhatsAppVendorsViewall}`, this.options)
+  }
+
+  VendorsAdd(model: any) {
+    return this.http.post(`${this.basePath}${this.WhatsAppVendorsAdd}`, model, this.options)
+  }
+
+  VendorsUpdate(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.WhatsAppVendorsUpdate}${id}`, model, this.options)
+  }
+
+  VendorsStatus(id: any, model: any) {
+    return this.http.put(`${this.basePath}${this.WhatsAppVendorsStatus}${id}`, model, this.options)
+  }
 
 
 }

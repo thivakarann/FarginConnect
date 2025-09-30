@@ -7,6 +7,7 @@ import { Location } from '@angular/common';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { PaymentlinkDesViewComponent } from './paymentlink-des-view/paymentlink-des-view.component';
 
 @Component({
   selector: 'app-paymentlink-view',
@@ -19,6 +20,7 @@ export class PaymentlinkViewComponent implements OnInit {
     'paymentId',
     'paymentlink',
     'reference',
+    'Description',
     'expiry',
     'generatedat',
   ];
@@ -33,6 +35,9 @@ export class PaymentlinkViewComponent implements OnInit {
   roleId: any = sessionStorage.getItem('roleId');
   searchPerformed: boolean = false;
   actions: any;
+
+  isFullPolicyVisible: boolean = false;
+
 
   constructor(
     public location: Location,
@@ -122,4 +127,16 @@ export class PaymentlinkViewComponent implements OnInit {
   close() {
     this.location.back();
   }
+
+
+  ViewDescription(id: any) {
+      this.dialog.open(PaymentlinkDesViewComponent, {
+        data: { value: id },
+        enterAnimationDuration: '1000ms',
+        exitAnimationDuration: '1000ms',
+        disableClose: true
+      });
+    }
+
+
 }

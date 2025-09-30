@@ -112,14 +112,31 @@
               <div class="w-50">{{ viewcustomer?.advanceAmount || 0.0 }}</div>
             </div>
             <div class="col-md-6 d-flex">
-              <div class="fw-semibold w-50">Branch Name</div>
-              <div class="w-50">{{ viewcustomer?.branchId?.branchName || '-' }}</div>
+              <div class="fw-semibold w-50">Branch Status</div>
+              <div class="w-50">{{ viewcustomer?.branchStatus || '-' }}</div>
             </div>
+
           </div>
           <div class="row mb-2">
             <div class="col-md-6 d-flex">
-              <div class="fw-semibold w-50">Branch Status</div>
-              <div class="w-50">{{ viewcustomer?.branchStatus || '-' }}</div>
+              <div class="fw-semibold w-50">Branch Name</div>
+              <div class="w-50">{{ viewcustomer?.branchId?.branchName || '-' }}</div>
+            </div>
+            <div class="col-md-6 d-flex">
+              <div class="fw-semibold w-50">Communication</div>
+              <div class="w-50">{{ viewcustomer?.communicationType ? 'Yes':'No'}}</div>
+            </div>
+
+          </div>
+
+          <div class="row mb-2">
+            <div class="col-md-6 d-flex">
+              <div class="fw-semibold w-50">Communication Type</div>
+              <div class="w-50">{{ viewcustomer?.communicationType|| '-' }}</div>
+            </div>
+            <div class="col-md-6 d-flex">
+              <div class="fw-semibold w-50">Communication Language</div>
+              <div class="w-50">{{ viewcustomer?.communicationLanguage|| '-' }}</div>
             </div>
           </div>
 
@@ -313,6 +330,88 @@
             </td>
           </ng-container>
 
+          <ng-container matColumnDef="setTopBoxFee">
+            <th mat-header-cell *matHeaderCellDef>
+              Set-Topbox-Amount
+            </th>
+            <td mat-cell *matCellDef="let data">
+              {{ data?.setTopBoxFee?.toFixed(2) }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>
+              Status
+            </th>
+            <td mat-cell *matCellDef="let data">
+              <span *ngIf="data?.activeStatus==1" style="color: green;">Active</span>
+              <span *ngIf="data?.activeStatus==0" style="color: Red;">InActive</span>
+            </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="installationFee">
+            <th mat-header-cell *matHeaderCellDef>
+              Installation Fee
+            </th>
+            <td mat-cell *matCellDef="let data">
+              {{ data?.installationFee?.toFixed(2) }}
+            </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="doorno">
+            <th mat-header-cell *matHeaderCellDef>
+              Door No
+            </th>
+            <td mat-cell *matCellDef="let data">
+              {{ data?.doorNumber }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="area">
+            <th mat-header-cell *matHeaderCellDef>Area</th>
+            <td mat-cell *matCellDef="let data">
+              {{ data?.areaName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="streetname">
+            <th mat-header-cell *matHeaderCellDef>
+              Street Name
+            </th>
+            <td mat-cell *matCellDef="let data">
+              {{ data?.streetName }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="billingdate">
+            <th mat-header-cell *matHeaderCellDef>
+              Billing Date
+            </th>
+            <td mat-cell *matCellDef="let data">
+              {{ data?.billingDate | date : "dd/MM/yyyy" }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="activatedate">
+            <th mat-header-cell *matHeaderCellDef>
+              Activation Date
+            </th>
+            <td mat-cell *matCellDef="let data">
+              <span *ngIf="data?.activatedDate==null">-</span>
+              <span *ngIf="data?.activatedDate!=null">{{ data?.activatedDate | date : "dd/MM/yyyy" }}</span>
+
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="inactivatedate">
+            <th mat-header-cell *matHeaderCellDef>
+              Inactivation Date
+            </th>
+            <td mat-cell *matCellDef="let data">
+              <span *ngIf="data?.inActivatedDate==null">-</span>
+              <span *ngIf="data?.inActivatedDate!=null">{{ data?.inActivatedDate | date : "dd/MM/yyyy" }}</span>
+            </td>
+          </ng-container>
+
 
 
 
@@ -442,14 +541,42 @@
             </td>
           </ng-container>
 
-          <ng-container matColumnDef="amounts">
+          <ng-container matColumnDef="setTopBoxFee">
             <th mat-header-cell *matHeaderCellDef>
-              Due Amount
+              Set-Topbox-Amount
             </th>
             <td mat-cell *matCellDef="let data">
-              {{ data?.paidAmount || "-" }}
+              {{ data?.setTopBoxFee?.toFixed(2)}}
             </td>
           </ng-container>
+
+          <ng-container matColumnDef="installationFee">
+            <th mat-header-cell *matHeaderCellDef>
+              Installation Fee
+            </th>
+            <td mat-cell *matCellDef="let data">
+              {{ data?.installationFee?.toFixed(2)}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="amounts">
+            <th mat-header-cell *matHeaderCellDef>
+              Plan Amount
+            </th>
+            <td mat-cell *matCellDef="let data">
+              {{ data?.paidAmount?.toFixed(2)}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="totalPayableAmount">
+            <th mat-header-cell *matHeaderCellDef>
+              Total Amount
+            </th>
+            <td mat-cell *matCellDef="let data">
+              {{ data?.totalPayableAmount?.toFixed(2)}}
+            </td>
+          </ng-container>
+
           <ng-container matColumnDef="method">
             <th mat-header-cell *matHeaderCellDef>
               Payment Method
@@ -590,8 +717,8 @@
               Service Name
             </th>
             <td mat-cell *matCellDef="let data">
-              <span *ngIf="data?.inventoryName==null">-</span>
-              <span *ngIf="data?.inventoryName!=null">{{data.inventoryName}}</span>
+              <span *ngIf="data.flag==1">-</span>
+              <span *ngIf="data.flag==2">{{data?.inventoryName}}</span>
             </td>
           </ng-container>
 
@@ -600,7 +727,10 @@
               Stock Category
             </th>
             <td mat-cell *matCellDef="let data">
-              {{ data?.stockCategory || '-' }}
+
+              <span *ngIf="data.flag==2">-</span>
+              <span *ngIf="data.flag==1">{{data?.inventoryName}}</span>
+
             </td>
           </ng-container>
 
@@ -619,7 +749,7 @@
               Service Amount
             </th>
             <td mat-cell *matCellDef="let data">
-              {{ data?.paidAmount.toFixed(2) }}
+              {{ data?.paidAmount?.toFixed(2) }}
             </td>
           </ng-container>
 
@@ -927,10 +1057,8 @@
                 Service Name
               </th>
               <td mat-cell *matCellDef="let data">
-                <span *ngIf="data?.inventoryNameCreate==null">-</span>
-                <span *ngIf="data?.inventoryNameCreate!=null">
-                  {{data?.customerOtherPayment?.inventorySoftware?.inventoryName }}
-                </span>
+                <span *ngIf="data.flag==1">-</span>
+                <span *ngIf="data.flag==2">{{data?.inventoryName}}</span>
 
 
               </td>
@@ -941,9 +1069,8 @@
                 Stock Category
               </th>
               <td mat-cell *matCellDef="let data">
-                <span *ngIf="data?.inventorySoftware==null"> {{
-                  data?.customerOtherPayment?.inventoryNameCreate?.inventoryName }}</span>
-                <span *ngIf="data?.inventorySoftware!=null">-</span>
+                <span *ngIf="data.flag==2">-</span>
+                <span *ngIf="data.flag==1">{{data?.inventoryName}}</span>
               </td>
             </ng-container>
 
@@ -952,8 +1079,8 @@
                 Stock Quantity
               </th>
               <td mat-cell *matCellDef="let data">
-                <span *ngIf=" data?.customerOtherPayment?.quantity==0">-</span>
-                <span *ngIf=" data?.customerOtherPayment?.quantity!=0">{{ data?.customerOtherPayment?.quantity }}</span>
+                <span *ngIf=" data?.quantity==0">-</span>
+                <span *ngIf=" data?.quantity!=0">{{ data?.quantity }}</span>
               </td>
             </ng-container>
 
@@ -988,7 +1115,7 @@
                 Paid Amount
               </th>
               <td mat-cell *matCellDef="let data">
-                {{ data?.customerOtherPayment?.paidAmount.toFixed(2) }}
+                {{ data?.paidAmount?.toFixed(2) }}
               </td>
             </ng-container>
             <ng-container matColumnDef="Refundsamount">

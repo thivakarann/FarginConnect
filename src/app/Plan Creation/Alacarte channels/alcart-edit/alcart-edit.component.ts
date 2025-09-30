@@ -34,8 +34,9 @@ export class AlcartEditComponent implements OnInit {
   msoregion: any;
   msroregion: any;
   regionsss: any
-
   msoservice: any
+  msoserviceId: any;
+  regionnameId: any;
 
   constructor(
     public EditAlcart: FarginServiceService,
@@ -43,16 +44,12 @@ export class AlcartEditComponent implements OnInit {
     private toastr: ToastrService,
     private ActivateRoute: ActivatedRoute
   ) { }
+
   ngOnInit(): void {
+
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.id = param.Alldata;
     });
-
-    // this.EditAlcart.RegionGetAllActive().subscribe((res: any) => {
-    //   this.regiondetails = res.response;
-    // });
-
-
     this.EditAlcart.BroadCasterGetAllActive().subscribe((res: any) => {
       this.Broadcasters = res.response;
     })
@@ -64,31 +61,23 @@ export class AlcartEditComponent implements OnInit {
       this.msoactive = res.response;
     })
 
-
-
     this.EditAlcart.Alcardviewbyid(this.id).subscribe((res: any) => {
       this.alcardsdetails = res.response;
-      console.log(this.alcardsdetails)
-      this.msoservice = res.response.region.service.serviceId;
-      console.log(this.msoservice)
-
-      this.regionname = res.response.region.regionId;
-
+      this.msoservice = res.response.region.service.serviceProviderName;
+      this.regionname = res.response.region.stateName;
+      this.msoserviceId = res.response.region.service.serviceId;
+      this.regionnameId = res.response.region.regionId;
       this.EditAlcart.MSORegions(this.msoservice).subscribe((res: any) => {
         this.msroregion = res.response;
       })
-
-
       this.ChennelName = res.response.channelName;
       this.BroadCaster = res.response.bundleChannelId.bundleChannelId;
       this.Generic = res.response.generic;
       this.Language = res.response.language;
       this.Type = res.response.type;
-
       if (this.Type == "1") {
         this.myForm.get('price')?.setValue(res.response.price)
       }
-
       if (this.Type == 1) {
         this.show = true;
       }
@@ -109,11 +98,12 @@ export class AlcartEditComponent implements OnInit {
     })
     this.myForm = new FormGroup({
       regionId: new FormControl('', Validators.required),
-      channelName: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'), Validators.maxLength(50)]),
-      price: new FormControl('', [
-        Validators.pattern("^(?!0+(\\.0{1,2})?$)\\d+(\\.\\d{1,2})?$")
-
-      ]), type: new FormControl('', Validators.required),
+      channelName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[A-Za-z0-9&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(100)]),
+      price: new FormControl('', [Validators.pattern("^(?!0+(\\.0{1,2})?$)\\d+(\\.\\d{1,2})?$")]),
+      type: new FormControl('', Validators.required),
       bundleChannelId: new FormControl('', Validators.required),
       generic: new FormControl('', [Validators.required, Validators.pattern("^[a-zA-Z ]{1,50}$")]),
       language: new FormControl('', [Validators.required, Validators.pattern("^[a-zA-Z ]{1,50}$")]),
@@ -210,7 +200,7 @@ export class AlcartEditComponent implements OnInit {
 
     let submitModel: UpdateAlcart = {
       alcotId: this.id,
-      regionId: this.regionId?.value,
+      regionId: this.regionnameId,
       bundleChannelId: this.bundleChannelId?.value,
       channelName: this.channelName?.value.trim(),
       type: this.type?.value,

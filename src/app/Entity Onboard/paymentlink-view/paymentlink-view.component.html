@@ -139,6 +139,22 @@
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="Description">
+                <th mat-header-cell *matHeaderCellDef>Description</th>
+                <td mat-cell *matCellDef="let data">
+                    <div class="privacy-policy-container">
+                        <!-- Display the sliced text based on whether the full text is visible -->
+                        <span>
+                            {{ data.description | slice:0:30 }}
+                        </span>
+                        <i  style="color: #141E46;font-weight: 600;cursor: pointer;" class="read-more"
+                            (click)="ViewDescription(data)">
+                            {{ isFullPolicyVisible ? 'Read Less' : '...Read More' }}
+                        </i>
+                    </div>
+                </td>
+            </ng-container>
+
       <ng-container matColumnDef="expiry">
         <th mat-header-cell *matHeaderCellDef>Expiry Date</th>
         <td mat-cell *matCellDef="let data">

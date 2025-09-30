@@ -59,7 +59,6 @@ export class EntityBankeditComponent implements OnInit {
       ]),
       branchName: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9&\\-\\(\\)#._/ ]+$'),
         Validators.maxLength(50),
       ]),
       accountType: new FormControl('', [

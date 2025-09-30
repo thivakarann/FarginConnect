@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatSort } from '@angular/material/sort';
@@ -16,19 +16,26 @@ import { BusinessKycEditComponent } from './business-kyc-edit/business-kyc-edit.
 @Component({
   selector: 'app-business-kyc',
   templateUrl: './business-kyc.component.html',
-  styleUrl: './business-kyc.component.css'
+  styleUrl: './business-kyc.component.css',
 })
 export class BusinessKycComponent implements OnInit {
-
-
   dataSource: any;
-  displayedColumns: string[] = ["businessCategoryId", "kycDocName", "categoryName", "status", "Edit", "createdBy", "createdDateTime", "modifiedBy", "modifiedDateTime"]
+  displayedColumns: string[] = [
+    'businessCategoryId',
+    'kycDocName',
+    'categoryName',
+    'status',
+    'Edit',
+    'createdBy',
+    'createdDateTime',
+    'modifiedBy',
+    'modifiedDateTime',
+  ];
   businesscategorykyc: any;
   showcategoryData: boolean = false;
   errorMsg: any;
   responseDataListnew: any = [];
   response: any = [];
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   isChecked: any;
@@ -37,7 +44,7 @@ export class BusinessKycComponent implements OnInit {
   businesscategory: any;
   businessCategoryId: any;
   getdashboard: any[] = [];
-  roleId: any = sessionStorage.getItem('roleId')
+  roleId: any = sessionStorage.getItem('roleId');
   actions: any;
   errorMessage: any;
   valueKycadd: any;
@@ -46,58 +53,26 @@ export class BusinessKycComponent implements OnInit {
   valueKycedit: any;
   searchPerformed: boolean = false;
 
-
-  constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) {
-
-  }
+  constructor(
+    private dialog: MatDialog,
+    private service: FarginServiceService,
+    private toastr: ToastrService
+  ) { }
 
   ngOnInit() {
-
-    this.service.BusinesscategoryKyc().subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.businesscategorykyc = res.response;
-
-        this.businesscategorykyc.reverse();
-        this.dataSource = new MatTableDataSource(this.businesscategorykyc);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-
-
-      }
-      else if (res.flag == 2) {
-        this.businesscategorykyc = [];
-
-        this.businesscategorykyc.reverse();
-        this.dataSource = new MatTableDataSource(this.businesscategorykyc);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      }
-
-
-
-
-    });
-
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-
-
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
-
           if (this.roleId == '1') {
             this.valueKycexport = 'Business Category Doc-Export';
             this.valueKycadd = 'Business Category Doc-Add';
             this.valueKycedit = 'Business Category Doc-Edit';
             this.valueKycstatus = 'Business Category Doc-Status';
-
           }
           else {
             for (let datas of this.getdashboard) {
-
               this.actions = datas.subPermissions;
-
 
               if (this.actions == 'Business Category Doc-Export') {
                 this.valueKycexport = 'Business Category Doc-Export';
@@ -113,150 +88,100 @@ export class BusinessKycComponent implements OnInit {
               }
             }
           }
-        }
-        else {
+        } else {
           this.errorMessage = res.responseMessage;
         }
-      }
-    })
-
-
-  }
-
-
-
-  onSubmit(event: MatSlideToggleChange, id: any) {
-    this.isChecked = event.checked;
-
-    let submitModel: Businesskycstatus = {
-      // businessCategoryId: id,
-      activeStatus: this.isChecked ? 1 : 0,
-      // modifiedBy: this.getadminname
-    };
-
-    this.service.BusinesskycActive(id, submitModel).subscribe((res: any) => {
-
-      this.toastr.success(res.responseMessage);
-      setTimeout(() => {
-        this.service.BusinesscategoryKyc().subscribe((res: any) => {
-          if (res.flag == 1) {
-            this.businesscategorykyc = res.response;
-
-            this.businesscategorykyc.reverse();
-            this.dataSource = new MatTableDataSource(this.businesscategorykyc);
-            this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-
-
-          }
-          else if (res.flag == 2) {
-            this.businesscategorykyc = [];
-
-            this.businesscategorykyc.reverse();
-            this.dataSource = new MatTableDataSource(this.businesscategorykyc);
-            this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator;
-          }
-
-
-
-
-
-
-        });
-
-      }, 500);
+      },
     });
+    this.Getall();
   }
 
+  Getall() {
+    this.service.BusinesscategoryKyc().subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.businesscategorykyc = res.response.reverse();
+        this.dataSource = new MatTableDataSource(this.businesscategorykyc);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.filterPredicate = (data: any, filter: string) => {
+          const transformedFilter = filter.trim().toLowerCase();
+          const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => {
+            return (currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]));
+          }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1;
+        };
+      }
+      else if (res.flag == 2) {
+        this.businesscategorykyc = [];
+        this.businesscategorykyc.reverse();
+        this.dataSource = new MatTableDataSource(this.businesscategorykyc);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+    });
+  };
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.searchPerformed = filterValue.length > 0;
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
 
   create() {
     const dialogRef = this.dialog.open(BusinessKycCreateComponent, {
       enterAnimationDuration: '500ms',
-      exitAnimationDuration: '1000ms',
-      disableClose: true
+      exitAnimationDuration: '500ms',
+      disableClose: true,
     });
-
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
-      this.Businesskyccategoryview();
-    });
-  }
-
-  Businesskyccategoryview() {
-    this.service.BusinesscategoryKyc().subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.businesscategorykyc = res.response;
-
-        this.businesscategorykyc.reverse();
-        this.dataSource = new MatTableDataSource(this.businesscategorykyc);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-
-
-      }
-      else if (res.flag == 2) {
-        this.businesscategorykyc = [];
-
-        this.businesscategorykyc.reverse();
-        this.dataSource = new MatTableDataSource(this.businesscategorykyc);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      }
-
-
+      this.Getall();
     });
   }
 
   Edit(id: any) {
     const dialogRef = this.dialog.open(BusinessKycEditComponent, {
       enterAnimationDuration: '500ms',
-      exitAnimationDuration: '1000ms',
+      exitAnimationDuration: '500ms',
       data: { value: id },
-      disableClose: true
-
+      disableClose: true,
     });
-
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
-      this.Businesskyccategoryview();
+      this.Getall();
     });
   }
 
-
+  onSubmit(event: MatSlideToggleChange, id: any) {
+    this.isChecked = event.checked;
+    let submitModel: Businesskycstatus = {
+      activeStatus: this.isChecked ? 1 : 0,
+    };
+    this.service.BusinesskycActive(id, submitModel).subscribe((res: any) => {
+      this.toastr.success(res.responseMessage);
+      setTimeout(() => { this.Getall() }, 200);
+    });
+  };
 
   exportexcel() {
-
     let sno = 1;
     this.responseDataListnew = [];
     this.businesscategorykyc.forEach((element: any) => {
       let createdate = element.createdDateTime;
       this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
-
-
       this.response = [];
       this.response.push(sno);
       this.response.push(element?.businessCategoryId?.categoryName);
       this.response.push(element?.entityKycCategory?.kycCategoryName);
-      if (element?.activeStatus == 1) {
-        this.response.push("Active");
-      }
-      else {
-        this.response.push("InActive");
-      }
+      if (element?.activeStatus == 1) { this.response.push('Active'); }
+      else { this.response.push('InActive'); }
       this.response.push(element?.createdBy);
       this.response.push(this.date1);
       this.response.push(element?.modifiedBy);
-
-
-      if (element?.modifiedDateAndTime) {
-        this.response.push(element?.modifiedDateAndTime)
-      }
+      if (element?.modifiedDateAndTime) { this.response.push(element?.modifiedDateAndTime); }
       else {
-        this.response.push('')
+        this.response.push('');
       }
-
       sno++;
       this.responseDataListnew.push(this.response);
     });
@@ -265,15 +190,15 @@ export class BusinessKycComponent implements OnInit {
 
   excelexportCustomer() {
     const header = [
-      "S.No",
-      "Business Category",
-      "Document Type",
-      "Status",
-      "Created By",
-      "Created At",
-      "Modified By",
-      "Modified At",
-    ]
+      'S.No',
+      'Business Category',
+      'Document Type',
+      'Status',
+      'Created By',
+      'Created At',
+      'Modified By',
+      'Modified At',
+    ];
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Business KYC');
@@ -286,8 +211,13 @@ export class BusinessKycComponent implements OnInit {
         pattern: 'solid',
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
-      }
-      cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+      };
+      cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
     });
     data.forEach((d: any) => {
       let row = worksheet.addRow(d);
@@ -299,65 +229,58 @@ export class BusinessKycComponent implements OnInit {
       let qty5 = row.getCell(6);
       let qty6 = row.getCell(7);
       let qty7 = row.getCell(8);
-      qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty3.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
-    }
-    );
+      qty.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty1.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty2.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty3.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty4.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty5.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty6.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      qty7.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+    });
     workbook.xlsx.writeBuffer().then((data: any) => {
-      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', });
       FileSaver.saveAs(blob, 'Business KYC.xlsx');
     });
-  }
-
-
-  cancel() {
-
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    this.searchPerformed = filterValue.length > 0;
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-  reload() {
-    this.service.BusinesscategoryKyc().subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.businesscategorykyc = res.response;
-
-        this.businesscategorykyc.reverse();
-        this.dataSource = new MatTableDataSource(this.businesscategorykyc);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.filterPredicate = (data: any, filter: string) => { const transformedFilter = filter.trim().toLowerCase(); const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => { return currentTerm + (typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]); }, '').toLowerCase(); return dataStr.indexOf(transformedFilter) !== -1; };
-
-
-      }
-      else if (res.flag == 2) {
-        this.businesscategorykyc = [];
-
-        this.businesscategorykyc.reverse();
-        this.dataSource = new MatTableDataSource(this.businesscategorykyc);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      }
-
-
-
-
-
-
-    });
-
   }
 }

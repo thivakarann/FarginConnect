@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
-import { UpdateBankdetails, UpdateBankdetailStatus } from '../../../fargin-model/fargin-model.module';
+import { UpdateBankdetails } from '../../../fargin-model/fargin-model.module';
 
 @Component({
   selector: 'app-edit-bank-details',
@@ -32,10 +32,10 @@ export class EditBankDetailsComponent implements OnInit {
     this.id = this.data.value.bankId;
     this.banks = this.data.value.bankName;
     
-
     this.myForm = new FormGroup({
-      bankName: new FormControl('',[Validators.required,Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),Validators.maxLength(50)]),
+      bankName: new FormControl('',[Validators.required,Validators.maxLength(50)]),
     });
+    
   }
 
   get bankName() {

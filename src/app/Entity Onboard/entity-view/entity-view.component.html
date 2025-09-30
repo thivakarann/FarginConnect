@@ -1719,6 +1719,7 @@
                 <th>SMS Count</th>
                <th [hidden]="valuesmsapproval !== 'Sms Setting-Approval'">Approval</th>
                 <th>Approval Status</th>
+                <th>Approval By</th>
                 <th>Approval At</th>
                 <th [hidden]="valuesmsstatus !== 'Sms Setting-Status'">Status</th>
                 <!--<th [hidden]="valuesmsview!=='Sms Setting-View'">View</th>-->
@@ -1759,8 +1760,8 @@
                   </span>
                 </td>
                 <td>
-                <span *ngIf="item.smsCharge=='Free'">-</span>
-                <span *ngIf="item.smsCharge!='Free'"
+                <span *ngIf="item.smsCharge=='Not Applicable'">-</span>
+                <span *ngIf="item.smsCharge!='Not Applicable'"
                  [ngClass]="{
                   approved: item?.smsApprovalStatus == 'approved' || item?.smsApprovalStatus == 'Approved',
                   rejected: item?.smsApprovalStatus == 'rejected' || item?.smsApprovalStatus == 'Rejected',
@@ -1769,8 +1770,12 @@
                  
                 </td>
                 <td>
-                  <span *ngIf="item.smsCharge=='Free'">-</span>
-                  <span *ngIf="item.smsCharge!='Free'">{{ item?.smsApprovedDateTime | date : "dd/MM/yyyy hh:mm a" }}</span>
+                  <span *ngIf="item.smsCharge=='Not Applicable'">-</span>
+                  <span *ngIf="item.smsCharge!='Not Applicable'">{{ item?.smsApprovedBy ? item?.smsApprovedBy :'-' }}</span>
+                </td>
+                <td>
+                  <span *ngIf="item.smsCharge=='Not Applicable'">-</span>
+                  <span *ngIf="item.smsCharge!='Not Applicable'">{{ item?.smsApprovedDateTime ? (item?.smsApprovedDateTime | date : "dd/MM/yyyy hh:mm a") : '-' }}</span>
                 </td>
                 <td [hidden]="valuesmsstatus !== 'Sms Setting-Status'">
                   <span>
@@ -1791,8 +1796,8 @@
                 </td>
                 <td>{{ item?.createdBy }}</td>
                 <td>{{ item?.createdDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
-                <td>{{ item?.modifedBy }}</td>
-                <td>{{ item?.modifedDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
+                <td>{{ item?.modifedBy || '-' }}</td>
+                <td>{{ item?.modifedDateTime ? (item?.modifedDateTime | date : "dd/MM/yyyy hh:mm a") : '-' }}</td>
               </tbody>
             </table>
           </div>
@@ -1869,6 +1874,7 @@
                 <th [hidden]="valuewhatsappeditHistory !=='WhatsApp Setting-Action-History'">Action History</th>
                 <th [hidden]="valuewhatsappapproval !== 'WhatsApp Setting-Approval'">Approval</th>
                 <th>Approval Status</th>
+                <th>Approved By</th>
                 <th>Approved At</th>
                 <th>Created By</th>
                 <th>Created At</th>
@@ -1941,12 +1947,16 @@
               </td>
                 <td>
                   <span *ngIf="item.smsCharge=='Not Applicable'">-</span>
-                  <span *ngIf="item.smsCharge!='Not Applicable'">{{ item?.smsApprovedDateTime | date : "dd/MM/yyyy hh:mm a" }}</span>
+                  <span *ngIf="item.smsCharge!='Not Applicable'">{{ item?.smsApprovedBy ? item?.smsApprovedBy:'-' }}</span>
+                </td>
+                <td>
+                  <span *ngIf="item.smsCharge=='Not Applicable'">-</span>
+                  <span *ngIf="item.smsCharge!='Not Applicable'">{{ item?.smsApprovedDateTime ? (item?.smsApprovedDateTime | date : "dd/MM/yyyy hh:mm a"):'-' }}</span>
                 </td>
                 <td>{{ item?.createdBy }}</td>
                 <td>{{ item?.createdDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
-                <td>{{ item?.modifedBy }}</td>
-                <td>{{ item?.modifedDateTime | date : "dd/MM/yyyy hh:mm a" }}</td>
+                <td>{{ item?.modifedBy ? item?.modifedBy:'-' }}</td>
+                <td>{{ item?.modifedDateTime ? (item?.modifedDateTime | date : "dd/MM/yyyy hh:mm a"): '-' }}</td>
               </tbody>
             </table>
           </div>

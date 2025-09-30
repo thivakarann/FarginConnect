@@ -45,15 +45,14 @@
 
             <li class="header-menu"><span></span></li>
 
-            <li class="sidebar-dropdown" style="cursor: pointer;"
-              [hidden]="valueDashboard!=='Admin Dashboard' && valueEntityDashboard !=='Entity Dashboard'">
+            <li class="sidebar-dropdown" style="cursor: pointer;" [hidden]="valueEntityDashboard !=='Entity Dashboard'">
               <a>
                 <i class="fa fa-dashboard"></i>
                 <span>Dashboard</span>
               </a>
               <div class="sidebar-submenu">
                 <ul>
-                  <li [hidden]="valueDashboard!=='Admin Dashboard'">
+                  <li>
                     <a routerLink="dashboard-content">
                       Admin Dashboard
                     </a>
@@ -111,7 +110,7 @@
             </li>
 
             <li class="sidebar-dropdown" style="cursor: pointer;"
-              [hidden]="valueentityWhatsapp!=='Entity WhatsApp'  && valuewhatsApphistory!=='WhatsApp History'">
+              [hidden]="valueentityWhatsapp!=='Entity WhatsApp'  && valuewhatsApphistory!=='WhatsApp History' && valuewhatsAppBulkUploadResponse !=='WhatsApp Bulk Upload Status'">
               <a>
                 <i class="fa-brands fa-whatsapp" style="font-size: 14px;"></i>
                 <span>WhatsApp</span>
@@ -126,6 +125,11 @@
                   <li [hidden]="valuewhatsApphistory!=='WhatsApp History'">
                     <a routerLink="whats-app-history">
                       WhatsApp History
+                    </a>
+                  </li>
+                  <li [hidden]="valuewhatsAppBulkUploadResponse!=='WhatsApp Bulk Upload Status'">
+                    <a routerLink="WhatsApp-Bulk-Upload">
+                      WhatsApp Bulk Upload Status
                     </a>
                   </li>
                 </ul>
@@ -232,7 +236,7 @@
                   <li [hidden]="valueTickets!=='Entity Request'">
                     <a routerLink="viewticket" style="display: flex; align-items: center;">
                       Entity Request &nbsp;
-                      <span class="matBadge" matBadgeColor="warn" matBadge="{{counts}}" matBadgeSize="medium"
+                      <span class="matBadge" matBadgeColor="warn" matBadge="{{totalOpenTickets}}" matBadgeSize="medium"
                         matBadgeOverlap="true" style="margin-left: 9px;">
                       </span>
                     </a>
@@ -341,6 +345,10 @@
                   <li [hidden]="valueBusinessPlan!=='Business Plan'">
                     <a routerLink="agreementplan">Business Plan</a>
                   </li>
+                  <li [hidden]="valueehatsapp!=='WhatsappVendors'">
+                    <a routerLink="vendors-viewall">WhatsApp Vendors</a>
+                  </li>
+                  
                   <li [hidden]="valuesmscost!=='SMS Cost'">
                     <a routerLink="sms-cost-viewall">SMS Cost</a>
                   </li>
@@ -367,6 +375,8 @@
                   <li [hidden]="valuepgsetupkey!=='PG SetupKey'">
                     <a routerLink="pgsetup-view">PG Setupkey</a>
                   </li>
+
+
                   <li [hidden]="valuerefundper!=='Refund Period'">
                     <a routerLink="refund-period-viewall">Refund Period</a>
                   </li>

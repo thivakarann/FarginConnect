@@ -2,9 +2,6 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Workbook } from 'exceljs';
-import FileSaver from 'file-saver';
-import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 
@@ -48,15 +45,13 @@ export class RenewalAutodebitComponent {
   actions: any;
   errorMessage: any;
   valueautodebitexport: any;
-  maxScroll = 100; // Set the maximum value for the slider
+  maxScroll = 100;
   scrollValue = 0;
   pageIndex1: number = 0;
   pageSize1 = 5;
-
   totalpage1: any;
   totalPages1: any;
   currentpage1: any;
-
   filter: boolean = true;
   currentFilterValue: string = '';
   searchPerformed: boolean = false;
@@ -72,7 +67,6 @@ export class RenewalAutodebitComponent {
       next: (res: any) => {
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
-
           if (this.roleId == 1) {
             this.valueautodebitexport = 'Cloud Fee AutoDebit-Export';
           } else {
@@ -88,123 +82,97 @@ export class RenewalAutodebitComponent {
         }
       },
     });
-
     this.Getall();
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+  Getall() {
+    this.autodebitdetails.renewalautodebit(this.pageSize, this.pageIndex).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.viewall = res.response;
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.currentfilvalShow = false;
+      } else if (res.flag == 2) {
+        this.viewall = [];
+        this.totalPages = res.pagination.totalElements;
+        this.totalpage = res.pagination.pageSize;
+        this.currentpage = res.pagination.currentPage;
+        this.dataSource = new MatTableDataSource(this.viewall);
+        this.currentfilvalShow = false;
+      }
+    });
   }
 
-  Getall() {
-    this.autodebitdetails
-      .renewalautodebit(this.pageSize, this.pageIndex)
-      .subscribe((res: any) => {
-        if (res.flag == 1) {
+  autodebit(filterValue: string) {
+    if (!filterValue) {
+      this.toastr.error('Please enter a value to search');
+      return;
+    }
+    this.autodebitdetails.renewalautodebitsearch(filterValue, this.pageSize, this.pageIndex).subscribe({
+      next: (res: any) => {
+        if (res.response) {
           this.viewall = res.response;
-
           this.totalPages = res.pagination.totalElements;
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.viewall);
-          this.currentfilvalShow = false;
+          this.currentfilvalShow = true;
         } else if (res.flag == 2) {
           this.viewall = [];
           this.totalPages = res.pagination.totalElements;
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.viewall);
-          this.currentfilvalShow = false;
+          this.currentfilvalShow = true;
         }
-      });
+      },
+      error: (err: any) => {
+        this.toastr.error('No Data Found');
+      },
+    });
   }
-  
-  autodebit(filterValue: string) {
-    if (!filterValue) {
-      this.toastr.error('Please enter a value to search');
-      return;
-    }
 
-    this.autodebitdetails
-      .renewalautodebitsearch(filterValue, this.pageSize, this.pageIndex)
-      .subscribe({
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      this.autodebitdetails.renewalautodebitsearch(this.currentFilterValue, event.pageSize, event.pageIndex).subscribe({
         next: (res: any) => {
           if (res.response) {
             this.viewall = res.response;
-            // this.viewall.reverse();
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
             this.dataSource = new MatTableDataSource(this.viewall);
-            this.currentfilvalShow = true;
           } else if (res.flag == 2) {
             this.viewall = [];
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
             this.dataSource = new MatTableDataSource(this.viewall);
-            this.currentfilvalShow = true;
           }
         },
         error: (err: any) => {
           this.toastr.error('No Data Found');
         },
       });
-  }
-
-  getData(event: any) {
-    if (this.currentfilvalShow) {
-      this.autodebitdetails
-        .renewalautodebitsearch(
-          this.currentFilterValue,
-          event.pageSize,
-          event.pageIndex
-        )
-        .subscribe({
-          next: (res: any) => {
-            if (res.response) {
-              this.viewall = res.response;
-              // this.viewall.reverse();
-              this.totalPages = res.pagination.totalElements;
-              this.totalpage = res.pagination.pageSize;
-              this.currentpage = res.pagination.currentPage;
-              this.dataSource = new MatTableDataSource(this.viewall);
-            } else if (res.flag == 2) {
-              this.viewall = [];
-              this.totalPages = res.pagination.totalElements;
-              this.totalpage = res.pagination.pageSize;
-              this.currentpage = res.pagination.currentPage;
-              this.dataSource = new MatTableDataSource(this.viewall);
-            }
-          },
-          error: (err: any) => {
-            this.toastr.error('No Data Found');
-          },
-        });
-    } else {
-      this.autodebitdetails
-        .renewalautodebit(event.pageSize, event.pageIndex)
-        .subscribe((res: any) => {
-          if (res.flag == 1) {
-            this.viewall = res.response;
-
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSource = new MatTableDataSource(this.viewall);
-          } else if (res.flag == 2) {
-            this.viewall = [];
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.dataSource = new MatTableDataSource(this.viewall);
-          }
-        });
+    }
+    else {
+      this.autodebitdetails.renewalautodebit(event.pageSize, event.pageIndex).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.viewall = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.viewall);
+        } else if (res.flag == 2) {
+          this.viewall = [];
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.viewall);
+        }
+      });
     }
   }
 }

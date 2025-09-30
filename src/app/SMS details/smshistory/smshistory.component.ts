@@ -4,8 +4,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { Workbook } from 'exceljs';
-import FileSaver from 'file-saver';
 import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
@@ -67,22 +65,17 @@ export class SMSHistoryComponent {
   pageSize = 5;
   smsResponseexport: any;
   Visible: boolean = false;
-
   pageIndex1: number = 0;
   pageSize1 = 5;
-
   totalpage1: any;
   totalPages1: any;
   currentpage1: any;
-
   transactionexport: any;
   pageIndex2: number = 0;
   pageSize2 = 5;
-
   totalpage2: any;
   totalPages2: any;
   currentpage2: any;
-
   filter: boolean = false;
   filter1: boolean = false;
   filters: boolean = false;
@@ -106,7 +99,6 @@ export class SMSHistoryComponent {
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
 
@@ -127,12 +119,11 @@ export class SMSHistoryComponent {
         }
       }
     });
-
     this.Getall();
   }
 
   Getall() {
-    this.service.SmsHistoryGetAll(this.pageSize,this.pageIndex).subscribe((res: any) => {
+    this.service.SmsHistoryGetAll(this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.smsResponse = res.response;
         this.totalPages = res.pagination.totalElements;
@@ -150,23 +141,20 @@ export class SMSHistoryComponent {
         this.currentfilvalShow = false;
       }
     });
-    this.FromDateRange ='';
+    this.FromDateRange = '';
     this.ToDateRange = '';
-  }
+  };
 
   checkDate() {
     this.ToDateRange = '';
-  }
-
-
+  };
+  
   View(id: any) {
     this.router.navigate([`dashboard/smshistory-view/${id}`], {
       queryParams: { Alldata: id },
     });
-
   }
-
-
+  
   filterdate() {
     this.service.SMSHistoryFilter(this.FromDateRange, this.ToDateRange, this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
@@ -296,98 +284,4 @@ export class SMSHistoryComponent {
       disableClose: true
     })
   }
-
-  exportexcel() {
-    this.service.SmsHistoryGetAllExport().subscribe((res: any) => {
-      this.smsResponseexport = res.response;
-      if (res.flag == 1) {
-        let sno = 1;
-        this.responseDataListnew = [];
-        this.smsResponseexport.forEach((element: any) => {
-          this.response = [];
-          this.response.push(sno);
-          this.response.push(element?.merchantId?.accountId);
-          this.response.push(element?.merchantId?.entityName);
-          this.response.push(element?.mobileNumber);
-          this.response.push(element?.merchantSmsId?.type?.smsTitle);
-          this.response.push(element?.responseCode);
-          this.response.push(element?.responseStatus);
-          this.response.push(element?.smsChargeStatus);
-          this.response.push(element?.perSmsAmount);
-          if (element.merchantSmsId?.createdDateTime) {
-            this.response.push(moment(element?.merchantSmsId?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
-          }
-          else {
-            this.response.push('');
-          }
-          sno++;
-          this.responseDataListnew.push(this.response);
-        });
-        this.excelexportCustomer();
-      }
-    });
-  }
-
-  excelexportCustomer() {
-    const header = [
-      'SNo',
-      'Account Id',
-      'Entity Name',
-      'Mobile Number',
-      'SMS Type',
-      'SMS Code',
-      'SMS Status',
-      'SMS Charge type',
-      'Charge For SMS',
-      'Created At',
-    ]
-    const data = this.responseDataListnew;
-    let workbook = new Workbook();
-    let worksheet = workbook.addWorksheet('Sms Settings');
-    worksheet.addRow([]);
-    let headerRow = worksheet.addRow(header);
-    headerRow.font = { bold: true };
-    headerRow.eachCell((cell, number) => {
-      cell.fill = {
-        type: 'pattern',
-        pattern: 'solid',
-        fgColor: { argb: 'FFFFFFFF' },
-        bgColor: { argb: 'FF0000FF' },
-
-      }
-      cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-    });
-
-    data.forEach((d: any) => {
-      let row = worksheet.addRow(d);
-      let qty = row.getCell(1);
-      let qty1 = row.getCell(2);
-      let qty2 = row.getCell(3);
-      let qty3 = row.getCell(4);
-      let qty4 = row.getCell(5);
-      let qty5 = row.getCell(6);
-      let qty6 = row.getCell(7);
-      let qty7 = row.getCell(8);
-      let qty8 = row.getCell(9);
-      let qty9 = row.getCell(10);
-      let qty10 = row.getCell(11);
-
-      qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty3.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
-    });
-    workbook.xlsx.writeBuffer().then((data: any) => {
-      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }); FileSaver.saveAs(blob, 'Sms-History.xlsx');
-    });
-  }
-
 }

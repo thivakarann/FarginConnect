@@ -1,10 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-admin-edit',
@@ -31,20 +29,21 @@ export class AdminEditComponent implements OnInit {
   policyviewentity: any;
   merchant: any;
   filteredMerchantNames: any[] = [];
- 
+
   constructor(
-    private dialog: MatDialog,
     private service: FarginServiceService,
     private toastr: ToastrService,
     private router: Router,
-    private ActivateRoute: ActivatedRoute) {
- 
-  }
- 
- 
- 
+    private ActivateRoute: ActivatedRoute) { }
+
+
+
   ngOnInit(): void {
- 
+
+    this.ActivateRoute.queryParams.subscribe((param: any) => {
+      this.policyId = param.Alldata;
+    });
+
     this.service.Policymerchant().subscribe((res: any) => {
       if (res.flag == 1) {
         this.MerchantName = res.response;
@@ -56,34 +55,22 @@ export class AdminEditComponent implements OnInit {
         this.errorMsg = res.responseMessage;
       }
     });
- 
- 
-    this.ActivateRoute.queryParams.subscribe((param: any) => {
-      this.policyId = param.Alldata;
-      
-    });
- 
+
     this.editadminpolicy = new FormGroup({
       termAndCondition: new FormControl('', [Validators.required]),
       disclaimer: new FormControl('', [Validators.required]),
       privacyPolicy: new FormControl('', [Validators.required]),
       refundPolicy: new FormControl('', [Validators.required]),
-      // createdBy: new FormControl(),
-      modifiedBy: new FormControl(),
       merchantId: new FormControl('', [Validators.required]),
- 
     });
- 
- 
+
     this.service.Adminpolicyviewbyidedit(this.policyId).subscribe((res: any) => {
       this.policyview = res.response;
-      
-      this.merchant=this.policyview.entityModel.merchantId
-       
+      this.merchant = this.policyview.entityModel.merchantId
     });
   }
- 
- 
+
+
   get merchantId() {
     return this.editadminpolicy.get('merchantId');
   }

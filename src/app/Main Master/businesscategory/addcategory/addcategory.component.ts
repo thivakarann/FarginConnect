@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Businessadd } from '../../../fargin-model/fargin-model.module';
@@ -8,76 +8,62 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-addcategory',
   templateUrl: './addcategory.component.html',
-  styleUrl: './addcategory.component.css'
+  styleUrl: './addcategory.component.css',
 })
 export class AddcategoryComponent implements OnInit {
   days: number[] = Array.from({ length: 31 }, (_, i) => i + 1); // Generates days 1 to 31
- 
   addcategory: any = FormGroup;
   createdBy = JSON.parse(sessionStorage.getItem('adminname') || '');
   @Output() bankDetailsUpdated = new EventEmitter<void>();
 
-  constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
- 
- 
+  constructor(
+    private dialog: MatDialog,
+    private service: FarginServiceService,
+    private toastr: ToastrService
+  ) { }
+
   ngOnInit(): void {
- 
- 
- 
- 
     this.addcategory = new FormGroup({
       categoryName: new FormControl('', [
         Validators.required,
-      Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),Validators.maxLength(50)
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(50),
       ]),
- 
-      mccCode: new FormControl('', [Validators.required,Validators.pattern('^(?![A-Za-z]{4}$)(?!^[A-Za-z])[A-Za-z0-9]{4}$')]),
+      mccCode: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/^[0-9]{4}$/),
+      ]),
       autoDebitDate: new FormControl('', [Validators.required]),
- 
     });
- 
   }
- 
- 
- 
- 
- 
- 
- 
+
   get categoryName() {
     return this.addcategory.get('categoryName');
   }
- 
+
   get mccCode() {
     return this.addcategory.get('mccCode');
   }
- 
+
   get autoDebitDate() {
     return this.addcategory.get('autoDebitDate');
   }
- 
+
   submit() {
     let submitModel: Businessadd = {
       categoryName: this.categoryName.value.trim(),
       mccCode: this.mccCode.value,
       createdBy: this.createdBy,
-      autoDebitDate: this.autoDebitDate?.value
+      autoDebitDate: this.autoDebitDate?.value,
     };
- 
- 
     this.service.BusinessCreate(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage)
-         this.bankDetailsUpdated.emit();
-         this.dialog.closeAll()
-      }
-      else {
+        this.toastr.success(res.responseMessage);
+        this.bankDetailsUpdated.emit();
+        this.dialog.closeAll();
+      } else {
         this.toastr.error(res.responseMessage);
       }
- 
     });
- 
   }
-
-
 }

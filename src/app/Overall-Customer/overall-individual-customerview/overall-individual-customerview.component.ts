@@ -5,8 +5,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
 import { ChannelViewComponent } from '../channel-view/channel-view.component';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { settopStatus } from '../../fargin-model/fargin-model.module';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { OfflineDetailsComponent } from '../offline-details/offline-details.component';
 import { MatSort } from '@angular/material/sort';
@@ -96,8 +94,17 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
     'stb',
     'mso',
     'region',
+    'setTopBoxFee',
+    'installationFee',
+    'doorno',
+    'area',
+    'streetname',
+    'billingdate',
+    'status',
     'duestatus',
     'viewplan',
+    'activatedate',
+    'inactivatedate',
     'createdby',
     'createdat',
   ];
@@ -110,7 +117,11 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
   displayedColumnsTransaction: string[] = [
     'sno',
     'id',
+    'numbers',
+    'setTopBoxFee',
+    'installationFee',
     'amounts',
+    'totalPayableAmount',
     'paymenstats',
     'method',
     'generatedat',
@@ -335,7 +346,7 @@ export class OverallIndividualCustomerviewComponent implements OnInit {
       });
     }
     else if (this.selectedTab === 'Refund') {
-        this.service.RefundForCustomerView(this.id).subscribe((res: any) => {
+      this.service.RefundForCustomerView(this.id).subscribe((res: any) => {
         if (res.flag == 1) {
           this.refundval = res.response;
           this.dataSourceRefund = new MatTableDataSource(

@@ -15,32 +15,35 @@ export class ResetPasswordComponent {
   showPassword: boolean = false;
   showPassword1: boolean = false;
   confirmPasswordClass = 'form-control';
-  isConfirmPasswordDirty = false;  
+  isConfirmPasswordDirty = false;
   error: any;
   emailAddress: any;
-   passwordsMatching: boolean | null = null;
+  passwordsMatching: boolean | null = null;
 
-  constructor(private service: FarginServiceService, private router: Router, private activeRouter: ActivatedRoute, private toaster: ToastrService) {
+  constructor(
+    private service: FarginServiceService,
+    private router: Router,
+    private activeRouter: ActivatedRoute,
+    private toaster: ToastrService) {
   }
   ngOnInit(): void {
+
     this.activeRouter.queryParams.subscribe((param: any) => {
       this.emailAddress = param.emailAddress;
-
-    })
+    });
 
     this.resetForm = new FormGroup({
       newPassword: new FormControl('', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!#^%*?&])[A-Za-z\d$@$!#^%*?&].{7,}')]),
       confirmpassword: new FormControl('', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!#^%*?&])[A-Za-z\d$@$!#^%*?&].{7,}')]),
     })
   }
+
   get newPassword() {
     return this.resetForm.get('newPassword');
   }
   get confirmpassword() {
     return this.resetForm.get('confirmpassword');
   }
-
-
 
   togglePasswordVisibility(passwordInput: { type: string; }) {
     this.showPassword = !this.showPassword;
@@ -51,71 +54,48 @@ export class ResetPasswordComponent {
     passwordInput1.type = this.showPassword1 ? 'text' : 'password';
   }
 
-  // checkConform(passwordInput: string, passwordInput1: string) {
-  //   this.isConfirmPasswordDirty = true;
-  //   if (passwordInput == passwordInput1) {
-  //     this.passwordsMatching = true;
-  //     this.resetForm.valid;
-  //     this.confirmPasswordClass = 'form-control is-valid';
-  //     this.error = "Password Matched!"
-  //   } else {
-  //     this.resetForm.invalid;
-  //     this.passwordsMatching = false;
-  //     this.confirmPasswordClass = 'form-control is-invalid';
-  //     this.error = "Password Mismatch"
-
-  //   }
-  // }
-
   checkConform(passwordInput: string, passwordInput1: string) {
     this.isConfirmPasswordDirty = true;
-     if (!passwordInput && !passwordInput1) {
-        this.passwordsMatching = null; // Don't show a message if one of the fields is empty
-        this.error = "Kindly Fill All Required Fields";
-    } 
-   else if(passwordInput == passwordInput1)
-    {
+    if (!passwordInput && !passwordInput1) {
+      this.passwordsMatching = null; // Don't show a message if one of the fields is empty
+      this.error = "Kindly Fill All Required Fields";
+    }
+    else if (passwordInput == passwordInput1) {
       this.passwordsMatching = true; // Don't show a message if one of the fields is empty
-        this.error = "Password Match";
+      this.error = "Password Match";
     }
-   
-    else  {
-        this.passwordsMatching = false;
-        this.error = "New Password and Confirm Password Mismatch";
-    } 
-  
-}
+    else {
+      this.passwordsMatching = false;
+      this.error = "New Password and Confirm Password Mismatch";
+    }
+  }
+
   resetpassword() {
-    if (this.resetForm.get('newPassword')?.value=='' || this.resetForm.get('confirmpassword')?.value=='') {
-        this.toaster.error("Kindly Fill All Required Fields");   
-       
+    if (this.resetForm.get('newPassword')?.value == '' || this.resetForm.get('confirmpassword')?.value == '') {
+      this.toaster.error("Kindly Fill All Required Fields");
     }
-    else{
+    else {
       if (!this.passwordsMatching) {
         this.toaster.error(this.error);
       }
-      else{
-  let submitmodel: ResetPassword = {
-      emailAddress: this.emailAddress,
-      newPassword: this.newPassword?.value
-    }
-
-
-    this.service.ResetPassword(submitmodel).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.toaster.success(res.responseMessage)
-
-        this.router.navigate([`/login-page`], {
-          // queryParams: { emailAddress: this.emailAddress },
-        });
-      }
       else {
-        this.toaster.error(res.responseMessage)
-      }
-    })
+        let submitmodel: ResetPassword = {
+          emailAddress: this.emailAddress,
+          newPassword: this.newPassword?.value
+        }
+        this.service.ResetPassword(submitmodel).subscribe((res: any) => {
+          if (res.flag == 1) {
+            this.toaster.success(res.responseMessage)
+            this.router.navigate([`/login-page`], {
+            });
+          }
+          else {
+            this.toaster.error(res.responseMessage)
+          }
+        })
 
       }
     }
-  
+
   }
 }

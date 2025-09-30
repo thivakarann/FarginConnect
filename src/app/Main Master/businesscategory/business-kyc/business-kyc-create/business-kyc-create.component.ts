@@ -1,10 +1,21 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FarginServiceService } from '../../../../service/fargin-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Businesskycadd } from '../../../../fargin-model/fargin-model.module';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatOption } from '@angular/material/core';
@@ -13,10 +24,9 @@ import { MatSelect } from '@angular/material/select';
 @Component({
   selector: 'app-business-kyc-create',
   templateUrl: './business-kyc-create.component.html',
-  styleUrl: './business-kyc-create.component.css'
+  styleUrl: './business-kyc-create.component.css',
 })
 export class BusinessKycCreateComponent implements OnInit {
-
   @ViewChild('select') select: any = MatSelect;
   allSelected = false;
   addbusinesskyc: any = FormGroup;
@@ -27,29 +37,29 @@ export class BusinessKycCreateComponent implements OnInit {
   response: any = [];
   dataSource: any;
   categoryName: any;
-  kycValue: any
+  kycValue: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
- 
-  constructor(private fb: FormBuilder, private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService) { }
- 
- 
+
+  constructor(
+    private fb: FormBuilder,
+    private dialog: MatDialog,
+    private service: FarginServiceService,
+    private toastr: ToastrService
+  ) { }
+
   ngOnInit(): void {
- 
     this.service.activeViewall().subscribe((res: any) => {
       this.kycValue = res.response;
-      
-    })
- 
- 
+    });
+
     this.addbusinesskyc = this.fb.group({
       kycCategoryId: new FormControl('', [Validators.required]),
       businessCategoryId: new FormControl('', [Validators.required]),
       createdBy: new FormControl(''),
- 
     });
- 
+
     this.service.BusinesscategoryKycactive().subscribe((res: any) => {
       if (res.flag == 1) {
         this.categoryName = res.response;
@@ -57,50 +67,39 @@ export class BusinessKycCreateComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.categoryName);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.showcategoryData = false; 
-      }
-      else {
+        this.showcategoryData = false;
+      } else {
         this.errorMsg = res.responseMessage;
         this.showcategoryData = true;
       }
     });
- 
- 
   }
- 
- 
+
   get kycCategoryId() {
     return this.addbusinesskyc.get('kycCategoryId');
   }
- 
+
   get businessCategoryId() {
     return this.addbusinesskyc.get('businessCategoryId');
   }
- 
- 
- 
+
   submit() {
     let submitModel: Businesskycadd = {
       kycCategoryId: this.kycCategoryId.value,
       businessCategoryId: this.businessCategoryId.value,
       createdBy: this.createdBy,
-    
     };
     this.service.BusinesskycCreate(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage)
+        this.toastr.success(res.responseMessage);
         this.bankDetailsUpdated.emit();
-        this.dialog.closeAll()
-        }
-      else {
+        this.dialog.closeAll();
+      } else {
         this.toastr.error(res.responseMessage);
- 
       }
- 
     });
- 
   }
- 
+
   toggleAllSelection() {
     if (this.allSelected) {
       this.select.options.forEach((item: MatOption) => item.select());
@@ -108,8 +107,6 @@ export class BusinessKycCreateComponent implements OnInit {
       this.select.options.forEach((item: MatOption) => item.deselect());
     }
   }
- 
-  kycId(id: any) {
-    
-  }
+
+  kycId(id: any) { }
 }

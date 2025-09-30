@@ -30,8 +30,9 @@ export class ForgotPasswordComponent implements OnInit {
     this.service.getForgotPassword(this.forgotForm.value).subscribe((res: any) => {
       if (res.flag == 1) {
         this.email = res.response;
-
         this.toaster.success(res.responseMessage);
+        const newStart = Date.now();
+        sessionStorage.setItem('otpStartTime', newStart.toString());
         this.router.navigate([`/otp`], {
           queryParams: { emailAddress: this.email },
         });

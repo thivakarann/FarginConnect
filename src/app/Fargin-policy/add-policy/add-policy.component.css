@@ -17,7 +17,6 @@ button {
   grid-template-areas: "main";
   height: auto;
   width: 85%;
-  /* padding: 10px;  */
   margin-left: 80px;
   font-family: var(--font-sans);
 }
@@ -30,18 +29,14 @@ button {
   display: grid;
   justify-items: center;
   align-items: center;
-  /* padding: var(--size-3); */
 }
 
 .main__form {
   width: 100%;
-
-  /* Max width for the form */
 }
 
 .form {
   color: var(--gray-9);
-  /* background-color: var(--gray-3); */
   display: grid;
   width: 100%;
   max-width: 100%;
@@ -100,7 +95,6 @@ button {
 .flex {
   display: flex;
   justify-content: space-between;
-  /* gap:20px; */
 }
 
 .submit,
@@ -146,9 +140,6 @@ button {
     font-size: 0.875rem;
   }
 }
-
-
-
 
 .card-header {
   display: flex;

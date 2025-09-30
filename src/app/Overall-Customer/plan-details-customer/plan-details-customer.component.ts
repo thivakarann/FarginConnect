@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FarginServiceService } from '../../service/fargin-service.service';
 import { ChannelViewComponent } from '../channel-view/channel-view.component';
 import { Location } from '@angular/common';
@@ -54,16 +54,17 @@ export class PlanDetailsCustomerComponent {
     public service: FarginServiceService,
     private dialog: MatDialog,
     private ActivateRoute: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private Router: Router
 
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    
+
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.id = param.Alldata;
     });
-    
+
     this.Getall();
   }
 
@@ -109,6 +110,12 @@ export class PlanDetailsCustomerComponent {
 
   close() {
     this.location.back()
+  };
+
+  Lcopplans(id: any, planname: any) {
+    this.Router.navigate([`dashboard/lcop-plan-view/${id}`], {
+      queryParams: { Alldata: id, Alldata1: planname },
+    });
   }
 
   Viewchannels(id: any) {
@@ -118,7 +125,7 @@ export class PlanDetailsCustomerComponent {
       data: { value: id }
     })
   }
-  
+
   alcartePage() {
     this.currentPage = 1;
 

@@ -113,37 +113,29 @@ export class WhatsEditlogComponent {
     this.details.forEach((element: any) => {
       this.response = [];
       this.response.push(sno);
-      this.response.push(element?.merchantPlanModel?.planName);
-      if (element?.merchantPlanModel?.frequency == 'Day') {
-        this.response.push('Daily');
-      } else if (element?.merchantPlanModel?.frequency == 'Week') {
-        this.response.push('Weekly');
-      } else if (element?.merchantPlanModel?.frequency == 'Month') {
-        this.response.push('Monthly');
-      } else if (element?.merchantPlanModel?.frequency == 'Quarterly') {
-        this.response.push('Quarterly');
-      } else if (element?.merchantPlanModel?.frequency == 'Half Yearly') {
-        this.response.push('Half-Yearly');
-      } else if (element?.merchantPlanModel?.frequency == 'Year') {
-        this.response.push('Yearly');
+      this.response.push(element?.actionType);
+      this.response.push(element?.vendorName);
+      if(element?.templateLanguage == 'en'){
+      this.response.push('English');
       }
-      this.response.push(element?.merchantPlanModel?.countLimit);
-      this.response.push(element?.merchantPlanModel?.technicalAmount);
-      this.response.push(element?.merchantPlanModel?.renewalAmount);
-      this.response.push(element?.merchantPlanModel?.maintenanceAmount);
-      this.response.push(element?.merchantPlanModel?.voiceBoxAdvRent);
-      this.response.push(element?.merchantPlanModel?.voiceBoxSetupFee);
+      else{
+      this.response.push('Tamil');
+      }
 
-      this.response.push(element?.modifiedBy);
-      if (element.modifiedDateTime) {
-        this.response.push(
-          moment(element?.modifiedDateTime)
-            .format('DD/MM/yyyy hh:mm a')
-            .toString()
-        );
-      } else {
-        this.response.push('');
+      if(element?.smsEnableStatus == 'ACTIVE'){
+      this.response.push('Active');
       }
+      else{
+      this.response.push('InActive');
+      }
+      this.response.push(element?.templateType);
+      this.response.push(element?.smsCharge);
+      this.response.push(element?.smsCount);
+      this.response.push(element?.templateTitle);
+      this.response.push(element?.templateDescription);
+      this.response.push(element?.createdBy || '');
+      this.response.push(element?.createdDateTime ? moment(element?.modifiedDateTime).format('DD/MM/yyyy hh:mm a').toString():'');
+
       sno++;
       this.responseDataListnew.push(this.response);
     });
@@ -153,21 +145,22 @@ export class WhatsEditlogComponent {
   excelexportCustomer() {
     const header = [
       'S No',
-      'Plan Name',
-      'Cloud Fee Frequency',
-      'Customer Onboard Limit',
-      'One Time Setup Cost',
-      'Yearly Renewal Fee',
-      'Cloud Fee',
-      'Voice Box Rent',
-      'Voice Box Setup Fee',
+      'Action Type',
+      'Vendor Name',
+      'Language',
+      'Status',
+      'Recipient',
+      'Charges',
+      'Count',
+      'Type of Message',
+      'Description',
       'Updated By',
-      'Updated At',
+      'Updated Date & Time',
     ];
 
     const data = this.responseDataListnew;
     let workbook = new Workbook();
-    let worksheet = workbook.addWorksheet('Entity Plan Details');
+    let worksheet = workbook.addWorksheet('WhatsApp-Action-History');
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
@@ -203,6 +196,7 @@ export class WhatsEditlogComponent {
       let qty8 = row.getCell(9);
       let qty9 = row.getCell(10);
       let qty10 = row.getCell(11);
+      let qty11 = row.getCell(12);
 
       qty.border = {
         top: { style: 'thin' },
@@ -270,6 +264,12 @@ export class WhatsEditlogComponent {
         bottom: { style: 'thin' },
         right: { style: 'thin' },
       };
+       qty11.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
 
     });
     workbook.xlsx.writeBuffer().then((data: any) => {
@@ -277,7 +277,7 @@ export class WhatsEditlogComponent {
         type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       });
 
-      FileSaver.saveAs(blob, 'Entity Plan Details.xlsx');
+      FileSaver.saveAs(blob, 'WhatsApp-Action-History.xlsx');
     });
   }
 }

@@ -134,6 +134,11 @@ import { EntityWhatsAppGetallComponent } from './Entity Onboard/Whatapp Service/
 import { WhatsAppHistoryComponent } from './Entity Onboard/Whatapp Service/whats-app-history/whats-app-history.component';
 import { OfflinesettlementPayoutComponent } from './offlinesettlement-payout/offlinesettlement-payout.component';
 import { WhatsEditlogComponent } from './Entity Onboard/Whatapp Service/whats-editlog/whats-editlog.component';
+import { WhatappBulkUploadViewComponent } from './Entity Onboard/Whatapp Service/whatapp-bulk-upload-view/whatapp-bulk-upload-view.component';
+import { VendorsViewallComponent } from './Main Master/WhatsApp Vendors/vendors-viewall/vendors-viewall.component';
+import { LcopPlanViewComponent } from './Overall-Customer/lcop-plan-view/lcop-plan-view.component';
+
+
 
 const routes: Routes = [
 
@@ -199,7 +204,7 @@ const routes: Routes = [
       { path: 'entity-qrcode/:id', component: EntityQrcodeComponent, canActivate: [authGuard] },
       { path: 'entity-refund/:id', component: EntityRefundComponent, canActivate: [authGuard] },
       { path: 'entity-settlement/:id', component: EntitySettlementComponent, canActivate: [authGuard] },
-      {path:'offlinesettlement-payout/:id/:id1',component:OfflinesettlementPayoutComponent,canActivate:[authGuard]},
+      { path: 'offlinesettlement-payout/:id/:id1', component: OfflinesettlementPayoutComponent, canActivate: [authGuard] },
       { path: 'settlement-view/:id/:id1/:id2', component: SettlementViewComponent, canActivate: [authGuard] },
       { path: "overall-transactions-viewall", component: OverallTransactionsViewallComponent, canActivate: [authGuard] },
       { path: 'viewwithdrawal', component: ViewwithdrawalComponent, canActivate: [authGuard] },
@@ -280,9 +285,13 @@ const routes: Routes = [
       { path: 'renewal-autodebit', component: RenewalAutodebitComponent, canActivate: [authGuard], },
       { path: 'merchat-smstrigger/:id', component: MerchatSMSTriggerComponent, canActivate: [authGuard] },
       { path: 'smstrigger-logs/:id', component: SMSTriggerLogsComponent, canActivate: [authGuard] },
-      {path:'entity-whats-app-getall',component:EntityWhatsAppGetallComponent,canActivate:[authGuard]},
-      {path:'whats-app-history',component:WhatsAppHistoryComponent,canActivate:[authGuard]},
-      {path:'whats-editlog/:id',component:WhatsEditlogComponent,canActivate:[authGuard]}
+      { path: 'entity-whats-app-getall', component: EntityWhatsAppGetallComponent, canActivate: [authGuard] },
+      { path: 'whats-app-history', component: WhatsAppHistoryComponent, canActivate: [authGuard] },
+      { path: 'whats-editlog/:id', component: WhatsEditlogComponent, canActivate: [authGuard] },
+      { path: 'WhatsApp-Bulk-Upload', component: WhatappBulkUploadViewComponent, canActivate: [authGuard] },
+      { path: 'vendors-viewall', component: VendorsViewallComponent, canActivate: [authGuard] },
+      { path: 'lcop-plan-view/:id', component: LcopPlanViewComponent, canActivate: [authGuard] }
+
     ],
 
   },

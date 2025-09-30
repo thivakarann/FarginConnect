@@ -140,7 +140,8 @@
           </th>
           <td [hidden]="valueview !== 'Entity View Refund-View'" mat-cell *matCellDef="let transaction">
             <button style="border: none; background: none" (click)="view(transaction)"
-              [disabled]="transaction?.typeMode != 'Offline'">
+              [disabled]="transaction?.refundStatus != 'COMPLETED'">
+          <!-- [disabled]="transaction?.typeMode != 'Offline'" -->
               <i style="border: none; background: none" class="fa fa-eye"></i>
             </button>
           </td>

@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { farginUpdate } from '../../../fargin-model/fargin-model.module';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
@@ -9,7 +8,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-fargin-bank-edit',
   templateUrl: './fargin-bank-edit.component.html',
-  styleUrl: './fargin-bank-edit.component.css'
+  styleUrl: './fargin-bank-edit.component.css',
 })
 export class FarginBankEditComponent {
   BankFormedit!: FormGroup;
@@ -20,38 +19,47 @@ export class FarginBankEditComponent {
   adminBankId: any;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
 
-  constructor(private dialog: MatDialog, private service: FarginServiceService, private toaster: ToastrService, @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(
+    private dialog: MatDialog,
+    private service: FarginServiceService,
+    private toaster: ToastrService,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) { this.adminBankId = this.data.value.adminBankId; }
 
-    this.adminBankId = this.data.value.adminBankId
-  }
   ngOnInit(): void {
-
     this.BankFormedit = new FormGroup({
       accountHolderName: new FormControl(null, [
         Validators.required,
-        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'), Validators.maxLength(50)
+        Validators.pattern('^[A-Za-z. ]+$'),
+        Validators.maxLength(50),
       ]),
-      accountNumber: new FormControl('', [Validators.required]),
-      bankName: new FormControl('', [Validators.required,
-      Validators.pattern(/^[A-Za-z ]{1,50}$/)
-      ]),
-      typemode: new FormControl('', [
+      accountNumber: new FormControl(null, [
         Validators.required,
-
+        Validators.pattern("^[0-9]{9,18}$")
       ]),
-      ifscCode: new FormControl('', [Validators.required]),
-      branchName: new FormControl('', [Validators.required,
-      Validators.pattern(/^[A-Za-z ]{1,50}$/)
+
+      bankName: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/^[A-Za-z ]{1,50}$/),
       ]),
-      ledgerId: new FormControl('', [Validators.required, Validators.pattern(/^\d{1,10}$/)]),
-
-
-    })
+      typemode: new FormControl('', [Validators.required]),
+      ifscCode: new FormControl("", [
+        Validators.required,
+        Validators.pattern("^[A-Z]{4}0[A-Z0-9]{6}$")
+      ]),
+      branchName: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/^[A-Za-z ]{1,50}$/),
+      ]),
+      ledgerId: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/^\d{1,10}$/),
+      ]),
+    });
 
     this.service.roleactiveViewall().subscribe((res: any) => {
       this.activeRole = res.response;
-
-    })
+    });
 
     if (this.data && this.data.value) {
       this.BankFormedit.patchValue({
@@ -61,16 +69,11 @@ export class FarginBankEditComponent {
         ifscCode: this.data.value.ifscCode,
         branchName: this.data.value.branchName,
         ledgerId: this.data.value.ledgerId,
-        typemode: this.data.value.typeMode
-
-
-
+        typemode: this.data.value.typeMode,
       });
     } else {
       console.error('Data is not defined');
     }
-
-
   }
   get accountHolderName() {
     return this.BankFormedit.get('accountHolderName');
@@ -83,7 +86,7 @@ export class FarginBankEditComponent {
   }
 
   get ifscCode() {
-    return this.BankFormedit.get('ifscCode')
+    return this.BankFormedit.get('ifscCode');
   }
   get branchName() {
     return this.BankFormedit.get('branchName');
@@ -96,7 +99,6 @@ export class FarginBankEditComponent {
     return this.BankFormedit.get('typemode');
   }
 
-
   submit() {
     let submitmodel: farginUpdate = {
       accountHolderName: this.accountHolderName?.value.trim(),
@@ -107,23 +109,17 @@ export class FarginBankEditComponent {
       ledgerId: this.ledgerId?.value.trim(),
       modifiedBy: this.createdBy,
       typeMode: this.typemode?.value,
-      adminBankId: this.adminBankId
-    }
+      adminBankId: this.adminBankId,
+    };
 
     this.service.FarginUpdate(submitmodel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toaster.success(res.responseMessage);
         this.bankDetailsUpdated.emit();
         this.dialog.closeAll();
-
-      }
-      else {
+      } else {
         this.toaster.error(res.responseMessage);
-
       }
-    })
-
+    });
   }
-
-
 }

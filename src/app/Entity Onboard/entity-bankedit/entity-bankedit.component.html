@@ -114,7 +114,7 @@
 
         <div class="col-sm-4 form-group">
           <label for="Entity Name" class="form__label">Branch Name</label>
-          <input type="text" id="Entity Name" formControlName="branchName" class="form-control"
+          <input pattern="^(?!\s*$)[A-Za-z\s]+$" type="text" id="Entity Name" formControlName="branchName" class="form-control"
             ngModel="{{ this.bankData?.branchName }}" />
           <div style="
               color: red;

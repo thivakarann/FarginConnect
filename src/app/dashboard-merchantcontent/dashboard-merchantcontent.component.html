@@ -161,6 +161,22 @@
 <div class="section" [hidden]="valuetodaytrans!=='Today Transactions'">
   <div class="card">
     <h5>Today's Transaction</h5>
+    <div class="row mt-3 ml-3">
+      <div class="col-md-4">
+        <label for="period" style="font-size: 12px; font-family: Arial, Helvetica, sans-serif">Select
+          Payment</label><br />
+        <select [(ngModel)]="selectedtodays" (change)="gettodaytransactionmethod(selectedtodays)"
+          style="font-size: 12px" id="period" class="form-select">
+          <option hidden>Select</option>
+          <option value="dueTransaction">
+            Due Payment
+          </option>
+          <option value="additionalTransaction">
+            Additional Payments
+          </option>
+        </select>
+      </div>
+    </div>
     <div class="transaction-details">
       <div class="transaction-item">
         <span class="amount">₹ {{ customertotal?.successAmount || 0 }}</span>
@@ -177,13 +193,117 @@
         <p class="label failed"> Failure Amount</p>
       </div>
     </div>
+
   </div>
 </div>
 &nbsp;
 
-<div class="section" [hidden]="Monthtrans!=='Monthly Collection Analytics'">
+<div class="section">
+  <div class="card" [hidden]="valueCurrentMonth!=='Current Month Collection Analytics New Connections'">
+    <h5>Current Month Collection Analytics New Connections</h5>
+    <div class="transaction-details">
+      <div class="transaction-item">
+        <span class="amount">
+          ₹ {{currentmonthcustrans?.totalAmount || 0}}
+        </span>
+        <span>
+          ({{ currentmonthcustrans?.totalCount || 0 }})
+        </span>
+        <p class="label total">Total Dues Generated</p>
+      </div>
+
+      <div class="transaction-item">
+        <span class="amount">₹ {{ currentmonthcustrans?.setTopBoxAmount || 0 }}</span>
+        <span>
+          ({{ currentmonthcustrans?.setTopBoxCount || 0}})
+        </span>
+        <p class="label success">Set-Topbox Amount</p>
+      </div>
+
+      <div class="transaction-item">
+        <span class="amount">₹ {{ currentmonthcustrans?.installationAmount || 0 }}</span>
+        <span>
+          ({{ currentmonthcustrans?.installationCount || 0}})
+        </span>
+        <p class="label success">Installation Amount</p>
+      </div>
+
+      <div class="transaction-item">
+        <span class="amount">₹ {{ currentmonthcustrans?.planAmount || 0 }}</span>
+        <span>
+          ({{ currentmonthcustrans?.planCount || 0}})
+        </span>
+        <p class="label success">Plan Amount</p>
+      </div>
+
+      <div class="transaction-item">
+        <span class="amount">₹ {{ currentmonthcustrans?.successAmount || 0 }}</span>
+        <span>
+          ({{ currentmonthcustrans?.sucessCount || 0}})
+        </span>
+        <p class="label success">Total Collected Amount</p>
+      </div>
+
+    </div>
+    &nbsp;
+
+    <div class="transaction-details">
+      <div class="transaction-item">
+        <span class="amount"> ₹ {{ currentmonthcustrans?.onlineAmount || 0 }}</span>
+        <span>
+          ({{ currentmonthcustrans?.onlineCount || 0 }})
+        </span>
+        <p class="label cancelled">Online Collected Amount</p>
+      </div>
+      <div class="transaction-item">
+        <span class="amount"> ₹ {{ currentmonthcustrans?.offlineAmount || 0 }}</span>
+        <span>
+          ({{ currentmonthcustrans?.offlineCount || 0 }})
+        </span>
+        <p class="label offline">Offline Collected Amount</p>
+      </div>
+      <div class="transaction-item">
+        <span class="amount"> ₹ {{ currentmonthcustrans?.pendingAmount || 0 }}</span>
+        <span>
+          ({{ currentmonthcustrans?.pendingCount || 0}})
+        </span>
+        <p class="label pending">Pending Amount</p>
+      </div>
+      <div class="transaction-item">
+        <span class="amount"> ₹ {{ currentmonthcustrans?.dueCancelAmount || 0 }}</span>
+        <span>
+          ({{ currentmonthcustrans?.dueCancelCount || 0}})
+        </span>
+        <p class="label failed">Cancelled Amount</p>
+      </div>
+      <div class="transaction-item">
+        <span class="amount"> ₹ {{ currentmonthcustrans?.refundAmount || 0 }}</span>
+        <span>
+          ({{ currentmonthcustrans?.refundCount || 0}})
+        </span>
+        <p class="label refund">Refund Amount</p>
+      </div>
+    </div>
+
+    <div class="transaction-details percentages">
+      <div class="transaction-item success-percentage">
+        <span class="amount">{{ currentmonthcustrans?.successPercentage || 0 }}</span>
+        <p class="label success">Success Count Percentage</p>
+      </div>
+      <!-- <div class="transaction-item failed-percentage">
+          <span class="amount">{{ lastmonth?.failedCountPercentage || 0 }}</span>
+          <p class="label failed">Failed Count Percentage</p>
+        </div> -->
+    </div>
+  </div>
+</div>
+&nbsp;
+
+
+
+<div class="section" [hidden]="Monthtrans!=='Monthly Collection Analytics Existing Connections'">
   <div class="card">
-    <h5>Monthly Collection Analytics
+    <h5>Monthly Collection Analytics Existing Connections
     </h5>
     <div class="row mt-3 ml-3">
       <div class="col-md-4">
@@ -193,7 +313,7 @@
           style="font-size: 12px" id="period" class="form-select">
           <option hidden>Select</option>
           <option value="LastMonths">Last Month</option>
-          <option value="thisMonths">This Month</option>
+          <option value="thisMonths">Current Month</option>
           <option value="customRanges">Custom Range</option>
         </select>
       </div>
@@ -236,6 +356,31 @@
         </span>
         <p class="label total">Total Dues Generated</p>
       </div>
+
+      <div class="transaction-item">
+        <span class="amount">₹ {{ lastmonth?.pastSetTopBoxAmount || 0 }}</span>
+        <span>
+          ({{ lastmonth?.pastSetTopBoxCount || 0}})
+        </span>
+        <p class="label success">Set-Topbox Amount</p>
+      </div>
+
+      <div class="transaction-item">
+        <span class="amount">₹ {{ lastmonth?.pastInstallationAmount || 0 }}</span>
+        <span>
+          ({{ lastmonth?.pastInstallationCount || 0}})
+        </span>
+        <p class="label success">Installation Amount</p>
+      </div>
+
+      <div class="transaction-item">
+        <span class="amount">₹ {{ lastmonth?.pastPlanAmount || 0 }}</span>
+        <span>
+          ({{ lastmonth?.pastPlanCount || 0}})
+        </span>
+        <p class="label success">Plan Amount</p>
+      </div>
+
       <div class="transaction-item">
         <span class="amount">₹ {{ lastmonth?.successAmount || 0 }}</span>
         <span>
@@ -243,6 +388,11 @@
         </span>
         <p class="label success">Total Collected Amount</p>
       </div>
+
+    </div>
+    &nbsp;
+
+    <div class="transaction-details">
       <div class="transaction-item">
         <span class="amount"> ₹ {{ lastmonth?.onlineCollectedAmount || 0 }}</span>
         <span>
@@ -257,10 +407,6 @@
         </span>
         <p class="label offline">Offline Collected Amount</p>
       </div>
-    </div>
-    &nbsp;
-
-    <div class="transaction-details">
       <div class="transaction-item">
         <span class="amount"> ₹ {{ lastmonth?.PendingAmount || 0 }}</span>
         <span>
@@ -286,7 +432,7 @@
 
     <div class="transaction-details percentages">
       <div class="transaction-item success-percentage">
-        <span class="amount">{{ lastmonth?.successCountPercentage || 0 }}</span>
+        <span class="amount">{{ lastmonth?.successPercentage || 0 }}</span>
         <p class="label success">Success Count Percentage</p>
       </div>
       <!-- <div class="transaction-item failed-percentage">
@@ -311,14 +457,14 @@
           class="form-select">
           <option hidden>Select--</option>
           <option value="LastaditionalMonths">Last Month</option>
-          <option value="thisadditionalMonths">This Month</option>
+          <option value="thisadditionalMonths">Current Month</option>
         </select>
       </div>
     </div>
     <div class="transaction-details">
       <div class="transaction-item">
         <span class="amount">
-          ₹ {{additionalmonth?.totalAmount || 0}}
+          ₹ {{additionalmonth?.totalAmount?.toFixed(2) || 0}}
         </span>
         <span>
           ({{ additionalmonth?.totalCount || 0 }})
@@ -326,58 +472,63 @@
         <p class="label total"> Total Amount Generated</p>
       </div>
       <div class="transaction-item">
-        <span class="amount">₹ {{ additionalmonth?.successAmount || 0 }}</span>
+        <span class="amount">₹ {{ additionalmonth?.successAmount?.toFixed(2) || 0 }}</span>
         <span>
           ({{ additionalmonth?.successCount || 0}})
         </span>
         <p class="label success">Total Collected Amount</p>
       </div>
       <div class="transaction-item">
-        <span class="amount"> ₹ {{ additionalmonth?.onlineCollectedAmount || 0 }}</span>
+        <span class="amount"> ₹ {{ additionalmonth?.onlineCollectedAmount?.toFixed(2) || 0 }}</span>
         <span>
           ({{ additionalmonth?.onlineCount || 0 }})
         </span>
         <p class="label cancelled">Online Collected Amount</p>
       </div>
-    </div>
-    &nbsp;
-
-    <div class="transaction-details">
       <div class="transaction-item">
-        <span class="amount"> ₹ {{ additionalmonth?.offlineCollectedAmount || 0 }}</span>
+        <span class="amount"> ₹ {{ additionalmonth?.offlineCollectedAmount?.toFixed(2) || 0 }}</span>
         <span>
           ({{ additionalmonth?.offlineCount || 0 }})
         </span>
         <p class="label offline">Offline Collected Amount</p>
       </div>
+    </div>
+    &nbsp;
+
+    <div class="transaction-details">
+
       <div class="transaction-item">
-        <span class="amount"> ₹ {{ additionalmonth?.PendingAmount || 0 }}</span>
+        <span class="amount"> ₹ {{ additionalmonth?.PendingAmount?.toFixed(2) || 0 }}</span>
         <span>
           ({{ additionalmonth?.pendingCount || 0}})
         </span>
         <p class="label pending">Pending Amount</p>
       </div>
       <div class="transaction-item">
-        <span class="amount"> ₹ {{ additionalmonth?.dueCancelAmount || 0 }}</span>
+        <span class="amount"> ₹ {{ additionalmonth?.dueCancelAmount?.toFixed(2) || 0 }}</span>
         <span>
           ({{ additionalmonth?.dueCancelCount || 0}})
         </span>
         <p class="label failed">Cancelled Amount</p>
       </div>
       <div class="transaction-item">
-        <span class="amount"> ₹ {{ additionalmonth?.refundAmount || 0 }}</span>
+        <span class="amount"> ₹ {{ additionalmonth?.refundAmount?.toFixed(2) || 0 }}</span>
         <span>
           ({{ additionalmonth?.refundCount || 0}})
         </span>
         <p class="label refund"> Refund Amount</p>
       </div>
+      <div class="transaction-item">
+      </div>
     </div>
+
 
     <div class="transaction-details percentages">
       <div class="transaction-item success-percentage">
         <span class="amount">{{ additionalmonth?.successCountPercentage || 0 }}</span>
         <p class="label success">Success Count Percentage</p>
       </div>
+
       <!-- <div class="transaction-item failed-percentage">
         <span class="amount">{{ lastmonth?.failedCountPercentage || 0 }}</span>
         <p class="label failed">Failed Count Percentage</p>

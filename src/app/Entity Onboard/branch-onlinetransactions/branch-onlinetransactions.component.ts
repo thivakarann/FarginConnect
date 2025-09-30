@@ -26,17 +26,21 @@ export class BranchOnlinetransactionsComponent {
   response: any[] = [];
   displayedColumns: any[] = [
     'alcotId',
-    'pgPaymentId',
     'customerName',
     'mobileNumber',
+    'pgPaymentId',
     'setupBoxNumber',
-    'paidAmount',
+    'setTopBoxFee',
+    'installationFee',
+    'amount',
+    'totalPayableAmount',
     'paymentMethod',
-    'createdDateTime',
     'status',
+    'createdDateTime',
+    'paidAt',
     'view',
     'Receipt',
-    'paidAt',
+
   ];
   valuechannelAdd: any;
   getdashboard: any[] = [];
@@ -95,7 +99,7 @@ export class BranchOnlinetransactionsComponent {
     private router: Router,
     private ActivateRoute: ActivatedRoute,
     private location: Location
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.service.rolegetById(this.roleId).subscribe({
@@ -130,43 +134,43 @@ export class BranchOnlinetransactionsComponent {
 
   Getall() {
     this.service
-    .NewOnlineBranch(this.id, this.pageSize, this.pageIndex)
-    .subscribe((res: any) => {
-      if (res.flag === 1) {
-        this.transactionValue = res.response;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.transactionValue);
-        this.currentfilvalShow = false;
-      } else if (res.flag === 2) {
-        this.dataSource = new MatTableDataSource([]);
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.currentfilvalShow = false;
-      }
-    });
+      .NewOnlineBranch(this.id, this.pageSize, this.pageIndex)
+      .subscribe((res: any) => {
+        if (res.flag === 1) {
+          this.transactionValue = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.transactionValue);
+          this.currentfilvalShow = false;
+        } else if (res.flag === 2) {
+          this.dataSource = new MatTableDataSource([]);
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.currentfilvalShow = false;
+        }
+      });
   }
   getAdditionalAll() {
     this.service
-    .additionalBranchwiseTransaction(this.id, this.pageSize, this.pageIndex)
-    .subscribe((res: any) => {
-      if (res.flag === 1) {
-        this.additionalValue = res.response;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSources = new MatTableDataSource(this.additionalValue);
-        this.currentfilvalShow = false;
-      } else if (res.flag === 2) {
-        this.dataSources = new MatTableDataSource([]);
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.currentfilvalShow = false;
-      }
-    });
+      .additionalBranchwiseTransaction(this.id, this.pageSize, this.pageIndex)
+      .subscribe((res: any) => {
+        if (res.flag === 1) {
+          this.additionalValue = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSources = new MatTableDataSource(this.additionalValue);
+          this.currentfilvalShow = false;
+        } else if (res.flag === 2) {
+          this.dataSources = new MatTableDataSource([]);
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.currentfilvalShow = false;
+        }
+      });
   }
 
   view(id: any) {
@@ -178,36 +182,36 @@ export class BranchOnlinetransactionsComponent {
   channelsearch(filterValue: string) {
     if (filterValue) {
       this.service
-      .NewOnlineBranchsearch(
-        this.id,
-        filterValue,
-        this.pageSize,
-        this.pageIndex,
-        1
-      )
-      .subscribe({
-        next: (res: any) => {
-          if (res.response) {
-            this.Viewall = res.response;
-            // this.Viewall.reverse();
-            this.dataSource = new MatTableDataSource(this.Viewall);
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.currentfilvalShow = true;
-          } else if (res.flag === 2) {
-            this.Viewall = [];
-            this.dataSource = new MatTableDataSource(this.Viewall);
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.currentfilvalShow = true;
-          }
-        },
-        error: (err: any) => {
-          this.toastr.error('No Data Found');
-        },
-      });
+        .NewOnlineBranchsearch(
+          this.id,
+          filterValue,
+          this.pageSize,
+          this.pageIndex,
+          1
+        )
+        .subscribe({
+          next: (res: any) => {
+            if (res.response) {
+              this.Viewall = res.response;
+              // this.Viewall.reverse();
+              this.dataSource = new MatTableDataSource(this.Viewall);
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.currentfilvalShow = true;
+            } else if (res.flag === 2) {
+              this.Viewall = [];
+              this.dataSource = new MatTableDataSource(this.Viewall);
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.currentfilvalShow = true;
+            }
+          },
+          error: (err: any) => {
+            this.toastr.error('No Data Found');
+          },
+        });
     } else if (!filterValue) {
       this.toastr.error('Please enter a value to search');
       return;
@@ -216,36 +220,36 @@ export class BranchOnlinetransactionsComponent {
   additionalsearch(filterValues: string) {
     if (filterValues) {
       this.service
-      .NewOnlineBranchsearch(
-        this.id,
-        filterValues,
-        this.pageSize,
-        this.pageIndex,
-        2
-      )
-      .subscribe({
-        next: (res: any) => {
-          if (res.response) {
-            this.Viewadditionalall = res.response;
-            // this.Viewall.reverse();
-            this.dataSources = new MatTableDataSource(this.Viewadditionalall);
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.currentfilvalShow = true;
-          } else if (res.flag === 2) {
-            this.Viewadditionalall = [];
-            this.dataSources = new MatTableDataSource(this.Viewadditionalall);
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.currentfilvalShow = true;
-          }
-        },
-        error: (err: any) => {
-          this.toastr.error('No Data Found');
-        },
-      });
+        .NewOnlineBranchsearch(
+          this.id,
+          filterValues,
+          this.pageSize,
+          this.pageIndex,
+          2
+        )
+        .subscribe({
+          next: (res: any) => {
+            if (res.response) {
+              this.Viewadditionalall = res.response;
+              // this.Viewall.reverse();
+              this.dataSources = new MatTableDataSource(this.Viewadditionalall);
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.currentfilvalShow = true;
+            } else if (res.flag === 2) {
+              this.Viewadditionalall = [];
+              this.dataSources = new MatTableDataSource(this.Viewadditionalall);
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+              this.currentfilvalShow = true;
+            }
+          },
+          error: (err: any) => {
+            this.toastr.error('No Data Found');
+          },
+        });
     } else if (!filterValues) {
       this.toastr.error('Please enter a value to search');
       return;
@@ -254,102 +258,102 @@ export class BranchOnlinetransactionsComponent {
   getData(event: any) {
     if (this.currentfilvalShow) {
       this.service
-      .NewOnlineBranchsearch(
-        this.id,
-        this.currentfilval,
-        event.pageSize,
-        event.pageIndex,
-        1
-      )
-      .subscribe({
-        next: (res: any) => {
-          if (res.response) {
-            this.Viewall = res.response;
-            // this.Viewall.reverse();
-            this.dataSource = new MatTableDataSource(this.Viewall);
+        .NewOnlineBranchsearch(
+          this.id,
+          this.currentfilval,
+          event.pageSize,
+          event.pageIndex,
+          1
+        )
+        .subscribe({
+          next: (res: any) => {
+            if (res.response) {
+              this.Viewall = res.response;
+              // this.Viewall.reverse();
+              this.dataSource = new MatTableDataSource(this.Viewall);
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+            } else if (res.flag === 2) {
+              this.Viewall = [];
+              this.dataSource = new MatTableDataSource(this.Viewall);
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+            }
+          },
+          error: (err: any) => {
+            this.toastr.error('No Data Found');
+          },
+        });
+    }
+    else {
+      this.service
+        .NewOnlineBranch(this.id, event.pageSize, event.pageIndex)
+        .subscribe((res: any) => {
+          if (res.flag === 1) {
+            this.transactionValue = res.response;
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
+            this.dataSource = new MatTableDataSource(this.transactionValue);
           } else if (res.flag === 2) {
-            this.Viewall = [];
-            this.dataSource = new MatTableDataSource(this.Viewall);
+            this.dataSource = new MatTableDataSource([]);
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
           }
-        },
-        error: (err: any) => {
-          this.toastr.error('No Data Found');
-        },
-      });
-    } 
-    else {
-      this.service
-      .NewOnlineBranch(this.id, event.pageSize, event.pageIndex)
-      .subscribe((res: any) => {
-        if (res.flag === 1) {
-          this.transactionValue = res.response;
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.transactionValue);
-        } else if (res.flag === 2) {
-          this.dataSource = new MatTableDataSource([]);
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-        }
-      });
+        });
     }
   }
   getAdditionalData(event: any) {
     if (this.currentfilvalShow) {
       this.service
-      .NewOnlineBranchsearch(
-        this.id,
-        this.currentfilvals,
-        event.pageSize,
-        event.pageIndex,
-        2
-      )
-      .subscribe({
-        next: (res: any) => {
-          if (res.response) {
-            this.Viewadditionalall = res.response;
-            // this.Viewall.reverse();
-            this.dataSources = new MatTableDataSource(this.Viewadditionalall);
+        .NewOnlineBranchsearch(
+          this.id,
+          this.currentfilvals,
+          event.pageSize,
+          event.pageIndex,
+          2
+        )
+        .subscribe({
+          next: (res: any) => {
+            if (res.response) {
+              this.Viewadditionalall = res.response;
+              // this.Viewall.reverse();
+              this.dataSources = new MatTableDataSource(this.Viewadditionalall);
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+            } else if (res.flag === 2) {
+              this.Viewadditionalall = [];
+              this.dataSources = new MatTableDataSource(this.Viewadditionalall);
+              this.totalPages = res.pagination.totalElements;
+              this.totalpage = res.pagination.pageSize;
+              this.currentpage = res.pagination.currentPage;
+            }
+          },
+          error: (err: any) => {
+            this.toastr.error('No Data Found');
+          },
+        });
+    } else {
+      this.service
+        .additionalBranchwiseTransaction(this.id, event.pageSize, event.pageIndex)
+        .subscribe((res: any) => {
+          if (res.flag === 1) {
+            this.additionalValue = res.response;
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
+            this.dataSources = new MatTableDataSource(this.additionalValue);
           } else if (res.flag === 2) {
-            this.Viewadditionalall = [];
-            this.dataSources = new MatTableDataSource(this.Viewadditionalall);
+            this.dataSources = new MatTableDataSource([]);
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
           }
-        },
-        error: (err: any) => {
-          this.toastr.error('No Data Found');
-        },
-      });
-    } else {
-      this.service
-      .additionalBranchwiseTransaction(this.id, event.pageSize, event.pageIndex)
-      .subscribe((res: any) => {
-        if (res.flag === 1) {
-          this.additionalValue = res.response;
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.dataSources = new MatTableDataSource(this.additionalValue);
-        } else if (res.flag === 2) {
-          this.dataSources = new MatTableDataSource([]);
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-        }
-      });
+        });
     }
   }
   View(id: any) {
@@ -369,25 +373,25 @@ export class BranchOnlinetransactionsComponent {
       },
     });
   }
-   additionalReceipt(id: any) {
+  additionalReceipt(id: any) {
     this.service.additionalpaymentsreceipts(id).subscribe({
       next: (res: any) => {
         var downloadURL = URL.createObjectURL(res);
         window.open(downloadURL);
       },
     });
-  } 
-  
+  }
+
   additionalView(id: any) {
-      this.dialog.open(ViewadditionalpaymentsComponent, {
-        enterAnimationDuration: '1000ms',
-        exitAnimationDuration: '1000ms',
-        disableClose: true,
-        data: {
-          value: id,
-        },
-      });
-    }
+    this.dialog.open(ViewadditionalpaymentsComponent, {
+      enterAnimationDuration: '1000ms',
+      exitAnimationDuration: '1000ms',
+      disableClose: true,
+      data: {
+        value: id,
+      },
+    });
+  }
   close() {
     this.location.back();
   }
@@ -414,8 +418,8 @@ export class BranchOnlinetransactionsComponent {
           if (element.paymentDateTime) {
             this.response.push(
               moment(element?.paymentDateTime)
-              .format('DD/MM/yyyy hh:mm a')
-              .toString()
+                .format('DD/MM/yyyy hh:mm a')
+                .toString()
             );
           } else {
             this.response.push('');
@@ -424,8 +428,8 @@ export class BranchOnlinetransactionsComponent {
           if (element.createdDateTime) {
             this.response.push(
               moment(element?.createdDateTime)
-              .format('DD/MM/yyyy hh:mm a')
-              .toString()
+                .format('DD/MM/yyyy hh:mm a')
+                .toString()
             );
           } else {
             this.response.push('');
@@ -576,8 +580,8 @@ export class BranchOnlinetransactionsComponent {
   transactionsDropdown(event: any) {
     this.selectedTransactionType = event.target.value;
     this.updateTableData();
-    this.currentfilvals='';
-    this.currentfilval='';
+    this.currentfilvals = '';
+    this.currentfilval = '';
   }
   updateTableData() {
     if (this.selectedTransactionType === 'Due Transaction') {

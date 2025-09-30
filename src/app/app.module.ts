@@ -311,6 +311,14 @@ import { EntityWhatsAppGetallComponent } from './Entity Onboard/Whatapp Service/
 import { WhatsAppHistoryComponent } from './Entity Onboard/Whatapp Service/whats-app-history/whats-app-history.component';
 import { OfflinesettlementPayoutComponent } from './offlinesettlement-payout/offlinesettlement-payout.component';
 import { WhatsEditlogComponent } from './Entity Onboard/Whatapp Service/whats-editlog/whats-editlog.component';
+import { PaymentlinkDesViewComponent } from './Entity Onboard/paymentlink-view/paymentlink-des-view/paymentlink-des-view.component';
+import { WhatappBulkUploadComponent } from './Entity Onboard/Whatapp Service/whatapp-bulk-upload/whatapp-bulk-upload.component';
+import { WhatappBulkUploadViewComponent } from './Entity Onboard/Whatapp Service/whatapp-bulk-upload-view/whatapp-bulk-upload-view.component';
+import { BulkUploadInfoComponent } from './Entity Onboard/Whatapp Service/bulk-upload-info/bulk-upload-info.component';
+import { VendorsViewallComponent } from './Main Master/WhatsApp Vendors/vendors-viewall/vendors-viewall.component';
+import { VendorsAddComponent } from './Main Master/WhatsApp Vendors/vendors-add/vendors-add.component';
+import { VendorsUpdateComponent } from './Main Master/WhatsApp Vendors/vendors-update/vendors-update.component';
+import { LcopPlanViewComponent } from './Overall-Customer/lcop-plan-view/lcop-plan-view.component';
 
 
 
@@ -600,6 +608,14 @@ import { WhatsEditlogComponent } from './Entity Onboard/Whatapp Service/whats-ed
     WhatsAppHistoryComponent,
     OfflinesettlementPayoutComponent,
     WhatsEditlogComponent,
+    PaymentlinkDesViewComponent,
+    WhatappBulkUploadComponent,
+    WhatappBulkUploadViewComponent,
+    BulkUploadInfoComponent,
+    VendorsViewallComponent,
+    VendorsAddComponent,
+    VendorsUpdateComponent,
+    LcopPlanViewComponent,
 
 
   ],

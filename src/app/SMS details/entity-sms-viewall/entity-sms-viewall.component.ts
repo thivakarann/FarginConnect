@@ -81,6 +81,7 @@ export class EntitySmsViewallComponent {
     private service: FarginServiceService,
     private toastr: ToastrService,
   ) { }
+
   ngOnInit(): void {
 
     this.service.rolegetById(this.roleId).subscribe({
@@ -351,7 +352,7 @@ export class EntitySmsViewallComponent {
         bottom: { style: 'thin' },
         right: { style: 'thin' },
       };
-    
+
     });
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', });

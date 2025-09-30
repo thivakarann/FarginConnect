@@ -81,6 +81,26 @@
                 <td mat-cell *matCellDef="let viewall">{{viewall.blockNumber}}</td>
             </ng-container>
 
+
+            <ng-container matColumnDef="communicationType">
+                <th mat-header-cell *matHeaderCellDef>Communication Type</th>
+                <td mat-cell *matCellDef="let viewall">
+                    <span *ngIf="viewall.communicationType==''">-</span>
+                    <span *ngIf="viewall.communicationType!=''">{{viewall.communicationType}}</span>
+
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="communicationLanguage">
+                <th mat-header-cell *matHeaderCellDef>Communication Language</th>
+                <td mat-cell *matCellDef="let viewall">
+                    <span *ngIf="viewall.communicationLanguage==''">-</span>
+                    <span *ngIf="viewall.communicationLanguage!=''">{{viewall.communicationLanguage}}</span>
+
+                </td>
+            </ng-container>
+
+
             <ng-container matColumnDef="stbNumber">
                 <th mat-header-cell *matHeaderCellDef>STB Number</th>
                 <td mat-cell *matCellDef="let viewall">{{viewall.stbId.setupBoxNumber}}</td>

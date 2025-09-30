@@ -1,6 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 
 @Component({
@@ -9,19 +8,17 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
   styleUrl: './otherpayments-view.component.css'
 })
 export class OtherpaymentsViewComponent {
-
   transaction: any;
   id: any;
-  constructor(private service:FarginServiceService,@Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog){
-   
-  }
+  
+  constructor(private service: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any,) { }
+  
   ngOnInit(): void {
     this.id = this.data.value
-    
-   this.service.OtherPayTransactionView(this.id).subscribe((res:any)=>{
-    if(res.flag==1){
-    this.transaction=res.response;
-  }
-  })
+    this.service.OtherPayTransactionView(this.id).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.transaction = res.response;
+      }
+    })
   }
 }

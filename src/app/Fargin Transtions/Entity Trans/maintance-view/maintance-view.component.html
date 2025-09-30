@@ -1,100 +1,99 @@
+<body>
+    <span>
+        <div class="card" style="width: 570px; font-size: 14px;height:auto">
+            <div class="form-header d-flex justify-content-between align-items-center">
+                <h6 class="mb-0 text-center" style="color:black;">Transaction Information</h6>
+                <button type="button" style="font-size: 13px; " class="btn btn-secondary" mat-dialog-close>Back</button>
+            </div>
+            <div class="card">
+                <table class="table table-bordered"
+                    style="background-color: white; text-align: left;border: 1px solid rgb(154, 154, 153);">
 
-
-
-
-
-    <body>
-        <span>
-    <div class="card" style="width: 570px; font-size: 14px;height:auto">
-        <div class="form-header d-flex justify-content-between align-items-center">
-            <h6 class="mb-0 text-center"  style="color:black;">Transaction Information</h6>
-            <button type="button" style="font-size: 13px; " class="btn btn-secondary" mat-dialog-close>Back</button>
-        </div>
-        <div class="card">
-            <table class="table table-bordered"
-                style="background-color: white; text-align: left;border: 1px solid rgb(154, 154, 153);">
-    
-                <tbody>
-                    <tr>
-                        <td class="datas">Payment ID</td>
-                        <td id="data">{{view?.pgPaymentId ||'--'}}</td>
-                    </tr>
-                    <tr>
-                        <td class="datas">Bank Reference</td>
-                        <td id="data">
-                            <span  *ngIf="view?.bankReference == null || view?.bankReference == 'null' ">-</span>
-                            <span *ngIf="view?.bankReference != null && view?.bankReference != 'null'"> {{view?.bankReference}}</span>  
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="datas">Reference Number</td>
-                        <td id="data"><span *ngIf="view?.utrNumber == null || view?.utrNumber == 'null' ">-</span>
-                            <span *ngIf="view?.utrNumber != null && view?.utrNumber != 'null'">
-                                {{view?.utrNumber}}</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="datas">Total Payable Amount</td>
-                        <td id="data"  class="text-success">₹{{view?.totalPayableAmount?.toFixed(2)}}</td>
-                    </tr>
-                    <tr>
-                        <td class="datas">Payment Method</td>
-                        <td id="data">{{view?.paymentMethod}}</td>
-                    </tr>
-                    <tr>
-                        <td class="datas">Auto Debit Reference No</td>
-                        <td id="data">
-                            <span  *ngIf="view?.autoDebitReferenceNumber == null || view?.autoDebitReferenceNumber == 'null' ">-</span>
-                            <span *ngIf="view?.autoDebitReferenceNumber != null && view?.autoDebitReferenceNumber !== 'null'">{{view?.autoDebitReferenceNumber}}</span> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="datas">Manual Updated By</td>
-                        <td id="data">{{ view?.updatedBy|| '-'}}</td>
-                    </tr>
-                    <tr>
-                        <td class="datas">Card Expiry</td>
-                        <td id="data">
-                         <span  *ngIf="view?.cardExpiry == null || view?.cardExpiry == 'null' ">-</span>
-                         <span *ngIf="view?.cardExpiry != null && view?.cardExpiry != 'null'"> {{view?.cardExpiry}}</span>  
-                          </td>
-                    </tr>
-                    <tr >
-                        <td class="datas">Card Masked No</td>
-                        <td id="data">
-                            <span  *ngIf="view?.cardNoMasked == null || view?.cardNoMasked == 'null' ">-</span>
-                            <span *ngIf="view?.cardNoMasked != null && view?.cardNoMasked != 'null'">  {{view?.cardNoMasked}}</span>  
+                    <tbody>
+                        <tr>
+                            <td class="datas">Payment ID</td>
+                            <td id="data">{{view?.pgPaymentId ||'--'}}</td>
+                        </tr>
+                        <tr>
+                            <td class="datas">Bank Reference</td>
+                            <td id="data">
+                                <span *ngIf="view?.bankReference == null || view?.bankReference == 'null' ">-</span>
+                                <span *ngIf="view?.bankReference != null && view?.bankReference != 'null'">
+                                    {{view?.bankReference}}</span>
                             </td>
-                    </tr>
-                    <tr>
-                        <td class="datas">Paid At</td>
-                        <td id="data">{{ view?.paymentDateTime | date:'dd-MM-yyyy hh:mm a'}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="datas">Status</td>
-                        <td id="data" style="font-weight: 500;">
-                            <span *ngIf="view?.paymentStatus == 'Success'" class="text-success">
-                                {{ view?.paymentStatus}}</span>
-     
-                            <span *ngIf="view?.paymentStatus   == 'Due Pending'" class="text-warning">
-                                {{ view?.paymentStatus || '--'}}</span>
-     
-                            <span *ngIf="view?.paymentStatus  == 'Initiated'" class="text-warning">
-                                {{ view?.paymentStatus||'--'}}</span>
+                        </tr>
+                        <tr>
+                            <td class="datas">Reference Number</td>
+                            <td id="data"><span *ngIf="view?.utrNumber == null || view?.utrNumber == 'null' ">-</span>
+                                <span *ngIf="view?.utrNumber != null && view?.utrNumber != 'null'">
+                                    {{view?.utrNumber}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="datas">Total Payable Amount</td>
+                            <td id="data" class="text-success">₹{{view?.totalPayableAmount?.toFixed(2)}}</td>
+                        </tr>
+                        <tr>
+                            <td class="datas">Payment Method</td>
+                            <td id="data">{{view?.paymentMethod}}</td>
+                        </tr>
+                        <tr>
+                            <td class="datas">Auto Debit Reference No</td>
+                            <td id="data">
+                                <span
+                                    *ngIf="view?.autoDebitReferenceNumber == null || view?.autoDebitReferenceNumber == 'null' ">-</span>
+                                <span
+                                    *ngIf="view?.autoDebitReferenceNumber != null && view?.autoDebitReferenceNumber !== 'null'">{{view?.autoDebitReferenceNumber}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="datas">Manual Updated By</td>
+                            <td id="data">{{ view?.updatedBy|| '-'}}</td>
+                        </tr>
+                        <tr>
+                            <td class="datas">Card Expiry</td>
+                            <td id="data">
+                                <span *ngIf="view?.cardExpiry == null || view?.cardExpiry == 'null' ">-</span>
+                                <span *ngIf="view?.cardExpiry != null && view?.cardExpiry != 'null'">
+                                    {{view?.cardExpiry}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="datas">Card Masked No</td>
+                            <td id="data">
+                                <span *ngIf="view?.cardNoMasked == null || view?.cardNoMasked == 'null' ">-</span>
+                                <span *ngIf="view?.cardNoMasked != null && view?.cardNoMasked != 'null'">
+                                    {{view?.cardNoMasked}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="datas">Paid At</td>
+                            <td id="data">{{ view?.paymentDateTime | date:'dd-MM-yyyy hh:mm a'}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="datas">Status</td>
+                            <td id="data" style="font-weight: 500;">
+                                <span *ngIf="view?.paymentStatus == 'Success'" class="text-success">
+                                    {{ view?.paymentStatus}}</span>
+
+                                <span *ngIf="view?.paymentStatus   == 'Due Pending'" class="text-warning">
+                                    {{ view?.paymentStatus || '--'}}</span>
+
+                                <span *ngIf="view?.paymentStatus  == 'Initiated'" class="text-warning">
+                                    {{ view?.paymentStatus||'--'}}</span>
                                 <span *ngIf="view?.paymentStatus  == 'Payment Incomplete'" class="text-danger">
                                     {{ view?.paymentStatus||'--'}}</span>
-     
+
                                 <span *ngIf="view?.paymentStatus  == 'Failure'" class="text-danger">
                                     {{ view?.paymentStatus||'--'}}</span>
-                        </td>
-                    </tr>
-                </tbody>
-                    </table>
-    
-    
-                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
             </div>
-        </span>
-    </body>
-    
+        </div>
+    </span>
+</body>

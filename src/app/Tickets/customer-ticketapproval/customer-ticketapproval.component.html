@@ -1,9 +1,9 @@
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
 
-
 <div class="form-header d-flex justify-content-between align-items-center">
     <h5 class="mb-0" style="color: black;">Add Response </h5>
 </div>
+
 <div class="well">
     <form [formGroup]="ticketFormGroup">
         <div class="form-group  mb-3">
@@ -16,19 +16,17 @@
             <span class="errormge" *ngIf="ticketStatus?.touched && ticketStatus?.errors?.['required']">Field
                 is required</span>
         </div>
-
-    
         <div class="form-group mb-3">
             <label for="description">Remarks</label>
             <textarea id="description" rows="3" class="form-control" formControlName="ticketComment"></textarea>
             <span class="errormge" *ngIf="ticketComment?.touched && ticketComment?.errors?.['required']">Field
                 is required</span>
-                         <span class="errormge" *ngIf="ticketComment?.errors?.['maxlength']"> Maximum length should be 250</span>
-
+            <span class="errormge" *ngIf="ticketComment?.errors?.['maxlength']"> Maximum length should be 250</span>
         </div>
 
-        <button type="submit" class="btn mx-1" style="background-color:#7db855be" (click)="save()" [disabled]="ticketFormGroup.invalid">Submit</button>
-        <button type="submit" class="btn" style="background-color:#141E46;color:white" (click)="close()">Cancel</button>
+        <button type="submit" class="btn mx-1" style="background-color:#7db855be" (click)="save()"
+            [disabled]="ticketFormGroup.invalid">Submit</button>
+        <button type="submit" class="btn" style="background-color:#141E46;color:white" matDialogclose>Cancel</button>
     </form>
 </div>
 

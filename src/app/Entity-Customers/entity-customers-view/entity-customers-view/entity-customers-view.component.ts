@@ -95,8 +95,17 @@ export class EntityCustomersViewComponent {
     'stb',
     'mso',
     'region',
+    'setTopBoxFee',
+    'installationFee',
+    'doorno',
+    'area',
+    'streetname',
+    'billingdate',
+    'status',
     'duestatus',
     'viewplan',
+    'activatedate',
+    'inactivatedate',
     'createdby',
     'createdat',
   ];
@@ -109,7 +118,11 @@ export class EntityCustomersViewComponent {
   displayedColumnsTransaction: string[] = [
     'sno',
     'id',
+    'numbers',
+    'setTopBoxFee',
+    'installationFee',
     'amounts',
+    'totalPayableAmount',
     'paymenstats',
     'method',
     'generatedat',
@@ -408,7 +421,7 @@ export class EntityCustomersViewComponent {
     });
   }
 
-    applyFilterRefund(event: Event) {
+  applyFilterRefund(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSourceRefund.filter = filterValue.trim().toLowerCase();
     this.searchPerformed = filterValue.length > 0;
@@ -490,14 +503,14 @@ export class EntityCustomersViewComponent {
     });
   }
 
-    transactionsDropdown(event: any) {
+  transactionsDropdown(event: any) {
     this.selectedTransactionType = event.target.value;
     this.updateTableData();
     this.currentfilval = '';
     this.currentfilvals = '';
   }
 
-    updateTableData() {
+  updateTableData() {
     if (this.selectedTransactionType === 'Due Transaction') {
       this.service.RefundForCustomerView(this.id).subscribe((res: any) => {
         if (res.flag == 1) {
@@ -737,7 +750,7 @@ export class EntityCustomersViewComponent {
   }
 
   // Perform the search and update the filtered results
- customerpay(filterValue: string) {
+  customerpay(filterValue: string) {
     if (filterValue) {
       console.log(filterValue);
       this.service
@@ -775,7 +788,7 @@ export class EntityCustomersViewComponent {
     }
   }
 
-   reload() {
+  reload() {
     this.service
       .CustomerTransaction(this.id, this.pageSize, this.pageIndex)
       .subscribe((res: any) => {
@@ -814,7 +827,7 @@ export class EntityCustomersViewComponent {
   }
 
   // Perform the search and update the filtered results
-    customerpayadd(filterValue: string) {
+  customerpayadd(filterValue: string) {
     if (filterValue) {
       console.log(filterValue);
       this.service
@@ -876,7 +889,7 @@ export class EntityCustomersViewComponent {
       });
   }
 
-getDataAdditional(event: any) {
+  getDataAdditional(event: any) {
     if (this.currentfilvalShowAdd) {
       this.service
         .customeradditionaltransactionsearch(

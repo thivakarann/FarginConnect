@@ -1,15 +1,13 @@
-
- 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
- 
+
 button {
   font: inherit;
 }
- 
+
 .page {
 
   display: grid;
@@ -19,45 +17,45 @@ button {
 
   font-family: var(--font-sans);
 }
- 
+
 .page__main {
   grid-area: main;
 }
- 
+
 .main {
   display: grid;
   justify-items: center;
   align-items: center;
   /* padding: var(--size-3); */
 }
- 
+
 .main__form {
   width: 100%;
   max-width: 40em;
 
   /* Max width for the form */
 }
- 
+
 .form {
- 
+
   background-color: #fff;
   display: grid;
   width: 100%;
   max-width: 100%;
- 
-  padding:20px;
+
+  padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
- 
+
 .form__linput {
   display: grid;
   margin-bottom: 10px;
 }
- 
+
 .form__label {
   margin-bottom: 10px;
 }
- 
+
 .form__input,
 .form__select,
 .form__textarea {
@@ -66,35 +64,35 @@ button {
   border-radius: var(--radius-2); */
   width: 100%;
 }
- 
+
 .form__select {
   background: inherit;
 }
- 
+
 .form__textarea {
   padding: 1em 0.7rem;
   resize: vertical;
   font: inherit;
 }
- 
- 
- 
- 
- 
- 
+
+
+
+
+
+
 @media (max-width: 600px) {
   .main__form {
     padding: 10px;
   }
- 
+
   .form {
     padding: 10px;
   }
- 
+
 }
- 
- 
- 
+
+
+
 .button1 {
   background-color: black;
   border: 1px solid black;
@@ -115,7 +113,7 @@ button {
   -ms-touch-action: manipulation;
   touch-action: manipulation;
 }
- 
+
 .form__label {
   font-weight: 500;
 }
@@ -162,8 +160,8 @@ button {
 
 @media (max-width: 576px) {
   .form-group label {
-      font-size: 0.9rem;
-      /* Adjust label font size for smaller screens */
+    font-size: 0.9rem;
+    /* Adjust label font size for smaller screens */
   }
 }
 
@@ -182,7 +180,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
 }
 
 .otp-field input {
@@ -194,9 +192,11 @@ button {
   text-align: center;
   border: 1px solid #ddd;
 }
+
 .otp-field input:focus {
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
 }
+
 .otp-field input::-webkit-inner-spin-button,
 .otp-field input::-webkit-outer-spin-button {
   display: none;

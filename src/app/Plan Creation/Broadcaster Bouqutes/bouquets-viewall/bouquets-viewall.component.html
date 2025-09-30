@@ -1,6 +1,5 @@
-<!--   -->
-
 <h4 style="text-align:left;color:#141E46;">Broadcaster Bouquet Creation</h4>
+
 <mat-card-header>
     <div class="row mt-4">
         <div class="col">
@@ -16,13 +15,8 @@
                                     stroke-linecap="round">
                                 </path>
                             </svg>
-                            <!-- <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg" class="swap-off">
-                                <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linejoin="round" stroke-linecap="round">
-                                </path>
-                            </svg> -->
                         </div>
-                        <button (click)="reload()" type="reset" class="close-btn">
+                        <button (click)="Getall()" type="reset" class="close-btn">
                             <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
                                 <path clip-rule="evenodd"
                                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -31,10 +25,8 @@
                         </button>
                     </label>
                 </form>
-
             </div>
             &nbsp;&nbsp;&nbsp;
-
             <button [hidden]="valuebouquetesadd!=='Broadcaster Bouqutes-Add'"
                 style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;"
                 class="custom-btn btn-10" data-bs-toggle="modal" data-bs-target="#ApprovalEdits" mat-raised-button
@@ -42,17 +34,12 @@
             <button [hidden]="valuebouquetesexport!=='Broadcaster Bouqutes-Export'"
                 style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;"
                 (click)="exportexcel()" mat-raised-button>Export</button>
-
-
         </div>
     </div>
-
 </mat-card-header>
-<!-- <mat-card> -->
+
 <mat-card-content>
-
     <div class="example-container text-nowrap mt-3" style="overflow-x: scroll; scrollbar-width: thin;">
-
         <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
             <ng-container matColumnDef="bouquetId">
@@ -63,13 +50,13 @@
             <ng-container matColumnDef="broadCasterName">
                 <th style="text-align: left;padding-left: 7px;" mat-header-cell *matHeaderCellDef>Broadcaster Plan Name
                 </th>
-                <td style="text-align: left;padding-left: 7px;" mat-cell *matCellDef="let viewall">
+                <td style="text-align: left;padding-left: 7px;white-space: pre;" mat-cell *matCellDef="let viewall">
                     {{viewall.bouquetCreation.bouquetName}}</td>
             </ng-container>
 
             <ng-container matColumnDef="bouquetName">
                 <th style="text-align: left;padding-left: 7px;" mat-header-cell *matHeaderCellDef>Broadcaster Name</th>
-                <td style="text-align: left;padding-left: 7px;" mat-cell *matCellDef="let viewall">
+                <td style="text-align: left;padding-left: 7px; " mat-cell *matCellDef="let viewall">
                     {{viewall.bundleChannel.broadCasterName}}</td>
             </ng-container>
 
@@ -93,13 +80,6 @@
                 </td>
             </ng-container>
 
-            <!-- <ng-container matColumnDef="View">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="valuebouquetesView!=='Broadcaster Bouqutes-View'">View</th>
-                <td [hidden]="valuebouquetesView!=='Broadcaster Bouqutes-View'" style="cursor: pointer;" mat-cell *matCellDef="let viewall" (click)="Viewdata(viewall.bouquetId)">
-                    <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-eye"></i>
-                </td>
-            </ng-container> -->
-
             <ng-container matColumnDef="View">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header
                     [hidden]="valuebouquetesView!=='Broadcaster Bouqutes-View'">View</th>
@@ -115,33 +95,22 @@
                 <td [hidden]="valuebouquetesEdit!=='Broadcaster Bouqutes-Edit'" style="cursor: pointer;" mat-cell
                     *matCellDef="let viewall">
                     <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-edit"
-                        (click)="Edit(viewall.bouquetId)"></i>
+                        (click)="Edit(viewall.bouquetId)">
+                    </i>
                 </td>
             </ng-container>
-            <!-- 
-            <ng-container matColumnDef="Edit">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Edit</th>
-                <td style="cursor: pointer;" mat-cell *matCellDef="let viewall" (click)="Edit(viewall.bouquetId)">
-                    <i class="fas fa-eye" style="font-size: 16px;color: rgb(39, 39, 95);"></i>
-                </td>
-            </ng-container> -->
-
-
             <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
             <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
             <tr *matNoDataRow>
-                <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data</td>
+                <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data For {{input?.value}}</td>
                 <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">No Data
                 </td>
             </tr>
         </table>
-
     </div>
 </mat-card-content>
+
 <mat-card-footer>
-
-    <mat-paginator [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtons
-        aria-labels="select page of users"></mat-paginator>
-
+    <mat-paginator [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtons aria-labels="select page of users">
+    </mat-paginator>
 </mat-card-footer>
-<!-- </mat-card> -->

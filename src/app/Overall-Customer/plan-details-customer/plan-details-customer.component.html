@@ -9,13 +9,10 @@
     <div class="col-md-2 d-flex justify-content-end mb-1">
       <button class="buttonDownload" (click)="close()">Back</button>
     </div>
-
   </div>
 </mat-card-header>
 
-
 <div class="mb-4">
-
   <mat-stepper orientation="vertical" (selectionChange)="onStepChange($event)">
 
     <mat-step [completed]="false">
@@ -300,6 +297,7 @@
                   <th>Price</th>
                   <th>Total Amount</th>
                   <th>OverAll Amount</th>
+                  <th>View Plans</th>
                   <th>Created By</th>
                   <th>Created At</th>
 
@@ -311,6 +309,10 @@
                   <td>{{row.price }}</td>
                   <td>{{row.totalAmount }}</td>
                   <td>{{row.overallAmount }}</td>
+                  <td>
+                    <i class="fas fa-eye" (click)="Lcopplans(row.lcopId,row.planName)"
+                      style="transform: scale(0.9);padding:0;font-size: 15px;"> </i>
+                  </td>
                   <td>{{row.createdBy }}</td>
                   <td>{{row.createdDateTime | date : "dd-MM-yyyy hh:mm a" }}</td>
                 </tbody>

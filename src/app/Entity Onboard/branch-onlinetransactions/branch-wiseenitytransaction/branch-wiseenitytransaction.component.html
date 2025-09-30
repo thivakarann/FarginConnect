@@ -13,8 +13,6 @@
   </div>
   <mat-card-header>
     <div class="row">
-      <!-- <label for="state" style="margin-left: 6px">Select Transaction </label> -->
-
       <div class="col-3">
         <select (change)="transactionsDropdown($event)" class="form-select">
           <option [selected]="selectedTransactionType == 'Due Transaction'" value="Due Transaction">
@@ -56,20 +54,6 @@
           " mat-raised-button>
           Go
         </button>
-
-        <!-- <button
-        (click)="exportexcel()"
-        style="
-          color: white;
-          background-color: #141e46;
-          border-radius: 10px;
-          font-size: 12px;
-        "
-        mat-raised-button
-        [hidden]="valueexport !== 'Entity View Branch-online View-Export'"
-      >
-        Export
-      </button> -->
       </div>
     </div>
   </mat-card-header>
@@ -116,12 +100,34 @@
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="paidAmount">
-          <th mat-header-cell *matHeaderCellDef>Paid Amount</th>
+        <ng-container matColumnDef="setTopBoxFee">
+          <th mat-header-cell *matHeaderCellDef>Set-Topbox Amount</th>
           <td mat-cell *matCellDef="let data">
-            {{ data?.paidAmount }}
+            {{ data?.setTopBoxFee?.toFixed(2)}}
           </td>
         </ng-container>
+
+        <ng-container matColumnDef="installationFee">
+          <th mat-header-cell *matHeaderCellDef>Installation Amount</th>
+          <td mat-cell *matCellDef="let data">
+            {{ data?.installationFee?.toFixed(2)}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="amount">
+          <th mat-header-cell *matHeaderCellDef>Plan Amount</th>
+          <td mat-cell *matCellDef="let data">
+            {{ data?.paidAmount?.toFixed(2)}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="totalPayableAmount">
+          <th mat-header-cell *matHeaderCellDef>Total Amount</th>
+          <td mat-cell *matCellDef="let data">
+            {{ data?.totalPayableAmount?.toFixed(2)}}
+          </td>
+        </ng-container>
+
 
         <ng-container matColumnDef="paymentMethod">
           <th mat-header-cell *matHeaderCellDef>Payment Method</th>
@@ -354,7 +360,7 @@
         <ng-container matColumnDef="paidAmount">
           <th mat-header-cell *matHeaderCellDef>Paid Amount</th>
           <td mat-cell *matCellDef="let data">
-            {{ data?.paidAmount }}
+            {{ data?.paidAmount?.toFixed(2) }}
           </td>
         </ng-container>
 

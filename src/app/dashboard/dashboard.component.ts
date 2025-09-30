@@ -44,6 +44,7 @@ export class DashboardComponent implements OnInit {
   valuefarginpolicy: any;
   valueMerchantpolicy: any;
   counts: any;
+  totalOpenTickets:any;
   valuecustomerticket: any;
   valuecustomerpayment: any;
   valuecustomersubscription: any;
@@ -76,6 +77,9 @@ export class DashboardComponent implements OnInit {
   valueRenewel: any;
   valueentityWhatsapp: any;
   valuewhatsApphistory: any;
+  valuewhatsAppBulkUploadResponse: any;
+  valueehatsapp: any;
+
 
   constructor(private elRef: ElementRef,
     private renderer: Renderer2,
@@ -101,6 +105,9 @@ export class DashboardComponent implements OnInit {
 
     this.service.dashboardCount().subscribe((res: any) => {
       this.counts = res.response.totalTicketMemberOpenCount;
+      const open = res.response.totalTicketMemberOpenCount || 0;
+      const reopen = res.response.totalTicketMemberReOpenCount || 0;
+      this.totalOpenTickets = open + reopen;
     });
   }
 
@@ -122,6 +129,7 @@ export class DashboardComponent implements OnInit {
       this.valuemerchantPlan = 'Entity Plan';
       this.valueFacheck = 'FaCheck Key';
       this.valuepgsetupkey = 'PG SetupKey';
+      this.valueehatsapp = 'WhatsappVendors';
       this.valueWithdrawalfee = 'Withdrawal Fee'
       this.valuechannelConfiguration = 'Channel Creation';
       this.valueBroadcasterConfiguration = 'Broadcaster Creation'
@@ -145,6 +153,7 @@ export class DashboardComponent implements OnInit {
       this.valuesmshistory = 'SMS History'
       this.valueentityWhatsapp = 'Entity WhatsApp'
       this.valuewhatsApphistory = 'WhatsApp History'
+      this.valuewhatsAppBulkUploadResponse = 'WhatsApp Bulk Upload Status'
       this.valueautodebit = 'Cloud Fee AutoDebit'
       this.valueRenewel = 'Renewal Fee Auto Debit'
       this.valueCustomizationPayments = 'Customized Payment'
@@ -269,6 +278,11 @@ export class DashboardComponent implements OnInit {
         if (this.roles == 'WhatsApp History') {
           this.valuewhatsApphistory = 'WhatsApp History'
         }
+
+        if (this.roles == 'WhatsApp Bulk Upload Status') {
+          this.valuewhatsAppBulkUploadResponse = 'WhatsApp Bulk Upload Status';
+        }
+
         if (this.roles == 'Cloud Fee AutoDebit') {
           this.valueautodebit = 'Cloud Fee AutoDebit'
         }

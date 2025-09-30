@@ -126,15 +126,6 @@
           <label for="MccCode">Mcc Code</label>
           <input formControlName="MccCode" readonly type="text" id="MccCode" class="form-control"
             ngModel="{{ this.mcccode }}" />
-          <!-- <div style="
-                    color: red;
-                    font-size: 12px;
-                    margin-top: 2px;
-                    position: relative;
-                    ;
-                  " *ngIf="mccCode?.invalid && mccCode?.touched && mccCode?.errors?.['required']">
-                        Field is required
-                    </div> -->
         </div>
         <div class="col-sm-4 form-group">
           <label for="EntityPlan">Entity Plan</label>
@@ -453,10 +444,11 @@
         </div>
         <div class="col-sm-4 form-group">
           <label for="billing">Manual Trans OTP Status</label>
-          <select formControlName="customerManualStatus" type="text" class="form-select" id="billing">
+          <input type="text" readonly val formControlName="customerManualStatus" id="billing" class="form-control" />
+          <!-- <select formControlName="customerManualStatus" type="text" class="form-select" id="billing">
             <option value="1">Enable</option>
             <option value="0">Disable</option>
-          </select>
+          </select> -->
           <div style="
               color: red;
               font-size: 12px;

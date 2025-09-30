@@ -393,6 +393,7 @@ export interface updatestickerticket {
   readonly merchantId: any;
   readonly ticketStatus: any;
   readonly stickerUpdatedBy: any;
+  readonly description:any;
 
 }
 
@@ -708,7 +709,7 @@ export interface settlements {
 }
 
 export interface oflinePayouts {
-  
+
   readonly pageNo: any;
   readonly query: any;
   readonly size: any;
@@ -1664,4 +1665,32 @@ export interface whatappserviceApproval {
   readonly merchantWhatsAppId: any;
   readonly smsApprovalStatus: any;
   readonly smsApprovedBy: any;
+}
+
+export interface VendorsAdd {
+  readonly vendorName:any;
+  readonly vendorMobile:any;
+  readonly vendorAddress:any;
+  readonly vendorGst:any;
+  readonly smsAmount:any;
+  readonly userName:any;
+  readonly password:any;
+  readonly token:any;
+  readonly createdBy:any;
+}
+
+export interface VendorsUpdate {
+  readonly vendorName:any;
+  readonly vendorMobile:any;
+  readonly vendorAddress:any;
+  readonly vendorGst:any;
+  readonly smsAmount:any;
+  readonly userName:any;
+  readonly password:any;
+  readonly token:any;
+  readonly modifiedBy:any;
+}
+
+export interface VendorStatus {
+  readonly enabled:any;
 }

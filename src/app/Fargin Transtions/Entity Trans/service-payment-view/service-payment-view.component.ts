@@ -1,6 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { ToastrService } from 'ngx-toastr';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 
 @Component({
@@ -11,16 +10,15 @@ import { FarginServiceService } from '../../../service/fargin-service.service';
 export class ServicePaymentViewComponent {
   view: any;
   id: any;
-  constructor(private service:FarginServiceService,@Inject(MAT_DIALOG_DATA) public data: any, private toastr: ToastrService, private dialog: MatDialog){
-   
-  }
+  constructor(private service: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any) { }
+
   ngOnInit(): void {
     this.id = this.data.value
-    
-   this.service.OneTimeTransactionsView(this.id).subscribe((res:any)=>{
-  if(res.flag==1){
-    this.view=res.response;
+    this.service.OneTimeTransactionsView(this.id).subscribe((res: any) => {
+      if (res.flag == 1) {
+        this.view = res.response;
+      }
+    })
   }
-  })
-  }
+
 }

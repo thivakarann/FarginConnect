@@ -132,6 +132,9 @@ export class KycdocumentViewComponent implements OnInit {
           this.bankDetailsUpdated.emit();
           this.dialog.closeAll();
         }
+        else {
+          this.toastr.error(res.responseMessage);
+        }
       });
     }
     if (this.flag == 2) {
@@ -145,6 +148,9 @@ export class KycdocumentViewComponent implements OnInit {
           this.bankDetailsUpdated.emit();
           this.dialog.closeAll();
         }
+        else {
+          this.toastr.error(res.responseMessage);
+        }
       });
     }
     if (this.flag == 3) {
@@ -157,6 +163,9 @@ export class KycdocumentViewComponent implements OnInit {
           this.toastr.success(res.responseMessage);
           this.bankDetailsUpdated.emit();
           this.dialog.closeAll();
+        }
+        else {
+          this.toastr.error(res.responseMessage);
         }
       });
     }
@@ -172,6 +181,9 @@ export class KycdocumentViewComponent implements OnInit {
           this.bankDetailsUpdated.emit();
           this.dialog.closeAll();
         }
+        else {
+          this.toastr.error(res.responseMessage);
+        }
       });
     }
 
@@ -186,6 +198,9 @@ export class KycdocumentViewComponent implements OnInit {
           this.bankDetailsUpdated.emit();
           this.dialog.closeAll();
         }
+        else {
+          this.toastr.error(res.responseMessage);
+        }
       });
     }
 
@@ -199,6 +214,9 @@ export class KycdocumentViewComponent implements OnInit {
           this.toastr.success(res.responseMessage);
           this.bankDetailsUpdated.emit();
           this.dialog.closeAll();
+        }
+        else {
+          this.toastr.error(res.responseMessage);
         }
       });
     }

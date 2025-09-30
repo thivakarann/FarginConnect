@@ -15,7 +15,7 @@
                 </path>
               </svg>
             </div>
-            <button (click)="reload()" type="reset" class="close-btn">
+            <button (click)="Getall()" type="reset" class="close-btn">
               <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
                 <path clip-rule="evenodd"
                   d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -26,17 +26,11 @@
         </form>
       </div>
       &nbsp;&nbsp;&nbsp;
-
       <button class="mb-2" (click)="custopay(currentfilVal)"
         style="color: white; background-color: #141e46; border-radius: 10px;font-size: 12px;" mat-raised-button>
         Go
       </button>
-      <!-- <button style="color: white; background-color: #141e46; border-radius: 10px;font-size: 12px;" mat-raised-button
-        (click)="exportexcel()" [hidden]="valueCustomizationexport !== 'Customized Payment-Export'">
-        Export
-      </button> -->
     </div>
-
     <div class="col-md-3  align-items-center mt-3" style="gap: 10px">
       <select [(ngModel)]="backs" class="form-select" style="height: 40px; font-size: 15px; margin: 1px; width: 300px"
         (change)="Filter($event)">
@@ -48,9 +42,7 @@
           Date Filter for success
         </option>
       </select>
-
     </div>
-
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <div class="col mt-3">
       <button class="mt-2.5" style="
@@ -58,38 +50,44 @@
           background-color: #141e46;
           border-radius: 10px;
           font-size: 12px;
-        " mat-raised-button (click)="reset()">
+        " mat-raised-button (click)="Getall()">
         Reset
       </button>
     </div>
   </div>
 </mat-card-header>
+
+
 <mat-card-content>
   <div class="example-container text-nowrap mt-3" style="overflow-x: scroll; scrollbar-width: thin;">
-    <!-- <span *ngIf="showcategoryData" style="text-align:center;color:red;">NO DATA FOUND</span> -->
     <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
       <ng-container matColumnDef="sno">
         <th mat-header-cell *matHeaderCellDef>S.No</th>
         <td mat-cell *matCellDef="let viewall; let i = index">{{ i + 1 }}</td>
       </ng-container>
+
       <ng-container matColumnDef="paymentId">
         <th mat-header-cell *matHeaderCellDef>Payment ID</th>
         <td mat-cell *matCellDef="let transaction">
           {{ transaction?.pgPaymentId || "--" }}
         </td>
       </ng-container>
+
       <ng-container matColumnDef="InvoiceNumber">
         <th mat-header-cell *matHeaderCellDef>Invoice Number</th>
         <td mat-cell *matCellDef="let transaction">
           {{ transaction.invoiceNumber || "--" }}
         </td>
       </ng-container>
+
       <ng-container matColumnDef="entityname">
         <th mat-header-cell *matHeaderCellDef>Entity Name</th>
         <td mat-cell *matCellDef="let transaction">
           {{ transaction?.entityName || transaction?.merchantId?.entityName }}
         </td>
       </ng-container>
+
       <ng-container matColumnDef="serviceName">
         <th mat-header-cell *matHeaderCellDef>Service Name</th>
         <td mat-cell *matCellDef="let transaction">
@@ -113,27 +111,30 @@
       <ng-container matColumnDef="cgst">
         <th mat-header-cell *matHeaderCellDef>CGST Percentage (9%)</th>
         <td mat-cell *matCellDef="let transaction">
-          {{ transaction?.cgstPercentage }}
+          {{ transaction?.cgstPercentage?.toFixed(2)}}
         </td>
       </ng-container>
       <ng-container matColumnDef="sgst">
         <th mat-header-cell *matHeaderCellDef>SGST Percentage (9%)</th>
         <td mat-cell *matCellDef="let transaction">
-          {{ transaction?.sgstPercentage }}
+          {{ transaction?.sgstPercentage?.toFixed(2)}}
         </td>
       </ng-container>
+
       <ng-container matColumnDef="igst">
         <th mat-header-cell *matHeaderCellDef>IGST Percentage (18%)</th>
         <td mat-cell *matCellDef="let transaction">
-          {{ transaction?.igstPercentage }}
+          {{ transaction?.igstPercentage?.toFixed(2)}}
         </td>
       </ng-container>
+
       <ng-container matColumnDef="totalamount">
         <th mat-header-cell *matHeaderCellDef>Total Payable Amount</th>
         <td mat-cell *matCellDef="let transaction">
           {{ transaction?.totalPayableAmount?.toFixed(2) }}
         </td>
       </ng-container>
+
       <ng-container matColumnDef="createdDateTime">
         <th mat-header-cell *matHeaderCellDef>Due Generated At</th>
         <td mat-cell *matCellDef="let transaction">
@@ -147,6 +148,7 @@
           {{ transaction?.paymentDateTime | date : "dd/MM/yyyy hh:mm a" }}
         </td>
       </ng-container>
+
       <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef>Status</th>
         <td mat-cell *matCellDef="let transaction">
@@ -158,7 +160,6 @@
             {{ transaction?.paymentStatus }}</span>
           <span *ngIf="transaction?.paymentStatus == 'Payment Incomplete'" class="text-danger">
             {{ transaction?.paymentStatus }}</span>
-
           <span *ngIf="transaction?.paymentStatus == 'Failure'" class="text-danger">
             {{ transaction?.paymentStatus }}</span>
         </td>
@@ -226,13 +227,14 @@
     </table>
   </div>
 </mat-card-content>
-<mat-card-footer>
 
+<mat-card-footer>
   <mat-paginator (page)="getData($event)" [length]="totalPages" [pageIndex]="currentpage" [pageSize]="totalpage"
     [pageSizeOptions]="[5, 10, 50, 100, 200,300,500]" aria-label="Select page">
   </mat-paginator>
-
 </mat-card-footer>
+
+
 <!-- customized pay -->
 
 <ng-template #Customizedpay>
@@ -245,7 +247,6 @@
         <button style="font-size: 14px;" class="button1" (click)="close()">Back</button>
       </div>
     </div>
-
     <main class="main page__main">
       <form [formGroup]="Otherpayment" class="form main__form" autocomplete="off" role="form">
         <div class="search-dropdown-container">
@@ -275,7 +276,6 @@
               </button>
             </div>
           </div>
-
           <div class="form__linput">
             <label class="form__label" for="pay">Payment Status</label>
             <select style="width:368px" class="form-control form-select wider-input" formControlName="pay" name="pay">
@@ -289,7 +289,6 @@
             </select>
           </div>
         </div>
-
         <div style="margin-left: 20px" class="form__linput">
           <label style=" margin-top: -14px;
   margin-bottom: 1px;" class="form__label custom-label" for="startDate">From Date (Optional)</label>
@@ -297,7 +296,6 @@
             style="border: 1px solid #ccc; width:365px" class="form-control wider-input" id="startDate" type="date"
             name="startDate" />
         </div>
-
         <div style="margin-left: 20px" class="form__linput">
           <label style=" margin-top: -14px;
   margin-bottom: 1px;" class="form__label custom-label" for="endDate">To Date (Optional)</label>
@@ -305,7 +303,6 @@
             style="border: 1px solid #ccc; width:365px" class="form-control wider-input" id="endDate" type="date"
             name="endDate" />
         </div>
-
         <div style="margin-left: 20px" class="mt-3">
           <button type="submit" [disabled]="Otherpayment.invalid" (click)="Otherpay()" class="btn mx-1"
             style="background-color: #7db855be; height: 39px">
@@ -332,7 +329,6 @@
       <button class="button1" style="font-size: 14px;" (click)="close()">Back</button>
     </div>
   </div>
-
   <main class="main page__main">
     <form [formGroup]="Otherpaymentfilter" class="form main__form" autocomplete="off" role="form">
       <div class="search-dropdown-container">
@@ -343,14 +339,12 @@
             style="border: 1px solid #ccc; width: 322px" class="form-control wider-input" id="FromDateRange"
             type="date" />
         </div>
-
         <div class="form__linput">
           <label class="form__label custom-label" for="a">To Date:</label>
           <input onkeydown="return false;" [min]="this.Otherpaymentfilter.get('FromDateRange')?.value" [max]="maxDate"
             class="form-control" formControlName="ToDateRange" style="border: 1px solid #ccc; width: 322px"
             class="form-control wider-input" id="ToDateRange" type="date" />
         </div>
-
         <div style="margin-left: 20px" class="mt-3">
           <button type="submit" [disabled]="Otherpaymentfilter.invalid" (click)="filterdate()" class="btn mx-1"
             style="background-color: #7db855be; height: 39px">

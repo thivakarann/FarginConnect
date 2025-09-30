@@ -12,17 +12,14 @@ import { CustomerTransViewComponent } from '../customer-trans-view/customer-tran
 import { customerpay, customerpayfilter } from '../../../fargin-model/fargin-model.module';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgSelectComponent } from '@ng-select/ng-select';
-
-interface Option {
-  entityName: string;
-  merchantId: number;
-}
+interface Option { entityName: string; merchantId: number; }
 
 @Component({
   selector: 'app-customer-trans-viewall',
   templateUrl: './customer-trans-viewall.component.html',
   styleUrl: './customer-trans-viewall.component.css'
 })
+
 export class CustomerTransViewallComponent {
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = [
@@ -37,15 +34,15 @@ export class CustomerTransViewallComponent {
     'branchName',
     'paymentmethod',
     'createdDateTime',
+    'setTopBoxFee',
+    'installationFee',
     'amount',
+    'totalPayableAmount',
     'status',
     'paidAt',
     'view',
     'Receipt',
     'CheckStatus',
-
-
-
   ];
   viewall: any;
   @ViewChild('tableContainer') tableContainer!: ElementRef;
@@ -80,37 +77,27 @@ export class CustomerTransViewallComponent {
   totalPages: any;
   currentpage: any;
   transactionexport: any;
-
   pageIndex1: number = 0;
   pageSize1 = 5;
-
   totalpage1: any;
   totalPages1: any;
   currentpage1: any;
-
   pageIndex2: number = 0;
   pageSize2 = 5;
-
   totalpage2: any;
   totalPages2: any;
   currentpage2: any;
-
   filter: boolean = false;
   filter1: boolean = false;
   filters: boolean = false;
   currentfilval: any;
   filterValue: any;
-  @ViewChild('dialogTemplate') dialogTemplate!: TemplateRef<any>;
   dialogRef: any;
+  @ViewChild('dialogTemplate') dialogTemplate!: TemplateRef<any>;
   @ViewChild('CustomerPayment') CustomerPayment!: TemplateRef<any>;
   @ViewChild('DateFilter') DateFilter!: TemplateRef<any>;
-
-
   userInput: string = '';
-
   options: Option[] = [];
-  // currentfil: any = { entityName: '' };
-  // filterResults: any[] = [];
   currentfil: any
   search: any;
   search1: any;
@@ -123,7 +110,6 @@ export class CustomerTransViewallComponent {
   merchantId: any;
   flags: any;
   backs: any = '';
-  // 
   pageIndex3: number = 0;
   pageSize3 = 5;
   totalPages3: any;
@@ -136,21 +122,15 @@ export class CustomerTransViewallComponent {
 
   constructor(private service: FarginServiceService, private toastr: ToastrService, private dialog: MatDialog, private fb: FormBuilder) { }
 
-
-
   ngOnInit(): void {
 
     const today = new Date();
     this.maxDate = moment(today).format('yyyy-MM-DD').toString()
 
-
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-
-
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
-
           if (this.roleId == 1) {
             this.valuepaymentexport = 'Customer Payment-Export'
             this.valuepaymentview = 'Customer Payment-View'
@@ -181,34 +161,14 @@ export class CustomerTransViewallComponent {
       }
     });
 
-    this.service.CustomerAllTransactions(this.pageSize, this.pageIndex).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.transaction = res.response;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.transaction);
-        this.currentfilvalShow = false;
-      } else if (res.flag == 2) {
-        this.transaction = [];
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.transaction);
-        this.currentfilvalShow = false;
-      }
-
-    });
-
+    this.Getall();
 
     this.customerPay = this.fb.group({
       pay: ['', [Validators.required]],
       startDate: ['',],
       endDate: ['',],
-      // search: ['', [Validators.required]],
       selectedOption: [null, [Validators.required]],
       search1: ['']
-
     });
 
     this.Datefiltercustomer = this.fb.group({
@@ -217,7 +177,6 @@ export class CustomerTransViewallComponent {
     });
 
   }
-
 
   get pay() {
     return this.customerPay.get('pay');
@@ -230,17 +189,7 @@ export class CustomerTransViewallComponent {
     return this.customerPay.get('endDate');
   }
 
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-
-  reload() {
+  Getall() {
     this.service.CustomerAllTransactions(this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.transaction = res.response;
@@ -249,6 +198,14 @@ export class CustomerTransViewallComponent {
         this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.transaction);
         this.currentfilvalShow = false;
+        this.backs = '';
+        this.filterValue = '';
+        this.Datefiltercustomer.reset();
+        this.customerPay.reset()
+        this.userInput = '';
+        this.options = [];
+        this.selectedOption = ''
+        this.search1 = ''
       } else if (res.flag == 2) {
         this.transaction = [];
         this.totalPages = res.pagination.totalElements;
@@ -256,20 +213,24 @@ export class CustomerTransViewallComponent {
         this.currentpage = res.pagination.currentPage;
         this.dataSource = new MatTableDataSource(this.transaction);
         this.currentfilvalShow = false;
+        this.backs = '';
+        this.filterValue = '';
+        this.Datefiltercustomer.reset();
+        this.customerPay.reset()
+        this.userInput = '';
+        this.options = [];
+        this.selectedOption = ''
+        this.search1 = ''
       }
-
     });
 
   }
 
-
   filterdate() {
     const fromDate = this.Datefiltercustomer.get('FromDateRange')?.value;
     const toDate = this.Datefiltercustomer.get('ToDateRange')?.value;
-
     this.service.CustomerTransactionsFilter(fromDate, toDate, this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
-
         this.transaction = res.response;
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.pageSize;
@@ -280,7 +241,6 @@ export class CustomerTransViewallComponent {
         this.toastr.error(res.responseMessage)
         this.dialog.closeAll();
         this.transaction = [];
-
         this.totalPages = res.pagination.totalElements;
         this.totalpage = res.pagination.pageSize;
         this.currentpage = res.pagination.currentPage;
@@ -288,37 +248,6 @@ export class CustomerTransViewallComponent {
       }
     })
   }
-  reset() {
-    this.service.CustomerAllTransactions(this.pageSize, this.pageIndex).subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.transaction = res.response;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.transaction);
-        this.currentfilvalShow = false;
-      } else if (res.flag == 2) {
-        this.transaction = [];
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.transaction);
-        this.currentfilvalShow = false;
-      }
-
-    });
-
-
-    this.backs = '';
-    this.filterValue = '';
-    this.Datefiltercustomer.reset();
-    this.customerPay.reset()
-    this.userInput = '';
-    this.options = [];
-    this.selectedOption = ''
-    this.search1 = ''
-  }
-
 
   resetfilter() {
     this.Datefiltercustomer.reset();
@@ -330,198 +259,27 @@ export class CustomerTransViewallComponent {
         var downloadURL = URL.createObjectURL(res);
         window.open(downloadURL);
       },
-
     });
   }
-
-
-  exportexcel() {
-    this.service.CustomerAllTransactionsExport().subscribe((res: any) => {
-      this.transactionexport = res.response;
-      if (res.flag == 1) {
-        let sno = 1;
-        this.responseDataListnew = [];
-        this.transactionexport.forEach((element: any) => {
-          this.response = [];
-          this.response.push(sno);
-          this.response.push(element?.pgPaymentId);
-          this.response.push(element?.entityName);
-          this.response.push(element?.customerId);
-          this.response.push(element?.customerName);
-          this.response.push(element?.mobileNumber);
-          this.response.push(element?.serviceProviderName);
-          this.response.push(element?.setupBoxNumber);
-          this.response.push(element?.paymentMethod);
-          this.response.push(element?.paidAmount);
-
-          if (element.paymentDateTime) {
-            this.response.push(moment(element?.paymentDateTime).format('DD/MM/yyyy hh:mm a').toString());
-          }
-          else {
-            this.response.push('');
-          }
-          if (element.createdDateTime) {
-            this.response.push(moment(element?.createdDateTime).format('DD/MM/yyyy hh:mm a').toString());
-          }
-          else {
-            this.response.push('');
-          }
-          if (element?.paymentStatus == 'Success') {
-            this.response.push('Success');
-          }
-          else if (element?.paymentStatus == 'Due Pending') {
-            this.response.push('Pending');
-          }
-          else if (element?.paymentStatus == 'Payment Incomplete') {
-            this.response.push('Payment Incomplete');
-          }
-          else if (element?.paymentStatus == 'Failure') {
-            this.response.push('Payment Failed');
-          }
-          else if (element?.paymentStatus == 'Due Cancelled') {
-            this.response.push('Due-Cancelled');
-          }
-          else {
-            this.response.push('Initiated');
-          }
-
-          sno++;
-          this.responseDataListnew.push(this.response);
-        });
-        this.excelexportCustomer();
-      }
-    });
-  }
-  excelexportCustomer() {
-    // const title='Business Category';
-    const header = [
-      'sno',
-      'Payment Id',
-      'Entity Name',
-      'Customer Id',
-      'Customer Name',
-      'CustomerMobile',
-      'Service ProviderName',
-      'Setupbox Number',
-      'Payment Method',
-      'Amount',
-      'Due Generated At ',
-      'Paid At',
-      'Status',
-
-    ]
-
-
-    const data = this.responseDataListnew;
-    let workbook = new Workbook();
-    let worksheet = workbook.addWorksheet('Customer Transactions');
-    // Blank Row
-    // let titleRow = worksheet.addRow([title]);
-    // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
-
-
-    worksheet.addRow([]);
-    let headerRow = worksheet.addRow(header);
-    headerRow.font = { bold: true };
-    // Cell Style : Fill and Border
-    headerRow.eachCell((cell, number) => {
-      cell.fill = {
-        type: 'pattern',
-        pattern: 'solid',
-        fgColor: { argb: 'FFFFFFFF' },
-        bgColor: { argb: 'FF0000FF' },
-
-      }
-
-      cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-    });
-
-    data.forEach((d: any) => {
-      //
-
-      let row = worksheet.addRow(d);
-      let qty = row.getCell(1);
-      let qty1 = row.getCell(2);
-      let qty2 = row.getCell(3);
-      let qty3 = row.getCell(4);
-      let qty4 = row.getCell(5);
-      let qty5 = row.getCell(6);
-      let qty6 = row.getCell(7);
-      let qty7 = row.getCell(8);
-      let qty8 = row.getCell(9);
-      let qty9 = row.getCell(10);
-      let qty10 = row.getCell(11);
-      let qty11 = row.getCell(12);
-
-      qty.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty1.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty2.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty3.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty4.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty5.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty6.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty7.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty8.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty9.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty10.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-      qty11.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
-
-
-    }
-    );
-    // worksheet.getColumn(1).protection = { locked: true, hidden: true }
-    // worksheet.getColumn(2).protection = { locked: true, hidden: true }
-    // worksheet.getColumn(3).protection = { locked: true, hidden: true }
-    workbook.xlsx.writeBuffer().then((data: any) => {
-      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      FileSaver.saveAs(blob, 'Customer Transaction.xlsx');
-    });
-  }
-
 
   transactionview(id: any) {
-
     this.dialog.open(CustomerTransViewComponent, {
-      enterAnimationDuration: "1000ms",
-      exitAnimationDuration: "1000ms",
+      enterAnimationDuration: "500ms",
+      exitAnimationDuration: "500ms",
       disableClose: true,
-      data: {
-        value: id,
-      }
+      data: { value: id, }
     })
   }
 
   track(id: any) {
     let submitModel: customerpay = {
       payId: id?.customerPayId,
-      paidAmount: id.paidAmount
+      paidAmount: id.totalPayableAmount
     }
     this.service.Customerpay(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
         this.toastr.success(res.responseMessage);
-        setTimeout(() => {
-          this.service.CustomerAllTransactions(this.pageSize, this.pageIndex).subscribe((res: any) => {
-            if (res.flag == 1) {
-              this.transaction = res.response;
-              this.totalPages = res.pagination.totalElements;
-              this.totalpage = res.pagination.pageSize;
-              this.currentpage = res.pagination.currentPage;
-              this.dataSource = new MatTableDataSource(this.transaction);
-              this.currentfilvalShow = false;
-            } else {
-              this.toastr.error(res.responseMessage);
-              this.dialog.closeAll()
-              this.transaction = [];
-              this.totalPages = res.pagination.totalElements;
-              this.totalpage = res.pagination.pageSize;
-              this.currentpage = res.pagination.currentPage;
-              this.dataSource = new MatTableDataSource(this.transaction);
-              this.currentfilvalShow = false;
-            }
-
-          });
-
-        }, 500);
+        setTimeout(() => { this.Getall() }, 500);
       }
       else {
         this.toastr.error(res.responseMessage);
@@ -529,14 +287,9 @@ export class CustomerTransViewallComponent {
     })
   }
 
-
   CustomerAdmin(filterValue: string) {
-    if (!filterValue) {
-      // this.toastr.error('Please enter a value to search');
-      return;
-    }
+    if (!filterValue) { return; }
     if (filterValue) {
-
       this.service.CustomeradminSearch(filterValue, this.pageSize, this.pageIndex).subscribe({
         next: (res: any) => {
           if (res.response) {
@@ -562,13 +315,9 @@ export class CustomerTransViewallComponent {
     }
   }
 
-
-
   resets() {
     window.location.reload()
   }
-
-
 
   Filter(event: any) {
     console.log(event.target.value);
@@ -588,15 +337,12 @@ export class CustomerTransViewallComponent {
     else if (this.filterValue == 'Datefilter') {
       this.dialogRef = this.dialog.open(this.DateFilter, {
         enterAnimationDuration: '500ms',
-        exitAnimationDuration: '1000ms',
+        exitAnimationDuration: '500ms',
         disableClose: true,
         position: { right: '0px' },
-        // width: '30%'
       });
     }
   }
-
-
 
   onInputChange(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
@@ -605,7 +351,6 @@ export class CustomerTransViewallComponent {
 
   onSearchClick(searchSelect: NgSelectComponent): void {
     this.searchAPI(this.userInput);
-    // Keep the dropdown open after the search
     if (!searchSelect.isOpen) {
       searchSelect.open();
     }
@@ -614,7 +359,6 @@ export class CustomerTransViewallComponent {
   onRemoveClick() {
     this.selectedOption = null;
     this.options = [];
-    console.log('No data found');
   }
 
   searchAPI(query: string): void {
@@ -650,14 +394,11 @@ export class CustomerTransViewallComponent {
     }
   }
 
-
   customerpay() {
     if (!this.startDate?.value && !this.endDate?.value) {
       this.flags = 1;
-      console.log('Flag set to 1:', this.flags);
     } else {
       this.flags = 2;
-      console.log('Flag set to 2:', this.flags);
     }
     let submitModel: customerpayfilter = {
       paymentStatus: this.pay?.value,
@@ -714,14 +455,13 @@ export class CustomerTransViewallComponent {
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
             this.dataSource = new MatTableDataSource(this.transaction);
-
-          } else if (res.flag == 2) {
+          }
+          else if (res.flag == 2) {
             this.transaction = [];
             this.totalPages = res.pagination.totalElements;
             this.totalpage = res.pagination.pageSize;
             this.currentpage = res.pagination.currentPage;
             this.dataSource = new MatTableDataSource(this.transaction);
-
           }
         },
         error: (err: any) => {
@@ -729,15 +469,11 @@ export class CustomerTransViewallComponent {
         }
       });
     }
-
-
     else if (this.filterValue === 'Filterbycustomerpay') {
       if (!this.startDate?.value && !this.endDate?.value) {
         this.flags = 1;
-        console.log('Flag set to 1:', this.flags);
       } else {
         this.flags = 2;
-        console.log('Flag set to 2:', this.flags);
       }
       let submitModel: customerpayfilter = {
         paymentStatus: this.pay?.value,
@@ -764,11 +500,9 @@ export class CustomerTransViewallComponent {
         }
       });
     }
-
     else if (this.filterValue === 'Datefilter') {
       const fromDate = this.Datefiltercustomer.get('FromDateRange')?.value;
       const toDate = this.Datefiltercustomer.get('ToDateRange')?.value;
-
       this.service.CustomerTransactionsFilter(fromDate, toDate, event.pageSize, event.pageIndex).subscribe((res: any) => {
         if (res.flag == 1) {
           this.transaction = res.response;
@@ -788,7 +522,6 @@ export class CustomerTransViewallComponent {
         }
       })
     }
-
     else {
       this.service.CustomerAllTransactions(event.pageSize, event.pageIndex).subscribe((res: any) => {
         if (res.flag == 1) {
@@ -804,7 +537,6 @@ export class CustomerTransViewallComponent {
           this.totalpage = res.pagination.pageSize;
           this.currentpage = res.pagination.currentPage;
           this.dataSource = new MatTableDataSource(this.transaction);
-
         }
 
       });

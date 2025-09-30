@@ -1,59 +1,85 @@
 <h4 style="text-align:left;color:#141E46;">WhatsApp History</h4>
 
 <mat-card-header>
-    <div class="row">
-        <div class="col mt-4 ">
-            <div class="search">
-                <form class="form">
-                    <label for="search">
-                        <input #input required="" autocomplete="off" placeholder="Search" id="search" type="text"
-                            name="search" [(ngModel)]="currentfilval">
-                        <div class="icon">
-                            <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg" class="swap-on">
-                                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
-                                    stroke-linecap="round">
-                                </path>
-                            </svg>
-                        </div>
-                        <button (click)="resetFilter()" type="reset" class="close-btn">
-                            <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
-                                <path clip-rule="evenodd"
-                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                    fill-rule="evenodd"></path>
-                            </svg>
-                        </button>
-                    </label>
-                </form>
-            </div> &nbsp;&nbsp;
-            <button (click)="Search(currentfilval)"
-                style="color:white;background-color: #141E46;border-radius: 10px;font-size:12px"
-                mat-raised-button>Go</button>
+    <div class="d-flex flex-wrap align-items-center gap-3 justify-content-start">
+
+        <!-- Search Input -->
+        <div class="search">
+            <form class="form">
+                <label for="search">
+                     <input #input required autocomplete="off" placeholder="Search" id="search" type="text"
+                            name="search" [(ngModel)]="currentfilval" />
+                    <div class="icon">
+                        <svg stroke-width="2" stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg" class="swap-on">
+                            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round"
+                                stroke-linecap="round"></path>
+                        </svg>
+                    </div>
+                    <button (click)="resetSearchFilter()" type="reset" class="close-btn">
+                        <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
+                            <path clip-rule="evenodd"
+                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                fill-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </label>
+            </form>
         </div>
-        <div class="col-2">
+
+        <!-- Go Button -->
+        <button (click)="Search(currentfilval)"
+            style="color:white;background-color: #141E46;border-radius: 10px;font-size:12px"
+            mat-raised-button>Go</button>
+
+        <!-- Actions Dropdown -->
+        <div class="dropdown"
+            [hidden]="valueDownload!=='Download WhatsApp Bulk Upload Template' && valueUpload!=='Upload WhatsApp File'">
+            <button class="btn btn-secondary dropdown-toggle custom-btn btn-10"
+                style="color: white;background-color: #141e46;font-size: 13px;border-radius: 10px;width: 106px;height: 37px;font-weight: 600;"
+                type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                Actions
+            </button>
+            <ul class="dropdown-menu" style="font-size: 14px;" aria-labelledby="dropdownMenuButton">
+                <li>
+                    <button [hidden]="valueDownload!=='Download WhatsApp Bulk Upload Template'" class="dropdown-item"
+                        (click)="excelbulk()">Download WhatsApp Bulk Upload Template</button>
+                </li>
+                <li>
+                    <button [hidden]="valueUpload!=='Upload WhatsApp File'" class="dropdown-item"
+                        (click)="createWhatsApp()">Upload WhatsApp File</button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- From Date -->
+        <div style="margin-top: -27px;">
             <label><b>From Date</b></label>
             <input onkeydown="return false;" class="form-control" type="date" name="FromDate"
                 [(ngModel)]="FromDateRange" (change)="checkDate()" [max]="maxDate"
                 style="height:35px;width:150px;border-radius: 5px;">
         </div>
-        <div class="col-2">
+
+        <!-- To Date -->
+        <div style="margin-top: -27px;">
             <label><b>To Date</b></label>
             <input onkeydown="return false;" class="form-control" type="date" name="ToDate" [(ngModel)]="ToDateRange"
                 [min]="FromDateRange" [max]="maxDate" style="height:35px;width:150px;border-radius: 5px;">
         </div>
 
-        <div class="col-1 mt-4">
-            <button class="buttonDownload" style="font-size: 12px;" [disabled]="FromDateRange == '' || ToDateRange ==''"
-                mat-raised-button (click)="filterdate()">Filter</button>
-        </div>
+        <!-- Filter Button -->
+        <button class="buttonDownload" style="font-size: 12px;" [disabled]="!FromDateRange|| !ToDateRange"
+            mat-raised-button (click)="filterdate()">Filter</button>
 
-        <div class="col-2 mt-4">
-            <button style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button
-                (click)="resetFilter()">Reset</button>
-        </div>
+        <!-- Reset Button -->
+        <button [disabled]="!FromDateRange|| !ToDateRange" class="buttonDownload" style="font-size: 12px;"
+            mat-raised-button (click)="resetDateFilter()">Reset</button>
 
     </div>
 </mat-card-header>
+
+
+
 
 <mat-card-content>
     <div class="example-container text-nowrap mt-3" style="overflow-x: scroll; scrollbar-width: thin;">
@@ -143,8 +169,8 @@
                     <span *ngIf="Viewall?.responseStatus == 'Success'" class="text-success">
                         Success
                     </span>
-                    <span *ngIf="Viewall?.responseStatus == 'Failure'" class="text-danger">
-                        Failure
+                    <span *ngIf="Viewall?.responseStatus == 'Failed'" class="text-danger">
+                        Failed
                     </span>
                 </td>
             </ng-container>

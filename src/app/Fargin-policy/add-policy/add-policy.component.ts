@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { FormGroup, FormControl, Validators, } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { addpolicy, AdminPolicycreate } from '../../fargin-model/fargin-model.module';
+import { addpolicy } from '../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../service/fargin-service.service';
 
 @Component({
   selector: 'app-add-policy',
   templateUrl: './add-policy.component.html',
-  styleUrl: './add-policy.component.css'
+  styleUrl: './add-policy.component.css',
 })
 export class AddPolicyComponent {
   getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
@@ -19,14 +18,13 @@ export class AddPolicyComponent {
   dataSource: any;
   errorMsg: any;
 
-
-  constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, private fb: FormBuilder, private router: Router) { }
-
+  constructor(
+    private service: FarginServiceService,
+    private toastr: ToastrService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-
-
-
 
     this.policycreate = new FormGroup({
       termAndCondition: new FormControl('', [Validators.required]),
@@ -34,13 +32,8 @@ export class AddPolicyComponent {
       privacyPolicy: new FormControl('', [Validators.required]),
       refundPolicy: new FormControl('', [Validators.required]),
       createdBy: new FormControl(''),
-
-
     });
-
   }
-
-
 
   get termAndCondition() {
     return this.policycreate.get('termAndCondition');
@@ -58,12 +51,6 @@ export class AddPolicyComponent {
     return this.policycreate.get('refundPolicy');
   }
 
-
-
-  close() {
-    this.router.navigateByUrl('dashboard/view-policy');
-  }
-
   admincreate() {
     let submitModel: addpolicy = {
       termAndCondition: this.termAndCondition.value.trim(),
@@ -71,23 +58,19 @@ export class AddPolicyComponent {
       privacyPolicy: this.privacyPolicy.value.trim(),
       refundPolicy: this.refundPolicy.value.trim(),
       createdBy: this.getadminname,
-
     };
-
     this.service.addTermsPolicy(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage)
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+        this.toastr.success(res.responseMessage);
+        setTimeout(() => { window.location.reload(); }, 200);
         this.router.navigateByUrl('dashboard/view-policy');
-
-      }
-      else {
+      } else {
         this.toastr.error(res.responseMessage);
       }
-
     });
-  }
+  };
 
+  close() {
+    this.router.navigateByUrl('dashboard/view-policy');
+  }
 }

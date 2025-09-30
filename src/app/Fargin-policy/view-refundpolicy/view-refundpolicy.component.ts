@@ -5,18 +5,20 @@ import { FarginServiceService } from '../../service/fargin-service.service';
 @Component({
   selector: 'app-view-refundpolicy',
   templateUrl: './view-refundpolicy.component.html',
-  styleUrl: './view-refundpolicy.component.css'
+  styleUrl: './view-refundpolicy.component.css',
 })
-export class ViewRefundpolicyComponent  implements OnInit {
+export class ViewRefundpolicyComponent implements OnInit {
   refundPolicyValue: any;
 
-  constructor(private dialog:MatDialog,private service: FarginServiceService, @Inject(MAT_DIALOG_DATA) public data: any,) { }
+  constructor(
+    private dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) { }
   ngOnInit(): void {
-    this.refundPolicyValue = this.data.value.refundPolicy
+    this.refundPolicyValue = this.data.value.refundPolicy;
   }
 
   close() {
     this.dialog.closeAll();
   }
-
 }

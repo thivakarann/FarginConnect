@@ -1,7 +1,7 @@
 <h4 style="text-align:left;color:#141E46;">Customer Ticket</h4>
+
 <mat-card-header>
   <div class="row">
-
     <div class="col mt-3">
       <div class="search ">
         <form class="form">
@@ -15,7 +15,7 @@
                 </path>
               </svg>
             </div>
-            <button (click)="reload()" type="reset" class="close-btn">
+            <button (click)="Getall()" type="reset" class="close-btn">
               <svg viewBox="0 0 20 20" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
                 <path clip-rule="evenodd"
                   d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -24,21 +24,18 @@
             </button>
           </label>
         </form>
-
       </div>
       &nbsp;&nbsp;&nbsp;
       <button (click)="customerpay(currentfilval)"
         style="color:white;background-color: #141E46;border-radius: 10px;font-size: 12px;" mat-raised-button>Go</button>
-
-
     </div>
   </div>
 </mat-card-header>
 
 <mat-card-content>
-  <!-- <span style="color: red;"  class="tableError">NO DATA FOUND</span> -->
   <div class="example-container text-nowrap mt-3" style="overflow-x: scroll; scrollbar-width: thin;">
     <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
       <ng-container matColumnDef="sno">
         <th mat-header-cell *matHeaderCellDef>S.No</th>
         <td mat-cell *matCellDef="let data; let i = index">
@@ -71,6 +68,21 @@
         <th mat-header-cell *matHeaderCellDef>Entity Name</th>
         <td mat-cell *matCellDef="let data">
           {{ data?.merchantLegalName}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Area">
+        <th mat-header-cell *matHeaderCellDef>Area</th>
+        <td mat-cell *matCellDef="let data">
+          {{ data.setTopBoxArea}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="FieldExecutivename">
+        <th mat-header-cell *matHeaderCellDef>Field Executive Name</th>
+        <td mat-cell *matCellDef="let data">
+          <span *ngIf=" data.merchantAdminName==null" style="color: red;font-weight: 600;">Not Assigned</span>
+          <span *ngIf=" data.merchantAdminName!=null">{{data?.merchantAdminName}}</span>
         </td>
       </ng-container>
 
@@ -120,19 +132,10 @@
             style="color: green;font-weight: 600;">Closed</span>
           <span *ngIf="data?.ticketStatus=='hold' || data?.ticketStatus=='Hold'"
             style="color: orange;font-weight: 600;">Hold</span>
-          <span *ngIf="data?.ticketStatus=='Submitted'" style="color: orange;font-weight: 600;">Pending for
+          <span *ngIf="data?.ticketStatus=='Pending for Approval'" style="color: orange;font-weight: 600;">Pending for
             Approval</span>
-
-          <!-- {{ data.ticketStatus }} -->
         </td>
       </ng-container>
-
-      <!-- <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef [hidden]="valuecustomerticketedit!=='Customer Request-Edit'">Action</th>
-        <td mat-cell *matCellDef="let data" [hidden]="valuecustomerticketedit!=='Customer Request-Edit'">
-          <i style="cursor: pointer;font-size:15px; color:#545497;" class="fas fa-edit" (click)="update(data)"></i>
-        </td>
-      </ng-container> -->
 
       <ng-container matColumnDef="createdDateTime">
         <th mat-header-cell *matHeaderCellDef>Created At</th>
@@ -140,21 +143,6 @@
           {{ data.createdDateTime | date:"dd/MM/yyyy hh:mm a" }}
         </td>
       </ng-container>
-
-      <!-- <ng-container matColumnDef="ticketStatusModifedBy">
-        <th mat-header-cell *matHeaderCellDef>Status Updated By</th>
-        <td mat-cell *matCellDef="let data">
-          {{ data.ticketStatusModifedBy}}
-        </td>
-      </ng-container> -->
-
-      <!-- 
-      <ng-container matColumnDef="ticketModifedDateTime">
-        <th mat-header-cell *matHeaderCellDef>Status Updated Date/Time</th>
-        <td mat-cell *matCellDef="let data">
-          {{ data.ticketModifedDateTime | date:"dd/MM/yyyy hh:mm a" }}
-        </td>
-      </ng-container> -->
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
       <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
@@ -164,16 +152,13 @@
         </td>
       </tr>
     </table>
-
   </div>
 </mat-card-content>
-<mat-card-footer>
 
+<mat-card-footer>
   <mat-paginator (page)="getData($event)" [length]="totalPages" [pageIndex]="currentpage" [pageSize]="totalpage"
     [pageSizeOptions]="[5, 10, 50, 100, 200,300,500]" aria-label="Select page">
   </mat-paginator>
-
 </mat-card-footer>
-
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

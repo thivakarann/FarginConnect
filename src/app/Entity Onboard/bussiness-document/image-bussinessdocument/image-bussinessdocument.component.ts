@@ -20,6 +20,7 @@ export class ImageBussinessdocumentComponent {
   file2: any;
   updatedata: any;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
+  getadminname = JSON.parse(sessionStorage.getItem('adminname') || '');
 
   constructor(
     private service: FarginServiceService,
@@ -118,8 +119,8 @@ export class ImageBussinessdocumentComponent {
 
   Update() {
     const formData = new FormData();
-    formData.append('merchantDocumentId', this.id);
-    formData.append('modifiedBy', this.id);
+    formData.append('merchantDocumentId',this.id);
+    formData.append('modifiedBy',"");
 
     if (this.flag === 1 && this.file1) {
       formData.append('docFrontPath', this.file1);

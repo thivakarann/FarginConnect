@@ -44,6 +44,7 @@ export class EntityAddComponent implements OnInit {
   kycDocname5: any;
   kycDocname6: any;
   emptyBlob = new Blob([], { type: 'application/pdf' });
+  placeholderImage!: File;
   fileType: any;
   error!: boolean;
   file3!: File;
@@ -210,7 +211,7 @@ export class EntityAddComponent implements OnInit {
 
       // payoutEnable: new FormControl("", [Validators.required]),
 
-      customerManualStatus: new FormControl('', [Validators.required]),
+      customerManualStatus: new FormControl('Disable', [Validators.required]),
 
       customerPaymentMode: new FormControl('', [Validators.required]),
 
@@ -297,7 +298,18 @@ export class EntityAddComponent implements OnInit {
       docFrontPath: ['', Validators.required],
       docBackPath: ['', Validators.required],
     });
+
+    this.loadPlaceholderImage().then(file => {
+      this.placeholderImage = file;
+    });
+  };
+
+  async loadPlaceholderImage(): Promise<File> {
+    const res = await fetch('assets/fargin_blue.png');
+    const blob = await res.blob();
+    return new File([blob], 'placeholder.jpg', { type: blob.type });
   }
+
 
   mobileNumbersNotSameValidator(group: AbstractControl): ValidationErrors | null {
     const primary = group.get('contactMobile')?.value;
@@ -992,7 +1004,7 @@ export class EntityAddComponent implements OnInit {
     formData.append('mccCode', this.mcccode.trim());
     formData.append('periodName', 'NA');
     formData.append('website', this.website?.value.trim() || '');
-    formData.append('merchantLogo', this.uploadImage || this.emptyBlob);
+    formData.append('merchantLogo', this.uploadImage || this.placeholderImage);
     formData.append('billingMode', this.billingMode?.value);
     formData.append('autoDebitStatus', this.autoDebitStatus?.value);
     formData.append('customerDuesEnable', this.customerDuesEnable?.value);
@@ -1003,7 +1015,7 @@ export class EntityAddComponent implements OnInit {
     formData.append('payoutEnable', '0');
     formData.append('customerPaymentMode', this.customerPaymentMode?.value);
     formData.append('renewalAutoDebit', this.renewalAutoDebit?.value);
-    formData.append('customerManualStatus', this.customerManualStatus?.value);
+    formData.append('customerManualStatus', '0');
     formData.append('smsMerchantName', this.smsMerchantName?.value);
     formData.append('customerSmsTag', this.customerSmsTag?.value || 'NA');
     formData.append('cloudFeeEnable', this.cloudFeeEnable?.value);

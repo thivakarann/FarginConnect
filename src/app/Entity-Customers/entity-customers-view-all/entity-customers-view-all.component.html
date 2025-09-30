@@ -84,6 +84,24 @@
           {{ viewall.Status == 0 ? "Inactive" : "Active" }}
         </td>
       </ng-container>
+
+      <ng-container matColumnDef="communicationType">
+        <th mat-header-cell *matHeaderCellDef>Communication Type</th>
+        <td mat-cell *matCellDef="let viewall">
+          <span *ngIf="viewall.communicationType==''">-</span>
+          <span *ngIf="viewall.communicationType!=''">{{viewall.communicationType}}</span>
+
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="communicationLanguage">
+        <th mat-header-cell *matHeaderCellDef>Communication Language</th>
+        <td mat-cell *matCellDef="let viewall">
+          <span *ngIf="viewall.communicationLanguage==''">-</span>
+          <span *ngIf="viewall.communicationLanguage!=''">{{viewall.communicationLanguage}}</span>
+
+        </td>
+      </ng-container>
       <ng-container matColumnDef="view">
         <th mat-header-cell *matHeaderCellDef [hidden]="valuecustomerview !== 'Entity View Customer-View'">
           View
@@ -97,13 +115,13 @@
       <ng-container matColumnDef="QRImage">
         <th [hidden]="QRImage!== 'Customer-QR'" mat-header-cell *matHeaderCellDef mat-sort-header>QR Image</th>
         <td [hidden]="QRImage!== 'Customer-QR'" mat-cell *matCellDef="let viewall">
-          <span [hidden]="viewall?.customerQrStatus ==0">
+          <span [hidden]="viewall?.customerQrStatus ==0 || viewall?.cusQrStatus ==0 ">
             <button style="font-size: 19px;color: rgb(39, 39, 95);border: none;cursor: pointer;background: none;"
               (click)="viewQr(viewall.customerId,viewall?.mobileNumber)">
               <i class="fa-solid fa-qrcode"></i>
             </button>
           </span>
-          <span [hidden]="viewall?.customerQrStatus ==1" style="font-family: math;
+          <span [hidden]="viewall?.customerQrStatus ==1 ||  viewall?.cusQrStatus ==0" style="font-family: math;
     color: #141e46;
     font-size: 14px;
     font-weight: 600;">

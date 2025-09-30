@@ -7,8 +7,6 @@ import { ToastrService } from 'ngx-toastr';
 import { Workbook } from 'exceljs';
 import FileSaver from 'file-saver';
 import moment from 'moment';
-import { PageEvent } from '@angular/material/paginator';
-import { AdminCreateComponent } from '../admin-create/admin-create.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { AdminTermsConditionComponent } from '../admin-terms-condition/admin-terms-condition.component';
@@ -53,7 +51,6 @@ export class AdminViewComponent implements OnInit {
   totalpage: any;
   currentpage: any;
   merchantpolicyexport: any;
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   isChecked: any;
@@ -82,17 +79,14 @@ export class AdminViewComponent implements OnInit {
     private service: FarginServiceService,
     private toastr: ToastrService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
 
     this.service.rolegetById(this.roleId).subscribe({
       next: (res: any) => {
-
-
         if (res.flag == 1) {
           this.getdashboard = res.response?.subPermission;
-
           if (this.roleId == 1) {
             this.valuetermCreate = 'Merchant Policy-Add';
             this.valuetermExport = 'Merchant Policy-Export';
@@ -103,7 +97,6 @@ export class AdminViewComponent implements OnInit {
           else {
             for (let datas of this.getdashboard) {
               this.actions = datas.subPermissions;
-
 
               if (this.actions == 'Merchant Policy-Add') {
                 this.valuetermCreate = 'Merchant Policy-Add';
@@ -127,11 +120,12 @@ export class AdminViewComponent implements OnInit {
           this.errorMessage = res.responseMessage;
         }
       }
-    })
+    });
+    this.Getall();
+  }
 
-    this.service
-    .adminPolicyget(this.pageSize, this.pageIndex)
-    .subscribe((res: any) => {
+  Getall() {
+    this.service.adminPolicyget(this.pageSize, this.pageIndex).subscribe((res: any) => {
       if (res.flag == 1) {
         this.businesscategory = res.response;
         this.totalPages = res.pagination.totalElements;
@@ -147,55 +141,152 @@ export class AdminViewComponent implements OnInit {
         this.currentfilvalShow = false;
       }
     });
-
-
-
-
-  }
-
-  reload() {
-    this.service
-    .adminPolicyget(this.pageSize, this.pageIndex)
-    .subscribe((res: any) => {
-      if (res.flag == 1) {
-        this.businesscategory = res.response;
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.dataSource = new MatTableDataSource(this.businesscategory);
-        this.currentfilvalShow = false;
-      } else if (res.flag === 2) {
-        this.dataSource = new MatTableDataSource([]);
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.currentfilvalShow = false;
-      }
-    });
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
   }
 
   create() {
     this.router.navigateByUrl('dashboard/Termspolicy-create');
   }
+
+  Edit(id: any) {
+    this.router.navigate([`dashboard/policy-edit/${id}`], {
+      queryParams: { Alldata: id },
+    });
+  }
+
   togglePrivacyPolicy() {
     this.isFullPolicyVisible = !this.isFullPolicyVisible;
   }
 
+  policyApproval(id: any) {
+    const dialogRef = this.dialog.open(PolicyApprovalComponent, {
+      data: { value: id },
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '500ms',
+      disableClose: true,
+      width: '80vw',
+      maxWidth: '500px',
+    });
+    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
+      this.Getall();
+    });
+  };
+
+  Terms(id: any) {
+    this.dialog.open(AdminTermsConditionComponent, {
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '500ms',
+      disableClose: true,
+      data: { value: id },
+    });
+
+  }
+
+  Disclaimer(id: any) {
+    this.dialog.open(AdminDisclaimerComponent, {
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '500ms',
+      disableClose: true,
+      data: { value: id },
+
+    });
+  }
+
+  privacypolicy(id: any) {
+    this.dialog.open(AdminPrivacypolicyComponent, {
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '500ms',
+      disableClose: true,
+      data: { value: id },
+    });
+  }
+
+  refundpolicy(id: any) {
+    this.dialog.open(AdminRefundpolicyComponent, {
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '500ms',
+      disableClose: true,
+      data: { value: id },
+    });
+  };
+
+  customerpay(filterValue: string) {
+    if (filterValue) {
+      this.service.termspolicysearch('2', filterValue, this.pageSize, this.pageIndex).subscribe({
+        next: (res: any) => {
+          if (res.flag == 1) {
+            this.transactionValue = res.response;
+            this.dataSource = new MatTableDataSource(this.transactionValue);
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.currentfilvalShow = true;
+          } else if (res.flag === 2) {
+            this.transactionValue = [];
+            this.dataSource = new MatTableDataSource(this.transactionValue);
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.currentfilvalShow = true;
+          }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
+        },
+      });
+    } else if (!filterValue) {
+      this.toastr.error('Please enter a value to search');
+      return;
+    }
+  }
+
+  getData(event: any) {
+    if (this.currentfilvalShow) {
+      this.service.termspolicysearch('2', this.currentfilval, event.pageSize, event.pageIndex).subscribe({
+        next: (res: any) => {
+          if (res.flag == 1) {
+            this.transactionValue = res.response;
+            this.dataSource = new MatTableDataSource(this.transactionValue);
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.currentfilvalShow = true;
+          } else if (res.flag == 2) {
+            this.transactionValue = [];
+            this.dataSource = new MatTableDataSource(this.transactionValue);
+            this.totalPages = res.pagination.totalElements;
+            this.totalpage = res.pagination.pageSize;
+            this.currentpage = res.pagination.currentPage;
+            this.currentfilvalShow = true;
+          }
+        },
+        error: (err: any) => {
+          this.toastr.error('No Data Found');
+        },
+      });
+    }
+    else {
+      this.service.adminPolicyget(event.pageSize, event.pageIndex).subscribe((res: any) => {
+        if (res.flag == 1) {
+          this.businesscategory = res.response;
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+          this.dataSource = new MatTableDataSource(this.businesscategory);
+
+        } else if (res.flag === 2) {
+          this.dataSource = new MatTableDataSource([]);
+          this.totalPages = res.pagination.totalElements;
+          this.totalpage = res.pagination.pageSize;
+          this.currentpage = res.pagination.currentPage;
+        }
+      });
+    }
+  }
+
   exportexcel() {
- 
     this.service.adminPolicygetExport().subscribe((res: any) => {
       this.merchantpolicyexport = res.response;
       if (res.flag == 1) {
- 
         let sno = 1;
         this.responseDataListnew = [];
         this.merchantpolicyexport.forEach((element: any) => {
@@ -215,9 +306,8 @@ export class AdminViewComponent implements OnInit {
           }
           else {
             this.response.push();
-          } 
+          }
           this.response.push(element?.createdBy);
- 
           if (element?.createdDateTime != null) {
             let createdate = element?.createdDateTime;
             this.date1 = moment(createdate).format('DD/MM/yyyy-hh:mm a').toString();
@@ -226,12 +316,7 @@ export class AdminViewComponent implements OnInit {
           else {
             this.response.push();
           }
- 
-          // this.response.push(this.date1);
           this.response.push(element?.modifiedBy);
- 
-          // this.response.push(this.date2);
- 
           if (element?.modifiedDateTime != null) {
             let moddate = element?.modifiedDateTime;
             this.date2 = moment(moddate).format('DD/MM/yyyy-hh:mm a').toString();
@@ -240,20 +325,15 @@ export class AdminViewComponent implements OnInit {
           else {
             this.response.push();
           }
- 
- 
           sno++;
           this.responseDataListnew.push(this.response);
         });
         this.excelexportCustomer();
       }
- 
     });
   }
- 
- 
+
   excelexportCustomer() {
-    // const title = 'Privacy Policy';
     const header = [
       'S.No',
       'Entity Name',
@@ -269,19 +349,12 @@ export class AdminViewComponent implements OnInit {
       'Modified By',
       'Modified At',
     ];
-
     const data = this.responseDataListnew;
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Terms and Policy');
-    // Blank Row
-    // let titleRow = worksheet.addRow([title]);
-    // titleRow.font = { name: 'Times New Roman', family: 4, size: 16, bold: true };
- 
- 
     worksheet.addRow([]);
     let headerRow = worksheet.addRow(header);
     headerRow.font = { bold: true };
-    // Cell Style : Fill and Border
     headerRow.eachCell((cell, number) => {
       cell.fill = {
         type: 'pattern',
@@ -289,7 +362,6 @@ export class AdminViewComponent implements OnInit {
         fgColor: { argb: 'FFFFFFFF' },
         bgColor: { argb: 'FF0000FF' },
       };
-
       cell.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
@@ -297,10 +369,8 @@ export class AdminViewComponent implements OnInit {
         right: { style: 'thin' },
       };
     });
- 
+
     data.forEach((d: any) => {
-      //
- 
       let row = worksheet.addRow(d);
       let qty = row.getCell(1);
       let qty1 = row.getCell(2);
@@ -388,180 +458,23 @@ export class AdminViewComponent implements OnInit {
         right: { style: 'thin' },
       };
     });
-
     workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], {
         type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       });
-
-      FileSaver.saveAs(blob, 'Terms and Policy.xlsx');
- 
+      FileSaver.saveAs(blob, 'Entity Terms and Policy.xlsx');
     });
   }
 
 
-  policyApproval(id: any) {
-    const dialogRef =  this.dialog.open(PolicyApprovalComponent, {
-      data: { value: id },
-      enterAnimationDuration: '1000ms',
-      exitAnimationDuration: '1000ms',
-      disableClose: true,
-      width: '80vw',// Use percentage to make it responsive
-      maxWidth: '500px',
-    });
-    dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
-      this.fetch();
-    });
-  }
-
-fetch()
-{
-  this.service
-  .adminPolicyget(this.pageSize, this.pageIndex)
-  .subscribe((res: any) => {
-    if (res.flag == 1) {
-      this.businesscategory = res.response;
-      this.totalPages = res.pagination.totalElements;
-      this.totalpage = res.pagination.pageSize;
-      this.currentpage = res.pagination.currentPage;
-      this.dataSource = new MatTableDataSource(this.businesscategory);
-      this.currentfilvalShow = false;
-    } else if (res.flag === 2) {
-      this.dataSource = new MatTableDataSource([]);
-      this.totalPages = res.pagination.totalElements;
-      this.totalpage = res.pagination.pageSize;
-      this.currentpage = res.pagination.currentPage;
-      this.currentfilvalShow = false;
-    }
-  });
-}
-
-  Terms(id: any) {
-    this.dialog.open(AdminTermsConditionComponent, {
-      enterAnimationDuration: '1000ms',
-      exitAnimationDuration: '1000ms',
-      disableClose: true,
-      data: { value: id },
-    });
-
-  }
-
-  Disclaimer(id: any) {
-    this.dialog.open(AdminDisclaimerComponent, {
-      enterAnimationDuration: '1000ms',
-      exitAnimationDuration: '1000ms',
-      disableClose: true,
-      data: { value: id },
-
-    });
-  }
-  privacypolicy(id: any) {
-    this.dialog.open(AdminPrivacypolicyComponent, {
-      enterAnimationDuration: '1000ms',
-      exitAnimationDuration: '1000ms',
-      disableClose: true,
-      data: { value: id },
 
 
-    });
-  }
-  refundpolicy(id: any) {
-    this.dialog.open(AdminRefundpolicyComponent, {
-      enterAnimationDuration: '1000ms',
-      exitAnimationDuration: '1000ms',
-      disableClose: true,
-      data: { value: id },
 
 
-    });
-  }
 
 
-  Edit(id: any) {
-    this.router.navigate([`dashboard/policy-edit/${id}`], {
-      queryParams: { Alldata: id },
-    });
-  }
 
-  customerpay(filterValue: string) {
-    if (filterValue) {
-      this.service
-      .termspolicysearch('2', filterValue, this.pageSize, this.pageIndex)
-      .subscribe({
-        next: (res: any) => {
-          if (res.flag==1) {
-            this.transactionValue = res.response;
-            this.dataSource = new MatTableDataSource(this.transactionValue);
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.currentfilvalShow = true;
-          } else if (res.flag === 2) {
-            this.transactionValue = [];
-            this.dataSource = new MatTableDataSource(this.transactionValue);
-            this.totalPages = res.pagination.totalElements;
-            this.totalpage = res.pagination.pageSize;
-            this.currentpage = res.pagination.currentPage;
-            this.currentfilvalShow = true;
-          }
-        },
-        error: (err: any) => {
-          this.toastr.error('No Data Found');
-        },
-      });
-    } else if (!filterValue) {
-      this.toastr.error('Please enter a value to search');
-      return;
-    }
-  }
 
-  getData(event: any) {
- if (this.currentfilvalShow) {
-  this.service
-  .termspolicysearch('2', this.currentfilval, event.pageSize, event.pageIndex)
-  .subscribe({
-    next: (res: any) => {
-      if (res.flag==1) {
-        this.transactionValue = res.response;
-        this.dataSource = new MatTableDataSource(this.transactionValue);
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.currentfilvalShow = true;
-      } else if (res.flag == 2) {
-        this.transactionValue = [];
-        this.dataSource = new MatTableDataSource(this.transactionValue);
-        this.totalPages = res.pagination.totalElements;
-        this.totalpage = res.pagination.pageSize;
-        this.currentpage = res.pagination.currentPage;
-        this.currentfilvalShow = true;
-      }
-    },
-    error: (err: any) => {
-      this.toastr.error('No Data Found');
-    },
-  });
-    }
 
-    else {
-      this.service
-      .adminPolicyget(event.pageSize, event.pageIndex)
-      .subscribe((res: any) => {
-        if (res.flag == 1) {
-          this.businesscategory = res.response;
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
-          this.dataSource = new MatTableDataSource(this.businesscategory);
-      
-        } else if (res.flag === 2) {
-          this.dataSource = new MatTableDataSource([]);
-          this.totalPages = res.pagination.totalElements;
-          this.totalpage = res.pagination.pageSize;
-          this.currentpage = res.pagination.currentPage;
 
-        }
-      });
-    }
-  }
 }

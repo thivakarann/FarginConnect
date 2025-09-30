@@ -36,11 +36,14 @@ export class DashboardMerchantcontentComponent {
   valuetodaytrans: any;
   Monthtrans: any;
   AdditionTrans: any;
+  currentmonthcustrans: any;
+  valueCurrentMonth: any;
+  selectedtodays: string = 'dueTransaction';
 
   constructor(
     public loaderService: LoaderService,
     private service: FarginServiceService,
-  ) {}
+  ) { }
 
 
   ngOnInit(): void {
@@ -54,8 +57,9 @@ export class DashboardMerchantcontentComponent {
             this.valueTicketsView = 'Ticket Overview';
             this.valueEmployeeView = 'Employee Overview';
             this.valuetodaytrans = 'Today Transactions';
-            this.Monthtrans = 'Monthly Collection Analytics';
+            this.Monthtrans = 'Monthly Collection Analytics Existing Connections';
             this.AdditionTrans = 'Additional Collection Analytics';
+            this.valueCurrentMonth = 'Current Month Collection Analytics New Connections';
           }
           else {
             for (let datas of this.getdashboard) {
@@ -77,8 +81,12 @@ export class DashboardMerchantcontentComponent {
                 this.valuetodaytrans = 'Today Transactions';
               }
 
-              if (this.actions == 'Monthly Collection Analytics') {
-                this.Monthtrans = 'Monthly Collection Analytics';
+              if (this.actions == 'Monthly Collection Analytics Existing Connections') {
+                this.Monthtrans = 'Monthly Collection Analytics Existing Connections';
+              }
+
+              if (this.actions == 'Current Month Collection Analytics New Connections') {
+                this.valueCurrentMonth = 'Current Month Collection Analytics New Connections';
               }
 
               if (this.actions == 'Additional Collection Analytics') {
@@ -151,6 +159,7 @@ export class DashboardMerchantcontentComponent {
     this.duepending = '';
     this.additionalmonth = '';
     this.lastmonth = '';
+    this.currentmonthcustrans = '';
     this.fromDates = '';
     this.toDates = '';
     this.selectedPeriods = '';
@@ -180,8 +189,11 @@ export class DashboardMerchantcontentComponent {
     this.service.dashboardemployeecounts(this.merchantId).subscribe((res: any) => {
       this.dashboardemployecount = res.response;
     });
-    this.service.dashbaordcustomerday(this.merchantId).subscribe((res: any) => {
+    this.service.dashbaordcustomerday(this.merchantId,1).subscribe((res: any) => {
       this.customertotal = res.response;
+    });
+    this.service.dashboardcurrentmonthcustomertransactions(this.merchantId).subscribe((res: any) => {
+      this.currentmonthcustrans = res.response;
     });
     this.service.dashboardthismonthcustomertransactions(this.merchantId).subscribe((res: any) => {
       this.selectedPeriods = 'thisMonths';
@@ -196,6 +208,7 @@ export class DashboardMerchantcontentComponent {
     this.duepending = '';
     this.additionalmonth = '';
     this.lastmonth = '';
+    this.currentmonthcustrans = '';
     this.fromDates = '';
     this.toDates = '';
     this.selectedPeriods = '';
@@ -224,6 +237,25 @@ export class DashboardMerchantcontentComponent {
         this.isNoDataFound = true;
       }
     );
-  }
+  };
+
+  gettodaytransactionmethod(event: any) {
+    this.selectedtodays = event;
+    if (this.selectedtodays) {
+      if (event == 'dueTransaction') {
+        this.service.dashbaordcustomerday(this.merchantId, 1).subscribe((res: any) => {
+          this.customertotal = res.response;
+        });
+      }
+      else if (event == 'additionalTransaction') {
+        this.service.dashbaordcustomerday(this.merchantId, 2).subscribe((res: any) => {
+          this.customertotal = res.response;
+        });
+
+      }
+    }
+  };
+
+
 
 }

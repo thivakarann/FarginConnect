@@ -30,7 +30,7 @@ export class KycbranchImageComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialog: MatDialog,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.id = this.data.value;
@@ -127,8 +127,11 @@ export class KycbranchImageComponent {
       this.service.branchidentityFront(formData).subscribe((res: any) => {
         if (res.flag == 1) {
           this.updatedata = res.response;
-           this.toastr.success(res.responseMessage);
+          this.toastr.success(res.responseMessage);
           this.dialog.closeAll();
+        }
+        else {
+          this.toastr.error(res.responseMessage);
         }
       });
     }
@@ -139,8 +142,11 @@ export class KycbranchImageComponent {
       this.service.branchidentityback(formData).subscribe((res: any) => {
         if (res.flag == 1) {
           this.updatedata = res.response;
-           this.toastr.success(res.responseMessage);
+          this.toastr.success(res.responseMessage);
           this.dialog.closeAll();
+        }
+        else {
+          this.toastr.error(res.responseMessage);
         }
       });
     }
@@ -151,8 +157,11 @@ export class KycbranchImageComponent {
       this.service.branchaddressFront(formData).subscribe((res: any) => {
         if (res.flag == 1) {
           this.updatedata = res.response;
-           this.toastr.success(res.responseMessage);
+          this.toastr.success(res.responseMessage);
           this.dialog.closeAll();
+        }
+        else {
+          this.toastr.error(res.responseMessage);
         }
       });
     }
@@ -164,8 +173,11 @@ export class KycbranchImageComponent {
       this.service.branchaddressback(formData).subscribe((res: any) => {
         if (res.flag == 1) {
           this.updatedata = res.response;
-           this.toastr.success(res.responseMessage);
+          this.toastr.success(res.responseMessage);
           this.dialog.closeAll();
+        }
+        else {
+          this.toastr.error(res.responseMessage);
         }
       });
     }
@@ -177,8 +189,11 @@ export class KycbranchImageComponent {
       this.service.branchsignFront(formData).subscribe((res: any) => {
         if (res.flag == 1) {
           this.updatedata = res.response;
-           this.toastr.success(res.responseMessage);
+          this.toastr.success(res.responseMessage);
           this.dialog.closeAll();
+        }
+        else {
+          this.toastr.error(res.responseMessage);
         }
       });
     }
@@ -190,8 +205,11 @@ export class KycbranchImageComponent {
       this.service.branchsignback(formData).subscribe((res: any) => {
         if (res.flag == 1) {
           this.updatedata = res.response;
-           this.toastr.success(res.responseMessage);
+          this.toastr.success(res.responseMessage);
           this.dialog.closeAll();
+        }
+        else {
+          this.toastr.error(res.responseMessage);
         }
       });
     }

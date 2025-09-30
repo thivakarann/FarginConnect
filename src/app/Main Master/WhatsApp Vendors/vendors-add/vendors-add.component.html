@@ -1,0 +1,158 @@
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+<div class="container">
+    <div class="form-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Vendor Creation</h5>
+    </div>
+    <div class="well">
+        <form [formGroup]="myForm" autocomplete="off">
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label for="Entity Name">Vendor Name</label>
+                    <input type="text" id="Entity Name" formControlName="vendorName" class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="vendorName?.invalid && vendorName?.touched && vendorName?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="vendorName?.invalid && vendorName?.touched && vendorName?.errors?.['pattern']">
+                        Invalid format
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="vendorName?.invalid && vendorName?.touched && vendorName?.errors?.['maxlength']">
+                        Maximum length should be 60
+                    </div>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="state">Mobile Number</label>
+                    <input type="text" formControlName="vendorMobile" id="state" class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="vendorMobile?.invalid && vendorMobile?.touched && vendorMobile?.errors?.['pattern']">
+                        Enter a Valid Mobile Number
+                    </div>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="Entity Name">Message Amount</label>
+                    <input type="text" id="Entity Name" formControlName="smsAmount" class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="smsAmount?.invalid && smsAmount?.touched && smsAmount?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="smsAmount?.invalid && smsAmount?.touched && smsAmount?.errors?.['pattern']">
+                        Enter a Valid Amount
+                    </div>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="Entity Name">Token</label>
+                    <input type="text" id="Entity Name" formControlName="token" class="form-control">
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="Entity Name">Vendor GST</label>
+                    <input type="text" id="Entity Name" formControlName="vendorGst" class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="vendorGst?.invalid && vendorGst?.touched && vendorGst?.errors?.['pattern']">
+                        Enter a Valid GST Number
+                    </div>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="Entity Name">Vendor Address</label>
+                    <input type="text" id="Entity Name" formControlName="vendorAddress" class="form-control">
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="Entity Name">User Name</label>
+                    <input type="text" id="Entity Name" formControlName="userName" class="form-control">
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="userName?.invalid && userName?.touched && userName?.errors?.['required']">
+                        Field is required
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="userName?.invalid && userName?.touched && userName?.errors?.['pattern']">
+                        Enter a Valid Name
+                    </div>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="userName?.invalid && userName?.touched && userName?.errors?.['pattern']">
+                        Maxlength 60 are Allowed
+                    </div>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="Entity Name">Password</label>
+                    <input type="password" id="Entity Name" formControlName="password" name="new-password"
+                        autocomplete="new-password" class="form-control" #passwordInput>
+                    <i class="fa-solid fa-eye-slash" id="eye" [ngClass]="{
+            'fa-eye-slash': !showPassword,
+            'fa-eye': showPassword
+          }" (click)="togglePasswordVisibility(passwordInput)">
+                    </i>
+                    <div style="
+                    color: red;
+                    font-size: 12px;
+                    margin-top: 2px;
+                    position: relative;
+                    ;
+                  " *ngIf="password?.invalid && password?.touched && password?.errors?.['pattern']">
+                        Password must be at least 8 characters and include uppercase, lowercase, number, and special
+                        character.
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button type="submit" class="btn mx-1 " style="background-color:#7db855be" (click)="Submit()"
+                    [disabled]="myForm.invalid">Submit</button>
+                <button type="submit" class="btn" style="background-color:#141E46;color:white"
+                    mat-dialog-close>Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>

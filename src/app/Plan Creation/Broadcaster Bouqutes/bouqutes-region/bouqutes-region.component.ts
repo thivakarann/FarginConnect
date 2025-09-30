@@ -1,12 +1,10 @@
-import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { BouqetsEditComponent } from '../bouqets-edit/bouqets-edit.component';
 import { BouqutesRegioneditComponent } from '../bouqutes-regionedit/bouqutes-regionedit.component';
 import { AddExtraRegionComponent } from '../add-extra-region/add-extra-region.component';
-import { Console } from 'console';
 import { Location } from '@angular/common';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { msoregionstatus } from '../../../fargin-model/fargin-model.module';
@@ -67,7 +65,7 @@ export class BouqutesRegionComponent {
   ngOnInit(): void {
     this.ActivateRoute.queryParams.subscribe((param: any) => {
       this.id = param.Alldata;
-
+      console.log(this.id);
     });
     this.viewdetails.BroadcasterBoucatebyidregionall(this.id).subscribe((res: any) => {
       if (res.response && res.response.length > 0) {
@@ -81,6 +79,7 @@ export class BouqutesRegionComponent {
       }
       this.channelslist = res.response.broadCasterAlcot;
       this.ServiceProvideregions = res.response;
+      console.log(this.ServiceProvideregions);
       if (res.response && res.response.length > 0) {
         this.serviceid = res.response[0].broadCasterRegion.service.serviceId;
       }
@@ -163,49 +162,38 @@ export class BouqutesRegionComponent {
       enterAnimationDuration: "500ms",
       exitAnimationDuration: "500ms",
       data: { value: id, value2: id1 }
-
     })
     dialogRef.componentInstance.bankDetailsUpdated.subscribe(() => {
-
       this.fetch();
-
     });
   }
 
   fetch() {
     this.viewdetails.BroadcasterBoucatebyidregionall(this.id).subscribe((res: any) => {
-
       if (res.response && res.response.length > 0) {
         // Loop through the response and log each broadCasterRegionId
         res.response.forEach((item: any) => {
           console.log(item.broadCasterRegionId);  // This will log all region IDs (Assam, Tamil Nadu, etc.)
         });
-
         // Optionally, if you need to store these IDs in a variable
         this.broadCasterRegionIds = res.response.map((item: any) => item.broadCasterRegionId);
         console.log(this.broadCasterRegionIds); // Array of all regionIds
       }
-
       if (res.response && res.response.length > 0) {
         this.details = res.response[0].broadCasterBouquet.bouquetId;
         console.log(this.details);
       }
-
       this.channelslist = res.response.broadCasterAlcot;
       this.ServiceProvideregions = res.response;
       if (res.response && res.response.length > 0) {
         this.serviceid = res.response[0].broadCasterRegion.service.serviceId;
         console.log(this.serviceid);
       }
-
       if (res.response && res.response.length > 0) {
         this.serviceid = res.response[0].broadCasterRegion.service.serviceId;
         console.log(this.serviceid);
       }
-
       console.log(this.serviceid)
-
-
     });
   }
 

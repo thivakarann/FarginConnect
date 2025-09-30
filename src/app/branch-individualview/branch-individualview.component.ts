@@ -1,6 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FarginServiceService } from '../service/fargin-service.service';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-branch-individualview',
@@ -14,38 +13,21 @@ export class BranchIndividualviewComponent {
   copySuccesss: boolean = false;
   valueonboardadd: any;
   getdashboard: any[] = [];
-  apikey:any;
+  apikey: any;
   actions: any;
   errorMessage: any;
-  secretkey:any;
-  accountid:any;
- 
-  constructor(private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, private service: FarginServiceService) {
- 
-  }
+  secretkey: any;
+  accountid: any;
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
+
   ngOnInit(): void {
- 
- 
     this.id = this.data.value
-  console.log(this.id)    
-  this.apikey=this.data.value.apiKey
-  this.secretkey=this.data.value.secretKey
-  this.accountid=this.data.value.accountId
- 
+    this.apikey = this.data.value.apiKey
+    this.secretkey = this.data.value.secretKey
+    this.accountid = this.data.value.accountId
   }
-  // editKeys(id: any) {
-  //   this.dialog.open(KeysUpdateComponent, {
-  //     enterAnimationDuration: "1000ms",
-  //     exitAnimationDuration: "1000ms",
- 
-  //     disableClose: true,
-  //     data: {
-  //       value: id,
-  //     }
-  //   })
- 
-  // }
- 
+
   copyText(text: string) {
     const el = document.createElement('textarea');
     el.value = text;
@@ -56,7 +38,7 @@ export class BranchIndividualviewComponent {
     this.copySuccess = true;
     setTimeout(() => this.copySuccess = false, 2000);
   }
- 
+
   copyText1(text: string) {
     const el = document.createElement('textarea');
     el.value = text;

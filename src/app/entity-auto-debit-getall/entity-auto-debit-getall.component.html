@@ -34,23 +34,16 @@
         " mat-raised-button>
                 Go
             </button>
-<!-- 
-            <button [hidden]="valueautodebitexport !== 'Cloud Fee AutoDebit-Export'" style="
-          color: white;
-          background-color: #141e46;
-          border-radius: 10px;
-          font-size: 12px;
-        " (click)="exportexcel()" mat-raised-button>
-                Export
-            </button> -->
         </div>
         &nbsp;&nbsp;&nbsp;
     </div>
 </mat-card-header>
 
+
 <mat-card-content>
     <div class="example-container text-nowrap mt-2" style="overflow-x: scroll; scrollbar-width: thin">
         <table id="season-tble" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+
             <ng-container matColumnDef="merchantLogId">
                 <th mat-header-cell *matHeaderCellDef>S.No</th>
                 <td mat-cell *matCellDef="let viewall; let i = index">{{ i + 1 }}</td>
@@ -103,6 +96,8 @@
                     {{ viewall.fromLedger || "-" }}
                 </td>
             </ng-container>
+
+
             <ng-container matColumnDef="toLedger">
                 <th mat-header-cell *matHeaderCellDef>To Ledger Id</th>
                 <td mat-cell *matCellDef="let viewall">
@@ -116,19 +111,17 @@
                     {{ viewall.createAt | date : "dd/MM/yyyy hh:mm a" }}
                 </td>
             </ng-container>
+
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
             <tr *matNoDataRow>
-                <td class="mat-cell" colspan="0" *ngIf="searchPerformed">
-                    No Data For{{ input.value }}
-                </td>
-                <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">
-                    No Data
-                </td>
+                <td class="mat-cell" colspan="0" *ngIf="searchPerformed">No Data For{{ input.value }}</td>
+                <td class="mat-cell" colspan="0" *ngIf="!searchPerformed && dataSource.data.length === 0">No Data</td>
             </tr>
         </table>
     </div>
 </mat-card-content>
+
 <mat-card-footer>
     <mat-paginator (page)="getData($event)" [length]="totalPages" [pageIndex]="currentpage" [pageSize]="totalpage"
         [pageSizeOptions]="[5, 50, 100, 500, 1000, 2000]" aria-label="Select page">

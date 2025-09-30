@@ -1,14 +1,14 @@
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
-import { Businessedit, kycedit } from '../../../fargin-model/fargin-model.module';
+import { kycedit } from '../../../fargin-model/fargin-model.module';
 import { FarginServiceService } from '../../../service/fargin-service.service';
 
 @Component({
   selector: 'app-edit-kyccategory',
   templateUrl: './edit-kyccategory.component.html',
-  styleUrl: './edit-kyccategory.component.css'
+  styleUrl: './edit-kyccategory.component.css',
 })
 export class EditKyccategoryComponent {
   editcategory: any = FormGroup;
@@ -21,21 +21,24 @@ export class EditKyccategoryComponent {
   kycCategoryNames: any;
   @Output() bankDetailsUpdated = new EventEmitter<void>();
 
-  constructor(private dialog: MatDialog, private service: FarginServiceService, private toastr: ToastrService, @Inject(MAT_DIALOG_DATA) public data: any) {
-  }
+  constructor(
+    private dialog: MatDialog,
+    private service: FarginServiceService,
+    private toastr: ToastrService,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) { }
 
   ngOnInit(): void {
-
-
     this.editcategory = new FormGroup({
-      kycCategoryName: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),Validators.maxLength(50)]),
+      kycCategoryName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[A-Za-z&\\-\\(\\)#._/ ]+$'),
+        Validators.maxLength(50),
+      ]),
     });
-
-    this.kycCategoryId = this.data.value.kycCategoryId
-
-
-    this.kycCategoryNames = this.data.value.kycCategoryName
-    this.editcategory.controls['kycCategoryName'].value = this.kycCategoryNames
+    this.kycCategoryId = this.data.value.kycCategoryId;
+    this.kycCategoryNames = this.data.value.kycCategoryName;
+    this.editcategory.controls['kycCategoryName'].value = this.kycCategoryNames;
   }
 
   get kycCategoryName() {
@@ -43,22 +46,19 @@ export class EditKyccategoryComponent {
   }
 
   Editsubmit() {
-
     let submitModel: kycedit = {
       modifiedBy: this.getadminname,
       kycCategoryName: this.kycCategoryName.value.trim(),
-      kycCategoryId: this.kycCategoryId
-    }
-
+      kycCategoryId: this.kycCategoryId,
+    };
     this.service.editkycCategory(submitModel).subscribe((res: any) => {
       if (res.flag == 1) {
-        this.toastr.success(res.responseMessage)
+        this.toastr.success(res.responseMessage);
         this.bankDetailsUpdated.emit();
-        this.dialog.closeAll()
-
+        this.dialog.closeAll();
       } else {
-        this.toastr.error(res.responseMessage)
+        this.toastr.error(res.responseMessage);
       }
-    })
+    });
   }
 }
